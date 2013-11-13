@@ -65,7 +65,7 @@ function Settings() {
 	this.runActivity = function(activity) {
 		activity.instances.push(1);
 		this.save();
-		window.location = activity.directory;
+		window.location = activity.directory+"/index.html";
 	};
 	
 	// Default value
