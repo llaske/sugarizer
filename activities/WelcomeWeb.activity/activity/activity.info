@@ -1,0 +1,7 @@
+[Activity]
+name = WelcomeWeb
+activity_version = 1
+bundle_id = org.laptop.WelcomeWebActivity
+exec = sugar-activity-web
+icon = welcome-activity
+license = GPLv2+

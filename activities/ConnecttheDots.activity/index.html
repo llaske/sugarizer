@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Connect the Dots</title>
+
+    <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar.css">
+    <link rel="stylesheet" href="css/activity.css">
+
+    <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+    <div id="main-toolbar" class="toolbar">
+        <button class="toolbutton" id="activity-button" title="My Activity"></button>
+        <button class="toolbutton" id="new-button" title="New"></button>
+        <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+
+    <div id="loader"></div>
+
+    <header id="header" class="EaselJS">
+        <h1>Click on the star and then drag the turtle from 1 to 2 to 3...</h1>
+    </header>
+
+    <div class="canvasHolder">
+        <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <div id="labelDiv"></div>
+
+</body>
+
+</html>

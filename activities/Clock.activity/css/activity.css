@@ -1,0 +1,47 @@
+#canvas {
+  margin: 0;
+  text-align: center;
+}
+
+#clock-container {
+  position: relative;
+  margin: 0 auto;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#text-time {
+  font-family: monospace;
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0;
+}
+
+#text-date {
+  font-size: 25px;
+  margin: 0;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-clock.svg);
+}
+
+#main-toolbar #simple-clock-button {
+  background-image: url(../icons/simple-clock.svg);
+}
+
+#main-toolbar #nice-clock-button {
+  background-image: url(../icons/nice-clock.svg);
+}
+
+#main-toolbar #write-time-button {
+  background-image: url(../icons/write-time.svg);
+}
+
+#main-toolbar #write-date-button {
+  background-image: url(../icons/write-date.svg);
+}

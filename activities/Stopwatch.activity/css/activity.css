@@ -1,0 +1,120 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#stopwatch-app {
+  text-align: center;
+  margin: 0 55px;
+}
+
+#stopwatch-list {
+  text-align: left;
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+#stopwatch-list li {
+  position: relative;
+}
+
+#stopwatch-list li p {
+  line-height: 1.2;
+}
+
+.counter, .marks {
+  display: inline-block;
+}
+
+.marks {
+  margin-left: 11px;
+}
+
+.counter {
+  width: 110px;
+  text-align: center;
+  font-weight: bold;
+  /* font-size: 20px; */
+}
+
+.buttons-group {
+  display: inline-block;
+}
+
+.buttons-group button {
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.buttons-group button:first-child {
+  border-radius: 22px 0 0 22px;
+  margin-right: 0;
+}
+
+.buttons-group button:last-child {
+  border-radius: 0 22px 22px 0;
+  margin-left: 0;
+}
+
+button.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42px;
+  height: 42px;
+  background-color: transparent;
+  background-position: center;
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-image: url(../icons/list-remove.svg);
+  border: 0;
+  border-radius: 0;
+}
+
+#add-stopwatch {
+  width: 84px;
+  height: 42px;
+  background-position: center;
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-image: url(../icons/list-add.svg);
+}
+
+/* Only for stopwatch */
+.buttons-group button {
+  margin-top: 5.5px;
+  height: 33px;
+  width: 33px;
+  padding: 0;
+  background-position: center;
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+}
+
+.buttons-group button:first-child {
+  padding-left: 11px;
+}
+
+.buttons-group button:last-child {
+  padding-right: 11px;
+}
+
+.buttons-group button.start {
+  background-image: url(../icons/media-playback-start.svg);
+}
+
+.buttons-group button.stop {
+  background-image: url(../icons/media-playback-pause.svg);
+}
+
+.buttons-group button.reset-button {
+  background-image: url(../icons/media-playback-stop.svg);
+}
+
+.buttons-group button.mark-button {
+  background-image: url(../icons/edit-mark.svg);
+}
+
+.buttons-group button.clear-marks-button {
+  background-image: url(../icons/edit-clear.svg);
+}

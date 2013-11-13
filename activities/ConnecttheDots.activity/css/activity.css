@@ -1,0 +1,7 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #new-button {
+  background-image: url(../icons/new-button.svg);
+}

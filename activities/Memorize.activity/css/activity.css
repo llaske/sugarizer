@@ -1,0 +1,79 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #size-button {
+  background-image: url(../icons/4x4.svg);
+}
+
+.palette #four-button span {
+  background-image: url(../icons/4x4.svg);
+}
+
+.palette #five-button span {
+  background-image: url(../icons/5x5.svg);
+}
+
+.palette #six-button span {
+  background-image: url(../icons/6x6.svg);
+}
+
+#main-toolbar #restart-button {
+  background-image: url(../icons/restart-game.svg);
+}
+
+#canvas {
+  overflow: hidden;
+}
+
+#buttons-table {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#buttons-table button {
+  width: 70px;
+  height: 70px;
+  font-size: 250%;
+  border-radius: 5px;
+}
+
+#buttons-table td {
+  padding: 0;
+}
+
+.folded {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.suit-1.folded {
+  background-image: url(../images/suit-1.svg);
+  border-color: #606060;
+}
+
+.suit-2.folded {
+  background-image: url(../images/suit-2.svg);
+  border-color: #A0A0A0;
+}
+
+.match, .match:hover {
+  background-color: #ffff99;
+  color: black;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.match.done {
+  background-color: #ffffff;
+  -webkit-transition: background-color 5s ease-in-out rotate 2s ease-in-out;
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}

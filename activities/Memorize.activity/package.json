@@ -1,0 +1,12 @@
+{
+  "amd": {},
+  "volo": {
+    "baseUrl": "lib",
+    "dependencies": {
+      "sugar-web": "github:sugarlabs/sugar-web/master",
+      "domReady": "github:requirejs/domReady/2.0.1",
+      "mustache": "github:janl/mustache.js/0.7.2",
+      "webL10n": "github:sugarlabs/webL10n/master"
+    }
+  }
+}

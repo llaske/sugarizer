@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Get Things Done</title>
+    <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <script data-main="js/loader" src="lib/require.js"></script>
+  </head>
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="Get Things Done"></button>
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+    <div id="canvas">
+      <div id="todo-app">
+        <ul class="flat-list big" id="todo-list"></ul>
+        <span class="icon-input expand" id="new-todo-span">
+          <input type="text" id="new-todo" placeholder="What else needs to be done?" autofocus>
+          <button id="new-todo-button" class="add right"></button>
+        </span>
+      </div>
+    </div>
+  </body>
+</html>

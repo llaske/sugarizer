@@ -1,0 +1,6 @@
+[Activity]
+name = Last One Loses Activity
+activity_version = 1
+bundle_id = org.olpc-france.LOLActivity
+exec = sugar-activity-web
+icon = activity-icon

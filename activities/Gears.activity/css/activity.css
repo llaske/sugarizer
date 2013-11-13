@@ -1,0 +1,31 @@
+#canvas {
+  overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #gear-button {
+  background-image: url(../icons/GearIcon.svg);
+}
+
+#main-toolbar #chain-button {
+  background-image: url(../icons/ChainIcon.svg);
+}
+
+#main-toolbar #momentum-button {
+  background-image: url(../icons/MomentumIcon.svg);
+}
+
+#main-toolbar #play-button {
+  background-image: url(../icons/media-playback-start.svg);
+}
+
+#main-toolbar #clear-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/toolbar-help.svg);
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>My Activity</title>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <script type="text/javascript" src="js/hammer.min.js"></script>
+    <script data-main="js/loader" src="lib/require.js"></script>
+  </head>
+
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="My Activity"></button>
+      <hr/>
+      <button class="toolbutton" id="gear-button" title="Gear"></button>
+      <button class="toolbutton" id="chain-button" title="Chain"></button>
+      <button class="toolbutton" id="momentum-button" title="Momentum"></button>
+      <button class="toolbutton" id="play-button" title="Play"></button>
+      <hr/>
+      <button class="toolbutton" id="clear-button" title="Clear"></button>
+      <button class="toolbutton" id="help-button" title="Help"></button>
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+    <div id="canvas">
+      <canvas id="gearsketch_canvas"></canvas>
+    </div>
+  </body>
+
+</html>

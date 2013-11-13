@@ -1,0 +1,24 @@
+
+#canvas {
+	background-color: white;
+}
+
+.web-activity {
+	position: absolute;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;	
+	background-position: center;
+}
+
+.owner-icon {
+	position: absolute;
+	background-image: url(../icons/owner-icon.svg);
+	background-repeat: no-repeat;	
+	background-position: center;
+	background-size: 100px 100px;
+	width: 100px;
+	height: 100px;
+}
+

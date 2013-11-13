@@ -1,0 +1,57 @@
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/welcome-activity.svg);
+}
+
+#prev-bt {
+  background-image: url(../icons/go-previous-paired.svg);
+}
+
+#next-bt {
+  background-image: url(../icons/go-next-paired.svg);
+}
+
+#help {
+  height: 96%;
+}
+
+#canvas {
+  text-align: center;
+  background-color: white;
+}
+
+#points div {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-left: 2px;
+}
+
+.current {
+  background-color: #eebb00;
+}
+
+.current-no {
+  background-color: #d5d5d5;
+}
+
+#fullscreen {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  left: 95%;
+  position: absolute;
+}

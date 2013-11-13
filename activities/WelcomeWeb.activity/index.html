@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome Activity</title>
+    <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <script data-main="js/loader" src="lib/require.js"></script>
+    <script type="text/javascript" src="js/jquery.js" ></script>
+    <script type="text/javascript" src="js/activity_custom.js" ></script>
+  </head>
+  
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="Welcome Activity"></button>
+      <hr />
+      <button class="toolbutton" id="prev-bt"></button>
+      <button class="toolbutton" id="next-bt"></button>
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+      <button class="toolbutton pull-right" id="fullscreen" title="Fullscreen"></button>
+    </div>
+    <div id="canvas">
+      <span id='here'></span>
+      <img id='help' src='images/0/Init-1.gif'>
+      <div id='points'>
+        <div id='select_0' class='current'></div>
+        <div id='select_1' class='current-no'></div>
+        <div id='select_2' class='current-no'></div>
+        <div id='select_3' class='current-no'></div>
+        <div id='select_4' class='current-no'></div>
+        <div id='select_5' class='current-no'></div>
+        <div id='select_6' class='current-no'></div>
+      </div>
+
+    </div>
+  <button class="toolbutton" id="unfullscreen" title="Unfullscreen"></button>
+  </body>
+
+</html>

@@ -1,0 +1,6 @@
+[Activity]
+name = Clock
+activity_version = 1
+bundle_id = org.sugarlabs.Clock
+exec = sugar-activity-web
+icon = activity-clock

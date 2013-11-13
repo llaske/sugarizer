@@ -1,0 +1,63 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#todo-app {
+  text-align: center;
+  margin: 0 55px;
+}
+
+#todo-list {
+  text-align: left;
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+#todo-list li {
+  position: relative;
+}
+
+#todo-list li input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+}
+
+#todo-list li label {
+  word-break: break-word;
+  padding: 15px 0;
+  margin-left: 42px;
+  margin-right: 42px;
+  display: block;
+  line-height: 1.2;
+  -webkit-transition: color 0.4s;
+  -moz-transition: color 0.4s;
+  -ms-transition: color 0.4s;
+  -o-transition: color 0.4s;
+  transition: color 0.4s;
+}
+
+.completed label {
+  color: #a9a9a9;
+  text-decoration: line-through;
+}
+
+button.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42px;
+  height: 42px;
+  background-color: transparent;
+  background-position: center;
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-image: url(../icons/list-remove.svg);
+  border: 0;
+  border-radius: 0;
+}
+
+button.add {
+  background-image: url(../icons/list-add.svg);
+}

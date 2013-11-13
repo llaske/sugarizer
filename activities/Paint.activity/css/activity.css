@@ -1,0 +1,33 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #clear-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+
+#paint-canvas {
+  background-color: #ffffff;
+}
+
+/* Colors Palette */
+
+.palette .colors {
+  list-style-type: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.palette .colors button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: white;
+  margin-left: 5.5px;
+  margin-top: 5.5px;
+}
+
+.palette .colors tr:nth-last-child(1) button {
+  margin-bottom: 5.5px;
+}

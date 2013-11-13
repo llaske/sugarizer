@@ -1,0 +1,104 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#wmd-bold-button-second{
+	background-image: url(../activity/format-text-bold.svg);
+}
+
+#wmd-italic-button-second{
+	background-image: url(../activity/format-text-italic.svg);
+}
+
+#wmd-heading-button{
+	background-image: url(../activity/paragraph-h1.svg);
+}
+
+#wmd-undo-button{
+	background-image: url(../activity/edit-undo.svg);
+}
+
+#wmd-redo-button{
+	background-image: url(../activity/edit-redo.svg);
+}
+
+#wmd-hr-button{
+	background-image: url(../activity/horizontal-line3.svg);
+}
+
+#wmd-ulist-button{
+	background-image: url(../activity/toolbar-bulletlist.svg);
+}
+
+#wmd-olist-button{
+	background-image: url(../activity/toolbar-numbered-list.svg);
+}
+
+#wmd-code-button{
+	background-image: url(../activity/code.svg);
+}
+
+#wmd-quote-button{
+	background-image: url(../activity/quote.svg);
+}
+
+#wmd-link-button{
+	background-image: url(../activity/link.svg);
+}
+
+#insertText{
+	background-image: url(../activity/insert-picture.svg);
+}
+body 
+{ 
+	background-color: White;
+    font-family: sans-serif;
+}
+
+blockquote {
+	border-left: 2px dotted #888;
+	padding-left: 5px;
+	background: #d0f0ff;
+}
+
+.wmd-panel
+{
+	width: 48%;
+	min-width: 500px;
+	float: left;
+	margin-left: 21px;
+	margin-top: 11px;
+	
+}
+
+.wmd-button-bar 
+{
+	width: 100%;
+	background-color: Silver; 
+}
+
+.wmd-input 
+{ 
+	height: 670px;
+	width: 100%;
+	background-color: Gainsboro;
+	border: 3px groove black;
+	padding: 3px;
+
+}
+
+.wmd-preview 
+{ 
+	background-color: white;
+	color: black;
+	height: 670px;
+	padding: 3px;
+	width: 48%;
+	float: right;
+	margin-right: 1%;
+	margin-top: 1%;
+	overflow: auto;
+	border-top: 3px groove black;
+	border-right: 3px groove black;
+	border-bottom: 3px groove black;
+}
