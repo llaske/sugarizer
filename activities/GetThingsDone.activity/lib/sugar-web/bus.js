@@ -1,3 +1,7 @@
+// Force environment to Sugar
+window.top.sugar = {};
+window.top.sugar.environment = {};
+
 define(["sugar-web/env"], function (env) {
     var lastId = 0;
     var callbacks = {};
@@ -12,6 +16,7 @@ define(["sugar-web/env"], function (env) {
         var that = this;
 
         env.getEnvironment(function (error, environment) {
+			return;
             var port = environment.apiSocketPort;
             var socket = new WebSocket("ws://localhost:" + port);
 
@@ -156,13 +161,15 @@ define(["sugar-web/env"], function (env) {
         lastId++;
         client.send(JSON.stringify(message));*/
 		
-		console.log("ACTIVITY CALL "+JSON.stringify(message));
+		console.log("INTERCEPTED CALL "+JSON.stringify(message));
 		if (method == "activity.close") {
 			window.location = "../..";
 		} else if (method == "activity.get_xo_color") {
 			var color = JSON.parse(window.localStorage.getItem("settings")).colorvalue;
 			callback(null, [[color.fill, color.stroke]]);
-		}		
+		} else if (method == "datastore.create" || method == "open_stream" || method == "datastore.save" || method == "close_stream") {
+			callback(null, [[]]);
+		}
 
 
     };
