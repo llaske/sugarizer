@@ -163,7 +163,7 @@ define(["sugar-web/env"], function (env) {
 		
 		console.log("INTERCEPTED CALL "+JSON.stringify(message));
 		if (method == "activity.close") {
-			window.location = "../..";
+			window.location = "../../index.html";
 		} else if (method == "activity.get_xo_color") {
 			var color = JSON.parse(window.localStorage.getItem("settings")).colorvalue;
 			callback(null, [[color.fill, color.stroke]]);
