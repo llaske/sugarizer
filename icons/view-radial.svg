@@ -1,0 +1,11 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#FFFFFF">
+	<!ENTITY fill_color "none">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="view-radial">
+	<g>
+		<circle cx="27.5" cy="27.5" fill="&fill_color;" r="20.75" stroke="&stroke_color;" stroke-width="3.5"/>
+		<g>
+			<path d="M27.499,32.994c-3.03,0-5.492-2.46-5.492-5.493c0-3.036,2.462-5.495,5.493-5.495     c3.037,0,5.493,2.459,5.493,5.495C32.99,30.539,30.534,32.994,27.499,32.994z" fill="&stroke_color;"/>
+		</g>
+	</g>
+</g></svg>

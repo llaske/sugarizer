@@ -3,6 +3,14 @@
 	background-color: white;
 }
 
+#main-toolbar #view-radial {
+	background-image: url(../icons/view-radial.svg);
+}
+
+#main-toolbar #view-list {
+	background-image: url(../icons/view-list.svg);
+}
+
 .web-activity {
 	position: absolute;
 }
@@ -21,4 +29,6 @@
 	width: 100px;
 	height: 100px;
 }
+
+
 
