@@ -3,11 +3,11 @@
 	background-color: white;
 }
 
-#main-toolbar #view-radial {
+#main-toolbar #view-radial-button {
 	background-image: url(../icons/view-radial.svg);
 }
 
-#main-toolbar #view-list {
+#main-toolbar #view-list-button {
 	background-image: url(../icons/view-list.svg);
 }
 
@@ -29,6 +29,26 @@
 	width: 100px;
 	height: 100px;
 }
+
+.activity-list-item {
+	height: 60px;
+}
+
+.activity-name {
+	position: absolute;
+	margin-left: 120px;
+	margin-top: 15px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.activity-version {
+	position: absolute;
+	margin-left: 500px;
+	margin-top: 15px;
+	font-size: 14px;
+}
+
 
 
 

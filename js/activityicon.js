@@ -1,11 +1,11 @@
-// Class for a Sugar Web activity
+// Class for a Sugar Web activity icon
 enyo.kind({
-	name: "SugarWebActivity",
+	name: "Sugar.ActivityIcon",
 	kind: enyo.Control,
-	published: { activity: null, size: 55, x: 0, y: 0 },
+	published: { activity: null, size: 55, x: 0, y: 0, colorized: false },
 	classes: "web-activity",
 	components: [
-		{ name: "icon", onclick: "runActivity", classes: "web-activity-icon"}
+		{ name: "icon", classes: "web-activity-icon"}
 	],
 	
 	// Constructor
@@ -20,7 +20,7 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		if (this.activity.instances.length > 0)
+		if (this.colorized)
 			iconLib.colorize(this.$.icon.hasNode(), preferences.getColor());
 	},
 	
@@ -34,7 +34,8 @@ enyo.kind({
 	},
 	
 	iconChanged: function() {
-		this.$.icon.applyStyle("background-image", "url(" + this.activity.directory+"/"+this.activity.icon + ")");
+		if (this.activity != null)
+			this.$.icon.applyStyle("background-image", "url(" + this.activity.directory+"/"+this.activity.icon + ")");
 	},
 	
 	sizeChanged: function() {
@@ -43,9 +44,7 @@ enyo.kind({
 		this.$.icon.applyStyle("background-size", this.size+"px "+this.size+"px");
 	},
 	
-	// Run activity
-	runActivity: function() {
-		// Save context then run the activity in the context
-		preferences.runActivity(this.activity);
+	activityChanged: function() {
+		this.iconChanged();
 	}
 });
