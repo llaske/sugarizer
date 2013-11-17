@@ -1,25 +1,8 @@
 ﻿
 
-
-// Activity list
-var defaultActivities = [
-	{id: "org.sugarlabs.Clock", name: "Clock Web", version: 1, directory: "activities/Clock.activity", icon: "activity/activity-clock.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.ConnectTheDots", name: "Connect the Dots", version: 1, directory: "activities/ConnecttheDots.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.GearsActivity", name: "Gears", version: 5, directory: "activities/Gears.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.GTDActivity", name: "Get Things Done", version: 1, directory: "activities/GetThingsDone.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.olpc-france.LOLActivity", name: "Last One Loses Activity", version: 1, directory: "activities/LastOneLoses.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.Markdown", name: "Markdown", version: 3, directory: "activities/Markdown.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.MemorizeActivity", name: "Memorize", version: 1, directory: "activities/Memorize.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.PaintActivity", name: "Paint", version: 1, directory: "activities/Paint.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.sugarlabs.StopwatchActivity", name: "Stopwatch", version: 1, directory: "activities/Stopwatch.activity", icon: "activity/activity-icon.svg", favorite: true, instances: []},
-	{id: "org.laptop.WelcomeWebActivity", name: "WelcomeWeb", version: 1, directory: "activities/WelcomeWeb.activity", icon: "activity/welcome-activity.svg", favorite: true, instances: []}
-];
-
-
 // Settings handling
 var preferences = new Settings();
 function Settings() {
-	
 	// Load settings from local storage
 	this.load = function() {
 		var settings = LocalStorage.getValue('sugar_settings');
@@ -53,6 +36,9 @@ function Settings() {
 		}
 		return favorites;
 	};
+	this.setActivities = function(list) {
+		activities = list;
+	};
 	
 	// Set properties
 	this.setName = function(newname) {
@@ -83,7 +69,7 @@ function Settings() {
 	var name = "<No name>";
 	var color = 22;
 	var colorvalue = null;
-	var activities = defaultActivities;
+	var activities = null;
 	
 	// Load settings
 	this.load();

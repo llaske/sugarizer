@@ -10,6 +10,7 @@ var sizeOwner = 100;
 var sizeRadius = 180.0;
 var radialView = 0;
 var listView = 1;
+var initActivitiesURL = "activities.json";
 
 
 // Main app class
@@ -19,14 +20,36 @@ enyo.kind({
 	components: [
 		{name: "owner", onclick: "changeColor", classes: "owner-icon", showing: true},
 		{name: "activitybox", showing: true, components: []},
-		{name: "activitylist", showing: false, kind: "Sugar.Desktop.ListView"}
+		{name: "activitylist", showing: false, kind: "Sugar.Desktop.ListView"},
+		{name: "activities", kind: "enyo.WebService", url: initActivitiesURL, onResponse: "queryResponse", onError: "queryFail"}
 	],
 	
 	// Constructor
 	create: function() {
+		// Init screen
 		this.inherited(arguments);
-		this.currentView = radialView;		
+		this.currentView = radialView;	
+
+		// Get activities from local storage or from init web service
+		if (preferences.getActivities() == null) {
+			this.$.activities.send();
+		} else {
+			this.init();
+			this.$.activitylist.setCount(preferences.getActivities().length);
+		}
+	},
+	
+	// Init web service response, redraw screen
+	queryResponse: function(inSender, inResponse) {
+		preferences.setActivities(inResponse.data);
+		this.$.activitylist.setCount(preferences.getActivities().length);
+		preferences.save();
 		this.init();
+	},
+	
+	// Error on init
+	queryFail: function(inSender, inError) {
+		console.log("Error loading init activities");
 	},
 	
 	// Init desktop
@@ -112,6 +135,7 @@ enyo.kind({
 enyo.kind({
 	name: "Sugar.Desktop.ListView",
 	kind: "Scroller",
+	published: { count: 0 },	
 	components: [
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
@@ -127,7 +151,12 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
-		this.$.activityList.setCount(preferences.getActivities().length);
+		this.countChanged();
+	},
+	
+	// Count changed
+	countChanged: function() {
+		this.$.activityList.setCount(this.count);
 	},
 
 	// Init setup for a line
