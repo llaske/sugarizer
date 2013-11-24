@@ -167,7 +167,7 @@ define(["sugar-web/env"], function (env) {
 		} else if (method == "activity.get_xo_color") {
 			var color = JSON.parse(window.localStorage.getItem("sugar_settings")).colorvalue;
 			callback(null, [[color.fill, color.stroke]]);
-		} else if (method == "datastore.create" || method == "open_stream" || method == "datastore.save" || method == "close_stream") {
+		} else if (method == "open_stream" || method == "datastore.save" || method == "close_stream") {
 			callback(null, [[]]);
 		}
 

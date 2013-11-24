@@ -87,7 +87,7 @@ enyo.kind({
 					activity: activity, 
 					x: canvas_centerx+Math.cos(angle)*radius, 
 					y: canvas_centery+Math.sin(angle)*radius,
-					colorized: activity.instances.length > 0,
+					colorized: activity.activityId != null,
 					onclick: "runActivity"
 				},
 				{owner: this}).render();

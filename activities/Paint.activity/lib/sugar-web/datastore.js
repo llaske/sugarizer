@@ -1,13 +1,38 @@
 define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
     var datastore = {};
 
+	//- get parameter from query string
+	datastore.getUrlParameter = function(name) {
+		var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+		return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	};
+	
+	//- create a uuid
+	datastore.createUUID = function() {
+		var s = [];
+		var hexDigits = "0123456789abcdef";
+		for (var i = 0; i < 36; i++) {
+			s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+		}
+		s[14] = "4"; 
+		s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+		s[8] = s[13] = s[18] = s[23] = "-";
+
+		var uuid = s.join("");
+		return uuid;
+	};
+
     function DatastoreObject(objectId) {
         this.objectId = objectId;
         this.newMetadata = {};
-
+		
         this.ensureObjectId = function (callback) {
             var that = this;
 
+			//- init environment from query string values
+			window.top.sugar.environment.activityId = datastore.getUrlParameter("aid");
+			window.top.sugar.environment.activityName = datastore.getUrlParameter("n");
+			window.top.sugar.environment.bundleId = datastore.getUrlParameter("a");
             env.getEnvironment(function (error, environment) {
                 if (environment.objectId !== null) {
                     that.objectId = environment.objectId;
@@ -197,7 +222,9 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
         }
 
         var params = [metadata];
-        bus.sendMessage("datastore.create", params, onResponseReceived);
+        //bus.sendMessage("datastore.create", params, onResponseReceived);
+		
+		callback(null, [this.createUUID()])
     };
 
     datastore.save = function (objectId, metadata, callback) {

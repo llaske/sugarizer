@@ -56,9 +56,13 @@ function Settings() {
 	
 	// Activity handling
 	this.runActivity = function(activity) {
-		activity.instances.push(1);
+		if (activity.activityId == null) {
+			activity.activityId = util.createUUID();
+		}
 		this.save();
-		window.location = activity.directory+"/index.html";
+		window.location = activity.directory+"/index.html?aid="+activity.activityId
+			+"&a="+activity.id
+			+"&n="+activity.name;
 	};
 	this.switchFavoriteActivity = function(activity) {
 		activity.favorite = !activity.favorite;
