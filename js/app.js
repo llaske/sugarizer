@@ -3,6 +3,8 @@
 var iconLib;
 var xoPalette;
 var radioButtonsGroup;
+var datastore;
+var preferences;
 
 
 // Constants
