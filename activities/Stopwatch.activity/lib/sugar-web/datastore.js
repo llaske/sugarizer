@@ -57,6 +57,23 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		}
 	}
 	
+	// Find entries matching an activity_id
+	datastore.find = function (activityId) {
+		var results = [];
+		if (!html5storage.test())
+			return results;
+		for (var key in localStorage){
+			if (key.substr(0, datastorePrefix.length) == datastorePrefix) {
+				var entry = html5storage.getValue(key);
+				entry.objectId = key.substr(datastorePrefix.length);
+				if (entry.metadata.activity_id == activityId) {
+					results.push(entry);
+				}
+			}
+		}
+		
+		return results;
+	}
 	
 	//- Instance datastore methods
     function DatastoreObject(objectId) {
@@ -136,7 +153,6 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 	
 	// Set a value in the storage
 	html5storage.setValue = function(key, value) {
-console.log("### set value '"+key+"'='"+JSON.stringify(value)+"'");
 		if (this.test()) {
 			try {
 				window.localStorage.setItem(key, JSON.stringify(value));
@@ -148,8 +164,7 @@ console.log("### set value '"+key+"'='"+JSON.stringify(value)+"'");
 	// Get a value in the storage
 	html5storage.getValue = function(key) {
 		if (this.test()) {
-			try {
-console.log("### get value '"+key+"'='"+window.localStorage.getItem(key)+"'");			
+			try {		
 				return JSON.parse(window.localStorage.getItem(key));
 			} catch(err) {
 				return null;
