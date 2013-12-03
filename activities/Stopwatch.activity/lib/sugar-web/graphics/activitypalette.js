@@ -69,8 +69,8 @@ define(["sugar-web/graphics/palette",
                 if (mdata.title !== undefined) {
                     titleElem.value = mdata.title;
                     datastoreObject.setMetadata({
-                        "activity": environment.bundleId,
-                        "activity_id": environment.activityId,
+                        "activity": mdata.bundleId,
+                        "activity_id": mdata.activityId,
                         "title": mdata.title
                     });
                     datastoreObject.save(function () {});

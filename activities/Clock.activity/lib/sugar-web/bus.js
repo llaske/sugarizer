@@ -161,7 +161,6 @@ define(["sugar-web/env"], function (env) {
         lastId++;
         client.send(JSON.stringify(message));*/
 		
-		console.log("INTERCEPTED CALL "+JSON.stringify(message));
 		if (method == "activity.close") {
 			window.location = "../../index.html";
 		} else if (method == "activity.get_xo_color") {
