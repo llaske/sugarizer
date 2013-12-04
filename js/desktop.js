@@ -7,6 +7,7 @@ define(function (require) {
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
 	preferences = require("settings");
+	util = require("util");
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

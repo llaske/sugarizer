@@ -5,6 +5,7 @@ var xoPalette;
 var radioButtonsGroup;
 var datastore;
 var preferences;
+var util;
 
 
 // Constants
