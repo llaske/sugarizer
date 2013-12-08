@@ -49,6 +49,27 @@
 	font-size: 14px;
 }
 
+.home-activity-popup {
+	position: absolute;
+}
 
+.popup-title {
+	background-color: black;
+	color: white;
+}
+
+.popup-name-text {
+	margin-left: 50px;
+	padding-top: 10px;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.popup-title-text {
+	margin-left: 50px;
+	margin-top: 0px;
+	margin-right: 10px;
+	padding-bottom: 10px;
+}
 
 
