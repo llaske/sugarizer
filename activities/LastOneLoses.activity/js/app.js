@@ -185,6 +185,8 @@ enyo.kind({
 		var currentthis = this;
 		datastoreObject.loadAsText(function (error, metadata, data) {
 			var data = JSON.parse(data);
+			if (data == null)
+				return;
 			currentthis.size = data.size;
 			currentthis.count = data.count;
 			currentthis.level = data.level;

@@ -48,15 +48,6 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		callback_c(null, objectId);
     }
 	
-	// Load metadata from the datastore
-	datastore.getMetadata = function (objectId, callback) {
-		var callback_c = datastore.callbackChecker(callback);	
-		var result = html5storage.getValue(datastorePrefix+objectId);
-		if (result != null) {
-			callback_c(null, result.metadata);
-		}
-	}
-	
 	// Find entries matching an activity_id
 	datastore.find = function (activityId) {
 		var results = [];
@@ -98,7 +89,13 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 
 	// Load metadata
     DatastoreObject.prototype.getMetadata = function (callback) {
-        datastore.getMetadata(this.objectId, callback);
+		var callback_c = datastore.callbackChecker(callback);	
+		var result = html5storage.getValue(datastorePrefix+this.objectId);
+		if (result != null) {
+			this.setMetadata(result.metadata);
+			this.setDataAsText(result.text);
+			callback_c(null, result.metadata);
+		}		
     };
 
 	// Load text
@@ -106,6 +103,8 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		var callback_c = datastore.callbackChecker(callback);	
 		var result = html5storage.getValue(datastorePrefix+this.objectId);
 		if (result != null) {
+			this.setMetadata(result.metadata);
+			this.setDataAsText(result.text);		
 			callback_c(null, result.metadata, result.text);
 		}	
     };
@@ -164,7 +163,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 	// Get a value in the storage
 	html5storage.getValue = function(key) {
 		if (this.test()) {
-			try {		
+			try {
 				return JSON.parse(window.localStorage.getItem(key));
 			} catch(err) {
 				return null;

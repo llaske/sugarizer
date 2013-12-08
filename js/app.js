@@ -155,7 +155,7 @@ enyo.kind({
 	},
 	
 	showPopup: function(icon, e) {
-		this.$.activityPopup.show();
+		this.$.activityPopup.showPopup();
 		window.clearInterval(this.timer);
 		this.timer = null;
 	},
@@ -171,7 +171,7 @@ enyo.kind({
 	hidePopup: function() {
 		if (this.$.activityPopup.cursorIsInside(this.position))
 			return;
-		this.$.activityPopup.hide();
+		this.$.activityPopup.hidePopup();
 		window.clearInterval(this.timer);
 		this.timer = null;		
 	}
@@ -233,19 +233,23 @@ enyo.kind({
 	classes: "home-activity-popup",
 	published: { icon: null },
 	components: [
-		{classes: "popup-title", onclick: "runActivity", components: [
+		{classes: "popup-title", onclick: "runLastActivity", components: [
 			{name: "icon", kind: "Sugar.ActivityIcon", x: 5, y: 5, size: iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
 		]},
 		{components: []},
-		{components: []}
+		{name: "footer", classes: "popup-footer", showing: false, onclick: "runNewActivity", components: [
+			{name: "iconbase", kind: "Sugar.ActivityIcon", x: 5, y: 8, size: iconSizeFavorite, colorized: false},
+			{content: "Start new", classes: "popup-new-text"}			
+		]}
 	],
 	
 	// Constructor
 	create: function() {
 		this.inherited(arguments);	
-		this.iconChanged();		
+		this.iconChanged();	
+		this.timer = null;
 	},
 	
 	// Property changed
@@ -257,16 +261,41 @@ enyo.kind({
 			this.$.icon.setColorized(this.icon.activity.activityId != null);
 			this.$.icon.render();
 			this.$.name.setContent(this.icon.activity.name);
-			if (this.icon.activity.activityId != null)
+			if (this.icon.activity.activityId != null && this.icon.activity.instances[0].metadata.title !== undefined) {
 				this.$.title.setContent(this.icon.activity.instances[0].metadata.title);			
-			else
+			} else {
 				this.$.title.setContent(this.icon.activity.name+" activity");
+			}
+			this.$.iconbase.setActivity(this.icon.activity);			
 		}
 	},
 	
-	// Click on the header icon, launch activity
-	runActivity: function() {
+	// Control popup visibility
+	showPopup: function() {
+		this.show();
+		this.timer = window.setInterval(enyo.bind(this, "showContent"), timerPopupDuration);
+	},
+	
+	hidePopup: function() {
+		this.hide();
+		this.$.footer.hide();
+	},
+	
+	showContent: function() {
+		window.clearInterval(this.timer);
+		this.timer = null;
+		if (this.showing)
+			this.$.footer.show();
+	},
+	
+	// Click on the header icon, launch last activity
+	runLastActivity: function() {
 		preferences.runActivity(this.icon.activity);
+	},
+	
+	// Click on the footer icon, launch new activity
+	runNewActivity: function() {
+		preferences.runActivity(this.icon.activity, null);
 	},
 	
 	// Test is cursor is inside the popup

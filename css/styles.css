@@ -56,6 +56,9 @@
 .popup-title {
 	background-color: black;
 	color: white;
+	border-color: #808080;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .popup-name-text {
@@ -72,4 +75,18 @@
 	padding-bottom: 10px;
 }
 
+.popup-footer {
+	background-color: black;
+	color: white;
+	border-color: #808080;
+	border-style: none solid solid solid;
+	border-width: 2px;
+}
+
+.popup-new-text {
+	margin-left: 30px;
+	margin-top: 0px;
+	margin-right: 10px;
+	padding: 10px;
+}
 
