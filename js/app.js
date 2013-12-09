@@ -238,7 +238,9 @@ enyo.kind({
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
 		]},
-		{components: []},
+		{name: "history", classes: "popup-history", showing: false, components: [
+			{name: "historylist", kind: "Sugar.Desktop.PopupListView"}
+		]},
 		{name: "footer", classes: "popup-footer", showing: false, onclick: "runNewActivity", components: [
 			{name: "iconbase", kind: "Sugar.ActivityIcon", x: 5, y: 8, size: iconSizeFavorite, colorized: false},
 			{content: "Start new", classes: "popup-new-text"}			
@@ -278,14 +280,20 @@ enyo.kind({
 	
 	hidePopup: function() {
 		this.hide();
+		this.$.history.hide();
+		this.$.historylist.setActivity(null);
 		this.$.footer.hide();
 	},
 	
 	showContent: function() {
 		window.clearInterval(this.timer);
 		this.timer = null;
-		if (this.showing)
+		if (this.showing) {
+			this.$.historylist.setActivity(this.icon.activity);	
+			if (this.icon.activity.instances.length > 0)
+				this.$.history.show();
 			this.$.footer.show();
+		}
 	},
 	
 	// Click on the header icon, launch last activity
@@ -318,4 +326,49 @@ enyo.kind({
         var isInside = (position.x >= p.x && position.x <= p.x + p.dx && position.y >= p.y && position.y <= p.y + p.dy);
 		return isInside;
 	}
+});
+
+
+
+
+// Activity popup listview
+enyo.kind({
+	name: "Sugar.Desktop.PopupListView",
+	kind: "Scroller",
+	published: { activity: null },
+	classes: "history-listview",
+	components: [
+		{name: "historyList", classes: "history-list", kind: "Repeater", onSetupItem: "setupItem", components: [
+			{name: "item", classes: "history-list-item", onclick: "runOldActivity", components: [
+				{name: "icon", kind: "Sugar.ActivityIcon", x: 5, y: 4, size: iconSizeFavorite, colorized: true},	
+				{name: "name", classes: "history-name"}
+			]}
+		]}
+	],
+  
+	// Constructor: init list
+	create: function() {
+		this.inherited(arguments);
+		this.activityChanged();
+	},
+	
+	// Activity changed, compute history list
+	activityChanged: function() {
+		if (this.activity != null)
+			this.$.historyList.setCount(this.activity.instances.length);
+		else
+			this.$.historyList.setCount(0);
+	},
+
+	// Init setup for a line
+	setupItem: function(inSender, inEvent) {
+		// Set item in the template
+		inEvent.item.$.icon.setActivity(this.activity);	
+		inEvent.item.$.name.setContent(this.activity.instances[inEvent.index].metadata.title);		
+	},
+	
+	// Click on the item, launch the activity
+	runOldActivity: function(inSender, inEvent) {
+		preferences.runActivity(this.activity, this.activity.instances[inEvent.index].objectId);
+	},	
 });

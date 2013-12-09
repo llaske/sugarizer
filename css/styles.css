@@ -75,6 +75,14 @@
 	padding-bottom: 10px;
 }
 
+.popup-history {
+	background-color: black;
+	color: white;
+	border-color: #808080;
+	border-style: none solid solid solid;
+	border-width: 2px;
+}
+
 .popup-footer {
 	background-color: black;
 	color: white;
@@ -90,3 +98,17 @@
 	padding: 10px;
 }
 
+.history-listview {
+	padding: 8px 0px 8px 0px;
+}
+
+.history-list-item {
+	height: 35px;
+}
+
+.history-name {
+	margin-left: 30px;
+	margin-top: 0px;
+	margin-right: 10px;
+	padding: 5px;
+}
