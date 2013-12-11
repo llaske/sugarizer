@@ -1,13 +1,11 @@
 
-// Constants
-var iconSizeStandard = 55;
 
 
 // Class for a Sugar Web activity icon
 enyo.kind({
 	name: "Sugar.ActivityIcon",
 	kind: enyo.Control,
-	published: { activity: null, size: iconSizeStandard, x: 0, y: 0, colorized: false },
+	published: { activity: null, size: constant.iconSizeStandard, x: 0, y: 0, colorized: false },
 	classes: "web-activity",
 	components: [
 		{ name: "icon", classes: "web-activity-icon"}
