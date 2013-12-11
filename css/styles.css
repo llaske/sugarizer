@@ -1,4 +1,12 @@
 
+html, button {
+	cursor: url(../icons/ArrowSmall.cur), default;
+}
+
+input {
+	cursor: url(../icons/TextSmall.cur);
+}
+
 #canvas {
 	background-color: white;
 }
@@ -91,6 +99,10 @@
 	border-width: 2px;
 }
 
+.popup-footer :hover{
+	background-color: #808080;
+}
+
 .popup-new-text {
 	margin-left: 30px;
 	margin-top: 0px;
@@ -104,6 +116,10 @@
 
 .history-list-item {
 	height: 35px;
+}
+
+.history-list-item :hover{
+	background-color: #808080;
 }
 
 .history-name {

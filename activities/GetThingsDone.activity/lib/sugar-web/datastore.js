@@ -71,18 +71,21 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
         this.objectId = objectId;
         this.newMetadata = {};
 		this.newDataAsText = null;
+		this.toload = false;
 		
 		// Init environment from query string values
 		window.top.sugar.environment.activityId = datastore.getUrlParameter("aid");
 		window.top.sugar.environment.activityName = datastore.getUrlParameter("n");
 		window.top.sugar.environment.bundleId = datastore.getUrlParameter("a");
+		window.top.sugar.environment.objectId = datastore.getUrlParameter("o");
 		
 		// Init or create objectId if need	
 		var that = this;
 		if (this.objectId === undefined) {
-			var env_objectId = datastore.getUrlParameter("o");
+			var env_objectId = window.top.sugar.environment.objectId;
 			if (env_objectId != null) {
 				this.objectId = env_objectId;
+				this.toload = true;
 			}
 		}
     }
@@ -94,6 +97,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		if (result != null) {
 			this.setMetadata(result.metadata);
 			this.setDataAsText(result.text);
+			this.toload = false;
 			callback_c(null, result.metadata);
 		}		
     };
@@ -105,6 +109,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		if (result != null) {
 			this.setMetadata(result.metadata);
 			this.setDataAsText(result.text);		
+			this.toload = false;
 			callback_c(null, result.metadata, result.text);
 		}	
     };
@@ -132,6 +137,11 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 					that.objectId = oid;
 				}
 			});
+		} else {
+			if (this.toload) {
+				this.getMetadata(null);
+				this.toload = false;
+			}
 		}
 		var callback_c = datastore.callbackChecker(callback);
 		this.newMetadata["timestamp"] = new Date().getTime();		

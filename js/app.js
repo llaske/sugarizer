@@ -19,6 +19,7 @@ var iconSizeFavorite = 20;
 var popupMarginLeft = 15;
 var popupMarginTop = 15;
 var timerPopupDuration = 1000;
+var maxPopupHistory = 5;
 
 
 // Main app class
@@ -148,6 +149,7 @@ enyo.kind({
 	// Popup handling
 	popupShowTimer: function(icon, e) {
 		if (this.timer != null) {
+			this.$.activityPopup.hidePopup();
 			window.clearInterval(this.timer);
 		}
 		this.$.activityPopup.setIcon(icon);		
@@ -355,7 +357,7 @@ enyo.kind({
 	// Activity changed, compute history list
 	activityChanged: function() {
 		if (this.activity != null)
-			this.$.historyList.setCount(this.activity.instances.length);
+			this.$.historyList.setCount(Math.min(this.activity.instances.length, maxPopupHistory));
 		else
 			this.$.historyList.setCount(0);
 	},
@@ -363,12 +365,12 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		inEvent.item.$.icon.setActivity(this.activity);	
+		inEvent.item.$.icon.setActivity(this.activity);
 		inEvent.item.$.name.setContent(this.activity.instances[inEvent.index].metadata.title);		
 	},
 	
 	// Click on the item, launch the activity
 	runOldActivity: function(inSender, inEvent) {
-		preferences.runActivity(this.activity, this.activity.instances[inEvent.index].objectId);
+		preferences.runActivity(this.activity, this.activity.instances[inEvent.index].objectId, this.activity.instances[inEvent.index].metadata.title);
 	},	
 });
