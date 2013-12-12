@@ -46,8 +46,8 @@ define(function () {
             var newData = changeColors(iconData, fillColor, strokeColor);
             callback(dataHeader + escape(newData));
         };
-
-        client.open("GET", source);
+		
+        client.open("GET", source.replace(/"/g,""));
         client.send();
     };
 
@@ -66,7 +66,7 @@ define(function () {
             "uri": getBackgroundURL(elem),
             "strokeColor": colors.stroke,
             "fillColor": colors.fill
-        };
+        };	
 
         icon.load(iconInfo, function (url) {
             setBackgroundURL(elem, url);

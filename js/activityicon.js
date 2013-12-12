@@ -1,4 +1,9 @@
 
+// Colorized icons cache
+var iconColorCache = {
+	names: [],
+	values: []
+};
 
 
 // Class for a Sugar Web activity icon
@@ -23,8 +28,25 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		if (this.colorized)
-			iconLib.colorize(this.$.icon.hasNode(), preferences.getColor());
+		
+		// If colorized
+		if (this.colorized) {
+			// Try to find colorized version in cache
+			var node = this.$.icon.hasNode();
+			var name = this.activity.directory+"/"+this.activity.icon;
+			for (var i = 0 ; i < iconColorCache.names.length ; i++)
+				if (iconColorCache.names[i] == name) {
+					node.style.backgroundImage = iconColorCache.values[i];
+					return;
+				}
+			
+			// Build it
+			iconLib.colorize(node, preferences.getColor(), function() {
+				// Cache it			
+				iconColorCache.names.push(name);
+				iconColorCache.values.push(node.style.backgroundImage);
+			});
+		}
 	},
 	
 	// Property changed
