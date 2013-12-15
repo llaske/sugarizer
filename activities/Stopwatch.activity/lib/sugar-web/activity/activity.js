@@ -16,9 +16,26 @@ define(["webL10n",
 
         l10n.start();
 
+        function onPause() {
+            activity.write(function () {});
+        }
+
+        function onStop() {
+            function onDataStored(error, result) {
+                activity.close(function () {});
+            }
+            activity.write(onDataStored);
+        }
+
+        bus.onNotification("activity.pause", onPause);
+        bus.onNotification("activity.stop", onStop);
+
+        datastoreObject = new datastore.DatastoreObject();
+
         var activityButton = document.getElementById("activity-button");
 
-        var activityPalette = new activitypalette.ActivityPalette();
+        var activityPalette = new activitypalette.ActivityPalette(
+            activityButton, datastoreObject);
 
         // Colorize the activity icon.
         activity.getXOColor(function (error, colors) {
@@ -30,20 +47,24 @@ define(["webL10n",
 
         // Make the activity stop with the stop button.
         var stopButton = document.getElementById("stop-button");
-        stopButton.addEventListener('click', function (e) {
-            activity.close();
-        });
+        stopButton.addEventListener('click', onStop);
 
         shortcut.add("Ctrl", "Q", this.close);
 
-        datastoreObject = new datastore.DatastoreObject();
-
         env.getEnvironment(function (error, environment) {
-            datastoreObject.setMetadata({
-                "activity": environment.bundleId,
-                "activity_id": environment.activityId
+            if (!environment.objectId) {
+                datastoreObject.setMetadata({
+                    "title": environment.activityName + " Activity",
+                    "title_set_by_user": "0",
+                    "activity": environment.bundleId,
+                    "activity_id": environment.activityId
+                });
+            }
+            datastoreObject.save(function () {
+                datastoreObject.getMetadata(function (error, metadata) {
+                    activityPalette.setTitleDescription(metadata);
+                });
             });
-            datastoreObject.save(function () {});
         });
     };
 
@@ -67,6 +88,14 @@ define(["webL10n",
         }
 
         bus.sendMessage("activity.get_xo_color", [], onResponseReceived);
+    };
+
+    // Activities should override this function in order to store
+    // data.
+    activity.write = function (callback) {
+        setTimeout(function () {
+            callback(null);
+        }, 0);
     };
 
     activity.close = function (callback) {

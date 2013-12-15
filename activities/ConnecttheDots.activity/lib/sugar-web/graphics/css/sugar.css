@@ -38,6 +38,7 @@ a {
   height: 33px;
   border: 1px solid #808080;
   margin: 2.5px;
+  margin-bottom: -17px;
 }
 /* Toolbar toolbutton */
 .toolbar .toolbutton {
@@ -327,6 +328,38 @@ label {
 }
 .palette .row.expand {
   height: auto;
+}
+/* Palette menu */
+.palette .menu {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+.palette .menu button {
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  line-height: 33px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.palette .menu button:hover {
+  background-color: #808080;
+  color: white;
+}
+.palette .menu button.icon {
+  padding-left: 37px;
+}
+.palette .menu button.icon span {
+  top: 0;
+  left: 0;
+  width: 33px;
+  height: 33px;
 }
 /* Scrollbar */
 ::-webkit-scrollbar {

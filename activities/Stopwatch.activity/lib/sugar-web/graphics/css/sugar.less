@@ -73,6 +73,7 @@ a {
   height: 3 * @subcell-size;
   border: (@line-width / 2) solid @button-grey;
   margin: (@subcell-size - (@line-width * 3)) / 2;
+  margin-bottom: -1 * (@subcell-size + (@line-width * 3));
 }
 
 /* Toolbar toolbutton */
@@ -423,6 +424,44 @@ label {
 
 .palette .row.expand {
   height: auto;
+}
+
+/* Palette menu */
+
+.palette .menu {
+  list-style-type: none;
+  padding: 0;
+  margin-top: @subcell-size;
+  margin-bottom: @subcell-size;
+}
+
+.palette .menu button {
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  line-height: 3 * @subcell-size;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.palette .menu button:hover {
+  background-color: @button-grey;
+  color: white;
+}
+
+.palette .menu button.icon {
+  padding-left: 3 * @subcell-size + 2 * @line-width;
+}
+
+.palette .menu button.icon span {
+  top: 0;
+  left: 0;
+  width: 3 * @subcell-size;
+  height: 3 * @subcell-size;
 }
 
 /* Scrollbar */
