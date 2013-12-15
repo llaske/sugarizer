@@ -1,5 +1,6 @@
 
 // Sugar Libraries (initialized by require)
+var app;
 var iconLib;
 var xoPalette;
 var radioButtonsGroup;
@@ -16,8 +17,8 @@ enyo.kind({
 	components: [
 		{name: "owner", onclick: "changeColor", classes: "owner-icon", showing: true},
 		{name: "journal", onclick: "showJournal", classes: "journal-icon", showing: true},
-		{name: "activitybox", showing: true, onresize: "redraw", components: []},
-		{name: "activitylist", showing: false, kind: "Sugar.Desktop.ListView"},
+		{name: "desktop", showing: true, onresize: "redraw", components: []},
+		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Desktop.ActivityPopup", showing: false},		
 		{name: "activities", kind: "enyo.WebService", url: constant.initActivitiesURL, onResponse: "queryResponse", onError: "queryFail"}
 	],
@@ -38,7 +39,6 @@ enyo.kind({
 			this.$.activities.send();
 		} else {
 			this.init();
-			this.$.activitylist.setCount(preferences.getActivities().length);
 		}
 		
 		// Load and sort journal
@@ -51,7 +51,6 @@ enyo.kind({
 	// Init web service response, redraw screen
 	queryResponse: function(inSender, inResponse) {
 		preferences.setActivities(inResponse.data);
-		this.$.activitylist.setCount(preferences.getActivities().length);
 		preferences.save();
 		this.init();
 	},
@@ -70,7 +69,7 @@ enyo.kind({
 	draw: function() {
 		// Clean desktop
 		var items = [];
-		enyo.forEach(this.$.activitybox.getControls(), function(item) {	items.push(item); });		
+		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });		
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 		
 		// Compute center and radius
@@ -89,7 +88,7 @@ enyo.kind({
 		for (var i = 0 ; i < activitiesList.length ; i++) {
 			var activity = activitiesList[i];
 			var angle = base_angle*parseFloat(i);
-			this.$.activitybox.createComponent({
+			this.$.desktop.createComponent({
 					kind: "Sugar.ActivityIcon", 
 					activity: activity, 
 					x: canvas_center.x+Math.cos(angle)*radius, 
@@ -109,27 +108,50 @@ enyo.kind({
 		this.render();
 	},
 	
-	// Switch between radial and list view
-	switchView: function() {
-		this.currentView = (this.currentView + 1) % 2;
-		this.$.owner.hide();
-		this.$.journal.hide();
-		this.$.activitybox.hide();
-		this.$.activitylist.hide();
-		if (this.currentView == constant.radialView) {
-			if (this.$.activitylist.getChanged()) {
-				this.$.activitylist.setChanged(false);
-				this.draw();
-			}
-			this.$.activitybox.show();
+	// Switch between radial and other views (list or journal)
+	showView: function(newView) {
+		if (this.currentView == newView)
+			return;
+		var oldView = this.currentView;
+		this.currentView = newView;
+
+		// Show desktop
+		if (newView == constant.radialView) {
+			this.$.otherview.hide();
+			this.$.desktop.show();
 			this.$.owner.show();
 			this.$.journal.show();
 			this.render();
+			return;
 		}
-		else if (this.currentView == constant.listView) {
-			this.$.activitylist.setChanged(false);
-			this.$.activitylist.show();
+		
+		// Hide desktop
+		this.$.owner.hide();
+		this.$.journal.hide();
+		this.$.desktop.hide();
+		this.clearView();
+		
+		// Show list
+		if (newView == constant.listView) {
+			this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", count: preferences.getActivities().length});
 		}
+		
+		// Show journal
+		else if (newView == constant.journalView) {
+			if (this.timer != null) {
+				this.$.activityPopup.hidePopup();
+				window.clearInterval(this.timer);
+			}	
+			this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+		}
+
+		this.$.otherview.show();
+		this.$.otherview.render();		
+	},
+	
+	clearView: function() {
+		var controls = this.$.otherview.getControls();
+		for (var i = 0, c; c = controls[i]; i++) c.destroy();	
 	},
 	
 	// Render
@@ -155,11 +177,7 @@ enyo.kind({
 	
 	// Display journal
 	showJournal: function() {
-		if (this.timer != null) {
-			this.$.activityPopup.hidePopup();
-			window.clearInterval(this.timer);
-		}	
-		new Sugar.Journal({journal: this.journal}).renderInto(document.getElementById("canvas"));
+		this.showView(constant.journalView);
 	},
 	
 	// Popup handling

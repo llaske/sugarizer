@@ -15,13 +15,13 @@ define(function (require) {
 		preferences.load();
 		
 	    // Initialize the desktop
-		var app = new Sugar.Desktop();
+		app = new Sugar.Desktop();
 		var viewRadio = new radioButtonsGroup.RadioButtonsGroup([
 			document.getElementById("view-radial-button"),
 			document.getElementById("view-list-button")]
 		);
-		document.getElementById("view-radial-button").onclick = function() { app.switchView(); };
-		document.getElementById("view-list-button").onclick = function() { app.switchView(); };
+		document.getElementById("view-radial-button").onclick = function() { app.showView(constant.radialView); };
+		document.getElementById("view-list-button").onclick = function() { app.showView(constant.listView); };
         app.renderInto(document.getElementById("canvas"));
     });
 

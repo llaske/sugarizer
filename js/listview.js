@@ -3,7 +3,7 @@
 enyo.kind({
 	name: "Sugar.Desktop.ListView",
 	kind: "Scroller",
-	published: { count: 0, changed: false },	
+	published: { count: 0 },	
 	components: [
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
@@ -19,14 +19,11 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.countChanged();
-		this.changedChanged();
 	},
 	
 	// Property changed
 	countChanged: function() {
 		this.$.activityList.setCount(this.count);
-	},
-	changedChanged: function() {
 	},
 
 	// Init setup for a line
@@ -42,10 +39,10 @@ enyo.kind({
 	
 	// Switch favorite value for clicked line
 	switchFavorite: function(inSender, inEvent) {
-		var activitiesList = preferences.getActivities();	
-		this.changed = true;
+		var activitiesList = preferences.getActivities();
 		inSender.setColorized(preferences.switchFavoriteActivity(activitiesList[inEvent.index]));
 		inSender.render();
 		preferences.save();
+		app.redraw();		
 	}
 });
