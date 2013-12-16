@@ -70,6 +70,7 @@ enyo.kind({
 			this.journal[inEvent.index].metadata.keep = (keep + 1) % 2;
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
+		ds.setDataAsText(this.journal[inEvent.index].text);
 		ds.save();
 		inSender.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		this.render();

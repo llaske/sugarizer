@@ -27,18 +27,10 @@ enyo.kind({
 	create: function() {
 		// Init screen
 		this.inherited(arguments);
-		this.currentView = constant.radialView;
 		this.timer = null;
 		var that = this;
 		document.onmousemove = function(e) {
 			that.position = {x: e.pageX, y: e.pageY};
-		}
-
-		// Get activities from local storage or from init web service
-		if (preferences.getActivities() == null) {
-			this.$.activities.send();
-		} else {
-			this.init();
 		}
 		
 		// Load and sort journal
@@ -46,6 +38,13 @@ enyo.kind({
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
 		});
+		
+		// Get activities from local storage or from init web service
+		if (preferences.getActivities() == null) {
+			this.$.activities.send();
+		} else {
+			this.init();
+		}
 	},
 	
 	// Init web service response, redraw screen
@@ -62,6 +61,9 @@ enyo.kind({
 	
 	// Init desktop
 	init: function() {
+		this.currentView = constant.radialView;
+		if (preferences.getView())
+			this.showView(preferences.getView());	
 		this.draw();
 	},
 	
@@ -117,6 +119,7 @@ enyo.kind({
 
 		// Show desktop
 		if (newView == constant.radialView) {
+			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});
 			this.$.otherview.hide();
 			this.$.desktop.show();
 			this.$.owner.show();
@@ -133,6 +136,7 @@ enyo.kind({
 		
 		// Show list
 		if (newView == constant.listView) {
+			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});		
 			this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", count: preferences.getActivities().length});
 		}
 		
@@ -142,11 +146,16 @@ enyo.kind({
 				this.$.activityPopup.hidePopup();
 				window.clearInterval(this.timer);
 			}	
+			util.setToolbarVisibility({desktopToolbar: false, journalToolbar: true});
 			this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
 		}
 
 		this.$.otherview.show();
 		this.$.otherview.render();		
+	},
+	
+	getView: function() {
+		return this.currentView;
 	},
 	
 	clearView: function() {

@@ -3,10 +3,10 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "org.olpc-france.sugarweb"
         version   = "1.0.0">
-    <name>Sugar Web</name>
+    <name>Sugarizer</name>
 
     <description>
-        A taste of the Sugar Learning platform in a small app.
+        A taste of the Sugar on any device.
     </description>
 
     <author href="http://olpc-france.org" email="lionel@olpc-france.org">

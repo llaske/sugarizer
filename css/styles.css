@@ -13,10 +13,48 @@ input {
 
 #main-toolbar #view-radial-button {
 	background-image: url(../icons/view-radial.svg);
+	position: absolute;
+	top: 0px;
+	right: 90px;
 }
 
 #main-toolbar #view-list-button {
 	background-image: url(../icons/view-list.svg);
+	position: absolute;
+	top: 0px;
+	right: 30px;
+}
+
+#main-toolbar #favorite-button {
+	background-image: url(../icons/emblem-favorite.svg);
+	position: absolute;
+	top: 0px;
+	left: 530px;
+}
+
+#main-toolbar #view-desktop-button {
+	background-image: url(../icons/view-radial.svg);
+	position: absolute;
+	top: 0px;
+	right: 30px;
+}
+
+#homeSearch {
+	width: 300px;
+}
+
+#journalSearch {
+	width: 450px;
+}
+
+#journalType {
+	margin-left: 70px;
+	width: 170px;
+}
+
+#journalTime {
+	margin-left: 10px;
+	width: 130px;
 }
 
 .web-activity {
