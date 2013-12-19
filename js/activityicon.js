@@ -10,7 +10,7 @@ var iconColorCache = {
 enyo.kind({
 	name: "Sugar.ActivityIcon",
 	kind: enyo.Control,
-	published: { activity: null, size: constant.iconSizeStandard, x: 0, y: 0, colorized: false },
+	published: { activity: null, size: constant.iconSizeStandard, x: -1, y: -1, colorized: false },
 	classes: "web-activity",
 	components: [
 		{ name: "icon", classes: "web-activity-icon"}
@@ -29,10 +29,12 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		
-		// If colorized
+		// If colorized		
 		if (this.colorized) {
 			// Try to find colorized version in cache
 			var node = this.$.icon.hasNode();
+if (node == null || node === undefined)
+	console.log(this.activity.icon + " is null");
 			var name = this.activity.directory+"/"+this.activity.icon;
 			for (var i = 0 ; i < iconColorCache.names.length ; i++)
 				if (iconColorCache.names[i] == name) {

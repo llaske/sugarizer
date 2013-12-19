@@ -5,6 +5,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
     var datastore = {};
 	var html5storage = {};
 	var datastorePrefix = 'sugar_datastore_';
+	var initialized = false;
 
 	//- Utility function
 	
@@ -57,7 +58,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 			if (key.substr(0, datastorePrefix.length) == datastorePrefix) {
 				var entry = html5storage.getValue(key);
 				entry.objectId = key.substr(datastorePrefix.length);
-				if (entry.metadata.activity_id == activityId) {
+				if (activityId === undefined || entry.metadata.activity_id == activityId) {
 					results.push(entry);
 				}
 			}
@@ -74,10 +75,13 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 		this.toload = false;
 		
 		// Init environment from query string values
-		window.top.sugar.environment.activityId = datastore.getUrlParameter("aid");
-		window.top.sugar.environment.activityName = datastore.getUrlParameter("n");
-		window.top.sugar.environment.bundleId = datastore.getUrlParameter("a");
-		window.top.sugar.environment.objectId = datastore.getUrlParameter("o");
+		if (!initialized) {
+			window.top.sugar.environment.activityId = datastore.getUrlParameter("aid");
+			window.top.sugar.environment.activityName = datastore.getUrlParameter("n");
+			window.top.sugar.environment.bundleId = datastore.getUrlParameter("a");
+			window.top.sugar.environment.objectId = datastore.getUrlParameter("o");
+			initialized = true;
+		}
 		
 		// Init or create objectId if need	
 		var that = this;
@@ -161,7 +165,7 @@ define(["sugar-web/bus", "sugar-web/env"], function (bus, env) {
 	};
 	
 	// Set a value in the storage
-	html5storage.setValue = function(key, value) {
+	html5storage.setValue = function(key, value) {	
 		if (this.test()) {
 			try {
 				window.localStorage.setItem(key, JSON.stringify(value));

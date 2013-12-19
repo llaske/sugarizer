@@ -14,7 +14,7 @@ define(function (require) {
         // Initialize the activity.
         activity.setup();
 
-        activity.write = function (callback) {
+        /*activity.write = function (callback) {
             console.log("writing...");
             var jsonData = JSON.stringify(todo.model.items);
             this.getDatastoreObject().setDataAsText(jsonData);
@@ -86,7 +86,7 @@ define(function (require) {
                 todo.controller.toggleComplete(lookupId(target), target);
             }
 
-        });
+        });*/
 
     });
 

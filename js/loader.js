@@ -5,4 +5,4 @@ requirejs.config({
     }
 });
 
-requirejs(["activity/desktop"]);
+requirejs(["activity/app"]);
