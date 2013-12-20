@@ -33,8 +33,6 @@ enyo.kind({
 		if (this.colorized) {
 			// Try to find colorized version in cache
 			var node = this.$.icon.hasNode();
-if (node == null || node === undefined)
-	console.log(this.activity.icon + " is null");
 			var name = this.activity.directory+"/"+this.activity.icon;
 			for (var i = 0 ; i < iconColorCache.names.length ; i++)
 				if (iconColorCache.names[i] == name) {

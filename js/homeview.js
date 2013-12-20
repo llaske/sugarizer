@@ -174,6 +174,8 @@ enyo.kind({
 	// Change color
 	changeColor: function() {
 		preferences.nextColor();
+		preferences.save();
+		iconColorCache = {names: [], values: []}; // Delete icon cache
 		this.draw();
 		this.render();
 	},
