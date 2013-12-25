@@ -1,0 +1,30 @@
+body {
+ background: black;
+ margin: 0 auto;
+}
+
+div.frame {
+ background: #f0f0f0;
+ margin: 0 auto;
+ position: relative;
+ width: 1024px;
+ height: 748px;
+ overflow: hidden;
+}
+
+canvas.gridcnv {
+ position: absolute;
+ width: 1024px;
+ height: 748px;
+ top: 0px;
+ left: 0px;
+}
+
+div.thumbframe {
+ background: #d0d0d0;
+ position: absolute;
+ top: 0px;
+ left: 0px;
+ z-index: 100;
+}
+

@@ -64,7 +64,7 @@ enyo.kind({
 		this.timer = null;
 		if (this.showing) {
 			this.$.historylist.setActivity(this.icon.activity);	
-			if (this.icon.activity.instances.length > 0)
+			if (this.icon.activity.instances != null && this.icon.activity.instances.length > 0)
 				this.$.history.show();
 			this.$.footer.show();
 		}
@@ -128,7 +128,7 @@ enyo.kind({
 	
 	// Activity changed, compute history list
 	activityChanged: function() {
-		if (this.activity != null)
+		if (this.activity != null && this.activity.instances != null)
 			this.$.historyList.setCount(Math.min(this.activity.instances.length, constant.maxPopupHistory));
 		else
 			this.$.historyList.setCount(0);
