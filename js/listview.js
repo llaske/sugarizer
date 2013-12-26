@@ -8,7 +8,7 @@ enyo.kind({
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
 				{name: "favorite", kind: "Sugar.ActivityIcon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
-				{name: "activity", kind: "Sugar.ActivityIcon", x: 60, y: 5, size: constant.iconSizeList},
+				{name: "activity", kind: "Sugar.ActivityIcon", x: 60, y: 5, size: constant.iconSizeList, onclick:"runNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -44,5 +44,11 @@ enyo.kind({
 		inSender.render();
 		preferences.save();
 		app.redraw();		
+	},
+	
+	// Run new activity
+	runNewActivity: function(inSender, inEvent) {
+		var activitiesList = preferences.getActivities();	
+		preferences.runActivity(activitiesList[inEvent.index], null);
 	}
 });
