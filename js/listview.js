@@ -77,8 +77,8 @@ enyo.kind({
 		var items = [];
 		items.push({
 			icon: icon.parent.container.$.favorite,
-			colorized: false,
-			name: icon.activity.favorite ? "Remove favorite" : "Add favorite",
+			colorized: !icon.activity.favorite,
+			name: icon.activity.favorite ? "Remove favorite" : "Make favorite",
 			action: enyo.bind(this, "switchFavorite"),	
 			data: [icon.parent.container.$.favorite, icon.activity]
 		});

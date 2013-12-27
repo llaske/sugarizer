@@ -29,6 +29,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.timer = null;
 		var that = this;
+		
+		// Always save mouse position - need for popup menu
 		document.onmousemove = function(e) {
 			that.position = {x: e.pageX, y: e.pageY};
 		}
@@ -120,6 +122,7 @@ enyo.kind({
 		// Show desktop
 		if (newView == constant.radialView) {
 			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});
+			document.getElementById("view-radial-button").classList.add('active');
 			this.$.otherview.hide();
 			this.$.desktop.show();
 			this.$.owner.show();
@@ -136,7 +139,8 @@ enyo.kind({
 		
 		// Show list
 		if (newView == constant.listView) {
-			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});		
+			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});	
+			document.getElementById("view-list-button").classList.add('active');			
 			this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", count: preferences.getActivities().length});
 		}
 		
