@@ -5,19 +5,18 @@ enyo.kind({
 	name: "Sugar.Desktop.ActivityPopup",
 	kind: "enyo.Control",
 	classes: "home-activity-popup",
-	published: { icon: null },
+	published: { icon: null, header: null, items: null, footer: null },
 	components: [
-		{classes: "popup-title", onclick: "runLastActivity", components: [
-			{name: "icon", kind: "Sugar.ActivityIcon", x: 5, y: 5, size: constant.iconSizeList},
+		{classes: "popup-title", onclick: "runHeaderAction", components: [
+			{name: "icon", showing: false, kind: "Sugar.ActivityIcon", x: 5, y: 5, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
 		]},
-		{name: "history", classes: "popup-history", showing: false, components: [
-			{name: "historylist", kind: "Sugar.Desktop.PopupListView"}
+		{name: "items", classes: "popup-items", showing: false, components: [
+			{name: "itemslist", kind: "Sugar.Desktop.PopupListView"}
 		]},
-		{name: "footer", classes: "popup-footer", showing: false, onclick: "runNewActivity", components: [
-			{name: "iconbase", kind: "Sugar.ActivityIcon", x: 5, y: 8, size: constant.iconSizeFavorite, colorized: false},
-			{content: "Start new", classes: "popup-new-text"}			
+		{name: "footer", classes: "popup-items", showing: false, components: [
+			{name: "footerlist", kind: "Sugar.Desktop.PopupListView"}			
 		]}
 	],
 	
@@ -25,24 +24,44 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);	
 		this.iconChanged();	
+		this.headerChanged();
+		this.itemsChanged();
+		this.footerChanged();
 		this.timer = null;
 	},
 	
 	// Property changed
 	iconChanged: function() {
 		if (this.icon != null) {
-			this.applyStyle("margin-left", (this.icon.x+constant.popupMarginLeft)+"px");
-			this.applyStyle("margin-top", (this.icon.y+constant.popupMarginTop)+"px");
-			this.$.icon.setActivity(this.icon.activity);
-			this.$.icon.setColorized(this.icon.activity.activityId != null);
-			this.$.icon.render();
-			this.$.name.setContent(this.icon.activity.name);
-			if (this.icon.activity.activityId != null && this.icon.activity.instances[0].metadata.title !== undefined) {
-				this.$.title.setContent(this.icon.activity.instances[0].metadata.title);			
-			} else {
-				this.$.title.setContent(this.icon.activity.name+" activity");
+			this.applyStyle("margin-left", (app.position.x+constant.popupMarginLeft)+"px");
+			this.applyStyle("margin-top", (app.position.y+constant.popupMarginTop)+"px");		
+		}
+	},
+	headerChanged: function() {
+		if (this.header != null) {
+			this.$.icon.setShowing(this.header.icon != null);
+			if (this.header.icon != null) {
+				this.$.icon.setActivity(this.header.icon.activity);
+				this.$.icon.setColorized(this.header.colorized);
+				this.$.icon.render();
 			}
-			this.$.iconbase.setActivity(this.icon.activity);			
+			this.$.name.setContent(this.header.name);
+			if (this.header.title != null) {
+				this.$.name.removeClass("popup-name-text-bottom");
+				this.$.title.setContent(this.header.title);
+			} else {
+				this.$.name.addClass("popup-name-text-bottom");
+			}
+		}
+	},
+	itemsChanged: function() {
+		if (this.items != null) {
+			this.$.itemslist.setItems(this.items);
+		}
+	},
+	footerChanged: function() {
+		if (this.footer != null) {
+			this.$.footerlist.setItems(this.footer);
 		}
 	},
 	
@@ -54,34 +73,30 @@ enyo.kind({
 	
 	hidePopup: function() {
 		this.hide();
-		this.$.history.hide();
-		this.$.historylist.setActivity(null);
+		this.$.items.hide();
+		this.$.itemslist.setItems(null);
 		this.$.footer.hide();
+		this.$.footerlist.setItems(null);		
 	},
 	
 	showContent: function() {
 		window.clearInterval(this.timer);
 		this.timer = null;
 		if (this.showing) {
-			this.$.historylist.setActivity(this.icon.activity);	
-			if (this.icon.activity.instances != null && this.icon.activity.instances.length > 0)
-				this.$.history.show();
-			this.$.footer.show();
+			if (this.items != null && this.items.length > 0)
+				this.$.items.show();
+			if (this.footer != null && this.footer.length > 0)
+				this.$.footer.show();
 		}
 	},
 	
 	// Click on the header icon, launch last activity
-	runLastActivity: function() {
-		preferences.runActivity(this.icon.activity);
-	},
-	
-	// Click on the footer icon, launch new activity
-	runNewActivity: function() {
-		preferences.runActivity(this.icon.activity, null);
+	runHeaderAction: function() {
+		if (this.header.action != null) this.header.action(this.header.data[0], this.header.data[1]);
 	},
 	
 	// Test is cursor is inside the popup
-	cursorIsInside: function(position) {
+	cursorIsInside: function() {
 		var obj = document.getElementById(this.getAttribute("id"));
 		var p = {};
 		p.x = obj.offsetLeft;
@@ -97,7 +112,10 @@ enyo.kind({
 				obj = obj.offsetParent;
 			}
 		}
-        var isInside = (position.x >= p.x && position.x <= p.x + p.dx && position.y >= p.y && position.y <= p.y + p.dy);
+        var isInside = (
+			app.position.x >= p.x && app.position.x <= p.x + p.dx 
+			&& app.position.y >= p.y && app.position.y <= p.y + p.dy
+		);
 		return isInside;
 	}
 });
@@ -105,17 +123,17 @@ enyo.kind({
 
 
 
-// Activity popup ListView
+// Items popup ListView
 enyo.kind({
 	name: "Sugar.Desktop.PopupListView",
 	kind: "Scroller",
-	published: { activity: null },
-	classes: "history-listView",
+	published: { items: null },
+	classes: "popup-item-listview",
 	components: [
-		{name: "historyList", classes: "history-list", kind: "Repeater", onSetupItem: "setupItem", components: [
-			{name: "item", classes: "history-list-item", onclick: "runOldActivity", components: [
-				{name: "icon", kind: "Sugar.ActivityIcon", x: 5, y: 4, size: constant.iconSizeFavorite, colorized: true},	
-				{name: "name", classes: "history-name"}
+		{name: "itemList", classes: "item-list", kind: "Repeater", onSetupItem: "setupItem", components: [
+			{name: "item", classes: "item-list-item", onclick: "runItemAction", components: [
+				{name: "icon", kind: "Sugar.ActivityIcon", x: 5, y: 4, size: constant.iconSizeFavorite},	
+				{name: "name", classes: "item-name"}
 			]}
 		]}
 	],
@@ -123,26 +141,28 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
-		this.activityChanged();
+		this.itemsChanged();
 	},
 	
-	// Activity changed, compute history list
-	activityChanged: function() {
-		if (this.activity != null && this.activity.instances != null)
-			this.$.historyList.setCount(Math.min(this.activity.instances.length, constant.maxPopupHistory));
+	// Items changed
+	itemsChanged: function() {
+		if (this.items != null)
+			this.$.itemList.setCount(this.items.length);
 		else
-			this.$.historyList.setCount(0);
+			this.$.itemList.setCount(0);
 	},
 
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		inEvent.item.$.icon.setActivity(this.activity);
-		inEvent.item.$.name.setContent(this.activity.instances[inEvent.index].metadata.title);		
+		inEvent.item.$.icon.setActivity(this.items[inEvent.index].icon.activity);
+		inEvent.item.$.name.setContent(this.items[inEvent.index].name);		
+		inEvent.item.$.icon.setColorized(this.items[inEvent.index].colorized);		
 	},
 	
-	// Click on the item, launch the activity
-	runOldActivity: function(inSender, inEvent) {
-		preferences.runActivity(this.activity, this.activity.instances[inEvent.index].objectId, this.activity.instances[inEvent.index].metadata.title);
-	},	
+	// Run action on item
+	runItemAction: function(inSender, inEvent) {
+		var action = this.items[inEvent.index].action;
+		if (action != null) action(this.items[inEvent.index].data[0], this.items[inEvent.index].data[1]);
+	}
 });

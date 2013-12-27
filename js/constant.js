@@ -18,8 +18,8 @@ constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
 constant.iconSizeFavorite = 20;
 
-constant.popupMarginLeft = 15;
-constant.popupMarginTop = 15;
+constant.popupMarginLeft = 5;
+constant.popupMarginTop = -50;
 
 constant.timerPopupDuration = 1000;
 

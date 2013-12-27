@@ -10,10 +10,17 @@ var iconColorCache = {
 enyo.kind({
 	name: "Sugar.ActivityIcon",
 	kind: enyo.Control,
-	published: { activity: null, size: constant.iconSizeStandard, x: -1, y: -1, colorized: false },
+	published: {
+		activity: null,
+		size: constant.iconSizeStandard,
+		x: -1, y: -1,
+		colorized: false,
+		popupShow: null,
+		popupHide: null
+	},
 	classes: "web-activity",
 	components: [
-		{ name: "icon", classes: "web-activity-icon"}
+		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"}
 	],
 	
 	// Constructor
@@ -23,6 +30,36 @@ enyo.kind({
 		this.sizeChanged();
 		this.xChanged();
 		this.yChanged();
+		this.timer = null;
+	},
+	
+	// Timer handler for popup menu
+	popupShowTimer: function() {
+		if (this.popupShow == null)
+			return;
+		if (this.timer != null) {
+			window.clearInterval(this.timer);
+		}	
+		this.timer = window.setInterval(enyo.bind(this, "showPopup"), constant.timerPopupDuration);
+	},
+	showPopup: function(icon, e) {
+		this.popupShow(this);
+		window.clearInterval(this.timer);
+		this.timer = null;
+	},
+	popupHideTimer: function(icon, e) {
+		if (this.popupHide == null)
+			return;	
+		if (this.timer != null) {
+			window.clearInterval(this.timer);
+		}
+		this.timer = window.setInterval(enyo.bind(this, "hidePopup"), constant.timerPopupDuration);
+	},
+	hidePopup: function() {
+		if (!this.popupHide())
+			return;
+		window.clearInterval(this.timer);
+		this.timer = null;		
 	},
 
 	// Render

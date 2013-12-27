@@ -97,8 +97,8 @@ enyo.kind({
 					y: canvas_center.y+Math.sin(angle)*radius,
 					colorized: activity.activityId != null,
 					onclick: "runActivity",
-					onmouseover: "popupShowTimer",
-					onmouseout: "popupHideTimer"
+					popupShow: enyo.bind(this, "showActivityPopup"),
+					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
 				{owner: this}).render();
 		}
@@ -182,45 +182,69 @@ enyo.kind({
 	
 	// Run activity
 	runActivity: function(icon) {
-		// Save context then run the activity in the context
+		// Run the last activity instance in the context
 		preferences.runActivity(icon.activity);
 	},
+	runOldActivity: function(icon, instance) {
+		// Run an old activity instance
+		preferences.runActivity(icon.activity, instance.objectId, instance.metadata.title);
+	},
+	runNewActivity: function(icon) {
+		// Start a new activity instance
+		preferences.runActivity(icon.activity, null);
+	},	
 	
 	// Display journal
 	showJournal: function() {
 		this.showView(constant.journalView);
 	},
 	
-	// Popup handling
-	popupShowTimer: function(icon, e) {
-		if (this.timer != null) {
-			this.$.activityPopup.hidePopup();
-			window.clearInterval(this.timer);
+	// Popup menu handling
+	showActivityPopup: function(icon) {
+		// Create popup
+		this.$.activityPopup.setIcon(icon);
+		var title;
+		if (icon.activity.activityId != null && icon.activity.instances[0].metadata.title !== undefined) {
+			title = icon.activity.instances[0].metadata.title;			
+		} else {
+			title = icon.activity.name+" activity";
 		}
-		this.$.activityPopup.setIcon(icon);		
-		this.timer = window.setInterval(enyo.bind(this, "showPopup"), constant.timerPopupDuration);
-	},
-	
-	showPopup: function(icon, e) {
+		this.$.activityPopup.setHeader({
+			icon: icon,
+			colorized: icon.activity.activityId != null,
+			name: icon.activity.name,
+			title: title,
+			action: enyo.bind(this, "runActivity"),
+			data: [icon, null]
+		});
+		var items = [];
+		for(var i = 0 ; i < icon.activity.instances.length && i < constant.maxPopupHistory; i++) {
+			items.push({
+				icon: icon,
+				colorized: true,
+				name: icon.activity.instances[i].metadata.title,
+				action: enyo.bind(this, "runOldActivity"),
+				data: [icon, icon.activity.instances[i]]
+			});
+		}
+		this.$.activityPopup.setItems(items);
+		this.$.activityPopup.setFooter([{
+			icon: icon,
+			colorized: false,
+			name: "Start new",
+			action: enyo.bind(this, "runNewActivity"),	
+			data: [icon, null]
+		}]);
+		
+		// Show popup
 		this.$.activityPopup.showPopup();
-		window.clearInterval(this.timer);
-		this.timer = null;
 	},
-	
-	popupHideTimer: function(icon, e) {
-		if (this.timer != null) {
-			window.clearInterval(this.timer);
-		}
-		this.$.activityPopup.setIcon(icon);	
-		this.timer = window.setInterval(enyo.bind(this, "hidePopup"), constant.timerPopupDuration);
-	},
-
-	hidePopup: function() {
-		if (this.$.activityPopup.cursorIsInside(this.position))
-			return;
+	hideActivityPopup: function() {
+		// Hide popup
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
 		this.$.activityPopup.hidePopup();
-		window.clearInterval(this.timer);
-		this.timer = null;		
+		return true;
 	}
 });
 

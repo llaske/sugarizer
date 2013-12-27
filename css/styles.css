@@ -107,6 +107,7 @@ input {
 
 .home-activity-popup {
 	position: absolute;
+	z-index: 1;
 }
 
 .popup-title {
@@ -115,6 +116,7 @@ input {
 	border-color: #808080;
 	border-style: solid;
 	border-width: 2px;
+	z-index: 1;
 }
 
 .popup-name-text {
@@ -124,6 +126,10 @@ input {
 	font-weight: bold;
 }
 
+.popup-name-text-bottom {
+	padding-bottom: 10px;
+}
+
 .popup-title-text {
 	margin-left: 50px;
 	margin-top: 0px;
@@ -131,20 +137,13 @@ input {
 	padding-bottom: 10px;
 }
 
-.popup-history {
+.popup-items {
 	background-color: black;
 	color: white;
 	border-color: #808080;
 	border-style: none solid solid solid;
 	border-width: 2px;
-}
-
-.popup-footer {
-	background-color: black;
-	color: white;
-	border-color: #808080;
-	border-style: none solid solid solid;
-	border-width: 2px;
+	z-index: 1;
 }
 
 .popup-footer :hover{
@@ -158,19 +157,19 @@ input {
 	padding: 10px;
 }
 
-.history-listview {
+.popup-item-listview {
 	padding: 8px 0px 8px 0px;
 }
 
-.history-list-item {
+.item-list-item {
 	height: 35px;
 }
 
-.history-list-item :hover{
+.item-list-item :hover{
 	background-color: #808080;
 }
 
-.history-name {
+.item-name {
 	margin-left: 30px;
 	margin-top: 0px;
 	margin-right: 10px;
