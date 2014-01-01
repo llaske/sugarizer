@@ -5,6 +5,7 @@ var iconLib;
 var xoPalette;
 var radioButtonsGroup;
 var datastore;
+var l10n;
 var preferences;
 var util;
 
@@ -28,9 +29,10 @@ enyo.kind({
 		// Init screen
 		this.inherited(arguments);
 		this.timer = null;
-		var that = this;
+		this.localize();
 		
 		// Always save mouse position - need for popup menu
+		var that = this;		
 		document.onmousemove = function(e) {
 			that.position = {x: e.pageX, y: e.pageY};
 		}
@@ -47,6 +49,14 @@ enyo.kind({
 		} else {
 			this.init();
 		}
+	},
+	
+	// Localize toolbar
+	localize: function() {
+		document.getElementById("view-radial-button").title = l10n.get("FavoritesView");
+		document.getElementById("view-list-button").title = l10n.get("ListView");
+		document.getElementById("view-desktop-button").title = l10n.get("Home");
+		document.getElementById("favorite-button").title = l10n.get("FilterFavorites");
 	},
 	
 	// Init web service response, redraw screen
@@ -211,7 +221,7 @@ enyo.kind({
 		if (icon.activity.activityId != null && icon.activity.instances[0].metadata.title !== undefined) {
 			title = icon.activity.instances[0].metadata.title;			
 		} else {
-			title = icon.activity.name+" activity";
+			title = l10n.get('NameActivity', {name: icon.activity.name});
 		}
 		this.$.activityPopup.setHeader({
 			icon: icon,
@@ -235,7 +245,7 @@ enyo.kind({
 		this.$.activityPopup.setFooter([{
 			icon: icon,
 			colorized: false,
-			name: "Start new",
+			name: l10n.get("StartNew"),
 			action: enyo.bind(this, "runNewActivity"),	
 			data: [icon, null]
 		}]);

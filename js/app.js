@@ -6,8 +6,12 @@ define(function (require) {
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
+	l10n = require("webL10n");
 	preferences = require("settings");
 	util = require("util");
+	
+	// Default language
+	l10n.language.code = "en";
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

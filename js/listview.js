@@ -37,7 +37,7 @@ enyo.kind({
 		inEvent.item.$.favorite.setActivity({directory: "icons", icon: "emblem-favorite.svg"});		
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);		
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
-		inEvent.item.$.version.setContent("Version "+activitiesList[inEvent.index].version);
+		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
 	},
 	
 	// Switch favorite value for clicked line
@@ -78,14 +78,14 @@ enyo.kind({
 		items.push({
 			icon: icon.parent.container.$.favorite,
 			colorized: !icon.activity.favorite,
-			name: icon.activity.favorite ? "Remove favorite" : "Make favorite",
+			name: icon.activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
 			action: enyo.bind(this, "switchFavorite"),	
 			data: [icon.parent.container.$.favorite, icon.activity]
 		});
 		items.push({
 			icon: icon,
 			colorized: false,
-			name: "Start new",
+			name: l10n.get("StartNew"),
 			action: enyo.bind(this, "runNewActivity"),	
 			data: [icon.activity, null]
 		});
