@@ -50,6 +50,7 @@ enyo.kind({
 				this.$.name.removeClass("popup-name-text-bottom");
 				this.$.title.setContent(this.header.title);
 			} else {
+				this.$.title.setContent("");
 				this.$.name.addClass("popup-name-text-bottom");
 			}
 		}
@@ -163,6 +164,7 @@ enyo.kind({
 	// Run action on item
 	runItemAction: function(inSender, inEvent) {
 		var action = this.items[inEvent.index].action;
-		if (action != null) action(this.items[inEvent.index].data[0], this.items[inEvent.index].data[1]);
+		if (action != null) 
+			action.apply(this, this.items[inEvent.index].data);
 	}
 });

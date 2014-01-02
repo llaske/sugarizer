@@ -16,7 +16,7 @@ enyo.kind({
 	name: "Sugar.Desktop",
 	kind: enyo.Control,
 	components: [
-		{name: "owner", onclick: "changeColor", classes: "owner-icon", showing: true},
+		{name: "owner", kind: "Sugar.ActivityIcon", size: constant.sizeOwner, colorized: true, onclick: "changeColor", classes: "owner-icon", showing: true},
 		{name: "journal", onclick: "showJournal", classes: "journal-icon", showing: true},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
@@ -30,6 +30,9 @@ enyo.kind({
 		this.inherited(arguments);
 		this.timer = null;
 		this.localize();
+		this.$.owner.setActivity({directory: "icons", icon: "owner-icon.svg"});
+		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
+		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 		
 		// Always save mouse position - need for popup menu
 		var that = this;		
@@ -213,7 +216,7 @@ enyo.kind({
 		this.showView(constant.journalView);
 	},
 	
-	// Popup menu handling
+	// Popup menu for activities handling
 	showActivityPopup: function(icon) {
 		// Create popup
 		this.$.activityPopup.setIcon(icon);
@@ -259,6 +262,64 @@ enyo.kind({
 			return false;	
 		this.$.activityPopup.hidePopup();
 		return true;
+	},
+		
+	// Popup menu for buddy handling
+	showBuddyPopup: function(icon) {
+		// Create popup
+		this.$.activityPopup.setIcon(icon);
+				this.$.activityPopup.setHeader({
+			icon: icon,
+			colorized: true,
+			name: preferences.getName(),
+			title: null,
+			action: null
+		});
+		this.$.activityPopup.setItems(null);		
+		var items = [];
+		items.push({
+			icon: {activity: {directory: "icons", icon: "system-shutdown.svg"}},
+			colorized: false,
+			name: l10n.get("Shutdown"),
+			action: enyo.bind(this, "doShutdown"),	
+			data: null
+		});
+		items.push({
+			icon: {activity: {directory: "icons", icon: "system-restart.svg"}},
+			colorized: false,
+			name: l10n.get("Restart"),
+			action: enyo.bind(this, "doRestart"),	
+			data: null
+		});
+		items.push({
+			icon: {activity: {directory: "icons", icon: "preferences-system.svg"}},
+			colorized: false,
+			name: l10n.get("MySettings"),
+			action: enyo.bind(this, "doSettings"),	
+			data: null
+		});
+		this.$.activityPopup.setFooter(items);
+		
+		// Show popup
+		this.$.activityPopup.showPopup();		
+	},
+	hideBuddyPopup: function() {
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
+		this.$.activityPopup.hidePopup();
+		return true;	
+	},
+	doShutdown: function() {
+		this.$.activityPopup.hidePopup();
+		window.close(); 
+		window.open('', '_self', ''); // HACK: Not allowed on all browsers
+		window.close(); 
+	},
+	doRestart: function() {
+		location.reload();
+	},
+	doSettings: function() {
+		this.$.activityPopup.hidePopup();
 	}
 });
 
