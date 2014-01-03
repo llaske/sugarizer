@@ -2,11 +2,11 @@
 
 // Desktop handling
 define(function (require) {
+	l10n = require("webL10n");
 	iconLib = require("sugar-web/graphics/icon");
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
-	l10n = require("webL10n");
 	preferences = require("settings");
 	util = require("util");
 	

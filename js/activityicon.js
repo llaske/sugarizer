@@ -15,12 +15,15 @@ enyo.kind({
 		size: constant.iconSizeStandard,
 		x: -1, y: -1,
 		colorized: false,
+		disabled: false,
+		disabledBackground: 'white',
 		popupShow: null,
 		popupHide: null
 	},
 	classes: "web-activity",
 	components: [
-		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"}
+		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"},
+		{ name: "disable", classes: "web-activity-disable", showing: true}
 	],
 	
 	// Constructor
@@ -28,6 +31,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.iconChanged();
 		this.sizeChanged();
+		this.disabledBackgroundChanged();
+		this.disabledChanged();
 		this.xChanged();
 		this.yChanged();
 		this.timer = null;
@@ -92,7 +97,10 @@ enyo.kind({
 	},
 	
 	yChanged: function() {
-		if (this.y != -1) this.applyStyle("margin-top", this.y+"px");
+		if (this.y != -1) {
+			this.applyStyle("margin-top", this.y+"px");
+			this.$.disable.applyStyle("margin-top", (-this.size)+"px");
+		}
 	},
 	
 	iconChanged: function() {
@@ -104,9 +112,20 @@ enyo.kind({
 		this.$.icon.applyStyle("width", this.size+"px");
 		this.$.icon.applyStyle("height", this.size+"px");
 		this.$.icon.applyStyle("background-size", this.size+"px "+this.size+"px");
+		this.$.disable.applyStyle("width", this.size+"px");
+		this.$.disable.applyStyle("height", this.size+"px");
+		this.$.disable.applyStyle("background-size", this.size+"px "+this.size+"px");		
 	},
 	
 	activityChanged: function() {
 		this.iconChanged();
+	},
+	
+	disabledBackgroundChanged: function() {
+		this.$.disable.applyStyle("background-color", this.disabledBackground);
+	},
+	
+	disabledChanged: function() {
+		this.$.disable.setShowing(this.disabled);
 	}
 });

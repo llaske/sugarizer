@@ -33,6 +33,7 @@ enyo.kind({
 		this.$.owner.setActivity({directory: "icons", icon: "owner-icon.svg"});
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
+		util.manageSearchBox("homeSearch", enyo.bind(this, "filterActivities"));
 		
 		// Always save mouse position - need for popup menu
 		var that = this;		
@@ -60,6 +61,7 @@ enyo.kind({
 		document.getElementById("view-list-button").title = l10n.get("ListView");
 		document.getElementById("view-desktop-button").title = l10n.get("Home");
 		document.getElementById("favorite-button").title = l10n.get("FilterFavorites");
+		document.getElementById("homeSearch").placeholder = l10n.get("SearchHome");
 	},
 	
 	// Init web service response, redraw screen
@@ -107,7 +109,7 @@ enyo.kind({
 			var angle = base_angle*parseFloat(i);
 			this.$.desktop.createComponent({
 					kind: "Sugar.ActivityIcon", 
-					activity: activity, 
+					activity: activity,
 					x: canvas_center.x+Math.cos(angle)*radius, 
 					y: canvas_center.y+Math.sin(angle)*radius,
 					colorized: activity.activityId != null,
@@ -311,15 +313,21 @@ enyo.kind({
 	},
 	doShutdown: function() {
 		this.$.activityPopup.hidePopup();
-		window.close(); 
-		window.open('', '_self', ''); // HACK: Not allowed on all browsers
-		window.close(); 
+		util.quitApp();
 	},
 	doRestart: function() {
 		location.reload();
 	},
 	doSettings: function() {
 		this.$.activityPopup.hidePopup();
+	},
+	
+	// Filter activities handling
+	filterActivities: function(e) {
+		var text = document.getElementById("homeSearch").value.toLowerCase();
+		enyo.forEach(this.$.desktop.getControls(), function(item) {
+			item.setDisabled(item.activity.name.toLowerCase().indexOf(text) == -1 && text.length != 0);
+		});
 	}
 });
 
