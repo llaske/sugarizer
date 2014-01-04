@@ -32,7 +32,7 @@ enyo.kind({
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
-		this.$.message.setContent("Your journal is empty");
+		this.$.message.setContent(l10n.get("JournalEmpty"));
 	},
 	
 	// Property changed

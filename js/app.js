@@ -27,6 +27,7 @@ define(function (require) {
 		document.getElementById("view-radial-button").onclick = function() { app.showView(constant.radialView); };
 		document.getElementById("view-list-button").onclick = function() { app.showView(constant.listView); };
 		document.getElementById("view-desktop-button").onclick = function() { app.showView(constant.radialView); };
+		window.addEventListener("localized", enyo.bind(app, "localized"));
         app.renderInto(document.getElementById("canvas"));
     });
 

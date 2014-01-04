@@ -226,6 +226,30 @@ input {
 	padding: 5px;
 }
 
+.listview-nomatch {
+	background-image: url(../icons/entry-search.svg);
+	background-repeat: no-repeat;	
+	background-position: center;
+	background-size: 50px 50px;
+	width: 50px;
+	height: 50px;
+}
+
+.listview-message {
+	display: inline-row;
+	width: 200px;
+	height: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.listview-button {
+	width: 150px;
+	margin-left: auto;
+	margin-right: auto;	
+}
 
 .journal-list-item {
 	height: 60px;
@@ -264,9 +288,27 @@ input {
 .journal-message {
 	display: inline-row;
 	width: 200px;
-	height: 50px;
+	height: 40px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 30px;
 	text-align: center;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.icon-button-icon {
+}
+
+.icon-button-text {
+	margin-top: 7px;
+	margin-left: 38px;
+	color: white;
+	display: inline-block;
 }

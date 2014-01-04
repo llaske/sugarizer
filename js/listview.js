@@ -3,9 +3,12 @@
 enyo.kind({
 	name: "Sugar.Desktop.ListView",
 	kind: "Scroller",
-	published: { count: 0 },	
+	published: { activities: [] },	
 	components: [
-		{name: "activityPopup", kind: "Sugar.Desktop.ActivityPopup", showing: false},	
+		{name: "nomatch", classes: "listview-nomatch", showing: false},
+		{name: "message", content: "Hello", classes: "listview-message", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "entry-cancel-white.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
+		{name: "activityPopup", kind: "Sugar.Desktop.ActivityPopup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
 				{name: "favorite", kind: "Sugar.ActivityIcon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "doSwitchFavorite"},			
@@ -19,18 +22,39 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
-		this.countChanged();
+		this.activitiesChanged();
+		this.draw();
+	},
+		
+	// Draw screen
+	draw: function() {
+		// Set no matching activities
+		var canvas_center = util.getCanvasCenter();
+		this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
+		var margintop = (canvas_center.y-constant.sizeEmpty/4);
+		this.$.nomatch.applyStyle("margin-top", margintop+"px");
+		this.$.message.setContent(l10n.get("NoMatchingActivities"));
+		this.$.nofilter.setText(l10n.get("ClearSearch"));
 	},
 	
 	// Property changed
-	countChanged: function() {
-		this.$.activityList.setCount(this.count);
+	activitiesChanged: function() {
+		this.$.activityList.setCount(this.activities.length);
+		if (this.activities.length == 0) {
+			this.$.nomatch.show();
+			this.$.message.show();
+			this.$.nofilter.show();
+		} else {
+			this.$.nomatch.hide();
+			this.$.message.hide();
+			this.$.nofilter.hide();
+		}
 	},
 
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		var activitiesList = preferences.getActivities();
+		var activitiesList = this.activities;
 		inEvent.item.$.activity.setActivity(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
@@ -42,7 +66,7 @@ enyo.kind({
 	
 	// Switch favorite value for clicked line
 	doSwitchFavorite: function(inSender, inEvent) {
-		var activitiesList = preferences.getActivities();
+		var activitiesList = this.activities;
 		this.switchFavorite(inSender, activitiesList[inEvent.index]);		
 	},
 	switchFavorite: function(favorite, activity) {
@@ -55,7 +79,7 @@ enyo.kind({
 	
 	// Run new activity
 	doRunNewActivity: function(inSender, inEvent) {
-		var activitiesList = preferences.getActivities();
+		var activitiesList = this.activities;
 		this.runNewActivity(activitiesList[inEvent.index])
 	},
 	runNewActivity: function(activity) {
@@ -100,5 +124,11 @@ enyo.kind({
 			return false;	
 		this.$.activityPopup.hidePopup();
 		return true;
-	}	
+	},
+	
+	// Remove filter
+	nofilter: function() {
+		document.getElementById("homeSearch").value = "";
+		app.filterActivities();
+	}
 });

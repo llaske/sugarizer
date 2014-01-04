@@ -30,6 +30,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.timer = null;
 		this.localize();
+		this.otherview = null;
 		this.$.owner.setActivity({directory: "icons", icon: "owner-icon.svg"});
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
@@ -55,13 +56,17 @@ enyo.kind({
 		}
 	},
 	
-	// Localize toolbar
+	// Localization handling
 	localize: function() {
 		document.getElementById("view-radial-button").title = l10n.get("FavoritesView");
 		document.getElementById("view-list-button").title = l10n.get("ListView");
 		document.getElementById("view-desktop-button").title = l10n.get("Home");
 		document.getElementById("favorite-button").title = l10n.get("FilterFavorites");
 		document.getElementById("homeSearch").placeholder = l10n.get("SearchHome");
+	},
+	localized: function() {
+		this.localize();
+		this.redraw();
 	},
 	
 	// Init web service response, redraw screen
@@ -143,6 +148,7 @@ enyo.kind({
 			this.$.owner.show();
 			this.$.journal.show();
 			this.render();
+			this.otherview = null;
 			return;
 		}
 		
@@ -155,8 +161,9 @@ enyo.kind({
 		// Show list
 		if (newView == constant.listView) {
 			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});	
-			document.getElementById("view-list-button").classList.add('active');			
-			this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", count: preferences.getActivities().length});
+			document.getElementById("view-list-button").classList.add('active');	
+			var filter = document.getElementById("homeSearch").value.toLowerCase();			
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", activities: preferences.getActivitiesByName(filter)});
 		}
 		
 		// Show journal
@@ -166,7 +173,7 @@ enyo.kind({
 				window.clearInterval(this.timer);
 			}	
 			util.setToolbarVisibility({desktopToolbar: false, journalToolbar: true});
-			this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
 		}
 
 		this.$.otherview.show();
@@ -323,11 +330,18 @@ enyo.kind({
 	},
 	
 	// Filter activities handling
-	filterActivities: function(e) {
-		var text = document.getElementById("homeSearch").value.toLowerCase();
+	filterActivities: function() {
+		var filter = document.getElementById("homeSearch").value.toLowerCase();
+		
+		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
-			item.setDisabled(item.activity.name.toLowerCase().indexOf(text) == -1 && text.length != 0);
+			item.setDisabled(item.activity.name.toLowerCase().indexOf(filter) == -1 && filter.length != 0);
 		});
+		
+		// In list view display only matching activities
+		if (this.currentView == constant.listView) {
+			this.otherview.setActivities(preferences.getActivitiesByName(filter));
+		}
 	}
 });
 
