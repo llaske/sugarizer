@@ -9,11 +9,11 @@ enyo.kind({
 		{name: "message", classes: "journal-message", showing: true},
 		{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "journal-list-item", components: [
-				{name: "favorite", kind: "Sugar.ActivityIcon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
-				{name: "activity", kind: "Sugar.ActivityIcon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, onclick: "runActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, onclick: "runActivity"},
 				{name: "title", classes: "journal-title"},
 				{name: "time", classes: "journal-time"},
-				{name: "goright", kind: "Sugar.ActivityIcon", classes: "journal-goright", size: constant.iconSizeFavorite, onclick: "runActivity"}
+				{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, onclick: "runActivity"}
 			]}
 		]}
 	],
@@ -21,10 +21,18 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
+		this.toolbar = null;
 		this.journalChanged();
 		this.draw();
 	},
-		
+			
+	// Get linked toolbar
+	getToolbar: function() {
+		if (this.toolbar == null)
+			this.toolbar = new Sugar.Journal.Toolbar();
+		return this.toolbar;
+	},
+	
 	// Draw screen
 	draw: function() {
 		// Set Journal empty
@@ -51,13 +59,13 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		inEvent.item.$.activity.setActivity(preferences.getActivity(this.journal[inEvent.index].metadata.activity_id));
-		inEvent.item.$.favorite.setActivity({directory: "icons", icon: "emblem-favorite.svg"});
+		inEvent.item.$.activity.setIcon(preferences.getActivity(this.journal[inEvent.index].metadata.activity_id));
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
 		var keep = this.journal[inEvent.index].metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);		
 		inEvent.item.$.title.setContent(this.journal[inEvent.index].metadata.title);	
 		inEvent.item.$.time.setContent(util.timestampToElapsedString(this.journal[inEvent.index].metadata.timestamp, 2));
-		inEvent.item.$.goright.setActivity({directory: "icons", icon: "go-right.svg"});
+		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 	},
 	
 	// Switch favorite value for clicked line
@@ -82,5 +90,36 @@ enyo.kind({
 			preferences.getActivity(this.journal[inEvent.index].metadata.activity_id),
 			this.journal[inEvent.index].objectId,
 			this.journal[inEvent.index].metadata.title)	
+	}
+});
+
+
+
+
+
+// Class for journal toolbar
+enyo.kind({
+	name: "Sugar.Journal.Toolbar",
+	kind: enyo.Control,
+	components: [
+		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList},
+		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterActivities", classes: "journal-filter-text"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", onclick: "gotoDesktop"},
+		{kind: "Sugar.SelectBox", classes: "journal-filter-type"},
+		{kind: "Sugar.SelectBox", classes: "journal-filter-time"}	
+	],
+	
+	// Constructor
+	create: function() {
+		// Localize items
+		this.inherited(arguments);		
+		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
+		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
+	},
+	
+	// Event handling
+	gotoDesktop: function() {
+		app.showView(constant.radialView);
 	}
 });

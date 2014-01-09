@@ -17,17 +17,10 @@ define(function (require) {
     require(['domReady!'], function (doc) {
 		// Load settings
 		preferences.load();
-		
+
 	    // Initialize the desktop
 		app = new Sugar.Desktop();
-		var viewRadio = new radioButtonsGroup.RadioButtonsGroup([
-			document.getElementById("view-radial-button"),
-			document.getElementById("view-list-button")]
-		);
-		document.getElementById("view-radial-button").onclick = function() { app.showView(constant.radialView); };
-		document.getElementById("view-list-button").onclick = function() { app.showView(constant.listView); };
-		document.getElementById("view-desktop-button").onclick = function() { app.showView(constant.radialView); };
-		window.addEventListener("localized", enyo.bind(app, "localized"));
+		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
         app.renderInto(document.getElementById("canvas"));
     });
 

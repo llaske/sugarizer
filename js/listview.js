@@ -6,13 +6,13 @@ enyo.kind({
 	published: { activities: [] },	
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
-		{name: "message", content: "Hello", classes: "listview-message", showing: false},
+		{name: "message", classes: "listview-message", showing: false},
 		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "entry-cancel-white.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
-		{name: "activityPopup", kind: "Sugar.Desktop.ActivityPopup", showing: false},
+		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.ActivityIcon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "doSwitchFavorite"},			
-				{name: "activity", kind: "Sugar.ActivityIcon", x: 60, y: 5, size: constant.iconSizeList, onclick:"doRunNewActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "doSwitchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, onclick:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -25,7 +25,12 @@ enyo.kind({
 		this.activitiesChanged();
 		this.draw();
 	},
-		
+	
+	// Get linked toolbar, same than the desktop view
+	getToolbar: function() {
+		return app.getToolbar();
+	},
+	
 	// Draw screen
 	draw: function() {
 		// Set no matching activities
@@ -55,10 +60,10 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
 		var activitiesList = this.activities;
-		inEvent.item.$.activity.setActivity(activitiesList[inEvent.index]);
+		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
-		inEvent.item.$.favorite.setActivity({directory: "icons", icon: "emblem-favorite.svg"});		
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});		
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);		
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
@@ -90,28 +95,28 @@ enyo.kind({
 	// Popup menu handling
 	showActivityPopup: function(icon) {
 		// Create popup
-		this.$.activityPopup.setIcon(icon);
+		var activity = icon.icon;
 		this.$.activityPopup.setHeader({
-			icon: icon,
+			icon: activity,
 			colorized: true,
-			name: icon.activity.name,
+			name: activity.name,
 			title: null,
 			action: null
 		});
 		var items = [];
 		items.push({
-			icon: icon.parent.container.$.favorite,
-			colorized: !icon.activity.favorite,
-			name: icon.activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
+			icon: icon.parent.container.$.favorite.icon,
+			colorized: !activity.favorite,
+			name: activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
 			action: enyo.bind(this, "switchFavorite"),	
-			data: [icon.parent.container.$.favorite, icon.activity]
+			data: [icon.parent.container.$.favorite, icon.icon]
 		});
 		items.push({
-			icon: icon,
+			icon: activity,
 			colorized: false,
 			name: l10n.get("StartNew"),
 			action: enyo.bind(this, "runNewActivity"),	
-			data: [icon.activity, null]
+			data: [activity, null]
 		});
 		this.$.activityPopup.setFooter(items);
 		

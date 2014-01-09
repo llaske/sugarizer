@@ -11,55 +11,44 @@ input {
 	background-color: white;
 }
 
-#main-toolbar #view-radial-button {
+.sugarizer-canvas {
+}
+
+.view-radial-button {
 	background-image: url(../icons/view-radial.svg);
-	position: absolute;
+	position: absolute !important;
 	top: 0px;
 	right: 90px;
 }
 
-#main-toolbar #view-list-button {
+.view-list-button {
 	background-image: url(../icons/view-list.svg);
-	position: absolute;
+	position: absolute !important;
 	top: 0px;
 	right: 30px;
 }
 
-#main-toolbar #favorite-button {
+.favorite-button {
 	background-image: url(../icons/emblem-favorite.svg);
 	position: absolute;
 	top: 0px;
 	left: 530px;
 }
 
-#main-toolbar #view-desktop-button {
+.view-desktop-button {
 	background-image: url(../icons/view-radial.svg);
-	position: absolute;
+	position: absolute !important;
 	top: 0px;
 	right: 30px;
 }
 
-#homeSearch {
+.homeSearch {
 	width: 260px;
-}
-
-#journalSearch {
-	width: 450px;
-}
-
-#journalType {
-	margin-left: 70px;
-	width: 170px;
-}
-
-#journalTime {
-	margin-left: 10px;
-	width: 130px;
 }
 
 .search-field-border {
 	border-radius: 22px;
-	margin-top: 5px;
+	top: 5px;
 	width: 350px;
 	height: 35px;
 	display: inline-block;
@@ -76,12 +65,13 @@ input {
 }
 
 .search-field-iconsearch {
+	position: absolute;
 	background-image: url(../icons/entry-search.svg);
 	background-repeat: no-repeat;	
 	background-position: center;
 	background-size: 20px 20px;
-	margin-top: 5px;
-	margin-left: 10px;
+	top: 5px;
+	left: 2px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
@@ -92,20 +82,32 @@ input {
 	background-image: url(../icons/entry-cancel.svg);
 	background-repeat: no-repeat;	
 	background-position: center;
-	margin-top: 8px;
-	margin-left: 10px;
+	top: 5px;
+	right: 10px;
 	background-size: 20px 20px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
-	visibility: hidden;
 }
 
 .search-field-input {
 	opacity: 1;
-	margin-top: 0px !important;
-	border: 0px !important;	
+	margin-left: 30px;
+	border: 0px;	
 	display: inline-block;
+	background-color: #e5e5e5;
+	width: 270px;
+	line-height: 22px;
+	outline: 0;
+}
+
+.search-field-input:focus {
+	background-color: white;
+}
+
+.search-field-input:disabled {
+	border-color: #808080;
+	background-color: #808080;
 }
 
 .web-activity {
@@ -128,12 +130,6 @@ input {
 
 .journal-icon {
 	position: absolute;
-	background-image: url(../icons/activity-journal.svg);
-	background-repeat: no-repeat;	
-	background-position: center;
-	background-size: 35px 35px;
-	width: 35px;
-	height: 35px;
 }
 
 .activity-list-item {
@@ -158,6 +154,11 @@ input {
 .home-activity-popup {
 	position: absolute;
 	z-index: 1;
+}
+
+.homeview-filter-text {
+	position: relative;
+	width: 350px;
 }
 
 .popup-title {
@@ -263,6 +264,22 @@ input {
 	font-size: 14px;
 }
 
+.journal-filter-text {
+	position: relative;
+	width: 360px;
+}
+
+.journal-filter-type {
+	margin-left: 60px;
+	margin-top: 0px;
+	width: 250px;
+}
+
+.journal-filter-time {
+	margin-left: 30px;
+	width: 200px;
+}
+
 .journal-time {
 	position: absolute;
 	right: 40px;
@@ -311,4 +328,32 @@ input {
 	margin-left: 38px;
 	color: white;
 	display: inline-block;
+}
+
+.selectbox-border {
+	border-radius: 22px;
+	height: 35px;
+	display: inline-block;
+	background-color: #808080;
+	border: 2px solid #808080;	
+}
+
+.selectbox-icon {
+}
+
+.selectbox-double {
+
+}
+.selectbox-text {
+	position: relative;
+	top: 8px;
+	margin-left: 36px;
+	margin-right: 8px;
+	height: 50px;
+	background-image: url(../icons/control-popup-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: 95% 15%;
+}
+
+.selectbox-popup {
 }

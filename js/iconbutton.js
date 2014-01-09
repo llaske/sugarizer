@@ -8,7 +8,7 @@ enyo.kind({
 	},
 	classes: "icon-button",
 	components: [
-		{ name: "icon", kind: "Sugar.ActivityIcon", size: 20, x: 6, y: 6},
+		{ name: "icon", kind: "Sugar.Icon", size: 20, x: 6, y: 6},
 		{ name: "text", classes: "icon-button-text" }
 	],
 	
@@ -21,7 +21,7 @@ enyo.kind({
 	
 	// Property changed
 	iconChanged: function() {
-		this.$.icon.setActivity(this.icon);
+		this.$.icon.setIcon(this.icon);
 	},
 	
 	textChanged: function() {

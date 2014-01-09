@@ -6,12 +6,12 @@ var iconColorCache = {
 };
 
 
-// Class for a Sugar Web activity icon
+// Class for a Sugar icon
 enyo.kind({
-	name: "Sugar.ActivityIcon",
+	name: "Sugar.Icon",
 	kind: enyo.Control,
 	published: {
-		activity: null,
+		icon: null,
 		size: constant.iconSizeStandard,
 		x: -1, y: -1,
 		colorized: false,
@@ -72,10 +72,10 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		// If colorized		
-		if (this.colorized) {
+		if (this.colorized) {	
 			// Try to find colorized version in cache
 			var node = this.$.icon.hasNode();
-			var name = this.activity.directory+"/"+this.activity.icon;
+			var name = this.icon.directory+"/"+this.icon.icon;
 			for (var i = 0 ; i < iconColorCache.names.length ; i++)
 				if (iconColorCache.names[i] == name) {
 					node.style.backgroundImage = iconColorCache.values[i];
@@ -103,11 +103,6 @@ enyo.kind({
 		}
 	},
 	
-	iconChanged: function() {
-		if (this.activity != null)
-			this.$.icon.applyStyle("background-image", "url(" + this.activity.directory+"/"+this.activity.icon + ")");
-	},
-	
 	sizeChanged: function() {
 		this.$.icon.applyStyle("width", this.size+"px");
 		this.$.icon.applyStyle("height", this.size+"px");
@@ -117,8 +112,9 @@ enyo.kind({
 		this.$.disable.applyStyle("background-size", this.size+"px "+this.size+"px");		
 	},
 	
-	activityChanged: function() {
-		this.iconChanged();
+	iconChanged: function() {
+		if (this.icon != null)
+			this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
 	},
 	
 	disabledBackgroundChanged: function() {
