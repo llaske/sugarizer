@@ -7,7 +7,7 @@ enyo.kind({
 	classes: "home-activity-popup",
 	published: { margin: null, header: null, items: null, footer: null },
 	components: [
-		{classes: "popup-title", onclick: "runHeaderAction", components: [
+		{classes: "popup-title", ontap: "runHeaderAction", components: [
 			{name: "icon", showing: false, kind: "Sugar.Icon", x: 5, y: 5, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
@@ -93,13 +93,17 @@ enyo.kind({
 	},
 	
 	// Click on the header icon, launch action
-	runHeaderAction: function() {
-		if (this.header.action != null) this.header.action(this.header.data[0], this.header.data[1]);
+	runHeaderAction: function(s, e) {
+		if (this.header.action != null) {
+			this.header.action.apply(this, this.header.data);
+			return true;
+		}
 	},
 	
 	// Test is cursor is inside the popup
 	cursorIsInside: function() {
 		var obj = document.getElementById(this.getAttribute("id"));
+		if (obj == null) return false;
 		var p = {};
 		p.x = obj.offsetLeft;
 		p.y = obj.offsetTop;
@@ -133,7 +137,7 @@ enyo.kind({
 	classes: "popup-item-listview",
 	components: [
 		{name: "itemList", classes: "item-list", kind: "Repeater", onSetupItem: "setupItem", components: [
-			{name: "item", classes: "item-list-item", onclick: "runItemAction", components: [
+			{name: "item", classes: "item-list-item", ontap: "runItemAction", components: [
 				{name: "icon", kind: "Sugar.Icon", x: 5, y: 4, size: constant.iconSizeFavorite},	
 				{name: "name", classes: "item-name"}
 			]}
@@ -165,7 +169,7 @@ enyo.kind({
 	// Run action on item
 	runItemAction: function(inSender, inEvent) {
 		var action = this.items[inEvent.index].action;
-		if (action != null) 
+		if (action != null)
 			action.apply(this, this.items[inEvent.index].data);
 	}
 });

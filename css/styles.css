@@ -175,6 +175,7 @@ input {
 	padding-top: 10px;
 	margin-right: 10px;
 	font-weight: bold;
+	z-index: 1;	
 }
 
 .popup-name-text-bottom {
@@ -214,6 +215,7 @@ input {
 
 .item-list-item {
 	height: 35px;
+	z-index: 1;
 }
 
 .item-list-item :hover{
@@ -225,6 +227,7 @@ input {
 	margin-top: 0px;
 	margin-right: 10px;
 	padding: 5px;
+	z-index: 1;
 }
 
 .listview-nomatch {

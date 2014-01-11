@@ -3,47 +3,81 @@ enyo.kind({
 	name: "Sugar.SelectBox",
 	kind: enyo.Control,
 	classes: "selectbox-border",
+	published: { selected: -1, items: [] },
+	events: { onIndexChanged: "" },	
 	components: [
 		{components: [
 			{name: "icon", kind: "Sugar.Icon", size: 20, x: 6, y: 6, classes: "selectbox-icon"},	
-			{name: "text", content:"Click here", classes: "selectbox-text"},
+			{name: "text", content: "xxx", classes: "selectbox-text"},
 			{name: "selectpopup", kind: "Sugar.Popup", classes: "selectbox-popup", showing: false}
 		], ontap:"showPopup"}
 	],
 	
 	// Constructor
 	create: function() {
-		this.inherited(arguments);		
+		this.inherited(arguments);
+		this.timer = null;
+		this.itemsChanged();
+		this.selectedChanged();
+	},
+	
+	// Property changed
+	itemsChanged: function() {
+		if (this.items.length == 0)
+			return;
+		this.selected = 0;
+		this.selectedChanged();
+	},
+	selectedChanged: function() {
+		if (this.selected > this.items.length || this.selected < 0)
+			return;
+		this.$.icon.setIcon(this.items[this.selected].icon);
+		this.$.text.setContent(this.items[this.selected].name);		
 	},
 	
 	// Popup menu for item selection
 	showPopup: function() {
-		return;
 		// Create popup
-		this.$.selectpopup.setMargin({top: 0, left: 0});
+		if (this.items.length == 0)
+			return;
+		var ctrlpos = this.hasNode().getBoundingClientRect();
+		this.$.selectpopup.setMargin({left: ctrlpos.left-mouse.position.x+5, top: ctrlpos.top-mouse.position.y-3});
 		this.$.selectpopup.setHeader({
-			icon: this.$.favoritebutton,
-			colorized: true,
-			name: "Hello",
-			title: null,
-			action: null
+			icon: this.items[0].icon,
+			name: this.items[0].name,
+			action: enyo.bind(this, "setSelection"),	
+			data: [0]
 		});		
 		var items = [];
-		items.push({
-			icon: {directory: "icons", icon: "preferences-system.svg"},
-			colorized: false,
-			name: l10n.get("MySettings"),
-			action: null,	
-			data: null
-		});
-		this.$.selectpopup.setFooter(items);		
+		for (var i = 1 ; i < this.items.length ; i++)
+			items.push({
+				icon: this.items[i].icon,
+				name: this.items[i].name,
+				action: enyo.bind(this, "setSelection"),
+				data: [i]
+			});
+		this.$.selectpopup.setItems(items);		
 		this.$.selectpopup.showPopup();
+		this.$.selectpopup.showContent();
+		this.timer = window.setInterval(enyo.bind(this, "hidePopup"), constant.timerPopupDuration);
 	},
-	hidePopup: function() {
+	hidePopup: function() {	
 		// Hide popup
 		if (this.$.selectpopup.cursorIsInside())
-			return false;	
+			return false;
+		window.clearInterval(this.timer);
+		this.timer = null;			
 		this.$.selectpopup.hidePopup();
 		return true;
+	},
+	
+	// Set selection
+	setSelection: function(index) {
+		this.selected = index;
+		this.selectedChanged();
+		window.clearInterval(this.timer);
+		this.timer = null;
+		this.$.selectpopup.hidePopup();
+		this.doIndexChanged();
 	}
 });
