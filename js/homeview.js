@@ -316,10 +316,12 @@ enyo.kind({
 		util.quitApp();
 	},
 	doRestart: function() {
-		location.reload();
+		util.restartApp();
 	},
 	doSettings: function() {
 		this.$.activityPopup.hidePopup();
+		this.otherview = this.$.otherview.createComponent({kind: "Sugar.Dialog.Settings"}, {owner:this});
+		this.otherview.show();
 	},
 	
 	// Filter activities handling

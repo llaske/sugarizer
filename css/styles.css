@@ -360,3 +360,51 @@ input {
 
 .selectbox-popup {
 }
+
+.settings-dialog {
+	width: 800px;
+	height: 500px;
+	background-color: #000000;
+	border: 2px solid #808080;	
+}
+
+.settings-filter-text {
+	position: relative;
+	margin-left: 10px;
+	width: 350px;
+}
+
+.settings-close-button {
+	background-image: url(../icons/entry-cancel-white.svg);
+	position: absolute !important;
+	top: 5px;
+	right: 30px;
+	width: 35px !important;
+	height: 35px !important;
+}
+
+.settings-item {
+	padding: 25px;
+	display: inline-block;
+}
+
+.settings-item-icon {
+	position: relative;
+	left: 65px;
+}
+
+.settings-item-text {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 210px;
+	text-align: center;
+}
+
+.settings-item-text-enable {
+	color: white;
+}
+
+.settings-item-text-disable {
+	color: #808080;
+}

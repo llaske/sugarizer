@@ -58,9 +58,10 @@ enyo.kind({
 			this.$.nofilter.hide();
 		} else {
 			this.$.journalList.setCount(0);
-			if (this.empty)
+			if (this.empty) {
 				this.$.message.setContent(l10n.get("JournalEmpty"));
-			else
+				this.$.nofilter.hide();
+			} else
 				this.$.message.setContent(l10n.get("NoMatchingEntries"));
 		}
 	},

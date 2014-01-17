@@ -31,6 +31,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.iconChanged();
 		this.sizeChanged();
+		this.colorizedChanged();
 		this.disabledBackgroundChanged();
 		this.disabledChanged();
 		this.xChanged();
@@ -70,9 +71,9 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		// If colorized		
-		if (this.colorized) {	
+		if (this.colorized) {
 			// Try to find colorized version in cache
 			var node = this.$.icon.hasNode();
 			var name = this.icon.directory+"/"+this.icon.icon;
@@ -117,7 +118,10 @@ enyo.kind({
 			this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
 		else
 			this.$.icon.applyStyle("background-image", null);
-
+	},
+	
+	colorizedChanged: function() {
+		this.render();
 	},
 	
 	disabledBackgroundChanged: function() {
