@@ -357,10 +357,13 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Localize items
-		this.inherited(arguments);		
-		this.$.searchtext.setNodeProperty("title", l10n.get("FavoritesView"));
-		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
+		this.inherited(arguments);
 		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));	
+	},
+	
+	rendered: function() {
+		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
+		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));	
 	},
 	
 	// Get search text content

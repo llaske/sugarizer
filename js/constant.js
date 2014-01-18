@@ -8,6 +8,7 @@ constant.sizeJournal = 40;
 constant.sizeRadius = 180.0;
 constant.sizeEmpty = 50;
 constant.sizeSettings = 70;
+constant.sizeToolbar = 40;
 
 constant.radialView = 0;
 constant.listView = 1;

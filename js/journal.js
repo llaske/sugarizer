@@ -7,7 +7,7 @@ enyo.kind({
 	components: [
 		{name: "empty", classes: "journal-empty", showing: true},
 		{name: "message", classes: "journal-message", showing: true},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "entry-cancel-white.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},		
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
 		{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "journal-list-item", components: [
 				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
@@ -141,8 +141,6 @@ enyo.kind({
 		// Localize items
 		this.inherited(arguments);		
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
-		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
-		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		
 		// Set time selectbox content
 		this.$.timeselect.setItems([
@@ -161,6 +159,11 @@ enyo.kind({
 		for(var i = 0 ; i < activities.length ; i++)
 			items.push({icon: activities[i], name: activities[i].name});
 		this.$.typeselect.setItems(items);
+	},
+	
+	rendered: function() {
+		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));	
 	},
 
 	// Event handling

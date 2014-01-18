@@ -7,7 +7,7 @@ enyo.kind({
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
 		{name: "message", classes: "listview-message", showing: false},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "entry-cancel-white.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [

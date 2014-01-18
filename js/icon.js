@@ -15,6 +15,7 @@ enyo.kind({
 		size: constant.iconSizeStandard,
 		x: -1, y: -1,
 		colorized: false,
+		colorizedColor: null,
 		disabled: false,
 		disabledBackground: 'white',
 		popupShow: null,
@@ -31,6 +32,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.iconChanged();
 		this.sizeChanged();
+		this.colorizedColorChanged();
 		this.colorizedChanged();
 		this.disabledBackgroundChanged();
 		this.disabledChanged();
@@ -74,17 +76,22 @@ enyo.kind({
 
 		// If colorized		
 		if (this.colorized) {
-			// Try to find colorized version in cache
+			// Get colorized color
+			var colorToUse = this.colorizedColor;
 			var node = this.$.icon.hasNode();
-			var name = this.icon.directory+"/"+this.icon.icon;
-			for (var i = 0 ; i < iconColorCache.names.length ; i++)
-				if (iconColorCache.names[i] == name) {
-					node.style.backgroundImage = iconColorCache.values[i];
-					return;
-				}
+			var name = this.icon.directory+"/"+this.icon.icon;			
+			if (colorToUse == null) {
+				// Try to find colorized version in cache
+				colorToUse = preferences.getColor();
+				for (var i = 0 ; i < iconColorCache.names.length ; i++)
+					if (iconColorCache.names[i] == name) {
+						node.style.backgroundImage = iconColorCache.values[i];
+						return;
+					}
+			}
 			
 			// Build it
-			iconLib.colorize(node, preferences.getColor(), function() {
+			iconLib.colorize(node, colorToUse, function() {
 				// Cache it			
 				iconColorCache.names.push(name);
 				iconColorCache.values.push(node.style.backgroundImage);
@@ -118,6 +125,10 @@ enyo.kind({
 			this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
 		else
 			this.$.icon.applyStyle("background-image", null);
+	},
+	
+	colorizedColorChanged: function() {
+		this.render();
 	},
 	
 	colorizedChanged: function() {
