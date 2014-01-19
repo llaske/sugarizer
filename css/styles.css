@@ -409,26 +409,26 @@ input {
 	color: #808080;
 }
 
-.aboutme-dialog {
+.module-dialog {
 	width: 800px;
 	height: 500px;
 	background-color: #ffffff;
 	border: 2px solid #808080;	
 }
 
-.aboutme-icon {
+.module-icon {
 	position: absolute;
 	left: 10px;
 }
 
-.aboutme-text {
+.module-text {
 	position: absolute;
 	left: 80px;
 	top: 20px;
 	color: white;
 }
 
-.aboutme-cancel-button {
+.module-cancel-button {
 	background-image: url(../icons/dialog-cancel.svg);
 	position: absolute !important;
 	top: 5px;
@@ -437,7 +437,7 @@ input {
 	height: 35px !important;
 }
 
-.aboutme-ok-button {
+.module-ok-button {
 	background-image: url(../icons/dialog-ok.svg);
 	position: absolute !important;
 	top: 5px;
@@ -559,4 +559,33 @@ input {
 	position: absolute;
 	right: 10px;
 	width: 190px;
+}
+
+.language-message {
+	position: absolute;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.language-restart {
+	position: relative;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;	
+	background-position: left;
+	background-size: 15px 15px;	
+	left: 20px;
+	top: 260px;
+	width: 200px;
+	padding-left: 20px;
+}
+
+.language-select {
+	margin-left: 30px;
+	margin-top: 50px;
+	left: 30px;
+	top: 50px;
+	color: white;
+	width: 200px;
 }

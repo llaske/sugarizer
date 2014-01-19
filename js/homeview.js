@@ -18,7 +18,7 @@ enyo.kind({
 	name: "Sugar.Desktop",
 	kind: enyo.Control,
 	components: [
-		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, onclick: "changeColor", classes: "owner-icon", showing: true},
+		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: true},
 		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, onclick: "showJournal", classes: "journal-icon", showing: true},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
@@ -186,15 +186,6 @@ enyo.kind({
 		iconLib.colorize(this.$.owner.hasNode(), preferences.getColor());
 		if (this.journal.length > 0)
 			iconLib.colorize(this.$.journal.hasNode(), preferences.getColor());
-	},
-	
-	// Change color
-	changeColor: function() {
-		preferences.nextColor();
-		preferences.save();
-		iconColorCache = {names: [], values: []}; // Delete icon cache
-		this.draw();
-		this.render();
 	},
 	
 	// Run activity

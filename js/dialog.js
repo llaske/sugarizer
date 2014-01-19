@@ -61,14 +61,204 @@ enyo.kind({
 	},
 	
 	languageClicked: function() {
-		if (!this.$.language.getDisabled())
+		if (!this.$.language.getDisabled()) {
 			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.Dialog.Language"}, {owner:this});
+			this.subdialog.show();
+		}
 	}
 });	
 
 
 
-// Class for a Sugar select box
+// About me dialog
+enyo.kind({
+	name: "Sugar.Dialog.Aboutme",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: true,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", title:"List", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", title:"List", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [
+			{name: "message", content: "xxx", classes: "aboutme-message"},
+			{name: "psicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
+			{name: "nsicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
+			{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
+			{name: "pficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
+			{name: "nficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
+			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false},
+			{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
+		]}
+	],
+	
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("AboutMe"));
+		this.$.message.setContent(l10n.get("ClickToChangeColor"));
+		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));		
+		this.initcolor = this.currentcolor = preferences.getColor();
+		this.initname = this.currentname = preferences.getName();
+		this.$.name.setValue(this.initname);
+	},
+	
+	rendered: function() {
+		this.$.icon.render();
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.pficon.setColorizedColor(util.getPreviousFillColor(this.currentcolor));
+		this.$.pficon.setColorized(true);
+		this.$.psicon.setColorizedColor(util.getPreviousStrokeColor(this.currentcolor));
+		this.$.psicon.setColorized(true);
+		this.$.cicon.setColorizedColor(this.currentcolor);
+		this.$.cicon.setColorized(true);
+		this.$.nficon.setColorizedColor(util.getNextFillColor(this.currentcolor));
+		this.$.nficon.setColorized(true);
+		this.$.nsicon.setColorizedColor(util.getNextStrokeColor(this.currentcolor));
+		this.$.nsicon.setColorized(true);
+		this.$.name.setValue(this.currentname);
+	},
+	
+	// Event handling
+	cancel: function() {
+		this.hide();
+		this.owner.show();
+	},
+	
+	ok: function() {
+		if (this.currentcolor == this.initcolor && this.currentname == this.name) {
+			this.hide();
+			this.owner.show();
+			return;
+		}
+		this.$.warningbox.setShowing(true);
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+		this.$.name.addRemoveClass('aboutme-name-validate', true);
+	},
+	
+	setcolor: function(icon) {
+		var newcolor = icon.getColorizedColor();
+		if (newcolor == this.currentcolor)
+			return;
+		this.currentcolor = newcolor;
+		this.render();
+		this.$.restartmessage.setShowing(true);
+	},
+	
+	namechanged: function() {
+		this.$.restartmessage.setShowing(true);
+		this.currentname = this.$.name.getValue();
+	},
+	
+	restart: function() {
+		preferences.setName(this.currentname);
+		preferences.setColor(util.getColorIndex(this.currentcolor));
+		preferences.save();
+		util.restartApp();
+	}
+});
+
+
+
+// Language dialog
+enyo.kind({
+	name: "Sugar.Dialog.Language",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: true,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-language.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", title:"List", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", title:"List", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [
+			{name: "message", content: "xxx", classes: "language-message"},
+			{name: "languageselect", kind: "Sugar.SelectBox", classes: "language-select", onIndexChanged: "languageChanged"},			
+			{name: "restartmessage", content: "xxx", classes: "language-restart", showing: false}
+		]}
+	],
+	
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("Language"));
+		this.$.message.setContent(l10n.get("ChooseLanguage"));
+		this.initlanguage = this.currentlanguage = preferences.getLanguage();
+		this.languageset = [
+			{code: "en", icon: null, name: l10n.get("English")},
+			//{code: "es", icon: null, name: l10n.get("Spanish")}, // RESERVED FOR FUTURE USE
+			{code: "fr", icon: null, name: l10n.get("French")}
+		];
+		this.$.languageselect.setItems(this.languageset);		
+		for (var i = 0 ; i < this.languageset.length ; i++) {
+			if (this.languageset[i].code == this.initlanguage) {
+				this.$.languageselect.setSelected(i);
+				break;
+			}
+		}
+		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));		
+	},
+	
+	rendered: function() {
+		this.$.icon.render();
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.languageselect.setParentMargin(this);
+//console.log(enyo.dom.calcNodePosition(this.$.languageselect.hasNode(), document.getElementById('body')));
+		//console.log(this.container.hasNode().getBoundingClientRect());
+		//console.log(util.getScreenPosition(this.container.hasNode()));
+	},
+	
+	// Event handling
+	cancel: function() {
+		this.hide();
+		this.owner.show();
+	},
+	
+	ok: function() {
+		if (this.currentlanguage == this.initlanguage) {
+			this.hide();
+			this.owner.show();
+			return;
+		}
+		this.$.warningbox.setShowing(true);
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+	
+	languageChanged: function() {
+		this.$.restartmessage.setShowing(true);
+		this.currentlanguage = this.languageset[this.$.languageselect.getSelected()].code;
+	},
+	
+	restart: function() {
+		preferences.setLanguage(this.currentlanguage);
+		preferences.save();	
+		util.restartApp();
+	}	
+});
+
+
+
+//-------------------------- Settings utility classes
+
+// Class for an item in the settings dialog
 enyo.kind({
 	name: "Sugar.Dialog.Settings.Item",
 	kind: enyo.Control,
@@ -117,107 +307,34 @@ enyo.kind({
 
 
 
-// About me dialog
+// Class for a Warning box in settings
 enyo.kind({
-	name: "Sugar.Dialog.Aboutme",
-	kind: "enyo.Popup",
-	classes: "aboutme-dialog",
-	centered: true,
-	modal: true,
-	floating: true,
-	autoDismiss: false,
+	name: "Sugar.Dialog.Settings.WarningBox",
+	kind: enyo.Control,
+	classes: "settings-warningbox",
+	events: { onRestart: "", onCancel: "" },
 	components: [
-		{name: "toolbar", classes: "toolbar", components: [
-			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
-			{name: "text", content: "xxx", classes: "aboutme-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton aboutme-cancel-button", title:"List", ontap: "cancel"},		
-			{name: "okbutton", kind: "Button", classes: "toolbutton aboutme-ok-button", title:"List", ontap: "ok"}
-		]},
-		{name: "warningbox", showing: false, classes: "settings-warningbox", components: [
-			{name: "warningtitle", content: "xxx", classes: "warningbox-title"},
-			{name: "warningmessage", content: "xxx", classes: "warningbox-message"},
-			{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", ontap: "cancel"},		
-			{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "warningbox-refresh-button", ontap: "restart"}		
-		]},
-		{name: "content", components: [
-			{name: "message", content: "xxx", classes: "aboutme-message"},
-			{name: "psicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
-			{name: "nsicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
-			{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
-			{name: "pficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
-			{name: "nficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"setcolor"},
-			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false},
-			{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
-		]}
+		{name: "warningtitle", content: "xxx", classes: "warningbox-title"},
+		{name: "warningmessage", content: "xxx", classes: "warningbox-message"},
+		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", ontap: "cancel"},		
+		{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "warningbox-refresh-button", ontap: "restart"}
 	],
 	
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		this.$.text.setContent(l10n.get("AboutMe"));
 		this.$.warningtitle.setContent(l10n.get("Warning"));
 		this.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
-		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));
 		this.$.warningcancel.setText(l10n.get("CancelChanges"));
-		this.$.warningrestart.setText(l10n.get("RestartNow"));
-		this.$.message.setContent(l10n.get("ClickToChangeColor"));
-		this.initcolor = this.currentcolor = preferences.getColor();
-		this.initname = this.currentname = preferences.getName();
-		this.$.name.setValue(this.initname);
+		this.$.warningrestart.setText(l10n.get("RestartNow"));		
 	},
 	
-	rendered: function() {
-		this.$.icon.render();
-		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
-		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-		this.$.pficon.setColorizedColor(util.getPreviousFillColor(this.currentcolor));
-		this.$.pficon.setColorized(true);
-		this.$.psicon.setColorizedColor(util.getPreviousStrokeColor(this.currentcolor));
-		this.$.psicon.setColorized(true);
-		this.$.cicon.setColorizedColor(this.currentcolor);
-		this.$.cicon.setColorized(true);
-		this.$.nficon.setColorizedColor(util.getNextFillColor(this.currentcolor));
-		this.$.nficon.setColorized(true);
-		this.$.nsicon.setColorizedColor(util.getNextStrokeColor(this.currentcolor));
-		this.$.nsicon.setColorized(true);
-		this.$.name.setValue(this.currentname);
-	},
-	
-	// Event handling
+	// Events
 	cancel: function() {
-		this.hide();
-		this.owner.show();
-	},
-	
-	ok: function() {
-		if (this.currentcolor == this.initcolor && this.currentname == this.name) {
-			this.hide();
-			this.owner.show();
-		}
-		this.$.warningbox.setShowing(true);
-		this.$.okbutton.setDisabled(true);
-		this.$.cancelbutton.setDisabled(true);
-		this.$.name.addRemoveClass('aboutme-name-validate', true);
-	},
-	
-	setcolor: function(icon) {
-		var newcolor = icon.getColorizedColor();
-		if (newcolor == this.currentcolor)
-			return;
-		this.currentcolor = newcolor;
-		this.render();
-		this.$.restartmessage.setShowing(true);
-	},
-	
-	namechanged: function() {
-		this.$.restartmessage.setShowing(true);
-		this.currentname = this.$.name.getValue();
+		this.doCancel();
 	},
 	
 	restart: function() {
-		preferences.setName(this.currentname);
-		preferences.setColor(util.getColorIndex(this.currentcolor));
-		preferences.save();
-		util.restartApp();
+		this.doRestart();
 	}
 });

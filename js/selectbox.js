@@ -3,7 +3,7 @@ enyo.kind({
 	name: "Sugar.SelectBox",
 	kind: enyo.Control,
 	classes: "selectbox-border",
-	published: { selected: -1, items: [] },
+	published: { selected: -1, items: [], parentMargin: null },
 	events: { onIndexChanged: "" },	
 	components: [
 		{components: [
@@ -19,6 +19,7 @@ enyo.kind({
 		this.timer = null;
 		this.itemsChanged();
 		this.selectedChanged();
+		this.parentMarginChanged();
 	},
 	
 	// Property changed
@@ -34,13 +35,20 @@ enyo.kind({
 		this.$.icon.setIcon(this.items[this.selected].icon);
 		this.$.text.setContent(this.items[this.selected].name);		
 	},
+	parentMarginChanged: function() {
+	},	
 	
 	// Popup menu for item selection
 	showPopup: function() {
 		// Create popup
 		if (this.items.length == 0)
 			return;
-		var ctrlpos = this.hasNode().getBoundingClientRect();
+		var clientrects = this.hasNode().getClientRects();
+		var ctrlpos = clientrects[clientrects.length-1];
+		if (this.parentMargin != null) {
+			var nodepos = enyo.dom.calcNodePosition(this.parentMargin.hasNode(), document);	
+			ctrlpos = { left: ctrlpos.left-nodepos.left, top: ctrlpos.top-nodepos.top };			
+		}
 		this.$.selectpopup.setMargin({left: ctrlpos.left-mouse.position.x+5, top: ctrlpos.top-mouse.position.y-3});
 		this.$.selectpopup.setHeader({
 			icon: this.items[0].icon,
