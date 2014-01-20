@@ -2,7 +2,9 @@
 
 // Constants 
 var constant = {};
-	
+
+constant.sugarizerVersion = "0.3";
+
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
 constant.sizeRadius = 180.0;

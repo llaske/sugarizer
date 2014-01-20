@@ -589,3 +589,78 @@ input {
 	color: white;
 	width: 200px;
 }
+
+.computer-software {
+	border-color: #808080;
+	border-style: solid none none none;
+	border-width: 2px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.computer-sugarizer {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 20px;
+	display: inline-block;	
+}
+
+.computer-clienttype {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;	
+}
+
+.computer-browser {
+	color: #808080;
+	text-align: right;
+	width: 200px;	
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-browserversion {
+	color: #808080;
+	text-align: right;
+	width: 200px;	
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-useragent {
+	color: #808080;
+	text-align: right;
+	width: 200px;	
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-line {
+}
+
+.computer-copyright {
+	border-color: #808080;
+	border-style: solid none none none;
+	border-width: 2px;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+.computer-contributor {
+	margin-left: 30px;
+	margin-top: 20px;
+}
+
+.computer-licence {
+	margin-left: 30px;
+
+}
+
+.computer-value {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;	
+}

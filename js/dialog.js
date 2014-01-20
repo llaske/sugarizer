@@ -56,8 +56,11 @@ enyo.kind({
 	},
 	
 	computerClicked: function() {
-		if (!this.$.computer.getDisabled())
+		if (!this.$.computer.getDisabled()) {
 			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.Dialog.Computer"}, {owner:this});
+			this.subdialog.show();
+		}
 	},
 	
 	languageClicked: function() {
@@ -202,7 +205,7 @@ enyo.kind({
 		this.initlanguage = this.currentlanguage = preferences.getLanguage();
 		this.languageset = [
 			{code: "en", icon: null, name: l10n.get("English")},
-			//{code: "es", icon: null, name: l10n.get("Spanish")}, // RESERVED FOR FUTURE USE
+			{code: "es", icon: null, name: l10n.get("Spanish")},
 			{code: "fr", icon: null, name: l10n.get("French")}
 		];
 		this.$.languageselect.setItems(this.languageset);		
@@ -212,17 +215,13 @@ enyo.kind({
 				break;
 			}
 		}
-		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));		
+		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));
 	},
 	
 	rendered: function() {
-		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.languageselect.setParentMargin(this);
-//console.log(enyo.dom.calcNodePosition(this.$.languageselect.hasNode(), document.getElementById('body')));
-		//console.log(this.container.hasNode().getBoundingClientRect());
-		//console.log(util.getScreenPosition(this.container.hasNode()));
 	},
 	
 	// Event handling
@@ -254,6 +253,82 @@ enyo.kind({
 	}	
 });
 
+
+
+// Computer dialog
+enyo.kind({
+	name: "Sugar.Dialog.Computer",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: true,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", title:"List", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", title:"List", ontap: "ok"}
+		]},
+		{name: "content", components: [
+			{name: "software", content: "xxx", classes: "computer-software"},
+			{content: "Sugarizer:", classes: "computer-sugarizer"},
+			{name: "sugarizer_value", classes: "computer-value"},
+			{classes: "computer-line"},			
+			{name: "clienttype", classes: "computer-clienttype"},
+			{name: "clienttype_value", classes: "computer-value"},
+			{classes: "computer-line"},	
+			{name: "browser", content: "xxx", classes: "computer-browser"},
+			{name: "browser_value", classes: "computer-value"},
+			{classes: "computer-line"},			
+			{name: "browserversion", content: "xxx", classes: "computer-browserversion"},
+			{name: "browserversion_value", classes: "computer-value"},
+			{classes: "computer-line"},			
+			{name: "useragent", content: "xxx", classes: "computer-useragent"},
+			{name: "useragent_value", classes: "computer-value"},
+			{classes: "computer-line"},			
+			{name: "copyright", content: "xxx", classes: "computer-copyright"},
+			{content: "© 2013-2014 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
+			{name: "license", content: "xxx", classes: "computer-licence"}
+		]}
+	],
+	
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("AboutMyComputer"));
+		this.$.software.setContent(l10n.get("Software"));	
+		this.$.browser.setContent(l10n.get("Browser"));	
+		this.$.clienttype.setContent(l10n.get("ClientType"));	
+		this.$.browserversion.setContent(l10n.get("BrowserVersion"));	
+		this.$.useragent.setContent(l10n.get("UserAgent"));	
+		this.$.copyright.setContent(l10n.get("Copyright"));	
+		this.$.license.setContent(l10n.get("LicenseTerms"));
+		
+		this.$.sugarizer_value.setContent(constant.sugarizerVersion);	
+		this.$.clienttype_value.setContent(document.location.protocol.substr(0,4) == "http" ? "Thin Client" : "Client");
+		this.$.browser_value.setContent(util.getBrowserName());	
+		this.$.browserversion_value.setContent(util.getBrowserVersion());	
+		this.$.useragent_value.setContent(navigator.userAgent);			
+	},
+	
+	rendered: function() {
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+	},
+	
+	// Event handling
+	cancel: function() {
+		this.hide();
+		this.owner.show();
+	},
+	
+	ok: function() {
+		this.hide();
+		this.owner.show();
+	}	
+});
 
 
 //-------------------------- Settings utility classes
