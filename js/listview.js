@@ -7,12 +7,12 @@ enyo.kind({
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
 		{name: "message", classes: "listview-message", showing: false},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "doSwitchFavorite"},			
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, onclick:"doRunNewActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite", onclick: "doSwitchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity", onclick:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -133,7 +133,7 @@ enyo.kind({
 	
 	// Remove filter
 	nofilter: function() {
-		document.getElementById("homeSearch").value = "";
+		app.getToolbar().setSearchText("");
 		app.filterActivities();
 	}
 });

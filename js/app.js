@@ -21,6 +21,7 @@ define(function (require) {
 			document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
 			app.renderInto(document.getElementById("canvas"));		
 		}, false);
+		l10n.start();
     });
 
 });

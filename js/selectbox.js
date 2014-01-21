@@ -10,7 +10,7 @@ enyo.kind({
 			{name: "icon", kind: "Sugar.Icon", size: 20, x: 6, y: 6, classes: "selectbox-icon"},	
 			{name: "text", content: "xxx", classes: "selectbox-text"},
 			{name: "selectpopup", kind: "Sugar.Popup", classes: "selectbox-popup", showing: false}
-		], ontap:"showPopup"}
+		], onclick:"showPopup", ontap:"showPopup"}
 	],
 	
 	// Constructor

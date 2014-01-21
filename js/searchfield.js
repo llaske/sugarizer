@@ -8,7 +8,7 @@ enyo.kind({
 	components: [
 		{classes: "search-field-iconsearch"},
 		{name: "text", kind: "enyo.Input", classes: "search-field-input", onfocus: "onfocus", onblur:"onblur", oninput:"oninput"},
-		{name: "icon", classes: "search-field-iconcancel", showing: false, onclick: "onclick"}
+		{name: "icon", classes: "search-field-iconcancel", showing: false, ontap: "onclick", onclick: "onclick"}
 	],
 	
 	// Constructor
@@ -20,6 +20,7 @@ enyo.kind({
 	
 	// Property changed
 	textChanged: function() {
+		this.$.text.setValue(this.text);
 		if (this.text.length > 0)
 			this.$.icon.show();
 		else

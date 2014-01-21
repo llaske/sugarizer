@@ -7,14 +7,14 @@ enyo.kind({
 	components: [
 		{name: "empty", classes: "journal-empty", showing: true},
 		{name: "message", classes: "journal-message", showing: true},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", onclick: "nofilter", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", ontap: "nofilter", onclick: "nofilter", showing: false},
 		{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "journal-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, onclick: "runActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "runActivity"},
 				{name: "title", classes: "journal-title"},
 				{name: "time", classes: "journal-time"},
-				{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, onclick: "runActivity"}
+				{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "runActivity"}
 			]}
 		]}
 	],
@@ -129,9 +129,9 @@ enyo.kind({
 	name: "Sugar.Journal.Toolbar",
 	kind: enyo.Control,
 	components: [
-		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, onclick: "filterFavorite"},
+		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", onclick: "gotoDesktop"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop", onclick: "gotoDesktop"},
 		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
 		{name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"}	
 	],
@@ -173,7 +173,7 @@ enyo.kind({
 	
 	filterFavorite: function() {
 		this.$.favoritebutton.setColorized(!this.$.favoritebutton.getColorized());
-		this.render();
+		this.$.favoritebutton.render();
 		this.filterEntries();
 	},
 	

@@ -19,7 +19,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: true},
-		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, onclick: "showJournal", classes: "journal-icon", showing: true},
+		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "showJournal", classes: "journal-icon", showing: true},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
@@ -341,8 +341,8 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", onclick: "showRadialView"},
-		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", onclick: "showListView"}
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView", onclick: "showRadialView"},
+		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView", onclick: "showListView"}
 	],
 	
 	// Constructor
@@ -357,9 +357,13 @@ enyo.kind({
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));	
 	},
 	
-	// Get search text content
+	// Handle search text content
 	getSearchText: function() {
 		return this.$.searchtext.getText();
+	},
+	
+	setSearchText: function(value) {
+		this.$.searchtext.setText(value);
 	},
 	
 	// Handle active button
