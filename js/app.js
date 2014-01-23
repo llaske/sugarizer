@@ -13,7 +13,7 @@ define(function (require) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 		// Load settings
-		preferences.load();
+		var loaded = preferences.load();
 
 		// Initialize the desktop when localized strings are here
 		window.addEventListener('localized', function() {
@@ -21,7 +21,9 @@ define(function (require) {
 			document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
 			app.renderInto(document.getElementById("canvas"));		
 		}, false);
-		l10n.start();
+		
+		// HACK: force translate at first load due to defered loading
+		if (!loaded) l10n.language.code = preferences.getLanguage();		
     });
 
 });

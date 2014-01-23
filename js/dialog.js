@@ -307,7 +307,7 @@ enyo.kind({
 		this.$.license.setContent(l10n.get("LicenseTerms"));
 		
 		this.$.sugarizer_value.setContent(constant.sugarizerVersion);	
-		this.$.clienttype_value.setContent(document.location.protocol.substr(0,4) == "http" ? "Thin Client" : "Client");
+		this.$.clienttype_value.setContent(util.getClientName());
 		this.$.browser_value.setContent(util.getBrowserName());	
 		this.$.browserversion_value.setContent(util.getBrowserVersion());	
 		this.$.useragent_value.setContent(navigator.userAgent);			

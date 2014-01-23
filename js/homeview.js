@@ -348,11 +348,11 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Localize items
-		this.inherited(arguments);
-		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));	
+		this.inherited(arguments);	
 	},
 	
 	rendered: function() {
+		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));	
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));	
 	},

@@ -16,6 +16,9 @@ constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
 
+constant.thinClientType = 0;
+constant.clientType = 1;
+
 constant.initActivitiesURL = "activities.json";
 
 constant.iconSizeStandard = 55;
