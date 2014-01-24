@@ -1,0 +1,354 @@
+﻿#main-toolbar #activity-button {
+  background-image: url(activity/activity-icon.svg);
+}
+
+/* Hack: put global config in a hidden rule attributes */
+.config {
+	position: absolute;
+	visibility: hidden;
+	width: 120px;        /* Screen width */
+	height: 90px;        /* Screen height */
+	margin-left: 22px;   /* Card size */
+}
+
+/* App background */
+.board {
+	background-color: #005a40 !important;
+}
+
+/* Home page */
+.cardbox {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+
+.glass {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 850px;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1;
+}
+
+.logo {
+	position: absolute;
+	left: 230px;
+	top: 110px;
+	z-index: 2;
+}
+
+.game-one {
+	position: absolute;
+	left: 250px;
+	top: 330px;
+	z-index: 2;
+}
+
+.game-two {
+	position: absolute;
+	left: 450px;
+	top: 280px;
+	z-index: 2;	
+}
+
+.game-three {
+	position: absolute;
+	left: 650px;
+	top: 330px;
+	z-index: 2;	
+}
+
+.game-popup {
+	position: absolute;
+	left: 400px;
+	top: 460px;
+	width: 250px;
+	height: 300px;
+	border: medium solid black;
+	border-radius: 20px / 15px;
+	background-color: white;
+	box-shadow: 5px 4px 10px 2px gray;
+	padding: 5px;
+	z-index: 2;	
+}
+
+.game-title {
+	font-size: x-large;
+}
+
+.game-color-one {
+	color: blue;
+}
+
+.game-color-two {
+	color: red;
+}
+
+.game-color-three {
+	color: magenta;
+}
+
+.game-description {
+	font-size: small;
+}
+
+.information {
+	position: absolute;
+	left: 85%;
+	top: 80%;
+}
+
+/* Game One */
+
+.start-box {
+	margin-top: 0px;
+	margin-left: 450px;
+	border-width: 2px;
+	border-style: dashed;
+	border-color: white;
+	width: 260px;
+	height: 260px;
+	z-index: -1;
+}
+
+.end-box {
+	border-width: 2px;
+	border-style: dashed;
+	width: 260px;
+	height: 300px;
+	z-index: -1;
+	display: inline-block;	
+	border-color: white;
+}
+
+.herb-box-two {
+	margin-top: 10px;
+	margin-left: 250px;
+	background-image: url(images/grass.png);	
+	background-repeat: no-repeat;	
+	background-position: center;	
+}
+
+.herb-box-three {
+	margin-top: 10px;
+	margin-left: 170px;
+	background-image: url(images/grass.png);	
+	background-repeat: no-repeat;	
+	background-position: center;	
+}
+
+.carn-box-two {
+	margin-top: 10px;
+	margin-left: 130px;
+	background-image: url(images/meat.png);	
+	background-repeat: no-repeat;	
+	background-position: center;
+}
+
+.carn-box-three {
+	margin-top: 10px;
+	margin-left: 20px;
+	background-image: url(images/meat.png);	
+	background-repeat: no-repeat;	
+	background-position: center;	
+}
+
+.omni-box-two {
+	visibility: hidden;
+}
+
+.omni-box-three {
+	margin-top: 10px;
+	margin-left: 20px;
+	background-image: url(images/recycle.png);	
+	background-repeat: no-repeat;	
+	background-position: center;		
+}
+
+.box-name {
+	text-align: center;
+	font-size: large;
+	color: white;
+}
+
+
+/* Game Two */
+.level-value {
+	margin-left: 10px;
+}
+
+.timer-value {
+	position: absolute;
+	right: 30px;
+}
+
+.score {
+	margin-left: 285px;
+}
+
+.score-value {
+	margin-left: 10px;
+}
+
+.timer-overtime {
+	color: red !important;
+}
+
+.title {
+	margin-bottom: 10px;
+	margin-top: 5px;
+	text-align: center;
+	font-size: x-large;
+	color: white;
+	text-shadow: 0.1em .1em 1px lightgrey;
+	display: inline-block;
+}
+
+.box {
+	margin-top: 10px;
+	margin-left: 5px;
+	border-width: 2px;
+	border-style: dashed;
+	border-color: white;
+	width: 1160px;  /* Screen width - 40 */
+	height: 300px;
+	z-index: -1;
+}
+
+.box-dragging {
+	cursor: move;
+}
+
+.box-win {
+	background-color: green;
+}
+
+.box-lost {
+	background-color: red;
+}
+
+.play {
+	margin-left: 510px;
+}
+
+.validate {
+	margin-left: 60%;
+}
+
+.restart {
+	margin-left: 85%;
+}
+
+.home {
+	margin-left: 10px;
+}
+
+/* Game Three */
+
+.game-box {
+	margin-top: 10px;
+	margin-left: 5px;
+	border-width: 2px;
+	border-style: dashed;
+	border-color: white;
+	background-image: url(images/play_background.png);
+	z-index: -1;
+}
+
+.image-preload {
+	visibility: hidden;
+}
+
+.life-border {
+	margin-top: 700px;
+	margin-left: 180px;
+	position: absolute;
+	z-index: 2;
+}
+
+.life {
+	display: inline-block;
+}
+
+/* Credits */
+
+.credit-title {
+	font-size: x-large;
+	margin-top: 10px;
+	margin-left: 300px;
+	color: white;
+}
+
+.credit-name {
+	font-size: small;
+	margin-left: 300px;	
+	color: white;
+}
+
+.two-column-credits {
+	display: inline-block;
+}
+
+.emul-canvas {
+	background-image: url(images/play_background.png);
+	margin-left: 50px;
+	margin-top: 50px;
+	position: absolute;
+}
+
+/* Components */
+
+.shadowbutton {
+	position: absolute;
+	z-index: 2;
+}
+
+.shadowbutton-shadow {
+	position: absolute;
+	margin-left: 5px;
+	margin-top: 3px;
+	z-index: 1;
+}
+
+.card {
+	border-width: 5px;
+	border-style: inset;
+	border-color: darkgray;
+	box-shadow: 5px -4px 4px 2px black;
+	width: 220px;
+	background-color: white;
+	position: absolute;
+	z-index: 0;
+	-webkit-user-select: none;
+	user-select: none;		
+}
+
+.card-dragged {
+	border-color: blue;
+	cursor: move;	
+}
+
+.cardImage {
+	width: 70%;
+	margin-top: 10px;
+	margin-left: 35px;
+}
+
+.cardText {
+	font-size:30px;
+	text-align: center;
+	padding: 5px;
+}
+
+.cardSoundIcon {
+}
+
+.cardSound {
+	width: 50px;
+}
