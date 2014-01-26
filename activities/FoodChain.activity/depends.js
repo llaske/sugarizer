@@ -1,7 +1,6 @@
 ﻿enyo.depends(
 	"lib/canvas/package.js",
 	"l10n.js",
-	"sugar.js",	
 	"util.js",		
 	"audio.js",
 	"timer.js",

@@ -17,14 +17,14 @@
 .config {
 	position: absolute;
 	visibility: hidden;
-	width: 120px;        /* Screen width */
-	height: 90px;        /* Screen height */
-	margin-left: 22px;   /* Card size */
+	width: 102px;        /* Screen width / 10 */
+	height: 83px;        /* Screen height / 10 */
+	margin-left: 19px;   /* Card size / 10 */
 }
 
 /* App background */
 .board {
-	background-color: #005a40 !important;
+	background-color: #005a40;
 }
 
 /* Home page */
@@ -80,7 +80,7 @@
 	left: 400px;
 	top: 460px;
 	width: 250px;
-	height: 300px;
+	height: 200px;
 	border: medium solid black;
 	border-radius: 20px / 15px;
 	background-color: white;
@@ -90,7 +90,7 @@
 }
 
 .game-title {
-	font-size: x-large;
+	font-size: xx-large;
 }
 
 .game-color-one {
@@ -106,7 +106,7 @@
 }
 
 .game-description {
-	font-size: small;
+	font-size: large;
 }
 
 .information {
@@ -119,20 +119,20 @@
 
 .start-box {
 	margin-top: 0px;
-	margin-left: 450px;
+	margin-left: 400px;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
-	width: 260px;
-	height: 260px;
+	width: 220px;
+	height: 230px;
 	z-index: -1;
 }
 
 .end-box {
 	border-width: 2px;
 	border-style: dashed;
-	width: 260px;
-	height: 300px;
+	width: 220px;
+	height: 270px;
 	z-index: -1;
 	display: inline-block;	
 	border-color: white;
@@ -140,7 +140,7 @@
 
 .herb-box-two {
 	margin-top: 10px;
-	margin-left: 250px;
+	margin-left: 220px;
 	background-image: url(images/grass.png);	
 	background-repeat: no-repeat;	
 	background-position: center;	
@@ -148,7 +148,7 @@
 
 .herb-box-three {
 	margin-top: 10px;
-	margin-left: 170px;
+	margin-left: 155px;
 	background-image: url(images/grass.png);	
 	background-repeat: no-repeat;	
 	background-position: center;	
@@ -184,7 +184,7 @@
 
 .box-name {
 	text-align: center;
-	font-size: large;
+	font-size: x-large;
 	color: white;
 }
 
@@ -200,7 +200,7 @@
 }
 
 .score {
-	margin-left: 285px;
+	margin-left: 335px;
 }
 
 .score-value {
@@ -215,7 +215,7 @@
 	margin-bottom: 10px;
 	margin-top: 5px;
 	text-align: center;
-	font-size: x-large;
+	font-size: xx-large;
 	color: white;
 	text-shadow: 0.1em .1em 1px lightgrey;
 	display: inline-block;
@@ -227,7 +227,7 @@
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
-	width: 1160px;  /* Screen width - 40 */
+	width: 980px;  /* Screen width - 40 */
 	height: 300px;
 	z-index: -1;
 }
@@ -245,7 +245,7 @@
 }
 
 .play {
-	margin-left: 510px;
+	margin-left: 450px;
 }
 
 .validate {
@@ -277,8 +277,8 @@
 }
 
 .life-border {
-	margin-top: 700px;
-	margin-left: 180px;
+	margin-top: 630px;
+	margin-left: 140px;
 	position: absolute;
 	z-index: 2;
 }
@@ -290,14 +290,14 @@
 /* Credits */
 
 .credit-title {
-	font-size: x-large;
+	font-size: xx-large;
 	margin-top: 10px;
 	margin-left: 300px;
 	color: white;
 }
 
 .credit-name {
-	font-size: small;
+	font-size: large;
 	margin-left: 300px;	
 	color: white;
 }
@@ -330,9 +330,9 @@
 .card {
 	border-width: 5px;
 	border-style: inset;
-	border-color: darkgray;
+	border-color: darkgray !important;
 	box-shadow: 5px -4px 4px 2px black;
-	width: 220px;
+	width: 190px;
 	background-color: white;
 	position: absolute;
 	z-index: 0;
@@ -341,12 +341,12 @@
 }
 
 .card-dragged {
-	border-color: blue;
+	border-color: blue !important;
 	cursor: move;	
 }
 
 .cardImage {
-	width: 70%;
+	width: 65%;
 	margin-top: 10px;
 	margin-left: 35px;
 }

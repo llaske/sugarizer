@@ -229,15 +229,16 @@ enyo.kind({
 			data: [activity, null]
 		});
 		var items = [];
-		for(var i = 0 ; i < activity.instances.length && i < constant.maxPopupHistory; i++) {
-			items.push({
-				icon: activity,
-				colorized: true,
-				name: activity.instances[i].metadata.title,
-				action: enyo.bind(this, "runOldActivity"),
-				data: [activity, activity.instances[i]]
-			});
-		}
+		if (activity.instances)
+			for(var i = 0 ; i < activity.instances.length && i < constant.maxPopupHistory; i++) {
+				items.push({
+					icon: activity,
+					colorized: true,
+					name: activity.instances[i].metadata.title,
+					action: enyo.bind(this, "runOldActivity"),
+					data: [activity, activity.instances[i]]
+				});
+			}
 		this.$.activityPopup.setItems(items);
 		this.$.activityPopup.setFooter([{
 			icon: activity,

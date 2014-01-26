@@ -13,20 +13,30 @@ FoodChain.context = {
 	score: 0,
 	game: "",
 	level: 0,
+	language: "en",
 	object: null
 };
 FoodChain.saveContext = function() {
-	FoodChain.sugar.sendMessage(
-		"save-context", {
-			score: FoodChain.context.score,
-			game: FoodChain.context.game,
-			level: FoodChain.context.level
+	var datastoreObject = FoodChain.activity.getDatastoreObject();
+	var jsonData = JSON.stringify({
+		score: FoodChain.context.score,
+		game: FoodChain.context.game,
+		level: FoodChain.context.level,
+		language: l10n.language.code
 	});
+	datastoreObject.setDataAsText(jsonData);
+	datastoreObject.save(function() {});	
 };
-FoodChain.loadContext = function(context) {
-	if (context.score) FoodChain.context.score = parseInt(context.score);
-	if (context.game) FoodChain.context.game = context.game;
-	if (context.level) FoodChain.context.level = parseInt(context.level);
+FoodChain.loadContext = function() {
+	var datastoreObject = FoodChain.activity.getDatastoreObject();
+	datastoreObject.loadAsText(function (error, metadata, data) {
+		var context = JSON.parse(data);
+		if (context == null) return;
+		if (context.score) FoodChain.context.score = parseInt(context.score);
+		if (context.game) FoodChain.context.game = context.game;
+		if (context.level) FoodChain.context.level = parseInt(context.level);
+		if (context.language) FoodChain.context.language = l10n.language.code = context.language;
+	});
 };
 
 // Global config, HACK: put it in a dummy rule of the CSS file
@@ -71,17 +81,15 @@ FoodChain.goHome = function() {
 };
 
 // Sugar interface
-FoodChain.setLocale = function(dict) {
-	__$FC_l10n_set(dict);
+FoodChain.setLocale = function() {
+	document.getElementById("en-button").classList.remove('active');
+	document.getElementById("fr-button").classList.remove('active');
+	if (l10n.language.code == "en") document.getElementById("en-button").classList.add('active');
+	else if (l10n.language.code == "fr") document.getElementById("fr-button").classList.add('active');
 	if (FoodChain.context.object != null)
 		FoodChain.context.object.setLocale();
 }
-FoodChain.sugar = new Sugar();
-FoodChain.sugar.connect("localization", FoodChain.setLocale);
-FoodChain.sugar.connect("save-context", FoodChain.saveContext);
-FoodChain.sugar.connect("load-context", FoodChain.loadContext);
 FoodChain.log = function(msg) {
-	FoodChain.sugar.sendMessage("console-message", msg);
 	console.log(msg);
 };
 
