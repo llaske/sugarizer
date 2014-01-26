@@ -1,4 +1,5 @@
 [
+	{"id": "org.olpcfrance.Abecedarium", "name": "Abecedarium", "version": 5, "directory": "activities/Abecedarium.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Clock", "name": "Clock Web", "version": 1, "directory": "activities/Clock.activity", "icon": "activity/activity-clock.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ConnectTheDots", "name": "Connect the Dots", "version": 1, "directory": "activities/ConnecttheDots.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.FoodChain", "name": "FoodChain", "version": 4, "directory": "activities/FoodChain.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
