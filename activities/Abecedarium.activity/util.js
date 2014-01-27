@@ -21,20 +21,25 @@ Abcd.saveContext = function() {
 	values.push(Abcd.context.lang);
 	values.push(Abcd.context.casevalue);
 	values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
-	Abcd.sugar.sendMessage("save-context", {context:values.join("#"), database:Abcd.context.database});
+	var datastoreObject = Abcd.activity.getDatastoreObject();	
+	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.database});
+	datastoreObject.setDataAsText(jsonData);
+	datastoreObject.save(function() {});	
 };
-Abcd.loadContext = function(context) {
-	if (context == null || context == "" || !context.context)
-		return;
-	var values = context.context.split('#');
-	Abcd.context.screen = values[0];
-	Abcd.context.lang = values[1];
-	Abcd.context.casevalue = values[2];
-	Abcd.context.screenContext = values[3];
-	Abcd.setLocale(Abcd.context.lang);
-	if (context.database) {
-		Abcd.context.database = context.database;
-	}
+Abcd.loadContext = function() {
+	var datastoreObject = Abcd.activity.getDatastoreObject();
+	datastoreObject.loadAsText(function (error, metadata, data) {
+		var context = JSON.parse(data);	
+		var values = context.context.split('#');
+		Abcd.context.screen = values[0];
+		Abcd.context.lang = values[1];
+		Abcd.context.casevalue = values[2];
+		Abcd.context.screenContext = values[3];
+		Abcd.setLocale(Abcd.context.lang);
+		if (context.database) {
+			Abcd.context.database = context.database;
+		}
+	});
 };
 
 
@@ -74,12 +79,7 @@ Abcd.setCase = function(casevalue) {
 	if (Abcd.context.object != null)
 		Abcd.context.object.setCase();
 }
-Abcd.sugar = new Sugar();
-Abcd.sugar.connect("localization", Abcd.setLocale);
-Abcd.sugar.connect("save-context", Abcd.saveContext);
-Abcd.sugar.connect("load-context", Abcd.loadContext);
 Abcd.log = function(msg) {
-	Abcd.sugar.sendMessage("console-message", msg);
 	console.log(msg);
 };
 
