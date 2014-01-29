@@ -2,7 +2,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "org.olpc-france.sugarizer"
-        version   = "1.0.0">
+        version   = "0.3.0">
     <name>Sugarizer</name>
 
     <description>
@@ -17,11 +17,9 @@
 	
 	<preference name="android-minSdkVersion" value="13" />	
 	
-    <icon src="icons/sugarweb57x57.png" />
-	<icon src="icons/sugarweb64x64.png" gap:platform="webos" />	
-	<icon src="icons/sugarweb72x72.png" gap:platform="webos" />	
-	<icon src="icons/sugarweb48x48.png" gap:platform="android" gap:density="mdpi" />	
-	<icon src="icons/sugarweb72x72.png" gap:platform="android" gap:density="hdpi" />	
-	<icon src="icons/sugarweb57x57.png" gap:platform="ios" width="57" height="57" />
-    <icon src="icons/sugarweb72x72.png" gap:platform="ios" width="72" height="72" />	
+    <icon src="icon.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />	
 </widget>

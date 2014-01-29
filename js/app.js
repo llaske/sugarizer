@@ -10,8 +10,8 @@ define(function (require) {
 	preferences = require("settings");
 	util = require("util");
 
-    // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+	// Manipulate the DOM only when it is ready.
+	require(['domReady!'], function (doc) {
 		// Load settings
 		var loaded = preferences.load();
 
@@ -24,6 +24,5 @@ define(function (require) {
 		
 		// HACK: force translate at first load due to defered loading
 		if (!loaded) l10n.language.code = preferences.getLanguage();		
-    });
-
+	});
 });
