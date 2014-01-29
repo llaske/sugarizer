@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html>
+<head>
+	<title>inline: onyx toolbar design</title>
+	<link href="../source/css/onyx.css" rel="stylesheet" type="text/css" />
+	<style>
+		/*
+			the 'inline' class sets up a left-to-right container, with vertically centered children
+		*/
+		.inline {
+			white-space: nowrap;
+		}
+		.inline > * { 
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.icon {
+			width: 32px;
+			height: 32px;
+			background-image: url(menu-icon-bookmark.png);
+		}
+		.bord {
+			border: 1px solid lightblue;
+		}
+		.big {
+			font-size: 48px;
+		}
+		.pad {
+			padding: 8px;
+		}
+		.mh {
+			min-height: 124px;
+		}
+		.lh {
+			line-height: 86px;
+		}
+	</style>
+</head>
+<body>
+	<label>"inline" tests</label>
+	<br /><br />
+	<div>
+		<label>no content</label>
+		<div class="inline bord"></div>
+		<br />
+
+		<label>text only content</label>
+		<div class="inline bord">Text</div>
+		<br />
+
+		<label>div content</label>
+		<div class="inline bord">
+			<div>Text in Div</div>
+		</div>
+		<br />
+
+		<label>input content</label>
+		<div class="inline bord">
+			<input class="" />
+		</div>
+		<br />
+
+		<label>icon content</label>
+		<div class="inline bord">
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<label>combo content</label>
+		<div class="inline bord">
+			<div>Text in Div</div>
+			<input class="" />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<label>combo content: when the text is larger than non-text objects, vertical centering goes wonky</label>
+		<div class="inline bord big">
+			<div>Text in Div</div>
+			<input class="" />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<label>controlling height</label>
+		<div class="inline bord big mh">
+			<div>Text in Div</div>
+			<input class="" />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<label>controlling line-height</label>
+		<div class="inline bord big lh pad">
+			<div>Text in Div</div>
+			<input class="" />
+			<div class="icon"></div>
+		</div>
+		<br />
+	</div>
+</body>
+</html>

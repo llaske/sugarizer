@@ -3,12 +3,16 @@
 enyo.kind({
 	name: "Sugar.Desktop.ListView",
 	kind: "Scroller",
-	published: { count: 0 },	
+	published: { activities: [] },	
 	components: [
+		{name: "nomatch", classes: "listview-nomatch", showing: false},
+		{name: "message", classes: "listview-message", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "nofilter", showing: false},
+		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.ActivityIcon", x: 10, y: 14, size: constant.iconSizeFavorite, onclick: "switchFavorite"},			
-				{name: "activity", kind: "Sugar.ActivityIcon", x: 60, y: 5, size: constant.iconSizeList},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite", onclick: "doSwitchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity", onclick:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -18,31 +22,118 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
-		this.countChanged();
+		this.activitiesChanged();
+		this.draw();
+	},
+	
+	// Get linked toolbar, same than the desktop view
+	getToolbar: function() {
+		return app.getToolbar();
+	},
+	
+	// Draw screen
+	draw: function() {
+		// Set no matching activities
+		var canvas_center = util.getCanvasCenter();
+		this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
+		var margintop = (canvas_center.y-constant.sizeEmpty/4);
+		this.$.nomatch.applyStyle("margin-top", margintop+"px");
+		this.$.message.setContent(l10n.get("NoMatchingActivities"));
+		this.$.nofilter.setText(l10n.get("ClearSearch"));
 	},
 	
 	// Property changed
-	countChanged: function() {
-		this.$.activityList.setCount(this.count);
+	activitiesChanged: function() {
+		this.$.activityList.setCount(this.activities.length);
+		if (this.activities.length == 0) {
+			this.$.nomatch.show();
+			this.$.message.show();
+			this.$.nofilter.show();
+		} else {
+			this.$.nomatch.hide();
+			this.$.message.hide();
+			this.$.nofilter.hide();
+		}
 	},
 
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		var activitiesList = preferences.getActivities();
-		inEvent.item.$.activity.setActivity(activitiesList[inEvent.index]);
-		inEvent.item.$.favorite.setActivity({directory: "icons", icon: "emblem-favorite.svg"});		
+		var activitiesList = this.activities;
+		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
+		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
+		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});		
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);		
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
-		inEvent.item.$.version.setContent("Version "+activitiesList[inEvent.index].version);			
+		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
 	},
 	
 	// Switch favorite value for clicked line
-	switchFavorite: function(inSender, inEvent) {
-		var activitiesList = preferences.getActivities();
-		inSender.setColorized(preferences.switchFavoriteActivity(activitiesList[inEvent.index]));
-		inSender.render();
+	doSwitchFavorite: function(inSender, inEvent) {
+		var activitiesList = this.activities;
+		this.switchFavorite(inSender, activitiesList[inEvent.index]);		
+	},
+	switchFavorite: function(favorite, activity) {
+		favorite.setColorized(preferences.switchFavoriteActivity(activity));
+		favorite.render();
 		preferences.save();
 		app.redraw();		
+		this.$.activityPopup.hidePopup();
+	},
+	
+	// Run new activity
+	doRunNewActivity: function(inSender, inEvent) {
+		var activitiesList = this.activities;
+		this.runNewActivity(activitiesList[inEvent.index])
+	},
+	runNewActivity: function(activity) {
+		// Start a new activity instance
+		preferences.runActivity(activity, null);
+	},	
+	
+	// Popup menu handling
+	showActivityPopup: function(icon) {
+		// Create popup
+		var activity = icon.icon;
+		this.$.activityPopup.setHeader({
+			icon: activity,
+			colorized: true,
+			name: activity.name,
+			title: null,
+			action: null
+		});
+		var items = [];
+		items.push({
+			icon: icon.parent.container.$.favorite.icon,
+			colorized: !activity.favorite,
+			name: activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
+			action: enyo.bind(this, "switchFavorite"),	
+			data: [icon.parent.container.$.favorite, icon.icon]
+		});
+		items.push({
+			icon: activity,
+			colorized: false,
+			name: l10n.get("StartNew"),
+			action: enyo.bind(this, "runNewActivity"),	
+			data: [activity, null]
+		});
+		this.$.activityPopup.setFooter(items);
+		
+		// Show popup
+		this.$.activityPopup.showPopup();
+	},
+	hideActivityPopup: function() {
+		// Hide popup
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
+		this.$.activityPopup.hidePopup();
+		return true;
+	},
+	
+	// Remove filter
+	nofilter: function() {
+		app.getToolbar().setSearchText("");
+		app.filterActivities();
 	}
 });

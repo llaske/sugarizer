@@ -1,0 +1,6 @@
+[Activity]
+name = Grid Paint
+activity_version = 2
+bundle_id = org.olpcfrance.Gridpaint
+exec = sugar-activity-web
+icon = activity-icon

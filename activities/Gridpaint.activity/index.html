@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8" />
+    <title>Grid Paint Activity</title>
+    <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <script data-main="js/loader" src="lib/require.js"></script>
+	<style type="text/css">@import "css/gridpaint.css";</style>
+	<script type="text/javascript" src="js/debug.js"></script>
+	<script type="text/javascript" src="js/events.js"></script>
+	<script type="text/javascript" src="js/gridpaint.js"></script>
+	<script type="text/javascript" src="js/thumbnails.js"></script>
+	<script type="text/javascript" src="js/gallery.js"></script>
+	<script type="text/javascript" src="js/shapedefs.js"></script>
+  </head>
+  
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="Last One Loses Activity"></button>
+	  
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+	
+    <!-- The content of the activity goes inside the canvas -->
+    <div id="canvas">
+		<div class="frame" id="frame">
+		<canvas class="gridcnv" id="gridcnv"></canvas>
+		<canvas class="gridcnv" id="hitbuffer"></canvas>
+		<div class="thumbframe" id="thumbframe">	
+    </div>
+  </body>
+
+</html>

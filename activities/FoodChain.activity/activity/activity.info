@@ -1,0 +1,6 @@
+[Activity]
+name = FoodChain
+activity_version = 4
+bundle_id = org.olpcfrance.FoodChain
+exec = sugar-activity-web
+icon = activity-icon

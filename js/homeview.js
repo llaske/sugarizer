@@ -1,10 +1,13 @@
 
 // Sugar Libraries (initialized by require)
-var app;
+var app = null;
+var toolbar = null;
+var mouse = {position: {x: -1, y: -1}};
 var iconLib;
 var xoPalette;
 var radioButtonsGroup;
 var datastore;
+var l10n;
 var preferences;
 var util;
 
@@ -15,11 +18,11 @@ enyo.kind({
 	name: "Sugar.Desktop",
 	kind: enyo.Control,
 	components: [
-		{name: "owner", onclick: "changeColor", classes: "owner-icon", showing: true},
-		{name: "journal", onclick: "showJournal", classes: "journal-icon", showing: true},
+		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: true},
+		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "showJournal", classes: "journal-icon", showing: true},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
-		{name: "activityPopup", kind: "Sugar.Desktop.ActivityPopup", showing: false},		
+		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
 		{name: "activities", kind: "enyo.WebService", url: constant.initActivitiesURL, onResponse: "queryResponse", onError: "queryFail"}
 	],
 	
@@ -28,10 +31,13 @@ enyo.kind({
 		// Init screen
 		this.inherited(arguments);
 		this.timer = null;
-		var that = this;
-		document.onmousemove = function(e) {
-			that.position = {x: e.pageX, y: e.pageY};
-		}
+		this.otherview = null;
+		this.toolbar = null;
+		util.setToolbar(this.getToolbar());
+		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
+		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
+		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
+		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});	
 		
 		// Load and sort journal
 		this.journal = datastore.find();
@@ -59,6 +65,13 @@ enyo.kind({
 		console.log("Error loading init activities");
 	},
 	
+	// Get linked toolbar
+	getToolbar: function() {
+		if (this.toolbar == null)
+			this.toolbar = new Sugar.Desktop.Toolbar();
+		return this.toolbar;
+	},
+	
 	// Init desktop
 	init: function() {
 		this.currentView = constant.radialView;
@@ -81,6 +94,7 @@ enyo.kind({
 		// Draw XO owner
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/4)+"px");
 		this.$.owner.applyStyle("margin-top", (canvas_center.y-constant.sizeOwner/4)+"px");
+		this.$.journal.setColorized(this.journal.length > 0);
 		this.$.journal.applyStyle("margin-left", (canvas_center.x+5)+"px");
 		this.$.journal.applyStyle("margin-top", (canvas_center.y+constant.sizeOwner-constant.sizeJournal/2)+"px");
 		
@@ -91,14 +105,14 @@ enyo.kind({
 			var activity = activitiesList[i];
 			var angle = base_angle*parseFloat(i);
 			this.$.desktop.createComponent({
-					kind: "Sugar.ActivityIcon", 
-					activity: activity, 
+					kind: "Sugar.Icon", 
+					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					x: canvas_center.x+Math.cos(angle)*radius, 
 					y: canvas_center.y+Math.sin(angle)*radius,
 					colorized: activity.activityId != null,
-					onclick: "runActivity",
-					onmouseover: "popupShowTimer",
-					onmouseout: "popupHideTimer"
+					onclick: "runMatchingActivity",
+					popupShow: enyo.bind(this, "showActivityPopup"),
+					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
 				{owner: this}).render();
 		}
@@ -119,12 +133,13 @@ enyo.kind({
 
 		// Show desktop
 		if (newView == constant.radialView) {
-			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});
+			util.setToolbar(this.getToolbar());
+			toolbar.setActiveView(constant.radialView);
 			this.$.otherview.hide();
 			this.$.desktop.show();
 			this.$.owner.show();
 			this.$.journal.show();
-			this.render();
+			this.otherview = null;			
 			return;
 		}
 		
@@ -136,8 +151,10 @@ enyo.kind({
 		
 		// Show list
 		if (newView == constant.listView) {
-			util.setToolbarVisibility({desktopToolbar: true, journalToolbar: false});		
-			this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", count: preferences.getActivities().length});
+			util.setToolbar(this.getToolbar());		
+			var filter = toolbar.getSearchText().toLowerCase();
+			toolbar.setActiveView(constant.listView);
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", activities: preferences.getActivitiesByName(filter)});
 		}
 		
 		// Show journal
@@ -146,8 +163,8 @@ enyo.kind({
 				this.$.activityPopup.hidePopup();
 				window.clearInterval(this.timer);
 			}	
-			util.setToolbarVisibility({desktopToolbar: false, journalToolbar: true});
-			this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			util.setToolbar(this.otherview.getToolbar());			
 		}
 
 		this.$.otherview.show();
@@ -171,56 +188,206 @@ enyo.kind({
 			iconLib.colorize(this.$.journal.hasNode(), preferences.getColor());
 	},
 	
-	// Change color
-	changeColor: function() {
-		preferences.nextColor();
-		preferences.save();
-		iconColorCache = {names: [], values: []}; // Delete icon cache
-		this.draw();
-		this.render();
-	},
-	
 	// Run activity
-	runActivity: function(icon) {
-		// Save context then run the activity in the context
-		preferences.runActivity(icon.activity);
+	runMatchingActivity: function(icon) {
+		this.runActivity(icon.icon);
 	},
+	runActivity: function(activity) {
+		// Run the last activity instance in the context
+		preferences.runActivity(activity);
+	},
+	runOldActivity: function(activity, instance) {
+		// Run an old activity instance
+		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
+	},
+	runNewActivity: function(activity) {
+		// Start a new activity instance
+		preferences.runActivity(activity, null);
+	},	
 	
 	// Display journal
 	showJournal: function() {
 		this.showView(constant.journalView);
 	},
 	
-	// Popup handling
-	popupShowTimer: function(icon, e) {
-		if (this.timer != null) {
-			this.$.activityPopup.hidePopup();
-			window.clearInterval(this.timer);
+	// Popup menu for activities handling
+	showActivityPopup: function(icon) {
+		// Create popup
+		var title;
+		var activity = icon.icon; // HACK: activity is stored as an icon
+		if (activity.activityId != null && activity.instances[0].metadata.title !== undefined) {
+			title = activity.instances[0].metadata.title;			
+		} else {
+			title = l10n.get('NameActivity', {name: activity.name});
 		}
-		this.$.activityPopup.setIcon(icon);		
-		this.timer = window.setInterval(enyo.bind(this, "showPopup"), constant.timerPopupDuration);
-	},
-	
-	showPopup: function(icon, e) {
+		this.$.activityPopup.setHeader({
+			icon: activity,
+			colorized: activity.activityId != null,
+			name: activity.name,
+			title: title,
+			action: enyo.bind(this, "runActivity"),
+			data: [activity, null]
+		});
+		var items = [];
+		if (activity.instances)
+			for(var i = 0 ; i < activity.instances.length && i < constant.maxPopupHistory; i++) {
+				items.push({
+					icon: activity,
+					colorized: true,
+					name: activity.instances[i].metadata.title,
+					action: enyo.bind(this, "runOldActivity"),
+					data: [activity, activity.instances[i]]
+				});
+			}
+		this.$.activityPopup.setItems(items);
+		this.$.activityPopup.setFooter([{
+			icon: activity,
+			colorized: false,
+			name: l10n.get("StartNew"),
+			action: enyo.bind(this, "runNewActivity"),	
+			data: [activity, null]
+		}]);
+		
+		// Show popup
 		this.$.activityPopup.showPopup();
-		window.clearInterval(this.timer);
-		this.timer = null;
+	},
+	hideActivityPopup: function() {
+		// Hide popup
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
+		this.$.activityPopup.hidePopup();
+		return true;
+	},
+		
+	// Popup menu for buddy handling
+	showBuddyPopup: function(icon) {
+		// Create popup
+		this.$.activityPopup.setHeader({
+			icon: icon.icon,
+			colorized: true,
+			name: preferences.getName(),
+			title: null,
+			action: null
+		});
+		this.$.activityPopup.setItems(null);		
+		var items = [];
+		items.push({
+			icon: {directory: "icons", icon: "system-shutdown.svg"},
+			colorized: false,
+			name: l10n.get("Shutdown"),
+			action: enyo.bind(this, "doShutdown"),	
+			data: null
+		});
+		items.push({
+			icon: {directory: "icons", icon: "system-restart.svg"},
+			colorized: false,
+			name: l10n.get("Restart"),
+			action: enyo.bind(this, "doRestart"),	
+			data: null
+		});
+		items.push({
+			icon: {directory: "icons", icon: "preferences-system.svg"},
+			colorized: false,
+			name: l10n.get("MySettings"),
+			action: enyo.bind(this, "doSettings"),	
+			data: null
+		});
+		this.$.activityPopup.setFooter(items);
+		
+		// Show popup
+		this.$.activityPopup.showPopup();		
+	},
+	hideBuddyPopup: function() {
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
+		this.$.activityPopup.hidePopup();
+		return true;	
+	},
+	doShutdown: function() {
+		this.$.activityPopup.hidePopup();
+		util.quitApp();
+	},
+	doRestart: function() {
+		util.restartApp();
+	},
+	doSettings: function() {
+		this.$.activityPopup.hidePopup();
+		this.otherview = this.$.otherview.createComponent({kind: "Sugar.Dialog.Settings"}, {owner:this});
+		this.otherview.show();
 	},
 	
-	popupHideTimer: function(icon, e) {
-		if (this.timer != null) {
-			window.clearInterval(this.timer);
+	// Filter activities handling
+	filterActivities: function() {
+		var filter = toolbar.getSearchText().toLowerCase();
+		
+		// In radial view, just disable activities
+		enyo.forEach(this.$.desktop.getControls(), function(item) {
+			item.setDisabled(item.icon.name.toLowerCase().indexOf(filter) == -1 && filter.length != 0);
+		});
+		
+		// In list view display only matching activities
+		if (this.currentView == constant.listView) {
+			this.otherview.setActivities(preferences.getActivitiesByName(filter));
 		}
-		this.$.activityPopup.setIcon(icon);	
-		this.timer = window.setInterval(enyo.bind(this, "hidePopup"), constant.timerPopupDuration);
-	},
-
-	hidePopup: function() {
-		if (this.$.activityPopup.cursorIsInside(this.position))
-			return;
-		this.$.activityPopup.hidePopup();
-		window.clearInterval(this.timer);
-		this.timer = null;		
 	}
 });
 
+
+
+
+
+// Class for desktop toolbar
+enyo.kind({
+	name: "Sugar.Desktop.Toolbar",
+	kind: enyo.Control,
+	components: [
+		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView", onclick: "showRadialView"},
+		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView", onclick: "showListView"}
+	],
+	
+	// Constructor
+	create: function() {
+		// Localize items
+		this.inherited(arguments);	
+	},
+	
+	rendered: function() {
+		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));	
+		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
+		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));	
+	},
+	
+	// Handle search text content
+	getSearchText: function() {
+		return this.$.searchtext.getText();
+	},
+	
+	setSearchText: function(value) {
+		this.$.searchtext.setText(value);
+	},
+	
+	// Handle active button
+	setActiveView: function(view) {
+		if (view == constant.radialView) {
+			this.$.radialbutton.addRemoveClass('active', true);
+			this.$.listbutton.addRemoveClass('active', false);
+		} else if (view == constant.listView) {
+			this.$.radialbutton.addRemoveClass('active', false);
+			this.$.listbutton.addRemoveClass('active', true);		
+		}
+	},
+	
+	// Handle events
+	filterActivities: function() {
+		app.filterActivities();
+	},
+	
+	showRadialView: function() {
+		app.showView(constant.radialView);
+	},
+	
+	showListView: function() {
+		app.showView(constant.listView);
+	}
+});

@@ -1,0 +1,589 @@
+@toolbar-grey: #282828;
+@button-grey: #808080;
+@panel-grey: #C0C0C0;
+@text-field-grey: #E5E5E5;
+@link-blue: #0076C3;
+
+@line-width: 2px;
+@subcell-size: 11px;
+@cell-size: 5 * @subcell-size;
+@font-size: 10pt;
+
+@toolbar-height: @cell-size;
+@icon-small-size: 2 * @subcell-size;
+
+@toolbutton-size: @toolbar-height - (4 * @line-width);
+@toolbar-button-margin-top: (@toolbar-height / 2) - (2 * @line-width) -
+                            (@icon-small-size / 2);
+
+@input-text-padding: (2 * @line-width);
+@input-text-line-height: 2 * @subcell-size;
+@input-text-width: 3 * @cell-size;
+@toolbar-input-height: (@toolbar-height / 2) - (@input-text-line-height / 2) -
+                       (@input-text-padding + @line-width);
+
+@button-small-size: @input-text-line-height + (2 * @input-text-padding) +
+                    (2 * @line-width);
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: @panel-grey;
+  position: relative;
+  font-family: sans-serif;
+  font-size: @font-size;
+}
+
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.pull-right {
+  float: right;
+}
+
+a {
+  color: @link-blue;
+  text-decoration: none;
+}
+
+/* Toolbar */
+
+.toolbar {
+  color: white;
+  background-color: @toolbar-grey;
+  padding: 0 @toolbutton-size + (5 * @line-width);
+  height: @toolbar-height;
+  .unselectable;
+}
+
+/* Toolbar separator */
+
+.toolbar hr {
+  display: inline-block;
+  height: 3 * @subcell-size;
+  border: (@line-width / 2) solid @button-grey;
+  margin: (@subcell-size - (@line-width * 3)) / 2;
+  margin-bottom: -1 * (@subcell-size + (@line-width * 3));
+}
+
+/* Toolbar toolbutton */
+
+.toolbar .toolbutton {
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: white;
+  color: transparent;
+  border: 0;
+  border-radius: @subcell-size / 2;
+  margin: (2 * @line-width) @line-width;
+  width: @toolbutton-size;
+  height: @toolbutton-size;
+  position: relative;
+}
+
+.toolbar .toolbutton:hover {
+  background-color: black;
+}
+
+.toolbar .toolbutton:active, .toolbar .toolbutton.active {
+  background-color: @button-grey;
+}
+
+.toolbar .toolbutton img {
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar .toolbutton:before {
+  content: "";
+  background-color: transparent;
+  position: absolute;
+  display: block;
+  width: @cell-size;
+  height: @subcell-size;
+  bottom: -2 * @line-width;
+  right: -2 * @line-width;
+}
+
+.toolbar .toolbutton.invoker:before {
+  background-image: url('../icons/emblems/arrow-down.svg');
+}
+
+.toolbar #stop-button {
+  background-image: url('../icons/actions/activity-stop.svg');
+}
+
+/* Canvas */
+
+#canvas {
+  color: black;
+  background-color: @panel-grey;
+  position: absolute;
+  bottom: 0;
+  top: @toolbar-height;
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* Button */
+
+button {
+  background-color: @button-grey;
+  color: white;
+  border: @line-width solid transparent;
+  border-radius: 2 * @subcell-size;
+  line-height: @icon-small-size;
+  padding: @line-width (2 * @line-width);
+  .unselectable;
+}
+
+button:hover {
+  background-color: @button-grey + #222;
+  border-color: @button-grey + #222;
+}
+
+button:active {
+  background-color: white;
+  color: black;
+  border-color: @button-grey;
+}
+
+button:focus {
+  border-color: white;
+}
+
+.toolbar button {
+  margin-top: @toolbar-button-margin-top;
+}
+
+/* Button with icon */
+
+button.icon {
+  position: relative;
+  padding-left: @icon-small-size + (2 * @line-width);
+}
+
+button.icon span.ok {
+  background-image: url(../icons/actions/dialog-ok.svg);
+}
+
+button.icon:active span.ok {
+  background-image: url(../icons/actions/dialog-ok-active.svg);
+}
+
+button.icon span.cancel {
+  background-image: url(../icons/actions/dialog-cancel.svg);
+}
+
+button.icon:active span.cancel {
+  background-image: url(../icons/actions/dialog-cancel-active.svg);
+}
+
+button.icon span {
+  display: inline-block;
+  width: @icon-small-size;
+  height: @icon-small-size;
+  background-color: transparent;
+  background-position: center;
+  background-size: @icon-small-size @icon-small-size;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+button.icon span  {
+  top: @line-width;
+  left: @line-width;
+}
+
+/* One line text input */
+
+input[type='text'] {
+  background-color: @text-field-grey;
+  border: @line-width solid @text-field-grey;
+  border-radius: 2 * @subcell-size;
+  padding: @input-text-padding;
+  width: @input-text-width;
+  line-height: @input-text-line-height;
+  outline: 0;
+}
+
+input[type='text']:focus {
+  background-color: white;
+}
+
+input[type='text']:disabled {
+  border-color: @button-grey;
+  background-color: @button-grey;
+}
+
+.toolbar input[type='text'], .palette .row input[type='text'] {
+  margin-top: @toolbar-input-height;
+}
+
+.palette .row input[type='text']:nth-last-child(1) {
+  margin-top: @toolbar-input-height - @line-width;
+}
+
+input[type='text'].expand {
+  width: calc(~"100%" - (2 * @input-text-padding + 2 * @line-width));
+}
+
+/* One line text input with buttons inside */
+
+.icon-input {
+  display: inline-block;
+  position: relative;
+}
+
+.icon-input input[type='text'] {
+  width: @input-text-width + @input-text-padding - @button-small-size;
+  padding-right: @button-small-size;
+}
+
+.icon-input.expand {
+  width: 100%;
+}
+
+.icon-input.expand  input[type='text'] {
+  width: calc(~"100%" - (@input-text-padding + 2 * @line-width +
+              @button-small-size));
+}
+
+.icon-input button {
+  width: @button-small-size;
+  height: @button-small-size;
+  padding: 0;
+  position: absolute;
+  background-size: @icon-small-size @icon-small-size;
+}
+
+.icon-input button.right {
+  margin: 0 0 0 -@button-small-size;
+  border-radius: 0 (2 * @subcell-size) (2 * @subcell-size) 0;
+  right: 0;
+}
+
+.icon-input button {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+}
+
+.icon-input button {
+  top: @line-width;
+}
+
+.toolbar .icon-input button:hover {
+  background-color: transparent;
+}
+
+.toolbar .icon-input button {
+  top: @toolbar-input-height;
+}
+
+button.cancel {
+  background-image: url(../icons/actions/entry-cancel.svg);
+}
+
+button.cancel:active {
+  background-image: url(../icons/actions/entry-cancel-active.svg);
+}
+
+button.cancel:disabled {
+  background-image: url(../icons/actions/entry-cancel-disabled.svg);
+}
+
+/* Slider */
+/* FIXME this is not fully Sugarized yet */
+
+input[type='range'] {
+  -webkit-appearance: none !important;
+  background-color: @button-grey;
+  border-radius: 2 * @subcell-size;
+  height: @subcell-size;
+  cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background-color: @panel-grey;
+  border: (2 * @line-width) solid @button-grey;
+  border-radius: @subcell-size;
+  height: @icon-small-size;
+  width: @icon-small-size;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  background-color: @panel-grey + #222;
+  border-color: @button-grey + #222;
+}
+
+.toolbar input[type='range'] {
+  margin-top: (@toolbar-height / 2) - (@subcell-size / 2);
+}
+
+/* Label */
+
+label {
+  .unselectable;
+}
+
+/* Palette */
+
+.palette {
+  color: white;
+  background-color: transparent;
+  position: absolute;
+  pointer-events: none;
+}
+
+.palette-invoker {
+  width: @cell-size - 2 * @line-width;
+  height: @cell-size - @line-width;
+  background-color: black;
+  border: @line-width solid @button-grey;
+  border-bottom: 0;
+  background-position: @line-width @line-width;
+  background-size: @toolbutton-size;
+  background-repeat: no-repeat;
+}
+
+.palette-invoker:after {
+  content: "";
+  background-color: transparent;
+  position: absolute;
+  display: block;
+  width: @cell-size;
+  height: @subcell-size;
+  top: 4 * @subcell-size;
+  left: 0;
+  background-image: url('../icons/emblems/arrow-up.svg');
+}
+
+.palette-invoker:before {
+  content: "";
+  background-color: black;
+  position: absolute;
+  display: block;
+  top: @cell-size;
+  width: @cell-size - 2 * @line-width;
+  left: @line-width;
+  height: @line-width;
+}
+
+.palette .wrapper {
+  background-color: black;
+  border: @line-width solid @button-grey;
+  max-width: 5 * @cell-size - 2 * @line-width;
+  min-width: 3 * @cell-size - 2 * @line-width;
+  min-height: @cell-size - 2 * @line-width;
+  pointer-events: auto;
+}
+
+.palette .header {
+  height: @cell-size - 2 * @line-width;
+  line-height: @cell-size - 2 * @line-width;
+  .unselectable;
+  margin: 0 (@subcell-size / 2);
+  font-weight: bold;
+}
+
+.palette hr {
+  border: (@line-width / 2) solid @button-grey;
+}
+
+.palette hr.header-separator {
+  margin-top: 0;
+}
+
+.palette .row {
+  height: @cell-size;
+  margin: 0 (@subcell-size / 2);
+}
+
+.palette .row:nth-last-child(1) {
+  height: @cell-size - 2 * @line-width;
+}
+
+.palette .row.small {
+  height: 2 * @subcell-size;
+}
+
+.palette .row.expand {
+  height: auto;
+}
+
+/* Palette menu */
+
+.palette .menu {
+  list-style-type: none;
+  padding: 0;
+  margin-top: @subcell-size;
+  margin-bottom: @subcell-size;
+}
+
+.palette .menu button {
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  line-height: 3 * @subcell-size;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.palette .menu button:hover {
+  background-color: @button-grey;
+  color: white;
+}
+
+.palette .menu button.icon {
+  padding-left: 3 * @subcell-size + 2 * @line-width;
+}
+
+.palette .menu button.icon span {
+  top: 0;
+  left: 0;
+  width: 3 * @subcell-size;
+  height: 3 * @subcell-size;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  background-color: @button-grey;
+  width: @subcell-size;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: @line-width solid #ddd;
+  border-radius: @subcell-size;
+}
+
+/* Grid for visual debugging and layout */
+
+.grid {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.appearance(@value) {
+  -moz-appearance: @value;
+  appearance: @value;
+  -webkit-appearance: @value;
+}
+
+/* Checkbox and radio */
+
+input[type='checkbox'],
+input[type='radio'] {
+  background-position: center;
+  background-size: contain;
+  width: @icon-small-size;
+  height: @icon-small-size;
+  margin: @line-width @line-width (2 * @line-width) @line-width;
+  vertical-align: middle;
+  .appearance(none);
+}
+
+.toolbar input[type='checkbox'],
+.toolbar input[type='radio'] {
+  margin-top: (@toolbar-height - @icon-small-size) / 2 - @line-width;
+  margin-bottom: (@toolbar-height - @icon-small-size) / 2 + @line-width;
+}
+
+input[type='checkbox'] {
+  background-image: url(../icons/actions/checkbox-unchecked.svg);
+}
+
+input[type='checkbox']:active {
+  background-image: url(../icons/actions/checkbox-checked-selected.svg);
+}
+
+input[type='checkbox']:checked:active {
+  background-image: url(../icons/actions/checkbox-checked-selected.svg);
+}
+
+input[type='checkbox']:checked {
+  background-image: url(../icons/actions/checkbox-checked.svg);
+}
+
+input[type='radio'] {
+  background-image: url(../icons/actions/radio.svg);
+}
+
+input[type='radio']:active {
+  background-image: url(../icons/actions/radio-selected.svg);
+}
+
+input[type='radio']:checked:active {
+  background-image: url(../icons/actions/radio-active-selected.svg);
+}
+
+input[type='radio']:checked {
+  background-image: url(../icons/actions/radio-active.svg);
+}
+
+/* Textarea */
+
+textarea {
+  border: @line-width solid @button-grey;
+  margin: @line-width;
+}
+
+textarea.expand {
+  width: calc(~"100%" - (6 * (@line-width)));
+}
+
+/* Lists */
+
+ul.flat-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.flat-list li {
+  border-bottom: @line-width dotted @panel-grey;
+  background-color: white;
+  height: 3 * @subcell-size - @line-width;
+  line-height: 3 * @subcell-size - @line-width;
+}
+
+ul.flat-list li:nth-last-child(1) {
+  border-bottom: none;
+}
+
+ul.flat-list.big li {
+  height: 4 * @subcell-size - @line-width;
+  line-height: 4 * @subcell-size - @line-width;
+}
+
+ul.flat-list.striped li:nth-child(odd) {
+  background-color: @text-field-grey;
+}
+
+/* ActivityPalette */
+
+#activity-palette .wrapper {
+  width: 5 * @cell-size - 2 * @line-width;
+}

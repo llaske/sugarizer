@@ -1,0 +1,230 @@
+﻿<!doctype html>
+<html>
+<head>
+	<title>controlled inline: onyx toolbar design</title>
+	<link href="../source/css/onyx.css" rel="stylesheet" type="text/css" />
+	<style>
+		/*
+			the 'inline' class sets up a left-to-right container, with vertically centered children
+		*/
+		.inline {
+			white-space: nowrap;
+		}
+		.inline > * { 
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.icon {
+			width: 32px;
+			height: 32px;
+			background-image: url(menu-icon-bookmark.png);
+		}
+		.bord {
+			border: 1px solid lightblue;
+		}
+		.big {
+			font-size: 48px;
+		}
+		.pad {
+			padding: 8px;
+		}
+		.bg {
+			background: orange;
+		}
+		/*
+			We can control line-height so that vertical-align: middle 
+			becomes true center. Otherwise, when line-height is in effect
+			(i.e. if the actual height is less than line height), 
+			user agents pad the line unevenly.
+		*/
+		.lhc {
+			line-height: 0;
+		}
+		/*
+			Defeat line-height control above for children
+		*/
+		.lhc > * {
+			line-height: normal;
+		}
+		/*
+			Enforce line-height 0 for an inline child of an inline (FIXME: fiddly)
+		*/
+		.lhc .lhc {
+			line-height: 0px;
+		}
+		/**/
+		.h {
+			height: 64px;
+		}
+		/*
+			It's useful to be able to abut toolbars in an inline context
+			and not worry about varying heights.
+			Generally icons are the largest elements in a toolbar, and will
+			drive the height to this size.
+			We can't set a min-size directly on the toolbar because it
+			breaks centering (due to interation with line-height).
+			For some scenarios a developer may want to override the height value.
+		*/
+		.stent {
+			/*
+				the point of the stent is to force the box height to some minimum, similar
+				to line-height, but with proper vertical centering
+			*/
+			height: 72px;
+			/* the width is 0, but it adds some size to the inline because of ? */
+			width: 0px;
+			visibility: hidden;
+		}
+		.stent-fix {
+			/* stent imparts mystery width to it's parent */
+			/* setting font-size doesn't affect the mystery width */
+			/*font-size: 0px;*/
+			/* floating the stent prevents it from stenting */
+			/*float: left;*/
+			/* on non-mozilla, mystery size can be removed this way, but the actual pixels needed depends on font size */
+			/*margin-right: -6px;*/
+			/* on non-mozilla, this gets us within a few pixels for tested fonts */
+			margin-right: -0.25em;
+		}
+		/* */
+		.stenty > * {
+			min-height: 56px;
+		}
+	</style>
+</head>
+<body>
+	<label>"inline" tests</label>
+	<br /><br />
+
+	<div>
+		<label>combo content: when the text is larger than non-text objects, vertical centering goes wonky</label>
+		<div class="inline bord big">
+			<div>Text in Div</div>
+			<input />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<label>... it's possible to control line-height in such a way to repair centering</label>
+		<div class="inline bord big lhc">
+			<div>Text in Div</div>
+			<input />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<hr />
+
+		<label>but now setting height or min-height on toolbar breaks centering</label>
+		<div class="inline bord lhc bg big h">
+			<div>Text in Div</div>
+			<input />
+			<div class="icon"></div>
+		</div>
+		<br />
+
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg h">
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg h">
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+
+		<hr />
+
+		<label>control height on children instead of toolbar</label>
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg">
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg">
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg stenty">
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg stenty">
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+
+		<hr />
+
+		<label>it's possible to use a stent to effect min-height, but for unknown reasons, even a 0-width stent affects parent width</label>
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg">
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg">
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg">
+				<div class="stent"></div>
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg">
+				<div class="stent"></div>
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+
+		<label>using img as stent node makes no difference</label>
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg">
+				<img class="stent" />
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg">
+				<img class="stent" />
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+
+		<label>using negative margin on stent can approximate 0 width</label>
+		<div class="inline bord big lhc">
+			<div class="inline bord lhc bg">
+				<div class="stent stent-fix"></div>
+				<div>Text in Div</div>
+				<input />
+				<div class="icon"></div>
+			</div>
+			<div class="inline bord lhc bg">
+				<div class="stent stent-fix"></div>
+				<input />
+				<div class="icon"></div>
+			</div>
+		</div>
+		<br />
+	</div>
+</body>
+</html>

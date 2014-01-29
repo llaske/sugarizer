@@ -1,0 +1,64 @@
+define(["sugar-web/graphics/palette", "mustache"], function (palette, mustache) {
+
+    var menupalette = {};
+
+    menupalette.MenuPalette = function (invoker, primaryText, menuData) {
+        palette.Palette.call(this, invoker, primaryText);
+
+        this.selectItemEvent = new CustomEvent(
+            "selectItem", {
+            detail: {
+                item: undefined
+            },
+            bubbles: true,
+            cancelable: true
+        });
+
+        this.template =
+            '{{#.}}' +
+            '<li><button' +
+            ' {{ #icon }}class="icon"{{ /icon }}' +
+            ' {{ #id }}id="{{ id }}"{{ /id }}' +
+            '>' +
+            '{{ #icon }}<span></span>{{ /icon }}' +
+            '{{ label }}</button></li>' +
+            '{{/.}}';
+
+        var menuElem = document.createElement('ul');
+        menuElem.className = "menu";
+        menuElem.innerHTML = mustache.render(this.template, menuData);
+        this.setContent([menuElem]);
+
+        // Pop-down the palette when a item in the menu is clicked.
+
+        this.buttons = menuElem.querySelectorAll('button');
+
+        var that = this;
+
+        function popDownOnButtonClick(event) {
+            that.selectItemEvent.detail.target = event.target;
+            that.getPalette().dispatchEvent(that.selectItemEvent);
+            that.popDown();
+        }
+
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].addEventListener('click', popDownOnButtonClick);
+        }
+    };
+
+    var addEventListener = function (type, listener, useCapture) {
+        return this.getPalette().addEventListener(type, listener, useCapture);
+    };
+
+    menupalette.MenuPalette.prototype =
+        Object.create(palette.Palette.prototype, {
+        addEventListener: {
+            value: addEventListener,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        }
+    });
+
+    return menupalette;
+});

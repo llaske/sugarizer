@@ -1,0 +1,243 @@
+﻿
+<!doctype html>
+<html>
+<head>
+	<title>onyx toolbar design</title>
+	<link href="../source/css/onyx.css" rel="stylesheet" type="text/css" />
+	<style>
+		/*
+			the 'inline' class attempts to setup a left-to-right container, with vertically centered children
+		*/
+		.toolbar > *, .inline > * { 
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.toolbar, .inline {
+			white-space: nowrap;
+			/*
+				We want to control line-height so that vertical-align: middle 
+				becomes true center. Otherwise, when line-height is in effect
+				(i.e. if the actual height is less than line height), 
+				user agents pad the line unevenly.
+			*/
+			line-height: 0;
+		}
+		.toolbar > *, .inline > * {
+			/*
+				Defeat line-height control above for children
+			*/
+			line-height: normal;
+		}
+		.toolbar .inline, .inline .inline {
+			/*
+				Enforce line-height 0 for an inline child of an inline (FIXME: fiddly)
+			*/
+			line-height: 0px;
+		}
+		/*
+			toolbar is just an inline context with specific styling
+		*/
+		.toolbar {
+			padding: 8px;
+			/**/
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+		}
+		/*
+			It's useful to be able to abut toolbars in an inline context
+			and not worry about varying heights.
+			Generally icons are the largest elements in a toolbar, and will
+			drive the height to this size.
+			We can't set a min-size directly on the toolbar because it
+			breaks centering (due to interation with line-height).
+			For some scenarios a developer may want to override the height value.
+		*/
+		.stent {
+			visibility: none;
+			width: 0px;
+			height: 34px;
+		}
+		/* */
+		.onyx .toolbar {
+			padding: 8px;
+			/**/
+			border: 1px solid #3A3A3A;
+			background: #4C4C4C url(../images/gradient.png) repeat-x 0 bottom;
+			color: white;
+		}
+		/* */
+		button {
+			/* only needed for IE */
+			line-height: normal !important;
+		}
+		.icon {
+			width: 32px;
+			height: 32px;
+			background-image: url(menu-icon-bookmark.png);
+		}
+		/* */
+		/*
+			for display/debug only, not part of the design 
+		*/
+		.big {
+			font-size: 42px;
+		}
+		.bord {
+			border: 1px solid lightblue;
+		}
+		.bg {
+			background-color: Red;
+		}
+		.bg .toolbar {
+			background-color: white;
+		}
+		.lh0 {
+			line-height: 0px;
+		}
+		.lhn {
+			line-height: normal;
+		}
+	</style>
+</head>
+<body>
+	<div class="onyx">
+		<label>no content</label>
+		<div class="toolbar"></div>
+		<br />
+		<label>text only content (padding is ignored due to line height control)</label>
+		<div class="toolbar">Text</div>
+		<br />
+		<label>div content</label>
+		<div class="toolbar">
+			<div>Text in Div</div>
+		</div>
+		<br />
+		<label>input content</label>
+		<div class="toolbar">
+			<input class="" />
+		</div>
+		<br />
+		<label>input content</label>
+		<div class="toolbar">
+			<div class="icon"></div>
+		</div>
+		<br />
+		<label>input content</label>
+		<div class="toolbar">
+			<img src="menu-icon-bookmark.png" height="32"/>
+		</div>
+		<br />
+		<label>div content with min-height on toolbar (centering improper on tested user agents)</label>
+		<div class="toolbar" style="min-height: 50px;">
+			<div>Text in Div</div>
+		</div>
+		<br />
+		<label>div content with stent</label>
+		<div class="toolbar">
+			<div class="stent"></div>
+			<div>Text in Div</div>
+		</div>
+		<br />
+		<label>stented toolbars abutting in inline context, as long as the stent is the largest item the bars align. There should be no red color visible above or below each toolbar.</label>
+		<div class="inline" style="background-color: Red;">
+			<div class="toolbar">
+				<div class="stent"></div>
+				<div>Text in Div</div>
+			</div>
+			<div class="toolbar">
+				<div class="stent"></div>
+				<input class="" />
+			</div>
+			<div class="toolbar">
+				<div class="stent"></div>
+				<div class="icon"></div>
+			</div>
+			<div class="toolbar">
+				<div class="stent"></div>
+				<img src="menu-icon-bookmark.png" height="32"/>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div class="bord toolbar">
+		<div class="bord">div</div>
+		<input class="bord" />
+		<div class="bord icon"></div>
+	</div>
+	<br />
+	<div class="bord toolbar big">
+		<div class="bord">div</div>
+		<input class="bord" />
+		<div class="bord icon"></div>
+	</div>
+	<br />
+	<div class="bord toolbar big lh0">
+		<div class="bord lhn">div</div>
+		<input class="bord" />
+		<div class="bord icon"></div>
+	</div>
+	<br />
+	<div class="bord toolbar big lh0">
+		<div class="bord lhn">div</div>
+		<input class="bord" />
+	</div>
+	<br />
+	<br />
+	<div class="toolbar bord">
+		<div class="bord">div</div>
+		<input class="bord" />
+		<div class="bord inline">
+			<div class="bord">div</div>
+			<input class="bord" />
+			<div class="bord icon"></div>
+		</div>
+		<button>Button</button>
+		<div class="bord icon"></div>
+		<img class="bord" src="menu-icon-bookmark.png" height="32"/>
+	</div>
+	<br />
+	<div class="toolbar bord big">
+		<div class="bord">div</div>
+		<div class="bord inline">
+			<div class="bord">div</div>
+			<input class="bord" />
+			<div class="bord icon"></div>
+		</div>
+		<button>Button</button>
+		<div class="bord icon"></div>
+		<img class="bord"src="menu-icon-bookmark.png" height="32"/>
+	</div>
+	<br />
+	<div class="toolbar big bord">
+		<div class="bord">div</div>
+	</div>
+	<br />
+	<div class="inline bord big bg">
+		<div class="toolbar bord">
+			<div class="bord">div</div>
+		</div>
+		<div class="toolbar bord">
+			<div class="icon"></div>
+		</div>
+		<div class="toolbar bord">
+			<div class="inline">
+				<div class="icon"></div>
+			</div>
+		</div>
+		<div class="toolbar bord">
+			<div class="bord">div</div>
+			<input class="bord" />
+			<div class="inline">
+				<div class="bord">div</div>
+				<input class="bord" />
+				<div class="icon"></div>
+			</div>
+			<button>Button</button>
+			<div class="icon"></div>
+			<img src="menu-icon-bookmark.png" height="32"/>
+		</div>
+	</div>
+</body>
+</html>
