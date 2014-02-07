@@ -26,7 +26,7 @@ Abcd.saveContext = function() {
 	datastoreObject.setDataAsText(jsonData);
 	datastoreObject.save(function() {});	
 };
-Abcd.loadContext = function() {
+Abcd.loadContext = function(callback) {
 	var datastoreObject = Abcd.activity.getDatastoreObject();
 	datastoreObject.loadAsText(function (error, metadata, data) {
 		var context = JSON.parse(data);	
@@ -39,6 +39,7 @@ Abcd.loadContext = function() {
 		if (context.database) {
 			Abcd.context.database = context.database;
 		}
+		callback();
 	});
 };
 

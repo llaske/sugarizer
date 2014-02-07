@@ -14,9 +14,9 @@ enyo.kind({
 		{ kind: "Image", src: "images/FoodChain.png", classes: "logo" },
 		
 		// Game button
-		{ name: "one", kind: "ShadowButton", img: "one", classes: "game-one", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
-		{ name: "two", kind: "ShadowButton", img: "two", classes: "game-two", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
-		{ name: "three", kind: "ShadowButton", img: "three", classes: "game-three", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
+		{ name: "LearnGame", kind: "ShadowButton", img: "one", classes: "game-LearnGame", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
+		{ name: "BuildGame", kind: "ShadowButton", img: "two", classes: "game-BuildGame", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
+		{ name: "PlayGame", kind: "ShadowButton", img: "three", classes: "game-PlayGame", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
 		{ kind: "ShadowButton", img: "information", classes: "information", ontap: "showCredits" },
 		
 		// Popup for game title and description
@@ -42,6 +42,10 @@ enyo.kind({
 		this.games = [];
 		this.setLocale();
 		
+		// Update context, no game playing
+		FoodChain.context.game = "";
+		FoodChain.context.object = this;
+		
 		// Init soundtrack
 		this.soundtrack = "audio/popcorn";
 	},
@@ -49,9 +53,9 @@ enyo.kind({
 	// Localization, changed update cards and description
 	setLocale: function() {
 		// Update description
-		this.games["one"] = { title: __$FC("learn"), description:  __$FC("learndesc") };
-		this.games["two"] = { title: __$FC("build"), description:  __$FC("builddesc") };
-		this.games["three"] = { title: __$FC("play"), description:  __$FC("playdesc") };	
+		this.games["LearnGame"] = { title: __$FC("learn"), description:  __$FC("learndesc") };
+		this.games["BuildGame"] = { title: __$FC("build"), description:  __$FC("builddesc") };
+		this.games["PlayGame"] = { title: __$FC("play"), description:  __$FC("playdesc") };	
 		
 		// Change card localization if any
 		enyo.forEach(this.$.cardbox.getControls(), function(card) {
@@ -79,20 +83,7 @@ enyo.kind({
 	},
 	
 	// Play soundtrack when rendered and restart at end
-	rendered: function() {
-		// Context not null, resume the game previously stopped
-		if (FoodChain.context.game != "") {
-			FoodChain.context.object = enyo.create({
-				kind: FoodChain.context.game, 
-				level: FoodChain.context.level
-			}).renderInto(document.getElementById("body"));
-			return true;
-		}
-
-		// Update context, no game playing
-		FoodChain.context.game = "";
-		FoodChain.context.object = this;
-		
+	rendered: function() {	
 		// Play soundtrack
 		FoodChain.sound.play(this.soundtrack);
 		
@@ -151,23 +142,21 @@ enyo.kind({
 		FoodChain.sound.pause();
 		this.$.timer.stop();
 		this.removeComponent(this.$.timer);
+		var level = (s.level === undefined) ? 1 : s.level;
 
 		// Launch Learn game
-		if (s.name == "one") {
-			FoodChain.context.object = new FoodChain.LearnGame({level: 1}).renderInto(document.getElementById("body"));
-			FoodChain.context.game = FoodChain.context.object.kindName;
+		if (s.name == "LearnGame") {
+			FoodChain.context.object = new FoodChain.LearnGame({level: level}).renderInto(document.getElementById("body"));
 		}
 		
 		// Launch Build game
-		else if (s.name == "two") {
-			FoodChain.context.object = new FoodChain.BuildGame({level: 1}).renderInto(document.getElementById("body"));
-			FoodChain.context.game = FoodChain.context.object.kindName;			
+		else if (s.name == "BuildGame") {
+			FoodChain.context.object = new FoodChain.BuildGame({level: level}).renderInto(document.getElementById("body"));		
 		}
 		
 		// Launch Play game
-		else if (s.name == "three") {
-			FoodChain.context.object = new FoodChain.PlayGame({level: 1}).renderInto(document.getElementById("body"));
-			FoodChain.context.game = FoodChain.context.object.kindName;
+		else if (s.name == "PlayGame") {
+			FoodChain.context.object = new FoodChain.PlayGame({level: level}).renderInto(document.getElementById("body"));
 		}		
 	}
 });

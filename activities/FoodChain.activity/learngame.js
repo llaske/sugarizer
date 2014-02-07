@@ -58,6 +58,7 @@ enyo.kind({
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.setLocale();
 		this.$.score.setContent(String("0000"+FoodChain.context.score).slice(-4));
+		FoodChain.context.game = this.kindName;		
 		this.levelChanged();
 	},
 	
@@ -104,7 +105,10 @@ enyo.kind({
 		this.currentcard = 0;
 		var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 10, y: 10, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});	
 		FoodChain.sound.play(card.sound);	
-
+		
+		// Saving context
+		FoodChain.saveContext();
+		
 		// Button handling
 		this.$.play.hide();
 		this.$.pause.show();

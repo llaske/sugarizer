@@ -25,17 +25,11 @@ define(function (require) {
 			l10n.language.code = "fr";
 			FoodChain.setLocale();
 		};
-		document.getElementById("stop-button").onclick = function() {
-			FoodChain.saveContext();
-		}
 		
 		// Wait for locale load
 		window.addEventListener('localized', function() {
 			// Init activity
 			if (app == null) {
-				// Load context
-				FoodChain.loadContext();
-				
 				// Init sound component
 				FoodChain.sound = new FoodChain.Audio();
 				FoodChain.sound.renderInto(document.getElementById("header"));
@@ -43,6 +37,14 @@ define(function (require) {
 				// Create and display first screen
 				FoodChain.context.home = app = new FoodChain.App().renderInto(document.getElementById("body"));	
 				FoodChain.setLocale();
+				
+				// Load context
+				FoodChain.loadContext(function() {
+					app.playGame({
+						name: FoodChain.context.game.replace("FoodChain.", ""),
+						level: FoodChain.context.level
+					});
+				});				
 			} else {
 				// Just change locale
 				FoodChain.setLocale();

@@ -25,9 +25,10 @@ FoodChain.saveContext = function() {
 		language: l10n.language.code
 	});
 	datastoreObject.setDataAsText(jsonData);
-	datastoreObject.save(function() {});	
+	datastoreObject.save(function() {
+	});	
 };
-FoodChain.loadContext = function() {
+FoodChain.loadContext = function(callback) {
 	var datastoreObject = FoodChain.activity.getDatastoreObject();
 	datastoreObject.loadAsText(function (error, metadata, data) {
 		var context = JSON.parse(data);
@@ -36,6 +37,7 @@ FoodChain.loadContext = function() {
 		if (context.game) FoodChain.context.game = context.game;
 		if (context.level) FoodChain.context.level = parseInt(context.level);
 		if (context.language) FoodChain.context.language = l10n.language.code = context.language;
+		callback();
 	});
 };
 

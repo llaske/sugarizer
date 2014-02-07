@@ -71,26 +71,28 @@ enyo.kind({
 			{kind: "Signals", onEndOfSound: "endSound", onkeypress: "keyPressed"},
 			
 			// Preload all images for the game
-			{kind: "Image", id: "frog1", src:"images/frog1.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog2", src:"images/frog2.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog3", src:"images/frog3.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog4", src:"images/frog4.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog5", src:"images/frog5.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog6", src:"images/frog6.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog7", src:"images/frog7.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "frog8", src:"images/frog8.png", classes: "image-preload", onload: "imageLoaded" },					
-			{kind: "Image", id: "frog9", src:"images/frog9.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "fly1", src:"images/fly1.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "fly2", src:"images/fly2.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake1", src:"images/snake1.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake2", src:"images/snake2.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake3", src:"images/snake3.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake4", src:"images/snake4.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake5", src:"images/snake5.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake6", src:"images/snake6.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake7", src:"images/snake7.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "snake8", src:"images/snake8.png", classes: "image-preload", onload: "imageLoaded" },
-			{kind: "Image", id: "rock", src:"images/rock.png", classes: "image-preload", onload: "imageLoaded" }
+			{showing: false, components: [
+				{kind: "Image", id: "frog1", src:"images/frog1.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog2", src:"images/frog2.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog3", src:"images/frog3.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog4", src:"images/frog4.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog5", src:"images/frog5.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog6", src:"images/frog6.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog7", src:"images/frog7.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "frog8", src:"images/frog8.png", classes: "image-preload", onload: "imageLoaded" },					
+				{kind: "Image", id: "frog9", src:"images/frog9.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "fly1", src:"images/fly1.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "fly2", src:"images/fly2.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake1", src:"images/snake1.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake2", src:"images/snake2.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake3", src:"images/snake3.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake4", src:"images/snake4.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake5", src:"images/snake5.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake6", src:"images/snake6.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake7", src:"images/snake7.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "snake8", src:"images/snake8.png", classes: "image-preload", onload: "imageLoaded" },
+				{kind: "Image", id: "rock", src:"images/rock.png", classes: "image-preload", onload: "imageLoaded" }
+			]}
 		]}		
 	],
 	
@@ -104,11 +106,12 @@ enyo.kind({
 			height: FoodChain.getConfig("screen-height")-300
 		};
 		this.$.gamebox.setStyle("width:"+FoodChain.playArea.width+"px; height:"+FoodChain.playArea.height+"px;");
-		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}});
+		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.createComponent({ name: "timerMonster", kind: "Timer", baseInterval: 500, onTriggered: "monsterEngine" }, {owner: this});
 		this.setLocale();		
 		this.$.score.setContent(String("0000"+FoodChain.context.score).slice(-4));
+		FoodChain.context.game = this.kindName;
 		this.levelChanged();
 	},
 	
@@ -194,7 +197,10 @@ enyo.kind({
 			});
 			snake.alive = false;
 			this.snakes.push(snake);
-		}			
+		}
+		
+		// Saving context
+		FoodChain.saveContext();
 		
 		// Button handling
 		this.$.play.hide();

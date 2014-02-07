@@ -42,7 +42,7 @@
 	left: 0px;
 	top: 0px;
 	width: 100%;
-	height: 850px;
+	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1;
 }
@@ -54,21 +54,21 @@
 	z-index: 2;
 }
 
-.game-one {
+.game-LearnGame {
 	position: absolute;
 	left: 250px;
 	top: 330px;
 	z-index: 2;
 }
 
-.game-two {
+.game-BuildGame {
 	position: absolute;
 	left: 450px;
 	top: 280px;
 	z-index: 2;	
 }
 
-.game-three {
+.game-PlayGame {
 	position: absolute;
 	left: 650px;
 	top: 330px;
@@ -93,15 +93,15 @@
 	font-size: x-large;
 }
 
-.game-color-one {
+.game-color-LearnGame {
 	color: blue;
 }
 
-.game-color-two {
+.game-color-BuildGame {
 	color: red;
 }
 
-.game-color-three {
+.game-color-PlayGame {
 	color: magenta;
 }
 

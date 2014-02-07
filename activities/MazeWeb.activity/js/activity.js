@@ -25,10 +25,14 @@ define(function (require) {
         var controls = {
             'arrows': [38, 39, 40, 37],
             'wasd': [87, 68, 83, 65],
-            'ijkl': [73, 76, 75, 74]
+            'ijkl': [73, 76, 75, 74],
+            'mouse': [-1, -1, -1, -1]
         };
 
+        var controlNames = ['arrows', 'wasd', 'ijkl', 'mouse'];
+
         var controlColors = {};
+        var controlSprites = {};
 
         var players = {};
         var winner;
@@ -42,7 +46,8 @@ define(function (require) {
         var debug = false; //true;
 
         var mazeCanvas = document.getElementById("maze");
-        var ctx = mazeCanvas.getContext("2d");
+
+        var spriteCanvas = document.createElement("canvas");
 
         var updateMazeSize = function () {
             var toolbarElem = document.getElementById("main-toolbar");
@@ -55,34 +60,52 @@ define(function (require) {
 
             mazeCanvas.width = canvasWidth;
             mazeCanvas.height = canvasHeight;
+
+            spriteCanvas.width = cellWidth * 2; // number of states
+            spriteCanvas.height = cellHeight * controlNames.length;
         };
 
         var onWindowResize = function () {
             updateMazeSize();
+            updateSprites();
             drawMaze();
         };
         window.addEventListener('resize', onWindowResize);
 
-        var drawCell = function (x, y, color) {
+        var updateSprites = function () {
+            for (control in controls) {
+                if (control in controlColors) {
+                    createPlayerSprite(control);
+                }
+            }
+        }
+
+        var createPlayerSprite = function (control) {
+            var i = controlNames.indexOf(control);
+            ctx = spriteCanvas.getContext("2d");
+            drawPlayerFace(ctx, 0, i, controlColors[control].normal);
+            drawPlayerFace(ctx, 1, i, controlColors[control].blocked);
+            return {
+                'normal': {'image': spriteCanvas, 'x': 0, 'y': i},
+                'blocked': {'image': spriteCanvas, 'x': 1, 'y': i}
+            };
+        }
+        var drawCell = function (ctx, x, y, color) {
             ctx.fillStyle = color;
             ctx.fillRect(cellWidth * x, cellHeight * y, cellWidth, cellHeight);
         }
 
-        var drawGround = function (x, y, value) {
+        var drawGround = function (ctx, x, y, value) {
             var color;
             if (value == 1) {
                 color = wallColor;
             } else {
                 color = corridorColor;
             }
-            drawCell(x, y, color);
+            drawCell(ctx, x, y, color);
         };
 
-        var drawPoint = function (x, y, color, size) {
-            if (size === undefined) {
-                size = 0.5;
-            }
-
+        var drawPoint = function (ctx, x, y, color, size) {
             var centerX = cellWidth * (x + 0.5);
             var centerY = cellHeight * (y + 0.5);
             var radius = size * Math.min(cellWidth, cellHeight) / 2;
@@ -93,62 +116,117 @@ define(function (require) {
             ctx.fill();
         };
 
-        var drawMazeCell = function (x, y) {
-            drawGround(x, y, maze.walls[x][y]);
+        var drawPlayerFace = function (ctx, x, y, color) {
+            drawPoint(ctx, x, y, color, 0.9);
+
+            var eye1X = cellWidth * (x + 0.3);
+            var eye1Y = cellHeight * (y + 0.45);
+            var eyeRadius = 0.28 * Math.min(cellWidth, cellHeight) / 2;
+            ctx.beginPath();
+            ctx.arc(eye1X, eye1Y, eyeRadius, 0, 2 * Math.PI, false);
+
+            var eye2X = cellWidth * (x + 0.7);
+            var eye2Y = cellHeight * (y + 0.45);
+            ctx.arc(eye2X, eye2Y, eyeRadius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(eye1X, eye1Y, eyeRadius / 2, 0, 2 * Math.PI, false);
+            ctx.arc(eye2X, eye2Y, eyeRadius / 2, 0, 2 * Math.PI, false);
+            ctx.fillStyle = "#000000";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(cellWidth * (x + 0.25), cellHeight * (y + 0.65));
+            ctx.quadraticCurveTo(cellWidth * (x + 0.5), cellHeight * (y + 0.75),
+                                 cellWidth * (x + 0.75), cellHeight * (y + 0.65));
+            ctx.quadraticCurveTo(cellWidth * (x + 0.5), cellHeight * (y + 0.75),
+                                 cellWidth * (x + 0.75), cellHeight * (y + 0.65));
+            ctx.quadraticCurveTo(cellWidth * (x + 0.5), cellHeight * (y + 1),
+                                 cellWidth * (x + 0.25), cellHeight * (y + 0.65));
+            ctx.quadraticCurveTo(cellWidth * (x + 0.5), cellHeight * (y + 1),
+                                 cellWidth * (x + 0.25), cellHeight * (y + 0.65));
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+        }
+
+        var drawSprite = function (ctx, x, y, spriteData) {
+            ctx.drawImage(spriteData.image,
+                          cellWidth * spriteData.x, cellHeight * spriteData.y,
+                          cellWidth, cellHeight,
+                          cellWidth * x, cellHeight * y,
+                          cellWidth, cellHeight)
+        }
+
+        var drawMazeCell = function (x, y, ctx) {
+            if (ctx === undefined) {
+                ctx = mazeCanvas.getContext("2d");
+            }
+
+            drawGround(ctx, x, y, maze.walls[x][y]);
 
             if (maze.visited[x][y] !== undefined) {
-                drawPoint(x, y, maze.visited[x][y]);
+                drawPoint(ctx, x, y, maze.visited[x][y], 0.5);
             }
 
             if (debug) {
                 if (maze.forks[x][y] == 1) {
-                    drawPoint(x, y, '#faa');
+                    drawPoint(ctx, x, y, '#faa', 0.5);
                 }
             }
 
             if (x == maze.startPoint.x && y == maze.startPoint.y) {
-                drawPoint(maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
+                drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
             }
 
             if (x == maze.goalPoint.x && y == maze.goalPoint.y) {
-                drawCell(maze.goalPoint.x, maze.goalPoint.y, goalColor);
+                drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
             }
 
             for (control in players) {
                 var player = players[control];
                 if (x == player.x && y == player.y) {
-                    drawPoint(player.x, player.y, player.color, 0.9);
+                    drawSprite(ctx, x, y, player.sprite);
                 }
             };
 
         }
 
-        var drawMaze = function () {
+        var drawMaze = function (ctx) {
+            if (ctx === undefined) {
+                ctx = mazeCanvas.getContext("2d");
+            }
+
             for (var x=0; x<maze.width; x++) {
                 for (var y=0; y<maze.height; y++) {
-                    drawGround(x, y, maze.walls[x][y]);
+                    drawGround(ctx, x, y, maze.walls[x][y]);
                     if (maze.visited[x][y] !== undefined) {
-                        drawPoint(x, y, maze.visited[x][y]);
+                        drawPoint(ctx, x, y, maze.visited[x][y], 0.5);
                     }
                     if (debug) {
                         if (maze.forks[x][y] == 1) {
-                            drawPoint(x, y, '#faa');
+                            drawPoint(ctx, x, y, '#faa', 0.5);
                         }
                     }
                 }
             }
 
-            drawPoint(maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
-            drawCell(maze.goalPoint.x, maze.goalPoint.y, goalColor);
+            drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
+            drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
 
             for (control in players) {
                 var player = players[control];
-                drawPoint(player.x, player.y, player.color, 0.9);
+                drawSprite(ctx, x, y, player.sprite);
             };
 
         };
 
-        var drawLevelComplete = function () {
+        var drawLevelComplete = function (ctx) {
+            if (ctx === undefined) {
+                ctx = mazeCanvas.getContext("2d");
+            }
+
             var centerX = cellWidth * (winner.x + 0.5);
             var centerY = cellHeight * (winner.y + 0.5);
             var radius = levelTransitionRadius;
@@ -159,7 +237,11 @@ define(function (require) {
             ctx.fill();
         }
 
-        var drawLevelStarting = function () {
+        var drawLevelStarting = function (ctx) {
+            if (ctx === undefined) {
+                ctx = mazeCanvas.getContext("2d");
+            }
+
             ctx.fillStyle = goalColor;
             var width = cellWidth * levelStartingValue;
             var height = cellHeight * levelStartingValue;
@@ -179,7 +261,7 @@ define(function (require) {
             }
             ctx.fillRect(x, y, width, height);
 
-            drawPoint(maze.startPoint.x, maze.startPoint.y, startColor,
+            drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor,
                       0.9 * levelStartingValue);
         }
 
@@ -203,6 +285,7 @@ define(function (require) {
         var runLevel = function () {
             maze.generate(window.innerWidth / window.innerHeight, gameSize);
             updateMazeSize();
+            updateSprites();
             players = {};
             winner = undefined;
             onLevelStart();
@@ -247,12 +330,15 @@ define(function (require) {
             if (!(control in controlColors)) {
                 var hue = Math.floor(Math.random()*360);
                 controlColors[control] = {
-                    'color': 'hsl(' + hue + ', 90%, 50%)',
-                    'visitedColor': 'hsl(' + hue + ', 30%, 80%)'
-                }
+                    'normal': 'hsl(' + hue + ', 90%, 50%)',
+                    'blocked': 'hsl(' + hue + ', 90%, 80%)',
+                    'visited': 'hsl(' + hue + ', 30%, 80%)'
+                };
+                controlSprites[control] = createPlayerSprite(control);
             }
-            this.color = controlColors[control].color;
-            this.visitedColor = controlColors[control].visitedColor;
+            this.color = controlColors[control].normal;
+            this.sprite = controlSprites[control].normal;
+            this.visitedColor = controlColors[control].visited;
             this.path = undefined;
             this.animation = undefined;
             this.blockTween = undefined;
@@ -323,7 +409,9 @@ define(function (require) {
             var that = this;
 
             function restoreColor() {
-                that.color = controlColors[that.control].color;
+                that.color = controlColors[that.control].normal;
+                that.sprite = controlSprites[that.control].normal;
+                dirtyCells.push({'x': that.x, 'y': that.y});
             }
 
             if (this.blockTween !== undefined) {
@@ -331,17 +419,11 @@ define(function (require) {
                 restoreColor();
             }
 
-            var hsl = getHSL(this.color);
-            var endLight = parseInt(hsl.l.substring(0, hsl.s.length-1));
-            var startLight = endLight + 30;
+            this.blockTween = new TWEEN.Tween({}).to({}, 300);
 
-            this.blockTween = new TWEEN.Tween({l: startLight});
-            this.blockTween.to({l: endLight}, 300);
-
-            this.blockTween.onUpdate(function () {
-                that.color = 'hsl(' + hsl.h + ', ' + hsl.s + ', ' + this.l + '%)';
-                dirtyCells.push({'x': that.x, 'y': that.y});
-            });
+            this.color = controlColors[this.control].blocked;
+            this.sprite = controlSprites[this.control].blocked;
+            dirtyCells.push({'x': this.x, 'y': this.y});
 
             this.blockTween.onComplete(function () {
                 restoreColor();
@@ -399,6 +481,48 @@ define(function (require) {
             this.animation = setInterval(next, 40);
         };
 
+        var mazeClick = function (event) {
+            if (levelStatus == 'transition') {
+                return;
+            }
+
+            var currentControl = 'mouse'
+
+            if (!(currentControl in players)) {
+                players[currentControl] = new Player(currentControl);
+            }
+
+            var player = players[currentControl];
+
+            var px = cellWidth * (player.x + 0.5);
+            var py = cellHeight * (player.y + 0.5);
+
+            var x = event.x;
+            var y = event.y;
+
+            var canvas = document.getElementById("maze");
+            x -= canvas.offsetLeft;
+            y -= canvas.offsetTop;
+
+            var angle = Math.atan2(y - py, x - px) * 180 / Math.PI;
+
+            if (45 < angle && angle < 135) {
+                    player.move('south');
+            } else if (-45 > angle && angle > -135) {
+                    player.move('north');
+            } else if (-45 < angle && angle < 45) {
+                    player.move('east');
+            } else {
+                    player.move('west');
+            }
+        };
+
+        if (mazeCanvas.addEventListener) {
+            mazeCanvas.addEventListener("mousedown", mazeClick);
+        } else {
+            mazeCanvas.attachEvent('onclick', mazeClick);
+        }
+
         var onKeyDown = function (event) {
             if (levelStatus == 'transition') {
                 return;
@@ -426,19 +550,6 @@ define(function (require) {
         };
 
         document.addEventListener("keydown", onKeyDown);
-
-        var CSS_INTEGER = "[-\\+]?\\d+%?";
-        var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
-        var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
-        var MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-        var hslMatcher = new RegExp("hsl" + MATCH3);
-
-        var getHSL = function (hslColor) {
-           var match = hslMatcher.exec(hslColor);
-            if (match) {
-                return { h: match[1], s: match[2], l: match[3] };
-            }
-        };
 
         var animateGoal = function (timestamp) {
             var hue = Math.floor(120 * (1 + Math.cos(timestamp / 3000)));

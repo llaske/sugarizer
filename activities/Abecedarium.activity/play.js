@@ -252,7 +252,10 @@ enyo.kind({
 			);
 			toEntry.addClass("entryPlayTo");
 			toEntry.render();
-		}	
+		}
+		
+		// Save context
+		Abcd.saveContext();		
 	},
 		
 	// Entry taped play sound and/or select entry

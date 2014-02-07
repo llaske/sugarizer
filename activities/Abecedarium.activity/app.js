@@ -31,10 +31,18 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		Abcd.context.home = this;
+		Abcd.context.object = null;
+	},
+	
+	// Render
+	rendered: function() {
+		this.playTheme();
+		this.$.networkCheck.check();
 	},
 	
 	// Start the last closed activity if context not null
-	rendered: function() {
+	restartLastGame: function() {
+		Abcd.sound.pause();
 		if (Abcd.context.screen != "") {
 			Abcd.context.object = enyo.create({
 				kind: Abcd.context.screen,
@@ -43,9 +51,6 @@ enyo.kind({
 			Abcd.context.screen = "";
 			return true;
 		}
-		this.playTheme();		
-		Abcd.context.object = null;
-		this.$.networkCheck.check();
 	},
 	
 	// Play theme

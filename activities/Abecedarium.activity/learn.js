@@ -124,6 +124,9 @@ enyo.kind({
 				{ owner: this }
 			).render();			
 		}
+		
+		// Save context
+		Abcd.saveContext();
 	},
 	
 	// Display all collection for a theme
@@ -140,6 +143,9 @@ enyo.kind({
 			if (Abcd.collections[i].theme != this.theme) continue;
 			this.$.box.createComponent({ kind: "Abcd.Collection", index: i, ontap: "displayEntries"}, {owner: this}).render();
 		}
+		
+		// Save context
+		Abcd.saveContext();		
 	},
 	
 	// Display entries in a collection
@@ -207,6 +213,9 @@ enyo.kind({
 			this.$.next.hide();	
 		this.$.pageCount.setContent(Math.ceil(i/entriesByScreen)+"/"+Math.ceil(length/entriesByScreen));
 		this.position = position-1;
+		
+		// Save context
+		Abcd.saveContext();		
 	},
 	
 	displayNextEntries: function() {

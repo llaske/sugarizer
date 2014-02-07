@@ -50,6 +50,7 @@ enyo.kind({
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.setLocale();
 		this.$.score.setContent(String("0000"+FoodChain.context.score).slice(-4));
+		FoodChain.context.game = this.kindName;		
 		this.levelChanged();
 	},
 	
@@ -117,7 +118,10 @@ enyo.kind({
 		this.zmax = 0;
 		this.$.gamebox.removeClass("box-win");
 		this.$.gamebox.removeClass("box-lost");
-
+		
+		// Saving context
+		FoodChain.saveContext();
+		
 		// Button handling
 		this.$.play.hide();
 		this.$.pause.show();
