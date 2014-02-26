@@ -1,4 +1,7 @@
 define(function () {
+
+    'use strict';
+
     var shortcut = {};
 
     shortcut._allShortcuts = [];
@@ -39,7 +42,7 @@ define(function () {
         var key = String.fromCharCode(charCode).toLowerCase();
 
         // Search for a matching shortcut
-        for (i = 0; i < shortcut._allShortcuts.length; i += 1) {
+        for (var i = 0; i < shortcut._allShortcuts.length; i += 1) {
             var currentShortcut = shortcut._allShortcuts[i];
 
             var match = currentShortcut.key == key &&

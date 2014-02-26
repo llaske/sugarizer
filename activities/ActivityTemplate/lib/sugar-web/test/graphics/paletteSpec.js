@@ -1,4 +1,7 @@
 define(["sugar-web/graphics/palette"], function (palette) {
+
+    'use strict';
+
     describe("palette", function () {
         it("should start down", function () {
             var invoker = document.createElement('button');
