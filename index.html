@@ -6,10 +6,23 @@
     <title>Sugarizer</title>
 	
 	<!-- Sugar Web Framework -->
-    <link rel="prefetch" type="application/l10n" href="locale.ini" /> 	
-    <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar.css">
+    <link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
     <link rel="stylesheet" href="css/activity.css">
-    <script data-main="js/loader" src="lib/require.js"></script>
+	<script type="text/javascript">
+		// HACK: Force settings to empty the first time - need for Sugar web convergence
+		if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
+			try {
+				if (window.localStorage.getItem('sugar_settings') === null) {
+					 window.localStorage.setItem('sugar_settings', JSON.stringify({}));
+				}
+			} catch (err) {}
+		}	
+	</script>
+    <script data-main="js/loader" src="lib/require.js"></script>	
 	
 	<!-- Enyo Framework -->
 	<link href="lib/enyo/enyo.css" rel="stylesheet" type="text/css" />
