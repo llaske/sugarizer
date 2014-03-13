@@ -14,12 +14,15 @@ define(function () {
                 return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
             };
             window.top.sugar = {};
-            window.top.sugar.environment = {};
-            window.top.sugar.environment.activityId = getUrlParameter("aid");
-            window.top.sugar.environment.activityName = getUrlParameter("n");
-            window.top.sugar.environment.bundleId = getUrlParameter("a");
-            window.top.sugar.environment.objectId = getUrlParameter("o");
-			callback(null, window.top.sugar.environment);
+            window.top.sugar.environment = {
+				activityId: getUrlParameter("aid"),
+				activityName: getUrlParameter("n"),
+				bundleId: getUrlParameter("a"),
+				objectId: getUrlParameter("o")
+			};
+            setTimeout(function () {			
+				callback(null, window.top.sugar.environment);
+			}, 0);
         } else if (env.isStandalone()) {
             setTimeout(function () {
                 callback(null, {});

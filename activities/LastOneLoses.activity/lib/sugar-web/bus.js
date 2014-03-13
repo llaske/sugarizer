@@ -158,8 +158,6 @@ define(["sugar-web/env"], function (env) {
                     } catch(err) {}
                 }
                 callback(null, [[color.fill, color.stroke]]);
-            } else if (method == "open_stream" || method == "datastore.save" || method == "close_stream") {
-                callback(null, [[]]);
             }
             return;
         }
