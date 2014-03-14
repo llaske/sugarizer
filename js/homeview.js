@@ -45,18 +45,22 @@ enyo.kind({
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
 		});
 		
-		// Get activities from local storage or from init web service
-		if (preferences.getActivities() == null) {
-			this.$.activities.send();
-		} else {
-			this.init();
-		}
+		// Get activities web service
+		this.$.activities.send();
 	},
 	
 	// Init web service response, redraw screen
 	queryResponse: function(inSender, inResponse) {
-		preferences.setActivities(inResponse.data);
-		preferences.save();
+		// No activities at start
+		if (preferences.getActivities() == null) {
+			// Just copy the activities from the service
+			preferences.setActivities(inResponse.data);
+			preferences.save();		
+		} else {
+			// Update with new activities
+			if (preferences.updateActivities(inResponse.data))
+				preferences.save();
+		}	
 		this.init();
 	},
 	
