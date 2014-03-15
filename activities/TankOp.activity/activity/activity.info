@@ -1,0 +1,6 @@
+[Activity]
+name = Tank Operation
+activity_version = 1
+bundle_id = org.olpcfrance.TankOp
+exec = sugar-activity-web
+icon = activity-icon

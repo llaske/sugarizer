@@ -1,0 +1,12 @@
+﻿enyo.depends(
+	"constant.js",
+	"util.js",
+	"sprite.js",
+	"lcddisplay.js",
+	"imagecache.js",
+	"audio.js",	
+	"settings.js",
+	"play.js",
+	"credits.js",
+	"app.js"
+);

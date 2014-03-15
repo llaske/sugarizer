@@ -1,0 +1,347 @@
+﻿
+@font-face {
+	font-family: NoneShallPassFonts;
+	src: url('NoneShallPassFonts.ttf');
+}
+
+.body {
+	background-color: white;
+}
+
+.home {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+}
+
+.credit-button {
+	position: absolute;
+	top: 100px;
+	right: 45px;
+}
+
+.home-image {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(../images/home.png);
+	width: 800px;
+	height: 500px;
+}
+
+.start-button {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 55px;
+	background-image: url(../images/button.png);
+	background-repeat: no-repeat;	
+	background-position: center;
+	color: blue;
+	width: 190px;
+	text-align: center;
+	height: 90px;	
+	font-size: 24px;
+	font-family: NoneShallPassFonts;
+}
+
+.status-line {
+	margin-top: 5px;
+	width: 100%;
+	height: 30px;	
+	font-family: NoneShallPassFonts;	
+	font-size: 24px;	
+}
+
+.wave-text {
+	position: absolute;
+	left: 10px;
+}
+
+.wave-value {
+	position: absolute;
+	left: 100px;
+}
+
+.score-text {
+	position: absolute;
+	right: 100px;
+}
+
+.score-value {
+	position: absolute;
+	right: 10px;
+}
+
+.title {
+	position: absolute;
+	left: 0px;
+	top: -20px;
+	height: 50px;
+	font-size: 40px;
+	font-family: NoneShallPassFonts;
+	color: white;
+	display:inline-block;	
+}
+
+.board {
+	height: 90px;
+	background-color: white;
+}
+
+.game-box {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.go-left {
+	background-image: url(../images/go-left.svg);
+	background-repeat: no-repeat;	
+	background-position: 0px 0px;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 50px;
+	vertical-align: bottom;
+}
+
+.go-right {
+	background-image: url(../images/go-right.svg);
+	background-repeat: no-repeat;	
+	background-position: 0px 0px;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 50px;
+	vertical-align: bottom;
+}
+
+.mission-text {
+	font-size: 32px;
+	font-family: NoneShallPassFonts;
+	color: black;
+	height: 50px;
+	padding: 0px 10px 0px 10px;
+	color: blue;
+}
+
+.mission-header {
+	font-size: 32px;
+	font-family: NoneShallPassFonts;
+	color: black;
+}
+
+.mission-description {
+	position: absolute;
+	top: 500px;
+	left: 20px;
+}
+
+.mission-dot {
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.mission-line {
+	display:inline-block;
+}
+
+.mission-status {
+	position: absolute;
+	top: 500px;
+	right: 20px;
+	width: 250px;
+}
+
+.mission-completed {
+	background-image: url(../images/mission-completed.svg);
+	background-repeat: no-repeat;	
+	background-position: center;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
+}
+
+.mission-tocomplete {
+	background-image: url(../images/mission-tocomplete.svg);
+	background-repeat: no-repeat;	
+	background-position: center;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
+}
+
+.image-preload {
+	visibility: hidden;
+}
+
+.title {
+	font-size: 30px;
+	font-family: NoneShallPassFonts;
+	width: 100%;
+	text-align: center;
+}
+
+.home-button {
+	position: absolute;
+	left: 10px;
+	top: 670px;
+	width: 50px;
+}
+
+.display-line {
+	margin-left: auto;
+	margin-right: auto;
+	width: 170px;
+}
+
+.keyboard-view  {
+	width: 55px;
+	margin-left: auto;
+	margin-right: auto;	
+	padding-left: 10px;
+	display:inline-block;	
+}
+
+.lcd-value {
+	width: 90px;
+	display:inline-block;	
+}
+
+.lcd-border {
+	border-style: ridge;
+	border-width: 4px;
+}
+
+.lcd-num {
+	background-image: url(../images/led_values.png);
+	width: 30px;
+	height: 48px;
+	display: inline-block;
+}
+
+.lcd-image-0 {
+	background-position: 0px 0px;
+}
+
+.lcd-image-1 {
+	background-position: -30px 0px;
+}
+
+.lcd-image-2 {
+	background-position: -60px 0px;
+}
+
+.lcd-image-3 {
+	background-position: -90px 0px;
+}
+
+.lcd-image-4 {
+	background-position: -120px 0px;
+}
+
+.lcd-image-5 {
+	background-position: -150px 0px;
+}
+
+.lcd-image-6 {
+	background-position: -180px 0px;
+}
+
+.lcd-image-7 {
+	background-position: -210px 0px;
+}
+
+.lcd-image-8 {
+	background-position: -240px 0px;
+}
+
+.lcd-image-9 {
+	background-position: -270px 0px;
+}
+
+.lcd-image-empty {
+	background-position: -300px 0px;
+}
+
+.lcd-image-dash {
+	background-position: -330px 0px;
+}
+
+.keyboard-line {
+	margin-left: auto;
+	margin-right: auto;
+	width: 220px;
+}
+
+.keyboard {
+	text-align: center;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	margin-left: 5px;
+	display: inline-block;
+}
+
+.credits-popup {
+	width: 760px;
+	height: 500px;
+	color: black;
+	background-image:  url(../images/grass.png);
+	border: medium solid black;
+	border-radius: 20px / 15px;
+	box-shadow: 5px 4px 10px 2px gray;
+	padding: 5px	
+}
+
+.credit-image-hq {
+	position: absolute;
+	margin-top: 15px;
+	margin-left: 100px;
+}
+
+.credit-image-tank {
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 90px;
+}
+
+.credit-image-helo {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: 90px;
+}
+
+.credit-image-soldier {
+	position: absolute;
+	margin-top: 60px;
+	margin-left: 90px;
+}
+
+.credit-image-tankred {
+	position: absolute;
+	margin-top: 20px;
+	right: 90px;
+	z-index: 0;
+}
+
+.credit-image-target {
+	position: absolute;
+	margin-top: 10px;
+	right: 75px;
+	z-index: 1;
+}
+
+.credit-title {
+	font-family: NoneShallPassFonts;
+	font-size: 26px;
+	margin-top: 30px;
+	margin-left: 170px;
+	color: white;
+}
+
+.credit-name {
+	font-size: 16px;
+	margin-left: 200px;	
+	margin-top: 3px;
+	color: white;
+}
