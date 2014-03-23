@@ -19,7 +19,8 @@ constant.journalView = 2;
 constant.thinClientType = 0;
 constant.clientType = 1;
 
-constant.initActivitiesURL = "activities.json";
+constant.staticInitActivitiesURL = "activities.json";
+constant.dynamicInitActivitiesURL = "/api/activities/";
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;

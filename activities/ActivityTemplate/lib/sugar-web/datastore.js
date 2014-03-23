@@ -1,10 +1,8 @@
-var DatastoreObject;
-
 define(["sugar-web/env", "sugar-web/datastore/sugarizer", "sugar-web/datastore/sugaros"], function(env, sugarizer, sugaros) {
 
     'use strict';
 
-    var datastore;
+    var datastore ;
 
     if (env.isSugarizer()) {
         datastore = sugarizer;

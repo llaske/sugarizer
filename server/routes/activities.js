@@ -4,43 +4,46 @@ var fs = require('fs'),
     path = require('path'),
 	ini = require('ini');
 
-
-// Load activities directory
-var activitiesDirName = "activities";
-var activitiesPath = ".."+path.sep+activitiesDirName;
-var templateDirName = "ActivityTemplate";
-var activityInfoPath = "activity"+path.sep+"activity.info";
+// Load into memory the content of activities directory
 var activities = [];
-fs.readdir(activitiesPath, function(err, files) {
-	if (err) throw err;
-	files.forEach(function(file) {
-		if (file != templateDirName) {
-			var filePath = activitiesPath+path.sep+file;
-			fs.stat(filePath, function(err, stats) {
-				if (err) throw err;
-				if (stats.isDirectory()) {
-					loadInfoContent(activitiesPath+path.sep+file+path.sep+activityInfoPath, function(info) {
-						activities.push({
-							"id":info.Activity.bundle_id,
-							"name":info.Activity.name,
-							"version":info.Activity.activity_version,
-							"directory":activitiesDirName+"/"+file,
-							"icon":"activity/"+info.Activity.icon+".svg",
-							"favorite":true,
-							"activityId":null
-						});
-					});
-				}
-			});
-		}
-	});
-});
-
-// Load activity.info content for one activity
-var loadInfoContent = function(file, callback) {
-	fs.readFile(file, 'utf-8', function(err, content) {
+exports.load = function(settings) {
+	// Get settings
+	var activitiesDirName = settings.activities.activities_directory_name;
+	var activitiesPath = settings.activities.activities_path;
+	var templateDirName = settings.activities.template_directory_name;
+	var activityInfoPath = settings.activities.activity_info_path;
+	
+	// Read activities directory
+	fs.readdir(activitiesPath, function(err, files) {
 		if (err) throw err;
-		callback(ini.parse(content));
+		files.forEach(function(file) {
+			// If it's not the template directory
+			if (file != templateDirName) {
+				// Get the file name
+				var filePath = activitiesPath+path.sep+file;
+				fs.stat(filePath, function(err, stats) {
+					if (err) throw err;
+					// If it's a directory, it's an activity
+					if (stats.isDirectory()) {
+						// Read the activity.info file
+						fs.readFile(activitiesPath+path.sep+file+path.sep+activityInfoPath, 'utf-8', function(err, content) {					
+							if (err) throw err;							
+							// Parse the file as an .INI file
+							var info = ini.parse(content);
+							activities.push({
+								"id":info.Activity.bundle_id,
+								"name":info.Activity.name,
+								"version":info.Activity.activity_version,
+								"directory":activitiesDirName+"/"+file,
+								"icon":"activity/"+info.Activity.icon+".svg",
+								"favorite":true,
+								"activityId":null
+							});
+						});
+					}
+				});
+			}
+		});
 	});
 };
 

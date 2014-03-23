@@ -72,7 +72,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     }
 
     //- Instance datastore methods
-    DatastoreObject = function(objectId) {
+    function DatastoreObject(objectId) {
         this.objectId = objectId;
         this.newMetadata = {};
         this.newDataAsText = null;
@@ -85,7 +85,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             });
         }
 
-        // Init or create objectId if need	
+        // Init or create objectId if need    
         var that = this;
         if (this.objectId === undefined) {
             var env_objectId = window.top.sugar.environment.objectId;

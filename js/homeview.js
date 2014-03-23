@@ -23,7 +23,7 @@ enyo.kind({
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
-		{name: "activities", kind: "enyo.WebService", url: constant.initActivitiesURL, onResponse: "queryResponse", onError: "queryFail"}
+		{name: "activities", kind: "enyo.WebService", onResponse: "queryResponse", onError: "queryFail"}
 	],
 	
 	// Constructor
@@ -45,7 +45,12 @@ enyo.kind({
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
 		});
 		
-		// Get activities web service
+		// Call activities list service
+		if (util.getClientType() == constant.thinClientType) {
+			this.$.activities.setUrl(constant.dynamicInitActivitiesURL);
+		} else {
+			this.$.activities.setUrl(constant.staticInitActivitiesURL);
+		}
 		this.$.activities.send();
 	},
 	
