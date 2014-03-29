@@ -23,7 +23,7 @@ enyo.kind({
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
-		{name: "activities", kind: "enyo.WebService", onResponse: "queryResponse", onError: "queryFail"}
+		{name: "activities", kind: "enyo.WebService", onResponse: "queryActivitiesResponse", onError: "queryActivitiesFail"}
 	],
 	
 	// Constructor
@@ -54,8 +54,8 @@ enyo.kind({
 		this.$.activities.send();
 	},
 	
-	// Init web service response, redraw screen
-	queryResponse: function(inSender, inResponse) {
+	// Init activities service response, redraw screen
+	queryActivitiesResponse: function(inSender, inResponse) {
 		// No activities at start
 		if (preferences.getActivities() == null) {
 			// Just copy the activities from the service
@@ -69,9 +69,19 @@ enyo.kind({
 		this.init();
 	},
 	
-	// Error on init
-	queryFail: function(inSender, inError) {
-		console.log("Error loading init activities");
+	// Error on init activities
+	queryActivitiesFail: function(inSender, inError) {
+		// Dynamic don't work try static list
+		if (this.$.activities.getUrl() == constant.dynamicInitActivitiesURL) {
+			console.log("WARNING: backoffice not responding, use static list");
+			this.$.activities.setUrl(constant.staticInitActivitiesURL);
+			this.$.activities.send();		
+		}
+		
+		// Unable to load
+		else {
+			console.log("Error loading init activities");
+		}
 	},
 	
 	// Get linked toolbar
