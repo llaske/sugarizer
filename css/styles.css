@@ -255,6 +255,12 @@ input {
 	margin-right: auto;	
 }
 
+.journal-content {
+}
+
+.journal-footer {
+}
+
 .journal-list-item {
 	height: 60px;
 }
@@ -313,6 +319,20 @@ input {
 	margin-right: auto;
 	margin-top: 30px;
 	text-align: center;
+}
+
+.view-localjournal-button {
+	background-image: url(../icons/activity-journal.svg);
+}
+
+.view-cloudone-button {
+	background-image: url(../icons/cloud-one.svg);
+	left: 10px;
+}
+
+.view-cloudall-button {
+	background-image: url(../icons/cloud-all.svg);
+	left: 15px;
 }
 
 .icon-button {

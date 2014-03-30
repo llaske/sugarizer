@@ -18,8 +18,8 @@ enyo.kind({
 	name: "Sugar.Desktop",
 	kind: enyo.Control,
 	components: [
-		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: true},
-		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "showJournal", classes: "journal-icon", showing: true},
+		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: false},
+		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "showJournal", classes: "journal-icon", showing: false},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
@@ -116,6 +116,8 @@ enyo.kind({
 		this.$.journal.setColorized(this.journal.length > 0);
 		this.$.journal.applyStyle("margin-left", (canvas_center.x+5)+"px");
 		this.$.journal.applyStyle("margin-top", (canvas_center.y+constant.sizeOwner-constant.sizeJournal/2)+"px");
+		this.$.owner.setShowing(this.currentView == constant.radialView);
+		this.$.journal.setShowing(this.currentView == constant.radialView);		
 		
 		// Draw activity icons;	
 		var activitiesList = preferences.getFavoritesActivities();

@@ -2,20 +2,26 @@
 // Listview view
 enyo.kind({
 	name: "Sugar.Journal",
-	kind: "Scroller",
 	published: { journal: null },
 	components: [
-		{name: "empty", classes: "journal-empty", showing: true},
-		{name: "message", classes: "journal-message", showing: true},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", ontap: "nofilter", onclick: "nofilter", showing: false},
-		{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
-			{name: "item", classes: "journal-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "runActivity"},
-				{name: "title", classes: "journal-title"},
-				{name: "time", classes: "journal-time"},
-				{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "runActivity"}
+		{name: "content", kind: "Scroller", classes: "journal-content", onresize: "draw", components: [
+			{name: "empty", classes: "journal-empty", showing: true},
+			{name: "message", classes: "journal-message", showing: true},
+			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", ontap: "nofilter", onclick: "nofilter", showing: false},
+			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
+				{name: "item", classes: "journal-list-item", components: [
+					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
+					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "runActivity"},
+					{name: "title", classes: "journal-title"},
+					{name: "time", classes: "journal-time"},
+					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "runActivity"}
+				]}
 			]}
+		]},
+		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared"}
 		]}
 	],
   
@@ -25,9 +31,21 @@ enyo.kind({
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
 		this.journalChanged();
+		this.$.footer.setShowing(util.getClientType() == constant.thinClientType);		
 		this.draw();
 	},
-			
+
+	// Render
+	rendered: function() {
+		// Colorized list
+		this.$.journalList.render();
+		
+		// Colorizer footer icons
+		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
+		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
+		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
+	},
+	
 	// Get linked toolbar
 	getToolbar: function() {
 		if (this.toolbar == null)
@@ -37,8 +55,10 @@ enyo.kind({
 	
 	// Draw screen
 	draw: function() {
-		// Set Journal empty
-		var canvas_center = util.getCanvasCenter();
+		// Resize content and set Journal empty in the middle
+		var canvas_center = util.getCanvasCenter();	
+		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
+		this.$.content.applyStyle("height", (canvas_center.dy-footer_size)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
