@@ -1,6 +1,7 @@
 // User handling
 
-var mongo = require('mongodb');
+var mongo = require('mongodb'),
+	journal = require('./journal');
  
 var Server = mongo.Server,
 	Db = mongo.Db,
@@ -9,10 +10,11 @@ var Server = mongo.Server,
 var server;
 var db;
 
-var usersCollection = 'users';
+var usersCollection;
 
 // Init database
 exports.init = function(settings) {
+	usersCollection = settings.collections.users; 
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
 	db = new Db(settings.database.name, server);
 	 
@@ -44,13 +46,19 @@ exports.findAll = function(req, res) {
 // Add a new user
 exports.addUser = function(req, res) {
 	db.collection(usersCollection, function (err, collection) {
-		collection.insert(req.body, {safe:true}, function(err, result) {
-			if (err) {
-				res.send({'error':'An error has occurred'});
-			} else {
-				res.send(result[0]);
-			}
-		})	
+		// Create a new journal
+		journal.createJournal(function(err, result) {
+			// Create the new user
+			req.body.private_journal = result[0]._id;
+			req.body.shared_journal = journal.getShared()._id;
+			collection.insert(req.body, {safe:true}, function(err, result) {
+				if (err) {
+					res.send({'error':'An error has occurred'});
+				} else {
+					res.send(result[0]);
+				}
+			});
+		});
 	});
 }
  

@@ -3,6 +3,7 @@
 var express = require('express'),
 	settings = require('./settings'),
 	activities = require('./routes/activities'),
+	journal = require('./routes/journal'),
 	users = require('./routes/users');
 
 var app = express();
@@ -17,6 +18,7 @@ settings.load(function(ini) {
 	// Init modules
 	activities.load(ini);
 	users.init(ini);
+	journal.init(ini);
 	
 	// Register activities list API
 	app.get("/activities", activities.findAll);
@@ -27,6 +29,11 @@ settings.load(function(ini) {
 	app.get("/users/:uid", users.findById);
 	app.post("/users", users.addUser);
 	app.put("/users/:uid", users.updateUser);	
+	
+	// Register journal API
+	app.get("/journal/shared", journal.findSharedJournal);
+	app.get("/journal/:jid", journal.findJournal);
+	app.post("/journal/:jid", journal.addEntryInJournal);
 
 	// Start listening
 	app.listen(ini.web.port);
