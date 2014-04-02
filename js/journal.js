@@ -16,12 +16,13 @@ enyo.kind({
 					{name: "time", classes: "journal-time"},
 					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "runActivity"}
 				]}
-			]}
+			]},
+			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
-			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal"},
-			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared"}
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal", onclick: "showLocalJournal"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud", onclick: "showPrivateCloud"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud", onclick: "showSharedCloud"}
 		]}
 	],
   
@@ -96,6 +97,8 @@ enyo.kind({
 		inEvent.item.$.title.setContent(this.journal[inEvent.index].metadata.title);	
 		inEvent.item.$.time.setContent(util.timestampToElapsedString(this.journal[inEvent.index].metadata.timestamp, 2));
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
+		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
+		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
 	},
 	
 	// Switch favorite value for clicked line
@@ -121,6 +124,12 @@ enyo.kind({
 			this.journal[inEvent.index].objectId,
 			this.journal[inEvent.index].metadata.title)
 	},
+	runCurrentActivity: function(activity) {
+		preferences.runActivity(
+			preferences.getActivity(activity.activityId),
+			activity.instances[0].objectId,
+			activity.instances[0].metadata.title);
+	},
 		
 	// Filter entries handling
 	filterEntries: function(name, favorite, typeactivity, timeperiod) {
@@ -137,6 +146,58 @@ enyo.kind({
 	nofilter: function() {
 		toolbar.removeFilter();
 		this.filterEntries("", undefined, undefined, undefined);
+	},
+	
+	// Activity popup
+	showActivityPopup: function(icon) {
+		// Create popup
+		var activity = icon.icon; // HACK: activity is stored as an icon	
+		this.$.activityPopup.setHeader({
+			icon: icon.icon,
+			colorized: true,
+			name: activity.instances[0].metadata.title,
+			title: null,
+			action: enyo.bind(this, "runCurrentActivity"),
+			data: [activity, null]
+		});
+		this.$.activityPopup.setItems(null);		
+		var items = [];
+		items.push({
+			icon: {directory: "icons", icon: "activity-start.svg"},
+			colorized: false,
+			name: l10n.get("Restart"),
+			action: enyo.bind(this, "runCurrentActivity"),
+			data: [activity, null]
+		});
+		this.$.activityPopup.setFooter(items);
+		
+		// Show popup
+		this.$.activityPopup.showPopup();		
+	},
+	hideActivityPopup: function() {
+		if (this.$.activityPopup.cursorIsInside())
+			return false;	
+		this.$.activityPopup.hidePopup();
+		return true;	
+	},
+	
+	// Switch journal
+	showLocalJournal: function() {
+		this.$.journalbutton.addRemoveClass('active', true);
+		this.$.cloudonebutton.addRemoveClass('active', false);	
+		this.$.cloudallbutton.addRemoveClass('active', false);	
+	},
+
+	showPrivateCloud: function() {
+		this.$.journalbutton.addRemoveClass('active', false);
+		this.$.cloudonebutton.addRemoveClass('active', true);	
+		this.$.cloudallbutton.addRemoveClass('active', false);	
+	},
+
+	showSharedCloud: function() {
+		this.$.journalbutton.addRemoveClass('active', false);
+		this.$.cloudonebutton.addRemoveClass('active', false);	
+		this.$.cloudallbutton.addRemoveClass('active', true);		
 	}
 });
 
