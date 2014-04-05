@@ -19,7 +19,8 @@ enyo.kind({
 		disabled: false,
 		disabledBackground: 'white',
 		popupShow: null,
-		popupHide: null
+		popupHide: null,
+		data: null
 	},
 	classes: "web-activity",
 	components: [

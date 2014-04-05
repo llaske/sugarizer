@@ -45,13 +45,14 @@ exports.findAll = function(req, res) {
 
 // Add a new user
 exports.addUser = function(req, res) {
+	var user = JSON.parse(req.body.user);
 	db.collection(usersCollection, function (err, collection) {
 		// Create a new journal
 		journal.createJournal(function(err, result) {
 			// Create the new user
-			req.body.private_journal = result[0]._id;
-			req.body.shared_journal = journal.getShared()._id;
-			collection.insert(req.body, {safe:true}, function(err, result) {
+			user.private_journal = result[0]._id;
+			user.shared_journal = journal.getShared()._id;
+			collection.insert(user, {safe:true}, function(err, result) {
 				if (err) {
 					res.send({'error':'An error has occurred'});
 				} else {
@@ -65,7 +66,7 @@ exports.addUser = function(req, res) {
 // Update user
 exports.updateUser = function(req, res) {
 	var uid = req.params.uid;
-	var user = req.body;
+	var user = JSON.parse(req.body.user);
 	db.collection(usersCollection, function(err, collection) {
 		collection.update({'_id':new BSON.ObjectID(uid)}, user, {safe:true}, function(err, result) {
 			if (err) {

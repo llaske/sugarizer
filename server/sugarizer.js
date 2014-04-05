@@ -17,8 +17,8 @@ app.configure(function() {
 settings.load(function(ini) {
 	// Init modules
 	activities.load(ini);
-	users.init(ini);
 	journal.init(ini);
+	users.init(ini);
 	
 	// Register activities list API
 	app.get("/activities", activities.findAll);

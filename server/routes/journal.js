@@ -30,7 +30,7 @@ exports.init = function(settings) {
 					// Not found, create one
 					if (!err && item == null) {
 						collection.insert({content:[], shared: true}, {safe:true}, function(err, result) {
-							shared = result;
+							shared = result[0];
 						});
 					}
 					
@@ -91,6 +91,7 @@ exports.findJournal = function(req, res) {
 // Add an entry in a journal
 exports.addEntryInJournal = function(req, res) {
 	var jid = req.params.jid;
+	var journal = JSON.parse(req.body.journal);
 	var newcontent = {$push: {content: req.body}};
 	db.collection(journalCollection, function(err, collection) {
 		collection.update({'_id':new BSON.ObjectID(jid)}, newcontent, {safe:true}, function(err, result) {

@@ -16,11 +16,17 @@ constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
 
+constant.journalLocal = 0;
+constant.journalRemotePrivate = 1;
+constant.journalRemoteShared = 2;
+
 constant.thinClientType = 0;
 constant.clientType = 1;
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.dynamicInitActivitiesURL = "/api/activities/";
+constant.initNetworkURL = "/api/users/";
+constant.sendCloudURL = "/api/journal/";
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;

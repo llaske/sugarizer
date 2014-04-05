@@ -31,8 +31,9 @@ enyo.kind({
 		this.inherited(arguments);
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
+		this.journalType = constant.journalLocal;
 		this.journalChanged();
-		this.$.footer.setShowing(util.getClientType() == constant.thinClientType);		
+		this.$.footer.setShowing(preferences.getNetworkId() != null);		
 		this.draw();
 	},
 
@@ -90,15 +91,17 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		inEvent.item.$.activity.setIcon(preferences.getActivity(this.journal[inEvent.index].metadata.activity_id));
+		var entry = this.journal[inEvent.index];
+		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity_id));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
-		var keep = this.journal[inEvent.index].metadata.keep;
+		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);		
-		inEvent.item.$.title.setContent(this.journal[inEvent.index].metadata.title);	
-		inEvent.item.$.time.setContent(util.timestampToElapsedString(this.journal[inEvent.index].metadata.timestamp, 2));
+		inEvent.item.$.title.setContent(entry.metadata.title);	
+		inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2));
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
+		inEvent.item.$.activity.setData(entry);
 	},
 	
 	// Switch favorite value for clicked line
@@ -152,10 +155,11 @@ enyo.kind({
 	showActivityPopup: function(icon) {
 		// Create popup
 		var activity = icon.icon; // HACK: activity is stored as an icon	
+		var entry = icon.getData();
 		this.$.activityPopup.setHeader({
 			icon: icon.icon,
 			colorized: true,
-			name: activity.instances[0].metadata.title,
+			name: entry.metadata.title,
 			title: null,
 			action: enyo.bind(this, "runCurrentActivity"),
 			data: [activity, null]
@@ -167,8 +171,32 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("Restart"),
 			action: enyo.bind(this, "runCurrentActivity"),
-			data: [activity, null]
+			data: [entry, null]
 		});
+		items.push({
+			icon: {directory: "icons", icon: "activity-journal.svg"},
+			colorized: false,
+			name: l10n.get("CopyToLocal"),
+			action: enyo.bind(this, "copyToLocal"),
+			data: [entry, null],
+			disable: this.journalType == constant.journalLocal
+		});		
+		items.push({
+			icon: {directory: "icons", icon: "cloud-one.svg"},
+			colorized: false,
+			name: l10n.get("CopyToPrivate"),
+			action: enyo.bind(this, "copyToRemote"),
+			data: [entry, preferences.getPrivateJournal()],
+			disable: this.journalType == constant.journalRemotePrivate
+		});
+		items.push({
+			icon: {directory: "icons", icon: "cloud-all.svg"},
+			colorized: false,
+			name: l10n.get("CopyToShared"),
+			action: enyo.bind(this, "copyToRemote"),
+			data: [entry, preferences.getSharedJournal()],
+			disable: this.journalType == constant.journalRemoteShared
+		});	
 		this.$.activityPopup.setFooter(items);
 		
 		// Show popup
@@ -181,23 +209,47 @@ enyo.kind({
 		return true;	
 	},
 	
+	// Copy activity content to the local journal
+	copyToLocal: function(entry) {
+		//console.log(entry);
+		this.$.activityPopup.hidePopup();
+	},
+	
+	// Copy activity content to
+	copyToRemote: function(entry, journalId) {
+		//console.log("Want to send to "+journalId);
+		//console.log(entry);
+		/*var ajax = new enyo.Ajax({
+			url: constant.sendCloudURL,
+			method: "POST",
+			handleAs: "json",
+			postBody: {user: JSON.stringify(entry)}
+		});
+		//ajax.response(this, "queryNetworkIdResponse");
+		//ajax.error(this, "queryNetworkIdFail");
+		ajax.go();*/			
+		this.$.activityPopup.hidePopup();
+		
+	},
+	
 	// Switch journal
 	showLocalJournal: function() {
-		this.$.journalbutton.addRemoveClass('active', true);
-		this.$.cloudonebutton.addRemoveClass('active', false);	
-		this.$.cloudallbutton.addRemoveClass('active', false);	
+		this.changeJournalType(constant.journalLocal);
 	},
 
 	showPrivateCloud: function() {
-		this.$.journalbutton.addRemoveClass('active', false);
-		this.$.cloudonebutton.addRemoveClass('active', true);	
-		this.$.cloudallbutton.addRemoveClass('active', false);	
+		this.changeJournalType(constant.journalRemotePrivate);
 	},
 
 	showSharedCloud: function() {
-		this.$.journalbutton.addRemoveClass('active', false);
-		this.$.cloudonebutton.addRemoveClass('active', false);	
-		this.$.cloudallbutton.addRemoveClass('active', true);		
+		this.changeJournalType(constant.journalRemoteShared);	
+	},
+	
+	changeJournalType: function(newType) {
+		this.journalType = newType;	
+		this.$.journalbutton.addRemoveClass('active', newType == constant.journalLocal);
+		this.$.cloudonebutton.addRemoveClass('active', newType == constant.journalRemotePrivate);	
+		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);	
 	}
 });
 

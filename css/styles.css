@@ -230,6 +230,14 @@ input {
 	z-index: 1;
 }
 
+.item-name-enable {
+	color: white;
+}
+
+.item-name-disable {
+	color: #4C4C4C;
+}
+
 .listview-nomatch {
 	background-image: url(../icons/entry-search.svg);
 	background-repeat: no-repeat;	

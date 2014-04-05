@@ -163,11 +163,23 @@ enyo.kind({
 		// Set item in the template
 		inEvent.item.$.icon.setIcon(this.items[inEvent.index].icon);
 		inEvent.item.$.name.setContent(this.items[inEvent.index].name);		
-		inEvent.item.$.icon.setColorized(this.items[inEvent.index].colorized);		
+		inEvent.item.$.icon.setColorized(this.items[inEvent.index].colorized);
+		if (this.items[inEvent.index].disable) {
+			inEvent.item.$.name.addRemoveClass('item-name-disable', true);
+			inEvent.item.$.name.addRemoveClass('item-name-enable', false);			
+		} else {
+			inEvent.item.$.name.addRemoveClass('item-name-disable', false);
+			inEvent.item.$.name.addRemoveClass('item-name-enable', true);
+		}
 	},
 	
 	// Run action on item
 	runItemAction: function(inSender, inEvent) {
+		// Nothing to do if item is disable
+		if (this.items[inEvent.index].disable)
+			return;
+			
+		// Get action and run it if it exist
 		var action = this.items[inEvent.index].action;
 		if (action != null)
 			action.apply(this, this.items[inEvent.index].data);

@@ -52,6 +52,22 @@ enyo.kind({
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 		}
 		this.$.activities.send();
+		
+		// Call network id
+		if (util.getClientType() == constant.thinClientType) {
+			// Create a new user on the network
+			if (preferences.getNetworkId() == null) {
+				var ajax = new enyo.Ajax({
+					url: constant.initNetworkURL,
+					method: "POST",
+					handleAs: "json",
+					postBody: {user: JSON.stringify({ name: preferences.getName(), color: preferences.getColor() })}
+				});
+				ajax.response(this, "queryNetworkResponse");
+				ajax.error(this, "queryNetworkFail");
+				ajax.go();
+			}
+		}
 	},
 	
 	// Init activities service response, redraw screen
@@ -82,6 +98,19 @@ enyo.kind({
 		else {
 			console.log("Error loading init activities");
 		}
+	},
+	
+	// Init user service response
+	queryNetworkResponse: function(inSender, inResponse) {
+		preferences.setNetworkId(inResponse._id);
+		preferences.setPrivateJournal(inResponse.private_journal);
+		preferences.setSharedJournal(inResponse.shared_journal);
+		preferences.save();
+	},
+	
+	// Error on init user
+	queryNetworkFail: function(inSender, inError) {
+		console.log("Error creating network user");
 	},
 	
 	// Get linked toolbar
