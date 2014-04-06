@@ -32,7 +32,8 @@ settings.load(function(ini) {
 	
 	// Register journal API
 	app.get("/journal/shared", journal.findSharedJournal);
-	app.get("/journal/:jid", journal.findJournal);
+	app.get("/journal/:jid", journal.findJournalContent);
+	app.get("/journal/:jid/filter/:aid", journal.findJournalContent);
 	app.post("/journal/:jid", journal.addEntryInJournal);
 
 	// Start listening

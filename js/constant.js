@@ -27,6 +27,7 @@ constant.staticInitActivitiesURL = "activities.json";
 constant.dynamicInitActivitiesURL = "/api/activities/";
 constant.initNetworkURL = "/api/users/";
 constant.sendCloudURL = "/api/journal/";
+constant.filterJournalURL = "/filter/";
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;

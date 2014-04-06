@@ -11,10 +11,10 @@ enyo.kind({
 			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 				{name: "item", classes: "journal-list-item", components: [
 					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
-					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "runActivity"},
+					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
 					{name: "title", classes: "journal-title"},
 					{name: "time", classes: "journal-time"},
-					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "runActivity"}
+					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
 				]}
 			]},
 			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
@@ -92,7 +92,7 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
 		var entry = this.journal[inEvent.index];
-		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity_id));
+		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);		
@@ -120,30 +120,76 @@ enyo.kind({
 		this.render();
 	},
 	
-	// Run activity
+	// Run activity from icon or from the popup menu
 	runActivity: function(inSender, inEvent) {
-		preferences.runActivity(
-			preferences.getActivity(this.journal[inEvent.index].metadata.activity_id),
-			this.journal[inEvent.index].objectId,
-			this.journal[inEvent.index].metadata.title)
+		this.runCurrentActivity(this.journal[inEvent.index]);
 	},
 	runCurrentActivity: function(activity) {
+		// Remote entry, copy in the local journal first
+		if (this.journalType != constant.journalLocal) {
+			datastore.create(activity.metadata, function(error, oid) {
+				preferences.runActivity(
+					preferences.getActivity(activity.metadata.activity),
+					oid,
+					activity.metadata.title);
+			}, activity.text);
+			return;
+		}
+		
+		// Run local entry
 		preferences.runActivity(
-			preferences.getActivity(activity.activityId),
-			activity.instances[0].objectId,
-			activity.instances[0].metadata.title);
+			preferences.getActivity(activity.metadata.activity),
+			activity.objectId,
+			activity.metadata.title);
 	},
 		
 	// Filter entries handling
 	filterEntries: function(name, favorite, typeactivity, timeperiod) {
+		// Filter function
+		var that = this;
+		var doFilter = function() {
+			that.journal = that.journal.filter(function(activity) {
+				var range = util.getDateRange(timeperiod);
+				return (favorite !== undefined ? activity.metadata.keep : true)
+					&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
+					&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
+			});
+			that.journalChanged();
+		}
+		
+		// Filter remote entries
+		if (this.journalType != constant.journalLocal) {
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var ajax = new enyo.Ajax({
+				url: constant.sendCloudURL+journalId+(typeactivity !== undefined ? constant.filterJournalURL+typeactivity : ""),
+				method: "GET",
+				handleAs: "json"
+			});
+			var that = this;
+			ajax.response(function(inSender, inResponse) {
+				that.journal = inResponse;
+				that.empty = (that.journal.length == 0);
+				doFilter();
+			});
+			ajax.error(function() {
+				console.log("WARNING: Error filtering journal "+journalId);
+				that.journalChanged();
+			});
+			ajax.go();
+			return;
+		}
+		
+		// Filter local entries
 		this.journal = datastore.find(typeactivity);
-		this.journal = this.journal.filter(function(activity) {
+		doFilter();
+		
+		/*this.journal = this.journal.filter(function(activity) {
 			var range = util.getDateRange(timeperiod);
 			return (favorite !== undefined ? activity.metadata.keep : true)
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
 				&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
 		});
-		this.journalChanged();
+		this.journalChanged();*/
 	},
 	
 	nofilter: function() {
@@ -162,7 +208,7 @@ enyo.kind({
 			name: entry.metadata.title,
 			title: null,
 			action: enyo.bind(this, "runCurrentActivity"),
-			data: [activity, null]
+			data: [entry, null]
 		});
 		this.$.activityPopup.setItems(null);		
 		var items = [];
@@ -211,38 +257,63 @@ enyo.kind({
 	
 	// Copy activity content to the local journal
 	copyToLocal: function(entry) {
-		//console.log(entry);
+		datastore.create(entry.metadata, function(error, oid) {
+		}, entry.text);
 		this.$.activityPopup.hidePopup();
 	},
 	
-	// Copy activity content to
+	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
-		//console.log("Want to send to "+journalId);
-		//console.log(entry);
-		/*var ajax = new enyo.Ajax({
-			url: constant.sendCloudURL,
+		var ajax = new enyo.Ajax({
+			url: constant.sendCloudURL+journalId,
 			method: "POST",
 			handleAs: "json",
-			postBody: {user: JSON.stringify(entry)}
+			postBody: {journal: JSON.stringify(entry)}
 		});
-		//ajax.response(this, "queryNetworkIdResponse");
-		//ajax.error(this, "queryNetworkIdFail");
-		ajax.go();*/			
+		ajax.response(function() {
+		});
+		ajax.error(function() {
+			console.log("WARNING: Error writing journal "+journalId);
+		});
+		ajax.go();			
 		this.$.activityPopup.hidePopup();
-		
+	},
+	
+	// Load a remote journal
+	loadRemoteJournal: function(journalId) {
+		var ajax = new enyo.Ajax({
+			url: constant.sendCloudURL+journalId,
+			method: "GET",
+			handleAs: "json"
+		});
+		var that = this;
+		ajax.response(function(inSender, inResponse) {
+			that.journal = inResponse;
+			that.empty = (that.journal.length == 0);
+			that.journalChanged();
+		});
+		ajax.error(function() {
+			console.log("WARNING: Error reading journal "+journalId);
+			that.journalChanged();
+		});
+		ajax.go();	
 	},
 	
 	// Switch journal
 	showLocalJournal: function() {
 		this.changeJournalType(constant.journalLocal);
+		this.journal = datastore.find();
+		this.journalChanged();
 	},
 
 	showPrivateCloud: function() {
 		this.changeJournalType(constant.journalRemotePrivate);
+		this.loadRemoteJournal(preferences.getPrivateJournal());
 	},
 
 	showSharedCloud: function() {
-		this.changeJournalType(constant.journalRemoteShared);	
+		this.changeJournalType(constant.journalRemoteShared);
+		this.loadRemoteJournal(preferences.getSharedJournal());		
 	},
 	
 	changeJournalType: function(newType) {
@@ -315,7 +386,7 @@ enyo.kind({
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
 		var selected = this.$.typeselect.getSelected();
-		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].activityId);
+		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
 		var timeselected = (selected <= 0 ? undefined : selected);
 		app.otherview.filterEntries(text, favorite, typeselected, timeselected);

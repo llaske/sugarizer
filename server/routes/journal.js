@@ -69,20 +69,38 @@ exports.addJournal = function(req, res) {
 	});	
 }
 
-// Get shared journal
+// Get shared journal id
 exports.findSharedJournal = function(req, res) {
 	res.send({_id: shared._id});
 }
 
-// Get journal
-exports.findJournal = function(req, res) {
+// Get journal entries
+exports.findJournalContent = function(req, res) {
 	var jid = req.params.jid;
+	var aid = req.params.aid;
+	var filter = {_id:new BSON.ObjectID(jid)};
 	db.collection(journalCollection, function(err, collection) {
-		collection.findOne({'_id':new BSON.ObjectID(jid)}, function(err, item) {
+		collection.findOne(filter, function(err, item) {
 			if (item == null) {
 				res.send(item);
 			} else {
-				res.send(item.content);
+				// Filter by activity type
+				var entries = item.content;
+				if (aid !== undefined) {
+					var results = [];
+					for (var i = 0 ; i < entries.length ; i++) {
+						var entry = entries[i];
+						if (entry.metadata.activity == aid) {
+							results.push(entry);
+						}					
+					}
+					entries = results;
+				}
+				
+				// Sort by descending date
+				res.send(entries.sort(function(e0, e1) {
+					return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
+				}));
 			}
 		});
 	});
@@ -92,7 +110,7 @@ exports.findJournal = function(req, res) {
 exports.addEntryInJournal = function(req, res) {
 	var jid = req.params.jid;
 	var journal = JSON.parse(req.body.journal);
-	var newcontent = {$push: {content: req.body}};
+	var newcontent = {$push: {content: journal}};
 	db.collection(journalCollection, function(err, collection) {
 		collection.update({'_id':new BSON.ObjectID(jid)}, newcontent, {safe:true}, function(err, result) {
 			if (err) {
