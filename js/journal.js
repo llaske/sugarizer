@@ -92,6 +92,8 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
 		var entry = this.journal[inEvent.index];
+		if (entry.metadata.buddy_color)
+			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
 		var keep = entry.metadata.keep;
@@ -182,14 +184,6 @@ enyo.kind({
 		// Filter local entries
 		this.journal = datastore.find(typeactivity);
 		doFilter();
-		
-		/*this.journal = this.journal.filter(function(activity) {
-			var range = util.getDateRange(timeperiod);
-			return (favorite !== undefined ? activity.metadata.keep : true)
-				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-				&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
-		});
-		this.journalChanged();*/
 	},
 	
 	nofilter: function() {
@@ -205,8 +199,9 @@ enyo.kind({
 		this.$.activityPopup.setHeader({
 			icon: icon.icon,
 			colorized: true,
+			colorizedColor: (entry.metadata.buddy_color ? entry.metadata.buddy_color : null),
 			name: entry.metadata.title,
-			title: null,
+			title: ( (entry.metadata.buddy_name && this.journalType != constant.journalLocal) ? l10n.get("ByUser", {user:entry.metadata.buddy_name}): null),
 			action: enyo.bind(this, "runCurrentActivity"),
 			data: [entry, null]
 		});

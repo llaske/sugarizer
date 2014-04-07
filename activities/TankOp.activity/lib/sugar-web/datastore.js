@@ -154,6 +154,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             }
             var callback_c = datastore.callbackChecker(callback);
             this.newMetadata["timestamp"] = new Date().getTime();
+			var sugar_settings = html5storage.getValue("sugar_settings");
+			if (sugar_settings) {
+				this.newMetadata["buddy_name"] = sugar_settings.name;
+				this.newMetadata["buddy_color"] = sugar_settings.colorvalue;
+			}			
             html5storage.setValue(datastorePrefix + this.objectId, {
                 metadata: this.newMetadata,
                 text: this.newDataAsText
