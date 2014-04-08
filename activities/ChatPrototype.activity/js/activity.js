@@ -27,23 +27,23 @@ define(function (require) {
         var userInfo = [sugarSettings.name, sugarSettings.colorvalue];
 
         console.log(userInfo);
-        socketStatus.innerHTML = 'Connected'; 
+        socketStatus.innerHTML = 'Connected';
         socketStatus.className = 'open';
 
-         if (sugarSettings.name == '<No name>') {
+        if (sugarSettings.name == '<No name>') {
 
             userInfo[0] = 'User';
 
-         }
-         
-          presenceObject.joinNetwork(userInfo);
+        }
+
+        presenceObject.joinNetwork(userInfo);
 
         // Handle messages received.
         presenceObject.onDataReceived(function (msg) {
-            
+
             console.log(msg);
-            var authorElem = '<span style = "color:'+msg.colour.stroke +'">' + msg.author + '</span>';
-            
+            var authorElem = '<span style = "color:' + msg.colour.stroke + '">' + msg.author + '</span>';
+
             myElem = document.createElement('li');
             myElem.class = 'received';
             myElem.style.background = msg.colour.fill;
@@ -68,7 +68,7 @@ define(function (require) {
 
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
-                
+
                 var message = messageField.value;
                 //sendBtn.innerHTML = "Send Message/Ping";
 
@@ -78,41 +78,38 @@ define(function (require) {
                 messageField.placeholder = "Write your message here...";
                 // Clear out the message field.
                 messageField.value = "";
-                
+
             }
         };
 
- 
-     function SettingsPalette(button) {
-         this.button = button;
-     }
- 
-     SettingsPalette.prototype = new palette.Palette(settingsButton);
 
-     SettingsPalette.prototype.Palette = function () {
- 
-         var setname;
- 
-         setname = document.createElement('input');
-         setname.type = "text";
-         setname.id = "reset-name";
-         setname.className = "expand";
-         setname.placeholder = "change user name"
-         
-         this.setContent([setname]);
-     }
+        function SettingsPalette(button) {
+            this.button = button;
+        }
 
-     var settingsPalette = new SettingsPalette();
-     settingsPalette.Palette();
-    
-     var resetBox = document.getElementById('reset-name');
-     resetBox.onblur = function()
-     {
-        presenceObject.changeUserName(resetBox.value);
-     }
+        SettingsPalette.prototype = new palette.Palette(settingsButton);
+
+        SettingsPalette.prototype.Palette = function () {
+
+            var setname;
+
+            setname = document.createElement('input');
+            setname.type = "text";
+            setname.id = "reset-name";
+            setname.className = "expand";
+            setname.placeholder = "change user name"
+
+            this.setContent([setname]);
+        }
+
+        var settingsPalette = new SettingsPalette();
+        settingsPalette.Palette();
+
+        var resetBox = document.getElementById('reset-name');
+        resetBox.onblur = function () {
+            presenceObject.changeUserName(resetBox.value);
+        }
 
     });
 
 });
-
-
