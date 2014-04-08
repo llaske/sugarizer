@@ -5,6 +5,8 @@ var express = require('express'),
 	activities = require('./routes/activities'),
 	journal = require('./routes/journal'),
 	users = require('./routes/users');
+	presence = require('./presence');
+
 
 var app = express();
 
@@ -19,6 +21,7 @@ settings.load(function(ini) {
 	activities.load(ini);
 	journal.init(ini);
 	users.init(ini);
+	presence.init(ini);
 	
 	// Register activities list API
 	app.get("/activities", activities.findAll);

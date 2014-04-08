@@ -1,0 +1,6 @@
+[Activity]
+name = ChatPrototype
+activity_version = 1
+bundle_id = org.sugarlabs.ChatPrototype
+exec = sugar-activity-web
+icon = activity-icon
