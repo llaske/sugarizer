@@ -27,33 +27,29 @@ define(function (require) {
         var userInfo = [sugarSettings.name, sugarSettings.colorvalue];
 
         console.log(userInfo);
-        socketStatus.innerHTML = 'Connected'; 
+        socketStatus.innerHTML = 'Connected';
         socketStatus.className = 'open';
 
-         if (sugarSettings.name == '<No name>') {
+        if (sugarSettings.name == '<No name>') {
 
             userInfo[0] = 'User';
 
-         }
-         
-          presenceObject.joinNetwork(userInfo);
+        }
+
+        presenceObject.joinNetwork(userInfo);
 
         // Handle messages received.
         presenceObject.onDataReceived(function (msg) {
-            
+
             console.log(msg);
-            var authorElem = '<span style = "color:'+msg.colour.stroke +'">' + msg.author + '</span>';
-            
+            var authorElem = '<span style = "color:' + msg.colour.stroke + '">' + msg.author + '</span>';
+
             myElem = document.createElement('li');
             myElem.class = 'received';
             myElem.style.background = msg.colour.fill;
             myElem.innerHTML = authorElem + msg.data;
             myElem.style.color = msg.colour.stroke;
 
-
-            //messagesList.innerHTML += '<li class="received" style = "background-color:"' + userInfo[1].fill +'><span>' + msg.author + '</span>' + msg.data + '</li>';
-            //console.log(messagesList.scrollTop);
-            //console.log(messageField.scrollList);
             messagesList.appendChild(myElem);
             messageContent.scrollTop = messageContent.scrollHeight;
         });
@@ -61,8 +57,7 @@ define(function (require) {
         presenceObject.onServerMessage(function (msg) {
 
             messagesList.innerHTML += '<li class="received" style = "color:blue">' + msg.data + '</li>';
-            connectedUsers.disabled = false;
-            closeBtn.disabled = false;
+
         });
 
         // Show a disconnected message when the WebSocket is closed.
@@ -71,42 +66,9 @@ define(function (require) {
             socketStatus.className = 'closed';
         });
 
-        /*
-            sendBtn.onclick = function (e) {
-
-                // Retrieve the message from the textarea.
-                var message = messageField.value;
-                //sendBtn.innerHTML = "Send Message/Ping";
-
-                presenceObject.sendMessage("SampleGroupId", message);
-                // Send the message through the WebSocket.
-
-                messageField.placeholder = "Write your message here...";
-                // Clear out the message field.
-                messageField.value = "";
-        
-            };*/
-        // Send a message when the form is submitted.
-
-        // Close the WebSocket connection when the close button is clicked.
-        /*closeBtn.onclick = function (e) {
-            presenceObject.leaveNetwork();
-            console.log(sendBtn)
-            sendBtn.innerHTML = 'Connect'
-            // Close the WebSocket.
-            return false;
-        };*/
-
-        /*connectedUsers.onclick = function (e) {
-            presenceObject.listUsers("SampleGroupId", function (list) {
-                messagesList.innerHTML += '<li class="received" style = "color:blue">' + list.data + '</li>';
-                messageContent.scrollTop = messageContent.scrollHeight;
-            });
-        }*/
-
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
-                
+
                 var message = messageField.value;
                 //sendBtn.innerHTML = "Send Message/Ping";
 
@@ -116,41 +78,38 @@ define(function (require) {
                 messageField.placeholder = "Write your message here...";
                 // Clear out the message field.
                 messageField.value = "";
-                
+
             }
         };
 
- 
-     function SettingsPalette(button) {
-         this.button = button;
-     }
- 
-     SettingsPalette.prototype = new palette.Palette(settingsButton);
 
-     SettingsPalette.prototype.Palette = function () {
- 
-         var setname;
- 
-         setname = document.createElement('input');
-         setname.type = "text";
-         setname.id = "reset-name";
-         setname.className = "expand";
-         setname.placeholder = "change user name"
-         
-         this.setContent([setname]);
-     }
+        function SettingsPalette(button) {
+            this.button = button;
+        }
 
-     var settingsPalette = new SettingsPalette();
-     settingsPalette.Palette();
-    
-     var resetBox = document.getElementById('reset-name');
-     resetBox.onblur = function()
-     {
-        presenceObject.changeUserName(resetBox.value);
-     }
+        SettingsPalette.prototype = new palette.Palette(settingsButton);
+
+        SettingsPalette.prototype.Palette = function () {
+
+            var setname;
+
+            setname = document.createElement('input');
+            setname.type = "text";
+            setname.id = "reset-name";
+            setname.className = "expand";
+            setname.placeholder = "change user name"
+
+            this.setContent([setname]);
+        }
+
+        var settingsPalette = new SettingsPalette();
+        settingsPalette.Palette();
+
+        var resetBox = document.getElementById('reset-name');
+        resetBox.onblur = function () {
+            presenceObject.changeUserName(resetBox.value);
+        }
 
     });
 
 });
-
-
