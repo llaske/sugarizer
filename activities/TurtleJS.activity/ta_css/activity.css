@@ -1,0 +1,78 @@
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/turtleart.svg);
+}
+
+#basictb-bt {
+  background-image: url(../ta_icons/turtleon.svg);
+}
+
+#run-bt {
+  background-image: url(../ta_icons/run-fastoff.svg);
+}
+
+#clear-bt {
+  background-image: url(../ta_icons/eraseroff.svg);
+}
+
+#hideshow-bt {
+  background-image: url(../ta_icons/hideshowon.svg);
+}
+
+#open-bt {
+  background-image: url(../ta_icons/ta-open.svg);
+}
+
+#save-bt {
+  background-image: url(../ta_icons/filesaveoff.svg);
+}
+
+#input-file {
+  position: absolute;
+  left: -9999px;
+}
+
+#pentb-bt {
+  background-image: url(../ta_icons/penon.svg);
+}
+
+#colortb-bt {
+  background-image: url(../ta_icons/colorson.svg);
+}
+
+#flowtb-bt {
+  background-image: url(../ta_icons/flowon.svg);
+}
+
+#numberstb-bt{
+  background-image: url(../ta_icons/numberson.svg);
+}
+
+#blockstb-bt{
+  background-image: url(../ta_icons/blockson.svg);
+}
+
+#canvas {
+  text-align: center;
+  background-color: white;
+}
+
+#fullscreen {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  left: 95%;
+  position: absolute;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="activity/favicon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+        <link rel="stylesheet" href="ta_css/activity.css">
+        <title>Turtle Art Web</title>
+		<script data-main="js/loader" src="lib/require.js"></script
+    </head>
+    <body>
+        <div id="main-toolbar" class="toolbar">
+            <button class="toolbutton" id="activity-button" title="Turtle Art Web"></button>
+            <hr />
+            <button class="toolbutton" id="basictb-bt" title="Basic toolbar"></button>
+            <button class="toolbutton" id="pentb-bt" title="Pen Palette"></button>
+            <button class="toolbutton" id="colortb-bt" title="Colors Palette"></button>
+            <button class="toolbutton" id="numberstb-bt" title="Numbers Palette"></button>
+            <button class="toolbutton" id="flowtb-bt" title="Flow Palette"></button>
+            <button class="toolbutton" id="blockstb-bt" title="Blocks Palette"></button>
+            <button class="toolbutton" id="run-bt" title="Run"></button>
+            <button class="toolbutton" id="clear-bt" title="Clear canvas"></button>
+            <button class="toolbutton" id="hideshow-bt" title="Hide/Show blocks"></button>
+            <button class="toolbutton" id="open-bt" title="Open file"></button>
+            <button class="toolbutton" id="save-bt" title="Save file"></button>
+			
+			<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+        </div>
+        <div id="canvas">
+            <input type="file" id="input-file" name="files[]" />
+            <div id="container2"></div>
+
+            <script src="ext_lib/kinetic-v4.7.4.min.js"></script>
+            <script src="ext_lib/jquery.js"></script>
+
+            <script src="ta_lib/i18n.js"></script>
+            <script src="ta_lib/taconstants.js"></script>
+            <script src="html_js/buttonslogic.js"></script>
+            <script src="html_js/importexport.js"></script>
+
+            <script src="ta_shapes/arcshape.js"></script>
+
+            <script src="block_lib/basic_blocks_func.js"></script>
+            <script src="block_lib/pen_palette_funcs.js"></script>
+            <script src="block_lib/colors_palette_funcs.js"></script>
+            <script src="block_lib/flow_palette_funcs.js"></script>
+            <script src="block_lib/numbers_palette_funcs.js"></script>
+            <script src="block_lib/blocks_funcs.js"></script>
+
+            <script src="ta_pal_lang_desc/basic_block_palette_lang_descriptor.js"></script>
+            <script src="ta_pal_lang_desc/pen_palette_lang_descriptor.js"></script>
+            <script src="ta_pal_lang_desc/colors_palette_lang_descriptor.js"></script>
+            <script src="ta_pal_lang_desc/numbers_palette_lang_descriptor.js"></script>
+            <script src="ta_pal_lang_desc/flow_palette_lang_descriptor.js"></script>
+            <script src="ta_pal_lang_desc/blocks_palette_lang_descriptor.js"></script>
+
+            <script src="ta_lib/blockimagetracker.js"></script>
+            <script src="ta_lib/sprites.js"></script>
+            <script src="ta_lib/block.js"></script>
+            <script src="ta_lib/turtle.js"></script>
+            <script src="ta_lib/blocktracker.js"></script>
+            <script src="ta_lib/drawtracker.js"></script>
+            <script src="ta_lib/dockdescriptor.js"></script>
+            <script src="ta_lib/blockdescriptor.js"></script>
+            <script src="ta_lib/palettecontainer.js"></script>
+            <script src="ta_lib/blockfactory.js"></script>
+            <script src="ta_lib/drawstage.js"></script>
+            <script src="ta_lib/blockstage.js"></script>
+            <script src="ta_lib/globalvarstracker.js"></script>
+            <script src="ta_lib/docktracker.js"></script>
+            <script src="ta_lib/palettetracker.js"></script>
+
+            <script src="ta_pal/basicblockpalette.js"></script>
+            <script src="ta_pal/penpalette.js"></script>
+            <script src="ta_pal/colorspalette.js"></script>
+            <script src="ta_pal/flowpalette.js"></script>
+            <script src="ta_pal/numberspalette.js"></script>
+            <script src="ta_pal/blockspalette.js"></script>
+
+            <script src="ta_pal_desc/basic_block_palette_descriptor.js"></script>
+            <script src="ta_pal_desc/pen_palette_descriptor.js"></script>
+            <script src="ta_pal_desc/colors_palette_descriptor.js"></script>
+            <script src="ta_pal_desc/flow_palette_descriptor.js"></script>
+            <script src="ta_pal_desc/numbers_palette_descriptor.js"></script>
+            <script src="ta_pal_desc/blocks_palette_descriptor.js"></script>
+
+            <script src="html_js/appinit.js"></script>
+        </div>
+    </body>
+</html>

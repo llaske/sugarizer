@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="55"
+   height="55"
+   id="svg2">
+  <metadata
+     id="metadata3212">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5" />
+  <rect
+     width="55"
+     height="55"
+     rx="0"
+     x="0"
+     y="0"
+     id="rect2839"
+     style="fill:#ffd200;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+  <g
+     transform="translate(-4.9972534e-4,0)"
+     id="toolbar_x5F_colors"
+     style="display:block">
+    <g
+       id="g3067">
+      <circle
+         cx="15.63"
+         cy="39.5"
+         r="10"
+         id="circle3069"
+         style="fill:#d20000;stroke:#ffffff;stroke-width:2.25" />
+      <circle
+         cx="39.834"
+         cy="39.5"
+         r="10"
+         id="circle3071"
+         style="fill:#0010d1;stroke:#ffffff;stroke-width:2.25" />
+      <circle
+         cx="15.167"
+         cy="15.5"
+         r="10"
+         id="circle3073"
+         style="fill:#f7e100;stroke:#ffffff;stroke-width:2.25" />
+      <circle
+         cx="39.666"
+         cy="15.5"
+         r="10"
+         id="circle3075"
+         style="stroke:#ffffff;stroke-width:2.25" />
+    </g>
+  </g>
+</svg>

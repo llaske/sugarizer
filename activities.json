@@ -14,5 +14,6 @@
 	{"id": "org.sugarlabs.StopwatchActivity", "name": "Stopwatch", "version": 1, "directory": "activities/Stopwatch.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.laptop.WelcomeWebActivity", "name": "WelcomeWeb", "version": 1, "directory": "activities/WelcomeWeb.activity", "icon": "activity/welcome-activity.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.TankOp", "name": "Tank Operation", "version": 1, "directory": "activities/TankOp.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},	
+	{"id": "org.sugarlabs.TurleJS", "name": "Turtle JS", "version": 1, "directory": "activities/TurtleJS.activity", "icon": "activity/turtleart.svg", "favorite": true, "activityId": null},	
 	{"id": "org.olpcfrance.Gridpaint", "name": "Grid Paint", "version": 2, "directory": "activities/Gridpaint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
 ]

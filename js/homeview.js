@@ -110,7 +110,7 @@ enyo.kind({
 	
 	// Error on init user
 	queryNetworkFail: function(inSender, inError) {
-		console.log("Error creating network user");
+		console.log("WARNING: Error creating network user");
 	},
 	
 	// Get linked toolbar

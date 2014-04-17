@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="55"
+   height="55"
+   id="svg2">
+  <defs
+     id="defs5" />
+  <rect
+     width="55"
+     height="55"
+     rx="0"
+     x="0"
+     y="0"
+     id="rect2839"
+     style="fill:#ffd200;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+  <g
+     transform="translate(6.1026134,-1.6740561)"
+     id="g2392"
+     style="fill:#a000a0;fill-opacity:1">
+    <text
+       x="4.5171318"
+       y="26.866751"
+       id="text2384"
+       xml:space="preserve"
+       style="font-size:12px;fill:#a000a0;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+         x="4.5171318"
+         y="26.866751"
+         id="tspan2386"
+         style="font-size:18px;fill:#a000a0;fill-opacity:1">123</tspan></text>
+    <text
+       x="1.8153553"
+       y="44.840736"
+       id="text2388"
+       xml:space="preserve"
+       style="font-size:12px;fill:#a000a0;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+         x="1.8153553"
+         y="44.840736"
+         id="tspan2390"
+         style="font-size:18px;fill:#a000a0;fill-opacity:1">+–=</tspan></text>
+  </g>
+</svg>
