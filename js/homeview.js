@@ -10,6 +10,7 @@ var datastore;
 var l10n;
 var preferences;
 var util;
+var server;
 
 
 
@@ -57,15 +58,18 @@ enyo.kind({
 		if (util.getClientType() == constant.thinClientType) {
 			// Create a new user on the network
 			if (preferences.getNetworkId() == null) {
-				var ajax = new enyo.Ajax({
-					url: constant.initNetworkURL,
-					method: "POST",
-					handleAs: "json",
-					postBody: {user: JSON.stringify({ name: preferences.getName(), color: preferences.getColor() })}
-				});
-				ajax.response(this, "queryNetworkResponse");
-				ajax.error(this, "queryNetworkFail");
-				ajax.go();
+				server.postUser(
+					{name: preferences.getName(), color: preferences.getColor()},
+					function(inSender, inResponse) {
+						preferences.setNetworkId(inResponse._id);
+						preferences.setPrivateJournal(inResponse.private_journal);
+						preferences.setSharedJournal(inResponse.shared_journal);
+						preferences.save();
+					},
+					function() {
+						console.log("WARNING: Error creating network user");
+					}
+				);
 			}
 		}
 	},
@@ -98,19 +102,6 @@ enyo.kind({
 		else {
 			console.log("Error loading init activities");
 		}
-	},
-	
-	// Init user service response
-	queryNetworkResponse: function(inSender, inResponse) {
-		preferences.setNetworkId(inResponse._id);
-		preferences.setPrivateJournal(inResponse.private_journal);
-		preferences.setSharedJournal(inResponse.shared_journal);
-		preferences.save();
-	},
-	
-	// Error on init user
-	queryNetworkFail: function(inSender, inError) {
-		console.log("WARNING: Error creating network user");
 	},
 	
 	// Get linked toolbar

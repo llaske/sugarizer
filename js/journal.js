@@ -163,22 +163,18 @@ enyo.kind({
 		// Filter remote entries
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
-			var ajax = new enyo.Ajax({
-				url: constant.sendCloudURL+journalId+(typeactivity !== undefined ? constant.filterJournalURL+typeactivity : ""),
-				method: "GET",
-				handleAs: "json"
-			});
 			var that = this;
-			ajax.response(function(inSender, inResponse) {
-				that.journal = inResponse;
-				that.empty = (that.journal.length == 0);
-				doFilter();
-			});
-			ajax.error(function() {
-				console.log("WARNING: Error filtering journal "+journalId);
-				that.journalChanged();
-			});
-			ajax.go();
+			server.getJournal(journalId, typeactivity, 
+				function(inSender, inResponse) {
+					that.journal = inResponse;
+					that.empty = (that.journal.length == 0);
+					doFilter();
+				},
+				function() {
+					console.log("WARNING: Error filtering journal "+journalId);
+					that.journalChanged();
+				}
+			);
 			return;
 		}
 		
@@ -267,39 +263,29 @@ enyo.kind({
 	
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
-		var ajax = new enyo.Ajax({
-			url: constant.sendCloudURL+journalId,
-			method: "POST",
-			handleAs: "json",
-			postBody: {journal: JSON.stringify(entry)}
-		});
-		ajax.response(function() {
-		});
-		ajax.error(function() {
-			console.log("WARNING: Error writing journal "+journalId);
-		});
-		ajax.go();			
+		server.postJournalEntry(journalId, entry, 
+			function() {},
+			function() {
+				console.log("WARNING: Error writing journal "+journalId);
+			}
+		);		
 		this.$.activityPopup.hidePopup();
 	},
 	
 	// Load a remote journal
 	loadRemoteJournal: function(journalId) {
-		var ajax = new enyo.Ajax({
-			url: constant.sendCloudURL+journalId,
-			method: "GET",
-			handleAs: "json"
-		});
 		var that = this;
-		ajax.response(function(inSender, inResponse) {
-			that.journal = inResponse;
-			that.empty = (that.journal.length == 0);
-			that.journalChanged();
-		});
-		ajax.error(function() {
-			console.log("WARNING: Error reading journal "+journalId);
-			that.journalChanged();
-		});
-		ajax.go();	
+		server.getJournal(journalId, undefined,
+			function(inSender, inResponse) {
+				that.journal = inResponse;
+				that.empty = (that.journal.length == 0);
+				that.journalChanged();
+			},
+			function() {
+				console.log("WARNING: Error reading journal "+journalId);
+				that.journalChanged();
+			}
+		);
 	},
 	
 	// Remove an entry in the journal
@@ -319,21 +305,17 @@ enyo.kind({
 		} else {
 			// Remove from remote journal
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
-			var ajax = new enyo.Ajax({
-				url: constant.sendCloudURL+journalId+"/"+entry.objectId,
-				method: "DELETE",
-				handleAs: "json"
-			});
 			var that = this;
-			ajax.response(function(inSender, inResponse) {
-				that.loadRemoteJournal(journalId);
-				that.$.activityPopup.hidePopup();
-			});
-			ajax.error(function() {
-				console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
-				that.$.activityPopup.hidePopup();
-			});
-			ajax.go();
+			server.deleteJournalEntry(journalId, entry.objectId, 
+				function(inSender, inResponse) {
+					that.loadRemoteJournal(journalId);
+					that.$.activityPopup.hidePopup();
+				},
+				function() {
+					console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
+					that.$.activityPopup.hidePopup();
+				}
+			);
 			return;
 		}
 		this.$.activityPopup.hidePopup();	

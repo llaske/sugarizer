@@ -8,6 +8,7 @@ define(function (require) {
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
+	server = require("server");
 	preferences = require("settings");
 	util = require("util");
 
