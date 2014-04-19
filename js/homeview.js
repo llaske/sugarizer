@@ -159,7 +159,7 @@ enyo.kind({
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					x: canvas_center.x+Math.cos(angle)*radius, 
 					y: canvas_center.y+Math.sin(angle)*radius,
-					colorized: activity.activityId != null,
+					colorized: activity.activityId != null && activity.instances.length > 0,
 					onclick: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup")
@@ -265,14 +265,14 @@ enyo.kind({
 		// Create popup
 		var title;
 		var activity = icon.icon; // HACK: activity is stored as an icon
-		if (activity.activityId != null && activity.instances[0].metadata.title !== undefined) {
+		if (activity.activityId != null && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
 			title = activity.instances[0].metadata.title;			
 		} else {
 			title = l10n.get('NameActivity', {name: activity.name});
 		}
 		this.$.activityPopup.setHeader({
 			icon: activity,
-			colorized: activity.activityId != null,
+			colorized: activity.activityId != null && activity.instances.length > 0,
 			name: activity.name,
 			title: title,
 			action: enyo.bind(this, "runActivity"),

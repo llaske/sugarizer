@@ -73,6 +73,7 @@ enyo.kind({
 		this.$.empty.show();
 		this.$.message.show();	
 		this.$.nofilter.show();
+		this.empty = (this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
 			this.$.journalList.setCount(this.journal.length);
 			this.$.empty.hide();
@@ -237,7 +238,14 @@ enyo.kind({
 			action: enyo.bind(this, "copyToRemote"),
 			data: [entry, preferences.getSharedJournal()],
 			disable: this.journalType == constant.journalRemoteShared
-		});	
+		});
+		items.push({
+			icon: {directory: "icons", icon: "list-remove.svg"},
+			colorized: false,
+			name: l10n.get("Erase"),
+			action: enyo.bind(this, "removeEntry"),
+			data: [entry, null]
+		});		
 		this.$.activityPopup.setFooter(items);
 		
 		// Show popup
@@ -292,6 +300,43 @@ enyo.kind({
 			that.journalChanged();
 		});
 		ajax.go();	
+	},
+	
+	// Remove an entry in the journal
+	removeEntry: function(entry) {
+		// Remove from local journal
+		if (this.journalType == constant.journalLocal) {
+			// Delete in datastore
+			datastore.remove(entry.objectId);
+			
+			// Refresh screen
+			this.showLocalJournal();
+			
+			// Refresh home screen: activity menu, journal content
+			preferences.updateEntries();
+			app.journal = this.journal;
+			app.redraw();
+		} else {
+			// Remove from remote journal
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var ajax = new enyo.Ajax({
+				url: constant.sendCloudURL+journalId+"/"+entry.objectId,
+				method: "DELETE",
+				handleAs: "json"
+			});
+			var that = this;
+			ajax.response(function(inSender, inResponse) {
+				that.loadRemoteJournal(journalId);
+				that.$.activityPopup.hidePopup();
+			});
+			ajax.error(function() {
+				console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
+				that.$.activityPopup.hidePopup();
+			});
+			ajax.go();
+			return;
+		}
+		this.$.activityPopup.hidePopup();	
 	},
 	
 	// Switch journal

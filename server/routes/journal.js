@@ -121,3 +121,19 @@ exports.addEntryInJournal = function(req, res) {
 		});
 	});	
 }
+
+// Remove an entry in a journal
+exports.removeEntryInJournal = function(req, res) {
+	var jid = req.params.jid;
+	var oid = req.params.oid;
+	var deletecontent = {$pull: {content: {objectId: oid}}};
+	db.collection(journalCollection, function(err, collection) {
+		collection.update({'_id':new BSON.ObjectID(jid)}, deletecontent, {safe:true}, function(err, result) {
+			if (err) {
+				res.send({'error':'An error has occurred'});
+			} else {
+				res.send(deletecontent);
+			}
+		});
+	});	
+}
