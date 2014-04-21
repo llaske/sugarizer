@@ -38,6 +38,7 @@ settings.load(function(ini) {
 	app.get("/journal/:jid", journal.findJournalContent);
 	app.get("/journal/:jid/filter/:aid", journal.findJournalContent);
 	app.post("/journal/:jid", journal.addEntryInJournal);
+	app.put("/journal/:jid/:oid", journal.updateEntryInJournal);
 	app.delete("/journal/:jid/:oid", journal.removeEntryInJournal);
 
 	// Start listening

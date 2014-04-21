@@ -12,7 +12,8 @@ enyo.kind({
 				{name: "item", classes: "journal-list-item", components: [
 					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
 					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
-					{name: "title", classes: "journal-title"},
+					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
+					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},					
 					{name: "time", classes: "journal-time"},
 					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
 				]}
@@ -321,10 +322,70 @@ enyo.kind({
 		this.$.activityPopup.hidePopup();	
 	},
 	
+	// Handle entry title update
+	titleEditStart: function(inSender, inEvent) {
+		inSender.owner.$.title.setShowing(false);
+		inSender.owner.$.titleEdit.setValue(inSender.owner.$.title.getContent());
+		inSender.owner.$.titleEdit.setShowing(true);
+		inSender.owner.$.titleEdit.focus();
+	},
+	
+	titleEditEnd: function(inSender, inEvent) {
+		inSender.owner.$.title.setShowing(true);
+		inSender.owner.$.titleEdit.setShowing(false);
+		var newtitle = inSender.owner.$.titleEdit.getValue();
+		if (newtitle == inSender.owner.$.title.getContent())
+			return;
+		var objectId = this.journal[inEvent.index].objectId;
+		
+		// Update local journal
+		if (this.journalType == constant.journalLocal) {
+			// Update metadata
+			var metadata = this.journal[inEvent.index].metadata;
+			metadata.title = newtitle;
+			
+			// Update datastore
+			var ds = new datastore.DatastoreObject(objectId);
+			ds.setMetadata(metadata);
+			ds.setDataAsText(this.journal[inEvent.index].text);
+			ds.save();
+			
+			// Refresh screen
+			this.showLocalJournal();
+			
+			// Refresh home screen: activity menu, journal content
+			preferences.updateEntries();
+			app.journal = this.journal;
+			app.redraw();			
+		}
+		
+		// Update remote journal
+		else {
+			// Update metadata
+			var entry = inSender.owner.$.activity.getData();
+			entry.metadata.title = newtitle;
+			
+			// Update remote journal
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var that = this;
+			server.putJournalEntry(journalId, objectId, entry, 
+				function() {
+					that.loadRemoteJournal(journalId);
+				},
+				function() {
+					console.log("WARNING: Error updating journal "+journalId);
+				}
+			);
+		}
+	},
+	
 	// Switch journal
 	showLocalJournal: function() {
 		this.changeJournalType(constant.journalLocal);
 		this.journal = datastore.find();
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
+		});		
 		this.journalChanged();
 	},
 

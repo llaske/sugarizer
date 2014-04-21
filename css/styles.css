@@ -281,6 +281,13 @@ input {
 	font-size: 14px;
 }
 
+.journal-title-edit {
+	position: absolute;
+	margin-left: 120px;
+	margin-top: 15px;
+	font-size: 14px;
+}
+
 .journal-filter-text {
 	position: relative;
 	width: 360px;
