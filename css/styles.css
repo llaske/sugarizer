@@ -175,6 +175,7 @@ input {
 	padding-top: 10px;
 	margin-right: 10px;
 	font-weight: bold;
+	min-height: 16px;
 	z-index: 1;	
 }
 

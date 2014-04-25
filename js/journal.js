@@ -32,6 +32,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
+		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.journalChanged();
 		this.$.footer.setShowing(preferences.getNetworkId() != null);		
@@ -66,7 +67,6 @@ enyo.kind({
 		var margintop = (canvas_center.y-constant.sizeEmpty/4);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
 		this.$.message.setContent(l10n.get("JournalEmpty"));
-		this.$.nofilter.setText(l10n.get("ClearSearch"));
 	},
 	
 	// Property changed
@@ -74,7 +74,7 @@ enyo.kind({
 		this.$.empty.show();
 		this.$.message.show();	
 		this.$.nofilter.show();
-		this.empty = (this.journal.length == 0);
+		this.empty = (!this.getToolbar().hasFilter() && !this.loadingError && this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
 			this.$.journalList.setCount(this.journal.length);
 			this.$.empty.hide();
@@ -83,10 +83,20 @@ enyo.kind({
 		} else {
 			this.$.journalList.setCount(0);
 			if (this.empty) {
+				// Journal empty
 				this.$.message.setContent(l10n.get("JournalEmpty"));
 				this.$.nofilter.hide();
-			} else
-				this.$.message.setContent(l10n.get("NoMatchingEntries"));
+			} else if (this.loadingError) {
+				// Loading error
+				this.$.message.setContent(l10n.get("ErrorLoadingRemote"));
+				this.$.nofilter.setText(l10n.get("Retry"));
+				this.$.nofilter.setIcon({directory: "icons", icon: "system-restart.svg"});
+			} else {
+				// Filtering return no result
+				this.$.message.setContent(l10n.get("NoMatchingEntries"));				
+				this.$.nofilter.setText(l10n.get("ClearSearch"));
+				this.$.nofilter.setIcon({directory: "icons", icon: "dialog-cancel.svg"});
+			}
 		}
 	},
 
@@ -168,11 +178,14 @@ enyo.kind({
 			server.getJournal(journalId, typeactivity, 
 				function(inSender, inResponse) {
 					that.journal = inResponse;
-					that.empty = (that.journal.length == 0);
+					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
+					that.loadingError = false;
 					doFilter();
 				},
 				function() {
 					console.log("WARNING: Error filtering journal "+journalId);
+					that.journal = [];
+					that.loadingError = true;
 					that.journalChanged();
 				}
 			);
@@ -181,6 +194,7 @@ enyo.kind({
 		
 		// Filter local entries
 		this.journal = datastore.find(typeactivity);
+		this.loadingError = false;
 		doFilter();
 	},
 	
@@ -279,11 +293,14 @@ enyo.kind({
 		server.getJournal(journalId, undefined,
 			function(inSender, inResponse) {
 				that.journal = inResponse;
-				that.empty = (that.journal.length == 0);
+				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
+				that.loadingError = false;
 				that.journalChanged();
 			},
 			function() {
 				console.log("WARNING: Error reading journal "+journalId);
+				that.journal = [];
+				that.loadingError = true;
 				that.journalChanged();
 			}
 		);
@@ -306,14 +323,16 @@ enyo.kind({
 		} else {
 			// Remove from remote journal
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var objectId = entry.objectId;
 			var that = this;
-			server.deleteJournalEntry(journalId, entry.objectId, 
+			server.deleteJournalEntry(journalId, objectId, 
 				function(inSender, inResponse) {
 					that.loadRemoteJournal(journalId);
 					that.$.activityPopup.hidePopup();
 				},
 				function() {
 					console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
+					that.loadRemoteJournal(journalId);					
 					that.$.activityPopup.hidePopup();
 				}
 			);
@@ -374,6 +393,7 @@ enyo.kind({
 				},
 				function() {
 					console.log("WARNING: Error updating journal "+journalId);
+					that.loadRemoteJournal(journalId);
 				}
 			);
 		}
@@ -404,6 +424,7 @@ enyo.kind({
 		this.$.journalbutton.addRemoveClass('active', newType == constant.journalLocal);
 		this.$.cloudonebutton.addRemoveClass('active', newType == constant.journalRemotePrivate);	
 		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);	
+		this.getToolbar().removeFilter();
 	}
 });
 
@@ -465,6 +486,13 @@ enyo.kind({
 	},
 	
 	// Compute filter
+	hasFilter: function() {
+		return this.$.journalsearch.getText() != ""
+			|| this.$.favoritebutton.getColorized()
+			|| this.$.typeselect.getSelected() > 0
+			|| this.$.timeselect.getSelected() > 0;
+	},
+	
 	filterEntries: function() {
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
