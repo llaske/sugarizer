@@ -39,7 +39,13 @@
 
     SugarPresence.prototype.joinNetwork = function(userInfo) {
 
-        this.socket = new WebSocket('ws://localhost:8039');
+		var server = "localhost";
+		if (localStorage.sugar_settings) {
+			var sugarSettings = JSON.parse(localStorage.sugar_settings);
+			if (sugarSettings.server)
+				server = sugarSettings.server;
+		}
+        this.socket = new WebSocket('ws://'+server+':8039');
         console.log('Created socket');
 
         this.socket.onerror = function(error) {

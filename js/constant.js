@@ -24,6 +24,7 @@ constant.thinClientType = 0;
 constant.clientType = 1;
 
 constant.staticInitActivitiesURL = "activities.json";
+constant.http = "http://";
 constant.dynamicInitActivitiesURL = "/api/activities/";
 constant.initNetworkURL = "/api/users/";
 constant.sendCloudURL = "/api/journal/";

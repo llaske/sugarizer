@@ -48,7 +48,7 @@ enyo.kind({
 		
 		// Call activities list service
 		if (util.getClientType() == constant.thinClientType) {
-			this.$.activities.setUrl(constant.dynamicInitActivitiesURL);
+			this.$.activities.setUrl(server.getActivitiesUrl());
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 		}
