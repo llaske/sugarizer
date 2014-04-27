@@ -8,8 +8,8 @@ define(function (require) {
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
-	server = require("server");
 	preferences = require("settings");
+	myserver = require("server");
 	util = require("util");
 
 	// Manipulate the DOM only when it is ready.

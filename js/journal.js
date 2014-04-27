@@ -175,7 +175,7 @@ enyo.kind({
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var that = this;
-			server.getJournal(journalId, typeactivity, 
+			myserver.getJournal(journalId, typeactivity, 
 				function(inSender, inResponse) {
 					that.journal = inResponse;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
@@ -278,7 +278,7 @@ enyo.kind({
 	
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
-		server.postJournalEntry(journalId, entry, 
+		myserver.postJournalEntry(journalId, entry, 
 			function() {},
 			function() {
 				console.log("WARNING: Error writing journal "+journalId);
@@ -290,7 +290,7 @@ enyo.kind({
 	// Load a remote journal
 	loadRemoteJournal: function(journalId) {
 		var that = this;
-		server.getJournal(journalId, undefined,
+		myserver.getJournal(journalId, undefined,
 			function(inSender, inResponse) {
 				that.journal = inResponse;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
@@ -325,7 +325,7 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var objectId = entry.objectId;
 			var that = this;
-			server.deleteJournalEntry(journalId, objectId, 
+			myserver.deleteJournalEntry(journalId, objectId, 
 				function(inSender, inResponse) {
 					that.loadRemoteJournal(journalId);
 					that.$.activityPopup.hidePopup();
@@ -387,7 +387,7 @@ enyo.kind({
 			// Update remote journal
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var that = this;
-			server.putJournalEntry(journalId, objectId, entry, 
+			myserver.putJournalEntry(journalId, objectId, entry, 
 				function() {
 					that.loadRemoteJournal(journalId);
 				},

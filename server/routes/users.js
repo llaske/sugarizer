@@ -26,9 +26,12 @@ exports.init = function(settings) {
 
 // Find an user
 exports.findById = function(req, res) {
-	var uid = req.params.uid;
+	if (!BSON.ObjectID.isValid(req.params.uid)) {
+		res.send();
+		return;
+	}
 	db.collection(usersCollection, function(err, collection) {
-		collection.findOne({'_id':new BSON.ObjectID(uid)}, function(err, item) {
+		collection.findOne({'_id':new BSON.ObjectID(req.params.uid)}, function(err, item) {
 			res.send(item);
 		});
 	});
@@ -65,6 +68,10 @@ exports.addUser = function(req, res) {
  
 // Update user
 exports.updateUser = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.uid)) {
+		res.send();
+		return;
+	}
 	var uid = req.params.uid;
 	var user = JSON.parse(req.body.user);
 	db.collection(usersCollection, function(err, collection) {

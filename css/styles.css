@@ -692,11 +692,93 @@ input {
 
 .computer-licence {
 	margin-left: 30px;
-
 }
 
 .computer-value {
 	margin-left: 10px;
 	color: black;
 	display: inline-block;	
+}
+
+.aboutserver-checkbox {
+	margin-left: 20px !important;
+	margin-top: 30px !important;
+	display: inline-block;
+}
+
+.aboutserver-message {
+	margin-left: 10px;
+	margin-top: 20px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
+}
+
+.aboutserver-serverlabel {
+	margin-left: 50px;
+	margin-top: 20px;
+	color: #808080;
+	width: 250px;
+	text-align: right;
+	display: inline-block;
+}
+
+.aboutserver-httplabel {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+}
+
+.aboutserver-servername {
+	display: inline-block;
+	width: 165px;
+}
+
+.aboutserver-userlabel {
+	margin-left: 50px;
+	margin-top: 20px;
+	color: #808080;
+	width: 250px;
+	text-align: right;
+	display: inline-block;
+}
+
+.aboutserver-usermessage {
+	margin-left: 35px;
+	margin-top: 10px;
+	color: #808080;
+	text-align: left;
+	display: inline-block;
+}
+
+.aboutserver-username {
+	margin-left: 10px;
+	display: inline-block;
+	width: 200px;
+}
+
+.aboutserver-iconchecked {
+	margin-left: 5px;
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.aboutserver-checkbutton {
+	margin-top: 20px;
+	margin-left: 310px;
+	width: 120px;
+}
+
+.aboutserver-warningmessage {
+	position: relative;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;	
+	background-position: left;
+	background-size: 15px 15px;	
+	left: 20px;
+	top: 200px;
+	width: 200px;
+	padding-left: 20px;
 }

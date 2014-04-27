@@ -14,7 +14,8 @@ enyo.kind({
 		{name: "content", components: [
 			{name: "me", kind: "Sugar.Dialog.Settings.Item", onclick: "meClicked", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 			{name: "computer", kind: "Sugar.Dialog.Settings.Item", onclick: "computerClicked", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-			{name: "language", kind: "Sugar.Dialog.Settings.Item", onclick: "languageClicked", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
+			{name: "aboutserver", kind: "Sugar.Dialog.Settings.Item", onclick: "serverClicked", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+			{name: "language", kind: "Sugar.Dialog.Settings.Item", onclick: "languageClicked", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
 		]},
 		{name: "subdialog"}
 	],
@@ -26,6 +27,7 @@ enyo.kind({
 		this.$.me.setText(l10n.get("AboutMe"));
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
 		this.$.language.setText(l10n.get("Language"));
+		this.$.aboutserver.setText(l10n.get("Server"));
 		this.subdialog = null;
 	},
 	
@@ -69,6 +71,14 @@ enyo.kind({
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.Dialog.Language"}, {owner:this});
 			this.subdialog.show();
 		}
+	},
+	
+	serverClicked: function() {
+		if (!this.$.aboutserver.getDisabled()) {
+			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.Dialog.Server"}, {owner:this});
+			this.subdialog.show();
+		}	
 	}
 });	
 
@@ -330,6 +340,135 @@ enyo.kind({
 	}	
 });
 
+
+
+// Server dialog
+enyo.kind({
+	name: "Sugar.Dialog.Server",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: true,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "cloud-settings.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "cancel", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "ok", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [	
+			{name: "connected", kind: "Input", type: "checkbox", classes: "toggle aboutserver-checkbox", onchange: "switchConnection"},
+			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
+			{components:[
+				{name: "textservername", content: "xxx", classes: "aboutserver-serverlabel"},
+				{content: "http://", classes: "aboutserver-httplabel"},
+				{name: "servername", kind: "Input", classes: "aboutserver-servername", oninput: "changed"},
+				{name: "serverok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-ok.svg"}, classes: "aboutserver-iconchecked", showing: false}
+			]},
+			{components:[
+				{name: "textusername", content: "xxx", classes: "aboutserver-userlabel"},
+				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"},
+				{name: "userok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-cancel.svg"}, classes: "aboutserver-iconchecked", showing: false},
+				{name: "textusermessage", content: "xxx", classes: "aboutserver-usermessage"}
+			]},	
+			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", ontap: "check"},
+			{name: "warningmessage", content: "xxx", classes: "aboutserver-warningmessage", showing: false}
+		]}
+	],
+	
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("Server"));
+		this.$.textconnected.setContent(l10n.get("ConnectedToServer"));
+		this.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
+		this.$.textservername.setContent(l10n.get("ServerName"));
+		this.$.textusername.setContent(l10n.get("UserId"));
+		this.$.textusermessage.setContent(l10n.get("LeaveUserBlank"));
+		this.$.checkbutton.setText(l10n.get("CheckInfo"));
+		this.initconnected = false;
+		this.initusername = preferences.getNetworkId();
+		this.$.username.setValue(this.initusername);
+		if (util.getClientType() == constant.thinClientType) {
+			this.initconnected = true;
+			this.initservername = util.getCurrentServerUrl();
+			this.$.servername.setValue(this.initservername);
+			this.$.servername.setDisabled(true);
+		}
+	},
+	
+	rendered: function() {
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.connected.setNodeProperty("checked", this.initconnected);
+	},
+	
+	// Event handling
+	cancel: function() {
+		this.hide();
+		this.owner.show();
+	},
+	
+	ok: function() {
+		if (!this.hasChanged()) {
+			this.hide();
+			this.owner.show();
+			return;
+		}
+		this.$.warningbox.setShowing(true);
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+	
+	switchConnection: function() {
+		if (util.getClientType() == constant.thinClientType) {
+			this.$.connected.setNodeProperty("checked", true);
+		}
+		this.$.warningmessage.setShowing(this.hasChanged());
+	},
+	
+	changed: function() {
+		this.$.warningmessage.setShowing(this.hasChanged());	
+	},
+	
+	check: function() {
+		if (!this.$.connected.getNodeProperty("checked"))
+			return;
+		var that = this;
+		var setOk = function(server, user) {
+			that.$.serverok.setIcon({directory: "icons", icon: (server ? "entry-ok.svg":"entry-cancel.svg")});
+			that.$.userok.setIcon({directory: "icons", icon: (user ? "entry-ok.svg":"entry-cancel.svg")});
+			that.$.serverok.setShowing(true);
+			that.$.userok.setShowing(true);		
+		}
+		var uid = this.$.username.getValue();
+		myserver.getUser(uid,
+			function(inSender, inResponse) {
+				setOk(true, (inResponse || !uid));
+			},
+			function() {
+				setOk(false, false);
+			},
+			"http://"+this.$.servername.getValue()
+		);
+	},
+	
+	restart: function() {
+		preferences.save();	
+		util.restartApp();
+	},
+
+	// Utility
+	hasChanged: function() {
+		var currentconnected = this.$.connected.getNodeProperty("checked");
+		var currentservername = this.$.servername.getValue();
+		var currentusername = this.$.username.getValue();	
+		return (this.initconnected != currentconnected || this.initusername != currentusername || this.initservername != currentservername);
+	}
+});
 
 //-------------------------- Settings utility classes
 

@@ -10,7 +10,7 @@ var datastore;
 var l10n;
 var preferences;
 var util;
-var server;
+var myserver;
 
 
 
@@ -48,7 +48,7 @@ enyo.kind({
 		
 		// Call activities list service
 		if (util.getClientType() == constant.thinClientType) {
-			this.$.activities.setUrl(server.getActivitiesUrl());
+			this.$.activities.setUrl(myserver.getActivitiesUrl());
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 		}
@@ -58,7 +58,7 @@ enyo.kind({
 		if (util.getClientType() == constant.thinClientType) {
 			// Create a new user on the network
 			if (preferences.getNetworkId() == null) {
-				server.postUser(
+				myserver.postUser(
 					{name: preferences.getName(), color: preferences.getColor()},
 					function(inSender, inResponse) {
 						preferences.setNetworkId(inResponse._id);

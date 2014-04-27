@@ -76,6 +76,10 @@ exports.findSharedJournal = function(req, res) {
 
 // Get journal entries
 exports.findJournalContent = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
 	var jid = req.params.jid;
 	var aid = req.params.aid;
 	var filter = {_id:new BSON.ObjectID(jid)};
@@ -108,6 +112,10 @@ exports.findJournalContent = function(req, res) {
 
 // Add an entry in a journal
 exports.addEntryInJournal = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
 	var jid = req.params.jid;
 	var journal = JSON.parse(req.body.journal);
 	var newcontent = {$push: {content: journal}};
@@ -124,6 +132,10 @@ exports.addEntryInJournal = function(req, res) {
 
 // Update an entry in a journal
 exports.updateEntryInJournal = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
 	var jid = req.params.jid;
 	var oid = req.params.oid;
 	
@@ -143,6 +155,10 @@ exports.updateEntryInJournal = function(req, res) {
 
 // Remove an entry in a journal
 exports.removeEntryInJournal = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
 	var jid = req.params.jid;
 	var oid = req.params.oid;
 	var deletecontent = {$pull: {content: {objectId: oid}}};
