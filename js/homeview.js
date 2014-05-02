@@ -57,9 +57,14 @@ enyo.kind({
 		// Call network id
 		if (util.getClientType() == constant.thinClientType) {
 			// Create a new user on the network
-			if (preferences.getNetworkId() == null) {
+			var networkId = preferences.getNetworkId();
+			if (networkId == null) {
 				myserver.postUser(
-					{name: preferences.getName(), color: preferences.getColor()},
+					{
+						name: preferences.getName(), 
+						color: preferences.getColor(),
+						language: preferences.getLanguage()
+					},
 					function(inSender, inResponse) {
 						preferences.setNetworkId(inResponse._id);
 						preferences.setPrivateJournal(inResponse.private_journal);
@@ -68,6 +73,23 @@ enyo.kind({
 					},
 					function() {
 						console.log("WARNING: Error creating network user");
+					}
+				);
+			}
+			
+			// Retrieve user settings
+			else {
+				myserver.getUser(
+					networkId,
+					function(inSender, inResponse) {
+						var changed = preferences.merge(inResponse);
+						if (changed) {						
+							preferences.save();						
+							util.restartApp();
+						}
+					},
+					function() {
+						console.log("WARNING: Can't read network user settings");
 					}
 				);
 			}
@@ -93,7 +115,7 @@ enyo.kind({
 	queryActivitiesFail: function(inSender, inError) {
 		// Dynamic don't work try static list
 		if (this.$.activities.getUrl() == constant.dynamicInitActivitiesURL) {
-			console.log("WARNING: backoffice not responding, use static list");
+			console.log("WARNING: Backoffice not responding, use static list");
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 			this.$.activities.send();		
 		}

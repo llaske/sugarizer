@@ -177,7 +177,9 @@ enyo.kind({
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
-		util.restartApp();
+		preferences.saveToServer(myserver, function() {		
+			util.restartApp();
+		});
 	}
 });
 
@@ -258,8 +260,10 @@ enyo.kind({
 	
 	restart: function() {
 		preferences.setLanguage(this.currentlanguage);
-		preferences.save();	
-		util.restartApp();
+		preferences.save();
+		preferences.saveToServer(myserver, function() {		
+			util.restartApp();
+		});
 	}	
 });
 
@@ -457,8 +461,10 @@ enyo.kind({
 	},
 	
 	restart: function() {
-		preferences.save();	
-		util.restartApp();
+		preferences.save();
+		preferences.saveToServer(myserver, function() {		
+			util.restartApp();
+		});
 	},
 
 	// Utility
