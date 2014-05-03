@@ -408,6 +408,10 @@ enyo.kind({
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.connected.setNodeProperty("checked", this.initconnected);
+		var disabled = !this.$.connected.getNodeProperty("checked");
+		if (util.getClientType() != constant.thinClientType)
+			this.$.servername.setDisabled(disabled);
+		this.$.username.setDisabled(disabled);		
 	},
 	
 	// Event handling
@@ -431,6 +435,10 @@ enyo.kind({
 		if (util.getClientType() == constant.thinClientType) {
 			this.$.connected.setNodeProperty("checked", true);
 		}
+		var disabled = !this.$.connected.getNodeProperty("checked");
+		if (util.getClientType() != constant.thinClientType)
+			this.$.servername.setDisabled(disabled);
+		this.$.username.setDisabled(disabled);
 		this.$.warningmessage.setShowing(this.hasChanged());
 	},
 	
@@ -461,10 +469,17 @@ enyo.kind({
 	},
 	
 	restart: function() {
-		preferences.save();
-		preferences.saveToServer(myserver, function() {		
-			util.restartApp();
-		});
+		// Save new settings
+		var currentconnected = this.$.connected.getNodeProperty("checked");
+		var currentservername = this.$.servername.getValue();
+		var currentusername = this.$.username.getValue();
+		if (currentusername == "") {
+			preferences.init();
+			preferences.setNetworkId(null);
+		} else
+			preferences.setNetworkId(currentusername);	
+		preferences.save();	
+		util.restartApp();
 	},
 
 	// Utility

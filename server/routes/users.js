@@ -75,7 +75,7 @@ exports.updateUser = function(req, res) {
 	var uid = req.params.uid;
 	var user = JSON.parse(req.body.user);
 	db.collection(usersCollection, function(err, collection) {
-		collection.update({'_id':new BSON.ObjectID(uid)}, user, {safe:true}, function(err, result) {
+		collection.update({'_id':new BSON.ObjectID(uid)}, {$set: user}, {safe:true}, function(err, result) {
 			if (err) {
 				res.send({'error':'An error has occurred'});
 			} else {

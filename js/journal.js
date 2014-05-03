@@ -35,7 +35,7 @@ enyo.kind({
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.journalChanged();
-		this.$.footer.setShowing(preferences.getNetworkId() != null);		
+		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
 		this.draw();
 	},
 

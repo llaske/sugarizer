@@ -107,14 +107,15 @@ enyo.kind({
 			// Update with new activities
 			if (preferences.updateActivities(inResponse.data))
 				preferences.save();
-		}	
+		}
+		preferences.updateEntries();
 		this.init();
 	},
 	
 	// Error on init activities
 	queryActivitiesFail: function(inSender, inError) {
 		// Dynamic don't work try static list
-		if (this.$.activities.getUrl() == constant.dynamicInitActivitiesURL) {
+		if (this.$.activities.getUrl().indexOf(constant.dynamicInitActivitiesURL) != -1) {
 			console.log("WARNING: Backoffice not responding, use static list");
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 			this.$.activities.send();		
@@ -172,7 +173,7 @@ enyo.kind({
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					x: canvas_center.x+Math.cos(angle)*radius, 
 					y: canvas_center.y+Math.sin(angle)*radius,
-					colorized: activity.activityId != null && activity.instances.length > 0,
+					colorized: activity.instances !== undefined && activity.instances.length > 0,
 					onclick: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup")
@@ -278,14 +279,14 @@ enyo.kind({
 		// Create popup
 		var title;
 		var activity = icon.icon; // HACK: activity is stored as an icon
-		if (activity.activityId != null && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
+		if (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
 			title = activity.instances[0].metadata.title;			
 		} else {
 			title = l10n.get('NameActivity', {name: activity.name});
 		}
 		this.$.activityPopup.setHeader({
 			icon: activity,
-			colorized: activity.activityId != null && activity.instances.length > 0,
+			colorized: activity.instances !== undefined && activity.instances.length > 0,
 			name: activity.name,
 			title: title,
 			action: enyo.bind(this, "runActivity"),
