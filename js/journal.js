@@ -68,6 +68,11 @@ enyo.kind({
 		this.$.empty.applyStyle("margin-top", margintop+"px");
 		this.$.message.setContent(l10n.get("JournalEmpty"));
 	},
+
+	updateNetworkBar: function() {
+		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
+		this.draw();
+	},
 	
 	// Property changed
 	journalChanged: function() {

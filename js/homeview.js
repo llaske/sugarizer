@@ -47,7 +47,7 @@ enyo.kind({
 		});
 		
 		// Call activities list service
-		if (util.getClientType() == constant.thinClientType) {
+		if (preferences.isConnected()) {
 			this.$.activities.setUrl(myserver.getActivitiesUrl());
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
@@ -55,7 +55,7 @@ enyo.kind({
 		this.$.activities.send();
 		
 		// Call network id
-		if (util.getClientType() == constant.thinClientType) {
+		if (preferences.isConnected()) {
 			// Create a new user on the network
 			var networkId = preferences.getNetworkId();
 			if (networkId == null) {
@@ -79,6 +79,7 @@ enyo.kind({
 			
 			// Retrieve user settings
 			else {
+				var that = this;
 				myserver.getUser(
 					networkId,
 					function(inSender, inResponse) {
@@ -86,6 +87,8 @@ enyo.kind({
 						if (changed) {						
 							preferences.save();						
 							util.restartApp();
+						} else if (that.currentView == constant.journalView) {
+							that.otherview.updateNetworkBar();
 						}
 					},
 					function() {

@@ -393,15 +393,16 @@ enyo.kind({
 		this.$.textusername.setContent(l10n.get("UserId"));
 		this.$.textusermessage.setContent(l10n.get("LeaveUserBlank"));
 		this.$.checkbutton.setText(l10n.get("CheckInfo"));
-		this.initconnected = false;
+		this.initconnected = preferences.isConnected();
+		if (util.getClientType() == constant.thinClientType) {
+			this.initservername = util.getCurrentServerUrl();
+			this.$.servername.setDisabled(true);
+		} else {
+			this.initservername = preferences.getServer();
+		}
+		this.$.servername.setValue(this.initservername);		
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
-		if (util.getClientType() == constant.thinClientType) {
-			this.initconnected = true;
-			this.initservername = util.getCurrentServerUrl();
-			this.$.servername.setValue(this.initservername);
-			this.$.servername.setDisabled(true);
-		}
 	},
 	
 	rendered: function() {
@@ -469,15 +470,17 @@ enyo.kind({
 	},
 	
 	restart: function() {
-		// Save new settings
+		// Get values
 		var currentconnected = this.$.connected.getNodeProperty("checked");
 		var currentservername = this.$.servername.getValue();
 		var currentusername = this.$.username.getValue();
-		if (currentusername == "") {
-			preferences.init();
-			preferences.setNetworkId(null);
-		} else
-			preferences.setNetworkId(currentusername);	
+		
+		// Save new settings
+		if ((this.initconnected && !currentconnected) || currentusername == "")
+			preferences.init();	
+		preferences.setConnected(currentconnected);
+		preferences.setServer(currentservername);
+		preferences.setNetworkId(currentusername == "" ? null : currentusername);
 		preferences.save();	
 		util.restartApp();
 	},
