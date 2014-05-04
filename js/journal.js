@@ -144,11 +144,16 @@ enyo.kind({
 		this.runCurrentActivity(this.journal[inEvent.index]);
 	},
 	runCurrentActivity: function(activity) {
+		// Generic
+		var activityInstance = preferences.getActivity(activity.metadata.activity);
+		if (activityInstance == preferences.genericActivity)
+			return;
+
 		// Remote entry, copy in the local journal first
 		if (this.journalType != constant.journalLocal) {
 			datastore.create(activity.metadata, function(error, oid) {
 				preferences.runActivity(
-					preferences.getActivity(activity.metadata.activity),
+					activityInstance,
 					oid,
 					activity.metadata.title);
 			}, activity.text);
@@ -157,7 +162,7 @@ enyo.kind({
 		
 		// Run local entry
 		preferences.runActivity(
-			preferences.getActivity(activity.metadata.activity),
+			activityInstance,
 			activity.objectId,
 			activity.metadata.title);
 	},
