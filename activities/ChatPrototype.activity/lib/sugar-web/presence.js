@@ -42,11 +42,15 @@
 		var server = "localhost";
 		if (localStorage.sugar_settings) {
 			var sugarSettings = JSON.parse(localStorage.sugar_settings);
-			if (sugarSettings.server)
+			if (sugarSettings.server) {
 				server = sugarSettings.server;
+				var endName = server.indexOf(':')
+				if (endName == -1) endName = server.indexOf('/');
+				server = server.substring(0, endName);
+			}
 		}
         this.socket = new WebSocket('ws://'+server+':8039');
-        console.log('Created socket');
+        console.log('Created socket ws://'+server+':8039');
 
         this.socket.onerror = function(error) {
             console.log('WebSocket Error: ' + error);

@@ -16,7 +16,7 @@ var usersCollection;
 exports.init = function(settings) {
 	usersCollection = settings.collections.users; 
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
-	db = new Db(settings.database.name, server);
+	db = new Db(settings.database.name, server, {w:1});
 	 
 	db.open(function(err, db) {
 		if(!err) {

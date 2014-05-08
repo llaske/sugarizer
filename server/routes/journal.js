@@ -19,7 +19,7 @@ var shared = null;
 exports.init = function(settings) {
 	journalCollection = settings.collections.journal; 
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
-	db = new Db(settings.database.name, server);
+	db = new Db(settings.database.name, server, {w:1});
 	
 	// Open the journal collection
 	db.open(function(err, db) {
@@ -112,19 +112,34 @@ exports.findJournalContent = function(req, res) {
 
 // Add an entry in a journal
 exports.addEntryInJournal = function(req, res) {
+	// Get parameter
 	if (!BSON.ObjectID.isValid(req.params.jid)) {
 		res.send();
 		return;
 	}
 	var jid = req.params.jid;
 	var journal = JSON.parse(req.body.journal);
-	var newcontent = {$push: {content: journal}};
+	
+	// Look for existing entry with the same objectId
+	var filter = {'_id':new BSON.ObjectID(jid), 'content.objectId': journal.objectId};
 	db.collection(journalCollection, function(err, collection) {
-		collection.update({'_id':new BSON.ObjectID(jid)}, newcontent, {safe:true}, function(err, result) {
-			if (err) {
-				res.send({'error':'An error has occurred'});
+		collection.findOne(filter, function(err, item) {
+			if (item == null) {
+				// Add a new entry
+				var newcontent = {$push: {content: journal}};
+				db.collection(journalCollection, function(err, collection) {
+					collection.update({'_id':new BSON.ObjectID(jid)}, newcontent, {safe:true}, function(err, result) {
+						if (err) {
+							res.send({'error':'An error has occurred'});
+						} else {
+							res.send(newcontent);
+						}
+					});
+				});
 			} else {
-				res.send(newcontent);
+				// Update the entry
+				req.params.oid = journal.objectId;
+				exports.updateEntryInJournal(req, res);
 			}
 		});
 	});	
