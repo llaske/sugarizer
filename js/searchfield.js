@@ -8,7 +8,7 @@ enyo.kind({
 	components: [
 		{classes: "search-field-iconsearch"},
 		{name: "text", kind: "enyo.Input", classes: "search-field-input", onfocus: "onfocus", onblur:"onblur", oninput:"oninput"},
-		{name: "icon", classes: "search-field-iconcancel", showing: false, ontap: "onclick", onclick: "onclick"}
+		{name: "icon", classes: "search-field-iconcancel", showing: false, ontap: "onclick", onclick: "clickToTap"}
 	],
 	
 	// Constructor
@@ -59,5 +59,9 @@ enyo.kind({
 		this.$.text.setValue(this.text);
 		this.textChanged();
 		this.doTextChanged();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });

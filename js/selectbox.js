@@ -10,7 +10,7 @@ enyo.kind({
 			{name: "icon", kind: "Sugar.Icon", size: 20, x: 6, y: 6, classes: "selectbox-icon"},	
 			{name: "text", content: "xxx", classes: "selectbox-text"},
 			{name: "selectpopup", kind: "Sugar.Popup", classes: "selectbox-popup", showing: false}
-		], onclick:"showPopup", ontap:"showPopup"}
+		], onclick:"clickToTap", ontap:"showPopup"}
 	],
 	
 	// Constructor
@@ -87,5 +87,9 @@ enyo.kind({
 		this.timer = null;
 		this.$.selectpopup.hidePopup();
 		this.doIndexChanged();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });

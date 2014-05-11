@@ -20,7 +20,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: false},
-		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "showJournal", classes: "journal-icon", showing: false},
+		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "clickToTap", classes: "journal-icon", showing: false},
 		{name: "desktop", showing: true, onresize: "redraw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
@@ -396,7 +396,11 @@ enyo.kind({
 		if (this.currentView == constant.listView) {
 			this.otherview.setActivities(preferences.getActivitiesByName(filter));
 		}
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });
 
 
@@ -409,8 +413,8 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView", onclick: "showRadialView"},
-		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView", onclick: "showListView"}
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView", onclick: "clickToTap"},
+		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView", onclick: "clickToTap"}
 	],
 	
 	// Constructor
@@ -456,5 +460,9 @@ enyo.kind({
 	
 	showListView: function() {
 		app.showView(constant.listView);
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });

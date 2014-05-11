@@ -7,7 +7,7 @@ enyo.kind({
 	classes: "home-activity-popup",
 	published: { margin: null, header: null, items: null, footer: null },
 	components: [
-		{classes: "popup-title", ontap: "runHeaderAction", components: [
+		{classes: "popup-title", ontap: "runHeaderAction", onclick: "clickToTap", components: [
 			{name: "icon", showing: false, kind: "Sugar.Icon", x: 5, y: 5, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
@@ -112,7 +112,7 @@ enyo.kind({
 		p.dy = obj.clientHeight;
 		while (obj.offsetParent) {
 			p.x = p.x + obj.offsetParent.offsetLeft;
-			p.y = p.y + obj.offsetParent.offsetTop;
+			p.y = p.y + obj.offsetParent.offsetTop - obj.scrollTop;
 			if (obj == document.getElementsByTagName("body")[0]) {
 				break;
 			} else {
@@ -124,7 +124,11 @@ enyo.kind({
 			&& mouse.position.y >= p.y && mouse.position.y <= p.y + p.dy
 		);
 		return isInside;
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });
 
 
@@ -138,7 +142,7 @@ enyo.kind({
 	classes: "popup-item-listview",
 	components: [
 		{name: "itemList", classes: "item-list", kind: "Repeater", onSetupItem: "setupItem", components: [
-			{name: "item", classes: "item-list-item", ontap: "runItemAction", components: [
+			{name: "item", classes: "item-list-item", ontap: "runItemAction", onclick: "clickToTap", components: [
 				{name: "icon", kind: "Sugar.Icon", x: 5, y: 4, size: constant.iconSizeFavorite},	
 				{name: "name", classes: "item-name"}
 			]}
@@ -184,5 +188,9 @@ enyo.kind({
 		var action = this.items[inEvent.index].action;
 		if (action != null)
 			action.apply(this, this.items[inEvent.index].data);
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
 	}
 });

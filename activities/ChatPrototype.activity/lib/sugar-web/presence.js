@@ -39,13 +39,14 @@
 
     SugarPresence.prototype.joinNetwork = function(userInfo) {
 
-		var server = "localhost";
+		var server = location.hostname;
 		if (localStorage.sugar_settings) {
 			var sugarSettings = JSON.parse(localStorage.sugar_settings);
 			if (sugarSettings.server) {
 				server = sugarSettings.server;
 				var endName = server.indexOf(':')
 				if (endName == -1) endName = server.indexOf('/');
+				if (endName == -1) endName = server.length;
 				server = server.substring(0, endName);
 			}
 		}

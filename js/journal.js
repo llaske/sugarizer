@@ -7,23 +7,23 @@ enyo.kind({
 		{name: "content", kind: "Scroller", classes: "journal-content", onresize: "draw", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
-			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", ontap: "nofilter", onclick: "nofilter", showing: false},
+			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "clickToTap", showing: false},
 			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 				{name: "item", classes: "journal-list-item", components: [
-					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "switchFavorite"},			
-					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
-					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
+					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "clickToTap"},			
+					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "clickToTap"},
+					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart", onclick: "clickToTap"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},					
 					{name: "time", classes: "journal-time"},
-					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
+					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "clickToTap"}
 				]}
 			]},
 			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
-			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal", onclick: "showLocalJournal"},
-			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud", onclick: "showPrivateCloud"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud", onclick: "showSharedCloud"}
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal", onclick: "clickToTap"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud", onclick: "clickToTap"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud", onclick: "clickToTap"}
 		]}
 	],
   
@@ -270,6 +270,7 @@ enyo.kind({
 		this.$.activityPopup.setFooter(items);
 		
 		// Show popup
+		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
 		this.$.activityPopup.showPopup();		
 	},
 	hideActivityPopup: function() {
@@ -435,7 +436,11 @@ enyo.kind({
 		this.$.cloudonebutton.addRemoveClass('active', newType == constant.journalRemotePrivate);	
 		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);	
 		this.getToolbar().removeFilter();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });
 
 
@@ -447,9 +452,9 @@ enyo.kind({
 	name: "Sugar.Journal.Toolbar",
 	kind: enyo.Control,
 	components: [
-		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "filterFavorite"},
+		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "clickToTap"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop", onclick: "gotoDesktop"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop", onclick: "clickToTap"},
 		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
 		{name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"}	
 	],
@@ -519,5 +524,9 @@ enyo.kind({
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
 		this.render();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });

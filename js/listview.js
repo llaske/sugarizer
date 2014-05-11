@@ -7,12 +7,12 @@ enyo.kind({
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
 		{name: "message", classes: "listview-message", showing: false},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "nofilter", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "clickToTap", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite", onclick: "doSwitchFavorite"},			
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity", onclick:"doRunNewActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite", onclick: "clickToTap"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity", onclick:"clickToTap"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -121,6 +121,7 @@ enyo.kind({
 		this.$.activityPopup.setFooter(items);
 		
 		// Show popup
+		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});		
 		this.$.activityPopup.showPopup();
 	},
 	hideActivityPopup: function() {
@@ -135,5 +136,9 @@ enyo.kind({
 	nofilter: function() {
 		app.getToolbar().setSearchText("");
 		app.filterActivities();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });

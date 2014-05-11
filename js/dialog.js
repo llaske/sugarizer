@@ -9,13 +9,13 @@ enyo.kind({
 	components: [
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
-			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings", onclick: "closeSettings"}			
+			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings", onclick: "clickToTap"}			
 		]},
 		{name: "content", components: [
-			{name: "me", kind: "Sugar.Dialog.Settings.Item", onclick: "meClicked", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
-			{name: "computer", kind: "Sugar.Dialog.Settings.Item", onclick: "computerClicked", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-			{name: "aboutserver", kind: "Sugar.Dialog.Settings.Item", onclick: "serverClicked", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-			{name: "language", kind: "Sugar.Dialog.Settings.Item", onclick: "languageClicked", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
+			{name: "me", kind: "Sugar.Dialog.Settings.Item", onclick: "clickToTap", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
+			{name: "computer", kind: "Sugar.Dialog.Settings.Item", onclick: "clickToTap", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+			{name: "aboutserver", kind: "Sugar.Dialog.Settings.Item", onclick: "clickToTap", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+			{name: "language", kind: "Sugar.Dialog.Settings.Item", onclick: "clickToTap", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
 		]},
 		{name: "subdialog"}
 	],
@@ -79,7 +79,11 @@ enyo.kind({
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.Dialog.Server"}, {owner:this});
 			this.subdialog.show();
 		}	
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });	
 
 
@@ -97,17 +101,17 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "cancel", ontap: "cancel"},		
-			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "ok", ontap: "ok"}
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "clickToTap", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "message", content: "xxx", classes: "aboutme-message"},
-			{name: "psicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"setcolor", ontap:"setcolor"},
-			{name: "nsicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"setcolor", ontap:"setcolor"},
-			{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"setcolor", ontap:"setcolor"},
-			{name: "pficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"setcolor", ontap:"setcolor"},
-			{name: "nficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"setcolor", ontap:"setcolor"},
+			{name: "psicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+			{name: "nsicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+			{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+			{name: "pficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+			{name: "nficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
 			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false},
 			{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
 		]}
@@ -159,6 +163,10 @@ enyo.kind({
 		this.$.name.addRemoveClass('aboutme-name-validate', true);
 	},
 	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	},
+	
 	setcolor: function(icon) {
 		var newcolor = icon.getColorizedColor();
 		if (newcolor == this.currentcolor)
@@ -198,8 +206,8 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-language.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "cancel", ontap: "cancel"},		
-			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "ok", ontap: "ok"}
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "clickToTap", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
@@ -253,6 +261,10 @@ enyo.kind({
 		this.$.cancelbutton.setDisabled(true);
 	},
 	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	},
+	
 	languageChanged: function() {
 		this.$.restartmessage.setShowing(true);
 		this.currentlanguage = this.languageset[this.$.languageselect.getSelected()].code;
@@ -282,8 +294,8 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "cancel", ontap: "cancel"},		
-			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "ok", ontap: "ok"}
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "clickToTap", ontap: "ok"}
 		]},
 		{name: "content", components: [
 			{name: "software", content: "xxx", classes: "computer-software"},
@@ -341,6 +353,10 @@ enyo.kind({
 	ok: function() {
 		this.hide();
 		this.owner.show();
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
 	}	
 });
 
@@ -359,8 +375,8 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "cloud-settings.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "cancel", ontap: "cancel"},		
-			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "ok", ontap: "ok"}
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "clickToTap", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [	
@@ -378,7 +394,7 @@ enyo.kind({
 				{name: "userok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-cancel.svg"}, classes: "aboutserver-iconchecked", showing: false},
 				{name: "textusermessage", content: "xxx", classes: "aboutserver-usermessage"}
 			]},	
-			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", ontap: "check"},
+			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", onclick: "clickToTap", ontap: "check"},
 			{name: "warningmessage", content: "xxx", classes: "aboutserver-warningmessage", showing: false}
 		]}
 	],
@@ -430,6 +446,10 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
 	},
 	
 	switchConnection: function() {
@@ -554,8 +574,8 @@ enyo.kind({
 	components: [
 		{name: "warningtitle", content: "xxx", classes: "warningbox-title"},
 		{name: "warningmessage", content: "xxx", classes: "warningbox-message"},
-		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", onclick: "cancel", ontap: "cancel"},		
-		{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "warningbox-refresh-button", onclick: "restart", ontap: "restart"}
+		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
+		{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "warningbox-refresh-button", onclick: "clickToTap", ontap: "restart"}
 	],
 	
 	// Constructor
@@ -574,5 +594,9 @@ enyo.kind({
 	
 	restart: function() {
 		this.doRestart();
-	}
+	},
+	
+	clickToTap: function(inSender, inEvent) {
+		util.clickToTap(inSender, inEvent);
+	}	
 });
