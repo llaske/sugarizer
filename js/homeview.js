@@ -250,9 +250,9 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		iconLib.colorize(this.$.owner.hasNode(), preferences.getColor());
+		this.$.owner.colorize(preferences.getColor());
 		if (this.journal.length > 0)
-			iconLib.colorize(this.$.journal.hasNode(), preferences.getColor());
+			this.$.journal.colorize(preferences.getColor());
 	},
 	
 	// Run activity
@@ -399,7 +399,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -463,6 +463,6 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });

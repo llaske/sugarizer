@@ -127,7 +127,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -191,6 +191,6 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}
 });

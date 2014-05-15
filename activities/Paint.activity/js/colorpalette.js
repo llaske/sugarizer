@@ -6,16 +6,10 @@ define(["sugar-web/graphics/palette", "mustache"],
     colorpalette.ColorPalette = function (invoker, primaryText) {
         palette.Palette.call(this, invoker, primaryText);
 
-        this.colorChangeEvent = new CustomEvent(
-            "colorChange",
-            {
-                detail: {
-                    color: "#ed2529"
-                },
-                bubbles: true,
-                cancelable: true
-            }
-        );
+		this.colorChangeEvent = document.createEvent("CustomEvent");
+		this.colorChangeEvent.initCustomEvent('colorChange', true, true, {
+			'color': "#ed2529"	
+		});
 
         this.template =
             '<tbody>' +

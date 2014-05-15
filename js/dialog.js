@@ -82,7 +82,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });	
 
@@ -164,7 +164,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	},
 	
 	setcolor: function(icon) {
@@ -262,7 +262,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	},
 	
 	languageChanged: function() {
@@ -356,7 +356,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -449,7 +449,7 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	},
 	
 	switchConnection: function() {
@@ -597,6 +597,6 @@ enyo.kind({
 	},
 	
 	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(inSender, inEvent);
+		util.clickToTap(this, inSender, inEvent);
 	}	
 });

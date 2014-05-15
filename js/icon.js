@@ -74,13 +74,14 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-
+		
 		// If colorized		
 		if (this.colorized) {
 			// Get colorized color
 			var colorToUse = this.colorizedColor;
 			var node = this.$.icon.hasNode();
-			var name = this.icon.directory+"/"+this.icon.icon;			
+			var name = this.icon.directory+"/"+this.icon.icon;
+			node.style.backgroundImage = "url('" + name + "')";			
 			if (colorToUse == null) {
 				// Try to find colorized version in cache
 				colorToUse = preferences.getColor();
@@ -142,5 +143,12 @@ enyo.kind({
 	
 	disabledChanged: function() {
 		this.$.disable.setShowing(this.disabled);
+	},
+	
+	// Colorize
+	colorize: function(color) {
+		var node = this.hasNode();
+		if (!node || !node.style.backgroundImage) return;
+		iconLib.colorize(node, color, function() {});
 	}
 });
