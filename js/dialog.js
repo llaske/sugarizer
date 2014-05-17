@@ -32,6 +32,7 @@ enyo.kind({
 	},
 	
 	rendered: function() {
+		app.noresize = true; // HACK: Forbid resize to avoid issue on the modal
 		this.$.me.render();
 		this.$.donebutton.setNodeProperty("title", l10n.get("Done"));		
 	},
@@ -46,6 +47,7 @@ enyo.kind({
 	
 	closeSettings: function() {
 		this.hide();
+		app.noresize = false;
 	},
 	
 	// Display me dialog

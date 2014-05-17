@@ -139,7 +139,10 @@ enyo.kind({
 	play: function(sound) {
 		if (this.format == null)
 			return;
-		this.$.sound.setSrc(sound+this.format);
+		if (enyo.platform.android) // HACK: PhoneGap don't handle local HTML5 sound
+			this.$.sound.setSrc("http://server.sugarizer.org/activities/Abecedarium.activity/"+sound+this.format);
+		else
+			this.$.sound.setSrc(sound+this.format);
 		this.timeStamp = new Date().getTime();
 		this.$.sound.play();
 	},

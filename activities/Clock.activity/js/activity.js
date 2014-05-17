@@ -133,6 +133,8 @@ define(function (require) {
             this.clockContainerElem.style.width = this.size + "px";
             this.clockContainerElem.style.height = this.size + "px";
 
+			this.clockCanvasElem.style.width = (this.size+4) + "px";
+			
             this.margin = this.size * 0.02;
             this.radius = (this.size - (2 * this.margin)) / 2;
 

@@ -21,7 +21,7 @@ enyo.kind({
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: false},
 		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "clickToTap", classes: "journal-icon", showing: false},
-		{name: "desktop", showing: true, onresize: "redraw", components: []},
+		{name: "desktop", showing: true, onresize: "resize", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
 		{name: "activities", kind: "enyo.WebService", onResponse: "queryActivitiesResponse", onError: "queryActivitiesFail"}
@@ -185,10 +185,15 @@ enyo.kind({
 		}
 	},
 	
-	// Redraw after a resized event
+	// Redraw, for example after a resized event
 	redraw: function() {
 		this.draw();
 		this.render();
+	},
+	
+	resize: function() {
+		if (this.noresize) return;
+		this.redraw();
 	},
 	
 	// Switch between radial and other views (list or journal)
