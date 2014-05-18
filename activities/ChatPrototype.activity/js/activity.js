@@ -23,12 +23,9 @@ define(function (require) {
         var presenceObject = new SugarPresence();
 
         var sugarSettings = JSON.parse(localStorage.sugar_settings);
-
         var userInfo = [sugarSettings.name, sugarSettings.colorvalue];
 
         console.log(userInfo);
-        socketStatus.innerHTML = 'Connected';
-        socketStatus.className = 'open';
 
         if (sugarSettings.name == '<No name>') {
 
@@ -36,7 +33,16 @@ define(function (require) {
 
         }
 
-        presenceObject.joinNetwork(userInfo);
+        presenceObject.joinNetwork(userInfo, function (error, user) {
+			if (error)  {
+				socketStatus.innerHTML = 'Error';			
+				socketStatus.className = 'error';
+			} else {
+				socketStatus.innerHTML = 'Connected';
+				socketStatus.className = 'open';
+				messageField.readOnly = false;
+			}
+		});
 
         // Handle messages received.
         presenceObject.onDataReceived(function (msg) {

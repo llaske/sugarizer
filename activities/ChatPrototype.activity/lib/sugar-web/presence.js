@@ -37,7 +37,7 @@
 
         }
 
-    SugarPresence.prototype.joinNetwork = function(userInfo) {
+    SugarPresence.prototype.joinNetwork = function(userInfo, callback) {
 
 		var server = location.hostname;
 		if (localStorage.sugar_settings) {
@@ -55,10 +55,12 @@
 
         this.socket.onerror = function(error) {
             console.log('WebSocket Error: ' + error);
+			callback(error, null);
         };
         var that = this;
         this.onConnectionOpen(function (event) {
             that.registerUser("sampleuserId",userInfo);
+			callback(null, userInfo);
         });
     }
 

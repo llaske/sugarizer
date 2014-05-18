@@ -45,6 +45,10 @@ color:green;
 color:red;
 }
 
+.error {
+color:red;
+}
+
 ul {
 list-style:none;
 font-size:.95rem;
