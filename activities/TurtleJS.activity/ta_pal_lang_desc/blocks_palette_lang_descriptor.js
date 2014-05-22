@@ -15,3 +15,7 @@
 
 i18n_tracker.add_label('text_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['text', 48, 13, 19, 'Calibri', 'black']);
 i18n_tracker.add_label('show_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Show', 12, 13, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('store_in_box_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Store in', 12, 31, 24, 'Calibri', 'black']);
+i18n_tracker.add_label('store_in_box_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['box', 59, 10, 20, 'Calibri', 'black']);
+i18n_tracker.add_label('store_in_box_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['value', 45, 56, 20, 'Calibri', 'black']);

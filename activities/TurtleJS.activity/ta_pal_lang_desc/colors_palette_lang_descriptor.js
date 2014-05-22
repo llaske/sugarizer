@@ -22,3 +22,15 @@ i18n_tracker.add_label('white_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['whi
 i18n_tracker.add_label('yellow_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['yellow', 43, 13, 19, 'Calibri', 'black']);
 i18n_tracker.add_label('blue_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['blue', 50, 13, 19, 'Calibri', 'black']);
 i18n_tracker.add_label('black_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['black', 45, 13, 19, 'Calibri', 'black']);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+i18n_tracker.add_label('red_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['rojo', 50, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('green_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['verde', 45, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('purple_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['morado', 40, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('orange_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['naranja', 40, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('cyan_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['cian', 48, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('white_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['blanco', 45, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('yellow_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['amarillo', 38, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('blue_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['azul', 50, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('black_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['negro', 45, 13, 19, 'Calibri', 'black']);

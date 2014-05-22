@@ -39,11 +39,13 @@ BlocksPalette.prototype = {
         return this.container.is_collide(point);
     },
     make_block_factories: function(){
-        var sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 12]);
+        var sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 82]);
         var factory = new BlockFactory([5, 5], sprit1, 'text_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'text']);
-        factory.box_block_normal_size();
 		
         var sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
         new BlockFactory([135, 5], sprit1, 'show_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'show']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('basic2arg'), this.container.layer, true);
+        new BlockFactory([255, 5], sprit1, 'store_in_box_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'store_in_box']);
     }
 }
