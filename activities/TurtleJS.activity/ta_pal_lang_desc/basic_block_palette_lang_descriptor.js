@@ -33,3 +33,23 @@ i18n_tracker.add_label('heading_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['h
 
 i18n_tracker.add_label('xcor_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['xcor', 50, 13, 19, 'Calibri', 'black']);
 i18n_tracker.add_label('ycor_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['ycor', 50, 13, 19, 'Calibri', 'black']);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+i18n_tracker.add_label('forward_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Adelante', 5, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('backward_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Atrás', 5, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('right_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Derecha', 5, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('left_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Izquierda', 5, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('clean_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Limpiar', 5, 11, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('setxy_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['fijar xy', 18, 30, 24, 'Calibri', 'black']);
+i18n_tracker.add_label('setxy_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['x', 79, 10, 20, 'Calibri', 'black']);
+i18n_tracker.add_label('setxy_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['y', 79, 50, 20, 'Calibri', 'black']);
+
+i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['arco', 18, 30, 24, 'Calibri', 'black']);
+i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['ángulo', 37, 10, 20, 'Calibri', 'black']);
+i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['radio', 37, 56, 20, 'Calibri', 'black']);
+
+i18n_tracker.add_label('set_heading_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Fijar rumbo', 5, 15, 14, 'Calibri', 'black']);
+
+i18n_tracker.add_label('heading_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['rumbo', 35, 13, 19, 'Calibri', 'black']);

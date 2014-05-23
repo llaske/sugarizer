@@ -31,6 +31,14 @@
   background-image: url(../ta_icons/filesaveoff.svg);
 }
 
+#es-lang-bt {
+  background-image: url(../activity/turtleart.svg);
+}
+
+#en-lang-bt {
+  background-image: url(../activity/turtleart.svg);
+}
+
 #input-file {
   position: absolute;
   left: -9999px;

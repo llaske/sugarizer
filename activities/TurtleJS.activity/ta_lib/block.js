@@ -22,6 +22,7 @@ function TurtleBlock(sprite, layer, descriptor, func, value_func, params){
     this.func = func;
     this.value_func = value_func;
     this.params = params;
+    this.param_types = null;
     this.move_params = true;
     this.group = new Kinetic.Group({
         draggable: true
@@ -34,11 +35,13 @@ function TurtleBlock(sprite, layer, descriptor, func, value_func, params){
     this.joint_height = 4;
 
     this.block_value = 0;
-    this.base_center_width = 28 + 70;
-    this.actual_center_width = 28 + 70;
+    this.base_center_width =  82;
+    this.actual_center_width = 82;
 
     this.box_start_pos = 20;
     this.last_label_width = 0;
+    
+    this.block_type = '';
 
     // set joined blocks
     this.receiver_slots = [];
@@ -55,10 +58,19 @@ TurtleBlock.prototype = {
     constructor: TurtleBlock,
     set_events: function(){
         var parent = this;
-        this.group.on('click', function(){
-            parent.func(parent.params);
+        this.group.on('click tap', function(){
+            var result = get_block_data(parent.params, 'Set heading');
+            if (!result[0]){
+                error_message_displayer.show_error(result[1]);
+                return false;
+            } else{
+                parent.func(parent.params, result[1]);
+                draw_stage.draw_layer.draw();
+                return true;
+            }
+
         });
-        this.group.on('mousedown', function(){
+        this.group.on('mousedown touchstart', function(){
             parent.start_drag_pos = parent.get_xy();
         });
         this.group.on('dragstart', function(){
@@ -113,9 +125,9 @@ TurtleBlock.prototype = {
             var movement = [0, 0];
             movement[0] = actual_pos[0] - parent.start_drag_pos[0];
             movement[1] = actual_pos[1] - parent.start_drag_pos[1];
-            if (parent.upper_block.length > 0){
-                parent.upper_block[0].group_movement(parent, movement, false, true);
-            }
+            //if (parent.upper_block.length > 0){
+                //parent.upper_block[0].group_movement(parent, movement, false, true);
+            //}
             if (parent.lower_block.length > 0){
                 parent.lower_block[0].group_movement(parent, movement, false, true);
             }
@@ -146,143 +158,7 @@ TurtleBlock.prototype = {
         });
     },
     collide_action: function(parent, collide){
-        var upper_distance = -1;
-        var lower_distance = -1;
-        var op1 = -1;
-        var op2 = -1;
-                
-        if (parent.has_upper_dock() && collide.has_lower_dock()){
-            op1 = (parent.get_upper_dock()[0] + parent.get_xy()[0]);
-            op1 -= (collide.get_lower_dock()[0] + collide.get_xy()[0]);
-            op2 = (parent.get_upper_dock()[1] + parent.get_xy()[1]);
-            op2 -= (collide.get_lower_dock()[1] + collide.get_xy()[1]);
-            upper_distance = Math.sqrt(Math.pow(op1, 2) + Math.pow(op2, 2));
-        }
-        if (parent.has_giving_param() && collide.has_receiver_param()){
-            var giving_point = parent.get_giving_point();
-            var receiver_points = collide.get_receiver_points();
-            var point_distances = [];
-            for (var i=0; i<receiver_points.length; i++){
-                op1 = (giving_point[0] + parent.get_xy()[0]);
-                op1 -= (receiver_points[i][0] + collide.get_xy()[0]);
-                op2 = (giving_point[1] + parent.get_xy()[1]);
-                op2 -= (receiver_points[i][1] + collide.get_xy()[1]);
-                point_distances.push(Math.sqrt(Math.pow(op1, 2) + Math.pow(op2, 2)));
-            }
-            for (var i=0; i< point_distances.length; i++){
-                if (point_distances[i] < 23.0){
-                    var align_point = receiver_points[i];
-                    if (giving_point[2] == align_point[2]){
-                        var point = [0, 0];
-                        var movement = parent.get_xy();
-
-                        point[0] = collide.get_xy()[0] + align_point[0] - 17;
-
-                        if (align_point[1] <= 25){
-                            point[1] = collide.get_xy()[1];
-                        } else {
-                            point[1] = collide.get_xy()[1] + align_point[1] - 25;
-                        }
-
-                        if (giving_point[2] == ROUND_DOCK){
-                            point[0] += 17;
-                            point[1] = point[1] - giving_point[1] + 25;
-                        }
-
-                        movement[0] = point[0] - movement[0];
-                        movement[1] = point[1] - movement[1];
-
-                        parent.set_xy(point);
-                        collide.receiver_slots[i] = parent;
-                        parent.param_blocks[0] = collide;
-                        parent.group_movement(parent, movement, true, true);
-                    }
-                    break;
-                }
-            }
-        }
-        if (parent.has_upper_dock() && collide.has_stack_dock()){
-            var stack_points = collide.get_stack_points();
-            var upper_point = parent.get_upper_dock();
-            var point_distances = [];
-            for (var i=0; i<stack_points.length; i++){
-                op1 = (upper_point[0] + parent.get_xy()[0]);
-                op1 -= (stack_points[i][0] + collide.get_xy()[0]);
-                op2 = (upper_point[1] + parent.get_xy()[1]);
-                op2 -= (stack_points[i][1] + collide.get_xy()[1]);
-                point_distances.push(Math.sqrt(Math.pow(op1, 2) + Math.pow(op2, 2)));
-            }
-            for (var i=0; i< point_distances.length; i++){
-                if (point_distances[i] < 25.0){
-                    var align_point = stack_points[i];
-                    var point = [0, 0];
-                    point[0] = collide.get_xy()[0] + align_point[0];
-                    point[1] = collide.get_xy()[1] + align_point[1];
-                    parent.set_xy(point);
-                    var movement = [0, 0];
-                    movement[0] = point[0] - parent.start_drag_pos[0];
-                    movement[1] = point[1] - parent.start_drag_pos[1];
-                    parent.group_movement(parent, movement, true, true);
-                    //special case: add a block in the start of the stack of a flow block
-                    var total_height = 0;
-                    var stack_start = true;
-                    if (collide.stack_slots[i] != null){
-                        var flow_bottom_block = parent.get_flow_bottom_block(parent);
-                        total_height = parent.chain_height();
-                        flow_bottom_block.lower_block[0] = collide.stack_slots[i];
-                        parent.upper_block[0] = collide;
-                        collide.stack_slots[i] = parent;
-                        flow_bottom_block.lower_block[0].upper_block[0] = flow_bottom_block;
-                        total_height -= parent.joint_height; 
-                        flow_bottom_block.lower_block[0].group_movement(flow_bottom_block.lower_block[0], [0, total_height], false, true);
-                        total_height += parent.joint_height;
-                        stack_start = false;
-                    } else {
-                        collide.stack_slots[i] = parent;
-                        parent.upper_block[0] = collide;
-                        total_height = parent.chain_height();
-                    }
-                    collide.calc_clamp_height(stack_start, total_height, collide);
-                    break;
-                }
-            }
-        }
-        if(upper_distance > -1){
-            if (upper_distance < 13.0 && upper_distance > 0){
-                var point = [];
-                point.push(collide.get_xy()[0]);
-                point.push(collide.get_lower_dock()[1] + collide.get_xy()[1] - 1);
-                parent.set_xy(point);
-                var movement = [0, 0];
-                movement[0] = point[0] - parent.start_drag_pos[0];
-                movement[1] = point[1] - parent.start_drag_pos[1];
-                parent.group_movement(parent, movement, true, true);
-                // make the respective joints
-                if (parent.upper_block.indexOf(collide) == -1){
-                    var total_height = 0;
-                    // special case: add block in the middle of a flow
-                    if (collide.has_lower_block()){
-                        var flow_bottom_block = parent.get_flow_bottom_block(parent);
-                        total_height = parent.chain_height();
-                        flow_bottom_block.lower_block[0] = collide.lower_block[0];
-                        parent.upper_block[0] = collide;
-                        collide.lower_block[0] = parent;
-                        flow_bottom_block.lower_block[0].upper_block[0] = flow_bottom_block;
-                        total_height -= parent.joint_height; 
-                        flow_bottom_block.lower_block[0].group_movement(flow_bottom_block.lower_block[0], [0, total_height], false, true);
-                        total_height += parent.joint_height;
-                    } else{
-                        parent.upper_block.push(collide);
-                        collide.lower_block.push(parent);
-                        total_height = parent.chain_height();
-                    }
-                    var stack_parent = collide.get_stack_top_block(parent);
-                    if (stack_parent != null){
-                        stack_parent.upper_block[0].calc_clamp_height(false, total_height, stack_parent.upper_block[0]);
-                    }
-                }
-            }
-        }
+        collide_helper(parent, collide);
     },
     calc_clamp_height: function(is_stack_joint, height, clamp){
         var added_height = 0;
@@ -295,7 +171,7 @@ TurtleBlock.prototype = {
         clamp.sprite.img[2].setY(clamp.sprite.img[2].getY() + added_height);
         clamp.sprite.img[1].setHeight(clamp.sprite.img[1].getHeight() + added_height);
         clamp.calc_lower_dock(clamp, added_height);
-        clamp.move_params = false;
+        clamp.move_params = true;
         clamp.group_movement(clamp, [0, added_height], true, false);
         if (clamp.has_upper_block()){
             var parent_stack = clamp.get_stack_top_block(clamp);
@@ -379,7 +255,13 @@ TurtleBlock.prototype = {
     exec_block: function(){
         var can_continue = true;
         if ((!this.has_giving_param() && this.has_receiver_param()) || (!this.has_giving_param() && !this.has_receiver_param())){
-            can_continue = this.func(this.params);
+            var result = get_block_data(this.params, 'Set heading');
+            if (!result[0]){
+                error_message_displayer.show_error(result[1]);
+                return false;
+            } else{
+                return this.func(this.params, result[1]);;
+            }
         }
         return can_continue;
     },
@@ -570,7 +452,7 @@ TurtleBlock.prototype = {
         if (this.lower_block.length > 0 && this.lower_block[0] != caller){
             this.lower_block[0].group_movement(this, movement, false, true);
         }
-        if (this.receiver_slots.length > 0){
+        if (this.receiver_slots.length > 0 && (!moved || !caller.has_stack_dock())){
             if (caller.move_params){
                 for (var i=0; i<this.receiver_slots.length; i++){
                     if (this.receiver_slots[i] != null && this.receiver_slots[i] != caller){
@@ -630,6 +512,9 @@ TurtleBlock.prototype = {
             return true;
         }
         return false;
+    },
+    get_param_types: function(){
+        return this.param_types;
     },
     fire: function(evt){
         this.group.fire(evt);

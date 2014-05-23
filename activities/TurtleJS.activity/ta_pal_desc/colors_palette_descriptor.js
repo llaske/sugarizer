@@ -21,32 +21,32 @@ function ColorsPaletteDesc(){
 ColorsPaletteDesc.prototype = {
     constructor: ColorsPaletteDesc,
     init_descriptor: function(){
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['red_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_red'), 'box', null, get_color_value, ['red_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
         descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['green_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['purple_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_purple'), 'box', null, get_color_value, ['purple_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['orange_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_orange'), 'box', null, get_color_value, ['orange_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['cyan_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_cyan'), 'box', null, get_color_value, ['cyan_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['white_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_white'), 'box', null, get_color_value, ['white_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['yellow_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_yellow'), 'box', null, get_color_value, ['yellow_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['blue_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_blue_c'), 'box', null, get_color_value, ['blue_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
-        descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_color_value, ['black_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor = new BlockDescriptor(image_tracker.get_resource('box2_black'), 'box', null, get_color_value, ['black_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
     },
     get_block_descriptor: function(name){
         return this.descriptors[name];

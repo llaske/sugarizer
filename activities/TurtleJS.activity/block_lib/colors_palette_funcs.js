@@ -14,7 +14,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
 function get_color_value(params){
-    var value = params[2].sprite.labels[0].getText();
-    value = [true, value];
+    value = [true, params[2].block_value];
     return value;
 }

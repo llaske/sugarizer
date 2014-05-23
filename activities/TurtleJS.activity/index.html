@@ -1,4 +1,20 @@
 <!DOCTYPE HTML>
+<!--
+Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -6,7 +22,7 @@
         <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
         <link rel="stylesheet" href="ta_css/activity.css">
         <title>Turtle Art Web</title>
-		<script data-main="js/loader" src="lib/require.js"></script
+        <script data-main="js/loader" src="lib/require.js"></script>
     </head>
     <body>
         <div id="main-toolbar" class="toolbar">
@@ -23,14 +39,16 @@
             <button class="toolbutton" id="hideshow-bt" title="Hide/Show blocks"></button>
             <button class="toolbutton" id="open-bt" title="Open file"></button>
             <button class="toolbutton" id="save-bt" title="Save file"></button>
+            <button class="toolbutton" id="es-lang-bt" title="Español"></button>
+            <button class="toolbutton" id="en-lang-bt" title="English"></button>
 			
-			<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+            <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
         </div>
         <div id="canvas">
             <input type="file" id="input-file" name="files[]" />
             <div id="container2"></div>
 
-            <script src="ext_lib/kinetic-v4.7.4.min.js"></script>
+            <script src="ext_lib/kinetic-v5.1.0.min.js"></script>
             <script src="ext_lib/jquery.js"></script>
 
             <script src="ta_lib/i18n.js"></script>
@@ -39,6 +57,9 @@
             <script src="html_js/importexport.js"></script>
 
             <script src="ta_shapes/arcshape.js"></script>
+            <script src="ta_lib/tautil.js"></script>
+            
+            <script src="ta_gui/errormessagecontainer.js"></script>
 
             <script src="block_lib/basic_blocks_func.js"></script>
             <script src="block_lib/pen_palette_funcs.js"></script>
@@ -46,6 +67,8 @@
             <script src="block_lib/flow_palette_funcs.js"></script>
             <script src="block_lib/numbers_palette_funcs.js"></script>
             <script src="block_lib/blocks_funcs.js"></script>
+
+            <script src="ta_pal_lang_desc/common_errors_lang_descriptor.js"></script>
 
             <script src="ta_pal_lang_desc/basic_block_palette_lang_descriptor.js"></script>
             <script src="ta_pal_lang_desc/pen_palette_lang_descriptor.js"></script>
@@ -67,6 +90,7 @@
             <script src="ta_lib/drawstage.js"></script>
             <script src="ta_lib/blockstage.js"></script>
             <script src="ta_lib/globalvarstracker.js"></script>
+            <script src="ta_lib/uservarstracker.js"></script>
             <script src="ta_lib/docktracker.js"></script>
             <script src="ta_lib/palettetracker.js"></script>
 
@@ -85,6 +109,7 @@
             <script src="ta_pal_desc/blocks_palette_descriptor.js"></script>
 
             <script src="html_js/appinit.js"></script>
+            <script src="ta_gui/scrollbars.js"></script>
         </div>
     </body>
 </html>

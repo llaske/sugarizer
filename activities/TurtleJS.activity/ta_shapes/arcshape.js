@@ -76,17 +76,18 @@ ArcShape.prototype = {
         this.group.remove();
     },
     rotate: function(deg){
-        this.group.rotate((deg * Math.PI) / 180);
+        this.group.rotate(deg);
     },
     set_start_offset: function(){
-        this.group.setOffset([this.start_point.getX(), this.start_point.getY()]);
+        this.group.offsetX(this.start_point.getX());
+        this.group.offsetY(this.start_point.getY());
     },
     set_normal_offset: function(){
         this.group.setOffset([this.get_xy()[0] + this.radio, this.get_xy()[1] + this.radio]);
     },
     set_xy: function(point){
-        this.group.setX(point[0]);
-        this.group.setY(point[1]);
+        this.group.x(point[0]);
+        this.group.y(point[1]);
     },
     get_end_point: function(){
         var pos = [];

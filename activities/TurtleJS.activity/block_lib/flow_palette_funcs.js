@@ -13,39 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
-var repeat_block = function(params){
-    if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
-        if (values[0][0]){
-            if (params[2].stack_slots[0] != null){
-                for (var i=0; i<values[0][1]; i++){
-                    params[2].stack_slots[0].chain_exec();
-                }
-            }
-            return true;
-        }
-        return false;
-    }else{
-        alert('Missing value from repeat block');
-        return false;
+function repeat(params, values){
+    for (var i=0; i<values[0][1]; i++){
+        params[2].stack_slots[0].chain_exec();
     }
+    return true;
 }
 
-var ifthen_block = function(params){
-    if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
-        if (values[0][0]){
-            if (values[0][1] && params[2].stack_slots[0] != null){
-                params[2].stack_slots[0].chain_exec();
-            }
-            return true;
-        } else{
-            return false;
-        }
-    }else{
-        alert('Missing value from If/then block');
-        return false;
+function ifthen(params, values){
+    if (values[0][1] && params[2].stack_slots[0] != null){
+        params[2].stack_slots[0].chain_exec();
     }
+    return true;
 }
 
 function forever_exec(params){
@@ -55,7 +34,7 @@ function forever_exec(params){
     }
 }
 
-var forever_block = function(params){
+function forever(params, values){
     params[3].on_infinite_loop = true;
     forever_exec(params);
     return false;
@@ -71,26 +50,22 @@ function while_exec(params){
     }
 }
 
-var while_block = function(params){
-    if (params[2].has_all_slots()){
-        params[3].on_infinite_loop = true;
-        while_exec(params);
-        return false;
-    }
+function whileb(params, values){
+    params[3].on_infinite_loop = true;
+    while_exec(params);
+    return false;
 }
 
-var until_block = function(params){
-    if (params[2].has_all_slots()){
+function until(params, values){
+    params[3].on_infinite_loop = true;
+    if (params[2].stack_slots[0]){
         params[3].on_infinite_loop = true;
-        if (params[2].stack_slots[0]){
-            params[3].on_infinite_loop = true;
-            params[2].stack_slots[0].chain_exec();
-            var myVar = setTimeout(function(){while_exec(params)}, 500);
-            return false;
-        } else{
-            params[3].on_infinite_loop = false;
-            return true;
-        }
+        params[2].stack_slots[0].chain_exec();
+        var myVar = setTimeout(function(){while_exec(params)}, 500);
+        return false;
+    } else{
+        params[3].on_infinite_loop = false;
+        return true;
     }
 }
 
@@ -98,13 +73,7 @@ function wait_exec(params){
     params[2].lower_block[0].chain_exec();
 }
 
-var wait_block = function(params){
-    if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
-        if (values[0][0]){
-            var myVar = setTimeout(function(){wait_exec(params)}, values[0][1]);
-            return false;
-        }
-        return true;
-    }
+function wait(params, values){
+    var myVar = setTimeout(function(){wait_exec(params)}, values[0][1]);
+    return false;
 }

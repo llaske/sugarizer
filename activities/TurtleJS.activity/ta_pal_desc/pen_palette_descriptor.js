@@ -22,16 +22,33 @@ PenPaletteDesc.prototype = {
     constructor: PenPaletteDesc,
     init_descriptor: function(){
 
-        new BlockDescriptor(image_tracker.get_resource('basic'), 'basic', penup_block, null, ['penup_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic_blue'), 'basic', penup_block, null, ['penup_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic'), 'basic', pendown_block, null, ['pendown_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic_blue'), 'basic', pendown_block, null, ['pendown_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', set_pen_size_block, null, ['set_pen_size_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg_blue'), 'basic1arg', set_pen_size, null, ['set_pen_size_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
 
-        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', text_block, get_number, ['box_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+       new BlockDescriptor(image_tracker.get_resource('basic_blue'), 'basic', start_fill, null, ['start_fill_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', set_color_block, null, ['set_color_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+       new BlockDescriptor(image_tracker.get_resource('basic_blue'), 'basic', end_fill, null, ['end_fill_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2_blue'), 'box', text_block, get_number, ['box_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
+
+        new BlockDescriptor(image_tracker.get_resource('basic1arg_blue'), 'basic1arg', set_color, null, ['set_color_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['str_int']]);
+
+        new BlockDescriptor(image_tracker.get_resource('basic1arg_blue'), 'basic1arg', set_shade, null, ['set_shade_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
+
+        new BlockDescriptor(image_tracker.get_resource('basic1arg_blue'), 'basic1arg', set_gray, null, ['set_gray_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
+
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2_blue'), 'box', null, get_pen_color, ['color_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
+
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2_blue'), 'box', null, get_pen_shade, ['shade_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
+
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2_blue'), 'box', null, get_pen_gray, ['gray_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
     },
     get_block_descriptor: function(name){
         return this.descriptors[name];

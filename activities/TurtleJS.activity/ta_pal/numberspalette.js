@@ -39,13 +39,19 @@ NumbersPalette.prototype = {
         return this.container.is_collide(point);
     },
     make_block_factories: function(){
-        var sprit1 = new Sprite(image_tracker.get_resource('compare'), this.container.layer, true);
+        var sprit1 = new Sprite(image_tracker.get_resource('compare_purple'), this.container.layer, true);
         new BlockFactory([5, 5], sprit1, 'greaterthan_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'greaterthan']);
 
-        var sprit1 = new Sprite(image_tracker.get_resource('numbern'), this.container.layer, true);
+        sprit1 = new Sprite(image_tracker.get_resource('number1arg_purple'), this.container.layer, true);
+        new BlockFactory([5, 95], sprit1, 'identity_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'backward']);
+
+        var sprit1 = new Sprite(image_tracker.get_resource('numbern_purple'), this.container.layer, true);
         new BlockFactory([115, 5], sprit1, 'add_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'add']);
 
-        var sprit1 = new Sprite(image_tracker.get_resource('numbern'), this.container.layer, true);
+        var sprit1 = new Sprite(image_tracker.get_resource('numbern_purple'), this.container.layer, true);
         new BlockFactory([215, 5], sprit1, 'multiply_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'multiply']);
+
+        var sprit1 = new Sprite(image_tracker.get_resource('numbern_purple'), this.container.layer, true);
+        new BlockFactory([315, 5], sprit1, 'divide_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'multiply']);
     }
 }

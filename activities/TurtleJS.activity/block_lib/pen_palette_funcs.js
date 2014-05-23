@@ -13,44 +13,62 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
-function penup_block(params){
+function penup_block(params, values){
     params[1].pen_up();
     return true;
 }
 
-function pendown_block(params){
+function pendown_block(params, values){
     params[1].pen_down_action();
     return true;
 }
 
-function set_pen_size_block(params){
-    if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
-        if (values[0][0]){
-            params[1].set_pen_size(values[0][1]);
-            return true;
-        }
-        return false;
-    }else{
-        alert('Missing value from set pen size block');
-        return false;
-    }
+function set_pen_size(params, values){
+    params[1].set_pen_size(values[0][1]);
+    return true;
 }
 
-function pen_size_value_block(){
-    
+function is_color(str){
+    var arr = ['red', 'green', 'purple', 'orange', 'cyan', 'white', 'yellow', 'blue', 'black'];
+    if (arr.indexOf(str) != -1){
+        return true;
+    }
+    return false;
 }
 
-function set_color_block(params){
-    if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
-        if (values[0][0]){
-            params[1].set_pen_color(values[0][1]);
-            return true;
-        }
-        return false;
-    }else{
-        alert('Missing value from set color block');
-        return false;
-    }
+function set_color(params, values){
+    params[1].set_pen_color(values[0][1]);
+    return true;
+}
+
+function set_shade(params, values){
+    params[1].set_pen_shade(values[0][1]);
+    return true;
+}
+
+function set_gray(params, values){
+    params[1].set_pen_gray(values[0][1]);
+    return true;
+}
+
+function start_fill(params, values){
+    params[1].start_fill();
+    return true;
+}
+
+function end_fill(params, values){
+    params[1].end_fill();
+    return true;
+}
+
+function get_pen_color(params){
+    return [true, params[1].get_pen_color()];
+}
+
+function get_pen_shade(params){
+    return [true, params[1].get_pen_shade()];
+}
+
+function get_pen_gray(params){
+    return [true, params[1].get_pen_gray()];
 }

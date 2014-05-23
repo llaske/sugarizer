@@ -19,7 +19,9 @@ function DrawStage(container, width, height){
     this.height = height;
     this.stage = null;
     this.layer = null;
+    this.draw_layer;
     this.anim = null;
+    this.draw_anim = null;
     this.turtle = null;
     this.draw_tracker = null;
     this.bg = null;
@@ -34,20 +36,35 @@ DrawStage.prototype = {
             width: this.width,
             height: this.height
         });
+
         this.layer = new Kinetic.Layer();
-        this.stage.add(this.layer);
-        this.anim = new Kinetic.Animation(function(frame) {}, this.layer);
-        this.anim.start();
+        this.draw_layer = new Kinetic.Layer();
+        //this.draw_layer.x(-1000);
+        this.palette_layer = new Kinetic.Layer();
+        this.scroll_layer = new Kinetic.Layer();
+        
+
         this.bg = new Kinetic.Rect({
             x: 0,
             y: 0,
-            width: this.width,
-            height: this.height,
-            fill: 'white'
+            width: 2000,
+            height: 2000,
+            fill: '#FFF8DE'
         });
-        this.layer.add(this.bg);
-        this.turtle = new Turtle([this.width/2, this.height/2], this.layer);
-        this.draw_tracker = new DrawTracker(this.layer, this.turtle);
+        this.draw_layer.add(this.bg);
+
+        this.stage.add(this.draw_layer).add(this.palette_layer).add(this.layer).add(this.scroll_layer);
+
+        this.anim = new Kinetic.Animation(function(frame) {}, this.layer);
+        this.anim.start();
+        
+        this.anim_scroll = new Kinetic.Animation(function(frame) {}, this.scroll_layer);
+        this.anim_scroll.start();
+        
+
+        this.turtle = new Turtle([this.bg.width()/2, this.bg.height()/2], this.layer);
+        this.draw_tracker = new DrawTracker(this.draw_layer, this.turtle);
+        this.draw_tracker.bg_obj = this.bg;
         this.turtle.draw_tracker = this.draw_tracker;
         //this.stage.setSize(this.width, 1000);
         //window.scroll(500, 500);
