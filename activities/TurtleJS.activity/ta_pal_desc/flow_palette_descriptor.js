@@ -21,27 +21,27 @@ function FlowPaletteDesc(){
 FlowPaletteDesc.prototype = {
     constructor: FlowPaletteDesc,
     init_descriptor: function(){
-        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampn'), 'clampn', repeat_block, null, ['repeat_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampn_orange'), 'clampn', repeat, null, ['repeat_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
         block_descriptor.component_positions = [0, 52, 18];
         block_descriptor.base_clamp_height = 42;
 
-        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clamp'), 'clamp', forever_block, null, ['forever_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clamp_orange'), 'clamp', forever, null, ['forever_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
         block_descriptor.component_positions = [0, 44, 18];
         block_descriptor.base_clamp_height = 42;
 		
-        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb'), 'clamp_bool', ifthen_block, null, ['ifthen_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb_orange'), 'clamp_bool', ifthen, null, ['ifthen_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['bool']]);
         block_descriptor.component_positions = [0, 76, 18];
         block_descriptor.base_clamp_height = 42;
 
-        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb'), 'clamp_bool', while_block, null, ['while_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb_orange'), 'clamp_bool', whileb, null, ['while_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['bool']]);
         block_descriptor.component_positions = [0, 76, 18];
         block_descriptor.base_clamp_height = 42;
 
-        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb'), 'clamp_bool', until_block, null, ['until_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb_orange'), 'clamp_bool', until, null, ['until_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['bool']]);
         block_descriptor.component_positions = [0, 76, 18];
         block_descriptor.base_clamp_height = 42;
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', wait_block, null, ['wait_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg_orange', wait, null, ['wait_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
     },
     get_block_descriptor: function(name){
         return this.descriptors[name];

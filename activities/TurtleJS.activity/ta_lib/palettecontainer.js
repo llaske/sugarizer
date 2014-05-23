@@ -43,24 +43,34 @@ PaletteContainer.prototype = {
         this.elements[key] = block;
         this.group.add(block.group);
     },
+    get_factories: function(){
+        return this.elements;
+    },
     show: function(){
         this.visible = true;
         this.layer.add(this.group);
+        this.repos();
     },
     hide: function(){
         this.visible = false;
         this.group.remove();
+        this.layer.draw();
+    },
+    repos: function(){
+        this.setY($("#canvas").scrollTop());
+        this.setX($("#canvas").scrollLeft());
+        this.layer.draw();
     },
     is_visible: function(){
         return this.visible;
     },
     get_xy: function(){
-        var pos = [this.group.getX(), this.group.getY()];
+        var pos = [Math.abs(draw_stage.layer.x()), Math.abs(draw_stage.layer.y())];
     },
     is_collide: function(point){
-        min_x = this.group.getX();
+        min_x = Math.abs(draw_stage.layer.x());
         max_x = min_x + this.rect.getWidth();
-        min_y = this.group.getY();
+        min_y = Math.abs(draw_stage.layer.y());
         max_y = min_y + this.rect.getHeight();
 
         if ((point[0] > min_x && point[0] < max_x) && (point[1] > min_y && point[1] < max_y)){
@@ -71,5 +81,17 @@ PaletteContainer.prototype = {
     },
     get_factory: function(name){
         return this.elements[name];
+    },
+    setX: function(x){
+        this.group.setX(x);
+    },
+    setY: function(y){
+        this.group.setY(y);
+    },
+    getX: function(){
+        return this.group.getX();
+    },
+    getY: function(){
+        return this.group.getY();
     }
 }

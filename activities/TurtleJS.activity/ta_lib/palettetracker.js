@@ -49,5 +49,8 @@ PaletteTracker.prototype = {
             }
         }
         return factory;
+    },
+    get_palettes: function(){
+        return this.palettes;
     }
 }

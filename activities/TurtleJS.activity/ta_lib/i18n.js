@@ -15,6 +15,7 @@
 
 function I18n(){
     this.words = {};
+    this.error_messages = {};
 }
 
 I18n.prototype = {
@@ -33,8 +34,83 @@ I18n.prototype = {
            this.words[block_name][lang][type[i]].push(properties);
         }
     },
+    add_error_message: function(lang, id, text){
+        if (!this.error_messages[id]){
+            this.error_messages[id] = {};
+        }
+        this.error_messages[id][lang] = text;
+    },
     get_labels: function(block_name, lang, type){
-        return this.words[block_name][lang][type];
+        if (this.words[block_name][lang] != null){
+            return this.words[block_name][lang][type];
+        } else{
+            return this.words[block_name]['en_US'][type];
+        }
+    },
+    get_err_msg: function(lang, id, params){
+        var error_message;
+
+        if (this.error_messages[id][lang] != null){
+            error_message = this.error_messages[id][lang];
+        } else{
+            error_message = this.error_messages[id]['en_US'];
+        }
+
+        for (var i=0; i<params.length; i++){
+            error_message = error_message.replace("{" + i + "}", params[i]);
+        }
+        return error_message;
+    },
+    change_language: function(lang){
+        if (DEFAULT_LANG != lang){
+            DEFAULT_LANG = lang;
+            this.change_palette_labels();
+            this.change_block_labels();
+        }
+    },
+    change_palette_labels: function(){
+        var palettes = palette_tracker.get_palettes();
+        for (var i=0; i<palettes.length; i++){
+            var factories = palettes[i].container.get_factories();
+            var keys = [];
+            var descriptors = palettes[i].pal_desc.descriptors;
+            var descriptor_keys = [];
+            
+            for (var key in factories){
+                if (factories.hasOwnProperty(key)){
+                    keys.push(key);
+                }
+            }
+
+            for (var key in descriptors){
+                if (descriptors.hasOwnProperty(key)){
+                    descriptor_keys.push(key);
+                }
+            }
+
+            for (var key in factories){
+                this.change_factory_labels(factories[key]);
+            }
+            
+            for (var i2=0; i2<descriptor_keys.length; i2++){
+                var descriptor = descriptors[descriptor_keys[i2]];
+                descriptor.delete_all_labels();
+                descriptor.add_labels(descriptor.block_name, DEFAULT_LANG, FACTORY_SIDE);
+            }
+        }
+        draw_stage.palette_layer.draw();
+    },
+    change_factory_labels: function(factory){
+        factory.sprite.delete_all_labels();
+        factory.sprite.set_labels(this.get_labels(factory.block_name, DEFAULT_LANG, BLOCK_SIDE));
+    },
+    change_block_labels: function(){
+        var blocks = block_tracker.get_blocks();
+        for (var i=0; i<blocks.length; i++){
+            var block = blocks[i];
+            block.sprite.delete_all_labels();
+            block.sprite.set_labels(this.get_labels(block.block_type, DEFAULT_LANG, BLOCK_SIDE));
+        }
     }
 }
 

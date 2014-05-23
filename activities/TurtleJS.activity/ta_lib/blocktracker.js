@@ -27,6 +27,9 @@ BlockTracker.prototype = {
         this.blocks.push(block);
         block.tracker = this;
     },
+    get_blocks: function(){
+        return this.blocks;
+    },
     get_collide_obj: function(caller){
         var points = caller.get_collide_points();
         var collide_obj = [];

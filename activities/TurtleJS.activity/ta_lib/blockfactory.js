@@ -38,7 +38,7 @@ BlockFactory.prototype = {
             draggable: false
         });
         this.group.add(this.sprite.group);
-        this.group.on('mousedown', function(){
+        this.group.on('mousedown touchstart', function(){
             parent.make_block(parent.block_name, true);
         });
     },
@@ -52,7 +52,10 @@ BlockFactory.prototype = {
         this.fire('mouseup');
     },
     get_pos: function(){
-        return this.pos;
+        var pos = [0, 0];
+        pos[0] = this.pos[0] + Math.abs(draw_stage.layer.x());
+        pos[1] = this.pos[1] + Math.abs(draw_stage.layer.y());
+        return pos;
     },
     add_labels: function(block_name, lang, type){
         var labels = i18n_tracker.get_labels(block_name, lang, type);
@@ -62,7 +65,19 @@ BlockFactory.prototype = {
         }
     },
     make_block: function(name, user_action){
-        var box_types = ['box_block', 'xcor_block', 'ycor_block', 'number', 'heading_block', 'text_block', 'red_block', 'green_block', 'purple_block', 'orange_block', 'cyan_block', 'white_block', 'yellow_block', 'blue_block', 'black_block'];
+        var box_types = ['box_block', 'number', 'text_block'];
+
+        var color_blocks = {
+            'red_block' : '#FF0000',
+            'green_block' : '#00FF00',
+            'purple_block' : '#551A8B',
+            'orange_block' : '#FFA500',
+            'cyan_block' : '#00FFFF',
+            'white_block' : '#FFFFFF',
+            'yellow_block' : '#FFFF00',
+            'blue_block' : '#0000FF',
+            'black_block' : '#000000'
+        };
 
         if (user_action){
             this.end_event();
@@ -75,11 +90,14 @@ BlockFactory.prototype = {
 
         var dock_descriptor = dock_tracker.get_dock(block_descriptor.dock_desc);
 
-        var sprit1 = new Sprite(block_descriptor.block_img, this.palette.container.layer, true, false, null, null, block_descriptor.component_positions);
+        var sprit1 = new Sprite(block_descriptor.block_img, draw_stage.layer, true, false, null, null, block_descriptor.component_positions);
         for (var i=0; i<block_descriptor.labels.length; i++){
             this.make_label(sprit1, block_descriptor.labels[i]);
         }
+
         var block1 = new TurtleBlock(sprit1, draw_stage.layer, dock_descriptor, block_descriptor.callback_func, block_descriptor.value_func, [draw_stage.turtle, draw_stage.draw_tracker, null, block_tracker]);
+        block1.block_type = name;
+        block1.param_types = block_descriptor.param_types;
         block1.params[2] = block1;
         block1.base_clamp_height = block_descriptor.base_clamp_height;
         block1.actual_clamp_height = block_descriptor.base_clamp_height;
@@ -88,14 +106,17 @@ BlockFactory.prototype = {
         block1.set_xy(this.get_pos());
 
         if (box_types.indexOf(name) != -1){
-            block1.box_block_normal_size(block1);
             var block_value = parseInt(block1.sprite.get_label(0).getText());
             if (block_value >= 0 || block_value <= -1){
                 block1.block_value = block_value;
             } else{
-                block1.block_value = block1.sprite.get_label(0);
+                block1.block_value = block1.sprite.get_label(0).getText();
             }
             block1.last_label_width = block1.sprite.get_label(0).getWidth();
+        }
+
+        if (color_blocks[name] != null){
+            block1.block_value = color_blocks[name];
         }
 
         if (user_action){
@@ -108,7 +129,7 @@ BlockFactory.prototype = {
         sprit.set_label(label['value'], label['x'], label['y'], label['font_size'], label['font_type'], label['font_color']);
     },
     box_block_normal_size: function(){
-		this.sprite.img[2].setX(this.sprite.img[2].getX() + 70);
+        this.sprite.img[2].setX(this.sprite.img[2].getX() + 70);
         this.sprite.img[1].setWidth(this.sprite.img[1].getWidth() + 70);
     }
 }

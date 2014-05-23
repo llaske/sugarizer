@@ -38,23 +38,43 @@ PenPalette.prototype = {
         return this.container.is_collide(point);
     },
     make_block_factories: function(){
-        var sprit1 = new Sprite(image_tracker.get_resource('basic'), this.container.layer, true);
-        new BlockFactory([5, 5], sprit1, 'penup_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'penup']);
+        var sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
+        new BlockFactory([255, 5], sprit1, 'penup_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'penup']);
 
-        sprit1 = new Sprite(image_tracker.get_resource('basic'), this.container.layer, true);
-        new BlockFactory([120, 5], sprit1, 'pendown_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'pendown']);
+        sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
+        new BlockFactory([255, 55], sprit1, 'pendown_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'pendown']);
 
-        sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
-        block_factory1 = new BlockFactory([235, 5], sprit1, 'set_pen_size_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setpensize']);
+        sprit1 = new Sprite(image_tracker.get_resource('basic1arg_blue'), this.container.layer, true);
+        block_factory1 = new BlockFactory([375, 5], sprit1, 'set_pen_size_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setpensize']);
 
-        sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 12]);
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue'), this.container.layer, true, false, null, null, [0, 28, 82]);
         sprit1.set_label('pen size', 38, 13, 19, 'Calibri', 'black');
-        block_factory1 = new BlockFactory([5, 55], sprit1, 'box_block', this, null);
+        block_factory1 = new BlockFactory([500, 5], sprit1, 'box_block', this, null);
         this.container.add_block_factory('pensize', block_factory1);
-        block_factory1.box_block_normal_size();
 
-        sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
-        new BlockFactory([135, 55], sprit1, 'set_color_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setcolor']);
+        sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
+        block_factory1 = new BlockFactory([375, 55], sprit1, 'start_fill_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'startfill']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
+        block_factory1 = new BlockFactory([375, 105], sprit1, 'end_fill_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'endfill']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('basic1arg_blue'), this.container.layer, true);
+        new BlockFactory([5, 5], sprit1, 'set_color_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setcolor']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('basic1arg_blue'), this.container.layer, true);
+        new BlockFactory([5, 55], sprit1, 'set_shade_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setshade']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('basic1arg_blue'), this.container.layer, true);
+        new BlockFactory([5, 105], sprit1, 'set_gray_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setgray']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([120, 5], sprit1, 'color_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'color']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([120, 55], sprit1, 'shade_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'shade']);
+
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([120, 105], sprit1, 'gray_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'gray']);
     }
 }
 

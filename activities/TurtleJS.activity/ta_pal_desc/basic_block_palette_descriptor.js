@@ -22,33 +22,33 @@ BasicBlockDesc.prototype = {
     constructor: BasicBlockDesc,
     init_descriptor: function(){
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', forward_block, null, ['forward_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', forward, null, ['forward_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', backward_block, null, ['backward_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', backward, null, ['backward_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', right_block, null, ['right_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', right, null, ['right_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', left_block, null, ['left_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', left, null, ['left_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
 
-        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', text_block, get_number, ['box_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('box2_purple'), 'box', text_block, get_number, ['box_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        descriptor.component_positions = [0, 28, 82];
 
         new BlockDescriptor(image_tracker.get_resource('basic'), 'basic', clean_block, null, ['clean_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', setxy_block, null, ['setxy_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', setxy, null, ['setxy_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', arc_block, null, ['arc_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', arc, null, ['arc_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', set_heading_block, null, ['set_heading_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);;
+        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', set_heading, null, ['set_heading_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);;
 
         var descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_turtle_heading, ['heading_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor.component_positions = [0, 28, 82];
 
         var descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_turtle_x, ['xcor_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor.component_positions = [0, 28, 82];
 
         var descriptor = new BlockDescriptor(image_tracker.get_resource('box2'), 'box', null, get_turtle_y, ['ycor_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
-        descriptor.component_positions = [0, 28, 12];
+        descriptor.component_positions = [0, 28, 82];
     },
     get_block_descriptor: function(name){
         return this.descriptors[name];

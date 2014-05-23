@@ -23,7 +23,11 @@ function BlockDescriptor(block_img, dock_desc, callback_func, value_func, proper
     this.component_positions = null;
     this.base_clamp_height = 0;
     this.add_labels(this.block_name, properties[1], properties[2]);
+    this.param_types = null;
     properties[3][this.block_name] = this;
+    if (properties.length == 5){
+        this.param_types = properties[4];
+    }
 }
 
 BlockDescriptor.prototype = {
@@ -37,6 +41,9 @@ BlockDescriptor.prototype = {
         label["font_type"] = font_type;
         label["font_color"] = font_color;
         this.labels.push(label);
+    },
+    delete_all_labels: function(){
+        this.labels = [];
     },
     add_labels: function(block_name, lang, type){
         var labels = i18n_tracker.get_labels(block_name, lang, type);

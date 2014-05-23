@@ -14,6 +14,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
 $(document).ready(function() {
+    var count = 0;
+    
     $("#basictb-bt").click(function(){
         if (basic1.is_visible()){
             basic1.hide();
@@ -65,26 +67,65 @@ $(document).ready(function() {
                 break;
             }
         }
+        check_block_visibility(true);
+        draw_stage.draw_tracker.save_cache();
+        draw_stage.draw_layer.draw();
     });
     $("#clear-bt").click(function(){
         draw_stage.draw_tracker.clear_canvas();
+        user_vars_tracker.clear();
         block_tracker.on_infinite_loop = false;
     });
     $("#hideshow-bt").click(function(){
-        if (!block_tracker.are_blocks_visible()){
-            block_tracker.hide_blocks();
-        }else{
-            block_tracker.show_blocks();
-        }
+        check_block_visibility(false);
     });
     $("#open-bt").click(function(){
         $("#input-file").focus().click();
     });
     $("#save-bt").click(function(){
     });
-	$("#stop-button").click(function(){
-	});
+    $("#es-lang-bt").click(function(){
+        i18n_tracker.change_language('es_ES');
+    });
+    $("#en-lang-bt").click(function(){
+        i18n_tracker.change_language('en_US');
+    });
+    $("#stop-button").click(function(){
+    });
     $("#input-file").change(function(evt){
         onFileSelect(evt, palette_tracker, block_tracker);
     });
+    
+    $("#canvas").scrollTop(1000 - ($(window).height()/2) + 25);
+    $("#canvas").scrollLeft(1000 - ($(window).width()/2));
+
+    error_message_displayer.repos();
+    
+    $("#canvas").scroll(function(){
+        var pal = palette_tracker.get_visible_palette();
+        
+        if (pal != null){
+            pal.container.repos();
+        }
+        error_message_displayer.repos();
+        //console.log($("#canvas").scrollTop(0));
+    });
+    
+    $("#canvas").click(function(){
+        if ($("#text_input").is(":visible")){
+            count++;
+            if (count == 2){
+                $("#text_input").remove();
+                count = 0;
+            }
+        }
+    });
+
+    var check_block_visibility = function(caller){
+        if (!block_tracker.are_blocks_visible() || caller){
+            block_tracker.hide_blocks();
+        }else{
+            block_tracker.show_blocks();
+        }
+    };
 });
