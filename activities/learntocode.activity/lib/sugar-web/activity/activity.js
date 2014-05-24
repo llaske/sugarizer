@@ -19,10 +19,10 @@ define(["webL10n",
         l10n.start();
 
         function sendPauseEvent() {
-            var pauseEvent = new CustomEvent(
-                "activityPause", {
-                    cancelable: true
-                });
+			var pauseEvent = document.createEvent("CustomEvent");
+			pauseEvent.initCustomEvent('activityPause', false, false, {
+				'cancelable': true	
+			});
             window.dispatchEvent(pauseEvent);
         }
         bus.onNotification("activity.pause", sendPauseEvent);
@@ -32,10 +32,10 @@ define(["webL10n",
         // call activity.close() after storing.
 
         function sendStopEvent() {
-            var stopEvent = new CustomEvent(
-                "activityStop", {
-                    cancelable: true
-                });
+			var stopEvent = document.createEvent("CustomEvent");
+			stopEvent.initCustomEvent('activityStop', false, false, {
+				'cancelable': true	
+			});				
             var result = window.dispatchEvent(stopEvent);
             if (result) {
                 activity.close();
