@@ -1,0 +1,7 @@
+[Activity]
+name = Learn to Code
+activity_version = 1
+bundle_id = org.sugarlabs.LearnToCode
+exec = sugar-activity-web
+icon = activity-icon
+show_launcher = yes
