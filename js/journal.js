@@ -232,7 +232,7 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "activity-start.svg"},
 			colorized: false,
-			name: l10n.get("Restart"),
+			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
 			data: [entry, null]
 		});
