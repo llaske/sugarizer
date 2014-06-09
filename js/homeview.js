@@ -154,14 +154,18 @@ enyo.kind({
 		
 		// Compute center and radius
 		var canvas_center = util.getCanvasCenter();
-		var radius = Math.min(Math.min(canvas_center.y,canvas_center.x),constant.sizeRadius);
+		var icon_size = constant.iconSizeStandard;
+		var semi_size = icon_size/2;
+		var radiusx = Math.min(canvas_center.x,constant.sizeRadius)-semi_size;
+		var radiusy = Math.min(canvas_center.y,constant.sizeRadius)-semi_size;
+		var jdeltay = (canvas_center.dy < 480) ? -12 : 0;
 		
 		// Draw XO owner
-		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/4)+"px");
-		this.$.owner.applyStyle("margin-top", (canvas_center.y-constant.sizeOwner/4)+"px");
+		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
+		this.$.owner.applyStyle("margin-top", (canvas_center.y-constant.sizeOwner/2)+"px");
 		this.$.journal.setColorized(this.journal.length > 0);
-		this.$.journal.applyStyle("margin-left", (canvas_center.x+5)+"px");
-		this.$.journal.applyStyle("margin-top", (canvas_center.y+constant.sizeOwner-constant.sizeJournal/2)+"px");
+		this.$.journal.applyStyle("margin-left", (canvas_center.x-constant.sizeJournal/2)+"px");
+		this.$.journal.applyStyle("margin-top", (canvas_center.y+constant.sizeOwner-constant.sizeJournal+jdeltay)+"px");
 		this.$.owner.setShowing(this.currentView == constant.radialView);
 		this.$.journal.setShowing(this.currentView == constant.radialView);		
 		
@@ -174,8 +178,9 @@ enyo.kind({
 			this.$.desktop.createComponent({
 					kind: "Sugar.Icon", 
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
-					x: canvas_center.x+Math.cos(angle)*radius, 
-					y: canvas_center.y+Math.sin(angle)*radius,
+					size: icon_size,
+					x: canvas_center.x+Math.cos(angle)*radiusx-semi_size, 
+					y: canvas_center.y+Math.sin(angle)*radiusy-semi_size,
 					colorized: activity.instances !== undefined && activity.instances.length > 0,
 					onclick: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),

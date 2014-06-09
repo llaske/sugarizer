@@ -7,7 +7,7 @@ constant.sugarizerVersion = "0.4";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
-constant.sizeRadius = 180.0;
+constant.sizeRadius = 200.0;
 constant.sizeEmpty = 50;
 constant.sizeSettings = 70;
 constant.sizeToolbar = 40;

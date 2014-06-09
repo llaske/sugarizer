@@ -34,6 +34,7 @@ enyo.kind({
 		this.empty = (this.journal.length == 0);
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
+		this.smallTime = false;
 		this.journalChanged();
 		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
 		this.draw();
@@ -62,9 +63,10 @@ enyo.kind({
 		// Resize content and set Journal empty in the middle
 		var canvas_center = util.getCanvasCenter();	
 		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
+		this.smallTime = (canvas_center.dx < 660);
 		this.$.content.applyStyle("height", (canvas_center.dy-footer_size)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
-		var margintop = (canvas_center.y-constant.sizeEmpty/4);
+		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
 		this.$.message.setContent(l10n.get("JournalEmpty"));
 	},
@@ -116,7 +118,7 @@ enyo.kind({
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);		
 		inEvent.item.$.title.setContent(entry.metadata.title);	
-		inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2));
+		inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2, this.smallTime));
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
@@ -452,7 +454,7 @@ enyo.kind({
 	name: "Sugar.Journal.Toolbar",
 	kind: enyo.Control,
 	components: [
-		{name: "favoritebutton", kind: "Sugar.Icon", x: 374, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "clickToTap"},
+		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "clickToTap"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop", onclick: "clickToTap"},
 		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},

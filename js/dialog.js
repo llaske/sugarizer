@@ -109,13 +109,17 @@ enyo.kind({
 		{name: "warningbox", kind: "Sugar.Dialog.Settings.WarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "message", content: "xxx", classes: "aboutme-message"},
-			{name: "psicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
-			{name: "nsicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
-			{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
-			{name: "pficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
-			{name: "nficon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
-			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false},
-			{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
+			{classes: "aboutme-icons", components: [
+				{name: "psicon", kind: "Sugar.Icon", x: 0, y: 6, classes: "aboutme-icon aboutme-psicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+				{name: "nsicon", kind: "Sugar.Icon", x: -12, y: 6, classes: "aboutme-icon aboutme-nsicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+				{name: "cicon", kind: "Sugar.Icon", x: 6, y: 6, classes: "aboutme-icon aboutme-cicon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+				{name: "pficon", kind: "Sugar.Icon", x: 0, y: 6, classes: "aboutme-icon aboutme-pficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"},
+				{name: "nficon", kind: "Sugar.Icon", x: -12, y: 6, classes: "aboutme-icon aboutme-nficon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, onclick:"clickToTap", ontap:"setcolor"}
+			]},
+			{classes: "aboutme-input", components: [
+				{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
+			]},
+			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false}			
 		]}
 	],
 	
@@ -134,14 +138,20 @@ enyo.kind({
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		var xosize = (util.getCanvasCenter().dx < 515 ? constant.sizeOwner/2 : constant.sizeOwner);
+		this.$.pficon.setSize(xosize);
 		this.$.pficon.setColorizedColor(util.getPreviousFillColor(this.currentcolor));
 		this.$.pficon.setColorized(true);
+		this.$.psicon.setSize(xosize);		
 		this.$.psicon.setColorizedColor(util.getPreviousStrokeColor(this.currentcolor));
 		this.$.psicon.setColorized(true);
+		this.$.cicon.setSize(xosize);		
 		this.$.cicon.setColorizedColor(this.currentcolor);
 		this.$.cicon.setColorized(true);
+		this.$.nficon.setSize(xosize);		
 		this.$.nficon.setColorizedColor(util.getNextFillColor(this.currentcolor));
 		this.$.nficon.setColorized(true);
+		this.$.nsicon.setSize(xosize);		
 		this.$.nsicon.setColorizedColor(util.getNextStrokeColor(this.currentcolor));
 		this.$.nsicon.setColorized(true);
 		this.$.name.setValue(this.currentname);
@@ -299,7 +309,7 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", onclick: "clickToTap", ontap: "cancel"},		
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", onclick: "clickToTap", ontap: "ok"}
 		]},
-		{name: "content", components: [
+		{name: "content", kind: "Scroller", classes: "computer-content", components: [
 			{name: "software", content: "xxx", classes: "computer-software"},
 			{content: "Sugarizer:", classes: "computer-sugarizer"},
 			{name: "sugarizer_value", classes: "computer-value"},

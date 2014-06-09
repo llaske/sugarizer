@@ -42,10 +42,6 @@ input {
 	right: 30px;
 }
 
-.homeSearch {
-	width: 260px;
-}
-
 .search-field-border {
 	border-radius: 22px;
 	top: 5px;
@@ -289,9 +285,13 @@ input {
 	font-size: 14px;
 }
 
+.journal-filter-favorite {
+	left: 421px;
+}
+
 .journal-filter-text {
 	position: relative;
-	width: 360px;
+	width: 350px;
 }
 
 .journal-filter-type {
@@ -301,7 +301,7 @@ input {
 }
 
 .journal-filter-time {
-	margin-left: 30px;
+	margin-left: 10px;
 	width: 200px;
 }
 
@@ -310,6 +310,8 @@ input {
 	right: 40px;
 	margin-top: 15px;
 	font-size: 14px;
+	background-color: white;
+	z-index: 2;	
 }
 
 .journal-goright {
@@ -398,10 +400,12 @@ input {
 }
 
 .settings-dialog {
-	width: 800px;
-	height: 500px;
+	width: 95%;
+	max-width: 800px;
+	height: 95%;
+	max-height: 500px;
 	background-color: #000000;
-	border: 2px solid #808080;	
+	border: 2px solid #808080;
 }
 
 .settings-filter-text {
@@ -427,13 +431,13 @@ input {
 .settings-item-icon {
 	position: relative;
 	left: 65px;
+	width: 210px;	
 }
 
 .settings-item-text {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 210px;
 	text-align: center;
 }
 
@@ -446,8 +450,10 @@ input {
 }
 
 .module-dialog {
-	width: 800px;
-	height: 500px;
+	width: 95%;
+	max-width: 800px;
+	height: 95%;
+	max-height: 500px;
 	background-color: #ffffff;
 	border: 2px solid #808080;	
 }
@@ -462,6 +468,7 @@ input {
 	left: 80px;
 	top: 20px;
 	color: white;
+	word-wrap: break-word;	
 }
 
 .module-cancel-button {
@@ -489,66 +496,55 @@ input {
 	color: #808080;
 }
 
-.aboutme-psicon {
-	position: relative;
-	left: 120px;
-	top: 50px;
-	margin-top: 50px;
+.aboutme-icons {
+	width: 100%;
 	display: inline-block;
+	margin-top: 50px;
+	text-align: center;
+}
+
+.aboutme-icon {
+	position: relative;
+	display: inline-block;
+}
+
+.aboutme-psicon {
 }
 
 .aboutme-nsicon {
-	position: relative;
-	left: 100px;
-	top: 50px;
-	margin-top: 50px;
-	display: inline-block;	
 }
 
 .aboutme-cicon {
-	position: relative;
-	top: 50px;
-	left: 100px;
-	margin-top: 50px;
 	border-color: #808080;
 	border-style: none solid none solid;
 	border-width: 3px;
-	display: inline-block;	
 }
 
 .aboutme-pficon {
-	position: relative;
-	left: 100px;
-	top: 50px;
-	margin-top: 50px;
-	display: inline-block;	
 }
 
 .aboutme-nficon {
-	position: relative;
-	left: 80px;
-	top: 50px;
-	margin-top: 50px;	
-	display: inline-block;
 }
 
 .aboutme-restart {
-	position: relative;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
 	background-repeat: no-repeat;	
 	background-position: left;
 	background-size: 15px 15px;	
-	left: 290px;
-	top: 60px;
+	margin-left: 20px;
+	margin-top: 30px;
 	width: 200px;
 	padding-left: 20px;
 }
 
+.aboutme-input {
+	width: 100%;
+	text-align: center;
+}
+
 .aboutme-name {
-	position: absolute;
-	top: 250px;
-	left: 230px;
+	margin-top: 50px;
 	border-radius: 22px;
 	height: 25px;
 	width: 270px;
@@ -605,14 +601,14 @@ input {
 }
 
 .language-restart {
-	position: relative;
+	position: absolute;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
 	background-repeat: no-repeat;	
 	background-position: left;
 	background-size: 15px 15px;	
 	left: 20px;
-	top: 260px;
+	bottom: 20px;
 	width: 200px;
 	padding-left: 20px;
 }
@@ -624,6 +620,10 @@ input {
 	top: 50px;
 	color: white;
 	width: 200px;
+}
+
+.computer-content {
+	height: 80%;
 }
 
 .computer-software {
@@ -771,14 +771,185 @@ input {
 }
 
 .aboutserver-warningmessage {
-	position: relative;
+	position: absolute;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
 	background-repeat: no-repeat;	
 	background-position: left;
 	background-size: 15px 15px;	
 	left: 20px;
-	top: 200px;
+	bottom: 20px;
 	width: 200px;
 	padding-left: 20px;
+}
+
+/* Handle small screen resolution */
+@media screen and (max-width: 410px) {
+	.search-field-border {
+		visibility: hidden;
+		width: 0px;
+	}
+	
+	.search-field-input {
+		visibility: hidden;
+		width: 0px;
+	}
+	
+	.homeview-filter-text {
+		visibility: hidden;
+		width: 0px;
+	}
+	
+	.activity-version {
+		margin-left: 0px;
+		visibility: hidden;
+	}
+	
+	.journal-filter-type {
+		visibility: hidden;
+		width: 0px;
+	}
+	
+	.journal-filter-time {
+		visibility: hidden;
+		width: 0px;
+	}
+	
+	.journal-filter-favorite {
+		visibility: hidden;
+		left: 0px;
+	}
+	
+	.settings-filter-text {
+		visibility: hidden;
+		width: 0px;
+	}
+
+	.aboutserver-userlabel {
+		margin-left: 20px;
+		text-align: left;
+	}
+	
+	.aboutserver-serverlabel {
+		margin-left: 20px;
+		text-align: left;		
+	}
+	
+	.aboutserver-checkbutton {
+		margin-left: 20px;
+	}
+}
+@media screen and (max-height: 320px) {
+	.aboutme-message {
+		margin-top: 10px;
+	}
+
+	.aboutme-name {
+		margin-top: 10px;
+	}
+
+	.aboutme-restart {
+		margin-top: 10px;	
+	}
+	
+	.aboutserver-checkbox {
+		margin-top: 0px !important;
+	}
+	
+	.aboutserver-message {
+		margin-top: 5px;
+	}
+	
+	.aboutserver-userlabel {
+		margin-top: 5px;
+		margin-left: 10px;
+		text-align: left;
+	}
+	
+	.aboutserver-usermessage {
+		margin-left: 10px;
+	}
+	
+	.aboutserver-serverlabel {
+		margin-top: 5px;
+		margin-left: 10px;
+		text-align: left;
+		display: block;		
+	}
+	
+	.aboutserver-checkbutton {
+		margin-left: 250px;
+		margin-top: 0px;
+	}	
+}
+@media screen and (max-width: 590px) {
+	.settings-item {
+		padding: 5px;
+		width: 120px;
+	}
+
+	.settings-item-icon {
+		left: 20px;
+	}
+
+	.warningbox-cancel-button .icon-button-text {
+		visibility: hidden;
+	}
+
+	.warningbox-refresh-button .icon-button-text {
+		visibility: hidden;
+	}
+	
+	.module-text {
+		width: 100px;
+	}
+	
+	.warningbox-cancel-button {
+		right: 85px;
+		width: 60px;
+	}
+
+	.warningbox-refresh-button {
+		right: 10px;
+		width: 60px;
+	}
+}
+@media screen and (min-width: 410px) and (max-width: 1023px) {
+	.search-field-border {
+		width: 200px;
+	}
+	
+	.search-field-input {
+		width: 120px;
+	}
+	
+	.homeview-filter-text {
+		width: 200px;
+	}
+	
+	.activity-version {
+		margin-left: 350px;
+	}
+	
+	.journal-filter-favorite {
+		left: 270px;
+	}
+	
+	.journal-filter-type {
+		visibility: hidden;
+	}
+	
+	.journal-filter-time {
+		visibility: hidden;
+	}
+}
+@media screen and (min-width: 660px) {
+	.journal-filter-type {
+		visibility: visible;
+	}	
+}
+@media screen and (min-width: 880px) {
+	.journal-filter-time {
+		visibility: visible;
+	}
 }
