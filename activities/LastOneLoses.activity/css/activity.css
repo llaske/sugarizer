@@ -24,3 +24,25 @@
   margin-left: 40px;
   background-image: url(../icons/switch-player.svg);
 }
+
+@media screen and (max-width: 620px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+	
+	#main-toolbar #activity-button {
+		left: 10px;
+	}
+	
+	#main-toolbar #new-game-button {
+		margin-left: 10px;
+	}
+	
+	#main-toolbar #level-easy-button {
+		margin-left: 10px;
+	}
+	
+	#main-toolbar #switch-player-button {
+		margin-left: 15px;	
+	}
+}
