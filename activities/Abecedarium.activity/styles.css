@@ -13,52 +13,58 @@
 }
 
 .logo {
-	margin-top: 200px;
-	margin-left: 270px;
+	margin-top: 10%;
+	margin-left: 28%;
+	max-width: 50%;
 }
 
 .instrument {
 	position: absolute;
-	left: 20px;
-	top: 20px;
+	left: 5%;
+	top: 3%;
+	max-width: 12%;
 }
 
 .letter {
 	position: absolute;
-	left: 150px;
-	top: 50px;
+	left: 18%;
+	top: 7%;
 	font-size: 44px;
 }
 
 .learnButton {
-	margin-top: 50px;
-	margin-left: 300px;
+	margin-top: 5%;
+	margin-left: 30%;
+	max-width: 10%;	
 }
 
 .playButton {
-	margin-top: 50px;
-	margin-left: 150px;
+	margin-top: 5%;
+	margin-left: 10%;
+	max-width: 10%;	
 }
 
 .buildButton {
-	margin-top: 50px;
-	margin-left: 150px;
+	margin-top: 5%;
+	margin-left: 10%;
+	max-width: 10%;	
 }
 
 .creditButton {
 	position: absolute;
-	top: 50px;
-	right: 50px;
+	top: 5%;
+	right: 5%;
+	max-width: 10%;
 }
 
 .board {
-	width: 1200px;
+	width: 100%;
 	background-color: white !important;
 }
 
 .colorBar {
 	position: absolute;
-	width: 1210px;
+	width: 100%;
 	height: 80px;
 	z-index: -1;
 	left: -10px;
@@ -67,9 +73,7 @@
 
 .slideshow {
 	position: absolute;
-	width: 50px;
-	height: 50px;
-	left: 560px;
+	left: 48%;
 	top: 10px;
 }
 
@@ -77,57 +81,63 @@
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	left: 1050px;
+	right: 85px;
 	top: 10px;
 }
 
 .switchCaseButton {
-	width: 50px;
-	height: 50px;
 }
 
 .switchLang {
 	position: absolute;
-	left: 1120px;
+	right: 20px;
 	top: 10px;
 }
 
 .switchLangButton {
+}
+
+.standardButton {
 	width: 50px;
 	height: 50px;
 }
 
 .backButton {
-	width: 50px;
-	margin-top: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .pageCount {
 	font-size: 26px;
 	position: absolute;
-	left: 565px;
-	top: 75px;	
-	text-align: center;
+	right: 150px;
+	top: 20px;
+	margin-left: 20px;
 }
 
 .prevButton {
 	position: absolute;
 	width: 50px;
-	left: 5px;
-	top: 350px;
+	left: 35%;
+	top: 10px;
 }
 
 .nextButton {
 	position: absolute;
 	width: 50px;
-	left: 1110px;
-	top: 350px;
+	right: 35%;
+	top: 10px;
+}
+
+.itemImage {
+	max-width: 100%;
 }
 
 .itemLetter {
 	display: inline-block;
-	margin-right: 15px;
-	margin-bottom: 10px;
+	margin-right: 2%;
+	max-width: 7%;
+	margin-bottom: 5px;
 	z-index: 0;		
 }
 
@@ -150,8 +160,7 @@
 }
 
 .box-4-entry {
-	padding-left: 30px;
-	padding-top: 50px;
+	text-align: center;	
 }
 
 .entry {
@@ -160,11 +169,12 @@
 	border-color: darkgray;
 	box-shadow: 5px -4px 4px 2px black;
 	width: 220px;
-	height: 220px;
+	max-width: 20%;	
 	background-color: white;
 	display: inline-block;
-	margin-left: 30px;
-	margin-bottom: 30px;
+	margin-left: 2%;
+	margin-top: 1%;
+	margin-bottom: 1%;
 	z-index: 0;
 	-webkit-user-select: none;
 	user-select: none;		
@@ -172,12 +182,14 @@
 
 .entryImage {
 	width: 70%;
-	margin-top: 10px;
-	margin-left: 35px;
+	margin-top: 5%;
+	margin-left: 10%;
+	text-align: center;
 }
 
 .entryImageOnly {
-	margin-top: 30px;
+	margin-bottom: 10%;
+	margin-top: 10%;
 }
 
 .entryText {
@@ -187,7 +199,8 @@
 }
 
 .entryTextOnly {
-	margin-top: 80px;
+	margin-top: 35%;
+	margin-bottom: 35%;
 }
 
 .entryText0 {
@@ -204,20 +217,23 @@
 }
 
 .entrySoundIcon {
+	margin-left: 5%;
+	width: 12%;
 }
 
 .entrySoundIconOnly {
-	margin-left: 60px;
-	margin-top: 60px;
+	margin-left: 10%;
+	margin-top: 25%;
+	margin-bottom: 20%;
+	margin-bottom: 20%;
+	width: 40%;
 }
 
 .entrySound {
-	width: 50px;
 }
 
 .box-4-collection {
-	padding-left: 100px;
-	padding-top: 100px;
+	text-align: center;
 }
 
 .collection {
@@ -226,8 +242,10 @@
 	border-color: darkgray;
 	box-shadow: 2px -2px 2px 1px black;
 	width: 250px;
-	margin-left: 30px;
+	max-width: 22%;
+	margin-left: 2%;
 	margin-top: 30px;
+	text-align: left;
 	z-index: 0;
 	-webkit-user-select: none;
 	user-select: none;	
@@ -240,16 +258,18 @@
 }
 
 .collectionImage {
-	width: 30%;	
+	width: 28%;	
 	vertical-align: middle;
 	display: inline-block;	
 }
 
 .collectionText {
-	margin-left: 10px;
+	margin-left: 1%;
 	text-align: center;
-	padding: 3px;
-	display: inline-block;	
+	width: 62%;
+	display: inline-block;
+	vertical-align: middle;
+	word-wrap: break-word;
 }
 
 .collectionText0 {
@@ -266,8 +286,14 @@
 }
 
 .box-4-theme {
-	padding-left: 60px;
-	padding-top: 50px;
+	text-align: center;
+}
+
+.learnBox {
+}
+
+.linebreak {
+	height: 20px;
 }
 
 .theme {
@@ -276,13 +302,12 @@
 	border-color: darkgray;
 	box-shadow: 5px -4px 4px 2px black;
 	width: 220px;
+	max-width: 16%;
 	background-color: white;
 	z-index: 0;
 	-webkit-user-select: none;
-	margin-left: 10px;
-	margin-right: 25px;
-	margin-top: 60px;
-	margin-bottom: 80px;
+	margin-left: 2%;
+	margin-right: 2%;
 	display: inline-block;	
 	user-select: none;		
 }
@@ -294,13 +319,12 @@
 
 .themeImage {
 	width: 70%;
-	margin-top: 10px;
-	margin-left: 35px;
+	margin-top: 5%;
+	text-align: center;
 }
 
 .themeText {
 	text-align: center;
-	padding: 5px;
 }
 
 .themeText0 {
@@ -341,8 +365,8 @@
 }
 
 .playbox {
-	margin-left: 150px;
-	margin-top: 90px;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .play-type-button {
@@ -350,9 +374,10 @@
 	border-style: inset;
 	border-color: darkgray;
 	box-shadow: 2px -2px 2px 1px black;
-	margin-left: 40px;
-	margin-top: 40px;
+	margin-left: 9%;
+	margin-top: 2.5%;
 	z-index: 0;
+	max-width: 35%;
 	-webkit-user-select: none;
 	user-select: none;	
 	display: inline-block;
@@ -383,26 +408,30 @@
 }
 
 .playtypeImageFrom {
-	padding: 10px;
+	padding: 1%;
+	max-width: 31%;
 }
 
 .playtypeImageArrow {
-	padding: 10px;
+	padding: 1%;
+	max-width: 31%;
 }
 
 .playtypeImageTo {
-	padding: 10px;
+	padding: 1%;
+	max-width: 31%;
 }
 
 .entryPlayFrom {
 	display: block;
-	margin-top: 50px;
-	margin-left: 310px;
+	text-align: center;
+	margin-top: 3%;
+	margin-left: 42%;
 }
 
 .entryPlayTo {
-	margin-top: 20px;
-	margin-left: 40px;
+	margin-top: 2%;
+	margin-left: 5%;
 }
 
 .entryPlaySelected {
@@ -421,81 +450,84 @@
 .itemCount {
 	font-size: 26px;
 	position: absolute;
-	left: 565px;
-	top: 105px;	
 	text-align: center;
+	margin-left: 49%;
+	top: 20px;
 }
 
 .checkButton {
 	position: absolute;
-	width: 60px;
-	height: 60px;
-	left: 1010px;
-	top: 520px;
+	right: 2%;
+	top: 35%;
 }
 
 .filterBox {
 	padding-left: 5px;
+	text-align: center;
 }
 
 .filterButton {
 	position: absolute;
-	width: 50px;
-	height: 50px;
 	left: 80px;
-	top: 13px;
+	top: 10px;
 }
 
 .filterLetter {
 	position: absolute;
-	left: 5px;
-	top: 90px;
+	left: 20%;
+	top: 5px;
 }
 
 .filterCollection {
 	position: absolute;
-	left: -25px;
-	top: 60px;
+	left: 20%;
+	top: -4%;
 }
 
 .filter-popup {
 	width: 1080px;
+	max-width: 90%;
 	height: 600px;
+	max-height: 90%;
 	color: black;
 }
 
 .trashButton {
 	position: absolute;
-	width: 60px;
-	height: 60px;
-	left: 1000px;
-	top: 545px;
+	right: 2%;
+	bottom: 2%;
 }
 
 .credits-popup {
 	width: 880px;
+	max-width: 90%;
 	height: 680px;
+	max-height: 90%;
 	color: black;
+}
+
+.credit-content {
+	height: 100%;
 }
 
 .credit-image {
 	position: absolute;
-	margin-top: 20px;
-	margin-left: 20px;
+	margin-top: 3%;
+	margin-left: 3%;
 	width: 220px;
-	height: 220px;
+	max-width: 28%;
 }
 
 .credit-title {
 	font-size: 26px;
 	margin-top: 10px;
-	margin-left: 270px;
+	margin-left: 35%;
 	color: white;
 }
 
 .credit-name {
 	font-size: 16px;
-	margin-left: 300px;	
+	margin-left: 45%;	
 	color: white;
 }
 
@@ -529,4 +561,253 @@
 	position: absolute;
 	bottom: 10px;
 	right: 30px;
+}
+
+@media screen and (max-width: 640px) {
+	.switchLang {
+		right: 20px;
+	}
+
+	.switchCase {
+		right: 75px;
+	}
+	
+	.standardButton {
+		width: 45px;
+		height: 45px;
+	}
+	
+	.filterButton {
+		left: 70px;		
+	}
+	
+	.themeText0 {
+		font-size: 14px;
+	}
+
+	.themeText1 {
+		font-size: 12px;
+	}
+
+	.themeText2 {
+		font-size: 18px;
+	}	
+	
+	.collectionText0 {
+		font-size: 12px;
+	}
+
+	.collectionText1 {
+		font-size: 11px;
+	}
+
+	.collectionText2 {
+		font-size: 17px;
+	}
+
+	.entryText0 {
+		font-size: 12px;
+	}
+
+	.entryText1 {
+		font-size: 11px;
+	}
+
+	.entryText2 {
+		font-size: 17px;
+	}
+
+	.entry {
+		border-width: 3px;
+		box-shadow: 3px -2px 2px 1px black;
+	}
+	
+	.theme {
+		border-width: 3px;
+		box-shadow: 3px -2px 2px 1px black;
+	}
+
+	.linebreak {
+		height: 15px;	
+	}	
+
+	.pageCount {
+		font-size: 20px;
+		top: 15px;
+	}	
+
+	.itemCount {
+		font-size: 20px;
+		top: 15px;
+	}	
+
+	.filterCollection {
+		top: -5%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.backButton {
+		margin-top: 5px;
+		margin-left: 5px;
+	}
+	
+	.nextButton {
+		top: 5px;
+	}
+	
+	.prevButton {
+		top: 5px;
+	}
+	
+	.switchLang {
+		right: 5px;
+		top: 5px;		
+	}
+	
+	.switchCase {
+		right: 30px;
+		top: 5px;		
+	}
+	
+	.standardButton {
+		width: 30px;
+		height: 30px;
+	}
+
+	.filterButton {
+		left: 50px;
+		top: 5px;		
+	}
+	
+	.slideshow {
+		top: 5px;
+	}
+	
+	.entry {
+		border-width: 3px;
+		box-shadow: 3px -2px 2px 1px black;	
+	}
+	
+	.theme {
+		border-width: 3px;
+		box-shadow: 3px -2px 2px 1px black;	
+	}
+
+	.linebreak {
+		height: 10px;	
+	}	
+
+	.pageCount {
+		font-size: 18px;
+		right: 100px;
+		top: 10px;
+	}
+
+	.itemCount {
+		font-size: 18px;
+		top: 10px;
+	}	
+
+	.filterCollection {
+		top: -8%;
+	}	
+}
+
+
+@media screen and (min-width: 640px) and (max-width: 820px) {
+	.themeText0 {
+		font-size: 16px;
+	}
+
+	.themeText1 {
+		font-size: 16px;	
+	}
+
+	.themeText2 {
+		font-size: 20px;
+	}
+	
+	.collectionText0 {
+		font-size: 14px;
+	}
+
+	.collectionText1 {
+		font-size: 15px;
+	}
+
+	.collectionText2 {
+		font-size: 19px;
+	}
+
+	.entryText0 {
+		font-size: 14px;
+	}
+
+	.entryText1 {
+		font-size: 15px;
+	}
+
+	.entryText2 {
+		font-size: 19px;
+	}
+	
+	.entry  {
+		border-width: 4px;
+		box-shadow: 4px -3px 3px 2px black;	
+	}
+	
+	.theme {
+		border-width: 4px;
+		box-shadow: 4px -3px 3px 2px black;	
+	}	
+
+	.linebreak {
+		height: 20px;
+	}	
+
+	.pageCount {
+		font-size: 20px;
+		top: 20px;
+	}	
+	
+	.itemCount {
+		font-size: 20px;
+		top: 20px;
+	}
+
+	.filterCollection {
+		top: -3%;
+	}	
+}
+
+
+@media screen and (min-width: 820px) and (max-width: 1024px) {
+	.themeText0 {
+		font-size: 18px;
+	}
+
+	.themeText1 {
+		font-size: 18px;
+	}
+
+	.themeText2 {
+		font-size: 22px;
+	}	
+
+	.entryText0 {
+		font-size: 18px;
+	}
+
+	.entryText1 {
+		font-size: 18px;
+	}
+
+	.entryText2 {
+		font-size: 22px;
+	}	
+
+	.filterCollection {
+		top: -2%;
+	}	
 }

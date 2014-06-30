@@ -21,7 +21,7 @@ enyo.kind({
 	components: [
 		{name: "box", classes: "filterBox", components: [
 		]},
-		{name: "trash", kind: "Image", src: "images/trashcan.png", classes: "trashButton", ontap: "trashTaped"},		
+		{name: "trash", kind: "Image", src: "images/trashcan.png", classes: "standardButton trashButton", ontap: "trashTaped"},		
 	],
 	
 	// Constructor
@@ -48,6 +48,7 @@ enyo.kind({
 		var theme = -1;
 		if (this.filter != null && this.filter.kind == "Abcd.Collection")
 			theme = Abcd.collections[this.filter.index].theme;
+		this.$.box.createComponent({ classes: "linebreak" }).render();	
 		for (var i = 0 ; i < length ; i++) {
 			this.$.box.createComponent(
 				{ kind: "Abcd.Theme", index: i, selected: (i == theme), ontap: "displayCollections" },
@@ -56,6 +57,8 @@ enyo.kind({
 		}
 		
 		// Display letters
+		this.$.box.createComponent({ classes: "linebreak" }).render();	
+		this.$.box.createComponent({ classes: "linebreak" }).render();
 		for (var i = 0 ; i < 26 ; i++) {
 			var letter = String.fromCharCode(65+i).toLowerCase();
 			this.$.box.createComponent(

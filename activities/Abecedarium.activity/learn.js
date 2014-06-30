@@ -16,18 +16,18 @@ enyo.kind({
 		{components: [
 			{name: "colorBar", classes: "colorBar"},
 			{name: "home", kind: "Abcd.HomeButton"},
-			{name: "startSlideshow", kind: "Image", src: "images/slideshow.png", showing: false, ontap: "startSlideshow", classes: "slideshow"},
-			{name: "stopSlideshow", kind: "Image", src: "images/pause.png", showing: false, ontap: "stopSlideshow", classes: "slideshow"},
+			{name: "startSlideshow", kind: "Image", src: "images/slideshow.png", showing: false, ontap: "startSlideshow", classes: "standardButton slideshow"},
+			{name: "stopSlideshow", kind: "Image", src: "images/pause.png", showing: false, ontap: "stopSlideshow", classes: "standardButton slideshow"},
 			{kind: "Abcd.CaseButton"},
 			{kind: "Abcd.LanguageButton"}
 		]},
 		{components: [
 			{name: "pageCount", content: "-/-", classes: "pageCount", showing: false},
-			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "backButton", ontap: "backTaped"},
-			{name: "prev", kind: "Image", src: "images/previous.png", showing: false, classes: "prevButton", ontap: "displayPrevEntries"},
-			{name: "next", kind: "Image", src: "images/next.png", showing: false, classes: "nextButton", ontap: "displayNextEntries"}
+			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "standardButton backButton", ontap: "backTaped"},
+			{name: "prev", kind: "Image", src: "images/previous.png", showing: false, classes: "standardButton prevButton", ontap: "displayPrevEntries"},
+			{name: "next", kind: "Image", src: "images/next.png", showing: false, classes: "standardButton nextButton", ontap: "displayNextEntries"}
 		]},
-		{name: "box", components: [
+		{name: "box", classes: "learnBox", components: [
 		]}
 	],
 	
@@ -86,7 +86,8 @@ enyo.kind({
 		
 		// Change entry localization if any
 		enyo.forEach(this.$.box.getControls(), function(entry) {
-			entry.setLocale();
+			if (entry.kind != 'Control')
+				entry.setLocale();
 		});	
 	},
 	
@@ -96,18 +97,19 @@ enyo.kind({
 		enyo.forEach(this.$.box.getControls(), function(entry) {
 			if (entry.kind == 'Abcd.Letter')
 				entry.letterChanged();
-			else
+			else if (entry.kind != 'Control')
 				entry.indexChanged();
 		});		
 	},
 	
 	// Display themes and letters
 	displayThemes: function() {
-		// Display themes
+		// Display themes		
 		this.theme = -1;
 		var length = Abcd.themes.length;
-		this.cleanBox();
+		this.cleanBox();	
 		this.$.box.addClass("box-4-theme");
+		this.$.box.createComponent({ classes: "linebreak" }).render();		
 		Abcd.changeVisibility(this, {home: true, back: false, prev: false, next: false, pageCount: false, startSlideshow: false, stopSlideshow: false});
 		this.$.colorBar.addClass("themeColor"+this.theme);
 		for (var i = 0 ; i < length ; i++) {
@@ -116,6 +118,7 @@ enyo.kind({
 				{ owner: this }
 			).render();
 		}	
+		this.$.box.createComponent({ classes: "linebreak" }).render();
 		
 		// Display letters
 		for (var i = 0 ; i < 26 ; i++) {
@@ -139,6 +142,8 @@ enyo.kind({
 		this.$.colorBar.addClass("themeColor"+this.theme);
 		this.$.box.removeClass("box-4-theme");
 		this.$.box.addClass("box-4-collection");
+		this.$.box.createComponent({ classes: "linebreak" }).render();		
+		this.$.box.createComponent({ classes: "linebreak" }).render();		
 		for (var i = 0 ; i < length ; i++) {
 			if (Abcd.collections[i].theme != this.theme) continue;
 			this.$.box.createComponent({ kind: "Abcd.Collection", index: i, ontap: "displayEntries"}, {owner: this}).render();

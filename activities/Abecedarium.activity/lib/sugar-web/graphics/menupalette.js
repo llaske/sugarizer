@@ -1,4 +1,7 @@
-define(["sugar-web/graphics/palette", "mustache"], function (palette, mustache) {
+define(["sugar-web/graphics/palette",
+        "text!sugar-web/graphics/menupalette.html", "mustache"], function (palette, template, mustache) {
+
+    'use strict';
 
     var menupalette = {};
 
@@ -10,19 +13,9 @@ define(["sugar-web/graphics/palette", "mustache"], function (palette, mustache) 
 			'item': undefined	
 		});
 
-        this.template =
-            '{{#.}}' +
-            '<li><button' +
-            ' {{ #icon }}class="icon"{{ /icon }}' +
-            ' {{ #id }}id="{{ id }}"{{ /id }}' +
-            '>' +
-            '{{ #icon }}<span></span>{{ /icon }}' +
-            '{{ label }}</button></li>' +
-            '{{/.}}';
-
         var menuElem = document.createElement('ul');
         menuElem.className = "menu";
-        menuElem.innerHTML = mustache.render(this.template, menuData);
+        menuElem.innerHTML = mustache.render(template, menuData);
         this.setContent([menuElem]);
 
         // Pop-down the palette when a item in the menu is clicked.
@@ -48,13 +41,13 @@ define(["sugar-web/graphics/palette", "mustache"], function (palette, mustache) 
 
     menupalette.MenuPalette.prototype =
         Object.create(palette.Palette.prototype, {
-        addEventListener: {
-            value: addEventListener,
-            enumerable: true,
-            configurable: true,
-            writable: true
-        }
-    });
+            addEventListener: {
+                value: addEventListener,
+                enumerable: true,
+                configurable: true,
+                writable: true
+            }
+        });
 
     return menupalette;
 });

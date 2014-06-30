@@ -24,9 +24,9 @@ enyo.kind({
 			{name: "filterLetter", kind: "Abcd.Letter", letter: "", classes: "filterLetter"},
 			{name: "filterCollection", kind: "Abcd.Collection", index: 0, classes: "filterCollection", showing: false},
 			{name: "itemCount", content: "-/-", classes: "itemCount", showing: false},		
-			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "backButton", ontap: "backTaped"},
-			{name: "filter", kind: "Image", src: "images/filter.png", showing: false, classes: "filterButton", ontap: "filterTaped"},
-			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "checkButton", ontap: "checkTaped"}
+			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "standardButton backButton", ontap: "backTaped"},
+			{name: "filter", kind: "Image", src: "images/filter.png", showing: false, classes: "standardButton filterButton", ontap: "filterTaped"},
+			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"}
 		]},		
 		{name: "box", classes: "playbox", components: [
 		]},
@@ -163,8 +163,12 @@ enyo.kind({
 		});
 		
 		// Redraw filter letter and filter popup
-		this.$.filterLetter.letterChanged();
-		this.$.filterCollection.indexChanged();
+		if (this.filter != null) {
+			if (this.filter.kind == "Abcd.Letter")
+				this.$.filterLetter.letterChanged();
+			else
+				this.$.filterCollection.indexChanged();
+		}
 	},
 	
 	// Display filter dialog

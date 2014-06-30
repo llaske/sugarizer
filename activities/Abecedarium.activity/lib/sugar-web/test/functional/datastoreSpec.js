@@ -1,12 +1,21 @@
-define(["sugar-web/bus", "sugar-web/datastore"], function (bus, datastore) {
+define(["sugar-web/bus", "sugar-web/env", "sugar-web/datastore"], function (bus, env, datastore) {
+
+    'use strict';
+
+    var defaultTimeoutInterval = jasmine.getEnv().defaultTimeoutInterval;
 
     describe("datastore object", function () {
 
         beforeEach(function () {
+            // FIXME: due to db initialization,
+            // the very first save() call may take a while
+            jasmine.getEnv().defaultTimeoutInterval = 10000;
+            spyOn(env, 'isStandalone').andReturn(false);
             bus.listen();
         });
 
         afterEach(function () {
+            jasmine.getEnv().defaultTimeoutInterval = defaultTimeoutInterval;
             bus.close();
         });
 
@@ -95,10 +104,15 @@ define(["sugar-web/bus", "sugar-web/datastore"], function (bus, datastore) {
     describe("datastore", function () {
 
         beforeEach(function () {
+            // FIXME: due to db initialization,
+            // the very first save() call may take a while
+            jasmine.getEnv().defaultTimeoutInterval = 10000;
+            spyOn(env, 'isStandalone').andReturn(false);
             bus.listen();
         });
 
         afterEach(function () {
+            jasmine.getEnv().defaultTimeoutInterval = defaultTimeoutInterval;
             bus.close();
         });
 
@@ -195,6 +209,7 @@ define(["sugar-web/bus", "sugar-web/datastore"], function (bus, datastore) {
             var wasLoaded = false;
             var objectId = null;
             var inputStream = null;
+            var objectData = null;
             var testData = new Uint8Array([1, 2, 3, 4]);
 
             runs(function () {

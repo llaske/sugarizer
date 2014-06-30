@@ -6,7 +6,7 @@ enyo.kind({
 	classes: "itemLetter",
 	showing: false,
 	components: [
-		{ name: "itemImage", kind: "Image", onload: "imageLoaded" }
+		{ name: "itemImage", kind: "Image", classes: "itemImage", onload: "imageLoaded" }
 	],
 	
 	// Constructor

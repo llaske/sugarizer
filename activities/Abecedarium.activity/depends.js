@@ -1,5 +1,4 @@
 ﻿enyo.depends(
-	"sugar.js",	
 	"util.js",
 	"database.js",
 	"config.js",

@@ -5,7 +5,7 @@ enyo.kind({
 	name: "Abcd.HomeButton",
 	kind: enyo.Control,
 	components: [
-		{name: "home", kind: "Image", src: "images/home.png", classes: "backButton", ontap: "goHome"},
+		{name: "home", kind: "Image", src: "images/home.png", classes: "standardButton backButton", ontap: "goHome"},
 	],
 	
 	// Constructor
@@ -32,9 +32,9 @@ enyo.kind({
 	kind: enyo.Control,
 	classes: "switchCase",
 	components: [
-		{name: "switchToUpper", kind: "Image", src: "images/case0.png", classes: "switchCaseButton", ontap: "localUpper"},			
-		{name: "switchToScript", kind: "Image", src: "images/case1.png", showing: false, classes: "switchCaseButton", ontap: "localScript"},			
-		{name: "switchToLower", kind: "Image", src: "images/case2.png", showing: false, classes: "switchCaseButton", ontap: "localLower"},			
+		{name: "switchToUpper", kind: "Image", src: "images/case0.png", classes: "standardButton switchCaseButton", ontap: "localUpper"},			
+		{name: "switchToScript", kind: "Image", src: "images/case1.png", showing: false, classes: "standardButton switchCaseButton", ontap: "localScript"},			
+		{name: "switchToLower", kind: "Image", src: "images/case2.png", showing: false, classes: "standardButton switchCaseButton", ontap: "localLower"},			
 	],
 	
 	// Constructor
@@ -68,9 +68,9 @@ enyo.kind({
 	kind: enyo.Control,
 	classes: "switchLang",
 	components: [
-		{name: "switchToFrench", kind: "Image", src: "images/us.png", showing: false, classes: "switchLangButton", ontap: "localFrench"},
-		{name: "switchToSpanish", kind: "Image", src: "images/fr.png", classes: "switchLangButton", ontap: "localSpanish"},
-        {name: "switchToEnglish", kind: "Image", src: "images/es.png", showing: false, classes: "switchLangButton", ontap: "localEnglish"},
+		{name: "switchToFrench", kind: "Image", src: "images/us.png", showing: false, classes: "standardButton switchLangButton", ontap: "localFrench"},
+		{name: "switchToSpanish", kind: "Image", src: "images/fr.png", classes: "standardButton switchLangButton", ontap: "localSpanish"},
+        {name: "switchToEnglish", kind: "Image", src: "images/es.png", showing: false, classes: "standardButton switchLangButton", ontap: "localEnglish"},
 	],
 	
 	// Constructor

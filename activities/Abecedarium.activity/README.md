@@ -15,20 +15,10 @@ All contents come from the Art4apps library. See Credits page for more.
 
 # How it works ?
 
-Abecedarium is wrote mainly in HTML5/JavaScript using the Enyo Framework.  
-All the HTML5/JavaScript is encapsulated in Python code executing a WebView (an instance of the WebKit browser).  
+Abecedarium is wrote mainly in HTML5/JavaScript using Sugar Web Framework and the Enyo Framework.  
 
 # Folders
 
-## /.
-
-Contains Python code (activity.py) and the framework to communicate between Python and JavaScript (enyo.py).
-
-## /activity
-
-Contains the Sugar manifest manifest to describe the activity.
-
-## /html
 
 All the HTML5/JavaScript is in this directory. 
 * index.html is the HTML container
@@ -41,19 +31,24 @@ All the HTML5/JavaScript is in this directory.
 * credits.js is the credit screen
 * all other .js files are component used by the games
 
+## /activity
 
-## /html/enyo and /html/lib
+Contains the Sugar manifest manifest to describe the activity.
 
-Contains the Enyo Framework.
+## /js
 
-## /html/audio
+Entry point for activity.
+
+## /enyo and /lib
+
+Contains the JavaScript Frameworks.
+
+## /audio
 
 Contains all music and sound files.
 
-## /html/images
+## /images
 
 Contains all images.
 
-## /html/css
 
-Styles sheet for different platforms.
