@@ -30,9 +30,24 @@ var zoom;
 function eventInit(){
 	window.onmousedown = evMousedown;	
 	frame.onmousemove = evMousemove;	
-	frame.onmouseup = evMouseup;	
-	zoom = 1.10;
-	document.body.style.zoom = zoom;
+	frame.onmouseup = evMouseup;
+	var wsize = window.innerWidth;
+	var wtop = 55;
+	if (wsize <= 480) {
+		zoom = 0.353;
+		wtop = 150;
+	} else if (wsize <= 768) {
+		zoom = 0.6;
+		wtop = 90;
+	} else if (wsize <= 1024) {
+		zoom = 0.95;
+		wtop = 60;
+	} else {
+		zoom = 1.10;
+		wtop = 55;	
+	}
+	document.getElementById("canvas").style.zoom = zoom;
+	document.getElementById("canvas").style.top = wtop + "px";
 }
 
 function evMousedown(e){
