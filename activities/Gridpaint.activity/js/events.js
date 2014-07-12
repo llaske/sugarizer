@@ -26,6 +26,7 @@
 
 var onStart, onMove, onEnd;
 var zoom;
+var shiftTop;
 
 function eventInit(){
 	window.onmousedown = evMousedown;	
@@ -36,18 +37,31 @@ function eventInit(){
 	if (wsize <= 480) {
 		zoom = 0.353;
 		wtop = 150;
+		shiftTop = -85;
 	} else if (wsize <= 768) {
 		zoom = 0.6;
 		wtop = 90;
+		shiftTop = -40;
 	} else if (wsize <= 1024) {
 		zoom = 0.95;
 		wtop = 60;
+		shiftTop = 0;
 	} else {
 		zoom = 1.10;
 		wtop = 55;	
+		shiftTop = 0;
 	}
 	document.getElementById("canvas").style.zoom = zoom;
-	document.getElementById("canvas").style.top = wtop + "px";
+	var useragent = navigator.userAgent.toLowerCase();
+	if (useragent.indexOf('chrome') == -1) {
+		document.getElementById("canvas").style.MozTransform = "scale("+zoom+")";
+		document.getElementById("canvas").style.MozTransformOrigin = "0 0";
+		document.getElementById("canvas").style.width = "1024px";
+		document.getElementById("canvas").style.height = "748px";	
+	} else {
+		document.getElementById("canvas").style.top = wtop + "px";
+		shiftTop = 0;
+	}
 }
 
 function evMousedown(e){
@@ -71,5 +85,7 @@ function evMouseup(e){
 }
 
 function localx(gx){return (gx/zoom-frame.getBoundingClientRect().left);}
-function localy(gy){return (gy/zoom-frame.getBoundingClientRect().top);}
+function localy(gy){
+	return (gy/zoom+shiftTop-frame.getBoundingClientRect().top);
+}
 
