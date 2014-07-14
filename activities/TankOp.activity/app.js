@@ -7,10 +7,13 @@ enyo.kind({
 	classes: "home",
 	components: [
 		// Image 
-		{classes: "home-image"},
+		{kind: "Image", classes: "home-image", src: "images/home.png"},
 		
 		// Popup
-		{content: "START", classes: "start-button", ontap: "play"},
+		{classes: "start-button", ontap: "play", components: [
+			{kind: "Image", classes: "start-button-image", src: "images/button.png"},		
+			{content: "START", classes: "start-button-text"}
+		]},
 		
 		// Credit
 		{kind: "Image", classes: "credit-button", src: "images/credit.png", ontap: "showCredit"},
@@ -22,9 +25,9 @@ enyo.kind({
 				{content: "NEXT MISSION", classes: "mission-header mission-line"},
 				{content: ":", classes: "mission-dot mission-line"}
 			]},
-			{classes: "go-left mission-line", ontap: "previousMission"},
+			{classes: "go-arrow go-left mission-line", ontap: "previousMission"},
 			{name: "mission", content: " ", classes: "mission-text mission-line"},			
-			{classes: "go-right mission-line", ontap: "nextMission"}		
+			{classes: "go-arrow go-right mission-line", ontap: "nextMission"}		
 		]},
 		
 		{classes: "mission-status", components: [
@@ -33,18 +36,18 @@ enyo.kind({
 				{content: ":", classes: "mission-dot mission-line"}
 			]},
 			{name: "stars", components: [
-				{classes: "mission-completed mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"},
-				{classes: "mission-tocomplete mission-line"}
+				{classes: "mission mission-completed mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"},
+				{classes: "mission mission-tocomplete mission-line"}
 			]}
 		]}
 	],
@@ -69,7 +72,7 @@ enyo.kind({
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };		
 		for (var i = 0 ; i < settings.levels.length ; i++) {
 			this.$.stars.createComponent({
-					classes: (settings.levels[i].completed ? "mission-completed mission-line" : "mission-tocomplete mission-line")
+					classes: (settings.levels[i].completed ? "mission mission-completed mission-line" : "mission mission-tocomplete mission-line")
 				},
 				{owner: this}).render();		
 		}

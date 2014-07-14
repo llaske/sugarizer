@@ -5,47 +5,46 @@ enyo.kind({
 	kind: enyo.Control,
 	classes: "board",
 	published: { level: 0 },
-	components: [
+	components: [	
+		// Playing zone
+		{name: "gamebox", classes: "game-box", ontap: "gameClick", components: [
+		]},
+		
 		// Status and score
 		{classes: "status-line", components: [
 			{content: "WAVE", classes: "wave-text"},
 			{name: "wave", content: "1", classes: "wave-value"},
 			{content: "SCORE", classes: "score-text"},
 			{name: "score", content: "0000", classes: "score-value"}
-		]},
-		
-		// Playing zone
-		{name: "gamebox", classes: "game-box", ontap: "gameClick", components: [
-		]},
+		]},		
 		
 		// Home button
 		{kind: "Image", classes: "home-button", src: "images/gohome.png", ontap: "goHome"},
 		
-		// LCD counter
-		{classes: "display-line", components: [
-			{name: "lcd", kind: "LcdDisplay", classes: "lcd-value", size: 3, value: ""},
-			{name: "switchkeyboard", kind: "Image", classes: "keyboard-view", src: "images/keyboard_show.svg", ontap: "switchKeyboard"}
-		]},
-		
-		// Keyboard
-		{name: "keyboard", classes: "keyboard-line", showing: false, components: [
+		// LCD counter and Keyboard
+		{name: "keyboard", classes: "keyboard-set", components: [
+			{classes: "display-line", components: [
+				{name: "lcd", kind: "LcdDisplay", classes: "lcd-value", size: 3, value: ""}
+			]},
 			{classes: "keyboard-line", components: [
 				{kind: "Image", src: "images/key_1.svg", classes: "keyboard", ontap: "virtkeyPressed"},
 				{kind: "Image", src: "images/key_2.svg", classes: "keyboard", ontap: "virtkeyPressed"},
-				{kind: "Image", src: "images/key_3.svg", classes: "keyboard", ontap: "virtkeyPressed"},
-				{kind: "Image", src: "images/key_0.svg", classes: "keyboard", ontap: "virtkeyPressed"}			
+				{kind: "Image", src: "images/key_3.svg", classes: "keyboard", ontap: "virtkeyPressed"}			
 			]},
 			{classes: "keyboard_line", components: [
 				{kind: "Image", src: "images/key_4.svg", classes: "keyboard", ontap: "virtkeyPressed"},
 				{kind: "Image", src: "images/key_5.svg", classes: "keyboard", ontap: "virtkeyPressed"},
-				{kind: "Image", src: "images/key_6.svg", classes: "keyboard", ontap: "virtkeyPressed"},
-				{kind: "Image", src: "images/key_fire.svg", classes: "keyboard", ontap: "virtkeyPressed"}
+				{kind: "Image", src: "images/key_6.svg", classes: "keyboard", ontap: "virtkeyPressed"}
 			]},
 			{classes: "keyboard_line", components: [
 				{kind: "Image", src: "images/key_7.svg", classes: "keyboard", ontap: "virtkeyPressed"},
 				{kind: "Image", src: "images/key_8.svg", classes: "keyboard", ontap: "virtkeyPressed"},
 				{kind: "Image", src: "images/key_9.svg", classes: "keyboard", ontap: "virtkeyPressed"}
-			]}			
+			]},	
+			{classes: "keyboard_line", components: [
+				{kind: "Image", src: "images/key_0.svg", classes: "keyboard", ontap: "virtkeyPressed"},
+				{kind: "Image", src: "images/key_fire.svg", classes: "keyboard", ontap: "virtkeyPressed"}
+			]}				
 		]},
 		
 		// Key handling
@@ -66,8 +65,21 @@ enyo.kind({
 		this.waitForClick = false;
 		
 		// Init canvas
-		this.$.gamebox.setStyle("width:"+constant.areaWidth+"px; height:"+constant.areaHeight+"px;");
-		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});
+		var wsize = window.innerWidth;
+		if (wsize <= 480) {
+			this.zoom = 0.4;
+		} else if (wsize <= 640) {
+			this.zoom = 0.5;
+		} else if (wsize <= 768) {
+			this.zoom = 0.62;
+		} else if (wsize <= 1024) {
+			this.zoom = 0.88;
+		} else {
+			this.zoom = 1;
+		}		
+		
+		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");		
+		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});	
 
 		// Start game loop
 		this.loopTimer = window.setInterval(enyo.bind(this, "gameLoopTick"), constant.loopInterval);		
@@ -153,8 +165,15 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		// Init game
-		if (!this.initializedGame)
+		if (!this.initializedGame) {
+			// Init context
 			this.initGame();
+
+			// Set zoom
+			this.canvas.hasNode().style.MozTransform = "scale("+this.zoom+")";
+			this.canvas.hasNode().style.MozTransformOrigin = "0 0";
+			this.canvas.hasNode().style.zoom = this.zoom;			
+		}
 	},
 	
 	cacheLoaded: function() {
@@ -264,13 +283,6 @@ enyo.kind({
 			this.keyPressed(null, {charCode: 32});
 		else
 			this.keyPressed(null, {charCode: 48+parseInt(value)});
-	},
-	
-	// Show/hide virtual keyboard
-	switchKeyboard: function() {
-		var showing = this.$.keyboard.getShowing();
-		this.$.keyboard.setShowing(!showing);
-		this.$.switchkeyboard.setSrc(showing ? "images/keyboard_show.svg" : "images/keyboard_hide.svg");
 	},
 	
 	goHome: function() {

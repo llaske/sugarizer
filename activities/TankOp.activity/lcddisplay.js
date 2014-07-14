@@ -26,8 +26,19 @@ enyo.kind({
 	// Size changed, reinit
 	sizeChanged: function() {
 		// Resize
-		this.applyStyle("width", (30*this.size)+"px");
-		this.applyStyle("height", 48+"px");
+		var wsize = window.innerWidth;
+		var digitwidth;
+		var digitheight;
+		var zoom;
+		if (wsize <= 480) {
+			digitwidth = 20;
+			digitheight = 32;
+		} else {
+			digitwidth = 30;
+			digitheight = 48;
+		}		
+		this.applyStyle("width", (digitwidth*this.size)+"px");
+		this.applyStyle("height", digitheight+"px");
 		
 		// Clean digits
 		var items = [];
