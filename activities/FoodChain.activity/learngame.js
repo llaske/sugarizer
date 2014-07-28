@@ -18,11 +18,15 @@ enyo.kind({
 		{ name: "cards", components: [
 			// Level - Score - Time bar
 			{ components: [
-				{ name: "textlevel", classes: "title level-value" },
-				{ name: "level", content: "0", classes: "title level-value" },
-				{ name: "textscore", classes: "title score" },
-				{ name: "score", content: "0000", classes: "title score-value" },
-				{ name: "timercount", content: "0:0,0", classes: "title timer-value" }				
+				{ classes: "level-zone", components: [
+					{ name: "textlevel", classes: "title level-value" },
+					{ name: "level", content: "0", classes: "title level-value" }
+				]},
+				{ classes: "score-zone", components: [
+					{ name: "textscore", classes: "title score-text" },
+					{ name: "score", content: "0000", classes: "title score-value" },
+					{ name: "timercount", content: "0:0,0", classes: "title timer-value" }					
+				]}
 			]},	
 			
 			// Board zone
@@ -147,7 +151,7 @@ enyo.kind({
 			// Display next card
 			} else {
 				this.currentcard = this.currentcard + 1;
-				var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 10, y: 10, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});	
+				var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 5, y: 5, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});	
 				FoodChain.sound.play(card.sound);	
 				this.render();
 			}
@@ -250,6 +254,7 @@ enyo.kind({
 		
 		// Draw in the new box
 		this.dragobject.setContainer(s);
+		this.dragobject.moveTo(5,0);
 		this.render();
 		
 		// Test if in the right box

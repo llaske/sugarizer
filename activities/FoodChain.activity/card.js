@@ -42,7 +42,10 @@ enyo.kind({
 	
 	// Coordinate setup
 	xChanged: function() {
-		this.applyStyle("margin-left", this.x+"px");
+		if (this.x.toString().indexOf("%") != -1)
+			this.applyStyle("margin-left", this.x);
+		else
+			this.applyStyle("margin-left", this.x+"px");
 	},
 	
 	// Coordinate setup

@@ -1,4 +1,7 @@
 define(function () {
+
+    'use strict';
+
     var palettesGroup = [];
 
     function getOffset(elem) {
@@ -73,7 +76,7 @@ define(function () {
             document.body.appendChild(paletteElem);
 
             if (that.invoker.classList.contains("toolbutton")) {
-                invokerElem = document.createElement('div');
+                var invokerElem = document.createElement('div');
                 invokerElem.className = "palette-invoker";
                 var style = that.invoker.currentStyle ||
                     window.getComputedStyle(that.invoker, '');
@@ -154,7 +157,7 @@ define(function () {
 
     palette.Palette.prototype.popUp = function () {
         for (var i = 0; i < palettesGroup.length; i++) {
-            otherPalette = palettesGroup[i];
+            var otherPalette = palettesGroup[i];
             if (otherPalette != this) {
                 otherPalette.popDown();
             }

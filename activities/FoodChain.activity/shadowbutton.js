@@ -10,9 +10,10 @@ enyo.kind({
 	published: {
 		img: ""
 	},
+	classes: "shadowbutton-container",
 	components: [
-		{ name: "button", kind: "Image", classes: "shadowbutton", onenter: "showShadow", onleave: "hideShadow" },
-		{ name: "buttonshadow", kind: "Image", classes: "shadowbutton-shadow" }
+		{ name: "button", kind: "Image", classes: "shadowbutton shadowbutton-image", onenter: "showShadow", onleave: "hideShadow" },
+		{ name: "buttonshadow", kind: "Image", classes: "shadowbutton-shadow shadowbutton-image" }
 	],
 	
 	// Constructor

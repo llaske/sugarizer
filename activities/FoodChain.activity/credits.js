@@ -3,9 +3,9 @@
 enyo.kind({
 	name: "FoodChain.Credits",
 	kind: enyo.Control,
-	classes: "board",
+	classes: "board credits-popup",
 	components: [
-		{ components: [
+		{ kind: "Scroller", classes: "credit-content", components: [
 			{ classes: "two-column-credits", components: [
 				{ name: "concept", classes: "credit-title" },
 				{ content: "Lionel Laské", classes: "credit-name" },
@@ -23,9 +23,9 @@ enyo.kind({
 				{ content: "Galeky (flyes)", classes: "credit-name" },	
 				{ content: "Novino (snake)", classes: "credit-name" }
 			]},
-			{kind: "Canvas", name: "canvas", classes: "emul-canvas", attributes: {width: 300, height: 600}}			
-		]},
-		{ name: "home", kind: "ShadowButton", img: "home", classes: "home", ontap: "home" },	
+			{kind: "Canvas", name: "canvas", classes: "emul-canvas", attributes: {width: 300, height: 600}}
+		]},	
+		{ name: "home", kind: "ShadowButton", img: "home", classes: "home", ontap: "home" },		
 		
 		// Preload iamges
 		{kind: "Image", id: "frog4", src:"images/frog4.png", classes: "image-preload", onload: "initCanvas" },
@@ -57,6 +57,10 @@ enyo.kind({
 	// Image loaded, display elements of play game
 	initCanvas: function() {
 		this.ctx = this.$.canvas.node.getContext('2d');	
+		var zoom = FoodChain.getZoomLevel();
+		this.$.canvas.hasNode().style.MozTransform = "scale("+zoom+")";
+		this.$.canvas.hasNode().style.MozTransformOrigin = "0 0";
+		this.$.canvas.hasNode().style.zoom = zoom;		
 		this.ctx.clearRect(0, 0, this.$.canvas.attributes.width, this.$.canvas.attributes.height);	
 		
 		var fly = new Sprite({x: 150, y: 50, heading: 0, images: ["fly1"], width: 58, height: 86, index: 0});

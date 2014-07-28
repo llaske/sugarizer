@@ -1,4 +1,7 @@
 define(["sugar-web/graphics/menupalette", "sugar-web/graphics/palette"], function (menupalette, palette) {
+
+    'use strict';
+
     describe("menupalette", function () {
 
         var invoker;

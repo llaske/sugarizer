@@ -43,29 +43,33 @@ enyo.kind({
 	classes: "board",
 	components: [
 		{ name: "cards", components: [
-			// Level - Score - Time bar
-				{ name: "lifes", classes: "life-border", components: [
-					{ kind: "Image", classes: "life", src:"images/frog9.png" },
-					{ kind: "Image", classes: "life", src:"images/frog9.png" },
-					{ kind: "Image", classes: "life", src:"images/frog9.png" }
-				]},				
-			{ components: [
-				{ name: "textlevel", classes: "title level-value" },
-				{ name: "level", content: "0", classes: "title level-value" },
-				{ name: "textscore", classes: "title score" },
-				{ name: "score", content: "0000", classes: "title score-value" },
-				{ name: "timercount", content: "0:0,0", classes: "title timer-value" }			
+			// Level - Score - Time bar			
+			{ classes: "status-bar", components: [
+				{ classes: "level-zone", components: [
+					{ name: "textlevel", classes: "title level-value" },
+					{ name: "level", content: "0", classes: "title level-value" }
+				]},
+				{ classes: "score-zone", components: [
+					{ name: "textscore", classes: "title score-text" },
+					{ name: "score", content: "0000", classes: "title score-value" },
+					{ name: "timercount", content: "0:0,0", classes: "title timer-value" }					
+				]}				
 			]},	
+			{ name: "lifes", classes: "life-border", components: [
+				{ kind: "Image", classes: "life", src:"images/frog9.png" },
+				{ kind: "Image", classes: "life", src:"images/frog9.png" },
+				{ kind: "Image", classes: "life", src:"images/frog9.png" }
+			]},				
 			
 			// Playing zone
 			{ name: "gamebox", classes: "game-box", components: [				
 			]},
-			
+				
 			// Buttons bar
 			{ name: "play", kind: "ShadowButton", img: "play", classes: "play", ontap: "play" },	
 			{ name: "pause", kind: "ShadowButton", img: "pause", classes: "play", ontap: "pause" },	
 			{ name: "forward", kind: "ShadowButton", img: "forward", classes: "restart", ontap: "next" },
-			{ name: "home", kind: "ShadowButton", img: "home", classes: "home", ontap: "home" },
+			{ name: "home", kind: "ShadowButton", img: "home", classes: "home2", ontap: "home" },
 
 			// End of sound event
 			{kind: "Signals", onEndOfSound: "endSound", onkeypress: "keyPressed"},
@@ -102,10 +106,11 @@ enyo.kind({
 		this.imagesToLoad = 20;
 		this.nextaction = 0;
 		FoodChain.playArea = {		
-			width: FoodChain.getConfig("screen-width")-40,
-			height: FoodChain.getConfig("screen-height")-300
+			width: 984,
+			height: 560
 		};
-		this.$.gamebox.setStyle("width:"+FoodChain.playArea.width+"px; height:"+FoodChain.playArea.height+"px;");
+		var zoom = FoodChain.getZoomLevel();
+		this.$.gamebox.setStyle("max-height: "+(FoodChain.playArea.height*zoom)+"px;"+"max-width: "+(FoodChain.playArea.width*zoom)+"px;");	
 		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.createComponent({ name: "timerMonster", kind: "Timer", baseInterval: 500, onTriggered: "monsterEngine" }, {owner: this});
@@ -124,7 +129,7 @@ enyo.kind({
 	
 	// Level changed, init board then start game
 	levelChanged: function() {
-
+		
 		// Init frog
 		FoodChain.context.level = this.level;
 		this.frog = new Sprite({
@@ -223,7 +228,11 @@ enyo.kind({
 	
 	// All image loaded, start displaying game
 	initGame: function() {
-		this.ctx = this.canvas.node.getContext('2d');	
+		var zoom = FoodChain.getZoomLevel();
+		this.canvas.hasNode().style.MozTransform = "scale("+zoom+")";
+		this.canvas.hasNode().style.MozTransformOrigin = "0 0";
+		this.canvas.hasNode().style.zoom = zoom;	
+		this.ctx = this.canvas.node.getContext('2d');
 		this.ctx.clearRect(0, 0, this.canvas.attributes.width, this.canvas.attributes.height);		
 		
 		// Draw rocks

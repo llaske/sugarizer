@@ -41,38 +41,6 @@ FoodChain.loadContext = function(callback) {
 	});
 };
 
-// Global config, HACK: put it in a dummy rule of the CSS file
-FoodChain.getConfig = function(name) {
-	// Description of config parameters
-	var config = [
-		{ name: "screen-width", attribute: "width", strip: 2},
-		{ name: "screen-height", attribute: "height", strip: 2},
-		{ name: "card-width", attribute: "margin-left", strip: 2}
-	];
-	
-	// Look for the parameter
-	for (var i = 0 ; i < config.length ; i++ ) {
-		// Same name
-		if (config[i].name == name) {
-			// Get value in the style
-			var el = document.getElementById("header");
-			var value = null;
-			if (el.currentStyle) {
-				value = el.currentStyle[config[i].attribute];
-			} else if (window.getComputedStyle) {
-				value = document.defaultView.getComputedStyle(el,null).getPropertyValue(config[i].attribute);
-			}
-			
-			// Strip value
-			if (value != null) {
-				value = 10*value.substring(0, value.length-config[i].strip)
-			}
-			return value;
-		}
-	}
-	return null;
-};
-
 // Home handling
 FoodChain.goHome = function() {
 	if (FoodChain.context.home != null) {
@@ -132,4 +100,24 @@ FoodChain.soundMatch = function(s1, s2) {
 	var l2 = s2.length-1;
 	while (l2 > 0 && s2[l2] != '/') l2--;
 	return s1.substring(l1) == s2.substring(l2);
+};
+
+// Get zoom level
+FoodChain.getZoomLevel = function() {
+		var wsize = window.innerWidth;
+		var zoom;
+		if (wsize <= 480) {
+			zoom = 0.4;
+		} else if (wsize <= 640) {
+			zoom = 0.5;
+		} else if (wsize <= 854) {
+			zoom = 0.62;
+		} else if (wsize <= 960) {
+			zoom = 0.72;
+		} else if (wsize <= 1024) {
+			zoom = 0.88;
+		} else {
+			zoom = 1;
+		}
+		return zoom;
 };

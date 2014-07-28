@@ -19,11 +19,15 @@ enyo.kind({
 		{ name: "cards", components: [
 			// Level - Score - Time bar
 			{ components: [
-				{ name: "textlevel", classes: "title level-value" },
-				{ name: "level", content: "0", classes: "title level-value" },
-				{ name: "textscore", classes: "title score" },
-				{ name: "score", content: "0000", classes: "title score-value" },
-				{ name: "timercount", content: "0:0,0", classes: "title timer-value" }			
+				{ classes: "level-zone", components: [
+					{ name: "textlevel", classes: "title level-value" },
+					{ name: "level", content: "0", classes: "title level-value" }
+				]},
+				{ classes: "score-zone", components: [
+					{ name: "textscore", classes: "title score-text" },
+					{ name: "score", content: "0000", classes: "title score-value" },
+					{ name: "timercount", content: "0:0,0", classes: "title timer-value" }					
+				]}		
 			]},	
 			
 			// Board zone
@@ -98,12 +102,12 @@ enyo.kind({
 		}
 	
 		// Display cards
-		var step = (FoodChain.getConfig("screen-width")-40)/this.mixed.length;
-		var x = (step/2) - (FoodChain.getConfig("card-width")/2), y = 30;
+		var step = 99/this.mixed.length;
+		var x = 5-this.mixed.length, y = 8;
 		this.cards = [];
 		for (var i = 0 ; i < this.mixed.length ; i++) {
 			var autoplay = (i == 0) ? true: false;
-			this.cards.push(this.$.gamebox.createComponent({ kind: "FoodChain.Card", cardname: this.mixed[i], x: x, y: y, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this}));
+			this.cards.push(this.$.gamebox.createComponent({ kind: "FoodChain.Card", cardname: this.mixed[i], x: x+"%", y: y, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this}));
 			if (i == 0) {
 				FoodChain.sound.play(this.cards[i].sound);
 			} else {
@@ -229,7 +233,7 @@ enyo.kind({
 		FoodChain.sound.play(s.sound);
 		this.dragobject = s;
 		this.selectedobject = null;
-		this.dragx = e.clientX-s.x;
+		this.dragx = 0;
 		this.dragy = e.clientY-s.y;
 		this.toTop(this.dragobject);
 	},
@@ -253,7 +257,7 @@ enyo.kind({
 		if (this.dragobject == null || this.$.timer.paused)
 			return true;		
 		e.preventDefault();
-		this.dragobject.moveTo(e.clientX-this.dragx, e.clientY-this.dragy);
+		this.dragobject.moveTo((e.clientX/window.innerWidth)*100+"%", e.clientY-this.dragy);
 		this.dragobject = null;
 	},
 	
@@ -280,7 +284,7 @@ enyo.kind({
 		});	
 		
 		// Sort using x card position
-		cards = cards.sort(function (c1, c2) { return c1.x - c2.x; });
+		cards = cards.sort(function (c1, c2) { return c1.x.replace("%","") - c2.x.replace("%",""); });
 		
 		// Check order
 		var win = true;

@@ -10,20 +10,9 @@ Third game is an arcade game. You handle a frog and you need to eat flies avoidi
 
 # How it works ?
 
-FoodChain is wrote mainly in HTML5/JavaScript using the Enyo Framework.  
-All the HTML5/JavaScript is encapsulated in Python code executing a WebView (an instance of the WebKit browser).  
+FoodChain is wrote mainly in HTML5/JavaScript using the Sugar Web Framework and the Enyo Framework.  
 
 # Folders
-
-## /.
-
-Contains Python code (activity.py) and the framework to communicate between Python and JavaScript (enyo.py).
-
-## /activity
-
-Contains the Sugar manifest manifest to describe the activity.
-
-## /html
 
 All the HTML5/JavaScript is in this directory. 
 * index.html is the HTML container
@@ -36,18 +25,27 @@ All the HTML5/JavaScript is in this directory.
 * credits.js is the credit screen
 * all other .js files are component used by the games
 
-## /html/enyo and /html/lib
+## /activity
 
-Contains the Enyo Framework.
+Contains the Sugar manifest manifest to describe the activity.
 
-## /html/audio
+# /js
+
+Contains entry point.
+
+
+## /enyo and /lib
+
+Contains the JavaScript Framework.
+
+## /audio
 
 Contains all music and sound files.
 
-## /html/images
+## /images
 
 Contains all images.
 
-## /html/css
+## /css
 
 Styles sheet for different platforms.

@@ -107,8 +107,8 @@ enyo.kind({
 		}
 		
 		// Display a new card
-		var x = Math.floor(Math.random()*(FoodChain.getConfig("screen-width")-FoodChain.getConfig("card-width")));
-		var y = Math.floor(Math.random()*400);
+		var x = Math.floor(Math.random()*window.innerWidth*0.7);
+		var y = Math.floor(Math.random()*window.innerHeight*0.7);
 		this.$.cardbox.createComponent({ kind: "FoodChain.Card", cardname: this.cards[this.cardcount], x: x, y: y, z: 0}).render();
 		this.cardcount = this.cardcount + 1;
 	},

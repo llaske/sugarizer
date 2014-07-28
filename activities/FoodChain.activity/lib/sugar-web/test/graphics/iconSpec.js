@@ -1,4 +1,7 @@
 define(["sugar-web/graphics/icon"], function (icon) {
+
+    'use strict';
+
     describe("icon", function () {
         var wasLoaded;
         var iconUrlResult;
@@ -15,7 +18,7 @@ define(["sugar-web/graphics/icon"], function (icon) {
             runs(function () {
                 wasLoaded = false;
                 iconUrl = "/base/graphics/icons/actions/dialog-ok-active.svg";
-                iconInfo = {
+                var iconInfo = {
                     "uri": iconUrl,
                     "strokeColor": '#B20008',
                     "fillColor": '#FF2B34'
@@ -34,7 +37,7 @@ define(["sugar-web/graphics/icon"], function (icon) {
             runs(function () {
                 wasLoaded = false;
                 iconUrl = iconUrlResult;
-                iconInfo = {
+                var iconInfo = {
                     "uri": iconUrl,
                     "strokeColor": '#FF2B34',
                     "fillColor": '#B20008'

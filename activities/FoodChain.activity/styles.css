@@ -35,6 +35,8 @@
 	width: 100%;
 	height: 100%;
 	z-index: 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
 .glass {
@@ -49,38 +51,40 @@
 
 .logo {
 	position: absolute;
-	left: 230px;
-	top: 110px;
+	margin-top: 5%;
+	margin-left: 28%;
 	z-index: 2;
+	max-width: 50%;
 }
 
 .game-LearnGame {
 	position: absolute;
-	left: 250px;
-	top: 330px;
+	left: 10%;
+	top: 40%;
 	z-index: 2;
 }
 
 .game-BuildGame {
 	position: absolute;
-	left: 450px;
-	top: 280px;
+	left: 40%;
+	top: 30%;
 	z-index: 2;	
 }
 
 .game-PlayGame {
 	position: absolute;
-	left: 650px;
-	top: 330px;
+	left: 70%;
+	top: 40%;
 	z-index: 2;	
 }
 
 .game-popup {
 	position: absolute;
-	left: 400px;
-	top: 460px;
-	width: 250px;
+	left: 25%;
+	top: 55%;
+	width: 40%;
 	height: 300px;
+	max-height: 30%;
 	border: medium solid black;
 	border-radius: 20px / 15px;
 	background-color: white;
@@ -112,18 +116,18 @@
 .information {
 	position: absolute;
 	left: 85%;
-	top: 80%;
+	bottom: 25%;
 }
 
 /* Game One */
 
 .start-box {
-	margin-top: 0px;
-	margin-left: 450px;
+	margin-top: 1%;
+	margin-left: 40%;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
-	width: 260px;
+	width: 25%;
 	height: 260px;
 	z-index: -1;
 }
@@ -131,7 +135,7 @@
 .end-box {
 	border-width: 2px;
 	border-style: dashed;
-	width: 260px;
+	width: 25%;
 	height: 300px;
 	z-index: -1;
 	display: inline-block;	
@@ -139,33 +143,37 @@
 }
 
 .herb-box-two {
-	margin-top: 10px;
-	margin-left: 250px;
-	background-image: url(images/grass.png);	
+	margin-top: 1%;
+	margin-left: 20%;
+	background-image: url(images/grass.png);
+	background-size: 70%;	
 	background-repeat: no-repeat;	
 	background-position: center;	
 }
 
 .herb-box-three {
-	margin-top: 10px;
-	margin-left: 170px;
+	margin-top: 1%;
+	margin-left: 10%;
 	background-image: url(images/grass.png);	
+	background-size: 70%;	
 	background-repeat: no-repeat;	
 	background-position: center;	
 }
 
 .carn-box-two {
-	margin-top: 10px;
-	margin-left: 130px;
+	margin-top: 1%;
+	margin-left: 13%;
 	background-image: url(images/meat.png);	
+	background-size: 70%;	
 	background-repeat: no-repeat;	
 	background-position: center;
 }
 
 .carn-box-three {
-	margin-top: 10px;
-	margin-left: 20px;
+	margin-top: 1%;
+	margin-left: 5%;
 	background-image: url(images/meat.png);	
+	background-size: 70%;	
 	background-repeat: no-repeat;	
 	background-position: center;	
 }
@@ -175,36 +183,52 @@
 }
 
 .omni-box-three {
-	margin-top: 10px;
-	margin-left: 20px;
+	margin-top: 1%;
+	margin-left: 5%;
 	background-image: url(images/recycle.png);	
+	background-size: 70%;	
 	background-repeat: no-repeat;	
 	background-position: center;		
 }
 
 .box-name {
 	text-align: center;
-	font-size: large;
+	font-size: 14pt;
 	color: white;
 }
 
 
 /* Game Two */
+.level-zone {
+	position: absolute;
+	left: 1%;
+	width: 90%;	
+}
+
 .level-value {
-	margin-left: 10px;
+	margin-left: 1%;
+	position: relative;
+	display: inline-block;
 }
 
 .timer-value {
-	position: absolute;
-	right: 30px;
+	margin-right: 3%;
 }
 
-.score {
-	margin-left: 285px;
+.score-zone {
+	position: absolute;
+	text-align: right;
+	right: 1%;
+	width: 90%;
+}
+
+.score-text {
+	display: inline-block;
 }
 
 .score-value {
-	margin-left: 10px;
+	margin-left: 1%;
+	display: inline-block;	
 }
 
 .timer-overtime {
@@ -212,24 +236,23 @@
 }
 
 .title {
-	margin-bottom: 10px;
-	margin-top: 5px;
-	text-align: center;
-	font-size: x-large;
+	margin-bottom: 1%;
+	margin-top: 1%;
+	font-size: 17pt;
 	color: white;
 	text-shadow: 0.1em .1em 1px lightgrey;
-	display: inline-block;
 }
 
 .box {
-	margin-top: 10px;
-	margin-left: 5px;
+	position: absolute;
+	top: 48%;
+	left: 0%;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
-	width: 1160px;  /* Screen width - 40 */
-	height: 300px;
-	z-index: -1;
+	width: 99%;
+	height: 45%;
+	z-index: 1;
 }
 
 .box-dragging {
@@ -245,31 +268,53 @@
 }
 
 .play {
-	margin-left: 510px;
+	position: absolute;
+	right: 15%;
+	top: 20%;
 }
 
 .validate {
-	margin-left: 60%;
+	position: absolute;
+	left: 45%;
+	top: 20%;
 }
 
 .restart {
-	margin-left: 85%;
+	position: absolute;
+	right: 15%;
+	top: 20%;
 }
 
 .home {
-	margin-left: 10px;
+	position: absolute;
+	left: 1%;
+	top: 20%;
 }
 
 /* Game Three */
 
+.status-bar {
+	top: 0% !important;
+	position: absolute;
+	width: 100%;
+}
+
+.home2 {
+	position: absolute;
+	right: 15%;
+	top: 50%;
+}
+
 .game-box {
-	margin-top: 10px;
-	margin-left: 5px;
+	margin-top: 6%;
+	margin-left: 1%;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
 	background-image: url(images/play_background.png);
 	z-index: -1;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
 .image-preload {
@@ -277,47 +322,69 @@
 }
 
 .life-border {
-	margin-top: 700px;
-	margin-left: 180px;
 	position: absolute;
+	bottom: 1%;
+	text-align: right;
+	width: 100%;
 	z-index: 2;
 }
 
 .life {
 	display: inline-block;
+	max-width: 5%;
 }
 
 /* Credits */
 
+.credits-popup {
+	width: 950px;
+	max-width: 100%;
+	height: 680px;
+	max-height: 90%;
+	color: black;
+}
+
+.credit-content {
+	height: 100%;
+}
+
 .credit-title {
 	font-size: x-large;
-	margin-top: 10px;
-	margin-left: 300px;
+	margin-top: 1%;
+	margin-left: 30%;
 	color: white;
 }
 
 .credit-name {
 	font-size: small;
-	margin-left: 300px;	
+	margin-left: 30%;	
 	color: white;
 }
 
 .two-column-credits {
 	display: inline-block;
+	width: 65%;
 }
 
 .emul-canvas {
 	background-image: url(images/play_background.png);
-	margin-left: 50px;
-	margin-top: 50px;
+	margin-left: 2%;
+	margin-top: 5%;
 	position: absolute;
 }
 
 /* Components */
 
+.shadowbutton-image {
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;
+}
+
 .shadowbutton {
 	position: absolute;
-	z-index: 2;
+	z-index: 2;	
 }
 
 .shadowbutton-shadow {
@@ -328,16 +395,23 @@
 }
 
 .card {
+	position: absolute;
 	border-width: 5px;
 	border-style: inset;
 	border-color: darkgray;
 	box-shadow: 5px -4px 4px 2px black;
 	width: 220px;
+	max-width: 20%;	
 	background-color: white;
-	position: absolute;
+	display: inline-block;
+	margin-left: 2%;
+	margin-top: 1%;
+	margin-bottom: 1%;
 	z-index: 0;
 	-webkit-user-select: none;
-	user-select: none;		
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;	
 }
 
 .card-dragged {
@@ -347,8 +421,8 @@
 
 .cardImage {
 	width: 70%;
-	margin-top: 10px;
-	margin-left: 35px;
+	margin-top: 5%;
+	margin-left: 10%;
 }
 
 .cardText {
@@ -358,8 +432,134 @@
 }
 
 .cardSoundIcon {
+	margin-left: 5%;
+	width: 12%;
 }
 
 .cardSound {
 	width: 50px;
+}
+
+@media screen and (max-width: 480px) {	
+	.shadowbutton-image {
+		width: 60px;
+	}
+	
+	.card {
+		border-width: 3px;
+		box-shadow: 3px -2px 2px 1px black;	
+	}	
+	
+	.cardText {
+		font-size: 12px;	
+	}
+	
+	.start-box {
+		height: 120px;
+	}
+
+	.end-box {
+		height: 120px;
+	}
+
+	.box-name {
+		font-size: 10pt;
+	}
+	
+	.title {
+		font-size: 14pt;
+	}
+	
+	.play {
+		top: 24%;
+	}
+
+	.validate {
+		top: 24%;
+	}
+
+	.restart {
+		top: 24%;
+	}
+
+	.home {
+		top: 24%;
+	}	
+}
+
+@media screen and (min-width: 481px) and (max-width: 640px) {
+	.shadowbutton-image {
+		width: 80px;
+	}
+	
+	.card {
+		border-width: 4px;
+		box-shadow: 4px -3px 3px 2px black;			
+	}	
+	
+	.cardText {
+		font-size: 14px;	
+	}
+	
+	.start-box {
+		height: 150px;
+	}
+
+	.end-box {
+		height: 160px;
+	}
+	
+	.box-name {
+		font-size: 12pt;
+	}	
+	
+	.title {
+		font-size: 15pt;
+	}	
+}
+
+@media screen and (min-width: 641px) and (max-width: 854px) {
+	.shadowbutton-image {
+		width: 100px;
+	}
+	
+	.cardText {
+		font-size: 18px;	
+	}	
+	
+	.start-box {
+		height: 190px;
+	}
+
+	.end-box {
+		height: 200px;
+	}
+}
+
+@media screen and (min-width: 855px) and (max-width: 960px) {
+	.shadowbutton-image {
+		width: 110px;
+	}
+	
+	.cardText {
+		font-size: 20px;	
+	}	
+	
+	.start-box {
+		height: 210px;
+	}
+
+	.end-box {
+		height: 220px;
+	}
+}
+
+@media screen and (min-width: 961px) and (max-width: 1024px) {
+	.start-box {
+		height: 250px;
+	}
+
+	.end-box {
+		height: 260px;
+	}	
 }
