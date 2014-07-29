@@ -29,3 +29,21 @@
 #main-toolbar #help-button {
   background-image: url(../icons/toolbar-help.svg);
 }
+
+@media screen and (max-width: 567px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+	
+	#main-toolbar #activity-button {
+		left: 10px;
+	}
+
+	#main-toolbar #help-button {
+		visibility: hidden;
+	}
+	
+	#main-toolbar #stop-button {
+		position: absolute;
+	}
+}
