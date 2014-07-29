@@ -7,20 +7,20 @@ enyo.kind({
 	classes: "home",
 	components: [
 		// Image 
-		{kind: "Image", classes: "home-image", src: "images/home.png"},
+		{kind: "Image", classes: "home-image no-select-content", src: "images/home.png"},
 		
 		// Popup
 		{classes: "start-button", ontap: "play", components: [
-			{kind: "Image", classes: "start-button-image", src: "images/button.png"},		
-			{content: "START", classes: "start-button-text"}
+			{kind: "Image", classes: "start-button-image no-select-content", src: "images/button.png"},		
+			{content: "START", classes: "start-button-text no-select-content"}
 		]},
 		
 		// Credit
-		{kind: "Image", classes: "credit-button", src: "images/credit.png", ontap: "showCredit"},
+		{kind: "Image", classes: "credit-button no-select-content", src: "images/credit.png", ontap: "showCredit"},
 		{name: "creditsPopup", kind: "TankOp.CreditsPopup"},		
 		
 		// Next mission
-		{classes: "mission-description", components: [
+		{classes: "mission-description no-select-content", components: [
 			{components: [
 				{content: "NEXT MISSION", classes: "mission-header mission-line"},
 				{content: ":", classes: "mission-dot mission-line"}
@@ -30,7 +30,7 @@ enyo.kind({
 			{classes: "go-arrow go-right mission-line", ontap: "nextMission"}		
 		]},
 		
-		{classes: "mission-status", components: [
+		{classes: "mission-status no-select-content", components: [
 			{components: [
 				{content: "COMPLETED", classes: "mission-header mission-line"},
 				{content: ":", classes: "mission-dot mission-line"}

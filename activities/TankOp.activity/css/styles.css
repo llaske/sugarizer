@@ -4,6 +4,13 @@
 	src: url('NoneShallPassFonts.ttf');
 }
 
+.no-select-content {
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;	
+}
+
 .body {
 	background-color: white;
 }

@@ -13,15 +13,6 @@
   background-image: url(images/fr.svg);
 }
 
-/* Hack: put global config in a hidden rule attributes */
-.config {
-	position: absolute;
-	visibility: hidden;
-	width: 120px;        /* Screen width */
-	height: 90px;        /* Screen height */
-	margin-left: 22px;   /* Card size */
-}
-
 /* App background */
 .board {
 	background-color: #005a40 !important;

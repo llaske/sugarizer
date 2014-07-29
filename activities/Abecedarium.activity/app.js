@@ -12,14 +12,14 @@ enyo.kind({
 	components: [
 		{components: [
 			{name: "logo", kind: "Image", classes: "logo", src: "images/logo.png"},
-			{name: "instrument", kind: "Image", classes: "instrument", src: "images/instrument0.png", ontap: "nextInstrument"},
+			{name: "instrument", kind: "Image", classes: "instrument no-select-image", src: "images/instrument0.png", ontap: "nextInstrument"},
 			{name: "letter", content: "", classes: "letter" }
 		]},
 		{components: [
-			{name: "credit", kind: "Image", src: "images/credit.png", classes: "creditButton", ontap: "displayCredits"},
-			{name: "learn", kind: "Image", src: "images/learn.png", classes: "learnButton", ontap: "learnGame"},
-			{name: "play", kind: "Image", src: "images/play.png", classes: "playButton", ontap: "playGame"},	
-			{name: "build", kind: "Image", src: "images/build.png", classes: "buildButton", ontap: "buildGame"},
+			{name: "credit", kind: "Image", src: "images/credit.png", classes: "creditButton no-select-image", ontap: "displayCredits"},
+			{name: "learn", kind: "Image", src: "images/learn.png", classes: "learnButton no-select-image", ontap: "learnGame"},
+			{name: "play", kind: "Image", src: "images/play.png", classes: "playButton no-select-image", ontap: "playGame"},	
+			{name: "build", kind: "Image", src: "images/build.png", classes: "buildButton no-select-image", ontap: "buildGame"},
 			{name: "networkCheck", kind: "Abcd.NetworkCheck", ontap: "networkSettings"}
 		]},
 		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},		

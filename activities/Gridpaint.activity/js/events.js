@@ -38,10 +38,14 @@ function eventInit(){
 		zoom = 0.353;
 		wtop = 150;
 		shiftTop = -85;
-	} else if (wsize <= 768) {
-		zoom = 0.6;
+	} else if (wsize <= 854) {
+		zoom = 0.565;
 		wtop = 90;
 		shiftTop = -40;
+	} else if (wsize <= 960) {
+		zoom = 0.645;
+		wtop = 90;
+		shiftTop = -32;
 	} else if (wsize <= 1024) {
 		zoom = 0.95;
 		wtop = 60;

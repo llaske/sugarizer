@@ -8,7 +8,7 @@ enyo.kind({
 	modal: true,
 	floating: true, 	
 	components: [	
-		{ kind: "Scroller", classes: "credit-content", components: [	
+		{ kind: "Scroller", classes: "credit-content no-select-content", components: [	
 			{ kind: "Image", src: "images/hq_blue.png", classes: "credit-image-hq" },
 			{ kind: "Image", src: "images/target.png", classes: "credit-image-target" },
 			{ kind: "Image", src: "images/tank_red_0.png", classes: "credit-image-tankred" },

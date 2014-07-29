@@ -55,6 +55,10 @@
 .play {
 	margin-top: 5%;
 	margin-left: 45%;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;	
 }
 
 .renew {

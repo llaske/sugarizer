@@ -12,17 +12,17 @@ enyo.kind({
 		
 		// Status and score
 		{classes: "status-line", components: [
-			{content: "WAVE", classes: "wave-text"},
-			{name: "wave", content: "1", classes: "wave-value"},
-			{content: "SCORE", classes: "score-text"},
-			{name: "score", content: "0000", classes: "score-value"}
+			{content: "WAVE", classes: "wave-text no-select-content"},
+			{name: "wave", content: "1", classes: "wave-value no-select-content"},
+			{content: "SCORE", classes: "score-text no-select-content"},
+			{name: "score", content: "0000", classes: "score-value no-select-content"}
 		]},		
 		
 		// Home button
-		{kind: "Image", classes: "home-button", src: "images/gohome.png", ontap: "goHome"},
+		{kind: "Image", classes: "home-button no-select-content", src: "images/gohome.png", ontap: "goHome"},
 		
 		// LCD counter and Keyboard
-		{name: "keyboard", classes: "keyboard-set", components: [
+		{name: "keyboard", classes: "keyboard-set no-select-content", components: [
 			{classes: "display-line", components: [
 				{name: "lcd", kind: "LcdDisplay", classes: "lcd-value", size: 3, value: ""}
 			]},
@@ -68,10 +68,12 @@ enyo.kind({
 		var wsize = window.innerWidth;
 		if (wsize <= 480) {
 			this.zoom = 0.4;
-		} else if (wsize <= 640) {
-			this.zoom = 0.5;
 		} else if (wsize <= 768) {
 			this.zoom = 0.62;
+		} else if (wsize <= 854) {
+			this.zoom = 0.65;			
+		} else if (wsize <= 960) {
+			this.zoom = 0.75;	
 		} else if (wsize <= 1024) {
 			this.zoom = 0.88;
 		} else {
