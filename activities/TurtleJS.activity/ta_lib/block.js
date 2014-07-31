@@ -33,6 +33,8 @@ function TurtleBlock(sprite, layer, descriptor, func, value_func, params){
     this.base_clamp_height = 45;
     this.actual_clamp_height = 45;
     this.joint_height = 4;
+    
+    this.add_count = 0;
 
     this.block_value = 0;
     this.base_center_width =  82;
@@ -52,6 +54,9 @@ function TurtleBlock(sprite, layer, descriptor, func, value_func, params){
     // variable that stores tart point of drag
     this.start_drag_pos = this.get_xy();
     this.configure_receiver_slots();
+	
+	this.add_sprite = new Sprite(image_tracker.get_resource('add_size'), this.layer, true);
+    this.del_sprite = new Sprite(image_tracker.get_resource('del_size'), this.layer, true);
 }
 
 TurtleBlock.prototype = {
@@ -60,6 +65,12 @@ TurtleBlock.prototype = {
         var parent = this;
         this.group.on('click tap', function(){
             var result = get_block_data(parent.params, 'Set heading');
+            
+            /*if (this.sizeable_icon_touched){
+                this.sizeable_icon_touched = false;
+                return;
+            }*/
+            
             if (!result[0]){
                 error_message_displayer.show_error(result[1]);
                 return false;
@@ -248,6 +259,126 @@ TurtleBlock.prototype = {
         this.sprite.get_label(0).setX(x_pos);
         this.last_label_width = this.sprite.get_label(0).getWidth();
     },
+    set_user_resize: function(pos){
+        
+        this.group.add(this.add_sprite.group);
+        this.add_sprite.group.x(pos[0]);
+        this.add_sprite.group.y(pos[1]);
+        this.add_size_pos = pos;
+        
+        var parent = this;
+        
+        this.add_sprite.group.on('click tap', function(){
+			//alert("test");
+            if (parent.add_count == 0){
+                parent.group.add(parent.del_sprite.group);
+                if (parent.add_size_pos[0] > 20){
+                    parent.del_sprite.group.x(18);
+                    parent.del_sprite.group.y(8);
+                } else{
+                    parent.del_sprite.group.x(parent.add_size_pos[0]);
+                    parent.del_sprite.group.y(4);
+                }
+            }
+            
+            parent.add_count++;
+            added_size = 0;
+            if (parent.add_size_pos[0] > 20){
+                added_size = 60;
+                parent.sprite.img[2].setX(parent.sprite.img[2].getX() + added_size);
+                parent.sprite.img[1].setWidth(parent.sprite.img[1].getWidth() + added_size);
+                parent.add_sprite.group.x(parent.add_sprite.group.x() + added_size);
+            } else{
+                added_size = 42;
+                parent.sprite.img[2].setY(parent.sprite.img[2].getY() + added_size);
+                parent.sprite.img[1].setHeight(parent.sprite.img[1].getHeight() + added_size);
+                parent.add_sprite.group.y(parent.add_sprite.group.y() + added_size);
+            }
+            
+            if (parent.has_lower_dock()){
+                parent.descriptor.lower_dock[0][1] += added_size;
+                if (parent.lower_block[0] != null){
+                    parent.lower_block[0].group_movement(parent.lower_block[0], [0, added_size], false, true);
+                }
+                var stack_parent = parent.get_stack_top_block(parent);
+                if (stack_parent != null){
+                    stack_parent.upper_block[0].calc_clamp_height(false, added_size + parent.joint_height, stack_parent.upper_block[0]);
+                }
+            }
+            
+            if (parent.has_receiver_param()){
+                //alert("detecta receiver param");
+                if (parent.add_size_pos[0] > 20){
+                    parent.descriptor.param_dock[1][0] += added_size;
+                    if (parent.receiver_slots[0] != null){
+                        parent.receiver_slots[0].group_movement(parent.receiver_slots[1], 
+                                                            [added_size, 0], false, false);
+                    }
+                } else{
+                    if (parent.descriptor.param_dock.length == 3){
+                        parent.descriptor.param_dock[2][1] += added_size;
+                    } else{
+                        parent.descriptor.param_dock[1][1] += added_size;
+                    }
+                    
+                    if (parent.receiver_slots[1] != null){
+                        parent.receiver_slots[1].group_movement(parent.receiver_slots[1], 
+                                                            [0, added_size], false, false);
+                    }
+                }
+            }
+        });
+        
+        this.del_sprite.group.on('click tap', function(){
+            parent.add_count--;
+            
+            //this.sizeable_icon_touched = true;
+            added_size = 0;
+            
+            if (parent.add_size_pos[0] > 20){
+                added_size = 60;
+                parent.sprite.img[2].setX(parent.sprite.img[2].getX() - added_size);
+                parent.sprite.img[1].setWidth(parent.sprite.img[1].getWidth() - added_size);
+                parent.add_sprite.group.x(parent.add_sprite.group.x() - added_size);
+            } else{
+                added_size = 42;
+                parent.sprite.img[2].setY(parent.sprite.img[2].getY() - added_size);
+                parent.sprite.img[1].setHeight(parent.sprite.img[1].getHeight() - added_size);
+                parent.add_sprite.group.y(parent.add_sprite.group.y() - added_size);
+            }
+            
+            if (parent.add_count == 0){
+                parent.del_sprite.group.remove();
+            }
+            
+            if (parent.has_lower_dock()){
+                parent.descriptor.lower_dock[0][1] -= added_size;
+                if (parent.lower_block[0] != null){
+                    parent.lower_block[0].group_movement(parent.lower_block[0], [0, -added_size], false, true);
+                }
+                var stack_parent = parent.get_stack_top_block(parent);
+                if (stack_parent != null){
+                    stack_parent.upper_block[0].calc_clamp_height(false, -added_size +parent.joint_height, stack_parent.upper_block[0]);
+                }
+            }
+            
+            if (parent.has_receiver_param()){
+                if (parent.add_size_pos[0] > 20){
+                    parent.descriptor.param_dock[0][0] -= added_size;
+                    if (parent.receiver_slots[0] != null){
+                        parent.receiver_slots[0].group_movement(parent.receiver_slots[1], 
+                                                            [-added_size, 0], false, false);
+                    }
+                } else{
+                    parent.descriptor.param_dock[2][1] -= added_size;
+                    if (parent.receiver_slots[1] != null){
+                        parent.receiver_slots[1].group_movement(parent.receiver_slots[1], 
+                                                            [0, -added_size], false, false);
+                    }
+                }
+            }
+        });
+    },
     display_block: function(){
         this.group.add(this.sprite.group);
         this.layer.add(this.group);
@@ -255,7 +386,9 @@ TurtleBlock.prototype = {
     exec_block: function(){
         var can_continue = true;
         if ((!this.has_giving_param() && this.has_receiver_param()) || (!this.has_giving_param() && !this.has_receiver_param())){
-            var result = get_block_data(this.params, 'Set heading');
+            
+            var result = get_block_data(this.params, this.block_type);
+            
             if (!result[0]){
                 error_message_displayer.show_error(result[1]);
                 return false;
@@ -422,6 +555,24 @@ TurtleBlock.prototype = {
     get_stack_points: function(){
         return this.descriptor.get_stack_points();
     },
+    relative_lower_pos: function(){
+        var points = this.get_xy();
+        points[0] += this.descriptor.get_lower_dock()[0] - 17;
+        points[1] += this.descriptor.get_lower_dock()[1] - 1;
+        return points;
+    },
+    relative_param_pos: function(index){
+        var points = this.get_xy();
+        points[0] += this.descriptor.get_receiver_points()[index][0] - 17;
+        points[1] += this.descriptor.get_receiver_points()[index][1] - 25;
+        return points;
+    },
+    relative_stack_pos: function(index){
+        var points = this.get_xy();
+        points[0] += this.descriptor.get_stack_points()[index][0];
+        points[1] += this.descriptor.get_stack_points()[index][1];
+        return points;
+    },
     configure_receiver_slots: function(){
         var slots = this.descriptor.get_receiver_points();
         for (var i=0; i<slots.length; i++){
@@ -463,9 +614,9 @@ TurtleBlock.prototype = {
                 caller.move_params = true;
             }
         }
-        if (this.param_blocks.length > 0 && this.param_blocks[0] != caller){
+        /*if (this.param_blocks.length > 0 && this.param_blocks[0] != caller){
             this.param_blocks[i].group_movement(this, movement, false, true);
-        }
+        }*/
         if (this.stack_slots.length > 0 && move_stack){
             for (var i=0; i<this.stack_slots.length; i++){
                 if (this.stack_slots[i] != null && this.stack_slots[i] != caller){
@@ -477,6 +628,9 @@ TurtleBlock.prototype = {
     chain_delete: function(){
         this.tracker.remove_block(this);
         this.hide();
+        
+        this.group.destroy();
+        
         for (var i=0; i<this.receiver_slots.length; i++){
             if (this.receiver_slots[i] != null){
                 this.receiver_slots[i].chain_delete();

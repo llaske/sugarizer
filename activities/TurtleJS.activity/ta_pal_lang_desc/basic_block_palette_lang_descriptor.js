@@ -27,7 +27,7 @@ i18n_tracker.add_label('arc_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['arc',
 i18n_tracker.add_label('arc_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['angle', 40, 10, 20, 'Calibri', 'black']);
 i18n_tracker.add_label('arc_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['radius', 32, 56, 20, 'Calibri', 'black']);
 
-i18n_tracker.add_label('set_heading_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Set heading', 5, 15, 14, 'Calibri', 'black']);
+i18n_tracker.add_label('set_heading_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Set heading', 5, 15, 16, 'Calibri', 'black']);
 i18n_tracker.add_label('box_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['100', 52, 13, 19, 'Calibri', 'black']);
 i18n_tracker.add_label('heading_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['heading', 35, 13, 19, 'Calibri', 'black']);
 
@@ -50,6 +50,6 @@ i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['arco'
 i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['ángulo', 37, 10, 20, 'Calibri', 'black']);
 i18n_tracker.add_label('arc_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['radio', 37, 56, 20, 'Calibri', 'black']);
 
-i18n_tracker.add_label('set_heading_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Fijar rumbo', 5, 15, 14, 'Calibri', 'black']);
+i18n_tracker.add_label('set_heading_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Fijar rumbo', 5, 15, 16, 'Calibri', 'black']);
 
 i18n_tracker.add_label('heading_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['rumbo', 35, 13, 19, 'Calibri', 'black']);

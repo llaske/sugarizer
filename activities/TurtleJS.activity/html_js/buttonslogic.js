@@ -14,6 +14,20 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
 $(document).ready(function() {
+    
+    $("#saved-image").attr("height", parseInt($(window).height() * 0.45));
+    $("#saved-image").attr("width", parseInt($(window).width() * 0.45));
+	
+	$('#popupShowHelp').css('overflow-y', 'scroll');
+	
+    $('.card').click(function(){
+        var id = $(this).find('img')[0];
+        id = $(id).attr('id');
+        
+        var json_obj = JSON.parse(examples[id]);
+        parseTAFile(json_obj, palette_tracker, block_tracker);
+    });
+    
     var count = 0;
     
     $("#basictb-bt").click(function(){
@@ -59,8 +73,16 @@ $(document).ready(function() {
         }
     });
     $("#run-bt").click(function(){
+        var func_blocks = block_tracker.get_func_blocks();
+        
+        for (var i = 0; i<func_blocks.length; i++){
+            func_blocks[i].exec_block();
+        }
+        
         var starter_blocks = block_tracker.get_starter_blocks();
         var can_continue = true;
+        //var start_blocks = [];
+        
         for (var i=0; i<starter_blocks.length; i++){
             can_continue = starter_blocks[i].chain_exec();
             if (!can_continue || block_tracker.on_infinite_loop){
@@ -70,10 +92,12 @@ $(document).ready(function() {
         check_block_visibility(true);
         draw_stage.draw_tracker.save_cache();
         draw_stage.draw_layer.draw();
+        //center_scrollbars();
     });
     $("#clear-bt").click(function(){
         draw_stage.draw_tracker.clear_canvas();
         user_vars_tracker.clear();
+        user_funcs_tracker.clear();
         block_tracker.on_infinite_loop = false;
     });
     $("#hideshow-bt").click(function(){
@@ -83,6 +107,19 @@ $(document).ready(function() {
         $("#input-file").focus().click();
     });
     $("#save-bt").click(function(){
+    });
+	$("#help-bt").click(function(){
+    });
+    
+    function on_saved_image(data){
+        $("#saved-image").attr("src", data);
+        $("#saved-image").attr("height", parseInt($(window).height() * 0.45));
+        $("#saved-image").attr("width", parseInt($(window).width() * 0.45));
+    }
+    
+    $("#img-save-bt").click(function(){
+        draw_stage.stage.toDataURL({callback: on_saved_image});
+        //$("#saved-image").attr("src", data);
     });
     $("#es-lang-bt").click(function(){
         i18n_tracker.change_language('es_ES');
@@ -119,6 +156,14 @@ $(document).ready(function() {
                 count = 0;
             }
         }
+    });
+    
+    $(window).resize(function(){
+        draw_stage.stage.height($(window).height() - 62);
+        draw_stage.stage.width($(window).width() - 5);
+        
+        remove_scrolls();
+        make_scrolls();
     });
 
     var check_block_visibility = function(caller){

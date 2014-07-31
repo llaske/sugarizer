@@ -13,11 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
-function ArcShape(pos, radio, startAng, endAng, stroke, line){
+function ArcShape(pos, radio, startAng, endAng, stroke, line, anti_clockwise){
     this.radio = radio;
     this.pos = pos;
     this.startAng = (startAng * Math.PI) / 180;
     this.endAng = (endAng * Math.PI) / 180;
+    this.anti_clockwise = anti_clockwise;
     this.stroke = stroke;
     this.line = line;
     this.group = null;
@@ -34,7 +35,7 @@ ArcShape.prototype = {
         this.arc = new Kinetic.Shape({
             drawFunc: function (ctx) {
                 ctx.beginPath();
-                ctx.arc(0, 0, parent.radio, parent.startAng, parent.endAng, false);
+                ctx.arc(0, 0, parent.radio, parent.startAng, parent.endAng, parent.anti_clockwise);
                 ctx.fillStrokeShape(this);
             },
             x: 0,

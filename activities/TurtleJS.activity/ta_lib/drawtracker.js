@@ -20,6 +20,7 @@ function DrawTracker(layer, turtle){
     this.pen_down = true;
     this.already_filling = false;
     this.pen_size = 3;
+	this.font_size = 19;
     this.stroke_line = "#FF0000";
     this.bg_obj;
     
@@ -69,6 +70,7 @@ DrawTracker.prototype = {
         this.shade = 50;
         this.gray = 100;
         this.color = 0;
+        this.pen_down = true;
         this.already_filling = false;
         
         this.min_x_cache = this.turtle.get_xy()[0];
@@ -77,8 +79,23 @@ DrawTracker.prototype = {
         this.max_x_cache = this.turtle.get_xy()[0];
         this.max_y_cache = this.turtle.get_xy()[1];;
 
+        draw_stage.bg.fill('#FFF8DE');
+        
         this.group.removeChildren();
         this.group.clearCache();
+        
+        for (var i=0; i<this.lines.length; i++){
+            this.lines[i].destroy();
+        }
+        
+        for (var i=0; i<this.labels.length; i++){
+            this.labels[i].destroy();
+        }
+        
+        for (var i=0; i<this.shapes.length; i++){
+            this.shapes[i].group.destroy();
+        }
+        
         this.lines = [];
         this.shapes = [];
         this.labels = [];
@@ -116,6 +133,9 @@ DrawTracker.prototype = {
     pen_down_action: function(){
         this.pen_down = true;
     },
+	is_pen_down: function(){
+        return this.pen_down;
+	},
     start_fill: function(){
         this.already_filling = true;
         this.end_line();
@@ -170,6 +190,9 @@ DrawTracker.prototype = {
     get_pen_gray: function(){
         return this.gray;
     },
+    get_pen_size: function(){
+        return this.pen_size;
+    },
     on_color_change: function(value){
         if (this.stroke_line != value){
             this.stroke_line = value;
@@ -183,12 +206,18 @@ DrawTracker.prototype = {
         this.end_line();
     },
     add_label: function(str, turtle){
+        if (this.pen_size < 19){
+		    this.font_size = 19;
+        } else{
+            this.font_size = this.pen_size;
+        }
         var pos = turtle.get_xy();
         var lbl = new Kinetic.Text({
             x: pos[0] + 27,
             y: pos[1],
+            rotation: this.turtle.get_rotation(),
             text: str,
-            fontSize: 19,
+            fontSize: this.font_size,
             fontFamily: 'Calibri',
             fill: this.stroke_line
         });

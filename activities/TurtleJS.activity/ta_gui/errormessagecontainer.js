@@ -52,8 +52,8 @@ function ErrorMessage(startpos, layer){
 ErrorMessage.prototype = {
     constructor: ErrorMessage,
     repos: function(){
-        this.group.setX($("#canvas").scrollLeft() + 20);
-        this.group.setY($("#canvas").scrollTop() + $(window).height() - 130);
+        this.group.setX(20);
+        this.group.setY($(window).height() - 160);
     },
     close_on_load: function(parent, imageObj){
         var img = new Kinetic.Image({
@@ -62,7 +62,7 @@ ErrorMessage.prototype = {
             height: imageObj.height,
         });
 
-        img.on('click', function(){
+        img.on('click tap', function(){
             parent.hide();
         });
 

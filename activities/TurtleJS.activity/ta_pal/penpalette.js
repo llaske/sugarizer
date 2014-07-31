@@ -48,15 +48,16 @@ PenPalette.prototype = {
         block_factory1 = new BlockFactory([375, 5], sprit1, 'set_pen_size_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setpensize']);
 
         sprit1 = new Sprite(image_tracker.get_resource('box2_blue'), this.container.layer, true, false, null, null, [0, 28, 82]);
-        sprit1.set_label('pen size', 38, 13, 19, 'Calibri', 'black');
-        block_factory1 = new BlockFactory([500, 5], sprit1, 'box_block', this, null);
-        this.container.add_block_factory('pensize', block_factory1);
+        new BlockFactory([500, 5], sprit1, 'pensize_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'pensize']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
         block_factory1 = new BlockFactory([375, 55], sprit1, 'start_fill_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'startfill']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic_blue'), this.container.layer, true);
-        block_factory1 = new BlockFactory([375, 105], sprit1, 'end_fill_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'endfill']);
+        block_factory1 = new BlockFactory([375, 105], sprit1, 'end_fill_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'stopfill']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('basic3arg_blue'), this.container.layer, true);
+        block_factory1 = new BlockFactory([500, 55], sprit1, 'fill_screen_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'fill_screen']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic1arg_blue'), this.container.layer, true);
         new BlockFactory([5, 5], sprit1, 'set_color_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setcolor']);
