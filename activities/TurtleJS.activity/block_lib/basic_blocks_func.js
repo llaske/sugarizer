@@ -46,7 +46,6 @@ function get_number(params){
 }
 
 function text_block(params, values, import_action, value) {
-    import_action = import_action || false;
     if (!import_action){
         var number = 0;
 
@@ -67,7 +66,7 @@ function text_block(params, values, import_action, value) {
                 }
             }
             var keycode = (e.which) ? e.which : e.keyCode;
-            if (keycode > 31 && (keycode < 48 || keycode > 57) && keycode != 37 & keycode != 39) {
+            if (keycode > 31 && (keycode < 48 || keycode > 57) && keycode != 37 & keycode != 39 && keycode != 45) {
                 return false;
             }else{
                 return true;
@@ -75,6 +74,7 @@ function text_block(params, values, import_action, value) {
         });
         $("#text_input").focus();
     } else{
+        params[2].block_value = value;
         params[2].sprite.labels[0].setText(value + '');
     }
 }
@@ -99,10 +99,20 @@ function setxy(params, values){
 }
 
 function arc(params, values){
-    var arc = new ArcShape(params[0].get_xy(), values[1][1], 0, values[0][1], params[1].stroke_line, params[1].pen_size);
+    var anti_clockwise = false;
+    
+    if (values[0][1] < 0){
+        anti_clockwise = true;
+    }
+    var arc = new ArcShape(params[0].get_xy(), values[1][1], 0, values[0][1], params[1].stroke_line, params[1].pen_size, anti_clockwise);
 
     draw_stage.draw_tracker.group.add(arc.group);
-    arc.rotate(-180  + params[0].rotation);
+    
+    if (anti_clockwise){
+        arc.rotate(params[0].rotation);
+    } else{
+        arc.rotate(-180  + params[0].rotation);
+    }
 
     arc.set_start_offset();
     arc.set_xy(params[0].get_xy());
@@ -110,7 +120,14 @@ function arc(params, values){
     var final_pos = [arc.end_point.getAbsolutePosition().x + Math.abs(draw_stage.draw_layer.x()), arc.end_point.getAbsolutePosition().y + Math.abs(draw_stage.draw_layer.y())];
     params[0].set_xy(final_pos);
     params[0].rotate(values[0][1]);
-    params[1].add_shape(arc);
+	
+    if (draw_stage.draw_tracker.is_pen_down()){
+        params[1].add_shape(arc);
+    }
+    
+    if (!draw_stage.draw_tracker.is_pen_down()){
+        arc.group.destroy();
+    }
     return true;
 }
 

@@ -15,18 +15,42 @@
 
 function Turtle(startpos, layer){
     this.layer = layer;
-    this.img = new Sprite([NA_ARRANGE, 'turtle.png'], layer, false, true, this.turtle_drag, this);
-    this.img.group.setX(startpos[0]);
-    this.img.group.setY(startpos[1]);
-    this.img.group.offsetX(27);
-    this.img.group.offsetY(27);
+    
     this.rotation = 0;
     this.start_pos = startpos;
     this.draw_tracker = null;
+    
+    //this.change_color('red', startpos);
+    this.change_color('green', startpos);
 }
 
 Turtle.prototype = {
     constructor: Turtle,
+    change_color: function(color, pos){
+        if (pos == null){
+            pos = this.img.get_xy();
+        }
+        
+        var last_img = this.img;
+        
+        this.img = turtles[color];
+        this.img.callback_func = this.turtle_drag;
+        this.turtle = this;
+        
+        this.img.group.rotation(360 - this.img.group.rotation());
+        this.rotate(this.rotation);
+        
+        this.layer.add(this.img.group);
+        
+        this.img.group.setX(pos[0]);
+        this.img.group.setY(pos[1]);
+        this.img.group.offsetX(27);
+        this.img.group.offsetY(27);
+        
+        if (last_img != null && last_img != this.img){
+            last_img.group.remove();
+        }
+    },
     move: function(pos){
         var coord = [0, 0];
         if (this.rotation == 0){
@@ -120,6 +144,9 @@ Turtle.prototype = {
         this.img.group.setX(pos[0]);
         this.img.group.setY(pos[1]);
         this.on_turtle_move();
+    },
+    get_rotation: function(){
+        return this.rotation;
     },
     reset_rotation: function(){
         this.img.group.rotateDeg(360 - this.rotation);

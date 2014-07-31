@@ -43,7 +43,7 @@ BasicBlockPalette.prototype = {
         new BlockFactory([5, 5], sprit1, 'forward_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'forward']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
-        new BlockFactory([120, 5], sprit1, 'backward_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'backward']);
+        new BlockFactory([120, 5], sprit1, 'backward_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'back']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
         new BlockFactory([235, 5], sprit1, 'right_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'right']);
@@ -58,7 +58,7 @@ BasicBlockPalette.prototype = {
         new BlockFactory([130, 55], sprit1, 'clean_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'clean']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic2arg'), this.container.layer, true);
-        new BlockFactory([5, 100], sprit1, 'setxy_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setxy']);
+        new BlockFactory([5, 100], sprit1, 'setxy_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'setxy2']);
 
         sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 82]);
         new BlockFactory([125, 100], sprit1, 'xcor_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'xcor']);
@@ -70,7 +70,7 @@ BasicBlockPalette.prototype = {
         new BlockFactory([255, 100], sprit1, 'arc_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'arc']);
 
         sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
-        new BlockFactory([245, 53], sprit1, 'set_heading_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'set_heading_block']);
+        new BlockFactory([245, 53], sprit1, 'set_heading_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'seth']);
 
         sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 82]);
         new BlockFactory([360, 55], sprit1, 'heading_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'heading']);

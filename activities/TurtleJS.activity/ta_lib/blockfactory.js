@@ -90,12 +90,17 @@ BlockFactory.prototype = {
 
         var dock_descriptor = dock_tracker.get_dock(block_descriptor.dock_desc);
 
-        var sprit1 = new Sprite(block_descriptor.block_img, draw_stage.layer, true, false, null, null, block_descriptor.component_positions);
+        var sprit1 = new Sprite(block_descriptor.block_img, draw_stage.block_layer, true, false, null, null, block_descriptor.component_positions);
         for (var i=0; i<block_descriptor.labels.length; i++){
             this.make_label(sprit1, block_descriptor.labels[i]);
         }
 
-        var block1 = new TurtleBlock(sprit1, draw_stage.layer, dock_descriptor, block_descriptor.callback_func, block_descriptor.value_func, [draw_stage.turtle, draw_stage.draw_tracker, null, block_tracker]);
+        var block1 = new TurtleBlock(sprit1, draw_stage.block_layer, dock_descriptor, block_descriptor.callback_func, block_descriptor.value_func, [draw_stage.turtle, draw_stage.draw_tracker, null, block_tracker]);
+        
+        if (block_descriptor.user_resizable != null){
+            block1.set_user_resize(block_descriptor.user_resizable);
+        }
+        
         block1.block_type = name;
         block1.param_types = block_descriptor.param_types;
         block1.params[2] = block1;
@@ -122,6 +127,8 @@ BlockFactory.prototype = {
         if (user_action){
             block1.fire('mousedown');
         }
+        
+        //alert("acaba la ejecucion");
 
         return block1;
     },

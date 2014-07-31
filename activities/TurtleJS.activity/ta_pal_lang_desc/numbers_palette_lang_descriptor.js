@@ -15,10 +15,22 @@
 
 i18n_tracker.add_label('greaterthan_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['>', 65, 35, 19, 'Calibri', 'black']);
 
+i18n_tracker.add_label('lowerthan_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['<', 65, 35, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('equals_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['=', 65, 35, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('mod_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['mod', 25, 35, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('rand_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['rand', 25, 35, 19, 'Calibri', 'black']);
+
 i18n_tracker.add_label('add_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['+', 45, 35, 19, 'Calibri', 'black']);
 
 i18n_tracker.add_label('multiply_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['x', 45, 35, 19, 'Calibri', 'black']);
 
 i18n_tracker.add_label('divide_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['/', 45, 35, 19, 'Calibri', 'black']);
 
-i18n_tracker.add_label('identity_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['<-', 52, 13, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('substract_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['-', 45, 35, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('identity_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['←', 52, 13, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('sqrt_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['√', 62, 13, 19, 'Calibri', 'black']);

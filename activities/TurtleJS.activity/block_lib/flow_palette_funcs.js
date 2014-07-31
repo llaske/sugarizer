@@ -14,8 +14,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
 function repeat(params, values){
-    for (var i=0; i<values[0][1]; i++){
-        params[2].stack_slots[0].chain_exec();
+    if (params[2].stack_slots[0] != null){
+        for (var i=0; i<values[0][1]; i++){
+            params[2].stack_slots[0].chain_exec();
+        }
     }
     return true;
 }
@@ -76,4 +78,8 @@ function wait_exec(params){
 function wait(params, values){
     var myVar = setTimeout(function(){wait_exec(params)}, values[0][1]);
     return false;
+}
+
+function space_block(params, values){
+    return true;
 }

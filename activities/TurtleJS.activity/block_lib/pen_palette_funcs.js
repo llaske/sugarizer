@@ -51,6 +51,12 @@ function set_gray(params, values){
     return true;
 }
 
+function fill_screen(params, values){
+    var fg_color = params[1].set_fgcolor(values[1][1], values[2][1], values[0][1]);
+    draw_stage.bg.fill(fg_color);
+    return true;
+}
+
 function start_fill(params, values){
     params[1].start_fill();
     return true;
@@ -71,4 +77,8 @@ function get_pen_shade(params){
 
 function get_pen_gray(params){
     return [true, params[1].get_pen_gray()];
+}
+
+function get_pen_size(params){
+    return [true, params[1].get_pen_size()];
 }

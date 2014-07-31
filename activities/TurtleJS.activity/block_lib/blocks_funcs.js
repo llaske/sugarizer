@@ -33,6 +33,7 @@ function string_block(params, values, import_action, value) {
         $("#text_input").focus();
     } else{
         params[2].sprite.labels[0].setText(value + '');
+        params[2].block_value = value;
     }
 }
 
@@ -44,4 +45,63 @@ function show(params, values){
 function store_in_box(params, values){
     user_vars_tracker.add_var(values[0][1], values[1][1]);
     return true;
+}
+
+function action_block(params, values){
+    user_funcs_tracker.add_func(values[0][1], params[2]);
+    return true;
+}
+
+function action_exec_block(params, values){
+    var block = user_funcs_tracker.get_func(values[0][1]);
+    var val = true;
+    if (block.lower_block[0] != null){
+        val = block.lower_block[0].chain_exec();
+    }
+    val = true;
+    return val;
+}
+
+function turtle_color_block(params, values){
+        var color_blocks = {
+            '#FF0000' : 'red',
+            '#00FF00' : 'green',
+            '#551A8B' : 'purple',
+            '#FFA500' : 'orange',
+            '#00FFFF' : 'cyan',
+            '#FFFFFF' : 'white',
+            '#FFFF00' : 'yellow',
+            '#0000FF' : 'blue',
+            '#000000' : 'black'
+        };
+    params[0].change_color(color_blocks[values[0][1]]);
+    return true;
+}
+
+function start_block(params, values){
+    return true;
+}
+
+function get_width_block(params, values){
+    return [true, $(window).width()];
+}
+
+function get_height_block(params, values){
+    return [true, $(window).height()];
+}
+
+function get_left_block(params, values){
+    return [true, parseInt($(window).width()/2) * -1];
+}
+
+function get_right_block(params, values){
+    return [true, parseInt($(window).width()/2)];
+}
+
+function get_bottom_block(params, values){
+    return [true, parseInt($(window).height()/2) * -1];
+}
+
+function get_top_block(params, values){
+    return [true, parseInt($(window).height()/2)];
 }

@@ -25,6 +25,8 @@ i18n_tracker.add_label('until_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Unt
 
 i18n_tracker.add_label('wait_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['Wait', 15, 13, 19, 'Calibri', 'black']);
 
+i18n_tracker.add_label('space_block', 'en_US', [FACTORY_SIDE, BLOCK_SIDE], ['', 15, 13, 19, 'Calibri', 'black']);
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 i18n_tracker.add_label('repeat_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Repetir', 5, 13, 19, 'Calibri', 'black']);
