@@ -40,12 +40,42 @@ BlocksPalette.prototype = {
     },
     make_block_factories: function(){
         var sprit1 = new Sprite(image_tracker.get_resource('box2'), this.container.layer, true, false, null, null, [0, 28, 82]);
-        var factory = new BlockFactory([5, 5], sprit1, 'text_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'text']);
+        var factory = new BlockFactory([5, 5], sprit1, 'text_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'string']);
 		
-        var sprit1 = new Sprite(image_tracker.get_resource('basic1arg'), this.container.layer, true);
+        var sprit1 = new Sprite(image_tracker.get_resource('basic1arg_yellow'), this.container.layer, true);
         new BlockFactory([135, 5], sprit1, 'show_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'show']);
         
         sprit1 = new Sprite(image_tracker.get_resource('basic2arg'), this.container.layer, true);
-        new BlockFactory([255, 5], sprit1, 'store_in_box_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'store_in_box']);
+        new BlockFactory([255, 5], sprit1, 'store_in_box_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'storein']);
+      
+        sprit1 = new Sprite(image_tracker.get_resource('head'), this.container.layer, true);
+        new BlockFactory([135, 55], sprit1, 'start_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'start2']);
+      
+        sprit1 = new Sprite(image_tracker.get_resource('head1arg'), this.container.layer, true);
+        new BlockFactory([5, 55], sprit1, 'action_make_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'hat']);
+        
+        var sprit1 = new Sprite(image_tracker.get_resource('basic1arg_yellow'), this.container.layer, true);
+        new BlockFactory([375, 5], sprit1, 'action_call_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'stack']);
+        
+        var sprit1 = new Sprite(image_tracker.get_resource('basic1arg_yellow'), this.container.layer, true);
+        new BlockFactory([375, 55], sprit1, 'turtle_color_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'turtle_color']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([285, 110], sprit1, 'width_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'width']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([415, 110], sprit1, 'height_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'height']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([135, 110], sprit1, 'left2_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'leftpos']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([5, 115], sprit1, 'right2_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'rightpos']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([5, 165], sprit1, 'bottom_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'bottompos']);
+        
+        sprit1 = new Sprite(image_tracker.get_resource('box2_blue_c'), this.container.layer, true, false, null, null, [0, 28, 82]);
+        new BlockFactory([135, 165], sprit1, 'top_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'toppos']);
     }
 }

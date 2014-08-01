@@ -45,7 +45,9 @@ Sprite.prototype = {
         // add the new object to the layer ()canvas
 
         if (!this.is_in_block){
-            this.layer.add(group);
+            if (this.layer != null){
+                this.layer.add(group);
+            }
         }
 
         // style the mouse cursor depending if it's over the object or not

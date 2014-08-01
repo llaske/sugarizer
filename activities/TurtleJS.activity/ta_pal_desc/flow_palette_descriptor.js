@@ -40,8 +40,13 @@ FlowPaletteDesc.prototype = {
         var block_descriptor = new BlockDescriptor(image_tracker.get_resource('clampb_orange'), 'clamp_bool', until, null, ['until_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['bool']]);
         block_descriptor.component_positions = [0, 76, 18];
         block_descriptor.base_clamp_height = 42;
+        
+        var block_descriptor = new BlockDescriptor(image_tracker.get_resource('basic_resize'), 'basic_resize', space_block, null, ['space_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
+        block_descriptor.component_positions = [0, 15, 8];
+        block_descriptor.base_clamp_height = 10;
+        block_descriptor.user_resizable = [5, 5];
 
-        new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg_orange', wait, null, ['wait_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
+        new BlockDescriptor(image_tracker.get_resource('basic1arg_orange'), 'basic1arg', wait, null, ['wait_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);
     },
     get_block_descriptor: function(name){
         return this.descriptors[name];

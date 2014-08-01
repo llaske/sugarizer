@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
 <!--
 Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 #
@@ -18,6 +18,16 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="user-scalable=no">
+        
+        <link rel="stylesheet" href="ext_lib/jquery.mobile.min.css">
+        <script src="ext_lib/jquery.js"></script>
+        <script src="ext_lib/jquery.mobile.min.js"></script>
+        
+        <script type="text/javascript">
+            $.mobile.ignoreContentEnabled = true;
+        </script>
+        
         <link rel="icon" href="activity/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
         <link rel="stylesheet" href="ta_css/activity.css">
@@ -25,7 +35,7 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
         <script data-main="js/loader" src="lib/require.js"></script>
     </head>
     <body>
-        <div id="main-toolbar" class="toolbar">
+        <div id="main-toolbar" class="toolbar" data-enhance="false">
             <button class="toolbutton" id="activity-button" title="Turtle Art Web"></button>
             <hr />
             <button class="toolbutton" id="basictb-bt" title="Basic toolbar"></button>
@@ -39,18 +49,24 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
             <button class="toolbutton" id="hideshow-bt" title="Hide/Show blocks"></button>
             <button class="toolbutton" id="open-bt" title="Open file"></button>
             <button class="toolbutton" id="save-bt" title="Save file"></button>
+            <a href="#popupShowDraw" data-rel="popup" >
+                <button class="toolbutton" id="img-save-bt" title="Save file"></button>
+            </a>
+			<a href="#popupShowHelp" data-rel="popup" >
+				<button class="toolbutton" id="help-bt" title="Help"></button>
+			</a>
             <button class="toolbutton" id="es-lang-bt" title="Español"></button>
             <button class="toolbutton" id="en-lang-bt" title="English"></button>
-			
             <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
         </div>
-        <div id="canvas">
+        
+        <div id="canvas" data-enhance="false">
             <input type="file" id="input-file" name="files[]" />
             <div id="container2"></div>
 
             <script src="ext_lib/kinetic-v5.1.0.min.js"></script>
-            <script src="ext_lib/jquery.js"></script>
 
+            <script src="ta_examples/examples.js"></script>
             <script src="ta_lib/i18n.js"></script>
             <script src="ta_lib/taconstants.js"></script>
             <script src="html_js/buttonslogic.js"></script>
@@ -58,6 +74,7 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 
             <script src="ta_shapes/arcshape.js"></script>
             <script src="ta_lib/tautil.js"></script>
+            <script src="ta_lib/userfuncstracker.js"></script>
             
             <script src="ta_gui/errormessagecontainer.js"></script>
 
@@ -110,6 +127,173 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 
             <script src="html_js/appinit.js"></script>
             <script src="ta_gui/scrollbars.js"></script>
+        </div>
+        <div data-role="popup" id="popupShowDraw">
+            <img id = "saved-image" src="ta_icons/white.jpg" height = "300" width = "300"/>
+        </div>
+		<div data-role="popup" id="popupShowHelp" style="max-width:600px; max-height:300px;">
+			<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+				<div >
+					<div class="card">
+						<img id = "card-01" src="ta_examples/thumbnails/TurtleCard-001.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-02" src="ta_examples/thumbnails/TurtleCard-002.png" />
+						<br />Card2
+					</div>
+				</div>
+				<div >
+					<div class="card">
+						<img id = "card-03" src="ta_examples/thumbnails/TurtleCard-003.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-04" src="ta_examples/thumbnails/TurtleCard-004.png" />
+						<br />Card2
+					</div>
+				</div>
+				<div >
+					<div class="card">
+						<img id = "card-05" src="ta_examples/thumbnails/TurtleCard-005.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-06" src="ta_examples/thumbnails/TurtleCard-006.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-07" src="ta_examples/thumbnails/TurtleCard-007.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-08" src="ta_examples/thumbnails/TurtleCard-008.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-09" src="ta_examples/thumbnails/TurtleCard-009.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-10" src="ta_examples/thumbnails/TurtleCard-010.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-11" src="ta_examples/thumbnails/TurtleCard-011.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-12" src="ta_examples/thumbnails/TurtleCard-012.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-13" src="ta_examples/thumbnails/TurtleCard-013.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-14" src="ta_examples/thumbnails/TurtleCard-014.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-15" src="ta_examples/thumbnails/TurtleCard-015.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-16" src="ta_examples/thumbnails/TurtleCard-016.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-17" src="ta_examples/thumbnails/TurtleCard-017.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-18" src="ta_examples/thumbnails/TurtleCard-018.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-19" src="ta_examples/thumbnails/TurtleCard-019.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-20" src="ta_examples/thumbnails/TurtleCard-020.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-21" src="ta_examples/thumbnails/TurtleCard-021.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-22" src="ta_examples/thumbnails/TurtleCard-022.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-23" src="ta_examples/thumbnails/TurtleCard-023.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-24" src="ta_examples/thumbnails/TurtleCard-024.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-25" src="ta_examples/thumbnails/TurtleCard-025.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-26" src="ta_examples/thumbnails/TurtleCard-026.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-27" src="ta_examples/thumbnails/TurtleCard-027.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-28" src="ta_examples/thumbnails/TurtleCard-028.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-29" src="ta_examples/thumbnails/TurtleCard-029.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-30" src="ta_examples/thumbnails/TurtleCard-030.png" />
+						<br />Card2
+					</div>
+				</div>
+                <div >
+					<div class="card">
+						<img id = "card-31" src="ta_examples/thumbnails/TurtleCard-031.png" />
+						<br />Card1
+					</div>
+					<div class="card">
+						<img id = "card-32" src="ta_examples/thumbnails/TurtleCard-032.png" />
+						<br />Card2
+					</div>
+				</div>
+			</div>
         </div>
     </body>
 </html>

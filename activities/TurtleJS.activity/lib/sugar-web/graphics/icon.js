@@ -57,7 +57,12 @@ define(function () {
     function getBackgroundURL(elem) {
         var style = elem.currentStyle || window.getComputedStyle(elem, '');
         // Remove prefix 'url(' and suffix ')' before return
-        return style.backgroundImage.slice(4, -1);
+        var res = style.backgroundImage.slice(4, -1);
+		var last = res.length-1;
+		if (res[0] == '"' && res[last] == '"') {
+			res = res.slice(1, last);
+		}
+		return res;
     }
 
     function setBackgroundURL(elem, url) {

@@ -35,9 +35,15 @@ BasicBlockDesc.prototype = {
 
         new BlockDescriptor(image_tracker.get_resource('basic'), 'basic', clean_block, null, ['clean_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors]);
 
-        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', setxy, null, ['setxy_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('basic2arg2'), 'basic2arg', setxy, null, ['setxy_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
+        descriptor.component_positions = [0, 38, 10];
+        descriptor.base_clamp_height = 10;
+        descriptor.user_resizable = [10, 55];
 
-        new BlockDescriptor(image_tracker.get_resource('basic2arg'), 'basic2arg', arc, null, ['arc_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
+        var descriptor = new BlockDescriptor(image_tracker.get_resource('basic2arg2'), 'basic2arg', arc, null, ['arc_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int', 'int']]);
+        descriptor.component_positions = [0, 38, 10];
+        descriptor.base_clamp_height = 10;
+        descriptor.user_resizable = [10, 55];
 
         new BlockDescriptor(image_tracker.get_resource('basic1arg'), 'basic1arg', set_heading, null, ['set_heading_block', DEFAULT_LANG, FACTORY_SIDE, this.descriptors, ['int']]);;
 

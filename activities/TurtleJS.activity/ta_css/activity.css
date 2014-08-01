@@ -31,6 +31,14 @@
   background-image: url(../ta_icons/filesaveoff.svg);
 }
 
+#help-bt {
+  background-image: url(../ta_icons/help-off.svg);
+}
+
+#img-save-bt {
+  background-image: url(../ta_icons/image-saveon.svg);
+}
+
 #es-lang-bt {
   background-image: url(../activity/turtleart.svg);
 }
@@ -83,4 +91,38 @@
   top: 0;
   left: 95%;
   position: absolute;
+}
+
+
+
+.card{
+	background-color: white;
+	text-align: center;
+	float: left;
+}
+
+.card img{
+	height: 150px;
+	width: 180px;
+}
+
+.card:hover {
+	opacity: 0.8;
+}
+
+
+@media screen and (max-width: 1051px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+	
+	#main-toolbar #activity-button {
+		left: 10px;
+	}
+	
+	#main-toolbar #stop-button {
+		position: absolute;
+		right: 10px;
+		top: 0px;
+	}
 }

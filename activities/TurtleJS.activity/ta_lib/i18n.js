@@ -55,9 +55,16 @@ I18n.prototype = {
         } else{
             error_message = this.error_messages[id]['en_US'];
         }
-
+        
+        var block_keys = Object.keys(this.words);
+        
         for (var i=0; i<params.length; i++){
-            error_message = error_message.replace("{" + i + "}", params[i]);
+            var block_name = params[i];
+            
+            if (block_keys.indexOf(params[i]) != -1){
+                block_name = this.words[params[i]][lang][FACTORY_SIDE][0][0];
+            }
+            error_message = error_message.replace("{" + i + "}", block_name);
         }
         return error_message;
     },
@@ -106,10 +113,14 @@ I18n.prototype = {
     },
     change_block_labels: function(){
         var blocks = block_tracker.get_blocks();
+        var box_types = ['box_block', 'number', 'text_block'];
+        
         for (var i=0; i<blocks.length; i++){
             var block = blocks[i];
-            block.sprite.delete_all_labels();
-            block.sprite.set_labels(this.get_labels(block.block_type, DEFAULT_LANG, BLOCK_SIDE));
+            if (box_types.indexOf(block.block_type) == -1){
+                block.sprite.delete_all_labels();
+                block.sprite.set_labels(this.get_labels(block.block_type, DEFAULT_LANG, BLOCK_SIDE));
+            }
         }
     }
 }

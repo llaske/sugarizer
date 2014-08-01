@@ -39,8 +39,8 @@ DrawStage.prototype = {
 
         this.layer = new Kinetic.Layer();
         this.draw_layer = new Kinetic.Layer();
-        //this.draw_layer.x(-1000);
         this.palette_layer = new Kinetic.Layer();
+        this.block_layer = new Kinetic.Layer();
         this.scroll_layer = new Kinetic.Layer();
         
 
@@ -53,14 +53,16 @@ DrawStage.prototype = {
         });
         this.draw_layer.add(this.bg);
 
-        this.stage.add(this.draw_layer).add(this.palette_layer).add(this.layer).add(this.scroll_layer);
-
         this.anim = new Kinetic.Animation(function(frame) {}, this.layer);
         this.anim.start();
+        
+        this.anim_movement = new Kinetic.Animation(function(frame) {}, this.block_layer);
+        this.anim_movement.start();
         
         this.anim_scroll = new Kinetic.Animation(function(frame) {}, this.scroll_layer);
         this.anim_scroll.start();
         
+        this.stage.add(this.draw_layer).add(this.layer).add(this.palette_layer).add(this.block_layer).add(this.scroll_layer);
 
         this.turtle = new Turtle([this.bg.width()/2, this.bg.height()/2], this.layer);
         this.draw_tracker = new DrawTracker(this.draw_layer, this.turtle);

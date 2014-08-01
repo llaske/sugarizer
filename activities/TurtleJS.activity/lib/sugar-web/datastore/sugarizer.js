@@ -43,18 +43,18 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     //- Static Datastore methods
 
     // Create a new datastore entry
-    datastore.create = function(metadata, callback) {
+    datastore.create = function(metadata, callback, text) {
         var callback_c = datastore.callbackChecker(callback);
         var objectId = datastore.createUUID();
         html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
-            text: null
+            text: (text === undefined) ? null : text
         });
         callback_c(null, objectId);
     }
 
-    // Find entries matching an activity_id
-    datastore.find = function(activityId) {
+    // Find entries matching an activity type
+    datastore.find = function(id) {
         var results = [];
         if (!html5storage.test())
             return results;
@@ -62,7 +62,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             if (key.substr(0, datastorePrefix.length) == datastorePrefix) {
                 var entry = html5storage.getValue(key);
                 entry.objectId = key.substr(datastorePrefix.length);
-                if (activityId === undefined || entry.metadata.activity_id == activityId) {
+                if (id === undefined || entry.metadata.activity == id) {
                     results.push(entry);
                 }
             }
@@ -70,6 +70,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
         return results;
     }
+	
+	// Remove an entry in the datastore
+	datastore.remove = function(objectId) {
+		html5storage.removeValue(datastorePrefix + objectId);
+	}
 
     //- Instance datastore methods
     function DatastoreObject(objectId) {
@@ -155,7 +160,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		if (sugar_settings) {
 			this.newMetadata["buddy_name"] = sugar_settings.name;
 			this.newMetadata["buddy_color"] = sugar_settings.colorvalue;
-		}		
+		}
         html5storage.setValue(datastorePrefix + this.objectId, {
             metadata: this.newMetadata,
             text: this.newDataAsText
@@ -186,7 +191,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     // Get a value in the storage
     html5storage.getValue = function(key) {
         if (this.test()) {
-            try {
+            try {			
                 return JSON.parse(window.localStorage.getItem(key));
             } catch (err) {
                 return null;
@@ -194,6 +199,15 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
         }
         return null;
     };
+	
+	// Remove a value in the storage
+	html5storage.removeValue = function(key) {
+        if (this.test()) {
+            try {
+                window.localStorage.removeItem(key);
+            } catch (err) {}
+        }	
+	};
 
     return datastore;
 });

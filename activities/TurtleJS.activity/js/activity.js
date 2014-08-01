@@ -6,7 +6,6 @@ define(function (require) {
 
         // Initialize the activity.
         activity.setup();
-console.log("Hello");
     });
 
 });
