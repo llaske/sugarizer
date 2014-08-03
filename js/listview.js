@@ -78,6 +78,7 @@ enyo.kind({
 		favorite.setColorized(preferences.switchFavoriteActivity(activity));
 		favorite.render();
 		preferences.save();
+		preferences.saveToServer(myserver);
 		app.redraw();		
 		this.$.activityPopup.hidePopup();
 	},

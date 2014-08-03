@@ -12,6 +12,7 @@ exports.load = function(settings) {
 	var activitiesPath = settings.activities.activities_path;
 	var templateDirName = settings.activities.template_directory_name;
 	var activityInfoPath = settings.activities.activity_info_path;
+	var favorites = settings.activities.favorites ? settings.activities.favorites.split(',') : [];
 	
 	// Read activities directory
 	fs.readdir(activitiesPath, function(err, files) {
@@ -30,13 +31,23 @@ exports.load = function(settings) {
 							if (err) throw err;							
 							// Parse the file as an .INI file
 							var info = ini.parse(content);
+							
+							// Check if activity is favorite
+							var favorite = false;
+							for (var i = 0 ; !favorite && i < favorites.length ; i++) {
+								if (favorites[i].trim() == info.Activity.bundle_id) {
+									favorite = true;
+								}
+							}
+							
+							// Return the activity
 							activities.push({
 								"id":info.Activity.bundle_id,
 								"name":info.Activity.name,
 								"version":info.Activity.activity_version,
 								"directory":activitiesDirName+"/"+file,
 								"icon":"activity/"+info.Activity.icon+".svg",
-								"favorite":true,
+								"favorite":favorite,
 								"activityId":null
 							});
 						});
