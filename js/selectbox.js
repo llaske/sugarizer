@@ -10,7 +10,7 @@ enyo.kind({
 			{name: "icon", kind: "Sugar.Icon", size: 20, x: 6, y: 6, classes: "selectbox-icon"},	
 			{name: "text", content: "xxx", classes: "selectbox-text"},
 			{name: "selectpopup", kind: "Sugar.Popup", classes: "selectbox-popup", showing: false}
-		], onclick:"clickToTap", ontap:"showPopup"}
+		], ontap:"showPopup"}
 	],
 	
 	// Constructor
@@ -45,8 +45,8 @@ enyo.kind({
 			return;
 		var clientrects = this.hasNode().getClientRects();
 		var ctrlpos = clientrects[clientrects.length-1];
-		if (this.parentMargin != null) {
-			var nodepos = enyo.dom.calcNodePosition(this.parentMargin.hasNode(), document);	
+		if (this.parentMargin != null) {	
+			var nodepos = enyo.dom.calcNodePosition(this.parentMargin.hasNode());	
 			ctrlpos = { left: ctrlpos.left-nodepos.left, top: ctrlpos.top-nodepos.top };			
 		}
 		this.$.selectpopup.setMargin({left: ctrlpos.left-mouse.position.x+5, top: ctrlpos.top-mouse.position.y-3});
@@ -87,9 +87,5 @@ enyo.kind({
 		this.timer = null;
 		this.$.selectpopup.hidePopup();
 		this.doIndexChanged();
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });

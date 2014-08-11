@@ -74,28 +74,32 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		// If colorized		
 		if (this.colorized) {
 			// Get colorized color
 			var colorToUse = this.colorizedColor;
 			var node = this.$.icon.hasNode();
 			var name = this.icon.directory+"/"+this.icon.icon;
+			var cachename;
 			node.style.backgroundImage = "url('" + name + "')";			
 			if (colorToUse == null) {
 				// Try to find colorized version in cache
 				colorToUse = preferences.getColor();
+				cachename = name+"_"+colorToUse.stroke+"_"+colorToUse.fill;				
 				for (var i = 0 ; i < iconColorCache.names.length ; i++)
-					if (iconColorCache.names[i] == name) {
+					if (iconColorCache.names[i] == cachename) {
 						node.style.backgroundImage = iconColorCache.values[i];
 						return;
 					}
+			} else {
+				cachename = name+"_"+colorToUse.stroke+"_"+colorToUse.fill;			
 			}
 			
 			// Build it
 			iconLib.colorize(node, colorToUse, function() {
 				// Cache it			
-				iconColorCache.names.push(name);
+				iconColorCache.names.push(cachename);
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
@@ -103,7 +107,9 @@ enyo.kind({
 	
 	// Property changed
 	xChanged: function() {
-		if (this.x != -1) this.applyStyle("margin-left", this.x+"px");
+		if (this.x != -1) {
+			this.applyStyle("margin-left", this.x+"px");
+		}
 	},
 	
 	yChanged: function() {

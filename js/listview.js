@@ -1,18 +1,18 @@
 
 // Listview view
 enyo.kind({
-	name: "Sugar.Desktop.ListView",
+	name: "Sugar.DesktopListView",
 	kind: "Scroller",
 	published: { activities: [] },	
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
 		{name: "message", classes: "listview-message", showing: false},
-		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "clickToTap", showing: false},
+		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite", onclick: "clickToTap"},			
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity", onclick:"clickToTap"},
+				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite"},			
+				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"}
 			]}
@@ -44,7 +44,7 @@ enyo.kind({
 	
 	// Property changed
 	activitiesChanged: function() {
-		this.$.activityList.setCount(this.activities.length);
+		this.$.activityList.set("count", this.activities.length, true);
 		if (this.activities.length == 0) {
 			this.$.nomatch.show();
 			this.$.message.show();
@@ -72,7 +72,7 @@ enyo.kind({
 	// Switch favorite value for clicked line
 	doSwitchFavorite: function(inSender, inEvent) {
 		var activitiesList = this.activities;
-		this.switchFavorite(inSender, activitiesList[inEvent.index]);		
+		this.switchFavorite(inEvent.dispatchTarget.container, activitiesList[inEvent.index]);		
 	},
 	switchFavorite: function(favorite, activity) {
 		favorite.setColorized(preferences.switchFavoriteActivity(activity));
@@ -137,9 +137,5 @@ enyo.kind({
 	nofilter: function() {
 		app.getToolbar().setSearchText("");
 		app.filterActivities();
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });

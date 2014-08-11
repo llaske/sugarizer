@@ -1,5 +1,5 @@
 
-/* ../source/dom/dom.css */
+/* ..\source\dom\dom.css */
 
 /* things we always want */
 body {
@@ -102,8 +102,41 @@ body .enyo-fit {
 	transform: translateZ(0);
 }
 
+/* Fullscreen CSS */
+:-webkit-full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+:-moz-full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+:-ms-full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+:-o-full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+:full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+/* Fallback Fullscreen CSS */
+body .enyo-fullscreen {
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	box-sizing: border-box !important;
+}
 
-/* ../source/touch/Thumb.css */
+
+/* ..\source\touch\Thumb.css */
 
 .enyo-thumb {
 	position: absolute;
@@ -129,7 +162,7 @@ body .enyo-fit {
 }
 
 
-/* ../source/touch/Scroller.css */
+/* ..\source\touch\Scroller.css */
 
 .enyo-scroller {
 	position: relative;
@@ -151,7 +184,7 @@ body .enyo-fit {
 	height: 100%;
 }
 
-/* ../source/ui/ui.css */
+/* ..\source\ui\ui.css */
 
 .enyo-inline, .enyo-tool-decorator {
 	display: inline-block;
@@ -179,3 +212,94 @@ body .enyo-fit {
 	position: absolute;
 	z-index: 10;
 }
+
+.enyo-image.sized {
+	display: inline-block;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.enyo-image.contain {
+	background-size: contain;
+}
+.enyo-image.cover {
+	background-size: cover;
+}
+
+/* ..\source\ui\data\data.css */
+
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
+.enyo-data-list {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.enyo-data-list .active {
+  position: relative;
+  overflow: hidden;
+}
+.enyo-data-list .buffer {
+  height: 100%;
+  overflow: hidden;
+}
+.enyo-data-list .page {
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+}
+.enyo-data-list.transitions .page {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 300ms ease-out;
+  -moz-transition: opacity 300ms ease-out;
+  -ms-transition: opacity 300ms ease-out;
+  -o-transition: opacity 300ms ease-out;
+  transition: opacity 300ms ease-out;
+}
+.enyo-data-list.rendered .page {
+  visibility: visible;
+}
+.enyo-data-list.rendered.transitions .page {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.enyo-data-list.debug .page1 {
+  background: #99CCFF;
+}
+.enyo-data-list.debug .page2 {
+  background: #CC99FF;
+}
+.enyo-data-list.horizontal .active {
+  white-space: nowrap;
+}
+.enyo-data-list.horizontal .page > * {
+  display: inline-block !important;
+}
+.enyo-data-list.horizontal .page {
+  width: auto;
+}
+.enyo-data-grid-list .item {
+  display: block;
+  position: absolute !important;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.enyo-data-grid-list.transitions.reset.rendered .item {
+  -webkit-transition: top 300ms ease-out, left 300ms ease-out, width 300ms ease-out, height 300ms ease-out;
+  -moz-transition: top 300ms ease-out, left 300ms ease-out, width 300ms ease-out, height 300ms ease-out;
+  -ms-transition: top 300ms ease-out, left 300ms ease-out, width 300ms ease-out, height 300ms ease-out;
+  -o-transition: top 300ms ease-out, left 300ms ease-out, width 300ms ease-out, height 300ms ease-out;
+  transition: top 300ms ease-out, left 300ms ease-out, width 300ms ease-out, height 300ms ease-out;
+}
+

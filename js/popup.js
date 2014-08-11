@@ -7,16 +7,16 @@ enyo.kind({
 	classes: "home-activity-popup",
 	published: { margin: null, header: null, items: null, footer: null },
 	components: [
-		{classes: "popup-title", ontap: "runHeaderAction", onclick: "clickToTap", components: [
+		{classes: "popup-title", ontap: "runHeaderAction", components: [
 			{name: "icon", showing: false, kind: "Sugar.Icon", x: 5, y: 5, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
 		]},
 		{name: "items", classes: "popup-items", showing: false, components: [
-			{name: "itemslist", kind: "Sugar.Desktop.PopupListView"}
+			{name: "itemslist", kind: "Sugar.DesktopPopupListView"}
 		]},
 		{name: "footer", classes: "popup-items", showing: false, components: [
-			{name: "footerlist", kind: "Sugar.Desktop.PopupListView"}			
+			{name: "footerlist", kind: "Sugar.DesktopPopupListView"}			
 		]}
 	],
 	
@@ -43,7 +43,8 @@ enyo.kind({
 			if (this.header.icon != null) {
 				this.$.icon.setIcon(this.header.icon);
 				this.$.icon.setColorized(this.header.colorized);
-				this.$.icon.setColorizedColor(this.header.colorizedColor);
+				if (this.header.colorizedColor)
+					this.$.icon.setColorizedColor(this.header.colorizedColor);
 				this.$.icon.render();
 			}
 			this.$.name.setContent(this.header.name);
@@ -124,10 +125,6 @@ enyo.kind({
 			&& mouse.position.y >= p.y && mouse.position.y <= p.y + p.dy
 		);
 		return isInside;
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -136,13 +133,13 @@ enyo.kind({
 
 // Items popup ListView
 enyo.kind({
-	name: "Sugar.Desktop.PopupListView",
-	kind: "Scroller",
+	name: "Sugar.DesktopPopupListView",
+	kind: enyo.Scroller,
 	published: { items: null },
 	classes: "popup-item-listview",
 	components: [
 		{name: "itemList", classes: "item-list", kind: "Repeater", onSetupItem: "setupItem", components: [
-			{name: "item", classes: "item-list-item", ontap: "runItemAction", onclick: "clickToTap", components: [
+			{name: "item", classes: "item-list-item", ontap: "runItemAction", components: [
 				{name: "icon", kind: "Sugar.Icon", x: 5, y: 4, size: constant.iconSizeFavorite},	
 				{name: "name", classes: "item-name"}
 			]}
@@ -158,9 +155,9 @@ enyo.kind({
 	// Items changed
 	itemsChanged: function() {
 		if (this.items != null)
-			this.$.itemList.setCount(this.items.length);
+			this.$.itemList.set("count", this.items.length, true);
 		else
-			this.$.itemList.setCount(0);
+			this.$.itemList.set("count", 0, true);
 	},
 
 	// Init setup for a line
@@ -188,9 +185,5 @@ enyo.kind({
 		var action = this.items[inEvent.index].action;
 		if (action != null)
 			action.apply(this, this.items[inEvent.index].data);
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}
 });
