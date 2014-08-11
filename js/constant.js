@@ -38,5 +38,6 @@ constant.popupMarginLeft = 5;
 constant.popupMarginTop = -50;
 
 constant.timerPopupDuration = 1000;
+constant.touchToPopupDuration = 500;
 
 constant.maxPopupHistory = 5;

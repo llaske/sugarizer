@@ -24,7 +24,7 @@ enyo.kind({
 	},
 	classes: "web-activity",
 	components: [
-		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"},
+		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
 		{ name: "disable", classes: "web-activity-disable", showing: false}
 	],
 	
@@ -40,6 +40,7 @@ enyo.kind({
 		this.xChanged();
 		this.yChanged();
 		this.timer = null;
+		this.emulateMouseOver = false;		
 	},
 	
 	// Timer handler for popup menu
@@ -70,16 +71,39 @@ enyo.kind({
 		window.clearInterval(this.timer);
 		this.timer = null;		
 	},
+	startMouseOverSimulator: function(icon, e) {
+		if (enyo.platform.firefoxOS && enyo.platform.touch) {
+			this.emulateMouseOver = true;
+			this.emulatorTimestamp = new Date().getTime();
+		}
+	},
+	stopMouseOverSimulator: function(icon, e) {
+		if (this.emulateMouseOver) {
+			var timeelapsed = new Date().getTime() - this.emulatorTimestamp;
+			console.log("touched during "+timeelapsed+"ms");
+			this.emulatorMouseOver = false;
+			return timeelapsed > constant.touchToPopupDuration;
+		}
+		return false;
+	},
 
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-
+		
+		// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
+		var node = this.$.icon.hasNode();
+		if (enyo.platform.firefoxOS && enyo.platform.touch && node) {
+			var that = this;
+			enyo.dispatcher.listen(node, "touchstart", function() {
+				that.startMouseOverSimulator();
+			});
+		}
+		
 		// If colorized		
 		if (this.colorized) {
 			// Get colorized color
 			var colorToUse = this.colorizedColor;
-			var node = this.$.icon.hasNode();
 			var name = this.icon.directory+"/"+this.icon.icon;
 			var cachename;
 			node.style.backgroundImage = "url('" + name + "')";			

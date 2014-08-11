@@ -182,7 +182,7 @@ enyo.kind({
 					x: (canvas_center.x+Math.cos(angle)*radiusx-semi_size), 
 					y: (canvas_center.y+Math.sin(angle)*radiusy-semi_size),
 					colorized: activity.instances !== undefined && activity.instances.length > 0,
-					onclick: "runMatchingActivity",
+					ontap: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
