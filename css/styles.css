@@ -264,6 +264,7 @@ input {
 }
 
 .journal-footer {
+	width: 100%;
 }
 
 .journal-list-item {

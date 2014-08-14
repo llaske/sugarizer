@@ -3,8 +3,9 @@
 enyo.kind({
 	name: "Sugar.Journal",
 	published: { journal: null },
+	kind: "FittableRows",
 	components: [
-		{name: "content", kind: "Scroller", classes: "journal-content", onresize: "draw", components: [
+		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
 			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
@@ -42,8 +43,7 @@ enyo.kind({
 
 	// Render
 	rendered: function() {
-		// Colorized list
-		this.$.journalList.render();
+		this.inherited(arguments);
 		
 		// Colorizer footer icons
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});

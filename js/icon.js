@@ -80,7 +80,6 @@ enyo.kind({
 	stopMouseOverSimulator: function(icon, e) {
 		if (this.emulateMouseOver) {
 			var timeelapsed = new Date().getTime() - this.emulatorTimestamp;
-			console.log("touched during "+timeelapsed+"ms");
 			this.emulatorMouseOver = false;
 			return timeelapsed > constant.touchToPopupDuration;
 		}
