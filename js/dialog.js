@@ -238,6 +238,7 @@ enyo.kind({
 		this.languageset = [
 			{code: "en", icon: null, name: l10n.get("English")},
 			{code: "es", icon: null, name: l10n.get("Spanish")},
+			{code: "de", icon: null, name: l10n.get("German")},
 			{code: "fr", icon: null, name: l10n.get("French")}
 		];
 		this.$.languageselect.setItems(this.languageset);		
