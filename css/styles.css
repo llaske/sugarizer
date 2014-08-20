@@ -95,6 +95,7 @@ input {
 	width: 270px;
 	line-height: 22px;
 	outline: 0;
+	font-size: 10pt;
 }
 
 .search-field-input:focus {
