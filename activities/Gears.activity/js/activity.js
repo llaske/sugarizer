@@ -11,20 +11,20 @@ define(function (require) {
         // Initialize the activity.
         activity.setup();
 
-        activity.write = function (callback) {
+        var stopButton = document.getElementById("stop-button");
+        stopButton.addEventListener('click', function (event) {
             console.log("writing...");
             var jsonData = JSON.stringify(gearSketch.board);
-            this.getDatastoreObject().setDataAsText(jsonData);
-            this.getDatastoreObject().save(function (error) {
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save(function (error) {
                 if (error === null) {
                     console.log("write done.");
                 }
                 else {
                     console.log("write failed.");
                 }
-                callback(error);
             });
-        };
+        });
 
         gearSketch = new window.gearsketch.GearSketch(false);
 
@@ -56,7 +56,6 @@ define(function (require) {
         };
 
         gearSketch.selectButton = function (buttonName) {
-            radioButtons.setActive(buttonNames[buttonName]);
             return this.selectedButton = buttonName;
         }
 

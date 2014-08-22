@@ -416,7 +416,13 @@ class GearSketch
         else
           outerPoints.push(Point.polar((i + 0.25 * r) * angleStep, gear.outerRadius))
     ctx.save()
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)"
+
+    if color is "black"
+      hue = Math.floor(Math.random()*360)
+      ctx.fillStyle = "hsla(" + hue + ", 85%, 60%, 0.8)"
+    else
+      ctx.fillStyle = "hsla(0, 0%, 90%, 0.2)"
+
     ctx.strokeStyle = color
     ctx.lineWidth = 2
     ctx.translate(x, y)

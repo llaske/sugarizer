@@ -1,6 +1,6 @@
 [Activity]
 name = Gears
-activity_version = 5
+activity_version = 6
 bundle_id = org.sugarlabs.GearsActivity
 exec = sugar-activity-web
 icon = activity-icon
