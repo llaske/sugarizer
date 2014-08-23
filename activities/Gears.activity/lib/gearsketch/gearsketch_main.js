@@ -557,7 +557,16 @@
         }
       }
       ctx.save();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+
+      if (color === "black") {
+          if (!gear.hue) {
+              gear.hue = Math.floor(Math.random()*360);
+          }
+          ctx.fillStyle = "hsla(" + gear.hue + ", 85%, 60%, 0.8)";
+      } else {
+          ctx.fillStyle = "hsla(0, 0%, 90%, 0.2)";
+      }
+
       ctx.strokeStyle = color;
       ctx.lineWidth = 2;
       ctx.translate(x, y);

@@ -20,7 +20,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: false},
-		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", onclick: "clickToTap", classes: "journal-icon", showing: false},
+		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", classes: "journal-icon", showing: false},
 		{name: "desktop", showing: true, onresize: "resize", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},		
@@ -133,7 +133,7 @@ enyo.kind({
 	// Get linked toolbar
 	getToolbar: function() {
 		if (this.toolbar == null)
-			this.toolbar = new Sugar.Desktop.Toolbar();
+			this.toolbar = new Sugar.DesktopToolbar();
 		return this.toolbar;
 	},
 	
@@ -179,10 +179,10 @@ enyo.kind({
 					kind: "Sugar.Icon", 
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					size: icon_size,
-					x: canvas_center.x+Math.cos(angle)*radiusx-semi_size, 
-					y: canvas_center.y+Math.sin(angle)*radiusy-semi_size,
+					x: (canvas_center.x+Math.cos(angle)*radiusx-semi_size), 
+					y: (canvas_center.y+Math.sin(angle)*radiusy-semi_size),
 					colorized: activity.instances !== undefined && activity.instances.length > 0,
-					onclick: "runMatchingActivity",
+					ontap: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
@@ -231,7 +231,7 @@ enyo.kind({
 			util.setToolbar(this.getToolbar());		
 			var filter = toolbar.getSearchText().toLowerCase();
 			toolbar.setActiveView(constant.listView);
-			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Desktop.ListView", activities: preferences.getActivitiesByName(filter)});
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DesktopListView", activities: preferences.getActivitiesByName(filter)});
 		}
 		
 		// Show journal
@@ -389,7 +389,7 @@ enyo.kind({
 	},
 	doSettings: function() {
 		this.$.activityPopup.hidePopup();
-		this.otherview = this.$.otherview.createComponent({kind: "Sugar.Dialog.Settings"}, {owner:this});
+		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
 	},
 	
@@ -406,10 +406,6 @@ enyo.kind({
 		if (this.currentView == constant.listView) {
 			this.otherview.setActivities(preferences.getActivitiesByName(filter));
 		}
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -419,12 +415,12 @@ enyo.kind({
 
 // Class for desktop toolbar
 enyo.kind({
-	name: "Sugar.Desktop.Toolbar",
+	name: "Sugar.DesktopToolbar",
 	kind: enyo.Control,
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView", onclick: "clickToTap"},
-		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView", onclick: "clickToTap"}
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
+		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
 	],
 	
 	// Constructor
@@ -470,9 +466,5 @@ enyo.kind({
 	
 	showListView: function() {
 		app.showView(constant.listView);
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });

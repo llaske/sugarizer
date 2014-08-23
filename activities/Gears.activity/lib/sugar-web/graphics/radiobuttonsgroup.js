@@ -1,4 +1,7 @@
 define(function () {
+
+    'use strict';
+
     var radioButtonsGroup = {};
 
     // ## RadioButtonsGroup
@@ -16,7 +19,7 @@ define(function () {
         this.elems = elems;
         var active;
 
-        for (i = 0; i < elems.length; i++) {
+        for (var i = 0; i < elems.length; i++) {
             var elem = elems[i];
             elem.addEventListener("click", clickHandler);
 
@@ -50,18 +53,6 @@ define(function () {
         // Get the active element.
         this.getActive = function () {
             return active;
-        };
-
-        // Set the active element without calling the click handler.
-        this.setActive = function (newActiveElem) {
-            for (i = 0; i < elems.length; i++) {
-                var elem = elems[i];
-                if (newActiveElem == elem) {
-                    active = newActiveElem;
-                    updateClasses();
-                    return;
-                }
-            }
         };
 
     };

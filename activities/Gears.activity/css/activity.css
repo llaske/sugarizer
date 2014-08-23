@@ -1,5 +1,6 @@
 #canvas {
   overflow: hidden;
+  background-color: #ffffff;
 }
 
 #main-toolbar #activity-button {

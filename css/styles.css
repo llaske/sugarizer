@@ -95,6 +95,7 @@ input {
 	width: 270px;
 	line-height: 22px;
 	outline: 0;
+	font-size: 10pt;
 }
 
 .search-field-input:focus {
@@ -264,6 +265,7 @@ input {
 }
 
 .journal-footer {
+	width: 100%;
 }
 
 .journal-list-item {
@@ -400,6 +402,7 @@ input {
 }
 
 .settings-dialog {
+	position: absolute;
 	width: 95%;
 	max-width: 800px;
 	height: 95%;

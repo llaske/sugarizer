@@ -3,7 +3,7 @@
 // Constants 
 var constant = {};
 
-constant.sugarizerVersion = "0.4";
+constant.sugarizerVersion = "0.5";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
@@ -38,5 +38,6 @@ constant.popupMarginLeft = 5;
 constant.popupMarginTop = -50;
 
 constant.timerPopupDuration = 1000;
+constant.touchToPopupDuration = 500;
 
 constant.maxPopupHistory = 5;

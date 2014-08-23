@@ -32,10 +32,17 @@ define(["webL10n",
         // call activity.close() after storing.
 
         function sendStopEvent() {
+<<<<<<< HEAD
             var stopEvent = new CustomEvent(
                 "activityStop", {
                     cancelable: true
                 });
+=======
+			var stopEvent = document.createEvent("CustomEvent");
+			stopEvent.initCustomEvent('activityStop', false, false, {
+				'cancelable': true	
+			});				
+>>>>>>> upstream/master
             var result = window.dispatchEvent(stopEvent);
             if (result) {
                 activity.close();

@@ -109,3 +109,23 @@
 .card:hover {
 	opacity: 0.8;
 }
+<<<<<<< HEAD
+=======
+
+
+@media screen and (max-width: 1051px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+	
+	#main-toolbar #activity-button {
+		left: 10px;
+	}
+	
+	#main-toolbar #stop-button {
+		position: absolute;
+		right: 10px;
+		top: 0px;
+	}
+}
+>>>>>>> upstream/master

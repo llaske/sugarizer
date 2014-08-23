@@ -3,27 +3,28 @@
 enyo.kind({
 	name: "Sugar.Journal",
 	published: { journal: null },
+	kind: "FittableRows",
 	components: [
-		{name: "content", kind: "Scroller", classes: "journal-content", onresize: "draw", components: [
+		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
-			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", onclick: "clickToTap", showing: false},
+			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 				{name: "item", classes: "journal-list-item", components: [
-					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite", onclick: "clickToTap"},			
-					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity", onclick: "clickToTap"},
-					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart", onclick: "clickToTap"},
+					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite"},			
+					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
+					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},					
 					{name: "time", classes: "journal-time"},
-					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity", onclick: "clickToTap"}
+					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
 				]}
 			]},
 			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
-			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal", onclick: "clickToTap"},
-			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud", onclick: "clickToTap"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud", onclick: "clickToTap"}
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"}
 		]}
 	],
   
@@ -42,8 +43,7 @@ enyo.kind({
 
 	// Render
 	rendered: function() {
-		// Colorized list
-		this.$.journalList.render();
+		this.inherited(arguments);
 		
 		// Colorizer footer icons
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
@@ -54,7 +54,7 @@ enyo.kind({
 	// Get linked toolbar
 	getToolbar: function() {
 		if (this.toolbar == null)
-			this.toolbar = new Sugar.Journal.Toolbar();
+			this.toolbar = new Sugar.JournalToolbar();
 		return this.toolbar;
 	},
 	
@@ -83,12 +83,12 @@ enyo.kind({
 		this.$.nofilter.show();
 		this.empty = (!this.getToolbar().hasFilter() && !this.loadingError && this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
-			this.$.journalList.setCount(this.journal.length);
+			this.$.journalList.set("count", this.journal.length, true);
 			this.$.empty.hide();
 			this.$.message.hide();	
 			this.$.nofilter.hide();
 		} else {
-			this.$.journalList.setCount(0);
+			this.$.journalList.set("count", 0, true);
 			if (this.empty) {
 				// Journal empty
 				this.$.message.setContent(l10n.get("JournalEmpty"));
@@ -110,7 +110,7 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		var entry = this.journal[inEvent.index];
+		var entry = this.journal[inEvent.index];	
 		if (entry.metadata.buddy_color)
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
@@ -137,8 +137,8 @@ enyo.kind({
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.setDataAsText(this.journal[inEvent.index].text);
 		ds.save();
-		inSender.setColorized(this.journal[inEvent.index].metadata.keep == 1);
-		this.render();
+		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
+		inEvent.dispatchTarget.container.render();
 	},
 	
 	// Run activity from icon or from the popup menu
@@ -356,17 +356,19 @@ enyo.kind({
 	
 	// Handle entry title update
 	titleEditStart: function(inSender, inEvent) {
-		inSender.owner.$.title.setShowing(false);
-		inSender.owner.$.titleEdit.setValue(inSender.owner.$.title.getContent());
-		inSender.owner.$.titleEdit.setShowing(true);
-		inSender.owner.$.titleEdit.focus();
+		var line = inEvent.dispatchTarget.owner.$;
+		line.title.setShowing(false);
+		line.titleEdit.setValue(line.title.getContent());
+		line.titleEdit.setShowing(true);
+		line.titleEdit.focus();
 	},
 	
 	titleEditEnd: function(inSender, inEvent) {
-		inSender.owner.$.title.setShowing(true);
-		inSender.owner.$.titleEdit.setShowing(false);
-		var newtitle = inSender.owner.$.titleEdit.getValue();
-		if (newtitle == inSender.owner.$.title.getContent())
+		var line = inEvent.dispatchTarget.owner.$;
+		line.title.setShowing(true);
+		line.titleEdit.setShowing(false);
+		var newtitle = line.titleEdit.getValue();
+		if (newtitle == line.title.getContent())
 			return;
 		var objectId = this.journal[inEvent.index].objectId;
 		
@@ -394,7 +396,7 @@ enyo.kind({
 		// Update remote journal
 		else {
 			// Update metadata
-			var entry = inSender.owner.$.activity.getData();
+			var entry = line.activity.getData();
 			entry.metadata.title = newtitle;
 			
 			// Update remote journal
@@ -438,10 +440,6 @@ enyo.kind({
 		this.$.cloudonebutton.addRemoveClass('active', newType == constant.journalRemotePrivate);	
 		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);	
 		this.getToolbar().removeFilter();
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });
 
@@ -451,12 +449,12 @@ enyo.kind({
 
 // Class for journal toolbar
 enyo.kind({
-	name: "Sugar.Journal.Toolbar",
+	name: "Sugar.JournalToolbar",
 	kind: enyo.Control,
 	components: [
-		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite", onclick: "clickToTap"},
+		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop", onclick: "clickToTap"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop"},
 		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
 		{name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"}	
 	],
@@ -526,9 +524,5 @@ enyo.kind({
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
 		this.render();
-	},
-	
-	clickToTap: function(inSender, inEvent) {
-		util.clickToTap(this, inSender, inEvent);
 	}	
 });

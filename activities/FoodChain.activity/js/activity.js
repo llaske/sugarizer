@@ -2,7 +2,7 @@
 
 define(function (require) {
 	l10n = require("webL10n");
-    FoodChain.activity = require("sugar-web/activity/activity");
+    var activity = require("sugar-web/activity/activity");
 	var radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
     var datastore = require("sugar-web/datastore");
 	var app = null;
@@ -10,6 +10,7 @@ define(function (require) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 		// Initialize the activity
+		FoodChain.activity = activity;
 		FoodChain.activity.setup();
 		
 		// Initialize buttons
