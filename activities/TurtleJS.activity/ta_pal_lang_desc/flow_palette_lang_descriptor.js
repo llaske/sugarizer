@@ -41,3 +41,18 @@ i18n_tracker.add_label('while_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Mie
 i18n_tracker.add_label('until_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Hasta', 7, 25, 19, 'Calibri', 'black']);
 
 i18n_tracker.add_label('wait_block', 'es_ES', [FACTORY_SIDE, BLOCK_SIDE], ['Esperar', 15, 13, 19, 'Calibri', 'black']);
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+i18n_tracker.add_label('repeat_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['Répète', 5, 13, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('forever_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['Toujours', 5, 13, 19, 'Calibri', 'black']);
+
+i18n_tracker.add_label('ifthen_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['Si', 35, 18, 19, 'Calibri', 'black']);
+i18n_tracker.add_label('ifthen_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['alors', 10, 50, 15, 'Calibri', 'black']);
+
+i18n_tracker.add_label('while_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['Tant que', 7, 25, 12, 'Calibri', 'black']);
+
+i18n_tracker.add_label('until_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ["Jusqu'à", 7, 25, 14, 'Calibri', 'black']);
+
+i18n_tracker.add_label('wait_block', 'fr_FR', [FACTORY_SIDE, BLOCK_SIDE], ['Attend', 15, 13, 19, 'Calibri', 'black']);

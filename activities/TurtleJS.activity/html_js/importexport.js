@@ -13,12 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
-var flow_blocks = ['repeat', 'forever'];
-var flow_types = ['repeat_block', 'forever_block'];
-var arithmetic_blocks = ['plus2', 'minus2', 'division2', 'random'];
+var flow_blocks = ['repeat', 'forever', 'if', 'while', 'until'];
+var flow_types = ['repeat_block', 'forever_block', 'ifthen_block', 'while_block', 'until_block'];
+var arithmetic_blocks = ['plus2', 'minus2', 'division2', 'random', 'less2', 'equal2', 'greater2'];
 
-var resize_blocks = ['storein', 'arc', 'vspace', 'setxy2', 'plus2', 'minus2', 'division2', 'product2'];
+var boolean_blocks = ['less2', 'equal2', 'greater2'];
+
+var resize_blocks = ['storein', 'arc', 'vspace', 'setxy2', 'plus2', 'minus2', 'division2', 'product2', 'random', 'fillscreen2', 'identity2', 'sqrt'];
 var resize_data = [];
+
+var flow_resize_substract = [];
 
 var json_flow_data = {};
 var box_data = {};
@@ -89,9 +93,8 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                     } else{
                         limit = (limit / 10) - 2; 
                     }
+                    resize_data.push([block, limit]);
                 }
-                
-               resize_data.push([block, limit]);
             }
 
             if (isVerticalFlow(block)){
@@ -155,6 +158,7 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                             
                             var final_pos = block.relative_param_pos(link_data.indexOf(param_block.block_id)-1);
                             var initial_pos = param_block.get_xy();
+                            
                             var movement = [final_pos[0] - initial_pos[0], final_pos[1] - initial_pos[1]];
                             param_block.group_movement(param_block, movement, false, true);
                         }
@@ -165,10 +169,8 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                 var receiver_block = block_tracker.get_block(link_data[0]);
                 
                 if (isConnectedToBox(link_data[0])){
-                    //alert("detectamos conexion a box");
                     index = getBoxReceiver(link_data[0]);
                     receiver_block = block_tracker.get_block(index);
-                    //alert(receiver_block);
                     index = link_data[0];
                 }
 
@@ -184,6 +186,11 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                     
                     var final_pos = receiver_block.relative_param_pos(block_json[4].indexOf(index)-1);
                     var initial_pos = block.get_xy();
+                    
+                    if (isBooleanBlock(block_name)){
+                        initial_pos = block.relative_giving_pos();
+                    }
+                    
                     var movement = [final_pos[0] - initial_pos[0], final_pos[1] - initial_pos[1]];
                     //alert(movement + " para " + block_name + " con id " + index + " final: " + final_pos + " initial: " + initial_pos);
                     block.group_movement(block, movement, false, true);
@@ -201,11 +208,7 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                     if (param_block != null){
                         makeReceiverGivingLink(block, param_block, i2-1);
                         if (isConnectedToBox(link_data[i2])){
-<<<<<<< HEAD
                             //param_block.set_xy(block.relative_param_pos(link_data.indexOf(index)-1));
-=======
-                            param_block.set_xy(block.relative_param_pos(link_data.indexOf(index)-1));
->>>>>>> upstream/master
                             
                             var final_pos = block.relative_param_pos(link_data.indexOf(index)-1);
                             var initial_pos = param_block.get_xy();
@@ -213,11 +216,7 @@ function parseTAFile(json, palette_tracker, block_tracker) {
                             param_block.group_movement(param_block, movement, false, true);
                             
                         } else{
-<<<<<<< HEAD
                             //param_block.set_xy(block.relative_param_pos(link_data.indexOf(param_block.block_id)-1));
-=======
-                            param_block.set_xy(block.relative_param_pos(link_data.indexOf(param_block.block_id)-1));
->>>>>>> upstream/master
                             
                             var final_pos = block.relative_param_pos(link_data.indexOf(param_block.block_id)-1);
                             var initial_pos = param_block.get_xy();
@@ -229,10 +228,14 @@ function parseTAFile(json, palette_tracker, block_tracker) {
             }
         } else{
             box_data[index] = link_data;
-            //alert(box_data[index]);
         }
     }
-    setTimeout(function(){make_vertical_resize()}, 200);
+    
+    if (resize_data.length > 0){
+        setTimeout(function(){make_vertical_resize()}, 5000);
+    } else{
+        setTimeout(function(){make_flow_resize()}, 5000);
+    }
 }
 
 function make_vertical_resize(){
@@ -240,8 +243,19 @@ function make_vertical_resize(){
         var limit = resize_data[i][1];
         var block = resize_data[i][0];
         
-        for (var i2=0; i2<limit; i2++){
+        for (var j=0; j<limit; j++){
             block.add_sprite.group.fire('click');
+            
+            if (isVerticalFlow(block)){
+                var stack_parent = block.get_stack_top_block(block);
+                if (stack_parent != null){
+                    if (flow_resize_substract[stack_parent.upper_block[0].block_id] != null){
+                        flow_resize_substract[stack_parent.upper_block[0].block_id] += 42;
+                    } else {
+                        flow_resize_substract[stack_parent.upper_block[0].block_id] = 42;
+                    }
+                }
+            }
         }
     }
     setTimeout(function(){make_flow_resize()}, 200);
@@ -253,7 +267,13 @@ function make_flow_resize(){
             var block = block_tracker.blocks[i];
             
             if (block.stack_slots[0] != null){
-                block.calc_clamp_height(true, block.stack_slots[0].chain_height(), block);
+                var height = block.stack_slots[0].chain_height();
+                
+                if (flow_resize_substract[block.block_id] != null){
+                    height -= flow_resize_substract[block.block_id];
+                }
+                
+                block.calc_clamp_height(true, height, block);
             }
         }
     }
@@ -272,6 +292,14 @@ function getBoxReceiver(index){
 
 function getBoxGiving(index){
     return box_data[index][1];
+}
+
+function isBooleanBlock(name){
+    //alert(name);
+    if (boolean_blocks.indexOf(name) == -1){
+        return false;
+    }
+    return true;
 }
 
 function isResizeBlock(name){
@@ -364,5 +392,388 @@ function getBlockJSON(json, id){
             data = json[i];
         }
     }
+    return data;
+}
+
+//-------------------- IMPORT --------------------------------
+
+function isStandaloneParam(block_name){
+    if (STANDALONE_PARAM_BLOCK_NAMES[block_name] != null){
+        return true;
+    }
+    return false;
+}
+
+function isSpecialEnvVarParam(block_name){
+    if (SPECIAL_VAR_GET_BLOCK_NAMES[block_name] != null){
+        return true;
+    }
+    return false;
+}
+
+function isNormalResizeBlock(block_name){
+    if (NORMAL_RESIZE_BLOCK_NAMES[block_name] != null){
+        return true;
+    }
+    return false;
+}
+
+function isNormalFlowBlock(block_name){
+    if (NORMAL_FLOW_BLOCK_NAMES[block_name] != null){
+        return true;
+    }
+    return false;
+}
+
+function isComplexFlowBlock(block_name){
+    if (COMPLEX_FLOW_BLOCK_NAMES[block_name] != null){
+        return true;
+    }
+    return false;
+}
+
+var normal_blocks_names = [];
+var block_types = {};
+
+function exportTAFile(){
+    var json_data = '[';
+    for (var i=0; i<block_tracker.blocks.length; i++){
+        json_data += getBlockImport(block_tracker.blocks[i]);
+        if ((i+1) < block_tracker.blocks.length){
+            json_data += ',' + "\n";
+        }
+    }
+    json_data += ']';
+    return json_data;
+}
+
+function getBlockImport(block){
+    var data = null;
+    if (isVerticalFlow(block)){
+        if (isNormalFlowBlock(block.block_type)){
+            data = getNormalFlowBlockData(block);
+        } else if (isComplexFlowBlock(block.block_type)){
+            data = getComplexFlowBlockData(block);
+        } else if (isNormalResizeBlock(block.block_type)){
+            data = getNormalResizeBlockData(block);
+        } else{
+            data = getNormalBlockData(block);
+        }
+    } else{
+        if (isStandaloneParam(block.block_type)){
+            data = getSABlockData(block);
+        } else if (isSpecialEnvVarParam(block.block_type)){
+            data = getEnvVarParamBlock(block);
+        } else if (isNormalResizeBlock(block.block_type)){
+            data = getParamResizeBlockData(block);
+        } else{
+            data = getComplexParamBlockData(block);
+        }
+    }
+
+    return data;
+}
+
+function getNormalFlowBlockData(block){
+    var data = '[';
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + NORMAL_FLOW_BLOCK_NAMES[block.block_type] + '", ';
+    data += '0], ';
+    
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (!block.has_upper_dock() || !block.has_upper_block()){
+        data += 'null';
+    } else{
+        data += block.upper_block[0].block_id;
+    }
+    data += ', ';
+    
+    if (block.stack_slots[0] == null){
+        data += 'null';
+    } else{
+        data += block.stack_slots[0].block_id;
+    }
+    data += ', ';
+    
+    if (!block.has_lower_dock() || !block.has_lower_block()){
+        data += 'null';
+    } else{
+        data += block.lower_block[0].block_id;
+    }
+    data += ']]';
+    
+    return data;
+}
+
+function getComplexFlowBlockData(block){
+    var data = '[';
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + COMPLEX_FLOW_BLOCK_NAMES[block.block_type] + '", ';
+    data += '0], ';
+    
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (!block.has_upper_dock() || !block.has_upper_block()){
+        data += 'null';
+    } else{
+        data += block.upper_block[0].block_id;
+    }
+    data += ', ';
+    
+    for (var i=0; i<block.receiver_slots.length; i++){
+        if (block.receiver_slots[i] != null){
+            data += block.receiver_slots[i].block_id;
+        } else{
+            data += 'null';
+        }
+        data += ', ';
+    }
+    
+    if (block.stack_slots[0] == null){
+        data += 'null';
+    } else{
+        data += block.stack_slots[0].block_id;
+    }
+    data += ', ';
+    
+    if (!block.has_lower_dock() || !block.has_lower_block()){
+        data += 'null';
+    } else{
+        data += block.lower_block[0].block_id;
+    }
+    data += ']]';
+    
+    return data;
+}
+
+function getNormalResizeBlockData(block){
+    var data = '[';
+    var size_block = block.add_count;
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + NORMAL_RESIZE_BLOCK_NAMES[block.block_type] + '", ';
+    
+    if (size_block != 0){
+        if (size_block == 1){
+            size_block = 20;
+        } else{
+            size_block = (size_block + 2) * 10;
+        }
+    }
+    
+    data += size_block + '], ';
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (!block.has_upper_dock() || !block.has_upper_block()){
+        data += 'null';
+    } else{
+        data += block.upper_block[0].block_id;
+    }
+	
+    data += ', ';
+    
+    for (var i=0; i<block.receiver_slots.length; i++){
+        if (block.receiver_slots[i] != null){
+            data += block.receiver_slots[i].block_id;
+        } else{
+            data += 'null';
+        }
+        data += ', ';
+    }
+    
+    if (!block.has_lower_dock() || !block.has_lower_block()){
+        data += 'null';
+    } else{
+        data += block.lower_block[0].block_id;
+    }
+    data += ']]';
+    
+    return data;
+}
+
+function getParamResizeBlockData(block){
+    var data = '[';
+    var size_block = block.add_count;
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + NORMAL_RESIZE_BLOCK_NAMES[block.block_type] + '", ';
+    
+    if (size_block != 0){
+        if (size_block == 1){
+            size_block = 20;
+        } else{
+            size_block = (size_block + 2) * 10;
+        }
+    }
+    
+    data += size_block + '], ';
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+	
+	if (block.param_blocks[0] != null){
+        data += block.param_blocks[0].block_id;
+    } else{
+        data += 'null';
+    }
+	
+    data += ', ';
+    
+    for (var i=0; i<block.receiver_slots.length; i++){
+        if (block.receiver_slots[i] != null){
+            data += block.receiver_slots[i].block_id;
+        } else{
+            data += 'null';
+        }
+        
+        if ((i+1) < block.receiver_slots.length){
+            data += ', ';
+        }
+    }
+    
+    data += ']]';
+    
+    return data;
+}
+
+function getNormalBlockData(block){
+    var data = '[';
+
+    data += block.block_id + ', ';
+    data += '"' + NORMAL_BLOCKS_NAMES[block.block_type] + '", ';
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+
+
+    data += '[';
+    if (!block.has_upper_dock() || !block.has_upper_block()){
+        data += 'null';
+    } else{
+        data += block.upper_block[0].block_id;
+    }
+    data += ', ';
+
+    for (var i=0; i<block.receiver_slots.length; i++){
+        if (block.receiver_slots[i] != null){
+            data += block.receiver_slots[i].block_id;
+        } else{
+            data += 'null';
+        }
+        data += ', ';
+    }
+
+    if (!block.has_lower_dock() || !block.has_lower_block()){
+        data += 'null';
+    } else{
+        data += block.lower_block[0].block_id;
+    }
+    data += ']]';
+
+    return data;
+}
+
+function getSABlockData(block){
+    var data = '[';
+    var val = 'd';
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + STANDALONE_PARAM_BLOCK_NAMES[block.block_type] + '", ';
+    
+    val = val.replace('d', block.block_value);
+    
+    if (block.block_type == 'text_block'){
+        data += '"' + val + '"' + '], ';
+    } else{
+        data += val + '], ';
+    }
+    
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (block.param_blocks[0] != null){
+        data += block.param_blocks[0].block_id;
+    } else{
+        data += 'null';
+    }
+    data += ', null]]';
+    
+    return data;
+}
+
+function getEnvVarParamBlock(block){
+    var data = '[';
+    
+    data += block.block_id + ', ';
+    data += '"' + SPECIAL_VAR_GET_BLOCK_NAMES[block.block_type] + '", ';
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (block.param_blocks[0] != null){
+        data += block.param_blocks[0].block_id;
+    } else{
+        data += 'null';
+    }
+    data += ', null]]';
+    
+    return data;
+}
+
+function getComplexParamBlockData(block){
+    var data = '[';
+    var size_block = block.add_count;
+    
+    data += block.block_id + ', ';
+    data += '[';
+    data += '"' + COMPLEX_PARAM_BLOCK_NAMES[block.block_type] + '", ';
+    
+    if (size_block != 0){
+        if (size_block == 1){
+            size_block = 20;
+        } else{
+            size_block = (size_block + 2) * 10;
+        }
+    }
+    
+    data += size_block + '], ';
+    data += block.get_xy()[0] + ', ';
+    data += block.get_xy()[1] + ', ';
+    data += '[';
+    
+    if (block.param_blocks[0] != null){
+        data += block.param_blocks[0].block_id;
+    } else{
+        data += 'null';
+    }
+    data += ',';
+    
+    for (var i=0; i<block.receiver_slots.length; i++){
+        if (block.receiver_slots[i] != null){
+            data += block.receiver_slots[i].block_id;
+        } else{
+            data += 'null';
+        }
+        
+        if ((i+1) < block.receiver_slots.length){
+            data += ', ';
+        }
+    }
+    data += ']]';
+    
     return data;
 }

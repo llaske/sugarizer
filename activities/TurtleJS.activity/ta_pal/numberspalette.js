@@ -40,10 +40,10 @@ NumbersPalette.prototype = {
     },
     make_block_factories: function(){
         var sprit1 = new Sprite(image_tracker.get_resource('compare_purple'), this.container.layer, true);
-        new BlockFactory([5, 5], sprit1, 'greaterthan_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'greaterthan']);
+        new BlockFactory([5, 5], sprit1, 'greaterthan_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'greater2']);
 
         sprit1 = new Sprite(image_tracker.get_resource('number1arg_purple_2'), this.container.layer, true, false, null, null, [0, 40, 60]);
-        new BlockFactory([5, 95], sprit1, 'identity_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'identity']);
+        new BlockFactory([5, 95], sprit1, 'identity_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'identity2']);
 
         var sprit1 = new Sprite(image_tracker.get_resource('numbern_purple'), this.container.layer, true, false, null, null, [0, 34, 15]);
         new BlockFactory([115, 5], sprit1, 'add_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'plus2']);
@@ -58,13 +58,13 @@ NumbersPalette.prototype = {
         new BlockFactory([415, 5], sprit1, 'substract_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'minus2']);
         
         var sprit1 = new Sprite(image_tracker.get_resource('compare_purple'), this.container.layer, true);
-        new BlockFactory([515, 5], sprit1, 'lowerthan_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'lowerthan']);
+        new BlockFactory([515, 5], sprit1, 'lowerthan_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'less2']);
         
         var sprit1 = new Sprite(image_tracker.get_resource('compare_purple'), this.container.layer, true);
-        new BlockFactory([625, 5], sprit1, 'equals_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'equals']);
+        new BlockFactory([625, 5], sprit1, 'equals_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'equal2']);
         
         var sprit1 = new Sprite(image_tracker.get_resource('numbern_purple'), this.container.layer, true, false, null, null, [0, 34, 15]);
-        new BlockFactory([145, 95], sprit1, 'mod_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'mod']);
+        new BlockFactory([145, 95], sprit1, 'mod_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'remainder2']);
         
         sprit1 = new Sprite(image_tracker.get_resource('number1arg_purple_2'), this.container.layer, true, false, null, null, [0, 40, 60]);
         new BlockFactory([245, 95], sprit1, 'sqrt_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'sqrt']);

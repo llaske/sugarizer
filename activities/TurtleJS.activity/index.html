@@ -18,7 +18,7 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="user-scalable=no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
         
         <link rel="stylesheet" href="ext_lib/jquery.mobile.min.css">
         <script src="ext_lib/jquery.js"></script>
@@ -48,15 +48,17 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
             <button class="toolbutton" id="clear-bt" title="Clear canvas"></button>
             <button class="toolbutton" id="hideshow-bt" title="Hide/Show blocks"></button>
             <button class="toolbutton" id="open-bt" title="Open file"></button>
-            <button class="toolbutton" id="save-bt" title="Save file"></button>
-            <a href="#popupShowDraw" data-rel="popup" >
-                <button class="toolbutton" id="img-save-bt" title="Save file"></button>
+            <a href="#popupShowCode" data-rel="popup" data-position-to="window" >
+                <button class="toolbutton" id="save-bt" title="Save file"></button>
             </a>
+            <button class="toolbutton" id="img-save-bt" title="Save file"></button>
+
 			<a href="#popupShowHelp" data-rel="popup" >
 				<button class="toolbutton" id="help-bt" title="Help"></button>
 			</a>
             <button class="toolbutton" id="es-lang-bt" title="Español"></button>
             <button class="toolbutton" id="en-lang-bt" title="English"></button>
+            <button class="toolbutton" id="fr-lang-bt" title="Français"></button>
             <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
         </div>
         
@@ -65,6 +67,7 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
             <div id="container2"></div>
 
             <script src="ext_lib/kinetic-v5.1.0.min.js"></script>
+            <script src="ext_lib/FileSaver.js"></script>
 
             <script src="ta_examples/examples.js"></script>
             <script src="ta_lib/i18n.js"></script>
@@ -136,289 +139,161 @@ Copyright (c) 2014 Jorge Alberto Gómez López <gomezlopez.jorge96@gmail.com>
 				<div >
 					<div class="card">
 						<img id = "card-01" src="ta_examples/thumbnails/TurtleCard-001.png" />
-<<<<<<< HEAD
 						<br />01
 					</div>
 					<div class="card">
 						<img id = "card-02" src="ta_examples/thumbnails/TurtleCard-002.png" />
 						<br />02
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-02" src="ta_examples/thumbnails/TurtleCard-002.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
 				<div >
 					<div class="card">
 						<img id = "card-03" src="ta_examples/thumbnails/TurtleCard-003.png" />
-<<<<<<< HEAD
 						<br />03
 					</div>
 					<div class="card">
 						<img id = "card-04" src="ta_examples/thumbnails/TurtleCard-004.png" />
 						<br />04
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-04" src="ta_examples/thumbnails/TurtleCard-004.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
 				<div >
 					<div class="card">
 						<img id = "card-05" src="ta_examples/thumbnails/TurtleCard-005.png" />
-<<<<<<< HEAD
 						<br />05
 					</div>
 					<div class="card">
 						<img id = "card-06" src="ta_examples/thumbnails/TurtleCard-006.png" />
 						<br />06
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-06" src="ta_examples/thumbnails/TurtleCard-006.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-07" src="ta_examples/thumbnails/TurtleCard-007.png" />
-<<<<<<< HEAD
 						<br />07
 					</div>
 					<div class="card">
 						<img id = "card-08" src="ta_examples/thumbnails/TurtleCard-008.png" />
 						<br />08
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-08" src="ta_examples/thumbnails/TurtleCard-008.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-09" src="ta_examples/thumbnails/TurtleCard-009.png" />
-<<<<<<< HEAD
 						<br />09
 					</div>
 					<div class="card">
 						<img id = "card-10" src="ta_examples/thumbnails/TurtleCard-010.png" />
 						<br />10
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-10" src="ta_examples/thumbnails/TurtleCard-010.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-11" src="ta_examples/thumbnails/TurtleCard-011.png" />
-<<<<<<< HEAD
 						<br />11
 					</div>
 					<div class="card">
 						<img id = "card-12" src="ta_examples/thumbnails/TurtleCard-012.png" />
 						<br />12
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-12" src="ta_examples/thumbnails/TurtleCard-012.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-13" src="ta_examples/thumbnails/TurtleCard-013.png" />
-<<<<<<< HEAD
 						<br />13
 					</div>
 					<div class="card">
 						<img id = "card-14" src="ta_examples/thumbnails/TurtleCard-014.png" />
 						<br />14
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-14" src="ta_examples/thumbnails/TurtleCard-014.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-15" src="ta_examples/thumbnails/TurtleCard-015.png" />
-<<<<<<< HEAD
 						<br />15
 					</div>
 					<div class="card">
 						<img id = "card-16" src="ta_examples/thumbnails/TurtleCard-016.png" />
 						<br />16
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-16" src="ta_examples/thumbnails/TurtleCard-016.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-17" src="ta_examples/thumbnails/TurtleCard-017.png" />
-<<<<<<< HEAD
 						<br />17
 					</div>
 					<div class="card">
 						<img id = "card-18" src="ta_examples/thumbnails/TurtleCard-018.png" />
 						<br />18
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-18" src="ta_examples/thumbnails/TurtleCard-018.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-19" src="ta_examples/thumbnails/TurtleCard-019.png" />
-<<<<<<< HEAD
 						<br />19
 					</div>
 					<div class="card">
 						<img id = "card-20" src="ta_examples/thumbnails/TurtleCard-020.png" />
 						<br />20
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-20" src="ta_examples/thumbnails/TurtleCard-020.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-21" src="ta_examples/thumbnails/TurtleCard-021.png" />
-<<<<<<< HEAD
 						<br />21
 					</div>
 					<div class="card">
 						<img id = "card-22" src="ta_examples/thumbnails/TurtleCard-022.png" />
 						<br />22
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-22" src="ta_examples/thumbnails/TurtleCard-022.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-23" src="ta_examples/thumbnails/TurtleCard-023.png" />
-<<<<<<< HEAD
 						<br />23
 					</div>
 					<div class="card">
 						<img id = "card-24" src="ta_examples/thumbnails/TurtleCard-024.png" />
 						<br />24
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-24" src="ta_examples/thumbnails/TurtleCard-024.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-25" src="ta_examples/thumbnails/TurtleCard-025.png" />
-<<<<<<< HEAD
 						<br />25
 					</div>
 					<div class="card">
 						<img id = "card-26" src="ta_examples/thumbnails/TurtleCard-026.png" />
 						<br />26
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-26" src="ta_examples/thumbnails/TurtleCard-026.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-27" src="ta_examples/thumbnails/TurtleCard-027.png" />
-<<<<<<< HEAD
 						<br />27
 					</div>
 					<div class="card">
 						<img id = "card-28" src="ta_examples/thumbnails/TurtleCard-028.png" />
 						<br />28
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-28" src="ta_examples/thumbnails/TurtleCard-028.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-29" src="ta_examples/thumbnails/TurtleCard-029.png" />
-<<<<<<< HEAD
 						<br />29
 					</div>
 					<div class="card">
 						<img id = "card-30" src="ta_examples/thumbnails/TurtleCard-030.png" />
 						<br />30
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-30" src="ta_examples/thumbnails/TurtleCard-030.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
                 <div >
 					<div class="card">
 						<img id = "card-31" src="ta_examples/thumbnails/TurtleCard-031.png" />
-<<<<<<< HEAD
 						<br />31
 					</div>
 					<div class="card">
 						<img id = "card-32" src="ta_examples/thumbnails/TurtleCard-032.png" />
 						<br />32
-=======
-						<br />Card1
-					</div>
-					<div class="card">
-						<img id = "card-32" src="ta_examples/thumbnails/TurtleCard-032.png" />
-						<br />Card2
->>>>>>> upstream/master
 					</div>
 				</div>
 			</div>

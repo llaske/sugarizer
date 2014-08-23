@@ -69,7 +69,9 @@ Sprite.prototype = {
         // saves a refence of self, so it can be used in onload function of imageObj
         var parent = this;
         // create callback function when image it's laded completely
-        imageObj.onload = parent.image_on_load(imageObj, parent, [0, 0]);
+        imageObj.onload = function(){
+            parent.image_on_load(imageObj, parent, [0, 0]);
+        };
         // start to load the img
         imageObj.src = image[0];
     },
@@ -145,7 +147,10 @@ Sprite.prototype = {
             } else if (parent.arrange_type == HORIZ_ARRANGE){
                 pos[0] = position[0] + parent.component_positions[parent.img_refs_pos];
             }
-            imageObj2.onload = parent.image_on_load(imageObj2, parent, pos);
+			
+            imageObj2.onload = function(){
+                parent.image_on_load(imageObj2, parent, pos);
+            };
         } else{
             parent.img_refs = null;
         }

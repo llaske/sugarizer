@@ -79,6 +79,7 @@ function eval_int_user_var(name){
         } else{
             result[0] = 0;
             result[1] = i18n_tracker.get_err_msg(DEFAULT_LANG, 'var_not_exist_error', [name]);
+            // da bien: alert("resultado 1 es:" + result[1]);
         }
     }
     return result;

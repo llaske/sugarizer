@@ -1,6 +1,6 @@
 * {
-  -moz-user-select: none;
-  -webkit-user-select: none;
+  -moz-user-select: auto;
+  -webkit-user-select: auto;
 }
 
 #main-toolbar #activity-button {
@@ -40,11 +40,15 @@
 }
 
 #es-lang-bt {
-  background-image: url(../activity/turtleart.svg);
+  background-image: url(../activity/es.svg);
 }
 
 #en-lang-bt {
-  background-image: url(../activity/turtleart.svg);
+  background-image: url(../activity/en.svg);
+}
+
+#fr-lang-bt {
+  background-image: url(../activity/fr.svg);
 }
 
 #input-file {
@@ -109,8 +113,6 @@
 .card:hover {
 	opacity: 0.8;
 }
-<<<<<<< HEAD
-=======
 
 
 @media screen and (max-width: 1051px) {
@@ -128,4 +130,3 @@
 		top: 0px;
 	}
 }
->>>>>>> upstream/master

@@ -16,18 +16,29 @@
 function string_block(params, values, import_action, value) {
     import_action = import_action || false;
     if (!import_action){
+    
+        if (MOBILE_VER){
+            palette_tracker.hide_visible_palette();
+            draw_stage.redraw_layers();
+        }
+        
         var text_y = params[2].get_xy()[1] + (draw_stage.draw_layer.y()) + 7;
         var text_x = params[2].get_xy()[0] + (draw_stage.draw_layer.x()) + 18;
         var width = params[2].actual_center_width + 8;
             
         var textArea = "<div id='textAreaPopUp' style='position:absolute;top:" + text_y + "px;left:" + text_x + "px;z-index:30;'><input type='text' value='" + params[2].block_value + "' id='text_input' style='width:" + width + "px' />";
         $("#container2").append(textArea);
+        $("#text_input").focus(function(){
+			this.selectionStart = this.selectionEnd = this.value.length;
+		});		
         $("#text_input").keyup(function(e){
             if (e.keyCode == 13){
                 var text = $("#text_input").val();
                 params[2].set_box_label(text);
                 params[2].block_value = text;
                 $("#text_input").remove();
+                
+                draw_stage.redraw_layers();
             }
         });
         $("#text_input").focus();

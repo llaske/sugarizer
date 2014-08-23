@@ -13,12 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.*/
 
+var project_count = 1;
+
 $(document).ready(function() {
     
     $("#saved-image").attr("height", parseInt($(window).height() * 0.45));
     $("#saved-image").attr("width", parseInt($(window).width() * 0.45));
 	
 	$('#popupShowHelp').css('overflow-y', 'scroll');
+    $('#popupShowCode').css('overflow-y', 'scroll');
 	
     $('.card').click(function(){
         var id = $(this).find('img')[0];
@@ -92,6 +95,7 @@ $(document).ready(function() {
         check_block_visibility(true);
         draw_stage.draw_tracker.save_cache();
         draw_stage.draw_layer.draw();
+        //draw_stage.draw_tracker.destroy_draw_objects();
         //center_scrollbars();
     });
     $("#clear-bt").click(function(){
@@ -107,6 +111,12 @@ $(document).ready(function() {
         $("#input-file").focus().click();
     });
     $("#save-bt").click(function(){
+        var data = exportTAFile();
+        var array = new Array();
+        array[0] = data;
+        var blob = new Blob(array, {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "project" + project_count + ".ta");
+        project_count++;
     });
 	$("#help-bt").click(function(){
     });
@@ -121,12 +131,25 @@ $(document).ready(function() {
         draw_stage.stage.toDataURL({callback: on_saved_image});
         //$("#saved-image").attr("src", data);
     });
+	document.getElementById("en-lang-bt").classList.add('active');	
     $("#es-lang-bt").click(function(){
         i18n_tracker.change_language('es_ES');
+		document.getElementById("es-lang-bt").classList.add('active');
+		document.getElementById("en-lang-bt").classList.remove('active');
+		document.getElementById("fr-lang-bt").classList.remove('active');
     });
     $("#en-lang-bt").click(function(){
         i18n_tracker.change_language('en_US');
+		document.getElementById("es-lang-bt").classList.remove('active');
+		document.getElementById("en-lang-bt").classList.add('active');		
+		document.getElementById("fr-lang-bt").classList.remove('active');		
     });
+    $("#fr-lang-bt").click(function(){
+        i18n_tracker.change_language('fr_FR');
+		document.getElementById("es-lang-bt").classList.remove('active');
+		document.getElementById("en-lang-bt").classList.remove('active');	
+		document.getElementById("fr-lang-bt").classList.add('active');	
+    });	
     $("#stop-button").click(function(){
     });
     $("#input-file").change(function(evt){
@@ -159,11 +182,14 @@ $(document).ready(function() {
     });
     
     $(window).resize(function(){
-        draw_stage.stage.height($(window).height() - 62);
-        draw_stage.stage.width($(window).width() - 5);
-        
-        remove_scrolls();
-        make_scrolls();
+        if (!MOBILE_VER){
+            draw_stage.stage.height($(window).height() - 62);
+            draw_stage.stage.width($(window).width() - 5);
+            remove_scrolls();
+            make_scrolls();
+        } else{
+            center_touch_bg();
+        }
     });
 
     var check_block_visibility = function(caller){
@@ -173,4 +199,30 @@ $(document).ready(function() {
             block_tracker.show_blocks();
         }
     };
+    
+    if (!MOBILE_VER){
+        make_scrolls();
+    } else{
+        center_touch_bg();
+    }
+	
+	$('#canvas').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#main-toolbar').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#basictb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#pentb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#colortb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#numberstb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#flowtb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#blockstb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#run-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#clear-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#hideshow-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#basictb-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#open-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#save-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#img-save-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#help-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#es-lang-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#en-lang-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
+	$('#stop-button').css('cursor', 'url(ta_icons/arrow.cur), auto');
 });

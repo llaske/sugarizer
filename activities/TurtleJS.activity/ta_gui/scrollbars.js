@@ -8,7 +8,7 @@ function make_vscroll_area(){
     return new Kinetic.Rect({
         x: draw_stage.stage.getWidth() - 50,
         y: 10,
-        width: 40,
+        width: 50,
         height: draw_stage.stage.getHeight() - 40,
         fill: 'black',
         opacity: 0.3
@@ -19,7 +19,7 @@ function make_vscroll(){
     return new Kinetic.Rect({
         x: draw_stage.stage.getWidth() - 50,
         y: 10,
-        width: 40,
+        width: 50,
         height: 70,
         fill: '#9f005b',
         draggable: true,
@@ -47,7 +47,7 @@ function make_hscroll_area(){
         x: 10,
         y: draw_stage.stage.getHeight() - 50,
         width: draw_stage.stage.getWidth() - 60,
-        height: 40,
+        height: 45,
         fill: 'black',
         opacity: 0.3
     });
@@ -58,7 +58,7 @@ function make_hscroll(){
         x: 10,
         y: draw_stage.stage.getHeight() - 50,
         width: 130,
-        height: 40,
+        height: 45,
         fill: '#9f005b',
         draggable: true,
         dragBoundFunc: function(pos) {
@@ -109,6 +109,17 @@ var updateBackgroundPos = function() {
     draw_stage.draw_layer.batchDraw();
 };
 
+function center_touch_bg(){
+    draw_stage.draw_layer.x(-1000 + parseInt($(window).width() / 2));
+    draw_stage.draw_layer.y(-1000 + ($(window).height() / 2));
+    draw_stage.layer.x(-1000 + parseInt($(window).width() / 2));
+    draw_stage.layer.y(-1000 + ($(window).height() / 2));
+    draw_stage.block_layer.x(-1000 + parseInt($(window).width() / 2));
+    draw_stage.block_layer.y(-1000 + ($(window).height() / 2));
+    
+    draw_stage.redraw_layers();
+}
+
 function attach_events(){
     hscroll.on('dragmove', updateBackgroundPos);
     vscroll.on('dragmove', updateBackgroundPos);
@@ -122,13 +133,8 @@ function make_scrolls(){
     hscroll = make_hscroll();
 
     attach_events();
-
-    draw_stage.scroll_layer.add(hscrollArea);
-    draw_stage.scroll_layer.add(vscrollArea);
-    draw_stage.scroll_layer.add(hscroll);
-    draw_stage.scroll_layer.add(vscroll);
-
     center_scrollbars();
+    add_scrolls();
 }
 
 function remove_scrolls(){
@@ -139,10 +145,15 @@ function remove_scrolls(){
     hscroll.remove();
 }
 
+function add_scrolls(){
+    draw_stage.scroll_layer.add(hscrollArea);
+    draw_stage.scroll_layer.add(vscrollArea);
+    draw_stage.scroll_layer.add(hscroll);
+    draw_stage.scroll_layer.add(vscroll);
+}
+
 var vscrollArea = null;
 var vscroll = null;
 
 var hscrollArea = null;
 var hscroll = null;
-
-make_scrolls();
