@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+		xmlns:android   = "http://schemas.android.com/apk/res/android"		
         id        = "org.olpc-france.sugarizer"
-        version   = "0.4.0">
+        version   = "0.5.0">
     <name>Sugarizer</name>
 
     <description>
@@ -13,9 +14,20 @@
         Lionel Laské for OLPC France
     </author>
 
+	<preference name="fullscreen" value="true" />
+	<preference name="orientation" value="landscape" />
+	<gap:config-file platform="android" parent="/manifest/application">
+		<activity android:screenOrientation="landscape"/>
+	</gap:config-file>	
+	
 	<preference name="permissions" value="none"/>
 	
 	<preference name="android-minSdkVersion" value="13" />	
+	
+	<gap:plugin name="org.apache.cordova.media" version="0.2.12" />	
+	<feature name="Media">
+		<param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+	</feature>	
 	
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />

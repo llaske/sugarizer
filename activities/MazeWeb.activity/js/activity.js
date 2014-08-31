@@ -583,6 +583,13 @@ define(function (require) {
             }
 
             requestAnimationFrame(animate);
+
+            // HACK: Force redraw on Android
+            if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+                mazeCanvas.style.display='none';
+                mazeCanvas.offsetHeight;
+                mazeCanvas.style.display='block';
+            }
         };
         animate();
 

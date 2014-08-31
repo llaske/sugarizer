@@ -31,7 +31,7 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		// Handle init
-		if (this.hasNode() != null) {		
+		if (this.hasNode()) {		
 			// Handle sound ended event
 			var audio = this;
 			enyo.dispatcher.listen(audio.hasNode(), "ended", function() { 
@@ -72,23 +72,36 @@ enyo.kind({
 	// Test if component could play a file type
 	canPlayType: function(typename) {
 		var node = this.hasNode();
-		if (node == null)
+		if (!node)
 			return false;
 		return node.canPlayType(typename);
 	},
 	
 	// Play audio
 	play: function() {
+		// HACK: HTML5 Audio don't work in PhoneGap on Android < 4.4, use Media PhoneGap component instead
+		if (enyo.platform.android && document.location.protocol.substr(0,4) != "http") {
+			var src = location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src;
+			var that = this;
+			var media = new Media(src, function() {
+				var timer = window.setInterval(function() {
+					window.clearInterval(timer);
+					that.doSoundEnded();
+				}, this.getDuration()*1000);
+			}, function() {});
+			media.play();
+			return;
+		}	
 		var node = this.hasNode();
-		if (node == null)
-			return;	
+		if (!node)
+			return;
 		node.play();
 	},
 	
 	// Pause audio
 	pause: function() {
 		var node = this.hasNode();
-		if (node == null)
+		if (!node)
 			return;		
 		node.pause();
 	},
@@ -96,7 +109,7 @@ enyo.kind({
 	// Test if audio is paused
 	paused: function() {
 		var node = this.hasNode();
-		if (node == null)
+		if (!node)
 			return false;		
 		return node.paused;
 	},
@@ -104,7 +117,7 @@ enyo.kind({
 	// Test if audio is ended
 	ended: function() {
 		var node = this.hasNode();
-		if (node == null)
+		if (!node)
 			return false;		
 		return node.ended;
 	}	

@@ -80,6 +80,12 @@ define(function (require) {
                 this.previousTime = currentTime;
                 this.update();
                 this.drawHands();
+                if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+                    // HACK: Force redraw on Android
+                    this.clockCanvasElem.style.display='none';
+                    this.clockCanvasElem.offsetHeight;
+                    this.clockCanvasElem.style.display='block';
+                }				
             }
             requestAnimationFrame(this.tick.bind(this));
         }

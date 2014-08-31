@@ -81,7 +81,7 @@ enyo.kind({
 		}		
 		
 		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");		
-		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});	
+		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});	
 
 		// Start game loop
 		this.loopTimer = window.setInterval(enyo.bind(this, "gameLoopTick"), constant.loopInterval);		
@@ -426,6 +426,13 @@ enyo.kind({
 		
 		// Draw
 		this.draw();
+		
+		// HACK: On Android, force redraw of canvas
+		if (enyo.platform.android && document.location.protocol.substr(0,4) != "http") {
+			document.getElementById('acanvas').style.display='none';
+			document.getElementById('acanvas').offsetHeight;
+			document.getElementById('acanvas').style.display='block';
+		}
 		
 		// Draw score
 		this.$.wave.setContent(String("0000"+this.wave).slice(-4))

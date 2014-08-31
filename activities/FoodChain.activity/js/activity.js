@@ -51,6 +51,11 @@ define(function (require) {
 				FoodChain.setLocale();
 			}
 		}, false);
+
+        // Stop sound at end of game to sanitize media environment, specifically on Android
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+			FoodChain.sound.pause();
+        });		
     });
 
 });
