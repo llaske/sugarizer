@@ -28,3 +28,10 @@ i18n_tracker.add_error_message('es_ES', 'missing_value_error', 'Valor faltante e
 i18n_tracker.add_error_message('es_ES', 'not_int_value_error', 'variable {0} no es un numero entero');
 i18n_tracker.add_error_message('es_ES', 'var_not_exist_error', 'variable {0} no existe');
 i18n_tracker.add_error_message('es_ES', 'not_str_value_error', 'variable {0} no es texto');
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+i18n_tracker.add_error_message('fr_FR', 'missing_value_error', 'Valeur manquante dans le bloc "{0}"');
+i18n_tracker.add_error_message('fr_FR', 'not_int_value_error', "la variable {0} n'est pas un nombre entier");
+i18n_tracker.add_error_message('fr_FR', 'var_not_exist_error', "la variable {0} n'existe pas");
+i18n_tracker.add_error_message('fr_FR', 'not_str_value_error', "la variable {0} n'est pas un texte");

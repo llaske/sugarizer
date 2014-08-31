@@ -49,7 +49,7 @@ FlowPalette.prototype = {
         new BlockFactory([5, 55], sprit1, 'forever_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'forever']);
 		
         var sprit1 = new Sprite(image_tracker.get_resource('clampb_orange'), this.container.layer, true, false, null, null, [0, 76, 18]);
-        new BlockFactory([280, 5], sprit1, 'ifthen_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'ifthen']);
+        new BlockFactory([280, 5], sprit1, 'ifthen_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'if']);
 
         var sprit1 = new Sprite(image_tracker.get_resource('clampb_orange'), this.container.layer, true, false, null, null, [0, 76, 18]);
         new BlockFactory([370, 5], sprit1, 'while_block', this, [DEFAULT_LANG, BLOCK_SIDE, 'while']);

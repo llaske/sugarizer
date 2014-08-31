@@ -52,5 +52,11 @@ PaletteTracker.prototype = {
     },
     get_palettes: function(){
         return this.palettes;
+    },
+    hide_visible_palette: function(){
+        var visible_palette = this.get_visible_palette();
+        if (visible_palette != null){
+            visible_palette.hide();
+        }
     }
 }

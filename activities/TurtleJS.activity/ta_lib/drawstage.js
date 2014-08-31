@@ -26,6 +26,9 @@ function DrawStage(container, width, height){
     this.draw_tracker = null;
     this.bg = null;
     this.init_stage();
+    
+    this.drag_start = [0, 0];
+    this.drag_current = [0, 0];
 }
 
 DrawStage.prototype = {
@@ -38,11 +41,27 @@ DrawStage.prototype = {
         });
 
         this.layer = new Kinetic.Layer();
-        this.draw_layer = new Kinetic.Layer();
+        this.draw_layer = new Kinetic.Layer({draggable: MOBILE_VER});
         this.palette_layer = new Kinetic.Layer();
         this.block_layer = new Kinetic.Layer();
         this.scroll_layer = new Kinetic.Layer();
         
+        var parent = this;
+        
+        if (MOBILE_VER){
+            this.draw_layer.on('dragstart', function(){
+                parent.drag_start[0] = parent.stage.getPointerPosition().x;
+                parent.drag_start[1] = parent.stage.getPointerPosition().y;
+            });
+            
+            this.draw_layer.on('dragmove', function(){
+                parent.drag_current[0] = parent.stage.getPointerPosition().x;
+                parent.drag_current[1] = parent.stage.getPointerPosition().y;
+                parent.dragBound(parent);
+                parent.drag_start[0] = parent.drag_current[0];
+                parent.drag_start[1] = parent.drag_current[1];
+            });
+        }
 
         this.bg = new Kinetic.Rect({
             x: 0,
@@ -70,5 +89,49 @@ DrawStage.prototype = {
         this.turtle.draw_tracker = this.draw_tracker;
         //this.stage.setSize(this.width, 1000);
         //window.scroll(500, 500);
+    },
+    dragBound: function(parent){
+        var x_distance = parent.drag_current[0] - parent.drag_start[0];
+        var y_distance = parent.drag_current[1] - parent.drag_start[1];
+        
+        var x_pos = parent.draw_layer.x();
+        var y_pos = parent.draw_layer.y();
+        
+        if ((x_distance > 0) && ((x_pos - x_distance) > 0)){
+            x_pos = 0;
+        } else{
+            x_pos = x_pos - x_distance;
+        }
+        
+        if ((y_distance > 0) && ((y_pos - y_distance) > 0)){
+            y_pos = 0;
+        } else{
+            y_pos = y_pos - y_distance;
+        }
+        
+        if ((x_pos + 2000) < ($(window).width() - 5)){
+            x_pos = $(window).width() - 2000 - 2;
+        }
+        
+        if ((y_pos + 2000) < ($(window).height() - 62)){
+            y_pos = $(window).height() - 62 - 2000;
+        }
+        
+        console.log("pos: " + x_pos + " " + y_pos);
+        parent.draw_layer.x(x_pos);
+        parent.draw_layer.y(y_pos);
+        
+        parent.layer.x(x_pos);
+        parent.layer.y(y_pos);
+        
+        parent.block_layer.x(x_pos);
+        parent.block_layer.y(y_pos);
+    },
+    redraw_layers: function(){
+        this.draw_layer.draw();
+        this.layer.batchDraw();
+        this.palette_layer.draw();
+        this.block_layer.draw();
+        this.scroll_layer.draw();
     }
 }

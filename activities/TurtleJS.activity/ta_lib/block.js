@@ -64,7 +64,7 @@ TurtleBlock.prototype = {
     set_events: function(){
         var parent = this;
         this.group.on('click tap', function(){
-            var result = get_block_data(parent.params, 'Set heading');
+            var result = get_block_data(parent.params, i18n_tracker.get_labels(parent.block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
             
             /*if (this.sizeable_icon_touched){
                 this.sizeable_icon_touched = false;
@@ -311,7 +311,7 @@ TurtleBlock.prototype = {
                 if (parent.add_size_pos[0] > 20){
                     parent.descriptor.param_dock[1][0] += added_size;
                     if (parent.receiver_slots[0] != null){
-                        parent.receiver_slots[0].group_movement(parent.receiver_slots[1], 
+                        parent.receiver_slots[0].group_movement(parent.receiver_slots[0], 
                                                             [added_size, 0], false, false);
                     }
                 } else{
@@ -364,9 +364,9 @@ TurtleBlock.prototype = {
             
             if (parent.has_receiver_param()){
                 if (parent.add_size_pos[0] > 20){
-                    parent.descriptor.param_dock[0][0] -= added_size;
+                    parent.descriptor.param_dock[1][0] -= added_size;
                     if (parent.receiver_slots[0] != null){
-                        parent.receiver_slots[0].group_movement(parent.receiver_slots[1], 
+                        parent.receiver_slots[0].group_movement(parent.receiver_slots[0], 
                                                             [-added_size, 0], false, false);
                     }
                 } else{
@@ -567,6 +567,12 @@ TurtleBlock.prototype = {
         points[1] += this.descriptor.get_receiver_points()[index][1] - 25;
         return points;
     },
+    relative_giving_pos: function(){
+        var points = this.get_xy();
+        points[0] += this.descriptor.get_giving_point()[0] - 17;
+        points[1] += this.descriptor.get_giving_point()[1] - 25;
+        return points;
+    },
     relative_stack_pos: function(index){
         var points = this.get_xy();
         points[0] += this.descriptor.get_stack_points()[index][0];
@@ -629,6 +635,7 @@ TurtleBlock.prototype = {
         this.tracker.remove_block(this);
         this.hide();
         
+        this.group.destroyChildren();
         this.group.destroy();
         
         for (var i=0; i<this.receiver_slots.length; i++){

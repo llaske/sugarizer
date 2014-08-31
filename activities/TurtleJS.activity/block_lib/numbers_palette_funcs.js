@@ -1,22 +1,14 @@
 function greaterthan_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
         
         if (values[0][0]){
             var result = false;
-            
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-		
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
             
             if (values[0][1] > values[1][1]){
                 result = true;
@@ -31,22 +23,15 @@ function greaterthan_block(params){
 
 function lowerthan_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
             var result = false;
-            
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-		
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
             
             if (values[0][1] < values[1][1]){
                 result = true;
@@ -61,22 +46,15 @@ function lowerthan_block(params){
 
 function equals_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
             var result = false;
-            
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-		
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
             
             if (values[0][1] == values[1][1]){
                 result = true;
@@ -91,21 +69,14 @@ function equals_block(params){
 
 function add_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+		var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-
             var total = values[0][1] + values[1][1];
             return [true, total];
         }
@@ -117,21 +88,14 @@ function add_block(params){
 
 function multiply_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-
             var total = values[0][1] * values[1][1];
             return [true, total];
         }
@@ -143,21 +107,14 @@ function multiply_block(params){
 
 function divide_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-
             var total = (values[0][1] * 1.0) / (values[1][1] * 1.0);
             total = (Math.round(total * 100) / 100);
             return [true, total];
@@ -170,21 +127,15 @@ function divide_block(params){
 
 function substract_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-
+			//alert(values);
             var total = values[0][1] - values[1][1];
             return [true, total];
         }
@@ -196,21 +147,14 @@ function substract_block(params){
 
 function mod_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-
             var total = values[0][1] % values[1][1];
             return [true, total];
         }
@@ -222,20 +166,14 @@ function mod_block(params){
 
 function sqrt_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
-            }
-            
             var total = Math.sqrt(values[0][1]);
             return [true, total];
         }
@@ -247,22 +185,22 @@ function sqrt_block(params){
 
 function rand_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
-            var results = [];
-            results.push(eval_int_user_var(values[0][1]));
-            results.push(eval_int_user_var(values[1][1]));
-
-            for (i =0; i<results.length; i++){
-                if (results[i][0] == 2){
-                    values[i][1] = results[i][1];
-                } else if(results[i][0] == 0 || results[i][0] == 1){
-                    error_message_displayer.show_error(results[i][1]);
-                    return [false, 0];
-                }
+            var total = 0;
+            
+            if (values[0][1] < 0){
+                total = Math.floor((Math.random() * (values[1][1] + Math.abs(values[0][1]) + 1)) + values[0][1]);
+            } else{
+                total = Math.floor(Math.random() * (values[1][1] - values[0][1] + 1) + values[0][1]);
             }
             
-            var total = Math.floor((Math.random() * values[1][1]) + values[0][1]);
             return [true, total];
         }
         return [false, 0];
@@ -273,7 +211,13 @@ function rand_block(params){
 
 function identity_block(params){
     if (params[2].has_all_slots()){
-        var values = params[2].get_slot_values();
+        var values = get_block_data(params, i18n_tracker.get_labels(params[2].block_type, DEFAULT_LANG, FACTORY_SIDE)[0][0]);
+        
+        if (!values[0]){
+            return [false, values[1]];
+        }
+        values = values[1];
+        
         if (values[0][0]){
             return [true, values[0][1]];
         }
