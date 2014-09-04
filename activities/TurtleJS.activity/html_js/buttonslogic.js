@@ -15,7 +15,7 @@
 
 var project_count = 1;
 
-$(document).ready(function() {
+function documentReady() {
     
     $("#saved-image").attr("height", parseInt($(window).height() * 0.45));
     $("#saved-image").attr("width", parseInt($(window).width() * 0.45));
@@ -131,7 +131,9 @@ $(document).ready(function() {
         draw_stage.stage.toDataURL({callback: on_saved_image});
         //$("#saved-image").attr("src", data);
     });
-	document.getElementById("en-lang-bt").classList.add('active');	
+	
+	if (DEFAULT_LANG == 'en_US')
+		document.getElementById("en-lang-bt").classList.add('active');
     $("#es-lang-bt").click(function(){
         i18n_tracker.change_language('es_ES');
 		document.getElementById("es-lang-bt").classList.add('active');
@@ -151,6 +153,11 @@ $(document).ready(function() {
 		document.getElementById("fr-lang-bt").classList.add('active');	
     });	
     $("#stop-button").click(function(){
+		var activity = require("sugar-web/activity/activity");
+		var datastoreObject = activity.getDatastoreObject();
+		var jsonData = JSON.stringify({blocks: exportTAFile(), i18n: DEFAULT_LANG});
+		datastoreObject.setDataAsText(jsonData);
+		datastoreObject.save(function() {});
     });
     $("#input-file").change(function(evt){
         onFileSelect(evt, palette_tracker, block_tracker);
@@ -158,7 +165,7 @@ $(document).ready(function() {
     
     $("#canvas").scrollTop(1000 - ($(window).height()/2) + 25);
     $("#canvas").scrollLeft(1000 - ($(window).width()/2));
-
+	
     error_message_displayer.repos();
     
     $("#canvas").scroll(function(){
@@ -225,4 +232,4 @@ $(document).ready(function() {
 	$('#es-lang-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
 	$('#en-lang-bt').css('cursor', 'url(ta_icons/arrow.cur), auto');
 	$('#stop-button').css('cursor', 'url(ta_icons/arrow.cur), auto');
-});
+}
