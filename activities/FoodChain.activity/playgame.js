@@ -111,7 +111,7 @@ enyo.kind({
 		};
 		var zoom = FoodChain.getZoomLevel();
 		this.$.gamebox.setStyle("max-height: "+(FoodChain.playArea.height*zoom)+"px;"+"max-width: "+(FoodChain.playArea.width*zoom)+"px;");	
-		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
+		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.createComponent({ name: "timerMonster", kind: "Timer", baseInterval: 500, onTriggered: "monsterEngine" }, {owner: this});
 		this.setLocale();		

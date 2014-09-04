@@ -170,11 +170,14 @@ util.doExplosion = function(position) {
 			return;
 		}
 		var ctx = play.canvas.hasNode().getContext('2d');
-		var image = document.getElementById(util.explosionsImages[index]);		
-		ctx.save();
-		ctx.translate(position.x*constant.tileSize, position.y*constant.tileSize);
-		ctx.drawImage(image, 0, 0);	
-		ctx.restore();	
+		var image = document.getElementById(util.explosionsImages[index]);	
+		if (!enyo.platform.android || document.location.protocol.substr(0,4) == "http") {
+			// HACK: Don't do on Android because it flash the screen
+			ctx.save();
+			ctx.translate(position.x*constant.tileSize, position.y*constant.tileSize);
+			ctx.drawImage(image, 0, 0);	
+			ctx.restore();
+		}
 		index++;
 	}, constant.explosionInterval);
 }

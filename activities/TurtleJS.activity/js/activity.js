@@ -4,8 +4,11 @@ define(function (require) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
-        // Initialize the activity.
+        // Initialize the activity
         activity.setup();
+		
+		// Initialize application
+		appInit();
     });
 
 });

@@ -180,6 +180,9 @@ enyo.kind({
 					&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
 					&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
 			});
+			that.journal = that.journal.sort(function(e0, e1) {
+				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
+			});
 			that.journalChanged();
 		}
 		

@@ -22,7 +22,12 @@ define(function (require) {
 		// Launch main screen
 		app = new TankOp.App({activity: activity});
 		app.load();
-        app.renderInto(document.getElementById("board"));		
+        app.renderInto(document.getElementById("board"));
+
+        // Stop sound at end of game to sanitize media environment, specifically on Android
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+			sound.pause();
+        });			
     });
 
 });

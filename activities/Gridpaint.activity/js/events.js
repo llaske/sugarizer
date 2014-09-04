@@ -72,6 +72,12 @@ function evMousedown(e){
 	e.preventDefault(); 
 	var x=localx(e.clientX), y=localy(e.clientY);
 	onStart(x,y);
+	// HACK: Force refresh on Android
+	if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+		cnv.style.display='none';
+		cnv.offsetHeight;
+		cnv.style.display='block';	
+	}
 }
 
 

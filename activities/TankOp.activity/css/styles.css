@@ -50,7 +50,9 @@
 	font-family: NoneShallPassFonts;
 	color: blue;
 	width: 100%;
-	margin-top: 15%;
+	vertical-align: middle;
+	height: 24px;
+	padding-top: 15%;
 }
 
 .start-button-image {

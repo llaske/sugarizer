@@ -124,7 +124,7 @@ define(function (require) {
             oldMidPoint.x = midPoint.x;
             oldMidPoint.y = midPoint.y;
 
-            stage.update();
+            stageUpdate();
         }
 
         function handlePressDown(event) {
@@ -162,7 +162,7 @@ define(function (require) {
             pointerData.oldMidPoint.x = midPoint.x;
             pointerData.oldMidPoint.y = midPoint.y;
 
-            stage.update();
+            stageUpdate();
         }
 
         // Color palette.
@@ -191,10 +191,20 @@ define(function (require) {
             stage.removeChild(shape);
             shape = new createjs.Shape();
             stage.addChild(shape);
-            stage.update();
+            stageUpdate();
         });
 
-        stage.update();
+        function stageUpdate() {
+            stage.update();
+            if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+                // HACK: Force redraw on Android
+                paintCanvas.style.display='none';
+                paintCanvas.offsetHeight;
+                paintCanvas.style.display='block';
+            }
+        }
+
+        stageUpdate();
     });
 
 });

@@ -38,6 +38,8 @@
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1;
+	overflow-x: hidden;
+	overflow-y: hidden;	
 }
 
 .logo {
@@ -107,7 +109,7 @@
 .information {
 	position: absolute;
 	left: 85%;
-	bottom: 25%;
+	bottom: 30%;
 }
 
 /* Game One */
@@ -537,11 +539,11 @@
 	}	
 	
 	.start-box {
-		height: 210px;
+		height: 205px;
 	}
 
 	.end-box {
-		height: 220px;
+		height: 215px;
 	}
 }
 

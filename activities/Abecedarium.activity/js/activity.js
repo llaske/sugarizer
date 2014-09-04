@@ -19,7 +19,12 @@ define(function (require) {
 		// Load context
 		Abcd.loadContext(function() {
 			app.restartLastGame();
-		});		
+		});	
+
+        // Stop sound at end of game to sanitize media environment, specifically on Android
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+			Abcd.sound.pause();
+        });		
     });
 
 });

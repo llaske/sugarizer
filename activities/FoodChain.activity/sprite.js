@@ -135,6 +135,13 @@ enyo.kind({
 		this.useImage(this.animation.images[this.animation.index]);
 		this.draw(this.animation.ctx);
 		
+		// HACK: On Android, force redraw of canvas
+		if (enyo.platform.android && document.location.protocol.substr(0,4) != "http") {
+			document.getElementById('acanvas').style.display='none';
+			document.getElementById('acanvas').offsetHeight;
+			document.getElementById('acanvas').style.display='block';
+		}
+		
 		// Action to do at each move
 		if (this.animation.action != undefined) {
 			if (!this.animation.action(this)) {
