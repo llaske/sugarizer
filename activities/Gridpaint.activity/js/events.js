@@ -29,7 +29,7 @@ var zoom;
 var shiftTop;
 
 function eventInit(){
-	window.onmousedown = evMousedown;	
+	document.getElementById("canvas").onmousedown = evMousedown;	
 	frame.onmousemove = evMousemove;	
 	frame.onmouseup = evMouseup;
 	var wsize = window.innerWidth;
@@ -69,6 +69,7 @@ function eventInit(){
 }
 
 function evMousedown(e){
+console.log(document.activeElement);
 	e.preventDefault(); 
 	var x=localx(e.clientX), y=localy(e.clientY);
 	onStart(x,y);
