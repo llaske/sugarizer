@@ -10,7 +10,7 @@ HORIZ_ARRANGE = 2;
 NA_ARRANGE = 3;
 
 MOBILE_VER = false;
-SUGAR_VER = true;
+SUGAR_VER = (window.localStorage.getItem('sugar_settings') !== null || window.top.sugar);
 
 COLOR_TABLE2 = [
     0xFF0000, 0xFF0D00, 0xFF1A00, 0xFF2600, 0xFF3300,
