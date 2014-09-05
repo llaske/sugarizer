@@ -39,7 +39,7 @@ function onFileSelect(evt, palette_tracker, block_tracker) {
         };
     })(file);
 
-    if (file.name.match(".ta$")){
+    if (file.name.match('.ta$') || file.name.match('.tb$')){
         reader.readAsText(file);
     }else {
         alert("no es archivo ta");
