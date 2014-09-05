@@ -88,34 +88,40 @@ function appInit() {
 	blocks_palette = new BlocksPalette(575, 220, '#FFD000', draw_stage.palette_layer, new BlocksPaletteDesc(), global_tracker);
 	palette_tracker.add_palette(blocks_palette);
 
-	// Load previously saved activity
-	var activity = require("sugar-web/activity/activity");
-	var datastoreObject = activity.getDatastoreObject();
-	datastoreObject.loadAsText(function (error, metadata, data) {
-		// Get blocks
-		var data = JSON.parse(data);
-		if (data == null)
-			return;
-		//debugger;
-		parseTAFile(JSON.parse(data.blocks), palette_tracker, block_tracker);
-		block_tracker.show_blocks();
-		
-		// Get language
-		i18n_tracker.change_language(data.i18n);
-		if (data.i18n == 'es_ES')
-			document.getElementById("es-lang-bt").classList.add('active');
-		else
-			document.getElementById("es-lang-bt").classList.remove('active');		
-		if (data.i18n == 'en_US')
-			document.getElementById("en-lang-bt").classList.add('active');
-		else
-			document.getElementById("en-lang-bt").classList.remove('active');
-		if (data.i18n == 'fr_FR')
-			document.getElementById("fr-lang-bt").classList.add('active');
-		else
-			document.getElementById("fr-lang-bt").classList.remove('active');	
-	});
-	
-	// Document is now ready
-	documentReady();
+    if (SUGAR_VER){
+        // Load previously saved activity
+        var activity = require("sugar-web/activity/activity");
+        var datastoreObject = activity.getDatastoreObject();
+        datastoreObject.loadAsText(function (error, metadata, data) {
+            // Get blocks
+            var data = JSON.parse(data);
+            if (data == null)
+                return;
+            //debugger;
+            parseTAFile(JSON.parse(data.blocks), palette_tracker, block_tracker);
+            block_tracker.show_blocks();
+            
+            // Get language
+            i18n_tracker.change_language(data.i18n);
+            if (data.i18n == 'es_ES')
+                document.getElementById("es-lang-bt").classList.add('active');
+            else
+                document.getElementById("es-lang-bt").classList.remove('active');		
+            if (data.i18n == 'en_US')
+                document.getElementById("en-lang-bt").classList.add('active');
+            else
+                document.getElementById("en-lang-bt").classList.remove('active');
+            if (data.i18n == 'fr_FR')
+                document.getElementById("fr-lang-bt").classList.add('active');
+            else
+                document.getElementById("fr-lang-bt").classList.remove('active');	
+        });
+        
+        // Document is now ready
+        documentReady();
+    }
+}
+
+if (!SUGAR_VER){
+    appInit();
 }
