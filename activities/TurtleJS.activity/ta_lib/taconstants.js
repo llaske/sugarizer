@@ -9,7 +9,7 @@ VERT_ARRANGE = 1;
 HORIZ_ARRANGE = 2;
 NA_ARRANGE = 3;
 
-MOBILE_VER = false;
+MOBILE_VER = (/Android/i.test(navigator.userAgent));
 SUGAR_VER = (window.localStorage.getItem('sugar_settings') !== null || window.top.sugar);
 
 COLOR_TABLE2 = [
