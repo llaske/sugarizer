@@ -65,9 +65,11 @@ enyo.kind({
 		this.waitForClick = false;
 		
 		// Init canvas
-		var wsize = window.innerWidth;
+		var wsize = document.body.clientWidth;
 		if (wsize <= 480) {
 			this.zoom = 0.4;
+		} else if (wsize <= 640) {
+			this.zoom = 0.55;
 		} else if (wsize <= 768) {
 			this.zoom = 0.62;
 		} else if (wsize <= 854) {

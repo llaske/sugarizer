@@ -32,12 +32,16 @@ function eventInit(){
 	document.getElementById("canvas").onmousedown = evMousedown;	
 	frame.onmousemove = evMousemove;	
 	frame.onmouseup = evMouseup;
-	var wsize = window.innerWidth;
+	var wsize = document.body.clientWidth;
 	var wtop = 55;
 	if (wsize <= 480) {
 		zoom = 0.353;
 		wtop = 150;
 		shiftTop = -85;
+	} else if (wsize <= 640) {
+		zoom = 0.501;
+		wtop = 100;
+		shiftTop = -40;
 	} else if (wsize <= 854) {
 		zoom = 0.565;
 		wtop = 90;
