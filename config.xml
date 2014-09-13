@@ -16,11 +16,12 @@
 
 	<preference name="fullscreen" value="true" />
 	<preference name="orientation" value="landscape" />
+
 	<gap:config-file platform="android" parent="/manifest/application">
 		<activity android:screenOrientation="landscape"/>
-	</gap:config-file>	
+	</gap:config-file>
 	
-	<preference name="permissions" value="none"/>
+	<access origin="*"/>
 	
 	<preference name="android-minSdkVersion" value="13" />	
 	
@@ -34,4 +35,6 @@
     <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
     <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
     <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />	
+    <icon gap:density="xxhdpi" gap:platform="android" src="res/icon/android/icon-144-xxhdpi.png" />	
+    <icon gap:density="xxxhdpi" gap:platform="android" src="res/icon/android/icon-192-xxxhdpi.png" />	
 </widget>
