@@ -41,7 +41,7 @@ enyo.kind({
 	indexChanged: function() {
 		var theme = Abcd.themes[this.index];
 		var entry = Abcd.entries[theme.img];
-		var image = Abcd.context.database+"images/database/"+entry.code+".png";
+		var image = Abcd.context.getDatabase()+"images/database/"+entry.code+".png";
 		var text = __$FC(theme.text);
 		if (Abcd.context.casevalue == 1)
 			text = text.toUpperCase();

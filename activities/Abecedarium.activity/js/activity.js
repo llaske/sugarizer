@@ -2,7 +2,7 @@
 
 define(function (require) {
     Abcd.activity = require("sugar-web/activity/activity");
-	var app = null;
+	app = null;
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {	

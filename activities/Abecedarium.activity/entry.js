@@ -66,7 +66,7 @@ enyo.kind({
 	indexChanged: function() {
 		// Get content
 		var entry = Abcd.entries[this.index];
-		var image = Abcd.context.database+"images/database/"+entry.code+".png";
+		var image = Abcd.context.getDatabase()+"images/database/"+entry.code+".png";
 		var text = __$FC(entry.text);
 		if (Abcd.context.casevalue == 1)
 			text = text.toUpperCase();
@@ -74,7 +74,7 @@ enyo.kind({
 		// Get sound
 		if (this.soundonly) this.$.soundIcon.addClass("entrySoundIconOnly");			
 		if (entry[Abcd.context.lang]) {
-			this.sound = Abcd.context.database+"audio/"+Abcd.context.lang+"/database/"+entry.code;
+			this.sound = Abcd.context.getDatabase()+"audio/"+Abcd.context.lang+"/database/"+entry.code;
 			this.$.soundIcon.setSrc("images/sound_off"+(this.soundonly?1:0)+".png");
 		} else {
 			this.sound = null;

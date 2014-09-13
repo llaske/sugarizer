@@ -22,8 +22,7 @@ enyo.kind({
 			{name: "build", kind: "Image", src: "images/build.png", classes: "buildButton no-select-image", ontap: "buildGame"},
 			{name: "networkCheck", kind: "Abcd.NetworkCheck", ontap: "networkSettings"}
 		]},
-		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},		
-		{name: "networkPopup", kind: "Abcd.NetworkPopup", onNetworkChanged: "networkChanged"},		
+		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},	
 		{kind: "Signals", onEndOfSound: "endOfSound", onSoundTimeupdate: "soundTimeupdate"}
 	],
 	
@@ -76,15 +75,6 @@ enyo.kind({
 		this.$.creditsPopup.show();
 	},
 	
-	// Handle: display network settings popup and handle change
-	networkSettings: function(e, s) {
-		this.$.networkPopup.display();
-	},
-	
-	networkChanged: function() {
-		this.$.networkCheck.check();
-	},
-	
 	// Sound ended, play next instrument
 	endOfSound: function(e, s) {
 		if (s == soundThemes[this.soundindex])
@@ -112,5 +102,10 @@ enyo.kind({
 			}
 		}
 		this.$.letter.setContent("");		
+	},
+	
+	// Test if database is installed
+	hasDatabase: function() {
+		return this.$.networkCheck.getConnected();
 	}
 });

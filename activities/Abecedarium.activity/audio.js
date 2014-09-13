@@ -31,10 +31,10 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		// Handle init
-		if (!this.hasNode()) {		
+		if (this.hasNode()) {		
 			// Handle sound ended event
 			var audio = this;
-			enyo.dispatcher.listen(audio.hasNode(), "ended", function() { 
+			enyo.dispatcher.listen(audio.hasNode(), "ended", function() {
 				audio.doSoundEnded();
 			});			
 			enyo.dispatcher.listen(audio.hasNode(), "timeupdate", function(s) { 
@@ -82,7 +82,8 @@ enyo.kind({
 		// HACK: HTML5 Audio don't work in PhoneGap on Android < 4.4, use Media PhoneGap component instead
 		if (enyo.platform.android && document.location.protocol.substr(0,4) != "http") {
 			// Compute full path
-			var src = location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src;
+			var database = Abcd.context.getDatabase();
+			var src = ((database.length == 0 || this.src.indexOf("database") == -1 ) ? location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src : this.src);
 			var that = this;
 			if (this.media) {
 				this.media.src = "";

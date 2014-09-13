@@ -1,11 +1,11 @@
 
-// Database localisation:
-//  - set to empty string "" for local database
-//  - set url prefix for distant hosting
+// Database localisation if not local
 
-// Local database
-Abcd.context.database = "";
+// Remote database location
+Abcd.context.database = "http://server.sugarizer.org/activities/Abecedarium.activity/";
 
-// Internet database
-//Abcd.context.database = "http://laske.fr/abecedarium/";
-//Abcd.context.database = "http://schoolserver.nosykomba.org/share/abecedarium/";
+// 
+Abcd.context.getDatabase = function() {
+	if (!app || !app.hasDatabase) return "";
+	return (app.hasDatabase() ? "" : Abcd.context.database);
+}

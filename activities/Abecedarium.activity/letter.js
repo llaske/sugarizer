@@ -36,6 +36,6 @@ enyo.kind({
 	
 	// Play sound for this letter
 	play: function(media) {	
-		media.play(Abcd.context.database+"audio/"+Abcd.context.lang+"/database/upper_"+this.letter.toUpperCase());
+		media.play(Abcd.context.getDatabase()+"audio/"+Abcd.context.lang+"/database/upper_"+this.letter.toUpperCase());
 	}	
 });	

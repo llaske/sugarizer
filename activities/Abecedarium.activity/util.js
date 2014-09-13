@@ -6,6 +6,7 @@ Abcd = {};
 
 
 // Game context handling
+var app;
 Abcd.context = {
 	database: "",
 	home: null,
@@ -22,7 +23,7 @@ Abcd.saveContext = function() {
 	values.push(Abcd.context.casevalue);
 	values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
 	var datastoreObject = Abcd.activity.getDatastoreObject();	
-	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.database});
+	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
 	datastoreObject.setDataAsText(jsonData);
 	datastoreObject.save(function() {});	
 };
@@ -36,9 +37,6 @@ Abcd.loadContext = function(callback) {
 		Abcd.context.casevalue = values[2];
 		Abcd.context.screenContext = values[3];
 		Abcd.setLocale(Abcd.context.lang);
-		if (context.database) {
-			Abcd.context.database = context.database;
-		}
 		callback();
 	});
 };

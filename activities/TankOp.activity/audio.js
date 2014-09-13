@@ -31,7 +31,7 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		// Handle init
-		if (!this.hasNode()) {		
+		if (this.hasNode()) {		
 			// Handle sound ended event
 			var audio = this;
 			enyo.dispatcher.listen(audio.hasNode(), "ended", function() { 
