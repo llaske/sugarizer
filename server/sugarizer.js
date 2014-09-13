@@ -4,7 +4,7 @@ var express = require('express'),
 	settings = require('./settings'),
 	activities = require('./routes/activities'),
 	journal = require('./routes/journal'),
-	users = require('./routes/users');
+	users = require('./routes/users'),
 	presence = require('./presence');
 
 

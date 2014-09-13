@@ -11,6 +11,22 @@ input {
 	background-color: white;
 }
 
+.shutdownscreen {
+	position: absolute;
+	background-color: black;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	visibility: hidden;
+}
+
+.shutdownimage {
+	max-width: 99%;
+	max-height: 99%;
+}
+
 .sugarizer-canvas {
 }
 
