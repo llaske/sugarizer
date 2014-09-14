@@ -64,7 +64,8 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();	
 		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
 		this.smallTime = (canvas_center.dx < 660);
-		this.$.content.applyStyle("height", (canvas_center.dy-footer_size)+"px");
+		var android_gap = (enyo.platform.android ? 3 : 0);
+		this.$.content.applyStyle("height", (canvas_center.dy-footer_size-android_gap)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
