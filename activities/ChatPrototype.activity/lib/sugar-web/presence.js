@@ -1,3 +1,4 @@
+define(function (require) {
     var callbackArray = [];
 
         function SugarPresence() {
@@ -37,6 +38,8 @@
 
         }
 
+	var presence = new SugarPresence();
+	
     SugarPresence.prototype.joinNetwork = function(userInfo, callback) {
 
 		var server = location.hostname;
@@ -118,3 +121,6 @@
         });
         this.socket.send(sjson);
     }
+	
+	return presence;
+});

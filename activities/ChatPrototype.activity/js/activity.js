@@ -8,8 +8,6 @@ define(function (require) {
         // Initialize the activity.
         activity.setup();
 
-        var presenceObject = new SugarPresence();
-
         var form = document.getElementById('message-form');
         var messageField = document.getElementById('message');
         var messagesList = document.getElementById('messages');
@@ -20,7 +18,7 @@ define(function (require) {
         var messageContent = document.getElementById('content');
         var settingsButton = document.getElementById('settings-button');
 
-        var presenceObject = new SugarPresence();
+        var presenceObject = presence;
 
         var sugarSettings = JSON.parse(localStorage.sugar_settings);
         var userInfo = [sugarSettings.name, sugarSettings.colorvalue];
