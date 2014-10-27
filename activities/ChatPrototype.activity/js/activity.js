@@ -20,18 +20,7 @@ define(function (require) {
 
         var presenceObject = presence;
 
-        var sugarSettings = JSON.parse(localStorage.sugar_settings);
-        var userInfo = [sugarSettings.name, sugarSettings.colorvalue];
-
-        console.log(userInfo);
-
-        if (sugarSettings.name == '<No name>') {
-
-            userInfo[0] = 'User';
-
-        }
-
-        presenceObject.joinNetwork(userInfo, function (error, user) {
+        presenceObject.joinNetwork(function (error, user) {
 			if (error)  {
 				socketStatus.innerHTML = 'Error';			
 				socketStatus.className = 'error';
@@ -59,7 +48,6 @@ define(function (require) {
         });
 
         presenceObject.onServerMessage(function (msg) {
-
             messagesList.innerHTML += '<li class="received" style = "color:blue">' + msg.data + '</li>';
 
         });
@@ -73,7 +61,10 @@ define(function (require) {
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
 
-                var message = messageField.value;
+				presenceObject.listUsers(function (data) {
+					console.log(data);
+				});
+                /*var message = messageField.value;
                 //sendBtn.innerHTML = "Send Message/Ping";
 
                 presenceObject.sendMessage("SampleGroupId", message);
@@ -81,38 +72,10 @@ define(function (require) {
 
                 messageField.placeholder = "Write your message here...";
                 // Clear out the message field.
-                messageField.value = "";
+                messageField.value = "";*/
 
             }
         };
-
-
-        function SettingsPalette(button) {
-            this.button = button;
-        }
-
-        SettingsPalette.prototype = new palette.Palette(settingsButton);
-
-        SettingsPalette.prototype.Palette = function () {
-
-            var setname;
-
-            setname = document.createElement('input');
-            setname.type = "text";
-            setname.id = "reset-name";
-            setname.className = "expand";
-            setname.placeholder = "change user name"
-
-            this.setContent([setname]);
-        }
-
-        var settingsPalette = new SettingsPalette();
-        settingsPalette.Palette();
-
-        var resetBox = document.getElementById('reset-name');
-        resetBox.onblur = function () {
-            presenceObject.changeUserName(resetBox.value);
-        }
 
     });
 
