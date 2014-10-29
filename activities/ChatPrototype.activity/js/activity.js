@@ -13,26 +13,46 @@ define(function (require) {
         var messageField = document.getElementById('message');
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
-        var closeBtn = document.getElementById('close');
-        var sendBtn = document.getElementById('send');
-        var connectedUsers = document.getElementById('listUsers');
         var messageContent = document.getElementById('content');
-        var settingsButton = document.getElementById('settings-button');
 		
-		var userSettings;
+		var userSettings = null;
+		var groupSettings = null;
 
 		// Connect to network
         var presenceObject = presence;
         presenceObject.joinNetwork(function (error, user) {
+			// Unable to join
 			if (error)  {
 				socketStatus.innerHTML = 'Error';			
 				socketStatus.className = 'error';
-			} else {
-				userSettings = user;
-				socketStatus.innerHTML = 'Connected';
-				socketStatus.className = 'open';
-				messageField.readOnly = false;
+				return;
 			}
+			
+			// Store settings
+			userSettings = user;
+			socketStatus.innerHTML = 'Connected';
+			socketStatus.className = 'open';
+			messageField.readOnly = false;
+			
+			// List existing activities
+			presenceObject.listSharedActivities(function (sharedActivities) {
+				// Look for a shared activity for chat
+				for(var i = 0 ; i < sharedActivities.length ; i++) {
+					var group = sharedActivities[i];
+					if (group.activityId == 'org.sugarlabs.ChatPrototype') {
+						// Found, join activity
+						presenceObject.joinSharedActivity(group.id, function (joined) {
+							groupSettings = joined.id;
+						});
+						return;
+					}
+				}
+				
+				// Not found, create a new shared activity
+				presenceObject.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
+					groupSettings = groupId;
+				});
+			});			
 		});
 
         // Show a disconnected message when the WebSocket is closed.
@@ -48,7 +68,7 @@ define(function (require) {
 			messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
         });
 		
-        // Handle messages received.
+        // Handle messages received
         presenceObject.onDataReceived(function (msg) {
 			var text = msg.content;
 			var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
@@ -66,60 +86,20 @@ define(function (require) {
             messageContent.scrollTop = messageContent.scrollHeight;
         });
 
+		// Handle message text update
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
 				var message = messageField.value;
-			
-				if (message == 'l') {
-					presenceObject.listUsers(function (users) {
-						console.log(users);
-					});
-				}
 				
-				else if (message == 'g') {
-					presenceObject.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
-						console.log(groupId);
-					});
-				}
-				
-				else if (message == 'lg') {
-					presenceObject.listSharedActivities(function (shared) {
-						console.log(shared);
-					});
-				}				
-				
-				else if (message[0] == 'j') {
-					presenceObject.joinSharedActivity(message.substr(1), function (joined) {
-						console.log(joined);
-					});
-				}
-				
-				else if (message[0] == 'q') {
-					presenceObject.leaveSharedActivity(message.substr(2), function () {
-						presenceObject.listSharedActivities(function (shared) {
-							console.log(shared);
-						});
-					});
-				}
-				
-				else if (message[0] == 's') {
-					var toSend = {user: userSettings, content: "Hello world !"};
-console.log(toSend);
-					presenceObject.sendMessage(message.substr(1), toSend);
-				}
-
-                /*
-                //sendBtn.innerHTML = "Send Message/Ping";
-
-                presenceObject.sendMessage("SampleGroupId", message);
-                // Send the message through the WebSocket.
-
-                */
+				// Send the message through the WebSocket.
+				var toSend = {user: userSettings, content: message};
+				presenceObject.sendMessage(groupSettings, toSend);
 				
                 // Clear out the message field
 				messageField.placeholder = "Write your message here...";
                 messageField.value = "";
-
+				messageField.setSelectionRange(0,0);
+				return false;
             }
         };
 
