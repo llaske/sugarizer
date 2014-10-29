@@ -2,6 +2,7 @@ define(function (require) {
     var activity = require("sugar-web/activity/activity");
     var presence = require("sugar-web/presence");
     var palette = require("sugar-web/graphics/palette");
+	
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
@@ -17,62 +18,107 @@ define(function (require) {
         var connectedUsers = document.getElementById('listUsers');
         var messageContent = document.getElementById('content');
         var settingsButton = document.getElementById('settings-button');
+		
+		var userSettings;
 
+		// Connect to network
         var presenceObject = presence;
-
         presenceObject.joinNetwork(function (error, user) {
 			if (error)  {
 				socketStatus.innerHTML = 'Error';			
 				socketStatus.className = 'error';
 			} else {
+				userSettings = user;
 				socketStatus.innerHTML = 'Connected';
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
 			}
 		});
 
+        // Show a disconnected message when the WebSocket is closed.
+        presenceObject.onConnectionClosed(function (event) {
+			console.log("Connection closed");
+            socketStatus.innerHTML = 'Disconnected from WebSocket.';
+            socketStatus.className = 'closed';
+        });
+		
+		// Display connection changed
+        presenceObject.onSharedActivityUserChanged(function (msg) {
+			var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+			messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
+        });
+		
         // Handle messages received.
         presenceObject.onDataReceived(function (msg) {
-
-            console.log(msg);
-            var authorElem = '<span style = "color:' + msg.colour.stroke + '">' + msg.author + '</span>';
+			var text = msg.content;
+			var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+			var colour = msg.user.colorvalue;
+			
+            var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
 
             myElem = document.createElement('li');
             myElem.class = 'received';
-            myElem.style.background = msg.colour.fill;
-            myElem.innerHTML = authorElem + msg.data;
-            myElem.style.color = msg.colour.stroke;
+            myElem.style.background = colour.fill;
+            myElem.innerHTML = authorElem + text;
+            myElem.style.color = colour.stroke;
 
             messagesList.appendChild(myElem);
             messageContent.scrollTop = messageContent.scrollHeight;
         });
 
-        presenceObject.onServerMessage(function (msg) {
-            messagesList.innerHTML += '<li class="received" style = "color:blue">' + msg.data + '</li>';
-
-        });
-
-        // Show a disconnected message when the WebSocket is closed.
-        presenceObject.onConnectionClose(function (event) {
-            socketStatus.innerHTML = 'Disconnected from WebSocket.';
-            socketStatus.className = 'closed';
-        });
-
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
+				var message = messageField.value;
+			
+				if (message == 'l') {
+					presenceObject.listUsers(function (users) {
+						console.log(users);
+					});
+				}
+				
+				else if (message == 'g') {
+					presenceObject.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
+						console.log(groupId);
+					});
+				}
+				
+				else if (message == 'lg') {
+					presenceObject.listSharedActivities(function (shared) {
+						console.log(shared);
+					});
+				}				
+				
+				else if (message[0] == 'j') {
+					presenceObject.joinSharedActivity(message.substr(1), function (joined) {
+						console.log(joined);
+					});
+				}
+				
+				else if (message[0] == 'q') {
+					presenceObject.leaveSharedActivity(message.substr(2), function () {
+						presenceObject.listSharedActivities(function (shared) {
+							console.log(shared);
+						});
+					});
+				}
+				
+				else if (message[0] == 's') {
+					var toSend = {user: userSettings, content: "Hello world !"};
+console.log(toSend);
+					presenceObject.sendMessage(message.substr(1), toSend);
+				}
 
-				presenceObject.listUsers(function (data) {
-					console.log(data);
-				});
-                /*var message = messageField.value;
+                /*
                 //sendBtn.innerHTML = "Send Message/Ping";
 
                 presenceObject.sendMessage("SampleGroupId", message);
                 // Send the message through the WebSocket.
 
-                messageField.placeholder = "Write your message here...";
-                // Clear out the message field.
-                messageField.value = "";*/
+                */
+				
+                // Clear out the message field
+				messageField.placeholder = "Write your message here...";
+                messageField.value = "";
 
             }
         };

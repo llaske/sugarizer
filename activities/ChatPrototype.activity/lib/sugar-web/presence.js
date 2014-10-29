@@ -2,8 +2,13 @@ define(function (require) {
 	// Message type constants
 	var msgInit = 0;
 	var msgListUsers = 1;
-	var msgListExistingGroups = 2;
-	var msgSendMessage = 3;
+	var msgCreateSharedActivity = 2;
+	var msgListSharedActivities = 3;
+	var msgJoinSharedActivity = 4;
+	var msgLeaveSharedActivity = 5;
+	var msgOnConnectionClosed = 6;
+	var msgOnSharedActivityUserChanged = 7;
+	var msgSendMessage = 8;
 	
 	// Array for callbacks on each type
     var callbackArray = [];
@@ -13,12 +18,20 @@ define(function (require) {
 		// Init callbacks
 		var emptyCallback = function() {};
 		var listUsersCallback = emptyCallback;
+		var createSharedActivityCallback = emptyCallback;
+		var listSharedActivityCallback = emptyCallback;
+		var joinSharedActivity = emptyCallback;
+		var leaveSharedActivity = emptyCallback;
+		var onConnectionClosed = emptyCallback;
+		var onSharedActivityUserChanged = emptyCallback;
 		var receivedDataCallback = emptyCallback;
-		var serverMessages = emptyCallback;
-		callbackArray = [emptyCallback, listUsersCallback, receivedDataCallback, serverMessages];
+		callbackArray = [emptyCallback, listUsersCallback, createSharedActivityCallback, 
+			listSharedActivityCallback, joinSharedActivity, leaveSharedActivity,
+			onConnectionClosed, onSharedActivityUserChanged, receivedDataCallback
+		];
 		
 		// Handle message received from server
-		this.onMessageReceived = function() {
+		this.registerMessageHandler = function() {
 			// Get message content
 			this.socket.onmessage = function(event) {
 				// Convert message to JSON
@@ -66,7 +79,6 @@ define(function (require) {
 		
 		// Connect to server
         this.socket = new WebSocket('ws://'+server+':8039');
-        console.log('Created socket ws://'+server+':8039');
         this.socket.onerror = function(error) {
             console.log('WebSocket Error: ' + error);
 			callback(error, null);
@@ -74,11 +86,17 @@ define(function (require) {
 		
 		// When connection open, send user info
         var that = this;
-        this.onConnectionOpen(function (event) {
+        this.socket.onopen = function(event) {
 			var userInfo = localStorage.sugar_settings;
+			that.registerMessageHandler();
             that.registerUser(userInfo);
-			callback(null, userInfo);
-        });
+			callback(null, JSON.parse(userInfo));
+        };
+		
+		// When connection closed, call closed callback
+        this.socket.onclose = function(event) {
+            callbackArray[msgOnConnectionClosed](event);
+        };		
     }
 
 	// Leave network
@@ -86,7 +104,7 @@ define(function (require) {
         this.socket.close();
     }
 
-	// List all users
+	// List all users. Will receive an array of users.
     SugarPresence.prototype.listUsers = function(callback) {
 		// Register call back
         callbackArray[msgListUsers] = callback;
@@ -98,34 +116,80 @@ define(function (require) {
         this.socket.send(sjson);
     }
 	
-    SugarPresence.prototype.onConnectionOpen = function(callback) {
-        this.onMessageReceived();
-        this.socket.onopen = function(event) {
-            callback(event);
-        };
-    }
-
-    SugarPresence.prototype.onDataReceived = function(callback) {
-        callbackArray[0] = callback;
-    }
-
-    SugarPresence.prototype.onConnectionClose = function(callback) {
-        this.socket.onclose = function(event) {
-            callback(event);
-        };
-    }
-
-    SugarPresence.prototype.onServerMessage = function(callback) {
-        callbackArray[2] = callback;
-    }
-
-    SugarPresence.prototype.sendMessage = function(mdata) {
-        console.log(mdata);
+	// Create a shared activity. Will receive a unique group id.
+    SugarPresence.prototype.createSharedActivity = function(activityId, callback) {
+		// Register call back
+        callbackArray[msgCreateSharedActivity] = callback;
+		
+		// Send create shared activity message
         var sjson = JSON.stringify({
-            type: msgSendMessage,
-            data: mdata
+            type: msgCreateSharedActivity,
+			activityId: activityId
         });
         this.socket.send(sjson);
+    }
+
+	// List all shared activities. Will receive an array of each shared activities and users connected
+    SugarPresence.prototype.listSharedActivities = function(callback) {
+		// Register call back
+        callbackArray[msgListSharedActivities] = callback;
+		
+		// Send list shared activities message
+        var sjson = JSON.stringify({
+            type: msgListSharedActivities
+        });
+        this.socket.send(sjson);
+    }
+	
+	// Join a shared activity. Will receive group properties or null
+    SugarPresence.prototype.joinSharedActivity = function(group, callback) {
+		// Register call back
+        callbackArray[msgJoinSharedActivity] = callback;
+		
+		// Send join shared activity message
+        var sjson = JSON.stringify({
+            type: msgJoinSharedActivity,
+			group: group
+        });
+        this.socket.send(sjson);
+    }
+
+	// Leave shared activities
+    SugarPresence.prototype.leaveSharedActivity = function(group, callback) {
+		// Register call back
+        callbackArray[msgLeaveSharedActivity] = callback;
+		
+		// Send leave shared activity message
+        var sjson = JSON.stringify({
+            type: msgLeaveSharedActivity,
+			group: group
+        });
+        this.socket.send(sjson);
+    }
+
+	// Register connection closed event
+    SugarPresence.prototype.onConnectionClosed = function(callback) {
+        callbackArray[msgOnConnectionClosed] = callback;
+    }
+	
+	// Register shared activity user changed event
+	SugarPresence.prototype.onSharedActivityUserChanged = function(callback) {
+		callbackArray[msgOnSharedActivityUserChanged] = callback;
+	}
+
+	// Send message to a group
+    SugarPresence.prototype.sendMessage = function(group, data) {;
+        var sjson = JSON.stringify({
+            type: msgSendMessage,
+			group: group,
+            data: data
+        });
+        this.socket.send(sjson);
+    }
+	
+	// Register data received message
+    SugarPresence.prototype.onDataReceived = function(callback) {
+        callbackArray[msgSendMessage] = callback;
     }
 	
 	return presence;
