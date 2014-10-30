@@ -54,7 +54,7 @@ define(function (require) {
 
 		// Register user to the server
 		this.registerUser = function(userInfo) {
-			this.socket.send(userInfo);
+			this.socket.send(JSON.stringify(userInfo));
 		}    
 
 	}
@@ -64,6 +64,13 @@ define(function (require) {
 	
 	// Join network function
     SugarPresence.prototype.joinNetwork = function(callback) {
+		// Check WebSocket support
+		if (!window.WebSocket){
+			console.log('WebSocket not supported');
+			callback({code: -1}, null);
+			this.socket = null;			
+		}
+		
 		// Get server name
 		var server = location.hostname;
 		if (localStorage.sugar_settings) {
@@ -82,15 +89,21 @@ define(function (require) {
         this.socket.onerror = function(error) {
             console.log('WebSocket Error: ' + error);
 			callback(error, null);
+			this.socket = null;
         };
 		
 		// When connection open, send user info
         var that = this;
         this.socket.onopen = function(event) {
-			var userInfo = localStorage.sugar_settings;
+			var sugarSettings = JSON.parse(localStorage.sugar_settings);
+			var userInfo = {
+				name: sugarSettings.name,
+				networkId: sugarSettings.networkId,
+				colorvalue: sugarSettings.colorvalue
+			};
 			that.registerMessageHandler();
             that.registerUser(userInfo);
-			callback(null, JSON.parse(userInfo));
+			callback(null, userInfo);
         };
 		
 		// When connection closed, call closed callback
@@ -101,11 +114,16 @@ define(function (require) {
 
 	// Leave network
     SugarPresence.prototype.leaveNetwork = function() {
+		if (this.socket == null)
+			return;
         this.socket.close();
     }
 
 	// List all users. Will receive an array of users.
     SugarPresence.prototype.listUsers = function(callback) {
+		if (this.socket == null)
+			return;
+
 		// Register call back
         callbackArray[msgListUsers] = callback;
 		
@@ -118,6 +136,9 @@ define(function (require) {
 	
 	// Create a shared activity. Will receive a unique group id.
     SugarPresence.prototype.createSharedActivity = function(activityId, callback) {
+		if (this.socket == null)
+			return;
+
 		// Register call back
         callbackArray[msgCreateSharedActivity] = callback;
 		
@@ -131,6 +152,9 @@ define(function (require) {
 
 	// List all shared activities. Will receive an array of each shared activities and users connected
     SugarPresence.prototype.listSharedActivities = function(callback) {
+		if (this.socket == null)
+			return;
+
 		// Register call back
         callbackArray[msgListSharedActivities] = callback;
 		
@@ -143,6 +167,9 @@ define(function (require) {
 	
 	// Join a shared activity. Will receive group properties or null
     SugarPresence.prototype.joinSharedActivity = function(group, callback) {
+		if (this.socket == null)
+			return;
+
 		// Register call back
         callbackArray[msgJoinSharedActivity] = callback;
 		
@@ -156,6 +183,9 @@ define(function (require) {
 
 	// Leave shared activities
     SugarPresence.prototype.leaveSharedActivity = function(group, callback) {
+		if (this.socket == null)
+			return;
+
 		// Register call back
         callbackArray[msgLeaveSharedActivity] = callback;
 		
@@ -179,7 +209,9 @@ define(function (require) {
 
 	// Send message to a group
     SugarPresence.prototype.sendMessage = function(group, data) {;
-        var sjson = JSON.stringify({
+		if (this.socket == null)
+			return;
+		var sjson = JSON.stringify({
             type: msgSendMessage,
 			group: group,
             data: data
