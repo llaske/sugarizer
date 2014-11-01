@@ -11,10 +11,12 @@ constant.sizeRadius = 200.0;
 constant.sizeEmpty = 50;
 constant.sizeSettings = 70;
 constant.sizeToolbar = 40;
+constant.sizeNeighbor = 40;
 
 constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
+constant.neighborhoodView = 3;
 
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;

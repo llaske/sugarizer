@@ -34,7 +34,7 @@ input {
 	background-image: url(../icons/view-radial.svg);
 	position: absolute !important;
 	top: 0px;
-	right: 90px;
+	right: 150px;
 }
 
 .view-list-button {
@@ -42,6 +42,13 @@ input {
 	position: absolute !important;
 	top: 0px;
 	right: 30px;
+}
+
+.view-neighbor-button {
+	background-image: url(../icons/zoom-neighborhood.svg);
+	position: absolute !important;
+	top: 0px;
+	right: 90px;
 }
 
 .favorite-button {
@@ -369,6 +376,11 @@ input {
 .view-cloudall-button {
 	background-image: url(../icons/cloud-all.svg);
 	left: 15px;
+}
+
+.neighbor-filter-text {
+	position: relative;
+	width: 350px;
 }
 
 .icon-button {

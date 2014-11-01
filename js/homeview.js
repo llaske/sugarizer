@@ -137,6 +137,11 @@ enyo.kind({
 		return this.toolbar;
 	},
 	
+	// Get linked popup
+	getPopup: function() {
+		return this.$.activityPopup;
+	},
+	
 	// Init desktop
 	init: function() {
 		this.currentView = constant.radialView;
@@ -237,13 +242,20 @@ enyo.kind({
 		// Show journal
 		else if (newView == constant.journalView) {
 			if (this.timer != null) {
-				this.$.activityPopup.hidePopup();
+				this.getPopup().hidePopup();
 				window.clearInterval(this.timer);
 			}	
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
 			util.setToolbar(this.otherview.getToolbar());			
 		}
-
+		
+		// Show neighborhood
+		else if (newView == constant.neighborhoodView) {
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.NeighborhoodView"});
+			toolbar.setActiveView(constant.neighborhoodView);
+			util.setToolbar(this.otherview.getToolbar());			
+		}
+		
 		this.$.otherview.show();
 		this.$.otherview.render();		
 	},
@@ -297,7 +309,7 @@ enyo.kind({
 		} else {
 			title = l10n.get('NameActivity', {name: activity.name});
 		}
-		this.$.activityPopup.setHeader({
+		this.getPopup().setHeader({
 			icon: activity,
 			colorized: activity.instances !== undefined && activity.instances.length > 0,
 			name: activity.name,
@@ -316,8 +328,8 @@ enyo.kind({
 					data: [activity, activity.instances[i]]
 				});
 			}
-		this.$.activityPopup.setItems(items);
-		this.$.activityPopup.setFooter([{
+		this.getPopup().setItems(items);
+		this.getPopup().setFooter([{
 			icon: activity,
 			colorized: false,
 			name: l10n.get("StartNew"),
@@ -326,27 +338,27 @@ enyo.kind({
 		}]);
 		
 		// Show popup
-		this.$.activityPopup.showPopup();
+		this.getPopup().showPopup();
 	},
 	hideActivityPopup: function() {
 		// Hide popup
-		if (this.$.activityPopup.cursorIsInside())
+		if (this.getPopup().cursorIsInside())
 			return false;	
-		this.$.activityPopup.hidePopup();
+		this.getPopup().hidePopup();
 		return true;
 	},
 		
 	// Popup menu for buddy handling
 	showBuddyPopup: function(icon) {
 		// Create popup
-		this.$.activityPopup.setHeader({
+		this.getPopup().setHeader({
 			icon: icon.icon,
 			colorized: true,
 			name: preferences.getName(),
 			title: null,
 			action: null
 		});
-		this.$.activityPopup.setItems(null);		
+		this.getPopup().setItems(null);		
 		var items = [];
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
@@ -369,26 +381,26 @@ enyo.kind({
 			action: enyo.bind(this, "doSettings"),	
 			data: null
 		});
-		this.$.activityPopup.setFooter(items);
+		this.getPopup().setFooter(items);
 		
 		// Show popup
-		this.$.activityPopup.showPopup();		
+		this.getPopup().showPopup();		
 	},
 	hideBuddyPopup: function() {
-		if (this.$.activityPopup.cursorIsInside())
+		if (this.getPopup().cursorIsInside())
 			return false;	
-		this.$.activityPopup.hidePopup();
+		this.getPopup().hidePopup();
 		return true;	
 	},
 	doShutdown: function() {
-		this.$.activityPopup.hidePopup();
+		this.getPopup().hidePopup();
 		util.quitApp();
 	},
 	doRestart: function() {
 		util.restartApp();
 	},
 	doSettings: function() {
-		this.$.activityPopup.hidePopup();
+		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
 	},
@@ -420,6 +432,7 @@ enyo.kind({
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
+		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
 	],
 	
@@ -433,6 +446,7 @@ enyo.kind({
 		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));	
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));	
+		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));	
 	},
 	
 	// Handle search text content
@@ -448,10 +462,16 @@ enyo.kind({
 	setActiveView: function(view) {
 		if (view == constant.radialView) {
 			this.$.radialbutton.addRemoveClass('active', true);
+			this.$.neighborbutton.addRemoveClass('active', false);
 			this.$.listbutton.addRemoveClass('active', false);
 		} else if (view == constant.listView) {
 			this.$.radialbutton.addRemoveClass('active', false);
+			this.$.neighborbutton.addRemoveClass('active', false);
 			this.$.listbutton.addRemoveClass('active', true);		
+		} else if (view == constant.neighborhoodView) {
+			this.$.radialbutton.addRemoveClass('active', false);
+			this.$.neighborbutton.addRemoveClass('active', true);
+			this.$.listbutton.addRemoveClass('active', false);
 		}
 	},
 	
@@ -466,5 +486,9 @@ enyo.kind({
 	
 	showListView: function() {
 		app.showView(constant.listView);
-	}	
+	},
+
+	showNeighborView: function() {
+		app.showView(constant.neighborhoodView);
+	}
 });
