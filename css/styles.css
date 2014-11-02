@@ -45,7 +45,7 @@ input {
 }
 
 .view-neighbor-button {
-	background-image: url(../icons/zoom-neighborhood.svg);
+	background-image: url(../icons/view-neighborhood.svg);
 	position: absolute !important;
 	top: 0px;
 	right: 90px;
@@ -149,6 +149,10 @@ input {
 }
 
 .journal-icon {
+	position: absolute;
+}
+
+.server-icon {
 	position: absolute;
 }
 

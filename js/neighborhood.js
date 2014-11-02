@@ -5,6 +5,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "owner-icon"},
+		{name: "server", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "server-icon", showing: false},
 		{name: "network", showing: true, onresize: "resize", components: []},
 		{name: "otherview", showing: true, components: []},		
 		{name: "networkPopup", kind: "Sugar.Popup", showing: false}
@@ -15,7 +16,11 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
-		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));		
+		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
+		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
+		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
+		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
+		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
 		this.draw();
 	},
 	
@@ -90,11 +95,74 @@ enyo.kind({
 	
 	// Draw screen
 	draw: function() {	
-		// Draw XO owner
+		// List items to draw
+		var canvas_center = util.getCanvasCenter();
+		var items = [];
+		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true});
+		if (this.$.server.getShowing())
+			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});
+		var len = items.length;		
+		
+		// Compute icons position
+		for(var i = 0 ; i < len ; i++) {
+			var current = items[i];
+			if (current.locked)
+				continue;
+			current.x = Math.floor(Math.random()*(canvas_center.dx-current.size));
+			current.y = Math.floor(Math.random()*(canvas_center.dy-current.size));
+		}
+		var collisions = this.detectCollisions(items);
+		if (collisions.length > 0)
+			this.solveCollisions(collisions, items);
+		
+		// Draw all icons
+		for (var i = 0 ; i < len ; i++) {
+			var current = items[i];
+			current.icon.applyStyle("margin-left", current.x+"px");
+			current.icon.applyStyle("margin-top", current.y+"px");		
+		}
+	},
+	
+	// Detect collisions on drawing
+	detectCollisions: function(items) {
+		var collisions = [];
+		var len = items.length;		
+		for (var i = 0 ; i < len ; i++) {
+			for (var j = i+1 ; j < len ; j++) {
+				var item0 = items[i];
+				var item1 = items[j];
+				var min0x = item0.x, max0x = item0.x+item0.size;
+				var min0y = item0.y, max0y = item0.y+item0.size;
+				var min1x = item1.x, max1x = item1.x+item1.size;
+				var min1y = item1.y, max1y = item1.y+item1.size;
+				if (!(max0x < min1x || min0x > max1x || min0y > max1y || max0y < min1y)) {
+					if (item0.locked)
+						collisions.push(item1);
+					else
+						collisions.push(item0);
+				}
+			}
+		}
+		return collisions;
+	},
+	
+	// Move items to avoid collisions
+	solveCollisions: function(collisions, items) {
+		var stillCollide = true;
 		var canvas_center = util.getCanvasCenter();		
-		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeNeighbor/2)+"px");
-		this.$.owner.applyStyle("margin-top", (canvas_center.y-constant.sizeNeighbor/2)+"px");	
-	}	
+		for(var i = 0 ; stillCollide && i < constant.maxCollisionTry ; i++) {
+			// Move all item with collision
+			for(var j = 0 ; j < collisions.length ; j++) {
+				var current = collisions[j];
+				current.x = Math.floor(Math.random()*(canvas_center.dx-current.size));
+				current.y = Math.floor(Math.random()*(canvas_center.dy-current.size));			
+			}
+			
+			// Detect again
+			collisions = this.detectCollisions(items);
+			stillCollide = (collisions.length > 0);
+		}
+	}
 });
 
 

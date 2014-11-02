@@ -43,3 +43,5 @@ constant.timerPopupDuration = 1000;
 constant.touchToPopupDuration = 500;
 
 constant.maxPopupHistory = 5;
+
+constant.maxCollisionTry = 20;
