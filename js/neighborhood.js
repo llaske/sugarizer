@@ -23,6 +23,7 @@ enyo.kind({
 		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
 		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
 		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
+		presence.listUsers(enyo.bind(this, "userListReceived"));
 		this.draw();
 	},
 	
@@ -107,15 +108,7 @@ enyo.kind({
 			title: l10n.get("Connected"),
 			action: null
 		});
-		this.getPopup().setItems(null);
-		var items = [];
-		items.push({
-			icon: {directory: "icons", icon: "system-shutdown.svg"},
-			colorized: false,
-			name: l10n.get("Shutdown"),
-			action: enyo.bind(this, "doShutdown"),	
-			data: null
-		});		
+		this.getPopup().setItems(null);		
 		this.getPopup().setFooter(null);
 		
 		// Show popup
@@ -127,6 +120,60 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		return true;	
 	},
+		
+	// Popup menu for user handling
+	showUserPopup: function(icon) {
+		// Create popup
+		this.getPopup().setHeader({
+			icon: icon.icon,
+			colorized: true,
+			colorizedColor: icon.colorizedColor,
+			name: icon.getData().name,
+			title: null,
+			action: null
+		});
+		this.getPopup().setItems(null);
+		this.getPopup().setFooter(null);
+		
+		// Show popup
+		this.getPopup().showPopup();		
+	},
+	hideUserPopup: function() {
+		if (this.getPopup().cursorIsInside())
+			return false;	
+		this.getPopup().hidePopup();
+		return true;	
+	},
+	
+	// User list received
+	userListReceived: function(users) {
+		// Clean network icons
+		var items = [];
+		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });		
+		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
+		
+		// Add user icons
+		var len = users.length;
+		for (var i = 0 ; i < len ; i++) {
+			 var currentUser = users[i];
+			 if (currentUser.networkId != preferences.getNetworkId()) {
+				this.$.network.createComponent({
+					kind: "Sugar.Icon", 
+					icon: {directory: "icons", icon: "owner-icon.svg"},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentUser.colorvalue,
+					popupShow: enyo.bind(this, "showUserPopup"),
+					popupHide: enyo.bind(this, "hideUserPopup"),
+					data: currentUser
+				},
+				{owner: this}).render()
+			 }
+		}
+		
+		// Redraw
+		this.draw();
+	},
 	
 	// Draw screen
 	draw: function() {	
@@ -135,10 +182,13 @@ enyo.kind({
 		var items = [];
 		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true});
 		if (this.$.server.getShowing())
-			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});
-		var len = items.length;		
+			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});	
+		enyo.forEach(this.$.network.getControls(), function(icon) {
+			items.push({icon: icon, size: icon.getSize(), locked: false});
+		});	
 		
 		// Compute icons position
+		var len = items.length;		
 		for(var i = 0 ; i < len ; i++) {
 			var current = items[i];
 			if (current.locked)

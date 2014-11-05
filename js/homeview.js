@@ -7,6 +7,7 @@ var iconLib;
 var xoPalette;
 var radioButtonsGroup;
 var datastore;
+var presence;
 var l10n;
 var preferences;
 var util;
@@ -66,6 +67,11 @@ enyo.kind({
 						language: preferences.getLanguage()
 					},
 					function(inSender, inResponse) {
+						presence.joinNetwork(function (error, user) {
+							if (error) {
+								console.log("WARNING: Can't connect to presence server");
+							}
+						});
 						preferences.setNetworkId(inResponse._id);
 						preferences.setPrivateJournal(inResponse.private_journal);
 						preferences.setSharedJournal(inResponse.shared_journal);
@@ -90,6 +96,11 @@ enyo.kind({
 						} else if (that.currentView == constant.journalView) {
 							that.otherview.updateNetworkBar();
 						}
+						presence.joinNetwork(function (error, user) {
+							if (error) {
+								console.log("WARNING: Can't connect to presence server");
+							}
+						});
 					},
 					function() {
 						console.log("WARNING: Can't read network user settings");
