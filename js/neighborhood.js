@@ -18,9 +18,11 @@ enyo.kind({
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
+		this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
+		this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
 		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
 		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
-		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
+		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
 		this.draw();
 	},
 	
@@ -42,6 +44,7 @@ enyo.kind({
 		this.getPopup().setHeader({
 			icon: icon.icon,
 			colorized: true,
+			colorizedColor: null,
 			name: preferences.getName(),
 			title: null,
 			action: null
@@ -91,6 +94,38 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
+	},
+		
+	// Popup menu for server handling
+	showServerPopup: function(icon) {
+		// Create popup
+		this.getPopup().setHeader({
+			icon: icon.icon,
+			colorized: true,
+			colorizedColor: icon.colorizedColor,
+			name: myserver.getServer(),
+			title: l10n.get("Connected"),
+			action: null
+		});
+		this.getPopup().setItems(null);
+		var items = [];
+		items.push({
+			icon: {directory: "icons", icon: "system-shutdown.svg"},
+			colorized: false,
+			name: l10n.get("Shutdown"),
+			action: enyo.bind(this, "doShutdown"),	
+			data: null
+		});		
+		this.getPopup().setFooter(null);
+		
+		// Show popup
+		this.getPopup().showPopup();		
+	},
+	hideServerPopup: function() {
+		if (this.getPopup().cursorIsInside())
+			return false;	
+		this.getPopup().hidePopup();
+		return true;	
 	},
 	
 	// Draw screen

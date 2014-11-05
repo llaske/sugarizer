@@ -45,6 +45,8 @@ enyo.kind({
 				this.$.icon.setColorized(this.header.colorized);
 				if (this.header.colorizedColor)
 					this.$.icon.setColorizedColor(this.header.colorizedColor);
+				else
+					this.$.icon.setColorizedColor(null);
 				this.$.icon.render();
 			}
 			this.$.name.setContent(this.header.name);
