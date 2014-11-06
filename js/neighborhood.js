@@ -24,6 +24,7 @@ enyo.kind({
 		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
 		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
 		presence.listUsers(enyo.bind(this, "userListReceived"));
+		presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 		this.draw();
 	},
 	
@@ -144,12 +145,39 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		return true;	
 	},
+		
+	// Popup menu for shared activities handling
+	showActivityPopup: function(icon) {
+		// Create popup
+		this.getPopup().setHeader({
+			icon: icon.icon,
+			colorized: true,
+			colorizedColor: icon.colorizedColor,
+			name: icon.getData().name,
+			title: null,
+			action: null
+		});
+		this.getPopup().setItems(null);
+		this.getPopup().setFooter(null);
+		
+		// Show popup
+		this.getPopup().showPopup();		
+	},
+	hideActivityPopup: function() {
+		if (this.getPopup().cursorIsInside())
+			return false;	
+		this.getPopup().hidePopup();
+		return true;	
+	},
 	
 	// User list received
 	userListReceived: function(users) {
-		// Clean network icons
+		// Clean user network icons
 		var items = [];
-		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });		
+		enyo.forEach(this.$.network.getControls(), function(item) {
+			if (item.data.networkId)
+				items.push(item);
+		});		
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 		
 		// Add user icons
@@ -166,6 +194,40 @@ enyo.kind({
 					popupShow: enyo.bind(this, "showUserPopup"),
 					popupHide: enyo.bind(this, "hideUserPopup"),
 					data: currentUser
+				},
+				{owner: this}).render()
+			 }
+		}
+		
+		// Redraw
+		this.draw();
+	},
+	
+	// Shared activities list received
+	sharedListReceived: function(activities) {
+		// Clean activities icons
+		var items = [];
+		enyo.forEach(this.$.network.getControls(), function(item) {
+			if (item.data.activityId)
+				items.push(item);
+		});		
+		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
+
+		// Add activities icons
+		var len = activities.length;
+		for (var i = 0 ; i < len ; i++) {
+			 var currentActivity = activities[i];
+			 var activityInfo = preferences.getActivity(currentActivity.activityId);
+			 if (activityInfo != preferences.genericActivity) {
+				this.$.network.createComponent({
+					kind: "Sugar.Icon", 
+					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentActivity.colorvalue,
+					popupShow: enyo.bind(this, "showActivityPopup"),
+					popupHide: enyo.bind(this, "hideActivityPopup"),
+					data: activityInfo
 				},
 				{owner: this}).render()
 			 }

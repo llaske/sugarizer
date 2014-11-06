@@ -265,6 +265,11 @@ exports.init = function (settings) {
 			}
 		}
 		
+		// Fill activity color with user color
+		var userIndex = findClient(user);
+		if (userIndex != -1 && clients[userIndex]) {
+			group.colorvalue = clients[userIndex].settings.colorvalue;
+		}
 		// Not found, increase array to store group
 		sharedActivities.push(group);	
 		return group.id;
