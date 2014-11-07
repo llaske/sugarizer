@@ -23,6 +23,8 @@ enyo.kind({
 		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
 		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
 		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
+		this.users = [];
+		this.activities = [];
 		presence.listUsers(enyo.bind(this, "userListReceived"));
 		presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 		this.draw();
@@ -172,32 +174,8 @@ enyo.kind({
 	
 	// User list received
 	userListReceived: function(users) {
-		// Clean user network icons
-		var items = [];
-		enyo.forEach(this.$.network.getControls(), function(item) {
-			if (item.data.networkId)
-				items.push(item);
-		});		
-		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
-		
-		// Add user icons
-		var len = users.length;
-		for (var i = 0 ; i < len ; i++) {
-			 var currentUser = users[i];
-			 if (currentUser.networkId != preferences.getNetworkId()) {
-				this.$.network.createComponent({
-					kind: "Sugar.Icon", 
-					icon: {directory: "icons", icon: "owner-icon.svg"},
-					size: constant.sizeNeighbor,
-					colorized: true,
-					colorizedColor: currentUser.colorvalue,
-					popupShow: enyo.bind(this, "showUserPopup"),
-					popupHide: enyo.bind(this, "hideUserPopup"),
-					data: currentUser
-				},
-				{owner: this}).render()
-			 }
-		}
+		// Retrieve users
+		this.users = users;
 		
 		// Redraw
 		this.draw();
@@ -205,49 +183,31 @@ enyo.kind({
 	
 	// Shared activities list received
 	sharedListReceived: function(activities) {
-		// Clean activities icons
-		var items = [];
-		enyo.forEach(this.$.network.getControls(), function(item) {
-			if (item.data.activityId)
-				items.push(item);
-		});		
-		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
-
-		// Add activities icons
-		var len = activities.length;
-		for (var i = 0 ; i < len ; i++) {
-			 var currentActivity = activities[i];
-			 var activityInfo = preferences.getActivity(currentActivity.activityId);
-			 if (activityInfo != preferences.genericActivity) {
-				this.$.network.createComponent({
-					kind: "Sugar.Icon", 
-					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
-					size: constant.sizeNeighbor,
-					colorized: true,
-					colorizedColor: currentActivity.colorvalue,
-					popupShow: enyo.bind(this, "showActivityPopup"),
-					popupHide: enyo.bind(this, "hideActivityPopup"),
-					data: activityInfo
-				},
-				{owner: this}).render()
-			 }
-		}
+		// Retrieve activities
+		this.activities = activities;
 		
 		// Redraw
 		this.draw();
 	},
 	
 	// Draw screen
-	draw: function() {	
+	draw: function() {
+		// Clean network icons
+		var items = [];
+		enyo.forEach(this.$.network.getControls(), function(item) {
+			items.push(item);
+		});		
+		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
+		
 		// List items to draw
 		var canvas_center = util.getCanvasCenter();
-		var items = [];
+		items = [];
 		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true});
 		if (this.$.server.getShowing())
-			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});	
-		enyo.forEach(this.$.network.getControls(), function(icon) {
-			items.push({icon: icon, size: icon.getSize(), locked: false});
-		});	
+			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});
+		
+		// Create network icons for items
+		this.createNetworkIcons(items);
 		
 		// Compute icons position
 		var len = items.length;		
@@ -268,6 +228,52 @@ enyo.kind({
 			current.icon.applyStyle("margin-left", current.x+"px");
 			current.icon.applyStyle("margin-top", current.y+"px");		
 		}
+	},
+	
+	// Create network icons fro items
+	createNetworkIcons: function(items) {
+		// Add user icons
+		var len = this.users.length;
+		for (var i = 0 ; i < len ; i++) {
+			 var currentUser = this.users[i];
+			 if (currentUser.networkId != preferences.getNetworkId()) {
+				var icon = this.$.network.createComponent({
+					kind: "Sugar.Icon", 
+					icon: {directory: "icons", icon: "owner-icon.svg"},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentUser.colorvalue,
+					popupShow: enyo.bind(this, "showUserPopup"),
+					popupHide: enyo.bind(this, "hideUserPopup"),
+					data: currentUser
+				},
+				{owner: this});
+				icon.render();
+				items.push({icon: icon, size: icon.getSize(), locked: false});			
+			 }
+		}
+		
+		// Add activities icons
+		len = this.activities.length;
+		for (var i = 0 ; i < len ; i++) {
+			 var currentActivity = this.activities[i];
+			 var activityInfo = preferences.getActivity(currentActivity.activityId);
+			 if (activityInfo != preferences.genericActivity) {
+				var icon = this.$.network.createComponent({
+					kind: "Sugar.Icon", 
+					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentActivity.colorvalue,
+					popupShow: enyo.bind(this, "showActivityPopup"),
+					popupHide: enyo.bind(this, "hideActivityPopup"),
+					data: activityInfo
+				},
+				{owner: this});
+				icon.render();
+				items.push({icon: icon, size: icon.getSize(), locked: false});
+			 }
+		}	
 	},
 	
 	// Detect collisions on drawing
