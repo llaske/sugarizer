@@ -65,7 +65,6 @@ exports.init = function (settings) {
 					// Get user name
 					userId = rjson.networkId;
                     console.log('User ' + userId + ' join the network');
-
                 } else { 
 					// Get message content
                     var rjson = JSON.parse(message.utf8Data);
@@ -261,8 +260,12 @@ exports.init = function (settings) {
 			// Found, use it to store group
 			if (sharedActivities[i] == null) {
 				sharedActivities[i] = group;
-				return group.id;
+				break;
 			}
+		}
+		if (i >= sharedActivities.length) {
+			// Not found, increase array size
+			sharedActivities.push(group);
 		}
 		
 		// Fill activity color with user color
@@ -270,8 +273,7 @@ exports.init = function (settings) {
 		if (userIndex != -1 && clients[userIndex]) {
 			group.colorvalue = clients[userIndex].settings.colorvalue;
 		}
-		// Not found, increase array to store group
-		sharedActivities.push(group);	
+	
 		return group.id;
 	}
 	
