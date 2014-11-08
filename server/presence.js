@@ -49,7 +49,7 @@ exports.init = function (settings) {
         var connection = request.accept(null, request.origin);
 		
         // Add client to array, wait for userId
-        var userIndex = addClient(connection);
+        var userIndex;
         var userId = false;
 
         // An user sent some message
@@ -60,11 +60,22 @@ exports.init = function (settings) {
                 if (userId === false) {
 					// Get user settings
                     var rjson = JSON.parse(message.utf8Data);
-                    clients[userIndex].settings = rjson;
 					
-					// Get user name
-					userId = rjson.networkId;
-                    console.log('User ' + userId + ' join the network');
+					// Forbid user arlready connected on another device
+					if (findClient(rjson.networkId) != -1) {
+						// Reject user
+						connection.close();
+						console.log('User ' + rjson.networkId + ' rejected, already connected');						
+					}
+					else {
+						// Add client
+						userIndex = addClient(connection)
+						clients[userIndex].settings = rjson;
+					
+						// Get user name
+						userId = rjson.networkId;
+						console.log('User ' + userId + ' join the network');
+					}
                 } else { 
 					// Get message content
                     var rjson = JSON.parse(message.utf8Data);
@@ -169,10 +180,8 @@ exports.init = function (settings) {
                         console.log("Unrecognized received json type");
 						break;
                     }
-
                 }
             }
-
         });
 
         // user disconnected

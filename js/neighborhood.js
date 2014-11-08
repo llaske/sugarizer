@@ -177,6 +177,12 @@ enyo.kind({
 		// Retrieve users
 		this.users = users;
 		
+		// Add dummy users
+		var dummy = 30;
+		for (var i = 0 ; i < dummy ; i++) {
+			this.users.push({networkId: "nxx"+i, name: "dummy "+i, colorvalue: xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)]});
+		}
+		
 		// Redraw
 		this.draw();
 	},
@@ -202,9 +208,9 @@ enyo.kind({
 		// List items to draw
 		var canvas_center = util.getCanvasCenter();
 		items = [];
-		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true});
+		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true, child: []});
 		if (this.$.server.getShowing())
-			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false});
+			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false, child: []});
 		
 		// Create network icons for items
 		this.createNetworkIcons(items);
@@ -212,11 +218,22 @@ enyo.kind({
 		// Compute icons position
 		var len = items.length;		
 		for(var i = 0 ; i < len ; i++) {
+			// Set icon position
 			var current = items[i];
 			if (current.locked)
 				continue;
-			current.x = Math.floor(Math.random()*(canvas_center.dx-current.size));
-			current.y = Math.floor(Math.random()*(canvas_center.dy-current.size));
+			var hasChild = (current.child.length > 0) ? 1 : 0;
+			current.x = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dx-current.size-2*hasChild*current.size));
+			current.y = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dy-current.size-2*hasChild*current.size));
+			
+			// Set child position
+			var childLen = current.child.length;
+			for (var j = 0 ; j < childLen ; j++) {
+				var child = current.child[j];
+				var angle = (2.0*Math.PI)/childLen * j;
+				child.x = current.x + current.size * Math.sin(angle);
+				child.y = current.y - current.size * Math.cos(angle);
+			}
 		}
 		var collisions = this.detectCollisions(items);
 		if (collisions.length > 0)
@@ -226,7 +243,13 @@ enyo.kind({
 		for (var i = 0 ; i < len ; i++) {
 			var current = items[i];
 			current.icon.applyStyle("margin-left", current.x+"px");
-			current.icon.applyStyle("margin-top", current.y+"px");		
+			current.icon.applyStyle("margin-top", current.y+"px");
+			var childLen = current.child.length;
+			for (var j = 0 ; j < childLen ; j++) {
+				var child = current.child[j];
+				child.applyStyle("margin-left", child.x+"px");
+				child.applyStyle("margin-top", child.y+"px");			
+			}
 		}
 	},
 	
@@ -234,6 +257,7 @@ enyo.kind({
 	createNetworkIcons: function(items) {
 		// Add user icons
 		var len = this.users.length;
+		var userIcons = [];
 		for (var i = 0 ; i < len ; i++) {
 			 var currentUser = this.users[i];
 			 if (currentUser.networkId != preferences.getNetworkId()) {
@@ -249,31 +273,64 @@ enyo.kind({
 				},
 				{owner: this});
 				icon.render();
-				items.push({icon: icon, size: icon.getSize(), locked: false});			
+				userIcons.push(icon);
 			 }
 		}
 		
 		// Add activities icons
 		len = this.activities.length;
+		var userIconsInActivities = [];
 		for (var i = 0 ; i < len ; i++) {
+			// Unknown activity, ignoe
 			 var currentActivity = this.activities[i];
 			 var activityInfo = preferences.getActivity(currentActivity.activityId);
-			 if (activityInfo != preferences.genericActivity) {
-				var icon = this.$.network.createComponent({
-					kind: "Sugar.Icon", 
-					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
-					size: constant.sizeNeighbor,
-					colorized: true,
-					colorizedColor: currentActivity.colorvalue,
-					popupShow: enyo.bind(this, "showActivityPopup"),
-					popupHide: enyo.bind(this, "hideActivityPopup"),
-					data: activityInfo
-				},
-				{owner: this});
-				icon.render();
-				items.push({icon: icon, size: icon.getSize(), locked: false});
-			 }
-		}	
+			 if (activityInfo == preferences.genericActivity)
+				continue;
+				
+			// Add activity icon
+			var icon = this.$.network.createComponent({
+				kind: "Sugar.Icon", 
+				icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+				size: constant.sizeNeighbor,
+				colorized: true,
+				colorizedColor: currentActivity.colorvalue,
+				popupShow: enyo.bind(this, "showActivityPopup"),
+				popupHide: enyo.bind(this, "hideActivityPopup"),
+				data: activityInfo
+			},
+			{owner: this});
+			icon.render();
+			
+			// Add childs
+			var childIcons = [];
+			var childLen = currentActivity.users.length;
+			for (var j = 0 ; j < childLen ; j++) {
+				var userIconsLength = userIcons.length;
+				for (var k = 0 ; k < userIconsLength ; k++) {
+					var iconToTest = userIcons[k];
+					if (currentActivity.users[j] == iconToTest.getData().networkId) {
+						childIcons.push(iconToTest);
+						userIconsInActivities.push(iconToTest);
+					}
+				}
+			}
+			items.push({icon: icon, size: icon.getSize(), locked: false, child: childIcons});
+		}
+		
+		// Add icons alone
+		var userIconsLength = userIcons.length;
+		var childLen = userIconsInActivities.length;
+		for (var i = 0 ; i < userIconsLength ; i++) {
+			var found = false;
+			var icon = userIcons[i];
+			for (var j = 0 ; j < childLen && !found ; j++) {
+				if (icon.getData().networkId == userIconsInActivities[j].getData().networkId)
+					found = true;
+			}
+			if (!found) {			
+				items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
+			}
+		}
 	},
 	
 	// Detect collisions on drawing
@@ -284,10 +341,24 @@ enyo.kind({
 			for (var j = i+1 ; j < len ; j++) {
 				var item0 = items[i];
 				var item1 = items[j];
-				var min0x = item0.x, max0x = item0.x+item0.size;
-				var min0y = item0.y, max0y = item0.y+item0.size;
-				var min1x = item1.x, max1x = item1.x+item1.size;
-				var min1y = item1.y, max1y = item1.y+item1.size;
+				var size0 = item0.size;
+				var size1 = item1.size;
+				var min0x = item0.x, max0x = item0.x+size0;
+				var min0y = item0.y, max0y = item0.y+size0;
+				var min1x = item1.x, max1x = item1.x+size1;
+				var min1y = item1.y, max1y = item1.y+size1;
+				if (item0.child.length > 0) {
+					min0x -= size0;
+					max0x += size0;
+					min0y -= size0;
+					max0y += size0;
+				}
+				if (item1.child.length > 0) {
+					min1x -= size1;
+					max1x += size1;
+					min1y -= size1;
+					max1y += size1;
+				}
 				if (!(max0x < min1x || min0x > max1x || min0y > max1y || max0y < min1y)) {
 					if (item0.locked)
 						collisions.push(item1);
@@ -306,10 +377,21 @@ enyo.kind({
 		for(var i = 0 ; stillCollide && i < constant.maxCollisionTry ; i++) {
 			// Move all item with collision
 			for(var j = 0 ; j < collisions.length ; j++) {
+				// Move item
 				var current = collisions[j];
-				current.x = Math.floor(Math.random()*(canvas_center.dx-current.size));
-				current.y = Math.floor(Math.random()*(canvas_center.dy-current.size));			
-			}
+				var hasChild = (current.child.length > 0) ? 1 : 0;
+				current.x = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dx-current.size-2*hasChild*current.size));
+				current.y = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dy-current.size-2*hasChild*current.size));				
+				
+				// Move childs
+				var childLen = current.child.length;
+				for (var k = 0 ; k < childLen ; k++) {
+					var child = current.child[k];
+					var angle = (2.0*Math.PI)/childLen * k;
+					child.x = current.x + current.size * Math.sin(angle);
+					child.y = current.y - current.size * Math.cos(angle);
+				}					
+			}		
 			
 			// Detect again
 			collisions = this.detectCollisions(items);
