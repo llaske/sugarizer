@@ -177,8 +177,8 @@ enyo.kind({
 		// Retrieve users
 		this.users = users;
 		
-		// Add dummy users
-		var dummy = 30;
+		// Add dummy users for testing
+		var dummy = 0;
 		for (var i = 0 ; i < dummy ; i++) {
 			this.users.push({networkId: "nxx"+i, name: "dummy "+i, colorvalue: xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)]});
 		}
