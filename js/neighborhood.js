@@ -155,11 +155,19 @@ enyo.kind({
 			icon: icon.icon,
 			colorized: true,
 			colorizedColor: icon.colorizedColor,
-			name: icon.getData().name,
+			name: icon.getData().activity.name,
 			title: null,
 			action: null
 		});
-		this.getPopup().setItems(null);
+		var items = [];
+		items.push({
+			icon: {directory: "icons", icon: "activity-start.svg"},
+			colorized: false,
+			name: l10n.get("JoinActivity"),
+			action: enyo.bind(this, "joinActivity"),
+			data: [icon.getData(), null]
+		});		
+		this.getPopup().setItems(items);
 		this.getPopup().setFooter(null);
 		
 		// Show popup
@@ -170,6 +178,15 @@ enyo.kind({
 			return false;	
 		this.getPopup().hidePopup();
 		return true;	
+	},
+	
+	// Join a shared activity
+	joinActivity: function(data) {
+		preferences.runActivity(
+			data.activity,
+			null,
+			data.activity.name,
+			data.shared.id);
 	},
 	
 	// User list received
@@ -296,7 +313,7 @@ enyo.kind({
 				colorizedColor: currentActivity.colorvalue,
 				popupShow: enyo.bind(this, "showActivityPopup"),
 				popupHide: enyo.bind(this, "hideActivityPopup"),
-				data: activityInfo
+				data: {shared: currentActivity, activity: activityInfo}
 			},
 			{owner: this});
 			icon.render();

@@ -1,6 +1,5 @@
 define(function (require) {
     var activity = require("sugar-web/activity/activity");
-    var presence = require("sugar-web/presence");
     var palette = require("sugar-web/graphics/palette");
 	
     // Manipulate the DOM only when it is ready.
@@ -19,8 +18,7 @@ define(function (require) {
 		var groupSettings = null;
 
 		// Connect to network
-        var presenceObject = presence;
-        presenceObject.joinNetwork(function (error, user) {
+        var presenceObject = activity.getPresenceObject(function (error, presence) {
 			// Unable to join
 			if (error)  {
 				socketStatus.innerHTML = 'Error';			
@@ -29,19 +27,19 @@ define(function (require) {
 			}
 			
 			// Store settings
-			userSettings = user;
+			userSettings = presence.getUserInfo();
 			socketStatus.innerHTML = 'Connected';
 			socketStatus.className = 'open';
 			messageField.readOnly = false;
-			
+
 			// List existing activities
-			presenceObject.listSharedActivities(function (sharedActivities) {
+			presence.listSharedActivities(function (sharedActivities) {
 				// Look for a shared activity for chat
 				for(var i = 0 ; i < sharedActivities.length ; i++) {
 					var group = sharedActivities[i];
 					if (group.activityId == 'org.sugarlabs.ChatPrototype') {
 						// Found, join activity
-						presenceObject.joinSharedActivity(group.id, function (joined) {
+						presence.joinSharedActivity(group.id, function (joined) {
 							groupSettings = joined.id;
 						});
 						return;
@@ -49,42 +47,42 @@ define(function (require) {
 				}
 				
 				// Not found, create a new shared activity
-				presenceObject.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
+				presence.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
 					groupSettings = groupId;
 				});
 			});			
-		});
 
-        // Show a disconnected message when the WebSocket is closed.
-        presenceObject.onConnectionClosed(function (event) {
-			console.log("Connection closed");
-            socketStatus.innerHTML = 'Disconnected from WebSocket.';
-            socketStatus.className = 'closed';
-        });
-		
-		// Display connection changed
-        presenceObject.onSharedActivityUserChanged(function (msg) {
-			var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-			messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
-        });
-		
-        // Handle messages received
-        presenceObject.onDataReceived(function (msg) {
-			var text = msg.content;
-			var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-			var colour = msg.user.colorvalue;
+			// Show a disconnected message when the WebSocket is closed.
+			presence.onConnectionClosed(function (event) {
+				console.log("Connection closed");
+				socketStatus.innerHTML = 'Disconnected from WebSocket.';
+				socketStatus.className = 'closed';
+			});
 			
-            var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+			// Display connection changed
+			presence.onSharedActivityUserChanged(function (msg) {
+				var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+				messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
+			});
+			
+			// Handle messages received
+			presence.onDataReceived(function (msg) {
+				var text = msg.content;
+				var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+				var colour = msg.user.colorvalue;
+				
+				var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
 
-            myElem = document.createElement('li');
-            myElem.class = 'received';
-            myElem.style.background = colour.fill;
-            myElem.innerHTML = authorElem + text;
-            myElem.style.color = colour.stroke;
+				myElem = document.createElement('li');
+				myElem.class = 'received';
+				myElem.style.background = colour.fill;
+				myElem.innerHTML = authorElem + text;
+				myElem.style.color = colour.stroke;
 
-            messagesList.appendChild(myElem);
-            messageContent.scrollTop = messageContent.scrollHeight;
-        });
+				messagesList.appendChild(myElem);
+				messageContent.scrollTop = messageContent.scrollHeight;
+			});
+		});		
 
 		// Handle message text update
         messageField.onkeydown = function (e) {
