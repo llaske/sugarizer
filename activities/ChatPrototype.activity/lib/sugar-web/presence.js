@@ -73,15 +73,11 @@ define(function (require) {
 	
 	// Get user info
 	SugarPresence.prototype.getUserInfo = function() {
-console.log(">>> User Info");
-console.log(this.userInfo);
 		return this.userInfo;
 	}
 	
 	// Get shared activity info
 	SugarPresence.prototype.getSharedInfo = function() {
-console.log(">>> Shared Info");
-console.log(this.sharedInfo);
 		return this.sharedInfo;
 	}
 	

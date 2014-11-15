@@ -95,7 +95,7 @@ enyo.kind({
 							util.restartApp();
 						} else if (that.currentView == constant.journalView) {
 							that.otherview.updateNetworkBar();
-						}
+						}					
 						presence.joinNetwork(function (error, user) {
 							if (error) {
 								console.log("WARNING: Can't connect to presence server");

@@ -1,4 +1,9 @@
 
+
+// Local cache of icon coordonate
+var networkItemsCache = [];
+
+
 // Neighborhood view
 enyo.kind({
 	name: "Sugar.NeighborhoodView",
@@ -20,13 +25,12 @@ enyo.kind({
 		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
 		this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
 		this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
+		var cacheData = this.findInCache({icon: this.$.server});
 		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
-		this.$.server.setColorizedColor(xoPalette.colors[serverColor]);
-		this.$.server.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
+		this.$.server.setColorizedColor(cacheData ? cacheData.colorvalue : xoPalette.colors[serverColor]);
 		this.users = [];
 		this.activities = [];
-		presence.listUsers(enyo.bind(this, "userListReceived"));
-		presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
+		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
 		this.draw();
 	},
 	
@@ -41,7 +45,18 @@ enyo.kind({
 	getPopup: function() {
 		return this.$.networkPopup;
 	},
-		
+
+	// Update 
+	updateNetworkState: function() {
+		if (presence.isConnected()) {
+			this.$.server.setShowing(true);
+			presence.listUsers(enyo.bind(this, "userListReceived"));
+			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
+		} else {
+			this.$.server.setShowing(false);
+		}
+	},
+	
 	// Popup menu for buddy handling
 	showBuddyPopup: function(icon) {
 		// Create popup
@@ -191,6 +206,23 @@ enyo.kind({
 	
 	// User list received
 	userListReceived: function(users) {
+		// Ensure that an update is need
+		if (this.users.length == users.length) {
+			var len = this.users.length;
+			var found = 0;
+			for(var i = 0 ; i < len ; i++) {
+				for(var j = 0 ; j < len ; j++) {
+					if (users[i].networkId == this.users[j].networkId) {
+						found++;
+						break;
+					}
+				}
+			}
+			if (found == len) {
+				return;
+			}
+		}
+		
 		// Retrieve users
 		this.users = users;
 		
@@ -206,6 +238,23 @@ enyo.kind({
 	
 	// Shared activities list received
 	sharedListReceived: function(activities) {
+		// Ensure that an update is need
+		if (this.activities.length == activities.length) {
+			var len = this.activities.length;
+			var found = 0;
+			for(var i = 0 ; i < len ; i++) {
+				for(var j = 0 ; j < len ; j++) {
+					if (activities[i].activityId == this.activities[j].activityId) {
+						found++;
+						break;
+					}
+				}
+			}
+			if (found == len) {
+				return;
+			}
+		}
+		
 		// Retrieve activities
 		this.activities = activities;
 		
@@ -217,9 +266,7 @@ enyo.kind({
 	draw: function() {
 		// Clean network icons
 		var items = [];
-		enyo.forEach(this.$.network.getControls(), function(item) {
-			items.push(item);
-		});		
+		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 		
 		// List items to draw
@@ -240,8 +287,10 @@ enyo.kind({
 			if (current.locked)
 				continue;
 			var hasChild = (current.child.length > 0) ? 1 : 0;
-			current.x = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dx-current.size-2*hasChild*current.size));
-			current.y = current.size*hasChild + Math.floor(Math.random()*(canvas_center.dy-current.size-2*hasChild*current.size));
+			var cacheData = this.findInCache(current);
+			current.x = cacheData ? cacheData.x : current.size*hasChild + Math.floor(Math.random()*(canvas_center.dx-current.size-2*hasChild*current.size));
+			current.y = cacheData ? cacheData.y : current.size*hasChild + Math.floor(Math.random()*(canvas_center.dy-current.size-2*hasChild*current.size));
+			if (!cacheData) this.addToCache(current);
 			
 			// Set child position
 			var childLen = current.child.length;
@@ -414,6 +463,51 @@ enyo.kind({
 			collisions = this.detectCollisions(items);
 			stillCollide = (collisions.length > 0);
 		}
+	},
+	
+	// Cache handling
+	addToCache: function(item) {
+		// Get name
+		var data = item.icon.getData();
+		var name;
+		if (!data) name = "server";
+		else if (data.networkId) name = data.networkId;
+		else if (data.shared && data.shared.id) name = data.shared.id;
+		
+		// Add to cache
+		var len = networkItemsCache;
+		var found = false;
+		for(var i = 0 ; i < len ; i++) {
+			var networkItem = networkItemsCache[i];
+			if (networkItem.name == name) {
+				networkItem.x = x;
+				networkItem.y = y;
+				found = true;
+			}
+		}
+		if (!found) {
+			networkItemsCache.push({name: name, x: item.x, y: item.y, colorvalue: item.icon.getColorizedColor()});
+		}
+	},
+	
+	findInCache: function(item) {
+		// Get name
+		var data = item.icon.getData();
+		var name;
+		if (!data) name = "server";
+		else if (data.networkId) name = data.networkId;
+		else if (data.shared && data.shared.id) name = data.shared.id;
+		
+		// Return to cache
+		var len = networkItemsCache.length;
+		var found = false;
+		for(var i = 0 ; i < len ; i++) {
+			var networkItem = networkItemsCache[i];
+			if (networkItem.name == name) {
+				return networkItem;
+			}
+		}
+		return null;
 	}
 });
 
@@ -443,6 +537,7 @@ enyo.kind({
 
 	// Event handling
 	gotoDesktop: function() {
+		window.clearInterval(app.otherview.timer);
 		app.showView(constant.radialView);
 	},
 	
