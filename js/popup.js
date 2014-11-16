@@ -168,6 +168,10 @@ enyo.kind({
 		inEvent.item.$.icon.setIcon(this.items[inEvent.index].icon);
 		inEvent.item.$.name.setContent(this.items[inEvent.index].name);		
 		inEvent.item.$.icon.setColorized(this.items[inEvent.index].colorized);
+		if (this.items[inEvent.index].colorizedColor)
+			inEvent.item.$.icon.setColorizedColor(this.items[inEvent.index].colorizedColor);
+		else
+			inEvent.item.$.icon.setColorizedColor(null);		
 		if (this.items[inEvent.index].disable) {
 			inEvent.item.$.name.addRemoveClass('item-name-disable', true);
 			inEvent.item.$.name.addRemoveClass('item-name-enable', false);			

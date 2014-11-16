@@ -198,6 +198,7 @@ enyo.kind({
 					x: (canvas_center.x+Math.cos(angle)*radiusx-semi_size), 
 					y: (canvas_center.y+Math.sin(angle)*radiusy-semi_size),
 					colorized: activity.instances !== undefined && activity.instances.length > 0,
+					colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,					
 					ontap: "runMatchingActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup")
@@ -323,6 +324,7 @@ enyo.kind({
 		this.getPopup().setHeader({
 			icon: activity,
 			colorized: activity.instances !== undefined && activity.instances.length > 0,
+			colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
 			name: activity.name,
 			title: title,
 			action: enyo.bind(this, "runActivity"),
@@ -334,6 +336,7 @@ enyo.kind({
 				items.push({
 					icon: activity,
 					colorized: true,
+					colorizedColor: (activity.instances[i].metadata.buddy_color ? activity.instances[i].metadata.buddy_color : null),
 					name: activity.instances[i].metadata.title,
 					action: enyo.bind(this, "runOldActivity"),
 					data: [activity, activity.instances[i]]

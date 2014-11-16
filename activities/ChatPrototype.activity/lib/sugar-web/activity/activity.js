@@ -79,16 +79,23 @@ define(["webL10n",
                     "activity_id": environment.activityId
                 });
             }
-			presence.joinNetwork(function(error, presence) {
-				if (environment.sharedId) {
-					presence.joinSharedActivity(environment.sharedId, function() {});
-				}
-				if (presenceCallback) {
-					presenceCallback(error, presence);
-				} else {
-					presenceResponse = {error: error, presence: presence};
-				}
-			});
+			if (env.isSugarizer()) {
+				presence.joinNetwork(function(error, presence) {
+					if (environment.sharedId) {
+						presence.joinSharedActivity(environment.sharedId, function() {
+							var group_color = presence.getSharedInfo().colorvalue;
+							icon.colorize(activityButton, group_color);
+							datastoreObject.setMetadata({"buddy_color":group_color}); 
+							datastoreObject.save(function() {});
+						});
+					}
+					if (presenceCallback) {
+						presenceCallback(error, presence);
+					} else {
+						presenceResponse = {error: error, presence: presence};
+					}
+				});
+			}
             datastoreObject.save(function () {
                 datastoreObject.getMetadata(function (error, metadata) {
                     activityPalette.setTitleDescription(metadata);
