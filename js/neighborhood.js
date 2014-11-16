@@ -11,7 +11,7 @@ enyo.kind({
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "owner-icon"},
 		{name: "server", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "server-icon", showing: false},
-		{name: "network", showing: true, onresize: "resize", components: []},
+		{name: "network", showing: true, onresize: "draw", components: []},
 		{name: "otherview", showing: true, components: []},		
 		{name: "networkPopup", kind: "Sugar.Popup", showing: false}
 	],
@@ -31,6 +31,8 @@ enyo.kind({
 		this.users = [];
 		this.activities = [];
 		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
+		if (presence.isConnected())
+			this.updateNetworkState();
 		this.draw();
 	},
 	
@@ -288,8 +290,10 @@ enyo.kind({
 				continue;
 			var hasChild = (current.child.length > 0) ? 1 : 0;
 			var cacheData = this.findInCache(current);
-			current.x = cacheData ? cacheData.x : current.size*hasChild + Math.floor(Math.random()*(canvas_center.dx-current.size-2*hasChild*current.size));
-			current.y = cacheData ? cacheData.y : current.size*hasChild + Math.floor(Math.random()*(canvas_center.dy-current.size-2*hasChild*current.size));
+			var maxx = canvas_center.dx-current.size-2*hasChild*current.size;
+			current.x = (cacheData && cacheData.x < maxx) ? cacheData.x : current.size*hasChild + Math.floor(Math.random()*maxx);
+			var maxy = canvas_center.dy-current.size-2*hasChild*current.size;
+			current.y = (cacheData && cacheData.y < maxy) ? cacheData.y : current.size*hasChild + Math.floor(Math.random()*maxy);
 			if (!cacheData) this.addToCache(current);
 			
 			// Set child position
