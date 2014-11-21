@@ -18,72 +18,113 @@ define(function (require) {
 		var groupSettings = null;
 
 		// Connect to network
-        var presenceObject = activity.getPresenceObject(function (error, presence) {
-			// Unable to join
-			if (error)  {
-				socketStatus.innerHTML = 'Error';			
-				socketStatus.className = 'error';
-				return;
-			}
-			
-			// Store settings
-			userSettings = presence.getUserInfo();
-			socketStatus.innerHTML = 'Connected';
-			socketStatus.className = 'open';
-			messageField.readOnly = false;
-
-			// List existing activities
-			presence.listSharedActivities(function (sharedActivities) {
-				// Look for a shared activity for chat
-				for(var i = 0 ; i < sharedActivities.length ; i++) {
-					var group = sharedActivities[i];
-					if (group.activityId == 'org.sugarlabs.ChatPrototype') {
-						// Found, join activity
-						presence.joinSharedActivity(group.id, function (joined) {
-							groupSettings = joined.id;
-						});
-						return;
-					}
+        var presenceObject;
+		function shareActivity() {
+			var presenceObject = activity.getPresenceObject(function (error, presence) {
+				// Unable to join
+				if (error)  {
+					socketStatus.innerHTML = 'Error';			
+					socketStatus.className = 'error';
+					return;
 				}
 				
-				// Not found, create a new shared activity
-				presence.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
-					groupSettings = groupId;
+				// Store settings
+				userSettings = presence.getUserInfo();
+				socketStatus.innerHTML = 'Connected';
+				socketStatus.className = 'open';
+				messageField.readOnly = false;
+
+				// List existing activities
+				presence.listSharedActivities(function (sharedActivities) {
+					// Look for a shared activity for chat
+					for(var i = 0 ; i < sharedActivities.length ; i++) {
+						var group = sharedActivities[i];
+						if (group.activityId == 'org.sugarlabs.ChatPrototype') {
+							// Found, join activity
+							presence.joinSharedActivity(group.id, function (joined) {
+								groupSettings = joined.id;
+							});
+							return;
+						}
+					}
+					
+					// Not found, create a new shared activity
+					presence.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
+						groupSettings = groupId;
+					});
+				});			
+
+				// Show a disconnected message when the WebSocket is closed.
+				presence.onConnectionClosed(function (event) {
+					console.log("Connection closed");
+					socketStatus.innerHTML = 'Disconnected from WebSocket.';
+					socketStatus.className = 'closed';
 				});
-			});			
-
-			// Show a disconnected message when the WebSocket is closed.
-			presence.onConnectionClosed(function (event) {
-				console.log("Connection closed");
-				socketStatus.innerHTML = 'Disconnected from WebSocket.';
-				socketStatus.className = 'closed';
-			});
-			
-			// Display connection changed
-			presence.onSharedActivityUserChanged(function (msg) {
-				var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-				messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
-			});
-			
-			// Handle messages received
-			presence.onDataReceived(function (msg) {
-				var text = msg.content;
-				var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-				var colour = msg.user.colorvalue;
 				
-				var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+				// Display connection changed
+				presence.onSharedActivityUserChanged(function (msg) {
+					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
+				});
+				
+				// Handle messages received
+				presence.onDataReceived(function (msg) {
+					var text = msg.content;
+					var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+					var colour = msg.user.colorvalue;
+					
+					var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
 
-				myElem = document.createElement('li');
-				myElem.class = 'received';
-				myElem.style.background = colour.fill;
-				myElem.innerHTML = authorElem + text;
-				myElem.style.color = colour.stroke;
+					myElem = document.createElement('li');
+					myElem.class = 'received';
+					myElem.style.background = colour.fill;
+					myElem.innerHTML = authorElem + text;
+					myElem.style.color = colour.stroke;
 
-				messagesList.appendChild(myElem);
-				messageContent.scrollTop = messageContent.scrollHeight;
+					messagesList.appendChild(myElem);
+					messageContent.scrollTop = messageContent.scrollHeight;
+				});
 			});
-		});		
+		}
 
+		// Create network palette
+		var networkButton = document.getElementById("network-button");
+		function NetworkPalette(button) {
+			this.button = button;
+		}
+		NetworkPalette.prototype = new palette.Palette(networkButton);
+		NetworkPalette.prototype.Palette = function() {
+			var div = document.createElement('div');
+			var txt = document.createElement('span');
+			txt.innerHTML = "Private";
+			txt.className = 'network-text';
+			var hr = document.createElement('hr');
+			var privatebutton = document.createElement('button');
+			privatebutton.className = 'toolbutton';
+			privatebutton.setAttribute('id','private-button');
+			privatebutton.onclick = function() {
+				txt.innerHTML = "Private";
+			}
+			var sharedbutton = document.createElement('button');
+			sharedbutton.className = 'toolbutton';
+			sharedbutton.setAttribute('id','shared-button');
+			sharedbutton.onclick = function() {
+				txt.innerHTML = "My neighborhood";
+				privatebutton.disabled = true;
+				sharedbutton.disabled = true;
+				shareActivity();
+			}
+			
+			div.appendChild(txt);
+			div.appendChild(hr);
+			div.appendChild(privatebutton);
+			div.appendChild(sharedbutton);
+			
+			this.setContent([div]);
+		}
+        var networkPalette = new NetworkPalette();
+		networkPalette.Palette();
+		
 		// Handle message text update
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
