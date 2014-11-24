@@ -1,6 +1,7 @@
 define(function (require) {
     var activity = require("sugar-web/activity/activity");
     var palette = require("sugar-web/graphics/palette");
+    var presencepalette = require("sugar-web/graphics/presencepalette");
 	
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -15,12 +16,11 @@ define(function (require) {
         var messageContent = document.getElementById('content');
 		
 		var userSettings = null;
-		var groupSettings = null;
 
 		// Connect to network
         var presenceObject;
 		function shareActivity() {
-			var presenceObject = activity.getPresenceObject(function (error, presence) {
+			presenceObject = activity.getPresenceObject(function (error, presence) {
 				// Unable to join
 				if (error)  {
 					socketStatus.innerHTML = 'Error';			
@@ -33,26 +33,12 @@ define(function (require) {
 				socketStatus.innerHTML = 'Connected';
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
-
-				// List existing activities
-				presence.listSharedActivities(function (sharedActivities) {
-					// Look for a shared activity for chat
-					for(var i = 0 ; i < sharedActivities.length ; i++) {
-						var group = sharedActivities[i];
-						if (group.activityId == 'org.sugarlabs.ChatPrototype') {
-							// Found, join activity
-							presence.joinSharedActivity(group.id, function (joined) {
-								groupSettings = joined.id;
-							});
-							return;
-						}
-					}
-					
-					// Not found, create a new shared activity
+				
+				// Not found, create a new shared activity
+				if (!window.top.sugar.environment.sharedId) {
 					presence.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
-						groupSettings = groupId;
 					});
-				});			
+				}
 
 				// Show a disconnected message when the WebSocket is closed.
 				presence.onConnectionClosed(function (event) {
@@ -88,42 +74,15 @@ define(function (require) {
 		}
 
 		// Create network palette
-		var networkButton = document.getElementById("network-button");
-		function NetworkPalette(button) {
-			this.button = button;
+        var networkButton = document.getElementById("network-button");
+		presencepalette = new presencepalette.PresencePalette(networkButton, undefined);
+		presencepalette.addEventListener('shared', shareActivity);
+		
+		// Launched with a shared id, activity is already shared
+		if (window.top.sugar.environment.sharedId) {
+			shareActivity();
+			presencepalette.setShared(true);
 		}
-		NetworkPalette.prototype = new palette.Palette(networkButton);
-		NetworkPalette.prototype.Palette = function() {
-			var div = document.createElement('div');
-			var txt = document.createElement('span');
-			txt.innerHTML = "Private";
-			txt.className = 'network-text';
-			var hr = document.createElement('hr');
-			var privatebutton = document.createElement('button');
-			privatebutton.className = 'toolbutton';
-			privatebutton.setAttribute('id','private-button');
-			privatebutton.onclick = function() {
-				txt.innerHTML = "Private";
-			}
-			var sharedbutton = document.createElement('button');
-			sharedbutton.className = 'toolbutton';
-			sharedbutton.setAttribute('id','shared-button');
-			sharedbutton.onclick = function() {
-				txt.innerHTML = "My neighborhood";
-				privatebutton.disabled = true;
-				sharedbutton.disabled = true;
-				shareActivity();
-			}
-			
-			div.appendChild(txt);
-			div.appendChild(hr);
-			div.appendChild(privatebutton);
-			div.appendChild(sharedbutton);
-			
-			this.setContent([div]);
-		}
-        var networkPalette = new NetworkPalette();
-		networkPalette.Palette();
 		
 		// Handle message text update
         messageField.onkeydown = function (e) {
@@ -132,7 +91,7 @@ define(function (require) {
 				
 				// Send the message through the WebSocket.
 				var toSend = {user: userSettings, content: message};
-				presenceObject.sendMessage(groupSettings, toSend);
+				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
 				
                 // Clear out the message field
 				messageField.placeholder = "Write your message here...";

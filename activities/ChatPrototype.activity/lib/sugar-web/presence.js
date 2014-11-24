@@ -88,7 +88,7 @@ define(function (require) {
 			console.log('WebSocket not supported');
 			callback({code: -1}, presence);			
 		}
-		
+
 		// Get server name
 		var server = location.hostname;
 		if (localStorage.sugar_settings) {
@@ -160,7 +160,7 @@ define(function (require) {
 		// Register call back
 		var that = this;
         callbackArray[msgCreateSharedActivity] = function(data) {
-			that.sharedInfo = data;
+			that.sharedInfo = { id: data };
 			callback(data);
 		}
 		
