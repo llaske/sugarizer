@@ -172,6 +172,7 @@ enyo.kind({
 	
 	disabledChanged: function() {
 		this.$.disable.setShowing(this.disabled);
+		this.$.disable.applyStyle("margin-top", (-this.size)+"px"); // Force disable position if not set at start
 	},
 	
 	// Colorize

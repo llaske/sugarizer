@@ -318,9 +318,12 @@ enyo.kind({
 			for (var j = 0 ; j < childLen ; j++) {
 				var child = current.child[j];
 				child.applyStyle("margin-left", child.x+"px");
-				child.applyStyle("margin-top", child.y+"px");			
+				child.applyStyle("margin-top", child.y+"px");
 			}
 		}
+		
+		// Filter
+		this.filterNetwork();
 	},
 	
 	// Create network icons fro items
@@ -469,6 +472,15 @@ enyo.kind({
 		}
 	},
 	
+	// Filter network items
+	filterNetwork: function() {
+		var filter = this.toolbar ? this.toolbar.getSearchText().toLowerCase() : '';
+		enyo.forEach(this.$.network.getControls(), function(item) {
+			item.setDisabled(filter.length != 0 && item.data && item.data.name && item.data.name.toLowerCase().indexOf(filter) == -1);
+		});
+		this.$.server.setDisabled(filter.length != 0 && myserver.getServer().toLowerCase().indexOf(filter) == -1);
+	},
+	
 	// Cache handling
 	addToCache: function(item) {
 		// Get name
@@ -538,7 +550,12 @@ enyo.kind({
 	rendered: function() {
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));	
 	},
-
+	
+	// Handle search text content
+	getSearchText: function() {
+		return this.$.neighborsearch.getText();
+	},
+	
 	// Event handling
 	gotoDesktop: function() {
 		window.clearInterval(app.otherview.timer);
@@ -546,5 +563,6 @@ enyo.kind({
 	},
 	
 	filterNetwork: function() {
+		app.otherview.filterNetwork();
 	}	
 });
