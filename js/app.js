@@ -20,9 +20,13 @@ define(function (require) {
 
 		// Initialize the desktop when localized strings are here
 		window.addEventListener('localized', function() {
-			app = new Sugar.Desktop();
+			if (!loaded) {
+				app = new Sugar.FirstScreen();
+			} else {
+				app = new Sugar.Desktop();
+			}
 			document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
-			app.renderInto(document.getElementById("canvas"));		
+			app.renderInto(document.getElementById("canvas"));			
 		}, false);
 		
 		// HACK: force translate at first load due to defered loading

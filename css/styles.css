@@ -595,6 +595,70 @@ input {
 	top: 305px;
 }
 
+.first-namebox {
+	height: 100%;
+}
+
+.first-nameline {
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+}
+
+.first-nametext {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	display: inline-block;
+}
+
+.first-input {
+	text-align: center;
+	display: inline-block;
+}
+
+.first-namevalue {
+	border-radius: 22px;
+	height: 25px;
+	width: 270px;
+	margin-left: 30px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+}
+
+.first-namevalue:focus {
+	background-color: white;
+}
+
+.first-leftbutton {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	width: 120px;
+}
+
+.first-rightbutton {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	width: 120px;
+}
+
+.first-colortext {
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+	color: #808080;
+}
+
+.first-owner-icon {
+	position: absolute;
+	padding-top: 10px;
+}
+
 .settings-warningbox {
 	background-color: #000000;
 	width: 100%;
