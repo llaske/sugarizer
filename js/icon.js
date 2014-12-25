@@ -83,6 +83,7 @@ enyo.kind({
 			this.emulatorMouseOver = false;
 			return timeelapsed > constant.touchToPopupDuration;
 		}
+		this.popupHideTimer();
 		return false;
 	},
 
@@ -90,13 +91,27 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		
-		// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
 		var node = this.$.icon.hasNode();
-		if (enyo.platform.firefoxOS && enyo.platform.touch && node) {
+		if (node) {
+			// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
 			var that = this;
-			enyo.dispatcher.listen(node, "touchstart", function() {
-				that.startMouseOverSimulator();
-			});
+			if (enyo.platform.firefoxOS && enyo.platform.touch) {
+				enyo.dispatcher.listen(node, "touchstart", function() {
+					that.startMouseOverSimulator();
+				});
+			} 
+			
+			// HACK: On iOS use touch events to simulate mouseover/mouseout
+			else if (enyo.platform.ios && enyo.platform.touch) {
+				enyo.dispatcher.listen(node, "touchstart", function(e) {
+					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+					that.popupShowTimer();
+				});
+				enyo.dispatcher.listen(node, "touchend", function() {
+					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};			
+					that.popupHideTimer();
+				});			
+			}
 		}
 		
 		// If colorized		
