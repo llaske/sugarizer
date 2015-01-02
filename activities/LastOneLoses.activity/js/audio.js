@@ -79,8 +79,8 @@ enyo.kind({
 	
 	// Play audio
 	play: function() {
-		// HACK: HTML5 Audio don't work in PhoneGap on Android < 4.4 and iOS, use Media PhoneGap component instead
-		if ((enyo.platform.android || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
+		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
+		if ((enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
 			var src = location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src;
 			var that = this;
 			var media = new Media(src, function() {
