@@ -3,13 +3,13 @@
 enyo.kind({
 	name: "Sugar.DesktopListView",
 	kind: "Scroller",
-	published: { activities: [] },	
+	published: { activities: [] },
 	components: [
 		{name: "nomatch", classes: "listview-nomatch", showing: false},
 		{name: "message", classes: "listview-message", showing: false},
 		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
-		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", components: [
+		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "computeSize", components: [
 			{name: "item", classes: "activity-list-item", components: [
 				{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "doSwitchFavorite"},			
 				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
@@ -23,7 +23,15 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.activitiesChanged();
+		this.computeSize();
 		this.draw();
+	},
+	
+	computeSize: function() {
+		var toolbar = document.getElementById("toolbar");
+		var canvas = document.getElementById("canvas");
+		var canvas_height = canvas.offsetHeight;
+		this.applyStyle("height", canvas_height+"px");
 	},
 	
 	// Get linked toolbar, same than the desktop view

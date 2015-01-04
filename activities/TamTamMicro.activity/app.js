@@ -2,10 +2,11 @@
 // Main app class
 enyo.kind({
 	name: "TamTam.App",
-	kind: enyo.Control,
+	kind: "FittableRows",
 	published: {activity: null},
 	components: [
-		{name: "content", kind: "Scroller", classes: "maincontent", onresize: "resize", components: [	
+		{name: "content", kind: "Scroller", fit: true, classes: "maincontent", onresize: "resize", 
+		components: [	
 			{name: "collections", classes: "collections", components: [
 			]},
 			{name: "items", classes: "items", components: [
@@ -17,16 +18,15 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.collection = 0;
+		this.computeSize();
 		this.draw();		
 	},
 	
 	computeSize: function() {
 		var toolbar = document.getElementById("main-toolbar");
-		this.$.content.applyStyle("height", (window.innerHeight-toolbar.offsetHeight)+"px");	
-	},
-	
-	rendered: function() {
-		this.computeSize();
+		var canvas = document.getElementById("body");
+		var canvas_height = canvas.offsetHeight;
+		this.$.content.applyStyle("height", (canvas_height-toolbar.offsetHeight)+"px");
 	},
 	
 	resize: function() {
