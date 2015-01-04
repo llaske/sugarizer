@@ -92,17 +92,17 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		var node = this.$.icon.hasNode();
-		if (node) {
+		if (node && enyo.platform.touch) {
 			// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
 			var that = this;
-			if (enyo.platform.firefoxOS && enyo.platform.touch) {
+			if (enyo.platform.firefoxOS) {
 				enyo.dispatcher.listen(node, "touchstart", function() {
 					that.startMouseOverSimulator();
 				});
 			} 
 			
-			// HACK: On iOS use touch events to simulate mouseover/mouseout
-			else if (enyo.platform.ios && enyo.platform.touch) {
+			// HACK: On iOS and Chrome Android use touch events to simulate mouseover/mouseout
+			else if (enyo.platform.ios || enyo.platform.androidChrome) {
 				enyo.dispatcher.listen(node, "touchstart", function(e) {
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupShowTimer();
