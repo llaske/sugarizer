@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>ALL PLUGINS</title>
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	      href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	      href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<script data-main="js/loader" src="lib/require.js"></script>
+    </head>
+    <body>
+
+	<div id="main-toolbar" class="toolbar">
+	  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+          <button class="toolbutton" id="accelerometer_plugin" title="Accelerometer Plugin" onclick="show_accelerometer()"></button>
+          <button class="toolbutton" id="camera_plugin" title="Camera Plugin" onclick="show_camera()"></button>
+          <button class="toolbutton" id="dialog_plugin" title="Dialog Plugin" onclick="show_dialog()"></button>
+          <button class="toolbutton" id="device_plugin" title="Device Plugin" onclick="show_device()"></button>
+          <button class="toolbutton" id="network_plugin" title="Network  Plugin" onclick="show_network()"></button>
+          <button class="toolbutton" id="globalization_plugin" title="Globalization Plugin" onclick="show_globalization()"></button>
+
+	  <script>
+		function show_accelerometer() {
+			show_items(false, true, false, false, false, false, false);
+		}
+		
+		function show_camera() {
+			show_items(false, false, true, false, false, false, false);
+		}
+		
+		function show_dialog() {
+			show_items(false, false, false, true, false, false, false);
+		}
+		
+		function show_device() {
+			show_items(false, false, false, false, true, false, false);
+		}
+		
+		function show_network() {
+			show_items(false, false, false, false, false, true, false);
+		}
+				
+		function show_globalization() {
+			show_items(false, false, false, false, false, false, true);
+		}
+		
+		function show_items(bapp, baccelerometer, bcamera, bdialog, bdevice, bnetwork, bglobalization) {
+			if (!app.compliant) return;
+			document.getElementById("app").style.display = bapp ? "block" : "none";
+			document.getElementById("accelerometer").style.display = baccelerometer ? "block" : "none";
+			document.getElementById("camera").style.display = bcamera ? "block" : "none";
+			document.getElementById("dialog").style.display = bdialog ? "block" : "none";
+			document.getElementById("device").style.display = bdevice ? "block" : "none";
+			document.getElementById("network").style.display = bnetwork ? "block" : "none";
+			document.getElementById("globalization").style.display = bglobalization ? "block" : "none";
+		}
+	  </script>
+
+	  <!-- Buttons with class="pull-right" will be right aligned -->
+	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	</div>
+
+    <div id="canvas">
+        <div class="app" id="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+                <p class="event notcompatible">Device not compatible</p>
+            </div>
+        </div>
+		
+		<div id="accelerometer">
+			<h1>ACCELEROMETER</h1><br><br>
+			<button onclick="navigator.accelerometer.getCurrentAcceleration(onSuccess_accelerometer1, onError_accelerometer1);">Accelerometer - Test 1 </button> navigator.accelerometer.getCurrentAcceleration - Get the current acceleration along the _x_, _y_, and _z_ axes.
+
+			<br><br>
+
+			<button onclick="startWatch();">Accelerometer - Test 2 </button>navigator.accelerometer.watchAcceleration - Retrieves the device's current `Acceleration` at a regular interval, executing
+	the `accelerometerSuccess` callback function each time.
+			<br>
+			<div id="accelerometervalue"></div>
+
+			<br><br>
+
+			<button onclick="stopWatch();">Accelerometer - Test 3 </button> navigator.accelerometer.clearWatch - Stop watching the `Acceleration` referenced by the `watchID` parameter.
+
+			<br><br>
+		</div>
+	        <script>
+                //ACCELEROMETER - TEST 1 
+	        // onSuccess: Get a snapshot of the current acceleration
+	        //
+	         function onSuccess_accelerometer1(acceleration) {
+		   alert('Acceleration X: ' + acceleration.x + '\n' +
+		         'Acceleration Y: ' + acceleration.y + '\n' +
+		         'Acceleration Z: ' + acceleration.z + '\n' +
+		         'Timestamp: '      + acceleration.timestamp + '\n');
+	         }
+
+	         // onError: Failed to get the acceleration
+	         //
+	         function onError_accelerometer1() {
+		   alert('onError!');
+	         }
+
+
+
+                 //ACCELEROMETER - TEST 2
+	         // Start watching the acceleration
+	         //
+	         function startWatch() {
+
+		   // Update acceleration every 3 seconds
+		   var options = { frequency: 3000 };
+
+		   watchID = navigator.accelerometer.watchAcceleration(onSuccess_accelerometer2, onError_accelerometer2, options);
+	         }
+
+	         // onSuccess: Get a snapshot of the current acceleration
+	         //
+	         function onSuccess_accelerometer2(acceleration) {
+		  var element = document.getElementById('accelerometervalue');
+		  element.innerHTML = 'Acceleration X: ' + acceleration.x         + ', ' +
+		                    'Acceleration Y: ' + acceleration.y         + ', ' +
+		                    'Acceleration Z: ' + acceleration.z         + '\n' +
+		                    'Timestamp: '      + acceleration.timestamp + '\n';
+	         }
+
+	         // onError: Failed to get the acceleration
+	         //
+	         function onError_accelerometer2() {
+		   alert('onError!');
+	         }
+
+
+                 //ACCELEROMETER - TEST 3
+	         // Stop watching the acceleration
+	         //
+	         function stopWatch() {
+		   if (watchID) {
+		    navigator.accelerometer.clearWatch(watchID);
+		    watchID = null;
+		   }
+	         }
+        </script>
+		
+		<div id="camera">
+			<h1>CAMERA</h1><br><br>
+
+			<button onclick="getPicture1()">Camera - Test 1 </button> get picture from journal
+
+			<br><br>
+
+			<button onclick="getPicture2()">Camera - Test 2 </button> get the picture from camera
+
+			<br>
+			<img id="myImage" width="250px" height="250px"></img>
+
+			<br><br>		
+		</div>
+        <script>
+
+                 //CAMERA PLUGIN
+		 function getPicture1(){ 
+		       console.log("getPicture1");
+		       navigator.camera.getPicture(onSuccess_camera, onFail_camera, { quality: 50,
+					destinationType: Camera.DestinationType.DATA_URL,
+                                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+				    });
+		 }
+
+
+		 function getPicture2(){
+		       console.log("getPicture2");
+		       navigator.camera.getPicture(onSuccess_camera, onFail_camera, { quality: 50,
+					destinationType: Camera.DestinationType.DATA_URL,
+                                        sourceType: Camera.PictureSourceType.CAMERA
+				    });
+		 }
+
+
+
+		function onSuccess_camera(imageData) {
+                  console.log(imageData);
+		    var image = document.getElementById('myImage');
+		    image.src = "data:image/jpeg;base64," + imageData;
+
+		}
+
+		function onFail_camera(message) {
+		    alert('Failed because: ' + message);
+		}
+
+
+        </script>
+		
+		<div id="dialog">
+			<h1>DIALOG PLUGIN</h1><br><br>
+
+			<button onclick="navigator.notification.alert('You are the winner!',alertDismissed,'Game Over','Done');">Dialog - Test 1 </button>  navigator.notification.alert(message, alertCallback, [title], [buttonName]) :<br> message: Dialog message (String), alertCallback : Callback to invoke when alert dialog is dismissed (Function), <br>title: Dialog title(String) (Optional, defaults to `Alert`),<br> buttonName: Button name (String) (Optional, defaults to `OK`)
+
+			<br><br>
+
+			<button onclick="navigator.notification.confirm('You are the winner!',onConfirm,'Game Over',['Restart','Exit']);">Dialog - Test 2 </button>navigator.notification.confirm(message, confirmCallback, [title], [buttonLabels]) - <br> message: Dialog message (String), <br> confirmCallback: Callback to invoke with index of button pressed (1, 2, or 3) or when the dialog is dismissed without a button press (0) (Function),<br> title: Dialog title (String)(Optional, defaults to `Confirm`) <br> buttonLabels:  Array of strings specifying button labels(Array)(Optional, defaults to [`OK,Cancel`])
+
+			<br><br>
+
+			<button onclick="navigator.notification.prompt('Please enter your name',onPrompt,'Registration',['Ok','Exit'],'Jane Doe');">Dialog - Test 2 </button> navigator.notification.prompt - Displays a native dialog box that is more customizable than the browser's `prompt` function - navigator.notification.prompt(message, promptCallback, [title], [buttonLabels], [defaultText]) :: message:<br> Dialog message.(String) ; <br>promptCallback: Callback to invoke with index of button pressed (1, 2, or 3) or when the dialog is dismissed without a button press (0). (Function);<br> title: Dialog title(String) (Optional, defaults to `Prompt`) ;<br> buttonLabels: Array of strings specifying button labels (Array) (Optional, defaults to `["OK","Cancel"]`); <br> defaultText: Default textbox input value (`String`) (Optional, Default: empty string)
+
+			<br><br>		
+		</div>
+
+        <script>
+
+                //DIALOG PLUGIN
+		function alertDismissed() {
+				var element = document.getElementById('insert_dialog');
+				element.innerHTML = 'hello !';
+		}
+
+
+		function onConfirm(buttonIndex) {
+			alert('You selected button ' + buttonIndex);
+		}
+
+       	        function onPrompt(results) {
+		        alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
+	        }
+
+        </script>
+		
+				
+		<div id="device">
+			  <h1>DEVICE</h1><br><br>
+
+				  <p id="deviceProperties">Loading device properties...</p><br>
+
+				  It defines a global object device with the following properties :
+				  <br>device.model : Get the hardware model from the gio ssettings
+				  <br>  device.cordova: the version of cordova
+				  <br>  device.platform: returns 'sugar'
+				  <br>  device.uuid:returns the serial number
+				  <br>  device.version:version of sugar
+						<br><br>		
+		</div>
+				
+		<div id="network">
+				<h1>NETWORK CONNECTION</h1><br><br>
+
+				<button onclick="checkConnection()">Network connection - Test 1 </button>  The `connection` object, exposed via `navigator.connection`,  provides information about the device's cellular and wifi connection.
+
+				<br><br>		
+		</div>
+		
+        <script>
+                 //NETWORK CONNECTION PLUGIN
+	        function checkConnection() {
+		        var networkState = navigator.connection.type;
+
+		        var states = {};
+		        states[Connection.UNKNOWN]  = 'Unknown connection';
+		        states[Connection.ETHERNET] = 'Ethernet connection';
+		        states[Connection.WIFI]     = 'WiFi connection';
+		        states[Connection.CELL_2G]  = 'Cell 2G connection';
+		        states[Connection.CELL_3G]  = 'Cell 3G connection';
+		        states[Connection.CELL_4G]  = 'Cell 4G connection';
+		        states[Connection.CELL]     = 'Cell generic connection';
+		        states[Connection.NONE]     = 'No network connection';
+
+		        alert('Connection type: ' + states[networkState]);
+	        }
+
+
+        </script>		
+						
+		<div id="globalization">
+			<h1>GLOBALIZATION</h1><br><br>
+
+			<button onclick="navigator.globalization.getPreferredLanguage(function (language) {alert('language: ' + language.value + '\n');},function () {alert('Error getting language\n');});">Globalization - Test 1 </button> navigator.globalization.getPreferredLanguage. Get the BCP 47 language tag for the client's current language.
+
+			<br><br>
+
+			<button onclick="navigator.globalization.getLocaleName(function (locale) {alert('locale: ' + locale.value + '\n');},function () {alert('Error getting locale\n');});">Globalization - Test 2 </button>  navigator.globalization.getLocaleName. Returns the BCP 47 compliant tag for the client's current locale setting.
+
+			<br><br>		
+		</div>
+   </div>
+        <script type="text/javascript" src="../../cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

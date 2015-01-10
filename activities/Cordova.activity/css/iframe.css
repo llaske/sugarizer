@@ -1,0 +1,10 @@
+#iframe_toolbar {
+width:100%;
+top:0px;
+}
+
+#iframe_body_content {
+width:100%;
+top:5px;
+height:100%;
+}

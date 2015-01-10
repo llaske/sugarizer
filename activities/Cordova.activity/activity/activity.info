@@ -1,0 +1,6 @@
+[Activity]
+name = Cordova
+activity_version = 1
+bundle_id = io.cordova.all_in_one_plugin_sample
+exec = sugar-activity-web
+icon = activity-icon
