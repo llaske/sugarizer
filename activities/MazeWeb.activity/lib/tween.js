@@ -12,6 +12,23 @@
  * @author Ben Delarre / http://delarre.net
  */
 
+// HACK: window.performance not supported on iOS
+if (typeof window.performance === 'undefined') {
+	window.performance = {};
+}
+ 
+if (!window.performance.now){
+	var nowOffset = Date.now();
+ 
+	if (performance.timing && performance.timing.navigationStart){
+		nowOffset = performance.timing.navigationStart
+	}
+  
+	window.performance.now = function now(){
+		return Date.now() - nowOffset;
+	} 
+}
+
 // Date.now shim for (ahem) Internet Explo(d|r)er
 if ( Date.now === undefined ) {
 

@@ -9,6 +9,7 @@ define(function (require) {
     require(['domReady!'], function (doc) {
         activity.setup();
 
+		var soundType = /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? '.mp3' : '.ogg';
         var canvasWidth;
         var canvasHeight;
 
@@ -296,7 +297,7 @@ define(function (require) {
             winner = player;
             levelStatus = 'transition';
 
-            var audio = new Audio('sounds/win.ogg');
+            var audio = new Audio('sounds/win'+soundType);
             audio.play();
 
             for (control in players) {
@@ -431,7 +432,7 @@ define(function (require) {
 
             this.blockTween.start();
 
-            var audio = new Audio('sounds/tick.ogg');
+            var audio = new Audio('sounds/tick'+soundType);
             audio.play();
         }
 
