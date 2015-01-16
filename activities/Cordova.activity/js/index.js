@@ -22,7 +22,7 @@ var app = {
     // Application Constructor
     initialize: function() {
 		var useragent = navigator.userAgent.toLowerCase();
-		if (useragent.indexOf('android') == -1 && useragent.indexOf('ios') == -1 && useragent.indexOf('mozilla/5.0 (mobile') == -1) {
+		if (useragent.indexOf('android') == -1 && useragent.indexOf('iphone') == -1 && useragent.indexOf('ipad') == -1 && useragent.indexOf('ipod') == -1 && useragent.indexOf('mozilla/5.0 (mobile') == -1) {
 			var parentElement = document.getElementById('deviceready');
 			var listeningElement = parentElement.querySelector('.listening');
 			var notcompatibleElement = parentElement.querySelector('.notcompatible');

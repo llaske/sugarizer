@@ -11,6 +11,10 @@ define(function (require) {
 
         var paintCanvas = document.getElementById("paint-canvas");
 
+		var useragent = navigator.userAgent.toLowerCase();	
+		var isAndroid = /android/i.test(useragent);
+		var isiOS = (useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 );
+		
         function serializeCanvas() {
             return paintCanvas.toDataURL();
         }
@@ -73,7 +77,7 @@ define(function (require) {
         stage.autoClear = false;
         stage.enableDOMEvents(true);
         var touchEnabled = createjs.Touch.enable(stage);
-        if (touchEnabled) {
+        if (touchEnabled && !isiOS) {
             console.log("Touch enabled");
             stage.addEventListener("stagemousedown", handlePressDown);
             stage.addEventListener("stagemouseup", handlePressUp);
@@ -102,15 +106,15 @@ define(function (require) {
         // add handler for stage mouse events:
         function handleMouseDown(event) {
             oldPoint = new createjs.Point(stage.mouseX, stage.mouseY);
-            oldMidPoint = oldPoint;
+            oldMidPoint = oldPoint.clone();
             stage.addEventListener("stagemousemove" , handleMouseMove);
         }
 
-        function handleMouseUp(event) {
+        function handleMouseUp(event) {	
             stage.removeEventListener("stagemousemove" , handleMouseMove);
         }
 
-        function handleMouseMove(event) {
+        function handleMouseMove(event) {	
             var midPoint = new createjs.Point(oldPoint.x + stage.mouseX>>1,
                                               oldPoint.y + stage.mouseY>>1);
 
@@ -131,7 +135,7 @@ define(function (require) {
             var pointerData = {};
             pointerData.oldPoint = new createjs.Point(event.stageX,
                                                       event.stageY);
-            pointerData.oldMidPoint = pointerData.oldPoint;
+            pointerData.oldMidPoint = pointerData.oldPoint.clone();
             pointers[event.pointerID] = pointerData;
             if (pointers.length == 1) {
                 stage.addEventListener("stagemousemove" , handlePressMove);
@@ -196,7 +200,7 @@ define(function (require) {
 
         function stageUpdate() {
             stage.update();
-            if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+            if (isAndroid && document.location.protocol.substr(0,4) != "http") {
                 // HACK: Force redraw on Android
                 paintCanvas.style.display='none';
                 paintCanvas.offsetHeight;
