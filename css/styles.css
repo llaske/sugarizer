@@ -585,6 +585,7 @@ input {
 	width: 270px;
 	background-color: #e5e5e5;
 	padding-left: 10px;
+	font-size: 10pt;
 }
 
 .aboutme-name:focus {
@@ -626,6 +627,7 @@ input {
 	margin-left: 30px;
 	background-color: #e5e5e5;
 	padding-left: 10px;
+	font-size: 10pt;
 }
 
 .first-namevalue:focus {

@@ -51,12 +51,7 @@ enyo.kind({
 	},
 	
 	// Localization, changed update cards and description
-	setLocale: function() {
-		// Update description
-		this.games["LearnGame"] = { title: __$FC("learn"), description:  __$FC("learndesc") };
-		this.games["BuildGame"] = { title: __$FC("build"), description:  __$FC("builddesc") };
-		this.games["PlayGame"] = { title: __$FC("play"), description:  __$FC("playdesc") };	
-		
+	setLocale: function() {		
 		// Change card localization if any
 		enyo.forEach(this.$.cardbox.getControls(), function(card) {
 			card.setLocale();
@@ -115,6 +110,12 @@ enyo.kind({
 	
 	// Show/hide game description
 	showGameDescription: function(s) {
+		// Update description
+		this.games["LearnGame"] = { title: __$FC("learn"), description:  __$FC("learndesc") };
+		this.games["BuildGame"] = { title: __$FC("build"), description:  __$FC("builddesc") };
+		this.games["PlayGame"] = { title: __$FC("play"), description:  __$FC("playdesc") };	
+
+		// Show description
 		this.$.title.setContent(this.games[s.name].title+":");
 		this.$.title.addClass("game-color-"+s.name);
 		this.$.description.setContent(this.games[s.name].description);
