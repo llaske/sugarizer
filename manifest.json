@@ -1,0 +1,21 @@
+{
+  "name": "Sugarizer",
+  "description": "A taste of Sugar on any device.",
+  "version": "0.5",
+  "author": "Lionel Laské for OLPC France",
+  "app": {
+    "background": {
+      "scripts": ["js/background.js"]
+    }
+  },
+  "icons": {
+    "16": "/res/icon/chrome/icon16.png",
+    "32": "/res/icon/chrome/icon32.png",
+    "48": "/res/icon/chrome/icon48.png",
+    "128": "/res/icon/chrome/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "*://*/*"
+  ]  
+}

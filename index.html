@@ -14,16 +14,7 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
     <link rel="stylesheet" href="css/activity.css">
-	<script type="text/javascript">
-		// HACK: Force settings to empty the first time - need for Sugar web convergence
-		if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
-			try {
-				if (window.localStorage.getItem('sugar_settings') === null) {
-					 window.localStorage.setItem('sugar_settings', JSON.stringify({}));
-				}
-			} catch (err) {}
-		}	
-	</script>
+	<script type="text/javascript" src="js/init.js"></script>
     <script data-main="js/loader" src="lib/require.js"></script>	
 	
 	<!-- Enyo Framework -->

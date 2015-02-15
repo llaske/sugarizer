@@ -68,6 +68,7 @@ enyo.kind({
 			document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
 			app = new Sugar.Desktop();
 			app.renderInto(document.getElementById("canvas"));
+			preferences.save();
 		}
 	},
 	
