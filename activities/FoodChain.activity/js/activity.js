@@ -7,7 +7,6 @@ define(function (require) {
     var datastore = require("sugar-web/datastore");
 	var app = null;
 	var isFirefoxOS = (navigator.userAgent.indexOf('Mozilla/5.0 (Mobile') != -1);
-console.log("isFirefoxOS = "+isFirefoxOS);
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -55,7 +54,6 @@ console.log("isFirefoxOS = "+isFirefoxOS);
 		};
 		window.addEventListener('localized', localized_received, false);
 		if (enyo.platform.firefox || isFirefoxOS) {
-console.log("Force localized !");
 			localized_received();
 		}
 

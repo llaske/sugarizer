@@ -1,5 +1,5 @@
 // HACK: Force settings to empty the first time - need for Sugar web convergence
-if (chrome && chrome.app && chrome.app.runtime) {
+if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
 	chrome.storage.local.get('sugar_settings', function(value) {
 		if (!value.sugar_settings) {
 			chrome.storage.local.set({sugar_settings:JSON.stringify({})});
