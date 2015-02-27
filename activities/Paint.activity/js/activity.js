@@ -14,6 +14,30 @@ define(function (require) {
 		var useragent = navigator.userAgent.toLowerCase();	
 		var isAndroid = /android/i.test(useragent);
 		var isiOS = (useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 );
+
+		// HACK: On iOS, event handling are completely different
+		var mousePosition;
+		if (isiOS) {
+			var computemouseposition = function(e) {
+				mousePosition = {x: e.pageX-paintCanvas.offsetLeft, y: e.pageY-paintCanvas.offsetTop};
+			}
+			var computetouchposition = function(e) {
+				mousePosition = {x: e.touches[0].pageX-paintCanvas.offsetLeft, y: e.touches[0].pageY-paintCanvas.offsetTop};			
+			}
+			var mouseisup = function(e) {		
+				handleMouseUp(e);
+			}
+			paintCanvas.onmousedown = computemouseposition;
+			paintCanvas.onmousemove = computemouseposition;
+			paintCanvas.ontouchstart = computetouchposition;
+			paintCanvas.ontouchmove = function(e) {
+				computetouchposition(e);
+				handleMouseMove(e);
+			}
+			paintCanvas.ontouchend = mouseisup;
+			document.onmouseup = mouseisup;
+			document.ontouchcancel = mouseisup;			
+		}
 		
         function serializeCanvas() {
             return paintCanvas.toDataURL();
@@ -105,25 +129,29 @@ define(function (require) {
 
         // add handler for stage mouse events:
         function handleMouseDown(event) {
-            oldPoint = new createjs.Point(stage.mouseX, stage.mouseY);
+			var stagemouseX = (isiOS ? mousePosition.x : stage.mouseX);
+			var stagemouseY = (isiOS ? mousePosition.y : stage.mouseY);
+            oldPoint = new createjs.Point(stagemouseX, stagemouseY);
             oldMidPoint = oldPoint.clone();
-            stage.addEventListener("stagemousemove" , handleMouseMove);
+            stage.addEventListener(isiOS ? "touchmove" : "stagemousemove" , handleMouseMove);
         }
 
         function handleMouseUp(event) {	
-            stage.removeEventListener("stagemousemove" , handleMouseMove);
+            stage.removeEventListener(isiOS ? "touchmove" : "stagemousemove" , handleMouseMove);
         }
 
         function handleMouseMove(event) {	
-            var midPoint = new createjs.Point(oldPoint.x + stage.mouseX>>1,
-                                              oldPoint.y + stage.mouseY>>1);
+			var stagemouseX = (isiOS ? mousePosition.x : stage.mouseX);
+			var stagemouseY = (isiOS ? mousePosition.y : stage.mouseY);
+            var midPoint = new createjs.Point(oldPoint.x + stagemouseX>>1,
+                                              oldPoint.y + stagemouseY>>1);
 
             shape.graphics.clear().setStrokeStyle(strokeSize, 'round', 'round').
                 beginStroke(strokeColor).moveTo(midPoint.x, midPoint.y).
                 curveTo(oldPoint.x, oldPoint.y, oldMidPoint.x, oldMidPoint.y);
-
-            oldPoint.x = stage.mouseX;
-            oldPoint.y = stage.mouseY;
+		
+            oldPoint.x = stagemouseX;
+            oldPoint.y = stagemouseY;
 
             oldMidPoint.x = midPoint.x;
             oldMidPoint.y = midPoint.y;
