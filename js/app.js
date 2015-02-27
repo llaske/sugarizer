@@ -4,6 +4,7 @@
 define(function (require) {
 	// Load required library
 	l10n = require("webL10n");
+	l10n.start();
 	iconLib = require("sugar-web/graphics/icon");
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
