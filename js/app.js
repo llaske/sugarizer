@@ -13,29 +13,34 @@ define(function (require) {
 	preferences = require("settings");
 	myserver = require("server");
 	util = require("util");
-	var isLocalized = false;
-	var isDomReady = false;
+	var toload = 3;
 	
-	// Initialize the desktop when localized strings are here
+	// Wait for localized strings are here
 	window.addEventListener('localized', function() {
-		if (isDomReady)
+console.log("localized");
+		if (--toload == 0)
 			main();
-		else
-			isLocalized = true;
 	}, false);
 	
-	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
-		if (isLocalized)
+	// Wait for DOM is ready.
+	require(['domReady!'], function (doc) {	
+console.log("domready");
+		if (--toload == 0)
 			main();
-		else
-			isDomReady = true;
+	});
+	
+	// Wait for preferences
+	var preferenceset = false;
+	preferences.load(function(load) {
+console.log("loaded");
+		preferenceset = load;
+		if (--toload == 0)
+			main();	
 	});
 	
 	// Main program
-	var loaded = preferences.load();
 	var main = function() {
-		if (!loaded) {
+		if (!preferenceset) {
 			app = new Sugar.FirstScreen();
 		} else {
 			app = new Sugar.Desktop();
