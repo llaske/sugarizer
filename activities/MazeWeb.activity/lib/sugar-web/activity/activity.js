@@ -7,6 +7,8 @@ define(["webL10n",
         "sugar-web/graphics/activitypalette"], function (
     l10n, shortcut, bus, env, datastore, icon, activitypalette) {
 
+    'use strict';
+
     var datastoreObject = null;
 
     var activity = {};
@@ -33,7 +35,7 @@ define(["webL10n",
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
 				'cancelable': true	
-			});			
+			});				
             var result = window.dispatchEvent(stopEvent);
             if (result) {
                 activity.close();
@@ -51,7 +53,7 @@ define(["webL10n",
         // Colorize the activity icon.
         activity.getXOColor(function (error, colors) {
             icon.colorize(activityButton, colors);
-            invokerElem =
+            var invokerElem =
                 document.querySelector("#activity-palette .palette-invoker");
             icon.colorize(invokerElem, colors);
         });

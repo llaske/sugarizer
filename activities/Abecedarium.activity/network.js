@@ -11,12 +11,18 @@ enyo.kind({
 	],
 	
 	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.then = null;
+	},
+	
+	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
 	},
 	
 	// Check the connection
-	check: function() {
+	check: function(then) {
 		// Remove previous attempt
 		var items = [];
 		enyo.forEach(this.$.box.getControls(), function(item) {
@@ -27,6 +33,7 @@ enyo.kind({
 		}
 		
 		// Ping network
+		this.then = then;
 		this.$.box.createComponent(
 			{kind: "Image", showing: false, src: "images/database/_ping.png?"+(new Date()).getTime(), onload: "networkOK", onerror: "networkKO"},
 			{owner: this}
@@ -36,9 +43,11 @@ enyo.kind({
 	// Update icons depending of network response
 	networkOK: function() {
 		this.connected = true;
+		if (this.then) this.then(this.connected);
 	},
 	
-	networkKO: function() {	
+	networkKO: function() {
 		this.connected = false;
+		if (this.then) this.then(this.connected);		
 	}
 });

@@ -20,7 +20,7 @@ enyo.kind({
 			{name: "learn", kind: "Image", src: "images/learn.png", classes: "learnButton no-select-image", ontap: "learnGame"},
 			{name: "play", kind: "Image", src: "images/play.png", classes: "playButton no-select-image", ontap: "playGame"},	
 			{name: "build", kind: "Image", src: "images/build.png", classes: "buildButton no-select-image", ontap: "buildGame"},
-			{name: "networkCheck", kind: "Abcd.NetworkCheck", ontap: "networkSettings"}
+			{name: "networkCheck", kind: "Abcd.NetworkCheck"}
 		]},
 		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},	
 		{kind: "Signals", onEndOfSound: "endOfSound", onSoundTimeupdate: "soundTimeupdate"}
@@ -43,12 +43,13 @@ enyo.kind({
 	restartLastGame: function() {
 		Abcd.sound.pause();
 		if (Abcd.context.screen != "") {
-			Abcd.context.object = enyo.create({
-				kind: Abcd.context.screen,
-				context: Abcd.context.screenContext
-			}).renderInto(document.getElementById("body"));
-			Abcd.context.screen = "";
-			return true;
+			this.checkDatabase(function() {
+				Abcd.context.object = enyo.create({
+					kind: Abcd.context.screen,
+					context: Abcd.context.screenContext
+				}).renderInto(document.getElementById("body"));
+				Abcd.context.screen = "";
+			});
 		}
 	},
 	
@@ -105,6 +106,9 @@ enyo.kind({
 	},
 	
 	// Test if database is installed
+	checkDatabase: function(then) {
+		this.$.networkCheck.check(then);	
+	},
 	hasDatabase: function() {
 		return this.$.networkCheck.getConnected();
 	}

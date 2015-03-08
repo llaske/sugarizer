@@ -1,4 +1,7 @@
-define(["sugar-web/graphics/palette"], function (palette) {
+define(["sugar-web/graphics/palette",
+        "text!sugar-web/graphics/activitypalette.html"], function (palette, template) {
+
+    'use strict';
 
     var activitypalette = {};
 
@@ -13,19 +16,8 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         this.getPalette().id = "activity-palette";
 
-        this.template =
-            '<div class="row">' +
-            '<input type="text" id="title" class="expand">' +
-            '</div>' +
-            '<div class="row small">' +
-            '<label>Description:</label>' +
-            '</div>' +
-            '<div class="row expand">' +
-            '<textarea rows="8" id="description" class="expand"></textarea>' +
-            '</div>';
-
         var containerElem = document.createElement('div');
-        containerElem.innerHTML = this.template;
+        containerElem.innerHTML = template;
         this.setContent([containerElem]);
 
         this.titleElem = containerElem.querySelector('#title');
@@ -58,13 +50,13 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
     activitypalette.ActivityPalette.prototype =
         Object.create(palette.Palette.prototype, {
-        setTitleDescription: {
-            value: setTitleDescription,
-            enumerable: true,
-            configurable: true,
-            writable: true
-        }
-    });
+            setTitleDescription: {
+                value: setTitleDescription,
+                enumerable: true,
+                configurable: true,
+                writable: true
+            }
+        });
 
     return activitypalette;
 });

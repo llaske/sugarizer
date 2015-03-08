@@ -29,6 +29,7 @@ function documentReady() {
         
         var json_obj = JSON.parse(examples[id]);
         parseTAFile(json_obj, palette_tracker, block_tracker);
+		$("#popupShowHelp").popup("close");
     });
     
     var count = 0;

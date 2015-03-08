@@ -54,7 +54,8 @@ define(function (require) {
             image.src = data;
         }
 
-        activity.write = function (callback) {
+		var stopButton = document.getElementById("stop-button");
+        stopButton.addEventListener('click', function (event) {
 
             var data = {
                 image: serializeCanvas()
@@ -63,18 +64,17 @@ define(function (require) {
             console.log("writing...");
 
             var jsonData = JSON.stringify(data);
-            this.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().setDataAsText(jsonData);
 
-            this.getDatastoreObject().save(function (error) {
+            activity.getDatastoreObject().save(function (error) {
                 if (error === null) {
                     console.log("write done.");
                 }
                 else {
                     console.log("write failed.");
                 }
-                callback(error);
             });
-        };
+        });
 
         var datastoreObject = activity.getDatastoreObject();
         function onLoaded(error, metadata, jsonData) {

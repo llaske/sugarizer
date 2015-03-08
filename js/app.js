@@ -17,14 +17,12 @@ define(function (require) {
 	
 	// Wait for localized strings are here
 	window.addEventListener('localized', function() {
-console.log("localized");
 		if (--toload == 0)
 			main();
 	}, false);
 	
 	// Wait for DOM is ready.
 	require(['domReady!'], function (doc) {	
-console.log("domready");
 		if (--toload == 0)
 			main();
 	});
@@ -32,7 +30,6 @@ console.log("domready");
 	// Wait for preferences
 	var preferenceset = false;
 	preferences.load(function(load) {
-console.log("loaded");
 		preferenceset = load;
 		if (--toload == 0)
 			main();	

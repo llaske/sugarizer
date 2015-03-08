@@ -58,7 +58,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
         var results = [];
         if (!html5storage.test())
             return results;
-        for (var key in localStorage) {
+        for (var key in html5storage.getAll()) {
             if (key.substr(0, datastorePrefix.length) == datastorePrefix) {
                 var entry = html5storage.getValue(key);
                 entry.objectId = key.substr(datastorePrefix.length);
@@ -104,13 +104,13 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     // Load metadata
     DatastoreObject.prototype.getMetadata = function(callback) {
         var callback_c = datastore.callbackChecker(callback);
-        var result = html5storage.getValue(datastorePrefix + this.objectId);
-        if (result != null) {
-            this.setMetadata(result.metadata);
-            this.setDataAsText(result.text);
-            this.toload = false;
-            callback_c(null, result.metadata);
-        }
+		var result = html5storage.getValue(datastorePrefix + this.objectId);
+		if (result != null) {
+			this.setMetadata(result.metadata);
+			this.setDataAsText(result.text);
+			this.toload = false;
+			callback_c(null, result.metadata);
+		}
     };
 
     // Load text
@@ -174,16 +174,50 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
     // -- HTML5 local storage handling
 
+	// Load storage - Need for Chrome App
+	var storageloadedcalls = [];
+	html5storage.load = function(then) {
+		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+			var that = this;
+			// Currently load, will call then later
+			if (storageloadedcalls.length != 0) {
+				storageloadedcalls.push(then);
+				return;
+			}
+			storageloadedcalls.push(then);
+			chrome.storage.local.get(null, function(values) {
+				that.values = values;
+				// Call all waiting functions
+				for (var i = 0 ; i < storageloadedcalls.length ; i++) {
+					if (storageloadedcalls[i]) storageloadedcalls[i]();
+				}
+			});
+		} else {
+			if (then) then();
+		}
+	};
+	html5storage.load();
+	
     // Test if HTML5 storage is available
     html5storage.test = function() {
-        return (typeof(Storage) !== "undefined" && typeof(window.localStorage) !== "undefined");
+		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime)
+			return true;
+		else
+			return (typeof(Storage) !== "undefined" && typeof(window.localStorage) !== "undefined");
     };
 
     // Set a value in the storage
     html5storage.setValue = function(key, value) {
         if (this.test()) {
             try {
-                window.localStorage.setItem(key, JSON.stringify(value));
+				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {			
+					this.values[key] = JSON.stringify(value);
+					var item = {};
+					item[key] = this.values[key];					
+					chrome.storage.local.set(item);
+				} else {
+					window.localStorage.setItem(key, JSON.stringify(value));
+				}
             } catch (err) {}
         }
     };
@@ -191,8 +225,12 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     // Get a value in the storage
     html5storage.getValue = function(key) {
         if (this.test()) {
-            try {			
-                return JSON.parse(window.localStorage.getItem(key));
+            try {
+				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+					return JSON.parse(this.values[key]);
+				} else {
+					return JSON.parse(window.localStorage.getItem(key));
+				}
             } catch (err) {
                 return null;
             }
@@ -204,9 +242,30 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 	html5storage.removeValue = function(key) {
         if (this.test()) {
             try {
-                window.localStorage.removeItem(key);
+				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+					this.values[key] = null;
+					chrome.store.remove(key);
+				} else {
+					window.localStorage.removeItem(key);
+				}
             } catch (err) {}
         }	
+	};
+	
+	// Get all values
+	html5storage.getAll = function() {
+        if (this.test()) {
+            try {
+				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+					return this.values;
+				} else {
+					return window.localStorage;
+				}
+            } catch (err) {
+                return null;
+            }
+        }
+        return null;	
 	};
 
     return datastore;

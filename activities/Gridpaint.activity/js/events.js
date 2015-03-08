@@ -73,7 +73,6 @@ function eventInit(){
 }
 
 function evMousedown(e){
-console.log(document.activeElement);
 	e.preventDefault(); 
 	var x=localx(e.clientX), y=localy(e.clientY);
 	onStart(x,y);

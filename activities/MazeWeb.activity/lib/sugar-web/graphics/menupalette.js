@@ -1,6 +1,8 @@
 define(["sugar-web/graphics/palette",
         "text!sugar-web/graphics/menupalette.html", "mustache"], function (palette, template, mustache) {
 
+    'use strict';
+
     var menupalette = {};
 
     menupalette.MenuPalette = function (invoker, primaryText, menuData) {
@@ -39,13 +41,13 @@ define(["sugar-web/graphics/palette",
 
     menupalette.MenuPalette.prototype =
         Object.create(palette.Palette.prototype, {
-        addEventListener: {
-            value: addEventListener,
-            enumerable: true,
-            configurable: true,
-            writable: true
-        }
-    });
+            addEventListener: {
+                value: addEventListener,
+                enumerable: true,
+                configurable: true,
+                writable: true
+            }
+        });
 
     return menupalette;
 });

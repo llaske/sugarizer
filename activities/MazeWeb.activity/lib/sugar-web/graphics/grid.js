@@ -1,4 +1,7 @@
 define(function () {
+
+    'use strict';
+
     var grid = {};
 
     // Add a grid overlay with lines spaced by subcellSize, for visual

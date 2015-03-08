@@ -18,7 +18,8 @@ define(function () {
 				activityId: getUrlParameter("aid"),
 				activityName: getUrlParameter("n"),
 				bundleId: getUrlParameter("a"),
-				objectId: getUrlParameter("o")
+				objectId: getUrlParameter("o"),
+				sharedId: getUrlParameter("s")
 			};
             setTimeout(function () {			
 				callback(null, window.top.sugar.environment);
@@ -67,7 +68,10 @@ define(function () {
     };
     
     env.isSugarizer = function() {
-        if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
+		// HACK: If in Chrome App automatic deduction that in Sugarizer
+		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+			return true;
+        } else if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
             try {
                 return (window.localStorage.getItem('sugar_settings') !== null);
             } catch(err) {

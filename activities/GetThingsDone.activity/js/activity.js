@@ -14,20 +14,20 @@ define(function (require) {
         // Initialize the activity.
         activity.setup();
 
-        activity.write = function (callback) {
+        var stopButton = document.getElementById("stop-button");
+        stopButton.addEventListener('click', function (event) {
             console.log("writing...");
             var jsonData = JSON.stringify(todo.model.items);
-            this.getDatastoreObject().setDataAsText(jsonData);
-            this.getDatastoreObject().save(function (error) {
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save(function (error) {
                 if (error === null) {
                     console.log("write done.");
                 }
                 else {
                     console.log("write failed.");
                 }
-                callback(error);
             });
-        };
+        });
 
         // Set up a brand new TODO list
 

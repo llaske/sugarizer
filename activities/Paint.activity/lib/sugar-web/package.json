@@ -3,7 +3,8 @@
     "baseUrl": "lib",
     "dependencies": {
       "webL10n": "github:sugarlabs/webL10n",
-      "mustache": "github:janl/mustache.js/0.7.2"
+      "mustache": "github:janl/mustache.js/0.7.2",
+      "text": "github:requirejs/text"
     }
   }
 }
