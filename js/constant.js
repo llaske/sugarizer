@@ -33,6 +33,7 @@ constant.dynamicInitActivitiesURL = "/api/activities/";
 constant.initNetworkURL = "/api/users/";
 constant.sendCloudURL = "/api/journal/";
 constant.filterJournalURL = "/filter/";
+constant.defaultServer = "server.sugarizer.org";
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;

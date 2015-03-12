@@ -9,11 +9,16 @@ enyo.kind({
 	name: "Sugar.NeighborhoodView",
 	kind: enyo.Control,
 	components: [
-		{name: "owner", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "owner-icon"},
+		{name: "owner", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "owner-icon", showing: false},
 		{name: "server", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "server-icon", showing: false},
 		{name: "network", showing: true, onresize: "draw", components: []},
 		{name: "otherview", showing: true, components: []},		
-		{name: "networkPopup", kind: "Sugar.Popup", showing: false}
+		{name: "networkPopup", kind: "Sugar.Popup", showing: false},
+		{name: "empty", classes: "cloud-empty", showing: true},
+		{name: "message", classes: "cloud-message", showing: true},
+		{name: "settings", classes: "cloud-line", showing: true, components:[
+			{name: "gotosettings", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "preferences-system.svg"}, classes: "listview-button cloud-gotosettings", ontap: "doSettings"}
+		]}
 	],
   
 	// Constructor: init list
@@ -51,11 +56,20 @@ enyo.kind({
 	// Update 
 	updateNetworkState: function() {
 		if (presence.isConnected()) {
+			this.$.owner.setShowing(true);
 			this.$.server.setShowing(true);
+			this.$.empty.setShowing(false);
+			this.$.message.setShowing(false);
+			this.$.settings.setShowing(false);
 			presence.listUsers(enyo.bind(this, "userListReceived"));
 			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
 		} else {
+			this.$.owner.setShowing(false);		
 			this.$.server.setShowing(false);
+			this.$.empty.setShowing(true);
+			this.$.message.setShowing(true);
+			this.$.settings.setShowing(true);
+			
 		}
 	},
 	
@@ -266,6 +280,16 @@ enyo.kind({
 	
 	// Draw screen
 	draw: function() {
+		// Resize content and set Journal empty in the middle
+		var canvas_center = util.getCanvasCenter();
+		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4-10)+"px");
+		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
+		this.$.empty.applyStyle("margin-top", margintop+"px");
+		this.$.message.applyStyle("margin-top", (margintop+70)+"px");
+		this.$.message.setContent(l10n.get("ServerNotSet"));		
+		this.$.gotosettings.applyStyle("margin-top", (margintop+90)+"px");
+		this.$.gotosettings.setText(l10n.get("MySettings"));
+		
 		// Clean network icons
 		var items = [];
 		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });

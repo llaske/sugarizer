@@ -461,8 +461,11 @@ enyo.kind({
 			this.$.connected.setNodeProperty("checked", true);
 		}
 		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.thinClientType)
+		if (util.getClientType() != constant.thinClientType) {
 			this.$.servername.setDisabled(disabled);
+			if (this.$.connected.getNodeProperty("checked") && this.$.servername.getValue() == null)
+				this.$.servername.setValue(constant.defaultServer);
+		}
 		this.$.username.setDisabled(disabled);
 		this.$.warningmessage.setShowing(this.hasChanged());
 	},

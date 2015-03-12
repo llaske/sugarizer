@@ -888,6 +888,37 @@ input {
 	padding-left: 20px;
 }
 
+.cloud-empty {
+	position: absolute;
+	background-image: url(../icons/cloud-settings.svg);
+	background-repeat: no-repeat;	
+	background-position: center;
+	background-size: 50px 50px;
+	width: 50px;
+	height: 50px;
+}
+
+.cloud-message {
+	position: absolute;
+	display: inline-row;
+	width: 100%;
+	height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.cloud-line {
+	width: 100%;
+	position: absolute;
+}
+.cloud-gotosettings {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
