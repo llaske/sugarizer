@@ -67,15 +67,15 @@ enyo.kind({
 						language: preferences.getLanguage()
 					},
 					function(inSender, inResponse) {
+						preferences.setNetworkId(inResponse._id);
+						preferences.setPrivateJournal(inResponse.private_journal);
+						preferences.setSharedJournal(inResponse.shared_journal);
+						preferences.save();
 						presence.joinNetwork(function (error, user) {
 							if (error) {
 								console.log("WARNING: Can't connect to presence server");
 							}
 						});
-						preferences.setNetworkId(inResponse._id);
-						preferences.setPrivateJournal(inResponse.private_journal);
-						preferences.setSharedJournal(inResponse.shared_journal);
-						preferences.save();
 					},
 					function() {
 						console.log("WARNING: Error creating network user");
