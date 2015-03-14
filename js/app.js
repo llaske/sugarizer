@@ -13,28 +13,9 @@ define(function (require) {
 	preferences = require("settings");
 	myserver = require("server");
 	util = require("util");
-	var toload = 3;
-	
-	// Wait for localized strings are here
-	window.addEventListener('localized', function() {
-		if (--toload == 0)
-			main();
-	}, false);
-	
-	// Wait for DOM is ready.
-	require(['domReady!'], function (doc) {	
-		if (--toload == 0)
-			main();
-	});
-	
-	// Wait for preferences
+	var toload = 2;
 	var preferenceset = false;
-	preferences.load(function(load) {
-		preferenceset = load;
-		if (--toload == 0)
-			main();	
-	});
-	
+
 	// Main program
 	var main = function() {
 		if (!preferenceset) {
@@ -45,4 +26,27 @@ define(function (require) {
 		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
 		app.renderInto(document.getElementById("canvas"));	
 	}
+	
+	// Wait for preferences
+	var loadpreference = function() {
+		preferences.load(function(load) {
+			preferenceset = load;
+			main();	
+		});
+	}
+	
+	// Wait for localized strings are here
+	window.addEventListener('localized', function() {
+		if (app) {
+			app.getToolbar().render();
+			app.render();
+		} else if (--toload == 0)
+			loadpreference();
+	}, false);
+	
+	// Wait for DOM is ready.
+	require(['domReady!'], function (doc) {
+		if (--toload == 0)
+			loadpreference();
+	});
 });
