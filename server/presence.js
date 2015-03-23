@@ -246,6 +246,8 @@ exports.init = function (settings) {
 	// Remove a client from the client array
 	function removeClient(index) {
 		// Iterate on each shared activities
+		if (!clients[index])
+			return;
 		var userId = clients[index].settings.networkId;		
 		for (var i = 0 ; i < sharedActivities.length ; i++) {
 			if (sharedActivities[i] == null)
