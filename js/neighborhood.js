@@ -38,6 +38,9 @@ enyo.kind({
 		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
 		if (presence.isConnected())
 			this.updateNetworkState();
+		if (l10n.language.direction == "rtl") {
+			this.$.message.addClass("rtl-10");
+		}
 		this.draw();
 	},
 	

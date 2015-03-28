@@ -7,7 +7,7 @@ enyo.kind({
 	classes: "home-activity-popup",
 	published: { margin: null, header: null, items: null, footer: null },
 	components: [
-		{classes: "popup-title", ontap: "runHeaderAction", components: [
+		{name: "popuptitle", classes: "popup-title", ontap: "runHeaderAction", components: [
 			{name: "icon", showing: false, kind: "Sugar.Icon", x: 5, y: 5, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
@@ -28,6 +28,9 @@ enyo.kind({
 		this.itemsChanged();
 		this.footerChanged();
 		this.timer = null;
+		if (l10n.language.direction == "rtl") {
+			this.$.popuptitle.setAttribute("dir", "rtl");
+		}
 	},
 	
 	// Property changed
@@ -50,6 +53,8 @@ enyo.kind({
 				this.$.icon.render();
 			}
 			this.$.name.setContent(this.header.name);
+			if (l10n.language.direction == "rtl")
+				this.$.name.addClass("rtl-10");			
 			if (this.header.title != null) {
 				this.$.name.removeClass("popup-name-text-bottom");
 				this.$.title.setContent(this.header.title);
@@ -178,6 +183,10 @@ enyo.kind({
 		} else {
 			inEvent.item.$.name.addRemoveClass('item-name-disable', false);
 			inEvent.item.$.name.addRemoveClass('item-name-enable', true);
+		}
+		if (l10n.language.direction == "rtl") {
+			inEvent.item.$.name.addClass("rtl-10");
+			inEvent.item.$.item.setAttribute("dir", "rtl");
 		}
 	},
 	

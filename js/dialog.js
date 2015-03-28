@@ -28,6 +28,12 @@ enyo.kind({
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
 		this.$.language.setText(l10n.get("Language"));
 		this.$.aboutserver.setText(l10n.get("Server"));
+		if (l10n.language.direction == "rtl") {
+			this.$.me.addClass("rtl-10");
+			this.$.computer.addClass("rtl-10");
+			this.$.language.addClass("rtl-10");
+			this.$.aboutserver.addClass("rtl-10");
+		}
 		this.subdialog = null;
 	},
 	
@@ -135,6 +141,12 @@ enyo.kind({
 		this.initcolor = this.currentcolor = preferences.getColor();
 		this.initname = this.currentname = preferences.getName();
 		this.$.name.setValue(this.initname);
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.name.addClass("rtl-10");
+			this.$.message.addClass("rtl-10");
+			this.$.restartmessage.addClass("rtl-10");
+		}
 	},
 	
 	rendered: function() {
@@ -241,7 +253,8 @@ enyo.kind({
 			{code: "de", icon: null, name: l10n.get("German")},
 			{code: "fr", icon: null, name: l10n.get("French")},
 			{code: "ibo", icon: null, name: l10n.get("Igbo")},
-			{code: "yor", icon: null, name: l10n.get("Yoruba")}
+			{code: "yor", icon: null, name: l10n.get("Yoruba")},
+			{code: "ar", icon: null, name: l10n.get("Arabic")}
 		];
 		this.$.languageselect.setItems(this.languageset);		
 		for (var i = 0 ; i < this.languageset.length ; i++) {
@@ -251,6 +264,11 @@ enyo.kind({
 			}
 		}
 		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.message.addClass("rtl-10");
+			this.$.restartmessage.addClass("rtl-10");
+		}
 	},
 	
 	rendered: function() {
@@ -348,7 +366,18 @@ enyo.kind({
 		this.$.clienttype_value.setContent(util.getClientName());
 		this.$.browser_value.setContent(util.getBrowserName());	
 		this.$.browserversion_value.setContent(util.getBrowserVersion());	
-		this.$.useragent_value.setContent(navigator.userAgent);			
+		this.$.useragent_value.setContent(navigator.userAgent);
+		
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.software.addClass("rtl-10");
+			this.$.browser.addClass("rtl-10");
+			this.$.clienttype.addClass("rtl-10");
+			this.$.browserversion.addClass("rtl-10");
+			this.$.useragent.addClass("rtl-10");
+			this.$.copyright.addClass("rtl-10");
+			this.$.license.addClass("rtl-10");
+		}		
 	},
 	
 	rendered: function() {
@@ -428,6 +457,15 @@ enyo.kind({
 		this.$.servername.setValue(this.initservername);		
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.textconnected.addClass("rtl-10");
+			this.$.warningmessage.addClass("rtl-10");
+			this.$.textservername.addClass("rtl-10");
+			this.$.textusername.addClass("rtl-10");
+			this.$.textusermessage.addClass("rtl-10");
+			this.$.checkbutton.addClass("rtl-10");
+		}
 	},
 	
 	rendered: function() {
@@ -593,7 +631,11 @@ enyo.kind({
 		this.$.warningtitle.setContent(l10n.get("Warning"));
 		this.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
 		this.$.warningcancel.setText(l10n.get("CancelChanges"));
-		this.$.warningrestart.setText(l10n.get("RestartNow"));		
+		this.$.warningrestart.setText(l10n.get("RestartNow"));
+		if (l10n.language.direction == "rtl") {
+			this.$.warningtitle.addClass("rtl-10");
+			this.$.warningmessage.addClass("rtl-10");
+		}		
 	},
 	
 	// Events

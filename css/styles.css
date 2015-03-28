@@ -11,6 +11,16 @@ input {
 	background-color: white;
 }
 
+.rtl-10 {
+	text-align: right;
+	font-size: 14pt !important;
+}
+
+.rtl-14 {
+	text-align: right;
+	font-size: 18px !important;
+}
+
 .shutdownscreen {
 	position: absolute;
 	background-color: black;
@@ -197,7 +207,7 @@ input {
 .popup-name-text {
 	margin-left: 50px;
 	padding-top: 10px;
-	margin-right: 10px;
+	margin-right: 40px;
 	font-weight: bold;
 	min-height: 16px;
 	z-index: 1;	
@@ -210,7 +220,7 @@ input {
 .popup-title-text {
 	margin-left: 50px;
 	margin-top: 0px;
-	margin-right: 10px;
+	margin-right: 40px;
 	padding-bottom: 10px;
 }
 
@@ -250,7 +260,7 @@ input {
 .item-name {
 	margin-left: 30px;
 	margin-top: 0px;
-	margin-right: 10px;
+	margin-right: 20px;
 	padding: 5px;
 	z-index: 1;
 }
@@ -400,7 +410,8 @@ input {
 
 .icon-button-text {
 	margin-top: 7px;
-	margin-left: 38px;
+	padding-left: 38px;	
+	padding-right: 38px;	
 	color: white;
 	display: inline-block;
 }
@@ -585,6 +596,7 @@ input {
 	width: 270px;
 	background-color: #e5e5e5;
 	padding-left: 10px;
+	padding-right: 10px;
 	font-size: 10pt;
 }
 
@@ -688,14 +700,14 @@ input {
 
 .warningbox-cancel-button {
 	position: absolute;
-	right: 215px;
-	width: 190px;
+	right: 240px;
+	width: 210px;
 }
 
 .warningbox-refresh-button {
 	position: absolute;
 	right: 10px;
-	width: 190px;
+	width: 215px;
 }
 
 .language-message {

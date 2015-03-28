@@ -35,7 +35,10 @@ enyo.kind({
 		this.$.owner.applyStyle("margin-top", middletop+"px");
 		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");
 		this.ownerColor = Math.floor(Math.random()*xoPalette.colors.length);
-		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);		
+		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);
+		if (l10n.language.direction == "rtl") {
+			this.$.name.addClass("rtl-10");
+		}		
 		this.step = 0;
 		
 		// Hide toolbar

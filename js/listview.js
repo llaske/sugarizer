@@ -75,6 +75,10 @@ enyo.kind({
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);		
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
+		if (l10n.language.direction == "rtl") {
+			inEvent.item.$.name.addClass("rtl-14");
+			inEvent.item.$.version.addClass("rtl-14");
+		}		
 	},
 	
 	// Switch favorite value for clicked line

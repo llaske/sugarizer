@@ -16,7 +16,9 @@ enyo.kind({
 		this.inherited(arguments);
 		this.textChanged();
 		this.placeholderChanged();
-	},
+		if (l10n.language.direction == "rtl")
+			this.$.text.addClass("rtl-10");
+	},	
 	
 	// Property changed
 	textChanged: function() {

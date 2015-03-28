@@ -17,6 +17,10 @@ enyo.kind({
 		this.inherited(arguments);
 		this.iconChanged();
 		this.textChanged();
+		if (l10n.language.direction == "rtl") {
+			this.setAttribute("dir", "rtl");
+			this.$.text.addClass("rtl-10");
+		}
 	},
 	
 	// Property changed

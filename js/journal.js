@@ -37,7 +37,10 @@ enyo.kind({
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
 		this.journalChanged();
-		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);		
+		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
+		if (l10n.language.direction == "rtl") {
+			this.$.message.addClass("rtl-10");
+		}		
 		this.draw();
 	},
 
@@ -124,6 +127,11 @@ enyo.kind({
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
 		inEvent.item.$.activity.setData(entry);
+		if (l10n.language.direction == "rtl") {
+			inEvent.item.$.title.addClass("rtl-14");
+			inEvent.item.$.titleEdit.addClass("rtl-14");
+			inEvent.item.$.time.addClass("rtl-14");
+		}
 	},
 	
 	// Switch favorite value for clicked line
