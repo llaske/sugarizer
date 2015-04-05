@@ -254,7 +254,8 @@ enyo.kind({
 			{code: "fr", icon: null, name: l10n.get("French")},
 			{code: "ibo", icon: null, name: l10n.get("Igbo")},
 			{code: "yor", icon: null, name: l10n.get("Yoruba")},
-			{code: "ar", icon: null, name: l10n.get("Arabic")}
+			{code: "ar", icon: null, name: l10n.get("Arabic")},
+			{code: "ja", icon: null, name: l10n.get("Japanese")}
 		];
 		this.$.languageselect.setItems(this.languageset);		
 		for (var i = 0 ; i < this.languageset.length ; i++) {
