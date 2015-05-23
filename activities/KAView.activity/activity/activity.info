@@ -1,0 +1,6 @@
+[Activity]
+name = KA View
+activity_version = 1
+bundle_id = org.olpcfrance.KAView
+exec = sugar-activity activity.EnyoActivity
+icon = activity-icon
