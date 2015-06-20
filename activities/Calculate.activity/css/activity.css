@@ -1,0 +1,125 @@
+.toolbar {
+  height: auto !important;
+  min-height: 55px !important;
+}
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #clear-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+#trigo-palette {
+  background-image: url(../icons/toolbar-trigonometry.svg);
+}
+#algebra-palette {
+  background-image: url(../icons/toolbar-algebra.svg);
+}
+#base-palette {
+  background-image: url(../icons/base-10.svg);
+}
+#radian-degree-palette {
+  background-image: url(../icons/format-deg.svg);
+}
+#output-digits-palette {
+  background-image: url(../icons/digits-6.svg);
+  display: none;
+}
+.palette .wrapper {
+  min-width: 10px;
+  padding: 5px;
+}
+.visible {
+  display: block !important;
+}
+.backgroundgray {
+  background-color: #B5B6BD;
+}
+.backgrounddark {
+  background-color: #4A4D4A;
+}
+.aligncenter {
+  text-align: center;
+}
+input[type='text'] {
+  color: #000 !important;
+}
+textarea {
+  color: #000 !important;
+}
+#results-zone {
+  display: none;
+  overflow-y: scroll;
+}
+.result {
+  font-size: 300% !important;
+}
+#label-input {
+  padding-top:3px !important;
+  padding-left:7px !important;
+  height: 50px !important;
+  font-size: 200% !important;
+}
+#calc-input {
+  padding-top:3px !important;
+  padding-left:7px !important;
+  height: 50px !important;
+  font-size: 200% !important;
+}
+.calcbutton {
+  height: 50px;
+  padding: 8%;
+  width: 92%;
+  font-weight: bold !important;
+  font-size: 200% !important;
+}
+.calcbutton-large {
+  height: 50px;
+  padding: 2%;
+  width: 98%;
+  font-weight: bold !important;
+  font-size: 200% !important;
+}
+@media only screen and (min-width:515px) {
+  #output-digits-palette {
+    display: inline-block !important;
+  }
+}
+@media only screen and (min-width:560px) {
+  .calcbutton {
+    height: 50px;
+  }
+  .calcbutton-large {
+    height: 50px;
+  }
+}
+@media only screen and (min-width:760px) {
+  .calcbutton {
+    height: 100px;
+  }
+  .calcbutton-large {
+    height: 100px;
+  }
+}
+@media only screen and (min-width:1000px) {
+  .calcbutton {
+    height: 120px;
+  }
+  .calcbutton-large {
+    height: 120px;
+  }
+}
+@media only screen and (min-width:1200px) {
+  .calcbutton {
+    height: 120px;
+  }
+  .calcbutton-large {
+    height: 120px;
+  }
+}
+.nanoModal {
+  top: 3% !important;
+  min-width: 10px !important;
+}
