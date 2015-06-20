@@ -1,0 +1,8 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+<g display="block" id="toolbar-algebra">
+    <text x="15" y="35" font-size="38" font-family="Bitstream Vera Sans" font-weight="bold" fill="&fill_color;" stroke="none">x</text>
+    <text x="1" y="35" font-size="34" font-family="Bitstream Vera Sans" fill="&fill_color;" stroke="none">{</text>
+    <text x="32" y="35" font-size="34" font-family="Bitstream Vera Sans" fill="&fill_color;" stroke="none">}</text>
+</g></svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_">
+	<defs>
+		<mask id="Mask" maskUnits="userSpaceOnUse" x="0" y="0" width="55" height="55">
+			<path d="M3 3 L 53 3 L 53 53 L 3 53 z" stroke-width="3.5" fill="white" stroke="white"/>
+			<line x1="15" y1="8" x2="15" y2="49" stroke-width="2" stroke="black" />
+			<line x1="7" y1="42" x2="48" y2="42" stroke-width="2" stroke="black" />
+			<path d="M44 42 l0 3 l6 -3 l-6 -3 z" fill="black" stroke="black" stroke-width="2"/>
+			<path d="M15 12 l-3 0 l3 -6 l3 6 z" fill="black" stroke="black" stroke-width="2"/>
+			<path d="M15 26 C21,13 27,13 30,26 34,39 40,39 46,26" fill="none" stroke="black" stroke-width="2"/>
+		</mask>
+	</defs>
+	<path d="M 3 12 Q 3 3 12 3 L 43 3 Q 53 3 53 12 L 53 43 Q 53 53 43 53 L 12 53 Q 3 53 3 43 z" fill="&fill_color;" stroke="&fill_color;" stroke-width="3.5" mask="url(#Mask)"/>
+</g></svg>

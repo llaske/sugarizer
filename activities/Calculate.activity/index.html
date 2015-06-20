@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Calculate Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+
+  <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="prefetch" type="application/l10n" href="translate.ini" />
+  <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body style="background-color:#fff; color:#fff; height:100%; margin:0;">
+  <div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+    <button class="toolbutton" id="trigo-palette"></button>
+    <button class="toolbutton" id="algebra-palette"></button>
+    <button class="toolbutton" id="base-palette"></button>
+    <button class="toolbutton" id="radian-degree-palette"></button>
+    <button class="toolbutton" id="output-digits-palette"></button>
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  </div>
+  <div class="bootstrap-container-fluid">
+    <div class="bootstrap-row-fluid">
+      <div id="calc-input-div" class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+        <div style="padding:5px;">
+          <input placeholder="Label" id="label-input" type="text" style="color:#000; width:100%; padding:2px; font-size:150%;" autofocus>
+          <input placeholder="Calcul" id="calc-input" type="text" style="margin-top:5px; color:#000; width:100%; padding:2px; font-size:150%;" autofocus>
+
+          <div class="bootstrap-container-fluid" style="margin-top:5px;">
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="7">7</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="8">8</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="9">9</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttondel calcbutton-large btn btn-primary backgroundgray">⇐</button>
+            </div>
+            <div class="col-xs-4 aligncenter">
+              <button class="calcbuttonclear calcbutton-large btn btn-primary backgroundgray">CLEAR</button>
+            </div>
+          </div>
+          <div class="bootstrap-container-fluid" style="margin-top:5px;">
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="4">4</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="5">5</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="6">6</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value="+">+</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value="-">-</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value="(">(</button>
+            </div>
+          </div>
+          <div class="bootstrap-container-fluid" style="margin-top:5px;">
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="1">1</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="2">2</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value="3">3</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value="*">*</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value="/">/</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-warning" value=")">)</button>
+            </div>
+          </div>
+          <div class="bootstrap-container-fluid" style="margin-top:5px;">
+            <div class="col-xs-4 aligncenter">
+              <button class="calcbuttoninput calcbutton calcbutton-large btn btn-primary" value="0">0</button>
+            </div>
+            <div class="col-xs-2 aligncenter">
+              <button class="calcbuttoninput calcbutton btn btn-primary" value=".">.</button>
+            </div>
+            <div class="col-xs-6 aligncenter ">
+              <button class="calcbuttoncalc calcbutton-large btn btn-success">=</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="results-zone" class="col-xs-12 col-sm-5 -md-5  col-lg-5 " style="padding:2px; "></div>
+    </div>
+  </div>
+  <div id="modal" style="display:none; color:#000 ">
+    <div id="plot"></div>
+  </div>
+</body>
+
+</html>
