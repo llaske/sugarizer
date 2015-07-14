@@ -1,0 +1,88 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+  z-index: 3;
+}
+
+#main-toolbar #box-button {
+  background-image: url(../icons/box.svg);
+  z-index: 3;
+}
+
+#main-toolbar #circle-button {
+  background-image: url(../icons/circle.svg);
+  z-index: 3;
+}
+
+#main-toolbar #triangle-button {
+  background-image: url(../icons/triangle.svg);
+  z-index: 3;
+}
+
+#main-toolbar #gravity-button {
+  background-image: url(../icons/gravity0.svg);
+  z-index: 3;
+}
+
+#main-toolbar #sensor-button {
+  background-image: url(../icons/sensor.svg);
+  z-index: 3;
+}
+
+#main-toolbar #clear-button {
+  background-image: url(../icons/clear.svg);
+  z-index: 3;
+}
+
+#main-toolbar #polygon-button {
+  background-image: url(../icons/polygon.svg);
+  z-index: 3;
+}
+
+#main-toolbar #apple-button {
+  background-image: url(../icons/apple.svg);
+  z-index: 3;
+}
+
+#main-toolbar #stop-button {
+  z-index: 3;
+}
+
+html, body, #viewport {
+  margin: 0; background: #ffffff;
+}
+
+.pjs-meta {
+  color: #fff;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+
+@media screen and (max-width: 657px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+
+	#main-toolbar #polygon-button {
+		visibility: hidden;
+		position: absolute;
+		z-index: 0;
+	}
+
+	#main-toolbar #gravity-button {
+		visibility: hidden;
+		position: absolute;
+		z-index: 0;
+	}
+	
+	#main-toolbar #stop-button {
+		position: absolute;
+	}
+}
