@@ -1,7 +1,8 @@
 define(["sugar-web/graphics/palette", "mustache"],
   function(palette, mustache) {
 
-    var trigopalette = {};
+      var trigopalette = {};
+      var isIos = (navigator.userAgent.match(/iPad|iPhone|iPod/g) ? true : false )
 
     trigopalette.trigoPalette = function(invoker, primaryText) {
       palette.Palette.call(this, invoker, primaryText);
@@ -84,7 +85,11 @@ define(["sugar-web/graphics/palette", "mustache"],
       }
 
       for (var i = 0; i < this.buttons.length; i++) {
-        this.buttons[i].addEventListener('click', popDownOnButtonClick);
+ 	  if (isIos) {
+	      this.buttons[i].addEventListener('touchstart', popDownOnButtonClick);
+	  } else {
+	      this.buttons[i].addEventListener('click', popDownOnButtonClick);
+	  }
       }
 
     };

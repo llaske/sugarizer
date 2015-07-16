@@ -25,6 +25,7 @@ var CalculateApp = {
     windowWidth: undefined,
     windowHeight: undefined,
     isMobile: /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()),
+    isIos: (navigator.userAgent.match(/iPad|iPhone|iPod/g) ? true : false ),
     outputBase: 10,
     outputDigits: 6,
     isRadian: false,
