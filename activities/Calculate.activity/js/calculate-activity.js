@@ -84,7 +84,11 @@ function addTextInsideInput(value) {
 
 /* Callback from the calc buttons */
 function calcButtonClick(button) {
-  addTextInsideInput(button.target.value);
+    if (CalculateApp.data.calculationDone && !isNaN(button.target.value)) {
+	CalculateApp.elements.calcInput.value = "";
+    }
+    CalculateApp.data.calculationDone = false;
+    addTextInsideInput(button.target.value);
 }
 
 /* Trigger calculation when the key is enter inside the calc input */
@@ -198,6 +202,7 @@ function calcEqualClick() {
   } else {
     launchCalculation(calcInputValue, labelValue);
   }
+  CalculateApp.data.calculationDone = true
 }
 
 /* Handling of the calc remove one char button click */
@@ -321,7 +326,15 @@ function initGui() {
   CalculateApp.elements.trigoPalette.addEventListener('trigoClick', ontrigoClick);
   CalculateApp.elements.algebraPalette = new CalculateApp.libs.algebrapalette.algebraPalette(CalculateApp.elements.algebraPaletteDiv, undefined);
   CalculateApp.elements.algebraPalette.addEventListener('algebraClick', onalgebraClick);
-  CalculateApp.elements.basePaletteDiv.addEventListener('click', onbaseClick);
-  CalculateApp.elements.radianDegreePalette.addEventListener('click', onradianDegreeClick);
-  CalculateApp.elements.outputDigitsPalette.addEventListener('click', onOutputDigitsClick);
+
+    var isIos = (navigator.userAgent.match(/iPad|iPhone|iPod/g) ? true : false )
+    if (isIos) {
+	CalculateApp.elements.basePaletteDiv.addEventListener('touchstart', onbaseClick);
+	CalculateApp.elements.radianDegreePalette.addEventListener('touchstart', onradianDegreeClick);
+	CalculateApp.elements.outputDigitsPalette.addEventListener('touchstart', onOutputDigitsClick);
+    } else {
+	CalculateApp.elements.basePaletteDiv.addEventListener('click', onbaseClick);
+	CalculateApp.elements.radianDegreePalette.addEventListener('click', onradianDegreeClick);
+	CalculateApp.elements.outputDigitsPalette.addEventListener('click', onOutputDigitsClick);
+    }
 }
