@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8" />
-    <title>Paint Activity</title>
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
-    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-96dpi.css">
-    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-200dpi.css">
-    <link rel="stylesheet" href="css/activity.css">
-    <script data-main="js/loader" src="lib/require.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <title>Paint Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 
-  <body>
-    <div id="main-toolbar" class="toolbar">
-      <button class="toolbutton" id="activity-button" title="My Activity"></button>
-      <button class="toolbutton" id="colors-button" title="Colors"></button>
-      <button class="toolbutton" id="clear-button" title="Clear"></button>
-      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
-    </div>
-    <div id="canvas">
-      <canvas id="paint-canvas" />
-    </div>
-  </body>
+  <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/libnotify.css">
+  <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body style="background-color:#fff; color:#fff; height:100%; margin:0; overflow:hidden;">
+  <div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+    <button class="toolbutton" id="network-button" title="Network"></button>
+    <button class="toolbutton active" id="colors-button-fill" title="Fill Color"></button>
+    <button class="toolbutton" id="colors-button-stroke" title="Stroke Color"></button>
+    <button class="toolbutton" id="undo-button" title="Undo"></button>
+    <button class="toolbutton" id="redo-button" title="Redo"></button>
+    <button class="toolbutton" id="size-button" title="Size"></button>
+    <button class="toolbutton" id="pen-button" title="Pen"></button>
+    <button class="toolbutton" id="eraser-button" title="Eraser"></button>
+    <button class="toolbutton" id="stamps-button" title="Stamps"></button>
+    <button class="toolbutton" id="text-button" title="Text"></button>
+    <button class="toolbutton" id="drawings-button" title="Drawings"></button>
+    <button class="toolbutton" id="bucket-button" title="Bucket"></button>
+    <button class="toolbutton" id="filters-button" title="Filters"></button>
+    <button class="toolbutton" id="copy-button" title="Copy"></button>
+    <button class="toolbutton" id="paste-button" title="Paste"></button>
+    <button class="toolbutton" id="clear-button" title="Clear"></button>
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  </div>
+  <canvas id="paint-canvas" style="width:100%; "></canvas>
+</body>
 
 </html>

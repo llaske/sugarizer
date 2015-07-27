@@ -1,6 +1,6 @@
 [Activity]
 name = Paint
 activity_version = 1
-bundle_id = org.sugarlabs.PaintActivity
+bundle_id = org.olpcfrance.PaintActivity
 exec = sugar-activity-web
 icon = activity-icon
