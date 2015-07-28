@@ -40,7 +40,9 @@ exports.init = function (settings) {
      * WebSocket server
      */
     var wsServer = new webSocketServer({
-        httpServer: server
+        httpServer: server,
+	maxReceivedFrameSize: 44040192,
+	maxReceivedMessageSize: 44040192
     });
 
     // Callback function called every time someone connect to the WebSocket server

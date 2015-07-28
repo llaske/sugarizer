@@ -1,14 +1,10 @@
 requirejs.config({
-    baseUrl: "lib",
-    shim: {
-        easel: {
-            exports: 'createjs'
-        }
-    },
-    paths: {
-        activity: "../js",
-        easel: '../lib/easel'
-    }
+  baseUrl: "lib",
+  shim: {},
+  paths: {
+    activity: "../js",
+    mustache: '../lib/mustache'
+  }
 });
 
 requirejs(["activity/activity"]);
