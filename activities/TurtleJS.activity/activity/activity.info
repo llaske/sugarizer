@@ -1,6 +1,0 @@
-[Activity]
-name = TurtleJS
-activity_version = 1
-bundle_id = org.sugarlabs.turtleJS
-exec = sugar-activity-web
-icon = turtleart
