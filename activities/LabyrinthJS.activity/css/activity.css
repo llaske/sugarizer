@@ -1,0 +1,234 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#cy {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+}
+
+#main-toolbar #nodetext-button {
+  background-image: url(../icons/nodetext-mode.svg);
+}
+
+#main-toolbar #link-button {
+  background-image: url(../icons/link-mode.svg);
+}
+
+#main-toolbar #delete-button {
+  background-image: url(../icons/delete-mode.svg);
+}
+
+#main-toolbar #zoom-button {
+  background-image: url(../icons/zoom.svg);
+}
+
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #redo-button {
+  background-image: url(../icons/edit-redo.svg);
+}
+
+#main-toolbar #png-button {
+  background-image: url(../icons/png-export.svg);
+}
+
+.zoombuttons {
+  border: 0px;
+  background: #000000;
+  border-radius: 5.5px !important;  
+}
+
+.zoombutton:active {
+  background-color: #808080;
+  border-radius: 5.5px !important;
+}
+
+#sub-toolbar {
+  position: absolute;
+  width: 100%;
+  padding: 0 !important;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.search-field-border {
+  position: relative;
+  border-radius: 22px;
+  top: 8px;
+  margin-left: 57px;
+  width: 350px;
+  height: 35px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.search-field-border-focus {
+  background-color: white;
+  border: 2px solid white;
+}
+
+.search-field-border-nofocus {
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+}
+
+.search-field-input {
+  opacity: 1;
+  margin-left: 30px;
+  border: 0px;	
+  display: inline-block;
+  background-color: #e5e5e5;
+  width: 270px;
+  line-height: 22px;
+  outline: 0;
+  font-size: 12pt;
+  position: relative;
+  top: 5px;
+}
+
+#sub-toolbar #bold-button {
+  background-image: url(../icons/bold-text.svg);
+}
+
+#sub-toolbar #italics-button {
+  background-image: url(../icons/italics-text.svg);
+}
+
+.splitbar {
+  background-image: url(../icons/split.svg);
+  background-position: center;
+  background-repeat: no;
+  width: 3px;
+  margin-left: 5px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  height: 45px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#sub-toolbar #fontminus-button {
+  background-image: url(../icons/resize-.svg);
+}
+
+#sub-toolbar #font-button {
+  background-image: url(../icons/font-text.svg);
+}
+
+#sub-toolbar #fontplus-button {
+  background-image: url(../icons/resize+.svg);
+}
+
+#fontsizecomputer {
+  position: absolute;
+  visibility: hidden;
+  height: auto;
+  width: auto;
+  white-space: nowrap;
+}
+.palette .colors {
+  list-style-type: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.palette .colors button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: white;
+  margin-left: 5.5px;
+  margin-top: 5.5px;
+}
+.palette .colors tr:nth-last-child(1) button {
+  margin-bottom: 5.5px;
+}
+
+@media screen and (max-width: 905px) {
+ .splitbar {
+   visibility: hidden;
+   width: 0px;
+ }
+
+ #sub-toolbar #fontminus-button {
+   visibility: hidden;
+ }
+
+ #sub-toolbar #font-button {
+   visibility: hidden;
+ }
+ 
+ #fontpalette {
+   left: 0px !important;
+ }
+
+ #sub-toolbar #fontplus-button {
+   visibility: hidden;
+ }
+}
+
+@media screen and (max-width: 810px) {
+ .search-field-input {
+  width: 120px;
+ }
+ 
+ .search-field-border  {
+   width: 200px;
+ }
+}
+
+@media screen and (max-width: 650px) {
+ .search-field-border {
+   margin-left: 5px;
+ }
+}
+
+@media screen and (max-width: 640px) {
+ #main-toolbar #png-button {
+   visibility: hidden;
+   width: 0px;
+ }
+}
+
+@media screen and (max-width: 600px) {
+ .toolbar {
+   padding-left: 10px;
+ }
+ #main-toolbar #zoom-button {
+   visibility: hidden;
+   left: 0px;
+   width: 0px;
+ }
+ 
+ #zoompalette {
+   left: 0px !important;
+ }
+ 
+ .colorpalette {
+   left: 0px !important;
+ }
+ 
+ #foreground-button {
+   visibility: hidden;
+   width: 0px; left: 0px;
+ }
+ 
+ #background-button {
+   visibility: hidden;
+   width: 0px; left: 0px;
+ }
+}
+
+@media screen and (max-width: 515px) {
+ #main-toolbar #stop-button {
+   position: absolute;
+ }
+}

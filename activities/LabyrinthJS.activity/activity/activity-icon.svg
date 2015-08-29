@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <rect x="4" y="20" width="14" height="10" style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2.5;;stroke-linejoin:round"/>
+    <path d="M18 25 C28,23 22,12 31,10" style="fill:none;;stroke:&stroke_color;;stroke-width:2.5"/>
+    <path d="M18 25 L31,25" style="fill:none;;stroke:&stroke_color;;stroke-width:2.5"/>
+    <path d="M18 25 C28,27 22,37 31,40" style="fill:none;;stroke:&stroke_color;;stroke-width:2.5"/>
+    <rect x="31" y="5" width="14" height="10" style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2.5;;stroke-linejoin:round"/>
+    <rect x="31" y="20" width="14" height="10" style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2.5;;stroke-linejoin:round"/>
+    <rect x="31" y="35" width="14" height="10" style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2.5;;stroke-linejoin:round"/>
+</svg>
