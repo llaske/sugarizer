@@ -210,6 +210,7 @@ enyo.kind({
 	// Redraw, for example after a resized event
 	redraw: function() {
 		this.draw();
+		this.filterActivities();
 		this.render();
 	},
 	
