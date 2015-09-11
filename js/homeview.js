@@ -291,7 +291,8 @@ enyo.kind({
 	
 	// Run activity
 	runMatchingActivity: function(icon) {
-		this.runActivity(icon.icon);
+		if (!icon.getDisabled()) 
+			this.runActivity(icon.icon);
 	},
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
