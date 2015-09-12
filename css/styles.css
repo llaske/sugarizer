@@ -11,6 +11,10 @@ input {
 	background-color: white;
 }
 
+*:focus {
+	outline: 0;
+}
+
 .rtl-10 {
 	text-align: right;
 	font-size: 14pt !important;

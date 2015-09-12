@@ -452,3 +452,6 @@ ul.flat-list.striped li:nth-child(odd) {
 #activity-palette .wrapper {
   width: 271px;
 }
+*:focus {
+  outline: 0;
+ }
