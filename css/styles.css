@@ -927,6 +927,7 @@ input {
 }
 .cloud-gotosettings {
 	position: relative;
+	width: 170px;
 	margin-left: auto;
 	margin-right: auto;
 }

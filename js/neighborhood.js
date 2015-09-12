@@ -14,9 +14,9 @@ enyo.kind({
 		{name: "network", showing: true, onresize: "draw", components: []},
 		{name: "otherview", showing: true, components: []},		
 		{name: "networkPopup", kind: "Sugar.Popup", showing: false},
-		{name: "empty", classes: "cloud-empty", showing: true},
-		{name: "message", classes: "cloud-message", showing: true},
-		{name: "settings", classes: "cloud-line", showing: true, components:[
+		{name: "empty", classes: "cloud-empty", showing: false},
+		{name: "message", classes: "cloud-message", showing: false},
+		{name: "settings", classes: "cloud-line", showing: false, components:[
 			{name: "gotosettings", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "preferences-system.svg"}, classes: "listview-button cloud-gotosettings", ontap: "doSettings"}
 		]}
 	],
