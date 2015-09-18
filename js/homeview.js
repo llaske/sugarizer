@@ -172,8 +172,8 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();
 		var icon_size = constant.iconSizeStandard;
 		var semi_size = icon_size/2;
-		var radiusx = Math.min(canvas_center.x,constant.sizeRadius)-semi_size;
-		var radiusy = Math.min(canvas_center.y,constant.sizeRadius)-semi_size;
+		var radiusx = Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size);
+		var radiusy = radiusx;
 		var jdeltay = (canvas_center.dy < 480) ? -12 : 0;
 		
 		// Draw XO owner
