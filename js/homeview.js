@@ -171,9 +171,8 @@ enyo.kind({
 		// Compute center and radius
 		var canvas_center = util.getCanvasCenter();
 		var icon_size = constant.iconSizeStandard;
+		var icon_padding = icon_size*constant.iconSpacingFactor;
 		var semi_size = icon_size/2;
-		var radiusx = Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size);
-		var radiusy = radiusx;
 		var jdeltay = (canvas_center.dy < 480) ? -12 : 0;
 		
 		// Draw XO owner
@@ -185,18 +184,52 @@ enyo.kind({
 		this.$.owner.setShowing(this.currentView == constant.radialView);
 		this.$.journal.setShowing(this.currentView == constant.radialView);		
 		
-		// Draw activity icons;	
+		// Compute ring size and shape
 		var activitiesList = preferences.getFavoritesActivities();
-		var base_angle = ((Math.PI*2.0)/parseFloat(activitiesList.length));
+		var activitiesCount = activitiesList.length;
+		var activitiesIndex = 0;
+		var radiusx, radiusy, base_angle, spiralMode;
+		var PI2 = Math.PI*2.0;
+		radiusx = radiusy = Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size);
+		var circumference = PI2*radiusx;
+		if ((circumference/activitiesList.length) < constant.iconSpacingFactor*icon_padding) {
+			spiralMode = true;
+			radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
+			activitiesCount = parseInt((PI2*radiusx)/icon_padding);
+			base_angle = PI2/activitiesCount;
+		} else {
+			spiralMode = false;			
+			base_angle = (PI2/parseFloat(activitiesList.length));
+		}
+		
+		// Draw activity icons
+		var angle = -Math.PI/2.0-base_angle;
 		for (var i = 0 ; i < activitiesList.length ; i++) {
 			var activity = activitiesList[i];
-			var angle = base_angle*parseFloat(i);
+			var ix, iy;
+			if (!spiralMode) {
+				angle += base_angle;
+				ix = (canvas_center.x+Math.cos(angle)*radiusx-semi_size);
+				iy = (canvas_center.y+Math.sin(angle)*radiusy-semi_size);
+			} else {
+				angle += base_angle;
+				if (activitiesIndex >= activitiesCount) {
+					radiusx = radiusy = radiusx + icon_padding*constant.ringSpaceFactor;
+					activitiesCount = parseInt((PI2*radiusx)/icon_padding);
+					activitiesIndex = 0;
+					angle -= (base_angle/constant.ringAdjustAngleFactor);
+					base_angle = PI2/activitiesCount;
+				}
+				var delta = (icon_padding*constant.ringAdjustSizeFactor)/(activitiesCount-activitiesIndex);
+				ix = (canvas_center.x+Math.cos(angle)*(radiusx+delta)-semi_size);
+				iy = (canvas_center.y+Math.sin(angle)*(radiusy+delta)-semi_size);			
+			}
 			this.$.desktop.createComponent({
 					kind: "Sugar.Icon", 
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					size: icon_size,
-					x: (canvas_center.x+Math.cos(angle)*radiusx-semi_size), 
-					y: (canvas_center.y+Math.sin(angle)*radiusy-semi_size),
+					x: ix, 
+					y: iy,
 					colorized: activity.instances !== undefined && activity.instances.length > 0,
 					colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,					
 					ontap: "runMatchingActivity",
@@ -204,6 +237,7 @@ enyo.kind({
 					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
 				{owner: this}).render();
+			activitiesIndex++;
 		}
 	},
 	

@@ -11,6 +11,11 @@ constant.sizeEmpty = 50;
 constant.sizeSettings = 70;
 constant.sizeToolbar = 40;
 constant.sizeNeighbor = 40;
+constant.iconSpacingFactor = 1.1;
+constant.ringInitSpaceFactor = 2.2;
+constant.ringSpaceFactor = 1.3;
+constant.ringAdjustAngleFactor = 3.6;
+constant.ringAdjustSizeFactor = 0.9;
 
 constant.radialView = 0;
 constant.listView = 1;
