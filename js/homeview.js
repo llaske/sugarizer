@@ -188,18 +188,24 @@ enyo.kind({
 		var activitiesList = preferences.getFavoritesActivities();
 		var activitiesCount = activitiesList.length;
 		var activitiesIndex = 0;
-		var radiusx, radiusy, base_angle, spiralMode;
+		var radiusx, radiusy, base_angle, spiralMode, restrictedMode;
 		var PI2 = Math.PI*2.0;
 		radiusx = radiusy = Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size);
 		var circumference = PI2*radiusx;
-		if ((circumference/activitiesList.length) < constant.iconSpacingFactor*icon_padding) {
-			spiralMode = true;
-			radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
-			activitiesCount = parseInt((PI2*radiusx)/icon_padding);
-			base_angle = PI2/activitiesCount;
-		} else {
-			spiralMode = false;			
+		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
+			spiralMode = restrictedMode = false;			
 			base_angle = (PI2/parseFloat(activitiesList.length));
+		} else {
+			if (this.hasRoomForSpiral(canvas_center, icon_padding)) {
+				spiralMode = true; restrictedMode = false;
+				radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
+				activitiesCount = parseInt((PI2*radiusx)/icon_padding);
+				base_angle = PI2/activitiesCount;
+			} else {
+				restrictedMode = true; spiralMode = false;
+				activitiesCount = parseInt(circumference/icon_padding)-1;
+				base_angle = (PI2/parseFloat(activitiesCount+1));
+			}
 		}
 		
 		// Draw activity icons
@@ -223,6 +229,18 @@ enyo.kind({
 				var delta = (icon_padding*constant.ringAdjustSizeFactor)/(activitiesCount-activitiesIndex);
 				ix = (canvas_center.x+Math.cos(angle)*(radiusx+delta)-semi_size);
 				iy = (canvas_center.y+Math.sin(angle)*(radiusy+delta)-semi_size);			
+			}
+			if (restrictedMode && i >= activitiesCount-1) {
+				this.$.desktop.createComponent({
+						kind: "Sugar.Icon", 
+						icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
+						size: icon_size,
+						x: ix, 
+						y: iy,
+						ontap: "showListView"
+					},
+					{owner: this}).render();			
+				break;
 			}
 			this.$.desktop.createComponent({
 					kind: "Sugar.Icon", 
@@ -251,6 +269,19 @@ enyo.kind({
 	resize: function() {
 		if (this.noresize) return;
 		this.redraw();
+	},
+	
+	hasRoomForSpiral: function(canvas_center, icon_padding) {
+		var activitiesList = preferences.getFavoritesActivities();
+		var activitiesCount = activitiesList.length;
+		var radius = icon_padding*constant.ringInitSpaceFactor;
+		while (activitiesCount > 0) {
+			activitiesCount -= parseInt(((Math.PI*2.0)*radius)/icon_padding);
+			radius += icon_padding*constant.ringSpaceFactor;
+		}
+		radius -= (icon_padding/2.0);
+		var diameter = radius*2;
+		return (diameter <= canvas_center.dx && diameter <= canvas_center.dy);
 	},
 	
 	// Switch between radial and other views (list or journal)
@@ -314,6 +345,10 @@ enyo.kind({
 	clearView: function() {
 		var controls = this.$.otherview.getControls();
 		for (var i = 0, c; c = controls[i]; i++) c.destroy();	
+	},
+	
+	showListView: function() {
+		this.showView(constant.listView);
 	},
 	
 	// Render
