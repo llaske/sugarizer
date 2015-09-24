@@ -494,7 +494,7 @@ define(function (require) {
 			datastoreObject.loadAsText(function (error, metadata, data) {
 				if (data == null)
 					return;
-				displayGraph(data);
+				displayGraph(JSON.parse(data));
 				reinitState();
 				pushState();
 			});
@@ -504,7 +504,7 @@ define(function (require) {
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
 			var jsonData = getGraph();
-			datastoreObject.setDataAsText(jsonData);
+			datastoreObject.setDataAsText(JSON.stringify(jsonData));
 			datastoreObject.save(callback);
 		}
 		

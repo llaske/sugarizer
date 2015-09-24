@@ -38,7 +38,9 @@ define(["webL10n",
 			});				
             var result = window.dispatchEvent(stopEvent);
             if (result) {
-                activity.close();
+				datastoreObject.save(function() {
+					activity.close();
+				});
             }
         }
         bus.onNotification("activity.stop", sendStopEvent);

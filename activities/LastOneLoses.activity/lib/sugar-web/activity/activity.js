@@ -22,7 +22,7 @@ define(["webL10n",
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {
 				'cancelable': true	
-			});			
+			});
             window.dispatchEvent(pauseEvent);
         }
         bus.onNotification("activity.pause", sendPauseEvent);
@@ -35,10 +35,12 @@ define(["webL10n",
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
 				'cancelable': true	
-			});
+			});				
             var result = window.dispatchEvent(stopEvent);
             if (result) {
-                activity.close();
+				datastoreObject.save(function() {
+					activity.close();
+				});
             }
         }
         bus.onNotification("activity.stop", sendStopEvent);
