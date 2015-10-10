@@ -173,7 +173,10 @@ master = function () {
     this.limiter.threshold.value = 0;
     this.limiter.ratio.value = 100;
     this.audiocontext = audiocontext;
+	try {
     this.output.disconnect(this.audiocontext.destination);
+	} catch(err) {
+	}
     // an array of input sources
     this.inputSources = [];
     // connect input to limiter
@@ -4478,7 +4481,7 @@ audioin = function () {
     this.output.connect(this.amplitude.input);
     // Some browsers let developer determine their input sources
     if (typeof window.MediaStreamTrack === 'undefined') {
-      window.alert('This browser does not support MediaStreamTrack');
+      console.log('This browser does not support MediaStreamTrack');
     } else if (typeof window.MediaStreamTrack.getSources !== 'undefined') {
       // Chrome supports getSources to list inputs. Dev picks default
       window.MediaStreamTrack.getSources(this._gotSources);
