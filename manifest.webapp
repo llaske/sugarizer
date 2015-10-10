@@ -10,7 +10,8 @@
   "icons": {
     "30": "/res/icon/firefoxos/icon-30.png",
     "60": "/res/icon/firefoxos/icon-60.png",
-    "128": "/res/icon/firefoxos/icon-128.png"
+    "128": "/res/icon/firefoxos/icon-128.png",
+	"512": "/res/icon/firefoxos/icon-512.png"
   },
   "orientation": [
     "landscape"
@@ -19,7 +20,7 @@
   "default_locale": "en",
   "locales": {
     "fr": {
-      "description": "Un goût de Sugar sur n'importe quelle machine."
+      "description": "Le goût de Sugar sur n'importe quelle machine."
     }
   }
 }
