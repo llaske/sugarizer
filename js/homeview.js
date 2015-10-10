@@ -190,7 +190,7 @@ enyo.kind({
 		var activitiesIndex = 0;
 		var radiusx, radiusy, base_angle, spiralMode, restrictedMode;
 		var PI2 = Math.PI*2.0;
-		radiusx = radiusy = Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size);
+		radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size));
 		var circumference = PI2*radiusx;
 		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
 			spiralMode = restrictedMode = false;			

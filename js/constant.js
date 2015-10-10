@@ -16,6 +16,7 @@ constant.ringInitSpaceFactor = 2.2;
 constant.ringSpaceFactor = 1.3;
 constant.ringAdjustAngleFactor = 3.6;
 constant.ringAdjustSizeFactor = 0.9;
+constant.ringMinRadiusSize = 108;
 
 constant.radialView = 0;
 constant.listView = 1;
