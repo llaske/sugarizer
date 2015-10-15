@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="55"
+   height="55"
+   id="svg2"
+   version="1.0">
+  <defs
+     id="defs4" />
+  <g
+     id="layer1">
+    <g
+       id="g5499"
+       transform="translate(-0.7444609,-1.3648449)">
+      <g
+         id="g5512"
+         transform="matrix(1.0512821,0,0,1.051282,-6.381851e-2,0.8717949)">
+        <g
+           id="g5562"
+           transform="translate(0.4512195,17.493391)">
+          <rect
+             style="fill:#404040;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.42682922;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect4522"
+             width="23.304878"
+             height="23.304878"
+             x="1.9822657"
+             y="-15.359758"
+             ry="2.184521"
+             rx="2.184521" />
+          <rect
+             style="fill:#404040;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.42682922;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect4470"
+             width="23.304878"
+             height="23.304878"
+             x="27.665192"
+             y="-15.359757"
+             ry="2.184521"
+             rx="2.184521" />
+          <rect
+             style="fill:#404040;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.42682922;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect4476"
+             width="23.304878"
+             height="23.304878"
+             x="1.9822657"
+             y="10.32317"
+             ry="2.184521"
+             rx="2.184521" />
+          <rect
+             style="fill:#404040;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.42682922;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="rect4482"
+             width="23.304878"
+             height="23.304878"
+             x="27.665192"
+             y="10.323171"
+             ry="2.184521"
+             rx="2.184521" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

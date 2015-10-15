@@ -1,0 +1,39 @@
+#main-toolbar #activity-button {
+    background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #photo-button {
+    background-image: url(../icons/photo.svg);
+}
+
+#main-toolbar #video-button {
+    background-image: url(../icons/video.svg);
+}
+
+#main-toolbar #audio-button {
+    background-image: url(../icons/audio.svg);
+}
+
+#loading {
+    z-index: 100;
+    background: #ccc;
+    display: none;
+    position: absolute;
+    width: 100%;
+}
+
+#loading-stop {
+    margin-left: auto;
+    margin-right: auto;
+    width: 8%;
+    display: block;
+}
+
+#loading-svg {
+    width: 40%;
+    height:40%;
+}
+
+html, body {
+    overflow-y: visible;
+}
