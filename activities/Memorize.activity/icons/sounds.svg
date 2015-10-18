@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="42"
+   height="42"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <rect
+       width="30.046175"
+       height="30.046175"
+       ry="4.5299301"
+       x="9.9769115"
+       y="1.9769124"
+       id="rect7017"
+       style="fill:#4c4d4f;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="30.046175"
+       height="30.046175"
+       ry="4.5299301"
+       x="1.9769125"
+       y="9.9769125"
+       id="rect3133"
+       style="fill:#4c4d4f;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <g
+       transform="matrix(1.1228087,0,0,1.1228087,1.4955034,0.28097405)"
+       id="g3902"
+       style="opacity:0.86000001">
+      <path
+         d="m 8.8075905,18.920153 c 1.9412645,2.392566 1.6059935,3.888711 0.097893,6.190394"
+         id="path3095"
+         style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m 12.88411,17.564115 c 2.220402,3.440774 2.014076,5.592395 0.140777,8.902469"
+         id="path3095-3"
+         style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m 17.013014,16.06748 c 1.908132,3.343764 2.761178,6.686002 0.18811,11.895739"
+         id="path3095-1"
+         style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

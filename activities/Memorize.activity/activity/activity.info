@@ -1,6 +1,6 @@
 [Activity]
 name = Memorize
 activity_version = 1
-bundle_id = org.sugarlabs.MemorizeActivity
+bundle_id = org.olpcfrance.MemorizeActivity
 exec = sugar-activity-web
 icon = activity-icon

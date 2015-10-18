@@ -1,79 +1,99 @@
+.toolbar {
+    height: auto !important;
+    min-height: 55px !important;
+}
+
 #main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
+    background-image: url(../activity/activity-icon.svg);
 }
 
-#main-toolbar #size-button {
-  background-image: url(../icons/4x4.svg);
+#main-toolbar #network-button {
+    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
-.palette #four-button span {
-  background-image: url(../icons/4x4.svg);
+#main-toolbar #game-templates-button {
+    background-image: url(../icons/memorize-collection.svg);
 }
 
-.palette #five-button span {
-  background-image: url(../icons/5x5.svg);
+#main-toolbar #game-size-button {
+    background-image: url(../icons/4x4.svg);
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
 }
 
-.palette #six-button span {
-  background-image: url(../icons/6x6.svg);
+#main-toolbar #game-reset-button {
+    background-image: url(../icons/game-new.svg);
 }
 
-#main-toolbar #restart-button {
-  background-image: url(../icons/restart-game.svg);
+
+#main-toolbar #game-editor-button {
+    background-image: url(../icons/cog.svg);
 }
 
-#canvas {
-  overflow: hidden;
+#main-toolbar #game-editor-insert-mode-button {
+    background-image: url(../icons/pair-equals.svg);
 }
 
-#buttons-table {
-  position: absolute;
-  right: 0;
-  top: 0;
+#main-toolbar #game-editor-play-mode-button {
+    background-image: url(../icons/grouped_game1.svg);
 }
 
-#buttons-table button {
-  width: 70px;
-  height: 70px;
-  font-size: 250%;
-  border-radius: 5px;
+#main-toolbar #game-editor-clear-button {
+    background-image: url(../icons/edit-clear.svg);
 }
 
-#buttons-table td {
-  padding: 0;
+#private-button {
+    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+    width: 47px;
+    height: 47px;
+    margin: 4px 2px;
+    color: white;
+    color: transparent;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    border-radius: 5.5px;
+}
+#shared-button {
+    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+    width: 47px;
+    height: 47px;
+    margin: 4px 2px;
+    color: white;
+    color: transparent;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    border-radius: 5.5px;
 }
 
-.folded {
-  background-repeat: no-repeat;
-  background-size: contain;
+#game-templates-button {
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-.suit-1.folded {
-  background-image: url(../images/suit-1.svg);
-  border-color: #606060;
+#game-players {
+    background: #005983;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:56px;
 }
 
-.suit-2.folded {
-  background-image: url(../images/suit-2.svg);
-  border-color: #A0A0A0;
+
+.palette .wrapper {
+    min-width: 10px;
+    padding: 5px;
 }
 
-.match, .match:hover {
-  background-color: #ffff99;
-  color: black;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
+input[type='text'] {
+    color: #000 !important;
 }
 
-.match.done {
-  background-color: #ffffff;
-  -webkit-transition: background-color 5s ease-in-out rotate 2s ease-in-out;
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
+textarea {
+    color: #000 !important;
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="activity-film">
+	
+		<rect display="inline" fill="&fill_color;" height="30.771" stroke="&stroke_color;" stroke-linejoin="round" stroke-width="3.5" width="41.438" x="6.705" y="12.213"/>
+	<path d="M27.503,18.342c-9.26,0-16.975,9.235-16.975,9.235s7.714,9.277,16.975,9.272   c9.26-0.007,16.978-9.285,16.978-9.285S36.764,18.335,27.503,18.342z M27.503,34.09c-3.585,0-6.492-2.91-6.492-6.494   c0-3.579,2.906-6.494,6.492-6.494c3.581,0,6.49,2.915,6.49,6.494C33.993,31.18,31.084,34.09,27.503,34.09z" display="inline" fill="&stroke_color;"/>
+	<circle cx="27.504" cy="27.598" display="inline" fill="&stroke_color;" r="2.946"/>
+</g></svg>
+

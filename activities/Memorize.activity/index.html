@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8" />
-  <title>Memorize Activity</title>
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
-  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-96dpi.css">
-  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-200dpi.css">
-  <link rel="stylesheet" href="css/activity.css">
-  <script data-main="js/loader" src="lib/require.js"></script>
+    <meta charset="utf-8"/>
+    <title>Memorize Activity</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+
+    <link rel="stylesheet" href="css/activity.css">
+    <!--<link rel="stylesheet" href="css/normalize.css">-->
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <script data-main="js/loader" src="lib/require.js"></script>
+    <script src="lib/webaudio.js"></script>
 </head>
+
 <body>
-  <div id="main-toolbar" class="toolbar">
+<div id="main-toolbar" class="toolbar">
     <button class="toolbutton" id="activity-button" title="My Activity"></button>
-    <button class="toolbutton" id="size-button" title="Change size"></button>
-    <button class="toolbutton" id="restart-button" title="Restart game"></button>
+    <button class="toolbutton" id="network-button" title="My Activity"></button>
+    <button class="toolbutton" id="game-templates-button" title="Game Templates"></button>
+
+    <button class="toolbutton" id="game-size-button" title="Size"></button>
+    <button class="toolbutton" id="game-reset-button" title="Reset"></button>
+
+    <!-- SEPARATOR -->
+    <button class="toolbutton" id="game-editor-button" title="Editor"></button>
+    <button class="toolbutton" id="game-editor-insert-mode-button" title="Insert mode"></button>
+    <button class="toolbutton" id="game-editor-play-mode-button" title="Play mode"></button>
+    <button class="toolbutton" id="game-editor-clear-button" title="Clear"></button>
+
     <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
-  </div>
-  <div id="canvas">
+</div>
 
-    <table id="buttons-table"></table>
-
-  </div>
+<div id="game-grid"></div>
+<div id="game-editor" style="display:none; "></div>
+<div id="game-players" style="display:none;"></div>
 </body>
+
 </html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="clipping-video">
+	<g display="inline">
+		<g>
+			<polygon fill="&fill_color;" points="48.788,43.944 48.788,23.002 36.849,11.058 5.962,11.058      5.962,43.944    " stroke="&stroke_color;" stroke-width="3.5"/>
+			<polyline fill="none" points="36.849,11.058 36.849,23.002 48.788,23.002    " stroke="&stroke_color;" stroke-width="3.5"/>
+		</g>
+	</g>
+	<path d="M27.504,24.842c-4.757,0-8.72,4.744-8.72,4.744s3.963,4.767,8.72,4.764   c4.757-0.004,8.722-4.77,8.722-4.77S32.262,24.839,27.504,24.842z M27.504,32.932c-1.842,0-3.335-1.494-3.335-3.336   c0-1.839,1.493-3.336,3.335-3.336c1.839,0,3.333,1.497,3.333,3.336C30.838,31.438,29.344,32.932,27.504,32.932z" display="inline" fill="&stroke_color;"/>
+	<circle cx="27.505" cy="29.597" display="inline" fill="&stroke_color;" r="1.514"/>
+	<circle cx="14.875" cy="29.597" display="inline" fill="&stroke_color;" r="1.514"/>
+	<circle cx="10.375" cy="29.597" display="inline" fill="&stroke_color;" r="1.514"/>
+	<circle cx="43.875" cy="29.597" display="inline" fill="&stroke_color;" r="1.514"/>
+	<circle cx="39.375" cy="29.597" display="inline" fill="&stroke_color;" r="1.514"/>
+</g></svg>

@@ -1,0 +1,1 @@
+Made by Michaël Ohayon for the Google Summer of Code 2015

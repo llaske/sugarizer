@@ -1,85 +1,119 @@
+/* Start of the app, we require everything that is needed */
 define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var menupalette = require("sugar-web/graphics/menupalette");
-    var mustache = require("mustache");
+    require(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
 
-    var model = require("activity/model");
-    var view = require("activity/view");
-    var controller = require("activity/controller");
+        window.memorizeApp = memorizeApp;
+        memorizeApp.activity = activity;
+        memorizeApp.activity.setup();
 
-    // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+        if (window.top.sugar.environment.sharedId) {
+            memorizeApp.initUI(function () {
+                initPresence(memorizeApp.activity, memorizeApp, presencePalette);
+            })
+        } else {
+            memorizeApp.initUI(function () {
+                initPresence(memorizeApp.activity, memorizeApp, presencePalette);
+                memorizeApp.computeCards();
+                memorizeApp.drawGame();
+                loadData(memorizeApp.activity, memorizeApp, function () {
+                    memorizeApp.drawGame();
+                });
+            })
 
-        // Initialize the activity.
-        activity.setup();
-
-        // Example game.
-        var cardsSet = [
-            {question: '1+1', answer: '2'},
-            {question: '3+0', answer: '3'},
-            {question: '2+2', answer: '4'},
-            {question: '3+2', answer: '5'},
-            {question: '2+4', answer: '6'},
-            {question: '5+2', answer: '7'},
-            {question: '7+1', answer: '8'},
-            {question: '5+4', answer: '9'},
-            {question: '2+8', answer: '10'},
-            {question: '10+1', answer: '11'},
-            {question: '7+5', answer: '12'},
-            {question: '4+9', answer: '13'},
-            {question: '11+3', answer: '14'},
-            {question: '6+9', answer: '15'},
-            {question: '10+6', answer: '16'},
-            {question: '5+12', answer: '17'},
-            {question: '9+9', answer: '18'},
-            {question: '6+13', answer: '19'}
-        ];
-
-        function Memorize() {
-            this.model = new model.Model();
-            this.view = new view.View();
-            this.controller = new controller.Controller(this.model, this.view);
         }
-
-        memorize = new Memorize();
-        memorize.model.loadGame(cardsSet);
-        memorize.controller.newGame(4);
-
-        var menuData = [
-            {label: "4 X 4", id: "four-button", icon: true},
-            {label: "5 X 5", id: "five-button", icon: true},
-            {label: "6 X 6", id: "six-button", icon: true}
-        ];
-
-        var changePaletteIcon = function (button) {
-            var span = button.querySelector('span');
-            var style = span.currentStyle || window.getComputedStyle(span, '');
-            sizeButton.style.backgroundImage = style.backgroundImage;
-            var invoker = sizePalette.getPalette().querySelector('.palette-invoker');
-            invoker.style.backgroundImage = style.backgroundImage;
-        };
-
-        function onSizeSelected(event) {
-            if (event.detail.target.id == "four-button") {
-                memorize.controller.newGame(4);
-            }
-            if (event.detail.target.id == "five-button") {
-                memorize.controller.newGame(5);
-            }
-            if (event.detail.target.id == "six-button") {
-                memorize.controller.newGame(6);
-            }
-            changePaletteIcon(event.detail.target);
-        }
-
-        var sizeButton = document.getElementById("size-button");
-        var sizePalette = new menupalette.MenuPalette(sizeButton, "Change size",
-                                                      menuData);
-        sizePalette.addEventListener('selectItem', onSizeSelected);
-
-        var restartButton = document.getElementById("restart-button");
-        restartButton.onclick = function () {
-            memorize.controller.newGame();
-        };
     });
 });
+
+function loadData(activity, memorizeApp, callback) {
+    var timeout = 0;
+    if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+        chrome.storage.local.get('sugar_settings', function (values) {
+            timeout = 500;
+        });
+    } else {
+        timeout = 0;
+    }
+
+    setTimeout(function () {
+        activity.getDatastoreObject().loadAsText(function (error, metadata, jsonData) {
+            if (jsonData == null) {
+                return;
+            }
+
+            var data = JSON.parse(jsonData);
+            if (data == null) {
+                return;
+            }
+
+            if (data.game) {
+                memorizeApp.game = data.game;
+                memorizeApp.game.multiplayer = false;
+                memorizeApp.game.selectedCards = [];
+                memorizeApp.game.currentPlayer = "";
+                memorizeApp.game.players = []
+            }
+
+            if (callback) {
+                callback();
+            }
+        });
+    }, timeout);
+}
+
+function initPresence(activity, memorizeApp, presencepalette, callback) {
+    activity.getPresenceObject(function (error, presence) {
+        memorizeApp.presence = presence;
+        var networkButton = document.getElementById("network-button");
+        var presencePalette = new presencepalette.PresencePalette(networkButton, undefined, presence);
+        presence.onSharedActivityUserChanged(function (msg) {
+            presencePalette.onSharedActivityUserChanged(msg);
+        });
+
+        //We use one of the palette feature that allows us to get the full list of current users everytime the list changes
+        presencePalette.onUsersListChanged(function (users) {
+            memorizeApp.onUsersListChanged(users);
+        });
+
+
+        // Launched with a shared id, activity is already shared
+        if (window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.sharedId) {
+            shareActivity(activity, presence, memorizeApp, false);
+            presencePalette.setShared(true);
+        } else {
+            presencePalette.addEventListener('shared', function () {
+                shareActivity(activity, presence, memorizeApp, true);
+            });
+        }
+
+        if (callback) {
+            callback();
+        }
+    });
+}
+
+function shareActivity(activity, presence, memorizeApp, isHost) {
+    memorizeApp.shareActivity(isHost);
+
+    var userSettings = presence.getUserInfo();
+
+    // Not found, create a new shared activity
+    if (!window.top.sugar.environment.sharedId) {
+        presence.createSharedActivity('org.olpcfrance.MemorizeActivity', function (groupId) {
+            //console.log(groupId)
+        });
+    }
+
+    // Show a disconnected message when the WebSocket is closed.
+    presence.onConnectionClosed(function (event) {
+        console.log(event);
+        console.log("Connection closed");
+    });
+
+    presence.onDataReceived(function (data) {
+        memorizeApp.onDataReceived(data);
+    });
+
+    presence.listUsers(function (users) {
+        console.log(users)
+    });
+}
