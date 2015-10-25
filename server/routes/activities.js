@@ -27,16 +27,18 @@ exports.load = function(settings) {
 					// If it's a directory, it's an activity
 					if (stats.isDirectory()) {
 						// Read the activity.info file
-						fs.readFile(activitiesPath+path.sep+file+path.sep+activityInfoPath, 'utf-8', function(err, content) {					
-							if (err) throw err;							
+						var stream = fs.createReadStream(activitiesPath+path.sep+file+path.sep+activityInfoPath, {encoding:'utf8'});
+						stream.on('data', function(content) {						
 							// Parse the file as an .INI file
 							var info = ini.parse(content);
 							
 							// Check if activity is favorite
 							var favorite = false;
+							var index = favorites.length+1;
 							for (var i = 0 ; !favorite && i < favorites.length ; i++) {
 								if (favorites[i].trim() == info.Activity.bundle_id) {
 									favorite = true;
+									index = i;
 								}
 							}
 							
@@ -48,8 +50,20 @@ exports.load = function(settings) {
 								"directory":activitiesDirName+"/"+file,
 								"icon":"activity/"+info.Activity.icon+".svg",
 								"favorite":favorite,
-								"activityId":null
+								"activityId":null,
+								"index": index
 							});
+						});
+						stream.on('end', function() {
+							// Sort activities array by index in .INI favorite property
+							activities.sort(function(a0, a1) {
+								if (a0.index > a1.index) return 1;
+								else if (a0.index < a1.index) return -1;
+								else return 0;
+							});
+						});
+						stream.on('error', function(err) {					
+							throw err;							
 						});
 					}
 				});
