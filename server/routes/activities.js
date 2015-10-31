@@ -6,7 +6,7 @@ var fs = require('fs'),
 
 // Load into memory the content of activities directory
 var activities = [];
-exports.load = function(settings) {
+exports.load = function(settings, callback) {
 	// Get settings
 	var activitiesDirName = settings.activities.activities_directory_name;
 	var activitiesPath = settings.activities.activities_path;
@@ -61,6 +61,10 @@ exports.load = function(settings) {
 								else if (a0.index < a1.index) return -1;
 								else return 0;
 							});
+							if (callback) {
+								callback();
+								callback = null;
+							}
 						});
 						stream.on('error', function(err) {					
 							throw err;							
@@ -84,9 +88,8 @@ exports.findById = function(req, res) {
 		var activity = activities[i];
 		if (activity.id == id) {
 			res.send(activity);
-			break;
+			return;
 		}
 	}
-	if ( i >= activities.length )
-		res.send();
+	res.send();
 };

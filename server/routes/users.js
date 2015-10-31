@@ -13,14 +13,15 @@ var db;
 var usersCollection;
 
 // Init database
-exports.init = function(settings) {
+exports.init = function(settings, callback) {
 	usersCollection = settings.collections.users; 
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
 	db = new Db(settings.database.name, server, {w:1});
 	 
 	db.open(function(err, db) {
-		if(!err) {
+		if(err) {
 		}
+		if (callback) callback();
 	});
 }
 

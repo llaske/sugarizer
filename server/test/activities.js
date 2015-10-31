@@ -19,15 +19,6 @@ describe('Activities', function() {
 		favorites: "org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity"
 	}};
 	activities.load(settings);
-	var sleep = function(milliseconds) {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-			if ((new Date().getTime() - start) > milliseconds){
-				break;
-			}
-		}
-	}
-	sleep(500);
 	
 	// Start test
 	describe('#findAll()', function() {
