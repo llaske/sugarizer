@@ -84,7 +84,9 @@ exports.findById = function(req, res) {
 		var activity = activities[i];
 		if (activity.id == id) {
 			res.send(activity);
+			break;
 		}
 	}
-	res.send();
+	if ( i >= activities.length )
+		res.send();
 };
