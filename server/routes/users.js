@@ -85,3 +85,21 @@ exports.updateUser = function(req, res) {
 		});
 	});
 }
+ 
+// Remove user
+exports.removeUser = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.uid)) {
+		res.send();
+		return;
+	}
+	var uid = req.params.uid;
+	db.collection(usersCollection, function(err, collection) {
+		collection.remove({'_id':new BSON.ObjectID(uid)}, function(err, result) {
+			if (err) {
+				res.send({'error':'An error has occurred'});
+			} else {
+				res.send(req.params.uid);
+			}
+		});
+	});
+}

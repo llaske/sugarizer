@@ -2,9 +2,7 @@
 // Unit testing on users
 
 var assert = require('assert'),
-    mongo = require('mongodb'),
     users = require('../routes/users');
-var BSON = mongo.BSONPure;
 
 // Dummy request
 var res = {send: function(value) {
@@ -89,8 +87,113 @@ users.init(settings, function() {
 					done();
 				}			
 				users.findById({params: {uid: newUser._id.toString()}}, res);
-				//users.findById({params: {uid: newUser._id.getTimestamp()}}, res);
+			});
+		});
+
+		describe('#updateUser()', function() {
+			it('should do nothing on invalid user', function(done) {
+				res.done = function() {
+					assert.equal(undefined, this.value);
+					done();
+				}			
+				users.updateUser({params: {uid: 'xxx'}, body: {user: '{"color":{"fill":"#00FF00"},"language":"en","version":7}'}}, res);
+			});
+			
+			it('should not update an inexisting user', function(done) {
+				res.done = function() {
+					var user = res.value;
+					assert.equal("en", user.language);
+					assert.equal(7, user.version);
+					assert.equal("#00FF00", user.color.fill);
+					done();
+				}
+				users.updateUser({params: {uid: 'ffffffffffffffffffffffff'}, body: {user: '{"color":{"fill":"#00FF00"},"language":"en","version":7}'}}, res);
+			});
+			
+			it('should do nothing on inexisting user', function(done) {
+				res.done = function() {
+					assert.equal(undefined, this.value);
+					done();
+				}			
+				users.findById({params: {uid: 'ffffffffffffffffffffffff'}}, res);
+			});
+			
+			it('should update the user', function(done) {
+				res.done = function() {
+					var user = res.value;
+					assert.equal("en", user.language);
+					assert.equal(7, user.version);
+					assert.equal("#00FF00", user.color.fill);
+					done();
+				}
+				users.updateUser({params: {uid: newUser._id.toString()}, body: {user: '{"color":{"fill":"#00FF00"},"language":"en","version":7}'}}, res);
+			});
+			
+			it('should preserve user fields', function(done) {
+				res.done = function() {
+					var user = res.value;
+					assert.equal("Sugarizer", user.name);
+					assert.equal("en", user.language);
+					assert.equal(7, user.version);
+					assert.equal(undefined, user.color.stroke);
+					assert.equal("#00FF00", user.color.fill);
+					assert.equal(newUser.private_journal.toString(), user.private_journal.toString());
+					assert.equal(newUser.shared_journal.toString(), user.shared_journal.toString());
+					assert.equal(newUser._id.toString(), user._id.toString());
+					done();
+				}
+				users.findById({params: {uid: newUser._id.toString()}}, res);
+			});
+
+			it('should not add a new user', function(done) {
+				res.done = function() {
+					assert.equal(initCount+1, this.value.length);
+					done();
+				}
+				users.findAll(null, res);
 			});
 		});		
+
+		describe('#removeUser()', function() {
+			it('should do nothing on invalid user', function(done) {
+				res.done = function() {
+					assert.equal(undefined, this.value);
+					done();
+				}			
+				users.removeUser({params: {uid: 'xxx'}}, res);
+			});
+			
+			it('should not remove an inexisting user', function(done) {
+				res.done = function() {
+					assert.equal('ffffffffffffffffffffffff',res.value.toString());
+					done();
+				}
+				users.removeUser({params: {uid: 'ffffffffffffffffffffffff'}}, res);
+			});
+			
+			it('should do nothing on inexisting user', function(done) {
+				res.done = function() {
+					assert.equal(undefined, this.value);
+					done();
+				}			
+				users.findById({params: {uid: 'ffffffffffffffffffffffff'}}, res);
+			});
+			
+			it('should remove the user', function(done) {
+				res.done = function() {
+					assert.equal(newUser._id.toString(), res.value.toString());
+					done();
+				}
+				users.removeUser({params: {uid: newUser._id.toString()}}, res);
+			});
+			
+			it('should remove one user', function(done) {
+				res.done = function() {
+					assert.equal(initCount, this.value.length);
+					done();
+				}
+				users.findAll(null, res);
+			});
+		});
 	});
 });
