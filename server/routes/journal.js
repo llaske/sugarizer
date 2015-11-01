@@ -16,7 +16,7 @@ var shared = null;
 //- Utility functions
 
 // Init database
-exports.init = function(settings) {
+exports.init = function(settings, callback) {
 	journalCollection = settings.collections.journal; 
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
 	db = new Db(settings.database.name, server, {w:1});
@@ -38,6 +38,8 @@ exports.init = function(settings) {
 					else if (item != null) {
 						shared = item;
 					}
+					
+					if (callback) callback();
 				});
 			});
 		}
@@ -55,12 +57,39 @@ exports.createJournal = function(callback) {
 		collection.insert({content:[], shared: false}, {safe:true}, callback)	
 	});
 }
+ 
+// Remove a journal
+exports.removeJournal = function(req, res) {
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
+	var jid = req.params.jid;
+	db.collection(journalCollection, function(err, collection) {
+		collection.remove({'_id':new BSON.ObjectID(jid)}, function(err, result) {
+			if (err) {
+				res.send({'error':'An error has occurred'});
+			} else {
+				res.send(req.params.jid);
+			}
+		});
+	});
+}
+
+// Find all journal
+exports.findAll = function(req, res) {
+	db.collection(journalCollection, function(err, collection) {
+		collection.find().toArray(function(err, items) {
+			res.send(items);
+		});
+	});
+}
 
 //- REST interface 
 
 // Add a new journal
 exports.addJournal = function(req, res) {
-	createJournal(function(err, result) {
+	exports.createJournal(function(err, result) {
 		if (err) {
 			res.send({'error':'An error has occurred'});
 		} else {

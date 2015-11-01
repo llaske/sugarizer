@@ -2,13 +2,8 @@
 // Unit testing on users
 
 var assert = require('assert'),
-    users = require('../routes/users');
-
-// Dummy request
-var res = {send: function(value) {
-	this.value = value;
-	if (this.done) this.done();
-}};
+    users = require('../routes/users'),
+	journal = require('../routes/journal');
 
 // Connect to MongoDB
 var settings = {
@@ -16,6 +11,12 @@ var settings = {
 	collections: { users: "users" }
 };
 users.init(settings, function() {
+
+	// HACK: Dummy request to match Express interface
+	var res = {send: function(value) {
+		this.value = value;
+		if (this.done) this.done();
+	}};
 
 	describe('Users', function() {
 		// First count number of users in database
@@ -194,6 +195,11 @@ users.init(settings, function() {
 				}
 				users.findAll(null, res);
 			});
+		});
+		
+		after(function() {
+			res.done = null;
+			journal.removeJournal({params: {jid: newUser.private_journal.toString()}}, res);
 		});
 	});
 });
