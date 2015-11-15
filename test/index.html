@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sugarizer Tests</title>
+    <link href="https://cdn.rawgit.com/mochajs/mocha/2.3.0/mocha.css" rel="stylesheet" />
+  </head>
+  <body>
+  <div id="mocha"></div>
+
+  <script src="../lib/require.js"></script>	
+  <script src="http://chaijs.com/chai.js"></script>
+  <script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>
+  <script src="https://cdn.rawgit.com/mochajs/mocha/2.3.0/mocha.js"></script>
+
+  <script>mocha.setup('bdd')</script>
+  <script src="datastore.js"></script>
+  <script>
+	// Init mocha
+	mocha.checkLeaks();
+	mocha.globals(['sugar*']);
+	requirejs.config({ baseUrl: "../lib" });
+	
+	// Init Sugarizer settings
+	var initSugarizer = function() {
+		window.localStorage.clear();
+		window.localStorage.setItem("sugar_settings", JSON.stringify({
+			name: "Mocha",
+			color: 163,
+			colorvalue: { stroke: '#AC32FF', fill: '#FF8F00' }
+		}));
+	};
+	
+	// Init modules
+	var datastore;
+	var chai;
+	initSugarizer();
+	requirejs(["sugar-web/datastore", "chai"], function(d, c) {
+		datastore = d;
+		chai = c;
+		
+		// Run tests
+		mocha.run();
+	});
+  </script>
+  </body>
+</html>
