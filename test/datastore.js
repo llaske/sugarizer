@@ -6,7 +6,7 @@ describe('Datastore', function() {
 	before(function() {
 		initSugarizer();
 	});
-	
+
 	var objectIds = [];
 	describe('#create()', function() {
 		it('should create one entry', function() {
@@ -16,7 +16,7 @@ describe('Datastore', function() {
 				chai.assert.notEqual(null, oid);
 				chai.assert.equal(36, oid.length);
 			}, {value: "100"});
-			
+
 			var results = datastore.find();
 			chai.assert.equal(1, results.length);
 			chai.assert.equal("entry", results[0].metadata.name);
@@ -27,9 +27,9 @@ describe('Datastore', function() {
 			chai.assert.equal(1, results.length);
 			chai.assert.equal("entry", results[0].metadata.name);
 			chai.assert.equal("test", results[0].metadata.activity);
-			chai.assert.equal("100", results[0].text.value);			
+			chai.assert.equal("100", results[0].text.value);
 		});
-		
+
 		it('should set text to null if undefined', function() {
 			var results = datastore.create({name: "entry2", activity: "test2"}, function(err, oid) {
 				objectIds.push(oid);
@@ -42,8 +42,8 @@ describe('Datastore', function() {
 			chai.assert.equal(1, results.length);
 			chai.assert.equal("entry2", results[0].metadata.name);
 			chai.assert.equal("test2", results[0].metadata.activity);
-			chai.assert.isNull(results[0].text);			
-		});			
+			chai.assert.isNull(results[0].text);
+		});
 	});
 
 	describe('#find()', function() {
@@ -51,18 +51,18 @@ describe('Datastore', function() {
 			var results = datastore.find();
 			chai.assert.equal(objectIds.length, results.length);
 		});
-		
+
 		it('should allow find specific activity', function() {
 			var results = datastore.find("test");
 			chai.assert.equal(1, results.length);
 		});
-		
+
 		it('should return empty on inexisting activity', function() {
 			var results = datastore.find("xxxx");
 			chai.assert.equal(0, results.length);
-		});		
+		});
 	});
-	
+
 	describe('#getMetadata()', function() {
 		it('should get entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
@@ -74,7 +74,7 @@ describe('Datastore', function() {
 				done();
 			});
 		});
-		
+
 		it('should get empty element on inexisting entry', function(done) {
 			var entry = new datastore.DatastoreObject("ffffffff-ffff-ffff-ffff-ffffffffffff");
 			entry.getMetadata(function() {
@@ -85,7 +85,7 @@ describe('Datastore', function() {
 			chai.assert.isNull(entry.newDataAsText);
 			done();
 		});
-		
+
 		it('should get empty element on undefined id', function(done) {
 			var entry = new datastore.DatastoreObject();
 			entry.getMetadata(function() {
@@ -95,9 +95,9 @@ describe('Datastore', function() {
 			chai.assert.deepEqual({}, entry.newMetadata);
 			chai.assert.isNull(entry.newDataAsText);
 			done();
-		});		
+		});
 	});
-	
+
 	describe('#save()', function() {
 		it('should update metadata on existing object', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
@@ -119,7 +119,7 @@ describe('Datastore', function() {
 				});
 			});
 		});
-		
+
 		it('should create metadata for new object', function(done) {
 			var entry = new datastore.DatastoreObject();
 			var timeBefore = new Date().getTime();
@@ -140,7 +140,7 @@ describe('Datastore', function() {
 			});
 		});
 	});
-	
+
 	describe('#loadAsText()', function() {
 		it('should get text entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
@@ -149,7 +149,7 @@ describe('Datastore', function() {
 				done();
 			});
 		});
-		
+
 		it('should get null on free text entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[1]);
 			entry.loadAsText(function() {
@@ -171,9 +171,100 @@ describe('Datastore', function() {
 		});
 	});
 
-	// TODO: setMetadata
-	// TODO: setDataAsText
-	
+	describe('#setMetadata()', function() {
+		it('should not change data when nothing change', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.getMetadata(function() {
+				entry.setMetadata();
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal("entry", entry.newMetadata.name);
+					chai.assert.equal("test", entry.newMetadata.activity);
+					chai.assert.equal("100", entry.newDataAsText.value);
+					done();
+				});
+			});
+		});
+
+		it('should change/update metadata', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.getMetadata(function() {
+				entry.setMetadata({
+					name: "updatedentry",
+					width: "100px"
+				});
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal("updatedentry", entry.newMetadata.name);
+					chai.assert.equal("test", entry.newMetadata.activity);
+					chai.assert.equal("100px", entry.newMetadata.width);
+					chai.assert.equal("100", entry.newDataAsText.value);
+					done();
+				});
+			});
+		});
+	});
+
+	describe('#setMetadata()', function() {
+		it('should not change data when nothing change', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.getMetadata(function() {
+				entry.setMetadata();
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal("updatedentry", entry.newMetadata.name);
+					chai.assert.equal("test", entry.newMetadata.activity);
+					chai.assert.equal("100", entry.newDataAsText.value);
+					done();
+				});
+			});
+		});
+
+		it('should change/update metadata', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.getMetadata(function() {
+				entry.setMetadata({
+					name: "updatedentry",
+					width: "100px"
+				});
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal("updatedentry", entry.newMetadata.name);
+					chai.assert.equal("test", entry.newMetadata.activity);
+					chai.assert.equal("100px", entry.newMetadata.width);
+					chai.assert.equal("100", entry.newDataAsText.value);
+					done();
+				});
+			});
+		});
+	});
+
+	describe('#setDataAsText()', function() {
+		it('should remove text when undefined', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.loadAsText(function() {
+				entry.setDataAsText();
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal(undefined, entry.newDataAsText);
+					done();
+				});
+			});
+		});
+
+		it('should update text', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.loadAsText(function() {
+				entry.setDataAsText({newvalue: "200"});
+				entry.save(function() {
+					chai.assert.equal(objectIds[0], entry.objectId);
+					chai.assert.equal("200", entry.newDataAsText.newvalue);
+					done();
+				});
+			});
+		});
+	});
+
 	describe('#remove()', function() {
 		it('should do nothing on inexisting entry', function() {
 			datastore.remove("ffffffff-ffff-ffff-ffff-ffffffffffff");
