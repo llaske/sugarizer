@@ -7,7 +7,7 @@
   <body>
   <div id="mocha"></div>
 
-  <script src="../lib/require.js"></script>	
+  <script src="../lib/require.js"></script>
   <script src="http://chaijs.com/chai.js"></script>
   <script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>
@@ -15,30 +15,39 @@
 
   <script>mocha.setup('bdd')</script>
   <script src="datastore.js"></script>
+  <script src="presence.js"></script>
   <script>
 	// Init mocha
 	mocha.checkLeaks();
 	mocha.globals(['sugar*']);
 	requirejs.config({ baseUrl: "../lib" });
-	
+
 	// Init Sugarizer settings
-	var initSugarizer = function() {
+	var initSugarizer = function(updatedSettings) {
 		window.localStorage.clear();
-		window.localStorage.setItem("sugar_settings", JSON.stringify({
+		var initSettings = {
 			name: "Mocha",
 			color: 163,
 			colorvalue: { stroke: '#AC32FF', fill: '#FF8F00' }
-		}));
+		};
+		if (updatedSettings) {
+			for (var key in updatedSettings) {
+				initSettings[key] = updatedSettings[key];
+			}
+		}
+		window.localStorage.setItem("sugar_settings", JSON.stringify(initSettings));
 	};
-	
+
 	// Init modules
 	var datastore;
 	var chai;
+	var presence;
 	initSugarizer();
-	requirejs(["sugar-web/datastore", "chai"], function(d, c) {
+	requirejs(["sugar-web/datastore", "chai", "sugar-web/presence"], function(d, c, p) {
 		datastore = d;
 		chai = c;
-		
+		presence = p;
+
 		// Run tests
 		mocha.run();
 	});
