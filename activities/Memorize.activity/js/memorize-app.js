@@ -224,7 +224,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         }
 
 
-        function computeCards() {
+        function computeCards(ignoreSave) {
             MemorizeApp.game.cards = [];
             MemorizeApp.game.selectedCards = [];
 
@@ -283,7 +283,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     MemorizeApp.game.cards.push(shuffledCard2[i]);
                 }
             }
-            saveGame();
+            if (!ignoreSave) saveGame();
         }
 
 

@@ -6,6 +6,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
     var html5storage = {};
     var datastorePrefix = 'sugar_datastore_';
+    var datastoreTextPrefix = 'sugar_datastoretext_';
     var initialized = false;
 
     //- Utility function
@@ -46,9 +47,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     datastore.create = function(metadata, callback, text) {
         var callback_c = datastore.callbackChecker(callback);
         var objectId = datastore.createUUID();
+		if (text !== undefined)
+			html5storage.setValue(datastoreTextPrefix + objectId, text);
         html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
-            text: (text === undefined) ? null : text
+            text: (text === undefined) ? null : { link: datastoreTextPrefix + objectId }
         });
         callback_c(null, objectId);
     }
@@ -70,10 +73,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
         return results;
     }
-	
+
 	// Remove an entry in the datastore
 	datastore.remove = function(objectId) {
 		html5storage.removeValue(datastorePrefix + objectId);
+		html5storage.removeValue(datastoreTextPrefix + objectId);
 	}
 
     //- Instance datastore methods
@@ -90,7 +94,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             });
         }
 
-        // Init or create objectId if need    
+        // Init or create objectId if need
         var that = this;
         if (this.objectId === undefined) {
             var env_objectId = window.top.sugar.environment.objectId;
@@ -107,7 +111,6 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		var result = html5storage.getValue(datastorePrefix + this.objectId);
 		if (result != null) {
 			this.setMetadata(result.metadata);
-			this.setDataAsText(result.text);
 			this.toload = false;
 			callback_c(null, result.metadata);
 		}
@@ -119,9 +122,13 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
         var result = html5storage.getValue(datastorePrefix + this.objectId);
         if (result != null) {
             this.setMetadata(result.metadata);
-            this.setDataAsText(result.text);
+			var text = null;
+			if (result.text) {
+				text = html5storage.getValue(datastoreTextPrefix + this.objectId);
+				this.setDataAsText(text);
+			}
             this.toload = false;
-            callback_c(null, result.metadata, result.text);
+            callback_c(null, result.metadata, text);
         }
     };
 
@@ -161,11 +168,14 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			this.newMetadata["buddy_name"] = sugar_settings.name;
 			this.newMetadata["buddy_color"] = sugar_settings.colorvalue;
 		}
+		if (this.newDataAsText != null) {
+			html5storage.setValue(datastoreTextPrefix + this.objectId, this.newDataAsText);
+		}
         html5storage.setValue(datastorePrefix + this.objectId, {
             metadata: this.newMetadata,
-            text: this.newDataAsText
+            text: (this.newDataAsText === undefined) ? null : { link: datastoreTextPrefix + this.objectId }
         });
-        callback_c(null, this.newMetadata);
+        callback_c(null, this.newMetadata, this.newDataAsText);
     };
 
     datastore.DatastoreObject = DatastoreObject;
@@ -191,13 +201,14 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				for (var i = 0 ; i < storageloadedcalls.length ; i++) {
 					if (storageloadedcalls[i]) storageloadedcalls[i]();
 				}
+				storageloadedcalls = [];
 			});
 		} else {
 			if (then) then();
 		}
 	};
 	html5storage.load();
-	
+
     // Test if HTML5 storage is available
     html5storage.test = function() {
 		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime)
@@ -210,10 +221,10 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     html5storage.setValue = function(key, value) {
         if (this.test()) {
             try {
-				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {			
+				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
 					this.values[key] = JSON.stringify(value);
 					var item = {};
-					item[key] = this.values[key];					
+					item[key] = this.values[key];
 					chrome.storage.local.set(item);
 				} else {
 					window.localStorage.setItem(key, JSON.stringify(value));
@@ -237,7 +248,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
         }
         return null;
     };
-	
+
 	// Remove a value in the storage
 	html5storage.removeValue = function(key) {
         if (this.test()) {
@@ -249,9 +260,9 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 					window.localStorage.removeItem(key);
 				}
             } catch (err) {}
-        }	
+        }
 	};
-	
+
 	// Get all values
 	html5storage.getAll = function() {
         if (this.test()) {
@@ -265,7 +276,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
                 return null;
             }
         }
-        return null;	
+        return null;
 	};
 
     return datastore;

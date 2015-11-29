@@ -13,7 +13,7 @@ define(function (require) {
         } else {
             memorizeApp.initUI(function () {
                 initPresence(memorizeApp.activity, memorizeApp, presencePalette);
-                memorizeApp.computeCards();
+                memorizeApp.computeCards(true);
                 memorizeApp.drawGame();
                 loadData(memorizeApp.activity, memorizeApp, function () {
                     memorizeApp.drawGame();

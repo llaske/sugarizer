@@ -66,7 +66,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 activity.getDatastoreObject().setDataAsText(JSON.stringify({ids: t.ids}));
                 activity.getDatastoreObject().save(function (error) {
                 });
-                captureHelper.displayData(data, true);
+				var dsObject = new datastore.DatastoreObject(data.objectId);
+				dsObject.loadAsText(function(err, meta, text) {
+					data.text = text;
+					captureHelper.displayData(data, true);
+				});
             });
         },
 
@@ -343,7 +347,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                     continue;
                 }
 
-                medias.push(d);
+				var dsObject = new datastore.DatastoreObject(d.objectId);
+				dsObject.loadAsText(function(err, metadata, text) {
+					d.text = text;
+					medias.push(d);
+				});
             }
             return medias.reverse();
         },

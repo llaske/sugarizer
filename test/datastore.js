@@ -9,7 +9,7 @@ describe('Datastore', function() {
 
 	var objectIds = [];
 	describe('#create()', function() {
-		it('should create one entry', function() {
+		it('should create one entry', function(done) {
 			var results = datastore.create({name: "entry", activity: "test"}, function(err, oid) {
 				objectIds.push(oid);
 				chai.assert.equal(null, err);
@@ -21,13 +21,19 @@ describe('Datastore', function() {
 			chai.assert.equal(1, results.length);
 			chai.assert.equal("entry", results[0].metadata.name);
 			chai.assert.equal("test", results[0].metadata.activity);
-			chai.assert.equal("100", results[0].text.value);
+			chai.assert.isNotNull(results[0].text);
 
 			var results = datastore.find("test");
 			chai.assert.equal(1, results.length);
 			chai.assert.equal("entry", results[0].metadata.name);
 			chai.assert.equal("test", results[0].metadata.activity);
-			chai.assert.equal("100", results[0].text.value);
+			chai.assert.isNotNull(results[0].text);
+
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.loadAsText(function(err, metadata, text) {
+				chai.assert.equal("100", text.value);
+				done();
+			});
 		});
 
 		it('should set text to null if undefined', function() {
@@ -66,11 +72,9 @@ describe('Datastore', function() {
 	describe('#getMetadata()', function() {
 		it('should get entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.getMetadata(function() {
-				chai.assert.equal(objectIds[0], entry.objectId);
-				chai.assert.equal("entry", entry.newMetadata.name);
-				chai.assert.equal("test", entry.newMetadata.activity);
-				chai.assert.equal("100", entry.newDataAsText.value);
+			entry.getMetadata(function(err, metadata) {
+				chai.assert.equal("entry", metadata.name);
+				chai.assert.equal("test", metadata.activity);
 				done();
 			});
 		});
@@ -82,7 +86,6 @@ describe('Datastore', function() {
 			});
 			chai.assert.equal("ffffffff-ffff-ffff-ffff-ffffffffffff", entry.objectId);
 			chai.assert.deepEqual({}, entry.newMetadata);
-			chai.assert.isNull(entry.newDataAsText);
 			done();
 		});
 
@@ -101,20 +104,42 @@ describe('Datastore', function() {
 	describe('#save()', function() {
 		it('should update metadata on existing object', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.getMetadata(function() {
+			entry.getMetadata(function(err, metadata) {
 				chai.assert.equal(objectIds[0], entry.objectId);
-				chai.assert.equal("entry", entry.newMetadata.name);
-				chai.assert.equal("test", entry.newMetadata.activity);
-				chai.assert.equal("100", entry.newDataAsText.value);
+				chai.assert.equal("entry", metadata.name);
+				chai.assert.equal("test", metadata.activity);
 				var timeBefore = new Date().getTime();
-				entry.save(function() {
+				entry.save(function(err, metasaved) {
 					var timeAfter = new Date().getTime();
-					chai.assert.equal("entry", entry.newMetadata.name);
-					chai.assert.equal("test", entry.newMetadata.activity);
-					chai.assert.ok(entry.newMetadata.timestamp >= timeBefore);
-					chai.assert.ok(entry.newMetadata.timestamp <= timeAfter);
-					chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, entry.newMetadata.buddy_color);
-					chai.assert.equal("Mocha", entry.newMetadata.buddy_name);
+					chai.assert.equal("entry", metasaved.name);
+					chai.assert.equal("test", metasaved.activity);
+					chai.assert.ok(metasaved.timestamp >= timeBefore);
+					chai.assert.ok(metasaved.timestamp <= timeAfter);
+					chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, metasaved.buddy_color);
+					chai.assert.equal("Mocha", metasaved.buddy_name);
+					done();
+				});
+			});
+		});
+
+		it('should update text on existing object', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.loadAsText(function(err, metadata, text) {
+				chai.assert.equal(objectIds[0], entry.objectId);
+				chai.assert.equal("entry", metadata.name);
+				chai.assert.equal("test", metadata.activity);
+				chai.assert.equal("100", text.value);
+				entry.setDataAsText({value: "200"});
+				var timeBefore = new Date().getTime();
+				entry.save(function(err, metasaved, textsaved) {
+					var timeAfter = new Date().getTime();
+					chai.assert.equal("entry", metasaved.name);
+					chai.assert.equal("test", metasaved.activity);
+					chai.assert.ok(metasaved.timestamp >= timeBefore);
+					chai.assert.ok(metasaved.timestamp <= timeAfter);
+					chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, metasaved.buddy_color);
+					chai.assert.equal("Mocha", metasaved.buddy_name);
+					chai.assert.equal("200", textsaved.value);
 					done();
 				});
 			});
@@ -123,18 +148,18 @@ describe('Datastore', function() {
 		it('should create metadata for new object', function(done) {
 			var entry = new datastore.DatastoreObject();
 			var timeBefore = new Date().getTime();
-			entry.save(function() {
+			entry.save(function(err, metadata, text) {
 				var timeAfter = new Date().getTime();
 				chai.assert.isNotNull(entry.objectId);
 				chai.assert.equal(36, entry.objectId.length);
-				chai.assert.ok(entry.newMetadata.timestamp >= timeBefore);
-				chai.assert.ok(entry.newMetadata.timestamp <= timeAfter);
-				chai.assert.ok(entry.newMetadata.creation_time >= timeBefore);
-				chai.assert.ok(entry.newMetadata.creation_time <= timeAfter);
-				chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, entry.newMetadata.buddy_color);
-				chai.assert.equal("Mocha", entry.newMetadata.buddy_name);
-				chai.assert.equal("0", entry.newMetadata.file_size);
-				chai.assert.isNull(entry.newDataAsText);
+				chai.assert.ok(metadata.timestamp >= timeBefore);
+				chai.assert.ok(metadata.timestamp <= timeAfter);
+				chai.assert.ok(metadata.creation_time >= timeBefore);
+				chai.assert.ok(metadata.creation_time <= timeAfter);
+				chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, metadata.buddy_color);
+				chai.assert.equal("Mocha", metadata.buddy_name);
+				chai.assert.equal("0", metadata.file_size);
+				chai.assert.isNull(text);
 				objectIds.push(entry.objectId);
 				done();
 			});
@@ -144,17 +169,17 @@ describe('Datastore', function() {
 	describe('#loadAsText()', function() {
 		it('should get text entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.loadAsText(function() {
-				chai.assert.equal("100", entry.newDataAsText.value);
+			entry.loadAsText(function(err, metadata, text) {
+				chai.assert.equal("200", text.value);
 				done();
 			});
 		});
 
 		it('should get null on free text entry', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[1]);
-			entry.loadAsText(function() {
+			entry.loadAsText(function(err, metadata, text) {
 				chai.assert.equal(objectIds[1], entry.objectId);
-				chai.assert.isNull(entry.newDataAsText);
+				chai.assert.isNull(text);
 				done();
 			});
 		});
@@ -176,11 +201,10 @@ describe('Datastore', function() {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
 			entry.getMetadata(function() {
 				entry.setMetadata();
-				entry.save(function() {
+				entry.save(function(err, metadata, text) {
 					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal("entry", entry.newMetadata.name);
-					chai.assert.equal("test", entry.newMetadata.activity);
-					chai.assert.equal("100", entry.newDataAsText.value);
+					chai.assert.equal("entry", metadata.name);
+					chai.assert.equal("test", metadata.activity);
 					done();
 				});
 			});
@@ -193,48 +217,23 @@ describe('Datastore', function() {
 					name: "updatedentry",
 					width: "100px"
 				});
-				entry.save(function() {
+				entry.save(function(err, metadata) {
 					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal("updatedentry", entry.newMetadata.name);
-					chai.assert.equal("test", entry.newMetadata.activity);
-					chai.assert.equal("100px", entry.newMetadata.width);
-					chai.assert.equal("100", entry.newDataAsText.value);
-					done();
-				});
-			});
-		});
-	});
-
-	describe('#setMetadata()', function() {
-		it('should not change data when nothing change', function(done) {
-			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.getMetadata(function() {
-				entry.setMetadata();
-				entry.save(function() {
-					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal("updatedentry", entry.newMetadata.name);
-					chai.assert.equal("test", entry.newMetadata.activity);
-					chai.assert.equal("100", entry.newDataAsText.value);
+					chai.assert.equal("updatedentry", metadata.name);
+					chai.assert.equal("test", metadata.activity);
+					chai.assert.equal("100px", metadata.width);
 					done();
 				});
 			});
 		});
 
-		it('should change/update metadata', function(done) {
+		it('should update entry - double check', function(done) {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.getMetadata(function() {
-				entry.setMetadata({
-					name: "updatedentry",
-					width: "100px"
-				});
-				entry.save(function() {
-					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal("updatedentry", entry.newMetadata.name);
-					chai.assert.equal("test", entry.newMetadata.activity);
-					chai.assert.equal("100px", entry.newMetadata.width);
-					chai.assert.equal("100", entry.newDataAsText.value);
-					done();
-				});
+			entry.getMetadata(function(err, metadata) {
+				chai.assert.equal("updatedentry", metadata.name);
+				chai.assert.equal("test", metadata.activity);
+				chai.assert.equal("100px", metadata.width);
+				done();
 			});
 		});
 	});
@@ -244,9 +243,9 @@ describe('Datastore', function() {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
 			entry.loadAsText(function() {
 				entry.setDataAsText();
-				entry.save(function() {
+				entry.save(function(err, metadata, text) {
 					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal(undefined, entry.newDataAsText);
+					chai.assert.equal(undefined, text);
 					done();
 				});
 			});
@@ -256,11 +255,19 @@ describe('Datastore', function() {
 			var entry = new datastore.DatastoreObject(objectIds[0]);
 			entry.loadAsText(function() {
 				entry.setDataAsText({newvalue: "200"});
-				entry.save(function() {
+				entry.save(function(err, metadata, text) {
 					chai.assert.equal(objectIds[0], entry.objectId);
-					chai.assert.equal("200", entry.newDataAsText.newvalue);
+					chai.assert.equal("200",text.newvalue);
 					done();
 				});
+			});
+		});
+
+		it('should update entry - double check', function(done) {
+			var entry = new datastore.DatastoreObject(objectIds[0]);
+			entry.loadAsText(function(err, metadata, text) {
+				chai.assert.equal("200", text.newvalue);
+				done();
 			});
 		});
 	});
