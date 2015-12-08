@@ -37,7 +37,10 @@ settings.load(function(ini) {
 	app.get("/journal/shared", journal.findSharedJournal);
 	app.get("/journal/:jid", journal.findJournalContent);
 	app.get("/journal/:jid/filter/:aid", journal.findJournalContent);
+	app.get("/journal/:jid/field/:field", journal.findJournalContent);
+	app.get("/journal/:jid/filter/:aid/field/:field", journal.findJournalContent);
 	app.post("/journal/:jid", journal.addEntryInJournal);
+	app.get("/journal/:jid/:oid", journal.getEntryInJournal);
 	app.put("/journal/:jid/:oid", journal.updateEntryInJournal);
 	app.delete("/journal/:jid/:oid", journal.removeEntryInJournal);
 

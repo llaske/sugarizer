@@ -1,11 +1,11 @@
 // Journal handling
 
 var mongo = require('mongodb');
- 
+
 var Server = mongo.Server,
 	Db = mongo.Db,
 	BSON = mongo.BSONPure;
- 
+
 var server;
 var db;
 
@@ -17,10 +17,10 @@ var shared = null;
 
 // Init database
 exports.init = function(settings, callback) {
-	journalCollection = settings.collections.journal; 
+	journalCollection = settings.collections.journal;
 	server = new Server(settings.database.server, settings.database.port, {auto_reconnect: true});
 	db = new Db(settings.database.name, server, {w:1});
-	
+
 	// Open the journal collection
 	db.open(function(err, db) {
 		if(!err) {
@@ -33,12 +33,12 @@ exports.init = function(settings, callback) {
 							shared = result[0];
 						});
 					}
-					
+
 					// Already exist, save it
 					else if (item != null) {
 						shared = item;
 					}
-					
+
 					if (callback) callback();
 				});
 			});
@@ -54,10 +54,10 @@ exports.getShared = function() {
 // Create a new journal
 exports.createJournal = function(callback) {
 	db.collection(journalCollection, function (err, collection) {
-		collection.insert({content:[], shared: false}, {safe:true}, callback)	
+		collection.insert({content:[], shared: false}, {safe:true}, callback)
 	});
 }
- 
+
 // Remove a journal
 exports.removeJournal = function(req, res) {
 	if (!BSON.ObjectID.isValid(req.params.jid)) {
@@ -85,7 +85,7 @@ exports.findAll = function(req, res) {
 	});
 }
 
-//- REST interface 
+//- REST interface
 
 // Add a new journal
 exports.addJournal = function(req, res) {
@@ -95,7 +95,7 @@ exports.addJournal = function(req, res) {
 		} else {
 			res.send(result[0]);
 		}
-	});	
+	});
 }
 
 // Get shared journal id
@@ -111,33 +111,74 @@ exports.findJournalContent = function(req, res) {
 	}
 	var jid = req.params.jid;
 	var aid = req.params.aid;
+	var field = req.params.field;
 	var filter = {_id:new BSON.ObjectID(jid)};
 	db.collection(journalCollection, function(err, collection) {
 		collection.findOne(filter, function(err, item) {
 			if (item == null) {
 				res.send(item);
 			} else {
-				// Filter by activity type
 				var entries = item.content;
-				if (aid !== undefined) {
-					var results = [];
-					for (var i = 0 ; i < entries.length ; i++) {
-						var entry = entries[i];
-						if (entry.metadata.activity == aid) {
-							results.push(entry);
-						}					
+				var results = [];
+				for (var i = 0 ; i < entries.length ; i++) {
+					var entry = entries[i];
+
+					// Filter by activity type
+					if (aid !== undefined && entry.metadata.activity != aid) {
+						continue;
 					}
-					entries = results;
+
+					// Limit fields
+					if (field !== undefined) {
+						var newentry = {};
+						for(var key in entry) {
+							if (key == field || key == "objectId") {
+								newentry[key] = entry[key];
+							}
+						}
+						entry = newentry;
+					}
+
+					results.push(entry);
 				}
-				
+				entries = results;
+
 				// Sort by descending date
 				res.send(entries.sort(function(e0, e1) {
-					return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp); 
+					if (e0.metadata && e1.metadata) {
+						return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+					} else if (e0.timestamp && e0.timestamp) {
+						return parseInt(e1.timestamp) - parseInt(e0.timestamp);
+					}
+					return 0;
 				}));
 			}
 		});
 	});
 };
+
+// Add an entry in a journal
+exports.getEntryInJournal = function(req, res) {
+	// Get parameter
+	if (!BSON.ObjectID.isValid(req.params.jid)) {
+		res.send();
+		return;
+	}
+	var jid = req.params.jid;
+	var oid = req.params.oid;
+
+	// Look for existing entry with the same objectId
+	var filter = {'_id':new BSON.ObjectID(jid), 'content.objectId': oid};
+	db.collection(journalCollection, function(err, collection) {
+		collection.findOne(filter, function(err, item) {
+			if (item == null) {
+				res.send();
+			} else {
+				res.send(item.content[0]);
+			}
+		});
+	});
+}
 
 // Add an entry in a journal
 exports.addEntryInJournal = function(req, res) {
@@ -148,7 +189,7 @@ exports.addEntryInJournal = function(req, res) {
 	}
 	var jid = req.params.jid;
 	var journal = JSON.parse(req.body.journal);
-	
+
 	// Look for existing entry with the same objectId
 	var filter = {'_id':new BSON.ObjectID(jid), 'content.objectId': journal.objectId};
 	db.collection(journalCollection, function(err, collection) {
@@ -171,7 +212,7 @@ exports.addEntryInJournal = function(req, res) {
 				exports.updateEntryInJournal(req, res);
 			}
 		});
-	});	
+	});
 }
 
 // Update an entry in a journal
@@ -182,7 +223,7 @@ exports.updateEntryInJournal = function(req, res) {
 	}
 	var jid = req.params.jid;
 	var oid = req.params.oid;
-	
+
 	// Delete the entry
 	var deletecontent = {$pull: {content: {objectId: oid}}};
 	db.collection(journalCollection, function(err, collection) {
@@ -194,7 +235,7 @@ exports.updateEntryInJournal = function(req, res) {
 				exports.addEntryInJournal(req, res);
 			}
 		});
-	});	
+	});
 }
 
 // Remove an entry in a journal
@@ -214,5 +255,5 @@ exports.removeEntryInJournal = function(req, res) {
 				res.send(deletecontent);
 			}
 		});
-	});	
+	});
 }

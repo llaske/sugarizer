@@ -38,6 +38,9 @@ constant.dynamicInitActivitiesURL = "/api/activities/";
 constant.initNetworkURL = "/api/users/";
 constant.sendCloudURL = "/api/journal/";
 constant.filterJournalURL = "/filter/";
+constant.filterFieldURL = "/field/";
+constant.fieldMetadata = "metadata";
+constant.fieldText = "text";
 constant.defaultServer = "server.sugarizer.org";
 
 constant.iconSizeStandard = 55;
