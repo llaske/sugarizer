@@ -174,7 +174,13 @@ exports.getEntryInJournal = function(req, res) {
 			if (item == null) {
 				res.send();
 			} else {
-				res.send(item.content[0]);
+				for (var i = 0 ; i < item.content.length ; i++) {
+					if (item.content[i].objectId == oid) {
+						res.send(item.content[i]);
+						return;
+					}
+				}
+				res.send();
 			}
 		});
 	});

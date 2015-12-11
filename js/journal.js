@@ -160,22 +160,26 @@ enyo.kind({
 		if (activityInstance == preferences.genericActivity)
 			return;
 
-		// Remote entry, copy in the local journal first
-		if (this.journalType != constant.journalLocal) {
-			datastore.create(activity.metadata, function(error, oid) {
-				preferences.runActivity(
-					activityInstance,
-					oid,
-					activity.metadata.title);
-			}, activity.text);
-			return;
-		}
+		// Load text content
+		var that = this;
+		this.loadEntry(activity, function(err, metadata, text) {
+			// Remote entry, copy in the local journal first
+			if (that.journalType != constant.journalLocal) {
+				datastore.create(metadata, function(error, oid) {
+					preferences.runActivity(
+						activityInstance,
+						oid,
+						metadata.title);
+				}, text);
+				return;
+			}
 
-		// Run local entry
-		preferences.runActivity(
-			activityInstance,
-			activity.objectId,
-			activity.metadata.title);
+			// Run local entry
+			preferences.runActivity(
+				activityInstance,
+				activity.objectId,
+				metadata.title);
+		});
 	},
 
 	// Filter entries handling
@@ -296,19 +300,25 @@ enyo.kind({
 
 	// Copy activity content to the local journal
 	copyToLocal: function(entry) {
-		datastore.create(entry.metadata, function(error, oid) {
-		}, entry.text);
-		this.$.activityPopup.hidePopup();
+		var that = this;
+		this.loadEntry(entry, function(err, metadata, text) {
+			datastore.create(metadata, function(error, oid) {
+			}, text);
+			that.$.activityPopup.hidePopup();
+		});
 	},
 
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
-		myserver.postJournalEntry(journalId, entry,
-			function() {},
-			function() {
-				console.log("WARNING: Error writing journal "+journalId);
-			}
-		);
+		this.loadEntry(entry, function(err, metadata, text) {
+			var dataentry = {metadata: metadata, text: text, objectId: entry.objectId};
+			myserver.postJournalEntry(journalId, dataentry,
+				function() {},
+				function() {
+					console.log("WARNING: Error writing journal "+journalId);
+				}
+			);
+		});
 		this.$.activityPopup.hidePopup();
 	},
 
@@ -329,6 +339,31 @@ enyo.kind({
 				that.journalChanged();
 			}
 		);
+	},
+
+	// Load entry in the journal
+	loadEntry: function(entry, callback) {
+		if (this.journalType == constant.journalLocal) {
+			var dataentry = new datastore.DatastoreObject(entry.objectId);
+			dataentry.loadAsText(function(err, metadata, text) {
+				callback(err, metadata, text);
+			});
+		} else {
+			var journalId;
+			if (this.journalType == constant.journalRemotePrivate) {
+				journalId = preferences.getPrivateJournal();
+			} else if (this.journalType == constant.journalRemoteShared) {
+				journalId = preferences.getSharedJournal();
+			}
+			myserver.getJournalEntry(journalId, entry.objectId,
+				function(inSender, inResponse) {
+					callback(null, inResponse.metadata, inResponse.text);
+				},
+				function() {
+					console.log("WARNING: Error loading entry "+objectId+" in journal "+journalId);
+				}
+			);
+		}
 	},
 
 	// Remove an entry in the journal
@@ -385,45 +420,46 @@ enyo.kind({
 		var objectId = this.journal[inEvent.index].objectId;
 
 		// Update local journal
-		if (this.journalType == constant.journalLocal) {
-			// Update metadata
-			var metadata = this.journal[inEvent.index].metadata;
-			metadata.title = newtitle;
+		var that = this;
+		this.loadEntry(this.journal[inEvent.index], function(err, metadata, text) {
+			if (that.journalType == constant.journalLocal) {
+				// Update metadata
+				metadata.title = newtitle;
 
-			// Update datastore
-			var ds = new datastore.DatastoreObject(objectId);
-			ds.setMetadata(metadata);
-			ds.setDataAsText(this.journal[inEvent.index].text);
-			ds.save();
+				// Update datastore
+				var ds = new datastore.DatastoreObject(objectId);
+				ds.setMetadata(metadata);
+				ds.setDataAsText(text);
+				ds.save();
 
-			// Refresh screen
-			this.showLocalJournal();
+				// Refresh screen
+				that.showLocalJournal();
 
-			// Refresh home screen: activity menu, journal content
-			preferences.updateEntries();
-			app.journal = this.journal;
-			app.redraw();
-		}
-
-		// Update remote journal
-		else {
-			// Update metadata
-			var entry = line.activity.getData();
-			entry.metadata.title = newtitle;
+				// Refresh home screen: activity menu, journal content
+				preferences.updateEntries();
+				app.journal = that.journal;
+				app.redraw();
+			}
 
 			// Update remote journal
-			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
-			var that = this;
-			myserver.putJournalEntry(journalId, objectId, entry,
-				function() {
-					that.loadRemoteJournal(journalId);
-				},
-				function() {
-					console.log("WARNING: Error updating journal "+journalId);
-					that.loadRemoteJournal(journalId);
-				}
-			);
-		}
+			else {
+				// Update metadata
+				metadata.title = newtitle;
+
+				// Update remote journal
+				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+				var dataentry = {metadata: metadata, text: text, objectId: objectId};
+				myserver.putJournalEntry(journalId, objectId, dataentry,
+					function() {
+						that.loadRemoteJournal(journalId);
+					},
+					function() {
+						console.log("WARNING: Error updating journal "+journalId);
+						that.loadRemoteJournal(journalId);
+					}
+				);
+			}
+		});
 	},
 
 	// Switch journal

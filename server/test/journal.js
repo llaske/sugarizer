@@ -204,10 +204,10 @@ journal.init(settings, function() {
 					assert.equal(2, this.value.length);
 					assert.equal("Entry",this.value[0].name);
 					assert.equal(undefined,this.value[0].metadata);
-					assert.equal(undefined,this.value[0].objectId);
+					assert.notEqual(undefined,this.value[0].objectId);
 					assert.equal("Entry2",this.value[1].name);
 					assert.equal(undefined,this.value[1].metadata);
-					assert.equal(undefined,this.value[1].objectId);
+					assert.notEqual(undefined,this.value[1].objectId);
 					done();
 				}
 				journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "name"}}, res);
@@ -218,10 +218,10 @@ journal.init(settings, function() {
 					assert.equal(2, this.value.length);
 					assert.equal(undefined,this.value[0].name);
 					assert.equal(undefined,this.value[0].metadata);
-					assert.equal(undefined,this.value[0].objectId);
+					assert.notEqual(undefined,this.value[0].objectId);
 					assert.equal(undefined,this.value[1].name);
 					assert.equal(undefined,this.value[1].metadata);
-					assert.equal(undefined,this.value[1].objectId);
+					assert.notEqual(undefined,this.value[1].objectId);
 					done();
 				}
 				journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "dummy"}}, res);
@@ -256,10 +256,10 @@ journal.init(settings, function() {
 
 			it('should get entry in journal', function(done) {
 				res.done = function() {
-					assert.deepEqual({"objectId":"ffffffff-ffff-ffff-ffff-ffffffffffff","name":"Entry","value":"#0000FF","metadata":{"activity": "1.mocha.org", "timestamp": 9999}},res.value);
+					assert.deepEqual({"objectId":"fffffffe-ffff-ffff-ffff-ffffffffffff","name":"Entry2","value":"#00FF00","metadata":{"timestamp":9990}},res.value);
 					done();
 				}
-				journal.getEntryInJournal({params: {jid: newJournal._id.toString(), oid:'ffffffff-ffff-ffff-ffff-ffffffffffff'}}, res);
+				journal.getEntryInJournal({params: {jid: newJournal._id.toString(), oid:'fffffffe-ffff-ffff-ffff-ffffffffffff'}}, res);
 			});
 		});
 
