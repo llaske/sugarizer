@@ -2,11 +2,6 @@ define(function (require) {
     var activity = require("sugar-web/activity/activity");
     var datastore = require("sugar-web/datastore");
 
-    require("Markdown.Converter");
-    //require("Markdown.Sanitizer");
-    require("Markdown.Editor");
-
-
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
