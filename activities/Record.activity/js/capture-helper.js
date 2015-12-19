@@ -624,55 +624,21 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         fileSystem: null,
 
         takePicture: function () {
-            var captureSuccess = function (mediaFiles) {
-                var i, path, len;
-                for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-                    path = mediaFiles[i].fullPath;
-                    if (path.indexOf("file:/") == -1) {
-                        path = "file:/" + path;
-                    }
-                    path = path.replace("file:/", "file:///");
-
-                    window.resolveLocalFileSystemURI(path, function (entry) {
-                        entry.file(function (file) {
-                            if (file.size / 1000000 > 2) {
-                                displayAlertMessage("File is too big");
-                                return;
-                            }
-                            var reader = new FileReader();
-                            reader.onloadend = function (evt) {
-                                var img = document.createElement("img")
-
-                                img.onload = function () {
-                                    var canvas = document.createElement("canvas");
-                                    var ctx = canvas.getContext('2d');
-                                    canvas.width = captureHelper.width;
-                                    canvas.height = captureHelper.height;
-                                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                                    var data = canvas.toDataURL();
-                                    captureHelper.forgeAndInsertData(data);
-                                };
-
-                                img.src = evt.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        }, function (err) {
-                        })
-                    }, function (err) {
-                    });
-                }
-            };
+            var captureSuccess = function (imageData) {
+				var data = "data:image/jpeg;base64," + imageData;
+				captureHelper.forgeAndInsertData(data);
+			}
 
             // capture error callback
             var captureError = function (error) {
             };
 
             // start image capture
-            navigator.device.capture.captureImage(captureSuccess, captureError, {
-                limit: 1,
-                width: 640,
-                height: 480
-            });
+			navigator.camera.getPicture(captureSuccess, captureError, {
+				quality: 20,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA
+			});
         },
 
         recordAudio: function () {
