@@ -635,7 +635,9 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             // start image capture
 			navigator.camera.getPicture(captureSuccess, captureError, {
-				quality: 20,
+				quality: 50,
+				targetWidth: 640,
+				targetHeight: 480,
 				destinationType: Camera.DestinationType.DATA_URL,
 				sourceType: Camera.PictureSourceType.CAMERA
 			});
