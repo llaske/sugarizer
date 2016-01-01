@@ -16,6 +16,10 @@
   },
   "permissions": [
     "storage",
-    "*://*/*"
+	"unlimitedStorage",
+	"audioCapture",
+	"videoCapture",
+    "*://*/*",
+	"http://s3.amazonaws.com/KA-youtube-converted/"
   ]  
 }

@@ -35,12 +35,10 @@ define(["webL10n",
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
 				'cancelable': true	
-			});				
+			});
             var result = window.dispatchEvent(stopEvent);
             if (result) {
-				datastoreObject.save(function() {
-					activity.close();
-				});
+                activity.close();
             }
         }
         bus.onNotification("activity.stop", sendStopEvent);

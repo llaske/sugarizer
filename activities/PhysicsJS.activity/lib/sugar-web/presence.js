@@ -149,6 +149,7 @@ define(function (require) {
 		if (!this.isConnected())
 			return;
         this.socket.close();
+		this.socket = null;
     }
 
 	// List all users. Will receive an array of users.
@@ -227,7 +228,7 @@ define(function (require) {
 			return;
 
 		// Register call back
-        callbackArray[msgLeaveSharedActivity] = callback;
+        callbackArray[msgLeaveSharedActivity] = callback; // BUG: This callback is never called
 		
 		// Send leave shared activity message
         var sjson = JSON.stringify({

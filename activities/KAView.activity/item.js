@@ -36,9 +36,21 @@ enyo.kind({
 	nameChanged: function() {
 		if (this.isLocal)
 			this.$.itemImage.setAttribute("src", "images/database/"+this.code+".png");
-		else if (Util.isKhanServer())
-			this.$.itemImage.setAttribute("src", constant.khanServer+this.code+".mp4/"+this.code+".png");
-		else
+		else if (Util.isKhanServer()) {
+			if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+				// HACK: When in Chrome App image should be load using a XmlHttpRequest
+				var xhr = new XMLHttpRequest();
+				var that = this;
+				xhr.open('GET', constant.khanServer+this.code+".mp4/"+this.code+".png", true);
+				xhr.responseType = 'blob';
+				xhr.onload = function(e) {
+					that.$.itemImage.setAttribute("src", window.URL.createObjectURL(this.response));
+				};
+				xhr.send();		
+			} else {
+				this.$.itemImage.setAttribute("src", constant.khanServer+this.code+".mp4/"+this.code+".png");
+			}
+		} else
 			this.$.itemImage.setAttribute("src", Util.getServer()+"/images/"+this.code+".png");
 	},
 	

@@ -457,7 +457,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                                 recordRTC.getDataURL(function (dataURL) {
                                     setTimeout(function () {
                                         captureHelper.forgeAndInsertData(dataURL);
-                                        mediaStream.stop();
+                                        if (mediaStream.stop) mediaStream.stop();
                                         t.recording = false;
                                         captureHelper.hideLoading();
                                     }, 500);
@@ -524,7 +524,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                                 recordRTC.getDataURL(function (dataURL) {
                                     setTimeout(function () {
                                         captureHelper.forgeAndInsertData(dataURL);
-                                        mediaStream.stop();
+                                        if (mediaStream.stop) mediaStream.stop();
                                         t.recording = false;
                                         captureHelper.hideLoading();
                                     }, 500);
@@ -591,7 +591,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                                         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
                                         var imgSrc = canvas.toDataURL("image/png");
                                         captureHelper.forgeAndInsertData(imgSrc);
-                                        mediaStream.stop();
+                                        if (mediaStream.stop) mediaStream.stop();
                                         t.recording = false;
                                         captureHelper.hideLoading();
                                     }, 1200);
