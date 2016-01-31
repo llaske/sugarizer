@@ -203,3 +203,40 @@ Build the package:
 
 	cordova build android
  
+# Sugarizer localization
+
+Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
+
+All strings are localized in the [locale.ini](locale.ini) file at the root of the repository.
+If you want to add a new translation, copy the whole [en] section at the end of the file and:
+
+* Replace "en" by the [ISO 639-1 oode](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr" for French,
+* Substitute the right side of the "=" character on each line by the string localized in your language. For example:
+
+		[fr]
+		StartNew=Commencer un nouveau 
+		NameActivity=Activité {{name}}
+		RemoveFavorite=Retirer le favori
+
+Sugarizer automatically detect the navigator language. To enable this detection, you need to update the settings.init function in the [lib/settings.js](lib/settings.js) file. Add a test on your language code. For example in French:
+
+	else if (navigatorLanguage.indexOf("fr") != -1)
+		this.language = "fr";
+ 
+Sugarizer settings display a list of all available languages. You need to add your language in this dialog. For this you have to:
+
+* Add a new string in [locale.ini](locale.ini) with the name of your language in English. For example:
+
+		French=French
+
+* Add the same line for all languages/sections in the file. If you're able to do that, translate the right side of the "=" character with the localized string for the name of your language. If you don't know how to translate it, just let the English word. For example:
+
+		French=Français
+
+* Add your string in the [js/dialog.js](dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
+
+		{code: "fr", icon: null, name: l10n.get("French")},
+
+That's all. Test the result in your browser.
+
+Note that this translation is for Sugarizer only. Each activity could provide its own localization feature.
