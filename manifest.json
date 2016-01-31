@@ -1,7 +1,7 @@
 {
   "name": "Sugarizer",
   "description": "A taste of Sugar on any device.",
-  "version": "0.7",
+  "version": "0.8",
   "author": "Lionel Laské for OLPC France",
   "app": {
     "background": {
