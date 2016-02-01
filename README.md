@@ -108,6 +108,49 @@ To run your own Sugarizer Server, follow the step behind. Commands are shown fro
 
 You could also run unit tests (see below) to ensure that everything works.
 
+**Server settings** 
+
+If need, Sugarizer server settings could be changed using the [server/sugarizer.ini](server/sugarizer.ini) config file.
+
+	[web]
+	port = 8080
+
+	[presence]
+	port = 8039
+
+	[database]
+	server = localhost
+	port = 27018
+	name = sugarizer
+
+	[collections]
+	users = users
+	journal = journal
+
+	[activities]
+	activities_directory_name = activities
+	activities_path = ../activities
+	template_directory_name = ActivityTemplate
+	activity_info_path = activity/activity.info
+	favorites = org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity,org.olpcfrance.TamTamMicro,org.olpcfrance.MemorizeActivity,org.olpg-france.physicsjs,org.sugarlabs.CalculateActivity,org.sugarlabs.TurtleBlocksJS,org.sugarlabs.Clock,,org.olpcfrance.RecordActivity,org.olpcfrance.Abecedarium,org.olpcfrance.KAView,org.olpcfrance.FoodChain,org.olpc-france.labyrinthjs,org.olpcfrance.TankOp,org.sugarlabs.ChatPrototype,org.olpcfrance.Gridpaint,org.olpc-france.LOLActivity,org.sugarlabs.StopwatchActivity,org.sugarlabs.GTDActivity,org.sugarlabs.Markdown,org.laptop.WelcomeWebActivity
+
+The **[web]** section describe the settings of the node.js process. Sugarizer server use an Apache web server and a node.js web server. The Apache Web server redirect calls to the node.js server. The link between them is set in the file [api/.htaccess](api/.htaccess).
+
+	RewriteEngine on
+
+	# Redirect a whole subdirectory:
+	RewriteRule ^(.+) http://localhost:8080/$1 [P]
+
+So by default, the Apache Web server expect that the node.js server listen on port 8080. You have to change both this file and the port value in the web section to change port.
+
+The **[presence]** section describe the settings of the presence server. By default a web socket is created on port 8039. You need to change this value if you want to use another port. 
+Warning: presence.js in activities hardcode this port today.
+
+The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
+
+The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Thin Client users will find by default on the home page. All values are self explained and had no reason to be changed. 
+ 
+
 # Unit testing
 
 Sugarizer include a set of unit tests both for client side and for server side.
