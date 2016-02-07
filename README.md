@@ -149,7 +149,34 @@ Warning: presence.js in activities hardcode this port today.
 The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
 
 The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Thin Client users will find by default on the home page. All values are self explained and had no reason to be changed. 
- 
+
+**Server API** 
+
+Sugarizer Server expose a REST API used by clients to handle collaboration. 
+
+	// Activities API
+	[GET]    /api/activities
+	[GET]    /api/activities/:id
+	
+	// Users API
+	[GET]    /api/users
+	[GET]    /api/users/:uid
+	[POST]   /api/users
+	[PUT]    /api/users/:uid
+	
+	// Journal API
+	[GET]    /api/journal/shared
+	[GET]    /api/journal/:jid
+	[GET]    /api/journal/:jid/filter/:aid
+	[GET]    /api/journal/:jid/field/:field
+	[GET]    /api/journal/:jid/filter/:aid/field/:field
+	[POST]   /api/journal/:jid
+	[GET]    /api/journal/:jid/:oid
+	[PUT]    /api/journal/:jid/:oid
+	[DELETE] /api/journal/:jid/:oid
+
+A full documentation of the API is available in [server/doc](server/doc) or online on [http://sugarizer.org/apidoc/](http://sugarizer.org/apidoc/).
+
 
 # Unit testing
 
@@ -165,7 +192,7 @@ To run unit tests for Sugarizer Server, launch:
 
 To run unit tests for Sugarizer Client, run "file:///var/www/sugarizer/test/index.html" in your browser.
 
-# Supervise your Sugarizer Server
+# Supervise the server
 
 Instead of running your Sugarizer Server like described in the "Run MongoDB and Sugarizer Server" section above, you could use a tool like [supervisor](http://supervisord.org/) to run it in background.
 
@@ -214,7 +241,7 @@ You could end it manually using:
 	sudo supervisorctl stop sugarizer
 
 
-# Build Sugarizer Client for Android or iOS
+# Build Client for Android or iOS
 
 Sugarizer Client could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
@@ -246,7 +273,7 @@ Build the package:
 
 	cordova build android
  
-# Sugarizer localization
+# Localization
 
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
 
