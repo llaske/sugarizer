@@ -86,24 +86,29 @@ enyo.kind({
 		this.$.message.show();
 		this.$.nofilter.show();
 		this.empty = (!this.getToolbar().hasFilter() && !this.loadingError && this.journal.length == 0);
+		this.$.empty.hide();
+		this.$.message.hide();
+		this.$.nofilter.hide();
 		if (this.journal != null && this.journal.length > 0) {
 			this.$.journalList.set("count", this.journal.length, true);
-			this.$.empty.hide();
-			this.$.message.hide();
-			this.$.nofilter.hide();
 		} else {
 			this.$.journalList.set("count", 0, true);
 			if (this.empty) {
 				// Journal empty
+				this.$.empty.show();
+				this.$.message.show();
 				this.$.message.setContent(l10n.get("JournalEmpty"));
-				this.$.nofilter.hide();
 			} else if (this.loadingError) {
 				// Loading error
+				this.$.message.show();
+				this.$.nofilter.show();
 				this.$.message.setContent(l10n.get("ErrorLoadingRemote"));
 				this.$.nofilter.setText(l10n.get("Retry"));
 				this.$.nofilter.setIcon({directory: "icons", icon: "system-restart.svg"});
 			} else {
 				// Filtering return no result
+				this.$.message.show();
+				this.$.nofilter.show();
 				this.$.message.setContent(l10n.get("NoMatchingEntries"));
 				this.$.nofilter.setText(l10n.get("ClearSearch"));
 				this.$.nofilter.setIcon({directory: "icons", icon: "dialog-cancel.svg"});
