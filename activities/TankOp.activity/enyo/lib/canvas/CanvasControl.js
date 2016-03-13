@@ -1,5 +1,5 @@
 /**
-	The base kind for items that live inside an
+	_enyo.canvas.Control_ is the base kind for items that live inside an
 	<a href="#enyo.Canvas">enyo.Canvas</a> control.
 
 	If you're using this kind directly, you may implement an _onRender_ event
@@ -18,8 +18,11 @@ enyo.kind({
 		bounds: null
 	},
 	events: {
-		//* Event providing hook to render this control. The event structure 
-		//* includes a _context_ member holding the active canvas context.
+		/**
+			Fires when this control is to be rendered.
+
+			_inEvent.context_ contains the active canvas context.
+		*/
 		onRender: ""
 	},
 	//* @protected
@@ -29,7 +32,7 @@ enyo.kind({
 	},
 	importProps: function(inProps) {
 		this.inherited(arguments);
-		if (inProps.bounds) {
+		if (inProps && inProps.bounds) {
 			enyo.mixin(this.bounds, inProps.bounds);
 			delete inProps.bounds;
 		}
@@ -45,7 +48,7 @@ enyo.kind({
 		}
 	},
 	renderChildren: function(inContext) {
-		for (var i=0, c; c=this.children[i]; i++) {
+		for (var i=0, c; (c=this.children[i]); i++) {
 			c.render(inContext);
 		}
 	}

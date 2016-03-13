@@ -325,14 +325,14 @@ enyo.kind({
 			return;
 			
 		// Bad check, retry
-		if (s == "audio/disappointed") {
+		if (s.sound == "audio/disappointed") {
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.removeClass("entryPlayWrong");
 			this.selected = null;
 			this.forbidentry = false;
 			
 		// Good check
-		} else if (s == "audio/applause") {
+		} else if (s.sound == "audio/applause") {
 			// Clean state
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.removeClass("entryPlayRight");

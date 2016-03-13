@@ -1,6 +1,6 @@
 /**
-	Canvas control that draws an image, stretched to fit the rectangle specified
-	by the _bounds_ property.
+	_enyo.canvas.Image_ is a canvas control that draws an image, stretched to
+	fit the rectangle specified	by the _bounds_ property.
 */
 enyo.kind({
 	name: "enyo.canvas.Image",
