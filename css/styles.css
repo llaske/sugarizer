@@ -126,7 +126,6 @@ input {
 .search-field-input {
 	opacity: 1;
 	margin-left: 30px;
-	margin-top: 5px;
 	border: 0px;	
 	display: inline-block;
 	background-color: #e5e5e5;
@@ -152,12 +151,6 @@ input {
 .web-activity-icon {
 	background-repeat: no-repeat;	
 	background-position: center;
-	padding: 2px;
-}
-
-.web-activity-icon:hover {
-	background-color: #d5d5d5;
-	border-radius: 5px;
 }
 
 .web-activity-disable {
@@ -942,7 +935,9 @@ input {
 	margin-left: auto;
 	margin-right: auto;
 }
-
+#screen{
+	z-index: 100000;
+}
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
