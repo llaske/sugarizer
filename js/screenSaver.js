@@ -1,4 +1,4 @@
-var timelimit=1000;//1 minute
+var timelimit=60000;//1 minute
 function screenSaver () {
 	Timer=setTimeout(activate,timelimit);
 	document.addEventListener('click',deactivate,false);
