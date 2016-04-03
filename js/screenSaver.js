@@ -18,7 +18,7 @@ function resume(){
 }
 function activate(){
 	var image = document.createElement("img");
-	image.src="js/screensaver.jpg";
+	image.src="js/screensaver.gif";
 	image.style.width="100%";
 	image.style.height="100%";
 	image.setAttribute("id","screen");
