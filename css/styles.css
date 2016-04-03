@@ -935,7 +935,7 @@ input {
 	margin-left: auto;
 	margin-right: auto;
 }
-#screen{
+#screen {
 	z-index: 100000;
 }
 /* Handle small screen resolution */

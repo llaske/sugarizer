@@ -1,4 +1,4 @@
-var timelimit=60000;//1 minute
+var timelimit=1000;//1 minute
 function screenSaver () {
 	Timer=setTimeout(activate,timelimit);
 	document.addEventListener('click',deactivate,false);
@@ -7,7 +7,7 @@ function screenSaver () {
 }
 function deactivate(){
 	clearTimeout(Timer);
-	var parent=document.getElementById("body");
+	var parent=document.getElementsByTagName("body");
 	var child=document.getElementById("screen");
 	child.style.display="none";
 	Timer=setTimeout(resume,timelimit);
