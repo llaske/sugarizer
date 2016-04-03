@@ -8,8 +8,8 @@ function screenSaver () {
 function deactivate(){
 	clearTimeout(Timer);
 	var parent=document.getElementsByTagName("body");
-	var child=document.getElementById("screen");
-	child.style.display="none";
+	var image=document.getElementById("screen");
+	image.style.display="none";
 	Timer=setTimeout(resume,timelimit);
 }
 function resume(){
@@ -26,8 +26,8 @@ function activate(){
 	image.style.top="0px";
 	image.style.right="0px";
 	image.style.left="0px";
-	var element = document.getElementById("body");
-	element.appendChild(image);
+	var parent = document.getElementById("body");
+	parent.appendChild(image);
 	document.addEventListener('click',deactivate,false);
 	document.addEventListener('mousemove',deactivate,false);
 	document.addEventListener('keypress',deactivate,false);
