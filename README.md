@@ -1,39 +1,57 @@
 # What is Sugarizer ?
 
-The Sugar Learning Platform is a leading learning platform developed for the One Laptop per Child project and used every day by nearly 3 million children around the world. With Sugarizer, you could discover the Sugar Learning Platform on any device: from the tiny Raspberry PI to the small Android/iOS tablet or the bigger PC/Mac. Enjoy the experience and help us reach every children on every device in every country.
+The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project. 
+It is used every day by nearly 3 million children around the world. 
 
-Sugarizer is distributed in the form of 3 components:
+Sugarizer is a web implementation of the platform, and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops. 
+It has 3 broad components:
 
-* Thin Client: remote access to Sugarizer using a browser,
-* Client: Sugarizer running locally,
-* Server: place to run remote Sugarizer features.
+* Thin Client: a web application that runs in modern web browsers
+* Client: an installable app for every operating system
+* Server: a nodejs/express server for clients to connect with
 
+Enjoy the experience and help us reach every children on every device in every country.
 
 # Thin Client
 
-Sugarizer Thin Client is Sugarizer in a browser. It could work on any device with a recent Chrome/Chromium version, and has also been tested successfully on Firefox, Safari and IE. Sugarizer Thin Client doesn't need any installation on the device but requires a permanent access to a Sugarizer Server.
+[Run it now! (server.sugarizer.org)](http://server.sugarizer.org/)
 
-[Run it Now](http://server.sugarizer.org/)
+Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version, and has also been tested successfully on Firefox, Safari and IE. 
 
-Features of Sugarizer Thin Client include:
+Features include:
 
-* Sugar Desktop view (Radial, List and Journal),
-* Sugar Local data store storage - limited by the browser to 5Mb (see [here](https://en.wikipedia.org/wiki/Web_storage "here")),
-* Running of remote stored Sugar Web Activities,
-* Backup or sharing of local storage content to the Server,
-* Presence and collaboration
+* No installation required
+* Runs any Sugar Web Activity available from a Sugarizer Server
+* Sugar Home view (Radial and List)
+* Sugar Journal
+* Sugar Local Data Store (limited by the browser to 5Mb, [learn more](https://en.wikipedia.org/wiki/Web_storage))
+    * Backup locally stored content to the Server
+    * Share locally stored content through the Server 
+* Sugar Presence 
+* Sugar Collaboration
 
-Note: You can run sugarizer from the link above, but the Thin Client access is provided by all the Sugarizer Servers, so you can use for your own Sugarizer Server. See below how to install your own Sugarizer Server. 
+As a thin client, it does not run offline and requires a permanent network connection to a Sugarizer Server.
+
+Each Sugarizer Server provides its own copy of the Thin Client.
 
 # Client
 
-Sugarizer Client is Sugarizer installed locally on the device so it does not require any access to the Server - it works stand-alone. Server access could be required only when it needs network features. Sugarizer could work on any device with a recent Chrome/Chromium version and has also been tested successfully on Firefox, Safari and IE. Sugarizer Client is available for PC, for Android, iOS and Chrome Web App.
+Sugarizer Client is cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
 
-To run **Sugarizer on your PC** (GNU Linux/Mac OS/Windows), launch Chrome using the command line:
+Features are the same as Thin Client, plus:
 
-    chrome --allow-file-access-from-files
+* Runs completely offline, without accessing any server
+* Some features (like collaboration) do a require network connection
 
-Then open the "index.html" file in the browser. Note that the option "--allow-file-access-from-files" is needed to authorize access to local file. Don't forget to close all other instances of Chrome before using this option. For other browser equivalent options see [here](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally "here"). Do not hesitate to write a shortcut on this command for future use.
+To run **Sugarizer on your PC** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
+
+    chrome --allow-file-access-from-files index.html
+
+The option `--allow-file-access-from-files` is needed to enable access to local files. 
+
+Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
+
+If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command)))
 
 To run **Sugarizer Client on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Client APK using instruction below.
 
