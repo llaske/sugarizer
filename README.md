@@ -3,20 +3,20 @@
 The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project. 
 It is used every day by nearly 3 million children around the world. 
 
-Sugarizer is a web implementation of the platform, and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops. 
+Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops. 
 It has 3 broad components:
 
 * Thin Client: a web application that runs in modern web browsers
 * Client: an installable app for every operating system
 * Server: a nodejs/express server for clients to connect with
 
-Enjoy the experience and help us reach every children on every device in every country.
+Enjoy the experience and help us reach every child on every device in every country.
 
 # Thin Client
 
 [Run it now! (server.sugarizer.org)](http://server.sugarizer.org/)
 
-Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version, and has also been tested successfully on Firefox, Safari and IE. 
+Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE. 
 
 Features include:
 
@@ -36,7 +36,7 @@ Each Sugarizer Server provides its own copy of the Thin Client.
 
 # Client
 
-Sugarizer Client is cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
+Sugarizer Client is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
 
 Features are the same as Thin Client, plus:
 
@@ -57,7 +57,7 @@ To run **Sugarizer Client on Android**, download it on [Google Play](https://pla
 
 To run **Sugarizer Client on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Client IPA using instructions below.
 
-To run **Sugarizer Client as Chrome Web App**, download it on [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as target for unpacked application.
+To run **Sugarizer Client as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
 
 Features of Sugarizer Client include:
 
@@ -122,7 +122,7 @@ To run your own Sugarizer Server, follow the step behind. Commands are shown fro
 
 * you should see the home with all activities,
 * go to Journal view, you should see at the bottom of the screen the two icons to switch to private/shared journal,
-* go to the neighborhood view, you should seen one icon for the server and one for you.
+* go to the neighborhood view, you should see one icon for the server and one for you.
 
 You could also run unit tests (see below) to ensure that everything works.
 
@@ -152,16 +152,16 @@ If need, Sugarizer server settings could be changed using the [server/sugarizer.
 	activity_info_path = activity/activity.info
 	favorites = org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity,org.olpcfrance.TamTamMicro,org.olpcfrance.MemorizeActivity,org.olpg-france.physicsjs,org.sugarlabs.CalculateActivity,org.sugarlabs.TurtleBlocksJS,org.sugarlabs.Clock,,org.olpcfrance.RecordActivity,org.olpcfrance.Abecedarium,org.olpcfrance.KAView,org.olpcfrance.FoodChain,org.olpc-france.labyrinthjs,org.olpcfrance.TankOp,org.sugarlabs.ChatPrototype,org.olpcfrance.Gridpaint,org.olpc-france.LOLActivity,org.sugarlabs.StopwatchActivity,org.sugarlabs.GTDActivity,org.sugarlabs.Markdown,org.laptop.WelcomeWebActivity
 
-The **[web]** section describe the settings of the node.js process. Sugarizer server use an Apache web server and a node.js web server. The Apache Web server redirect calls to the node.js server. The link between them is set in the file [api/.htaccess](api/.htaccess).
+The **[web]** section describe the settings of the node.js process. Sugarizer server uses an Apache web server and a node.js web server. The Apache Web server redirect calls to the node.js server. The link between them is set in the file [api/.htaccess](api/.htaccess).
 
 	RewriteEngine on
 
 	# Redirect a whole subdirectory:
 	RewriteRule ^(.+) http://localhost:8080/$1 [P]
 
-So by default, the Apache Web server expect that the node.js server listen on port 8080. You have to change both this file and the port value in the web section to change port.
+So by default, the Apache Web server expects that the node.js server listens on port 8080. You have to change both this file and the port value in the web section to change the port.
 
-The **[presence]** section describe the settings of the presence server. By default a web socket is created on port 8039. You need to change this value if you want to use another port. 
+The **[presence]** section describe the settings of the presence server. By default, a web socket is created on port 8039. You need to change this value if you want to use another port. 
 Warning: presence.js in activities hardcode this port today.
 
 The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
@@ -170,7 +170,7 @@ The **[activities]** section describe information on where to find embedded acti
 
 **Server API** 
 
-Sugarizer Server expose a REST API used by clients to handle collaboration. 
+Sugarizer Server exposes a REST API used by clients to handle collaboration. 
 
 	// Activities API
 	[GET]    /api/activities
@@ -197,13 +197,13 @@ A full documentation of the API is available in [server/doc](server/doc) or onli
 
 # Activities
 
-Sugarizer include a bunch of pedagogic activities.
+Sugarizer includes a bunch of pedagogic activities.
 All activities could be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
 To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
-Then you need to udpdate the [activities.json](activities.json) file to reflect your choice.
+Then you need to update the [activities.json](activities.json) file to reflect your choice.
 Here an example of this file:
 
 	[
@@ -249,11 +249,11 @@ Remove in this file rows for activities that you want to remove. Add in this fil
 Note than:
 
 1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
-2. The [activities.json](activities.json) is used only by Sugarizer Client, the Thin Client rely on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way it's a good practise to match content of the activities.json file and content of the activities directory.
+2. The [activities.json](activities.json) is used only by Sugarizer Client, the Thin Client relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
 
 # Create your own activity
 
-With Sugarizer it's easy to create your own activity with a bunch of HTML and JavaScript. Here's the step to follow.
+With Sugarizer, it's easy to create your own activity with a bunch of HTML and JavaScript. Here's the step to follow.
 
 ### Create the activity from the template 
 
@@ -323,16 +323,16 @@ Those are the files you'll modify in most cases. The others are:
 
 * `js/loader.js` configures the libraries paths and loads your   `js/activity.js`
 * `lib/` contains the libraries
-* `package.json` contains information about the libraries the activity depends
+* `package.json` contains information about the libraries the activity depends on
 * `setup.py` is used if you want to run your activity in Sugar.
 
-Now you are ready to go ahead and develop your activity in the html, js and css files.
+Now you are ready to go ahead and develop your activity in the HTML, JavaScript and CSS files.
 
 ### Adding a button to the toolbar
 
 This simple example will show you how web activities are structured as bits of HTML, CSS and JavaScript.
 
-You will need a SVG graphic for the button.  Or you can use one from the Sugar icon set at `lib/sugar-web/graphics/icons/`.  For this example, let's say you have one custom icon called `my-button.svg`.
+You will need an SVG graphic for the button.  Or you can use one from the Sugar icon set at `lib/sugar-web/graphics/icons/`.  For this example, let's say you have one custom icon called `my-button.svg`.
 Create a directory `icons/` inside your activity and place the SVG
 file inside.  Then do the following steps.
 
@@ -376,7 +376,7 @@ That's all, it's your turn now to transform this activity in something fun!
 
 # Unit testing
 
-Sugarizer include a set of unit tests both for client side and for server side.
+Sugarizer includes a set of unit tests both for client side and for server side.
 To run unit tests, you should first install [Mocha](http://mochajs.org/):
 
 	sudo npm install -g mocha
@@ -476,7 +476,7 @@ Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization s
 All strings are localized in the [locale.ini](locale.ini) file at the root of the repository.
 If you want to add a new translation, copy the whole [en] section at the end of the file and:
 
-* Replace "en" by the [ISO 639-1 oode](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr" for French,
+* Replace "en" by the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr" for French,
 * Substitute the right side of the "=" character on each line by the string localized in your language. For example:
 
 		[fr]
@@ -484,7 +484,7 @@ If you want to add a new translation, copy the whole [en] section at the end of 
 		NameActivity=Activité {{name}}
 		RemoveFavorite=Retirer le favori
 
-Sugarizer automatically detect the navigator language. To enable this detection, you need to update the settings.init function in the [lib/settings.js](lib/settings.js) file. Add a test on your language code. For example in French:
+Sugarizer automatically detects the navigator language. To enable this detection, you need to update the settings.init function in the [lib/settings.js](lib/settings.js) file. Add a test on your language code. For example in French:
 
 	else if (navigatorLanguage.indexOf("fr") != -1)
 		this.language = "fr";
