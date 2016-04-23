@@ -77,11 +77,20 @@ Sugarizer Server features include:
 * Backup and shared storage for Client and Thin Client,
 * Presence and collaboration handling between Client/Thin Client on the same network
 
+## Related Projects
+
+A number of similar projects to Sugarizer Server exist:
+
+* http://solarspell.org
+* https://learningequality.org/ka-lite
+
+## Running Your Own Server
+
 To run your own Sugarizer Server, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
 
 **Install Apache2**: you need to install Apache2 and ensure than few mods are available and enabled: mod_headers, mod_proxy, mod_proxy_http and mode_rewrite. You need also to allow override on /var/www directory. See [here](http://httpd.apache.org/docs/ "here") for more.
 
-	sudo apt-get install apache2
+    sudo apt-get install apache2
     cd /etc/apache2/mods-enabled
     sudo ln -s ../mods-available/headers.load headers.load
     sudo ln -s ../mods-available/rewrite.load rewrite.load
