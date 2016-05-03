@@ -109,7 +109,7 @@ button.remove {
 }
 
 .buttons-group button.reset-button {
-  background-image: url(../icons/media-playback-stop.svg);
+  background-image: url(../icons/media-playback-reset.svg);
 }
 
 .buttons-group button.mark-button {
