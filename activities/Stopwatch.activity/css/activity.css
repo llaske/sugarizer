@@ -15,6 +15,7 @@
 
 #stopwatch-list li {
   position: relative;
+  padding-bottom: 8px;
 }
 
 #stopwatch-list li p {
