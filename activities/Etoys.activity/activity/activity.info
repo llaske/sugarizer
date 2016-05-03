@@ -1,6 +1,6 @@
 [Activity]
 name = Etoys
 activity_version = 2
-bundle_id = org.vpri.EtoysActivity
+bundle_id = org.squeak.EtoysActivity
 exec = sugar-activity-web
 icon = activity-etoys
