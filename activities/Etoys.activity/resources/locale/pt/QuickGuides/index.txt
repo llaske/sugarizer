@@ -1,0 +1,69 @@
+:NavBar|Barra de Navegação
+BarNavEscolherIdioma|Escolher Idioma
+BarNavGuardarProjectos|Guardar Projectos
+:Paint|Paleta de Pintura
+DesenhoBalde-deTinta|Balde de Tinta
+DesenhoCarimbos|Carimbos
+DesenhoElipse|Elipse
+DesenhoExtrairCores|Extrair Cores
+DesenhoLinhaRecta|Linha Recta
+DesenhoPaleta-deCores|Paleta de Cores
+DesenhoPinceis|Pinceis
+DesenhoPoligono|Poligono
+DesenhoRectangulo|Rectangulo
+:Halo|Halos de Controlo
+HaloAlca-deRotacao|Alca de Rotacao
+HaloCentro-deRotacao|Centro de Rotacao
+HaloCriarTira-deScript|Criar Tira de Script
+HaloMenu-deFerramentas|Menu de Ferramentas
+HaloMinimizar|Minimizar
+HaloMostrarHalos|Mostrar Halos
+HaloMover-eAgarrar|Mover e Agarrar
+HaloPropriedades-daCor|Propriedades da Cor
+HaloReciclagem|Reciclagem
+HaloSeta-doCentro|Seta do Centro
+HaloTamanhoCorCopiar|Tamanho Cor Copiar
+HaloVisualizador|Visualizador
+:Supplies|Acessórios
+AcessGravador-deSom|Gravador de Som
+AcessTodos-osScripts|Todos os Scripts
+AcessoriosCatObjectos|Cat Objectos
+AcessoriosJoystick|Joystick
+AcessoriosTexto|Texto
+:ObjectCat|Catálogo de Objectos
+CatObjBarraDeslizadora|Barra Deslizadora
+CatObjCapturarArea|Capturar Area
+CatObjCriarBotao|Criar Botao
+CatObjFerramentaLaco|Ferramenta Laco
+CatObjImagensDigitais|Imagens Digitais
+:ScriptTile|Tiras de Script
+ScriptCategoriaSom|Categoria Som
+ScriptInput-noMundo|Input no Mundo
+ScriptLarguraAltura|Largura Altura
+ScriptNumeroAleatorio|Numero Aleatorio
+ScriptOcultar-eMostrar|Ocultar e Mostrar
+ScriptRastos-noPalco|Rastos no Palco
+ScriptTira-deAmpliacao|Tira de Ampliacao
+ScriptTiraAvancar|Tira Avancar
+ScriptTiraAvancarRodar|Tira Avancar Rodar
+ScriptTiraCarimbos|Tira Carimbos
+ScriptTiraDireccao|Tira Direccao
+ScriptTiraLocalExacto|Tira Local Exacto
+ScriptTiraRetroceder|Tira Retroceder
+ScriptTiraRodar|Tira Rodar
+ScriptTiraTestes|Tira Testes
+ScriptTiraUsarLapis|Tira Usar Lapis
+ScriptTirasX-eY|Tiras X e Y
+:Menu|Menus
+MenuBotaoCorrerScript|Botao Correr Script
+MenuCapturar-eRevelar|Capturar e Revelar
+MenuCursoNormal|Curso Normal
+MenuIcones-doEditor|Icones do Editor
+MenuIcones-doVisor|Icones do Visor
+MenuObservadores|Observadores
+MenuPalcoPapelGrafico|Palco Papel Grafico
+:Books|Livros
+LivroExpandirControlos|Expandir Controlos
+LivroIcones-doTopo|Icones do Topo
+LivroTiras-deNavegacao|Tiras de Navegacao
+LivroUtilizarCamadas|Utilizar Camadas
