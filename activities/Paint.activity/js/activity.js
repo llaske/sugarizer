@@ -20,6 +20,7 @@ define(function(require) {
   PaintApp.buttons.clearButton = require("activity/buttons/clear-button");
   PaintApp.buttons.undoButton = require("activity/buttons/undo-button");
   PaintApp.buttons.redoButton = require("activity/buttons/redo-button");
+  PaintApp.buttons.browseFilesButton = require("activity/buttons/browse-files-button");
 
   /* Fetching and storing of the modes */
   PaintApp.modes.Pen = require("activity/modes/modes-pen");
@@ -80,7 +81,7 @@ define(function(require) {
     if (window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.sharedId) {
       PaintApp.data.isHost = false;
       PaintApp.buttons.undoButton.hideGui();
-      PaintApp.buttons.redoButton.hideGui();
+	PaintApp.buttons.redoButton.hideGui();
       PaintApp.displayUndoRedoButtons();
       PaintApp.collaboration.shareActivity();
     }
