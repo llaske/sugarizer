@@ -20,3 +20,4 @@ You should look at js/activity.js and js/modes/modes-pen.js to see how to add a 
 * https://openclipart.org/detail/5516/coloring-book-mammoth
 * https://thenounproject.com/search/?q=wand&i=55389
 * https://thenounproject.com/search/?q=font&i=96246
+* https://commons.wikimedia.org/wiki/File:Gnome-folder.svg
