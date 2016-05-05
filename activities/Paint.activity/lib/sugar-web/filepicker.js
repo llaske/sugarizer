@@ -7,13 +7,19 @@ define(["sugar-web/datastore"], function(){
 	var modal = document.getElementById("filepicker-modal");
 
 	if (modal === undefined)
-	    console.log("No filepicker-modal found to display the files");
+	    console.error("No filepicker-modal found to display the files");
 	else
 	    modal.style.visibility = "hidden";
 	filePicker.hidden = true;
     }
+
+    filePicker.sendFileToCallBack = function(image){
+	filePicker.callback(image);
+	filePicker.close();
+    }
     
-    filePicker.browseImages = function(){
+    filePicker.browseImages = function(callback){
+	filePicker.callback = callback;
 	var images = filePicker.getImages();
 	var modal = document.getElementById("filepicker-modal");
 
@@ -30,6 +36,13 @@ define(["sugar-web/datastore"], function(){
 		    modal.innerHTML += "<div class='filepicker-image'>"+images[i].outerHTML+"</div>";
 		}
 	    }
+	    var imagesDiv = document.getElementsByClassName("filepicker-image");
+	    
+	    for (var i = 0;i < imagesDiv.length; i++)
+	    {
+		imagesDiv[i].onclick = function(){filePicker.sendFileToCallBack(this.getElementsByTagName('img')[0].src)};
+	    }
+		     
 	    document.getElementById("filepicker-close").onclick = filePicker.close;
 	    filePicker.hidden = false;
 	}
