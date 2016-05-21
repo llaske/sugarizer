@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html manifest="offline.appcache">
+<head>
+<meta charset="utf-8">
+<title>Etoys Activity</title>
 <!--
-Copyright (c) 2013,2014 Bert Freudenberg
+Copyright (c) 2013-2016 Bert Freudenberg
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +23,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-<head>
-<title>EtoysJS Activity</title>
-<link rel="icon" type="image/png" href="etoys/etoys.png">
-<link rel="apple-touch-icon" href="etoys/etoys.png" sizes="152x152">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<link rel="stylesheet" href="lib/gh-fork-ribbon.css">
-<link rel="stylesheet" href="lib/addtohomescreen.css">
-<script src="lib/addtohomescreen.js"></script>
-
 <link rel="stylesheet" href="activity/activity.css">
-<script src="lib/lz-string.js"></script>
-<script src="etoys/etoys.js"></script>
-<script src="vm.js"></script>
-
+<script src="squeak.min.js"></script>
+<script>
+window.onload = function() {
+    SqueakJS.runSqueak("resources/etoys.image", sqCanvas, {
+        appName: "Etoys",
+        fixedWidth: 1200,
+        fixedHeight: 900,
+        fullscreen: true,
+        spinner: sqSpinner,
+        files: ["etoys.changes", "EtoysV5.stc"],
+        root: "/Etoys",
+        templates: { "/Etoys": "resources" },
+        onQuit: function() {
+            history.back();
+        },
+    });
+};
+</script>
 </head>
 <body>
-    <progress value="0" max="100">Loading image ...</progress>
-    <canvas width="1200" height="900" contenteditable="true"></canvas>
+    <canvas id="sqCanvas" width="1200" height="900"></canvas>
+    <div id="sqSpinner"><div></div></div>
 </body>
 </html>
