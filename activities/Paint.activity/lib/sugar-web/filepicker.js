@@ -1,6 +1,7 @@
 define(["sugar-web/datastore"], function(){
     var datastore = require("sugar-web/datastore")
     var filePicker = {};
+    
     filePicker.hidden = true;
 
     filePicker.close = function(){
@@ -17,7 +18,7 @@ define(["sugar-web/datastore"], function(){
 	filePicker.callback(image);
 	filePicker.close();
     }
-    
+
     filePicker.browseImages = function(callback){
 	filePicker.callback = callback;
 	var images = filePicker.getImages();
@@ -53,6 +54,7 @@ define(["sugar-web/datastore"], function(){
 	
 	if (datastore.localStorage !== undefined){    
 	    var files = filePicker.getFiles();
+	    console.log(files);
 	    for (var key in files) {
 		if (files.hasOwnProperty(key)) {
 		    if (typeof JSON.parse(files[key]) == "string"){
@@ -75,6 +77,13 @@ define(["sugar-web/datastore"], function(){
 	callback(filePicker.getImages())
     }
 
+    filePicker.getDataStoreEntries = function(){
+	if (datastore.localstorage !== undefined)
+	{
+	    datastoreorg.olpcfrance.MediaViewerActivity
+	}
+    }
+    
     filePicker.getFiles = function(){
 	return datastore.localStorage.getAll();
     }
