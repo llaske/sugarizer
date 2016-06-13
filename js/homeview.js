@@ -163,10 +163,6 @@ enyo.kind({
 
 	// Draw desktop
     draw: function() {
-	//Load Android activities if we're in a sugarizerOS context
-	if (sugarizerOS){
-	    sugarizerOS.initActivitiesPreferences();
-	}
 		// Clean desktop
 		var items = [];
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
