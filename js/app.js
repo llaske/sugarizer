@@ -17,15 +17,18 @@ define(function (require) {
     var preferenceset = false;
 
 	// Main program
-	var main = function() {
-		if (!preferenceset) {
-			app = new Sugar.FirstScreen();
-		} else {
-			app = new Sugar.Desktop();
-		}
-		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
-		app.renderInto(document.getElementById("canvas"));	
+    var main = function() {
+	if (!preferenceset) {
+	    app = new Sugar.FirstScreen();
+	} else {
+	    app = new Sugar.Desktop();
 	}
+	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
+	app.renderInto(document.getElementById("canvas"));
+	if (sugarizerOS){
+	    sugarizerOS.initActivitiesPreferences();
+	}
+    }
 	
 	// Wait for preferences
 	var loadpreference = function() {
