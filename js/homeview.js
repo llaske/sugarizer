@@ -185,7 +185,7 @@ enyo.kind({
 		this.$.journal.setShowing(this.currentView == constant.radialView);
 
 		// Compute ring size and shape
-		var activitiesList = preferences.getFavoritesActivities();
+	    var activitiesList = preferences.getFavoritesActivities();
 		var activitiesCount = activitiesList.length;
 		var activitiesIndex = 0;
 		var radiusx, radiusy, base_angle, spiralMode, restrictedMode;
