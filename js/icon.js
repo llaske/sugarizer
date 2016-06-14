@@ -146,7 +146,7 @@ enyo.kind({
 		}
 	    //If androidImported
 	    if (this.icon != null && this.icon.androidImported != null){
-		node.style.backgroundImage = "url('" + this.icon.icon + "')";
+		node.style.backgroundImage = this.icon.icon;
 	    }
 
 	},
@@ -177,7 +177,7 @@ enyo.kind({
 	iconChanged: function() {
 	    if (this.icon != null){
 		if (this.icon.androidImported == null)
-		    this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
+		    this.$.icon.applyStyle("background-image", this.icon.icon);
 		else
 		    this.$.icon.applyStyle("background-image", "url(" +this.icon.icon + ")");
 	    }
