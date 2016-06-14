@@ -69,21 +69,22 @@ enyo.kind({
 		// Set item in the template
 	    var activitiesList = this.activities;
 
-	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "Android")
+	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "Android"){
 		inEvent.item.$.activity.setIcon({androidImported:true, icon:activitiesList[inEvent.index].icon});
+	    }
 	    else
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 	    inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 	    inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
 	    inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});		
 	    inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
-	    inEvent.item.$.favorite.setAndroidImported(activitiesList[inEvent.index].type == "Android");
 	    inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
 	    inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
 	    if (l10n.language.direction == "rtl") {
 		inEvent.item.$.name.addClass("rtl-14");
 		inEvent.item.$.version.addClass("rtl-14");
-	    }		
+	    }
+	    console.log(inEvent.item.$);
 	},
 	
 	// Switch favorite value for clicked line
