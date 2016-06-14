@@ -9,10 +9,12 @@ define(function (require) {
     xoPalette = require("sugar-web/graphics/xocolor");
     radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
     datastore = require("sugar-web/datastore");
-    presence = require("sugar-web/presence");	
+    presence = require("sugar-web/presence");
+    env = require("sugar-web/env");
     preferences = require("settings");
     myserver = require("server");
     util = require("util");
+
     var toload = 2;
     var preferenceset = false;
 
@@ -25,7 +27,8 @@ define(function (require) {
 	}
 	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
 	app.renderInto(document.getElementById("canvas"));
-	if (sugarizerOS){
+	//If we are in the SugarizerOS environment, then this method will load Android applications
+	if (env.isSugarizerOS()){
 	    sugarizerOS.initActivitiesPreferences();
 	}
     }
