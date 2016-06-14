@@ -177,9 +177,9 @@ enyo.kind({
 	iconChanged: function() {
 	    if (this.icon != null){
 		if (this.icon.androidImported != null)
-		    this.$.icon.applyStyle("background-image", this.icon.icon);
+		    this.$.icon.applyStyle("background-image", "url("+this.icon.icon+")");
 		else
-		    this.$.icon.applyStyle("background-image", "url(" +this.icon.icon + ")");
+		    this.$.icon.applyStyle("background-image", "url('" +this.icon.icon + "')");
 	    }
 		else
 			this.$.icon.applyStyle("background-image", null);
