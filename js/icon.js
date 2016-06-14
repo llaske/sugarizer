@@ -11,17 +11,17 @@ enyo.kind({
 	name: "Sugar.Icon",
 	kind: enyo.Control,
 	published: {
-		icon: null,
-		size: constant.iconSizeStandard,
-		x: -1, y: -1,
-		colorized: false,
-		colorizedColor: null,
-		disabled: false,
-		disabledBackground: 'white',
-		popupShow: null,
+	    icon: null,
+	    size: constant.iconSizeStandard,
+	    x: -1, y: -1,
+	    colorized: false,
+	    colorizedColor: null,
+	    disabled: false,
+	    disabledBackground: 'white',
+	    popupShow: null,
 	    popupHide: null,
 	    androidImported: false,
-		data: null
+	    data: null
 	},
 	classes: "web-activity",
 	components: [
@@ -117,10 +117,6 @@ enyo.kind({
 		}
 
 
-	    //If androidImported
-	    if (this.androidImported){
-		node.style.backgroundImage = "url('"+this.icon+"');";
-	    }
 		// If colorized		
 		if (this.colorized) {
 			// Get colorized color
@@ -148,6 +144,10 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
+	    //If androidImported
+	    if (this.icon != null && this.icon.androidImported != null)
+		node.style.backgroundImage = "url('" + this.icon.icon + "')";
+
 	},
 	
 	// Property changed
