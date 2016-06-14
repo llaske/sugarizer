@@ -19,7 +19,8 @@ enyo.kind({
 		disabled: false,
 		disabledBackground: 'white',
 		popupShow: null,
-		popupHide: null,
+	    popupHide: null,
+	    androidImported: false,
 		data: null
 	},
 	classes: "web-activity",
@@ -30,17 +31,18 @@ enyo.kind({
 	
 	// Constructor
 	create: function() {
-		this.inherited(arguments);
-		this.iconChanged();
-		this.sizeChanged();
-		this.colorizedColorChanged();
-		this.colorizedChanged();
-		this.disabledBackgroundChanged();
-		this.disabledChanged();
-		this.xChanged();
-		this.yChanged();
-		this.timer = null;
-		this.emulateMouseOver = false;		
+	    this.inherited(arguments);
+	    this.iconChanged();
+	    this.sizeChanged();
+	    this.colorizedColorChanged();
+	    this.colorizedChanged();
+	    this.androidImportedChanged();
+	    this.disabledBackgroundChanged();
+	    this.disabledChanged();
+	    this.xChanged();
+	    this.yChanged();
+	    this.timer = null;
+	    this.emulateMouseOver = false;		
 	},
 	
 	// Timer handler for popup menu
@@ -113,7 +115,12 @@ enyo.kind({
 				});			
 			}
 		}
-		
+
+
+	    //If androidImported
+	    if (this.androidImported){
+		node.style.backgroundImage = "url('"+this.icon+"');";
+	    }
 		// If colorized		
 		if (this.colorized) {
 			// Get colorized color
@@ -180,6 +187,10 @@ enyo.kind({
 	colorizedChanged: function() {
 		this.render();
 	},
+
+    androidImportedChanged: function(){
+	this.render();
+    },
 	
 	disabledBackgroundChanged: function() {
 		this.$.disable.applyStyle("background-color", this.disabledBackground);
