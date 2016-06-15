@@ -25,8 +25,9 @@ enyo.kind({
 	},
 	classes: "web-activity",
 	components: [
-		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
-		{ name: "disable", classes: "web-activity-disable", showing: false}
+	    { name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
+	    { name: "disable", classes: "web-activity-disable", showing: false},
+	    { tag: "img", name: "thumbnail", classes: "web-activity-icon", attributes: {src: this.icon}, showing: false,  style : "width:40px;height:40px;"}
 	],
 	
 	// Constructor
@@ -146,10 +147,13 @@ enyo.kind({
 		}
 	    //If androidImported
 	    if (this.icon != null && this.icon.androidImported != null){
-		node.style.backgroundImage = this.icon.icon;
+		this.$.thumbnail.show();
+		this.$.thumbnail.setSrc(this.icon.icon);
+		console.log(this);
 	    }
 
 	},
+    
 	
 	// Property changed
 	xChanged: function() {
