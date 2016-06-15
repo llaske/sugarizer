@@ -242,23 +242,40 @@ enyo.kind({
 					{owner: this}).render();
 				break;
 			}
+		    if (activity.type != null && activity.type == "Android"){
+			activity.androidImported = true;
 			this.$.desktop.createComponent({
-					kind: "Sugar.Icon",
-					icon: activity,  // HACK: Icon characteristics are embedded in activity object
-					size: icon_size,
-					x: ix,
-					y: iy,
-					colorized: activity.instances !== undefined && activity.instances.length > 0,
-					colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
-					ontap: "runMatchingActivity",
-					popupShow: enyo.bind(this, "showActivityPopup"),
-					popupHide: enyo.bind(this, "hideActivityPopup")
-				},
-				{owner: this}).render();
-			activitiesIndex++;
+			    kind: "Sugar.Icon",
+			    icon: activity,  // HACK: Icon characteristics are embedded in activity object
+			    size: icon_size,
+			    x: ix,
+			    y: iy,
+			    colorized: activity.instances !== undefined && activity.instances.length > 0,
+			    colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
+			    ontap: "runMatchingActivity",
+			    popupShow: enyo.bind(this, "showActivityPopup"),
+			    popupHide: enyo.bind(this, "hideActivityPopup")
+			},
+						       {owner: this}).render();
+		    }
+		    else{
+			this.$.desktop.createComponent({
+			    kind: "Sugar.Icon",
+			    icon: activity,  // HACK: Icon characteristics are embedded in activity object
+			    size: icon_size,
+			    x: ix,
+			    y: iy,
+			    colorized: activity.instances !== undefined && activity.instances.length > 0,
+			    colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
+			    ontap: "runMatchingActivity",
+			    popupShow: enyo.bind(this, "showActivityPopup"),
+			    popupHide: enyo.bind(this, "hideActivityPopup")
+			},
+						       {owner: this}).render();
+		    }
+		    activitiesIndex++;
 		}
 	},
-
 	// Redraw, for example after a resized event
 	redraw: function() {
 		this.draw();
