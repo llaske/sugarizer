@@ -1,40 +1,47 @@
 // Settings dialog
-enyo.kind({
-	name: "Sugar.DialogSettings",
-	kind: "enyo.Popup",
-	classes: "settings-dialog",
-	centered: false,
-	modal: true,
-	floating: true,
-	components: [
-		{name: "toolbar", classes: "toolbar", components: [
-			{name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
-			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}			
-		]},
-		{name: "content", components: [
-			{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
-			{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-			{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-			{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
-		]},
-		{name: "subdialog"}
-	],
+var env = require("sugar-web/env");
 
+enyo.kind({
+    name: "Sugar.DialogSettings",
+    kind: "enyo.Popup",
+    classes: "settings-dialog",
+    centered: false,
+    modal: true,
+    floating: true,
+    components: [
+	{name: "toolbar", classes: "toolbar", components: [
+	    {name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
+	    {name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}			
+	]},
+	    {name: "content", components: [
+		{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
+		{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+		{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+		{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
+		{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "Android Settings", icon: {directory: "icons", icon: "cloud-settings.svg", showing: false}
+		]},
+	     {name: "subdialog"}
+	    ],
+	
 	// Constructor
 	create: function() {
-		this.inherited(arguments);
-		this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
-		this.$.me.setText(l10n.get("AboutMe"));
-		this.$.computer.setText(l10n.get("AboutMyComputer"));
-		this.$.language.setText(l10n.get("Language"));
-		this.$.aboutserver.setText(l10n.get("Server"));
-		if (l10n.language.direction == "rtl") {
-			this.$.me.addClass("rtl-10");
-			this.$.computer.addClass("rtl-10");
-			this.$.language.addClass("rtl-10");
-			this.$.aboutserver.addClass("rtl-10");
-		}
-		this.subdialog = null;
+	    this.inherited(arguments);
+	    this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
+	    this.$.me.setText(l10n.get("AboutMe"));
+	    this.$.computer.setText(l10n.get("AboutMyComputer"));
+	    this.$.language.setText(l10n.get("Language"));
+	    this.$.aboutserver.setText(l10n.get("Server"));
+	    if (env.isSugarizerOS()){
+		this.$.androidSettings.setText(l10n.get("AndroidSettings"));
+		this.$.androidSettings.show();
+	    }
+	    if (l10n.language.direction == "rtl") {
+		this.$.me.addClass("rtl-10");
+		this.$.computer.addClass("rtl-10");
+		this.$.language.addClass("rtl-10");
+		this.$.aboutserver.addClass("rtl-10");
+	    }
+	    this.subdialog = null;
 	},
 	
 	rendered: function() {
@@ -94,7 +101,12 @@ enyo.kind({
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
 		}	
-	}	
+	},
+	androidSettingsClicked: function() {
+	    if (env.isSugarizerOS()){
+		sugarizerOS.runSettings();
+	    }
+	}
 });	
 
 
