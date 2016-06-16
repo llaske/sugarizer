@@ -1,5 +1,4 @@
 // Settings dialog
-var env = require("sugar-web/env");
 
 enyo.kind({
     name: "Sugar.DialogSettings",
@@ -17,8 +16,8 @@ enyo.kind({
 		{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 		{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 		{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-		{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
-		{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "Android Settings", icon: {directory: "icons", icon: "cloud-settings.svg", showing: false}
+		{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
+		{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-icon.svg"}, showing: false}
 		]},
 	     {name: "subdialog"}
 	    ],
@@ -31,7 +30,7 @@ enyo.kind({
 	    this.$.computer.setText(l10n.get("AboutMyComputer"));
 	    this.$.language.setText(l10n.get("Language"));
 	    this.$.aboutserver.setText(l10n.get("Server"));
-	    if (env.isSugarizerOS()){
+	    if (sugarizerOS){
 		this.$.androidSettings.setText(l10n.get("AndroidSettings"));
 		this.$.androidSettings.show();
 	    }
@@ -103,7 +102,7 @@ enyo.kind({
 		}	
 	},
 	androidSettingsClicked: function() {
-	    if (env.isSugarizerOS()){
+	    if (sugarizerOS){
 		sugarizerOS.runSettings();
 	    }
 	}
