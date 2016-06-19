@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Moon</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="prefetch" type="application/l10n" href="data.ini">
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Moon"></button>
+
+  <!-- Add more buttons here -->
+  <button class="toolbutton" id="toggle-grid-button" title="Toggle Grid View"></button>
+  <button class="toolbutton" id="toggle-hemisphere-button" title="Toggle Hemisphere View"></button>
+  <button class="toolbutton" id="save-image-button" title="Save As Image">
+      <a download="moon.jpg"></a>
+  </button>
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<div id="panel-container">
+  <div class="panel" id="panel-left">
+    <p></p>
+  </div>
+  <div class="panel" id="panel-right">
+    <canvas></canvas>
+  </div>
+</div>
+
+<img src="img/moon.jpg" id="moon" style="display: none;">
+
+</body>
+
+</html>
