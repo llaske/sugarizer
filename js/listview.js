@@ -69,7 +69,7 @@ enyo.kind({
 		// Set item in the template
 	    var activitiesList = this.activities;
 
-	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "Android"){
+	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native"){
 		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
 	    }
 	    else

@@ -91,7 +91,8 @@ enyo.kind({
 	},
 
 	// Render
-	rendered: function() {
+    rendered: function() {
+	console.log(this);
 		this.inherited(arguments);
 		
 		var node = this.$.icon.hasNode();
