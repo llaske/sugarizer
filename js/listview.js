@@ -70,7 +70,7 @@ enyo.kind({
 	    var activitiesList = this.activities;
 
 	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "Android"){
-		inEvent.item.$.activity.setIcon({androidImported:true, icon:activitiesList[inEvent.index].icon});
+		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
 	    }
 	    else
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);

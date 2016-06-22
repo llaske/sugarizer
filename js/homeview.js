@@ -242,8 +242,8 @@ enyo.kind({
 					{owner: this}).render();
 				break;
 			}
-		    if (activity.type != null && activity.type == "Android"){
-			activity.androidImported = true;
+		    if (activity.type != null && activity.type == "native"){
+			activity.isNative = true;
 			this.$.desktop.createComponent({
 			    kind: "Sugar.Icon",
 			    icon: activity,  // HACK: Icon characteristics are embedded in activity object

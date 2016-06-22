@@ -20,7 +20,7 @@ enyo.kind({
 	    disabledBackground: 'white',
 	    popupShow: null,
 	    popupHide: null,
-	    androidImported: false,
+	    isNative: false,
 	    data: null
 	},
 	classes: "web-activity",
@@ -37,7 +37,7 @@ enyo.kind({
 	    this.sizeChanged();
 	    this.colorizedColorChanged();
 	    this.colorizedChanged();
-	    this.androidImportedChanged();
+	    this.isNativeChanged();
 	    this.disabledBackgroundChanged();
 	    this.disabledChanged();
 	    this.xChanged();
@@ -145,8 +145,8 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
-	    //If androidImported
-	    if (this.icon != null && this.icon.androidImported != null){
+	    //If isNative
+	    if (this.icon != null && this.icon.isNative != null){
 		this.$.thumbnail.show();
 		this.$.thumbnail.setSrc(this.icon.icon);
 		console.log(this);
@@ -180,7 +180,7 @@ enyo.kind({
 	
 	iconChanged: function() {
 	    if (this.icon != null){
-		if (this.icon.androidImported != null)		    
+		if (this.icon.isNative != null)		    
 		    this.$.icon.applyStyle("background-image", "url('"+this.icon.icon+"');");
 		else
 		    this.$.icon.applyStyle("background-image", "url('"  + this.icon.directory+"/"+this.icon.icon + "')")
@@ -197,7 +197,7 @@ enyo.kind({
 		this.render();
 	},
 
-    androidImportedChanged: function(){
+    isNativeImportedChanged: function(){
 	this.render();
     },
 	
