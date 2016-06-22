@@ -36,7 +36,7 @@ enyo.kind({
 		this.users = [];
 		this.activities = [];
 		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
-		if (presence.isConnected())
+	    if (presence.isConnected() && !window.sugarizerOS)
 			this.updateNetworkState();
 		if (l10n.language.direction == "rtl") {
 			this.$.message.addClass("rtl-10");
@@ -57,25 +57,25 @@ enyo.kind({
 	},
 
 	// Update 
-	updateNetworkState: function() {
-		if (presence.isConnected()) {
-			this.$.owner.setShowing(true);
-			this.$.server.setShowing(true);
-			this.$.empty.setShowing(false);
-			this.$.message.setShowing(false);
-			this.$.settings.setShowing(false);
-			presence.listUsers(enyo.bind(this, "userListReceived"));
-			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
-		} else {
-			this.$.owner.setShowing(false);		
-			this.$.server.setShowing(false);
-			this.$.empty.setShowing(true);
-			this.$.message.setShowing(true);
-			this.$.settings.setShowing(true);
-			
-		}
-	},
-	
+    updateNetworkState: function() {
+	if (presence.isConnected() && !window.sugarizerOS) {
+	    this.$.owner.setShowing(true);
+	    this.$.server.setShowing(true);
+	    this.$.empty.setShowing(false);
+	    this.$.message.setShowing(false);
+	    this.$.settings.setShowing(false);
+	    presence.listUsers(enyo.bind(this, "userListReceived"));
+	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
+	} else {
+	    this.$.owner.setShowing(false);		
+	    this.$.server.setShowing(false);
+	    this.$.empty.setShowing(true);
+	    this.$.message.setShowing(true);
+	    this.$.settings.setShowing(true);
+	    
+	}
+    },
+    
 	// Popup menu for buddy handling
 	showBuddyPopup: function(icon) {
 		// Create popup

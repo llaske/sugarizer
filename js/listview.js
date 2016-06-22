@@ -84,7 +84,6 @@ enyo.kind({
 		inEvent.item.$.name.addClass("rtl-14");
 		inEvent.item.$.version.addClass("rtl-14");
 	    }
-	    console.log(inEvent.item.$);
 	},
 	
 	// Switch favorite value for clicked line

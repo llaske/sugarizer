@@ -30,7 +30,7 @@ enyo.kind({
 	    this.$.computer.setText(l10n.get("AboutMyComputer"));
 	    this.$.language.setText(l10n.get("Language"));
 	    this.$.aboutserver.setText(l10n.get("Server"));
-	    if (sugarizerOS){
+	    if (window.sugarizerOS){
 		this.$.androidSettings.setText(l10n.get("AndroidSettings"));
 		this.$.androidSettings.show();
 	    }
@@ -102,7 +102,7 @@ enyo.kind({
 		}	
 	},
 	androidSettingsClicked: function() {
-	    if (sugarizerOS){
+	    if (window.sugarizerOS){
 		sugarizerOS.runSettings();
 	    }
 	}
