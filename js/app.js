@@ -27,10 +27,6 @@ define(function (require) {
 	}
 	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
 	app.renderInto(document.getElementById("canvas"));
-	//If we are in the SugarizerOS environment, then this method will load Android applications
-	if (env.isSugarizerOS()){
-	    sugarizerOS.initActivitiesPreferences();
-	}
     }
 	
 	// Wait for preferences
@@ -39,6 +35,10 @@ define(function (require) {
 			preferenceset = load;
 			main();	
 		});
+	    //If we are in the SugarizerOS environment, then this method will load Android applications
+	    if (env.isSugarizerOS()){
+		sugarizerOS.initActivitiesPreferences();
+	    }
 	}
 	
 	// Wait for localized strings are here
