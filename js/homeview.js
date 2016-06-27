@@ -432,7 +432,8 @@ enyo.kind({
 					data: [activity, activity.instances[i]]
 				});
 			}
-		this.getPopup().setItems(items);
+	    this.getPopup().setItems(items);
+	    if (!activity.isNative){
 		this.getPopup().setFooter([{
 			icon: activity,
 			colorized: false,
@@ -440,6 +441,7 @@ enyo.kind({
 			action: enyo.bind(this, "runNewActivity"),
 			data: [activity, null]
 		}]);
+	    }
 
 		// Show popup
 		this.getPopup().showPopup();
