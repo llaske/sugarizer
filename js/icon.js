@@ -27,7 +27,7 @@ enyo.kind({
 	components: [
 	    { name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
 	    { name: "disable", classes: "web-activity-disable", showing: false},
-	    { tag: "img", name: "thumbnail", classes: "web-activity-thumbnail", attributes: {src: this.icon}, showing: false }
+	    { tag: "img", name: "thumbnail", classes: "web-activity-thumbnail", attributes: {src: this.icon}, showing: false, onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"}
 	],
 	
 	// Constructor
