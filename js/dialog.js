@@ -35,7 +35,7 @@ enyo.kind({
 	    window.sugarizerOS.checkIfDefaultLauncher();
 	    this.$.androidSettings.setText(l10n.get("AndroidSettings"));
 	    this.$.androidSettings.show();
-	    if (window.sugarizer.isDefaultLauncher){
+	    if (window.sugarizerOS.isDefaultLauncher){
 		this.$.resetLauncher.show();
 		this.$.resetLauncher.setText(l10n.get("ResetLauncher"));
 	    }
