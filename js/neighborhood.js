@@ -198,6 +198,10 @@ enyo.kind({
 		return true;	
 	},
 
+    joinNetwork: function(icon)
+    {
+    },
+    
     //Popup menu for Wireless Network handling
     showWifiPopup: function(icon){
 	// Create popup
