@@ -93,8 +93,6 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-
-	    console.log(this);
 		var node = this.$.icon.hasNode();
 		if (node && enyo.platform.touch) {
 			// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu

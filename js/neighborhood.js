@@ -72,8 +72,8 @@ enyo.kind({
 		    icon: {directory: "icons", icon: "network-wireless-connected-100.svg"},
 		    size: constant.sizeNeighbor,
 		    colorized: false,
-		    popupShow: enyo.bind(this, "showUserPopup"),
-		    popupHide: enyo.bind(this, "hideUserPopup"),
+		    popupShow: enyo.bind(this, "showWifiPopup"),
+		    popupHide: enyo.bind(this, "hideWifiPopup"),
 		    data: currentNetwork
 		},
 							  {owner: this});
@@ -197,7 +197,26 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		return true;	
 	},
-		
+
+    //Popup menu for Wireless Network handling
+    showWifiPopup: function(icon){
+	// Create popup
+	this.getPopup().setHeader({
+	    icon: icon.icon,
+	    colorized: false,
+	    name: icon.getData().BSSID,
+	    title: icon.getData().BSSID,
+	    action: null
+	});
+    },
+    hideWifiPopup: function() {
+	if (this.getPopup().cursorIsInside())
+	    return false;	
+	this.getPopup().hidePopup();
+	return true;	
+    },
+    
+    
 	// Popup menu for user handling
 	showUserPopup: function(icon) {
 		// Create popup
