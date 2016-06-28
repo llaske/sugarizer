@@ -18,7 +18,7 @@ enyo.kind({
 		{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
 		{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 		{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-icon.svg"}, showing: false},
-		{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncher", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false},
+		{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false},
 		]},
 	     {name: "subdialog"}
 	    ],
@@ -112,7 +112,7 @@ enyo.kind({
 	    sugarizerOS.runSettings();
 	}
     },
-    resetlauncher: function(){
+    resetLauncherPopup: function(){
 	if (window.sugarizerOS){
 	    sugarizerOS.chooseLauncher();
 	}
