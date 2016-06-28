@@ -204,13 +204,20 @@ enyo.kind({
 	this.getPopup().setHeader({
 	    icon: icon.icon,
 	    colorized: false,
-	    name: icon.getData().BSSID,
-	    title: icon.getData().SSID,
+	    name: icon.getData().SSID,
+	    title: icon.getData().BSSID,
 	    action: null
 	});
-	this.getPopup().setItems(null);
+	var items = [];
+	items.push({
+	    icon: {directory: "icons", icon: "activity-start.svg"},
+	    colorized: false,
+	    name: l10n.get("JoinNetwork"),
+	    action: enyo.bind(this, "joinNetwork"),
+	    data: [icon.getData(), null]
+	});		
+	this.getPopup().setItems(items);
 	this.getPopup().setFooter(null);
-		
 	// Show popup
 	this.getPopup().showPopup();
     },
@@ -220,7 +227,6 @@ enyo.kind({
 	this.getPopup().hidePopup();
 	return true;	
     },
-    
     
 	// Popup menu for user handling
 	showUserPopup: function(icon) {
