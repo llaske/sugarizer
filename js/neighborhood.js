@@ -36,14 +36,14 @@ enyo.kind({
 		this.users = [];
 		this.activities = [];
 		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
-	    if (presence.isConnected() && !window.sugarizerOS)
-			this.updateNetworkState();
-		if (l10n.language.direction == "rtl") {
-			this.$.message.addClass("rtl-10");
-		}
-		this.draw();
+	    if (presence.isConnected() || window.sugarizerOS)
+		this.updateNetworkState();
+	    if (l10n.language.direction == "rtl") {
+		this.$.message.addClass("rtl-10");
+	    }
+	    this.draw();
 	},
-	
+    
 	// Get linked toolbar
 	getToolbar: function() {
 		if (this.toolbar == null)
@@ -58,7 +58,7 @@ enyo.kind({
 
 	// Update 
     updateNetworkState: function() {
-	if (presence.isConnected() && !window.sugarizerOS) {
+	if (presence.isConnected()) {
 	    this.$.owner.setShowing(true);
 	    this.$.server.setShowing(true);
 	    this.$.empty.setShowing(false);
@@ -66,7 +66,19 @@ enyo.kind({
 	    this.$.settings.setShowing(false);
 	    presence.listUsers(enyo.bind(this, "userListReceived"));
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
-	} else {
+	}
+	if (window.sugarizerOS){
+	    sugarizerOS.scanWifi();
+	    
+	    this.$.owner.setShowing(true);
+	    this.$.server.setShowing(true);
+	    this.$.empty.setShowing(false);
+	    this.$.message.setShowing(false);
+	    this.$.settings.setShowing(false);
+	    presence.listUsers(enyo.bind(this, "userListReceived"));
+	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
+	}
+	else {
 	    this.$.owner.setShowing(false);		
 	    this.$.server.setShowing(false);
 	    this.$.empty.setShowing(true);
@@ -297,7 +309,8 @@ enyo.kind({
 		var items = [];
 		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
-		
+	 
+	    
 		// List items to draw
 		var canvas_center = util.getCanvasCenter();
 		items = [];
@@ -354,7 +367,28 @@ enyo.kind({
 	},
 	
 	// Create network icons fro items
-	createNetworkIcons: function(items) {
+    createNetworkIcons: function(items) {
+	//If SugarizerOS, adding Wireless networks icons
+	if (window.sugarizerOS){
+	    var networkIcons = [];
+	    var networks = sugarizerOS.networks;
+	    for (var i = 0; i < networks.length; i++){
+		var currentNetwork = networks[i];
+		var icon = this.$.network.createComponent({
+		    kind: "Sugar.Icon", 
+		    icon: {directory: "icons", icon: "network-wireless-connected-100.svg"},
+		    size: constant.sizeNeighbor,
+		    colorized: true,
+		    colorizedColor: currentUser.colorvalue,
+		    popupShow: enyo.bind(this, "showUserPopup"),
+		    popupHide: enyo.bind(this, "hideUserPopup"),
+		    data: currentUser
+		},
+							  {owner: this});
+		icon.render();
+		networkIcons.push(icon);
+	    }
+	}
 		// Add user icons
 		var len = this.users.length;
 		var userIcons = [];
