@@ -205,9 +205,14 @@ enyo.kind({
 	    icon: icon.icon,
 	    colorized: false,
 	    name: icon.getData().BSSID,
-	    title: icon.getData().BSSID,
+	    title: icon.getData().SSID,
 	    action: null
 	});
+	this.getPopup().setItems(null);
+	this.getPopup().setFooter(null);
+		
+	// Show popup
+	this.getPopup().showPopup();
     },
     hideWifiPopup: function() {
 	if (this.getPopup().cursorIsInside())
