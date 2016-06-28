@@ -56,6 +56,34 @@ enyo.kind({
 		return this.$.networkPopup;
 	},
 
+    createWifiIcons: function (items){
+	//If SugarizerOS, adding Wireless networks icons
+	if (window.sugarizerOS){
+	    var networkIcons = [];
+	    var networks = sugarizerOS.networks;
+	    for (var i = 0; i < networks.length; i++){
+
+		var currentNetwork = networks[i];
+		currentNetwork.networkId = currentNetwork.BSSID;
+		currentNetwork.shared = false;
+		currentNetwork.shared.id = currentNetwork.BSSID;
+		var icon = this.$.network.createComponent({
+		    kind: "Sugar.Icon", 
+		    icon: {directory: "icons", icon: "network-wireless-connected-100.svg"},
+		    size: constant.sizeNeighbor,
+		    colorized: false,
+		    popupShow: enyo.bind(this, "showUserPopup"),
+		    popupHide: enyo.bind(this, "hideUserPopup"),
+		    data: currentNetwork
+		},
+							  {owner: this});
+		icon.render();
+		networkIcons.push(icon);
+		items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
+	    }
+	}
+    },
+    
 	// Update 
     updateNetworkState: function() {
 	if (presence.isConnected()) {
@@ -68,13 +96,13 @@ enyo.kind({
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
 	}
 	if (window.sugarizerOS){
-	    sugarizerOS.scanWifi();
-	    
+	    sugarizerOS.scanWifi();	    
 	    this.$.owner.setShowing(true);
 	    this.$.server.setShowing(true);
 	    this.$.empty.setShowing(false);
 	    this.$.message.setShowing(false);
 	    this.$.settings.setShowing(false);
+	    this.draw();
 	    presence.listUsers(enyo.bind(this, "userListReceived"));
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 	}
@@ -320,7 +348,8 @@ enyo.kind({
 		
 		// Create network icons for items
 		this.createNetworkIcons(items);
-		
+	    this.createWifiIcons(items);
+	    
 		// Compute icons position
 		var len = items.length;		
 		for(var i = 0 ; i < len ; i++) {
@@ -368,30 +397,9 @@ enyo.kind({
 	
 	// Create network icons fro items
     createNetworkIcons: function(items) {
-	//If SugarizerOS, adding Wireless networks icons
-	if (window.sugarizerOS){
-	    var networkIcons = [];
-	    var networks = sugarizerOS.networks;
-	    for (var i = 0; i < networks.length; i++){
-		var currentNetwork = networks[i];
-		var icon = this.$.network.createComponent({
-		    kind: "Sugar.Icon", 
-		    icon: {directory: "icons", icon: "network-wireless-connected-100.svg"},
-		    size: constant.sizeNeighbor,
-		    colorized: true,
-		    colorizedColor: currentUser.colorvalue,
-		    popupShow: enyo.bind(this, "showUserPopup"),
-		    popupHide: enyo.bind(this, "hideUserPopup"),
-		    data: currentUser
-		},
-							  {owner: this});
-		icon.render();
-		networkIcons.push(icon);
-	    }
-	}
-		// Add user icons
-		var len = this.users.length;
-		var userIcons = [];
+	// Add user icons
+	var len = this.users.length;
+	var userIcons = [];
 		for (var i = 0 ; i < len ; i++) {
 			 var currentUser = this.users[i];
 			 if (currentUser.networkId != preferences.getNetworkId()) {
