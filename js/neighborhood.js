@@ -207,13 +207,13 @@ enyo.kind({
     showWifiPopup: function(icon){
 	// Create popup
 	var data = icon.getData();
-	var iconName = data.BSSID + " ("+ data.RSSI + ")" + "[" + sugarizerOS.getEncryptionString(data.capabilities) + "]";
+	var iconName = data.SSID + " ("+ data.RSSI + ")" + "[" + sugarizerOS.getEncryptionString(data.capabilities) + "]";
 	var power = (-1 * data.RSSI) % 5;
 	this.getPopup().setHeader({
 	    icon: icon.icon,
 	    colorized: false,
 	    name: iconName,
-	    title: icon.getData().SSID,
+	    title: icon.getData().BSSID,
 	    action: null
 	});
 	var items = [];
