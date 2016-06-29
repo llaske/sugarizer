@@ -205,11 +205,14 @@ enyo.kind({
     //Popup menu for Wireless Network handling
     showWifiPopup: function(icon){
 	// Create popup
+	var data = icon.getData();
+	var iconName = data.BSSID + " ("+ data.RSSI + ")";
+	var power = (-1 * data.RSSI) % 5;
 	this.getPopup().setHeader({
 	    icon: icon.icon,
 	    colorized: false,
 	    name: icon.getData().SSID,
-	    title: icon.getData().BSSID,
+	    title: iconName,
 	    action: null
 	});
 	var items = [];
