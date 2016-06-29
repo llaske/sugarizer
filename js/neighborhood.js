@@ -198,21 +198,22 @@ enyo.kind({
 		return true;	
 	},
 
-    joinNetwork: function(icon)
+    joinNetwork: function(network)
     {
+	window.sugarizerOS.joinNetwork(network.SSID, "", network.capabilities);
     },
     
     //Popup menu for Wireless Network handling
     showWifiPopup: function(icon){
 	// Create popup
 	var data = icon.getData();
-	var iconName = data.BSSID + " ("+ data.RSSI + ")";
+	var iconName = data.BSSID + " ("+ data.RSSI + ")" + "[" + sugarizerOS.getEncryptionString(data.capabilities) + "]";
 	var power = (-1 * data.RSSI) % 5;
 	this.getPopup().setHeader({
 	    icon: icon.icon,
 	    colorized: false,
-	    name: icon.getData().SSID,
-	    title: iconName,
+	    name: iconName,
+	    title: icon.getData().SSID,
 	    action: null
 	});
 	var items = [];
