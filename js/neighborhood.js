@@ -61,15 +61,18 @@ enyo.kind({
 	if (window.sugarizerOS){
 	    var networkIcons = [];
 	    var networks = sugarizerOS.networks;
+	    var pwr = (-1 * currentNetwork.RSSI) % 10;
+	    if (pwr % 2 != 0)
+		pwr +=1;
+	    pwr = pwr * 10;
 	    for (var i = 0; i < networks.length; i++){
-
 		var currentNetwork = networks[i];
 		currentNetwork.networkId = currentNetwork.BSSID;
 		currentNetwork.shared = false;
 		currentNetwork.shared.id = currentNetwork.BSSID;
 		var icon = this.$.network.createComponent({
 		    kind: "Sugar.Icon", 
-		    icon: {directory: "icons", icon: "network-wireless-connected-100.svg"},
+		    icon: {directory: "icons", icon: "network-wireless-"+pwr+".svg"},
 		    size: constant.sizeNeighbor,
 		    colorized: false,
 		    popupShow: enyo.bind(this, "showWifiPopup"),

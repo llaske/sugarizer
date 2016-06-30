@@ -25,16 +25,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-456.7801"
-     inkscape:cy="703.23076"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="205.36125"
+     inkscape:cy="589.3341"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer4"
      showgrid="false"
-     inkscape:window-width="2556"
-     inkscape:window-height="1041"
+     inkscape:window-width="1596"
+     inkscape:window-height="825"
      inkscape:window-x="0"
-     inkscape:window-y="18"
+     inkscape:window-y="54"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata3341">
@@ -49,16 +49,13 @@
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="bg" />
+  <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="fill:#ffffff"
-       id="rect3344"
-       width="482.85291"
-       height="472.7514"
-       x="174.75639"
-       y="264.44321" />
     <rect
        style="fill:#ffffff"
        id="rect3346"
@@ -67,7 +64,7 @@
        x="386.88843"
        y="519.00165" />
     <rect
-       style="fill:#ffffff"
+       style="fill:#ffffff;fill-opacity:0"
        id="rect3348"
        width="568.71582"
        height="513.15747"
@@ -87,7 +84,7 @@
        style="fill:#666666"
        id="rect3351"
        width="492.85712"
-       height="497.14285"
+       height="444.28571"
        x="137.14285"
        y="253.79077" />
   </g>
@@ -96,8 +93,8 @@
      id="layer3"
      inkscape:label="houseinside">
     <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 104.28571,290.93363 381.42857,99.505061 658.57143,290.93363 l -61.42857,0 2.85714,440 -434.28571,-2.85714 -1.42858,-437.14286 z"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.95407587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 371.80145,146.89632 c -58.27501,36.78462 -116.98229,73.0154 -174.76741,110.44331 4.83872,45.74497 -0.97696,91.76939 1.67792,137.53593 0.14839,83.22371 0.6644,166.44637 0.924,249.66977 122.05596,0.72587 244.11192,1.45173 366.16789,2.17759 -0.90632,-130.72546 -1.88558,-261.45067 -2.4769,-392.17771 -61.03528,-37.38888 -121.24891,-75.87245 -181.9539,-113.70523 -3.19054,2.01878 -6.38106,4.03756 -9.5716,6.05634 z"
        id="path3358"
        inkscape:connector-curvature="0" />
   </g>
