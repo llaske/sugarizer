@@ -55,7 +55,6 @@ enyo.kind({
 	getPopup: function() {
 		return this.$.networkPopup;
 	},
-
     createWifiIcons: function (items){
 	//If SugarizerOS, adding Wireless networks icons
 	if (window.sugarizerOS){
@@ -64,26 +63,29 @@ enyo.kind({
 	    for (var i = 0; i < networks.length; i++){
 		var currentNetwork = networks[i];
 		var pwr = (-1 * currentNetwork.RSSI) % 10;
-		if (pwr % 2 != 0)
-		    pwr +=1;
-		pwr = pwr * 10;
-		currentNetwork.networkId = currentNetwork.BSSID;
-		currentNetwork.shared = false;
-		currentNetwork.shared.id = currentNetwork.BSSID;
-		var icon = this.$.network.createComponent({
-		    kind: "Sugar.Icon", 
-		    icon: {directory: "icons", icon: "network-wireless-"+pwr+".svg"},
-		    size: constant.sizeNeighbor,
-		    colorized: false,
-		    popupShow: enyo.bind(this, "showWifiPopup"),
-		    popupHide: enyo.bind(this, "hideWifiPopup"),
-		    data: currentNetwork
-		},
-							  {owner: this});
-		icon.render();
-		networkIcons.push(icon);
-		items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
-	    }
+		if (pwr > 5){
+		    if (pwr % 2 != 0)
+			pwr +=1;
+		    pwr = 10 - pwr;
+		    pwr = pwr * 10;
+		    currentNetwork.networkId = currentNetwork.BSSID;
+		    currentNetwork.shared = false;
+		    currentNetwork.shared.id = currentNetwork.BSSID;
+		    var icon = this.$.network.createComponent({
+			kind: "Sugar.Icon",
+			icon: {directory: "icons", icon: "network-wireless-0"+pwr+".svg"},
+			size: constant.sizeNeighbor,
+			colorized: true,
+			colorizedColor: xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)],
+			popupShow: enyo.bind(this, "showWifiPopup"),
+			popupHide: enyo.bind(this, "hideWifiPopup"),
+			data: currentNetwork
+		    },
+							      {owner: this});
+		    icon.render();
+		    networkIcons.push(icon);
+		    items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
+		}}
 	}
     },
     
