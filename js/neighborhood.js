@@ -21,40 +21,40 @@ enyo.kind({
 		]}
 	],
   
-	// Constructor: init list
-	create: function() {
-		this.inherited(arguments);
-		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
-		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
-		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
-		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
-		this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
-		this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
-		var cacheData = this.findInCache({icon: this.$.server});
-		var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
-		this.$.server.setColorizedColor(cacheData ? cacheData.colorvalue : xoPalette.colors[serverColor]);
-		this.users = [];
-		this.activities = [];
-		this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
-	    if (presence.isConnected() || window.sugarizerOS)
-		this.updateNetworkState();
-	    if (l10n.language.direction == "rtl") {
-		this.$.message.addClass("rtl-10");
-	    }
-	    this.draw();
-	},
+    // Constructor: init list
+    create: function() {
+	this.inherited(arguments);
+	this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
+	this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
+	this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
+	this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
+	this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
+	this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
+	var cacheData = this.findInCache({icon: this.$.server});
+	var serverColor = Math.floor(Math.random()*xoPalette.colors.length);
+	this.$.server.setColorizedColor(cacheData ? cacheData.colorvalue : xoPalette.colors[serverColor]);
+	this.users = [];
+	this.activities = [];
+	this.timer = window.setInterval(enyo.bind(this, "updateNetworkState"), constant.timerUpdateNetwork);
+	if (presence.isConnected() || window.sugarizerOS)
+	    this.updateNetworkState();
+	if (l10n.language.direction == "rtl") {
+	    this.$.message.addClass("rtl-10");
+	}
+	this.draw();
+    },
     
-	// Get linked toolbar
-	getToolbar: function() {
-		if (this.toolbar == null)
-			this.toolbar = new Sugar.NeighborhoodToolbar();
-		return this.toolbar;
-	},
-	
-	// Get linked popup
-	getPopup: function() {
-		return this.$.networkPopup;
-	},
+    // Get linked toolbar
+    getToolbar: function() {
+	if (this.toolbar == null)
+	    this.toolbar = new Sugar.NeighborhoodToolbar();
+	return this.toolbar;
+    },
+    
+    // Get linked popup
+    getPopup: function() {
+	return this.$.networkPopup;
+    },
     createWifiIcons: function (items){
 	//If SugarizerOS, adding Wireless networks icons
 	if (window.sugarizerOS){
@@ -76,7 +76,7 @@ enyo.kind({
 			icon: {directory: "icons", icon: "network-wireless-0"+pwr+".svg"},
 			size: constant.sizeNeighbor,
 			colorized: true,
-			colorizedColor: xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)],
+			colorizedColor: currentNetwork.color,
 			popupShow: enyo.bind(this, "showWifiPopup"),
 			popupHide: enyo.bind(this, "hideWifiPopup"),
 			data: currentNetwork
@@ -84,7 +84,9 @@ enyo.kind({
 							      {owner: this});
 		    icon.render();
 		    networkIcons.push(icon);
-		    items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
+		    var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
+		    items.push(item);
+		    this.addToCache(item);
 		}}
 	}
     },
