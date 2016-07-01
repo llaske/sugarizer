@@ -66,7 +66,7 @@ enyo.kind({
 		if (pwr > 5){
 		    if (pwr % 2 != 0)
 			pwr +=1;
-		    pwr = 10 - pwr;
+		    pwr = 10 - (pwr -2);
 		    pwr = pwr * 10;
 		    currentNetwork.networkId = currentNetwork.BSSID;
 		    currentNetwork.shared = false;
@@ -74,7 +74,7 @@ enyo.kind({
 		    cacheData = this.findInCache(currentNetwork);
 		    currentNetwork.color =  xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
 		    if (cacheData)
-			currentNetwork.color = cacheData.icon.getData().color;
+			currentNetwork.color = cacheData.color;
 		    var icon = this.$.network.createComponent({
 			kind: "Sugar.Icon",
 			icon: {directory: "icons", icon: "network-wireless-0"+pwr+".svg"},
@@ -601,17 +601,21 @@ enyo.kind({
 	
 	// Cache handling
 	addToCache: function(item) {
-		// Get name
-		var data = item.icon.getData();
-		var name;
-		if (!data) name = "server";
-		else if (data.networkId) name = data.networkId;
-		else if (data.shared && data.shared.id) name = data.shared.id;
-		
+	    // Get name
+	    var data;
+	    if (item.icon)
+		data = item.icon.getData();
+	    else
+		data = item;
+	    var name;
+	    if (!data) name = "server";
+	    else if (data.networkId) name = data.networkId;
+	    else if (data.shared && data.shared.id) name = data.shared.id;
+	    
 		// Add to cache
-		var len = networkItemsCache;
-		var found = false;
-		for(var i = 0 ; i < len ; i++) {
+	    var len = networkItemsCache;
+	    var found = false;
+	    for(var i = 0 ; i < len ; i++) {
 			var networkItem = networkItemsCache[i];
 			if (networkItem.name == name) {
 				networkItem.x = x;
