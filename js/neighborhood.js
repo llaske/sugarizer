@@ -74,7 +74,7 @@ enyo.kind({
 		    cacheData = this.findInCache(currentNetwork);
 		    currentNetwork.color =  xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
 		    if (cacheData)
-			currentNetwork.color = cacheData.icon.getData();
+			currentNetwork.color = cacheData.icon.getData().color;
 		    var icon = this.$.network.createComponent({
 			kind: "Sugar.Icon",
 			icon: {directory: "icons", icon: "network-wireless-0"+pwr+".svg"},
