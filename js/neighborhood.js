@@ -603,10 +603,8 @@ enyo.kind({
 	addToCache: function(item) {
 	    // Get name
 	    var data;
-	    if (item.icon)
-		data = item.icon.getData();
-	    else
-		data = item;
+	    if (item.icon) data = item.icon.getData();
+	    else data = item;
 	    var name;
 	    if (!data) name = "server";
 	    else if (data.networkId) name = data.networkId;
