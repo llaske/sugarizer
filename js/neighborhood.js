@@ -66,7 +66,7 @@ enyo.kind({
 			pwr +=1;
 		    pwr = 10 - (pwr -2);
 		    pwr = pwr * 10;
-		    cacheIcon = sugarizerOS.getWifiIconFromCache(currentNetwork.BSSID);
+		    cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
 		    if (!cacheIcon){
 			currentNetwork.networkId = currentNetwork.BSSID;
 			currentNetwork.shared = false;
