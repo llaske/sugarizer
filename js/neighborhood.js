@@ -1,8 +1,6 @@
-
-
 // Local cache of icon coordonate
 var networkItemsCache = [];
-
+var wifiItemsCache = [];
 
 // Neighborhood view
 enyo.kind({
@@ -68,10 +66,15 @@ enyo.kind({
 			pwr +=1;
 		    pwr = 10 - (pwr -2);
 		    pwr = pwr * 10;
-		    currentNetwork.networkId = currentNetwork.BSSID;
-		    currentNetwork.shared = false;
-		    currentNetwork.shared.id = currentNetwork.BSSID;
-		    currentNetwork.color =  xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
+		    cacheIcon = sugarizerOS.getWifiIconFromCache(currentNetwork.BSSID);
+		    if (!cacheIcon){
+			currentNetwork.networkId = currentNetwork.BSSID;
+			currentNetwork.shared = false;
+			currentNetwork.shared.id = currentNetwork.BSSID;
+			currentNetwork.color =  xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
+		    }
+		    else
+			currentNetwork = cacheIcon;
 		    var icon = this.$.network.createComponent({
 			kind: "Sugar.Icon",
 			icon: {directory: "icons", icon: "network-wireless-0"+pwr+".svg"},
@@ -85,6 +88,7 @@ enyo.kind({
 							      {owner: this});
 		    icon.render();
 		    networkIcons.push(icon);
+		    sugarizerOS.addNetworkIconToCache(icon);
 		    var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
 		    items.push(item);
 		}}
@@ -392,7 +396,7 @@ enyo.kind({
 			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false, child: []});
 		
 		// Create network icons for items
-		this.createNetworkIcons(items);
+	    this.createNetworkIcons(items);
 	    this.createWifiIcons(items);
 	    
 		// Compute icons position
@@ -408,7 +412,8 @@ enyo.kind({
 			current.x = (cacheData && cacheData.x < maxx) ? cacheData.x : current.size*hasChild + Math.floor(Math.random()*maxx);
 			var maxy = canvas_center.dy-current.size-2*hasChild*current.size;
 			current.y = (cacheData && cacheData.y < maxy) ? cacheData.y : current.size*hasChild + Math.floor(Math.random()*maxy);
-			if (!cacheData) this.addToCache(current);
+		    if (!cacheData) this.addToCache(current);
+		    
 			
 			// Set child position
 			var childLen = current.child.length;
