@@ -88,7 +88,7 @@ enyo.kind({
 							      {owner: this});
 		    icon.render();
 		    networkIcons.push(icon);
-		    sugarizerOS.addNetworkIconToCache(icon);
+		    sugarizerOS.addNetworkIconToCache(currentNetwork);
 		    var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
 		    items.push(item);
 		}}
