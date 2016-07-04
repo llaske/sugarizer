@@ -211,38 +211,13 @@ enyo.kind({
 
     joinNetwork: function(network)
     {
-	window.sugarizerOS.joinNetwork(network.SSID, "", network.capabilities);
+	window.sugarizerOS.joinNetwork(network.SSID, sugarizerOS.sharedKeyBuffer, network.capabilities);
     },
     enterKey: function(network){
-	//Popup menu to enter a shared key for a wireless network
-	this.getPopup.setHeader({
-	    colorized:false,
-	    name:network.BSSID,
-	    title: "Enter shared key",
-	    action: null
-	});
-	var items = [];
-	items.push(
-	    {
-		name:"keyInput",
-		kind: "Input",
-		placeholder: "WPA/WEP Key",
-		type:"text",
-		// you can insert all sort of event like onchange, oninput, onfocus etc.
-		// you can use this attributes properties for additional attributes
-		// like data-role, maxlength, readonly and required
-		attributes:{
-		    maxlength:80,
-		    required:"required"
-		}
-	    }
-	);
-	this.getPopup().setItems(items);
-	this.getPopup().setFooter(null);
-	// Show popup
-	this.getPopup().showPopup();
+	this.getPopup().hidePopup();
+	this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogNetworkKey"});
+	this.otherview.show();
     },
-    
     //Popup menu for Wireless Network handling
     showWifiPopup: function(icon){
 	// Create popup

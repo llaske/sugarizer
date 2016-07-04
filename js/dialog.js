@@ -121,6 +121,57 @@ enyo.kind({
 	  
 
 
+// Enter Wireless key dialog
+enyo.kind({
+	name: "Sugar.DialogNetworkKey",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+		    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+		    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+	    {name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+	    {name: "content", components: [
+		{classes: "enterkey-input", components: [
+		    {name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
+		]}
+	    ]}
+	],
+    
+    // Constructor
+    create: function() {
+	this.inherited(arguments);
+	this.$.text.setContent(l10n.get("EnterKey"));
+	if (l10n.language.direction == "rtl") {
+	    this.$.text.addClass("rtl-10");
+	}
+    },
+    rendered: function() {
+	this.$.icon.render();
+	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+    },
+    // Event handling
+    cancel: function() {
+	this.hide();
+    },	
+    ok: function() {
+	sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
+	this.hide();
+	this.$.okbutton.setDisabled(true);
+	this.$.cancelbutton.setDisabled(true);
+    },
+    keychanged: function() {
+    }
+});
+
 // About me dialog
 enyo.kind({
 	name: "Sugar.DialogAboutme",
