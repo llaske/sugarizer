@@ -213,6 +213,8 @@ enyo.kind({
     {
 	window.sugarizerOS.joinNetwork(network.SSID, "", network.capabilities);
     },
+    enterKey: function(network){
+    },
     
     //Popup menu for Wireless Network handling
     showWifiPopup: function(icon){
@@ -224,7 +226,7 @@ enyo.kind({
 	    icon: icon.icon,
 	    colorized: false,
 	    name: iconName,
-	    title: icon.getData().BSSID,
+	    title: data.BSSID,
 	    action: null
 	});
 	var items = [];
@@ -234,7 +236,16 @@ enyo.kind({
 	    name: l10n.get("JoinNetwork"),
 	    action: enyo.bind(this, "joinNetwork"),
 	    data: [icon.getData(), null]
-	});		
+	});
+	if (sugarizerOS.getEncryptionString(data) != "OPEN")
+	    items.push({
+		icon: {directory: "icons", icon: "activity-start.svg"},
+		colorized: false,
+		name: l10n.get("EnterKey"),
+		action: enyo.bind(this, "enterKey"),
+		data: [icon.getData(), null]
+	    });		
+	
 	this.getPopup().setItems(items);
 	this.getPopup().setFooter(null);
 	// Show popup
