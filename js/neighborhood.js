@@ -225,7 +225,7 @@ enyo.kind({
 	items.push(
 	    {
 		name:"keyInput",
-		kind: "onyx.Input",
+		kind: "Input",
 		placeholder: "WPA/WEP Key",
 		type:"text",
 		// you can insert all sort of event like onchange, oninput, onfocus etc.
