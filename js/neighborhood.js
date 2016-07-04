@@ -237,7 +237,7 @@ enyo.kind({
 	    action: enyo.bind(this, "joinNetwork"),
 	    data: [icon.getData(), null]
 	});
-	if (sugarizerOS.getEncryptionString(data) != "OPEN")
+	if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN")
 	    items.push({
 		icon: {directory: "icons", icon: "activity-start.svg"},
 		colorized: false,
