@@ -1,0 +1,232 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#cy {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+}
+
+#main-toolbar #nodetext-button {
+  background-image: url(../icons/nodetext-mode.svg);
+}
+
+#main-toolbar #delete-button {
+  background-image: url(../icons/delete-mode.svg);
+}
+
+#main-toolbar #zoom-button {
+  background-image: url(../icons/zoom.svg);
+}
+
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #redo-button {
+  background-image: url(../icons/edit-redo.svg);
+}
+
+#main-toolbar #png-button {
+  background-image: url(../icons/png-export.svg);
+}
+
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+.zoombuttons {
+  border: 0px;
+  background: #000000;
+  border-radius: 5.5px !important;  
+}
+
+.zoombutton:active {
+  background-color: #808080;
+  border-radius: 5.5px !important;
+}
+
+.search-field-border {
+  position: relative;
+  border-radius: 22px;
+  top: 8px;
+  margin-left: 57px;
+  width: 350px;
+  height: 35px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.search-field-border-focus {
+  background-color: white;
+  border: 2px solid white;
+}
+
+.search-field-border-nofocus {
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+}
+
+.search-field-input {
+  opacity: 1;
+  margin-left: 30px;
+  border: 0px;	
+  display: inline-block;
+  background-color: #e5e5e5;
+  width: 270px;
+  line-height: 22px;
+  outline: 0;
+  font-size: 12pt;
+  position: relative;
+  top: 5px;
+}
+
+.splitbar {
+  background-image: url(../icons/split.svg);
+  background-position: center;
+  background-repeat: no;
+  width: 3px;
+  margin-left: 5px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  height: 45px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.palette .colors {
+  list-style-type: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.palette .colors button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: white;
+  margin-left: 5.5px;
+  margin-top: 5.5px;
+}
+.palette .colors tr:nth-last-child(1) button {
+  margin-bottom: 5.5px;
+}
+
+.mle {
+	position: absolute;
+	visibility: hidden;
+	width: 190px;
+	height: 190px;
+	z-index: 100;
+	font-family: sans-serif;
+    font-size: 12pt;
+	text-align: center;
+	vertical-align: middle;
+}
+
+@media screen and (max-width: 905px) {
+ .splitbar {
+   visibility: hidden;
+   width: 0px;
+ }
+
+}
+
+@media screen and (max-width: 810px) {
+ .search-field-input {
+  width: 120px;
+ }
+ 
+ .search-field-border  {
+   width: 200px;
+ }
+}
+
+@media screen and (max-width: 650px) {
+ .search-field-border {
+   margin-left: 5px;
+ }
+}
+
+@media screen and (max-width: 700px) {
+ #main-toolbar #network-button {
+   visibility: hidden;
+   width: 0px;
+ }
+}
+
+@media screen and (max-width: 640px) {
+ #main-toolbar #png-button {
+   visibility: hidden;
+   width: 0px;
+ }
+}
+
+@media screen and (max-width: 600px) {
+ .toolbar {
+   padding-left: 10px;
+ }
+ #main-toolbar #zoom-button {
+   visibility: hidden;
+   left: 0px;
+   width: 0px;
+ }
+ 
+ #zoompalette {
+   left: 0px !important;
+ }
+ 
+ .colorpalette {
+   left: 0px !important;
+ }
+ 
+ #foreground-button {
+   visibility: hidden;
+   width: 0px; left: 0px;
+ }
+ 
+ #background-button {
+   visibility: hidden;
+   width: 0px; left: 0px;
+ }
+}
+
+@media screen and (max-width: 515px) {
+ #main-toolbar #stop-button {
+   position: absolute;
+ }
+}
