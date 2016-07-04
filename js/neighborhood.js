@@ -413,7 +413,7 @@ enyo.kind({
 			var maxy = canvas_center.dy-current.size-2*hasChild*current.size;
 			current.y = (cacheData && cacheData.y < maxy) ? cacheData.y : current.size*hasChild + Math.floor(Math.random()*maxy);
 		    if (!cacheData) this.addToCache(current);
-		    
+		    console.log(networkItemsCache);
 			
 			// Set child position
 			var childLen = current.child.length;
