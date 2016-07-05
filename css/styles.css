@@ -611,8 +611,23 @@ input {
 	font-size: 10pt;
 }
 
+.enterkey-input{
+    margin-top: 50px;
+    border-radius: 22px;
+    height: 25px;
+    width: 270px;
+    background-color: #e5e5e5;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 10pt;
+}
+
+.enterkey-input:focus{
+    background-color: white;
+}
+
 .aboutme-name:focus {
-	background-color: white;
+    background-color: white;
 }
 
 .aboutme-name-validate {
