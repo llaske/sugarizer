@@ -139,9 +139,10 @@ enyo.kind({
 		]},
 	    {name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 	    {name: "content", components: [
-		{classes: "enterkey-input", components: [
+		{classes: "enterkey", components: [
 		    {name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
-		]}
+		]},
+		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "connect"}
 	    ]}
 	],
     
@@ -169,6 +170,8 @@ enyo.kind({
 	this.$.cancelbutton.setDisabled(true);
     },
     keychanged: function() {
+    },
+    connect: function(){	
     }
 });
 

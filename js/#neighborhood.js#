@@ -64,8 +64,8 @@ enyo.kind({
 		if (pwr > 5){
 		    if (pwr % 2 != 0)
 			pwr +=1;
-
-		    pwr = (pwr - 2) * 10;
+		    pwr = 10 - (pwr -2);
+		    pwr = pwr * 10;
 		    cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
 		    if (!cacheIcon){
 			currentNetwork.networkId = currentNetwork.BSSID;
