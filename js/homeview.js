@@ -123,7 +123,11 @@ enyo.kind({
 				preferences.save();
 		}
 		preferences.updateEntries();
-		this.init();
+	    this.init();
+	    // If we are in the SugarizerOS environment, load the android apps into activities
+	    if (window.sugarizerOS){
+		sugarizerOS.initActivitiesPreferences();
+	    }
 	},
 
 	// Error on init activities

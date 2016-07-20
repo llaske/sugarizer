@@ -118,7 +118,7 @@ enyo.kind({
 
 
 		// If colorized		
-		if (this.colorized && !this.isNative) {
+		if (this.colorized && !this.icon.isNative) {
 			// Get colorized color
 			var colorToUse = this.colorizedColor;
 			var name = this.icon.directory+"/"+this.icon.icon;

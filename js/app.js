@@ -35,24 +35,23 @@ define(function (require) {
 			preferenceset = load;
 			main();	
 		});
-	    //If we are in the SugarizerOS environment, then this method will load Android applications
-	    if (env.isSugarizerOS()){
-		sugarizerOS.initActivitiesPreferences();
-	    }
+	    
 	}
 	
-	// Wait for localized strings are here
+	// Wait for localized strings to be here
 	window.addEventListener('localized', function() {
 		if (app) {
 			app.getToolbar().render();
 			app.render();
-		} else if (--toload == 0)
-			loadpreference();
+		} else if (--toload == 0){
+		    loadpreference();
+		}
 	}, false);
 	
 	// Wait for DOM is ready.
 	require(['domReady!'], function (doc) {
-		if (--toload == 0)
-			loadpreference();
+	    if (--toload == 0){
+		loadpreference();
+	    }
 	});
 });

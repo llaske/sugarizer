@@ -142,7 +142,7 @@ enyo.kind({
 		{classes: "enterkey", components: [
 		    {name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
 		]},
-		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "connect"}
+		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
 	    ]}
 	],
     
@@ -158,6 +158,7 @@ enyo.kind({
 	this.$.icon.render();
 	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
 	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+	this.$.connectButton.setContent(l10n.get("Ok"));
     },
     // Event handling
     cancel: function() {
@@ -459,9 +460,9 @@ enyo.kind({
 	},
 	
 	rendered: function() {
-		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
-		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-		this.owner.centerDialog(this);
+	    this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+	    this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+	    this.owner.centerDialog(this);
 	},
 	
 	// Event handling
