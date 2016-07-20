@@ -9,7 +9,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
         ctx = canvas.getContext('2d');
 
     var _ = l10n.get;
-	
+
 	var first = true;
 
 	l10n.ready(function() {
@@ -25,7 +25,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			});
 		}
 	});
-	
+
     var IMAGE_SIZE, HALF_SIZE, updateTimeout;
     var showGrid, showSouth;
 
@@ -72,7 +72,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			showSouth: showSouth
 		};
 	}
-	
+
 
 	function getSugarSettings(callback) {
 		var defaultSettings = {
@@ -87,14 +87,14 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			var loadedSettings = JSON.parse(values.sugar_settings);
 			chrome.storage.local.get('sugar_settings', function(values) {
 				callback(loadedSettings);
-			}); 
+			});
 		} else {
 			var loadedSettings = JSON.parse(localStorage.sugar_settings);
 			callback(loadedSettings);
 		}
 	}
-	
-	
+
+
     function updateSizes() {
         /*
             Dynamically resize elements as and when the window resizes.
@@ -131,7 +131,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
         clearTimeout(updateTimeout);
         updateInfo();
         Draw.setImageSize(IMAGE_SIZE);
-        Draw.moon(DataModel.phase_of_moon);
+        Draw.moon();
         if (showSouth) {
             ctx.save();
             ctx.rotate(Math.PI);
@@ -246,7 +246,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 
         infoHTML = infoHTML.join('');
         document.querySelector('#panel-left').innerHTML = infoHTML;
-		
+
 		 document.getElementById("toggle-grid-button").title = _('ToggleGrid');
 		 document.getElementById("toggle-hemisphere-button").title = _('ToggleHemisphere');
 		 document.getElementById("save-image-button").title = _('SaveImage');

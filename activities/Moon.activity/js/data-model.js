@@ -118,11 +118,11 @@ define(function() {
         self.next_full_moon_date = currDate + next_full_moon_sec - correct_for_tz_and_dst(currDate + next_full_moon_sec);
 
         /* Eclipse information */
-        var next_lunar_eclipse_sec = next_lunar_eclipse_sec_at_time(currDate);
+        self.next_lunar_eclipse_sec = next_lunar_eclipse_sec_at_time(currDate);
         var next_solar_eclipse_sec = next_solar_eclipse_sec_at_time(currDate);
-        var last_lunar_eclipse_sec = last_lunar_eclipse_sec_at_time(currDate);
-        self.days_until_lunar_eclipse = next_lunar_eclipse_sec / SECONDS_PER_DAY;
-        self.next_lunar_eclipse_date = currDate + next_lunar_eclipse_sec - correct_for_tz_and_dst(currDate + next_lunar_eclipse_sec);
+        self.last_lunar_eclipse_sec = last_lunar_eclipse_sec_at_time(currDate);
+        self.days_until_lunar_eclipse = self.next_lunar_eclipse_sec / SECONDS_PER_DAY;
+        self.next_lunar_eclipse_date = currDate + self.next_lunar_eclipse_sec - correct_for_tz_and_dst(currDate + self.next_lunar_eclipse_sec);
         self.days_until_solar_eclipse = next_solar_eclipse_sec / SECONDS_PER_DAY;
         self.next_solar_eclipse_date = currDate + next_solar_eclipse_sec - correct_for_tz_and_dst(currDate + next_solar_eclipse_sec);
 
@@ -355,6 +355,7 @@ define(function() {
             if (date_string.slice(-1) !== "_") {
                 var next = Date.parse(date_string.slice(0, -1)) / 1000 + currOffset;
                 if (next >= now) {
+                    console.log(new Date(1000*next))
                     return next - now;
                 }
             }
