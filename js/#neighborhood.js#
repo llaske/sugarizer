@@ -57,42 +57,45 @@ enyo.kind({
 	//If SugarizerOS, adding Wireless networks icons
 	if (window.sugarizerOS){
 	    var networkIcons = [];
-	    var connectedString = "";
 	    var networks = sugarizerOS.networks;
 	    for (var i = 0; i < networks.length; i++){
 		var currentNetwork = networks[i];
+		var connectedString = "";
 		var pwr = (-1 * currentNetwork.RSSI) % 10;
+		
 		if (currentNetwork.isConnected)
-		    connectedString = "-connected";
+		    connectedString = "-connected"
 		if (pwr > 5){
 		    if (pwr % 2 != 0)
 			pwr +=1;
-
+		    
 		    pwr = (pwr - 2) * 10;
 		    cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
 		    if (!cacheIcon){
+			console.log("CacheIcon : ");
+			console.log(cacheIcon);
 			currentNetwork.networkId = currentNetwork.BSSID;
 			currentNetwork.shared = false;
 			currentNetwork.shared.id = currentNetwork.BSSID;
 			currentNetwork.color =  xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
+			var icon = this.$.network.createComponent({
+			    kind: "Sugar.Icon",
+			    icon: {directory: "icons", icon: "network-wireless"+connectedString+"-0"+pwr+".svg"},
+			    size: constant.sizeNeighbor,
+			    colorized: true,
+			    colorizedColor: currentNetwork.color,
+			    popupShow: enyo.bind(this, "showWifiPopup"),
+			    popupHide: enyo.bind(this, "hideWifiPopup"),
+			    data: currentNetwork
+			},
+								  {owner: this});
+
+			icon.render();
+			var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
+			sugarizerOS.addNetworkIconToCache(item);
 		    }
 		    else
-			currentNetwork = cacheIcon;
-		    var icon = this.$.network.createComponent({
-			kind: "Sugar.Icon",
-			icon: {directory: "icons", icon: "network-wireless"+connectedString+"-0"+pwr+".svg"},
-			size: constant.sizeNeighbor,
-			colorized: true,
-			colorizedColor: currentNetwork.color,
-			popupShow: enyo.bind(this, "showWifiPopup"),
-			popupHide: enyo.bind(this, "hideWifiPopup"),
-			data: currentNetwork
-		    },
-							      {owner: this});
-		    icon.render();
-		    networkIcons.push(icon);
-		    sugarizerOS.addNetworkIconToCache(currentNetwork);
-		    var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
+			var item = cacheIcon;
 		    items.push(item);
 		}}
 	}
@@ -435,7 +438,7 @@ enyo.kind({
 			var childLen = current.child.length;
 			for (var j = 0 ; j < childLen ; j++) {
 				var child = current.child[j];
-				var angle = (2.0*Math.PI)/childLen * j;
+2				var angle = (2.0*Math.PI)/childLen * j;
 				child.x = current.x + current.size * Math.sin(angle);
 				child.y = current.y - current.size * Math.cos(angle);
 			}
