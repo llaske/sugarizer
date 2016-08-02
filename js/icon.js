@@ -26,8 +26,7 @@ enyo.kind({
 	classes: "web-activity",
 	components: [
 	    { name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
-	    { name: "disable", classes: "web-activity-disable", showing: false},
-	    { tag: "img", name: "thumbnail", classes: "web-activity-thumbnail", attributes: {src: this.icon}, showing: false, onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"}
+	    { name: "disable", classes: "web-activity-disable", showing: false}
 	],
 	
 	// Constructor
@@ -144,12 +143,6 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
-	    //If isNative
-	    if (this.icon != null && this.icon.isNative != null){
-		this.$.thumbnail.show();
-		this.$.thumbnail.setSrc(this.icon.icon);
-		console.log(this);
-	    }
 
 	},
     

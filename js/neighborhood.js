@@ -215,6 +215,7 @@ enyo.kind({
     joinNetwork: function(network)
     {
 	window.sugarizerOS.joinNetwork(network.SSID, sugarizerOS.sharedKeyBuffer, network.capabilities);
+	this.getPopup().hidePopup();
     },
     enterKey: function(network){
 	this.getPopup().hidePopup();
