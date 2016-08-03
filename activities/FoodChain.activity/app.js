@@ -18,6 +18,7 @@ enyo.kind({
 		{ name: "BuildGame", kind: "ShadowButton", img: "two", classes: "game-BuildGame", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
 		{ name: "PlayGame", kind: "ShadowButton", img: "three", classes: "game-PlayGame", ontap: "playGame", onenter: "showGameDescription", onleave: "hideGameDescription" },
 		{ kind: "ShadowButton", img: "information", classes: "information", ontap: "showCredits" },
+		{ name: "networkCheck", kind: "FoodChain.NetworkCheck"},
 		
 		// Popup for game title and description
 		{ name: "popup", classes: "game-popup", components: [
@@ -81,13 +82,17 @@ enyo.kind({
 	rendered: function() {	
 		// Play soundtrack
 		FoodChain.sound.play(this.soundtrack);
+	
+		// Check network
+		this.$.networkCheck.check();
+
 		
 		// Create timer for card animation
 		this.createComponent({ name: "timer", kind: "Timer", baseInterval: 1200, onTriggered: "displayCard" }, {owner: this});		
 	},
 	
 	endOfSound: function(e, s) {
-		if (s == this.soundtrack)
+		if (s.sound == this.soundtrack)
 			FoodChain.sound.play(this.soundtrack);
 	},
 	
@@ -159,5 +164,16 @@ enyo.kind({
 		else if (s.name == "PlayGame") {
 			FoodChain.context.object = new FoodChain.PlayGame({level: level}).renderInto(document.getElementById("body"));
 		}		
+	},
+	
+	// Test if database is installed
+	checkDatabase: function(then) {
+		this.$.networkCheck.check(then);	
+	},
+	hasDatabase: function() {
+		return this.$.networkCheck.getConnected();
+	},
+	getDatabase: function() {
+		return (this.hasDatabase() ? "" : "http://server.sugarizer.org/activities/FoodChain.activity/");
 	}
 });

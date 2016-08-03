@@ -1,0 +1,76 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #language-button {
+  background-image: url(../icons/module-language.svg);
+}
+
+#main-toolbar #face-button {
+  background-image: url(../icons/face.svg);
+}
+
+#main-toolbar #speech-button {
+  background-image: url(../icons/voice.svg);
+}
+
+#main-toolbar #gamemode1-button {
+  background-image: url(../icons/mode-type.svg);
+}
+
+#main-toolbar #gamemode2-button {
+  background-image: url(../icons/mode-robot.svg);
+}
+
+#main-toolbar #gamemode3-button {
+  background-image: url(../icons/mode-chat.svg);
+}
+
+#speakText {
+	height:45px;
+	width:50px;
+	margin:8px;
+	right:4px;
+	bottom: 15px;
+	z-index:1;
+	position:absolute;
+	background-image: url(../icons/go-right.svg);
+	background-size: 55px 50px;
+	background-position: 50% 50%;
+}
+
+#userText {
+	height:40px;
+	margin:5px;
+	margin-left:3vh;
+	width:90vw;
+	font-size: 28pt;
+	font-weight: bold;
+	z-index:0;
+}
+
+
+@media screen and (min-width: 890px) {
+	.thinpalette .wrapper {
+	  max-width: 66px;
+	  min-width: 61px;
+	  min-height: 51px;
+	  pointer-events: auto;
+	  background-color: black;
+	  border: 2px solid #808080;
+	}
+	.widepalette .wrapper {
+	  max-width: 500px;
+	  min-width: 500px;
+	  min-height: 51px;
+	  pointer-events: auto;
+	  background-color: black;
+	  border: 2px solid #808080;
+	}
+}
+
+@media screen and (max-width: 890px) {
+	.toolbar {
+	 padding-left: 10px;
+	}
+}

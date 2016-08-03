@@ -1,0 +1,32 @@
+:NavBar
+NavBarChoisirLangue|Choisir Langue
+NavBarGarderProjet2|Garder Projet
+:Paint
+PaintEllipseCercle|Ellipse Cercle
+PaintLigneDroite|Ligne Droite
+PaintPaletteCouleur|Palette Couleur
+PaintPinceaux|Pinceaux
+PaintPipette|Pipette
+PaintPolygone|Polygone
+PaintPotDePeinture|Pot De Peinture
+PaintRectangle|Rectangle
+PaintTampon|Tampon
+:Halo
+HaloAfficher-leHalo|Afficher le Halo
+HaloCentre-deRotation|Centre de Rotation
+HaloCouleur|Couleur
+HaloDeplacerPrendre|Deplacer Prendre
+HaloFleche-au-centre|Fleche au centre
+HaloMenu|Menu
+HaloPivotement|Pivotement
+HaloPoubelle|Poubelle
+HaloRanger|Ranger
+HaloTailleCouleurCopie|Taille Couleur Copie
+HaloTuile-pourScript|Tuile pour Script
+HaloVisualiseur|Visualiseur
+:Supplies
+SuppliesTexte|Texte
+:ObjectCat
+:ScriptTile
+:Menu
+:Books

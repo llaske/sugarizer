@@ -78,7 +78,7 @@ enyo.kind({
 	
 	// Sound ended, play next instrument
 	endOfSound: function(e, s) {
-		if (s == soundThemes[this.soundindex])
+		if (s.sound == soundThemes[this.soundindex])
 			this.nextInstrument();
 	},
 	
@@ -94,11 +94,11 @@ enyo.kind({
 		for (var i = this.soundpos ; i < soundNotesPos.length ; i++) {
 			var val = soundNotesPos[i];
 			this.soundpos = i;
-			if (s >= val - 50 && s < val + 50) {
+			if (s.timestamp >= val - 50 && s.timestamp < val + 50) {
 				this.$.letter.setContent(String.fromCharCode(65+i));
 				return;
 			}
-			if (val > s) {
+			if (val > s.timestamp) {
 				break;
 			}
 		}

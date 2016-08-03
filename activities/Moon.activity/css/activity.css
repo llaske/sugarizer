@@ -1,0 +1,34 @@
+@import url(navbar.css);
+
+body {
+    overflow: hidden;
+}
+
+#panel-container {
+    height: 100%;
+    width: 100%;
+}
+
+.panel {
+    box-sizing: border-box;
+    float: left;
+    height: 100%;
+}
+
+#panel-left {
+    overflow-y: auto;
+    padding: 10px;
+    width: 40%;
+}
+
+#panel-right {
+    background-color: black;
+    width: 60%;
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

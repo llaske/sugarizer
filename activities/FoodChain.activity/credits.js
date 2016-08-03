@@ -75,7 +75,7 @@ enyo.kind({
 	
 	// Loop on the theme
 	endOfSound: function(e, s) {
-		if (s == this.soundtrack)
+		if (s.sound == this.soundtrack)
 			FoodChain.sound.play(this.soundtrack);
 	},
 	

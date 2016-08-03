@@ -107,7 +107,7 @@ enyo.kind({
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupShowTimer();
 				});
-				enyo.dispatcher.listen(node, "touchend", function() {
+				enyo.dispatcher.listen(node, "touchend", function(e) {
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};			
 					that.popupHideTimer();
 				});			
