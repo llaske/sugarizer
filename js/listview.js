@@ -67,7 +67,10 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		var activitiesList = this.activities;
+	    var activitiesList = this.activities;
+	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native")
+		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
+	    else
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
