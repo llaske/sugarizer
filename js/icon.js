@@ -115,7 +115,7 @@ enyo.kind({
 		}
 		
 		// If colorized		
-		if (this.colorized) {
+		if (this.colorized && !this.icon.isNative) {
 			// Get colorized color
 			var colorToUse = this.colorizedColor;
 			var name = this.icon.directory+"/"+this.icon.icon;
@@ -167,10 +167,15 @@ enyo.kind({
 	},
 	
 	iconChanged: function() {
-		if (this.icon != null)
-			this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
+	    if (this.icon != null)
+	    {
+		if (this.icon.isNative != null)
+		    this.$.icon.applyStyle("background-image", "url('"+this.icon.icon+"');");
 		else
-			this.$.icon.applyStyle("background-image", null);
+		    this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
+	    }
+	    else
+		this.$.icon.applyStyle("background-image", null);
 	},
 	
 	colorizedColorChanged: function() {
@@ -180,7 +185,9 @@ enyo.kind({
 	colorizedChanged: function() {
 		this.render();
 	},
-	
+    isNativeChanged: function(){
+	this.render();
+    },
 	disabledBackgroundChanged: function() {
 		this.$.disable.applyStyle("background-color", this.disabledBackground);
 	},

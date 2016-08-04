@@ -122,8 +122,11 @@ enyo.kind({
 			if (preferences.updateActivities(inResponse.data))
 				preferences.save();
 		}
-		preferences.updateEntries();
-		this.init();
+	    preferences.updateEntries();
+	    if (window.sugarizerOS){
+		sugarizerOS.initActivitiesPreferences();
+	    }
+	    this.init();
 	},
 
 	// Error on init activities
@@ -242,6 +245,8 @@ enyo.kind({
 					{owner: this}).render();
 				break;
 			}
+		    if (activity.type != null && activity.type == "native")
+			activity.isNative = true;
 			this.$.desktop.createComponent({
 					kind: "Sugar.Icon",
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
@@ -415,6 +420,8 @@ enyo.kind({
 					data: [activity, activity.instances[i]]
 				});
 			}
+	    
+	    if (!activity.isNative){
 		this.getPopup().setItems(items);
 		this.getPopup().setFooter([{
 			icon: activity,
@@ -423,6 +430,7 @@ enyo.kind({
 			action: enyo.bind(this, "runNewActivity"),
 			data: [activity, null]
 		}]);
+	    }
 
 		// Show popup
 		this.getPopup().showPopup();
