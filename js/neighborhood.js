@@ -243,21 +243,16 @@ enyo.kind({
 	    action: null
 	});
 	var items = [];
-	items.push({
+	item = {
 	    icon: {directory: "icons", icon: "activity-start.svg"},
 	    colorized: false,
 	    name: l10n.get("JoinNetwork"),
 	    action: enyo.bind(this, "joinNetwork"),
 	    data: [icon.getData(), null]
-	});
+	};
 	if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN")
-	    items.push({
-		icon: {directory: "icons", icon: "activity-start.svg"},
-		colorized: false,
-		name: l10n.get("EnterKey"),
-		action: enyo.bind(this, "enterKey"),
-		data: [icon.getData(), null]
-	    });		
+	    item.action = enyo.bind(this, "enterKey");
+	items.push(item);
 	
 	this.getPopup().setItems(items);
 	this.getPopup().setFooter(null);
