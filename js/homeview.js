@@ -127,6 +127,7 @@ enyo.kind({
 	    // If we are in the SugarizerOS environment, load the android apps into activities
 	    if (window.sugarizerOS){
 		sugarizerOS.initActivitiesPreferences();
+		sugarizerOS.scanWifi();
 	    }
 	},
 

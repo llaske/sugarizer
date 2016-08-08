@@ -1,6 +1,7 @@
 // Local cache of icon coordonate
 var networkItemsCache = [];
 var wifiItemsCache = [];
+var lastWifiUpdate = 0;
 
 // Neighborhood view
 enyo.kind({
@@ -110,13 +111,19 @@ enyo.kind({
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
 	}
 	if (window.sugarizerOS){
-	    sugarizerOS.scanWifi();	    
+	    now = new Date().getTime();
+	    sugarizerOS.scanWifi();
 	    this.$.owner.setShowing(true);
 	    this.$.server.setShowing(true);
 	    this.$.empty.setShowing(false);
 	    this.$.message.setShowing(false);
 	    this.$.settings.setShowing(false);
-	    this.draw();
+	    if (wifiItemsCache != sugarizerOS.networks &&
+		(now - lastWifiUpdate) > constant.wifiUpdateTime){
+		this.draw();
+		wifiItemsCache = sugarizerOS.networks;
+		lastWifiUpdate = now;
+	    }
 	    presence.listUsers(enyo.bind(this, "userListReceived"));
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 	}

@@ -27,7 +27,8 @@ constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
 
-constant.timerUpdateNetwork = 60000;
+constant.timerUpdateNetwork = 1000;
+constant.wifiUpdateTime = 60000;
 
 constant.thinClientType = 0;
 constant.clientType = 1;

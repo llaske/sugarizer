@@ -39,6 +39,8 @@ enyo.kind({
 		this.$.resetLauncher.show();
 		this.$.resetLauncher.setText(l10n.get("ResetLauncher"));
 	    }
+	    else
+		this.$.resetLauncher.hide();
 	}
 	if (l10n.language.direction == "rtl") {
 	    this.$.me.addClass("rtl-10");
@@ -111,36 +113,36 @@ enyo.kind({
 	if (window.sugarizerOS){
 	    sugarizerOS.runSettings();
 	}
+	this.hide();
     },
     resetLauncherPopup: function(){
 	if (window.sugarizerOS){
 	    sugarizerOS.chooseLauncher();
 	}
+	this.hide();
     }
-});	
-	  
-
+});
 
 // Enter Wireless key dialog
 enyo.kind({
-	name: "Sugar.DialogNetworkKey",
-	kind: "enyo.Popup",
-	classes: "module-dialog",
-	centered: false,
-	modal: true,
-	floating: true,
-	autoDismiss: false,
-	components: [
-		{name: "toolbar", classes: "toolbar", components: [
-			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
-			{name: "text", content: "xxx", classes: "module-text"},
-		    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
-		    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
-		]},
-	    {name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
-	    {name: "content", components: [
-		{classes: "enterkey", components: [
-		    {name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
+    name: "Sugar.DialogNetworkKey",
+    kind: "enyo.Popup",
+    classes: "module-dialog",
+    centered: false,
+    modal: true,
+    floating: true,
+    autoDismiss: false,
+    components: [
+	{name: "toolbar", classes: "toolbar", components: [
+	    {name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+	    {name: "text", content: "xxx", classes: "module-text"},
+	    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+	    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+	]},
+	{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+	{name: "content", components: [
+	    {classes: "enterkey", components: [
+		{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
 		]},
 		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
 	    ]}
@@ -156,7 +158,7 @@ enyo.kind({
     },
     rendered: function() {
 	this.$.icon.render();
-	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 	this.$.connectButton.setContent(l10n.get("Ok"));
     },
@@ -173,6 +175,11 @@ enyo.kind({
     keychanged: function() {
     },
     connect: function(){	
+    },
+    centerDialog: function(dialog) {
+	var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+	dialog.applyStyle("margin-left", margin.left+"px");
+	dialog.applyStyle("margin-top", (margin.top-55)+"px");
     }
 });
 
@@ -292,8 +299,6 @@ enyo.kind({
 	}
 });
 
-
-
 // Language dialog
 enyo.kind({
 	name: "Sugar.DialogLanguage",
@@ -388,8 +393,6 @@ enyo.kind({
 	}	
 });
 
-
-
 // Computer dialog
 enyo.kind({
 	name: "Sugar.DialogComputer",
@@ -476,8 +479,6 @@ enyo.kind({
 		this.owner.show();
 	}	
 });
-
-
 
 // Server dialog
 enyo.kind({
@@ -688,8 +689,6 @@ enyo.kind({
 		this.addRemoveClass('settings-item-text-enable', !this.disabled);		
 	}
 });
-
-
 
 // Class for a Warning box in settings
 enyo.kind({
