@@ -54,24 +54,13 @@ enyo.kind({
     next: function() {
 	// Handle click next
 	var name = this.$.name.getValue();
-	console.log("STEP", this.step);
 	if (!this.step) {
 	    if (name.length == 0)
 		return;		
 	    this.$.namebox.setShowing(false);
 	    this.$.colortext.setShowing(true);
 	    this.$.owner.setShowing(true);
-	    this.$.previous.setShowing(true);
-	    if (!window.sugarizerOS)
-		this.$.next.setText(l10n.get("Done"));
-	}
-	
-	// Handle done click
-	else if (this.step == 1 && window.sugarizerOS){
-	    this.$.setLauncherText.setShowing(true);
-	    this.$.owner.setShowing(false);
-	    this.$.colortext.setShowing(false);
-	    this.$.setLauncherIcon.setShowing(true);
+	    this.$.previous.setShowing(true); 
 	    this.$.next.setText(l10n.get("Done"));
 	}
 	else{
