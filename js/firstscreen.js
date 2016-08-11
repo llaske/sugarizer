@@ -16,9 +16,7 @@ enyo.kind({
 	    {name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},		
 	    {name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next"},		
 	    {name: "colortext", content: "xxx", classes: "first-colortext", showing: false},		
-	    {name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "first-owner-icon", showing: false, onresize: "resize", ontap: "nextcolor"},
-	    {name: "setLauncherText", content: "xxx", classes: "first-colortext", showing: false},
-	    {name: "setLauncherIcon", kind: "Sugar.Icon", showing: false, icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap: "setLauncher", classes: "first-owner-icon"}
+	    {name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "first-owner-icon", showing: false, onresize: "resize", ontap: "nextcolor"}
 	],
 	
 	// Constructor
@@ -30,7 +28,7 @@ enyo.kind({
 		this.$.next.setText(l10n.get("Next"));
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
 	    this.$.colortext.setContent(l10n.get("ClickToColor"));
-	    this.$.setLauncherText.setContent(l10n.get("SetLauncherText"));
+
 		var canvas_center = util.getCanvasCenter();
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
 		var middletop = (canvas_center.y-constant.sizeOwner/2);
@@ -47,7 +45,7 @@ enyo.kind({
 		// Hide toolbar
 		var toolbar = document.getElementById("toolbar");
 		this.backgroundColor = toolbar.style.backgroundColor;
-		toolbar.style.backgroundColor = "white";
+	    toolbar.style.backgroundColor = "white";
 	},
 	
 	// Event handling
@@ -73,6 +71,11 @@ enyo.kind({
 	    app = new Sugar.Desktop();
 	    app.renderInto(document.getElementById("canvas"));
 	    preferences.save();
+	    if (window.sugarizerOS)
+	    {
+		sugarizerOS.putInt("LAUNCHES", 1);
+		sugarizerOS.putInt("IS_SETUP", 1);
+	    }
 	}
 	this.step++;
     },
@@ -91,10 +94,6 @@ enyo.kind({
 	    this.next();
 	    return true;
 	}
-    },
-
-    setLauncher: function(){
-	window.sugarizerOS.selectLauncher();
     },
     
     nextcolor: function() {

@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1\//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+<!ENTITY stroke_color "#010101">
+<!ENTITY fill_color "#ffffff">
+]>
+<svg enable-background="new 0 0 55 55" height="55px" id="Layer_1" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" y="0px"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -8,15 +11,6 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   enable-background="new 0 0 55 55"
-   height="55px"
-   id="Layer_1"
-   version="1.1"
-   viewBox="0 0 55 55"
-   width="55px"
-   x="0px"
-   xml:space="preserve"
-   y="0px"
    inkscape:version="0.91 r13725"
    sodipodi:docname="network-wireless-locked-100.svg"><metadata
      id="metadata12381"><rdf:RDF><cc:Work
@@ -61,13 +55,8 @@
            d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002     c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z"
            fill="#ffffff"
            id="path12373" /></g></g><path
-       d="   M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z   "
-       display="inline"
-       fill="none"
-       stroke="#010101"
-       stroke-linecap="round"
-       stroke-linejoin="round"
-       stroke-width="3.5"
+	   d="   M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z   "
+	   display="inline" fill="&stroke_color;" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"
        id="path12375" /></g><g
      id="g16775"
      transform="translate(33.0002,31)"><g

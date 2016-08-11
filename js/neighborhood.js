@@ -58,17 +58,21 @@ enyo.kind({
 	//If SugarizerOS, adding Wireless networks icons
 	if (window.sugarizerOS){
 	    var networkIcons = [];
-	    var connectedString = "";
 	    var networks = sugarizerOS.networks;
 	    for (var i = 0; i < networks.length; i++){
 		var currentNetwork = networks[i];
+		var encryptionString = sugarizerOS.getEncryptionString(currentNetwork.capabilities);
+		var connectedString = "";
+		var securedString = "";
 		var pwr = (-1 * currentNetwork.RSSI) % 10;
 		if (currentNetwork.isConnected)
 		    connectedString = "-connected";
-		if (pwr > 5){
+		if (encryptionString != "OPEN")
+		    securedString = "-locked";
+		if (pwr > 0){
 		    if (pwr % 2 != 0)
 			pwr +=1;
-
+		    
 		    pwr = (pwr - 2) * 10;
 		    cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
 		    if (!cacheIcon){
@@ -81,7 +85,7 @@ enyo.kind({
 			currentNetwork = cacheIcon;
 		    var icon = this.$.network.createComponent({
 			kind: "Sugar.Icon",
-			icon: {directory: "icons", icon: "network-wireless"+connectedString+"-0"+pwr+".svg"},
+			icon: {directory: "icons", icon: "network-wireless"+connectedString+securedString+"-0"+pwr+".svg"},
 			size: constant.sizeNeighbor,
 			colorized: true,
 			colorizedColor: currentNetwork.color,

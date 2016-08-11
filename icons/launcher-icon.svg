@@ -1,101 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 744.09448819 1052.3622047"
-   id="svg3336"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="launcher-icon.svg">
-  <defs
-     id="defs3338" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="205.36125"
-     inkscape:cy="589.3341"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer4"
-     showgrid="false"
-     inkscape:window-width="1596"
-     inkscape:window-height="825"
-     inkscape:window-x="0"
-     inkscape:window-y="54"
-     inkscape:window-maximized="0" />
-  <metadata
-     id="metadata3341">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:groupmode="layer"
-     id="layer4"
-     inkscape:label="bg" />
-  <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
-     id="layer1">
-    <rect
-       style="fill:#ffffff"
-       id="rect3346"
-       width="16.162441"
-       height="28.284271"
-       x="386.88843"
-       y="519.00165" />
-    <rect
-       style="fill:#ffffff;fill-opacity:0"
-       id="rect3348"
-       width="568.71582"
-       height="513.15747"
-       x="57.578693"
-       y="241.20972" />
-    <path
-       style="fill:#666666;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 34.285714,312.3622 381.42857,70.933633 727.14286,313.79078 Z"
-       id="path3355"
-       inkscape:connector-curvature="0" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="housebg">
-    <rect
-       style="fill:#666666"
-       id="rect3351"
-       width="492.85712"
-       height="444.28571"
-       x="137.14285"
-       y="253.79077" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="houseinside">
-    <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.95407587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 371.80145,146.89632 c -58.27501,36.78462 -116.98229,73.0154 -174.76741,110.44331 4.83872,45.74497 -0.97696,91.76939 1.67792,137.53593 0.14839,83.22371 0.6644,166.44637 0.924,249.66977 122.05596,0.72587 244.11192,1.45173 366.16789,2.17759 -0.90632,-130.72546 -1.88558,-261.45067 -2.4769,-392.17771 -61.03528,-37.38888 -121.24891,-75.87245 -181.9539,-113.70523 -3.19054,2.01878 -6.38106,4.03756 -9.5716,6.05634 z"
-       id="path3358"
-       inkscape:connector-curvature="0" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-147 -70 294 345">
+<g fill="#a4c639">
+<use stroke-width="14.4" xlink:href="#b" stroke="#FFF"/>
+<use xlink:href="#a" transform="scale(-1,1)"/>
+<g id="a" stroke="#FFF" stroke-width="7.2">
+<rect rx="6.5" transform="rotate(29)" height="86" width="13" y="-86" x="14"/>
+<rect id="c" rx="24" height="133" width="48" y="41" x="-143"/>
+<use y="97" x="85" xlink:href="#c"/>
+</g>
+<g id="b">
+<ellipse cy="41" rx="91" ry="84"/>
+<rect rx="22" height="182" width="182" y="20" x="-91"/>
+</g>
+</g>
+<g stroke="#FFF" stroke-width="7.2" fill="#FFF">
+<path d="m-95 44.5h190"/><circle cx="-42" r="4"/><circle cx="42" r="4"/>
+</g>
 </svg>

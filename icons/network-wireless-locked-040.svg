@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+<!ENTITY stroke_color "#010101">
+<!ENTITY fill_color "#ffffff">
+]>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -44,13 +47,12 @@
      inkscape:current-layer="Layer_1" /><g
      display="block"
      id="network-wireless-040"><path
-       d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002   c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z"
-       display="inline"
-       fill="#010101"
+     d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002   c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z"
+     display="inline" fill="&stroke_color;" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"
        id="path19331" /><g
        display="inline"
        id="g19333"><g
-         id="g19335"><defs
+       id="g19335"><defs
            id="defs19337"><rect
              height="16"
              id="SVGID_17_"

@@ -18,14 +18,25 @@ define(function (require) {
     var toload = 2;
     var preferenceset = false;
 
-	// Main program
+    // Main program
     var main = function() {
 	if (!preferenceset) {
 	    app = new Sugar.FirstScreen();
-	} else {
+	}
+	else {
+	    if (window.sugarizerOS){
+		sugarizerOS.getInt(
+		    function(value){
+			console.log("Launches", value);
+			if (value == 2){
+			    sugarizerOS.chooseLauncher();
+			}
+		    }
+		    , null,"LAUNCHES");
+	    }
 	    app = new Sugar.Desktop();
 	}
-	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
+	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position
 	app.renderInto(document.getElementById("canvas"));
     }
 	

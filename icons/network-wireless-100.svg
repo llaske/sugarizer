@@ -10,7 +10,7 @@
 			<clipPath id="SVGID_12_">
 				<use overflow="visible" xlink:href="#SVGID_11_"/>
 			</clipPath>
-			<path clip-path="url(#SVGID_12_)" d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002     c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z" fill="&fill_color;"/>
+			<path clip-path="url(#SVGID_12_)" d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002     c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z" fill="&fill_color;" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
 		</g>
 	</g>
 	<path d="   M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z   " display="inline" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
