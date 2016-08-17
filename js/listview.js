@@ -40,14 +40,16 @@ enyo.kind({
 	},
 	
 	// Draw screen
-	draw: function() {
-		// Set no matching activities
-		var canvas_center = util.getCanvasCenter();
-		this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
-		var margintop = (canvas_center.y-constant.sizeEmpty/4);
-		this.$.nomatch.applyStyle("margin-top", margintop+"px");
-		this.$.message.setContent(l10n.get("NoMatchingActivities"));
-		this.$.nofilter.setText(l10n.get("ClearSearch"));
+    draw: function() {
+	if (window.sugarizerOS)
+	    sugarizerOS.initActivitiesPreferences();
+	    // Set no matching activities
+	    var canvas_center = util.getCanvasCenter();
+	    this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
+	    var margintop = (canvas_center.y-constant.sizeEmpty/4);
+	    this.$.nomatch.applyStyle("margin-top", margintop+"px");
+	    this.$.message.setContent(l10n.get("NoMatchingActivities"));
+	    this.$.nofilter.setText(l10n.get("ClearSearch"));
 	},
 	
 	// Property changed

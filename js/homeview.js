@@ -168,8 +168,12 @@ enyo.kind({
 
 	// Draw desktop
     draw: function() {
-		// Clean desktop
-		var items = [];
+	if (window.sugarizerOS){
+	    sugarizerOS.getAndroidApplications(sugarizerOS.log, sugarizerOS.log, [0]);
+	    sugarizerOS.initActivitiesPreferences();
+	}
+	// Clean desktop
+	var items = [];
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 

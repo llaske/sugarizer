@@ -26,7 +26,11 @@ enyo.kind({
 	this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
 	this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 	this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
-	this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
+	
+	if (window.sugarizerOS)
+	    this.$.server.setIcon({directory: "icons", icon:"cloud-one.svg"});
+	else
+	    this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
 	this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
 	this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
 	var cacheData = this.findInCache({icon: this.$.server});
@@ -118,7 +122,8 @@ enyo.kind({
 	    now = new Date().getTime();
 	    sugarizerOS.scanWifi();
 	    this.$.owner.setShowing(true);
-	    this.$.server.setShowing(true);
+	    if (presence.isConnected())
+		this.$.server.setShowing(true);
 	    this.$.empty.setShowing(false);
 	    this.$.message.setShowing(false);
 	    this.$.settings.setShowing(false);

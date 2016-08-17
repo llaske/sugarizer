@@ -553,6 +553,19 @@ input {
 	color: #808080;
 }
 
+.launcher-message {
+    position: absolute;
+    left: 20px;
+    margin-top: 20px;
+    color: #808080;
+}
+
+.launcher-button {
+    position:absolute;
+    left:20px;
+    margin-top: 60px;
+}
+
 .aboutme-icons {
 	width: 100%;
 	display: inline-block;
