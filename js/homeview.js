@@ -33,7 +33,16 @@ enyo.kind({
 		// Init screen
 		this.inherited(arguments);
 		this.timer = null;
-		this.otherview = null;
+	    this.otherview = null;
+	    if (window.sugarizerOS){
+		sugarizerOS.getInt(
+		    function(value){
+			if (value == 2){
+			    this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSetLauncher"}, {owner:this});
+			}
+		    }
+		    , null,"LAUNCHES");
+	    } 
 		this.toolbar = null;
 		util.setToolbar(this.getToolbar());
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});

@@ -24,16 +24,6 @@ define(function (require) {
 	    app = new Sugar.FirstScreen();
 	}
 	else {
-	    if (window.sugarizerOS){
-		sugarizerOS.getInt(
-		    function(value){
-			console.log("Launches", value);
-			if (value == 2){
-			    sugarizerOS.chooseLauncher();
-			}
-		    }
-		    , null,"LAUNCHES");
-	    }
 	    app = new Sugar.Desktop();
 	}
 	document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position
