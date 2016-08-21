@@ -33,11 +33,11 @@ enyo.kind({
 	    this.timer = null;
 	    this.otherview = null;
 	    this.toolbar = null;
-		util.setToolbar(this.getToolbar());
-		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
-		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
-		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
-		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
+	    util.setToolbar(this.getToolbar());
+	    this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
+	    this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
+	    this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
+	    this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
 
 	    // Load and sort journal
 	    this.journal = datastore.find();
@@ -127,6 +127,7 @@ enyo.kind({
 		var t = this;
 		sugarizerOS.initActivitiesPreferences(function(){t.init();});
 		sugarizerOS.scanWifi();
+		sugarizerOS.popupTimer = 0;
 		if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName){
 		    console.log(sugarizerOS.launcherPackageName);
 		    console.log(sugarizerOS.packageName);
@@ -384,24 +385,26 @@ enyo.kind({
     },
 
 	// Render
-	rendered: function() {
-		this.inherited(arguments);
-		this.$.owner.colorize(preferences.getColor());
-		if (this.journal.length > 0)
-			this.$.journal.colorize(preferences.getColor());
-	},
-
+    rendered: function() {	
+	this.inherited(arguments);
+	this.$.owner.colorize(preferences.getColor());
+	if (this.journal.length > 0)
+	    this.$.journal.colorize(preferences.getColor());
+    },
 	// Run activity
     runMatchingActivity: function(icon) {
 	if (!icon.getDisabled()){
 	    this.hideActivityPopup();
 	    this.runActivity(icon.icon);
+	    if (window.sugarizerOS)
+		sugarizerOS.popupTimer = new Date();
 	}
     },
     runActivity: function(activity) {
 	// Run the last activity instance in the context
-	this.hideActivityPopup();
 	preferences.runActivity(activity);
+	if (window.sugarizerOS)
+	    sugarizerOS.popupTimer = new Date();
 	},
 	runOldActivity: function(activity, instance) {
 	    // Run an old activity instance
@@ -411,8 +414,10 @@ enyo.kind({
 	},
 	runNewActivity: function(activity) {
 	    // Start a new activity instance
-	    this.hideActivityPopup();
 	    preferences.runActivity(activity, null);
+	    if (window.sugarizerOS)
+		sugarizerOS.popupTimer = new Date();
+	    this.redraw();
 	},
 
 	// Display journal
@@ -422,9 +427,15 @@ enyo.kind({
 
 	// Popup menu for activities handling
 	showActivityPopup: function(icon) {
-		// Create popup
-		var title;
-		var activity = icon.icon; // HACK: activity is stored as an icon
+	    // Create popup
+	    if (window.sugarizerOS){
+		var now = new Date();
+		if (now.getTime() - sugarizerOS.popupTimer.getTime() < 3000)
+		    return;
+		sugarizerOS.popupTimer = now;
+	    }
+	    var title;
+	    var activity = icon.icon; // HACK: activity is stored as an icon
 		if (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
 			title = activity.instances[0].metadata.title;
 		} else {
@@ -463,7 +474,7 @@ enyo.kind({
 	    }
 
 		// Show popup
-		this.getPopup().showPopup();
+	    this.getPopup().showPopup();
 	},
     hideActivityPopup: function() {
 	console.log("hideActivity", "enters hideactivitypopup");

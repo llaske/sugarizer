@@ -252,7 +252,8 @@ enyo.kind({
 	var power = (-1 * data.RSSI) % 5;
 	this.getPopup().setHeader({
 	    icon: icon.icon,
-	    colorized: false,
+	    colorized: true,
+	    colorizedColor: icon.colorizedColor,
 	    name: iconName,
 	    title: data.BSSID,
 	    action: null
@@ -632,7 +633,7 @@ enyo.kind({
 		});
 		this.$.server.setDisabled(filter.length != 0 && myserver.getServer().toLowerCase().indexOf(filter) == -1);
 	},
-	
+
 	// Cache handling
 	addToCache: function(item) {
 	    // Get name
