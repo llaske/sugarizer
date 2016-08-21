@@ -20,14 +20,25 @@ enyo.kind({
 	],
   
 	// Constructor: init list
-	create: function() {
-		this.inherited(arguments);
-		this.activitiesChanged();
-		this.computeSize();
-		this.draw();
-	},
-	
-	computeSize: function() {
+    create: function() {
+	this.inherited(arguments);
+	if (!window.sugarizerOS){
+	    this.activitiesChanged();
+	    this.computeSize();
+	    this.draw();
+	}
+	else{
+	    var t = this;
+	    var a = arguments;
+	    sugarizerOS.initActivitiesPreferences(function (){
+		t.activitiesChanged();
+		t.computeSize();
+		t.draw();
+	    });
+	}
+    },
+    
+    computeSize: function() {
 		var toolbar = document.getElementById("toolbar");
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
@@ -70,6 +81,7 @@ enyo.kind({
 	    var activitiesList = this.activities;
 	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native")
 		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
+	    }
 	    else
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
