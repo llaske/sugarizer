@@ -1,0 +1,83 @@
+:NavBar|Barra de Navegación
+NavBarGuardarEncontrar|Guardar Encontrar
+NavBarSelecci-unIdioma|Selecci un Idioma
+NavBarCambioAPanta|Cambio A Panta
+NavBarEsconde-oMuestra|Esconde o Muestra
+:Paint|Herramientas de Pintar
+PaintLineaRecta|Linea Recta
+PaintPaleta-deColor|Paleta de Color
+PaintBalde|Balde
+PaintCuadrado|Cuadrado
+PaintGotero|Gotero
+PaintCirculo|Circulo
+PaintPinceles|Pinceles
+PaintSellos|Sellos
+PaintPoligonoSpanish|Poligono
+:Halo|Halos de Control
+HaloRotar|Rotar
+HaloLevantar-yMover|Levantar y Mover
+HaloFlecha-alCentro|Flecha al Centro
+HaloVisualizador|Visualizador
+HaloMostrarHalos|Mostrar Halos
+HaloCentro-deRotacion|Centro de Rotacion
+HaloBasura|Basura
+HaloColapsar|Colapsar
+HaloTamanoRepintarDupli|Tamaño Repintar Dupli
+HaloMenukat|Menukat
+HaloPropiedades-deColor|Propiedades de Color
+HaloCrear-unMosaico|Crear un Mosaico
+:Supplies|Provisiones
+SuppliesJoystick|Joystick
+SuppliesTexto|Texto
+SuppliesGrabadorSonido|Grabador Sonido
+SuppliesCatalogoObjetos|Catalogo Objetos
+SuppliesTodos-losGuiones|Todos los Guiones
+SuppliesContenedor|Contenedor
+SuppliesObjetos-cGuiones|Objetos c Guiones
+SuppliesAgregarSolapa|Agregar Solapa
+:ObjectCat|Catálogo de Objetos
+ObjectCatCapturarPedazo|Capturar Pedazo
+ObjectCatImagenDigital|Imagen Digital
+ObjectCatBarraDesplazam|Barra Desplazam
+ObjectCatLazo|Lazo
+ObjectCatFabricaBotones|Fabrica Botones
+ObjectCatPoligono|Poligono
+:Books|Libros
+BooksMosaicosNavegacion|Mosaicos Navegacion
+BooksControlesExpandidos|Controles Expandidos
+BooksCapas|Capas
+BooksIconosBordeSuperior|Iconos Borde Superior
+:ScriptTile|Mosaicos de Guión
+ScriptTilePruebas|Pruebas
+ScriptTileUso-delLapiz|Uso del Lapiz
+ScriptTileEntradaMundo|Entrada Mundo
+ScriptTileFactorDeEscala|Factor de Escala
+ScriptTileSonido|Sonido
+ScriptTileRebota|Rebota
+ScriptTileAvanzaGira|Avanza Gira
+ScriptTileAvanza|Avanza
+ScriptTileDireccion|Direccion
+ScriptTileMosaicoXY|Mosaico X Y
+ScriptTileSellos|Sellos
+ScriptTileAnchoLongitud|Ancho Longitud
+ScriptTileUbicacion|Ubicacion
+ScriptTileCampoJuegos|Campo Juegos
+ScriptTileNumAleatorios|Num Aleatorios
+ScriptTileOcultarMostrar|Ocultar Mostrar
+ScriptTileGira|Gira
+ScriptTileAjusta|Ajusta
+ScriptTilePrueba2Colores|Prueba 2 Colores
+ScriptTileSuperponePunto|Superpone Punto
+:Menu|Menús
+MenuIconos-delVisor|Iconos del Visor
+MenuBotonActivaGuion|Boton Activa Guion
+MenuAgarrameMuestrame|Agarrame Muestrame
+MenuNormal-yLatiendo|Normal y Latiendo
+MenuObservadores|Observadores
+MenuPapelGrafico|Papel Grafico
+MenuIconos-delEditor|Iconos del Editor
+MenuCuadricula|Cuadrícula
+MenuDesplazarSombra|Desplazar Sombra
+MenuLugaresDecimales|Lugares Decimales
+MenuPintar|Pintar
+MenuTraer-alFrente|Traer al Frente

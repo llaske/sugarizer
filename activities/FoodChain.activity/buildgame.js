@@ -42,7 +42,7 @@ enyo.kind({
 			{ name: "home", kind: "ShadowButton", img: "home", classes: "home", ontap: "home" },
 		
 			// End of sound event
-			{kind: "Signals", onEndOfSound: "endSound"}			
+			{kind: "enyo.Signals", onEndOfSound: "endSound"}			
 		]}		
 	],
 	
@@ -152,7 +152,7 @@ enyo.kind({
 			
 		// Display next card
 		for (var i = 0 ; i < this.cards.length ; i++ ) {
-			if (this.cards[i] != null && FoodChain.soundMatch(this.cards[i].sound,s)) {
+			if (this.cards[i] != null && FoodChain.soundMatch(this.cards[i].sound,s.sound)) {
 				this.cards[i] = null;
 				if (i+1 < this.cards.length) {
 					this.cards[i+1].show();

@@ -126,6 +126,7 @@ input {
 .search-field-input {
 	opacity: 1;
 	margin-left: 30px;
+	margin-top: 5px;
 	border: 0px;	
 	display: inline-block;
 	background-color: #e5e5e5;
@@ -151,36 +152,17 @@ input {
 .web-activity-icon {
 	background-repeat: no-repeat;	
 	background-position: center;
+	padding: 2px;
 }
 
-.web-activity-thumbnail {
-	background-repeat: no-repeat;	
-	background-position: center;
-	width:40px;
-	height:40px;
+.web-activity-icon:hover {
+	background-color: #d5d5d5;
+	border-radius: 5px;
 }
 
 .web-activity-disable {
 	position: absolute;
 	opacity: 0.5;
-}
-
-.setlauncher-icon {
-    margin-top: 100px;
-    position: absolute;
-}
-
-.native{
-    margin-left: 250px;
-}
-
-.sugar{
-    margin-left: 450px;
-}
-
-.selected{
-    border-bottom: 6px solid red;
-    background-color: lightgrey;
 }
 
 .owner-icon {
@@ -571,19 +553,6 @@ input {
 	color: #808080;
 }
 
-.launcher-message {
-    position: absolute;
-    left: 20px;
-    margin-top: 20px;
-    color: #808080;
-}
-
-.launcher-button {
-    position:absolute;
-    left:20px;
-    margin-top: 60px;
-}
-
 .aboutme-icons {
 	width: 100%;
 	display: inline-block;
@@ -642,24 +611,8 @@ input {
 	font-size: 10pt;
 }
 
-.enterkey-input{
-    margin-top: 50px;
-    margin-left:250px;
-    border-radius: 22px;
-    height: 25px;
-    width: 270px;
-    background-color: #e5e5e5;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 10pt;
-}
-
-.enterkey-input:focus{
-    background-color: white;
-}
-
 .aboutme-name:focus {
-    background-color: white;
+	background-color: white;
 }
 
 .aboutme-name-validate {

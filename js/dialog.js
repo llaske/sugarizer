@@ -1,51 +1,41 @@
 // Settings dialog
-
 enyo.kind({
-    name: "Sugar.DialogSettings",
-    kind: "enyo.Popup",
-    classes: "settings-dialog",
-    centered: false,
-    modal: true,
-    floating: true,
-    components: [
-	{name: "toolbar", classes: "toolbar", components: [
-	    {name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
-	    {name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}			
-	]},
-	    {name: "content", components: [
-		{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
-		{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-		{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-		{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
-		{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
-		{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
+	name: "Sugar.DialogSettings",
+	kind: "enyo.Popup",
+	classes: "settings-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
+			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}			
 		]},
-	     {name: "subdialog"}
-	    ],
-	
+		{name: "content", components: [
+			{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
+			{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+			{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+			{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
+		]},
+		{name: "subdialog"}
+	],
+
 	// Constructor
-    create: function() {
-	    this.inherited(arguments);
-	    this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
-	    this.$.me.setText(l10n.get("AboutMe"));
-	    this.$.computer.setText(l10n.get("AboutMyComputer"));
-	    this.$.language.setText(l10n.get("Language"));
-	    this.$.aboutserver.setText(l10n.get("Server"));
-	if (window.sugarizerOS){
-	    sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
-	    this.$.androidSettings.setText(l10n.get("AndroidSettings"));
-	    this.$.androidSettings.show();
-	    this.$.resetLauncher.show();
-	    this.$.resetLauncher.setText(l10n.get("ResetLauncher"));
-	}
-	if (l10n.language.direction == "rtl") {
-	    this.$.me.addClass("rtl-10");
-	    this.$.computer.addClass("rtl-10");
-	    this.$.language.addClass("rtl-10");
-	    this.$.aboutserver.addClass("rtl-10");
-	}
-	this.subdialog = null;
-    },
+	create: function() {
+		this.inherited(arguments);
+		this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
+		this.$.me.setText(l10n.get("AboutMe"));
+		this.$.computer.setText(l10n.get("AboutMyComputer"));
+		this.$.language.setText(l10n.get("Language"));
+		this.$.aboutserver.setText(l10n.get("Server"));
+		if (l10n.language.direction == "rtl") {
+			this.$.me.addClass("rtl-10");
+			this.$.computer.addClass("rtl-10");
+			this.$.language.addClass("rtl-10");
+			this.$.aboutserver.addClass("rtl-10");
+		}
+		this.subdialog = null;
+	},
 	
 	rendered: function() {
 		app.noresize = true; // HACK: Forbid home resizing when popup is displayed to avoid modal issue
@@ -104,153 +94,10 @@ enyo.kind({
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
 		}	
-	},
-    androidSettingsClicked: function() {
-	if (window.sugarizerOS){
-	    sugarizerOS.runSettings();
-	}
-	this.hide();
-    },
-    resetLauncherPopup: function(){
-	this.hide();
-	this.subdialog = this.$.subdialog.createComponent({kind:"Sugar.DialogSetLauncher"}, {owner:this});
-	this.subdialog.show();
-    }
-});
+	}	
+});	
 
-// Set Launcher dialog
-enyo.kind({
-    name: "Sugar.DialogSetLauncher",
-    kind: "enyo.Popup",
-    classes: "module-dialog",
-    centered: false,
-    modal: true,
-    floating: true,
-    autoDismiss: false,
-    components: [
-	{name: "toolbar", classes: "toolbar", components: [
-	    {name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
-	    {name: "text", content: "xxx", classes: "module-text"},
-	    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
-	    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
-	]},
-	{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
-	{name: "content", components: [
-	    { name: "message", content: "xxx", classes: "launcher-message" },
-	    {classes: "enterkey", components: [
-		{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap:"changeLauncher"},
-		{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"changeLauncher"}
-	    ]
-	    },
-	]
-	}
-    ],
-    
-    // Constructor
-    create: function() {
-	this.inherited(arguments);
-	this.$.text.setContent(l10n.get("SetLauncherTitle"));
-	this.$.message.setContent(l10n.get("SetLauncherText", {launcher:sugarizerOS.launcherPackageName}));
-	if (l10n.language.direction == "rtl") {
-	    this.$.text.addClass("rtl-10");
-	}
-	if (window.sugarizerOS){
-	    if (sugarizerOS.launcherPackageName == sugarizerOS.packageName){
-		this.$.sugarIcon.addClass("selected");
-	    }
-	    else{
-		this.$.nativeIcon.addClass("selected");
-	    }
-	}
-    },
-    rendered: function() {
-	this.$.icon.render();
-	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
-	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-    },
-    // Event handling
-    cancel: function() {
-	this.hide();
-    },	
-    restart: function() {
-	sugarizerOS.chooseLauncher();
-	this.hide();
-    },
-    changeLauncher: function() {
-	this.$.warningbox.setShowing(true);
-    },
-    centerDialog: function(dialog) {
-	var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
-	dialog.applyStyle("margin-left", margin.left+"px");
-	dialog.applyStyle("margin-top", (margin.top-55)+"px");
-    }
-});
 
-// Enter Wireless key dialog
-enyo.kind({
-    name: "Sugar.DialogNetworkKey",
-    kind: "enyo.Popup",
-    classes: "module-dialog",
-    centered: false,
-    modal: true,
-    floating: true,
-    autoDismiss: false,
-    components: [
-	{name: "toolbar", classes: "toolbar", components: [
-	    {name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
-	    {name: "text", content: "xxx", classes: "module-text"},
-	    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
-	    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
-	]},
-	{name: "content", components: [
-	    {classes: "enterkey", components: [
-		{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
-		,
-		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
-	    ]}
-	]}
-    ],
-    
-    // Constructor
-    create: function() {
-	this.inherited(arguments);
-	this.$.text.setContent(l10n.get("EnterKey") + " [" + sugarizerOS.NetworkBuffer.SSID + "]");
-	if (sugarizerOS.sharedKeyBuffer)
-	    this.$.keyInput.setValue(sugarizerOS.sharedKeyBuffer);
-	else
-	    this.$.keyInput.setValue("");
-	if (l10n.language.direction == "rtl") {
-	    this.$.text.addClass("rtl-10");
-	}
-    },
-    rendered: function() {
-	this.$.icon.render();
-	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
-	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-	this.$.connectButton.setContent(l10n.get("Ok"));
-    },
-    // Event handling
-    cancel: function() {
-	this.hide();
-    },	
-    ok: function() {
-	sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
-	sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer);
-	sugarizerOS.joinNetwork(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer, sugarizerOS.NetworkBuffer.capabilities);
-	this.hide();
-	this.$.okbutton.setDisabled(true);
-	this.$.cancelbutton.setDisabled(true);
-    },
-    keychanged: function() {
-    },
-    connect: function(){	
-    },
-    centerDialog: function(dialog) {
-	var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
-	dialog.applyStyle("margin-left", margin.left+"px");
-	dialog.applyStyle("margin-top", (margin.top-55)+"px");
-    }
-});
 
 // About me dialog
 enyo.kind({
@@ -368,6 +215,8 @@ enyo.kind({
 	}
 });
 
+
+
 // Language dialog
 enyo.kind({
 	name: "Sugar.DialogLanguage",
@@ -462,6 +311,8 @@ enyo.kind({
 	}	
 });
 
+
+
 // Computer dialog
 enyo.kind({
 	name: "Sugar.DialogComputer",
@@ -532,9 +383,9 @@ enyo.kind({
 	},
 	
 	rendered: function() {
-	    this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
-	    this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-	    this.owner.centerDialog(this);
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.owner.centerDialog(this);
 	},
 	
 	// Event handling
@@ -548,6 +399,8 @@ enyo.kind({
 		this.owner.show();
 	}	
 });
+
+
 
 // Server dialog
 enyo.kind({
@@ -759,6 +612,8 @@ enyo.kind({
 	}
 });
 
+
+
 // Class for a Warning box in settings
 enyo.kind({
 	name: "Sugar.DialogSettingsWarningBox",
@@ -793,65 +648,4 @@ enyo.kind({
 	restart: function() {
 		this.doRestart();
 	}	
-});
-
-
-//Dialog to change launcher on a native device
-enyo.kind({
-    name: "Sugar.DialogChangeLauncher",
-    kind: "enyo.Popup",
-    classes: "module-dialog",
-    centered: false,
-    modal: true,
-    floating: true,
-    autoDismiss: false,
-    components: [
-	{name: "toolbar", classes: "toolbar", components: [
-	    {name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
-	    {name: "text", content: "xxx", classes: "module-text"},
-	    {name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
-	    {name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
-	]},
-	{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
-	{name: "content", components: [
-	    {classes: "enterkey", components: [
-		{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
-		]},
-		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
-	    ]}
-	],
-    
-    // Constructor
-    create: function() {
-	this.inherited(arguments);
-	this.$.text.setContent(l10n.get("EnterKey"));
-	if (l10n.language.direction == "rtl") {
-	    this.$.text.addClass("rtl-10");
-	}
-    },
-    rendered: function() {
-	this.$.icon.render();
-	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
-	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-	this.$.connectButton.setContent(l10n.get("Ok"));
-    },
-    // Event handling
-    cancel: function() {
-	this.hide();
-    },	
-    ok: function() {
-	sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
-	this.hide();
-	this.$.okbutton.setDisabled(true);
-	this.$.cancelbutton.setDisabled(true);
-    },
-    keychanged: function() {
-    },
-    connect: function(){	
-    },
-    centerDialog: function(dialog) {
-	var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
-	dialog.applyStyle("margin-left", margin.left+"px");
-	dialog.applyStyle("margin-top", (margin.top-55)+"px");
-    }
 });

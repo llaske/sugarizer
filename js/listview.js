@@ -20,25 +20,14 @@ enyo.kind({
 	],
   
 	// Constructor: init list
-    create: function() {
-	this.inherited(arguments);
-	if (!window.sugarizerOS){
-	    this.activitiesChanged();
-	    this.computeSize();
-	    this.draw();
-	}
-	else{
-	    var t = this;
-	    var a = arguments;
-	    sugarizerOS.initActivitiesPreferences(function (){
-		t.activitiesChanged();
-		t.computeSize();
-		t.draw();
-	    });
-	}
-    },
-    
-    computeSize: function() {
+	create: function() {
+		this.inherited(arguments);
+		this.activitiesChanged();
+		this.computeSize();
+		this.draw();
+	},
+	
+	computeSize: function() {
 		var toolbar = document.getElementById("toolbar");
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
@@ -51,14 +40,14 @@ enyo.kind({
 	},
 	
 	// Draw screen
-    draw: function() {
-	    // Set no matching activities
-	    var canvas_center = util.getCanvasCenter();
-	    this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
-	    var margintop = (canvas_center.y-constant.sizeEmpty/4);
-	    this.$.nomatch.applyStyle("margin-top", margintop+"px");
-	    this.$.message.setContent(l10n.get("NoMatchingActivities"));
-	    this.$.nofilter.setText(l10n.get("ClearSearch"));
+	draw: function() {
+		// Set no matching activities
+		var canvas_center = util.getCanvasCenter();
+		this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
+		var margintop = (canvas_center.y-constant.sizeEmpty/4);
+		this.$.nomatch.applyStyle("margin-top", margintop+"px");
+		this.$.message.setContent(l10n.get("NoMatchingActivities"));
+		this.$.nofilter.setText(l10n.get("ClearSearch"));
 	},
 	
 	// Property changed
@@ -79,22 +68,20 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
 	    var activitiesList = this.activities;
-
-	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native"){
+	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native")
 		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
-	    }
 	    else
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
-	    inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
-	    inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
-	    inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});		
-	    inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
-	    inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
-	    inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
-	    if (l10n.language.direction == "rtl") {
-		inEvent.item.$.name.addClass("rtl-14");
-		inEvent.item.$.version.addClass("rtl-14");
-	    }
+		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
+		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));		
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});		
+		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);		
+		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);	
+		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
+		if (l10n.language.direction == "rtl") {
+			inEvent.item.$.name.addClass("rtl-14");
+			inEvent.item.$.version.addClass("rtl-14");
+		}		
 	},
 	
 	// Switch favorite value for clicked line

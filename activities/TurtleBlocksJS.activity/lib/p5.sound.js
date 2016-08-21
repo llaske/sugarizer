@@ -64,9 +64,10 @@ sndcore = function () {
    * Web Audio SHIMS and helper functions to ensure compatability across browsers
    */
   // If window.AudioContext is unimplemented, it will alias to window.webkitAudioContext.
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  window.AudioContext =  window.AudioContext || window.webkitAudioContext;
   // Create the Audio Context
-  var audiocontext = new window.AudioContext();
+  var audiocontext = null;
+  try { audiocontext = new window.AudioContext(); } catch(e) { return; }
   /**
    * <p>Returns the Audio Context for this sketch. Useful for users
    * who would like to dig deeper into the <a target='_blank' href=

@@ -9,7 +9,7 @@
 
 /*}*/
 
-#colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button ,#browse-files-button{
+#colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button {
   display: none;
 }
 
@@ -103,12 +103,6 @@
   }
 }
 
-@media only screen and (min-width: 1175px) {
-  #browse-files-button {
-    display: inline-block;
-  }
-}
-
 #main-toolbar {
   overflow: hidden;
 }
@@ -184,9 +178,6 @@
 }
 #main-toolbar #clear-button {
   background-image: url(../icons/edit-clear.svg);
-}
-#main-toolbar #browse-files-button {
-  background-image: url(../icons/browse-files.svg);
 }
 #main-toolbar {}
 .palette .colors {

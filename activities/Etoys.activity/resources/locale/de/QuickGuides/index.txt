@@ -1,0 +1,69 @@
+:NavBar|Werkzeuge
+NavBarHalten-undFinden|Speichern und Laden
+NavBarWaehle-eineSprache|Sprache umschalten
+:Paint|Malen
+PaintPinsel|Pinsel
+PaintLinienWerkzeug|Linien
+PaintFuellWerkzeug|Füllen
+PaintPipetteGerman|Pipette
+PaintFarbpalette|Farbpalette
+PaintRechteckWerkzeug|Rechtecke
+PaintEllipsenWerkzeug|Ellipsen
+PaintVieleckWerkzeug|Vielecke
+PaintStempelKopie|Stempel und Kopieren
+:Halo
+HaloWerkzeuge|Einführung
+HaloKachelBetrachter|Betrachter
+HaloDrehmittelpunkt|Drehmittelpunkt
+HaloErstelleSkriptKachel|Skript erstellen
+HaloMuelltonne|Löschen
+HaloGroesseFarbeKopie|Größe, Farbe, Kopieren
+HaloMenueWerkzeuge|Halomenü
+HaloPfeil-in-derMitte|Pfeil in der Mitte
+HaloDrehKnauf|Drehen
+HaloFarbeigenschaften|Farbeigenschaften
+HaloVerkleinern|Verkleinern
+HaloBewege-und-hebe-an|Verschieben und Herausheben
+:Supplies|Lager
+SuppliesKlangrekorder|Klangrekorder
+SuppliesObjektKatalog|Objektkatalog
+SuppliesTextGerman|Text
+SuppliesAlleScripte|Alle Skripte
+SuppliesJoystickGerman|Joystick
+:ObjectCat|Objekte
+ObjectCatMorphKnopf|Morph-Knopf
+ObjectCatDigitaleBilder|Digitale Bilder
+ObjectCatSchieberegler|Schieberegler
+ObjectCatLassoWerkzeug|Lassowerkzeug
+ObjectCatGreifeWerkzeug|Bildschirmfoto
+:Books|Bücher
+BooksArbeitenSchichten|Einführung
+BooksIcons-am-oberenRand|Icons am oberen Rand
+BooksNavigationsKacheln|Navigationskacheln
+BooksErweiterteKontrolle|Erweiterte Funktionen
+:ScriptTile|Kacheln
+ScriptTileVorwaerts-um|Vorwärts gehen
+ScriptTileDrehe-dich|Drehen
+ScriptTileVorwaertsDrehen|Vorwärts und Drehen
+ScriptTileVersteckeZeige|Verstecken und Anzeige
+ScriptTileStiftVerwenden|Stifte verwenden
+ScriptTileSpielfeldStift|Stiftspuren
+ScriptTilePralleBewegung|Abprallen
+ScriptTileX-undYKacheln|X und Y Kacheln
+ScriptTileRichtung|Richtung
+ScriptTileBreiteLaenge|Breite und Länge
+ScriptTileExaktePosition|Exakte Position
+ScriptTileSkalierung|Skalierungsfaktor
+ScriptTileTestsKategorie|Tests
+ScriptTileKlangKategorie|Klang
+ScriptTileStempel|Stempel
+ScriptTileWeltEingang|Tastatureingabe
+ScriptTileZufallsZahlen|Zufallszahlen
+:Menu|Menüs
+MenuBetrachterIcons|Betrachter Icons
+MenuErgreife-mich|Ergreife mich
+MenuBeobachter|Beobachter
+MenuIcons-imSkriptEditor|Icons im Skript Editor
+MenuKoordinatenpapier|Koordinatenpapier
+MenuKnopf-zumScript|Knopf zum Script
+MenuNormalerAblauf|Normaler Ablauf

@@ -32,9 +32,9 @@ enyo.kind({
 	
 	// Card setup
 	cardnameChanged: function() {
-		var image = "images/cards/"+this.cardname+".png";
+		var image = FoodChain.context.home.getDatabase()+"images/cards/"+this.cardname+".png";
 		var text = __$FC(this.cardname);
-		this.sound = "audio/"+__$FC("sounddir")+"/cards/"+this.cardname;
+		this.sound = FoodChain.context.home.getDatabase()+"audio/"+__$FC("sounddir")+"/cards/"+this.cardname;
 		
 		this.$.itemImage.setAttribute("src", image);
 		this.$.itemText.setContent(text);

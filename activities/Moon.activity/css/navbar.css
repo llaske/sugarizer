@@ -1,0 +1,20 @@
+#main-toolbar button:active,
+#main-toolbar button.active {
+    background-color: #ddd;
+}
+
+#activity-button {
+    background-image: url(../activity/activity-icon.svg);
+}
+
+#toggle-grid-button {
+    background-image: url(../icons/toggle-grid.svg);
+}
+
+#toggle-hemisphere-button {
+    background-image: url(../icons/toggle-hemisphere.svg);
+}
+
+#save-image-button {
+    background-image: url(../icons/save-image.svg);
+}

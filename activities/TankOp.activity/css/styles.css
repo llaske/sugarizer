@@ -1,7 +1,8 @@
 ﻿
 @font-face {
 	font-family: NoneShallPassFonts;
-	src: url('NoneShallPassFonts.ttf');
+	src: url('NoneShallPassFonts.eot'),
+	url('NoneShallPassFonts.ttf')  format('truetype');
 }
 
 .no-select-content {

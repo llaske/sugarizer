@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Shared Notes Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/libnotify.css">
+<script src="lib/cytoscape.min.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+  <button class="toolbutton active" id="nodetext-button" title="Text idea"></button>
+  <button class="toolbutton" id="color-button" title="Note Color"></button>
+  <button class="toolbutton" id="delete-button" title="Remove"></button>
+  <div class="splitbar"></div>
+  <button class="toolbutton" disabled id="undo-button" title="Undo"></button>  
+  <button class="toolbutton" disabled id="redo-button" title="Redo"></button>  
+  <div class="splitbar"></div>
+  <button class="toolbutton" id="zoom-button" title="View"></button>
+  <div class="splitbar"></div>
+  <button class="toolbutton" id="png-button" title="Export to PNG"></button> 
+  <button class="toolbutton" id="network-button" title="Network"></button>  
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<div id="canvas">
+	<div id="cy"></div>
+</div>
+
+<textarea id="textvalue" class="mle"></textarea>
+</body>
+
+</html>

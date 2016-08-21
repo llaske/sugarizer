@@ -1,0 +1,6 @@
+[Activity]
+name = Speak Activity
+activity_version = 1
+bundle_id = org.sugarlabs.SpeakActivity
+exec = sugar-activity-web
+icon = activity-icon

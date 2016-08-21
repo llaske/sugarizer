@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#000000">
+  <!ENTITY stroke_color "#FFFFFF">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+	<defs>
+		<mask id="Mask" maskUnits="userSpaceOnUse"
+          x="0" y="0" width="50" height="50">
+			<path d="M33 5 C15,0 15,50 33,45 C-5,55 -5,-5 33 5 z" style="fill:#FFFFFF;;stroke:none;;stroke-width:3.5"/>
+			<circle cx="20" cy="33" r="4" style="fill:none;;stroke:#000000;;stroke-width:1.5"/>
+			<circle cx="20" cy="19" r="3" style="fill:none;;stroke:#000000;;stroke-width:1.5"/>
+		</mask>
+		<marker id="Triangle" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="3.5" markerHeight="3.5" orient="auto" fill="&stroke_color;" stroke="&stroke_color;">
+		  <path d="M 0 0 L 10 5 L 0 10 z"/>
+		</marker>
+	</defs>
+	<path d="M33 5 C15,0 15,50 33,45 C-5,55 -5,-5 33 5 z" style="fill:&stroke_color;;stroke:none;;stroke-width:3.5" mask="url(#Mask)"/>
+	<circle cx="27" cy="12" r="2" style="fill:none;;stroke:&stroke_color;;stroke-width:1"/>
+	<circle cx="26" cy="26" r="2.5" style="fill:none;;stroke:&stroke_color;;stroke-width:1.25"/>
+	<path d="M36 10 C52,10 52,40 36,40" fill="none" stroke="&stroke_color;" stroke-width="3.0"/>
+	<path d="M 36 40 l0 3 l-6 -3 l6 -3 z" fill="&stroke_color;" stroke="&stroke_color;" stroke-width="2.5"/>
+</svg>

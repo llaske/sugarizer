@@ -1,4 +1,4 @@
-//* Canvas control that draws a text string.
+//* _enyo.canvas.Text_ is a canvas control that draws a text string.
 enyo.kind({
 	name: "enyo.canvas.Text",
 	kind: enyo.canvas.Shape,

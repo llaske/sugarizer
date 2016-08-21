@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="55"
+   height="55"
+   id="svg2">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <g
+     transform="matrix(1.2678601,0,0,1.2678601,-5.7285259,-7.3700347)"
+     id="g3166"
+     style="stroke-width:1.57746112;stroke-miterlimit:4;stroke-dasharray:none">
+    <path
+       d="m 46.898443,17.903355 c -4.88e-4,2.254324 -0.935437,4.494575 -2.540963,6.088451 -1.605526,1.593876 -3.861865,2.521758 -6.132178,2.521758 -2.270313,0 -4.526652,-0.927882 -6.132178,-2.521758 -1.605526,-1.593876 -2.540475,-3.834127 -2.540963,-6.088451 z"
+       id="path3050-5"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.57746112;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="m 22.864546,17.903355 c -2.44e-4,2.254479 -0.935084,4.494979 -2.540634,6.089049 -1.605549,1.594071 -3.862039,2.522085 -6.132507,2.522085 -2.270468,0 -4.5269585,-0.928014 -6.132508,-2.522085 -1.6055494,-1.59407 -2.5403897,-3.83457 -2.5406335,-6.089049 z"
+       id="path3050"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.57746112;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
+  <circle
+     cx="17"
+     cy="15"
+     r="2"
+     transform="matrix(1.1,0,0,1.1,-2.75,2.7485508)"
+     id="circle8"
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.81818187;stroke-miterlimit:4;stroke-dasharray:none" />
+  <circle
+     cx="41"
+     cy="15"
+     r="2"
+     transform="matrix(1.1,0,0,1.1,1.65,2.7485508)"
+     id="circle10"
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.81818187;stroke-miterlimit:4;stroke-dasharray:none" />
+</svg>

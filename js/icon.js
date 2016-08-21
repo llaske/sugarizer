@@ -11,38 +11,36 @@ enyo.kind({
 	name: "Sugar.Icon",
 	kind: enyo.Control,
 	published: {
-	    icon: null,
-	    size: constant.iconSizeStandard,
-	    x: -1, y: -1,
-	    colorized: false,
-	    colorizedColor: null,
-	    disabled: false,
-	    disabledBackground: 'white',
-	    popupShow: null,
-	    popupHide: null,
-	    isNative: false,
-	    data: null
+		icon: null,
+		size: constant.iconSizeStandard,
+		x: -1, y: -1,
+		colorized: false,
+		colorizedColor: null,
+		disabled: false,
+		disabledBackground: 'white',
+		popupShow: null,
+		popupHide: null,
+		data: null
 	},
 	classes: "web-activity",
 	components: [
-	    { name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
-	    { name: "disable", classes: "web-activity-disable", showing: false}
+		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
+		{ name: "disable", classes: "web-activity-disable", showing: false}
 	],
 	
 	// Constructor
 	create: function() {
-	    this.inherited(arguments);
-	    this.iconChanged();
-	    this.sizeChanged();
-	    this.colorizedColorChanged();
-	    this.colorizedChanged();
-	    this.isNativeChanged();
-	    this.disabledBackgroundChanged();
-	    this.disabledChanged();
-	    this.xChanged();
-	    this.yChanged();
-	    this.timer = null;
-	    this.emulateMouseOver = false;		
+		this.inherited(arguments);
+		this.iconChanged();
+		this.sizeChanged();
+		this.colorizedColorChanged();
+		this.colorizedChanged();
+		this.disabledBackgroundChanged();
+		this.disabledChanged();
+		this.xChanged();
+		this.yChanged();
+		this.timer = null;
+		this.emulateMouseOver = false;		
 	},
 	
 	// Timer handler for popup menu
@@ -92,6 +90,7 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
+		
 		var node = this.$.icon.hasNode();
 		if (node && enyo.platform.touch) {
 			// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
@@ -108,14 +107,13 @@ enyo.kind({
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupShowTimer();
 				});
-				enyo.dispatcher.listen(node, "touchend", function() {
+				enyo.dispatcher.listen(node, "touchend", function(e) {
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};			
 					that.popupHideTimer();
 				});			
 			}
 		}
-
-
+		
 		// If colorized		
 		if (this.colorized && !this.icon.isNative) {
 			// Get colorized color
@@ -143,9 +141,7 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
-
 	},
-    
 	
 	// Property changed
 	xChanged: function() {
@@ -171,14 +167,15 @@ enyo.kind({
 	},
 	
 	iconChanged: function() {
-	    if (this.icon != null){
-		if (this.icon.isNative != null)		    
+	    if (this.icon != null)
+	    {
+		if (this.icon.isNative != null)
 		    this.$.icon.applyStyle("background-image", "url('"+this.icon.icon+"');");
 		else
-		    this.$.icon.applyStyle("background-image", "url('"  + this.icon.directory+"/"+this.icon.icon + "')")
+		    this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
 	    }
-		else
-			this.$.icon.applyStyle("background-image", null);
+	    else
+		this.$.icon.applyStyle("background-image", null);
 	},
 	
 	colorizedColorChanged: function() {
@@ -188,11 +185,9 @@ enyo.kind({
 	colorizedChanged: function() {
 		this.render();
 	},
-
     isNativeChanged: function(){
 	this.render();
     },
-	
 	disabledBackgroundChanged: function() {
 		this.$.disable.applyStyle("background-color", this.disabledBackground);
 	},

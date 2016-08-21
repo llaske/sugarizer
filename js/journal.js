@@ -1,5 +1,4 @@
 
-
 // Listview view
 enyo.kind({
 	name: "Sugar.Journal",
@@ -82,7 +81,7 @@ enyo.kind({
 	},
 
 	// Property changed
-    journalChanged: function() {
+	journalChanged: function() {
 		this.$.empty.show();
 		this.$.message.show();
 		this.$.nofilter.show();
@@ -114,15 +113,13 @@ enyo.kind({
 
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
-	    // Set item in the template
-	    var entry = this.journal[inEvent.index];
-	    if (entry.metadata.buddy_color)
-		inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
-	    var activity = preferences.getActivity(entry.metadata.activity);
-	    inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
-	    console.log(activity);
-	    inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
-	    var keep = entry.metadata.keep;
+		// Set item in the template
+		var entry = this.journal[inEvent.index];
+		if (entry.metadata.buddy_color)
+			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
+		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
+		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
 		inEvent.item.$.title.setContent(entry.metadata.title);
 		inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2, this.smallTime));

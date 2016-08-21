@@ -1,0 +1,469 @@
+
+
+* Read gconf.xml new format. (SQ-1200)
+* Fix drawing morphs with translucent gradient (by adopting the fix made by Andreas in 2009)
+* Fix a age old bug in PianoRollNoteMorph>>mouseMove:
+* Inserts multiple scaled objects into a holder causes them to scale further (SQ-628)(SQ-935)
+* Fixes issues with variables in Kedama
+* Added issing method for scripting "naked" morphs
+* Fix for offset of a dropped morph that changes to thumbnails
+* A few fixes to the SelectionMorph. Among them SelectionMorph>>slideToTrash: (SQ-251)
+* Smome enhancements to GraphMorph
+* Fix DNU from rotating FlapTabs. There are still other issues with rotating FlapTabs that are not addressed
+* Turn off corner rounding in MethodMorph
+* Insert players uniqueNameForReference when dropped on a ScriptEditor textual method pane. Simple support for objRef tiles added. Rejects most other dropped tiles at the moment. (SQ-161)
+* Move object/player into view *after* it has been included in its new owner, not before.
+* Added warning about changing variable type in used scripts (SQ-1138)
+* Fix long standing bug with printing small numbers ie 1.2245678e-16. Copied method from Squeak 4.4
+* Add Etoy interfaces to ScratchPlugin picture manipulation methods (SQ-996)
+* Register preferences as a file service and make storing and loading preferences a little more flexible.
+* localization: list of mathematical functions untranslateable or wrong strings used(SQ-1110)
+* SaveGIF button on Class ButtonBar and FSM ButtonBar is broken (SQ-1124)
+* FSM ButtonBar appears with white text on white (SQ-1123)
+
+5.0.2409 (28 July 2012)
+* 5.0.1 Final
+* Updated translation:( de 
+* Put Listener back into object catalog (still hidden from categories, only found in alphabetical list or by searching)
+
+5.0.2408 (1 July 2012)
+* 5.0.1 RC2
+* Updated translations: da, de, bn, hy, hus, zh_CN
+* Added translation: en_GB
+* Move ScratchClient to 'Tools' category
+* Revert addition of graph-location watcher items to Morph's extras menu. The viewer is a better way to get watchers.
+
+5.0.2407 (25 June 2012)
+* 5.0.1 RC1
+* Added translation: hus
+* Update translations: da, de, es, nl, pt, sv, zh
+* Sugar: fix choosing objects from external media instead of Journal, and handle non-ASCII filenames
+* Etoys-To-Go: added Linux VM for ARM processors
+* make saved projects that do not use new features more likely to work in earlier versions of Etoys (SQ-1095)
+* adds a preference, 'singlePixelNib', so the smallest brush will draw with a one-pixel-wide nib (SQ-1004)
+* fix dropping a GIF image into Etoys (SQ-1094)
+* mark month names and weekday names for translation (SQ-1102)
+* some ScratchConnect fixes from Koji Yokokawa (SQ-1085, SQ-1086, SQ-1087)
+* better comment in POT for translators about the meta-phrases 'Language-Name' and 'Language-Direction'
+* minor fixes (SQ-811, SQ-869, SQ-1036, SQ-1045, SQ-1051, SQ-1088, SQ-1096, SQ-1099)
+
+5.0.2406 (29 March 2012)
+* 5.0 RC3 = Final
+* WatcherWrapper DNU getLjusstyrkaUnder. Work around translation of selector issue [SQ-1972]
+* Stepping over a script with an empty test tile hangs the image. [SQ-1070] 
+* The "step" button fails when trying to evaluate a test condition involving a function (like abs, random, and such).[SQ-1071]
+
+5.0.2403 (26 March 2012)
+* 5.0 RC2
+* Add Fractions visualization book as Tutorials
+* Add AgeComparison, ChangingSector, and KeyPress as Examples
+* Put ScriptableButton in ObjectCatalog category scripting
+* Update copyright notice and copyright check
+* Change extent of Scraps-book to 300@350 pixels
+* Use the modal color picker
+* Typo : boundaries specifed. [SQ-1065]
+* Added a missing 'toCamelCase'in Utilities class>>getterSelectorFor:  [SQ-1064 ]
+* Fix loading classes from image segments if they changed shape.
+* Clean out ObjectScanner which may hold onto an old uniclass if there was some error
+* Revert removing an inst var from PasteUpMorph
+* Fixes a bug that made it difficult to decrease the maxValue of a vertical number line.
+
+5.0.2402 (19 March 2012)
+* 5.0 RC1
+* Added translations: pl, pap
+* The labels on certain "detailed watchers" -- those for which the variable-name and the "getter selector" do not bear the default relationship -- are wrong. [SQ-1052]
+* PasteUpMorph instance variable autoLineLayout had only one accessor and could be replaced by a self send
+* Adds 'button to show/hide this script' to the Scriptor menu. When chosen, this will produce a button which, when pressed, will show the Scriptor -- or, if the Scriptor is already showing, hide it. The resulting button can subsequently be edited via its halo in the usual ways, e.g. to change the name, the color, the balloon help.
+* Unlike all other vocabularies, the DateFormat vocabulary was getting added to the system's vocabulary-list by a class-initialize method of CalendarMorph, and this meant that it got lost whenever the list is rebuilt, e.g. via 'Vocabulary initialize'.
+* Fix vertical resize of supplies flap [SQ-1046]
+* Fix label ('texutally')
+* Change the order in which the items appear in the 'pen use' category of the viewer, as per request from Avigail.
+* Remove the 'scriptable button' from the supplies flap, and in its place offer a Polygon.  This change won't immediately be apparent after this code is loaded, but will show up on the next build, and can be seen in current beta images if you use the flaps menu to 'destroy all shared flaps', then 'install olpc etoy flaps'.
+* GraphPaper: Slight adjustment in parameters that define the x-y plane, to make the way tick-marks on the two axes line up on the underlying grid more uniform.
+* properly fix missing ')' in menu [SQ-1044]
+* Add screen feedback showing what would be torn off in a drag.  Overridden vacuously here to avoid a crash when super code is applied to a SystemQueryPhrase. [SQ-1043]
+* Try avoiding walkbacks when fixing projects [SQ-1041]
+
+5.0.2401 (12 March 2012)
+* 5.0 beta 2
+* ScratchConnect: Fixed a couple of potential issues detected after a more detailed code review:
+- Disconnect the socket when deleting the morph.
+- Changed a couple of sends in Player from "costume" to "costume renderedMorph", otherwise they would fail if the ScratchClientMorph is rotated.
+- Changed #stepTime to only return 0 if the morph is connected, otherwise send "super stepTime".
+- Changed to avoid connecting if another instance is already connected to the same host and port.
+* Add connector label font to Standard systems font menu
+* Attach label to connector midpoint from connector menu
+* Added ScratchConnect from Koji Yokokawa, with a minor change from Scott Wallace: all methods from ScratchClientPlayer moved to Player.
+* KeyPressMorph: fix event listener registration
+* Fix keyboard up/down interpreter logic
+* Limit the choices for types for user-defined variables and for parameters for user-defined scripts.
+- Adds balloon help for items in the menu for a variable in a viewer.
+- Clean up some symbol-list-type-related issues.
+- Reformulates a couple of recently-added UI elements into more translation-friendly formats.
+* Fix drag and drop and file services for animated gifs
+* Default to stop sound when done on Linux
+* Just 'grey out' decimal places in the variable panel, don't remove it. Swap places of remove variable and modify variable in menu
+* Update list info when contents is changed in SoundLibrary
+* Execute "Vocabulary initialize" when building image
+* Fix translatable strings in variable properties dialog
+* Fix sampling rate when adding sound to sound library
+* Several typo fixes among others [SQ-1040]
+* Set preference to use properties panel to true. We now use PropertiesPanel as default for color picker. 
+- A simplyfied properties panel as default, buttons to get to graph paper, gradients and other settings
+* Fix Watchers for sound tiles
+* Fix drag and drop plus file services for .aif/.aiff files
+
+5.0.2400 (5 March 2012)
+* 5.0 beta 1
+* Added translations: pl, pap
+* Updated translations: de, nl, zh_CN, en, es, mn, mr
+* More quickguides: it
+* Delete properties panel if target not is in world
+* Addresses various bug-reports and recommendations relating to recent number-line and graph-paper updates:
+- Enforce reasonable ranges for the sliders governing the grid parameters, taking the grid-size, coarse-grid-size , and playfield dimensions into account.
+- Provide a button to request 'graph paper' from the 'generic property sheet' when appropriate.
+- Retain position of number line when its pixelsPerUnit changes.
+- Disable the 'offset' when coarse-grid in effect.
+- Protect sliders against zero-divide that can happen if minVal = maxVal.
+- Protect InfiniteForms against incidental calls to #darker and #twiceDarker that can be sent to any object's fillStyle by some of the custom border code.
+- Removes about a dozen superfluous methods that had mistakenly lingered in the earlier updates, and removes three inst vars of NumberLineMorph that were remnants from earlier code
+* Change the bumper that is put out at the front of a .pr file so if it is encountered by an older version of etoys, instead of simply refusing to load, it now describes the problem to the user and gives the option of proceeding anyway. Note: also retains the older bumper guard against loading into even older systems. Pre-olpc-era projects can still not be loaded
+* Add number lines, for use both in cuisanaire-rod-like applications and as axes for cartesian planes and graphs.
+* Following watchers (SQ-1029) Add "attached watchers": watcher variants that behave as if "attached" to the object they are observing. Unlabeled and labeled versions are available. from both the halo-menu and the viewer of an attached watcher, one can configure where it should attach to the observed (e.g. left, topLeft, top, etc...) and how much it should be offset from the nominal attachment position.
+* Adds a graph-paper option for the fillStyle of playfields.
+* Adds a graph-paper tool, allowing all the contributing factors to be viewed and manipulated, and the results seen immediately.
+* Fixed darker scrollbars in panel and a bug with offset and coarse grid
+* Preserved "Subject" information in the EToyProjectDetailsMorph when reading in older projects, transferring the info into the free-form "Tags" field.
+* Added balloon help: 'Move toward the given object. If the object has an instance variable named speed, the speed of the motion will be governed by that value'
+* Now changed the correct string (I hope) from "Really delete the project <name> and all its contents? <yes/no>" to "Really delete the icon and remove the project from Etoys (file will still be saved on disk) <yes/no>"
+* When saving file display only: Name, Notes and Tags - Remove Subject, Target Age, and Region  - Matches Scratch (can fold subject entries into tags for existing and older versions) I just commented the code, it might be good to clean up a bit but I didn't dare to remove anything.
+* The pen trails work different in a playfield than in the world. In the world the background morph is draw above the pen trails, but in the playfield the pen trails are draw above the background. The latter is the correct.
+* Added a morph to test if a key is currently pressed.
+* Fixed a bug when making a script that sets some object's heading to zero and then trying to rotate the object manually (via halo) while the script is ticking.
+* Fixed a bug when trying to set the pen down on the world. Even though the tile is hidden it can be accessed if you look for it in the search pane. Also, the error appears when you try to step over a button script.
+* Correct three codes for full Mac ISO keyboard
+* Generate proper key down / up events for Mac. The keyValuenow it is set to an upper-case character value as if the keyboard had a US-layout. The code refers to the physical key, not its label in a language-specific layout. That means e.g. on a German keyboard, the 'z' key will report $z in a stroke event but $Y in an up or down event. OTOH, e.g. WASD will always refer to the same 4 keys commonly used for navigation, even if using the French AZERTY layout instead of QWERTY.
+* Added a new dialog for adding/modifying user slots.
+* Deficient support for Point-valued variables( SQ-1012)
+* A slightly modified version of Ricardo Moran's CalendarMorph circulated in late 2011. Provides a scriptable calendar object, with a variety of useful items available in the 'calendar' category of its viewer.(SQ-1008)
+* Add Ricardo Moran's "Sector" object to the system. Provides a new kind of object corresponding to a "sector" of a circle; its viewer offers items reporting the angle and radius of the sector.(SQ-1007)
+* Ricardo Moran's implementation of a step-next-phrase feature in etoy Scriptors, with minor curating by Scott Wallace.
+* Modified the way the locale changes are notified to morphs. Basically, Project>>#updateLocaleDependentsWithPreviousSupplies:gently: now sends #localeChanged to all morphs and the default implementation in Morph does nothing.
+* Added Scotts fix to retain the old order (first all morphs that are not top-level ScriptEditorMorphs)
+* Added #localeChanged to Morph with an empty implementation. Subclasses that want to get notified of a locale change should override this method.
+* "Open script" halo handle for ScriptActivationButton(SQ-1005)
+* Fix for triggering opening and closing scripts. (SQ-999)
+* OLPC Display: When you are showing 'actual pixels', the zoom goes outside of expected area.
+* Add blur: brightness: satruation: and hue: to graphics category. Now possible to play a little with picture colors etc.
+* Display animated gifs better. Some additions to AnimatedImagemorph. Its now possible to play and stop animaton. Possibility to toggle the opaque setting from etoys as well. The gif reader does not set opaque correctly so it's pure chanse if playback looks right.
+* Hide old VideoCamera morph
+* Remove GStreamer from partsbin
+* Add WebCamMorph
+* Add CameraPlugin to Etoys
+* Fix keyDown/keyUp events. Must not be interpreted. 
+* Fix (SQ-983) (in Spanish, viewer does not start with basic category). This was caused by differing translations in different domains. Now we always use the 'Etoys-Tiles' translation domain.
+* Fix copyrigth check
+* Revert some of the ViewerLine changes pickup and visual feedback changes (SQ-972)
+* eToys typo (SQ-979)(SQ-978)(SQ-977)(SQ-980)(SQ-981)(SQ-982)(SQ-983)(SQ-910)(SQ-986)(SQ-994)(SQ-984)
+* By changing to show page controls full breaks stuff in QuickGuides etc. Page controls will be shown short hereby (SQ-636)
+* Update copyright notice to match file
+* Using Arrows to decrease from 0.01 displays epsilon instead of 0.00 in scripting tiles (SQ-946)
+
+4.1.2394 (7 June 2011)
+*Fix issue with Watchers(SQ-941) 
+*Removes NCNoteMorph from ObjectsTool
+*Some more fixes to bes able toplay example videos across project saves and moves
+
+4.1.2393 (29 May 2011)
+* alpha 3 for bug fix release 4.1.2
+* updated translations: de, it, kn, si, zh_CN
+* updated Home project with chinese translation
+* added Chinese font
+* add Note to object catalog (SQ-920)
+* fix copy/paste in Chinese Windows (SQ-876)
+* fix opening projects named with Chinese characters (SQ-879)
+* fix referencing video files
+
+4.1.2391 (22 May 2011)
+* alpha 1 for bug fix release 4.1.2
+* add appendCharacters tile (SQ-809)
+* fix "send to all" (SQ-831)
+* Always use SQUEAKLETS command line argument if given
+* Exporting a GetTextTranslator was giving a DNU because GetTextExporter>>translationFor:in: was asking 'translator translations'.
+* TextDomainManager class>>allKnownDomains was ignoring the special domain 'Etoys-Tiles'
+* Fix layout of MC window
+* Fixed parsing of external function declarations in order to make FFI work correctly.
+* Assure not placing above script header
+* Insert characters at end of text. Fix (SQ-809)
+* Rename insertCharactersAtEnd: to appendCharacters:
+* Fix SQ-831
+* Fixes SQ-884 I'm a little unsure about the use of the deep copier and when you do weak copies etc...
+* ChooseClickTarget returns topRenderer now, so use renderedMorph to access the actual morph
+* If you delete an object its scripts disappear, but its watcher's remain (SQ-885)
+* Fix for deleting Players and associates
+* If you scale a Holder, 'shuffle contents' does not work (SQ-842)
+* Extraneous double spaces present in UI strings (SQ-666)
+* When using 'looks like' tile from graphics, the forward direction is changed to that object we look like (SQ-932)
+* When switching language, parentheses turn into 'grouped' function (SQ-686)
+* Watcher for 'Playfields : cursor' changes to 'Playfields : pasteUpCursor' (SQ-886)
+* Mouseover Feedback of a phrase tile is wrong (SQ-62)
+* GStreamerPlayer's Viewer throws an exception when you try to view 'movie controls' category in Viewer (SQ-671)
+* Fix removeAllMorph for TranformationMorphs
+* Rename insertCharactersAtEnd: to appendCharacters:
+* Make appendCharacters: and insertCharacters: retain the text attributes
+* Picking a morph needs to select its topRenderer, to access the right player (SQ-867)
+* EToys typos (SQ-922)
+* Extraneous double spaces present in UI strings (SQ-666)
+* If you scale a parts bin, then drag an object out an exception is thrown (SQ-936)
+* Connectors Flap, Maker Button when clicked gives subscript error (SQ-538)
+* Possible infinite loop in FixedFaceFont (SQ-877)
+* Minor bugs about TTCFont fallbackFont (SQ-878)
+* Fix for: (SQ-911) 'Scrolling Text' Scripts do not fire with certain Mouse events
+* Fix for: (SQ-912) You get an exception when you have a Scrollable Text's Halo displayed and click <CMD-O> to get the Object catalog.
+* Sound Recorder show does not work properly (SQ-672)
+* Default Book page controls should be 'advanced' instead of short (SQ-636)
+* Playfield's menu item: 'set thumbnail height' does not take effect until you uncheck and re-check 'use thumbnails (SQ-814)
+* Fix file dialog if movie file is missing in movie player
+* Force display update after reversing parts of the scaled screen (makes 'indicate all siblings' work)
+* Honor Prefrerence soundReverb
+* Fix balloon help text
+* Get user name and user colors from gconf if no presence service
+* Fix to (SQ-906)
+* Help bubble text is wrong for color component tiles (SQ-918)
+
+4.1.2390 (13 Oct 2010)
+* bug fix release 4.1.1
+* updated translations: de, ta, es, kn
+* fix soundReverb (SQ-852, SQ-853)
+* correct problem stopping sounds (SQ-845)
+* use composition input for bn, gu, hi, kn, ml, mr, ta, te, sa (SQ-850)
+* fix error when switching to Vietnamese
+* fix double click to launch project on windows
+* added README for Etoys-To-Go
+* on Linux, prefer PulseAudio driver over OSS
+
+4.1.2388 (27 Sep 2010)
+* final 4.1 release
+* added translation: kn
+
+4.1.2388 (25 Sep 2010)
+* third release candidate (RC3)
+* updated translations: de, ja, es, mn
+* fix Castle tutorial previous project
+* fix decimal places in loaded QuickGuide scriptors (e.g. ScaleFactor guide)
+* fix viewer only showing two empty panes in Spanish
+
+4.1.2387 (19 Sep 2010)
+* second release candidate (RC2)
+* both ctrl-click and cmd-click bring up halo on Mac
+* updated translations: de, ja, ta
+* add soundReverb preference
+* add button to reset saved preferences.
+* put manifest in front of project file, uncompressed for easier access
+* fix SQ-816: Error when adding variable named 'val'
+* fix tile help balloons not being translated (SQ-821)
+* ensure preferences default values are set correctly
+* fix SQ-791: Journal saving fails in Sugar 0.82.1
+
+4.1.2386 (13 Sep 2010)
+* fix toolbar broken after being hidden
+* fix paintbox in event theatre
+* fix SuppliesPlayersTool guide
+* remove MenuMakeNewFlap guide from index
+
+4.1.2385 (12 Sep 2010)
+* first release candidate (RC1)
+* pop-up arrows now enabled by default
+* new DrGeo examples project (see gallery)
+* new home project (green border more visible)
+* Demon Castle renamed to Etoys Castle and fixed
+* revised guides for English and Spanish
+* DrGeoII translations for de,es,fr,ja
+* updated German and Japanese translations
+* do not ship languages with too few translations (ar_SY, en_GB, km, pap, pl, zh_TW)
+* hide distracting/not-functional preference panel buttons
+* allow negative timer values
+* shared flaps are not destroyed anymore when switching projects
+* various smaller fixes
+
+4.1.2384 (29 Aug 2010)
+* beta
+* updated translations from Pootle
+* added languages zh_CN, ca, sk, pap, pl, km, en_GB, ar_SY
+* revised Italian, Portuguese, and German Guides
+* no save on stop under Sugar, must use keep button (enable sugarAutoSave to override)
+* easier to make flap (see supplies)
+* GSoC addition: scriptable speech bubbles
+* translatable of Text object must be enabled explicitly
+* minor fixes
+
+4.1.2382 (20 Aug 2010)
+* alpha 2
+* fix Sugar DBus service methods
+* fix NavBar not showing Sugar buttons
+* fix 'length' and 'width' being read-only
+* flip commands renamed to 'flip left right' and 'flip up down'
+* fix QuickGuides showing up twice (if name in index differed from file name), or not at all (if not in index)
+* update Monticello to Squeak trunk version, and enlarge windows
+* fix for SQ-683 (can't create script in Greek)
+* fix for SQ-690 (Latin2 font broken)
+* renamed one Italian guide (HaloL'Visualizzatore to HaloLVisualizzatore)
+
+4.1.2381 (16 Aug 2010)
+* alpha 1
+* added DrGeo for exploring geometry
+* Sketches support flipping
+* geometry tiles for the world
+* timer tile (world and other playfields)
+* can store preferences
+* QuickGuides translated to Spanish, Portuguese, German, Italian, and (some) French  
+* translations broken up in smaller files
+* system organized in packages, developed using Monticello
+* whatever I forgot (need to start working on release notes, which should also have proper attributions)
+ 
+4.0.2336 (20 Oct 2009)
+ * final release
+ * update translations: fr
+ * fix Japanese input
+
+4.0.2334 (16 Oct 2009)
+ * fifth release candidate
+ * update translations: bn, de, fr, ja
+
+4.0.2334 (13 Oct 2009)
+ * fourth release candidate
+ * fix a problem uploading to SuperSwiki
+ * fix malformed uri in project manifest
+
+4.0.2332 (6 Oct 2009)
+ * third release candidate
+ * updated translations: fr, ja
+ * store reference to previous project when a project is re-uploaded
+ * smaller font size for textual scripts
+ * fix translating of value types and function tiles
+ * fix bearing-to and distance-to in Test pane
+
+4.0.2325 (29 Sep 2009)
+ * second release candidate
+ * updated translations: de, es, fr, ko, mn
+ * updated example projects
+ * attempt to fix the erratic "project can't be saved because of blocks" warning
+ * fix missing languages on the Mac when launched by double-clicking a project
+ * fix lost formatting when copying and pasting text on the Mac
+ * show "Haitian Creole" instead of "ht" in language menu
+ * supply parentheses around 'bearing to' and 'distance to' so expressions can be extended
+ * prevent tool bar from accidental deletion
+ * Mac VM updated to 4.2.2b1: built under 10.6, fix memory leaks, scrolling, serial ports
+
+4.0.2319 (18 Sep 2009)
+ * first release candidate
+ * updated translation: de
+ * nicer About flap
+ * fix URLs and default categories
+ * Linux VM: 3.11.3.2135
+
+4.0.2315 (16 Sep 2009)
+ * updated translation: ja
+ * cache categories on file to avoid network delays
+ * fix a network error
+ * Linux VM updated to 3.11.3.2122alpha
+
+4.0.2310 (15 Sep 2009)
+ * fix error when creating new projects
+ * fix Grab Patch and Lasso tools, put them in Supplies
+
+4.0.2306 (14 Sep 2009)
+ * fix bug that would overwrite projects in the Sugar Journal
+ * package fonts for Japanese, Korean, Greek, and Latin2 
+ * remove the non-functional undo button from tool bar
+
+4.0.2301 (13 Sep 2009)
+ * adjust squeakland publish/find/dialogs
+ * enable signup via web browser
+ * select the Etoys directory by default
+ * clicking directory expands subdirectory
+ * initial project renamed from 'Etoys Activity' to 'Home'
+ * better icons for load/save/exit
+ * add ScratchPlugin
+
+4.0.2280 (9 Sep 2009)
+ * actually show squeakland in publish/find dialogs
+
+4.0.2279 (8 Sep 2009)
+ * support publishing to squeakland gallery
+ * make look-like only available for SketchMorphs to fix various isssues
+ * fix saving issues under Sugar (thanks dgd)
+ * fix Save button balloon help under Sugar
+ * show crosshair feedback during patch-grabbing
+ * no longer write out the gif thumbnail when saving a project
+ * send utf-8 to SuperSwikiServer
+ * adjust toolbar under Sugar (show Next button, hide Fullscreen button)
+ * add display-mode menu to the world's halo
+ * fix ctrl/alt shortcuts under Linux
+
+4.0.2258 (28 Aug 2009):
+ * Windows VM updated to 3.11.4
+ * Updated translations: de, el, en, fr, it, ja, sv
+ * Added translations: ar, bg, bn, ko, mn, mr, ne, nl, ps, ro, ru, te, ur, vi, zh_TW
+ * make launcher screen (clouds) accessible via back button
+ * fix viewer performance bug (thanks to Ricardo Moran for reporting)
+ * Kedama fixes
+ * fix refresh bug when objects are rejected and slide back to their original position
+ * initial screen has Japanese translation
+
+4.0.2253 (21 Aug 2009):
+ * Mac VM updated to 4.2.1b1: allows to read files from image directory even when sandboxed
+ * Mac VM got a QuickLook generator: makes Finder show projects as their embedded thumbnails
+ * fixed Welcome and DemonCastle project scaling issues
+ * fixed jagged cursor on Mac
+ * made piano keyboard bigger
+ * prevent duplicate viewers
+
+4.0.2247  (18 Aug 2009):
+ * updated translations: el
+ * Linux: fall back to OSS when pulseaudio is detected
+ * add button to toggle toolbar
+ * hide toolbar when loading old projects
+ * place viewer and collapsed objects below toolbar
+ * improved grab-patch tool and polygons
+ * store language tag and thumbnail in project
+ * wording improvements in several menus and help  balloons
+
+4.0.2229 (7 Jul 2009)
+ * fix demo project resolutions
+ * Sugar: add setup.py to please packagers
+ * avoid black screen flashing when switching projects
+ * set window title to project name
+ * split over-long "geometry" category
+ * better keyboard event handling in scripts
+ * various fixes
+
+4.0.2212 (1 Apr 2009)
+ * keep temp names in textual scripts
+ * make it less easy to rip a BookMorph's nav-bar out of the book
+ * Linux: fix GStreamer playback (for squeak-vm with GStreamer-Plugin JMM.16)
+
+4.0.2206 (2 Mar 2009)
+ * update translations de, el, fr, sv, tr, vi
+ * fix 'bearing to' and 'distance to' tiles
+
+4.0.2205-2 (15 Jan 2009)
+ * update version string on startup
+ * Sugar: include icons for mimetypes
+
+4.0.2205-1 (12 Jan 2009)
+ * offer full authoring-tools menu to all users  
+ * make Anthy based Japanese input work
+ * add About flap on start screen
+ * enable screen scaling a bit more eagerly
+
+4.0.2201 (16 Dec 2008)
+ * first 4.0 alpha
+ * removed/reverted/rewrote all methods not covered by Apache/MIT license
+ * various fixes (#8928, #8929, #8879, #9058, and others)
+
+3.0.2177 (5 Jan 2009)
+ * last release in 3.0 series
+
+3.0.xxxx (11 Sep 2008)
+ * Original release of the OLPC-compatible Etoys on Squeakland

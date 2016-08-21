@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#000000">
+  <!ENTITY stroke_color "#FFFFFF">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55">
+
+   <polygon points="10.932,6.088 31.874,6.088 43.818,18.027 43.818,45.914 10.932,45.914 10.932,6.088 " transform="translate(-5.182,3.336)" style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-miterlimit:4" />
+   <polyline points="43.818,18.027 31.874,18.027 31.874,6.088" style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-miterlimit:4" transform="translate(-5.182,3.336)" />
+   <text x="8" y="36" font-size="12" font-family="Bitstream Vera Sans" font-weight="bold" fill="&stroke_color;" stroke="none">PNG</text>
+    <g transform="translate(-0.25,-1.75)">
+      <line style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round" y2="5" y1="16" x2="52.5" x1="41" />
+      <polyline style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round" points="51.5,15.5 41,16 42,5.75" />
+    </g>
+</svg>

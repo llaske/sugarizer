@@ -187,10 +187,10 @@ enyo.kind({
 	
 	// End of sound detected, broadcast the signal
 	broadcastEnd: function() {
-		enyo.Signals.send("onEndOfSound", this.$.sound.src.substring(0,this.$.sound.src.length-4));
+		enyo.Signals.send("onEndOfSound", {sound:this.$.sound.src.substring(0,this.$.sound.src.length-4)});
 	},
 	
 	broadcastUpdate: function(s, e) {
-		enyo.Signals.send("onSoundTimeupdate", e.timeStamp-this.timeStamp);	
+		enyo.Signals.send("onSoundTimeupdate", {timestamp:e.timeStamp-this.timeStamp});	
 	}
 });

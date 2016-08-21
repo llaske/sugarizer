@@ -101,7 +101,7 @@ enyo.kind({
 	},
 	
 	endOfSound: function(e, s) {
-		if (s == this.sound) {
+		if (s.sound == this.sound) {
 			this.doEntrySoundEnded();
 			this.$.soundIcon.setSrc("images/sound_off"+(this.soundonly?1:0)+".png");
 		}

@@ -1,0 +1,83 @@
+:NavBar
+NavBarKeepFindProjects|Keep Find Projects
+NavBarChoose-aLanguage|Choose a Language
+NavBarHideShow|Hide Show
+NavBarToggle|Toggle
+:Paint
+PaintBrushes|Brushes
+PaintColorPalette|Color Palette
+PaintBucketTool|Bucket Tool
+PaintStraightLineTool|Straight Line Tool
+PaintEllipseTool|Ellipse Tool
+PaintRectangleTool|Rectangle Tool
+PaintPolygonTool|Polygon Tool
+PaintColorPicker|Color Picker
+PaintStampsTool|Stamps Tool
+:Halo
+HaloMake-theHandlesShow|Make the Handles Show
+HaloViewer-ofScriptTiles|Viewer of Script Tiles
+HaloSizeColorCopy|Size Color Copy
+HaloMove-andPickUp|Move and Pick Up
+HaloRotateHandle|Rotate Handle
+HaloTrash|Trash
+HaloArrow-atCenter|Arrow at Center
+HaloCenter-ofRotation|Center of Rotation
+HaloMenuTools|Menu Tools
+HaloMake-aScriptTile|Make a Script Tile
+HaloCollapse|Collapse
+HaloColorPropertySheet|Color Property Sheet
+:Supplies
+SuppliesObjectCatalog|Object Catalog
+SuppliesText|Text
+SuppliesAllScripts|All Scripts
+SuppliesJoystickControl|Joystick Control
+SuppliesSoundRecorder|Sound Recorder
+SuppliesHolder|Holder
+SuppliesPlayersTool|Players Tool
+SuppliesAdd-aNewFlap|Add a New Flap
+:ObjectCat
+ObjectCatSliderBar|Slider Bar
+ObjectCatGrabPatchTool|Grab Patch Tool
+ObjectCatLassoTool|Lasso Tool
+ObjectCatDigitalImages|Digital Images
+ObjectCatMakerButton|Maker Button
+ObjectCatPolygon|Polygon
+:Books
+BooksTopBorderIcons|Top Border Icons
+BooksExpandedControls|Expanded Controls
+BooksWorking-withLayers|Working with Layers
+BooksNavigationTiles|Navigation Tiles
+:ScriptTile
+ScriptTileForward-by|Forward by
+ScriptTileTurn-by|Turn by
+ScriptTileBounceMotion|Bounce Motion
+ScriptTileX-andYTiles|X and Y Tiles
+ScriptTilePenUse|Pen Use
+ScriptTilePlayfieldTrail|Playfield Trail
+ScriptTileStamps|Stamps
+ScriptTileHeading|Heading
+ScriptTileScaleFactor|Scale Factor
+ScriptTileHide-andShow|Hide and Show
+ScriptTileWorldInput|World Input
+ScriptTileSoundCategory|Sound Category
+ScriptTileWidthLength|Width Length
+ScriptTileOverlapsDot|Overlaps Dot
+ScriptTileFoward-andTurn|Foward and Turn
+ScriptTileRandomNumbers|Random Numbers
+ScriptTileExactLocation|Exact Location
+ScriptTileWrap|Wrap
+ScriptTileTestsCategory|Tests Category
+ScriptTileTwoColorTest|Two Color Test
+:Menu
+MenuNormalTicking|Normal Ticking
+MenuViewerIconsSet|Viewer Icons Set
+MenuScriptorIconsSet|Scriptor Icons Set
+MenuButtonFires-aScript|Button Fires a Script
+MenuGrabMeRevealMe|Grab Me Reveal Me
+MenuWatchers|Watchers
+MenuBring-toFront|Bring to Front
+MenuDecimalPlaces|Decimal Places
+MenuPlayfieldGraphPaper|Playfield Graph Paper
+MenuDropShadow|Drop Shadow
+MenuPainting|Painting
+MenuGrid-andSnap-toGrid|Grid and Snap to Grid

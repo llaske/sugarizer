@@ -96,9 +96,13 @@ define(function (require) {
             this.tenthsOfSecond = 0;
             this.seconds = 0;
             this.minutes = 0;
-            if (!this.running) {
-                this.updateView();
+            if(this.running){
+                this.onStartStopClicked();
             }
+            else{
+                this.running = false;
+            }
+            this.updateView();
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
