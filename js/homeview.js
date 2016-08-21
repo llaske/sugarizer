@@ -131,8 +131,6 @@ enyo.kind({
 		sugarizerOS.scanWifi();
 		sugarizerOS.popupTimer = 0;
 		if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName){
-		    console.log(sugarizerOS.launcherPackageName);
-		    console.log(sugarizerOS.packageName);
 		    this.doResetLauncher();
 		}
 	    }
@@ -478,7 +476,6 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
     hideActivityPopup: function() {
-	console.log("hideActivity", "enters hideactivitypopup");
 		// Hide popup
 		if (this.getPopup().cursorIsInside())
 			return false;
@@ -543,7 +540,6 @@ enyo.kind({
 	this.otherview.show();
     },
     doResetLauncher: function() {
-	console.log("homeview", "enters doResetLauncher");
 	this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSetLauncher"}, {owner:this});
 	this.otherview.show();
     },
