@@ -32,7 +32,7 @@ enyo.kind({
 	    this.$.language.setText(l10n.get("Language"));
 	    this.$.aboutserver.setText(l10n.get("Server"));
 	if (window.sugarizerOS){
-	    window.sugarizerOS.checkIfDefaultLauncher();
+	    sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
 	    this.$.androidSettings.setText(l10n.get("AndroidSettings"));
 	    this.$.androidSettings.show();
 	    this.$.resetLauncher.show();
@@ -138,7 +138,10 @@ enyo.kind({
 	{name: "content", components: [
 	    { name: "message", content: "xxx", classes: "launcher-message" },
 	    {classes: "enterkey", components: [
-		{ name: "chooseButton", kind: "Button", classes: "toolbutton launcher-button", ontap: "changeLauncher"}]}	    
+		{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap:"changeLauncher"},
+		{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"changeLauncher"}
+	    ]
+	    },
 	]
 	}
     ],
@@ -147,16 +150,23 @@ enyo.kind({
     create: function() {
 	this.inherited(arguments);
 	this.$.text.setContent(l10n.get("SetLauncherTitle"));
-	this.$.message.setContent(l10n.get("SetLauncherText"));
+	this.$.message.setContent(l10n.get("SetLauncherText", {launcher:sugarizerOS.launcherPackageName}));
 	if (l10n.language.direction == "rtl") {
 	    this.$.text.addClass("rtl-10");
+	}
+	if (window.sugarizerOS){
+	    if (sugarizerOS.launcherPackageName == sugarizerOS.packageName){
+		this.$.sugarIcon.addClass("selected");
+	    }
+	    else{
+		this.$.nativeIcon.addClass("selected");
+	    }
 	}
     },
     rendered: function() {
 	this.$.icon.render();
 	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-	this.$.chooseButton.setContent(l10n.get("ResetLauncher"));
     },
     // Event handling
     cancel: function() {
@@ -195,15 +205,20 @@ enyo.kind({
 	{name: "content", components: [
 	    {classes: "enterkey", components: [
 		{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
-		]},
+		,
 		{ name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
 	    ]}
-	],
+	]}
+    ],
     
     // Constructor
     create: function() {
 	this.inherited(arguments);
-	this.$.text.setContent(l10n.get("EnterKey"));
+	this.$.text.setContent(l10n.get("EnterKey") + " [" + sugarizerOS.NetworkBuffer.SSID + "]");
+	if (sugarizerOS.sharedKeyBuffer)
+	    this.$.keyInput.setValue(sugarizerOS.sharedKeyBuffer);
+	else
+	    this.$.keyInput.setValue("");
 	if (l10n.language.direction == "rtl") {
 	    this.$.text.addClass("rtl-10");
 	}
@@ -220,6 +235,8 @@ enyo.kind({
     },	
     ok: function() {
 	sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
+	sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer);
+	sugarizerOS.joinNetwork(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer, sugarizerOS.NetworkBuffer.capabilities);
 	this.hide();
 	this.$.okbutton.setDisabled(true);
 	this.$.cancelbutton.setDisabled(true);

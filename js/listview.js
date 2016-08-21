@@ -20,14 +20,25 @@ enyo.kind({
 	],
   
 	// Constructor: init list
-	create: function() {
-		this.inherited(arguments);
-		this.activitiesChanged();
-		this.computeSize();
-		this.draw();
-	},
-	
-	computeSize: function() {
+    create: function() {
+	this.inherited(arguments);
+	if (!window.sugarizerOS){
+	    this.activitiesChanged();
+	    this.computeSize();
+	    this.draw();
+	}
+	else{
+	    var t = this;
+	    var a = arguments;
+	    sugarizerOS.initActivitiesPreferences(function (){
+		t.activitiesChanged();
+		t.computeSize();
+		t.draw();
+	    });
+	}
+    },
+    
+    computeSize: function() {
 		var toolbar = document.getElementById("toolbar");
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
@@ -41,8 +52,6 @@ enyo.kind({
 	
 	// Draw screen
     draw: function() {
-	if (window.sugarizerOS)
-	    sugarizerOS.initActivitiesPreferences();
 	    // Set no matching activities
 	    var canvas_center = util.getCanvasCenter();
 	    this.$.nomatch.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");

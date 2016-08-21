@@ -77,7 +77,7 @@ enyo.kind({
 		    if (pwr % 2 != 0)
 			pwr +=1;
 		    
-		    pwr = (pwr - 2) * 10;
+		    pwr = pwr * 10;
 		    cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
 		    if (!cacheIcon){
 			currentNetwork.networkId = currentNetwork.BSSID;
@@ -230,10 +230,16 @@ enyo.kind({
 
     joinNetwork: function(network)
     {
-	window.sugarizerOS.joinNetwork(network.SSID, sugarizerOS.sharedKeyBuffer, network.capabilities);
+	sugarizerOS.joinNetwork(network.SSID, sugarizerOS.sharedKeyBuffer, network.capabilities);
+	sugarizerOS.setKey(network.SSID, sugarizerOS.sharedKeyBuffer);
 	this.getPopup().hidePopup();
     },
     enterKey: function(network){
+	sugarizerOS.getKeyStore(function(keyStore){
+	    sugarizerOS.keyStore = keyStore;
+	});
+	sugarizerOS.sharedKeyBuffer = sugarizerOS.keyStore[network.SSID];
+	sugarizerOS.NetworkBuffer = network;
 	this.getPopup().hidePopup();
 	this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogNetworkKey"});
 	this.otherview.show();
@@ -670,7 +676,11 @@ enyo.kind({
 			}
 		}
 		return null;
-	}
+	},
+    destroy: function() {
+	this.inherited(arguments);
+	clearTimeout(this.timer);
+    }
 });
 
 
