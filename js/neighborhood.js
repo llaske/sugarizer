@@ -73,7 +73,7 @@ enyo.kind({
 		var pwr = (-1 * currentNetwork.RSSI) % 10;
 		if (currentNetwork.isConnected)
 		    connectedString = "-connected";
-		if (encryptionString != "OPEN")
+		else if (encryptionString != "OPEN")
 		    securedString = "-locked";
 		if (pwr > 0){
 		    if (pwr % 2 != 0)

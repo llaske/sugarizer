@@ -139,7 +139,7 @@ enyo.kind({
 	    { name: "message", content: "xxx", classes: "launcher-message" },
 	    {classes: "enterkey", components: [
 		{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap:"changeLauncher"},
-		{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "owner-icon.svg"}, ontap:"changeLauncher"}
+		{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar",  icon: {directory: "icons", icon: "sugarizer.svg"}, ontap:"changeLauncher"}
 	    ]
 	    },
 	]

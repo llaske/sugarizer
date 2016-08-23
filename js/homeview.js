@@ -130,8 +130,10 @@ enyo.kind({
 		sugarizerOS.initActivitiesPreferences(function(){t.init();});
 		sugarizerOS.scanWifi();
 		sugarizerOS.popupTimer = 0;
-		if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName){
+		if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName &&
+		    !sugarizerOS.isSetup){
 		    this.doResetLauncher();
+		    sugarizerOS.putInt("IS_SETUP", 1);
 		}
 	    }
 	    else
