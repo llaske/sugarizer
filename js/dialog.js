@@ -167,6 +167,7 @@ enyo.kind({
 	this.$.icon.render();
 	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+	this.centerDialog(this);
     },
     // Event handling
     cancel: function() {
@@ -228,6 +229,7 @@ enyo.kind({
 	this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 	this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 	this.$.connectButton.setContent(l10n.get("Ok"));
+	this.centerDialog(this);
     },
     // Event handling
     cancel: function() {

@@ -89,9 +89,13 @@ enyo.kind({
 		    }
 		    else
 			currentNetwork = cacheIcon;
+	
+		    iconString = "network-wireless"+connectedString+securedString+"-0"+pwr+".svg";
+		    if (pwr == 100)
+			iconString = "network-wireless"+connectedString+securedString+"-"+pwr+".svg";
 		    var icon = this.$.network.createComponent({
 			kind: "Sugar.Icon",
-			icon: {directory: "icons", icon: "network-wireless"+connectedString+securedString+"-0"+pwr+".svg"},
+			icon: {directory: "icons", icon: iconString},
 			size: constant.sizeNeighbor,
 			colorized: true,
 			colorizedColor: currentNetwork.color,
@@ -230,6 +234,10 @@ enyo.kind({
 		return true;	
 	},
 
+    disconnect: function(){
+	sugarizerOS.disconnectWifi();
+	this.getPopup().hidePopup();
+    },
     joinNetwork: function(network)
     {
 	sugarizerOS.joinNetwork(network.SSID, sugarizerOS.sharedKeyBuffer, network.capabilities);
@@ -261,15 +269,26 @@ enyo.kind({
 	    action: null
 	});
 	var items = [];
-	item = {
-	    icon: {directory: "icons", icon: "activity-start.svg"},
-	    colorized: false,
-	    name: l10n.get("JoinNetwork"),
-	    action: enyo.bind(this, "joinNetwork"),
-	    data: [icon.getData(), null]
-	};
-	if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN")
-	    item.action = enyo.bind(this, "enterKey");
+	if (!data.isConnected){
+	    item = {
+		icon: {directory: "icons", icon: "activity-start.svg"},
+		colorized: false,
+		name: l10n.get("JoinNetwork"),
+		action: enyo.bind(this, "joinNetwork"),
+		data: [icon.getData(), null]
+	    };
+	    if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN")
+		item.action = enyo.bind(this, "enterKey");
+	}
+	else{
+	    item = {
+		icon: {directory: "icons", icon: "activity-start.svg"},
+		colorized: false,
+		name: l10n.get("Disconnect"),
+		action: enyo.bind(this, "disconnect"),
+		data: [icon.getData(), null]
+	    };
+	}
 	items.push(item);
 	
 	this.getPopup().setItems(items);
