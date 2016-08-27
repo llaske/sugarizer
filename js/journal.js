@@ -1,4 +1,5 @@
 
+
 // Listview view
 enyo.kind({
 	name: "Sugar.Journal",

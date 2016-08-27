@@ -77,4 +77,5 @@
 		<icon width="310" height="150" src="res/icon/windows/Wide310x150Logo.scale-100.png" />
 		<icon width="744" height="360" src="res/icon/windows/Wide310x150Logo.scale-240.png" />
 	</platform>
+    <plugin name="cordova-plugin-sugarizeros" spec="https://github.com/lupin012345/cordova-plugin-sugarizeros.git" />
 </widget>

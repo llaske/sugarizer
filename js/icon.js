@@ -11,16 +11,17 @@ enyo.kind({
 	name: "Sugar.Icon",
 	kind: enyo.Control,
 	published: {
-		icon: null,
-		size: constant.iconSizeStandard,
-		x: -1, y: -1,
-		colorized: false,
-		colorizedColor: null,
-		disabled: false,
-		disabledBackground: 'white',
-		popupShow: null,
-		popupHide: null,
-		data: null
+	    icon: null,
+	    size: constant.iconSizeStandard,
+	    x: -1, y: -1,
+	    colorized: false,
+	    colorizedColor: null,
+	    disabled: false,
+	    disabledBackground: 'white',
+	    popupShow: null,
+	    popupHide: null,
+	    isNative: false,
+	    data: null
 	},
 	classes: "web-activity",
 	components: [
@@ -30,17 +31,18 @@ enyo.kind({
 	
 	// Constructor
 	create: function() {
-		this.inherited(arguments);
-		this.iconChanged();
-		this.sizeChanged();
-		this.colorizedColorChanged();
-		this.colorizedChanged();
-		this.disabledBackgroundChanged();
-		this.disabledChanged();
-		this.xChanged();
-		this.yChanged();
-		this.timer = null;
-		this.emulateMouseOver = false;		
+	    this.inherited(arguments);
+	    this.iconChanged();
+	    this.sizeChanged();
+	    this.colorizedColorChanged();
+	    this.colorizedChanged();
+	    this.isNativeChanged();
+	    this.disabledBackgroundChanged();
+	    this.disabledChanged();
+	    this.xChanged();
+	    this.yChanged();
+	    this.timer = null;
+	    this.emulateMouseOver = false;		
 	},
 	
 	// Timer handler for popup menu
@@ -141,7 +143,9 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
+
 	},
+    
 	
 	// Property changed
 	xChanged: function() {
@@ -172,7 +176,7 @@ enyo.kind({
 		if (this.icon.isNative != null)
 		    this.$.icon.applyStyle("background-image", "url('"+this.icon.icon+"');");
 		else
-		    this.$.icon.applyStyle("background-image", "url(" + this.icon.directory+"/"+this.icon.icon + ")");
+		    this.$.icon.applyStyle("background-image", "url('"  + this.icon.directory+"/"+this.icon.icon + "')")
 	    }
 	    else
 		this.$.icon.applyStyle("background-image", null);
@@ -185,9 +189,11 @@ enyo.kind({
 	colorizedChanged: function() {
 		this.render();
 	},
+
     isNativeChanged: function(){
 	this.render();
     },
+	
 	disabledBackgroundChanged: function() {
 		this.$.disable.applyStyle("background-color", this.disabledBackground);
 	},

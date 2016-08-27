@@ -28,7 +28,6 @@ constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
 
 constant.timerUpdateNetwork = 1000;
-
 constant.thinClientType = 0;
 constant.clientType = 1;
 
@@ -56,3 +55,5 @@ constant.touchToPopupDuration = 500;
 constant.maxPopupHistory = 5;
 
 constant.maxCollisionTry = 20;
+
+constant.wifiUpdateTime = 20000;
