@@ -124,15 +124,20 @@ enyo.kind({
 	    presence.listUsers(enyo.bind(this, "userListReceived"));
 	    presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));	
 	}
-	if (window.sugarizerOS){
+	else if (window.sugarizerOS){
 	    now = new Date().getTime();
-	    sugarizerOS.scanWifi();
 	    this.$.owner.setShowing(true);
 	    if (presence.isConnected())
 		this.$.server.setShowing(true);
 	    this.$.empty.setShowing(false);
 	    this.$.message.setShowing(false);
 	    this.$.settings.setShowing(false);
+	    sugarizerOS.isWifiEnabled(function(value){
+		if (value != 0)
+		    sugarizerOS.scanWifi();
+		else
+		    sugarizerOS.networks = [];
+	    });
 	    if (wifiItemsCache != sugarizerOS.networks &&
 		(now - lastWifiUpdate) > constant.wifiUpdateTime){
 		this.draw();
