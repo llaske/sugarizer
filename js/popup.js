@@ -127,7 +127,7 @@ enyo.kind({
 				obj = obj.offsetParent;
 			}
 		}
-        var isInside = (
+		var isInside = (
 			mouse.position.x >= p.x && mouse.position.x <= p.x + p.dx 
 			&& mouse.position.y >= p.y && mouse.position.y <= p.y + p.dy
 		);
