@@ -409,7 +409,7 @@ enyo.kind({
 			data: [activity, null]
 		});
 		var items = [];
-		if (activity.instances)
+		if (activity.instances) {
 			for(var i = 0 ; i < activity.instances.length && i < constant.maxPopupHistory; i++) {
 				items.push({
 					icon: activity,
@@ -420,17 +420,17 @@ enyo.kind({
 					data: [activity, activity.instances[i]]
 				});
 			}
-	    
-	    if (!activity.isNative){
-		this.getPopup().setItems(items);
-		this.getPopup().setFooter([{
-			icon: activity,
-			colorized: false,
-			name: l10n.get("StartNew"),
-			action: enyo.bind(this, "runNewActivity"),
-			data: [activity, null]
-		}]);
-	    }
+		}
+		if (!activity.isNative){
+			this.getPopup().setItems(items);
+			this.getPopup().setFooter([{
+				icon: activity,
+				colorized: false,
+				name: l10n.get("StartNew"),
+				action: enyo.bind(this, "runNewActivity"),
+				data: [activity, null]
+			}]);
+		}
 
 		// Show popup
 		this.getPopup().showPopup();
@@ -535,6 +535,7 @@ enyo.kind({
 	create: function() {
 		// Localize items
 		this.inherited(arguments);
+		this.needRedraw = false;
 	},
 
 	rendered: function() {
@@ -542,6 +543,10 @@ enyo.kind({
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
+	},
+
+	askRedraw: function() {
+		this.needRedraw = true;
 	},
 
 	// Handle search text content
@@ -577,13 +582,25 @@ enyo.kind({
 
 	showRadialView: function() {
 		app.showView(constant.radialView);
+		if (this.needRedraw) {
+			this.needRedraw = false;
+			app.redraw();
+		}
 	},
 
 	showListView: function() {
 		app.showView(constant.listView);
+		if (this.needRedraw) {
+			this.needRedraw = false;
+			app.redraw();
+		}
 	},
 
 	showNeighborView: function() {
 		app.showView(constant.neighborhoodView);
+		if (this.needRedraw) {
+			this.needRedraw = false;
+			app.redraw();
+		}
 	}
 });
