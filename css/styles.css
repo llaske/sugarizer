@@ -165,6 +165,24 @@ input {
 	opacity: 0.5;
 }
 
+.setlauncher-icon {
+    margin-top: 100px;
+    position: absolute;
+}
+
+.native{
+    margin-left: 250px;
+}
+
+.sugar{
+    margin-left: 450px;
+}
+
+.selected{
+    border-bottom: 6px solid red;
+    background-color: lightgrey;
+}
+
 .owner-icon {
 	position: absolute;
 }
@@ -553,6 +571,19 @@ input {
 	color: #808080;
 }
 
+.launcher-message {
+    position: absolute;
+    left: 20px;
+    margin-top: 20px;
+    color: #808080;
+}
+
+.launcher-button {
+    position:absolute;
+    left:20px;
+    margin-top: 60px;
+}
+
 .aboutme-icons {
 	width: 100%;
 	display: inline-block;
@@ -609,6 +640,22 @@ input {
 	padding-left: 10px;
 	padding-right: 10px;
 	font-size: 10pt;
+}
+
+.enterkey-input{
+    margin-top: 50px;
+    margin-left:250px;
+    border-radius: 22px;
+    height: 25px;
+    width: 270px;
+    background-color: #e5e5e5;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 10pt;
+}
+
+.enterkey-input:focus{
+    background-color: white;
 }
 
 .aboutme-name:focus {

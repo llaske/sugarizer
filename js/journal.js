@@ -1,4 +1,5 @@
 
+
 // Listview view
 enyo.kind({
 	name: "Sugar.Journal",
@@ -56,8 +57,9 @@ enyo.kind({
 
 	// Get linked toolbar
 	getToolbar: function() {
-		if (this.toolbar == null)
+		if (this.toolbar == null) {
 			this.toolbar = new Sugar.JournalToolbar();
+		}
 		return this.toolbar;
 	},
 
@@ -115,8 +117,9 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
 		var entry = this.journal[inEvent.index];
-		if (entry.metadata.buddy_color)
+		if (entry.metadata.buddy_color) {
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
+		}
 		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
 		var keep = entry.metadata.keep;
@@ -138,10 +141,11 @@ enyo.kind({
 	switchFavorite: function(inSender, inEvent) {
 		var objectId = this.journal[inEvent.index].objectId;
 		var keep = this.journal[inEvent.index].metadata.keep;
-		if (keep === undefined)
+		if (keep === undefined) {
 			this.journal[inEvent.index].metadata.keep = 1;
-		else
+		} else {
 			this.journal[inEvent.index].metadata.keep = (keep + 1) % 2;
+		}
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.setDataAsText(this.journal[inEvent.index].text);
@@ -157,8 +161,9 @@ enyo.kind({
 	runCurrentActivity: function(activity) {
 		// Generic
 		var activityInstance = preferences.getActivity(activity.metadata.activity);
-		if (activityInstance == preferences.genericActivity)
+		if (activityInstance == preferences.genericActivity) {
 			return;
+		}
 
 		// Load text content
 		var that = this;
@@ -415,8 +420,9 @@ enyo.kind({
 		line.title.setShowing(true);
 		line.titleEdit.setShowing(false);
 		var newtitle = line.titleEdit.getValue();
-		if (newtitle == line.title.getContent())
+		if (newtitle == line.title.getContent()) {
 			return;
+		}
 		var objectId = this.journal[inEvent.index].objectId;
 
 		// Update local journal
@@ -527,8 +533,9 @@ enyo.kind({
 		var items = [];
 		items.push({icon: null, name: l10n.get("Anything")});
 		var activities = preferences.getActivities();
-		for(var i = 0 ; i < activities.length ; i++)
+		for(var i = 0 ; i < activities.length ; i++) {
 			items.push({icon: activities[i], name: activities[i].name});
+		}
 		this.$.typeselect.setItems(items);
 	},
 

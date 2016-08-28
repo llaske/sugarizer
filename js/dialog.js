@@ -1,4 +1,5 @@
 // Settings dialog
+
 enyo.kind({
 	name: "Sugar.DialogSettings",
 	kind: "enyo.Popup",
@@ -9,13 +10,15 @@ enyo.kind({
 	components: [
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
-			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}			
+			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}
 		]},
 		{name: "content", components: [
 			{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 			{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 			{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-			{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}}
+			{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
+			{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
+			{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
 		]},
 		{name: "subdialog"}
 	],
@@ -28,6 +31,13 @@ enyo.kind({
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
 		this.$.language.setText(l10n.get("Language"));
 		this.$.aboutserver.setText(l10n.get("Server"));
+		if (window.sugarizerOS) {
+			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
+			this.$.androidSettings.setText(l10n.get("AndroidSettings"));
+			this.$.androidSettings.show();
+			this.$.resetLauncher.show();
+			this.$.resetLauncher.setText(l10n.get("ResetLauncher"));
+		}
 		if (l10n.language.direction == "rtl") {
 			this.$.me.addClass("rtl-10");
 			this.$.computer.addClass("rtl-10");
@@ -36,33 +46,33 @@ enyo.kind({
 		}
 		this.subdialog = null;
 	},
-	
+
 	rendered: function() {
 		app.noresize = true; // HACK: Forbid home resizing when popup is displayed to avoid modal issue
 		this.$.me.render();
 		this.$.donebutton.setNodeProperty("title", l10n.get("Done"));
 		this.centerDialog(this);
 	},
-	
+
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
 		dialog.applyStyle("margin-top", (margin.top-55)+"px");
 	},
-	
+
 	// Events
 	filterSettings: function() {
 		var filter = this.$.settingssearch.getText().toLowerCase();
 		enyo.forEach(this.$.content.getControls(), function(item) {
 			item.setDisabled(item.getText().toLowerCase().indexOf(filter) == -1 && filter.length != 0);
-		});		
+		});
 	},
-	
+
 	closeSettings: function() {
 		this.hide();
 		app.noresize = false;
 	},
-	
+
 	// Display me dialog
 	meClicked: function() {
 		if (!this.$.me.getDisabled()) {
@@ -71,7 +81,7 @@ enyo.kind({
 			this.subdialog.show();
 		}
 	},
-	
+
 	computerClicked: function() {
 		if (!this.$.computer.getDisabled()) {
 			this.hide();
@@ -79,7 +89,7 @@ enyo.kind({
 			this.subdialog.show();
 		}
 	},
-	
+
 	languageClicked: function() {
 		if (!this.$.language.getDisabled()) {
 			this.hide();
@@ -87,17 +97,160 @@ enyo.kind({
 			this.subdialog.show();
 		}
 	},
-	
+
 	serverClicked: function() {
 		if (!this.$.aboutserver.getDisabled()) {
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
-		}	
-	}	
-});	
+		}
+	},
+	androidSettingsClicked: function() {
+		if (window.sugarizerOS){
+			sugarizerOS.runSettings();
+		}
+		this.hide();
+	},
+	resetLauncherPopup: function(){
+		this.hide();
+		this.subdialog = this.$.subdialog.createComponent({kind:"Sugar.DialogSetLauncher"}, {owner:this});
+		this.subdialog.show();
+	}
+});
 
+// Set Launcher dialog
+enyo.kind({
+	name: "Sugar.DialogSetLauncher",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [
+			{ ame: "message", content: "xxx", classes: "launcher-message" },
+			{classes: "enterkey", components: [
+				{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap:"changeLauncher"},
+				{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "sugarizer.svg"}, ontap:"changeLauncher"}
+			]},
+		]}
+	],
 
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("SetLauncherTitle"));
+		this.$.message.setContent(l10n.get("SetLauncherText", {launcher:sugarizerOS.launcherPackageName}));
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+		}
+		if (window.sugarizerOS) {
+			if (sugarizerOS.launcherPackageName == sugarizerOS.packageName) {
+				this.$.sugarIcon.addClass("selected");
+			}
+			else {
+				this.$.nativeIcon.addClass("selected");
+			}
+		}
+	},
+	rendered: function() {
+		this.$.icon.render();
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.centerDialog(this);
+	},
+	// Event handling
+	cancel: function() {
+		this.hide();
+	},
+	restart: function() {
+		sugarizerOS.chooseLauncher();
+		this.hide();
+	},
+	changeLauncher: function() {
+		this.$.warningbox.setShowing(true);
+	},
+	centerDialog: function(dialog) {
+		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		dialog.applyStyle("margin-left", margin.left+"px");
+		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+	}
+});
+
+// Enter Wireless key dialog
+enyo.kind({
+	name: "Sugar.DialogNetworkKey",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "content", components: [
+			{classes: "enterkey", components: [
+				{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"},
+				{name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
+			]}
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("EnterKey") + " [" + sugarizerOS.NetworkBuffer.SSID + "]");
+		if (sugarizerOS.sharedKeyBuffer) {
+			this.$.keyInput.setValue(sugarizerOS.sharedKeyBuffer);
+		} else {
+			this.$.keyInput.setValue("");
+		}
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+		}
+	},
+	rendered: function() {
+		this.$.icon.render();
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.connectButton.setContent(l10n.get("Ok"));
+		this.centerDialog(this);
+	},
+	// Event handling
+	cancel: function() {
+		this.hide();
+	},
+	ok: function() {
+		sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
+		sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer);
+		sugarizerOS.joinNetwork(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer, sugarizerOS.NetworkBuffer.capabilities);
+		this.hide();
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+	keychanged: function() {
+	},
+	connect: function() {
+	},
+	centerDialog: function(dialog) {
+		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		dialog.applyStyle("margin-left", margin.left+"px");
+		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+	}
+});
 
 // About me dialog
 enyo.kind({
@@ -112,7 +265,7 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
@@ -128,16 +281,16 @@ enyo.kind({
 			{classes: "aboutme-input", components: [
 				{name: "name", kind: "Input", classes: "aboutme-name", oninput:"namechanged"}
 			]},
-			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false}			
+			{name: "restartmessage", content: "xxx", classes: "aboutme-restart", showing: false}
 		]}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
 		this.$.text.setContent(l10n.get("AboutMe"));
 		this.$.message.setContent(l10n.get("ClickToChangeColor"));
-		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));		
+		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));
 		this.initcolor = this.currentcolor = preferences.getColor();
 		this.initname = this.currentname = preferences.getName();
 		this.$.name.setValue(this.initname);
@@ -148,37 +301,37 @@ enyo.kind({
 			this.$.restartmessage.addClass("rtl-10");
 		}
 	},
-	
+
 	rendered: function() {
 		this.$.icon.render();
-		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		var xosize = (util.getCanvasCenter().dx < 515 ? constant.sizeOwner/2 : constant.sizeOwner);
 		this.$.pficon.setSize(xosize);
 		this.$.pficon.setColorizedColor(util.getPreviousFillColor(this.currentcolor));
 		this.$.pficon.setColorized(true);
-		this.$.psicon.setSize(xosize);		
+		this.$.psicon.setSize(xosize);
 		this.$.psicon.setColorizedColor(util.getPreviousStrokeColor(this.currentcolor));
 		this.$.psicon.setColorized(true);
-		this.$.cicon.setSize(xosize);		
+		this.$.cicon.setSize(xosize);
 		this.$.cicon.setColorizedColor(this.currentcolor);
 		this.$.cicon.setColorized(true);
-		this.$.nficon.setSize(xosize);		
+		this.$.nficon.setSize(xosize);
 		this.$.nficon.setColorizedColor(util.getNextFillColor(this.currentcolor));
 		this.$.nficon.setColorized(true);
-		this.$.nsicon.setSize(xosize);		
+		this.$.nsicon.setSize(xosize);
 		this.$.nsicon.setColorizedColor(util.getNextStrokeColor(this.currentcolor));
 		this.$.nsicon.setColorized(true);
 		this.$.name.setValue(this.currentname);
 		this.owner.centerDialog(this);
 	},
-	
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 		this.owner.show();
 	},
-	
+
 	ok: function() {
 		if (this.currentcolor == this.initcolor && this.currentname == this.initname) {
 			this.hide();
@@ -190,26 +343,27 @@ enyo.kind({
 		this.$.cancelbutton.setDisabled(true);
 		this.$.name.addRemoveClass('aboutme-name-validate', true);
 	},
-	
+
 	setcolor: function(icon) {
 		var newcolor = icon.getColorizedColor();
-		if (newcolor == this.currentcolor)
+		if (newcolor == this.currentcolor) {
 			return;
+		}
 		this.currentcolor = newcolor;
 		this.render();
 		this.$.restartmessage.setShowing(true);
 	},
-	
+
 	namechanged: function() {
 		this.$.restartmessage.setShowing(true);
 		this.currentname = this.$.name.getValue();
 	},
-	
+
 	restart: function() {
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
-		preferences.saveToServer(myserver, function() {		
+		preferences.saveToServer(myserver, function() {
 			util.restartApp();
 		});
 	}
@@ -230,17 +384,17 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-language.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "message", content: "xxx", classes: "language-message"},
-			{name: "languageselect", kind: "Sugar.SelectBox", classes: "language-select", onIndexChanged: "languageChanged"},			
+			{name: "languageselect", kind: "Sugar.SelectBox", classes: "language-select", onIndexChanged: "languageChanged"},
 			{name: "restartmessage", content: "xxx", classes: "language-restart", showing: false}
 		]}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
@@ -258,7 +412,7 @@ enyo.kind({
 			{code: "ja", icon: null, name: l10n.get("Japanese")},
 			{code: "pl", icon: null, name: l10n.get("Polish")}
 		];
-		this.$.languageselect.setItems(this.languageset);		
+		this.$.languageselect.setItems(this.languageset);
 		for (var i = 0 ; i < this.languageset.length ; i++) {
 			if (this.languageset[i].code == this.initlanguage) {
 				this.$.languageselect.setSelected(i);
@@ -272,20 +426,20 @@ enyo.kind({
 			this.$.restartmessage.addClass("rtl-10");
 		}
 	},
-	
+
 	rendered: function() {
-		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.languageselect.setParentMargin(this);
 		this.owner.centerDialog(this);
 	},
-	
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 		this.owner.show();
 	},
-	
+
 	ok: function() {
 		if (this.currentlanguage == this.initlanguage) {
 			this.hide();
@@ -296,19 +450,19 @@ enyo.kind({
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
 	},
-	
+
 	languageChanged: function() {
 		this.$.restartmessage.setShowing(true);
 		this.currentlanguage = this.languageset[this.$.languageselect.getSelected()].code;
 	},
-	
+
 	restart: function() {
 		preferences.setLanguage(this.currentlanguage);
 		preferences.save();
-		preferences.saveToServer(myserver, function() {		
+		preferences.saveToServer(myserver, function() {
 			util.restartApp();
 		});
-	}	
+	}
 });
 
 
@@ -326,50 +480,50 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
 		{name: "content", kind: "Scroller", classes: "computer-content", components: [
 			{name: "software", content: "xxx", classes: "computer-software"},
 			{content: "Sugarizer:", classes: "computer-sugarizer"},
 			{name: "sugarizer_value", classes: "computer-value"},
-			{classes: "computer-line"},			
+			{classes: "computer-line"},
 			{name: "clienttype", classes: "computer-clienttype"},
 			{name: "clienttype_value", classes: "computer-value"},
-			{classes: "computer-line"},	
+			{classes: "computer-line"},
 			{name: "browser", content: "xxx", classes: "computer-browser"},
 			{name: "browser_value", classes: "computer-value"},
-			{classes: "computer-line"},			
+			{classes: "computer-line"},
 			{name: "browserversion", content: "xxx", classes: "computer-browserversion"},
 			{name: "browserversion_value", classes: "computer-value"},
-			{classes: "computer-line"},			
+			{classes: "computer-line"},
 			{name: "useragent", content: "xxx", classes: "computer-useragent"},
 			{name: "useragent_value", classes: "computer-value"},
-			{classes: "computer-line"},			
+			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
 			{content: "© 2013-2014 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
 			{name: "license", content: "xxx", classes: "computer-licence"}
 		]}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
 		this.$.text.setContent(l10n.get("AboutMyComputer"));
-		this.$.software.setContent(l10n.get("Software"));	
-		this.$.browser.setContent(l10n.get("Browser"));	
-		this.$.clienttype.setContent(l10n.get("ClientType"));	
-		this.$.browserversion.setContent(l10n.get("BrowserVersion"));	
-		this.$.useragent.setContent(l10n.get("UserAgent"));	
-		this.$.copyright.setContent(l10n.get("Copyright"));	
+		this.$.software.setContent(l10n.get("Software"));
+		this.$.browser.setContent(l10n.get("Browser"));
+		this.$.clienttype.setContent(l10n.get("ClientType"));
+		this.$.browserversion.setContent(l10n.get("BrowserVersion"));
+		this.$.useragent.setContent(l10n.get("UserAgent"));
+		this.$.copyright.setContent(l10n.get("Copyright"));
 		this.$.license.setContent(l10n.get("LicenseTerms"));
-		
-		this.$.sugarizer_value.setContent(constant.sugarizerVersion);	
+
+		this.$.sugarizer_value.setContent(constant.sugarizerVersion);
 		this.$.clienttype_value.setContent(util.getClientName());
-		this.$.browser_value.setContent(util.getBrowserName());	
-		this.$.browserversion_value.setContent(util.getBrowserVersion());	
+		this.$.browser_value.setContent(util.getBrowserName());
+		this.$.browserversion_value.setContent(util.getBrowserVersion());
 		this.$.useragent_value.setContent(navigator.userAgent);
-		
+
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.software.addClass("rtl-10");
@@ -379,25 +533,25 @@ enyo.kind({
 			this.$.useragent.addClass("rtl-10");
 			this.$.copyright.addClass("rtl-10");
 			this.$.license.addClass("rtl-10");
-		}		
+		}
 	},
-	
+
 	rendered: function() {
-		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));		
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.owner.centerDialog(this);
 	},
-	
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 		this.owner.show();
 	},
-	
+
 	ok: function() {
 		this.hide();
 		this.owner.show();
-	}	
+	}
 });
 
 
@@ -415,11 +569,11 @@ enyo.kind({
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "cloud-settings.svg"}},
 			{name: "text", content: "xxx", classes: "module-text"},
-			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},		
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
 		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
-		{name: "content", components: [	
+		{name: "content", components: [
 			{name: "connected", kind: "Input", type: "checkbox", classes: "toggle aboutserver-checkbox", onchange: "switchConnection"},
 			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
 			{components:[
@@ -433,12 +587,12 @@ enyo.kind({
 				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"},
 				{name: "userok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-cancel.svg"}, classes: "aboutserver-iconchecked", showing: false},
 				{name: "textusermessage", content: "xxx", classes: "aboutserver-usermessage"}
-			]},	
+			]},
 			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", ontap: "check"},
 			{name: "warningmessage", content: "xxx", classes: "aboutserver-warningmessage", showing: false}
 		]}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
@@ -456,7 +610,7 @@ enyo.kind({
 		} else {
 			this.initservername = preferences.getServer();
 		}
-		this.$.servername.setValue(this.initservername);		
+		this.$.servername.setValue(this.initservername);
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
 		if (l10n.language.direction == "rtl") {
@@ -469,24 +623,25 @@ enyo.kind({
 			this.$.checkbutton.addClass("rtl-10");
 		}
 	},
-	
+
 	rendered: function() {
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.connected.setNodeProperty("checked", this.initconnected);
 		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.thinClientType)
+		if (util.getClientType() != constant.thinClientType) {
 			this.$.servername.setDisabled(disabled);
-		this.$.username.setDisabled(disabled);		
-		this.owner.centerDialog(this);		
+		}
+		this.$.username.setDisabled(disabled);
+		this.owner.centerDialog(this);
 	},
-	
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 		this.owner.show();
 	},
-	
+
 	ok: function() {
 		if (!this.hasChanged()) {
 			this.hide();
@@ -497,7 +652,7 @@ enyo.kind({
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
 	},
-	
+
 	switchConnection: function() {
 		if (util.getClientType() == constant.thinClientType) {
 			this.$.connected.setNodeProperty("checked", true);
@@ -511,20 +666,21 @@ enyo.kind({
 		this.$.username.setDisabled(disabled);
 		this.$.warningmessage.setShowing(this.hasChanged());
 	},
-	
+
 	changed: function() {
-		this.$.warningmessage.setShowing(this.hasChanged());	
+		this.$.warningmessage.setShowing(this.hasChanged());
 	},
-	
+
 	check: function() {
-		if (!this.$.connected.getNodeProperty("checked"))
+		if (!this.$.connected.getNodeProperty("checked")) {
 			return;
+		}
 		var that = this;
 		var setOk = function(server, user) {
 			that.$.serverok.setIcon({directory: "icons", icon: (server ? "entry-ok.svg":"entry-cancel.svg")});
 			that.$.userok.setIcon({directory: "icons", icon: (user ? "entry-ok.svg":"entry-cancel.svg")});
 			that.$.serverok.setShowing(true);
-			that.$.userok.setShowing(true);		
+			that.$.userok.setShowing(true);
 		}
 		var uid = this.$.username.getValue();
 		myserver.getUser(uid,
@@ -537,20 +693,21 @@ enyo.kind({
 			"http://"+this.$.servername.getValue()
 		);
 	},
-	
+
 	restart: function() {
 		// Get values
 		var currentconnected = this.$.connected.getNodeProperty("checked");
 		var currentservername = this.$.servername.getValue();
 		var currentusername = this.$.username.getValue();
-		
+
 		// Save new settings
-		if ((this.initconnected && !currentconnected) || currentusername == "")
-			preferences.init();	
+		if ((this.initconnected && !currentconnected) || currentusername == "") {
+			preferences.init();
+		}
 		preferences.setConnected(currentconnected);
 		preferences.setServer(currentservername);
 		preferences.setNetworkId(currentusername == "" ? null : currentusername);
-		preferences.save();	
+		preferences.save();
 		util.restartApp();
 	},
 
@@ -558,7 +715,7 @@ enyo.kind({
 	hasChanged: function() {
 		var currentconnected = this.$.connected.getNodeProperty("checked");
 		var currentservername = this.$.servername.getValue();
-		var currentusername = this.$.username.getValue();	
+		var currentusername = this.$.username.getValue();
 		return (this.initconnected != currentconnected || this.initusername != currentusername || this.initservername != currentservername);
 	}
 });
@@ -575,40 +732,40 @@ enyo.kind({
 		text: null,
 		colorized: false,
 		disabled: false
-	},	
+	},
 	components: [
 		{components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "settings-item-icon", size: constant.sizeSettings, disabledBackground: "#000000"},
 			{name: "text", content: "xxx", classes: "settings-item-text"}
 		]}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		this.colorizedChanged();		
+		this.colorizedChanged();
 		this.iconChanged();
 		this.textChanged();
 		this.disabledChanged();
 	},
-	
+
 	// Property changed
 	iconChanged: function() {
 		this.$.icon.setIcon(this.icon);
 	},
-	
+
 	textChanged: function() {
 		this.$.text.setContent(this.text);
 	},
-	
+
 	colorizedChanged: function() {
 		this.$.icon.setColorized(this.colorized);
 	},
-	
+
 	disabledChanged: function() {
 		this.$.icon.setDisabled(this.disabled);
 		this.addRemoveClass('settings-item-text-disable', this.disabled);
-		this.addRemoveClass('settings-item-text-enable', !this.disabled);		
+		this.addRemoveClass('settings-item-text-enable', !this.disabled);
 	}
 });
 
@@ -623,10 +780,10 @@ enyo.kind({
 	components: [
 		{name: "warningtitle", content: "xxx", classes: "warningbox-title"},
 		{name: "warningmessage", content: "xxx", classes: "warningbox-message"},
-		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", ontap: "cancel"},		
+		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningbox-cancel-button", ontap: "cancel"},
 		{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "warningbox-refresh-button", ontap: "restart"}
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
@@ -637,15 +794,76 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.warningtitle.addClass("rtl-10");
 			this.$.warningmessage.addClass("rtl-10");
-		}		
+		}
 	},
-	
+
 	// Events
 	cancel: function() {
 		this.doCancel();
 	},
-	
+
 	restart: function() {
 		this.doRestart();
-	}	
+	}
+});
+
+
+//Dialog to change launcher on a native device
+enyo.kind({
+	name: "Sugar.DialogChangeLauncher",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", colorized: true, size: constant.sizeToolbar, icon: {directory: "icons", icon: "owner-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [
+			{classes: "enterkey", components: [
+				{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
+			]},
+			{name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("EnterKey"));
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+		}
+	},
+	rendered: function() {
+		this.$.icon.render();
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.connectButton.setContent(l10n.get("Ok"));
+	},
+	// Event handling
+	cancel: function() {
+		this.hide();
+	},
+	ok: function() {
+		sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
+		this.hide();
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+	keychanged: function() {
+	},
+	connect: function() {
+	},
+	centerDialog: function(dialog) {
+		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		dialog.applyStyle("margin-left", margin.left+"px");
+		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+	}
 });

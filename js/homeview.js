@@ -122,11 +122,23 @@ enyo.kind({
 			if (preferences.updateActivities(inResponse.data))
 				preferences.save();
 		}
-	    preferences.updateEntries();
-	    if (window.sugarizerOS){
-		sugarizerOS.initActivitiesPreferences();
-	    }
-	    this.init();
+		preferences.updateEntries();
+
+		// If we are in the SugarizerOS environment, load the android apps into activities
+		if (window.sugarizerOS){
+			var t = this;
+			sugarizerOS.initActivitiesPreferences(function(){t.init();});
+			sugarizerOS.scanWifi();
+			sugarizerOS.popupTimer = 0;
+			if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName &&
+			!sugarizerOS.isSetup){
+				this.doResetLauncher();
+				sugarizerOS.putInt("IS_SETUP", 1);
+			}
+		}
+		else {
+			this.init();
+		}
 	},
 
 	// Error on init activities
@@ -245,21 +257,38 @@ enyo.kind({
 					{owner: this}).render();
 				break;
 			}
-		    if (activity.type != null && activity.type == "native")
-			activity.isNative = true;
-			this.$.desktop.createComponent({
-					kind: "Sugar.Icon",
-					icon: activity,  // HACK: Icon characteristics are embedded in activity object
-					size: icon_size,
-					x: ix,
-					y: iy,
-					colorized: activity.instances !== undefined && activity.instances.length > 0,
-					colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
-					ontap: "runMatchingActivity",
-					popupShow: enyo.bind(this, "showActivityPopup"),
-					popupHide: enyo.bind(this, "hideActivityPopup")
-				},
-				{owner: this}).render();
+			if (activity.type != null && activity.type == "native") {
+				activity.isNative = true;
+				this.$.desktop.createComponent({
+						kind: "Sugar.Icon",
+						icon: activity,  // HACK: Icon characteristics are embedded in activity object
+						size: icon_size,
+						x: ix,
+						y: iy,
+						colorized: activity.instances !== undefined && activity.instances.length > 0,
+						colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
+						ontap: "runMatchingActivity",
+						popupShow: enyo.bind(this, "showActivityPopup"),
+						popupHide: enyo.bind(this, "hideActivityPopup")
+					},
+					{owner: this}
+				).render();
+			} else {
+				this.$.desktop.createComponent({
+						kind: "Sugar.Icon",
+						icon: activity,  // HACK: Icon characteristics are embedded in activity object
+						size: icon_size,
+						x: ix,
+						y: iy,
+						colorized: activity.instances !== undefined && activity.instances.length > 0,
+						colorizedColor: (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.buddy_color) ? activity.instances[0].metadata.buddy_color : null,
+						ontap: "runMatchingActivity",
+						popupShow: enyo.bind(this, "showActivityPopup"),
+						popupHide: enyo.bind(this, "hideActivityPopup")
+					},
+					{owner: this}
+				).render();
+			}
 			activitiesIndex++;
 		}
 	},
@@ -362,26 +391,40 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.$.owner.colorize(preferences.getColor());
-		if (this.journal.length > 0)
+		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
+		}
 	},
 
 	// Run activity
 	runMatchingActivity: function(icon) {
-		if (!icon.getDisabled())
+		if (!icon.getDisabled()){
+			this.hideActivityPopup();
 			this.runActivity(icon.icon);
+			if (window.sugarizerOS) {
+				sugarizerOS.popupTimer = new Date();
+			}
+		}
 	},
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
 		preferences.runActivity(activity);
+		if (window.sugarizerOS) {
+			sugarizerOS.popupTimer = new Date();
+		}
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
+		this.hideActivityPopup();
+
 		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
 	},
 	runNewActivity: function(activity) {
 		// Start a new activity instance
 		preferences.runActivity(activity, null);
+		if (window.sugarizerOS) {
+			sugarizerOS.popupTimer = new Date();
+		}
 	},
 
 	// Display journal
@@ -392,6 +435,13 @@ enyo.kind({
 	// Popup menu for activities handling
 	showActivityPopup: function(icon) {
 		// Create popup
+		if (window.sugarizerOS) {
+			var now = new Date();
+			if (now.getTime() - sugarizerOS.popupTimer.getTime() < 3000) {
+				return;
+			}
+			sugarizerOS.popupTimer = now;
+		}
 		var title;
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		if (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
@@ -421,8 +471,8 @@ enyo.kind({
 				});
 			}
 		}
-		if (!activity.isNative){
-			this.getPopup().setItems(items);
+		this.getPopup().setItems(items);
+		if (!activity.isNative) {
 			this.getPopup().setFooter([{
 				icon: activity,
 				colorized: false,
@@ -497,6 +547,10 @@ enyo.kind({
 	doSettings: function() {
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
+		this.otherview.show();
+	},
+	doResetLauncher: function() {
+		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSetLauncher"}, {owner:this});
 		this.otherview.show();
 	},
 

@@ -9,7 +9,7 @@ define(function (require) {
 	xoPalette = require("sugar-web/graphics/xocolor");
 	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
 	datastore = require("sugar-web/datastore");
-    presence = require("sugar-web/presence");	
+	presence = require("sugar-web/presence");
 	preferences = require("settings");
 	myserver = require("server");
 	util = require("util");
@@ -23,30 +23,32 @@ define(function (require) {
 		} else {
 			app = new Sugar.Desktop();
 		}
-		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position		
-		app.renderInto(document.getElementById("canvas"));	
+		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position
+		app.renderInto(document.getElementById("canvas"));
 	}
-	
+
 	// Wait for preferences
 	var loadpreference = function() {
 		preferences.load(function(load) {
 			preferenceset = load;
-			main();	
+			main();
 		});
 	}
-	
+
 	// Wait for localized strings are here
 	window.addEventListener('localized', function() {
 		if (app) {
 			app.getToolbar().render();
 			app.render();
-		} else if (--toload == 0)
+		} else if (--toload == 0) {
 			loadpreference();
+		}
 	}, false);
-	
+
 	// Wait for DOM is ready.
 	require(['domReady!'], function (doc) {
-		if (--toload == 0)
+		if (--toload == 0) {
 			loadpreference();
+		}
 	});
 });

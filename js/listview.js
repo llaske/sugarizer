@@ -22,9 +22,19 @@ enyo.kind({
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
-		this.activitiesChanged();
-		this.computeSize();
-		this.draw();
+		if (!window.sugarizerOS) {
+			this.activitiesChanged();
+			this.computeSize();
+			this.draw();
+		} else {
+			var t = this;
+			var a = arguments;
+			sugarizerOS.initActivitiesPreferences(function (){
+				t.activitiesChanged();
+				t.computeSize();
+				t.draw();
+			});
+		}
 	},
 
 	computeSize: function() {
@@ -67,11 +77,12 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-	    var activitiesList = this.activities;
-	    if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native")
-		inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
-	    else
-		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
+		var activitiesList = this.activities;
+		if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native") {
+			inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
+		} else {
+			inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
+		}
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
@@ -142,8 +153,9 @@ enyo.kind({
 	},
 	hideActivityPopup: function() {
 		// Hide popup
-		if (this.$.activityPopup.cursorIsInside())
+		if (this.$.activityPopup.cursorIsInside()) {
 			return false;
+		}
 		this.$.activityPopup.hidePopup();
 		return true;
 	},
