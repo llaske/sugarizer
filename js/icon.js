@@ -55,11 +55,13 @@ enyo.kind({
 		}
 		this.timer = window.setInterval(enyo.bind(this, "showPopup"), constant.timerPopupDuration);
 	},
+
 	showPopup: function(icon, e) {
 		this.popupShow(this);
 		window.clearInterval(this.timer);
 		this.timer = null;
 	},
+
 	popupHideTimer: function(icon, e) {
 		if (this.popupHide == null) {
 			return;
@@ -69,6 +71,7 @@ enyo.kind({
 		}
 		this.timer = window.setInterval(enyo.bind(this, "hidePopup"), constant.timerPopupDuration);
 	},
+
 	hidePopup: function() {
 		if (!this.popupHide()) {
 			return;
@@ -76,12 +79,14 @@ enyo.kind({
 		window.clearInterval(this.timer);
 		this.timer = null;
 	},
+
 	startMouseOverSimulator: function(icon, e) {
 		if (enyo.platform.firefoxOS && enyo.platform.touch) {
 			this.emulateMouseOver = true;
 			this.emulatorTimestamp = new Date().getTime();
 		}
 	},
+
 	stopMouseOverSimulator: function(icon, e) {
 		if (this.emulateMouseOver) {
 			var timeelapsed = new Date().getTime() - this.emulatorTimestamp;

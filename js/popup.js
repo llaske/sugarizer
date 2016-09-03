@@ -41,6 +41,7 @@ enyo.kind({
 		this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
 		this.applyStyle("top", (mouse.position.y+this.margin.top)+"px");
 	},
+
 	headerChanged: function() {
 		if (this.header != null) {
 			this.$.icon.setShowing(this.header.icon != null);
@@ -67,11 +68,13 @@ enyo.kind({
 			}
 		}
 	},
+
 	itemsChanged: function() {
 		if (this.items != null) {
 			this.$.itemslist.setItems(this.items);
 		}
 	},
+
 	footerChanged: function() {
 		if (this.footer != null) {
 			this.$.footerlist.setItems(this.footer);

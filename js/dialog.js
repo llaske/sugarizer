@@ -105,12 +105,14 @@ enyo.kind({
 			this.subdialog.show();
 		}
 	},
+
 	androidSettingsClicked: function() {
 		if (window.sugarizerOS){
 			sugarizerOS.runSettings();
 		}
 		this.hide();
 	},
+
 	resetLauncherPopup: function(){
 		this.hide();
 		this.subdialog = this.$.subdialog.createComponent({kind:"Sugar.DialogSetLauncher"}, {owner:this});
@@ -167,17 +169,21 @@ enyo.kind({
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.centerDialog(this);
 	},
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 	},
+
 	restart: function() {
 		sugarizerOS.chooseLauncher();
 		this.hide();
 	},
+
 	changeLauncher: function() {
 		this.$.warningbox.setShowing(true);
 	},
+
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
@@ -222,6 +228,7 @@ enyo.kind({
 			this.$.text.addClass("rtl-10");
 		}
 	},
+
 	rendered: function() {
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
@@ -229,10 +236,12 @@ enyo.kind({
 		this.$.connectButton.setContent(l10n.get("Ok"));
 		this.centerDialog(this);
 	},
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 	},
+
 	ok: function() {
 		sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
 		sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer);
@@ -241,10 +250,13 @@ enyo.kind({
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
 	},
+
 	keychanged: function() {
 	},
+
 	connect: function() {
 	},
+
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
@@ -841,26 +853,32 @@ enyo.kind({
 			this.$.text.addClass("rtl-10");
 		}
 	},
+
 	rendered: function() {
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.connectButton.setContent(l10n.get("Ok"));
 	},
+
 	// Event handling
 	cancel: function() {
 		this.hide();
 	},
+
 	ok: function() {
 		sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
 		this.hide();
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
 	},
+
 	keychanged: function() {
 	},
+
 	connect: function() {
 	},
+
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
