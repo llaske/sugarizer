@@ -100,7 +100,7 @@ input {
 .search-field-iconsearch {
 	position: absolute;
 	background-image: url(../icons/entry-search.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 20px 20px;
 	top: 5px;
@@ -113,7 +113,7 @@ input {
 .search-field-iconcancel {
 	position: absolute;
 	background-image: url(../icons/entry-cancel.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	top: 5px;
 	right: 10px;
@@ -127,7 +127,7 @@ input {
 	opacity: 1;
 	margin-left: 30px;
 	margin-top: 5px;
-	border: 0px;	
+	border: 0px;
 	display: inline-block;
 	background-color: #e5e5e5;
 	width: 270px;
@@ -150,7 +150,7 @@ input {
 }
 
 .web-activity-icon {
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	padding: 2px;
 }
@@ -239,7 +239,7 @@ input {
 	margin-right: 40px;
 	font-weight: bold;
 	min-height: 16px;
-	z-index: 1;	
+	z-index: 1;
 }
 
 .popup-name-text-bottom {
@@ -304,7 +304,7 @@ input {
 
 .listview-nomatch {
 	background-image: url(../icons/entry-search.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 50px 50px;
 	width: 50px;
@@ -324,7 +324,7 @@ input {
 .listview-button {
 	width: 150px;
 	margin-left: auto;
-	margin-right: auto;	
+	margin-right: auto;
 }
 
 .journal-content {
@@ -379,7 +379,7 @@ input {
 	margin-top: 15px;
 	font-size: 14px;
 	background-color: white;
-	z-index: 2;	
+	z-index: 2;
 }
 
 .journal-goright {
@@ -390,7 +390,7 @@ input {
 
 .journal-empty {
 	background-image: url(../icons/activity-journal.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 50px 50px;
 	width: 50px;
@@ -439,8 +439,8 @@ input {
 
 .icon-button-text {
 	margin-top: 7px;
-	padding-left: 38px;	
-	padding-right: 38px;	
+	padding-left: 38px;
+	padding-right: 38px;
 	color: white;
 	display: inline-block;
 }
@@ -450,7 +450,7 @@ input {
 	height: 35px;
 	display: inline-block;
 	background-color: #808080;
-	border: 2px solid #808080;	
+	border: 2px solid #808080;
 }
 
 .selectbox-icon {
@@ -506,7 +506,7 @@ input {
 .settings-item-icon {
 	position: relative;
 	left: 65px;
-	width: 210px;	
+	width: 210px;
 }
 
 .settings-item-text {
@@ -530,7 +530,7 @@ input {
 	height: 95%;
 	max-height: 500px;
 	background-color: #ffffff;
-	border: 2px solid #808080;	
+	border: 2px solid #808080;
 }
 
 .module-icon {
@@ -543,7 +543,7 @@ input {
 	left: 80px;
 	top: 20px;
 	color: white;
-	word-wrap: break-word;	
+	word-wrap: break-word;
 }
 
 .module-cancel-button {
@@ -617,9 +617,9 @@ input {
 .aboutme-restart {
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: left;
-	background-size: 15px 15px;	
+	background-size: 15px 15px;
 	margin-left: 20px;
 	margin-top: 30px;
 	width: 200px;
@@ -706,15 +706,15 @@ input {
 
 .first-leftbutton {
 	position: absolute;
-	left: 10px;
-	bottom: 10px;
+	left: 50px;
+	bottom: 50px;
 	width: 120px;
 }
 
 .first-rightbutton {
 	position: absolute;
-	right: 10px;
-	bottom: 10px;
+	right: 50px;
+	bottom: 50px;
 	width: 120px;
 }
 
@@ -727,7 +727,7 @@ input {
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 }
 
 .first-owner-icon {
@@ -751,7 +751,7 @@ input {
 
 .warningbox-message {
 	position: absolute;
-	color: white;	
+	color: white;
 	left: 10px;
 	top: 82px;
 }
@@ -779,9 +779,9 @@ input {
 	position: absolute;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: left;
-	background-size: 15px 15px;	
+	background-size: 15px 15px;
 	left: 20px;
 	bottom: 20px;
 	width: 200px;
@@ -814,7 +814,7 @@ input {
 	text-align: right;
 	width: 200px;
 	margin-top: 20px;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .computer-clienttype {
@@ -822,13 +822,13 @@ input {
 	text-align: right;
 	width: 200px;
 	margin-top: 10px;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .computer-browser {
 	color: #808080;
 	text-align: right;
-	width: 200px;	
+	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
 }
@@ -836,7 +836,7 @@ input {
 .computer-browserversion {
 	color: #808080;
 	text-align: right;
-	width: 200px;	
+	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
 }
@@ -844,7 +844,7 @@ input {
 .computer-useragent {
 	color: #808080;
 	text-align: right;
-	width: 200px;	
+	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
 }
@@ -872,7 +872,7 @@ input {
 .computer-value {
 	margin-left: 10px;
 	color: black;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .aboutserver-checkbox {
@@ -949,9 +949,9 @@ input {
 	position: absolute;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: left;
-	background-size: 15px 15px;	
+	background-size: 15px 15px;
 	left: 20px;
 	bottom: 20px;
 	width: 200px;
@@ -961,7 +961,7 @@ input {
 .cloud-empty {
 	position: absolute;
 	background-image: url(../icons/cloud-settings.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 50px 50px;
 	width: 50px;
@@ -996,37 +996,37 @@ input {
 		visibility: hidden;
 		width: 0px;
 	}
-	
+
 	.search-field-input {
 		visibility: hidden;
 		width: 0px;
 	}
-	
+
 	.homeview-filter-text {
 		visibility: hidden;
 		width: 0px;
 	}
-	
+
 	.activity-version {
 		margin-left: 0px;
 		visibility: hidden;
 	}
-	
+
 	.journal-filter-type {
 		visibility: hidden;
 		width: 0px;
 	}
-	
+
 	.journal-filter-time {
 		visibility: hidden;
 		width: 0px;
 	}
-	
+
 	.journal-filter-favorite {
 		visibility: hidden;
 		left: 0px;
 	}
-	
+
 	.settings-filter-text {
 		visibility: hidden;
 		width: 0px;
@@ -1036,12 +1036,12 @@ input {
 		margin-left: 20px;
 		text-align: left;
 	}
-	
+
 	.aboutserver-serverlabel {
 		margin-left: 20px;
-		text-align: left;		
+		text-align: left;
 	}
-	
+
 	.aboutserver-checkbutton {
 		margin-left: 20px;
 	}
@@ -1056,38 +1056,38 @@ input {
 	}
 
 	.aboutme-restart {
-		margin-top: 10px;	
+		margin-top: 10px;
 	}
-	
+
 	.aboutserver-checkbox {
 		margin-top: 0px !important;
 	}
-	
+
 	.aboutserver-message {
 		margin-top: 5px;
 	}
-	
+
 	.aboutserver-userlabel {
 		margin-top: 5px;
 		margin-left: 10px;
 		text-align: left;
 	}
-	
+
 	.aboutserver-usermessage {
 		margin-left: 10px;
 	}
-	
+
 	.aboutserver-serverlabel {
 		margin-top: 5px;
 		margin-left: 10px;
 		text-align: left;
-		display: block;		
+		display: block;
 	}
-	
+
 	.aboutserver-checkbutton {
 		margin-left: 250px;
 		margin-top: 0px;
-	}	
+	}
 }
 @media screen and (max-width: 590px) {
 	.settings-item {
@@ -1106,11 +1106,11 @@ input {
 	.warningbox-refresh-button .icon-button-text {
 		visibility: hidden;
 	}
-	
+
 	.module-text {
 		width: 100px;
 	}
-	
+
 	.warningbox-cancel-button {
 		right: 85px;
 		width: 60px;
@@ -1125,27 +1125,27 @@ input {
 	.search-field-border {
 		width: 200px;
 	}
-	
+
 	.search-field-input {
 		width: 120px;
 	}
-	
+
 	.homeview-filter-text {
 		width: 200px;
 	}
-	
+
 	.activity-version {
 		margin-left: 350px;
 	}
-	
+
 	.journal-filter-favorite {
 		left: 270px;
 	}
-	
+
 	.journal-filter-type {
 		visibility: hidden;
 	}
-	
+
 	.journal-filter-time {
 		visibility: hidden;
 	}
@@ -1153,7 +1153,7 @@ input {
 @media screen and (min-width: 660px) {
 	.journal-filter-type {
 		visibility: visible;
-	}	
+	}
 }
 @media screen and (min-width: 880px) {
 	.journal-filter-time {
