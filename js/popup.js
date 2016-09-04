@@ -119,27 +119,7 @@ enyo.kind({
 
 	// Test is cursor is inside the popup
 	cursorIsInside: function() {
-		var obj = document.getElementById(this.getAttribute("id"));
-		if (obj == null) return false;
-		var p = {};
-		p.x = obj.offsetLeft;
-		p.y = obj.offsetTop;
-		p.dx = obj.clientWidth;
-		p.dy = obj.clientHeight;
-		while (obj.offsetParent) {
-			p.x = p.x + obj.offsetParent.offsetLeft;
-			p.y = p.y + obj.offsetParent.offsetTop - obj.scrollTop;
-			if (obj == document.getElementsByTagName("body")[0]) {
-				break;
-			} else {
-				obj = obj.offsetParent;
-			}
-		}
-		var isInside = (
-			mouse.position.x >= p.x && mouse.position.x <= p.x + p.dx
-			&& mouse.position.y >= p.y && mouse.position.y <= p.y + p.dy
-		);
-		return isInside;
+		return util.cursorIsInside(this);
 	}
 });
 

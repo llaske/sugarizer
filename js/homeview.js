@@ -383,8 +383,8 @@ enyo.kind({
 
 	// Run activity
 	runMatchingActivity: function(icon) {
-		if (!icon.getDisabled()){
-			this.hideActivityPopup();
+		if (!icon.getDisabled() && !this.getPopup().showing){
+			this.hideActivityPopup(icon);
 			this.runActivity(icon.icon);
 			if (window.sugarizerOS) {
 				sugarizerOS.popupTimer = new Date();
@@ -400,7 +400,7 @@ enyo.kind({
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
-		this.hideActivityPopup();
+		this.hideActivityPopup(activity);
 
 		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
 	},
@@ -470,9 +470,9 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideActivityPopup: function() {
+	hideActivityPopup: function(icon) {
 		// Hide popup
-		if (this.getPopup().cursorIsInside())
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside())
 			return false;
 		this.getPopup().hidePopup();
 		return true;
@@ -516,8 +516,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideBuddyPopup: function() {
-		if (this.getPopup().cursorIsInside())
+	hideBuddyPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside())
 			return false;
 		this.getPopup().hidePopup();
 		return true;

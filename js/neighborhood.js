@@ -199,8 +199,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideBuddyPopup: function() {
-		if (this.getPopup().cursorIsInside()) {
+	hideBuddyPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -236,8 +236,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideServerPopup: function() {
-		if (this.getPopup().cursorIsInside()) {
+	hideServerPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -305,8 +305,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideWifiPopup: function() {
-		if (this.getPopup().cursorIsInside()) {
+	hideWifiPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -330,8 +330,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideUserPopup: function() {
-		if (this.getPopup().cursorIsInside()) {
+	hideUserPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -363,8 +363,8 @@ enyo.kind({
 		// Show popup
 		this.getPopup().showPopup();
 	},
-	hideActivityPopup: function() {
-		if (this.getPopup().cursorIsInside()) {
+	hideActivityPopup: function(icon) {
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();

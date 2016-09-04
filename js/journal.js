@@ -296,8 +296,8 @@ enyo.kind({
 		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
 		this.$.activityPopup.showPopup();
 	},
-	hideActivityPopup: function() {
-		if (this.$.activityPopup.cursorIsInside())
+	hideActivityPopup: function(icon) {
+		if (this.$.activityPopup.cursorIsInside() || icon.cursorIsInside())
 			return false;
 		this.$.activityPopup.hidePopup();
 		return true;

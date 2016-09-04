@@ -25,7 +25,7 @@ enyo.kind({
 	},
 	classes: "web-activity",
 	components: [
-		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer", ontap: "stopMouseOverSimulator"},
+		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"},
 		{ name: "disable", classes: "web-activity-disable", showing: false}
 	],
 
@@ -73,28 +73,11 @@ enyo.kind({
 	},
 
 	hidePopup: function() {
-		if (!this.popupHide()) {
+		if (!this.popupHide(this)) {
 			return;
 		}
 		window.clearInterval(this.timer);
 		this.timer = null;
-	},
-
-	startMouseOverSimulator: function(icon, e) {
-		if (enyo.platform.firefoxOS && enyo.platform.touch) {
-			this.emulateMouseOver = true;
-			this.emulatorTimestamp = new Date().getTime();
-		}
-	},
-
-	stopMouseOverSimulator: function(icon, e) {
-		if (this.emulateMouseOver) {
-			var timeelapsed = new Date().getTime() - this.emulatorTimestamp;
-			this.emulatorMouseOver = false;
-			return timeelapsed > constant.touchToPopupDuration;
-		}
-		this.popupHideTimer();
-		return false;
 	},
 
 	// Render
@@ -103,22 +86,14 @@ enyo.kind({
 
 		var node = this.$.icon.hasNode();
 		if (node && enyo.platform.touch) {
-			// HACK: Handle directly touch event on FirefoxOS to simulate long click to popup menu
-			var that = this;
-			if (enyo.platform.firefoxOS) {
-				enyo.dispatcher.listen(node, "touchstart", function() {
-					that.startMouseOverSimulator();
-				});
-			}
-
 			// HACK: On iOS and Chrome Android use touch events to simulate mouseover/mouseout
-			else if (enyo.platform.ios || enyo.platform.androidChrome) {
+			var that = this;
+			if (enyo.platform.ios || enyo.platform.androidChrome) {
 				enyo.dispatcher.listen(node, "touchstart", function(e) {
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupShowTimer();
 				});
 				enyo.dispatcher.listen(node, "touchend", function(e) {
-					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupHideTimer();
 				});
 			}
@@ -154,6 +129,10 @@ enyo.kind({
 
 	},
 
+	// Test is cursor is inside the icon
+	cursorIsInside: function() {
+		return util.cursorIsInside(this);
+	},
 
 	// Property changed
 	xChanged: function() {
