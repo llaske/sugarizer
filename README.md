@@ -451,16 +451,9 @@ Then create a directory for Sugarizer Cordova and put the content of the git rep
 	rm -fr www
 	git clone https://github.com/llaske/sugarizer.git www
 
-Add the platform you want to add (here Android) and all cordova plugin need:
+Add the platform you want to add (here Android):
 
 	cordova platform add android
-	cordova plugin add cordova-plugin-camera
-	cordova plugin add cordova-plugin-device-motion
-	cordova plugin add cordova-plugin-dialogs
-	cordova plugin add cordova-plugin-globalization
-	cordova plugin add cordova-plugin-network-information
-	cordova plugin add cordova-plugin-device
-	cordova plugin add cordova-plugin-media
 
 Replace the auto generated config.xml file by the Sugarizer one:
 

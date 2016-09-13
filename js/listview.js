@@ -101,6 +101,7 @@ enyo.kind({
 		this.switchFavorite(inEvent.dispatchTarget.container, activitiesList[inEvent.index]);
 	},
 	switchFavorite: function(favorite, activity) {
+		util.vibrate();
 		favorite.setColorized(preferences.switchFavoriteActivity(activity));
 		favorite.container.render();
 		preferences.save();
@@ -116,6 +117,7 @@ enyo.kind({
 	},
 	runNewActivity: function(activity) {
 		// Start a new activity instance
+		util.vibrate();
 		preferences.runActivity(activity, null);
 	},
 

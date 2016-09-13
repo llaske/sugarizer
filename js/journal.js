@@ -297,8 +297,9 @@ enyo.kind({
 		this.$.activityPopup.showPopup();
 	},
 	hideActivityPopup: function(icon) {
-		if (this.$.activityPopup.cursorIsInside() || icon.cursorIsInside())
+		if (this.$.activityPopup.cursorIsInside() || icon.cursorIsInside()) {
 			return false;
+		}
 		this.$.activityPopup.hidePopup();
 		return true;
 	},
@@ -546,6 +547,7 @@ enyo.kind({
 
 	// Event handling
 	gotoDesktop: function() {
+		util.vibrate();
 		app.showView(constant.radialView);
 	},
 

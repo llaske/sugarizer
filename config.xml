@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
-        xmlns:cdv="http://cordova.apache.org/ns/1.0"
-		xmlns:android   = "http://schemas.android.com/apk/res/android"		
-        id        = "org.olpc-france.sugarizer"
-        version   = "0.8.0">
-    <name>Sugarizer</name>
+		xmlns:cdv="http://cordova.apache.org/ns/1.0"
+		xmlns:android   = "http://schemas.android.com/apk/res/android"
+		id        = "org.olpc-france.sugarizer"
+		version   = "0.8.0">
+	<name>Sugarizer</name>
 
-    <description>
-        A taste of the Sugar on any device.
-    </description>
+	<description>
+		A taste of the Sugar on any device.
+	</description>
 
-    <author href="http://olpc-france.org" email="lionel@olpc-france.org">
-        Lionel Laské for OLPC France
-    </author>
+	<author href="http://olpc-france.org" email="lionel@olpc-france.org">
+		Lionel Laské for OLPC France
+	</author>
 
 	<preference name="Fullscreen" value="true" />
-	
+
 	<preference name="Orientation" value="landscape" />
-	
+
 	<preference name="windows-target-version" value="10.0" />
-	
-    <content src="index.html" />
-    <plugin name="cordova-plugin-whitelist" version="1" />
-    <access origin="*" />
-	
-	<preference name="android-minSdkVersion" value="14" />	
-	
+
+	<content src="index.html" />
+	<plugin name="cordova-plugin-whitelist" version="1" />
+	<access origin="*" />
+
+	<preference name="android-minSdkVersion" value="14" />
+
 	<plugin name="cordova-plugin-camera" version="1.2.0" />
 	<plugin name="cordova-plugin-device-motion" version="1.2.0" />
 	<plugin name="cordova-plugin-dialogs" version="1.2.0" />
@@ -33,14 +33,15 @@
 	<plugin name="cordova-plugin-network-information" version="1.1.0" />
 	<plugin name="cordova-plugin-device" version="1.1.0" />
 	<plugin name="cordova-plugin-media" version="1.0.1" />
-	
-    <icon src="icon.png" />
+	<plugin name="cordova-plugin-vibration" version="2.1.1" />
+	<plugin name="cordova-plugin-sugarizeros" spec="https://github.com/lupin012345/cordova-plugin-sugarizeros.git" />
+
 	<platform name="android">
 		<icon density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
 		<icon density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
 		<icon density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
-		<icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />	
-		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />	
+		<icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
+		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
 		<icon density="xxxhdpi" src="res/icon/android/icon-192-xxxhdpi.png" />
 	</platform>
 	<platform name="ios">
@@ -77,5 +78,4 @@
 		<icon width="310" height="150" src="res/icon/windows/Wide310x150Logo.scale-100.png" />
 		<icon width="744" height="360" src="res/icon/windows/Wide310x150Logo.scale-240.png" />
 	</platform>
-    <plugin name="cordova-plugin-sugarizeros" spec="https://github.com/lupin012345/cordova-plugin-sugarizeros.git" />
 </widget>

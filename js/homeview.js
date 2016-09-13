@@ -119,8 +119,9 @@ enyo.kind({
 			preferences.save();
 		} else {
 			// Update with new activities
-			if (preferences.updateActivities(inResponse.data))
+			if (preferences.updateActivities(inResponse.data)) {
 				preferences.save();
+			}
 		}
 		preferences.updateEntries();
 
@@ -158,8 +159,9 @@ enyo.kind({
 
 	// Get linked toolbar
 	getToolbar: function() {
-		if (this.toolbar == null)
+		if (this.toolbar == null) {
 			this.toolbar = new Sugar.DesktopToolbar();
+		}
 		return this.toolbar;
 	},
 
@@ -171,8 +173,9 @@ enyo.kind({
 	// Init desktop
 	init: function() {
 		this.currentView = constant.radialView;
-		if (preferences.getView())
+		if (preferences.getView()) {
 			this.showView(preferences.getView());
+		}
 		this.draw();
 	},
 
@@ -288,7 +291,9 @@ enyo.kind({
 	},
 
 	resize: function() {
-		if (this.noresize) return;
+		if (this.noresize) {
+			return;
+		}
 		this.redraw();
 	},
 
@@ -307,8 +312,9 @@ enyo.kind({
 
 	// Switch between radial and other views (list or journal)
 	showView: function(newView) {
-		if (this.currentView == newView)
+		if (this.currentView == newView) {
 			return;
+		}
 		var oldView = this.currentView;
 		this.currentView = newView;
 
@@ -385,6 +391,7 @@ enyo.kind({
 	runMatchingActivity: function(icon) {
 		if (!icon.getDisabled() && !this.getPopup().showing){
 			this.hideActivityPopup(icon);
+			util.vibrate();
 			this.runActivity(icon.icon);
 			if (window.sugarizerOS) {
 				sugarizerOS.popupTimer = new Date();
@@ -393,6 +400,7 @@ enyo.kind({
 	},
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
+		util.vibrate();
 		preferences.runActivity(activity);
 		if (window.sugarizerOS) {
 			sugarizerOS.popupTimer = new Date();
@@ -401,11 +409,12 @@ enyo.kind({
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
 		this.hideActivityPopup(activity);
-
+		util.vibrate();
 		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
 	},
 	runNewActivity: function(activity) {
 		// Start a new activity instance
+		util.vibrate();
 		preferences.runActivity(activity, null);
 		if (window.sugarizerOS) {
 			sugarizerOS.popupTimer = new Date();
@@ -472,8 +481,9 @@ enyo.kind({
 	},
 	hideActivityPopup: function(icon) {
 		// Hide popup
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside())
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
+		}
 		this.getPopup().hidePopup();
 		return true;
 	},
@@ -517,8 +527,9 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideBuddyPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside())
+		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
+		}
 		this.getPopup().hidePopup();
 		return true;
 	},
@@ -620,6 +631,7 @@ enyo.kind({
 	},
 
 	showRadialView: function() {
+		util.vibrate();
 		app.showView(constant.radialView);
 		if (this.needRedraw) {
 			this.needRedraw = false;
@@ -628,6 +640,7 @@ enyo.kind({
 	},
 
 	showListView: function() {
+		util.vibrate();
 		app.showView(constant.listView);
 		if (this.needRedraw) {
 			this.needRedraw = false;
@@ -636,6 +649,7 @@ enyo.kind({
 	},
 
 	showNeighborView: function() {
+		util.vibrate();
 		app.showView(constant.neighborhoodView);
 		if (this.needRedraw) {
 			this.needRedraw = false;

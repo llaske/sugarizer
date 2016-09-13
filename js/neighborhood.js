@@ -762,6 +762,7 @@ enyo.kind({
 	// Event handling
 	gotoDesktop: function() {
 		window.clearInterval(app.otherview.timer);
+		util.vibrate();
 		app.showView(constant.radialView);
 	},
 
