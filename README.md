@@ -462,7 +462,9 @@ Replace the auto generated config.xml file by the Sugarizer one:
 Build the package:
 
 	cordova build android
- 
+
+On Android, if you want to generate the Sugarizer OS version, remove the SugarizerOS comment around the `cordova-plugin-sugarizeros` plugin in [config.xml](config.xml) file.
+
 # Localization
 
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
