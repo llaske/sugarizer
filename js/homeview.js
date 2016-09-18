@@ -40,6 +40,7 @@ enyo.kind({
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
+		this.restrictedModeInfo = { start: 0 };
 
 		// Load and sort journal
 		this.journal = datastore.find();
@@ -222,6 +223,8 @@ enyo.kind({
 			} else {
 				restrictedMode = true; spiralMode = false;
 				activitiesCount = parseInt(circumference/icon_padding)-1;
+				this.restrictedModeInfo.count = activitiesCount;
+				this.restrictedModeInfo.length = activitiesList.length;
 				base_angle = (PI2/parseFloat(activitiesCount+1));
 			}
 		}
@@ -229,8 +232,10 @@ enyo.kind({
 		// Draw activity icons
 		var angle = -Math.PI/2.0-base_angle;
 		for (var i = 0 ; i < activitiesList.length ; i++) {
+			// Compute icon position
 			var activity = activitiesList[i];
 			var ix, iy;
+			var previousAngle = angle;
 			if (!spiralMode) {
 				angle += base_angle;
 				ix = (canvas_center.x+Math.cos(angle)*radiusx-semi_size);
@@ -248,18 +253,38 @@ enyo.kind({
 				ix = (canvas_center.x+Math.cos(angle)*(radiusx+delta)-semi_size);
 				iy = (canvas_center.y+Math.sin(angle)*(radiusy+delta)-semi_size);
 			}
-			if (restrictedMode && i >= activitiesCount-1) {
-				this.$.desktop.createComponent({
-						kind: "Sugar.Icon",
-						icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
-						size: icon_size,
-						x: ix,
-						y: iy,
-						ontap: "showListView"
-					},
-					{owner: this}).render();
-				break;
+
+			// Restricted mode for small device: integrate a way to scroll on the circle
+			if (restrictedMode) {
+				if (i < this.restrictedModeInfo.start) {
+					angle = previousAngle;
+					continue;
+				} else if (i > 0 && i == this.restrictedModeInfo.start) {
+					this.$.desktop.createComponent({
+							kind: "Sugar.Icon",
+							icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
+							size: icon_size,
+							x: ix,
+							y: iy,
+							ontap: "showPreviousRestrictedList"
+						},
+						{owner: this}).render();
+					continue;
+				} else if (i >= this.restrictedModeInfo.start+activitiesCount-1 && this.restrictedModeInfo.start + activitiesCount < activitiesList.length) {
+					this.$.desktop.createComponent({
+							kind: "Sugar.Icon",
+							icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
+							size: icon_size,
+							x: ix,
+							y: iy,
+							ontap: "showNextRestrictedList"
+						},
+						{owner: this}).render();
+					break;
+				}
 			}
+
+			// Draw icon
 			if (activity.type != null && activity.type == "native") {
 				activity.isNative = true;
 			}
@@ -308,6 +333,28 @@ enyo.kind({
 		radius -= (icon_padding/2.0);
 		var diameter = radius*2;
 		return (diameter <= canvas_center.dx && diameter <= canvas_center.dy);
+	},
+
+	showPreviousRestrictedList: function() {
+		this.getPopup().hidePopup();
+		var newStart = this.restrictedModeInfo.start - this.restrictedModeInfo.count;
+		if (newStart < 0) {
+			newStart = 0;
+		}
+		this.restrictedModeInfo.start = newStart;
+		this.draw();
+	},
+
+	showNextRestrictedList: function() {
+		this.getPopup().hidePopup();
+		var newStart = this.restrictedModeInfo.start + this.restrictedModeInfo.count;
+		if (newStart > this.restrictedModeInfo.length-1) {
+			return;
+		} else if (newStart+this.restrictedModeInfo.count > this.restrictedModeInfo.length) {
+			newStart = this.restrictedModeInfo.length - this.restrictedModeInfo.count;
+		}
+		this.restrictedModeInfo.start = newStart;
+		this.draw();
 	},
 
 	// Switch between radial and other views (list or journal)
