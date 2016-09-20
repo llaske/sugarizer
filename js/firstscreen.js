@@ -13,12 +13,12 @@ enyo.kind({
 				]}
 			]},
 		]},
-		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},		
-		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next"},		
-		{name: "colortext", content: "xxx", classes: "first-colortext", showing: false},		
+		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},
+		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next"},
+		{name: "colortext", content: "xxx", classes: "first-colortext", showing: false},
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "first-owner-icon", showing: false, onresize: "resize", ontap: "nextcolor"},
 	],
-	
+
 	// Constructor
 	create: function() {
 		// Init screen
@@ -27,7 +27,7 @@ enyo.kind({
 		this.$.previous.setText(l10n.get("Back"));
 		this.$.next.setText(l10n.get("Next"));
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
-		this.$.colortext.setContent(l10n.get("ClickToColor"));		
+		this.$.colortext.setContent(l10n.get("ClickToColor"));
 		var canvas_center = util.getCanvasCenter();
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
 		var middletop = (canvas_center.y-constant.sizeOwner/2);
@@ -38,35 +38,36 @@ enyo.kind({
 		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);
 		if (l10n.language.direction == "rtl") {
 			this.$.name.addClass("rtl-10");
-		}		
+		}
 		this.step = 0;
-		
+
 		// Hide toolbar
 		var toolbar = document.getElementById("toolbar");
 		this.backgroundColor = toolbar.style.backgroundColor;
 		toolbar.style.backgroundColor = "white";
+		util.hideNativeToolbar();
 	},
-	
+
 	// Event handling
 	next: function() {
 		// Handle click next
-		var name = this.$.name.getValue();		
+		var name = this.$.name.getValue();
 		if (!this.step++) {
 			if (name.length == 0)
-				return;		
+				return;
 			this.$.namebox.setShowing(false);
 			this.$.colortext.setShowing(true);
 			this.$.owner.setShowing(true);
 			this.$.previous.setShowing(true);
 			this.$.next.setText(l10n.get("Done"));
 		}
-		
+
 		// Handle done click
 		else {
 			// Save settings
 			preferences.setColor(this.ownerColor);
 			preferences.setName(name);
-			
+
 			// Launch Desktop
 			document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
 			app = new Sugar.Desktop();
@@ -74,7 +75,7 @@ enyo.kind({
 			preferences.save();
 		}
 	},
-	
+
 	previous: function() {
 		this.$.namebox.setShowing(true);
 		this.$.colortext.setShowing(false);
@@ -83,28 +84,28 @@ enyo.kind({
 		this.$.next.setText(l10n.get("Next"));
 		this.step--;
 	},
-	
+
 	enterclick: function(inSender, inEvent) {
 		if (inEvent.keyCode === 13) {
 			this.next();
 			return true;
 		}
 	},
-	
+
 	nextcolor: function() {
 		this.ownerColor = this.ownerColor + 1;
 		if (this.ownerColor >= xoPalette.colors.length)
 			this.ownerColor = 0;
-		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);	
+		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);
 		this.$.owner.render();
 	},
-	
+
 	resize: function() {
-		var canvas_center = util.getCanvasCenter();	
+		var canvas_center = util.getCanvasCenter();
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
 		var middletop = (canvas_center.y-constant.sizeOwner/2);
 		this.$.nameline.applyStyle("margin-top", middletop+"px");
 		this.$.owner.applyStyle("margin-top", middletop+"px");
-		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");		
+		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");
 	}
 });

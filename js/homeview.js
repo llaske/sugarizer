@@ -41,6 +41,7 @@ enyo.kind({
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
 		this.restrictedModeInfo = { start: 0 };
+		util.hideNativeToolbar();
 
 		// Load and sort journal
 		this.journal = datastore.find();
