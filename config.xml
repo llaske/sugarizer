@@ -37,7 +37,7 @@
 	<plugin name="cordova-plugin-fullscreen" spec="https://github.com/mesmotronic/cordova-plugin-fullscreen.git"/>
 
 	<!-- &SugarizerOS
-	<plugin name="cordova-plugin-sugarizeros" spec="https://github.com/lupin012345/cordova-plugin-sugarizeros.git" />
+	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
 	SugarizerOS& -->
 
 	<platform name="android">
