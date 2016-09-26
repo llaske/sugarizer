@@ -1,0 +1,26 @@
+mongodb:
+  image: tutum/mongodb:3.0
+  restart: always
+  environment:
+  - AUTH=no
+
+server:
+  build: docker/server
+  restart: always
+  links:
+    - mongodb
+  ports:
+  - 8080:8080
+  - 8039:8039
+  volumes:
+    - ./:/sugarizer
+
+http:
+  restart: always
+  build: docker/http
+  ports:
+    - 80:80
+  links:
+    - server
+  volumes:
+    - ./:/sugarizer

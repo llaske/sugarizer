@@ -1,0 +1,11 @@
+test:
+  post:
+    - git config --global user.email "mohayon75@gmail.com"
+    - git config --global user.name "Michael Ohayon (CircleCI)"
+    - git checkout -b lite
+    - git checkout lite
+    - git rebase master
+    - git rm -fr activities/Etoys.activity/resources
+    - git rm -fr activities/Abecedarium.activity/audio
+    - git commit -m 'automatic push from circleci'
+    - git push --force -u origin lite
