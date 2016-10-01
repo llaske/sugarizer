@@ -306,7 +306,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideWifiPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if ((this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();

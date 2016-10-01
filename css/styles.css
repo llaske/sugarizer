@@ -646,16 +646,25 @@ input {
 	font-size: 10pt;
 }
 
+.module-dialog-wifikey {
+	width: 95%;
+	max-width: 500px;
+	height: 35%;
+	max-height: 150px;
+	background-color: #ffffff;
+	border: 2px solid #808080;
+}
+
 .enterkey-input{
-    margin-top: 50px;
-    margin-left:250px;
-    border-radius: 22px;
-    height: 25px;
-    width: 270px;
-    background-color: #e5e5e5;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 10pt;
+	margin-top: 20px;
+	margin-left: 30px;
+	border-radius: 22px;
+	height: 25px;
+	width: 360px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10pt;
 }
 
 .enterkey-input:focus{

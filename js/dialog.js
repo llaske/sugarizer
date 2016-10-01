@@ -194,7 +194,7 @@ enyo.kind({
 enyo.kind({
 	name: "Sugar.DialogNetworkKey",
 	kind: "enyo.Popup",
-	classes: "module-dialog",
+	classes: "module-dialog-wifikey",
 	centered: false,
 	modal: true,
 	floating: true,
@@ -208,8 +208,7 @@ enyo.kind({
 		]},
 		{name: "content", components: [
 			{classes: "enterkey", components: [
-				{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"},
-				{name: "connectButton", kind: "Button", classes: "toolbutton", ontap: "ok"}
+				{name: "keyInput", kind: "Input", classes: "enterkey-input", oninput:"keychanged"}
 			]}
 		]}
 	],
@@ -232,7 +231,6 @@ enyo.kind({
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-		this.$.connectButton.setContent(l10n.get("Ok"));
 		this.centerDialog(this);
 	},
 
@@ -257,7 +255,7 @@ enyo.kind({
 	},
 
 	centerDialog: function(dialog) {
-		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		var margin = util.computeMargin({width: 500, height: 150}, {width: 0.95, height: 0.25});
 		dialog.applyStyle("margin-left", margin.left+"px");
 		dialog.applyStyle("margin-top", (margin.top-55)+"px");
 	}
