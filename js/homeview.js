@@ -44,10 +44,7 @@ enyo.kind({
 		util.hideNativeToolbar();
 
 		// Load and sort journal
-		this.journal = datastore.find();
-		this.journal = this.journal.sort(function(e0, e1) {
-			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-		});
+		this.loadJournal();
 
 		// Call activities list service
 		if (util.getClientType() == constant.thinClientType) {
@@ -110,6 +107,14 @@ enyo.kind({
 				);
 			}
 		}
+	},
+
+	// Load and sort journal
+	loadJournal: function() {
+		this.journal = datastore.find();
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
 	},
 
 	// Init activities service response, redraw screen
@@ -441,18 +446,14 @@ enyo.kind({
 			this.hideActivityPopup(icon);
 			util.vibrate();
 			this.runActivity(icon.icon);
-			if (window.sugarizerOS) {
-				sugarizerOS.popupTimer = new Date();
-			}
+			this.postRunActivity();
 		}
 	},
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
 		util.vibrate();
 		preferences.runActivity(activity);
-		if (window.sugarizerOS) {
-			sugarizerOS.popupTimer = new Date();
-		}
+		this.postRunActivity();
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
@@ -464,8 +465,15 @@ enyo.kind({
 		// Start a new activity instance
 		util.vibrate();
 		preferences.runActivity(activity, null);
+		this.postRunActivity();
+	},
+	postRunActivity: function() {
+		// When run a native activity, should update journal and view to reflect journal change
 		if (window.sugarizerOS) {
 			sugarizerOS.popupTimer = new Date();
+			this.loadJournal();
+			preferences.updateEntries();
+			this.draw();
 		}
 	},
 
@@ -479,7 +487,7 @@ enyo.kind({
 		// Create popup
 		if (window.sugarizerOS) {
 			var now = new Date();
-			if (now.getTime() - sugarizerOS.popupTimer.getTime() < 3000) {
+			if (sugarizerOS.popupTimer && now.getTime() - sugarizerOS.popupTimer.getTime() < 3000) {
 				return;
 			}
 			sugarizerOS.popupTimer = now;
@@ -514,15 +522,13 @@ enyo.kind({
 			}
 		}
 		this.getPopup().setItems(items);
-		if (!activity.isNative) {
-			this.getPopup().setFooter([{
-				icon: activity,
-				colorized: false,
-				name: l10n.get("StartNew"),
-				action: enyo.bind(this, "runNewActivity"),
-				data: [activity, null]
-			}]);
-		}
+		this.getPopup().setFooter([{
+			icon: activity,
+			colorized: false,
+			name: l10n.get("StartNew"),
+			action: enyo.bind(this, "runNewActivity"),
+			data: [activity, null]
+		}]);
 
 		// Show popup
 		this.getPopup().showPopup();
