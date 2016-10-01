@@ -165,17 +165,21 @@ input {
 	opacity: 0.5;
 }
 
+.launcher-icons {
+	width: 100%;
+}
+
 .setlauncher-icon {
-    margin-top: 100px;
-    position: absolute;
+	margin-top: 100px;
+	position: absolute;
 }
 
 .native{
-    margin-left: 250px;
+	margin-left: 20%;
 }
 
 .sugar{
-    margin-left: 450px;
+	margin-left: 65%;
 }
 
 .selected{

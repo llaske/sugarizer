@@ -12,13 +12,15 @@ enyo.kind({
 			{name: "settingssearch", kind: "Sugar.SearchField", onTextChanged: "filterSettings", classes: "settings-filter-text"},
 			{name: "donebutton", kind: "Button", classes: "toolbutton settings-close-button", title:"List", ontap: "closeSettings"}
 		]},
-		{name: "content", components: [
-			{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
-			{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-			{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
-			{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
-			{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
-			{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
+		{name: "scroller", kind: "Scroller", horizontal: "hidden", vertical: "auto", classes: "settings-scroller", components: [
+			{name: "content", components: [
+				{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
+				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
+				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
+				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
+			]},
 		]},
 		{name: "subdialog"}
 	],
@@ -51,13 +53,16 @@ enyo.kind({
 		app.noresize = true; // HACK: Forbid home resizing when popup is displayed to avoid modal issue
 		this.$.me.render();
 		this.$.donebutton.setNodeProperty("title", l10n.get("Done"));
-		this.centerDialog(this);
+		var margin = this.centerDialog(this);
+		this.$.content.applyStyle("height", (margin.height)+"px");
+		this.$.scroller.render();
 	},
 
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
 		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+		return margin;
 	},
 
 	// Events
@@ -138,10 +143,10 @@ enyo.kind({
 		]},
 		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
-			{ ame: "message", content: "xxx", classes: "launcher-message" },
-			{classes: "enterkey", components: [
-				{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, ontap:"changeLauncher"},
-				{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "sugarizer.svg"}, ontap:"changeLauncher"}
+			{name: "message", content: "xxx", classes: "launcher-message" },
+			{classes: "launcher-icons", components: [
+				{name: "nativeIcon", kind: "Sugar.Icon", classes: "setlauncher-icon native", icon: {directory: "icons", icon: "launcher-icon.svg"}, size: 100, ontap:"changeLauncher"},
+				{name: "sugarIcon", kind: "Sugar.Icon", classes: "setlauncher-icon sugar", icon: {directory: "icons", icon: "sugarizer.svg"}, size: 100, ontap:"changeLauncher"}
 			]},
 		]}
 	],
@@ -167,7 +172,7 @@ enyo.kind({
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-		this.centerDialog(this);
+		this.owner.centerDialog(this);
 	},
 
 	// Event handling
@@ -182,12 +187,6 @@ enyo.kind({
 
 	changeLauncher: function() {
 		this.$.warningbox.setShowing(true);
-	},
-
-	centerDialog: function(dialog) {
-		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
-		dialog.applyStyle("margin-left", margin.left+"px");
-		dialog.applyStyle("margin-top", (margin.top-55)+"px");
 	}
 });
 
