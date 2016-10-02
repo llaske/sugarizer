@@ -30,6 +30,10 @@ constant.journalInitCount = 40;
 constant.journalStepCount = 10;
 constant.journalScrollLimit = 200;
 
+constant.listInitCount = 30;
+constant.listStepCount = 10;
+constant.listScrollLimit = 200;
+
 constant.timerUpdateNetwork = 1000;
 constant.thinClientType = 0;
 constant.clientType = 1;

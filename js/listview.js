@@ -18,10 +18,14 @@ enyo.kind({
 			]}
 		]}
 	],
+	handlers: {
+		onScroll: "onscroll"
+	},
 
 	// Constructor: init list
 	create: function() {
 		this.inherited(arguments);
+		this.realLength = 0;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
 			this.computeSize();
@@ -62,7 +66,10 @@ enyo.kind({
 
 	// Property changed
 	activitiesChanged: function() {
-		this.$.activityList.set("count", this.activities.length, true);
+		var noFilter = app.getToolbar().getSearchText().length == 0;
+		var length = (noFilter && this.activities.length > constant.listInitCount) ? constant.listInitCount : this.activities.length;
+		this.realLength = this.activities.length;
+		this.$.activityList.set("count", length, true);
 		if (this.activities.length == 0) {
 			this.$.nomatch.show();
 			this.$.message.show();
@@ -92,6 +99,16 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.name.addClass("rtl-14");
 			inEvent.item.$.version.addClass("rtl-14");
+		}
+	},
+
+	// Handle scroll to lazy display content
+	onscroll: function(inSender, inEvent) {
+		var scrollBounds = inEvent.scrollBounds;
+		var currentCount = this.$.activityList.get("count");
+		if (app.getToolbar().getSearchText().length == 0 && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
+			var length = Math.min(currentCount + constant.listStepCount, this.activities.length);
+			this.$.activityList.set("count", length, true);
 		}
 	},
 
