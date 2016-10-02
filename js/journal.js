@@ -6,7 +6,7 @@ enyo.kind({
 	published: { journal: null },
 	kind: "FittableRows",
 	components: [
-		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", components: [
+		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", onScroll: "onscroll", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
 			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
@@ -34,6 +34,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
+		this.realLength = 0;
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
@@ -53,6 +54,16 @@ enyo.kind({
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
+	},
+
+	// Handle scroll to lazy display content
+	onscroll: function(inSender, inEvent) {
+		var scrollBounds = inEvent.scrollBounds;
+		var currentCount = this.$.journalList.get("count");
+		if (!this.getToolbar().hasFilter() && (scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit && this.realLength > currentCount) {
+			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
+			this.$.journalList.set("count", length, true);
+		}
 	},
 
 	// Get linked toolbar
@@ -87,9 +98,12 @@ enyo.kind({
 		this.$.empty.show();
 		this.$.message.show();
 		this.$.nofilter.show();
-		this.empty = (!this.getToolbar().hasFilter() && !this.loadingError && this.journal.length == 0);
+		var noFilter = !this.getToolbar().hasFilter();
+		this.empty = (noFilter && !this.loadingError && this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
-			this.$.journalList.set("count", this.journal.length, true);
+			var length = (noFilter && this.journal.length > constant.journalInitCount) ? constant.journalInitCount : this.journal.length;
+			this.realLength = this.journal.length;
+			this.$.journalList.set("count", length, true);
 			this.$.empty.hide();
 			this.$.message.hide();
 			this.$.nofilter.hide();

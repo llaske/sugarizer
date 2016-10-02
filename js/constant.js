@@ -1,6 +1,6 @@
 
 
-// Constants 
+// Constants
 var constant = {};
 
 constant.sugarizerVersion = "0.8";
@@ -26,6 +26,9 @@ constant.neighborhoodView = 3;
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
+constant.journalInitCount = 40;
+constant.journalStepCount = 10;
+constant.journalScrollLimit = 200;
 
 constant.timerUpdateNetwork = 1000;
 constant.thinClientType = 0;
