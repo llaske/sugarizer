@@ -650,13 +650,13 @@ input {
 	width: 95%;
 	max-width: 500px;
 	height: 35%;
-	max-height: 150px;
+	max-height: 100px;
 	background-color: #ffffff;
 	border: 2px solid #808080;
 }
 
 .enterkey-input{
-	margin-top: 20px;
+	margin-top: 5px;
 	margin-left: 30px;
 	border-radius: 22px;
 	height: 25px;

@@ -136,7 +136,11 @@ enyo.kind({
 		if (window.sugarizerOS){
 			var t = this;
 			sugarizerOS.initActivitiesPreferences(function(){t.init();});
-			sugarizerOS.scanWifi();
+			sugarizerOS.isWifiEnabled(function(value){
+				if (value != 0) {
+					sugarizerOS.scanWifi();
+				}
+			});
 			sugarizerOS.popupTimer = 0;
 			if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName &&
 			!sugarizerOS.isSetup){

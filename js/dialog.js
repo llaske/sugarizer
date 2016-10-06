@@ -257,7 +257,7 @@ enyo.kind({
 	centerDialog: function(dialog) {
 		var margin = util.computeMargin({width: 500, height: 150}, {width: 0.95, height: 0.25});
 		dialog.applyStyle("margin-left", margin.left+"px");
-		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+		dialog.applyStyle("margin-top", (margin.top-55-40)+"px");
 	}
 });
 
