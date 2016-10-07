@@ -12,6 +12,7 @@ var l10n;
 var preferences;
 var util;
 var myserver;
+var humane;
 
 
 

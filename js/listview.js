@@ -108,6 +108,7 @@ enyo.kind({
 		var currentCount = this.$.activityList.get("count");
 		if (app.getToolbar().getSearchText().length == 0 && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.listStepCount, this.activities.length);
+			humane.log(l10n.get("Loading"));
 			this.$.activityList.set("count", length, true);
 		}
 	},

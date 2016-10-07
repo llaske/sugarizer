@@ -12,6 +12,7 @@ define(function (require) {
 	presence = require("sugar-web/presence");
 	preferences = require("settings");
 	myserver = require("server");
+	humane = require("humane");
 	util = require("util");
 	var toload = 2;
 	var preferenceset = false;

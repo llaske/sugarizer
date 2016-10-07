@@ -62,6 +62,7 @@ enyo.kind({
 		var currentCount = this.$.journalList.get("count");
 		if (!this.getToolbar().hasFilter() && (scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
+			humane.log(l10n.get("Loading"));
 			this.$.journalList.set("count", length, true);
 		}
 	},
