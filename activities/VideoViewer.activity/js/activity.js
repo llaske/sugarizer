@@ -1,16 +1,13 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-	var env = require("sugar-web/env");
-	var filterpalette = require("filterpalette");
+define(["sugar-web/activity/activity","sugar-web/env","filterpalette"], function (activity, env, filterpalette) {
 	var isFavorite = false;
 
-    // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
-        // Initialize the activity.
-        activity.setup();
+	// Manipulate the DOM only when it is ready.
+	require(['domReady!'], function (doc) {
+		// Initialize the activity.
+		activity.setup();
 
 		// Create palette
-        var filterButton = document.getElementById("filter-button");
+		var filterButton = document.getElementById("filter-button");
 		filterpalette = new filterpalette.FilterPalette(filterButton, undefined);
 		filterpalette.addEventListener('filter', function() {
 			app.setFilter({category: filterpalette.getFilter()});
@@ -40,6 +37,6 @@ define(function (require) {
 		Util.loadContext(function() {
 			app.draw();
 		});
-    });
+	});
 
 });

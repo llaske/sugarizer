@@ -1,6 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var mustache = require("mustache");
+define(["sugar-web/activity/activity","mustache"], function (activity,mustache) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

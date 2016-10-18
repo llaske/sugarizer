@@ -1,19 +1,19 @@
 
 
 // Desktop handling
-define(function (require) {
+define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util) {
 	// Load required library
-	l10n = require("webL10n");
+	l10n = _l10n;
 	l10n.start();
-	iconLib = require("sugar-web/graphics/icon");
-	xoPalette = require("sugar-web/graphics/xocolor");
-	radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
-	datastore = require("sugar-web/datastore");
-	presence = require("sugar-web/presence");
-	preferences = require("settings");
-	myserver = require("server");
-	humane = require("humane");
-	util = require("util");
+	iconLib = _iconLib;
+	xoPalette = _xoPalette;
+	radioButtonsGroup = _radioButtonsGroup;
+	datastore = _datastore;
+	presence = _presence;
+	preferences = _preferences;
+	myserver = _myserver;
+	humane = _humane;
+	util = _util;
 	var toload = 2;
 	var preferenceset = false;
 

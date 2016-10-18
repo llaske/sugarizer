@@ -1,12 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var presence = require("sugar-web/presence");
-    var captureHelper = require("activity/capture-helper");
-    var datastore = require("sugar-web/datastore");
-    var webL10n = require("webL10n");
-
-
+define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n"], function (activity,presence,captureHelper,datastore,webL10n) {
 
     require(['domReady!'], function (doc) {
 

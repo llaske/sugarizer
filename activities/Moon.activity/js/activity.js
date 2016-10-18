@@ -1,7 +1,5 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var moonActivity = require("activity/moon-activity");
-    var l10n = require("webL10n");
+
+define(["sugar-web/activity/activity","activity/moon-activity","webL10n"], function (activity, moonActivity, l10n) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

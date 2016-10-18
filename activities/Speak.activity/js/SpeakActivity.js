@@ -1,8 +1,4 @@
-define(function (require) {
-
-	var palette = require("sugar-web/graphics/palette");
-	var env = require("sugar-web/env");
-	var l10n = require("webL10n");
+define(["sugar-web/graphics/palette","sugar-web/env","webL10n"], function (palette,env,l10n) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');
@@ -89,7 +85,7 @@ define(function (require) {
 			var loadedSettings = JSON.parse(values.sugar_settings);
 			chrome.storage.local.get('sugar_settings', function(values) {
 				callback(loadedSettings);
-			}); 
+			});
 		} else {
 			var loadedSettings = JSON.parse(localStorage.sugar_settings);
 			callback(loadedSettings);
@@ -122,7 +118,7 @@ define(function (require) {
 			}
 			for(i=0;i<Math.floor(eyes/2);i++){
 				eyePos[i+Math.floor(eyes/2)+1].x = (center + offset/2) + i*offset;
-				eyePos[i+Math.floor(eyes/2)+1].y = height/3;	
+				eyePos[i+Math.floor(eyes/2)+1].y = height/3;
 			}
 		}
 		if(eyes%2 == 1){
@@ -135,7 +131,7 @@ define(function (require) {
 			for(i=0;i<Math.floor(eyes/2);i++){
 				//console.log(i+Math.floor(eyes/2)+2);
 				eyePos[i+Math.floor(eyes/2)+2].x = center + (i+1)*offset;
-				eyePos[i+Math.floor(eyes/2)+2].y = height/3;	
+				eyePos[i+Math.floor(eyes/2)+2].y = height/3;
 			}
 		}
 		//console.log(eyePos[1]);
@@ -186,7 +182,7 @@ define(function (require) {
 		}
 		else{
 			offsetX = mouseX - eyePos[eye]['x'];
-			offsetY = mouseY - eyePos[eye]['y']; 
+			offsetY = mouseY - eyePos[eye]['y'];
 		}
 		var xMult=1,yMult=1;
 		if(offsetX < 0){
@@ -219,7 +215,7 @@ define(function (require) {
 		var text = document.getElementById('userText').value;
 		speech.playVoice(language, text);
 	}
-	
+
 	document.getElementById('speakText').onmouseup = function(e){
 		var text = document.getElementById('userText').value;
 		moveMouth(text);
@@ -241,7 +237,7 @@ define(function (require) {
 		}
 	}
 
-	document.getElementById('userText').oninput = function(e) {	
+	document.getElementById('userText').oninput = function(e) {
 		var bounding = this.getBoundingClientRect();
 		var position = { clientX: bounding.left + 20*document.getElementById('userText').selectionStart, clientY: bounding.top };
 		setMousePosition(canvas, position);
@@ -406,8 +402,8 @@ define(function (require) {
 		document.getElementById('lang-sk').innerHTML = l10n.get('langsk');
 		document.getElementById('lang-sv').innerHTML = l10n.get('langsv');
 		document.getElementById('lang-tr').innerHTML = l10n.get('langtr');
-		document.getElementById('lang-zh').innerHTML = l10n.get('langzh');	
+		document.getElementById('lang-zh').innerHTML = l10n.get('langzh');
 	}
-	
+
 	init();
 });

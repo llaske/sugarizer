@@ -1,7 +1,4 @@
-define(function (require) {
-    var ROT = require("rot");
-
-    var directions = require("activity/directions");
+define(["rot","activity/directions"], function (ROT, directions) {
 
     var maze = {};
 

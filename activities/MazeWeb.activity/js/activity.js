@@ -1,10 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var TWEEN = require("tween");
-    require("rAF");
-
-    var maze = require("activity/maze");
-    var directions = require("activity/directions");
+define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions"], function (activity, TWEEN, rAF, maze, directions) {
 
     require(['domReady!'], function (doc) {
         activity.setup();

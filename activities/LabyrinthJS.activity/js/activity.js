@@ -1,10 +1,4 @@
-define(function (require) {
-	var l10n = require("webL10n");
-	var activity = require("sugar-web/activity/activity");
-	var datastore = require("sugar-web/datastore");
-	var colorpalette = require("sugar-web/graphics/colorpalette");
-	var zoompalette = require("zoompalette");
-	var textpalette = require("fontpalette");
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","fontpalette"], function (activity, l10n, datastore, colorpalette, zoompalette, textpalette) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!'], function (doc) {
@@ -30,7 +24,7 @@ define(function (require) {
 				unselectAllNode();
 				lastSelected = null;
 			}
-		}	
+		}
 		nodetextButton.addEventListener('click', function () { switchMode(0); }, true);
 		linkButton.addEventListener('click', function () { switchMode(1); lastSelected = null; }, true);
 		removeButton.addEventListener('click', function () { switchMode(2); }, true);
@@ -70,7 +64,7 @@ define(function (require) {
 				console.log("export done.")
 			}, inputData);
 		});
-		
+
 		// Handle sub toolbar
 		var subToolbar = document.getElementById("sub-toolbar");
 		var textValue = document.getElementById("textvalue");
@@ -88,7 +82,7 @@ define(function (require) {
 		var fontPlusButton = document.getElementById("fontplus-button");
 		var fontButton = document.getElementById("font-button");
 		fontPalette = new textpalette.TextPalette(fontButton);
-		
+
 		foregroundPalette.addEventListener('colorChange', function(e) {
 			if (!ignoreForegroundEvent) {
 				lastSelected.style('color', e.detail.color);
@@ -97,7 +91,7 @@ define(function (require) {
 			}
 			ignoreForegroundEvent = false;
 		});
-		
+
 		backgroundPalette.addEventListener('colorChange', function(e) {
 			if (!ignoreBackgroundEvent) {
 				lastSelected.style('background-color', e.detail.color);
@@ -106,7 +100,7 @@ define(function (require) {
 			}
 			ignoreBackgroundEvent = false;
 		});
-		
+
 		fontPalette.addEventListener('fontChange', function(e) {
 			var newfont = e.detail.family;
 			lastSelected.data('font-family', newfont);
@@ -117,12 +111,12 @@ define(function (require) {
 			else if (newfont == 'Verdana') lastSelected.addClass('verdana-text');
 			pushState();
 		});
-		
+
 		textValue.addEventListener('input', function() {
 			updateNodeText(lastSelected, textValue.value);
 			pushState();
 		});
-		
+
 		boldButton.addEventListener('click', function () {
 			lastSelected.toggleClass('bold-text');
 			if (lastSelected.hasClass('bold-text')) {
@@ -138,24 +132,24 @@ define(function (require) {
 			if (lastSelected.hasClass('italic-text')) {
 				italicButton.classList.add('active');
 			} else {
-				italicButton.classList.remove('active');			
+				italicButton.classList.remove('active');
 			}
 			updateNodeText(lastSelected);
 			pushState();
 		});
-		
+
 		fontMinusButton.addEventListener('click', function() {
 			lastSelected.data('font-size', Math.max(6, lastSelected.data('font-size')-2));
 			updateNodeText(lastSelected);
 			pushState();
 		});
-		
+
 		fontPlusButton.addEventListener('click', function() {
 			lastSelected.data('font-size', Math.min(100, lastSelected.data('font-size')+2));
 			updateNodeText(lastSelected);
 			pushState();
 		});
-		
+
 		var showSubToolbar = function(node) {
 			zoomPalette.popDown();
 			subToolbar.style.visibility = "visible";
@@ -182,7 +176,7 @@ define(function (require) {
 			foregroundPalette.popDown();
 			fontPalette.popDown();
 		}
-			
+
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
@@ -196,7 +190,7 @@ define(function (require) {
 				}
 			});
 		});
-		
+
 		// Handle localization
 		window.addEventListener('localized', function() {
 			var navigatorLanguage = navigator.language;
@@ -223,13 +217,13 @@ define(function (require) {
 			fontButton.title = l10n.get("fontButtonTitle");
 			pngButton.title = l10n.get("pngButtonTitle");
 		}, false);
-		
+
 		// --- Cytoscape handling
-		
+
 		// Initialize board
 		cy = cytoscape({
 			container: document.getElementById('cy'),
-			
+
 			ready: function() {
 				// Create first node and select id
 				var firstNode = createNode(defaultText, getCenter());
@@ -238,11 +232,11 @@ define(function (require) {
 				lastSelected = firstNode;
 				showSubToolbar(firstNode);
 				pushState();
-				
+
 				// Load world
 				loadGraph();
 			},
-			
+
 			style: [
 				{
 					selector: '.standard-node',
@@ -251,7 +245,7 @@ define(function (require) {
 						'text-halign': 'center',
 						'border-color': 'darkgray',
 						'border-width': '1px',
-						'shape': 'roundrectangle'		
+						'shape': 'roundrectangle'
 					}
 				},
 				{
@@ -286,7 +280,7 @@ define(function (require) {
 				}
 			]
 		});
-		
+
 		// Event: a node is selected
 		cy.on('tap', 'node', function() {
 			if (currentMode == 2) {
@@ -331,7 +325,7 @@ define(function (require) {
 			}
 			hideSubToolbar();
 		});
-		
+
 		// Event: tap on the board
 		cy.on('tap', function(e){
 			if (e.cyTarget === cy) {
@@ -349,7 +343,7 @@ define(function (require) {
 				}
 			}
 		});
-		
+
 		// Event: elements moved
 		cy.on('free', 'node', function(e) {
 			pushState();
@@ -362,7 +356,7 @@ define(function (require) {
 		var defaultFontSize = 16;
 		var lastSelected = null;
 		var defaultText = "<Your new idea>";
-		
+
 		// Create a new node with text and position
 		var createNode = function(text, position) {
 			var size = computeStringSize(text, defaultFontFamily, defaultFontSize, false, false);
@@ -399,7 +393,7 @@ define(function (require) {
 			newnode.addClass('standard-node');
 			return newnode;
 		}
-		
+
 		// Update node text and change size
 		var updateNodeText = function(node, text) {
 			if (text === undefined) text = node.style()['content'];
@@ -413,14 +407,14 @@ define(function (require) {
 				'font-family': fontFamily,
 				'width': size.width,
 				'height': size.height
-			});			
+			});
 		}
-		
+
 		// Test if node is selected
 		var isSelectedNode = function(node) {
 			return node.style()['border-style'] == 'dashed';
 		}
-		
+
 		// Set node as selected
 		var selectNode = function(node) {
 			node.style({
@@ -429,16 +423,16 @@ define(function (require) {
 				'border-width': '4px'
 			});
 		}
-		
+
 		// Set node as unselected
 		var unselectNode = function(node) {
 			node.style({
 				'border-color': 'darkgray',
 				'border-style': 'solid',
 				'border-width': '1px'
-			});		
+			});
 		}
-		
+
 		// Unselect all node
 		var unselectAllNode = function() {
 			var nodes = cy.collection("node");
@@ -446,12 +440,12 @@ define(function (require) {
 				unselectNode(nodes[i]);
 			}
 		}
-		
+
 		// Delete node, linked edges are removed too
 		var deleteNode = function(node) {
 			cy.remove(node);
 		}
-		
+
 		// Create a new edge between two nodes
 		var createEdge = function(n1, n2) {
 			cy.add({
@@ -461,12 +455,12 @@ define(function (require) {
 				]
 			});
 		}
-		
+
 		// Remove an edge
 		var deleteEdge = function(edge) {
 			cy.remove(edge);
 		}
-		
+
 		// --- Utility functions
 		// HACK: dynamically compute need size putting the string in a hidden div element
 		var computeStringSize = function(text, fontfamily, fontsize, bold, italic) {
@@ -480,15 +474,15 @@ define(function (require) {
 			else computer.style.fontStyle = "normal";
 			return {width: (computer.clientWidth+fontsize)+"px", height: (computer.clientHeight+fontsize)+"px"};
 		}
-		
+
 		// Get center of drawing zone
 		var getCenter = function() {
 			var canvas = document.getElementById("canvas");
 			var center = {x: canvas.clientWidth/2, y: canvas.clientHeight/2};
 			return center;
 		}
-		
-		// Load graph from datastore 
+
+		// Load graph from datastore
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
@@ -499,7 +493,7 @@ define(function (require) {
 				pushState();
 			});
 		}
-		
+
 		// Save graph to datastore
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
@@ -507,7 +501,7 @@ define(function (require) {
 			datastoreObject.setDataAsText(JSON.stringify(jsonData));
 			datastoreObject.save(callback);
 		}
-		
+
 		// Get a deep copy of current Graph
 		var deepCopy = function(o) {
 			var copy = o,k;
@@ -522,7 +516,7 @@ define(function (require) {
 		var getGraph = function() {
 			return deepCopy(cy.json());
 		}
-		
+
 		// Display a saved graph
 		var displayGraph = function(graph) {
 			// Destroy the graph
@@ -530,7 +524,7 @@ define(function (require) {
 			cy.remove("edge");
 			hideSubToolbar();
 			lastSelected = null;
-			
+
 			// Recreate nodes and set styles and text
 			cy.add({
 				group: 'nodes',
@@ -547,7 +541,7 @@ define(function (require) {
 				if (id > maxCount) maxCount = id;
 			}
 			nodeCount = maxCount+1;
-			
+
 			// Recreate edges
 			maxCount = 0;
 			if (graph.elements.edges) {
@@ -563,7 +557,7 @@ define(function (require) {
 			}
 			edgeCount = maxCount+1;
 		}
-		
+
 		// Do/Undo handling
 		var stateHistory = [];
 		var stateIndex = 0;
@@ -577,7 +571,7 @@ define(function (require) {
 			stateHistory = [];
 			stateIndex = 0;
 		}
-		
+
 		var pushState = function() {
 			if (stateIndex < stateHistory.length - 1) {
 				var stateCopy = [];
@@ -597,19 +591,19 @@ define(function (require) {
 			stateIndex = stateHistory.length - 1;
 			updateStateButtons();
 		}
-		
+
 		var undoState = function() {
 			if (stateHistory.length < 1 || (stateHistory.length >= 1 && stateIndex == 0)) return;
 			displayGraph(stateHistory[--stateIndex]);
 			updateStateButtons();
 		}
-		
+
 		var redoState = function() {
 			if (stateIndex+1 >= stateHistory.length) return;
 			displayGraph(stateHistory[++stateIndex]);
 			updateStateButtons();
 		}
-		
+
 		var updateStateButtons = function() {
 			var stateLength = stateHistory.length;
 			undoButton.disabled = (stateHistory.length < 1 || (stateHistory.length >= 1 && stateIndex == 0));

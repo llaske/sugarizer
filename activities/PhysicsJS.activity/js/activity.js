@@ -1,12 +1,11 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
+define(["sugar-web/activity/activity"], function (activity) {
 
-    // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+	// Manipulate the DOM only when it is ready.
+	require(['domReady!'], function (doc) {
 
-        // Initialize the activity
-        activity.setup();
-		
+		// Initialize the activity
+		activity.setup();
+
 		// Initialize cordova
 		var useragent = navigator.userAgent.toLowerCase();
 		var sensorButton = document.getElementById("sensor-button");
@@ -24,7 +23,7 @@ define(function (require) {
 		} else {
 			sensorButton.disabled = true;
 		}
-			
+
 		// Initialize the world
 		var body = document.getElementById("body");
 		var innerWidth = body.offsetWidth;
@@ -87,7 +86,7 @@ define(function (require) {
 				zoom();
 
 			}, true);
-			
+
 			// handle toolbar buttons
 			document.getElementById("box-button").addEventListener('click', function (e) {
 				currentType = 1;
@@ -95,26 +94,26 @@ define(function (require) {
 			}, true);
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
-				switchToType(currentType);				
+				switchToType(currentType);
 			}, true);
-				
+
 			document.getElementById("triangle-button").addEventListener('click', function (e) {
 				currentType = 2;
-				switchToType(currentType);				
+				switchToType(currentType);
 			}, true);
-				
+
 			document.getElementById("polygon-button").addEventListener('click', function (e) {
 				currentType = 3;
-				switchToType(currentType);				
+				switchToType(currentType);
 			}, true);
-			
+
 			gravityButton.addEventListener('click', function () {
 				setGravity((gravityMode + 1)%8);
 			}, true);
 
 			document.getElementById("clear-button").addEventListener('click', function () {
 				currentType = -1;
-				switchToType(currentType);	
+				switchToType(currentType);
 			}, true);
 
 			// Handle acceleration and gravity mode
@@ -125,7 +124,7 @@ define(function (require) {
 				else
 					sensorButton.classList.remove('active');
 			}, true);
-			
+
 			appleButton.addEventListener('click', function () {
 				newtonMode = !newtonMode;
 				if (newtonMode) {
@@ -135,12 +134,12 @@ define(function (require) {
 					gravityButton.disabled = true;
 				} else {
 					world.remove(newton);
-					world.add(gravity);				
+					world.add(gravity);
 					appleButton.classList.remove('active');
 					gravityButton.disabled = false;
 				}
 			}, true);
-			
+
 			function accelerationChanged(acceleration) {
 				if (!sensorMode) return;
 				if (acceleration.x < -4.5) {
@@ -149,12 +148,12 @@ define(function (require) {
 					else if (acceleration.y < -4.75)
 						setGravity(5);
 					else
-						setGravity(4);				
+						setGravity(4);
 				} else if (acceleration.x <= 4.5 && acceleration.x >= -4.5) {
 					if (acceleration.y > 4.75)
 						setGravity(2);
 					else if (acceleration.y < -4.75)
-						setGravity(6);				
+						setGravity(6);
 				} else if (acceleration.x > 4.5) {
 					if (acceleration.y > 4.75)
 						setGravity(1);
@@ -164,7 +163,7 @@ define(function (require) {
 						setGravity(0);
 				}
 			}
-			
+
 			// Save/Load world
 			loadWorld();
 			var stopButton = document.getElementById("stop-button");
@@ -193,7 +192,7 @@ define(function (require) {
 				if (window.devicePixelRatio == 1) {
 					return;
 				}
-				var canvas = document.getElementById("viewport").children[0];	
+				var canvas = document.getElementById("viewport").children[0];
 				var zoom = 1.0 / window.devicePixelRatio;
 				canvas.style.zoom = zoom;
 				var useragent = navigator.userAgent.toLowerCase();
@@ -202,14 +201,14 @@ define(function (require) {
 					canvas.style.MozTransformOrigin = "0 0";
 				}
 			}
-			
+
 			function random( min, max ){
 				return (Math.random() * (max-min) + min)|0;
 			}
 
 			function switchToType(newtype) {
-				document.getElementById("box-button").classList.remove('active');			
-				document.getElementById("circle-button").classList.remove('active');			
+				document.getElementById("box-button").classList.remove('active');
+				document.getElementById("circle-button").classList.remove('active');
 				document.getElementById("polygon-button").classList.remove('active');
 				document.getElementById("triangle-button").classList.remove('active');
 				document.getElementById("clear-button").classList.remove('active');
@@ -219,7 +218,7 @@ define(function (require) {
 				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
 			}
-			
+
 			function dropInBody(type, pos){
 
 				var body;
@@ -265,7 +264,7 @@ define(function (require) {
 						});
 						break;
 
-						
+
 						// add a polygon
 					case 2:
 					case 3:
@@ -289,11 +288,11 @@ define(function (require) {
 				}
 
 				body.treatment = "static";
-				
+
 				world.add( body );
 				return body;
 			}
-			
+
 			// Save world to datastore
 			function saveWorld(callback) {
 				// Build bodies list
@@ -303,14 +302,14 @@ define(function (require) {
 					var object = serializeObject(bodies[i]);
 					objects.push(object);
 				}
-				
+
 				// Save to datastore
 				var datastoreObject = activity.getDatastoreObject();
 				var jsonData = JSON.stringify({world: objects});
 				datastoreObject.setDataAsText(jsonData);
 				datastoreObject.save(callback);
 			}
-			
+
 			function serializeObject(body) {
 				var object = {};
 				object.type = body.geometry.name;
@@ -324,11 +323,11 @@ define(function (require) {
 				}
 				object.restitution = body.restitution;
 				object.styles = body.styles;
-				object.x = body.view.x;			
+				object.x = body.view.x;
 				object.y = body.view.y;
 				return object;
 			}
-			
+
 			// Load world from datastore
 			function loadWorld(objects) {
 				var datastoreObject = activity.getDatastoreObject();
@@ -336,7 +335,7 @@ define(function (require) {
 					var data = JSON.parse(data);
 					if (data == null)
 						return;
-						
+
 					// Create bodies
 					var objects = data.world;
 					for(var i = 0 ; i < objects.length ; i++) {
@@ -345,7 +344,7 @@ define(function (require) {
 					}
 				});
 			}
-			
+
 			function deserializeObject(savedObject) {
 				var newOptions = {
 					x: savedObject.x,
@@ -358,14 +357,14 @@ define(function (require) {
 				if (savedObject.type == "circle") {
 					newOptions.radius = savedObject.radius;
 				} else if (savedObject.type == "rectangle") {
-					newOptions.width = savedObject.width;		
-					newOptions.height = savedObject.height;			
+					newOptions.width = savedObject.width;
+					newOptions.height = savedObject.height;
 				} else if (savedObject.type = "convex-polygon") {
 					newOptions.vertices = savedObject.vertices;
 				}
 				return Physics.body(savedObject.type, newOptions);
 			}
-			
+
 			// Change gravity value
 			function setGravity(value) {
 				if (gravityMode == value) return;
@@ -384,24 +383,24 @@ define(function (require) {
 				case 3:
 					acc = { x: 0.0004, y: -0.0004 };
 					break;
-				case 4:			
-					acc = { x: 0, y: -0.0004 };				
+				case 4:
+					acc = { x: 0, y: -0.0004 };
 					break;
-				case 5:			
-					acc = { x: -0.0004, y: -0.0004 };				
+				case 5:
+					acc = { x: -0.0004, y: -0.0004 };
 					break;
-				case 6:			
-					acc = { x: -0.0004, y: 0 };				
+				case 6:
+					acc = { x: -0.0004, y: 0 };
 					break;
-				case 7:			
-					acc = { x: -0.0004, y: 0.0004 };				
+				case 7:
+					acc = { x: -0.0004, y: 0.0004 };
 					break;
 				}
 				gravity.setAcceleration(acc);
-				world.wakeUpAll();				
+				world.wakeUpAll();
 				gravityMode = value;
 			}
-			
+
 			// add some fun interaction
 			var createdBody = null;
 			var createdStart = null;
@@ -450,7 +449,7 @@ define(function (require) {
 				,'interact:grab': function ( data ) {
 					if (currentType == -1) {
 						world.remove(data.body);
-					}				
+					}
 				}
 			});
 
@@ -469,8 +468,8 @@ define(function (require) {
 			Physics.util.ticker.on(function( time ) {
 				// next step
 				world.step( time );
-				
-				// remove bodies out of 
+
+				// remove bodies out of
 				var bodies = world.getBodies();
 				var limit = outerWidth / 2;
 				if (limit > 0) {

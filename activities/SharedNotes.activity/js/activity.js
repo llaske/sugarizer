@@ -1,11 +1,4 @@
-define(function (require) {
-	var l10n = require("webL10n");
-	var activity = require("sugar-web/activity/activity");
-	var datastore = require("sugar-web/datastore");
-	var notepalette = require("notepalette");
-	var zoompalette = require("zoompalette");
-	var presencepalette = require("sugar-web/graphics/presencepalette");
-	var humane = require("humane");
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane"], function (activity,l10n,datastore,notepalette,zoompalette,presencepalette,humane) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -120,7 +113,7 @@ define(function (require) {
 			pngButton.title = l10n.get("pngButtonTitle");
 			networkButton.title = l10n.get("networkButtonTitle");
 		}, false);
-		
+
 		// --- Node and edge handling functions
 		var defaultFontFamily = "Arial";
 		var defaultFontSize = 16;
@@ -490,9 +483,9 @@ define(function (require) {
 
 				// Handle messages received
 				network.onDataReceived(onNetworkDataReceived);
-			});		
+			});
 		}
-		
+
 		var sendMessage = function(content) {
 			try {
 				network.sendMessage(network.getSharedInfo().id, {
@@ -501,7 +494,7 @@ define(function (require) {
 			});
 			} catch (e) {}
 		}
-		
+
 		var onNetworkDataReceived = function(msg) {
 			// Ignore messages coming from ourselves
 			if (network.getUserInfo().networkId === msg.user.networkId) {
@@ -512,13 +505,13 @@ define(function (require) {
 					// Receive initial board from the host
 					initGraph(msg.content.data);
 					break;
-					
+
 				case 'updateBoard':
 					// Board change received
 					doAction(msg.content.data.redo);
 					pushState(msg.content.data, true);
 					break
-				
+
 				case 'undoBoard':
 					// Undo board
 					undoState(true);
@@ -527,7 +520,7 @@ define(function (require) {
 				case 'redoBoard':
 					// Redo board
 					redoState(true);
-					break;					
+					break;
 			}
 		}
 		var onNetworkUserChanged = function(msg) {

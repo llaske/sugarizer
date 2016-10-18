@@ -1,7 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
-    require("gearsketch_main");
+define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","gearsketch_main"], function (activity,radioButtonsGroup) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

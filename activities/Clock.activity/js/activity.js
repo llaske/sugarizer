@@ -1,8 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
-    var mustache = require("mustache");
-    var moment = require("moment");
+define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment"], function (activity,radioButtonsGroup,mustache,moment) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -85,7 +81,7 @@ define(function (require) {
                     this.clockCanvasElem.style.display='none';
                     this.clockCanvasElem.offsetHeight;
                     this.clockCanvasElem.style.display='block';
-                }				
+                }
             }
             requestAnimationFrame(this.tick.bind(this));
         }
@@ -140,7 +136,7 @@ define(function (require) {
             this.clockContainerElem.style.height = this.size + "px";
 
 			this.clockCanvasElem.style.width = (this.size+4) + "px";
-			
+
             this.margin = this.size * 0.02;
             this.radius = (this.size - (2 * this.margin)) / 2;
 

@@ -1,6 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var datastore = require("sugar-web/datastore");
+define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -15,7 +13,7 @@ define(function (require) {
         var datastoreObject = activity.getDatastoreObject();
 
         inputTextContent.onblur = function () {
-            
+
             var jsonData = JSON.stringify((inputTextContent.value).toString());
             datastoreObject.setDataAsText(jsonData);
             datastoreObject.save(function () {});
@@ -34,7 +32,7 @@ define(function (require) {
                 //result1 = result.toString();
                 var datastoreObject2 = new datastore.DatastoreObject(result);
                 datastoreObject2.loadAsText(function (error, metadata, data) {
-                    
+
                     try {
                         textdata = JSON.parse(data);
                     } catch (e) {

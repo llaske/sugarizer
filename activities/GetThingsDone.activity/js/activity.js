@@ -1,10 +1,4 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var datastore = require("sugar-web/datastore");
-
-    var model = require("activity/model");
-    var view = require("activity/view");
-    var controller = require("activity/controller");
+define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity,datastore,model,view,controller) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {

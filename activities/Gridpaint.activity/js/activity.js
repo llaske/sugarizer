@@ -27,9 +27,8 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-define(function (require) {
-    activity = require("sugar-web/activity/activity");
-    var datastore = require("sugar-web/datastore");
+define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activity, datastore) {
+    activity = _activity;
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -39,7 +38,7 @@ define(function (require) {
 
 		// Init activity and launch it
 		loadGallery(null);
-		appInit();		
+		appInit();
 
 		// Load gallery from datastore
 		datastoreObject.loadAsText(function (error, metadata, data) {

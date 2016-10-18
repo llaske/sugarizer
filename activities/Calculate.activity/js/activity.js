@@ -2,14 +2,8 @@
 //Please look at calculateapp.js to see the related functions
 
 /* Start of the app, we require everything that is needed */
-define(function(require) {
-  var activity = require("sugar-web/activity/activity");
-  require("activity/calculate-activity");
-  require("activity/calculate-app");
-  require("math");
-  require("parser");
-  require("nanomodal");
-  CalculateApp.libs.palette = require("sugar-web/graphics/palette");
+define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","activity/calculate-activity","activity/calculate-app","math","parser","nanomodal"], function (activity, mustache, calcpalette) {
+  CalculateApp.libs.palette = calcpalette;
 
   //function-plot depends on d3.
   require(["d3"], function(d) {
@@ -19,7 +13,7 @@ define(function(require) {
   });
 
   CalculateApp.libs.activity = activity;
-  CalculateApp.libs.mustache = require("mustache");
+  CalculateApp.libs.mustache = mustache;
 
   require(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore'], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore) {
     CalculateApp.libs.webL10n = webL10n;

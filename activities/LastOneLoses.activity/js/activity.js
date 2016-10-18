@@ -1,7 +1,5 @@
 
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-	var radioButtonsGroup = require("sugar-web/graphics/radiobuttonsgroup");
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup"], function (activity, radioButtonsGroup) {
 	var app;
 
     // Manipulate the DOM only when it is ready.
@@ -13,7 +11,7 @@ define(function (require) {
 		// Initialize buttons
 		document.getElementById("new-game-button").onclick = function() {
 			app.doRenew();
-		};		
+		};
 		var levelRadio = new radioButtonsGroup.RadioButtonsGroup([
 			document.getElementById("level-easy-button"),
 			document.getElementById("level-medium-button"),
@@ -22,7 +20,7 @@ define(function (require) {
 		document.getElementById("switch-player-button").onclick = function() {
 			app.switchPlayer();
 		};
-		
+
         // Initialize the game
 		app = new LOLGameApp({activity: activity});
 		app.load();

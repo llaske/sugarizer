@@ -48,37 +48,11 @@ if (lang.indexOf("-") != -1) {
 
 // sugarizerCompatibility.ifInsideSugarizerHideLoading();
 
-define(function (require) {
-    require("activity/sugarizer-compatibility");
-    require('activity/platformstyle');
-    require('easeljs');
-    require('tweenjs');
-    require('preloadjs');
-    require('howler');
-    require('p5.sound');
-    require('p5.dom');
-    require('mespeak');
-    require('Chart');
-    require('activity/utils');
-    require('activity/artwork');
-    require('activity/munsell');
-    require('activity/trash');
-    require('activity/turtle');
-    require('activity/palette');
-    require('activity/protoblocks');
-    require('activity/blocks');
-    require('activity/block');
-    require('activity/logo');
-    require('activity/clearbox');
-    require('activity/utilitybox');
-    require('activity/samplesviewer');
-    require('activity/basicblocks');
-    require('activity/blockfactory');
-    require('activity/analytics');
-    require('prefixfree.min');
+define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','tweenjs','preloadjs','howler','p5.sound','p5.dom','mespeak','Chart','activity/utils','activity/artwork','activity/munsell','activity/trash','activity/turtle','activity/palette','activity/protoblocks','activity/blocks','activity/block','activity/logo','activity/clearbox','activity/utilitybox','activity/samplesviewer','activity/basicblocks',
+'activity/blockfactory','activity/analytics','prefixfree.min'], function (compatibility) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    require(['domReady!','activity/sugarizer-compatibility'], function (doc) {
         if (sugarizerCompatibility.isInsideSugarizer()) {
             sugarizerCompatibility.loadData(function () {
                 domReady(doc);

@@ -1,6 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
+define(["sugar-web/activity/activity"], function (activity) {
 
     require(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();

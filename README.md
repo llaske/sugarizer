@@ -487,6 +487,22 @@ The activity will look for media content on the server referenced in [activities
 
 To remove resources for **Etoys**, remove directory [activities/Etoys.activities/resources](activities/Etoys.activities/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activities/index.html](activities/Etoys.activities/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
 
+# Optimize performance
+
+If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce size of all JavaScript files.
+
+The [Gruntfile.js](Grunfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
+
+	npm install -g grunt-cli 
+	
+Then just launch:
+
+	grunt
+	
+At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
+
+	cp -r build/* .
+
 # Localization
 
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
