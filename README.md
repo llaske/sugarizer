@@ -491,7 +491,7 @@ To remove resources for **Etoys**, remove directory [activities/Etoys.activities
 
 If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce size of all JavaScript files.
 
-The [Gruntfile.js](Grunfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
+The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
 	npm install -g grunt-cli 
 	
