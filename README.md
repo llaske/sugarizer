@@ -415,7 +415,8 @@ To run unit tests for Sugarizer Client, run "file:///var/www/sugarizer/test/inde
 
 # Supervise the server
 
-This is not needed with Docker Compose
+This is not needed with Docker Compose.
+
 Instead of running your Sugarizer Server like described in the "Run MongoDB and Sugarizer Server" section above, you could use a tool like [supervisor](http://supervisord.org/) to run it in background.
 
 First install, supervisor:
