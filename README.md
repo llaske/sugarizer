@@ -90,9 +90,9 @@ Install Docker Compose
 	curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
 	  chmod +x /usr/local/bin/docker-compose
 
-You can find more details about the installation of **Docker** here : https://docker.github.io/engine/installation/
+You can find more details about the installation of **Docker** [here](https://docker.github.io/engine/installation/)
 
-You can	find more details about	the installation of **Docker Compose** here : https://docs.docker.com/compose/install/
+You can	find more details about	the installation of **Docker Compose** [here](https://docs.docker.com/compose/install/)
 
 After that, go to the sugarizer folder and launch
 
@@ -153,7 +153,8 @@ You could also run unit tests (see below) to ensure that everything works.
 
 **Server settings** 
 
-If need, Sugarizer server settings could be changed using the [server/sugarizer.ini](server/sugarizer.ini) config file.
+If needed, Sugarizer server settings could be changed using the [sugarizer.ini](server/sugarizer.ini) config file (you could use another name for this file: just pass the new name 
+as [sugarizer.js](server/sugarizer.js) parameter).
 
 	[web]
 	port = 8080
