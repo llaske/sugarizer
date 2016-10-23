@@ -136,6 +136,12 @@ enyo.kind({
 		// If we are in the SugarizerOS environment, load the android apps into activities
 		if (window.sugarizerOS){
 			var t = this;
+			sugarizerOS.isAppCacheReady(function(response) {
+				if (!response.ready) {
+					var loading = humane.create({timeout: 5000, baseCls: "humane-libnotify"});
+					loading.log(l10n.get("Loading"));
+				}
+			});
 			sugarizerOS.initActivitiesPreferences(function(){t.init();});
 			sugarizerOS.isWifiEnabled(function(value){
 				if (value != 0) {
