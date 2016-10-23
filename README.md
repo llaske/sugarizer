@@ -77,7 +77,32 @@ Sugarizer Server features include:
 * Backup and shared storage for Client and Thin Client,
 * Presence and collaboration handling between Client/Thin Client on the same network
 
-To run your own Sugarizer Server, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
+##Running the server using Docker
+
+To run your own Sugarizer Server with a single command line using Docker and Docker Compose:
+
+**Install Docker and Docker Compose on Ubuntu**
+
+	  curl -fsSL https://get.docker.com/ | sh
+
+Install Docker Compose
+
+	curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
+	  chmod +x /usr/local/bin/docker-compose
+
+You can find more details about the installation of **Docker** [here](https://docker.github.io/engine/installation/)
+
+You can	find more details about	the installation of **Docker Compose** [here](https://docs.docker.com/compose/install/)
+
+After that, go to the sugarizer folder and launch
+
+      docker-compose up -d
+
+Your Sugarizer server will start automatically and will be accessible on http://127.0.0.1 and your public IP. The database will be persisted inside the folder docker/db
+
+##Running the server using the classic way
+
+To run your own Sugarizer Server **without Docker**, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
 
 **Install Apache2**: you need to install Apache2 and ensure than few mods are available and enabled: mod_headers, mod_proxy, mod_proxy_http and mode_rewrite. You need also to allow override on /var/www directory. See [here](http://httpd.apache.org/docs/ "here") for more.
 
@@ -128,7 +153,8 @@ You could also run unit tests (see below) to ensure that everything works.
 
 **Server settings** 
 
-If need, Sugarizer server settings could be changed using the [server/sugarizer.ini](server/sugarizer.ini) config file.
+If needed, Sugarizer server settings could be changed using the [sugarizer.ini](server/sugarizer.ini) config file (you could use another name for this file: just pass the new name 
+as [sugarizer.js](server/sugarizer.js) parameter).
 
 	[web]
 	port = 8080
@@ -389,6 +415,8 @@ To run unit tests for Sugarizer Server, launch:
 To run unit tests for Sugarizer Client, run "file:///var/www/sugarizer/test/index.html" in your browser.
 
 # Supervise the server
+
+This is not needed with Docker Compose.
 
 Instead of running your Sugarizer Server like described in the "Run MongoDB and Sugarizer Server" section above, you could use a tool like [supervisor](http://supervisord.org/) to run it in background.
 
