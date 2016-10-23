@@ -33,6 +33,8 @@
 	<plugin name="cordova-plugin-network-information" version="1.1.0" />
 	<plugin name="cordova-plugin-device" version="1.1.0" />
 	<plugin name="cordova-plugin-media" version="1.0.1" />
+	<plugin name="cordova-plugin-file" version="4.2.0" />
+	<plugin name="cordova-plugin-file-transfer" version="1.6.0" />
 	<plugin name="cordova-plugin-vibration" version="2.1.1" />
 	<plugin name="cordova-plugin-fullscreen" spec="https://github.com/mesmotronic/cordova-plugin-fullscreen.git"/>
 

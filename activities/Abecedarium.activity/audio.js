@@ -13,11 +13,11 @@ enyo.kind({
 		onSoundEnded: "",
 		onSoundTimeupdate: ""
 	},
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		
+
 		this.srcChanged();
 		this.crossoriginChanged();
 		this.preloadChanged();
@@ -29,20 +29,20 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		// Handle init
-		if (this.hasNode()) {		
+		if (this.hasNode()) {
 			// Handle sound ended event
 			var audio = this;
 			enyo.dispatcher.listen(audio.hasNode(), "ended", function() {
 				audio.doSoundEnded();
-			});			
-			enyo.dispatcher.listen(audio.hasNode(), "timeupdate", function(s) { 
+			});
+			enyo.dispatcher.listen(audio.hasNode(), "timeupdate", function(s) {
 				audio.doSoundTimeupdate({timeStamp: s.timeStamp});
-			});			
+			});
 		}
 	},
-	
+
 	// Property changed
 	srcChanged: function() {
 		this.setAttribute("src", this.src);
@@ -51,7 +51,7 @@ enyo.kind({
 	crossoriginChanged: function() {
 		this.setAttribute("crossorigin", this.crossorigin);
 	},
-	
+
 	preloadChanged: function() {
 		this.setAttribute("preload", this.preload);
 	},
@@ -59,16 +59,16 @@ enyo.kind({
 	loopChanged: function() {
 		this.setAttribute("loop", this.loop);
 	},
-	
+
 	mutedChanged: function() {
 		if (this.muted.length != 0)
 			this.setAttribute("muted", this.muted);
 	},
-	
+
 	controlsbarChanged: function() {
 		this.setAttribute("controls", this.controlsbar);
 	},
-	
+
 	// Test if component could play a file type
 	canPlayType: function(typename) {
 		var node = this.hasNode();
@@ -76,7 +76,7 @@ enyo.kind({
 			return false;
 		return node.canPlayType(typename);
 	},
-	
+
 	// Play audio
 	play: function() {
 		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
@@ -90,48 +90,71 @@ enyo.kind({
 				this.media.pause();
 				this.media.release();
 			}
-			
-			// Create the Media object
-			this.media = new Media(src, function() { }, function() { },
-				function(status) {
-					if (status == 4 && this.src != "") {
-						that.doSoundEnded();				
+
+			// Ready to play
+			var playMedia = function(url, that) {
+				// Create the Media object
+				that.media = new Media(url, function() { }, function() { },
+					function(status) {
+						if (status == 4 && this.src != "") {
+							that.doSoundEnded();
+						}
 					}
-				}
-			);
-			
-			// Play
-			this.media.play();
+				);
+
+				// Play
+				that.media.play();
+			}
+
+			// HACK: On iOS, remote MP3 should be downloaded locally First
+			if (enyo.platform.ios && src.substr(0,4) == "http") {
+				var fileTransfer = new FileTransfer();
+				var fileURL = "cdvfile://localhost/temporary/sugarizer/abecedarium.mp3";
+				fileTransfer.download(
+					src,
+					fileURL,
+					function(entry) {
+						playMedia(fileURL, that);
+					},
+					function(error) {
+						console.log("download error code " + error.code);
+					},
+				    true
+				);
+			} else {
+				playMedia(src, this);
+			}
+
 			return;
-		}	
+		}
 		var node = this.hasNode();
 		if (!node)
-			return;	
+			return;
 		node.play();
 	},
-	
+
 	// Pause audio
 	pause: function() {
 		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
 		if ((enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
 			if (!this.media)
-				return;				
+				return;
 			this.media.src = "";
 			this.media.pause();
-			this.media.release();			
+			this.media.release();
 			return;
 		}
 		var node = this.hasNode();
 		if (!node)
-			return;		
+			return;
 		node.pause();
 	},
-	
+
 	// Test if audio is paused
 	paused: function() {
 		var node = this.hasNode();
 		if (!node)
-			return false;		
+			return false;
 		return node.paused;
 	},
 
@@ -139,9 +162,9 @@ enyo.kind({
 	ended: function() {
 		var node = this.hasNode();
 		if (!node)
-			return false;		
+			return false;
 		return node.ended;
-	}	
+	}
 });
 
 // Abecedarium Audio engine
@@ -149,10 +172,10 @@ enyo.kind({
 	name: "Abcd.Audio",
 	kind: enyo.Control,
 	components: [
-		{ name: "sound", kind: "HTML5.Audio", preload: "auto", autobuffer: true, controlsbar: false, 
+		{ name: "sound", kind: "HTML5.Audio", preload: "auto", autobuffer: true, controlsbar: false,
 		  onSoundEnded: "broadcastEnd", onSoundTimeupdate: "broadcastUpdate" }
 	],
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
@@ -162,13 +185,13 @@ enyo.kind({
 	// First render, test sound format supported
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		if (this.$.sound.canPlayType("audio/ogg"))
 			this.format = ".ogg";
 		else if (this.$.sound.canPlayType("audio/mpeg"))
 			this.format = ".mp3";
 	},
-	
+
 	// Play a sound
 	play: function(sound) {
 		if (this.format == null)
@@ -177,20 +200,20 @@ enyo.kind({
 		this.timeStamp = new Date().getTime();
 		this.$.sound.play();
 	},
-	
+
 	// Pause
 	pause: function() {
 		if (this.format == null)
 			return;
 		this.$.sound.pause();
 	},
-	
+
 	// End of sound detected, broadcast the signal
 	broadcastEnd: function() {
 		enyo.Signals.send("onEndOfSound", {sound:this.$.sound.src.substring(0,this.$.sound.src.length-4)});
 	},
-	
+
 	broadcastUpdate: function(s, e) {
-		enyo.Signals.send("onSoundTimeupdate", {timestamp:e.timeStamp-this.timeStamp});	
+		enyo.Signals.send("onSoundTimeupdate", {timestamp:e.timeStamp-this.timeStamp});
 	}
 });
