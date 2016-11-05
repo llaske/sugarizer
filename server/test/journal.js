@@ -423,4 +423,6 @@ journal.init(settings, function() {
 			});
 		});
 	});
+
+	run();
 });

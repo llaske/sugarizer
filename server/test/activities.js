@@ -9,7 +9,7 @@ describe('Activities', function() {
 	var res = {send: function(value) {
 		this.value = value;
 	}};
-	
+
 	// Load activities
 	var settings = {activities: {
 		activities_directory_name: "activities",
@@ -19,15 +19,15 @@ describe('Activities', function() {
 		favorites: "org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity"
 	}};
 	activities.load(settings);
-	
+
 	// Start test
 	describe('#findAll()', function() {
 		activities.findAll({params: []}, res);
-		
+
 		it('should return all activities', function() {
-			assert.equal(25, res.value.length);
+			assert.equal(28, res.value.length);
 		});
-		
+
 		it('should return all fields', function() {
 			for (var i = 0 ; i < res.value.length ; i++) {
 				var item = res.value[i];
@@ -40,7 +40,7 @@ describe('Activities', function() {
 				assert.notEqual(item.index, undefined);
 			}
 		});
-		
+
 		it('should return right number of favorites', function() {
 			var count = 0;
 			for (var i = 0 ; i < res.value.length ; i++) {
@@ -48,21 +48,21 @@ describe('Activities', function() {
 			}
 			assert.equal(3, count);
 		});
-		
+
 		it('should return favorites in right order', function() {
 			assert.equal('org.sugarlabs.GearsActivity', res.value[0].id);
 			assert.equal('org.sugarlabs.MazeWebActivity', res.value[1].id);
 			assert.equal('org.olpcfrance.PaintActivity', res.value[2].id);
-		});		
+		});
 	});
-	
+
 
 	describe('#findById()', function() {
 		it('should return nothing on inexisting activity', function() {
 			activities.findById({params: {id: 'xxx'}}, res);
 			assert.equal(undefined, res.value);
 		});
-		
+
 		it('should return right activity on existing id', function() {
 			activities.findById({params: {id: 'org.olpcfrance.PaintActivity'}}, res);
 			var item = res.value;
@@ -73,6 +73,8 @@ describe('Activities', function() {
 			assert.notEqual(item.favorite, undefined);
 			assert.equal(item.activityId, null);
 			assert.notEqual(item.index, undefined);
-		});		
+		});
 	});
 });
+
+run();

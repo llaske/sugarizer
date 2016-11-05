@@ -3,7 +3,7 @@
 
 describe('Presence', function() {
 
-	var testPresenceServer = "localhost:81/sugarizer";
+	var testPresenceServer = "localhost/sugarizer";
 	var networkId = "9446effc-a186-4199-8730-9f2be39a11d2";
 	var activityName = "sugarizer.mocha.activity";
 	var sharedId = null;

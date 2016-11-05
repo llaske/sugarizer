@@ -1,9 +1,9 @@
 # What is Sugarizer ?
 
-The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project. 
-It is used every day by nearly 3 million children around the world. 
+The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project.
+It is used every day by nearly 3 million children around the world.
 
-Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops. 
+Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
 It has 3 broad components:
 
 * Thin Client: a web application that runs in modern web browsers
@@ -16,7 +16,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 [Run it now! (server.sugarizer.org)](http://server.sugarizer.org/)
 
-Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE. 
+Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE.
 
 Features include:
 
@@ -26,8 +26,8 @@ Features include:
 * Sugar Journal
 * Sugar Local Data Store (limited by the browser to 5Mb, [learn more](https://en.wikipedia.org/wiki/Web_storage))
     * Backup locally stored content to the Server
-    * Share locally stored content through the Server 
-* Sugar Presence 
+    * Share locally stored content through the Server
+* Sugar Presence
 * Sugar Collaboration
 
 As a thin client, it does not run offline and requires a permanent network connection to a Sugarizer Server.
@@ -47,7 +47,7 @@ To run **Sugarizer on your PC** (GNU Linux/Mac OS/Windows), close any running in
 
     chrome --allow-file-access-from-files index.html
 
-The option `--allow-file-access-from-files` is needed to enable access to local files. 
+The option `--allow-file-access-from-files` is needed to enable access to local files.
 
 Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
@@ -140,10 +140,10 @@ To run your own Sugarizer Server **without Docker**, follow the step behind. Com
 **Update Firewall rules**: If need, open Firewall port for HTTP and Presence.
 
     sudo iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT # HTTP
-    sudo iptables -A INPUT -i eth0 -p tcp --dport 8039 -j ACCEPT   # Presence 
+    sudo iptables -A INPUT -i eth0 -p tcp --dport 8039 -j ACCEPT   # Presence
     sudo iptables -A OUTPUT -p tcp --dport 8039 -j ACCEPT    # Presence
 
-**Check your install**: To check your install, run "http://&lt;server name&gt;/sugarizer" in your browser: 
+**Check your install**: To check your install, run "http://&lt;server name&gt;/sugarizer" in your browser:
 
 * you should see the home with all activities,
 * go to Journal view, you should see at the bottom of the screen the two icons to switch to private/shared journal,
@@ -151,9 +151,9 @@ To run your own Sugarizer Server **without Docker**, follow the step behind. Com
 
 You could also run unit tests (see below) to ensure that everything works.
 
-**Server settings** 
+**Server settings**
 
-If needed, Sugarizer server settings could be changed using the [sugarizer.ini](server/sugarizer.ini) config file (you could use another name for this file: just pass the new name 
+If needed, Sugarizer server settings could be changed using the [sugarizer.ini](server/sugarizer.ini) config file (you could use another name for this file: just pass the new name
 as [sugarizer.js](server/sugarizer.js) parameter).
 
 	[web]
@@ -187,27 +187,27 @@ The **[web]** section describe the settings of the node.js process. Sugarizer se
 
 So by default, the Apache Web server expects that the node.js server listens on port 8080. You have to change both this file and the port value in the web section to change the port.
 
-The **[presence]** section describe the settings of the presence server. By default, a web socket is created on port 8039. You need to change this value if you want to use another port. 
+The **[presence]** section describe the settings of the presence server. By default, a web socket is created on port 8039. You need to change this value if you want to use another port.
 Warning: presence.js in activities hardcode this port today.
 
 The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
 
-The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Thin Client users will find by default on the home page. All values are self explained and had no reason to be changed. 
+The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Thin Client users will find by default on the home page. All values are self explained and had no reason to be changed.
 
-**Server API** 
+**Server API**
 
-Sugarizer Server exposes a REST API used by clients to handle collaboration. 
+Sugarizer Server exposes a REST API used by clients to handle collaboration.
 
 	// Activities API
 	[GET]    /api/activities
 	[GET]    /api/activities/:id
-	
+
 	// Users API
 	[GET]    /api/users
 	[GET]    /api/users/:uid
 	[POST]   /api/users
 	[PUT]    /api/users/:uid
-	
+
 	// Journal API
 	[GET]    /api/journal/shared
 	[GET]    /api/journal/:jid
@@ -236,7 +236,7 @@ Here an example of this file:
 		{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.olpcfrance.PaintActivity", "name": "Paint", "version": 1, "directory": "activities/Paint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-		{"id": "org.olpcfrance.TamTamMicro", "name": "TamTam Micro", "version": 1, "directory": "activities/TamTamMicro.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},	
+		{"id": "org.olpcfrance.TamTamMicro", "name": "TamTam Micro", "version": 1, "directory": "activities/TamTamMicro.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.olpcfrance.MemorizeActivity", "name": "Memorize", "version": 1, "directory": "activities/Memorize.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.olpg-france.physicsjs", "name": "Physics JS", "version": 1, "directory": "activities/PhysicsJS.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.sugarlabs.CalculateActivity", "name": "Calculate", "version": 1, "directory": "activities/Calculate.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -254,7 +254,7 @@ Here an example of this file:
 		{"id": "org.sugarlabs.StopwatchActivity", "name": "Stopwatch", "version": 1, "directory": "activities/Stopwatch.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.sugarlabs.Markdown", "name": "Markdown", "version": 3, "directory": "activities/Markdown.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.sugarlabs.GTDActivity", "name": "Get Things Done", "version": 1, "directory": "activities/GetThingsDone.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-		{"id": "org.laptop.WelcomeWebActivity", "name": "WelcomeWeb", "version": 1, "directory": "activities/WelcomeWeb.activity", "icon": "activity/welcome-activity.svg", "favorite": true, "activityId": null},	
+		{"id": "org.laptop.WelcomeWebActivity", "name": "WelcomeWeb", "version": 1, "directory": "activities/WelcomeWeb.activity", "icon": "activity/welcome-activity.svg", "favorite": true, "activityId": null},
 		{"id": "org.vpri.EtoysActivity", "name": "Etoys", "version": 1, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
 		{"id": "io.cordova.all_in_one_plugin_sample", "name": "Cordova", "version": 1, "directory": "activities/Cordova.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 		{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
@@ -270,7 +270,7 @@ Each line in this file is one activity. Here is the description of each field:
 * **favorite**: true means that the activity is in the favorite view
 * **activityId** Reserved for internal use
 
-Remove in this file rows for activities that you want to remove. Add in this file a line for each activity you want to add. 
+Remove in this file rows for activities that you want to remove. Add in this file a line for each activity you want to add.
 
 Note than:
 
@@ -281,7 +281,7 @@ Note than:
 
 With Sugarizer, it's easy to create your own activity with a bunch of HTML and JavaScript. Here's the step to follow.
 
-### Create the activity from the template 
+### Create the activity from the template
 
 First, copy all content of [activities/ActivityTemplate](activities/ActivityTemplate) directory in a new directory for example `activities/MyActivity.activity`.
 
@@ -300,7 +300,7 @@ Change also the title tag of `index.html`.
 
 	<!DOCTYPE html>
 	<html>
-	
+
 	<head>
 	<meta charset="utf-8" />
 	<title>My Activity</title>
@@ -410,7 +410,7 @@ To run unit tests, you should first install [Mocha](http://mochajs.org/):
 To run unit tests for Sugarizer Server, launch:
 
 	cd /var/www/sugarizer/server/
-	mocha
+	mocha --delay
 
 To run unit tests for Sugarizer Client, run "file:///var/www/sugarizer/test/index.html" in your browser.
 
@@ -438,11 +438,11 @@ Create a sugarizer.conf setting file in /etc/supervisor/conf.d directory:
 
 	[supervisord]
 	nodaemon=true
-	
+
 	[program:mongod]
 	command=/usr/bin/mongod --port 27018 --logpath /home/root/mongo.log
 	priority=1
-	
+
 	[program:sugarizer]
 	command=sh /home/root/sugarizer.sh
 	priority=2
@@ -521,12 +521,12 @@ If you want to optimize JavaScript performance, you could generate an optimized 
 
 The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
-	npm install -g grunt-cli 
-	
+	npm install -g grunt-cli
+
 Then just launch:
 
 	grunt
-	
+
 At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
 
 	cp -r build/* .
@@ -542,7 +542,7 @@ If you want to add a new translation, copy the whole [en] section at the end of 
 * Substitute the right side of the "=" character on each line by the string localized in your language. For example:
 
 		[fr]
-		StartNew=Commencer un nouveau 
+		StartNew=Commencer un nouveau
 		NameActivity=Activité {{name}}
 		RemoveFavorite=Retirer le favori
 
@@ -550,7 +550,7 @@ Sugarizer automatically detects the navigator language. To enable this detection
 
 	else if (navigatorLanguage.indexOf("fr") != -1)
 		this.language = "fr";
- 
+
 Sugarizer settings display a list of all available languages. You need to add your language in this dialog. For this you have to:
 
 * Add a new string in [locale.ini](locale.ini) with the name of your language in English. For example:
