@@ -16,23 +16,27 @@ app.configure(function() {
 });
 
 // Load settings
+var confFile = null;
+if (process.argv.length >= 3) {
+	confFile = process.argv[2];
+}
 settings.load(function(ini) {
 	// Init modules
 	activities.load(ini);
 	journal.init(ini);
 	users.init(ini);
 	presence.init(ini);
-	
+
 	// Register activities list API
 	app.get("/activities", activities.findAll);
 	app.get("/activities/:id", activities.findById);
-	
+
 	// Register users API
 	app.get("/users", users.findAll);
 	app.get("/users/:uid", users.findById);
 	app.post("/users", users.addUser);
-	app.put("/users/:uid", users.updateUser);	
-	
+	app.put("/users/:uid", users.updateUser);
+
 	// Register journal API
 	app.get("/journal/shared", journal.findSharedJournal);
 	app.get("/journal/:jid", journal.findJournalContent);
@@ -47,5 +51,4 @@ settings.load(function(ini) {
 	// Start listening
 	app.listen(ini.web.port);
 	console.log("Sugarizer server listening on port "+ini.web.port+"...");
-});
-
+}, confFile);

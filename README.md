@@ -409,10 +409,11 @@ To run unit tests, you should first install [Mocha](http://mochajs.org/):
 
 To run unit tests for Sugarizer Server, launch:
 
-	cd /var/www/sugarizer/server/
+	cd server
 	mocha --delay
 
-To run unit tests for Sugarizer Client, run "file:///var/www/sugarizer/test/index.html" in your browser.
+Note that settings for unit testing are defined in [server/test.ini](server/test.ini).
+To run unit tests for Sugarizer Client, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
 # Supervise the server
 
