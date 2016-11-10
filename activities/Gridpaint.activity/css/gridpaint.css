@@ -1,6 +1,7 @@
 body {
  background: black;
  margin: 0 auto;
+ overflow-y: hidden;
 }
 
 div.frame {
@@ -12,8 +13,13 @@ div.frame {
  overflow: hidden;
 }
 
+#canvas {
+ position: relative;
+ top: 0px !important;
+}
+
 canvas.gridcnv {
- position: absolute;
+ position: relative;
  width: 1024px;
  height: 748px;
  top: 0px;
@@ -26,4 +32,3 @@ div.thumbframe {
  top: 0px;
  left: 0px;
 }
-
