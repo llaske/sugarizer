@@ -26,11 +26,19 @@
 
 var onStart, onMove, onEnd;
 var zoom;
+var touchScreen = false;
 
 function eventInit(){
-	document.getElementById("canvas").onmousedown = evMousedown;
-	frame.onmousemove = evMousemove;
-	frame.onmouseup = evMouseup;
+	touchScreen = ("ontouchstart" in document.documentElement);
+	if (touchScreen) {
+		document.getElementById("canvas").addEventListener("touchstart", evMousedown, false);
+		frame.addEventListener("touchmove", evMousemove, false);
+		frame.addEventListener("touchend", evMouseup, false);
+	} else {
+		document.getElementById("canvas").onmousedown = evMousedown;
+		frame.onmousemove = evMousemove;
+		frame.onmouseup = evMouseup;
+	}
 	var wsize = document.body.clientHeight-55;
 	zoom = wsize/748;
 	document.getElementById("canvas").style.zoom = zoom;
@@ -45,6 +53,7 @@ function eventInit(){
 
 function evMousedown(e){
 	e.preventDefault();
+	if (touchScreen) e = e.touches[0];
 	var x=localx(e.clientX), y=localy(e.clientY);
 	onStart(x,y);
 	// HACK: Force refresh on Android
@@ -58,6 +67,7 @@ function evMousedown(e){
 
 function evMousemove(e){
 	e.preventDefault();
+	if (touchScreen) e = e.touches[0];
 	if(!onMove) return;
 	var x=localx(e.clientX), y=localy(e.clientY);
 	onMove(x,y);
