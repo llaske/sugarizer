@@ -6,17 +6,17 @@ It is used every day by nearly 3 million children around the world.
 Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
 It has 3 broad components:
 
-* Thin Client: a web application that runs in modern web browsers
-* Client: an installable app for every operating system
-* Server: a nodejs/express server for clients to connect with
+* Web Application: a web application that runs in modern web browsers
+* Application: an installable app for every operating system
+* Server: a nodejs/express server for applications to connect with
 
 Enjoy the experience and help us reach every child on every device in every country.
 
-# Thin Client
+# Web Application
 
 [Run it now! (server.sugarizer.org)](http://server.sugarizer.org/)
 
-Sugarizer Thin Client is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE.
+Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE.
 
 Features include:
 
@@ -30,20 +30,20 @@ Features include:
 * Sugar Presence
 * Sugar Collaboration
 
-As a thin client, it does not run offline and requires a permanent network connection to a Sugarizer Server.
+As a web application, it does not run offline and requires a permanent network connection to a Sugarizer Server.
 
-Each Sugarizer Server provides its own copy of the Thin Client.
+Each Sugarizer Server provides its own copy of the Web Application.
 
-# Client
+# Application
 
-Sugarizer Client is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
 
-Features are the same as Thin Client, plus:
+Features are the same as Web Application, plus:
 
 * Runs completely offline, without accessing any server
 * Some features (like collaboration) do a require network connection
 
-To run **Sugarizer on your PC** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
+To run **Sugarizer Application on your PC** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
 
     chrome --allow-file-access-from-files index.html
 
@@ -53,13 +53,13 @@ Equivalent options for other browser [are available](https://github.com/mrdoob/t
 
 If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command)))
 
-To run **Sugarizer Client on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Client APK using instruction below.
+To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Application APK using instruction below.
 
-To run **Sugarizer Client on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Client IPA using instructions below.
+To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
 
-To run **Sugarizer Client as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
+To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
 
-Features of Sugarizer Client include:
+Features of Sugarizer Application include:
 
 * Sugar Desktop view (Radial, List and Journal),
 * Sugar Local data store storage - limited by the browser to 5Mb (see [here](https://en.wikipedia.org/wiki/Web_storage "here")),
@@ -69,13 +69,13 @@ Features of Sugarizer Client include:
 
 # Server
 
-Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Thin Client (without Internet access). Sugarizer Server can also be used to provide collaboration features for Client and Thin Client on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB.
+Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB.
 
 Sugarizer Server features include:
 
-* Sugarizer Thin Client access,
-* Backup and shared storage for Client and Thin Client,
-* Presence and collaboration handling between Client/Thin Client on the same network
+* Sugarizer Web Application access,
+* Backup and shared storage for Application and Web Application,
+* Presence and collaboration handling between Application/Web Application on the same network
 
 ##Running the server using Docker
 
@@ -192,11 +192,11 @@ Warning: presence.js in activities hardcode this port today.
 
 The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
 
-The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Thin Client users will find by default on the home page. All values are self explained and had no reason to be changed.
+The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Web Application users will find by default on the home page. All values are self explained and had no reason to be changed.
 
 **Server API**
 
-Sugarizer Server exposes a REST API used by clients to handle collaboration.
+Sugarizer Server exposes a REST API used by applications to handle collaboration.
 
 	// Activities API
 	[GET]    /api/activities
@@ -275,7 +275,7 @@ Remove in this file rows for activities that you want to remove. Add in this fil
 Note than:
 
 1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
-2. The [activities.json](activities.json) is used only by Sugarizer Client, the Thin Client relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
+2. The [activities.json](activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
 
 # Create your own activity
 
@@ -402,7 +402,7 @@ That's all, it's your turn now to transform this activity in something fun!
 
 # Unit testing
 
-Sugarizer includes a set of unit tests both for client side and for server side.
+Sugarizer includes a set of unit tests both for application side and for server side.
 To run unit tests, you should first install [Mocha](http://mochajs.org/):
 
 	sudo npm install -g mocha
@@ -413,7 +413,7 @@ To run unit tests for Sugarizer Server, launch:
 	mocha --delay
 
 Note that settings for unit testing are defined in [server/test.ini](server/test.ini).
-To run unit tests for Sugarizer Client, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
+To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
 # Supervise the server
 
@@ -466,9 +466,9 @@ You could end it manually using:
 	sudo supervisorctl stop sugarizer
 
 
-# Build Client for Android or iOS
+# Build Application for Android or iOS
 
-Sugarizer Client could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
+Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
 To build it, first install Cordova as described [here](http://cordova.apache.org/).
 

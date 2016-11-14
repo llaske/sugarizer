@@ -48,7 +48,7 @@ enyo.kind({
 		this.loadJournal();
 
 		// Call activities list service
-		if (util.getClientType() == constant.thinClientType) {
+		if (util.getClientType() == constant.webAppType) {
 			this.$.activities.setUrl(myserver.getActivitiesUrl());
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);

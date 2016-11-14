@@ -421,7 +421,7 @@ enyo.kind({
 			{code: "ja", icon: null, name: l10n.get("Japanese")},
 			{code: "pl", icon: null, name: l10n.get("Polish")},
 			{code: "pt", icon: null, name: l10n.get("Portuguese")}
-			
+
 		];
 		this.$.languageselect.setItems(this.languageset);
 		for (var i = 0 ; i < this.languageset.length ; i++) {
@@ -512,7 +512,7 @@ enyo.kind({
 			{name: "useragent_value", classes: "computer-value"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2014 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
+			{content: "© 2013-2016 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
 			{name: "license", content: "xxx", classes: "computer-licence"}
 		]}
 	],
@@ -615,7 +615,7 @@ enyo.kind({
 		this.$.textusermessage.setContent(l10n.get("LeaveUserBlank"));
 		this.$.checkbutton.setText(l10n.get("CheckInfo"));
 		this.initconnected = preferences.isConnected();
-		if (util.getClientType() == constant.thinClientType) {
+		if (util.getClientType() == constant.webAppType) {
 			this.initservername = util.getCurrentServerUrl();
 			this.$.servername.setDisabled(true);
 		} else {
@@ -640,7 +640,7 @@ enyo.kind({
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.connected.setNodeProperty("checked", this.initconnected);
 		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.thinClientType) {
+		if (util.getClientType() != constant.webAppType) {
 			this.$.servername.setDisabled(disabled);
 		}
 		this.$.username.setDisabled(disabled);
@@ -665,11 +665,11 @@ enyo.kind({
 	},
 
 	switchConnection: function() {
-		if (util.getClientType() == constant.thinClientType) {
+		if (util.getClientType() == constant.webAppType) {
 			this.$.connected.setNodeProperty("checked", true);
 		}
 		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.thinClientType) {
+		if (util.getClientType() != constant.webAppType) {
 			this.$.servername.setDisabled(disabled);
 			if (this.$.connected.getNodeProperty("checked") && this.$.servername.getValue() == null)
 				this.$.servername.setValue(constant.defaultServer);

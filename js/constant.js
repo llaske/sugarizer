@@ -35,8 +35,8 @@ constant.listStepCount = 10;
 constant.listScrollLimit = 200;
 
 constant.timerUpdateNetwork = 1000;
-constant.thinClientType = 0;
-constant.clientType = 1;
+constant.webAppType = 0; // thinClientType
+constant.appType = 1;  // clientType
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
