@@ -494,10 +494,11 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "reinit"},
 		{name: "content", kind: "Scroller", classes: "computer-content", components: [
 			{name: "software", content: "xxx", classes: "computer-software"},
 			{content: "Sugarizer:", classes: "computer-sugarizer"},
-			{name: "sugarizer_value", classes: "computer-value"},
+			{name: "sugarizer_value", classes: "computer-value", ontap: "version"},
 			{classes: "computer-line"},
 			{name: "clienttype", classes: "computer-clienttype"},
 			{name: "clienttype_value", classes: "computer-value"},
@@ -510,10 +511,13 @@ enyo.kind({
 			{classes: "computer-line"},
 			{name: "useragent", content: "xxx", classes: "computer-useragent"},
 			{name: "useragent_value", classes: "computer-value"},
+			{name: "reinitcheck", showing: false, kind: "Input", type: "checkbox", classes: "toggle computer-reinitcheck", onchange: "switchInit"},
+			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
 			{content: "© 2013-2016 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
-			{name: "license", content: "xxx", classes: "computer-licence"}
+			{name: "license", content: "xxx", classes: "computer-licence"},
+			{name: "warningmessage", showing: false, content: "xxx", classes: "computer-warningmessage", showing: false}
 		]}
 	],
 
@@ -528,6 +532,10 @@ enyo.kind({
 		this.$.useragent.setContent(l10n.get("UserAgent"));
 		this.$.copyright.setContent(l10n.get("Copyright"));
 		this.$.license.setContent(l10n.get("LicenseTerms"));
+		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
+		this.$.reinittext.setContent(l10n.get("ReinitJournalAndSettings"));
+		this.notify = humane.create({ timeout: 1000, baseCls: 'humane-libnotify' })
+		this.clickLeft = 3;
 
 		this.$.sugarizer_value.setContent(constant.sugarizerVersion);
 		this.$.clienttype_value.setContent(util.getClientName());
@@ -560,8 +568,41 @@ enyo.kind({
 	},
 
 	ok: function() {
-		this.hide();
-		this.owner.show();
+		if (this.$.reinitcheck.getNodeProperty("checked")) {
+			this.$.warningbox.setShowing(true);
+			this.$.okbutton.setDisabled(true);
+			this.$.cancelbutton.setDisabled(true);
+		} else {
+			this.hide();
+			this.owner.show();
+		}
+	},
+
+	reinit: function() {
+		// Remove all object
+		var results = datastore.find();
+		for(var i = 0 ; i < results.length ; i++) {
+			datastore.localStorage.removeValue('sugar_datastore_'+results[i].objectId);
+			datastore.localStorage.removeValue('sugar_datastoretext_'+results[i].objectId);
+		}
+		datastore.localStorage.removeValue('sugar_settings');
+
+		// Restart
+		util.restartApp();
+	},
+
+	switchInit: function() {
+		this.$.warningmessage.setShowing(this.$.reinitcheck.getNodeProperty("checked"));
+	},
+
+	version: function() {
+		this.clickLeft--;
+		if (this.clickLeft == 0) {
+			this.$.reinittext.setShowing(true);
+			this.$.reinitcheck.setShowing(true);
+		} else if (this.clickLeft > 0) {
+			this.notify.log(l10n.get("ClickMore"));
+		}
 	}
 });
 

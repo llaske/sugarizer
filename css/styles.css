@@ -811,7 +811,7 @@ input {
 }
 
 .computer-content {
-	height: 80%;
+	height: 90%;
 }
 
 .computer-software {
@@ -862,6 +862,18 @@ input {
 	display: inline-block;
 }
 
+.computer-reinitcheck {
+	margin-left: 30px !important;
+}
+
+.computer-reinit {
+	text-align: left;
+	width: 400px;
+	margin-left: 10px;
+	margin-top: 30px;
+	display: inline-block;
+}
+
 .computer-line {
 }
 
@@ -886,6 +898,19 @@ input {
 	margin-left: 10px;
 	color: black;
 	display: inline-block;
+}
+
+.computer-warningmessage {
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 15px 15px;
+	margin-left: 20px;
+	margin-top: 10px;
+	bottom: 20px;
+	width: 400px;
+	padding-left: 20px;
 }
 
 .aboutserver-checkbox {
