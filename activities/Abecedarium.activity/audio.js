@@ -24,6 +24,31 @@ enyo.kind({
 		this.loopChanged();
 		this.mutedChanged();
 		this.controlsbarChanged();
+		this.handleVolumeButtons();
+	},
+
+	// Handle volume buttons on Android
+	handleVolumeButtons: function() {
+		if ((enyo.platform.android || enyo.platform.androidChrome) && document.location.protocol.substr(0,4) != "http") {
+			// HACK: Need only on Android because Cordova intercept volume buttons
+			var emptyf = function() {};
+			document.addEventListener("volumeupbutton", function() {
+				cordova.plugins.VolumeControl.getVolume(function(value) {
+					var volume = parseInt(value);
+					if (volume < 100) {
+						cordova.plugins.VolumeControl.setVolume((volume+10), emptyf, emptyf);
+					}
+				}, emptyf);
+			}, false);
+			document.addEventListener("volumedownbutton", function() {
+				cordova.plugins.VolumeControl.getVolume(function(value) {
+					var volume = parseInt(value);
+					if (volume > 0) {
+						cordova.plugins.VolumeControl.setVolume((volume-1), emptyf, emptyf);
+					}
+				}, emptyf);
+			}, false);
+		}
 	},
 
 	// Render

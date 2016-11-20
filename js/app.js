@@ -25,6 +25,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 			app = new Sugar.Desktop();
 		}
 		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position
+		util.handleVolumeButtons();
 		app.renderInto(document.getElementById("canvas"));
 	}
 
