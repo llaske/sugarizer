@@ -413,15 +413,14 @@ enyo.kind({
 		this.languageset = [
 			{code: "en", icon: null, name: l10n.get("English")},
 			{code: "es", icon: null, name: l10n.get("Spanish")},
-			{code: "de", icon: null, name: l10n.get("German")},
 			{code: "fr", icon: null, name: l10n.get("French")},
-			{code: "ibo", icon: null, name: l10n.get("Igbo")},
-			{code: "yor", icon: null, name: l10n.get("Yoruba")},
+			{code: "de", icon: null, name: l10n.get("German")},
+			{code: "pt", icon: null, name: l10n.get("Portuguese")},
 			{code: "ar", icon: null, name: l10n.get("Arabic")},
 			{code: "ja", icon: null, name: l10n.get("Japanese")},
 			{code: "pl", icon: null, name: l10n.get("Polish")},
-			{code: "pt", icon: null, name: l10n.get("Portuguese")}
-
+			{code: "ibo", icon: null, name: l10n.get("Igbo")},
+			{code: "yor", icon: null, name: l10n.get("Yoruba")}
 		];
 		this.$.languageselect.setItems(this.languageset);
 		for (var i = 0 ; i < this.languageset.length ; i++) {
