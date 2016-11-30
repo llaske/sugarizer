@@ -56,6 +56,21 @@ function display_slide(){//Displays the actual slide
     $("#here").after(html_content);
 }
 
+function setUpdateTime() {
+    var time = $("#delaytime").val()*1000;
+    if(time < 100) {
+        time = 100;
+        $("#delaytime").val(0.1);
+    }
+    if(time > 10000) {
+        time = 10000;
+        $("#delaytime").val(10);
+    }
+    update_time = time;
+    update();
+    console.log(update_time);
+}
+
 function update(){ //Displays the actual slide and switches to the next slide
     display_slide();
     if (selected_slide >= topics_sizes[selected_topic]){
@@ -68,13 +83,15 @@ function update(){ //Displays the actual slide and switches to the next slide
 	selected_topic = 0;
 	selected_slide = 1;
     }
-    setTimeout(update, update_time);
+    id = setTimeout(update, update_time);
 }
 
 $(document).ready(function() {
+    $("#delaytime").val(update_time/1000);
     $("#unfullscreen").hide();
     $("#prev-bt").click(previous);
     $("#next-bt").click(next);
+    $("#apply-bt").click(setUpdateTime);
     $("#fullscreen").click(function() {
 	$(".toolbar").fadeIn('slow');
 	$("#canvas").css('top', '0px');
