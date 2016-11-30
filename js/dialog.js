@@ -581,10 +581,9 @@ enyo.kind({
 		// Remove all object
 		var results = datastore.find();
 		for(var i = 0 ; i < results.length ; i++) {
-			datastore.localStorage.removeValue('sugar_datastore_'+results[i].objectId);
-			datastore.localStorage.removeValue('sugar_datastoretext_'+results[i].objectId);
+			datastore.remove(results[i].objectId);
 		}
-		datastore.localStorage.removeValue('sugar_settings');
+		preferences.reset();
 
 		// Restart
 		util.restartApp();
