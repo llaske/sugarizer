@@ -1,15 +1,15 @@
 ﻿
 @font-face {
-	font-family: NoneShallPassFonts;
-	src: url('NoneShallPassFonts.eot'),
-	url('NoneShallPassFonts.ttf')  format('truetype');
+	font-family: 'Conv_BlackOpsOne-Regular';
+	src: url('BlackOpsOne-Regular.eot'),
+	url('BlackOpsOne-Regular.ttf')  format('truetype');
 }
 
 .no-select-content {
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .body {
@@ -46,9 +46,9 @@
 
 .start-button-text {
 	position: absolute;
-	text-align: center;	
+	text-align: center;
 	font-size: 24px;
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	color: blue;
 	width: 100%;
 	vertical-align: middle;
@@ -63,10 +63,10 @@
 
 .status-line {
 	position: absolute;
-	top: 55px;	
+	top: 55px;
 	right: 1%;
-	font-family: NoneShallPassFonts;	
-	font-size: 24px;	
+	font-family: 'Conv_BlackOpsOne-Regular';
+	font-size: 24px;
 }
 
 .wave-text {
@@ -92,9 +92,9 @@
 	top: -20px;
 	height: 50px;
 	font-size: 40px;
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	color: white;
-	display:inline-block;	
+	display:inline-block;
 }
 
 .board {
@@ -116,21 +116,21 @@
 
 .go-left {
 	background-image: url(../images/go-left.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	vertical-align: bottom;
 }
 
 .go-right {
 	background-image: url(../images/go-right.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	vertical-align: bottom;
 }
 
 .mission-text {
 	font-size: 32px;
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	color: black;
 	height: 50px;
 	padding: 0px 10px 0px 10px;
@@ -139,7 +139,7 @@
 
 .mission-header {
 	font-size: 32px;
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	color: black;
 }
 
@@ -176,13 +176,13 @@
 
 .mission-completed {
 	background-image: url(../images/mission-completed.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .mission-tocomplete {
 	background-image: url(../images/mission-tocomplete.svg);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
@@ -192,7 +192,7 @@
 
 .title {
 	font-size: 30px;
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	width: 100%;
 	text-align: center;
 }
@@ -202,7 +202,7 @@
 	left: 0.5%;
 	bottom: 0.5%;
 	width: 50px;
-	max-width: 7%;	
+	max-width: 7%;
 }
 
 .display-line {
@@ -214,14 +214,14 @@
 .keyboard-view  {
 	width: 55px;
 	margin-left: auto;
-	margin-right: auto;	
+	margin-right: auto;
 	padding-left: 10px;
-	display:inline-block;	
+	display:inline-block;
 }
 
 .lcd-value {
 	width: 90px;
-	display:inline-block;	
+	display:inline-block;
 }
 
 .lcd-border {
@@ -313,7 +313,7 @@
 	border: medium solid black;
 	border-radius: 20px / 15px;
 	box-shadow: 5px 4px 10px 2px gray;
-	padding: 5px	
+	padding: 5px
 }
 
 .credit-content {
@@ -359,7 +359,7 @@
 }
 
 .credit-title {
-	font-family: NoneShallPassFonts;
+	font-family: 'Conv_BlackOpsOne-Regular';
 	font-size: 26px;
 	margin-top: 30px;
 	margin-left: 20%;
@@ -368,7 +368,7 @@
 
 .credit-name {
 	font-size: 16px;
-	margin-left: 22%;	
+	margin-left: 22%;
 	margin-top: 3px;
 	color: white;
 }
@@ -379,15 +379,15 @@
 		font-size: 20px;
 		top: 0px;
 	}
-	
+
 	.start-button-text {
 		font-size: 16px;
-	}	
+	}
 
 	.mission-text {
 		font-size: 16px;
 		height: 30px;
-		padding: 0px 3px 0px 3px;		
+		padding: 0px 3px 0px 3px;
 	}
 
 	.mission-header {
@@ -402,7 +402,7 @@
 		background-size: 20px 20px;
 		width: 20px;
 		height: 30px;
-	}	
+	}
 
 	.mission {
 		background-size: 20px 20px;
@@ -411,14 +411,14 @@
 	}
 
 	.status-line {
-		font-family: NoneShallPassFonts;	
-		font-size: 16px;	
+		font-family: 'Conv_BlackOpsOne-Regular';
+		font-size: 16px;
 	}
 
 	.lcd-value {
 		width: 60px;
 	}
-	
+
 	.lcd-num {
 		background-image: url(../images/led_values_small.png);
 		width: 20px;
@@ -472,14 +472,14 @@
 
 	.lcd-image-dash {
 		background-position: -220px 0px;
-	}	
+	}
 
 	.keyboard {
 		font-size: 18px;
 		width: 30px;
 		height: 30px;
 		margin-left: 0px;
-	}	
+	}
 }
 
 @media screen and (min-width: 481px) and (max-width: 640px) {
@@ -487,7 +487,7 @@
 		font-size: 24px;
 		top: -10px;
 	}
-	
+
 	.start-button-text {
 		font-size: 20px;
 	}
@@ -495,11 +495,11 @@
 	.mission-description {
 		bottom: 11%;
 	}
-	
+
 	.mission-text {
 		font-size: 20px;
 		height: 30px;
-		padding: 0px 5px 0px 5px;		
+		padding: 0px 5px 0px 5px;
 	}
 
 	.mission-header {
@@ -514,7 +514,7 @@
 		background-size: 30px 30px;
 		width: 30px;
 		height: 35px;
-	}	
+	}
 
 	.mission {
 		background-size: 30px 30px;
@@ -527,7 +527,7 @@
 		width: 35px;
 		height: 35px;
 		margin-left: 0px;
-	}	
+	}
 }
 
 
@@ -535,11 +535,11 @@
 	.mission-description {
 		bottom: 11%;
 	}
-	
+
 	.mission-text {
 		font-size: 24px;
 		height: 30px;
-		padding: 0px 5px 0px 5px;		
+		padding: 0px 5px 0px 5px;
 	}
 
 	.mission-header {
@@ -554,7 +554,7 @@
 		background-size: 35px 35px;
 		width: 35px;
 		height: 40px;
-	}	
+	}
 
 	.mission {
 		background-size: 35px 35px;
