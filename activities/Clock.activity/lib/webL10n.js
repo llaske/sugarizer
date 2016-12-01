@@ -43,7 +43,7 @@ define(function (require) {
    * content until the `localized' event happens.
    */
 
-  var gAsyncResourceLoading = true; // read-only
+  var gAsyncResourceLoading = false; // read-only
 
 
   /**
@@ -807,6 +807,7 @@ define(function (require) {
   function getL10nData(key, args) {
     var data = gL10nData[key];
     if (!data) {
+      l10nStartup();
       consoleWarn('#' + key + ' missing for [' + gLanguage + ']');
     }
 

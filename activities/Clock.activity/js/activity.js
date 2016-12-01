@@ -5,7 +5,8 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
 
         // Initialize the activity.
         activity.setup();
-
+        setTranslatedStrings();
+        
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -56,6 +57,15 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
                 that.updateSizes();
                 that.drawBackground();
             };
+        }
+        
+        function setTranslatedStrings() {
+            console.log(l10n_s.get("SimpleClock"));
+            document.getElementById("simple-clock-button").title = l10n_s.get("SimpleClock");
+            document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
+            document.getElementById("write-time-button").title = l10n_s.get("WriteTime");
+            document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
+            document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");         
         }
 
         Clock.prototype.start = function (face) {
