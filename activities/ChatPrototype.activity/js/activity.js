@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,palette,presencepalette) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,palette,presencepalette) {
     var activity = require("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -92,7 +92,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/gr
 				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
 
                 // Clear out the message field
-				messageField.placeholder = "Write your message here...";
+				messageField.placeholder = l10n.get("WriteYourMessage");
                 messageField.value = "";
 				messageField.setSelectionRange(0,0);
 				return false;
