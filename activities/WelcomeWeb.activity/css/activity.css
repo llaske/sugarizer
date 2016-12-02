@@ -15,6 +15,10 @@
   background-image: url(../icons/go-next-paired.svg);
 }
 
+#settings-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
 #help {
   height: 96%;
 }
