@@ -82,9 +82,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","ac
 		
         });
         function localize() {
-		        document.getElementById("stop-button").title = l10n.get("stop");
-		        document.getElementById('activity-button').title = l10n.get("GetThingsDone");
-		        document.getElementById("new-todo").placeholder = l10n.get("Whatelseneedstobedone?");
+           document.getElementById("stop-button").title = l10n.get("stop");
+           document.getElementById('activity-button').title = l10n.get("GetThingsDone");
+           document.getElementById("new-todo").placeholder = l10n.get("Whatelseneedstobedone?");
 	}
     });
 
