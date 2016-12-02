@@ -21,14 +21,14 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 			presenceObject = activity.getPresenceObject(function (error, presence) {
 				// Unable to join
 				if (error)  {
-					socketStatus.innerHTML = 'Error';
+					socketStatus.innerHTML = l10n.get('Error');
 					socketStatus.className = 'error';
 					return;
 				}
 
 				// Store settings
 				userSettings = presence.getUserInfo();
-				socketStatus.innerHTML = 'Connected';
+				socketStatus.innerHTML = l10n.get('Connected');
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
 
@@ -40,8 +40,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 				// Show a disconnected message when the WebSocket is closed.
 				presence.onConnectionClosed(function (event) {
-					console.log("Connection closed");
-					socketStatus.innerHTML = 'Disconnected from WebSocket.';
+					console.log(l10n.get("ConnectionClosed"));
+					socketStatus.innerHTML = l10n.get('DisconnectedFromWebSocket');
 					socketStatus.className = 'closed';
 				});
 
