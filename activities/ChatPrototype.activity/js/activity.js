@@ -12,8 +12,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
+	    
+	document.getElementById("status").innerHTML = l10n.get("status");
 
-		var userSettings = null;
+	    var userSettings = null;
 
 		// Connect to network
         var presenceObject;
