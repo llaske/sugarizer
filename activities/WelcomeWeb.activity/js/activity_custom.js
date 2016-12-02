@@ -78,7 +78,7 @@ requirejs(["../lib/settingspalette"], function(settingspalette) {
     }
 
     function setUpPalette() {
-        settingspalette = new settingspalette.SettingsPalette(document.getElementById("settings-button"), "Settings");
+        settingspalette = new settingspalette.SettingsPalette(document.getElementById("settings-button"), undefined);
     }
 
     function update(){ //Displays the actual slide and switches to the next slide

@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","text!settingspalette.html", "mustache"], function (palette, template, mustache) {
+define(["widepalette","text!settingspalette.html", "mustache"], function (palette, template, mustache) {
 
     'use strict';
 
@@ -12,8 +12,7 @@ define(["sugar-web/graphics/palette","text!settingspalette.html", "mustache"], f
 			'item': undefined	
 		});
 
-        var menuElem = document.createElement('ul');
-        menuElem.className = "menu";
+        var menuElem = document.createElement('div');
         menuElem.innerHTML = template;
         this.setContent([menuElem]);
 
