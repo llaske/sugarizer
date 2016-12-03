@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment"], function (activity,radioButtonsGroup,mustache,moment) {
+define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment", "webL10n"], function (activity,radioButtonsGroup,mustache,moment,l10n) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
