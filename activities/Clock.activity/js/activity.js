@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment"], function (activity,radioButtonsGroup,mustache,moment) {
+define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min"], function (activity,radioButtonsGroup,mustache,moment) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -6,7 +6,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
         // Initialize the activity.
         activity.setup();
         setTranslatedStrings();
-        
+
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -58,14 +58,13 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
                 that.drawBackground();
             };
         }
-        
+
         function setTranslatedStrings() {
-            console.log(l10n_s.get("SimpleClock"));
             document.getElementById("simple-clock-button").title = l10n_s.get("SimpleClock");
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
             document.getElementById("write-time-button").title = l10n_s.get("WriteTime");
             document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
-            document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");         
+            document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
         }
 
         Clock.prototype.start = function (face) {
@@ -198,7 +197,8 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
             }
 
             if (this.writeDate) {
-                this.textDateElem.innerHTML = moment(date).format("dddd, LL");
+				var momentDate = moment(date);
+                this.textDateElem.innerHTML = momentDate.format('LLLL').replace(momentDate.format('LT'), '');
             }
 
             this.handAngles.hours = Math.PI - (Math.PI / 6 * hours +
