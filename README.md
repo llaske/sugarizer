@@ -400,6 +400,8 @@ Run again your new activity, you will see then change.
 
 That's all, it's your turn now to transform this activity in something fun!
 
+See [Sugar Web Samples](http://sugarlabs.github.io/sugar-web-samples/) for more samples using the Sugar unique UI.
+
 # Unit testing
 
 Sugarizer includes a set of unit tests both for application side and for server side.
