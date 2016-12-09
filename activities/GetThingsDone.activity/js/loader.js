@@ -1,3 +1,5 @@
+var l10n_s;
+
 requirejs.config({
     baseUrl: "lib",
     paths: {
