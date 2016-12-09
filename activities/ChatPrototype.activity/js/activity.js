@@ -1,103 +1,87 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,palette,presencepalette) {
-    var activity = require("sugar-web/activity/activity");
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], "webL10n",  function (activity, webL10n, datastore, model, view, controller) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
+        var todo;
+
         // Initialize the activity.
         activity.setup();
+	document.ElementById("new-todo") = l10n_s.get("new-todo");
 
-        var form = document.getElementById('message-form');
-        var messageField = document.getElementById('message');
-        var messagesList = document.getElementById('messages');
-        var socketStatus = document.getElementById('status');
-        var messageContent = document.getElementById('content');
+        var stopButton = document.getElementById("stop-button");
+        stopButton.addEventListener('click', function (event) {
+            console.log("writing...");
+            var jsonData = JSON.stringify(todo.model.items);
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save(function (error) {
+                if (error === null) {
+                    console.log("write done.");
+                }
+                else {
+                    console.log("write failed.");
+                }
+            });
+        });
 
-		var userSettings = null;
+        // Set up a brand new TODO list
 
-		// Connect to network
-        var presenceObject;
-		function shareActivity() {
-			presenceObject = activity.getPresenceObject(function (error, presence) {
-				// Unable to join
-				if (error)  {
-					socketStatus.innerHTML = 'Error';
-					socketStatus.className = 'error';
-					return;
-				}
+        function Todo() {
+            this.model = new model.Model();
+            this.view = new view.View();
+            this.controller = new controller.Controller(this.model, this.view);
+        }
 
-				// Store settings
-				userSettings = presence.getUserInfo();
-				socketStatus.innerHTML = 'Connected';
-				socketStatus.className = 'open';
-				messageField.readOnly = false;
+        todo = new Todo();
+        var datastoreObject = activity.getDatastoreObject();
+        function onLoaded(error, metadata, data) {
+            todo.controller.loadItems(JSON.parse(data));
+        }
+        datastoreObject.loadAsText(onLoaded);
 
-				// Not found, create a new shared activity
-				if (!window.top.sugar.environment.sharedId) {
-					presence.createSharedActivity('org.sugarlabs.ChatPrototype', function (groupId) {
-					});
-				}
-
-				// Show a disconnected message when the WebSocket is closed.
-				presence.onConnectionClosed(function (event) {
-					console.log("Connection closed");
-					socketStatus.innerHTML = 'Disconnected from WebSocket.';
-					socketStatus.className = 'closed';
-				});
-
-				// Display connection changed
-				presence.onSharedActivityUserChanged(function (msg) {
-					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + (msg.move>0?' join':' leave') + ' the chat</li>';
-				});
-
-				// Handle messages received
-				presence.onDataReceived(function (msg) {
-					var text = msg.content;
-					var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					var colour = msg.user.colorvalue;
-
-					var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
-
-					myElem = document.createElement('li');
-					myElem.class = 'received';
-					myElem.style.background = colour.fill;
-					myElem.innerHTML = authorElem + text;
-					myElem.style.color = colour.stroke;
-
-					messagesList.appendChild(myElem);
-					messageContent.scrollTop = messageContent.scrollHeight;
-				});
-			});
-		}
-
-		// Create network palette
-        var networkButton = document.getElementById("network-button");
-		presencepalette = new presencepalette.PresencePalette(networkButton, undefined);
-		presencepalette.addEventListener('shared', shareActivity);
-
-		// Launched with a shared id, activity is already shared
-		if (window.top.sugar.environment.sharedId) {
-			shareActivity();
-			presencepalette.setShared(true);
-		}
-
-		// Handle message text update
-        messageField.onkeydown = function (e) {
-            if (e.keyCode === 13) {
-				var message = messageField.value;
-
-				// Send the message through the WebSocket.
-				var toSend = {user: userSettings, content: message};
-				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
-
-                // Clear out the message field
-				messageField.placeholder = "Write your message here...";
-                messageField.value = "";
-				messageField.setSelectionRange(0,0);
-				return false;
+        var input = document.getElementById("new-todo");
+        input.addEventListener('keypress', function (e) {
+            if (e.keyCode === todo.controller.ENTER_KEY) {
+                var success = todo.controller.addItem(e.target.value);
+                if (success) {
+                    e.target.value = '';
+                }
             }
-        };
+        });
+
+        var inputButton = document.getElementById("new-todo-button");
+        inputButton.addEventListener('click', function (e) {
+            var success = todo.controller.addItem(input.value);
+            if (success) {
+                input.value = '';
+            }
+        });
+
+        // Find the model ID of the clicked DOM element
+
+        function lookupId(target) {
+            var lookup = target;
+
+            while (lookup.nodeName !== 'LI') {
+                lookup = lookup.parentNode;
+            }
+
+            return lookup.dataset.id;
+        }
+
+        var list = document.getElementById("todo-list");
+        list.addEventListener('click', function (e) {
+            var target = e.target;
+
+            if (target.className.indexOf('remove') > -1) {
+                todo.controller.removeItem(lookupId(target));
+            }
+
+            if (target.className.indexOf('toggle') > -1) {
+                todo.controller.toggleComplete(lookupId(target), target);
+            }
+
+        });
 
     });
 
