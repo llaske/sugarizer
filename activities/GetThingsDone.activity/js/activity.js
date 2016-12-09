@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity,datastore,model,view,controller) {
+define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","activity/view","activity/controller", "webL10n"], function (activity,datastore,model,view,controller,l10n) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -79,9 +79,13 @@ define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","ac
             if (target.className.indexOf('toggle') > -1) {
                 todo.controller.toggleComplete(lookupId(target), target);
             }
-
+		
         });
-
+        function localize() {
+           document.getElementById("stop-button").title = l10n.get("stop");
+           document.getElementById('activity-button').title = l10n.get("GetThingsDone");
+           document.getElementById("new-todo").placeholder = l10n.get("Whatelseneedstobedone?");
+	}
     });
 
 });
