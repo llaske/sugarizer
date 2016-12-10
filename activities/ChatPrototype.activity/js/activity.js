@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,palette,presencepalette) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,palette,presencepalette) {
     var activity = require("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -12,8 +12,10 @@ define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/gr
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
+	    
+	document.getElementById("status").innerHTML = l10n.get("status");
 
-		var userSettings = null;
+	    var userSettings = null;
 
 		// Connect to network
         var presenceObject;
@@ -21,14 +23,14 @@ define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/gr
 			presenceObject = activity.getPresenceObject(function (error, presence) {
 				// Unable to join
 				if (error)  {
-					socketStatus.innerHTML = 'Error';
+					socketStatus.innerHTML = l10n.get('Error');
 					socketStatus.className = 'error';
 					return;
 				}
 
 				// Store settings
 				userSettings = presence.getUserInfo();
-				socketStatus.innerHTML = 'Connected';
+				socketStatus.innerHTML = l10n.get('Connected');
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
 
@@ -40,8 +42,8 @@ define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/gr
 
 				// Show a disconnected message when the WebSocket is closed.
 				presence.onConnectionClosed(function (event) {
-					console.log("Connection closed");
-					socketStatus.innerHTML = 'Disconnected from WebSocket.';
+					console.log(l10n.get("ConnectionClosed"));
+					socketStatus.innerHTML = l10n.get('DisconnectedFromWebSocket');
 					socketStatus.className = 'closed';
 				});
 
@@ -92,7 +94,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/palette","sugar-web/gr
 				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
 
                 // Clear out the message field
-				messageField.placeholder = "Write your message here...";
+				messageField.placeholder = l10n.get("WriteYourMessage");
                 messageField.value = "";
 				messageField.setSelectionRange(0,0);
 				return false;
