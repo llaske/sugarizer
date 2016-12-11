@@ -7,7 +7,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
 
         // Initialize the activity.
         activity.setup();
-	document.getElementById("new-todo").value = l10n_s.get("new-todo");
+	document.getElementById("new-todo").placeholder = l10n_s.get("new-todo");
 
         var stopButton = document.getElementById("stop-button");
         stopButton.addEventListener('click', function (event) {
