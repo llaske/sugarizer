@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, datastore) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -7,7 +7,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
         activity.setup();
 
         inputTextContent = document.getElementById("wmd-input-second");
-        inputTextContent.value = "#This is a sample input";
+        inputTextContent.value = l10n_s.get("sample-input");
         //to save and resume the contents from datastore.
 
         var datastoreObject = activity.getDatastoreObject();
@@ -24,7 +24,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
             inputTextContent.value = markdowntext;
             markdownParsing(); //to load again when there is a datastore entry
         });
-
+		document.getElementById("insertText").value = l10n_s.get("insertText");
         var journal = document.getElementById("insertText");
 
         journal.onclick = function () {
@@ -71,14 +71,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
             var converter2 = new Markdown.Converter();
 
             var help = function () {
-                alert("Do you need help?");
+                alert(l10n_s.get("need-help"));
             }
             var options = {
                 helpButton: {
                     handler: help
                 },
                 strings: {
-                    quoteexample: "whatever you're quoting, put it right here"
+                    quoteexample: l10n_s.get("put-it-right-here")
                 }
             };
 
