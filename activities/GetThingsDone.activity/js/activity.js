@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity,datastore,model,view,controller) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity, webL10n, datastore, model, view, controller) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -7,6 +7,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","activity/model","ac
 
         // Initialize the activity.
         activity.setup();
+	document.getElementById("new-todo").value = l10n_s.get("new-todo");
 
         var stopButton = document.getElementById("stop-button");
         stopButton.addEventListener('click', function (event) {
