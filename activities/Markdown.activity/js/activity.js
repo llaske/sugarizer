@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
