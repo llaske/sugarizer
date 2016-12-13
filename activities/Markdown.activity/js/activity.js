@@ -6,8 +6,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
         // Initialize the activity.
         activity.setup();
 		var buttons = ["wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
-						 "wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
-						 "wmd-undo-button", "wmd-redo-button"];
+			       "wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
+				"wmd-undo-button", "wmd-redo-button"];
         inputTextContent = document.getElementById("wmd-input-second");
         inputTextContent.value = l10n_s.get("sample-input");
 		//document.getElementById("wmd-bold-button-second");
