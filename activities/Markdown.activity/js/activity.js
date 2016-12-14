@@ -1,18 +1,16 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();
-		var buttons = ["wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
+	var buttons = ["wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
 			       "wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
 				"wmd-undo-button", "wmd-redo-button"];
         inputTextContent = document.getElementById("wmd-input-second");
         inputTextContent.value = l10n_s.get("sample-input");
-		//document.getElementById("wmd-bold-button-second");
-
-        //to save and resume the contents from datastore.
+	//to save and resume the contents from datastore.
 
         var datastoreObject = activity.getDatastoreObject();
 
@@ -28,9 +26,9 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
             inputTextContent.value = markdowntext;
             markdownParsing(); //to load again when there is a datastore entry
         });
-		for (i = 0; i < buttons.length; i++) {
-			document.getElementById(buttons[i]).title = l10n_s.get(buttons[i]);
-		    var journal = document.getElementById(buttons[i]);
+	for (i = 0; i < buttons.length; i++) {
+		document.getElementById(buttons[i]).title = l10n_s.get(buttons[i]);
+		var journal = document.getElementById(buttons[i]);
 
 		    journal.onclick = function () {
 		        activity.showObjectChooser(function (error, result) {
