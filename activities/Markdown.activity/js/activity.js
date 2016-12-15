@@ -1,14 +1,16 @@
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();
-
+	var buttons = ["wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
+			       "wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
+				"wmd-undo-button", "wmd-redo-button"];
         inputTextContent = document.getElementById("wmd-input-second");
-        inputTextContent.value = "#This is a sample input";
-        //to save and resume the contents from datastore.
+        inputTextContent.value = l10n_s.get("sample-input");
+	//to save and resume the contents from datastore.
 
         var datastoreObject = activity.getDatastoreObject();
 
@@ -24,28 +26,30 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
             inputTextContent.value = markdowntext;
             markdownParsing(); //to load again when there is a datastore entry
         });
+	for (i = 0; i < buttons.length; i++) {
+		document.getElementById(buttons[i]).title = l10n_s.get(buttons[i]);
+		var journal = document.getElementById(buttons[i]);
 
-        var journal = document.getElementById("insertText");
+		    journal.onclick = function () {
+		        activity.showObjectChooser(function (error, result) {
+		            //result1 = result.toString();
+		            var datastoreObject = new datastore.DatastoreObject(result);
+		            datastoreObject.loadAsText(function (error, metadata, data) {
 
-        journal.onclick = function () {
-            activity.showObjectChooser(function (error, result) {
-                //result1 = result.toString();
-                var datastoreObject2 = new datastore.DatastoreObject(result);
-                datastoreObject2.loadAsText(function (error, metadata, data) {
+		                try {
+		                    textdata = JSON.parse(data);
+		                } catch (e) {
+		                    textdata = data;
+		                }
 
-                    try {
-                        textdata = JSON.parse(data);
-                    } catch (e) {
-                        textdata = data;
-                    }
+		                var inputTextContent = document.getElementById("wmd-input-second");
+		                //inputTextContent.value += textdata;
+		                insertAtCursor(inputTextContent, textdata);
+		            });
 
-                    var inputTextContent = document.getElementById("wmd-input-second");
-                    //inputTextContent.value += textdata;
-                    insertAtCursor(inputTextContent, textdata);
-                });
-
-            });
-        };
+		        });
+		    };
+		}
 
         function insertAtCursor(myField, myValue) {
             //IE support
@@ -71,14 +75,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
             var converter2 = new Markdown.Converter();
 
             var help = function () {
-                alert("Do you need help?");
+                alert(l10n_s.get("need-help"));
             }
             var options = {
                 helpButton: {
                     handler: help
                 },
                 strings: {
-                    quoteexample: "whatever you're quoting, put it right here"
+                    quoteexample: l10n_s.get("put-it-right-here")
                 }
             };
 
