@@ -34,6 +34,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
         var gameSize = 60;
 
+        var scoreP1 = 0;
+        var scoreP2 = 0;
+        var scoreP3 = 0;
+        var scoreP4 = 0;
+
         var levelStatus;
         var levelTransitionRadius;
         var levelStartingValue;
@@ -51,7 +56,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             canvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
 
             cellWidth = Math.floor(canvasWidth / maze.width);
-            cellHeight = Math.floor(canvasHeight / maze.height);
+            cellHeight = Math.floor((canvasHeight - 50) / maze.height);
 
             mazeCanvas.width = canvasWidth;
             mazeCanvas.height = canvasHeight;
@@ -60,10 +65,26 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             spriteCanvas.height = cellHeight * controlNames.length;
         };
 
+        var updateScore = function () {
+            var mazeCtx = mazeCanvas.getContext("2d");
+            mazeCtx.fillStyle = "white";
+            mazeCtx.font = "35px Arial";
+            mazeCtx.fillText(scoreP1.toString(), 3*(mazeCanvas.width/28)+50, 27*(mazeCanvas.height/28)-15);
+            mazeCtx.fillText(scoreP2.toString(), 10*(mazeCanvas.width/28)+50, 27*(mazeCanvas.height/28)-15);
+            mazeCtx.fillText(scoreP3.toString(), 17*(mazeCanvas.width/28)+50, 27*(mazeCanvas.height/28)-15);
+            mazeCtx.fillText(scoreP4.toString(), 24*(mazeCanvas.width/28)+50, 27*(mazeCanvas.height/28)-15);
+            mazeCtx.font = "20px Arial";
+            mazeCtx.fillText("Player-1 :", 3*(mazeCanvas.width/28)-40, 27*(mazeCanvas.height/28)-16);
+            mazeCtx.fillText("Player-2 :", 10*(mazeCanvas.width/28)-40, 27*(mazeCanvas.height/28)-16);
+            mazeCtx.fillText("Player-3 :", 17*(mazeCanvas.width/28)-40, 27*(mazeCanvas.height/28)-16);
+            mazeCtx.fillText("Player-4 :", 24*(mazeCanvas.width/28)-40, 27*(mazeCanvas.height/28)-16);
+        };
+
         var onWindowResize = function () {
             updateMazeSize();
             updateSprites();
             drawMaze();
+            updateScore();
         };
         window.addEventListener('resize', onWindowResize);
 
@@ -273,7 +294,9 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
                 levelStartingValue = undefined;
                 levelStatus = 'playing';
                 drawMaze();
+                updateScore();
             });
+            updateScore();
             tween.start();
         }
 
@@ -289,6 +312,16 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
         var onLevelComplete = function (player) {
             winner = player;
+
+            if (winner["control"] == "arrows")
+                scoreP1 += 1;
+            else if(winner["control"] == "wasd")
+                scoreP2 += 1;
+            else if(winner["control"] == "ijkl")
+                scoreP3 += 1;
+            else if(winner["control"] == "mouse")
+                scoreP4 += 1;
+
             levelStatus = 'transition';
 
             var audio = new Audio('sounds/win'+soundType);
