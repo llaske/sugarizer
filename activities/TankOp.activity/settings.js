@@ -1,4 +1,4 @@
-var language_code;
+var language_code = "en";
 
 requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 
@@ -37,10 +37,10 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 					"---------------" +		// ^ = Mountain
 					"---------------" +		// O = Lake
 					"---------------" +
-					"-----------H---" +			
-					"-----H---------" +			
-					"---------------" +			
-					"---------H-H---";	
+					"-----------H---" +
+					"-----H---------" +
+					"---------------" +
+					"---------H-H---";
 		 } else if (map == "trees") {
 			return	"------H--HHHH^-" +
 					"----H--H----HH-" +
@@ -48,19 +48,19 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 					"---------------" +
 					"---------------" +
 					"---H-----------" +
-					"-------HH------" +				
-					"-----H--H---H--" +				
-					"---HHH---HH--H-";	
+					"-------HH------" +
+					"-----H--H---H--" +
+					"---HHH---HH--H-";
 		} else if (map == "mountain") {
 			return	"---HHH^^^HHH---" +
 					"----HHH^^HH--H-" +
 					"------H-HH-----" +
 					"---H-----------" +
 					"-------O-------" +
-					"-----------H---" +		
-					"-----H-H-------" +			
-					"-----HHH^H-H---" +			
-					"----HHH^^^HHH--";			
+					"-----------H---" +
+					"-----H-H-------" +
+					"-----HHH^H-H---" +
+					"----HHH^^^HHH--";
 		}
 		return new Array(width*height).join('-');
 	}
@@ -83,7 +83,7 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 
 	settings.missingNumbers = function() {
 		var number1 = Math.floor(Math.random()*11);
-		var number2 = Math.floor(Math.random()*11);	
+		var number2 = Math.floor(Math.random()*11);
 		return { tag: ""+number1+"+?="+(number1+number2), result: number2 };
 	}
 
@@ -103,8 +103,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 
 	settings.additionSubtraction = function() {
 		var number1 = Math.floor(Math.random()*21);
-		var number2 = Math.floor(Math.random()*11);	
-		var sign = Math.floor(Math.random()*2);	
+		var number2 = Math.floor(Math.random()*11);
+		var sign = Math.floor(Math.random()*2);
 		if (sign == 0)
 			return { tag: ""+number1+"+"+number2, result: number1+number2 };
 		else {
@@ -137,7 +137,7 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			stats: [10, 0, 8, 10, 10],
 			generator: settings.generateFunctionAddFromTo(1, 3),
 			completed: false
-		},	
+		},
 		{
 			name: l10n.get("ADD5"),
 			map: "grass",
@@ -164,7 +164,7 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			stats: [10, 0, 7, 10, 10],
 			generator: settings.generateFunctionAddFromTo(0, 15),
 			completed: false
-		},	
+		},
 		{
 			name: l10n.get("SUM20"),
 			map: "grass",
@@ -227,9 +227,9 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			stats: [10, 0, 7, 10, 10],
 			generator: settings.additionSubtraction,
 			completed: false
-		}	
+		}
 	];
-	
+
 	function getSettings(callback) {
 		var defaultSettings = {
 			name: "",
@@ -249,10 +249,10 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			callback(loadedSettings);
 		}
 	}
-	
+
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			sound.pause();
 		});
-	
+
 });
