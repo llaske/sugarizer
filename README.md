@@ -14,7 +14,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 # Web Application
 
-[Run it now! (server.sugarizer.org)](http://server.sugarizer.org/)
+[Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
 Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE.
 
