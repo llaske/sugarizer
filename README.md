@@ -549,6 +549,8 @@ If you want to add a new translation, copy the whole [en] section at the end of 
 		NameActivity=Activité {{name}}
 		RemoveFavorite=Retirer le favori
 
+Warning: Note that text inside {{}} must not be localized. So here, **{{name}}** is not translated.
+
 Sugarizer automatically detects the navigator language. To enable this detection, you need to update the settings.init function in the [lib/settings.js](lib/settings.js) file. Add a test on your language code. For example in French:
 
 	else if (navigatorLanguage.indexOf("fr") != -1)
