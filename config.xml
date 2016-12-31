@@ -3,7 +3,8 @@
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
-		version   = "0.8.0">
+		version   = "0.8.0"
+		android-versionCode = "8000">
 	<name>Sugarizer</name>
 
 	<description>
@@ -29,7 +30,6 @@
 	<plugin name="cordova-plugin-camera" version="1.2.0" />
 	<plugin name="cordova-plugin-device-motion" version="1.2.0" />
 	<plugin name="cordova-plugin-dialogs" version="1.2.0" />
-	<plugin name="cordova-plugin-globalization" version="1.0.2" />
 	<plugin name="cordova-plugin-network-information" version="1.1.0" />
 	<plugin name="cordova-plugin-device" version="1.1.0" />
 	<plugin name="cordova-plugin-media" version="1.0.1" />
