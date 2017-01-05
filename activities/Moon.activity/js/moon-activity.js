@@ -15,13 +15,15 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 	l10n.ready(function() {
 		if (first) {
 			first = false;
-			getSugarSettings(function(settings) {
-				l10n.language.code = settings.language;
-				moment.locale(settings.language);
-				var refreshTime = setTimeout(function() {
-					clearTimeout(refreshTime);
-					updateView();
-				}, 50);
+			datastore.localStorage.load(function() {
+				getSugarSettings(function(settings) {
+					l10n.language.code = settings.language;
+					moment.locale(settings.language);
+					var refreshTime = setTimeout(function() {
+						clearTimeout(refreshTime);
+						updateView();
+					}, 50);
+				});
 			});
 		}
 	});
@@ -75,24 +77,17 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 
 
 	function getSugarSettings(callback) {
-		var defaultSettings = {
-			name: "",
-			language: navigator.language
-		};
-		if (!env.isSugarizer()) {
-			callback(defaultSettings);
-			return;
-		}
-		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
-			var loadedSettings = JSON.parse(values.sugar_settings);
-			chrome.storage.local.get('sugar_settings', function(values) {
-				callback(loadedSettings);
-			});
-		} else {
-			var loadedSettings = JSON.parse(localStorage.sugar_settings);
-			callback(loadedSettings);
-		}
-	}
+ 		var defaultSettings = {
+ 			name: "",
+ 			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
+ 		};
+ 		if (!env.isSugarizer()) {
+ 			callback(defaultSettings);
+ 			return;
+ 		}
+ 		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
+ 		callback(loadedSettings);
+ 	}
 
 
     function updateSizes() {

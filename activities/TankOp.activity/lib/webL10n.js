@@ -43,7 +43,7 @@ define(function (require) {
    * content until the `localized' event happens.
    */
 
-  var gAsyncResourceLoading = false; // read-only
+  var gAsyncResourceLoading = true; // read-only
 
 
   /**

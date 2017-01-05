@@ -1,13 +1,38 @@
-var language_code = "en";
 
-requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
+define(["webL10n","sugar-web/env","sugar-web/datastore"], function (webL10n,env,datastore) {
 
-	getSettings(function(settings) {
-			language_code = settings.language;
-			l10n.language.code = language_code;
-	});
+	var settings = {};
 
-	settings = {};
+	settings.l10n = webL10n;
+
+	settings.load = function(callback) {
+		// Load datastore settings
+		datastore.localStorage.load(function() {
+			getSettings(function(conf) {
+				settings.language = conf.language;
+				settings.l10n.language.code = conf.language;
+				callback();
+			});
+		});
+
+		// Stop sound at end of game to sanitize media environment, specifically on Android
+		document.getElementById("stop-button").addEventListener('click', function (event) {
+			sound.pause();
+		});
+	}
+
+	function getSettings(callback) {
+ 		var defaultSettings = {
+ 			name: "",
+ 			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
+ 		};
+ 		if (!env.isSugarizer()) {
+ 			callback(defaultSettings);
+ 			return;
+ 		}
+ 		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
+ 		callback(loadedSettings);
+ 	}
 
 	// Get/Set state
 	settings.getState = function() {
@@ -25,7 +50,6 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 		}
 		return true;
 	}
-
 
 
 	// Game map
@@ -121,7 +145,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 	// Play levels
 	settings.levels = [
 		{
-			name: l10n.get("Type"),				// Name of level
+			id: "Type",							// Id of level
+			name: "Type",						// Name of level
 			map: "mountain",					// Name of map, see in util.js
 			defense: [4, 0, 4, 0, 0],			// Defense composition: #HQ, #Soldier, #Tank, #Canon, #Helo
 			attack: 22,							// #Attacking units
@@ -130,7 +155,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false					// Use at runtime to see if completed
 		},
 		{
-			name: l10n.get("ADD3"),
+			id: "ADD3",
+			name: "ADD3",
 			map: "trees",
 			defense: [4, 2, 2, 0, 0],
 			attack: 20,
@@ -139,7 +165,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("ADD5"),
+			id: "ADD5",
+			name: "ADD5",
 			map: "grass",
 			defense: [4, 3, 1, 0, 0],
 			attack: 30,
@@ -148,7 +175,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("SUM10"),
+			id: "SUM10",
+			name: "SUM10",
 			map: "mountain",
 			defense: [4, 0, 4, 0, 0],
 			attack: 30,
@@ -157,7 +185,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("SUM15"),
+			id: "SUM15",
+			name: "SUM15",
 			map: "trees",
 			defense: [4, 2, 2, 0, 0],
 			attack: 30,
@@ -166,7 +195,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("SUM20"),
+			id: "SUM20",
+			name: "SUM20",
 			map: "grass",
 			defense: [4, 3, 1, 0, 0],
 			attack: 40,
@@ -175,7 +205,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("TDN"),
+			id: "TDN",
+			name: "TDN",
 			map: "mountain",
 			defense: [4, 4, 4, 0, 0],
 			attack: 40,
@@ -184,7 +215,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("Missing"),
+			id: "Missing",
+			name: "Missing",
 			map: "trees",
 			defense: [4, 2, 2, 0, 0],
 			attack: 40,
@@ -193,7 +225,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("S010"),
+			id: "S010",
+			name: "S010",
 			map: "grass",
 			defense: [4, 0, 4, 0, 0],
 			attack: 40,
@@ -202,7 +235,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("S020"),
+			id: "S020",
+			name: "S020",
 			map: "trees",
 			defense: [4, 2, 2, 0, 0],
 			attack: 20,
@@ -211,7 +245,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("STW"),
+			id: "STW",
+			name: "STW",
 			map: "mountain",
 			defense: [4, 4, 4, 0, 0],
 			attack: 30,
@@ -220,7 +255,8 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 			completed: false
 		},
 		{
-			name: l10n.get("AAS"),
+			id: "AAS",
+			name: "AAS",
 			map: "trees",
 			defense: [4, 2, 2, 0, 0],
 			attack: 40,
@@ -230,29 +266,5 @@ requirejs(["webL10n","sugar-web/env"], function (l10n,env) {
 		}
 	];
 
-	function getSettings(callback) {
-		var defaultSettings = {
-			name: "",
-			language: navigator.language
-		};
-		if (!env.isSugarizer()) {
-			callback(defaultSettings);
-			return;
-		}
-		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
-			var loadedSettings = JSON.parse(values.sugar_settings);
-			chrome.storage.local.get('sugar_settings', function(values) {
-				callback(loadedSettings);
-			});
-		} else {
-			var loadedSettings = JSON.parse(localStorage.sugar_settings);
-			callback(loadedSettings);
-		}
-	}
-
-		// Stop sound at end of game to sanitize media environment, specifically on Android
-		document.getElementById("stop-button").addEventListener('click', function (event) {
-			sound.pause();
-		});
-
+	return settings;
 });

@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","sugar-web/env","webL10n"], function (palette,env,l10n) {
+define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore"], function (palette,env,l10n,datastore) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');
@@ -42,32 +42,34 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n"], function (palet
 
 	function init(){
 		speech = Speech();
-		getSettings(function(settings) {
-			sugarSettings = settings;
-			speech.init(sugarSettings);
-			// If not IE, setup mouse for capture
-			if (!IE){
-				document.captureEvents(Event.MOUSEMOVE)
-			}
-			var FPS = 30;
-			setInterval(function() {
-			  updateCanvas();
-			}, 1000/FPS);
-			window.addEventListener('localized', function() {
-				if (first) {
-					l10n.language.code = sugarSettings.language;
-					first = false;
-					return;
-				} else {
-					localize();
-					var timer = window.setTimeout(function() {
-					window.clearTimeout(timer);
-						var language = document.getElementById('speaklang').innerHTML;
-						var text = l10n.get("TypeSomething", {name:sugarSettings.name});
-						speech.playVoice(language, text);
-						moveMouth(text);
-					}, 100);
+		datastore.localStorage.load(function() {
+			getSettings(function(settings) {
+				sugarSettings = settings;
+				speech.init(sugarSettings);
+				// If not IE, setup mouse for capture
+				if (!IE){
+					document.captureEvents(Event.MOUSEMOVE)
 				}
+				var FPS = 30;
+				setInterval(function() {
+				  updateCanvas();
+				}, 1000/FPS);
+				window.addEventListener('localized', function() {
+					if (first) {
+						l10n.language.code = sugarSettings.language;
+						first = false;
+						return;
+					} else {
+						localize();
+						var timer = window.setTimeout(function() {
+						window.clearTimeout(timer);
+							var language = document.getElementById('speaklang').innerHTML;
+							var text = l10n.get("TypeSomething", {name:sugarSettings.name});
+							speech.playVoice(language, text);
+							moveMouth(text);
+						}, 100);
+					}
+				});
 			});
 		});
 	}
@@ -75,21 +77,14 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n"], function (palet
 	function getSettings(callback) {
 		var defaultSettings = {
 			name: "",
-			language: navigator.language
+			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
 		};
 		if (!env.isSugarizer()) {
 			callback(defaultSettings);
 			return;
 		}
-		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
-			var loadedSettings = JSON.parse(values.sugar_settings);
-			chrome.storage.local.get('sugar_settings', function(values) {
-				callback(loadedSettings);
-			});
-		} else {
-			var loadedSettings = JSON.parse(localStorage.sugar_settings);
-			callback(loadedSettings);
-		}
+		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
+		callback(loadedSettings);
 	}
 
 	function hidePalettes(){
