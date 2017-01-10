@@ -241,8 +241,7 @@ enyo.kind({
 
 	ok: function() {
 		sugarizerOS.sharedKeyBuffer = this.$.keyInput.getValue();
-		sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer);
-		sugarizerOS.joinNetwork(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer, sugarizerOS.NetworkBuffer.capabilities);
+		sugarizerOS.setKey(sugarizerOS.NetworkBuffer.SSID, sugarizerOS.sharedKeyBuffer, true);
 		this.hide();
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
