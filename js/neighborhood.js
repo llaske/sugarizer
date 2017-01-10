@@ -329,7 +329,7 @@ enyo.kind({
 			items.push(item);
 
 
-			sugarizerOS.isKnownNetwork(ssid, function (result) {
+			sugarizerOS.isKnownNetwork(data.SSID, function (result) {
 				if (result == 1) {
 					item = {
 						icon: {
