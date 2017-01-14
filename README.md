@@ -1,6 +1,8 @@
+![](images/sugar_animation.gif)
+
 # What is Sugarizer ?
 
-The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project.
+The [Sugar Learning Platform](https://sugarlabs.org/) is a leading learning platform that began in the famous One Laptop Per Child project.
 It is used every day by nearly 3 million children around the world.
 
 Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
