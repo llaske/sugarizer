@@ -16,7 +16,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 [Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
-Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and IE.
+Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari, EDGE and IE.
 
 Features include:
 
@@ -43,7 +43,15 @@ Features are the same as Web Application, plus:
 * Runs completely offline, without accessing any server
 * Some features (like collaboration) do a require network connection
 
-To run **Sugarizer Application on your PC** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
+To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Application APK using instruction below.
+
+To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
+
+To run **Sugarizer Application on Windows 10**, download it on [Windows Store](https://www.microsoft.com/store/apps/9nblggh4r782). You could also build yourself the Sugarizer Windows Application using instructions below.
+
+To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
+
+To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
 
     chrome --allow-file-access-from-files index.html
 
@@ -51,25 +59,11 @@ The option `--allow-file-access-from-files` is needed to enable access to local 
 
 Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
-If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command)))
-
-To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Application APK using instruction below.
-
-To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
-
-To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
-
-Features of Sugarizer Application include:
-
-* Sugar Desktop view (Radial, List and Journal),
-* Sugar Local data store storage - limited by the browser to 5Mb (see [here](https://en.wikipedia.org/wiki/Web_storage "here")),
-* Running of locally stored Sugar Web Activities,
-* Capability to connect to a server to backup or sharing local storage to the Server,
-* Presence and collaboration
+If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command))).
 
 # Server
 
-Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB.
+Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB, or in a Docker container.
 
 Sugarizer Server features include:
 
@@ -281,6 +275,8 @@ Note than:
 
 With Sugarizer, it's easy to create your own activity with a bunch of HTML and JavaScript. Here's the step to follow.
 
+See a video tutorial [here](https://youtu.be/31CCAYy0pLE).
+
 ### Create the activity from the template
 
 First, copy all content of [activities/ActivityTemplate](activities/ActivityTemplate) directory in a new directory for example `activities/MyActivity.activity`.
@@ -468,9 +464,9 @@ You could end it manually using:
 	sudo supervisorctl stop sugarizer
 
 
-# Build Application for Android or iOS
+# Build Application for Android, iOS or Windows 10
 
-Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
+Sugarizer Application could be packaged as an Android, iOS and Windows 10 application using [Cordova](http://cordova.apache.org/).
 
 To build it, first install Cordova as described [here](http://cordova.apache.org/).
 
@@ -537,6 +533,8 @@ At the end of the process, the `build` directory will contain the optimized vers
 # Localization
 
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
+
+Here how to add a new translation. See a video tutorial [here](https://youtu.be/vTPVegrVm5A).
 
 All strings are localized in the [locale.ini](locale.ini) file at the root of the repository.
 If you want to add a new translation, copy the whole [en] section at the end of the file and:
