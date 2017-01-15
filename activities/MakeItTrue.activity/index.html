@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>MakeItTrue</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+
+<script language="JavaScript">
+var theInstance=null;
+function MakeItTrue(){
+
+	theInstance=this;
+	this.current_problem=null;
+	this.var_indices=new Array();
+
+	letters=new Array("a","b","c","d","e","f","g","h","i","j","k","l");
+	this.letters=letters;
+
+
+	table=document.createElement("table");
+	table.className="background_table";
+	table.align="center";
+	table.style.width="500px";
+	table.style.height="350px";
+	table.style.backgroundColor="#AAAAAA";
+//	table.style.backgroundColor="#115544";//"gray";
+//	table.style.foregroundColor="#FFFFFF";//"gray";
+
+//	table.style.position="absolute";
+//	table.style.top="100px";
+
+	f=document.createElement("font");
+	f.style.fontWeight="bold";
+	f.style.fontSize="24";
+	f.style.color="white";
+//	f.setAttribute("font-family","Verdana");
+
+//	<div class="banner" style="text-align:center;width:{{width}};height:50px;background:#3ac468;" id="banner"></div>
+	banner=document.createElement("div");
+	banner.className="banner";
+	banner.innerHTML="Make It True!";
+	f.appendChild(banner);
+//	f.appendChild(document.createTextNode("Make It True!"));
+
+	rr=table.insertRow(-1);
+	cc=rr.insertCell(-1);cc.align="center";
+	cc.setAttribute("colspan",3);
+//	cc.style.backgroundColor="#114455";
+	cc.appendChild(f);
+
+	img=document.createElement("img");
+	img.className="logo";
+	img.src="./activity/logo.png";
+	img.title="sugarizer";
+
+	AR=320./119.;
+	NW=150;
+	NH=NW/AR;
+
+	img.setAttribute("width",NW+"px");
+	img.setAttribute("height",NH+"px");
+	this.img=img;
+
+	rr=table.insertRow(-1);
+	cc=rr.insertCell(-1);cc.align="center";
+	cc.setAttribute("colspan",3);
+
+	r0=table.insertRow(-1);
+
+	r0c0=r0.insertCell(-1);r0c0.align="center";r0c0.width="25%";
+	r0c1=r0.insertCell(-1);r0c1.align="center";r0c1.width="50%";
+	r0c2=r0.insertCell(-1);r0c2.align="center";r0c2.width="25%";
+
+	r0c1.appendChild(img);
+
+	f_incorrect=document.createElement("font");
+	f_incorrect.title="Number answered incorrectly";
+	f_incorrect.id="f_incorrect";
+	f_incorrect.style.fontWeight="bold";
+	f_incorrect.style.fontSize="50px";
+	f_incorrect.style.color="red";
+	f_incorrect.setAttribute("font-family","Verdana");
+	f_incorrect.appendChild(document.createTextNode("0"));
+	f_incorrect_div=document.createElement("div");
+	f_incorrect_div.className="incorrect";
+	f_incorrect_div.appendChild(f_incorrect);
+	r0c0.appendChild(f_incorrect_div);
+
+	f_correct=document.createElement("font");
+	f_correct.title="Number answered correctly";
+	f_correct.id="f_correct";
+	f_correct.style.fontWeight="bold";
+	f_correct.style.fontSize="50px";
+	f_correct.style.color="green";
+	f_correct.setAttribute("font-family","Verdana");
+	f_correct.appendChild(document.createTextNode("0"));
+	f_correct_div=document.createElement("div");
+	f_correct_div.className="correct";
+	f_correct_div.appendChild(f_correct);
+	r0c2.appendChild(f_correct_div);
+
+
+	r1=table.insertRow(-1);
+	r1c0=r1.insertCell(-1);
+	r1c0.align="center";
+	r1c0.setAttribute("colspan",3);
+	problem_div=document.createElement("div");
+	problem_div.style.height="50px";
+	problem_div.id="problem_div";
+	r1c0.appendChild(problem_div);
+
+	r2=table.insertRow(-1);
+	r2c0=r2.insertCell(-1);
+	r2c0.align="center";
+	r2c0.setAttribute("colspan",3);
+	answer_div=document.createElement("div");
+	answer_div.className="answer_div";
+	answer_div.id="answer_div";
+	r2c0.appendChild(answer_div);
+
+	r3=table.insertRow(-1);
+	r3c0=r3.insertCell(-1);
+	r3c0.align="center";
+	r3c0.setAttribute("colspan",3);
+
+	checkB=document.createElement("input");
+	checkB.className="checkB";
+	checkB.type="button";
+	checkB.value="CheckIt!";
+	checkB.addEventListener("click",this.CheckCB,false);
+//	r3c0.style.backgroundColor="#115544";
+
+	r3c0.appendChild(checkB);
+
+	this.table=table;
+
+}
+MakeItTrue.prototype.getTable=function(){return this.table;}
+MakeItTrue.prototype.run=function(){}
+MakeItTrue.prototype.randOp=function(){
+	ops=new Array("+","-","*");//,"/"
+	idx=parseInt(Math.random()*ops.length);
+	return ops[idx];
+}
+MakeItTrue.prototype.clear=function(target){
+	target=document.getElementById(target);
+	while(target.lastChild)target.removeChild(target.lastChild);
+	target.innerHTML="";
+}
+MakeItTrue.prototype.newProblem=function(){
+
+	theInstance=this;
+
+	num_vars=parseInt(1+Math.random()*3);
+	eqn_size=Math.max(num_vars,3)+parseInt(Math.random()*(letters.length-4-num_vars));
+	split_point=parseInt(1+Math.random()*(eqn_size-2));
+
+	var_indices=new Array();
+	while(var_indices.length<num_vars){
+		candidate_idx=parseInt(Math.random()*eqn_size);
+		if(var_indices.indexOf(candidate_idx)==-1)var_indices.push(candidate_idx);
+	}
+
+	var_indices.sort();
+
+	//build the problem:
+	current_problem="";
+	for(var vidx=0;vidx<eqn_size;vidx++){
+		if(var_indices.indexOf(vidx)!=-1)current_problem+=letters[vidx];
+		else current_problem+=parseInt(Math.random()*100);
+		if(vidx==eqn_size-1)break;
+		else if(vidx==split_point)current_problem+="=";
+		else current_problem+=this.randOp();
+	}
+
+	this.clear("problem_div");
+	problem_div=document.getElementById("problem_div");
+
+	prob_table=document.createElement("table");
+	prob_table.setAttribute("cellpadding","10");
+	prob_row=prob_table.insertRow(-1);
+	prob_cell=prob_row.insertCell(-1);
+
+	f=document.createElement("font");
+	f.id="f";
+//	f.style.fontWeight="bold";
+	f.style.fontSize="35";
+	f.style.color="yellow";
+	f.setAttribute("font-family","Verdana");
+	f.appendChild(document.createTextNode(current_problem));
+
+	prob_cell.appendChild(f);
+	problem_div.appendChild(prob_table);
+
+	this.current_problem=current_problem;
+	this.var_indices=var_indices;
+
+	theInstance.clear("answer_div");
+	answer_div=document.getElementById("answer_div");
+
+	answer_hidden=document.createElement("hidden");
+	answer_hidden.value="";
+	for(var vidx=0;vidx<var_indices.length;vidx++){
+		letter=this.letters[var_indices[vidx]];
+		answer_div.appendChild(theInstance.MkAnswerWidget(letter));
+		answer_hidden.value+=letter;
+	}
+	answer_div.appendChild(answer_hidden);
+}
+MakeItTrue.prototype.getVarIndices=function(){
+//	alert("getVarIndices: "+this.var_indices);
+	return this.var_indices;
+}
+MakeItTrue.prototype.getLetters=function(){
+	return this.letters;
+}
+MakeItTrue.prototype.getCurrentProblem=function(letter){
+	return this.current_problem;
+}
+MakeItTrue.prototype.MkAnswerWidget=function(letter){
+	w=document.createElement("table");
+	w.className="answer_widget";
+	r=w.insertRow(-1);
+	c0=r.insertCell(-1);
+	c0.className="answer_letter";
+	c1=r.insertCell(-1);
+	c1.className="answer_input";
+	f=document.createElement("font");
+	f.style.fontWeight="bold";
+	f.style.fontSize="24";
+	f.style.color="black";
+	f.appendChild(document.createTextNode(letter+" = "));
+	f.className="answer_letter";
+	c0.appendChild(f);
+
+	textentry=document.createElement("input");
+	//textentry.style.width="150px";
+	textentry.className="entry";
+	textentry.id=letter+"_textentry";
+	c1.appendChild(textentry);
+	return w;
+}
+MakeItTrue.prototype.incrementIncorrect=function(e){
+	f=document.getElementById("f_incorrect");
+	count=eval(f.lastChild.data);
+	count+=1;
+	f.lastChild.data=count;
+}
+MakeItTrue.prototype.incrementCorrect=function(e){
+	f=document.getElementById("f_correct");
+	count=eval(f.lastChild.data);
+	count+=1;
+	f.lastChild.data=count;
+}
+MakeItTrue.prototype.CheckCB=function(e){
+
+	flag=0;
+	current_problem=theInstance.getCurrentProblem();
+	current_problem=current_problem.replace("=","==");
+
+	answer_div=document.getElementById("answer_div");
+	hidden=answer_div.lastChild;
+
+	for(var hidx=0;hidx<hidden.value.length;hidx++){
+		variable_value=document.getElementById(hidden.value[hidx]+"_textentry").value;
+		if(variable_value=="")flag=1;
+		current_problem=current_problem.replace(hidden.value[hidx],variable_value);
+	}
+
+	if(flag){
+		//alert("Wrong!");
+		theInstance.incrementIncorrect();
+	}
+	else if(eval(current_problem.replace("--","+"))){
+		theInstance.newProblem();
+		theInstance.incrementCorrect();
+	}
+	else{
+		//alert("Wrong!");
+		theInstance.incrementIncorrect();
+	}
+}
+function init(){
+	makeItTrue=new MakeItTrue();
+	document.getElementById("canvas").innerHTML="";
+	document.getElementById("canvas").appendChild(makeItTrue.getTable())
+	makeItTrue.newProblem();
+}
+</script>
+</head>
+
+<body onload="init();">
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="MakeItTrue Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+  <!-- Replace this message with your own content -->
+  <h1>Congratulations!</h1>
+  <p>You are ready to develop this activity. Go ahead and edit the files.<br />
+    You can remove this message in the index.html.</p>
+
+</div>
+</body>
+
+</html>
