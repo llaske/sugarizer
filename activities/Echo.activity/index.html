@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Echo Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+
+<script type="text/javascript">
+var ar_elements;
+var W_UICTRL="250";
+var resource='English-Idioms';
+var correct=0;
+var incorrect=0;
+
+function init(){
+	var dict_list=[
+		'English-Idioms',
+		'WordNet',
+		'Elements',
+	];
+
+//	dict_list.sort();
+	dict_select=document.createElement("select");
+	dict_select.id="dict_select";
+	dict_select.style.width=W_UICTRL+"px";
+	if(navigator.appName=="Microsoft Internet Explorer")dict_select.attachEvent("onchange",langCB);
+	else dict_select.addEventListener("change",langCB,false);
+
+	for(var didx=0;didx<dict_list.length;didx++){
+		opt=document.createElement("option");
+		opt.text=dict_list[didx];
+		if(didx==0)opt.selected=1;
+
+		if(navigator.appName=="Microsoft Internet Explorer"){
+			dict_select.add(opt);
+		}
+		else{
+			dict_select.add(opt,dict_select.options[dict_select.options.length]);
+		}
+	}
+//	document.body.appendChild(dict_select);
+	document.getElementById("canvas").appendChild(dict_select);
+
+	info_div=document.createElement("div");
+	info_div.style.width="100%";
+	info_div.id="info_div";
+//	document.body.appendChild(info_div);
+	document.getElementById("canvas").appendChild(info_div);
+
+	mydiv=document.createElement("div");
+	mydiv.style.width="100%";
+	mydiv.id="mydiv";
+//	document.body.appendChild(mydiv);
+	document.getElementById("canvas").appendChild(mydiv);
+
+	entry_div=document.createElement("div");
+
+	entry_textarea=document.createElement("input");
+	entry_textarea.style.width=W_UICTRL+"px";
+	entry_textarea.id="entry_textarea";
+	entry_div.appendChild(entry_textarea);
+//	document.body.appendChild(entry_div);
+	document.getElementById("canvas").appendChild(entry_div);
+
+	if(navigator.appName=="Microsoft Internet Explorer")entry_textarea.attachEvent("onkeyup",searchCB);
+	else entry_textarea.addEventListener("keyup",checkCB,false);
+
+	debug_div=document.createElement("div");
+	debug_div.id="debug_div";
+	debug_div.style.width=W_UICTRL+"px";
+//	document.body.appendChild(debug_div);
+	document.getElementById("canvas").appendChild(debug_div);
+
+	t=document.createElement("table");
+	t.style.width=W_UICTRL+"px";
+	t.align="center";
+	r=t.insertRow(-1);
+
+	incorrect_cell=r.insertCell(-1);
+	incorrect_cell.id="incorrect_cell";
+	incorrect_cell.align="center";
+	incorrect_cell.style.width=parseInt(W_UICTRL)/2+"px";
+	incorrect_cell.style.backgroundColor="red";
+	incorrect_cell.style.color="white";
+	incorrect_cell.appendChild(document.createTextNode(incorrect.toString()));
+
+	correct_cell=r.insertCell(-1);
+	correct_cell.id="correct_cell";
+	correct_cell.align="center";
+	correct_cell.style.width=parseInt(W_UICTRL)/2+"px";
+	correct_cell.style.backgroundColor="green";
+	correct_cell.style.color="white";
+	correct_cell.appendChild(document.createTextNode(correct.toString()));
+
+//	document.body.appendChild(t);
+	document.getElementById("canvas").appendChild(t);
+
+
+	resetB=document.createElement("input");
+	resetB.type="button";
+	resetB.value="reset";
+	resetB.id="resetB";
+	resetB.style.width=W_UICTRL/2+"px";
+//	document.body.appendChild(resetB);
+	document.getElementById("canvas").appendChild(resetB);
+	if(navigator.appName=="Microsoft Internet Explorer")resetB.attachEvent("onclick",resetCB);
+	else resetB.addEventListener("click",resetCB,false);
+
+	helpB=document.createElement("input");
+	helpB.type="button";
+	helpB.value="help";
+	helpB.id="helpB";
+	helpB.style.width=W_UICTRL/2+"px";
+//	document.body.appendChild(helpB);
+	document.getElementById("canvas").appendChild(helpB);
+	if(navigator.appName=="Microsoft Internet Explorer")helpB.attachEvent("onclick",helpCB);
+	else helpB.addEventListener("click",helpCB,false);
+
+	langCB(null);
+
+}
+function helpCB(e){
+	msg="Instructions: 1)Select a language resource 2)Type the words/phrases presented in the textarea 3)Challenge yourself to get as many correct as possible";
+	alert(msg);
+}
+function resetCB(e){
+	correct=0;
+	incorrect=0;
+	document.getElementById("correct_cell").firstChild.data=correct.toString();
+	document.getElementById("incorrect_cell").firstChild.data=incorrect.toString();
+
+	entry_textarea=document.getElementById("entry_textarea");
+	entry_textarea.value="";
+	entry_textarea.style.backgroundColor="white";
+	entry_textarea.focus();
+}
+function checkCB(e){
+	debug_div=document.getElementById("debug_div");
+	entry_textarea=document.getElementById("entry_textarea");
+
+	if(e.keyCode==13){
+		if(entry_textarea.style.backgroundColor=="green"){
+			newWordCB(null);
+			return;
+		}
+		else if(entry_textarea.value == mydiv.innerHTML){
+			entry_textarea.style.backgroundColor="green";
+			correct+=1;
+			document.getElementById("correct_cell").firstChild.data=correct.toString();
+		}
+		else{
+			entry_textarea.style.backgroundColor="red";
+			incorrect+=1;
+			document.getElementById("incorrect_cell").firstChild.data=incorrect.toString();
+		}
+	}
+	else{
+		entry_textarea.style.backgroundColor="white";
+		debug_div.style.backgroundColor="white";
+	}
+}
+function GetSelected(select_id){
+	target_select=document.getElementById(select_id);
+	for(var oidx=0;oidx<target_select.options.length;oidx++){
+		if(target_select.options[oidx].selected==1)
+			return target_select.options[oidx].text;
+	}
+	return '';
+}
+function newWordCB(e){
+
+	ar_idx=Math.floor(Math.random()*ar_elements.length);
+
+	mydiv.innerHTML=ar_elements[ar_idx].getElementsByTagName("k")[0].childNodes[0].nodeValue;
+
+	debug_div=document.getElementById("debug_div");
+	debug_div.innerHTML="";
+
+	entry_textarea=document.getElementById("entry_textarea");
+	entry_textarea.value="";
+	entry_textarea.style.backgroundColor="white";
+	entry_textarea.focus();
+
+}
+function langCB(e){
+
+	if (window.XMLHttpRequest){
+		xhttp=new XMLHttpRequest();
+	}
+	else{
+		xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	resource=GetSelected("dict_select");
+  	xhttp.open("GET","./"+resource+"/dict.xdxf",false);
+	xhttp.send("");
+	xmlDoc=xhttp.responseXML;
+	ar_elements=xmlDoc.getElementsByTagName("ar");
+	document.getElementById("info_div").innerHTML="<b>"+resource+": "+ar_elements.length+"</b><br><br>";
+	document.getElementById("mydiv").innerHTML="<br><br>";
+	newWordCB(null);
+}
+
+</script>
+
+</head>
+
+<body onload="init()">
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Echo Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas" style="text-align:center;">
+
+
+</div>
+</body>
+
+</html>

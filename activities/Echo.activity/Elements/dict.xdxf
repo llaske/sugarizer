@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xdxf SYSTEM "http://xdxf.sourceforge.net/xdxf_lousy.dtd">
+<xdxf lang_from="ENG" lang_to="ENG" format="visual">
+<full_name>Elements database 20001107</full_name>
+<description>00-database-info
+This file was converted from the original database on:
+          Mon Jan 29 05:15:08 2001
+
+
+The original data is available from:
+     http://ucsub.colorado.edu/~kominek/elements/
+
+The original data was distributed with the notice shown below.  No
+additional restrictions are claimed.  Please redistribute this
+changed version under the same conditions and restriction that
+apply to the original version.
+
+   Elements database 20001107
+   This dictionary database was created by Jay F. Kominek
+   &lt;jay.kominek@colorado.edu&gt; (Feel free to send any comments, additions,
+   corrections, money to that address) It was compiled from a variety of
+   sources, and is in my opinion, a work of my own. (The only stuff that
+   was really copied verbatim was the atomic numbers and weights, please,
+   I'd like to see someone try and exert a copyright on the values of atoms.)
+   So, I place this in the public domain, if it somehow breaks, you get to
+   keep both pieces. It'd be nice if you kept the fact that I compiled the
+   information in here, but is not needed.
+   Up to date copies can probably be found on the web at:
+   http://ucsub.colorado.edu/~kominek/elements/
+Source url: http://ucsub.colorado.edu/~kominek/elements/</description>
+<ar><k>actinium</k>
+actinium
+Symbol: Ac
+Atomic number: 89
+Atomic weight: (227)
+Silvery radioactive metallic element, belongs to group 3 of the periodic
+table. The most stable isotope, Ac-227, has a half-life of 217 years.
+Ac-228 (half-life of 6.13 hours) also occurs in nature. There are 22 other
+artificial isotopes, all radioactive and having very short half-lives.
+Chemistry similar to lanthanum. Used as a source of alpha particles.
+Discovered by A. Debierne in 1899.</ar>
+<ar><k>aluminum</k>
+aluminum
+Symbol: Al
+Atomic number: 13
+Atomic weight: 26.9815
+Silvery-white lustrous metallic element of group 3 of the periodic table.
+Highly reactive but protected by a thin transparent layer of the oxide
+which quickly forms in air. There are many alloys of aluminum, as well as
+a good number of industrial uses. Makes up 8.1% of the Earth's crust, by
+weight. Isolated in 1825 by H.C. Oersted.</ar>
+<ar><k>americium</k>
+americium
+Symbol: Am
+Atomic number: 95
+Atomic weight: (243)
+Radioactive metallic transuranic element, belongs to the actinoids. Ten
+known isotopes. Am-243 is the most stable isotope, with a half-life of
+7.95*10^3 years. Discovered by Glenn T. Seaborg and associates in 1945, it
+was obtained by bombarding {uranium}-238 with alpha particles.</ar>
+<ar><k>antimony</k>
+antimony
+Symbol: Sb
+Atomic number: 51
+Atomic weight: 121.75
+Element of group 15. Multiple allotropic forms. The stable form of
+antimony is a blue-white metal. Yellow and black antimony are unstable
+non-metals. Used in flame-proofing, paints, ceramics, enamels, and rubber.
+Attacked by oxidizing acids and halogens. First reported by Tholden in
+1450.</ar>
+<ar><k>argon</k>
+argon
+Symbol: Ar
+Atomic number: 18
+Atomic weight: 39.948
+Monatomic noble gas. Makes up 0.93% of the air. Colourless, odorless. Is
+inert and has no true compounds. Lord Rayleigh and Sir william Ramsey
+identified argon in 1894.</ar>
+<ar><k>arsenic</k>
+arsenic
+Symbol: As
+Atomic number: 33
+Atomic weight: 74.922
+Metalloid element of group 15. There are three allotropes, yellow, black,
+and grey. Reacts with halogens, concentrated oxidizing acids and hot
+alkalis. Albertus Magnus is believed to have been the first to isolate the
+element in 1250.</ar>
+<ar><k>astatine</k>
+astatine
+Symbol: At
+Atomic number: 85
+Atomic weight: (210)
+Radioactive halogen element. Occurs naturally from uranium and thorium
+decay. At least 20 known isotopes. At-210, the most stable, has a
+half-life of 8.3 hours. Synthesized by nuclear bombardment in 1940 by D.R.
+Corson, K.R. MacKenzie and E. Segre at the University of California.</ar>
+<ar><k>barium</k>
+barium
+Symbol: Ba
+Atomic number: 56
+Atomic weight: 137.34
+Silvery-white reactive element, belonging to group 2 of the periodic
+table. Soluble barium compounds are extremely poisonous. Identified in
+1774 by Karl Scheele and extracted in 1808 by Humphry Davy.</ar>
+<ar><k>berkelium</k>
+berkelium
+Symbol: Bk
+Atomic number: 97
+Atomic weight: (247)
+Radioactive metallic transuranic element. Belongs to actinoid series.
+Eight known isotopes, the most common Bk-247, has a half-life of
+1.4*10^3 years. First produced by Glenn T. Seaborg and associates in 1949
+by bombarding americium-241 with alpha particles.</ar>
+<ar><k>beryllium</k>
+beryllium
+Symbol: Be
+Atomic number: 4
+Atomic weight: 9.0122
+Grey metallic element of group 2 of the periodic table. Is toxic and can
+cause severe lung diseases and dermatitis. Shows high covalent character.
+It was isolated independently by F. Wohler and A.A. Bussy in 1828.</ar>
+<ar><k>bismuth</k>
+bismuth
+Symbol: Bi
+Atomic number: 83
+Atomic weight: 208.980
+White crystalline metal with a pink tinge, belongs to group 15. Most
+diamagnetic of all metals and has the lowest thermal conductivity of all
+the elements except mercury. Lead-free bismuth compounds are used in
+cosmetics and medical procedures. Burns in the air and produces a blue
+flame. In 1753, C.G. Junine first demonstrated that it was different from
+lead.</ar>
+<ar><k>bohrium</k>
+bohrium
+Competing name for {unnilseptium}, the 107th element, proposed by the
+IUPAC in response to the discoverers of the element wanting to name it
+{nielsbohrium}.</ar>
+<ar><k>boron</k>
+boron
+Symbol: B
+Atomic number: 5
+Atomic weight: 10.811
+An element of group 13 of the periodic table. There are two allotropes,
+amorphous boron is a brown power, but metallic boron is black. The
+metallic form is hard (9.3 on Mohs' scale) and a bad conductor in room
+temperatures. It is never found free in nature. Boron-10 is used in
+nuclear reactor control rods and shields. It was discovered in 1808 by Sir
+Humphry Davy and by J.L. Gay-Lussac and L.J. Thenard.</ar>
+<ar><k>bromine</k>
+bromine
+Symbol: Br
+Atomic number: 35
+Atomic weight: 79.909
+Halogen element. Red volatile liquid at room temperature. Its reactivity
+is somewhere between chlorine and iodine. Harmful to human tissue in a
+liquid state, the vapour irritates eyes and throat. Discovered in 1826 by
+Antoine Balard.</ar>
+<ar><k>cadmium</k>
+cadmium
+Symbol: Cd
+Atomic number: 48
+Atomic weight: 112.40
+Soft bluish metal belonging to group 12 of the periodic table. Extremely
+toxic even in low concentrations. Chemically similar to zinc, but lends
+itself to more complex compounds. Discovered in 1817 by F. Stromeyer.</ar>
+<ar><k>caesium</k>
+caesium
+Symbol: Cs
+Atomic number: 55
+Atomic weight: 132.90545
+Soft silvery-white metallic element belonging to group 1 of the periodic
+table. One of the three metals which are liquid at room temperature. Cs-133
+is the natural, and only stable, isotope. Fifteen other radioisotopes exist.
+Caesium reacts explosively with cold water, and ice at temperatures above
+157K. Caesium hydroxide is the strongest base known. Caesium is the most
+electropositive, most alkaline and has the least ionization potential of
+all the elements. Known uses include the basis of atomic clocks, catalyst
+for the hydrogenation of some organic compounds, and in photoelectric cells.
+Caesium was discovered by Gustav Kirchoff and Robert Bunsen in Germany in
+1860 spectroscopically. Its identification was based upon the bright blue
+lines in its spectrum. The name comes from the latin word caesius, which
+means sky blue. Caesium should be considered highly toxic. Some of the
+radioisotopes are even more toxic.</ar>
+<ar><k>calcium</k>
+calcium
+Symbol: Ca
+Atomic number: 20
+Atomic weight: 40.08
+Soft grey metallic element belonging to group 2 of the periodic table.
+Used a reducing agent in the extraction of thorium, zirconium and
+uranium. Essential element for living organisms.</ar>
+<ar><k>californium</k>
+californium
+Symbol: Cf
+Atomic number: 98
+Atomic weight: (249)
+Radioactive metallic transuranic element. Belongs to actinoid series.
+Cf-251 has a half life of about 700 years. Nine isotopes are known.
+Cf-252 is an intense {neutron} source, which makes it an intense
+{neutron} source and gives it a use in {neutron} activation analysis
+and a possible use as a radiation source in medicine. First produced
+by Glenn T. Seaborg and associates in 1950.</ar>
+<ar><k>carbon</k>
+carbon
+Symbol: C
+Atomic number: 6
+Atomic weight: 12.01115
+Carbon is a member of group 14 of the periodic table. It has three
+allotropic forms of it, diamonds, graphite and fullerite. Carbon-14
+is commonly used in radioactive dating. Carbon occurs in all organic life
+and is the basis of organic chemistry. Carbon has the interesting chemical
+property of being able to bond with itself, and a wide variety of other
+elements.</ar>
+<ar><k>cerium</k>
+cerium
+Symbol: Ce
+Atomic number: 58
+Atomic weight: 140.12
+Silvery metallic element, belongs to the lanthanoids. Four natural
+isotopes exist, and fifteen radioactive isotopes have been identified.
+Used in some rare-earth alloys. The oxidized form is used in the glass
+industry. Discovered by Martin .H. Klaproth in 1803.</ar>
+<ar><k>chlorine</k>
+chlorine
+Symbol: Cl
+Atomic number: 17
+Atomic weight: 35.453
+Halogen element. Poisonous greenish-yellow gas. Occurs widely in nature as
+sodium chloride in seawater. Reacts directly with many elements and
+compounds, strong oxidizing agent. Discovered by Karl Scheele in 1774.
+Humphrey David confirmed it as an element in 1810.</ar>
+<ar><k>chromium</k>
+chromium
+Symbol: Cr
+Atomic number: 24
+Atomic weight: 51.996
+Hard silvery transition element. Used in decorative electroplating.
+Discovered in 1797 by Vauquelin.</ar>
+<ar><k>cobalt</k>
+cobalt
+Symbol: Co
+Atomic number: 27
+Atomic weight: 58.993
+Light grey transition element. Some meteorites contain small amounts of
+metallic cobalt. Generally alloyed for use. Mammals require small amounts
+of cobalt salts. Cobalt-60, an artificially produced radioactive isotope
+of Cobalt is an important radioactive tracer and cancer-treatment agent.
+Discovered by G. Brandt in 1737.</ar>
+<ar><k>columbium</k>
+columbium
+The original name for {niobium}.</ar>
+<ar><k>copper</k>
+copper
+Symbol: Cu
+Atomic number: 29
+Atomic weight: 63.54
+Red-brown transition element. Known by the Romans as 'cuprum.' Extracted
+and used for thousands of years. Malleable, ductile and an excellent
+conductor of heat and electricity. When in moist conditions, a greenish
+layer forms on the outside.</ar>
+<ar><k>cuprum</k>
+cuprum
+Roman name for {copper}.</ar>
+<ar><k>curium</k>
+curium
+Symbol: Cm
+Atomic number: 96
+Atomic weight: (247)
+Radioactive metallic transuranic element. Belongs to actinoid series.
+Nine known isotopes, Cm-247 has a half-life of 1.64*10^7 years. First
+identified by Glenn T. Seaborg and associates in 1944, first produced by
+L.B. Werner and I. Perlman in 1947 by bombarding americium-241 with
+{neutron}s. Named for Marie Curie.</ar>
+<ar><k>deuterium</k>
+deuterium
+Symbol: D
+Atomic Weight: 2
+A {hydrogen} atom which has but one proton and {neutron}. Deuterium makes up
+about 0.015% of all natural hydrogen. Chemical properties are like that of
+normal {hydrogen}, though somewhat slower.</ar>
+<ar><k>dubnium</k>
+dubnium
+Symbol: Db
+Competing name for {unnilquadium}, the 104th element, proposed by the
+IUPAC.</ar>
+<ar><k>dysprosium</k>
+dysprosium
+Symbol: Dy
+Atomic number: 66
+Atomic weight: 162.50
+Metallic with a bright silvery-white lustre. Dysprosium belongs to the
+lanthanoids. It is relatively stable in air at room temperatures, it will
+however dissolve in mineral acids, evolving hydrogen. It is found in
+from rare-earth minerals. There are seven natural isotopes of dysprosium,
+and eight radioisotopes, Dy-154 being the most stable with a half-life of
+3*10^6 years. Dysprosium is used as a neutron absorber in nuclear fission
+reactions, and in compact disks. It was discovered by Paul Emile Lecoq de
+Boisbaudran in 1886 in France. Its name comes from the Greek word
+dysprositos, which means hard to obtain.</ar>
+<ar><k>einsteinium</k>
+einsteinium
+Symbol: Es
+Atomic number: 99
+Atomic weight: (254)
+Appearance is unknown, however it is most probably metallic and silver
+or gray in color. Radioactive metallic transuranic element belonging to the
+actinoids. Es-254 has the longest half-life of the eleven known isotopes at
+270 days. First identified by Albert Ghiorso and associates in the debris of
+the 1952 hydrogen bomb explosion. In 1961 the first microgram quantities of
+Es-232 were separated. While einsteinium never exists naturally, if a
+sufficient amount was assembled, it would pose a radiation hazard.</ar>
+<ar><k>erbium</k>
+erbium
+Symbol: Er
+Atomic number: 68
+Atomic weight: 167.26
+Soft silvery metallic element which belongs to the lanthanoids. Six
+natural isotopes that are stable. Twelve artificial isotopes are known.
+Used in nuclear technology as a neutron absorber. It is being investigated
+for other possible uses. Discovered by Carl G. Mosander in 1843.</ar>
+<ar><k>europium</k>
+europium
+Symbol: Eu
+Atomic number: 63
+Atomic weight: 151.25
+Soft silvery metallic element belonging to the lanthanoids. Eu-151 and
+Eu-153 are the only two stable isotopes, both of which are {neutron}
+absorbers. Discovered in 1889 by Sir William Crookes.</ar>
+<ar><k>fermium</k>
+fermium
+Symbol: Fm
+Atomic number: 100
+Atomic weight: (253)
+Radioactive metallic transuranic element, belongs to the actinoids. Ten
+known isotopes, most stable is Fm-257 with a half-life of 10 days. First
+identified by Albert Ghiorso and associates in the debris of the first
+hydrogen-bomb explosion in 1952.</ar>
+<ar><k>fluorine</k>
+fluorine
+Symbol: F
+Atomic number: 9
+Atomic weight: 18.9984
+A poisonous pale yellow gaseous element belonging to group 17 of the
+periodic table (The halogens). It is the most chemically reactive and
+electronegative element. It is highly dangerous, causing severe chemical
+burns on contact with flesh. Fluorine was identified by Scheele in 1771
+and first isolated by Moissan in 1886.</ar>
+<ar><k>francium</k>
+francium
+Symbol: Fr
+Atomic number: 87
+Atomic weight: (223)
+Radioactive element, belongs to group 1 of the periodic table. Found in
+uranium and thorium ores. The 22 known isotopes are all radioactive, with
+the most stable being Fr-223. Its existence was confirmed in 1939 by
+Marguerite Perey.</ar>
+<ar><k>gadolinium</k>
+gadolinium
+Symbol: Gd
+Atomic number: 64
+Atomic weight: 157.25
+Soft silvery metallic element belonging to the lanthanoids. Seven natural,
+stable isotopes are known in addition to eleven artificial isotopes.
+Gd-155 and Gd-157 and the best neutron absorbers of all elements.
+Gadolinium compounds are used in electronics. Discovered by J.C.G Marignac
+in 1880.</ar>
+<ar><k>gallium</k>
+gallium
+Symbol: Ga
+Atomic number: 31
+Atomic weight: 69.72
+Soft silvery metallic element, belongs to group 13 of the periodic table.
+The two stable isotopes are Ga-69 and Ga-71. Eight radioactive isotopes
+are known, all having short half-lives. Gallium Arsenide is used as a
+semiconductor. Corrodes most other metals by diffusing into their lattice.
+First identified by Francois Lecoq de Boisbaudran in 1875.</ar>
+<ar><k>germanium</k>
+germanium
+Symbol: Ge
+Atomic number: 32
+Atomic weight: 72.59
+Lustrous hard metalloid element, belongs to group 14 of the periodic
+table. Forms a large number of organometallic compounds. Predicted by
+Mendeleev in 1871, it was actually found in 1886 by Winkler.</ar>
+<ar><k>gold</k>
+gold
+Symbol: Au
+Atomic number: 79
+Atomic weight: 196.96655
+Gold is gold colored. It is the most malleable and ductile metal known.
+There is only one stable isotope of gold, and five radioisotopes of gold,
+Au-195 being the most stable with a half-life of 186 days. Gold is used
+as a monetary standard, in jewelry, dentistry, electronics. Au-198 is used
+in treating cancer and some other medical conditions. Gold has been known
+to exist as far back as 2600 BC. Gold comes from the Anglo-Saxon word gold.
+Its symbol, Au, comes from the Latin word aurum, which means gold. Gold is
+not particularly toxic, however it is known to cause damage to the liver
+and kidneys in some.</ar>
+<ar><k>hafnium</k>
+hafnium
+Symbol: Hf
+Atomic number: 72
+Atomic weight: 178.49
+Silvery lustrous metallic transition element. Used in tungsten alloys in
+filaments and electrodes, also acts as a neutron absorber. First reported
+by Urbain in 1911, existence was finally established in 1923 by D. Coster,
+G.C. de Hevesy in 1923.</ar>
+<ar><k>hahnium</k>
+hahnium
+Symbol: Ha
+Competing name for {unnilpentium}, the 105th element, proposed by the
+American Chemical Society. Also a competing name for {unniloctium}, the
+108th element, proposed by the IUPAC. Both were chosen in honor of German
+researcher, Otto Hahn.</ar>
+<ar><k>hassium</k>
+hassium
+Competing name for {unniloctium}, the 108th element, proposed by its
+German discoverers and supported by the American Chemical Society.</ar>
+<ar><k>helium</k>
+helium
+Symbol: He
+Atomic number: 2
+Atomic weight: 4.0026
+Colourless, odourless gaseous nonmetallic element. Belongs to group 18 of
+the periodic table. Lowest boiling point of all elements and can only be
+solidified under pressure. Chemically inert, no known compounds.
+Discovered in the solar spectrum in 1868 by Lockyer.</ar>
+<ar><k>holmium</k>
+holmium
+Symbol: Ho
+Atomic number: 67
+Atomic weight: 167.26
+Relatively soft and malleable silvery-white metallic element, which is stable
+in dry air at room temperature. It oxidizes in moist air and at high
+temperatures. It belongs to the lanthanoids. A rare-earth metal, it is found
+in the minerals monazite and gadolinite. It possesses unusual magnetic
+properties. One natural isotope, Ho-165 exists, six radioisotopes exist, the
+most stable being Ho-163 with a half-life of 4570 years. Holmium is used in
+some metal alloys, it is also said to stimulate the metabolism. Discovered by
+Per Theodor Cleve and J.L. Soret in Switzerland in 1879. The name homium comes
+from the Greek word Holmia which means Sweden. While all holmium compounds
+should be considered highly toxic, initial evidence seems to indicate that
+they do not pose much danger. The metal's dust however, is a fire hazard.</ar>
+<ar><k>hydrogen</k>
+hydrogen
+Symbol: H
+Atomic number: 1
+Atomic weight: 1.0079
+Colourless, odourless gaseous chemical element. Lightest and most
+abundant element in the universe. Present in water and in all organic
+compounds. Chemically reacts with most elements. Discovered by Henry
+Cavendish in 1776.</ar>
+<ar><k>indium</k>
+indium
+Symbol: In
+Atomic number: 49
+Atomic weight: 114.82
+Soft silvery element belonging to group 13 of the periodic table. The most
+common natural isotope is In-115, which has a half-life of 6*10^4 years.
+Five other radioisotopes exist. Discovered in 1863 by Reich and Richter.</ar>
+<ar><k>iodine</k>
+iodine
+Symbol: I
+Atomic number: 53
+Atomic weight: 126.904
+Dark violet nonmetallic element, belongs to group 17 of the periodic
+table. Insoluble in water. Required as a trace element for living
+organisms. One stable isotope, I-127 exists, in addition to fourteen
+radioactive isotopes. Chemically the least reactive of the halogens, and
+the most electropositive metallic halogen. Discovered in 1812 by Courtois.</ar>
+<ar><k>iridium</k>
+iridium
+Symbol: Ir
+Atomic number: 77
+Atomic weight: 192.217
+Very hard and brittle, silvery metallic transition element. It has a
+yellowish cast to it. Salts of iridium are highly colored. It is the
+most corrosion resistant metal known, not attacked by any acid, but is
+attacked by molten salts. There are two natural isotopes of iridium, and
+4 radioisotopes, the most stable being Ir-192 with a half-life of 73.83
+days. Ir-192 decays into {platinum}, while the other radioisotopes decay
+into {osmium}. Iridium is used in high temperature apparatus, electrical
+contacts, and as a hardening agent for platinum. Discovered in 1803 by
+Smithson Tennant in England. The name comes from the Greek word iris, which
+means rainbow. Iridium metal is generally non-toxic due to its relative
+unreactivity, but iridium compounds should be considered highly toxic.</ar>
+<ar><k>iron</k>
+iron
+Symbol: Fe
+Atomic number: 26
+Atomic weight: 55.847
+Silvery malleable and ductile metallic transition element. Has nine
+isotopes and is the fourth most abundant element in the earth's crust.
+Required by living organisms as a trace element (used in hemoglobin in
+humans.) Quite reactive, oxidizes in moist air, displaces hydrogen from
+dilute acids and combines with nonmetallic elements.</ar>
+<ar><k>IUPAC</k>
+IUPAC
+The International Union of Pure and Applied Chemistry.</ar>
+<ar><k>joliotium</k>
+joliotium
+Symbol: Jl
+Competing name for {unnilpentium}, the 105th element, proposed by the
+IUPAC.</ar>
+<ar><k>krypton</k>
+krypton
+Symbol: Kr
+Atomic number: 36
+Atomic weight: 83.80
+Colorless gaseous element, belongs to the noble gases. Occurs in the air,
+0.0001% by volume. It can be extracted from liquid air by fractional
+distillation. Generally not isolated, but used with other inert gases in
+fluorescent lamps. Five natural isotopes, and five radioactive isotopes.
+Kr-85, the most stable radioactive isotope, has a half-life of 10.76
+years and is produced in fission reactors. Practically inert, though known
+to form compounds with {fluorine}.</ar>
+<ar><k>kurchatovium</k>
+kurchatovium
+Symbol: Ku
+Competing name for {unnilquadium}, the 104th element, proposed by Russian
+scientists.</ar>
+<ar><k>lanthanum</k>
+lanthanum
+Symbol: La
+Atomic number: 57
+Atomic weight: 138.9055
+(From the Greek word lanthanein, to line hidden) Silvery metallic element
+belonging to group 3 of the periodic table and oft considered to be one of
+the lanthanoids. Found in some rare-earth minerals. Twenty-five natural
+isotopes exist. La-139 which is stable, and La-138 which has a half-life
+of 10^10 to 10^15 years. The other twenty-three isotopes are radioactive.
+It resembles the lanthanoids chemically. Lanthanum has a low to moderate
+level of toxicity, and should be handled with care. Discovered in 1839 by
+C.G. Mosander.</ar>
+<ar><k>lawrencium</k>
+lawrencium
+Symbol: Lr
+Atomic number: 103
+Atomic weight: (262)
+Appearance unknown, however it is most likely silvery-white or grey
+and metallic. Lawrencium is a synthetic rare-earth metal. There are
+eight known radioisotopes, the most stable being Lr-262 with a half-life
+of 3.6 hours. Due to the short half-life of lawrencium, and its
+radioactivity, there are no known uses for it. Identified by Albert Ghiorso
+in 1961 at Berkeley. It was produced by bombarding californium with boron
+ions. The name is temporary {IUPAC} nomenclature, the origin of the name
+comes from Ernest O. Lawrence, the inventor of the cyclotron. If sufficient
+amounts of lawrencium were produced, it would pose a radiation hazard.</ar>
+<ar><k>lead</k>
+lead
+Symbol: Pb
+Atomic number: 82
+Atomic weight: 207.19
+Heavy dull grey ductile metallic element, belongs to group 14. Used in
+building construction, lead-place accumulators, bullets and shot, and is
+part of solder, pewter, bearing metals, type metals and fusible alloys.</ar>
+<ar><k>lithium</k>
+lithium
+Symbol: Li
+Atomic number: 3
+Atomic weight: 6.939
+Socket silvery metal. First member of group 1 of the periodic table.
+Lithium salts are used in psychomedicine.</ar>
+<ar><k>lutetium</k>
+lutetium
+Symbol: Lu
+Atomic number: 71
+Atomic weight: 194.967
+Silvery-white rare-earth metal which is relatively stable in air. It
+happens to be the most expensive rare-earth metal. Its found with almost
+all rare-earth metals, but is very difficult to separate from other
+elements. Least abundant of all natural elements. Used in metal alloys,
+and as a catalyst in various processes. There are two natural, stable
+isotopes, and seven radioisotopes, the most stable being Lu-174 with a
+half-life of 3.3 years. The separation of lutetium from {ytterbium} was
+described by Georges Urbain in 1907. It was discovered at approximately
+the same time by Carl Auer von Welsbach. The name comes from the Greek
+word lutetia which means Paris.</ar>
+<ar><k>magnesium</k>
+magnesium
+Symbol: Mg
+Atomic number: 12
+Atomic weight: 24.312
+Silvery metallic element belonging to group 2 of the periodic table
+(alkaline-earth metals). It is essential for living organisms, and is used
+in a number of light alloys. Chemically very reactive, it forms a
+protective oxide coating when exposed to air and burns with an intense
+white flame. It also reacts with sulphur, nitrogen and the halogens. First
+isolated by Bussy in 1828.</ar>
+<ar><k>manganese</k>
+manganese
+Symbol: Mn
+Atomic number: 25
+Atomic weight: 54.938
+Grey brittle metallic transition element. Rather electropositive, combines
+with some non-metals when heated. Discovered in 1774 by Scheele.</ar>
+<ar><k>meitnerium</k>
+meitnerium
+Symbol: Mt
+Atomic number: 109
+Atomic weight: (266)
+Half-life of approximately 5ms. The creation of this element demonstrated
+that fusion techniques could indeed be used to make new, heavy nuclei.
+Made and identified by physicists of the Heavy Ion Research Laboratory,
+Darmstadt, West Germany in 1982. Named in honor of Lise Meitner the
+Austrian physicist.</ar>
+<ar><k>mendelevium</k>
+mendelevium
+Symbol: Md
+Atomic number: 101
+Atomic weight: (256)
+Radioactive metallic transuranic element. Belongs to the actinoid series.
+Only known isotope, Md-256 has a half-life of 1.3 hours. First identified
+by Glenn T. Seaborg, Albert Ghiorso and associates in 1955. Alternative
+name {unnilunium} has been proposed. Named after the 'inventor' of the
+periodic table, Dmitri Mendeleev.</ar>
+<ar><k>mercury</k>
+mercury
+Symbol: Hg
+Atomic number: 80
+Atomic weight: 200.59
+Heavy silvery liquid metallic element, belongs to the zinc group. Used in
+thermometers, barometers and other scientific apparatus. Less reactive
+than zinc and cadmium, does not displace hydrogen from acids. Forms a
+number of complexes and organomercury compounds.</ar>
+<ar><k>molybdenum</k>
+molybdenum
+Symbol: Mo
+Atomic number: 42
+Atomic weight: 95.94
+Silvery-white, hard metallic transition element. It is chemically
+unreactive and is not affected by most acids. It oxidizes at high
+temperatures. There are seven natural isotopes, and four radioisotopes,
+Mo-93 being the most stable with a half-life of 3500 years. Molybdenum
+is used in almost all high-strength steels, it has nuclear applications,
+and is a catalyst in petroleum refining. Discovered in 1778 by Carl
+Welhelm Scheele of Sweden. Impure metal was prepared in 1782 by Peter
+Jacob Hjelm. The name comes from the Greek word molybdos which means lead.
+Trace amounts of molybdenum are required for all known forms of life.
+All molybdenum compounds should be considered highly toxic, and will
+also cause severe birth defects.</ar>
+<ar><k>neodymium</k>
+neodymium
+Symbol: Nd
+Atomic number: 60
+Atomic weight: 144.24
+Soft bright silvery metallic element, belongs to the lanthanoids. Seven natural
+isotopes, Nd-144 being the only radioactive one with a half-life of 10^10
+to 10^15 years. Six artificial radioisotopes have been produced. The
+metal is used in glass works to color class a shade of violet-purple and
+make it dichroic. One of the more reactive rare-earth metals, quickly reacts
+with air. Used in some rare-earth alloys. Neodymium is used to color
+the glass used in welder's glasses. Neodymium is also used in very
+powerful, permanent magnets (Nd2Fe14B). Discovered by Carl F. Auer von
+Welsbach in Austria in 1885 by separating didymium into its elemental
+components {praseodymium} and neodymium. The name comes from the Greek words
+&quot;neos didymos&quot; which means &quot;new twin&quot;. Neodymium should be considered
+highly toxic, however evidence would seem to show that it acts as little
+more than a skin and eye irritant. The dust however, presents a fire and
+explosion hazard.</ar>
+<ar><k>neon</k>
+neon
+Symbol: Ne
+Atomic number: 10
+Atomic weight: 20.183
+Colourless gaseous element of group 18 on the periodic table (noble
+gases). Neon occurs in the atmosphere, and comprises 0.0018% of the volume
+of the atmosphere. It has a distinct reddish glow when used in discharge
+tubes and neon based lamps. It forms almost no chemical compounds. Neon
+was discovered in 1898 by Sir William Ramsey and M.W. Travers.</ar>
+<ar><k>neptunium</k>
+neptunium
+Symbol: Np
+Atomic number: 93
+Atomic weight: (237)
+Radioactive metallic transuranic element, belongs to the actinoids.
+Np-237, the most stable isotope, has a half-life of 2.2*10^6 years and is
+a by product of nuclear reactors. The other known isotopes have mass
+numbers 229 through 236, and 238 through 241. Np-236 has a half-life of
+5*10^3 years. First produced by Edwin M. McMillan and P.H. Abelson in
+1940.</ar>
+<ar><k>neutron</k>
+neutron
+Weight: 1.6749286*10^-27kg
+A neutral hadron that is stable in the atomic nucleus but decays into a
+protron, an electron and an antineutrino with a mean life of 12 minutes
+outside the nucleus. Neutrons exist in all atomic nuclei except normal
+hydrogen. Reported in 1932 by James Chadwick.</ar>
+<ar><k>nickel</k>
+nickel
+Symbol: Ni
+Atomic number: 28
+Atomic weight: 58.71
+Malleable ductile silvery metallic transition element. Discovered by A.F.
+Cronstedt in 1751.</ar>
+<ar><k>nielsbohrium</k>
+nielsbohrium
+Competing name for {unnilseptium}, the 107th element, proposed by its West
+German discoverers and supported by the American Chemical Society. The
+name was chosen in honor of physicist, Niels Bohr.</ar>
+<ar><k>niobium</k>
+niobium
+Symbol: Nb
+Atomic number: 41
+Atomic weight: 92.906
+Soft, ductile grey-blue metallic transition element. Used in special
+steels and in welded joints to increase strength. Combines with halogens
+and oxidizes in air at 200 degrees celsius. Discovered by Charles Hatchett
+in 1801 and isolated by Blomstrand in 1864. Called {columbium} originally.</ar>
+<ar><k>nitrogen</k>
+nitrogen
+Symbol: N
+Atomic number: 7
+Atomic weight: 14.0067
+Colourless, gaseous element which belongs to group 15 of the periodic
+table. Constitutes ~78% of the atmosphere and is an essential part of the
+ecosystem. Nitrogen for industrial purposes is acquired by the fractional
+distillation of liquid air. Chemically inactive, reactive generally only
+at high temperatures or in electrical discharges. It was discovered in
+1772 by D. Rutherford.</ar>
+<ar><k>nobelium</k>
+nobelium
+Symbol: No
+Atomic number: 102
+Atomic weight: (254)
+Radioactive metallic transuranic element, belongs to the actinoids. Seven
+known isotopes exist, the most stable being No-254 with a half-life of 255
+seconds. First identified with certainty by Albert Ghiorso and Glenn T.
+Seaborg in 1966. {Unnilbium} has been proposed as an alternative name.</ar>
+<ar><k>osmium</k>
+osmium
+Symbol: Os
+Atomic number: 76
+Atomic weight: 190.2
+Hard blue-white metallic transition element. Found with platinum and used
+in some alloys with platinum and iridium.</ar>
+<ar><k>oxygen</k>
+oxygen
+Symbol: O
+Atomic number: 8
+Atomic weight: 15.9994
+A colourless, odourless gaseous element belonging to group 16 of the
+periodic table. It is the most abundant element present in the earth's
+crust. It also makes up 20.8% of the Earth's atmosphere. For industrial
+purposes, it is separated from liquid air by fractional distillation. It
+is used in high temperature welding, and in breathing. It commonly comes
+in the form of Oxygen, but is found as Ozone in the upper atmosphere. It
+was discovered by Priestley in 1774.</ar>
+<ar><k>palladium</k>
+palladium
+Symbol: Pd
+Atomic number: 46
+Atomic weight: 106.4
+Soft white ductile transition element. Found with some copper and nickel
+ores. Does not react with oxygen at normal temperatures. Dissolves slowly
+in hydrochloric acid. Discovered in 1803 by W.H. Wollaston.</ar>
+<ar><k>phosphorus</k>
+phosphorus
+Symbol: P
+Atomic number: 15
+Atomic weight: 30.9738
+Non-metallic element belonging to group 15 of the periodic table. Has a
+multiple allotropic forms. Essential element for living organisms. It was
+discovered by Brandt in 1669.</ar>
+<ar><k>platinum</k>
+platinum
+Symbol: Pt
+Atomic number: 78
+Atomic weight: 195.078
+Attractive greyish-white metal. When pure, it is malleable and ductile.
+Does not oxidize in air, insoluble in hydrochloric and nitric acid.
+Corroded by halogens, cyandies, sulphur and alkalis. {Hydrogen} and
+{oxygen} react explosively in the presence of platinum. There are six
+stable isotopes and three radioisotopes, the most stable being Pt-193
+with a half-life of 60 years. Platinum is used in jewelry, laboratory
+equipment, electrical contacts, dentistry, and anti-pollution devices in
+cars. PtCl2(NH3)2 is used to treat some forms of cancer. Platinum-{cobalt}
+alloys have magnetic properties. It is also used in the definition of
+the Standard Hydrogen Electrode. Discovered by Antonio de Ulloa in South
+America in 1735. The name comes from the Spanish word platina which means
+silver. Platinum metal is generally not a health concern due to its
+unreactivity, however platinum compounds should be considered highly
+toxic.</ar>
+<ar><k>plutonium</k>
+plutonium
+Symbol: Pu
+Atomic number: 94
+Atomic weight: (242)
+Dense silvery radioactive metallic transuranic element, belongs to the
+actinoids. Pu-244 is the most stable isotope with a half-life of 7.6*10^7
+years. Thirteen isotopes are known. Pu-239 is the most important, it
+undergoes nuclear fission with slow neutrons and is hence important to
+nuclear weapons and reactors. Plutonium production is monitored down to
+the gram to prevent military misuse. First produced by Gleen T. Seaborg,
+Edwin M. McMillan, J.W. Kennedy and A.C. Wahl in 1940.</ar>
+<ar><k>polonium</k>
+polonium
+Symbol: Po
+Atomic number: 84
+Atomic weight: (210)
+Rare radioactive metallic element, belongs to group 16 of the periodic
+table. Over 30 known isotopes exist, the most of all elements. Po-209 has
+a half-life of 103 years. Possible uses in heating spacecraft. Discovered
+by Marie Curie in 1898 in a sample of pitchblende.</ar>
+<ar><k>potassium</k>
+potassium
+Symbol: K
+Atomic number: 19
+Atomic weight: 39.0983
+Soft silvery metallic element belonging to group 1 of the periodic table
+(alkali metals). Occurs naturally in seawater and a many minerals. Highly
+reactive, chemically, it resembles sodium in its behavior and compounds.
+Discovered by Sir Humphry Davy in 1807.</ar>
+<ar><k>praseodymium</k>
+praseodymium
+Symbol: Pr
+Atomic number: 59
+Atomic weight: 140.907
+Soft silvery metallic element, belongs to the lanthanoids. Only natural
+isotope is Pr-141 which is not radioactive.  Fourteen radioactive isotopes
+have been artificially produced. Used in rare-earth alloys. Discovered in
+1885 by C.A. von Welsbach.</ar>
+<ar><k>promethium</k>
+promethium
+Symbol: Pm
+Atomic number: 61
+Atomic weight: (147)
+Soft silvery metallic element, belongs to the lanthanoids. Pm-147, the
+only natural isotope, is radioactive and has a half-life of 252 years.
+Eighteen radioisotopes have been produced, but all have very short
+half-lives. Found only in nuclear decay waste. Pm-147 is of interest as a
+beta-decay source, however Pm-146 and Pm-148 have to be removed from it
+first, as they generate gamma radiation. Discovered by J.A. Marinsky,
+L.E. Glendenin and C.D. Coryell in 1947.</ar>
+<ar><k>protactinium</k>
+protactinium
+Symbol: Pa
+Atomic number: 91
+Atomic weight: (231)
+Radioactive metallic element, belongs to the actinoids. The most stable
+isotope, Pa-231 has a half-life of 2.43*10^4 years. At least 10 other
+radioactive isotopes are known. No practical applications are known.
+Discovered in 1917 by Lise Meitner and Otto Hahn.</ar>
+<ar><k>radium</k>
+radium
+Symbol: Ra
+Atomic number: 88
+Atomic weight: (226)
+Radioactive metallic transuranic element, belongs to group 2 of the
+periodic table. Most stable isotope, Ra-226 has a half-life of 1602 years,
+which decays into radon. Isolated from pitchblende in 1898 Marie and
+Pierre Curie.</ar>
+<ar><k>radon</k>
+radon
+Symbol: Rn
+Atomic number: 86
+Atomic weight: (222)
+Colorless radioactive gaseous element, belongs to the noble gases. Of the
+twenty known isotopes, the most stable is Rn-222 with a half-life of 3.8 days.
+Formed by the radioactive decay of {Radium}-226. Radon itself decays into
+{polonium}. Used in radiotherapy. As a noble gas, it is effectively inert,
+though radon fluoride has been synthesized. First isolated in 1908 by Ramsey
+and Gray.</ar>
+<ar><k>rhenium</k>
+rhenium
+Symbol: Re
+Atomic number: 75
+Atomic weight: 186.2
+Silvery-white metallic transition element. Obtained as a by-product of
+molybdenum refinement. Rhenium-molybdenum alloys are superconducting.</ar>
+<ar><k>rhodium</k>
+rhodium
+Symbol: Rh
+Atomic number: 45
+Atomic weight: 102.905
+Silvery white metallic transition element. Found with platinum and used in
+some platinum alloys. Not attacked by acids, dissolves only in aqua regia.
+Discovered in 1803 by W.H. Wollaston.</ar>
+<ar><k>rubidium</k>
+rubidium
+Symbol: Rb
+Atomic number: 37
+Atomic weight: 85.47
+Soft silvery metallic element, belongs to group 1 of the periodic table.
+Rb-97, the naturally occurring isotope, is radioactive. It is highly
+reactive, with properties similar to other elements in group 1, like
+igniting spontaneously in air. Discovered spectroscopically in 1861 by W.
+Bunsen and G.R. Kirchoff.</ar>
+<ar><k>ruthenium</k>
+ruthenium
+Symbol: Ru
+Atomic number: 44
+Atomic weight: 101.07
+Hard white metallic transition element. Found with platinum, used as a
+catalyst in some platinum alloys. Dissolves in fused alkalis, and is not
+attacked by acids. Reacts with halogens and oxygen at high temperatures.
+Isolated in 1844 by K.K. Klaus.</ar>
+<ar><k>rutherfordium</k>
+rutherfordium
+Symbol: Rf
+Competing name for {unnilquadium}, the 104th element, proposed by the
+American Chemical Society.</ar>
+<ar><k>samarium</k>
+samarium
+Symbol: Sm
+Atomic number: 62
+Atomic weight: 150.35
+Soft silvery metallic element, belongs to the lanthanoids. Seven natural
+isotopes, Sm-147 is the only radioisotope, and has a half-life of
+2.5*10^11 years. Used for making special alloys needed in the production
+of nuclear reactors. Also used as a neutron absorber. Small quantities of
+samarium oxide is used in special optical glasses. The largest use of the
+element is its ferromagnetic alloy which produces permanent magnets that
+are five times stronger than magnets produced by any other material.
+Discovered by Francois Lecoq de Boisbaudran in 1879.</ar>
+<ar><k>scandium</k>
+scandium
+Symbol: Sc
+Atomic number: 21
+Atomic weight: 44.956
+Rare soft silvery metallic element belonging to group 3 of the periodic
+table. There are ten isotopes, nine of which are radioactive and have
+short half-lives. Predicted in 1869 by Mendeleev, isolated by Nilson in
+1879.</ar>
+<ar><k>seaborgium</k>
+seaborgium
+Name proposed for the 106th element ({unnilhexium}) by the American
+Chemical Society in honor of Gleen T. Seaborg, an American nuclear
+physicist and Nobel prize winner.</ar>
+<ar><k>selenium</k>
+selenium
+Symbol: Se
+Atomic number: 34
+Atomic weight: 78.96
+Metalloid element, belongs to group 16 of the periodic table. Multiple
+allotropic forms exist. Chemically resembles sulphur. Discovered in 1817
+by Jons J. Berzelius.</ar>
+<ar><k>silicon</k>
+silicon
+Symbol: Si
+Atomic number: 14
+Atomic weight: 28.086
+Metalloid element belonging to group 14 of the periodic table. It is the
+second most abundant element in the Earth's crust, making up 25.7% of it
+by weight. Chemically less reactive than carbon. First identified by
+Lavoisier in 1787 and first isolated in 1823 by Berzelius.</ar>
+<ar><k>silver</k>
+silver
+Symbol: Ag
+Atomic number: 47
+Atomic weight: 107.870
+White lustrous soft metallic transition element. Found in both its
+elemental form and in minerals. Used in jewellery, tableware and so on.
+Less reactive than silver, chemically.</ar>
+<ar><k>sodium</k>
+sodium
+Symbol: Na
+Atomic number: 11
+Atomic weight: 22.9898
+Soft silvery reactive element belonging to group 1 of the periodic table
+(alkali metals). It is highly reactive, oxidizing in air and reacting
+violently with water, forcing it to be kept under oil. It was first
+isolated by Humphrey Davy in 1807.</ar>
+<ar><k>strontium</k>
+strontium
+Symbol: Sr
+Atomic number: 38
+Atomic weight: 87.62
+Soft yellowish metallic element, belongs to group 2 of the periodic
+table. Highly reactive chemically. Sr-90 is present in radioactive fallout
+and has a half-life of 28 years. Discovered in 1798 by Klaproth and Hope,
+isolated in 1808 by Humphry Davy.</ar>
+<ar><k>sulphur</k>
+sulphur
+Symbol: S
+Atomic number: 16
+Atomic weight: 32.064
+Yellow, nonmetallic element belonging to group 16 of the periodic table.
+It is an essential element in living organisms, needed in the amino acids
+cysteine and methionine, and hence in many proteins. Absorbed by plants
+from the soil as sulphate ion.</ar>
+<ar><k>tantalum</k>
+tantalum
+Symbol: Ta
+Atomic number: 73
+Atomic weight: 180.948
+Heavy blue-grey metallic transition element. Ta-181 is a stable isotope,
+and Ta-180 is a radioactive isotope, with a half-life in excess of 10^7
+years. Used in surgery as it is unreactive. Forms a passive oxide layer in
+air. Identified in 1802 by Ekeberg and isolated in 1820 by Jons J.
+Berzelius.</ar>
+<ar><k>technetium</k>
+technetium
+Symbol: Tc
+Atomic number: 43
+Atomic weight: (98)
+Radioactive metallic transition element. Can be detected in some stars and
+the fission products of uranium. First made by Perrier and Segre by
+bombarding molybdenum with deutrons, giving them Tc-97. Tc-99 is the most
+stable isotope with a half-life of 2.6*10^6 years. Sixteen isotopes are
+known. Organic technetium compounds are used in bone imaging. Chemical
+properties are intermediate between rhenium and manganese.</ar>
+<ar><k>tellurium</k>
+tellurium
+Symbol: Te
+Atomic number: 52
+Atomic weight: 127.60
+Silvery metalloid element of group 16. Eight natural isotopes, nine
+radioactive isotopes. Used in semiconductors and to a degree in some
+steels. Chemistry is similar to {sulphur}. Discovered in 1782 by Franz
+Miller.</ar>
+<ar><k>terbium</k>
+terbium
+Symbol: Tb
+Atomic number: 65
+Atomic weight: 158.924
+Silvery metallic element belonging to the lanthanoids. Tb-159 is the only
+stable isotope, there are seventeen artificial isotopes. Discovered by
+G.G. Mosander in 1843.</ar>
+<ar><k>thallium</k>
+thallium
+Symbol: Tl
+Atomic number: 81
+Atomic weight: 204.3833
+Pure, unreacted thallium appears silvery-white and exhibits a metallic
+lustre. Upon reacting with air, it begins to turn bluish-grey and looks
+like lead. It is very malleable, and can be cut with a knife. There are
+two stable isotopes, and four radioisotopes, Tl-204 being the most stable
+with a half-life of 3.78 years. Thallium sulphate was used as a rodenticide.
+Thallium sulphine's conductivity changes with exposure to infrared light,
+this gives it a use in infrared detectors. Discovered by Sir William Crookes
+via spectroscopy. Its name comes from the Greek word thallos, which means
+green twig. Thallium and its compounds are toxic and can cause cancer.</ar>
+<ar><k>thorium</k>
+thorium
+Symbol: Th
+Atomic number: 90
+Atomic weight: 232.038
+Grey radioactive metallic element. Belongs to actinoids. Found in monazite sand
+in Brazil, India and the US.  Thorium-232 has a half-life of 1.39x10^10 years.
+Can be used as a nuclear fuel for breeder reactors. Thorium-232 captures slow
+{neutron}s and breeds uranium-233. Discovered by Jons J. Berzelius in
+1829.</ar>
+<ar><k>thulium</k>
+thulium
+Symbol: Tm
+Atomic number: 69
+Atomic weight: 168.934
+Soft grey metallic element that belongs to the lanthanoids. One natural
+isotope exists, Tm-169, and seventeen artificial isotopes have been
+produced. No known uses for the element. Discovered in 1879 by Per Theodor
+Cleve.</ar>
+<ar><k>tin</k>
+tin
+Symbol: Sn
+Atomic number: 50
+Atomic weight: 118.69
+Silvery malleable metallic element belonging to group 14 of the periodic
+table. Twenty-six isotopes are known, five of which are radioactive.
+Chemically reactive. Combines directly with chlorine and oxygen and
+displaces hydrogen from dilute acids.</ar>
+<ar><k>titanium</k>
+titanium
+Symbol: Ti
+Atomic number: 22
+Atomic weight: 47.90
+White metallic transition element. Occurs in numerous minerals. Used in
+strong, light corrosion-resistant alloys. Forms a passive oxide coating
+when exposed to air. First discovered by Gregor in 1789.</ar>
+<ar><k>tungsten</k>
+tungsten
+Symbol: W
+Atomic number: 74
+Atomic weight: 183.85
+White or grey metallic transition element, formerly called {wolfram}.
+Forms a protective oxide in air and can be oxidized at high temperature.
+First isolated by Jose and Fausto de Elhuyer in 1783.</ar>
+<ar><k>unnilbium</k>
+unnilbium
+Symbol: Unb
+Name proposed by the {IUPAC} to settle the dispute over naming the 102nd
+element {nobelium}.</ar>
+<ar><k>unnildecium</k>
+unnildecium
+Symbol: Unn
+Atomic number: 110
+Atomic weight: (272)?
+Half-life of approximately 10ms. Reported in 1994 by German researchers at
+Darmstadt, Germany.</ar>
+<ar><k>unnilhexium</k>
+unnilhexium
+Symbol:
+Atomic number: 106
+Atomic weight: (263)
+Half-life of 0.9 +/- 0.2 s. Discovered by the Joint Institute for Nuclear
+Research at Dubna (U.S.S.R.) in June of 1974. Its existence was confirmed
+by the Lawrence Berkeley Laboratory and Livermore National Laboratory in
+September of 1974.</ar>
+<ar><k>unniloctium</k>
+unniloctium
+Symbol: Uno
+Atomic number: 108
+Atomic weight: (265)
+Radioactive transition metal.</ar>
+<ar><k>unnilpentium</k>
+unnilpentium
+Symbol: Unp
+Atomic number: 105
+Atomic weight: (262)
+Radioactive transactinide element. Half-life of 1.6s. Discovered in 1970
+by Berkeley researchers. So far, seven isotopes have been discovered.</ar>
+<ar><k>unnilquadium</k>
+unnilquadium
+Symbol: Unq
+Atomic number: 104
+Atomic weight: (261)
+Radioactive transactinide element. Expected to have similar chemical
+properties to those displayed by hafnium. Rf-260 was discovered by the
+Joint Nuclear Research Institute at Dubna (U.S.S.R.) in 1964. Researchers
+at Berkeley discovered Unq-257 and Unq-258 in 1964.</ar>
+<ar><k>unnilseptium</k>
+unnilseptium
+Symbol:
+Atomic number: 107
+Atomic weight: (262)
+Radioactive transition metal. Half-life of approximately 1/500 s.
+Discovered by the Joint Institute for Nuclear Research at Dubna (U.S.S.R.)
+in 1976. Confirmed by West German physicists at the Heavy Ion Research
+Laboratory at Darmstadt.</ar>
+<ar><k>unnilunium</k>
+unnilunium
+Symbol: Unu
+Name proposed by the {IUPAC} to settle the dispute over naming the 101st
+element {mendelevium}.</ar>
+<ar><k>uranium</k>
+uranium
+Symbol: U
+Atomic number: 92
+Atomic weight: (231)
+White radioactive metallic element belonging to the actinoids. Three
+natural isotopes, U-238, U-235 and U-234. Uranium-235 is used as the fuel
+for nuclear reactors and weapons. Discovered by Martin H. Klaproth in 1789.</ar>
+<ar><k>vanadium</k>
+vanadium
+Symbol: V
+Atomic number: 23
+Atomic weight: 50.9415
+Soft and ductile, bright white metal. Good resistance to corrosion by
+alkalis, sulphuric and hydrochloric acid. It oxidizes readily about
+933K. There are two naturally occurring isotopes of vanadium, and 5
+radioisotopes, V-49 having the longest half-life at 337 days. Vanadium
+has nuclear applications, the foil is used in cladding titanium to steel,
+and vanadium-gallium tape is used to produce a superconductive magnet.
+Originally discovered by Andres Manuel del Rio of Mexico City in 1801.
+His discovery went unheeded, however, and in 1820, Nils Gabriel Sefstron
+of Sweden rediscovered it. Metallic vanadium was isolated by Henry Enfield
+Roscoe in 1867. The name vanadium comes from {Vanadis}, a goddess of
+Scandinavian mythology. Silvery-white metallic transition element.
+Vanadium is essential to {ascidian}s. Rats and chickens are also known
+to require it. Metal powder is a fire hazard, and vanadium compounds
+should be considered highly toxic. May cause lung cancer if inhaled.</ar>
+<ar><k>wolfram</k>
+wolfram
+Original name for {tungsten}.</ar>
+<ar><k>xenon</k>
+xenon
+Symbol: Xe
+Atomic number: 54
+Atomic weight: 131.30
+Colourless, odourless gas belonging to group 18 on the periodic table (the
+noble gases.) Nine natural isotopes and seven radioactive isotopes are
+known. Xenon was part of the first noble-gas compound synthesized.
+Several others involving Xenon have been found since then. Xenon was
+discovered by Ramsey and Travers in 1898.</ar>
+<ar><k>ytterbium</k>
+ytterbium
+Symbol: Yb
+Atomic number: 70
+Atomic weight: 173.04
+Silvery metallic element of the lanthanoids. Seven natural isotopes and
+ten artificial isotopes are known.  Used in certain steels. Discovered by
+J.D.G. Marignac in 1878.</ar>
+<ar><k>yttrium</k>
+yttrium
+Symbol: Y
+Atomic number: 39
+Atomic weight: 88.905
+Silvery-grey metallic element of group 3 on the periodic table. Found in
+uranium ores. The only natural isotope is Y-89, there are 14 other
+artificial isotopes. Chemically resembles the lanthanoids. Stable in the
+air below 400 degrees, celsius. Discovered in 1828 by Friedrich Wohler.</ar>
+<ar><k>zinc</k>
+zinc
+Symbol: Zn
+Atomic number: 30
+Atomic weight: 65.38
+Blue-white metallic element. Occurs in multiple compounds naturally. Five
+stable isotopes are six radioactive isotopes have been found. Chemically a
+reactive metal, combines with oxygen and other non-metals, reacts with
+dilute acids to release hydrogen.</ar>
+<ar><k>zirconium</k>
+zirconium
+Symbol: Zr
+Atomic number: 40
+Atomic weight: 91.22
+Grey-white metallic transition element. Five natural isotopes and six
+radioactive isotopes are known. Used in nuclear reactors for a {neutron}
+absorber. Discovered in 1789 by Martin Klaproth, isolated in 1824 by
+Berzelius.</ar>
+</xdxf>
