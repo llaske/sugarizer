@@ -79,5 +79,7 @@
 	opacity:1.0;
 }
 .switch_icon{
-	height:20px;
+//	height:20px;
+	width:100px;
+	font-size:16px;
 }
