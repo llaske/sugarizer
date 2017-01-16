@@ -75,7 +75,7 @@ Sugarizer Server features include:
 
 ##Running the server using Docker
 
-To run your own Sugarizer Server with a single command line using Docker and Docker Compose:
+To run your own Sugarizer Server with a few command lines using Docker and Docker Compose:
 
 **Install Docker and Docker Compose on Ubuntu**
 
@@ -92,6 +92,7 @@ You can	find more details about	the installation of **Docker Compose** [here](ht
 
 After that, go to the sugarizer folder and launch
 
+      sh generate-docker-compose.sh
       docker-compose up -d
 
 Your Sugarizer server will start automatically and will be accessible on http://127.0.0.1 and your public IP. The database will be persisted inside the folder docker/db

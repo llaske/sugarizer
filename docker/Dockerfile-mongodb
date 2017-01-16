@@ -1,3 +1,2 @@
-FROM mongo:3.3
-
+FROM mikkl/multiarch-mongodb:amd64
 CMD mongod
