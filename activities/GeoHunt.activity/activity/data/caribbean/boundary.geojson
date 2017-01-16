@@ -1,0 +1,16 @@
+{
+	"type": "Feature", 
+	"properties": {
+		"NAME": "Caribbean", 
+		"AREA": 0,
+		"ymax": 27, "xmax": -54, "xmin": -90, "ymin": 0, 
+		"POP2005": 0,
+		"color":"#fff",
+		"fill":"rgba(0,0,0,0.)",
+		"width":2
+	},
+	"crs": {"type": "EPSG", "properties": {"code": "4326"}}, 
+	"totalFeatures": 1, 
+	"type": "Feature", 
+	"geometry": {"type": "MultiPolygon", "coordinates": [[[[-90,0],[-90,28],[-53,28],[-53,0],[-90,0]]]]}
+}

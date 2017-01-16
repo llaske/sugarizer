@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"apoteri",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-58.584,4.035]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Apoteri","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

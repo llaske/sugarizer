@@ -29,4 +29,5 @@
 	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.MakeItTrueActivity", "name": "MakeItTrue", "version": 1, "directory": "activities/MakeItTrue.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.TuxMathScrabbleActivity", "name": "TuxMathScrabble", "version": 1, "directory": "activities/TuxMathScrabble.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.GeoHuntActivity", "name": "GeoHunt", "version": 1, "directory": "activities/GeoHunt.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
 ]

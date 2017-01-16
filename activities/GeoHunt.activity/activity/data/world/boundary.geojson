@@ -1,0 +1,19 @@
+{
+    "type": "Feature", 
+    "properties": {
+        "NAME": "World", 
+        "AREA": 9999,
+        "ymax": 80, "xmax": -180, "xmin": -180, "ymin": -80, 
+        "POP2005": 9999,
+        "color":"#ff0",
+        "fill":"rgba(0,255,0,0.1)",
+        "width":0
+    },
+    "crs": {"type": "EPSG", "properties": {"code": "4326"}}, 
+    "totalFeatures": 1, 
+    "type": "Feature", 
+    "geometry": {
+        "type": "MultiPolygon", 
+        "coordinates": [[[ [-180,-89],[-180,89],[180,89],[180,-89],[-180,-89] ]]]
+    }
+}
