@@ -468,12 +468,13 @@ enyo.kind({
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
-		this.hideActivityPopup(activity);
+		this.getPopup().hidePopup()
 		util.vibrate();
 		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
 	},
 	runNewActivity: function(activity) {
 		// Start a new activity instance
+		this.getPopup().hidePopup()
 		util.vibrate();
 		preferences.runActivity(activity, null);
 		this.postRunActivity();
