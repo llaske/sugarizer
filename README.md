@@ -86,6 +86,8 @@ Install Docker Compose
 	curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
 	  chmod +x /usr/local/bin/docker-compose
 
+To install Docker Compose on ARM architectures (e.g. for the Raspberry Pi 3), the link above will not work.  You need to use [arm-compose](https://github.com/hypriot/arm-compose) instead.
+
 You can find more details about the installation of **Docker** [here](https://docker.github.io/engine/installation/)
 
 You can	find more details about	the installation of **Docker Compose** [here](https://docs.docker.com/compose/install/)
