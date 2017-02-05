@@ -86,10 +86,9 @@ enyo.kind({
 		// Set item in the template
 		var activitiesList = this.activities;
 		if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native") {
-			inEvent.item.$.activity.setIcon({isNative:true, icon:activitiesList[inEvent.index].icon});
-		} else {
-			inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
+			activitiesList[inEvent.index].isNative = true;
 		}
+		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
@@ -106,7 +105,7 @@ enyo.kind({
 	onscroll: function(inSender, inEvent) {
 		var scrollBounds = inEvent.scrollBounds;
 		var currentCount = this.$.activityList.get("count");
-		if (app.getToolbar().getSearchText().length == 0 && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
+		if (app.getToolbar().getSearchText().length == 0 && scrollBounds && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.listStepCount, this.activities.length);
 			humane.log(l10n.get("Loading"));
 			this.$.activityList.set("count", length, true);
@@ -136,6 +135,7 @@ enyo.kind({
 	runNewActivity: function(activity) {
 		// Start a new activity instance
 		util.vibrate();
+		this.$.activityPopup.hidePopup();
 		preferences.runActivity(activity, null);
 	},
 
