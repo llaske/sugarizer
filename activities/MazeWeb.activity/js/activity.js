@@ -207,7 +207,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
                 }
             }
 
-            drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
+            drawPlayerFace(ctx, maze.startPoint.x, maze.startPoint.y, "red");
             drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
 
             for (control in players) {
