@@ -1,0 +1,6 @@
+[Activity]
+name = ColorMyWorld
+activity_version = 1
+bundle_id = org.sugarlabs.ColorMyWorldActivity
+exec = sugar-activity-web
+icon = activity-icon

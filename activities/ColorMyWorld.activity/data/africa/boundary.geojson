@@ -1,0 +1,18 @@
+
+{
+	"type": "Feature",
+	"properties": {
+		"NAME": "Africa",
+		"AREA": 0,
+		"xmin":-25.36, "ymin":-46.97, "xmax": 63.50, "ymax": 37.54,
+		"POP2005": 867791038,
+		"color":"#fff",
+		"fill":"rgba(0,0,0,0.)",
+		"width":2
+	},
+	"crs": {"type": "EPSG", "properties": {"code": "4326"}},
+	"totalFeatures":53,
+	"type": "Feature",
+	"geometry": {"type": "MultiPolygon", "coordinates": [[[[-25.36,-46.97],[-25.36, 37.54],[ 63.50, 37.54],[ 63.50,-46.97],[-25.36,-46.97]]]]}
+}
+	

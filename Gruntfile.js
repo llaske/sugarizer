@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 					'activities/Calculate.Activity/**/*.js',
 					'activities/ChatPrototype.Activity/**/*.js',
 					'activities/Clock.Activity/**/*.js',
+					'activities/ColorMyWorld.Activity/**/*.js',
 					'activities/Cordova.Activity/**/*.js',
 					'activities/Etoys.Activity/**/*.js',
 					'activities/FoodChain.Activity/**/*.js',

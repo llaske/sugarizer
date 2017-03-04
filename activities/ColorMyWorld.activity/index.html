@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>ColorMyWorld</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/roll_up_div.css">
+<link rel="stylesheet" href="css/controls.css">
+<link rel="stylesheet" href="css/libnotify.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+
+
+</head>
+
+<body>
+<!--
+<div id="control_panel" class="control_panel">
+</div>
+-->
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="ColorMyWorld Activity"></button>
+<!--
+  <button class="toolbutton" id="filter-button" title="Filter"></button>
+-->
+	<button class="toolbutton" id="mode-button" title="Mode"></button>
+  <button class="toolbutton" id="color-button" title="Color"></button>
+  <button class="toolbutton" id="run-button" title="Play"></button>
+
+	<div id="persistent_title_div"></div>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+
+	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!--
+<div id="control_panel" class="control_panel hhide">
+	<div id="tb" class="tb">
+		<img id="tb_arrow" src="img/arrow-lt.png" class="tb_arrow"/>
+	</div>
+	<table width="100%">
+	<tr><td class="cpcell">
+	<div class="cpbutton" id="select-mode-button" title="Select Mode"></div>
+	</td><td>
+	<div class="cplabel" id="select-mode-label">Mode: Tour</div>
+	</td></tr>
+	<tr><td class="cpcell">
+	<div class="cpbutton" id="select-region-button" title="Select Region"></div>
+	</td><td>
+	<div class="cplabel" id="select-region-label">Region: Africa</div>
+	</td></tr>
+	</table>
+</div>
+-->
+
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+  <!-- Replace this message with your own content -->
+	<div id="cmw_bg"></div>
+
+</div>
+
+</body>
+
+</html>

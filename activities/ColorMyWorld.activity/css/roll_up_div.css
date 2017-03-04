@@ -1,0 +1,35 @@
+.roll_up_div{
+	text-align:center;
+	font-weight:bold;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+.roll_up_icon_cell{
+	width:25px;
+	text-align:center;
+}
+.roll_up_icon{
+	height:17px;
+	transition: transform 0.3s ease;
+}
+.roll_up_icon.up{
+	transform:rotate(180deg);
+}
+.roll_up_label{
+	color:#FFFFFF;
+	font-size:14pt;
+	font-weight:bold;
+}
+.rollup_constrained_height{
+	position:relative;
+	text-align:center;
+	height:200px;
+	overflow:auto;
+}
+.rollup{
+	position:relative;
+	text-align:center;
+	overflow:hidden;
+}

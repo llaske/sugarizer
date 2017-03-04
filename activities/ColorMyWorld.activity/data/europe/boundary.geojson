@@ -1,0 +1,18 @@
+
+{
+	"type": "Feature",
+	"properties": {
+		"NAME": "Europe",
+		"AREA": 0,
+		"xmin":-31.29, "ymin": 27.64, "xmax": 40.18, "ymax": 71.16,
+		"POP2005": 516108988,
+		"color":"#fff",
+		"fill":"rgba(0,0,0,0.)",
+		"width":2
+	},
+	"crs": {"type": "EPSG", "properties": {"code": "4326"}},
+	"totalFeatures":46,
+	"type": "Feature",
+	"geometry": {"type": "MultiPolygon", "coordinates": [[[[-31.29, 27.64],[-31.29, 71.16],[ 40.18, 71.16],[ 40.18, 27.64],[-31.29, 27.64]]]]}
+}
+	
