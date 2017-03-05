@@ -1,7 +1,7 @@
 {
   "name": "Sugarizer",
   "launch_path": "/index.html",
-  "version": "0.8",
+  "version": "0.9",
   "developer": {
     "name": "Lionel Laské for OLPC France",
     "url": "http://sugarizer.org"
