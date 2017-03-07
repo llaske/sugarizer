@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"linden",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-58.301659,6.011052]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Linden","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

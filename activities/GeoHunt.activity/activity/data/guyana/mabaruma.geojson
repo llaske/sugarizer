@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"mabaruma",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-59.778,8.192]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Mabaruma","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

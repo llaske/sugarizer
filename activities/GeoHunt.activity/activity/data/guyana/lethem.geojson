@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"lethem",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-59.796181,3.376533]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Lethem","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

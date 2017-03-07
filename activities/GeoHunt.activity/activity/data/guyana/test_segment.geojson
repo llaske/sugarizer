@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"line_test",
+			"geometry":{
+				"type":"LineString",
+				"coordinates":[[-60.0,7.4],[-57.5,2.1]]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"TestSegment"}
+		}
+	]
+}

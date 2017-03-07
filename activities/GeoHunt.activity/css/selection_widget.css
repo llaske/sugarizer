@@ -1,0 +1,49 @@
+.selection_widget {
+    position: relative;
+    display: inline-block;
+
+    min-width: 125px;
+    border: 1px solid teal;
+
+    text-align: center;
+	background-color:#333333;
+}
+
+.selection_widget .active {
+    padding: 5px;
+}
+
+.selection_widget .active:hover{
+    cursor: pointer;
+}
+
+.selection_widget img {
+    position: absolute;
+    right: 7px;
+    top: 5px;
+	width:12px;
+}
+
+.selection_widget .choices {
+    position: absolute;
+    display: none;
+	
+    left: -1px;
+    top: 100%;
+
+    border: 1px solid teal;
+    border-top: none;
+    min-width: 125px;
+
+    cursor: pointer;
+	z-index:9999999999;
+	background-color:inherit;
+}
+
+.selection_widget .choices.is-shown {
+    display: block;
+}
+
+.selection_widget .choices .option {
+    padding: 7px;
+}

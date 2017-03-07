@@ -1,0 +1,6 @@
+[Activity]
+name = Echo Activity
+activity_version = 1
+bundle_id = org.sugarlabs.EchoActivity
+exec = sugar-activity-web
+icon = activity-icon

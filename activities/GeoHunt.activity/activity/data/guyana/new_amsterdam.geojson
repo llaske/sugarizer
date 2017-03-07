@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"new_amsterdam",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-57.513299,6.239238]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"New Amsterdam","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

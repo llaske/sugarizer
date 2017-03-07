@@ -1,0 +1,60 @@
+<html>
+	<head>
+	
+	<title>CSS SLIDE</title>
+	<meta charset="UTF-8">
+	
+	<style type="text/css">
+		html,body{
+			background:#333333;
+		}
+		.control_panel{
+			position:fixed;
+			height: 100%;
+			width: 100%;
+			left: -100%;
+			z-index: 10;
+			top:0px;
+			background-color: teal;
+			-webkit-transition: left 0.75s ease;
+			transition: left 0.75s ease;
+			opacity:0.8;
+	<script src="../js/jquery.js"></script>	
+		.control_panel.show{
+			left: 0;
+		}
+		.show_button{
+			width:40px;
+			height:30px;
+			background:orange;
+			color:navy;
+			top:200px;
+			position:relative;
+		}
+	</style>
+	
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript">
+		var DEBUG=false;
+		var init=function(){
+			$(".control_panel").click(function(e){
+				$(".control_panel").toggleClass("show");
+				if(DEBUG)console.log(e);
+			});
+			$(".show_button").click(function(e){
+				$(".control_panel").toggleClass("show");
+				if(DEBUG)console.log(e);
+			});
+		}
+		
+	</script>
+	
+	</head>
+	<body onload="init()">
+		<center>
+		<div class="show_button"><b>Show</b></div>
+		</center>
+		<div id="control_div" class="control_panel">
+		</div>
+	</body>
+</html>

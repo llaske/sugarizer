@@ -26,5 +26,9 @@
 	{"id": "org.laptop.WelcomeWebActivity", "name": "WelcomeWeb", "version": 1, "directory": "activities/WelcomeWeb.activity", "icon": "activity/welcome-activity.svg", "favorite": true, "activityId": null},
 	{"id": "org.squeak.EtoysActivity", "name": "Etoys", "version": 2, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
 	{"id": "io.cordova.all_in_one_plugin_sample", "name": "Cordova", "version": 1, "directory": "activities/Cordova.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
-	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
+	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
+	{"id": "org.sugarlabs.MakeItTrueActivity", "name": "MakeItTrue", "version": 1, "directory": "activities/MakeItTrue.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.TuxMathScrabbleActivity", "name": "TuxMathScrabble", "version": 1, "directory": "activities/TuxMathScrabble.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.GeoHuntActivity", "name": "GeoHunt", "version": 1, "directory": "activities/GeoHunt.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.EchoActivity", "name": "Echo", "version": 1, "directory": "activities/Echo.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
 ]
