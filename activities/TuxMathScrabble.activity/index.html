@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>TuxMathScrabble Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css">
+
+<script src="js/jquery-1.4.4.js"></script>
+<script src="js/jquery.mobile-1.4.4.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+
+<script type="text/javascript" src="./js/tuxmathscrabble.js"></script>
+<script type="text/javascript" src="./js/util.js"></script>
+<script type="text/javascript" src="./js/spot.js"></script>
+<script type="text/javascript" src="./js/board.js"></script>
+<script type="text/javascript" src="./js/tile.js"></script>
+<script type="text/javascript" src="./js/actor.js"></script>
+<script type="text/javascript" src="./js/player.js"></script>
+<script type="text/javascript" src="./js/tmssolver.js"></script>
+<script type="text/javascript" src="./js/validator.js"></script>
+<script type="text/javascript" src="./js/timer.js"></script>
+<script type="text/javascript" src="./js/maneuvers.js"></script>
+
+
+<script type="text/javascript">
+function decode(str) {
+	var div = document.createElement('div');
+	div.innerHTML = str ;
+	var decoded=str;
+	try{
+		decoded = div.firstChild.nodeValue;
+	}
+	catch(e){;}
+	return decoded ;
+}
+window.rebuild_menus=function(){
+	var navigation_menu_div=document.getElementById("navigation_menu_div");
+	navigation_menu_struct=JSON.parse(decode("{{navigation_menu_struct}}"));
+	var icon_side=14;
+	var font_size=18;
+	if(window.innerWidth<600){
+		icon_side=10;
+		font_size=12;
+	}
+	if(window.innerWidth<400){
+		icon_side=8;
+		font_size=10;
+	}
+	var html="<table>";
+	for(var kidx=0;kidx<navigation_menu_struct['keys'].length;kidx++){
+		var key=navigation_menu_struct['keys'][kidx];
+		html+="<tr><td>";
+		html+="<img src='"+navigation_menu_struct[key]['icon']+"' width='"+icon_side+"' height='"+icon_side+"'/>";
+		html+="</td><td style='text-align:left'>";
+		html+="<a href='"+navigation_menu_struct[key]['href']+"' style='font-size:"+font_size+"pt;'>";
+		html+=navigation_menu_struct[key]['value'];
+		html+="</a>";
+		html+="</td></tr>";
+
+	}
+	html+="</table>";
+	navigation_menu_div.innerHTML=html;
+}
+
+window.bg_imgs=['activity/paris_night.jpg','activity/Wave-1500x844.jpg','activity/Beach-1280x800.jpg','activity/blue-tux-1600x1200.jpg','activity/bg-484285.jpg','activity/gray.jpg',];
+window.bg_img_name=window.bg_imgs[0];
+window.rhs_expanded=false;
+window.L_IFACE_BUTTON=30;//overridden @tuxmathscrabble.js function=make_slide_panel0()
+window.vbtw=null;//vertical button table width
+window.NAVBAR_HEIGHT=60;//overwrite below
+window.BORDER=1;//1 or 2 depending on device.  1 for phones (1px thin border) , 2 for laptops.
+window.slide_panels=null;
+
+window.logo_img=new Image();
+window.logo_img.src='./activity/asymptopia-logo-2015-270x100-rv-bg.png';
+window.logo_img.className="ui-corner-all";
+
+window.TOUCH_FLAG=false
+window.x0=window.y0=0;
+window.lastX=window.lastY=0;
+window.last_touch_spot=null;
+
+window.MODE=0;//0=RR,1=RH,2=HR,3=HH where R=Robot, H=Human
+window.AMSTUCK=0;
+window.CLONES=null;
+window.CONTAINER_SURF=null;
+window.MANEUVER_IN_PROGRESS=false;
+window.ANIMATIONS=false;
+
+window.OSNAME="Unknown OS";
+if(navigator.appVersion.indexOf("Win")!=-1)window.OSNAME="Windows";
+if(navigator.appVersion.indexOf("Mac")!=-1)window.OSNAME="MacOS";
+if(navigator.appVersion.indexOf("X11")!=-1)window.OSNAME="UNIX";
+if(navigator.appVersion.indexOf("Linux")!=-1)window.OSNAME="Linux";
+
+window.DEBUG="";
+window.DEBUG_SOLVER="";
+window.collect_button_div=null;
+window.T=35;
+window.tile_fontsize="18px";
+window.subscript_fontsize="10px";//these get overwritten on resacle at load()
+window.S=30;
+//var dhdS=10.;
+//var dh=window.innerHeight-787.;
+//var dS=dh/dhdS;
+//window.S+=parseInt(dS);
+
+window.NR=9;//9;//13
+window.NC=13;//13;//17
+window.NN=7;//NUMBERS
+window.NO=4;//OPERATORS
+window.NE=1;//EQUALS
+window.NUMBERS=[
+{"name":"one","uchar":"1","ukey":"1.0","pts":"2"},{"name":"two","uchar":"2","ukey":"2.0","pts":"2"},{"name":"three","uchar":"3","ukey":"3.0","pts":"2"},
+{"name":"four","uchar":"4","ukey":"4.0","pts":"3"},{"name":"five","uchar":"5","ukey":"5.0","pts":"3"},{"name":"six","uchar":"6","ukey":"6.0","pts":"3"},
+{"name":"seven","uchar":"7","ukey":"7.0","pts":"4"},{"name":"eight","uchar":"8","ukey":"8.0","pts":"4"},{"name":"nine","uchar":"9","ukey":"9.0","pts":"4"},
+{"name":"ten","uchar":"10","ukey":"10.0","pts":"5"},{"name":"eleven","uchar":"11","ukey":"11.0","pts":"5"},{"name":"twelve","uchar":"12","ukey":"12.0","pts":"5"},
+{"name":"thirteen","uchar":"13","ukey":"13.0","pts":"6"},{"name":"fourteen","uchar":"14","ukey":"14.0","pts":"6"},{"name":"fifteen","uchar":"15","ukey":"15.0","pts":"6"},
+{"name":"sixteen","uchar":"16","ukey":"16.0","pts":"7"},{"name":"seventeen","uchar":"17","ukey":"17.0","pts":"7"},{"name":"eighteen","uchar":"18","ukey":"18.0","pts":"7"},
+{"name":"nineteen","uchar":"19","ukey":"19.0","pts":"8"},{"name":"twenty","uchar":"20","ukey":"20.0","pts":"8"}
+];
+window.OPERATORS=[
+[{"name":"plus","uchar":"&#43","ukey":"+","pts":"5"}],
+[{"name":"plus","uchar":"&#43","ukey":"+","pts":"5"},{"name":"minus","uchar":"&#45","ukey":"-","pts":"7"}],
+[{"name":"plus","uchar":"&#43","ukey":"+","pts":"5"},{"name":"minus","uchar":"&#45","ukey":"-","pts":"7"},{"name":"times","uchar":"&#215","ukey":"*","pts":"9"}],
+[{"name":"plus","uchar":"&#43","ukey":"+","pts":"5"},{"name":"minus","uchar":"&#45","ukey":"-","pts":"7"},{"name":"times","uchar":"&#215","ukey":"*","pts":"9"},{"name":"divide","uchar":"&#247","ukey":"/","pts":"12"}],
+];
+window.EQUAL="&#61";
+window.EQUAL_PTS="2";
+
+window.PLAYERS=null;
+window.TILES=[];//just for debugging ... who got tapped/dragged/etc
+
+window.THE_TMS_INSTANCE=null;
+window.PLAYER_IDX=0;
+
+window.STATUS="Initializing";
+
+window.MAX_NUMS=[10,12,15,20];
+window.TIMER=new Timer();
+window.SOLVER=1;
+window.SAMPLE_THRESHOLD=1800;
+window.FORCE_OPERATORS=0.2;
+window.NUM_SHUFFLE=15;
+window.SUBSCRIPT_TOP="-10px";
+window.SUBSCRIPT_LEFT="5px";
+window.PLAYER1="robot";//"{{player1}}";
+window.PLAYER2="robot";//"{{player2}}";
+window.LAST_SPOT_ID=null;
+x0s=[375,410];
+y0s=[75,550];
+
+window.ACTOR_X0S=new Array();
+for(var i=0;i<x0s.length;i++)ACTOR_X0S.push(parseInt(x0s[i]));
+window.ACTOR_Y0S=new Array();
+for(var i=0;i<y0s.length;i++)ACTOR_Y0S.push(parseInt(y0s[i]));
+
+window.THRESHOLD=150;
+window.TUXFACTOR=4;
+var level="IV";
+var LEVELS={"I":1,"II":2,"III":3,"IV":4};
+window.LEVEL=LEVELS[level];
+
+window.CREDITS=1800;
+window.CONGRATULATIONS="Congratulations";
+window.ASSIGNMENT_ID=3;
+window.USER_AGENT="{{user_agent}}";
+
+
+window.CL=true;
+
+window.get_points=function(str){
+for(var nidx=0;nidx<window.NUMBERS.length;nidx++){
+	if(window.NUMBERS[nidx]['ukey']==str){
+		log("get_points: "+str+" "+window.NUMBERS[nidx]['pts']);
+		return parseInt(window.NUMBERS[nidx]['pts']);
+	}
+}
+for(var nidx=0;nidx<window.OPERATORS[3].length;nidx++){
+	if(window.OPERATORS[3][nidx]['ukey']==str){
+		log("get_points: "+str+" "+window.OPERATORS[3][nidx]['pts']);
+		return parseInt(window.OPERATORS[3][nidx]['pts']);
+	}
+}
+if(str=="="){
+	log("get_points: "+str+" "+window.EQUAL_PTS);
+	return parseInt(window.EQUAL_PTS);
+}
+return 0;
+}
+
+window.onorientationchange=window.onload=window.onresize=function(e){
+//set sizes belonging to this file here:
+var bg=document.getElementById("background_div");
+var content=document.getElementById("content_div");
+
+bg.style.width=window.innerWidth+"px";
+bg.style.height=window.innerHeight-window.NAVBAR_HEIGHT+"px";
+content.style.width=window.innerWidth+"px";
+content.style.height=window.innerHeight-window.NAVBAR_HEIGHT+"px";
+
+//	window.rebuild_menus();
+
+try{window.THE_TMS_INSTANCE.rescale_interface();}
+catch(e){}
+}
+
+window.template_debug_pyld_obj={
+"keys":["tap","tile","xy0","tileXY","lastXY","spot","pyld","errors","more"],
+"tap":"",
+"tile":"",
+"xy0":"",
+"tileXY":"",
+"lastXY":"",
+"spot":"",
+"pyld":"",
+"errors":"",
+"more":"<br>",
+"x0":"",//internal use only (ie not in keys)
+"y0":"",//internal use only
+};
+
+window.touch_report=function(){
+msg="";
+for(var kidx=0;kidx<window.debug_pyld_obj.keys.length;kidx++){
+	key=window.debug_pyld_obj.keys[kidx];
+	val=window.debug_pyld_obj[key];
+	msg+=key+": "+val+"<br>";
+}
+//	document.getElementById("debug_panel_tlc").innerHTML=msg;
+//	window.debug_pyld_obj["more"]="";
+}
+
+
+
+$(document).ready(function(){
+window.remake_tms();
+});
+window.remake_tms=function(){
+
+var bg_div=document.getElementById("background_div");
+bg_div.style.width=window.innerWidth+"px";
+bg_div.style.height=window.innerHeight-window.NAVBAR_HEIGHT+"px";
+bg_div.style.backgroundImage="url("+window.bg_img_name+")";
+
+document.getElementById("content_div").innerHTML="";
+window.THE_TMS_INSTANCE=null;
+
+window.THE_TMS_INSTANCE=new TuxMathScrabble();
+
+window.THE_TMS_INSTANCE.init();
+
+$(window).resize();
+
+window.STATUS="Ready";
+window.THE_TMS_INSTANCE.render_status();
+
+
+//	window.RUNNING=true;
+
+//	window.THE_TMS_INSTANCE.start();
+
+}
+</script>
+
+
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="TuxMathScrabble Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas" class="content">
+
+	<div id="background_div" class="background" data-role="page" data-theme="b">
+		<center>
+		<div id="content_div" class="content"></div>
+		</center>
+	</div>
+
+
+<!--INSTRUCTIONS-OVERLAY-->
+<div data-role="page" data-dialog="true" id="instructions_overlay">
+
+  <div data-role="header">
+    <h1>Instructions</h1>
+  </div>
+
+	<center>
+    <a href="http://www.asymptopia.org" target="_blank">
+		<div class="ui-corner-all" style="background:#1d1d1d;">
+    <img src="./activity/aorg-logo-2015-202x75-rv.png" align="center"/>
+	</div>
+	</a>
+	</center>
+
+  <div data-role="main" class="ui-content">
+
+	 <center>
+	 <h3>Settings</h3>
+	 </center>
+
+	 <ul>
+	 	<li> There are four parameters to control
+	 	<li> Level (I-IV) affects number ranges and operators
+		<li> Level 1 = Lower numbered tiles and only add/subtraction
+		<li> Level 4 = Numbers up to 19, multiplication and division
+		<li> Goal: First, this new version of TuxMathScrabble was developed for integration into a new product that
+			will be available soon, and many of the features of the new product remain in the version served from
+			Asymptopia Software's main website.  Goal and Credits are two concepts from the new system and not really
+			applicable here.  However, the Goal is the number of points you must reach in order to unlock the credits (gold button on left).
+		<li> TuxFactor (1-4) This controls the complexity of Tux's moves.  TuxFactor=4 is most complex.
+		<li> Credits: This is the points threshold at which credits become unlocked for transfer.  This concept only applies to the
+			new (not yet released) product.
+	</ul>
+
+	 <h3>Instructions</h3>
+	 </center>
+	 <ul>
+		<li> The game loads in Mode 0, Robot-Robot, or "Demo Mode".  Push "Start Demo" for Mode 0.
+		<li> Pushing "Play Game" will change from Mode 0 to Mode 1, Robot-Human, unless another Mode has already been set.
+	 	<li> The top player (Player 1) always goes first.
+		<li> In Demo Mode, the computer automatically moves at first move, but for future moves you must push the "make move" button
+		for Player 1, yourself, so that you can witness the move.
+		<li> The concept of "Winning" is not really emphasized, nor implemented.
+		<li> In Demo Mode the game will reset after 3 unsuccessful attmpts to move.
+		<li> Modes 2 -4 you, the player, must reset when you can no longer move.
+		<li> Consider setting a goal, such as "Reach 200 pts in Level 4", accompanied by some reward.
+	 </ul>
+  </div>
+
+
+  <div data-role="footer" style="text-align:center;">
+		<h1>TuxMathScrabble</h1>
+  </div>
+</div>
+
+
+
+<!--SETTINGS-OVERLAY-->
+<div data-role="page" data-dialog="true" id="settings_overlay">
+
+  <div data-role="header">
+    <h1>Settings</h1>
+  </div>
+
+    <center>
+    <a href="http://www.asymptopia.org" target="_blank">
+		<div class="ui-corner-all" style="background:#1d1d1d;">
+    		<img src="./activity/aorg-logo-2015-202x75-rv.png" align="center"/>
+		</div>
+	</a>
+    </center>
+
+  <div data-role="main" class="ui-content" id="new_settings_div" style="width:100%;text-align:center;">
+	<script>make_settings()</script>
+  </div>
+
+	<center>
+    <a href="http://www.asymptopia.org" target="_blank">
+		<div style="background:#3a68c4;">
+		</div>
+	</a>
+	</center>
+  <div data-role="footer" style="text-align:center;">
+		<h1>Settings</h1>
+  </div>
+</div>
+
+
+
+<!--ABOUT-OVERLAY-->
+<div data-role="page" data-dialog="true" id="about_overlay">
+  <div data-role="header">
+    <h1>TuxMathScrabble</h1>
+  </div>
+
+	<center>
+    <a href="http://www.asymptopia.org" target="_blank">
+<div class="ui-corner-all" style="background:#1d1d1d;">
+    <img src="./activity/aorg-logo-2015-202x75-rv.png" align="center"/>
+	</div>	</a>
+	</center>
+
+  <div data-role="main" class="ui-content">
+		<center>For Millie and Jordan<br> and <br>* Kids * Everywhere *<br><br>by<br>Charles B. Coss&eacute<br><br>First Release: January 2001<br>This Release: June 14 2015</center>
+  </div>
+	<center>
+    <a href="http://www.asymptopia.org" target="_blank">
+		<div style="background:#3a68c4;">
+
+		</div>
+	</a>
+	</center>
+  <div data-role="footer" style="text-align:center;">
+		<h1>TuxMathScrabble</h1>
+  </div>
+</div>
+
+
+<!--ALGORITHM-OVERLAY-->
+<div data-role="page" data-dialog="true" id="debug_overlay">
+  <div data-role="header">
+    <h1>Algorithm Grid</h1>
+  </div>
+
+	<center>
+    <a href="http://www.asymptopia.org" target="_blank">
+		</a>
+	</center>
+  <div data-role="footer" style="text-align:center;">
+		<h1>Algorithm Grid</h1>
+  </div>
+</div>
+
+</div>
+
+<center>
+  <span style='text-shadow:none;font-family:Mickey;font-size:12pt;color:#00FF42;'>TuxMathScrabble</span>
+</center>
+
+</body>
+
+</html>

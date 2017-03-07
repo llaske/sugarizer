@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html lang="en">
+<head>
+
+    <title>SlidePanel</title>
+	<meta charset="UTF-8">
+<style type="text/css">
+	body{margin:0px;}
+	table{cell-padding:0;cell-spacing:0;border-collapse:collapse;border-spacing:0px;}
+	div.background_div{text-shadow:none;background:url('{{bg_img}}');background-size:cover;background-repeat:no-repeat;}
+	div.lbd{text-shadow:none;background:orange;width:100%;}
+	
+	div.lhs{position:absolute;left:0px;width:100%;background:red;color:white;opacity:0.5;}
+	div.rhs{position:absolute;left:0px;width:100%;background:blue;color:white;opacity:0.5;}
+	
+</style>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../css/jquery.mobile-1.4.4.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.mobile-1.4.4.js"></script>
+
+
+<script type="text/javascript">
+
+	window.rhs_expanded=false;
+	window.bg_img=new Image();
+	window.bg_img.src="{{bg_img}}";
+	window.vbtw=null;//vertical button table width
+	window.TMS=null;
+	window.W2_BUTTONS=70;
+	window.H2_HEADERS=28;
+	window.onorientationchange=window.onload=window.onresize=function(e){
+		remake_interface();
+	}
+
+remake_interface=function(){
+	tms_table=document.getElementById("tms_table");
+	tms_table.style.height=window.innerHeight+"px";
+	lbd=document.getElementById("landscape_background_div");
+	lbd.style.height=parseInt(window.innerHeight-window.H2_HEADERS)+"px";
+	lbd.style.width=(window.innerWidth-window.W2_BUTTONS)+"px";
+	
+	var lhs_panel=document.getElementById("lhs_panel");
+	var rhs_panel=document.getElementById("rhs_panel");
+	$("#lhs_panel").hide();
+	$("#rhs_panel").hide();
+	
+	lhs_panel=lhs_panel.parentNode.removeChild(lhs_panel);
+	rhs_panel=rhs_panel.parentNode.removeChild(rhs_panel);
+	window.rhs_expanded=false;
+	
+	var lhsbt=document.getElementById("lhs_button_table");
+	lhsbt=lhsbt.parentNode.removeChild(lhsbt);
+	document.getElementById("c00").appendChild(lhsbt);
+
+	var rhsbt=document.getElementById("rhs_button_table");
+	rhsbt=rhsbt.parentNode.removeChild(rhsbt);
+	document.getElementById("c02").appendChild(rhsbt);
+	
+	var lbdr=lbd.getBoundingClientRect();
+	lhs_panel.style.top=lbdr.top+"px";
+	lhs_panel.style.left=lbdr.left+"px";
+	lhs_panel.style.width=lbdr.width+"px";
+	lhs_panel.style.height=lbdr.height+"px";
+	document.getElementById("c01").appendChild(lhs_panel);
+	
+	rhs_panel.style.top=lbdr.top+"px";
+	rhs_panel.style.left=(lbdr.left+lbdr.width)+"px";
+	rhs_panel.style.width=lbdr.width+"px";
+	rhs_panel.style.height=lbdr.height+"px";
+	document.getElementById("c01").appendChild(rhs_panel);
+	
+	$("#background_div").trigger("create"); 
+}
+window.animate_rhs_panel=function(){
+	
+	var bgd=document.getElementById("background_div");
+	var bd=document.getElementById("landscape_background_div");
+	var bdr=bd.getBoundingClientRect();
+	
+	var rhsr=rhs_panel.getBoundingClientRect();
+	var dx;
+	if(window.rhs_expanded==true){
+		dx="+="+bdr.width+"px";
+		window.rhs_expanded=false;
+	}
+	else if(window.rhs_expanded==false){
+		dx="-="+bdr.width+"px";
+		window.rhs_expanded=true;
+	}
+	$("#rhs_panel").animate({
+		left:dx,width:'toggle'
+	},1000,function(){});
+	
+}
+$(document).ready(function(){
+	window.vbtw=document.getElementById("c00").clientWidth;
+	
+	var lhs_panel=document.createElement("div");
+	lhs_panel.id="lhs_panel";
+	lhs_panel.className="lhs";
+	document.getElementById("c01").appendChild(lhs_panel);
+	
+	$("#lhs_panel").hide();
+	$("#lhsB").click(function(){
+		$("#lhs_panel").animate({
+			width:'toggle'
+		},1000,function(){});
+	});
+	
+	
+	var rhs_panel=document.createElement("div");
+	rhs_panel.id="rhs_panel";
+	rhs_panel.className="rhs";
+
+	document.getElementById("c01").appendChild(rhs_panel);
+	
+	$("#rhs_panel").hide();
+	$("#rhsB").click(function(){
+		window.animate_rhs_panel();
+	});
+	
+	$(window).resize();
+	
+});
+
+</script>
+
+</head>
+
+<body>
+	<div id="background_div" class="background" data-role="page" data-theme="B">
+	
+	<table id="tms_table" style="width:100%;">
+		
+		<tr><td id="header_cell" colSpan="3" style="background:red;">HEADER</td></tr>
+		
+		<tr>
+			<td align="center" id="c00" style="background:yellow;">
+				<table id="lhs_button_table">
+					<tr><td>
+						<input id="lhsB"  type="button" class="ui-btn ui-btn-inline ui-mini ui-corner-all" data-iconpos="notext" data-icon="carat-r" data-mini="true"></input>
+					</td></tr>
+				</table>
+			</td>
+			
+			<td id="c01" style="vertical-align:bottom;background:blue;">
+				<div id="landscape_background_div" class="lbd"></div>
+			</td>
+			
+			<td align="center" id="c02" style="background:yellow;">
+				<table id="rhs_button_table">
+					<tr><td>
+						<input id="rhsB"  type="button" class="ui-btn ui-btn-inline ui-mini ui-corner-all" data-iconpos="notext" data-icon="carat-l" data-mini="true"></input>
+					</td></tr>
+				</table>
+			</td>
+			
+		
+		</tr>
+		
+		<tr><td colSpan="3" id="footer_cell" style="background:red;"></td></tr>
+		
+	</table>
+	
+		
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+[Activity]
+name = MakeItTrue
+activity_version = 1
+bundle_id = org.sugarlabs.MakeItTrueActivity
+exec = sugar-activity-web
+icon = activity-icon

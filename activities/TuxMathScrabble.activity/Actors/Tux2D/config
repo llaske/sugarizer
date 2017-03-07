@@ -1,0 +1,199 @@
+{
+	'preferences':{
+		'name':'Tux2D',
+		'AMLAYER':False,
+		'ENVOBJECT':False,
+		'xc':0,
+		'yc':0,
+		'z': 0,
+		'dx':0,
+		'dy':0,
+	},
+	'sequences':{
+	
+		'standF':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'headTiltL':[
+					{'img':os.path.join(indir,'headTiltL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'headTiltR':[
+					{'img':os.path.join(indir,'headTiltR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standR':[
+					{'img':os.path.join(indir,'standR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standBR':[
+					{'img':os.path.join(indir,'standBR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standBR_tilt':[
+					{'img':os.path.join(indir,'standBR_tilt.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standL':[
+					{'img':os.path.join(indir,'standL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standBL':[
+					{'img':os.path.join(indir,'standBL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standBL_tilt':[
+					{'img':os.path.join(indir,'standBL_tilt.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standF2L':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standL2F':[
+					{'img':os.path.join(indir,'standL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standF2R':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standRF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'standR2F':[
+					{'img':os.path.join(indir,'standR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standRF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'mathLover':[
+					{'img':os.path.join(indir,'mathLover_01.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'mathLover_02.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+				
+		'walkL':[	
+					{'img':os.path.join(indir,'standL.gif'),	'snd':None,'dx':-15,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'walkL.gif'),		'snd':None,'dx':-10,'dy':-7,'z':0},
+					{'img':os.path.join(indir,'walkL_02.gif'),	'snd':None,'dx':-8,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'walkL_02.gif'),	'snd':None,'dx':-10,'dy':+7,'z':0},
+				],
+
+		'walkR':[	
+					{'img':os.path.join(indir,'standR.gif'),	'snd':None,'dx':+15,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'walkR.gif'),		'snd':None,'dx':+10,'dy':-7,'z':0},
+					{'img':os.path.join(indir,'walkR_02.gif'),	'snd':None,'dx':+8,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'walkR_02.gif'),	'snd':None,'dx':+10,'dy':+7,'z':0},
+				],
+		'neckSquash':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'headUpDown':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'neckSquashF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'lookAtBoardR':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standRF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardR.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standRF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'lookAtBoardL':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'lookAtBoardL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'scratch':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'scratch01.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'scratch02.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'scratch01.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+				],
+		'waitBL':[
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standBL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standBL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standBL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standBL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standL.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standLF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+					{'img':os.path.join(indir,'standF.gif'),'snd':None,'dx':+0,'dy':+0,'z':0},
+			],
+	},
+	'maneuvers':{
+				'welcome':	[
+					['standF',-999,5],['mathLover',-999,15],['standF',-999,1],
+				],
+				'get_up':	[
+					['standF2L',-999,3],['walkL', 170,None],['standL2F',-999,3],['standF',-999,1],
+				],
+				'go_back':	[
+					['standF2R',-999,3],['walkR',None,None],['standR2F',-999,3],['standF',-999,1],
+				],
+				'neckSquash':[['standF',-999,1],['neckSquash',-999,11],['standF',-999,1],],
+				'headUpDown':[['standF',-999,1],['headUpDown',-999,5],['standF',-999,1],],
+				'think01':	[
+					['standF',-999,1],['standF2R',-999,3],['standR',-999,1],['standBR',-999,1],
+					['standBR_tilt',-999,5],['standBR',-999,1],['standR2F',-999,3],['standF',-999,1],
+				],
+				'think02':[['lookAtBoardR',-999,8],],
+				'lookAtBoardL':[['lookAtBoardL',-999,8],],
+				'scratch':[['scratch',-999,5],],
+				'waitBL':[['waitBL',-999,10],],
+				'headTiltL':[
+					['standF',-999,1],
+					['headTiltL',-999,1],
+					['headTiltL',-999,1],
+					['headTiltL',-999,1],
+					['headTiltL',-999,1],
+					['headTiltL',-999,1],
+					['standF',-999,1],
+				],
+				'headTiltR':[
+					['standF',-999,1],
+					['headTiltR',-999,1],
+					['headTiltR',-999,1],
+					['headTiltR',-999,1],
+					['headTiltR',-999,1],
+					['headTiltR',-999,1],
+					['standF',-999,1],
+				],
+				'walkoffscreen':[
+					['standF',-999,1],
+					['walkR',1000,None],
+					['walkL',None,None],
+					['standF',-999,1],
+				],
+	},
+	
+	'maneuver_groups':{
+				'welcome':	['welcome',],
+				'get_up':	['get_up',],
+				'go_back':	['go_back',],
+				'thinking':	['think01','think02','scratch',],
+				'waiting':	['neckSquash','headTiltL','headTiltR','neckSquash','lookAtBoardL','neckSquash','scratch','headUpDown','waitBL','walkoffscreen',],
+				'celebrate':	[],
+				'get_tougher':	['headUpDown','neckSquash','scratch',],
+				'correct':	[],
+				'incorrect':	[],
+	},
+	
+}
+
+				

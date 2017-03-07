@@ -1,0 +1,109 @@
+html,body,#map_div{
+	width:100%;
+	height:100%;
+	overflow:auto;
+	position:relative;
+	margin:0;
+	background:#444444;
+}
+
+.ol-zoom{
+	right:5px;
+}
+.gearB{
+	top: 85px;
+	right:5px;
+}
+.playB{
+	top: 125px;
+	right:5px;
+}
+
+.icon{
+	height:17px;
+}
+.icon_cell{
+	width:25px;
+	text-align:center;
+}
+.popup{
+	background:#333333;
+	color:lightgreen;
+	border:3px solid;
+	border-radius:10px;
+	position:absolute;
+	text-align:center;
+
+}
+.info_div{
+	position:absolute;
+	top:0px;
+	width:100%;
+}
+.tooltip-inner {
+	white-space: nowrap;
+}
+
+.splash_div {
+	background:#333333;
+	color:magenta;
+	border:3px solid;
+	border-radius:10px;
+	position:absolute;
+	text-align:center;
+}
+
+      .xtooltip {
+
+        position: relative;
+
+        width: 100px;
+
+        height: 35px;
+
+ 		left:260px;
+
+        text-align: center;
+
+        line-height: 33px;
+
+       
+
+        background-color: #215A6C;
+
+        color: #fff;
+
+        border-radius: 4px;
+
+      }
+
+ 
+
+      .xtooltip::before {
+
+        position: absolute;;
+
+        width: 12px;
+
+        height: 12px;
+
+        left:0px;
+
+        top: 50%;
+
+        margin-top: -6px;
+
+        margin-left: -6px;
+
+        z-index: 9999999999;
+
+        background-color: #215A6C;
+
+        transform: rotate(45deg);
+
+        content: "";
+
+ 
+
+      }
+

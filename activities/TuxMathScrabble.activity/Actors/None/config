@@ -1,0 +1,29 @@
+{
+	'preferences':{
+		'name':'None',
+		'AMLAYER':False,
+		'ENVOBJECT':False,
+		'xc':0,
+		'yc':0,
+		'z': 0,
+		'dx':0,
+		'dy':0,
+	},
+	'sequences':{},
+	'maneuvers':{},
+	
+	'maneuver_groups':{
+				'welcome':	[],
+				'get_up':	[],
+				'go_back':	[],
+				'thinking':	[],
+				'waiting':	[],
+				'celebrate':[],
+				'get_tougher':[],
+				'correct':	[],
+				'incorrect':[],
+	},
+	
+}
+
+				

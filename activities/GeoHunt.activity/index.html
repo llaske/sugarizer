@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>GeoHunt Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-switch.css">
+<link rel="stylesheet" href="css/ol.css" type="text/css">
+<link rel="stylesheet" href="css/selection_widget.css" type="text/css">
+<link rel="stylesheet" href="css/ggmc.css" type="text/css">
+<link rel="stylesheet" href="css/controls.css" type="text/css">
+<link rel="stylesheet" href="css/roll_up_div.css" type="text/css">
+<link rel="stylesheet" href="css/normalize.css" type="text/css">
+
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/ol.js"></script>
+<script src='js/ol.js'></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-switch.js"></script>
+
+<script src="js/util.js"></script>
+<script src="js/ggmc.js"></script>
+<script src="js/config.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/zoom.js"></script>
+<script src="js/gearB.js"></script>
+<script src="js/controls.js"></script>
+<script src="js/checkbox.js"></script>
+<script src="js/map_button.js"></script>
+<script src="js/roll_up_div.js"></script>
+<script src="js/selection_widget.js"></script>
+<script src="js/map.js"></script>
+
+<script type="text/javascript">
+
+	window.map=null;
+	window.app=null;
+	window.area_select=null;
+	var DEBUG=true;
+
+	window.onresize=window.onorientationchange=function(e){
+		if(!window.app)return;
+		window.app.resize();
+	}
+	var initialize=function(e){
+
+		window.app=new GGMC("map_div","control_panel");
+
+		var map_manager=new Map("map_div");
+		map_manager.setup_map();
+
+		window.control_panel=new ControlPanel();
+		window.app.change_areaCB();
+
+		$('.ol-zoom-in, .ol-zoom-out, .gearB, .playB').tooltip({
+				placement: 'left'
+			});
+
+//			splash_screen();
+	}
+</script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="GeoHunt Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+	<div id="control_panel" class="control_panel">
+		<div id="base_cover_panel" class="base_cover_panel"></div>
+	</div>
+	<div id="popout_panel" class="popout_panel"></div>
+	<div id="map_div"></div>
+</div>
+<script>
+	setTimeout("initialize()",1000);
+</script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<html>
+	<head>
+	
+	<title>Drag & Drop</title>
+	<meta charset="UTF-8">
+	<style>
+		.layer_obj{
+			width:250px;
+			height:50px;
+			background:#333333;
+			color:#FFFFFF;
+			text-align:center;
+		}
+		table{
+			background:yellow;
+		}
+		.cell{
+			height:50px;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		
+		window.table=null;
+		window.last_row_idx=null;
+		
+		var make_random_id=function(e){
+			return parseInt(Math.random()*1E9).toString();
+		}
+		var make_random_color=function(){
+			var rval="#";
+			var chars=["0","1","5","6","A","B","C","D","E","F"];
+			for(var dummy=0;dummy<6;dummy++){
+				var cidx=parseInt(Math.random()*chars.length);
+				try{rval+=chars[cidx];}
+				catch(e){rval+="F";}
+			}
+			return rval;
+		}
+		
+		var get_row_idx_by_id=function(idn){
+			var rows=window.table.rows;
+			for(var ridx=0;ridx<rows.length;ridx++){
+				if(rows[ridx].id==idn){
+					return ridx;
+				}
+			}
+		}
+		
+		var downCB=function(e){
+			this_tile=e.target.id;
+			window.last_row_idx=get_row_idx_by_id(e.target.parentNode.parentNode.id);
+			console.log("downCB:"+this_tile+" @ "+window.last_row_id);
+		}
+		
+		var dragCB=function(e){
+			console.log("dragCB "+e.target.id);
+			e.dataTransfer.setData("Text",e.target.id);
+		}
+		
+		var dropCB=function(e){
+			
+			var new_row_id=e.target.parentNode.parentNode.id;
+			var new_row_idx=get_row_idx_by_id(new_row_id);
+			
+			console.log("dropCB: new_row_idx="+new_row_idx);
+			
+			var r=window.table.insertRow(new_row_idx);
+			r.id=make_random_id();
+			
+			var c=r.insertCell(-1);
+			c.id=make_random_id();
+			c.className="cell";
+			
+			e.preventDefault();
+			var data=e.dataTransfer.getData("Text");
+			c.appendChild(document.getElementById(data));
+			c.addEventListener("drop",dropCB,false);
+			c.addEventListener("dragover",allow_dropCB,false);
+
+			console.log(new_row_idx+" "+window.last_row_idx);
+			
+			if(new_row_idx<=window.last_row_idx){
+				console.log("dropCB: new_row_idx<=window.last_row_idx so deleting "+(last_row_idx+1));
+				window.table.deleteRow(last_row_idx+1);
+			}
+			else{
+				console.log("dropCB: new_row_idx>window.last_row_idx so deleting "+(last_row_idx));
+				window.table.deleteRow(last_row_idx);
+			}
+
+			window.last_row_id=null;
+			window.last_row_idx=null;
+			
+		}
+		
+		var allow_dropCB=function(e){
+			console.log("allow_dropCB @ "+e.target.id);
+			e.preventDefault();
+		}
+		var new_layerCB=function(e){
+			var obj=create_layer();
+			take_layer(obj);
+		}
+		var create_layer=function(){
+			var obj=document.createElement("div");
+			obj.className="layer_obj";
+			obj.id=window.table.rows.length+_"+make_random_id();
+			var label_text="Layer:"+obj.id;
+			obj.innerHTML=label_text;
+			obj.style.background=make_random_color();
+			
+			obj.draggable=true;
+			obj.addEventListener("dragstart",dragCB,false);
+			obj.addEventListener("mousedown",downCB,false);
+			return obj;
+		}
+		var take_layer=function(lyr_obj){
+			var r=window.table.insertRow(-1);
+			r.id="row_"+make_random_id();
+			
+			var c=r.insertCell(-1);
+			c.id="cell_"+make_random_id();
+			c.className="cell";
+			
+			c.appendChild(lyr_obj);
+			c.addEventListener("drop",dropCB,false);
+			c.addEventListener("dragover",allow_dropCB,false);
+		}
+		var initialize=function(e){
+			var drag_panel=document.getElementById("drag_panel");
+			window.table=document.createElement("table");
+			for(var ridx=0;ridx<6;ridx++){
+				
+				var obj=create_layer();
+				take_layer(obj);
+				
+			}
+			drag_panel.appendChild(window.table);
+			
+			var newB=document.createElement("input");
+			newB.type="button";
+			newB.value="New Layer";
+			newB.className="layer_obj";
+			newB.addEventListener("click",new_layerCB,false);
+			drag_panel.appendChild(newB);
+		}
+		
+	</script>
+	
+	</head>
+	<body onload="initialize()">
+		<center>
+		<div id="drag_panel" class="drag_panel"></div>
+		</center>
+	</body>
+</html>

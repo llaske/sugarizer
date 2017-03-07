@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"mathewsridge",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-60.126218,7.505810]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Mathews Ridge","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}

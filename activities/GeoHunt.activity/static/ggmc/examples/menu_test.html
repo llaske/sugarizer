@@ -1,0 +1,146 @@
+<html>
+<head>
+
+<meta charset="UTF-8"></meta>
+
+<style type="text/css">
+body{
+	margin:0;
+}
+.background{
+	width:100%;height:100%;
+	background:#AAAAAA;
+}
+.control_panel{
+	position:fixed;
+	overflow:auto;
+	height:100%;width:250px;
+	background:#333333;
+	color:white;
+	text-align:center;
+	left:-250px;
+	transition:left 0.5s ease;
+	
+}
+.control_panel.show{
+	left:0px;	
+}
+.cat_lyrs_div{
+	position:relative;
+	overflow:auto;
+}
+
+
+.arrow{
+	height:17px;
+	width:17px;
+	transition: transform 0.3s ease;
+}
+.arrow.up{
+	transform:rotate(180deg);
+}
+.arrow_cell{
+	height:17px;
+	width:17px;
+}
+.label{
+	color:orange;
+}
+.category_cell{
+	text-align:center;
+}
+.layer_category{
+	font-weight:bold;
+}
+
+</style>
+<script type="text/javascript" src="./static/ggmc/js/jquery.js"></script>
+
+<script type="text/javascript">
+
+	var layers={
+		'keys':['Base Layers','Geographic Data','National Data',],
+		'Base Layers':['Satellite','OpenStreetMap','OpenStreetMap2'],
+		'Geographic Data':['Main Rivers','Main Roads'],
+		'National Data':['Admin Regions','Towns'],
+	};
+	
+	function init(){
+		$("#background").click(function(){$("#control_panel").toggleClass("show")});
+		
+		for(var kidx=0;kidx<layers.keys.length;kidx++){
+			
+			var d=document.createElement("hr");
+			$("#control_panel").append(d);
+			
+			var category=layers.keys[kidx];
+			
+			var h=document.createElement("div");
+			h.className='layer_category';
+			h.id=parseInt(100000*Math.random());
+			
+			var t=document.createElement("table");
+			t.style.width="100%";
+			var tr=t.insertRow(-1);
+			var td;
+			
+			td=tr.insertCell(-1);
+			td.className="arrow_cell";
+			
+			td=tr.insertCell(-1);
+			td.className="category_cell";
+			var label=document.createElement("div");
+			label.className="label";
+			label.innerHTML=category;
+			td.appendChild(label);
+			
+			td=tr.insertCell(-1);
+			td.className="arrow_cell";
+			var arrow=new Image();
+			arrow.id=h.id+"_arrow";
+			arrow.className="arrow";
+			arrow.src="./static/ggmc/img/arrow.png";
+			td.appendChild(arrow);
+			
+			h.appendChild(t);
+			
+			$("#control_panel").append(h);
+			
+			var cat_lyrs_div=document.createElement("div");
+			cat_lyrs_div.id=h.id+"_cat_lyrs_div";
+			cat_lyrs_div.className="cat_lyrs_div";
+			
+			for(var lidx=0;lidx<layers[category].length;lidx++){
+				var d=document.createElement("div");
+				d.innerHTML=layers[category][lidx];
+				d.className="layer_label";
+				cat_lyrs_div.appendChild(d);
+			}
+			$("#control_panel").append(cat_lyrs_div);
+			
+		}
+		
+		var d=document.createElement("hr");
+		$("#control_panel").append(d);
+		
+		for(var dummy=0;dummy<$(".arrow").length;dummy++){
+			$($(".arrow")[dummy]).click(function(e){
+				$(e.target).toggleClass("up");
+				$("#"+e.target.id.split("_")[0]+"_cat_lyrs_div").animate({height:'toggle'},300,function(){});
+			});
+		}
+		
+	}
+</script>		
+
+</head>
+
+
+<body onload="init();">
+<div id="control_panel" class="control_panel">
+	
+</div>
+<div id="background" class="background"></div>
+
+</body>
+</html>

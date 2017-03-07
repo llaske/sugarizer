@@ -1,0 +1,16 @@
+{
+	"type":"FeatureCollection",
+	"totalFeatures":1,
+	"features":[
+		{
+			"type":"Feature",
+			"id":"bartica",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[-58.620537,6.407638]
+			},
+			"geometry_name":"the_geom",
+			"properties":{"NAME":"Bartica","color":"#ff0","fill":"#ff0","width":1}
+		}
+	]
+}
