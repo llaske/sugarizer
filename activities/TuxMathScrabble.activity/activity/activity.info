@@ -1,0 +1,6 @@
+[Activity]
+name = TuxMathScrabble Activity
+activity_version = 1
+bundle_id = org.sugarlabs.TuxMathScrabbleActivity
+exec = sugar-activity-web
+icon = activity-icon
