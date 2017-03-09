@@ -4,7 +4,7 @@ define(function (require) {
 
     view.View = function () {
         this.template =
-            '<li data-id="{{id}}" class="{{completed}}">' +
+            '<li data-id="{{id}}" class="{{completed}}" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)">' +
             '<div class="view">' +
             '<input class="toggle" type="checkbox" {{checked}}>' +
             '<label>{{title}}</label>' +
@@ -12,6 +12,7 @@ define(function (require) {
             '</div>' +
             '</li>';
     };
+
 
     // Create a string of HTML <li> elements inside with the given
     // items.
