@@ -1,0 +1,6 @@
+[Activity]
+name = XO Editor
+activity_version = 1
+bundle_id = com.homegrownapps.xoeditor
+exec = sugar-activity-web
+icon = activity-icon

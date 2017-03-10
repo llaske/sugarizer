@@ -1,0 +1,12 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+
+#save-button {
+  background-image: url(../icons/save-colors.svg);
+}
+
+#reset-button {
+  background-image: url(../icons/clear-button.svg);
+}
