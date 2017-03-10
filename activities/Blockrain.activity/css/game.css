@@ -1,0 +1,158 @@
+#up-arrow {
+  background-image: url(../assets/go-up.svg);
+  width: 55px;
+  height: 55px;
+  position: absolute;
+}
+
+#down-arrow {
+  background-image: url(../assets/go-down.svg);
+  width: 55px;
+  height: 55px;
+  position: absolute;
+}
+
+#left-arrow {
+  background-image: url(../assets/go-previous.svg);
+  width: 55px;
+  height: 55px;
+  position: absolute;
+}
+
+#right-arrow {
+  background-image: url(../assets/go-next.svg);
+  width: 55px;
+  height: 55px;
+  position: absolute;
+}
+
+.arrowkeys {
+	display: block;
+}
+
+@media only screen and (min-width: 500px) {
+
+	#canvas {
+    width: 60vw;
+    right: 20vw;
+    left: 20vw;
+	}
+
+	#up-arrow {
+	  top: 40vh;
+	  left: 5vw;
+	}
+
+	#down-arrow {
+	  top: 55vh;
+	  left: 5vw;
+	}
+
+	#left-arrow {
+	  top: 47vh;
+	  left: 80.5vw;
+	}
+
+	#right-arrow {
+	  top: 47vh;
+	  left: 90.5vw;
+	}
+
+}
+
+@media only screen and (min-width: 800px) {
+
+  #canvas {
+    width: 50vw;
+    right: 25vw;
+    left: 25vw;
+  }
+
+  #up-arrow {
+  top: 40vh;
+  left: 11vw;
+  }
+
+  #down-arrow {
+  top: 55vh;
+  left: 11vw;
+  }
+
+  #left-arrow {
+  top: 47vh;
+  left: 80vw;
+  }
+
+  #right-arrow {
+  top: 47vh;
+  left: 90vw;
+  }
+
+}
+
+@media only screen and (min-width: 1100px) {
+
+  #canvas {
+    width: 40vw;
+    right: 30vw;
+    left: 30vw;
+  }
+
+  #up-arrow {
+  top: 40vh;
+  left: 13vw;
+  }
+
+  #down-arrow {
+  top: 55vh;
+  left: 13vw;
+  }
+
+  #left-arrow {
+  top: 47vh;
+  left: 80vw;
+  }
+
+  #right-arrow {
+  top: 47vh;
+  left: 90vw;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+  #canvas {
+    width: 100vw;
+    height: 70vh;
+  }
+
+  #up-arrow {
+ 	  background-size: 54px;
+    background-repeat: no-repeat;
+	  top: 81vh;
+	  left: 13vw;
+  }
+
+  #down-arrow {
+ 	  background-size: 54px;
+    background-repeat: no-repeat;
+	  top: 90vh;
+	  left: 13vw;
+  }
+
+  #left-arrow {
+ 	  background-size: 41px;
+    background-repeat: no-repeat;
+	  top: 85vh;
+	  left: 60vw;
+  }
+
+  #right-arrow {
+ 	  background-size: 41px;
+    background-repeat: no-repeat;
+	  top: 85vh;
+	  left: 75vw;
+  }
+   
+}
