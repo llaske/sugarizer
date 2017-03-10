@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Blockrain Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" src="css/blockrain.css">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.libs.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.src.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.themes.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+<link rel="stylesheet" type="text/css" href="css/game.css">
+<style>
+</style>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+	<button class="toolbutton" id="btn-next" title="Change theme"></button>
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<div height="100" width="100" id="up-arrow" title="Up Arrow"></div>
+<div height="100" width="100" id="down-arrow" title="Down Arrow"></div>
+<div id="canvas">
+
+</div>
+<div height="100" width="100" id="left-arrow" title="Left Arrow"></div>
+<div height="100" width="100" id="right-arrow" title="Right Arrow"></div>
+<script type="text/javascript">
+  var touchEnabled = 'ontouchstart' in document.documentElement;
+  if(touchEnabled) {
+  	document.getElementsByClassName("noarrowkeys")[0].className="arrowkeys";
+  }
+</script>
+</body>
+
+</html>
