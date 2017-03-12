@@ -40,7 +40,8 @@ module.exports = function(grunt) {
 					'activities/TankOp.Activity/**/*.js',
 					'activities/TurtleBlocksJS.Activity/**/*.js',
 					'activities/VideoViewer.Activity/**/*.js',
-					'activities/WelcomeWeb.Activity/**/*.js'
+					'activities/WelcomeWeb.Activity/**/*.js',
+					'activities/XOEditor.Activity/**/*.js'
 				],
 				dest: 'build/'
 			}
