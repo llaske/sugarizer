@@ -49,6 +49,12 @@
 #insertText{
 	background-image: url(../activity/insert-picture.svg);
 }
+#showHideEditor{
+	background-image:url(../activity/editor.svg);
+}
+#showHidePreview{
+	background-image:url(../activity/preview.svg);
+}
 body 
 { 
 	background-color: White;
@@ -98,6 +104,7 @@ blockquote {
 	border-top: 3px groove black;
 	border-right: 3px groove black;
 	border-bottom: 3px groove black;
+	border-left: 3px groove black;
 }
 
 

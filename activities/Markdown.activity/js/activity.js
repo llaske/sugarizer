@@ -49,6 +49,57 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 				});
 			});
 		};
+		var showHideEditor = document.getElementById("showHideEditor");
+		var showHidePreview = document.getElementById("showHidePreview");
+		
+		var panel = document.getElementById("wmd-panel");
+		var preview = document.getElementById("wmd-preview-second");
+		var textArea = document.getElementById("wmd-input-second");
+		
+		function isElementHidden (element) {
+			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
+		}
+		showHideEditor.onclick = function(){
+			
+			if(isElementHidden(preview))
+			{
+				preview.style.display = "inline";
+				preview.style.width = "97%";
+				panel.style.width = "1%";
+			}
+			if(isElementHidden(panel))
+			{
+				panel.style.display = "inline";
+				panel.style.width = "47%";
+				preview.style.width = "47%";
+			}
+			else{
+				panel.style.display = "none";
+				panel.style.width = "1%";
+				preview.style.width = "97%";
+			}
+				
+		}
+		showHidePreview.onclick = function(){
+			if(isElementHidden(panel))
+			{
+				panel.style.display = "inline";
+				panel.style.width = "97%";
+				preview.style.width = "1%";
+			}
+			if(isElementHidden(preview))
+			{
+				preview.style.display = "inline";
+				preview.style.width = "47%";
+				panel.style.width = "47%";
+			}
+			else{
+				preview.style.display = "none";
+				preview.style.width = "1%";
+				panel.style.width = "94%";
+			}
+				
+		}
 
 		function insertAtCursor(myField, myValue) {
 			//IE support
