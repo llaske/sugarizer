@@ -9,7 +9,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
         var wallColor = "#101010";
         var corridorColor = "#ffffff";
-        var startColor = "hsl(0, 0%, 80%)";
+        var startColor = "hsl(0, 100%, 50%)";
         var goalColor;
 
         var cellWidth;
