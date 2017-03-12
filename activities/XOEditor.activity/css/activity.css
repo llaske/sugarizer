@@ -10,3 +10,8 @@
 #reset-button {
   background-image: url(../icons/clear-button.svg);
 }
+
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
