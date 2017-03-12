@@ -1,0 +1,6 @@
+[Activity]
+name = Reflection
+activity_version = 1
+bundle_id = com.homegrownapps.reflection
+exec = sugar-activity-web
+icon = activity-icon

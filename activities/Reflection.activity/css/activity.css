@@ -1,0 +1,32 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#buddy-button {
+  background-image: url(../icons/my-colors.svg);
+}
+
+#rainbow-button {
+  background-image: url(../icons/rainbow-colors.svg);
+}
+
+#horizontal-button {
+  background-image: url(../icons/new-game-horizontal.svg);
+}
+
+#vertical-button {
+  background-image: url(../icons/new-game-vertical.svg);
+}
+
+#bilateral-button {
+  background-image: url(../icons/new-game-bilateral.svg);
+}
+
+#robot-button {
+  background-image: url(../icons/robot-off.svg);
+}
+
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

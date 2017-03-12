@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Reflection Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+  	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+  	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans|Cutive+Mono" rel="stylesheet">
+  <script data-main="js/loader" src="lib/require.js"></script>
+  <script src="lib/jquery-1.10.1.js"></script>
+  <style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}</style>
+  <style> #canvas{background-color: #C0C0C0}</style>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="buddy-button" title="New Game with Buddy Colours"></button>
+  <button class="toolbutton" id="rainbow-button" title="New Game with Rainbow Colours"></button>
+  <button class="toolbutton" id="horizontal-button" title="New Game with Horizontal Symmetry"></button>
+  <button class="toolbutton" id="vertical-button" title="New Game with Vertical Symmetry"></button>
+  <button class="toolbutton" id="bilateral-button" title="New Game with 
+  Bilateral Symmetry"></button>
+  <button class="toolbutton" id="robot-button" title="Turn on the Robot"></button>
+  <!-- Add more buttons here -->
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+<canvas id="actualcanvas"></canvas>
+</div>
+</body>
+
+</html>
