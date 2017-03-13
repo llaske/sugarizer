@@ -38,7 +38,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         var levelTransitionRadius;
         var levelStartingValue;
 
-        var debug = false; //true;
+        var debug = true; //true;
 
         var mazeCanvas = document.getElementById("maze");
 
