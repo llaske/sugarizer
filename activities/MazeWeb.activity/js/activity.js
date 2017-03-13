@@ -10,6 +10,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         var wallColor = "#101010";
         var corridorColor = "#ffffff";
         var startColor = "hsl(0, 0%, 80%)";
+        var startPlayerColor = "hsl(0, 90%, 50%)";
         var goalColor;
 
         var cellWidth;
@@ -208,6 +209,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             }
 
             drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor, 0.9);
+            drawPlayerFace(ctx, maze.startPoint.x, maze.startPoint.y, startPlayerColor);
             drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
 
             for (control in players) {
