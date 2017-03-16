@@ -26,6 +26,11 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight){
 	}
 
 	this.updateAge = function(){
+		// HACK: On Safari, remove age handling to avoid black beads
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1) {
+			return;
+		}
 		this.age+=1;
 		if (this.age<=0){
 			this.redraw("#FFF");
