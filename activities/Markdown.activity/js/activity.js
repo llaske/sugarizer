@@ -59,7 +59,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 		function isElementHidden (element) {
 			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
 		}
-		showHideEditor.onclick = function(){
+		wmd-showHideEditor-button.onclick = function(){
 			
 			if(isElementHidden(preview))
 			{
@@ -80,7 +80,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 			}
 				
 		}
-		showHidePreview.onclick = function(){
+		wmd-showHidePreview-button.onclick = function(){
 			if(isElementHidden(panel))
 			{
 				panel.style.display = "inline";
