@@ -1,4 +1,9 @@
-function OneColumnAbacus(stage,rods,number,base,colours,startvalue=rods,schety=false,fractions=false,caacupe=false,rodf=false){
+function OneColumnAbacus(stage,rods,number,base,colours,startvalue,schety,fractions,caacupe,rodf){
+	if (startvalue === undefined) startvalue=rods;
+	if (schety === undefined) schety=false;
+	if (fractions === undefined) fractions=false;
+	if (caacupe === undefined) caacupe=false;
+	if (rodf === undefined) rodf=false;
 	//top bar: 8/5*blockh
 	//middle bar: blockh
 	//bottom bar: 8/5*blockh

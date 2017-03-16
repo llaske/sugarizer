@@ -1,4 +1,6 @@
-function StandardAbacusColumn(x,starty,endy,blockstop,blocksbottom,blocksheight,colcols,blockcols,abacus,value,isupper,aging=true,schety=false){
+function StandardAbacusColumn(x,starty,endy,blockstop,blocksbottom,blocksheight,colcols,blockcols,abacus,value,isupper,aging,schety){
+	if (aging === undefined) aging=true;
+	if (schety === undefined) schety=false;
 	this.elements = [];
 	this.colWidthScale = 8/33;
 	this.blockcols = blockcols;

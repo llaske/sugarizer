@@ -1,4 +1,5 @@
-function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight=-1){
+function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight){
+	if (beadheight === undefined) beadheight=-1;
 	var Color = net.brehaut.Color;
 
 	this.bead = null;
@@ -50,7 +51,8 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight=-1){
 		this.bead.graphics.clear().beginStroke("#000000").setStrokeStyle(abacus.blockWidth/25).beginFill(colour).drawRoundRect(-1*abacus.blockWidth/2,0,abacus.blockWidth,bh,abacus.blockHeight/2);
 	}
 
-	this.drawBead = function(colour=blockcol){
+	this.drawBead = function(colour){
+		if (colour === undefined) colour=blockcol;
 		var bh;
 		if (beadheight==-1){
 			bh = abacus.blockHeight;
@@ -97,7 +99,8 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight=-1){
 		});
 	}
 
-	this.updateValue = function(on,positive=true){
+	this.updateValue = function(on,positive){
+		if (positive === undefined) positive=true;
 		if (on==true&&this.value.toFraction(true).length<=4){
 			if (positive==false){
 				this.text.text = "-"+this.value.toFraction(true);

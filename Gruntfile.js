@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 				src: [
 					'lib/*.js',
 					'js/*.js',
+					'activities/Abacus.Activity/**/*.js',
 					'activities/Abecedarium.Activity/**/*.js',
 					'activities/Calculate.Activity/**/*.js',
 					'activities/ChatPrototype.Activity/**/*.js',

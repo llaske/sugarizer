@@ -130,7 +130,8 @@ function Game(activity,stage,xocolor,Fraction,doc,abacuspalette,custompalette,da
 		return arr;
 	}
 
-	this.stop = function(restart=false){
+	this.stop = function(restart){
+		if (restart === undefined) restart=false;
 		var arr = this.makeData();
 		console.log(arr);
 		var js = JSON.stringify(arr);

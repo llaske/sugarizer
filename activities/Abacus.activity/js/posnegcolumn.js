@@ -1,4 +1,6 @@
-function PosNegColumn(x,starty,endy,blocks,blocksheight,colcols,blockcols,abacus,value,aging=true,rods=false){
+function PosNegColumn(x,starty,endy,blocks,blocksheight,colcols,blockcols,abacus,value,aging,rods){
+	if (aging === undefined) aging=true;
+	if (rods === undefined) rods=false;
 	this.elements = [];
 	this.colWidthScale = 8/33;
 	this.blockcols = blockcols;

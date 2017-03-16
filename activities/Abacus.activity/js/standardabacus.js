@@ -1,4 +1,5 @@
-function StandardAbacus(stage,rods,topnumber,factor,bottomnumber,base,colours,startvalue=rods){
+function StandardAbacus(stage,rods,topnumber,factor,bottomnumber,base,colours,startvalue){
+	if (startvalue === undefined) startvalue=rods;
 	//top bar: 8/5*blockh
 	//middle bar: blockh
 	//bottom bar: 8/5*blockh
