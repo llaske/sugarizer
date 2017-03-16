@@ -49,8 +49,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 				});
 			});
 		};
-		var showHideEditor = document.getElementById("showHideEditor");
-		var showHidePreview = document.getElementById("showHidePreview");
+		var showHideEditor = document.getElementById("wmd-showHideEditor-button");
+		var showHidePreview = document.getElementById("wmd-showHidePreview-button");
 		
 		var panel = document.getElementById("wmd-panel");
 		var preview = document.getElementById("wmd-preview-second");
@@ -59,7 +59,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 		function isElementHidden (element) {
 			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
 		}
-		wmd-showHideEditor-button.onclick = function(){
+		showHideEditor.onclick = function(){
 			
 			if(isElementHidden(preview))
 			{
@@ -80,7 +80,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 			}
 				
 		}
-		wmd-showHidePreview-button.onclick = function(){
+		showHidePreview.onclick = function(){
 			if(isElementHidden(panel))
 			{
 				panel.style.display = "inline";
