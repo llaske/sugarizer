@@ -49,6 +49,12 @@
 #insertText{
 	background-image: url(../activity/insert-picture.svg);
 }
+#wmd-showHideEditor-button{
+	background-image:url(../activity/editor.svg);
+}
+#wmd-showHidePreview-button{
+	background-image:url(../activity/preview.svg);
+}
 body 
 { 
 	background-color: White;
@@ -98,10 +104,23 @@ blockquote {
 	border-top: 3px groove black;
 	border-right: 3px groove black;
 	border-bottom: 3px groove black;
+	border-left: 3px groove black;
 }
 
 
 @media screen and (max-width: 480px) {
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 3%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 3%;
+	}
 }
 
 @media screen and (min-width: 481px) and (max-width: 640px) {	
@@ -114,6 +133,18 @@ blockquote {
 	{ 
 		margin-top: 1.2%;
 		height: 675px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 2%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 2%;
 	}
 }
 
@@ -132,6 +163,18 @@ blockquote {
 		margin-top: 1.3%;
 		height: 684px;
 	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.8%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.8%;
+	}
 }
 
 @media screen and (min-width: 855px) and (max-width: 960px) {
@@ -144,6 +187,18 @@ blockquote {
 	{ 
 		margin-top: 1.3%;
 		height: 692px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.4%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.4%;
 	}
 }
 
@@ -158,8 +213,33 @@ blockquote {
 		margin-top: 1.2%;
 		height: 698px;
 	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1%;
+	}
 }
-
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.8%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.8%;
+	}
+}
 @media screen and (min-width: 1200px) {
 	.wmd-input 
 	{ 
@@ -170,5 +250,17 @@ blockquote {
 	{ 
 		margin-top: 1.2%;
 		height: 704px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.7%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.7%;
 	}
 }
