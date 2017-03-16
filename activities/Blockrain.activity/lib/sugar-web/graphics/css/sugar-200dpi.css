@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   font-size: 10pt;
-  background-color: #c0c0c0;
+  background-color: white;
 }
 .unselectable {
   -webkit-user-select: none;
@@ -86,7 +86,6 @@ a {
   top: 75px;
   bottom: 0;
   width: 100%;
-  overflow-y: auto;
   color: black;
   background-color: #c0c0c0;
 }

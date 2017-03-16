@@ -7,12 +7,8 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
-#btn-prev {
-  background-image: url(../assets/go-previous.svg);
-}
-
 #btn-next {
-  background-image: url(../assets/go-next.svg);
+  background-image: url(../assets/themeChanger.svg);
 }
 
 .blockrain-game-holder {
@@ -22,6 +18,7 @@
   color: #ffffff;
   font-size: 18px;
   line-height: 140%;
+  border: 1px solid black;
 }
 
 /* Touch Controls */
@@ -31,7 +28,7 @@
   height: 50px;
   display: block;
   border-radius: 100%;
-  border: 1px solid white;
+  border: 1px solid black;
   background: rgba(255,255,255,0.2);
   z-index: 10;
 

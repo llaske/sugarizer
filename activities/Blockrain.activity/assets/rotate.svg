@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.2" width="19.4mm" height="19.4mm" viewBox="0 0 1940 1940" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:presentation="http://sun.com/xmlns/staroffice/presentation" xmlns:smil="http://www.w3.org/2001/SMIL20/" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
+<svg version="1.2" width="210mm" height="297mm" viewBox="0 0 21000 29700" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:presentation="http://sun.com/xmlns/staroffice/presentation" xmlns:smil="http://www.w3.org/2001/SMIL20/" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
  <defs class="ClipPathGroup">
   <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
-   <rect x="0" y="0" width="1940" height="1940"/>
+   <rect x="0" y="0" width="21000" height="29700"/>
   </clipPath>
  </defs>
  <defs class="TextShapeIndex">
@@ -51,8 +51,8 @@
     <g class="Page">
      <g class="com.sun.star.drawing.ClosedBezierShape">
       <g id="id3">
-       <rect class="BoundingBox" stroke="none" fill="none" x="176" y="176" width="1241" height="1242"/>
-       <path fill="rgb(255,255,255)" stroke="none" d="M 176,796 C 176,1139 454,1416 796,1416 1138,1416 1416,1139 1416,796 1416,454 1138,176 796,176 454,176 176,454 176,796 Z M 1070,609 L 796,1151 514,609 1070,609 Z"/>
+       <rect class="BoundingBox" stroke="none" fill="none" x="330" y="630" width="20371" height="20371"/>
+       <path fill="rgb(0,0,0)" stroke="none" d="M 20700,2328 L 20700,8269 C 20700,8499 20616,8697 20448,8866 20280,9034 20081,9117 19851,9117 L 13910,9117 C 13538,9117 13278,8941 13128,8587 12977,8242 13039,7937 13313,7672 L 15143,5842 C 13835,4630 12292,4025 10515,4025 9596,4025 8718,4204 7882,4562 7047,4920 6324,5404 5714,6014 5104,6624 4620,7347 4262,8182 3904,9018 3725,9896 3725,10815 3725,11734 3904,12612 4262,13448 4620,14283 5104,15006 5714,15616 6324,16226 7047,16710 7882,17068 8718,17426 9596,17605 10515,17605 11567,17605 12561,17375 13499,16915 14436,16456 15227,15806 15873,14966 15935,14877 16036,14824 16178,14807 16301,14807 16412,14846 16509,14926 L 18326,16756 C 18405,16827 18448,16918 18452,17028 18457,17139 18423,17238 18352,17327 17389,18493 16222,19397 14852,20038 13481,20679 12036,21000 10515,21000 9136,21000 7819,20730 6563,20191 5307,19652 4224,18926 3314,18016 2403,17106 1678,16022 1139,14767 600,13511 330,12194 330,10815 330,9436 600,8119 1139,6863 1678,5607 2403,4524 3314,3614 4224,2703 5307,1978 6563,1439 7819,900 9136,630 10515,630 11815,630 13072,875 14288,1366 15503,1857 16584,2549 17530,3441 L 19254,1731 C 19511,1457 19820,1395 20183,1545 20527,1695 20700,1956 20700,2328 Z"/>
       </g>
      </g>
     </g>
