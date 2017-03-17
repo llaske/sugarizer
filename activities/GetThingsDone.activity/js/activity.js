@@ -7,7 +7,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
 
         // Initialize the activity.
         activity.setup();
-	document.getElementById("new-todo").placeholder = l10n_s.get("new-todo");
+	    document.getElementById("new-todo").placeholder = l10n_s.get("new-todo");
 
         var stopButton = document.getElementById("stop-button");
         stopButton.addEventListener('click', function (event) {
@@ -24,6 +24,70 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
             });
         });
 
+        var draggedElement; // save the dragged element globally
+
+        document.allowDrop = function(ev) {
+            ev.preventDefault();
+        }
+
+        document.drag = function(ev) {
+            draggedElement = ev.target;
+            ev.dataTransfer.setData("text/plain", ev.target.id);
+        }
+
+        document.drop = function(ev) {
+            ev.preventDefault();
+
+            var draggedElementLabel = draggedElement.childNodes[0].childNodes[1];
+            var draggedElementID =  parseInt(draggedElement.dataset.id);
+
+            var droppedOnElementLabel = ev.target;
+            var droppedOnElement = ev.target.parentNode.parentNode;
+            var droppedOnElementID = parseInt(droppedOnElement.dataset.id);
+
+            // Swap the labels (visual)
+            var tempSaveLabel = droppedOnElementLabel.innerText;
+            droppedOnElementLabel.innerText = draggedElementLabel.innerText;
+            draggedElementLabel.innerText = tempSaveLabel;
+
+            // Swap the complete and checked boxes (visual)
+            // swap complete attribute
+            var tempSaveCompleteVisual = droppedOnElement.className;
+            droppedOnElement.className = draggedElement.className;
+            draggedElement.className = tempSaveCompleteVisual;
+
+            // swap check box (visual)
+            if (droppedOnElement.childNodes[0].childNodes[0].hasAttribute("checked")) {
+                if (! draggedElement.childNodes[0].childNodes[0].hasAttribute("checked")) {
+                    // swap: uncheck droppedOnElement and check draggedElement
+                    droppedOnElement.childNodes[0].childNodes[0].removeAttribute("checked");
+                    draggedElement.childNodes[0].childNodes[0].setAttribute("checked", null);
+                } // else do nothing
+            }
+            else if (draggedElement.childNodes[0].childNodes[0].hasAttribute("checked")) {
+                if (! droppedOnElement.childNodes[0].childNodes[0].hasAttribute("checked")) {
+                    // swap: uncheck draggedOnElement and check droppedOnElement
+                    draggedElement.childNodes[0].childNodes[0].removeAttribute("checked");
+                    droppedOnElement.childNodes[0].childNodes[0].setAttribute("checked", null);
+                } // else do nothing
+            }
+
+            // Find the index of the labels in the controler and overwritte the labels and completed elements
+            var draggedElementIndex = todo.controller.model.items.map(function(x) { return x.id; }).indexOf(draggedElementID);
+            var droppedOnElementIndex = todo.controller.model.items.map(function(x) { return x.id; }).indexOf(droppedOnElementID);
+
+            // swap the labels in the controller
+            todo.controller.model.items[draggedElementIndex].title = draggedElementLabel.innerText;
+            todo.controller.model.items[droppedOnElementIndex].title = droppedOnElementLabel.innerText;
+
+
+            // swap the completed elements in the controller
+            var tempSaveCompleteInController = parseInt(todo.controller.model.items[droppedOnElementIndex].completed);
+            todo.controller.model.items[droppedOnElementIndex].completed = todo.controller.model.items[draggedElementIndex].completed;
+            todo.controller.model.items[draggedElementIndex].completed = tempSaveCompleteInController;
+
+        }
+
         // Set up a brand new TODO list
 
         function Todo() {
@@ -38,7 +102,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
             todo.controller.loadItems(JSON.parse(data));
         }
         datastoreObject.loadAsText(onLoaded);
-
         var input = document.getElementById("new-todo");
         input.addEventListener('keypress', function (e) {
             if (e.keyCode === todo.controller.ENTER_KEY) {
