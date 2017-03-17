@@ -1,30 +1,28 @@
 #up-arrow {
-  background-image: url(../assets/rotate.svg);
-  width: 70px;
-  height: 70px;
+  background-image: url(../assets/go-up.svg);
+  width: 55px;
+  height: 55px;
   position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 #down-arrow {
-  background-image: url(../assets/drop.svg);
-  width: 44px;
-  height: 45px;
+  background-image: url(../assets/go-down.svg);
+  width: 55px;
+  height: 55px;
   position: absolute;
 }
 
 #left-arrow {
-  background-image: url(../assets/left-arrow.svg);
-  width: 45px;
-  height: 45px;
+  background-image: url(../assets/go-previous.svg);
+  width: 55px;
+  height: 55px;
   position: absolute;
 }
 
 #right-arrow {
-  background-image: url(../assets/right-arrow.svg);
-  width: 45px;
-  height: 45px;
+  background-image: url(../assets/go-next.svg);
+  width: 55px;
+  height: 55px;
   position: absolute;
 }
 
@@ -47,7 +45,7 @@
 
 	#down-arrow {
 	  top: 55vh;
-	  left: 5.3vw;
+	  left: 5vw;
 	}
 
 	#left-arrow {
@@ -71,23 +69,23 @@
   }
 
   #up-arrow {
-	  top: 40vh;
-	  left: 11vw;
+  top: 40vh;
+  left: 11vw;
   }
 
   #down-arrow {
-	  top: 55vh;
-	  left: 11.3vw;
+  top: 55vh;
+  left: 11vw;
   }
 
   #left-arrow {
-	  top: 47vh;
-	  left: 80vw;
+  top: 47vh;
+  left: 80vw;
   }
 
   #right-arrow {
-	  top: 47vh;
-	  left: 90vw;
+  top: 47vh;
+  left: 90vw;
   }
 
 }
@@ -101,23 +99,23 @@
   }
 
   #up-arrow {
-	  top: 40vh;
-	  left: 13vw;
+  top: 40vh;
+  left: 13vw;
   }
 
   #down-arrow {
-	  top: 55vh;
-	  left: 13.3vw;
+  top: 55vh;
+  left: 13vw;
   }
 
   #left-arrow {
-	  top: 47vh;
-	  left: 80vw;
+  top: 47vh;
+  left: 80vw;
   }
 
   #right-arrow {
-	  top: 47vh;
-	  left: 90vw;
+  top: 47vh;
+  left: 90vw;
   }
 
 }
@@ -130,17 +128,17 @@
   }
 
   #up-arrow {
- 	  background-size: 40px;
+ 	  background-size: 54px;
     background-repeat: no-repeat;
-	  top: 82vh;
+	  top: 81vh;
 	  left: 13vw;
   }
 
   #down-arrow {
- 	  background-size: 38px;
+ 	  background-size: 54px;
     background-repeat: no-repeat;
-	  top: 91vh;
-	  left: 13.5vw;
+	  top: 90vh;
+	  left: 13vw;
   }
 
   #left-arrow {

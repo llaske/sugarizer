@@ -7,7 +7,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		activity.setup();
 		var $game = $('#canvas').blockrain({
       speed: 20,
-      theme: 'gameboy',
+      theme: 'vim',
 	    autoplay: false,
 	    autoplayRestart: true,
 	    autoBlockWidth: true,
@@ -34,6 +34,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 
       $game.blockrain('theme', themes[currentIx]);
     }
+
+    document.getElementById("btn-prev").onclick = function() {
+        switchTheme(false);
+    };
 
     document.getElementById("btn-next").onclick = function() {
         switchTheme(true);
