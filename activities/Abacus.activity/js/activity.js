@@ -22,11 +22,12 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-		canvas.width = window.innerWidth; 
+		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight-55;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
+		createjs.Touch.enable(stage);
 
 		createjs.Ticker.setFPS(30);
 		createjs.Ticker.addEventListener("tick", handleTick);
@@ -43,7 +44,7 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
-			canvas.width = window.innerWidth; 
+			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight-55;
 			g.resize();
 		}
