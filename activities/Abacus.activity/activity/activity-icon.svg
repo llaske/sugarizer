@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#AAAAAA">
+  <!ENTITY stroke_color "#333333">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45">
+  <g id="g4257">
+    <rect width="36.336506" height="36.768715" x="-40.668255" y="4.1156425" transform="matrix(0, -1, 1, 0, 0, 0)" id="rect4" style="fill:&fill_color;; stroke: &stroke_color;; stroke-width: 3.5; stroke-linejoin: round; stroke-miterlimit: 1.6; stroke-dasharray: none;"/>
+    <line id="line10-4" style="fill:&fill_color;; stroke: &stroke_color;; stroke-width: 2.44068; stroke-miterlimit: 1.6; stroke-dasharray: none;" x2="4.1531162" x1="39.768688" y2="16.316952" y1="16.316952"/>
+    <g id="g4243">
+      <line y1="39.687382" y2="4.7600164" x1="22.309881" x2="22.309881" style="fill:&fill_color;; stroke: &stroke_color;; stroke-width: 2.5; stroke-miterlimit: 1.6; stroke-dasharray: none;" id="line10"/>
+      <path d="m 26.777977,23.580047 a 4.4680964,3.0718163 0 1 1 -8.936192,0 4.4680964,3.0718163 0 1 1 8.936192,0 z" id="path3633" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 26.777977,29.723792 a 4.4680964,3.0718163 0 1 1 -8.936192,0 4.4680964,3.0718163 0 1 1 8.936192,0 z" id="path3633-7" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 26.777977,35.867536 a 4.4680964,3.0718163 0 1 1 -8.936192,0 4.4680964,3.0718163 0 1 1 8.936192,0 z" id="path3633-5" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 26.777977,9.1787679 a 4.4680964,3.0718163 0 1 1 -8.936192,0 4.4680964,3.0718163 0 1 1 8.936192,0 z" id="path3633-4" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+    </g>
+    <g id="g4250">
+      <line y1="39.687382" y2="4.7600164" x1="32.840122" x2="32.840122" style="fill:&fill_color;; stroke: &stroke_color;; stroke-width: 2.5; stroke-miterlimit: 1.6; stroke-dasharray: none;" id="line10-2"/>
+      <path d="m 37.308212,23.580047 a 4.4680964,3.0718163 0 1 1 -8.936191,0 4.4680964,3.0718163 0 1 1 8.936191,0 z" id="path3633-47" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 37.308212,29.723792 a 4.4680964,3.0718163 0 1 1 -8.936191,0 4.4680964,3.0718163 0 1 1 8.936191,0 z" id="path3633-7-4" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 37.308212,35.867536 a 4.4680964,3.0718163 0 1 1 -8.936191,0 4.4680964,3.0718163 0 1 1 8.936191,0 z" id="path3633-5-4" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 37.308212,9.1787679 a 4.4680964,3.0718163 0 1 1 -8.936191,0 4.4680964,3.0718163 0 1 1 8.936191,0 z" id="path3633-4-0" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+    </g>
+    <g id="g4236">
+      <line y1="39.687382" y2="4.7600164" x1="11.779644" x2="11.779644" style="fill:&fill_color;; stroke: &stroke_color;; stroke-width: 2.5; stroke-miterlimit: 1.6; stroke-dasharray: none;" id="line10-68"/>
+      <path d="m 16.247742,23.580047 a 4.4680964,3.0718163 0 1 1 -8.9361898,0 4.4680964,3.0718163 0 1 1 8.9361898,0 z" id="path3633-2" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 16.247742,29.723792 a 4.4680964,3.0718163 0 1 1 -8.9361898,0 4.4680964,3.0718163 0 1 1 8.9361898,0 z" id="path3633-7-6" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 16.247742,35.867536 a 4.4680964,3.0718163 0 1 1 -8.9361898,0 4.4680964,3.0718163 0 1 1 8.9361898,0 z" id="path3633-5-6" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+      <path d="m 16.247742,9.1787679 a 4.4680964,3.0718163 0 1 1 -8.9361898,0 4.4680964,3.0718163 0 1 1 8.9361898,0 z" id="path3633-4-5" style="fill: &stroke_color;; fill-opacity: 1; fill-rule: nonzero; stroke: none;"/>
+    </g>
+  </g>
+</svg>

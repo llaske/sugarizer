@@ -1,0 +1,172 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#abacus-button {
+  background-image: url(../icons/abacus-list.svg);
+}
+
+#settings-button {
+  background-image: url(../icons/custom.svg);
+}
+
+#clear-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+
+#copy-button {
+  background-image: url(../icons/tool-copy.svg);
+}
+
+#decimal-button {
+  background-image: url(../icons/decimal.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#soroban-button {
+  background-image: url(../icons/soroban.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#suanpan-button {
+  background-image: url(../icons/suanpan.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#nepo-button {
+  background-image: url(../icons/nepohualtzintzin.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#hex-button {
+  background-image: url(../icons/hexadecimal.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#binary-button {
+  background-image: url(../icons/binary.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#schety-button {
+  background-image: url(../icons/schety.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#fractions-button {
+  background-image: url(../icons/fraction.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#caacupe-button {
+  background-image: url(../icons/caacupe.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#rods-button {
+  background-image: url(../icons/cuisenaire.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#custom-button {
+  background-image: url(../icons/custom.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#new-button {
+  background-image: url(../icons/new-abacus.svg);
+  width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+}
+
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  z-index: 0;
+}
+
+#copytext {
+  z-index: -1;
+}

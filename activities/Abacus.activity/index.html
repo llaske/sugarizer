@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Abacus Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+  	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+  	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans|Cutive+Mono" rel="stylesheet">
+  <script data-main="js/loader" src="lib/require.js"></script>
+  <script src="lib/jquery-1.10.1.js"></script>
+  <script src="lib/color.js"></script>
+  <style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}</style>
+  <style> #canvas{background-color: #FFFFFF}</style>
+</head>
+
+<body style="background-color: #FFFFFF">
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Abacus Activity"></button>
+  <!-- Add more buttons here -->
+  <button class="toolbutton" id="abacus-button" title="Abacus List"></button>
+  <button class="toolbutton" id="settings-button" title="Custom"></button>
+  <button class="toolbutton" id="copy-button" title="Copy Value"></button>
+  <button class="toolbutton" id="clear-button" title="Clear"></button>
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+<!--<div id="abacus-toolbar" class="toolbar" style="
+    z-index: 1;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: #808080;
+    visibility: hidden;
+">
+  <button class="toolbutton" id="activity-button" title="Abacus Activity"></button>
+
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div> -->
+
+<!-- The content of your activity goes inside the canvas -->
+<input type="text" id="copytext" name="copytext" value=""/>
+<div id="canvas">
+<canvas id="actualcanvas"></canvas>
+</div>
+</body>
+
+</html>
