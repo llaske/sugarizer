@@ -1,0 +1,6 @@
+[Activity]
+name = Blockrain
+activity_version = 1
+bundle_id = org.sugarlabs.Blockrain
+exec = sugar-activity-web
+icon = activity-icon
