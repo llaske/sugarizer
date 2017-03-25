@@ -1,10 +1,12 @@
 #up-arrow {
   background-image: url(../assets/rotate.svg);
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   position: absolute;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
   cursor: pointer;
 }
 
@@ -13,7 +15,9 @@
   width: 44px;
   height: 45px;
   position: absolute;
+  background-repeat: no-repeat;
   cursor: pointer;
+  background-color: white;
 }
 
 #left-arrow {
@@ -21,7 +25,9 @@
   width: 45px;
   height: 45px;
   position: absolute;
+  background-repeat: no-repeat;
   cursor: pointer;
+  background-color: white;
 }
 
 #right-arrow {
@@ -29,7 +35,9 @@
   width: 45px;
   height: 45px;
   position: absolute;
+  background-repeat: no-repeat;
   cursor: pointer;
+  background-color: white;
 }
 
 .arrowkeys {
@@ -160,5 +168,5 @@
 	  top: 85vh;
 	  left: 75vw;
   }
-   
+
 }

@@ -39,48 +39,6 @@ define(["sugar-web/activity/activity"], function (activity) {
         switchTheme(true);
     };
 
-    var leftArrow = document.getElementById("left-arrow");
-    var rightArrow = document.getElementById("right-arrow");
-    var upArrow = document.getElementById("up-arrow");
-    var downArrow = document.getElementById("down-arrow");
-
-    leftArrow.addEventListener("mousedown", function() {
-    	var e = jQuery.Event("keydown", { keyCode: 37 });
-    	$(document).trigger(e);
-    });
-    leftArrow.addEventListener("mouseup", function() {
-    	var e = jQuery.Event("keyup", { keyCode: 37 });
-    	$(document).trigger(e);
-    });
-
-    rightArrow.addEventListener("mousedown", function() {
-    	var e = jQuery.Event("keydown", { keyCode: 39 });
-    	$(document).trigger(e);
-    });
-    rightArrow.addEventListener("mouseup", function() {
-    	var e = jQuery.Event("keyup", { keyCode: 39 });
-    	$(document).trigger(e);
-    });
-
-    upArrow.addEventListener("mousedown", function() {
-    	var e = jQuery.Event("keydown", { keyCode: 38 });
-    	$(document).trigger(e);
-    });
-    upArrow.addEventListener("mouseup", function() {
-    	var e = jQuery.Event("keyup", { keyCode: 38 });
-    	$(document).trigger(e);
-    });
-
-    downArrow.addEventListener("mousedown", function() {
-    	var e = jQuery.Event("keydown", { keyCode: 40 });
-    	$(document).trigger(e);
-    });
-    downArrow.addEventListener("mouseup", function() {
-    	var e = jQuery.Event("keyup", { keyCode: 40 });
-    	$(document).trigger(e);
-    });
-
-
 	});
 
 });

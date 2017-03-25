@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 					'js/*.js',
 					'activities/Abacus.Activity/**/*.js',
 					'activities/Abecedarium.Activity/**/*.js',
+					'activities/Blockrain.Activity/**/*.js',
 					'activities/Calculate.Activity/**/*.js',
 					'activities/ChatPrototype.Activity/**/*.js',
 					'activities/Clock.Activity/**/*.js',
