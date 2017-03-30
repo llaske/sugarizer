@@ -31,7 +31,7 @@ var INSTALLED={
 	"World":{
 		"path":"data/world/",
 		"bbox":[-179.,-55.,179., 55.],
-		"center":[0,30],
+		"center":[0,40],
 		"color":"rgba(255,255,0,0)",
 		"fill":"rgba(0,100,40,0)",
 		"width":2,
@@ -121,7 +121,7 @@ var INSTALLED={
 		"fill":"rgba(0,100,40,0)",
 		"width":2,
 		"polygon_sources":[
-			{"filename":"europe.geojson","color":"rgba(200,200,200,1)","fill":'rgba(100,100,100,1)','width':1,"category":"Europe","layer_name":'Europa'},
+			{"filename":"europe.geojson","color":"rgba(200,200,200,1)","fill":'rgba(100,100,100,1)','width':1,"category":"Europe","layer_name":'Europe'},
 		],
 		"point_sources":[],
 		"line_sources":[],
