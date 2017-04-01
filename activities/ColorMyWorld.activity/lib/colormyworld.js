@@ -91,6 +91,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 	}
 
 	me.sleep=function(ms) {
+		//return new Promise(resolve => setTimeout(resolve, ms));
 	  return new Promise(function(resolve) { setTimeout(resolve, ms); });
 	}
 
@@ -124,6 +125,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		me.set_background(state['cmw_bg'])
 
 		print("sleeping 2000");
+//		me.sleep(2000).then(()=>{
 		me.sleep(2000).then(function(){
 			print("continuing");
 			dummy=me.loopOverAllFeatures("set",state['features']);
@@ -223,6 +225,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 				if(true)print("checking "+category+"."+layer_name);
 				if(me.CATEGORIES[category][layer_name]['toggle']){
 					var feature_names=me.CATEGORIES[category][layer_name]['feature_names'];
+					if(true)print("feature_names.length="+feature_names.length);
 					for(var fidx=0;fidx<feature_names.length;fidx++){
 						var feature_name=feature_names[fidx];
 						if(true)print("checking "+category+"."+layer_name+"."+feature_name);
@@ -235,6 +238,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 							if(true)print("adding candidate: "+feature_name);
 							candidates.push(pyld);
 						}
+						if(true)print("Done adding candidate features");
 					}
 				}
 			}
@@ -353,8 +357,16 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		//resize (calls set res)
 		me.resize();
 
-		window.setTimeout(me.fill_all_features,2000,false);
-	}
+		if(me.currents[0]=="World"){
+			print("setting timeout to 2000");//both cases equal since recursive now
+			window.setTimeout(me.fill_all_features,2000,false);
+		}
+		else{
+			print("setting timeout to 2000")
+			window.setTimeout(me.fill_all_features,2000,false);
+		}
+	}//me.change_areaCB
+
 	me.fill_all_features=function(){
 		print("fill_all_features");
 		var categories=me.CATEGORIES['keys'];
@@ -364,11 +376,17 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 			for(var lidx=0;lidx<layer_names.length;lidx++){
 				var layer_name=layer_names[lidx];
 				var features=me.CATEGORIES[category][layer_name]['source'].getFeatures();
+				if(true)print("features.length="+features.length);
+				if(features.length==0){
+					print("calling self recursively by timeout");
+					window.setTimeout(me.fill_all_features,2000,false);
+					return;
+				}
 				for(var fidx=0;fidx<features.length;fidx++){
 					var feature_name=null;
 					feature_name=features[fidx].get("Name");
 					if(!feature_name)feature_name=features[fidx].get("NAME");
-					//if(true)print(feature_name);
+					if(true)print(feature_name);
 					me.CATEGORIES[category][layer_name]['features'][feature_name]={
 						'feature':features[fidx],
 						'candidate':true,
