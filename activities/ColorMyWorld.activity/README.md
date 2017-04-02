@@ -1,5 +1,5 @@
 # colormyworld
-Geography Scavenger Hunt
+Geography Scavenger Hunt by <a href="http://github.com/ccosse/">Charles Cosse</a>
 [Available Online](http://dev.asymptopia.org/static/colormyworld)
 <img src='img/colormyworld-v0.3.png'/>
 

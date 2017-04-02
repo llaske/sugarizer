@@ -25,7 +25,14 @@ define([
 		map.setup_map();
 //		colormyworld.change_areaCB(1,INSTALLED['keys'][0]);
 //		window.onresize=util.updateTitle;
-		print(document.webL10n.getLanguage());
+		let lang=document.webL10n.getLanguage();
+		if(typeof('lang')=='undefined'){
+			print("setting english");
+			lang='en';
+			document.webL10n.getLanguage(lang);
+		}
+
+
 
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
@@ -88,7 +95,7 @@ define([
 			colormyworld.toggleRunning();
 		}
 
-		colormyworld.setRGBColorString('rgb(255, 0, 0)');
+		colormyworld.setRGBColorString('rgb(0, 150, 0)');
 		var colorButton = document.getElementById("color-button");
 		var changeColorPalette = new colorpalette.ColorPalette(colorButton);
 		changeColorPalette.setColor(colormyworld.getRGBColorString()); // Initial color

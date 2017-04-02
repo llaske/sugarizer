@@ -16,6 +16,7 @@ var REGION_ICONS=[
 	"./icons/northamerica.svg","./icons/southamerica.svg","./icons/australia.svg",
 	"./icons/world.svg"
 ];
+var NUM_COLORS=50;
 var MODE_NAMES=["Coloring","Tour","Interactive"];
 var COLORING=0;
 var TOUR=1;

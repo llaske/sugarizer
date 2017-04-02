@@ -48,6 +48,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 					var feature_name=null;
 					feature_name=features[fidx].get("Name");
 					if(!feature_name)feature_name=features[fidx].get("NAME");
+					if(!feature_name)feature_name=features[fidx].get("name");
 					//print("loopOverAllFeatures.features: "+feature_name);
 					if(directive=='get'){
 							var f=me.CATEGORIES[category][layer_name]['features'][feature_name];
@@ -140,10 +141,10 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		var B_CHANNEL=parseInt(Math.random()*255);
 
 		if(R_CHANNEL+G_CHANNEL+B_CHANNEL<300){
-			var dice=parseInt(Math.random()*3);
-			if(dice==0)R_CHANNEL=255;
-			else if(dice==1)G_CHANNEL=255;
-			else if(dice==2)B_CHANNEL=255;
+			var dice=parseInt(Math.random()*4);
+			if(dice==0)B_CHANNEL=255;
+			else if(dice==1)R_CHANNEL=255;
+			else if(dice==2)G_CHANNEL=255;
 			else{;}
 		}
 
@@ -213,6 +214,8 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 	}
 	me.get_enabled_candidates=function(){
 		print("get_enabled_candidates");
+		var category='';
+		var layer_name='';
 		var candidates=[];
 		var keys=me.CATEGORIES['keys'];
 		for(var kidx=0;kidx<keys.length;kidx++){
@@ -223,27 +226,20 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 			for(var lidx=0;lidx<layer_names.length;lidx++){
 				var layer_name=layer_names[lidx];
 				if(true)print("checking "+category+"."+layer_name);
-				if(me.CATEGORIES[category][layer_name]['toggle']){
-					var feature_names=me.CATEGORIES[category][layer_name]['feature_names'];
-					if(true)print("feature_names.length="+feature_names.length);
-					for(var fidx=0;fidx<feature_names.length;fidx++){
-						var feature_name=feature_names[fidx];
-						if(true)print("checking "+category+"."+layer_name+"."+feature_name);
-						if(me.CATEGORIES[category][layer_name]['features'][feature_name]['candidate']){
-							var pyld={
-								'category':category,
-								'layer_key':layer_name,
-								'feature_name':feature_name,
-							};
-							if(true)print("adding candidate: "+feature_name);
-							candidates.push(pyld);
-						}
-						if(true)print("Done adding candidate features");
-					}
-				}
+			}
+		}//length=1 but using loop to set values
+		var candidate_names=[];
+		for(var fidx=0;fidx<me.CATEGORIES[category][layer_name]['feature_names'].length;fidx++){
+			if(me.CATEGORIES[category][layer_name]['features'][me.CATEGORIES[category][layer_name]['feature_names'][fidx]]['candidate']){
+				candidate_names.push(me.CATEGORIES[category][layer_name]['feature_names'][fidx]);
 			}
 		}
-		return candidates;
+		if(candidate_names.length>0){
+		var fidx=parseInt(Math.random()*candidate_names.length);
+		f=me.CATEGORIES[category][layer_name]['features'][candidate_names[fidx]];
+		return [{'category':category,'layer_key':layer_name,'feature_name':candidate_names[fidx]}]
+		}
+		else return [];
 	}
 	me.reinit_candidates=function(){
 		print("reinit_candidates");
@@ -277,19 +273,6 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		}
 		if(me.RUNNING==true)
 			me.toggleRunning();
-
-/*
-		if(!add){
-			var ridx=me.currents.indexOf(region);
-			for(var dummy=0;dummy<ridx;dummy++){
-				me.currents.push(me.currents.shift());
-			}
-			me.currents.shift();
-		}
-		else{
-			me.currents.push(region);
-		}
-*/
 		me.currents=[region];//just blow-away the list and replace with new region
 
 		print("me.currents="+me.currents);
@@ -386,6 +369,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 					var feature_name=null;
 					feature_name=features[fidx].get("Name");
 					if(!feature_name)feature_name=features[fidx].get("NAME");
+					if(!feature_name)feature_name=features[fidx].get("name");
 					if(true)print(feature_name);
 					me.CATEGORIES[category][layer_name]['features'][feature_name]={
 						'feature':features[fidx],
@@ -412,7 +396,6 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 				url: src_url,
 				format: new ol.format.GeoJSON()
 			});
-
 			//Non-serializable object #2:
 			var polygon_layer= new ol.layer.Vector({
 				updateWhileAnimating:true,//true=performance impact!
@@ -491,7 +474,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 	}
 	me.toggleRunning=function(){
 		if (me.mode==COLORING) {
-			me.setMode(INTERACTIVE);
+			me.setMode(TOUR);
 			document.getElementById("modelabel").innerHTML=document.webL10n.get(MODE_NAMES[me.mode]);
 		}
 		if(me.RUNNING==true){
@@ -674,14 +657,14 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		}
 		print(xhtml);
 		me.toggleRunning();
-		me.setMode(INTERACTIVE);
+		me.setMode(COLORING);
 		me.reinit_candidates();
 		document.getElementById("modelabel").innerHTML=document.webL10n.get(MODE_NAMES[me.mode]);
 		me.showPopup(xhtml);
 		//NEED:game stats
 //		document.getElementById("playB").innerHTML='<img src="./static/ggmc/img/flaticon/play.png" class="icon"/>';
 	}
-	var NUM_COLORS=150;
+
 	me.random_styles=[];
 	for(var dummy=0;dummy<NUM_COLORS;dummy++){
 		var random_style=new ol.style.Style({
@@ -694,8 +677,11 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 	}
 
 	me.check_feature = function(pixel) {
-		print(me.current_feature);
-		if(!me.current_feature)return;
+		if(!me.current_feature){
+			print("check_feature: No Current Feature ... returning")
+			return;
+		}
+		print("check_feature:"+me.current_feature['feature_name']);
 
 		if(true)print("me.check_feature clearing last_timeout");
 		window.clearTimeout(me.last_timeout);
@@ -718,11 +704,12 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 				var target_name=null;
 				target_name=feature.get("NAME");
 				if(!target_name)target_name=feature.get("Name");
+				if(!target_name)target_name=feature.get("name");
 				if(true)print("returning: "+target_name);
 				features.push(feature);
 			});
 		}
-
+		print("features.length="+features.length);
 		if(features.length>0 && !found){
 
 			for(var fidx=0;fidx<features.length;fidx++){
@@ -744,7 +731,6 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 					else{
 						var ridx=parseInt(Math.random()*me.random_styles.length);
 						feature.setStyle(me.random_styles[ridx]);
-//						feature.setStyle(util.correct_style);
 					}
 
 					found=true;
@@ -757,10 +743,10 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 
 					if(me.mode==TOUR){
 						if(true)print("check_feature setting timeout for pan_zoom_home");
-						me.last_timeout=window.setTimeout(me.pan_zoom_home,3*me.DELAY);
+						me.last_timeout=window.setTimeout(me.pan_zoom_home,2*me.DELAY);
 					}
 					else{
-						window.setTimeout(me.startMove,1*me.DELAY);
+						window.setTimeout(me.startMove,2*me.DELAY);
 					}
 					return;
 				}
@@ -768,6 +754,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 					var feature_name=null;
 					feature_name=feature.get("NAME");
 					if(!feature_name)feature_name=feature.get("Name");
+					if(!feature_name)feature_name=feature.get("name");
 					if(true)print(feature_name+" != "+target_feature.toString());
 				}
 
@@ -780,49 +767,74 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 			if(true)print("game over");
 		}
 	}
+	me.flyTo=function(location,res, done) {
+		var view=window.map.getView();
+		var duration = me.DELAY;//2000;
+		var zoom = view.getZoom();
+		var resolution=view.getResolution();
+		var parts = 2;
+		var called = false;
+		function callback(complete) {
+			--parts;
+			if (called) {
+				return;
+			}
+			if (parts === 0 || !complete) {
+				called = true;
+				done(complete);
+			}
+		}
+		view.animate({
+			center: location,
+			duration: duration
+		}, callback);
+		if(resolution>res){
+		view.animate({
+			//zoom:zoom-1,
+			resolution:resolution*1.05,
+			duration: duration*.25
+		}, {
+			//zoom: zoom,
+			resolution:res,
+			duration: duration*.75
+		}, callback);
+		}
+		else{
+			view.animate({
+				resolution:res*1.05,
+				duration: duration*.75
+			},{
+				resolution:res,
+				duration:duration*.25
+			}, callback);
+		}
+	}//flyTo
+
 	me.pan_zoom=function(location){
 
 			if(true)print("pan_zoom: "+location);
-
-			var this_delay=4*me.DELAY;
-
-			var bounce = ol.animation.bounce({
-			  resolution:window.map.getView().getResolution()*1.2,
-			  duration:this_delay
-			});
-
-			var pan = ol.animation.pan({
-			  source: window.map.getView().getCenter(),
-			  duration:this_delay
-			});
-
-			var zoom = ol.animation.zoom({
-				resolution: window.map.getView().getResolution(),
-				duration:this_delay
-			});
-
-			window.map.beforeRender(pan);
-			window.map.beforeRender(zoom);
-
+			var this_delay=2*me.DELAY;
 			var f=me.current_feature;
 			var category=f['category'];
 			var layer_name=f['layer_key'];
 			var feature_name=f['feature_name'];
 
 			var bbox=me.CATEGORIES[category][layer_name]['features'][feature_name]['feature'].getGeometry().getExtent();
-
 			var res=util.computeResolution(bbox,true,window.innerWidth,window.innerHeight);
 			res*=1.2;
 			if(res==0)res=100;
 
-			window.map.getView().setResolution(res);
-			window.map.getView().setCenter(location);
+			me.flyTo(location,res,function(){});
 
 			if(me.current_feature != null){
+				try{window.clearTimeout(me.last_timeout);}//avoid chrome crash?
+				catch(e){if(true)print(e);}
 				if(true)print("pan_zoom setting timeout for check_feature");
 				me.last_timeout=window.setTimeout(me.check_feature,this_delay);
 			}
 			else{
+				try{window.clearTimeout(me.last_timeout);}//avoid chrome crash?
+				catch(e){if(true)print(e);}
 				if(true)print("pan_zoom calling start_move directly");
 				me.start_move(null);
 			}
@@ -830,32 +842,19 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 	me.pan_zoom_home=function(){
 		if(true)print("bounce_home");
 
-		var this_delay=4*me.DELAY;
-
-		var pan = ol.animation.pan({
-		  source: window.map.getView().getCenter(),
-		  duration:this_delay
-		});
-
-		var zoom = ol.animation.zoom({
-			resolution: window.map.getView().getResolution(),
-			duration:this_delay
-		});
-
-		window.map.beforeRender(pan);
-		window.map.beforeRender(zoom);
-
+		var this_delay=2*me.DELAY;
 		var W=window.innerWidth;
 		var H=window.innerHeight;
 		var bbox=me.collective_bbox;
 		var res=util.computeResolution(bbox,false,W,H);
-		window.map.getView().setResolution(res);
+		var location=ol.proj.transform([(bbox[0]+bbox[2])/2.,(bbox[1]+bbox[3])/2.],"EPSG:4326","EPSG:3857");
 
-		var location=ol.proj.transform([(bbox[0]+bbox[2])/2.,(bbox[1]+bbox[3])/2.],"EPSG:4326","EPSG:3857");;
-		window.map.getView().setCenter(location);
+		me.flyTo(location,res,function(){});
 
+		try{window.clearTimeout(me.last_timeout);}//avoid chrome crash?
+		catch(e){if(true)print(e);}
 		if(true)print('pan_zoom_home setting timeout for start_move');
-		me.last_timeout=window.setTimeout(me.startMove,this_delay);
+		me.last_timeout=window.setTimeout(me.startMove,me.delay);
 	}
 	window.colormyworld=me;
 	return me;

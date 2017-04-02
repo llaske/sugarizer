@@ -24,6 +24,7 @@ define(["activity/ol","print","util","colormyworld","humane"],
 				dummmy=window.map.forEachFeatureAtPixel(evt.pixel,function(target_feature,layer){
 				var target_name=target_feature.get("NAME");
 				if(!target_name)target_name=target_feature.get("Name");
+				if(!target_name)target_name=target_feature.get("name");
 				if(colormyworld.currents.indexOf(target_name)<0){
 					if (!me.tooltipDisplay || target_name!=me.tooltipDisplay) {
 						me.tooltipDisplay=target_name;
@@ -49,48 +50,72 @@ define(["activity/ol","print","util","colormyworld","humane"],
 			else colormyworld.check_feature(evt.pixel);
 			});
 
+			var highlightStyleCache = {};
+			me.featureOverlay = new ol.layer.Vector({
+				source: new ol.source.Vector(),
+				map: window.map,
+				style: function(feature, resolution) {
+					var text = resolution < 5000 ? feature.get('name') : '';
+					if (!highlightStyleCache[text]) {
+						highlightStyleCache[text] = new ol.style.Style({
+							stroke: new ol.style.Stroke({
+								color: '#ff0',
+								width: 1
+							}),
+							fill: new ol.style.Fill({
+								color: 'rgba(255,255,0,0.5)'
+							}),
+							text: new ol.style.Text({
+								font: '12px Calibri,sans-serif',
+								text: text,
+								fill: new ol.style.Fill({
+									color: '#000'
+								}),
+								stroke: new ol.style.Stroke({
+									color: '#ff0',
+									width: 3
+								})
+							})
+						});
+					}
+					return highlightStyleCache[text];
+				}
+			});
+
+			var highlight;
+			var displayFeatureInfo = function(pixel) {
+				var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+					return feature;
+				});
+				var msg=null;
+				if (feature) {
+					msg = feature.get('name');
+					if(!msg)msg = feature.get('Name');
+					if(!msg)msg = feature.get('NAME');
+				}
+				if(REGION_NAMES.indexOf(msg)>-1){//don't hilight deh boundary layer
+					return;
+				}
+				if(colormyworld.mode==TOUR){//don't hilight during tour
+					return;
+				}
+				if (feature !== highlight) {
+					if (highlight) {
+						me.featureOverlay.getSource().removeFeature(highlight);
+					}
+					if (feature) {
+						me.featureOverlay.getSource().addFeature(feature);
+					}
+					highlight = feature;
+				}
+			};
+
 		window.map.on('pointermove',function(evt){
 			if (evt.dragging) {
 				return;
 			}
-
-			for(var hidx=0;hidx<me.HILIGHTS.length;hidx++){
-				me.featureOverlay.removeFeature(me.HILIGHTS[hidx]);
-			}
-
-			dummmy=window.map.forEachFeatureAtPixel(evt.pixel,function(target_feature,layer){
-				var target_name=target_feature.get("NAME");
-				if(!target_name)target_name=target_feature.get("Name");
-
-				if(colormyworld.currents.indexOf(target_name)<0){
-					//print("pointermove: "+target_name);
-					me.featureOverlay.addFeature(target_feature);
-					me.HILIGHTS.push(target_feature);
-				}
-/*
-				if(String.toLowerCase(target_name)==window.app.current){
-					//this skips printing boundary to if(DEBUG)console.log
-				}
-				else if(target_name==window.app.current){
-					//this skips printing boundary to if(DEBUG)console.log
-				}
-				else if(target_feature){
-					me.featureOverlay.addFeature(target_feature);
-					me.HILIGHTS.push(target_feature);
-					//if(DEBUG)console.log(target_name);
-				}
-*/
-			});
-		});
-
-		me.featureOverlay = new ol.FeatureOverlay({
-		  map: window.map,
-		  style: new ol.style.Style({
-		  	stroke: new ol.style.Stroke({
-		    	color: OUTLINE_COLOR,
-		    	width: OUTLINE_WIDTH
-		    }),
-		  }),
+			var pixel = window.map.getEventPixel(evt.originalEvent);
+			displayFeatureInfo(pixel);
 		});
 
 	}
