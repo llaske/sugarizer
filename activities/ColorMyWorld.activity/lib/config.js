@@ -10,11 +10,10 @@ var LANGUAGE_NAMES={
 	"sw":"Swahili",
 	"th":"Thai"
 };
-var REGION_NAMES=["Africa","Europe","Asia","North America","South America","Australia Region","World"];
+var REGION_NAMES=["World","Americas","Europe","Asia","Africa",];
 var REGION_ICONS=[
-	"./icons/africa.svg","./icons/europe.svg","./icons/asia.svg",
-	"./icons/northamerica.svg","./icons/southamerica.svg","./icons/australia.svg",
-	"./icons/world.svg"
+	"./icons/world.svg","./icons/americas.svg","./icons/europe.svg",
+	"./icons/asia.svg","./icons/africa.svg"
 ];
 var NUM_COLORS=50;
 var MODE_NAMES=["Coloring","Tour","Interactive"];
@@ -26,8 +25,7 @@ var OUTLINE_COLOR="rgba(255,255,0,255)";
 var OUTLINE_WIDTH=2;
 var INSTALLED={
 	"keys":[
-		"World","Africa","Europe","Asia","NorthAmerica",
-		"SouthAmerica","Australia"
+		"World","Americas","Europe","Asia","Africa"
 	],
 	"World":{
 		"path":"data/world/",
@@ -45,8 +43,8 @@ var INSTALLED={
 	},
 	"Asia":{
 		"path":"data/asia/",
-		"bbox":[19.63,-11.64,179.0, 75.85],
-		"center":[105.,40.],
+		"bbox":[19.63,-54.75,179.0, 75.85],
+		"center":[125.,10.],
 		"color":"rgba(255,255,0,0)",
 		"fill":"rgba(0,100,40,0)",
 		"width":2,
@@ -57,29 +55,15 @@ var INSTALLED={
 		"line_sources":[],
 		"gpx_sources":[]
 	},
-	"North America":{
-		"path":"data/north_america/",
-		"bbox":[-187.52, 14.55,-12.15, 83.62],
-		"center":[-99,49.05],
+	"Americas":{
+		"path":"data/americas/",
+		"bbox":[-187.52, -55.92,-12.15, 83.62],
+		"center":[-99,0.05],
 		"color":"rgba(255,255,0,0)",
 		"fill":"rgba(0,100,40,0)",
 		"width":2,
 		"polygon_sources":[
-			{"filename":"north_america.geojson","color":"rgba(200,200,200,1)","fill":'rgba(100,100,100,1)','width':1,"category":"North America","layer_name":'NorthAmerica'},
-		],
-		"point_sources":[],
-		"line_sources":[],
-		"gpx_sources":[]
-	},
-	"South America":{
-		"path":"data/south_america/",
-		"bbox":[-109.45,-55.92,-29.84, 13.38],
-		"center":[-69.4,-21.9],
-		"color":"rgba(255,255,0,0)",
-		"fill":"rgba(0,100,40,0)",
-		"width":2,
-		"polygon_sources":[
-			{"filename":"south_america.geojson","color":"rgba(200,200,200,1)","fill":'rgba(100,100,100,1)','width':1,"category":"South America","layer_name":'SouthAmerica'},
+			{"filename":"americas.geojson","color":"rgba(200,200,200,1)","fill":'rgba(100,100,100,1)','width':1,"category":"Americas","layer_name":'Americas'},
 		],
 		"point_sources":[],
 		"line_sources":[],

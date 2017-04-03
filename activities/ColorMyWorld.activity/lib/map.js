@@ -55,7 +55,7 @@ define(["activity/ol","print","util","colormyworld","humane"],
 				source: new ol.source.Vector(),
 				map: window.map,
 				style: function(feature, resolution) {
-					var text = resolution < 5000 ? feature.get('name') : '';
+					var text = resolution < 5000 ? '' : '';//feature.get('name')
 					if (!highlightStyleCache[text]) {
 						highlightStyleCache[text] = new ol.style.Style({
 							stroke: new ol.style.Stroke({
@@ -63,7 +63,7 @@ define(["activity/ol","print","util","colormyworld","humane"],
 								width: 1
 							}),
 							fill: new ol.style.Fill({
-								color: 'rgba(255,255,0,0.5)'
+								color: 'rgba(0,200,0,0.2)'
 							}),
 							text: new ol.style.Text({
 								font: '12px Calibri,sans-serif',

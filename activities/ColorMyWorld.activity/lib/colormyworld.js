@@ -141,7 +141,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		var B_CHANNEL=parseInt(Math.random()*255);
 
 		if(R_CHANNEL+G_CHANNEL+B_CHANNEL<300){
-			var dice=parseInt(Math.random()*4);
+			var dice=parseInt(Math.random()*3);
 			if(dice==0)B_CHANNEL=255;
 			else if(dice==1)R_CHANNEL=255;
 			else if(dice==2)G_CHANNEL=255;
