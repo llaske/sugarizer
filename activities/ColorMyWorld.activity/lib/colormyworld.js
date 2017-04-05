@@ -49,8 +49,9 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 					feature_name=features[fidx].get("Name");
 					if(!feature_name)feature_name=features[fidx].get("NAME");
 					if(!feature_name)feature_name=features[fidx].get("name");
-					//print("loopOverAllFeatures.features: "+feature_name);
+					print("loopOverAllFeatures.features: "+feature_name);
 					if(directive=='get'){
+							print("GET "+feature_name);
 							var f=me.CATEGORIES[category][layer_name]['features'][feature_name];
 							//f['feature'].setStyle(me.random_styles[0]);
 							var default_fill=INSTALLED[category]["polygon_sources"][0]["fill"];
@@ -61,15 +62,16 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 								'fill_color':INSTALLED[category]["polygon_sources"][0]["fill"],
 							}
 							if(f['feature'].getStyle()){
-								print("stroke_color="+f['feature'].getStyle().getStroke().getColor());
-								print("stroke_width="+f['feature'].getStyle().getStroke().getWidth());
-								print("fill_color="+f['feature'].getStyle().getFill()['a']);
+								print(feature_name+" stroke_color="+f['feature'].getStyle().getStroke().getColor());
+								print(feature_name+" stroke_width="+f['feature'].getStyle().getStroke().getWidth());
+								print(feature_name+" fill_color="+f['feature'].getStyle().getFill().getColor());
 								stateFeatures[feature_name]['stroke_color']=f['feature'].getStyle().getStroke().getColor();
 								stateFeatures[feature_name]['stroke_width']=f['feature'].getStyle().getStroke().getWidth();
-								stateFeatures[feature_name]['fill_color']=f['feature'].getStyle().getFill()['a'];
+								stateFeatures[feature_name]['fill_color']=f['feature'].getStyle().getFill().getColor();
 							}
 					}
 					else if(directive=='set'){
+						print("SET "+feature_name);
 						var f=stateFeatures[feature_name];
 						me.CATEGORIES[category][layer_name]['features'][feature_name]['candidate']=f['candidate'];
 //						var ridx=parseInt(Math.random()*(me.random_styles.length-1));
