@@ -84,7 +84,7 @@ enyo.kind({
 	// Init setup for a line
 	setupItem: function(inSender, inEvent) {
 		// Set item in the template
-		var activitiesList = this.activities;
+		var activitiesList = sorted(this.activities);
 		if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native") {
 			activitiesList[inEvent.index].isNative = true;
 		}
@@ -114,7 +114,7 @@ enyo.kind({
 
 	// Switch favorite value for clicked line
 	doSwitchFavorite: function(inSender, inEvent) {
-		var activitiesList = this.activities;
+		var activitiesList = sorted(this.activities);
 		this.switchFavorite(inEvent.dispatchTarget.container, activitiesList[inEvent.index]);
 	},
 	switchFavorite: function(favorite, activity) {
@@ -129,7 +129,7 @@ enyo.kind({
 
 	// Run new activity
 	doRunNewActivity: function(inSender, inEvent) {
-		var activitiesList = this.activities;
+		var activitiesList = sorted(this.activities);
 		this.runNewActivity(activitiesList[inEvent.index])
 	},
 	runNewActivity: function(activity) {
@@ -186,3 +186,15 @@ enyo.kind({
 		app.filterActivities();
 	}
 });
+
+// Sort activities
+function sorted(activities) {
+	var result = [];
+	for (var i in activities) {
+		result.push(activities[i]);
+	}
+	result.sort(function (a, b) {
+		return a.name == b.name ? 0 : (a.name > b.name ? 1 : -1);
+	});
+	return result;
+}
