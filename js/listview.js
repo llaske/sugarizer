@@ -187,13 +187,14 @@ enyo.kind({
 	}
 });
 
+// Sort activities
 function sorted(activities) {
 	var result = [];
 	for (var i in activities) {
-			result.push(activities[i]);
+		result.push(activities[i]);
 	}
-	result.sort(function (a, b) {    
-		return a.name == b.name ? 0 : (a.name > b.name ? 1 : -1); 
+	result.sort(function (a, b) {
+		return a.name == b.name ? 0 : (a.name > b.name ? 1 : -1);
 	});
 	return result;
 }
