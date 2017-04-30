@@ -65,6 +65,13 @@ input {
 	right: 90px;
 }
 
+.help-button {
+	background-image: url(../icons/help.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 430px;
+}
+
 .favorite-button {
 	background-image: url(../icons/emblem-favorite.svg);
 	position: absolute;
@@ -1028,6 +1035,93 @@ input {
 	margin-right: auto;
 }
 
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-next-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-end-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.icon-button-text.disabled {
+	color: black !important;
+}
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
@@ -1168,6 +1262,10 @@ input {
 		width: 120px;
 	}
 
+	.help-button {
+		left: 280px;
+	}
+
 	.homeview-filter-text {
 		width: 200px;
 	}
@@ -1196,5 +1294,10 @@ input {
 @media screen and (min-width: 880px) {
 	.journal-filter-time {
 		visibility: visible;
+	}
+}
+@media screen and (max-width: 520px) {
+	.help-button {
+		visibility: hidden;
 	}
 }

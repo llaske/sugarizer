@@ -13,6 +13,7 @@ var preferences;
 var util;
 var myserver;
 var humane;
+var tutorial;
 
 
 
@@ -195,6 +196,7 @@ enyo.kind({
 			this.showView(preferences.getView());
 		}
 		this.draw();
+		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
 	},
 
 	// Draw desktop
@@ -203,6 +205,7 @@ enyo.kind({
 		var items = [];
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
+		var tutorialActivity = false;
 
 		// Compute center and radius
 		var canvas_center = util.getCanvasCenter();
@@ -305,7 +308,7 @@ enyo.kind({
 			if (activity.type != null && activity.type == "native") {
 				activity.isNative = true;
 			}
-			this.$.desktop.createComponent({
+			var newIcon = this.$.desktop.createComponent({
 					kind: "Sugar.Icon",
 					icon: activity,  // HACK: Icon characteristics are embedded in activity object
 					size: icon_size,
@@ -318,8 +321,16 @@ enyo.kind({
 					popupHide: enyo.bind(this, "hideActivityPopup")
 				},
 				{owner: this}
-			).render();
+			);
+			newIcon.render();
 			activitiesIndex++;
+
+			// Set tutorial
+			if (!tutorialActivity) {
+				tutorial.setElement("activity", newIcon.getAttribute("id"));
+				tutorial.setElement("journal", this.$.journal.getAttribute("id"));
+				tutorialActivity = true;
+			}
 		}
 	},
 
@@ -642,6 +653,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
+		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -659,6 +671,7 @@ enyo.kind({
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
+		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
 
 	askRedraw: function() {
@@ -721,5 +734,13 @@ enyo.kind({
 			this.needRedraw = false;
 			app.redraw();
 		}
+	},
+
+	startTutorial: function() {
+		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
+		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
+		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
+		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		tutorial.start();
 	}
 });

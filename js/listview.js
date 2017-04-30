@@ -88,6 +88,9 @@ enyo.kind({
 		if (activitiesList[inEvent.index].type !== 'undefined' && activitiesList[inEvent.index].type == "native") {
 			activitiesList[inEvent.index].isNative = true;
 		}
+		if (inEvent.index == 0) {
+			tutorial.setElement("favoriteitembutton", inEvent.item.$.favorite.getAttribute("id"));
+		}
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
