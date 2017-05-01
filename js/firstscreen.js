@@ -9,7 +9,7 @@ enyo.kind({
 			{name: "nameline", classes: "first-nameline", components: [
 				{name: "text", content: "xxx", classes: "first-nametext"},
 				{classes: "first-input", components: [
-					{name: "name", kind: "Input", classes: "first-namevalue", onkeydown: "enterclick"}
+					{name: "name", kind: "Input", classes: "first-namevalue", onfocus: "scrollToField", onkeydown: "enterclick"}
 				]}
 			]},
 		]},
@@ -45,6 +45,7 @@ enyo.kind({
 		var toolbar = document.getElementById("toolbar");
 		this.backgroundColor = toolbar.style.backgroundColor;
 		toolbar.style.backgroundColor = "white";
+		document.getElementById("canvas").style.overflowY = "hidden";
 		util.hideNativeToolbar();
 	},
 
@@ -70,6 +71,7 @@ enyo.kind({
 
 			// Launch Desktop
 			document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
+			document.getElementById("canvas").style.overflowY = "auto";
 			app = new Sugar.Desktop();
 			app.renderInto(document.getElementById("canvas"));
 			preferences.save();
@@ -89,6 +91,16 @@ enyo.kind({
 		if (inEvent.keyCode === 13) {
 			this.next();
 			return true;
+		}
+	},
+
+	scrollToField: function() {
+		// HACK: Scroll screen on Android to avoid to be hide by the touch keyboard
+		var nodeName = this.$.name.hasNode();
+		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+			setTimeout(function() {
+				nodeName.scrollIntoView();
+			}, 100);
 		}
 	},
 
