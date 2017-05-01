@@ -49,6 +49,21 @@
 	z-index:0;
 }
 
+#activity-palette {
+	z-index: 3;
+}
+
+.widepalette {
+	z-index: 3;
+}
+
+.thinpalette {
+	z-index: 3;
+}
+
+body {
+	overflow: hidden;
+}
 
 @media screen and (min-width: 890px) {
 	.thinpalette .wrapper {

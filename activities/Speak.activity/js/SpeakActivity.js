@@ -6,12 +6,13 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
   	canvas.height = window.innerHeight-55;
 	var windowWidth = canvas.getBoundingClientRect().width;
 	var windowHeight = canvas.getBoundingClientRect().height;
+	var shiftY = 45;
 
 	var radiusEye = Math.min(windowWidth,windowHeight)/6.5;
 	var radiusEyeball = Math.min(windowWidth,windowHeight)/28;
 	var eyePos = [{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0}];
-	var mouthStart = {x:windowWidth*1.35/4,y:windowHeight*2/3.0};
-	var mouthEnd = {x:windowWidth*2.65/4,y:windowHeight*2/3.0};
+	var mouthStart = {x:windowWidth*1.35/4,y:shiftY+windowHeight*2/3.0};
+	var mouthEnd = {x:windowWidth*2.65/4,y:shiftY+windowHeight*2/3.0};
 	var noOfEyes = 2;
 
 	$(window).resize(function() {
@@ -19,8 +20,8 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
   		canvas.height = window.innerHeight-55;
   		windowWidth = canvas.getBoundingClientRect().width;
 		windowHeight = canvas.getBoundingClientRect().height;
-  		mouthStart = {x:windowWidth*1.35/4,y:windowHeight*2/3.0};
-		mouthEnd = {x:windowWidth*2.65/4,y:windowHeight*2/3.0};
+  		mouthStart = {x:windowWidth*1.35/4,y:shiftY+windowHeight*2/3.0};
+		mouthEnd = {x:windowWidth*2.65/4,y:shiftY+windowHeight*2/3.0};
 		radiusEye = Math.min(windowWidth,windowHeight)/6.5;
 		radiusEyeball = Math.min(windowWidth,windowHeight)/28;
   		setEyes();
@@ -109,24 +110,24 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 		if(eyes%2 == 0){
 			for(i=0;i<Math.floor(eyes/2);i++){
 				eyePos[i+1].x = (center - offset/2) - (Math.floor(eyes/2)-i-1)*offset;
-				eyePos[i+1].y = height/3;
+				eyePos[i+1].y = shiftY+height/3;
 			}
 			for(i=0;i<Math.floor(eyes/2);i++){
 				eyePos[i+Math.floor(eyes/2)+1].x = (center + offset/2) + i*offset;
-				eyePos[i+Math.floor(eyes/2)+1].y = height/3;
+				eyePos[i+Math.floor(eyes/2)+1].y = shiftY+height/3;
 			}
 		}
 		if(eyes%2 == 1){
 			eyePos[1].x = center;
-			eyePos[1].y = height/3;
+			eyePos[1].y = shiftY+height/3;
 			for(i=0;i<Math.floor(eyes/2);i++){
 				eyePos[i+2].x = center - (Math.floor(eyes/2)-i)*offset;
-				eyePos[i+2].y = height/3;
+				eyePos[i+2].y = shiftY+height/3;
 			}
 			for(i=0;i<Math.floor(eyes/2);i++){
 				//console.log(i+Math.floor(eyes/2)+2);
 				eyePos[i+Math.floor(eyes/2)+2].x = center + (i+1)*offset;
-				eyePos[i+Math.floor(eyes/2)+2].y = height/3;
+				eyePos[i+Math.floor(eyes/2)+2].y = shiftY+height/3;
 			}
 		}
 		//console.log(eyePos[1]);
