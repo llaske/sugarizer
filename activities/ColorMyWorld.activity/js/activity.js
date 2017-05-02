@@ -19,7 +19,7 @@ define([
 		map.setup_map();
 //		colormyworld.change_areaCB(1,INSTALLED['keys'][0]);
 //		window.onresize=util.updateTitle;
-		let lang=document.webL10n.getLanguage();
+		var lang=document.webL10n.getLanguage();
 		if(typeof('lang')=='undefined'){
 			print("setting english");
 			lang='en';
