@@ -375,7 +375,7 @@ enyo.kind({
 
 	showNextRestrictedList: function() {
 		this.getPopup().hidePopup();
-		var newStart = this.restrictedModeInfo.start + this.restrictedModeInfo.count;
+		var newStart = this.restrictedModeInfo.start + this.restrictedModeInfo.count - 2;
 		if (newStart > this.restrictedModeInfo.length-1) {
 			return;
 		} else if (newStart+this.restrictedModeInfo.count > this.restrictedModeInfo.length) {
