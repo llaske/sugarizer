@@ -1046,6 +1046,14 @@ input {
 	width: 90px;
 }
 
+.tutorial-prev-icon.icon-button {
+	color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+	color: black;
+}
+
 .tutorial-prev-icon1 {
 	margin-left: 6px;
 	margin-top: 6px;
@@ -1070,6 +1078,14 @@ input {
 .tutorial-next-icon {
 	display: inline-flex;
 	width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+	color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+	color: black;
 }
 
 .tutorial-next-icon1 {
@@ -1098,6 +1114,14 @@ input {
 	width: 90px;
 }
 
+.tutorial-end-icon.icon-button {
+	color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+	color: black;
+}
+
 .tutorial-end-icon1 {
 	margin-left: 6px;
 	margin-top: 6px;
@@ -1119,8 +1143,11 @@ input {
 	margin-top: -20px;
 }
 
-.icon-button-text.disabled {
-	color: black !important;
+.icon-tutorial-text {
+	margin-top: 7px;
+	padding-left: 38px;
+	padding-right: 38px;
+	display: inline-block;
 }
 
 /* Handle small screen resolution */
