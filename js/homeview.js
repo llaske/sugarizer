@@ -474,20 +474,23 @@ enyo.kind({
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
 		util.vibrate();
-		preferences.runActivity(activity);
+		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
+		preferences.runActivity(activity, undefined, null, null, help);
 		this.postRunActivity();
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
 		this.getPopup().hidePopup()
 		util.vibrate();
-		preferences.runActivity(activity, instance.objectId, instance.metadata.title);
+		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
+		preferences.runActivity(activity, instance.objectId, instance.metadata.title, null, help);
 	},
 	runNewActivity: function(activity) {
 		// Start a new activity instance
 		this.getPopup().hidePopup()
 		util.vibrate();
-		preferences.runActivity(activity, null);
+		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
+		preferences.runActivity(activity, null, null, null, help);
 		this.postRunActivity();
 	},
 	postRunActivity: function() {
