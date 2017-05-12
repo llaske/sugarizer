@@ -2,6 +2,10 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../activity/help-icon.svg);
+}
+
 #canvas {
   background-color: #101010;
 }

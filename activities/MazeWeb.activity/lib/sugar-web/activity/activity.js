@@ -4,8 +4,9 @@ define(["webL10n",
         "sugar-web/env",
         "sugar-web/datastore",
         "sugar-web/graphics/icon",
-        "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, icon, activitypalette) {
+        "sugar-web/graphics/activitypalette",
+        "sugar-web/graphics/helppalette"], function (
+    l10n, shortcut, bus, env, datastore, icon, activitypalette, helppalette) {
 
     'use strict';
 
@@ -51,6 +52,11 @@ define(["webL10n",
 
         var activityPalette = new activitypalette.ActivityPalette(
             activityButton, datastoreObject);
+
+        var helpButton = document.getElementById("help-button");
+
+        var helpPalette = new helppalette.HelpPalette(
+            helpButton, datastoreObject);
 
         // Colorize the activity icon.
         activity.getXOColor(function (error, colors) {
