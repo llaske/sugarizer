@@ -39,6 +39,10 @@
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
 #private-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   width: 47px;
@@ -71,7 +75,7 @@
 .zoombuttons {
   border: 0px;
   background: #000000;
-  border-radius: 5.5px !important;  
+  border-radius: 5.5px !important;
 }
 
 .zoombutton:active {
@@ -103,7 +107,7 @@
 .search-field-input {
   opacity: 1;
   margin-left: 30px;
-  border: 0px;	
+  border: 0px;
   display: inline-block;
   background-color: #e5e5e5;
   width: 270px;
@@ -158,19 +162,164 @@
 	vertical-align: middle;
 }
 
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+	color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-next-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+	color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-end-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+	color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.icon-tutorial-text {
+	margin-top: 7px;
+	padding-left: 4px;
+	padding-right: 38px;
+	display: inline-block;
+}
+
+.web-activity-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 2px;
+}
+
+.icon-button {
+    border-radius: 22px;
+    margin-top: 5px;
+    height: 35px;
+    background-color: #808080;
+    border: 2px solid #808080;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 @media screen and (max-width: 905px) {
  .splitbar {
    visibility: hidden;
    width: 0px;
  }
+}
 
+@media screen and (max-width: 762px) {
+	#main-toolbar #help-button {
+		visibility: hidden;
+		width: 0px;
+	}
 }
 
 @media screen and (max-width: 810px) {
  .search-field-input {
   width: 120px;
  }
- 
+
  .search-field-border  {
    width: 200px;
  }
@@ -182,21 +331,21 @@
  }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 721px) {
  #main-toolbar #network-button {
    visibility: hidden;
    width: 0px;
  }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 682px) {
  #main-toolbar #png-button {
    visibility: hidden;
    width: 0px;
  }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 643px) {
  .toolbar {
    padding-left: 10px;
  }
@@ -205,20 +354,20 @@
    left: 0px;
    width: 0px;
  }
- 
+
  #zoompalette {
    left: 0px !important;
  }
- 
+
  .colorpalette {
    left: 0px !important;
  }
- 
+
  #foreground-button {
    visibility: hidden;
    width: 0px; left: 0px;
  }
- 
+
  #background-button {
    visibility: hidden;
    width: 0px; left: 0px;

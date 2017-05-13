@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane"], function (activity,l10n,datastore,notepalette,zoompalette,presencepalette,humane) {
+define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env"], function (activity,datastore,notepalette,zoompalette,presencepalette,humane,tutorial,env) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -80,6 +80,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalet
 				console.log("export done.")
 			}, inputData);
 		});
+		var networkButton = document.getElementById("network-button");
+		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
@@ -94,25 +96,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalet
 				}
 			});
 		});
-
-		// Handle localization
-		window.addEventListener('localized', function() {
-			var navigatorLanguage = navigator.language;
-			if (navigatorLanguage) {
-				if (navigatorLanguage.indexOf("fr") != -1)
-					l10n.locale = "fr";
-				else if (navigatorLanguage.indexOf("es") != -1)
-					l10n.locale = "es";
-			}
-			defaultText = l10n.get("YourNewIdea");
-			nodetextButton.title = l10n.get("nodetextTitle");
-			removeButton.title = l10n.get("removeButtonTitle");
-			undoButton.title = l10n.get("undoButtonTitle");
-			redoButton.title = l10n.get("redoButtonTitle");
-			zoomButton.title = l10n.get("zoomButtonTitle");
-			pngButton.title = l10n.get("pngButtonTitle");
-			networkButton.title = l10n.get("networkButtonTitle");
-		}, false);
 
 		// --- Node and edge handling functions
 		var defaultFontFamily = "Arial";
@@ -547,8 +530,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalet
 		}
 
 		// Handle presence palette
-		var networkButton = document.getElementById("network-button");
-		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 		presence.addEventListener('shared', function() {
 			presence.popDown();
 			shareActivity();
@@ -557,6 +538,83 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","notepalet
 			shareActivity();
 			presence.setShared(true);
 		}
+
+		// Handle help
+		var helpButton = document.getElementById("help-button");
+		tutorial.setElement("activity", document.getElementById("activity-button"));
+		tutorial.setElement("title", document.getElementById("title"));
+		tutorial.setElement("network", networkButton);
+		tutorial.setElement("help", helpButton);
+		tutorial.setElement("shared", document.getElementById("shared-button"));
+		tutorial.setElement("png", pngButton);
+		tutorial.setElement("zoom", zoomButton);
+		tutorial.setElement("color", colorButton);
+		tutorial.setElement("add", nodetextButton);
+		tutorial.setElement("remove", removeButton);
+		tutorial.setElement("undo", document.getElementById("undo-button"));
+		tutorial.setElement("redo", document.getElementById("redo-button"));
+		tutorial.setElement("stop", stopButton);
+		tutorial.setElement("node", document.getElementById('canvas'));
+		helpButton.addEventListener('click', function (event) {
+			tutorial.start();
+		});
+		env.getEnvironment(function(err, environment) {
+			// Initial tutorial coming from home view
+			if (environment.help) {
+				setTimeout(function() {
+					tutorial.start(tutorial.tourInit);
+				}, 500);
+			}
+		});
+
+		// Handle localization
+		function getSettings(callback) {
+			 var defaultSettings = {
+				 name: "",
+				 language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
+			 };
+			 if (!env.isSugarizer()) {
+				 callback(defaultSettings);
+				 return;
+			 }
+			 loadedSettings = datastore.localStorage.getValue('sugar_settings');
+			 callback(loadedSettings);
+		 }
+		window.addEventListener('localized', function() {
+			datastore.localStorage.load(function() {
+				getSettings(function(settings) { //globally setting language from sugar settings
+					if (l10n_s.language.code != settings.language) {
+						l10n_s.language.code = settings.language;
+					};
+					var oldDefaultText = defaultText;
+					defaultText = l10n_s.get("YourNewIdea");
+					nodetextButton.title = l10n_s.get("nodetextTitle");
+					removeButton.title = l10n_s.get("removeButtonTitle");
+					undoButton.title = l10n_s.get("undoButtonTitle");
+					redoButton.title = l10n_s.get("redoButtonTitle");
+					zoomButton.title = l10n_s.get("zoomButtonTitle");
+					pngButton.title = l10n_s.get("pngButtonTitle");
+					networkButton.title = l10n_s.get("networkButtonTitle");
+					helpButton.title = l10n_s.get("helpButtonTitle");
+					if (cy) {
+						var nodes = cy.elements("node");
+						for(var i = 0; i < nodes.length ; i++) {
+							var node = nodes[i];
+							if (node.data('content') == oldDefaultText) {
+								node.data('content', defaultText);
+								node.style({'content': defaultText});
+							}
+						}
+						if (textValue && textValue.value == oldDefaultText) {
+							textValue.value = defaultText;
+							if (lastSelected) {
+								showEditField(lastSelected);
+							}
+						}
+					}
+				});
+			});
+		}, false);
 
 		// --- Cytoscape handling
 

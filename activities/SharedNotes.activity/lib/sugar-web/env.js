@@ -19,9 +19,10 @@ define(function () {
 				activityName: getUrlParameter("n"),
 				bundleId: getUrlParameter("a"),
 				objectId: getUrlParameter("o"),
-				sharedId: getUrlParameter("s")
+				sharedId: getUrlParameter("s"),
+				help: getUrlParameter("h")
 			};
-            setTimeout(function () {			
+            setTimeout(function () {
 				callback(null, window.top.sugar.environment);
 			}, 0);
         } else if (env.isStandalone()) {
@@ -66,7 +67,7 @@ define(function () {
 
         return currentHost !== webActivityHost;
     };
-    
+
     env.isSugarizer = function() {
 		// HACK: If in Chrome App automatic deduction that in Sugarizer
 		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
