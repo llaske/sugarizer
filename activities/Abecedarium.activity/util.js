@@ -22,22 +22,24 @@ Abcd.saveContext = function() {
 	values.push(Abcd.context.lang);
 	values.push(Abcd.context.casevalue);
 	values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
-	var datastoreObject = Abcd.activity.getDatastoreObject();	
+	var datastoreObject = Abcd.activity.getDatastoreObject();
 	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
 	datastoreObject.setDataAsText(jsonData);
-	datastoreObject.save(function() {});	
+	datastoreObject.save(function() {});
 };
 Abcd.loadContext = function(callback) {
 	var datastoreObject = Abcd.activity.getDatastoreObject();
 	datastoreObject.loadAsText(function (error, metadata, data) {
-		var context = JSON.parse(data);	
-		var values = context.context.split('#');
-		Abcd.context.screen = values[0];
-		Abcd.context.lang = values[1];
-		Abcd.context.casevalue = values[2];
-		Abcd.context.screenContext = values[3];
-		Abcd.setLocale(Abcd.context.lang);
-		callback();
+		var context = JSON.parse(data);
+		if (context) {
+			var values = context.context.split('#');
+			Abcd.context.screen = values[0];
+			Abcd.context.lang = values[1];
+			Abcd.context.casevalue = values[2];
+			Abcd.context.screenContext = values[3];
+			Abcd.setLocale(Abcd.context.lang);
+			callback();
+		}
 	});
 };
 
@@ -110,7 +112,7 @@ Abcd.changeVisibility = function(object, items) {
 // Randomly get an entry in the current language
 Abcd.randomEntryIndex = function(excludes, filter) {
 	// Get first level
-	var value = null;	
+	var value = null;
 	if (filter != null && filter.kind == "Abcd.Collection") {
 		// Get the collection
 		var collection = Abcd.collections[filter.index];
@@ -120,11 +122,11 @@ Abcd.randomEntryIndex = function(excludes, filter) {
 			var entry = collection.entries[i];
 			if (Abcd.entries[entry][Abcd.context.lang] == 1)
 				value.push(entry);
-		}		
+		}
 	} else {
 		// Choose a letter
 		var firstlen = 0;
-		var firstindex = -1;		
+		var firstindex = -1;
 		for(var key in Abcd.letters) {
 			if (filter != null && filter.letter == key) {
 				firstindex = firstlen;
@@ -134,17 +136,17 @@ Abcd.randomEntryIndex = function(excludes, filter) {
 		}
 		if (firstindex == -1)
 			firstindex = Math.floor(Math.random()*firstlen);
-		
+
 		// Choose an index
 		var i = 0;
 		for(var key in Abcd.letters) {
 			if (i++ == firstindex) {
-				value = Abcd.letters[key]; 
+				value = Abcd.letters[key];
 				break;
 			}
 		}
 	}
-	
+
 	// Copy without excludes
 	var array = [];
 	for (var i = 0 ; i < value.length ; i++) {
@@ -171,7 +173,7 @@ Abcd.mix = function(chain) {
 	if (chain.length < 2) {
 		return chain;
 	}
-	
+
 	// Mix cards
 	var mixedchain = [];
 	var tomix = enyo.cloneArray(chain);
@@ -180,7 +182,7 @@ Abcd.mix = function(chain) {
 		var i = Math.floor(Math.random()*tomix.length);
 		mixedchain.push(tomix[i]);
 		tomix[i] = null;
-		
+
 		// Remix
 		var newmix = [];
 		for (var j = 0 ; j < tomix.length ; j++) {
@@ -190,6 +192,6 @@ Abcd.mix = function(chain) {
 		tomix = newmix;
 	}
 	mixedchain.push(tomix[0]);
-	
+
 	return mixedchain;
 };
