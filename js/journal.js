@@ -298,6 +298,15 @@ enyo.kind({
 			data: [entry, preferences.getSharedJournal()],
 			disable: this.journalType == constant.journalRemoteShared
 		});
+		if (util.getClientType() == constant.appType) {
+			items.push({
+				icon: {directory: "icons", icon: "module-about_my_computer.svg"},
+				colorized: false,
+				name: l10n.get("CopyToDevice"),
+				action: enyo.bind(this, "copyToDevice"),
+				data: [entry, null]
+			});
+		}
 		items.push({
 			icon: {directory: "icons", icon: "list-remove.svg"},
 			colorized: false,
@@ -326,6 +335,25 @@ enyo.kind({
 			datastore.create(metadata, function(error, oid) {
 			}, text);
 			that.$.activityPopup.hidePopup();
+		});
+	},
+
+	// Copy activity content into a file onthe device
+	copyToDevice: function(entry) {
+		var that = this;
+		this.loadEntry(entry, function(err, metadata, text) {
+			if (text == null) {
+				that.$.activityPopup.hidePopup();
+				return;
+			}
+			util.writeFile(metadata, text, function(err, filename) {
+				if (err) {
+					humane.log(l10n.get("ErrorWritingFile"));
+				} else {
+					humane.log(l10n.get("FileWroteTo",{file:filename}));
+				}
+				that.$.activityPopup.hidePopup();
+			});
 		});
 	},
 
