@@ -298,7 +298,7 @@ enyo.kind({
 			data: [entry, preferences.getSharedJournal()],
 			disable: this.journalType == constant.journalRemoteShared
 		});
-		if (util.getClientType() == constant.appType) {
+		if (util.getClientType() == constant.appType && (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios)) {
 			items.push({
 				icon: {directory: "icons", icon: "module-about_my_computer.svg"},
 				colorized: false,
