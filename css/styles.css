@@ -72,6 +72,13 @@ input {
 	left: 430px;
 }
 
+.help-button-journal {
+	background-image: url(../icons/help.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 950px;
+}
+
 .favorite-button {
 	background-image: url(../icons/emblem-favorite.svg);
 	position: absolute;
@@ -1322,6 +1329,11 @@ input {
 @media screen and (min-width: 880px) {
 	.journal-filter-time {
 		visibility: visible;
+	}
+}
+@media screen and (max-width: 1080px) {
+	.help-button-journal {
+		visibility: hidden;
 	}
 }
 @media screen and (max-width: 520px) {
