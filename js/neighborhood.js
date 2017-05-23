@@ -66,6 +66,7 @@ enyo.kind({
 		if (window.sugarizerOS) {
 			var networkIcons = [];
 			var networks = sugarizerOS.networks;
+			var wifiInTutorial = false;
 			for (var i = 0; i < networks.length; i++) {
 				var currentNetwork = networks[i];
 				var encryptionString = sugarizerOS.getEncryptionString(currentNetwork.capabilities);
@@ -109,6 +110,10 @@ enyo.kind({
 					{owner: this}
 				);
 				icon.render();
+				if (!wifiInTutorial) {
+					tutorial.setElement("wifi", icon.getAttribute("id"));
+					wifiInTutorial = true;
+				}
 				networkIcons.push(icon);
 				sugarizerOS.addNetworkIconToCache(currentNetwork);
 				var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
@@ -497,6 +502,8 @@ enyo.kind({
 		this.$.message.setContent(l10n.get("ServerNotSet"));
 		this.$.gotosettings.applyStyle("margin-top", (margintop+90)+"px");
 		this.$.gotosettings.setText(l10n.get("MySettings"));
+		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.setElement("server", this.$.server.getAttribute("id"));
 
 		// Clean network icons
 		var items = [];
@@ -565,6 +572,7 @@ enyo.kind({
 		// Add user icons
 		var len = this.users.length;
 		var userIcons = [];
+		var otherInTutorial = false;
 		for (var i = 0 ; i < len ; i++) {
 			 var currentUser = this.users[i];
 			 if (currentUser.networkId != preferences.getNetworkId()) {
@@ -581,6 +589,10 @@ enyo.kind({
 					{owner: this}
 				);
 				icon.render();
+				if (!otherInTutorial) {
+					tutorial.setElement("other", icon.getAttribute("id"));
+					otherInTutorial = true;
+				}
 				userIcons.push(icon);
 			 }
 		}
@@ -588,6 +600,7 @@ enyo.kind({
 		// Add activities icons
 		len = this.activities.length;
 		var userIconsInActivities = [];
+		var activityInTutorial = false;
 		for (var i = 0 ; i < len ; i++) {
 			// Unknown activity, ignoe
 			 var currentActivity = this.activities[i];
@@ -610,6 +623,10 @@ enyo.kind({
 				{owner: this}
 			);
 			icon.render();
+			if (!activityInTutorial) {
+				tutorial.setElement("activity", icon.getAttribute("id"));
+				activityInTutorial = true;
+			}
 
 			// Add childs
 			var childIcons = [];
@@ -788,6 +805,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "neighborsearch", kind: "Sugar.SearchField", onTextChanged: "filterNetwork", classes: "neighbor-filter-text"},
+		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop"}
 	],
 
@@ -800,6 +818,7 @@ enyo.kind({
 
 	rendered: function() {
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
+		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
 
 	// Handle search text content
@@ -816,5 +835,11 @@ enyo.kind({
 
 	filterNetwork: function() {
 		app.otherview.filterNetwork();
+	},
+
+	startTutorial: function() {
+		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
+		tutorial.setElement("neighborsearch", this.$.neighborsearch.getAttribute("id"));
+		tutorial.start();
 	}
 });
