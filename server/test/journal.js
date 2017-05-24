@@ -117,7 +117,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: 'ffffffffffffffffffffffff'}}, res);
 				});
 
-				it('should add entry in a journal (1/4)', function(done) {
+				it('should add entry in the journal (1/4)', function(done) {
 					res.done = function() {
 						assert.deepEqual({"content":{"objectId":"ffffffff-ffff-ffff-ffff-ffffffffffff","name":"Entry","value":"#0000FF","metadata":{"timestamp":9999, "activity": "1.mocha.org"}}},res.value.$push);
 						done();
@@ -125,7 +125,7 @@ settings.load(function(ini) {
 					journal.addEntryInJournal({params: {jid: newJournal._id.toString()}, body: {journal: '{"objectId":"ffffffff-ffff-ffff-ffff-ffffffffffff","name":"Entry","value":"#0000FF","metadata":{"timestamp":9999, "activity": "1.mocha.org"}}'}}, res);
 				});
 
-				it('should add entry in journal (2/4)', function(done) {
+				it('should get the added entry from journal (2/4)', function(done) {
 					res.done = function() {
 						assert.deepEqual({"objectId":"ffffffff-ffff-ffff-ffff-ffffffffffff","name":"Entry","value":"#0000FF","metadata":{"timestamp":9999, "activity": "1.mocha.org"}}, this.value[0]);
 						done();
@@ -133,7 +133,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString()}}, res);
 				});
 
-				it('should add entry in a journal (3/4)', function(done) {
+				it('should add another entry in the journal (3/4)', function(done) {
 					res.done = function() {
 						assert.deepEqual({"content":{"objectId":"fffffffe-ffff-ffff-ffff-ffffffffffff","name":"Entry2","value":"#00FF00","metadata":{"timestamp":9990}}},res.value.$push);
 						done();
@@ -141,7 +141,7 @@ settings.load(function(ini) {
 					journal.addEntryInJournal({params: {jid: newJournal._id.toString()}, body: {journal: '{"objectId":"fffffffe-ffff-ffff-ffff-ffffffffffff","name":"Entry2","value":"#00FF00","metadata":{"timestamp":9990}}'}}, res);
 				});
 
-				it('should add entry in journal (4/4)', function(done) {
+				it('should get both the added entries from the journal (4/4)', function(done) {
 					res.done = function() {
 						assert.equal(2, this.value.length);
 						assert.equal(9999,this.value[0].metadata.timestamp);
@@ -153,7 +153,7 @@ settings.load(function(ini) {
 			});
 
 			describe('#findJournalContent() with filter', function() {
-				it('should return all element when no filter is present', function(done) {
+				it('should return all enteries when no filter is present', function(done) {
 					res.done = function() {
 						assert.equal(2, this.value.length);
 						done();
@@ -161,7 +161,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString()}}, res);
 				});
 
-				it('should get only element where the filter apply', function(done) {
+				it('should get a particular entry when filter is applied', function(done) {
 					res.done = function() {
 						assert.equal(1, this.value.length);
 						assert.equal("1.mocha.org",this.value[0].metadata.activity);
@@ -171,7 +171,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString(), aid: "1.mocha.org"}}, res);
 				});
 
-				it('should return nothing when nothing math the filter', function(done) {
+				it('should return 0 when nothing matches the filter', function(done) {
 					res.done = function() {
 						assert.equal(0, this.value.length);
 						done();
@@ -181,7 +181,7 @@ settings.load(function(ini) {
 			});
 
 			describe('#findJournalContent() with field', function() {
-				it('should get only a field when specified', function(done) {
+				it('should get only specified field (1/2)', function(done) {
 					res.done = function() {
 						assert.equal(2, this.value.length);
 						assert.equal(9999,this.value[0].metadata.timestamp);
@@ -195,7 +195,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "metadata"}}, res);
 				});
 
-				it('should get only a field when specified (2/2)', function(done) {
+				it('should get only specified field (2/2)', function(done) {
 					res.done = function() {
 						assert.equal(2, this.value.length);
 						assert.equal("Entry",this.value[0].name);
@@ -209,7 +209,7 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "name"}}, res);
 				});
 
-				it('should do nothing when field dont exist', function(done) {
+				it('should do nothing when field doesn\'t exist', function(done) {
 					res.done = function() {
 						assert.equal(2, this.value.length);
 						assert.equal(undefined,this.value[0].name);
@@ -223,10 +223,12 @@ settings.load(function(ini) {
 					journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "dummy"}}, res);
 				});
 
-				it('should work combined with filter', function(done) {
+				it('should work when field combined with filter', function(done) {
 					res.done = function() {
 						assert.equal(1, this.value.length);
 						assert.equal(9999,this.value[0].metadata.timestamp);
+						assert.equal(undefined,this.value[0].name);
+						assert.equal(undefined,this.value[0].value);
 						done();
 					}
 					journal.findJournalContent({params: {jid: newJournal._id.toString(), field: "metadata", aid: "1.mocha.org"}}, res);
