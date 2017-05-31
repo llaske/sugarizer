@@ -11,7 +11,10 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 <script src="lib/cytoscape.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
 <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -23,12 +26,14 @@
   <button class="toolbutton" id="link-button" title="Link ideas"></button>
   <button class="toolbutton" id="delete-button" title="Remove"></button>
   <div class="splitbar"></div>
-  <button class="toolbutton" disabled id="undo-button" title="Undo"></button>  
-  <button class="toolbutton" disabled id="redo-button" title="Redo"></button>  
+  <button class="toolbutton" disabled id="undo-button" title="Undo"></button>
+  <button class="toolbutton" disabled id="redo-button" title="Redo"></button>
   <div class="splitbar"></div>
   <button class="toolbutton" id="zoom-button" title="View"></button>
   <div class="splitbar"></div>
-  <button class="toolbutton" id="png-button" title="Export to PNG"></button>  
+  <button class="toolbutton" id="png-button" title="Export to PNG"></button>
+  <div class="splitbar"></div>
+  <button class="toolbutton" id="help-button" title="Tutorial"></button>
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 </div>
 <div id="sub-toolbar" class="toolbar">
@@ -43,7 +48,7 @@
    <div class="splitbar"></div>
    <button class="toolbutton" id="fontminus-button" title="Decrease Font size"></button>
    <button class="toolbutton" id="font-button" title="Choose Font"></button>
-   <button class="toolbutton" id="fontplus-button" title="Increase Font size"></button>   
+   <button class="toolbutton" id="fontplus-button" title="Increase Font size"></button>
 </div>
 
 <div id="canvas">

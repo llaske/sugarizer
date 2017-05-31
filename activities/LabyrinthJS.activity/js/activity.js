@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","fontpalette"], function (activity, l10n, datastore, colorpalette, zoompalette, textpalette) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","fontpalette","tutorial","sugar-web/env"], function (activity, l10n, datastore, colorpalette, zoompalette, textpalette, tutorial, env) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!'], function (doc) {
@@ -82,6 +82,42 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		var fontPlusButton = document.getElementById("fontplus-button");
 		var fontButton = document.getElementById("font-button");
 		fontPalette = new textpalette.TextPalette(fontButton);
+		var helpButton = document.getElementById("help-button");
+		helpButton.addEventListener('click', function(e) {
+			tutorial.setElement("activity", document.getElementById("activity-button"));
+			tutorial.setElement("stop", document.getElementById("stop-button"));
+			tutorial.setElement("undo", document.getElementById("undo-button"));
+			tutorial.setElement("redo", document.getElementById("redo-button"));
+			tutorial.setElement("node", nodetextButton);
+			tutorial.setElement("link", linkButton);
+			tutorial.setElement("remove", removeButton);
+			tutorial.setElement("png", pngButton);
+			tutorial.setElement("zoom", zoomButton);
+			tutorial.setElement("textvalue", textValue);
+			tutorial.setElement("bold", boldButton);
+			tutorial.setElement("italic", italicButton);
+			tutorial.setElement("foreground", foregroundButton);
+			tutorial.setElement("background", backgroundButton);
+			tutorial.setElement("font", fontButton);
+			tutorial.setElement("fontminus", fontMinusButton);
+			tutorial.setElement("fontplus", fontPlusButton);
+			tutorial.setElement("board", document.getElementById('canvas'));
+			if (cy) {
+				var selected = lastSelected;
+				if (!selected) {
+					var nodes = cy.elements("node");
+					if (nodes.length > 0) {
+						selected = nodes[0];
+						lastSelected = selected;
+						selectNode(selected);
+					}
+				}
+				if (selected) {
+					showSubToolbar(selected);
+				}
+			}
+			tutorial.start();
+		});
 
 		foregroundPalette.addEventListener('colorChange', function(e) {
 			if (!ignoreForegroundEvent) {
@@ -192,30 +228,53 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		});
 
 		// Handle localization
+		function getSettings(callback) {
+			 var defaultSettings = {
+				 name: "",
+				 language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
+			 };
+			 if (!env.isSugarizer()) {
+				 callback(defaultSettings);
+				 return;
+			 }
+			 loadedSettings = datastore.localStorage.getValue('sugar_settings');
+			 callback(loadedSettings);
+		 }
 		window.addEventListener('localized', function() {
-			var navigatorLanguage = navigator.language;
-			if (navigatorLanguage) {
-				if (navigatorLanguage.indexOf("fr") != -1)
-					l10n.locale = "fr";
-				else if (navigatorLanguage.indexOf("es") != -1)
-					l10n.locale = "es";
-			}
-			defaultText = l10n.get("YourNewIdea");
-			nodetextButton.title = l10n.get("nodetextTitle");
-			linkButton.title = l10n.get("linkButtonTitle");
-			removeButton.title = l10n.get("removeButtonTitle");
-			undoButton.title = l10n.get("undoButtonTitle");
-			redoButton.title = l10n.get("redoButtonTitle");
-			zoomButton.title = l10n.get("zoomButtonTitle");
-			foregroundButton.title = l10n.get("foregroundButtonTitle");
-			backgroundButton.title = l10n.get("backgroundButtonTitle");
-			textValue.placeholder = l10n.get("typeText");
-			boldButton.title = l10n.get("boldButtonTitle");
-			italicButton.title = l10n.get("italicButtonTitle");
-			fontMinusButton.title = l10n.get("fontMinusButtonTitle");
-			fontPlusButton.title = l10n.get("fontPlusButtonTitle");
-			fontButton.title = l10n.get("fontButtonTitle");
-			pngButton.title = l10n.get("pngButtonTitle");
+			datastore.localStorage.load(function() {
+				getSettings(function(settings) { //globally setting language from sugar settings
+					if (l10n_s.language.code != settings.language) {
+						l10n_s.language.code = settings.language;
+					};
+					var oldDefaultText = defaultText;
+					defaultText = l10n_s.get("YourNewIdea");
+					nodetextButton.title = l10n.get("nodetextTitle");
+					linkButton.title = l10n.get("linkButtonTitle");
+					removeButton.title = l10n.get("removeButtonTitle");
+					undoButton.title = l10n.get("undoButtonTitle");
+					redoButton.title = l10n.get("redoButtonTitle");
+					zoomButton.title = l10n.get("zoomButtonTitle");
+					foregroundButton.title = l10n.get("foregroundButtonTitle");
+					backgroundButton.title = l10n.get("backgroundButtonTitle");
+					textValue.placeholder = l10n.get("typeText");
+					boldButton.title = l10n.get("boldButtonTitle");
+					italicButton.title = l10n.get("italicButtonTitle");
+					fontMinusButton.title = l10n.get("fontMinusButtonTitle");
+					fontPlusButton.title = l10n.get("fontPlusButtonTitle");
+					fontButton.title = l10n.get("fontButtonTitle");
+					pngButton.title = l10n.get("pngButtonTitle");
+					if (cy) {
+						var nodes = cy.elements("node");
+						for(var i = 0; i < nodes.length ; i++) {
+							var node = nodes[i];
+							if (node.data('content') == oldDefaultText) {
+								node.data('content', defaultText);
+								node.style({'content': defaultText});
+							}
+						}
+					}
+				});
+			});
 		}, false);
 
 		// --- Cytoscape handling
