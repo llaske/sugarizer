@@ -22,7 +22,7 @@ settings.load(function(ini) {
 			activities.findAll({params: []}, res);
 
 			it('should return all activities', function() {
-				assert.equal(28, res.value.length);
+				assert.equal(33, res.value.length);
 			});
 
 			it('should return all fields', function() {
