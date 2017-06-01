@@ -74,7 +74,7 @@ settings.load(function(ini) {
 					users.findById({params: {uid: 'ffffffffffffffffffffffff'}}, res);
 				});
 
-				it('should return right user on inexisting uid', function(done) {
+				it('should return right user on existing uid', function(done) {
 					res.done = function() {
 						var user = this.value;
 						assert.equal(newUser.name, user.name);
@@ -110,14 +110,6 @@ settings.load(function(ini) {
 					users.updateUser({params: {uid: 'ffffffffffffffffffffffff'}, body: {user: '{"color":{"fill":"#00FF00"},"language":"en","version":7}'}}, res);
 				});
 
-				it('should do nothing on inexisting user', function(done) {
-					res.done = function() {
-						assert.equal(undefined, this.value);
-						done();
-					}
-					users.findById({params: {uid: 'ffffffffffffffffffffffff'}}, res);
-				});
-
 				it('should update the user', function(done) {
 					res.done = function() {
 						var user = res.value;
@@ -144,14 +136,6 @@ settings.load(function(ini) {
 					}
 					users.findById({params: {uid: newUser._id.toString()}}, res);
 				});
-
-				it('should not add a new user', function(done) {
-					res.done = function() {
-						assert.equal(initCount+1, this.value.length);
-						done();
-					}
-					users.findAll(null, res);
-				});
 			});
 
 			describe('#removeUser()', function() {
@@ -171,14 +155,6 @@ settings.load(function(ini) {
 					users.removeUser({params: {uid: 'ffffffffffffffffffffffff'}}, res);
 				});
 
-				it('should do nothing on inexisting user', function(done) {
-					res.done = function() {
-						assert.equal(undefined, this.value);
-						done();
-					}
-					users.findById({params: {uid: 'ffffffffffffffffffffffff'}}, res);
-				});
-
 				it('should remove the user', function(done) {
 					res.done = function() {
 						assert.equal(newUser._id.toString(), res.value.toString());
@@ -187,7 +163,16 @@ settings.load(function(ini) {
 					users.removeUser({params: {uid: newUser._id.toString()}}, res);
 				});
 
-				it('should remove one user', function(done) {
+        it('should return nothing on removed user', function(done) {
+          res.done = function() {
+						var user = this.value;
+						assert.equal(null, user);
+						done();
+					}
+					users.findById({params: {uid: newUser._id.toString()}}, res);
+				});
+
+				it('should remove only one user', function(done) {
 					res.done = function() {
 						assert.equal(initCount, this.value.length);
 						done();
