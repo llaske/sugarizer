@@ -9,7 +9,7 @@
 
 /*}*/
 
-#colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button {
+#insertimage-button, #colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button {
   display: none;
 }
 
@@ -43,8 +43,8 @@
   }
 }
 
-@media only screen and (min-width: 605px) {
-  #clear-button {
+@media only screen and (min-width: 601px) {
+  #insertimage-button {
     display: inline-block;
   }
 }
@@ -91,14 +91,20 @@
   }
 }
 
-@media only screen and (min-width: 1045px) {
+@media only screen and (min-width: 1038px) {
   #copy-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 1110px) {
+@media only screen and (min-width: 1090px) {
   #paste-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1147px) {
+  #clear-button {
     display: inline-block;
   }
 }
@@ -151,6 +157,9 @@
 }
 #main-toolbar #size-button {
   background-image: url(../icons/size-1.svg);
+}
+#main-toolbar #insertimage-button {
+  background-image: url(../icons/insert-image.svg);
 }
 #main-toolbar #text-button {
   background-image: url(../icons/tool-write.svg);

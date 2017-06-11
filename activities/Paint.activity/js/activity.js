@@ -1,5 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity","activity/paint-activity","activity/paint-app","sugar-web/graphics/presencepalette","activity/palettes/color-palette","activity/palettes/stamp-palette","activity/palettes/text-palette","activity/palettes/drawings-palette","activity/palettes/filters-palette","activity/buttons/size-button","activity/buttons/clear-button","activity/buttons/undo-button","activity/buttons/redo-button","activity/modes/modes-pen","activity/modes/modes-eraser","activity/modes/modes-bucket","activity/modes/modes-text","activity/modes/modes-stamp","activity/modes/modes-copy","activity/modes/modes-paste","activity/collaboration"], function (activity,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20) {
+define(["sugar-web/activity/activity","activity/paint-activity","activity/paint-app","sugar-web/graphics/presencepalette","activity/palettes/color-palette","activity/palettes/stamp-palette","activity/palettes/text-palette","activity/palettes/drawings-palette","activity/palettes/filters-palette","activity/buttons/size-button","activity/buttons/clear-button","activity/buttons/undo-button","activity/buttons/redo-button","activity/modes/modes-pen","activity/modes/modes-eraser","activity/modes/modes-bucket","activity/modes/modes-text","activity/modes/modes-stamp","activity/modes/modes-copy","activity/modes/modes-paste","activity/collaboration","activity/buttons/insertimage-button"], function (activity,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21) {
   window.PaintApp = p2;
 
   PaintApp.libs.activity = activity;
@@ -17,6 +17,7 @@ define(["sugar-web/activity/activity","activity/paint-activity","activity/paint-
   PaintApp.buttons.clearButton = p10;
   PaintApp.buttons.undoButton = p11;
   PaintApp.buttons.redoButton = p12;
+  PaintApp.buttons.insertImageButton = p21;
 
   /* Fetching and storing of the modes */
   PaintApp.modes.Pen = p13;

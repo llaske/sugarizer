@@ -32,6 +32,7 @@ function initGui() {
   PaintApp.buttons.clearButton.initGui();
   PaintApp.buttons.undoButton.initGui();
   PaintApp.buttons.redoButton.initGui();
+  PaintApp.buttons.insertImageButton.initGui();
 
   /* Refreshing undo / redo */
   PaintApp.displayUndoRedoButtons();
