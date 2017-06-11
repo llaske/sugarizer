@@ -64,7 +64,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache'],
 					<div style='position: absolute; top: 20px; left: 60px;'>$titleChoose</div>\
 				</div>\
 				<div class='toolbar' style='border-top-style: solid; border-color: #c0c0c0; border-width: 1px'>\
-					<span class='icon-input' style='top: -16px'>\
+					<span class='icon-input' style='vertical-align:top;'>\
 					<input id='search-text' type='text' placeholder='$holderSearch' style='width: 200px; font-size: 10pt'/>\
 					<button id='cancel-search' class='cancel right'></button>\
 					</span>\
