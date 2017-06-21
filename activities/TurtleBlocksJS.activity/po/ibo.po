@@ -15,925 +15,1552 @@
 
 
 msgid ""
+
+#: js/block.js:553
+msgid "rest"
 msgstr ""
 
-msgid "Delete all"
-msgstr "hichapụ niile"
-
-msgid "show"
-msgstr "show"
-
-msgid "text"
-msgstr "ederede"
-
-msgid "random"
-msgstr "random"
-
-msgid "confirm"
-msgstr "gosi"
-
-msgid "rice and beans"
-msgstr "osikapa na agwa"
-
-#. TRANS: mashape webservices (probably no need to translate)
-msgid "mashape"
-msgstr "ọdịdị"
-
-#. TRANS: target language for translation
-msgid "target"
-msgstr "lekwasịrị"
-
-msgid "keyboard"
-msgstr "keyboard"
-
-msgid "You can also load projects from the file system."
-msgstr "giwa nwekwara ike mara oru ngo si faịlụ usoro"
-
-#. TRANS: as in "on event do"
-msgid "on"
-msgstr ""
-
-msgid "chicken"
-msgstr "okuko"
-
-msgid "apple"
-msgstr "apụl"
-
-msgid "number"
-msgstr "nọmba"
-
-#. TRANS: unique ID
-msgid "UID"
-msgstr ""
-
-#. TRANS: name of project
-msgid "title"
-msgstr "aha"
-
-msgid "radians"
-msgstr "radians"
-
-msgid "Undo"
-msgstr "Wepu"
-
-#. TRANS: ms is micro seconds
-msgid "duration (ms)"
-msgstr ""
-
-#. TRANS: as in "add 1 to"
-msgid "to"
-msgstr "ka"
-
-msgid "add"
-msgstr "tinye"
-
-msgid "set pen size"
-msgstr "set pen size"
-
-msgid "start turtle"
-msgstr "mbe bido"
-
-msgid "latitude"
-msgstr "ohere"
-
-msgid "mouse x"
-msgstr "oke x"
-
-msgid "mouse y"
-msgstr "oke y"
-
-msgid "Show/hide blocks"
-msgstr "Gosi / hide blocks"
-
-msgid "then"
-msgstr "mgbe ahụ"
-
-msgid "move"
-msgstr "ije"
-
-msgid "Stop the current project."
-msgstr "Kwụsị ugbu a oru ngo"
-
-msgid "stop turtle"
-msgstr "kwusi mbe "
-
-msgid "food"
-msgstr "nri"
-
-msgid "Click to run the project in slow mode."
-msgstr "Pịa-agba ọsọ ahụ oru ngo na-adịghị ngwa mode"
-
-msgid "stop"
-msgstr "kwụsị"
-
-msgid "fat"
-msgstr "ibu"
-
-msgid "Expand or collapse start and action stacks."
-msgstr "Ịmụbawanye ma ọ bụ daa stacks nke blocks, dịka, na-amalite na edinam stack"
-
-#. TRANS: pop a value off of the heap.
-msgid "pop"
-msgstr "pop"
-
-msgid "background"
-msgstr "ndabere"
-
-#. TRANS: logical "not" operator
-msgid "not"
-msgstr "bụghị"
-
-msgid "Google map"
-msgstr "Google map"
-
-msgid "day"
-msgstr "ụbọchị"
-
-#. TRANS: mathematical modular (remainder) function.
-msgid "mod"
-msgstr "mod"
-
-msgid "Save project"
-msgstr "Save oru ngo"
-
-msgid "get fiber"
-msgstr "na-eriri"
-
-msgid "Open a panel for configuring Turtle Blocks."
-msgstr "Mepee a panel maka configuring mbe nkanka ."
-
-#. TRANS: the name of a variable (stored in a box)
-msgid "name"
-msgstr "aha"
-
-msgid "turtle x"
-msgstr "mbe x"
-
-msgid "turtle y"
-msgstr "mbe y"
-
-msgid "Download"
-msgstr "ala-ibu"
-
-msgid "The paste button is enabled when there are blocks copied onto the clipboard."
-msgstr "The tapawa button na-nyeere e nwere blocks depụtaghachiri n'elu clipboard"
-
-msgid "Expand/collapse toolbar"
-msgstr "Ịmụbawanye / ida toolbar"
-
-msgid "zoom"
-msgstr "mbugharị"
-
-msgid "Hide or show the blocks and the palettes."
-msgstr "Zoo ma ọ bụ na-egosi na blocks na palettes"
-
-msgid "to degrees"
-msgstr " to degrees"
-
-msgid "Restore blocks from the trash."
-msgstr "Weghachi blocks si ahịhịa"
-
-msgid "get calories"
-msgstr "ga-esi calories"
-
-msgid "Load plugin from file"
-msgstr "Ibu Ibu plugin si faịlụ"
-
-msgid "You can scroll the blocks on the canvas."
-msgstr ""
-
-msgid "x"
-msgstr "x"
-
-msgid "show blocks"
-msgstr "show blocks"
-
-msgid "heading"
-msgstr "isiokwu"
-
-msgid "Help"
-msgstr "Help"
-
-msgid "turtle"
-msgstr "mbe"
-
-msgid "right"
-msgstr "nri"
-
-msgid "Load samples from server"
-msgstr "Ibu Ibu n'omume site na ihe nkesa"
-
-msgid "hide blocks"
-msgstr "hide blocks"
-
-msgid "Hide or show the block palettes."
-msgstr "Zoo ma ọ bụ na-egosi na ngọngọ palettes"
-
-msgid "This button opens a viewer for loading example projects."
-msgstr "Nke a ga-emepe button a na-ekiri maka loading atụ oru ngo"
-
-msgid "Enable scrolling"
-msgstr ""
-
-msgid "back"
-msgstr "azụ"
-
-msgid "Publish"
-msgstr "asuanetop"
-
-msgid "grey"
-msgstr "isi awọ"
-
-msgid "arc"
-msgstr "aak"
-
-msgid "radius"
-msgstr "okirikiri"
-
-msgid "longitude"
-msgstr "lonjituudu"
-
-msgid "duration"
-msgstr "oge"
-
-#. TRANS: shade refers to value (dark to light)
-msgid "set shade"
-msgstr "set ndo"
-
-#. TRANS: in mathematical sense (inverse of period)
-msgid "frequency"
-msgstr ""
-
-#. TRANS: as in the event that a signal arrives
-msgid "event"
-msgstr ""
-
-msgid "pixel color"
-msgstr "pixel agba"
-
-msgid "eatme"
-msgstr "rea-mu"
-
-msgid "This button opens and closes the primary toolbar."
-msgstr "Nke a button emepekwa na-emechi isi toolbar."
-
-#. TRANS: index specifies a position into an array (heap)
-msgid "index"
-msgstr ""
-
-msgid "hide"
-msgstr ""
-
-#. TRANS: show the contents of the heap.
-msgid "show heap"
-msgstr "show kpokọtara"
-
-msgid "Show or hide a Cartesian-coordinate grid."
-msgstr "Egosi ma ọ bụ zoo a Cartesian-ahazi okporo"
-
-#. TRANS: vertical space
-msgid "vspace"
-msgstr ""
-
-#. TRANS: publish project to Facebook
-msgid "publish"
-msgstr "ebipụta"
-
-#. TRANS: weather forecast
-msgid "forecast"
-msgstr "amụma"
-
-#. TRANS: hours ago that the data was updated.
-msgid "hours ago"
-msgstr ""
-
-msgid "pen"
-msgstr "pen"
-
-msgid "fish"
-msgstr "azụ"
-
-msgid "print"
-msgstr "ebipụta"
-
-#. TRANS: how many entries are in the heap?
-msgid "heap length"
-msgstr ""
-
-msgid "size"
-msgstr "size"
-
-msgid "Expand/collapse option toolbar"
-msgstr "Ịmụbawanye / daa nhọrọ toolbar"
-
-msgid "end hollow line"
-msgstr ""
-
-msgid "city latitude"
-msgstr ""
-
-#. TRANS: dietary fiber
-msgid "fiber"
-msgstr "eriri"
-
-msgid "You can load new blocks from the file system."
-msgstr "I nwere ike mara ọhụrụ blocks si faịlụ usoro"
-
-#. TRANS: mathematical power, e.g., 2^4 == 16
-msgid "power"
-msgstr "ike"
-
-msgid "Settings"
-msgstr "Ntọala"
-
-msgid "one of"
-msgstr ""
-
-msgid "Save stack"
-msgstr "ịzọpụta tojupụtara"
-
-msgid "corn"
-msgstr "ọka"
-
-msgid "Display statistics"
-msgstr "Ngosipụta ọnụ ọgụgụ"
-
-msgid "Remove all content on the canvas, including the blocks."
-msgstr "Wepụ niile ọdịnaya na kwaaji, gụnyere blocks"
-
-msgid "to radians"
-msgstr "to oradians"
-
-msgid "water"
-msgstr "imiri"
-
-#. TRANS: mathematical exponential base
-msgid "base"
-msgstr "isi"
-
-msgid "cookie"
-msgstr "kuki"
-
-msgid "Show or hide a polar-coordinate grid."
-msgstr "Egosi ma ọ bụ zoo a polar-ahazi okporo"
-
-msgid "sweet potato"
-msgstr "ụtọ nduku"
-
-#. TRANS: save the heap to a file
-msgid "save heap"
-msgstr "ịzọpụta kpokọtara"
-
-msgid "from"
-msgstr "site"
-
-msgid "sensors"
-msgstr "sensọ"
-
-msgid "pen down"
-msgstr "pen ala"
-
-#. TRANS: retrieve the value at a specific entry (index) in the heap
-msgid "index heap"
-msgstr ""
-
-msgid "get name"
-msgstr "na-aha"
-
-msgid "wait"
-msgstr "na-eche"
-
-#. TRANS: a container for a variable
-msgid "box"
-msgstr "igbe"
-
-msgid "Planet"
-msgstr "Planet"
-
-msgid "Show these messages."
-msgstr "Gosi ndị a ozi"
-
-#. TRANS: object
-msgid "obj"
-msgstr "obj"
-
-#. TRANS: store a value in a box
-msgid "store in"
-msgstr "echekwa na"
-
-msgid "digest meal"
-msgstr "iyochapu nri"
-
-msgid "maths"
-msgstr "maths"
-
-#. TRANS: popout window
-msgid "popout"
-msgstr ""
-
-msgid "zoom factor"
-msgstr "mbugharị na-akpata"
-
-#. TRANS: the name of a stack of blocks
+#: js/block.js:619
+#: js/block.js:1742
+#: js/activity.js:1279
+#: js/analytics.js:84
+#: js/palette.js:552
+#: js/palette.js:561
+#: js/palette.js:570
+#: js/palette.js:579
+#: js/palette.js:1716
+#: js/palette.js:1727
+#: js/palette.js:1738
+#: js/palette.js:1749
+#: js/basicblocks.js:528
+#: js/basicblocks.js:557
+#: js/basicblocks.js:564
+#: js/basicblocks.js:592
+#: js/basicblocks.js:602
+#: js/basicblocks.js:631
+#: js/basicblocks.js:655
+#: js/basicblocks.js:659
+#: js/basicblocks.js:665
+#: js/blocks.js:1816
+#: js/blocks.js:1818
+#: js/blocks.js:2006
+#: js/blocks.js:2165
+#: js/blocks.js:2285
+#: js/blocks.js:2717
+#: js/blocks.js:3467
+#: js/blocks.js:3544
 msgid "action"
 msgstr "edinam"
 
-#. TRANS: volume of microphone audio
-msgid "loudness"
-msgstr "keuzu"
-
-msgid "Increase the size of the blocks."
-msgstr "Dịkwuo size nke blocks."
-
-#. TRANS: logical "or" operator
-msgid "or"
-msgstr "ma ọ bụ"
-
-#. TRANS: use sensor to detect objects on the left
-msgid "sense left"
-msgstr "uche hapụrụ"
-
-msgid "comment"
-msgstr "ikwu"
-
-msgid "cheese"
-msgstr "cheese"
-
-msgid "Cartesian"
-msgstr "Cartesian"
-
-#. TRANS: audio (as in musical note)
-msgid "tone"
-msgstr ""
-
-#. TRANS: evaluate Javascript code
-msgid "eval"
-msgstr "eval"
-
-msgid "color"
-msgstr "agba"
-
-msgid "image"
-msgstr "oyiyi"
-
-msgid "Welcome to Turtle Blocks"
-msgstr "Mmadụ Bịa mbe nkanka"
-
-msgid "Increase block size"
-msgstr "Mmụba ngọngọ size"
-
-msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
-msgstr "Nke a toolbar e dere ihe palette buttons: pịa na-egosi ma ọ bụ zoo palettes nke blocks (mbe, Pen, Ọnụ Ọgụgụ, Boolean, Igba, nkanka, Media, sensọ, na Mkponyeaka). Ozugbo oghe, ị nwere ike ịdọrọ blocks si palettes n'elu kwaaji-eji ha."
-
-#. TRANS: bitcoin currency (probably no need to translate)
-msgid "bitcoin"
-msgstr "Bitcoin"
-
-msgid "pen size"
-msgstr "pen size"
-
-msgid "Clear the screen and return the turtles to their initial positions."
-msgstr "Clear the screen and return the turtles to their initial positions"
-
-#. TRANS: Boolean logic
-msgid "boolean"
-msgstr "boolean"
-
-msgid "coordinates"
-msgstr "na-achịkọta"
-
-msgid "sing"
-msgstr "na-abụ abụ"
-
-msgid "Congratulations."
-msgstr "ekele"
-
-msgid "Run slow"
-msgstr "Gbaa Obere Obere"
-
-msgid "mouse button"
-msgstr "òké bọtịnụ"
-
-#. TRANS: cloud as in cloud server
-msgid "cloud"
-msgstr ""
-
-msgid "speak"
-msgstr "kwo"
-
-msgid "city"
-msgstr "obodo"
-
-#. TRANS: carbohydrates
-msgid "get carbs"
-msgstr "wete carbs"
-
-msgid "Click to run the project in fast mode."
-msgstr "Pịa-agba ọsọ ahụ oru ngo na ngwa ngwa mode"
-
-msgid "beef"
-msgstr "beef"
-
-#. TRANS: source language for translation
-msgid "source"
-msgstr "isi iyi"
-
-msgid "unknown"
-msgstr "amaghị"
-
-msgid "wait for"
-msgstr "na-eche maka"
-
-msgid "pen up"
-msgstr "pen elu"
-
-msgid "Decrease the size of the blocks."
-msgstr "Ibelata size nke blocks."
-
+#: js/block.js:622
+#: js/turtle.js:528
+#: js/turtle.js:529
+#: js/basicblocks.js:647
 msgid "start"
 msgstr "bido"
 
-msgid "stock price"
-msgstr "ngwaahịa price"
-
-#. TRANS: is the heap empty?
-msgid "heap empty?"
+#: js/block.js:625
+msgid "matrix"
 msgstr ""
 
-msgid "motion z"
-msgstr "ngagharị z"
-
-#. TRANS: low temperature
-msgid "low"
-msgstr "ala"
-
-msgid "motion x"
-msgstr "ngagharị x"
-
-msgid "motion y"
-msgstr "ngagharị y"
-
-msgid "forward"
-msgstr "na-atụ"
-
-#. TRANS: 360 degrees in a circle
-msgid "degrees"
-msgstr "degrees"
-
-msgid "translate"
-msgstr "ịsụgharị"
-
-msgid "until"
-msgstr "ruo mgbe"
-
-msgid "define"
-msgstr "kọwaa"
-
-msgid "On my device"
-msgstr "On m ngwaọrụ"
-
-#. TRANS: save project as simple vector graphic (SVG)
-msgid "save svg"
-msgstr "save svg"
-
-#. TRANS: mathematical ceiling function, e.g., ceiling(2.5) == 3
-msgid "ceiling"
-msgstr "n'uko"
-
-#. TRANS: a turtle shell
-msgid "shell"
-msgstr "shei"
-
-#. TRANS: flash (blink) an LED light
-msgid "blink (ms)"
-msgstr "itabi (MS)"
-
-msgid "that"
+#: js/block.js:628
+#: js/turtle.js:386
+msgid "drum"
 msgstr ""
 
-#. TRANS: set language
-msgid "set lang"
-msgstr "dị nnọọ ka"
-
-msgid "turtle name"
-msgstr "mbe aha "
-
-#. TRANS: carbohydrates
-msgid "carbs"
-msgstr "carbs"
-
-msgid "else"
-msgstr "ọzọ"
-
-#. TRANS: as in broadcast a signal
-msgid "broadcast"
-msgstr ""
-
-msgid "orange"
-msgstr "oroma"
-
-msgid "begin hollow line"
-msgstr ""
-
-#. TRANS: the heap is a first-in-last-out (FILO) stack
-msgid "heap"
-msgstr ""
-
-#. TRANS: fill refers to filling a shape with a color (e.g., paint bucket).
-msgid "begin fill"
-msgstr "na-amalite erijueala"
-
-#. TRANS: use sensor to detect objects on the right
-msgid "sense right"
-msgstr "uche ziri ezi"
-
-msgid "eat"
-msgstr "eri"
-
-msgid "Expand/collapse collapsable blocks"
-msgstr "Ịmụbawanye / daa collapsable blocks"
-
-#. TRANS: high temperature
-msgid "high"
-msgstr "elu"
-
-#. TRANS: longitude and latitude coordinate data
-msgid "Coordinate data not available."
-msgstr ""
-
-#. TRANS: hue refers to spectral hue (red, yellow, green, blue...)
-msgid "set hue"
-msgstr "set agba"
-
-msgid "currency"
-msgstr "ego"
-
-msgid "this"
-msgstr ""
-
-#. TRANS: horizontal space
-msgid "hspace"
-msgstr ""
-
-msgid "potato"
-msgstr "potato"
-
-msgid "city longitude"
-msgstr ""
-
-msgid "Click to run the project step by step."
-msgstr "Pịa na-agba ọsọ ngo nzọụkwụ site nzọụkwụ"
-
-#. TRANS: the value of a variable (stored in a box)
-msgid "value"
-msgstr "uru"
-
-msgid "banana"
-msgstr "unere"
-
-msgid "wheat bread"
-msgstr "wheat achịcha"
-
-msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
-msgstr "Mbe nkanka bụ a Logo-sitere n'ike mmụọ nsọ mbe na-adọta yi foto na snap-na-visual-Mmemme blocks"
-
-msgid "while"
-msgstr "mgbe"
-
-msgid "open file"
-msgstr "emeghe faịlụ"
-
-#. TRANS: detect language
-msgid "detect lang"
-msgstr "chọpụta naanị"
-
-msgid "cake"
-msgstr "achicha"
-
-#. TRANS: mathematical exponent
-msgid "exp"
-msgstr "exp"
-
-#. TRANS: load the heap from a file
-msgid "load heap"
-msgstr "ibu kpokọtara"
-
+#: js/samplesviewer.js:26
+#: js/samplesviewer.js:26
 msgid "Open"
 msgstr "Mekpe"
 
-#. TRANS: database fetch
-msgid "fetch"
-msgstr ""
-
-#. TRANS: use sensor to detect distance to objects
-msgid "see distance"
-msgstr "ịhụ anya"
-
-#. TRANS: logical "and" operator
-msgid "and"
-msgstr "na"
-
-#. TRANS: grey refers to chroma (grey to vivid)
-msgid "set grey"
-msgstr "set isi awọ"
-
-#. TRANS: do this action
-msgid "do"
-msgstr "eme"
-
-msgid "calories"
-msgstr "calories"
-
-msgid "Run step by step"
-msgstr "Gbaa nzọụkwụ site nzọụkwụ"
-
-msgid "Show/hide palettes"
-msgstr "Gosi / hide palettes"
-
-msgid "set heading"
-msgstr "set isiokwu"
-
-msgid "add 1 to"
-msgstr "tinye 1"
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop play"
-msgstr "kwụsị play"
-
-msgid "protein"
-msgstr "protein"
-
-#. TRANS: play media (audio or video)
-msgid "play back"
-msgstr "egwu azụ"
-
-msgid "if"
-msgstr "o buru na"
-
-msgid "Save your project to a server."
-msgstr "Zọpụta ndị gị oru ngo na-a nkesa"
-
-msgid "Decrease block size"
-msgstr "Ibelata ngọngọ size"
-
-msgid "angle"
-msgstr "n'akuku"
-
-msgid "get fat"
-msgstr "ga-esi abụba"
-
-#. TRANS: minimum
-msgid "min"
-msgstr "kacha nta"
-
-msgid "media"
-msgstr "media"
-
-msgid "Stop"
-msgstr "kwụsị"
-
-#. TRANS: square root
-msgid "sqrt"
-msgstr "sqrt"
-
-#. TRANS: as in button click
-msgid "click"
-msgstr ""
-
-msgid "note"
-msgstr "dee"
-
-#. TRANS: field of interest in a database, e.g., temperature in a weather database
-msgid "field"
-msgstr ""
-
-msgid "Palette buttons"
-msgstr "palette buttons"
-
-msgid "set xy"
-msgstr "set xy"
-
-msgid "end fill"
-msgstr "ọgwụgwụ erijueala"
-
-msgid "Copy"
-msgstr "Detuo"
-
-msgid "Paste"
-msgstr "tapawa"
-
+#: js/samplesviewer.js:27
+#: js/samplesviewer.js:27
 msgid "Delete"
 msgstr "hichapụ"
 
-#. TRANS: Mexican tamale
-msgid "tamale"
-msgstr "tamale"
+#: js/samplesviewer.js:28
+#: js/samplesviewer.js:28
+msgid "Publish"
+msgstr "asuanetop"
 
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:38
+#: js/samplesviewer.js:38
+msgid "Download"
+msgstr "ala-ibu"
+
+#: js/samplesviewer.js:382
+msgid "Planet"
+msgstr "Planet"
+
+#: js/samplesviewer.js:383
+msgid "On my device"
+msgstr "On m ngwaọrụ"
+
+#: js/samplesviewer.js:384
 msgid "Worldwide"
 msgstr "Uwa-obosara"
 
-msgid "repeat"
-msgstr "imekwa"
+#: js/activity.js:427
+msgid "Close"
+msgstr ""
 
-msgid "blocks"
-msgstr "blocks"
-
-msgid "Display statistics about your Turtle project."
-msgstr "Ngosipụta ọnụ ọgụgụ banyere gị mbe oru ngo."
-
-msgid "Polar"
-msgstr "pola"
-
-#. TRANS: maximum
-msgid "max"
-msgstr "kacha"
-
-msgid "logic"
-msgstr "mgbagha"
-
-#. TRANS: empty the heap
-msgid "empty heap"
-msgstr "efu kpokọtara"
-
-msgid "You have finished the tour. Please enjoy Turtle Blocks!"
-msgstr "ị okokụre njegharị. Biko enwe mbe nkanka!"
-
-#. TRANS: push a value on to the heap.
-msgid "push"
-msgstr "kwaa"
-
-#. TRANS: the name of a robot built in Paraguay (probably no need to translate)
-msgid "rodi"
-msgstr "Rhodes"
-
-msgid "Clean"
-msgstr "ọcha"
-
-#. TRANS: color refers to a hue, value, chroma triplet
-msgid "set color"
-msgstr "set agba"
-
+#: js/activity.js:1955
 msgid "Run fast"
 msgstr "Gbaa ngwa ngwa"
 
-msgid "broccoli"
-msgstr "brọkọlị"
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop media"
-msgstr "kwụsị egwu"
-
-msgid "tomato"
-msgstr "tomato"
-
-msgid "forever"
-msgstr "ruo mgbe ebighị ebi"
-
-#. TRANS: musical note to frequency
-msgid "note to frequency"
+#: js/activity.js:1955
+msgid "Long press to run slow"
 msgstr ""
 
-msgid "no background"
+#: js/activity.js:1956
+#: js/turtledefs.js:45
+msgid "Run step by step"
+msgstr "Gbaa nzọụkwụ site nzọụkwụ"
+
+#: js/activity.js:1957
+msgid "Run music slow"
 msgstr ""
 
-msgid "Load project from file"
-msgstr "Ibu Ibu oru ngo si faịlụ"
+#: js/activity.js:1958
+msgid "Run note by note"
+msgstr ""
 
-msgid "get protein"
-msgstr "ga-esi protein"
+#: js/activity.js:1959
+#: js/turtledefs.js:46
+msgid "Stop"
+msgstr "kwụsị"
 
-#. TRANS: clear the screen of any graphics drawn by the turtle
-msgid "clear"
-msgstr "doro anya"
+#: js/activity.js:1960
+#: js/turtledefs.js:47
+msgid "Clean"
+msgstr "ọcha"
 
-#. TRANS: mathematical floor function, e.g., floor(2.5) == 2
-msgid "floor"
-msgstr "ahla"
+#: js/activity.js:1961
+#: js/turtledefs.js:48
+msgid "Show/hide palettes"
+msgstr "Gosi / hide palettes"
 
+#: js/activity.js:1962
+#: js/turtledefs.js:49
+msgid "Show/hide blocks"
+msgstr "Gosi / hide blocks"
+
+#: js/activity.js:1963
+#: js/turtledefs.js:50
+msgid "Expand/collapse collapsable blocks"
+msgstr "Ịmụbawanye / daa collapsable blocks"
+
+#: js/activity.js:1964
+#: js/activity.js:2005
+#: js/turtledefs.js:51
+msgid "Home"
+msgstr ""
+
+#: js/activity.js:1965
+#: js/turtledefs.js:52
+msgid "Help"
+msgstr "Help"
+
+#: js/activity.js:2033
+#: js/turtledefs.js:54
+msgid "Load samples from server"
+msgstr "Ibu Ibu n'omume site na ihe nkesa"
+
+#: js/activity.js:2034
+#: js/turtledefs.js:55
+msgid "Load project from files"
+msgstr ""
+
+#: js/activity.js:2035
+#: js/turtledefs.js:56
+msgid "Save project"
+msgstr "Save oru ngo"
+
+#: js/activity.js:2036
+msgid "Save sheet music"
+msgstr ""
+
+#: js/activity.js:2037
+#: js/turtledefs.js:58
+msgid "Paste"
+msgstr "tapawa"
+
+#: js/activity.js:2038
+#: js/turtledefs.js:60
+msgid "Cartesian"
+msgstr "Cartesian"
+
+#: js/activity.js:2039
+#: js/turtledefs.js:61
+msgid "Polar"
+msgstr "pola"
+
+#: js/activity.js:2040
+#: js/turtledefs.js:62
+msgid "Settings"
+msgstr "Ntọala"
+
+#: js/activity.js:2041
+#: js/turtledefs.js:68
+msgid "Delete all"
+msgstr "hichapụ niile"
+
+#: js/activity.js:2042
+#: js/turtledefs.js:69
+msgid "Undo"
+msgstr "Wepu"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "turtle"
+msgstr "mbe"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "pen"
+msgstr "pen"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "number"
+msgstr "nọmba"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "flow"
 msgstr "igba"
 
-msgid "Click this button to expand or collapse the auxillary toolbar."
-msgstr "Pịa a button mụbaa ma ọ bụ daa na auxillary toolbar"
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "sensors"
+msgstr "sensọ"
 
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "media"
+msgstr "media"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "extras"
 msgstr "yana mgbakwunye"
 
-msgid "shade"
-msgstr "ndo"
+#: js/status.js:84
+#: js/status.js:84
+msgid "close"
+msgstr ""
 
-msgid "time"
-msgstr "oge"
+#: js/logo.js:173
+msgid "true"
+msgstr ""
 
+#: js/logo.js:175
+msgid "false"
+msgstr ""
+
+#: js/logo.js:1065
+#: js/logo.js:1405
+msgid "You must select a file."
+msgstr ""
+
+#: js/logo.js:1415
+#: plugins/heap.rtp:96
+msgid "The file you selected does not contain a valid heap."
+msgstr ""
+
+#: js/logo.js:1419
+#: plugins/heap.rtp:102
+msgid "The loadHeap block needs a loadFile block."
+msgstr ""
+
+#: js/logo.js:1435
+msgid "Error parsing JSON data:"
+msgstr ""
+
+#: js/logo.js:1440
+msgid "404: Page not found"
+msgstr ""
+
+#: js/logo.js:1464
+msgid "turtleHeaps does not contain a valid heap for"
+msgstr ""
+
+#: js/logo.js:1474
+msgid "Index must be > 0."
+msgstr ""
+
+#: js/logo.js:2199
+#: js/basicblocks.js:730
+#: plugins/heap.rtp:42
+#: plugins/heap.rtp:142
+msgid "empty heap"
+msgstr "efu kpokọtara"
+
+#: js/clearbox.js:46
+msgid "confirm"
+msgstr "gosi"
+
+#: js/palette.js:534
+#: js/palette.js:619
+#: js/palette.js:1694
+#: js/basicblocks.js:490
+#: js/basicblocks.js:494
+#: js/basicblocks.js:506
+#: js/basicblocks.js:514
+#: js/blocks.js:2092
+msgid "box"
+msgstr "igbe"
+
+#: js/palette.js:596
+#: js/basicblocks.js:852
+#: js/blocks.js:1660
+msgid "text"
+msgstr "ederede"
+
+#: js/palette.js:599
+#: js/palette.js:1795
+#: js/palette.js:1802
+msgid "sol"
+msgstr ""
+
+#: js/palette.js:620
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "store in"
+msgstr "echekwa na"
+
+#: js/palette.js:628
+#: js/blocks.js:1271
+msgid "open file"
+msgstr "emeghe faịlụ"
+
+#: js/palette.js:724
+#: js/basicblocks.js:170
+#: plugins/rodi.rtp:71
+#: plugins/rodi.rtp:389
+msgid "back"
+msgstr "azụ"
+
+#: js/palette.js:732
+#: js/palette.js:733
+msgid "hide"
+msgstr ""
+
+#: js/palette.js:735
+#: js/palette.js:736
+#: js/basicblocks.js:848
+msgid "show"
+msgstr "show"
+
+#: js/palette.js:738
+#: js/palette.js:739
+msgid "popout"
+msgstr ""
+
+#: js/palette.js:1782
+msgid "la"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "mi"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "re"
+msgstr ""
+
+#: js/turtle.js:385
+#: js/turtle.js:524
+#: js/turtle.js:525
+msgid "start drum"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "boolean"
+msgstr "boolean"
+
+#: js/turtledefs.js:22
+msgid "boxes"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "actions"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "heap"
+msgstr ""
+
+#: js/turtledefs.js:42
+msgid "Welcome to Turtle Blocks"
+msgstr "Mmadụ Bịa mbe nkanka"
+
+#: js/turtledefs.js:42
+msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
+msgstr "Mbe nkanka bụ a Logo-sitere n'ike mmụọ nsọ mbe na-adọta yi foto na snap-na-visual-Mmemme blocks"
+
+#: js/turtledefs.js:43
+msgid "Palette buttons"
+msgstr "palette buttons"
+
+#: js/turtledefs.js:43
+msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
+msgstr "Nke a toolbar e dere ihe palette buttons: pịa na-egosi ma ọ bụ zoo palettes nke blocks (mbe, Pen, Ọnụ Ọgụgụ, Boolean, Igba, nkanka, Media, sensọ, na Mkponyeaka). Ozugbo oghe, ị nwere ike ịdọrọ blocks si palettes n'elu kwaaji-eji ha."
+
+#: js/turtledefs.js:44
+msgid "Run"
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Click to run the project in fast mode."
+msgstr "Pịa-agba ọsọ ahụ oru ngo na ngwa ngwa mode"
+
+#: js/turtledefs.js:44
+msgid "Long press to run the project in slow mode."
+msgstr ""
+
+#: js/turtledefs.js:45
+msgid "Click to run the project step by step."
+msgstr "Pịa na-agba ọsọ ngo nzọụkwụ site nzọụkwụ"
+
+#: js/turtledefs.js:46
+msgid "Stop the current project."
+msgstr "Kwụsị ugbu a oru ngo"
+
+#: js/turtledefs.js:47
+msgid "Clear the screen and return the turtles to their initial positions."
+msgstr "Clear the screen and return the turtles to their initial positions"
+
+#: js/turtledefs.js:48
+msgid "Hide or show the block palettes."
+msgstr "Zoo ma ọ bụ na-egosi na ngọngọ palettes"
+
+#: js/turtledefs.js:49
+msgid "Hide or show the blocks and the palettes."
+msgstr "Zoo ma ọ bụ na-egosi na blocks na palettes"
+
+#: js/turtledefs.js:50
+msgid "Expand or collapse start and action stacks."
+msgstr "Ịmụbawanye ma ọ bụ daa stacks nke blocks, dịka, na-amalite na edinam stack"
+
+#: js/turtledefs.js:51
+msgid "Return all blocks to the center of the screen."
+msgstr ""
+
+#: js/turtledefs.js:52
+msgid "Show these messages."
+msgstr "Gosi ndị a ozi"
+
+#: js/turtledefs.js:53
+msgid "Expand/collapse option toolbar"
+msgstr "Ịmụbawanye / daa nhọrọ toolbar"
+
+#: js/turtledefs.js:53
+msgid "Click this button to expand or collapse the auxillary toolbar."
+msgstr "Pịa a button mụbaa ma ọ bụ daa na auxillary toolbar"
+
+#: js/turtledefs.js:54
+msgid "This button opens a viewer for loading example projects."
+msgstr "Nke a ga-emepe button a na-ekiri maka loading atụ oru ngo"
+
+#: js/turtledefs.js:55
+msgid "You can also load projects from the file system."
+msgstr "giwa nwekwara ike mara oru ngo si faịlụ usoro"
+
+#: js/turtledefs.js:56
+msgid "Save your project to a file."
+msgstr ""
+
+#: js/turtledefs.js:57
+msgid "Copy"
+msgstr "Detuo"
+
+#: js/turtledefs.js:57
+msgid "The copy button copies a stack to the clipboard. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:58
+msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+msgstr "The tapawa button na-nyeere e nwere blocks depụtaghachiri n'elu clipboard"
+
+#: js/turtledefs.js:59
+#: js/blocks.js:200
+msgid "Save stack"
+msgstr "ịzọpụta tojupụtara"
+
+#: js/turtledefs.js:59
+msgid "The save-stack button saves a stack onto a custom palette. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:60
+msgid "Show or hide a Cartesian-coordinate grid."
+msgstr "Egosi ma ọ bụ zoo a Cartesian-ahazi okporo"
+
+#: js/turtledefs.js:61
+msgid "Show or hide a polar-coordinate grid."
+msgstr "Egosi ma ọ bụ zoo a polar-ahazi okporo"
+
+#: js/turtledefs.js:62
+msgid "Open a panel for configuring Turtle Blocks."
+msgstr "Mepee a panel maka configuring mbe nkanka ."
+
+#: js/turtledefs.js:63
+#: js/utilitybox.js:36
+msgid "Decrease block size"
+msgstr "Ibelata ngọngọ size"
+
+#: js/turtledefs.js:63
+msgid "Decrease the size of the blocks."
+msgstr "Ibelata size nke blocks."
+
+#: js/turtledefs.js:64
+#: js/utilitybox.js:44
+msgid "Increase block size"
+msgstr "Mmụba ngọngọ size"
+
+#: js/turtledefs.js:64
+msgid "Increase the size of the blocks."
+msgstr "Dịkwuo size nke blocks."
+
+#: js/turtledefs.js:65
+#: js/utilitybox.js:52
+msgid "Display statistics"
+msgstr "Ngosipụta ọnụ ọgụgụ"
+
+#: js/turtledefs.js:65
+msgid "Display statistics about your Turtle project."
+msgstr "Ngosipụta ọnụ ọgụgụ banyere gị mbe oru ngo."
+
+#: js/turtledefs.js:66
+#: js/utilitybox.js:60
+msgid "Load plugin from file"
+msgstr "Ibu Ibu plugin si faịlụ"
+
+#: js/turtledefs.js:66
+msgid "You can load new blocks from the file system."
+msgstr "I nwere ike mara ọhụrụ blocks si faịlụ usoro"
+
+#: js/turtledefs.js:67
+#: js/utilitybox.js:68
+msgid "Enable scrolling"
+msgstr ""
+
+#: js/turtledefs.js:67
+msgid "You can scroll the blocks on the canvas."
+msgstr ""
+
+#: js/turtledefs.js:68
+msgid "Remove all content on the canvas, including the blocks."
+msgstr "Wepụ niile ọdịnaya na kwaaji, gụnyere blocks"
+
+#: js/turtledefs.js:69
+msgid "Restore blocks from the trash."
+msgstr "Weghachi blocks si ahịhịa"
+
+#: js/turtledefs.js:70
+msgid "Congratulations."
+msgstr "ekele"
+
+#: js/turtledefs.js:70
+msgid "You have finished the tour. Please enjoy Turtle Blocks!"
+msgstr "ị okokụre njegharị. Biko enwe mbe nkanka!"
+
+#: js/basicblocks.js:65
+msgid "heading"
+msgstr "isiokwu"
+
+#: js/basicblocks.js:72
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
+msgid "x"
+msgstr "x"
+
+#: js/basicblocks.js:79
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
 msgid "y"
 msgstr "y"
 
-#. TRANS: set the value at a specific entry (index) in the heap
+#: js/basicblocks.js:86
+msgid "clear"
+msgstr "doro anya"
+
+#: js/basicblocks.js:93
+msgid "control point 2"
+msgstr ""
+
+#: js/basicblocks.js:104
+msgid "control point 1"
+msgstr ""
+
+#: js/basicblocks.js:115
+msgid "bezier"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "arc"
+msgstr "aak"
+
+#: js/basicblocks.js:126
+msgid "angle"
+msgstr "n'akuku"
+
+#: js/basicblocks.js:126
+msgid "radius"
+msgstr "okirikiri"
+
+#: js/basicblocks.js:136
+msgid "set heading"
+msgstr "set isiokwu"
+
+#: js/basicblocks.js:144
+msgid "set xy"
+msgstr "set xy"
+
+#: js/basicblocks.js:154
+#: plugins/rodi.rtp:79
+#: plugins/rodi.rtp:341
+#: plugins/rodi.rtp:376
+msgid "right"
+msgstr "nri"
+
+#: js/basicblocks.js:162
+#: plugins/rodi.rtp:81
+#: plugins/rodi.rtp:340
+#: plugins/rodi.rtp:363
+msgid "left"
+msgstr "ekpe"
+
+#: js/basicblocks.js:178
+#: plugins/rodi.rtp:73
+#: plugins/rodi.rtp:402
+msgid "forward"
+msgstr "na-atụ"
+
+#: js/basicblocks.js:189
+msgid "begin fill"
+msgstr "na-amalite erijueala"
+
+#: js/basicblocks.js:197
+msgid "end fill"
+msgstr "ọgwụgwụ erijueala"
+
+#: js/basicblocks.js:205
+#: js/basicblocks.js:249
+msgid "background"
+msgstr "ndabere"
+
+#: js/basicblocks.js:212
+msgid "color"
+msgstr "agba"
+
+#: js/basicblocks.js:219
+msgid "shade"
+msgstr "ndo"
+
+#: js/basicblocks.js:226
+msgid "grey"
+msgstr "isi awọ"
+
+#: js/basicblocks.js:233
+msgid "pen size"
+msgstr "pen size"
+
+#: js/basicblocks.js:240
+msgid "set font"
+msgstr ""
+
+#: js/basicblocks.js:256
+msgid "hollow line"
+msgstr ""
+
+#: js/basicblocks.js:263
+msgid "fill"
+msgstr ""
+
+#: js/basicblocks.js:270
+msgid "pen up"
+msgstr "pen elu"
+
+#: js/basicblocks.js:277
+msgid "pen down"
+msgstr "pen ala"
+
+#: js/basicblocks.js:284
+msgid "set pen size"
+msgstr "set pen size"
+
+#: js/basicblocks.js:292
+msgid "set translucency"
+msgstr ""
+
+#: js/basicblocks.js:300
+msgid "set hue"
+msgstr "set agba"
+
+#: js/basicblocks.js:308
+msgid "set shade"
+msgstr "set ndo"
+
+#: js/basicblocks.js:316
+msgid "set grey"
+msgstr "set isi awọ"
+
+#: js/basicblocks.js:324
+msgid "set color"
+msgstr "set agba"
+
+#: js/basicblocks.js:334
+msgid "int"
+msgstr ""
+
+#: js/basicblocks.js:370
+msgid "and"
+msgstr "na"
+
+#: js/basicblocks.js:377
+msgid "or"
+msgstr "ma ọ bụ"
+
+#: js/basicblocks.js:384
+msgid "not"
+msgstr "bụghị"
+
+#: js/basicblocks.js:390
+msgid "mod"
+msgstr "mod"
+
+#: js/basicblocks.js:398
+msgid "sqrt"
+msgstr "sqrt"
+
+#: js/basicblocks.js:448
+msgid "one of"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "this"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "that"
+msgstr ""
+
+#: js/basicblocks.js:459
+msgid "random"
+msgstr "random"
+
+#: js/basicblocks.js:459
+msgid "min"
+msgstr "kacha nta"
+
+#: js/basicblocks.js:459
+msgid "max"
+msgstr "kacha"
+
+#: js/basicblocks.js:474
+msgid "add 1 to"
+msgstr "tinye 1"
+
+#: js/basicblocks.js:481
+msgid "add"
+msgstr "tinye"
+
+#: js/basicblocks.js:481
+#: plugins/finance.rtp:28
+msgid "to"
+msgstr "ka"
+
+#: js/basicblocks.js:481
+#: js/basicblocks.js:503
+#: js/basicblocks.js:697
+#: js/blocks.js:2191
+#: plugins/bitcoin.rtp:27
+msgid "value"
+msgstr "uru"
+
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "name"
+msgstr "aha"
+
+#: js/basicblocks.js:525
+#: js/basicblocks.js:572
+#: js/basicblocks.js:589
+#: js/basicblocks.js:627
+#: js/basicblocks.js:900
+#: js/basicblocks.js:907
+msgid "do"
+msgstr "eme"
+
+#: js/basicblocks.js:534
+msgid "return"
+msgstr ""
+
+#: js/basicblocks.js:544
+msgid "return to URL"
+msgstr ""
+
+#: js/basicblocks.js:548
+msgid "100"
+msgstr ""
+
+#: js/basicblocks.js:554
+#: js/basicblocks.js:580
+#: js/basicblocks.js:599
+msgid "calculate"
+msgstr ""
+
+#: js/basicblocks.js:627
+msgid "on"
+msgstr ""
+
+#: js/basicblocks.js:627
+#: js/basicblocks.js:630
+#: js/basicblocks.js:641
+msgid "event"
+msgstr ""
+
+#: js/basicblocks.js:638
+msgid "broadcast"
+msgstr ""
+
+#: js/basicblocks.js:675
+msgid "load heap from App"
+msgstr ""
+
+#: js/basicblocks.js:686
+msgid "save heap to App"
+msgstr ""
+
+#: js/basicblocks.js:697
 msgid "set heap"
 msgstr ""
 
+#: js/basicblocks.js:697
+msgid "index"
+msgstr ""
+
+#: js/basicblocks.js:708
+#: plugins/heap.rtp:126
+msgid "show heap"
+msgstr "show kpokọtara"
+
+#: js/basicblocks.js:715
+msgid "heap length"
+msgstr ""
+
+#: js/basicblocks.js:723
+#: plugins/heap.rtp:134
+msgid "heap empty?"
+msgstr ""
+
+#: js/basicblocks.js:737
+#: plugins/heap.rtp:150
+msgid "save heap"
+msgstr "ịzọpụta kpokọtara"
+
+#: js/basicblocks.js:746
+#: plugins/heap.rtp:160
+msgid "load heap"
+msgstr "ibu kpokọtara"
+
+#: js/basicblocks.js:755
+msgid "index heap"
+msgstr ""
+
+#: js/basicblocks.js:764
+#: plugins/heap.rtp:109
+msgid "push"
+msgstr "kwaa"
+
+#: js/basicblocks.js:772
+#: plugins/heap.rtp:118
+msgid "pop"
+msgstr "pop"
+
+#: js/basicblocks.js:781
+msgid "speak"
+msgstr "kwo"
+
+#: js/basicblocks.js:809
+msgid "stop media"
+msgstr "kwụsị egwu"
+
+#: js/basicblocks.js:816
+msgid "tone"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "frequency"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "duration (ms)"
+msgstr ""
+
+#: js/basicblocks.js:826
+msgid "note to frequency"
+msgstr ""
+
+#: js/basicblocks.js:826
+#: plugins/rodi.rtp:196
+msgid "note"
+msgstr "dee"
+
+#: js/basicblocks.js:826
+msgid "octave"
+msgstr ""
+
+#: js/basicblocks.js:837
+msgid "shell"
+msgstr "shei"
+
+#: js/basicblocks.js:837
+#: js/basicblocks.js:848
+msgid "size"
+msgstr "size"
+
+#: js/basicblocks.js:837
+msgid "image"
+msgstr "oyiyi"
+
+#: js/basicblocks.js:848
+msgid "obj"
+msgstr "obj"
+
+#: js/basicblocks.js:886
+#: plugins/rodi.rtp:31
+#: plugins/rodi.rtp:75
+#: plugins/rodi.rtp:415
+msgid "stop"
+msgstr "kwụsị"
+
+#: js/basicblocks.js:893
+msgid "wait for"
+msgstr "na-eche maka"
+
+#: js/basicblocks.js:900
+msgid "until"
+msgstr "ruo mgbe"
+
+#: js/basicblocks.js:907
+msgid "while"
+msgstr "mgbe"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "if"
+msgstr "o buru na"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "then"
+msgstr "mgbe ahụ"
+
+#: js/basicblocks.js:914
+msgid "else"
+msgstr "ọzọ"
+
+#: js/basicblocks.js:928
+msgid "forever"
+msgstr "ruo mgbe ebighị ebi"
+
+#: js/basicblocks.js:935
+msgid "repeat"
+msgstr "imekwa"
+
+#: js/basicblocks.js:947
+#: js/basicblocks.js:958
+#: js/basicblocks.js:967
+#: js/basicblocks.js:977
+#: js/basicblocks.js:985
+#: js/basicblocks.js:994
+#: js/basicblocks.js:1004
+msgid "unknown"
+msgstr "amaghị"
+
+#: js/basicblocks.js:1015
+msgid "play back"
+msgstr "egwu azụ"
+
+#: js/basicblocks.js:1023
+msgid "stop play"
+msgstr "kwụsị play"
+
+#: js/basicblocks.js:1030
+msgid "save svg"
+msgstr "save svg"
+
+#: js/basicblocks.js:1033
+msgid "title"
+msgstr "aha"
+
+#: js/basicblocks.js:1039
+#: plugins/turtle.rtp:52
+msgid "turtle y"
+msgstr "mbe y"
+
+#: js/basicblocks.js:1048
+#: plugins/turtle.rtp:42
+msgid "turtle x"
+msgstr "mbe x"
+
+#: js/basicblocks.js:1057
+#: plugins/turtle.rtp:62
+msgid "start turtle"
+msgstr "mbe bido"
+
+#: js/basicblocks.js:1066
+#: plugins/turtle.rtp:72
+msgid "stop turtle"
+msgstr "kwusi mbe "
+
+#: js/basicblocks.js:1075
+msgid "no background"
+msgstr ""
+
+#: js/basicblocks.js:1082
+msgid "show blocks"
+msgstr "show blocks"
+
+#: js/basicblocks.js:1089
+msgid "hide blocks"
+msgstr "hide blocks"
+
+#: js/basicblocks.js:1096
+msgid "open project"
+msgstr ""
+
+#: js/basicblocks.js:1120
+msgid "wait"
+msgstr "na-eche"
+
+#: js/basicblocks.js:1128
+msgid "print"
+msgstr "ebipụta"
+
+#: js/basicblocks.js:1136
+#: js/basicblocks.js:1144
+#: plugins/turtle.rtp:82
+msgid "turtle name"
+msgstr "mbe aha "
+
+#: js/basicblocks.js:1145
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:83
+msgid "source"
+msgstr "isi iyi"
+
+#: js/basicblocks.js:1146
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:84
+msgid "target"
+msgstr "lekwasịrị"
+
+#: js/basicblocks.js:1157
+#: plugins/rodi.rtp:325
+msgid "status"
+msgstr ""
+
+#: js/basicblocks.js:1166
+msgid "loudness"
+msgstr "keuzu"
+
+#: js/basicblocks.js:1174
+msgid "click"
+msgstr ""
+
+#: js/basicblocks.js:1182
+#: plugins/rodi.rtp:223
+msgid "blue"
+msgstr ""
+
+#: js/basicblocks.js:1189
+#: plugins/rodi.rtp:222
+msgid "green"
+msgstr ""
+
+#: js/basicblocks.js:1196
+#: plugins/rodi.rtp:221
+msgid "red"
+msgstr ""
+
+#: js/basicblocks.js:1203
+#: plugins/rodi.rtp:220
+msgid "pixel color"
+msgstr "pixel agba"
+
+#: js/basicblocks.js:1210
+msgid "time"
+msgstr "oge"
+
+#: js/basicblocks.js:1217
+msgid "mouse x"
+msgstr "oke x"
+
+#: js/basicblocks.js:1225
+msgid "mouse y"
+msgstr "oke y"
+
+#: js/basicblocks.js:1233
+msgid "mouse button"
+msgstr "òké bọtịnụ"
+
+#: js/basicblocks.js:1240
+msgid "to ASCII"
+msgstr ""
+
+#: js/basicblocks.js:1247
+msgid "keyboard"
+msgstr "keyboard"
+
+#: js/basicblocks.js:1256
+msgid "eval"
+msgstr "eval"
+
+#: js/utilitybox.js:77
+msgid "Disable scrolling"
+msgstr ""
+
+#: plugins/finance.rtp:28
+msgid "currency"
+msgstr "ego"
+
+#: plugins/finance.rtp:28
+#: plugins/bitcoin.rtp:27
+msgid "from"
+msgstr "site"
+
+#: plugins/finance.rtp:69
+msgid "stock price"
+msgstr "ngwaahịa price"
+
+#: plugins/impact.rtp:32
+msgid "fetch"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "UID"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "field"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "hours ago"
+msgstr ""
+
+#: plugins/impact.rtp:63
+#: plugins/impact.rtp:127
+msgid "Impact data not available."
+msgstr ""
+
+#: plugins/impact.rtp:69
+msgid "Cannot parse Impact data."
+msgstr ""
+
+#: plugins/impact.rtp:100
+#: plugins/impact.rtp:114
+msgid "Impact field not found."
+msgstr ""
+
+#: plugins/impact.rtp:122
+msgid "Impact UID not found."
+msgstr ""
+
+#: plugins/impact.rtp:124
+msgid "Impact Time not found."
+msgstr ""
+
+#: plugins/translate.rtp:73
+msgid "translate"
+msgstr "ịsụgharị"
+
+#: plugins/translate.rtp:78
+#: plugins/translate.rtp:89
 msgid "hello"
 msgstr "hallo"
 
-msgid "left"
-msgstr "ekpe"
+#: plugins/translate.rtp:84
+msgid "detect lang"
+msgstr "chọpụta naanị"
+
+#: plugins/translate.rtp:95
+msgid "set lang"
+msgstr "dị nnọọ ka"
+
+#: plugins/gmap.rtp:30
+msgid "city latitude"
+msgstr ""
+
+#: plugins/gmap.rtp:40
+msgid "city longitude"
+msgstr ""
+
+#: plugins/gmap.rtp:71
+#: plugins/gmap.rtp:74
+#: plugins/gmap.rtp:104
+#: plugins/gmap.rtp:107
+msgid "Coordinate data not available."
+msgstr ""
+
+#: plugins/gmap.rtp:116
+msgid "Google map"
+msgstr "Google map"
+
+#: plugins/gmap.rtp:116
+#: plugins/gmap.rtp:160
+msgid "coordinates"
+msgstr "na-achịkọta"
+
+#: plugins/gmap.rtp:116
+msgid "zoom factor"
+msgstr "mbugharị na-akpata"
+
+#: plugins/gmap.rtp:144
+msgid "zoom"
+msgstr "mbugharị"
+
+#: plugins/gmap.rtp:160
+msgid "latitude"
+msgstr "ohere"
+
+#: plugins/gmap.rtp:160
+msgid "longitude"
+msgstr "lonjituudu"
+
+#: plugins/maths.rtp:47
+msgid "power"
+msgstr "ike"
+
+#: plugins/maths.rtp:47
+msgid "base"
+msgstr "isi"
+
+#: plugins/maths.rtp:47
+msgid "exp"
+msgstr "exp"
+
+#: plugins/maths.rtp:69
+msgid "floor"
+msgstr "ahla"
+
+#: plugins/maths.rtp:71
+msgid "ceiling"
+msgstr "n'uko"
+
+#: plugins/maths.rtp:74
+msgid "degrees"
+msgstr "degrees"
+
+#: plugins/maths.rtp:74
+msgid "to degrees"
+msgstr " to degrees"
+
+#: plugins/maths.rtp:76
+msgid "radians"
+msgstr "radians"
+
+#: plugins/maths.rtp:76
+msgid "to radians"
+msgstr "to oradians"
+
+#: plugins/accelerometer.rtp:48
+msgid "motion x"
+msgstr "ngagharị x"
+
+#: plugins/accelerometer.rtp:56
+msgid "motion y"
+msgstr "ngagharị y"
+
+#: plugins/accelerometer.rtp:64
+msgid "motion z"
+msgstr "ngagharị z"
+
+#: plugins/dictionary.rtp:25
+msgid "define"
+msgstr "kọwaa"
+
+#: plugins/nutrition.rtp:104
+msgid "get calories"
+msgstr "ga-esi calories"
+
+#: plugins/nutrition.rtp:107
+msgid "get protein"
+msgstr "ga-esi protein"
+
+#: plugins/nutrition.rtp:110
+msgid "get carbs"
+msgstr "wete carbs"
+
+#: plugins/nutrition.rtp:113
+msgid "get fiber"
+msgstr "na-eriri"
+
+#: plugins/nutrition.rtp:116
+msgid "get fat"
+msgstr "ga-esi abụba"
+
+#: plugins/nutrition.rtp:119
+msgid "get name"
+msgstr "na-aha"
+
+#: plugins/nutrition.rtp:122
+msgid "calories"
+msgstr "calories"
+
+#: plugins/nutrition.rtp:128
+msgid "protein"
+msgstr "protein"
+
+#: plugins/nutrition.rtp:134
+msgid "carbs"
+msgstr "carbs"
+
+#: plugins/nutrition.rtp:140
+msgid "fiber"
+msgstr "eriri"
+
+#: plugins/nutrition.rtp:146
+msgid "fat"
+msgstr "ibu"
+
+#: plugins/nutrition.rtp:152
+msgid "eat"
+msgstr "eri"
+
+#: plugins/nutrition.rtp:155
+msgid "digest meal"
+msgstr "iyochapu nri"
+
+#: plugins/nutrition.rtp:158
+msgid "apple"
+msgstr "apụl"
+
+#: plugins/nutrition.rtp:161
+msgid "banana"
+msgstr "unere"
+
+#: plugins/nutrition.rtp:164
+msgid "orange"
+msgstr "oroma"
+
+#: plugins/nutrition.rtp:167
+msgid "wheat bread"
+msgstr "wheat achịcha"
+
+#: plugins/nutrition.rtp:170
+msgid "corn"
+msgstr "ọka"
+
+#: plugins/nutrition.rtp:173
+msgid "potato"
+msgstr "potato"
+
+#: plugins/nutrition.rtp:176
+msgid "sweet potato"
+msgstr "ụtọ nduku"
+
+#: plugins/nutrition.rtp:179
+msgid "tomato"
+msgstr "tomato"
+
+#: plugins/nutrition.rtp:182
+msgid "broccoli"
+msgstr "brọkọlị"
+
+#: plugins/nutrition.rtp:185
+msgid "rice and beans"
+msgstr "osikapa na agwa"
+
+#: plugins/nutrition.rtp:188
+msgid "tamale"
+msgstr "tamale"
+
+#: plugins/nutrition.rtp:191
+msgid "cheese"
+msgstr "cheese"
+
+#: plugins/nutrition.rtp:194
+msgid "chicken"
+msgstr "okuko"
+
+#: plugins/nutrition.rtp:197
+msgid "fish"
+msgstr "azụ"
+
+#: plugins/nutrition.rtp:200
+msgid "beef"
+msgstr "beef"
+
+#: plugins/nutrition.rtp:203
+msgid "cake"
+msgstr "achicha"
+
+#: plugins/nutrition.rtp:206
+msgid "cookie"
+msgstr "kuki"
+
+#: plugins/nutrition.rtp:209
+msgid "water"
+msgstr "imiri"
+
+#: plugins/bitcoin.rtp:27
+msgid "bitcoin"
+msgstr "Bitcoin"
+
+#: plugins/facebook.rtp:27
+msgid "publish"
+msgstr "ebipụta"
+
+#: plugins/facebook.rtp:30
+msgid "comment"
+msgstr "ikwu"
+
+#: plugins/weather.rtp:62
+#: plugins/weather.rtp:86
+msgid "Days ahead must be in the range of -1 to 5."
+msgstr ""
+
+#: plugins/weather.rtp:107
+msgid "forecast"
+msgstr "amụma"
+
+#: plugins/weather.rtp:108
+#: plugins/weather.rtp:122
+#: plugins/weather.rtp:135
+msgid "city"
+msgstr "obodo"
+
+#: plugins/weather.rtp:109
+#: plugins/weather.rtp:123
+#: plugins/weather.rtp:136
+msgid "day"
+msgstr "ụbọchị"
+
+#: plugins/weather.rtp:121
+msgid "high"
+msgstr "elu"
+
+#: plugins/weather.rtp:134
+msgid "low"
+msgstr "ala"
+
+#: plugins/rodi.rtp:176
+msgid "blink"
+msgstr ""
+
+#: plugins/rodi.rtp:195
+msgid "play"
+msgstr ""
+
+#: plugins/rodi.rtp:197
+msgid "duration"
+msgstr "oge"
+
+#: plugins/rodi.rtp:250
+msgid "led"
+msgstr ""
+
+#: plugins/rodi.rtp:269
+msgid "light intensity"
+msgstr ""
+
+#: plugins/rodi.rtp:283
+msgid "infrared light (left)"
+msgstr ""
+
+#: plugins/rodi.rtp:297
+msgid "infrared light (right)"
+msgstr ""
+
+#: plugins/rodi.rtp:311
+msgid "distance"
+msgstr ""
+
+#: plugins/rodi.rtp:339
+msgid "move"
+msgstr "ije"
+
+#: plugins/heap.rtp:81
+#: plugins/heap.rtp:85
+msgid "You need to select a file."
+msgstr ""
+
+#~msgid "mashape"
+#~msgstr "ọdịdị"
+
+#~msgid "food"
+#~msgstr "nri"
+
+#~msgid "Click to run the project in slow mode."
+#~msgstr "Pịa-agba ọsọ ahụ oru ngo na-adịghị ngwa mode"
+
+#~msgid "Expand/collapse toolbar"
+#~msgstr "Ịmụbawanye / ida toolbar"
+
+#~msgid "blocks"
+#~msgstr "blocks"
+
+#~msgid "hspace"
+#~msgstr ""
+
+#~msgid "This button opens and closes the primary toolbar."
+#~msgstr "Nke a button emepekwa na-emechi isi toolbar."
+
+#~msgid "sing"
+#~msgstr "na-abụ abụ"
+
+#~msgid "logic"
+#~msgstr "mgbagha"
+
+#~msgid "sense left"
+#~msgstr "uche hapụrụ"
+
+#~msgid "maths"
+#~msgstr "maths"
+
+#~msgid "Run slow"
+#~msgstr "Gbaa Obere Obere"
+
+#~msgid "cloud"
+#~msgstr ""
+
+#~msgid "end hollow line"
+#~msgstr ""
+
+#~msgid "blink (ms)"
+#~msgstr "itabi (MS)"
+
+#~msgid "begin hollow line"
+#~msgstr ""
+
+#~msgid "sense right"
+#~msgstr "uche ziri ezi"
+
+#~msgid "Load project from file"
+#~msgstr "Ibu Ibu oru ngo si faịlụ"
+
+#~msgid "vspace"
+#~msgstr ""
+
+#~msgid "see distance"
+#~msgstr "ịhụ anya"
+
+#~msgid "Save your project to a server."
+#~msgstr "Zọpụta ndị gị oru ngo na-a nkesa"
+
+#~msgid "eatme"
+#~msgstr "rea-mu"
+
+#~msgid "rodi"
+#~msgstr "Rhodes"
+

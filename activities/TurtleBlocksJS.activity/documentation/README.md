@@ -258,21 +258,13 @@ Turtle will not draw when moved.
 
 Turtle will draw when moved.
 
-<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/begin_fill.svg'</img>
+<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/fill.svg'</img>
 
-Start filled polygon (used with end fill block).
+Draw filled polygon.
 
-<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/end_fill.svg'</img>
-
-Complete filled polygon (any shape drawn bewteen start fill and end fill will be filled with the current color).
-
-<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/begin_hollow.svg'</img>
+<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/hollow.svg'</img>
 
 Set pen attribute to hollow line mode (useful for working with 3D printers).
-
-<img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/end_hollow.svg'</img>
-
-Stop drawing hollow lines.
 
 <img src='https://rawgithub.com/walterbender/turtleblocksjs/master/documentation/set_font.svg'</img>
 

@@ -16,1105 +16,1571 @@ msgid ""
 
 
 msgid ""
-msgstr ""
-
-#. TRANS: Borrar todo
-msgid "Delete all"
-msgstr ""
-
-#. TRANS: mostrar
-msgid "show"
-msgstr ""
-
-#. TRANS: texto
-msgid "text"
-msgstr ""
-
-#. TRANS: aleatorio
-msgid "random"
-msgstr ""
-
-#. TRANS: confirmar
-msgid "confirm"
-msgstr ""
-
-#. TRANS: arroz y frijoles
-msgid "rice and beans"
-msgstr ""
-
-#. TRANS: no se traducen mashape
-msgid "mashape"
-msgstr ""
-
-#. TRANS: destino
-msgid "target"
-msgstr ""
-
-#. TRANS: teclado
-msgid "keyboard"
-msgstr ""
-
-#. TRANS: También puede cargar proyectos desde el sistema de archivos.
-msgid "You can also load projects from the file system."
-msgstr ""
-
-#. TRANS: as in "on event do"
-msgid "on"
-msgstr ""
-
-#. TRANS: pollo
-msgid "chicken"
-msgstr ""
-
-#. TRANS: manzana
-msgid "apple"
-msgstr ""
-
-#. TRANS: numero
-msgid "number"
-msgstr ""
-
-#. TRANS: unique ID
-msgid "UID"
-msgstr ""
-
-#. TRANS: título
-msgid "title"
-msgstr ""
-
-#. TRANS: radianes (matemáticas)
-msgid "radians"
-msgstr ""
-
-#. TRANS: Deshacer
-msgid "Undo"
-msgstr ""
-
-#. TRANS: ms is micro seconds
-msgid "duration (ms)"
-msgstr ""
-
-#. TRANS: a
-msgid "to"
-msgstr ""
-
-#. TRANS: sumar
-msgid "add"
-msgstr ""
-
-#. TRANS: fijar pluma
-msgid "set pen size"
-msgstr ""
-
-#. TRANS: iniciar tortuga
-msgid "start turtle"
-msgstr ""
-
-#. TRANS: latitud
-msgid "latitude"
-msgstr ""
-
-#. TRANS: cursor x
-msgid "mouse x"
-msgstr ""
-
-#. TRANS: cursor y
-msgid "mouse y"
-msgstr ""
-
-#. TRANS: Mostrar o ocultar los bloques.
-msgid "Show/hide blocks"
-msgstr ""
-
-#. TRANS: entonces
-msgid "then"
-msgstr ""
-
-#. TRANS: mover
-msgid "move"
-msgstr ""
-
-#. TRANS: Detener el proyecto actual
-msgid "Stop the current project."
-msgstr ""
-
-#. TRANS: detener tortuga
-msgid "stop turtle"
-msgstr ""
-
-#. TRANS: alimentos
-msgid "food"
-msgstr ""
-
-#. TRANS: Haz click para ejecutar el proyecto en modo lento.
-msgid "Click to run the project in slow mode."
-msgstr ""
-
-#. TRANS: detener
-msgid "stop"
-msgstr ""
-
-#. TRANS: grasa
-msgid "fat"
-msgstr ""
-
-msgid "Expand or collapse start and action stacks."
-msgstr ""
-
-#. TRANS: sacar
-msgid "pop"
-msgstr ""
-
-#. TRANS: rellenar pantalla
-msgid "background"
-msgstr ""
-
-#. TRANS: no
-msgid "not"
-msgstr ""
-
-#. TRANS: Mapa de Google
-msgid "Google map"
-msgstr ""
-
-#. TRANS: día
-msgid "day"
-msgstr ""
-
-#. TRANS: módulo
-msgid "mod"
-msgstr ""
-
-#. TRANS: Guardar proyecto
-msgid "Save project"
-msgstr ""
-
-#. TRANS: obtener fibra
-msgid "get fiber"
-msgstr ""
-
-#. TRANS: Abre el panel para configurar Turtle Blocks.
-msgid "Open a panel for configuring Turtle Blocks."
-msgstr ""
-
-#. TRANS: nombre
-msgid "name"
-msgstr ""
-
-#. TRANS: tortuga x
-msgid "turtle x"
-msgstr ""
-
-#. TRANS: tortuga y
-msgid "turtle y"
-msgstr ""
-
-#. TRANS: Descargar
-msgid "Download"
-msgstr ""
-
-#. TRANS: "El botón de pegar está activo, por lo tanto hay bloques copiados en el portapapeles."
-msgid "The paste button is enabled when there are blocks copied onto the clipboard."
-msgstr ""
-
-#. TRANS: Expandir o colapsar barra
-msgid "Expand/collapse toolbar"
-msgstr ""
-
-#. TRANS: zoom
-msgid "zoom"
-msgstr ""
-
-#. TRANS: Ocultar o mostrar los bloques y las paletas.
-msgid "Hide or show the blocks and the palettes."
-msgstr ""
-
-#. TRANS: a grados (matemáticas)
-msgid "to degrees"
-msgstr ""
-
-#. TRANS: Restaurar bloques de la papelera
-msgid "Restore blocks from the trash."
-msgstr ""
-
-#. TRANS: obtener calorías
-msgid "get calories"
-msgstr ""
-
-#. TRANS: Cargar plugin desde archivo
-msgid "Load plugin from file"
-msgstr ""
-
-msgid "You can scroll the blocks on the canvas."
-msgstr ""
-
-msgid "x"
-msgstr ""
-
-#. TRANS: mostrar bloques
-msgid "show blocks"
-msgstr ""
-
-#. TRANS: rumbo
-msgid "heading"
-msgstr ""
-
-#. TRANS: Ayuda
-msgid "Help"
-msgstr ""
-
-#. TRANS: tortuga
-msgid "turtle"
-msgstr ""
-
-#. TRANS: derecha
-msgid "right"
-msgstr ""
-
-#. TRANS: Cargar ejemplos desde el servidor
-msgid "Load samples from server"
-msgstr ""
-
-#. TRANS: ocultar
-msgid "hide blocks"
-msgstr ""
-
-#. TRANS: Ocultar o mostrar las paletas de bloques.
-msgid "Hide or show the block palettes."
-msgstr ""
-
-#. TRANS: Este botón abre la pantalla de carga de proyectos de ejemplo.
-msgid "This button opens a viewer for loading example projects."
-msgstr ""
-
-msgid "Enable scrolling"
-msgstr ""
-
-#. TRANS: atrás
-msgid "back"
-msgstr ""
-
-#. TRANS: Publicar
-msgid "Publish"
-msgstr ""
-
-#. TRANS: gris
-msgid "grey"
-msgstr ""
-
-#. TRANS: arco
-msgid "arc"
-msgstr ""
-
-#. TRANS: radio
-msgid "radius"
-msgstr ""
-
-#. TRANS: longitud
-msgid "longitude"
-msgstr ""
-
-#. TRANS: duración
-msgid "duration"
-msgstr ""
-
-#. TRANS: fijar sombra
-msgid "set shade"
-msgstr ""
-
-#. TRANS: in mathematical sense (inverse of period)
-msgid "frequency"
-msgstr ""
-
-#. TRANS: as in the event that a signal arrives
-msgid "event"
-msgstr ""
-
-#. TRANS: color del pixel
-msgid "pixel color"
-msgstr ""
-
-#. TRANS: cómeme
-msgid "eatme"
-msgstr ""
-
-#. TRANS: Este botón abre y cierra la barra de herramientas principal.
-msgid "This button opens and closes the primary toolbar."
-msgstr ""
-
-#. TRANS: index specifies a position into an array (heap)
-msgid "index"
-msgstr ""
-
-#. TRANS: ocultar
-msgid "hide"
-msgstr ""
-
-#. TRANS: mostrar pila
-msgid "show heap"
-msgstr ""
-
-#. TRANS: Mostrar u ocultar cuadrícula en coordenadas cartesianas.
-msgid "Show or hide a Cartesian-coordinate grid."
-msgstr ""
-
-#. TRANS: vertical space
-msgid "vspace"
-msgstr ""
-
-#. TRANS: publicar
-msgid "publish"
-msgstr ""
-
-#. TRANS: pronóstico
-msgid "forecast"
-msgstr ""
-
-#. TRANS: hours ago that the data was updated.
-msgid "hours ago"
-msgstr ""
-
-#. TRANS: pluma
-msgid "pen"
-msgstr ""
-
-#. TRANS: pescado
-msgid "fish"
-msgstr ""
-
-#. TRANS: imprimir
-msgid "print"
-msgstr ""
-
-#. TRANS: how many entries are in the heap?
-msgid "heap length"
-msgstr ""
-
-#. TRANS: tamaño
-msgid "size"
-msgstr ""
-
-#. TRANS: Expandir/colapsar la barra de opciones.
-msgid "Expand/collapse option toolbar"
-msgstr ""
-
-msgid "end hollow line"
-msgstr ""
-
-#. TRANS: latitud de la cuidad
-msgid "city latitude"
-msgstr ""
-
-#. TRANS: fibra
-msgid "fiber"
-msgstr ""
-
-#. TRANS: Tu puedes cargar nuevos bloques desde un archivo. 
-msgid "You can load new blocks from the file system."
-msgstr ""
-
-#. TRANS: poder (matemáticas)
-msgid "power"
-msgstr ""
-
-#. TRANS: Configuración
-msgid "Settings"
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-#. TRANS: Guardar pila
-msgid "Save stack"
-msgstr ""
-
-#. TRANS: maíz
-msgid "corn"
-msgstr ""
-
-#. TRANS: Analizar
-msgid "Display statistics"
-msgstr ""
-
-#. TRANS: Eliminar todo el contenido del canvas, incluyendo los bloques.
-msgid "Remove all content on the canvas, including the blocks."
-msgstr ""
-
-#. TRANS: a radianes (matemáticas)
-msgid "to radians"
-msgstr ""
-
-#. TRANS: agua
-msgid "water"
-msgstr ""
-
-#. TRANS: base (matemáticas)
-msgid "base"
-msgstr ""
-
-#. TRANS: galleta
-msgid "cookie"
-msgstr ""
-
-#. TRANS: Mostrar o ocultar la rejilla de coordenadas polares.
-msgid "Show or hide a polar-coordinate grid."
-msgstr ""
-
-#. TRANS: boñato
-msgid "sweet potato"
-msgstr ""
-
-#. TRANS: guardar pila
-msgid "save heap"
-msgstr ""
-
-#. TRANS: desde
-msgid "from"
-msgstr ""
-
-#. TRANS: sensores
-msgid "sensors"
-msgstr ""
-
-#. TRANS: bajar pluma
-msgid "pen down"
-msgstr ""
-
-#. TRANS: retrieve the value at a specific entry (index) in the heap
-msgid "index heap"
-msgstr ""
-
-#. TRANS: obtener nombre
-msgid "get name"
-msgstr ""
-
-#. TRANS: esperar
-msgid "wait"
-msgstr ""
-
-#. TRANS: caja
-msgid "box"
-msgstr ""
-
-#. TRANS: Planeta
-msgid "Planet"
-msgstr ""
-
-#. TRANS: Mostrar esos mensajes.
-msgid "Show these messages."
-msgstr ""
-
-#. TRANS: objeto
-msgid "obj"
-msgstr ""
-
-#. TRANS: guardar en
-msgid "store in"
-msgstr ""
-
-#. TRANS: digerir
-msgid "digest meal"
-msgstr ""
-
-#. TRANS: matemáticas
-msgid "maths"
-msgstr ""
-
-#. TRANS: popout window (ventana emergente)
-msgid "popout"
-msgstr ""
-
-#. TRANS: factor de zoom
-msgid "zoom factor"
-msgstr ""
 
-#. TRANS: acción
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/block.js:553
+msgid "rest"
+msgstr ""
+
+#: js/block.js:619
+#: js/block.js:1742
+#: js/activity.js:1279
+#: js/analytics.js:84
+#: js/palette.js:552
+#: js/palette.js:561
+#: js/palette.js:570
+#: js/palette.js:579
+#: js/palette.js:1716
+#: js/palette.js:1727
+#: js/palette.js:1738
+#: js/palette.js:1749
+#: js/basicblocks.js:528
+#: js/basicblocks.js:557
+#: js/basicblocks.js:564
+#: js/basicblocks.js:592
+#: js/basicblocks.js:602
+#: js/basicblocks.js:631
+#: js/basicblocks.js:655
+#: js/basicblocks.js:659
+#: js/basicblocks.js:665
+#: js/blocks.js:1816
+#: js/blocks.js:1818
+#: js/blocks.js:2006
+#: js/blocks.js:2165
+#: js/blocks.js:2285
+#: js/blocks.js:2717
+#: js/blocks.js:3467
+#: js/blocks.js:3544
 msgid "action"
 msgstr ""
 
-#. TRANS: volumen
-msgid "loudness"
-msgstr ""
-
-#. TRANS: Incrementa el tamaño de los bloques
-msgid "Increase the size of the blocks."
-msgstr ""
-
-#. TRANS: o
-msgid "or"
-msgstr ""
-
-#. TRANS: sentido izquierda
-msgid "sense left"
-msgstr ""
-
-#. TRANS: comentar
-msgid "comment"
-msgstr ""
-
-#. TRANS: queso
-msgid "cheese"
-msgstr ""
-
-#. TRANS: Cartesiano
-msgid "Cartesian"
-msgstr ""
-
-#. TRANS: audio (as in musical note)
-msgid "tone"
-msgstr ""
-
-#. TRANS: evaluar
-msgid "eval"
-msgstr ""
-
-#. TRANS: color
-msgid "color"
-msgstr ""
-
-#. TRANS: imagen
-msgid "image"
-msgstr ""
-
-#. TRANS: Bienvenidos a TortuBloques
-msgid "Welcome to Turtle Blocks"
-msgstr ""
-
-#. TRANS: Incrementar el tamaño de los bloques
-msgid "Increase block size"
-msgstr ""
-
-msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
-msgstr ""
-
-#. TRANS: no se traducen bitcoin
-msgid "bitcoin"
-msgstr ""
-
-#. TRANS: tamaño de la pluma
-msgid "pen size"
-msgstr ""
-
-#. TRANS: Borrar la pantalla y volver a las tortugas a sus posiciones iniciales.
-msgid "Clear the screen and return the turtles to their initial positions."
-msgstr ""
-
-#. TRANS: booleano
-msgid "boolean"
-msgstr ""
-
-#. TRANS: coordenadas
-msgid "coordinates"
-msgstr ""
-
-#. TRANS: cantar
-msgid "sing"
-msgstr ""
-
-#. TRANS: Felicitaciones
-msgid "Congratulations."
-msgstr ""
-
-#. TRANS: Ejecutar lentamente
-msgid "Run slow"
-msgstr ""
-
-#. TRANS: botón del ratón
-msgid "mouse button"
-msgstr ""
-
-#. TRANS: cloud as in cloud server
-msgid "cloud"
-msgstr ""
-
-#. TRANS: hablar
-msgid "speak"
-msgstr ""
-
-#. TRANS: ciudad
-msgid "city"
-msgstr ""
-
-#. TRANS: obtener carbohidratos
-msgid "get carbs"
-msgstr ""
-
-#. TRANS: Haga clic para ejecutar el proyecto en modo rápido.
-msgid "Click to run the project in fast mode."
-msgstr ""
-
-#. TRANS: carne de res
-msgid "beef"
-msgstr ""
-
-#. TRANS: origen
-msgid "source"
-msgstr ""
-
-#. TRANS: desconocido
-msgid "unknown"
-msgstr ""
-
-#. TRANS: esperar hasta
-msgid "wait for"
-msgstr ""
-
-#. TRANS: subir pluma
-msgid "pen up"
-msgstr ""
-
-#. TRANS: Disminye el tamaño de los bloques
-msgid "Decrease the size of the blocks."
-msgstr ""
-
-#. TRANS: iniciar
+#: js/block.js:622
+#: js/turtle.js:528
+#: js/turtle.js:529
+#: js/basicblocks.js:647
 msgid "start"
 msgstr ""
 
-#. TRANS: stock price
-msgid "stock price"
+#: js/block.js:625
+msgid "matrix"
 msgstr ""
 
-#. TRANS: ¿pila vacío?
-msgid "heap empty?"
+#: js/block.js:628
+#: js/turtle.js:386
+msgid "drum"
 msgstr ""
 
-#. TRANS: z del acelerómetro
-msgid "motion z"
-msgstr ""
-
-#. TRANS: baja
-msgid "low"
-msgstr ""
-
-#. TRANS: x del acelerómetro
-msgid "motion x"
-msgstr ""
-
-#. TRANS: y del acelerómetro
-msgid "motion y"
-msgstr ""
-
-#. TRANS: adelante
-msgid "forward"
-msgstr ""
-
-#. TRANS: grados (matemáticas)
-msgid "degrees"
-msgstr ""
-
-#. TRANS: traducir
-msgid "translate"
-msgstr ""
-
-#. TRANS: hasta
-msgid "until"
-msgstr ""
-
-#. TRANS: definir
-msgid "define"
-msgstr ""
-
-#. TRANS: En mu dispositivo
-msgid "On my device"
-msgstr ""
-
-#. TRANS: guardar como SVG
-msgid "save svg"
-msgstr ""
-
-#. TRANS techo (matemáticas)
-msgid "ceiling"
-msgstr ""
-
-#. TRANS: caparazón
-msgid "shell"
-msgstr ""
-
-#. TRANS: flash (blink) an LED light
-msgid "blink (ms)"
-msgstr ""
-
-msgid "that"
-msgstr ""
-
-#. TRANS: combiar idioma
-msgid "set lang"
-msgstr ""
-
-#. TRANS: renombrar tortuga
-msgid "turtle name"
-msgstr ""
-
-#. TRANS: carbohidratos
-msgid "carbs"
-msgstr ""
-
-#. TRANS: sino
-msgid "else"
-msgstr ""
-
-#. TRANS: as in broadcast a signal
-msgid "broadcast"
-msgstr ""
-
-#. TRANS: naranja
-msgid "orange"
-msgstr ""
-
-msgid "begin hollow line"
-msgstr ""
-
-#. TRANS: the heap is a first-in-last-out (FILO) stack
-msgid "heap"
-msgstr ""
-
-#. TRANS: iniciar relleno
-msgid "begin fill"
-msgstr ""
-
-#. TRANS: sentido derecha
-msgid "sense right"
-msgstr ""
-
-#. TRANS: comer
-msgid "eat"
-msgstr ""
-
-#. TRANS: Expandir o colapsar los bloques colapsables
-msgid "Expand/collapse collapsable blocks"
-msgstr ""
-
-#. TRANS: alta
-msgid "high"
-msgstr ""
-
-#. TRANS: longitude and latitude coordinate data
-msgid "Coordinate data not available."
-msgstr ""
-
-#. TRANS: fijar matiz
-msgid "set hue"
-msgstr ""
-
-#. TRANS: moneda
-msgid "currency"
-msgstr ""
-
-msgid "this"
-msgstr ""
-
-#. TRANS: horizontal space
-msgid "hspace"
-msgstr ""
-
-#. TRANS: papa
-msgid "potato"
-msgstr ""
-
-#. TRANS: longitud de la cuidad
-msgid "city longitude"
-msgstr ""
-
-#. TRANS: Haz click para ejecutar el proyecto en modo paso a paso.
-msgid "Click to run the project step by step."
-msgstr ""
-
-#. TRANS: valor
-msgid "value"
-msgstr ""
-
-#. TRANS: banana
-msgid "banana"
-msgstr ""
-
-#. TRANS: pan
-msgid "wheat bread"
-msgstr ""
-
-msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
-msgstr ""
-
-#. TRANS: mientras
-msgid "while"
-msgstr ""
-
-#. TRANS: abrir archivo
-msgid "open file"
-msgstr ""
-
-#. TRANS: detecar idioma
-msgid "detect lang"
-msgstr ""
-
-#. TRANS: pastel
-msgid "cake"
-msgstr ""
-
-#. TRANS: exp (matemáticas)
-msgid "exp"
-msgstr ""
-
-#. TRANS: cargar pila
-msgid "load heap"
-msgstr ""
-
-#. TRANS: Abrir
+#: js/samplesviewer.js:26
+#: js/samplesviewer.js:26
 msgid "Open"
 msgstr ""
 
-#. TRANS: database fetch
-msgid "fetch"
-msgstr ""
-
-#. TRANS: sentido distancia
-msgid "see distance"
-msgstr ""
-
-#. TRANS: y
-msgid "and"
-msgstr ""
-
-#. TRANS: fijar gris
-msgid "set grey"
-msgstr ""
-
-#. TRANS: hacer
-msgid "do"
-msgstr ""
-
-#. TRANS: calorías
-msgid "calories"
-msgstr ""
-
-#. TRANS: Ejecutar paso a paso
-msgid "Run step by step"
-msgstr ""
-
-#. TRANS: Mostrar u ocultar paletas
-msgid "Show/hide palettes"
-msgstr ""
-
-#. TRANS: fijar rumbo
-msgid "set heading"
-msgstr ""
-
-#. TRANS: sumar 1 a
-msgid "add 1 to"
-msgstr ""
-
-#. TRANS: detener
-msgid "stop play"
-msgstr ""
-
-#. TRANS: proteína
-msgid "protein"
-msgstr ""
-
-#. TRANS: reproducir
-msgid "play back"
-msgstr ""
-
-#. TRANS: si
-msgid "if"
-msgstr ""
-
-msgid "Save your project to a server."
-msgstr ""
-
-#. TRANS: Disminuir el tamaño de los bloques
-msgid "Decrease block size"
-msgstr ""
-
-#. TRANS: ángulo
-msgid "angle"
-msgstr ""
-
-#. TRANS: obtener grasas
-msgid "get fat"
-msgstr ""
-
-#. TRANS: mínimo
-msgid "min"
-msgstr ""
-
-#. TRANS: media
-msgid "media"
-msgstr ""
-
-#. TRANS: Detener
-msgid "Stop"
-msgstr ""
-
-#. TRANS: raíz
-msgid "sqrt"
-msgstr ""
-
-#. TRANS: as in button click
-msgid "click"
-msgstr ""
-
-#. TRANS: nota
-msgid "note"
-msgstr ""
-
-#. TRANS: field of interest in a database, e.g., temperature in a weather database
-msgid "field"
-msgstr ""
-
-#. TRANS: Botones de paleta
-msgid "Palette buttons"
-msgstr ""
-
-#. TRANS: fijar xy
-msgid "set xy"
-msgstr ""
-
-#. TRANS: finalizar relleno
-msgid "end fill"
-msgstr ""
-
-#. TRANS: Copiar
-msgid "Copy"
-msgstr ""
-
-#. TRANS: Pegar
-msgid "Paste"
-msgstr ""
-
-#. TRANS: Borrar
+#: js/samplesviewer.js:27
+#: js/samplesviewer.js:27
 msgid "Delete"
 msgstr ""
 
-#. TRANS: tamal
-msgid "tamale"
+#: js/samplesviewer.js:28
+#: js/samplesviewer.js:28
+msgid "Publish"
 msgstr ""
 
-#. TRANS: En todo el mundo
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:38
+#: js/samplesviewer.js:38
+msgid "Download"
+msgstr ""
+
+#: js/samplesviewer.js:382
+msgid "Planet"
+msgstr ""
+
+#: js/samplesviewer.js:383
+msgid "On my device"
+msgstr ""
+
+#: js/samplesviewer.js:384
 msgid "Worldwide"
 msgstr ""
 
-#. TRANS: repetir
-msgid "repeat"
+#: js/activity.js:427
+msgid "Close"
 msgstr ""
 
-#. TRANS: bloques
-msgid "blocks"
-msgstr ""
-
-#. TRANS: Analizar los tipos de bloques usados
-msgid "Display statistics about your Turtle project."
-msgstr ""
-
-#. TRANS: Polar
-msgid "Polar"
-msgstr ""
-
-#. TRANS: maximo
-msgid "max"
-msgstr ""
-
-#. TRANS: lógica
-msgid "logic"
-msgstr ""
-
-#. TRANS: vaciar pila
-msgid "empty heap"
-msgstr ""
-
-#. TRANS: Guarde proyecto en el servidor.
-msgid "You have finished the tour. Please enjoy Turtle Blocks!"
-msgstr ""
-
-#. TRANS: apilar
-msgid "push"
-msgstr ""
-
-#. TRANS: no se traducen rodi
-msgid "rodi"
-msgstr ""
-
-msgid "Clean"
-msgstr ""
-
-#. TRANS: fijar color
-msgid "set color"
-msgstr ""
-
-#. TRANS: Ejecutar rápidamente
+#: js/activity.js:1955
 msgid "Run fast"
 msgstr ""
 
-#. TRANS: brocoli
-msgid "broccoli"
+#: js/activity.js:1955
+msgid "Long press to run slow"
 msgstr ""
 
-#. TRANS: detener medios
-msgid "stop media"
+#: js/activity.js:1956
+#: js/turtledefs.js:45
+msgid "Run step by step"
 msgstr ""
 
-#. TRANS: tomate
-msgid "tomato"
+#: js/activity.js:1957
+msgid "Run music slow"
 msgstr ""
 
-#. TRANS: por siempre
-msgid "forever"
+#: js/activity.js:1958
+msgid "Run note by note"
 msgstr ""
 
-#. TRANS: musical note to frequency
-msgid "note to frequency"
+#: js/activity.js:1959
+#: js/turtledefs.js:46
+msgid "Stop"
 msgstr ""
 
-msgid "no background"
+#: js/activity.js:1960
+#: js/turtledefs.js:47
+msgid "Clean"
 msgstr ""
 
-#. TRANS: Cargar proyecto desde archivo
-msgid "Load project from file"
+#: js/activity.js:1961
+#: js/turtledefs.js:48
+msgid "Show/hide palettes"
 msgstr ""
 
-#. TRANS: obtener proteínas
-msgid "get protein"
+#: js/activity.js:1962
+#: js/turtledefs.js:49
+msgid "Show/hide blocks"
 msgstr ""
 
-#. TRANS: limpiar
-msgid "clear"
+#: js/activity.js:1963
+#: js/turtledefs.js:50
+msgid "Expand/collapse collapsable blocks"
 msgstr ""
 
-#. TRANS piso (matemáticas)
-msgid "floor"
+#: js/activity.js:1964
+#: js/activity.js:2005
+#: js/turtledefs.js:51
+msgid "Home"
 msgstr ""
 
-#. TRANS: flujo
+#: js/activity.js:1965
+#: js/turtledefs.js:52
+msgid "Help"
+msgstr ""
+
+#: js/activity.js:2033
+#: js/turtledefs.js:54
+msgid "Load samples from server"
+msgstr ""
+
+#: js/activity.js:2034
+#: js/turtledefs.js:55
+msgid "Load project from files"
+msgstr ""
+
+#: js/activity.js:2035
+#: js/turtledefs.js:56
+msgid "Save project"
+msgstr ""
+
+#: js/activity.js:2036
+msgid "Save sheet music"
+msgstr ""
+
+#: js/activity.js:2037
+#: js/turtledefs.js:58
+msgid "Paste"
+msgstr ""
+
+#: js/activity.js:2038
+#: js/turtledefs.js:60
+msgid "Cartesian"
+msgstr ""
+
+#: js/activity.js:2039
+#: js/turtledefs.js:61
+msgid "Polar"
+msgstr ""
+
+#: js/activity.js:2040
+#: js/turtledefs.js:62
+msgid "Settings"
+msgstr ""
+
+#: js/activity.js:2041
+#: js/turtledefs.js:68
+msgid "Delete all"
+msgstr ""
+
+#: js/activity.js:2042
+#: js/turtledefs.js:69
+msgid "Undo"
+msgstr ""
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "turtle"
+msgstr ""
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "pen"
+msgstr ""
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "number"
+msgstr ""
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "flow"
 msgstr ""
 
-#. TRANS: Haz click en este botón para expandir o colapsar la barra de herramientas auxiliar.
-msgid "Click this button to expand or collapse the auxillary toolbar."
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "sensors"
 msgstr ""
 
-#. TRANS: extras
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "media"
+msgstr ""
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "extras"
 msgstr ""
 
-#. TRANS: sombra
-msgid "shade"
+#: js/status.js:84
+#: js/status.js:84
+msgid "close"
 msgstr ""
 
-#. TRANS: tiempo
-msgid "time"
+#: js/logo.js:173
+msgid "true"
 msgstr ""
 
+#: js/logo.js:175
+msgid "false"
+msgstr ""
+
+#: js/logo.js:1065
+#: js/logo.js:1405
+msgid "You must select a file."
+msgstr ""
+
+#: js/logo.js:1415
+#: plugins/heap.rtp:96
+msgid "The file you selected does not contain a valid heap."
+msgstr ""
+
+#: js/logo.js:1419
+#: plugins/heap.rtp:102
+msgid "The loadHeap block needs a loadFile block."
+msgstr ""
+
+#: js/logo.js:1435
+msgid "Error parsing JSON data:"
+msgstr ""
+
+#: js/logo.js:1440
+msgid "404: Page not found"
+msgstr ""
+
+#: js/logo.js:1464
+msgid "turtleHeaps does not contain a valid heap for"
+msgstr ""
+
+#: js/logo.js:1474
+msgid "Index must be > 0."
+msgstr ""
+
+#: js/logo.js:2199
+#: js/basicblocks.js:730
+#: plugins/heap.rtp:42
+#: plugins/heap.rtp:142
+msgid "empty heap"
+msgstr ""
+
+#: js/clearbox.js:46
+msgid "confirm"
+msgstr ""
+
+#: js/palette.js:534
+#: js/palette.js:619
+#: js/palette.js:1694
+#: js/basicblocks.js:490
+#: js/basicblocks.js:494
+#: js/basicblocks.js:506
+#: js/basicblocks.js:514
+#: js/blocks.js:2092
+msgid "box"
+msgstr ""
+
+#: js/palette.js:596
+#: js/basicblocks.js:852
+#: js/blocks.js:1660
+msgid "text"
+msgstr ""
+
+#: js/palette.js:599
+#: js/palette.js:1795
+#: js/palette.js:1802
+msgid "sol"
+msgstr ""
+
+#: js/palette.js:620
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "store in"
+msgstr ""
+
+#: js/palette.js:628
+#: js/blocks.js:1271
+msgid "open file"
+msgstr ""
+
+#: js/palette.js:724
+#: js/basicblocks.js:170
+#: plugins/rodi.rtp:71
+#: plugins/rodi.rtp:389
+msgid "back"
+msgstr ""
+
+#: js/palette.js:732
+#: js/palette.js:733
+msgid "hide"
+msgstr ""
+
+#: js/palette.js:735
+#: js/palette.js:736
+#: js/basicblocks.js:848
+msgid "show"
+msgstr ""
+
+#: js/palette.js:738
+#: js/palette.js:739
+msgid "popout"
+msgstr ""
+
+#: js/palette.js:1782
+msgid "la"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "mi"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "re"
+msgstr ""
+
+#: js/turtle.js:385
+#: js/turtle.js:524
+#: js/turtle.js:525
+msgid "start drum"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "boolean"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "boxes"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "actions"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "heap"
+msgstr ""
+
+#: js/turtledefs.js:42
+msgid "Welcome to Turtle Blocks"
+msgstr ""
+
+#: js/turtledefs.js:42
+msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
+msgstr ""
+
+#: js/turtledefs.js:43
+msgid "Palette buttons"
+msgstr ""
+
+#: js/turtledefs.js:43
+msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Run"
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Click to run the project in fast mode."
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Long press to run the project in slow mode."
+msgstr ""
+
+#: js/turtledefs.js:45
+msgid "Click to run the project step by step."
+msgstr ""
+
+#: js/turtledefs.js:46
+msgid "Stop the current project."
+msgstr ""
+
+#: js/turtledefs.js:47
+msgid "Clear the screen and return the turtles to their initial positions."
+msgstr ""
+
+#: js/turtledefs.js:48
+msgid "Hide or show the block palettes."
+msgstr ""
+
+#: js/turtledefs.js:49
+msgid "Hide or show the blocks and the palettes."
+msgstr ""
+
+#: js/turtledefs.js:50
+msgid "Expand or collapse start and action stacks."
+msgstr ""
+
+#: js/turtledefs.js:51
+msgid "Return all blocks to the center of the screen."
+msgstr ""
+
+#: js/turtledefs.js:52
+msgid "Show these messages."
+msgstr ""
+
+#: js/turtledefs.js:53
+msgid "Expand/collapse option toolbar"
+msgstr ""
+
+#: js/turtledefs.js:53
+msgid "Click this button to expand or collapse the auxillary toolbar."
+msgstr ""
+
+#: js/turtledefs.js:54
+msgid "This button opens a viewer for loading example projects."
+msgstr ""
+
+#: js/turtledefs.js:55
+msgid "You can also load projects from the file system."
+msgstr ""
+
+#: js/turtledefs.js:56
+msgid "Save your project to a file."
+msgstr ""
+
+#: js/turtledefs.js:57
+msgid "Copy"
+msgstr ""
+
+#: js/turtledefs.js:57
+msgid "The copy button copies a stack to the clipboard. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:58
+msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+msgstr ""
+
+#: js/turtledefs.js:59
+#: js/blocks.js:200
+msgid "Save stack"
+msgstr ""
+
+#: js/turtledefs.js:59
+msgid "The save-stack button saves a stack onto a custom palette. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:60
+msgid "Show or hide a Cartesian-coordinate grid."
+msgstr ""
+
+#: js/turtledefs.js:61
+msgid "Show or hide a polar-coordinate grid."
+msgstr ""
+
+#: js/turtledefs.js:62
+msgid "Open a panel for configuring Turtle Blocks."
+msgstr ""
+
+#: js/turtledefs.js:63
+#: js/utilitybox.js:36
+msgid "Decrease block size"
+msgstr ""
+
+#: js/turtledefs.js:63
+msgid "Decrease the size of the blocks."
+msgstr ""
+
+#: js/turtledefs.js:64
+#: js/utilitybox.js:44
+msgid "Increase block size"
+msgstr ""
+
+#: js/turtledefs.js:64
+msgid "Increase the size of the blocks."
+msgstr ""
+
+#: js/turtledefs.js:65
+#: js/utilitybox.js:52
+msgid "Display statistics"
+msgstr ""
+
+#: js/turtledefs.js:65
+msgid "Display statistics about your Turtle project."
+msgstr ""
+
+#: js/turtledefs.js:66
+#: js/utilitybox.js:60
+msgid "Load plugin from file"
+msgstr ""
+
+#: js/turtledefs.js:66
+msgid "You can load new blocks from the file system."
+msgstr ""
+
+#: js/turtledefs.js:67
+#: js/utilitybox.js:68
+msgid "Enable scrolling"
+msgstr ""
+
+#: js/turtledefs.js:67
+msgid "You can scroll the blocks on the canvas."
+msgstr ""
+
+#: js/turtledefs.js:68
+msgid "Remove all content on the canvas, including the blocks."
+msgstr ""
+
+#: js/turtledefs.js:69
+msgid "Restore blocks from the trash."
+msgstr ""
+
+#: js/turtledefs.js:70
+msgid "Congratulations."
+msgstr ""
+
+#: js/turtledefs.js:70
+msgid "You have finished the tour. Please enjoy Turtle Blocks!"
+msgstr ""
+
+#: js/basicblocks.js:65
+msgid "heading"
+msgstr ""
+
+#: js/basicblocks.js:72
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
+msgid "x"
+msgstr ""
+
+#: js/basicblocks.js:79
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
 msgid "y"
 msgstr ""
 
-#. TRANS: set the value at a specific entry (index) in the heap
+#: js/basicblocks.js:86
+msgid "clear"
+msgstr ""
+
+#: js/basicblocks.js:93
+msgid "control point 2"
+msgstr ""
+
+#: js/basicblocks.js:104
+msgid "control point 1"
+msgstr ""
+
+#: js/basicblocks.js:115
+msgid "bezier"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "arc"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "angle"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "radius"
+msgstr ""
+
+#: js/basicblocks.js:136
+msgid "set heading"
+msgstr ""
+
+#: js/basicblocks.js:144
+msgid "set xy"
+msgstr ""
+
+#: js/basicblocks.js:154
+#: plugins/rodi.rtp:79
+#: plugins/rodi.rtp:341
+#: plugins/rodi.rtp:376
+msgid "right"
+msgstr ""
+
+#: js/basicblocks.js:162
+#: plugins/rodi.rtp:81
+#: plugins/rodi.rtp:340
+#: plugins/rodi.rtp:363
+msgid "left"
+msgstr ""
+
+#: js/basicblocks.js:178
+#: plugins/rodi.rtp:73
+#: plugins/rodi.rtp:402
+msgid "forward"
+msgstr ""
+
+#: js/basicblocks.js:189
+msgid "begin fill"
+msgstr ""
+
+#: js/basicblocks.js:197
+msgid "end fill"
+msgstr ""
+
+#: js/basicblocks.js:205
+#: js/basicblocks.js:249
+msgid "background"
+msgstr ""
+
+#: js/basicblocks.js:212
+msgid "color"
+msgstr ""
+
+#: js/basicblocks.js:219
+msgid "shade"
+msgstr ""
+
+#: js/basicblocks.js:226
+msgid "grey"
+msgstr ""
+
+#: js/basicblocks.js:233
+msgid "pen size"
+msgstr ""
+
+#: js/basicblocks.js:240
+msgid "set font"
+msgstr ""
+
+#: js/basicblocks.js:256
+msgid "hollow line"
+msgstr ""
+
+#: js/basicblocks.js:263
+msgid "fill"
+msgstr ""
+
+#: js/basicblocks.js:270
+msgid "pen up"
+msgstr ""
+
+#: js/basicblocks.js:277
+msgid "pen down"
+msgstr ""
+
+#: js/basicblocks.js:284
+msgid "set pen size"
+msgstr ""
+
+#: js/basicblocks.js:292
+msgid "set translucency"
+msgstr ""
+
+#: js/basicblocks.js:300
+msgid "set hue"
+msgstr ""
+
+#: js/basicblocks.js:308
+msgid "set shade"
+msgstr ""
+
+#: js/basicblocks.js:316
+msgid "set grey"
+msgstr ""
+
+#: js/basicblocks.js:324
+msgid "set color"
+msgstr ""
+
+#: js/basicblocks.js:334
+msgid "int"
+msgstr ""
+
+#: js/basicblocks.js:370
+msgid "and"
+msgstr ""
+
+#: js/basicblocks.js:377
+msgid "or"
+msgstr ""
+
+#: js/basicblocks.js:384
+msgid "not"
+msgstr ""
+
+#: js/basicblocks.js:390
+msgid "mod"
+msgstr ""
+
+#: js/basicblocks.js:398
+msgid "sqrt"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "one of"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "this"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "that"
+msgstr ""
+
+#: js/basicblocks.js:459
+msgid "random"
+msgstr ""
+
+#: js/basicblocks.js:459
+msgid "min"
+msgstr ""
+
+#: js/basicblocks.js:459
+msgid "max"
+msgstr ""
+
+#: js/basicblocks.js:474
+msgid "add 1 to"
+msgstr ""
+
+#: js/basicblocks.js:481
+msgid "add"
+msgstr ""
+
+#: js/basicblocks.js:481
+#: plugins/finance.rtp:28
+msgid "to"
+msgstr ""
+
+#: js/basicblocks.js:481
+#: js/basicblocks.js:503
+#: js/basicblocks.js:697
+#: js/blocks.js:2191
+#: plugins/bitcoin.rtp:27
+msgid "value"
+msgstr ""
+
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "name"
+msgstr ""
+
+#: js/basicblocks.js:525
+#: js/basicblocks.js:572
+#: js/basicblocks.js:589
+#: js/basicblocks.js:627
+#: js/basicblocks.js:900
+#: js/basicblocks.js:907
+msgid "do"
+msgstr ""
+
+#: js/basicblocks.js:534
+msgid "return"
+msgstr ""
+
+#: js/basicblocks.js:544
+msgid "return to URL"
+msgstr ""
+
+#: js/basicblocks.js:548
+msgid "100"
+msgstr ""
+
+#: js/basicblocks.js:554
+#: js/basicblocks.js:580
+#: js/basicblocks.js:599
+msgid "calculate"
+msgstr ""
+
+#: js/basicblocks.js:627
+msgid "on"
+msgstr ""
+
+#: js/basicblocks.js:627
+#: js/basicblocks.js:630
+#: js/basicblocks.js:641
+msgid "event"
+msgstr ""
+
+#: js/basicblocks.js:638
+msgid "broadcast"
+msgstr ""
+
+#: js/basicblocks.js:675
+msgid "load heap from App"
+msgstr ""
+
+#: js/basicblocks.js:686
+msgid "save heap to App"
+msgstr ""
+
+#: js/basicblocks.js:697
 msgid "set heap"
 msgstr ""
 
-#. TRANS: hola
+#: js/basicblocks.js:697
+msgid "index"
+msgstr ""
+
+#: js/basicblocks.js:708
+#: plugins/heap.rtp:126
+msgid "show heap"
+msgstr ""
+
+#: js/basicblocks.js:715
+msgid "heap length"
+msgstr ""
+
+#: js/basicblocks.js:723
+#: plugins/heap.rtp:134
+msgid "heap empty?"
+msgstr ""
+
+#: js/basicblocks.js:737
+#: plugins/heap.rtp:150
+msgid "save heap"
+msgstr ""
+
+#: js/basicblocks.js:746
+#: plugins/heap.rtp:160
+msgid "load heap"
+msgstr ""
+
+#: js/basicblocks.js:755
+msgid "index heap"
+msgstr ""
+
+#: js/basicblocks.js:764
+#: plugins/heap.rtp:109
+msgid "push"
+msgstr ""
+
+#: js/basicblocks.js:772
+#: plugins/heap.rtp:118
+msgid "pop"
+msgstr ""
+
+#: js/basicblocks.js:781
+msgid "speak"
+msgstr ""
+
+#: js/basicblocks.js:809
+msgid "stop media"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "tone"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "frequency"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "duration (ms)"
+msgstr ""
+
+#: js/basicblocks.js:826
+msgid "note to frequency"
+msgstr ""
+
+#: js/basicblocks.js:826
+#: plugins/rodi.rtp:196
+msgid "note"
+msgstr ""
+
+#: js/basicblocks.js:826
+msgid "octave"
+msgstr ""
+
+#: js/basicblocks.js:837
+msgid "shell"
+msgstr ""
+
+#: js/basicblocks.js:837
+#: js/basicblocks.js:848
+msgid "size"
+msgstr ""
+
+#: js/basicblocks.js:837
+msgid "image"
+msgstr ""
+
+#: js/basicblocks.js:848
+msgid "obj"
+msgstr ""
+
+#: js/basicblocks.js:886
+#: plugins/rodi.rtp:31
+#: plugins/rodi.rtp:75
+#: plugins/rodi.rtp:415
+msgid "stop"
+msgstr ""
+
+#: js/basicblocks.js:893
+msgid "wait for"
+msgstr ""
+
+#: js/basicblocks.js:900
+msgid "until"
+msgstr ""
+
+#: js/basicblocks.js:907
+msgid "while"
+msgstr ""
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "if"
+msgstr ""
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "then"
+msgstr ""
+
+#: js/basicblocks.js:914
+msgid "else"
+msgstr ""
+
+#: js/basicblocks.js:928
+msgid "forever"
+msgstr ""
+
+#: js/basicblocks.js:935
+msgid "repeat"
+msgstr ""
+
+#: js/basicblocks.js:947
+#: js/basicblocks.js:958
+#: js/basicblocks.js:967
+#: js/basicblocks.js:977
+#: js/basicblocks.js:985
+#: js/basicblocks.js:994
+#: js/basicblocks.js:1004
+msgid "unknown"
+msgstr ""
+
+#: js/basicblocks.js:1015
+msgid "play back"
+msgstr ""
+
+#: js/basicblocks.js:1023
+msgid "stop play"
+msgstr ""
+
+#: js/basicblocks.js:1030
+msgid "save svg"
+msgstr ""
+
+#: js/basicblocks.js:1033
+msgid "title"
+msgstr ""
+
+#: js/basicblocks.js:1039
+#: plugins/turtle.rtp:52
+msgid "turtle y"
+msgstr ""
+
+#: js/basicblocks.js:1048
+#: plugins/turtle.rtp:42
+msgid "turtle x"
+msgstr ""
+
+#: js/basicblocks.js:1057
+#: plugins/turtle.rtp:62
+msgid "start turtle"
+msgstr ""
+
+#: js/basicblocks.js:1066
+#: plugins/turtle.rtp:72
+msgid "stop turtle"
+msgstr ""
+
+#: js/basicblocks.js:1075
+msgid "no background"
+msgstr ""
+
+#: js/basicblocks.js:1082
+msgid "show blocks"
+msgstr ""
+
+#: js/basicblocks.js:1089
+msgid "hide blocks"
+msgstr ""
+
+#: js/basicblocks.js:1096
+msgid "open project"
+msgstr ""
+
+#: js/basicblocks.js:1120
+msgid "wait"
+msgstr ""
+
+#: js/basicblocks.js:1128
+msgid "print"
+msgstr ""
+
+#: js/basicblocks.js:1136
+#: js/basicblocks.js:1144
+#: plugins/turtle.rtp:82
+msgid "turtle name"
+msgstr ""
+
+#: js/basicblocks.js:1145
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:83
+msgid "source"
+msgstr ""
+
+#: js/basicblocks.js:1146
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:84
+msgid "target"
+msgstr ""
+
+#: js/basicblocks.js:1157
+#: plugins/rodi.rtp:325
+msgid "status"
+msgstr ""
+
+#: js/basicblocks.js:1166
+msgid "loudness"
+msgstr ""
+
+#: js/basicblocks.js:1174
+msgid "click"
+msgstr ""
+
+#: js/basicblocks.js:1182
+#: plugins/rodi.rtp:223
+msgid "blue"
+msgstr ""
+
+#: js/basicblocks.js:1189
+#: plugins/rodi.rtp:222
+msgid "green"
+msgstr ""
+
+#: js/basicblocks.js:1196
+#: plugins/rodi.rtp:221
+msgid "red"
+msgstr ""
+
+#: js/basicblocks.js:1203
+#: plugins/rodi.rtp:220
+msgid "pixel color"
+msgstr ""
+
+#: js/basicblocks.js:1210
+msgid "time"
+msgstr ""
+
+#: js/basicblocks.js:1217
+msgid "mouse x"
+msgstr ""
+
+#: js/basicblocks.js:1225
+msgid "mouse y"
+msgstr ""
+
+#: js/basicblocks.js:1233
+msgid "mouse button"
+msgstr ""
+
+#: js/basicblocks.js:1240
+msgid "to ASCII"
+msgstr ""
+
+#: js/basicblocks.js:1247
+msgid "keyboard"
+msgstr ""
+
+#: js/basicblocks.js:1256
+msgid "eval"
+msgstr ""
+
+#: js/utilitybox.js:77
+msgid "Disable scrolling"
+msgstr ""
+
+#: plugins/finance.rtp:28
+msgid "currency"
+msgstr ""
+
+#: plugins/finance.rtp:28
+#: plugins/bitcoin.rtp:27
+msgid "from"
+msgstr ""
+
+#: plugins/finance.rtp:69
+msgid "stock price"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "fetch"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "UID"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "field"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "hours ago"
+msgstr ""
+
+#: plugins/impact.rtp:63
+#: plugins/impact.rtp:127
+msgid "Impact data not available."
+msgstr ""
+
+#: plugins/impact.rtp:69
+msgid "Cannot parse Impact data."
+msgstr ""
+
+#: plugins/impact.rtp:100
+#: plugins/impact.rtp:114
+msgid "Impact field not found."
+msgstr ""
+
+#: plugins/impact.rtp:122
+msgid "Impact UID not found."
+msgstr ""
+
+#: plugins/impact.rtp:124
+msgid "Impact Time not found."
+msgstr ""
+
+#: plugins/translate.rtp:73
+msgid "translate"
+msgstr ""
+
+#: plugins/translate.rtp:78
+#: plugins/translate.rtp:89
 msgid "hello"
 msgstr ""
 
-#. TRANS: izquierda
-msgid "left"
+#: plugins/translate.rtp:84
+msgid "detect lang"
 msgstr ""
+
+#: plugins/translate.rtp:95
+msgid "set lang"
+msgstr ""
+
+#: plugins/gmap.rtp:30
+msgid "city latitude"
+msgstr ""
+
+#: plugins/gmap.rtp:40
+msgid "city longitude"
+msgstr ""
+
+#: plugins/gmap.rtp:71
+#: plugins/gmap.rtp:74
+#: plugins/gmap.rtp:104
+#: plugins/gmap.rtp:107
+msgid "Coordinate data not available."
+msgstr ""
+
+#: plugins/gmap.rtp:116
+msgid "Google map"
+msgstr ""
+
+#: plugins/gmap.rtp:116
+#: plugins/gmap.rtp:160
+msgid "coordinates"
+msgstr ""
+
+#: plugins/gmap.rtp:116
+msgid "zoom factor"
+msgstr ""
+
+#: plugins/gmap.rtp:144
+msgid "zoom"
+msgstr ""
+
+#: plugins/gmap.rtp:160
+msgid "latitude"
+msgstr ""
+
+#: plugins/gmap.rtp:160
+msgid "longitude"
+msgstr ""
+
+#: plugins/maths.rtp:47
+msgid "power"
+msgstr ""
+
+#: plugins/maths.rtp:47
+msgid "base"
+msgstr ""
+
+#: plugins/maths.rtp:47
+msgid "exp"
+msgstr ""
+
+#: plugins/maths.rtp:69
+msgid "floor"
+msgstr ""
+
+#: plugins/maths.rtp:71
+msgid "ceiling"
+msgstr ""
+
+#: plugins/maths.rtp:74
+msgid "degrees"
+msgstr ""
+
+#: plugins/maths.rtp:74
+msgid "to degrees"
+msgstr ""
+
+#: plugins/maths.rtp:76
+msgid "radians"
+msgstr ""
+
+#: plugins/maths.rtp:76
+msgid "to radians"
+msgstr ""
+
+#: plugins/accelerometer.rtp:48
+msgid "motion x"
+msgstr ""
+
+#: plugins/accelerometer.rtp:56
+msgid "motion y"
+msgstr ""
+
+#: plugins/accelerometer.rtp:64
+msgid "motion z"
+msgstr ""
+
+#: plugins/dictionary.rtp:25
+msgid "define"
+msgstr ""
+
+#: plugins/nutrition.rtp:104
+msgid "get calories"
+msgstr ""
+
+#: plugins/nutrition.rtp:107
+msgid "get protein"
+msgstr ""
+
+#: plugins/nutrition.rtp:110
+msgid "get carbs"
+msgstr ""
+
+#: plugins/nutrition.rtp:113
+msgid "get fiber"
+msgstr ""
+
+#: plugins/nutrition.rtp:116
+msgid "get fat"
+msgstr ""
+
+#: plugins/nutrition.rtp:119
+msgid "get name"
+msgstr ""
+
+#: plugins/nutrition.rtp:122
+msgid "calories"
+msgstr ""
+
+#: plugins/nutrition.rtp:128
+msgid "protein"
+msgstr ""
+
+#: plugins/nutrition.rtp:134
+msgid "carbs"
+msgstr ""
+
+#: plugins/nutrition.rtp:140
+msgid "fiber"
+msgstr ""
+
+#: plugins/nutrition.rtp:146
+msgid "fat"
+msgstr ""
+
+#: plugins/nutrition.rtp:152
+msgid "eat"
+msgstr ""
+
+#: plugins/nutrition.rtp:155
+msgid "digest meal"
+msgstr ""
+
+#: plugins/nutrition.rtp:158
+msgid "apple"
+msgstr ""
+
+#: plugins/nutrition.rtp:161
+msgid "banana"
+msgstr ""
+
+#: plugins/nutrition.rtp:164
+msgid "orange"
+msgstr ""
+
+#: plugins/nutrition.rtp:167
+msgid "wheat bread"
+msgstr ""
+
+#: plugins/nutrition.rtp:170
+msgid "corn"
+msgstr ""
+
+#: plugins/nutrition.rtp:173
+msgid "potato"
+msgstr ""
+
+#: plugins/nutrition.rtp:176
+msgid "sweet potato"
+msgstr ""
+
+#: plugins/nutrition.rtp:179
+msgid "tomato"
+msgstr ""
+
+#: plugins/nutrition.rtp:182
+msgid "broccoli"
+msgstr ""
+
+#: plugins/nutrition.rtp:185
+msgid "rice and beans"
+msgstr ""
+
+#: plugins/nutrition.rtp:188
+msgid "tamale"
+msgstr ""
+
+#: plugins/nutrition.rtp:191
+msgid "cheese"
+msgstr ""
+
+#: plugins/nutrition.rtp:194
+msgid "chicken"
+msgstr ""
+
+#: plugins/nutrition.rtp:197
+msgid "fish"
+msgstr ""
+
+#: plugins/nutrition.rtp:200
+msgid "beef"
+msgstr ""
+
+#: plugins/nutrition.rtp:203
+msgid "cake"
+msgstr ""
+
+#: plugins/nutrition.rtp:206
+msgid "cookie"
+msgstr ""
+
+#: plugins/nutrition.rtp:209
+msgid "water"
+msgstr ""
+
+#: plugins/bitcoin.rtp:27
+msgid "bitcoin"
+msgstr ""
+
+#: plugins/facebook.rtp:27
+msgid "publish"
+msgstr ""
+
+#: plugins/facebook.rtp:30
+msgid "comment"
+msgstr ""
+
+#: plugins/weather.rtp:62
+#: plugins/weather.rtp:86
+msgid "Days ahead must be in the range of -1 to 5."
+msgstr ""
+
+#: plugins/weather.rtp:107
+msgid "forecast"
+msgstr ""
+
+#: plugins/weather.rtp:108
+#: plugins/weather.rtp:122
+#: plugins/weather.rtp:135
+msgid "city"
+msgstr ""
+
+#: plugins/weather.rtp:109
+#: plugins/weather.rtp:123
+#: plugins/weather.rtp:136
+msgid "day"
+msgstr ""
+
+#: plugins/weather.rtp:121
+msgid "high"
+msgstr ""
+
+#: plugins/weather.rtp:134
+msgid "low"
+msgstr ""
+
+#: plugins/rodi.rtp:176
+msgid "blink"
+msgstr ""
+
+#: plugins/rodi.rtp:195
+msgid "play"
+msgstr ""
+
+#: plugins/rodi.rtp:197
+msgid "duration"
+msgstr ""
+
+#: plugins/rodi.rtp:250
+msgid "led"
+msgstr ""
+
+#: plugins/rodi.rtp:269
+msgid "light intensity"
+msgstr ""
+
+#: plugins/rodi.rtp:283
+msgid "infrared light (left)"
+msgstr ""
+
+#: plugins/rodi.rtp:297
+msgid "infrared light (right)"
+msgstr ""
+
+#: plugins/rodi.rtp:311
+msgid "distance"
+msgstr ""
+
+#: plugins/rodi.rtp:339
+msgid "move"
+msgstr ""
+
+#: plugins/heap.rtp:81
+#: plugins/heap.rtp:85
+msgid "You need to select a file."
+msgstr ""
+
+#: js/turtledefs.js:44
+
+#~msgid "Click to run the project in slow mode."
+#~msgstr ""
+
+#~msgid "hspace"
+#~msgstr ""
+
+#~msgid "sing"
+#~msgstr ""
+
+#~msgid "sense left"
+#~msgstr ""
+
+#: js/activity.js:1949
+
+#: js/turtledefs.js:44
+
+#~msgid "Run slow"
+#~msgstr ""
+
+#~msgid "cloud"
+#~msgstr ""
+
+#~msgid "rodi"
+#~msgstr ""
+
+#~msgid "Save your project to a server."
+#~msgstr ""
+
+#~msgid "blocks"
+#~msgstr ""
+
+#~msgid "eatme"
+#~msgstr ""
+
+#~msgid "food"
+#~msgstr ""
+
+#~msgid "maths"
+#~msgstr ""
+
+#~msgid "This button opens and closes the primary toolbar."
+#~msgstr ""
+
+#~msgid "mashape"
+#~msgstr ""
+
+#~msgid "Expand/collapse toolbar"
+#~msgstr ""
+
+#~msgid "logic"
+#~msgstr ""
+
+#: js/basicblocks.js:1105
+
+#~msgid "openProject"
+#~msgstr ""
+
+#~msgid "end hollow line"
+#~msgstr ""
+
+#~msgid "blink (ms)"
+#~msgstr ""
+
+#~msgid "begin hollow line"
+#~msgstr ""
+
+#~msgid "sense right"
+#~msgstr ""
+
+#~msgid "vspace"
+#~msgstr ""
+
+#~msgid "Load project from file"
+#~msgstr ""
+
+#: js/basicblocks.js:1030
+
+#~msgid "save as lilypond"
+#~msgstr ""
+
+#~msgid "see distance"
+#~msgstr ""
+

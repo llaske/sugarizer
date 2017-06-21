@@ -1,17 +1,23 @@
-// Copyright (c) 2014,2015 Walter Bender
+// Copyright (c) 2014-17 Walter Bender
+// Copyright (c) Yash Khandelwal, GSoC'15
+// Copyright (c) 2016 Tymon Radzik
 //
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3 of the License, or
-// (at your option) any later version.
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the The GNU Affero General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
 //
-// You should have received a copy of the GNU General Public License
-// along with this library; if not, write to the Free Software
+// You should have received a copy of the GNU Affero General Public
+// License along with this library; if not, write to the Free Software
 // Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
 //
 // Note: This code is inspired by the Python Turtle Blocks project
 // (https://github.com/walterbender/turtleart), but implemented from
 // scratch. -- Walter Bender, October 2014.
+
+const _THIS_IS_MUSIC_BLOCKS_ = false;
+const _THIS_IS_TURTLE_BLOCKS_ = !_THIS_IS_MUSIC_BLOCKS_;
+
 
 function facebookInit() {
     window.fbAsyncInit = function () {
@@ -23,7 +29,8 @@ function facebookInit() {
 
         // ADD ADDITIONAL FACEBOOK CODE HERE
     };
-}
+};
+
 
 try {
     (function (d, s, id) {
@@ -31,44 +38,61 @@ try {
         if (d.getElementById(id)) {
             return;
         }
+
         js = d.createElement(s);
         js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 } catch (e) {
-}
+};
+
 
 var lang = document.webL10n.getLanguage();
-if (lang.indexOf("-") != -1) {
+if (lang.indexOf('-') !== -1) {
     lang = lang.slice(0, lang.indexOf("-"));
     document.webL10n.setLanguage(lang);
 }
 
+if (_THIS_IS_MUSIC_BLOCKS_) {
+    MYDEFINES = ["activity/sugarizer-compatibility", 'activity/platformstyle', 'easeljs-0.8.2.min', 'tweenjs-0.6.2.min', 'preloadjs-0.6.2.min', 'Tone.min', 'howler', 'p5.min', 'p5.sound.min', 'p5.dom.min', 'mespeak', 'Chart', 'activity/utils', 'activity/artwork', 'activity/status', 'activity/munsell', 'activity/trash', 'activity/boundary', 'activity/turtle', 'activity/palette', 'activity/protoblocks', 'activity/blocks', 'activity/block', 'activity/turtledefs', 'activity/logo', 'activity/clearbox', 'activity/utilitybox', 'activity/samplesviewer', 'activity/basicblocks', 'activity/blockfactory', 'activity/analytics', 'activity/modewidget', 'activity/soundsamples', 'activity/pitchtimematrix', 'activity/pitchdrummatrix', 'activity/rhythmruler', 'activity/pitchstaircase', 'activity/tempo', 'activity/pitchslider', 'activity/macros', 'activity/musicutils', 'activity/lilypond', 'prefixfree.min'];
+} else {
+    MYDEFINES = ["activity/sugarizer-compatibility", 'activity/platformstyle', 'easeljs-0.8.2.min', 'tweenjs-0.6.2.min', 'preloadjs-0.6.2.min', 'howler', 'p5.min', 'p5.sound.min', 'p5.dom.min', 'mespeak', 'Chart', 'activity/utils', 'activity/artwork', 'activity/status', 'activity/munsell', 'activity/trash', 'activity/boundary', 'activity/turtle', 'activity/palette', 'activity/protoblocks', 'activity/blocks', 'activity/block', 'activity/turtledefs', 'activity/logo', 'activity/clearbox', 'activity/savebox', 'activity/utilitybox', 'activity/samplesviewer', 'activity/basicblocks', 'activity/blockfactory', 'activity/analytics', 'activity/macros', 'activity/musicutils', 'activity/lilypond', 'prefixfree.min'];
+}
 
-// sugarizerCompatibility.ifInsideSugarizerHideLoading();
-
-define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','tweenjs','preloadjs','howler','p5.sound','p5.dom','mespeak','Chart','activity/utils','activity/artwork','activity/munsell','activity/trash','activity/turtle','activity/palette','activity/protoblocks','activity/blocks','activity/block','activity/logo','activity/clearbox','activity/utilitybox','activity/samplesviewer','activity/basicblocks',
-'activity/blockfactory','activity/analytics','prefixfree.min'], function (compatibility) {
+define(MYDEFINES, function (compatibility) {
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!','activity/sugarizer-compatibility'], function (doc) {
         if (sugarizerCompatibility.isInsideSugarizer()) {
-            sugarizerCompatibility.loadData(function () {
-                domReady(doc);
+            window.addEventListener('localized', function() {
+                sugarizerCompatibility.loadData(function () {
+                    domReady(doc);
+                });
             });
+			document.webL10n.setLanguage(sugarizerCompatibility.getLanguage());
         } else {
             domReady(doc);
         }
     });
 
     function domReady(doc) {
-        facebookInit();
+        createDefaultStack();
+        createHelpContent();
+        // facebookInit();
         window.scroll(0, 0);
 
         try {
             meSpeak.loadConfig('lib/mespeak_config.json');
-            meSpeak.loadVoice('lib/voices/en/en.json');
+            var lang = document.webL10n.getLanguage();
+            if (sugarizerCompatibility.isInsideSugarizer()) {
+                lang = sugarizerCompatibility.getLanguage();
+            }
+            if (['es', 'ca', 'de', 'el', 'eo', 'fi', 'fr', 'hu', 'it', 'kn', 'la', 'lv', 'nl', 'pl', 'pt', 'ro', 'sk', 'sv', 'tr', 'zh'].indexOf(lang) !== -1) {
+                meSpeak.loadVoice('lib/voices/' + lang + '.json');
+            } else {
+                meSpeak.loadVoice('lib/voices/en/en.json');
+            }
         } catch (e) {
             console.log(e);
         }
@@ -90,11 +114,11 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         // Set up a file chooser for the doOpenPlugin function.
         var pluginChooser = docById('myOpenPlugin');
         // The file chooser for all files.
-        var allFilesChooser = docById('myOpenAll')
+        var allFilesChooser = docById('myOpenAll');
 
         // Are we running off of a server?
         var server = true;
-        var scale = 1;
+        var turtleBlocksScale = 1;
         var stage;
         var turtles;
         var palettes;
@@ -106,14 +130,18 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         var buttonsVisible = true;
         var headerContainer = null;
         var toolbarButtonsVisible = true;
-        var menuButtonsVisible = false;
+        var menuButtonsVisible = true;
         var menuContainer = null;
         var scrollBlockContainer = false;
         var currentKey = '';
         var currentKeyCode = 0;
         var lastKeyCode = 0;
         var pasteContainer = null;
+        var pasteImage = null;
         var chartBitmap = null;
+        if (_THIS_IS_TURTLE_BLOCKS_) {
+            var saveBox;
+        }
 
         // Calculate the palette colors.
         for (var p in PALETTECOLORS) {
@@ -121,7 +149,6 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             PALETTESTROKECOLORS[p] = getMunsellColor(PALETTECOLORS[p][0], PALETTECOLORS[p][1] - 30, PALETTECOLORS[p][2]);
             PALETTEHIGHLIGHTCOLORS[p] = getMunsellColor(PALETTECOLORS[p][0], PALETTECOLORS[p][1] + 10, PALETTECOLORS[p][2]);
             HIGHLIGHTSTROKECOLORS[p] = getMunsellColor(PALETTECOLORS[p][0], PALETTECOLORS[p][1] - 50, PALETTECOLORS[p][2]);
-            // console.log(p + ' ' + PALETTEFILLCOLORS[p]  + ' ' + PALETTESTROKECOLORS[p] + ' ' + PALETTEHIGHLIGHTCOLORS[p] + ' ' + HIGHLIGHTSTROKECOLORS[p]);
         }
 
         pluginObjs = {
@@ -143,6 +170,10 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         var stopTurtleContainer = null;
         var stopTurtleContainerX = 0;
         var stopTurtleContainerY = 0;
+        var homeButtonContainers = [];
+        var homeButtonContainersX = 0;
+        var homeButtonContainersY = 0;
+
         var cameraID = null;
         var toLang = null;
         var fromLang = null;
@@ -152,14 +183,14 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         var scrollY = 0;
 
         // default values
-        var CAMERAVALUE = '##__CAMERA__##';
-        var VIDEOVALUE = '##__VIDEO__##';
+        const DEFAULTDELAY = 500; // milleseconds
+        const TURTLESTEP = -1; // Run in step-by-step mode
 
-        var DEFAULTDELAY = 500; // milleseconds
-        var TURTLESTEP = -1; // Run in step-by-step mode
-
-        var blockscale = 2;
-        var blockscales = [1, 1.5, 2, 3, 4];
+        const BLOCKSCALES = [1, 1.5, 2, 3, 4];
+        var blockscale = BLOCKSCALES.indexOf(DEFAULTBLOCKSCALE);
+        if (blockscale === -1) {
+            blockscale = 1;
+        }
 
         // Time when we hit run
         var time = 0;
@@ -172,92 +203,205 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         var stageX = 0;
         var stageY = 0;
 
-        var onXO = (screen.width == 1200 && screen.height == 900) || (screen.width == 900 && screen.height == 1200);
-        console.log('on XO? ' + onXO);
+        var onXO = (screen.width === 1200 && screen.height === 900) || (screen.width === 900 && screen.height === 1200);
 
         var cellSize = 55;
         if (onXO) {
             cellSize = 75;
         }
-        ;
 
         var onscreenButtons = [];
         var onscreenMenu = [];
+        var utilityButton = null;
+        var saveButton = null;
 
         var helpContainer = null;
         var helpIdx = 0;
-        var HELPCONTENT = [
-            [_('Welcome to Turtle Blocks'), _('Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks.'), 'activity/activity-icon-color.svg'],
-            [_('Palette buttons'), _('This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them.'), 'images/icons.svg'],
-            [_('Run fast'), _('Click to run the project in fast mode.'), 'icons/fast-button.svg'],
-            [_('Run slow'), _('Click to run the project in slow mode.'), 'icons/slow-button.svg'],
-            [_('Run step by step'), _('Click to run the project step by step.'), 'icons/step-button.svg'],
-            [_('Stop'), _('Stop the current project.'), 'icons/stop-turtle-button.svg'],
-            [_('Clean'), _('Clear the screen and return the turtles to their initial positions.'), 'icons/clear-button.svg'],
-            [_('Show/hide palettes'), _('Hide or show the block palettes.'), 'icons/palette-button.svg'],
-            [_('Show/hide blocks'), _('Hide or show the blocks and the palettes.'), 'icons/hide-blocks-button.svg'],
-            [_('Expand/collapse collapsable blocks'), _('Expand or collapse start and action stacks.'), 'icons/collapse-blocks-button.svg'],
-            [_('Help'), _('Show these messages.'), 'icons/help-button.svg'],
-            [_('Expand/collapse option toolbar'), _('Click this button to expand or collapse the auxillary toolbar.'), 'icons/menu-button.svg'],
-            [_('Load samples from server'), _('This button opens a viewer for loading example projects.'), 'icons/planet-button.svg'],
-            [_('Copy'), _('The copy button copies a stack to the clipboard. It appears after a "long press" on a stack.'), 'icons/copy-button.svg'],
-            [_('Paste'), _('The paste button is enabled when there are blocks copied onto the clipboard.'), 'icons/paste-disabled-button.svg'],
-            [_('Save stack'), _('The save-stack button saves a stack onto a custom palette. It appears after a "long press" on a stack.'), 'icons/save-blocks-button.svg'],
-            [_('Cartesian'), _('Show or hide a Cartesian-coordinate grid.'), 'icons/Cartesian-button.svg'],
-            [_('Polar'), _('Show or hide a polar-coordinate grid.'), 'icons/polar-button.svg'],
-            [_('Settings'), _('Open a panel for configuring Turtle Blocks.'), 'icons/utility-button.svg'],
-            [_('Decrease block size'), _('Decrease the size of the blocks.'), 'icons/smaller-button.svg'],
-            [_('Increase block size'), _('Increase the size of the blocks.'), 'icons/bigger-button.svg'],
-            [_('Display statistics'), _('Display statistics about your Turtle project.'), 'icons/chart-button.svg'],
-            [_('Load plugin from file'), _('You can load new blocks from the file system.'), 'icons/plugin-button.svg'],
-            [_('Enable scrolling'), _('You can scroll the blocks on the canvas.'), 'icons/scroll-button.svg'],
-            [_('Delete all'), _('Remove all content on the canvas, including the blocks.'), 'icons/empty-trash-button.svg'],
-            [_('Undo'), _('Restore blocks from the trash.'), 'icons/restore-trash-button.svg'],
-            [_('Congratulations.'), _('You have finished the tour. Please enjoy Turtle Blocks!'), 'activity/activity-icon-color.svg']
-        ]
+        var firstRun = true;
 
         pluginsImages = {};
 
-        function allClear() {
+        // Sometimes (race condition?) Firefox does not properly
+        // initialize strings in musicutils. These methods ensure that
+        // the names are never null.
+        console.log('initing i18n for music terms');
+        initDrumI18N();
+        initModeI18N();
+        initVoiceI18N();
+
+        window.onblur = function () {
+            logo.doStopTurtle();
+        };
+
+        function _findBlocks() {
+            logo.showBlocks();
+            blocksContainer.x = 0;
+            blocksContainer.y = 0;
+            palettes.initial_x = 55;
+            palettes.initial_y = 55;
+            palettes.updatePalettes();
+            var x = 100 * turtleBlocksScale;
+            var y = 100 * turtleBlocksScale;
+            for (var blk in blocks.blockList) {
+                if (!blocks.blockList[blk].trash) {
+                    var myBlock = blocks.blockList[blk];
+                    if (myBlock.connections[0] == null) {
+                        var dx = x - myBlock.container.x;
+                        var dy = y - myBlock.container.y;
+                        blocks.moveBlockRelative(blk, dx, dy);
+                        blocks.findDragGroup(blk);
+                        if (blocks.dragGroup.length > 0) {
+                            for (var b = 0; b < blocks.dragGroup.length; b++) {
+                                var bblk = blocks.dragGroup[b];
+                                if (b !== 0) {
+                                    blocks.moveBlockRelative(bblk, dx, dy);
+                                }
+                            }
+                        }
+                        x += 200 * turtleBlocksScale;
+                        if (x > (canvas.width - 100) / (turtleBlocksScale)) {
+                            x = 100 * turtleBlocksScale;
+                            y += 100 * turtleBlocksScale;
+                        }
+                    }
+                }
+            }
+
+            // Blocks are all home, so reset go-home-button.
+            homeButtonContainers[0].visible = false;
+            homeButtonContainers[1].visible = true;
+            boundary.hide();
+        };
+
+        function _allClear() {
             if (chartBitmap != null) {
                 stage.removeChild(chartBitmap);
                 chartBitmap = null;
             }
+
             logo.boxes = {};
             logo.time = 0;
             hideMsgs();
             logo.setBackgroundColor(-1);
+            logo.lilypondOutput = LILYPONDHEADER;
             for (var turtle = 0; turtle < turtles.turtleList.length; turtle++) {
-                turtles.turtleList[turtle].doClear();
+                logo.turtleHeaps[turtle] = [];
+                logo.lilypondStaging[turtle] = [];
+                turtles.turtleList[turtle].doClear(true, true);
             }
+
             blocksContainer.x = 0;
             blocksContainer.y = 0;
-        }
 
-        function doFastButton(env) {
+            // Code specific to cleaning up music blocks
+            Element.prototype.remove = function () {
+                this.parentElement.removeChild(this);
+            };
+
+            NodeList.prototype.remove = HTMLCollection.prototype.remove = function () {
+                for (var i = 0, len = this.length; i < len; i++) {
+                    if(this[i] && this[i].parentElement) {
+                        this[i].parentElement.removeChild(this[i]);
+                    }
+                }
+            };
+
+            var table = document.getElementById("myTable");
+            if(table != null) {
+                table.remove();
+            }
+
+            /*
+            var canvas = document.getElementById("music");
+            var context = canvas.getContext("2d");
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            */
+        };
+
+        function _doFastButton(env) {
+            var currentDelay = logo.turtleDelay;
+            var playingWidget = false;
             logo.setTurtleDelay(0);
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                if (docById('ptmDiv').style.visibility === 'visible') {
+                    playingWidget = true;
+                    logo.pitchTimeMatrix.playAll();
+                }
+
+                if (docById('pscDiv').style.visibility === 'visible') {
+                    playingWidget = true;
+                    pitchstaircase.playUpAndDown();
+                }
+
+                if (docById('rulerDiv').style.visibility === 'visible') {
+                    // If the tempo widget is open, sync it up with the
+                    // rhythm ruler.
+                    if (docById('tempoDiv').style.visibility === 'visible') {
+                        if (tempo.isMoving) {
+                            tempo.pause();
+                        }
+                        tempo.resume();
+                    }
+
+                    playingWidget = true;
+                    rhythmruler.playAll();
+                }
+
+                // We were using the run button to play a widget, not
+                // the turtles.
+                if (playingWidget) {
+                    return;
+                }
+
+                // Restart tempo widget and run blocks.
+                if (docById('tempoDiv').style.visibility === 'visible') {
+                    if (tempo.isMoving) {
+                        tempo.pause();
+                    }
+
+                    tempo.resume();
+                }
+            }
+
             if (!turtles.running()) {
+                console.log('running');
                 logo.runLogoCommands(null, env);
             } else {
-                logo.step(null, env);
-            }
-        }
+                if (currentDelay !== 0) {
+                    // keep playing at full speep
+                    console.log('running from step');
+                    logo.step();
+                } else {
+                    // stop and restart
+                    console.log('stopping...');
+                    logo.doStopTurtle();
 
-        function doSlowButton() {
+                    setTimeout(function () {
+                        console.log('and running');
+                        logo.runLogoCommands(null, env);
+                    }, 500);
+                }
+            }
+        };
+
+        function _doSlowButton() {
             logo.setTurtleDelay(DEFAULTDELAY);
-            if (!turtles.running()) {
+            if (_THIS_IS_MUSIC_BLOCKS_ && docById('ptmDiv').style.visibility === 'visible') {
+                logo.pitchTimeMatrix.playAll();
+            } else if (!turtles.running()) {
                 logo.runLogoCommands();
             } else {
                 logo.step();
             }
-        }
+        };
 
-        function doStepButton() {
+        function _doStepButton() {
             var turtleCount = 0;
             for (var turtle in logo.stepQueue) {
                 turtleCount += 1;
             }
-            if (turtleCount == 0 || logo.turtleDelay != TURTLESTEP) {
+
+            if (turtleCount === 0 || logo.turtleDelay !== TURTLESTEP) {
                 // Either we haven't set up a queue or we are
                 // switching modes.
                 logo.setTurtleDelay(TURTLESTEP);
@@ -270,85 +414,148 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 logo.setTurtleDelay(TURTLESTEP);
                 logo.step();
             }
-        }
+        };
+
+        function _doSlowMusicButton() {
+            logo.setNoteDelay(DEFAULTDELAY);
+
+            if (docById('ptmDiv').style.visibility === 'visible') {
+                logo.pitchTimeMatrix.playAll();
+            } else if (!turtles.running()) {
+                logo.runLogoCommands();
+            } else {
+                logo.stepNote();
+            }
+        };
+
+        function _doStepMusicButton() {
+            var turtleCount = 0;
+            for (var turtle in logo.stepQueue) {
+                turtleCount += 1;
+            }
+
+            if (turtleCount === 0 || logo.TurtleDelay !== TURTLESTEP) {
+                // Either we haven't set up a queue or we are
+                // switching modes.
+                logo.setTurtleDelay(TURTLESTEP);
+                // Queue and take first step.
+                if (!turtles.running()) {
+                    logo.runLogoCommands();
+                }
+                logo.stepNote();
+            } else {
+                logo.setTurtleDelay(TURTLESTEP);
+                logo.stepNote();
+            }
+        };
 
         var stopTurtle = false;
 
         function doStopButton() {
             logo.doStopTurtle();
-        }
+        };
 
         var cartesianVisible = false;
 
-        function doCartesian() {
+        function _doCartesian() {
             if (cartesianVisible) {
-                hideCartesian();
+                _hideCartesian();
                 cartesianVisible = false;
             } else {
-                showCartesian();
+                _showCartesian();
                 cartesianVisible = true;
             }
-        }
+        };
 
         var polarVisible = false;
 
-        function doPolar() {
+        function _doPolar() {
             if (polarVisible) {
-                hidePolar();
+                _hidePolar();
                 polarVisible = false;
             } else {
-                showPolar();
+                _showPolar();
                 polarVisible = true;
             }
-        }
+        };
 
         function toggleScroller() {
             scrollBlockContainer = !scrollBlockContainer;
-        }
+        };
+
+        function closeAnalytics(chartBitmap, ctx) {
+            var button = this;
+            button.x = (canvas.width / (2 * turtleBlocksScale))  + (300 / Math.sqrt(2));
+            button.y = 300.00 - (300.00 / Math.sqrt(2));
+            this.closeButton = _makeButton('cancel-button', _('Close'), button.x, button.y, 55, 0);
+            this.closeButton.on('click', function (event) {
+                console.log('Deleting Chart');
+                button.closeButton.visible = false;
+                stage.removeChild(chartBitmap);
+                logo.showBlocks();
+                update = true;
+                ctx.clearRect(0, 0, 600, 600);
+            });
+        };
+
+        function _isCanvasBlank(canvas) {
+            var blank = document.createElement('canvas');
+            blank.width = canvas.width;
+            blank.height = canvas.height;
+            return canvas.toDataURL() == blank.toDataURL();
+        };
 
         function doAnalytics() {
-            document.body.style.cursor = 'wait';
             var myChart = docById('myChart');
+
+             if(_isCanvasBlank(myChart) == false) {
+                return ;
+             }
+
             var ctx = myChart.getContext('2d');
+            document.body.style.cursor = 'wait';
             var myRadarChart = null;
             var scores = analyzeProject(blocks);
             console.log(scores);
             var data = scoreToChartData(scores);
+            var Analytics = this;
+            Analytics.close = closeAnalytics;
 
-            var callback = function () {
+            var __callback = function () {
                 var imageData = myRadarChart.toBase64Image();
                 var img = new Image();
                 img.onload = function () {
-                    chartBitmap = new createjs.Bitmap(img);
+                    var chartBitmap = new createjs.Bitmap(img);
                     stage.addChild(chartBitmap);
-                    chartBitmap.x = (canvas.width / (2 * scale)) - (300);
+                    chartBitmap.x = (canvas.width / (2 * turtleBlocksScale)) - (300);
                     chartBitmap.y = 0;
                     chartBitmap.scaleX = chartBitmap.scaleY = chartBitmap.scale = 600 / chartBitmap.image.width;
                     logo.hideBlocks();
                     update = true;
                     document.body.style.cursor = 'default';
+                    Analytics.close(chartBitmap, ctx);
                 };
                 img.src = imageData;
-            }
+            };
 
-            var options = getChartOptions(callback);
+            var options = getChartOptions(__callback);
             console.log('creating new chart');
             myRadarChart = new Chart(ctx).Radar(data, options);
-        }
+        };
 
         function doBiggerFont() {
-            if (blockscale < blockscales.length - 1) {
+            if (blockscale < BLOCKSCALES.length - 1) {
                 blockscale += 1;
-                blocks.setBlockScale(blockscales[blockscale]);
+                blocks.setBlockScale(BLOCKSCALES[blockscale]);
             }
-        }
+        };
 
         function doSmallerFont() {
             if (blockscale > 0) {
                 blockscale -= 1;
-                blocks.setBlockScale(blockscales[blockscale]);
+                blocks.setBlockScale(BLOCKSCALES[blockscale]);
             }
-        }
+        };
 
         // Do we need to update the stage?
         var update = true;
@@ -372,7 +579,7 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
         var errorMsgText = null;
         var errorMsgArrow = null;
         var errorArtwork = {};
-        var ERRORARTWORK = ['emptybox', 'emptyheap', 'negroot', 'noinput', 'zerodivide', 'notanumber', 'nostack', 'notastring', 'nomicrophone'];
+        const ERRORARTWORK = ['emptybox', 'emptyheap', 'negroot', 'noinput', 'zerodivide', 'notanumber', 'nostack', 'notastring', 'nomicrophone'];
 
         // Get things started
         init();
@@ -386,17 +593,17 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
             createjs.Ticker.setFPS(30);
             createjs.Ticker.addEventListener('tick', stage);
-            createjs.Ticker.addEventListener('tick', tick);
+            createjs.Ticker.addEventListener('tick', __tick);
 
-            createMsgContainer('#ffffff', '#7a7a7a', function (text) {
+            _createMsgContainer('#ffffff', '#7a7a7a', function (text) {
                 msgText = text;
             }, 55);
 
-            createMsgContainer('#ffcbc4', '#ff0031', function (text) {
+            _createMsgContainer('#ffcbc4', '#ff0031', function (text) {
                 errorMsgText = text;
             }, 110);
 
-            createErrorContainers();
+            _createErrorContainers();
 
             /* Z-Order (top to bottom):
              *   menus
@@ -411,46 +618,128 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             trashContainer = new createjs.Container();
             turtleContainer = new createjs.Container();
 
-            stage.addChild(turtleContainer, trashContainer, blocksContainer,
-                palettesContainer);
-            setupBlocksContainerEvents();
+            stage.addChild(turtleContainer, trashContainer, blocksContainer, palettesContainer);
+            _setupBlocksContainerEvents();
 
-            trashcan = new Trashcan(canvas, trashContainer, cellSize, refreshCanvas);
-            turtles = new Turtles(canvas, turtleContainer, refreshCanvas);
-            blocks = new Blocks(canvas, blocksContainer, refreshCanvas, trashcan, stage.update);
-            palettes = initPalettes(canvas, refreshCanvas, palettesContainer, cellSize, refreshCanvas, trashcan, blocks);
+            trashcan = new Trashcan();
+            trashcan
+                .setCanvas(canvas)
+                .setStage(trashContainer)
+                .setSize(cellSize)
+                .setRefreshCanvas(refreshCanvas)
+                .init();
 
-            palettes.setBlocks(blocks);
+            turtles = new Turtles();
+            turtles
+                .setCanvas(canvas)
+                .setStage(turtleContainer)
+                .setRefreshCanvas(refreshCanvas);
+
+            // Put the boundary in the blocks container so it scrolls
+            // with the blocks.
+            boundary = new Boundary();
+            boundary
+                .setStage(blocksContainer)
+                .init();
+
+            blocks = new Blocks();
+            blocks
+                .setCanvas(canvas)
+                .setStage(blocksContainer)
+                .setRefreshCanvas(refreshCanvas)
+                .setTrashcan(trashcan)
+                .setUpdateStage(stage.update)
+                .setGetStageScale(getStageScale)
+                .setTurtles(turtles)
+                .setErrorMsg(errorMsg);
+            blocks.makeCopyPasteButtons(_makeButton, updatePasteButton);
+
             turtles.setBlocks(blocks);
-            blocks.setTurtles(turtles);
-            blocks.setErrorMsg(errorMsg);
-            blocks.makeCopyPasteButtons(makeButton, updatePasteButton);
 
-            // TODO: clean up this mess.
-            logo = new Logo(canvas, blocks, turtles, turtleContainer,
-                refreshCanvas,
-                textMsg, errorMsg, hideMsgs, onStopTurtle,
-                onRunTurtle, prepareExport, getStageX, getStageY,
-                getStageMouseDown, getCurrentKeyCode,
-                clearCurrentKeyCode, meSpeak, saveLocally);
+            palettes = new Palettes();
+            palettes
+                .setCanvas(canvas)
+                .setStage(palettesContainer)
+                .setRefreshCanvas(refreshCanvas)
+                .setSize(cellSize)
+                .setTrashcan(trashcan)
+                .setBlocks(blocks)
+                .init();
+
+            initPalettes(palettes);
+
+            logo = new Logo();
+            logo
+                .setCanvas(canvas)
+                .setBlocks(blocks)
+                .setTurtles(turtles)
+                .setStage(turtleContainer)
+                .setRefreshCanvas(refreshCanvas)
+                .setTextMsg(textMsg)
+                .setErrorMsg(errorMsg)
+                .setHideMsgs(hideMsgs)
+                .setOnStopTurtle(onStopTurtle)
+                .setOnRunTurtle(onRunTurtle)
+                .setGetStageX(getStageX)
+                .setGetStageY(getStageY)
+                .setGetStageMouseDown(getStageMouseDown)
+                .setGetCurrentKeyCode(getCurrentKeyCode)
+                .setClearCurrentKeyCode(clearCurrentKeyCode)
+                .setMeSpeak(meSpeak)
+                .setSaveLocally(saveLocally);
+
             blocks.setLogo(logo);
 
             // Set the default background color...
             logo.setBackgroundColor(-1);
 
-            clearBox = new ClearBox(canvas, stage, refreshCanvas, sendAllToTrash);
+            clearBox = new ClearBox();
+            clearBox
+                .setCanvas(canvas)
+                .setStage(stage)
+                .setRefreshCanvas(refreshCanvas)
+                .setClear(sendAllToTrash);
 
-            utilityBox = new UtilityBox(canvas, stage, refreshCanvas, doBiggerFont, doSmallerFont, doOpenPlugin, doAnalytics, toggleScroller);
+            if (_THIS_IS_TURTLE_BLOCKS_) {
+		saveBox = new SaveBox();
+		saveBox
+                    .setCanvas(canvas)
+                    .setStage(stage)
+                    .setRefreshCanvas(refreshCanvas)
+                    .setSaveTB(doSaveTB)
+                    .setSaveSVG(doSaveSVG)
+                    .setSavePNG(doSavePNG)
+                    .setSavePlanet(doUploadToPlanet)
+                    .setSaveFB(doShareOnFacebook);
+            }
 
-            thumbnails = new SamplesViewer(canvas, stage, refreshCanvas, loadProject, loadRawProject, sendAllToTrash);
+	    utilityBox = new UtilityBox();
+            utilityBox
+                .setStage(stage)
+                .setRefreshCanvas(refreshCanvas)
+                .setBigger(doBiggerFont)
+                .setSmaller(doSmallerFont)
+                .setPlugins(doOpenPlugin)
+                .setStats(doAnalytics)
+                .setScroller(toggleScroller);
+
+            thumbnails = new SamplesViewer();
+            thumbnails
+                .setStage(stage)
+                .setRefreshCanvas(refreshCanvas)
+                .setClear(sendAllToTrash)
+                .setLoad(loadProject)
+                .setLoadRaw(loadRawProject)
+                .init();
 
             initBasicProtoBlocks(palettes, blocks);
 
             // Load any macros saved in local storage.
-            macroData = storage.macros
+            macroData = storage.macros;
             if (macroData != null) {
                 processMacroData(macroData, palettes, blocks, macroDict);
             }
+
             // Blocks and palettes need access to the macros dictionary.
             blocks.setMacroDictionary(macroDict);
             palettes.setMacroDictionary(macroDict);
@@ -462,11 +751,18 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 updatePluginObj(obj);
             }
 
+            // Load custom mode saved in local storage.
+            var custommodeData = storage.custommode;
+            if (custommodeData != undefined) {
+                customMode = JSON.parse(custommodeData);
+                console.log('restoring custom mode: ' + customMode);
+            }
+
             fileChooser.addEventListener('click', function (event) {
                 this.value = null;
             });
-            fileChooser.addEventListener('change', function (event) {
 
+            fileChooser.addEventListener('change', function (event) {
                 // Read file here.
                 var reader = new FileReader();
 
@@ -476,9 +772,14 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     setTimeout(function () {
                         var rawData = reader.result;
                         var cleanData = rawData.replace('\n', ' ');
-                        console.log(cleanData);
                         var obj = JSON.parse(cleanData);
-                        console.log(obj)
+                        // First, hide the palettes as they will need updating.
+                        for (var name in blocks.palettes.dict) {
+                            blocks.palettes.dict[name].hideMenu(true);
+                        }
+
+                        refreshCanvas();
+
                         blocks.loadNewBlocks(obj);
                         // Restore default cursor.
                         document.body.style.cursor = 'default';
@@ -496,8 +797,9 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 window.scroll(0, 0);
                 this.value = null;
             });
+
             pluginChooser.addEventListener('change', function (event) {
-                window.scroll(0, 0)
+                window.scroll(0, 0);
 
                 // Read file here.
                 var reader = new FileReader();
@@ -509,9 +811,9 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                         obj = processRawPluginData(reader.result, palettes, blocks, errorMsg, logo.evalFlowDict, logo.evalArgDict, logo.evalParameterDict, logo.evalSetterDict, logo.evalOnStartList, logo.evalOnStopList);
                         // Save plugins to local storage.
                         if (obj != null) {
-                            var foo = preparePluginExports(obj);
-                            console.log(foo);
-                            storage.plugins = foo; // preparePluginExports(obj));
+                            var pluginObj = preparePluginExports(obj);
+                            console.log(pluginObj);
+                            storage.plugins = pluginObj; // preparePluginExports(obj));
                         }
 
                         // Refresh the palettes.
@@ -542,26 +844,18 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             // Enabled mouse over and mouse out events.
             stage.enableMouseOver(10); // default is 20
 
-            cartesianBitmap = createGrid('images/Cartesian.svg');
+            cartesianBitmap = _createGrid('images/Cartesian.svg');
 
-            polarBitmap = createGrid('images/polar.svg');
+            polarBitmap = _createGrid('images/polar.svg');
 
             var URL = window.location.href;
             var projectName = null;
             var runProjectOnLoad = false;
-            try {
-                httpGet(null);
-                console.log('running from server or the user can access to examples.');
-                server = true;
-            } catch (e) {
-                console.log('running from filesystem or the connection isnt secure');
-                server = false;
-            }
 
-            setupAndroidToolbar();
+            _setupAndroidToolbar();
 
             // Scale the canvas relative to the screen size.
-            onResize();
+            _onResize();
 
             var urlParts;
             var env = [];
@@ -574,44 +868,44 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                         if (newUrlParts[i].indexOf('=') > 0) {
                             var args = newUrlParts[i].split('=');
                             switch (args[0].toLowerCase()) {
-                                case 'file':
-                                    projectName = args[1];
-                                    break;
-                                case 'run':
-                                    if (args[1].toLowerCase() == 'true')
-                                        runProjectOnLoad = true;
-                                    break;
-                                case 'inurl':
-                                    var url = args[1];
-                                    var getJSON = function (url) {
-                                        return new Promise(function (resolve, reject) {
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('get', url, true);
-                                            xhr.responseType = 'json';
-                                            xhr.onload = function () {
-                                                var status = xhr.status;
-                                                if (status == 200) {
-                                                    resolve(xhr.response);
-                                                } else {
-                                                    reject(status);
-                                                }
-                                            };
-                                            xhr.send();
-                                        });
-                                    };
-                                    getJSON(url).then(function (data) {
-                                        console.log('Your Json result is:  ' + data.arg); //you can comment this, i used it to debug
-                                        n = data.arg;
-                                        env.push(parseInt(n));
-                                    }, function (status) { //error detection....
-                                        alert('Something went wrong.');
+                            case 'file':
+                                projectName = args[1];
+                                break;
+                            case 'run':
+                                if (args[1].toLowerCase() === 'true')
+                                    runProjectOnLoad = true;
+                                break;
+                            case 'inurl':
+                                var url = args[1];
+                                var getJSON = function (url) {
+                                    return new Promise(function (resolve, reject) {
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('get', url, true);
+                                        xhr.responseType = 'json';
+                                        xhr.onload = function () {
+                                            var status = xhr.status;
+                                            if (status === 200) {
+                                                resolve(xhr.response);
+                                            } else {
+                                                reject(status);
+                                            }
+                                        };
+                                        xhr.send();
                                     });
-                                    break;
-                                case 'outurl':
-                                    var url = args[1];
-                                    break;
-                                default:
-                                    errorMsg("Invalid parameters");
+                                };
+                                getJSON(url).then(function (data) {
+                                    console.log('Your Json result is:  ' + data.arg); //you can comment this, i used it to debug
+                                    n = data.arg;
+                                    env.push(parseInt(n));
+                                }, function (status) { //error detection....
+                                    alert('Something went wrong.');
+                                });
+                                break;
+                            case 'outurl':
+                                var url = args[1];
+                                break;
+                            default:
+                                errorMsg("Invalid parameters");
                             }
                         }
                     }
@@ -619,7 +913,7 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     if (urlParts[1].indexOf('=') > 0)
                         var args = urlParts[1].split('=');
                     //File is the only arg that can stand alone
-                    if (args[0].toLowerCase() == 'file') {
+                    if (args[0].toLowerCase() === 'file') {
                         projectName = args[1];
                     }
                 }
@@ -627,22 +921,24 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
 
             if (projectName != null) {
                 setTimeout(function () {
-                    console.log('load ' + projectName);
-                    loadProject(projectName, runProjectOnLoad, env);
+                    console.log('loading ' + projectName);
+                    loadStartWrapper(loadProject, projectName, runProjectOnLoad, env);
                 }, 2000);
             } else {
                 setTimeout(function () {
-                    loadStart();
+                    loadStartWrapper(_loadStart);
                 }, 2000);
             }
 
             document.addEventListener('mousewheel', scrollEvent, false);
             document.addEventListener('DOMMouseScroll', scrollEvent, false);
 
-            this.document.onkeydown = keyPressed;
-        }
+            this.document.onkeydown = __keyPressed;
+            _hideStopButton();
 
-        function setupBlocksContainerEvents() {
+        };
+
+        function _setupBlocksContainerEvents() {
             var moving = false;
 
             stage.on('stagemousemove', function (event) {
@@ -652,7 +948,7 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
 
             stage.on('stagemousedown', function (event) {
                 stageMouseDown = true;
-                if (stage.getObjectUnderPoint() !== null | turtles.running()) {
+                if (stage.getObjectUnderPoint() != null | turtles.running()) {
                     stage.on('stagemouseup', function (event) {
                         stageMouseDown = false;
                     });
@@ -667,6 +963,11 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 stage.on('stagemousemove', function (event) {
                     if (!moving) {
                         return;
+                    }
+                    if (blocks.inLongPress) {
+                        blocks.saveStackButton.visible = false;
+                        blocks.dismissButton.visible = false;
+                        blocks.inLongPress = false;
                     }
                     if (scrollBlockContainer) {
                         blocksContainer.x += event.stageX - lastCords.x;
@@ -684,46 +985,51 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     moving = false;
                 }, null, true); // once = true
             });
-        }
+        };
 
         function scrollEvent(event) {
             var data = event.wheelDelta || -event.detail;
             var delta = Math.max(-1, Math.min(1, (data)));
-            var scrollSpeed = 3;
+            var scrollSpeed = 30;
 
             if (event.clientX < cellSize) {
                 palettes.menuScrollEvent(delta, scrollSpeed);
+                palettes.hidePaletteIconCircles();
             } else {
-                palette = palettes.findPalette(event.clientX / scale, event.clientY / scale);
+                palette = palettes.findPalette(event.clientX / turtleBlocksScale, event.clientY / turtleBlocksScale);
                 if (palette) {
                     palette.scrollEvent(delta, scrollSpeed);
                 }
             }
-        }
+        };
+
+        function getStageScale() {
+            return turtleBlocksScale;
+        };
 
         function getStageX() {
-            return turtles.screenX2turtleX(stageX / blocks.scale);
-        }
+            return turtles.screenX2turtleX(stageX / turtleBlocksScale);
+        };
 
         function getStageY() {
-            return turtles.screenY2turtleY(stageY / blocks.scale);
-        }
+            return turtles.screenY2turtleY(stageY / turtleBlocksScale);
+        };
 
         function getStageMouseDown() {
             return stageMouseDown;
-        }
+        };
 
         function setCameraID(id) {
             cameraID = id;
-        }
+        };
 
-        function createGrid(imagePath) {
+        function _createGrid(imagePath) {
             var img = new Image();
             img.src = imagePath;
             var container = new createjs.Container();
             stage.addChild(container);
 
-            bitmap = new createjs.Bitmap(img);
+            var bitmap = new createjs.Bitmap(img);
             container.addChild(bitmap);
             bitmap.cache(0, 0, 1200, 900);
 
@@ -732,10 +1038,11 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             bitmap.scaleX = bitmap.scaleY = bitmap.scale = 1;
             bitmap.visible = false;
             bitmap.updateCache();
+
             return bitmap;
         };
 
-        function createMsgContainer(fillColor, strokeColor, callback, y) {
+        function _createMsgContainer(fillColor, strokeColor, callback, y) {
             var container = new createjs.Container();
             stage.addChild(container);
             container.x = (canvas.width - 1000) / 2;
@@ -745,11 +1052,11 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             var img = new Image();
             var svgData = MSGBLOCK.replace('fill_color', fillColor).replace(
                 'stroke_color', strokeColor);
+
             img.onload = function () {
                 var msgBlock = new createjs.Bitmap(img);
                 container.addChild(msgBlock);
-                text = new createjs.Text('your message here',
-                    '20px Arial', '#000000');
+                var text = new createjs.Text('your message here', '20px Arial', '#000000');
                 container.addChild(text);
                 text.textAlign = 'center';
                 text.textBaseline = 'alphabetic';
@@ -769,27 +1076,28 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     container.visible = false;
                     // On the possibility that there was an error
                     // arrow associated with this container
-                    if (errorMsgArrow !== null) {
+                    if (errorMsgArrow != null) {
                         errorMsgArrow.removeAllChildren(); // Hide the error arrow.
                     }
                     update = true;
                 });
                 callback(text);
                 blocks.setMsgText(text);
-            }
+            };
+
             img.src = 'data:image/svg+xml;base64,' + window.btoa(
                 unescape(encodeURIComponent(svgData)));
         };
 
-        function createErrorContainers() {
+        function _createErrorContainers() {
             // Some error messages have special artwork.
             for (var i = 0; i < ERRORARTWORK.length; i++) {
                 var name = ERRORARTWORK[i];
-                makeErrorArtwork(name);
+                _makeErrorArtwork(name);
             }
-        }
+        };
 
-        function makeErrorArtwork(name) {
+        function _makeErrorArtwork(name) {
             var container = new createjs.Container();
             stage.addChild(container);
             container.x = (canvas.width - 1000) / 2;
@@ -800,7 +1108,7 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
 
             var img = new Image();
             img.onload = function () {
-                console.log('creating error message artwork for ' + img.src);
+                // console.log('creating error message artwork for ' + img.src);
                 var artwork = new createjs.Bitmap(img);
                 container.addChild(artwork);
                 var text = new createjs.Text('', '20px Sans', '#000000');
@@ -821,76 +1129,164 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     container.visible = false;
                     // On the possibility that there was an error
                     // arrow associated with this container
-                    if (errorMsgArrow !== null) {
+                    if (errorMsgArrow != null) {
                         errorMsgArrow.removeAllChildren(); // Hide the error arrow.
                     }
                     update = true;
                 });
-            }
-            img.src = 'images/' + name + '.svg';
-        }
+            };
 
-        function keyPressed(event) {
+            img.src = 'images/' + name + '.svg';
+        };
+
+        function __keyPressed(event) {
             if (docById('labelDiv').classList.contains('hasKeyboard')) {
                 return;
             }
 
-            var ESC = 27;
-            var ALT = 18;
-            var CTRL = 17;
-            var SHIFT = 16;
-            var RETURN = 13;
-            var SPACE = 32;
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                if (docById('BPMInput').classList.contains('hasKeyboard')) {
+                    return;
+                }
 
-            // Captured by browser
-            var PAGE_UP = 33;
-            var PAGE_DOWN = 34;
-            var KEYCODE_LEFT = 37;
-            var KEYCODE_RIGHT = 39;
-            var KEYCODE_UP = 38;
-            var KEYCODE_DOWN = 40;
+                if (docById('musicratio1').classList.contains('hasKeyboard')) {
+                    return;
+                }
+
+                if (docById('musicratio2').classList.contains('hasKeyboard')) {
+                    return;
+                }
+
+                if (docById('dissectNumber').classList.contains('hasKeyboard')) {
+                    return;
+                }
+            }
+
+            const BACKSPACE = 8;
+            const TAB = 9;
+            if (event.keyCode === TAB || event.keyCode === BACKSPACE) {
+                // Prevent browser from grabbing TAB key
+                event.preventDefault();
+            }
+
+            const ESC = 27;
+            const ALT = 18;
+            const CTRL = 17;
+            const SHIFT = 16;
+            const RETURN = 13;
+            const SPACE = 32;
+            const HOME = 36;
+            const PAGE_UP = 33;
+            const PAGE_DOWN = 34;
+            const KEYCODE_LEFT = 37;
+            const KEYCODE_RIGHT = 39;
+            const KEYCODE_UP = 38;
+            const KEYCODE_DOWN = 40;
 
             if (event.altKey) {
                 switch (event.keyCode) {
-                    case 69: // 'E'
-                        allClear();
-                        break;
-                    case 82: // 'R'
-                        doFastButton();
-                        break;
-                    case 83: // 'S'
-                        logo.doStopTurtle();
-                        break;
+                case 69: // 'E'
+                    _allClear();
+                    break;
+                case 82: // 'R'
+                    _doFastButton();
+                    break;
+                case 83: // 'S'
+                    logo.doStopTurtle();
+                    break;
                 }
             } else if (event.ctrlKey) {
             } else {
                 switch (event.keyCode) {
-                    case ESC:
-                        // toggle full screen
-                        toggleToolbar();
-                        break
-                    case RETURN:
-                        // toggle run
-                        logo.runLogoCommands();
-                        break
-                    default:
-                        currentKey = String.fromCharCode(event.keyCode);
-                        currentKeyCode = event.keyCode;
-                        break;
+                case KEYCODE_UP:
+                    if (blocks.activeBlock != null) {
+                        blocks.moveStackRelative(blocks.activeBlock, 0, -STANDARDBLOCKHEIGHT / 2);
+                        blocks.blockMoved(blocks.activeBlock);
+                        blocks.adjustDocks(blocks.activeBlock, true);
+                    } else if (palettes.mouseOver) {
+                        palettes.menuScrollEvent(1, 10);
+                        palettes.hidePaletteIconCircles();
+                    } else if (palettes.activePalette != null) {
+                        palettes.activePalette.scrollEvent(STANDARDBLOCKHEIGHT, 1);
+                    } else if (scrollBlockContainer) {
+                        blocksContainer.y -= 21;
+                    }
+                    break;
+                case KEYCODE_DOWN:
+                    if (blocks.activeBlock != null) {
+                        blocks.moveStackRelative(blocks.activeBlock, 0, STANDARDBLOCKHEIGHT / 2);
+                        blocks.blockMoved(blocks.activeBlock);
+                        blocks.adjustDocks(blocks.activeBlock, true);
+                    } else if (palettes.mouseOver) {
+                        palettes.menuScrollEvent(-1, 10);
+                        palettes.hidePaletteIconCircles();
+                    } else if (palettes.activePalette != null) {
+                        palettes.activePalette.scrollEvent(-STANDARDBLOCKHEIGHT, 1);
+                    } else if (scrollBlockContainer) {
+                        blocksContainer.y += 21;
+                    }
+                    break;
+                case KEYCODE_LEFT:
+                    if (blocks.activeBlock != null) {
+                        blocks.moveStackRelative(blocks.activeBlock, -STANDARDBLOCKHEIGHT / 2, 0);
+                        blocks.blockMoved(blocks.activeBlock);
+                        blocks.adjustDocks(blocks.activeBlock, true);
+                    } else if (scrollBlockContainer) {
+                        blocksContainer.x -= 21;
+                    }
+                    break;
+                case KEYCODE_RIGHT:
+                    if (blocks.activeBlock != null) {
+                        blocks.moveStackRelative(blocks.activeBlock, STANDARDBLOCKHEIGHT / 2, 0);
+                        blocks.blockMoved(blocks.activeBlock);
+                        blocks.adjustDocks(blocks.activeBlock, true);
+                    } else if (scrollBlockContainer) {
+                        blocksContainer.x += 21;
+                    }
+                    break;
+                case HOME:
+                    if (palettes.mouseOver) {
+                        var dy = Math.max(55 - palettes.buttons['rhythm'].y, 0);
+                        palettes.menuScrollEvent(1, dy);
+                        palettes.hidePaletteIconCircles();
+                    } else if (palettes.activePalette != null) {
+                        palettes.activePalette.scrollEvent(-palettes.activePalette.scrollDiff, 1);
+                    } else {
+                        _findBlocks();
+                    }
+                    break;
+                case TAB:
+                    break;
+                case ESC:
+                    // toggle full screen
+                    _toggleToolbar();
+                    break;
+                case RETURN:
+                    // toggle run
+                    logo.runLogoCommands();
+                    break;
+                default:
+                    // currentKey = String.fromCharCode(event.keyCode);
+                    // currentKeyCode = event.keyCode;
+                    break;
                 }
+                // Always store current key so as not to mask it from
+                // the keyboard block.
+                currentKey = String.fromCharCode(event.keyCode);
+                currentKeyCode = event.keyCode;
             }
-        }
+        };
 
         function getCurrentKeyCode() {
             return currentKeyCode;
-        }
+        };
 
         function clearCurrentKeyCode() {
             currentKey = '';
             currentKeyCode = 0;
-        }
+        };
 
-        function onResize() {
+        function _onResize() {
             if (docById('labelDiv').classList.contains('hasKeyboard')) {
                 return;
             }
@@ -904,203 +1300,434 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             }
 
             var smallSide = Math.min(w, h);
+
             if (smallSide < cellSize * 11) {
                 var mobileSize = true;
                 if (w < cellSize * 10) {
-                    scale = smallSide / (cellSize * 11);
+                    turtleBlocksScale = smallSide / (cellSize * 11);
                 } else {
-                    scale = Math.max(smallSide / (cellSize * 11), 0.75);
+                    turtleBlocksScale = Math.max(smallSide / (cellSize * 11), 0.75);
                 }
             } else {
                 var mobileSize = false;
-                if (w > h) {
-                    scale = w / 1200;
+                if (w / 1200 > h / 900) {
+                    turtleBlocksScale = w / 1200;
                 } else {
-                    scale = w / 900;
+                    turtleBlocksScale = h / 900;
                 }
             }
-            stage.scaleX = scale;
-            stage.scaleY = scale;
+
+            stage.scaleX = turtleBlocksScale;
+            stage.scaleY = turtleBlocksScale;
 
             stage.canvas.width = w;
             stage.canvas.height = h;
 
-            console.log('Resize: scale ' + scale +
+            /*
+            console.log('Resize: scale ' + turtleBlocksScale +
             ', windowW ' + w + ', windowH ' + h +
             ', canvasW ' + canvas.width + ', canvasH ' + canvas.height +
             ', screenW ' + screen.width + ', screenH ' + screen.height);
-
-            turtles.setScale(scale);
-            blocks.setScale(scale);
-            palettes.setScale(scale);
-            trashcan.resizeEvent(scale);
-            setupAndroidToolbar(mobileSize);
+            */
+            turtles.setScale(turtleBlocksScale);
+            blocks.setScale(turtleBlocksScale);
+            boundary.setScale(w, h, turtleBlocksScale);
+            palettes.setScale(turtleBlocksScale);
+            trashcan.resizeEvent(turtleBlocksScale);
+            _setupAndroidToolbar(mobileSize);
 
             // Reposition coordinate grids.
-            cartesianBitmap.x = (canvas.width / (2 * scale)) - (600);
-            cartesianBitmap.y = (canvas.height / (2 * scale)) - (450);
-            polarBitmap.x = (canvas.width / (2 * scale)) - (600);
-            polarBitmap.y = (canvas.height / (2 * scale)) - (450);
+            cartesianBitmap.x = (canvas.width / (2 * turtleBlocksScale)) - (600);
+            cartesianBitmap.y = (canvas.height / (2 * turtleBlocksScale)) - (450);
+            polarBitmap.x = (canvas.width / (2 * turtleBlocksScale)) - (600);
+            polarBitmap.y = (canvas.height / (2 * turtleBlocksScale)) - (450);
             update = true;
 
-            // Setup help now that we have calculated scale.
-            showHelp(true);
+            // Setup help now that we have calculated turtleBlocksScale.
+            _showHelp(true);
 
             // Hide palette icons on mobile
             if (mobileSize) {
+                palettes.setMobile(true);
                 palettes.hide();
             } else {
+                palettes.setMobile(false);
                 palettes.show();
                 palettes.bringToTop();
             }
-        }
+
+            for (var turtle = 0; turtle < turtles.turtleList.length; turtle++) {
+                turtles.turtleList[turtle].doClear(false, false);
+            }
+
+            var artcanvas = document.getElementById("overlayCanvas");
+            artcanvas.width = w;
+            artcanvas.height = h;
+        };
 
         window.onresize = function () {
-            onResize();
-        }
+            _onResize();
+        };
 
-        function restoreTrash() {
+        function _restoreTrash() {
+            // Restore last stack pushed to trashStack.
+            // First, hide the palettes as they will need updating.
+            for (var name in blocks.palettes.dict) {
+                blocks.palettes.dict[name].hideMenu(true);
+            }
+            refreshCanvas();
+
             var dx = 0;
             var dy = -cellSize * 3; // Reposition blocks about trash area.
-            for (var blk in blocks.blockList) {
-                if (blocks.blockList[blk].trash) {
-                    blocks.blockList[blk].trash = false;
-                    blocks.moveBlockRelative(blk, dx, dy);
-                    blocks.blockList[blk].show();
-                    if (blocks.blockList[blk].name == 'start') {
-                        turtle = blocks.blockList[blk].value;
-                        turtles.turtleList[turtle].trash = false;
-                        turtles.turtleList[turtle].container.visible = true;
+
+            if (blocks.trashStacks.length === 0) {
+                console.log('Trash is empty--nothing to do');
+                return;
+            }
+
+            var thisBlock = blocks.trashStacks.pop();
+
+            // Restore drag group in trash
+            blocks.findDragGroup(thisBlock);
+            for (var b = 0; b < blocks.dragGroup.length; b++) {
+                var blk = blocks.dragGroup[b];
+                // console.log('Restoring ' + blocks.blockList[blk].name + ' from the trash.');
+                blocks.blockList[blk].trash = false;
+                blocks.moveBlockRelative(blk, dx, dy);
+                blocks.blockList[blk].show();
+            }
+
+            blocks.raiseStackToTop(thisBlock);
+
+            if (blocks.blockList[thisBlock].name === 'start' || blocks.blockList[thisBlock].name === 'drum') {
+                var turtle = blocks.blockList[thisBlock].value;
+                turtles.turtleList[turtle].trash = false;
+                turtles.turtleList[turtle].container.visible = true;
+            } else if (blocks.blockList[thisBlock].name === 'action') {
+                // We need to add a palette entry for this action.
+                // But first we need to ensure we have a unqiue name,
+                // as the name could have been taken in the interim.
+                var actionArg = blocks.blockList[blocks.blockList[thisBlock].connections[1]];
+                if (actionArg != null) {
+                    var oldName = actionArg.value;
+                    // Mark the action block as still being in the
+                    // trash so that its name won't be considered when
+                    // looking for a unique name.
+                    blocks.blockList[thisBlock].trash = true;
+                    var uniqueName = blocks.findUniqueActionName(oldName);
+                    blocks.blockList[thisBlock].trash = false;
+
+                    if (uniqueName !== actionArg) {
+                        console.log('renaming action when restoring from trash. old name: ' + oldName + ' unique name: ' + uniqueName);
+
+                        actionArg.value = uniqueName;
+
+                        var label = actionArg.value.toString();
+                        if (label.length > 8) {
+                            label = label.substr(0, 7) + '...';
+                        }
+                        actionArg.text.text = label;
+
+                        if (actionArg.label != null) {
+                            actionArg.label.value = uniqueName;
+                        }
+
+                        actionArg.container.updateCache();
+
+                        // Check the drag group to ensure any do
+                        // blocks are updated (in case of recursion).
+                        for (var b = 0; b < blocks.dragGroup.length; b++) {
+                            var me = blocks.blockList[blocks.dragGroup[b]];
+                            if (['nameddo', 'nameddoArg', 'namedcalc', 'namedcalcArg'].indexOf(me.name) !== -1 && me.privateData === oldName) {
+                                console.log('reassigning nameddo to ' + uniqueName);
+                                me.privateData = uniqueName;
+                                me.value = uniqueName;
+
+                                var label = me.value.toString();
+                                if (label.length > 8) {
+                                    label = label.substr(0, 7) + '...';
+                                }
+                                me.text.text = label;
+                                me.overrideName = label;
+                                me.regenerateArtwork();
+                                me.container.updateCache();
+                            }
+                        }
+                    }
+
+                    var actionName = actionArg.value;
+                    if (actionName !== _('action')) {
+                        // blocks.checkPaletteEntries('action');
+                        console.log('FIXME: Check for unique action name here');
                     }
                 }
             }
-            update = true;
-        }
 
-        function deleteBlocksBox() {
-            clearBox.show(scale);
-        }
+            blocks.refreshCanvas();
+        };
 
-        function doUtilityBox() {
-            utilityBox.show(scale);
-        }
+        function _deleteBlocksBox() {
+            clearBox.show(turtleBlocksScale);
+        };
 
-        // FIXME: confirm???
+        function _doUtilityBox() {
+            utilityBox.init(turtleBlocksScale, utilityButton.x - 27, utilityButton.y, _makeButton);
+        };
+
         function sendAllToTrash(addStartBlock, doNotSave) {
-            var dx = 2000;
-            var dy = cellSize;
+            // First, hide the palettes as they will need updating.
+            for (var name in blocks.palettes.dict) {
+                blocks.palettes.dict[name].hideMenu(true);
+            }
+            refreshCanvas();
+
+            var dx = 0;
+            var dy = cellSize * 3;
             for (var blk in blocks.blockList) {
-                blocks.blockList[blk].trash = true;
-                blocks.moveBlockRelative(blk, dx, dy);
-                blocks.blockList[blk].hide();
-                if (blocks.blockList[blk].name == 'start') {
+                // If this block is at the top of a stack, push it
+                // onto the trashStacks list.
+                if (blocks.blockList[blk].connections[0] == null) {
+                    blocks.trashStacks.push(blk);
+                }
+
+                if (blocks.blockList[blk].name === 'start' || blocks.blockList[blk].name === 'drum') {
                     console.log('start blk ' + blk + ' value is ' + blocks.blockList[blk].value)
-                    turtle = blocks.blockList[blk].value;
-                    if (turtle != null) {
+                    var turtle = blocks.blockList[blk].value;
+                    if (!blocks.blockList[blk].trash && turtle != null) {
                         console.log('sending turtle ' + turtle + ' to trash');
                         turtles.turtleList[turtle].trash = true;
                         turtles.turtleList[turtle].container.visible = false;
                     }
-                }
-            }
-            if (addStartBlock) {
-                function postprocess() {
-                    last(blocks.blockList).x = 250;
-                    last(blocks.blockList).y = 250;
-                    last(blocks.blockList).connections = [null, null, null];
-                    turtles.add(last(blocks.blockList));
-                    last(blocks.blockList).value = turtles.turtleList.length - 1;
-                    blocks.updateBlockPositions();
-                    if (!doNotSave) {
-                        console.log('save locally');
-                        saveLocally();
+                } else if (blocks.blockList[blk].name === 'action') {
+                    if (!blocks.blockList[blk].trash) {
+                        blocks.deleteActionBlock(blocks.blockList[blk]);
                     }
                 }
 
-                blocks.makeNewBlock('start', postprocess);
+                blocks.blockList[blk].trash = true;
+                blocks.moveBlockRelative(blk, dx, dy);
+                blocks.blockList[blk].hide();
             }
 
-            if (!doNotSave) {
+            if (addStartBlock) {
+                blocks.loadNewBlocks(DATAOBJS);
+            } else if (!doNotSave) {
                 // Overwrite session data too.
-                console.log('save locally');
                 saveLocally();
             }
 
             update = true;
-        }
+        };
 
-        function changePaletteVisibility() {
+        function _changePaletteVisibility() {
             if (palettes.visible) {
                 palettes.hide();
             } else {
                 palettes.show();
                 palettes.bringToTop();
             }
-        }
+        };
 
-        function changeBlockVisibility() {
+        function _changeBlockVisibility() {
             if (blocks.visible) {
                 logo.hideBlocks();
+                palettes.hide();
             } else {
                 if (chartBitmap != null) {
                     stage.removeChild(chartBitmap);
                     chartBitmap = null;
                 }
                 logo.showBlocks();
+                palettes.show();
+                palettes.bringToTop();
             }
-        }
 
-        function toggleCollapsibleStacks() {
+            // Combine block and palette visibility into one button.
+            // _changePaletteVisibility();
+        };
+
+        function _toggleCollapsibleStacks() {
             if (blocks.visible) {
                 console.log('calling toggleCollapsibles');
                 blocks.toggleCollapsibles();
             }
-        }
-
-        function stop() {
-            // FIXME: who calls this???
-            createjs.Ticker.removeEventListener('tick', tick);
-        }
+        };
 
         function onStopTurtle() {
             // TODO: plugin support
-            if (!buttonsVisible) {
-                hideStopButton();
+            if (stopTurtleContainer.visible) {
+                _hideStopButton();
             }
-        }
+        };
 
         function onRunTurtle() {
             // TODO: plugin support
             // If the stop button is hidden, show it.
-            if (!buttonsVisible) {
-                showStopButton();
+            if (!stopTurtleContainer.visible) {
+                _showStopButton();
             }
-        }
+        };
 
         function refreshCanvas() {
             update = true;
-        }
+        };
 
-        function tick(event) {
+        function __tick(event) {
             // This set makes it so the stage only re-renders when an
             // event handler indicates a change has happened.
             if (update) {
                 update = false; // Only update once
                 stage.update(event);
             }
-        }
+        };
 
-        function doOpenSamples() {
+        function _doOpenSamples() {
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                localStorage.setItem('isMatrixHidden', docById('ptmDiv').style.visibility);
+                localStorage.setItem('isStaircaseHidden', docById('pscDiv').style.visibility);
+                localStorage.setItem('isPitchDrumMatrixHidden', docById('pdmDiv').style.visibility);
+                localStorage.setItem('isRhythmRulerHidden', docById('rulerDiv').style.visibility);
+                localStorage.setItem('isModeWidgetHidden', docById('modeDiv').style.visibility);
+                localStorage.setItem('isSliderHidden', docById('sliderDiv').style.visibility);
+                localStorage.setItem('isTempoHidden', docById('tempoDiv').style.visibility);
+
+                if (docById('ptmDiv').style.visibility !== 'hidden') {
+                    docById('ptmDiv').style.visibility = 'hidden';
+                    docById('ptmTableDiv').style.visibility = 'hidden';
+                    docById('ptmButtonsDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('pdmDiv').style.visibility !== 'hidden') {
+                    docById('pdmDiv').style.visibility = 'hidden';
+                    docById('pdmButtonsDiv').style.visibility = 'hidden';
+                    docById('pdmTableDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('rulerDiv').style.visibility !== 'hidden') {
+                    docById('rulerDiv').style.visibility = 'hidden';
+                    docById('rulerTableDiv').style.visibility = 'hidden';
+                    docById('rulerButtonsDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('pscDiv').style.visibility !== 'hidden') {
+                    docById('pscDiv').style.visibility = 'hidden';
+                    docById('pscTableDiv').style.visibility = 'hidden';
+                    docById('pscButtonsDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('statusDiv').style.visibility !== 'hidden') {
+                    docById('statusDiv').style.visibility = 'hidden';
+                    docById('statusButtonsDiv').style.visibility = 'hidden';
+                    docById('statusTableDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('sliderDiv').style.visibility !== 'hidden') {
+                    docById('sliderDiv').style.visibility = 'hidden';
+                    docById('sliderButtonsDiv').style.visibility = 'hidden';
+                    docById('sliderTableDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('modeDiv').style.visibility !== 'hidden') {
+                    docById('modeDiv').style.visibility = 'hidden';
+                    docById('modeButtonsDiv').style.visibility = 'hidden';
+                    docById('modeTableDiv').style.visibility = 'hidden';
+                }
+
+                if (docById('tempoDiv').style.visibility !== 'hidden') {
+                    if (logo.tempo != null) {
+                        logo.tempo.hide();
+                    }
+                }
+            }
+
+            localStorage.setItem('isStatusHidden', docById('statusDiv').style.visibility);
+
+            logo.doStopTurtle();
+            helpContainer.visible = false;
+            docById('helpElem').style.visibility = 'hidden';
             console.log('save locally');
             saveLocally();
             thumbnails.show()
-        }
+        };
 
-        window.prepareExport = prepareExport
-        window.saveLocally = saveLocally
+        function doSave() {
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                console.log('Saving .tb file');
+                var name = 'My Project';
+                download(name + '.tb', 'data:text/plain;charset=utf-8,' + prepareExport());
+            } else {
+                saveBox.init(turtleBlocksScale, saveButton.x - 27, saveButton.y - 97, _makeButton);
+            }
+        };
+
+        function doSaveTB() {
+            var filename = prompt('Filename:', 'untitled.tb');  // default filename = untitled
+            if (filename != null) {
+                if (fileExt(filename) !== 'tb') {
+                    filename += '.tb';
+                }
+                download(filename, 'data:text/plain;charset=utf-8,' + encodeURIComponent(prepareExport()));
+            }
+        };
+
+        function doSaveSVG() {
+            var filename = prompt('Filename:', 'untitled.svg');
+            if (filename != null) {
+                if (fileExt(filename) !== 'svg') {
+                    filename += '.svg';
+                }
+                var svg = doSVG(logo.canvas, logo, logo.turtles, logo.canvas.width, logo.canvas.height, 1.0);
+                download(filename, 'data:image/svg+xml;utf8,' + svg, filename, '"width=' + logo.canvas.width + ', height=' + logo.canvas.height + '"');
+            }
+        };
+
+        function doSavePNG() {
+            alert("Unavailable at the moment");
+            //var filename = prompt('Filename:', 'untitled.png');
+            //if (fileExt(filename) !== 'png') {
+            //    filename += '.png';
+            //}
+            //download(filename, 'data:text/plain;charset=utf-8,' + encodeURIComponent(prepareExport()));
+        };
+
+        function doUploadToPlanet() {
+            saveLocally();
+            thumbnails.show()
+        };
+
+        function doShareOnFacebook() {
+            alert("Facebook Sharing : disabled");    // remove when add fb share link
+            // add code for facebook share link
+        };
+
+        function doLoad() {
+            console.log('Loading .tb file');
+            document.querySelector('#myOpenFile').focus();
+            document.querySelector('#myOpenFile').click();
+            window.scroll(0, 0);
+        };
+
+        function _doLilypond() {
+            // Show busy cursor.
+            document.body.style.cursor = 'wait';
+
+            console.log('Saving .ly file');
+            // Suppress music and turtle output when generating
+            // Lilypond output.
+            logo.runningLilypond = true;
+            logo.lilypondOutput = LILYPONDHEADER;
+            logo.lilypondNotes = {};
+            for (var turtle = 0; turtle < turtles.turtleList.length; turtle++) {
+                logo.lilypondStaging[turtle] = [];
+                turtles.turtleList[turtle].doClear(true, true);
+            }
+            logo.runLogoCommands();
+        };
+
+        window.prepareExport = prepareExport;
+        window.saveLocally = saveLocally;
 
         function saveLocally() {
-
             if (sugarizerCompatibility.isInsideSugarizer()) {
                 //sugarizerCompatibility.data.blocks = prepareExport();
                 storage = sugarizerCompatibility.data;
@@ -1127,9 +1754,11 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 console.log(e);
             }
 
-            if (isSVGEmpty(turtles)) {
-                return;
-            }
+            // if (isSVGEmpty(turtles)) {
+                // We will use the music icon in these cases.
+                // return;
+            // }
+
             var img = new Image();
             var svgData = doSVG(canvas, logo, turtles, 320, 240, 320 / canvas.width);
             img.onload = function () {
@@ -1141,13 +1770,24 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            };
+
             img.src = 'data:image/svg+xml;base64,' +
             window.btoa(unescape(encodeURIComponent(svgData)));
-            console.log(img.src);
+            // console.log(img.src);
             if (sugarizerCompatibility.isInsideSugarizer()) {
                 sugarizerCompatibility.saveLocally();
             }
+        };
+
+        function runProject(env){
+            console.log("Running Project from Event");
+            document.removeEventListener("finishedLoading", runProject);
+            setTimeout(function () {
+                console.log("Run");
+                _changeBlockVisibility();
+                _doFastButton(env);
+            }, 5000);
         }
 
         function loadProject(projectName, run, env) {
@@ -1157,60 +1797,82 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             document.body.style.cursor = 'wait';
             // palettes.updatePalettes();
             setTimeout(function () {
-                if (fileExt(projectName) != 'tb') {
+                if (fileExt(projectName) !== 'tb')
+                {
                     projectName += '.tb';
                 }
+
                 try {
+                    try {
+                        httpGet(null);
+                        console.log('running from server or the user can access to examples.');
+                        server = true;
+                    } catch (e) {
+                        console.log('running from filesystem or the connection isnt secure');
+                        server = false;
+                    }
+
                     if (server) {
                         var rawData = httpGet(projectName);
-                        console.log('receiving ' + rawData);
                         var cleanData = rawData.replace('\n', '');
                     }
+
+                    // First, hide the palettes as they will need updating.
+                    for (var name in blocks.palettes.dict) {
+                        blocks.palettes.dict[name].hideMenu(true);
+                    }
+
                     var obj = JSON.parse(cleanData);
                     blocks.loadNewBlocks(obj);
-                    console.log('save locally');
                     saveLocally();
                 } catch (e) {
                     console.log(e);
-                    loadStart();
+                    loadStartWrapper(_loadStart);
                 }
+
                 // Restore default cursor
                 document.body.style.cursor = 'default';
                 update = true;
             }, 200);
-            if (run) {
-                setTimeout(function () {
-                    changeBlockVisibility();
-                    doFastButton(env);
-                }, 2000);
+
+            if (run && firstRun) {
+                if (document.addEventListener) {
+                    document.addEventListener('finishedLoading', function (){runProject(env);}, false);
+                } else {
+                    document.attachEvent('finishedLoading', function (){runProject(env);});
+                }
             }
-            docById('loading-image-container').style.display = 'none';
-        }
+            firstRun = false;
+        };
 
         function loadRawProject(data) {
             console.log('loadRawProject ' + data);
             document.body.style.cursor = 'wait';
-            allClear();
+            _allClear();
+
+            // First, hide the palettes as they will need updating.
+            for (var name in blocks.palettes.dict) {
+                blocks.palettes.dict[name].hideMenu(true);
+            }
+
             var obj = JSON.parse(data);
             blocks.loadNewBlocks(obj);
-
-            docById('loading-image-container').style.display = 'none';
             document.body.style.cursor = 'default';
-        }
+        };
 
         function saveProject(projectName) {
-            // palettes.updatePalettes();
+           // palettes.updatePalettes();
             // Show busy cursor.
             document.body.style.cursor = 'wait';
             setTimeout(function () {
                 var punctuationless = projectName.replace(/['!"#$%&\\'()\*+,\-\.\/:;<=>?@\[\\\]\^`{|}~']/g, '');
                 projectName = punctuationless.replace(/ /g, '_');
-                if (fileExt(projectName) != 'tb') {
+                if (fileExt(projectName) !== 'tb') {
                     projectName += '.tb';
                 }
                 try {
                     // Post the project
-                    var returnValue = httpPost(projectName, prepareExport());
+                    var returnValue = httpPost('MusicBlocks_'+projectName, prepareExport());
                     errorMsg('Saved ' + projectName + ' to ' + window.location.host);
 
                     var img = new Image();
@@ -1220,8 +1882,9 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                         var bounds = bitmap.getBounds();
                         bitmap.cache(bounds.x, bounds.y, bounds.width, bounds.height);
                         // and base64-encoded png
-                        httpPost(projectName.replace('.tb', '.b64'), bitmap.getCacheDataURL());
-                    }
+                        httpPost(('MusicBlocks_'+projectName).replace('.tb', '.b64'), bitmap.getCacheDataURL());
+                    };
+
                     img.src = 'data:image/svg+xml;base64,' + window.btoa(
                         unescape(encodeURIComponent(svgData)));
                     // Restore default cursor
@@ -1234,25 +1897,36 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     return;
                 }
             }, 200);
-        }
+        };
 
-        function loadStart() {
+        // Calculate time such that no matter how long it takes to
+        // load the program, the loading animation will cycle at least
+        // once.
+        function loadStartWrapper(func, arg1, arg2, arg3) {
+            var time1 = new Date();
+            func(arg1, arg2, arg3);
+
+            var time2 = new Date();
+            var elapsedTime = time2.getTime() - time1.getTime();
+            var timeLeft = Math.max(6000 - elapsedTime);
+            setTimeout(showContents, timeLeft);
+        };
+
+        // Hides the loading animation and unhides the background.
+        function showContents(){
+            docById('loading-image-container').style.display = 'none';
+            // docById('canvas').style.display = 'none';
+            docById('hideContents').style.display = 'block';
+        };
+
+        function _loadStart() {
             // where to put this?
             // palettes.updatePalettes();
-            console.log(" LOAD START")
+            console.log('LOAD START')
             justLoadStart = function () {
-                console.log('loading start');
-                postProcess = function (thisBlock) {
-                    blocks.blockList[0].x = 250;
-                    blocks.blockList[0].y = 250;
-                    blocks.blockList[0].connections = [null, null, null];
-                    blocks.blockList[0].value = turtles.turtleList.length;
-                    blocks.blockList[0].collapsed = false;
-                    turtles.add(blocks.blockList[0]);
-                    blocks.updateBlockPositions();
-                }
-                blocks.makeNewBlock('start', postProcess, null);
-            }
+                console.log('loading start and a matrix');
+                blocks.loadNewBlocks(DATAOBJS);
+            };
 
             if (sugarizerCompatibility.isInsideSugarizer()) {
                 storage = sugarizerCompatibility.data;
@@ -1267,11 +1941,16 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             sessionData = storage['SESSION' + currentProject];
             if (sessionData) {
                 try {
-                    if (sessionData == 'undefined' || sessionData == '[]') {
+                    if (sessionData === 'undefined' || sessionData === '[]') {
                         console.log('empty session found: loading start');
                         justLoadStart();
                     } else {
                         console.log('restoring session: ' + sessionData);
+                        // First, hide the palettes as they will need updating.
+                        for (var name in blocks.palettes.dict) {
+                            blocks.palettes.dict[name].hideMenu(true);
+                        }
+
                         blocks.loadNewBlocks(JSON.parse(sessionData));
                     }
                 } catch (e) {
@@ -1280,22 +1959,24 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             } else {
                 justLoadStart();
             }
+
             update = true;
 
-            docById('loading-image-container').style.display = 'none';
-        }
+
+        };
 
         function hideMsgs() {
             errorMsgText.parent.visible = false;
-            if (errorMsgArrow !== null) {
+            if (errorMsgArrow != null) {
                 errorMsgArrow.removeAllChildren();
                 refreshCanvas();
             }
+
             msgText.parent.visible = false;
             for (var i in errorArtwork) {
                 errorArtwork[i].visible = false;
             }
-        }
+        };
 
         function textMsg(msg) {
             if (msgText == null) {
@@ -1307,19 +1988,19 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             msgText.text = msg;
             msgContainer.updateCache();
             stage.setChildIndex(msgContainer, stage.getNumChildren() - 1);
-        }
+        };
 
         function errorMsg(msg, blk, text) {
+             _hideStopButton(); //Hide the button, as the program is going to be terminated
             if (errorMsgText == null) {
                 // The container may not be ready yet... so do nothing
                 return;
             }
-
-            if (blk !== undefined && blk !== null && !blocks.blockList[blk].collapsed) {
+            if (blk !== undefined && blk != null && !blocks.blockList[blk].collapsed) {
                 var fromX = (canvas.width - 1000) / 2;
                 var fromY = 128;
-                var toX = blocks.blockList[blk].x + blocksContainer.x;
-                var toY = blocks.blockList[blk].y + blocksContainer.y;
+                var toX = blocks.blockList[blk].container.x + blocksContainer.x;
+                var toY = blocks.blockList[blk].container.y + blocksContainer.y;
 
                 if (errorMsgArrow == null) {
                     errorMsgArrow = new createjs.Container();
@@ -1341,96 +2022,97 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             }
 
             switch (msg) {
-                case NOMICERRORMSG:
-                    errorArtwork['nomicrophone'].visible = true;
-                    stage.setChildIndex(errorArtwork['nomicrophone'], stage.getNumChildren() - 1);
-                    break;
-                case NOSTRINGERRORMSG:
-                    errorArtwork['notastring'].visible = true;
-                    stage.setChildIndex(errorArtwork['notastring'], stage.getNumChildren() - 1);
-                    break;
-                case EMPTYHEAPERRORMSG:
-                    errorArtwork['emptyheap'].visible = true;
-                    stage.setChildIndex(errorArtwork['emptyheap'], stage.getNumChildren() - 1);
-                    break;
-                case NOSQRTERRORMSG:
-                    errorArtwork['negroot'].visible = true;
-                    stage.setChildIndex(errorArtwork['negroot'], stage.getNumChildren() - 1);
-                    break;
-                case NOACTIONERRORMSG:
-                    if (text == null) {
-                        text = 'foo';
-                    }
-                    errorArtwork['nostack'].children[1].text = text;
-                    errorArtwork['nostack'].visible = true;
-                    errorArtwork['nostack'].updateCache();
-                    stage.setChildIndex(errorArtwork['nostack'], stage.getNumChildren() - 1);
-                    break;
-                case NOBOXERRORMSG:
-                    if (text == null) {
-                        text = 'foo';
-                    }
-                    errorArtwork['emptybox'].children[1].text = text;
-                    errorArtwork['emptybox'].visible = true;
-                    errorArtwork['emptybox'].updateCache();
-                    stage.setChildIndex(errorArtwork['emptybox'], stage.getNumChildren() - 1);
-                    break;
-                case ZERODIVIDEERRORMSG:
-                    errorArtwork['zerodivide'].visible = true;
-                    stage.setChildIndex(errorArtwork['zerodivide'], stage.getNumChildren() - 1);
-                    break;
-                case NANERRORMSG:
-                    errorArtwork['notanumber'].visible = true;
-                    stage.setChildIndex(errorArtwork['notanumber'], stage.getNumChildren() - 1);
-                    break;
-                case NOINPUTERRORMSG:
-                    errorArtwork['noinput'].visible = true;
-                    stage.setChildIndex(errorArtwork['noinput'], stage.getNumChildren() - 1);
-                    break;
-                default:
-                    var errorMsgContainer = errorMsgText.parent;
-                    errorMsgContainer.visible = true;
-                    errorMsgText.text = msg;
-                    stage.setChildIndex(errorMsgContainer, stage.getNumChildren() - 1);
-                    errorMsgContainer.updateCache();
-                    break;
+            case NOMICERRORMSG:
+                errorArtwork['nomicrophone'].visible = true;
+                stage.setChildIndex(errorArtwork['nomicrophone'], stage.getNumChildren() - 1);
+                break;
+            case NOSTRINGERRORMSG:
+                errorArtwork['notastring'].visible = true;
+                stage.setChildIndex(errorArtwork['notastring'], stage.getNumChildren() - 1);
+                break;
+            case EMPTYHEAPERRORMSG:
+                errorArtwork['emptyheap'].visible = true;
+                stage.setChildIndex(errorArtwork['emptyheap'], stage.getNumChildren() - 1);
+                break;
+            case NOSQRTERRORMSG:
+                errorArtwork['negroot'].visible = true;
+                stage.setChildIndex(errorArtwork['negroot'], stage.getNumChildren() - 1);
+                break;
+            case NOACTIONERRORMSG:
+                if (text == null) {
+                    text = 'foo';
+                }
+                errorArtwork['nostack'].children[1].text = text;
+                errorArtwork['nostack'].visible = true;
+                errorArtwork['nostack'].updateCache();
+                stage.setChildIndex(errorArtwork['nostack'], stage.getNumChildren() - 1);
+                break;
+            case NOBOXERRORMSG:
+                if (text == null) {
+                    text = 'foo';
+                }
+                errorArtwork['emptybox'].children[1].text = text;
+                errorArtwork['emptybox'].visible = true;
+                errorArtwork['emptybox'].updateCache();
+                stage.setChildIndex(errorArtwork['emptybox'], stage.getNumChildren() - 1);
+                break;
+            case ZERODIVIDEERRORMSG:
+                errorArtwork['zerodivide'].visible = true;
+                stage.setChildIndex(errorArtwork['zerodivide'], stage.getNumChildren() - 1);
+                break;
+              case NANERRORMSG:
+                errorArtwork['notanumber'].visible = true;
+                stage.setChildIndex(errorArtwork['notanumber'], stage.getNumChildren() - 1);
+                break;
+            case NOINPUTERRORMSG:
+                errorArtwork['noinput'].visible = true;
+                stage.setChildIndex(errorArtwork['noinput'], stage.getNumChildren() - 1);
+                break;
+            default:
+                var errorMsgContainer = errorMsgText.parent;
+                errorMsgContainer.visible = true;
+                errorMsgText.text = msg;
+                stage.setChildIndex(errorMsgContainer, stage.getNumChildren() - 1);
+                errorMsgContainer.updateCache();
+                break;
             }
 
             update = true;
-        }
+        };
 
-        function hideCartesian() {
+        function _hideCartesian() {
             cartesianBitmap.visible = false;
             cartesianBitmap.updateCache();
             update = true;
-        }
+        };
 
-        function showCartesian() {
+        function _showCartesian() {
             cartesianBitmap.visible = true;
             cartesianBitmap.updateCache();
             update = true;
-        }
+        };
 
-        function hidePolar() {
+        function _hidePolar() {
             polarBitmap.visible = false;
             polarBitmap.updateCache();
             update = true;
-        }
+        };
 
-        function showPolar() {
+        function _showPolar() {
             polarBitmap.visible = true;
             polarBitmap.updateCache();
             update = true;
-        }
+        };
 
         function pasteStack() {
             blocks.pasteStack();
-        }
+        };
 
         function prepareExport() {
             // We don't save blocks in the trash, so we need to
             // consolidate the block list and remap the connections.
             var blockMap = [];
+            var hasMatrixDataBlock = false;
             for (var blk = 0; blk < blocks.blockList.length; blk++) {
                 var myBlock = blocks.blockList[blk];
                 if (myBlock.trash) {
@@ -1447,60 +2129,91 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     // Don't save blocks in the trash.
                     continue;
                 }
-                if (blocks.blockList[blk].isValueBlock() || blocks.blockList[blk].name == 'loadFile') {
+
+                if (myBlock.isValueBlock() || myBlock.name === 'loadFile') {
                     // FIX ME: scale image if it exceeds a maximum size.
                     var args = {
                         'value': myBlock.value
                     };
-                } else if (myBlock.name == 'start') {
-                    // It's a turtle.
-                    turtle = turtles.turtleList[myBlock.value];
-                    var args = {
-                        'collapsed': myBlock.collapsed,
-                        'xcor': turtle.x,
-                        'ycor': turtle.y,
-                        'heading': turtle.orientation,
-                        'color': turtle.color,
-                        'shade': turtle.value,
-                        'pensize': turtle.stroke,
-                        'grey': turtle.chroma
-                    };
-                } else if (myBlock.name == 'action') {
+                } else if (myBlock.name === 'start' || myBlock.name === 'drum') {
+                    // Find the turtle associated with this block.
+                    var turtle = turtles.turtleList[myBlock.value];
+                    if (turtle == null) {
+                        var args = {
+                            'collapsed': false,
+                            'xcor': 0,
+                            'ycor': 0,
+                            'heading': 0,
+                            'color': 0,
+                            'shade': 50,
+                            'pensize': 5,
+                            'grey': 100
+                        };
+                    } else {
+                        var args = {
+                            'collapsed': myBlock.collapsed,
+                            'xcor': turtle.x,
+                            'ycor': turtle.y,
+                            'heading': turtle.orientation,
+                            'color': turtle.color,
+                            'shade': turtle.value,
+                            'pensize': turtle.stroke,
+                            'grey': turtle.chroma
+                        };
+                    }
+                } else if (myBlock.name === 'action') {
                     var args = {
                         'collapsed': myBlock.collapsed
                     }
-                } else if (myBlock.name == 'namedbox') {
+                } else if(myBlock.name === 'matrix') {
+                    var args = {
+                        'collapsed' : myBlock.collapsed
+                    }
+                } else if(myBlock.name === 'pitchdrummatrix') {
+                    var args = {
+                        'collapsed' : myBlock.collapsed
+                    }
+                } else if(myBlock.name === 'status') {
+                    var args = {
+                        'collapsed' : myBlock.collapsed
+                    }
+                } else if (myBlock.name === 'namedbox') {
                     var args = {
                         'value': myBlock.privateData
                     }
-                } else if (myBlock.name == 'nameddo') {
+                } else if (myBlock.name === 'nameddo') {
                     var args = {
                         'value': myBlock.privateData
                     }
-                } else if (myBlock.name == 'nameddoArg') {
+                } else if (myBlock.name === 'nameddoArg') {
                     var args = {
                         'value': myBlock.privateData
                     }
-                } else if (myBlock.name == 'namedcalc') {
+                } else if (myBlock.name === 'namedcalc') {
                     var args = {
                         'value': myBlock.privateData
                     }
-                } else if (myBlock.name == 'namedcalcArg') {
+                } else if (myBlock.name === 'namedcalcArg') {
                     var args = {
                         'value': myBlock.privateData
                     }
-                } else if (myBlock.name == 'namedarg') {
+                } else if (myBlock.name === 'namedarg') {
                     var args = {
                         'value': myBlock.privateData
                     }
+                } else if (myBlock.name === 'matrixData') {
+                    var args = {
+                        'notes': window.savedMatricesNotes, 'count': window.savedMatricesCount
+                    }
+                    hasMatrixDataBlock = true;
                 } else {
-                    var args = {};
+                    var args = {}
                 }
 
                 connections = [];
                 for (var c = 0; c < myBlock.connections.length; c++) {
                     var mapConnection = blockMap.indexOf(myBlock.connections[c]);
-                    if (myBlock.connections[c] == null || mapConnection == -1) {
+                    if (myBlock.connections[c] == null || mapConnection === -1) {
                         connections.push(null);
                     } else {
                         connections.push(mapConnection);
@@ -1508,83 +2221,117 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 }
                 data.push([blockMap.indexOf(blk), [myBlock.name, args], myBlock.container.x, myBlock.container.y, connections]);
             }
+
             return JSON.stringify(data);
-        }
+        };
 
         function doOpenPlugin() {
             // Click on the plugin open chooser in the DOM (.json).
             pluginChooser.focus();
             pluginChooser.click();
-        }
+        };
 
         function saveToFile() {
             var filename = prompt('Filename:');
-            if (fileExt(filename) != 'tb') {
+            if (fileExt(filename) !== 'tb') {
                 filename += '.tb';
             }
             download(filename, 'data:text/plain;charset=utf-8,' + encodeURIComponent(prepareExport()));
         };
 
-        function hideStopButton() {
-            stopTurtleContainer.x = stopTurtleContainerX;
-            stopTurtleContainer.y = stopTurtleContainerY;
+        function _hideStopButton() {
+            // stopTurtleContainer.x = stopTurtleContainerX;
+            // stopTurtleContainer.y = stopTurtleContainerY;
             stopTurtleContainer.visible = false;
-        }
+        };
 
-        function showStopButton() {
-            stopTurtleContainer.x = onscreenButtons[0].x;
-            stopTurtleContainer.y = onscreenButtons[0].y;
+        function _showStopButton() {
+            // stopTurtleContainer.x = onscreenButtons[0].x;
+            // stopTurtleContainer.y = onscreenButtons[0].y;
             stopTurtleContainer.visible = true;
-        }
+        };
+
+        function blinkPasteButton(bitmap) {
+            function handleComplete() {
+                createjs.Tween.get(bitmap).to({alpha:1, visible:true}, 500);
+            };
+
+            createjs.Tween.get(bitmap).to({alpha:0, visible:false}, 1000).call(
+handleComplete);
+        };
 
         function updatePasteButton() {
-            pasteContainer.removeChild(pasteContainer.children[0]);
-            var img = new Image();
-            img.onload = function () {
-                var originalSize = 55; // this is the original svg size
-                var halfSize = Math.floor(cellSize / 2);
+            if (pasteImage === null) {
 
-                bitmap = new createjs.Bitmap(img);
-                if (cellSize != originalSize) {
-                    bitmap.scaleX = cellSize / originalSize;
-                    bitmap.scaleY = cellSize / originalSize;
-                }
-                bitmap.regX = halfSize / bitmap.scaleX;
-                bitmap.regY = halfSize / bitmap.scaleY;
-                pasteContainer.addChild(bitmap)
-                update = true;
+                var img = new Image();
+
+                img.onload = function () {
+                    var originalSize = 55; // this is the original svg size
+                    var halfSize = Math.floor(cellSize / 2);
+
+                    var bitmap = new createjs.Bitmap(img);
+                    if (cellSize !== originalSize) {
+                        bitmap.scaleX = cellSize / originalSize;
+                        bitmap.scaleY = cellSize / originalSize;
+                    }
+                    bitmap.regX = halfSize / bitmap.scaleX;
+                    bitmap.regY = halfSize / bitmap.scaleY;
+                    pasteContainer.addChild(bitmap);
+                    pasteImage = bitmap;
+
+                    update = true;
+                };
+
+                img.src = 'header-icons/paste-button.svg';
+            } else {
+                blinkPasteButton(pasteImage);
             }
-            img.src = 'icons/paste-button.svg';
-        }
+        };
 
-        function setupAndroidToolbar(showPalettesPopover) {
+        function _setupAndroidToolbar(showPalettesPopover) {
             if (headerContainer !== undefined) {
                 stage.removeChild(headerContainer);
-                for (i in onscreenButtons) {
+                for (var i in onscreenButtons) {
                     stage.removeChild(onscreenButtons[i]);
                 }
             }
 
             headerContainer = new createjs.Shape();
-            headerContainer.graphics.f(platformColor.header).r(0, 0,
-                screen.width / scale, cellSize);
+            headerContainer.graphics.f(platformColor.header).r(0, 0, screen.width / turtleBlocksScale, cellSize);
+
             if (platformColor.doHeaderShadow) {
                 headerContainer.shadow = new createjs.Shadow('#777', 0, 2, 2);
             }
+
             stage.addChild(headerContainer);
 
             // Buttons used when running turtle programs
-            var buttonNames = [
-                ['fast', doFastButton],
-                ['slow', doSlowButton],
-                ['step', doStepButton],
-                ['stop-turtle', doStopButton],
-                ['clear', allClear],
-                ['palette', changePaletteVisibility],
-                ['hide-blocks', changeBlockVisibility],
-                ['collapse-blocks', toggleCollapsibleStacks],
-                ['help', showHelp]
-            ];
+            // name / onpress function / label / onlongpress function / onextralongpress function / onlongpress icon / onextralongpress icon
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                var buttonNames = [
+                    ['run', _doFastButton, _('Run fast / long press to run slowly / extra-long press to run music slowly'), _doSlowButton, _doSlowMusicButton, 'slow-button', 'slow-music-button'],
+                    ['step', _doStepButton, _('Run step by step'), null, null, null, null],
+                    ['step-music', _doStepMusicButton, _('Run note by note'), null, null, null, null],
+                    ['stop-turtle', doStopButton, _('Stop'), null, null, null, null],
+                    ['clear', _allClear, _('Clean'), null, null, null, null],
+                    // ['palette', _changePaletteVisibility, _('Show/hide palettes'), null, null, null, null],
+                    ['hide-blocks', _changeBlockVisibility, _('Show/hide blocks'), null, null, null, null],
+                    ['collapse-blocks', _toggleCollapsibleStacks, _('Expand/collapse collapsable blocks'), null, null, null, null],
+                    ['go-home', _findBlocks, _('Home'), null, null, null, null],
+                    ['help', _showHelp, _('Help'), null, null, null, null]
+                ];
+            } else {
+                var buttonNames = [
+                    ['run', _doFastButton, _('Run fast / long press to run slowly'), _doSlowButton, null, 'slow-button', null],
+                    ['step', _doStepButton, _('Run step by step'), null, null, null, null],
+                    ['stop-turtle', doStopButton, _('Stop'), null, null, null, null],
+                    ['clear', _allClear, _('Clean'), null, null, null, null],
+                    ['hide-blocks', _changeBlockVisibility, _('Show/hide blocks'), null, null, null, null],
+                    ['collapse-blocks', _toggleCollapsibleStacks, _('Expand/collapse collapsable blocks'), null, null, null, null],
+                    ['go-home', _findBlocks, _('Home'), null, null, null, null],
+                    ['help', _showHelp, _('Help'), null, null, null, null]
+                ];
+            }
 
             if (sugarizerCompatibility.isInsideSugarizer()) {
                 buttonNames.push(['sugarizer-stop', function () {
@@ -1592,7 +2339,7 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     sugarizerCompatibility.saveLocally(function () {
                         sugarizerCompatibility.sugarizerStop();
                     });
-                }])
+                }, "Stop", null, null, null, null])
             }
 
             if (showPalettesPopover) {
@@ -1605,81 +2352,126 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
             var dx = btnSize;
             var dy = 0;
 
-            for (var name in buttonNames) {
-                var container = makeButton(buttonNames[name][0] + '-button',
-                    x, y, btnSize);
-                loadButtonDragHandler(container, x, y, buttonNames[name][1]);
+            for (var i = 0; i < buttonNames.length; i++) {
+                if (!getMainToolbarButtonNames(buttonNames[i][0])) {
+                    console.log('continue');
+                    continue;
+                }
+
+                var container = _makeButton(buttonNames[i][0] + '-button', buttonNames[i][2], x, y, btnSize, 0);
+                _loadButtonDragHandler(container, x, y, buttonNames[i][1], buttonNames[i][3], buttonNames[i][4], buttonNames[i][5], buttonNames[i][6]);
                 onscreenButtons.push(container);
 
-                if (buttonNames[name][0] == 'stop-turtle') {
+                if (buttonNames[i][0] === 'stop-turtle') {
                     stopTurtleContainer = container;
                     stopTurtleContainerX = x;
                     stopTurtleContainerY = y;
+                } else if (buttonNames[i][0] === 'go-home') {
+                    homeButtonContainers = [];
+                    homeButtonContainers.push(container);
+                    homeButtonContainersX = x;
+                    homeButtonContainersY = y;
+                    var container2 = _makeButton('go-home-faded-button', _('Home'), x, y, btnSize, 0);
+                    _loadButtonDragHandler(container2, x, y, buttonNames[i][1], null, null, null, null);
+                    homeButtonContainers.push(container2);
+                    onscreenButtons.push(container2);
+                    homeButtonContainers[0].visible = false;
+                    homeButtonContainers[1].visible = true;
+                    boundary.hide();
+                    blocks.setHomeContainers(homeButtonContainers, boundary);
                 }
 
                 x += dx;
                 y += dy;
             }
 
-            setupRightMenu(scale);
-        }
+            _setupRightMenu(turtleBlocksScale);
+        };
 
-        function setupRightMenu(scale) {
+        function _setupRightMenu(turtleBlocksScale) {
             if (menuContainer !== undefined) {
                 stage.removeChild(menuContainer);
-                for (i in onscreenMenu) {
+                for (var i in onscreenMenu) {
                     stage.removeChild(onscreenMenu[i]);
                 }
             }
 
             // Misc. other buttons
-            var menuNames = [
-                ['planet', doOpenSamples],
-                ['paste-disabled', pasteStack],
-                ['Cartesian', doCartesian],
-                ['polar', doPolar],
-                // ['bigger', doBiggerFont],
-                // ['smaller', doSmallerFont],
-                // ['plugin', doOpenPlugin],
-                ['utility', doUtilityBox],
-                ['empty-trash', deleteBlocksBox],
-                ['restore-trash', restoreTrash]
-            ];
+            if (_THIS_IS_MUSIC_BLOCKS_) {
+                var menuNames = [
+                    ['planet', _doOpenSamples, _('Load samples from server')],
+                    ['open', doLoad, _('Load project from files')],
+                    ['save', doSave, _('Save project')],
+                    ['lilypond', _doLilypond, _('Save sheet music')],
+                    ['paste-disabled', pasteStack, _('Paste')],
+                    ['Cartesian', _doCartesian, _('Cartesian')],
+                    ['polar', _doPolar, _('Polar')],
+                    ['utility', _doUtilityBox, _('Settings')],
+                    ['empty-trash', _deleteBlocksBox, _('Delete all')],
+                    ['restore-trash', _restoreTrash, _('Undo')]
+                ];
+            } else {
+                var menuNames = [
+                    ['planet', _doOpenSamples, _('Load samples from server')],
+                    ['open', doLoad, _('Load project from files')],
+                    ['save', doSave, _('Save project')],
+                    ['paste-disabled', pasteStack, _('Paste')],
+                    ['Cartesian', _doCartesian, _('Cartesian')],
+                    ['polar', _doPolar, _('Polar')],
+                    ['utility', _doUtilityBox, _('Settings')],
+                    ['empty-trash', _deleteBlocksBox, _('Delete all')],
+                    ['restore-trash', _restoreTrash, _('Undo')]
+                ];
+            }
+
+            document.querySelector('#myOpenFile')
+                    .addEventListener('change', function (event) {
+                        thumbnails.model.controller.hide();
+            });
 
             var btnSize = cellSize;
-            var x = Math.floor(canvas.width / scale) - btnSize / 2;
+            var x = Math.floor(canvas.width / turtleBlocksScale) - btnSize / 2;
             var y = Math.floor(btnSize / 2);
 
             var dx = 0;
             var dy = btnSize;
 
-            menuContainer = makeButton('menu-button', x, y, btnSize,
-                menuButtonsVisible ? 90 : undefined);
-            loadButtonDragHandler(menuContainer, x, y, doMenuButton);
+            menuContainer = _makeButton('menu-button', '', x, y, btnSize, menuButtonsVisible ? 90 : undefined);
+            _loadButtonDragHandler(menuContainer, x, y, _doMenuButton, null, null, null, null);
 
-            for (var name in menuNames) {
+            for (var i = 0; i < menuNames.length; i++) {
+                if (!getAuxToolbarButtonNames(menuNames[i][0])) {
+                    continue;
+                }
+
                 x += dx;
                 y += dy;
-                var container = makeButton(menuNames[name][0] + '-button',
-                    x, y, btnSize);
-                loadButtonDragHandler(container, x, y, menuNames[name][1]);
+                var container = _makeButton(menuNames[i][0] + '-button', menuNames[i][2], x, y, btnSize, 0);
+                _loadButtonDragHandler(container, x, y, menuNames[i][1], null, null, null, null);
                 onscreenMenu.push(container);
+                if (menuNames[i][0] === 'utility') {
+                    utilityButton = container;
+                } else if (menuNames[i][0] === 'save') {
+                    saveButton = container;
+                }
+
                 container.visible = false;
             }
 
             if (menuButtonsVisible) {
-                for (button in onscreenMenu) {
+                for (var button in onscreenMenu) {
                     onscreenMenu[button].visible = true;
                 }
             }
-        }
+        };
 
         function doPopdownPalette() {
+            console.log('doPopdownPalette');
             var p = new PopdownPalette(palettes);
             p.popdown();
-        }
+        };
 
-        function showHelp(firstTime) {
+        function _showHelp(firstTime) {
             helpIdx = 0;
 
             if (firstTime) {
@@ -1699,23 +2491,29 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                             if (helpIdx >= HELPCONTENT.length) {
                                 helpIdx = 0;
                             }
-                            var imageScale = 55 * scale;
-                            helpElem.innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '" style="height:' + imageScale + 'px; width: auto"></img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>'
+                            var imageScale = 55 * turtleBlocksScale;
+                            helpElem.innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '" style="height:' + imageScale + 'px; width: auto"></img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>';
                         }
                         update = true;
                     });
 
                     var img = new Image();
                     img.onload = function () {
-                        // console.log(scale);
-                        bitmap = new createjs.Bitmap(img);
-                        if (scale > 1) {
-                            bitmap.scaleX = bitmap.scaleY = bitmap.scale = scale;
+                        console.log(turtleBlocksScale);
+                        var bitmap = new createjs.Bitmap(img);
+                        /*
+                        if (turtleBlocksScale > 1) {
+                            bitmap.scaleX = bitmap.scaleY = bitmap.scale = turtleBlocksScale;
                         } else {
                             bitmap.scaleX = bitmap.scaleY = bitmap.scale = 1.125;
                         }
-
+                        */
+                        if (helpContainer.children.length > 0) {
+                            console.log('delete old help container');
+                            helpContainer.removeChild(helpContainer.children[0]);
+                        }
                         helpContainer.addChild(bitmap)
+
                         var bounds = helpContainer.getBounds();
                         var hitArea = new createjs.Shape();
                         hitArea.graphics.beginFill('#FFF').drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
@@ -1723,12 +2521,12 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                         hitArea.y = 0;
                         helpContainer.hitArea = hitArea;
 
-                        docById('helpElem').innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '"</img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>'
+                        docById('helpElem').innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '"</img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>';
                         if (!doneTour) {
                             docById('helpElem').style.visibility = 'visible';
                         }
                         update = true;
-                    }
+                    };
 
                     img.src = 'images/help-container.svg';
                 }
@@ -1736,36 +2534,40 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 var helpElem = docById('helpElem');
                 helpElem.style.position = 'absolute';
                 helpElem.style.display = 'block';
-                helpElem.style.paddingLeft = 20 * scale + 'px';
-                helpElem.style.paddingRight = 20 * scale + 'px';
+                helpElem.style.paddingLeft = 20 * turtleBlocksScale + 'px';
+                helpElem.style.paddingRight = 20 * turtleBlocksScale + 'px';
                 helpElem.style.paddingTop = '0px';
-                helpElem.style.paddingBottom = 20 * scale + 'px';
-                helpElem.style.fontSize = 20 * scale + 'px';
-                helpElem.style.color = '#ffffff';
-                helpElem.style.left = 65 * scale + 'px';
-                helpElem.style.top = 105 * scale + 'px';
-                var w = Math.min(300, 300 * scale);
-                var h = Math.min(300, 300 * scale);
+                helpElem.style.paddingBottom = 20 * turtleBlocksScale + 'px';
+                helpElem.style.fontSize = 20 + 'px'; //  * turtleBlocksScale + 'px';
+                helpElem.style.color = '#000000';  // '#ffffff';
+                helpElem.style.left = 65 * turtleBlocksScale + 'px';
+                helpElem.style.top = 105 * turtleBlocksScale + 'px';
+                var w = Math.min(300, 300); //  * turtleBlocksScale);
+                var h = Math.min(300, 300); //  * turtleBlocksScale);
                 helpElem.style.width = w + 'px';
                 helpElem.style.height = h + 'px';
 
-                if (scale > 1) {
-                    bitmap.scaleX = bitmap.scaleY = bitmap.scale = scale;
+                if (turtleBlocksScale > 1) {
+                    var bitmap = helpContainer.children[0];
+                    if (bitmap != undefined) {
+                        // bitmap.scaleX = bitmap.scaleY = bitmap.scale = turtleBlocksScale;
+                    }
                 }
+
             }
 
-            doneTour = storage.doneTour === 'true'
+            doneTour = storage.doneTour === 'true';
 
             if (firstTime && doneTour) {
                 docById('helpElem').style.visibility = 'hidden';
                 helpContainer.visible = false;
             } else {
                 if (sugarizerCompatibility.isInsideSugarizer()) {
-                    sugarizerCompatibility.data.doneTour = 'true'
+                    sugarizerCompatibility.data.doneTour = 'true';
                 } else {
-                    storage.doneTour = 'true'
+                    storage.doneTour = 'true';
                 }
-                docById('helpElem').innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '"</img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>'
+                docById('helpElem').innerHTML = '<img src ="' + HELPCONTENT[helpIdx][2] + '"</img> <h2>' + HELPCONTENT[helpIdx][0] + '</h2><p>' + HELPCONTENT[helpIdx][1] + '</p>';
                 docById('helpElem').style.visibility = 'visible';
                 helpContainer.visible = true;
                 update = true;
@@ -1777,15 +2579,15 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     doMenuAnimation(1);
                 }
             }
-        }
+        };
 
-        function doMenuButton() {
-            doMenuAnimation(1);
-        }
+        function _doMenuButton() {
+            _doMenuAnimation(1);
+        };
 
-        function doMenuAnimation() {
+        function _doMenuAnimation() {
             var bitmap = last(menuContainer.children);
-            if (bitmap !== null) {
+            if (bitmap != null) {
                 var r = bitmap.rotation;
                 createjs.Tween.get(bitmap)
                     .to({
@@ -1796,46 +2598,90 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                     }, 500);
             } else {
                 // Race conditions during load
-                setTimeout(doMenuAnimation, 50);
+                setTimeout(_doMenuAnimation, 50);
             }
+
             setTimeout(function () {
                 if (menuButtonsVisible) {
                     menuButtonsVisible = false;
-                    for (button in onscreenMenu) {
+                    for (var button in onscreenMenu) {
                         onscreenMenu[button].visible = false;
                     }
                 } else {
                     menuButtonsVisible = true;
-                    for (button in onscreenMenu) {
+                    for (var button in onscreenMenu) {
                         onscreenMenu[button].visible = true;
                     }
                 }
                 update = true;
             }, 500);
-        }
+        };
 
-        function toggleToolbar() {
+        function _toggleToolbar() {
             buttonsVisible = !buttonsVisible;
             menuContainer.visible = buttonsVisible;
             headerContainer.visible = buttonsVisible;
-            for (button in onscreenButtons) {
+            for (var button in onscreenButtons) {
                 onscreenButtons[button].visible = buttonsVisible;
             }
-            for (button in onscreenMenu) {
+
+            for (var button in onscreenMenu) {
                 onscreenMenu[button].visible = buttonsVisible;
             }
-            update = true;
-        }
 
-        function makeButton(name, x, y, size, rotation) {
+            update = true;
+        };
+
+        function _makeButton(name, label, x, y, size, rotation, parent) {
             var container = new createjs.Container();
-            if (name == 'paste-disabled-button') {
+            if (name === 'paste-disabled-button') {
                 pasteContainer = container;
             }
 
-            stage.addChild(container);
+            if (parent == undefined) {
+                stage.addChild(container);
+            } else {
+                parent.addChild(container);
+            }
+
             container.x = x;
             container.y = y;
+
+            var text = new createjs.Text(label, '14px Sans', '#282828');
+            if (container.y < 55) {
+                if (container.x < 55) {
+                    text.textAlign = 'left';
+                    text.x = -14;
+                } else {
+                    text.textAlign = 'center';
+                    text.x = 0;
+                }
+                text.y = 30;
+            } else {
+                text.textAlign = 'right';
+                text.x = -28;
+                text.y = 0;
+            }
+
+            text.visible = false;
+
+            container.on('mouseover', function (event) {
+                for (var c = 0; c < container.children.length; c++) {
+                    if (container.children[c].text != undefined) {
+                        container.children[c].visible = true;
+                        break;
+                    }
+                }
+            });
+
+            container.on('mouseout', function (event) {
+                for (var c = 0; c < container.children.length; c++) {
+                    if (container.children[c].text != undefined) {
+                        container.children[c].visible = false;
+                        break;
+                    }
+                }
+            });
 
             var img = new Image();
 
@@ -1843,11 +2689,12 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 var originalSize = 55; // this is the original svg size
                 var halfSize = Math.floor(size / 2);
 
-                bitmap = new createjs.Bitmap(img);
-                if (size != originalSize) {
+                var bitmap = new createjs.Bitmap(img);
+                if (size !== originalSize) {
                     bitmap.scaleX = size / originalSize;
                     bitmap.scaleY = size / originalSize;
                 }
+
                 bitmap.regX = halfSize / bitmap.scaleX;
                 bitmap.regY = halfSize / bitmap.scaleY;
                 if (rotation !== undefined) {
@@ -1863,42 +2710,91 @@ define(["activity/sugarizer-compatibility",'activity/platformstyle','easeljs','t
                 bitmap.cache(0, 0, size, size);
                 bitmap.updateCache();
                 update = true;
-            }
+            };
 
-            img.src = 'icons/' + name + '.svg';
+            img.src = 'header-icons/' + name + '.svg';
+            container.addChild(text);
 
             return container;
-        }
+        };
 
-        function loadButtonDragHandler(container, ox, oy, action) {
+        function _loadButtonDragHandler(container, ox, oy, action, longAction, extraLongAction, longImg, extraLongImg) {
             // Prevent multiple button presses (i.e., debounce).
             var locked = false;
+
+            if (longAction === null) {
+                longAction = action;
+            }
+
+            if (extraLongAction === null) {
+                extraLongAction = longAction;
+            }
+
+            // Long and extra-long press variables declaration
+            var pressTimer, pressTimerExtra, isLong = false, isExtraLong = false;
+            var formerContainer = container;
 
             container.on('mousedown', function (event) {
                 var moved = true;
                 var offset = {
-                    x: container.x - Math.round(event.stageX / blocks.scale),
-                    y: container.y - Math.round(event.stageY / blocks.scale)
+                    x: container.x - Math.round(event.stageX / turtleBlocksScale),
+                    y: container.y - Math.round(event.stageY / turtleBlocksScale)
                 };
 
-                var circles = showButtonHighlight(ox, oy, cellSize / 2,
-                    event, scale, stage);
+                pressTimer = setTimeout(function () {
+                    isLong = true;
+                    if (longImg !== null) {
+                        container.visible = false;
+                        container = _makeButton(longImg, '', ox, oy, cellSize, 0);
+                    }
+                }, 500);
+
+                pressTimerExtra = setTimeout(function () {
+                    isExtraLong = true;
+                    if (extraLongImg !== null) {
+                        container.visible = false;
+                        container = _makeButton(extraLongImg, '', ox, oy, cellSize, 0);
+                    }
+                }, 1000);
+
+                var circles = showButtonHighlight(ox, oy, cellSize / 2, event, turtleBlocksScale, stage);
+
                 container.on('pressup', function (event) {
                     hideButtonHighlight(circles, stage);
-
                     container.x = ox;
                     container.y = oy;
+
+                    if (longImg !== null || extraLongImg !== null) {
+                        container.visible = false;
+                        container = formerContainer;
+                        container.visible = true;
+                    }
+
                     if (action != null && moved && !locked) {
                         locked = true;
+
                         setTimeout(function () {
                             locked = false;
                         }, 500);
-                        action();
+
+                        clearTimeout(pressTimer);
+                        clearTimeout(pressTimerExtra);
+
+                        if (!isLong) {
+                            action();
+                        } else if (!isExtraLong) {
+                            longAction();
+                        } else {
+                            extraLongAction();
+                        }
                     }
                     moved = false;
                 });
-            });
-        }
-    }
 
+                isLong = false;
+                isExtraLong = false;
+            });
+
+        };
+    };
 });

@@ -1,12 +1,12 @@
 // Copyright (c) 2014,2015 Walter Bender
 //
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3 of the License, or
-// (at your option) any later version.
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the The GNU Affero General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
 //
-// You should have received a copy of the GNU General Public License
-// along with this library; if not, write to the Free Software
+// You should have received a copy of the GNU Affero General Public
+// License along with this library; if not, write to the Free Software
 // Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
 
 function format(str, data) {
@@ -25,7 +25,7 @@ function format(str, data) {
                      function (match, item) {
     return _(item);
   });
-}
+};
 
 
 function canvasPixelRatio() {
@@ -37,7 +37,7 @@ function canvasPixelRatio() {
                             context.oBackingStorePixelRatio ||
                             context.backingStorePixelRatio || 1;
     return devicePixelRatio / backingStoreRatio;
-}
+};
 
 
 function windowHeight() {
@@ -47,7 +47,17 @@ function windowHeight() {
     } else {
         return window.innerHeight;
     }
-}
+};
+
+
+function windowWidth() {
+    var onAndroid = /Android/i.test(navigator.userAgent);
+    if (onAndroid) {
+        return window.outerWidth;
+    } else {
+        return window.innerWidth;
+    }
+};
 
 
 function httpGet(projectName) {
@@ -55,7 +65,7 @@ function httpGet(projectName) {
 
     xmlHttp = new XMLHttpRequest();
 
-    if (projectName == null) {
+    if (projectName === null) {
         xmlHttp.open("GET", window.server, false);
         xmlHttp.setRequestHeader('x-api-key', '3tgTzMXbbw6xEKX7');
     } else {
@@ -67,7 +77,7 @@ function httpGet(projectName) {
         throw 'Error from server';
     }
     return xmlHttp.responseText;
-}
+};
 
 
 function httpPost(projectName, data) {
@@ -78,7 +88,7 @@ function httpPost(projectName, data) {
     xmlHttp.send(data);
     // return xmlHttp.responseText;
     return 'https://apps.facebook.com/turtleblocks/?file=' + projectName;
-}
+};
 
 
 function HttpRequest(url, loadCallback, userCallback) {
@@ -86,8 +96,9 @@ function HttpRequest(url, loadCallback, userCallback) {
     var req = this.request = new XMLHttpRequest();
     this.handler = loadCallback;
     this.url = url;
-    this.localmode = Boolean(self.location.href.search(/^file:/i) == 0);
+    this.localmode = Boolean(self.location.href.search(/^file:/i) === 0);
     this.userCallback = userCallback;
+
     var objref = this;
     try {
         req.open('GET', url);
@@ -96,44 +107,55 @@ function HttpRequest(url, loadCallback, userCallback) {
     }
     catch(e) {
         if (self.console) console.log('Failed to load resource from ' + url + ': Network error.');
-        if (typeof userCallback == 'function') userCallback(false, 'network error');
+        if (typeof userCallback === 'function') userCallback(false, 'network error');
         this.request = this.handler = this.userCallback = null;
     }
-}
+};
 
 
 function docByTagName(tag) {
     document.getElementsByTagName(tag);
-}
+};
 
 
 function docById(id) {
     return document.getElementById(id);
-}
+};
 
 
 function last(myList) {
     var i = myList.length;
-    if (i == 0) {
+    if (i === 0) {
         return null;
     } else {
         return myList[i - 1];
     }
-}
+};
 
 
 function doSVG(canvas, logo, turtles, width, height, scale) {
+    // Aggregate SVG output from each turtle. If there is none, use
+    // the MUSICICON.
+    var MUSICICON = '<g transform="matrix(20,0,0,20,-2500,-200)"> <g style="font-size:20px;font-family:Sans;text-anchor:end;fill:#000000" transform="translate(0.32906,-0.2)"> <path d="m 138.47094,26.82 q 0,-1.16 1.24,-2.02 0.96,-0.64 1.94,-0.64 0.68,0.02 1.18,0.34 l 0,-11.84 0.44,0 0,12.94 q 0,1.32 -1.34,2.1 -0.86,0.5 -1.8,0.5 -0.98,0 -1.44,-0.7 -0.22,-0.32 -0.22,-0.68 z" /> </g> <g transform="translate(-12.52094,4.8)" style="font-size:20px;font-family:Sans;text-anchor:end;fill:#000000"> <path d="m 138.47094,26.82 q 0,-1.16 1.24,-2.02 0.96,-0.64 1.94,-0.64 0.68,0.02 1.18,0.34 l 0,-11.84 0.44,0 0,12.94 q 0,1.32 -1.34,2.1 -0.86,0.5 -1.8,0.5 -0.98,0 -1.44,-0.7 -0.22,-0.32 -0.22,-0.68 z" /> </g> <path style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 130.81346,17 12.29007,-5 0,2 -12.29007,5 z" /> </g>';
+
+    var turtleSVG = '';
+    for (var turtle in turtles.turtleList) {
+        turtles.turtleList[turtle].closeSVG();
+        turtleSVG += turtles.turtleList[turtle].svgOutput;
+    }
+
     var svg = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '">\n';
     svg += '<g transform="scale(' + scale + ',' + scale + ')">\n';
     svg += logo.svgOutput;
-    for (var turtle in turtles.turtleList) {
-        turtles.turtleList[turtle].closeSVG();
-        svg += turtles.turtleList[turtle].svgOutput;
-    }
     svg += '</g>';
+    if (turtleSVG === '') {
+        svg += MUSICICON;
+    } else {
+        svg += turtleSVG;
+    }
     svg += '</svg>';
     return svg;
-}
+};
 
 
 function isSVGEmpty(turtles) {
@@ -144,29 +166,29 @@ function isSVGEmpty(turtles) {
         }
     }
     return true;
-}
+};
 
 
 function fileExt(file) {
     var parts = file.split('.');
-    if (parts.length == 1 || (parts[0] == '' && parts.length == 2)) {
+    if (parts.length === 1 || (parts[0] === '' && parts.length === 2)) {
         return '';
     }
     return parts.pop();
-}
+};
 
 
 function fileBasename(file) {
     var parts = file.split('.');
-    if (parts.length == 1) {
+    if (parts.length === 1) {
         return parts[0];
-    } else if (parts[0] == '' && parts.length == 2) {
+    } else if (parts[0] === '' && parts.length === 2) {
         return file;
     } else {
         parts.pop(); // throw away suffix
         return parts.join('.');
     }
-}
+};
 
 
 // Needed to generate new data for localization.ini
@@ -174,27 +196,36 @@ function fileBasename(file) {
 function _(text) {
     replaced = text;
     replace = [",", "(", ")", "?", "¿", "<", ">", ".", '"\n', '"', ":", "%s", "%d", "/", "'", ";", "×", "!", "¡"];
-    for (p = 0; p < replace.length; p++) {
+    for (var p = 0; p < replace.length; p++) {
         replaced = replaced.replace(replace[p], "");
     }
     replaced = replaced.replace(/ /g, '-');
     // Needed to generate new data for localization.ini
     // txt = "\n" + replaced + " = " + text;
-    // if (translated.lastIndexOf(txt) == -1) {
+    // if (translated.lastIndexOf(txt) === -1) {
     //     translated = translated + txt;
     //  }
     // You can log translated in console.log(translated)
     try {
         translation = document.webL10n.get(replaced);
-        if (translation == '') {
+        if (translation === '') {
             translation = text;
         };
         return translation;
     } catch (e) {
+        console.log('i18n error: ' + text);
         return text;
     }
 };
 
+function toTitleCase(str) {
+    if (typeof str !== 'string')
+        return;
+    var tempStr = '';
+    if (str.length > 1)
+        tempStr = str.substring(1);
+    return str.toUpperCase()[0] + tempStr;
+}
 
 function processRawPluginData(rawData, palettes, blocks, errorMsg, evalFlowDict, evalArgDict, evalParameterDict, evalSetterDict, evalOnStartList, evalOnStopList) {
     // console.log(rawData);
@@ -203,11 +234,11 @@ function processRawPluginData(rawData, palettes, blocks, errorMsg, evalFlowDict,
 
     // We need to remove blank lines and comments and then
     // join the data back together for processing as JSON.
-    for (i = 0; i < lineData.length; i++) {
-        if (lineData[i].length == 0) {
+    for (var i = 0; i < lineData.length; i++) {
+        if (lineData[i].length === 0) {
             continue;
         }
-        if (lineData[i][0] == '/') {
+        if (lineData[i][0] === '/') {
             continue;
         }
         cleanData += lineData[i];
@@ -215,14 +246,14 @@ function processRawPluginData(rawData, palettes, blocks, errorMsg, evalFlowDict,
 
     // Note to plugin developers: You may want to comment out this
     // try/catch while debugging your plugin.
-    //try {
+    try {
         var obj = processPluginData(cleanData.replace(/\n/g,''), palettes, blocks, evalFlowDict, evalArgDict, evalParameterDict, evalSetterDict, evalOnStartList, evalOnStopList);
-    //} catch (e) {
-    //    var obj = null;
-    //    errorMsg('Error loading plugin: ' + e);
-    //}
+    } catch (e) {
+        var obj = null;
+        errorMsg('Error loading plugin: ' + e);
+    }
     return obj;
-}
+};
 
 
 function processPluginData(pluginData, palettes, blocks, evalFlowDict, evalArgDict, evalParameterDict, evalSetterDict, evalOnStartList, evalOnStopList) {
@@ -366,7 +397,7 @@ function processPluginData(pluginData, palettes, blocks, evalFlowDict, evalArgDi
 
     // Push the protoblocks onto their palettes.
     for (var protoblock in blocks.protoBlockDict) {
-        if (blocks.protoBlockDict[protoblock].palette == undefined) {
+        if (blocks.protoBlockDict[protoblock].palette === undefined) {
             console.log('Cannot find palette for protoblock ' + protoblock);
         } else {
             blocks.protoBlockDict[protoblock].palette.add(blocks.protoBlockDict[protoblock]);
@@ -380,50 +411,61 @@ function processPluginData(pluginData, palettes, blocks, evalFlowDict, evalArgDi
 
     // Return the object in case we need to save it to local storage.
     return obj;
-}
+};
 
 
 function updatePluginObj(obj) {
     for (var name in obj['PALETTEPLUGINS']) {
         pluginObjs['PALETTEPLUGINS'][name] = obj['PALETTEPLUGINS'][name];
     }
+
     for (var name in obj['PALETTEFILLCOLORS']) {
         pluginObjs['PALETTEFILLCOLORS'][name] = obj['PALETTEFILLCOLORS'][name];
     }
+
     for (var name in obj['PALETTESTROKECOLORS']) {
         pluginObjs['PALETTESTROKECOLORS'][name] = obj['PALETTESTROKECOLORS'][name];
     }
+
     for (var name in obj['PALETTEHIGHLIGHTCOLORS']) {
         pluginObjs['PALETTEHIGHLIGHTCOLORS'][name] = obj['PALETTEHIGHLIGHTCOLORS'][name];
     }
+
     for (var flow in obj['FLOWPLUGINS']) {
         pluginObjs['FLOWPLUGINS'][flow] = obj['FLOWPLUGINS'][flow];
     }
+
     for (var arg in obj['ARGPLUGINS']) {
         pluginObjs['ARGPLUGINS'][arg] = obj['ARGPLUGINS'][arg];
     }
+
     for (var block in obj['BLOCKPLUGINS']) {
         pluginObjs['BLOCKPLUGINS'][block] = obj['BLOCKPLUGINS'][block];
     }
+
     if ('GLOBALS' in obj) {
         if (!('GLOBALS' in pluginObjs)) {
             pluginObjs['GLOBALS'] = '';
         }
         pluginObjs['GLOBALS'] += obj['GLOBALS'];
     }
+
     if ('IMAGES' in obj) {
         pluginObjs['IMAGES'] = obj['IMAGES'];
     }
+
     for (var name in obj['ONLOAD']) {
         pluginObjs['ONLOAD'][name] = obj['ONLOAD'][name];
     }
+
     for (var name in obj['ONSTART']) {
         pluginObjs['ONSTART'][name] = obj['ONSTART'][name];
     }
+
     for (var name in obj['ONSTOP']) {
         pluginObjs['ONSTOP'][name] = obj['ONSTOP'][name];
     }
-}
+};
 
 
 function preparePluginExports(obj) {
@@ -431,37 +473,44 @@ function preparePluginExports(obj) {
     updatePluginObj(obj);
 
     return JSON.stringify(pluginObjs);
-}
+};
 
 
 function processMacroData(macroData, palettes, blocks, macroDict) {
     // Macros are stored in a JSON-encoded dictionary.
-    if (macroData != '{}') {
+    if (macroData !== '{}') {
         var obj = JSON.parse(macroData);
-        console.log('adding myblocks palette');
         palettes.add('myblocks', 'black', '#a0a0a0');
-        for (name in obj) {
+
+        for (var name in obj) {
             console.log('adding ' + name + ' to macroDict');
             macroDict[name] = obj[name];
             blocks.addToMyPalette(name, macroDict[name]);
         }
+
         palettes.makePalettes();
     }
-}
+};
 
 
 function prepareMacroExports(name, stack, macroDict) {
-    if (name != null) {
+    if (name !== null) {
         macroDict[name] = stack;
     }
+
     return JSON.stringify(macroDict);
-}
+};
 
 
 function doSaveSVG(logo, desc) {
     var svg = doSVG(logo.canvas, logo, logo.turtles, logo.canvas.width, logo.canvas.height, 1.0);
     download(desc, 'data:image/svg+xml;utf8,' + svg, desc, '"width=' + logo.canvas.width + ', height=' + logo.canvas.height + '"');
-}
+};
+
+
+function doSaveLilypond(logo, desc) {
+    download(desc, 'data:text;utf8,' + encodeURIComponent(logo.lilypondOutput), desc, '"width=' + logo.canvas.width + ', height=' + logo.canvas.height + '"');
+};
 
 
 function download(filename, data) {
@@ -471,7 +520,7 @@ function download(filename, data) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-}
+};
 
 // Some block-specific code
 
@@ -491,7 +540,7 @@ function doPublish(desc) {
     FB.login(post_cb, {
         scope: 'publish_actions'
     });
-}
+};
 
 
 // TODO: Move to camera plugin
@@ -562,36 +611,175 @@ function doUseCamera(args, turtles, turtle, isVideo, cameraID, setCameraID, erro
         canvas.getContext('2d').drawImage(video, 0, 0, w, h);
         var data = canvas.toDataURL('image/png');
         turtles.turtleList[turtle].doShowImage(args[0], data);
-    }
-}
+    };
+};
 
 
 function doStopVideoCam(cameraID, setCameraID) {
-    if (cameraID != null) {
+    if (cameraID !== null) {
         window.clearInterval(cameraID);
     }
+
     setCameraID(null);
     document.querySelector('#camVideo').pause();
-}
+};
 
 
 function hideDOMLabel() {
     var textLabel = docById('textLabel');
-    if (textLabel != null) {
+    if (textLabel !== null) {
         textLabel.style.display = 'none';
     }
+
     var numberLabel = docById('numberLabel');
-    if (numberLabel != null) {
+    if (numberLabel !== null) {
         numberLabel.style.display = 'none';
     }
-}
+
+    var solfegeLabel = docById('solfegeLabel');
+    if (solfegeLabel !== null) {
+        solfegeLabel.style.display = 'none';
+    }
+
+    var notenameLabel = docById('notenameLabel');
+    if (notenameLabel !== null) {
+        notenameLabel.style.display = 'none';
+    }
+
+    var noteattrLabel = docById('noteattrLabel');
+    if (noteattrLabel !== null) {
+        noteattrLabel.style.display = 'none';
+    }
+
+    var drumnameLabel = docById('drumnameLabel');
+    if (drumnameLabel !== null) {
+        drumnameLabel.style.display = 'none';
+    }
+
+    var voicenameLabel = docById('voicenameLabel');
+    if (voicenameLabel !== null) {
+        voicenameLabel.style.display = 'none';
+    }
+
+    var modenameLabel = docById('modenameLabel');
+    if (modenameLabel !== null) {
+        modenameLabel.style.display = 'none';
+    }
+};
 
 
 function displayMsg(blocks, text) {
-    return;
+    /*
     var msgContainer = blocks.msgText.parent;
     msgContainer.visible = true;
     blocks.msgText.text = text;
     msgContainer.updateCache();
     blocks.stage.setChildIndex(msgContainer, blocks.stage.getNumChildren() - 1);
-}
+    */
+    return;
+};
+
+
+function toFixed2 (d) {
+    // Return number as fixed 2 precision
+    var floor = Math.floor(d);
+    if (d !== floor) {
+        return d.toFixed(2).toString();
+    } else {
+        return d.toString();
+    }
+};
+
+
+function mixedNumber (d) {
+    // Return number as a mixed fraction string, e.g., "2 1/4"
+    var floor = Math.floor(d);
+    if (d > floor) {
+	var obj = rationalToFraction(d - floor);
+        if (floor === 0) {
+            return obj[0] + '/' + obj[1];
+        } else {
+            if (obj[0] === 1 && obj[1] === 1) {
+                return floor + 1;
+            } else {
+                if (obj[1] > 99) {
+                    return d.toFixed(2);
+                } else {
+                    return floor + ' ' + obj[0] + '/' + obj[1];
+                }
+            }
+        }
+    } else {
+	return d.toString();
+    }
+};
+
+
+function LCD(a, b) {
+    return Math.abs((a * b) / GCD(a, b));
+};
+
+
+function GCD(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    while(b) {
+        var n = b;
+        b = a % b;
+        a = n;
+    }
+
+    return a;
+};
+
+
+function rationalToFraction (d) {
+    /*
+    Convert float to its approximate fractional representation. '''
+
+    This code was translated to JavaScript from the answers at
+    http://stackoverflow.com/questions/95727/how-to-convert-floats-to-human-\
+readable-fractions/681534#681534
+
+    For example:
+    >>> 3./5
+    0.59999999999999998
+
+    >>> rationalToFraction(3./5)
+    "3/5"
+
+    */
+
+    if (d > 1) {
+        var invert = true;
+        d = 1 / d;
+    } else {
+        var invert = false;
+    }
+
+    var df = 1.0;
+    var top = 1;
+    var bot = 1;
+
+    while (Math.abs(df - d) > 0.00000001) {
+        if (df < d) {
+            top += 1;
+        } else {
+            bot += 1;
+            top = Math.floor(d * bot);
+        }
+
+        df = top / bot;
+    }
+
+    if (bot === 0 || top === 0) {
+        return [0, 1];
+    }
+
+    if (invert) {
+        return [bot, top];
+    } else {
+        return [top, bot];
+    }
+};

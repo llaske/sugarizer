@@ -1,13 +1,14 @@
 // Copyright (c) 2015 Walter Bender
 //
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3 of the License, or
-// (at your option) any later version.
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the The GNU Affero General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
 //
-// You should have received a copy of the GNU General Public License
-// along with this library; if not, write to the Free Software
+// You should have received a copy of the GNU Affero General Public
+// License along with this library; if not, write to the Free Software
 // Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
+//
 
 // FIXME: Use busy cursor
 
@@ -31,7 +32,7 @@ function PluginsViewer(canvas, stage, refreshCanvas, close, load) {
     }
 
     this.hide = function() {
-        if (this.container != null) {
+        if (this.container !== null) {
             this.container.visible = false;
             this.refreshCanvas();
         }
@@ -47,9 +48,9 @@ function PluginsViewer(canvas, stage, refreshCanvas, close, load) {
                 // console.log('json parse: ' + obj);
                 // Look for svg
                 for (var file in obj) {
-                    if (fileExt(obj[file]) == 'svg') {
+                    if (fileExt(obj[file]) === 'svg') {
                         var name = fileBasename(obj[file]);
-                        if (this.pluginFiles.indexOf(name) == -1) {
+                        if (this.pluginFiles.indexOf(name) === -1) {
                             this.pluginFiles.push(name);
                         }
                     }
@@ -71,7 +72,7 @@ function PluginsViewer(canvas, stage, refreshCanvas, close, load) {
         }
         console.log('found these projects: ' + this.pluginFiles.sort());
 
-        if (this.container == null) {
+        if (this.container === null) {
             this.container = new createjs.Container();
             this.stage.addChild(this.container);
             this.container.x = Math.floor(((this.canvas.width / scale) - 650) / 2);
@@ -137,7 +138,7 @@ function PluginsViewer(canvas, stage, refreshCanvas, close, load) {
             viewer.dict[viewer.pluginFiles[p]].y = y;
             viewer.dict[viewer.pluginFiles[p]].visible = true;
             viewer.refreshCanvas();
-            if (prepareNextImage != null) {
+            if (prepareNextImage !== null) {
                 prepareNextImage(viewer, p + 1);
             }
         }
@@ -164,7 +165,7 @@ function PluginsViewer(canvas, stage, refreshCanvas, close, load) {
                 viewer.downloadImage(p, viewer.prepareNextImage);
             }
         } else {
-            if (viewer.page == 0) {
+            if (viewer.page === 0) {
                 viewer.prev.visible = false;
             }
             if ((viewer.page + 1) * 16 < viewer.pluginFiles.length) {
@@ -185,7 +186,7 @@ function hideCurrentPage(viewer) {
     }
     // Go back to previous page.
     viewer.page -= 1;
-    if (viewer.page == 0) {
+    if (viewer.page === 0) {
         viewer.prev.visible = false;
     }
     if ((viewer.page + 1) * 16 < viewer.pluginFiles.length) {

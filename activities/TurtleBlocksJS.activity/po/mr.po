@@ -16,925 +16,1571 @@ msgid ""
 
 
 msgid ""
+
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/block.js:553
+msgid "rest"
 msgstr ""
 
-msgid "Delete all"
-msgstr "सर्व हटवा"
-
-msgid "show"
-msgstr "दाखवा"
-
-msgid "text"
-msgstr "मजकूर"
-
-msgid "random"
-msgstr "कुटला पण"
-
-msgid "confirm"
-msgstr "पुष्टी"
-
-msgid "rice and beans"
-msgstr "तांदूळ आणि सोयाबीनचे"
-
-#. TRANS: mashape webservices (probably no need to translate)
-msgid "mashape"
-msgstr ""
-
-#. TRANS: target language for translation
-msgid "target"
-msgstr "लक्ष्य"
-
-msgid "keyboard"
-msgstr "किबोर्ड"
-
-msgid "You can also load projects from the file system."
-msgstr "आपण फाइल प्रणाली मधुन पण प्रकल्प लोड करू शकतो."
-
-#. TRANS: as in "on event do"
-msgid "on"
-msgstr ""
-
-msgid "chicken"
-msgstr "कोंबडी"
-
-msgid "apple"
-msgstr "सफरचंद"
-
-msgid "number"
-msgstr "अंक"
-
-#. TRANS: unique ID
-msgid "UID"
-msgstr ""
-
-#. TRANS: name of project
-msgid "title"
-msgstr "शीर्षक"
-
-msgid "radians"
-msgstr "त्रिज्यी"
-
-msgid "Undo"
-msgstr "पूर्ववत"
-
-#. TRANS: ms is micro seconds
-msgid "duration (ms)"
-msgstr ""
-
-#. TRANS: as in "add 1 to"
-msgid "to"
-msgstr "करण्यासाठी / च्यापर्यत"
-
-msgid "add"
-msgstr "जोडा"
-
-msgid "set pen size"
-msgstr "लोखणीचे आकार संच करा"
-
-msgid "start turtle"
-msgstr "टर्टल सुरु करा"
-
-msgid "latitude"
-msgstr "अक्षांश"
-
-msgid "mouse x"
-msgstr "माऊस x"
-
-msgid "mouse y"
-msgstr "माऊस y"
-
-msgid "Show/hide blocks"
-msgstr "ब्लॉक दाखवा/लपवा"
-
-msgid "then"
-msgstr "नंतर"
-
-msgid "move"
-msgstr "हलवा"
-
-msgid "Stop the current project."
-msgstr "वर्तमान प्रकल्प थांबवा."
-
-msgid "stop turtle"
-msgstr "टर्टल थांबवा"
-
-msgid "food"
-msgstr "अन्न"
-
-msgid "Click to run the project in slow mode."
-msgstr "प्रकल्प मंद पणे चालण्या साठी इकडे दाबा"
-
-msgid "stop"
-msgstr "थांबा"
-
-msgid "fat"
-msgstr "चरबी"
-
-msgid "Expand or collapse start and action stacks."
-msgstr ""
-
-#. TRANS: pop a value off of the heap.
-msgid "pop"
-msgstr ""
-
-msgid "background"
-msgstr "बैक्ग्राउन्ड / मागे / पार्श्वभूमी"
-
-#. TRANS: logical "not" operator
-msgid "not"
-msgstr "नाही"
-
-msgid "Google map"
-msgstr "Google नकाशा"
-
-msgid "day"
-msgstr "दिवस"
-
-#. TRANS: mathematical modular (remainder) function.
-msgid "mod"
-msgstr ""
-
-msgid "Save project"
-msgstr "प्रकल्प जतन करा"
-
-msgid "get fiber"
-msgstr "फाइबर \ तंतू काडा"
-
-msgid "Open a panel for configuring Turtle Blocks."
-msgstr "एक फळी उघडा टर्टल चा संरांचना साठी "
-
-#. TRANS: the name of a variable (stored in a box)
-msgid "name"
-msgstr "नाव"
-
-msgid "turtle x"
-msgstr "टर्टल x"
-
-msgid "turtle y"
-msgstr "टर्टल y"
-
-msgid "Download"
-msgstr "डाउनलोड"
-
-msgid "The paste button is enabled when there are blocks copied onto the clipboard."
-msgstr ""
-
-msgid "Expand/collapse toolbar"
-msgstr "साधनपट्टी दाखवा/लपवा"
-
-msgid "zoom"
-msgstr "मोठा आणि छोटा करा"
-
-msgid "Hide or show the blocks and the palettes."
-msgstr "ब्लॉक आणि पॅलेट दाखवा/लपवा"
-
-msgid "to degrees"
-msgstr "अंश"
-
-msgid "Restore blocks from the trash."
-msgstr "कचरा मधुन ब्लॉक पुनर्संचयित करा."
-
-msgid "get calories"
-msgstr "कैलरी काडा"
-
-msgid "Load plugin from file"
-msgstr "फाइल मधुन प्लगइन लोड करा"
-
-msgid "You can scroll the blocks on the canvas."
-msgstr ""
-
-msgid "x"
-msgstr "x"
-
-msgid "show blocks"
-msgstr "ब्लॉक्स दाखवा"
-
-msgid "heading"
-msgstr "शिर्षक"
-
-msgid "Help"
-msgstr "मदत"
-
-msgid "turtle"
-msgstr "कासव"
-
-msgid "right"
-msgstr "उजव्या"
-
-msgid "Load samples from server"
-msgstr "सर्व्हर नमुने लोड करा"
-
-msgid "hide blocks"
-msgstr "ब्लॉक्स लपवा"
-
-msgid "Hide or show the block palettes."
-msgstr "ब्लॉक आणि पॅलेट दाखवा/लपवा"
-
-msgid "This button opens a viewer for loading example projects."
-msgstr "हे बटण उदाहरणार्थ प्रकल्प लोड करण्यासाठी एक दर्शक उघडते."
-
-msgid "Enable scrolling"
-msgstr ""
-
-msgid "back"
-msgstr "परत"
-
-msgid "Publish"
-msgstr "प्रकाशित करा"
-
-msgid "grey"
-msgstr "राखाडी"
-
-msgid "arc"
-msgstr "कंस"
-
-msgid "radius"
-msgstr "त्रिज्या"
-
-msgid "longitude"
-msgstr "रेखांश"
-
-msgid "duration"
-msgstr "कालावधी"
-
-#. TRANS: shade refers to value (dark to light)
-msgid "set shade"
-msgstr "रंगाचा दर्जा निश्चीत करा"
-
-#. TRANS: in mathematical sense (inverse of period)
-msgid "frequency"
-msgstr ""
-
-#. TRANS: as in the event that a signal arrives
-msgid "event"
-msgstr ""
-
-msgid "pixel color"
-msgstr "पिक्सेल रंग"
-
-msgid "eatme"
-msgstr "मला खावा"
-
-msgid "This button opens and closes the primary toolbar."
-msgstr "प्राथमिक साधनपट्टी दिसायला आणि लपवायला हे बटण दाबा"
-
-#. TRANS: index specifies a position into an array (heap)
-msgid "index"
-msgstr ""
-
-msgid "hide"
-msgstr ""
-
-#. TRANS: the heap is a first-in-last-out (FILO) stack
-msgid "show heap"
-msgstr "ढीग दाखवा"
-
-msgid "Show or hide a Cartesian-coordinate grid."
-msgstr "कार्टेशियन-समन्वय ग्रीड दाखवा/लपवा"
-
-#. TRANS: vertical space
-msgid "vspace"
-msgstr ""
-
-#. TRANS: publish project to Facebook
-msgid "publish"
-msgstr "प्रकाशित"
-
-#. TRANS: weather forecast
-msgid "forecast"
-msgstr "अंदाज"
-
-#. TRANS: hours ago that the data was updated.
-msgid "hours ago"
-msgstr ""
-
-msgid "pen"
-msgstr "पेन"
-
-msgid "fish"
-msgstr "मासे"
-
-msgid "print"
-msgstr "छापणे"
-
-#. TRANS: how many entries are in the heap?
-msgid "heap length"
-msgstr ""
-
-msgid "size"
-msgstr "आकार"
-
-msgid "Expand/collapse option toolbar"
-msgstr "साधनपट्टी दाखवायसाठी / लपवायसाठी पर्याय"
-
-msgid "end hollow line"
-msgstr ""
-
-msgid "city latitude"
-msgstr ""
-
-#. TRANS: dietary fiber
-msgid "fiber"
-msgstr "धागा"
-
-msgid "You can load new blocks from the file system."
-msgstr "आपण फाइल प्रणाली मधुन नवीन ब्लॉक लोड करू शकतो."
-
-#. TRANS: mathematical power, e.g., 2^4 == 16
-msgid "power"
-msgstr "शक्ती"
-
-msgid "Settings"
-msgstr "सेटिंग"
-
-msgid "one of"
-msgstr ""
-
-msgid "Save stack"
-msgstr "स्टॅक जतन करा"
-
-msgid "corn"
-msgstr "मक्का"
-
-msgid "Display statistics"
-msgstr "आकडेवारी दाखवणे"
-
-msgid "Remove all content on the canvas, including the blocks."
-msgstr "कॅनव्हास वरून ब्लॉक सोबत सर्व सामग्री काढा."
-
-msgid "to radians"
-msgstr "त्रिज्यी कडे"
-
-msgid "water"
-msgstr "पाणी"
-
-#. TRANS: mathematical exponential base
-msgid "base"
-msgstr "तळ"
-
-msgid "cookie"
-msgstr "कुकी"
-
-msgid "Show or hide a polar-coordinate grid."
-msgstr "ध्रुवीय-समन्वय ग्रीड दाखवा/लपवा"
-
-msgid "sweet potato"
-msgstr "रताळे"
-
-#. TRANS: save the heap to a file
-msgid "save heap"
-msgstr "ढीग जतन करा"
-
-msgid "from"
-msgstr "पासून"
-
-msgid "sensors"
-msgstr "सेन्सर्स"
-
-msgid "pen down"
-msgstr "लोखणी खाली ठेवा"
-
-#. TRANS: retrieve the value at a specific entry (index) in the heap
-msgid "index heap"
-msgstr ""
-
-msgid "get name"
-msgstr "नाव सांगा"
-
-msgid "wait"
-msgstr "थांबा"
-
-#. TRANS: a container for a variable
-msgid "box"
-msgstr "पेटी"
-
-msgid "Planet"
-msgstr "ग्रह"
-
-msgid "Show these messages."
-msgstr "हे संदेश दर्शवा."
-
-#. TRANS: object
-msgid "obj"
-msgstr ""
-
-#. TRANS: store a value in a box
-msgid "store in"
-msgstr "मध्ये संग्रह करणे"
-
-msgid "digest meal"
-msgstr "जेवण पचवणे"
-
-msgid "maths"
-msgstr "गणित"
-
-#. TRANS: popout window
-msgid "popout"
-msgstr ""
-
-msgid "zoom factor"
-msgstr "झूम घटक"
-
-#. TRANS: the name of a stack of blocks
+#: js/block.js:619
+#: js/block.js:1742
+#: js/activity.js:1279
+#: js/analytics.js:84
+#: js/palette.js:552
+#: js/palette.js:561
+#: js/palette.js:570
+#: js/palette.js:579
+#: js/palette.js:1716
+#: js/palette.js:1727
+#: js/palette.js:1738
+#: js/palette.js:1749
+#: js/basicblocks.js:528
+#: js/basicblocks.js:557
+#: js/basicblocks.js:564
+#: js/basicblocks.js:592
+#: js/basicblocks.js:602
+#: js/basicblocks.js:631
+#: js/basicblocks.js:655
+#: js/basicblocks.js:659
+#: js/basicblocks.js:665
+#: js/blocks.js:1816
+#: js/blocks.js:1818
+#: js/blocks.js:2006
+#: js/blocks.js:2165
+#: js/blocks.js:2285
+#: js/blocks.js:2717
+#: js/blocks.js:3467
+#: js/blocks.js:3544
 msgid "action"
 msgstr "क्रिया"
 
-#. TRANS: volume of microphone audio
-msgid "loudness"
-msgstr "जॊरत"
-
-msgid "Increase the size of the blocks."
-msgstr "ब्लॉकचा आकार वाढवा"
-
-#. TRANS: logical "or" operator
-msgid "or"
-msgstr "किंवा"
-
-#. TRANS: use sensor to detect objects on the left
-msgid "sense left"
-msgstr ""
-
-msgid "comment"
-msgstr "टिप्पणी"
-
-msgid "cheese"
-msgstr "चीज"
-
-msgid "Cartesian"
-msgstr "कार्टेशियन"
-
-#. TRANS: audio (as in musical note)
-msgid "tone"
-msgstr ""
-
-#. TRANS: evaluate Javascript code
-msgid "eval"
-msgstr "मूल्यमापन"
-
-msgid "color"
-msgstr "रंग"
-
-msgid "image"
-msgstr "प्रतिमा"
-
-msgid "Welcome to Turtle Blocks"
-msgstr "टर्टल मध्ये आपले स्वागत आहे"
-
-msgid "Increase block size"
-msgstr "ब्लॉकचा आकार वाढवा"
-
-msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
-msgstr ""
-
-#. TRANS: bitcoin currency (probably no need to translate)
-msgid "bitcoin"
-msgstr ""
-
-msgid "pen size"
-msgstr "पेन आकार"
-
-msgid "Clear the screen and return the turtles to their initial positions."
-msgstr "स्क्रीन साफ करा आणि कासवाला त्याचा प्रारंभिक भूमिके वर आणा"
-
-#. TRANS: Boolean logic
-msgid "boolean"
-msgstr "बुलियन"
-
-msgid "coordinates"
-msgstr "समन्वय"
-
-msgid "sing"
-msgstr "गाणे"
-
-msgid "Congratulations."
-msgstr "अभिनंदन"
-
-msgid "Run slow"
-msgstr "मंद पाणे चालवा"
-
-msgid "mouse button"
-msgstr "माऊस बटण"
-
-#. TRANS: cloud as in cloud server
-msgid "cloud"
-msgstr ""
-
-msgid "speak"
-msgstr "बोलणे"
-
-msgid "city"
-msgstr "शहर"
-
-#. TRANS: carbohydrates
-msgid "get carbs"
-msgstr ""
-
-msgid "Click to run the project in fast mode."
-msgstr "प्रकल्प वागने चालण्या साठी इकडे दाबा"
-
-msgid "beef"
-msgstr "गोमांस"
-
-#. TRANS: source language for translation
-msgid "source"
-msgstr "स्रोत"
-
-msgid "unknown"
-msgstr "अज्ञात"
-
-msgid "wait for"
-msgstr "प्रतीक्षा करा"
-
-msgid "pen up"
-msgstr "लोखणी वर करा"
-
-msgid "Decrease the size of the blocks."
-msgstr "ब्लॉकचा आकार घटवा"
-
+#: js/block.js:622
+#: js/turtle.js:528
+#: js/turtle.js:529
+#: js/basicblocks.js:647
 msgid "start"
 msgstr "सुरूवात"
 
-msgid "stock price"
-msgstr "स्टॉकची किंमत"
-
-#. TRANS: is the heap empty?
-msgid "heap empty?"
+#: js/block.js:625
+msgid "matrix"
 msgstr ""
 
-msgid "motion z"
-msgstr "z चलऩ"
-
-#. TRANS: low temperature
-msgid "low"
-msgstr "कमी"
-
-msgid "motion x"
-msgstr "x चलऩ"
-
-msgid "motion y"
-msgstr "y चलऩ"
-
-msgid "forward"
-msgstr "पुढे"
-
-#. TRANS: 360 degrees in a circle
-msgid "degrees"
-msgstr "अंश"
-
-msgid "translate"
-msgstr "अनुवाद"
-
-msgid "until"
-msgstr "जोपर्यंत"
-
-msgid "define"
-msgstr "परिभाषित"
-
-msgid "On my device"
+#: js/block.js:628
+#: js/turtle.js:386
+msgid "drum"
 msgstr ""
 
-#. TRANS: save project as simple vector graphic (SVG)
-msgid "save svg"
-msgstr "SVG जतन करा"
-
-#. TRANS: mathematical ceiling function, e.g., ceiling(2.5) == 3
-msgid "ceiling"
-msgstr ""
-
-#. TRANS: a turtle shell
-msgid "shell"
-msgstr "शेल"
-
-#. TRANS: flash (blink) an LED light
-msgid "blink (ms)"
-msgstr ""
-
-msgid "that"
-msgstr ""
-
-#. TRANS: set language
-msgid "set lang"
-msgstr "भाषा संच करा"
-
-msgid "turtle name"
-msgstr "टर्टलचे नाव"
-
-#. TRANS: carbohydrates
-msgid "carbs"
-msgstr "खेकडा"
-
-msgid "else"
-msgstr "इतर"
-
-#. TRANS: as in broadcast a signal
-msgid "broadcast"
-msgstr ""
-
-msgid "orange"
-msgstr "संत्रा"
-
-msgid "begin hollow line"
-msgstr ""
-
-#. TRANS: the heap is a first-in-last-out (FILO) stack
-msgid "heap"
-msgstr ""
-
-#. TRANS: fill refers to filling a shape with a color (e.g., paint bucket).
-msgid "begin fill"
-msgstr "भरायची सुरुवात"
-
-#. TRANS: use sensor to detect objects on the right
-msgid "sense right"
-msgstr ""
-
-msgid "eat"
-msgstr "खाणे"
-
-msgid "Expand/collapse collapsable blocks"
-msgstr ""
-
-#. TRANS: high temperature
-msgid "high"
-msgstr "उच्च"
-
-#. TRANS: longitude and latitude coordinate data
-msgid "Coordinate data not available."
-msgstr ""
-
-#. TRANS: hue refers to spectral hue (red, yellow, green, blue...)
-msgid "set hue"
-msgstr ""
-
-msgid "currency"
-msgstr "चलन"
-
-msgid "this"
-msgstr ""
-
-#. TRANS: horizontal space
-msgid "hspace"
-msgstr ""
-
-msgid "potato"
-msgstr "बटाटा"
-
-msgid "city longitude"
-msgstr ""
-
-msgid "Click to run the project step by step."
-msgstr ""
-
-#. TRANS: the value of a variable (stored in a box)
-msgid "value"
-msgstr "मूल्य"
-
-msgid "banana"
-msgstr "केळी"
-
-msgid "wheat bread"
-msgstr "गहू चे ब्रेड / घवाचे ब्रेड"
-
-msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
-msgstr ""
-
-msgid "while"
-msgstr "ज्यावेळी"
-
-msgid "open file"
-msgstr "फाइल उघडा"
-
-#. TRANS: detect language
-msgid "detect lang"
-msgstr "भाषा शोधणे"
-
-msgid "cake"
-msgstr "केक"
-
-#. TRANS: mathematical exponent
-msgid "exp"
-msgstr ""
-
-#. TRANS: load the heap from a file
-msgid "load heap"
-msgstr "लोड ढीग"
-
+#: js/samplesviewer.js:26
+#: js/samplesviewer.js:26
 msgid "Open"
 msgstr "उघडा"
 
-#. TRANS: database fetch
-msgid "fetch"
-msgstr ""
-
-#. TRANS: use sensor to detect distance to objects
-msgid "see distance"
-msgstr "अंतर पाहू"
-
-#. TRANS: logical "and" operator
-msgid "and"
-msgstr "आणि"
-
-#. TRANS: grey refers to chroma (grey to vivid)
-msgid "set grey"
-msgstr "राखाडी संच करा"
-
-#. TRANS: do this action
-msgid "do"
-msgstr "करा"
-
-msgid "calories"
-msgstr "कॅलरीज"
-
-msgid "Run step by step"
-msgstr ""
-
-msgid "Show/hide palettes"
-msgstr "पॅलेटलेट्स दाखवा/लपवा"
-
-msgid "set heading"
-msgstr "शीर्षक संच करा"
-
-msgid "add 1 to"
-msgstr "१ जोड"
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop play"
-msgstr "खेळणे / चालणे थांबवा"
-
-msgid "protein"
-msgstr "प्रोटीन"
-
-#. TRANS: play media (audio or video)
-msgid "play back"
-msgstr ""
-
-msgid "if"
-msgstr "जर"
-
-msgid "Save your project to a server."
-msgstr "सर्व्हर वर आपले प्रकल्प जतन करा."
-
-msgid "Decrease block size"
-msgstr "ब्लॉकचे आकार कमी करा"
-
-msgid "angle"
-msgstr "कोन"
-
-msgid "get fat"
-msgstr "चरबी सांगा"
-
-#. TRANS: minimum
-msgid "min"
-msgstr "किमान / कमीत कमी"
-
-msgid "media"
-msgstr "मीडिया"
-
-msgid "Stop"
-msgstr "थांबवा"
-
-#. TRANS: square root
-msgid "sqrt"
-msgstr "वर्गमुळ"
-
-#. TRANS: as in button click
-msgid "click"
-msgstr ""
-
-msgid "note"
-msgstr "नोंद"
-
-#. TRANS: field of interest in a database, e.g., temperature in a weather database
-msgid "field"
-msgstr ""
-
-msgid "Palette buttons"
-msgstr "पैलेट बटण"
-
-msgid "set xy"
-msgstr "संच xy"
-
-msgid "end fill"
-msgstr "भरायची अंत"
-
-msgid "Copy"
-msgstr "कॉपी"
-
-msgid "Paste"
-msgstr "पेस्ट"
-
+#: js/samplesviewer.js:27
+#: js/samplesviewer.js:27
 msgid "Delete"
 msgstr "हटवा"
 
-#. TRANS: Mexican tamale
-msgid "tamale"
+#: js/samplesviewer.js:28
+#: js/samplesviewer.js:28
+msgid "Publish"
+msgstr "प्रकाशित करा"
+
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:38
+#: js/samplesviewer.js:38
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: js/samplesviewer.js:382
+msgid "Planet"
+msgstr "ग्रह"
+
+#: js/samplesviewer.js:383
+msgid "On my device"
 msgstr ""
 
+#: js/samplesviewer.js:384
 msgid "Worldwide"
 msgstr "जगभरात"
 
-msgid "repeat"
-msgstr "पुन्हा"
-
-msgid "blocks"
-msgstr "ब्लॉक"
-
-msgid "Display statistics about your Turtle project."
-msgstr "आकडेवारी दाखवणे आपल्या टर्टल प्रकल्पाचे"
-
-msgid "Polar"
-msgstr "ध्रुवीय"
-
-#. TRANS: maximum
-msgid "max"
-msgstr "कमाल / जस्तिस जास्त"
-
-msgid "logic"
-msgstr "तर्कशास्त्र"
-
-#. TRANS: empty the heap
-msgid "empty heap"
-msgstr "रिक्त ढीग"
-
-msgid "You have finished the tour. Please enjoy Turtle Blocks!"
-msgstr "आपला दौरा सम्पला. कृपया करून टर्टलचे आनंद घ्या आणि चला मजा करू."
-
-#. TRANS: push a value on to the heap.
-msgid "push"
-msgstr "ढकलणे"
-
-#. TRANS: the name of a robot built in Paraguay (probably no need to translate)
-msgid "rodi"
+#: js/activity.js:427
+msgid "Close"
 msgstr ""
 
-msgid "Clean"
-msgstr "स्वच्छ"
-
-#. TRANS: color refers to a hue, value, chroma triplet
-msgid "set color"
-msgstr "रंग संच करणे"
-
+#: js/activity.js:1955
 msgid "Run fast"
 msgstr "वेगाने चालवा"
 
-msgid "broccoli"
-msgstr "ब्रोकोली"
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop media"
-msgstr "मीडिया थांबवा"
-
-msgid "tomato"
-msgstr "टोमॅटो"
-
-msgid "forever"
-msgstr "कायमचे"
-
-#. TRANS: musical note to frequency
-msgid "note to frequency"
+#: js/activity.js:1955
+msgid "Long press to run slow"
 msgstr ""
 
-msgid "no background"
+#: js/activity.js:1956
+#: js/turtledefs.js:45
+msgid "Run step by step"
 msgstr ""
 
-msgid "Load project from file"
-msgstr "फाइल मधुन प्रकल्प लोड करा"
+#: js/activity.js:1957
+msgid "Run music slow"
+msgstr ""
 
-msgid "get protein"
-msgstr "प्रोटीन काडा"
+#: js/activity.js:1958
+msgid "Run note by note"
+msgstr ""
 
-#. TRANS: clear the screen of any graphics drawn by the turtle
-msgid "clear"
+#: js/activity.js:1959
+#: js/turtledefs.js:46
+msgid "Stop"
+msgstr "थांबवा"
+
+#: js/activity.js:1960
+#: js/turtledefs.js:47
+msgid "Clean"
 msgstr "स्वच्छ"
 
-#. TRANS: mathematical floor function, e.g., floor(2.5) == 2
-msgid "floor"
-msgstr "मजला"
+#: js/activity.js:1961
+#: js/turtledefs.js:48
+msgid "Show/hide palettes"
+msgstr "पॅलेटलेट्स दाखवा/लपवा"
 
+#: js/activity.js:1962
+#: js/turtledefs.js:49
+msgid "Show/hide blocks"
+msgstr "ब्लॉक दाखवा/लपवा"
+
+#: js/activity.js:1963
+#: js/turtledefs.js:50
+msgid "Expand/collapse collapsable blocks"
+msgstr ""
+
+#: js/activity.js:1964
+#: js/activity.js:2005
+#: js/turtledefs.js:51
+msgid "Home"
+msgstr ""
+
+#: js/activity.js:1965
+#: js/turtledefs.js:52
+msgid "Help"
+msgstr "मदत"
+
+#: js/activity.js:2033
+#: js/turtledefs.js:54
+msgid "Load samples from server"
+msgstr "सर्व्हर नमुने लोड करा"
+
+#: js/activity.js:2034
+#: js/turtledefs.js:55
+msgid "Load project from files"
+msgstr ""
+
+#: js/activity.js:2035
+#: js/turtledefs.js:56
+msgid "Save project"
+msgstr "प्रकल्प जतन करा"
+
+#: js/activity.js:2036
+msgid "Save sheet music"
+msgstr ""
+
+#: js/activity.js:2037
+#: js/turtledefs.js:58
+msgid "Paste"
+msgstr "पेस्ट"
+
+#: js/activity.js:2038
+#: js/turtledefs.js:60
+msgid "Cartesian"
+msgstr "कार्टेशियन"
+
+#: js/activity.js:2039
+#: js/turtledefs.js:61
+msgid "Polar"
+msgstr "ध्रुवीय"
+
+#: js/activity.js:2040
+#: js/turtledefs.js:62
+msgid "Settings"
+msgstr "सेटिंग"
+
+#: js/activity.js:2041
+#: js/turtledefs.js:68
+msgid "Delete all"
+msgstr "सर्व हटवा"
+
+#: js/activity.js:2042
+#: js/turtledefs.js:69
+msgid "Undo"
+msgstr "पूर्ववत"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "turtle"
+msgstr "कासव"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "pen"
+msgstr "पेन"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "number"
+msgstr "अंक"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "flow"
 msgstr "प्रवाह"
 
-msgid "Click this button to expand or collapse the auxillary toolbar."
-msgstr ""
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "sensors"
+msgstr "सेन्सर्स"
 
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "media"
+msgstr "मीडिया"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
 msgid "extras"
 msgstr "अतिरिक्त"
 
-msgid "shade"
-msgstr "सावली"
+#: js/status.js:84
+#: js/status.js:84
+msgid "close"
+msgstr ""
 
-msgid "time"
-msgstr "वेळ"
+#: js/logo.js:173
+msgid "true"
+msgstr ""
 
+#: js/logo.js:175
+msgid "false"
+msgstr ""
+
+#: js/logo.js:1065
+#: js/logo.js:1405
+msgid "You must select a file."
+msgstr ""
+
+#: js/logo.js:1415
+#: plugins/heap.rtp:96
+msgid "The file you selected does not contain a valid heap."
+msgstr ""
+
+#: js/logo.js:1419
+#: plugins/heap.rtp:102
+msgid "The loadHeap block needs a loadFile block."
+msgstr ""
+
+#: js/logo.js:1435
+msgid "Error parsing JSON data:"
+msgstr ""
+
+#: js/logo.js:1440
+msgid "404: Page not found"
+msgstr ""
+
+#: js/logo.js:1464
+msgid "turtleHeaps does not contain a valid heap for"
+msgstr ""
+
+#: js/logo.js:1474
+msgid "Index must be > 0."
+msgstr ""
+
+#: js/logo.js:2199
+#: js/basicblocks.js:730
+#: plugins/heap.rtp:42
+#: plugins/heap.rtp:142
+msgid "empty heap"
+msgstr "रिक्त ढीग"
+
+#: js/clearbox.js:46
+msgid "confirm"
+msgstr "पुष्टी"
+
+#: js/palette.js:534
+#: js/palette.js:619
+#: js/palette.js:1694
+#: js/basicblocks.js:490
+#: js/basicblocks.js:494
+#: js/basicblocks.js:506
+#: js/basicblocks.js:514
+#: js/blocks.js:2092
+msgid "box"
+msgstr "पेटी"
+
+#: js/palette.js:596
+#: js/basicblocks.js:852
+#: js/blocks.js:1660
+msgid "text"
+msgstr "मजकूर"
+
+#: js/palette.js:599
+#: js/palette.js:1795
+#: js/palette.js:1802
+msgid "sol"
+msgstr ""
+
+#: js/palette.js:620
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "store in"
+msgstr "मध्ये संग्रह करणे"
+
+#: js/palette.js:628
+#: js/blocks.js:1271
+msgid "open file"
+msgstr "फाइल उघडा"
+
+#: js/palette.js:724
+#: js/basicblocks.js:170
+#: plugins/rodi.rtp:71
+#: plugins/rodi.rtp:389
+msgid "back"
+msgstr "परत"
+
+#: js/palette.js:732
+#: js/palette.js:733
+msgid "hide"
+msgstr ""
+
+#: js/palette.js:735
+#: js/palette.js:736
+#: js/basicblocks.js:848
+msgid "show"
+msgstr "दाखवा"
+
+#: js/palette.js:738
+#: js/palette.js:739
+msgid "popout"
+msgstr ""
+
+#: js/palette.js:1782
+msgid "la"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "mi"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "re"
+msgstr ""
+
+#: js/turtle.js:385
+#: js/turtle.js:524
+#: js/turtle.js:525
+msgid "start drum"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "boolean"
+msgstr "बुलियन"
+
+#: js/turtledefs.js:22
+msgid "boxes"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "actions"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "heap"
+msgstr ""
+
+#: js/turtledefs.js:42
+msgid "Welcome to Turtle Blocks"
+msgstr "टर्टल मध्ये आपले स्वागत आहे"
+
+#: js/turtledefs.js:42
+msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
+msgstr ""
+
+#: js/turtledefs.js:43
+msgid "Palette buttons"
+msgstr "पैलेट बटण"
+
+#: js/turtledefs.js:43
+msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Run"
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Click to run the project in fast mode."
+msgstr "प्रकल्प वागने चालण्या साठी इकडे दाबा"
+
+#: js/turtledefs.js:44
+msgid "Long press to run the project in slow mode."
+msgstr ""
+
+#: js/turtledefs.js:45
+msgid "Click to run the project step by step."
+msgstr ""
+
+#: js/turtledefs.js:46
+msgid "Stop the current project."
+msgstr "वर्तमान प्रकल्प थांबवा."
+
+#: js/turtledefs.js:47
+msgid "Clear the screen and return the turtles to their initial positions."
+msgstr "स्क्रीन साफ करा आणि कासवाला त्याचा प्रारंभिक भूमिके वर आणा"
+
+#: js/turtledefs.js:48
+msgid "Hide or show the block palettes."
+msgstr "ब्लॉक आणि पॅलेट दाखवा/लपवा"
+
+#: js/turtledefs.js:49
+msgid "Hide or show the blocks and the palettes."
+msgstr "ब्लॉक आणि पॅलेट दाखवा/लपवा"
+
+#: js/turtledefs.js:50
+msgid "Expand or collapse start and action stacks."
+msgstr ""
+
+#: js/turtledefs.js:51
+msgid "Return all blocks to the center of the screen."
+msgstr ""
+
+#: js/turtledefs.js:52
+msgid "Show these messages."
+msgstr "हे संदेश दर्शवा."
+
+#: js/turtledefs.js:53
+msgid "Expand/collapse option toolbar"
+msgstr "साधनपट्टी दाखवायसाठी / लपवायसाठी पर्याय"
+
+#: js/turtledefs.js:53
+msgid "Click this button to expand or collapse the auxillary toolbar."
+msgstr ""
+
+#: js/turtledefs.js:54
+msgid "This button opens a viewer for loading example projects."
+msgstr "हे बटण उदाहरणार्थ प्रकल्प लोड करण्यासाठी एक दर्शक उघडते."
+
+#: js/turtledefs.js:55
+msgid "You can also load projects from the file system."
+msgstr "आपण फाइल प्रणाली मधुन पण प्रकल्प लोड करू शकतो."
+
+#: js/turtledefs.js:56
+msgid "Save your project to a file."
+msgstr ""
+
+#: js/turtledefs.js:57
+msgid "Copy"
+msgstr "कॉपी"
+
+#: js/turtledefs.js:57
+msgid "The copy button copies a stack to the clipboard. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:58
+msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+msgstr ""
+
+#: js/turtledefs.js:59
+#: js/blocks.js:200
+msgid "Save stack"
+msgstr "स्टॅक जतन करा"
+
+#: js/turtledefs.js:59
+msgid "The save-stack button saves a stack onto a custom palette. It appears after a \"long press\" on a stack."
+msgstr ""
+
+#: js/turtledefs.js:60
+msgid "Show or hide a Cartesian-coordinate grid."
+msgstr "कार्टेशियन-समन्वय ग्रीड दाखवा/लपवा"
+
+#: js/turtledefs.js:61
+msgid "Show or hide a polar-coordinate grid."
+msgstr "ध्रुवीय-समन्वय ग्रीड दाखवा/लपवा"
+
+#: js/turtledefs.js:62
+msgid "Open a panel for configuring Turtle Blocks."
+msgstr "एक फळी उघडा टर्टल चा संरांचना साठी "
+
+#: js/turtledefs.js:63
+#: js/utilitybox.js:36
+msgid "Decrease block size"
+msgstr "ब्लॉकचे आकार कमी करा"
+
+#: js/turtledefs.js:63
+msgid "Decrease the size of the blocks."
+msgstr "ब्लॉकचा आकार घटवा"
+
+#: js/turtledefs.js:64
+#: js/utilitybox.js:44
+msgid "Increase block size"
+msgstr "ब्लॉकचा आकार वाढवा"
+
+#: js/turtledefs.js:64
+msgid "Increase the size of the blocks."
+msgstr "ब्लॉकचा आकार वाढवा"
+
+#: js/turtledefs.js:65
+#: js/utilitybox.js:52
+msgid "Display statistics"
+msgstr "आकडेवारी दाखवणे"
+
+#: js/turtledefs.js:65
+msgid "Display statistics about your Turtle project."
+msgstr "आकडेवारी दाखवणे आपल्या टर्टल प्रकल्पाचे"
+
+#: js/turtledefs.js:66
+#: js/utilitybox.js:60
+msgid "Load plugin from file"
+msgstr "फाइल मधुन प्लगइन लोड करा"
+
+#: js/turtledefs.js:66
+msgid "You can load new blocks from the file system."
+msgstr "आपण फाइल प्रणाली मधुन नवीन ब्लॉक लोड करू शकतो."
+
+#: js/turtledefs.js:67
+#: js/utilitybox.js:68
+msgid "Enable scrolling"
+msgstr ""
+
+#: js/turtledefs.js:67
+msgid "You can scroll the blocks on the canvas."
+msgstr ""
+
+#: js/turtledefs.js:68
+msgid "Remove all content on the canvas, including the blocks."
+msgstr "कॅनव्हास वरून ब्लॉक सोबत सर्व सामग्री काढा."
+
+#: js/turtledefs.js:69
+msgid "Restore blocks from the trash."
+msgstr "कचरा मधुन ब्लॉक पुनर्संचयित करा."
+
+#: js/turtledefs.js:70
+msgid "Congratulations."
+msgstr "अभिनंदन"
+
+#: js/turtledefs.js:70
+msgid "You have finished the tour. Please enjoy Turtle Blocks!"
+msgstr "आपला दौरा सम्पला. कृपया करून टर्टलचे आनंद घ्या आणि चला मजा करू."
+
+#: js/basicblocks.js:65
+msgid "heading"
+msgstr "शिर्षक"
+
+#: js/basicblocks.js:72
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
+msgid "x"
+msgstr "x"
+
+#: js/basicblocks.js:79
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
 msgid "y"
 msgstr "y"
 
-#. TRANS: set the value at a specific entry (index) in the heap
+#: js/basicblocks.js:86
+msgid "clear"
+msgstr "स्वच्छ"
+
+#: js/basicblocks.js:93
+msgid "control point 2"
+msgstr ""
+
+#: js/basicblocks.js:104
+msgid "control point 1"
+msgstr ""
+
+#: js/basicblocks.js:115
+msgid "bezier"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "arc"
+msgstr "कंस"
+
+#: js/basicblocks.js:126
+msgid "angle"
+msgstr "कोन"
+
+#: js/basicblocks.js:126
+msgid "radius"
+msgstr "त्रिज्या"
+
+#: js/basicblocks.js:136
+msgid "set heading"
+msgstr "शीर्षक संच करा"
+
+#: js/basicblocks.js:144
+msgid "set xy"
+msgstr "संच xy"
+
+#: js/basicblocks.js:154
+#: plugins/rodi.rtp:79
+#: plugins/rodi.rtp:341
+#: plugins/rodi.rtp:376
+msgid "right"
+msgstr "उजव्या"
+
+#: js/basicblocks.js:162
+#: plugins/rodi.rtp:81
+#: plugins/rodi.rtp:340
+#: plugins/rodi.rtp:363
+msgid "left"
+msgstr "डाव्या"
+
+#: js/basicblocks.js:178
+#: plugins/rodi.rtp:73
+#: plugins/rodi.rtp:402
+msgid "forward"
+msgstr "पुढे"
+
+#: js/basicblocks.js:189
+msgid "begin fill"
+msgstr "भरायची सुरुवात"
+
+#: js/basicblocks.js:197
+msgid "end fill"
+msgstr "भरायची अंत"
+
+#: js/basicblocks.js:205
+#: js/basicblocks.js:249
+msgid "background"
+msgstr "बैक्ग्राउन्ड / मागे / पार्श्वभूमी"
+
+#: js/basicblocks.js:212
+msgid "color"
+msgstr "रंग"
+
+#: js/basicblocks.js:219
+msgid "shade"
+msgstr "सावली"
+
+#: js/basicblocks.js:226
+msgid "grey"
+msgstr "राखाडी"
+
+#: js/basicblocks.js:233
+msgid "pen size"
+msgstr "पेन आकार"
+
+#: js/basicblocks.js:240
+msgid "set font"
+msgstr ""
+
+#: js/basicblocks.js:256
+msgid "hollow line"
+msgstr ""
+
+#: js/basicblocks.js:263
+msgid "fill"
+msgstr ""
+
+#: js/basicblocks.js:270
+msgid "pen up"
+msgstr "लोखणी वर करा"
+
+#: js/basicblocks.js:277
+msgid "pen down"
+msgstr "लोखणी खाली ठेवा"
+
+#: js/basicblocks.js:284
+msgid "set pen size"
+msgstr "लोखणीचे आकार संच करा"
+
+#: js/basicblocks.js:292
+msgid "set translucency"
+msgstr ""
+
+#: js/basicblocks.js:300
+msgid "set hue"
+msgstr ""
+
+#: js/basicblocks.js:308
+msgid "set shade"
+msgstr "रंगाचा दर्जा निश्चीत करा"
+
+#: js/basicblocks.js:316
+msgid "set grey"
+msgstr "राखाडी संच करा"
+
+#: js/basicblocks.js:324
+msgid "set color"
+msgstr "रंग संच करणे"
+
+#: js/basicblocks.js:334
+msgid "int"
+msgstr ""
+
+#: js/basicblocks.js:370
+msgid "and"
+msgstr "आणि"
+
+#: js/basicblocks.js:377
+msgid "or"
+msgstr "किंवा"
+
+#: js/basicblocks.js:384
+msgid "not"
+msgstr "नाही"
+
+#: js/basicblocks.js:390
+msgid "mod"
+msgstr ""
+
+#: js/basicblocks.js:398
+msgid "sqrt"
+msgstr "वर्गमुळ"
+
+#: js/basicblocks.js:448
+msgid "one of"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "this"
+msgstr ""
+
+#: js/basicblocks.js:448
+msgid "that"
+msgstr ""
+
+#: js/basicblocks.js:459
+msgid "random"
+msgstr "कुटला पण"
+
+#: js/basicblocks.js:459
+msgid "min"
+msgstr "किमान / कमीत कमी"
+
+#: js/basicblocks.js:459
+msgid "max"
+msgstr "कमाल / जस्तिस जास्त"
+
+#: js/basicblocks.js:474
+msgid "add 1 to"
+msgstr "१ जोड"
+
+#: js/basicblocks.js:481
+msgid "add"
+msgstr "जोडा"
+
+#: js/basicblocks.js:481
+#: plugins/finance.rtp:28
+msgid "to"
+msgstr "करण्यासाठी / च्यापर्यत"
+
+#: js/basicblocks.js:481
+#: js/basicblocks.js:503
+#: js/basicblocks.js:697
+#: js/blocks.js:2191
+#: plugins/bitcoin.rtp:27
+msgid "value"
+msgstr "मूल्य"
+
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "name"
+msgstr "नाव"
+
+#: js/basicblocks.js:525
+#: js/basicblocks.js:572
+#: js/basicblocks.js:589
+#: js/basicblocks.js:627
+#: js/basicblocks.js:900
+#: js/basicblocks.js:907
+msgid "do"
+msgstr "करा"
+
+#: js/basicblocks.js:534
+msgid "return"
+msgstr ""
+
+#: js/basicblocks.js:544
+msgid "return to URL"
+msgstr ""
+
+#: js/basicblocks.js:548
+msgid "100"
+msgstr ""
+
+#: js/basicblocks.js:554
+#: js/basicblocks.js:580
+#: js/basicblocks.js:599
+msgid "calculate"
+msgstr ""
+
+#: js/basicblocks.js:627
+msgid "on"
+msgstr ""
+
+#: js/basicblocks.js:627
+#: js/basicblocks.js:630
+#: js/basicblocks.js:641
+msgid "event"
+msgstr ""
+
+#: js/basicblocks.js:638
+msgid "broadcast"
+msgstr ""
+
+#: js/basicblocks.js:675
+msgid "load heap from App"
+msgstr ""
+
+#: js/basicblocks.js:686
+msgid "save heap to App"
+msgstr ""
+
+#: js/basicblocks.js:697
 msgid "set heap"
 msgstr ""
 
+#: js/basicblocks.js:697
+msgid "index"
+msgstr ""
+
+#: js/basicblocks.js:708
+#: plugins/heap.rtp:126
+msgid "show heap"
+msgstr "ढीग दाखवा"
+
+#: js/basicblocks.js:715
+msgid "heap length"
+msgstr ""
+
+#: js/basicblocks.js:723
+#: plugins/heap.rtp:134
+msgid "heap empty?"
+msgstr ""
+
+#: js/basicblocks.js:737
+#: plugins/heap.rtp:150
+msgid "save heap"
+msgstr "ढीग जतन करा"
+
+#: js/basicblocks.js:746
+#: plugins/heap.rtp:160
+msgid "load heap"
+msgstr "लोड ढीग"
+
+#: js/basicblocks.js:755
+msgid "index heap"
+msgstr ""
+
+#: js/basicblocks.js:764
+#: plugins/heap.rtp:109
+msgid "push"
+msgstr "ढकलणे"
+
+#: js/basicblocks.js:772
+#: plugins/heap.rtp:118
+msgid "pop"
+msgstr ""
+
+#: js/basicblocks.js:781
+msgid "speak"
+msgstr "बोलणे"
+
+#: js/basicblocks.js:809
+msgid "stop media"
+msgstr "मीडिया थांबवा"
+
+#: js/basicblocks.js:816
+msgid "tone"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "frequency"
+msgstr ""
+
+#: js/basicblocks.js:816
+msgid "duration (ms)"
+msgstr ""
+
+#: js/basicblocks.js:826
+msgid "note to frequency"
+msgstr ""
+
+#: js/basicblocks.js:826
+#: plugins/rodi.rtp:196
+msgid "note"
+msgstr "नोंद"
+
+#: js/basicblocks.js:826
+msgid "octave"
+msgstr ""
+
+#: js/basicblocks.js:837
+msgid "shell"
+msgstr "शेल"
+
+#: js/basicblocks.js:837
+#: js/basicblocks.js:848
+msgid "size"
+msgstr "आकार"
+
+#: js/basicblocks.js:837
+msgid "image"
+msgstr "प्रतिमा"
+
+#: js/basicblocks.js:848
+msgid "obj"
+msgstr ""
+
+#: js/basicblocks.js:886
+#: plugins/rodi.rtp:31
+#: plugins/rodi.rtp:75
+#: plugins/rodi.rtp:415
+msgid "stop"
+msgstr "थांबा"
+
+#: js/basicblocks.js:893
+msgid "wait for"
+msgstr "प्रतीक्षा करा"
+
+#: js/basicblocks.js:900
+msgid "until"
+msgstr "जोपर्यंत"
+
+#: js/basicblocks.js:907
+msgid "while"
+msgstr "ज्यावेळी"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "if"
+msgstr "जर"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "then"
+msgstr "नंतर"
+
+#: js/basicblocks.js:914
+msgid "else"
+msgstr "इतर"
+
+#: js/basicblocks.js:928
+msgid "forever"
+msgstr "कायमचे"
+
+#: js/basicblocks.js:935
+msgid "repeat"
+msgstr "पुन्हा"
+
+#: js/basicblocks.js:947
+#: js/basicblocks.js:958
+#: js/basicblocks.js:967
+#: js/basicblocks.js:977
+#: js/basicblocks.js:985
+#: js/basicblocks.js:994
+#: js/basicblocks.js:1004
+msgid "unknown"
+msgstr "अज्ञात"
+
+#: js/basicblocks.js:1015
+msgid "play back"
+msgstr ""
+
+#: js/basicblocks.js:1023
+msgid "stop play"
+msgstr "खेळणे / चालणे थांबवा"
+
+#: js/basicblocks.js:1030
+msgid "save svg"
+msgstr "SVG जतन करा"
+
+#: js/basicblocks.js:1033
+msgid "title"
+msgstr "शीर्षक"
+
+#: js/basicblocks.js:1039
+#: plugins/turtle.rtp:52
+msgid "turtle y"
+msgstr "टर्टल y"
+
+#: js/basicblocks.js:1048
+#: plugins/turtle.rtp:42
+msgid "turtle x"
+msgstr "टर्टल x"
+
+#: js/basicblocks.js:1057
+#: plugins/turtle.rtp:62
+msgid "start turtle"
+msgstr "टर्टल सुरु करा"
+
+#: js/basicblocks.js:1066
+#: plugins/turtle.rtp:72
+msgid "stop turtle"
+msgstr "टर्टल थांबवा"
+
+#: js/basicblocks.js:1075
+msgid "no background"
+msgstr ""
+
+#: js/basicblocks.js:1082
+msgid "show blocks"
+msgstr "ब्लॉक्स दाखवा"
+
+#: js/basicblocks.js:1089
+msgid "hide blocks"
+msgstr "ब्लॉक्स लपवा"
+
+#: js/basicblocks.js:1096
+msgid "open project"
+msgstr ""
+
+#: js/basicblocks.js:1120
+msgid "wait"
+msgstr "थांबा"
+
+#: js/basicblocks.js:1128
+msgid "print"
+msgstr "छापणे"
+
+#: js/basicblocks.js:1136
+#: js/basicblocks.js:1144
+#: plugins/turtle.rtp:82
+msgid "turtle name"
+msgstr "टर्टलचे नाव"
+
+#: js/basicblocks.js:1145
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:83
+msgid "source"
+msgstr "स्रोत"
+
+#: js/basicblocks.js:1146
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:84
+msgid "target"
+msgstr "लक्ष्य"
+
+#: js/basicblocks.js:1157
+#: plugins/rodi.rtp:325
+msgid "status"
+msgstr ""
+
+#: js/basicblocks.js:1166
+msgid "loudness"
+msgstr "जॊरत"
+
+#: js/basicblocks.js:1174
+msgid "click"
+msgstr ""
+
+#: js/basicblocks.js:1182
+#: plugins/rodi.rtp:223
+msgid "blue"
+msgstr ""
+
+#: js/basicblocks.js:1189
+#: plugins/rodi.rtp:222
+msgid "green"
+msgstr ""
+
+#: js/basicblocks.js:1196
+#: plugins/rodi.rtp:221
+msgid "red"
+msgstr ""
+
+#: js/basicblocks.js:1203
+#: plugins/rodi.rtp:220
+msgid "pixel color"
+msgstr "पिक्सेल रंग"
+
+#: js/basicblocks.js:1210
+msgid "time"
+msgstr "वेळ"
+
+#: js/basicblocks.js:1217
+msgid "mouse x"
+msgstr "माऊस x"
+
+#: js/basicblocks.js:1225
+msgid "mouse y"
+msgstr "माऊस y"
+
+#: js/basicblocks.js:1233
+msgid "mouse button"
+msgstr "माऊस बटण"
+
+#: js/basicblocks.js:1240
+msgid "to ASCII"
+msgstr ""
+
+#: js/basicblocks.js:1247
+msgid "keyboard"
+msgstr "किबोर्ड"
+
+#: js/basicblocks.js:1256
+msgid "eval"
+msgstr "मूल्यमापन"
+
+#: js/utilitybox.js:77
+msgid "Disable scrolling"
+msgstr ""
+
+#: plugins/finance.rtp:28
+msgid "currency"
+msgstr "चलन"
+
+#: plugins/finance.rtp:28
+#: plugins/bitcoin.rtp:27
+msgid "from"
+msgstr "पासून"
+
+#: plugins/finance.rtp:69
+msgid "stock price"
+msgstr "स्टॉकची किंमत"
+
+#: plugins/impact.rtp:32
+msgid "fetch"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "UID"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "field"
+msgstr ""
+
+#: plugins/impact.rtp:32
+msgid "hours ago"
+msgstr ""
+
+#: plugins/impact.rtp:63
+#: plugins/impact.rtp:127
+msgid "Impact data not available."
+msgstr ""
+
+#: plugins/impact.rtp:69
+msgid "Cannot parse Impact data."
+msgstr ""
+
+#: plugins/impact.rtp:100
+#: plugins/impact.rtp:114
+msgid "Impact field not found."
+msgstr ""
+
+#: plugins/impact.rtp:122
+msgid "Impact UID not found."
+msgstr ""
+
+#: plugins/impact.rtp:124
+msgid "Impact Time not found."
+msgstr ""
+
+#: plugins/translate.rtp:73
+msgid "translate"
+msgstr "अनुवाद"
+
+#: plugins/translate.rtp:78
+#: plugins/translate.rtp:89
 msgid "hello"
 msgstr "हॅलो"
 
-msgid "left"
-msgstr "डाव्या"
+#: plugins/translate.rtp:84
+msgid "detect lang"
+msgstr "भाषा शोधणे"
+
+#: plugins/translate.rtp:95
+msgid "set lang"
+msgstr "भाषा संच करा"
+
+#: plugins/gmap.rtp:30
+msgid "city latitude"
+msgstr ""
+
+#: plugins/gmap.rtp:40
+msgid "city longitude"
+msgstr ""
+
+#: plugins/gmap.rtp:71
+#: plugins/gmap.rtp:74
+#: plugins/gmap.rtp:104
+#: plugins/gmap.rtp:107
+msgid "Coordinate data not available."
+msgstr ""
+
+#: plugins/gmap.rtp:116
+msgid "Google map"
+msgstr "Google नकाशा"
+
+#: plugins/gmap.rtp:116
+#: plugins/gmap.rtp:160
+msgid "coordinates"
+msgstr "समन्वय"
+
+#: plugins/gmap.rtp:116
+msgid "zoom factor"
+msgstr "झूम घटक"
+
+#: plugins/gmap.rtp:144
+msgid "zoom"
+msgstr "मोठा आणि छोटा करा"
+
+#: plugins/gmap.rtp:160
+msgid "latitude"
+msgstr "अक्षांश"
+
+#: plugins/gmap.rtp:160
+msgid "longitude"
+msgstr "रेखांश"
+
+#: plugins/maths.rtp:47
+msgid "power"
+msgstr "शक्ती"
+
+#: plugins/maths.rtp:47
+msgid "base"
+msgstr "तळ"
+
+#: plugins/maths.rtp:47
+msgid "exp"
+msgstr ""
+
+#: plugins/maths.rtp:69
+msgid "floor"
+msgstr "मजला"
+
+#: plugins/maths.rtp:71
+msgid "ceiling"
+msgstr ""
+
+#: plugins/maths.rtp:74
+msgid "degrees"
+msgstr "अंश"
+
+#: plugins/maths.rtp:74
+msgid "to degrees"
+msgstr "अंश"
+
+#: plugins/maths.rtp:76
+msgid "radians"
+msgstr "त्रिज्यी"
+
+#: plugins/maths.rtp:76
+msgid "to radians"
+msgstr "त्रिज्यी कडे"
+
+#: plugins/accelerometer.rtp:48
+msgid "motion x"
+msgstr "x चलऩ"
+
+#: plugins/accelerometer.rtp:56
+msgid "motion y"
+msgstr "y चलऩ"
+
+#: plugins/accelerometer.rtp:64
+msgid "motion z"
+msgstr "z चलऩ"
+
+#: plugins/dictionary.rtp:25
+msgid "define"
+msgstr "परिभाषित"
+
+#: plugins/nutrition.rtp:104
+msgid "get calories"
+msgstr "कैलरी काडा"
+
+#: plugins/nutrition.rtp:107
+msgid "get protein"
+msgstr "प्रोटीन काडा"
+
+#: plugins/nutrition.rtp:110
+msgid "get carbs"
+msgstr ""
+
+#: plugins/nutrition.rtp:113
+msgid "get fiber"
+msgstr "फाइबर \ तंतू काडा"
+
+#: plugins/nutrition.rtp:116
+msgid "get fat"
+msgstr "चरबी सांगा"
+
+#: plugins/nutrition.rtp:119
+msgid "get name"
+msgstr "नाव सांगा"
+
+#: plugins/nutrition.rtp:122
+msgid "calories"
+msgstr "कॅलरीज"
+
+#: plugins/nutrition.rtp:128
+msgid "protein"
+msgstr "प्रोटीन"
+
+#: plugins/nutrition.rtp:134
+msgid "carbs"
+msgstr "खेकडा"
+
+#: plugins/nutrition.rtp:140
+msgid "fiber"
+msgstr "धागा"
+
+#: plugins/nutrition.rtp:146
+msgid "fat"
+msgstr "चरबी"
+
+#: plugins/nutrition.rtp:152
+msgid "eat"
+msgstr "खाणे"
+
+#: plugins/nutrition.rtp:155
+msgid "digest meal"
+msgstr "जेवण पचवणे"
+
+#: plugins/nutrition.rtp:158
+msgid "apple"
+msgstr "सफरचंद"
+
+#: plugins/nutrition.rtp:161
+msgid "banana"
+msgstr "केळी"
+
+#: plugins/nutrition.rtp:164
+msgid "orange"
+msgstr "संत्रा"
+
+#: plugins/nutrition.rtp:167
+msgid "wheat bread"
+msgstr "गहू चे ब्रेड / घवाचे ब्रेड"
+
+#: plugins/nutrition.rtp:170
+msgid "corn"
+msgstr "मक्का"
+
+#: plugins/nutrition.rtp:173
+msgid "potato"
+msgstr "बटाटा"
+
+#: plugins/nutrition.rtp:176
+msgid "sweet potato"
+msgstr "रताळे"
+
+#: plugins/nutrition.rtp:179
+msgid "tomato"
+msgstr "टोमॅटो"
+
+#: plugins/nutrition.rtp:182
+msgid "broccoli"
+msgstr "ब्रोकोली"
+
+#: plugins/nutrition.rtp:185
+msgid "rice and beans"
+msgstr "तांदूळ आणि सोयाबीनचे"
+
+#: plugins/nutrition.rtp:188
+msgid "tamale"
+msgstr ""
+
+#: plugins/nutrition.rtp:191
+msgid "cheese"
+msgstr "चीज"
+
+#: plugins/nutrition.rtp:194
+msgid "chicken"
+msgstr "कोंबडी"
+
+#: plugins/nutrition.rtp:197
+msgid "fish"
+msgstr "मासे"
+
+#: plugins/nutrition.rtp:200
+msgid "beef"
+msgstr "गोमांस"
+
+#: plugins/nutrition.rtp:203
+msgid "cake"
+msgstr "केक"
+
+#: plugins/nutrition.rtp:206
+msgid "cookie"
+msgstr "कुकी"
+
+#: plugins/nutrition.rtp:209
+msgid "water"
+msgstr "पाणी"
+
+#: plugins/bitcoin.rtp:27
+msgid "bitcoin"
+msgstr ""
+
+#: plugins/facebook.rtp:27
+msgid "publish"
+msgstr "प्रकाशित"
+
+#: plugins/facebook.rtp:30
+msgid "comment"
+msgstr "टिप्पणी"
+
+#: plugins/weather.rtp:62
+#: plugins/weather.rtp:86
+msgid "Days ahead must be in the range of -1 to 5."
+msgstr ""
+
+#: plugins/weather.rtp:107
+msgid "forecast"
+msgstr "अंदाज"
+
+#: plugins/weather.rtp:108
+#: plugins/weather.rtp:122
+#: plugins/weather.rtp:135
+msgid "city"
+msgstr "शहर"
+
+#: plugins/weather.rtp:109
+#: plugins/weather.rtp:123
+#: plugins/weather.rtp:136
+msgid "day"
+msgstr "दिवस"
+
+#: plugins/weather.rtp:121
+msgid "high"
+msgstr "उच्च"
+
+#: plugins/weather.rtp:134
+msgid "low"
+msgstr "कमी"
+
+#: plugins/rodi.rtp:176
+msgid "blink"
+msgstr ""
+
+#: plugins/rodi.rtp:195
+msgid "play"
+msgstr ""
+
+#: plugins/rodi.rtp:197
+msgid "duration"
+msgstr "कालावधी"
+
+#: plugins/rodi.rtp:250
+msgid "led"
+msgstr ""
+
+#: plugins/rodi.rtp:269
+msgid "light intensity"
+msgstr ""
+
+#: plugins/rodi.rtp:283
+msgid "infrared light (left)"
+msgstr ""
+
+#: plugins/rodi.rtp:297
+msgid "infrared light (right)"
+msgstr ""
+
+#: plugins/rodi.rtp:311
+msgid "distance"
+msgstr ""
+
+#: plugins/rodi.rtp:339
+msgid "move"
+msgstr "हलवा"
+
+#: plugins/heap.rtp:81
+#: plugins/heap.rtp:85
+msgid "You need to select a file."
+msgstr ""
+
+#: js/turtledefs.js:44
+
+#~msgid "Click to run the project in slow mode."
+#~msgstr "प्रकल्प मंद पणे चालण्या साठी इकडे दाबा"
+
+#~msgid "hspace"
+#~msgstr ""
+
+#~msgid "sing"
+#~msgstr "गाणे"
+
+#~msgid "sense left"
+#~msgstr ""
+
+#: js/activity.js:1949
+
+#: js/turtledefs.js:44
+
+#~msgid "Run slow"
+#~msgstr "मंद पाणे चालवा"
+
+#~msgid "cloud"
+#~msgstr ""
+
+#~msgid "rodi"
+#~msgstr ""
+
+#~msgid "Save your project to a server."
+#~msgstr "सर्व्हर वर आपले प्रकल्प जतन करा."
+
+#~msgid "blocks"
+#~msgstr "ब्लॉक"
+
+#~msgid "eatme"
+#~msgstr "मला खावा"
+
+#~msgid "food"
+#~msgstr "अन्न"
+
+#~msgid "maths"
+#~msgstr "गणित"
+
+#~msgid "This button opens and closes the primary toolbar."
+#~msgstr "प्राथमिक साधनपट्टी दिसायला आणि लपवायला हे बटण दाबा"
+
+#~msgid "mashape"
+#~msgstr ""
+
+#~msgid "Expand/collapse toolbar"
+#~msgstr "साधनपट्टी दाखवा/लपवा"
+
+#~msgid "logic"
+#~msgstr "तर्कशास्त्र"
+
+#: js/basicblocks.js:1105
+
+#~msgid "openProject"
+#~msgstr ""
+
+#~msgid "end hollow line"
+#~msgstr ""
+
+#~msgid "blink (ms)"
+#~msgstr ""
+
+#~msgid "begin hollow line"
+#~msgstr ""
+
+#~msgid "sense right"
+#~msgstr ""
+
+#~msgid "vspace"
+#~msgstr ""
+
+#~msgid "Load project from file"
+#~msgstr "फाइल मधुन प्रकल्प लोड करा"
+
+#: js/basicblocks.js:1030
+
+#~msgid "save as lilypond"
+#~msgstr ""
+
+#~msgid "see distance"
+#~msgstr "अंतर पाहू"
+

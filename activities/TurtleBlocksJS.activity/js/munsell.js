@@ -1,14 +1,13 @@
 // Copyright (c) 2014,2015 Walter Bender
 //
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3 of the License, or
-// (at your option) any later version.
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the The GNU Affero General Public
+// License as published by the Free Software Foundation; either
+// version 3 of the License, or (at your option) any later version.
 //
-// You should have received a copy of the GNU General Public License
-// along with this library; if not, write to the Free Software
+// You should have received a copy of the GNU Affero General Public
+// License along with this library; if not, write to the Free Software
 // Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
-// Munsell data converted to sRGB
 //
 // Munsell data derived from CPAN Color::Model::Munsell
 // http://search.cpan.org/~tonodera/Color-Model-Munsell-0.02/
@@ -51,9 +50,9 @@ function getMunsellColor(hue, value, chroma) {
 
 
 interpColor = function(hex1, hex2, p) {
-    if (p == 0) {
+    if (p === 0) {
         return hex2;
-    } else if (p == 1) {
+    } else if (p === 1) {
         return hex1;
     } else {
         var r1 = parseInt(hex1.substr(1, 2), 16);
@@ -83,7 +82,7 @@ function getcolor(color) {
     }
 
     h2 = h1 + 1;
-    if (h2 == 40) {
+    if (h2 === 40) {
         h2 = 0;
     }
 
@@ -97,7 +96,7 @@ function getcolor(color) {
 function searchColors(r, g, b) {
     var nearestColor = -1;
     var distance = 10000000;
-    for (i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
 	var color = getcolor(i);
         var r1 = parseInt(color[2].substr(1, 2), 16);
         var g1 = parseInt(color[2].substr(3, 2), 16);

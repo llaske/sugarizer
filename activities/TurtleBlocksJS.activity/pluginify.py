@@ -147,7 +147,7 @@ def clear():
         'palette-stroke-highlight': 'HIGHLIGHTSTROKECOLORS'}
     JS_TYPES = ('flow', 'arg', 'block', 'parameter', 'setter', 'onload', 'onstart', 'onstop')
     # 'blkName': 'imageData',
-    IMAGES = {}
+    IMAGES = []
 
 
 def pluginify(data):
@@ -187,12 +187,12 @@ def pluginify(data):
         if type_ in NAMES:
             type_ = NAMES[type_]
             if type_ not in outp:
-                outp[type_] = {}
-            outp[type_][name] = value
+                outp[type_] = []
+            outp[type_].append([name,value])
 
         if type_ == 'image':
             # TODO: Detect if its png
-            IMAGES[name] = 'data:image/svg+xml;utf8,' + value
+            IMAGES.append([name, 'data:image/svg+xml;utf8,' + value])
 
     if IMAGES:
         outp['IMAGES'] = IMAGES

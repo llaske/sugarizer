@@ -9,15 +9,23 @@ Running a local server
 (https://github.com/tchx84/turtleblocksjs-server/blob/master/settings.py#L26)
 to your TurtleJS key.
 
-Install apache and turtleblocksjs.
-
-Setup a link to /var/www/html
+##### Linux:  
+Install apache and turtleblocksjs.  
+**Setup a link to**  `/var/www/html`   
 ```
 sudo apt-get install apache2
 cd /var/www
 sudo ln -s /home/path/to/app/ html
 ```
+##### OSX(10.10+):
+Apache 2.2 is already installed at `/etc/apache2`  
+**Setup a link to** `/Library/WebServer/Documents`
+```
+cd /Library/WebServer/
+sudo ln -s /home/path/to/app/ Documents
+```
 
+##### Linux:  
 Then, enable the 'proxy' modules in apache.
 ```
 cd /etc/apache2/mods-enabled 
@@ -32,10 +40,17 @@ sudo unlink alias.conf
 sudo unlink alias.load
 ```
 
+##### OSX(10.10+):
+Enable Proxy modules and disable alias module as in linux version. Main Config with module configurations is located in `/etc/apache2/httpd.conf`
+
 Apache TurtleJS Config
 ----------------------
-
-Copy this into `/etc/apache2/sites-enabled/turtlejs.conf`
+##### Linux:  
+* Copy the code below into `/etc/apache2/sites-enabled/turtlejs.conf`
+##### OSX(10.10+):
+* Copy the code below into `/private/etc/apache2/other/turtlejs.conf`  
+* If the turtlejs.conf is not loaded and is not working then add the line `/private/etc/apache2/other/turtlejs.conf` in **httpd.conf**  
+* In the code below change the document root to `/Library/WebServer/Documents`
 
 ```
 <VirtualHost *:80 *:443>
@@ -53,7 +68,10 @@ Copy this into `/etc/apache2/sites-enabled/turtlejs.conf`
 </Virtualhost>
 ```
 Then, restart apache.
+##### Linux:  
 ```sudo service apache2 restart```
+##### OSX(10.10+):
+`sudo apachectl start`  / `sudo apachectl restart`
 
 Now, you need to run the TurtleJS server.
 

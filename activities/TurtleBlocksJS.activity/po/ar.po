@@ -3,941 +3,1581 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-07 00:30-0500\n"
-"PO-Revision-Date: 2011-01-24 00:35+0200\n"
-"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Samir Alsulahat\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: ini-to-pot script\n"
+"Language: ar\n"
+"X-Generator: Poedit 1.8.6\n"
 
-
-msgid ""
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/activity.js:426
+#: js/block.js:553
+msgid "rest"
 msgstr ""
 
-msgid "Delete all"
+#: js/block.js:619
+#: js/block.js:1742
+#: js/activity.js:1279
+#: js/analytics.js:84
+#: js/palette.js:552
+#: js/palette.js:561
+#: js/palette.js:570
+#: js/palette.js:579
+#: js/palette.js:1716
+#: js/palette.js:1727
+#: js/palette.js:1738
+#: js/palette.js:1749
+#: js/basicblocks.js:528
+#: js/basicblocks.js:557
+#: js/basicblocks.js:564
+#: js/basicblocks.js:592
+#: js/basicblocks.js:602
+#: js/basicblocks.js:631
+#: js/basicblocks.js:655
+#: js/basicblocks.js:659
+#: js/basicblocks.js:665
+#: js/blocks.js:1816
+#: js/blocks.js:1818
+#: js/blocks.js:2006
+#: js/blocks.js:2165
+#: js/blocks.js:2285
+#: js/blocks.js:2717
+#: js/blocks.js:3467
+#: js/blocks.js:3544
+msgid "action"
+msgstr "الإجراء"
+
+#: js/block.js:622
+#: js/turtle.js:528
+#: js/turtle.js:529
+#: js/basicblocks.js:647
+msgid "start"
+msgstr "ابدأ"
+
+#: js/block.js:625
+msgid "matrix"
 msgstr ""
 
-msgid "show"
+#: js/block.js:628
+#: js/turtle.js:386
+msgid "drum"
 msgstr ""
 
-msgid "text"
-msgstr ""
+#: js/samplesviewer.js:26
+#: js/samplesviewer.js:26
+msgid "Open"
+msgstr "افتح"
 
-msgid "random"
-msgstr "عشوائي"
+#: js/samplesviewer.js:27
+#: js/samplesviewer.js:27
+msgid "Delete"
+msgstr "حذف"
 
-msgid "confirm"
-msgstr ""
+#: js/samplesviewer.js:28
+#: js/samplesviewer.js:28
+msgid "Publish"
+msgstr "نشر"
 
-msgid "rice and beans"
-msgstr ""
-
-#. TRANS: mashape webservices (probably no need to translate)
-msgid "mashape"
-msgstr ""
-
-#. TRANS: target language for translation
-msgid "target"
-msgstr ""
-
-msgid "keyboard"
-msgstr ""
-
-msgid "You can also load projects from the file system."
-msgstr ""
-
-#. TRANS: as in "on event do"
-msgid "on"
-msgstr ""
-
-msgid "chicken"
-msgstr ""
-
-msgid "apple"
-msgstr ""
-
-msgid "number"
-msgstr ""
-
-#. TRANS: unique ID
-msgid "UID"
-msgstr ""
-
-#. TRANS: name of project
-msgid "title"
-msgstr ""
-
-msgid "radians"
-msgstr ""
-
-msgid "Undo"
-msgstr ""
-
-#. TRANS: ms is micro seconds
-msgid "duration (ms)"
-msgstr ""
-
-#. TRANS: as in "add 1 to"
-msgid "to"
-msgstr ""
-
-msgid "add"
-msgstr ""
-
-msgid "set pen size"
-msgstr "حدد حجم القلم"
-
-msgid "start turtle"
-msgstr ""
-
-msgid "latitude"
-msgstr ""
-
-msgid "mouse x"
-msgstr ""
-
-msgid "mouse y"
-msgstr ""
-
-msgid "Show/hide blocks"
-msgstr ""
-
-msgid "then"
-msgstr "عندها"
-
-msgid "move"
-msgstr ""
-
-msgid "Stop the current project."
-msgstr ""
-
-msgid "stop turtle"
-msgstr ""
-
-msgid "food"
-msgstr ""
-
-msgid "Click to run the project in slow mode."
-msgstr ""
-
-msgid "stop"
-msgstr ""
-
-msgid "fat"
-msgstr ""
-
-msgid "Expand or collapse start and action stacks."
-msgstr ""
-
-#. TRANS: pop a value off of the heap.
-msgid "pop"
-msgstr ""
-
-msgid "background"
-msgstr "ملء الشاشه"
-
-#. TRANS: logical "not" operator
-msgid "not"
-msgstr "ليس"
-
-msgid "Google map"
-msgstr ""
-
-msgid "day"
-msgstr ""
-
-#. TRANS: mathematical modular (remainder) function.
-msgid "mod"
-msgstr ""
-
-msgid "Save project"
-msgstr ""
-
-msgid "get fiber"
-msgstr ""
-
-msgid "Open a panel for configuring Turtle Blocks."
-msgstr ""
-
-#. TRANS: the name of a variable (stored in a box)
-msgid "name"
-msgstr ""
-
-msgid "turtle x"
-msgstr ""
-
-msgid "turtle y"
-msgstr ""
-
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:29
+#: js/samplesviewer.js:38
+#: js/samplesviewer.js:38
 msgid "Download"
+msgstr "تحميل"
+
+#: js/samplesviewer.js:382
+msgid "Planet"
+msgstr "كوكب"
+
+#: js/samplesviewer.js:383
+msgid "On my device"
+msgstr "على جهازي"
+
+#: js/samplesviewer.js:384
+msgid "Worldwide"
+msgstr "في جميع أنحاء العالم"
+
+#: js/activity.js:427
+msgid "Close"
 msgstr ""
 
-msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+#: js/activity.js:1955
+msgid "Run fast"
+msgstr "شغل بشكل سريع"
+
+#: js/activity.js:1955
+msgid "Long press to run slow"
 msgstr ""
 
-msgid "Expand/collapse toolbar"
+#: js/activity.js:1956
+#: js/turtledefs.js:45
+msgid "Run step by step"
+msgstr "نفذ خطوةً خطوة"
+
+#: js/activity.js:1957
+msgid "Run music slow"
 msgstr ""
 
-msgid "zoom"
+#: js/activity.js:1958
+msgid "Run note by note"
 msgstr ""
 
+#: js/activity.js:1959
+#: js/turtledefs.js:46
+msgid "Stop"
+msgstr "أوقف"
+
+#: js/activity.js:1960
+#: js/turtledefs.js:47
+msgid "Clean"
+msgstr "نظف"
+
+#: js/activity.js:1961
+#: js/turtledefs.js:48
+msgid "Show/hide palettes"
+msgstr "إظهار/ إخفاء اللوحات"
+
+#: js/activity.js:1962
+#: js/turtledefs.js:49
+msgid "Show/hide blocks"
+msgstr "إظهار/ إخفاء اللبنات"
+
+#: js/activity.js:1963
+#: js/turtledefs.js:50
+msgid "Expand/collapse collapsable blocks"
+msgstr "توسيع/ تقليص اللبنات القابلة للتقليص"
+
+#: js/activity.js:1964
+#: js/activity.js:2005
+#: js/turtledefs.js:51
+msgid "Home"
+msgstr ""
+
+#: js/activity.js:1965
+#: js/turtledefs.js:52
+msgid "Help"
+msgstr "المساعدة"
+
+#: js/activity.js:2033
+#: js/turtledefs.js:54
+msgid "Load samples from server"
+msgstr "تحميل عينات من الخادم"
+
+#: js/activity.js:2034
+#: js/turtledefs.js:55
+msgid "Load project from files"
+msgstr ""
+
+#: js/activity.js:2035
+#: js/turtledefs.js:56
+msgid "Save project"
+msgstr "حفظ المشروع"
+
+#: js/activity.js:2036
+msgid "Save sheet music"
+msgstr ""
+
+#: js/activity.js:2037
+#: js/turtledefs.js:58
+msgid "Paste"
+msgstr "لصق"
+
+#: js/activity.js:2038
+#: js/turtledefs.js:60
+msgid "Cartesian"
+msgstr "الديكارتي"
+
+#: js/activity.js:2039
+#: js/turtledefs.js:61
+msgid "Polar"
+msgstr "قطبي"
+
+#: js/activity.js:2040
+#: js/turtledefs.js:62
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: js/activity.js:2041
+#: js/turtledefs.js:68
+msgid "Delete all"
+msgstr "حذف الكل"
+
+#: js/activity.js:2042
+#: js/turtledefs.js:69
+msgid "Undo"
+msgstr "إلغاء الإجراء السابق"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "turtle"
+msgstr "السلحفاة"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "pen"
+msgstr "القلم"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "number"
+msgstr "عدد"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "flow"
+msgstr "تدفق"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "sensors"
+msgstr "الحسّاسات"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "media"
+msgstr "وسائل الإعلام"
+
+#: js/analytics.js:84
+#: js/turtledefs.js:22
+msgid "extras"
+msgstr "إضافات"
+
+#: js/status.js:84
+#: js/status.js:84
+msgid "close"
+msgstr ""
+
+#: js/logo.js:173
+msgid "true"
+msgstr ""
+
+#: js/logo.js:175
+msgid "false"
+msgstr ""
+
+#: js/logo.js:1065
+#: js/logo.js:1405
+msgid "You must select a file."
+msgstr ""
+
+#: js/logo.js:1415
+#: plugins/heap.rtp:96
+msgid "The file you selected does not contain a valid heap."
+msgstr ""
+
+#: js/logo.js:1419
+#: plugins/heap.rtp:102
+msgid "The loadHeap block needs a loadFile block."
+msgstr ""
+
+#: js/logo.js:1435
+msgid "Error parsing JSON data:"
+msgstr ""
+
+#: js/logo.js:1440
+msgid "404: Page not found"
+msgstr ""
+
+#: js/logo.js:1464
+msgid "turtleHeaps does not contain a valid heap for"
+msgstr ""
+
+#: js/logo.js:1474
+msgid "Index must be > 0."
+msgstr ""
+
+#: js/logo.js:2199
+#: js/basicblocks.js:730
+#: plugins/heap.rtp:42
+#: plugins/heap.rtp:142
+msgid "empty heap"
+msgstr "قم بتفريغ الكومة"
+
+#: js/clearbox.js:46
+msgid "confirm"
+msgstr "تأكيد"
+
+#: js/palette.js:534
+#: js/palette.js:619
+#: js/palette.js:1694
+#: js/basicblocks.js:490
+#: js/basicblocks.js:494
+#: js/basicblocks.js:506
+#: js/basicblocks.js:514
+#: js/blocks.js:2092
+msgid "box"
+msgstr "صندوق المتغير"
+
+#: js/palette.js:596
+#: js/basicblocks.js:852
+#: js/blocks.js:1660
+msgid "text"
+msgstr "نص"
+
+#: js/palette.js:599
+#: js/palette.js:1795
+#: js/palette.js:1802
+msgid "sol"
+msgstr ""
+
+#: js/palette.js:620
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "store in"
+msgstr "خزن القيمة في الصندوق"
+
+#: js/palette.js:628
+#: js/blocks.js:1271
+msgid "open file"
+msgstr "فتح الملف"
+
+#: js/palette.js:724
+#: js/basicblocks.js:170
+#: plugins/rodi.rtp:71
+#: plugins/rodi.rtp:389
+msgid "back"
+msgstr "رجوع"
+
+#: js/palette.js:732
+#: js/palette.js:733
+msgid "hide"
+msgstr "إخفاء"
+
+#: js/palette.js:735
+#: js/palette.js:736
+#: js/basicblocks.js:848
+msgid "show"
+msgstr "نص"
+
+#: js/palette.js:738
+#: js/palette.js:739
+msgid "popout"
+msgstr "الصندوق المنبثق"
+
+#: js/palette.js:1782
+msgid "la"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "mi"
+msgstr ""
+
+#: js/palette.js:1802
+msgid "re"
+msgstr ""
+
+#: js/turtle.js:385
+#: js/turtle.js:524
+#: js/turtle.js:525
+msgid "start drum"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "boolean"
+msgstr "القيمة المنطقية"
+
+#: js/turtledefs.js:22
+msgid "boxes"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "actions"
+msgstr ""
+
+#: js/turtledefs.js:22
+msgid "heap"
+msgstr "الكومة"
+
+#: js/turtledefs.js:42
+msgid "Welcome to Turtle Blocks"
+msgstr "مرحباً بك في لبنات السلحفاة"
+
+#: js/turtledefs.js:42
+msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
+msgstr "لبنات السلاحف هي شعارات مستوحاة من السلاحف ترسم الصور الملونة مع لبنات البرمجة المرئية المجموعة معاً."
+
+#: js/turtledefs.js:43
+msgid "Palette buttons"
+msgstr "ازرار اللوحة"
+
+#: js/turtledefs.js:43
+msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
+msgstr "يحتوي شريط الأدوات هذا على أزرار اللوحة, انقر لإظهار لوحات اللبنات واسحبها من اللوحات إلى اللوحات الأخرى لاستخدامها."
+
+#: js/turtledefs.js:44
+msgid "Run"
+msgstr ""
+
+#: js/turtledefs.js:44
+msgid "Click to run the project in fast mode."
+msgstr "انقر لتنفيذ المشروع بشكل سريع."
+
+#: js/turtledefs.js:44
+msgid "Long press to run the project in slow mode."
+msgstr ""
+
+#: js/turtledefs.js:45
+msgid "Click to run the project step by step."
+msgstr "انقر لتنفيذ المشروع خطوةً خطوة."
+
+#: js/turtledefs.js:46
+msgid "Stop the current project."
+msgstr "أوقف المشروع الحالي"
+
+#: js/turtledefs.js:47
+msgid "Clear the screen and return the turtles to their initial positions."
+msgstr "نظف الشاشة وأعد السلاحف إلى مكانها الأساسي."
+
+#: js/turtledefs.js:48
+msgid "Hide or show the block palettes."
+msgstr "إخفاء أو إظهار لوحات المنع."
+
+#: js/turtledefs.js:49
 msgid "Hide or show the blocks and the palettes."
+msgstr "إخفاء أو إظهار اللبنات أو اللوحات."
+
+#: js/turtledefs.js:50
+msgid "Expand or collapse start and action stacks."
+msgstr "قم بتوسيع أو تقليص أكوام البدء والنشاط."
+
+#: js/turtledefs.js:51
+msgid "Return all blocks to the center of the screen."
 msgstr ""
 
-msgid "to degrees"
+#: js/turtledefs.js:52
+msgid "Show these messages."
+msgstr "أظهر هذه الرسائل."
+
+#: js/turtledefs.js:53
+msgid "Expand/collapse option toolbar"
+msgstr "توسيع/ تقليص شريط الأدوات"
+
+#: js/turtledefs.js:53
+msgid "Click this button to expand or collapse the auxillary toolbar."
+msgstr "انقر على هذا الزر لتوسيع أو تقليص شريط الأدوات المساعد."
+
+#: js/turtledefs.js:54
+msgid "This button opens a viewer for loading example projects."
+msgstr "يفتح هذا الزر شاشة عرض لتحميل أمثلة على المشاريع."
+
+#: js/turtledefs.js:55
+msgid "You can also load projects from the file system."
+msgstr "يمكنك أيضاً تحميل المشاريع من نظام الملفّات."
+
+#: js/turtledefs.js:56
+msgid "Save your project to a file."
 msgstr ""
 
-msgid "Restore blocks from the trash."
+#: js/turtledefs.js:57
+msgid "Copy"
+msgstr "نسخ"
+
+#: js/turtledefs.js:57
+msgid "The copy button copies a stack to the clipboard. It appears after a \"long press\" on a stack."
 msgstr ""
 
-msgid "get calories"
+#: js/turtledefs.js:58
+msgid "The paste button is enabled when there are blocks copied onto the clipboard."
+msgstr "يتم تفعيل زر اللصق عندما يتم نسخ لبنات إلى الحافظة."
+
+#: js/turtledefs.js:59
+#: js/blocks.js:200
+msgid "Save stack"
+msgstr "قم بتخزين الكومة"
+
+#: js/turtledefs.js:59
+msgid "The save-stack button saves a stack onto a custom palette. It appears after a \"long press\" on a stack."
 msgstr ""
 
+#: js/turtledefs.js:60
+msgid "Show or hide a Cartesian-coordinate grid."
+msgstr "إظهار أو إخفاء شبكة التنسيق الديكارتي."
+
+#: js/turtledefs.js:61
+msgid "Show or hide a polar-coordinate grid."
+msgstr "إخفاء أو إظهار شبكة التنسيق القطبي."
+
+#: js/turtledefs.js:62
+msgid "Open a panel for configuring Turtle Blocks."
+msgstr "افتح لوحة لتكوين لبنات السلحفاة."
+
+#: js/turtledefs.js:63
+#: js/utilitybox.js:36
+msgid "Decrease block size"
+msgstr "قلل حجم اللبنة"
+
+#: js/turtledefs.js:63
+msgid "Decrease the size of the blocks."
+msgstr "قم بتقليل حجم اللبنات"
+
+#: js/turtledefs.js:64
+#: js/utilitybox.js:44
+msgid "Increase block size"
+msgstr "قم بزيادة حجم اللبنات"
+
+#: js/turtledefs.js:64
+msgid "Increase the size of the blocks."
+msgstr "زيادة حجم اللبنات"
+
+#: js/turtledefs.js:65
+#: js/utilitybox.js:52
+msgid "Display statistics"
+msgstr "أظهر الإحصاءات"
+
+#: js/turtledefs.js:65
+msgid "Display statistics about your Turtle project."
+msgstr "اعرض الإحصائيات المتعلقة ببرنامج السلحفاة."
+
+#: js/turtledefs.js:66
+#: js/utilitybox.js:60
 msgid "Load plugin from file"
-msgstr ""
+msgstr "تحميل البرنامج المساعد من الملف"
 
+#: js/turtledefs.js:66
+msgid "You can load new blocks from the file system."
+msgstr "يمكنك تحميل لبنات جديدة من نظام الملفات."
+
+#: js/turtledefs.js:67
+#: js/utilitybox.js:68
+msgid "Enable scrolling"
+msgstr "تفعيل التمرير"
+
+#: js/turtledefs.js:67
 msgid "You can scroll the blocks on the canvas."
-msgstr ""
+msgstr "يمكنك تمرير اللبنات على اللوحات."
 
+#: js/turtledefs.js:68
+msgid "Remove all content on the canvas, including the blocks."
+msgstr "قم بإزالة المحتويات الموجودة على اللوحات, بما في ذلك اللبنات."
+
+#: js/turtledefs.js:69
+msgid "Restore blocks from the trash."
+msgstr "إعادة اللبنات من سلة المهملات."
+
+#: js/turtledefs.js:70
+msgid "Congratulations."
+msgstr "تهانينا"
+
+#: js/turtledefs.js:70
+msgid "You have finished the tour. Please enjoy Turtle Blocks!"
+msgstr "لقد انتهت الجولة. الرجاء الاستمتاع بلبنات السلحفاة!"
+
+#: js/basicblocks.js:65
+msgid "heading"
+msgstr "الترويسة"
+
+#: js/basicblocks.js:72
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
 msgid "x"
 msgstr "س"
 
-msgid "show blocks"
-msgstr ""
-
-msgid "heading"
-msgstr "عنوان"
-
-msgid "Help"
-msgstr ""
-
-msgid "turtle"
-msgstr ""
-
-msgid "right"
-msgstr "يمين"
-
-msgid "Load samples from server"
-msgstr ""
-
-msgid "hide blocks"
-msgstr ""
-
-msgid "Hide or show the block palettes."
-msgstr ""
-
-msgid "This button opens a viewer for loading example projects."
-msgstr ""
-
-msgid "Enable scrolling"
-msgstr ""
-
-msgid "back"
-msgstr "السابق:: للخلف"
-
-msgid "Publish"
-msgstr ""
-
-msgid "grey"
-msgstr ""
-
-msgid "arc"
-msgstr "قوس"
-
-msgid "radius"
-msgstr "نصف القطر"
-
-msgid "longitude"
-msgstr ""
-
-msgid "duration"
-msgstr ""
-
-#. TRANS: shade refers to value (dark to light)
-msgid "set shade"
-msgstr "حدد التظليل"
-
-#. TRANS: in mathematical sense (inverse of period)
-msgid "frequency"
-msgstr ""
-
-#. TRANS: as in the event that a signal arrives
-msgid "event"
-msgstr ""
-
-msgid "pixel color"
-msgstr ""
-
-msgid "eatme"
-msgstr ""
-
-msgid "This button opens and closes the primary toolbar."
-msgstr ""
-
-#. TRANS: index specifies a position into an array (heap)
-msgid "index"
-msgstr ""
-
-msgid "hide"
-msgstr ""
-
-#. TRANS: show the contents of the heap.
-msgid "show heap"
-msgstr ""
-
-msgid "Show or hide a Cartesian-coordinate grid."
-msgstr ""
-
-#. TRANS: vertical space
-msgid "vspace"
-msgstr ""
-
-#. TRANS: publish project to Facebook
-msgid "publish"
-msgstr ""
-
-#. TRANS: weather forecast
-msgid "forecast"
-msgstr ""
-
-#. TRANS: hours ago that the data was updated.
-msgid "hours ago"
-msgstr ""
-
-msgid "pen"
-msgstr ""
-
-msgid "fish"
-msgstr ""
-
-msgid "print"
-msgstr "اطبع"
-
-#. TRANS: how many entries are in the heap?
-msgid "heap length"
-msgstr ""
-
-msgid "size"
-msgstr ""
-
-msgid "Expand/collapse option toolbar"
-msgstr ""
-
-msgid "end hollow line"
-msgstr ""
-
-msgid "city latitude"
-msgstr ""
-
-#. TRANS: dietary fiber
-msgid "fiber"
-msgstr ""
-
-msgid "You can load new blocks from the file system."
-msgstr ""
-
-#. TRANS: mathematical power, e.g., 2^4 == 16
-msgid "power"
-msgstr ""
-
-msgid "Settings"
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "Save stack"
-msgstr ""
-
-msgid "corn"
-msgstr ""
-
-msgid "Display statistics"
-msgstr ""
-
-msgid "Remove all content on the canvas, including the blocks."
-msgstr ""
-
-msgid "to radians"
-msgstr ""
-
-msgid "water"
-msgstr ""
-
-#. TRANS: mathematical exponential base
-msgid "base"
-msgstr ""
-
-msgid "cookie"
-msgstr ""
-
-msgid "Show or hide a polar-coordinate grid."
-msgstr ""
-
-msgid "sweet potato"
-msgstr ""
-
-#. TRANS: save the heap to a file
-msgid "save heap"
-msgstr ""
-
-msgid "from"
-msgstr ""
-
-msgid "sensors"
-msgstr ""
-
-msgid "pen down"
-msgstr "ضع القلم"
-
-#. TRANS: retrieve the value at a specific entry (index) in the heap
-msgid "index heap"
-msgstr ""
-
-msgid "get name"
-msgstr ""
-
-msgid "wait"
-msgstr "انتظر"
-
-#. TRANS: a container for a variable
-msgid "box"
-msgstr "الصندوق"
-
-msgid "Planet"
-msgstr ""
-
-msgid "Show these messages."
-msgstr ""
-
-#. TRANS: object
-msgid "obj"
-msgstr ""
-
-#. TRANS: store a value in a box
-msgid "store in"
-msgstr "احفظ في"
-
-msgid "digest meal"
-msgstr ""
-
-msgid "maths"
-msgstr ""
-
-#. TRANS: popout window
-msgid "popout"
-msgstr ""
-
-msgid "zoom factor"
-msgstr ""
-
-#. TRANS: the name of a stack of blocks
-msgid "action"
-msgstr ""
-
-#. TRANS: volume of microphone audio
-msgid "loudness"
-msgstr ""
-
-msgid "Increase the size of the blocks."
-msgstr ""
-
-#. TRANS: logical "or" operator
-msgid "or"
-msgstr "أو"
-
-#. TRANS: use sensor to detect objects on the left
-msgid "sense left"
-msgstr ""
-
-msgid "comment"
-msgstr ""
-
-msgid "cheese"
-msgstr ""
-
-msgid "Cartesian"
-msgstr ""
-
-#. TRANS: audio (as in musical note)
-msgid "tone"
-msgstr ""
-
-#. TRANS: evaluate Javascript code
-msgid "eval"
-msgstr ""
-
-msgid "color"
-msgstr "لون"
-
-msgid "image"
-msgstr ""
-
-msgid "Welcome to Turtle Blocks"
-msgstr ""
-
-msgid "Increase block size"
-msgstr ""
-
-msgid "This toolbar contains the palette buttons, click to show the palettes of blocks and drag blocks from the palettes onto the canvas to use them."
-msgstr ""
-
-#. TRANS: bitcoin currency (probably no need to translate)
-msgid "bitcoin"
-msgstr ""
-
-msgid "pen size"
-msgstr "حجم القلم"
-
-msgid "Clear the screen and return the turtles to their initial positions."
-msgstr ""
-
-#. TRANS: Boolean logic
-msgid "boolean"
-msgstr ""
-
-msgid "coordinates"
-msgstr ""
-
-msgid "sing"
-msgstr ""
-
-msgid "Congratulations."
-msgstr ""
-
-msgid "Run slow"
-msgstr ""
-
-msgid "mouse button"
-msgstr ""
-
-#. TRANS: cloud as in cloud server
-msgid "cloud"
-msgstr ""
-
-msgid "speak"
-msgstr ""
-
-msgid "city"
-msgstr ""
-
-#. TRANS: carbohydrates
-msgid "get carbs"
-msgstr ""
-
-msgid "Click to run the project in fast mode."
-msgstr ""
-
-msgid "beef"
-msgstr ""
-
-#. TRANS: source language for translation
-msgid "source"
-msgstr ""
-
-msgid "unknown"
-msgstr ""
-
-msgid "wait for"
-msgstr ""
-
-msgid "pen up"
-msgstr "ارفع القلم"
-
-msgid "Decrease the size of the blocks."
-msgstr ""
-
-msgid "start"
-msgstr ""
-
-msgid "stock price"
-msgstr ""
-
-#. TRANS: is the heap empty?
-msgid "heap empty?"
-msgstr ""
-
-msgid "motion z"
-msgstr ""
-
-#. TRANS: low temperature
-msgid "low"
-msgstr ""
-
-msgid "motion x"
-msgstr ""
-
-msgid "motion y"
-msgstr ""
-
-msgid "forward"
-msgstr "للأمام"
-
-#. TRANS: 360 degrees in a circle
-msgid "degrees"
-msgstr ""
-
-msgid "translate"
-msgstr ""
-
-msgid "until"
-msgstr ""
-
-msgid "define"
-msgstr ""
-
-msgid "On my device"
-msgstr ""
-
-#. TRANS: save project as simple vector graphic (SVG)
-msgid "save svg"
-msgstr ""
-
-#. TRANS: mathematical ceiling function, e.g., ceiling(2.5) == 3
-msgid "ceiling"
-msgstr ""
-
-#. TRANS: a turtle shell
-msgid "shell"
-msgstr ""
-
-#. TRANS: flash (blink) an LED light
-msgid "blink (ms)"
-msgstr ""
-
-msgid "that"
-msgstr ""
-
-#. TRANS: set language
-msgid "set lang"
-msgstr ""
-
-msgid "turtle name"
-msgstr ""
-
-#. TRANS: carbohydrates
-msgid "carbs"
-msgstr ""
-
-msgid "else"
-msgstr "وإلا"
-
-#. TRANS: as in broadcast a signal
-msgid "broadcast"
-msgstr ""
-
-msgid "orange"
-msgstr ""
-
-msgid "begin hollow line"
-msgstr ""
-
-#. TRANS: the heap is a first-in-last-out (FILO) stack
-msgid "heap"
-msgstr ""
-
-#. TRANS: fill refers to filling a shape with a color (e.g., paint bucket).
-msgid "begin fill"
-msgstr ""
-
-#. TRANS: use sensor to detect objects on the right
-msgid "sense right"
-msgstr ""
-
-msgid "eat"
-msgstr ""
-
-msgid "Expand/collapse collapsable blocks"
-msgstr ""
-
-#. TRANS: high temperature
-msgid "high"
-msgstr ""
-
-#. TRANS: longitude and latitude coordinate data
-msgid "Coordinate data not available."
-msgstr ""
-
-#. TRANS: hue refers to spectral hue (red, yellow, green, blue...)
-msgid "set hue"
-msgstr "حدد اللون"
-
-msgid "currency"
-msgstr ""
-
-msgid "this"
-msgstr ""
-
-#. TRANS: horizontal space
-msgid "hspace"
-msgstr ""
-
-msgid "potato"
-msgstr ""
-
-msgid "city longitude"
-msgstr ""
-
-msgid "Click to run the project step by step."
-msgstr ""
-
-#. TRANS: the value of a variable (stored in a box)
-msgid "value"
-msgstr ""
-
-msgid "banana"
-msgstr ""
-
-msgid "wheat bread"
-msgstr ""
-
-msgid "Turtle Blocks is a Logo-inspired turtle that draws colorful pictures with snap-together visual-programming blocks."
-msgstr ""
-
-msgid "while"
-msgstr ""
-
-msgid "open file"
-msgstr ""
-
-#. TRANS: detect language
-msgid "detect lang"
-msgstr ""
-
-msgid "cake"
-msgstr ""
-
-#. TRANS: mathematical exponent
-msgid "exp"
-msgstr ""
-
-#. TRANS: load the heap from a file
-msgid "load heap"
-msgstr ""
-
-msgid "Open"
-msgstr ""
-
-#. TRANS: database fetch
-msgid "fetch"
-msgstr ""
-
-#. TRANS: use sensor to detect distance to objects
-msgid "see distance"
-msgstr ""
-
-#. TRANS: logical "and" operator
-msgid "and"
-msgstr "و"
-
-#. TRANS: grey refers to chroma (grey to vivid)
-msgid "set grey"
-msgstr ""
-
-#. TRANS: do this action
-msgid "do"
-msgstr ""
-
-msgid "calories"
-msgstr ""
-
-msgid "Run step by step"
-msgstr ""
-
-msgid "Show/hide palettes"
-msgstr ""
-
-msgid "set heading"
-msgstr "حدد العنوان"
-
-msgid "add 1 to"
-msgstr ""
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop play"
-msgstr ""
-
-msgid "protein"
-msgstr ""
-
-#. TRANS: play media (audio or video)
-msgid "play back"
-msgstr ""
-
-msgid "if"
-msgstr "إذا"
-
-msgid "Save your project to a server."
-msgstr ""
-
-msgid "Decrease block size"
-msgstr ""
-
-msgid "angle"
-msgstr "زاوية"
-
-msgid "get fat"
-msgstr ""
-
-#. TRANS: minimum
-msgid "min"
-msgstr "أقل"
-
-msgid "media"
-msgstr ""
-
-msgid "Stop"
-msgstr ""
-
-#. TRANS: square root
-msgid "sqrt"
-msgstr ""
-
-#. TRANS: as in button click
-msgid "click"
-msgstr ""
-
-msgid "note"
-msgstr ""
-
-#. TRANS: field of interest in a database, e.g., temperature in a weather database
-msgid "field"
-msgstr ""
-
-msgid "Palette buttons"
-msgstr ""
-
-msgid "set xy"
-msgstr "حدد س ص"
-
-msgid "end fill"
-msgstr ""
-
-msgid "Copy"
-msgstr ""
-
-msgid "Paste"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-#. TRANS: Mexican tamale
-msgid "tamale"
-msgstr ""
-
-msgid "Worldwide"
-msgstr ""
-
-msgid "repeat"
-msgstr "كرر"
-
-msgid "blocks"
-msgstr ""
-
-msgid "Display statistics about your Turtle project."
-msgstr ""
-
-msgid "Polar"
-msgstr ""
-
-#. TRANS: maximum
-msgid "max"
-msgstr "أاكثر"
-
-msgid "logic"
-msgstr ""
-
-#. TRANS: empty the heap
-msgid "empty heap"
-msgstr ""
-
-msgid "You have finished the tour. Please enjoy Turtle Blocks!"
-msgstr ""
-
-#. TRANS: push a value on to the heap.
-msgid "push"
-msgstr ""
-
-#. TRANS: the name of a robot built in Paraguay (probably no need to translate)
-msgid "rodi"
-msgstr ""
-
-msgid "Clean"
-msgstr ""
-
-#. TRANS: color refers to a hue, value, chroma triplet
-msgid "set color"
-msgstr "حدد اللون"
-
-msgid "Run fast"
-msgstr ""
-
-msgid "broccoli"
-msgstr ""
-
-#. TRANS: stop playing current media file (movie or audio)
-msgid "stop media"
-msgstr ""
-
-msgid "tomato"
-msgstr ""
-
-msgid "forever"
-msgstr "للأبد"
-
-#. TRANS: musical note to frequency
-msgid "note to frequency"
-msgstr ""
-
-msgid "no background"
-msgstr ""
-
-msgid "Load project from file"
-msgstr ""
-
-msgid "get protein"
-msgstr ""
-
-#. TRANS: clear the screen of any graphics drawn by the turtle
-msgid "clear"
-msgstr "نظف"
-
-#. TRANS: mathematical floor function, e.g., floor(2.5) == 2
-msgid "floor"
-msgstr ""
-
-msgid "flow"
-msgstr ""
-
-msgid "Click this button to expand or collapse the auxillary toolbar."
-msgstr ""
-
-msgid "extras"
-msgstr ""
-
-msgid "shade"
-msgstr ""
-
-msgid "time"
-msgstr ""
-
+#: js/basicblocks.js:79
+#: js/basicblocks.js:93
+#: js/basicblocks.js:104
+#: js/basicblocks.js:115
+#: js/basicblocks.js:144
 msgid "y"
 msgstr "ص"
 
-#. TRANS: set the value at a specific entry (index) in the heap
-msgid "set heap"
+#: js/basicblocks.js:86
+msgid "clear"
+msgstr "نظف الشاشة"
+
+#: js/basicblocks.js:93
+msgid "control point 2"
 msgstr ""
 
-msgid "hello"
+#: js/basicblocks.js:104
+msgid "control point 1"
 msgstr ""
 
+#: js/basicblocks.js:115
+msgid "bezier"
+msgstr ""
+
+#: js/basicblocks.js:126
+msgid "arc"
+msgstr "قوس"
+
+#: js/basicblocks.js:126
+msgid "angle"
+msgstr "زاوية"
+
+#: js/basicblocks.js:126
+msgid "radius"
+msgstr "نصف القطر"
+
+#: js/basicblocks.js:136
+msgid "set heading"
+msgstr "حدد الترويسة"
+
+#: js/basicblocks.js:144
+msgid "set xy"
+msgstr "حدد س ص"
+
+#: js/basicblocks.js:154
+#: plugins/rodi.rtp:79
+#: plugins/rodi.rtp:341
+#: plugins/rodi.rtp:376
+msgid "right"
+msgstr "يمين"
+
+#: js/basicblocks.js:162
+#: plugins/rodi.rtp:81
+#: plugins/rodi.rtp:340
+#: plugins/rodi.rtp:363
 msgid "left"
 msgstr "يسار"
+
+#: js/basicblocks.js:178
+#: plugins/rodi.rtp:73
+#: plugins/rodi.rtp:402
+msgid "forward"
+msgstr "إلى الأمام"
+
+#: js/basicblocks.js:189
+msgid "begin fill"
+msgstr "ابدأ بملء اللون"
+
+#: js/basicblocks.js:197
+msgid "end fill"
+msgstr "أنه تعبئة اللون"
+
+#: js/basicblocks.js:205
+#: js/basicblocks.js:249
+msgid "background"
+msgstr "الخلفية"
+
+#: js/basicblocks.js:212
+msgid "color"
+msgstr "اللون"
+
+#: js/basicblocks.js:219
+msgid "shade"
+msgstr "درجة اللون"
+
+#: js/basicblocks.js:226
+msgid "grey"
+msgstr "رمادي"
+
+#: js/basicblocks.js:233
+msgid "pen size"
+msgstr "حجم القلم"
+
+#: js/basicblocks.js:240
+msgid "set font"
+msgstr ""
+
+#: js/basicblocks.js:256
+msgid "hollow line"
+msgstr ""
+
+#: js/basicblocks.js:263
+msgid "fill"
+msgstr ""
+
+#: js/basicblocks.js:270
+msgid "pen up"
+msgstr "احتجز"
+
+#: js/basicblocks.js:277
+msgid "pen down"
+msgstr "احتجز"
+
+#: js/basicblocks.js:284
+msgid "set pen size"
+msgstr "اضبط حجم القلم"
+
+#: js/basicblocks.js:292
+msgid "set translucency"
+msgstr ""
+
+#: js/basicblocks.js:300
+msgid "set hue"
+msgstr "تحديد درجة اللون"
+
+#: js/basicblocks.js:308
+msgid "set shade"
+msgstr "حدد درجة اللون"
+
+#: js/basicblocks.js:316
+msgid "set grey"
+msgstr "اختر الرمادي"
+
+#: js/basicblocks.js:324
+msgid "set color"
+msgstr "حدد اللون"
+
+#: js/basicblocks.js:334
+msgid "int"
+msgstr ""
+
+#: js/basicblocks.js:370
+msgid "and"
+msgstr "و"
+
+#: js/basicblocks.js:377
+msgid "or"
+msgstr "أو"
+
+#: js/basicblocks.js:384
+msgid "not"
+msgstr "ليس"
+
+#: js/basicblocks.js:390
+msgid "mod"
+msgstr "الشكل النمطي"
+
+#: js/basicblocks.js:398
+msgid "sqrt"
+msgstr "الجذر التربيعي"
+
+#: js/basicblocks.js:448
+msgid "one of"
+msgstr "أحد"
+
+#: js/basicblocks.js:448
+msgid "this"
+msgstr "هذا"
+
+#: js/basicblocks.js:448
+msgid "that"
+msgstr "ذلك"
+
+#: js/basicblocks.js:459
+msgid "random"
+msgstr "عشوائي"
+
+#: js/basicblocks.js:459
+msgid "min"
+msgstr "الأدنى"
+
+#: js/basicblocks.js:459
+msgid "max"
+msgstr "القصوى"
+
+#: js/basicblocks.js:474
+msgid "add 1 to"
+msgstr "أضف 1 إلى"
+
+#: js/basicblocks.js:481
+msgid "add"
+msgstr "أضف"
+
+#: js/basicblocks.js:481
+#: plugins/finance.rtp:28
+msgid "to"
+msgstr "إلى"
+
+#: js/basicblocks.js:481
+#: js/basicblocks.js:503
+#: js/basicblocks.js:697
+#: js/blocks.js:2191
+#: plugins/bitcoin.rtp:27
+msgid "value"
+msgstr "قيمة المتغير"
+
+#: js/basicblocks.js:503
+#: js/blocks.js:2191
+msgid "name"
+msgstr "الاسم"
+
+#: js/basicblocks.js:525
+#: js/basicblocks.js:572
+#: js/basicblocks.js:589
+#: js/basicblocks.js:627
+#: js/basicblocks.js:900
+#: js/basicblocks.js:907
+msgid "do"
+msgstr "أجرِ"
+
+#: js/basicblocks.js:534
+msgid "return"
+msgstr ""
+
+#: js/basicblocks.js:544
+msgid "return to URL"
+msgstr ""
+
+#: js/basicblocks.js:548
+msgid "100"
+msgstr ""
+
+#: js/basicblocks.js:554
+#: js/basicblocks.js:580
+#: js/basicblocks.js:599
+msgid "calculate"
+msgstr ""
+
+#: js/basicblocks.js:627
+msgid "on"
+msgstr "في"
+
+#: js/basicblocks.js:627
+#: js/basicblocks.js:630
+#: js/basicblocks.js:641
+msgid "event"
+msgstr "في حالة"
+
+#: js/basicblocks.js:638
+msgid "broadcast"
+msgstr "بث"
+
+#: js/basicblocks.js:675
+msgid "load heap from App"
+msgstr ""
+
+#: js/basicblocks.js:686
+msgid "save heap to App"
+msgstr ""
+
+#: js/basicblocks.js:697
+msgid "set heap"
+msgstr "حدد القيمة المدخلة إلى الكومة"
+
+#: js/basicblocks.js:697
+msgid "index"
+msgstr "مؤشر"
+
+#: js/basicblocks.js:708
+#: plugins/heap.rtp:126
+msgid "show heap"
+msgstr "أظهر مكونات الكومة"
+
+#: js/basicblocks.js:715
+msgid "heap length"
+msgstr "عدد المدخلات التي تكون في الكومة"
+
+#: js/basicblocks.js:723
+#: plugins/heap.rtp:134
+msgid "heap empty?"
+msgstr "هل الكومة فارغة؟"
+
+#: js/basicblocks.js:737
+#: plugins/heap.rtp:150
+msgid "save heap"
+msgstr "قم بتخزين الكومة"
+
+#: js/basicblocks.js:746
+#: plugins/heap.rtp:160
+msgid "load heap"
+msgstr "حمّل الكومة"
+
+#: js/basicblocks.js:755
+msgid "index heap"
+msgstr "قيمة (مؤشر) الكومة"
+
+#: js/basicblocks.js:764
+#: plugins/heap.rtp:109
+msgid "push"
+msgstr "ادفع قيمة إلى أعلى الكومة"
+
+#: js/basicblocks.js:772
+#: plugins/heap.rtp:118
+msgid "pop"
+msgstr "أظهر"
+
+#: js/basicblocks.js:781
+msgid "speak"
+msgstr "تحدّث"
+
+#: js/basicblocks.js:809
+msgid "stop media"
+msgstr "أوقف العرض"
+
+#: js/basicblocks.js:816
+msgid "tone"
+msgstr "نبرة الصوت"
+
+#: js/basicblocks.js:816
+msgid "frequency"
+msgstr "التواتر"
+
+#: js/basicblocks.js:816
+msgid "duration (ms)"
+msgstr "المدة الزمنية (بالميكرو ثانية)"
+
+#: js/basicblocks.js:826
+msgid "note to frequency"
+msgstr "النغمة إلى التردد"
+
+#: js/basicblocks.js:826
+#: plugins/rodi.rtp:196
+msgid "note"
+msgstr "ملاحظة"
+
+#: js/basicblocks.js:826
+msgid "octave"
+msgstr ""
+
+#: js/basicblocks.js:837
+msgid "shell"
+msgstr "صدفة السلحفاة"
+
+#: js/basicblocks.js:837
+#: js/basicblocks.js:848
+msgid "size"
+msgstr "الحجم"
+
+#: js/basicblocks.js:837
+msgid "image"
+msgstr "الصورة"
+
+#: js/basicblocks.js:848
+msgid "obj"
+msgstr "كينونة"
+
+#: js/basicblocks.js:886
+#: plugins/rodi.rtp:31
+#: plugins/rodi.rtp:75
+#: plugins/rodi.rtp:415
+msgid "stop"
+msgstr "توقف"
+
+#: js/basicblocks.js:893
+msgid "wait for"
+msgstr "انتظر"
+
+#: js/basicblocks.js:900
+msgid "until"
+msgstr "حتى"
+
+#: js/basicblocks.js:907
+msgid "while"
+msgstr "ريثما"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "if"
+msgstr "إذا"
+
+#: js/basicblocks.js:914
+#: js/basicblocks.js:921
+msgid "then"
+msgstr "ثم"
+
+#: js/basicblocks.js:914
+msgid "else"
+msgstr "أخرى"
+
+#: js/basicblocks.js:928
+msgid "forever"
+msgstr "إلى الأبد"
+
+#: js/basicblocks.js:935
+msgid "repeat"
+msgstr "كرر"
+
+#: js/basicblocks.js:947
+#: js/basicblocks.js:958
+#: js/basicblocks.js:967
+#: js/basicblocks.js:977
+#: js/basicblocks.js:985
+#: js/basicblocks.js:994
+#: js/basicblocks.js:1004
+msgid "unknown"
+msgstr "المجهول"
+
+#: js/basicblocks.js:1015
+msgid "play back"
+msgstr "شغل"
+
+#: js/basicblocks.js:1023
+msgid "stop play"
+msgstr "أوقف العرض"
+
+#: js/basicblocks.js:1030
+msgid "save svg"
+msgstr "حفظ المشروع كرسم متجه بسيط (SVG)"
+
+#: js/basicblocks.js:1033
+msgid "title"
+msgstr "عنوان المشروع"
+
+#: js/basicblocks.js:1039
+#: plugins/turtle.rtp:52
+msgid "turtle y"
+msgstr "السلحفاة ص"
+
+#: js/basicblocks.js:1048
+#: plugins/turtle.rtp:42
+msgid "turtle x"
+msgstr "السلحفاة س"
+
+#: js/basicblocks.js:1057
+#: plugins/turtle.rtp:62
+msgid "start turtle"
+msgstr "ابدأ السلحفاة"
+
+#: js/basicblocks.js:1066
+#: plugins/turtle.rtp:72
+msgid "stop turtle"
+msgstr "أوقف السلحفاة"
+
+#: js/basicblocks.js:1075
+msgid "no background"
+msgstr "بدون خلفية"
+
+#: js/basicblocks.js:1082
+msgid "show blocks"
+msgstr "أظهر اللبنات"
+
+#: js/basicblocks.js:1089
+msgid "hide blocks"
+msgstr "قم بإخفاؤ اللبنات"
+
+#: js/basicblocks.js:1096
+msgid "open project"
+msgstr ""
+
+#: js/basicblocks.js:1120
+msgid "wait"
+msgstr "انتظر"
+
+#: js/basicblocks.js:1128
+msgid "print"
+msgstr "اطبع"
+
+#: js/basicblocks.js:1136
+#: js/basicblocks.js:1144
+#: plugins/turtle.rtp:82
+msgid "turtle name"
+msgstr "اسم السلحفاة"
+
+#: js/basicblocks.js:1145
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:83
+msgid "source"
+msgstr "اللغة المصدر"
+
+#: js/basicblocks.js:1146
+#: plugins/translate.rtp:95
+#: plugins/turtle.rtp:84
+msgid "target"
+msgstr "اللغة الهدف"
+
+#: js/basicblocks.js:1157
+#: plugins/rodi.rtp:325
+msgid "status"
+msgstr ""
+
+#: js/basicblocks.js:1166
+msgid "loudness"
+msgstr "درجة الصوت"
+
+#: js/basicblocks.js:1174
+msgid "click"
+msgstr "انقر"
+
+#: js/basicblocks.js:1182
+#: plugins/rodi.rtp:223
+msgid "blue"
+msgstr ""
+
+#: js/basicblocks.js:1189
+#: plugins/rodi.rtp:222
+msgid "green"
+msgstr ""
+
+#: js/basicblocks.js:1196
+#: plugins/rodi.rtp:221
+msgid "red"
+msgstr ""
+
+#: js/basicblocks.js:1203
+#: plugins/rodi.rtp:220
+msgid "pixel color"
+msgstr "لون بكسل"
+
+#: js/basicblocks.js:1210
+msgid "time"
+msgstr "الوقت"
+
+#: js/basicblocks.js:1217
+msgid "mouse x"
+msgstr "الفأرة س"
+
+#: js/basicblocks.js:1225
+msgid "mouse y"
+msgstr "الفأرة ص"
+
+#: js/basicblocks.js:1233
+msgid "mouse button"
+msgstr "زر الفأرة"
+
+#: js/basicblocks.js:1240
+msgid "to ASCII"
+msgstr ""
+
+#: js/basicblocks.js:1247
+msgid "keyboard"
+msgstr "لوحة المفاتيح"
+
+#: js/basicblocks.js:1256
+msgid "eval"
+msgstr "قيّم"
+
+#: js/utilitybox.js:77
+msgid "Disable scrolling"
+msgstr ""
+
+#: plugins/finance.rtp:28
+msgid "currency"
+msgstr "العملة"
+
+#: plugins/finance.rtp:28
+#: plugins/bitcoin.rtp:27
+msgid "from"
+msgstr "من"
+
+#: plugins/finance.rtp:69
+msgid "stock price"
+msgstr "سعر الكومة"
+
+#: plugins/impact.rtp:32
+msgid "fetch"
+msgstr "الاستحضار"
+
+#: plugins/impact.rtp:32
+msgid "UID"
+msgstr "هويّة فريدة"
+
+#: plugins/impact.rtp:32
+msgid "field"
+msgstr "مجال الاهتمام"
+
+#: plugins/impact.rtp:32
+msgid "hours ago"
+msgstr "قبل عدة ساعات"
+
+#: plugins/impact.rtp:63
+#: plugins/impact.rtp:127
+msgid "Impact data not available."
+msgstr ""
+
+#: plugins/impact.rtp:69
+msgid "Cannot parse Impact data."
+msgstr ""
+
+#: plugins/impact.rtp:100
+#: plugins/impact.rtp:114
+msgid "Impact field not found."
+msgstr ""
+
+#: plugins/impact.rtp:122
+msgid "Impact UID not found."
+msgstr ""
+
+#: plugins/impact.rtp:124
+msgid "Impact Time not found."
+msgstr ""
+
+#: plugins/translate.rtp:73
+msgid "translate"
+msgstr "ترجم"
+
+#: plugins/translate.rtp:78
+#: plugins/translate.rtp:89
+msgid "hello"
+msgstr "مرحباً"
+
+#: plugins/translate.rtp:84
+msgid "detect lang"
+msgstr "اكتشف اللغة"
+
+#: plugins/translate.rtp:95
+msgid "set lang"
+msgstr "اضبط اللغة"
+
+#: plugins/gmap.rtp:30
+msgid "city latitude"
+msgstr "خط عرض المدينة"
+
+#: plugins/gmap.rtp:40
+msgid "city longitude"
+msgstr "طول المدينة"
+
+#: plugins/gmap.rtp:71
+#: plugins/gmap.rtp:74
+#: plugins/gmap.rtp:104
+#: plugins/gmap.rtp:107
+msgid "Coordinate data not available."
+msgstr "بيانات الإحداثيات غير متوفرة"
+
+#: plugins/gmap.rtp:116
+msgid "Google map"
+msgstr "خريطة غوغل"
+
+#: plugins/gmap.rtp:116
+#: plugins/gmap.rtp:160
+msgid "coordinates"
+msgstr "الإحداثيات"
+
+#: plugins/gmap.rtp:116
+msgid "zoom factor"
+msgstr "عامل التقريب"
+
+#: plugins/gmap.rtp:144
+msgid "zoom"
+msgstr "تقريب"
+
+#: plugins/gmap.rtp:160
+msgid "latitude"
+msgstr "خط العرض"
+
+#: plugins/gmap.rtp:160
+msgid "longitude"
+msgstr "الطول"
+
+#: plugins/maths.rtp:47
+msgid "power"
+msgstr "الأس"
+
+#: plugins/maths.rtp:47
+msgid "base"
+msgstr "الأساس"
+
+#: plugins/maths.rtp:47
+msgid "exp"
+msgstr "الأس"
+
+#: plugins/maths.rtp:69
+msgid "floor"
+msgstr "دالة الجزء الصحيح"
+
+#: plugins/maths.rtp:71
+msgid "ceiling"
+msgstr "السقف"
+
+#: plugins/maths.rtp:74
+msgid "degrees"
+msgstr "الدرجات"
+
+#: plugins/maths.rtp:74
+msgid "to degrees"
+msgstr "إلى درجات"
+
+#: plugins/maths.rtp:76
+msgid "radians"
+msgstr "النظام الدائري"
+
+#: plugins/maths.rtp:76
+msgid "to radians"
+msgstr "إلى النظام الدائري"
+
+#: plugins/accelerometer.rtp:48
+msgid "motion x"
+msgstr "حركة س"
+
+#: plugins/accelerometer.rtp:56
+msgid "motion y"
+msgstr "pv;m w"
+
+#: plugins/accelerometer.rtp:64
+msgid "motion z"
+msgstr "حركة ع"
+
+#: plugins/dictionary.rtp:25
+msgid "define"
+msgstr "عرّف"
+
+#: plugins/nutrition.rtp:104
+msgid "get calories"
+msgstr "احصل على سعرات حرارية"
+
+#: plugins/nutrition.rtp:107
+msgid "get protein"
+msgstr "hpwg ugn hgfv,jdk"
+
+#: plugins/nutrition.rtp:110
+msgid "get carbs"
+msgstr "احصل على الكربوهيدرات"
+
+#: plugins/nutrition.rtp:113
+msgid "get fiber"
+msgstr "احصل على الألياف"
+
+#: plugins/nutrition.rtp:116
+msgid "get fat"
+msgstr "اكسب المزيد من الوزن"
+
+#: plugins/nutrition.rtp:119
+msgid "get name"
+msgstr "احصل على الاسم"
+
+#: plugins/nutrition.rtp:122
+msgid "calories"
+msgstr "السعرات الحرارية"
+
+#: plugins/nutrition.rtp:128
+msgid "protein"
+msgstr "بروتينات"
+
+#: plugins/nutrition.rtp:134
+msgid "carbs"
+msgstr "الكربوهيدرات"
+
+#: plugins/nutrition.rtp:140
+msgid "fiber"
+msgstr "الألياف الغذائية"
+
+#: plugins/nutrition.rtp:146
+msgid "fat"
+msgstr "سمين"
+
+#: plugins/nutrition.rtp:152
+msgid "eat"
+msgstr "يأكل"
+
+#: plugins/nutrition.rtp:155
+msgid "digest meal"
+msgstr "هضم الوجبة"
+
+#: plugins/nutrition.rtp:158
+msgid "apple"
+msgstr "تفاحة"
+
+#: plugins/nutrition.rtp:161
+msgid "banana"
+msgstr "موز"
+
+#: plugins/nutrition.rtp:164
+msgid "orange"
+msgstr "برتقال"
+
+#: plugins/nutrition.rtp:167
+msgid "wheat bread"
+msgstr "خبز قمح"
+
+#: plugins/nutrition.rtp:170
+msgid "corn"
+msgstr "ذرة"
+
+#: plugins/nutrition.rtp:173
+msgid "potato"
+msgstr "البطاطا"
+
+#: plugins/nutrition.rtp:176
+msgid "sweet potato"
+msgstr "البطاطا الحلوة"
+
+#: plugins/nutrition.rtp:179
+msgid "tomato"
+msgstr "طماطم"
+
+#: plugins/nutrition.rtp:182
+msgid "broccoli"
+msgstr "بروكولي"
+
+#: plugins/nutrition.rtp:185
+msgid "rice and beans"
+msgstr "الأرز والفول"
+
+#: plugins/nutrition.rtp:188
+msgid "tamale"
+msgstr "تامالي"
+
+#: plugins/nutrition.rtp:191
+msgid "cheese"
+msgstr "جبنة"
+
+#: plugins/nutrition.rtp:194
+msgid "chicken"
+msgstr "دجاجة"
+
+#: plugins/nutrition.rtp:197
+msgid "fish"
+msgstr "السمكة"
+
+#: plugins/nutrition.rtp:200
+msgid "beef"
+msgstr "لحم بقر"
+
+#: plugins/nutrition.rtp:203
+msgid "cake"
+msgstr "الكعك"
+
+#: plugins/nutrition.rtp:206
+msgid "cookie"
+msgstr "ملفات تعريف الارتباط"
+
+#: plugins/nutrition.rtp:209
+msgid "water"
+msgstr "الماء"
+
+#: plugins/bitcoin.rtp:27
+msgid "bitcoin"
+msgstr "bitcoin"
+
+#: plugins/facebook.rtp:27
+msgid "publish"
+msgstr "نشر المشروع على الفيسبوك"
+
+#: plugins/facebook.rtp:30
+msgid "comment"
+msgstr "تعليق"
+
+#: plugins/weather.rtp:62
+#: plugins/weather.rtp:86
+msgid "Days ahead must be in the range of -1 to 5."
+msgstr ""
+
+#: plugins/weather.rtp:107
+msgid "forecast"
+msgstr "التنبؤات الجوية"
+
+#: plugins/weather.rtp:108
+#: plugins/weather.rtp:122
+#: plugins/weather.rtp:135
+msgid "city"
+msgstr "مدينة"
+
+#: plugins/weather.rtp:109
+#: plugins/weather.rtp:123
+#: plugins/weather.rtp:136
+msgid "day"
+msgstr "يوم"
+
+#: plugins/weather.rtp:121
+msgid "high"
+msgstr "مرتفعة"
+
+#: plugins/weather.rtp:134
+msgid "low"
+msgstr "متدنية"
+
+#: plugins/rodi.rtp:176
+msgid "blink"
+msgstr ""
+
+#: plugins/rodi.rtp:195
+msgid "play"
+msgstr ""
+
+#: plugins/rodi.rtp:197
+msgid "duration"
+msgstr "المدة"
+
+#: plugins/rodi.rtp:250
+msgid "led"
+msgstr ""
+
+#: plugins/rodi.rtp:269
+msgid "light intensity"
+msgstr ""
+
+#: plugins/rodi.rtp:283
+msgid "infrared light (left)"
+msgstr ""
+
+#: plugins/rodi.rtp:297
+msgid "infrared light (right)"
+msgstr ""
+
+#: plugins/rodi.rtp:311
+msgid "distance"
+msgstr ""
+
+#: plugins/rodi.rtp:339
+msgid "move"
+msgstr "حرّك"
+
+#: plugins/heap.rtp:81
+#: plugins/heap.rtp:85
+msgid "You need to select a file."
+msgstr ""
+
+#: js/turtledefs.js:44
+
+#~msgid "Click to run the project in slow mode."
+#~msgstr "انقر لتنفيذ المشروع بالعرض البطيء."
+
+#~msgid "hspace"
+#~msgstr "الفراغ الأفقي"
+
+#~msgid "sing"
+#~msgstr "غنِّ"
+
+#~msgid "sense left"
+#~msgstr "استشعار الأشياء الموجودة إلى اليسار"
+
+#: js/activity.js:1949
+
+#: js/turtledefs.js:44
+
+#~msgid "Run slow"
+#~msgstr "نفذ ببطء"
+
+#~msgid "cloud"
+#~msgstr "السحابة"
+
+#~msgid "rodi"
+#~msgstr "rodi"
+
+#~msgid "Save your project to a server."
+#~msgstr "احفظ مشروعك على خادم"
+
+#~msgid "blocks"
+#~msgstr "لبنات"
+
+#~msgid "eatme"
+#~msgstr "eatme"
+
+#~msgid "food"
+#~msgstr "الطعام"
+
+#~msgid "maths"
+#~msgstr "الرياضيات"
+
+#~msgid "This button opens and closes the primary toolbar."
+#~msgstr "يقوم هذا الزر بفتح وإغلاق شريط الأدوات الأساسي."
+
+#~msgid "mashape"
+#~msgstr "mashape"
+
+#~msgid "Expand/collapse toolbar"
+#~msgstr "توسيع/ تقليص شريط الأدوات"
+
+#~msgid "logic"
+#~msgstr "منطقي"
+
+#: js/basicblocks.js:1105
+
+#~msgid "openProject"
+#~msgstr ""
+
+#~msgid "end hollow line"
+#~msgstr "أنهِ الخط المجوف"
+
+#~msgid "blink (ms)"
+#~msgstr "رمشة (بالميكرو ثانية)"
+
+#~msgid "begin hollow line"
+#~msgstr "ابدأ الخط المجوف"
+
+#~msgid "sense right"
+#~msgstr "الاستشعار بشيء موجود إلى اليمين"
+
+#~msgid "vspace"
+#~msgstr "الفراغ العامودي"
+
+#~msgid "Load project from file"
+#~msgstr "حمل المشروع من الملف"
+
+#: js/basicblocks.js:1030
+
+#~msgid "save as lilypond"
+#~msgstr ""
+
+#~msgid "see distance"
+#~msgstr "حدد المسافة"
+
