@@ -1,0 +1,55 @@
+from pythonize import strings
+
+strings()
+
+def input(*args):
+    return prompt(args)
+
+def clearScreen(color=None):
+    def clearScreenAsync():
+        element = document.getElementById('__terminal__')
+        if element:
+            element.innerHTML = ''
+    if color:
+        document.body.style.backgroundColor = color
+    setTimeout(clearScreenAsync)
+
+def onKeyUp(e):
+    if e.keyCode == 13:
+        e.target.dispatchEvent(new Event('submit'))
+
+def inputAsync(cb=None):
+    el = document.createElement('input')
+    el.className = '__terminal__'
+    el.onsubmit = def(e):
+        if cb:
+            if cb(el.value) in [undefined, True]:
+                e.target.parentNode.removeChild(el)
+        def scrolldown():
+            document.body.scrollTop = document.body.scrollHeight
+        setTimeout(scrolldown)
+    el.onkeyup = onKeyUp
+    document.body.appendChild(el)
+    el.focus()
+    return el
+
+
+def ρσ_print(*args, **kwargs):
+    end = "\n"
+    sep = " "
+    if 'end' in kwargs:
+        end = kwargs['end']
+
+    def printAsync():
+        element = document.getElementById('__terminal__')
+        if element:
+            addition = sep.join([arg for arg in args]) + end
+            previous = element.innerHTML
+            element.innerHTML = previous + addition.replace('\n', '<br>')
+            element.scrollTop = element.scrollHeight
+        else:
+            console.log (sep.join([str (arg) for arg in args]))
+    setTimeout(printAsync)
+
+window.onerror = def(e):
+    print(e)

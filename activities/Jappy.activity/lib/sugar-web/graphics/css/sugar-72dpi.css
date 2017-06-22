@@ -1,0 +1,468 @@
+html {
+  height: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 10pt;
+  background-color: #c0c0c0;
+}
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.pull-right {
+  float: right;
+}
+a {
+  color: #0076c3;
+  text-decoration: none;
+}
+.toolbar {
+  height: 40px;
+  padding: 0 42px;
+  color: white;
+  background-color: #282828;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.toolbar hr {
+  display: inline-block;
+  height: 24px;
+  margin: 1px;
+  margin-bottom: -14px;
+  border: 1px solid #808080;
+}
+.toolbar .toolbutton {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 4px;
+}
+.toolbar .toolbutton:hover {
+  background-color: black;
+}
+.toolbar .toolbutton:active,
+.toolbar .toolbutton.active {
+  background-color: #808080;
+}
+.toolbar .toolbutton img {
+  width: 100%;
+  height: 100%;
+}
+.toolbar .toolbutton:before {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  display: block;
+  width: 40px;
+  height: 8px;
+  background-color: transparent;
+  content: "";
+}
+.toolbar .toolbutton.invoker:before {
+  background-image: url('../icons/emblems/arrow-down.svg');
+}
+.toolbar #stop-button {
+  background-image: url('../icons/actions/activity-stop.svg');
+}
+.alert {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+  height: 40px;
+  width: 100%;
+  color: white;
+  background-color: black;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.alert p {
+  padding-left: 8px;
+  vertical-align: middle;
+  width: 80%;
+}
+.alert .button-box {
+  position: fixed;
+  top: 40px;
+  right: 0px;
+  height: 40px;
+  width: 20%;
+  margin: 8px;
+}
+.alert button {
+  float: right;
+}
+.button-box button + button {
+  margin-right: 8px;
+}
+#canvas {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  width: 100%;
+  overflow-y: auto;
+  color: black;
+  background-color: #c0c0c0;
+}
+button {
+  padding: 2px 4px;
+  line-height: 16px;
+  color: white;
+  background-color: #808080;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+button:hover {
+  background-color: #a2a2a2;
+  border-color: #a2a2a2;
+}
+button:active {
+  color: black;
+  background-color: white;
+  border-color: #808080;
+}
+button:focus {
+  border-color: white;
+}
+.toolbar button {
+  margin-top: 8px;
+}
+button.icon {
+  position: relative;
+  padding-left: 20px;
+}
+button.icon span.ok {
+  background-image: url(../icons/actions/dialog-ok.svg);
+}
+button.icon:active span.ok {
+  background-image: url(../icons/actions/dialog-ok-active.svg);
+}
+button.icon span.cancel {
+  background-image: url(../icons/actions/dialog-cancel.svg);
+}
+button.icon:active span.cancel {
+  background-image: url(../icons/actions/dialog-cancel-active.svg);
+}
+button.icon span {
+  position: absolute;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+button.icon span {
+  top: 2px;
+  left: 2px;
+}
+input[type='text'] {
+  width: 120px;
+  padding: 4px;
+  line-height: 16px;
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+  border-radius: 16px;
+  outline: 0;
+}
+input[type='text']:focus {
+  background-color: white;
+}
+input[type='text']:disabled {
+  background-color: #808080;
+  border-color: #808080;
+}
+.toolbar input[type='text'],
+.palette .row input[type='text'] {
+  margin-top: 6px;
+}
+.palette .row input[type='text']:nth-last-child(1) {
+  margin-top: 4px;
+}
+input[type='text'].expand {
+  width: calc(100%-12px);
+}
+.icon-input {
+  position: relative;
+  display: inline-block;
+}
+.icon-input input[type='text'] {
+  width: 96px;
+  padding-right: 28px;
+}
+.icon-input.expand {
+  width: 100%;
+}
+.icon-input.expand input[type='text'] {
+  width: calc(100%-36px);
+}
+.icon-input button {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-size: 16px 16px;
+}
+.icon-input button.right {
+  right: 0;
+  margin: 0 0 -28px;
+  border-radius: 0 16px 16px 0;
+}
+.icon-input button {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+}
+.icon-input button {
+  top: 2px;
+}
+.toolbar .icon-input button:hover {
+  background-color: transparent;
+}
+.toolbar .icon-input button {
+  top: 6px;
+}
+button.cancel {
+  background-image: url(../icons/actions/entry-cancel.svg);
+}
+button.cancel:active {
+  background-image: url(../icons/actions/entry-cancel-active.svg);
+}
+button.cancel:disabled {
+  background-image: url(../icons/actions/entry-cancel-disabled.svg);
+}
+input[type='range'] {
+  height: 8px;
+  cursor: pointer;
+  background-color: #808080;
+  border-radius: 16px;
+  -webkit-appearance: none !important;
+}
+input[type='range']::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #c0c0c0;
+  border: 4px solid #808080;
+  border-radius: 8px;
+  -webkit-appearance: none !important;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  background-color: #e2e2e2;
+  border-color: #a2a2a2;
+}
+.toolbar input[type='range'] {
+  margin-top: 16px;
+}
+label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.palette {
+  position: absolute;
+  color: white;
+  pointer-events: none;
+  background-color: transparent;
+}
+.palette-invoker {
+  width: 36px;
+  height: 38px;
+  background-color: black;
+  background-position: 2px 2px;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  border: 2px solid #808080;
+  border-bottom: 0;
+}
+.palette-invoker:after {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 8px;
+  background-color: transparent;
+  background-image: url('../icons/emblems/arrow-up.svg');
+  content: "";
+}
+.palette-invoker:before {
+  position: absolute;
+  top: 40px;
+  left: 2px;
+  display: block;
+  width: 36px;
+  height: 2px;
+  background-color: black;
+  content: "";
+}
+.palette .wrapper {
+  max-width: 196px;
+  min-width: 116px;
+  min-height: 36px;
+  pointer-events: auto;
+  background-color: black;
+  border: 2px solid #808080;
+}
+.palette .header {
+  height: 36px;
+  margin: 0 4px;
+  font-weight: bold;
+  line-height: 36px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+.palette hr {
+  border: 1px solid #808080;
+}
+.palette hr.header-separator {
+  margin-top: 0;
+}
+.palette .row {
+  height: 40px;
+  margin: 0 4px;
+}
+.palette .row:nth-last-child(1) {
+  height: 36px;
+}
+.palette .row.small {
+  height: 16px;
+}
+.palette .row.expand {
+  height: auto;
+}
+.palette .menu {
+  padding: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  list-style-type: none;
+}
+.palette .menu button {
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 24px;
+  text-align: left;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.palette .menu button:hover {
+  color: white;
+  background-color: #808080;
+}
+.palette .menu button.icon {
+  padding-left: 28px;
+}
+.palette .menu button.icon span {
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #808080;
+}
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: 2px solid #dddddd;
+  border-radius: 8px;
+}
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  width: 16px;
+  height: 16px;
+  margin: 2px 2px 4px 2px;
+  vertical-align: middle;
+  background-position: center;
+  background-size: contain;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.toolbar input[type='checkbox'],
+.toolbar input[type='radio'] {
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+input[type='checkbox'] {
+  background-image: url(../icons/actions/checkbox-unchecked.svg);
+}
+input[type='checkbox']:active {
+  background-image: url(../icons/actions/checkbox-checked-selected.svg);
+}
+input[type='checkbox']:checked:active {
+  background-image: url(../icons/actions/checkbox-checked-selected.svg);
+}
+input[type='checkbox']:checked {
+  background-image: url(../icons/actions/checkbox-checked.svg);
+}
+input[type='radio'] {
+  background-image: url(../icons/actions/radio.svg);
+}
+input[type='radio']:active {
+  background-image: url(../icons/actions/radio-selected.svg);
+}
+input[type='radio']:checked:active {
+  background-image: url(../icons/actions/radio-active-selected.svg);
+}
+input[type='radio']:checked {
+  background-image: url(../icons/actions/radio-active.svg);
+}
+textarea {
+  margin: 2px;
+  border: 2px solid #808080;
+}
+textarea.expand {
+  width: calc(100%-12px);
+}
+ul.flat-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+ul.flat-list li {
+  height: 22px;
+  line-height: 22px;
+  background-color: white;
+  border-bottom: 2px dotted #c0c0c0;
+}
+ul.flat-list li:nth-last-child(1) {
+  border-bottom: none;
+}
+ul.flat-list.big li {
+  height: 30px;
+  line-height: 30px;
+}
+ul.flat-list.striped li:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+#activity-palette .wrapper {
+  width: 196px;
+}
+#activity-palette textarea {
+  resize: none;
+}
