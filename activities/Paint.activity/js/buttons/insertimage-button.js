@@ -52,7 +52,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
 			 		}
 				}
 			});
-		}, {mimetype: 'image/png'});
+		}, {mimetype: 'image/png'}, {mimetype: 'image/jpeg'});
 	}
 
 	var insertImageButton = {
