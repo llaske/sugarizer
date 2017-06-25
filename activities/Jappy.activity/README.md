@@ -9,21 +9,11 @@ It currently implements the [RapydScript-NG transpiler](https://github.com/kovid
 
 ## Development
 
+This copy is tailored to be deployed with Sugarizer. In order to develop and build Jappy you'll need the [proper sources](https://github.com/somosazucar/Jappy).
+
 ### Launch
 
 In order to launch the app, simply open `Jappy.activity/index.html` in a browser, served by http.
-
-A bare webserver is implemented in Flask for convenience and experimentation. 
-```
-python dev.py
-```
-And then open http://localhost:5000/
-
-You may need to install requirements with `pip install -r requirements.txt` first. 
-
-## References
-
-https://wiki.sugarlabs.org/go/Project/Develop_Activity
 
 Artisan Workbench
 =================
