@@ -1,0 +1,25 @@
+document.body.style['text-align'] = 'center'
+
+print ('<h1>Hello, 🙋</h1>')
+print ('What is your name?')
+inputAsync(process)
+
+def process(name):
+    if name:
+        window.name = name
+        print(name + '<br>')
+        print('<h2>🔐 What is the password?</h2>', end='')
+        inputAsync(verify)
+    else:
+        return False
+        
+def verify(passwd):
+    if passwd=='lala':
+        clearScreen()
+        print('<h2>🔓 Access Granted.</h2>', end='')
+        print('Welcome ' + name + '!')
+        print ('<span style="font-size:100px">👽👽</span>')
+        return True
+    print('<h1>🚫 Access Denied.</h1>')
+    print('Come on, try to find the <i>passwd</i> in the code.')
+    return False
