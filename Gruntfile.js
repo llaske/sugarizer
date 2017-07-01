@@ -24,6 +24,7 @@ module.exports = function(grunt) {
 					'activities/Gears.Activity/js/*.js', // TODO: lib/gearsketch dont work
 					'activities/GetThingsDone.Activity/**/*.js',
 					'activities/Gridpaint.Activity/**/*.js',
+					'activities/Jappy.Activity/**/*.js',
 					'activities/LabyrinthJS.Activity/**/*.js',
 					'activities/LastOneLoses.Activity/**/*.js',
 					'activities/Markdown.Activity/**/*.js',
