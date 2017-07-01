@@ -1,0 +1,48 @@
+print ('<h2>🐍 RapydScript ' + parent.RapydScript.rs_version + '</h2>', end='')
+print ('Javascript Programming in Python Activity <i>(Jappy)</i>')
+print ('<hr>', end='')
+
+callcount = 1
+callhistory = []
+backscroll = 1
+
+# Read
+editbox = inputAsync(interpret)
+editbox.addEventListener("keyup", scrollback) 
+def scrollback(e):
+    global backscroll, callcount
+    if e.keyCode == 38: # Up arrow
+        if backscroll < callcount:
+            backscroll = backscroll + 1
+            editbox.value = callhistory[callcount-backscroll]
+    elif e.keyCode == 40: # Down arrow
+        if backscroll > 1:
+            backscroll = backscroll - 1
+            editbox.value = callhistory[callcount-backscroll-1]
+
+# Evaluate
+def interpret(line):
+    if not line:
+        return False
+    global callcount
+    print (line)
+    try:
+        callhistory.push(line)
+        line = parent.compile(line)
+        result = window.eval(line)
+        if result is not undefined:
+            printout(result)
+    except Exception as e:
+        print (e)
+    callcount = callcount + 1
+    printin()
+    editbox.value = ''
+    return False
+
+# Print
+def printout(result):
+    print ('Out[' + callcount + ']: '  + result)
+
+def printin():
+    print ('<br><b>In [' + callcount + '] ⏩ </b>', end='')
+printin()

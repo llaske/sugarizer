@@ -1,0 +1,33 @@
+document.body.style['text-align'] = 'center'
+
+print ('<h1 style="font-size:40pt; color:white">🐍 Jappy</h1>', end='')
+print ('<hr>', end='')
+print ('<h3> Web 🌐 programming, in Python! </h3>', end='')
+
+print ('<small>HTML5, CSS3 and Javascript</small>')
+
+print ('<small><i>Make something beautiful!</i></small>', end='')
+print ('<hr>')
+print ('Examples:<br>')
+
+examples = {'memorize.pyj': '👥 Memorize Game', 
+            'mandala.pyj': '🌺 Mandala Maker',
+            'input.pyj': '🔒 Async Input',
+            'repl.pyj': '💻 Interactive Repl',
+            'unicode.pyj': '🀄 Unicode Emojis'}
+
+for item in examples:
+    button = document.createElement('button')
+    button.innerHTML = examples[item]
+    button.dataset.name = item
+    button.style.width = "80%"
+    button.style.height = "60px"
+    button.style.fontSize = "18pt"
+    button.style.fontFamily = 'Noto\ Mono, Noto\ Emoji'
+    button.onclick = def (ev):
+        parent.event_bus.trigger('example-load', 
+                                ev.target.dataset.name)
+    document.body.appendChild(button)
+    document.body.appendChild(document.createElement('br'))
+
+
