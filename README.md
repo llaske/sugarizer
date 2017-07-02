@@ -65,7 +65,7 @@ If you run Sugarizer this way often, you should create an alias for this command
 
 # Server
 
-Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB, or in a Docker container.
+Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Node.js and MongoDB, or in a Docker container.
 
 Sugarizer Server features include:
 
@@ -103,46 +103,26 @@ Your Sugarizer server will start automatically and will be accessible on http://
 
 To run your own Sugarizer Server **without Docker**, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
 
-**Install Apache2**: you need to install Apache2 and ensure than few mods are available and enabled: mod_headers, mod_proxy, mod_proxy_http and mode_rewrite. You need also to allow override on /var/www directory. See [here](http://httpd.apache.org/docs/ "here") for more.
-
-	sudo apt-get install apache2
-    cd /etc/apache2/mods-enabled
-    sudo ln -s ../mods-available/headers.load headers.load
-    sudo ln -s ../mods-available/rewrite.load rewrite.load
-    sudo ln -s ../mods-available/proxy.load proxy.load
-    sudo ln -s ../mods-available/proxy_http.load proxy_http.load
-    sudo vi /etc/apache2/sites-available/default  # Set to all value for /var/www AllowOverride
-    sudo /etc/init.d/apache2 restart
-
 **Install Node.js**: Install Node.js and npm to manage packages. See [here](http://nodejs.org/ "here") more information.
 
     sudo apt-get install nodejs
 
-**Install MongoDB**: Don't forget to create a /data/db directory to store databases. See [here](http://www.mongodb.org/ "here") more information.
+**Install MongoDB**: It will start by default on port 27017,
 
     sudo apt-get install mongodb
-    sudo mkdir -p /data/db
 
 **Install Sugarizer**: If need, you could update server/sugarizer.ini file (update port for web, mongodb or presence)
 
     sudo apt-get install git
-    cd /var/www
-    sudo git clone https://github.com/llaske/sugarizer
-    cd /var/www/sugarizer/server
-    sudo npm install
+    git clone https://github.com/llaske/sugarizer
+    cd sugarizer/server
+    npm install
 
-**Run MongoDB and Sugarizer Server**:Run mongo daemon and Sugarizer a background process.
+**Run Sugarizer Server**: Run Sugarizer process.
 
-    sudo mongod --fork --port 27018 --logpath /home/root/mongo.log
-    sudo nohup node sugarizer.js > /home/root/sugarizer.log &
+    node sugarizer.js
 
-**Update Firewall rules**: If need, open Firewall port for HTTP and Presence.
-
-    sudo iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT # HTTP
-    sudo iptables -A INPUT -i eth0 -p tcp --dport 8039 -j ACCEPT   # Presence
-    sudo iptables -A OUTPUT -p tcp --dport 8039 -j ACCEPT    # Presence
-
-**Check your install**: To check your install, run "http://&lt;server name&gt;/sugarizer" in your browser:
+**Check your install**: To check your install, run "http://localhost:8080/sugarizer" in your browser:
 
 * you should see the home with all activities,
 * go to Journal view, you should see at the bottom of the screen the two icons to switch to private/shared journal,
@@ -163,7 +143,7 @@ as [sugarizer.js](server/sugarizer.js) parameter).
 
 	[database]
 	server = localhost
-	port = 27018
+	port = 27017
 	name = sugarizer
 
 	[collections]
@@ -176,15 +156,6 @@ as [sugarizer.js](server/sugarizer.js) parameter).
 	template_directory_name = ActivityTemplate
 	activity_info_path = activity/activity.info
 	favorites = org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity,org.olpcfrance.TamTamMicro,org.olpcfrance.MemorizeActivity,org.olpg-france.physicsjs,org.sugarlabs.CalculateActivity,org.sugarlabs.TurtleBlocksJS,org.sugarlabs.Clock,,org.olpcfrance.RecordActivity,org.olpcfrance.Abecedarium,org.olpcfrance.KAView,org.olpcfrance.FoodChain,org.olpc-france.labyrinthjs,org.olpcfrance.TankOp,org.sugarlabs.ChatPrototype,org.olpcfrance.Gridpaint,org.olpc-france.LOLActivity,org.sugarlabs.StopwatchActivity,org.sugarlabs.GTDActivity,org.sugarlabs.Markdown,org.laptop.WelcomeWebActivity
-
-The **[web]** section describe the settings of the node.js process. Sugarizer server uses an Apache web server and a node.js web server. The Apache Web server redirect calls to the node.js server. The link between them is set in the file [api/.htaccess](api/.htaccess).
-
-	RewriteEngine on
-
-	# Redirect a whole subdirectory:
-	RewriteRule ^(.+) http://localhost:8080/$1 [P]
-
-So by default, the Apache Web server expects that the node.js server listens on port 8080. You have to change both this file and the port value in the web section to change the port.
 
 The **[presence]** section describe the settings of the presence server. By default, a web socket is created on port 8039. You need to change this value if you want to use another port.
 Warning: presence.js in activities hardcode this port today.

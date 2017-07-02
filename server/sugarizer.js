@@ -48,6 +48,10 @@ settings.load(function(ini) {
 	app.put("/journal/:jid/:oid", journal.updateEntryInJournal);
 	app.delete("/journal/:jid/:oid", journal.removeEntryInJournal);
 
+	// Serve api and static files
+	app.use('/api', app.router);
+	app.use('/', express.static('..'));
+
 	// Start listening
 	app.listen(ini.web.port);
 	console.log("Sugarizer server listening on port "+ini.web.port+"...");
