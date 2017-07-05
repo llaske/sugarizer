@@ -39,6 +39,7 @@
 	<plugin name="cordova-plugin-fullscreen" version="1.1.0" />
 	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git"/>
 	<plugin name="cordova-plugin-ios-longpress-fix" version="1.1.0" />
+	<plugin name="cordova-plugin-qrscanner" version="2.5.0" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />

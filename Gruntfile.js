@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 					'activities/Moon.Activity/**/*.js',
 					'activities/Paint.Activity/**/*.js',
 					'activities/PhysicsJS.Activity/**/*.js',
+					'activities/QRCode.Activity/**/*.js',
 					'activities/Record.Activity/lib/*.js',  // TODO: js/recordrtc.js don't work
 					'activities/Reflection.Activity/**/*.js',
 					'activities/SharedNotes.Activity/**/*.js',

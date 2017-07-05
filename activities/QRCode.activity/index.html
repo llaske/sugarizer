@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>QR Code</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+<script type="text/javascript" src="js/grid.js"></script>
+<script type="text/javascript" src="js/version.js"></script>
+<script type="text/javascript" src="js/detector.js"></script>
+<script type="text/javascript" src="js/formatinf.js"></script>
+<script type="text/javascript" src="js/errorlevel.js"></script>
+<script type="text/javascript" src="js/bitmat.js"></script>
+<script type="text/javascript" src="js/datablock.js"></script>
+<script type="text/javascript" src="js/bmparser.js"></script>
+<script type="text/javascript" src="js/datamask.js"></script>
+<script type="text/javascript" src="js/rsdecoder.js"></script>
+<script type="text/javascript" src="js/gf256poly.js"></script>
+<script type="text/javascript" src="js/gf256.js"></script>
+<script type="text/javascript" src="js/decoder.js"></script>
+<script type="text/javascript" src="js/qrcode.js"></script>
+<script type="text/javascript" src="js/findpat.js"></script>
+<script type="text/javascript" src="js/alignpat.js"></script>
+<script type="text/javascript" src="js/databr.js"></script>
+<script type="text/javascript" src="js/webqr.js"></script>
+<script type="text/javascript" src="js/qrcodegen.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+	<button class="toolbutton" id="activity-button" title="QR Code"></button>
+
+	<!-- Add more buttons here -->
+	<div class="splitbar"></div>
+	<button class="toolbutton" id="photo-button" title="Photo"></button>
+	<div class="splitbar"></div>
+	<button class="toolbutton" id="png-button" title="Export to PNG"></button>
+
+	<!-- Buttons with class="pull-right" will be right aligned -->
+	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+	<div id="input-box">
+		<input id="user-text" name="userText" type="text"></input>
+		<button id="generate-button" class="toolbutton" title="Generate"></button>
+		<hr>
+	</div>
+	<div id="outdiv">
+	</div>
+	<canvas id="qr-canvas"></canvas>
+	<div id="qr-code"></div>
+</div>
+<div id="loading-spinner">
+	<div style="text-align: center;">
+		<svg id="loading-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+			width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+			<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+				s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+				c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+			<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+				C22.32,8.481,24.301,9.057,26.013,10.047z">
+				<animateTransform attributeType="xml"
+					attributeName="transform"
+					type="rotate"
+					from="0 20 20"
+					to="360 20 20"
+					dur="1s"
+					repeatCount="indefinite"/>
+			</path>
+		</svg>
+		<br/>
+	</div>
+</div>
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+<button class="toolbutton" id="switchcamera-button" title="Switch camera"></button>
+<button class="toolbutton" id="close-button" title="Close"></button>
+</body>
+
+</html>

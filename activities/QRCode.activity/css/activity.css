@@ -1,0 +1,144 @@
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #png-button {
+	background-image: url(../icons/png-export.svg);
+}
+
+#main-toolbar #photo-button {
+	background-image: url(../icons/photo.svg);
+}
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#activity-palette {
+	z-index: 5;
+}
+
+#input-box {
+	position: relative;
+	z-index: 2;
+	background-color: #c0c0c0;
+}
+
+#user-text {
+	height: 40px;
+	margin: 5px;
+	margin-left: 3vh;
+	width: 89vw;
+	font-size: 28pt;
+	font-weight: bold;
+	z-index:0;
+}
+
+.text-url {
+	color: blue;
+	text-decoration: underline;
+}
+
+#generate-button {
+	height: 45px;
+	width: 50px;
+	margin: 8px;
+	right: 4px;
+	bottom: 15px;
+	top: 2px;
+	z-index: 1;
+	position: absolute;
+	background-image: url(../icons/go-right.svg);
+	background-size: 55px 50px;
+	background-position: 50% 50%;
+}
+
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#close-button {
+	background-image: url(../icons/close.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	top: 0;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#switchcamera-button {
+	background-image: url(../icons/switch-camera.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	bottom: 10px;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#qr-code {
+	position: absolute;
+	width: 30%;
+}
+
+#canvas {
+	background-color: white;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#video-stream {
+	position: absolute;
+	margin-top: 50px;
+}
+
+#qr-canvas {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+}
+
+#loading-spinner {
+	position: absolute;
+	margin-left: 30px;
+	margin-top: 10px;
+	visibility: hidden;
+	z-index: 4;
+}
