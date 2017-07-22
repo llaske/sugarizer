@@ -236,7 +236,7 @@ enyo.kind({
 			var that = this;
 			myserver.getJournal(journalId, typeactivity, constant.fieldMetadata,
 				function(inSender, inResponse) {
-					that.journal = inResponse;
+					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
 					doFilter();
@@ -387,7 +387,7 @@ enyo.kind({
 		var that = this;
 		myserver.getJournal(journalId, undefined, constant.fieldMetadata,
 			function(inSender, inResponse) {
-				that.journal = inResponse;
+				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
 				that.journalChanged();
@@ -417,7 +417,7 @@ enyo.kind({
 			}
 			myserver.getJournalEntry(journalId, entry.objectId,
 				function(inSender, inResponse) {
-					callback(null, inResponse.metadata, inResponse.text);
+					callback(null, inResponse.entries[0].metadata, inResponse.entries[0].text);
 				},
 				function() {
 					console.log("WARNING: Error loading entry "+objectId+" in journal "+journalId);

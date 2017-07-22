@@ -40,9 +40,11 @@ constant.appType = 1;  // clientType
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
-constant.dynamicInitActivitiesURL = "/api/activities/";
-constant.initNetworkURL = "/api/users/";
-constant.sendCloudURL = "/api/journal/";
+constant.dynamicInitActivitiesURL = "/api/v1/activities/";
+constant.loginURL = "/auth/login/";
+constant.signupURL = "/auth/signup/";
+constant.initNetworkURL = "/api/v1/users/";
+constant.sendCloudURL = "/api/v1/journal/";
 constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";
