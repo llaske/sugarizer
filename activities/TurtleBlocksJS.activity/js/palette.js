@@ -502,10 +502,12 @@ function Palettes () {
             that.circles = showButtonHighlight(palettes.buttons[name].x + r, palettes.buttons[name].y + r, r, event, palettes.scale, palettes.stage);
 
             /*add tooltip for palette buttons*/
-            palette_text = new createjs.Text(_(name), '20px Arial', 'black');
-            palette_text.x = palettes.buttons[name].x + 2.2 * r;
-            palette_text.y = palettes.buttons[name].y + 5 * r / 8;
-            palettes.stage.addChild(palette_text);
+            if (!sugarizerCompatibility.isInsideSugarizer()) {
+                palette_text = new createjs.Text(_(name), '20px Arial', 'black');
+                palette_text.x = palettes.buttons[name].x + 2.2 * r;
+                palette_text.y = palettes.buttons[name].y + 5 * r / 8;
+                palettes.stage.addChild(palette_text);
+            }
         });
 
         this.buttons[name].on('pressup', function (event) {

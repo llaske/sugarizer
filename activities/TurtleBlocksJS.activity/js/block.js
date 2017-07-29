@@ -232,7 +232,7 @@ function Block(protoblock, blocks, overrideName) {
                 myBlock.expandBitmap.scaleX = myBlock.expandBitmap.scaleY = myBlock.expandBitmap.scale = scale / 2;
 
                 var bounds = myBlock.collapseContainer.getBounds();
-                myBlock.collapseContainer.cache(bounds.x, bounds.y, bounds.width, bounds.height);
+                if (bounds) myBlock.collapseContainer.cache(bounds.x, bounds.y, bounds.width, bounds.height);
                 myBlock._positionCollapseContainer(myBlock.protoblock.scale);
                 myBlock._calculateCollapseHitArea();
             };
@@ -688,7 +688,7 @@ function Block(protoblock, blocks, overrideName) {
                     myBlock.expandBitmap.visible = myBlock.collapsed;
 
                     var bounds = myBlock.collapseContainer.getBounds();
-                    myBlock.collapseContainer.cache(bounds.x, bounds.y, bounds.width, bounds.height);
+                    if (bounds) myBlock.collapseContainer.cache(bounds.x, bounds.y, bounds.width, bounds.height);
                     myBlock.blocks.stage.addChild(myBlock.collapseContainer);
                     if (postProcess !== null) {
                         postProcess(myBlock);
