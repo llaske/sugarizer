@@ -50,7 +50,12 @@ enyo.kind({
 
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
-			this.$.activities.setUrl(myserver.getActivitiesUrl());
+			// HACK: Add a hack, if not connected, use static activities URL to avoid token failure - will be replaced
+			if (!preferences.isConnected()) {
+				this.$.activities.setUrl(myserver.getActivitiesUrl());
+			} else {
+				this.$.activities.setUrl(constant.staticInitActivitiesURL);
+			}
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 		}
@@ -65,7 +70,9 @@ enyo.kind({
 					{
 						name: preferences.getName(),
 						color: preferences.getColor(),
-						language: preferences.getLanguage()
+						language: preferences.getLanguage(),
+						role: "student",
+						password: "pass"  // HACK: password = "pass" because no login screen
 					},
 					function(inSender, inResponse) {
 						preferences.setNetworkId(inResponse._id);
