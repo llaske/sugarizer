@@ -68,6 +68,7 @@ enyo.kind({
 	// Events
 	filterSettings: function() {
 		var filter = this.$.settingssearch.getText().toLowerCase();
+		stats.trace('my_settings', 'search', 'q='+filter, null);
 		enyo.forEach(this.$.content.getControls(), function(item) {
 			item.setDisabled(item.getText().toLowerCase().indexOf(filter) == -1 && filter.length != 0);
 		});
@@ -81,6 +82,7 @@ enyo.kind({
 	// Display me dialog
 	meClicked: function() {
 		if (!this.$.me.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_me', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogAboutme"}, {owner:this});
 			this.subdialog.show();
@@ -89,6 +91,7 @@ enyo.kind({
 
 	computerClicked: function() {
 		if (!this.$.computer.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_computer', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogComputer"}, {owner:this});
 			this.subdialog.show();
@@ -97,6 +100,7 @@ enyo.kind({
 
 	languageClicked: function() {
 		if (!this.$.language.getDisabled()) {
+			stats.trace('my_settings', 'click', 'language', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogLanguage"}, {owner:this});
 			this.subdialog.show();
@@ -105,6 +109,7 @@ enyo.kind({
 
 	serverClicked: function() {
 		if (!this.$.aboutserver.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_server', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
@@ -368,6 +373,7 @@ enyo.kind({
 	},
 
 	restart: function() {
+		stats.trace('my_settings_about_me', 'change', 'name_color', null);
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
@@ -466,6 +472,7 @@ enyo.kind({
 	},
 
 	restart: function() {
+		stats.trace('my_settings_language', 'change', 'language', null);
 		preferences.setLanguage(this.currentlanguage);
 		preferences.save();
 		preferences.saveToServer(myserver, function() {

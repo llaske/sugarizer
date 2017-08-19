@@ -22,6 +22,7 @@ constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
 constant.neighborhoodView = 3;
+constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_view'];
 
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
@@ -45,6 +46,7 @@ constant.loginURL = "/auth/login/";
 constant.signupURL = "/auth/signup/";
 constant.initNetworkURL = "/api/v1/users/";
 constant.sendCloudURL = "/api/v1/journal/";
+constant.statsURL = "/api/v1/stats/";
 constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";

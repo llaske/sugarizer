@@ -212,13 +212,16 @@ enyo.kind({
 		return true;
 	},
 	doShutdown: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
 		util.quitApp();
 	},
 	doRestart: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'restart');
 		util.restartApp();
 	},
 	doSettings: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
@@ -840,6 +843,7 @@ enyo.kind({
 	startTutorial: function() {
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		tutorial.setElement("neighborsearch", this.$.neighborsearch.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

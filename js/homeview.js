@@ -14,6 +14,7 @@ var util;
 var myserver;
 var humane;
 var tutorial;
+var stats;
 
 
 
@@ -399,6 +400,7 @@ enyo.kind({
 		}
 		var oldView = this.currentView;
 		this.currentView = newView;
+		stats.trace(constant.viewNames[oldView], 'change_view', constant.viewNames[newView]);
 
 		// Show desktop
 		if (newView == constant.radialView) {
@@ -621,13 +623,16 @@ enyo.kind({
 		return true;
 	},
 	doShutdown: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
 		util.quitApp();
 	},
 	doRestart: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'restart');
 		util.restartApp();
 	},
 	doSettings: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
@@ -640,6 +645,7 @@ enyo.kind({
 	// Filter activities handling
 	filterActivities: function() {
 		var filter = toolbar.getSearchText().toLowerCase();
+		stats.trace(constant.viewNames[app.getView()], 'search', 'q='+filter, null);
 
 		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
@@ -751,6 +757,7 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });
