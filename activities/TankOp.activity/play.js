@@ -302,6 +302,7 @@ enyo.kind({
 
 		// Back to app
 		app.init();
+		app.playTheme()
 		app.renderInto(document.getElementById("board"));
 	},
 

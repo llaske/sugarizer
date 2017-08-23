@@ -68,9 +68,6 @@ enyo.kind({
 		this.$.nextmission.setContent(l10n.get("NextMission"));
 		this.$.completed.setContent(l10n.get("Completed"));
 
-		// Play theme
-		sound.play("audio/soundtrack", true);
-
 		// Draw completed mission
 		var items = [];
 		this.$.mission.setContent(preferences.levels[this.currentlevel].name = l10n.get(preferences.levels[this.currentlevel].id));
@@ -105,6 +102,11 @@ enyo.kind({
 		this.$.creditsPopup.show();
 	},
 
+	// Play theme
+	playTheme: function() {
+		sound.play("audio/soundtrack", true);
+	},
+
 	// Play game
 	play: function() {
 		// Stop sound
@@ -116,6 +118,7 @@ enyo.kind({
 
 	// Load game from datastore
 	load: function() {
+		this.playTheme();
 		var datastoreObject = this.activity.getDatastoreObject();
 		var currentthis = this;
 		datastoreObject.loadAsText(function (error, metadata, data) {
