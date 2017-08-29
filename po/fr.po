@@ -1,10 +1,10 @@
-#. extracted from locale.ini
+#. extracted from ../locale.ini
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Jul 19 2017 22:11:57 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Tue Aug 29 2017 16:09:42 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "Ajouter aux favoris"
 #: VersionNumber
 msgctxt "VersionNumber"
 msgid "Version {{number}}"
-msgstr ""
+msgstr "Version {{number}}"
 
 #: FavoritesView
 msgctxt "FavoritesView"
@@ -74,12 +74,12 @@ msgstr "il y a {{time}}"
 #: Minutes_one
 msgctxt "Minutes_one"
 msgid "minute"
-msgstr ""
+msgstr "minute"
 
 #: Minutes_other
 msgctxt "Minutes_other"
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: Hours_one
 msgctxt "Hours_one"
@@ -145,22 +145,22 @@ msgstr "il y a {{time}}"
 #: Minutes_one_short
 msgctxt "Minutes_one_short"
 msgid "mn"
-msgstr ""
+msgstr "mn"
 
 #: Minutes_other_short
 msgctxt "Minutes_other_short"
 msgid "mn"
-msgstr ""
+msgstr "mn"
 
 #: Hours_one_short
 msgctxt "Hours_one_short"
 msgid "hr"
-msgstr ""
+msgstr "hr"
 
 #: Hours_other_short
 msgctxt "Hours_other_short"
 msgid "hr"
-msgstr ""
+msgstr "hr"
 
 #: Days_one_short
 msgctxt "Days_one_short"
@@ -310,7 +310,7 @@ msgstr "Terminé"
 #: Ok
 msgctxt "Ok"
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: Cancel
 msgctxt "Cancel"
@@ -365,7 +365,7 @@ msgstr "Français"
 #: Igbo
 msgctxt "Igbo"
 msgid "Igbo"
-msgstr ""
+msgstr "Igbo"
 
 #: German
 msgctxt "German"
@@ -375,7 +375,7 @@ msgstr "Allemand"
 #: Yoruba
 msgctxt "Yoruba"
 msgid "Yoruba"
-msgstr ""
+msgstr "Yoruba"
 
 #: Arabic
 msgctxt "Arabic"
@@ -420,7 +420,7 @@ msgstr "Version du navigateur:"
 #: UserAgent
 msgctxt "UserAgent"
 msgid "User agent:"
-msgstr ""
+msgstr "User agent:"
 
 #: Copyright
 msgctxt "Copyright"
@@ -628,7 +628,7 @@ msgstr "Erreur d'enregistrement"
 #: Tutorial
 msgctxt "Tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: TutoPrev
 msgctxt "TutoPrev"
@@ -668,7 +668,7 @@ msgstr "Ces icônes autour de vous sont les activités. Cliquez dessus pour lanc
 #: TutoJournalTitle
 msgctxt "TutoJournalTitle"
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #: TutoJournalContent
 msgctxt "TutoJournalContent"
@@ -738,7 +738,7 @@ msgstr "Maintenant cherchez l'icône de l'activité Shared Notes et cliquez dess
 #: TutoJournalIntroTitle
 msgctxt "TutoJournalIntroTitle"
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #: TutoJournalIntroContent
 msgctxt "TutoJournalIntroContent"
@@ -923,7 +923,7 @@ msgstr "Cette activité est partagée par un autre utilisateur. Passez la souris
 #: TutoNeighborWifiTitle
 msgctxt "TutoNeighborWifiTitle"
 msgid "WiFi"
-msgstr ""
+msgstr "WiFi"
 
 #: TutoNeighborWifiContent
 msgctxt "TutoNeighborWifiContent"
