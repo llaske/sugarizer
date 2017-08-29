@@ -1,0 +1,135 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:15:08 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: SimpleClock
+msgctxt "SimpleClock"
+msgid "Simple Clock"
+msgstr "Horloge Simple"
+
+#: NiceClock
+msgctxt "NiceClock"
+msgid "Nice Clock"
+msgstr "Horloge Design"
+
+#: WriteTime
+msgctxt "WriteTime"
+msgid "Write time"
+msgstr "Affiche l'heure"
+
+#: WriteDate
+msgctxt "WriteDate"
+msgid "Write date"
+msgstr "Affiche la date"
+
+#: WhatTime
+msgctxt "WhatTime"
+msgid "What Time Is It?"
+msgstr "Quelle heure est-il ?"
+
+#: Sunday
+msgctxt "Sunday"
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: Monday
+msgctxt "Monday"
+msgid "Monday"
+msgstr "Lundi"
+
+#: Tuesday
+msgctxt "Tuesday"
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: Wednesday
+msgctxt "Wednesday"
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: Thursday
+msgctxt "Thursday"
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: Friday
+msgctxt "Friday"
+msgid "Friday"
+msgstr "Vendredi"
+
+#: Saturday
+msgctxt "Saturday"
+msgid "Saturday"
+msgstr "Samedi"
+
+#: January
+msgctxt "January"
+msgid "January"
+msgstr "Janvier"
+
+#: February
+msgctxt "February"
+msgid "February"
+msgstr "Février"
+
+#: March
+msgctxt "March"
+msgid "March"
+msgstr "Mars"
+
+#: April
+msgctxt "April"
+msgid "April"
+msgstr "Avril"
+
+#: May
+msgctxt "May"
+msgid "May"
+msgstr "Mai"
+
+#: June
+msgctxt "June"
+msgid "June"
+msgstr "Juin"
+
+#: July
+msgctxt "July"
+msgid "July"
+msgstr "Juillet"
+
+#: August
+msgctxt "August"
+msgid "August"
+msgstr "Août"
+
+#: September
+msgctxt "September"
+msgid "September"
+msgstr "Septembre"
+
+#: October
+msgctxt "October"
+msgid "October"
+msgstr "Octobre"
+
+#: November
+msgctxt "November"
+msgid "November"
+msgstr "Novembre"
+
+#: December
+msgctxt "December"
+msgid "December"
+msgstr "Decembre"
+

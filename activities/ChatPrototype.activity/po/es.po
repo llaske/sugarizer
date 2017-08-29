@@ -1,0 +1,60 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 17:52:45 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: WriteYourMessage
+msgctxt "WriteYourMessage"
+msgid "Write your message here..."
+msgstr "Escribe tu mensaje aqui..."
+
+#: DisconnectedFromWebSocket
+msgctxt "DisconnectedFromWebSocket"
+msgid "Disconnected From Web Socket."
+msgstr "Desconectado de Web Socket."
+
+#: ConnectionClosed
+msgctxt "ConnectionClosed"
+msgid "Connection Closed"
+msgstr "Conexión cerrada"
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr "Conectado"
+
+#: Error
+msgctxt "Error"
+msgid "Error"
+msgstr "Error"
+
+#: status
+msgctxt "status"
+msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
+msgstr "Haga clic en el icono Vecindario en la paleta de presencia para iniciar el Chat"
+
+#: Join
+msgctxt "Join"
+msgid "join"
+msgstr "entra"
+
+#: Leave
+msgctxt "Leave"
+msgid "leave"
+msgstr "salid"
+
+#: Chat
+msgctxt "Chat"
+msgid "the chat"
+msgstr "el Chat"
+
