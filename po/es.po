@@ -1,0 +1,927 @@
+#. extracted from locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Jul 19 2017 22:11:57 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: StartNew
+msgctxt "StartNew"
+msgid "Start new"
+msgstr "Comenzar nuevo"
+
+#. Do not translate {{name}}
+#: NameActivity
+msgctxt "NameActivity"
+msgid "{{name}} Activity"
+msgstr "Actividad {{name}}"
+
+#: RemoveFavorite
+msgctxt "RemoveFavorite"
+msgid "Remove favorite"
+msgstr "Remover favorito"
+
+#: MakeFavorite
+msgctxt "MakeFavorite"
+msgid "Make favorite"
+msgstr "Hacer favorito"
+
+#. Do not translate {{number}}
+#: VersionNumber
+msgctxt "VersionNumber"
+msgid "Version {{number}}"
+msgstr "Versión {{number}}"
+
+#: FavoritesView
+msgctxt "FavoritesView"
+msgid "Favorites view"
+msgstr "Vista de favoritos"
+
+#: ListView
+msgctxt "ListView"
+msgid "List view"
+msgstr "Vista de lista"
+
+#: Home
+msgctxt "Home"
+msgid "Home"
+msgstr "Hogar"
+
+#: FilterFavorites
+msgctxt "FilterFavorites"
+msgid "Filter favorites"
+msgstr "Filtrar favoritos"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "Segundos atrás"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} atrás"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minuto"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutos"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "hora"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "horas"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "día"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "días"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "semana"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "semanas"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "mes"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "meses"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "año"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "años"
+
+#: SecondsAgo_short
+msgctxt "SecondsAgo_short"
+msgid "Sec. ago"
+msgstr "Seg. atrás"
+
+#. Do not translate {{time}}
+#: Ago_short
+msgctxt "Ago_short"
+msgid "{{time}} ago"
+msgstr "{{time}} atrás"
+
+#: Minutes_one_short
+msgctxt "Minutes_one_short"
+msgid "mn"
+msgstr ""
+
+#: Minutes_other_short
+msgctxt "Minutes_other_short"
+msgid "mn"
+msgstr ""
+
+#: Hours_one_short
+msgctxt "Hours_one_short"
+msgid "hr"
+msgstr ""
+
+#: Hours_other_short
+msgctxt "Hours_other_short"
+msgid "hr"
+msgstr ""
+
+#: Days_one_short
+msgctxt "Days_one_short"
+msgid "dy"
+msgstr "dí"
+
+#: Days_other_short
+msgctxt "Days_other_short"
+msgid "dy"
+msgstr "dí"
+
+#: Weeks_one_short
+msgctxt "Weeks_one_short"
+msgid "wk"
+msgstr "sm"
+
+#: Weeks_other_short
+msgctxt "Weeks_other_short"
+msgid "wk"
+msgstr "sm"
+
+#: Months_one_short
+msgctxt "Months_one_short"
+msgid "mo"
+msgstr "ms"
+
+#: Months_other_short
+msgctxt "Months_other_short"
+msgid "mo"
+msgstr "ms"
+
+#: Years_one_short
+msgctxt "Years_one_short"
+msgid "yr"
+msgstr "añ"
+
+#: Years_other_short
+msgctxt "Years_other_short"
+msgid "yr"
+msgstr "añ"
+
+#: Shutdown
+msgctxt "Shutdown"
+msgid "Shutdown"
+msgstr "Apagar"
+
+#: Restart
+msgctxt "Restart"
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: MySettings
+msgctxt "MySettings"
+msgid "My Settings"
+msgstr "Mis ajustes"
+
+#: SearchHome
+msgctxt "SearchHome"
+msgid "Search in home"
+msgstr "Buscar en hogar"
+
+#: JournalEmpty
+msgctxt "JournalEmpty"
+msgid "Your journal is empty"
+msgstr "Tu diario está vacío"
+
+#: NoMatchingActivities
+msgctxt "NoMatchingActivities"
+msgid "No matching activities"
+msgstr "No hay actividades coincidentes"
+
+#: ClearSearch
+msgctxt "ClearSearch"
+msgid "Clear search"
+msgstr "Limpiar búsqueda"
+
+#: SearchJournal
+msgctxt "SearchJournal"
+msgid "Search in journal"
+msgstr "Buscar en el diario"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "Cualquier momento"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Hoy"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Desde ayer"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "La semana pasada"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "El mes pasado"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "El año pasado"
+
+#: Anything
+msgctxt "Anything"
+msgid "Anything"
+msgstr "Todo"
+
+#: NoMatchingEntries
+msgctxt "NoMatchingEntries"
+msgid "No matching entries"
+msgstr "No hay entradas coincidentes"
+
+#: SearchSettings
+msgctxt "SearchSettings"
+msgid "Search in settings"
+msgstr "Buscar en configuraciones"
+
+#: AboutMe
+msgctxt "AboutMe"
+msgid "About me"
+msgstr "Acerca de mí"
+
+#: AboutMyComputer
+msgctxt "AboutMyComputer"
+msgid "About my computer"
+msgstr "Acerca de mi computadora"
+
+#: Language
+msgctxt "Language"
+msgid "Language"
+msgstr "Idioma"
+
+#: Done
+msgctxt "Done"
+msgid "Done"
+msgstr "Hecho"
+
+#: Ok
+msgctxt "Ok"
+msgid "Ok"
+msgstr ""
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ClickToChangeColor
+msgctxt "ClickToChangeColor"
+msgid "Click to change color:"
+msgstr "Clic para cambiar el color:"
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
+msgstr "Advertencia"
+
+#: ChangesRequireRestart
+msgctxt "ChangesRequireRestart"
+msgid "Changes require restart"
+msgstr "Los cambios requieren reiniciar"
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel changes"
+msgstr "Cancelar cambios"
+
+#: RestartNow
+msgctxt "RestartNow"
+msgid "Restart now"
+msgstr "Reiniciar ahora"
+
+#: ChooseLanguage
+msgctxt "ChooseLanguage"
+msgid "Choose language you prefer:"
+msgstr "Elige el idioma que prefieras:"
+
+#: English
+msgctxt "English"
+msgid "English"
+msgstr "Inglés"
+
+#: Spanish
+msgctxt "Spanish"
+msgid "Spanish"
+msgstr "Español"
+
+#: French
+msgctxt "French"
+msgid "French"
+msgstr "Francés"
+
+#: Igbo
+msgctxt "Igbo"
+msgid "Igbo"
+msgstr ""
+
+#: Yoruba
+msgctxt "Yoruba"
+msgid "Yoruba"
+msgstr ""
+
+#: German
+msgctxt "German"
+msgid "German"
+msgstr "Alemán"
+
+#: Arabic
+msgctxt "Arabic"
+msgid "Arabic"
+msgstr "Arabe"
+
+#: Japanese
+msgctxt "Japanese"
+msgid "Japanese"
+msgstr "Japonés"
+
+#: Polish
+msgctxt "Polish"
+msgid "Polish"
+msgstr "Polaco"
+
+#: Portuguese
+msgctxt "Portuguese"
+msgid "Portuguese"
+msgstr ""
+
+#: Software
+msgctxt "Software"
+msgid "Software"
+msgstr ""
+
+#: ClientType
+msgctxt "ClientType"
+msgid "Client type:"
+msgstr "Tipo de cliente:"
+
+#: Browser
+msgctxt "Browser"
+msgid "Browser:"
+msgstr "Navegador:"
+
+#: BrowserVersion
+msgctxt "BrowserVersion"
+msgid "Browser version:"
+msgstr "Versión del navegador:"
+
+#: UserAgent
+msgctxt "UserAgent"
+msgid "User agent:"
+msgstr ""
+
+#: Copyright
+msgctxt "Copyright"
+msgid "Copyright and license"
+msgstr "Copyright y licencia"
+
+#: LicenseTerms
+msgctxt "LicenseTerms"
+msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
+msgstr "Sugarizer es un software de código abierto bajo la licencia Apache 2.0."
+
+#: RestartActivity
+msgctxt "RestartActivity"
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: CopyToLocal
+msgctxt "CopyToLocal"
+msgid "Copy to local"
+msgstr "Copia local"
+
+#: CopyToPrivate
+msgctxt "CopyToPrivate"
+msgid "Copy to remote"
+msgstr "Copia remota"
+
+#: CopyToShared
+msgctxt "CopyToShared"
+msgid "Copy to shared"
+msgstr "Copia compartida"
+
+#. Do not translate {{user}}
+#: ByUser
+msgctxt "ByUser"
+msgid "by {{user}}"
+msgstr "por {{user}}"
+
+#: Erase
+msgctxt "Erase"
+msgid "Erase"
+msgstr "Borrar"
+
+#: ErrorLoadingRemote
+msgctxt "ErrorLoadingRemote"
+msgid "Remote server not responding"
+msgstr "El servidor remoto no responde"
+
+#: Retry
+msgctxt "Retry"
+msgid "Retry"
+msgstr "Reintentar"
+
+#: Server
+msgctxt "Server"
+msgid "About my server"
+msgstr "Acerca de mi servidor"
+
+#: ConnectedToServer
+msgctxt "ConnectedToServer"
+msgid "Connected to a server"
+msgstr "Conectado a un servidor"
+
+#: ServerName
+msgctxt "ServerName"
+msgid "Server address:"
+msgstr "Dirección del servidor:"
+
+#: UserId
+msgctxt "UserId"
+msgid "User Id on server:"
+msgstr "User Id:"
+
+#: CheckInfo
+msgctxt "CheckInfo"
+msgid "Check"
+msgstr "Corregir"
+
+#: LeaveUserBlank
+msgctxt "LeaveUserBlank"
+msgid "(leave blank for a new user)"
+msgstr "(dejar en blanco para un nuevo usuario)"
+
+#: NeighborhoodView
+msgctxt "NeighborhoodView"
+msgid "Neighborhood View"
+msgstr "Vista del Vecindario"
+
+#: SearchNeighbor
+msgctxt "SearchNeighbor"
+msgid "Search in Neighborhood"
+msgstr "Buscar en el Vecindario"
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr "Conectado"
+
+#: JoinActivity
+msgctxt "JoinActivity"
+msgid "Join"
+msgstr "Unirse"
+
+#: Name
+msgctxt "Name"
+msgid "Name:"
+msgstr "Nombre:"
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr "Siguiente"
+
+#: Back
+msgctxt "Back"
+msgid "Back"
+msgstr "Anterior"
+
+#: ClickToColor
+msgctxt "ClickToColor"
+msgid "Click to change color:"
+msgstr "Haz clic para cambiar el color:"
+
+#: ServerNotSet
+msgctxt "ServerNotSet"
+msgid "Your server is not set"
+msgstr "No se ha especificado el servidor"
+
+#: AndroidSettings
+msgctxt "AndroidSettings"
+msgid "Android Settings"
+msgstr "Configuración de Android"
+
+#: ResetLauncher
+msgctxt "ResetLauncher"
+msgid "Switch Launcher"
+msgstr "Cambiar el lanzador"
+
+#: JoinNetwork
+msgctxt "JoinNetwork"
+msgid "Join Network"
+msgstr "Unirse a la red"
+
+#: EnterKey
+msgctxt "EnterKey"
+msgid "Enter shared key"
+msgstr "Ingrese la llave compartida"
+
+#: SetLauncherTitle
+msgctxt "SetLauncherTitle"
+msgid "Change the launcher"
+msgstr "Cambiar el lanzador"
+
+#. Do not translate {{launcher}}
+#: SetLauncherText
+msgctxt "SetLauncherText"
+msgid "You can use either SugarizerOS as a launcher or only use the Sugarizer environment as an application with your native launcher. The launcher you are actually using is {{launcher}}, click on the icon of the launcher you want to switch to."
+msgstr "Puedes utilizar SugarizerOS como lanzador, o utilizar tu lanzador nativo para abrir el entorno Sugarizer como una aplicación. El lanzador que estas usando actualmente es {{launcher}}, clickea el icono del lanzador al que quieres cambiar."
+
+#: Disconnect
+msgctxt "Disconnect"
+msgid "Disconnect"
+msgstr "Desconectar"
+
+#: Loading
+msgctxt "Loading"
+msgid "Loading..."
+msgstr "Cargando..."
+
+#: AllDataWillBeLost
+msgctxt "AllDataWillBeLost"
+msgid "Journal and settings will be lost"
+msgstr "El diario y las preferencias se perderán"
+
+#: ClickMore
+msgctxt "ClickMore"
+msgid "Click again for more options"
+msgstr "Clickea nuevamente para más opciones"
+
+#: ReinitJournalAndSettings
+msgctxt "ReinitJournalAndSettings"
+msgid "Reinit journal and settings"
+msgstr "Reiniciar el diario y las preferencias"
+
+#: CopyToDevice
+msgctxt "CopyToDevice"
+msgid "Copy to your device"
+msgstr ""
+
+#. Do not translate {{file}}
+#: FileWroteTo
+msgctxt "FileWroteTo"
+msgid "Wrote file to {{file}}"
+msgstr ""
+
+#: ErrorWritingFile
+msgctxt "ErrorWritingFile"
+msgid "Can't write file"
+msgstr ""
+
+#: Tutorial
+msgctxt "Tutorial"
+msgid "Tutorial"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoUserTitle
+msgctxt "TutoUserTitle"
+msgid "Me"
+msgstr ""
+
+#: TutoUserContent
+msgctxt "TutoUserContent"
+msgid "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr ""
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity"
+msgstr ""
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouve over it or long touch it to display advanced launch menu."
+msgstr ""
+
+#: TutoJournalTitle
+msgctxt "TutoJournalTitle"
+msgid "Journal"
+msgstr ""
+
+#: TutoJournalContent
+msgctxt "TutoJournalContent"
+msgid "Journal is the place to retrieve the work you've done in activities and access your history."
+msgstr ""
+
+#: TutoFavoriteTitle
+msgctxt "TutoFavoriteTitle"
+msgid "Favorite view"
+msgstr ""
+
+#: TutoFavoriteContent
+msgctxt "TutoFavoriteContent"
+msgid "Use this button to display the favorite view."
+msgstr ""
+
+#: TutoListTitle
+msgctxt "TutoListTitle"
+msgid "List view"
+msgstr ""
+
+#: TutoListContent
+msgctxt "TutoListContent"
+msgid "Use this button to display all activities and to select activities in the favorite view."
+msgstr ""
+
+#: TutoFavswitchTitle
+msgctxt "TutoFavswitchTitle"
+msgid "Favorite switch"
+msgstr ""
+
+#: TutoFavswitchContent
+msgctxt "TutoFavswitchContent"
+msgid "Use this icon to change visibility of this activity in the favorite view."
+msgstr ""
+
+#: TutoSearchTitle
+msgctxt "TutoSearchTitle"
+msgid "Search activity"
+msgstr ""
+
+#: TutoSearchContent
+msgctxt "TutoSearchContent"
+msgid "Use this text to search an activity by its name."
+msgstr ""
+
+#: TutoNeighborTitle
+msgctxt "TutoNeighborTitle"
+msgid "Neighborhood view"
+msgstr ""
+
+#: TutoNeighborContent
+msgctxt "TutoNeighborContent"
+msgid "Display users around you and join activities they shared."
+msgstr ""
+
+#: TutoRunTitle
+msgctxt "TutoRunTitle"
+msgid "Now it's your turn!"
+msgstr ""
+
+#: TutoRunContent
+msgctxt "TutoRunContent"
+msgid "Now look for the Shared Notes activity icon and click on it to run the activity."
+msgstr ""
+
+#: TutoJournalIntroTitle
+msgctxt "TutoJournalIntroTitle"
+msgid "Journal"
+msgstr ""
+
+#: TutoJournalIntroContent
+msgctxt "TutoJournalIntroContent"
+msgid "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
+msgstr ""
+
+#: TutoJournalActivityTitle
+msgctxt "TutoJournalActivityTitle"
+msgid "Activity"
+msgstr ""
+
+#: TutoJournalActivityContent
+msgctxt "TutoJournalActivityContent"
+msgid "Here's the icon of the activity you've done. Pass the mouve over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgstr ""
+
+#: TutoJournalTimeTitle
+msgctxt "TutoJournalTimeTitle"
+msgid "When"
+msgstr ""
+
+#: TutoJournalTimeContent
+msgctxt "TutoJournalTimeContent"
+msgid "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
+msgstr ""
+
+#: TutoJournalTitleTitle
+msgctxt "TutoJournalTitleTitle"
+msgid "Title"
+msgstr ""
+
+#: TutoJournalTitleContent
+msgctxt "TutoJournalTitleContent"
+msgid "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
+msgstr ""
+
+#: TutoJournalFavoriteTitle
+msgctxt "TutoJournalFavoriteTitle"
+msgid "Favorite"
+msgstr ""
+
+#: TutoJournalFavoriteContent
+msgctxt "TutoJournalFavoriteContent"
+msgid "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
+msgstr ""
+
+#: TutoJournalFavButtonTitle
+msgctxt "TutoJournalFavButtonTitle"
+msgid "Show favorites"
+msgstr ""
+
+#: TutoJournalFavButtonContent
+msgctxt "TutoJournalFavButtonContent"
+msgid "Click on this icon to filter Journal on the favorite flag."
+msgstr ""
+
+#: TutoJournalSearchTitle
+msgctxt "TutoJournalSearchTitle"
+msgid "Search entry"
+msgstr ""
+
+#: TutoJournalSearchContent
+msgctxt "TutoJournalSearchContent"
+msgid "Use this text to search an entry by its title."
+msgstr ""
+
+#: TutoJournalTypeTitle
+msgctxt "TutoJournalTypeTitle"
+msgid "Filter by type"
+msgstr ""
+
+#: TutoJournalTypeContent
+msgctxt "TutoJournalTypeContent"
+msgid "Click here to select and filter Journal by activity type."
+msgstr ""
+
+#: TutoJournalTimeButtonTitle
+msgctxt "TutoJournalTimeButtonTitle"
+msgid "Filter by time"
+msgstr ""
+
+#: TutoJournalTimeButtonContent
+msgctxt "TutoJournalTimeButtonContent"
+msgid "Click here to view only activities that you've done in a period of time."
+msgstr ""
+
+#: TutoJournalLocalTitle
+msgctxt "TutoJournalLocalTitle"
+msgid "Local Journal"
+msgstr ""
+
+#: TutoJournalLocalContent
+msgctxt "TutoJournalLocalContent"
+msgid "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
+msgstr ""
+
+#: TutoJournalCloudOneTitle
+msgctxt "TutoJournalCloudOneTitle"
+msgid "Remote Journal"
+msgstr ""
+
+#: TutoJournalCloudOneContent
+msgctxt "TutoJournalCloudOneContent"
+msgid "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
+msgstr ""
+
+#: TutoJournalCloudAllTitle
+msgctxt "TutoJournalCloudAllTitle"
+msgid "Shared Journal"
+msgstr ""
+
+#: TutoJournalCloudAllContent
+msgctxt "TutoJournalCloudAllContent"
+msgid "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
+msgstr ""
+
+#: TutoGotoHomeTitle
+msgctxt "TutoGotoHomeTitle"
+msgid "Home view"
+msgstr ""
+
+#: TutoGotoHomeContent
+msgctxt "TutoGotoHomeContent"
+msgid "Click here to go back to the home view."
+msgstr ""
+
+#: TutoNeighborIntroTitle
+msgctxt "TutoNeighborIntroTitle"
+msgid "Neighborhood view"
+msgstr ""
+
+#: TutoNeighborIntroContent
+msgctxt "TutoNeighborIntroContent"
+msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server."
+msgstr ""
+
+#: TutoNeighborIntroContent2
+msgctxt "TutoNeighborIntroContent2"
+msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
+msgstr ""
+
+#: TutoNeighborUserTitle
+msgctxt "TutoNeighborUserTitle"
+msgid "You"
+msgstr ""
+
+#: TutoNeighborUserContent
+msgctxt "TutoNeighborUserContent"
+msgid "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr ""
+
+#: TutoNeighborServerTitle
+msgctxt "TutoNeighborServerTitle"
+msgid "Your server"
+msgstr ""
+
+#: TutoNeighborServerContent
+msgctxt "TutoNeighborServerContent"
+msgid "This icon is the server where you're connected. You could only see users connected to the same server than you."
+msgstr ""
+
+#: TutoNeighborOtherTitle
+msgctxt "TutoNeighborOtherTitle"
+msgid "Another"
+msgstr ""
+
+#: TutoNeighborOtherContent
+msgctxt "TutoNeighborOtherContent"
+msgid "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
+msgstr ""
+
+#: TutoNeighborActivityTitle
+msgctxt "TutoNeighborActivityTitle"
+msgid "Shared activity"
+msgstr ""
+
+#: TutoNeighborActivityContent
+msgctxt "TutoNeighborActivityContent"
+msgid "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
+msgstr ""
+
+#: TutoNeighborWifiTitle
+msgctxt "TutoNeighborWifiTitle"
+msgid "WiFi"
+msgstr ""
+
+#: TutoNeighborWifiContent
+msgctxt "TutoNeighborWifiContent"
+msgid "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
+msgstr ""
+
