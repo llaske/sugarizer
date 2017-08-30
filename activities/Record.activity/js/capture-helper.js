@@ -676,9 +676,13 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             };
 
             // start image capture
-            navigator.device.capture.captureAudio(captureSuccess, captureError, {
-                limit: 1
-            });
+			try {
+				navigator.device.capture.captureAudio(captureSuccess, captureError, {
+					limit: 1
+				});
+			} catch(err)
+			{
+			}
         },
 
         recordVideo: function () {
@@ -714,13 +718,17 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             };
 
             // start image capture
-            navigator.device.capture.captureVideo(captureSuccess, captureError, {
-                limit: 1,
-                quality: 0,
-                duration: 15,
-                width: captureHelper.width,
-                height: captureHelper.height
-            });
+			try {
+				navigator.device.capture.captureVideo(captureSuccess, captureError, {
+	                limit: 1,
+	                quality: 0,
+	                duration: 15,
+	                width: captureHelper.width,
+	                height: captureHelper.height
+	            });
+			} catch(err)
+			{
+			}
         },
 
         onDeviceReady: function () {
