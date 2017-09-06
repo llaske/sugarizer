@@ -17,175 +17,175 @@ msgstr ""
 #: TypeSomething
 msgctxt "TypeSomething"
 msgid "Hello {{name}}. Please Type something."
-msgstr "Hello {{name}}. Please Type something."
+msgstr ""
 
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr "Language"
+msgstr ""
 
 #: Speech
 msgctxt "Speech"
 msgid "Speech"
-msgstr "Speech"
+msgstr ""
 
 #: Face
 msgctxt "Face"
 msgid "Face"
-msgstr "Face"
+msgstr ""
 
 #: TypeSomethingToHear
 msgctxt "TypeSomethingToHear"
 msgid "Type something to hear it"
-msgstr "Type something to hear it"
+msgstr ""
 
 #: AskRobot
 msgctxt "AskRobot"
 msgid "Ask robot any questions"
-msgstr "Ask robot any questions"
+msgstr ""
 
 #: VoiceChat
 msgctxt "VoiceChat"
 msgid "Voice chat"
-msgstr "Voice chat"
+msgstr ""
 
 #: ratelabel
 msgctxt "ratelabel"
 msgid "Rate:"
-msgstr "Rate:"
+msgstr ""
 
 #: pitchlabel
 msgctxt "pitchlabel"
 msgid "Pitch:"
-msgstr "Pitch:"
+msgstr ""
 
 #: eyesnumber
 msgctxt "eyesnumber"
 msgid "Eyes number:"
-msgstr "Eyes number:"
+msgstr ""
 
 #: eyes
 msgctxt "eyes"
 msgid "Round"
-msgstr "Round"
+msgstr ""
 
 #: glasses
 msgctxt "glasses"
 msgid "Glasses"
-msgstr "Glasses"
+msgstr ""
 
 #: speak
 msgctxt "speak"
 msgid "Speak"
-msgstr "Speak"
+msgstr ""
 
 #: langen
 msgctxt "langen"
 msgid "English"
-msgstr "English"
+msgstr ""
 
 #: langca
 msgctxt "langca"
 msgid "Catalan"
-msgstr "Catalan"
+msgstr ""
 
 #: langcs
 msgctxt "langcs"
 msgid "Czech"
-msgstr "Czech"
+msgstr ""
 
 #: langde
 msgctxt "langde"
 msgid "German"
-msgstr "German"
+msgstr ""
 
 #: langel
 msgctxt "langel"
 msgid "Greek"
-msgstr "Greek"
+msgstr ""
 
 #: langes
 msgctxt "langes"
 msgid "Spanish"
-msgstr "Spanish"
+msgstr ""
 
 #: langeo
 msgctxt "langeo"
 msgid "Esperanto"
-msgstr "Esperanto"
+msgstr ""
 
 #: langfi
 msgctxt "langfi"
 msgid "Finnish"
-msgstr "Finnish"
+msgstr ""
 
 #: langfr
 msgctxt "langfr"
 msgid "French"
-msgstr "French"
+msgstr ""
 
 #: langhu
 msgctxt "langhu"
 msgid "Hungarian"
-msgstr "Hungarian"
+msgstr ""
 
 #: langit
 msgctxt "langit"
 msgid "Italian"
-msgstr "Italian"
+msgstr ""
 
 #: langkn
 msgctxt "langkn"
 msgid "Kannada"
-msgstr "Kannada"
+msgstr ""
 
 #: langla
 msgctxt "langla"
 msgid "Latin"
-msgstr "Latin"
+msgstr ""
 
 #: langlv
 msgctxt "langlv"
 msgid "Latvian"
-msgstr "Latvian"
+msgstr ""
 
 #: langnl
 msgctxt "langnl"
 msgid "Dutch"
-msgstr "Dutch"
+msgstr ""
 
 #: langpl
 msgctxt "langpl"
 msgid "Polish"
-msgstr "Polish"
+msgstr ""
 
 #: langpt
 msgctxt "langpt"
 msgid "Portuguese"
-msgstr "Portuguese"
+msgstr ""
 
 #: langro
 msgctxt "langro"
 msgid "Romanian"
-msgstr "Romanian"
+msgstr ""
 
 #: langsk
 msgctxt "langsk"
 msgid "Slovak"
-msgstr "Slovak"
+msgstr ""
 
 #: langsv
 msgctxt "langsv"
 msgid "Swedish"
-msgstr "Swedish"
+msgstr ""
 
 #: langtr
 msgctxt "langtr"
 msgid "Turkish"
-msgstr "Turkish"
+msgstr ""
 
 #: langzh
 msgctxt "langzh"
 msgid "Chinese"
-msgstr "Chinese"
+msgstr ""
 

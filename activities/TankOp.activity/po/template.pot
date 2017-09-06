@@ -16,150 +16,150 @@ msgstr ""
 #: Start
 msgctxt "Start"
 msgid "START"
-msgstr "START"
+msgstr ""
 
 #: NextMission
 msgctxt "NextMission"
 msgid "NEXT MISSION"
-msgstr "NEXT MISSION"
+msgstr ""
 
 #: Completed
 msgctxt "Completed"
 msgid "COMPLETED"
-msgstr "COMPLETED"
+msgstr ""
 
 #: Wave
 msgctxt "Wave"
 msgid "WAVE"
-msgstr "WAVE"
+msgstr ""
 
 #: Score
 msgctxt "Score"
 msgid "SCORE"
-msgstr "SCORE"
+msgstr ""
 
 #: AAS
 msgctxt "AAS"
 msgid "ADDITION AND SUBTRACTION"
-msgstr "ADDITION AND SUBTRACTION"
+msgstr ""
 
 #: STW
 msgctxt "STW"
 msgid "SUBTRACTION TWO DIGITS"
-msgstr "SUBTRACTION TWO DIGITS"
+msgstr ""
 
 #: S020
 msgctxt "S020"
 msgid "SUBTRACTION 0 TO 20"
-msgstr "SUBTRACTION 0 TO 20"
+msgstr ""
 
 #: S010
 msgctxt "S010"
 msgid "SUBTRACTION 0 TO 10"
-msgstr "SUBTRACTION 0 TO 10"
+msgstr ""
 
 #: Missing
 msgctxt "Missing"
 msgid "MISSING NUMBERS"
-msgstr "MISSING NUMBERS"
+msgstr ""
 
 #: TDN
 msgctxt "TDN"
 msgid "TWO DIGITS NUMBERS"
-msgstr "TWO DIGITS NUMBERS"
+msgstr ""
 
 #: SUM20
 msgctxt "SUM20"
 msgid "SUMS TO 20"
-msgstr "SUMS TO 20"
+msgstr ""
 
 #: SUM15
 msgctxt "SUM15"
 msgid "SUMS TO 15"
-msgstr "SUMS TO 15"
+msgstr ""
 
 #: SUM10
 msgctxt "SUM10"
 msgid "SUMS TO 10"
-msgstr "SUMS TO 10"
+msgstr ""
 
 #: ADD5
 msgctxt "ADD5"
 msgid "ADDITION 1 TO 5"
-msgstr "ADDITION 1 TO 5"
+msgstr ""
 
 #: ADD3
 msgctxt "ADD3"
 msgid "ADDITION 1 TO 3"
-msgstr "ADDITION 1 TO 3"
+msgstr ""
 
 #: Type
 msgctxt "Type"
 msgid "TYPE NUMBER"
-msgstr "TYPE NUMBER"
+msgstr ""
 
 #: CaC
 msgctxt "CaC"
 msgid "concept and code"
-msgstr "concept and code"
+msgstr ""
 
 #: Arts
 msgctxt "Arts"
 msgid "arts"
-msgstr "arts"
+msgstr ""
 
 #: Vicki
 msgctxt "Vicki"
 msgid "Vicki Wenderlich (game unit)"
-msgstr "Vicki Wenderlich (game unit)"
+msgstr ""
 
 #: Tux
 msgctxt "Tux"
 msgid "Tux4kids (LCD Display)"
-msgstr "Tux4kids (LCD Display)"
+msgstr ""
 
 #: Mister
 msgctxt "Mister"
 msgid "Mister Pixel from The Noun Project (keyboard icon)"
-msgstr "Mister Pixel from The Noun Project (keyboard icon)"
+msgstr ""
 
 #: None
 msgctxt "None"
 msgid "Black Ops One font par James Grieshaber  (military font)"
-msgstr "Black Ops One font par James Grieshaber  (military font)"
+msgstr ""
 
 #: Music
 msgctxt "Music"
 msgid "music"
-msgstr "music"
+msgstr ""
 
 #: Valkyries
 msgctxt "Valkyries"
 msgid "Ride of the Valkyries, Richard Wagner, Americain Symphony Orchestra 1921"
-msgstr "Ride of the Valkyries, Richard Wagner, Americain Symphony Orchestra 1921"
+msgstr ""
 
 #: Sounds
 msgctxt "Sounds"
 msgid "sounds effects"
-msgstr "sounds effects"
+msgstr ""
 
 #: Fridobeck
 msgctxt "Fridobeck"
 msgid "fridobeck from freesound (explosion)"
-msgstr "fridobeck from freesound (explosion)"
+msgstr ""
 
 #: Joshfeed
 msgctxt "Joshfeed"
 msgid "joshfeed from freesound (missed)"
-msgstr "joshfeed from freesound (missed)"
+msgstr ""
 
 #: Danipenet
 msgctxt "Danipenet"
 msgid "DANIpeNet from freesound (mission complete)"
-msgstr "DANIpeNet from freesound (mission complete)"
+msgstr ""
 
 #: Juskiddink
 msgctxt "Juskiddink"
 msgid "juskiddink from freesound (mission failed)"
-msgstr "juskiddink from freesound (mission failed)"
+msgstr ""
 

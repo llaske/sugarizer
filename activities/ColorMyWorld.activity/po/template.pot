@@ -16,1400 +16,1400 @@ msgstr ""
 #: appname
 msgctxt "appname"
 msgid "Color My World!"
-msgstr "Color My World!"
+msgstr ""
 
 #: appname.title
 msgctxt "appname.title"
 msgid "ColorMyWorld"
-msgstr "ColorMyWorld"
+msgstr ""
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Next"
+msgstr ""
 
 #: Find
 msgctxt "Find"
 msgid "Find"
-msgstr "Find"
+msgstr ""
 
 #: Congratulations
 msgctxt "Congratulations"
 msgid "Congratulations"
-msgstr "Congratulations"
+msgstr ""
 
 #: You_Finished
 msgctxt "You_Finished"
 msgid "You_Finished"
-msgstr "You_Finished"
+msgstr ""
 
 #: Nations
 msgctxt "Nations"
 msgid "Nations"
-msgstr "Nations"
+msgstr ""
 
 #: Middle_East_Nations
 msgctxt "Middle_East_Nations"
 msgid "Middle_East_Nations"
-msgstr "Middle_East_Nations"
+msgstr ""
 
 #: Asian_Nations
 msgctxt "Asian_Nations"
 msgid "Asian_Nations"
-msgstr "Asian_Nations"
+msgstr ""
 
 #: North_American_Nations
 msgctxt "North_American_Nations"
 msgid "North_American_Nations"
-msgstr "North_American_Nations"
+msgstr ""
 
 #: Americas
 msgctxt "Americas"
 msgid "Americas"
-msgstr "Americas"
+msgstr ""
 
 #: Central_American_Nations
 msgctxt "Central_American_Nations"
 msgid "Central_American_Nations"
-msgstr "Central_American_Nations"
+msgstr ""
 
 #: South_American_Nations
 msgctxt "South_American_Nations"
 msgid "South_American_Nations"
-msgstr "South_American_Nations"
+msgstr ""
 
 #: Island_Nations
 msgctxt "Island_Nations"
 msgid "Island_Nations"
-msgstr "Island_Nations"
+msgstr ""
 
 #: Australia_Region
 msgctxt "Australia_Region"
 msgid "Australia_Region"
-msgstr "Australia_Region"
+msgstr ""
 
 #: Antarctica_Region
 msgctxt "Antarctica_Region"
 msgid "Antarctica_Region"
-msgstr "Antarctica_Region"
+msgstr ""
 
 #: African_Nations
 msgctxt "African_Nations"
 msgid "African_Nations"
-msgstr "African_Nations"
+msgstr ""
 
 #: European_Nations
 msgctxt "European_Nations"
 msgid "European_Nations"
-msgstr "European_Nations"
+msgstr ""
 
 #: Caribbean_Nations
 msgctxt "Caribbean_Nations"
 msgid "Caribbean_Nations"
-msgstr "Caribbean_Nations"
+msgstr ""
 
 #: World_Countries
 msgctxt "World_Countries"
 msgid "World_Countries"
-msgstr "World_Countries"
+msgstr ""
 
 #: Countries
 msgctxt "Countries"
 msgid "Countries"
-msgstr "Countries"
+msgstr ""
 
 #: World
 msgctxt "World"
 msgid "World"
-msgstr "World"
+msgstr ""
 
 #: Caribbean
 msgctxt "Caribbean"
 msgid "Caribbean"
-msgstr "Caribbean"
+msgstr ""
 
 #: Europe
 msgctxt "Europe"
 msgid "Europe"
-msgstr "Europe"
+msgstr ""
 
 #: Africa
 msgctxt "Africa"
 msgid "Africa"
-msgstr "Africa"
+msgstr ""
 
 #: Antigua_and_Barbuda
 msgctxt "Antigua_and_Barbuda"
 msgid "Antigua_and_Barbuda"
-msgstr "Antigua_and_Barbuda"
+msgstr ""
 
 #: Algeria
 msgctxt "Algeria"
 msgid "Algeria"
-msgstr "Algeria"
+msgstr ""
 
 #: Azerbaijan
 msgctxt "Azerbaijan"
 msgid "Azerbaijan"
-msgstr "Azerbaijan"
+msgstr ""
 
 #: Albania
 msgctxt "Albania"
 msgid "Albania"
-msgstr "Albania"
+msgstr ""
 
 #: American_Samoa
 msgctxt "American_Samoa"
 msgid "American_Samoa"
-msgstr "American_Samoa"
+msgstr ""
 
 #: Armenia
 msgctxt "Armenia"
 msgid "Armenia"
-msgstr "Armenia"
+msgstr ""
 
 #: Angola
 msgctxt "Angola"
 msgid "Angola"
-msgstr "Angola"
+msgstr ""
 
 #: Argentina
 msgctxt "Argentina"
 msgid "Argentina"
-msgstr "Argentina"
+msgstr ""
 
 #: Australia
 msgctxt "Australia"
 msgid "Australia"
-msgstr "Australia"
+msgstr ""
 
 #: Anguilla
 msgctxt "Anguilla"
 msgid "Anguilla"
-msgstr "Anguilla"
+msgstr ""
 
 #: Papua_New_Guinea
 msgctxt "Papua_New_Guinea"
 msgid "Papua_New_Guinea"
-msgstr "Papua_New_Guinea"
+msgstr ""
 
 #: Guinea_Bissau
 msgctxt "Guinea_Bissau"
 msgid "Guinea_Bissau"
-msgstr "Guinea_Bissau"
+msgstr ""
 
 #: Bahrain
 msgctxt "Bahrain"
 msgid "Bahrain"
-msgstr "Bahrain"
+msgstr ""
 
 #: Barbados
 msgctxt "Barbados"
 msgid "Barbados"
-msgstr "Barbados"
+msgstr ""
 
 #: Bermuda
 msgctxt "Bermuda"
 msgid "Bermuda"
-msgstr "Bermuda"
+msgstr ""
 
 #: Bahamas
 msgctxt "Bahamas"
 msgid "Bahamas"
-msgstr "Bahamas"
+msgstr ""
 
 #: Bangladesh
 msgctxt "Bangladesh"
 msgid "Bangladesh"
-msgstr "Bangladesh"
+msgstr ""
 
 #: Brunei_Darussalam
 msgctxt "Brunei_Darussalam"
 msgid "Brunei_Darussalam"
-msgstr "Brunei_Darussalam"
+msgstr ""
 
 #: Canada
 msgctxt "Canada"
 msgid "Canada"
-msgstr "Canada"
+msgstr ""
 
 #: Cambodia
 msgctxt "Cambodia"
 msgid "Cambodia"
-msgstr "Cambodia"
+msgstr ""
 
 #: Andorra
 msgctxt "Andorra"
 msgid "Andorra"
-msgstr "Andorra"
+msgstr ""
 
 #: Gibraltar
 msgctxt "Gibraltar"
 msgid "Gibraltar"
-msgstr "Gibraltar"
+msgstr ""
 
 #: Belize
 msgctxt "Belize"
 msgid "Belize"
-msgstr "Belize"
+msgstr ""
 
 #: Comoros
 msgctxt "Comoros"
 msgid "Comoros"
-msgstr "Comoros"
+msgstr ""
 
 #: Colombia
 msgctxt "Colombia"
 msgid "Colombia"
-msgstr "Colombia"
+msgstr ""
 
 #: Isle_of_Man
 msgctxt "Isle_of_Man"
 msgid "Isle_of_Man"
-msgstr "Isle_of_Man"
+msgstr ""
 
 #: Bosnia_and_Herzegovina
 msgctxt "Bosnia_and_Herzegovina"
 msgid "Bosnia_and_Herzegovina"
-msgstr "Bosnia_and_Herzegovina"
+msgstr ""
 
 #: Bolivia
 msgctxt "Bolivia"
 msgid "Bolivia"
-msgstr "Bolivia"
+msgstr ""
 
 #: Myanmar
 msgctxt "Myanmar"
 msgid "Myanmar"
-msgstr "Myanmar"
+msgstr ""
 
 #: Benin
 msgctxt "Benin"
 msgid "Benin"
-msgstr "Benin"
+msgstr ""
 
 #: Solomon_Islands
 msgctxt "Solomon_Islands"
 msgid "Solomon_Islands"
-msgstr "Solomon_Islands"
+msgstr ""
 
 #: Brazil
 msgctxt "Brazil"
 msgid "Brazil"
-msgstr "Brazil"
+msgstr ""
 
 #: Bulgaria
 msgctxt "Bulgaria"
 msgid "Bulgaria"
-msgstr "Bulgaria"
+msgstr ""
 
 #: Luxembourg
 msgctxt "Luxembourg"
 msgid "Luxembourg"
-msgstr "Luxembourg"
+msgstr ""
 
 #: Sri_Lanka
 msgctxt "Sri_Lanka"
 msgid "Sri_Lanka"
-msgstr "Sri_Lanka"
+msgstr ""
 
 #: Congo
 msgctxt "Congo"
 msgid "Congo"
-msgstr "Congo"
+msgstr ""
 
 #: Democratic_Republic_of_the_Congo
 msgctxt "Democratic_Republic_of_the_Congo"
 msgid "Democratic_Republic_of_the_Congo"
-msgstr "Democratic_Republic_of_the_Congo"
+msgstr ""
 
 #: Macau
 msgctxt "Macau"
 msgid "Macau"
-msgstr "Macau"
+msgstr ""
 
 #: Burundi
 msgctxt "Burundi"
 msgid "Burundi"
-msgstr "Burundi"
+msgstr ""
 
 #: China
 msgctxt "China"
 msgid "China"
-msgstr "China"
+msgstr ""
 
 #: Afghanistan
 msgctxt "Afghanistan"
 msgid "Afghanistan"
-msgstr "Afghanistan"
+msgstr ""
 
 #: Cape_Verde
 msgctxt "Cape_Verde"
 msgid "Cape_Verde"
-msgstr "Cape_Verde"
+msgstr ""
 
 #: Monaco
 msgctxt "Monaco"
 msgid "Monaco"
-msgstr "Monaco"
+msgstr ""
 
 #: Bhutan
 msgctxt "Bhutan"
 msgid "Bhutan"
-msgstr "Bhutan"
+msgstr ""
 
 #: Chile
 msgctxt "Chile"
 msgid "Chile"
-msgstr "Chile"
+msgstr ""
 
 #: Cayman_Islands
 msgctxt "Cayman_Islands"
 msgid "Cayman_Islands"
-msgstr "Cayman_Islands"
+msgstr ""
 
 #: Cameroon
 msgctxt "Cameroon"
 msgid "Cameroon"
-msgstr "Cameroon"
+msgstr ""
 
 #: Chad
 msgctxt "Chad"
 msgid "Chad"
-msgstr "Chad"
+msgstr ""
 
 #: Costa_Rica
 msgctxt "Costa_Rica"
 msgid "Costa_Rica"
-msgstr "Costa_Rica"
+msgstr ""
 
 #: Central_African_Republic
 msgctxt "Central_African_Republic"
 msgid "Central_African_Republic"
-msgstr "Central_African_Republic"
+msgstr ""
 
 #: Cuba
 msgctxt "Cuba"
 msgid "Cuba"
-msgstr "Cuba"
+msgstr ""
 
 #: Cook_Islands
 msgctxt "Cook_Islands"
 msgid "Cook_Islands"
-msgstr "Cook_Islands"
+msgstr ""
 
 #: Cyprus
 msgctxt "Cyprus"
 msgid "Cyprus"
-msgstr "Cyprus"
+msgstr ""
 
 #: Northern_Cyprus
 msgctxt "Northern_Cyprus"
 msgid "Northern_Cyprus"
-msgstr "Northern_Cyprus"
+msgstr ""
 
 #: Denmark
 msgctxt "Denmark"
 msgid "Denmark"
-msgstr "Denmark"
+msgstr ""
 
 #: Djibouti
 msgctxt "Djibouti"
 msgid "Djibouti"
-msgstr "Djibouti"
+msgstr ""
 
 #: Dominica
 msgctxt "Dominica"
 msgid "Dominica"
-msgstr "Dominica"
+msgstr ""
 
 #: Equatorial_Guinea
 msgctxt "Equatorial_Guinea"
 msgid "Equatorial_Guinea"
-msgstr "Equatorial_Guinea"
+msgstr ""
 
 #: Estonia
 msgctxt "Estonia"
 msgid "Estonia"
-msgstr "Estonia"
+msgstr ""
 
 #: Eritrea
 msgctxt "Eritrea"
 msgid "Eritrea"
-msgstr "Eritrea"
+msgstr ""
 
 #: Dominican_Republic
 msgctxt "Dominican_Republic"
 msgid "Dominican_Republic"
-msgstr "Dominican_Republic"
+msgstr ""
 
 #: Ecuador
 msgctxt "Ecuador"
 msgid "Ecuador"
-msgstr "Ecuador"
+msgstr ""
 
 #: Egypt
 msgctxt "Egypt"
 msgid "Egypt"
-msgstr "Egypt"
+msgstr ""
 
 #: Ireland
 msgctxt "Ireland"
 msgid "Ireland"
-msgstr "Ireland"
+msgstr ""
 
 #: El_Salvador
 msgctxt "El_Salvador"
 msgid "El_Salvador"
-msgstr "El_Salvador"
+msgstr ""
 
 #: Ethiopia
 msgctxt "Ethiopia"
 msgid "Ethiopia"
-msgstr "Ethiopia"
+msgstr ""
 
 #: Austria
 msgctxt "Austria"
 msgid "Austria"
-msgstr "Austria"
+msgstr ""
 
 #: Czech_Republic
 msgctxt "Czech_Republic"
 msgid "Czech_Republic"
-msgstr "Czech_Republic"
+msgstr ""
 
 #: Jordan
 msgctxt "Jordan"
 msgid "Jordan"
-msgstr "Jordan"
+msgstr ""
 
 #: French_Guiana
 msgctxt "French_Guiana"
 msgid "French_Guyana"
-msgstr "French_Guyana"
+msgstr ""
 
 #: Finland
 msgctxt "Finland"
 msgid "Finland"
-msgstr "Finland"
+msgstr ""
 
 #: Fiji
 msgctxt "Fiji"
 msgid "Fiji"
-msgstr "Fiji"
+msgstr ""
 
 #: Kiribati
 msgctxt "Kiribati"
 msgid "Kiribati"
-msgstr "Kiribati"
+msgstr ""
 
 #: Korea_Republic
 msgctxt "Korea_Republic"
 msgid "Korea,_Republic_of"
-msgstr "Korea,_Republic_of"
+msgstr ""
 
 #: Trinidad_and_Tobago
 msgctxt "Trinidad_and_Tobago"
 msgid "Trinidad_and_Tobago"
-msgstr "Trinidad_and_Tobago"
+msgstr ""
 
 #: Falkland_Islands
 msgctxt "Falkland_Islands"
 msgid "Falkland_Islands"
-msgstr "Falkland_Islands"
+msgstr ""
 
 #: Thailand
 msgctxt "Thailand"
 msgid "Thailand"
-msgstr "Thailand"
+msgstr ""
 
 #: Tajikistan
 msgctxt "Tajikistan"
 msgid "Tajikistan"
-msgstr "Tajikistan"
+msgstr ""
 
 #: Micronesia
 msgctxt "Micronesia"
 msgid "Micronesia"
-msgstr "Micronesia"
+msgstr ""
 
 #: French_Polynesia
 msgctxt "French_Polynesia"
 msgid "French_Polynesia"
-msgstr "French_Polynesia"
+msgstr ""
 
 #: France
 msgctxt "France"
 msgid "France"
-msgstr "France"
+msgstr ""
 
 #: Kuwait
 msgctxt "Kuwait"
 msgid "Kuwait"
-msgstr "Kuwait"
+msgstr ""
 
 #: Kazakhstan
 msgctxt "Kazakhstan"
 msgid "Kazakhstan"
-msgstr "Kazakhstan"
+msgstr ""
 
 #: Laos
 msgctxt "Laos"
 msgid "Laos"
-msgstr "Laos"
+msgstr ""
 
 #: Gambia
 msgctxt "Gambia"
 msgid "Gambia"
-msgstr "Gambia"
+msgstr ""
 
 #: Gabon
 msgctxt "Gabon"
 msgid "Gabon"
-msgstr "Gabon"
+msgstr ""
 
 #: Lebanon
 msgctxt "Lebanon"
 msgid "Lebanon"
-msgstr "Lebanon"
+msgstr ""
 
 #: Georgia
 msgctxt "Georgia"
 msgid "Georgia"
-msgstr "Georgia"
+msgstr ""
 
 #: Ghana
 msgctxt "Ghana"
 msgid "Ghana"
-msgstr "Ghana"
+msgstr ""
 
 #: Grenada
 msgctxt "Grenada"
 msgid "Grenada"
-msgstr "Grenada"
+msgstr ""
 
 #: Greenland
 msgctxt "Greenland"
 msgid "Greenland"
-msgstr "Greenland"
+msgstr ""
 
 #: Germany
 msgctxt "Germany"
 msgid "Germany"
-msgstr "Germany"
+msgstr ""
 
 #: Guam
 msgctxt "Guam"
 msgid "Guam"
-msgstr "Guam"
+msgstr ""
 
 #: Greece
 msgctxt "Greece"
 msgid "Greece"
-msgstr "Greece"
+msgstr ""
 
 #: Guatemala
 msgctxt "Guatemala"
 msgid "Guatemala"
-msgstr "Guatemala"
+msgstr ""
 
 #: Guinea
 msgctxt "Guinea"
 msgid "Guinea"
-msgstr "Guinea"
+msgstr ""
 
 #: Guyana
 msgctxt "Guyana"
 msgid "Guyana"
-msgstr "Guyana"
+msgstr ""
 
 #: Latvia
 msgctxt "Latvia"
 msgid "Latvia"
-msgstr "Latvia"
+msgstr ""
 
 #: Belarus
 msgctxt "Belarus"
 msgid "Belarus"
-msgstr "Belarus"
+msgstr ""
 
 #: Lithuania
 msgctxt "Lithuania"
 msgid "Lithuania"
-msgstr "Lithuania"
+msgstr ""
 
 #: Palestine
 msgctxt "Palestine"
 msgid "Palestine"
-msgstr "Palestine"
+msgstr ""
 
 #: Haiti
 msgctxt "Haiti"
 msgid "Haiti"
-msgstr "Haiti"
+msgstr ""
 
 #: Honduras
 msgctxt "Honduras"
 msgid "Honduras"
-msgstr "Honduras"
+msgstr ""
 
 #: Croatia
 msgctxt "Croatia"
 msgid "Croatia"
-msgstr "Croatia"
+msgstr ""
 
 #: Hungary
 msgctxt "Hungary"
 msgid "Hungary"
-msgstr "Hungary"
+msgstr ""
 
 #: Iceland
 msgctxt "Iceland"
 msgid "Iceland"
-msgstr "Iceland"
+msgstr ""
 
 #: India
 msgctxt "India"
 msgid "India"
-msgstr "India"
+msgstr ""
 
 #: Iran
 msgctxt "Iran"
 msgid "Iran"
-msgstr "Iran"
+msgstr ""
 
 #: Mongolia
 msgctxt "Mongolia"
 msgid "Mongolia"
-msgstr "Mongolia"
+msgstr ""
 
 #: Israel
 msgctxt "Israel"
 msgid "Israel"
-msgstr "Israel"
+msgstr ""
 
 #: Italy
 msgctxt "Italy"
 msgid "Italy"
-msgstr "Italy"
+msgstr ""
 
 #: Cote_d'Ivoire
 msgctxt "Cote_d'Ivoire"
 msgid "Cote_d'Ivoire"
-msgstr "Cote_d'Ivoire"
+msgstr ""
 
 #: Iraq
 msgctxt "Iraq"
 msgid "Iraq"
-msgstr "Iraq"
+msgstr ""
 
 #: Japan
 msgctxt "Japan"
 msgid "Japan"
-msgstr "Japan"
+msgstr ""
 
 #: Jamaica
 msgctxt "Jamaica"
 msgid "Jamaica"
-msgstr "Jamaica"
+msgstr ""
 
 #: Kenya
 msgctxt "Kenya"
 msgid "Kenya"
-msgstr "Kenya"
+msgstr ""
 
 #: Kyrgyzstan
 msgctxt "Kyrgyzstan"
 msgid "Kyrgyzstan"
-msgstr "Kyrgyzstan"
+msgstr ""
 
 #: Korea
 msgctxt "Korea"
 msgid "Korea"
-msgstr "Korea"
+msgstr ""
 
 #: Liberia
 msgctxt "Liberia"
 msgid "Liberia"
-msgstr "Liberia"
+msgstr ""
 
 #: Montserrat
 msgctxt "Montserrat"
 msgid "Montserrat"
-msgstr "Montserrat"
+msgstr ""
 
 #: Slovakia
 msgctxt "Slovakia"
 msgid "Slovakia"
-msgstr "Slovakia"
+msgstr ""
 
 #: Liechtenstein
 msgctxt "Liechtenstein"
 msgid "Liechtenstein"
-msgstr "Liechtenstein"
+msgstr ""
 
 #: Libyan_Arab_Jamahiriya
 msgctxt "Libyan_Arab_Jamahiriya"
 msgid "Libyan_Arab_Jamahiriya"
-msgstr "Libyan_Arab_Jamahiriya"
+msgstr ""
 
 #: Madagascar
 msgctxt "Madagascar"
 msgid "Madagascar"
-msgstr "Madagascar"
+msgstr ""
 
 #: Martinique
 msgctxt "Martinique"
 msgid "Martinique"
-msgstr "Martinique"
+msgstr ""
 
 #: The_former_Yugoslav_Republic_of_Macedonia
 msgctxt "The_former_Yugoslav_Republic_of_Macedonia"
 msgid "The_former_Yugoslav_Republic_of_Macedonia"
-msgstr "The_former_Yugoslav_Republic_of_Macedonia"
+msgstr ""
 
 #: Macedonia
 msgctxt "Macedonia"
 msgid "Macedonia"
-msgstr "Macedonia"
+msgstr ""
 
 #: Mali
 msgctxt "Mali"
 msgid "Mali"
-msgstr "Mali"
+msgstr ""
 
 #: Morocco
 msgctxt "Morocco"
 msgid "Morocco"
-msgstr "Morocco"
+msgstr ""
 
 #: Mauritius
 msgctxt "Mauritius"
 msgid "Mauritius"
-msgstr "Mauritius"
+msgstr ""
 
 #: Mauritania
 msgctxt "Mauritania"
 msgid "Mauritania"
-msgstr "Mauritania"
+msgstr ""
 
 #: Malta
 msgctxt "Malta"
 msgid "Malta"
-msgstr "Malta"
+msgstr ""
 
 #: Oman
 msgctxt "Oman"
 msgid "Oman"
-msgstr "Oman"
+msgstr ""
 
 #: Maldives
 msgctxt "Maldives"
 msgid "Maldives"
-msgstr "Maldives"
+msgstr ""
 
 #: Mexico
 msgctxt "Mexico"
 msgid "Mexico"
-msgstr "Mexico"
+msgstr ""
 
 #: Malaysia
 msgctxt "Malaysia"
 msgid "Malaysia"
-msgstr "Malaysia"
+msgstr ""
 
 #: Mozambique
 msgctxt "Mozambique"
 msgid "Mozambique"
-msgstr "Mozambique"
+msgstr ""
 
 #: Malawi
 msgctxt "Malawi"
 msgid "Malawi"
-msgstr "Malawi"
+msgstr ""
 
 #: New_Caledonia
 msgctxt "New_Caledonia"
 msgid "New_Caledonia"
-msgstr "New_Caledonia"
+msgstr ""
 
 #: Niue
 msgctxt "Niue"
 msgid "Niue"
-msgstr "Niue"
+msgstr ""
 
 #: Niger
 msgctxt "Niger"
 msgid "Niger"
-msgstr "Niger"
+msgstr ""
 
 #: Aruba
 msgctxt "Aruba"
 msgid "Aruba"
-msgstr "Aruba"
+msgstr ""
 
 #: Belgium
 msgctxt "Belgium"
 msgid "Belgium"
-msgstr "Belgium"
+msgstr ""
 
 #: Hong_Kong
 msgctxt "Hong_Kong"
 msgid "Hong_Kong"
-msgstr "Hong_Kong"
+msgstr ""
 
 #: Northern_Mariana_Islands
 msgctxt "Northern_Mariana_Islands"
 msgid "Northern_Mariana_Islands"
-msgstr "Northern_Mariana_Islands"
+msgstr ""
 
 #: Faroe_Islands
 msgctxt "Faroe_Islands"
 msgid "Faroe_Islands"
-msgstr "Faroe_Islands"
+msgstr ""
 
 #: Montenegro
 msgctxt "Montenegro"
 msgid "Montenegro"
-msgstr "Montenegro"
+msgstr ""
 
 #: Mayotte
 msgctxt "Mayotte"
 msgid "Mayotte"
-msgstr "Mayotte"
+msgstr ""
 
 #: United_States_Minor_Outlying_Islands
 msgctxt "United_States_Minor_Outlying_Islands"
 msgid "United_States_Minor_Outlying_Islands"
-msgstr "United_States_Minor_Outlying_Islands"
+msgstr ""
 
 #: Vanuatu
 msgctxt "Vanuatu"
 msgid "Vanuatu"
-msgstr "Vanuatu"
+msgstr ""
 
 #: Nigeria
 msgctxt "Nigeria"
 msgid "Nigeria"
-msgstr "Nigeria"
+msgstr ""
 
 #: Netherlands
 msgctxt "Netherlands"
 msgid "Netherlands"
-msgstr "Netherlands"
+msgstr ""
 
 #: Norway
 msgctxt "Norway"
 msgid "Norway"
-msgstr "Norway"
+msgstr ""
 
 #: Nepal
 msgctxt "Nepal"
 msgid "Nepal"
-msgstr "Nepal"
+msgstr ""
 
 #: Nauru
 msgctxt "Nauru"
 msgid "Nauru"
-msgstr "Nauru"
+msgstr ""
 
 #: Norfolk_Island
 msgctxt "Norfolk_Island"
 msgid "Norfolk_Island"
-msgstr "Norfolk_Island"
+msgstr ""
 
 #: Cocos_Islands
 msgctxt "Cocos_Islands"
 msgid "Îles_Cocos"
-msgstr "Îles_Cocos"
+msgstr ""
 
 #: Antarctica
 msgctxt "Antarctica"
 msgid "Antarctica"
-msgstr "Antarctica"
+msgstr ""
 
 #: Bouvet_Island
 msgctxt "Bouvet_Island"
 msgid "Bouvet_Island"
-msgstr "Bouvet_Island"
+msgstr ""
 
 #: French_Southern_and_Antarctic_Lands
 msgctxt "French_Southern_and_Antarctic_Lands"
 msgid "French_Southern_and_Antarctic_Lands"
-msgstr "French_Southern_and_Antarctic_Lands"
+msgstr ""
 
 #: Heard_Island_and_McDonald_Islands
 msgctxt "Heard_Island_and_McDonald_Islands"
 msgid "Heard_Island_and_McDonald_Islands"
-msgstr "Heard_Island_and_McDonald_Islands"
+msgstr ""
 
 #: British_Indian_Ocean_Territory
 msgctxt "British_Indian_Ocean_Territory"
 msgid "British_Indian_Ocean_Territory"
-msgstr "British_Indian_Ocean_Territory"
+msgstr ""
 
 #: Christmas_Island
 msgctxt "Christmas_Island"
 msgid "Christmas_Island"
-msgstr "Christmas_Island"
+msgstr ""
 
 #: Portugal
 msgctxt "Portugal"
 msgid "Portugal"
-msgstr "Portugal"
+msgstr ""
 
 #: Suriname
 msgctxt "Suriname"
 msgid "Suriname"
-msgstr "Suriname"
+msgstr ""
 
 #: Nicaragua
 msgctxt "Nicaragua"
 msgid "Nicaragua"
-msgstr "Nicaragua"
+msgstr ""
 
 #: New_Zealand
 msgctxt "New_Zealand"
 msgid "New_Zealand"
-msgstr "New_Zealand"
+msgstr ""
 
 #: Paraguay
 msgctxt "Paraguay"
 msgid "Paraguay"
-msgstr "Paraguay"
+msgstr ""
 
 #: Peru
 msgctxt "Peru"
 msgid "Peru"
-msgstr "Peru"
+msgstr ""
 
 #: Pakistan
 msgctxt "Pakistan"
 msgid "Pakistan"
-msgstr "Pakistan"
+msgstr ""
 
 #: Poland
 msgctxt "Poland"
 msgid "Poland"
-msgstr "Poland"
+msgstr ""
 
 #: Panama
 msgctxt "Panama"
 msgid "Panama"
-msgstr "Panama"
+msgstr ""
 
 #: Qatar
 msgctxt "Qatar"
 msgid "Qatar"
-msgstr "Qatar"
+msgstr ""
 
 #: Reunion
 msgctxt "Reunion"
 msgid "Reunion"
-msgstr "Reunion"
+msgstr ""
 
 #: Romania
 msgctxt "Romania"
 msgid "Romania"
-msgstr "Romania"
+msgstr ""
 
 #: Puerto_Rico
 msgctxt "Puerto_Rico"
 msgid "Puerto_Rico"
-msgstr "Puerto_Rico"
+msgstr ""
 
 #: Russia
 msgctxt "Russia"
 msgid "Russia"
-msgstr "Russia"
+msgstr ""
 
 #: Tokelau
 msgctxt "Tokelau"
 msgid "Tokelau"
-msgstr "Tokelau"
+msgstr ""
 
 #: Moldova
 msgctxt "Moldova"
 msgid "Moldova"
-msgstr "Moldova"
+msgstr ""
 
 #: Republic_of_Moldova
 msgctxt "Republic_of_Moldova"
 msgid "Republic_of_Moldova"
-msgstr "Republic_of_Moldova"
+msgstr ""
 
 #: Philippines
 msgctxt "Philippines"
 msgid "Philippines"
-msgstr "Philippines"
+msgstr ""
 
 #: Rwanda
 msgctxt "Rwanda"
 msgid "Rwanda"
-msgstr "Rwanda"
+msgstr ""
 
 #: Saudi_Arabia
 msgctxt "Saudi_Arabia"
 msgid "Saudi_Arabia"
-msgstr "Saudi_Arabia"
+msgstr ""
 
 #: Saint_Kitts_and_Nevis
 msgctxt "Saint_Kitts_and_Nevis"
 msgid "Saint_Kitts_and_Nevis"
-msgstr "Saint_Kitts_and_Nevis"
+msgstr ""
 
 #: Seychelles
 msgctxt "Seychelles"
 msgid "Seychelles"
-msgstr "Seychelles"
+msgstr ""
 
 #: South_Africa
 msgctxt "South_Africa"
 msgid "South_Africa"
-msgstr "South_Africa"
+msgstr ""
 
 #: Lesotho
 msgctxt "Lesotho"
 msgid "Lesotho"
-msgstr "Lesotho"
+msgstr ""
 
 #: Botswana
 msgctxt "Botswana"
 msgid "Botswana"
-msgstr "Botswana"
+msgstr ""
 
 #: Senegal
 msgctxt "Senegal"
 msgid "Senegal"
-msgstr "Senegal"
+msgstr ""
 
 #: Slovenia
 msgctxt "Slovenia"
 msgid "Slovenia"
-msgstr "Slovenia"
+msgstr ""
 
 #: Sierra_Leone
 msgctxt "Sierra_Leone"
 msgid "Sierra_Leone"
-msgstr "Sierra_Leone"
+msgstr ""
 
 #: Singapore
 msgctxt "Singapore"
 msgid "Singapore"
-msgstr "Singapore"
+msgstr ""
 
 #: Somalia
 msgctxt "Somalia"
 msgid "Somalia"
-msgstr "Somalia"
+msgstr ""
 
 #: Spain
 msgctxt "Spain"
 msgid "Spain"
-msgstr "Spain"
+msgstr ""
 
 #: Saint_Lucia
 msgctxt "Saint_Lucia"
 msgid "Saint_Lucia"
-msgstr "Saint_Lucia"
+msgstr ""
 
 #: Sudan
 msgctxt "Sudan"
 msgid "Sudan"
-msgstr "Sudan"
+msgstr ""
 
 #: Sweden
 msgctxt "Sweden"
 msgid "Sweden"
-msgstr "Sweden"
+msgstr ""
 
 #: Syrian_Arab_Republic
 msgctxt "Syrian_Arab_Republic"
 msgid "Syrian_Arab_Republic"
-msgstr "Syrian_Arab_Republic"
+msgstr ""
 
 #: Switzerland
 msgctxt "Switzerland"
 msgid "Switzerland"
-msgstr "Switzerland"
+msgstr ""
 
 #: Tonga
 msgctxt "Tonga"
 msgid "Tonga"
-msgstr "Tonga"
+msgstr ""
 
 #: Tuvalu
 msgctxt "Tuvalu"
 msgid "Tuvalu"
-msgstr "Tuvalu"
+msgstr ""
 
 #: Turkmenistan
 msgctxt "Turkmenistan"
 msgid "Turkmenistan"
-msgstr "Turkmenistan"
+msgstr ""
 
 #: United_Republic_of_Tanzania
 msgctxt "United_Republic_of_Tanzania"
 msgid "United_Republic_of_Tanzania"
-msgstr "United_Republic_of_Tanzania"
+msgstr ""
 
 #: Togo
 msgctxt "Togo"
 msgid "Togo"
-msgstr "Togo"
+msgstr ""
 
 #: Sao_Tome_and_Principe
 msgctxt "Sao_Tome_and_Principe"
 msgid "Sao_Tome_and_Principe"
-msgstr "Sao_Tome_and_Principe"
+msgstr ""
 
 #: Tunisia
 msgctxt "Tunisia"
 msgid "Tunisia"
-msgstr "Tunisia"
+msgstr ""
 
 #: Turkey
 msgctxt "Turkey"
 msgid "Turkey"
-msgstr "Turkey"
+msgstr ""
 
 #: British_Virgin_Islands
 msgctxt "British_Virgin_Islands"
 msgid "British_Virgin_Islands"
-msgstr "British_Virgin_Islands"
+msgstr ""
 
 #: Viet_Nam
 msgctxt "Viet_Nam"
 msgid "Viet_Nam"
-msgstr "Viet_Nam"
+msgstr ""
 
 #: Uganda
 msgctxt "Uganda"
 msgid "Uganda"
-msgstr "Uganda"
+msgstr ""
 
 #: United_Kingdom
 msgctxt "United_Kingdom"
 msgid "United_Kingdom"
-msgstr "United_Kingdom"
+msgstr ""
 
 #: Ukraine
 msgctxt "Ukraine"
 msgid "Ukraine"
-msgstr "Ukraine"
+msgstr ""
 
 #: United_States
 msgctxt "United_States"
 msgid "United_States"
-msgstr "United_States"
+msgstr ""
 
 #: Burkina_Faso
 msgctxt "Burkina_Faso"
 msgid "Burkina_Faso"
-msgstr "Burkina_Faso"
+msgstr ""
 
 #: Uruguay
 msgctxt "Uruguay"
 msgid "Uruguay"
-msgstr "Uruguay"
+msgstr ""
 
 #: Uzbekistan
 msgctxt "Uzbekistan"
 msgid "Uzbekistan"
-msgstr "Uzbekistan"
+msgstr ""
 
 #: Saint_Vincent
 msgctxt "Saint_Vincent"
 msgid "Saint_Vincent_and_the_Grenadines"
-msgstr "Saint_Vincent_and_the_Grenadines"
+msgstr ""
 
 #: Venezuela
 msgctxt "Venezuela"
 msgid "Venezuela"
-msgstr "Venezuela"
+msgstr ""
 
 #: United_States_Virgin_Islands
 msgctxt "United_States_Virgin_Islands"
 msgid "United_States_Virgin_Islands"
-msgstr "United_States_Virgin_Islands"
+msgstr ""
 
 #: Namibia
 msgctxt "Namibia"
 msgid "Namibia"
-msgstr "Namibia"
+msgstr ""
 
 #: Wallis_and_Futuna_Islands
 msgctxt "Wallis_and_Futuna_Islands"
 msgid "Wallis_and_Futuna_Islands"
-msgstr "Wallis_and_Futuna_Islands"
+msgstr ""
 
 #: Samoa
 msgctxt "Samoa"
 msgid "Samoa"
-msgstr "Samoa"
+msgstr ""
 
 #: Swaziland
 msgctxt "Swaziland"
 msgid "Swaziland"
-msgstr "Swaziland"
+msgstr ""
 
 #: Yemen
 msgctxt "Yemen"
 msgid "Yemen"
-msgstr "Yemen"
+msgstr ""
 
 #: Zambia
 msgctxt "Zambia"
 msgid "Zambia"
-msgstr "Zambia"
+msgstr ""
 
 #: Zimbabwe
 msgctxt "Zimbabwe"
 msgid "Zimbabwe"
-msgstr "Zimbabwe"
+msgstr ""
 
 #: Indonesia
 msgctxt "Indonesia"
 msgid "Indonesia"
-msgstr "Indonesia"
+msgstr ""
 
 #: Saint_Pierre_and_Miquelon
 msgctxt "Saint_Pierre_and_Miquelon"
 msgid "Saint_Pierre_and_Miquelon"
-msgstr "Saint_Pierre_and_Miquelon"
+msgstr ""
 
 #: Guadeloupe
 msgctxt "Guadeloupe"
 msgid "Guadeloupe"
-msgstr "Guadeloupe"
+msgstr ""
 
 #: Netherlands_Antilles
 msgctxt "Netherlands_Antilles"
 msgid "Netherlands_Antilles"
-msgstr "Netherlands_Antilles"
+msgstr ""
 
 #: Timor-Leste
 msgctxt "Timor-Leste"
 msgid "Timor-Leste"
-msgstr "Timor-Leste"
+msgstr ""
 
 #: Pitcairn_Islands
 msgctxt "Pitcairn_Islands"
 msgid "Pitcairn_Islands"
-msgstr "Pitcairn_Islands"
+msgstr ""
 
 #: United_Arab_Emirates
 msgctxt "United_Arab_Emirates"
 msgid "United_Arab_Emirates"
-msgstr "United_Arab_Emirates"
+msgstr ""
 
 #: Palau
 msgctxt "Palau"
 msgid "Palau"
-msgstr "Palau"
+msgstr ""
 
 #: Marshall_Islands
 msgctxt "Marshall_Islands"
 msgid "Marshall_Islands"
-msgstr "Marshall_Islands"
+msgstr ""
 
 #: Saint_Helena
 msgctxt "Saint_Helena"
 msgid "Saint_Helena"
-msgstr "Saint_Helena"
+msgstr ""
 
 #: San_Marino
 msgctxt "San_Marino"
 msgid "San_Marino"
-msgstr "San_Marino"
+msgstr ""
 
 #: Turks_and_Caicos_Islands
 msgctxt "Turks_and_Caicos_Islands"
 msgid "Turks_and_Caicos_Islands"
-msgstr "Turks_and_Caicos_Islands"
+msgstr ""
 
 #: Western_Sahara
 msgctxt "Western_Sahara"
 msgid "Western_Sahara"
-msgstr "Western_Sahara"
+msgstr ""
 
 #: Serbia
 msgctxt "Serbia"
 msgid "Serbia"
-msgstr "Serbia"
+msgstr ""
 
 #: Vatican_City
 msgctxt "Vatican_City"
 msgid "Saint-Siège_(Cité_du_Vatican)"
-msgstr "Saint-Siège_(Cité_du_Vatican)"
+msgstr ""
 
 #: Svalbard
 msgctxt "Svalbard"
 msgid "Svalbard"
-msgstr "Svalbard"
+msgstr ""
 
 #: Saint_Martin
 msgctxt "Saint_Martin"
 msgid "Saint_Martin"
-msgstr "Saint_Martin"
+msgstr ""
 
 #: Saint_Barthelemy
 msgctxt "Saint_Barthelemy"
 msgid "Saint_Barthelemy"
-msgstr "Saint_Barthelemy"
+msgstr ""
 
 #: Guernsey
 msgctxt "Guernsey"
 msgid "Guernsey"
-msgstr "Guernsey"
+msgstr ""
 
 #: Jersey
 msgctxt "Jersey"
 msgid "Jersey"
-msgstr "Jersey"
+msgstr ""
 
 #: South_Georgia_South_Sandwich_Islands
 msgctxt "South_Georgia_South_Sandwich_Islands"
 msgid "South_Georgia_South_Sandwich_Islands"
-msgstr "South_Georgia_South_Sandwich_Islands"
+msgstr ""
 
 #: Taiwan
 msgctxt "Taiwan"
 msgid "Taiwan"
-msgstr "Taiwan"
+msgstr ""
 
 #: Asia
 msgctxt "Asia"
 msgid "Asia"
-msgstr "Asia"
+msgstr ""
 
 #: NorthAmerica
 msgctxt "NorthAmerica"
 msgid "North America"
-msgstr "North America"
+msgstr ""
 
 #: SouthAmerica
 msgctxt "SouthAmerica"
 msgid "South America"
-msgstr "South America"
+msgstr ""
 
 #: Europa
 msgctxt "Europa"
 msgid "Europa"
-msgstr "Europa"
+msgstr ""
 
 #: Coloring
 msgctxt "Coloring"
 msgid "Coloring"
-msgstr "Coloring"
+msgstr ""
 
 #: Tour
 msgctxt "Tour"
 msgid "Tour"
-msgstr "Tour"
+msgstr ""
 
 #: Interactive
 msgctxt "Interactive"
 msgid "Interactive"
-msgstr "Interactive"
+msgstr ""
 

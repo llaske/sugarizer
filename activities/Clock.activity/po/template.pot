@@ -16,120 +16,120 @@ msgstr ""
 #: SimpleClock
 msgctxt "SimpleClock"
 msgid "Simple Clock"
-msgstr "Simple Clock"
+msgstr ""
 
 #: NiceClock
 msgctxt "NiceClock"
 msgid "Nice Clock"
-msgstr "Nice Clock"
+msgstr ""
 
 #: WriteTime
 msgctxt "WriteTime"
 msgid "Write time"
-msgstr "Write time"
+msgstr ""
 
 #: WriteDate
 msgctxt "WriteDate"
 msgid "Write date"
-msgstr "Write date"
+msgstr ""
 
 #: WhatTime
 msgctxt "WhatTime"
 msgid "What Time Is It?"
-msgstr "What Time Is It?"
+msgstr ""
 
 #: Sunday
 msgctxt "Sunday"
 msgid "Sunday"
-msgstr "Sunday"
+msgstr ""
 
 #: Monday
 msgctxt "Monday"
 msgid "Monday"
-msgstr "Monday"
+msgstr ""
 
 #: Tuesday
 msgctxt "Tuesday"
 msgid "Tuesday"
-msgstr "Tuesday"
+msgstr ""
 
 #: Wednesday
 msgctxt "Wednesday"
 msgid "Wednesday"
-msgstr "Wednesday"
+msgstr ""
 
 #: Thursday
 msgctxt "Thursday"
 msgid "Thursday"
-msgstr "Thursday"
+msgstr ""
 
 #: Friday
 msgctxt "Friday"
 msgid "Friday"
-msgstr "Friday"
+msgstr ""
 
 #: Saturday
 msgctxt "Saturday"
 msgid "Saturday"
-msgstr "Saturday"
+msgstr ""
 
 #: January
 msgctxt "January"
 msgid "January"
-msgstr "January"
+msgstr ""
 
 #: February
 msgctxt "February"
 msgid "February"
-msgstr "February"
+msgstr ""
 
 #: March
 msgctxt "March"
 msgid "March"
-msgstr "March"
+msgstr ""
 
 #: April
 msgctxt "April"
 msgid "April"
-msgstr "April"
+msgstr ""
 
 #: May
 msgctxt "May"
 msgid "May"
-msgstr "May"
+msgstr ""
 
 #: June
 msgctxt "June"
 msgid "June"
-msgstr "June"
+msgstr ""
 
 #: July
 msgctxt "July"
 msgid "July"
-msgstr "July"
+msgstr ""
 
 #: August
 msgctxt "August"
 msgid "August"
-msgstr "August"
+msgstr ""
 
 #: September
 msgctxt "September"
 msgid "September"
-msgstr "September"
+msgstr ""
 
 #: October
 msgctxt "October"
 msgid "October"
-msgstr "October"
+msgstr ""
 
 #: November
 msgctxt "November"
 msgid "November"
-msgstr "November"
+msgstr ""
 
 #: December
 msgctxt "December"
 msgid "December"
-msgstr "December"
+msgstr ""
 
