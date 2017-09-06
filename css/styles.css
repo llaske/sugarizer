@@ -103,11 +103,12 @@ input {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 20px 20px;
-	top: 5px;
-	left: 2px;
+	left: 6px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-iconcancel {
@@ -115,18 +116,18 @@ input {
 	background-image: url(../icons/entry-cancel.svg);
 	background-repeat: no-repeat;
 	background-position: center;
-	top: 5px;
 	right: 10px;
 	background-size: 20px 20px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-input {
 	opacity: 1;
 	margin-left: 30px;
-	margin-top: 5px;
 	border: 0px;
 	display: inline-block;
 	background-color: #e5e5e5;
@@ -134,6 +135,9 @@ input {
 	line-height: 22px;
 	outline: 0;
 	font-size: 10pt;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-input:focus {
