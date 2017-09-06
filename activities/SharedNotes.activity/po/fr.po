@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 16:25:35 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,8 +140,8 @@ msgstr "Activité Shared Notes"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid "This activity let you pin small notes - like "Post-It" - on a virtual board and share them with other users."
-msgstr "Cette activité vous permet d'épingler des notes de type "Post-It" sur un tableau virtuel et de les partager avec d'autres utilisateurs."
+msgid "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
+msgstr "Cette activité vous permet d'épingler des notes de type \"Post-It\" sur un tableau virtuel et de les partager avec d'autres utilisateurs."
 
 #: TutoNodeTitle
 msgctxt "TutoNodeTitle"
