@@ -1,13 +1,25 @@
 {
-	"name": "sugarizer-server",
-	"description": "Sugarizer Server",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {
+  "name": "sugarizer-server",
+  "version": "0.0.1",
+  "description": "Sugarizer is a web implementation of the Sugar platform to run on any device or browser http://sugarizer.org",
+  "main": "sugarizer.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llaske/sugarizer.git"
+  },
+  "author": "Lionel Laské",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/llaske/sugarizer/issues"
+  },
+  "homepage": "https://github.com/llaske/sugarizer#readme",
+  "dependencies": {
 		"express": "3.x",
 		"ini": "1.1.x",
 		"mongodb": "1.4.x",
 		"websocket": "1.0.x",
 		"http": "0.0.x"
-	}
+  },
+  "private": true
 }
+
