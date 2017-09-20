@@ -32,7 +32,7 @@ bank.ogg:banco
 bark.ogg:ladrido
 barn.ogg:granero
 bat.ogg:bat
-bath.ogg:bano
+bath.ogg:baño
 be.ogg:ser
 beach.ogg:playa
 bean.ogg:frejol
