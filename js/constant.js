@@ -11,6 +11,7 @@ constant.sizeEmpty = 50;
 constant.sizeSettings = 70;
 constant.sizeToolbar = 40;
 constant.sizeNeighbor = 40;
+constant.sizeNewUser = 150;
 constant.iconSpacingFactor = 1.1;
 constant.ringInitSpaceFactor = 2.2;
 constant.ringSpaceFactor = 1.3;

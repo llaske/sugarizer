@@ -713,6 +713,32 @@ input {
 	display: inline-block;
 }
 
+.first-passbox {
+	height: 100%;
+	padding-bottom: 100%;
+}
+
+.first-passline {
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+}
+
+.first-passtext {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	display: inline-block;
+}
+
+.newuser-text {
+	position: absolute;
+	text-align: center;
+	color: #808080;
+}
+
 .first-input {
 	text-align: center;
 	display: inline-block;
@@ -729,6 +755,20 @@ input {
 }
 
 .first-namevalue:focus {
+	background-color: white;
+}
+
+.first-passvalue {
+	border-radius: 22px;
+	height: 25px;
+	width: 270px;
+	margin-left: 30px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	font-size: 10pt;
+}
+
+.first-passvalue:focus {
 	background-color: white;
 }
 
