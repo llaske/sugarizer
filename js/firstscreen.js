@@ -28,7 +28,8 @@ enyo.kind({
 		{name: "newuser", kind: "Sugar.Icon", size: constant.sizeNewUser, colorized: false, classes: "first-owner-icon", showing: true, onresize: "resize", ontap: "newUser"},
 		{name: "newusertext", content: "xxx", classes: "newuser-text"},
 		{name: "login", kind: "Sugar.Icon", size: constant.sizeNewUser, colorized: false, classes: "first-owner-icon", showing: true, onresize: "resize", ontap: "login"},
-		{name: "logintext", content: "xxx", classes: "newuser-text"}
+		{name: "logintext", content: "xxx", classes: "newuser-text"},
+		{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "spinner", showing: false}
 	],
 
 	// Constructor
@@ -51,6 +52,7 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.name.addClass("rtl-10");
 		}
+		this.createnew = true;
 		if (util.getClientType() == constant.webAppType) {
 			this.step = 0;
 		} else {
@@ -87,13 +89,13 @@ enyo.kind({
 		case 1:
 			vnamebox = vnext = true;
 			vprevious = (util.getClientType() == constant.webAppType);
-			this.$.nametext.setContent(l10n.get("ChooseName"));
+			this.$.nametext.setContent(l10n.get(this.createnew ? "ChooseName" : "Name"));
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
 		case 2:
 			vpassbox = vprevious = vnext = true;
-			this.$.passtext.setContent(l10n.get("ChoosePassword"));
+			this.$.passtext.setContent(l10n.get(this.createnew ? "ChoosePassword" : "Password"));
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
@@ -131,11 +133,13 @@ enyo.kind({
 
 	// Event handling
 	newUser: function() {
+		this.createnew = true;
 		this.step++;
 		this.displayStep();
 	},
 
 	login: function() {
+		this.createnew = false;
 		this.step++;
 		this.displayStep();
 	},
