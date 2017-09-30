@@ -63,7 +63,7 @@ enyo.kind({
 		this.$.activities.send();
 
 		// Call network id
-		if (preferences.isConnected()) {
+		/*if (preferences.isConnected()) {
 			// Create a new user on the network
 			var networkId = preferences.getNetworkId();
 			if (networkId == null) {
@@ -116,7 +116,7 @@ enyo.kind({
 					}
 				);
 			}
-		}
+		}*/
 	},
 
 	// Load and sort journal

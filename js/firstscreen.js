@@ -29,7 +29,8 @@ enyo.kind({
 		{name: "newusertext", content: "xxx", classes: "newuser-text"},
 		{name: "login", kind: "Sugar.Icon", size: constant.sizeNewUser, colorized: false, classes: "first-owner-icon", showing: true, onresize: "resize", ontap: "login"},
 		{name: "logintext", content: "xxx", classes: "newuser-text"},
-		{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "spinner", showing: false}
+		{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "spinner", showing: false},
+		{name: "warningmessage", content: "xxx", classes: "first-warningmessage", showing: true}
 	],
 
 	// Constructor
@@ -68,6 +69,10 @@ enyo.kind({
 		util.hideNativeToolbar();
 	},
 
+	getView: function() {
+		return constant.radialView;
+	},
+
 	// Display current step items
 	displayStep: function() {
 		var vlogin = false,
@@ -79,43 +84,34 @@ enyo.kind({
 			vcolortext = false,
 			vowner = false,
 			vnext = false,
-			vprevious = false;
+			vprevious = false,
+			vwarning = false;
 
 		switch(this.step) {
-		case 0:
+		case 0: // Choose between New User/Login
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			break;
 
-		case 1:
+		case 1: // Type name
 			vnamebox = vnext = true;
 			vprevious = (util.getClientType() == constant.webAppType);
 			this.$.nametext.setContent(l10n.get(this.createnew ? "ChooseName" : "Name"));
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
-		case 2:
+		case 2: // Type password
 			vpassbox = vprevious = vnext = true;
 			this.$.passtext.setContent(l10n.get(this.createnew ? "ChoosePassword" : "Password"));
-			this.$.next.setText(l10n.get("Next"));
+			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
 			break;
 
-		case 3:
+		case 3: // Choose color
 			vcolortext = vprevious = vnext = vowner = true;
 			this.$.next.setText(l10n.get("Done"));
 			break;
 
-		case 4:
-			// Save settings
-			preferences.setColor(this.ownerColor);
-			preferences.setName(this.$.name.getValue());
-			console.log(this.$.pass.getValue());
-
-			// Launch Desktop
-			document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
-			document.getElementById("canvas").style.overflowY = "auto";
-			app = new Sugar.Desktop();
-			app.renderInto(document.getElementById("canvas"));
-			preferences.save();
+		case 4: // Go to home view
+			this.createOrLogin();
 			return;
 		}
 
@@ -129,6 +125,7 @@ enyo.kind({
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
 		this.$.next.setShowing(vnext);
+		this.$.warningmessage.setShowing(vwarning);
 	},
 
 	// Event handling
@@ -145,14 +142,16 @@ enyo.kind({
 	},
 
 	next: function() {
-		// Handle click next
+		if (this.$.spinner.getShowing()) {
+			return;
+		}
 		if (this.step == 1) {
 			var name = this.$.name.getValue();
 			if (name.length == 0) {
 				return;
 			}
 			this.step++;
-			if (util.getClientType() == constant.appType) {
+			if (util.getClientType() == constant.appType) { // No password for the app
 				this.step++;
 			}
 			this.displayStep();
@@ -162,6 +161,9 @@ enyo.kind({
 				return;
 			}
 			this.step++;
+			if (!this.createnew) { // No color when login
+				this.step++;
+			}
 			this.displayStep();
 		} else {
 			this.step++;
@@ -170,8 +172,12 @@ enyo.kind({
 	},
 
 	previous: function() {
+		if (this.$.spinner.getShowing()) {
+			return;
+		}
 		this.step--;
-		if (util.getClientType() == constant.appType && this.step == 2) {
+		if ((this.step == 2 && util.getClientType() == constant.appType) // No password for app
+			|| (this.step == 3 && !this.createnew)) { // No color in login mode
 			this.step--;
 		}
 		this.displayStep();
@@ -195,6 +201,9 @@ enyo.kind({
 	},
 
 	nextcolor: function() {
+		if (this.$.spinner.getShowing()) {
+			return;
+		}
 		this.ownerColor = this.ownerColor + 1;
 		if (this.ownerColor >= xoPalette.colors.length)
 			this.ownerColor = 0;
@@ -209,6 +218,7 @@ enyo.kind({
 		this.$.nameline.applyStyle("margin-top", middletop+"px");
 		this.$.passline.applyStyle("margin-top", middletop+"px");
 		this.$.owner.applyStyle("margin-top", middletop+"px");
+		this.$.warningmessage.applyStyle("left", (canvas_center.x-100)+"px");
 		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");
 		this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
 		this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
@@ -221,5 +231,117 @@ enyo.kind({
 		this.$.logintext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
 		this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
 		this.$.logintext.applyStyle("width", constant.sizeNewUser+"px");
+	},
+
+	// Account handling
+	createOrLogin: function() {
+		// Pause UI
+		this.$.spinner.setShowing(true);
+
+		// Save settings
+		preferences.setColor(this.ownerColor);
+		preferences.setName(this.$.name.getValue());
+
+		// Create a new user on the network
+		if (this.createnew) {
+			var that = this;
+			myserver.postUser(
+				{
+					name: preferences.getName(),
+					color: preferences.getColor(),
+					language: preferences.getLanguage(),
+					role: "student",
+					password: this.$.pass.getValue()
+				},
+				function(inSender, inResponse) {
+					preferences.setNetworkId(inResponse._id);
+					preferences.setPrivateJournal(inResponse.private_journal);
+					preferences.setSharedJournal(inResponse.shared_journal);
+					preferences.save();
+					presence.joinNetwork(function (error, user) {
+						if (error) {
+							console.log("WARNING: Can't connect to presence server");
+						}
+					});
+					that.$.spinner.setShowing(false);
+					that.launchDesktop();
+				},
+				function(response) {
+					that.$.spinner.setShowing(false);
+					var error = that.getErrorCode(response);
+					if (error == 22) {
+						that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+					} else {
+						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+					}
+					that.$.warningmessage.setShowing(true);
+				}
+			);
+		}
+
+		// Log user
+		else {
+			var that = this;
+			var user = {
+				"name": preferences.getName(),
+				"password": this.$.pass.getValue()
+			};
+			myserver.loginUser(user, function(loginSender, loginResponse) {
+				preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+				myserver.getUser(
+					loginResponse.user._id,
+					function(inSender, inResponse) {
+						var changed = preferences.merge(inResponse);
+						if (changed) {
+							preferences.save();
+						}
+						presence.joinNetwork(function (error, user) {
+							if (error) {
+								console.log("WARNING: Can't connect to presence server");
+							}
+						});
+						that.$.spinner.setShowing(false);
+						that.launchDesktop();
+					},
+					function() {
+						that.$.warningmessage.setContent(l10n.get("ServerError", {code: that.getErrorCode(response)}));
+						that.$.warningmessage.setShowing(true);
+						that.$.spinner.setShowing(false);
+					}
+				);
+			},
+			function(response) {
+				var error = that.getErrorCode(response);
+				if (error == 1) {
+					that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			});
+		}
+	},
+
+	// Launch desktop
+	launchDesktop: function() {
+		document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
+		document.getElementById("canvas").style.overflowY = "auto";
+		app = new Sugar.Desktop();
+		app.renderInto(document.getElementById("canvas"));
+		preferences.save();
+	},
+
+	// Util function
+	getErrorCode: function(response) {
+		if (!response || !response.xhrResponse || !response.xhrResponse.body) {
+			return null;
+		}
+		try {
+			var body = JSON.parse(response.xhrResponse.body);
+			return body.code;
+		} catch(e) {
+			return null;
+		}
 	}
 });

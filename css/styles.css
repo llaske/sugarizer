@@ -733,6 +733,20 @@ input {
 	display: inline-block;
 }
 
+.first-warningmessage {
+	position: absolute;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left 0%;
+	background-size: 30px 30px;
+	height: 35px;
+	width: 400px;
+	padding-left: 35px;
+	padding-top: 3px;
+	bottom: 85px;
+}
+
 .newuser-text {
 	position: absolute;
 	text-align: center;
