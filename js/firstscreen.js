@@ -291,6 +291,9 @@ enyo.kind({
 				myserver.getUser(
 					loginResponse.user._id,
 					function(inSender, inResponse) {
+						preferences.setNetworkId(inResponse._id);
+						preferences.setPrivateJournal(inResponse.private_journal);
+						preferences.setSharedJournal(inResponse.shared_journal);
 						var changed = preferences.merge(inResponse);
 						if (changed) {
 							preferences.save();
