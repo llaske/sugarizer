@@ -57,61 +57,31 @@ enyo.kind({
 		}
 		this.$.activities.send();
 
-		// Call network id
-		/*if (preferences.isConnected()) {
-			// Create a new user on the network
+		// Check change on preferences from server
+		if (preferences.isConnected()) {
 			var networkId = preferences.getNetworkId();
-			if (networkId == null) {
-				myserver.postUser(
-					{
-						name: preferences.getName(),
-						color: preferences.getColor(),
-						language: preferences.getLanguage(),
-						role: "student",
-						password: "pass"  // HACK: password = "pass" because no login screen
-					},
-					function(inSender, inResponse) {
-						preferences.setNetworkId(inResponse._id);
-						preferences.setPrivateJournal(inResponse.private_journal);
-						preferences.setSharedJournal(inResponse.shared_journal);
+			var that = this;
+			myserver.getUser(
+				networkId,
+				function(inSender, inResponse) {
+					var changed = preferences.merge(inResponse);
+					if (changed) {
 						preferences.save();
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-					},
-					function() {
-						console.log("WARNING: Error creating network user");
+						util.restartApp();
+					} else if (that.currentView == constant.journalView) {
+						that.otherview.updateNetworkBar();
 					}
-				);
-			}
-
-			// Retrieve user settings
-			else {
-				var that = this;
-				myserver.getUser(
-					networkId,
-					function(inSender, inResponse) {
-						var changed = preferences.merge(inResponse);
-						if (changed) {
-							preferences.save();
-							util.restartApp();
-						} else if (that.currentView == constant.journalView) {
-							that.otherview.updateNetworkBar();
+					presence.joinNetwork(function (error, user) {
+						if (error) {
+							console.log("WARNING: Can't connect to presence server");
 						}
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-					},
-					function() {
-						console.log("WARNING: Can't read network user settings");
-					}
-				);
-			}
-		}*/
+					});
+				},
+				function() {
+					console.log("WARNING: Can't read network user settings");
+				}
+			);
+		}
 	},
 
 	// Load and sort journal
