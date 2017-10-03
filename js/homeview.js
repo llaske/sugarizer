@@ -557,8 +557,8 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
 			colorized: false,
-			name: l10n.get("Shutdown"),
-			action: enyo.bind(this, "doShutdown"),
+			name: (util.getClientType() == constant.webAppType) ? l10n.get("Logoff") : l10n.get("Shutdown"),
+			action: (util.getClientType() == constant.webAppType) ? enyo.bind(this, "doLogoff") : enyo.bind(this, "doShutdown"),
 			data: null
 		});
 		items.push({
@@ -586,6 +586,19 @@ enyo.kind({
 		}
 		this.getPopup().hidePopup();
 		return true;
+	},
+	doLogoff: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
+
+		// Remove all object
+		var results = datastore.find();
+		for(var i = 0 ; i < results.length ; i++) {
+			datastore.remove(results[i].objectId);
+		}
+		preferences.reset();
+
+		// Restart
+		util.restartApp();
 	},
 	doShutdown: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'shutdown');
