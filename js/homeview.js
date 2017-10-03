@@ -51,12 +51,7 @@ enyo.kind({
 
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
-			// HACK: Add a hack, if not connected, use static activities URL to avoid token failure - will be replaced
-			if (!preferences.isConnected()) {
-				this.$.activities.setUrl(myserver.getActivitiesUrl());
-			} else {
-				this.$.activities.setUrl(constant.staticInitActivitiesURL);
-			}
+			this.$.activities.setUrl(myserver.getActivitiesUrl());
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
 		}

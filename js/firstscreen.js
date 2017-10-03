@@ -244,20 +244,60 @@ enyo.kind({
 
 		// Create a new user on the network
 		if (this.createnew) {
-			var that = this;
-			myserver.postUser(
-				{
-					name: preferences.getName(),
-					color: preferences.getColor(),
-					language: preferences.getLanguage(),
-					role: "student",
-					password: this.$.pass.getValue()
-				},
+			this.createUser();
+		}
+
+		// Log user
+		else {
+			this.loginUser();
+		}
+	},
+
+	createUser: function() {
+		var that = this;
+		myserver.postUser(
+			{
+				name: preferences.getName(),
+				color: preferences.getColor(),
+				language: preferences.getLanguage(),
+				role: "student",
+				password: this.$.pass.getValue()
+			},
+			function(inSender, inResponse) {
+				// Auto log user after creation to get token
+				that.loginUser();
+			},
+			function(response) {
+				that.$.spinner.setShowing(false);
+				var error = that.getErrorCode(response);
+				if (error == 22) {
+					that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+			}
+		);
+	},
+
+	loginUser: function() {
+		var that = this;
+		var user = {
+			"name": preferences.getName(),
+			"password": this.$.pass.getValue()
+		};
+		myserver.loginUser(user, function(loginSender, loginResponse) {
+			preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+			myserver.getUser(
+				loginResponse.user._id,
 				function(inSender, inResponse) {
 					preferences.setNetworkId(inResponse._id);
 					preferences.setPrivateJournal(inResponse.private_journal);
 					preferences.setSharedJournal(inResponse.shared_journal);
-					preferences.save();
+					var changed = preferences.merge(inResponse);
+					if (changed) {
+						preferences.save();
+					}
 					presence.joinNetwork(function (error, user) {
 						if (error) {
 							console.log("WARNING: Can't connect to presence server");
@@ -266,64 +306,23 @@ enyo.kind({
 					that.$.spinner.setShowing(false);
 					that.launchDesktop();
 				},
-				function(response) {
-					that.$.spinner.setShowing(false);
-					var error = that.getErrorCode(response);
-					if (error == 22) {
-						that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
-					} else {
-						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
-					}
+				function() {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: that.getErrorCode(response)}));
 					that.$.warningmessage.setShowing(true);
+					that.$.spinner.setShowing(false);
 				}
 			);
-		}
-
-		// Log user
-		else {
-			var that = this;
-			var user = {
-				"name": preferences.getName(),
-				"password": this.$.pass.getValue()
-			};
-			myserver.loginUser(user, function(loginSender, loginResponse) {
-				preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
-				myserver.getUser(
-					loginResponse.user._id,
-					function(inSender, inResponse) {
-						preferences.setNetworkId(inResponse._id);
-						preferences.setPrivateJournal(inResponse.private_journal);
-						preferences.setSharedJournal(inResponse.shared_journal);
-						var changed = preferences.merge(inResponse);
-						if (changed) {
-							preferences.save();
-						}
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-						that.$.spinner.setShowing(false);
-						that.launchDesktop();
-					},
-					function() {
-						that.$.warningmessage.setContent(l10n.get("ServerError", {code: that.getErrorCode(response)}));
-						that.$.warningmessage.setShowing(true);
-						that.$.spinner.setShowing(false);
-					}
-				);
-			},
-			function(response) {
-				var error = that.getErrorCode(response);
-				if (error == 1) {
-					that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
-				} else {
-					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
-				}
-				that.$.warningmessage.setShowing(true);
-				that.$.spinner.setShowing(false);
-			});
-		}
+		},
+		function(response) {
+			var error = that.getErrorCode(response);
+			if (error == 1) {
+				that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
+			} else {
+				that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+			}
+			that.$.warningmessage.setShowing(true);
+			that.$.spinner.setShowing(false);
+		});
 	},
 
 	// Launch desktop
