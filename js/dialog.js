@@ -584,14 +584,7 @@ enyo.kind({
 	},
 
 	reinit: function() {
-		// Remove all object
-		var results = datastore.find();
-		for(var i = 0 ; i < results.length ; i++) {
-			datastore.remove(results[i].objectId);
-		}
-		preferences.reset();
-
-		// Restart
+		util.cleanDatastore();
 		util.restartApp();
 	},
 

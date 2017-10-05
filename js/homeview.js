@@ -589,15 +589,7 @@ enyo.kind({
 	},
 	doLogoff: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
-
-		// Remove all object
-		var results = datastore.find();
-		for(var i = 0 ; i < results.length ; i++) {
-			datastore.remove(results[i].objectId);
-		}
-		preferences.reset();
-
-		// Restart
+		util.cleanDatastore();
 		util.restartApp();
 	},
 	doShutdown: function() {
