@@ -267,9 +267,8 @@ enyo.kind({
 				// Auto log user after creation to get token
 				that.loginUser();
 			},
-			function(response) {
+			function(response, error) {
 				that.$.spinner.setShowing(false);
-				var error = that.getErrorCode(response);
 				if (error == 22) {
 					that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
 				} else {
@@ -306,15 +305,14 @@ enyo.kind({
 					that.$.spinner.setShowing(false);
 					that.launchDesktop();
 				},
-				function() {
-					that.$.warningmessage.setContent(l10n.get("ServerError", {code: that.getErrorCode(response)}));
+				function(response, code) {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: code}));
 					that.$.warningmessage.setShowing(true);
 					that.$.spinner.setShowing(false);
 				}
 			);
 		},
-		function(response) {
-			var error = that.getErrorCode(response);
+		function(response, error) {
 			if (error == 1) {
 				that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
 			} else {
@@ -332,18 +330,5 @@ enyo.kind({
 		app = new Sugar.Desktop();
 		app.renderInto(document.getElementById("canvas"));
 		preferences.save();
-	},
-
-	// Util function
-	getErrorCode: function(response) {
-		if (!response || !response.xhrResponse || !response.xhrResponse.body) {
-			return null;
-		}
-		try {
-			var body = JSON.parse(response.xhrResponse.body);
-			return body.code;
-		} catch(e) {
-			return null;
-		}
 	}
 });

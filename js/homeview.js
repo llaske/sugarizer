@@ -52,10 +52,11 @@ enyo.kind({
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
 			this.$.activities.setUrl(myserver.getActivitiesUrl());
+			myserver.getActivities(enyo.bind(this, "queryActivitiesResponse"), enyo.bind(this, "queryActivitiesFail"));
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
+			this.$.activities.send();
 		}
-		this.$.activities.send();
 
 		// Check change on preferences from server
 		if (preferences.isConnected()) {
