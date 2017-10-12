@@ -14,12 +14,7 @@ enyo.kind({
 			]},
 		]},
 		{name: "passbox", classes: "first-passbox", onresize: "resize", showing: false, components: [
-			{name: "passline", classes: "first-passline", components: [
-				{name: "passtext", content: "xxx", classes: "first-passtext"},
-				{classes: "first-input", components: [
-					{name: "pass", kind: "Input", classes: "first-passvalue", onfocus: "scrollToField", onkeydown: "enterclick"}
-				]}
-			]},
+			{name: 'password', kind: "Sugar.Password", onEnter: "enterPassword"}
 		]},
 		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},
 		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next", showing: false},
@@ -38,7 +33,7 @@ enyo.kind({
 		// Init screen
 		this.inherited(arguments);
 		this.$.nametext.setContent(l10n.get("Name"));
-		this.$.passtext.setContent(l10n.get("Password"));
+		this.$.password.setLabel(l10n.get("Password"));
 		this.$.previous.setText(l10n.get("Back"));
 		this.$.next.setText(l10n.get("Next"));
 		this.$.newusertext.setContent(l10n.get("NewUser"));
@@ -86,6 +81,7 @@ enyo.kind({
 			vnext = false,
 			vprevious = false,
 			vwarning = false;
+		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
@@ -101,8 +97,9 @@ enyo.kind({
 
 		case 2: // Type password
 			vpassbox = vprevious = vnext = true;
-			this.$.passtext.setContent(l10n.get(this.createnew ? "ChoosePassword" : "Password"));
+			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password"));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
+			this.$.password.startInputListening();
 			break;
 
 		case 3: // Choose color
@@ -156,7 +153,7 @@ enyo.kind({
 			}
 			this.displayStep();
 		} else if (this.step == 2) {
-			var pass = this.$.pass.getValue();
+			var pass = this.$.password.getPassword();
 			if (pass.length == 0) {
 				return;
 			}
@@ -190,6 +187,10 @@ enyo.kind({
 		}
 	},
 
+	enterPassword: function() {
+		this.next();
+	},
+
 	scrollToField: function() {
 		// HACK: Scroll screen on Android to avoid to be hide by the touch keyboard
 		var nodeName = this.$.name.hasNode();
@@ -215,8 +216,8 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
 		var middletop = (canvas_center.y-constant.sizeOwner/2);
-		this.$.nameline.applyStyle("margin-top", middletop+"px");
-		this.$.passline.applyStyle("margin-top", middletop+"px");
+		this.$.nameline.applyStyle("margin-top", (middletop-15)+"px");
+		this.$.passbox.applyStyle("margin-top", (middletop/2)+"px");
 		this.$.owner.applyStyle("margin-top", middletop+"px");
 		this.$.warningmessage.applyStyle("left", (canvas_center.x-100)+"px");
 		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");
@@ -261,7 +262,7 @@ enyo.kind({
 				color: preferences.getColor(),
 				language: preferences.getLanguage(),
 				role: "student",
-				password: this.$.pass.getValue()
+				password: this.$.password.getPassword()
 			},
 			function(inSender, inResponse) {
 				// Auto log user after creation to get token
@@ -275,6 +276,7 @@ enyo.kind({
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
 				}
 				that.$.warningmessage.setShowing(true);
+				that.step--;
 			}
 		);
 	},
@@ -283,7 +285,7 @@ enyo.kind({
 		var that = this;
 		var user = {
 			"name": preferences.getName(),
-			"password": this.$.pass.getValue()
+			"password": this.$.password.getPassword()
 		};
 		myserver.loginUser(user, function(loginSender, loginResponse) {
 			preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
@@ -309,6 +311,7 @@ enyo.kind({
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: code}));
 					that.$.warningmessage.setShowing(true);
 					that.$.spinner.setShowing(false);
+					that.step--;
 				}
 			);
 		},
@@ -320,6 +323,10 @@ enyo.kind({
 			}
 			that.$.warningmessage.setShowing(true);
 			that.$.spinner.setShowing(false);
+			that.step--;
+			if (that.step == 3 && util.getClientType() == constant.webAppType) {
+				that.$.password.startInputListening();
+			}
 		});
 	},
 

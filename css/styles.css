@@ -1,3 +1,7 @@
+@font-face {
+	font-family: "Noto Emoji";
+	src: url("../fonts/NotoEmoji.woff") format('woff');
+}
 
 html, button {
 	cursor: url(../icons/ArrowSmall.cur), default;
@@ -197,8 +201,8 @@ input {
 }
 
 .selected{
-    border-bottom: 6px solid red;
-    background-color: lightgrey;
+	border-bottom: 6px solid red;
+	background-color: lightgrey;
 }
 
 .owner-icon {
@@ -699,10 +703,11 @@ input {
 }
 
 .first-nameline {
-	position: absolute;
 	vertical-align: middle;
 	text-align: center;
-	width: 100%;
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .first-nametext {
@@ -710,7 +715,7 @@ input {
 	left: 20px;
 	margin-top: 20px;
 	color: #808080;
-	display: inline-block;
+	margin-bottom: 5px;
 }
 
 .first-passbox {
@@ -718,18 +723,8 @@ input {
 	padding-bottom: 100%;
 }
 
-.first-passline {
-	position: absolute;
-	vertical-align: middle;
+.first-input {
 	text-align: center;
-	width: 100%;
-}
-
-.first-passtext {
-	position: relative;
-	left: 20px;
-	margin-top: 20px;
-	color: #808080;
 	display: inline-block;
 }
 
@@ -753,11 +748,6 @@ input {
 	color: #808080;
 }
 
-.first-input {
-	text-align: center;
-	display: inline-block;
-}
-
 .first-namevalue {
 	border-radius: 22px;
 	height: 25px;
@@ -769,20 +759,6 @@ input {
 }
 
 .first-namevalue:focus {
-	background-color: white;
-}
-
-.first-passvalue {
-	border-radius: 22px;
-	height: 25px;
-	width: 270px;
-	margin-left: 30px;
-	background-color: #e5e5e5;
-	padding-left: 10px;
-	font-size: 10pt;
-}
-
-.first-passvalue:focus {
 	background-color: white;
 }
 
@@ -807,8 +783,8 @@ input {
 	width: 100%;
 	color: #808080;
 	-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -817,6 +793,125 @@ input {
 	padding-top: 10px;
 }
 
+
+.password-line {
+	vertical-align: middle;
+	text-align: center;
+	width: 380px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.password-input {
+	text-align: center;
+	display: inline-block;
+	border-width: 2px;
+	border-style: inset;
+	border-top-color: #9a9a9a;
+ 	border-right-color: #eeeeee;
+	border-bottom-color: #eeeeee;
+	border-left-color: #9a9a9a;
+	border-image: initial;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 30px;
+	width: 310px;
+	height: 36px;
+}
+
+.password-value {
+	font-size: 16pt;
+	font-family: "Noto Emoji";
+	width: 270px;
+	padding: 4px;
+	line-height: 30px;
+	min-height: 30px;
+	background-color: white;
+	padding: 1px;
+	text-align: left;
+	outline: 0;
+	margin-left: 10px;
+	margin-top: 3px;
+	display: inline-block;
+}
+
+.password-iconcancel {
+	position: relative;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 2px;
+	right: 10px;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	margin-left: 0px;
+	display: inline-block;
+}
+
+.password-label {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	width: 350px;
+	margin-bottom: 5px;
+}
+
+.password-emojis {
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.password-emojis-line {
+}
+
+.password-emojis-category {
+	margin-top: 10px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.emoji {
+	display: inline-block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 2px solid #e5e5e5;
+}
+
+.emoji-selected {
+	background-color: white;
+}
+
+.emoji-unselected {
+	background-color: #e5e5e5;
+}
+
+.emoji-flash {
+	background-color: #e5e5e5;
+}
+
+.emoji-icon {
+	font-size: 24pt;
+	font-family: "Noto Emoji";
+	padding-left: 8px;
+	padding-top: 6px;
+	padding-right: 8px;
+}
+
+.emoji-letter {
+	font-size: 8pt;
+	text-align: right;
+	padding-right: 4px;
+	padding-bottom: 4px;
+}
+
+.emoji-category {
+	display: block;
+	border-radius: 0px 22px 22px 0px;
+}
 .spinner {
 	position: absolute;
 	margin-left: 45%;
