@@ -584,7 +584,7 @@ enyo.kind({
 	},
 
 	reinit: function() {
-		util.cleanDatastore();
+		util.cleanDatastore(true);
 		util.restartApp();
 	},
 

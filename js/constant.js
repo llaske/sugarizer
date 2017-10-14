@@ -70,6 +70,8 @@ constant.maxCollisionTry = 20;
 
 constant.wifiUpdateTime = 20000;
 
+constant.maxUserHistory = 3;
+
 constant.emojis = [
 	{"name": "dog", "value": "1F436", "letter": "a", "category": "animal"},
 	{"name": "cat", "value": "1F431", "letter": "b", "category": "animal"},

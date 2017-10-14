@@ -590,6 +590,7 @@ enyo.kind({
 	},
 	doLogoff: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
+		preferences.addUserInHistory();
 		util.cleanDatastore();
 		util.restartApp();
 	},

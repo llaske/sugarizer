@@ -776,6 +776,15 @@ input {
 	width: 120px;
 }
 
+.first-historybox {
+	position: absolute;
+}
+
+.first-historybutton {
+	position: relative;
+	width: 150px;
+}
+
 .first-colortext {
 	position: absolute;
 	vertical-align: middle;

@@ -14,7 +14,10 @@ enyo.kind({
 			]},
 		]},
 		{name: "passbox", classes: "first-passbox", onresize: "resize", showing: false, components: [
-			{name: 'password', kind: "Sugar.Password", onEnter: "enterPassword"}
+			{name: "password", kind: "Sugar.Password", onEnter: "enterPassword"}
+		]},
+		{name: "historybox", classes: "first-historybox", kind: "Repeater", onSetupItem: "setupHistory", onresize: "resize", showing: false, components:[
+			{name: "history", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "owner-icon.svg"}, classes: "first-historybutton", ontap: "historyClicked"}
 		]},
 		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},
 		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next", showing: false},
@@ -40,6 +43,11 @@ enyo.kind({
 		this.$.logintext.setContent(l10n.get("Login"));
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
 		this.$.colortext.setContent(l10n.get("ClickToColor"));
+		this.history = preferences.getHistory();
+		if (!this.history || !this.history.length) {
+			this.history = [];
+		}
+		this.$.historybox.set("count", this.history.length, true);
 		this.resize();
 		this.ownerColor = Math.floor(Math.random()*xoPalette.colors.length);
 		this.$.owner.setColorizedColor(xoPalette.colors[this.ownerColor]);
@@ -68,6 +76,13 @@ enyo.kind({
 		return constant.radialView;
 	},
 
+	setupHistory: function(inSender, inEvent) {
+		var user = this.history[this.history.length-inEvent.index-1];
+		inEvent.item.$.history.setColorizedColor(xoPalette.colors[user.color]);
+		inEvent.item.$.history.setColorized(true);
+		inEvent.item.$.history.setText(user.name);
+	},
+
 	// Display current step items
 	displayStep: function() {
 		var vlogin = false,
@@ -80,12 +95,14 @@ enyo.kind({
 			vowner = false,
 			vnext = false,
 			vprevious = false,
-			vwarning = false;
+			vwarning = false,
+			vhistory = false;
 		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
+			vhistory = true;
 			break;
 
 		case 1: // Type name
@@ -122,6 +139,7 @@ enyo.kind({
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
 		this.$.next.setShowing(vnext);
+		this.$.historybox.setShowing(vhistory && this.history.length);
 		this.$.warningmessage.setShowing(vwarning);
 	},
 
@@ -221,17 +239,36 @@ enyo.kind({
 		this.$.owner.applyStyle("margin-top", middletop+"px");
 		this.$.warningmessage.applyStyle("left", (canvas_center.x-100)+"px");
 		this.$.colortext.applyStyle("margin-top", (middletop-15)+"px");
-		this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-		this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
 		var newUserPosition = (middletop-constant.sizeNewUser/2);
 		this.$.newuser.applyStyle("margin-top", newUserPosition+"px");
 		this.$.login.applyStyle("margin-top", newUserPosition+"px");
+		this.$.historybox.applyStyle("margin-top", (newUserPosition+20)+"px");
 		this.$.newusertext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
-		this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
 		this.$.newusertext.applyStyle("width", constant.sizeNewUser+"px");
 		this.$.logintext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
-		this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
 		this.$.logintext.applyStyle("width", constant.sizeNewUser+"px");
+		if (this.history.length) {
+			var left = (canvas_center.x-(constant.sizeNewUser*1.5)-30);
+			this.$.newuser.applyStyle("margin-left", left+"px");
+			this.$.newusertext.applyStyle("margin-left", left+"px");
+			left += constant.sizeNewUser+30;
+			this.$.login.applyStyle("margin-left", left+"px");
+			this.$.logintext.applyStyle("margin-left", left+"px");
+			left += constant.sizeNewUser+30;
+			this.$.historybox.applyStyle("margin-left", left+"px");
+		} else {
+			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
+			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
+			this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
+			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
+		}
+	},
+
+	historyClicked: function(inSender, inEvent) {
+		this.$.name.setValue(this.history[this.history.length-inEvent.index-1].name);
+		this.createnew = false;
+		this.step = 2;
+		this.displayStep();
 	},
 
 	// Account handling
