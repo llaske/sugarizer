@@ -3,7 +3,7 @@
 // Constants
 var constant = {};
 
-constant.sugarizerVersion = "0.9";
+constant.sugarizerVersion = "1.0";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
