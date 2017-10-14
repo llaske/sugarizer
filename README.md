@@ -379,6 +379,6 @@ That's all. Test the result in your browser.
 Note that this translation is for Sugarizer only. Each activity could provide its own localization feature.
 
 
-## License
+# License
 
 This project is licensed under `Apache v2` License. See [LICENSE](LICENSE) for full license text.
