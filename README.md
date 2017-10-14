@@ -6,52 +6,43 @@ The [Sugar Learning Platform](https://sugarlabs.org/) is a leading learning plat
 It is used every day by nearly 3 million children around the world.
 
 Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
-It has 3 broad components:
 
-* Web Application: a web application that runs in modern web browsers
+Like Sugarizer, Sugarizer includes a bunch of pedagogic activities thought for children.
+
+Sugarizer is available as:
+
 * Application: an installable app for every operating system
-* Server: a nodejs/express server for applications to connect with
+* Web Application: a web application that runs in modern web browsers
 
 Enjoy the experience and help us reach every child on every device in every country.
 
-# Web Application
-
-[Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
-
-Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari, EDGE and IE.
-
-Features include:
-
-* No installation required
-* Runs any Sugar Web Activity available from a Sugarizer Server
-* Sugar Home view (Radial and List)
-* Sugar Journal
-* Sugar Local Data Store (limited by the browser to 5Mb, [learn more](https://en.wikipedia.org/wiki/Web_storage))
-    * Backup locally stored content to the Server
-    * Share locally stored content through the Server
-* Sugar Presence
-* Sugar Collaboration
-
-As a web application, it does not run offline and requires a permanent network connection to a Sugarizer Server.
-
-Each Sugarizer Server provides its own copy of the Web Application.
-
-# Application
+# Sugarizer Application
 
 Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
 
-Features are the same as Web Application, plus:
+To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). 
 
-* Runs completely offline, without accessing any server
-* Some features (like collaboration) do a require network connection
+Sugarizer on Android is also available as a launcher to replace the current launcher of your device so you could launch native Android applications from Sugarizer. You could download this Sugarizer version on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizeros).
 
-To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). You could also build yourself the Sugarizer Application APK using instruction below.
+You could also build yourself the Sugarizer Application APK using instruction below.
+
+![](images/googleplay.png)
+![](images/amazonstore.png)
+![](images/fdroid.png)
+
+
 
 To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
 
+![](images/applestore.png)
+
 To run **Sugarizer Application on Windows 10**, download it on [Windows Store](https://www.microsoft.com/store/apps/9nblggh4r782). You could also build yourself the Sugarizer Windows Application using instructions below.
 
+![](images/windowstore.png)
+
 To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
+
+![](images/chromewebstore.png)
 
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
 
@@ -63,162 +54,20 @@ Equivalent options for other browser [are available](https://github.com/mrdoob/t
 
 If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command))).
 
-# Server
+# Sugarizer Web Application
 
-Sugarizer Server is the back-end for network features of Sugarizer. It means: allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Application and Web Application on the network. Sugarizer Server could be deployed on any computer with Apache2, Node.js and MongoDB, or in a Docker container.
+[Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
-Sugarizer Server features include:
+Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari, EDGE and IE.
 
-* Sugarizer Web Application access,
-* Backup and shared storage for Application and Web Application,
-* Presence and collaboration handling between Application/Web Application on the same network
+As a web application, it does not run offline and requires a permanent network connection to a Sugarizer Server.
 
-##Running the server using Docker
+Sugarizer Server allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network. 
 
-To run your own Sugarizer Server with a few command lines using Docker and Docker Compose:
+To install your own Sugarizer Server, follow instructions on 
+[Sugarizer Server repository](https://github.com/llaske/sugarizer-server)
 
-**Install Docker and Docker Compose on Ubuntu**
 
-	  curl -fsSL https://get.docker.com/ | sh
-
-Install Docker Compose
-
-	curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
-	  chmod +x /usr/local/bin/docker-compose
-
-To install Docker Compose on ARM architectures (e.g. for the Raspberry Pi 3), the link above will not work.  You need to use [arm-compose](https://github.com/hypriot/arm-compose) instead.
-
-You can find more details about the installation of **Docker** [here](https://docker.github.io/engine/installation/)
-
-You can	find more details about	the installation of **Docker Compose** [here](https://docs.docker.com/compose/install/)
-
-After that, go to the sugarizer folder and launch
-
-      sh generate-docker-compose.sh
-      docker-compose up -d
-
-Your Sugarizer server will start automatically and will be accessible on http://127.0.0.1 and your public IP. The database will be persisted inside the folder docker/db
-
-##Running the server using the classic way
-
-To run your own Sugarizer Server **without Docker**, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
-
-**Install Apache2**: you need to install Apache2 and ensure than few mods are available and enabled: mod_headers, mod_proxy, mod_proxy_http and mode_rewrite. You need also to allow override on /var/www directory. See [here](http://httpd.apache.org/docs/ "here") for more.
-
-	sudo apt-get install apache2
-    cd /etc/apache2/mods-enabled
-    sudo ln -s ../mods-available/headers.load headers.load
-    sudo ln -s ../mods-available/rewrite.load rewrite.load
-    sudo ln -s ../mods-available/proxy.load proxy.load
-    sudo ln -s ../mods-available/proxy_http.load proxy_http.load
-    sudo vi /etc/apache2/sites-available/default  # Set to all value for /var/www AllowOverride
-    sudo /etc/init.d/apache2 restart
-
-**Install Node.js**: Install Node.js and npm to manage packages. See [here](http://nodejs.org/ "here") more information.
-
-    sudo apt-get install nodejs
-
-**Install MongoDB**: Don't forget to create a /data/db directory to store databases. See [here](http://www.mongodb.org/ "here") more information.
-
-    sudo apt-get install mongodb
-    sudo mkdir -p /data/db
-
-**Install Sugarizer**: If need, you could update server/sugarizer.ini file (update port for web, mongodb or presence)
-
-    sudo apt-get install git
-    cd /var/www
-    sudo git clone https://github.com/llaske/sugarizer
-    cd /var/www/sugarizer/server
-    sudo npm install
-
-**Run MongoDB and Sugarizer Server**:Run mongo daemon and Sugarizer a background process.
-
-    sudo mongod --fork --port 27018 --logpath /home/root/mongo.log
-    sudo nohup node sugarizer.js > /home/root/sugarizer.log &
-
-**Update Firewall rules**: If need, open Firewall port for HTTP and Presence.
-
-    sudo iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT # HTTP
-    sudo iptables -A INPUT -i eth0 -p tcp --dport 8039 -j ACCEPT   # Presence
-    sudo iptables -A OUTPUT -p tcp --dport 8039 -j ACCEPT    # Presence
-
-**Check your install**: To check your install, run "http://&lt;server name&gt;/sugarizer" in your browser:
-
-* you should see the home with all activities,
-* go to Journal view, you should see at the bottom of the screen the two icons to switch to private/shared journal,
-* go to the neighborhood view, you should see one icon for the server and one for you.
-
-You could also run unit tests (see below) to ensure that everything works.
-
-**Server settings**
-
-If needed, Sugarizer server settings could be changed using the [sugarizer.ini](server/sugarizer.ini) config file (you could use another name for this file: just pass the new name
-as [sugarizer.js](server/sugarizer.js) parameter).
-
-	[web]
-	port = 8080
-
-	[presence]
-	port = 8039
-
-	[database]
-	server = localhost
-	port = 27018
-	name = sugarizer
-
-	[collections]
-	users = users
-	journal = journal
-
-	[activities]
-	activities_directory_name = activities
-	activities_path = ../activities
-	template_directory_name = ActivityTemplate
-	activity_info_path = activity/activity.info
-	favorites = org.sugarlabs.GearsActivity,org.sugarlabs.MazeWebActivity,org.olpcfrance.PaintActivity,org.olpcfrance.TamTamMicro,org.olpcfrance.MemorizeActivity,org.olpg-france.physicsjs,org.sugarlabs.CalculateActivity,org.sugarlabs.TurtleBlocksJS,org.sugarlabs.Clock,,org.olpcfrance.RecordActivity,org.olpcfrance.Abecedarium,org.olpcfrance.KAView,org.olpcfrance.FoodChain,org.olpc-france.labyrinthjs,org.olpcfrance.TankOp,org.sugarlabs.ChatPrototype,org.olpcfrance.Gridpaint,org.olpc-france.LOLActivity,org.sugarlabs.StopwatchActivity,org.sugarlabs.GTDActivity,org.sugarlabs.Markdown,org.laptop.WelcomeWebActivity
-
-The **[web]** section describe the settings of the node.js process. Sugarizer server uses an Apache web server and a node.js web server. The Apache Web server redirect calls to the node.js server. The link between them is set in the file [api/.htaccess](api/.htaccess).
-
-	RewriteEngine on
-
-	# Redirect a whole subdirectory:
-	RewriteRule ^(.+) http://localhost:8080/$1 [P]
-
-So by default, the Apache Web server expects that the node.js server listens on port 8080. You have to change both this file and the port value in the web section to change the port.
-
-The **[presence]** section describe the settings of the presence server. By default, a web socket is created on port 8039. You need to change this value if you want to use another port.
-Warning: presence.js in activities hardcode this port today.
-
-The **[database]** and **[collections]** sections are for MongoDB settings. You could update the server name (by default MongoDB run locally) and the server port. Names of the database and collections had no reason to be changed.
-
-The **[activities]** section describe information on where to find embedded activities. The favorites value list ids of activities that Web Application users will find by default on the home page. All values are self explained and had no reason to be changed.
-
-**Server API**
-
-Sugarizer Server exposes a REST API used by applications to handle collaboration.
-
-	// Activities API
-	[GET]    /api/activities
-	[GET]    /api/activities/:id
-
-	// Users API
-	[GET]    /api/users
-	[GET]    /api/users/:uid
-	[POST]   /api/users
-	[PUT]    /api/users/:uid
-
-	// Journal API
-	[GET]    /api/journal/shared
-	[GET]    /api/journal/:jid
-	[GET]    /api/journal/:jid/filter/:aid
-	[GET]    /api/journal/:jid/field/:field
-	[GET]    /api/journal/:jid/filter/:aid/field/:field
-	[POST]   /api/journal/:jid
-	[GET]    /api/journal/:jid/:oid
-	[PUT]    /api/journal/:jid/:oid
-	[DELETE] /api/journal/:jid/:oid
-
-A full documentation of the API is available in [server/doc](server/doc) or online on [http://sugarizer.org/apidoc/](http://sugarizer.org/apidoc/).
 
 # Activities
 
@@ -418,56 +267,6 @@ To run unit tests for Sugarizer Server, launch:
 Note that settings for unit testing are defined in [server/test.ini](server/test.ini).
 To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
-# Supervise the server
-
-This is not needed with Docker Compose.
-
-Instead of running your Sugarizer Server like described in the "Run MongoDB and Sugarizer Server" section above, you could use a tool like [supervisor](http://supervisord.org/) to run it in background.
-
-First install, supervisor:
-
-	sudo apt-get install supervisor
-
-Then install the wait-for-mongo node tool:
-
-	sudo npm install -g wait-for-mongo
-
-Create a sugarizer.sh file in /home/root directory:
-
-	wait-for-mongo mongodb://127.0.0.1:27018/sugarizer 30000
-	cd /var/www/server
-	node sugarizer.js
-
-Create a sugarizer.conf setting file in /etc/supervisor/conf.d directory:
-
-	[supervisord]
-	nodaemon=true
-
-	[program:mongod]
-	command=/usr/bin/mongod --port 27018 --logpath /home/root/mongo.log
-	priority=1
-
-	[program:sugarizer]
-	command=sh /home/root/sugarizer.sh
-	priority=2
-	stdout_logfile=/home/root/sugarizer.log
-	stderr_logfile=/home/root/sugarizer.log
-	autostart=true
-	autorestart=true
-
-Run the supervisor daemon for the first time:
-
-	sudo /etc/init.d/supervisor start
-
-MongoDB and Sugarizer Server should now start automatically at startup and restart if fail.
-You could start it manually using:
-
-	sudo supervisorctl start sugarizer
-
-You could end it manually using:
-
-	sudo supervisorctl stop sugarizer
-
 
 # Build Application for Android, iOS or Windows 10
 
@@ -537,6 +336,8 @@ At the end of the process, the `build` directory will contain the optimized vers
 
 # Localization
 
+If you're not a developer and you want to translate Sugarizer into your own language, please go to the [Sugarizer translation platform](http://translate.sugarizer.org) where you will be able to do that. If you're a developer, the following paragraphs will explain to you how the Sugarizer localization system works.
+
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
 
 Here how to add a new translation. See a video tutorial [here](https://youtu.be/vTPVegrVm5A).
@@ -576,3 +377,8 @@ Sugarizer settings display a list of all available languages. You need to add yo
 That's all. Test the result in your browser.
 
 Note that this translation is for Sugarizer only. Each activity could provide its own localization feature.
+
+
+## License
+
+This project is licensed under `Apache v2` License. See [LICENSE](LICENSE) for full license text.
