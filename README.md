@@ -7,7 +7,7 @@ It is used every day by nearly 3 million children around the world.
 
 Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
 
-Like Sugarizer, Sugarizer includes a bunch of pedagogic activities thought for children.
+Like Sugar, Sugarizer includes a bunch of pedagogic activities thought for children.
 
 Sugarizer is available as:
 
