@@ -657,8 +657,11 @@ enyo.kind({
 			this.initservername = util.getCurrentServerUrl();
 			this.$.servername.setDisabled(true);
 		} else {
-			this.initservername = preferences.getServer();
+				this.initservername = preferences.getServer();
 		}
+		// TODO: Do not allow server connection for the moment, need to update to API v1
+		this.$.servername.setDisabled(true); // To remove
+		this.$.checkbutton.setShowing(false); // To remove 
 		this.$.servername.setValue(this.initservername);
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
