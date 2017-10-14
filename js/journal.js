@@ -172,6 +172,7 @@ enyo.kind({
 		} else {
 			this.journal[inEvent.index].metadata.keep = (keep + 1) % 2;
 		}
+		stats.trace(constant.viewNames[app.getView()], 'switch_favorite', objectId, null);
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.setDataAsText(this.journal[inEvent.index].text);
@@ -236,7 +237,7 @@ enyo.kind({
 			var that = this;
 			myserver.getJournal(journalId, typeactivity, constant.fieldMetadata,
 				function(inSender, inResponse) {
-					that.journal = inResponse;
+					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
 					doFilter();
@@ -342,6 +343,7 @@ enyo.kind({
 	// Copy activity content to the local journal
 	copyToLocal: function(entry) {
 		var that = this;
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_local', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
 			datastore.create(metadata, function(error, oid) {
 			}, text);
@@ -370,6 +372,7 @@ enyo.kind({
 
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_remote', entry.objectId, journalId);
 		this.loadEntry(entry, function(err, metadata, text) {
 			var dataentry = {metadata: metadata, text: text, objectId: entry.objectId};
 			myserver.postJournalEntry(journalId, dataentry,
@@ -387,7 +390,7 @@ enyo.kind({
 		var that = this;
 		myserver.getJournal(journalId, undefined, constant.fieldMetadata,
 			function(inSender, inResponse) {
-				that.journal = inResponse;
+				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
 				that.journalChanged();
@@ -417,7 +420,7 @@ enyo.kind({
 			}
 			myserver.getJournalEntry(journalId, entry.objectId,
 				function(inSender, inResponse) {
-					callback(null, inResponse.metadata, inResponse.text);
+					callback(null, inResponse.entries[0].metadata, inResponse.entries[0].text);
 				},
 				function() {
 					console.log("WARNING: Error loading entry "+objectId+" in journal "+journalId);
@@ -431,6 +434,7 @@ enyo.kind({
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', entry.objectId, null);
 			datastore.remove(entry.objectId);
 
 			// Refresh screen
@@ -445,6 +449,7 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var objectId = entry.objectId;
 			var that = this;
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', objectId, journalId);
 			myserver.deleteJournalEntry(journalId, objectId,
 				function(inSender, inResponse) {
 					that.loadRemoteJournal(journalId);
@@ -486,6 +491,7 @@ enyo.kind({
 			if (that.journalType == constant.journalLocal) {
 				// Update metadata
 				metadata.title = newtitle;
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, 'local');
 
 				// Update datastore
 				var ds = new datastore.DatastoreObject(objectId);
@@ -510,6 +516,7 @@ enyo.kind({
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 				var dataentry = {metadata: metadata, text: text, objectId: objectId};
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, journalId);
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
@@ -530,15 +537,18 @@ enyo.kind({
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 		});
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'local', null);
 		this.journalChanged();
 	},
 
 	showPrivateCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'private', null);
 		this.changeJournalType(constant.journalRemotePrivate);
 		this.loadRemoteJournal(preferences.getPrivateJournal());
 	},
 
 	showSharedCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'shared', null);
 		this.changeJournalType(constant.journalRemoteShared);
 		this.loadRemoteJournal(preferences.getSharedJournal());
 	},
@@ -628,6 +638,11 @@ enyo.kind({
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
 		var timeselected = (selected <= 0 ? undefined : selected);
+		var filtertext = 'q=' + text;
+		if (favorite) filtertext += '&favorite=true';
+		if (typeselected) filtertext += '&type=' + typeselected;
+		if (timeselected) filtertext += '&time=' + timeselected;
+		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
 		app.otherview.filterEntries(text, favorite, typeselected, timeselected);
 	},
 
@@ -645,6 +660,7 @@ enyo.kind({
 		tutorial.setElement("typeselect", this.$.typeselect.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.timeselect.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

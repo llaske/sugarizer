@@ -68,6 +68,7 @@ enyo.kind({
 	// Events
 	filterSettings: function() {
 		var filter = this.$.settingssearch.getText().toLowerCase();
+		stats.trace('my_settings', 'search', 'q='+filter, null);
 		enyo.forEach(this.$.content.getControls(), function(item) {
 			item.setDisabled(item.getText().toLowerCase().indexOf(filter) == -1 && filter.length != 0);
 		});
@@ -81,6 +82,7 @@ enyo.kind({
 	// Display me dialog
 	meClicked: function() {
 		if (!this.$.me.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_me', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogAboutme"}, {owner:this});
 			this.subdialog.show();
@@ -89,6 +91,7 @@ enyo.kind({
 
 	computerClicked: function() {
 		if (!this.$.computer.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_computer', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogComputer"}, {owner:this});
 			this.subdialog.show();
@@ -97,6 +100,7 @@ enyo.kind({
 
 	languageClicked: function() {
 		if (!this.$.language.getDisabled()) {
+			stats.trace('my_settings', 'click', 'language', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogLanguage"}, {owner:this});
 			this.subdialog.show();
@@ -105,6 +109,7 @@ enyo.kind({
 
 	serverClicked: function() {
 		if (!this.$.aboutserver.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_server', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
@@ -368,6 +373,7 @@ enyo.kind({
 	},
 
 	restart: function() {
+		stats.trace('my_settings_about_me', 'change', 'name_color', null);
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
@@ -466,6 +472,7 @@ enyo.kind({
 	},
 
 	restart: function() {
+		stats.trace('my_settings_language', 'change', 'language', null);
 		preferences.setLanguage(this.currentlanguage);
 		preferences.save();
 		preferences.saveToServer(myserver, function() {
@@ -577,14 +584,7 @@ enyo.kind({
 	},
 
 	reinit: function() {
-		// Remove all object
-		var results = datastore.find();
-		for(var i = 0 ; i < results.length ; i++) {
-			datastore.remove(results[i].objectId);
-		}
-		preferences.reset();
-
-		// Restart
+		util.cleanDatastore(true);
 		util.restartApp();
 	},
 
@@ -657,8 +657,11 @@ enyo.kind({
 			this.initservername = util.getCurrentServerUrl();
 			this.$.servername.setDisabled(true);
 		} else {
-			this.initservername = preferences.getServer();
+				this.initservername = preferences.getServer();
 		}
+		// TODO: Do not allow server connection for the moment, need to update to API v1
+		this.$.servername.setDisabled(true); // To remove
+		this.$.checkbutton.setShowing(false); // To remove 
 		this.$.servername.setValue(this.initservername);
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
