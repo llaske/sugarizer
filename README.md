@@ -20,7 +20,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
 
-To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer). 
+To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
 Sugarizer on Android is also available as a launcher to replace the current launcher of your device so you could launch native Android applications from Sugarizer. You could download this Sugarizer version on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizeros).
 
@@ -62,9 +62,9 @@ Sugarizer Web App is a web application that runs on any device with a recent Chr
 
 As a web application, it does not run offline and requires a permanent network connection to a Sugarizer Server.
 
-Sugarizer Server allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network. 
+Sugarizer Server allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
 
-To install your own Sugarizer Server, follow instructions on 
+To install your own Sugarizer Server, follow instructions on
 [Sugarizer Server repository](https://github.com/llaske/sugarizer-server)
 
 
@@ -254,17 +254,6 @@ See [Sugar Web Samples](http://sugarlabs.github.io/sugar-web-samples/) for more 
 
 # Unit testing
 
-Sugarizer includes a set of unit tests both for application side and for server side.
-To run unit tests, you should first install [Mocha](http://mochajs.org/):
-
-	sudo npm install -g mocha
-
-To run unit tests for Sugarizer Server, launch:
-
-	cd server
-	mocha --delay
-
-Note that settings for unit testing are defined in [server/test.ini](server/test.ini).
 To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
 
