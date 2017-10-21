@@ -377,8 +377,19 @@ enyo.kind({
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
+		var that = this;
 		preferences.saveToServer(myserver, function() {
 			util.restartApp();
+		}, function(error, code) {
+			that.$.warningbox.setShowing(false);
+			that.$.okbutton.setDisabled(false);
+			that.$.cancelbutton.setDisabled(false);
+			that.currentname = preferences.getName();
+			if (code == 22) {
+				that.$.restartmessage.setContent(l10n.get("UserAlreadyExist"));
+			} else {
+				that.$.restartmessage.setContent(l10n.get("ServerError", {code: code}));
+			}
 		});
 	}
 });
@@ -476,6 +487,8 @@ enyo.kind({
 		preferences.setLanguage(this.currentlanguage);
 		preferences.save();
 		preferences.saveToServer(myserver, function() {
+			util.restartApp();
+		}, function() {
 			util.restartApp();
 		});
 	}
@@ -661,7 +674,7 @@ enyo.kind({
 		}
 		// TODO: Do not allow server connection for the moment, need to update to API v1
 		this.$.servername.setDisabled(true); // To remove
-		this.$.checkbutton.setShowing(false); // To remove 
+		this.$.checkbutton.setShowing(false); // To remove
 		this.$.servername.setValue(this.initservername);
 		this.initusername = preferences.getNetworkId();
 		this.$.username.setValue(this.initusername);
