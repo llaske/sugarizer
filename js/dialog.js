@@ -16,6 +16,7 @@ enyo.kind({
 			{name: "content", components: [
 				{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
+				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
@@ -31,8 +32,12 @@ enyo.kind({
 		this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
 		this.$.me.setText(l10n.get("AboutMe"));
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
+		this.$.security.setText(l10n.get("MySecurity"));
 		this.$.language.setText(l10n.get("Language"));
 		this.$.aboutserver.setText(l10n.get("Server"));
+		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
+			this.$.security.setShowing(true);
+		}
 		if (window.sugarizerOS) {
 			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
 			this.$.androidSettings.setText(l10n.get("AndroidSettings"));
@@ -43,8 +48,12 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.me.addClass("rtl-10");
 			this.$.computer.addClass("rtl-10");
+			this.$.security.addClass("rtl-10");
 			this.$.language.addClass("rtl-10");
 			this.$.aboutserver.addClass("rtl-10");
+		}
+		if (util.getClientType() == constant.webAppType) {
+			this.$.security.setShowing(true);
 		}
 		this.subdialog = null;
 	},
@@ -94,6 +103,15 @@ enyo.kind({
 			stats.trace('my_settings', 'click', 'about_my_computer', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogComputer"}, {owner:this});
+			this.subdialog.show();
+		}
+	},
+
+	securityClicked: function() {
+		if (!this.$.security.getDisabled()) {
+			stats.trace('my_settings', 'click', 'security', null);
+			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogSecurity"}, {owner:this});
 			this.subdialog.show();
 		}
 	},
@@ -394,6 +412,110 @@ enyo.kind({
 	}
 });
 
+
+
+// Language dialog
+enyo.kind({
+	name: "Sugar.DialogSecurity",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "login-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "content", components: [
+			{name: "message", content: "xxx", classes: "security-message"},
+			{name: "password", kind: "Sugar.Password", classes: "security-password", onEnter: "next"},
+			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "security-rightbutton", ontap: "next"},
+			{name: "warningmessage", content: "xxx", classes: "security-warning", showing: false}
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("MySecurity"));
+		this.$.message.setContent(l10n.get("SecurityMessage"));
+		this.$.next.setText(l10n.get("Next"));
+		this.$.password.startInputListening();
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.message.addClass("rtl-10");
+		}
+		this.step = 0;
+	},
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.owner.centerDialog(this);
+	},
+
+	// Event handling
+	cancel: function() {
+		this.$.password.stopInputListening();
+		this.hide();
+		this.owner.show();
+	},
+
+	ok: function() {
+		this.$.password.stopInputListening();
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+
+	next: function() {
+		var that = this;
+		var user = {
+			"name": preferences.getName(),
+			"password": this.$.password.getPassword()
+		};
+		if (this.step == 0) {
+			myserver.loginUser(user, function(loginSender, loginResponse) {
+				preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+				console.log("Login correct");
+				that.$.warningmessage.setShowing(false);
+				that.$.password.setPassword("");
+				that.$.next.setText(l10n.get("Done"));
+				that.$.message.setContent(l10n.get("SecurityMessageNew"));
+				that.step++;
+			},
+			function(response, error) {
+				if (error == 1) {
+					that.$.warningmessage.setContent(l10n.get("InvalidPassword"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+			});
+		} else {
+			myserver.putUser(
+				preferences.getNetworkId(),
+				{
+					password: this.$.password.getPassword()
+				},
+				function(inSender, inResponse) {
+					that.$.message.setContent(l10n.get("SecurityMessageDone"));
+					that.$.next.setShowing(false);
+					that.$.password.setShowing(false);
+					that.$.warningmessage.setShowing(false);
+				},
+				function(response, error) {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+					that.$.warningmessage.setShowing(true);
+				}
+			);
+		}
+	}
+});
 
 
 // Language dialog

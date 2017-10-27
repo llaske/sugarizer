@@ -597,6 +597,39 @@ input {
 	color: #808080;
 }
 
+.security-message {
+	position: absolute;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.security-password {
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 50px;
+}
+
+.security-rightbutton {
+	position: absolute;
+	margin-left: 350px;
+	margin-top: 290px;
+	width: 120px;
+}
+
+.security-warning {
+	position: absolute;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 15px 15px;
+	left: 20px;
+	bottom: 30px;
+	width: 300px;
+	padding-left: 20px;
+}
+
 .launcher-message {
     position: absolute;
     left: 20px;

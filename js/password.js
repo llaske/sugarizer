@@ -79,6 +79,13 @@ enyo.kind({
 		this.$.text.setContent(this.label);
 	},
 
+	passwordChanged: function() {
+		this.drawPassword();
+		if (this.password.length == 0) {
+			this.$.cancel.setShowing(false);
+		}
+	},
+
 	// Event handling
 	emojiClicked: function(emoji) {
 		emoji.animate();
