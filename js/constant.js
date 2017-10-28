@@ -43,6 +43,7 @@ constant.appType = 1;  // clientType
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
 constant.dynamicInitActivitiesURL = "/api/v1/activities/";
+constant.serverInformationURL = "/api/";
 constant.loginURL = "/auth/login/";
 constant.signupURL = "/auth/signup/";
 constant.initNetworkURL = "/api/v1/users/";

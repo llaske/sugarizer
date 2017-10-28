@@ -64,6 +64,14 @@ enyo.kind({
 		}
 		this.displayStep();
 
+		// Get server information
+		if (util.getClientType() == constant.webAppType) {
+			myserver.getServerInformation(function(inSender, inResponse) {
+				inResponse.url = util.getCurrentServerUrl();
+				preferences.setServer(inResponse);
+			});
+		}
+
 		// Hide toolbar
 		var toolbar = document.getElementById("toolbar");
 		this.backgroundColor = toolbar.style.backgroundColor;
