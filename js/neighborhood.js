@@ -230,11 +230,16 @@ enyo.kind({
 	// Popup menu for server handling
 	showServerPopup: function(icon) {
 		// Create popup
+		var name = myserver.getServer();
+		var info = preferences.getServer();
+		if (info && info.name) {
+			name = info.name;
+		}
 		this.getPopup().setHeader({
 			icon: icon.icon,
 			colorized: true,
 			colorizedColor: icon.colorizedColor,
-			name: myserver.getServer(),
+			name: name,
 			title: l10n.get("Connected"),
 			action: null
 		});
