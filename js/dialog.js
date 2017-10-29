@@ -468,8 +468,8 @@ enyo.kind({
 
 	ok: function() {
 		this.$.password.stopInputListening();
-		this.$.okbutton.setDisabled(true);
-		this.$.cancelbutton.setDisabled(true);
+		this.hide();
+		this.owner.show();
 	},
 
 	next: function() {
@@ -497,6 +497,15 @@ enyo.kind({
 				that.$.warningmessage.setShowing(true);
 			});
 		} else {
+			var pass = this.$.password.getPassword();
+			var minSize = constant.minPasswordSize;
+			var info = preferences.getServer();
+			if (info && info.options && info.options["min-password-size"]) {
+				minSize = info.options["min-password-size"];
+			}
+			if (pass.length == 0 || pass.length < minSize) {
+				return;
+			}
 			myserver.putUser(
 				preferences.getNetworkId(),
 				{

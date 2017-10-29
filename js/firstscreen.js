@@ -180,7 +180,12 @@ enyo.kind({
 			this.displayStep();
 		} else if (this.step == 2) {
 			var pass = this.$.password.getPassword();
-			if (pass.length == 0) {
+			var minSize = constant.minPasswordSize;
+			var info = preferences.getServer();
+			if (info && info.options && info.options["min-password-size"]) {
+				minSize = info.options["min-password-size"];
+			}
+			if (pass.length == 0 || pass.length < minSize) {
 				return;
 			}
 			this.step++;

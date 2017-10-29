@@ -54,6 +54,7 @@ constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";
 constant.fieldText = "text";
 constant.defaultServer = "server.sugarizer.org";
+constant.minPasswordSize = 4;
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
