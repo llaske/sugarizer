@@ -485,7 +485,7 @@ enyo.kind({
 				that.$.warningmessage.setShowing(false);
 				that.$.password.setPassword("");
 				that.$.next.setText(l10n.get("Done"));
-				that.$.message.setContent(l10n.get("SecurityMessageNew"));
+				that.$.message.setContent(l10n.get("SecurityMessageNew", {min: util.getMinPasswordSize()}));
 				that.step++;
 			},
 			function(response, error) {
@@ -498,12 +498,7 @@ enyo.kind({
 			});
 		} else {
 			var pass = this.$.password.getPassword();
-			var minSize = constant.minPasswordSize;
-			var info = preferences.getServer();
-			if (info && info.options && info.options["min-password-size"]) {
-				minSize = info.options["min-password-size"];
-			}
-			if (pass.length == 0 || pass.length < minSize) {
+			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
 				return;
 			}
 			myserver.putUser(

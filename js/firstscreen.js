@@ -122,7 +122,7 @@ enyo.kind({
 
 		case 2: // Type password
 			vpassbox = vprevious = vnext = true;
-			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password"));
+			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
 			this.$.password.startInputListening();
 			break;
@@ -180,12 +180,7 @@ enyo.kind({
 			this.displayStep();
 		} else if (this.step == 2) {
 			var pass = this.$.password.getPassword();
-			var minSize = constant.minPasswordSize;
-			var info = preferences.getServer();
-			if (info && info.options && info.options["min-password-size"]) {
-				minSize = info.options["min-password-size"];
-			}
-			if (pass.length == 0 || pass.length < minSize) {
+			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
 				return;
 			}
 			this.step++;
