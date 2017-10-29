@@ -767,6 +767,7 @@ input {
 
 .first-warningmessage {
 	position: absolute;
+	font-size: 12pt;
 	color: #808080;
 	background-image: url(../icons/emblem-warning.svg);
 	background-repeat: no-repeat;
