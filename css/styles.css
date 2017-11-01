@@ -630,6 +630,13 @@ input {
 	padding-left: 20px;
 }
 
+.security-spinner {
+	position: absolute;
+	left: 260px;
+	top: 220px;
+	width: 8%;
+}
+
 .launcher-message {
     position: absolute;
     left: 20px;

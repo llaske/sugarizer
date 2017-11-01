@@ -434,6 +434,7 @@ enyo.kind({
 			{name: "message", content: "xxx", classes: "security-message"},
 			{name: "password", kind: "Sugar.Password", classes: "security-password", onEnter: "next"},
 			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "security-rightbutton", ontap: "next"},
+			{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "security-spinner", showing: false},
 			{name: "warningmessage", content: "xxx", classes: "security-warning", showing: false}
 		]}
 	],
@@ -479,14 +480,15 @@ enyo.kind({
 			"password": this.$.password.getPassword()
 		};
 		if (this.step == 0) {
+			that.$.spinner.setShowing(true);
 			myserver.loginUser(user, function(loginSender, loginResponse) {
 				preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
-				console.log("Login correct");
 				that.$.warningmessage.setShowing(false);
 				that.$.password.setPassword("");
 				that.$.next.setText(l10n.get("Done"));
 				that.$.message.setContent(l10n.get("SecurityMessageNew", {min: util.getMinPasswordSize()}));
 				that.step++;
+				that.$.spinner.setShowing(false);
 			},
 			function(response, error) {
 				if (error == 1) {
@@ -495,12 +497,14 @@ enyo.kind({
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
 				}
 				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
 			});
 		} else {
 			var pass = this.$.password.getPassword();
 			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
 				return;
 			}
+			that.$.spinner.setShowing(true);
 			myserver.putUser(
 				preferences.getNetworkId(),
 				{
@@ -511,10 +515,12 @@ enyo.kind({
 					that.$.next.setShowing(false);
 					that.$.password.setShowing(false);
 					that.$.warningmessage.setShowing(false);
+					that.$.spinner.setShowing(false);
 				},
 				function(response, error) {
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
 					that.$.warningmessage.setShowing(true);
+					that.$.spinner.setShowing(false);
 				}
 			);
 		}
