@@ -1131,10 +1131,11 @@ input {
 	padding-left: 20px;
 }
 
-.aboutserver-checkbox {
-	margin-left: 20px !important;
-	margin-top: 30px !important;
-	display: inline-block;
+.aboutserver-rightbutton {
+	position: absolute;
+	left: 350px;
+	top: 370px;
+	width: 120px;
 }
 
 .aboutserver-message {
@@ -1168,7 +1169,7 @@ input {
 
 .aboutserver-userlabel {
 	margin-left: 50px;
-	margin-top: 20px;
+	margin-top: 10px;
 	color: #808080;
 	width: 250px;
 	text-align: right;
@@ -1189,10 +1190,40 @@ input {
 	width: 200px;
 }
 
-.aboutserver-iconchecked {
-	margin-left: 5px;
-	margin-right: 5px;
+.aboutserver-settingsname {
+	margin-left: 150px;
+	margin-top: 10px;
+	width: 150px;
+	color: #808080;
+	text-align: right;
 	display: inline-block;
+}
+
+.aboutserver-settingsvalue {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+	width: 200px;
+}
+
+.aboutserver-description {
+	margin-left: 150px;
+	margin-top: 10px;
+	width: 150px;
+	color: #808080;
+	text-align: right;
+	display: inline-block;
+}
+
+.aboutserver-descriptionvalue {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+	width: 300px;
+}
+
+.aboutserver-checkbox {
+	margin-left: 10px !important;
 }
 
 .aboutserver-checkbutton {
@@ -1210,8 +1241,28 @@ input {
 	background-size: 15px 15px;
 	left: 20px;
 	bottom: 20px;
-	width: 200px;
+	width: 300px;
 	padding-left: 20px;
+}
+
+.aboutserver-passwordmessage {
+	position: absolute;
+	left: 110px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.aboutserver-password {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: 70px;
+}
+
+.aboutserver-spinner {
+	position: absolute;
+	left: 260px;
+	top: 220px;
+	width: 8%;
 }
 
 .cloud-empty {

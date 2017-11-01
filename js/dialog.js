@@ -16,8 +16,8 @@ enyo.kind({
 			{name: "content", components: [
 				{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
-				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
 				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
@@ -766,17 +766,21 @@ enyo.kind({
 			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
 			{components:[
 				{name: "textservername", content: "xxx", classes: "aboutserver-serverlabel"},
-				{content: "http://", classes: "aboutserver-httplabel"},
-				{name: "servername", kind: "Input", classes: "aboutserver-servername", oninput: "changed"},
-				{name: "serverok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-ok.svg"}, classes: "aboutserver-iconchecked", showing: false}
+				{name: "httplabel", content: "http://", classes: "aboutserver-httplabel"},
+				{name: "servername", kind: "Input", classes: "aboutserver-servername", onkeydown: "enterclick"}
 			]},
+			{name: "serversettingsname", classes: "aboutserver-settingsname"},
+			{name: "serversettingsvalue", classes: "aboutserver-settingsvalue"},
+			{name: "serverdescription", classes: "aboutserver-description"},
+			{name: "serverdescriptionvalue", classes: "aboutserver-descriptionvalue"},
 			{components:[
 				{name: "textusername", content: "xxx", classes: "aboutserver-userlabel"},
-				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"},
-				{name: "userok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-cancel.svg"}, classes: "aboutserver-iconchecked", showing: false},
-				{name: "textusermessage", content: "xxx", classes: "aboutserver-usermessage"}
+				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"}
 			]},
-			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", ontap: "check"},
+			{name: "passwordmessage", classes: "aboutserver-passwordmessage"},
+			{name: "password", kind: "Sugar.Password", classes: "aboutserver-password", onEnter: "next"},
+			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "aboutserver-rightbutton", ontap: "next"},
+			{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "aboutserver-spinner", showing: false},
 			{name: "warningmessage", content: "xxx", classes: "aboutserver-warningmessage", showing: false}
 		]}
 	],
@@ -786,24 +790,17 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.text.setContent(l10n.get("Server"));
 		this.$.textconnected.setContent(l10n.get("ConnectedToServer"));
-		this.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
-		this.$.textservername.setContent(l10n.get("ServerName"));
+		this.$.textservername.setContent(l10n.get("ServerUrl"));
+		this.$.serversettingsname.setContent(l10n.get("ServerName"));
+		this.$.serverdescription.setContent(l10n.get("ServerDescription"));
 		this.$.textusername.setContent(l10n.get("UserId"));
-		this.$.textusermessage.setContent(l10n.get("LeaveUserBlank"));
-		this.$.checkbutton.setText(l10n.get("CheckInfo"));
+		this.$.next.setText(l10n.get("Next"));
+		this.currentserver = preferences.getServer();
 		this.initconnected = preferences.isConnected();
-		if (util.getClientType() == constant.webAppType) {
-			this.initservername = util.getCurrentServerUrl();
-			this.$.servername.setDisabled(true);
-		} else {
-				this.initservername = preferences.getServer();
-		}
-		// TODO: Do not allow server connection for the moment, need to update to API v1
-		this.$.servername.setDisabled(true); // To remove
-		this.$.checkbutton.setShowing(false); // To remove
-		this.$.servername.setValue(this.initservername);
-		this.initusername = preferences.getNetworkId();
-		this.$.username.setValue(this.initusername);
+		this.initservername = (this.currentserver && this.currentserver.url) ? this.currentserver.url : util.getCurrentServerUrl();
+		this.initusername = preferences.getName();
+		this.networkId = null;
+		this.forbidcheck = false;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textconnected.addClass("rtl-10");
@@ -811,26 +808,97 @@ enyo.kind({
 			this.$.textservername.addClass("rtl-10");
 			this.$.textusername.addClass("rtl-10");
 			this.$.textusermessage.addClass("rtl-10");
-			this.$.checkbutton.addClass("rtl-10");
+			this.$.next.addClass("rtl-10");
 		}
+
+		this.step = 0;
+		if (util.getClientType() == constant.webAppType) {
+			this.step = 3;
+		} else {
+			if (!this.initconnected) {
+				this.step = 0;
+			} else {
+				var token = preferences.getToken();
+				if (token && token.expired) {
+					this.step = 2;
+				} else {
+					this.step = 3;
+				}
+			}
+		}
+		this.displayStep();
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.connected.setNodeProperty("checked", this.initconnected);
-		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.webAppType) {
-			this.$.servername.setDisabled(disabled);
+		if (util.getClientType() == constant.webAppType) {
+			this.$.servername.setDisabled(true);
+			this.$.username.setDisabled(true);
 		}
-		this.$.username.setDisabled(disabled);
 		this.owner.centerDialog(this);
+	},
+
+	displayStep: function() {
+		var
+			vtextservername = false,
+			vserversettingsname = false,
+			vserverdescription = false,
+			vtextservername = false,
+			vservername = false,
+			vserversettingsvalue = false,
+			vserverdescriptionvalue = false,
+			vtextusername = false,
+			vusername = false,
+			vnext = false,
+			vhttplabel = false,
+			vpasswordmessage = false,
+			vpassword = false;
+		if (this.step == 0) {
+		} else if (this.step == 1) {
+			this.$.servername.setValue(constant.defaultServer);
+			vtextservername = vhttplabel = vservername = vnext = true;
+		} else if (this.step == 2) {
+			vpasswordmessage = vpassword = vnext = true;
+			this.$.password.startInputListening();
+			if (preferences.getToken() && preferences.getToken().expired) {
+				this.$.passwordmessage.setContent(l10n.get("SecurityMessageExpired", {min: util.getMinPasswordSize()}));
+			} else {
+				this.$.passwordmessage.setContent(l10n.get("SecurityMessageNew", {min: util.getMinPasswordSize()}));
+			}
+		} else if (this.step == 3) {
+			this.$.servername.setValue(this.initservername);
+			this.$.username.setValue(this.initusername);
+			this.$.serversettingsvalue.setContent(this.currentserver.name);
+			this.$.serverdescriptionvalue.setContent(this.currentserver.description);
+			this.$.servername.setDisabled(true);
+			vtextservername = vserversettingsname = vserverdescription = vtextservername = vservername = vserversettingsvalue = vserverdescriptionvalue = vtextusername = vusername = true;
+		}
+		this.$.textservername.setShowing(vtextservername);
+		this.$.serversettingsname.setShowing(vserversettingsname);
+		this.$.serverdescription.setShowing(vserverdescription);
+		this.$.textservername.setShowing(vtextservername);
+		this.$.servername.setShowing(vservername);
+		this.$.serversettingsvalue.setShowing(vserversettingsvalue);
+		this.$.serverdescriptionvalue.setShowing(vserverdescriptionvalue);
+		this.$.textusername.setShowing(vtextusername);
+		this.$.username.setShowing(vusername);
+		this.$.next.setShowing(vnext);
+		this.$.httplabel.setShowing(vhttplabel);
+		this.$.passwordmessage.setShowing(vpasswordmessage);
+		this.$.password.setShowing(vpassword);
 	},
 
 	// Event handling
 	cancel: function() {
+		if (!this.initconnected && this.hasChanged()) {
+			preferences.setServer(null);
+		}
 		this.hide();
 		this.owner.show();
+		this.$.password.stopInputListening();
 	},
 
 	ok: function() {
@@ -842,62 +910,123 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
+		this.$.password.stopInputListening();
 	},
 
 	switchConnection: function() {
-		if (util.getClientType() == constant.webAppType) {
-			this.$.connected.setNodeProperty("checked", true);
-		}
-		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.webAppType) {
-			this.$.servername.setDisabled(disabled);
-			if (this.$.connected.getNodeProperty("checked") && this.$.servername.getValue() == null)
-				this.$.servername.setValue(constant.defaultServer);
-		}
-		this.$.username.setDisabled(disabled);
-		this.$.warningmessage.setShowing(this.hasChanged());
-	},
-
-	changed: function() {
-		this.$.warningmessage.setShowing(this.hasChanged());
-	},
-
-	check: function() {
-		if (!this.$.connected.getNodeProperty("checked")) {
+		if (this.forbidcheck) {
+			this.$.connected.setNodeProperty("checked", !this.$.connected.getNodeProperty());
 			return;
 		}
-		var that = this;
-		var setOk = function(server, user) {
-			that.$.serverok.setIcon({directory: "icons", icon: (server ? "entry-ok.svg":"entry-cancel.svg")});
-			that.$.userok.setIcon({directory: "icons", icon: (user ? "entry-ok.svg":"entry-cancel.svg")});
-			that.$.serverok.setShowing(true);
-			that.$.userok.setShowing(true);
+		this.forbidcheck = true;
+		if (util.getClientType() == constant.webAppType) {
+			this.$.connected.setNodeProperty("checked", true);
+			return;
 		}
-		var uid = this.$.username.getValue();
-		myserver.getUser(uid,
-			function(inSender, inResponse) {
-				setOk(true, (inResponse || !uid));
+		if (this.step == 0) {
+			this.step++;
+			this.displayStep();
+		}
+	},
+
+	next: function() {
+		if (this.step == 1) {
+			// Retrieve server information
+			var that = this;
+			that.$.spinner.setShowing(true);
+			myserver.getServerInformation(constant.http + this.$.servername.getValue(), function(inSender, inResponse) {
+				that.currentserver = inResponse;
+				that.currentserver.url = that.$.servername.getValue();
+				preferences.setServer(that.currentserver);
+				that.initservername = that.$.servername.getValue();
+				that.step++;
+				that.displayStep();
+				that.$.spinner.setShowing(false);
+				that.$.warningmessage.setShowing(false);
+			}, function() {
+				that.$.warningmessage.setContent(l10n.get("ErrorLoadingRemote"));
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			});
+		} else if (this.step == 2) {
+			// Validate password size
+			var pass = this.$.password.getPassword();
+			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
+				return;
+			}
+
+			// Try first to create a new user
+			var that = this;
+			that.$.spinner.setShowing(true);
+			myserver.postUser(
+				{
+					name: preferences.getName(),
+					color: preferences.getColor(),
+					language: preferences.getLanguage(),
+					role: "student",
+					password: this.$.password.getPassword()
+				},
+				function(inSender, inResponse) {
+					that.login();
+				},
+				function(response, error) {
+					// User already exist, try to login instead
+					if (error == 22) {
+						that.login();
+					} else {
+						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+						that.$.warningmessage.setShowing(true);
+						that.$.spinner.setShowing(false);
+					}
+				}
+			);
+		}
+	},
+
+	login: function() {
+		var that = this;
+		var user = {
+			name: preferences.getName(),
+			password: that.$.password.getPassword()
+		};
+		myserver.loginUser(user, function(loginSender, loginResponse) {
+				that.step++;
+				that.displayStep();
+				that.networkId = loginResponse.user._id;
+				preferences.setToken({'x_key': that.networkId, 'access_token': loginResponse.token});
+				preferences.setPrivateJournal(loginResponse.user.private_journal);
+				preferences.setSharedJournal(loginResponse.user.shared_journal);
+				that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+				that.$.warningbox.setShowing(true);
+				that.$.okbutton.setDisabled(true);
+				that.$.cancelbutton.setDisabled(true);
 			},
-			function() {
-				setOk(false, false);
-			},
-			"http://"+this.$.servername.getValue()
+			function(response, error) {
+				// Login error, retry
+				if (error == 1) {
+					that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			}
 		);
 	},
 
 	restart: function() {
-		// Get values
-		var currentconnected = this.$.connected.getNodeProperty("checked");
-		var currentservername = this.$.servername.getValue();
-		var currentusername = this.$.username.getValue();
-
-		// Save new settings
-		if ((this.initconnected && !currentconnected) || currentusername == "") {
-			preferences.init();
+		// Now ConnectedToServer
+		var nowconnected = this.$.connected.getNodeProperty("checked");
+		preferences.setConnected(nowconnected);
+		if (nowconnected) {
+			preferences.setNetworkId(this.networkId);
+		} else {
+			preferences.setNetworkId(null);
+			preferences.setServer(null);
+			preferences.setToken(null);
 		}
-		preferences.setConnected(currentconnected);
-		preferences.setServer(currentservername);
-		preferences.setNetworkId(currentusername == "" ? null : currentusername);
 		preferences.save();
 		util.restartApp();
 	},
@@ -905,9 +1034,14 @@ enyo.kind({
 	// Utility
 	hasChanged: function() {
 		var currentconnected = this.$.connected.getNodeProperty("checked");
-		var currentservername = this.$.servername.getValue();
-		var currentusername = this.$.username.getValue();
-		return (this.initconnected != currentconnected || this.initusername != currentusername || this.initservername != currentservername);
+		return (this.initconnected != currentconnected);
+	},
+
+	enterclick: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			this.next();
+			return true;
+		}
 	}
 });
 

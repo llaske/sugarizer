@@ -66,7 +66,7 @@ enyo.kind({
 
 		// Get server information
 		if (util.getClientType() == constant.webAppType) {
-			myserver.getServerInformation(function(inSender, inResponse) {
+			myserver.getServerInformation(myserver.getServerUrl(), function(inSender, inResponse) {
 				inResponse.url = util.getCurrentServerUrl();
 				preferences.setServer(inResponse);
 			});
@@ -281,12 +281,18 @@ enyo.kind({
 
 	// Account handling
 	createOrLogin: function() {
-		// Pause UI
-		this.$.spinner.setShowing(true);
-
 		// Save settings
 		preferences.setColor(this.ownerColor);
 		preferences.setName(this.$.name.getValue());
+
+		// Not connected
+		if (util.getClientType() != constant.webAppType) {
+			this.launchDesktop();
+			return;
+		}
+
+		// Pause UI
+		this.$.spinner.setShowing(true);
 
 		// Create a new user on the network
 		if (this.createnew) {
