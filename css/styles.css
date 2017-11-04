@@ -1272,6 +1272,37 @@ input {
 	width: 8%;
 }
 
+.privacy-statscheckbox {
+	position: relative;
+	margin-left: 30px !important;
+	margin-top: 40px !important;
+}
+
+.privacy-statsmessage {
+	margin-left: 10px;
+	margin-top: 20px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
+}
+
+.privacy-synccheckbox {
+	position: absolute;
+	left: 28px;
+	top: 140px;
+}
+
+.privacy-syncmessage {
+	position: relative;
+	margin-left: 65px;
+	margin-top: 24px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
+}
+
 .cloud-empty {
 	position: absolute;
 	background-image: url(../icons/cloud-settings.svg);

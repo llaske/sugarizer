@@ -18,6 +18,7 @@ enyo.kind({
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
 				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
+				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}, showing: false},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
 				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
@@ -33,10 +34,12 @@ enyo.kind({
 		this.$.me.setText(l10n.get("AboutMe"));
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
 		this.$.security.setText(l10n.get("MySecurity"));
+		this.$.privacy.setText(l10n.get("MyPrivacy"));
 		this.$.language.setText(l10n.get("Language"));
 		this.$.aboutserver.setText(l10n.get("Server"));
 		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
 			this.$.security.setShowing(true);
+			this.$.privacy.setShowing(true);
 		}
 		if (window.sugarizerOS) {
 			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
@@ -49,6 +52,7 @@ enyo.kind({
 			this.$.me.addClass("rtl-10");
 			this.$.computer.addClass("rtl-10");
 			this.$.security.addClass("rtl-10");
+			this.$.privacy.addClass("rtl-10");
 			this.$.language.addClass("rtl-10");
 			this.$.aboutserver.addClass("rtl-10");
 		}
@@ -112,6 +116,15 @@ enyo.kind({
 			stats.trace('my_settings', 'click', 'security', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogSecurity"}, {owner:this});
+			this.subdialog.show();
+		}
+	},
+
+	privacyClicked: function() {
+		if (!this.$.security.getDisabled()) {
+			stats.trace('my_settings', 'click', 'privacy', null);
+			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogPrivacy"}, {owner:this});
 			this.subdialog.show();
 		}
 	},
@@ -1050,6 +1063,82 @@ enyo.kind({
 		}
 	}
 });
+
+
+
+// Privacy dialog
+enyo.kind({
+	name: "Sugar.DialogPrivacy",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "privacy.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "content", components: [
+			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
+			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
+			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
+			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("MyPrivacy"));
+		this.$.textstats.setContent(l10n.get("PrivacyStats"));
+		this.$.textsync.setContent(l10n.get("PrivacySync"));
+		this.initstats = preferences.getOptions("stats");
+		this.initsync = preferences.getOptions("sync");
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.textstats.addClass("rtl-10");
+			this.$.textsync.addClass("rtl-10");
+		}
+	},
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.stats.setNodeProperty("checked", !this.initstats);
+		this.$.sync.setNodeProperty("checked", !this.initsync);
+		this.owner.centerDialog(this);
+	},
+
+	// Event handling
+	cancel: function() {
+		this.hide();
+		this.owner.show();
+	},
+
+	ok: function() {
+		if (this.hasChanged()) {
+			preferences.setOptions("stats", !this.$.stats.getNodeProperty("checked"));
+			preferences.setOptions("sync", !this.$.sync.getNodeProperty("checked"));
+			preferences.save();
+			preferences.saveToServer(myserver, null, null);
+		}
+		this.hide();
+		this.owner.show();
+	},
+
+	// Utility
+	hasChanged: function() {
+		var currentstats = !this.$.stats.getNodeProperty("checked");
+		var currentsync = !this.$.sync.getNodeProperty("checked");
+		return (this.initstats != currentstats || this.initsync != currentsync);
+	}
+});
+
 
 //-------------------------- Settings utility classes
 
