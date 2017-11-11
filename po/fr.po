@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 16:09:42 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sat Nov 11 2017 21:23:18 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -297,6 +297,47 @@ msgctxt "AboutMyComputer"
 msgid "About my computer"
 msgstr "A propos de mon ordinateur"
 
+#: MySecurity
+msgctxt "MySecurity"
+msgid "My security"
+msgstr "Ma securité"
+
+#: SecurityMessage
+msgctxt "SecurityMessage"
+msgid "If you want to change your images, first type current images:"
+msgstr "Pour changer d'images, choisir les images actuelles:"
+
+#. Do not translate {{min}}
+#: SecurityMessageNew
+msgctxt "SecurityMessageNew"
+msgid "Now choose at least {{min}} new images:"
+msgstr "Maintenant choisir au moins {{min}} nouvelles images:"
+
+#: SecurityMessageDone
+msgctxt "SecurityMessageDone"
+msgid "Images updated!"
+msgstr "Images mises à jour !"
+
+#: InvalidPassword
+msgctxt "InvalidPassword"
+msgid "Invalid images"
+msgstr "Images invalides"
+
+#: MyPrivacy
+msgctxt "MyPrivacy"
+msgid "My privacy"
+msgstr "Ma vie privée"
+
+#: PrivacyStats
+msgctxt "PrivacyStats"
+msgid "Do not send to the server statistics about my usage of the app"
+msgstr "Ne pas envoyer au serveur de statistiques sur mon utilisation de l'application"
+
+#: PrivacySync
+msgctxt "PrivacySync"
+msgid "Do not synchronize my local journal with the server"
+msgstr "Ne pas synchroniser le journal local avec le serveur"
+
 #: Language
 msgctxt "Language"
 msgid "Language"
@@ -305,7 +346,7 @@ msgstr "Langue"
 #: Done
 msgctxt "Done"
 msgid "Done"
-msgstr "Terminé"
+msgstr "Fait"
 
 #: Ok
 msgctxt "Ok"
@@ -483,25 +524,35 @@ msgctxt "ConnectedToServer"
 msgid "Connected to a server"
 msgstr "Connecté à un serveur"
 
-#: ServerName
-msgctxt "ServerName"
+#: ServerUrl
+msgctxt "ServerUrl"
 msgid "Server address:"
 msgstr "Adresse du serveur:"
 
+#: ServerDescription
+msgctxt "ServerDescription"
+msgid "Description:"
+msgstr "Description:"
+
+#: ServerName
+msgctxt "ServerName"
+msgid "Server Name:"
+msgstr "Nom du serveur:"
+
 #: UserId
 msgctxt "UserId"
-msgid "User Id on server:"
-msgstr "Identifiant utilisateur sur le serveur:"
+msgid "User name on server:"
+msgstr "Nom utilisateur sur le serveur:"
 
-#: CheckInfo
-msgctxt "CheckInfo"
-msgid "Check"
-msgstr "Vérifier"
+#: SessionExpired
+msgctxt "SessionExpired"
+msgid "Server connection expired"
+msgstr "Connexion serveur expirée"
 
-#: LeaveUserBlank
-msgctxt "LeaveUserBlank"
-msgid "(leave blank for a new user)"
-msgstr "(laissez vide pour un nouvel utilisateur)"
+#: SecurityMessageExpired
+msgctxt "SecurityMessageExpired"
+msgid "Connection expired, type your images:"
+msgstr "Connexion expirée, redonner vos images:"
 
 #: NeighborhoodView
 msgctxt "NeighborhoodView"
@@ -542,6 +593,53 @@ msgstr "Précédent"
 msgctxt "ClickToColor"
 msgid "Click to change color:"
 msgstr "Cliquer pour changer de couleur:"
+
+#: NewUser
+msgctxt "NewUser"
+msgid "New user"
+msgstr "Nouvel utilisateur"
+
+#: Login
+msgctxt "Login"
+msgid "Login"
+msgstr "Se connecter"
+
+#: Logoff
+msgctxt "Logoff"
+msgid "Logoff"
+msgstr "Se déconnecter"
+
+#: ChooseName
+msgctxt "ChooseName"
+msgid "Choose name:"
+msgstr "Choisir nom:"
+
+#: Password
+msgctxt "Password"
+msgid "Your images:"
+msgstr "Vos images:"
+
+#. Do not translate {{min}}
+#: ChoosePassword
+msgctxt "ChoosePassword"
+msgid "Choose at least {{min}} images:"
+msgstr "Choisir au moins {{min}} images:"
+
+#: UserLoginInvalid
+msgctxt "UserLoginInvalid"
+msgid "Invalid user name or images"
+msgstr "Nom d'utilisateur ou images invalides"
+
+#: UserAlreadyExist
+msgctxt "UserAlreadyExist"
+msgid "User already exist"
+msgstr "Cet utilisateur existe déjà"
+
+#. Do not translate {{code}}
+#: ServerError
+msgctxt "ServerError"
+msgid "Server error code {{code}}"
+msgstr "Erreur serveur code {{code}}"
 
 #: ServerNotSet
 msgctxt "ServerNotSet"

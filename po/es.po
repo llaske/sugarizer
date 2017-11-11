@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 16:09:42 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sat Nov 11 2017 21:23:18 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -297,6 +297,32 @@ msgctxt "AboutMyComputer"
 msgid "About my computer"
 msgstr "Acerca de mi computadora"
 
+#: MySecurity
+msgctxt "MySecurity"
+msgid "My security"
+msgstr "My security"
+
+#: SecurityMessage
+msgctxt "SecurityMessage"
+msgid "If you want to change your images, first type current images:"
+msgstr "If you want to change your images, first type current images:"
+
+#. Do not translate {{min}}
+#: SecurityMessageNew
+msgctxt "SecurityMessageNew"
+msgid "Now choose at least {{min}} new images:"
+msgstr "Now choose at least {{min}} new images:"
+
+#: SecurityMessageDone
+msgctxt "SecurityMessageDone"
+msgid "Images updated!"
+msgstr "Images updated!"
+
+#: InvalidPassword
+msgctxt "InvalidPassword"
+msgid "Invalid images"
+msgstr "Invalid images"
+
 #: Language
 msgctxt "Language"
 msgid "Language"
@@ -483,25 +509,35 @@ msgctxt "ConnectedToServer"
 msgid "Connected to a server"
 msgstr "Conectado a un servidor"
 
+#: ServerUrl
+msgctxt "ServerUrl"
+msgid "Server address:"
+msgstr "Server address:"
+
+#: ServerDescription
+msgctxt "ServerDescription"
+msgid "Description:"
+msgstr "Description:"
+
 #: ServerName
 msgctxt "ServerName"
-msgid "Server address:"
-msgstr "Dirección del servidor:"
+msgid "Server Name:"
+msgstr "Server Name:"
 
 #: UserId
 msgctxt "UserId"
-msgid "User Id on server:"
-msgstr "User Id:"
+msgid "User name on server:"
+msgstr "User name on server:"
 
-#: CheckInfo
-msgctxt "CheckInfo"
-msgid "Check"
-msgstr "Corregir"
+#: SessionExpired
+msgctxt "SessionExpired"
+msgid "Server connection expired"
+msgstr "Server connection expired"
 
-#: LeaveUserBlank
-msgctxt "LeaveUserBlank"
-msgid "(leave blank for a new user)"
-msgstr "(dejar en blanco para un nuevo usuario)"
+#: SecurityMessageExpired
+msgctxt "SecurityMessageExpired"
+msgid "Connection expired, type your images:"
+msgstr "Connection expired, type your images:"
 
 #: NeighborhoodView
 msgctxt "NeighborhoodView"
@@ -542,6 +578,53 @@ msgstr "Anterior"
 msgctxt "ClickToColor"
 msgid "Click to change color:"
 msgstr "Haz clic para cambiar el color:"
+
+#: NewUser
+msgctxt "NewUser"
+msgid "New user"
+msgstr "New user"
+
+#: Login
+msgctxt "Login"
+msgid "Login"
+msgstr "Login"
+
+#: Logoff
+msgctxt "Logoff"
+msgid "Logoff"
+msgstr "Logoff"
+
+#: ChooseName
+msgctxt "ChooseName"
+msgid "Choose name:"
+msgstr "Choose name:"
+
+#: Password
+msgctxt "Password"
+msgid "Your images:"
+msgstr "Your images:"
+
+#. Do not translate {{min}}
+#: ChoosePassword
+msgctxt "ChoosePassword"
+msgid "Choose at least {{min}} images:"
+msgstr "Choose at least {{min}} images:"
+
+#: UserLoginInvalid
+msgctxt "UserLoginInvalid"
+msgid "Invalid user name or images"
+msgstr "Invalid user name or images"
+
+#: UserAlreadyExist
+msgctxt "UserAlreadyExist"
+msgid "User already exist"
+msgstr "User already exist"
+
+#. Do not translate {{code}}
+#: ServerError
+msgctxt "ServerError"
+msgid "Server error code {{code}}"
+msgstr "Server error code {{code}}"
 
 #: ServerNotSet
 msgctxt "ServerNotSet"
