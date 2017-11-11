@@ -74,6 +74,9 @@ constant.wifiUpdateTime = 20000;
 
 constant.maxUserHistory = 3;
 
+constant.statPackageSize = 5;
+constant.statMaxLocalSize = 20;
+
 constant.emojis = [
 	{"name": "dog", "value": "1F436", "letter": "a", "category": "animal"},
 	{"name": "cat", "value": "1F431", "letter": "b", "category": "animal"},
