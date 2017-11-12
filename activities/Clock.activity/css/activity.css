@@ -14,6 +14,11 @@ canvas {
   top: 0;
 }
 
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 #text-time {
   font-family: monospace;
   font-size: 35px;
