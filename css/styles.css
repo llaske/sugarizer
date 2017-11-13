@@ -15,6 +15,10 @@ input {
 	background-color: white;
 }
 
+body {
+	overflow-x: hidden;
+}
+
 *:focus {
 	outline: 0;
 }
