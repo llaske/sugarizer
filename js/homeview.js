@@ -376,6 +376,7 @@ enyo.kind({
 			this.$.desktop.show();
 			this.$.owner.show();
 			this.$.journal.show();
+			this.clearView();
 			this.otherview = null;
 			return;
 		}
