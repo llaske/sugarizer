@@ -785,7 +785,6 @@ enyo.kind({
 			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
 			{components:[
 				{name: "textservername", content: "xxx", classes: "aboutserver-serverlabel"},
-				{name: "httplabel", content: "http://", classes: "aboutserver-httplabel"},
 				{name: "servername", kind: "Input", classes: "aboutserver-servername", onkeydown: "enterclick"}
 			]},
 			{name: "serversettingsname", classes: "aboutserver-settingsname"},
@@ -872,13 +871,12 @@ enyo.kind({
 			vtextusername = false,
 			vusername = false,
 			vnext = false,
-			vhttplabel = false,
 			vpasswordmessage = false,
 			vpassword = false;
 		if (this.step == 0) {
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
-			vtextservername = vhttplabel = vservername = vnext = true;
+			vtextservername = vservername = vnext = true;
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
 			this.$.password.startInputListening();
@@ -905,7 +903,6 @@ enyo.kind({
 		this.$.textusername.setShowing(vtextusername);
 		this.$.username.setShowing(vusername);
 		this.$.next.setShowing(vnext);
-		this.$.httplabel.setShowing(vhttplabel);
 		this.$.passwordmessage.setShowing(vpasswordmessage);
 		this.$.password.setShowing(vpassword);
 	},
@@ -953,7 +950,7 @@ enyo.kind({
 			// Retrieve server information
 			var that = this;
 			that.$.spinner.setShowing(true);
-			myserver.getServerInformation(constant.http + this.$.servername.getValue(), function(inSender, inResponse) {
+			myserver.getServerInformation(this.$.servername.getValue(), function(inSender, inResponse) {
 				that.currentserver = inResponse;
 				that.currentserver.url = that.$.servername.getValue();
 				preferences.setServer(that.currentserver);

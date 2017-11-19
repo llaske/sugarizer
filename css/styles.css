@@ -1167,13 +1167,8 @@ body {
 	display: inline-block;
 }
 
-.aboutserver-httplabel {
-	margin-left: 10px;
-	color: black;
-	display: inline-block;
-}
-
 .aboutserver-servername {
+	margin-left: 10px;
 	display: inline-block;
 	width: 165px;
 }

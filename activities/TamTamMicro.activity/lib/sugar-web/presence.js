@@ -106,10 +106,12 @@ define(function (require) {
 			// Get server name
 			var server = location.hostname;
 			var port = 8039;
+			var secure = false;
 			if (sugar_settings) {
 				var sugarSettings = JSON.parse(sugar_settings);
 				if (sugarSettings.server) {
-					server = sugarSettings.server.url;
+					server = sugarSettings.server.url.substring(sugarSettings.server.url.indexOf("://")+3);
+					secure = (sugarSettings.server.url.indexOf("https://") == 0);
 					var endName = server.indexOf(':')
 					if (endName == -1) endName = server.indexOf('/');
 					if (endName == -1) endName = server.length;
@@ -119,7 +121,7 @@ define(function (require) {
 			}
 
 			// Connect to server
-			that.socket = new WebSocket('ws://'+server+':'+port);
+			that.socket = new WebSocket((secure ? 'wss://' : 'ws://')+server+':'+port);
 			that.socket.onerror = function(error) {
 				console.log('WebSocket Error: ' + error);
 				callback(error, presence);

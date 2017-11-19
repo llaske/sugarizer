@@ -98,13 +98,13 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 			var server = jsonparsed.server.url;
 			if (server == null) {
 				if (document.location.protocol.substr(0,4) == "http") {
-					var url = window.location.href.substr(document.location.protocol.length+2);
+					var url = window.location.href;
 					server = url.substring(0, url.indexOf('/activities'));;
 				} else {
-					server = "localhost";
+					server = "http://localhost";
 				}
 			}
-			server = "http://" + server + "/api/v1/users/" + jsonparsed.networkId;
+			server = server + "/api/v1/users/" + jsonparsed.networkId;
 			var request = new XMLHttpRequest();
 			request.open("PUT",server,true);
 			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");

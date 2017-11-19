@@ -42,6 +42,7 @@ constant.appType = 1;  // clientType
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
+constant.https = "https://";
 constant.dynamicInitActivitiesURL = "/api/v1/activities/";
 constant.serverInformationURL = "/api/";
 constant.loginURL = "/auth/login/";
@@ -53,7 +54,7 @@ constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";
 constant.fieldText = "text";
-constant.defaultServer = "server.sugarizer.org";
+constant.defaultServer = constant.http + "server.sugarizer.org";
 constant.minPasswordSize = 4;
 
 constant.iconSizeStandard = 55;
