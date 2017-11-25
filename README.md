@@ -60,7 +60,7 @@ If you run Sugarizer this way often, you should create an alias for this command
 
 Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari, EDGE and IE.
 
-As a web application, it does not run offline and requires a permanent network connection to a Sugarizer Server.
+As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
 Sugarizer Server allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
 
@@ -366,6 +366,19 @@ Sugarizer settings display a list of all available languages. You need to add yo
 That's all. Test the result in your browser.
 
 Note that this translation is for Sugarizer only. Each activity could provide its own localization feature.
+
+
+# How to contribute
+
+As all Open Source software, contributions to this software are welcome. 
+
+The **master** branch of the repository is for released/stable version, the **dev** branch is for development. So to contribute:
+
+* Fork the **dev** branch of the repository,
+* Update it with your contribution,
+* Send a pull request to the repository.
+
+Thanks in advance for your contribution.
 
 
 # License
