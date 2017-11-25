@@ -576,3 +576,20 @@ Sugarizer settings display a list of all available languages. You need to add yo
 That's all. Test the result in your browser.
 
 Note that this translation is for Sugarizer only. Each activity could provide its own localization feature.
+
+# How to contribute
+
+As all Open Source software, contributions to this software are welcome. 
+
+The **master** branch of the repository is for released/stable version, the **dev** branch is for development. So to contribute:
+
+* Fork the **dev** branch of the repository,
+* Update it with your contribution,
+* Send a pull request to the repository.
+
+Thanks in advance for your contribution.
+
+
+# License
+
+This project is licensed under `Apache v2` License. See [LICENSE](LICENSE) for full license text.
