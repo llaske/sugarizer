@@ -205,7 +205,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideBuddyPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -256,7 +256,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideServerPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -373,7 +373,7 @@ enyo.kind({
 		})
 	},
 	hideWifiPopup: function (icon) {
-		if ((this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
+		if ((!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -398,7 +398,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideUserPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -431,7 +431,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideActivityPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
