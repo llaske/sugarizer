@@ -403,7 +403,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			var presenceUsersDiv = document.getElementById("presence-users");
 			var html = "<hr><ul style='list-style: none; padding:0;'>"
 			for (var key in connectedPeople) {
-				html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].color) + "'>" + connectedPeople[key].name + "</li>"
+				html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
 			}
 			html += "</ul>"
 			presenceUsersDiv.innerHTML = html
@@ -413,24 +413,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			if (!users || !presenceUsersDiv) {
 				return;
 			}
-			connectedPeople = {};
-			for (var i = 0; i < users.length; i++) {
-				(function fetchUser() {
-					var userId = users[i];
-					var url = window.location.href.substring(0, window.location.href.indexOf("/activities/SharedNotes.activity")) + "/api/users/" + userId;
-					var req = new XMLHttpRequest();
-					req.open('GET', url, true);
-					req.onreadystatechange = function(aEvt) {
-						if (req.readyState == 4) {
-							if (req.status == 200) {
-								connectedPeople[userId] = JSON.parse(req.responseText)
-								displayConnectedPeopleHtml()
-							}
-						}
-					};
-					req.send(null);
-				})();
-			}
+			network.listSharedActivityUsers(network.getSharedInfo().id, function(usersConnected) {
+				connectedPeople = {};
+				for (var i = 0; i < usersConnected.length; i++) {
+					var userConnected = usersConnected[i];
+					connectedPeople[userConnected.networkId] = userConnected;
+				}
+				displayConnectedPeopleHtml();
+			});
 		}
 
 		// Handle activity sharing
