@@ -6,7 +6,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
 		PaintApp.elements.insertImageButton = insertImageButton;
 		insertImageButton.addEventListener('click', onInsertImageClick);
 	}
-
+	var printImage = false;
 	// onClick display dialog with journal content
 	function onInsertImageClick() {
 		// Display journal dialog popup
@@ -23,18 +23,33 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
 				var element = document.createElement('img');
 				element.src = text;
 				element.onload = function() {
+					printImage = true;
 					//We draw the drawing to the canvas
 					var ctx = PaintApp.elements.canvas.getContext('2d');
-					var imgWidth = element.width;
-					var imgHeight = element.height;
-					var maxWidth = PaintApp.elements.canvas.getBoundingClientRect().width;
-					var maxHeight = PaintApp.elements.canvas.getBoundingClientRect().height;
-					var ratio = Math.min(maxWidth / imgWidth, maxHeight / imgHeight);
-					var newWidth = ratio * imgWidth;
-					var newHeight = ratio * imgHeight;
-					ctx.clearRect(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
-					ctx.drawImage(element, 0, 0, newWidth, newHeight);
-
+					var width;
+					var height;
+					var x;
+					var y;
+					
+					//Set the start position of the image
+					addEventListener("mousedown", function(event){
+						if(printImage){
+						width = event.clientX;
+						height = event.clientY;
+						x = width;
+						y = height;
+					}
+					});
+					//Calculate the size and print the image
+					addEventListener("mouseup", function(event){
+						if(printImage){
+						width = event.clientX - width;
+						height = event.clientY - height;
+						ctx.drawImage(element, x , y - 55, width, height)
+						printImage = false;
+					}
+					});
+					
 					PaintApp.saveCanvas();
 
 					/* If the activity is shared we send the element to everyone */
