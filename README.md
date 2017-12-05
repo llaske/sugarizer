@@ -73,7 +73,7 @@ Sugarizer Server features include:
 * Backup and shared storage for Application and Web Application,
 * Presence and collaboration handling between Application/Web Application on the same network
 
-##Running the server using Docker
+## Running the server using Docker
 
 To run your own Sugarizer Server with a few command lines using Docker and Docker Compose:
 
@@ -99,7 +99,7 @@ After that, go to the sugarizer folder and launch
 
 Your Sugarizer server will start automatically and will be accessible on http://127.0.0.1 and your public IP. The database will be persisted inside the folder docker/db
 
-##Running the server using the classic way
+## Running the server using the classic way
 
 To run your own Sugarizer Server **without Docker**, follow the step behind. Commands are shown from a new Debian Linux machine and could be different for other platforms or for an already installed machine:
 
