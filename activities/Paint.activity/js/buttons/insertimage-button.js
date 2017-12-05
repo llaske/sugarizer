@@ -38,21 +38,25 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             height = event.clientY;
             x = width;
             y = height;
-            imagedata = ctx.getImageData(x , y - 55, 60, 70);
-            ctx.drawImage(element, x , y - 55, 60, 70);
+            imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
+            ctx.drawImage(element, x - 60 , y - 125, 60, 70);
           }
           });
-          //Calculate the size and print the image
-          addEventListener("mouseup", function(event){
-            if(printImage){
-            ctx.putImageData(imagedata,x , y -55);
-            width = event.clientX - width;
-            height = event.clientY - height;
 
-            ctx.drawImage(element, x , y - 55, width, height);
-            printImage = false;
+          //Calculate the size and print the image
+          addEventListener("mousemove", function(event){
+            if(printImage){
+            ctx.putImageData(imagedata, 0, 0);
+            width = event.clientX - x;
+            height = event.clientY - y;
+            ctx.drawImage(element, x - 60 , y - 125, width + 60, height + 70);
           }
-          })
+          });
+          addEventListener("mouseup", function(event){
+            printImage = false;
+          });
+
+
 
 
           PaintApp.saveCanvas();
