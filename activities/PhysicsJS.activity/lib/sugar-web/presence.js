@@ -107,7 +107,7 @@ define(function (require) {
 		var that = this;
 		getSugarSettings(function (sugar_settings) {
 			// Get server name
-			var server = location.hostname;
+			var server = location.hostname || "127.0.0.1";
 			var port = 8039;
 			var secure = false;
 			if (sugar_settings) {
