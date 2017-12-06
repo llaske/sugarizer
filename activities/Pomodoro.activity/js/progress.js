@@ -1,9 +1,3 @@
-// const Canvas =  styled.canvas`
-//   position: absolute;
-//   transform: rotate(-90deg) rotateX(180deg);
-//   top: 0px;
-//   left: 0px;
-// `
 define (function() {
   function Progress(size, color, progress, target) {
     this.size = size
@@ -13,6 +7,17 @@ define (function() {
 
     this.draw = function() {
       target.innerHTML = '<canvas id="progressCircle"></canvas>'
+      var canvasCSS = `
+        #progressCircle {
+          position: absolute;
+          transform: rotate(-90deg) rotateX(180deg);
+          top: 0px;
+          left: 0px;
+        }
+      `
+      var styleSheet = window.document.styleSheets[0]
+      styleSheet.insertRule(canvasCSS, styleSheet.cssRules.length)
+
       this.canvas = document.getElementById('progressCircle')
       this.canvas.width = this.size
       this.canvas.height = this.size
