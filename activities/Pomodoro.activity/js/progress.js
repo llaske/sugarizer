@@ -53,8 +53,10 @@ define (function() {
       this.ctx.stroke()
     }
 
-    this.handleResize = function(size) {
-
+    this.handleResize = function(size, progress) {
+      this.canvas.width = size
+      this.canvas.height = size
+      this.update()
     }
   }
   return Progress
