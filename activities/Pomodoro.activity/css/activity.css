@@ -1,3 +1,18 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+
+#main-toolbar #play-button.play {
+  background-image: url(../icons/play.svg);
+}
+#main-toolbar #play-button.pause {
+  background-image: url(../icons/pause.svg);
+}
+#pomodoro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 55px);
+  background: red;
+}
