@@ -18,7 +18,7 @@
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
 
   <!-- Add more buttons here -->
-  <button class="toolbutton pause" id="play-button" title="Play/Pause"></button>
+  <button class="toolbutton play" id="play-button" title="Play/Pause"></button>
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 </div>
@@ -27,7 +27,17 @@
 <div id="canvas">
 
   <!-- Replace this message with your own content -->
-  <div id='pomodoro-container'></div>
+  <div id='container'>
+    <div class='base-board'>
+      <div class='base-circle'>
+        <div id='pomodoro-container'></div>
+        <div class='info-circle'>
+          <div class='status'>Work</div>
+          <span>00:32</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 

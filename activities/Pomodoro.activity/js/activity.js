@@ -6,10 +6,9 @@ define(['sugar-web/activity/activity', 'activity/progress', 'activity/stopwatch'
     // Initialize the activity.
     activity.setup();
     var pomodoroContainer = document.getElementById('pomodoro-container')
-    console.log(stopwatch)
-    var pomodoro = new Progress(50, '#444', 1, pomodoroContainer)
+    var pomodoro = new Progress(280, '#F90052', 1, pomodoroContainer)
     pomodoro.draw()
-    pomodoro.update(0.9)
+    pomodoro.update(0.4)
 
     var playPauseButton = document.getElementById('play-button')
     playPauseButton.addEventListener('click', function() {
