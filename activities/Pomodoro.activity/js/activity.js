@@ -23,7 +23,6 @@ function convertReadableMS(timeInMs) {
 const defaultWorkTimerLimit = 25
 const defaultBreakTimerLimit = 5
 function main(Progress, Stopwatch) {
-  var self = this
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -32,7 +31,6 @@ function main(Progress, Stopwatch) {
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
     currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60)
   }
-  console.log(this.state)
   startWork()
   renderPomodoroText()
   var pomodoroContainer = document.getElementById('pomodoro-container')
