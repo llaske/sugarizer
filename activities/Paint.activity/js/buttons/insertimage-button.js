@@ -41,7 +41,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             y = height;
             imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
             ctx.beginPath();
-            ctx.setLineDash([5]);
+            ctx.setLineDash([1, 10]);
             ctx.rect( x - 65 , y - 130, 70, 80);
             ctx.stroke();
 
@@ -58,14 +58,18 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             ctx.drawImage(element, x - 60, y - 125, width + 60, height + 70);
             imageWoRectangle = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
             ctx.beginPath();
-            ctx.setLineDash([5]);
+            ctx.setLineDash([1, 10]);
             ctx.rect(x - 65, y - 130, width + 70, height + 80);
+            ctx.strokeStyle = '#601010';
             ctx.stroke();
           }
           });
           addEventListener("mouseup", function(event){
+            if(printImage){
             ctx.putImageData(imageWoRectangle, 0, 0);
+            ctx.setLineDash([1]);
             printImage = false;
+          }
           });
 
           PaintApp.saveCanvas();
