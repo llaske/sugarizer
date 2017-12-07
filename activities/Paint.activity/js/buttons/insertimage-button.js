@@ -31,6 +31,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
           var x;
           var y;
           var imagedata;
+          var imageWoRectangle;
           //Set the start position of the image
           addEventListener("mousedown", function(event){
             if(printImage){
@@ -39,6 +40,11 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             x = width;
             y = height;
             imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
+            ctx.beginPath();
+            ctx.setLineDash([5]);
+            ctx.rect( x - 65 , y - 130, 70, 80);
+            ctx.stroke();
+
             ctx.drawImage(element, x - 60 , y - 125, 60, 70);
           }
           });
@@ -49,15 +55,18 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             ctx.putImageData(imagedata, 0, 0);
             width = event.clientX - x;
             height = event.clientY - y;
-            ctx.drawImage(element, x - 60 , y - 125, width + 60, height + 70);
+            ctx.drawImage(element, x - 60, y - 125, width + 60, height + 70);
+            imageWoRectangle = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
+            ctx.beginPath();
+            ctx.setLineDash([5]);
+            ctx.rect(x - 65, y - 130, width + 70, height + 80);
+            ctx.stroke();
           }
           });
           addEventListener("mouseup", function(event){
+            ctx.putImageData(imageWoRectangle, 0, 0);
             printImage = false;
           });
-
-
-
 
           PaintApp.saveCanvas();
 
