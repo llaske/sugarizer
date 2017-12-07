@@ -10,6 +10,7 @@ define (function() {
       var canvasCSS = `
         #progressCircle {
           position: absolute;
+          transform: rotate(-90deg) rotateX(180deg);
           top: 0px;
           left: 0px;
         }
