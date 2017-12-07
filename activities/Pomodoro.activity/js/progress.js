@@ -10,7 +10,6 @@ define (function() {
       var canvasCSS = `
         #progressCircle {
           position: absolute;
-          transform: rotate(-90deg) rotateX(180deg);
           top: 0px;
           left: 0px;
         }
@@ -57,6 +56,10 @@ define (function() {
       this.canvas.width = size
       this.canvas.height = size
       this.update()
+    }
+    this.updateColor = function(color) {
+      this.color = color
+      this.update(progress)
     }
   }
   return Progress
