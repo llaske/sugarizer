@@ -111,6 +111,7 @@ function main(Progress, Stopwatch) {
     this.workTimer.onDone(() => {
       renderTheme('#0CCE6B')
       setTimeout(() => {
+        renderStatusText('Break')
         startBreak()
         this.breakTimer.start()
       }, 1000)
@@ -130,6 +131,7 @@ function main(Progress, Stopwatch) {
     })
     this.breakTimer.onDone(() => {
       renderTheme('#FF0060')
+      renderStatusText('Work')
       setTimeout(() => {
         startWork()
         this.workTimer.start()
@@ -137,6 +139,9 @@ function main(Progress, Stopwatch) {
     })
   }
 
+  function renderStatusText(text) {
+    document.querySelector('.status').innerText = text
+  }
   function setProgress(progress, currentTimerText) {
     this.state.progress = progress
     if (this.state.status === 'work') {
@@ -166,7 +171,6 @@ function main(Progress, Stopwatch) {
     document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b'
     this.pomodoro.updateColor(themeColor, this.state.progress)
   }
-
   document.querySelector('#play-button')
     .addEventListener('click', () => {
         this.handlePausePlay()
