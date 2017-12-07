@@ -87,8 +87,12 @@ function main(Progress, Stopwatch) {
     } else {
         if (this.breakTimer.state === 1) {
           this.breakTimer.stop()
+          playPauseButton.classList.remove('pause')
+          playPauseButton.classList.add('play')
         } else {
           this.breakTimer.start()
+          playPauseButton.classList.remove('play')
+          playPauseButton.classList.add('pause')
         }
     }
   }

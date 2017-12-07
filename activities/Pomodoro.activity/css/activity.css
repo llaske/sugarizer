@@ -35,6 +35,7 @@
   height: 280px;
   background: #FF00602b;
   border-radius: 50%;
+  transition: 0.3s all ease-in-out;
 }
 #pomodoro-container {
   position: absolute;
