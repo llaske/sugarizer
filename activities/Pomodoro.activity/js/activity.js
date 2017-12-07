@@ -20,8 +20,8 @@ function convertReadableMS(timeInMs) {
     .join(':')
 }
 
-const defaultWorkTimerLimit = 1
-const defaultBreakTimerLimit = 1
+const defaultWorkTimerLimit = 25
+const defaultBreakTimerLimit = 5
 function main(Progress, Stopwatch) {
   var self = this
   this.state = {
