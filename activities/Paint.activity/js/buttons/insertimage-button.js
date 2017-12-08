@@ -26,11 +26,12 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
           printImage = true;
           //We draw the drawing to the canvas
           var ctx = PaintApp.elements.canvas.getContext('2d');
+          var imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
+          var xds= true;
           var width;
           var height;
           var x;
           var y;
-          var imagedata;
           var imageWoRectangle;
           //Set the start position of the image
           addEventListener("mousedown", function(event){
@@ -39,13 +40,11 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             height = event.clientY;
             x = width;
             y = height;
-            imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
             ctx.beginPath();
             ctx.setLineDash([1, 10]);
             ctx.rect( x - 65 , y - 130, 70, 80);
             ctx.strokeStyle = '#601010';
             ctx.stroke();
-
             ctx.drawImage(element, x - 60 , y - 125, 60, 70);
           }
           });
@@ -53,6 +52,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
           //Calculate the size and print the image
           addEventListener("mousemove", function(event){
             if(printImage){
+              if(xds)
             ctx.putImageData(imagedata, 0, 0);
             width = event.clientX - x;
             height = event.clientY - y;
