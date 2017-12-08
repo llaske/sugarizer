@@ -43,6 +43,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             ctx.beginPath();
             ctx.setLineDash([1, 10]);
             ctx.rect( x - 65 , y - 130, 70, 80);
+            ctx.strokeStyle = '#601010';
             ctx.stroke();
 
             ctx.drawImage(element, x - 60 , y - 125, 60, 70);
@@ -68,6 +69,8 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
             if(printImage){
             ctx.putImageData(imageWoRectangle, 0, 0);
             ctx.setLineDash([1]);
+            imagedata = ctx.getImageData(0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height);
+            ctx=0;
             printImage = false;
           }
           });
