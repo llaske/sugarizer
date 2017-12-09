@@ -29,7 +29,8 @@ function main(Progress, Stopwatch) {
     breakTimerLimit: defaultBreakTimerLimit,
     progress: 1,
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
-    currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60)
+    currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60),
+    themeColor: '#FF0060'
   }
   startWork()
   renderPomodoroText()
@@ -75,19 +76,23 @@ function main(Progress, Stopwatch) {
       if (this.workTimer.state === 1) {
         //if timer is running
         this.workTimer.stop()
+        enableButtons()
         playPauseButton.classList.remove('pause')
         playPauseButton.classList.add('play')
       } else {
         this.workTimer.start()
+        disableButtons()
         playPauseButton.classList.remove('play')
         playPauseButton.classList.add('pause')
       }
     } else {
         if (this.breakTimer.state === 1) {
           this.breakTimer.stop()
+          enableButtons()
           playPauseButton.classList.remove('pause')
           playPauseButton.classList.add('play')
         } else {
+          enableButtons()
           this.breakTimer.start()
           playPauseButton.classList.remove('play')
           playPauseButton.classList.add('pause')
@@ -165,10 +170,25 @@ function main(Progress, Stopwatch) {
   }
 
   function renderTheme(themeColor) {
+    this.state.themeColor = themeColor
     document.querySelector('.info-circle').style.backgroundColor = themeColor
     document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b'
     this.pomodoro.updateColor(themeColor, this.state.progress)
   }
+
+  function disableButtons() {
+    document.querySelectorAll('.button, .button-time, .button-label')
+      .forEach(elem => {
+        elem.classList.add('disable')
+      })
+  }
+  function enableButtons() {
+    document.querySelectorAll('.button, .button-time, .button-label')
+      .forEach(elem => {
+        elem.classList.remove('disable')
+      })
+  }
+
   document.querySelector('#play-button')
     .addEventListener('click', () => {
         this.handlePausePlay()
