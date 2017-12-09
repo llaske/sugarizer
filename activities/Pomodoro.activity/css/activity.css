@@ -96,6 +96,7 @@
   color: white;
   font-size: 42px;
   cursor: pointer;
+  user-select: none;
 }
 
 .button span {
@@ -103,8 +104,8 @@
 }
 
 .button.disable {
-  cursor: not-allowed;
-  background: #dbdce8;
+  cursor: not-allowed !important;
+  background: #dbdce8 !important;
 }
 
 .plus-button {
@@ -126,7 +127,7 @@
   transition: 0.3s all ease-in-out;
 }
 .button-status.disable {
-  color: #dbdce8;
+  color: #dbdce8 !important;
 }
 
 .button-label {
@@ -138,7 +139,7 @@
 }
 
 .button-label.disable {
-  color: #dbdce8;
+  color: #dbdce8 !important;
 }
 
 .button-time {
@@ -151,5 +152,5 @@
 }
 
 .button-time.disable {
-  color: #dbdce8;
+  color: #dbdce8 !important;
 }

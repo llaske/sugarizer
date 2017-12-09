@@ -20,8 +20,8 @@ function convertReadableMS(timeInMs) {
     .join(':')
 }
 
-const defaultWorkTimerLimit = 25
-const defaultBreakTimerLimit = 5
+const defaultWorkTimerLimit = 1
+const defaultBreakTimerLimit = 1
 function main(Progress, Stopwatch) {
   this.state = {
     status: 'work',
@@ -30,8 +30,10 @@ function main(Progress, Stopwatch) {
     progress: 1,
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
     currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60),
-    themeColor: '#FF0060'
+    themeColor: '#FF0060',
+    isButtonsDisable: false
   }
+
   startWork()
   renderPomodoroText()
   var pomodoroContainer = document.getElementById('pomodoro-container')
@@ -92,7 +94,7 @@ function main(Progress, Stopwatch) {
           playPauseButton.classList.remove('pause')
           playPauseButton.classList.add('play')
         } else {
-          enableButtons()
+          disableButtons()
           this.breakTimer.start()
           playPauseButton.classList.remove('play')
           playPauseButton.classList.add('pause')
@@ -174,21 +176,105 @@ function main(Progress, Stopwatch) {
     document.querySelector('.info-circle').style.backgroundColor = themeColor
     document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b'
     this.pomodoro.updateColor(themeColor, this.state.progress)
+    renderButtons()
+  }
+
+  function renderButtons() {
+    document.querySelectorAll('.button')
+      .forEach(elem => {
+        elem.style.background = this.state.themeColor
+      })
+
+    document.querySelectorAll('.button-label, .button-time')
+      .forEach(elem => {
+        elem.style.color = this.state.themeColor
+      })
   }
 
   function disableButtons() {
+    this.state.isButtonsDisable = true
     document.querySelectorAll('.button, .button-time, .button-label')
       .forEach(elem => {
         elem.classList.add('disable')
       })
   }
   function enableButtons() {
+    this.state.isButtonsDisable = false
     document.querySelectorAll('.button, .button-time, .button-label')
       .forEach(elem => {
         elem.classList.remove('disable')
       })
   }
 
+  this.dummy = function() {
+    if (!this.state.isButtonsDisable) {
+      console.log('Hello')
+    }
+  }
+
+  function updateWorkPomodoro() {
+    this.state.currentWorkText = convertReadableMS(this.state.workTimerLimit * 60 * 1000)
+    document.querySelector('.button-time.work')
+      .innerText = this.state.workTimerLimit
+    renderPomodoroText()
+    if (this.state.status = 'work') {
+      startWork()
+    }
+  }
+
+  function updateBreakPomodoro() {
+    this.state.currentBreakText = convertReadableMS(this.state.breakTimerLimit * 60 * 1000)
+    document.querySelector('.button-time.break')
+      .innerText = this.state.breakTimerLimit
+    renderPomodoroText()
+    if (this.state.status = 'break') {
+      startBreak()
+    }
+  }
+
+  this.handleWorkPlusClick = function() {
+    if (!this.state.isButtonsDisable) {
+      this.state.workTimerLimit = this.state.workTimerLimit + 1
+      updateWorkPomodoro()
+    }
+  }
+
+
+  this.handleWorkMinusClick = function() {
+    if (!this.state.isButtonsDisable && this.state.workTimerLimit > 1) {
+      this.state.workTimerLimit = this.state.workTimerLimit - 1
+      updateWorkPomodoro()
+    }
+  }
+
+  this.handleBreakPlusClick = function() {
+    if (!this.state.isButtonsDisable) {
+      this.state.breakTimerLimit = this.state.breakTimerLimit + 1
+      updateBreakPomodoro()
+    }
+  }
+
+  this.handleBreakMinusClick = function() {
+    if (!this.state.isButtonsDisable) {
+      this.state.breakTimerLimit = this.state.breakTimerLimit - 1
+      updateBreakPomodoro()
+    }
+  }
+
+  function initTimerText() {
+    document.querySelector('.button-time.work').innerText = this.state.workTimerLimit
+    document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit
+  }
+
+  initTimerText()
+  document.querySelector('.plus-button.work')
+    .addEventListener('click', handleWorkPlusClick.bind(this))
+  document.querySelector('.minus-button.work')
+    .addEventListener('click', handleWorkMinusClick.bind(this))
+  document.querySelector('.minus-button.break')
+    .addEventListener('click', handleBreakPlusClick.bind(this))
+  document.querySelector('.minus-button.break')
+    .addEventListener('click', handleBreakMinusClick.bind(this))
   document.querySelector('#play-button')
     .addEventListener('click', () => {
         this.handlePausePlay()
