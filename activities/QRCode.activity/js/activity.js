@@ -237,3 +237,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 		});
 	});
 });
+// Send message to user when he clicks the export to png button
+runction exported(){
+	return "QR code image saved to Journal!;
+}
