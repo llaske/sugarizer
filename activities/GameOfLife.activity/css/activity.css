@@ -1,3 +1,29 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+
+.main {
+  position: relative;
+  width: 100%;
+  background: #FBF6F5;
+  height: calc(100vh - 56px);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+canvas {
+  z-index: 1;
+}
+
+.generation {
+  background: white;
+  position: relative !important;
+  top: -18px !important;
+  border-radius: 50%;
+  width: 42px !important;
+  height: 42px !important;
+}
