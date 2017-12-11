@@ -27,7 +27,7 @@ function State(state = {}) {
         subscribeList[state] = []
       }
     }
-    render(Object.keys(stateToUpdate))
+
   }
 
   this.subscribe = function(obj) {
@@ -52,8 +52,7 @@ function State(state = {}) {
         }
       }
     }
+    render(Object.keys(obj))
   }
 }
-
-
 define(() => State)

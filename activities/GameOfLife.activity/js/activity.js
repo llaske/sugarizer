@@ -8,7 +8,7 @@ define(['sugar-web/activity/activity', 'activity/Board', 'activity/vanilla-state
 function main(Board, State) {
   const state = new State({
     boardState: [],
-    genetation: 0,
+    generation: 0,
   })
 
   const generateRandomBoardState = (
@@ -19,7 +19,21 @@ function main(Board, State) {
       })
   )
 
-  state.set({boardState: generateRandomBoardState})
+  state.set({
+    boardState: generateRandomBoardState,
+  })
+
+  state.subscribe({
+    generation: [
+      document.querySelector('.generation-count'),
+      'innerText'
+    ]
+  })
+  state.set({
+    generation: 0,
+  })
+
+  console.log(state.state)
   const target = document.querySelector('.main canvas')
   const board = new Board( state.state.boardState,
     '#C02E70',
