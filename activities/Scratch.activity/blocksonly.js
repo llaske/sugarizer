@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 414:
+/***/ 415:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24,7 +24,7 @@ var _controls = __webpack_require__(27);
 
 var _controls2 = _interopRequireDefault(_controls);
 
-var _blocks = __webpack_require__(75);
+var _blocks = __webpack_require__(82);
 
 var _blocks2 = _interopRequireDefault(_blocks);
 
@@ -36,48 +36,46 @@ var _projectLoaderHoc = __webpack_require__(28);
 
 var _projectLoaderHoc2 = _interopRequireDefault(_projectLoaderHoc);
 
-var _blocksOnly = __webpack_require__(415);
+var _blocksOnly = __webpack_require__(416);
 
 var _blocksOnly2 = _interopRequireDefault(_blocksOnly);
 
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
+    return obj && obj.__esModule ? obj : { default: obj };
 }
 
 var mapStateToProps = function mapStateToProps(state) {
-  return { vm: state.vm };
+    return { vm: state.vm };
 };
 
 var VMBlocks = (0, _reactRedux.connect)(mapStateToProps)(_blocks2.default);
 var VMControls = (0, _reactRedux.connect)(mapStateToProps)(_controls2.default);
 
 var BlocksOnly = function BlocksOnly(props) {
-  return _react2.default.createElement(_gui2.default, props, _react2.default.createElement(VMBlocks, {
-    grow: 1,
-    options: {
-      media: "static/blocks-media/"
-    }
-  }), _react2.default.createElement(VMControls, {
-    className: _blocksOnly2.default.controls
-  }));
+    return _react2.default.createElement(_gui2.default, props, _react2.default.createElement(VMBlocks, {
+        grow: 1,
+        options: {
+            media: 'static/blocks-media/'
+        }
+    }), _react2.default.createElement(VMControls, { className: _blocksOnly2.default.controls }));
 };
 
 var App = (0, _appStateHoc2.default)((0, _projectLoaderHoc2.default)(BlocksOnly));
 
-var appTarget = document.createElement("div");
+var appTarget = document.createElement('div');
 document.body.appendChild(appTarget);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), appTarget);
 
 /***/ }),
 
-/***/ 415:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(416);
+var content = __webpack_require__(417);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -103,7 +101,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 416:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(undefined);
@@ -120,5 +118,5 @@ exports.locals = {
 
 /***/ })
 
-},[414]);
+},[415]);
 //# sourceMappingURL=blocksonly.js.map
