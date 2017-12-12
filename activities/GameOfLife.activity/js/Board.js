@@ -11,6 +11,16 @@ function Board(
   canvas
 ) {
 
+  this.onClick = function(clickHandler) {
+    canvas.addEventListener('click', (e) => {
+      const x = e.clientX - canvas.getBoundingClientRect().left
+      const y = e.clientY - canvas.getBoundingClientRect().top
+      const cellX = Math.floor(x / 14)
+      const cellY = Math.floor(y / 14)
+      clickHandler(cellX, cellY)
+    })
+  }
+
   this.draw = function() {
     canvas.width = (cellWidth + rowPadding) * 50 - 2
     canvas.height = (cellHeight + colPadding) * 30 - 2

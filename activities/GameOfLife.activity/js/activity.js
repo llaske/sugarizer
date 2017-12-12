@@ -26,6 +26,7 @@ function main(Board, State, patterns) {
     target
   )
   board.draw()
+
   const generateGeneration = () => {
     if (state.state.shouldPlay) {
       const nextGenerationBoard = state.state.boardState.map((row, y) => (
@@ -77,15 +78,15 @@ function main(Board, State, patterns) {
     const bottomY = (y + 1 === 30)
       ? 0
       : y + 1
-
-    const left =  state.state.boardState[y][leftX]
-    const right = state.state.boardState[y][rightX]
-    const top = state.state.boardState[topY][x]
-    const bottom = state.state.boardState[bottomY][x]
-    const leftTop = state.state.boardState[topY][leftX]
-    const leftBottom = state.state.boardState[bottomY][leftX]
-    const rightTop = state.state.boardState[topY][rightX]
-    const rightBottom = state.state.boardState[bottomY][rightX]
+    const { boardState } = state.state
+    const left =  boardState[y][leftX]
+    const right = boardState[y][rightX]
+    const top = boardState[topY][x]
+    const bottom = boardState[bottomY][x]
+    const leftTop = boardState[topY][leftX]
+    const leftBottom = boardState[bottomY][leftX]
+    const rightTop = boardState[topY][rightX]
+    const rightBottom = boardState[bottomY][rightX]
 
     return [left, right, top, bottom, leftTop, leftBottom, rightTop, rightBottom]
   }
@@ -121,6 +122,16 @@ function main(Board, State, patterns) {
     boardState: randomPattern(),
   })
 
+  board.onClick((cellX, cellY) => {
+    state.set(prev => {
+      const newState = [...prev.boardState]
+      newState[cellY][cellX] = 2
+      return {
+        boardState: newState
+      }
+    })
+  })
+
   document.querySelector('#play-pause')
     .addEventListener('click', () => {
       state.set(prev => {
@@ -134,7 +145,6 @@ function main(Board, State, patterns) {
     })
   document.querySelector('#random')
     .addEventListener('click', () => {
-      // console.log(randomPattern())
       state.set({
         boardState: randomPattern(),
         generation: 0
@@ -142,7 +152,6 @@ function main(Board, State, patterns) {
     })
   document.querySelector('#glider')
     .addEventListener('click', () => {
-      // console.log(glider())
       state.set({
         boardState: glider(),
         generation: 0
@@ -150,7 +159,6 @@ function main(Board, State, patterns) {
     })
   document.querySelector('#no')
     .addEventListener('click', () => {
-      // console.log(no())
       state.set({
         boardState: no(),
         generation: 0
@@ -158,10 +166,11 @@ function main(Board, State, patterns) {
     })
   document.querySelector('#clear')
     .addEventListener('click', () => {
-      // console.log(no())
       state.set({
         boardState: blankPattern(),
-        generation: 0
+        generation: 0,
+        playPauseIcon: 'play',
+        shouldPlay: false
       })
     })
 }
