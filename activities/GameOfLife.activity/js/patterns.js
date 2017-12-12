@@ -1,8 +1,8 @@
-const initialPattern = (
+const initialPattern = () =>(
   new Array(30).fill(0)
     .map(() => new Array(50).fill(0))
 )
-
+console.log(initialPattern)
 const generateRandomBoardState = () => (
   new Array(30).fill(0)
     .map(() => {
@@ -12,7 +12,7 @@ const generateRandomBoardState = () => (
 )
 
 const glider = () => {
-  const pattern = initialPattern
+  const pattern = initialPattern()
   pattern[5][7] = 1
   pattern[6][5] = 1
   pattern[6][6] = 1
@@ -22,7 +22,7 @@ const glider = () => {
 }
 
 const no = () => {
-  const pattern = initialPattern
+  const pattern = initialPattern()
   for (let j = 0; j < 30; j++) {
     if (!((j + 1) % 4 === 0)) {
       for (let i = 2; i < 50; i+=4) {
@@ -33,7 +33,7 @@ const no = () => {
   return pattern
 }
 
-const patterns = [generateRandomBoardState, glider, no]
+const patterns = [generateRandomBoardState, glider, no, initialPattern]
 
 define(() => {
   return patterns

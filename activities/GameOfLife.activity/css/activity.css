@@ -16,6 +16,9 @@
 #main-toolbar #no {
   background-image: url(../icons/no.svg);
 }
+#main-toolbar #clear {
+  background-image: url(../icons/clear.svg);
+}
 
 .main {
   position: relative;
