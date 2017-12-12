@@ -12,7 +12,7 @@ function main(Board, State, patterns) {
     playPauseIcon: 'play',
     shouldPlay: false,
   })
-  const [randomPattern, gliderPattern] = patterns
+  const [randomPattern, gliderPattern, noPattern] = patterns
   const target =  document.querySelector('.main canvas')
   const board = new Board( state.state.boardState,
     '#C02E70',
@@ -143,6 +143,13 @@ function main(Board, State, patterns) {
     .addEventListener('click', () => {
       state.set({
         boardState: glider(),
+        generation: 0
+      })
+    })
+  document.querySelector('#no')
+    .addEventListener('click', () => {
+      state.set({
+        boardState: no(),
         generation: 0
       })
     })

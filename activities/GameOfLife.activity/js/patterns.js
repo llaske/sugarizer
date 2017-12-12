@@ -20,7 +20,20 @@ const glider = () => {
   pattern[7][7] = 1
   return pattern
 }
-const patterns = [generateRandomBoardState, glider]
+
+const no = () => {
+  const pattern = initialPattern
+  for (let j = 0; j < 30; j++) {
+    if (!((j + 1) % 4 === 0)) {
+      for (let i = 2; i < 50; i+=4) {
+        pattern[j][i] = 1
+      }
+    }
+  }
+  return pattern
+}
+
+const patterns = [generateRandomBoardState, glider, no]
 
 define(() => {
   return patterns
