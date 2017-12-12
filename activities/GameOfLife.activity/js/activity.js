@@ -1,6 +1,9 @@
-define(['sugar-web/activity/activity', 'activity/Board', 'activity/vanilla-state', 'activity/patterns'], function (activity, Board, State, patterns) {
+define(['sugar-web/activity/activity',"webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns'], function (activity, l10n, Board, State, patterns) {
   require(['domReady!'], function (doc) {
     activity.setup()
+    window.addEventListener('localized', () => {
+      console.log(l10n.get('Generation'))
+    })
     main(Board, State, patterns)
   })
 })
