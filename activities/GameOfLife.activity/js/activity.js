@@ -46,8 +46,10 @@ function main(Board, State) {
         boardState: nextGenerationBoard,
         generation: prev.generation + 1
       }))
+      setTimeout(generateGeneration, 100)
+    } else {
+      return 0
     }
-    setTimeout(generateGeneration, 100)
   }
 
   const transformCellByRule = (cell, neighbours)  => {
@@ -96,7 +98,6 @@ function main(Board, State) {
 
     return [left, right, top, bottom, leftTop, leftBottom, rightTop, rightBottom]
   }
-  generateGeneration()
 
   state.subscribe({
     boardState: [
@@ -112,6 +113,15 @@ function main(Board, State) {
       '#play-pause',
       (elem, value, prevValue) => {
         elem.className = `${value} toolbutton`
+      }
+    ],
+
+    shouldPlay: [
+      '.fake-selector',
+      (fakeElem, value, prevValue) => {
+        if (value) {
+          generateGeneration()
+        }
       }
     ]
   })
