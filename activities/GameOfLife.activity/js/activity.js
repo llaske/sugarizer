@@ -27,7 +27,7 @@ function main(Board, State) {
   )
   board.draw()
 
-  const generateRandomBoardState = (
+  const generateRandomBoardState = () => (
     new Array(30).fill(0)
       .map(() => {
         const row = new Array(50).fill(0)
@@ -127,7 +127,7 @@ function main(Board, State) {
   })
 
   state.set({
-    boardState: generateRandomBoardState,
+    boardState: generateRandomBoardState(),
   })
 
   document.querySelector('#play-pause')
@@ -139,6 +139,12 @@ function main(Board, State) {
           playPauseIcon: iconToSet,
           shouldPlay: togglePlay
         }
+      })
+    })
+  document.querySelector('#random')
+    .addEventListener('click', () => {
+      state.set({
+        boardState: generateRandomBoardState()
       })
     })
 }
