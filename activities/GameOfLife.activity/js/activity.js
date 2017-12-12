@@ -139,4 +139,11 @@ function main(Board, State, patterns) {
         generation: 0
       })
     })
+  document.querySelector('#glider')
+    .addEventListener('click', () => {
+      state.set({
+        boardState: glider(),
+        generation: 0
+      })
+    })
 }
