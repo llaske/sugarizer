@@ -2,6 +2,13 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #play-pause.play {
+  background-image: url(../icons/play.svg)
+}
+#main-toolbar #play-pause.pause {
+  background-image: url(../icons/pause.svg)
+}
+
 .main {
   position: relative;
   width: 100%;

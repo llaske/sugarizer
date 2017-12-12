@@ -9,6 +9,7 @@ function main(Board, State) {
   const state = new State({
     boardState: [],
     generation: 0,
+    playPauseIcon: 'play'
   })
 
   const generateRandomBoardState = (
@@ -24,17 +25,25 @@ function main(Board, State) {
   })
 
   state.subscribe({
-    generation: [
-      document.querySelector('.generation-count'),
-      'innerText'
+    generation: ['.generation-count', 'innerText'],
+    playPauseIcon: [
+      '#play-pause',
+      (elem, value, prevValue) => {
+        elem.className = `${value} toolbutton`
+      }
     ]
   })
-  state.set({
-    generation: 0,
-  })
+  document.querySelector('#play-pause')
+    .addEventListener('click', () => {
+      state.set(prev => {
+        const iconToSet = (prev.playPauseIcon === 'play') ? 'pause' : 'play'
+        return {
+          playPauseIcon: iconToSet
+        }
+      })
+    })
 
-  console.log(state.state)
-  const target = document.querySelector('.main canvas')
+  const target =  document.querySelector('.main canvas')
   const board = new Board( state.state.boardState,
     '#C02E70',
     '#FBF6F5',

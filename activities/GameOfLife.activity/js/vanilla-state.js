@@ -5,12 +5,16 @@ function State(state = {}) {
   this.state = state
   const subscribeList = {}
 
-  const render = statesToChange => {
+  const render = (statesToChange, prevState = {}) => {
     statesToChange.forEach(state => {
       subscribeList[state].forEach(subscribers => {
-        const elem = subscribers[0]
-        const propertyToChange = subscribers[1]
-        elem[propertyToChange] = this.state[state]
+        const elem = document.querySelector(subscribers[0])
+        if (typeof subscribers[1] === 'function') {
+          subscribers[1](elem, this.state[state], prevState[state] )
+        } else {
+          const propertyToChange = subscribers[1]
+          elem[propertyToChange] = this.state[state]
+        }
       })
     })
   }
@@ -19,15 +23,14 @@ function State(state = {}) {
     const stateToUpdate = (typeof arg === 'function')
       ? arg(this.state)
       : arg
-    Object.assign(this.state, stateToUpdate)
+    const prevState = this.state
+    Object.assign(this.state, stateToUpdate || {})
     for (let state in stateToUpdate) {
-      console.log(state)
       if (!(state in subscribeList)) {
-        console.log(state)
         subscribeList[state] = []
       }
     }
-
+    render(Object.keys(stateToUpdate || {}), prevState)
   }
 
   this.subscribe = function(obj) {
