@@ -15,7 +15,7 @@ const glider = () => {
   pattern[7][7] = 1
   return glider()
 }
-const patterns = [generateRandomBoardState, pattern]
+const patterns = [generateRandomBoardState, glider]
 
 define(() => {
   return patterns

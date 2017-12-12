@@ -1,18 +1,18 @@
-define(['sugar-web/activity/activity', 'activity/Board', 'activity/vanilla-state'], function (activity, Board, State) {
+define(['sugar-web/activity/activity', 'activity/Board', 'activity/vanilla-state', 'activity/patterns'], function (activity, Board, State, patterns) {
   require(['domReady!'], function (doc) {
     activity.setup()
-    main(Board, State)
+    main(Board, State, patterns)
   })
 })
 
-function main(Board, State) {
+function main(Board, State, patterns) {
   const state = new State({
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
     shouldPlay: false,
   })
-
+  const [randomPattern, gliderPattern] = patterns
   const target =  document.querySelector('.main canvas')
   const board = new Board( state.state.boardState,
     '#C02E70',
@@ -26,15 +26,6 @@ function main(Board, State) {
     target
   )
   board.draw()
-
-  const generateRandomBoardState = () => (
-    new Array(30).fill(0)
-      .map(() => {
-        const row = new Array(50).fill(0)
-        return row.map(() => Math.floor(Math.random() * 2))
-      })
-  )
-
   const generateGeneration = () => {
     if (state.state.shouldPlay) {
       const nextGenerationBoard = state.state.boardState.map((row, y) => (
@@ -127,7 +118,7 @@ function main(Board, State) {
   })
 
   state.set({
-    boardState: generateRandomBoardState(),
+    boardState: randomPattern(),
   })
 
   document.querySelector('#play-pause')
@@ -144,7 +135,7 @@ function main(Board, State) {
   document.querySelector('#random')
     .addEventListener('click', () => {
       state.set({
-        boardState: generateRandomBoardState(),
+        boardState: randomPattern(),
         generation: 0
       })
     })
