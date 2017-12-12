@@ -1,12 +1,20 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
-
 #main-toolbar #play-pause.play {
   background-image: url(../icons/play.svg)
 }
 #main-toolbar #play-pause.pause {
   background-image: url(../icons/pause.svg)
+}
+#main-toolbar #random {
+  background-image: url(../icons/random.svg);
+}
+#main-toolbar #glider {
+  background-image: url(../icons/glider.svg);
+}
+#main-toolbar #no {
+  background-image: url(../icons/no.svg);
 }
 
 .main {
