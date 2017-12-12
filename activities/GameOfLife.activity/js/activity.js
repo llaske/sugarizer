@@ -144,7 +144,8 @@ function main(Board, State) {
   document.querySelector('#random')
     .addEventListener('click', () => {
       state.set({
-        boardState: generateRandomBoardState()
+        boardState: generateRandomBoardState(),
+        generation: 0
       })
     })
 }
