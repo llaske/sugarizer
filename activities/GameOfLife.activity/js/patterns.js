@@ -2,7 +2,6 @@ const initialPattern = () =>(
   new Array(30).fill(0)
     .map(() => new Array(50).fill(0))
 )
-console.log(initialPattern)
 const generateRandomBoardState = () => (
   new Array(30).fill(0)
     .map(() => {
