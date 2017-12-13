@@ -1,16 +1,15 @@
 define(['sugar-web/activity/activity',"webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor'], function (activity, l10n, Board, State, patterns, shadeColor) {
   require(['domReady!'], function (doc) {
     activity.setup()
-    activity.getXOColor((err, color) => {
-      main(Board, State, patterns, color, shadeColor)
-    })
     window.addEventListener('localized', () => {
-      console.log(l10n.get('Generation'))
+      activity.getXOColor((err, color) => {
+        main(Board, State, patterns, color, shadeColor, l10n)
+      })
     })
   })
 })
 
-function main(Board, State, patterns, color, shadeColor) {
+function main(Board, State, patterns, color, shadeColor, l10n) {
   const state = new State({
     boardState: [],
     generation: 0,
@@ -32,7 +31,7 @@ function main(Board, State, patterns, color, shadeColor) {
   )
   document.querySelector('.generation-count').style.color = color.fill
   document.querySelector('.generation-status').style.color = color.fill
-  document.querySelector('.generation-status').innerText = 'Generation'
+  document.querySelector('.generation-status').innerText = l10n.get('Generation')
 
   board.draw()
 
