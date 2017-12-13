@@ -267,7 +267,7 @@ function main(Progress, Stopwatch, l10n) {
     .addEventListener('click', handleWorkPlusClick.bind(this))
   document.querySelector('.minus-button.work')
     .addEventListener('click', handleWorkMinusClick.bind(this))
-  document.querySelector('.minus-button.break')
+  document.querySelector('.plus-button.break')
     .addEventListener('click', handleBreakPlusClick.bind(this))
   document.querySelector('.minus-button.break')
     .addEventListener('click', handleBreakMinusClick.bind(this))
