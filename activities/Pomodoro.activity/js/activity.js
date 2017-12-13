@@ -1,11 +1,13 @@
-define(['sugar-web/activity/activity', 'activity/progress', 'activity/stopwatch'], function (activity, Progress, Stopwatch) {
+define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity/stopwatch'], function (activity, l10n, Progress, Stopwatch) {
 
   // Manipulate the DOM only when it is ready.
   require(['domReady!'], function (doc) {
 
     // Initialize the activity.
     activity.setup()
-    main(Progress, Stopwatch)
+    window.addEventListener('localized', () => {
+      main(Progress, Stopwatch, l10n)
+    })
   })
 })
 
@@ -22,7 +24,7 @@ function convertReadableMS(timeInMs) {
 
 const defaultWorkTimerLimit = 1
 const defaultBreakTimerLimit = 1
-function main(Progress, Stopwatch) {
+function main(Progress, Stopwatch, l10n) {
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -33,7 +35,7 @@ function main(Progress, Stopwatch) {
     themeColor: '#FF0060',
     isButtonsDisable: false
   }
-
+  renderStatusText(l10n.get('work'))
   startWork()
   renderPomodoroText()
   var pomodoroContainer = document.getElementById('pomodoro-container')
@@ -116,7 +118,7 @@ function main(Progress, Stopwatch) {
     this.workTimer.onDone(() => {
       renderTheme('#0CCE6B')
       setTimeout(() => {
-        renderStatusText('Break')
+        renderStatusText(l10n.get('work'))
         startBreak()
         this.breakTimer.start()
       }, 1000)
@@ -136,7 +138,7 @@ function main(Progress, Stopwatch) {
     })
     this.breakTimer.onDone(() => {
       renderTheme('#FF0060')
-      renderStatusText('Work')
+      renderStatusText(l10n.get('break'))
       setTimeout(() => {
         startWork()
         this.workTimer.start()
@@ -204,12 +206,6 @@ function main(Progress, Stopwatch) {
       .forEach(elem => {
         elem.classList.remove('disable')
       })
-  }
-
-  this.dummy = function() {
-    if (!this.state.isButtonsDisable) {
-      console.log('Hello')
-    }
   }
 
   function updateWorkPomodoro() {
