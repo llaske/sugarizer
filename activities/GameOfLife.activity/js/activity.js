@@ -3,13 +3,14 @@ define(['sugar-web/activity/activity',"webL10n", 'activity/Board', 'activity/van
     activity.setup()
     window.addEventListener('localized', () => {
       activity.getXOColor((err, color) => {
-        main(Board, State, patterns, color, shadeColor, l10n)
+        const dataStore = activity.getDatastoreObject()
+        main(Board, State, patterns, color, shadeColor, l10n, dataStore)
       })
     })
   })
 })
 
-function main(Board, State, patterns, color, shadeColor, l10n) {
+function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   const state = new State({
     boardState: [],
     generation: 0,
@@ -34,6 +35,21 @@ function main(Board, State, patterns, color, shadeColor, l10n) {
   document.querySelector('.generation-status').innerText = l10n.get('Generation')
 
   board.draw()
+
+  const storeLocally = state => {
+    dataStore.setDataAsText({
+      state: state
+    })
+    console.log('writing')
+    dataStore.save( err => {
+      if (err) {
+        console.log('writing failed.')
+        console.error(err)
+      } else {
+        console.log('writing saved.')
+      }
+    })
+  }
 
   const generateGeneration = () => {
     if (state.state.shouldPlay) {
@@ -126,8 +142,10 @@ function main(Board, State, patterns, color, shadeColor, l10n) {
     ]
   })
 
-  state.set({
-    boardState: randomPattern(),
+  dataStore.loadAsText((err, metadata, data) => {
+    state.set({
+      boardState: data || randomPattern(),
+    })
   })
 
   board.onClick((cellX, cellY) => {
@@ -145,12 +163,18 @@ function main(Board, State, patterns, color, shadeColor, l10n) {
       state.set(prev => {
         const iconToSet = (prev.playPauseIcon === 'play') ? 'pause' : 'play'
         const togglePlay = (prev.shouldPlay === true) ? false : true
-        return {
-          playPauseIcon: iconToSet,
-          shouldPlay: togglePlay
+        if (prev.shouldPlay) {
+          storeLocally({
+            state: state.state.boardState
+          })
         }
-      })
+      return {
+        playPauseIcon: iconToSet,
+        shouldPlay: togglePlay
+      }
     })
+  })
+
   document.querySelector('#random')
     .addEventListener('click', () => {
       state.set({
