@@ -1,14 +1,16 @@
-define(['sugar-web/activity/activity',"webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns'], function (activity, l10n, Board, State, patterns) {
+define(['sugar-web/activity/activity',"webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor'], function (activity, l10n, Board, State, patterns, shadeColor) {
   require(['domReady!'], function (doc) {
     activity.setup()
+    activity.getXOColor((err, color) => {
+      main(Board, State, patterns, color, shadeColor)
+    })
     window.addEventListener('localized', () => {
       console.log(l10n.get('Generation'))
     })
-    main(Board, State, patterns)
   })
 })
 
-function main(Board, State, patterns) {
+function main(Board, State, patterns, color, shadeColor) {
   const state = new State({
     boardState: [],
     generation: 0,
@@ -18,16 +20,18 @@ function main(Board, State, patterns) {
   const [randomPattern, gliderPattern, noPattern, blankPattern] = patterns
   const target =  document.querySelector('.main canvas')
   const board = new Board( state.state.boardState,
-    '#C02E70',
+    color.fill,
     '#FBF6F5',
-    '#ED5B9D',
-    '#EA3788',
+    shadeColor(color.stroke, 10),
+    color.stroke,
     12,
     12,
     2,
     2,
     target
   )
+  document.querySelector('.generation-count').style.color = color.fill
+  document.querySelector('.generation-status').style.color = color.fill
   board.draw()
 
   const generateGeneration = () => {
