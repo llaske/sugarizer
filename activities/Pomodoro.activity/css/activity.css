@@ -34,7 +34,6 @@
   position: relative;
   width: 280px;
   height: 280px;
-  background: #FF00602b;
   border-radius: 50%;
   transition: 0.3s all ease-in-out;
 }
@@ -57,7 +56,6 @@
   width: 170px;
   border-radius: 50%;
   color: rgba(255,255,255,0.8);
-  background: #FF0060;
   transition: 0.3s all ease-in-out;
   font-size: 43px;
   text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
@@ -90,7 +88,6 @@
   justify-content: center;
   align-items: center;
   width: 60px;
-  background: #FF0060;
   height: 60px;
   transition: 0.3s all ease-in-out;
   color: white;
@@ -123,7 +120,6 @@
   width: 60px;
   height: 60px;
   background: #fff;
-  color: #FF0060;
   transition: 0.3s all ease-in-out;
 }
 .button-status.disable {

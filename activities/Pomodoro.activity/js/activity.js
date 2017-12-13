@@ -5,8 +5,11 @@ define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity
 
     // Initialize the activity.
     activity.setup()
-    window.addEventListener('localized', () => {
-      main(Progress, Stopwatch, l10n)
+    console.dir(activity)
+    activity.getXOColor((err, color) => {
+      window.addEventListener('localized', () => {
+        main(Progress, Stopwatch, l10n, color)
+      })
     })
   })
 })
@@ -24,7 +27,7 @@ function convertReadableMS(timeInMs) {
 
 const defaultWorkTimerLimit = 1
 const defaultBreakTimerLimit = 1
-function main(Progress, Stopwatch, l10n) {
+function main(Progress, Stopwatch, l10n, color) {
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -35,12 +38,14 @@ function main(Progress, Stopwatch, l10n) {
     themeColor: '#FF0060',
     isButtonsDisable: false
   }
+  console.log(color.stroke)
   renderStatusText(l10n.get('work'))
   startWork()
   renderPomodoroText()
   var pomodoroContainer = document.getElementById('pomodoro-container')
-  this.pomodoro = new Progress(280, '#F90052', 1, pomodoroContainer)
+  this.pomodoro = new Progress(280, color.stroke, 1, pomodoroContainer)
   this.pomodoro.draw()
+  renderTheme(color.stroke)
 
   function mapRange(obj, num) {
     return (((num - obj.from[0]) * (obj.to[1] - obj.to[0])) / (obj.from[1] - obj.from[0])) + obj.to[0]
@@ -116,9 +121,9 @@ function main(Progress, Stopwatch, l10n) {
       setProgress(progress, convertReadableMS(time.ms))
     })
     this.workTimer.onDone(() => {
-      renderTheme('#0CCE6B')
+      renderTheme(color.fill)
       setTimeout(() => {
-        renderStatusText(l10n.get('work'))
+        renderStatusText(l10n.get('break'))
         startBreak()
         this.breakTimer.start()
       }, 1000)
@@ -137,8 +142,8 @@ function main(Progress, Stopwatch, l10n) {
       setProgress(progress, convertReadableMS(time.ms))
     })
     this.breakTimer.onDone(() => {
-      renderTheme('#FF0060')
-      renderStatusText(l10n.get('break'))
+      renderTheme(color.stroke)
+      renderStatusText(l10n.get('work'))
       setTimeout(() => {
         startWork()
         this.workTimer.start()
