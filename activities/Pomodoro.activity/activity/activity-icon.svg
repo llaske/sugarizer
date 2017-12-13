@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#ffffff">
+  <!ENTITY stroke_color "#282828">
+]>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
@@ -45,13 +49,19 @@
      cx="28.322742"
      cy="30.407915"
      id="circle824"
-     style="fill:#ffffff;fill-opacity:1;stroke:#282828;stroke-width:1.21052241;stroke-opacity:1"
+     fill="&fill_color;"
+     stroke="&stroke_color;"
+     style="fill-opacity:1;stroke-width:1.21052241;stroke-opacity:1"
      r="18.346159" /><path
-     style="fill:#ffffff;fill-opacity:1;stroke:#282828;stroke-width:1.15479493;stroke-opacity:1"
+     style="fill-opacity:1;stroke-width:1.15479493;stroke-opacity:1"
      d="m 36.460245,13.229518 a 3.5559129,11.037268 71.736975 0 0 -9.425698,6.689423 3.5559129,11.037268 71.736975 0 0 11.503561,-0.195429 3.5559129,11.037268 71.736975 0 0 9.430399,-6.690968 3.5559129,11.037268 71.736975 0 0 -11.508262,0.196974 z"
      id="ellipse840"
+     fill="&fill_color;"
+     stroke="&stroke_color;"
      inkscape:connector-curvature="0" /><path
      inkscape:connector-curvature="0"
      id="path848"
+     fill="&fill_color;"
+     stroke="&stroke_color;"
      d="M 23.367411,11.616674 A 11.037268,3.5559129 18.263025 0 1 32.793109,18.306097 11.037268,3.5559129 18.263025 0 1 21.289548,18.110668 11.037268,3.5559129 18.263025 0 1 11.859149,11.4197 11.037268,3.5559129 18.263025 0 1 23.367411,11.616674 Z"
-     style="fill:#ffffff;fill-opacity:1;stroke:#282828;stroke-width:1.15479493;stroke-opacity:1" /></svg>
+     style="fill-opacity:1;stroke-width:1.15479493;stroke-opacity:1" /></svg>
