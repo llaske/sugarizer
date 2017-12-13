@@ -53,8 +53,8 @@ function Board(
     if (scale < 1) {
       canvas.width = canvasWidth * (scale - 0.1)
       canvas.height = canvasHeight * (scale - 0.1)
-      this.cellWidth = canvas.width / 50
-      this.cellHeight = canvas.height / 30
+      this.cellWidth = (canvas.width - (2 * 50)) / 50
+      this.cellHeight = (canvas.height - (2 * 30)) / 30
       console.log(canvas.width, this.cellWidth)
       this.update(state)
     } else {
