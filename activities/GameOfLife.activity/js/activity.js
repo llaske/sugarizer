@@ -32,6 +32,8 @@ function main(Board, State, patterns, color, shadeColor) {
   )
   document.querySelector('.generation-count').style.color = color.fill
   document.querySelector('.generation-status').style.color = color.fill
+  document.querySelector('.generation-status').innerText = 'Generation'
+
   board.draw()
 
   const generateGeneration = () => {
