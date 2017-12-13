@@ -123,7 +123,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       }
     ],
 
-    generation: ['.generation-count', 'innerText'],
+    generation: [
+      '.generation-count', 'innerText'
+    ],
 
     playPauseIcon: [
       '#play-pause',
@@ -143,8 +145,11 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   })
 
   dataStore.loadAsText((err, metadata, data) => {
+    const dataToLoad = data
+      ? data.state
+      : randomPattern()
     state.set({
-      boardState: data || randomPattern(),
+      boardState:  dataToLoad,
     })
   })
 
