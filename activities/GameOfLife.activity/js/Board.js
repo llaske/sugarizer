@@ -13,10 +13,11 @@ function Board(
 
   this.onClick = function(clickHandler) {
     canvas.addEventListener('click', (e) => {
+      console.log(e.clientX, e.clientY)
       const x = e.clientX - canvas.getBoundingClientRect().left
       const y = e.clientY - canvas.getBoundingClientRect().top
-      const cellX = Math.floor(x / 14)
-      const cellY = Math.floor(y / 14)
+      const cellX = Math.floor(x / (this.cellWidth + 2))
+      const cellY = Math.floor(y / (this.cellHeight + 2))
       clickHandler(cellX, cellY)
     })
   }
