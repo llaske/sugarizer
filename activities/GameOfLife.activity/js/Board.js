@@ -13,7 +13,6 @@ function Board(
 
   this.onClick = function(clickHandler) {
     canvas.addEventListener('click', (e) => {
-      console.log(e.clientX, e.clientY)
       const x = e.clientX - canvas.getBoundingClientRect().left
       const y = e.clientY - canvas.getBoundingClientRect().top
       const cellX = Math.floor(x / (this.cellWidth + 2))
@@ -27,7 +26,6 @@ function Board(
     canvasHeight = (cellHeight + colPadding) * 30 - 2
     canvas.width = canvasWidth
     canvas.height = canvasHeight
-    console.log(canvas.width, canvas.height)
     canvas.style.background =  lineColor
     canvas.style.boxShadow = '5px 5px 25px 0px rgba(46, 61, 73, 0.2)'
     this.ctx = canvas.getContext('2d')
@@ -56,7 +54,6 @@ function Board(
       canvas.height = canvasHeight * (scale - 0.1)
       this.cellWidth = (canvas.width - (2 * 50)) / 50
       this.cellHeight = (canvas.height - (2 * 30)) / 30
-      console.log(canvas.width, this.cellWidth)
       this.update(state)
     } else {
       canvas.width = canvasWidth
