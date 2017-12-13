@@ -184,4 +184,5 @@ function main(Board, State, patterns, color, shadeColor) {
   window.addEventListener('resize', e => {
     board.handleResize(window.innerWidth, state.state.boardState)
   })
+  board.handleResize(window.innerWidth, state.state.boardState)
 }
