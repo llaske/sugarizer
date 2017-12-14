@@ -25,8 +25,8 @@ function convertReadableMS(timeInMs) {
     .join(':')
 }
 
-const defaultWorkTimerLimit = 1
-const defaultBreakTimerLimit = 1
+const defaultWorkTimerLimit = 0.1
+const defaultBreakTimerLimit = 0.1
 function main(Progress, Stopwatch, l10n, color) {
   this.state = {
     status: 'work',
@@ -154,6 +154,7 @@ function main(Progress, Stopwatch, l10n, color) {
   function renderStatusText(text) {
     document.querySelector('.status').innerText = text
   }
+
   function setProgress(progress, currentTimerText) {
     this.state.progress = progress
     if (this.state.status === 'work') {
@@ -213,10 +214,12 @@ function main(Progress, Stopwatch, l10n, color) {
       })
   }
 
+
   function updateWorkPomodoro() {
     this.state.currentWorkText = convertReadableMS(this.state.workTimerLimit * 60 * 1000)
     document.querySelector('.button-time.work')
       .innerText = this.state.workTimerLimit
+    this.pomodoro.update(1)
     renderPomodoroText()
     if (this.state.status === 'work') {
       startWork()
@@ -279,5 +282,27 @@ function main(Progress, Stopwatch, l10n, color) {
   document.querySelector('#play-button')
     .addEventListener('click', () => {
         this.handlePausePlay()
+    })
+  document.querySelector('#replay-button')
+    .addEventListener('click', () => {
+      const shouldPlay = this.breakTimer
+        ? this.workTimer.state === 1 || this.breakTimer.state === 1
+        : this.workTimer.state === 1
+      if (this.state.status === 'break') {
+        this.breakTimer.stop()
+        renderTheme(color.stroke)
+        renderStatusText(l10n.get('work'))
+        startWork()
+        if (shouldPlay) {
+          this.workTimer.start()
+        }
+      }
+      if (shouldPlay) {
+        this.handlePausePlay()
+        updateWorkPomodoro()
+        this.handlePausePlay()
+      } else {
+        updateBreakPomodoro()
+      }
     })
 }
