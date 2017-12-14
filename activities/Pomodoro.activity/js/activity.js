@@ -218,7 +218,7 @@ function main(Progress, Stopwatch, l10n, color) {
     document.querySelector('.button-time.work')
       .innerText = this.state.workTimerLimit
     renderPomodoroText()
-    if (this.state.status = 'work') {
+    if (this.state.status === 'work') {
       startWork()
     }
   }
@@ -228,7 +228,7 @@ function main(Progress, Stopwatch, l10n, color) {
     document.querySelector('.button-time.break')
       .innerText = this.state.breakTimerLimit
     renderPomodoroText()
-    if (this.state.status = 'break') {
+    if (this.state.status === 'break') {
       startBreak()
     }
   }
