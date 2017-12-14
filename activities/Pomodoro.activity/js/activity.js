@@ -5,10 +5,10 @@ define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity
 
     // Initialize the activity.
     activity.setup()
-    console.dir(activity)
+    const datastore = activity.getDatastoreObject()
     activity.getXOColor((err, color) => {
       window.addEventListener('localized', () => {
-        main(Progress, Stopwatch, l10n, color)
+        main(Progress, Stopwatch, l10n, color, datastore)
       })
     })
   })
@@ -27,7 +27,7 @@ function convertReadableMS(timeInMs) {
 
 const defaultWorkTimerLimit = 0.1
 const defaultBreakTimerLimit = 0.1
-function main(Progress, Stopwatch, l10n, color) {
+function main(Progress, Stopwatch, l10n, color,datastore) {
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -36,16 +36,21 @@ function main(Progress, Stopwatch, l10n, color) {
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
     currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60),
     themeColor: '#FF0060',
-    isButtonsDisable: false
+    isButtonsDisable: false,
   }
-  console.log(color.stroke)
-  renderStatusText(l10n.get('work'))
+  datastore.loadAsText((err, metadata, data) => {
+    if (data) {
+      this.state = stateFromLocal
+    }
+  })
   startWork()
   renderPomodoroText()
+  renderStatusText(l10n.get(this.state.status))
   var pomodoroContainer = document.getElementById('pomodoro-container')
-  this.pomodoro = new Progress(280, color.stroke, 1, pomodoroContainer)
+  this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer)
   this.pomodoro.draw()
   renderTheme(color.stroke)
+  saveInDataStore()
 
   function mapRange(obj, num) {
     return (((num - obj.from[0]) * (obj.to[1] - obj.to[0])) / (obj.from[1] - obj.from[0])) + obj.to[0]
@@ -65,6 +70,18 @@ function main(Progress, Stopwatch, l10n, color) {
       seconds: roundTowardZero(ms / 1000) % 60,
       milliseconds: roundTowardZero(ms) % 1000
     }
+  }
+
+  function saveInDataStore() {
+    datastore.setDataAsText({
+      state: this.state
+    })
+    datastore.save(err => {
+      if (err) {
+        console.errror(err)
+      }
+    })
+    setTimeout(saveInDataStore ,1000)
   }
 
   function convertReadableMS(timeInMs) {
