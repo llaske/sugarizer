@@ -8,6 +8,9 @@
 #main-toolbar #play-button.pause {
   background-image: url(../icons/pause.svg);
 }
+#main-toolbar #replay-button {
+  background-image: url(../icons/replay.svg);
+}
 #container {
   display: flex;
   justify-content: center;
