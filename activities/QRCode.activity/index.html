@@ -10,6 +10,7 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/humane.css">
 <script data-main="js/loader" src="lib/require.js"></script>
 <script type="text/javascript" src="js/grid.js"></script>
 <script type="text/javascript" src="js/version.js"></script>
@@ -30,6 +31,7 @@
 <script type="text/javascript" src="js/databr.js"></script>
 <script type="text/javascript" src="js/webqr.js"></script>
 <script type="text/javascript" src="js/qrcodegen.js"></script>
+<script type="text/javascript" src="lib/humane.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
@@ -41,7 +43,7 @@
 	<div class="splitbar"></div>
 	<button class="toolbutton" id="photo-button" title="Photo"></button>
 	<div class="splitbar"></div>
-	<button class="toolbutton" id="png-button" title="Export to PNG"></button>
+	<button class="toolbutton" id="png-button" title="Export to PNG" onclick="humane.log('QR Code Exported To PNG',{ addnCls: 'humane-flatty-info'})"></button>
 
 	<!-- Buttons with class="pull-right" will be right aligned -->
 	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
