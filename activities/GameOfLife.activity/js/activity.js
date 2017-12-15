@@ -32,7 +32,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
 
   var storeLocally = function storeLocally(state) {
     dataStore.setDataAsText({
-      boardState: state.boarState,
+      boardState: state.boardState,
       generation: state.generation
     });
     console.log('writing');
