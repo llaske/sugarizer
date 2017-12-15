@@ -39,7 +39,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   };
   datastore.loadAsText(function (err, metadata, data) {
     if (data) {
-      _this.state = data;
+      _this.state = JSON.parse(data.state);
     }
   });
   startWork();
