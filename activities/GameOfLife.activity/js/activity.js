@@ -127,10 +127,10 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
 
   dataStore.loadAsText(function (err, metadata, data) {
     console.log(data)
-    var boardState = (data && data.state) ? data.state.boardState : randomPattern();
+    var boardState = (data && data.state) ? JSON.parse(data.state.boardState) : randomPattern();
     var generation =  (data && data.state) ? data.state.generation : 0
     state.set({
-      boardState: JSON.parse(boardState),
+      boardState: boardState,
       generation: parseInt(generation)
     });
   });
