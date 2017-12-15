@@ -22,8 +22,8 @@ function convertReadableMS(timeInMs) {
   }).join(':');
 }
 
-var defaultWorkTimerLimit = 0.1;
-var defaultBreakTimerLimit = 0.1;
+var defaultWorkTimerLimit = 1;
+var defaultBreakTimerLimit = 1;
 function main(Progress, Stopwatch, l10n, color, datastore) {
   var _this = this;
   console.log(this)
