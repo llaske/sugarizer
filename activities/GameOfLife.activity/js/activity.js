@@ -129,8 +129,8 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
     var boarState = (data && data.state) ? data.state.boardState : randomPattern();
     var generation =  (data && data.state) ? data.state.generation : 0
     state.set({
-      boardState: boarState,
-      generation: generation
+      boardState: JSON.parse(boarState),
+      generation: parseInt(generation)
     });
   });
 
