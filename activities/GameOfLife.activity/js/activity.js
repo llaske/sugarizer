@@ -150,7 +150,8 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       var togglePlay = prev.shouldPlay === true ? false : true;
       if (prev.shouldPlay) {
         storeLocally({
-          state: state.state.boardState
+          state: state.state.boardState,
+          generation: state.state.generation
         });
       }
       return {
