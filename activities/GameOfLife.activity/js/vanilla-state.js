@@ -1,61 +1,74 @@
-const ObjectValues = object => Object.keys(object)
-  .map(key => object[key])
+var ObjectValues = function ObjectValues(object) {
+  return Object.keys(object).map(function (key) {
+    return object[key];
+  });
+};
 
-function State(state = {}) {
-  this.state = state
-  const subscribeList = {}
+function State() {
+  var _this = this;
 
-  const render = (statesToChange, prevState = {}) => {
-    statesToChange.forEach(state => {
-      subscribeList[state].forEach(subscribers => {
-        const elem = document.querySelector(subscribers[0])
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  this.state = state;
+  var subscribeList = {};
+
+  var render = function render(statesToChange) {
+    var prevState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    statesToChange.forEach(function (state) {
+      subscribeList[state].forEach(function (subscribers) {
+        var elem = document.querySelector(subscribers[0]);
         if (typeof subscribers[1] === 'function') {
-          subscribers[1](elem, this.state[state], prevState[state] )
+          subscribers[1](elem, _this.state[state], prevState[state]);
         } else {
-          const propertyToChange = subscribers[1]
-          elem[propertyToChange] = this.state[state]
+          var propertyToChange = subscribers[1];
+          elem[propertyToChange] = _this.state[state];
         }
-      })
-    })
-  }
+      });
+    });
+  };
 
-  this.set = function(arg) {
-    const stateToUpdate = (typeof arg === 'function')
-      ? arg(this.state)
-      : arg
-    const prevState = this.state
-    Object.assign(this.state, stateToUpdate || {})
-    for (let state in stateToUpdate) {
-      if (!(state in subscribeList)) {
-        subscribeList[state] = []
+  this.set = function (arg) {
+    var stateToUpdate = typeof arg === 'function' ? arg(this.state) : arg;
+    var prevState = this.state;
+    Object.assign(this.state, stateToUpdate || {});
+    for (var _state in stateToUpdate) {
+      if (!(_state in subscribeList)) {
+        subscribeList[_state] = [];
       }
     }
-    render(Object.keys(stateToUpdate || {}), prevState)
-  }
+    render(Object.keys(stateToUpdate || {}), prevState);
+  };
 
-  this.subscribe = function(obj) {
-    for (let key in obj) {
+  this.subscribe = function (obj) {
+    var _loop = function _loop(key) {
       if (key in subscribeList) {
         if (Array.isArray(obj[key])) {
           if (Array.isArray(obj[key][0])) {
-            subscribeList[key].map(arr => {
-              subscribeList[key].push(arr)
-            })
+            subscribeList[key].map(function (arr) {
+              subscribeList[key].push(arr);
+            });
           } else {
-            subscribeList[key].push(obj[key])
+            subscribeList[key].push(obj[key]);
           }
         }
       } else {
         if (Array.isArray(obj[key])) {
           if (Array.isArray(obj[key][0])) {
-            subscribeList[key] = obj[key]
+            subscribeList[key] = obj[key];
           } else {
-            subscribeList[key] = [obj[key]]
+            subscribeList[key] = [obj[key]];
           }
         }
       }
+    };
+
+    for (var key in obj) {
+      _loop(key);
     }
-    render(Object.keys(obj))
-  }
+    render(Object.keys(obj));
+  };
 }
-define(() => State)
+define(function () {
+  return State;
+});
