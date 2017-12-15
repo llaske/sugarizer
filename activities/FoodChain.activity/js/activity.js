@@ -1,6 +1,4 @@
-﻿
-
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore"], function (activity, _l10n, radioButtonsGroup, datastore) {
+﻿define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore"], function (activity, _l10n, radioButtonsGroup, datastore) {
 	l10n = _l10n;
 	var app = null;
 	var isFirefoxOS = (navigator.userAgent.indexOf('Mozilla/5.0 (Mobile') != -1);
