@@ -4,30 +4,29 @@ define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity
   require(['domReady!'], function (doc) {
 
     // Initialize the activity.
-    activity.setup()
-    const datastore = activity.getDatastoreObject()
-    activity.getXOColor((err, color) => {
-      window.addEventListener('localized', () => {
-        main(Progress, Stopwatch, l10n, color, datastore)
-      })
-    })
-  })
-})
+    activity.setup();
+    var datastore = activity.getDatastoreObject();
+    activity.getXOColor(function (err, color) {
+      window.addEventListener('localized', function () {
+        main(Progress, Stopwatch, l10n, color, datastore);
+      });
+    });
+  });
+});
 
 function convertReadableMS(timeInMs) {
-  var parsedTime = parseMs(timeInMs)
-  var timeStr = parsedTime.hours
-    ? `${parsedTime.hours + parsedTime.days * 24}:${parsedTime.minutes}:${parsedTime.seconds}`
-    : `${parsedTime.minutes}:${parsedTime.seconds}`
-  return timeStr
-    .split(':')
-    .map((num) => `${num}`.padStart(2, '0'))
-    .join(':')
+  var parsedTime = parseMs(timeInMs);
+  var timeStr = parsedTime.hours ? parsedTime.hours + parsedTime.days * 24 + ':' + parsedTime.minutes + ':' + parsedTime.seconds : parsedTime.minutes + ':' + parsedTime.seconds;
+  return timeStr.split(':').map(function (num) {
+    return ('' + num).padStart(2, '0');
+  }).join(':');
 }
 
-const defaultWorkTimerLimit = 0.1
-const defaultBreakTimerLimit = 0.1
-function main(Progress, Stopwatch, l10n, color,datastore) {
+var defaultWorkTimerLimit = 0.1;
+var defaultBreakTimerLimit = 0.1;
+function main(Progress, Stopwatch, l10n, color, datastore) {
+  var _this = this;
+  console.log(this)
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -36,32 +35,32 @@ function main(Progress, Stopwatch, l10n, color,datastore) {
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
     currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60),
     themeColor: '#FF0060',
-    isButtonsDisable: false,
-  }
-  datastore.loadAsText((err, metadata, data) => {
+    isButtonsDisable: false
+  };
+  datastore.loadAsText(function (err, metadata, data) {
     if (data) {
-      this.state = stateFromLocal
+      _this.state = data;
     }
-  })
-  startWork()
-  renderPomodoroText()
-  renderStatusText(l10n.get(this.state.status))
-  var pomodoroContainer = document.getElementById('pomodoro-container')
-  this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer)
-  this.pomodoro.draw()
-  renderTheme(color.stroke)
-  saveInDataStore()
+  });
+  startWork();
+  renderPomodoroText();
+  renderStatusText(l10n.get(this.state.status));
+  var pomodoroContainer = document.getElementById('pomodoro-container');
+  this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer);
+  this.pomodoro.draw();
+  renderTheme(color.stroke);
+  saveInDataStore();
 
   function mapRange(obj, num) {
-    return (((num - obj.from[0]) * (obj.to[1] - obj.to[0])) / (obj.from[1] - obj.from[0])) + obj.to[0]
+    return (num - obj.from[0]) * (obj.to[1] - obj.to[0]) / (obj.from[1] - obj.from[0]) + obj.to[0];
   }
 
   function parseMs(ms) {
     if (typeof ms !== 'number') {
-      throw new TypeError('Expected a number')
+      throw new TypeError('Expected a number');
     }
 
-    var roundTowardZero = ms > 0 ? Math.floor : Math.ceil
+    var roundTowardZero = ms > 0 ? Math.floor : Math.ceil;
 
     return {
       days: roundTowardZero(ms / 86400000),
@@ -69,257 +68,243 @@ function main(Progress, Stopwatch, l10n, color,datastore) {
       minutes: roundTowardZero(ms / 60000) % 60,
       seconds: roundTowardZero(ms / 1000) % 60,
       milliseconds: roundTowardZero(ms) % 1000
-    }
+    };
   }
 
   function saveInDataStore() {
     datastore.setDataAsText({
       state: this.state
-    })
-    datastore.save(err => {
+    });
+    datastore.save(function (err) {
       if (err) {
-        console.errror(err)
+        console.errror(err);
       }
-    })
-    setTimeout(saveInDataStore ,1000)
+    });
+    setTimeout(saveInDataStore, 1000);
   }
 
   function convertReadableMS(timeInMs) {
-    var parsedTime = parseMs(timeInMs)
-    var timeStr = parsedTime.hours
-      ? `${parsedTime.hours + parsedTime.days * 24}:${parsedTime.minutes}:${parsedTime.seconds}`
-      : `${parsedTime.minutes}:${parsedTime.seconds}`
-    return timeStr
-      .split(':')
-      .map((num) => `${num}`.padStart(2, '0'))
-      .join(':')
+    var parsedTime = parseMs(timeInMs);
+    var timeStr = parsedTime.hours ? parsedTime.hours + parsedTime.days * 24 + ':' + parsedTime.minutes + ':' + parsedTime.seconds : parsedTime.minutes + ':' + parsedTime.seconds;
+    return timeStr.split(':').map(function (num) {
+      return ('' + num).padStart(2, '0');
+    }).join(':');
   }
 
-
-  this.handlePausePlay = function() {
-    var playPauseButton = document.getElementById('play-button')
+  this.handlePausePlay = function () {
+    var playPauseButton = document.getElementById('play-button');
     if (this.state.status === 'work') {
       if (this.workTimer.state === 1) {
         //if timer is running
-        this.workTimer.stop()
-        enableButtons()
-        playPauseButton.classList.remove('pause')
-        playPauseButton.classList.add('play')
+        this.workTimer.stop();
+        enableButtons();
+        playPauseButton.classList.remove('pause');
+        playPauseButton.classList.add('play');
       } else {
-        this.workTimer.start()
-        disableButtons()
-        playPauseButton.classList.remove('play')
-        playPauseButton.classList.add('pause')
+        this.workTimer.start();
+        disableButtons();
+        playPauseButton.classList.remove('play');
+        playPauseButton.classList.add('pause');
       }
     } else {
-        if (this.breakTimer.state === 1) {
-          this.breakTimer.stop()
-          enableButtons()
-          playPauseButton.classList.remove('pause')
-          playPauseButton.classList.add('play')
-        } else {
-          disableButtons()
-          this.breakTimer.start()
-          playPauseButton.classList.remove('play')
-          playPauseButton.classList.add('pause')
-        }
+      if (this.breakTimer.state === 1) {
+        this.breakTimer.stop();
+        enableButtons();
+        playPauseButton.classList.remove('pause');
+        playPauseButton.classList.add('play');
+      } else {
+        disableButtons();
+        this.breakTimer.start();
+        playPauseButton.classList.remove('play');
+        playPauseButton.classList.add('pause');
+      }
     }
-  }
+  };
 
   function startWork() {
-    var timerInMS = this.state.workTimerLimit * 60 * 1000
-    this.workTimer = new Stopwatch(timerInMS)
-    this.state.status = 'work'
-    this.workTimer.onTime((time) => {
+    var _this2 = this;
+
+    var timerInMS = this.state.workTimerLimit * 60 * 1000;
+    this.workTimer = new Stopwatch(timerInMS);
+    this.state.status = 'work';
+    this.workTimer.onTime(function (time) {
       var progress = mapRange({
         from: [timerInMS, 0],
         to: [1, 0]
-      }, time.ms)
-      setProgress(progress, convertReadableMS(time.ms))
-    })
-    this.workTimer.onDone(() => {
-      renderTheme(color.fill)
-      setTimeout(() => {
-        renderStatusText(l10n.get('break'))
-        startBreak()
-        this.breakTimer.start()
-      }, 1000)
-    })
+      }, time.ms);
+      setProgress(progress, convertReadableMS(time.ms));
+    });
+    this.workTimer.onDone(function () {
+      renderTheme(color.fill);
+      setTimeout(function () {
+        renderStatusText(l10n.get('break'));
+        startBreak();
+        _this2.breakTimer.start();
+      }, 1000);
+    });
   }
 
   function startBreak() {
-    var timerInMS = this.state.breakTimerLimit * 60 * 1000
-    this.breakTimer = new Stopwatch(timerInMS)
-    this.state.status = 'break'
-    this.breakTimer.onTime((time) => {
+    var _this3 = this;
+
+    var timerInMS = this.state.breakTimerLimit * 60 * 1000;
+    this.breakTimer = new Stopwatch(timerInMS);
+    this.state.status = 'break';
+    this.breakTimer.onTime(function (time) {
       var progress = mapRange({
         from: [timerInMS, 0],
         to: [1, 0]
-      }, time.ms)
-      setProgress(progress, convertReadableMS(time.ms))
-    })
-    this.breakTimer.onDone(() => {
-      renderTheme(color.stroke)
-      renderStatusText(l10n.get('work'))
-      setTimeout(() => {
-        startWork()
-        this.workTimer.start()
-      }, 1000)
-    })
+      }, time.ms);
+      setProgress(progress, convertReadableMS(time.ms));
+    });
+    this.breakTimer.onDone(function () {
+      renderTheme(color.stroke);
+      renderStatusText(l10n.get('work'));
+      setTimeout(function () {
+        startWork();
+        _this3.workTimer.start();
+      }, 1000);
+    });
   }
 
   function renderStatusText(text) {
-    document.querySelector('.status').innerText = text
+    document.querySelector('.status').innerText = text;
   }
 
   function setProgress(progress, currentTimerText) {
-    this.state.progress = progress
+    this.state.progress = progress;
     if (this.state.status === 'work') {
-      this.state.currentWorkText = currentTimerText
+      this.state.currentWorkText = currentTimerText;
     } else {
-      this.state.currentBreakText = currentTimerText
+      this.state.currentBreakText = currentTimerText;
     }
-    renderPomodoro()
-    renderPomodoroText()
+    renderPomodoro();
+    renderPomodoroText();
   }
 
   function renderPomodoro() {
-    this.pomodoro.update(this.state.progress)
+    this.pomodoro.update(this.state.progress);
   }
 
   function renderPomodoroText() {
-    var timerTextElem = document.querySelector('.info-circle span')
+    var timerTextElem = document.querySelector('.info-circle span');
     if (this.state.status === 'work') {
-      timerTextElem.innerText = this.state.currentWorkText
+      timerTextElem.innerText = this.state.currentWorkText;
     } else {
-      timerTextElem.innerText = this.state.currentBreakText
+      timerTextElem.innerText = this.state.currentBreakText;
     }
   }
 
   function renderTheme(themeColor) {
-    this.state.themeColor = themeColor
-    document.querySelector('.info-circle').style.backgroundColor = themeColor
-    document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b'
-    this.pomodoro.updateColor(themeColor, this.state.progress)
-    renderButtons()
+    this.state.themeColor = themeColor;
+    document.querySelector('.info-circle').style.backgroundColor = themeColor;
+    document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b';
+    this.pomodoro.updateColor(themeColor, this.state.progress);
+    renderButtons();
   }
 
   function renderButtons() {
-    document.querySelectorAll('.button')
-      .forEach(elem => {
-        elem.style.background = this.state.themeColor
-      })
+    var _this4 = this;
 
-    document.querySelectorAll('.button-label, .button-time')
-      .forEach(elem => {
-        elem.style.color = this.state.themeColor
-      })
+    document.querySelectorAll('.button').forEach(function (elem) {
+      elem.style.background = _this4.state.themeColor;
+    });
+
+    document.querySelectorAll('.button-label, .button-time').forEach(function (elem) {
+      elem.style.color = _this4.state.themeColor;
+    });
   }
 
   function disableButtons() {
-    this.state.isButtonsDisable = true
-    document.querySelectorAll('.button, .button-time, .button-label')
-      .forEach(elem => {
-        elem.classList.add('disable')
-      })
+    this.state.isButtonsDisable = true;
+    document.querySelectorAll('.button, .button-time, .button-label').forEach(function (elem) {
+      elem.classList.add('disable');
+    });
   }
   function enableButtons() {
-    this.state.isButtonsDisable = false
-    document.querySelectorAll('.button, .button-time, .button-label')
-      .forEach(elem => {
-        elem.classList.remove('disable')
-      })
+    this.state.isButtonsDisable = false;
+    document.querySelectorAll('.button, .button-time, .button-label').forEach(function (elem) {
+      elem.classList.remove('disable');
+    });
   }
 
-
   function updateWorkPomodoro() {
-    this.state.currentWorkText = convertReadableMS(this.state.workTimerLimit * 60 * 1000)
-    document.querySelector('.button-time.work')
-      .innerText = this.state.workTimerLimit
-    this.pomodoro.update(1)
-    renderPomodoroText()
+    this.state.currentWorkText = convertReadableMS(this.state.workTimerLimit * 60 * 1000);
+    document.querySelector('.button-time.work').innerText = this.state.workTimerLimit;
+    this.pomodoro.update(1);
+    renderPomodoroText();
     if (this.state.status === 'work') {
-      startWork()
+      startWork();
     }
   }
 
   function updateBreakPomodoro() {
-    this.state.currentBreakText = convertReadableMS(this.state.breakTimerLimit * 60 * 1000)
-    document.querySelector('.button-time.break')
-      .innerText = this.state.breakTimerLimit
-    renderPomodoroText()
+    this.state.currentBreakText = convertReadableMS(this.state.breakTimerLimit * 60 * 1000);
+    document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit;
+    renderPomodoroText();
     if (this.state.status === 'break') {
-      startBreak()
+      startBreak();
     }
   }
 
-  this.handleWorkPlusClick = function() {
+  this.handleWorkPlusClick = function () {
     if (!this.state.isButtonsDisable) {
-      this.state.workTimerLimit = this.state.workTimerLimit + 1
-      updateWorkPomodoro()
+      this.state.workTimerLimit = this.state.workTimerLimit + 1;
+      updateWorkPomodoro();
     }
-  }
+  };
 
-
-  this.handleWorkMinusClick = function() {
+  this.handleWorkMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.workTimerLimit > 1) {
-      this.state.workTimerLimit = this.state.workTimerLimit - 1
-      updateWorkPomodoro()
+      this.state.workTimerLimit = this.state.workTimerLimit - 1;
+      updateWorkPomodoro();
     }
-  }
+  };
 
-  this.handleBreakPlusClick = function() {
+  this.handleBreakPlusClick = function () {
     if (!this.state.isButtonsDisable) {
-      this.state.breakTimerLimit = this.state.breakTimerLimit + 1
-      updateBreakPomodoro()
+      this.state.breakTimerLimit = this.state.breakTimerLimit + 1;
+      updateBreakPomodoro();
     }
-  }
+  };
 
-  this.handleBreakMinusClick = function() {
+  this.handleBreakMinusClick = function () {
     if (!this.state.isButtonsDisable) {
-      this.state.breakTimerLimit = this.state.breakTimerLimit - 1
-      updateBreakPomodoro()
+      this.state.breakTimerLimit = this.state.breakTimerLimit - 1;
+      updateBreakPomodoro();
     }
-  }
+  };
 
   function initTimerText() {
-    document.querySelector('.button-time.work').innerText = this.state.workTimerLimit
-    document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit
+    document.querySelector('.button-time.work').innerText = this.state.workTimerLimit;
+    document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit;
   }
 
-  initTimerText()
-  document.querySelector('.plus-button.work')
-    .addEventListener('click', handleWorkPlusClick.bind(this))
-  document.querySelector('.minus-button.work')
-    .addEventListener('click', handleWorkMinusClick.bind(this))
-  document.querySelector('.plus-button.break')
-    .addEventListener('click', handleBreakPlusClick.bind(this))
-  document.querySelector('.minus-button.break')
-    .addEventListener('click', handleBreakMinusClick.bind(this))
-  document.querySelector('#play-button')
-    .addEventListener('click', () => {
-        this.handlePausePlay()
-    })
-  document.querySelector('#replay-button')
-    .addEventListener('click', () => {
-      const shouldPlay = this.breakTimer
-        ? this.workTimer.state === 1 || this.breakTimer.state === 1
-        : this.workTimer.state === 1
-      if (this.state.status === 'break') {
-        this.breakTimer.stop()
-        renderTheme(color.stroke)
-        renderStatusText(l10n.get('work'))
-        startWork()
-        if (shouldPlay) {
-          this.workTimer.start()
-        }
-      }
+  initTimerText();
+  document.querySelector('.plus-button.work').addEventListener('click', handleWorkPlusClick.bind(this));
+  document.querySelector('.minus-button.work').addEventListener('click', handleWorkMinusClick.bind(this));
+  document.querySelector('.plus-button.break').addEventListener('click', handleBreakPlusClick.bind(this));
+  document.querySelector('.minus-button.break').addEventListener('click', handleBreakMinusClick.bind(this));
+  document.querySelector('#play-button').addEventListener('click', function () {
+    _this.handlePausePlay();
+  });
+  document.querySelector('#replay-button').addEventListener('click', function () {
+    var shouldPlay = _this.breakTimer ? _this.workTimer.state === 1 || _this.breakTimer.state === 1 : _this.workTimer.state === 1;
+    if (_this.state.status === 'break') {
+      _this.breakTimer.stop();
+      renderTheme(color.stroke);
+      renderStatusText(l10n.get('work'));
+      startWork();
       if (shouldPlay) {
-        this.handlePausePlay()
-        updateWorkPomodoro()
-        this.handlePausePlay()
-      } else {
-        updateBreakPomodoro()
+        _this.workTimer.start();
       }
-    })
+    }
+    if (shouldPlay) {
+      _this.handlePausePlay();
+      updateWorkPomodoro();
+      _this.handlePausePlay();
+    } else {
+      updateBreakPomodoro();
+    }
+  });
 }
