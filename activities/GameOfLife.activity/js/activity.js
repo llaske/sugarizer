@@ -32,7 +32,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
 
   var storeLocally = function storeLocally(state) {
     dataStore.setDataAsText({
-      state: state
+      state: state,
     });
     console.log('writing');
     dataStore.save(function (err) {
@@ -125,9 +125,12 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   });
 
   dataStore.loadAsText(function (err, metadata, data) {
-    var dataToLoad = data ? data.state : randomPattern();
+    console.log(data)
+    var boarState = (data && data.state) ? data.state.boardState : randomPattern();
+    var generation =  (data && data.state) ? data.state..generation : 0
     state.set({
-      boardState: dataToLoad
+      boardState: boarState,
+      generation: generation
     });
   });
 
