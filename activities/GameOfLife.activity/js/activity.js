@@ -126,9 +126,8 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   });
 
   dataStore.loadAsText(function (err, metadata, data) {
-    console.log(data)
-    var boardState = (data && data.state) ? JSON.parse(data.state.boardState) : randomPattern();
-    var generation =  (data && data.state) ? data.state.generation : 0
+    var boardState = data ? data.boardState : randomPattern();
+    var generation =  data ? data.generation : 0;
     state.set({
       boardState: boardState,
       generation: parseInt(generation)
@@ -138,7 +137,12 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   board.onClick(function (cellX, cellY) {
     state.set(function (prev) {
       var newState = [].concat(prev.boardState);
-      newState[cellY][cellX] = 2;
+      var clickedCell = newState[cellY][cellX]
+      if (clickedCell === 1 || clickedCell === 2) {
+        newState[cellY][cellX] = 0;
+      } else {
+        newState[cellY][cellX] = 2;
+      }
       return {
         boardState: newState
       };
@@ -151,7 +155,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       var togglePlay = prev.shouldPlay === true ? false : true;
       if (prev.shouldPlay) {
         storeLocally({
-          state: state.state.boardState,
+          boardState: state.state.boardState,
           generation: state.state.generation
         });
       }
@@ -161,6 +165,13 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       };
     });
   });
+
+  document.querySelector('#stop-button').addEventListener('click', function() {
+    storeLocally({
+      boardState: state.state.boardState,
+      generation: state.state.generation
+    });
+  })
 
   document.querySelector('#random').addEventListener('click', function () {
     state.set({
