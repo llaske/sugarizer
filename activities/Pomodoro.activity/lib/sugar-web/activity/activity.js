@@ -21,7 +21,7 @@ define(["webL10n",
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             window.dispatchEvent(pauseEvent);
         }
@@ -34,7 +34,7 @@ define(["webL10n",
         function sendStopEvent() {
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             var result = window.dispatchEvent(stopEvent);
             if (result) {
@@ -43,7 +43,7 @@ define(["webL10n",
         }
         bus.onNotification("activity.stop", sendStopEvent);
 
-        datastoreObject = new datastore.DatastoreObject();
+        datastoreObject = new datastore.DatastoreObject('pomodoro');
 
         var activityButton = document.getElementById("activity-button");
 
