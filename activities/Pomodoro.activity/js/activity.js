@@ -26,7 +26,6 @@ var defaultWorkTimerLimit = 1;
 var defaultBreakTimerLimit = 1;
 function main(Progress, Stopwatch, l10n, color, datastore) {
   var _this = this;
-  console.log(this)
   this.state = {
     status: 'work',
     workTimerLimit: defaultWorkTimerLimit,
@@ -35,21 +34,35 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     currentWorkText: convertReadableMS(defaultWorkTimerLimit * 1000 * 60),
     currentBreakText: convertReadableMS(defaultBreakTimerLimit * 1000 * 60),
     themeColor: '#FF0060',
-    isButtonsDisable: false
+    isButtonsDisable: false,
+    timerLeftAt: false,
+    progressLeftAt: false
   };
   datastore.loadAsText(function (err, metadata, data) {
+    if (err) console.log(err)
     if (data) {
+      console.log(data.state)
       _this.state = data.state;
     }
+    afterDataLoad()
   });
-  startWork();
-  renderPomodoroText();
-  renderStatusText(l10n.get(this.state.status));
-  var pomodoroContainer = document.getElementById('pomodoro-container');
-  this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer);
-  this.pomodoro.draw();
-  renderTheme(color.stroke);
-  saveInDataStore();
+  // this.state.progress = 1
+  function afterDataLoad() {
+    this.state.status === 'work'
+      ? startWork()
+      : startBreak();
+
+    renderPomodoroText();
+    console.log(this.state.status)
+    renderStatusText(l10n.get(this.state.status));
+    var pomodoroContainer = document.getElementById('pomodoro-container');
+    this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer);
+    this.pomodoro.draw();
+    console.log(this.pomodoro)
+    this.state.status === 'work'
+      ? renderTheme(color.stroke)
+      : renderTheme(color.fill);
+  }
 
   function mapRange(obj, num) {
     return (num - obj.from[0]) * (obj.to[1] - obj.to[0]) / (obj.from[1] - obj.from[0]) + obj.to[0];
@@ -80,12 +93,13 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
         console.errror(err);
       }
     });
-    setTimeout(saveInDataStore, 1000);
   }
 
   function convertReadableMS(timeInMs) {
     var parsedTime = parseMs(timeInMs);
-    var timeStr = parsedTime.hours ? parsedTime.hours + parsedTime.days * 24 + ':' + parsedTime.minutes + ':' + parsedTime.seconds : parsedTime.minutes + ':' + parsedTime.seconds;
+    var timeStr = parsedTime.hours
+      ? parsedTime.hours + parsedTime.days * 24 + ':' + parsedTime.minutes + ':' + parsedTime.seconds
+      : parsedTime.minutes + ':' + parsedTime.seconds;
     return timeStr.split(':').map(function (num) {
       return ('' + num).padStart(2, '0');
     }).join(':');
@@ -93,6 +107,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
 
   this.handlePausePlay = function () {
     var playPauseButton = document.getElementById('play-button');
+    console.log(this.state.status)
     if (this.state.status === 'work') {
       if (this.workTimer.state === 1) {
         //if timer is running
@@ -124,19 +139,28 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   function startWork() {
     var _this2 = this;
 
-    var timerInMS = this.state.workTimerLimit * 60 * 1000;
+    var timerInMS = (this.state.timerLeftAt === false)
+      ? (this.state.workTimerLimit * 60 * 1000)
+      : this.state.timerLeftAt
     this.workTimer = new Stopwatch(timerInMS);
     this.state.status = 'work';
+    const progressToStart = (this.state.progressLeftAt === false)
+      ? 1
+      : this.state.progressLeftAt
+    console.log(progressToStart)
     this.workTimer.onTime(function (time) {
       var progress = mapRange({
         from: [timerInMS, 0],
-        to: [1, 0]
+        to: [progressToStart, 0]
       }, time.ms);
-      setProgress(progress, convertReadableMS(time.ms));
+      setProgress(progress, time.ms);
+      saveInDataStore()
     });
     this.workTimer.onDone(function () {
       renderTheme(color.fill);
       setTimeout(function () {
+        this.state.timerLeftAt = false
+        this.state.progressLeftAt = false
         renderStatusText(l10n.get('break'));
         startBreak();
         _this2.breakTimer.start();
@@ -147,20 +171,29 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   function startBreak() {
     var _this3 = this;
 
-    var timerInMS = this.state.breakTimerLimit * 60 * 1000;
+    var timerInMS = (this.state.timerLeftAt === false)
+      ? this.state.breakTimerLimit * 60 * 1000
+      : this.state.timerLeftAt
     this.breakTimer = new Stopwatch(timerInMS);
     this.state.status = 'break';
+
+    const progressToStart = (this.state.progressLeftAt === false)
+      ? 1
+      : this.state.progressLeftAt
     this.breakTimer.onTime(function (time) {
       var progress = mapRange({
         from: [timerInMS, 0],
-        to: [1, 0]
+        to: [progressToStart, 0]
       }, time.ms);
-      setProgress(progress, convertReadableMS(time.ms));
+      setProgress(progress, time.ms);
+      saveInDataStore()
     });
     this.breakTimer.onDone(function () {
       renderTheme(color.stroke);
-      renderStatusText(l10n.get('work'));
       setTimeout(function () {
+        this.state.timerLeftAt = false
+        this.state.progressLeftAt = false
+        renderStatusText(l10n.get('work'));
         startWork();
         _this3.workTimer.start();
       }, 1000);
@@ -171,13 +204,15 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     document.querySelector('.status').innerText = text;
   }
 
-  function setProgress(progress, currentTimerText) {
+  function setProgress(progress, currentTimeMS) {
     this.state.progress = progress;
     if (this.state.status === 'work') {
-      this.state.currentWorkText = currentTimerText;
+      this.state.currentWorkText = convertReadableMS(currentTimeMS);
     } else {
-      this.state.currentBreakText = currentTimerText;
+      this.state.currentBreakText = convertReadableMS(currentTimeMS);
     }
+    this.state.timerLeftAt = currentTimeMS
+    this.state.progressLeftAt = progress
     renderPomodoro();
     renderPomodoroText();
   }
@@ -199,6 +234,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     this.state.themeColor = themeColor;
     document.querySelector('.info-circle').style.backgroundColor = themeColor;
     document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b';
+    console.dir(this.pomodoro)
     this.pomodoro.updateColor(themeColor, this.state.progress);
     renderButtons();
   }

@@ -58,7 +58,7 @@ define (function() {
       this.canvas.height = size
       this.update()
     }
-    this.updateColor = function(color) {
+    this.updateColor = function(color, progress) {
       this.color = color
       this.update(progress)
     }
