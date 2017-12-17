@@ -96,8 +96,12 @@ Util.loadDatabase = function(response, error) {
 	if (Util.context.library == null)
 		return;
 	Util.getLanguage(function(language) {
+		var url = Util.context.library.database.replace(new RegExp("%language%", "g"),language);
+		if (document.location.protocol == "https:") {
+			url = url.replace("http://", "https://");
+		}
 		var ajax = new enyo.Ajax({
-			url: Util.context.library.database.replace(new RegExp("%language%", "g"),language),
+			url: url,
 			method: "GET",
 			handleAs: "json"
 		});
@@ -179,7 +183,7 @@ Util.getLanguage = function(callback) {
 	if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
 		chrome.storage.local.get('sugar_settings', function(values) {
 			callback(JSON.parse(values.sugar_settings).language);
-		}); 
+		});
 	} else {
 		callback(JSON.parse(localStorage.sugar_settings).language);
 	}
