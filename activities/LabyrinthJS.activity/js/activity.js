@@ -228,52 +228,40 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		});
 
 		// Handle localization
-		function getSettings(callback) {
-			 var defaultSettings = {
-				 name: "",
-				 language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
-			 };
-			 if (!env.isSugarizer()) {
-				 callback(defaultSettings);
-				 return;
-			 }
-			 loadedSettings = datastore.localStorage.getValue('sugar_settings');
-			 callback(loadedSettings);
-		 }
 		window.addEventListener('localized', function() {
-			datastore.localStorage.load(function() {
-				getSettings(function(settings) { //globally setting language from sugar settings
-					if (l10n_s.language.code != settings.language) {
-						l10n_s.language.code = settings.language;
-					};
-					var oldDefaultText = defaultText;
-					defaultText = l10n_s.get("YourNewIdea");
-					nodetextButton.title = l10n.get("nodetextTitle");
-					linkButton.title = l10n.get("linkButtonTitle");
-					removeButton.title = l10n.get("removeButtonTitle");
-					undoButton.title = l10n.get("undoButtonTitle");
-					redoButton.title = l10n.get("redoButtonTitle");
-					zoomButton.title = l10n.get("zoomButtonTitle");
-					foregroundButton.title = l10n.get("foregroundButtonTitle");
-					backgroundButton.title = l10n.get("backgroundButtonTitle");
-					textValue.placeholder = l10n.get("typeText");
-					boldButton.title = l10n.get("boldButtonTitle");
-					italicButton.title = l10n.get("italicButtonTitle");
-					fontMinusButton.title = l10n.get("fontMinusButtonTitle");
-					fontPlusButton.title = l10n.get("fontPlusButtonTitle");
-					fontButton.title = l10n.get("fontButtonTitle");
-					pngButton.title = l10n.get("pngButtonTitle");
-					if (cy) {
-						var nodes = cy.elements("node");
-						for(var i = 0; i < nodes.length ; i++) {
-							var node = nodes[i];
-							if (node.data('content') == oldDefaultText) {
-								node.data('content', defaultText);
-								node.style({'content': defaultText});
-							}
+			env.getEnvironment(function(err, environment) {
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				if (l10n_s.language.code != language) {
+					l10n_s.language.code = language;
+				};
+				var oldDefaultText = defaultText;
+				defaultText = l10n_s.get("YourNewIdea");
+				nodetextButton.title = l10n.get("nodetextTitle");
+				linkButton.title = l10n.get("linkButtonTitle");
+				removeButton.title = l10n.get("removeButtonTitle");
+				undoButton.title = l10n.get("undoButtonTitle");
+				redoButton.title = l10n.get("redoButtonTitle");
+				zoomButton.title = l10n.get("zoomButtonTitle");
+				foregroundButton.title = l10n.get("foregroundButtonTitle");
+				backgroundButton.title = l10n.get("backgroundButtonTitle");
+				textValue.placeholder = l10n.get("typeText");
+				boldButton.title = l10n.get("boldButtonTitle");
+				italicButton.title = l10n.get("italicButtonTitle");
+				fontMinusButton.title = l10n.get("fontMinusButtonTitle");
+				fontPlusButton.title = l10n.get("fontPlusButtonTitle");
+				fontButton.title = l10n.get("fontButtonTitle");
+				pngButton.title = l10n.get("pngButtonTitle");
+				if (cy) {
+					var nodes = cy.elements("node");
+					for(var i = 0; i < nodes.length ; i++) {
+						var node = nodes[i];
+						if (node.data('content') == oldDefaultText) {
+							node.data('content', defaultText);
+							node.style({'content': defaultText});
 						}
 					}
-				});
+				}
 			});
 		}, false);
 

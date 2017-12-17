@@ -558,51 +558,39 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		});
 
 		// Handle localization
-		function getSettings(callback) {
-			 var defaultSettings = {
-				 name: "",
-				 language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
-			 };
-			 if (!env.isSugarizer()) {
-				 callback(defaultSettings);
-				 return;
-			 }
-			 loadedSettings = datastore.localStorage.getValue('sugar_settings');
-			 callback(loadedSettings);
-		 }
 		window.addEventListener('localized', function() {
-			datastore.localStorage.load(function() {
-				getSettings(function(settings) { //globally setting language from sugar settings
-					if (l10n_s.language.code != settings.language) {
-						l10n_s.language.code = settings.language;
-					};
-					var oldDefaultText = defaultText;
-					defaultText = l10n_s.get("YourNewIdea");
-					nodetextButton.title = l10n_s.get("nodetextTitle");
-					removeButton.title = l10n_s.get("removeButtonTitle");
-					undoButton.title = l10n_s.get("undoButtonTitle");
-					redoButton.title = l10n_s.get("redoButtonTitle");
-					zoomButton.title = l10n_s.get("zoomButtonTitle");
-					pngButton.title = l10n_s.get("pngButtonTitle");
-					networkButton.title = l10n_s.get("networkButtonTitle");
-					helpButton.title = l10n_s.get("helpButtonTitle");
-					if (cy) {
-						var nodes = cy.elements("node");
-						for(var i = 0; i < nodes.length ; i++) {
-							var node = nodes[i];
-							if (node.data('content') == oldDefaultText) {
-								node.data('content', defaultText);
-								node.style({'content': defaultText});
-							}
-						}
-						if (textValue && textValue.value == oldDefaultText) {
-							textValue.value = defaultText;
-							if (lastSelected) {
-								showEditField(lastSelected);
-							}
+			env.getEnvironment(function(err, environment) {
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				if (l10n_s.language.code != language) {
+					l10n_s.language.code = language;
+				};
+				var oldDefaultText = defaultText;
+				defaultText = l10n_s.get("YourNewIdea");
+				nodetextButton.title = l10n_s.get("nodetextTitle");
+				removeButton.title = l10n_s.get("removeButtonTitle");
+				undoButton.title = l10n_s.get("undoButtonTitle");
+				redoButton.title = l10n_s.get("redoButtonTitle");
+				zoomButton.title = l10n_s.get("zoomButtonTitle");
+				pngButton.title = l10n_s.get("pngButtonTitle");
+				networkButton.title = l10n_s.get("networkButtonTitle");
+				helpButton.title = l10n_s.get("helpButtonTitle");
+				if (cy) {
+					var nodes = cy.elements("node");
+					for(var i = 0; i < nodes.length ; i++) {
+						var node = nodes[i];
+						if (node.data('content') == oldDefaultText) {
+							node.data('content', defaultText);
+							node.style({'content': defaultText});
 						}
 					}
-				});
+					if (textValue && textValue.value == oldDefaultText) {
+						textValue.value = defaultText;
+						if (lastSelected) {
+							showEditField(lastSelected);
+						}
+					}
+				}
 			});
 		}, false);
 
