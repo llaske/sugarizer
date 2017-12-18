@@ -43,7 +43,7 @@ define(["webL10n",
         }
         bus.onNotification("activity.stop", sendStopEvent);
 
-        datastoreObject = new datastore.DatastoreObject('pomodoro');
+        datastoreObject = new datastore.DatastoreObject();
 
         var activityButton = document.getElementById("activity-button");
 
