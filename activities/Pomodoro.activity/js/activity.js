@@ -39,9 +39,8 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     progressLeftAt: false
   };
   datastore.loadAsText(function (err, metadata, data) {
-    if (err) console.log(err)
+    if (err) console.error(err)
     if (data) {
-      console.log(data.state)
       _this.state = data.state;
     }
     afterDataLoad()
@@ -53,12 +52,10 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
       : startBreak();
 
     renderPomodoroText();
-    console.log(this.state.status)
     renderStatusText(l10n.get(this.state.status));
     var pomodoroContainer = document.getElementById('pomodoro-container');
     this.pomodoro = new Progress(280, color.stroke, this.state.progress, pomodoroContainer);
     this.pomodoro.draw();
-    console.log(this.pomodoro)
     this.state.status === 'work'
       ? renderTheme(color.stroke)
       : renderTheme(color.fill);
@@ -107,7 +104,6 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
 
   this.handlePausePlay = function () {
     var playPauseButton = document.getElementById('play-button');
-    console.log(this.state.status)
     if (this.state.status === 'work') {
       if (this.workTimer.state === 1) {
         //if timer is running
@@ -142,12 +138,12 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     var timerInMS = (this.state.timerLeftAt === false)
       ? (this.state.workTimerLimit * 60 * 1000)
       : this.state.timerLeftAt
+
     this.workTimer = new Stopwatch(timerInMS);
     this.state.status = 'work';
     const progressToStart = (this.state.progressLeftAt === false)
       ? 1
       : this.state.progressLeftAt
-    console.log(progressToStart)
     this.workTimer.onTime(function (time) {
       var progress = mapRange({
         from: [timerInMS, 0],
@@ -234,7 +230,6 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     this.state.themeColor = themeColor;
     document.querySelector('.info-circle').style.backgroundColor = themeColor;
     document.querySelector('.base-circle').style.backgroundColor = themeColor + '2b';
-    console.dir(this.pomodoro)
     this.pomodoro.updateColor(themeColor, this.state.progress);
     renderButtons();
   }
@@ -319,6 +314,12 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     }
   };
 
+  function resetTimer() {
+    setProgress(1, this.state.workTimerLimit * 60 * 1000)
+    this.state.timerLeftAt = false
+    this.state.progressLeftAt = false
+  }
+
   function initTimerText() {
     document.querySelector('.button-time.work').innerText = this.state.workTimerLimit;
     document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit;
@@ -333,22 +334,37 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     _this.handlePausePlay();
   });
   document.querySelector('#replay-button').addEventListener('click', function () {
-    var shouldPlay = _this.breakTimer ? _this.workTimer.state === 1 || _this.breakTimer.state === 1 : _this.workTimer.state === 1;
-    if (_this.state.status === 'break') {
-      _this.breakTimer.stop();
-      renderTheme(color.stroke);
-      renderStatusText(l10n.get('work'));
-      startWork();
-      if (shouldPlay) {
-        _this.workTimer.start();
-      }
-    }
-    if (shouldPlay) {
-      _this.handlePausePlay();
-      updateWorkPomodoro();
-      _this.handlePausePlay();
+    var shouldPlay
+    if (_this.workTimer && _this.breakTimer) {
+      shouldPlay = _this.workTimer.state === 1 || _this.breakTimer.state === 1
+    } else if (_this.workTimer) {
+      shouldPlay = _this.workTimer.state === 1
     } else {
-      updateBreakPomodoro();
+      shouldPlay = _this.breakTimer.state === 1
     }
-  });
+
+    if (shouldPlay) {
+      this.handlePausePlay()
+    }
+    resetTimer()
+    startWork()
+    if (_this.breakTimer) {
+      _this.breakTimer.stop();
+    }
+    renderTheme(color.stroke)
+    renderStatusText(l10n.get('work'));
+    _this.pomodoro.update(1)
+
+    // if (shouldPlay) {
+    //   _this.workTimer.start()
+    // }
+    // if (shouldPlay) {
+    //   _this.handlePausePlay()
+    //   updateWorkPomodoro()
+    //   _this.handlePausePlay()
+    // } else {
+    //   _this.handlePausePlay()
+    //   updateWorkPomodoro()
+    // }
+  }.bind(this));
 }
