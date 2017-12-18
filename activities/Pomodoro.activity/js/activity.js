@@ -306,7 +306,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   };
 
   this.handleBreakMinusClick = function () {
-    if (!this.state.isButtonsDisable) {
+    if (!this.state.isButtonsDisable && this.state.breakTimerLimit > 1) {
       this.state.timerLeftAt = false
       this.state.progressLeftAt = false
       this.state.breakTimerLimit = this.state.breakTimerLimit - 1;
