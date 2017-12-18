@@ -43,6 +43,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     if (data) {
       _this.state = data.state;
     }
+    enableButtons()
     afterDataLoad()
   });
   // this.state.progress = 1
