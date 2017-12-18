@@ -281,37 +281,37 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
 
   this.handleWorkPlusClick = function () {
     if (!this.state.isButtonsDisable) {
-      this.state.timerLeftAt = false
-      this.state.progressLeftAt = false
       this.state.workTimerLimit = this.state.workTimerLimit + 1;
+      resetTimer()
       updateWorkPomodoro();
+      saveInDataStore()
     }
   };
 
   this.handleWorkMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.workTimerLimit > 1) {
-      this.state.timerLeftAt = false
-      this.state.progressLeftAt = false
       this.state.workTimerLimit = this.state.workTimerLimit - 1;
+      resetTimer()
       updateWorkPomodoro();
+      saveInDataStore()
     }
   };
 
   this.handleBreakPlusClick = function () {
     if (!this.state.isButtonsDisable) {
-      this.state.timerLeftAt = false
-      this.state.progressLeftAt = false
       this.state.breakTimerLimit = this.state.breakTimerLimit + 1;
+      resetTimer()
       updateBreakPomodoro();
+      saveInDataStore()
     }
   };
 
   this.handleBreakMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.breakTimerLimit > 1) {
-      this.state.timerLeftAt = false
-      this.state.progressLeftAt = false
       this.state.breakTimerLimit = this.state.breakTimerLimit - 1;
+      resetTimer()
       updateBreakPomodoro();
+      saveInDataStore()
     }
   };
 
