@@ -354,17 +354,5 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     renderTheme(color.stroke)
     renderStatusText(l10n.get('work'));
     _this.pomodoro.update(1)
-
-    // if (shouldPlay) {
-    //   _this.workTimer.start()
-    // }
-    // if (shouldPlay) {
-    //   _this.handlePausePlay()
-    //   updateWorkPomodoro()
-    //   _this.handlePausePlay()
-    // } else {
-    //   _this.handlePausePlay()
-    //   updateWorkPomodoro()
-    // }
   }.bind(this));
 }
