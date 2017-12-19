@@ -107,6 +107,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
+				alert('QRCode was saved to journal!')
 				console.log("export done.")
 			}, inputData);
 		});
