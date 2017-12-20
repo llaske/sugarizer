@@ -1,6 +1,6 @@
 
 
-define(["sugar-web/activity/activity","sugar-web/datastore", "webL10n"], function (activity, datastore, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n"], function (activity, datastore, env, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!', 'humane'], function (doc, humane) {
@@ -9,6 +9,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "webL10n"], functio
 		activity.setup();
 		var isMobile = (/Android/i.test(navigator.userAgent) || /iPad/i.test(navigator.userAgent) || /iPhone/i.test(navigator.userAgent)) && document.location.protocol.substr(0,4) != "http";
 		var currentCamera = 0;
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 
 		// Compute size of QR Code
 		var headerSize = 55 + 40;
@@ -107,7 +112,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "webL10n"], functio
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
-				humane.log(l10n_s.get('QRCodeSaved'))
+				humane.log(webL10n.get('QRCodeSaved'))
 				console.log("export done.")
 			}, inputData);
 		});
