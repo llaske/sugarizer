@@ -1,6 +1,6 @@
 
 
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","sugar-web/datastore", "webL10n"], function (activity, datastore, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!', 'humane'], function (doc, humane) {
@@ -107,7 +107,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
-				humane.log('QRCode was saved to journal!')
+				humane.log(l10n_s.get('QRCodeSaved'))
 				console.log("export done.")
 			}, inputData);
 		});
