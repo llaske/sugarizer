@@ -69,10 +69,15 @@ define(function () {
     };
 
     env.isStandalone = function () {
-        var webActivityHost = "0.0.0.0";
-        var currentHost = env.getHost();
+		var webActivityURLScheme = "activity:";
+        var fileURLScheme = "file:";
+        var currentURLScheme = env.getURLScheme();
 
-        return currentHost !== webActivityHost;
+        // the control of hostname !== '0.0.0.0' is used
+        // for compatibility with F18 and webkit1
+        return currentURLScheme !== webActivityURLScheme &&
+			currentURLScheme !== fileURLScheme &&
+			window.location.hostname !== '0.0.0.0';
     };
 
     env.isSugarizer = function() {
