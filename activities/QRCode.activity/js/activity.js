@@ -226,11 +226,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 
 		// Initialize code
 		generateCode(userSettings.name);
-		activity.getDatastoreObject().getMetadata(function(error, mdata) {
-			console.log("datastore check");
-			var d = new Date().getTime();
-			if (Math.abs(d-mdata.creation_time) < 2000) {
-				console.log("Time too short");
+		env.getEnvironment(function(err, environment) {
+			if (!environment.objectId) {
+				console.log("New instance");
 			} else {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 					if (error==null && data!=null) {
