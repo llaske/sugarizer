@@ -99,6 +99,7 @@ define(function (require) {
 	SugarPresence.prototype.joinNetwork = function(callback) {
 		// Check WebSocket support
 		if (!window.WebSocket){
+			that.socket = null;
 			console.log('WebSocket not supported');
 			callback({code: -1}, presence);
 		}
@@ -124,6 +125,12 @@ define(function (require) {
 			}
 
 			// Connect to server
+			if (!server) {
+				that.socket = null;
+				console.log('No server available');
+				callback({code: -2}, presence);
+				return;
+			}
 			that.socket = new WebSocket((secure ? 'wss://' : 'ws://')+server+':'+port);
 			that.socket.onerror = function(error) {
 				console.log('WebSocket Error: ' + error);

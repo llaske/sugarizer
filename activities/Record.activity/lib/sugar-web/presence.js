@@ -9,6 +9,7 @@ define(function (require) {
 	var msgOnConnectionClosed = 6;
 	var msgOnSharedActivityUserChanged = 7;
 	var msgSendMessage = 8;
+	var msgListSharedActivityUsers = 9;
 
 	// Array for callbacks on each type
     var callbackArray = [];
@@ -29,9 +30,11 @@ define(function (require) {
 		var onConnectionClosed = emptyCallback;
 		var onSharedActivityUserChanged = emptyCallback;
 		var receivedDataCallback = emptyCallback;
+		var listSharedActivityUsersCallback = emptyCallback;
 		callbackArray = [emptyCallback, listUsersCallback, createSharedActivityCallback,
 			listSharedActivityCallback, joinSharedActivity, leaveSharedActivity,
-			onConnectionClosed, onSharedActivityUserChanged, receivedDataCallback
+			onConnectionClosed, onSharedActivityUserChanged, receivedDataCallback,
+			listSharedActivityUsersCallback
 		];
 		this.socket = null;
 
@@ -93,9 +96,10 @@ define(function (require) {
 	}
 
 	// Join network function
-    SugarPresence.prototype.joinNetwork = function(callback) {
+	SugarPresence.prototype.joinNetwork = function(callback) {
 		// Check WebSocket support
 		if (!window.WebSocket){
+			that.socket = null;
 			console.log('WebSocket not supported');
 			callback({code: -1}, presence);
 		}
@@ -121,6 +125,12 @@ define(function (require) {
 			}
 
 			// Connect to server
+			if (!server) {
+				that.socket = null;
+				console.log('No server available');
+				callback({code: -2}, presence);
+				return;
+			}
 			that.socket = new WebSocket((secure ? 'wss://' : 'ws://')+server+':'+port);
 			that.socket.onerror = function(error) {
 				console.log('WebSocket Error: ' + error);
@@ -146,85 +156,105 @@ define(function (require) {
 				callbackArray[msgOnConnectionClosed](event);
 			};
 		});
-    }
+	}
 
 	// Leave network
-    SugarPresence.prototype.leaveNetwork = function() {
+	SugarPresence.prototype.leaveNetwork = function() {
 		if (!this.isConnected())
 			return;
-        this.socket.close();
+		this.socket.close();
 		this.socket = null;
-    }
+	}
 
 	// List all users. Will receive an array of users.
-    SugarPresence.prototype.listUsers = function(callback) {
+	SugarPresence.prototype.listUsers = function(callback) {
 		if (!this.isConnected())
 			return;
 
 		// Register call back
-        callbackArray[msgListUsers] = callback;
+		callbackArray[msgListUsers] = callback;
 
 		// Send list user message
-        var sjson = JSON.stringify({
-            type: msgListUsers
-        });
-        this.socket.send(sjson);
-    }
+		var sjson = JSON.stringify({
+			type: msgListUsers
+		});
+		this.socket.send(sjson);
+	}
 
-	// Create a shared activity. Will receive a unique group id.
-    SugarPresence.prototype.createSharedActivity = function(activityId, callback) {
+	// List users connected to a group. Will receive an array of users.
+	SugarPresence.prototype.listSharedActivityUsers = function(group, callback) {
 		if (!this.isConnected())
 			return;
 
 		// Register call back
 		var that = this;
-        callbackArray[msgCreateSharedActivity] = function(data) {
+		callbackArray[msgListSharedActivityUsers] = function(data) {
+			that.sharedInfo = { id: data };
+			callback(data);
+		}
+
+		// Send list user message
+		var sjson = JSON.stringify({
+			type: msgListSharedActivityUsers,
+			group: group
+		});
+		this.socket.send(sjson);
+	}
+
+	// Create a shared activity. Will receive a unique group id.
+	SugarPresence.prototype.createSharedActivity = function(activityId, callback) {
+		if (!this.isConnected())
+			return;
+
+		// Register call back
+		var that = this;
+		callbackArray[msgCreateSharedActivity] = function(data) {
 			that.sharedInfo = { id: data };
 			callback(data);
 		}
 
 		// Send create shared activity message
-        var sjson = JSON.stringify({
-            type: msgCreateSharedActivity,
+		var sjson = JSON.stringify({
+			type: msgCreateSharedActivity,
 			activityId: activityId
-        });
-        this.socket.send(sjson);
-    }
+		});
+		this.socket.send(sjson);
+	}
 
 	// List all shared activities. Will receive an array of each shared activities and users connected
-    SugarPresence.prototype.listSharedActivities = function(callback) {
+	SugarPresence.prototype.listSharedActivities = function(callback) {
 		if (!this.isConnected())
 			return;
 
 		// Register call back
-        callbackArray[msgListSharedActivities] = callback;
+		callbackArray[msgListSharedActivities] = callback;
 
 		// Send list shared activities message
-        var sjson = JSON.stringify({
-            type: msgListSharedActivities
-        });
-        this.socket.send(sjson);
-    }
+		var sjson = JSON.stringify({
+			type: msgListSharedActivities
+		});
+		this.socket.send(sjson);
+	}
 
 	// Join a shared activity. Will receive group properties or null
-    SugarPresence.prototype.joinSharedActivity = function(group, callback) {
+	SugarPresence.prototype.joinSharedActivity = function(group, callback) {
 		if (!this.isConnected())
 			return;
 
 		// Register call back
 		var that = this;
-        callbackArray[msgJoinSharedActivity] =  function(data) {
+		callbackArray[msgJoinSharedActivity] =  function(data) {
 			that.sharedInfo = data;
 			callback(data);
 		}
 
 		// Send join shared activity message
-        var sjson = JSON.stringify({
-            type: msgJoinSharedActivity,
+		var sjson = JSON.stringify({
+			type: msgJoinSharedActivity,
 			group: group
-        });
-        this.socket.send(sjson);
-    }
+		});
+		this.socket.send(sjson);
+	}
 
 	// Leave shared activities
     SugarPresence.prototype.leaveSharedActivity = function(group, callback) {
@@ -232,20 +262,20 @@ define(function (require) {
 			return;
 
 		// Register call back
-        callbackArray[msgLeaveSharedActivity] = callback; // BUG: This callback is never called
+		callbackArray[msgLeaveSharedActivity] = callback; // BUG: This callback is never called
 
 		// Send leave shared activity message
-        var sjson = JSON.stringify({
-            type: msgLeaveSharedActivity,
+		var sjson = JSON.stringify({
+			type: msgLeaveSharedActivity,
 			group: group
-        });
-        this.socket.send(sjson);
-    }
+		});
+		this.socket.send(sjson);
+	}
 
 	// Register connection closed event
-    SugarPresence.prototype.onConnectionClosed = function(callback) {
-        callbackArray[msgOnConnectionClosed] = callback;
-    }
+	SugarPresence.prototype.onConnectionClosed = function(callback) {
+		callbackArray[msgOnConnectionClosed] = callback;
+	}
 
 	// Register shared activity user changed event
 	SugarPresence.prototype.onSharedActivityUserChanged = function(callback) {
@@ -253,21 +283,21 @@ define(function (require) {
 	}
 
 	// Send message to a group
-    SugarPresence.prototype.sendMessage = function(group, data) {;
+	SugarPresence.prototype.sendMessage = function(group, data) {;
 		if (!this.isConnected())
 			return;
 		var sjson = JSON.stringify({
-            type: msgSendMessage,
+			type: msgSendMessage,
 			group: group,
-            data: data
-        });
-        this.socket.send(sjson);
-    }
+			data: data
+		});
+		this.socket.send(sjson);
+	}
 
 	// Register data received message
-    SugarPresence.prototype.onDataReceived = function(callback) {
-        callbackArray[msgSendMessage] = callback;
-    }
+	SugarPresence.prototype.onDataReceived = function(callback) {
+		callbackArray[msgSendMessage] = callback;
+	}
 
 	return presence;
 });
