@@ -94,8 +94,8 @@ input {
 }
 
 .search-field-border {
-	border-radius: 22px;
-	top: 5px;
+	border-radius: 5px;
+	top: 8px;
 	width: 350px;
 	height: 35px;
 	display: inline-block;
@@ -117,8 +117,8 @@ input {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 20px 20px;
-	top: 5px;
-	left: 2px;
+	top: 8px;
+  left: 11px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
@@ -139,15 +139,15 @@ input {
 
 .search-field-input {
 	opacity: 1;
-	margin-left: 30px;
-	margin-top: 5px;
-	border: 0px;
-	display: inline-block;
-	background-color: #e5e5e5;
-	width: 270px;
-	line-height: 22px;
-	outline: 0;
-	font-size: 10pt;
+  margin-left: 35px;
+  margin-top: 1px;
+  border: 0px;
+  display: inline-block;
+  background-color: #e5e5e5;
+  width: 88%;
+  line-height: 30px;
+  outline: 0;
+  font-size: 10pt;
 }
 
 .search-field-input:focus {
