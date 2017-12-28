@@ -34,4 +34,6 @@
 	{"id": "org.squeak.EtoysActivity", "name": "Etoys", "version": 2, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
 	{"id": "io.cordova.all_in_one_plugin_sample", "name": "Cordova", "version": 1, "directory": "activities/Cordova.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
+	
+	{"id": "org.sugarhelper.helperActivity", "name": "sugarhelper", "version": 1, "directory": "activities/sugarHelper.activity", "icon": "activity/activity-icon.svg", "favourite": false, "activityId": null}
 ]
