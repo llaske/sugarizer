@@ -127,130 +127,21 @@ Note than:
 
 # Create your own activity
 
-With Sugarizer, it's easy to create your own activity with a bunch of HTML and JavaScript. Here's the step to follow.
+With Sugarizer, it's easy to create an activity with a bunch of HTML and JavaScript. 
 
-See a video tutorial [here](https://youtu.be/31CCAYy0pLE).
+![](images/tutorial_teaser.png)
 
-### Create the activity from the template
+If you're interested to create your own activity, a full tutorial will guide you between all development steps:
 
-First, copy all content of [activities/ActivityTemplate](activities/ActivityTemplate) directory in a new directory for example `activities/MyActivity.activity`.
+* **Step 1**: create the activity from a template
+* **Step 2**: customize icon and content
+* **Step 3**: add a toolbar icon
+* **Step 4**: handle journal and datastore
+* **Step 5**: localize the activity
+* **Step 6**: handle multi-user with presence
 
-### Customize the activity
+Let's start [here](docs/tutorial.md).
 
-Then customize the activity. Choose a name for your activity. Write it in the activity name and bundle_id properties in `activity/activity.info` of the new directory.
-
-	[Activity]
-	name = My Activity
-	activity_version = 1
-	bundle_id = org.sugarlabs.MyActivity
-	exec = sugar-activity-web
-	icon = activity-icon
-
-Change also the title tag of `index.html`.
-
-	<!DOCTYPE html>
-	<html>
-
-	<head>
-	<meta charset="utf-8" />
-	<title>My Activity</title>
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
-	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
-		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
-	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
-		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
-	<link rel="stylesheet" href="css/activity.css">
-	<script data-main="js/loader" src="lib/require.js"></script>
-	</head>
-
-Update the file [activities.json](activities.json)  of the Sugarizer directory: add a new line for your activity. Update id, name and directory values on this new line.
-
-	[
-		{"id": "org.sugarlabs.MyActivity", "name": "My Activity", "version": 1, "directory": "activities/MyActivity.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-		{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-		{"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-
-Now run Sugarizer, you should see the icon of your new activity. Let's run it!
-
-### File structure
-
-In your new activity, you will find the following file structure:
-
-    my-activity/
-    |-- activity/
-    |   |-- activity.info
-    |   `-- activity-icon.svg
-    |-- index.html
-    |-- css/
-    |   `-- activity.css
-    |-- js/
-    |   |-- activity.js
-    |   `-- loader.js
-    |-- lib/
-    |-- package.json
-    `-- setup.py
-
-* `activity/` contains information about your activity, including the name, ID, and the icon.
-* `index.html` is where the elements that compose your activity are defined.  The template comes with a toolbar and a canvas where you can place your content.
-* `js/activity.js` is where the logic of your activity lives.
-* `css/activity.css` is where you add the styling of your activity.
-
-Those are the files you'll modify in most cases. The others are:
-
-* `js/loader.js` configures the libraries paths and loads your   `js/activity.js`
-* `lib/` contains the libraries
-* `package.json` contains information about the libraries the activity depends on
-* `setup.py` is used if you want to run your activity in Sugar.
-
-Now you are ready to go ahead and develop your activity in the HTML, JavaScript and CSS files.
-
-### Adding a button to the toolbar
-
-This simple example will show you how web activities are structured as bits of HTML, CSS and JavaScript.
-
-You will need an SVG graphic for the button.  Or you can use one from the Sugar icon set at `lib/sugar-web/graphics/icons/`.  For this example, let's say you have one custom icon called `my-button.svg`.
-Create a directory `icons/` inside your activity and place the SVG
-file inside.  Then do the following steps.
-
-In `index.html`, add a new &lt;button&gt; element inside the toolbar:
-
-    <button class="toolbutton" id="my-button" title="My Button"></button>
-
-In `css/activity.css`, define the button style:
-
-    #main-toolbar #my-button {
-        background-image: url(../icons/my-button.svg);
-    }
-
-In `js/activity.js`, add a callback for the button:
-
-    var myButton = document.getElementById("my-button");
-    myButton.onclick = function () {
-        console.log("You clicked me!");
-    }
-
-### Adding HTML content dynamically
-
-Soon you will find that adding content to the HTML as we did with the toolbar button in the previous section, is very limited.  You'll want to add HTML elements on the fly, as the user interacts with the activity, or as the data structures of your activity logic change.
-There are several options to archive this.  Most of the time you'll end using a mix of them, so is important to know them all.
-
-First, it is possible to create HTML elements and append them to other HTML elements using JavaScript.  This is called "manipulating the DOM".
-
-Add this in `js/activity.js`:
-
-    var canvas = document.getElementById("canvas");
-    canvas.innerHTML +=
-        '<ul id="names-list">' +
-          '<li class="name">Tom</li>' +
-          '<li class="name">Chris</li>' +
-          '<li class="name">Donald</li>' +
-        '</ul>';
-
-Run again your new activity, you will see then change.
-
-That's all, it's your turn now to transform this activity in something fun!
-
-See [Sugar Web Samples](http://sugarlabs.github.io/sugar-web-samples/) for more samples using the Sugar unique UI.
 
 # Unit testing
 
