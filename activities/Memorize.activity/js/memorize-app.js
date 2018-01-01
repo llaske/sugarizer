@@ -473,7 +473,12 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             t.style.webkitTransform = "rotateY(180deg)";
             t.style.transform = "rotateY(180deg)";
 
-            MemorizeApp.game.selectedCards.push(t);
+            if(MemorizeApp.game.selectedCards.length == 1 && MemorizeApp.game.selectedCards[0] == t){
+                return;
+            }
+            else{
+                MemorizeApp.game.selectedCards.push(t);
+            }
 
             if (t.card.sound) {
                 if (t.card.sound.indexOf(INLINE_RES) == 0) {
