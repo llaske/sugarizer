@@ -1,7 +1,6 @@
 html {
   height: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  overflow-y: hidden;
 }
 body {
   position: relative;
@@ -148,13 +147,47 @@ button.icon span {
   top: 2px;
   left: 2px;
 }
-
+/* One line text input */
+input[type='text'] {
+  width: 165px;
+  padding: 4px;
+  line-height: 22px;
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+  border-radius: 22px;
+  outline: 0;
+}
+input[type='text']:focus {
+  background-color: white;
+}
+input[type='text']:disabled {
+  background-color: #808080;
+  border-color: #808080;
+}
+.toolbar input[type='text'],
+.palette .row input[type='text'] {
+  margin-top: 10.5px;
+}
+.palette .row input[type='text']:nth-last-child(1) {
+  margin-top: 8.5px;
+}
+input[type='text'].expand {
+  width: calc(100% - 12px);
+}
+/* One line text input with buttons inside */
 .icon-input {
   position: relative;
   display: inline-block;
 }
+.icon-input input[type='text'] {
+  width: 135px;
+  padding-right: 34px;
+}
 .icon-input.expand {
   width: 100%;
+}
+.icon-input.expand input[type='text'] {
+  width: calc(100% - 42px);
 }
 .icon-input button {
   position: absolute;
@@ -421,4 +454,4 @@ ul.flat-list.striped li:nth-child(odd) {
 }
 *:focus {
   outline: 0;
-}
+ }

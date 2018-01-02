@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], function (activity, datastore, env) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!'], function (doc) {
@@ -6,30 +6,33 @@ define(["sugar-web/activity/activity", "sugar-web/datastore"], function (activit
 		// Initialize the activity.
 		activity.setup();
 
-				var stopButton = document.getElementById("stop-button");
-				stopButton.addEventListener('click', function (event) {
-					for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
-						if (document.getElementsByTagName("span")[i].innerHTML == "Save"){
-							document.getElementsByTagName("span")[i].click();
-							console.log("Saved successfully");
-						}
-						else{
-							console.log("Unable to save");
-						}
-					}
-					console.log("writing...");
-					var data = document.getElementById("myBlocks").value;
-					console.log(data);
-					var jsonData = JSON.stringify(data);
-					activity.getDatastoreObject().setDataAsText(jsonData);
-					activity.getDatastoreObject().save(function (error) {
-						if (error === null) {
-							console.log("write done.");
-						} else {
-							console.log("write failed.");
-						}
-					});
-				});
+		var stopButton = document.getElementById("stop-button");
+		stopButton.addEventListener('click', function (event) {
+			for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
+				if (document.getElementsByTagName("span")[i].innerHTML == "Save"){
+					document.getElementsByTagName("span")[i].click();
+					console.log("Saved successfully");
+				}
+				else{
+					console.log("Unable to save");
+				}
+			}
+			console.log("writing...");
+			var data = document.getElementById("myBlocks").value;
+			console.log(data);
+			var jsonData = JSON.stringify(data);
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
+		});
+
+		env.getEnvironment(function(err, environment) {
+			if (environment.objectId) {
 				activity.getDatastoreObject().getMetadata(function(error, mdata){
 					console.log("datastore check");
 					var d = new Date().getTime();
@@ -55,5 +58,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore"], function (activit
 						});
 					}
 				});
+			}
+		});
 	});
 });

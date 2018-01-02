@@ -27,3 +27,12 @@
     margin-top: 8.5px;
     font: 400 11px system-ui;
 }
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;	
+}
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
