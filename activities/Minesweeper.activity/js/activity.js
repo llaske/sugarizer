@@ -6,46 +6,93 @@ define(["sugar-web/activity/activity"], function (activity) {
 		// Initialize the activity.
 		activity.setup();
 
-document.getElementsByClassName("difficulty")[0].addEventListener("click", startgame);
-document.getElementsByClassName("difficulty")[1].addEventListener("click", startgame);
-document.getElementsByClassName("difficulty")[2].addEventListener("click", startgame);
+document.getElementsByClassName("difficulty")[0].classList.add("active");
+document.getElementsByClassName("size")[0].classList.add("active");
+startgame();
+
+for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
+	
+	document.getElementsByClassName("difficulty")[i].addEventListener("click", function(){
+		for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
+			if(document.getElementsByClassName("difficulty")[i].classList.contains("active")){
+				document.getElementsByClassName("difficulty")[i].classList.remove("active");
+			}
+		}
+		this.classList.add("active");
+	});	
+	
+	document.getElementsByClassName("difficulty")[i].addEventListener("click", startgame);	
+}
+
+for(i=0;i<document.getElementsByClassName("size").length;i++){
+
+	document.getElementsByClassName("size")[i].addEventListener("click", function(){
+		for(i=0;i<document.getElementsByClassName("size").length;i++){
+			if(document.getElementsByClassName("size")[i].classList.contains("active")){
+				document.getElementsByClassName("size")[i].classList.remove("active");
+			}
+		}
+		this.classList.add("active");
+	});	
+	
+	document.getElementsByClassName("size")[i].addEventListener("click", startgame);	
+}
 
 document.getElementsByClassName("smiley")[0].addEventListener("click", startgame);
+
 function startgame(e){
 	if(!e) e = window.event;
 
-	for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
-		if(document.getElementsByClassName("difficulty")[i].classList.contains("selected")){
-			document.getElementsByClassName("difficulty")[i].classList.remove("selected");
-		}
-	}
-
 	document.getElementsByClassName("smiley")[0].innerHTML = "<img src = './icons/smile-emoji.png'>";
-	switch(e.target.classList[1]){
-		case "easy": rows = 15;
-			cols = 15;
+
+	var diff;// 0 -> easy; 1 -> medium; 2 -> hard
+	for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
+		if(document.getElementsByClassName("difficulty")[i].classList.contains("active")) diff = i;
+	}
+	
+	var size;// 0 -> small; 1 -> medium; 2 -> large
+	for(i=0;i<document.getElementsByClassName("size").length;i++){
+		if(document.getElementsByClassName("size")[i].classList.contains("active")) size = i;
+	}
+
+	switch(diff){
+		case 0: bombs = 20;
+			break;
+
+		case 1: bombs = 30;
+			break;
+
+		case 2: bombs = 50;
+			break;
+
+		default: rows = 13;
+			cols = 25;
 			bombs = 20;
-			document.getElementsByClassName("difficulty")[0].classList.add("selected");
-			break;
-
-		case "medium": rows = 15;
-			cols = 15;
-			bombs = 30;
-			document.getElementsByClassName("difficulty")[1].classList.add("selected");
-			break;
-
-		case "difficult": rows = 15;
-			cols = 15;
-			bombs = 50;
-			document.getElementsByClassName("difficulty")[2].classList.add("selected");
-			break;
-
-		default: rows = 15;
-			cols = 15;
-			bombs = 20;
-			document.getElementsByClassName("difficulty")[0].classList.add("selected");
+			document.getElementsByClassName("difficulty")[0].classList.add("active");
 			break;
 	}
+
+	switch(size){
+		case 0: rows = 13;
+			cols = 15;
+			break;
+
+		case 1: rows = 13;
+			cols = 20;
+			break;
+
+		case 2: rows = 13;
+			cols = 25;
+			break;
+
+		default: rows = 13;
+			cols = 25;
+			bombs = 20;
+			document.getElementsByClassName("difficulty")[0].classList.add("active");
+			break;
+	}
+
+
 	var table = document.getElementsByTagName("table")[0];
 
 	table.innerHTML = "";

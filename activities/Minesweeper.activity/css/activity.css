@@ -7,6 +7,30 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #easy-button {
+  background-image: url(../icons/easy.svg);
+}
+
+#main-toolbar #medium-button {
+  background-image: url(../icons/medium.svg);
+}
+
+#main-toolbar #hard-button {
+  background-image: url(../icons/hard.svg);
+}
+
+#main-toolbar #small-size-button {
+  background-image: url(../icons/small-size.svg);
+}
+
+#main-toolbar #medium-size-button {
+  background-image: url(../icons/med-size.svg);
+}
+
+#main-toolbar #large-size-button {
+  background-image: url(../icons/large-size.svg);
+}
+
 .diff-container{
 	display:flex;
 	flex-direction: row;
@@ -28,17 +52,9 @@
 	font-weight: bold;
 }
 
-.difficulty:hover{
-	cursor: pointer;
-}
-
-.selected{
-	background: #ff7420;
-}
-
 .smiley{
-	height:4vh;
-	width:4vh;
+	height:6vh;
+	width:6vh;
 	/*background: url('../icons/smile-emoji.png');*/
 	background-color: #808080;
 	background-size:cover;
@@ -54,8 +70,8 @@
 }
 
 .smiley > img{
-	height:3.5vh;
-	width:3.5vh;
+	height:4.5vh;
+	width:4.5vh;
 }
 
 .dead-emoji{
@@ -80,8 +96,8 @@ button{
 }
 
 td{	
-	height:4vh;
-	width:4vh;
+	height:6vh;
+	width:6vh;
 	background:#808080;
 	border:2px outset white;
 	color:rgba(0,0,0,0);
@@ -94,8 +110,8 @@ td:active{
 }
 
 td > img{
-	height:3vh;
-	width:3vh;
+	height:4vh;
+	width:4vh;
 }
 
 .open{
