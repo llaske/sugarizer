@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string"], function (SampleRessources, templatePalette, sizePalette, lzString) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser"], function (SampleRessources, templatePalette, sizePalette, lzString, chooser) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -1044,9 +1044,10 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             div.style.marginRight = "20px";
             div.style.marginTop = "7px";
 
-            var addButton = document.createElement("div");
+             var addButton = document.createElement("div");
             var updateButton = document.createElement("div");
             var deleteButton = document.createElement("div");
+            var insertImageButton = document.createElement("div");
 
             var buttonSize = parseInt((minSize / 3.5) / 5) + "px";
 
@@ -1085,6 +1086,52 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 MemorizeApp.editor.card2 = {};
                 MemorizeApp.game.template.cards.push(cards);
                 MemorizeApp.editor.selectedPair = -1;
+                saveGame();
+                displayEditor();
+            });
+
+            insertImageButton.style.padding = "5px";
+            insertImageButton.style.userSelect = "none";
+            insertImageButton.style.webkitUserSelect = "none";
+            insertImageButton.style.mozUserSelect = "none";
+            insertImageButton.innerHTML = "<img style='height:" + buttonSize + "; width:" + buttonSize + ";' src='icons/pair-update.svg'><br/>" + MemorizeApp.strings.update;
+            insertImageButton.onmouseover = function () {
+                this.style.background = "#888";
+            };
+            insertImageButton.onmouseout = function () {
+                this.style.background = "transparent";
+            };
+            insertImageButton.addEventListener("click", function () {
+                chooser.show(function(entry) {
+                // No selection
+                if (!entry) {
+                    return;
+                }
+
+                // Get object content
+                var dataentry = new datastore.DatastoreObject(entry.objectId);
+                dataentry.loadAsText(function(err, metadata, text) {
+                    //We load the drawing inside an image element
+                    var element = document.createElement('img');
+                    element.src = text;
+                    element.onload = function() {
+                        
+                        
+                    }
+
+    });
+        }, {mimetype: 'image/png'}, {mimetype: 'image/jpeg'});
+
+
+
+
+
+
+                cards = JSON.parse(JSON.stringify(cards));
+
+                if (MemorizeApp.editor.selectedPair > -1) {
+                    MemorizeApp.game.template.cards[MemorizeApp.editor.selectedPair] = cards
+                }
                 saveGame();
                 displayEditor();
             });
@@ -1154,6 +1201,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             div.appendChild(addButton);
             div.appendChild(updateButton);
             div.appendChild(deleteButton);
+            div.appendChild(insertImageButton);
 
             return div;
         }
