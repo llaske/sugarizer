@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 					'activities/Cordova.Activity/**/*.js',
 					'activities/Etoys.Activity/**/*.js',
 					'activities/FoodChain.Activity/**/*.js',
+					'activities/GameOfLife.Activity/**/*.js',
 					'activities/Gears.Activity/js/*.js', // TODO: lib/gearsketch dont work
 					'activities/GetThingsDone.Activity/**/*.js',
 					'activities/Gridpaint.Activity/**/*.js',
