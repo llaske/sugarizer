@@ -58,3 +58,7 @@ canvas {
   font-size: 72px;
   font-weight: 800;
 }
+
+#activity-palette {
+  z-index: 30;
+}
