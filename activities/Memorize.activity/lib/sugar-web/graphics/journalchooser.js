@@ -1,7 +1,6 @@
 // Journal object chooser dialog
 /* Start of the app, we require everything that is needed */
-define(function (require) {
-    require(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache'], function(picoModal,datastore,icon,mustache) {
+    define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache'], function(picoModal,datastore,icon,mustache) {
 
 	var chooser = {};
 
@@ -310,5 +309,4 @@ define(function (require) {
 	}
 
 	return chooser;
-});
 });

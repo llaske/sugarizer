@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser"], function (SampleRessources, templatePalette, sizePalette, lzString, chooser) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser",'sugar-web/datastore'], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -167,7 +167,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         };
 
         var MemorizeApp = {
-            strings: {add: "Add", update: "Update", remove: "Remove"},
+            strings: {add: "Add", update: "Update", remove: "Remove", insertImage: "Image"},
             ui: {},
             templates: [TEMPLATE_SUMS, TEMPLATE_LETTERS, TEMPLATE_SOUNDS],
             isHost: false,
@@ -1044,7 +1044,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             div.style.marginRight = "20px";
             div.style.marginTop = "7px";
 
-             var addButton = document.createElement("div");
+            var addButton = document.createElement("div");
             var updateButton = document.createElement("div");
             var deleteButton = document.createElement("div");
             var insertImageButton = document.createElement("div");
@@ -1094,7 +1094,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             insertImageButton.style.userSelect = "none";
             insertImageButton.style.webkitUserSelect = "none";
             insertImageButton.style.mozUserSelect = "none";
-            insertImageButton.innerHTML = "<img style='height:" + buttonSize + "; width:" + buttonSize + ";' src='icons/pair-update.svg'><br/>" + MemorizeApp.strings.update;
+            insertImageButton.innerHTML = "<img style='height:" + buttonSize + "; width:" + buttonSize + ";' src='icons/pair-update.svg'><br/>" + MemorizeApp.strings.insertImage;
             insertImageButton.onmouseover = function () {
                 this.style.background = "#888";
             };
@@ -1102,6 +1102,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 this.style.background = "transparent";
             };
             insertImageButton.addEventListener("click", function () {
+                var cards = [];
                 chooser.show(function(entry) {
                 // No selection
                 if (!entry) {
@@ -1115,17 +1116,10 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     var element = document.createElement('img');
                     element.src = text;
                     element.onload = function() {
-                        
-                        
+
                     }
-
-    });
-        }, {mimetype: 'image/png'}, {mimetype: 'image/jpeg'});
-
-
-
-
-
+                });
+        },{mimetype: 'image/png'},{mimetype: 'image/jpeg'});
 
                 cards = JSON.parse(JSON.stringify(cards));
 
