@@ -1,0 +1,63 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #solve-button {
+  background-image: url(../icons/help-toolbar.svg);
+}
+
+#main-toolbar #new-game-button {
+  background-image: url(../icons/new-game.svg);
+}
+
+#main-toolbar #size-button {
+  background-image: url(../icons/4x4.svg);
+}
+
+#four-button {
+  background-image: url(../icons/4x4.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#five-button {
+  background-image: url(../icons/5x5.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#six-button {
+  background-image: url(../icons/6x6.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#seven-button {
+  background-image: url(../icons/7x7.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
