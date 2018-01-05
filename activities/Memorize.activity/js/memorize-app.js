@@ -1116,7 +1116,16 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     var element = document.createElement('img');
                     element.src = text;
                     element.onload = function() {
-
+                        document.getElementsByClassName("textCard")[0].style.backgroundImage = "url('"+ element.src +"')";
+                        document.getElementsByClassName("textCard")[0].style.backgroundSize = "100%";
+                        document.getElementsByClassName("textCard")[0].innerText = "";
+                        document.getElementsByClassName("textCard")[1].style.backgroundImage = "url('"+ element.src +"')";
+                        document.getElementsByClassName("textCard")[1].style.backgroundSize = "100%";
+                        document.getElementsByClassName("textCard")[1].innerText = "";
+                        MemorizeApp.editor.card1.image = "url('"+ element.src +"')";
+                        MemorizeApp.editor.card1.text = "";
+                        MemorizeApp.editor.card2.image = "url('"+ element.src +"')";
+                        MemorizeApp.editor.card2.text = "";
                     }
                 });
         },{mimetype: 'image/png'},{mimetype: 'image/jpeg'});
