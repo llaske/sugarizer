@@ -1350,6 +1350,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     element.src = text;
                     element.onload = function () {
                         document.getElementsByClassName("textCard")[0].style.backgroundImage = 'url(' + element.src + ')';
+                        document.getElementsByClassName("textCard")[0].style.backgroundSize = "100%";
                         if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                             MemorizeApp.editor.card1.image = element.src;
                             MemorizeApp.editor.card1.text = "";
@@ -1408,6 +1409,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     element.src = text;
                     element.onload = function () {
                         document.getElementsByClassName("textCard")[1].style.backgroundImage = 'url(' + element.src + ')';
+                        document.getElementsByClassName("textCard")[1].style.backgroundSize = "100%"
                         if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                             MemorizeApp.editor.card1.image = element.src;
                             MemorizeApp.editor.card1.text = "";
