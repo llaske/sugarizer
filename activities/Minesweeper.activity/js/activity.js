@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity","sugar-web/env"], function (activity,env) {
 
 	// Manipulate the DOM only when it is ready.
 	require(['domReady!'], function (doc) {
@@ -6,9 +6,42 @@ define(["sugar-web/activity/activity"], function (activity) {
 		// Initialize the activity.
 		activity.setup();
 
-document.getElementsByClassName("difficulty")[0].classList.add("active");
-document.getElementsByClassName("size")[0].classList.add("active");
-startgame();
+		var isNewBool, memoryGame;
+
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+
+			// Load from datastore
+			if (!environment.objectId) {
+				isNewBool = true;
+				document.getElementsByClassName("difficulty")[0].classList.add("active");
+				document.getElementsByClassName("size")[0].classList.add("active");
+				startgame();
+			} 
+			else {
+				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+					if (error==null && data!=null) {
+						memoryGame = JSON.parse(data);
+						console.log(memoryGame);
+						if(memoryGame != null) {
+							isNewBool = false;
+							document.getElementsByClassName("difficulty")[memoryGame.diff].classList.add("active");
+							document.getElementsByClassName("size")[memoryGame.size].classList.add("active");
+							startgame();
+						}
+						else{
+							isNewBool = true;
+							document.getElementsByClassName("difficulty")[0].classList.add("active");
+							document.getElementsByClassName("size")[0].classList.add("active");
+							startgame();
+						}
+					}
+				});
+			}
+		});	
+
+
+
 
 for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
 	
@@ -21,7 +54,10 @@ for(i=0;i<document.getElementsByClassName("difficulty").length;i++){
 		this.classList.add("active");
 	});	
 	
-	document.getElementsByClassName("difficulty")[i].addEventListener("click", startgame);	
+	document.getElementsByClassName("difficulty")[i].addEventListener("click", function(){
+		isNewBool = true;
+		startgame();
+	});	
 }
 
 for(i=0;i<document.getElementsByClassName("size").length;i++){
@@ -35,10 +71,22 @@ for(i=0;i<document.getElementsByClassName("size").length;i++){
 		this.classList.add("active");
 	});	
 	
-	document.getElementsByClassName("size")[i].addEventListener("click", startgame);	
+	document.getElementsByClassName("size")[i].addEventListener("click", function(){
+		isNewBool = true;
+		startgame();
+	});	
 }
 
-document.getElementsByClassName("smiley")[0].addEventListener("click", startgame);
+document.getElementsByClassName("smiley")[0].addEventListener("click", function(){
+		isNewBool = true;
+		startgame();
+	});
+
+
+var memoryBombs = [];//array for memory of bombs
+var memorySize, memoryDiff;//memory of size and difficulty
+var memoryOpen = [];//memory of open tiles
+var memoryFlags = [];//memory of flags
 
 function startgame(e){
 	if(!e) e = window.event;
@@ -71,6 +119,7 @@ function startgame(e){
 			document.getElementsByClassName("difficulty")[0].classList.add("active");
 			break;
 	}
+	memoryDiff = diff;
 
 	switch(size){
 		case 0: rows = 13;
@@ -91,6 +140,7 @@ function startgame(e){
 			document.getElementsByClassName("difficulty")[0].classList.add("active");
 			break;
 	}
+	memorySize = size;
 
 
 	var table = document.getElementsByTagName("table")[0];
@@ -107,32 +157,74 @@ function startgame(e){
 			currenttr.appendChild(td);
 		}
 	}
+	
+	//memory of bombs
+	for(i=0;i<rows;i++){
+		memoryBombs[i] = [];
+
+		for(j=0;j<cols;j++){
+			memoryBombs[i][j] = 0;
+		}
+	}
 
 	//planting the bombs
-	for(i=1;i<=bombs;i++){
-		var randx, randy;
-		function randtwodigNum(){
-			var x = Math.floor(Math.random()*100);
-			var y = Math.floor(Math.random()*100);
-			if(x > rows || x < 1){
-				randtwodigNum();
-			}
-			else if(y > cols || y < 1){
-				randtwodigNum();
-			}
-			else{
-				if(document.getElementsByTagName("tr")[x-1].childNodes[y-1].className == 'bomb'){
+	if(isNewBool){
+		for(i=1;i<=bombs;i++){
+			var randx, randy;
+			function randtwodigNum(){
+				var x = Math.floor(Math.random()*100);
+				var y = Math.floor(Math.random()*100);
+				if(x > rows || x < 1){
+					randtwodigNum();
+				}
+				else if(y > cols || y < 1){
 					randtwodigNum();
 				}
 				else{
-					randx = x; randy = y;
+					if(document.getElementsByTagName("tr")[x-1].childNodes[y-1].className == 'bomb'){
+						randtwodigNum();
+					}
+					else{
+						randx = x; randy = y;
+					}
+				}
+			}
+			randtwodigNum();
+			
+			document.getElementsByTagName("tr")[randx-1].childNodes[randy-1].className = 'bomb';
+
+			memoryBombs[randx-1][randy-1] = 1;
+		}
+	}
+	else{
+		for(i=0;i<rows;i++){
+			for(j=0;j<cols;j++){
+				if(memoryGame.bombs[i][j] == 1){
+					document.getElementsByTagName("tr")[i].childNodes[j].className = 'bomb';
+					memoryBombs[i][j] = 1;
 				}
 			}
 		}
-		randtwodigNum();
-		
-		document.getElementsByTagName("tr")[randx-1].childNodes[randy-1].className = 'bomb';
 	}
+	
+
+	//memory of number of mines
+	// for(i=0;i<rows;i++){
+	// 	memoryNumber[i] = [];
+
+	// 	for(j=0;j<cols;j++){
+	// 		memoryNumber[i][j] = 0;
+	// 	}
+	// }
+
+	//memory of empty tiles
+	// for(i=0;i<rows;i++){
+	// 	memoryEmpty[i] = [];
+
+	// 	for(j=0;j<cols;j++){
+	// 		memoryEmpty[i][j] = 0;
+	// 	}
+	// }
 
 	//adding the number of mines in the vicinity of a particular tile
 	for(i=1;i<=rows;i++){
@@ -153,13 +245,37 @@ function startgame(e){
 			if(bombcount == 0){
 				if(document.getElementsByTagName("tr")[i-1].childNodes[j-1].className != "bomb"){
 					document.getElementsByTagName("tr")[i-1].childNodes[j-1].className = "empty";
+					// memoryEmpty[i-1][j-1] = 1;
 				}
 			}
 			else{
 				// document.getElementsByTagName("tr")[i-1].childNodes[j-1].style.color = "red";
 				document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = bombcount;
+				// memoryNumber[i-1][j-1] = bombcount;
 			}
 			
+		}
+	}
+
+	
+	//memory of open/close tiles
+	for(i=0;i<rows;i++){
+		memoryOpen[i] = [];
+
+		for(j=0;j<cols;j++){
+			memoryOpen[i][j] = 0;
+		}
+	}
+	
+	if(!isNewBool){
+		//opening tiles from memory
+		for(i=0;i<rows;i++){
+			for(j=0;j<cols;j++){
+				if(memoryGame.open[i][j] == 1){
+					document.getElementsByTagName("tr")[i].childNodes[j].classList.add("open");
+					memoryOpen[i][j] = 1;
+				}
+			}
 		}
 	}
 
@@ -269,11 +385,38 @@ function startgame(e){
 				document.getElementsByTagName("td")[i].removeEventListener("contextmenu", tileClick);
 			}
 		}
+
+
+		//memory of open/close
+		for(i=0;i<rows;i++){
+			for(j=0;j<cols;j++){
+				if(document.getElementsByTagName("tr")[i].childNodes[j].classList.contains('open')) memoryOpen[i][j] = 1;
+			}
+		}
 	}
 
 	for(i=0;i<document.getElementsByTagName("td").length;i++){
 		document.getElementsByTagName("td")[i].addEventListener("click", tileClick);
 	}
+
+
+		for(i=0;i<rows;i++){
+			memoryFlags[i] = [];
+			for(j=0;j<cols;j++){
+				memoryFlags[i][j] = 0;
+			}
+		}
+		
+		if(!isNewBool){
+			for(i=0;i<rows;i++){
+				for(j=0;j<cols;j++){
+					if(memoryGame.flags[i][j] == 1){
+						document.getElementsByTagName("tr")[i].childNodes[j].innerHTML = "<img src = './icons/flag.svg'>";
+						memoryFlags[i][j] = 1;
+					}
+				}
+			}
+		}
 
 			var prevcontent;
 	for(i=0;i<document.getElementsByTagName("td").length;i++){
@@ -287,11 +430,39 @@ function startgame(e){
 			else if(!this.classList.contains("open")){
 				prevcontent = this.innerHTML;
 				this.innerHTML = "<img src = './icons/flag.svg'>";
+				var thisRow = Array.from(document.getElementsByTagName("tr")).indexOf(this.parentNode);
+				var thisCol = Array.from(document.getElementsByTagName("tr")[thisRow].childNodes).indexOf(this);
+
+				memoryFlags[thisRow][thisCol] = 1;
 			}
+
 		});
 	}
 }
 
-	});
 
+		// Save in Journal on Stop
+		document.getElementById("stop-button").addEventListener('click', function (event) {
+			var jsonData = JSON.stringify({
+				"bombs":memoryBombs,
+				"open":memoryOpen,
+				// "number":memoryNumber,
+				// "empty":memoryEmpty,
+				"size":memorySize,
+				"diff":memoryDiff,
+				"flags":memoryFlags
+			});
+			
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} 
+				else {
+					console.log("write failed.");
+				}
+			});
+		});
+	});
 });
