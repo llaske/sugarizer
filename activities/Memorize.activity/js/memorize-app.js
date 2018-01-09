@@ -1006,6 +1006,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         d.style.fontSize = parseInt(minSize / 3.5) - 10 + "px";
         d.style.lineHeight = parseInt(minSize / 3.5) - 10 + "px";
         d.className = "textCard";
+        d.style.backgroundRepeat = "no-repeat";
         if (card && card.text) {
             d.innerHTML = card.text;
         } else if (card && card.image) {
@@ -1039,17 +1040,12 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             resizeTextInsideTextCardDivs()
         };
 
-
-
         e.appendChild(d);
         e.appendChild(input);
         e.appendChild(button);
 
-
-
         return e;
     }
-
 
     function generateAddEditRemoveButton() {
         var div = document.createElement("div");
@@ -1107,8 +1103,6 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             saveGame();
             displayEditor();
         });
-
-        
 
         updateButton.style.padding = "5px";
         updateButton.style.userSelect = "none";
@@ -1333,15 +1327,13 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
     }
     function insertimagebuttonsFun(){
-
-            document.getElementsByClassName("insertImage")[0].onclick = function(){
+        document.getElementsByClassName("insertImage")[0].onclick = function(){
             var cards = [];
             chooser.show(function (entry) {
                 // No selection
                 if (!entry) {
                     return;
                 }
-
                 // Get object content
                 var dataentry = new datastore.DatastoreObject(entry.objectId);
                 dataentry.loadAsText(function (err, metadata, text) {
@@ -1350,7 +1342,6 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     element.src = text;
                     element.onload = function () {
                         document.getElementsByClassName("textCard")[0].style.backgroundImage = 'url(' + element.src + ')';
-                        document.getElementsByClassName("textCard")[0].style.backgroundSize = "100%";
                         if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                             MemorizeApp.editor.card1.image = element.src;
                             MemorizeApp.editor.card1.text = "";
@@ -1359,9 +1350,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                         }else{
                                 MemorizeApp.editor.card1.image = element.src;
                                 MemorizeApp.editor.card1.text = "";
-
                         }
-
                         var cards = [];
                         if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                             cards[0] = MemorizeApp.editor.card1;
@@ -1390,68 +1379,60 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                             };
                 });
             }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
-
-    } 
-    if(document.getElementsByClassName("insertImage")[1]){
+        } 
+        if(document.getElementsByClassName("insertImage")[1]){
             document.getElementsByClassName("insertImage")[1].onclick = function(){
-            var cards = [];
-            chooser.show(function (entry) {
-                // No selection
-                if (!entry) {
-                    return;
-                }
-
-                // Get object content
-                var dataentry = new datastore.DatastoreObject(entry.objectId);
-                dataentry.loadAsText(function (err, metadata, text) {
-                    //We load the drawing inside an image element
-                    var element = document.createElement('img');
-                    element.src = text;
-                    element.onload = function () {
-                        document.getElementsByClassName("textCard")[1].style.backgroundImage = 'url(' + element.src + ')';
-                        document.getElementsByClassName("textCard")[1].style.backgroundSize = "100%"
-                        if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
-                            MemorizeApp.editor.card1.image = element.src;
-                            MemorizeApp.editor.card1.text = "";
-                            MemorizeApp.editor.card2.image = element.src;
-                            MemorizeApp.editor.card2.text = "";
-                        }else{
+                var cards = [];
+                chooser.show(function (entry) {
+                    // No selection
+                    if (!entry) {
+                        return;
+                    }
+                    // Get object content
+                    var dataentry = new datastore.DatastoreObject(entry.objectId);
+                    dataentry.loadAsText(function (err, metadata, text) {
+                        //We load the drawing inside an image element
+                        var element = document.createElement('img');
+                        element.src = text;
+                        element.onload = function () {
+                            document.getElementsByClassName("textCard")[1].style.backgroundImage = 'url(' + element.src + ')';
+                            if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                MemorizeApp.editor.card1.image = element.src;
+                                MemorizeApp.editor.card1.text = "";
                                 MemorizeApp.editor.card2.image = element.src;
                                 MemorizeApp.editor.card2.text = "";
+                            }else{
+                                MemorizeApp.editor.card2.image = element.src;
+                                MemorizeApp.editor.card2.text = "";
+                            }
+                            var cards = [];
+                            if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                cards[0] = MemorizeApp.editor.card1;
+                                cards[1] = MemorizeApp.editor.card1;
+                            }
+                            if (MemorizeApp.editor.pairMode == MODE_NON_EQUAL) {
+                                cards[0] = MemorizeApp.editor.card1;
+                                cards[1] = MemorizeApp.editor.card2;
+                            }
 
-                        }
+                            if (!cards[0].text && !cards[0].image && !cards[0].sound) {
+                                return;
+                            }
 
-                        var cards = [];
-                        if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
-                            cards[0] = MemorizeApp.editor.card1;
-                            cards[1] = MemorizeApp.editor.card1;
-                        }
-                        if (MemorizeApp.editor.pairMode == MODE_NON_EQUAL) {
-                            cards[0] = MemorizeApp.editor.card1;
-                            cards[1] = MemorizeApp.editor.card2;
-                        }
-
-                        if (!cards[0].text && !cards[0].image && !cards[0].sound) {
-                            return;
-                        }
-
-                        if (!cards[1].text && !cards[1].image && !cards[1].sound) {
-                            return;
-                        }
-
-                        cards = JSON.parse(JSON.stringify(cards));
-
-                        if (MemorizeApp.editor.selectedPair > -1) {
-                            MemorizeApp.game.template.cards[MemorizeApp.editor.selectedPair] = cards
-                        }
-                        saveGame();
-                        displayEditor();
-                            };
-                });
-            }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
-
-    }
-}
+                            if (!cards[1].text && !cards[1].image && !cards[1].sound) {
+                                return;
+                            }
+                            cards = JSON.parse(JSON.stringify(cards));
+                            if (MemorizeApp.editor.selectedPair > -1) {
+                                MemorizeApp.game.template.cards[MemorizeApp.editor.selectedPair] = cards
+                            }
+                            saveGame();
+                            displayEditor();
+                        };
+                    });
+                }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
+            }
+        }
     }
 
     function leaveEditMode() {
