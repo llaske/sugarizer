@@ -1007,6 +1007,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         d.style.lineHeight = parseInt(minSize / 3.5) - 10 + "px";
         d.className = "textCard";
         d.style.backgroundRepeat = "no-repeat";
+        d.style.backgroundSize = "100%";
         if (card && card.text) {
             d.innerHTML = card.text;
         } else if (card && card.image) {
