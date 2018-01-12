@@ -15,6 +15,7 @@ var myserver;
 var humane;
 var tutorial;
 var stats;
+var autosync;
 
 
 
@@ -75,6 +76,14 @@ enyo.kind({
 					presence.joinNetwork(function (error, user) {
 						if (error) {
 							console.log("WARNING: Can't connect to presence server");
+						}
+					});
+					autosync.synchronizeJournal(function(locale, remote, error) {
+						// Locale journal has changed, update display
+						if (locale) {
+							that.loadJournal();
+							preferences.updateEntries();
+							that.draw();
 						}
 					});
 				},

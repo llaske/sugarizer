@@ -1079,9 +1079,11 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
 			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
+			{content: ""},
 			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
 			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
 		]}
@@ -1118,14 +1120,24 @@ enyo.kind({
 	},
 
 	ok: function() {
+		if (!this.hasChanged()) {
+			this.hide();
+			this.owner.show();
+			return;
+		}
+		this.$.warningbox.setShowing(true);
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+	},
+
+	restart: function() {
 		if (this.hasChanged()) {
 			preferences.setOptions("stats", !this.$.stats.getNodeProperty("checked"));
 			preferences.setOptions("sync", !this.$.sync.getNodeProperty("checked"));
 			preferences.save();
 			preferences.saveToServer(myserver, null, null);
 		}
-		this.hide();
-		this.owner.show();
+		util.restartApp();
 	},
 
 	// Utility

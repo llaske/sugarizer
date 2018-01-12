@@ -451,6 +451,22 @@ body {
 	left: 15px;
 }
 
+.sync0-button {
+	background-image: url(../icons/sync0.svg);
+}
+
+.sync1-button {
+	background-image: url(../icons/sync1.svg);
+}
+
+.sync2-button {
+	background-image: url(../icons/sync2.svg);
+}
+
+.sync3-button {
+	background-image: url(../icons/sync3.svg);
+}
+
 .neighbor-filter-text {
 	position: relative;
 	width: 350px;
@@ -1287,15 +1303,15 @@ body {
 }
 
 .privacy-synccheckbox {
-	position: absolute;
-	left: 28px;
-	top: 140px;
+	position: relative;
+	margin-left: 30px !important;
+	margin-top: 40px !important;
 }
 
 .privacy-syncmessage {
 	position: relative;
-	margin-left: 65px;
-	margin-top: 24px;
+	margin-left: 10px;
+	margin-top: 20px;
 	vertical-align: bottom;
 	color: black;
 	height: 24px;
