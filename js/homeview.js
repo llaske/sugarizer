@@ -14,6 +14,8 @@ var util;
 var myserver;
 var humane;
 var tutorial;
+var stats;
+var autosync;
 
 
 
@@ -51,63 +53,44 @@ enyo.kind({
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
 			this.$.activities.setUrl(myserver.getActivitiesUrl());
+			myserver.getActivities(enyo.bind(this, "queryActivitiesResponse"), enyo.bind(this, "queryActivitiesFail"));
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
+			this.$.activities.send();
 		}
-		this.$.activities.send();
 
-		// Call network id
+		// Check change on preferences from server
 		if (preferences.isConnected()) {
-			// Create a new user on the network
 			var networkId = preferences.getNetworkId();
-			if (networkId == null) {
-				myserver.postUser(
-					{
-						name: preferences.getName(),
-						color: preferences.getColor(),
-						language: preferences.getLanguage()
-					},
-					function(inSender, inResponse) {
-						preferences.setNetworkId(inResponse._id);
-						preferences.setPrivateJournal(inResponse.private_journal);
-						preferences.setSharedJournal(inResponse.shared_journal);
+			var that = this;
+			myserver.getUser(
+				networkId,
+				function(inSender, inResponse) {
+					var changed = preferences.merge(inResponse);
+					if (changed) {
 						preferences.save();
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-					},
-					function() {
-						console.log("WARNING: Error creating network user");
+						util.restartApp();
+					} else if (that.currentView == constant.journalView) {
+						that.otherview.updateNetworkBar();
 					}
-				);
-			}
-
-			// Retrieve user settings
-			else {
-				var that = this;
-				myserver.getUser(
-					networkId,
-					function(inSender, inResponse) {
-						var changed = preferences.merge(inResponse);
-						if (changed) {
-							preferences.save();
-							util.restartApp();
-						} else if (that.currentView == constant.journalView) {
-							that.otherview.updateNetworkBar();
+					presence.joinNetwork(function (error, user) {
+						if (error) {
+							console.log("WARNING: Can't connect to presence server");
 						}
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-					},
-					function() {
-						console.log("WARNING: Can't read network user settings");
-					}
-				);
-			}
+					});
+					autosync.synchronizeJournal(function(locale, remote, error) {
+						// Locale journal has changed, update display
+						if (locale) {
+							that.loadJournal();
+							preferences.updateEntries();
+							that.draw();
+						}
+					});
+				},
+				function() {
+					console.log("WARNING: Can't read network user settings");
+				}
+			);
 		}
 	},
 
@@ -392,6 +375,7 @@ enyo.kind({
 		}
 		var oldView = this.currentView;
 		this.currentView = newView;
+		stats.trace(constant.viewNames[oldView], 'change_view', constant.viewNames[newView]);
 
 		// Show desktop
 		if (newView == constant.radialView) {
@@ -401,6 +385,7 @@ enyo.kind({
 			this.$.desktop.show();
 			this.$.owner.show();
 			this.$.journal.show();
+			this.clearView();
 			this.otherview = null;
 			return;
 		}
@@ -583,8 +568,8 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
 			colorized: false,
-			name: l10n.get("Shutdown"),
-			action: enyo.bind(this, "doShutdown"),
+			name: (util.getClientType() == constant.webAppType) ? l10n.get("Logoff") : l10n.get("Shutdown"),
+			action: (util.getClientType() == constant.webAppType) ? enyo.bind(this, "doLogoff") : enyo.bind(this, "doShutdown"),
 			data: null
 		});
 		items.push({
@@ -613,14 +598,23 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		return true;
 	},
+	doLogoff: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
+		preferences.addUserInHistory();
+		util.cleanDatastore();
+		util.restartApp();
+	},
 	doShutdown: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
 		util.quitApp();
 	},
 	doRestart: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'restart');
 		util.restartApp();
 	},
 	doSettings: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
@@ -633,6 +627,7 @@ enyo.kind({
 	// Filter activities handling
 	filterActivities: function() {
 		var filter = toolbar.getSearchText().toLowerCase();
+		stats.trace(constant.viewNames[app.getView()], 'search', 'q='+filter, null);
 
 		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
@@ -744,6 +739,7 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

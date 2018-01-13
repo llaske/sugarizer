@@ -1,0 +1,64 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #play-pause.play {
+  background-image: url(../icons/play.svg)
+}
+#main-toolbar #play-pause.pause {
+  background-image: url(../icons/pause.svg)
+}
+#main-toolbar #random {
+  background-image: url(../icons/random.svg);
+}
+#main-toolbar #glider {
+  background-image: url(../icons/glider.svg);
+}
+#main-toolbar #no {
+  background-image: url(../icons/no.svg);
+}
+#main-toolbar #clear {
+  background-image: url(../icons/clear.svg);
+}
+
+.main {
+  position: relative;
+  width: 100%;
+  background: #FBF6F5;
+  height: calc(100vh - 56px);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+canvas {
+  z-index: 1;
+}
+
+.generation-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+}
+
+.generation-status {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  letter-spacing: 4.2px;
+  font-size: 16px;
+}
+.generation-count {
+  flex: 1;
+  text-align: center;
+  font-size: 72px;
+  font-weight: 800;
+}
+
+#activity-palette {
+  z-index: 30;
+}

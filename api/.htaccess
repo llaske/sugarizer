@@ -1,5 +1,0 @@
-
-RewriteEngine on
-
-# Redirect a whole subdirectory:
-RewriteRule ^(.+) http://localhost:8080/$1 [P]

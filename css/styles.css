@@ -1,3 +1,7 @@
+@font-face {
+	font-family: "Noto Emoji";
+	src: url("../fonts/NotoEmoji.woff") format('woff');
+}
 
 html, button {
 	cursor: url(../icons/ArrowSmall.cur), default;
@@ -9,6 +13,10 @@ input {
 
 #canvas {
 	background-color: white;
+}
+
+body {
+	overflow-x: hidden;
 }
 
 *:focus {
@@ -117,11 +125,12 @@ input {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 20px 20px;
-	top: 5px;
-	left: 2px;
+	left: 6px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-iconcancel {
@@ -129,18 +138,18 @@ input {
 	background-image: url(../icons/entry-cancel.svg);
 	background-repeat: no-repeat;
 	background-position: center;
-	top: 5px;
 	right: 10px;
 	background-size: 20px 20px;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-input {
 	opacity: 1;
 	margin-left: 30px;
-	margin-top: 5px;
 	border: 0px;
 	display: inline-block;
 	background-color: #e5e5e5;
@@ -148,6 +157,9 @@ input {
 	line-height: 22px;
 	outline: 0;
 	font-size: 10pt;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .search-field-input:focus {
@@ -197,8 +209,8 @@ input {
 }
 
 .selected{
-    border-bottom: 6px solid red;
-    background-color: lightgrey;
+	border-bottom: 6px solid red;
+	background-color: lightgrey;
 }
 
 .owner-icon {
@@ -439,6 +451,22 @@ input {
 	left: 15px;
 }
 
+.sync0-button {
+	background-image: url(../icons/sync0.svg);
+}
+
+.sync1-button {
+	background-image: url(../icons/sync1.svg);
+}
+
+.sync2-button {
+	background-image: url(../icons/sync2.svg);
+}
+
+.sync3-button {
+	background-image: url(../icons/sync3.svg);
+}
+
 .neighbor-filter-text {
 	position: relative;
 	width: 350px;
@@ -589,6 +617,46 @@ input {
 	color: #808080;
 }
 
+.security-message {
+	position: absolute;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.security-password {
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 50px;
+}
+
+.security-rightbutton {
+	position: absolute;
+	margin-left: 350px;
+	margin-top: 290px;
+	width: 120px;
+}
+
+.security-warning {
+	position: absolute;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 15px 15px;
+	left: 20px;
+	bottom: 30px;
+	width: 300px;
+	padding-left: 20px;
+}
+
+.security-spinner {
+	position: absolute;
+	left: 260px;
+	top: 220px;
+	width: 8%;
+}
+
 .launcher-message {
     position: absolute;
     left: 20px;
@@ -699,10 +767,11 @@ input {
 }
 
 .first-nameline {
-	position: absolute;
 	vertical-align: middle;
 	text-align: center;
-	width: 100%;
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .first-nametext {
@@ -710,12 +779,38 @@ input {
 	left: 20px;
 	margin-top: 20px;
 	color: #808080;
-	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.first-passbox {
+	height: 100%;
+	padding-bottom: 100%;
 }
 
 .first-input {
 	text-align: center;
 	display: inline-block;
+}
+
+.first-warningmessage {
+	position: absolute;
+	font-size: 12pt;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left 0%;
+	background-size: 30px 30px;
+	height: 35px;
+	width: 400px;
+	padding-left: 35px;
+	padding-top: 3px;
+	bottom: 85px;
+}
+
+.newuser-text {
+	position: absolute;
+	text-align: center;
+	color: #808080;
 }
 
 .first-namevalue {
@@ -746,6 +841,15 @@ input {
 	width: 120px;
 }
 
+.first-historybox {
+	position: absolute;
+}
+
+.first-historybutton {
+	position: relative;
+	width: 150px;
+}
+
 .first-colortext {
 	position: absolute;
 	vertical-align: middle;
@@ -753,14 +857,140 @@ input {
 	width: 100%;
 	color: #808080;
 	-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 }
 
 .first-owner-icon {
 	position: absolute;
 	padding-top: 10px;
+}
+
+
+.password-line {
+	vertical-align: middle;
+	text-align: center;
+	width: 380px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.password-input {
+	text-align: center;
+	display: inline-block;
+	border-width: 2px;
+	border-style: inset;
+	border-top-color: #9a9a9a;
+ 	border-right-color: #eeeeee;
+	border-bottom-color: #eeeeee;
+	border-left-color: #9a9a9a;
+	border-image: initial;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 30px;
+	width: 310px;
+	height: 36px;
+}
+
+.password-value {
+	font-size: 16pt;
+	font-family: "Noto Emoji";
+	width: 270px;
+	padding: 4px;
+	line-height: 30px;
+	min-height: 30px;
+	background-color: white;
+	padding: 1px;
+	text-align: left;
+	outline: 0;
+	margin-left: 10px;
+	margin-top: 3px;
+	display: inline-block;
+}
+
+.password-iconcancel {
+	position: relative;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 2px;
+	right: 10px;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	margin-left: 0px;
+	display: inline-block;
+}
+
+.password-label {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	width: 350px;
+	margin-bottom: 5px;
+}
+
+.password-emojis {
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.password-emojis-line {
+}
+
+.password-emojis-category {
+	margin-top: 10px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.emoji {
+	display: inline-block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 2px solid #e5e5e5;
+}
+
+.emoji-selected {
+	background-color: white;
+}
+
+.emoji-unselected {
+	background-color: #e5e5e5;
+}
+
+.emoji-flash {
+	background-color: #e5e5e5;
+}
+
+.emoji-icon {
+	font-size: 24pt;
+	font-family: "Noto Emoji";
+	padding-left: 8px;
+	padding-top: 6px;
+	padding-right: 8px;
+}
+
+.emoji-letter {
+	font-size: 8pt;
+	text-align: right;
+	padding-right: 4px;
+	padding-bottom: 4px;
+}
+
+.emoji-category {
+	display: block;
+	border-radius: 0px 22px 22px 0px;
+}
+.spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
 }
 
 .settings-warningbox {
@@ -928,10 +1158,11 @@ input {
 	padding-left: 20px;
 }
 
-.aboutserver-checkbox {
-	margin-left: 20px !important;
-	margin-top: 30px !important;
-	display: inline-block;
+.aboutserver-rightbutton {
+	position: absolute;
+	left: 350px;
+	top: 370px;
+	width: 120px;
 }
 
 .aboutserver-message {
@@ -952,20 +1183,15 @@ input {
 	display: inline-block;
 }
 
-.aboutserver-httplabel {
-	margin-left: 10px;
-	color: black;
-	display: inline-block;
-}
-
 .aboutserver-servername {
+	margin-left: 10px;
 	display: inline-block;
 	width: 165px;
 }
 
 .aboutserver-userlabel {
 	margin-left: 50px;
-	margin-top: 20px;
+	margin-top: 10px;
 	color: #808080;
 	width: 250px;
 	text-align: right;
@@ -986,10 +1212,40 @@ input {
 	width: 200px;
 }
 
-.aboutserver-iconchecked {
-	margin-left: 5px;
-	margin-right: 5px;
+.aboutserver-settingsname {
+	margin-left: 150px;
+	margin-top: 10px;
+	width: 150px;
+	color: #808080;
+	text-align: right;
 	display: inline-block;
+}
+
+.aboutserver-settingsvalue {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+	width: 200px;
+}
+
+.aboutserver-description {
+	margin-left: 150px;
+	margin-top: 10px;
+	width: 150px;
+	color: #808080;
+	text-align: right;
+	display: inline-block;
+}
+
+.aboutserver-descriptionvalue {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+	width: 300px;
+}
+
+.aboutserver-checkbox {
+	margin-left: 10px !important;
 }
 
 .aboutserver-checkbutton {
@@ -1007,8 +1263,59 @@ input {
 	background-size: 15px 15px;
 	left: 20px;
 	bottom: 20px;
-	width: 200px;
+	width: 300px;
 	padding-left: 20px;
+}
+
+.aboutserver-passwordmessage {
+	position: absolute;
+	left: 110px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.aboutserver-password {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: 70px;
+}
+
+.aboutserver-spinner {
+	position: absolute;
+	left: 260px;
+	top: 220px;
+	width: 8%;
+}
+
+.privacy-statscheckbox {
+	position: relative;
+	margin-left: 30px !important;
+	margin-top: 40px !important;
+}
+
+.privacy-statsmessage {
+	margin-left: 10px;
+	margin-top: 20px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
+}
+
+.privacy-synccheckbox {
+	position: relative;
+	margin-left: 30px !important;
+	margin-top: 40px !important;
+}
+
+.privacy-syncmessage {
+	position: relative;
+	margin-left: 10px;
+	margin-top: 20px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
 }
 
 .cloud-empty {

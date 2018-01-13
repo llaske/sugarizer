@@ -9,25 +9,12 @@ requirejs.config({
 
 requirejs(["activity/activity"]);
 
-requirejs(["webL10n","sugar-web/env","sugar-web/datastore"], function(l10n, env ,datastore) {
+requirejs(["webL10n","sugar-web/env","sugar-web/datastore"], function(l10n, env) {
 	l10n_s = l10n; //global declaration of translate interface
 
-	datastore.localStorage.load(function() {
-		getSettings(function(settings) { //globally setting language from sugar settings
-			l10n_s.language.code = settings.language;
-		});
+	env.getEnvironment(function(err, environment) {
+		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+		var language = environment.user ? environment.user.language : defaultLanguage;
+		l10n_s.language.code = language;
 	});
-
-   function getSettings(callback) {
-		var defaultSettings = {
-			name: "",
-			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
-		};
-		if (!env.isSugarizer()) {
-			callback(defaultSettings);
-			return;
-		}
-		loadedSettings = datastore.localStorage.getValue('sugar_settings');
-		callback(loadedSettings);
-	}
 });

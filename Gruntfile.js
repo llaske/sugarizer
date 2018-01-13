@@ -20,7 +20,9 @@ module.exports = function(grunt) {
 					'activities/ColorMyWorld.Activity/**/*.js',
 					'activities/Cordova.Activity/**/*.js',
 					'activities/Etoys.Activity/**/*.js',
+					'activities/Flip.Activity/**/*.js',
 					'activities/FoodChain.Activity/**/*.js',
+					'activities/GameOfLife.Activity/**/*.js',
 					'activities/Gears.Activity/js/*.js', // TODO: lib/gearsketch dont work
 					'activities/GetThingsDone.Activity/**/*.js',
 					'activities/Gridpaint.Activity/**/*.js',
@@ -37,6 +39,7 @@ module.exports = function(grunt) {
 					'activities/QRCode.Activity/**/*.js',
 					'activities/Record.Activity/lib/*.js',  // TODO: js/recordrtc.js don't work
 					'activities/Reflection.Activity/**/*.js',
+					'activities/Scratch.Activity/**/*.js',
 					'activities/SharedNotes.Activity/**/*.js',
 					'activities/Speak.Activity/**/*.js',
 					'activities/Stopwatch.Activity/**/*.js',

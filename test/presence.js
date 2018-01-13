@@ -3,7 +3,8 @@
 
 describe('Presence', function() {
 
-	var testPresenceServer = "localhost/sugarizer";
+	var testPresenceServerUrl = "http://localhost";
+	var testPresenceServerPort = 8040;
 	var networkId = "9446effc-a186-4199-8730-9f2be39a11d2";
 	var activityName = "sugarizer.mocha.activity";
 	var sharedId = null;
@@ -16,7 +17,7 @@ describe('Presence', function() {
 		});
 
 		it("should fail when server don't exist", function(done) {
-			initSugarizer({name: "mocha1", server: "xxxxx", networkId: networkId});
+			initSugarizer({name: "mocha1", server: {url: "http://xxxxx", presence: 8888}, networkId: networkId});
 			presence.joinNetwork(function(error, presence) {
 				chai.assert.isNotNull(error);
 				done();
@@ -24,7 +25,7 @@ describe('Presence', function() {
 		});
 
 		it("should connect user", function(done) {
-			initSugarizer({name: "mocha1", server: testPresenceServer, networkId: networkId});
+			initSugarizer({name: "mocha1", server: {url: testPresenceServerUrl, presence: testPresenceServerPort}, networkId: networkId});
 			presence.joinNetwork(function(error, presence) {
 				chai.assert.isNull(error);
 				chai.assert.isNotNull(presence);
@@ -121,6 +122,27 @@ describe('Presence', function() {
 		});
 	});
 
+	describe('#listSharedActivityUsers()', function() {
+		it("should list user connected on first activity", function(done) {
+			presence.listSharedActivityUsers(sharedId, function(users) {
+				chai.assert.equal(1, users.length);
+				chai.assert.equal("mocha1", users[0].name);
+				chai.assert.equal(networkId, users[0].networkId);
+				chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, users[0].colorvalue);
+				done();
+			});
+		});
+
+		it("should list user connected on second activity", function(done) {
+			presence.listSharedActivityUsers(sharedId2, function(users) {
+				chai.assert.equal(1, users.length);
+				chai.assert.equal("mocha1", users[0].name);
+				chai.assert.equal(networkId, users[0].networkId);
+				chai.assert.deepEqual({ stroke: '#AC32FF', fill: '#FF8F00' }, users[0].colorvalue);
+				done();
+			});
+		});
+	});
 
 	describe('#sendMessage()', function() {
 		it("should not receive message to other shared group", function(done) {

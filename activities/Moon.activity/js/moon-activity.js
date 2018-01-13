@@ -15,15 +15,15 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 	l10n.ready(function() {
 		if (first) {
 			first = false;
-			datastore.localStorage.load(function() {
-				getSugarSettings(function(settings) {
-					l10n.language.code = settings.language;
-					moment.locale(settings.language);
-					var refreshTime = setTimeout(function() {
-						clearTimeout(refreshTime);
-						updateView();
-					}, 50);
-				});
+			env.getEnvironment(function(err, environment) {
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				l10n.language.code = language;
+				moment.locale(language);
+				var refreshTime = setTimeout(function() {
+					clearTimeout(refreshTime);
+					updateView();
+				}, 50);
 			});
 		}
 	});
@@ -74,20 +74,6 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			showSouth: showSouth
 		};
 	}
-
-
-	function getSugarSettings(callback) {
- 		var defaultSettings = {
- 			name: "",
- 			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
- 		};
- 		if (!env.isSugarizer()) {
- 			callback(defaultSettings);
- 			return;
- 		}
- 		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
- 		callback(loadedSettings);
- 	}
 
 
     function updateSizes() {

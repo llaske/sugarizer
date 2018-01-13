@@ -38,11 +38,6 @@ define(["sugar-web/env", "sugar-web/activity/activity", "sugar-web/datastore"], 
             });
         },
 
-        hideLoading: function () {
-            var imageLoading = document.getElementById("loading-image-container");
-            imageLoading.style.display = "none";
-        },
-
         sugarizerStop: function () {
             document.getElementById("stop-button").click();
         },
@@ -64,8 +59,7 @@ define(["sugar-web/env", "sugar-web/activity/activity", "sugar-web/datastore"], 
             if (this.isInsideSugarizer() === false) {
                 return;
             }
-
-            this.hideLoading();
+;
             activity.setup();
 
         }

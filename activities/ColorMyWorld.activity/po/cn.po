@@ -1,0 +1,1395 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:15:18 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: appname
+msgctxt "appname"
+msgid "Color My World!"
+msgstr "颜色我的世界"
+
+#: appname.title
+msgctxt "appname.title"
+msgid "ColorMyWorld"
+msgstr "颜色我的世界"
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr "下一个"
+
+#: Find
+msgctxt "Find"
+msgid "Find"
+msgstr "找"
+
+#: Nations
+msgctxt "Nations"
+msgid "Nations"
+msgstr "国家"
+
+#: Congratulations
+msgctxt "Congratulations"
+msgid "Congratulations"
+msgstr "恭喜"
+
+#: You_Finished
+msgctxt "You_Finished"
+msgid "You_Finished"
+msgstr "你已经完成了"
+
+#: Middle_East_Nations
+msgctxt "Middle_East_Nations"
+msgid "Middle_East_Nations"
+msgstr "中东国家"
+
+#: Asian_Nations
+msgctxt "Asian_Nations"
+msgid "Asian_Nations"
+msgstr "亚洲国家"
+
+#: North_American_Nations
+msgctxt "North_American_Nations"
+msgid "North_American_Nations"
+msgstr "北美国家"
+
+#: Central_American_Nations
+msgctxt "Central_American_Nations"
+msgid "Central_American_Nations"
+msgstr "中美洲国家"
+
+#: South_American_Nations
+msgctxt "South_American_Nations"
+msgid "South_American_Nations"
+msgstr "南美国家"
+
+#: Island_Nations
+msgctxt "Island_Nations"
+msgid "Island_Nations"
+msgstr "岛国"
+
+#: Australia_Region
+msgctxt "Australia_Region"
+msgid "Australia_Region"
+msgstr "澳大利亚地区"
+
+#: Antarctica_Region
+msgctxt "Antarctica_Region"
+msgid "Antarctica_Region"
+msgstr "南极洲"
+
+#: African_Nations
+msgctxt "African_Nations"
+msgid "African_Nations"
+msgstr "非洲国家"
+
+#: European_Nations
+msgctxt "European_Nations"
+msgid "European_Nations"
+msgstr "欧洲国家"
+
+#: Caribbean_Nations
+msgctxt "Caribbean_Nations"
+msgid "Caribbean_Nations"
+msgstr "加勒比国家"
+
+#: World_Countries
+msgctxt "World_Countries"
+msgid "World_Countries"
+msgstr "世界国家"
+
+#: Countries
+msgctxt "Countries"
+msgid "Countries"
+msgstr "国家"
+
+#: World
+msgctxt "World"
+msgid "World"
+msgstr "世界"
+
+#: Caribbean
+msgctxt "Caribbean"
+msgid "Caribbean"
+msgstr "加勒比"
+
+#: Europe
+msgctxt "Europe"
+msgid "Europe"
+msgstr "欧洲"
+
+#: Africa
+msgctxt "Africa"
+msgid "Africa"
+msgstr "非洲"
+
+#: Antigua_and_Barbuda
+msgctxt "Antigua_and_Barbuda"
+msgid "Antigua_and_Barbuda"
+msgstr "安提瓜和巴布达"
+
+#: Algeria
+msgctxt "Algeria"
+msgid "Algeria"
+msgstr "阿尔及利亚"
+
+#: Azerbaijan
+msgctxt "Azerbaijan"
+msgid "Azerbaijan"
+msgstr "阿塞拜疆"
+
+#: Albania
+msgctxt "Albania"
+msgid "Albania"
+msgstr "阿尔巴尼亚"
+
+#: American_Samoa
+msgctxt "American_Samoa"
+msgid "American_Samoa"
+msgstr "美属萨摩亚"
+
+#: Armenia
+msgctxt "Armenia"
+msgid "Armenia"
+msgstr "亚美尼亚"
+
+#: Angola
+msgctxt "Angola"
+msgid "Angola"
+msgstr "安哥拉"
+
+#: Argentina
+msgctxt "Argentina"
+msgid "Argentina"
+msgstr "阿根廷"
+
+#: Australia
+msgctxt "Australia"
+msgid "Australia"
+msgstr "澳大利亚"
+
+#: Anguilla
+msgctxt "Anguilla"
+msgid "Anguilla"
+msgstr "安圭拉"
+
+#: Papua_New_Guinea
+msgctxt "Papua_New_Guinea"
+msgid "Papua_New_Guinea"
+msgstr "巴布亚新几内亚"
+
+#: Guinea_Bissau
+msgctxt "Guinea_Bissau"
+msgid "Guinea_Bissau"
+msgstr "几内亚比绍"
+
+#: Bahrain
+msgctxt "Bahrain"
+msgid "Bahrain"
+msgstr "巴林"
+
+#: Barbados
+msgctxt "Barbados"
+msgid "Barbados"
+msgstr "巴巴多斯"
+
+#: Bermuda
+msgctxt "Bermuda"
+msgid "Bermuda"
+msgstr "百慕大"
+
+#: Bahamas
+msgctxt "Bahamas"
+msgid "Bahamas"
+msgstr "巴哈马"
+
+#: Bangladesh
+msgctxt "Bangladesh"
+msgid "Bangladesh"
+msgstr "孟加拉国"
+
+#: Brunei_Darussalam
+msgctxt "Brunei_Darussalam"
+msgid "Brunei_Darussalam"
+msgstr "文莱达鲁萨兰国"
+
+#: Canada
+msgctxt "Canada"
+msgid "Canada"
+msgstr "加拿大"
+
+#: Cambodia
+msgctxt "Cambodia"
+msgid "Cambodia"
+msgstr "柬埔寨"
+
+#: Andorra
+msgctxt "Andorra"
+msgid "Andorra"
+msgstr "安道尔"
+
+#: Gibraltar
+msgctxt "Gibraltar"
+msgid "Gibraltar"
+msgstr "直布罗陀"
+
+#: Belize
+msgctxt "Belize"
+msgid "Belize"
+msgstr "伯利兹"
+
+#: Comoros
+msgctxt "Comoros"
+msgid "Comoros"
+msgstr "科摩罗"
+
+#: Colombia
+msgctxt "Colombia"
+msgid "Colombia"
+msgstr "哥伦比亚"
+
+#: Isle_of_Man
+msgctxt "Isle_of_Man"
+msgid "Isle_of_Man"
+msgstr "马恩岛"
+
+#: Bosnia_and_Herzegovina
+msgctxt "Bosnia_and_Herzegovina"
+msgid "Bosnia_and_Herzegovina"
+msgstr "波斯尼亚和黑塞哥维那"
+
+#: Bolivia
+msgctxt "Bolivia"
+msgid "Bolivia"
+msgstr "玻利维亚"
+
+#: Myanmar
+msgctxt "Myanmar"
+msgid "Myanmar"
+msgstr "缅甸"
+
+#: Benin
+msgctxt "Benin"
+msgid "Benin"
+msgstr "贝宁"
+
+#: Solomon_Islands
+msgctxt "Solomon_Islands"
+msgid "Solomon_Islands"
+msgstr "所罗门群岛"
+
+#: Brazil
+msgctxt "Brazil"
+msgid "Brazil"
+msgstr "巴西"
+
+#: Bulgaria
+msgctxt "Bulgaria"
+msgid "Bulgaria"
+msgstr "保加利亚"
+
+#: Luxembourg
+msgctxt "Luxembourg"
+msgid "Luxembourg"
+msgstr "卢森堡"
+
+#: Sri_Lanka
+msgctxt "Sri_Lanka"
+msgid "Sri_Lanka"
+msgstr "斯里兰卡"
+
+#: Congo
+msgctxt "Congo"
+msgid "Congo"
+msgstr "刚果"
+
+#: Democratic_Republic_of_the_Congo
+msgctxt "Democratic_Republic_of_the_Congo"
+msgid "Democratic_Republic_of_the_Congo"
+msgstr "刚果民主共和国"
+
+#: Macau
+msgctxt "Macau"
+msgid "Macau"
+msgstr "澳门"
+
+#: Burundi
+msgctxt "Burundi"
+msgid "Burundi"
+msgstr "布隆迪"
+
+#: China
+msgctxt "China"
+msgid "China"
+msgstr "中国"
+
+#: Afghanistan
+msgctxt "Afghanistan"
+msgid "Afghanistan"
+msgstr "阿富汗"
+
+#: Cape_Verde
+msgctxt "Cape_Verde"
+msgid "Cape_Verde"
+msgstr "佛得角"
+
+#: Monaco
+msgctxt "Monaco"
+msgid "Monaco"
+msgstr "摩纳哥"
+
+#: Bhutan
+msgctxt "Bhutan"
+msgid "Bhutan"
+msgstr "不丹"
+
+#: Chile
+msgctxt "Chile"
+msgid "Chile"
+msgstr "智利"
+
+#: Cayman_Islands
+msgctxt "Cayman_Islands"
+msgid "Cayman_Islands"
+msgstr "开曼群岛"
+
+#: Cameroon
+msgctxt "Cameroon"
+msgid "Cameroon"
+msgstr "喀麦隆"
+
+#: Chad
+msgctxt "Chad"
+msgid "Chad"
+msgstr "乍得"
+
+#: Costa_Rica
+msgctxt "Costa_Rica"
+msgid "Costa_Rica"
+msgstr "哥斯达黎加"
+
+#: Central_African_Republic
+msgctxt "Central_African_Republic"
+msgid "Central_African_Republic"
+msgstr "中非共和国"
+
+#: Cuba
+msgctxt "Cuba"
+msgid "Cuba"
+msgstr "古巴"
+
+#: Cook_Islands
+msgctxt "Cook_Islands"
+msgid "Cook_Islands"
+msgstr "库克群岛"
+
+#: Cyprus
+msgctxt "Cyprus"
+msgid "Cyprus"
+msgstr "塞浦路斯"
+
+#: Denmark
+msgctxt "Denmark"
+msgid "Denmark"
+msgstr "丹麦"
+
+#: Djibouti
+msgctxt "Djibouti"
+msgid "Djibouti"
+msgstr "吉布提"
+
+#: Dominica
+msgctxt "Dominica"
+msgid "Dominica"
+msgstr "多米尼加"
+
+#: Equatorial_Guinea
+msgctxt "Equatorial_Guinea"
+msgid "Equatorial_Guinea"
+msgstr "赤道几内亚"
+
+#: Estonia
+msgctxt "Estonia"
+msgid "Estonia"
+msgstr "爱沙尼亚"
+
+#: Eritrea
+msgctxt "Eritrea"
+msgid "Eritrea"
+msgstr "厄立特里亚"
+
+#: Dominican_Republic
+msgctxt "Dominican_Republic"
+msgid "Dominican_Republic"
+msgstr "多明尼加共和国"
+
+#: Ecuador
+msgctxt "Ecuador"
+msgid "Ecuador"
+msgstr "厄瓜多尔"
+
+#: Egypt
+msgctxt "Egypt"
+msgid "Egypt"
+msgstr "埃及"
+
+#: Ireland
+msgctxt "Ireland"
+msgid "Ireland"
+msgstr "爱尔兰"
+
+#: El_Salvador
+msgctxt "El_Salvador"
+msgid "El_Salvador"
+msgstr "萨尔瓦多"
+
+#: Ethiopia
+msgctxt "Ethiopia"
+msgid "Ethiopia"
+msgstr "埃塞俄比亚"
+
+#: Austria
+msgctxt "Austria"
+msgid "Austria"
+msgstr "奥地利"
+
+#: Czech_Republic
+msgctxt "Czech_Republic"
+msgid "Czech_Republic"
+msgstr "捷克共和国"
+
+#: Jordan
+msgctxt "Jordan"
+msgid "Jordan"
+msgstr "约旦"
+
+#: French_Guiana
+msgctxt "French_Guiana"
+msgid "French_Guyana"
+msgstr "法属圭亚那"
+
+#: Finland
+msgctxt "Finland"
+msgid "Finland"
+msgstr "芬兰"
+
+#: Fiji
+msgctxt "Fiji"
+msgid "Fiji"
+msgstr "斐济"
+
+#: Kiribati
+msgctxt "Kiribati"
+msgid "Kiribati"
+msgstr "基里巴斯"
+
+#: Korea_Republic
+msgctxt "Korea_Republic"
+msgid "Korea,_Republic_of"
+msgstr "韩国，共和国"
+
+#: Trinidad_and_Tobago
+msgctxt "Trinidad_and_Tobago"
+msgid "Trinidad_and_Tobago"
+msgstr "特立尼达和多巴哥"
+
+#: Falkland_Islands
+msgctxt "Falkland_Islands"
+msgid "Falkland_Islands"
+msgstr "福克兰群岛（马尔维纳斯）"
+
+#: Thailand
+msgctxt "Thailand"
+msgid "Thailand"
+msgstr "泰国"
+
+#: Tajikistan
+msgctxt "Tajikistan"
+msgid "Tajikistan"
+msgstr "塔吉克斯坦"
+
+#: Micronesia
+msgctxt "Micronesia"
+msgid "Micronesia"
+msgstr "密克罗尼西亚"
+
+#: French_Polynesia
+msgctxt "French_Polynesia"
+msgid "French_Polynesia"
+msgstr "法属波利尼西亚"
+
+#: France
+msgctxt "France"
+msgid "France"
+msgstr "法国"
+
+#: Kuwait
+msgctxt "Kuwait"
+msgid "Kuwait"
+msgstr "科威特"
+
+#: Kazakhstan
+msgctxt "Kazakhstan"
+msgid "Kazakhstan"
+msgstr "哈萨克斯坦"
+
+#: Laos
+msgctxt "Laos"
+msgid "Laos"
+msgstr "老挝"
+
+#: Gambia
+msgctxt "Gambia"
+msgid "Gambia"
+msgstr "冈比亚"
+
+#: Gabon
+msgctxt "Gabon"
+msgid "Gabon"
+msgstr "加蓬"
+
+#: Lebanon
+msgctxt "Lebanon"
+msgid "Lebanon"
+msgstr "黎巴嫩"
+
+#: Georgia
+msgctxt "Georgia"
+msgid "Georgia"
+msgstr "格鲁吉亚"
+
+#: Ghana
+msgctxt "Ghana"
+msgid "Ghana"
+msgstr "加纳"
+
+#: Grenada
+msgctxt "Grenada"
+msgid "Grenada"
+msgstr "格林纳达"
+
+#: Greenland
+msgctxt "Greenland"
+msgid "Greenland"
+msgstr "格陵兰"
+
+#: Germany
+msgctxt "Germany"
+msgid "Germany"
+msgstr "德国"
+
+#: Guam
+msgctxt "Guam"
+msgid "Guam"
+msgstr "关岛"
+
+#: Greece
+msgctxt "Greece"
+msgid "Greece"
+msgstr "希腊"
+
+#: Guatemala
+msgctxt "Guatemala"
+msgid "Guatemala"
+msgstr "危地马拉"
+
+#: Guinea
+msgctxt "Guinea"
+msgid "Guinea"
+msgstr "几内亚"
+
+#: Guyana
+msgctxt "Guyana"
+msgid "Guyana"
+msgstr "圭亚那"
+
+#: Latvia
+msgctxt "Latvia"
+msgid "Latvia"
+msgstr "拉脱维亚"
+
+#: Belarus
+msgctxt "Belarus"
+msgid "Belarus"
+msgstr "白俄罗斯"
+
+#: Lithuania
+msgctxt "Lithuania"
+msgid "Lithuania"
+msgstr "立陶宛"
+
+#: Palestine
+msgctxt "Palestine"
+msgid "Palestine"
+msgstr "巴勒斯坦"
+
+#: Haiti
+msgctxt "Haiti"
+msgid "Haiti"
+msgstr "海地"
+
+#: Honduras
+msgctxt "Honduras"
+msgid "Honduras"
+msgstr "洪都拉斯"
+
+#: Croatia
+msgctxt "Croatia"
+msgid "Croatia"
+msgstr "克罗地亚"
+
+#: Hungary
+msgctxt "Hungary"
+msgid "Hungary"
+msgstr "匈牙利"
+
+#: Iceland
+msgctxt "Iceland"
+msgid "Iceland"
+msgstr "冰岛"
+
+#: India
+msgctxt "India"
+msgid "India"
+msgstr "印度"
+
+#: Iran
+msgctxt "Iran"
+msgid "Iran"
+msgstr "伊朗"
+
+#: Mongolia
+msgctxt "Mongolia"
+msgid "Mongolia"
+msgstr "蒙古"
+
+#: Israel
+msgctxt "Israel"
+msgid "Israel"
+msgstr "以色列"
+
+#: Italy
+msgctxt "Italy"
+msgid "Italy"
+msgstr "意大利"
+
+#: Cote_d'Ivoire
+msgctxt "Cote_d'Ivoire"
+msgid "Cote_d'Ivoire"
+msgstr "象牙海岸"
+
+#: Iraq
+msgctxt "Iraq"
+msgid "Iraq"
+msgstr "伊拉克"
+
+#: Japan
+msgctxt "Japan"
+msgid "Japan"
+msgstr "日本"
+
+#: Jamaica
+msgctxt "Jamaica"
+msgid "Jamaica"
+msgstr "牙买加"
+
+#: Kenya
+msgctxt "Kenya"
+msgid "Kenya"
+msgstr "肯尼亚"
+
+#: Kyrgyzstan
+msgctxt "Kyrgyzstan"
+msgid "Kyrgyzstan"
+msgstr "吉尔吉斯斯坦"
+
+#: Korea
+msgctxt "Korea"
+msgid "Korea"
+msgstr "韩国"
+
+#: Liberia
+msgctxt "Liberia"
+msgid "Liberia"
+msgstr "利比里亚"
+
+#: Montserrat
+msgctxt "Montserrat"
+msgid "Montserrat"
+msgstr "蒙特塞拉特"
+
+#: Slovakia
+msgctxt "Slovakia"
+msgid "Slovakia"
+msgstr "斯洛伐克"
+
+#: Liechtenstein
+msgctxt "Liechtenstein"
+msgid "Liechtenstein"
+msgstr "列支敦士登"
+
+#: Libyan_Arab_Jamahiriya
+msgctxt "Libyan_Arab_Jamahiriya"
+msgid "Libyan_Arab_Jamahiriya"
+msgstr "利比亚"
+
+#: Madagascar
+msgctxt "Madagascar"
+msgid "Madagascar"
+msgstr "马达加斯加"
+
+#: Martinique
+msgctxt "Martinique"
+msgid "Martinique"
+msgstr "马提尼克"
+
+#: The_former_Yugoslav_Republic_of_Macedonia
+msgctxt "The_former_Yugoslav_Republic_of_Macedonia"
+msgid "The_former_Yugoslav_Republic_of_Macedonia"
+msgstr "马其顿"
+
+#: Mali
+msgctxt "Mali"
+msgid "Mali"
+msgstr "马里"
+
+#: Morocco
+msgctxt "Morocco"
+msgid "Morocco"
+msgstr "摩洛哥"
+
+#: Mauritius
+msgctxt "Mauritius"
+msgid "Mauritius"
+msgstr "毛里求斯"
+
+#: Mauritania
+msgctxt "Mauritania"
+msgid "Mauritania"
+msgstr "毛里塔尼亚"
+
+#: Malta
+msgctxt "Malta"
+msgid "Malta"
+msgstr "马耳他"
+
+#: Oman
+msgctxt "Oman"
+msgid "Oman"
+msgstr "阿曼"
+
+#: Maldives
+msgctxt "Maldives"
+msgid "Maldives"
+msgstr "马尔代夫"
+
+#: Mexico
+msgctxt "Mexico"
+msgid "Mexico"
+msgstr "墨西哥"
+
+#: Malaysia
+msgctxt "Malaysia"
+msgid "Malaysia"
+msgstr "马来西亚"
+
+#: Mozambique
+msgctxt "Mozambique"
+msgid "Mozambique"
+msgstr "莫桑比克"
+
+#: Malawi
+msgctxt "Malawi"
+msgid "Malawi"
+msgstr "马拉维"
+
+#: New_Caledonia
+msgctxt "New_Caledonia"
+msgid "New_Caledonia"
+msgstr "新喀里多尼亚"
+
+#: Niue
+msgctxt "Niue"
+msgid "Niue"
+msgstr "纽埃"
+
+#: Niger
+msgctxt "Niger"
+msgid "Niger"
+msgstr "尼日尔"
+
+#: Aruba
+msgctxt "Aruba"
+msgid "Aruba"
+msgstr "阿鲁巴"
+
+#: Belgium
+msgctxt "Belgium"
+msgid "Belgium"
+msgstr "比利时"
+
+#: Hong_Kong
+msgctxt "Hong_Kong"
+msgid "Hong_Kong"
+msgstr "香港"
+
+#: Northern_Mariana_Islands
+msgctxt "Northern_Mariana_Islands"
+msgid "Northern_Mariana_Islands"
+msgstr "北马里亚纳群岛"
+
+#: Faroe_Islands
+msgctxt "Faroe_Islands"
+msgid "Faroe_Islands"
+msgstr "法罗群岛"
+
+#: Montenegro
+msgctxt "Montenegro"
+msgid "Montenegro"
+msgstr "黑山"
+
+#: Mayotte
+msgctxt "Mayotte"
+msgid "Mayotte"
+msgstr "马约特"
+
+#: United_States_Minor_Outlying_Islands
+msgctxt "United_States_Minor_Outlying_Islands"
+msgid "United_States_Minor_Outlying_Islands"
+msgstr "美国小岛屿离岛"
+
+#: Vanuatu
+msgctxt "Vanuatu"
+msgid "Vanuatu"
+msgstr "瓦努阿图"
+
+#: Nigeria
+msgctxt "Nigeria"
+msgid "Nigeria"
+msgstr "尼日利亚"
+
+#: Netherlands
+msgctxt "Netherlands"
+msgid "Netherlands"
+msgstr "荷兰"
+
+#: Norway
+msgctxt "Norway"
+msgid "Norway"
+msgstr "挪威"
+
+#: Nepal
+msgctxt "Nepal"
+msgid "Nepal"
+msgstr "尼泊尔"
+
+#: Nauru
+msgctxt "Nauru"
+msgid "Nauru"
+msgstr "瑙鲁"
+
+#: Norfolk_Island
+msgctxt "Norfolk_Island"
+msgid "Norfolk_Island"
+msgstr "诺福克岛"
+
+#: Cocos_Islands
+msgctxt "Cocos_Islands"
+msgid "Îles_Cocos"
+msgstr "科科斯群岛"
+
+#: Antarctica
+msgctxt "Antarctica"
+msgid "Antarctica"
+msgstr "南极洲"
+
+#: Bouvet_Island
+msgctxt "Bouvet_Island"
+msgid "Bouvet_Island"
+msgstr "布韦岛"
+
+#: French_Southern_and_Antarctic_Lands
+msgctxt "French_Southern_and_Antarctic_Lands"
+msgid "French_Southern_and_Antarctic_Lands"
+msgstr "法国南部和南极土地"
+
+#: Heard_Island_and_McDonald_Islands
+msgctxt "Heard_Island_and_McDonald_Islands"
+msgid "Heard_Island_and_McDonald_Islands"
+msgstr "赫德岛和麦克唐纳群岛"
+
+#: British_Indian_Ocean_Territory
+msgctxt "British_Indian_Ocean_Territory"
+msgid "British_Indian_Ocean_Territory"
+msgstr "英属印度洋领地"
+
+#: Christmas_Island
+msgctxt "Christmas_Island"
+msgid "Christmas_Island"
+msgstr "圣诞岛"
+
+#: Portugal
+msgctxt "Portugal"
+msgid "Portugal"
+msgstr "葡萄牙"
+
+#: Suriname
+msgctxt "Suriname"
+msgid "Suriname"
+msgstr "苏里南"
+
+#: Nicaragua
+msgctxt "Nicaragua"
+msgid "Nicaragua"
+msgstr "尼加拉瓜"
+
+#: New_Zealand
+msgctxt "New_Zealand"
+msgid "New_Zealand"
+msgstr "新西兰"
+
+#: Paraguay
+msgctxt "Paraguay"
+msgid "Paraguay"
+msgstr "巴拉圭"
+
+#: Peru
+msgctxt "Peru"
+msgid "Peru"
+msgstr "秘鲁"
+
+#: Pakistan
+msgctxt "Pakistan"
+msgid "Pakistan"
+msgstr "巴基斯坦"
+
+#: Poland
+msgctxt "Poland"
+msgid "Poland"
+msgstr "波兰"
+
+#: Panama
+msgctxt "Panama"
+msgid "Panama"
+msgstr "巴拿马"
+
+#: Qatar
+msgctxt "Qatar"
+msgid "Qatar"
+msgstr "卡塔尔"
+
+#: Reunion
+msgctxt "Reunion"
+msgid "Reunion"
+msgstr "团圆"
+
+#: Romania
+msgctxt "Romania"
+msgid "Romania"
+msgstr "罗马尼亚"
+
+#: Puerto_Rico
+msgctxt "Puerto_Rico"
+msgid "Puerto_Rico"
+msgstr "波多黎各"
+
+#: Russia
+msgctxt "Russia"
+msgid "Russia"
+msgstr "俄国"
+
+#: Tokelau
+msgctxt "Tokelau"
+msgid "Tokelau"
+msgstr "托克劳"
+
+#: Republic_of_Moldova
+msgctxt "Republic_of_Moldova"
+msgid "Republic_of_Moldova"
+msgstr "摩尔多瓦"
+
+#: Philippines
+msgctxt "Philippines"
+msgid "Philippines"
+msgstr "菲律宾"
+
+#: Rwanda
+msgctxt "Rwanda"
+msgid "Rwanda"
+msgstr "卢旺达"
+
+#: Saudi_Arabia
+msgctxt "Saudi_Arabia"
+msgid "Saudi_Arabia"
+msgstr "沙特阿拉伯"
+
+#: Saint_Kitts_and_Nevis
+msgctxt "Saint_Kitts_and_Nevis"
+msgid "Saint_Kitts_and_Nevis"
+msgstr "圣基茨和尼维斯"
+
+#: Seychelles
+msgctxt "Seychelles"
+msgid "Seychelles"
+msgstr "塞舌尔"
+
+#: South_Africa
+msgctxt "South_Africa"
+msgid "South_Africa"
+msgstr "南非"
+
+#: Lesotho
+msgctxt "Lesotho"
+msgid "Lesotho"
+msgstr "莱索托"
+
+#: Botswana
+msgctxt "Botswana"
+msgid "Botswana"
+msgstr "博茨瓦纳"
+
+#: Senegal
+msgctxt "Senegal"
+msgid "Senegal"
+msgstr "塞内加尔"
+
+#: Slovenia
+msgctxt "Slovenia"
+msgid "Slovenia"
+msgstr "斯洛文尼亚"
+
+#: Sierra_Leone
+msgctxt "Sierra_Leone"
+msgid "Sierra_Leone"
+msgstr "塞拉利昂"
+
+#: Singapore
+msgctxt "Singapore"
+msgid "Singapore"
+msgstr "新加坡"
+
+#: Somalia
+msgctxt "Somalia"
+msgid "Somalia"
+msgstr "索马里"
+
+#: Spain
+msgctxt "Spain"
+msgid "Spain"
+msgstr "西班牙"
+
+#: Saint_Lucia
+msgctxt "Saint_Lucia"
+msgid "Saint_Lucia"
+msgstr "圣卢西亚"
+
+#: Sudan
+msgctxt "Sudan"
+msgid "Sudan"
+msgstr "苏丹"
+
+#: Sweden
+msgctxt "Sweden"
+msgid "Sweden"
+msgstr "瑞典"
+
+#: Syrian_Arab_Republic
+msgctxt "Syrian_Arab_Republic"
+msgid "Syrian_Arab_Republic"
+msgstr "叙利亚"
+
+#: Switzerland
+msgctxt "Switzerland"
+msgid "Switzerland"
+msgstr "瑞士"
+
+#: Tonga
+msgctxt "Tonga"
+msgid "Tonga"
+msgstr "汤加"
+
+#: Tuvalu
+msgctxt "Tuvalu"
+msgid "Tuvalu"
+msgstr "图瓦卢"
+
+#: Turkmenistan
+msgctxt "Turkmenistan"
+msgid "Turkmenistan"
+msgstr "土库曼斯坦"
+
+#: United_Republic_of_Tanzania
+msgctxt "United_Republic_of_Tanzania"
+msgid "United_Republic_of_Tanzania"
+msgstr "坦桑尼亚"
+
+#: Togo
+msgctxt "Togo"
+msgid "Togo"
+msgstr "多哥"
+
+#: Sao_Tome_and_Principe
+msgctxt "Sao_Tome_and_Principe"
+msgid "Sao_Tome_and_Principe"
+msgstr "圣多美和普林西比"
+
+#: Tunisia
+msgctxt "Tunisia"
+msgid "Tunisia"
+msgstr "突尼斯"
+
+#: Turkey
+msgctxt "Turkey"
+msgid "Turkey"
+msgstr "火鸡"
+
+#: British_Virgin_Islands
+msgctxt "British_Virgin_Islands"
+msgid "British_Virgin_Islands"
+msgstr "英属维尔京群岛"
+
+#: Viet_Nam
+msgctxt "Viet_Nam"
+msgid "Viet_Nam"
+msgstr "越南"
+
+#: Uganda
+msgctxt "Uganda"
+msgid "Uganda"
+msgstr "乌干达"
+
+#: United_Kingdom
+msgctxt "United_Kingdom"
+msgid "United_Kingdom"
+msgstr "英国"
+
+#: Ukraine
+msgctxt "Ukraine"
+msgid "Ukraine"
+msgstr "乌克兰"
+
+#: United_States
+msgctxt "United_States"
+msgid "United_States"
+msgstr "美国"
+
+#: Burkina_Faso
+msgctxt "Burkina_Faso"
+msgid "Burkina_Faso"
+msgstr "布基纳法索"
+
+#: Uruguay
+msgctxt "Uruguay"
+msgid "Uruguay"
+msgstr "乌拉圭"
+
+#: Uzbekistan
+msgctxt "Uzbekistan"
+msgid "Uzbekistan"
+msgstr "乌兹别克斯坦"
+
+#: Saint_Vincent
+msgctxt "Saint_Vincent"
+msgid "Saint_Vincent_and_the_Grenadines"
+msgstr "圣文森特和格林纳丁斯"
+
+#: Venezuela
+msgctxt "Venezuela"
+msgid "Venezuela"
+msgstr "委内瑞拉"
+
+#: United_States_Virgin_Islands
+msgctxt "United_States_Virgin_Islands"
+msgid "United_States_Virgin_Islands"
+msgstr "美属维尔京群岛"
+
+#: Namibia
+msgctxt "Namibia"
+msgid "Namibia"
+msgstr "纳米比亚"
+
+#: Wallis_and_Futuna_Islands
+msgctxt "Wallis_and_Futuna_Islands"
+msgid "Wallis_and_Futuna_Islands"
+msgstr "瓦利斯和富图纳群岛"
+
+#: Samoa
+msgctxt "Samoa"
+msgid "Samoa"
+msgstr "萨摩亚"
+
+#: Swaziland
+msgctxt "Swaziland"
+msgid "Swaziland"
+msgstr "斯威士兰"
+
+#: Yemen
+msgctxt "Yemen"
+msgid "Yemen"
+msgstr "也门"
+
+#: Zambia
+msgctxt "Zambia"
+msgid "Zambia"
+msgstr "赞比亚"
+
+#: Zimbabwe
+msgctxt "Zimbabwe"
+msgid "Zimbabwe"
+msgstr "津巴布韦"
+
+#: Indonesia
+msgctxt "Indonesia"
+msgid "Indonesia"
+msgstr "印度尼西亚"
+
+#: Saint_Pierre_and_Miquelon
+msgctxt "Saint_Pierre_and_Miquelon"
+msgid "Saint_Pierre_and_Miquelon"
+msgstr "圣皮埃尔和密克隆"
+
+#: Guadeloupe
+msgctxt "Guadeloupe"
+msgid "Guadeloupe"
+msgstr "瓜德罗普"
+
+#: Netherlands_Antilles
+msgctxt "Netherlands_Antilles"
+msgid "Netherlands_Antilles"
+msgstr "荷属安的列斯"
+
+#: Timor-Leste
+msgctxt "Timor-Leste"
+msgid "Timor-Leste"
+msgstr "东帝汶"
+
+#: Pitcairn_Islands
+msgctxt "Pitcairn_Islands"
+msgid "Pitcairn_Islands"
+msgstr "皮特凯恩群岛"
+
+#: United_Arab_Emirates
+msgctxt "United_Arab_Emirates"
+msgid "United_Arab_Emirates"
+msgstr "阿拉伯联合酋长国"
+
+#: Palau
+msgctxt "Palau"
+msgid "Palau"
+msgstr "帕劳"
+
+#: Marshall_Islands
+msgctxt "Marshall_Islands"
+msgid "Marshall_Islands"
+msgstr "马绍尔群岛"
+
+#: Saint_Helena
+msgctxt "Saint_Helena"
+msgid "Saint_Helena"
+msgstr "圣赫勒拿"
+
+#: San_Marino
+msgctxt "San_Marino"
+msgid "San_Marino"
+msgstr "圣马力诺"
+
+#: Turks_and_Caicos_Islands
+msgctxt "Turks_and_Caicos_Islands"
+msgid "Turks_and_Caicos_Islands"
+msgstr "特克斯和凯科斯群岛"
+
+#: Western_Sahara
+msgctxt "Western_Sahara"
+msgid "Western_Sahara"
+msgstr "撒哈拉沙漠西部"
+
+#: Serbia
+msgctxt "Serbia"
+msgid "Serbia"
+msgstr "塞尔维亚"
+
+#: Vatican_City
+msgctxt "Vatican_City"
+msgid "Saint-Siège_(Cité_du_Vatican)"
+msgstr "教廷（梵蒂冈城）"
+
+#: Svalbard
+msgctxt "Svalbard"
+msgid "Svalbard"
+msgstr "斯瓦尔巴特群岛"
+
+#: Saint_Martin
+msgctxt "Saint_Martin"
+msgid "Saint_Martin"
+msgstr "圣马丁"
+
+#: Saint_Barthelemy
+msgctxt "Saint_Barthelemy"
+msgid "Saint_Barthelemy"
+msgstr "圣巴泰勒米"
+
+#: Guernsey
+msgctxt "Guernsey"
+msgid "Guernsey"
+msgstr "根西岛"
+
+#: Jersey
+msgctxt "Jersey"
+msgid "Jersey"
+msgstr "泽西岛"
+
+#: South_Georgia_South_Sandwich_Islands
+msgctxt "South_Georgia_South_Sandwich_Islands"
+msgid "South_Georgia_South_Sandwich_Islands"
+msgstr "南乔治亚南三明治群岛"
+
+#: Taiwan
+msgctxt "Taiwan"
+msgid "Taiwan"
+msgstr "台湾"
+
+#: Asia
+msgctxt "Asia"
+msgid "Asia"
+msgstr "亚洲"
+
+#: NorthAmerica
+msgctxt "NorthAmerica"
+msgid "North America"
+msgstr "北美"
+
+#: SouthAmerica
+msgctxt "SouthAmerica"
+msgid "South America"
+msgstr "南美洲"
+
+#: Europa
+msgctxt "Europa"
+msgid "Europa"
+msgstr "欧罗巴"
+
+#: Coloring
+msgctxt "Coloring"
+msgid "Coloring"
+msgstr "染色"
+
+#: Tour
+msgctxt "Tour"
+msgid "Tour"
+msgstr "游览"
+
+#: Interactive
+msgctxt "Interactive"
+msgid "Interactive"
+msgstr "互动"
+
