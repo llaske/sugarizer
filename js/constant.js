@@ -57,6 +57,8 @@ constant.fieldText = "text";
 constant.defaultServer = constant.http + "server.sugarizer.org";
 constant.minPasswordSize = 4;
 
+constant.syncJournalLimit = 100;
+
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
 constant.iconSizeFavorite = 20;
