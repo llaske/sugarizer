@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string"], function (SampleRessources, templatePalette, sizePalette, lzString) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore'], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -983,53 +983,67 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
         function generateEditorDiv(card) {
             var minSize = document.body.clientWidth;
-            if (minSize > document.body.clientHeight) {
-                minSize = document.body.clientHeight;
-            }
+        if (minSize > document.body.clientHeight) {
+            minSize = document.body.clientHeight;
+        }
 
-            var e = document.createElement("div");
-            e.style.width = parseInt(minSize / 3.5) + "px";
-            e.style.marginLeft = "25px";
-            e.style.float = "left";
-            e.style.marginTop = "7px";
+        var e = document.createElement("div");
+        e.style.width = parseInt(minSize / 3.5) + "px";
+        e.style.marginLeft = "25px";
+        e.style.float = "left";
+        e.style.marginTop = "7px";
 
-            var d = document.createElement("div");
-            d.style.width = parseInt(minSize / 3.5) - 10 + "px";
-            d.style.height = parseInt(minSize / 3.5) - 10 + "px";
-            d.style.background = "rgb(119, 119, 119)";
-            d.style.border = "4px solid #000";
-            d.style.textAlign = "center";
-            d.style.borderRadius = "9px";
-            d.style.color = "#fff";
-            d.style.fontSize = parseInt(minSize / 3.5) - 10 + "px";
-            d.style.lineHeight = parseInt(minSize / 3.5) - 10 + "px";
-            d.className = "textCard";
-            if (card && card.text) {
-                d.innerHTML = card.text;
-            }
+        var d = document.createElement("div");
+        d.style.width = parseInt(minSize / 3.5) - 10 + "px";
+        d.style.height = parseInt(minSize / 3.5) - 10 + "px";
+        d.style.background = "rgb(119, 119, 119)";
+        d.style.border = "4px solid #000";
+        d.style.textAlign = "center";
+        d.style.borderRadius = "9px";
+        d.style.color = "#fff";
+        d.style.fontSize = parseInt(minSize / 3.5) - 10 + "px";
+        d.style.lineHeight = parseInt(minSize / 3.5) - 10 + "px";
+        d.className = "textCard";
+        d.style.backgroundRepeat = "no-repeat";
+        d.style.backgroundSize = "100%";
+        d.style.backgroundPosition = "center";
+        if (card && card.text) {
+            d.innerHTML = card.text;
+        } else if (card && card.image) {
+            d.style.backgroundImage = "url('" + card.image + "')";
+        }
 
-            var input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.style.marginRight = "auto";
-            input.style.marginLeft = "auto";
-            input.style.width = parseInt(minSize / 3.5) - 10 + "px";
-            input.style.marginTop = "5px";
-            input.card = card;
-            if (card && card.text) {
-                input.value = card.text;
-            }
+        var button = document.createElement("button");
+        button.style.padding = "5px";
+        button.style.textAlign = "center";
+        button.innerText = "Image";
+        button.style.marginTop = "5px";
+        button.className = "insertImage";
 
-            input.linkedDiv = d;
-            input.onkeyup = function () {
-                this.linkedDiv.innerHTML = this.value;
-                this.linkedDiv.style.fontSize = this.linkedDiv.style.width;
-                this.card.text = this.value;
-                resizeTextInsideTextCardDivs()
-            };
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.style.marginRight = "auto";
+        input.style.marginLeft = "auto";
+        input.style.width = parseInt(minSize / 3.5) - 10 + "px";
+        input.style.marginTop = "5px";
+        input.card = card;
+        if (card && card.text) {
+            input.value = card.text;
+        }
 
-            e.appendChild(d);
-            e.appendChild(input);
-            return e;
+        input.linkedDiv = d;
+        input.onkeyup = function () {
+            this.linkedDiv.innerHTML = this.value;
+            this.linkedDiv.style.fontSize = this.linkedDiv.style.width;
+            this.card.text = this.value;
+            resizeTextInsideTextCardDivs()
+        };
+
+        e.appendChild(d);
+        e.appendChild(input);
+        e.appendChild(button);
+
+        return e;
         }
 
         function generateAddEditRemoveButton() {
