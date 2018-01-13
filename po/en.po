@@ -760,8 +760,8 @@ msgstr "Activity"
 
 #: TutoActivityContent
 msgctxt "TutoActivityContent"
-msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouve over it or long touch it to display advanced launch menu."
-msgstr "Around you are icons for activities. Click on these icons to run activities. Pass the mouve over it or long touch it to display advanced launch menu."
+msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
+msgstr "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
 
 #: TutoJournalTitle
 msgctxt "TutoJournalTitle"
@@ -850,8 +850,8 @@ msgstr "Activity"
 
 #: TutoJournalActivityContent
 msgctxt "TutoJournalActivityContent"
-msgid "Here's the icon of the activity you've done. Pass the mouve over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
-msgstr "Here's the icon of the activity you've done. Pass the mouve over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgid "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgstr "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
 
 #: TutoJournalTimeTitle
 msgctxt "TutoJournalTimeTitle"
