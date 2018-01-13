@@ -15,155 +15,155 @@
 
     var TEMPLATE_SUMS = {
         name: "Addition", icon: "addition.svg", cards: [
-            [{ text: "3+4" }, { text: "7" }],
-            [{ text: "5+5" }, { text: "10" }],
-            [{ text: "5+6" }, { text: "11" }],
-            [{ text: "4+4" }, { text: "8" }],
-            [{ text: "4+5" }, { text: "9" }],
-            [{ text: "3+3" }, { text: "6" }],
-            [{ text: "2+2" }, { text: "4" }],
-            [{ text: "1+1" }, { text: "2" }],
-            [{ text: "1+2" }, { text: "3" }],
-            [{ text: "9+9" }, { text: "18" }],
-            [{ text: "10+9" }, { text: "19" }],
-            [{ text: "8+8" }, { text: "16" }],
-            [{ text: "8+9" }, { text: "17" }],
-            [{ text: "7+7" }, { text: "14" }],
-            [{ text: "7+8" }, { text: "15" }],
-            [{ text: "6+6" }, { text: "12" }]
+        [{ text: "3+4" }, { text: "7" }],
+        [{ text: "5+5" }, { text: "10" }],
+        [{ text: "5+6" }, { text: "11" }],
+        [{ text: "4+4" }, { text: "8" }],
+        [{ text: "4+5" }, { text: "9" }],
+        [{ text: "3+3" }, { text: "6" }],
+        [{ text: "2+2" }, { text: "4" }],
+        [{ text: "1+1" }, { text: "2" }],
+        [{ text: "1+2" }, { text: "3" }],
+        [{ text: "9+9" }, { text: "18" }],
+        [{ text: "10+9" }, { text: "19" }],
+        [{ text: "8+8" }, { text: "16" }],
+        [{ text: "8+9" }, { text: "17" }],
+        [{ text: "7+7" }, { text: "14" }],
+        [{ text: "7+8" }, { text: "15" }],
+        [{ text: "6+6" }, { text: "12" }]
         ],
         mode: MODE_SPLITTED
     };
     var TEMPLATE_LETTERS = {
         name: "Letters", icon: "letters.svg", cards: [
-            [{ text: "A" }, { text: "a" }],
-            [{ text: "B" }, { text: "b" }],
-            [{ text: "C" }, { text: "c" }],
-            [{ text: "D" }, { text: "d" }],
-            [{ text: "E" }, { text: "e" }],
-            [{ text: "F" }, { text: "f" }],
-            [{ text: "G" }, { text: "g" }],
-            [{ text: "H" }, { text: "h" }],
-            [{ text: "I" }, { text: "i" }],
-            [{ text: "J" }, { text: "j" }],
-            [{ text: "K" }, { text: "k" }],
-            [{ text: "L" }, { text: "l" }],
-            [{ text: "M" }, { text: "m" }],
-            [{ text: "N" }, { text: "n" }],
-            [{ text: "O" }, { text: "o" }],
-            [{ text: "P" }, { text: "p" }],
-            [{ text: "Q" }, { text: "q" }],
-            [{ text: "R" }, { text: "r" }],
-            [{ text: "S" }, { text: "s" }],
-            [{ text: "T" }, { text: "t" }],
-            [{ text: "U" }, { text: "u" }],
-            [{ text: "V" }, { text: "v" }],
-            [{ text: "W" }, { text: "w" }],
-            [{ text: "X" }, { text: "x" }],
-            [{ text: "Y" }, { text: "y" }],
-            [{ text: "Z" }, { text: "z" }]
+        [{ text: "A" }, { text: "a" }],
+        [{ text: "B" }, { text: "b" }],
+        [{ text: "C" }, { text: "c" }],
+        [{ text: "D" }, { text: "d" }],
+        [{ text: "E" }, { text: "e" }],
+        [{ text: "F" }, { text: "f" }],
+        [{ text: "G" }, { text: "g" }],
+        [{ text: "H" }, { text: "h" }],
+        [{ text: "I" }, { text: "i" }],
+        [{ text: "J" }, { text: "j" }],
+        [{ text: "K" }, { text: "k" }],
+        [{ text: "L" }, { text: "l" }],
+        [{ text: "M" }, { text: "m" }],
+        [{ text: "N" }, { text: "n" }],
+        [{ text: "O" }, { text: "o" }],
+        [{ text: "P" }, { text: "p" }],
+        [{ text: "Q" }, { text: "q" }],
+        [{ text: "R" }, { text: "r" }],
+        [{ text: "S" }, { text: "s" }],
+        [{ text: "T" }, { text: "t" }],
+        [{ text: "U" }, { text: "u" }],
+        [{ text: "V" }, { text: "v" }],
+        [{ text: "W" }, { text: "w" }],
+        [{ text: "X" }, { text: "x" }],
+        [{ text: "Y" }, { text: "y" }],
+        [{ text: "Z" }, { text: "z" }]
         ],
         mode: MODE_SPLITTED
     };
 
     var TEMPLATE_SOUNDS = {
         name: "Sounds", icon: "sounds.svg", cards: [
-            [
-            { image: INLINE_RES + "drumkit1_b", sound: INLINE_RES + "beat1_a" },
-            { image: INLINE_RES + "drumkit1_b", sound: INLINE_RES + "beat1_a" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit2_b", sound: INLINE_RES + "beat1_b" },
-            { image: INLINE_RES + "drumkit2_b", sound: INLINE_RES + "beat1_b" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit3_b", sound: INLINE_RES + "beat1_c" },
-            { image: INLINE_RES + "drumkit3_b", sound: INLINE_RES + "beat1_c" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit4_b", sound: INLINE_RES + "beat8" },
-            { image: INLINE_RES + "drumkit4_b", sound: INLINE_RES + "beat8" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit5_b", sound: INLINE_RES + "beat10" },
-            { image: INLINE_RES + "drumkit5_b", sound: INLINE_RES + "beat10" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit6_b", sound: INLINE_RES + "beat3" },
-            { image: INLINE_RES + "drumkit6_b", sound: INLINE_RES + "beat3" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit7_b", sound: INLINE_RES + "beat4" },
-            { image: INLINE_RES + "drumkit7_b", sound: INLINE_RES + "beat4" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit8_b", sound: INLINE_RES + "beat14" },
-            { image: INLINE_RES + "drumkit8_b", sound: INLINE_RES + "beat14" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit9_b", sound: INLINE_RES + "beat6_2" },
-            { image: INLINE_RES + "drumkit9_b", sound: INLINE_RES + "beat6_2" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit10_b", sound: INLINE_RES + "beat2" },
-            { image: INLINE_RES + "drumkit10_b", sound: INLINE_RES + "beat2" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit11_b", sound: INLINE_RES + "beat16" },
-            { image: INLINE_RES + "drumkit11_b", sound: INLINE_RES + "beat16" }
-            ],
-            [
-            { image: INLINE_RES + "drumkit12_b", sound: INLINE_RES + "beat17" },
-            { image: INLINE_RES + "drumkit12_b", sound: INLINE_RES + "beat17" }
-            ],
-            [
-            { image: INLINE_RES + "guitar1_2", sound: INLINE_RES + "bending_a" },
-            { image: INLINE_RES + "guitar1_2", sound: INLINE_RES + "bending_a" }
-            ],
-            [
-            { image: INLINE_RES + "guitar2_2", sound: INLINE_RES + "bending_b" },
-            { image: INLINE_RES + "guitar2_2", sound: INLINE_RES + "bending_b" }
-            ],
-            [
-            { image: INLINE_RES + "guitar3_2", sound: INLINE_RES + "flashcomp2a" },
-            { image: INLINE_RES + "guitar3_2", sound: INLINE_RES + "flashcomp2a" }
-            ],
-            [
-            { image: INLINE_RES + "guitar4_2", sound: INLINE_RES + "flashcomp2b" },
-            { image: INLINE_RES + "guitar4_2", sound: INLINE_RES + "flashcomp2b" }
-            ],
-            [
-            { image: INLINE_RES + "guitar5_2", sound: INLINE_RES + "gedaempft" },
-            { image: INLINE_RES + "guitar5_2", sound: INLINE_RES + "gedaempft" }
-            ],
-            [
-            { image: INLINE_RES + "guitar6_2", sound: INLINE_RES + "ungedaempft" },
-            { image: INLINE_RES + "guitar6_2", sound: INLINE_RES + "ungedaempft" }
-            ],
-            [
-            { image: INLINE_RES + "guitar7_2", sound: INLINE_RES + "jimi4" },
-            { image: INLINE_RES + "guitar7_2", sound: INLINE_RES + "jimi4" }
-            ],
-            [
-            { image: INLINE_RES + "guitar8_2", sound: INLINE_RES + "git_hit1" },
-            { image: INLINE_RES + "guitar8_2", sound: INLINE_RES + "git_hit1" }
-            ],
-            [
-            { image: INLINE_RES + "guitar9_2", sound: INLINE_RES + "git_hit4" },
-            { image: INLINE_RES + "guitar9_2", sound: INLINE_RES + "git_hit4" }
-            ],
-            [
-            { image: INLINE_RES + "guitar10_2", sound: INLINE_RES + "jimi1" },
-            { image: INLINE_RES + "guitar10_2", sound: INLINE_RES + "jimi1" }
-            ],
-            [
-            { image: INLINE_RES + "guitar11_2", sound: INLINE_RES + "flasholet4" },
-            { image: INLINE_RES + "guitar11_2", sound: INLINE_RES + "flasholet4" }
-            ],
-            [
-            { image: INLINE_RES + "guitar12_2", sound: INLINE_RES + "guitcello" },
-            { image: INLINE_RES + "guitar12_2", sound: INLINE_RES + "guitcello" }
-            ]
+        [
+        { image: INLINE_RES + "drumkit1_b", sound: INLINE_RES + "beat1_a" },
+        { image: INLINE_RES + "drumkit1_b", sound: INLINE_RES + "beat1_a" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit2_b", sound: INLINE_RES + "beat1_b" },
+        { image: INLINE_RES + "drumkit2_b", sound: INLINE_RES + "beat1_b" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit3_b", sound: INLINE_RES + "beat1_c" },
+        { image: INLINE_RES + "drumkit3_b", sound: INLINE_RES + "beat1_c" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit4_b", sound: INLINE_RES + "beat8" },
+        { image: INLINE_RES + "drumkit4_b", sound: INLINE_RES + "beat8" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit5_b", sound: INLINE_RES + "beat10" },
+        { image: INLINE_RES + "drumkit5_b", sound: INLINE_RES + "beat10" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit6_b", sound: INLINE_RES + "beat3" },
+        { image: INLINE_RES + "drumkit6_b", sound: INLINE_RES + "beat3" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit7_b", sound: INLINE_RES + "beat4" },
+        { image: INLINE_RES + "drumkit7_b", sound: INLINE_RES + "beat4" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit8_b", sound: INLINE_RES + "beat14" },
+        { image: INLINE_RES + "drumkit8_b", sound: INLINE_RES + "beat14" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit9_b", sound: INLINE_RES + "beat6_2" },
+        { image: INLINE_RES + "drumkit9_b", sound: INLINE_RES + "beat6_2" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit10_b", sound: INLINE_RES + "beat2" },
+        { image: INLINE_RES + "drumkit10_b", sound: INLINE_RES + "beat2" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit11_b", sound: INLINE_RES + "beat16" },
+        { image: INLINE_RES + "drumkit11_b", sound: INLINE_RES + "beat16" }
+        ],
+        [
+        { image: INLINE_RES + "drumkit12_b", sound: INLINE_RES + "beat17" },
+        { image: INLINE_RES + "drumkit12_b", sound: INLINE_RES + "beat17" }
+        ],
+        [
+        { image: INLINE_RES + "guitar1_2", sound: INLINE_RES + "bending_a" },
+        { image: INLINE_RES + "guitar1_2", sound: INLINE_RES + "bending_a" }
+        ],
+        [
+        { image: INLINE_RES + "guitar2_2", sound: INLINE_RES + "bending_b" },
+        { image: INLINE_RES + "guitar2_2", sound: INLINE_RES + "bending_b" }
+        ],
+        [
+        { image: INLINE_RES + "guitar3_2", sound: INLINE_RES + "flashcomp2a" },
+        { image: INLINE_RES + "guitar3_2", sound: INLINE_RES + "flashcomp2a" }
+        ],
+        [
+        { image: INLINE_RES + "guitar4_2", sound: INLINE_RES + "flashcomp2b" },
+        { image: INLINE_RES + "guitar4_2", sound: INLINE_RES + "flashcomp2b" }
+        ],
+        [
+        { image: INLINE_RES + "guitar5_2", sound: INLINE_RES + "gedaempft" },
+        { image: INLINE_RES + "guitar5_2", sound: INLINE_RES + "gedaempft" }
+        ],
+        [
+        { image: INLINE_RES + "guitar6_2", sound: INLINE_RES + "ungedaempft" },
+        { image: INLINE_RES + "guitar6_2", sound: INLINE_RES + "ungedaempft" }
+        ],
+        [
+        { image: INLINE_RES + "guitar7_2", sound: INLINE_RES + "jimi4" },
+        { image: INLINE_RES + "guitar7_2", sound: INLINE_RES + "jimi4" }
+        ],
+        [
+        { image: INLINE_RES + "guitar8_2", sound: INLINE_RES + "git_hit1" },
+        { image: INLINE_RES + "guitar8_2", sound: INLINE_RES + "git_hit1" }
+        ],
+        [
+        { image: INLINE_RES + "guitar9_2", sound: INLINE_RES + "git_hit4" },
+        { image: INLINE_RES + "guitar9_2", sound: INLINE_RES + "git_hit4" }
+        ],
+        [
+        { image: INLINE_RES + "guitar10_2", sound: INLINE_RES + "jimi1" },
+        { image: INLINE_RES + "guitar10_2", sound: INLINE_RES + "jimi1" }
+        ],
+        [
+        { image: INLINE_RES + "guitar11_2", sound: INLINE_RES + "flasholet4" },
+        { image: INLINE_RES + "guitar11_2", sound: INLINE_RES + "flasholet4" }
+        ],
+        [
+        { image: INLINE_RES + "guitar12_2", sound: INLINE_RES + "guitcello" },
+        { image: INLINE_RES + "guitar12_2", sound: INLINE_RES + "guitcello" }
+        ]
         ],
         mode: MODE_CLASSIC
     };
@@ -982,7 +982,7 @@
 
         displayEditor();
     }
-    var insertImageButtonCreated = false;
+
     function generateEditorDiv(card) {
         var minSize = document.body.clientWidth;
         if (minSize > document.body.clientHeight) {
