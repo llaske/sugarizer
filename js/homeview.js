@@ -78,14 +78,24 @@ enyo.kind({
 							console.log("WARNING: Can't connect to presence server");
 						}
 					});
-					autosync.synchronizeJournal(function(locale, remote, error) {
-						// Locale journal has changed, update display
-						if (locale) {
-							that.loadJournal();
-							preferences.updateEntries();
-							that.draw();
+					autosync.synchronizeJournal(
+						function(count) {
+							if (count) {
+								humane.log(l10n.get("RetrievingJournal"));
+								that.getToolbar().showSync(true);
+							}
+						},
+						function(locale, remote, error) {
+							that.getToolbar().showSync(false);
+
+							// Locale journal has changed, update display
+							if (locale) {
+								that.loadJournal();
+								preferences.updateEntries();
+								that.draw();
+							}
 						}
-					});
+					);
 				},
 				function() {
 					console.log("WARNING: Can't read network user settings");
@@ -652,6 +662,7 @@ enyo.kind({
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
+		{name: "syncbutton", classes: "sync-button sync-home sync-gear", showing: false},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -732,6 +743,10 @@ enyo.kind({
 			this.needRedraw = false;
 			app.redraw();
 		}
+	},
+
+	showSync: function(showing) {
+		this.$.syncbutton.setShowing(showing);
 	},
 
 	startTutorial: function() {

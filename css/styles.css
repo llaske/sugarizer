@@ -451,20 +451,56 @@ body {
 	left: 15px;
 }
 
-.sync0-button {
-	background-image: url(../icons/sync0.svg);
+.sync-button {
+	background-image: url(../icons/sync.svg);
 }
 
-.sync1-button {
-	background-image: url(../icons/sync1.svg);
+.sync-home {
+	position: absolute !important;
+	top: 0px;
+	left: 490px;
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
 }
 
-.sync2-button {
-	background-image: url(../icons/sync2.svg);
+.sync-journal {
+	position: absolute;
+	bottom: 6px;
+	right: 62px;
+	width: 36px;
+	height: 36px;
+	margin: 4px 2px;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
 }
 
-.sync3-button {
-	background-image: url(../icons/sync3.svg);
+.sync-gear {
+	animation-name: sync-frame;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes sync-frame {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .neighbor-filter-text {
@@ -1608,6 +1644,10 @@ body {
 		left: 280px;
 	}
 
+	.sync-home {
+		left: 340px;
+	}
+
 	.homeview-filter-text {
 		width: 200px;
 	}
@@ -1643,8 +1683,17 @@ body {
 		visibility: hidden;
 	}
 }
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 590px) {
 	.help-button {
+		visibility: hidden;
+	}
+
+	.sync-home {
+		left: 270px;
+	}
+}
+@media screen and (max-width: 520px) {
+	.sync-home {
 		visibility: hidden;
 	}
 }

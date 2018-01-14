@@ -26,7 +26,8 @@ enyo.kind({
 			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
 			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
 			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
-			{name: "syncbutton", kind: "Button", classes: "toolbutton sync0-button pull-right", title:"Sync", ontap: "syncJournal"}
+			{name: "syncgear", classes: "sync-button sync-journal sync-gear", showing: false},
+			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button pull-right", title:"Sync", ontap: "syncJournal"}
 		]}
 	],
 
@@ -581,19 +582,31 @@ enyo.kind({
 	// Sync local journal with remote journal
 	syncJournal: function() {
 		var that = this;
-		autosync.synchronizeJournal(function(locale, remote, error) {
-			// Locale has changed, update display
-			if (locale && that.journalType == constant.journalLocal) {
-				that.loadLocalJournal();
-				app.journal = that.journal;
-				preferences.updateEntries();
-				app.draw();
+		autosync.synchronizeJournal(
+			function(count) {
+				if (count) {
+					humane.log(l10n.get("RetrievingJournal"));
+					that.$.syncbutton.setShowing(false);
+					that.$.syncgear.setShowing(true);
+				}
+			},
+			function(locale, remote, error) {
+				// Display button
+				that.$.syncbutton.setShowing(true);
+				that.$.syncgear.setShowing(false);
+				// Locale has changed, update display
+				if (locale && that.journalType == constant.journalLocal) {
+					that.loadLocalJournal();
+					app.journal = that.journal;
+					preferences.updateEntries();
+					app.draw();
+				}
+				// Remote has changed, update display
+				if (remote && that.journalType == constant.journalRemotePrivate) {
+					that.loadRemoteJournal(preferences.getPrivateJournal());
+				}
 			}
-			// Remote has changed, update display
-			if (remote && that.journalType == constant.journalRemotePrivate) {
-				that.loadRemoteJournal(preferences.getPrivateJournal());
-			}
-		});
+		);
 	},
 
 	changeJournalType: function(newType) {
