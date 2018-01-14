@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string"], function (SampleRessources, templatePalette, sizePalette, lzString) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore'], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -1004,15 +1004,28 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             d.style.fontSize = parseInt(minSize / 3.5) - 10 + "px";
             d.style.lineHeight = parseInt(minSize / 3.5) - 10 + "px";
             d.className = "textCard";
+            d.style.backgroundRepeat = "no-repeat";
+            d.style.backgroundSize = "100%";
+            d.style.backgroundPosition = "center";
             if (card && card.text) {
                 d.innerHTML = card.text;
+            } else if (card && card.image) {
+                d.style.backgroundImage = "url('" + card.image + "')";
             }
+
+            var importPicture = document.createElement("img");
+            importPicture.style.marginLeft = "5px";
+            importPicture.style.marginTop = "5px";
+            importPicture.style.textAlign = "center";
+            importPicture.setAttribute("src", "icons/import_picture.svg");
+            importPicture.style.width = "30px";
+            importPicture.className = "insertImage";
 
             var input = document.createElement("input");
             input.setAttribute("type", "text");
             input.style.marginRight = "auto";
             input.style.marginLeft = "auto";
-            input.style.width = parseInt(minSize / 3.5) - 10 + "px";
+            input.style.width = parseInt(minSize / 3.5) - 50 + "px";
             input.style.marginTop = "5px";
             input.card = card;
             if (card && card.text) {
@@ -1029,6 +1042,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
             e.appendChild(d);
             e.appendChild(input);
+            e.appendChild(importPicture);
+
             return e;
         }
 
@@ -1242,6 +1257,115 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             return d;
         }
 
+        function insertimagebuttonsFun(){
+            document.getElementsByClassName("insertImage")[0].onclick = function(){
+                var cards = [];
+                chooser.show(function (entry) {
+                    // No selection
+                    if (!entry) {
+                        return;
+                    }
+                    // Get object content
+                    var dataentry = new datastore.DatastoreObject(entry.objectId);
+                    dataentry.loadAsText(function (err, metadata, text) {
+                        //We load the drawing inside an image element
+                        var element = document.createElement('img');
+                        element.src = text;
+                        element.onload = function () {
+                            document.getElementsByClassName("textCard")[0].style.backgroundImage = 'url(' + element.src + ')';
+                            if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                MemorizeApp.editor.card1.image = element.src;
+                                MemorizeApp.editor.card1.text = "";
+                                MemorizeApp.editor.card2.image = element.src;
+                                MemorizeApp.editor.card2.text = "";
+                            }else{
+                                MemorizeApp.editor.card1.image = element.src;
+                                MemorizeApp.editor.card1.text = "";
+                            }
+                            var cards = [];
+                            if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                cards[0] = MemorizeApp.editor.card1;
+                                cards[1] = MemorizeApp.editor.card1;
+                            }
+                            if (MemorizeApp.editor.pairMode == MODE_NON_EQUAL) {
+                                cards[0] = MemorizeApp.editor.card1;
+                                cards[1] = MemorizeApp.editor.card2;
+                            }
+
+                            if (!cards[0].text && !cards[0].image && !cards[0].sound) {
+                                return;
+                            }
+
+                            if (!cards[1].text && !cards[1].image && !cards[1].sound) {
+                                return;
+                            }
+
+                            cards = JSON.parse(JSON.stringify(cards));
+
+                            if (MemorizeApp.editor.selectedPair > -1) {
+                                MemorizeApp.game.template.cards[MemorizeApp.editor.selectedPair] = cards
+                            }
+                            saveGame();
+                            displayEditor();
+                        };
+                    });
+                }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
+            } 
+            if(document.getElementsByClassName("insertImage")[1]){
+                document.getElementsByClassName("insertImage")[1].onclick = function(){
+                    var cards = [];
+                    chooser.show(function (entry) {
+                        // No selection
+                        if (!entry) {
+                            return;
+                        }
+                        // Get object content
+                        var dataentry = new datastore.DatastoreObject(entry.objectId);
+                        dataentry.loadAsText(function (err, metadata, text) {
+                            //We load the drawing inside an image element
+                            var element = document.createElement('img');
+                            element.src = text;
+                            element.onload = function () {
+                                document.getElementsByClassName("textCard")[1].style.backgroundImage = 'url(' + element.src + ')';
+                                if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                    MemorizeApp.editor.card1.image = element.src;
+                                    MemorizeApp.editor.card1.text = "";
+                                    MemorizeApp.editor.card2.image = element.src;
+                                    MemorizeApp.editor.card2.text = "";
+                                }else{
+                                    MemorizeApp.editor.card2.image = element.src;
+                                    MemorizeApp.editor.card2.text = "";
+                                }
+                                var cards = [];
+                                if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
+                                    cards[0] = MemorizeApp.editor.card1;
+                                    cards[1] = MemorizeApp.editor.card1;
+                                }
+                                if (MemorizeApp.editor.pairMode == MODE_NON_EQUAL) {
+                                    cards[0] = MemorizeApp.editor.card1;
+                                    cards[1] = MemorizeApp.editor.card2;
+                                }
+
+                                if (!cards[0].text && !cards[0].image && !cards[0].sound) {
+                                    return;
+                                }
+
+                                if (!cards[1].text && !cards[1].image && !cards[1].sound) {
+                                    return;
+                                }
+                                cards = JSON.parse(JSON.stringify(cards));
+                                if (MemorizeApp.editor.selectedPair > -1) {
+                                    MemorizeApp.game.template.cards[MemorizeApp.editor.selectedPair] = cards
+                                }
+                                saveGame();
+                                displayEditor();
+                            };
+                        });
+                    }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
+                }
+            }
+        }
+
         function generateCardsList() {
             var div = document.createElement("div");
             var minSize = document.body.clientWidth;
@@ -1302,7 +1426,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 MemorizeApp.ui.gameEditor.appendChild(generateEditorDiv(MemorizeApp.editor.card1));
                 MemorizeApp.ui.gameEditor.appendChild(generateEditorDiv(MemorizeApp.editor.card2));
             }
-
+            insertimagebuttonsFun();
             MemorizeApp.ui.gameEditor.appendChild(generateAddEditRemoveButton());
             MemorizeApp.ui.gameEditor.appendChild(generateClearBoth());
             MemorizeApp.ui.gameEditor.appendChild(generateCardsList());
