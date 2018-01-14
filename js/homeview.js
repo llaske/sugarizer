@@ -637,7 +637,6 @@ enyo.kind({
 	// Filter activities handling
 	filterActivities: function() {
 		var filter = toolbar.getSearchText().toLowerCase();
-		stats.trace(constant.viewNames[app.getView()], 'search', 'q='+filter, null);
 
 		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
@@ -715,6 +714,7 @@ enyo.kind({
 
 	// Handle events
 	filterActivities: function() {
+		stats.trace(constant.viewNames[app.getView()], 'search', 'q='+this.getSearchText(), null);
 		app.filterActivities();
 	},
 
