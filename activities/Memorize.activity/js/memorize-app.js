@@ -1013,18 +1013,19 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 d.style.backgroundImage = "url('" + card.image + "')";
             }
 
-            var button = document.createElement("button");
-            button.style.padding = "5px";
-            button.style.textAlign = "center";
-            button.innerText = "Image";
-            button.style.marginTop = "5px";
-            button.className = "insertImage";
+            var importPicture = document.createElement("img");
+            importPicture.style.marginLeft = "5px";
+            importPicture.style.marginTop = "5px";
+            importPicture.style.textAlign = "center";
+            importPicture.setAttribute("src", "icons/import_picture.svg");
+            importPicture.style.width = "30px";
+            importPicture.className = "insertImage";
 
             var input = document.createElement("input");
             input.setAttribute("type", "text");
             input.style.marginRight = "auto";
             input.style.marginLeft = "auto";
-            input.style.width = parseInt(minSize / 3.5) - 10 + "px";
+            input.style.width = parseInt(minSize / 3.5) - 50 + "px";
             input.style.marginTop = "5px";
             input.card = card;
             if (card && card.text) {
@@ -1041,7 +1042,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
             e.appendChild(d);
             e.appendChild(input);
-            e.appendChild(button);
+            e.appendChild(importPicture);
 
             return e;
         }
