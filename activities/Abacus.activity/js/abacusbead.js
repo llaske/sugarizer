@@ -84,24 +84,16 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight){
 			this.resetAge();
 		}
 	}
-
+	
 	this.addClickListeners = function(){
 		var th = this;
 		var col = column;
-		this.bead.on("mousedown", function(evt) {
-		    th.originaly = evt.stageY;
+		this.bead.addEventListener("click", function(evt){
+			col.shuntLeft(th.index);
 		});
-
-		this.bead.on("pressup", function(evt) {
-		    if (th.originaly<evt.stageY){
-		    	//moved down
-		    	console.log("down");
-		    	col.shuntRight(th.index);
-		    } else if (th.originaly>evt.stageY){
-		    	console.log("up");
-		    	col.shuntLeft(th.index);
-		    }
-		});
+		this.bead.addEventListener("dblclick", function(evt){
+			col.shuntRight(th.index);
+		});		
 	}
 
 	this.updateValue = function(on,positive){
