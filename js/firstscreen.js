@@ -169,7 +169,7 @@ enyo.kind({
 			return;
 		}
 		if (this.step == 1) {
-			var name = this.$.name.getValue();
+			var name = this.$.name.getValue().trim();
 			if (name.length == 0) {
 				return;
 			}
@@ -283,7 +283,7 @@ enyo.kind({
 	createOrLogin: function() {
 		// Save settings
 		preferences.setColor(this.ownerColor);
-		preferences.setName(this.$.name.getValue());
+		preferences.setName(this.$.name.getValue().trim());
 
 		// Not connected
 		if (util.getClientType() != constant.webAppType) {

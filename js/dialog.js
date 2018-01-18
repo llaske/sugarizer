@@ -400,7 +400,7 @@ enyo.kind({
 
 	namechanged: function() {
 		this.$.restartmessage.setShowing(true);
-		this.currentname = this.$.name.getValue();
+		this.currentname = this.$.name.getValue().trim();
 	},
 
 	restart: function() {
