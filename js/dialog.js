@@ -918,7 +918,7 @@ enyo.kind({
 	},
 
 	ok: function() {
-		if (!this.hasChanged()) {
+		if (!this.hasChanged() || (this.$.connected.getNodeProperty("checked") && this.step != 3)) {
 			this.hide();
 			this.owner.show();
 			return;
