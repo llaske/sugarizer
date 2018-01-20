@@ -637,8 +637,19 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
+		this.localize();
+	},
+
+	rendered: function() {
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
+		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
+		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 
 		// Set time selectbox content
@@ -659,12 +670,6 @@ enyo.kind({
 			items.push({icon: activities[i], name: activities[i].name});
 		}
 		this.$.typeselect.setItems(items);
-	},
-
-	rendered: function() {
-		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
-		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
-		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
 
 	// Event handling

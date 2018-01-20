@@ -82,11 +82,17 @@ enyo.kind({
 						function(count) {
 							if (count) {
 								humane.log(l10n.get("RetrievingJournal"));
-								that.getToolbar().showSync(true);
+								var toolbar = that.getToolbar();
+								if (toolbar.showSync) {
+									toolbar.showSync(true);
+								}
 							}
 						},
 						function(locale, remote, error) {
-							that.getToolbar().showSync(false);
+							var toolbar = that.getToolbar();
+							if (toolbar.showSync) {
+								toolbar.showSync(false);
+							}
 
 							// Locale journal has changed, update display
 							if (locale) {
@@ -173,6 +179,9 @@ enyo.kind({
 	getToolbar: function() {
 		if (this.toolbar == null) {
 			this.toolbar = new Sugar.DesktopToolbar();
+		}
+		if (this.otherview != null) {
+			return this.otherview.getToolbar();
 		}
 		return this.toolbar;
 	},
@@ -389,6 +398,7 @@ enyo.kind({
 
 		// Show desktop
 		if (newView == constant.radialView) {
+			this.otherview = null;
 			util.setToolbar(this.getToolbar());
 			toolbar.setActiveView(constant.radialView);
 			this.$.otherview.hide();
@@ -396,7 +406,6 @@ enyo.kind({
 			this.$.owner.show();
 			this.$.journal.show();
 			this.clearView();
-			this.otherview = null;
 			return;
 		}
 
@@ -669,12 +678,16 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
 		this.needRedraw = false;
 	},
 
 	rendered: function() {
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
 		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));

@@ -43,7 +43,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	// Wait for localized strings are here
 	window.addEventListener('localized', function() {
 		if (app) {
-			app.getToolbar().render();
+			app.getToolbar().localize();
 			app.render();
 		} else if (--toload == 0) {
 			loadpreference();

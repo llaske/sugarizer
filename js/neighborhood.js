@@ -825,12 +825,17 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
-		this.$.neighborsearch.setPlaceholder(l10n.get("SearchNeighbor"));
+		this.localize();
 	},
 
 	rendered: function() {
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
+		this.$.neighborsearch.setPlaceholder(l10n.get("SearchNeighbor"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
