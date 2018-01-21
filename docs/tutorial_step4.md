@@ -2,6 +2,7 @@
 
 
 # Step 4: handle journal and datastore
+*(Estimated time: 30mn)*
 
 In the previous step, we've started to see how to use the unique Sugar UI. Let's see now another major feature of Sugar, the Journal, and how to handle it from our activity.
 
@@ -17,7 +18,7 @@ Draw something.
 
 Then stop the activity by clicking on the Stop button to the right.
 
-Relaunch it. You will retrieve the same drawing. That what the Journal is for: take care of your work without need to save it. Stop the activity again and go to the home view. Now just let the mouse on the Paint icon without clicking on it. A popup will appear.
+Relaunch it. You will retrieve the same drawing. That what the Journal is for: take care of your work without need to save it. Stop the activity again and go to the home view. Now just let the mouse on the Paint icon without clicking on it. A popup will appear after one second.
 
 ![](images/tutorial_step4_3.png)
 
@@ -161,7 +162,7 @@ Of course, the context is not load for the moment in the activity but at least w
 
 ### Load context from the datastore
 
-When our activity is launch with a new instance - the first branch from the previous `if` instruction, there is nothing to do. In that case, the `pawns` will be initialize with an empty array as today.
+When our activity is launched with a new instance - the first branch from the previous `if` instruction, there is nothing to do. In that case, the `pawns` will be initialize with an empty array as today.
 
 When our activity is launch with an existing instance - the `else` branch, we have to load the context to init our `pawns` array.
 

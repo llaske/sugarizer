@@ -1,6 +1,7 @@
 [Go back to tutorial home](tutorial.md)
 
 # Step 2: customize icon and content
+*(Estimated time: 30mn)*
 
 Let's now improve our activity to customize the content.
 
@@ -8,14 +9,14 @@ Let's now improve our activity to customize the content.
 
 The first task is to customize the icon. It's important because it's the visual identity of your activity.
 
-For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](https://sugarizer.org/download/pawn-icon.svg).
+For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](images/pawn-icon.svg). Put it in a new `icons` directory into your `Pawn.activity` directory.
 
 ![](images/tutorial_step2_1.png)
 
 In Sugarizer, images for icons or buttons must be SVG graphic files. Plus, it need to be adapted to support users colors because as you could see on the home page all icons in Sugarizer are dynamically adapted to users colors.
 
 To do that, we need to update our original SVG file.
-Here's an extract on our original `pawn-icon.svg` file:
+Here's an extract on our original `icons/pawn-icon.svg` file:
 
 	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 	<svg
@@ -54,7 +55,11 @@ Here's an extract on our original `pawn-icon.svg` file:
 
 To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **file_color**. 
 
-Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`. Here is an extract of the result:
+Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`. 
+
+Here, using your text editor you must replace `#808080` by `&fill_color;` and `#f0f0f0` by `&stroke_color;`.
+
+Here is an extract of the result:
 
 	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 	<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
@@ -95,7 +100,7 @@ Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to
 		</g>
 	</svg>
 
-Once done, create a directory `icons/` inside your activity and place the resulting file in `icons/pawn-icon.svg`. To update the activity icon, replace also the content of `activity/activity-icon.svg` by the content of this new file.
+To update the activity icon, replace also the content of `activity/activity-icon.svg` by the content of the `pawn-icon.svg` file.
 
 Let's run again our activity. We have now a beautiful pawn icon.
 
@@ -111,7 +116,6 @@ We will now change the content of our Window. More precisely, we're going to rep
 
 Let's first remove the default message, you could find it in `index.html` file:
 
-	<!-- Replace this message with your own content -->
 	<h1>Congratulations!</h1>
 	<p>You are ready to develop this activity. Go ahead and edit the files.<br />
 	You can remove this message in the index.html.</p>
@@ -144,15 +148,15 @@ These lines relied on the framework **require.js** that is used by Sugar-Web to 
 
 Then come the most important line of our activity:
 
-			// Initialize the activity.
-			activity.setup();
+	// Initialize the activity.
+	activity.setup();
 			
 It's a call to the `setup` method of the Sugar-Web activity library.
 
 If you have to keep only one line in your activity, keep that one because it's responsible of all the magic inside Sugarizer: it initialize Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forgot this call. Let's do it by commenting the line:
 
-			// Initialize the activity.
-			//activity.setup(); 
+	// Initialize the activity.
+	//activity.setup(); 
  
 Then run again your new activity. Here's what happens:
 
@@ -163,8 +167,8 @@ Ooops! Colors for our nice icons has disappear and when you click on the Stop bu
 
 So uncomment this precious line and never forget to call it again!
 
-			// Initialize the activity.
-			activity.setup(); 
+		// Initialize the activity.
+		activity.setup(); 
 
 Now, to display our welcome message, we will use the user's name.
 
@@ -175,21 +179,21 @@ To do that we're going to use another Sugar-Web library named **env**. So, we ne
 This library contains a very interesting method `getEnvironment`. This method allow you to retrieve all users settings: name, prefered colours, language, favorites, ...
 So add a call to this method to retrieve the user name:
 
-		// Initialize the activity.
-		activity.setup();
+	// Initialize the activity.
+	activity.setup();
 
-		// Welcome user
-		env.getEnvironment(function(err, environment) {
-				document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
-		});
+	// Welcome user
+	env.getEnvironment(function(err, environment) {
+			document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
+	});
 		
-When you call the getEnvironment method, it load the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
+When you call the getEnvironment method, it should be loads the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
 
-		document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
+	document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 
 That's all. Run again the activity.
 
-Congratulation! the welcome message will no appear:
+Congratulation! the welcome message will now appear:
 
 
 ![](images/tutorial_step2_4.png)

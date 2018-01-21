@@ -1,6 +1,7 @@
 [Go back to tutorial home](tutorial.md)
 
 # Step 3: add a toolbar button
+*(Estimated time: 30mn)*
 
 It's time now to implement the logic of our new activity.
 
@@ -14,7 +15,9 @@ Here is the icon we will use. It's just a stylized plus sign.
 
 ![](images/tutorial_step3_1.png)
 
-You could download it [here](https://sugarizer.org/download/add.svg). Save it as a SVG file in `icons/add.svg`.
+You could download it [here](images/add.svg). Save it as a SVG file in `icons/add.svg`.
+
+***Warning***: *The plus sign is white on a transparent background so you will see nothing if you display it on a white background.*
 
 To add this icon in the toolbar, we will first update the `index.html` file. Look for the toolbar section in the file. It look like this:
 
@@ -66,7 +69,7 @@ We give the value `pawns` for the tag `id` because it will contain all pawns on 
 
 To draw the pawn we will reuse our nice pawn icon. So each time there will be a click on the Plus button, we will add a new pawn icon on the board.
 
-Let's update the `activity/activity.js` to add this. But first, we will slightly adapt our `getEnvironment` call:
+Let's update the `activity/activity.js` to add this. But first, we will slightly adapt our `getEnvironment` call. We just add a `currentenv` variable to store the environment to avoid multiple call of the `getEnvironment` method:
 
 		// Welcome user
 		var currentenv;
@@ -74,8 +77,6 @@ Let's update the `activity/activity.js` to add this. But first, we will slightly
 			currentenv = environment;
 			document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 		});
-
-We just add a `currentenv` variable to store the environment to avoid multiple call.
 
 Then just after the `getEnvironment` call, we will add the following event listener:
 
@@ -110,7 +111,7 @@ Can't wait to run again our activity:
 
 ![](images/tutorial_step3_3.png)
 
-Waow, it works! Each time we will click on the Plus icon a new pawn will appears.
+Wow, it works! Each time we will click on the Plus icon a new pawn will appears.
 
 By the way, we could do better. What if we could change the pawn color?
 

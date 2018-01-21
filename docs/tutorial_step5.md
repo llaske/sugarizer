@@ -1,6 +1,7 @@
 [Go back to tutorial home](tutorial.md)
 
 # Step 5: localize the activity
+*(Estimated time: 15mn)*
 
 Your current Sugarizer session talk probably the same language than you. At the first setup, Sugarizer detect the language of your browser and use this language  for the UI and for activities.
 
@@ -21,7 +22,7 @@ The first step when you localize an activity is to identify strings to localize.
 * *"{user} played!"*: when the user played a pawn
 * *"Add pawn"*: the helper message on the toolbar button
 
-With the webL10n library all strings have to be define in a specific file where all translations for each strings should be set. We call this file `locale.ini`.  So let's create a `locale.ini` file at the root of the Pawn activity. Here what it look likes: 
+With the webL10n library all strings have to be define in a specific file where all translations for each strings should be set. We call this file `locale.ini`.  So using your text editor, let's create a `locale.ini` file at the root of the Pawn activity. Here what it look likes: 
 
 	[*]
 	Hello=Hello {{name}}!
@@ -142,7 +143,7 @@ In a same way, the pawn played message could be rewrite as:
 
 One point however: we need to wait to initialize strings that the `locale.ini` is read. It's possible because the webL10n framework raise a new `localized` event on the window when the language is ready.
 
-So we will now initialize the welcome message in the `localized` event listener like that, at the end of `activity/activity.js` file:
+So we will now initialize the welcome message in the `localized` event listener like that, in the end of the require function of `activity/activity.js` file:
 
 	// Process localize event
 	window.addEventListener("localized", function() {

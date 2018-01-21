@@ -2,6 +2,7 @@
 
 
 # Step 6: handle multi-user with presence
+*(Estimated time: 1h30mn)*
 
 What if the Pawn activity could be played by multiple players at the same time? After all, it's a logical feature for a game. That's what we will doing in this step.
 
@@ -28,7 +29,7 @@ If everything is right, you will see now the full Neighborhood view.
 And you're now connected.
 
 
-### What mean sharing an instance
+### What is meant by sharing an instance
 
 Suppose that Michaël, an user connected on the same server than you want to Chat. He will launch the Chat activity.
 
@@ -101,7 +102,7 @@ As usual, to integrate this library, we will update the dependancies list at the
 
 	define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n","sugar-web/graphics/presencepalette"], function (activity, env, icon, webL10n, presencepalette) {
 
-This palette must be initialized in the code. You just have to call the PresencePalette constructor with the toolbar element. So add this line into `activity/activity.js`:
+This palette must be initialized in the code. You just have to call the PresencePalette constructor with the toolbar element. So add this line in the end of the require function of `activity/activity.js`:
 
 	// Link presence palette
 	var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
@@ -117,7 +118,7 @@ The new Network button and palette is here. We now have to implement the magic i
 
 Before further implementation let's pause to explain what exactly Sugarizer presence framework is and do.
 
-The presence framework provide a real time communication between a set of clients. To do that the framework is based on the publish/subscribe model. Every client could create one or more **topics**. Other clients could **subscribe** to these topics and everyone could **publish** messages on a topic. When a message is published on a topic, only clients connected to this topic receive the message.
+The presence framework provide a real time communication between a set of clients. To do that the framework is based on the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) pattern. Every client could create one or more **topics**. Other clients could **subscribe** to these topics and everyone could **publish** messages on a topic. When a message is published on a topic, only clients connected to this topic receive the message.
 
 In the context of Sugarizer, clients are Sugarizer App/WebApp connected to the Server. One topic is a shared activity. The Sugarizer Server is responsible to keep the list of topics and clients and dispatch messages to clients subscribed to topics. So the server is the central point and in fact, clients communicate only with the server.
 

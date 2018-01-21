@@ -2,6 +2,7 @@
 
 
 # Step 1: create the activity from the template
+*(Estimated time: 15mn)*
 
 Sugarizer comes with an empty template that you could use as base of your new activity. So first, copy all content of the Sugarizer [activities/ActivityTemplate](activities/ActivityTemplate) directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
 
@@ -28,7 +29,7 @@ Those are the files you'll modify in most cases. The others are:
 
 ### Customize the activity
 
-Then customize the activity. Change the name for your activity. Write `Pawn` in the activity **name** and `org.sugarlabs.Pawn` in **bundle_id** properties in `activity/activity.info` of the new directory.
+Then customize the activity using your text editor. Change the name for your activity. Write `Pawn` in the activity **name** and `org.sugarlabs.Pawn` in **bundle_id** properties in `activity/activity.info` of the new directory.
 
 	[Activity]
 	name = Pawn
@@ -37,7 +38,7 @@ Then customize the activity. Change the name for your activity. Write `Pawn` in 
 	exec = sugar-activity-web
 	icon = activity-icon
 
-Change also the **title** tag of `index.html` to `Pawn Activity`.
+Use also your text editor to change the **title** tag of `index.html` to `Pawn Activity`.
 
 	<!DOCTYPE html>
 	<html>
@@ -55,7 +56,7 @@ Change also the **title** tag of `index.html` to `Pawn Activity`.
 	</head>
 	...
 
-Finally, update the file `activities.json` of the Sugarizer directory: add a new line for your activity. Update **id**, **name** and **directory** values on this new line to `org.sugarlabs.Pawn`, `Pawn` and `activities/Pawn.activity`.
+Finally, update the file `activities.json` at the root of the Sugarizer directory: add a new line for your activity. Update **id**, **name** and **directory** values on this new line to `org.sugarlabs.Pawn`, `Pawn` and `activities/Pawn.activity`.
 
 	[
 		{"id": "org.sugarlabs.Pawn", "name": "Pawn", "version": 1, "directory": "activities/Pawn.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
