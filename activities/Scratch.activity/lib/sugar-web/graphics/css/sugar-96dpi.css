@@ -148,7 +148,7 @@ button.icon span {
   left: 2px;
 }
 /* One line text input */
-input[type='text'] {
+/*input[type='text'] {
   width: 165px;
   padding: 4px;
   line-height: 22px;
@@ -173,7 +173,7 @@ input[type='text']:disabled {
 }
 input[type='text'].expand {
   width: calc(100% - 12px);
-}
+}*/
 /* One line text input with buttons inside */
 .icon-input {
   position: relative;
@@ -227,7 +227,7 @@ button.cancel:disabled {
 }
 /* Slider */
 /* FIXME this is not fully Sugarized yet */
-input[type='range'] {
+/*input[type='range'] {
   height: 11px;
   cursor: pointer;
   background-color: #808080;
@@ -248,7 +248,7 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 .toolbar input[type='range'] {
   margin-top: 22px;
-}
+}*/
 /* Label */
 label {
   -webkit-user-select: none;
