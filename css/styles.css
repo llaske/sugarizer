@@ -471,9 +471,13 @@ body {
 }
 
 .sync-journal {
+	margin-left: 36% !important;
+}
+
+.sync-gear {
 	position: absolute;
 	bottom: 6px;
-	right: 62px;
+	margin-left: 46% !important;
 	width: 36px;
 	height: 36px;
 	margin: 4px 2px;
@@ -483,9 +487,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: contain;
 	border: 0;
-}
-
-.sync-gear {
 	animation-name: sync-frame;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
