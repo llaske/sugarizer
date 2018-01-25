@@ -94,6 +94,9 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight){
 		this.bead.addEventListener("dblclick", function(evt){
 			col.shuntRight(th.index);
 		});		
+		this.bead.addEventListener("touchstart", function(evt){
+			col.shuntRight(th.index);
+		});
 	}
 
 	this.updateValue = function(on,positive){
