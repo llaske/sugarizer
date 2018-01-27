@@ -223,31 +223,17 @@ enyo.kind({
 
 	// Filter entries handling
 	filterEntries: function(name, favorite, typeactivity, timeperiod) {
-		// Filter function
-		var that = this;
-		var doFilter = function() {
-			that.journal = that.journal.filter(function(activity) {
-				var range = util.getDateRange(timeperiod);
-				return (favorite !== undefined ? activity.metadata.keep : true)
-					&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-					&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
-			});
-			that.journal = that.journal.sort(function(e0, e1) {
-				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-			});
-			that.journalChanged();
-		}
-
 		// Filter remote entries
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var range = util.getDateRange(timeperiod);
 			var that = this;
-			myserver.getJournal(journalId, typeactivity, undefined, constant.fieldMetadata,
+			myserver.getJournal(journalId, typeactivity, (timeperiod !== undefined ? range.min : undefined), favorite, constant.fieldMetadata,
 				function(inSender, inResponse) {
 					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
-					doFilter();
+					that.journalChanged();
 				},
 				function() {
 					console.log("WARNING: Error filtering journal "+journalId);
@@ -262,7 +248,16 @@ enyo.kind({
 		// Filter local entries
 		this.journal = datastore.find(typeactivity);
 		this.loadingError = false;
-		doFilter();
+		this.journal = this.journal.filter(function(activity) {
+			var range = util.getDateRange(timeperiod);
+			return (favorite !== undefined ? activity.metadata.keep : true)
+				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
+				&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
+		});
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+		this.journalChanged();
 	},
 
 	nofilter: function() {
@@ -406,7 +401,7 @@ enyo.kind({
 	// Load a remote journal
 	loadRemoteJournal: function(journalId) {
 		var that = this;
-		myserver.getJournal(journalId, undefined, undefined, constant.fieldMetadata,
+		myserver.getJournal(journalId, undefined, undefined, undefined, constant.fieldMetadata,
 			function(inSender, inResponse) {
 				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
