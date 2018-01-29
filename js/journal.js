@@ -37,6 +37,7 @@ enyo.kind({
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
 		this.realLength = 0;
+		this.loadResult = {};
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
@@ -61,8 +62,10 @@ enyo.kind({
 	// Handle scroll to lazy display content
 	onscroll: function(inSender, inEvent) {
 		var scrollBounds = inEvent.scrollBounds;
+		var scrollAtTop = (scrollBounds.top == 0);
+		var scrollAtBottom = ((scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit);
 		var currentCount = this.$.journalList.get("count");
-		if (!this.getToolbar().hasFilter() && (scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit && this.realLength > currentCount) {
+		if (!this.getToolbar().hasFilter() && scrollAtBottom && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
 			humane.log(l10n.get("Loading"));
 			this.$.journalList.set("count", length, true);
@@ -228,8 +231,15 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var range = util.getDateRange(timeperiod);
 			var that = this;
-			myserver.getJournal(journalId, typeactivity, (timeperiod !== undefined ? range.min : undefined), favorite, constant.fieldMetadata,
+			var request = {
+				typeactivity: typeactivity,
+				stime: (timeperiod !== undefined ? range.min : undefined),
+				favorite: favorite,
+				field: constant.fieldMetadata
+			}
+			myserver.getJournal(journalId, request,
 				function(inSender, inResponse) {
+					that.loadResult = {offset: inResponse.offset, total: inResponse.total};
 					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
@@ -237,6 +247,7 @@ enyo.kind({
 				},
 				function() {
 					console.log("WARNING: Error filtering journal "+journalId);
+					that.loadResult = {};
 					that.journal = [];
 					that.loadingError = true;
 					that.journalChanged();
@@ -401,8 +412,12 @@ enyo.kind({
 	// Load a remote journal
 	loadRemoteJournal: function(journalId) {
 		var that = this;
-		myserver.getJournal(journalId, undefined, undefined, undefined, constant.fieldMetadata,
+		var request = {
+			field: constant.fieldMetadata
+		}
+		myserver.getJournal(journalId, request,
 			function(inSender, inResponse) {
+				that.loadResult = {offset: inResponse.offset, total: inResponse.total};
 				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
@@ -410,6 +425,7 @@ enyo.kind({
 			},
 			function() {
 				console.log("WARNING: Error reading journal "+journalId);
+				that.loadResult = {};
 				that.journal = [];
 				that.loadingError = true;
 				that.journalChanged();
