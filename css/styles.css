@@ -504,6 +504,29 @@ body {
 	}
 }
 
+.page-up {
+	position: absolute !important;
+	background-image: url(../icons/go-left.svg);
+	right: 160px;
+}
+
+.page-down {
+	position: absolute !important;
+	background-image: url(../icons/go-right.svg);
+	right: 30px;
+}
+
+.page-count {
+	position: absolute;
+	text-align: center;
+	right: 80px;
+	bottom: 2px;
+	width: 80px;
+	bottom: 2px;
+	font-size: 18pt;
+	height: 40px;
+}
+
 .neighbor-filter-text {
 	position: relative;
 	width: 350px;
@@ -1693,8 +1716,29 @@ body {
 		left: 270px;
 	}
 }
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 555px) {
 	.sync-home {
+		visibility: hidden;
+	}
+
+	.sync-button {
+		visibility: hidden;
+	}
+}
+@media screen and (max-width: 670px) {
+	.page-count {
+		visibility: hidden;
+	}
+
+	.page-up {
+		right: 85px;
+	}
+}
+@media screen and (max-width: 430px) {
+	.page-up {
+		visibility: hidden;
+	}
+	.page-down {
 		visibility: hidden;
 	}
 }

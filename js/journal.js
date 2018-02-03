@@ -27,7 +27,10 @@ enyo.kind({
 			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
 			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
 			{name: "syncgear", classes: "sync-button sync-gear", showing: false},
-			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"}
+			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"},
+			{name: "pageup", kind: "Button", classes: "toolbutton page-up", showing: false, title:"Previous", ontap: "pagePrevious"},
+			{name: "pagecount", content: "99/99", classes: "page-count", showing: false},
+			{name: "pagedown", kind: "Button", classes: "toolbutton page-down", showing: false, title:"Next", ontap: "pageNext"}
 		]}
 	],
 
@@ -57,19 +60,80 @@ enyo.kind({
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
+
+		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
+		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
+		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
 	},
 
-	// Handle scroll to lazy display content
+	// Handle scroll to lazy display on local content
 	onscroll: function(inSender, inEvent) {
 		var scrollBounds = inEvent.scrollBounds;
-		var scrollAtTop = (scrollBounds.top == 0);
 		var scrollAtBottom = ((scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit);
 		var currentCount = this.$.journalList.get("count");
-		if (!this.getToolbar().hasFilter() && scrollAtBottom && this.realLength > currentCount) {
+		if (this.journalType == constant.journalLocal && !this.getToolbar().hasFilter() && scrollAtBottom && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
 			humane.log(l10n.get("Loading"));
 			this.$.journalList.set("count", length, true);
 		}
+	},
+
+	// Load next remote page in Journal
+	pageNext: function() {
+		var result = this.loadResult;
+		if ((result.offset+result.limit) < result.total) {
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var offset = result.offset + result.limit;
+			if (result.total - offset < result.limit) {
+				offset = result.total - result.limit;
+			}
+			humane.log(l10n.get("Loading"));
+			if (!this.getToolbar().hasFilter()) {
+				this.loadRemoteJournal(journalId, offset);
+			} else {
+				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+			}
+		}
+	},
+
+	// Load previous remote page in Journal
+	pagePrevious: function() {
+		var result = this.loadResult;
+		if (result.offset > 0) {
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var offset = result.offset - result.limit;
+			if (offset < result.limit) {
+				offset = 0;
+			}
+			humane.log(l10n.get("Loading"));
+			if (!this.getToolbar().hasFilter()) {
+				this.loadRemoteJournal(journalId, offset);
+			} else {
+				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+			}
+		}
+	},
+
+	// Show/hide remote page button
+	showPageButton: function() {
+		var result = this.loadResult;
+		if (this.journalType == constant.journalLocal || !result) {
+			this.$.pagedown.setShowing(false);
+			this.$.pageup.setShowing(false);
+			this.$.pagecount.setShowing(false);
+			return;
+		}
+
+		var up = (result.offset > 0);
+		this.$.pageup.setShowing(up);
+
+		var down = (result.offset+result.limit) < result.total;
+		this.$.pagedown.setShowing(down);
+
+		var currentPage = (result.total?1:0)+Math.ceil(result.offset/result.limit);
+		var lastPage = Math.ceil(result.total/result.limit);
+		this.$.pagecount.setContent(currentPage+"/"+lastPage);
+		this.$.pagecount.setShowing(down || up);
 	},
 
 	// Get linked toolbar
@@ -110,9 +174,10 @@ enyo.kind({
 		this.$.message.show();
 		this.$.nofilter.show();
 		var noFilter = !this.getToolbar().hasFilter();
+		var isLocalJournal = (this.journalType == constant.journalLocal);
 		this.empty = (noFilter && !this.loadingError && this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
-			var length = (noFilter && this.journal.length > constant.journalInitCount) ? constant.journalInitCount : this.journal.length;
+			var length = (isLocalJournal && noFilter && this.journal.length > constant.journalInitCount) ? constant.journalInitCount : this.journal.length;
 			this.realLength = this.journal.length;
 			this.$.journalList.set("count", length, true);
 			this.$.empty.hide();
@@ -136,6 +201,7 @@ enyo.kind({
 				this.$.nofilter.setIcon({directory: "icons", icon: "dialog-cancel.svg"});
 			}
 		}
+		this.showPageButton();
 	},
 
 	// Init setup for a line
@@ -225,21 +291,24 @@ enyo.kind({
 	},
 
 	// Filter entries handling
-	filterEntries: function(name, favorite, typeactivity, timeperiod) {
+	filterEntries: function(name, favorite, typeactivity, timeperiod, offset) {
 		// Filter remote entries
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
-			var range = util.getDateRange(timeperiod);
 			var that = this;
 			var request = {
 				typeactivity: typeactivity,
-				stime: (timeperiod !== undefined ? range.min : undefined),
+				title: (name !== undefined) ? name : undefined,
+				stime: (timeperiod !== undefined ? timeperiod : undefined),
 				favorite: favorite,
-				field: constant.fieldMetadata
+				field: constant.fieldMetadata,
+				limit: constant.pageJournalSize,
+				offset: (offset !== undefined ? offset : 0)
 			}
 			myserver.getJournal(journalId, request,
 				function(inSender, inResponse) {
-					that.loadResult = {offset: inResponse.offset, total: inResponse.total};
+					that.loadResult = {offset: inResponse.offset, total: inResponse.total, limit: inResponse.limit};
+					that.request = request;
 					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
@@ -248,6 +317,7 @@ enyo.kind({
 				function() {
 					console.log("WARNING: Error filtering journal "+journalId);
 					that.loadResult = {};
+					that.request = {};
 					that.journal = [];
 					that.loadingError = true;
 					that.journalChanged();
@@ -260,10 +330,9 @@ enyo.kind({
 		this.journal = datastore.find(typeactivity);
 		this.loadingError = false;
 		this.journal = this.journal.filter(function(activity) {
-			var range = util.getDateRange(timeperiod);
 			return (favorite !== undefined ? activity.metadata.keep : true)
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-				&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
+				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
 		});
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
@@ -410,14 +479,16 @@ enyo.kind({
 	},
 
 	// Load a remote journal
-	loadRemoteJournal: function(journalId) {
+	loadRemoteJournal: function(journalId, offset) {
 		var that = this;
 		var request = {
-			field: constant.fieldMetadata
+			field: constant.fieldMetadata,
+			limit: constant.pageJournalSize,
+			offset: (offset !== undefined ? offset : 0)
 		}
 		myserver.getJournal(journalId, request,
 			function(inSender, inResponse) {
-				that.loadResult = {offset: inResponse.offset, total: inResponse.total};
+				that.loadResult = {offset: inResponse.offset, total: inResponse.total, limit: inResponse.limit};
 				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
@@ -709,7 +780,7 @@ enyo.kind({
 		var selected = this.$.typeselect.getSelected();
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
-		var timeselected = (selected <= 0 ? undefined : selected);
+		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
 		var filtertext = 'q=' + text;
 		if (favorite) filtertext += '&favorite=true';
 		if (typeselected) filtertext += '&type=' + typeselected;

@@ -58,6 +58,7 @@ constant.defaultServer = constant.http + "server.sugarizer.org";
 constant.minPasswordSize = 4;
 
 constant.syncJournalLimit = 100;
+constant.pageJournalSize = 40;
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
