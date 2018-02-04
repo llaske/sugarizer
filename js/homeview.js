@@ -180,7 +180,7 @@ enyo.kind({
 		if (this.toolbar == null) {
 			this.toolbar = new Sugar.DesktopToolbar();
 		}
-		if (this.otherview != null) {
+		if (this.currentView != constant.listView && this.otherview != null) {
 			return this.otherview.getToolbar();
 		}
 		return this.toolbar;
