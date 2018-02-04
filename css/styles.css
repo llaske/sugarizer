@@ -474,10 +474,18 @@ body {
 	margin-left: 36% !important;
 }
 
+.sync-gear-home {
+	right: 62px;
+	top: 4px;
+}
+
+.sync-gear-journal {
+	margin-left: 46% !important;
+	bottom: 6px;
+}
+
 .sync-gear {
 	position: absolute;
-	bottom: 6px;
-	margin-left: 46% !important;
 	width: 36px;
 	height: 36px;
 	margin: 4px 2px;

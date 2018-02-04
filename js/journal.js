@@ -26,7 +26,7 @@ enyo.kind({
 			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
 			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
 			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
-			{name: "syncgear", classes: "sync-button sync-gear", showing: false},
+			{name: "syncgear", classes: "sync-button sync-gear sync-gear-journal", showing: false},
 			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"},
 			{name: "pageup", kind: "Button", classes: "toolbutton page-up", showing: false, title:"Previous", ontap: "pagePrevious"},
 			{name: "pagecount", content: "99/99", classes: "page-count", showing: false},
