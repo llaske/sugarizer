@@ -170,6 +170,9 @@ enyo.kind({
 
 	// Property changed
 	journalChanged: function() {
+		if (!this.$.empty) {
+			return;
+		}
 		this.$.empty.show();
 		this.$.message.show();
 		this.$.nofilter.show();
@@ -246,7 +249,6 @@ enyo.kind({
 		stats.trace(constant.viewNames[app.getView()], 'switch_favorite', objectId, null);
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
-		ds.setDataAsText(this.journal[inEvent.index].text);
 		ds.save();
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
@@ -677,6 +679,9 @@ enyo.kind({
 			},
 			function(locale, remote, error) {
 				// Display button
+				if (!that.$.syncbutton) {
+					return;
+				}
 				that.$.syncbutton.setShowing(true);
 				that.$.syncgear.setShowing(false);
 				// Locale has changed, update display
