@@ -224,6 +224,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		if (this.size) {
 			document.getElementById(this.$.icon.id).style = "font-size: "+this.size+"pt";
 		}

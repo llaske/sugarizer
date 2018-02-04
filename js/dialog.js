@@ -63,6 +63,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		app.noresize = true; // HACK: Forbid home resizing when popup is displayed to avoid modal issue
 		this.$.me.render();
 		this.$.donebutton.setNodeProperty("title", l10n.get("Done"));
@@ -205,6 +206,7 @@ enyo.kind({
 		}
 	},
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
@@ -264,6 +266,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
@@ -347,6 +350,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
@@ -599,6 +603,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.$.languageselect.setParentMargin(this);
@@ -719,6 +724,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
 		this.owner.centerDialog(this);
@@ -1272,6 +1278,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.icon.render();
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));

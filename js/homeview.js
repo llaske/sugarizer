@@ -683,6 +683,7 @@ enyo.kind({
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.localize();
 	},
 
