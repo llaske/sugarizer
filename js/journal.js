@@ -348,6 +348,9 @@ enyo.kind({
 	// Activity popup
 	showActivityPopup: function(icon) {
 		// Create popup
+		if (!icon.owner) {
+			return;
+		}
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		var entry = icon.getData();
 		this.$.activityPopup.setHeader({
