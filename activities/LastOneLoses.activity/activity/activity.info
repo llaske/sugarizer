@@ -1,5 +1,5 @@
 [Activity]
-name = Last One Loses Activity
+name = Last One Loses
 activity_version = 2
 bundle_id = org.olpc-france.LOLActivity
 exec = sugar-activity-web

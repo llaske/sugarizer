@@ -18,7 +18,7 @@
 	{"id": "org.olpcfrance.TankOp", "name": "Tank Operation", "version": 1, "directory": "activities/TankOp.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ChatPrototype", "name": "ChatPrototype", "version": 1, "directory": "activities/ChatPrototype.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.Gridpaint", "name": "Grid Paint", "version": 2, "directory": "activities/Gridpaint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.olpc-france.LOLActivity", "name": "Last One Loses Activity", "version": 1, "directory": "activities/LastOneLoses.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.olpc-france.LOLActivity", "name": "Last One Loses", "version": 1, "directory": "activities/LastOneLoses.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.sharednotes", "name": "Shared Notes", "version": 1, "directory": "activities/SharedNotes.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ColorMyWorldActivity", "name": "Color My World", "version": 1, "directory": "activities/ColorMyWorld.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "com.homegrownapps.xoeditor", "name": "XO Editor", "version": 1, "directory": "activities/XOEditor.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
