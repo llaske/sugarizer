@@ -343,7 +343,7 @@ enyo.kind({
 	},
 
 	nofilter: function() {
-		toolbar.removeFilter();
+		this.toolbar.removeFilter();
 		this.filterEntries("", undefined, undefined, undefined);
 	},
 
@@ -555,6 +555,7 @@ enyo.kind({
 			}
 
 			// Refresh screen
+			this.toolbar.removeFilter();
 			this.loadLocalJournal();
 
 			// Refresh home screen: activity menu, journal content
@@ -566,6 +567,7 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var objectId = entry.objectId;
 			var that = this;
+			this.toolbar.removeFilter();
 			stats.trace(constant.viewNames[app.getView()], 'remove_entry', objectId, journalId);
 			myserver.deleteJournalEntry(journalId, objectId,
 				function(inSender, inResponse) {
