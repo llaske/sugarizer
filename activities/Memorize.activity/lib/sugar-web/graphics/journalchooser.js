@@ -7,7 +7,7 @@
 	// Load settings
 	var userSettings = datastore.localStorage.getValue('sugar_settings');
 	var activities = [];
-	for (var i = 0 ; i < userSettings.activities.length ; i++) {
+	for (var i = 0 ; userSettings.activities && i < userSettings.activities.length ; i++) {
 		var activity = userSettings.activities[i];
 		activities[activity.id] = activity;
 	}
