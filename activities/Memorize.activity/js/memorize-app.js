@@ -1270,7 +1270,11 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     dataentry.loadAsText(function (err, metadata, text) {
                         //We load the drawing inside an image element
                         var element = document.createElement('img');
-                        element.src = text;
+                        if (entry.metadata.activity ==  'org.olpcfrance.PaintActivity') {
+                            element.src = LZString.decompressFromUTF16(JSON.parse(text).src);
+                        } else {
+                            element.src = text;
+                        }
                         element.onload = function () {
                             document.getElementsByClassName("textCard")[0].style.backgroundImage = 'url(' + element.src + ')';
                             if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
@@ -1309,8 +1313,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                             displayEditor();
                         };
                     });
-                }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
-            } 
+                }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
+            }
             if(document.getElementsByClassName("insertImage")[1]){
                 document.getElementsByClassName("insertImage")[1].onclick = function(){
                     var cards = [];
@@ -1361,7 +1365,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                                 displayEditor();
                             };
                         });
-                    }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }); 
+                    }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
                 }
             }
         }
