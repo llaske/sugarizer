@@ -3,6 +3,11 @@
   background-image: url(activity/activity-icon.svg);
 }
 
+#main-toolbar #png-button {
+  margin-left: 10px;
+  background-image: url(icons/save-image.svg);
+}
+
 @font-face {
 	font-family: Cursive-standard;
 	src: url('Cursive-standard.ttf');
@@ -19,7 +24,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 }
 
 .instrument {
@@ -40,25 +45,25 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .learnButton {
 	margin-top: 5%;
 	margin-left: 30%;
-	max-width: 10%;	
+	max-width: 10%;
 }
 
 .playButton {
 	margin-top: 5%;
 	margin-left: 10%;
-	max-width: 10%;	
+	max-width: 10%;
 }
 
 .buildButton {
 	margin-top: 5%;
 	margin-left: 10%;
-	max-width: 10%;	
+	max-width: 10%;
 }
 
 .creditButton {
@@ -112,7 +117,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	width: 50px;
 	height: 50px;
 }
@@ -149,7 +154,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 }
 
 .itemLetter {
@@ -157,7 +162,7 @@
 	margin-right: 2%;
 	max-width: 7%;
 	margin-bottom: 4px;
-	z-index: 0;		
+	z-index: 0;
 }
 
 .itemLetter-selected {
@@ -179,7 +184,7 @@
 }
 
 .box-4-entry {
-	text-align: center;	
+	text-align: center;
 }
 
 .entry {
@@ -188,7 +193,7 @@
 	border-color: darkgray;
 	box-shadow: 5px -4px 4px 2px black;
 	width: 220px;
-	max-width: 20%;	
+	max-width: 20%;
 	background-color: white;
 	display: inline-block;
 	margin-left: 2%;
@@ -198,7 +203,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 }
 
 .entryImage {
@@ -271,7 +276,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	display: inline-block;
 }
 
@@ -281,9 +286,9 @@
 }
 
 .collectionImage {
-	width: 28%;	
+	width: 28%;
 	vertical-align: middle;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .collectionText {
@@ -331,10 +336,10 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	margin-left: 2%;
 	margin-right: 2%;
-	display: inline-block;		
+	display: inline-block;
 }
 
 .itemTheme-selected {
@@ -406,7 +411,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 	display: inline-block;
 }
 
@@ -554,7 +559,7 @@
 
 .credit-name {
 	font-size: 16px;
-	margin-left: 45%;	
+	margin-left: 45%;
 	color: white;
 }
 
@@ -595,25 +600,25 @@
 		margin-top: 5px;
 		margin-left: 5px;
 	}
-	
+
 	.nextButton {
 		top: 5px;
 	}
-	
+
 	.prevButton {
 		top: 5px;
 	}
-	
+
 	.switchLang {
 		right: 5px;
-		top: 5px;		
+		top: 5px;
 	}
-	
+
 	.switchCase {
 		right: 30px;
-		top: 5px;		
+		top: 5px;
 	}
-	
+
 	.standardButton {
 		width: 30px;
 		height: 30px;
@@ -621,26 +626,26 @@
 
 	.filterButton {
 		left: 50px;
-		top: 5px;		
+		top: 5px;
 	}
-	
+
 	.slideshow {
 		top: 5px;
 	}
-	
+
 	.entry {
 		border-width: 3px;
-		box-shadow: 3px -2px 2px 1px black;	
+		box-shadow: 3px -2px 2px 1px black;
 	}
-	
+
 	.theme {
 		border-width: 3px;
-		box-shadow: 3px -2px 2px 1px black;	
+		box-shadow: 3px -2px 2px 1px black;
 	}
 
 	.linebreak {
-		height: 10px;	
-	}	
+		height: 10px;
+	}
 
 	.pageCount {
 		font-size: 18px;
@@ -651,12 +656,12 @@
 	.itemCount {
 		font-size: 18px;
 		top: 10px;
-	}	
+	}
 
 	.filterCollection {
 		top: -8%;
-	}	
-	
+	}
+
 	.themeText0 {
 		font-size: 14px;
 	}
@@ -667,8 +672,8 @@
 
 	.themeText2 {
 		font-size: 18px;
-	}	
-	
+	}
+
 	.collectionText0 {
 		font-size: 12px;
 	}
@@ -691,7 +696,7 @@
 
 	.entryText2 {
 		font-size: 17px;
-	}	
+	}
 }
 @media screen and (min-width: 481px)and (max-width: 640px) {
 	.switchLang {
@@ -701,44 +706,44 @@
 	.switchCase {
 		right: 75px;
 	}
-	
+
 	.standardButton {
 		width: 45px;
 		height: 45px;
 	}
-	
+
 	.filterButton {
-		left: 70px;		
+		left: 70px;
 	}
 
 	.entry {
 		border-width: 3px;
 		box-shadow: 3px -2px 2px 1px black;
 	}
-	
+
 	.theme {
 		border-width: 3px;
 		box-shadow: 3px -2px 2px 1px black;
 	}
 
 	.linebreak {
-		height: 15px;	
-	}	
+		height: 15px;
+	}
 
 	.pageCount {
 		font-size: 20px;
 		top: 15px;
-	}	
+	}
 
 	.itemCount {
 		font-size: 20px;
 		top: 15px;
-	}	
+	}
 
 	.filterCollection {
 		top: -5%;
 	}
-	
+
 	.themeText0 {
 		font-size: 15px;
 	}
@@ -749,8 +754,8 @@
 
 	.themeText2 {
 		font-size: 19px;
-	}	
-	
+	}
+
 	.collectionText0 {
 		font-size: 13px;
 	}
@@ -773,7 +778,7 @@
 
 	.entryText2 {
 		font-size: 18px;
-	}	
+	}
 }
 
 @media screen and (min-width: 641px) and (max-width: 854px) {
@@ -782,13 +787,13 @@
 	}
 
 	.themeText1 {
-		font-size: 16px;	
+		font-size: 16px;
 	}
 
 	.themeText2 {
 		font-size: 20px;
 	}
-	
+
 	.collectionText0 {
 		font-size: 14px;
 	}
@@ -812,26 +817,26 @@
 	.entryText2 {
 		font-size: 19px;
 	}
-	
+
 	.entry  {
 		border-width: 4px;
-		box-shadow: 4px -3px 3px 2px black;	
+		box-shadow: 4px -3px 3px 2px black;
 	}
-	
+
 	.theme {
 		border-width: 4px;
-		box-shadow: 4px -3px 3px 2px black;	
-	}	
+		box-shadow: 4px -3px 3px 2px black;
+	}
 
 	.linebreak {
 		height: 12px;
-	}	
+	}
 
 	.pageCount {
 		font-size: 20px;
 		top: 20px;
-	}	
-	
+	}
+
 	.itemCount {
 		font-size: 20px;
 		top: 20px;
@@ -839,7 +844,7 @@
 
 	.filterCollection {
 		top: -3%;
-	}	
+	}
 }
 
 
@@ -854,7 +859,7 @@
 
 	.themeText2 {
 		font-size: 22px;
-	}	
+	}
 
 	.entryText0 {
 		font-size: 18px;
@@ -866,17 +871,17 @@
 
 	.entryText2 {
 		font-size: 22px;
-	}	
+	}
 
 	.filterCollection {
 		top: -2%;
-	}	
+	}
 
 	.entryPlayFrom {
 		margin-top: 3%;
-	}	
+	}
 }
-	
+
 
 @media screen and (min-width: 1025px) {
 	.play-type-button {
@@ -886,7 +891,7 @@
 
 	.linebreak {
 		height: 30px;
-	}	
+	}
 
 	.itemLetter {
 		margin-right: 3%;
@@ -895,11 +900,11 @@
 
 	.entry {
 		margin-left: 3%;
-	}	
+	}
 
 	.learnBox {
 		margin-top: 7%;
-	}	
+	}
 
 	.entryPlayFrom {
 		margin-left: 42%;
