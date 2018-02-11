@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Fototoon</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <link rel="stylesheet" href="css/activity.css">
+
+    <script type="text/javascript">
+        document.addEventListener("deviceready", function () {
+            console.log('deviceready EVENT');
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
+                null, null);
+        }, false);
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+    <script data-main="js/loader" src="lib/require.js"></script>
+    <script type="text/javascript" src="js/jquery.js" ></script>
+  </head>
+
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="FotoToon Activity"></button>
+      <hr id="first-separator"/>
+      <button class="toolbutton" id="previous-button" title="Previous">
+      </button>
+      <button class="toolbutton" id="next-button" title="Next">
+      </button>
+      <hr/>
+      <button class="toolbutton" id="add-button" title="Add">
+      </button>
+      <button class="toolbutton" id="add-globe" title="Add globe">
+      </button>
+      <button class="toolbutton" id="text-button" title="Edit text">
+      </button>
+      <hr/>
+      <button class="toolbutton" id="sort-button" title="Sort boxes">
+      </button>
+      <hr/>
+      <button class="toolbutton" id="clean-all-button" title="Clean all">
+      </button>
+      <hr/>
+	  <button class="toolbutton" id="image-save" title="Save as image">
+      </button>
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+    <div id="canvas">
+      <canvas id="mainCanvas" width=1px height=1px>
+      </canvas>
+      <canvas id="sortCanvas" style="display: none">
+      </canvas>
+      <div id="page-counter">
+        <span>1 of 1</span>
+      </div>
+      <div id="file-selector" style="display: none">
+      </div>
+      <div id="wait" style="display: none">
+            <img src="./icons/hourglass.svg">
+      </div>
+    </div>
+    <div id="io-div">
+    </div>
+
+  </body>
+
+</html>

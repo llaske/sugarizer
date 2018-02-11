@@ -1,0 +1,261 @@
+define(function (require) {
+    var activity = require("sugar-web/activity/activity");
+    var datastore = require("sugar-web/datastore");
+	var env = require("sugar-web/env");
+    var textpalette = require("textpalette");
+    var menupalette = require("sugar-web/graphics/menupalette");
+	var journalchooser = require("sugar-web/graphics/journalchooser");
+	var lzstring = require("lzstring");
+
+    // initialize canvas size
+    var onAndroid = /Android/i.test(navigator.userAgent);
+    if (window.location.search.indexOf('onAndroid') > -1) {
+        onAndroid = true;
+    };
+
+    var onXo = ((window.innerWidth == 1200) && (window.innerHeight >= 900));
+    var sugarCellSize = 75;
+    var sugarSubCellSize = 15;
+    if (!onXo && !onAndroid) {
+        sugarCellSize = 55;
+        sugarSubCellSize = 11;
+    };
+
+    var localizationData = require("localizationData");
+    var lang = navigator.language.substr(0, 2);
+    console.log('LANG ' + lang);
+
+    function _(text) {
+        // this function add a fallback for the case of translation not found
+        // can be removed when we find how to read the localization.ini
+        // file in the case of local html file opened in the browser
+        translation = (localizationData[lang] ? localizationData[lang][text] : '');
+        if (translation == '') {
+            translation = text;
+        };
+        return translation;
+    };
+
+    // Manipulate the DOM only when it is ready.
+    require(['domReady!'], function (doc) {
+
+        // Initialize the activity.
+        activity.setup();
+
+        if (onAndroid) {
+            // hide activity and close buttons on android
+            var activityButton = document.getElementById("activity-button");
+            var stopButton = document.getElementById("stop-button");
+            var firstSeparator = document.getElementById("first-separator");
+            activityButton.style.display = 'none';
+            stopButton.style.display = 'none';
+            firstSeparator.style.display = 'none';
+        };
+
+        // HERE GO YOUR CODE
+
+        var initialData =  {"version": "1", "boxs": [{'globes':[]}]};
+
+        require("toon");
+
+        var mainCanvas = document.getElementById("mainCanvas");
+        var sortCanvas = document.getElementById("sortCanvas");
+        // remove 5 more to be sure no scrollbars are visible
+        mainCanvas.height = window.innerHeight - sugarCellSize - 5;
+        mainCanvas.width = mainCanvas.height * 4 / 3;
+        mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
+
+        var previousButton = document.getElementById("previous-button");
+        previousButton.addEventListener('click', function (e) {
+            toonModel.showPreviousBox();
+        });
+
+        var nextButton = document.getElementById("next-button");
+        nextButton.addEventListener('click', function (e) {
+            toonModel.showNextBox();
+        });
+
+        var textButton = document.getElementById("text-button");
+        var tp = new textpalette.TextPalette(textButton, toonModel,
+                                             _('SetGlobeText'));
+
+       // page counter
+        var pageCounter = document.getElementById("page-counter");
+
+
+        var toonModel = new toon.Model(initialData, mainCanvas, tp);
+        toonModel.init();
+        toonModel.attachPageCounterViewer(pageCounter);
+        toonModel.attachPrevNextButtons(previousButton, nextButton);
+
+        var editMode = true;
+
+        var addGlobeButton = document.getElementById("add-globe");
+        var menuData = [{'icon': true, 'id': toon.TYPE_GLOBE,
+                         'label': _('Globe')},
+                        {'icon': true, 'id': toon.TYPE_EXCLAMATION,
+                         'label': _('Exclamation')},
+                        {'icon': true, 'id': toon.TYPE_WHISPER,
+                         'label': _('Whisper')},
+                        {'icon': true, 'id': toon.TYPE_CLOUD,
+                         'label': _('Think')},
+                        {'icon': true, 'id': toon.TYPE_RECTANGLE,
+                         'label': _('Box')},];
+        var mp = new menupalette.MenuPalette(addGlobeButton,
+            _("Add a globe"), menuData);
+
+        for (var i = 0; i < mp.buttons.length; i++) {
+            mp.buttons[i].addEventListener('click', function(e) {
+                toonModel.addGlobe(this.id);
+            });
+        };
+
+        var addButton = document.getElementById("add-button");
+        addButton.addEventListener('click', function (e) {
+			journalchooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, text) {
+					//We load the drawing inside an image element
+					var element = document.createElement('img');
+					if (entry.metadata.activity ==  'org.olpcfrance.PaintActivity') {
+						element.src = lzstring.decompressFromUTF16(JSON.parse(text).src);
+					} else {
+						element.src = text;
+					}
+					element.onload = function () {
+						toonModel.addImage(element.src);
+					};
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
+        });
+
+		// Load from datatore
+		env.getEnvironment(function(err, environment) {
+			if (environment.objectId) {
+				activity.getDatastoreObject().loadAsText(function(error, metadata, JSONdata) {
+					if (error==null && JSONdata!=null) {
+						var data = JSON.parse(JSONdata);
+						var dataWithoutImages = data.dataWithoutImages;
+						var images = data.dataImages;
+						dataWithoutImages.images = {};
+						for(var key in images) {
+			                 var imageName = key;
+							 dataWithoutImages.images[imageName] = LZString.decompressFromUTF16(images[imageName]);
+						}
+						toonModel.setData(dataWithoutImages);
+			            if (!editMode) {
+			                toonModel.changeToEditMode();
+			                editMode = true;
+			            };
+					}
+				});
+			}
+		});
+
+		var stopButton = document.getElementById("stop-button");
+		stopButton.addEventListener('click', function (event) {
+			console.log("writing...");
+			toonModel.showWait();
+
+            if (!editMode) {
+                toonModel.finishSort();
+                toonModel.init();
+                editMode = true;
+            };
+
+            // clone the data to remove the images
+            var dataWithoutImages = {}
+            dataWithoutImages['version'] = toonModel.getData()['version'];
+            dataWithoutImages['boxs'] = toonModel.getData()['boxs'];
+
+            dataImages = {};
+            for(var key in toonModel.getData()['images']) {
+                var imageName = key;
+                console.log('saving image ' + imageName);
+				dataImages[imageName] = LZString.compressToUTF16(toonModel.getData()['images'][imageName]);
+            };
+
+			var fullData = {
+				dataWithoutImages: dataWithoutImages,
+				dataImages: dataImages
+			};
+            toonModel.hideWait();
+			var jsonData = JSON.stringify(fullData);
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
+		});
+
+        var saveImageButton = document.getElementById("image-save");
+        var saveImageMenuData = [{'id': '0', 'label': _('OneRow')},
+                                 {'id': '1', 'label': _('OneColumn')},
+                                 {'id': '2', 'label': _('TwoColumns')}];
+        var simp = new menupalette.MenuPalette(saveImageButton,
+            _("SaveAsImage"), saveImageMenuData);
+
+        for (var i = 0; i < simp.buttons.length; i++) {
+            simp.buttons[i].addEventListener('click', function(e) {
+                toonModel.saveAsImage(this.id);
+            });
+        };
+
+        var sortButton = document.getElementById("sort-button");
+        toonModel.attachSortButton(sortButton);
+
+        sortButton.addEventListener('click', function (e) {
+            // verify if there are at least 3 boxes
+            // the first box is the title and can't be moved
+            // then only have sense sort with more than 2 boxes
+            if (toonModel.getData()['boxs'].length < 3) {
+                return;
+            };
+            toonModel.showWait();
+            if (editMode) {
+                toonModel.initPreviews();
+                // resize the canvas
+                sortCanvas.width = window.innerWidth - sugarCellSize * 2;
+                var boxWidth = sortCanvas.width / toonModel.getData()['boxs'].length;
+                sortCanvas.height = boxWidth * 3 / 4;
+                sortCanvas.style.left = ((window.innerWidth - sortCanvas.width) / 2) + "px";
+                sortCanvas.style.top = ((window.innerHeight - sortCanvas.height) / 2) + "px";
+                toonModel.initSort(sortCanvas);
+            } else {
+                toonModel.finishSort();
+                toonModel.init();
+            };
+            toonModel.hideWait();
+            // switch editMode
+            editMode = ! editMode;
+
+        });
+
+        var cleanAllButton = document.getElementById("clean-all-button");
+
+        cleanAllButton.addEventListener('click', function (e) {
+
+            activity.showConfirmationAlert(_('ATENTION'),
+                _('RemoveAllConfirmMessage'),
+                _('Yes'), _('No'), function(result) {
+                    if (result) {
+                        toonModel.setData(initialData);
+                        if (!editMode) {
+                            toonModel.changeToEditMode();
+                            editMode = true;
+                        };
+                    };
+                });
+        });
+
+    });
+
+});

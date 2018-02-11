@@ -1,0 +1,10 @@
+[Activity]
+name = FotoToon
+bundle_id = org.sugarlabs.FotoToonJs
+icon = fototoon
+exec = sugar-activity-web
+activity_version = 3
+show_launcher = yes
+max_participants = 1
+summary = Create comic book stories in any place.
+repository = https://github.com/godiard/fototoon-js.git
