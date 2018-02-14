@@ -6,6 +6,7 @@ define(function (require) {
     var menupalette = require("sugar-web/graphics/menupalette");
 	var journalchooser = require("sugar-web/graphics/journalchooser");
 	var lzstring = require("lzstring");
+	var l10n = require("webL10n");
 
     // initialize canvas size
     var onAndroid = /Android/i.test(navigator.userAgent);
@@ -21,15 +22,18 @@ define(function (require) {
         sugarSubCellSize = 11;
     };
 
-    var localizationData = require("localizationData");
-    var lang = navigator.language.substr(0, 2);
-    console.log('LANG ' + lang);
+	env.getEnvironment(function(err, environment) {
+		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+		var language = environment.user ? environment.user.language : defaultLanguage;
+		l10n.language.code = language;
+		console.log('LANG ' + language);
+	});
 
     function _(text) {
         // this function add a fallback for the case of translation not found
         // can be removed when we find how to read the localization.ini
         // file in the case of local html file opened in the browser
-        translation = (localizationData[lang] ? localizationData[lang][text] : '');
+        translation = l10n.get(text);
         if (translation == '') {
             translation = text;
         };
@@ -66,16 +70,19 @@ define(function (require) {
         mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
 
         var previousButton = document.getElementById("previous-button");
+		previousButton.title = _("Previous");
         previousButton.addEventListener('click', function (e) {
             toonModel.showPreviousBox();
         });
 
         var nextButton = document.getElementById("next-button");
+		nextButton.title = _("Next");
         nextButton.addEventListener('click', function (e) {
             toonModel.showNextBox();
         });
 
         var textButton = document.getElementById("text-button");
+		textButton.title = _('EditText');
         var tp = new textpalette.TextPalette(textButton, toonModel,
                                              _('SetGlobeText'));
 
@@ -91,6 +98,7 @@ define(function (require) {
         var editMode = true;
 
         var addGlobeButton = document.getElementById("add-globe");
+		addGlobeButton.title = _('AddAglobe');
         var menuData = [{'icon': true, 'id': toon.TYPE_GLOBE,
                          'label': _('Globe')},
                         {'icon': true, 'id': toon.TYPE_EXCLAMATION,
@@ -102,7 +110,7 @@ define(function (require) {
                         {'icon': true, 'id': toon.TYPE_RECTANGLE,
                          'label': _('Box')},];
         var mp = new menupalette.MenuPalette(addGlobeButton,
-            _("Add a globe"), menuData);
+            _("AddAglobe"), menuData);
 
         for (var i = 0; i < mp.buttons.length; i++) {
             mp.buttons[i].addEventListener('click', function(e) {
@@ -111,6 +119,7 @@ define(function (require) {
         };
 
         var addButton = document.getElementById("add-button");
+		addButton.title = _("Add");
         addButton.addEventListener('click', function (e) {
 			journalchooser.show(function (entry) {
 				// No selection
@@ -197,6 +206,7 @@ define(function (require) {
 		});
 
         var saveImageButton = document.getElementById("image-save");
+		saveImageButton.title = _("SaveAsImage");
         var saveImageMenuData = [{'id': '0', 'label': _('OneRow')},
                                  {'id': '1', 'label': _('OneColumn')},
                                  {'id': '2', 'label': _('TwoColumns')}];
@@ -210,6 +220,7 @@ define(function (require) {
         };
 
         var sortButton = document.getElementById("sort-button");
+		sortButton.title = _('Sort');
         toonModel.attachSortButton(sortButton);
 
         sortButton.addEventListener('click', function (e) {
@@ -240,6 +251,7 @@ define(function (require) {
         });
 
         var cleanAllButton = document.getElementById("clean-all-button");
+		cleanAllButton.title = _("Clean");
 
         cleanAllButton.addEventListener('click', function (e) {
 

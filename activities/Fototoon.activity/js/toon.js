@@ -2,16 +2,22 @@ define(function (require) {
 
     require("easel");
 
-    require("canvasToBlob");
-
 	var datastore = require("sugar-web/datastore");
 
-    var localizationData = require("localizationData");
-    var lang = navigator.language.substr(0, 2);
+	var env = require("sugar-web/env");
+    var l10n = require("webL10n");
 
-    function _(text) {
+
+	env.getEnvironment(function(err, environment) {
+		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+		var language = environment.user ? environment.user.language : defaultLanguage;
+		l10n.language.code = language;
+		console.log('LANG ' + language);
+	});
+
+	function _(text) {
         // copied from activity.js
-        translation = (localizationData[lang] ? localizationData[lang][text] : '')
+        translation = l10n.get(text);
         if (translation == '') {
             translation = text;
         };
