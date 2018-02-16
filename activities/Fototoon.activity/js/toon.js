@@ -262,10 +262,12 @@ define(function (require) {
             previewCanvas.width = this._canvas.width;
             previewCanvas.height = this._canvas.height;
             var previewComicBox = new ComicBox(previewCanvas);
+			var that = this;
             previewComicBox.init(this._data['boxs'][boxOrder],
-                                 this._data['images'], false);
-            this._data['previews'][boxOrder] =
-                previewCanvas.toDataURL("image/png");
+                                 this._data['images'], false, {canvas: previewCanvas, order: boxOrder}, function(context) {
+            	that._data['previews'][context.order] =
+                	context.canvas.toDataURL("image/png");
+			});
         };
 
         this._updatePageCounter = function() {
@@ -488,7 +490,6 @@ define(function (require) {
             this._image_width = this._width;
             this._image_height = this._height;
             var img = new Image();
-            img.src = imageUrl;
 			var that = this;
 			img.addEventListener("load", function() {
 				bitmap = new createjs.Bitmap(img);
@@ -530,6 +531,7 @@ define(function (require) {
 					callback(context);
 				}
 			});
+            img.src = imageUrl;
         };
 
         this.remove  = function() {
@@ -1588,6 +1590,8 @@ define(function (require) {
                 if (imageData != undefined) {
                     this._createPreview(imageData, i);
                 };
+
+
             };
 
         };
@@ -1602,68 +1606,72 @@ define(function (require) {
 
         this._createPreview = function(imageUrl, order) {
             var img = new Image();
-            img.src = imageUrl;
-            bitmap = new createjs.Bitmap(img);
-            bitmap.setBounds(0, 0, img.width, img.height);
-            bitmap._order = order;
-            // calculate scale
-            var scale_x = this._previewWidth / img.width;
-            var scale_y = this._height / img.height;
-            var scale = Math.min(scale_x, scale_y);
+			var that = this;
+			img.addEventListener("load", function() {
+	            bitmap = new createjs.Bitmap(this);
+	            bitmap.setBounds(0, 0, this.width, this.height);
+	            bitmap._order = order;
+	            // calculate scale
+	            var scale_x = that._previewWidth / this.width;
+	            var scale_y = that._height / this.height;
+	            var scale = Math.min(scale_x, scale_y);
 
-            bitmap.x = this._previewWidth * order;
-            bitmap.y = 0;
-            bitmap.scaleX = scale;
-            bitmap.scaleY = scale;
+	            bitmap.x = that._previewWidth * order;
+	            bitmap.y = LINE_WIDTH;
+	            bitmap.scaleX = scale;
+	            bitmap.scaleY = scale;
 
-            var hitArea = new createjs.Shape();
-            hitArea.graphics.beginFill("#000").drawRect(
-                0, 0, img.width, img.height);
-            bitmap.hitArea = hitArea;
+	            var hitArea = new createjs.Shape();
+	            hitArea.graphics.beginFill("#000").drawRect(
+	                0, 0, this.width, this.height);
+	            bitmap.hitArea = hitArea;
 
-            // don't move first box
-            if (order > 0) {
-                this._previewBitmaps.push(bitmap);
+	            // don't move first box
+	            if (order > 0) {
+	                that._previewBitmaps.push(bitmap);
 
-                bitmap.on('pressmove', function(event) {
-                    console.log('TOON pressmove');
-                    if (this._deltaX == null) {
-                        this._deltaX = event.stageX - event.target.x;
-                        // move the bitmap to the top
-                        var thisBitmap = event.target;
-                        this.stage.sortChildren(function (bitmapA, bitmapB) {
-                            if (bitmapA == thisBitmap) {
-                                return 1;
-                            } else {
-                                return 0;
-                            };});
-                    };
+	                bitmap.on('pressmove', function(event) {
+	                    console.log('TOON pressmove');
+	                    if (that._deltaX == null) {
+	                        that._deltaX = event.stageX - event.target.x;
+	                        // move the bitmap to the top
+	                        var thisBitmap = event.target;
+	                        that.stage.sortChildren(function (bitmapA, bitmapB) {
+	                            if (bitmapA == thisBitmap) {
+	                                return 1;
+	                            } else {
+	                                return 0;
+	                            };});
+	                    };
 
-                    new_x = event.stageX - this._deltaX;
-                    if (new_x > this._previewWidth / 2) {
-                        event.target.x = new_x;
-                        this.stage.update();
-                    };
-                }, this);
+	                    new_x = event.stageX - that._deltaX;
+	                    if (new_x > this._previewWidth / 2) {
+	                        event.target.x = new_x;
+	                        that.stage.update();
+	                    };
+	                }, that);
 
-                bitmap.on('pressup', function(event) {
-                    console.log('TOON pressup');
-                    this._deltaX = null;
-                    // sort the preview bitmaps
-                    this._previewBitmaps.sort(function (bitmapA, bitmapB) {
-                        return bitmapA.x - bitmapB.x;});
-                    // adjust the positions
-                    for (var i = 0; i < this._previewBitmaps.length; i++) {
-                        this._previewBitmaps[i].x = this._previewWidth * (i + 1);
-                    };
-                    this.stage.update();
-                }, this);
+	                bitmap.on('pressup', function(event) {
+	                    console.log('TOON pressup');
+	                    that._deltaX = null;
+	                    // sort the preview bitmaps
+	                    that._previewBitmaps.sort(function (bitmapA, bitmapB) {
+	                        return bitmapA.x - bitmapB.x;});
+	                    // adjust the positions
+	                    for (var i = 0; i < that._previewBitmaps.length; i++) {
+	                        that._previewBitmaps[i].x = that._previewWidth * (i + 1);
+	                    };
+	                    that.stage.update();
+	                }, that);
 
-            };
+	            };
 
-            this.stage.addChild(bitmap);
+	            that.stage.addChildAt(bitmap, 0);
+				that.stage.update();
 
-        };
+        	});
+			img.src = imageUrl;
+		}
 
     };
 
