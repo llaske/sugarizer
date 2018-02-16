@@ -255,17 +255,11 @@ define(function (require) {
 
         cleanAllButton.addEventListener('click', function (e) {
 
-            activity.showConfirmationAlert(_('ATENTION'),
-                _('RemoveAllConfirmMessage'),
-                _('Yes'), _('No'), function(result) {
-                    if (result) {
-                        toonModel.setData(initialData);
-                        if (!editMode) {
-                            toonModel.changeToEditMode();
-                            editMode = true;
-                        };
-                    };
-                });
+            toonModel.setData(initialData);
+            if (!editMode) {
+                toonModel.changeToEditMode();
+                editMode = true;
+            };
         });
 
     });
