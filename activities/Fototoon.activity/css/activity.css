@@ -178,43 +178,16 @@ background-size: 100% 1.2em;
   margin-bottom: 5px;
 }
 
-/* android file selector */
 
-#file-selector {
-  position: absolute;
-  top: 10px;
-  width: 600px;
-}
-
-#file-selector button {
-  font-size: 20px;
-  color: white;
-  background-color: #c0c0c0;
-  border-radius: 0px;
-  padding: 5px;
-  height: 50px;
-  width: 500px;
-  margin: 5px;
-}
-
-#file-selector button:hover {
-  color: black;
-  background-color: white;
-  border-color: #c0c0c0;
-}
-
-#file-selector #exit-file-selector {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  margin: 0px;
-  top: 0px;
-  right: 25px;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-#file-selector button:hover {
-  background-color: transparent;
-  border-color: transparent;
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
 }
