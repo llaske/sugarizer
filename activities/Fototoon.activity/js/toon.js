@@ -1,11 +1,4 @@
-define(function (require) {
-
-    require("easel");
-
-	var datastore = require("sugar-web/datastore");
-
-	var env = require("sugar-web/env");
-    var l10n = require("webL10n");
+define(["easel","sugar-web/datastore","sugar-web/env","webL10n"], function (easel, datastore, env, l10n) {
 
 
 	env.getEnvironment(function(err, environment) {

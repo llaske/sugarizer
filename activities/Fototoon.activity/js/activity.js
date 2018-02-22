@@ -1,12 +1,5 @@
-define(function (require) {
-    var activity = require("sugar-web/activity/activity");
-    var datastore = require("sugar-web/datastore");
-	var env = require("sugar-web/env");
-    var textpalette = require("textpalette");
-    var menupalette = require("sugar-web/graphics/menupalette");
-	var journalchooser = require("sugar-web/graphics/journalchooser");
-	var lzstring = require("lzstring");
-	var l10n = require("webL10n");
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon) {
+
 
     // initialize canvas size
     var onAndroid = /Android/i.test(navigator.userAgent);
@@ -59,8 +52,6 @@ define(function (require) {
         // HERE GO YOUR CODE
 
         var initialData =  {"version": "1", "boxs": [{'globes':[]}]};
-
-        require("toon");
 
         var mainCanvas = document.getElementById("mainCanvas");
         var sortCanvas = document.getElementById("sortCanvas");
