@@ -291,7 +291,7 @@ body {
 	border-width: 2px;
 	z-index: 1;
 	max-height: 80vh;
-	overflow: scroll;
+	overflow-y: auto;
 }
 
 .popup-footer :hover{
