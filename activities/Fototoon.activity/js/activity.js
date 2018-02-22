@@ -2,18 +2,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
 
     // initialize canvas size
-    var onAndroid = /Android/i.test(navigator.userAgent);
-    if (window.location.search.indexOf('onAndroid') > -1) {
-        onAndroid = true;
-    };
-
-    var onXo = ((window.innerWidth == 1200) && (window.innerHeight >= 900));
     var sugarCellSize = 75;
     var sugarSubCellSize = 15;
-    if (!onXo && !onAndroid) {
-        sugarCellSize = 55;
-        sugarSubCellSize = 11;
-    };
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
@@ -38,16 +28,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
         // Initialize the activity.
         activity.setup();
-
-        if (onAndroid) {
-            // hide activity and close buttons on android
-            var activityButton = document.getElementById("activity-button");
-            var stopButton = document.getElementById("stop-button");
-            var firstSeparator = document.getElementById("first-separator");
-            activityButton.style.display = 'none';
-            stopButton.style.display = 'none';
-            firstSeparator.style.display = 'none';
-        };
 
         // HERE GO YOUR CODE
 
