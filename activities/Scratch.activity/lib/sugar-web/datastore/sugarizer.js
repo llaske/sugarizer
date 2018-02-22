@@ -47,13 +47,20 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     datastore.create = function(metadata, callback, text) {
         var callback_c = datastore.callbackChecker(callback);
         var objectId = datastore.createUUID();
-		if (text !== undefined)
-			html5storage.setValue(datastoreTextPrefix + objectId, text);
-        html5storage.setValue(datastorePrefix + objectId, {
+		if (text !== undefined) {
+			if (!html5storage.setValue(datastoreTextPrefix + objectId, text)) {
+				callback_c(-1, null);
+				return;
+			}
+		}
+        if (html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
             text: (text === undefined) ? null : { link: datastoreTextPrefix + objectId }
-        });
-        callback_c(null, objectId);
+        })) {
+			callback_c(null, objectId);
+		} else {
+			callback_c(-1, null);
+		}
     }
 
     // Find entries matching an activity type
@@ -145,7 +152,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     };
 
     // Save data
-    DatastoreObject.prototype.save = function(callback) {
+    DatastoreObject.prototype.save = function(callback, dontupdatemetadata) {
         if (this.objectId === undefined) {
             var that = this;
             this.newMetadata["timestamp"] = this.newMetadata["creation_time"] = new Date().getTime();
@@ -162,20 +169,28 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             }
         }
         var callback_c = datastore.callbackChecker(callback);
-        this.newMetadata["timestamp"] = new Date().getTime();
+        if (!dontupdatemetadata) {
+			this.newMetadata["timestamp"] = new Date().getTime();
+		}
 		var sugar_settings = html5storage.getValue("sugar_settings");
-		if (sugar_settings) {
+		if (sugar_settings && !dontupdatemetadata) {
 			this.newMetadata["buddy_name"] = sugar_settings.name;
 			this.newMetadata["buddy_color"] = sugar_settings.colorvalue;
 		}
 		if (this.newDataAsText != null) {
-			html5storage.setValue(datastoreTextPrefix + this.objectId, this.newDataAsText);
+			if (!html5storage.setValue(datastoreTextPrefix + this.objectId, this.newDataAsText)) {
+				callback_c(-1, null);
+				return;
+			};
 		}
-        html5storage.setValue(datastorePrefix + this.objectId, {
+        if (html5storage.setValue(datastorePrefix + this.objectId, {
             metadata: this.newMetadata,
             text: (this.newDataAsText === undefined) ? null : { link: datastoreTextPrefix + this.objectId }
-        });
-        callback_c(null, this.newMetadata, this.newDataAsText);
+        })) {
+			callback_c(null, this.newMetadata, this.newDataAsText);
+		} else {
+			callback_c(-1, null);
+		}
     };
 
     datastore.DatastoreObject = DatastoreObject;
@@ -225,11 +240,19 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 					this.values[key] = JSON.stringify(value);
 					var item = {};
 					item[key] = this.values[key];
-					chrome.storage.local.set(item);
+					chrome.storage.local.set(item, function() {
+						if (chrome.runtime.lastError) {
+							console.log("ERROR: Unable to update local storage");
+						}
+					});
 				} else {
 					window.localStorage.setItem(key, JSON.stringify(value));
 				}
-            } catch (err) {}
+				return true;
+            } catch (err) {
+				console.log("ERROR: Unable to update local storage");
+				return false;
+			}
         }
     };
 
