@@ -1,16 +1,18 @@
 // Journal object chooser dialog
-/* Start of the app, we require everything that is needed */
-    define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache'], function(picoModal,datastore,icon,mustache) {
+define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','sugar-web/env'], function(picoModal,datastore,icon,mustache,env) {
 
 	var chooser = {};
 
 	// Load settings
-	var userSettings = datastore.localStorage.getValue('sugar_settings');
+	var userSettings = null;
 	var activities = [];
-	for (var i = 0 ; userSettings.activities && i < userSettings.activities.length ; i++) {
-		var activity = userSettings.activities[i];
-		activities[activity.id] = activity;
-	}
+	env.getEnvironment(function(err, environment) {
+		userSettings = environment.user;
+		for (var i = 0 ; userSettings.activities && i < userSettings.activities.length ; i++) {
+			var activity = userSettings.activities[i];
+			activities[activity.id] = activity;
+		}
+	});
 
 	// Localize content
 	var l10n = {
