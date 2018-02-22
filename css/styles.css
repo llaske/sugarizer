@@ -290,6 +290,8 @@ body {
 	border-style: none solid solid solid;
 	border-width: 2px;
 	z-index: 1;
+	max-height: 80vh;
+	overflow-y: auto;
 }
 
 .popup-footer :hover{
