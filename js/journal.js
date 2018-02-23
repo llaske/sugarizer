@@ -355,12 +355,20 @@ enyo.kind({
 		}
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		var entry = icon.getData();
+		var title = null;
+		if (this.journalType != constant.sharedJournal) {
+			if (entry.metadata.textsize && entry.metadata.textsize > constant.minimumSizeDisplay) {
+				title = util.formatSize(entry.metadata.textsize);
+			}
+		} else if (entry.metadata.buddy_name) {
+			title = l10n.get("ByUser", {user:entry.metadata.buddy_name});
+		}
 		this.$.activityPopup.setHeader({
 			icon: icon.icon,
 			colorized: true,
 			colorizedColor: (entry.metadata.buddy_color ? entry.metadata.buddy_color : null),
 			name: entry.metadata.title,
-			title: ( (entry.metadata.buddy_name && this.journalType != constant.journalLocal) ? l10n.get("ByUser", {user:entry.metadata.buddy_name}): null),
+			title: title,
 			action: enyo.bind(this, "runCurrentActivity"),
 			data: [entry, null]
 		});

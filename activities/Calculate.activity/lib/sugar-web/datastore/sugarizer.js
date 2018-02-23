@@ -52,6 +52,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				callback_c(-1, null);
 				return;
 			}
+			metadata["textsize"] = text.length;
 		}
         if (html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
@@ -181,6 +182,9 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			if (!html5storage.setValue(datastoreTextPrefix + this.objectId, this.newDataAsText)) {
 				callback_c(-1, null);
 				return;
+			};
+			if (!dontupdatemetadata) {
+				this.newMetadata["textsize"] = this.newDataAsText.length;
 			};
 		}
         if (html5storage.setValue(datastorePrefix + this.objectId, {

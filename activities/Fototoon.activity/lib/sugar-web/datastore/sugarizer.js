@@ -52,6 +52,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				callback_c(-1, null);
 				return;
 			}
+			metadata["textsize"] = text.length;
 		}
         if (html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
@@ -152,7 +153,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     };
 
     // Save data
-    DatastoreObject.prototype.save = function(callback) {
+    DatastoreObject.prototype.save = function(callback, dontupdatemetadata) {
         if (this.objectId === undefined) {
             var that = this;
             this.newMetadata["timestamp"] = this.newMetadata["creation_time"] = new Date().getTime();
@@ -169,9 +170,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             }
         }
         var callback_c = datastore.callbackChecker(callback);
-        this.newMetadata["timestamp"] = new Date().getTime();
+        if (!dontupdatemetadata) {
+			this.newMetadata["timestamp"] = new Date().getTime();
+		}
 		var sugar_settings = html5storage.getValue("sugar_settings");
-		if (sugar_settings) {
+		if (sugar_settings && !dontupdatemetadata) {
 			this.newMetadata["buddy_name"] = sugar_settings.name;
 			this.newMetadata["buddy_color"] = sugar_settings.colorvalue;
 		}
@@ -179,6 +182,9 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			if (!html5storage.setValue(datastoreTextPrefix + this.objectId, this.newDataAsText)) {
 				callback_c(-1, null);
 				return;
+			};
+			if (!dontupdatemetadata) {
+				this.newMetadata["textsize"] = this.newDataAsText.length;
 			};
 		}
         if (html5storage.setValue(datastorePrefix + this.objectId, {
