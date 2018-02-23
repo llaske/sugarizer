@@ -1177,6 +1177,14 @@ body {
 	display: inline-block;
 }
 
+.computer-storage {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
 .computer-reinitcheck {
 	margin-left: 30px !important;
 }

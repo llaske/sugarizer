@@ -679,6 +679,9 @@ enyo.kind({
 			{classes: "computer-line"},
 			{name: "useragent", content: "xxx", classes: "computer-useragent"},
 			{name: "useragent_value", classes: "computer-value"},
+			{name: "storage", content: "xxx", classes: "computer-storage"},
+			{name: "storage_value", classes: "computer-value"},
+			{classes: "computer-line"},
 			{name: "reinitcheck", showing: false, kind: "Input", type: "checkbox", classes: "toggle computer-reinitcheck", onchange: "switchInit"},
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
@@ -698,6 +701,7 @@ enyo.kind({
 		this.$.clienttype.setContent(l10n.get("ClientType"));
 		this.$.browserversion.setContent(l10n.get("BrowserVersion"));
 		this.$.useragent.setContent(l10n.get("UserAgent"));
+		this.$.storage.setContent(l10n.get("Storage"));
 		this.$.copyright.setContent(l10n.get("Copyright"));
 		this.$.license.setContent(l10n.get("LicenseTerms"));
 		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
@@ -710,6 +714,10 @@ enyo.kind({
 		this.$.browser_value.setContent(util.getBrowserName());
 		this.$.browserversion_value.setContent(util.getBrowserVersion());
 		this.$.useragent_value.setContent(navigator.userAgent);
+		var that = this;
+		util.computeDatastoreSize(function(size) {
+			that.$.storage_value.setContent(l10n.get("StorageSize", {used: size.used, percent: (100*size.used/size.total).toFixed()}));
+		});
 
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
@@ -718,6 +726,7 @@ enyo.kind({
 			this.$.clienttype.addClass("rtl-10");
 			this.$.browserversion.addClass("rtl-10");
 			this.$.useragent.addClass("rtl-10");
+			this.$.storage.addClass("rtl-10");
 			this.$.copyright.addClass("rtl-10");
 			this.$.license.addClass("rtl-10");
 		}
