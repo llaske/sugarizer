@@ -402,8 +402,12 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n"], function (ease
 	 							creation_time: new Date().getTime(),
 	 							file_size: 0
 	 						};
-	 						datastore.create(metadata, function() {
-	 							console.log("image saved in journal.");
+	 						datastore.create(metadata, function(err) {
+								if (err) {
+									console.log("error saving image in journal");
+								} else {
+	 								console.log("image saved in journal.");
+								}
 	 							that.hideWait();
 	 						}, imgAsDataURL);
 	 					}
