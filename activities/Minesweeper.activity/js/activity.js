@@ -242,16 +242,49 @@ function startgame(e){
 					}
 				}
 			}
-			if(bombcount == 0){
-				if(document.getElementsByTagName("tr")[i-1].childNodes[j-1].className != "bomb"){
-					document.getElementsByTagName("tr")[i-1].childNodes[j-1].className = "empty";
-					// memoryEmpty[i-1][j-1] = 1;
-				}
-			}
-			else{
-				// document.getElementsByTagName("tr")[i-1].childNodes[j-1].style.color = "red";
-				document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = bombcount;
-				// memoryNumber[i-1][j-1] = bombcount;
+			// if(bombcount == 0){
+				// if(document.getElementsByTagName("tr")[i-1].childNodes[j-1].className != "bomb"){
+				// 	document.getElementsByTagName("tr")[i-1].childNodes[j-1].className = "empty";
+				// 	// memoryEmpty[i-1][j-1] = 1;
+				// }
+			// }
+			// else{
+			// 	document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span>"+bombcount+"</span>";
+			// 	// memoryNumber[i-1][j-1] = bombcount;
+			// }
+			switch(bombcount){
+				case 0: if(document.getElementsByTagName("tr")[i-1].childNodes[j-1].className != "bomb"){
+						document.getElementsByTagName("tr")[i-1].childNodes[j-1].className = "empty";
+						// memoryEmpty[i-1][j-1] = 1;
+					}
+				break;
+
+				case 1: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#00f'>"+bombcount+"</span>";
+				break;
+
+				case 2: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#00b300'>"+bombcount+"</span>";
+				break;
+
+				case 3: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#f00'>"+bombcount+"</span>";
+				break;
+
+				case 4: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#000099'>"+bombcount+"</span>";
+				break;
+
+				case 5: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#800000'>"+bombcount+"</span>";
+				break;
+
+				case 6: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#00cc99'>"+bombcount+"</span>";
+				break;
+
+				case 7: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#00cc99'>"+bombcount+"</span>";
+				break;
+
+				case 8: document.getElementsByTagName("tr")[i-1].childNodes[j-1].innerHTML = "<span style = 'color:#00cc99'>"+bombcount+"</span>";
+				break;
+
+				default: console.log("Error occured with number of bombs");
+				break;
 			}
 			
 		}

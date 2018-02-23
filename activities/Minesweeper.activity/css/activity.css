@@ -99,7 +99,7 @@ td{
 	height:6vh;
 	width:6vh;
 	background:#808080;
-	border:2px outset white;
+	border:2px outset #9c9c9c;
 	color:rgba(0,0,0,0);
 	text-align: center;
 	font-size:3vh;
@@ -115,10 +115,18 @@ td > img{
 }
 
 .open{
-	background: #a9a9a9;
+	background: #e8e8e8;
 	color:rgba(0,0,0,1);
 }
 
 img{
 	height:15px
+}
+
+td span{
+	display:none;
+}
+/* be careful with the order of properties here */
+.open span{
+	display:block;
 }
