@@ -60,6 +60,7 @@ constant.minPasswordSize = 4;
 constant.syncJournalLimit = 100;
 constant.pageJournalSize = 40;
 constant.minimumSizeDisplay = 1024;
+constant.minStorageSizePercent = 5;
 
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;

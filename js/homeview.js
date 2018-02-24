@@ -49,6 +49,8 @@ enyo.kind({
 
 		// Load and sort journal
 		this.loadJournal();
+		this.isJournalFull = false;
+		this.testJournalSize();
 
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
@@ -97,8 +99,10 @@ enyo.kind({
 							// Locale journal has changed, update display
 							if (locale) {
 								that.loadJournal();
+								that.testJournalSize();
 								preferences.updateEntries();
 								that.draw();
+								that.render();
 							}
 						}
 					);
@@ -115,6 +119,19 @@ enyo.kind({
 		this.journal = datastore.find();
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+	},
+
+	// Test Journal size to ensure it's not full
+	testJournalSize: function() {
+		this.isJournalFull = false;
+		var that = this;
+		util.computeDatastoreSize(function(size) {
+			var percentremain = ((size.remain/size.total)*100);
+			if (percentremain < constant.minStorageSizePercent) {
+				console.log("WARNING: Journal almost full");
+				that.isJournalFull = true;
+			}
 		});
 	},
 
@@ -463,6 +480,10 @@ enyo.kind({
 		this.$.owner.colorize(preferences.getColor());
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
+		}
+		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
+			humane.log(l10n.get("JournalAlmostFull"));
+			this.isJournalFull = false;
 		}
 	},
 
