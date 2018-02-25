@@ -23,11 +23,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         setTimeout(function () {
             activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
+                loadingSvg.style.display = "none";
                 if (data == null || !metadata || !metadata.mimetype) {
                     return;
                 }
-
-                loadingSvg.style.display = "none";
 
                 var mimetype = metadata.mimetype;
                 var type = mimetype.split("/")[0];

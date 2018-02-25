@@ -93,21 +93,23 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 		jsonparsed.colorvalue.fill = this.xo.fill;
 		jsonparsed.color = this.xo.colnumber;
 		this.ds.localStorage.setValue('sugar_settings', jsonparsed);
-		if (jsonparsed.networkId != null) {
+		if (jsonparsed.networkId != null && jsonparsed.server && jsonparsed.token) {
 			// HACK: When connected to the server, should call the /api/users to update color on the server
-			var server = jsonparsed.server;
+			var server = jsonparsed.server.url;
 			if (server == null) {
 				if (document.location.protocol.substr(0,4) == "http") {
-					var url = window.location.href.substr(document.location.protocol.length+2);
+					var url = window.location.href;
 					server = url.substring(0, url.indexOf('/activities'));;
 				} else {
-					server = "localhost";
+					server = "http://localhost";
 				}
 			}
-			server = "http://" + server + "/api/users/" + jsonparsed.networkId;
+			server = server + "/api/v1/users/" + jsonparsed.networkId;
 			var request = new XMLHttpRequest();
 			request.open("PUT",server,true);
 			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			request.setRequestHeader("x-key",jsonparsed.token.x_key);
+			request.setRequestHeader("x-access-token",jsonparsed.token.access_token);
 			request.send("user="+encodeURI(JSON.stringify({color: {stroke: this.xo.stroke, fill: this.xo.fill}})));
 		}
 	}

@@ -1,0 +1,38 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#activity-palette {
+  z-index: 30;
+}
+
+#activity-palette #title {
+    padding: 4px;
+    line-height: 22px;
+    background-color: #e5e5e5;
+    border: 2px solid #e5e5e5;
+    border-radius: 22px;
+    outline: 0;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    width: 100% !important;
+    margin-top: 8.5px;
+    font: 400 11px system-ui;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;	
+}
+#canvas {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

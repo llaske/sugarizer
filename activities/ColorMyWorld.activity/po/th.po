@@ -1,0 +1,1395 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:15:18 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: appname
+msgctxt "appname"
+msgid "Color My World!"
+msgstr "สีโลกของฉัน"
+
+#: appname.title
+msgctxt "appname.title"
+msgid "ColorMyWorld"
+msgstr "สีโลกของฉัน"
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr "ต่อไป"
+
+#: Find
+msgctxt "Find"
+msgid "Find"
+msgstr "หา"
+
+#: Congratulations
+msgctxt "Congratulations"
+msgid "Congratulations"
+msgstr "ขอแสดงความยินดี"
+
+#: You_Finished
+msgctxt "You_Finished"
+msgid "You_Finished"
+msgstr "คุณได้เสร็จสิ้น"
+
+#: Nations
+msgctxt "Nations"
+msgid "Nations"
+msgstr "สหประชาชาติ"
+
+#: Middle_East_Nations
+msgctxt "Middle_East_Nations"
+msgid "Middle_East_Nations"
+msgstr "ตะวันออกกลางสหประชาชาติ"
+
+#: Asian_Nations
+msgctxt "Asian_Nations"
+msgid "Asian_Nations"
+msgstr "ประชาชาติแห่งเอเชีย"
+
+#: North_American_Nations
+msgctxt "North_American_Nations"
+msgid "North_American_Nations"
+msgstr "นอร์ทอเมริกันแห่งสหประชาชาติ"
+
+#: Central_American_Nations
+msgctxt "Central_American_Nations"
+msgid "Central_American_Nations"
+msgstr "อเมริกากลางแห่งสหประชาชาติ"
+
+#: South_American_Nations
+msgctxt "South_American_Nations"
+msgid "South_American_Nations"
+msgstr "ชาติอเมริกาใต้"
+
+#: Island_Nations
+msgctxt "Island_Nations"
+msgid "Island_Nations"
+msgstr "ประเทศหมู่เกาะ"
+
+#: Australia_Region
+msgctxt "Australia_Region"
+msgid "Australia_Region"
+msgstr "ภาคออสเตรเลีย"
+
+#: Antarctica_Region
+msgctxt "Antarctica_Region"
+msgid "Antarctica_Region"
+msgstr "ภาคทวีปแอนตาร์กติกา"
+
+#: African_Nations
+msgctxt "African_Nations"
+msgid "African_Nations"
+msgstr "แอฟริกันเนชั่น"
+
+#: European_Nations
+msgctxt "European_Nations"
+msgid "European_Nations"
+msgstr "ประเทศในยุโรป"
+
+#: Caribbean_Nations
+msgctxt "Caribbean_Nations"
+msgid "Caribbean_Nations"
+msgstr "สหประชาชาติแคริบเบียน"
+
+#: World_Countries
+msgctxt "World_Countries"
+msgid "World_Countries"
+msgstr "ประเทศโลกที่"
+
+#: Countries
+msgctxt "Countries"
+msgid "Countries"
+msgstr "ประเทศ"
+
+#: World
+msgctxt "World"
+msgid "World"
+msgstr "โลก"
+
+#: Caribbean
+msgctxt "Caribbean"
+msgid "Caribbean"
+msgstr "แคริบเบียน"
+
+#: Europe
+msgctxt "Europe"
+msgid "Europe"
+msgstr "ยุโรป"
+
+#: Africa
+msgctxt "Africa"
+msgid "Africa"
+msgstr "แอฟริกา"
+
+#: Antigua_and_Barbuda
+msgctxt "Antigua_and_Barbuda"
+msgid "Antigua_and_Barbuda"
+msgstr "แอนติกาและบาร์บูดา"
+
+#: Algeria
+msgctxt "Algeria"
+msgid "Algeria"
+msgstr "แอลจีเรีย"
+
+#: Azerbaijan
+msgctxt "Azerbaijan"
+msgid "Azerbaijan"
+msgstr "อาเซอร์ไบจาน"
+
+#: Albania
+msgctxt "Albania"
+msgid "Albania"
+msgstr "แอลเบเนีย"
+
+#: American_Samoa
+msgctxt "American_Samoa"
+msgid "American_Samoa"
+msgstr "อเมริกันซามัว"
+
+#: Armenia
+msgctxt "Armenia"
+msgid "Armenia"
+msgstr "อาร์เมเนีย"
+
+#: Angola
+msgctxt "Angola"
+msgid "Angola"
+msgstr "แองโกลา"
+
+#: Argentina
+msgctxt "Argentina"
+msgid "Argentina"
+msgstr "อาร์เจนตินา"
+
+#: Australia
+msgctxt "Australia"
+msgid "Australia"
+msgstr "ออสเตรเลีย"
+
+#: Anguilla
+msgctxt "Anguilla"
+msgid "Anguilla"
+msgstr "แองกวิลลา"
+
+#: Papua_New_Guinea
+msgctxt "Papua_New_Guinea"
+msgid "Papua_New_Guinea"
+msgstr "ปาปัวนิวกินี"
+
+#: Guinea_Bissau
+msgctxt "Guinea_Bissau"
+msgid "Guinea_Bissau"
+msgstr "กินีบิสเซา"
+
+#: Bahrain
+msgctxt "Bahrain"
+msgid "Bahrain"
+msgstr "บาห์เรน"
+
+#: Barbados
+msgctxt "Barbados"
+msgid "Barbados"
+msgstr "บาร์เบโดส"
+
+#: Bermuda
+msgctxt "Bermuda"
+msgid "Bermuda"
+msgstr "เบอร์มิวดา"
+
+#: Bahamas
+msgctxt "Bahamas"
+msgid "Bahamas"
+msgstr "บาฮามาส"
+
+#: Bangladesh
+msgctxt "Bangladesh"
+msgid "Bangladesh"
+msgstr "บังคลาเทศ"
+
+#: Brunei_Darussalam
+msgctxt "Brunei_Darussalam"
+msgid "Brunei_Darussalam"
+msgstr "บรูไนดารุสซาลาม"
+
+#: Canada
+msgctxt "Canada"
+msgid "Canada"
+msgstr "แคนาดา"
+
+#: Cambodia
+msgctxt "Cambodia"
+msgid "Cambodia"
+msgstr "กัมพูชา"
+
+#: Andorra
+msgctxt "Andorra"
+msgid "Andorra"
+msgstr "อันดอร์รา"
+
+#: Gibraltar
+msgctxt "Gibraltar"
+msgid "Gibraltar"
+msgstr "ยิบรอลตา"
+
+#: Belize
+msgctxt "Belize"
+msgid "Belize"
+msgstr "เบลีซ"
+
+#: Comoros
+msgctxt "Comoros"
+msgid "Comoros"
+msgstr "คอโมโรส"
+
+#: Colombia
+msgctxt "Colombia"
+msgid "Colombia"
+msgstr "โคลอมเบีย"
+
+#: Isle_of_Man
+msgctxt "Isle_of_Man"
+msgid "Isle_of_Man"
+msgstr "เกาะ_Isle_of_Man"
+
+#: Bosnia_and_Herzegovina
+msgctxt "Bosnia_and_Herzegovina"
+msgid "Bosnia_and_Herzegovina"
+msgstr "บอสเนียและเฮอร์เซโก"
+
+#: Bolivia
+msgctxt "Bolivia"
+msgid "Bolivia"
+msgstr "โบลิเวีย"
+
+#: Myanmar
+msgctxt "Myanmar"
+msgid "Myanmar"
+msgstr "พม่า"
+
+#: Benin
+msgctxt "Benin"
+msgid "Benin"
+msgstr "ประเทศเบนิน"
+
+#: Solomon_Islands
+msgctxt "Solomon_Islands"
+msgid "Solomon_Islands"
+msgstr "หมู่เกาะโซโลมอน"
+
+#: Brazil
+msgctxt "Brazil"
+msgid "Brazil"
+msgstr "บราซิล"
+
+#: Bulgaria
+msgctxt "Bulgaria"
+msgid "Bulgaria"
+msgstr "บัลแกเรีย"
+
+#: Luxembourg
+msgctxt "Luxembourg"
+msgid "Luxembourg"
+msgstr "ลักเซมเบิร์ก"
+
+#: Sri_Lanka
+msgctxt "Sri_Lanka"
+msgid "Sri_Lanka"
+msgstr "ศรีลังกา"
+
+#: Congo
+msgctxt "Congo"
+msgid "Congo"
+msgstr "ประเทศคองโก"
+
+#: Democratic_Republic_of_the_Congo
+msgctxt "Democratic_Republic_of_the_Congo"
+msgid "Democratic_Republic_of_the_Congo"
+msgstr "สาธารณรัฐประชาธิปไตยคองโก"
+
+#: Macau
+msgctxt "Macau"
+msgid "Macau"
+msgstr "มาเก๊า"
+
+#: Burundi
+msgctxt "Burundi"
+msgid "Burundi"
+msgstr "บุรุนดี"
+
+#: China
+msgctxt "China"
+msgid "China"
+msgstr "ประเทศจีน"
+
+#: Afghanistan
+msgctxt "Afghanistan"
+msgid "Afghanistan"
+msgstr "อัฟกานิสถาน"
+
+#: Cape_Verde
+msgctxt "Cape_Verde"
+msgid "Cape_Verde"
+msgstr "เคปเวิร์ด"
+
+#: Monaco
+msgctxt "Monaco"
+msgid "Monaco"
+msgstr "โมนาโก"
+
+#: Bhutan
+msgctxt "Bhutan"
+msgid "Bhutan"
+msgstr "ภูฏาน"
+
+#: Chile
+msgctxt "Chile"
+msgid "Chile"
+msgstr "ชิลี"
+
+#: Cayman_Islands
+msgctxt "Cayman_Islands"
+msgid "Cayman_Islands"
+msgstr "หมู่เกาะเคย์เเมน"
+
+#: Cameroon
+msgctxt "Cameroon"
+msgid "Cameroon"
+msgstr "แคเมอรูน"
+
+#: Chad
+msgctxt "Chad"
+msgid "Chad"
+msgstr "ชาด"
+
+#: Costa_Rica
+msgctxt "Costa_Rica"
+msgid "Costa_Rica"
+msgstr "คอสตาริกา"
+
+#: Central_African_Republic
+msgctxt "Central_African_Republic"
+msgid "Central_African_Republic"
+msgstr "สาธารณรัฐแอฟริกากลาง"
+
+#: Cuba
+msgctxt "Cuba"
+msgid "Cuba"
+msgstr "คิวบา"
+
+#: Cook_Islands
+msgctxt "Cook_Islands"
+msgid "Cook_Islands"
+msgstr "หมู่เกาะคุก"
+
+#: Cyprus
+msgctxt "Cyprus"
+msgid "Cyprus"
+msgstr "ประเทศไซปรัส"
+
+#: Denmark
+msgctxt "Denmark"
+msgid "Denmark"
+msgstr "เดนมาร์ก"
+
+#: Djibouti
+msgctxt "Djibouti"
+msgid "Djibouti"
+msgstr "จิบูตี"
+
+#: Dominica
+msgctxt "Dominica"
+msgid "Dominica"
+msgstr "โดมินิกา"
+
+#: Equatorial_Guinea
+msgctxt "Equatorial_Guinea"
+msgid "Equatorial_Guinea"
+msgstr "ทอเรียลกินี"
+
+#: Estonia
+msgctxt "Estonia"
+msgid "Estonia"
+msgstr "เอสโตเนีย"
+
+#: Eritrea
+msgctxt "Eritrea"
+msgid "Eritrea"
+msgstr "เอริเทรี"
+
+#: Dominican_Republic
+msgctxt "Dominican_Republic"
+msgid "Dominican_Republic"
+msgstr "สาธารณรัฐโดมินิกัน"
+
+#: Ecuador
+msgctxt "Ecuador"
+msgid "Ecuador"
+msgstr "เอกวาดอร์"
+
+#: Egypt
+msgctxt "Egypt"
+msgid "Egypt"
+msgstr "อียิปต์"
+
+#: Ireland
+msgctxt "Ireland"
+msgid "Ireland"
+msgstr "ไอร์แลนด์"
+
+#: El_Salvador
+msgctxt "El_Salvador"
+msgid "El_Salvador"
+msgstr "เอลซัลวาดอร์"
+
+#: Ethiopia
+msgctxt "Ethiopia"
+msgid "Ethiopia"
+msgstr "สาธารณรัฐเอธิโอเปีย"
+
+#: Austria
+msgctxt "Austria"
+msgid "Austria"
+msgstr "ออสเตรีย"
+
+#: Czech_Republic
+msgctxt "Czech_Republic"
+msgid "Czech_Republic"
+msgstr "สาธารณรัฐเช็ก"
+
+#: Jordan
+msgctxt "Jordan"
+msgid "Jordan"
+msgstr "จอร์แดน"
+
+#: French_Guiana
+msgctxt "French_Guiana"
+msgid "French_Guyana"
+msgstr "เฟรนช์เกีย"
+
+#: Finland
+msgctxt "Finland"
+msgid "Finland"
+msgstr "ฟินแลนด์"
+
+#: Fiji
+msgctxt "Fiji"
+msgid "Fiji"
+msgstr "ฟิจิ"
+
+#: Kiribati
+msgctxt "Kiribati"
+msgid "Kiribati"
+msgstr "ประเทศคิริบาส"
+
+#: Korea_Republic
+msgctxt "Korea_Republic"
+msgid "Korea,_Republic_of"
+msgstr "สาธารณรัฐเกาหลี"
+
+#: Trinidad_and_Tobago
+msgctxt "Trinidad_and_Tobago"
+msgid "Trinidad_and_Tobago"
+msgstr "ตรินิแดดและโตเบโก"
+
+#: Falkland_Islands
+msgctxt "Falkland_Islands"
+msgid "Falkland_Islands"
+msgstr "หมู่เกาะฟอล์คแลนด์_(Malvinas)"
+
+#: Thailand
+msgctxt "Thailand"
+msgid "Thailand"
+msgstr "ประเทศไทย"
+
+#: Tajikistan
+msgctxt "Tajikistan"
+msgid "Tajikistan"
+msgstr "ทาจิกิสถาน"
+
+#: Micronesia
+msgctxt "Micronesia"
+msgid "Micronesia"
+msgstr "ไมโครนีเซีย"
+
+#: French_Polynesia
+msgctxt "French_Polynesia"
+msgid "French_Polynesia"
+msgstr "french_Polynesia"
+
+#: France
+msgctxt "France"
+msgid "France"
+msgstr "ฝรั่งเศส"
+
+#: Kuwait
+msgctxt "Kuwait"
+msgid "Kuwait"
+msgstr "คูเวต"
+
+#: Kazakhstan
+msgctxt "Kazakhstan"
+msgid "Kazakhstan"
+msgstr "คาซัคสถาน"
+
+#: Laos
+msgctxt "Laos"
+msgid "Laos"
+msgstr "ลาว"
+
+#: Gambia
+msgctxt "Gambia"
+msgid "Gambia"
+msgstr "แกมเบีย"
+
+#: Gabon
+msgctxt "Gabon"
+msgid "Gabon"
+msgstr "ประเทศกาบอง"
+
+#: Lebanon
+msgctxt "Lebanon"
+msgid "Lebanon"
+msgstr "เลบานอน"
+
+#: Georgia
+msgctxt "Georgia"
+msgid "Georgia"
+msgstr "จอร์เจีย"
+
+#: Ghana
+msgctxt "Ghana"
+msgid "Ghana"
+msgstr "ประเทศกานา"
+
+#: Grenada
+msgctxt "Grenada"
+msgid "Grenada"
+msgstr "เกรเนดา"
+
+#: Greenland
+msgctxt "Greenland"
+msgid "Greenland"
+msgstr "เกาะกรีนแลนด์"
+
+#: Germany
+msgctxt "Germany"
+msgid "Germany"
+msgstr "ประเทศเยอรมัน"
+
+#: Guam
+msgctxt "Guam"
+msgid "Guam"
+msgstr "กวม"
+
+#: Greece
+msgctxt "Greece"
+msgid "Greece"
+msgstr "กรีซ"
+
+#: Guatemala
+msgctxt "Guatemala"
+msgid "Guatemala"
+msgstr "กัวเตมาลา"
+
+#: Guinea
+msgctxt "Guinea"
+msgid "Guinea"
+msgstr "ประเทศกินี"
+
+#: Guyana
+msgctxt "Guyana"
+msgid "Guyana"
+msgstr "กายอานา"
+
+#: Latvia
+msgctxt "Latvia"
+msgid "Latvia"
+msgstr "ลัตเวีย"
+
+#: Belarus
+msgctxt "Belarus"
+msgid "Belarus"
+msgstr "เบลารุส"
+
+#: Lithuania
+msgctxt "Lithuania"
+msgid "Lithuania"
+msgstr "ประเทศลิธัวเนีย"
+
+#: Palestine
+msgctxt "Palestine"
+msgid "Palestine"
+msgstr "ปาเลสไตน์"
+
+#: Haiti
+msgctxt "Haiti"
+msgid "Haiti"
+msgstr "ไฮติ"
+
+#: Honduras
+msgctxt "Honduras"
+msgid "Honduras"
+msgstr "ฮอนดูรัส"
+
+#: Croatia
+msgctxt "Croatia"
+msgid "Croatia"
+msgstr "โครเอเชีย"
+
+#: Hungary
+msgctxt "Hungary"
+msgid "Hungary"
+msgstr "ฮังการี"
+
+#: Iceland
+msgctxt "Iceland"
+msgid "Iceland"
+msgstr "ประเทศไอซ์แลนด์"
+
+#: India
+msgctxt "India"
+msgid "India"
+msgstr "อินเดีย"
+
+#: Iran
+msgctxt "Iran"
+msgid "Iran"
+msgstr "อิหร่าน"
+
+#: Mongolia
+msgctxt "Mongolia"
+msgid "Mongolia"
+msgstr "ประเทศมองโกเลีย"
+
+#: Israel
+msgctxt "Israel"
+msgid "Israel"
+msgstr "อิสราเอล"
+
+#: Italy
+msgctxt "Italy"
+msgid "Italy"
+msgstr "อิตาลี"
+
+#: Cote_d'Ivoire
+msgctxt "Cote_d'Ivoire"
+msgid "Cote_d'Ivoire"
+msgstr "ไอวอรี่โคส"
+
+#: Iraq
+msgctxt "Iraq"
+msgid "Iraq"
+msgstr "อิรัก"
+
+#: Japan
+msgctxt "Japan"
+msgid "Japan"
+msgstr "ประเทศญี่ปุ่น"
+
+#: Jamaica
+msgctxt "Jamaica"
+msgid "Jamaica"
+msgstr "เกาะจาเมกา"
+
+#: Kenya
+msgctxt "Kenya"
+msgid "Kenya"
+msgstr "ประเทศเคนย่า"
+
+#: Kyrgyzstan
+msgctxt "Kyrgyzstan"
+msgid "Kyrgyzstan"
+msgstr "คีร์กีสถาน"
+
+#: Korea
+msgctxt "Korea"
+msgid "Korea"
+msgstr "เกาหลี"
+
+#: Liberia
+msgctxt "Liberia"
+msgid "Liberia"
+msgstr "ประเทศไลบีเรีย"
+
+#: Montserrat
+msgctxt "Montserrat"
+msgid "Montserrat"
+msgstr "มอนต์เซอร์รัต"
+
+#: Slovakia
+msgctxt "Slovakia"
+msgid "Slovakia"
+msgstr "สโลวะเกีย"
+
+#: Liechtenstein
+msgctxt "Liechtenstein"
+msgid "Liechtenstein"
+msgstr "นสไตน์"
+
+#: Libyan_Arab_Jamahiriya
+msgctxt "Libyan_Arab_Jamahiriya"
+msgid "Libyan_Arab_Jamahiriya"
+msgstr "ประเทศลิบยา"
+
+#: Madagascar
+msgctxt "Madagascar"
+msgid "Madagascar"
+msgstr "มาดากัสการ์"
+
+#: Martinique
+msgctxt "Martinique"
+msgid "Martinique"
+msgstr "มาร์ตินีก"
+
+#: The_former_Yugoslav_Republic_of_Macedonia
+msgctxt "The_former_Yugoslav_Republic_of_Macedonia"
+msgid "The_former_Yugoslav_Republic_of_Macedonia"
+msgstr "มาซิโดเนีย"
+
+#: Mali
+msgctxt "Mali"
+msgid "Mali"
+msgstr "มาลี"
+
+#: Morocco
+msgctxt "Morocco"
+msgid "Morocco"
+msgstr "โมร็อกโก"
+
+#: Mauritius
+msgctxt "Mauritius"
+msgid "Mauritius"
+msgstr "มอริเชียส"
+
+#: Mauritania
+msgctxt "Mauritania"
+msgid "Mauritania"
+msgstr "ประเทศมอริเตเนีย"
+
+#: Malta
+msgctxt "Malta"
+msgid "Malta"
+msgstr "เกาะมอลตา"
+
+#: Oman
+msgctxt "Oman"
+msgid "Oman"
+msgstr "โอมาน"
+
+#: Maldives
+msgctxt "Maldives"
+msgid "Maldives"
+msgstr "มัลดีฟส์"
+
+#: Mexico
+msgctxt "Mexico"
+msgid "Mexico"
+msgstr "เม็กซิโก"
+
+#: Malaysia
+msgctxt "Malaysia"
+msgid "Malaysia"
+msgstr "ประเทศมาเลเซีย"
+
+#: Mozambique
+msgctxt "Mozambique"
+msgid "Mozambique"
+msgstr "ประเทศโมซัมบิก"
+
+#: Malawi
+msgctxt "Malawi"
+msgid "Malawi"
+msgstr "มาลาวี"
+
+#: New_Caledonia
+msgctxt "New_Caledonia"
+msgid "New_Caledonia"
+msgstr "New_Caledonia"
+
+#: Niue
+msgctxt "Niue"
+msgid "Niue"
+msgstr "นีอูเอ"
+
+#: Niger
+msgctxt "Niger"
+msgid "Niger"
+msgstr "ประเทศไนเธอร์"
+
+#: Aruba
+msgctxt "Aruba"
+msgid "Aruba"
+msgstr "อารูบา"
+
+#: Belgium
+msgctxt "Belgium"
+msgid "Belgium"
+msgstr "เบลเยียม"
+
+#: Hong_Kong
+msgctxt "Hong_Kong"
+msgid "Hong_Kong"
+msgstr "ฮ่องกง"
+
+#: Northern_Mariana_Islands
+msgctxt "Northern_Mariana_Islands"
+msgid "Northern_Mariana_Islands"
+msgstr "หมู่เกาะมาเรียนาเหนือ"
+
+#: Faroe_Islands
+msgctxt "Faroe_Islands"
+msgid "Faroe_Islands"
+msgstr "หมู่เกาะแฟโร"
+
+#: Montenegro
+msgctxt "Montenegro"
+msgid "Montenegro"
+msgstr "มอนเตเนโก"
+
+#: Mayotte
+msgctxt "Mayotte"
+msgid "Mayotte"
+msgstr "มายอต"
+
+#: United_States_Minor_Outlying_Islands
+msgctxt "United_States_Minor_Outlying_Islands"
+msgid "United_States_Minor_Outlying_Islands"
+msgstr "เกาะเล็กรอบนอกของสหรัฐอเมริกา"
+
+#: Vanuatu
+msgctxt "Vanuatu"
+msgid "Vanuatu"
+msgstr "วานูอาตู"
+
+#: Nigeria
+msgctxt "Nigeria"
+msgid "Nigeria"
+msgstr "ประเทศไนจีเรีย"
+
+#: Netherlands
+msgctxt "Netherlands"
+msgid "Netherlands"
+msgstr "เนเธอร์แลนด์"
+
+#: Norway
+msgctxt "Norway"
+msgid "Norway"
+msgstr "นอร์เวย์"
+
+#: Nepal
+msgctxt "Nepal"
+msgid "Nepal"
+msgstr "ประเทศเนปาล"
+
+#: Nauru
+msgctxt "Nauru"
+msgid "Nauru"
+msgstr "ประเทศนาอูรู"
+
+#: Norfolk_Island
+msgctxt "Norfolk_Island"
+msgid "Norfolk_Island"
+msgstr "เกาะนอร์โฟล์ค"
+
+#: Cocos_Islands
+msgctxt "Cocos_Islands"
+msgid "Îles_Cocos"
+msgstr "หมู่เกาะโคโค"
+
+#: Antarctica
+msgctxt "Antarctica"
+msgid "Antarctica"
+msgstr "ทวิปแอนตาร์กติกา"
+
+#: Bouvet_Island
+msgctxt "Bouvet_Island"
+msgid "Bouvet_Island"
+msgstr "เกาะบูเวต"
+
+#: French_Southern_and_Antarctic_Lands
+msgctxt "French_Southern_and_Antarctic_Lands"
+msgid "French_Southern_and_Antarctic_Lands"
+msgstr "ฝรั่งเศสดินแดนภาคใต้และแอนตาร์กติก"
+
+#: Heard_Island_and_McDonald_Islands
+msgctxt "Heard_Island_and_McDonald_Islands"
+msgid "Heard_Island_and_McDonald_Islands"
+msgstr "ได้ยินและเกาะ_McDonald"
+
+#: British_Indian_Ocean_Territory
+msgctxt "British_Indian_Ocean_Territory"
+msgid "British_Indian_Ocean_Territory"
+msgstr "เขตมหาสมุทรบริติชอินเดีย"
+
+#: Christmas_Island
+msgctxt "Christmas_Island"
+msgid "Christmas_Island"
+msgstr "เกาะคริสต์มาส"
+
+#: Portugal
+msgctxt "Portugal"
+msgid "Portugal"
+msgstr "โปรตุเกส"
+
+#: Suriname
+msgctxt "Suriname"
+msgid "Suriname"
+msgstr "ซูรินาเม"
+
+#: Nicaragua
+msgctxt "Nicaragua"
+msgid "Nicaragua"
+msgstr "นิการากัว"
+
+#: New_Zealand
+msgctxt "New_Zealand"
+msgid "New_Zealand"
+msgstr "นิวซีแลนด์"
+
+#: Paraguay
+msgctxt "Paraguay"
+msgid "Paraguay"
+msgstr "ประเทศปารากวัย"
+
+#: Peru
+msgctxt "Peru"
+msgid "Peru"
+msgstr "เปรู"
+
+#: Pakistan
+msgctxt "Pakistan"
+msgid "Pakistan"
+msgstr "ปากีสถาน"
+
+#: Poland
+msgctxt "Poland"
+msgid "Poland"
+msgstr "โปแลนด์"
+
+#: Panama
+msgctxt "Panama"
+msgid "Panama"
+msgstr "ปานามา"
+
+#: Qatar
+msgctxt "Qatar"
+msgid "Qatar"
+msgstr "กาตาร์"
+
+#: Reunion
+msgctxt "Reunion"
+msgid "Reunion"
+msgstr "การรวมตัวใหม่"
+
+#: Romania
+msgctxt "Romania"
+msgid "Romania"
+msgstr "โรมาเนีย"
+
+#: Puerto_Rico
+msgctxt "Puerto_Rico"
+msgid "Puerto_Rico"
+msgstr "เปอร์โตริโก้"
+
+#: Russia
+msgctxt "Russia"
+msgid "Russia"
+msgstr "รัสเซีย"
+
+#: Tokelau
+msgctxt "Tokelau"
+msgid "Tokelau"
+msgstr "โตเกเลา"
+
+#: Republic_of_Moldova
+msgctxt "Republic_of_Moldova"
+msgid "Republic_of_Moldova"
+msgstr "มอลโดวา"
+
+#: Philippines
+msgctxt "Philippines"
+msgid "Philippines"
+msgstr "ฟิลิปปินส์"
+
+#: Rwanda
+msgctxt "Rwanda"
+msgid "Rwanda"
+msgstr "รวันดา"
+
+#: Saudi_Arabia
+msgctxt "Saudi_Arabia"
+msgid "Saudi_Arabia"
+msgstr "ซาอุดิอาราเบีย"
+
+#: Saint_Kitts_and_Nevis
+msgctxt "Saint_Kitts_and_Nevis"
+msgid "Saint_Kitts_and_Nevis"
+msgstr "เซนต์คิตส์และเนวิส"
+
+#: Seychelles
+msgctxt "Seychelles"
+msgid "Seychelles"
+msgstr "เซเชลส์"
+
+#: South_Africa
+msgctxt "South_Africa"
+msgid "South_Africa"
+msgstr "แอฟริกาใต้"
+
+#: Lesotho
+msgctxt "Lesotho"
+msgid "Lesotho"
+msgstr "เลโซโท"
+
+#: Botswana
+msgctxt "Botswana"
+msgid "Botswana"
+msgstr "บอตสวานา"
+
+#: Senegal
+msgctxt "Senegal"
+msgid "Senegal"
+msgstr "ประเทศเซเนกัล"
+
+#: Slovenia
+msgctxt "Slovenia"
+msgid "Slovenia"
+msgstr "สโลวีเนีย"
+
+#: Sierra_Leone
+msgctxt "Sierra_Leone"
+msgid "Sierra_Leone"
+msgstr "เซียร์ราลีโอน"
+
+#: Singapore
+msgctxt "Singapore"
+msgid "Singapore"
+msgstr "สิงคโปร์"
+
+#: Somalia
+msgctxt "Somalia"
+msgid "Somalia"
+msgstr "โซมาเลีย"
+
+#: Spain
+msgctxt "Spain"
+msgid "Spain"
+msgstr "สเปน"
+
+#: Saint_Lucia
+msgctxt "Saint_Lucia"
+msgid "Saint_Lucia"
+msgstr "เซนต์ลูเซีย"
+
+#: Sudan
+msgctxt "Sudan"
+msgid "Sudan"
+msgstr "ซูดาน"
+
+#: Sweden
+msgctxt "Sweden"
+msgid "Sweden"
+msgstr "สวีเดน"
+
+#: Syrian_Arab_Republic
+msgctxt "Syrian_Arab_Republic"
+msgid "Syrian_Arab_Republic"
+msgstr "ซีเรีย"
+
+#: Switzerland
+msgctxt "Switzerland"
+msgid "Switzerland"
+msgstr "ประเทศสวิสเซอร์แลนด์"
+
+#: Tonga
+msgctxt "Tonga"
+msgid "Tonga"
+msgstr "ตองกา"
+
+#: Tuvalu
+msgctxt "Tuvalu"
+msgid "Tuvalu"
+msgstr "ตูวาลู"
+
+#: Turkmenistan
+msgctxt "Turkmenistan"
+msgid "Turkmenistan"
+msgstr "เติร์กเมนิสถาน"
+
+#: United_Republic_of_Tanzania
+msgctxt "United_Republic_of_Tanzania"
+msgid "United_Republic_of_Tanzania"
+msgstr "ประเทศแทนซาเนีย"
+
+#: Togo
+msgctxt "Togo"
+msgid "Togo"
+msgstr "ไป"
+
+#: Sao_Tome_and_Principe
+msgctxt "Sao_Tome_and_Principe"
+msgid "Sao_Tome_and_Principe"
+msgstr "Sao_Tome_Principe_และ"
+
+#: Tunisia
+msgctxt "Tunisia"
+msgid "Tunisia"
+msgstr "ตูนิเซีย"
+
+#: Turkey
+msgctxt "Turkey"
+msgid "Turkey"
+msgstr "ไก่งวง"
+
+#: British_Virgin_Islands
+msgctxt "British_Virgin_Islands"
+msgid "British_Virgin_Islands"
+msgstr "หมู่เกาะบริติชเวอร์จิน"
+
+#: Viet_Nam
+msgctxt "Viet_Nam"
+msgid "Viet_Nam"
+msgstr "เวียดนาม"
+
+#: Uganda
+msgctxt "Uganda"
+msgid "Uganda"
+msgstr "ยูกันดา"
+
+#: United_Kingdom
+msgctxt "United_Kingdom"
+msgid "United_Kingdom"
+msgstr "ประเทศอังกฤษ"
+
+#: Ukraine
+msgctxt "Ukraine"
+msgid "Ukraine"
+msgstr "ยูเครน"
+
+#: United_States
+msgctxt "United_States"
+msgid "United_States"
+msgstr "สหรัฐ"
+
+#: Burkina_Faso
+msgctxt "Burkina_Faso"
+msgid "Burkina_Faso"
+msgstr "Burkina_Faso"
+
+#: Uruguay
+msgctxt "Uruguay"
+msgid "Uruguay"
+msgstr "อุรุกวัย"
+
+#: Uzbekistan
+msgctxt "Uzbekistan"
+msgid "Uzbekistan"
+msgstr "อุซเบกิ"
+
+#: Saint_Vincent
+msgctxt "Saint_Vincent"
+msgid "Saint_Vincent_and_the_Grenadines"
+msgstr "เซนต์วินเซนต์และเกรนาดีน"
+
+#: Venezuela
+msgctxt "Venezuela"
+msgid "Venezuela"
+msgstr "เวเนซุเอลา"
+
+#: United_States_Virgin_Islands
+msgctxt "United_States_Virgin_Islands"
+msgid "United_States_Virgin_Islands"
+msgstr "หมู่เกาะเวอร์จินของสหรัฐอเมริกา"
+
+#: Namibia
+msgctxt "Namibia"
+msgid "Namibia"
+msgstr "นามิเบีย"
+
+#: Wallis_and_Futuna_Islands
+msgctxt "Wallis_and_Futuna_Islands"
+msgid "Wallis_and_Futuna_Islands"
+msgstr "วาลลิสและหมู่เกาะฟุตูนา"
+
+#: Samoa
+msgctxt "Samoa"
+msgid "Samoa"
+msgstr "ซามัว"
+
+#: Swaziland
+msgctxt "Swaziland"
+msgid "Swaziland"
+msgstr "สวาซิแลนด์"
+
+#: Yemen
+msgctxt "Yemen"
+msgid "Yemen"
+msgstr "เยเมน"
+
+#: Zambia
+msgctxt "Zambia"
+msgid "Zambia"
+msgstr "ประเทศแซมเบีย"
+
+#: Zimbabwe
+msgctxt "Zimbabwe"
+msgid "Zimbabwe"
+msgstr "ประเทศซิมบับเว"
+
+#: Indonesia
+msgctxt "Indonesia"
+msgid "Indonesia"
+msgstr "อินโดนีเซีย"
+
+#: Saint_Pierre_and_Miquelon
+msgctxt "Saint_Pierre_and_Miquelon"
+msgid "Saint_Pierre_and_Miquelon"
+msgstr "เซนต์ปิแอร์และมีเกอลง"
+
+#: Guadeloupe
+msgctxt "Guadeloupe"
+msgid "Guadeloupe"
+msgstr "ลุป"
+
+#: Netherlands_Antilles
+msgctxt "Netherlands_Antilles"
+msgid "Netherlands_Antilles"
+msgstr "เนเธอร์แลนด์"
+
+#: Timor-Leste
+msgctxt "Timor-Leste"
+msgid "Timor-Leste"
+msgstr "ติมอร์เลสเต"
+
+#: Pitcairn_Islands
+msgctxt "Pitcairn_Islands"
+msgid "Pitcairn_Islands"
+msgstr "หมู่เกาะพิตแคร์น"
+
+#: United_Arab_Emirates
+msgctxt "United_Arab_Emirates"
+msgid "United_Arab_Emirates"
+msgstr "สหรัฐอาหรับเอมิเรตส์"
+
+#: Palau
+msgctxt "Palau"
+msgid "Palau"
+msgstr "ปาเลา"
+
+#: Marshall_Islands
+msgctxt "Marshall_Islands"
+msgid "Marshall_Islands"
+msgstr "หมู่เกาะมาร์แชลล์"
+
+#: Saint_Helena
+msgctxt "Saint_Helena"
+msgid "Saint_Helena"
+msgstr "เซนต์เฮเลนา"
+
+#: San_Marino
+msgctxt "San_Marino"
+msgid "San_Marino"
+msgstr "ซานมารีโน"
+
+#: Turks_and_Caicos_Islands
+msgctxt "Turks_and_Caicos_Islands"
+msgid "Turks_and_Caicos_Islands"
+msgstr "หมู่เกาะเติกส์และหมู่เกาะเคคอส"
+
+#: Western_Sahara
+msgctxt "Western_Sahara"
+msgid "Western_Sahara"
+msgstr "ซาฮาร่าตะวันตก"
+
+#: Serbia
+msgctxt "Serbia"
+msgid "Serbia"
+msgstr "เซอร์เบีย"
+
+#: Vatican_City
+msgctxt "Vatican_City"
+msgid "Saint-Siège_(Cité_du_Vatican)"
+msgstr "พระเห็น_(นครวาติกัน)"
+
+#: Svalbard
+msgctxt "Svalbard"
+msgid "Svalbard"
+msgstr "สวาลบาร์ด"
+
+#: Saint_Martin
+msgctxt "Saint_Martin"
+msgid "Saint_Martin"
+msgstr "เซนต์มาร์ติ"
+
+#: Saint_Barthelemy
+msgctxt "Saint_Barthelemy"
+msgid "Saint_Barthelemy"
+msgstr "เซนต์บาร์เธเล"
+
+#: Guernsey
+msgctxt "Guernsey"
+msgid "Guernsey"
+msgstr "เสื้อไหมพรม"
+
+#: Jersey
+msgctxt "Jersey"
+msgid "Jersey"
+msgstr "นิวเจอร์ซีย์"
+
+#: South_Georgia_South_Sandwich_Islands
+msgctxt "South_Georgia_South_Sandwich_Islands"
+msgid "South_Georgia_South_Sandwich_Islands"
+msgstr "หมู่เกาะแซนด์วิชใต้จอร์เจียใต้"
+
+#: Taiwan
+msgctxt "Taiwan"
+msgid "Taiwan"
+msgstr "ไต้หวัน"
+
+#: Asia
+msgctxt "Asia"
+msgid "Asia"
+msgstr "เอเชีย"
+
+#: NorthAmerica
+msgctxt "NorthAmerica"
+msgid "North America"
+msgstr "อเมริกาเหนือ"
+
+#: SouthAmerica
+msgctxt "SouthAmerica"
+msgid "South America"
+msgstr "อเมริกาใต้"
+
+#: Europa
+msgctxt "Europa"
+msgid "Europa"
+msgstr "ยูโรป้า"
+
+#: Coloring
+msgctxt "Coloring"
+msgid "Coloring"
+msgstr "การระบายสี"
+
+#: Tour
+msgctxt "Tour"
+msgid "Tour"
+msgstr "การท่องเที่ยว"
+
+#: Interactive
+msgctxt "Interactive"
+msgid "Interactive"
+msgstr "อินเตอร์แอคที"
+

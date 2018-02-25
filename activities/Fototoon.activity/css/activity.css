@@ -1,0 +1,193 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/fototoon.svg);
+}
+
+#doc-open {
+  background-image: url(../icons/document-open.svg);
+}
+
+#doc-save {
+  background-image: url(../icons/document-save.svg);
+}
+
+#image-save {
+  background-image: url(../icons/save-as-image.svg);
+}
+
+#previous-button {
+  background-image: url(../icons/go-previous-paired.svg);
+}
+
+#next-button {
+  background-image: url(../icons/go-next-paired.svg);
+}
+
+#add-button {
+  background-image: url(../icons/insert-picture.svg);
+}
+
+#add-globe {
+  background-image: url(../icons/globe.svg);
+}
+
+#text-button {
+  background-image: url(../icons/format-text-size.svg);
+}
+
+#sort-button {
+  background-image: url(../icons/thumbs-view.svg);
+}
+
+#clean-all-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+
+#text-style-toolbar {
+  padding: 0px 25px;
+}
+
+#text-inc-size {
+  background-image: url(../icons/resize+.svg);
+}
+
+#text-dec-size {
+  background-image: url(../icons/resize-.svg);
+}
+
+#text-set-bold {
+  background-image: url(../icons/format-text-bold.svg);
+}
+
+#text-set-italic {
+  background-image: url(../icons/format-text-italic.svg);
+}
+
+.color-picker {
+  width: 44px;
+  height: 44px;
+  margin: 2px;
+  border-radius: 22px;
+  border-color: white;
+}
+
+#text-palette textarea {
+  height: 75px;
+  resize: none;
+}
+
+/* fix padding on textpalette title */
+#text-palette .row.small {
+    padding: 10px 10px 0px 10px;
+}
+
+/* these are the icons in the globes menu */
+button.icon {
+  background-repeat: no-repeat;
+  background-size: 33px;
+}
+
+button#GLOBE.icon {
+  background-image: url(../icons/globe.svg);
+}
+
+button#EXCLAMATION.icon {
+  background-image: url(../icons/exclamation.svg);
+}
+
+button#WHISPER.icon {
+  background-image: url(../icons/whisper.svg);
+}
+
+button#RECTANGLE.icon {
+  background-image: url(../icons/box.svg);
+}
+
+button#CLOUD.icon {
+  background-image: url(../icons/think.svg);
+}
+
+#canvas {
+background-color: #fff;
+background-image:
+linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+linear-gradient(#eee .1em, transparent .1em);
+background-size: 100% 1.2em;
+};
+
+#canvas p {
+  margin-top: 25%;
+  text-align: center;
+}
+
+#mainCanvas {
+  background-color: #ffffff;
+  position: absolute;
+}
+
+#sortCanvas {
+  background-color: #ffffff;
+  position: absolute;
+}
+
+#page-counter {
+  color: #ffffff;
+  background-color: #282828;
+  width: 80px;
+  height: 80px;
+  border: solid 2px  white;
+  border-radius: 60px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  text-align: center;
+}
+
+#page-counter span {
+  display: inline-block;
+  vertical-align: middle;
+  /* css trick: line-height bigger than div height to show centered :/ */
+  line-height: 80px;
+  font-family: Sans;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#wait {
+  color: #ffffff;
+  background-color: #282828;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  border: solid 2px  white;
+  border-radius: 60px;
+  text-align: center;
+  opacity: 0.7;
+  vertical-align: middle;
+  margin: 200px auto;
+}
+
+#wait img {
+  margin-top: 20%;
+  height: 60%;
+}
+
+/* This probably should be upstream (sugar-web, I don't know why
+   the separators in the toolbars are wrong */
+
+.toolbar hr {
+  margin-bottom: 5px;
+}
+
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}

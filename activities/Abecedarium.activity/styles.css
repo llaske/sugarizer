@@ -627,12 +627,14 @@
 	.nextButton {
 		top: 5px;
 	}
+
   
   .score{
 		margin-top: 5px;
 		margin-left: 15px;
 		display: inline;
 	}
+
 
 	.prevButton {
 		top: 5px;

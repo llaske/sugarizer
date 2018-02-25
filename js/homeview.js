@@ -14,6 +14,8 @@ var util;
 var myserver;
 var humane;
 var tutorial;
+var stats;
+var autosync;
 
 
 
@@ -47,67 +49,68 @@ enyo.kind({
 
 		// Load and sort journal
 		this.loadJournal();
+		this.isJournalFull = false;
+		this.testJournalSize();
 
 		// Call activities list service
 		if (util.getClientType() == constant.webAppType) {
 			this.$.activities.setUrl(myserver.getActivitiesUrl());
+			myserver.getActivities(enyo.bind(this, "queryActivitiesResponse"), enyo.bind(this, "queryActivitiesFail"));
 		} else {
 			this.$.activities.setUrl(constant.staticInitActivitiesURL);
+			this.$.activities.send();
 		}
-		this.$.activities.send();
 
-		// Call network id
+		// Check change on preferences from server
 		if (preferences.isConnected()) {
-			// Create a new user on the network
 			var networkId = preferences.getNetworkId();
-			if (networkId == null) {
-				myserver.postUser(
-					{
-						name: preferences.getName(),
-						color: preferences.getColor(),
-						language: preferences.getLanguage()
-					},
-					function(inSender, inResponse) {
-						preferences.setNetworkId(inResponse._id);
-						preferences.setPrivateJournal(inResponse.private_journal);
-						preferences.setSharedJournal(inResponse.shared_journal);
+			var that = this;
+			myserver.getUser(
+				networkId,
+				function(inSender, inResponse) {
+					var changed = preferences.merge(inResponse);
+					if (changed) {
 						preferences.save();
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
-							}
-						});
-					},
-					function() {
-						console.log("WARNING: Error creating network user");
+						util.restartApp();
+					} else if (that.currentView == constant.journalView) {
+						that.otherview.updateNetworkBar();
 					}
-				);
-			}
-
-			// Retrieve user settings
-			else {
-				var that = this;
-				myserver.getUser(
-					networkId,
-					function(inSender, inResponse) {
-						var changed = preferences.merge(inResponse);
-						if (changed) {
-							preferences.save();
-							util.restartApp();
-						} else if (that.currentView == constant.journalView) {
-							that.otherview.updateNetworkBar();
+					presence.joinNetwork(function (error, user) {
+						if (error) {
+							console.log("WARNING: Can't connect to presence server");
 						}
-						presence.joinNetwork(function (error, user) {
-							if (error) {
-								console.log("WARNING: Can't connect to presence server");
+					});
+					autosync.synchronizeJournal(
+						function(count) {
+							if (count) {
+								humane.log(l10n.get("RetrievingJournal"));
+								var toolbar = that.getToolbar();
+								if (toolbar.showSync) {
+									toolbar.showSync(true);
+								}
 							}
-						});
-					},
-					function() {
-						console.log("WARNING: Can't read network user settings");
-					}
-				);
-			}
+						},
+						function(locale, remote, error) {
+							var toolbar = that.getToolbar();
+							if (toolbar.showSync) {
+								toolbar.showSync(false);
+							}
+
+							// Locale journal has changed, update display
+							if (locale) {
+								that.loadJournal();
+								that.testJournalSize();
+								preferences.updateEntries();
+								that.draw();
+								that.render();
+							}
+						}
+					);
+				},
+				function() {
+					console.log("WARNING: Can't read network user settings");
+				}
+			);
 		}
 	},
 
@@ -116,6 +119,19 @@ enyo.kind({
 		this.journal = datastore.find();
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+	},
+
+	// Test Journal size to ensure it's not full
+	testJournalSize: function() {
+		this.isJournalFull = false;
+		var that = this;
+		util.computeDatastoreSize(function(size) {
+			var percentremain = ((size.remain/size.total)*100);
+			if (percentremain < constant.minStorageSizePercent) {
+				console.log("WARNING: Journal almost full");
+				that.isJournalFull = true;
+			}
 		});
 	},
 
@@ -180,6 +196,9 @@ enyo.kind({
 	getToolbar: function() {
 		if (this.toolbar == null) {
 			this.toolbar = new Sugar.DesktopToolbar();
+		}
+		if (this.currentView != constant.listView && this.otherview != null) {
+			return this.otherview.getToolbar();
 		}
 		return this.toolbar;
 	},
@@ -392,16 +411,18 @@ enyo.kind({
 		}
 		var oldView = this.currentView;
 		this.currentView = newView;
+		stats.trace(constant.viewNames[oldView], 'change_view', constant.viewNames[newView]);
 
 		// Show desktop
 		if (newView == constant.radialView) {
+			this.otherview = null;
 			util.setToolbar(this.getToolbar());
 			toolbar.setActiveView(constant.radialView);
 			this.$.otherview.hide();
 			this.$.desktop.show();
 			this.$.owner.show();
 			this.$.journal.show();
-			this.otherview = null;
+			this.clearView();
 			return;
 		}
 
@@ -459,6 +480,10 @@ enyo.kind({
 		this.$.owner.colorize(preferences.getColor());
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
+		}
+		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
+			humane.log(l10n.get("JournalAlmostFull"));
+			this.isJournalFull = false;
 		}
 	},
 
@@ -583,8 +608,8 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
 			colorized: false,
-			name: l10n.get("Shutdown"),
-			action: enyo.bind(this, "doShutdown"),
+			name: (util.getClientType() == constant.webAppType) ? l10n.get("Logoff") : l10n.get("Shutdown"),
+			action: (util.getClientType() == constant.webAppType) ? enyo.bind(this, "doLogoff") : enyo.bind(this, "doShutdown"),
 			data: null
 		});
 		items.push({
@@ -613,14 +638,23 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		return true;
 	},
+	doLogoff: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
+		preferences.addUserInHistory();
+		util.cleanDatastore();
+		util.restartApp();
+	},
 	doShutdown: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
 		util.quitApp();
 	},
 	doRestart: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'restart');
 		util.restartApp();
 	},
 	doSettings: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
@@ -657,6 +691,7 @@ enyo.kind({
 	components: [
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
+		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -664,12 +699,17 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
 		this.needRedraw = false;
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
 		this.$.searchtext.setPlaceholder(l10n.get("SearchHome"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("FavoritesView"));
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
@@ -709,6 +749,7 @@ enyo.kind({
 
 	// Handle events
 	filterActivities: function() {
+		stats.trace(constant.viewNames[app.getView()], 'search', 'q='+this.getSearchText(), null);
 		app.filterActivities();
 	},
 
@@ -739,11 +780,16 @@ enyo.kind({
 		}
 	},
 
+	showSync: function(showing) {
+		this.$.syncbutton.setShowing(showing);
+	},
+
 	startTutorial: function() {
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

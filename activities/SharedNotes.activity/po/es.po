@@ -1,0 +1,225 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: YourNewIdea
+msgctxt "YourNewIdea"
+msgid "<Your content>"
+msgstr "<Your content>"
+
+#: nodetextTitle
+msgctxt "nodetextTitle"
+msgid "Text idea"
+msgstr "Text idea"
+
+#: removeButtonTitle
+msgctxt "removeButtonTitle"
+msgid "Remove"
+msgstr "Remove"
+
+#: undoButtonTitle
+msgctxt "undoButtonTitle"
+msgid "Undo"
+msgstr "Undo"
+
+#: redoButtonTitle
+msgctxt "redoButtonTitle"
+msgid "Redo"
+msgstr "Redo"
+
+#: zoomButtonTitle
+msgctxt "zoomButtonTitle"
+msgid "View"
+msgstr "View"
+
+#: pngButtonTitle
+msgctxt "pngButtonTitle"
+msgid "Export to PNG"
+msgstr "Export to PNG"
+
+#: networkButtonTitle
+msgctxt "networkButtonTitle"
+msgid "Network"
+msgstr "Network"
+
+#: helpButtonTitle
+msgctxt "helpButtonTitle"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity Menu"
+msgstr "Activity Menu"
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "This colored menu is the activity menu. Click on it now to open it."
+msgstr "This colored menu is the activity menu. Click on it now to open it."
+
+#: TutoTitleTitle
+msgctxt "TutoTitleTitle"
+msgid "Name in Journal"
+msgstr "Name in Journal"
+
+#: TutoTitleContent
+msgctxt "TutoTitleContent"
+msgid "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
+msgstr "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr "Click on this icon to stop the activity and go back to the home."
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network Menu"
+msgstr "Network Menu"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "This menu let you share your activity with other users. Click on it now to open it."
+msgstr "This menu let you share your activity with other users. Click on it now to open it."
+
+#: TutoSharedTitle
+msgctxt "TutoSharedTitle"
+msgid "Share"
+msgstr "Share"
+
+#: TutoSharedContent
+msgctxt "TutoSharedContent"
+msgid "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
+msgstr "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
+
+#: TutoHelpTitle
+msgctxt "TutoHelpTitle"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: TutoHelpContent
+msgctxt "TutoHelpContent"
+msgid "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
+msgstr "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Shared Notes Activity"
+msgstr "Shared Notes Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
+msgstr "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
+
+#: TutoNodeTitle
+msgctxt "TutoNodeTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoNodeContent
+msgctxt "TutoNodeContent"
+msgid "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
+msgstr "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
+
+#: TutoColorTitle
+msgctxt "TutoColorTitle"
+msgid "Color"
+msgstr "Color"
+
+#: TutoColorContent
+msgctxt "TutoColorContent"
+msgid "This menu let you change the color of a note and choose the color for the next note."
+msgstr "This menu let you change the color of a note and choose the color for the next note."
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "Add note"
+msgstr "Add note"
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "If this icon is active, when you click in the board a new note appear."
+msgstr "If this icon is active, when you click in the board a new note appear."
+
+#: TutoRemoveTitle
+msgctxt "TutoRemoveTitle"
+msgid "Remove note"
+msgstr "Remove note"
+
+#: TutoRemoveContent
+msgctxt "TutoRemoveContent"
+msgid "If this icon is active, when you click on a note, it will be remove."
+msgstr "If this icon is active, when you click on a note, it will be remove."
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Undo"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "With this icon you could undo your last change."
+msgstr "With this icon you could undo your last change."
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Redo"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "With this icon you could redo your last undo."
+msgstr "With this icon you could redo your last undo."
+
+#: TutoZoomTitle
+msgctxt "TutoZoomTitle"
+msgid "Zoom"
+msgstr "Zoom"
+
+#: TutoZoomContent
+msgctxt "TutoZoomContent"
+msgid "This menu let you adapt the zoom level in the board."
+msgstr "This menu let you adapt the zoom level in the board."
+
+#: TutoPngTitle
+msgctxt "TutoPngTitle"
+msgid "Export PNG"
+msgstr "Export PNG"
+
+#: TutoPngContent
+msgctxt "TutoPngContent"
+msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
+msgstr "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
+
