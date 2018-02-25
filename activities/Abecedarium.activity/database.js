@@ -1347,7 +1347,7 @@ Abcd.esTexts = [
 	"salchicha", "bocadillo", "sopa", "spaghetti", "especia", "sprinkle", "filete", "stew", "azúcar", "treat", "yogur", "manzana", 
 	"albaricoque", "blackberry", "blueberry", "cacao", "cereza", "coconut", "date_fruit", "fig", "fruta", "uva", "pomelo", "kernel", 
 	"kiwi", "limón", "lime", "mango", "melón", "naranja", "papaya", "melocotón", "pera", "ciruela", "frambuesa", "fresa", 
-	"sillón", "bano", "cama", "bench", "bookcase", "alfombra", "silla", "chest", "couch", "cradle", "crib", "escritorio", 
+	"sillón", "baño", "cama", "bench", "bookcase", "alfombra", "silla", "chest", "couch", "cradle", "crib", "escritorio", 
 	"doormat", "drawer", "ventilador", "lámpara", "luz", "mat", "mattress", "quilt", "rug", "asiento", "shelf", "ducha", 
 	"sink", "estufa", "mesa", "televisión", "inodoro", "appliance", "baby_bottle", "balance", "blade", "can", "carafe", "cauldron", 
 	"chandelier", "reloj", "cortina", "plato", "tenedor", "vidrio", "cuchillo", "tapa", "mop", "jarra", "pan", "placa", 

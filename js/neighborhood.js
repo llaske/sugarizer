@@ -181,8 +181,8 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
 			colorized: false,
-			name: l10n.get("Shutdown"),
-			action: enyo.bind(this, "doShutdown"),
+			name: (util.getClientType() == constant.webAppType) ? l10n.get("Logoff") : l10n.get("Shutdown"),
+			action: (util.getClientType() == constant.webAppType) ? enyo.bind(this, "doLogoff") : enyo.bind(this, "doShutdown"),
 			data: null
 		});
 		items.push({
@@ -205,20 +205,29 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideBuddyPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
 		return true;
 	},
 	doShutdown: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
 		util.quitApp();
 	},
+	doLogoff: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'logoff');
+		preferences.addUserInHistory();
+		util.cleanDatastore();
+		util.restartApp();
+	},
 	doRestart: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'restart');
 		util.restartApp();
 	},
 	doSettings: function() {
+		stats.trace(constant.viewNames[app.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
@@ -227,11 +236,16 @@ enyo.kind({
 	// Popup menu for server handling
 	showServerPopup: function(icon) {
 		// Create popup
+		var name = myserver.getServer();
+		var info = preferences.getServer();
+		if (info && info.name) {
+			name = info.name;
+		}
 		this.getPopup().setHeader({
 			icon: icon.icon,
 			colorized: true,
 			colorizedColor: icon.colorizedColor,
-			name: myserver.getServer(),
+			name: name,
 			title: l10n.get("Connected"),
 			action: null
 		});
@@ -242,7 +256,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideServerPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -359,7 +373,7 @@ enyo.kind({
 		})
 	},
 	hideWifiPopup: function (icon) {
-		if ((this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
+		if ((!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -384,7 +398,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideUserPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -417,7 +431,7 @@ enyo.kind({
 		this.getPopup().showPopup();
 	},
 	hideActivityPopup: function(icon) {
-		if (this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
+		if (!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup().cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
 		this.getPopup().hidePopup();
@@ -811,12 +825,18 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
-		this.$.neighborsearch.setPlaceholder(l10n.get("SearchNeighbor"));
+		this.localize();
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
+		this.$.neighborsearch.setPlaceholder(l10n.get("SearchNeighbor"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
@@ -840,6 +860,7 @@ enyo.kind({
 	startTutorial: function() {
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		tutorial.setElement("neighborsearch", this.$.neighborsearch.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

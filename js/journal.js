@@ -25,7 +25,12 @@ enyo.kind({
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
 			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
 			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"}
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
+			{name: "syncgear", classes: "sync-button sync-gear sync-gear-journal", showing: false},
+			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"},
+			{name: "pageup", kind: "Button", classes: "toolbutton page-up", showing: false, title:"Previous", ontap: "pagePrevious"},
+			{name: "pagecount", content: "99/99", classes: "page-count", showing: false},
+			{name: "pagedown", kind: "Button", classes: "toolbutton page-down", showing: false, title:"Next", ontap: "pageNext"}
 		]}
 	],
 
@@ -35,6 +40,7 @@ enyo.kind({
 		this.toolbar = null;
 		this.empty = (this.journal.length == 0);
 		this.realLength = 0;
+		this.loadResult = {};
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
@@ -54,17 +60,80 @@ enyo.kind({
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
+
+		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
+		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
+		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
 	},
 
-	// Handle scroll to lazy display content
+	// Handle scroll to lazy display on local content
 	onscroll: function(inSender, inEvent) {
 		var scrollBounds = inEvent.scrollBounds;
+		var scrollAtBottom = ((scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit);
 		var currentCount = this.$.journalList.get("count");
-		if (!this.getToolbar().hasFilter() && (scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit && this.realLength > currentCount) {
+		if (this.journalType == constant.journalLocal && !this.getToolbar().hasFilter() && scrollAtBottom && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
 			humane.log(l10n.get("Loading"));
 			this.$.journalList.set("count", length, true);
 		}
+	},
+
+	// Load next remote page in Journal
+	pageNext: function() {
+		var result = this.loadResult;
+		if ((result.offset+result.limit) < result.total) {
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var offset = result.offset + result.limit;
+			if (result.total - offset < result.limit) {
+				offset = result.total - result.limit;
+			}
+			humane.log(l10n.get("Loading"));
+			if (!this.getToolbar().hasFilter()) {
+				this.loadRemoteJournal(journalId, offset);
+			} else {
+				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+			}
+		}
+	},
+
+	// Load previous remote page in Journal
+	pagePrevious: function() {
+		var result = this.loadResult;
+		if (result.offset > 0) {
+			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
+			var offset = result.offset - result.limit;
+			if (offset < result.limit) {
+				offset = 0;
+			}
+			humane.log(l10n.get("Loading"));
+			if (!this.getToolbar().hasFilter()) {
+				this.loadRemoteJournal(journalId, offset);
+			} else {
+				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+			}
+		}
+	},
+
+	// Show/hide remote page button
+	showPageButton: function() {
+		var result = this.loadResult;
+		if (this.journalType == constant.journalLocal || !result) {
+			this.$.pagedown.setShowing(false);
+			this.$.pageup.setShowing(false);
+			this.$.pagecount.setShowing(false);
+			return;
+		}
+
+		var up = (result.offset > 0);
+		this.$.pageup.setShowing(up);
+
+		var down = (result.offset+result.limit) < result.total;
+		this.$.pagedown.setShowing(down);
+
+		var currentPage = (result.total?1:0)+Math.ceil(result.offset/result.limit);
+		var lastPage = Math.ceil(result.total/result.limit);
+		this.$.pagecount.setContent(currentPage+"/"+lastPage);
+		this.$.pagecount.setShowing(down || up);
 	},
 
 	// Get linked toolbar
@@ -101,13 +170,17 @@ enyo.kind({
 
 	// Property changed
 	journalChanged: function() {
+		if (!this.$.empty) {
+			return;
+		}
 		this.$.empty.show();
 		this.$.message.show();
 		this.$.nofilter.show();
 		var noFilter = !this.getToolbar().hasFilter();
+		var isLocalJournal = (this.journalType == constant.journalLocal);
 		this.empty = (noFilter && !this.loadingError && this.journal.length == 0);
 		if (this.journal != null && this.journal.length > 0) {
-			var length = (noFilter && this.journal.length > constant.journalInitCount) ? constant.journalInitCount : this.journal.length;
+			var length = (isLocalJournal && noFilter && this.journal.length > constant.journalInitCount) ? constant.journalInitCount : this.journal.length;
 			this.realLength = this.journal.length;
 			this.$.journalList.set("count", length, true);
 			this.$.empty.hide();
@@ -131,6 +204,7 @@ enyo.kind({
 				this.$.nofilter.setIcon({directory: "icons", icon: "dialog-cancel.svg"});
 			}
 		}
+		this.showPageButton();
 	},
 
 	// Init setup for a line
@@ -172,9 +246,9 @@ enyo.kind({
 		} else {
 			this.journal[inEvent.index].metadata.keep = (keep + 1) % 2;
 		}
+		stats.trace(constant.viewNames[app.getView()], 'switch_favorite', objectId, null);
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
-		ds.setDataAsText(this.journal[inEvent.index].text);
 		ds.save();
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
@@ -196,12 +270,17 @@ enyo.kind({
 		this.loadEntry(activity, function(err, metadata, text) {
 			// Remote entry, copy in the local journal first
 			if (that.journalType != constant.journalLocal) {
-				datastore.create(metadata, function(error, oid) {
+				// Create the entry with same oid - or update the entry if already there
+				var ds = new datastore.DatastoreObject(activity.objectId);
+				ds.setMetadata(metadata);
+				ds.setDataAsText(text);
+				ds.save(function() {
+					// Run updated local entry
 					preferences.runActivity(
 						activityInstance,
-						oid,
+						activity.objectId,
 						metadata.title);
-				}, text);
+				});
 				return;
 			}
 
@@ -214,35 +293,33 @@ enyo.kind({
 	},
 
 	// Filter entries handling
-	filterEntries: function(name, favorite, typeactivity, timeperiod) {
-		// Filter function
-		var that = this;
-		var doFilter = function() {
-			that.journal = that.journal.filter(function(activity) {
-				var range = util.getDateRange(timeperiod);
-				return (favorite !== undefined ? activity.metadata.keep : true)
-					&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-					&& (timeperiod !== undefined ? activity.metadata.timestamp >= range.min && activity.metadata.timestamp < range.max : true);
-			});
-			that.journal = that.journal.sort(function(e0, e1) {
-				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-			});
-			that.journalChanged();
-		}
-
+	filterEntries: function(name, favorite, typeactivity, timeperiod, offset) {
 		// Filter remote entries
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var that = this;
-			myserver.getJournal(journalId, typeactivity, constant.fieldMetadata,
+			var request = {
+				typeactivity: typeactivity,
+				title: (name !== undefined) ? name : undefined,
+				stime: (timeperiod !== undefined ? timeperiod : undefined),
+				favorite: favorite,
+				field: constant.fieldMetadata,
+				limit: constant.pageJournalSize,
+				offset: (offset !== undefined ? offset : 0)
+			}
+			myserver.getJournal(journalId, request,
 				function(inSender, inResponse) {
-					that.journal = inResponse;
+					that.loadResult = {offset: inResponse.offset, total: inResponse.total, limit: inResponse.limit};
+					that.request = request;
+					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
-					doFilter();
+					that.journalChanged();
 				},
 				function() {
 					console.log("WARNING: Error filtering journal "+journalId);
+					that.loadResult = {};
+					that.request = {};
 					that.journal = [];
 					that.loadingError = true;
 					that.journalChanged();
@@ -254,25 +331,44 @@ enyo.kind({
 		// Filter local entries
 		this.journal = datastore.find(typeactivity);
 		this.loadingError = false;
-		doFilter();
+		this.journal = this.journal.filter(function(activity) {
+			return (favorite !== undefined ? activity.metadata.keep : true)
+				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
+				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
+		});
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+		this.journalChanged();
 	},
 
 	nofilter: function() {
-		toolbar.removeFilter();
+		this.toolbar.removeFilter();
 		this.filterEntries("", undefined, undefined, undefined);
 	},
 
 	// Activity popup
 	showActivityPopup: function(icon) {
 		// Create popup
+		if (!icon.owner) {
+			return;
+		}
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		var entry = icon.getData();
+		var title = null;
+		if (this.journalType != constant.sharedJournal) {
+			if (entry.metadata.textsize && entry.metadata.textsize > constant.minimumSizeDisplay) {
+				title = util.formatSize(entry.metadata.textsize);
+			}
+		} else if (entry.metadata.buddy_name) {
+			title = l10n.get("ByUser", {user:entry.metadata.buddy_name});
+		}
 		this.$.activityPopup.setHeader({
 			icon: icon.icon,
 			colorized: true,
 			colorizedColor: (entry.metadata.buddy_color ? entry.metadata.buddy_color : null),
 			name: entry.metadata.title,
-			title: ( (entry.metadata.buddy_name && this.journalType != constant.journalLocal) ? l10n.get("ByUser", {user:entry.metadata.buddy_name}): null),
+			title: title,
 			action: enyo.bind(this, "runCurrentActivity"),
 			data: [entry, null]
 		});
@@ -342,9 +438,12 @@ enyo.kind({
 	// Copy activity content to the local journal
 	copyToLocal: function(entry) {
 		var that = this;
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_local', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
-			datastore.create(metadata, function(error, oid) {
-			}, text);
+			var ds = new datastore.DatastoreObject(entry.objectId);
+			ds.setMetadata(metadata);
+			ds.setDataAsText(text);
+			ds.save();
 			that.$.activityPopup.hidePopup();
 		});
 	},
@@ -370,9 +469,10 @@ enyo.kind({
 
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_remote', entry.objectId, journalId);
 		this.loadEntry(entry, function(err, metadata, text) {
 			var dataentry = {metadata: metadata, text: text, objectId: entry.objectId};
-			myserver.postJournalEntry(journalId, dataentry,
+			myserver.putJournalEntry(journalId, entry.objectId, dataentry,
 				function() {},
 				function() {
 					console.log("WARNING: Error writing journal "+journalId);
@@ -382,18 +482,34 @@ enyo.kind({
 		this.$.activityPopup.hidePopup();
 	},
 
+	// Load local journal
+	loadLocalJournal: function() {
+		this.journal = datastore.find();
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+		this.journalChanged();
+	},
+
 	// Load a remote journal
-	loadRemoteJournal: function(journalId) {
+	loadRemoteJournal: function(journalId, offset) {
 		var that = this;
-		myserver.getJournal(journalId, undefined, constant.fieldMetadata,
+		var request = {
+			field: constant.fieldMetadata,
+			limit: constant.pageJournalSize,
+			offset: (offset !== undefined ? offset : 0)
+		}
+		myserver.getJournal(journalId, request,
 			function(inSender, inResponse) {
-				that.journal = inResponse;
+				that.loadResult = {offset: inResponse.offset, total: inResponse.total, limit: inResponse.limit};
+				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
 				that.journalChanged();
 			},
 			function() {
 				console.log("WARNING: Error reading journal "+journalId);
+				that.loadResult = {};
 				that.journal = [];
 				that.loadingError = true;
 				that.journalChanged();
@@ -417,7 +533,7 @@ enyo.kind({
 			}
 			myserver.getJournalEntry(journalId, entry.objectId,
 				function(inSender, inResponse) {
-					callback(null, inResponse.metadata, inResponse.text);
+					callback(null, inResponse.entries[0].metadata, inResponse.entries[0].text);
 				},
 				function() {
 					console.log("WARNING: Error loading entry "+objectId+" in journal "+journalId);
@@ -431,10 +547,24 @@ enyo.kind({
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', entry.objectId, null);
 			datastore.remove(entry.objectId);
 
+			// If connected and in sync, try remove also the matching remote entry
+			if (preferences.isConnected() && preferences.getOptions("sync")) {
+				var journalId = preferences.getPrivateJournal();
+				var objectId = entry.objectId;
+				myserver.deleteJournalEntry(journalId, objectId,
+					function(inSender, inResponse) {},
+					function() {
+						console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
+					}
+				);
+			}
+
 			// Refresh screen
-			this.showLocalJournal();
+			this.toolbar.removeFilter();
+			this.loadLocalJournal();
 
 			// Refresh home screen: activity menu, journal content
 			preferences.updateEntries();
@@ -445,6 +575,8 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var objectId = entry.objectId;
 			var that = this;
+			this.toolbar.removeFilter();
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', objectId, journalId);
 			myserver.deleteJournalEntry(journalId, objectId,
 				function(inSender, inResponse) {
 					that.loadRemoteJournal(journalId);
@@ -486,6 +618,7 @@ enyo.kind({
 			if (that.journalType == constant.journalLocal) {
 				// Update metadata
 				metadata.title = newtitle;
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, 'local');
 
 				// Update datastore
 				var ds = new datastore.DatastoreObject(objectId);
@@ -494,7 +627,7 @@ enyo.kind({
 				ds.save();
 
 				// Refresh screen
-				that.showLocalJournal();
+				that.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
 				preferences.updateEntries();
@@ -510,6 +643,7 @@ enyo.kind({
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 				var dataentry = {metadata: metadata, text: text, objectId: objectId};
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, journalId);
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
@@ -526,21 +660,53 @@ enyo.kind({
 	// Switch journal
 	showLocalJournal: function() {
 		this.changeJournalType(constant.journalLocal);
-		this.journal = datastore.find();
-		this.journal = this.journal.sort(function(e0, e1) {
-			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-		});
-		this.journalChanged();
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'local', null);
+		this.loadLocalJournal();
 	},
 
 	showPrivateCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'private', null);
 		this.changeJournalType(constant.journalRemotePrivate);
 		this.loadRemoteJournal(preferences.getPrivateJournal());
 	},
 
 	showSharedCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'shared', null);
 		this.changeJournalType(constant.journalRemoteShared);
 		this.loadRemoteJournal(preferences.getSharedJournal());
+	},
+
+	// Sync local journal with remote journal
+	syncJournal: function() {
+		var that = this;
+		autosync.synchronizeJournal(
+			function(count) {
+				if (count) {
+					humane.log(l10n.get("RetrievingJournal"));
+					that.$.syncbutton.setShowing(false);
+					that.$.syncgear.setShowing(true);
+				}
+			},
+			function(locale, remote, error) {
+				// Display button
+				if (!that.$.syncbutton) {
+					return;
+				}
+				that.$.syncbutton.setShowing(true);
+				that.$.syncgear.setShowing(false);
+				// Locale has changed, update display
+				if (locale && that.journalType == constant.journalLocal) {
+					that.loadLocalJournal();
+					app.journal = that.journal;
+					preferences.updateEntries();
+					app.draw();
+				}
+				// Remote has changed, update display
+				if (remote && that.journalType == constant.journalRemotePrivate) {
+					that.loadRemoteJournal(preferences.getPrivateJournal());
+				}
+			}
+		);
 	},
 
 	changeJournalType: function(newType) {
@@ -571,8 +737,20 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
+		this.localize();
+	},
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
+		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
+		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 
 		// Set time selectbox content
@@ -593,12 +771,6 @@ enyo.kind({
 			items.push({icon: activities[i], name: activities[i].name});
 		}
 		this.$.typeselect.setItems(items);
-	},
-
-	rendered: function() {
-		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
-		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
-		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
 
 	// Event handling
@@ -627,7 +799,12 @@ enyo.kind({
 		var selected = this.$.typeselect.getSelected();
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
-		var timeselected = (selected <= 0 ? undefined : selected);
+		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
+		var filtertext = 'q=' + text;
+		if (favorite) filtertext += '&favorite=true';
+		if (typeselected) filtertext += '&type=' + typeselected;
+		if (timeselected) filtertext += '&time=' + timeselected;
+		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
 		app.otherview.filterEntries(text, favorite, typeselected, timeselected);
 	},
 
@@ -645,6 +822,7 @@ enyo.kind({
 		tutorial.setElement("typeselect", this.$.typeselect.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.timeselect.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

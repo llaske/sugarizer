@@ -85,7 +85,12 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             if (gearSketch.isDemoPlaying) {
                 gearSketch.stopDemo();
             }
-            gearSketch.selectButton("playButton");
+            if(gearSketch.selectedButton == "playButton"){
+                gearSketch.selectButton(null);
+            }
+            else{
+                gearSketch.selectButton("playButton");
+            }
         });
 
         radioButtons = new radioButtonsGroup.RadioButtonsGroup(

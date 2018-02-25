@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#282828">
+	<!ENTITY fill_color "#ffffff">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="55pt"
+   height="55pt"
+   version="1.1"
+   viewBox="0 0 55 54.999999"
+   id="svg2">
+  <defs
+     id="defs20" />
+  <g
+     id="g4184"
+     transform="matrix(0.5460182,0,0,0.5460182,-4.3777492,-0.10220363)">
+    <rect
+       style="opacity:1;fill:&stroke_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:0.80752903;stroke-opacity:0"
+       id="rect4164"
+       width="22.026371"
+       height="22.026371"
+       x="70.130882"
+       y="63.563087" />
+    <rect
+       style="opacity:1;fill:&stroke_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:0.80752903;stroke-opacity:0"
+       id="rect4162"
+       width="22.026371"
+       height="22.026371"
+       x="46.730885"
+       y="40.681732" />
+    <rect
+       y="40.681732"
+       x="23.542751"
+       height="22.026371"
+       width="22.026371"
+       id="rect4160"
+       style="opacity:1;fill:&stroke_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:0.80752903;stroke-opacity:0" />
+    <rect
+       style="opacity:1;fill:&stroke_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:0.80752903;stroke-opacity:0"
+       id="rect4158"
+       width="22.026371"
+       height="22.026371"
+       x="46.613937"
+       y="63.680035" />
+    <rect
+       y="16.858004"
+       x="70.035973"
+       height="22.026371"
+       width="22.026371"
+       id="rect4156"
+       style="opacity:1;fill:&stroke_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:0.80752903;stroke-opacity:0" />
+    <rect
+       y="85.561554"
+       x="21.790375"
+       height="1.9700987"
+       width="72.097214"
+       id="rect4166"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.16040957;stroke-opacity:0" />
+    <rect
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.15382874;stroke-opacity:0"
+       id="rect4170"
+       width="71.044472"
+       height="1.9766796"
+       x="22.634542"
+       y="61.617584" />
+    <rect
+       y="38.734905"
+       x="22.633215"
+       height="1.9793323"
+       width="70.623398"
+       id="rect4172"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.15117598;stroke-opacity:0" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.15382874;stroke-opacity:0"
+       id="rect4174"
+       width="71.044472"
+       height="1.9766796"
+       x="15.537079"
+       y="-70.267998" />
+    <rect
+       y="-47.176773"
+       x="16.594408"
+       height="1.9806631"
+       width="70.412865"
+       id="rect4176"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.14984524;stroke-opacity:0"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.14717472;stroke-opacity:0"
+       id="rect4178"
+       width="69.991806"
+       height="1.9833336"
+       x="16.593073"
+       y="-23.873024" />
+    <rect
+       y="-93.785614"
+       x="15.960145"
+       height="1.9780045"
+       width="70.833939"
+       id="rect4180"
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.15250385;stroke-opacity:0"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="opacity:1;fill:&fill_color;;fill-opacity:1;stroke:&fill_color;;stroke-width:1.16040969;stroke-opacity:0"
+       id="rect4182"
+       width="72.097221"
+       height="1.9700986"
+       x="21.790375"
+       y="15.010707" />
+  </g>
+</svg>

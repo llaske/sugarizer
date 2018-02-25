@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Fototoon</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <link rel="stylesheet" href="css/activity.css">
+	<link rel="prefetch" type="application/l10n" href="localization.ini">
+
+
+
+    <script data-main="js/loader" src="lib/require.js"></script>
+    <script type="text/javascript" src="js/jquery.js" ></script>
+  </head>
+
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button class="toolbutton" id="activity-button" title="FotoToon Activity"></button>
+      <div class="splitbar"></div>
+      <button class="toolbutton" id="previous-button" title="Previous">
+      </button>
+      <button class="toolbutton" id="next-button" title="Next">
+      </button>
+      <div class="splitbar"></div>
+      <button class="toolbutton" id="add-button" title="Add">
+      </button>
+      <button class="toolbutton" id="add-globe" title="Add globe">
+      </button>
+      <button class="toolbutton" id="text-button" title="Edit text">
+      </button>
+      <div class="splitbar"></div>
+      <button class="toolbutton" id="sort-button" title="Sort boxes">
+      </button>
+      <div class="splitbar"></div>
+      <button class="toolbutton" id="clean-all-button" title="Clean all">
+      </button>
+      <div class="splitbar"></div>
+	  <button class="toolbutton" id="image-save" title="Save as image">
+      </button>
+      <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+    <div id="canvas">
+      <canvas id="mainCanvas" width=1px height=1px>
+      </canvas>
+      <canvas id="sortCanvas" style="display: none">
+      </canvas>
+      <div id="page-counter">
+        <span>1 of 1</span>
+      </div>
+      <div id="file-selector" style="display: none">
+      </div>
+      <div id="wait" style="display: none">
+            <img src="./icons/hourglass.svg">
+      </div>
+    </div>
+    <div id="io-div">
+    </div>
+
+  </body>
+
+</html>

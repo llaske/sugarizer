@@ -1,18 +1,18 @@
 
-define(["webL10n","sugar-web/env","sugar-web/datastore"], function (webL10n,env,datastore) {
+define(["webL10n","sugar-web/env"], function (webL10n,env) {
 
 	var settings = {};
 
 	settings.l10n = webL10n;
 
 	settings.load = function(callback) {
-		// Load datastore settings
-		datastore.localStorage.load(function() {
-			getSettings(function(conf) {
-				settings.language = conf.language;
-				settings.l10n.language.code = conf.language;
-				callback();
-			});
+		// Load settings
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			settings.language = language;
+			settings.l10n.language.code = language;
+			callback();
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
@@ -20,19 +20,6 @@ define(["webL10n","sugar-web/env","sugar-web/datastore"], function (webL10n,env,
 			sound.pause();
 		});
 	}
-
-	function getSettings(callback) {
- 		var defaultSettings = {
- 			name: "",
- 			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
- 		};
- 		if (!env.isSugarizer()) {
- 			callback(defaultSettings);
- 			return;
- 		}
- 		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
- 		callback(loadedSettings);
- 	}
 
 	// Get/Set state
 	settings.getState = function() {
