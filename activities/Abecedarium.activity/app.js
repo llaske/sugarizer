@@ -74,6 +74,9 @@ enyo.kind({
 	// Display credits page
 	displayCredits: function(e, s) {
 		this.$.creditsPopup.show();
+		// var popup=new Abcd.CreditsPopup({});
+		// popup.$.concept.setContent("Hello");
+		// popup.show()
 	},
 	
 	// Sound ended, play next instrument

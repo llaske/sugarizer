@@ -2,6 +2,7 @@
 
 // Collections size on the screen
 var entriesByGame = 4;
+// var score=0;
 
 
 // Learn app class
@@ -25,9 +26,11 @@ enyo.kind({
 			{name: "filterCollection", kind: "Abcd.Collection", index: 0, classes: "filterCollection", showing: false},
 			{name: "itemCount", content: "-/-", classes: "itemCount", showing: false},		
 			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "standardButton backButton", ontap: "backTaped"},
+			{tag:'p',content:"",name:"score",showing:false,classes:"score"},
 			{name: "filter", kind: "Image", src: "images/filter.png", showing: false, classes: "standardButton filterButton", ontap: "filterTaped"},
 			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"}
 		]},		
+		{name: "resultPopup", kind: "Abcd.ResultPopup"},	
 		{name: "box", classes: "playbox", components: [
 		]},
 		{name: "filterPopup", kind: "Abcd.FilterPopup", onFilterChanged: "filterChanged"}
@@ -36,7 +39,9 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		
+		this.score=0;
+		this.tries=0;
+		this.$.score.setContent("Score: "+this.score+"/"+this.tries);
 		this.theme = -1;
 		this.themeButton = null;
 		this.gamecount = 0;
@@ -101,7 +106,7 @@ enyo.kind({
 	// Display game choice buttons
 	displayButtons: function() {
 		this.cleanBox();
-		Abcd.changeVisibility(this, {home: true, back: false, filter: true, check: false, itemCount: false});
+		Abcd.changeVisibility(this, {home: true, back: false, filter: true, check: false, itemCount: false,score:false});
 		this.$.colorBar.removeClass("themeColor"+this.theme);
 		this.theme = -1;
 		this.$.colorBar.addClass("themeColor"+this.theme);
@@ -204,7 +209,7 @@ enyo.kind({
 	// Start game
 	doGame: function(button, event) {		
 		// Redraw bar
-		Abcd.changeVisibility(this, {home: false, back: true, filter: false, check: true, itemCount: true});
+		Abcd.changeVisibility(this, {home: false, back: true, filter: false, check: true, itemCount: true,score:true});
 		this.themeButton = button;
 		if (this.themeButton.from == "picture") this.theme = 5;
 		else if (this.themeButton.from == "listen") this.theme = 7;
@@ -293,6 +298,8 @@ enyo.kind({
 	backTaped: function() {
 		this.$.colorBar.removeClass("themeColor"+this.theme);
 		this.theme = -1;
+		this.score=0;
+		this.tries=0;
 		this.gamecount = 0;
 		this.selected = null;		
 		this.displayButtons();
@@ -301,49 +308,105 @@ enyo.kind({
 	// Check taped
 	checkTaped: function() {
 		this.forbidentry = true;
-		if (this.playing != null)
-			this.playing.abort();		
+		if (this.playing != null){
+			this.playing.abort();
+		}
 		if (this.selected == null) {
 			Abcd.sound.play("audio/disappointed");
+			this.$.check.hide();
+			this.tries=this.tries+1;
 			this.selected = this.from;
 			this.selected.addClass("entryPlayWrong");
 		} else if (this.selected.index == this.from.index) {
 			Abcd.sound.play("audio/applause");
+			this.$.check.hide();
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.addClass("entryPlayRight");
+			this.score=this.score+1;
+			this.tries=this.tries+1;
+			console.log("applude score:"+this.score);
+			console.log("tries:"+this.tries);
 		} else {
 			Abcd.sound.play("audio/disappointed");
+			this.$.check.hide();
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.addClass("entryPlayWrong");
+			this.tries=this.tries+1;
+			console.log("dis tries:"+this.tries);
+			console.log("score:"+this.score);
 		}
 	},
 	
 	// End sound
 	endSound: function(e, s) {
+		this.$.score.setContent("Score: "+this.score+"/"+this.tries);
 		// Prematured end
 		if (this.selected == null)
 			return;
+		// if(this.score==4){
+		// 	var acc=(100*this.score)/this.tries;
+		// 	var result=new Abcd.ResultPopup({});
+		// 	result.$.accuracy.setContent(acc);
+		// 	result.show();
+		// }	
 			
 		// Bad check, retry
 		if (s.sound == "audio/disappointed") {
+			this.$.check.show();
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.removeClass("entryPlayWrong");
 			this.selected = null;
 			this.forbidentry = false;
+			if(this.score==4){
+				var acc=(100*this.score)/this.tries;
+				var result=new Abcd.ResultPopup({});
+				result.$.accuracy.setContent("Your accuracy is: "+acc+"%");
+				result.show();
+				// this.$.resultPopup.show();
+				this.score=0;
+				this.tries=0;
+			}
 			
 		// Good check
 		} else if (s.sound == "audio/applause") {
+			this.$.check.show();
 			// Clean state
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.removeClass("entryPlayRight");
-			this.selected = null;	
-			
+			this.selected = null;
+			if(this.score==4){
+				var acc=(100*this.score)/this.tries;
+				var result=new Abcd.ResultPopup({});
+				if(acc>=50){
+					var name="images/thumbsup.jpg";
+					result.$.image.setAttribute("src",name);
+				}
+				else{
+					var name="images/thumbsdown.jpg";
+					result.$.image.setAttribute("src",name);
+				}
+				result.$.accuracy.setContent("Your accuracy is: "+acc+"%");
+				result.show();
+				// this.$.resultPopup.show();
+				this.score=0;
+				this.tries=0;
+				this.$.score.setContent("Score: "+this.score+"/"+this.tries);
+			}
 			// Next game or try another game
 			if ( ++this.gamecount == entriesByGame ) {
+				this.$.check.show();
 				this.gamecount = 0;
 				this.displayButtons();
+				if(this.score==4){
+					this.score=0;
+					this.tries=0;
+				}
 			} else
 				this.computeGame();
+				if(this.score==4){
+					this.score=0;
+					this.tries=0;
+				}
 		}
 	}
 });

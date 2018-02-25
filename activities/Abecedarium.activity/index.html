@@ -2,13 +2,13 @@
 <html>
 <head>
 	<title>Abecedarium Activity</title>
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
 	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
     <script data-main="js/loader" src="lib/require.js"></script>
-	<link href="enyo/enyo.css" rel="stylesheet" type="text/css" />	
+	<link href="enyo/enyo.css" rel="stylesheet" type="text/css" />
 	<script src="enyo/enyo.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../../cordova.js"></script><!-- HACK: need only on Android -->
 	<script src="util.js" type="text/javascript"></script>
@@ -24,19 +24,21 @@
 	<script src="letter.js" type="text/javascript"></script>
 	<script src="buttons.js" type="text/javascript"></script>
 	<script src="credits.js" type="text/javascript"></script>
+	<script src="popup.js" type="text/javascript"></script>
 	<script src="filter.js" type="text/javascript"></script>
 	<script src="learn.js" type="text/javascript"></script>
 	<script src="play.js" type="text/javascript"></script>
 	<script src="app.js" type="text/javascript"></script>
-	<link href="styles.css" rel="stylesheet" type="text/css" />	
+	<link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="main-toolbar" class="toolbar">
-      <button class="toolbutton" id="activity-button" title="Abecedarium Activity"></button>  
+      <button class="toolbutton" id="activity-button" title="Abecedarium Activity"></button>
+      <button class="toolbutton" id="png-button" title="Export to PNG" style="visibility:hidden"></button>
 
       <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
     </div>
-	
+
     <!-- The content of the activity goes inside the canvas -->
     <div id="canvas" class="board">
 		<div id="header" class="config"></div>
