@@ -1,4 +1,4 @@
-define(["easel","sugar-web/datastore","sugar-web/env","webL10n"], function (easel, datastore, env, l10n) {
+define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], function (easel, datastore, env, l10n, humane) {
 
 
 	env.getEnvironment(function(err, environment) {
@@ -405,8 +405,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n"], function (ease
 	 						datastore.create(metadata, function(err) {
 								if (err) {
 									console.log("error saving image in journal");
+									humane.log(_("SavingError"));
 								} else {
 	 								console.log("image saved in journal.");
+									humane.log(_("ImageSaved"));
 								}
 	 							that.hideWait();
 	 						}, imgAsDataURL);
