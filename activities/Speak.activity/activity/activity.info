@@ -1,5 +1,5 @@
 [Activity]
-name = Speak Activity
+name = Speak
 activity_version = 1
 bundle_id = org.sugarlabs.SpeakActivity
 exec = sugar-activity-web

@@ -175,9 +175,43 @@ var CalculateApp = {
     var node = document.createElement("div");
     if (calculation.error) {
       node.innerHTML = CalculateApp.libs.mustache.render(getErrorTemplate(), calculation);
+      node.children[0].children[0].onclick=function(){
+          // console.log(calculation)
+          // console.log(CalculateApp.data.calculations.length)
+          const index = CalculateApp.data.calculations.indexOf(calculation);
+          if (index !== -1) {
+            CalculateApp.data.calculations.splice(index, 1);
+            var child_index;
+            for(var i=0;i<CalculateApp.elements.resultsZoneDiv.childNodes.length;++i){
+              if(node==CalculateApp.elements.resultsZoneDiv.childNodes[i]){
+                child_index=i;
+                break;
+              }
+            }
+            CalculateApp.elements.resultsZoneDiv.removeChild(CalculateApp.elements.resultsZoneDiv.childNodes[child_index])
+          }
+          // console.log(CalculateApp.data.calculations.length)
+        }
     } else {
       if (calculation.graph) {
         node.innerHTML = CalculateApp.libs.mustache.render(getGraphTemplate(), calculation);
+        node.children[0].children[0].onclick=function(){
+          // console.log(calculation)
+          // console.log(CalculateApp.data.calculations.length)
+          const index = CalculateApp.data.calculations.indexOf(calculation);
+          if (index !== -1) {
+            CalculateApp.data.calculations.splice(index, 1);
+            var child_index;
+            for(var i=0;i<CalculateApp.elements.resultsZoneDiv.childNodes.length;++i){
+              if(node==CalculateApp.elements.resultsZoneDiv.childNodes[i]){
+                child_index=i;
+                break;
+              }
+            }
+            CalculateApp.elements.resultsZoneDiv.removeChild(CalculateApp.elements.resultsZoneDiv.childNodes[child_index])
+          }
+          // console.log(CalculateApp.data.calculations.length)
+        }
         var childrens = node.childNodes[0].childNodes;
         var functionGraph = function(input) {
           CalculateApp.graph(input.target.value);
@@ -189,6 +223,23 @@ var CalculateApp = {
         }
       } else {
         node.innerHTML = CalculateApp.libs.mustache.render(getResultTemplate(), calculation);
+        node.children[0].children[0].onclick=function(){
+          // console.log(calculation)
+          // console.log(CalculateApp.data.calculations.length)
+          const index = CalculateApp.data.calculations.indexOf(calculation);
+          if (index !== -1) {
+            CalculateApp.data.calculations.splice(index, 1);
+            var child_index;
+            for(var i=0;i<CalculateApp.elements.resultsZoneDiv.childNodes.length;++i){
+              if(node==CalculateApp.elements.resultsZoneDiv.childNodes[i]){
+                child_index=i;
+                break;
+              }
+            }
+            CalculateApp.elements.resultsZoneDiv.removeChild(CalculateApp.elements.resultsZoneDiv.childNodes[child_index])
+          }
+          // console.log(CalculateApp.data.calculations.length)
+        }
       }
     }
     CalculateApp.elements.resultsZoneDiv.insertBefore(node, CalculateApp.elements.resultsZoneDiv.childNodes[0]);
