@@ -7,20 +7,20 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="170px" height="171px" viewBox="0 0 170 171" enable-background="new 0 0 170 171" xml:space="preserve">
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	99.5,25 70.5,25 74.85,1 95.15,1 "/>
+	96.112,38.851 73.888,38.851 77.222,19.591 92.779,19.591 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	51.739,32.232 31.232,52.738 17.338,32.691 31.693,18.337 "/>
+	59.51,44.655 43.794,61.111 33.147,45.023 44.147,33.504 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	25,70.037 25,99.039 1,94.688 1,74.387 "/>
+	39.019,74.994 39.019,98.269 20.626,94.776 20.626,78.485 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	117.338,32.232 137.845,52.738 151.739,32.691 137.384,18.337 "/>
+	109.782,44.655 125.499,61.111 136.146,45.023 125.145,33.504 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	145,70.037 145,99.039 169,94.688 169,74.387 "/>
+	130.981,74.994 130.981,98.269 149.374,94.776 149.374,78.485 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	70.5,146 99.5,146 95.15,170 74.85,170 "/>
+	73.888,135.954 96.112,135.954 92.779,155.215 77.222,155.215 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	122.338,134.843 142.845,114.337 156.739,134.384 142.384,148.738 "/>
+	113.614,127 129.331,110.544 139.978,126.632 128.977,138.152 "/>
 <polygon style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	51.739,139.843 31.232,119.337 17.338,139.384 31.693,153.738 "/>
-<circle style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-miterlimit="10" cx="85.167" cy="85.218" r="63.782"/>
+	59.51,131.014 43.794,114.558 33.147,130.645 44.147,142.166 "/>
+<ellipse style = "fill:&fill_color;; stroke:&stroke_color;;" stroke-width="6.8" stroke-miterlimit="10" cx="85.129" cy="87.177" rx="48.879" ry="51.186"/>
 </svg>
