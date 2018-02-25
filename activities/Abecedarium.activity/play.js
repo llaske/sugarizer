@@ -2,6 +2,7 @@
 
 // Collections size on the screen
 var entriesByGame = 4;
+// var score=0;
 
 
 // Learn app class
@@ -36,6 +37,8 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
+		this.score=0;
+		this.tries=0;
 		
 		this.theme = -1;
 		this.themeButton = null;
@@ -293,6 +296,8 @@ enyo.kind({
 	backTaped: function() {
 		this.$.colorBar.removeClass("themeColor"+this.theme);
 		this.theme = -1;
+		this.score=0;
+		this.tries=0;
 		this.gamecount = 0;
 		this.selected = null;		
 		this.displayButtons();
@@ -301,8 +306,10 @@ enyo.kind({
 	// Check taped
 	checkTaped: function() {
 		this.forbidentry = true;
-		if (this.playing != null)
-			this.playing.abort();		
+		this.tries=this.tries+1;
+		if (this.playing != null){
+			this.playing.abort();
+		}
 		if (this.selected == null) {
 			Abcd.sound.play("audio/disappointed");
 			this.selected = this.from;
@@ -311,11 +318,14 @@ enyo.kind({
 			Abcd.sound.play("audio/applause");
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.addClass("entryPlayRight");
+			this.score=this.score+1;
 		} else {
 			Abcd.sound.play("audio/disappointed");
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.addClass("entryPlayWrong");
 		}
+		console.log("score:"+this.score);
+		console.log("tries:"+this.tries);
 	},
 	
 	// End sound
@@ -330,20 +340,35 @@ enyo.kind({
 			this.selected.removeClass("entryPlayWrong");
 			this.selected = null;
 			this.forbidentry = false;
+			if(this.score==4){
+				this.score=0;
+				this.tries=0;
+			}
 			
 		// Good check
 		} else if (s.sound == "audio/applause") {
 			// Clean state
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.removeClass("entryPlayRight");
-			this.selected = null;	
-			
+			this.selected = null;
+			if(this.score==4){
+				this.score=0;
+				this.tries=0;
+			}
 			// Next game or try another game
 			if ( ++this.gamecount == entriesByGame ) {
 				this.gamecount = 0;
 				this.displayButtons();
+				if(this.score==4){
+					this.score=0;
+					this.tries=0;
+				}
 			} else
 				this.computeGame();
+				if(this.score==4){
+					this.score=0;
+					this.tries=0;
+				}
 		}
 	}
 });
