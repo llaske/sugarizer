@@ -10,7 +10,7 @@ enyo.kind({
 	components: [	
 		{ kind: "Image", src: "images/class.png", classes: "credit-image" },
 		{ kind: "Scroller", classes: "credit-content", components: [
-			{ content: "concept:", classes: "credit-title" },
+			{ content: "concept:", name:"concept",classes: "credit-title" },
 			{ content: "Lionel Laské", classes: "credit-name" },
 			{ content: "code:", classes: "credit-title" },
 			{ content: "Lionel Laské, Joakim Ribier (spanish version)", classes: "credit-name" },

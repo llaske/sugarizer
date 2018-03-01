@@ -1,7 +1,8 @@
 ﻿
 
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
 	Abcd.activity = activity;
+	Abcd.datastore = datastore;
 	app = null;
 
 	// Manipulate the DOM only when it is ready.
