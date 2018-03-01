@@ -386,14 +386,17 @@ enyo.kind({
 				}
 				if(Abcd.context.lang=="en"){
 					result.$.popup_score.setContent("Score: "+this.score+"/"+this.tries)
+					acc=acc.toFixed(2)
 					result.$.accuracy.setContent("Your accuracy is: "+acc+"%");
 				}
 				else if(Abcd.context.lang=="fr"){
 					result.$.popup_score.setContent("Score: "+this.score+"/"+this.tries)
+					acc=acc.toFixed(2)
 					result.$.accuracy.setContent("votre précision est: "+acc+"%");
 				}
 				else if(Abcd.context.lang=="es"){
 					result.$.popup_score.setContent("la puntuación: "+this.score+"/"+this.tries)
+					acc=acc.toFixed(2)
 					result.$.accuracy.setContent("tu precisión es: "+acc+"%");
 				}
 
