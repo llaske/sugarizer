@@ -1,0 +1,6 @@
+[Activity]
+name = Sprint Math
+activity_version = 1
+bundle_id = org.sugarlabs.SprintMath
+exec = sugar-activity-web
+icon = activity-icon
