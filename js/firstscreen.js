@@ -390,3 +390,43 @@ enyo.kind({
 		preferences.save();
 	}
 });
+
+
+// EE screen handle
+enyo.kind({
+	name: "Sugar.EE",
+	kind: enyo.Control,
+	published: { mode: 1 },
+	components: [
+		{name: "endscreen", kind: "Image", src: "images/uiwarning.png", classes: "shutdownimage", showing: false, ontap: "reload"}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+	},
+
+	// Render
+	rendered: function() {
+		this.inherited(arguments);
+		this.draw();
+	},
+
+	modeChanged: function() {
+		this.draw();
+	},
+
+	reload: function() {
+		location.reload();
+	},
+
+	// Draw screen
+	draw: function() {
+		this.addRemoveClass("shutdownscreen", false);
+		if (this.mode == 1) {
+		} else if (this.mode == 2) {
+			this.addRemoveClass("shutdownscreen", true);
+			this.$.endscreen.setShowing(true);
+		}
+	}
+});
