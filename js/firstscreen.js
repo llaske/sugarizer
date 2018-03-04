@@ -398,12 +398,20 @@ enyo.kind({
 	kind: enyo.Control,
 	published: { mode: 1 },
 	components: [
-		{name: "endscreen", kind: "Image", src: "images/uiwarning.png", classes: "shutdownimage", showing: false, ontap: "reload"}
+		{name: "endscreen", kind: "Image", src: "images/uiwarning.png", classes: "shutdownimage", showing: false, ontap: "reload"},
+		{name: "audio", kind: "Sugar.Audio"},
+		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, icon: {directory: "icons", icon: "owner-icon.svg"}, colorized: true, colorizedColor: {stroke: "#666666", fill: "#FFFFFF"}, classes: "owner-icon", showing: false},
+		{name: "dots"},
+		{name: "lab", kind: "Image", src: "images/eelab.svg", classes: "eelab", showing: false},
+		{name: "fed", kind: "Image", src: "images/eefed.jpg", classes: "eefed", showing: false},
 	],
 
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
+		this.timer = null;
+		this.step = 0;
+		app.noresize = true;
 	},
 
 	// Render
@@ -422,11 +430,102 @@ enyo.kind({
 
 	// Draw screen
 	draw: function() {
+		this.addRemoveClass("eedownscreen", false);
 		this.addRemoveClass("shutdownscreen", false);
 		if (this.mode == 1) {
+			if (this.step) {
+				return;
+			}
+			this.addRemoveClass("eescreen", true);
+			this.$.audio.play("audio/eeboot");
+			this.step = 1;
+			this.timer = window.setInterval(enyo.bind(this, "processStep"), 1000);
 		} else if (this.mode == 2) {
 			this.addRemoveClass("shutdownscreen", true);
 			this.$.endscreen.setShowing(true);
+		}
+	},
+
+	processStep: function() {
+		var lightgray = {stroke: "#000000", fill: "#999999"};
+		var darkgray = {stroke: "#000000", fill: "#666666"};
+		switch(this.step++) {
+			case 1: {
+				var canvas_center = util.getCanvasCenter();
+				this.$.owner.setX(canvas_center.x-constant.sizeOwner/2);
+				this.$.owner.setY(canvas_center.y-constant.sizeOwner/2);
+				this.$.owner.setShowing(true);
+				break;
+			}
+			case 11: {
+				this.dots = [];
+				var dotsize = 24;
+				var ownersize = this.$.owner.getSize();
+				var centerx = this.$.owner.getX() + ownersize/2 - dotsize/2;
+				var centery = this.$.owner.getY() + ownersize/2 - dotsize/2;
+				var PI2 = Math.PI*2.0;
+				var radius = ownersize*1.5;
+				var angle = Math.PI/2.0;
+				var base_angle = PI2/parseFloat(24);
+				for (var i = 0 ; i < 24 ; i++) {
+					x = (centerx+Math.cos(angle)*radius);
+					y = (centery+Math.sin(angle)*radius);
+					var dot = this.$.dots.createComponent({
+						kind: "Sugar.Icon",
+						icon: {directory: "icons", icon: "dot.svg"},
+						size: dotsize,
+						x: x,
+						y: y,
+						colorizedColor: lightgray,
+						colorized: true,
+						showing: (i==0)},
+						{owner: this});
+					dot.render();
+					this.dots.push(dot);
+					angle += base_angle;
+				}
+				break;
+			}
+			case 20: {
+				for (var i = 0 ; i < 24 ; i++) {
+					this.dots[i].setShowing(true);
+				}
+				this.$.fed.setShowing(true);
+				this.$.lab.setShowing(true);
+				break;
+			}
+			case 21: {
+				for (var i = 0 ; i < 24 ; i += 4) {
+					this.dots[i].setColorizedColor(darkgray);
+				}
+				break;
+			}
+			case 22:
+			case 23:
+			case 24:
+			case 25:
+			case 26: {
+				var colors = [];
+				for (var i = 0 ; i < 24 ; i++) {
+					colors.push(this.dots[i].getColorizedColor());
+				}
+				for (var i = 0 ; i < 24 ; i++) {
+					this.dots[i].setColorizedColor(colors[(i == 0 ? 23 : i-1)]);
+				}
+				break;
+			}
+			case 27: {
+				for (var i = 0 ; i < 24 ; i++) {
+					this.dots[i].setColorizedColor(darkgray);
+				}
+				break;
+			}
+			case 39: {
+				window.clearInterval(this.timer);
+				this.reload();
+			}
+			default: {
+			}
 		}
 	}
 });

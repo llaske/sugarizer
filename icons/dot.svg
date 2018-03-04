@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#000000">
+	<!ENTITY fill_color "#999999">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="13.050366"
+   height="13.050385"
+   id="svg6314"
+   sodipodi:version="0.32"
+   inkscape:version="0.91 r13725"
+   sodipodi:modified="true"
+   version="1.0"
+   sodipodi:docname="dot.svg">
+  <defs
+     id="defs6316" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-70.513063,-115.39187)">
+    <ellipse
+       style="fill:&fill_color;;"
+       ry="4.5251923"
+       rx="4.5251832"
+       id="ellipse4138"
+       cx="77.038246"
+       cy="121.91706" />
+  </g>
+</svg>

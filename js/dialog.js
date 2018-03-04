@@ -381,6 +381,10 @@ enyo.kind({
 	},
 
 	ok: function() {
+		if (this.currentcolor.stroke ==  "#00B20D" && this.currentcolor.fill == "#00EA11" && this.currentname == "one laptop per child") {
+			new Sugar.EE({mode: 1}).renderInto(document.getElementById("body"));
+			return;
+		}
 		if (this.currentcolor == this.initcolor && this.currentname == this.initname) {
 			this.hide();
 			this.owner.show();
