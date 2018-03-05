@@ -127,6 +127,13 @@
 	margin-left: 10px;
 }
 
+.score{
+		margin-top: 550px;
+		margin-left: 575px;
+		display: inline;
+		font-size: 26px;
+	}
+
 .pageCount {
 	font-size: 26px;
 	position: absolute;
@@ -538,6 +545,16 @@
 	color: black;
 }
 
+.result-popup {
+	width: 500px;
+	max-width: 90%;
+	height: 300px;
+	max-height: 90%;
+	color: black;
+	margin-left: 400px;
+	margin-top:200px;
+}
+
 .credit-content {
 	height: 100%;
 }
@@ -560,6 +577,12 @@
 .credit-name {
 	font-size: 16px;
 	margin-left: 45%;
+	color: white;
+}
+
+.result-name {
+	font-size: 16px;
+	margin-left: 25%;	
 	color: white;
 }
 
@@ -604,6 +627,14 @@
 	.nextButton {
 		top: 5px;
 	}
+
+  
+  .score{
+		margin-top: 5px;
+		margin-left: 15px;
+		display: inline;
+	}
+
 
 	.prevButton {
 		top: 5px;
