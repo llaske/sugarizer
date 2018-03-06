@@ -1,0 +1,200 @@
+#. extracted from ../data.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: phase-0
+msgctxt "phase-0"
+msgid "New Moon"
+msgstr ""
+
+#: phase-1
+msgctxt "phase-1"
+msgid "Waxing Crescent"
+msgstr ""
+
+#: phase-2
+msgctxt "phase-2"
+msgid "First Quarter"
+msgstr ""
+
+#: phase-3
+msgctxt "phase-3"
+msgid "Waxing Gibbous"
+msgstr ""
+
+#: phase-4
+msgctxt "phase-4"
+msgid "Full Moon"
+msgstr ""
+
+#: phase-5
+msgctxt "phase-5"
+msgid "Waning Gibbous"
+msgstr ""
+
+#: phase-6
+msgctxt "phase-6"
+msgid "Last Quarter"
+msgstr ""
+
+#: phase-7
+msgctxt "phase-7"
+msgid "Waning Crescent"
+msgstr ""
+
+#: moonInfo
+msgctxt "moonInfo"
+msgid "Today\'s Moon Information"
+msgstr ""
+
+#: phase
+msgctxt "phase"
+msgid "Phase"
+msgstr ""
+
+#: julian
+msgctxt "julian"
+msgid "Julian Date"
+msgstr ""
+
+#: age
+msgctxt "age"
+msgid "Age"
+msgstr ""
+
+#: lunation
+msgctxt "lunation"
+msgid "Lunation"
+msgstr ""
+
+#: visibility
+msgctxt "visibility"
+msgid "Surface Visibility"
+msgstr ""
+
+#: seleno
+msgctxt "seleno"
+msgid "Selenographic Terminator Longitude"
+msgstr ""
+
+#: full
+msgctxt "full"
+msgid "Next Full Moon"
+msgstr ""
+
+#: new
+msgctxt "new"
+msgid "Next New Moon"
+msgstr ""
+
+#: lunar
+msgctxt "lunar"
+msgid "Next Lunar eclipse"
+msgstr ""
+
+#: solar
+msgctxt "solar"
+msgid "Next Solar eclipse"
+msgstr ""
+
+#: minutes
+msgctxt "minutes"
+msgid "minutes"
+msgstr ""
+
+#: hours
+msgctxt "hours"
+msgid "hours"
+msgstr ""
+
+#: days
+msgctxt "days"
+msgid "days"
+msgstr ""
+
+#: astro
+msgctxt "astro"
+msgid "(astronomical)"
+msgstr ""
+
+#: thru
+msgctxt "thru"
+msgid "through lunation"
+msgstr ""
+
+#: in
+msgctxt "in"
+msgid "in"
+msgstr ""
+
+#: estimated
+msgctxt "estimated"
+msgid "(estimated)"
+msgstr ""
+
+#: west
+msgctxt "west"
+msgid "west"
+msgstr ""
+
+#: east
+msgctxt "east"
+msgid "east"
+msgstr ""
+
+#: Sunset
+msgctxt "Sunset"
+msgid "Sunset"
+msgstr ""
+
+#: Sunrise
+msgctxt "Sunrise"
+msgid "Sunrise"
+msgstr ""
+
+#: SNWE
+msgctxt "SNWE"
+msgid "SNWE"
+msgstr ""
+
+#: NSEW
+msgctxt "NSEW"
+msgid "NSEW"
+msgstr ""
+
+#: Latitude
+msgctxt "Latitude"
+msgid "Latitude"
+msgstr ""
+
+#: Longitude
+msgctxt "Longitude"
+msgid "Longitude"
+msgstr ""
+
+#: ToggleGrid
+msgctxt "ToggleGrid"
+msgid "Toggle Grid View"
+msgstr ""
+
+#: ToggleHemisphere
+msgctxt "ToggleHemisphere"
+msgid "Toggle Hemisphere View"
+msgstr ""
+
+#: SaveImage
+msgctxt "SaveImage"
+msgid "Save As Image"
+msgstr ""
+

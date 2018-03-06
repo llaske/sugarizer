@@ -1,0 +1,145 @@
+#. extracted from ../localization.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: AddAglobe
+msgctxt "AddAglobe"
+msgid "Add a globe"
+msgstr "Ajouter une bulle"
+
+#: Globe
+msgctxt "Globe"
+msgid "Globe"
+msgstr "Bulle"
+
+#: Exclamation
+msgctxt "Exclamation"
+msgid "Exclamation"
+msgstr "Exclamation"
+
+#: Whisper
+msgctxt "Whisper"
+msgid "Whisper"
+msgstr "Chuchotement"
+
+#: Think
+msgctxt "Think"
+msgid "Think"
+msgstr "Pensée"
+
+#: Box
+msgctxt "Box"
+msgid "Box"
+msgstr "Cadre"
+
+#: Title
+msgctxt "Title"
+msgid "Title"
+msgstr "Titre"
+
+#: SetGlobeText
+msgctxt "SetGlobeText"
+msgid "Set globe text:"
+msgstr "Texte de la bulle:"
+
+#: of
+msgctxt "of"
+msgid "of"
+msgstr "sur"
+
+#: ATENTION
+msgctxt "ATENTION"
+msgid "ATENTION"
+msgstr "ATTENTION"
+
+#: RemoveAllConfirmMessage
+msgctxt "RemoveAllConfirmMessage"
+msgid "Do you want remove all the boxes in your FotoToon?"
+msgstr "Voulez-vous supprimer tous les cadres dans votre FotoToon ?"
+
+#: Yes
+msgctxt "Yes"
+msgid "Yes"
+msgstr "Oui"
+
+#: No
+msgctxt "No"
+msgid "No"
+msgstr "Non"
+
+#: OneRow
+msgctxt "OneRow"
+msgid "One row"
+msgstr "Une ligne"
+
+#: OneColumn
+msgctxt "OneColumn"
+msgid "One column"
+msgstr "Une colonne"
+
+#: TwoColumns
+msgctxt "TwoColumns"
+msgid "Two columns"
+msgstr "Deux colonnes"
+
+#: SaveAsImage
+msgctxt "SaveAsImage"
+msgid "Save as image"
+msgstr "Enregistrer comme image"
+
+#: ImageSaved
+msgctxt "ImageSaved"
+msgid "Image saved in journal"
+msgstr "Image enregistrée dans le journal"
+
+#: SavingError
+msgctxt "SavingError"
+msgid "Error saving image"
+msgstr "Erreur enregistrement"
+
+#: ToonSaved
+msgctxt "ToonSaved"
+msgid "FotoToon saved"
+msgstr "FotoToon enregistrée"
+
+#: Previous
+msgctxt "Previous"
+msgid "Previous"
+msgstr "Précédent"
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr "Suivant"
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr "Ajouter"
+
+#: EditText
+msgctxt "EditText"
+msgid "Edit text"
+msgstr "Modifier texte"
+
+#: Sort
+msgctxt "Sort"
+msgid "Sort boxes"
+msgstr "Trier cadres"
+
+#: Clean
+msgctxt "Clean"
+msgid "Clean all"
+msgstr "Supprimer tout"
+

@@ -1,0 +1,200 @@
+#. extracted from ../data.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: phase-0
+msgctxt "phase-0"
+msgid "New Moon"
+msgstr "Nouvelle lune"
+
+#: phase-1
+msgctxt "phase-1"
+msgid "Waxing Crescent"
+msgstr "Premier croissant"
+
+#: phase-2
+msgctxt "phase-2"
+msgid "First Quarter"
+msgstr "Premier quartier"
+
+#: phase-3
+msgctxt "phase-3"
+msgid "Waxing Gibbous"
+msgstr "Lune gibbeuse croissante"
+
+#: phase-4
+msgctxt "phase-4"
+msgid "Full Moon"
+msgstr "Pleine lune"
+
+#: phase-5
+msgctxt "phase-5"
+msgid "Waning Gibbous"
+msgstr "Lune gibbeuse décroissante"
+
+#: phase-6
+msgctxt "phase-6"
+msgid "Last Quarter"
+msgstr "Dernier quartier"
+
+#: phase-7
+msgctxt "phase-7"
+msgid "Waning Crescent"
+msgstr "Dernier croissant"
+
+#: moonInfo
+msgctxt "moonInfo"
+msgid "Today\'s Moon Information"
+msgstr "Information sur la lune d'aujourd'hui"
+
+#: phase
+msgctxt "phase"
+msgid "Phase"
+msgstr "Phase"
+
+#: julian
+msgctxt "julian"
+msgid "Julian Date"
+msgstr "Date julienne"
+
+#: age
+msgctxt "age"
+msgid "Age"
+msgstr "Âge"
+
+#: lunation
+msgctxt "lunation"
+msgid "Lunation"
+msgstr "Lunaison"
+
+#: visibility
+msgctxt "visibility"
+msgid "Surface Visibility"
+msgstr "Visibilité de la surface"
+
+#: seleno
+msgctxt "seleno"
+msgid "Selenographic Terminator Longitude"
+msgstr "Sélénographique Terminator Longitude"
+
+#: full
+msgctxt "full"
+msgid "Next Full Moon"
+msgstr "Prochaine pleine lune"
+
+#: new
+msgctxt "new"
+msgid "Next New Moon"
+msgstr "Prochaine nouvelle lune"
+
+#: lunar
+msgctxt "lunar"
+msgid "Next Lunar eclipse"
+msgstr "Prochaine éclipse de lune"
+
+#: solar
+msgctxt "solar"
+msgid "Next Solar eclipse"
+msgstr "Prochaine éclipse de soleil"
+
+#: minutes
+msgctxt "minutes"
+msgid "minutes"
+msgstr "minutes"
+
+#: hours
+msgctxt "hours"
+msgid "hours"
+msgstr "heures"
+
+#: days
+msgctxt "days"
+msgid "days"
+msgstr "jours"
+
+#: astro
+msgctxt "astro"
+msgid "(astronomical)"
+msgstr "(astronomique)"
+
+#: thru
+msgctxt "thru"
+msgid "through lunation"
+msgstr "de la lunaison"
+
+#: in
+msgctxt "in"
+msgid "in"
+msgstr "dans"
+
+#: estimated
+msgctxt "estimated"
+msgid "(estimated)"
+msgstr "(estimée)"
+
+#: west
+msgctxt "west"
+msgid "west"
+msgstr "ouest"
+
+#: east
+msgctxt "east"
+msgid "east"
+msgstr "est"
+
+#: Sunset
+msgctxt "Sunset"
+msgid "Sunset"
+msgstr "Coucher du soleil"
+
+#: Sunrise
+msgctxt "Sunrise"
+msgid "Sunrise"
+msgstr "Lever du soleil"
+
+#: SNWE
+msgctxt "SNWE"
+msgid "SNWE"
+msgstr "SNOE"
+
+#: NSEW
+msgctxt "NSEW"
+msgid "NSEW"
+msgstr "NSEO"
+
+#: Latitude
+msgctxt "Latitude"
+msgid "Latitude"
+msgstr "Latitude"
+
+#: Longitude
+msgctxt "Longitude"
+msgid "Longitude"
+msgstr "Longitude"
+
+#: ToggleGrid
+msgctxt "ToggleGrid"
+msgid "Toggle Grid View"
+msgstr "Afficher/Masquer la grille"
+
+#: ToggleHemisphere
+msgctxt "ToggleHemisphere"
+msgid "Toggle Hemisphere View"
+msgstr "Changer d'hémisphère"
+
+#: SaveImage
+msgctxt "SaveImage"
+msgid "Save As Image"
+msgstr "Enregistrer en tant qu'image"
+

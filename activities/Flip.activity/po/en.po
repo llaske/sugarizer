@@ -1,0 +1,55 @@
+#. extracted from ../localization.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:19:09 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: activity-button.title
+msgctxt "activity-button.title"
+msgid "Flip Activity"
+msgstr "Flip Activity"
+
+#: new-game-button.title
+msgctxt "new-game-button.title"
+msgid "Start a game."
+msgstr "Start a game."
+
+#: stop-button.title
+msgctxt "stop-button.title"
+msgid "Stop"
+msgstr "Stop"
+
+#: solve-button.title
+msgctxt "solve-button.title"
+msgid "Solve the puzzle"
+msgstr "Solve the puzzle"
+
+#: four-button.title
+msgctxt "four-button.title"
+msgid "4x4 grid"
+msgstr "4x4 grid"
+
+#: five-button.title
+msgctxt "five-button.title"
+msgid "5x5 grid"
+msgstr "5x5 grid"
+
+#: six-button.title
+msgctxt "six-button.title"
+msgid "6x6 grid"
+msgstr "6x6 grid"
+
+#: seven-button.title
+msgctxt "seven-button.title"
+msgid "7x7 grid"
+msgstr "7x7 grid"
+

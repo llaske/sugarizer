@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:16:51 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: sample-input
+msgctxt "sample-input"
+msgid "Sample input"
+msgstr "Exemple de texte"
+
+#: need-help
+msgctxt "need-help"
+msgid "Do you need help?"
+msgstr "Avez-vous besoin d aide ?"
+
+#: insertText
+msgctxt "insertText"
+msgid "insertText"
+msgstr "Insérer un texte"
+
+#: put-it-right-here
+msgctxt "put-it-right-here"
+msgid "whatever you are quoting, put it right here"
+msgstr "Tout ce que vous citez, mettez-le ici"
+
+#: wmd-bold-button-second
+msgctxt "wmd-bold-button-second"
+msgid "Strong <strong> Ctrl+B"
+msgstr "Gras <strong> Ctrl+B"
+
+#: wmd-italic-button-second
+msgctxt "wmd-italic-button-second"
+msgid "Emphasis <em> Ctrl+I"
+msgstr "Italique <em> Ctrl+I"
+
+#: wmd-heading-button
+msgctxt "wmd-heading-button"
+msgid "Heading <h1>/<h2> Ctrl+H"
+msgstr "Titre <h1>/<h2> Ctrl+H"
+
+#: wmd-hr-button
+msgctxt "wmd-hr-button"
+msgid "Horizontal Rule <hr> Ctrl+R"
+msgstr "Ligne horizontale <hr> Ctrl+R"
+
+#: wmd-olist-button
+msgctxt "wmd-olist-button"
+msgid "Numbered List <ol> Ctrl+O"
+msgstr "Liste numérotée <ol> Ctrl+O"
+
+#: wmd-ulist-button
+msgctxt "wmd-ulist-button"
+msgid "Bulleted List <ul> Ctrl+U"
+msgstr "Liste à puces <ul> Crtl+U"
+
+#: wmd-code-button
+msgctxt "wmd-code-button"
+msgid "Code Sample <pre><code> Ctrl+K"
+msgstr "Exemple de code <pre><code> Ctrl+K"
+
+#: wmd-quote-button
+msgctxt "wmd-quote-button"
+msgid "Blockquote <blockquote> Ctrl+Q"
+msgstr "Blockquote <blockquote> Ctrl+Q"
+
+#: wmd-link-button
+msgctxt "wmd-link-button"
+msgid "Hyperlink <a> Ctrl+L"
+msgstr "Lien <a> Ctrl+L"
+
+#: wmd-undo-button
+msgctxt "wmd-undo-button"
+msgid "Undo - Ctrl+Z"
+msgstr "Annuler - Ctrl+Z"
+
+#: wmd-redo-button
+msgctxt "wmd-redo-button"
+msgid "Redo - Ctrl+Shift+Z"
+msgstr "Rétablir - Ctrl+Shift+Z"
+
+#: wmd-showHideEditor-button
+msgctxt "wmd-showHideEditor-button"
+msgid "Show/Hide Editor"
+msgstr "Afficher/masquer l'éditeur"
+
+#: wmd-showHidePreview-button
+msgctxt "wmd-showHidePreview-button"
+msgid "Show/Hide Preview"
+msgstr "Afficher/masquer l'aperçu"
+
