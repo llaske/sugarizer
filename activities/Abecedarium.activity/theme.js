@@ -43,6 +43,7 @@ enyo.kind({
 		var entry = Abcd.entries[theme.img];
 		var image = Abcd.context.getDatabase()+"images/database/"+entry.code+".png";
 		var text = __$FC(theme.text);
+		console.log(text);
 		if (Abcd.context.casevalue == 1)
 			text = text.toUpperCase();
 		this.$.itemImage.setAttribute("src", image);

@@ -548,8 +548,8 @@
 .result-popup {
 	width: 500px;
 	max-width: 90%;
-	height: 300px;
-	max-height: 90%;
+	height: 50%;
+	max-height: 70%;
 	color: black;
 	margin-left: 30%;
 	margin-top:20%;
@@ -644,7 +644,7 @@
 		width: 70%;
 		max-width: 90%;
 		height: 50%;
-		max-height: 90%;
+		max-height: 70%;
 		color: black;
 		margin-left: 10%;
 		margin-top:20%;
@@ -759,14 +759,43 @@
 		font-size: 17px;
 	}
 }
-@media screen and (min-width: 481px)and (max-width: 640px) {
+
+}
+
+@media screen and (max-height:  580px) {
+	.result-popup {
+		width: 70%;
+		max-width: 90%;
+		height: 10%;
+		max-height: 70%;
+		color: white;
+		margin-left: 10%;
+		margin-top:0%;
+		margin-bottom: 100%;
+	}
+}
+
+@media screen and (min-width: 480px) and (max-width: 580px){
+	.result-popup {
+		width: 70%;
+		max-width: 90%;
+		height: 50%;
+		max-height: 70%;
+		color: black;
+		margin-left: 10%;
+		margin-top:20%;
+	}
+}
+
+
+@media screen and (min-width: 581px)and (max-width: 640px) {
 	.result-popup {
 		width: 400px;
 		max-width: 90%;
-		height: 300px;
-		max-height: 90%;
+		height: 50%;
+		max-height: 70%;
 		color: black;
-		margin-left: 10%;
+		margin-left: 20%;
 		margin-top:20%;
 	}
 	.switchLang {
@@ -856,10 +885,10 @@
 	.result-popup {
 		width: 450px;
 		max-width: 90%;
-		height: 300px;
-		max-height: 90%;
+		height: 50%;
+		max-height: 70%;
 		color: black;
-		margin-left: 10%;
+		margin-left: 20%;
 		margin-top:20%;
 	}
 	.themeText0 {
@@ -933,10 +962,10 @@
 	.result-popup {
 		width: 450px;
 		max-width: 90%;
-		height: 300px;
-		max-height: 90%;
+		height: 50%;
+		max-height: 70%;
 		color: black;
-		margin-left: 15%;
+		margin-left: 20%;
 		margin-top:20%;
 	}
 	.themeText0 {

@@ -12,7 +12,7 @@ Abcd.context = {
 	home: null,
 	object: null,
 	screen: "",
-	lang: "fr",
+	lang: "es",
 	casevalue: 0,
 	screenContext: null
 };

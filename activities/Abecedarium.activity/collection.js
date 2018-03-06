@@ -46,6 +46,8 @@ enyo.kind({
 		if (Abcd.context.casevalue == 1)
 			text = text.toUpperCase();
 		this.$.itemImage.setAttribute("src", image);
+		// console.log(image)
+		// console.log(text)
 		this.$.itemText.removeClass("collectionText0");
 		this.$.itemText.removeClass("collectionText1");
 		this.$.itemText.removeClass("collectionText2");

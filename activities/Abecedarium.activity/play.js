@@ -41,7 +41,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.score=0;
 		this.tries=0;
-		// this.$.score.setContent("Score: "+this.score+"/"+this.tries);
 		this.theme = -1;
 		this.themeButton = null;
 		this.gamecount = 0;
@@ -50,6 +49,8 @@ enyo.kind({
 		this.selected = null;
 		this.forbidentry = false;
 		this.filter = null;
+		this.scoreCode=1186;
+		this.accCode=1187;
 		
 		this.restoreContext();
 		this.filterChanged({filter: this.filter});
@@ -324,31 +325,19 @@ enyo.kind({
 			this.selected.addClass("entryPlayRight");
 			this.score=this.score+1;
 			this.tries=this.tries+1;
-			console.log("applude score:"+this.score);
-			console.log("tries:"+this.tries);
 		} else {
 			Abcd.sound.play("audio/disappointed");
 			this.$.check.hide();
 			this.selected.removeClass("entryPlaySelected");
 			this.selected.addClass("entryPlayWrong");
 			this.tries=this.tries+1;
-			console.log("dis tries:"+this.tries);
-			console.log("score:"+this.score);
 		}
 	},
 	
 	// End sound
 	endSound: function(e, s) {
-		console.log(Abcd.context.lang)
-		// Prematured end
 		if (this.selected == null)
 			return;
-		// if(this.score==4){
-		// 	var acc=(100*this.score)/this.tries;
-		// 	var result=new Abcd.ResultPopup({});
-		// 	result.$.accuracy.setContent(acc);
-		// 	result.show();
-		// }	
 			
 		// Bad check, retry
 		if (s.sound == "audio/disappointed") {
@@ -384,30 +373,15 @@ enyo.kind({
 					var name="images/thumbsdown.jpg";
 					result.$.image.setAttribute("src",name);
 				}
-				if(Abcd.context.lang=="en"){
-					result.$.popup_score.setContent("Score: "+this.score+"/"+this.tries)
-					acc=acc.toFixed(2)
-					result.$.accuracy.setContent("Your accuracy is: "+acc+"%");
-				}
-				else if(Abcd.context.lang=="fr"){
-					result.$.popup_score.setContent("Score: "+this.score+"/"+this.tries)
-					acc=acc.toFixed(2)
-					result.$.accuracy.setContent("votre précision est: "+acc+"%");
-				}
-				else if(Abcd.context.lang=="es"){
-					result.$.popup_score.setContent("la puntuación: "+this.score+"/"+this.tries)
-					acc=acc.toFixed(2)
-					result.$.accuracy.setContent("tu precisión es: "+acc+"%");
-				}
+				result.$.popup_score.setContent(__$FC_l10n[this.scoreCode]+": "+this.score+"/"+this.tries);
+				acc=acc.toFixed(2);
+				result.$.accuracy.setContent(__$FC_l10n[this.accCode]+": "+acc+"%");
+				
 
 				result.show();
-				// this.$.resultPopup.setContent("heelo");
-				// this.$.resultPopup.show();
 				this.score=0;
 				this.tries=0;
-				// this.$.score.setContent("Score: "+this.score+"/"+this.tries);
 			}
-			// Next game or try another game
 			if ( ++this.gamecount == entriesByGame ) {
 				this.$.check.show();
 				this.gamecount = 0;

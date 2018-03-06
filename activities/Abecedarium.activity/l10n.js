@@ -3,6 +3,7 @@
 
 // Change current language setting
 __$FC_l10n = Abcd.enLetters;
+console.log(Abcd.enLetters);
 Abcd.letters = Abcd.enLetters;
 if (Abcd.context !== undefined && Abcd.context.lang !== undefined) {
     __$FC_l10n = Abcd.getTextsFromLocal(Abcd.context.lang);

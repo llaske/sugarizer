@@ -76,8 +76,11 @@ enyo.kind({
 	indexChanged: function() {
 		// Get content
 		var entry = Abcd.entries[this.index];
+		// console.log(entry);	
 		var image = Abcd.context.getDatabase()+"images/database/"+entry.code+".png";
+		// console.log(entry.text);
 		var text = __$FC(entry.text);
+		// console.log(__$FC(1083));
 		if (Abcd.context.casevalue == 1)
 			text = text.toUpperCase();
 
