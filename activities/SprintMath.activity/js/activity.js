@@ -22,7 +22,7 @@ define(["sugar-web/activity/activity"], function (activity) {
         function gameOver() {
             clearInterval(action);
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = "<p>Game Over</p><p>Your Score is : " + score + "</p>";
+            document.getElementById("gameOver").innerHTML = "<p>Game Over, Your Score is : " + score + "</p>";
             document.getElementById("timeremaining").innerHTML = 60;
             document.getElementById("start").innerHTML = "Start Game";
             hide("time");
@@ -44,10 +44,22 @@ define(["sugar-web/activity/activity"], function (activity) {
         function generateQuestion(){
             var x=1+Math.round(9*Math.random());
             var y=1+Math.round(9*Math.random());
-            var prod= x*y;
+            var z=1+Math.round(2*Math.random());
+            var sign, prod;
+            if(z==1){
+                prod= x*y;
+                sign="x";
+            }else if(z==2){
+                prod= x+y;
+                sign="+";
+            }else if(z==3){
+                prod= x-y;
+                sign="-";
+            }
+            console.log(prod)
             correctans=prod;
 
-            document.getElementById("question").innerHTML=x+"x"+y;
+            document.getElementById("question").innerHTML=x+sign+y;
 
             var ansbox=1+Math.round(3*Math.random());
             document.getElementById("box"+ansbox).innerHTML=prod;
@@ -75,7 +87,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 if (play) {
                     if (this.innerHTML==correctans){
                         score++;
-                        document.getElementById("score").innerHTML= score;
+                        document.getElementById("scorevalue").innerHTML= score;
                         hide("wrong");
                         show("correct");
                         setTimeout(function(){
