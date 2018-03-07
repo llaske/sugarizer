@@ -1,0 +1,29 @@
+#. extracted from ../translate.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:23:42 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: label
+msgctxt "label"
+msgid "Label"
+msgstr ""
+
+#: calcul
+msgctxt "calcul"
+msgid "Calculation"
+msgstr ""
+
+#: clear
+msgctxt "clear"
+msgid "Clear"
+msgstr ""
