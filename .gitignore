@@ -218,3 +218,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+.idea/
+docker/Dockerfile-http
+docker/Dockerfile-mongodb
+docker/Dockerfile-server
+docker/db/
+package-lock.json

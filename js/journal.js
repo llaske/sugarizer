@@ -25,7 +25,9 @@ enyo.kind({
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
 			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
 			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"}
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
+			{name: "syncgear", classes: "sync-button sync-gear", showing: false},
+			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"}
 		]}
 	],
 
@@ -172,6 +174,7 @@ enyo.kind({
 		} else {
 			this.journal[inEvent.index].metadata.keep = (keep + 1) % 2;
 		}
+		stats.trace(constant.viewNames[app.getView()], 'switch_favorite', objectId, null);
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.setDataAsText(this.journal[inEvent.index].text);
@@ -196,12 +199,17 @@ enyo.kind({
 		this.loadEntry(activity, function(err, metadata, text) {
 			// Remote entry, copy in the local journal first
 			if (that.journalType != constant.journalLocal) {
-				datastore.create(metadata, function(error, oid) {
+				// Create the entry with same oid - or update the entry if already there
+				var ds = new datastore.DatastoreObject(activity.objectId);
+				ds.setMetadata(metadata);
+				ds.setDataAsText(text);
+				ds.save(function() {
+					// Run updated local entry
 					preferences.runActivity(
 						activityInstance,
-						oid,
+						activity.objectId,
 						metadata.title);
-				}, text);
+				});
 				return;
 			}
 
@@ -234,9 +242,9 @@ enyo.kind({
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var that = this;
-			myserver.getJournal(journalId, typeactivity, constant.fieldMetadata,
+			myserver.getJournal(journalId, typeactivity, undefined, constant.fieldMetadata,
 				function(inSender, inResponse) {
-					that.journal = inResponse;
+					that.journal = inResponse.entries;
 					that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 					that.loadingError = false;
 					doFilter();
@@ -342,9 +350,12 @@ enyo.kind({
 	// Copy activity content to the local journal
 	copyToLocal: function(entry) {
 		var that = this;
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_local', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
-			datastore.create(metadata, function(error, oid) {
-			}, text);
+			var ds = new datastore.DatastoreObject(entry.objectId);
+			ds.setMetadata(metadata);
+			ds.setDataAsText(text);
+			ds.save();
 			that.$.activityPopup.hidePopup();
 		});
 	},
@@ -370,9 +381,10 @@ enyo.kind({
 
 	// Copy activity content to a remote journal
 	copyToRemote: function(entry, journalId) {
+		stats.trace(constant.viewNames[app.getView()], 'copy_to_remote', entry.objectId, journalId);
 		this.loadEntry(entry, function(err, metadata, text) {
 			var dataentry = {metadata: metadata, text: text, objectId: entry.objectId};
-			myserver.postJournalEntry(journalId, dataentry,
+			myserver.putJournalEntry(journalId, entry.objectId, dataentry,
 				function() {},
 				function() {
 					console.log("WARNING: Error writing journal "+journalId);
@@ -382,12 +394,21 @@ enyo.kind({
 		this.$.activityPopup.hidePopup();
 	},
 
+	// Load local journal
+	loadLocalJournal: function() {
+		this.journal = datastore.find();
+		this.journal = this.journal.sort(function(e0, e1) {
+			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+		});
+		this.journalChanged();
+	},
+
 	// Load a remote journal
 	loadRemoteJournal: function(journalId) {
 		var that = this;
-		myserver.getJournal(journalId, undefined, constant.fieldMetadata,
+		myserver.getJournal(journalId, undefined, undefined, constant.fieldMetadata,
 			function(inSender, inResponse) {
-				that.journal = inResponse;
+				that.journal = inResponse.entries;
 				that.empty = (!that.getToolbar().hasFilter() && !this.loadingError && that.journal.length == 0);
 				that.loadingError = false;
 				that.journalChanged();
@@ -417,7 +438,7 @@ enyo.kind({
 			}
 			myserver.getJournalEntry(journalId, entry.objectId,
 				function(inSender, inResponse) {
-					callback(null, inResponse.metadata, inResponse.text);
+					callback(null, inResponse.entries[0].metadata, inResponse.entries[0].text);
 				},
 				function() {
 					console.log("WARNING: Error loading entry "+objectId+" in journal "+journalId);
@@ -431,10 +452,23 @@ enyo.kind({
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', entry.objectId, null);
 			datastore.remove(entry.objectId);
 
+			// If connected and in sync, try remove also the matching remote entry
+			if (preferences.isConnected() && preferences.getOptions("sync")) {
+				var journalId = preferences.getPrivateJournal();
+				var objectId = entry.objectId;
+				myserver.deleteJournalEntry(journalId, objectId,
+					function(inSender, inResponse) {},
+					function() {
+						console.log("WARNING: Error removing entry "+objectId+" in journal "+journalId);
+					}
+				);
+			}
+
 			// Refresh screen
-			this.showLocalJournal();
+			this.loadLocalJournal();
 
 			// Refresh home screen: activity menu, journal content
 			preferences.updateEntries();
@@ -445,6 +479,7 @@ enyo.kind({
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var objectId = entry.objectId;
 			var that = this;
+			stats.trace(constant.viewNames[app.getView()], 'remove_entry', objectId, journalId);
 			myserver.deleteJournalEntry(journalId, objectId,
 				function(inSender, inResponse) {
 					that.loadRemoteJournal(journalId);
@@ -486,6 +521,7 @@ enyo.kind({
 			if (that.journalType == constant.journalLocal) {
 				// Update metadata
 				metadata.title = newtitle;
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, 'local');
 
 				// Update datastore
 				var ds = new datastore.DatastoreObject(objectId);
@@ -494,7 +530,7 @@ enyo.kind({
 				ds.save();
 
 				// Refresh screen
-				that.showLocalJournal();
+				that.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
 				preferences.updateEntries();
@@ -510,6 +546,7 @@ enyo.kind({
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 				var dataentry = {metadata: metadata, text: text, objectId: objectId};
+				stats.trace(constant.viewNames[app.getView()], 'rename_entry', objectId, journalId);
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
@@ -526,21 +563,50 @@ enyo.kind({
 	// Switch journal
 	showLocalJournal: function() {
 		this.changeJournalType(constant.journalLocal);
-		this.journal = datastore.find();
-		this.journal = this.journal.sort(function(e0, e1) {
-			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-		});
-		this.journalChanged();
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'local', null);
+		this.loadLocalJournal();
 	},
 
 	showPrivateCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'private', null);
 		this.changeJournalType(constant.journalRemotePrivate);
 		this.loadRemoteJournal(preferences.getPrivateJournal());
 	},
 
 	showSharedCloud: function() {
+		stats.trace(constant.viewNames[app.getView()], 'show_journal', 'shared', null);
 		this.changeJournalType(constant.journalRemoteShared);
 		this.loadRemoteJournal(preferences.getSharedJournal());
+	},
+
+	// Sync local journal with remote journal
+	syncJournal: function() {
+		var that = this;
+		autosync.synchronizeJournal(
+			function(count) {
+				if (count) {
+					humane.log(l10n.get("RetrievingJournal"));
+					that.$.syncbutton.setShowing(false);
+					that.$.syncgear.setShowing(true);
+				}
+			},
+			function(locale, remote, error) {
+				// Display button
+				that.$.syncbutton.setShowing(true);
+				that.$.syncgear.setShowing(false);
+				// Locale has changed, update display
+				if (locale && that.journalType == constant.journalLocal) {
+					that.loadLocalJournal();
+					app.journal = that.journal;
+					preferences.updateEntries();
+					app.draw();
+				}
+				// Remote has changed, update display
+				if (remote && that.journalType == constant.journalRemotePrivate) {
+					that.loadRemoteJournal(preferences.getPrivateJournal());
+				}
+			}
+		);
 	},
 
 	changeJournalType: function(newType) {
@@ -571,8 +637,19 @@ enyo.kind({
 
 	// Constructor
 	create: function() {
-		// Localize items
 		this.inherited(arguments);
+		this.localize();
+	},
+
+	rendered: function() {
+		this.localize();
+	},
+
+	localize: function() {
+		// Localize items
+		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
+		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 
 		// Set time selectbox content
@@ -593,12 +670,6 @@ enyo.kind({
 			items.push({icon: activities[i], name: activities[i].name});
 		}
 		this.$.typeselect.setItems(items);
-	},
-
-	rendered: function() {
-		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
-		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
-		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 	},
 
 	// Event handling
@@ -628,6 +699,11 @@ enyo.kind({
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
 		var timeselected = (selected <= 0 ? undefined : selected);
+		var filtertext = 'q=' + text;
+		if (favorite) filtertext += '&favorite=true';
+		if (typeselected) filtertext += '&type=' + typeselected;
+		if (timeselected) filtertext += '&time=' + timeselected;
+		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
 		app.otherview.filterEntries(text, favorite, typeselected, timeselected);
 	},
 
@@ -645,6 +721,7 @@ enyo.kind({
 		tutorial.setElement("typeselect", this.$.typeselect.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.timeselect.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}
 });

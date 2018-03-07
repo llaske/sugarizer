@@ -19,12 +19,19 @@ define(function () {
 				activityName: getUrlParameter("n"),
 				bundleId: getUrlParameter("a"),
 				objectId: getUrlParameter("o"),
-				sharedId: getUrlParameter("s"),
-				help: getUrlParameter("h")
+				sharedId: getUrlParameter("s")
 			};
-            setTimeout(function () {
-				callback(null, window.top.sugar.environment);
-			}, 0);
+			if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+				chrome.storage.local.get('sugar_settings', function(values) {
+					window.top.sugar.environment.user = JSON.parse(values.sugar_settings);
+					callback(null, window.top.sugar.environment);
+				});
+			} else {
+				window.top.sugar.environment.user = JSON.parse(localStorage.sugar_settings);
+				setTimeout(function () {
+					callback(null, window.top.sugar.environment);
+				}, 0);
+			}
         } else if (env.isStandalone()) {
             setTimeout(function () {
                 callback(null, {});
@@ -62,10 +69,15 @@ define(function () {
     };
 
     env.isStandalone = function () {
-        var webActivityHost = "0.0.0.0";
-        var currentHost = env.getHost();
+		var webActivityURLScheme = "activity:";
+        var fileURLScheme = "file:";
+        var currentURLScheme = env.getURLScheme();
 
-        return currentHost !== webActivityHost;
+        // the control of hostname !== '0.0.0.0' is used
+        // for compatibility with F18 and webkit1
+        return currentURLScheme !== webActivityURLScheme &&
+			currentURLScheme !== fileURLScheme &&
+			window.location.hostname !== '0.0.0.0';
     };
 
     env.isSugarizer = function() {
@@ -81,6 +93,12 @@ define(function () {
         }
         return false;
     };
+
+    env.isSugarizerOS = function() {
+	if (typeof window.sugarizerOS != 'undefined')
+	    return true;
+	return false;
+    }
 
     return env;
 });

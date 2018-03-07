@@ -43,49 +43,36 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 
 	function init(){
 		speech = Speech();
-		datastore.localStorage.load(function() {
-			getSettings(function(settings) {
-				sugarSettings = settings;
-				speech.init(sugarSettings);
-				// If not IE, setup mouse for capture
-				if (!IE){
-					document.captureEvents(Event.MOUSEMOVE)
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			if (!environment.user) environment.user = { language: defaultLanguage };
+			sugarSettings = environment.user;
+			speech.init(sugarSettings);
+			// If not IE, setup mouse for capture
+			if (!IE){
+				document.captureEvents(Event.MOUSEMOVE)
+			}
+			var FPS = 30;
+			setInterval(function() {
+			  updateCanvas();
+			}, 1000/FPS);
+			window.addEventListener('localized', function() {
+				if (first) {
+					l10n.language.code = sugarSettings.language;
+					first = false;
+					return;
+				} else {
+					localize();
+					var timer = window.setTimeout(function() {
+					window.clearTimeout(timer);
+						var language = document.getElementById('speaklang').innerHTML;
+						var text = l10n.get("TypeSomething", {name:sugarSettings.name});
+						speech.playVoice(language, text);
+						moveMouth(text);
+					}, 100);
 				}
-				var FPS = 30;
-				setInterval(function() {
-				  updateCanvas();
-				}, 1000/FPS);
-				window.addEventListener('localized', function() {
-					if (first) {
-						l10n.language.code = sugarSettings.language;
-						first = false;
-						return;
-					} else {
-						localize();
-						var timer = window.setTimeout(function() {
-						window.clearTimeout(timer);
-							var language = document.getElementById('speaklang').innerHTML;
-							var text = l10n.get("TypeSomething", {name:sugarSettings.name});
-							speech.playVoice(language, text);
-							moveMouth(text);
-						}, 100);
-					}
-				});
 			});
 		});
-	}
-
-	function getSettings(callback) {
-		var defaultSettings = {
-			name: "",
-			language: (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language
-		};
-		if (!env.isSugarizer()) {
-			callback(defaultSettings);
-			return;
-		}
-		var loadedSettings = datastore.localStorage.getValue('sugar_settings');
-		callback(loadedSettings);
 	}
 
 	function hidePalettes(){

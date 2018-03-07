@@ -1,0 +1,242 @@
+#main-toolbar #activity-button {
+    background-image: url(../activity/activity-icon.svg);
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    background-color: #dddddd;
+}
+
+#container {
+    height: 80vh;
+    margin: 5vh auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #783393;
+    position: relative;
+}
+
+#time {
+    float: left;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 300;
+    position: relative;
+    background-color: #EF4581;
+    border-radius: 5px;
+}
+
+#score {
+    float: right;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 300;
+    position: relative;
+    background-color: #EF4581;
+    border-radius: 5px;
+}
+
+#answer {
+    min-height: 6vh;
+}
+
+#correct {
+    text-align: center;
+    padding: 12px;
+    background-color: #01848F;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+}
+
+#wrong {
+    text-align: center;
+    padding: 12px;
+    background-color: #C62828;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+}
+
+#question {
+    height: 150px;
+    margin: 1vw auto 2vh auto;
+    background-color: #00BCD4;
+    font-size: 130px;
+    font-weight: 200;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+}
+
+#instruction {
+    height: 60px;
+    margin: 0 auto 2vh auto;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    line-height: 60px;
+    background: #E6E7E8;
+}
+
+#choices {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 6vh auto;
+}
+
+.box {
+    background-color: #CDDC39;
+    height: 80px;
+    font-size: 20px;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.box:hover {
+    background-color: #C0CA33;
+    font-size: 25px;
+    font-weight: 400;
+    color: #000;
+}
+
+.box:active {
+    background-color: #AFB42B;
+}
+
+#box4 {
+    margin-right: 0px;
+}
+
+#start {
+    background-color: #4CAF50;
+    height: 40px;
+    color: white;
+    font-size: 15px;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#start:hover {
+    background-color: #66BB6A;
+    color: white;
+}
+
+#gameOver {
+    text-align: center;
+    padding: 12px;
+    background-color: #01848F;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+}
+
+/*Phone Landscape*/
+
+@media only screen
+and (min-width: 414px)
+and (max-width: 956px)
+and (orientation: landscape) {
+
+    #container {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        border-radius: 0;
+    }
+
+    #time {
+        padding: 5px;
+        font-size: 15px;
+        border-radius: 2px;
+    }
+
+    #score {
+        padding: 5px;
+        font-size: 15px;
+        border-radius: 2px;
+    }
+
+    #answer {
+        min-height: 10vh;
+    }
+
+    #correct {
+        text-align: center;
+        padding: 5px;
+        border-radius: 2px;
+        display: none;
+        margin: 1vh auto;
+    }
+
+    #wrong {
+        text-align: center;
+        padding: 5px;
+        border-radius: 2px;
+        display: none;
+        margin: 1vh auto;
+    }
+
+    #question {
+        height: 80px;
+        margin: 1vw auto 2vh auto;
+        font-size: 60px;
+        vertical-align: 40%;
+    }
+
+    #instruction {
+        height: 50px;
+        margin: 0 auto 2vh auto;
+        border-radius: 2px;
+        line-height: 60px;
+    }
+
+    #gameOver {
+        padding: 5px;
+        font-size: 15px;
+        border-radius: 2px;
+    }
+
+    #start {
+        font-size: 15px;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    .box {
+        height: 60px;
+        font-size: 15px;
+        line-height: 40px;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    #choices {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 6vh auto;
+    }
+
+    .row{
+        margin: 0px;
+    }
+
+
+}

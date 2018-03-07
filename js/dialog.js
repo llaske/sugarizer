@@ -17,6 +17,8 @@ enyo.kind({
 				{name: "me", kind: "Sugar.DialogSettingsItem", ontap: "meClicked", text: "Me", icon: {directory: "icons", icon: "module-about_me.svg"}, colorized: true},
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
+				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
+				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}, showing: false},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
 				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
@@ -31,8 +33,14 @@ enyo.kind({
 		this.$.settingssearch.setPlaceholder(l10n.get("SearchSettings"));
 		this.$.me.setText(l10n.get("AboutMe"));
 		this.$.computer.setText(l10n.get("AboutMyComputer"));
+		this.$.security.setText(l10n.get("MySecurity"));
+		this.$.privacy.setText(l10n.get("MyPrivacy"));
 		this.$.language.setText(l10n.get("Language"));
 		this.$.aboutserver.setText(l10n.get("Server"));
+		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
+			this.$.security.setShowing(true);
+			this.$.privacy.setShowing(true);
+		}
 		if (window.sugarizerOS) {
 			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
 			this.$.androidSettings.setText(l10n.get("AndroidSettings"));
@@ -43,8 +51,13 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.me.addClass("rtl-10");
 			this.$.computer.addClass("rtl-10");
+			this.$.security.addClass("rtl-10");
+			this.$.privacy.addClass("rtl-10");
 			this.$.language.addClass("rtl-10");
 			this.$.aboutserver.addClass("rtl-10");
+		}
+		if (util.getClientType() == constant.webAppType) {
+			this.$.security.setShowing(true);
 		}
 		this.subdialog = null;
 	},
@@ -68,6 +81,7 @@ enyo.kind({
 	// Events
 	filterSettings: function() {
 		var filter = this.$.settingssearch.getText().toLowerCase();
+		stats.trace('my_settings', 'search', 'q='+filter, null);
 		enyo.forEach(this.$.content.getControls(), function(item) {
 			item.setDisabled(item.getText().toLowerCase().indexOf(filter) == -1 && filter.length != 0);
 		});
@@ -81,6 +95,7 @@ enyo.kind({
 	// Display me dialog
 	meClicked: function() {
 		if (!this.$.me.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_me', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogAboutme"}, {owner:this});
 			this.subdialog.show();
@@ -89,14 +104,34 @@ enyo.kind({
 
 	computerClicked: function() {
 		if (!this.$.computer.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_computer', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogComputer"}, {owner:this});
 			this.subdialog.show();
 		}
 	},
 
+	securityClicked: function() {
+		if (!this.$.security.getDisabled()) {
+			stats.trace('my_settings', 'click', 'security', null);
+			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogSecurity"}, {owner:this});
+			this.subdialog.show();
+		}
+	},
+
+	privacyClicked: function() {
+		if (!this.$.security.getDisabled()) {
+			stats.trace('my_settings', 'click', 'privacy', null);
+			this.hide();
+			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogPrivacy"}, {owner:this});
+			this.subdialog.show();
+		}
+	},
+
 	languageClicked: function() {
 		if (!this.$.language.getDisabled()) {
+			stats.trace('my_settings', 'click', 'language', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogLanguage"}, {owner:this});
 			this.subdialog.show();
@@ -105,6 +140,7 @@ enyo.kind({
 
 	serverClicked: function() {
 		if (!this.$.aboutserver.getDisabled()) {
+			stats.trace('my_settings', 'click', 'about_my_server', null);
 			this.hide();
 			this.subdialog = this.$.subdialog.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 			this.subdialog.show();
@@ -364,19 +400,145 @@ enyo.kind({
 
 	namechanged: function() {
 		this.$.restartmessage.setShowing(true);
-		this.currentname = this.$.name.getValue();
+		this.currentname = this.$.name.getValue().trim();
 	},
 
 	restart: function() {
+		stats.trace('my_settings_about_me', 'change', 'name_color', null);
 		preferences.setName(this.currentname);
 		preferences.setColor(util.getColorIndex(this.currentcolor));
 		preferences.save();
+		var that = this;
 		preferences.saveToServer(myserver, function() {
 			util.restartApp();
+		}, function(error, code) {
+			that.$.warningbox.setShowing(false);
+			that.$.okbutton.setDisabled(false);
+			that.$.cancelbutton.setDisabled(false);
+			that.currentname = preferences.getName();
+			if (code == 22) {
+				that.$.restartmessage.setContent(l10n.get("UserAlreadyExist"));
+			} else {
+				that.$.restartmessage.setContent(l10n.get("ServerError", {code: code}));
+			}
 		});
 	}
 });
 
+
+
+// Language dialog
+enyo.kind({
+	name: "Sugar.DialogSecurity",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "login-icon.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "content", components: [
+			{name: "message", content: "xxx", classes: "security-message"},
+			{name: "password", kind: "Sugar.Password", classes: "security-password", onEnter: "next"},
+			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "security-rightbutton", ontap: "next"},
+			{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "security-spinner", showing: false},
+			{name: "warningmessage", content: "xxx", classes: "security-warning", showing: false}
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("MySecurity"));
+		this.$.message.setContent(l10n.get("SecurityMessage"));
+		this.$.next.setText(l10n.get("Next"));
+		this.$.password.startInputListening();
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.message.addClass("rtl-10");
+		}
+		this.step = 0;
+	},
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.owner.centerDialog(this);
+	},
+
+	// Event handling
+	cancel: function() {
+		this.$.password.stopInputListening();
+		this.hide();
+		this.owner.show();
+	},
+
+	ok: function() {
+		this.$.password.stopInputListening();
+		this.hide();
+		this.owner.show();
+	},
+
+	next: function() {
+		var that = this;
+		var user = {
+			"name": preferences.getName(),
+			"password": this.$.password.getPassword()
+		};
+		if (this.step == 0) {
+			that.$.spinner.setShowing(true);
+			myserver.loginUser(user, function(loginSender, loginResponse) {
+				preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+				that.$.warningmessage.setShowing(false);
+				that.$.password.setPassword("");
+				that.$.next.setText(l10n.get("Done"));
+				that.$.message.setContent(l10n.get("SecurityMessageNew", {min: util.getMinPasswordSize()}));
+				that.step++;
+				that.$.spinner.setShowing(false);
+			},
+			function(response, error) {
+				if (error == 1) {
+					that.$.warningmessage.setContent(l10n.get("InvalidPassword"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			});
+		} else {
+			var pass = this.$.password.getPassword();
+			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
+				return;
+			}
+			that.$.spinner.setShowing(true);
+			myserver.putUser(
+				preferences.getNetworkId(),
+				{
+					password: this.$.password.getPassword()
+				},
+				function(inSender, inResponse) {
+					that.$.message.setContent(l10n.get("SecurityMessageDone"));
+					that.$.next.setShowing(false);
+					that.$.password.setShowing(false);
+					that.$.warningmessage.setShowing(false);
+					that.$.spinner.setShowing(false);
+				},
+				function(response, error) {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+					that.$.warningmessage.setShowing(true);
+					that.$.spinner.setShowing(false);
+				}
+			);
+		}
+	}
+});
 
 
 // Language dialog
@@ -466,9 +628,12 @@ enyo.kind({
 	},
 
 	restart: function() {
+		stats.trace('my_settings_language', 'change', 'language', null);
 		preferences.setLanguage(this.currentlanguage);
 		preferences.save();
 		preferences.saveToServer(myserver, function() {
+			util.restartApp();
+		}, function() {
 			util.restartApp();
 		});
 	}
@@ -513,7 +678,7 @@ enyo.kind({
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2017 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
+			{content: "© 2013-2018 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
 			{name: "warningmessage", showing: false, content: "xxx", classes: "computer-warningmessage", showing: false}
 		]}
@@ -577,14 +742,7 @@ enyo.kind({
 	},
 
 	reinit: function() {
-		// Remove all object
-		var results = datastore.find();
-		for(var i = 0 ; i < results.length ; i++) {
-			datastore.remove(results[i].objectId);
-		}
-		preferences.reset();
-
-		// Restart
+		util.cleanDatastore(true);
 		util.restartApp();
 	},
 
@@ -627,17 +785,20 @@ enyo.kind({
 			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
 			{components:[
 				{name: "textservername", content: "xxx", classes: "aboutserver-serverlabel"},
-				{content: "http://", classes: "aboutserver-httplabel"},
-				{name: "servername", kind: "Input", classes: "aboutserver-servername", oninput: "changed"},
-				{name: "serverok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-ok.svg"}, classes: "aboutserver-iconchecked", showing: false}
+				{name: "servername", kind: "Input", classes: "aboutserver-servername", onkeydown: "enterclick"}
 			]},
+			{name: "serversettingsname", classes: "aboutserver-settingsname"},
+			{name: "serversettingsvalue", classes: "aboutserver-settingsvalue"},
+			{name: "serverdescription", classes: "aboutserver-description"},
+			{name: "serverdescriptionvalue", classes: "aboutserver-descriptionvalue"},
 			{components:[
 				{name: "textusername", content: "xxx", classes: "aboutserver-userlabel"},
-				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"},
-				{name: "userok", kind: "Sugar.Icon", size: 20, x: 6, y: 17, icon: {directory: "icons", icon: "entry-cancel.svg"}, classes: "aboutserver-iconchecked", showing: false},
-				{name: "textusermessage", content: "xxx", classes: "aboutserver-usermessage"}
+				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"}
 			]},
-			{name: "checkbutton", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "aboutserver-checkbutton", ontap: "check"},
+			{name: "passwordmessage", classes: "aboutserver-passwordmessage"},
+			{name: "password", kind: "Sugar.Password", classes: "aboutserver-password", onEnter: "next"},
+			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "aboutserver-rightbutton", ontap: "next"},
+			{name: "spinner", kind: "Image", src: "images/spinner-light.gif", classes: "aboutserver-spinner", showing: false},
 			{name: "warningmessage", content: "xxx", classes: "aboutserver-warningmessage", showing: false}
 		]}
 	],
@@ -647,21 +808,17 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.text.setContent(l10n.get("Server"));
 		this.$.textconnected.setContent(l10n.get("ConnectedToServer"));
-		this.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
-		this.$.textservername.setContent(l10n.get("ServerName"));
+		this.$.textservername.setContent(l10n.get("ServerUrl"));
+		this.$.serversettingsname.setContent(l10n.get("ServerName"));
+		this.$.serverdescription.setContent(l10n.get("ServerDescription"));
 		this.$.textusername.setContent(l10n.get("UserId"));
-		this.$.textusermessage.setContent(l10n.get("LeaveUserBlank"));
-		this.$.checkbutton.setText(l10n.get("CheckInfo"));
+		this.$.next.setText(l10n.get("Next"));
+		this.currentserver = preferences.getServer();
 		this.initconnected = preferences.isConnected();
-		if (util.getClientType() == constant.webAppType) {
-			this.initservername = util.getCurrentServerUrl();
-			this.$.servername.setDisabled(true);
-		} else {
-			this.initservername = preferences.getServer();
-		}
-		this.$.servername.setValue(this.initservername);
-		this.initusername = preferences.getNetworkId();
-		this.$.username.setValue(this.initusername);
+		this.initservername = (this.currentserver && this.currentserver.url) ? this.currentserver.url : util.getCurrentServerUrl();
+		this.initusername = preferences.getName();
+		this.networkId = null;
+		this.forbidcheck = false;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textconnected.addClass("rtl-10");
@@ -669,19 +826,290 @@ enyo.kind({
 			this.$.textservername.addClass("rtl-10");
 			this.$.textusername.addClass("rtl-10");
 			this.$.textusermessage.addClass("rtl-10");
-			this.$.checkbutton.addClass("rtl-10");
+			this.$.next.addClass("rtl-10");
+		}
+
+		this.step = 0;
+		if (util.getClientType() == constant.webAppType) {
+			this.step = 3;
+		} else {
+			if (!this.initconnected) {
+				this.step = 0;
+			} else {
+				var token = preferences.getToken();
+				if (token && token.expired) {
+					this.step = 2;
+				} else {
+					this.step = 3;
+				}
+			}
+		}
+		this.displayStep();
+	},
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
+		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
+		this.$.connected.setNodeProperty("checked", this.initconnected);
+		if (util.getClientType() == constant.webAppType) {
+			this.$.servername.setDisabled(true);
+			this.$.username.setDisabled(true);
+		}
+		this.owner.centerDialog(this);
+	},
+
+	displayStep: function() {
+		var
+			vtextservername = false,
+			vserversettingsname = false,
+			vserverdescription = false,
+			vtextservername = false,
+			vservername = false,
+			vserversettingsvalue = false,
+			vserverdescriptionvalue = false,
+			vtextusername = false,
+			vusername = false,
+			vnext = false,
+			vpasswordmessage = false,
+			vpassword = false;
+		if (this.step == 0) {
+		} else if (this.step == 1) {
+			this.$.servername.setValue(constant.defaultServer);
+			vtextservername = vservername = vnext = true;
+		} else if (this.step == 2) {
+			vpasswordmessage = vpassword = vnext = true;
+			this.$.password.startInputListening();
+			if (preferences.getToken() && preferences.getToken().expired) {
+				this.$.passwordmessage.setContent(l10n.get("SecurityMessageExpired", {min: util.getMinPasswordSize()}));
+			} else {
+				this.$.passwordmessage.setContent(l10n.get("SecurityMessageNew", {min: util.getMinPasswordSize()}));
+			}
+		} else if (this.step == 3) {
+			this.$.servername.setValue(this.initservername);
+			this.$.username.setValue(this.initusername);
+			this.$.serversettingsvalue.setContent(this.currentserver.name);
+			this.$.serverdescriptionvalue.setContent(this.currentserver.description);
+			this.$.servername.setDisabled(true);
+			vtextservername = vserversettingsname = vserverdescription = vtextservername = vservername = vserversettingsvalue = vserverdescriptionvalue = vtextusername = vusername = true;
+		}
+		this.$.textservername.setShowing(vtextservername);
+		this.$.serversettingsname.setShowing(vserversettingsname);
+		this.$.serverdescription.setShowing(vserverdescription);
+		this.$.textservername.setShowing(vtextservername);
+		this.$.servername.setShowing(vservername);
+		this.$.serversettingsvalue.setShowing(vserversettingsvalue);
+		this.$.serverdescriptionvalue.setShowing(vserverdescriptionvalue);
+		this.$.textusername.setShowing(vtextusername);
+		this.$.username.setShowing(vusername);
+		this.$.next.setShowing(vnext);
+		this.$.passwordmessage.setShowing(vpasswordmessage);
+		this.$.password.setShowing(vpassword);
+	},
+
+	// Event handling
+	cancel: function() {
+		if (!this.initconnected && this.hasChanged()) {
+			preferences.setServer(null);
+		}
+		this.hide();
+		this.owner.show();
+		this.$.password.stopInputListening();
+	},
+
+	ok: function() {
+		if (!this.hasChanged() || (this.$.connected.getNodeProperty("checked") && this.step != 3)) {
+			this.hide();
+			this.owner.show();
+			return;
+		}
+		this.$.warningbox.setShowing(true);
+		this.$.okbutton.setDisabled(true);
+		this.$.cancelbutton.setDisabled(true);
+		this.$.password.stopInputListening();
+	},
+
+	switchConnection: function() {
+		if (this.forbidcheck) {
+			this.$.connected.setNodeProperty("checked", !this.$.connected.getNodeProperty());
+			return;
+		}
+		this.forbidcheck = true;
+		if (util.getClientType() == constant.webAppType) {
+			this.$.connected.setNodeProperty("checked", true);
+			return;
+		}
+		if (this.step == 0) {
+			this.step++;
+			this.displayStep();
+		}
+	},
+
+	next: function() {
+		if (this.step == 1) {
+			// Retrieve server information
+			var that = this;
+			that.$.spinner.setShowing(true);
+			myserver.getServerInformation(this.$.servername.getValue(), function(inSender, inResponse) {
+				that.currentserver = inResponse;
+				that.currentserver.url = that.$.servername.getValue();
+				preferences.setServer(that.currentserver);
+				that.initservername = that.$.servername.getValue();
+				that.step++;
+				that.displayStep();
+				that.$.spinner.setShowing(false);
+				that.$.warningmessage.setShowing(false);
+			}, function() {
+				that.$.warningmessage.setContent(l10n.get("ErrorLoadingRemote"));
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			});
+		} else if (this.step == 2) {
+			// Validate password size
+			var pass = this.$.password.getPassword();
+			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
+				return;
+			}
+
+			// Try first to create a new user
+			var that = this;
+			that.$.spinner.setShowing(true);
+			myserver.postUser(
+				{
+					name: preferences.getName(),
+					color: preferences.getColor(),
+					language: preferences.getLanguage(),
+					role: "student",
+					password: this.$.password.getPassword()
+				},
+				function(inSender, inResponse) {
+					that.login();
+				},
+				function(response, error) {
+					// User already exist, try to login instead
+					if (error == 22) {
+						that.login();
+					} else {
+						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+						that.$.warningmessage.setShowing(true);
+						that.$.spinner.setShowing(false);
+					}
+				}
+			);
+		}
+	},
+
+	login: function() {
+		var that = this;
+		var user = {
+			name: preferences.getName(),
+			password: that.$.password.getPassword()
+		};
+		myserver.loginUser(user, function(loginSender, loginResponse) {
+				that.step++;
+				that.displayStep();
+				that.networkId = loginResponse.user._id;
+				preferences.setToken({'x_key': that.networkId, 'access_token': loginResponse.token});
+				preferences.setPrivateJournal(loginResponse.user.private_journal);
+				preferences.setSharedJournal(loginResponse.user.shared_journal);
+				that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+				that.$.warningbox.setShowing(true);
+				that.$.okbutton.setDisabled(true);
+				that.$.cancelbutton.setDisabled(true);
+			},
+			function(response, error) {
+				// Login error, retry
+				if (error == 1) {
+					that.$.warningmessage.setContent(l10n.get("UserLoginInvalid"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			}
+		);
+	},
+
+	restart: function() {
+		// Now ConnectedToServer
+		var nowconnected = this.$.connected.getNodeProperty("checked");
+		preferences.setConnected(nowconnected);
+		if (nowconnected) {
+			preferences.setNetworkId(this.networkId);
+		} else {
+			preferences.setNetworkId(null);
+			preferences.setServer(null);
+			preferences.setToken(null);
+		}
+		preferences.save();
+		util.restartApp();
+	},
+
+	// Utility
+	hasChanged: function() {
+		var currentconnected = this.$.connected.getNodeProperty("checked");
+		return (this.initconnected != currentconnected);
+	},
+
+	enterclick: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			this.next();
+			return true;
+		}
+	}
+});
+
+
+
+// Privacy dialog
+enyo.kind({
+	name: "Sugar.DialogPrivacy",
+	kind: "enyo.Popup",
+	classes: "module-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: false,
+	components: [
+		{name: "toolbar", classes: "toolbar", components: [
+			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "privacy.svg"}},
+			{name: "text", content: "xxx", classes: "module-text"},
+			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
+			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
+		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
+		{name: "content", components: [
+			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
+			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
+			{content: ""},
+			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
+			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
+		]}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.text.setContent(l10n.get("MyPrivacy"));
+		this.$.textstats.setContent(l10n.get("PrivacyStats"));
+		this.$.textsync.setContent(l10n.get("PrivacySync"));
+		this.initstats = preferences.getOptions("stats");
+		this.initsync = preferences.getOptions("sync");
+		if (l10n.language.direction == "rtl") {
+			this.$.text.addClass("rtl-10");
+			this.$.textstats.addClass("rtl-10");
+			this.$.textsync.addClass("rtl-10");
 		}
 	},
 
 	rendered: function() {
+		this.inherited(arguments);
 		this.$.cancelbutton.setNodeProperty("title", l10n.get("Cancel"));
 		this.$.okbutton.setNodeProperty("title", l10n.get("Ok"));
-		this.$.connected.setNodeProperty("checked", this.initconnected);
-		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.webAppType) {
-			this.$.servername.setDisabled(disabled);
-		}
-		this.$.username.setDisabled(disabled);
+		this.$.stats.setNodeProperty("checked", !this.initstats);
+		this.$.sync.setNodeProperty("checked", !this.initsync);
 		this.owner.centerDialog(this);
 	},
 
@@ -702,72 +1130,24 @@ enyo.kind({
 		this.$.cancelbutton.setDisabled(true);
 	},
 
-	switchConnection: function() {
-		if (util.getClientType() == constant.webAppType) {
-			this.$.connected.setNodeProperty("checked", true);
-		}
-		var disabled = !this.$.connected.getNodeProperty("checked");
-		if (util.getClientType() != constant.webAppType) {
-			this.$.servername.setDisabled(disabled);
-			if (this.$.connected.getNodeProperty("checked") && this.$.servername.getValue() == null)
-				this.$.servername.setValue(constant.defaultServer);
-		}
-		this.$.username.setDisabled(disabled);
-		this.$.warningmessage.setShowing(this.hasChanged());
-	},
-
-	changed: function() {
-		this.$.warningmessage.setShowing(this.hasChanged());
-	},
-
-	check: function() {
-		if (!this.$.connected.getNodeProperty("checked")) {
-			return;
-		}
-		var that = this;
-		var setOk = function(server, user) {
-			that.$.serverok.setIcon({directory: "icons", icon: (server ? "entry-ok.svg":"entry-cancel.svg")});
-			that.$.userok.setIcon({directory: "icons", icon: (user ? "entry-ok.svg":"entry-cancel.svg")});
-			that.$.serverok.setShowing(true);
-			that.$.userok.setShowing(true);
-		}
-		var uid = this.$.username.getValue();
-		myserver.getUser(uid,
-			function(inSender, inResponse) {
-				setOk(true, (inResponse || !uid));
-			},
-			function() {
-				setOk(false, false);
-			},
-			"http://"+this.$.servername.getValue()
-		);
-	},
-
 	restart: function() {
-		// Get values
-		var currentconnected = this.$.connected.getNodeProperty("checked");
-		var currentservername = this.$.servername.getValue();
-		var currentusername = this.$.username.getValue();
-
-		// Save new settings
-		if ((this.initconnected && !currentconnected) || currentusername == "") {
-			preferences.init();
+		if (this.hasChanged()) {
+			preferences.setOptions("stats", !this.$.stats.getNodeProperty("checked"));
+			preferences.setOptions("sync", !this.$.sync.getNodeProperty("checked"));
+			preferences.save();
+			preferences.saveToServer(myserver, null, null);
 		}
-		preferences.setConnected(currentconnected);
-		preferences.setServer(currentservername);
-		preferences.setNetworkId(currentusername == "" ? null : currentusername);
-		preferences.save();
 		util.restartApp();
 	},
 
 	// Utility
 	hasChanged: function() {
-		var currentconnected = this.$.connected.getNodeProperty("checked");
-		var currentservername = this.$.servername.getValue();
-		var currentusername = this.$.username.getValue();
-		return (this.initconnected != currentconnected || this.initusername != currentusername || this.initservername != currentservername);
+		var currentstats = !this.$.stats.getNodeProperty("checked");
+		var currentsync = !this.$.sync.getNodeProperty("checked");
+		return (this.initstats != currentstats || this.initsync != currentsync);
 	}
 });
+
 
 //-------------------------- Settings utility classes
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Sprint Math</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/activity.css">
+
+    <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+    <!-- Add more buttons here -->
+
+    <!-- Buttons with class="pull-right" will be right aligned -->
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+    <!-- Replace this message with your own content -->
+    <div id="container" class="col-lg-8 col-md-12 col-12">
+        <div class="col-12">
+            <div id="time" class="col-lg-3 col-md-4 col-5">
+                Time &nbsp;: &nbsp;<span id="timeremaining">60</span>
+            </div>
+            <div id="score" class="col-lg-3 col-md-4 col-5 pull-right">
+                Score: <span id="scorevalue">0</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="answer" class="row align-items-center justify-content-center col-12">
+            <div id="correct" class="col-lg-3 col-md-4 col-6">Correct</div>
+            <div id="gameOver" class="col-md-8 col-10"></div>
+            <div id="wrong" class="col-lg-3 col-md-4 col-6">Try Again</div>
+        </div>
+        <div id="question" class="col-md-8 col-10"></div>
+
+        <div id="instruction" class="col-md-8 col-10">Click on the correct answer</div>
+
+        <div id="choices" class="col-md-8 col-10">
+            <div id="box1" class="box col-2"></div>
+            <div id="box2" class="box col-2"></div>
+            <div id="box3" class="box col-2"></div>
+            <div id="box4" class="box col-2"></div>
+        </div>
+        <div class="row align-items-center justify-content-center col-12">
+            <div id="start" class="col-md-8 col-10">Start Game</div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
