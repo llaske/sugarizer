@@ -6,3 +6,4 @@ requirejs.config({
 });
 
 requirejs(["activity/activity"]);
+
