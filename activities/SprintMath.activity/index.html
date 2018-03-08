@@ -10,6 +10,9 @@
           href="lib/sugar-web/graphics/css/sugar-96dpi.css">
     <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
           href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <!-- Add locale.ini file -->
+    <link rel="prefetch" type="application/l10n" href="locale.ini">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/activity.css">
 
@@ -33,21 +36,21 @@
     <div id="container" class="col-lg-8 col-md-12 col-12">
         <div class="col-12">
             <div id="time" class="col-lg-3 col-md-4 col-5">
-                Time &nbsp;: &nbsp;<span id="timeremaining">60</span>
+                <span id="timeString"></span> &nbsp;: &nbsp;<span id="timeremaining">60</span>
             </div>
             <div id="score" class="col-lg-3 col-md-4 col-5 pull-right">
-                Score: <span id="scorevalue">0</span>
+                <span id="scoreString"></span>:<span id="scorevalue">0</span>
             </div>
         </div>
         <div class="clearfix"></div>
         <div id="answer" class="row align-items-center justify-content-center col-12">
-            <div id="correct" class="col-lg-3 col-md-4 col-6">Correct</div>
+            <div id="correct" class="col-lg-3 col-md-4 col-6"><span id="correctString"></span></div>
             <div id="gameOver" class="col-md-8 col-10"></div>
-            <div id="wrong" class="col-lg-3 col-md-4 col-6">Try Again</div>
+            <div id="wrong" class="col-lg-3 col-md-4 col-6"><span id="tryagainString"></span></div>
         </div>
         <div id="question" class="col-md-8 col-10"></div>
 
-        <div id="instruction" class="col-md-8 col-10">Click on the correct answer</div>
+        <div id="instruction" class="col-md-8 col-10"><span id="instructionString"></span></div>
 
         <div id="choices" class="col-md-8 col-10">
             <div id="box1" class="box col-2"></div>
@@ -56,7 +59,7 @@
             <div id="box4" class="box col-2"></div>
         </div>
         <div class="row align-items-center justify-content-center col-12">
-            <div id="start" class="col-md-8 col-10">Start Game</div>
+            <div id="start" class="col-md-8 col-10"></div>
         </div>
     </div>
 

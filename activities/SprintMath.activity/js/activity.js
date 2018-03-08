@@ -1,5 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
-
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n"], function (activity, env, icon, webL10n) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
@@ -24,12 +23,19 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
         function gameOver() {
             clearInterval(action);
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = "<p>Game Over, Your Score is : " + score + "</p>";
+            document.getElementById("gameOver").innerHTML = "<p>" + webL10n.get("GameOver") + score + "</p>";
             document.getElementById("timeremaining").innerHTML = 60;
             document.getElementById("start").innerHTML = "Start Game";
             hide("time");
             hide("correct");
             hide("wrong");
+
+            document.getElementById("question").innerHTML = '';
+
+            for (var i = 1; i < 5; i++) {
+                document.getElementById("box" + i).innerHTML = '';
+            }
+
             play = false;
         }
 
@@ -58,7 +64,6 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                 prod = x - y;
                 sign = "-";
             }
-            console.log(prod)
             correctans = prod;
 
             document.getElementById("question").innerHTML = x + sign + y;
@@ -119,7 +124,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                 document.getElementById("scorevalue").innerHTML = score;
                 show("time");
                 hide("gameOver");
-                document.getElementById("start").innerHTML = "Reset Game";
+                document.getElementById("start").innerHTML = webL10n.get("Reset");
                 timeremaining = 60;
                 startCountdown();
                 generateQuestion();
@@ -128,57 +133,78 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
 
         function resumeGame() {
             document.getElementById("scorevalue").innerHTML = score;
-            document.getElementById("timeremaining").innerHTML= timeremaining;
+            document.getElementById("timeremaining").innerHTML = timeremaining;
             show("time");
             hide("gameOver");
-            document.getElementById("start").innerHTML = "Reset Game";
+            document.getElementById("start").innerHTML = webL10n.get("Reset");
             startCountdown();
             generateQuestion();
         }
 
         document.getElementById("stop-button").addEventListener('click', function (event) {
-            if (play == true) {
-                console.log("writing...");
-                object_store = {
-                    "play": play,
-                    "score": score,
-                    "timeremaining": timeremaining
-                };
-                console.log(object_store);
-                
-                var jsonData = JSON.stringify(object_store);
-                activity.getDatastoreObject().setDataAsText(jsonData);
-                activity.getDatastoreObject().save(function (error) {
-                    if (error === null) {
-                        console.log("write done.");
-                    } else {
-                        console.log("write failed.");
-                    }
-                });
-            }
+            console.log("writing...");
+            object_store = {
+                "play": play,
+                "score": score,
+                "timeremaining": timeremaining
+            };
+
+            var jsonData = JSON.stringify(object_store);
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save(function (error) {
+                if (error === null) {
+                    console.log("write done.");
+                } else {
+                    console.log("write failed.");
+                }
+            });
         });
 
         env.getEnvironment(function (err, environment) {
             currentenv = environment;
 
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+            console.log("Language code in env="+language);
+
             // Load from datastore
             if (!environment.objectId) {
                 console.log("New instance");
             } else {
-                console.log("Existing instance");
                 activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
                     if (error == null && data != null) {
-                        stored_data= JSON.parse(data);
-                        console.log(stored_data);
-                        play=stored_data.play;
-                        score=stored_data.score;
-                        timeremaining= stored_data.timeremaining;
-                        resumeGame();
-                    }else{
+                        stored_data = JSON.parse(data);
+                        play = stored_data.play;
+                        score = stored_data.score;
+                        timeremaining = stored_data.timeremaining;
+                        if(play){
+                            resumeGame()
+                        }else{
+                            startGame()
+                        }
+
+                    } else {
                         console.log(error);
                     }
                 });
             }
+        });
+
+        window.addEventListener("localized", function () {
+            // Set current language to Sugarizer
+            console.log("Language code in window.addeventlistener="+webL10n.language.code);
+
+            document.getElementById("timeString").innerHTML = webL10n.get("Time");
+            document.getElementById("scoreString").innerHTML = webL10n.get("Score");
+            document.getElementById("instructionString").innerHTML = webL10n.get("Instruction");
+
+            if (play) {
+                document.getElementById("start").innerHTML = webL10n.get("Reset");
+            } else {
+                document.getElementById("start").innerHTML = webL10n.get("Start");
+            }
+
         });
 
     });
