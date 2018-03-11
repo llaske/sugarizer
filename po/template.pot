@@ -1,10 +1,10 @@
-#. extracted from ../locale.ini
+#. extracted from locale.ini
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 16:09:42 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sun Mar 11 2018 10:56:40 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -297,6 +297,47 @@ msgctxt "AboutMyComputer"
 msgid "About my computer"
 msgstr ""
 
+#: MySecurity
+msgctxt "MySecurity"
+msgid "My security"
+msgstr ""
+
+#: SecurityMessage
+msgctxt "SecurityMessage"
+msgid "If you want to change your images, first type current images:"
+msgstr ""
+
+#. Do not translate {{min}}
+#: SecurityMessageNew
+msgctxt "SecurityMessageNew"
+msgid "Now choose at least {{min}} new images:"
+msgstr ""
+
+#: SecurityMessageDone
+msgctxt "SecurityMessageDone"
+msgid "Images updated!"
+msgstr ""
+
+#: InvalidPassword
+msgctxt "InvalidPassword"
+msgid "Invalid images"
+msgstr ""
+
+#: MyPrivacy
+msgctxt "MyPrivacy"
+msgid "My privacy"
+msgstr ""
+
+#: PrivacyStats
+msgctxt "PrivacyStats"
+msgid "Do not send to the server statistics about my usage of the app"
+msgstr ""
+
+#: PrivacySync
+msgctxt "PrivacySync"
+msgid "Do not synchronize my local journal with the server"
+msgstr ""
+
 #: Language
 msgctxt "Language"
 msgid "Language"
@@ -483,24 +524,34 @@ msgctxt "ConnectedToServer"
 msgid "Connected to a server"
 msgstr ""
 
+#: ServerUrl
+msgctxt "ServerUrl"
+msgid "Server address:"
+msgstr ""
+
+#: ServerDescription
+msgctxt "ServerDescription"
+msgid "Description:"
+msgstr ""
+
 #: ServerName
 msgctxt "ServerName"
-msgid "Server address:"
+msgid "Server Name:"
 msgstr ""
 
 #: UserId
 msgctxt "UserId"
-msgid "User Id on server:"
+msgid "User name on server:"
 msgstr ""
 
-#: CheckInfo
-msgctxt "CheckInfo"
-msgid "Check"
+#: SessionExpired
+msgctxt "SessionExpired"
+msgid "Server connection expired"
 msgstr ""
 
-#: LeaveUserBlank
-msgctxt "LeaveUserBlank"
-msgid "(leave blank for a new user)"
+#: SecurityMessageExpired
+msgctxt "SecurityMessageExpired"
+msgid "Connection expired, type your images:"
 msgstr ""
 
 #: NeighborhoodView
@@ -541,6 +592,53 @@ msgstr ""
 #: ClickToColor
 msgctxt "ClickToColor"
 msgid "Click to change color:"
+msgstr ""
+
+#: NewUser
+msgctxt "NewUser"
+msgid "New user"
+msgstr ""
+
+#: Login
+msgctxt "Login"
+msgid "Login"
+msgstr ""
+
+#: Logoff
+msgctxt "Logoff"
+msgid "Logoff"
+msgstr ""
+
+#: ChooseName
+msgctxt "ChooseName"
+msgid "Choose name:"
+msgstr ""
+
+#: Password
+msgctxt "Password"
+msgid "Your images:"
+msgstr ""
+
+#. Do not translate {{min}}
+#: ChoosePassword
+msgctxt "ChoosePassword"
+msgid "Choose at least {{min}} images:"
+msgstr ""
+
+#: UserLoginInvalid
+msgctxt "UserLoginInvalid"
+msgid "Invalid user name or images"
+msgstr ""
+
+#: UserAlreadyExist
+msgctxt "UserAlreadyExist"
+msgid "User already exist"
+msgstr ""
+
+#. Do not translate {{code}}
+#: ServerError
+msgctxt "ServerError"
+msgid "Server error code {{code}}"
 msgstr ""
 
 #: ServerNotSet
