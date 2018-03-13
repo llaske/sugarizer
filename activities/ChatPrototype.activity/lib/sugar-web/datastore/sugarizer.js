@@ -54,6 +54,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			}
 			metadata["textsize"] = text.length;
 		}
+		var sugar_settings = html5storage.getValue("sugar_settings");
+		if (sugar_settings) {
+			metadata["buddy_name"] = sugar_settings.name;
+			metadata["buddy_color"] = sugar_settings.colorvalue;
+		}
         if (html5storage.setValue(datastorePrefix + objectId, {
             metadata: metadata,
             text: (text === undefined) ? null : { link: datastoreTextPrefix + objectId }
