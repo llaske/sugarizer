@@ -346,6 +346,7 @@ enyo.kind({
 					preferences.setNetworkId(inResponse._id);
 					preferences.setPrivateJournal(inResponse.private_journal);
 					preferences.setSharedJournal(inResponse.shared_journal);
+					l10n.language.code = inResponse.language;
 					var changed = preferences.merge(inResponse);
 					if (changed) {
 						preferences.save();
