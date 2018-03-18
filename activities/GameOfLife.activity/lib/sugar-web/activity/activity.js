@@ -79,7 +79,10 @@ define(["webL10n",
                 datastoreObject.getMetadata(function (error, metadata) {
                     activityPalette.setTitleDescription(metadata);
                 });
-            });
+            })
+			if (environment.standAlone) {
+				document.getElementById("stop-button").style.visibility = "hidden";
+			};
         });
     };
 

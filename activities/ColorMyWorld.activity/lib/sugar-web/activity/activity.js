@@ -1,4 +1,4 @@
-define(["sugar-web/webL10n",
+define(["webL10n",
         "sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
@@ -21,7 +21,7 @@ define(["sugar-web/webL10n",
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             window.dispatchEvent(pauseEvent);
         }
@@ -34,7 +34,7 @@ define(["sugar-web/webL10n",
         function sendStopEvent() {
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             var result = window.dispatchEvent(stopEvent);
             if (result) {
@@ -79,7 +79,10 @@ define(["sugar-web/webL10n",
                 datastoreObject.getMetadata(function (error, metadata) {
                     activityPalette.setTitleDescription(metadata);
                 });
-            });
+            })
+			if (environment.standAlone) {
+				document.getElementById("stop-button").style.visibility = "hidden";
+			};
         });
     };
 
