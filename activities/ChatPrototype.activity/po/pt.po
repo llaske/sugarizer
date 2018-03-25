@@ -1,0 +1,59 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 17:52:44 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: WriteYourMessage
+msgctxt "WriteYourMessage"
+msgid "Write your message here..."
+msgstr ""
+
+#: DisconnectedFromWebSocket
+msgctxt "DisconnectedFromWebSocket"
+msgid "Disconnected From Web Socket."
+msgstr ""
+
+#: ConnectionClosed
+msgctxt "ConnectionClosed"
+msgid "Connection Closed"
+msgstr ""
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr ""
+
+#: Error
+msgctxt "Error"
+msgid "Error"
+msgstr ""
+
+#: status
+msgctxt "status"
+msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
+msgstr ""
+
+#: Join
+msgctxt "Join"
+msgid "join"
+msgstr ""
+
+#: Leave
+msgctxt "Leave"
+msgid "leave"
+msgstr ""
+
+#: Chat
+msgctxt "Chat"
+msgid "the chat"
+msgstr ""
