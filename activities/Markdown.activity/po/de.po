@@ -1,0 +1,99 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:16:51 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: sample-input
+msgctxt "sample-input"
+msgid "Sample input"
+msgstr ""
+
+#: need-help
+msgctxt "need-help"
+msgid "Do you need help?"
+msgstr ""
+
+#: insertText
+msgctxt "insertText"
+msgid "insertText"
+msgstr ""
+
+#: put-it-right-here
+msgctxt "put-it-right-here"
+msgid "whatever you are quoting, put it right here"
+msgstr ""
+
+#: wmd-bold-button-second
+msgctxt "wmd-bold-button-second"
+msgid "Strong <strong> Ctrl+B"
+msgstr ""
+
+#: wmd-italic-button-second
+msgctxt "wmd-italic-button-second"
+msgid "Emphasis <em> Ctrl+I"
+msgstr ""
+
+#: wmd-heading-button
+msgctxt "wmd-heading-button"
+msgid "Heading <h1>/<h2> Ctrl+H"
+msgstr ""
+
+#: wmd-hr-button
+msgctxt "wmd-hr-button"
+msgid "Horizontal Rule <hr> Ctrl+R"
+msgstr ""
+
+#: wmd-olist-button
+msgctxt "wmd-olist-button"
+msgid "Numbered List <ol> Ctrl+O"
+msgstr ""
+
+#: wmd-ulist-button
+msgctxt "wmd-ulist-button"
+msgid "Bulleted List <ul> Ctrl+U"
+msgstr ""
+
+#: wmd-code-button
+msgctxt "wmd-code-button"
+msgid "Code Sample <pre><code> Ctrl+K"
+msgstr ""
+
+#: wmd-quote-button
+msgctxt "wmd-quote-button"
+msgid "Blockquote <blockquote> Ctrl+Q"
+msgstr ""
+
+#: wmd-link-button
+msgctxt "wmd-link-button"
+msgid "Hyperlink <a> Ctrl+L"
+msgstr ""
+
+#: wmd-undo-button
+msgctxt "wmd-undo-button"
+msgid "Undo - Ctrl+Z"
+msgstr ""
+
+#: wmd-redo-button
+msgctxt "wmd-redo-button"
+msgid "Redo - Ctrl+Shift+Z"
+msgstr ""
+
+#: wmd-showHideEditor-button
+msgctxt "wmd-showHideEditor-button"
+msgid "Show/Hide Editor"
+msgstr ""
+
+#: wmd-showHidePreview-button
+msgctxt "wmd-showHidePreview-button"
+msgid "Show/Hide Preview"
+msgstr ""
