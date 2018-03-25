@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Nov 11 2017 21:23:18 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 #: StartNew
 msgctxt "StartNew"
 msgid "Start new"
-msgstr "Starte neu"
+msgstr "Neustarten"
 
 #. Do not translate {{name}}
 #: NameActivity
@@ -140,7 +140,7 @@ msgstr "Sek. her"
 #: Ago_short
 msgctxt "Ago_short"
 msgid "{{time}} ago"
-msgstr "{{time}} ago"
+msgstr "vor {{time}}"
 
 #: Minutes_one_short
 msgctxt "Minutes_one_short"
@@ -300,28 +300,28 @@ msgstr "Über meinen Computer"
 #: MySecurity
 msgctxt "MySecurity"
 msgid "My security"
-msgstr "My security"
+msgstr "Meine Sicherheit"
 
 #: SecurityMessage
 msgctxt "SecurityMessage"
 msgid "If you want to change your images, first type current images:"
-msgstr "If you want to change your images, first type current images:"
+msgstr "Wenn du deine Bilder ändern möchtest, tippe die aktuellen Bilder:"
 
 #. Do not translate {{min}}
 #: SecurityMessageNew
 msgctxt "SecurityMessageNew"
 msgid "Now choose at least {{min}} new images:"
-msgstr "Now choose at least {{min}} new images:"
+msgstr "Wähle jetzt zumindest {{min}} neue Bilder:"
 
 #: SecurityMessageDone
 msgctxt "SecurityMessageDone"
 msgid "Images updated!"
-msgstr "Images updated!"
+msgstr "Bilder aktualisiert!"
 
 #: InvalidPassword
 msgctxt "InvalidPassword"
 msgid "Invalid images"
-msgstr "Invalid images"
+msgstr "Ungültige Bilder"
 
 #: Language
 msgctxt "Language"
@@ -448,6 +448,37 @@ msgctxt "UserAgent"
 msgid "User agent:"
 msgstr "User-Agent:"
 
+#: Storage
+msgctxt "Storage"
+msgid "Storage:"
+msgstr "Storage:"
+
+#. Do not translate {{used}} {{percent}}
+#: StorageSize
+msgctxt "StorageSize"
+msgid "{{used}} bytes - {{percent}}%"
+msgstr "{{used}} bytes - {{percent}}%"
+
+#: JournalAlmostFull
+msgctxt "JournalAlmostFull"
+msgid "Warning: Journal almost full!"
+msgstr "Warning: Journal almost full!"
+
+#: ShortForBytes
+msgctxt "ShortForBytes"
+msgid "b"
+msgstr "b"
+
+#: ShortForKilobytes
+msgctxt "ShortForKilobytes"
+msgid "Kb"
+msgstr "Kb"
+
+#: ShortForMegabytes
+msgctxt "ShortForMegabytes"
+msgid "Mb"
+msgstr "Mb"
+
 #: Copyright
 msgctxt "Copyright"
 msgid "Copyright and license"
@@ -456,7 +487,7 @@ msgstr "Urheberschaft und Lizenz"
 #: LicenseTerms
 msgctxt "LicenseTerms"
 msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
-msgstr "Sugarizer ist eine quelloffene Software, die unter der Apache 2.0 Lizenz lizensiert ist."
+msgstr "Sugarizer ist eine quelloffene Software, die unter der Apache 2.0 Lizenz lizenziert ist."
 
 #: RestartActivity
 msgctxt "RestartActivity"
@@ -527,22 +558,22 @@ msgstr "Server Name:"
 #: UserId
 msgctxt "UserId"
 msgid "User name on server:"
-msgstr "User name on server:"
+msgstr "Benutzername auf Server:"
 
 #: SessionExpired
 msgctxt "SessionExpired"
 msgid "Server connection expired"
-msgstr "Server connection expired"
+msgstr "Serververbindung abgelaufen"
 
 #: SecurityMessageExpired
 msgctxt "SecurityMessageExpired"
 msgid "Connection expired, type your images:"
-msgstr "Connection expired, type your images:"
+msgstr "Verbindung abgelaufen, tippe deine Bilder:"
 
 #: NeighborhoodView
 msgctxt "NeighborhoodView"
 msgid "Neighborhood View"
-msgstr "Nachbarschaft"
+msgstr "Nachbarschaft Ansicht"
 
 #: SearchNeighbor
 msgctxt "SearchNeighbor"
@@ -577,7 +608,7 @@ msgstr "Zurück"
 #: NewUser
 msgctxt "NewUser"
 msgid "New user"
-msgstr "New user"
+msgstr "Neuer Benutzer"
 
 #: Login
 msgctxt "Login"
@@ -587,33 +618,33 @@ msgstr "Login"
 #: Logoff
 msgctxt "Logoff"
 msgid "Logoff"
-msgstr "Logoff"
+msgstr "Abmelden"
 
 #: ChooseName
 msgctxt "ChooseName"
 msgid "Choose name:"
-msgstr "Choose name:"
+msgstr "Namen wählen:"
 
 #: Password
 msgctxt "Password"
 msgid "Your images:"
-msgstr "Your images:"
+msgstr "Deine Bilder:"
 
 #. Do not translate {{min}}
 #: ChoosePassword
 msgctxt "ChoosePassword"
 msgid "Choose at least {{min}} images:"
-msgstr "Choose at least {{min}} images:"
+msgstr "Wähle zumindest {{min}} Bilder:"
 
 #: UserLoginInvalid
 msgctxt "UserLoginInvalid"
 msgid "Invalid user name or images"
-msgstr "Invalid user name or images"
+msgstr "Ungültiger Benutzername oder Bilder"
 
 #: UserAlreadyExist
 msgctxt "UserAlreadyExist"
 msgid "User already exist"
-msgstr "User already exist"
+msgstr "Benutzer existiert bereits"
 
 #. Do not translate {{code}}
 #: ServerError
@@ -672,6 +703,16 @@ msgctxt "Loading"
 msgid "Loading..."
 msgstr "Laden..."
 
+#: Synchronize
+msgctxt "Synchronize"
+msgid "Synchronize"
+msgstr "Synchronize"
+
+#: RetrievingJournal
+msgctxt "RetrievingJournal"
+msgid "Synchronizing Journal..."
+msgstr "Synchronizing Journal..."
+
 #: AllDataWillBeLost
 msgctxt "AllDataWillBeLost"
 msgid "Journal and settings will be lost"
@@ -690,18 +731,18 @@ msgstr "Reinitialisiere Journal und Einstellungen"
 #: CopyToDevice
 msgctxt "CopyToDevice"
 msgid "Copy to your device"
-msgstr "Copy to your device"
+msgstr "Kopiere auf dein Gerät"
 
 #. Do not translate {{file}}
 #: FileWroteTo
 msgctxt "FileWroteTo"
 msgid "Wrote file to {{file}}"
-msgstr "Wrote file to {{file}}"
+msgstr "Datei nach {{file}} geschrieben"
 
 #: ErrorWritingFile
 msgctxt "ErrorWritingFile"
 msgid "Can't write file"
-msgstr "Can't write file"
+msgstr "Kann Datei nicht schreiben"
 
 #: Tutorial
 msgctxt "Tutorial"
@@ -711,17 +752,17 @@ msgstr "Tutorial"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Bisherige"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Nächster"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Ende"
 
 #: TutoUserTitle
 msgctxt "TutoUserTitle"
@@ -731,17 +772,17 @@ msgstr "Me"
 #: TutoUserContent
 msgctxt "TutoUserContent"
 msgid "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
-msgstr "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr "Dieses Icon bist du. Führe die Maus darüber oder halte es gedrückt um deine Einstellungen (Name, Farbe, ...) zu ändern."
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"
 msgid "Activity"
-msgstr "Activity"
+msgstr "Aktivität"
 
 #: TutoActivityContent
 msgctxt "TutoActivityContent"
 msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
-msgstr "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
+msgstr "Rund um dich sind Icons für Activities. Klicke auf diese Icons um die Activities zu starten."
 
 #: TutoJournalTitle
 msgctxt "TutoJournalTitle"
@@ -751,67 +792,67 @@ msgstr "Journal"
 #: TutoJournalContent
 msgctxt "TutoJournalContent"
 msgid "Journal is the place to retrieve the work you've done in activities and access your history."
-msgstr "Journal is the place to retrieve the work you've done in activities and access your history."
+msgstr "Journal ist der Ort um die Arbeit, die du in Activities gemacht hast, und deine Geschichte abzurufen."
 
 #: TutoFavoriteTitle
 msgctxt "TutoFavoriteTitle"
 msgid "Favorite view"
-msgstr "Favorite view"
+msgstr "Favoriten Ansicht"
 
 #: TutoFavoriteContent
 msgctxt "TutoFavoriteContent"
 msgid "Use this button to display the favorite view."
-msgstr "Use this button to display the favorite view."
+msgstr "Verwende diesen Knopf um die Favoriten Ansicht anzuzeigen."
 
 #: TutoListTitle
 msgctxt "TutoListTitle"
 msgid "List view"
-msgstr "List view"
+msgstr "Listen Ansicht"
 
 #: TutoListContent
 msgctxt "TutoListContent"
 msgid "Use this button to display all activities and to select activities in the favorite view."
-msgstr "Use this button to display all activities and to select activities in the favorite view."
+msgstr "Verwende diesen Knopf um alle Activities anzuzeigen und Activities für deine Favoriten Ansicht auszuwählen."
 
 #: TutoFavswitchTitle
 msgctxt "TutoFavswitchTitle"
 msgid "Favorite switch"
-msgstr "Favorite switch"
+msgstr "Favoriten Knopf"
 
 #: TutoFavswitchContent
 msgctxt "TutoFavswitchContent"
 msgid "Use this icon to change visibility of this activity in the favorite view."
-msgstr "Use this icon to change visibility of this activity in the favorite view."
+msgstr "Verwende dieses Icon um die Sichtbarkeit dieser Aktivität in der Favoriten Ansicht zu ändern."
 
 #: TutoSearchTitle
 msgctxt "TutoSearchTitle"
 msgid "Search activity"
-msgstr "Search activity"
+msgstr "Aktivität suchen"
 
 #: TutoSearchContent
 msgctxt "TutoSearchContent"
 msgid "Use this text to search an activity by its name."
-msgstr "Use this text to search an activity by its name."
+msgstr "Verwende diesen Text um eine Aktivität mit ihrem Namen zu suchen."
 
 #: TutoNeighborTitle
 msgctxt "TutoNeighborTitle"
 msgid "Neighborhood view"
-msgstr "Neighborhood view"
+msgstr "Nachbarschaft Ansicht"
 
 #: TutoNeighborContent
 msgctxt "TutoNeighborContent"
 msgid "Display users around you and join activities they shared."
-msgstr "Display users around you and join activities they shared."
+msgstr "Zeige Benutzer um dich herum an und trete von ihnen geteilten Activities bei."
 
 #: TutoRunTitle
 msgctxt "TutoRunTitle"
 msgid "Now it's your turn!"
-msgstr "Now it's your turn!"
+msgstr "Jetzt bist du dran!"
 
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "Now look for the Shared Notes activity icon and click on it to run the activity."
-msgstr "Now look for the Shared Notes activity icon and click on it to run the activity."
+msgstr "Suche die Geteilte Notizen Aktivität und klicke auf sie um sie zu starten."
 
 #: TutoJournalIntroTitle
 msgctxt "TutoJournalIntroTitle"
@@ -821,117 +862,117 @@ msgstr "Journal"
 #: TutoJournalIntroContent
 msgctxt "TutoJournalIntroContent"
 msgid "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
-msgstr "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
+msgstr "Du bist im Journal. Das Journal ist der Ort um die Arbeit, die du gemacht hast, abzurufen. Jede Reihe ist eine Sache, die du gemacht hast. Klicke einfach darauf um sie in ihrem alten Zustand wiederzuöffnen."
 
 #: TutoJournalActivityTitle
 msgctxt "TutoJournalActivityTitle"
 msgid "Activity"
-msgstr "Activity"
+msgstr "Aktivität"
 
 #: TutoJournalActivityContent
 msgctxt "TutoJournalActivityContent"
 msgid "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
-msgstr "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgstr "Hier ist das Icon einer Aktivität, die du durchgeführt hast. Führe die Maus darüber oder halte gedrückt um die fortgeschrittenen Optionen (eine Zeile löschen, in ein andere Journal kopieren, ...) zu erreichen."
 
 #: TutoJournalTimeTitle
 msgctxt "TutoJournalTimeTitle"
 msgid "When"
-msgstr "When"
+msgstr "Wann"
 
 #: TutoJournalTimeContent
 msgctxt "TutoJournalTimeContent"
 msgid "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
-msgstr "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
+msgstr "Hier ist die Zeit wann du diese Aktivität verwendet hast: Vor Sekunden, Minuten, Stunden, Tagen oder Monaten."
 
 #: TutoJournalTitleTitle
 msgctxt "TutoJournalTitleTitle"
 msgid "Title"
-msgstr "Title"
+msgstr "Titel"
 
 #: TutoJournalTitleContent
 msgctxt "TutoJournalTitleContent"
 msgid "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
-msgstr "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
+msgstr "Es ist der Titel der Aktivität. In der Standardeinstellung ist es nur der Name der Aktivität, aber du kannst ihn ändern, indem du einfach auf ihn klickst."
 
 #: TutoJournalFavoriteTitle
 msgctxt "TutoJournalFavoriteTitle"
 msgid "Favorite"
-msgstr "Favorite"
+msgstr "Favorit"
 
 #: TutoJournalFavoriteContent
 msgctxt "TutoJournalFavoriteContent"
 msgid "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
-msgstr "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
+msgstr "Wenn du auf dieses Icon klickst, wird der Journal Eintrag als Favorit markiert, womit es leicht für dich wird ihn in der Liste wiederzufinden."
 
 #: TutoJournalFavButtonTitle
 msgctxt "TutoJournalFavButtonTitle"
 msgid "Show favorites"
-msgstr "Show favorites"
+msgstr "Zeige Favoriten"
 
 #: TutoJournalFavButtonContent
 msgctxt "TutoJournalFavButtonContent"
 msgid "Click on this icon to filter Journal on the favorite flag."
-msgstr "Click on this icon to filter Journal on the favorite flag."
+msgstr "Klicke auf dieses Icon um das Journal nach Favoriten zu filtern."
 
 #: TutoJournalSearchTitle
 msgctxt "TutoJournalSearchTitle"
 msgid "Search entry"
-msgstr "Search entry"
+msgstr "Suche Eintrag"
 
 #: TutoJournalSearchContent
 msgctxt "TutoJournalSearchContent"
 msgid "Use this text to search an entry by its title."
-msgstr "Use this text to search an entry by its title."
+msgstr "Verwende diesen Text um einen Eintrag nach seinem Namen zu suchen."
 
 #: TutoJournalTypeTitle
 msgctxt "TutoJournalTypeTitle"
 msgid "Filter by type"
-msgstr "Filter by type"
+msgstr "Filter nach Typ"
 
 #: TutoJournalTypeContent
 msgctxt "TutoJournalTypeContent"
 msgid "Click here to select and filter Journal by activity type."
-msgstr "Click here to select and filter Journal by activity type."
+msgstr "Klicke hier um das Journal nach Aktivität Typ zu filtern."
 
 #: TutoJournalTimeButtonTitle
 msgctxt "TutoJournalTimeButtonTitle"
 msgid "Filter by time"
-msgstr "Filter by time"
+msgstr "Nach Zeit filtern"
 
 #: TutoJournalTimeButtonContent
 msgctxt "TutoJournalTimeButtonContent"
 msgid "Click here to view only activities that you've done in a period of time."
-msgstr "Click here to view only activities that you've done in a period of time."
+msgstr "Klicke hier um nur Activities, die du in einem Zeitraum gemacht hast, anzuzeigen."
 
 #: TutoJournalLocalTitle
 msgctxt "TutoJournalLocalTitle"
 msgid "Local Journal"
-msgstr "Local Journal"
+msgstr "Lokales Journal"
 
 #: TutoJournalLocalContent
 msgctxt "TutoJournalLocalContent"
 msgid "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
-msgstr "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
+msgstr "Wenn dieses Icon aktiv ist, siehst du den Inhalt deines lokalen Journals. Alle Inhalte sind auf deinem aktuellen Gerät gespeichert."
 
 #: TutoJournalCloudOneTitle
 msgctxt "TutoJournalCloudOneTitle"
 msgid "Remote Journal"
-msgstr "Remote Journal"
+msgstr "Entferntes Journal"
 
 #: TutoJournalCloudOneContent
 msgctxt "TutoJournalCloudOneContent"
 msgid "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
-msgstr "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
+msgstr "Klicke auf dieses Icon um den Inhalt deines privaten Journals am Server anzuzeigen. Nur du hast Zugriff auf dieses Journal. Es ist ein guter Ort um Inhalte, die du nicht verlieren möchtest, zu speichern."
 
 #: TutoJournalCloudAllTitle
 msgctxt "TutoJournalCloudAllTitle"
 msgid "Shared Journal"
-msgstr "Shared Journal"
+msgstr "Geteiltes Journal"
 
 #: TutoJournalCloudAllContent
 msgctxt "TutoJournalCloudAllContent"
 msgid "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
-msgstr "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
+msgstr "Klicke auf dieses Icon um den Inhalt des geteilten Journals am Server anzuzeigen. Jeder zu diesem Server verbundene Benutzer hat Zugriff auf dieses Journal. Es ist ein guter Ort um deine Arbeit mit anderen zu teilen."
 
 #: TutoGotoHomeTitle
 msgctxt "TutoGotoHomeTitle"
@@ -941,62 +982,62 @@ msgstr "Home view"
 #: TutoGotoHomeContent
 msgctxt "TutoGotoHomeContent"
 msgid "Click here to go back to the home view."
-msgstr "Click here to go back to the home view."
+msgstr "Klicke hier um zur Heim Ansicht zurückzukehren."
 
 #: TutoNeighborIntroTitle
 msgctxt "TutoNeighborIntroTitle"
 msgid "Neighborhood view"
-msgstr "Neighborhood view"
+msgstr "Nachbarschaft Ansicht"
 
 #: TutoNeighborIntroContent
 msgctxt "TutoNeighborIntroContent"
 msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server."
-msgstr "You're in the Neighborhood view. Here you could see users around you connected to the same server."
+msgstr "Du bist in der Nachbarschaft Ansicht. Hier siehst du andere Benutzer, die mit dem selben Server verbunden sind."
 
 #: TutoNeighborIntroContent2
 msgctxt "TutoNeighborIntroContent2"
 msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
-msgstr "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
+msgstr "Du bist in der Nachbarschaft Ansicht. Hier siehst du andere Benutzer, die mit dem selben Server verbunden sind. Du siehst auch alle WiFI Access Points um dich herum."
 
 #: TutoNeighborUserTitle
 msgctxt "TutoNeighborUserTitle"
 msgid "You"
-msgstr "You"
+msgstr "Du"
 
 #: TutoNeighborUserContent
 msgctxt "TutoNeighborUserContent"
 msgid "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
-msgstr "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr "Dieses Icon ist wie dich andere Benutzer in deren Nachbarschaft Ansicht sehen. Führe die Maus darüber oder halte es gedrückt um deine Einstellungen (Name, Farbe, ...) zu ändern."
 
 #: TutoNeighborServerTitle
 msgctxt "TutoNeighborServerTitle"
 msgid "Your server"
-msgstr "Your server"
+msgstr "Dein Server"
 
 #: TutoNeighborServerContent
 msgctxt "TutoNeighborServerContent"
 msgid "This icon is the server where you're connected. You could only see users connected to the same server than you."
-msgstr "This icon is the server where you're connected. You could only see users connected to the same server than you."
+msgstr "Dieses Icon ist der Server mit dem du verbunden bist. Du kannst nur Benutzer sehen, die mit dem selben Server wie du verbunden sind."
 
 #: TutoNeighborOtherTitle
 msgctxt "TutoNeighborOtherTitle"
 msgid "Another"
-msgstr "Another"
+msgstr "Weiterer"
 
 #: TutoNeighborOtherContent
 msgctxt "TutoNeighborOtherContent"
 msgid "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
-msgstr "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
+msgstr "Das ist ein weiterer Benutzer, der mit dem selben Server verbunden ist. Du kannst Aktivitäten mit ihm teilen oder Aktivitäten beitreten, die von ihm mit dir geteilt wurden."
 
 #: TutoNeighborActivityTitle
 msgctxt "TutoNeighborActivityTitle"
 msgid "Shared activity"
-msgstr "Shared activity"
+msgstr "Geteilte Aktivität"
 
 #: TutoNeighborActivityContent
 msgctxt "TutoNeighborActivityContent"
 msgid "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
-msgstr "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
+msgstr "Diese Aktivität ist von einem anderen Benutzer geteilt worden. Ziehe die Maus darüber oder halte sie gedrückt um beizutreten."
 
 #: TutoNeighborWifiTitle
 msgctxt "TutoNeighborWifiTitle"
@@ -1006,5 +1047,5 @@ msgstr "WiFi"
 #: TutoNeighborWifiContent
 msgctxt "TutoNeighborWifiContent"
 msgid "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
-msgstr "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
+msgstr "Dies ist ein WiFi Access Point in deiner Nähe. Ziehe die Maus darüber oder halte sie gedrückt um dich mit dem WiFi zu verbinden oder die Verbindung zu trennen."
 

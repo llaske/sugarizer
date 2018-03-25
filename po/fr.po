@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Nov 11 2017 21:23:18 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -463,6 +463,37 @@ msgctxt "UserAgent"
 msgid "User agent:"
 msgstr "User agent:"
 
+#: Storage
+msgctxt "Storage"
+msgid "Storage:"
+msgstr "Stockage:"
+
+#. Do not translate {{used}} {{percent}}
+#: StorageSize
+msgctxt "StorageSize"
+msgid "{{used}} bytes - {{percent}}%"
+msgstr "{{used}} octets - {{percent}}%"
+
+#: JournalAlmostFull
+msgctxt "JournalAlmostFull"
+msgid "Warning: Journal almost full!"
+msgstr "Attention: le journal est presque plein !"
+
+#: ShortForBytes
+msgctxt "ShortForBytes"
+msgid "b"
+msgstr "o"
+
+#: ShortForKilobytes
+msgctxt "ShortForKilobytes"
+msgid "Kb"
+msgstr "Ko"
+
+#: ShortForMegabytes
+msgctxt "ShortForMegabytes"
+msgid "Mb"
+msgstr "Mo"
+
 #: Copyright
 msgctxt "Copyright"
 msgid "Copyright and license"
@@ -686,6 +717,16 @@ msgstr "Se déconnecter"
 msgctxt "Loading"
 msgid "Loading..."
 msgstr "Chargement..."
+
+#: Synchronize
+msgctxt "Synchronize"
+msgid "Synchronize"
+msgstr "Synchroniser"
+
+#: RetrievingJournal
+msgctxt "RetrievingJournal"
+msgid "Synchronizing Journal..."
+msgstr "Synchronisation du Journal..."
 
 #: AllDataWillBeLost
 msgctxt "AllDataWillBeLost"

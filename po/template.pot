@@ -1,10 +1,10 @@
-#. extracted from locale.ini
+#. extracted from ../locale.ini
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Mar 11 2018 10:56:40 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -463,6 +463,37 @@ msgctxt "UserAgent"
 msgid "User agent:"
 msgstr ""
 
+#: Storage
+msgctxt "Storage"
+msgid "Storage:"
+msgstr ""
+
+#. Do not translate {{used}} {{percent}}
+#: StorageSize
+msgctxt "StorageSize"
+msgid "{{used}} bytes - {{percent}}%"
+msgstr ""
+
+#: JournalAlmostFull
+msgctxt "JournalAlmostFull"
+msgid "Warning: Journal almost full!"
+msgstr ""
+
+#: ShortForBytes
+msgctxt "ShortForBytes"
+msgid "b"
+msgstr ""
+
+#: ShortForKilobytes
+msgctxt "ShortForKilobytes"
+msgid "Kb"
+msgstr ""
+
+#: ShortForMegabytes
+msgctxt "ShortForMegabytes"
+msgid "Mb"
+msgstr ""
+
 #: Copyright
 msgctxt "Copyright"
 msgid "Copyright and license"
@@ -680,6 +711,16 @@ msgstr ""
 #: Disconnect
 msgctxt "Disconnect"
 msgid "Disconnect"
+msgstr ""
+
+#: Synchronize
+msgctxt "Synchronize"
+msgid "Synchronize"
+msgstr ""
+
+#: RetrievingJournal
+msgctxt "RetrievingJournal"
+msgid "Synchronizing Journal..."
 msgstr ""
 
 #: Loading
