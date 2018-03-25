@@ -1,0 +1,190 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:13:58 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#. Do not translate {{name}}
+#: TypeSomething
+msgctxt "TypeSomething"
+msgid "Hello {{name}}. Please Type something."
+msgstr ""
+
+#: Language
+msgctxt "Language"
+msgid "Language"
+msgstr ""
+
+#: Speech
+msgctxt "Speech"
+msgid "Speech"
+msgstr ""
+
+#: Face
+msgctxt "Face"
+msgid "Face"
+msgstr ""
+
+#: TypeSomethingToHear
+msgctxt "TypeSomethingToHear"
+msgid "Type something to hear it"
+msgstr ""
+
+#: AskRobot
+msgctxt "AskRobot"
+msgid "Ask robot any questions"
+msgstr ""
+
+#: VoiceChat
+msgctxt "VoiceChat"
+msgid "Voice chat"
+msgstr ""
+
+#: ratelabel
+msgctxt "ratelabel"
+msgid "Rate:"
+msgstr ""
+
+#: pitchlabel
+msgctxt "pitchlabel"
+msgid "Pitch:"
+msgstr ""
+
+#: eyesnumber
+msgctxt "eyesnumber"
+msgid "Eyes number:"
+msgstr ""
+
+#: eyes
+msgctxt "eyes"
+msgid "Round"
+msgstr ""
+
+#: glasses
+msgctxt "glasses"
+msgid "Glasses"
+msgstr ""
+
+#: speak
+msgctxt "speak"
+msgid "Speak"
+msgstr ""
+
+#: langen
+msgctxt "langen"
+msgid "English"
+msgstr ""
+
+#: langca
+msgctxt "langca"
+msgid "Catalan"
+msgstr ""
+
+#: langcs
+msgctxt "langcs"
+msgid "Czech"
+msgstr ""
+
+#: langde
+msgctxt "langde"
+msgid "German"
+msgstr ""
+
+#: langel
+msgctxt "langel"
+msgid "Greek"
+msgstr ""
+
+#: langes
+msgctxt "langes"
+msgid "Spanish"
+msgstr ""
+
+#: langeo
+msgctxt "langeo"
+msgid "Esperanto"
+msgstr ""
+
+#: langfi
+msgctxt "langfi"
+msgid "Finnish"
+msgstr ""
+
+#: langfr
+msgctxt "langfr"
+msgid "French"
+msgstr ""
+
+#: langhu
+msgctxt "langhu"
+msgid "Hungarian"
+msgstr ""
+
+#: langit
+msgctxt "langit"
+msgid "Italian"
+msgstr ""
+
+#: langkn
+msgctxt "langkn"
+msgid "Kannada"
+msgstr ""
+
+#: langla
+msgctxt "langla"
+msgid "Latin"
+msgstr ""
+
+#: langlv
+msgctxt "langlv"
+msgid "Latvian"
+msgstr ""
+
+#: langnl
+msgctxt "langnl"
+msgid "Dutch"
+msgstr ""
+
+#: langpl
+msgctxt "langpl"
+msgid "Polish"
+msgstr ""
+
+#: langpt
+msgctxt "langpt"
+msgid "Portuguese"
+msgstr ""
+
+#: langro
+msgctxt "langro"
+msgid "Romanian"
+msgstr ""
+
+#: langsk
+msgctxt "langsk"
+msgid "Slovak"
+msgstr ""
+
+#: langsv
+msgctxt "langsv"
+msgid "Swedish"
+msgstr ""
+
+#: langtr
+msgctxt "langtr"
+msgid "Turkish"
+msgstr ""
+
+#: langzh
+msgctxt "langzh"
+msgid "Chinese"
+msgstr ""
