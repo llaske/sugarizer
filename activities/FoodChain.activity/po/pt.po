@@ -1,0 +1,334 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:09:36 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: sounddir
+msgctxt "sounddir"
+msgid "en"
+msgstr ""
+
+#: learn
+msgctxt "learn"
+msgid "Learn"
+msgstr ""
+
+#: build
+msgctxt "build"
+msgid "Build"
+msgstr ""
+
+#: play
+msgctxt "play"
+msgid "Play"
+msgstr ""
+
+#: learndesc
+msgctxt "learndesc"
+msgid "Put cards in the correct boxes to learn what sort of food each animal eats."
+msgstr ""
+
+#: builddesc
+msgctxt "builddesc"
+msgid "Arrange cards in the correct order to build the right food chain."
+msgstr ""
+
+#: playdesc
+msgctxt "playdesc"
+msgid "Play the food chain: eat and avoid being eaten."
+msgstr ""
+
+#: level
+msgctxt "level"
+msgid "Level"
+msgstr ""
+
+#: score
+msgctxt "score"
+msgid "Score:"
+msgstr ""
+
+#: concept
+msgctxt "concept"
+msgid "concept & code:"
+msgstr ""
+
+#: arts
+msgctxt "arts"
+msgid "arts:"
+msgstr ""
+
+#: music
+msgctxt "music"
+msgid "music:"
+msgstr ""
+
+#: sound
+msgctxt "sound"
+msgid "sound effects:"
+msgstr ""
+
+#: alligator
+msgctxt "alligator"
+msgid "Alligator"
+msgstr ""
+
+#: animal
+msgctxt "animal"
+msgid "Animal"
+msgstr ""
+
+#: bat
+msgctxt "bat"
+msgid "Bat"
+msgstr ""
+
+#: bee
+msgctxt "bee"
+msgid "Bee"
+msgstr ""
+
+#: bird
+msgctxt "bird"
+msgid "Bird"
+msgstr ""
+
+#: camel
+msgctxt "camel"
+msgid "Camel"
+msgstr ""
+
+#: cat
+msgctxt "cat"
+msgid "Cat"
+msgstr ""
+
+#: chicken
+msgctxt "chicken"
+msgid "Chicken"
+msgstr ""
+
+#: chimp
+msgctxt "chimp"
+msgid "Chimp"
+msgstr ""
+
+#: clam
+msgctxt "clam"
+msgid "Clam"
+msgstr ""
+
+#: corn
+msgctxt "corn"
+msgid "Corn"
+msgstr ""
+
+#: cow
+msgctxt "cow"
+msgid "Cow"
+msgstr ""
+
+#: crab
+msgctxt "crab"
+msgid "Crab"
+msgstr ""
+
+#: crocodile
+msgctxt "crocodile"
+msgid "Crocodile"
+msgstr ""
+
+#: crow
+msgctxt "crow"
+msgid "Crow"
+msgstr ""
+
+#: dog
+msgctxt "dog"
+msgid "Dog"
+msgstr ""
+
+#: duck
+msgctxt "duck"
+msgid "Duck"
+msgstr ""
+
+#: fish
+msgctxt "fish"
+msgid "Fish"
+msgstr ""
+
+#: flies
+msgctxt "flies"
+msgid "Flies"
+msgstr ""
+
+#: fox
+msgctxt "fox"
+msgid "Fox"
+msgstr ""
+
+#: frog
+msgctxt "frog"
+msgid "Frog"
+msgstr ""
+
+#: giraffe
+msgctxt "giraffe"
+msgid "Giraffe"
+msgstr ""
+
+#: goat
+msgctxt "goat"
+msgid "Goat"
+msgstr ""
+
+#: grass
+msgctxt "grass"
+msgid "Grass"
+msgstr ""
+
+#: hay
+msgctxt "hay"
+msgid "Hay"
+msgstr ""
+
+#: hen
+msgctxt "hen"
+msgid "Hen"
+msgstr ""
+
+#: lamb
+msgctxt "lamb"
+msgid "Lamb"
+msgstr ""
+
+#: mice
+msgctxt "mice"
+msgid "Mice"
+msgstr ""
+
+#: mole
+msgctxt "mole"
+msgid "Mole"
+msgstr ""
+
+#: mosquito
+msgctxt "mosquito"
+msgid "Mosquito"
+msgstr ""
+
+#: mule
+msgctxt "mule"
+msgid "Mule"
+msgstr ""
+
+#: owl
+msgctxt "owl"
+msgid "Owl"
+msgstr ""
+
+#: ox
+msgctxt "ox"
+msgid "Ox"
+msgstr ""
+
+#: pig
+msgctxt "pig"
+msgid "Pig"
+msgstr ""
+
+#: rat
+msgctxt "rat"
+msgid "Rat"
+msgstr ""
+
+#: shark
+msgctxt "shark"
+msgid "Shark"
+msgstr ""
+
+#: shrimp
+msgctxt "shrimp"
+msgid "Shrimp"
+msgstr ""
+
+#: skunk
+msgctxt "skunk"
+msgid "Skunk"
+msgstr ""
+
+#: snail
+msgctxt "snail"
+msgid "Snail"
+msgstr ""
+
+#: snake
+msgctxt "snake"
+msgid "Snake"
+msgstr ""
+
+#: spider
+msgctxt "spider"
+msgid "Spider"
+msgstr ""
+
+#: spike
+msgctxt "spike"
+msgid "Spike"
+msgstr ""
+
+#: squid
+msgctxt "squid"
+msgid "Squid"
+msgstr ""
+
+#: squirrel
+msgctxt "squirrel"
+msgid "Squirrel"
+msgstr ""
+
+#: starfish
+msgctxt "starfish"
+msgid "Starfish"
+msgstr ""
+
+#: swan
+msgctxt "swan"
+msgid "Swan"
+msgstr ""
+
+#: tick
+msgctxt "tick"
+msgid "Tick"
+msgstr ""
+
+#: wheat
+msgctxt "wheat"
+msgid "Wheat"
+msgstr ""
+
+#: herbivore
+msgctxt "herbivore"
+msgid "Herbivore"
+msgstr ""
+
+#: carnivore
+msgctxt "carnivore"
+msgid "Carnivore"
+msgstr ""
+
+#: omnivore
+msgctxt "omnivore"
+msgid "Omnivore"
+msgstr ""
