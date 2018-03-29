@@ -189,7 +189,6 @@ define(function (require) {
 		// Register call back
 		var that = this;
 		callbackArray[msgListSharedActivityUsers] = function(data) {
-			that.sharedInfo = { id: data };
 			callback(data);
 		}
 
