@@ -162,7 +162,13 @@ enyo.kind({
 		this.$.newuser.setShowing(vnewuser);
 		this.$.newusertext.setShowing(vnewusertext);
 		this.$.namebox.setShowing(vnamebox);
+		if (vnamebox) {
+			this.$.name.focus();
+		}
 		this.$.serverbox.setShowing(vserverbox);
+		if (vserverbox) {
+			this.$.server.focus();
+		}
 		this.$.passbox.setShowing(vpassbox);
 		this.$.colortext.setShowing(vcolortext);
 		this.$.owner.setShowing(vowner);
