@@ -9,7 +9,15 @@ enyo.kind({
 			{name: "nameline", classes: "first-nameline", components: [
 				{name: "nametext", content: "xxx", classes: "first-nametext"},
 				{classes: "first-input", components: [
-					{name: "name", kind: "Input", classes: "first-namevalue", onfocus: "scrollToField", onkeydown: "enterclick"}
+					{name: "name", kind: "Input", classes: "first-namevalue", onkeydown: "enterclick"}
+				]}
+			]},
+		]},
+		{name: "serverbox", classes: "first-serverbox", onresize: "resize", showing: false, components: [
+			{name: "serverline", classes: "first-serverline", components: [
+				{name: "servertext", content: "xxx", classes: "first-servertext"},
+				{classes: "first-input", components: [
+					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
 				]}
 			]},
 		]},
@@ -36,6 +44,7 @@ enyo.kind({
 		// Init screen
 		this.inherited(arguments);
 		this.$.nametext.setContent(l10n.get("Name"));
+		this.$.servertext.setContent(l10n.get("ServerUrl"));
 		this.$.password.setLabel(l10n.get("Password"));
 		this.$.previous.setText(l10n.get("Back"));
 		this.$.next.setText(l10n.get("Next"));
@@ -57,18 +66,17 @@ enyo.kind({
 			this.$.name.addClass("rtl-10");
 		}
 		this.createnew = true;
-		if (util.getClientType() == constant.webAppType) {
-			this.step = 0;
-		} else {
-			this.step = 1;
-		}
+		this.step = 0;
 		this.displayStep();
 
 		// Get server information
+		this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
 		if (util.getClientType() == constant.webAppType) {
+			var that = this;
 			myserver.getServerInformation(myserver.getServerUrl(), function(inSender, inResponse) {
 				inResponse.url = util.getCurrentServerUrl();
 				preferences.setServer(inResponse);
+				that.$.server.setValue(inResponse.url);
 			});
 		}
 
@@ -97,6 +105,7 @@ enyo.kind({
 			vlogintext = false,
 			vnewuser = false,
 			vnewusertext = false,
+			vserverbox = false,
 			vnamebox = false,
 			vpassbox = false,
 			vcolortext = false,
@@ -105,34 +114,45 @@ enyo.kind({
 			vprevious = false,
 			vwarning = false,
 			vhistory = false;
+		var currentserver;
+		var serverurl;
 		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
+			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vhistory = true;
 			break;
 
-		case 1: // Type name
-			vnamebox = vnext = true;
-			vprevious = (util.getClientType() == constant.webAppType);
+		case 1: // Server name
+			this.scrollToField(this.$.serverbox);
+			vserverbox = vnext = vprevious = true;
+			this.$.next.setText(l10n.get("Next"));
+			break;
+
+		case 2: // Type name
+			this.scrollToField(this.$.namebox);
+			vnamebox = vnext = vprevious = true;
 			this.$.nametext.setContent(l10n.get(this.createnew ? "ChooseName" : "Name"));
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
-		case 2: // Type password
+		case 3: // Type password
+			this.scrollToTop();
 			vpassbox = vprevious = vnext = true;
 			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
 			this.$.password.startInputListening();
 			break;
 
-		case 3: // Choose color
+		case 4: // Choose color
+			this.scrollToTop();
 			vcolortext = vprevious = vnext = vowner = true;
 			this.$.next.setText(l10n.get("Done"));
 			break;
 
-		case 4: // Go to home view
+		case 5: // Go to home view
 			this.createOrLogin();
 			return;
 		}
@@ -142,6 +162,7 @@ enyo.kind({
 		this.$.newuser.setShowing(vnewuser);
 		this.$.newusertext.setShowing(vnewusertext);
 		this.$.namebox.setShowing(vnamebox);
+		this.$.serverbox.setShowing(vserverbox);
 		this.$.passbox.setShowing(vpassbox);
 		this.$.colortext.setShowing(vcolortext);
 		this.$.owner.setShowing(vowner);
@@ -155,12 +176,16 @@ enyo.kind({
 	newUser: function() {
 		this.createnew = true;
 		this.step++;
+		this.step++;
 		this.displayStep();
 	},
 
 	login: function() {
 		this.createnew = false;
 		this.step++;
+		if (util.getClientType() == constant.webAppType) {
+			this.step++;
+		}
 		this.displayStep();
 	},
 
@@ -168,17 +193,34 @@ enyo.kind({
 		if (this.$.spinner.getShowing()) {
 			return;
 		}
-		if (this.step == 1) {
+		if (this.step == 1 && this.$.server.getValue()) {
+			// Retrieve server information
+			this.$.spinner.setShowing(true);
+			var that = this;
+			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
+				var server = inResponse;
+				server.url = that.$.server.getValue();
+				preferences.setServer(server);
+				that.step++;
+				that.displayStep();
+				that.$.spinner.setShowing(false);
+				that.$.warningmessage.setShowing(false);
+			}, function() {
+				that.$.warningmessage.setContent(l10n.get("ErrorLoadingRemote"));
+				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
+			});
+		} else if (this.step == 2) {
 			var name = this.$.name.getValue().trim();
 			if (name.length == 0) {
 				return;
 			}
 			this.step++;
-			if (util.getClientType() == constant.appType) { // No password for the app
+			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
 				this.step++;
 			}
 			this.displayStep();
-		} else if (this.step == 2) {
+		} else if (this.step == 3) {
 			var pass = this.$.password.getPassword();
 			if (pass.length == 0 || pass.length < util.getMinPasswordSize()) {
 				return;
@@ -199,8 +241,11 @@ enyo.kind({
 			return;
 		}
 		this.step--;
-		if ((this.step == 2 && util.getClientType() == constant.appType) // No password for app
-			|| (this.step == 3 && !this.createnew)) { // No color in login mode
+		var clientType = util.getClientType();
+		if ((this.step == 3 && clientType == constant.appType && this.createnew) // No password for app
+			|| (this.step == 4 && !this.createnew)  // No color in login mode
+			|| (this.step == 1 && (clientType == constant.webAppType || this.createnew))  // No way to update server for webapp
+		) {
 			this.step--;
 		}
 		this.displayStep();
@@ -217,12 +262,20 @@ enyo.kind({
 		this.next();
 	},
 
-	scrollToField: function() {
+	scrollToField: function(inSender) {
 		// HACK: Scroll screen on Android to avoid to be hide by the touch keyboard
-		var nodeName = this.$.name.hasNode();
+		var nodeName = inSender.hasNode();
 		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
 			setTimeout(function() {
 				nodeName.scrollIntoView();
+			}, 100);
+		}
+	},
+	scrollToTop: function() {
+		var nodeName = document.getElementById("firstScreen");
+		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+			setTimeout(function() {
+				nodeName.scrollIntoView(true);
 			}, 100);
 		}
 	},
@@ -243,6 +296,7 @@ enyo.kind({
 		this.$.owner.applyStyle("margin-left", (canvas_center.x-constant.sizeOwner/2)+"px");
 		var middletop = (canvas_center.y-constant.sizeOwner/2);
 		this.$.nameline.applyStyle("margin-top", (middletop-15)+"px");
+		this.$.serverline.applyStyle("margin-top", (middletop-15)+"px");
 		this.$.passbox.applyStyle("margin-top", (middletop/2)+"px");
 		this.$.owner.applyStyle("margin-top", middletop+"px");
 		this.$.warningmessage.applyStyle("left", (canvas_center.x-100)+"px");
@@ -273,10 +327,25 @@ enyo.kind({
 	},
 
 	historyClicked: function(inSender, inEvent) {
-		this.$.name.setValue(this.history[this.history.length-inEvent.index-1].name);
-		this.createnew = false;
-		this.step = 2;
-		this.displayStep();
+		var user = this.history[this.history.length-inEvent.index-1];
+		this.$.name.setValue(user.name);
+		this.$.server.setValue(user.server ? user.server.url: "");
+		if (user.server && user.server.url) {
+			// Retrieve the server in history and go to login
+			var that = this;
+			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
+				inResponse.url = that.$.server.getValue();
+				preferences.setServer(inResponse);
+			});
+			this.createnew = false;
+			this.step = 3;
+			this.displayStep();
+		} else {
+			// No server in history, create a new local user
+			preferences.setName(user.name);
+			preferences.setColor(user.color);
+			this.launchDesktop();
+		}
 	},
 
 	// Account handling
@@ -286,7 +355,7 @@ enyo.kind({
 		preferences.setName(this.$.name.getValue().trim());
 
 		// Not connected
-		if (util.getClientType() != constant.webAppType) {
+		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
 			this.launchDesktop();
 			return;
 		}
@@ -346,6 +415,7 @@ enyo.kind({
 					preferences.setNetworkId(inResponse._id);
 					preferences.setPrivateJournal(inResponse.private_journal);
 					preferences.setSharedJournal(inResponse.shared_journal);
+					preferences.setConnected(true);
 					l10n.language.code = inResponse.language;
 					var changed = preferences.merge(inResponse);
 					if (changed) {
@@ -376,7 +446,7 @@ enyo.kind({
 			that.$.warningmessage.setShowing(true);
 			that.$.spinner.setShowing(false);
 			that.step--;
-			if (that.step == 3 && util.getClientType() == constant.webAppType) {
+			if (that.step == 4 && (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && this.createnew))) {
 				that.$.password.startInputListening();
 			}
 		});

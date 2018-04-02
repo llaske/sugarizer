@@ -854,6 +854,50 @@ body {
 	top: 305px;
 }
 
+.warning-dialog {
+	width: 95%;
+	max-width: 800px;
+	height: 150px;
+	background-color: #000000;
+	border: 2px solid #808080;
+	position: absolute;
+}
+
+.warningdialog-icon {
+	position: absolute;
+	left: 10px;
+	top: 8px;
+}
+
+.warningdialog-cancel-button {
+	position: absolute;
+	bottom: 15px;
+	right: 240px;
+	width: 210px;
+}
+
+.warningdialog-ok-button {
+	position: absolute;
+	bottom: 15px;
+	right: 10px;
+	width: 215px;
+}
+
+.warningdialog-title {
+	position: absolute;
+	font-weight: bold;
+	color: white;
+	left: 75px;
+	top: 16px;
+}
+
+.warningdialog-message {
+	position: absolute;
+	color: white;
+	left: 75px;
+	top: 32px;
+}
+
 .first-namebox {
 	height: 100%;
 	padding-bottom: 100%;
@@ -873,6 +917,41 @@ body {
 	margin-top: 20px;
 	color: #808080;
 	margin-bottom: 5px;
+}
+
+.first-serverbox {
+	height: 100%;
+	padding-bottom: 100%;
+}
+
+.first-serverline {
+	vertical-align: middle;
+	text-align: center;
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.first-servertext {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	margin-bottom: 5px;
+}
+
+.first-servervalue {
+	border-radius: 22px;
+	height: 25px;
+	width: 270px;
+	margin-left: 30px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	font-size: 10pt;
+}
+
+.first-servervalue:focus {
+	background-color: white;
 }
 
 .first-passbox {

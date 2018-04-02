@@ -97,7 +97,7 @@ enyo.kind({
 							}
 
 							// Locale journal has changed, update display
-							if (locale) {
+							if (locale && !error) {
 								that.loadJournal();
 								that.testJournalSize();
 								preferences.updateEntries();
@@ -608,8 +608,8 @@ enyo.kind({
 		items.push({
 			icon: {directory: "icons", icon: "system-shutdown.svg"},
 			colorized: false,
-			name: (util.getClientType() == constant.webAppType) ? l10n.get("Logoff") : l10n.get("Shutdown"),
-			action: (util.getClientType() == constant.webAppType) ? enyo.bind(this, "doLogoff") : enyo.bind(this, "doShutdown"),
+			name: l10n.get("Logoff"),
+			action: enyo.bind(this, "doLogoff"),
 			data: null
 		});
 		items.push({
@@ -640,14 +640,15 @@ enyo.kind({
 	},
 	doLogoff: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'logoff');
-		preferences.addUserInHistory();
-		util.cleanDatastore();
-		util.restartApp();
-	},
-	doShutdown: function() {
-		stats.trace(constant.viewNames[this.getView()], 'click', 'shutdown');
 		this.getPopup().hidePopup();
-		util.quitApp();
+		if (!preferences.isConnected() || (preferences.isConnected() && !preferences.getOptions("sync"))) {
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogWarningMessage"}, {owner:this});
+			this.otherview.show();
+		} else {
+			preferences.addUserInHistory();
+			util.cleanDatastore();
+			util.restartApp();
+		}
 	},
 	doRestart: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'restart');
