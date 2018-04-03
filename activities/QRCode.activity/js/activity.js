@@ -65,9 +65,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		});
 
 		// Get settings
-		var userSettings = datastore.localStorage.getValue('sugar_settings');
 		var userText = document.getElementById("user-text");
-		userText.value = userSettings.name;
 		userText.addEventListener('keyup', function() {
 			var text = userText.value.toLowerCase();
 			if (text.indexOf("http://") == 0 || text.indexOf("https://") == 0) {
@@ -225,10 +223,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		});
 
 		// Initialize code
-		generateCode(userSettings.name);
 		env.getEnvironment(function(err, environment) {
 			if (!environment.objectId) {
 				console.log("New instance");
+				userText.value = environment.user.name;
+				generateCode(environment.user.name);
 			} else {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 					if (error==null && data!=null) {
