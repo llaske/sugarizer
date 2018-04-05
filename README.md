@@ -73,7 +73,7 @@ Sugarizer Server features include:
 * Backup and shared storage for Application and Web Application,
 * Presence and collaboration handling between Application/Web Application on the same network
 
-##Running the server using Docker
+## Running the server using Docker
 
 To run your own Sugarizer Server with a few command lines using Docker and Docker Compose:
 
