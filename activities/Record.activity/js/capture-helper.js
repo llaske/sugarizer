@@ -117,8 +117,8 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.style.maxHeight = (90 * document.body.clientHeight / 100) + "px";
             img.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
             img.style.backgroundSize = "contain";
-            img.style.height = img.style.maxHeight;
-            img.style.width = img.style.maxWidth;
+            img.setAttribute('height', img.style.maxHeight);
+            img.setAttribute('width', img.style.maxWidth);
 
             return this.generatePopup(fullData, img, originalImage, metadata);
         },
