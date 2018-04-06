@@ -427,11 +427,6 @@ enyo.kind({
 					if (changed) {
 						preferences.save();
 					}
-					presence.joinNetwork(function (error, user) {
-						if (error) {
-							console.log("WARNING: Can't connect to presence server");
-						}
-					});
 					that.$.spinner.setShowing(false);
 					that.launchDesktop();
 				},
