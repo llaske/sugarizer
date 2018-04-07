@@ -381,8 +381,8 @@ enyo.kind({
 	},
 
 	ok: function() {
-		if (this.currentcolor.stroke ==  "#00B20D" && this.currentcolor.fill == "#00EA11" && this.currentname == "one laptop per child") {
-			new Sugar.EE({mode: 1}).renderInto(document.getElementById("body"));
+		if (this.currentcolor.stroke ==  "#00B20D" && this.currentcolor.fill == "#00EA11" && (this.currentname == "one laptop per child" || this.currentname == "OLPC France")) {
+			new Sugar.EE({mode:(this.currentname.indexOf("Fr")==-1?1:2)}).renderInto(document.getElementById("body"));
 			return;
 		}
 		if (this.currentcolor == this.initcolor && this.currentname == this.initname) {
