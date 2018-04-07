@@ -164,10 +164,12 @@ enyo.kind({
 		this.$.namebox.setShowing(vnamebox);
 		if (vnamebox) {
 			this.$.name.focus();
+			this.$.name.hasNode().select();
 		}
 		this.$.serverbox.setShowing(vserverbox);
 		if (vserverbox) {
 			this.$.server.focus();
+			this.$.server.hasNode().select();
 		}
 		this.$.passbox.setShowing(vpassbox);
 		this.$.colortext.setShowing(vcolortext);
