@@ -1,6 +1,9 @@
 ﻿
 
 define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
+	if (!Abcd) {
+		Abcd = {};
+	}
 	Abcd.activity = activity;
 	Abcd.datastore = datastore;
 	app = null;
