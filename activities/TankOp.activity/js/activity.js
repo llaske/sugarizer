@@ -26,7 +26,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 				}
 
 				// Create sound component
-				if (sound) sound.pause();
 				sound = new TankOp.Audio();
 				sound.renderInto(document.getElementById("audio"));
 
