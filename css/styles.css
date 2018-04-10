@@ -13,6 +13,7 @@ input {
 
 #canvas {
 	background-color: white;
+	overflow-y: hidden;
 }
 
 body {
