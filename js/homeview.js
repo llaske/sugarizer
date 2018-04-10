@@ -83,7 +83,10 @@ enyo.kind({
 					autosync.synchronizeJournal(
 						function(count) {
 							if (count) {
-								humane.log(l10n.get("RetrievingJournal"));
+								setTimeout(function() {
+									var message = l10n.get("RetrievingJournal");
+									if (message) humane.log(message);
+								}, 100);
 								var toolbar = that.getToolbar();
 								if (toolbar.showSync) {
 									toolbar.showSync(true);
