@@ -1,22 +1,24 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:09:36 GMT+0200 (CEST)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2018-04-25 19:38+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: French <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-foodchain/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: sounddir
 msgctxt "sounddir"
 msgid "en"
-msgstr "fr"
+msgstr "pt_BR"
 
 #: learn
 msgctxt "learn"
@@ -332,4 +334,3 @@ msgstr "Carnivore"
 msgctxt "omnivore"
 msgid "Omnivore"
 msgstr "Omnivore"
-
