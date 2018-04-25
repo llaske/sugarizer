@@ -4,14 +4,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2018-04-25 19:47+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-sharednotes/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -21,32 +23,32 @@ msgstr ""
 #: nodetextTitle
 msgctxt "nodetextTitle"
 msgid "Text idea"
-msgstr ""
+msgstr "Texto da ideia"
 
 #: removeButtonTitle
 msgctxt "removeButtonTitle"
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: undoButtonTitle
 msgctxt "undoButtonTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: redoButtonTitle
 msgctxt "redoButtonTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Refazer"
 
 #: zoomButtonTitle
 msgctxt "zoomButtonTitle"
 msgid "View"
-msgstr ""
+msgstr "Visualizar"
 
 #: pngButtonTitle
 msgctxt "pngButtonTitle"
 msgid "Export to PNG"
-msgstr ""
+msgstr "Exportar para PNG"
 
 #: networkButtonTitle
 msgctxt "networkButtonTitle"
@@ -61,22 +63,22 @@ msgstr ""
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "Finalizar"
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"
 msgid "Activity Menu"
-msgstr ""
+msgstr "Menu da atividade"
 
 #: TutoActivityContent
 msgctxt "TutoActivityContent"
@@ -96,12 +98,12 @@ msgstr ""
 #: TutoStopTitle
 msgctxt "TutoStopTitle"
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
 msgid "Click on this icon to stop the activity and go back to the home."
-msgstr ""
+msgstr "Clique neste ícone para sair da atividade e voltar ao menu principal."
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
@@ -186,37 +188,37 @@ msgstr ""
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
 msgid "With this icon you could undo your last change."
-msgstr ""
+msgstr "Com este ícone você poderá desfazer sua última mudança."
 
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Refazer"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
 msgid "With this icon you could redo your last undo."
-msgstr ""
+msgstr "Com este ícone você poderá refazer sua última mudança."
 
 #: TutoZoomTitle
 msgctxt "TutoZoomTitle"
 msgid "Zoom"
-msgstr ""
+msgstr "Ampliar"
 
 #: TutoZoomContent
 msgctxt "TutoZoomContent"
 msgid "This menu let you adapt the zoom level in the board."
-msgstr ""
+msgstr "Esse menu permite adaptar o nível de ampliação do quadro."
 
 #: TutoPngTitle
 msgctxt "TutoPngTitle"
 msgid "Export PNG"
-msgstr ""
+msgstr "Exportar para PNG"
 
 #: TutoPngContent
 msgctxt "TutoPngContent"
