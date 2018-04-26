@@ -23,6 +23,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 			l10n.language.code = "fr";
 			FoodChain.setLocale();
 		};
+		document.getElementById("pt_BR-button").onclick = function() {
+			l10n.language.code = "pt_BR";
+			FoodChain.setLocale();
+		};
 
 		// Wait for locale load
 		var localized_received = function() {

@@ -10,6 +10,6 @@ __$FC = function(str) {
 	if (value != undefined && value != "")
 		return value.replace("%27", "'").replace("%22", '"');
 	if (str == "sounddir")   // HACK: At first launch not always initialized
-		return l10n.language.code.substr(0, 2);
+		return l10n.language.code;
 	return str;
 }

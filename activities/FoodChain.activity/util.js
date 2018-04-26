@@ -54,8 +54,10 @@ FoodChain.goHome = function() {
 FoodChain.setLocale = function() {
 	document.getElementById("en-button").classList.remove('active');
 	document.getElementById("fr-button").classList.remove('active');
+	document.getElementById("pt_BR-button").classList.remove('active');
 	if (l10n.language.code.indexOf("en") == 0) { document.getElementById("en-button").classList.add('active'); }
 	else if (l10n.language.code.indexOf("fr") == 0) { document.getElementById("fr-button").classList.add('active'); }
+	else if (l10n.language.code.indexOf("pt_BR") == 0) { document.getElementById("pt_BR-button").classList.add('active'); }
 	if (FoodChain.context.object != null)
 		FoodChain.context.object.setLocale();
 }
