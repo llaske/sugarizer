@@ -381,8 +381,8 @@ enyo.kind({
 	},
 
 	ok: function() {
-		if (this.currentcolor.stroke ==  "#00B20D" && this.currentcolor.fill == "#00EA11" && this.currentname == "one laptop per child") {
-			new Sugar.EE({mode: 1}).renderInto(document.getElementById("body"));
+		if (this.currentcolor.stroke ==  "#00B20D" && this.currentcolor.fill == "#00EA11" && (this.currentname == "one laptop per child" || this.currentname == "OLPC France")) {
+			new Sugar.EE({mode:(this.currentname.indexOf("Fr")==-1?1:2)}).renderInto(document.getElementById("body"));
 			return;
 		}
 		if (this.currentcolor == this.initcolor && this.currentname == this.initname) {
@@ -1320,5 +1320,51 @@ enyo.kind({
 		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
 		dialog.applyStyle("margin-left", margin.left+"px");
 		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+	}
+});
+
+
+// Waring message dialog
+enyo.kind({
+	name: "Sugar.DialogWarningMessage",
+	kind: "enyo.Popup",
+	classes: "warning-dialog",
+	centered: false,
+	modal: true,
+	floating: true,
+	autoDismiss: true,
+	components: [
+		{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "warningdialog-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "emblem-warning.svg"}},
+		{name: "warningtitle", content: "xxx", classes: "warningdialog-title"},
+		{name: "warningmessage", content: "xxx", classes: "warningdialog-message"},
+		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "warningdialog-cancel-button", ontap: "cancel"},
+		{name: "warningrestart", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-shutdown.svg"}, classes: "warningdialog-ok-button", ontap: "ok"},
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.$.warningtitle.setContent(l10n.get("Warning"));
+		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
+		this.$.warningcancel.setText(l10n.get("CancelChanges"));
+		this.$.warningrestart.setText(l10n.get("Logoff"));
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		var margin = util.computeMargin({width: 800, height: 150}, {width: 0.95, height: 0.95});
+		this.applyStyle("margin-left", margin.left+"px");
+		this.applyStyle("margin-top", (margin.top-55)+"px");
+	},
+
+	// Event handling
+	cancel: function() {
+		this.hide();
+	},
+
+	ok: function() {
+		this.hide();
+		preferences.addUserInHistory();
+		util.cleanDatastore();
+		util.restartApp();
 	}
 });

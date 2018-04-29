@@ -1760,15 +1760,15 @@ function init() {
 
     event_bus.on("traybutton-open", traybutton_open);
     function run() {
-        var js_output, script;
+        var js_output;
         window.state = "run";
         event_bus.trigger("traybutton-open");
         riot.update();
         event_bus.trigger("activity-save");
         js_output = compile();
-        script = iframe.contentDocument.createElement("script");
-        script.innerHTML = js_output;
         function write_script() {
+			var script = iframe.contentDocument.createElement("script");
+			script.innerHTML = js_output;
             iframe.contentDocument.body.appendChild(script);
             iframe.contentDocument.close();
         };

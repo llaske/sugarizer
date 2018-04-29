@@ -51,6 +51,10 @@ html, body, #viewport {
   margin: 0; background: #ffffff;
 }
 
+.palette {
+  z-index: 10;
+}
+
 .pjs-meta {
   color: #fff;
 }
@@ -81,7 +85,7 @@ canvas {
 		position: absolute;
 		z-index: 0;
 	}
-	
+
 	#main-toolbar #stop-button {
 		position: absolute;
 	}

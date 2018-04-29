@@ -13,6 +13,11 @@
   background-image: url(images/fr.svg);
 }
 
+#main-toolbar #pt_BR-button {
+  margin-left: 5px;
+  background-image: url(images/pt_BR.svg);
+}
+
 /* App background */
 .board {
 	background-color: #005a40 !important;
@@ -39,7 +44,7 @@
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1;
 	overflow-x: hidden;
-	overflow-y: hidden;	
+	overflow-y: hidden;
 }
 
 .logo {
@@ -61,14 +66,14 @@
 	position: absolute;
 	left: 40%;
 	top: 30%;
-	z-index: 2;	
+	z-index: 2;
 }
 
 .game-PlayGame {
 	position: absolute;
 	left: 70%;
 	top: 40%;
-	z-index: 2;	
+	z-index: 2;
 }
 
 .game-popup {
@@ -83,7 +88,7 @@
 	background-color: white;
 	box-shadow: 5px 4px 10px 2px gray;
 	padding: 5px;
-	z-index: 2;	
+	z-index: 2;
 }
 
 .game-title {
@@ -131,7 +136,7 @@
 	width: 25%;
 	height: 300px;
 	z-index: -1;
-	display: inline-block;	
+	display: inline-block;
 	border-color: white;
 }
 
@@ -139,36 +144,36 @@
 	margin-top: 1%;
 	margin-left: 20%;
 	background-image: url(images/grass.png);
-	background-size: 70%;	
-	background-repeat: no-repeat;	
-	background-position: center;	
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .herb-box-three {
 	margin-top: 1%;
 	margin-left: 10%;
-	background-image: url(images/grass.png);	
-	background-size: 70%;	
-	background-repeat: no-repeat;	
-	background-position: center;	
+	background-image: url(images/grass.png);
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .carn-box-two {
 	margin-top: 1%;
 	margin-left: 13%;
-	background-image: url(images/meat.png);	
-	background-size: 70%;	
-	background-repeat: no-repeat;	
+	background-image: url(images/meat.png);
+	background-size: 70%;
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .carn-box-three {
 	margin-top: 1%;
 	margin-left: 5%;
-	background-image: url(images/meat.png);	
-	background-size: 70%;	
-	background-repeat: no-repeat;	
-	background-position: center;	
+	background-image: url(images/meat.png);
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .omni-box-two {
@@ -178,10 +183,10 @@
 .omni-box-three {
 	margin-top: 1%;
 	margin-left: 5%;
-	background-image: url(images/recycle.png);	
-	background-size: 70%;	
-	background-repeat: no-repeat;	
-	background-position: center;		
+	background-image: url(images/recycle.png);
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .box-name {
@@ -195,7 +200,7 @@
 .level-zone {
 	position: absolute;
 	left: 1%;
-	width: 90%;	
+	width: 90%;
 }
 
 .level-value {
@@ -221,7 +226,7 @@
 
 .score-value {
 	margin-left: 1%;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .timer-overtime {
@@ -350,7 +355,7 @@
 
 .credit-name {
 	font-size: small;
-	margin-left: 30%;	
+	margin-left: 30%;
 	color: white;
 }
 
@@ -377,7 +382,7 @@
 
 .shadowbutton {
 	position: absolute;
-	z-index: 2;	
+	z-index: 2;
 }
 
 .shadowbutton-shadow {
@@ -394,7 +399,7 @@
 	border-color: darkgray;
 	box-shadow: 5px -4px 4px 2px black;
 	width: 220px;
-	max-width: 20%;	
+	max-width: 20%;
 	background-color: white;
 	display: inline-block;
 	margin-left: 2%;
@@ -404,12 +409,12 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .card-dragged {
 	border-color: blue;
-	cursor: move;	
+	cursor: move;
 }
 
 .cardImage {
@@ -433,20 +438,20 @@
 	width: 50px;
 }
 
-@media screen and (max-width: 480px) {	
+@media screen and (max-width: 480px) {
 	.shadowbutton-image {
 		width: 60px;
 	}
-	
+
 	.card {
 		border-width: 3px;
-		box-shadow: 3px -2px 2px 1px black;	
-	}	
-	
-	.cardText {
-		font-size: 12px;	
+		box-shadow: 3px -2px 2px 1px black;
 	}
-	
+
+	.cardText {
+		font-size: 12px;
+	}
+
 	.start-box {
 		height: 120px;
 	}
@@ -458,11 +463,11 @@
 	.box-name {
 		font-size: 10pt;
 	}
-	
+
 	.title {
 		font-size: 14pt;
 	}
-	
+
 	.play {
 		top: 24%;
 	}
@@ -477,23 +482,23 @@
 
 	.home {
 		top: 24%;
-	}	
+	}
 }
 
 @media screen and (min-width: 481px) and (max-width: 640px) {
 	.shadowbutton-image {
 		width: 80px;
 	}
-	
+
 	.card {
 		border-width: 4px;
-		box-shadow: 4px -3px 3px 2px black;			
-	}	
-	
-	.cardText {
-		font-size: 14px;	
+		box-shadow: 4px -3px 3px 2px black;
 	}
-	
+
+	.cardText {
+		font-size: 14px;
+	}
+
 	.start-box {
 		height: 150px;
 	}
@@ -501,25 +506,25 @@
 	.end-box {
 		height: 160px;
 	}
-	
+
 	.box-name {
 		font-size: 12pt;
-	}	
-	
+	}
+
 	.title {
 		font-size: 15pt;
-	}	
+	}
 }
 
 @media screen and (min-width: 641px) and (max-width: 854px) {
 	.shadowbutton-image {
 		width: 100px;
 	}
-	
+
 	.cardText {
-		font-size: 18px;	
-	}	
-	
+		font-size: 18px;
+	}
+
 	.start-box {
 		height: 190px;
 	}
@@ -533,11 +538,11 @@
 	.shadowbutton-image {
 		width: 110px;
 	}
-	
+
 	.cardText {
-		font-size: 20px;	
-	}	
-	
+		font-size: 20px;
+	}
+
 	.start-box {
 		height: 205px;
 	}
@@ -554,5 +559,5 @@
 
 	.end-box {
 		height: 260px;
-	}	
+	}
 }

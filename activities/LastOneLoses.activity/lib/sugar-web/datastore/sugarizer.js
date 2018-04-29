@@ -132,17 +132,20 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
     // Load text
     DatastoreObject.prototype.loadAsText = function(callback) {
         var callback_c = datastore.callbackChecker(callback);
-        var result = html5storage.getValue(datastorePrefix + this.objectId);
-        if (result != null) {
-            this.setMetadata(result.metadata);
-			var text = null;
-			if (result.text) {
-				text = html5storage.getValue(datastoreTextPrefix + this.objectId);
-				this.setDataAsText(text);
-			}
-            this.toload = false;
-            callback_c(null, result.metadata, text);
-        }
+		var that = this;
+		html5storage.waitEndOfLoad(function() {
+	        var result = html5storage.getValue(datastorePrefix + that.objectId);
+	        if (result != null) {
+	            that.setMetadata(result.metadata);
+				var text = null;
+				if (result.text) {
+					text = html5storage.getValue(datastoreTextPrefix + that.objectId);
+					that.setDataAsText(text);
+				}
+	            that.toload = false;
+	            callback_c(null, result.metadata, text);
+	        }
+		});
     };
 
     // Set metadata
@@ -233,6 +236,19 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 	};
 	html5storage.load();
 
+	// Wait for end of loading
+	html5storage.waitEndOfLoad = function(then) {
+		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+			if (storageloadedcalls.length != 0) {  // HACK: On Chrome OS, wait for the end of load of localStorage in memory
+				storageloadedcalls.push(then);
+				return;
+			};
+		}
+		if (then) {
+			then();
+		}
+	}
+
     // Test if HTML5 storage is available
     html5storage.test = function() {
 		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime)
@@ -287,7 +303,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
             try {
 				if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
 					this.values[key] = null;
-					chrome.store.remove(key);
+					chrome.storage.local.remove(key);
 				} else {
 					window.localStorage.removeItem(key);
 				}

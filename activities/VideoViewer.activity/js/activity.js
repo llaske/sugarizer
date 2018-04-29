@@ -15,7 +15,7 @@ define(["sugar-web/activity/activity","sugar-web/env","filterpalette"], function
 			filterpalette.popDown();
 		});
 		document.getElementById("favorite-button").onclick = function(s, e) {
-			var invoker = s.toElement;
+			var invoker = s.toElement || s.explicitOriginalTarget;
 			isFavorite = !isFavorite;
 			if (isFavorite)
 				invoker.style.backgroundImage = 'url(icons/favorite.svg)';

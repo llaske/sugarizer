@@ -1,3 +1,7 @@
+#body {
+	overflow-x: hidden;
+    overflow-y: hidden;
+}
 .toolbar {
   height: auto !important;
   min-height: 55px !important;

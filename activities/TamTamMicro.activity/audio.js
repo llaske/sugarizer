@@ -17,6 +17,8 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 
+		this.isCordova = (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http";
+		this.startPlay = false;
 		this.srcChanged();
 		this.crossoriginChanged();
 		this.preloadChanged();
@@ -28,7 +30,7 @@ enyo.kind({
 
 	// Handle volume buttons on Android
 	handleVolumeButtons: function() {
-		if ((enyo.platform.android || enyo.platform.androidChrome) && document.location.protocol.substr(0,4) != "http") {
+		if (this.isCordova && !enyo.platform.iOS) {
 			// HACK: Need only on Android because Cordova intercept volume buttons
 			var emptyf = function() {};
 			document.addEventListener("volumeupbutton", function() {
@@ -101,7 +103,7 @@ enyo.kind({
 	// Play audio
 	play: function() {
 		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
-		if ((enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
+		if (this.isCordova) {
 			// Compute full path
 			var src = location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src;
 			var that = this;
@@ -127,13 +129,22 @@ enyo.kind({
 		var node = this.hasNode();
 		if (!node)
 			return;
-		node.play();
+		this.started = false;
+		var promise = node.play();
+		if (promise) {
+			var that = this;
+			promise.then(function() {
+				that.started = true;
+			}).catch(function() {});
+		} else {
+			this.started = true;
+		}
 	},
 
 	// Pause audio
 	pause: function() {
 		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
-		if ((enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
+		if (this.isCordova) {
 			if (!this.media)
 				return;
 			this.media.src = "";
@@ -144,7 +155,9 @@ enyo.kind({
 		var node = this.hasNode();
 		if (!node)
 			return;
-		node.pause();
+		if (this.started) {
+			node.pause();
+		}
 	},
 
 	// Test if audio is paused

@@ -51,7 +51,7 @@ var Speech = (function() {
 		req.url = voice;
     	try {
     		req.open('GET', voice);
-    		req.onreadystatechange=function() { 
+    		req.onreadystatechange=function() {
 				if (req.readyState==4) {
 					callback((req.status==200 || req.status==0) && req.response.length > 0);
 				}
@@ -86,7 +86,7 @@ var Speech = (function() {
 	    //After the voice is loaded, playSound callback is called
 	    getBotReply(text);
 	    setTimeout(function(){
-			loadVoice(language, playSound);		
+			loadVoice(language, playSound);
 		}, 4000);
   	  }
   	  else{
@@ -107,7 +107,17 @@ var Speech = (function() {
 			document.getElementById('speaking').innerHTML = "0";
 		}
 
-		meSpeak.speak(text, {speed: speed, pitch: pitch}, soundComplete);
+		if (!/iPad|iPhone/.test(navigator.userAgent)) {
+			meSpeak.speak(text, {speed: speed, pitch: pitch}, soundComplete);
+		} else {
+			// HACK: On iOS, need to be played into an HTMLAudio control
+			var myDataUrl = meSpeak.speak(text, {speed: speed, pitch: pitch, rawdata: 'data-url'}, soundComplete);
+			var sound = new Audio(myDataUrl);
+			sound.addEventListener("ended", function(){
+				document.getElementById('speaking').innerHTML = "0";
+			});
+			sound.play();
+		}
     }
 
 	return {

@@ -3,7 +3,6 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore"], function (activity, _l10n, radioButtonsGroup, datastore) {
 	l10n = _l10n;
 	var app = null;
-	var isFirefoxOS = (navigator.userAgent.indexOf('Mozilla/5.0 (Mobile') != -1);
 
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
@@ -22,6 +21,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 		};
 		document.getElementById("fr-button").onclick = function() {
 			l10n.language.code = "fr";
+			FoodChain.setLocale();
+		};
+		document.getElementById("pt_BR-button").onclick = function() {
+			l10n.language.code = "pt_BR";
 			FoodChain.setLocale();
 		};
 
@@ -50,9 +53,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 			}
 		};
 		window.addEventListener('localized', localized_received, false);
-		if (enyo.platform.firefox || isFirefoxOS) {
-			localized_received();
-		}
 
         // Stop sound at end of game to sanitize media environment, specifically on Android
         document.getElementById("stop-button").addEventListener('click', function (event) {

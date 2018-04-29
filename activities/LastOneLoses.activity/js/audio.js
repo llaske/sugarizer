@@ -13,11 +13,13 @@ enyo.kind({
 		onSoundEnded: "",
 		onSoundTimeupdate: ""
 	},
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		
+
+		this.isCordova = (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http";
+		this.startPlay = false;
 		this.srcChanged();
 		this.crossoriginChanged();
 		this.preloadChanged();
@@ -29,20 +31,20 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		// Handle init
-		if (this.hasNode()) {		
+		if (this.hasNode()) {
 			// Handle sound ended event
 			var audio = this;
-			enyo.dispatcher.listen(audio.hasNode(), "ended", function() { 
+			enyo.dispatcher.listen(audio.hasNode(), "ended", function() {
 				audio.doSoundEnded();
-			});			
-			enyo.dispatcher.listen(audio.hasNode(), "timeupdate", function(s) { 
+			});
+			enyo.dispatcher.listen(audio.hasNode(), "timeupdate", function(s) {
 				audio.doSoundTimeupdate({timeStamp: s.timeStamp});
-			});			
+			});
 		}
 	},
-	
+
 	// Property changed
 	srcChanged: function() {
 		this.setAttribute("src", this.src);
@@ -51,7 +53,7 @@ enyo.kind({
 	crossoriginChanged: function() {
 		this.setAttribute("crossorigin", this.crossorigin);
 	},
-	
+
 	preloadChanged: function() {
 		this.setAttribute("preload", this.preload);
 	},
@@ -59,16 +61,16 @@ enyo.kind({
 	loopChanged: function() {
 		this.setAttribute("loop", this.loop);
 	},
-	
+
 	mutedChanged: function() {
 		if (this.muted.length != 0)
 			this.setAttribute("muted", this.muted);
 	},
-	
+
 	controlsbarChanged: function() {
 		this.setAttribute("controls", this.controlsbar);
 	},
-	
+
 	// Test if component could play a file type
 	canPlayType: function(typename) {
 		var node = this.hasNode();
@@ -76,11 +78,11 @@ enyo.kind({
 			return false;
 		return node.canPlayType(typename);
 	},
-	
+
 	// Play audio
 	play: function() {
 		// HACK: HTML5 Audio don't work in PhoneGap on Android and iOS, use Media PhoneGap component instead
-		if ((enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http") {
+		if (this.isCordova) {
 			var src = location.pathname.substring(0,1+location.pathname.lastIndexOf('/'))+this.src;
 			var that = this;
 			var media = new Media(src, function() {
@@ -91,26 +93,37 @@ enyo.kind({
 			}, function() {});
 			media.play();
 			return;
-		}	
+		}
 		var node = this.hasNode();
 		if (!node)
 			return;
-		node.play();
+		this.started = false;
+		var promise = node.play();
+		if (promise) {
+			var that = this;
+			promise.then(function() {
+				that.started = true;
+			}).catch(function() {});
+		} else {
+			this.started = true;
+		}
 	},
-	
+
 	// Pause audio
 	pause: function() {
 		var node = this.hasNode();
 		if (!node)
-			return;		
-		node.pause();
+			return;
+		if (this.started) {
+			node.pause();
+		}
 	},
-	
+
 	// Test if audio is paused
 	paused: function() {
 		var node = this.hasNode();
 		if (!node)
-			return false;		
+			return false;
 		return node.paused;
 	},
 
@@ -118,8 +131,7 @@ enyo.kind({
 	ended: function() {
 		var node = this.hasNode();
 		if (!node)
-			return false;		
+			return false;
 		return node.ended;
-	}	
+	}
 });
-
