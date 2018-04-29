@@ -230,7 +230,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             document.getElementById("time_score_container").style.color = "black";
         }else{
             document.getElementById("choices").style.color = "white";
-            document.getElementById("time_score_container").style.color = "black";
+            document.getElementById("time_score_container").style.color = "white";
         }
 
         if(tinycolor(fill).isLight()){
