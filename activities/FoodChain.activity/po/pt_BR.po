@@ -1,0 +1,335 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 29 2018 09:13:52 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: sounddir
+msgctxt "sounddir"
+msgid "en"
+msgstr "pt_BR"
+
+#: learn
+msgctxt "learn"
+msgid "Learn"
+msgstr "Aprender"
+
+#: build
+msgctxt "build"
+msgid "Build"
+msgstr "Construir"
+
+#: play
+msgctxt "play"
+msgid "Play"
+msgstr "Jogar"
+
+#: learndesc
+msgctxt "learndesc"
+msgid "Put cards in the correct boxes to learn what sort of food each animal eats."
+msgstr "Coloque as cartas nas caixas corretas para aprender qual tipo de comida cada animal come."
+
+#: builddesc
+msgctxt "builddesc"
+msgid "Arrange cards in the correct order to build the right food chain."
+msgstr "Organize as cartas na posição correta para construir corretamente a cadeia alimentar."
+
+#: playdesc
+msgctxt "playdesc"
+msgid "Play the food chain: eat and avoid being eaten."
+msgstr "Jogue a cadeia alimentar: coma e evite ser comido."
+
+#: level
+msgctxt "level"
+msgid "Level"
+msgstr "Nível"
+
+#: score
+msgctxt "score"
+msgid "Score:"
+msgstr "Pontuação:"
+
+#: concept
+msgctxt "concept"
+msgid "concept & code:"
+msgstr "Conceito & código:"
+
+#: arts
+msgctxt "arts"
+msgid "arts:"
+msgstr "artes:"
+
+#: music
+msgctxt "music"
+msgid "music:"
+msgstr "música:"
+
+#: sound
+msgctxt "sound"
+msgid "sound effects:"
+msgstr "efeitos sonoros:"
+
+#: alligator
+msgctxt "alligator"
+msgid "Alligator"
+msgstr "Jacaré"
+
+#: animal
+msgctxt "animal"
+msgid "Animal"
+msgstr "Animal"
+
+#: bat
+msgctxt "bat"
+msgid "Bat"
+msgstr "Morcego"
+
+#: bee
+msgctxt "bee"
+msgid "Bee"
+msgstr "Abelha"
+
+#: bird
+msgctxt "bird"
+msgid "Bird"
+msgstr "Pássaro"
+
+#: camel
+msgctxt "camel"
+msgid "Camel"
+msgstr "Camelo"
+
+#: cat
+msgctxt "cat"
+msgid "Cat"
+msgstr "Gato"
+
+#: chicken
+msgctxt "chicken"
+msgid "Chicken"
+msgstr "Frango"
+
+#: chimp
+msgctxt "chimp"
+msgid "Chimp"
+msgstr "Chimpanzé"
+
+#: clam
+msgctxt "clam"
+msgid "Clam"
+msgstr "Molusco"
+
+#: corn
+msgctxt "corn"
+msgid "Corn"
+msgstr "Milho"
+
+#: cow
+msgctxt "cow"
+msgid "Cow"
+msgstr "Vaca"
+
+#: crab
+msgctxt "crab"
+msgid "Crab"
+msgstr "Caranguejo"
+
+#: crocodile
+msgctxt "crocodile"
+msgid "Crocodile"
+msgstr "Crocodilo"
+
+#: crow
+msgctxt "crow"
+msgid "Crow"
+msgstr "Corvo"
+
+#: dog
+msgctxt "dog"
+msgid "Dog"
+msgstr "Cachorro"
+
+#: duck
+msgctxt "duck"
+msgid "Duck"
+msgstr "Pato"
+
+#: fish
+msgctxt "fish"
+msgid "Fish"
+msgstr "Peixe"
+
+#: flies
+msgctxt "flies"
+msgid "Flies"
+msgstr "Moscas"
+
+#: fox
+msgctxt "fox"
+msgid "Fox"
+msgstr "Raposa"
+
+#: frog
+msgctxt "frog"
+msgid "Frog"
+msgstr "Sapo"
+
+#: giraffe
+msgctxt "giraffe"
+msgid "Giraffe"
+msgstr "Girafa"
+
+#: goat
+msgctxt "goat"
+msgid "Goat"
+msgstr "Bode"
+
+#: grass
+msgctxt "grass"
+msgid "Grass"
+msgstr "Grama"
+
+#: hay
+msgctxt "hay"
+msgid "Hay"
+msgstr "Feno"
+
+#: hen
+msgctxt "hen"
+msgid "Hen"
+msgstr "Galinha"
+
+#: lamb
+msgctxt "lamb"
+msgid "Lamb"
+msgstr "Cordeiro"
+
+#: mice
+msgctxt "mice"
+msgid "Mice"
+msgstr "Ratos"
+
+#: mole
+msgctxt "mole"
+msgid "Mole"
+msgstr "Topeira"
+
+#: mosquito
+msgctxt "mosquito"
+msgid "Mosquito"
+msgstr "Mosquito"
+
+#: mule
+msgctxt "mule"
+msgid "Mule"
+msgstr "Mula"
+
+#: owl
+msgctxt "owl"
+msgid "Owl"
+msgstr "Coruja"
+
+#: ox
+msgctxt "ox"
+msgid "Ox"
+msgstr "Boi"
+
+#: pig
+msgctxt "pig"
+msgid "Pig"
+msgstr "Porco"
+
+#: rat
+msgctxt "rat"
+msgid "Rat"
+msgstr "Rato"
+
+#: shark
+msgctxt "shark"
+msgid "Shark"
+msgstr "Tubarão"
+
+#: shrimp
+msgctxt "shrimp"
+msgid "Shrimp"
+msgstr "Camarão"
+
+#: skunk
+msgctxt "skunk"
+msgid "Skunk"
+msgstr "Gambá"
+
+#: snail
+msgctxt "snail"
+msgid "Snail"
+msgstr "Caracol"
+
+#: snake
+msgctxt "snake"
+msgid "Snake"
+msgstr "Cobra"
+
+#: spider
+msgctxt "spider"
+msgid "Spider"
+msgstr "Aranha"
+
+#: spike
+msgctxt "spike"
+msgid "Spike"
+msgstr "Ouriço"
+
+#: squid
+msgctxt "squid"
+msgid "Squid"
+msgstr "Lula"
+
+#: squirrel
+msgctxt "squirrel"
+msgid "Squirrel"
+msgstr "Esquilo"
+
+#: starfish
+msgctxt "starfish"
+msgid "Starfish"
+msgstr "Estrela-do-mar"
+
+#: swan
+msgctxt "swan"
+msgid "Swan"
+msgstr "Cisne"
+
+#: tick
+msgctxt "tick"
+msgid "Tick"
+msgstr "Carrapato"
+
+#: wheat
+msgctxt "wheat"
+msgid "Wheat"
+msgstr "Trigo"
+
+#: herbivore
+msgctxt "herbivore"
+msgid "Herbivore"
+msgstr "Herbívoro"
+
+#: carnivore
+msgctxt "carnivore"
+msgid "Carnivore"
+msgstr "Carnívoro"
+
+#: omnivore
+msgctxt "omnivore"
+msgid "Omnivore"
+msgstr "Onívoro"
+
