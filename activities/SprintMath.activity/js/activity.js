@@ -11,7 +11,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         var timeremaining;
         var correctans;
 
-
         function hide(Id) {
             document.getElementById(Id).style.display = "none";
         }
@@ -23,7 +22,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         function gameOver() {
             clearInterval(action);
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = "<p>" + webL10n.get("GameOver") + score + "</p>";
+            document.getElementById("gameOver").innerHTML = webL10n.get("GameOver") + score;
             document.getElementById("timeremaining").innerHTML = 60;
             document.getElementById("start").innerHTML = "Start Game";
             hide("time");
@@ -116,7 +115,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
         function startGame() {
             if (play) {
-                location.reload();
+                gameOver();
                 play = false;
             } else {
                 score = 0;
@@ -163,6 +162,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         env.getEnvironment(function (err, environment) {
             currentenv = environment;
 
+            var fill = currentenv.user.colorvalue.fill;
+            var stroke= currentenv.user.colorvalue.stroke;
+
+            setColor(fill, stroke);
+
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
             webL10n.language.code = language;
@@ -208,5 +212,32 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         });
 
     });
+
+    function setColor(fill, stroke) {
+        // set colors based on user stroke and fill colors
+        document.getElementById("container").style.backgroundColor = fill;
+        document.getElementById("score").style.backgroundColor= stroke;
+        document.getElementById("time").style.backgroundColor= stroke;
+        document.getElementById("box1").style.backgroundColor = stroke;
+        document.getElementById("box2").style.backgroundColor = stroke;
+        document.getElementById("box3").style.backgroundColor = stroke;
+        document.getElementById("box4").style.backgroundColor = stroke;
+
+        // dynamically change the font color between white and black based on the fill and stroke colors
+        // to provide better user experience
+        if(tinycolor(stroke).isLight()){
+            document.getElementById("choices").style.color = "black";
+            document.getElementById("time_score_container").style.color = "black";
+        }else{
+            document.getElementById("choices").style.color = "white";
+            document.getElementById("time_score_container").style.color = "black";
+        }
+
+        if(tinycolor(fill).isLight()){
+            document.getElementById("container").style.color = "black";
+        }else{
+            document.getElementById("container").style.color = "white";
+        }
+    }
 
 });

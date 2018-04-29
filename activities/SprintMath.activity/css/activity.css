@@ -26,7 +26,6 @@ html {
     font-family: sans-serif;
     font-weight: 300;
     position: relative;
-    background-color: #EF4581;
     border-radius: 5px;
 }
 
@@ -39,7 +38,6 @@ html {
     font-family: sans-serif;
     font-weight: 300;
     position: relative;
-    background-color: #EF4581;
     border-radius: 5px;
 }
 
@@ -49,16 +47,18 @@ html {
 
 #correct {
     text-align: center;
-    padding: 12px;
+    padding: 10px;
+    font-size: 15px;
     background-color: #01848F;
     color: #fff;
     border-radius: 5px;
-    display: none;
+    display: block;
 }
 
 #wrong {
     text-align: center;
-    padding: 12px;
+    padding: 10px;
+    font-size: 15px;
     background-color: #C62828;
     color: #fff;
     border-radius: 5px;
@@ -68,7 +68,6 @@ html {
 #question {
     height: 150px;
     margin: 1vw auto 2vh auto;
-    background-color: #00BCD4;
     font-size: 130px;
     font-weight: 200;
     font-family: Roboto, sans-serif;
@@ -84,7 +83,6 @@ html {
     font-weight: 300;
     text-align: center;
     line-height: 60px;
-    background: #E6E7E8;
 }
 
 #choices {
@@ -109,7 +107,6 @@ html {
     background-color: #C0CA33;
     font-size: 25px;
     font-weight: 400;
-    color: #000;
 }
 
 .box:active {
@@ -140,11 +137,12 @@ html {
 
 #gameOver {
     text-align: center;
-    padding: 12px;
+    padding: 10px;
+    font-size: 15px;
     background-color: #01848F;
     color: #fff;
     border-radius: 5px;
-    display: none;
+    display: block;
 }
 
 /*Phone Landscape*/
