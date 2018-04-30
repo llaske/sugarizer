@@ -21,10 +21,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
         function gameOver() {
             clearInterval(action);
-            show("gameOver");
-            document.getElementById("gameOver").innerHTML = webL10n.get("GameOver") + score;
             document.getElementById("timeremaining").innerHTML = 60;
-            document.getElementById("start").innerHTML = "Start Game";
             hide("time");
             hide("correct");
             hide("wrong");
@@ -111,7 +108,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             }
         }
 
-        document.getElementById("start").onclick = startGame;
+        document.getElementById("restart-button").onclick = startGame;
 
         function startGame() {
             if (play) {
@@ -122,8 +119,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                 play = true;
                 document.getElementById("scorevalue").innerHTML = score;
                 show("time");
-                hide("gameOver");
-                document.getElementById("start").innerHTML = webL10n.get("Reset");
                 timeremaining = 60;
                 startCountdown();
                 generateQuestion();
@@ -134,8 +129,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             document.getElementById("scorevalue").innerHTML = score;
             document.getElementById("timeremaining").innerHTML = timeremaining;
             show("time");
-            hide("gameOver");
-            document.getElementById("start").innerHTML = webL10n.get("Reset");
             startCountdown();
             generateQuestion();
         }
@@ -201,13 +194,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
             document.getElementById("timeString").innerHTML = webL10n.get("Time");
             document.getElementById("scoreString").innerHTML = webL10n.get("Score");
-            document.getElementById("instructionString").innerHTML = webL10n.get("Instruction");
 
-            if (play) {
-                document.getElementById("start").innerHTML = webL10n.get("Reset");
-            } else {
-                document.getElementById("start").innerHTML = webL10n.get("Start");
-            }
 
         });
 
@@ -215,9 +202,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
     function setColor(fill, stroke) {
         // set colors based on user stroke and fill colors
-        document.getElementById("container").style.backgroundColor = fill;
-        document.getElementById("score").style.backgroundColor= stroke;
-        document.getElementById("time").style.backgroundColor= stroke;
+
         document.getElementById("box1").style.backgroundColor = stroke;
         document.getElementById("box2").style.backgroundColor = stroke;
         document.getElementById("box3").style.backgroundColor = stroke;
@@ -227,17 +212,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         // to provide better user experience
         if(tinycolor(stroke).isLight()){
             document.getElementById("choices").style.color = "black";
-            document.getElementById("time_score_container").style.color = "black";
+            // document.getElementById("time_score_container").style.color = "black";
         }else{
             document.getElementById("choices").style.color = "white";
-            document.getElementById("time_score_container").style.color = "white";
+            // document.getElementById("time_score_container").style.color = "white";
         }
 
-        if(tinycolor(fill).isLight()){
-            document.getElementById("container").style.color = "black";
-        }else{
-            document.getElementById("container").style.color = "white";
-        }
+        document.getElementById("container").style.color = fill;
+
     }
 
 });

@@ -2,10 +2,18 @@
     background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #restart-button {
+    background-image: url(../icons/restart.svg);
+}
+
+#canvas{
+    background-color: white;
+}
+
 html {
     height: 100%;
     width: 100%;
-    background-color: #dddddd;
+    background-color: white;
 }
 
 #container {
@@ -13,7 +21,7 @@ html {
     margin: 5vh auto;
     padding: 20px;
     border-radius: 10px;
-    background-color: #783393;
+    background-color: #ffffff;
     position: relative;
 }
 
@@ -21,22 +29,24 @@ html {
     float: left;
     padding: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 30px;
     font-family: sans-serif;
     font-weight: 300;
     position: relative;
     border-radius: 5px;
+    color: black;
 }
 
 #score {
     float: right;
     padding: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 30px;
     font-family: sans-serif;
     font-weight: 300;
     position: relative;
     border-radius: 5px;
+    color: black;
 }
 
 #answer {
@@ -50,7 +60,7 @@ html {
     background-color: #01848F;
     color: #fff;
     border-radius: 5px;
-    display: block;
+    display: none;
 }
 
 #wrong {
@@ -65,7 +75,7 @@ html {
 
 #question {
     height: 150px;
-    margin: 1vw auto 2vh auto;
+    margin: 1vw auto 6vh auto;
     font-size: 130px;
     font-weight: 200;
     font-family: Roboto, sans-serif;
