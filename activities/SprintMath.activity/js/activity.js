@@ -16,6 +16,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         }
 
         function show(Id) {
+            console.log(Id);
             document.getElementById(Id).style.display = "block";
         }
 
@@ -24,7 +25,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             document.getElementById("timeremaining").innerHTML = 60;
             hide("time");
             hide("correct");
+            hide("score");
             hide("wrong");
+            hide("box1");
+            hide("box2");
+            hide("box3");
+            hide("box4");
+            show("gameOver");
+            document.getElementById("gameOver").innerHTML = 'Your Final Score is: '+ score;
 
             document.getElementById("question").innerHTML = '';
 
@@ -49,14 +57,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             var x = 1 + Math.round(9 * Math.random());
             var y = 1 + Math.round(9 * Math.random());
             var z = 1 + Math.round(2 * Math.random());
+
+            console.log(z);
+
             var sign, prod;
-            if (z == 1) {
+            if (z === 1) {
                 prod = x * y;
                 sign = "x";
-            } else if (z == 2) {
+            } else if (z === 2) {
                 prod = x + y;
                 sign = "+";
-            } else if (z == 3) {
+            } else if (z === 3) {
                 prod = x - y;
                 sign = "-";
             }
@@ -108,21 +119,21 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             }
         }
 
-        document.getElementById("restart-button").onclick = startGame;
-
         function startGame() {
-            if (play) {
-                gameOver();
-                play = false;
-            } else {
-                score = 0;
-                play = true;
-                document.getElementById("scorevalue").innerHTML = score;
-                show("time");
-                timeremaining = 60;
-                startCountdown();
-                generateQuestion();
-            }
+            clearInterval(action);
+            score = 0;
+            play = true;
+            timeremaining = 60;
+            document.getElementById("scorevalue").innerHTML = score;
+            hide("gameOver")
+            show("time");
+            show("box1");
+            show("box2");
+            show("box3");
+            show("box4");
+            show("score");
+            startCountdown();
+            generateQuestion();
         }
 
         function resumeGame() {
@@ -132,6 +143,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             startCountdown();
             generateQuestion();
         }
+
+        document.getElementById("restart-button").onclick = startGame;
 
         document.getElementById("stop-button").addEventListener('click', function (event) {
             console.log("writing...");
@@ -156,14 +169,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             currentenv = environment;
 
             var fill = currentenv.user.colorvalue.fill;
-            var stroke= currentenv.user.colorvalue.stroke;
+            var stroke = currentenv.user.colorvalue.stroke;
 
             setColor(fill, stroke);
 
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
             webL10n.language.code = language;
-            console.log("Language code in env="+language);
+            console.log("Language code in env=" + language);
 
             // Load from datastore
             if (!environment.objectId) {
@@ -175,9 +188,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                         play = stored_data.play;
                         score = stored_data.score;
                         timeremaining = stored_data.timeremaining;
-                        if(play){
+                        if (play) {
                             resumeGame()
-                        }else{
+                        } else {
                             startGame()
                         }
 
@@ -190,7 +203,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
         window.addEventListener("localized", function () {
             // Set current language to Sugarizer
-            console.log("Language code in window.addeventlistener="+webL10n.language.code);
+            console.log("Language code in window.addeventlistener=" + webL10n.language.code);
 
             document.getElementById("timeString").innerHTML = webL10n.get("Time");
             document.getElementById("scoreString").innerHTML = webL10n.get("Score");
@@ -198,28 +211,27 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
         });
 
-    });
+        function setColor(fill, stroke) {
+            // set colors based on user stroke and fill colors
 
-    function setColor(fill, stroke) {
-        // set colors based on user stroke and fill colors
+            document.getElementById("box1").style.backgroundColor = stroke;
+            document.getElementById("box2").style.backgroundColor = stroke;
+            document.getElementById("box3").style.backgroundColor = stroke;
+            document.getElementById("box4").style.backgroundColor = stroke;
 
-        document.getElementById("box1").style.backgroundColor = stroke;
-        document.getElementById("box2").style.backgroundColor = stroke;
-        document.getElementById("box3").style.backgroundColor = stroke;
-        document.getElementById("box4").style.backgroundColor = stroke;
+            // dynamically change the font color between white and black based on the fill and stroke colors
+            // to provide better user experience
+            if (tinycolor(stroke).isLight()) {
+                document.getElementById("choices").style.color = "black";
+                // document.getElementById("time_score_container").style.color = "black";
+            } else {
+                document.getElementById("choices").style.color = "white";
+                // document.getElementById("time_score_container").style.color = "white";
+            }
 
-        // dynamically change the font color between white and black based on the fill and stroke colors
-        // to provide better user experience
-        if(tinycolor(stroke).isLight()){
-            document.getElementById("choices").style.color = "black";
-            // document.getElementById("time_score_container").style.color = "black";
-        }else{
-            document.getElementById("choices").style.color = "white";
-            // document.getElementById("time_score_container").style.color = "white";
+            document.getElementById("container").style.color = fill;
+
         }
 
-        document.getElementById("container").style.color = fill;
-
-    }
-
+    });
 });
