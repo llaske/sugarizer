@@ -5,21 +5,25 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         activity.setup();
 
         // Initialize the activity.
-        var play = false;
-        var score;
-        var action;
-        var timeremaining;
-        var correctans;
+        var play = false;       // weather the game is playing (True) or ended (False)
+        var score;              // score of the user in the game
+        var action;             // instance of the interval
+        var time;               // time remaining in the game
+        var questions = [];     // array to hold all 200 random questions
+        var questionNumber = 0; // index of current question
 
+        // function to hide a particular DOM element
         function hide(Id) {
             document.getElementById(Id).style.display = "none";
         }
 
+        // function to show a particular DOM element
         function show(Id) {
             console.log(Id);
             document.getElementById(Id).style.display = "block";
         }
 
+        // function to run when game over
         function gameOver() {
             clearInterval(action);
             document.getElementById("timeremaining").innerHTML = 60;
@@ -32,7 +36,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             hide("box3");
             hide("box4");
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = 'Your Final Score is: '+ score;
+            document.getElementById("gameOver").innerHTML = 'Your Final Score is: ' + score;
 
             document.getElementById("question").innerHTML = '';
 
@@ -43,63 +47,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             play = false;
         }
 
+        // starts the timer
         function startCountdown() {
             action = setInterval(function () {
-                timeremaining -= 1;
-                document.getElementById("timeremaining").innerHTML = timeremaining;
-                if (timeremaining == 0) {
+                time -= 1;
+                document.getElementById("timeremaining").innerHTML = time;
+                if (time == 0) {
                     gameOver();
                 }
             }, 1000);
         }
 
-        function generateQuestion() {
-            var x = 1 + Math.round(9 * Math.random());
-            var y = 1 + Math.round(9 * Math.random());
-            var z = 1 + Math.round(2 * Math.random());
-
-            console.log(z);
-
-            var sign, prod;
-            if (z === 1) {
-                prod = x * y;
-                sign = "x";
-            } else if (z === 2) {
-                prod = x + y;
-                sign = "+";
-            } else if (z === 3) {
-                prod = x - y;
-                sign = "-";
-            }
-            correctans = prod;
-
-            document.getElementById("question").innerHTML = x + sign + y;
-
-            var ansbox = 1 + Math.round(3 * Math.random());
-            document.getElementById("box" + ansbox).innerHTML = prod;
-
-            var answers = [prod];
-
-            for (var i = 1; i < 5; i++) {
-                if (i != ansbox) {
-                    var wrongans;
-
-                    do {
-                        wrongans = (1 + Math.round(99 * Math.random()))
-                    } while (answers.indexOf(wrongans) > -1)
-
-                    answers.push(wrongans);
-                    document.getElementById("box" + i).innerHTML = wrongans;
-
-                }
-            }
-
-        }
-
+        // setting event listeners on answer boxes
         for (var i = 1; i < 5; i++) {
             document.getElementById("box" + i).onclick = function () {
+                var Correctans= questions[questionNumber].answer;
                 if (play) {
-                    if (this.innerHTML == correctans) {
+                    if (this.innerHTML == Correctans) {
                         score++;
                         document.getElementById("scorevalue").innerHTML = score;
                         hide("wrong");
@@ -107,7 +71,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                         setTimeout(function () {
                             hide("correct");
                         }, 1000);
-                        generateQuestion();
+                        // generateQuestion();
+                        questionNumber++;
+                        displayCurrentQuestion();
                     } else {
                         show("wrong");
                         hide("correct");
@@ -119,13 +85,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             }
         }
 
+        // function to start a new game
         function startGame() {
             clearInterval(action);
             score = 0;
             play = true;
-            timeremaining = 60;
+            time = 60;
+            questionNumber=0;
             document.getElementById("scorevalue").innerHTML = score;
-            hide("gameOver")
+            hide("gameOver");
             show("time");
             show("box1");
             show("box2");
@@ -133,26 +101,87 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             show("box4");
             show("score");
             startCountdown();
-            generateQuestion();
+            generateQuestions();
         }
 
+        // function to resume an old game
         function resumeGame() {
             document.getElementById("scorevalue").innerHTML = score;
-            document.getElementById("timeremaining").innerHTML = timeremaining;
+            document.getElementById("timeremaining").innerHTML = time;
             show("time");
             startCountdown();
-            generateQuestion();
+            displayCurrentQuestion();
+        }
+
+        // generate questions (will generate 200 questions at the start of the game)
+        function generateQuestions() {
+            for (i = 0; i < 200; i++) {
+                var x = 1 + Math.round(9 * Math.random());
+                var y = 1 + Math.round(9 * Math.random());
+                var z = 1 + Math.round(2 * Math.random());
+
+                var currentQues, currentAns;
+                if (z === 1) {
+                    currentAns = x * y;
+                    currentQues = x + "x" + y;
+                } else if (z === 2) {
+                    currentAns = x + y;
+                    currentQues = x + "+" + y;
+                } else if (z === 3) {
+                    currentAns = x - y;
+                    currentQues = x + "-" + y;
+                }
+
+                questions.push({
+                    "question": currentQues,
+                    "answer": currentAns
+                })
+            }
+            console.log(questions);
+            displayCurrentQuestion();
+        }
+
+        // set current question (will set the current question in the html DOM)
+        function displayCurrentQuestion() {
+            var CurrentQues= questions[questionNumber].question;
+            var CurrentAns= questions[questionNumber].answer;
+            // display question
+            document.getElementById("question").innerHTML = CurrentQues;
+
+            // display answers
+            var ansbox = 1 + Math.round(3 * Math.random());
+            document.getElementById("box" + ansbox).innerHTML = CurrentAns;
+
+            var answers = [CurrentAns];
+
+            for (var i = 1; i < 5; i++) {
+                if (i != ansbox) {
+                    var wrongans;
+                    do {
+                        wrongans = (1 + Math.round(99 * Math.random()))
+                    } while (answers.indexOf(wrongans) > -1);
+
+                    answers.push(wrongans);
+                    document.getElementById("box" + i).innerHTML = wrongans;
+                }
+            }
         }
 
         document.getElementById("restart-button").onclick = startGame;
 
+        // Sugar functions
         document.getElementById("stop-button").addEventListener('click', function (event) {
             console.log("writing...");
             object_store = {
                 "play": play,
                 "score": score,
-                "timeremaining": timeremaining
+                "timeremaining": time,
+                "questions": questions,
+                "questionNumber": questionNumber
             };
+            
+            console.log(object_store);
+            
 
             var jsonData = JSON.stringify(object_store);
             activity.getDatastoreObject().setDataAsText(jsonData);
@@ -185,9 +214,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                 activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
                     if (error == null && data != null) {
                         stored_data = JSON.parse(data);
+                        console.log(stored_data);
+                        
                         play = stored_data.play;
                         score = stored_data.score;
-                        timeremaining = stored_data.timeremaining;
+                        time = stored_data.timeremaining;
+                        questions= stored_data.questions;
+                        questionNumber= stored_data.questionNumber;
                         if (play) {
                             resumeGame()
                         } else {
@@ -211,6 +244,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
         });
 
+        // function to set color theme based on User Colors
         function setColor(fill, stroke) {
             // set colors based on user stroke and fill colors
 
