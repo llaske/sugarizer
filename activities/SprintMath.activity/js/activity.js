@@ -37,7 +37,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             hide("box4");
             show("gameOver");
             document.getElementById("gameOver").innerHTML = 'Your Final Score is: ' + score;
-
             document.getElementById("question").innerHTML = '';
 
             for (var i = 1; i < 5; i++) {
@@ -61,7 +60,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         // setting event listeners on answer boxes
         for (var i = 1; i < 5; i++) {
             document.getElementById("box" + i).onclick = function () {
-                var Correctans= questions[questionNumber].answer;
+                var Correctans = questions[questionNumber].answer;
                 if (play) {
                     if (this.innerHTML == Correctans) {
                         score++;
@@ -91,7 +90,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             score = 0;
             play = true;
             time = 60;
-            questionNumber=0;
+            questionNumber = 0;
+            questions = [];
             document.getElementById("scorevalue").innerHTML = score;
             hide("gameOver");
             show("time");
@@ -132,38 +132,49 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                     currentQues = x + "-" + y;
                 }
 
+                var choices = [currentAns];
+
+                for (var j = 1; j < 4; j++) {
+                    var wrongans;
+                    do {
+                        wrongans = (1 + Math.round(99 * Math.random()));
+                    } while (choices.indexOf(wrongans) > -1);
+                    choices.push(wrongans);
+                }
+
+                shuffleArray(choices);
+
                 questions.push({
                     "question": currentQues,
-                    "answer": currentAns
+                    "answer": currentAns,
+                    "choices": choices
                 })
             }
             console.log(questions);
             displayCurrentQuestion();
         }
 
+        // shuffle array
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
         // set current question (will set the current question in the html DOM)
         function displayCurrentQuestion() {
-            var CurrentQues= questions[questionNumber].question;
-            var CurrentAns= questions[questionNumber].answer;
+            var CurrentQues = questions[questionNumber].question;
+            var choices = questions[questionNumber].choices;
+
             // display question
             document.getElementById("question").innerHTML = CurrentQues;
 
             // display answers
-            var ansbox = 1 + Math.round(3 * Math.random());
-            document.getElementById("box" + ansbox).innerHTML = CurrentAns;
-
-            var answers = [CurrentAns];
-
             for (var i = 1; i < 5; i++) {
-                if (i != ansbox) {
-                    var wrongans;
-                    do {
-                        wrongans = (1 + Math.round(99 * Math.random()))
-                    } while (answers.indexOf(wrongans) > -1);
-
-                    answers.push(wrongans);
-                    document.getElementById("box" + i).innerHTML = wrongans;
-                }
+                document.getElementById("box" + i).innerHTML = choices[i-1];
             }
         }
 
@@ -179,9 +190,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                 "questions": questions,
                 "questionNumber": questionNumber
             };
-            
+
             console.log(object_store);
-            
+
 
             var jsonData = JSON.stringify(object_store);
             activity.getDatastoreObject().setDataAsText(jsonData);
@@ -215,12 +226,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                     if (error == null && data != null) {
                         stored_data = JSON.parse(data);
                         console.log(stored_data);
-                        
+
                         play = stored_data.play;
                         score = stored_data.score;
                         time = stored_data.timeremaining;
-                        questions= stored_data.questions;
-                        questionNumber= stored_data.questionNumber;
+                        questions = stored_data.questions;
+                        questionNumber = stored_data.questionNumber;
                         if (play) {
                             resumeGame()
                         } else {
