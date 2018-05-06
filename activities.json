@@ -30,7 +30,7 @@
 	{"id": "org.somosazucar.JappyActivity", "name": "Jappy", "favorite": true, "version": 1, "directory": "activities/Jappy.activity", "icon": "activity/activity-icon.svg", "activityId": null},
 	{"id": "org.olpcfrance.qrcode", "name": "QRCode", "version": 1, "directory": "activities/QRCode.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Markdown", "name": "Markdown", "version": 3, "directory": "activities/Markdown.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.Scratch", "name": "Scratch", "version": 1, "directory": "activities/Scratch.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Scratch", "name": "Scratch", "favorite": true, "version": 1, "directory": "activities/Scratch.activity", "icon": "activity/activity-icon.svg", "activityId": null},
 	{"id": "org.sugarlabs.gameOfLife", "name": "Game Of Life", "version": 1, "directory": "activities/GameOfLife.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.FotoToonJs", "name": "FotoToon", "version": 1, "directory": "activities/Fototoon.activity", "icon": "activity/fototoon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.GTDActivity", "name": "Get Things Done", "version": 1, "directory": "activities/GetThingsDone.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
