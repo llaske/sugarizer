@@ -5,7 +5,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         activity.setup();
 
         // Initialize the activity.
-        var play = false;       // weather the game is playing (True) or ended (False)
+        var play = false;       // whether the game is playing (True) or ended (False)
         var score;              // score of the user in the game
         var action;             // instance of the interval
         var time;               // time remaining in the game
