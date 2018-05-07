@@ -4,141 +4,143 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2018-05-07 20:09+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-fototoon/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: AddAglobe
 msgctxt "AddAglobe"
 msgid "Add a globe"
-msgstr ""
+msgstr "Adicione um globo"
 
 #: Globe
 msgctxt "Globe"
 msgid "Globe"
-msgstr ""
+msgstr "Globo"
 
 #: Exclamation
 msgctxt "Exclamation"
 msgid "Exclamation"
-msgstr ""
+msgstr "Exclamação"
 
 #: Whisper
 msgctxt "Whisper"
 msgid "Whisper"
-msgstr ""
+msgstr "Susurro"
 
 #: Think
 msgctxt "Think"
 msgid "Think"
-msgstr ""
+msgstr "Pensar"
 
 #: Box
 msgctxt "Box"
 msgid "Box"
-msgstr ""
+msgstr "Caixa"
 
 #: Title
 msgctxt "Title"
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: SetGlobeText
 msgctxt "SetGlobeText"
 msgid "Set globe text:"
-msgstr ""
+msgstr "Definir texto do globo:"
 
 #: of
 msgctxt "of"
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: ATENTION
 msgctxt "ATENTION"
 msgid "ATENTION"
-msgstr ""
+msgstr "ATENÇÃO"
 
 #: RemoveAllConfirmMessage
 msgctxt "RemoveAllConfirmMessage"
 msgid "Do you want remove all the boxes in your FotoToon?"
-msgstr ""
+msgstr "Você quer remover todas as caixas do seu FotoToon?"
 
 #: Yes
 msgctxt "Yes"
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: No
 msgctxt "No"
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: OneRow
 msgctxt "OneRow"
 msgid "One row"
-msgstr ""
+msgstr "Uma linha"
 
 #: OneColumn
 msgctxt "OneColumn"
 msgid "One column"
-msgstr ""
+msgstr "Uma coluna"
 
 #: TwoColumns
 msgctxt "TwoColumns"
 msgid "Two columns"
-msgstr ""
+msgstr "Duas colunas"
 
 #: SaveAsImage
 msgctxt "SaveAsImage"
 msgid "Save as image"
-msgstr ""
+msgstr "Salvar como imagem"
 
 #: ImageSaved
 msgctxt "ImageSaved"
 msgid "Image saved in journal"
-msgstr ""
+msgstr "Imagem salva no diário"
 
 #: SavingError
 msgctxt "SavingError"
 msgid "Error saving image"
-msgstr ""
+msgstr "Erro ao salvar imagem"
 
 #: ToonSaved
 msgctxt "ToonSaved"
 msgid "FotoToon saved"
-msgstr ""
+msgstr "FotoToon salvo"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr ""
+msgstr "Próximo"
 
 #: Add
 msgctxt "Add"
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: EditText
 msgctxt "EditText"
 msgid "Edit text"
-msgstr ""
+msgstr "Editar texto"
 
 #: Sort
 msgctxt "Sort"
 msgid "Sort boxes"
-msgstr ""
+msgstr "Sortear caixas"
 
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
-msgstr ""
+msgstr "Limpar tudo"
