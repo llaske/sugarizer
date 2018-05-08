@@ -18,27 +18,36 @@ define(["sugar-web/activity/activity"], function (activity) {
 		preferences = settings;
 		preferences.load(function() {
 			l10n = preferences.l10n;
-			window.addEventListener('localized', function() {
-				// Force language
-				if (preferences.l10n.language.code != preferences.language) {
-					preferences.l10n.language.code = preferences.language;
-					return;
+
+			// Wait for locale load
+			var localized_received = function() {
+				// Init activity
+				if (app == null) {
+					// Force language
+					if (preferences.l10n.language.code != preferences.language) {
+						preferences.l10n.language.code = preferences.language;
+						return;
+					}
+
+					// Create sound component
+					sound = new TankOp.Audio();
+					sound.renderInto(document.getElementById("audio"));
+
+					// Launch main screen
+					app = new TankOp.App({activity: activity});
+					app.load();
+					app.renderInto(document.getElementById("board"));
+
+					// Stop sound at end of game to sanitize media environment, specifically on Android
+					document.getElementById("stop-button").addEventListener('click', function (event) {
+						sound.pause();
+					});
+				} else {
+					// Just change locale
+					app.setLocale();
 				}
-
-				// Create sound component
-				sound = new TankOp.Audio();
-				sound.renderInto(document.getElementById("audio"));
-
-				// Launch main screen
-				app = new TankOp.App({activity: activity});
-				app.load();
-				app.renderInto(document.getElementById("board"));
-
-				// Stop sound at end of game to sanitize media environment, specifically on Android
-				document.getElementById("stop-button").addEventListener('click', function (event) {
-					sound.pause();
-				});
-			});
+			};
+			window.addEventListener('localized', localized_received, false);
 		});
 	});
 

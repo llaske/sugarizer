@@ -63,22 +63,28 @@ enyo.kind({
 
 	// Draw screen
 	init: function() {
-		// Localize
-		this.$.start.setContent(l10n.get("Start"));
-		this.$.nextmission.setContent(l10n.get("NextMission"));
-		this.$.completed.setContent(l10n.get("Completed"));
+		this.setLocale();
 
 		// Draw completed mission
 		var items = [];
-		this.$.mission.setContent(preferences.levels[this.currentlevel].name = l10n.get(preferences.levels[this.currentlevel].id));
 		enyo.forEach(this.$.stars.getControls(), function(item) { items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 		for (var i = 0 ; i < preferences.levels.length ; i++) {
-			preferences.levels[i].name = l10n.get(preferences.levels[i].id);
 			this.$.stars.createComponent({
 					classes: (preferences.levels[i].completed ? "mission mission-completed mission-line" : "mission mission-tocomplete mission-line")
 				},
 				{owner: this}).render();
+		}
+	},
+
+	// Localization, changed update UI and missions
+	setLocale: function() {
+		this.$.start.setContent(l10n.get("Start"));
+		this.$.nextmission.setContent(l10n.get("NextMission"));
+		this.$.completed.setContent(l10n.get("Completed"));
+		this.$.mission.setContent(preferences.levels[this.currentlevel].name = l10n.get(preferences.levels[this.currentlevel].id));
+		for (var i = 0 ; i < preferences.levels.length ; i++) {
+			preferences.levels[i].name = l10n.get(preferences.levels[i].id);
 		}
 	},
 
