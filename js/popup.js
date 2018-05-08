@@ -99,7 +99,7 @@ enyo.kind({
 	showContent: function() {
 		window.clearInterval(this.timer);
 		this.timer = null;
-		if (this.showing) {
+		if (this.$.items && this.showing) {
 			if (this.items != null && this.items.length > 0) {
 				this.$.items.show();
 			}

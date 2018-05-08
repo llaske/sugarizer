@@ -428,6 +428,9 @@ enyo.kind({
 		this.$.activityPopup.showPopup();
 	},
 	hideActivityPopup: function(icon) {
+		if (!this.$.activityPopup) {
+			return true;
+		}
 		if (this.$.activityPopup.cursorIsInside() || icon.cursorIsInside()) {
 			return false;
 		}
