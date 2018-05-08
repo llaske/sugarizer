@@ -1,8 +1,18 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n"], function (activity, env, icon, webL10n) {
+define(["sugar-web/activity/activity", "sugar-web/env", "levelpalette", "sugar-web/graphics/icon", "webL10n"], function (activity, env, levelpalette, icon, webL10n) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
         activity.setup();
+
+        var datastoreObject = activity.getDatastoreObject();
+
+        var levelButton = document.getElementById("level-button");
+
+        var levelPalette = new levelpalette.ActivityPalette(
+            levelButton, datastoreObject);
+
+        var gameLevel= document.getElementById("level").innerHTML;
+
 
         // Initialize the activity.
         var play = false;       // whether the game is playing (True) or ended (False)
@@ -116,20 +126,34 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
         // generate questions (will generate 200 questions at the start of the game)
         function generateQuestions() {
             for (i = 0; i < 200; i++) {
+
+                // level factor decides which questions will be taken
+                var levelFactor=0;
+
+                // levels logic
+                if(gameLevel==='easy') levelFactor=0;
+                else if(gameLevel==='medium') levelFactor=1;
+                else if(gameLevel==='hard') levelFactor=2;
+
                 var x = 1 + Math.round(9 * Math.random());
                 var y = 1 + Math.round(9 * Math.random());
-                var z = 1 + Math.round(2 * Math.random());
+                var z = 1 + Math.round(levelFactor * Math.random());
 
                 var currentQues, currentAns;
-                if (z === 1) {
+                if (z === 3) {
                     currentAns = x * y;
                     currentQues = x + "x" + y;
-                } else if (z === 2) {
+                } else if (z === 1) {
                     currentAns = x + y;
                     currentQues = x + "+" + y;
-                } else if (z === 3) {
-                    currentAns = x - y;
-                    currentQues = x + "-" + y;
+                } else if (z === 2) {
+                    if (x >= y){
+                        currentAns = x - y;
+                        currentQues = x + "-" + y;
+                    }else{
+                        currentAns = y - x;
+                        currentQues = y + "-" + x;
+                    }
                 }
 
                 var choices = [currentAns];
@@ -188,7 +212,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                 "score": score,
                 "timeremaining": time,
                 "questions": questions,
-                "questionNumber": questionNumber
+                "questionNumber": questionNumber,
+                "gameLevel": gameLevel
             };
 
             console.log(object_store);
@@ -232,6 +257,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
                         time = stored_data.timeremaining;
                         questions = stored_data.questions;
                         questionNumber = stored_data.questionNumber;
+                        gameLevel= stored_data.gameLevel;
                         if (play) {
                             resumeGame()
                         } else {
@@ -277,6 +303,25 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
             document.getElementById("container").style.color = fill;
 
         }
+
+        // setting levels
+        window.onmouseup =function(e) {
+            var level= gameLevel;
+
+            if(e.target.id==="easy"){
+                level = "easy";
+            }else if(e.target.id==="medium"){
+                level = "medium";
+            }else if(e.target.id==="hard"){
+                level = "hard";
+            }
+
+            if(gameLevel !== level) {
+                gameLevel = level;
+                startGame();
+            }
+
+        };
 
     });
 });

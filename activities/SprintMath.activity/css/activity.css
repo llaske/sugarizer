@@ -2,6 +2,10 @@
     background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #level-button {
+    background-image: url(../icons/level.svg);
+}
+
 #main-toolbar #restart-button {
     background-image: url(../icons/restart.svg);
 }
