@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:14:25 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-07 20:05+0000\n"
+"PO-Revision-Date: 2018-05-10 18:52+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-tankop/pt/>\n"
@@ -48,7 +48,7 @@ msgstr "ADIÇÃO E SUBTRAÇÃO"
 #: STW
 msgctxt "STW"
 msgid "SUBTRACTION TWO DIGITS"
-msgstr "SUBTRAÇÃO COM DOIS DIGÍTOS"
+msgstr "SUBTRAÇÃO COM DOIS DÍGITOS"
 
 #: S020
 msgctxt "S020"
@@ -68,7 +68,7 @@ msgstr "NÚMEROS AUSENTES"
 #: TDN
 msgctxt "TDN"
 msgid "TWO DIGITS NUMBERS"
-msgstr "NÚMERO DE DOIS DIGITOS"
+msgstr "NÚMERO DE DOIS DÍGITOS"
 
 #: SUM20
 msgctxt "SUM20"
@@ -139,7 +139,7 @@ msgstr "música"
 msgctxt "Valkyries"
 msgid "Ride of the Valkyries, Richard Wagner, Americain Symphony Orchestra 1921"
 msgstr ""
-"Passeio das Valquírias, Richard Wagner, Orquestra sinfônica americana 1921"
+"Cavalgada das Valquírias, Richard Wagner, Orquestra Sinfônica Americana 1921"
 
 #: Sounds
 msgctxt "Sounds"
