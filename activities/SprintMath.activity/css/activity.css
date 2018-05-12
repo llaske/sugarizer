@@ -1,17 +1,48 @@
 #main-toolbar #activity-button {
     background-image: url(../activity/activity-icon.svg);
+    outline: none;
 }
 
 #main-toolbar #level-button {
     background-image: url(../icons/level.svg);
+    outline: none;
 }
 
 #main-toolbar #restart-button {
     background-image: url(../icons/restart.svg);
+    outline: none;
+}
+
+#main-toolbar #stop-button {
+    outline: none;
 }
 
 #canvas{
     background-color: white;
+}
+
+.palette-button {
+    width: 200px;
+    height: 47px;
+    margin: 4px 22px;
+    color: transparent;
+    background-size: 59px;
+    border: 0;
+    border-radius: 5.5px;
+    display: block;
+}
+
+.filter-item {
+    color: white;
+    font-size: 12pt;
+}
+
+.palette-button-notselected {
+    background-color: transparent;
+}
+
+.palette-button-selected {
+    background-color: #9c9a9c;
 }
 
 html {
