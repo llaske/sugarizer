@@ -8,6 +8,11 @@
     outline: none;
 }
 
+#main-toolbar #filter-button {
+    background-image: url(../icons/filter.svg);
+    outline: none;
+}
+
 #main-toolbar #restart-button {
     background-image: url(../icons/restart.svg);
     outline: none;
@@ -22,8 +27,8 @@
 }
 
 .palette-button {
-    width: 200px;
-    height: 47px;
+    width: 80px;
+    height: 40px;
     margin: 4px 22px;
     color: transparent;
     background-size: 59px;
