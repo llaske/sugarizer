@@ -330,6 +330,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             document.getElementById("box3").style.backgroundColor = stroke;
             document.getElementById("box4").style.backgroundColor = stroke;
 
+            document.getElementById("gameOver").style.backgroundColor= stroke;
+            document.getElementById("gameOver").style.color= fill;
 
             // dynamically change the font color between white and black based on the fill and stroke colors
             // to provide better user experience
