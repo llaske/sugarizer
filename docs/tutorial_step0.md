@@ -35,7 +35,11 @@ To run Sugarizer locally in Chrome, close any running instances of Chrome and re
 
 * The `index.html` file is located in the new Sugarizer directory so you will have to use `cd` command line to change location to this directory before running the command.
 
-If everything is right, after typing your name and choosing your color, you should see something like that:
+If everything is right, you should see something like that:
+
+![](images/tutorial_step0_0.png)
+
+Click on "New user", type your name and choose your color, you should see the Sugarizer home view:
 
 ![](images/tutorial_step0_1.png)
 
