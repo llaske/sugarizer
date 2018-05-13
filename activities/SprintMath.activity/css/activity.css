@@ -20,6 +20,7 @@
 
 #main-toolbar #network-button {
     background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+    outline: none;
 }
 
 #private-button {
@@ -33,6 +34,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    outline: none;
     border: 0;
     border-radius: 5.5px;
 }
@@ -49,6 +51,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     border: 0;
+    outline: none;
     border-radius: 5.5px;
 }
 
