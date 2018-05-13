@@ -4,8 +4,9 @@ define([
     "sugar-web/graphics/icon",
     "webL10n",
     "sugar-web/graphics/presencepalette",
-    "toolpalette"
-], function (activity, env, icon, webL10n, presencepalette, toolpalette) {
+    "toolpalette",
+    "humane"
+], function (activity, env, icon, webL10n, presencepalette, toolpalette, humane) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
@@ -436,6 +437,10 @@ define([
                 return;
             }
             switch (msg.content.action) {
+                case 'initialBoard':
+                    // Receive initial board from the host
+                    initGraph(msg.content.data);
+                    break;
                 case 'init':
                     if(questions.length===0) {
                         questions = msg.content.data;
@@ -515,7 +520,15 @@ define([
                 showAllUserScores();
             }
 
+            var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 
+            if(msg.move === 1){
+                console.log(userName+" joined!");
+                humane.log(userName+" joined!");
+            }else{
+                console.log(userName+" left!");
+                humane.log(userName+" left!");
+            }
         };
 
         // function to set color theme based on User Colors
