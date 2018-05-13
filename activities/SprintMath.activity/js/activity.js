@@ -119,6 +119,9 @@ define([
                     name: currentenv.user.name,
                     score: score
                 });
+
+                document.getElementById("gameOver").style.backgroundColor = currentenv.user.colorvalue.stroke;
+                document.getElementById("gameOver").style.color = currentenv.user.colorvalue.fill;
             }
             document.getElementById("question").innerHTML = '';
 
@@ -380,7 +383,7 @@ define([
                         questionNumber = stored_data.questionNumber;
                         gameLevel = stored_data.gameLevel;
                         gameOperation = stored_data.gameOperation;
-                        if (play) {
+                        if (play && time>0) {
                             resumeGame()
                         } else {
                             startGame()
@@ -540,9 +543,6 @@ define([
             document.getElementById("box2").style.backgroundColor = stroke;
             document.getElementById("box3").style.backgroundColor = stroke;
             document.getElementById("box4").style.backgroundColor = stroke;
-
-            // document.getElementById("gameOver").style.backgroundColor = stroke;
-            // document.getElementById("gameOver").style.color = fill;
 
             // dynamically change the font color between white and black based on the fill and stroke colors
             // to provide better user experience
