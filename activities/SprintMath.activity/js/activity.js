@@ -195,7 +195,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                 for (var j = 1; j < 4; j++) {
                     var wrongans;
                     do {
-                        wrongans = (1 + Math.round((levelFactor * levelFactor) * Math.random()));
+                        if(gameOperation===1 || gameOperation===2) wrongans = (1 + Math.round((levelFactor + levelFactor) * Math.random()));
+                        else wrongans = (1 + Math.round((levelFactor * levelFactor) * Math.random()));
                     } while (choices.indexOf(wrongans) > -1);
                     choices.push(wrongans);
                 }
