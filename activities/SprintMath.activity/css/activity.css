@@ -52,6 +52,10 @@
     border-radius: 5.5px;
 }
 
+.disabled{
+    opacity: .65;
+}
+
 #main-toolbar #stop-button {
     outline: none;
 }
