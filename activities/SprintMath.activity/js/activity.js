@@ -366,6 +366,7 @@ define([
             // Load from datastore
             if (!environment.objectId) {
                 console.log("New instance");
+                startGame();
             } else {
                 activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
                     if (error == null && data != null) {
