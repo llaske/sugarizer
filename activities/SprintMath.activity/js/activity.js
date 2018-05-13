@@ -1,4 +1,11 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-web/graphics/icon", "webL10n"], function (activity, env, palette, icon, webL10n) {
+define([
+    "sugar-web/activity/activity",
+    "sugar-web/env",
+    "sugar-web/graphics/icon",
+    "webL10n",
+    "sugar-web/graphics/presencepalette",
+    "toolpalette"
+], function (activity, env, icon, webL10n, presencepalette, toolpalette) {
     // Manipulate the DOM only when it is ready.
     require(['domReady!'], function (doc) {
 
@@ -11,7 +18,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             {"id": 2, "title": webL10n.get("medium")},
             {"id": 3, "title": webL10n.get("hard")}
         ];
-        levelpalette = new palette.FilterPalette(levelButton, undefined);
+        levelpalette = new toolpalette.FilterPalette(levelButton, undefined);
         levelpalette.setCategories(levels);
         levelpalette.addEventListener('filter', function () {
             console.log("level" + levelpalette.getFilter());
@@ -27,7 +34,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             {"id": 3, "title": "x"},
             {"id": 4, "title": "+ / x / -"}
         ];
-        fpalette = new palette.FilterPalette(filterButton, undefined);
+        fpalette = new toolpalette.FilterPalette(filterButton, undefined);
         fpalette.setCategories(filter);
         fpalette.addEventListener('filter', function () {
             console.log("level" + fpalette.getFilter());
@@ -35,16 +42,41 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             fpalette.popDown();
         });
 
+        // initializing network palette
+
+        // Link presence palette
+        var presence = null;
+        var isHost = false;
+        var networkpalette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+        networkpalette.addEventListener('shared', function() {
+            networkpalette.popDown();
+            console.log("Want to share");
+            presence = activity.getPresenceObject(function(error, network) {
+                if (error) {
+                    console.log("Sharing error");
+                    return;
+                }
+                network.createSharedActivity('org.sugarlabs.SprintMath', function(groupId) {
+                    console.log("Activity shared");
+                    isHost=true;
+                });
+                network.onDataReceived(onNetworkDataReceived);
+                network.onSharedActivityUserChanged(onNetworkUserChanged);
+
+            });
+        });
+
 
         // Initialize the activity.
-        var play = false;       // whether the game is playing (True) or ended (False)
-        var score;              // score of the user in the game
-        var action;             // instance of the interval
-        var time;               // time remaining in the game
-        var questions = [];     // array to hold all 200 random questions
-        var questionNumber = 0; // index of current question
-        var gameLevel = "easy";  // game level (easy/med/hard)
-        var gameOperation = 1;   // game operation (add/sub/multiply)
+        var play = false;           // whether the game is playing (True) or ended (False)
+        var score;                  // score of the user in the game
+        var action;                 // instance of the interval
+        var time;                   // time remaining in the game
+        var questions = [];         // array to hold all 200 random questions
+        var questionNumber = 0;     // index of current question
+        var gameLevel = "easy";     // game level (easy/med/hard)
+        var gameOperation = 1;      // game operation (add/sub/multiply)
+        var gameOverMessages= [];   // in case of presence stores all game over messages
 
         // function to hide a particular DOM element
         function hide(Id) {
@@ -70,10 +102,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             hide("box3");
             hide("box4");
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {
-                name: currentenv.user.name,
-                score: score
-            });
+            if(presence){
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    content: {
+                        action: 'gameover',
+                        data: score
+                    }
+                });
+                gameOverMessages.push({"user":currentenv.user.name, "score": score});
+                showAllUserScores();
+            }else {
+                document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {
+                    name: currentenv.user.name,
+                    score: score
+                });
+            }
             document.getElementById("question").innerHTML = '';
 
             for (var i = 1; i < 5; i++) {
@@ -81,6 +125,21 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             }
 
             play = false;
+        }
+
+        // to show all presence user scores
+        function showAllUserScores() {
+            var div = document.createElement("div");
+            for(i=0;i<gameOverMessages.length;i++){
+               var p= document.createElement("p");
+               p.innerHTML= webL10n.get("GameOver", {
+                   name: gameOverMessages[i].user,
+                   score: gameOverMessages[i].score
+               });
+               div.appendChild(p)
+            }
+            document.getElementById("gameOver").innerHTML= '';
+            document.getElementById("gameOver").appendChild(div);
         }
 
         // starts the timer
@@ -128,7 +187,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             play = true;
             time = 60;
             questionNumber = 0;
-            questions = [];
             document.getElementById("scorevalue").innerHTML = score;
             hide("gameOver");
             show("time");
@@ -138,7 +196,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             show("box4");
             show("score");
             startCountdown();
-            generateQuestions();
+            if(!presence){
+                questions = [];
+                generateQuestions();
+            }
+            else displayCurrentQuestion();
         }
 
         // function to resume an old game
@@ -195,7 +257,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                 for (var j = 1; j < 4; j++) {
                     var wrongans;
                     do {
-                        if(gameOperation===1 || gameOperation===2) wrongans = (1 + Math.round((levelFactor + levelFactor) * Math.random()));
+                        if (gameOperation === 1 || gameOperation === 2) wrongans = (1 + Math.round((levelFactor + levelFactor) * Math.random()));
                         else wrongans = (1 + Math.round((levelFactor * levelFactor) * Math.random()));
                     } while (choices.indexOf(wrongans) > -1);
                     choices.push(wrongans);
@@ -209,7 +271,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                     "choices": choices
                 })
             }
-            console.log(questions);
             displayCurrentQuestion();
         }
 
@@ -225,6 +286,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
 
         // set current question (will set the current question in the html DOM)
         function displayCurrentQuestion() {
+            console.log(questions[questionNumber]);
+            
             var CurrentQues = questions[questionNumber].question;
             var choices = questions[questionNumber].choices;
 
@@ -306,6 +369,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                     }
                 });
             }
+
+            if (environment.sharedId) {
+                console.log("Shared instance");
+                presence = activity.getPresenceObject(function(error, network) {
+                    network.onDataReceived(onNetworkDataReceived);
+                    network.onSharedActivityUserChanged(onNetworkUserChanged);
+                });
+            }
+            
         });
 
         window.addEventListener("localized", function () {
@@ -325,6 +397,39 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             levelpalette.setCategories(levels);
 
         });
+        
+        // network callback
+        var onNetworkDataReceived = function(msg) {
+            if (presence.getUserInfo().networkId === msg.user.networkId) {
+                return;
+            }
+            switch (msg.content.action) {
+                case 'init':
+                    questions = msg.content.data;
+                    gameOverMessages= msg.content.gameover;
+                    console.log(questions);
+                    startGame();
+                    break;
+                case 'gameover':
+                    gameOverMessages.push({"user":msg.user.name, "score":msg.content.data});
+                    console.log({"user":msg.user, "score":msg.content.data});
+                    showAllUserScores();
+                    break;
+            }
+        };
+
+        var onNetworkUserChanged = function(msg) {
+            if (isHost) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    content: {
+                        action: 'init',
+                        data: questions,
+                        gameover: gameOverMessages
+                    }
+                });
+            }
+        };
 
         // function to set color theme based on User Colors
         function setColor(fill, stroke) {
