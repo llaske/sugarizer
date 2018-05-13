@@ -7,14 +7,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
         // initiating the level palette (for easy/ medium/ hard)
         var levelButton = document.getElementById("level-button");
         var levels = [
-            {"id":1, "title": webL10n.get("easy")},
-            {"id":2, "title": webL10n.get("medium")},
-            {"id":3, "title": webL10n.get("hard")}
+            {"id": 1, "title": webL10n.get("easy")},
+            {"id": 2, "title": webL10n.get("medium")},
+            {"id": 3, "title": webL10n.get("hard")}
         ];
         levelpalette = new palette.FilterPalette(levelButton, undefined);
         levelpalette.setCategories(levels);
-        levelpalette.addEventListener('filter', function() {
-            console.log("level"+levelpalette.getFilter());
+        levelpalette.addEventListener('filter', function () {
+            console.log("level" + levelpalette.getFilter());
             setLevel(levelpalette.getFilter());
             levelpalette.popDown();
         });
@@ -22,15 +22,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
         // initiating the filter palette (for add/ sub/ multiplication)
         var filterButton = document.getElementById("filter-button");
         var filter = [
-            {"id":1, "title": "+"},
-            {"id":2, "title": "-"},
-            {"id":3, "title": "x"},
-            {"id":4, "title": "+ / x / -"}
+            {"id": 1, "title": "+"},
+            {"id": 2, "title": "-"},
+            {"id": 3, "title": "x"},
+            {"id": 4, "title": "+ / x / -"}
         ];
         fpalette = new palette.FilterPalette(filterButton, undefined);
         fpalette.setCategories(filter);
-        fpalette.addEventListener('filter', function() {
-            console.log("level"+fpalette.getFilter());
+        fpalette.addEventListener('filter', function () {
+            console.log("level" + fpalette.getFilter());
             setOperation(fpalette.getFilter());
             fpalette.popDown();
         });
@@ -43,8 +43,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
         var time;               // time remaining in the game
         var questions = [];     // array to hold all 200 random questions
         var questionNumber = 0; // index of current question
-        var gameLevel= "easy";  // game level (easy/med/hard)
-        var gameOperation= 1;   // game operation (add/sub/multiply)
+        var gameLevel = "easy";  // game level (easy/med/hard)
+        var gameOperation = 1;   // game operation (add/sub/multiply)
 
         // function to hide a particular DOM element
         function hide(Id) {
@@ -70,7 +70,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             hide("box3");
             hide("box4");
             show("gameOver");
-            document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {name:currentenv.user.name, score:score});
+            document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {
+                name: currentenv.user.name,
+                score: score
+            });
             document.getElementById("question").innerHTML = '';
 
             for (var i = 1; i < 5; i++) {
@@ -152,34 +155,33 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             for (i = 0; i < 200; i++) {
 
                 // level factor decides which questions will be taken
-                var levelFactor=5;
-                var operationFactor=1;
+                var levelFactor = 5;
 
                 // levels logic
-                if(gameLevel==='easy') levelFactor=5;
-                else if(gameLevel==='medium') levelFactor=7;
-                else if(gameLevel==='hard') levelFactor=10;
+                if (gameLevel === 'easy') levelFactor = 5;
+                else if (gameLevel === 'medium') levelFactor = 7;
+                else if (gameLevel === 'hard') levelFactor = 10;
 
                 // operation logic
-                var z = 0;
-                if(gameOperation===4){
+                var z = 1;
+                if (gameOperation === 4) {
                     z = 1 + Math.round(3 * Math.random());
-                }else{
-                    z= gameOperation;
+                } else {
+                    z = gameOperation;
                 }
 
-                var x = 1 + Math.round((levelFactor-1) * Math.random());
-                var y = 1 + Math.round((levelFactor-1) * Math.random());
+                var x = 1 + Math.round((levelFactor - 1) * Math.random());
+                var y = 1 + Math.round((levelFactor - 1) * Math.random());
 
                 var currentQues, currentAns;
                 if (z === 1) {
                     currentAns = x + y;
                     currentQues = x + "+" + y;
                 } else if (z === 2) {
-                    if (x >= y){
+                    if (x >= y) {
                         currentAns = x - y;
                         currentQues = x + "-" + y;
-                    }else{
+                    } else {
                         currentAns = y - x;
                         currentQues = y + "-" + x;
                     }
@@ -188,12 +190,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                     currentQues = x + "x" + y;
                 }
 
-                    var choices = [currentAns];
+                var choices = [currentAns];
 
                 for (var j = 1; j < 4; j++) {
                     var wrongans;
                     do {
-                        wrongans = (1 + Math.round((levelFactor*levelFactor) * Math.random()));
+                        wrongans = (1 + Math.round((levelFactor * levelFactor) * Math.random()));
                     } while (choices.indexOf(wrongans) > -1);
                     choices.push(wrongans);
                 }
@@ -230,7 +232,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
 
             // display answers
             for (var i = 1; i < 5; i++) {
-                document.getElementById("box" + i).innerHTML = choices[i-1];
+                document.getElementById("box" + i).innerHTML = choices[i - 1];
             }
         }
 
@@ -290,8 +292,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
                         time = stored_data.timeremaining;
                         questions = stored_data.questions;
                         questionNumber = stored_data.questionNumber;
-                        gameLevel= stored_data.gameLevel;
-                        gameOperation= stored_data.gameOperation;
+                        gameLevel = stored_data.gameLevel;
+                        gameOperation = stored_data.gameOperation;
                         if (play) {
                             resumeGame()
                         } else {
@@ -311,11 +313,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
 
             document.getElementById("timeString").innerHTML = webL10n.get("Time");
             document.getElementById("scoreString").innerHTML = webL10n.get("Score");
+            document.getElementById("correct").innerHTML = webL10n.get("correct");
+            document.getElementById("wrong").innerHTML = webL10n.get("wrong");
 
             var levels = [
-                {"id":1, "title": webL10n.get("easy")},
-                {"id":2, "title": webL10n.get("medium")},
-                {"id":3, "title": webL10n.get("hard")}
+                {"id": 1, "title": webL10n.get("easy")},
+                {"id": 2, "title": webL10n.get("medium")},
+                {"id": 3, "title": webL10n.get("hard")}
             ];
             levelpalette.setCategories(levels);
 
@@ -330,8 +334,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
             document.getElementById("box3").style.backgroundColor = stroke;
             document.getElementById("box4").style.backgroundColor = stroke;
 
-            document.getElementById("gameOver").style.backgroundColor= stroke;
-            document.getElementById("gameOver").style.color= fill;
+            document.getElementById("gameOver").style.backgroundColor = stroke;
+            document.getElementById("gameOver").style.color = fill;
 
             // dynamically change the font color between white and black based on the fill and stroke colors
             // to provide better user experience
@@ -349,17 +353,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
 
         // set level
         function setLevel(e) {
-            var level= gameLevel;
+            var level = gameLevel;
 
-            if(e===1){
+            if (e === 1) {
                 level = "easy";
-            }else if(e===2){
+            } else if (e === 2) {
                 level = "medium";
-            }else if(e===3){
+            } else if (e === 3) {
                 level = "hard";
             }
 
-            if(gameLevel !== level) {
+            if (gameLevel !== level) {
                 gameLevel = level;
                 startGame();
             }
@@ -367,7 +371,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "toolpalette", "sugar-we
 
         // set operation
         function setOperation(e) {
-            if(gameOperation !== e) {
+            if (gameOperation !== e) {
                 gameOperation = e;
                 startGame();
             }
