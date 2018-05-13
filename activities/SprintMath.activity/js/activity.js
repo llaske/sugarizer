@@ -111,7 +111,7 @@ define([
                         data: score
                     }
                 });
-                gameOverMessages.push({"user": currentenv.user.name, "score": score});
+                gameOverMessages.push({"user": currentenv.user, "score": score});
                 showAllUserScores();
             } else {
                 document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {
@@ -132,19 +132,27 @@ define([
         function showAllUserScores() {
             var div = document.createElement("div");
             for (i = 0; i < gameOverMessages.length; i++) {
-                var p = document.createElement("p");
-                p.innerHTML = webL10n.get("GameOver", {
-                    name: gameOverMessages[i].user,
+                var div_child = document.createElement("div");
+                div_child.innerHTML = webL10n.get("GameOver", {
+                    name: gameOverMessages[i].user.name,
                     score: gameOverMessages[i].score
                 });
-                div.appendChild(p)
+                console.log(gameOverMessages[i].user.colorvalue.stroke);
+                
+                div_child.style.backgroundColor= gameOverMessages[i].user.colorvalue.stroke;
+                div_child.style.color= gameOverMessages[i].user.colorvalue.fill;
+                div.appendChild(div_child)
             }
             for (i=0;i<gamePlaying.length;i++){
-                var p = document.createElement("p");
-                p.innerHTML = webL10n.get("GamePlaying", {
-                    name: gamePlaying[i]
+                var div_child = document.createElement("div");
+                div_child.innerHTML = webL10n.get("GamePlaying", {
+                    name: gamePlaying[i].name
                 });
-                div.appendChild(p)
+                console.log(gamePlaying[i].colorvalue.stroke);
+                
+                div_child.style.backgroundColor= gamePlaying[i].colorvalue.stroke;
+                div_child.style.color= gamePlaying[i].colorvalue.fill;
+                div.appendChild(div_child)
             }
             document.getElementById("gameOver").innerHTML = '';
             document.getElementById("gameOver").appendChild(div);
@@ -209,7 +217,7 @@ define([
                 generateQuestions();
             }
             else if(isHost) {
-                gamePlaying.push(currentenv.user.name);
+                gamePlaying.push(currentenv.user);
             }
 
             if(presence){
@@ -300,8 +308,6 @@ define([
 
         // set current question (will set the current question in the html DOM)
         function displayCurrentQuestion() {
-            console.log(questions[questionNumber]);
-
             var CurrentQues = questions[questionNumber].question;
             var choices = questions[questionNumber].choices;
 
@@ -452,7 +458,7 @@ define([
                 case 'gameover':
                     // remove user from playing array
                     gamePlaying = gamePlaying.filter(function (user) {
-                        return user !== msg.user.name
+                        return user.name !== msg.user.name
                     });
                     presence.sendMessage(presence.getSharedInfo().id, {
                         user: presence.getUserInfo(),
@@ -462,7 +468,7 @@ define([
                         }
                     });
                     // add user in game over array
-                    gameOverMessages.push({"user": msg.user.name, "score": msg.content.data});
+                    gameOverMessages.push({"user": msg.user, "score": msg.content.data});
                     console.log({"user": msg.user, "score": msg.content.data});
                     showAllUserScores();
                     break;
@@ -482,7 +488,8 @@ define([
                 });
 
                 if(msg.move === 1) {
-                    gamePlaying.push(msg.user.name);
+                    // console.log(msg);
+                    gamePlaying.push(msg.user);
                     presence.sendMessage(presence.getSharedInfo().id, {
                         user: presence.getUserInfo(),
                         content: {
@@ -494,7 +501,7 @@ define([
                 if(msg.move===-1) {
                     console.log("removing user");
                     gamePlaying = gamePlaying.filter(function (user) {
-                        return user !== msg.user.name
+                        return user.name !== msg.user.name
                     });
                     presence.sendMessage(presence.getSharedInfo().id, {
                         user: presence.getUserInfo(),
@@ -520,8 +527,8 @@ define([
             document.getElementById("box3").style.backgroundColor = stroke;
             document.getElementById("box4").style.backgroundColor = stroke;
 
-            document.getElementById("gameOver").style.backgroundColor = stroke;
-            document.getElementById("gameOver").style.color = fill;
+            // document.getElementById("gameOver").style.backgroundColor = stroke;
+            // document.getElementById("gameOver").style.color = fill;
 
             // dynamically change the font color between white and black based on the fill and stroke colors
             // to provide better user experience
