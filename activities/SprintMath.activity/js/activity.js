@@ -527,11 +527,13 @@ define([
             var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 
             if(msg.move === 1){
-                console.log(userName+" joined!");
-                humane.log(userName+" joined!");
+                humane.log(webL10n.get("joined", {
+                    name: userName
+                }));
             }else{
-                console.log(userName+" left!");
-                humane.log(userName+" left!");
+                humane.log(webL10n.get("left", {
+                    name: userName
+                }));
             }
         };
 
