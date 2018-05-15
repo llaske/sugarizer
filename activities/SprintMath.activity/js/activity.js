@@ -59,6 +59,8 @@ define([
                 }
                 network.createSharedActivity('org.sugarlabs.SprintMath', function (groupId) {
                     console.log("Activity shared");
+                    // disable toolbar buttons functionally
+                    hidetoolbarbuttons();
                     isHost = true;
                 });
                 network.onDataReceived(onNetworkDataReceived);
@@ -69,16 +71,17 @@ define([
 
 
         // Initialize the activity.
-        var play = false;           // whether the game is playing (True) or ended (False)
-        var score;                  // score of the user in the game
-        var action;                 // instance of the interval
-        var time;                   // time remaining in the game
-        var questions = [];         // array to hold all 200 random questions
-        var questionNumber = 0;     // index of current question
-        var gameLevel = "easy";     // game level (easy/med/hard)
-        var gameOperation = 1;      // game operation (add/sub/multiply)
+        var play = false;            // whether the game is playing (True) or ended (False)
+        var score;                   // score of the user in the game
+        var action;                  // instance of the interval
+        var time;                    // time remaining in the game
+        var questions = [];          // array to hold all 200 random questions
+        var questionNumber = 0;      // index of current question
+        var gameLevel = "easy";      // game level (easy/med/hard)
+        var gameOperation = 1;       // game operation (add/sub/multiply)
         var gameOverMessages = [];   // in case of presence stores all game over messages
         var gamePlaying = [];        // in case of presence stores all users that are playing
+        var restart= false;
 
         // function to hide a particular DOM element
         function hide(Id) {
@@ -104,6 +107,16 @@ define([
             hide("box3");
             hide("box4");
             show("gameOver");
+            setGameOverMessage();
+            play = false;
+            restart= true;
+            if(!play && presence && isHost){
+                hidetoolbarbuttons();
+            }
+        }
+
+        // to set game over message after game is finished
+        function setGameOverMessage() {
             if (presence) {
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
@@ -124,12 +137,10 @@ define([
                 document.getElementById("gameOver").style.color = currentenv.user.colorvalue.fill;
             }
             document.getElementById("question").innerHTML = '';
-
             for (var i = 1; i < 5; i++) {
                 document.getElementById("box" + i).innerHTML = '';
             }
 
-            play = false;
         }
 
         // to show all presence user scores
@@ -221,12 +232,29 @@ define([
                 generateQuestions();
             }
             else if(isHost) {
+                gameOverMessages=[];
+                gamePlaying=[];
                 gamePlaying.push(currentenv.user);
             }
 
-            if(presence){
-                displayCurrentQuestion();
+            if(restart && !isHost){
+                gamePlaying.push(currentenv.user)
+                adduser();
             }
+
+            // disable toolbar buttons in case of presence and display question
+            if(play && presence){
+                if(isHost){
+                    questions=[]
+                    generateQuestions()
+                }
+                // disable toolbar buttons functionally
+                hidetoolbarbuttons();
+                displayCurrentQuestion();
+
+            }
+
+            console.log(questions);
         }
 
         // function to resume an old game
@@ -297,6 +325,20 @@ define([
                     "choices": choices
                 })
             }
+
+            if(presence && isHost){
+
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    content: {
+                        action: 'init',
+                        data: questions,
+                        gameover: gameOverMessages,
+                        gameplaying: gamePlaying
+                    }
+                });
+            }
+
             displayCurrentQuestion();
         }
 
@@ -398,17 +440,7 @@ define([
             if (environment.sharedId) {
                 console.log("Shared instance");
                 // disable toolbar buttons functionally
-                document.getElementById("restart-button").disabled = true;
-                document.getElementById("filter-button").disabled = true;
-                document.getElementById("level-button").disabled = true;
-                document.getElementById("network-button").disabled = true;
-
-                // disable toolbar buttons visually
-                document.getElementById("restart-button").classList.add('disabled');
-                document.getElementById("filter-button").classList.add('disabled');
-                document.getElementById("level-button").classList.add('disabled');
-                document.getElementById("network-button").classList.add('disabled');
-
+                hidetoolbarbuttons();
                 presence = activity.getPresenceObject(function (error, network) {
                     network.onDataReceived(onNetworkDataReceived);
                     network.onSharedActivityUserChanged(onNetworkUserChanged);
@@ -441,16 +473,11 @@ define([
                 return;
             }
             switch (msg.content.action) {
-                case 'initialBoard':
-                    // Receive initial board from the host
-                    initGraph(msg.content.data);
-                    break;
                 case 'init':
-                    if(questions.length===0) {
+                    if(gamePlaying.length===0) {
                         questions = msg.content.data;
                         gameOverMessages = msg.content.gameover;
                         gamePlaying = msg.content.gameplaying;
-                        console.log(questions);
                         startGame();
                     }
                     break;
@@ -462,6 +489,10 @@ define([
                 case 'removeuser':
                     // remove user
                     gamePlaying= msg.content.data;
+                    console.log(gamePlaying.length+ " "+ isHost);
+                    if(gamePlaying.length>0) console.log(gamePlaying);
+
+                    if(gamePlaying.length===0 && isHost) showtoolbarbuttons();
                     showAllUserScores();
                     break;
                 case 'gameover':
@@ -499,26 +530,14 @@ define([
                 if(msg.move === 1) {
                     // console.log(msg);
                     gamePlaying.push(msg.user);
-                    presence.sendMessage(presence.getSharedInfo().id, {
-                        user: presence.getUserInfo(),
-                        content: {
-                            action: 'adduser',
-                            data: gamePlaying
-                        }
-                    });
+                    adduser();
                 }
                 if(msg.move===-1) {
                     console.log("removing user");
                     gamePlaying = gamePlaying.filter(function (user) {
                         return user.name !== msg.user.name
                     });
-                    presence.sendMessage(presence.getSharedInfo().id, {
-                        user: presence.getUserInfo(),
-                        content: {
-                            action: 'removeuser',
-                            data: gamePlaying
-                        }
-                    });
+                    removeuser();
                 }
 
                 showAllUserScores();
@@ -536,6 +555,26 @@ define([
                 }));
             }
         };
+
+        function adduser() {
+            presence.sendMessage(presence.getSharedInfo().id, {
+                user: presence.getUserInfo(),
+                content: {
+                    action: 'adduser',
+                    data: gamePlaying
+                }
+            });
+        }
+
+        function removeuser() {
+            presence.sendMessage(presence.getSharedInfo().id, {
+                user: presence.getUserInfo(),
+                content: {
+                    action: 'removeuser',
+                    data: gamePlaying
+                }
+            });
+        }
 
         // function to set color theme based on User Colors
         function setColor(fill, stroke) {
@@ -584,6 +623,36 @@ define([
                 gameOperation = e;
                 startGame();
             }
+        }
+        
+        // show toolbar buttons
+        function showtoolbarbuttons() {
+            // enable toolbar buttons functionally
+            document.getElementById("restart-button").disabled = false;
+            document.getElementById("filter-button").disabled = false;
+            document.getElementById("level-button").disabled = false;
+            document.getElementById("network-button").disabled = false;
+
+            // enable toolbar buttons visually
+            document.getElementById("restart-button").classList.remove('disabled');
+            document.getElementById("filter-button").classList.remove('disabled');
+            document.getElementById("level-button").classList.remove('disabled');
+            document.getElementById("network-button").classList.remove('disabled');
+        }
+        
+        // hide toolbar buttons
+        function hidetoolbarbuttons() {
+            // disable toolbar buttons functionally
+            document.getElementById("restart-button").disabled = true;
+            document.getElementById("filter-button").disabled = true;
+            document.getElementById("level-button").disabled = true;
+            document.getElementById("network-button").disabled = true;
+
+            // disable toolbar buttons visually
+            document.getElementById("restart-button").classList.add('disabled');
+            document.getElementById("filter-button").classList.add('disabled');
+            document.getElementById("level-button").classList.add('disabled');
+            document.getElementById("network-button").classList.add('disabled');
         }
 
     });
