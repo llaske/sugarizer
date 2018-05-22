@@ -278,4 +278,4 @@ Thanks in advance for your contribution.
 
 # License
 
-This project is licensed under `Apache v2` License. See [LICENSE](LICENSE) for full license text.
+Sugarizer is licensed under `Apache v2` License. See [LICENSE](LICENSE) for full license text. Most activities include into Sugarizer use this license too but some could use a different license, check [activities](activities) directory to be sure.
