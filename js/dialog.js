@@ -692,6 +692,7 @@ enyo.kind({
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
 			{content: "© 2013-2018 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
+			{name: "licenseplus", content: "xxx", classes: "computer-licence"},
 			{name: "warningmessage", showing: false, content: "xxx", classes: "computer-warningmessage", showing: false}
 		]}
 	],
@@ -708,6 +709,7 @@ enyo.kind({
 		this.$.storage.setContent(l10n.get("Storage"));
 		this.$.copyright.setContent(l10n.get("Copyright"));
 		this.$.license.setContent(l10n.get("LicenseTerms"));
+		this.$.licenseplus.setContent(l10n.get("LicenseTermsPlus"));
 		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
 		this.$.reinittext.setContent(l10n.get("ReinitJournalAndSettings"));
 		this.notify = humane.create({ timeout: 1000, baseCls: 'humane-libnotify' })
