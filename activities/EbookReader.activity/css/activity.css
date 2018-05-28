@@ -1,0 +1,24 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#previous-button {
+  background-image: url(../icons/go-previous.svg);
+}
+
+#next-button {
+  background-image: url(../icons/go-next.svg);
+}
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
