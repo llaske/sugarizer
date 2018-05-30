@@ -11,20 +11,26 @@ define(["sugar-web/activity/activity"], function (activity) {
 			var canvas = document.getElementById("canvas") || document.getElementById("body");
 			var canvas_height = canvas.offsetHeight;
 			var canvas_width = canvas.offsetWidth;
-
 			return { width: canvas_width, height: canvas_height };
+		}
+
+		// Render book
+		var rendition = null;
+		var renderBook = function(target) {
+			if (rendition) {
+				rendition.clear();
+				rendition.destroy();
+			}
+			var options = fitToScreen();
+			rendition = book.renderTo("area", options);
+			rendition.display(target);
 		}
 
 		// Read e-book
 		var book = ePub("books/pg36780-images.epub");
 
 		// Render it
-		var options = fitToScreen();
-		options.method = "continuous";
-		options.flow = "paginated";
-		var rendition =
-			book.renderTo("area", fitToScreen());
-		rendition.display();
+		renderBook();
 
 		// Handle previous/next pge
 		document.getElementById("next-button").addEventListener("click", function() {
@@ -32,7 +38,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 		});
 		document.getElementById("previous-button").addEventListener("click", function() {
 			rendition.prev();
-			console.log(rendition.currentLocation())
 		});
 
 		// Handle resize
@@ -42,10 +47,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				window.clearTimeout(timer);
 			}
 			timer = window.setTimeout(function() {
-				rendition.clear();
-				rendition.destroy();
-				rendition = book.renderTo("area", fitToScreen());
-				rendition.display();
+				renderBook(rendition.currentLocation().start.cfi);
 			}, 500);
 		});
 	});
