@@ -4,12 +4,15 @@ requirejs.config({
 });
 
 
+// E-book Reader component
+var EbookReader = {
+	template: '<div id="area" style="background-color: white"></div>'
+};
+
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	data: {
-		message: 'Hello Vue!'
-	},
+	components: { 'ebook-reader': EbookReader },
 	created: function() {
 		// Init Sugarizer
 		require(["sugar-web/activity/activity"], function (activity) {
