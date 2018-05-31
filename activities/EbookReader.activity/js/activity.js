@@ -1,55 +1,65 @@
-define(["sugar-web/activity/activity"], function (activity) {
+// Rebase require directory
+requirejs.config({
+	baseUrl: "lib"
+});
 
-	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
 
-		// Initialize the activity.
-		activity.setup();
+// Vue main app
+var app = new Vue({
+	el: '#app',
+	data: {
+		message: 'Hello Vue!'
+	},
+	created: function() {
+		// Init Sugarizer
+		require(["sugar-web/activity/activity"], function (activity) {
+			// Initialize the activity.
+			activity.setup();
 
-		// Compute screen size
-		var fitToScreen = function() {
-			var canvas = document.getElementById("canvas") || document.getElementById("body");
-			var canvas_height = canvas.offsetHeight;
-			var canvas_width = canvas.offsetWidth;
-			return { width: canvas_width, height: canvas_height };
-		}
-
-		// Render book
-		var rendition = null;
-		var renderBook = function(target) {
-			if (rendition) {
-				rendition.clear();
-				rendition.destroy();
+			// Compute screen size
+			var fitToScreen = function() {
+				var canvas = document.getElementById("canvas") || document.getElementById("body");
+				var canvas_height = canvas.offsetHeight;
+				var canvas_width = canvas.offsetWidth;
+				return { width: canvas_width, height: canvas_height };
 			}
-			var options = fitToScreen();
-			rendition = book.renderTo("area", options);
-			rendition.display(target);
-		}
 
-		// Read e-book
-		var book = ePub("books/pg36780-images.epub");
-
-		// Render it
-		renderBook();
-
-		// Handle previous/next pge
-		document.getElementById("next-button").addEventListener("click", function() {
-			rendition.next();
-		});
-		document.getElementById("previous-button").addEventListener("click", function() {
-			rendition.prev();
-		});
-
-		// Handle resize
-		var timer = null;
-		window.addEventListener("resize", function() {
-			if (timer) {
-				window.clearTimeout(timer);
+			// Render book
+			var rendition = null;
+			var renderBook = function(target) {
+				if (rendition) {
+					rendition.clear();
+					rendition.destroy();
+				}
+				var options = fitToScreen();
+				rendition = book.renderTo("area", options);
+				rendition.display(target);
 			}
-			timer = window.setTimeout(function() {
-				renderBook(rendition.currentLocation().start.cfi);
-			}, 500);
-		});
-	});
 
+			// Read e-book
+			var book = ePub("books/pg36780-images.epub");
+
+			// Render it
+			renderBook();
+
+			// Handle previous/next pge
+			document.getElementById("next-button").addEventListener("click", function() {
+				rendition.next();
+			});
+			document.getElementById("previous-button").addEventListener("click", function() {
+				rendition.prev();
+			});
+
+			// Handle resize
+			var timer = null;
+			window.addEventListener("resize", function() {
+				if (timer) {
+					window.clearTimeout(timer);
+				}
+				timer = window.setTimeout(function() {
+					renderBook(rendition.currentLocation().start.cfi);
+				}, 500);
+			});
+		});
+	}
 });

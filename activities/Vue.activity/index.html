@@ -10,8 +10,6 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
-<script src="lib/epub.js"></script>
-<script src="lib/jszip.min.js"></script>
 <script src="lib/vue.js"></script>
 <!--script src="lib/vue.min.js"></script-->
 <script src="lib/require.js"></script>
@@ -20,12 +18,6 @@
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
-
-  <div class="splitbar"></div>
-  <button class="toolbutton" id="previous-button" title="Previous">
-  </button>
-  <button class="toolbutton" id="next-button" title="Next">
-  </button>
 
   <!-- Add more buttons here -->
 
@@ -37,9 +29,7 @@
 <div id="canvas">
 
   <!-- Replace this message with your own content -->
-  <div id="area" style="background-color: white"></div>
   <div id="app">
-	  {{ message }}
   </div>
 
 </div>
