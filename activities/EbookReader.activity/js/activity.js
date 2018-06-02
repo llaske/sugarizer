@@ -12,18 +12,34 @@ var app = new Vue({
 		currentBook: null
 	},
 	created: function() {
-		// Init Sugarizer
-		require(["sugar-web/activity/activity"], function (activity) {
+		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
+			// Initialize Sugarizer
 			activity.setup();
 		});
 	},
 	mounted: function() {
 		// Load book
+		var vm = this;
 		this.currentBook = ePub("books/pg36780-images.epub");
 
 		// Render e-book
 		var reader = this.$children[0];
-		reader.render(this.currentBook);
+		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
+			// Load last location from Journal
+			env.getEnvironment(function(err, environment) {
+				if (environment.objectId) {
+					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+						if (error==null && data!=null) {
+							// Render at last position
+							reader.render(vm.currentBook, JSON.parse(data));
+						}
+					});
+				} else {
+					// Render from the beginning
+					reader.render(vm.currentBook);
+				}
+			});
+		});
 
 		// Handle previous/next page
 		document.getElementById("next-button").addEventListener("click", function() {
@@ -34,7 +50,6 @@ var app = new Vue({
 		});
 
 		// Handle full screen
-		var vm = this;
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
@@ -57,6 +72,22 @@ var app = new Vue({
 			timer = window.setTimeout(function() {
 				reader.render(vm.currentBook, reader.getLocation());
 			}, 500);
+		});
+
+		// Save current location in Journal on Stop
+		document.getElementById("stop-button").addEventListener('click', function(event) {
+			require(["sugar-web/activity/activity"], function(activity) {
+				console.log("writing...");
+				var jsonData = JSON.stringify(reader.getLocation());
+				activity.getDatastoreObject().setDataAsText(jsonData);
+				activity.getDatastoreObject().save(function(error) {
+					if (error === null) {
+						console.log("write done.");
+					} else {
+						console.log("write failed.");
+					}
+				});
+			});
 		});
 	}
 });
