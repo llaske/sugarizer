@@ -25,7 +25,7 @@ var app = new Vue({
 		var reader = this.$children[0];
 		reader.render(this.currentBook);
 
-		// Handle previous/next pge
+		// Handle previous/next page
 		document.getElementById("next-button").addEventListener("click", function() {
 			reader.nextPage();
 		});
@@ -33,9 +33,23 @@ var app = new Vue({
 			reader.previousPage();
 		});
 
+		// Handle full screen
+		var vm = this;
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			reader.render(vm.currentBook, reader.getLocation());
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			reader.render(vm.currentBook, reader.getLocation());
+		});
+
 		// Handle resize
 		var timer = null;
-		var vm = this;
 		window.addEventListener("resize", function() {
 			if (timer) {
 				window.clearTimeout(timer);
