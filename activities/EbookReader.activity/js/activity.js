@@ -11,14 +11,17 @@ var app = new Vue({
 	data: {
 		currentBook: null,
 		currentLocation: null,
-		currentView: EbookReader
+		currentView: EbookReader,
+		timer: null
 	},
+
 	created: function() {
 		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
 			// Initialize Sugarizer
 			activity.setup();
 		});
 	},
+
 	mounted: function() {
 		// Load book
 		var vm = this;
@@ -44,80 +47,90 @@ var app = new Vue({
 			});
 		});
 
-		// Handle previous/next page
-		document.getElementById("next-button").addEventListener("click", function() {
-			if (vm.currentView === EbookReader) {
-				vm.$children[0].nextPage();
-			}
-		});
-		document.getElementById("previous-button").addEventListener("click", function() {
-			if (vm.currentView === EbookReader) {
-				vm.$children[0].previousPage();
-			}
-		});
-
-		// Handle full screen
-		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("canvas").style.top = "0px";
-			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			reader.render(vm.currentBook, reader.getLocation());
-		});
-		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 1;
-			document.getElementById("canvas").style.top = "55px";
-			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			reader.render(vm.currentBook, reader.getLocation());
-		});
-
 		// Handle resize
-		var timer = null;
 		window.addEventListener("resize", function() {
-			if (vm.currentView === EbookReader) {
-				var reader = vm.$children[0];
-				if (timer) {
-					window.clearTimeout(timer);
-				}
-				timer = window.setTimeout(function() {
-					vm.currentLocation = reader.getLocation();
-					reader.render(vm.currentBook, vm.currentLocation);
-				}, 500);
-			}
-		});
-
-		// Save current location in Journal on Stop
-		document.getElementById("stop-button").addEventListener('click', function(event) {
-			require(["sugar-web/activity/activity"], function(activity) {
-				console.log("writing...");
-				var jsonData = JSON.stringify(reader.getLocation());
-				activity.getDatastoreObject().setDataAsText(jsonData);
-				activity.getDatastoreObject().save(function(error) {
-					if (error === null) {
-						console.log("write done.");
-					} else {
-						console.log("write failed.");
-					}
-				});
-			});
-		});
-
-		// Handle library button
-		document.getElementById("library-button").addEventListener("click", function() {
-			vm.switchView();
+			vm.onResize();
 		});
 	},
+
 	updated: function() {
 		if (this.currentView === EbookReader) {
 			this.$children[0].render(this.currentBook, this.currentLocation);
 		}
 	},
+
 	methods: {
+
 		switchView: function() {
 			if (this.currentView === EbookReader) {
 				this.currentLocation = this.$children[0].getLocation();
 				this.currentView = LibraryViewer;
 			} else {
 				this.currentView = EbookReader;
+			}
+		},
+
+		fullscreen: function() {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			if (this.currentView === EbookReader) {
+				var reader = this.$children[0];
+				reader.render(this.currentBook, reader.getLocation());
+			}
+		},
+		unfullscreen: function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			if (this.currentView === EbookReader) {
+				var reader = this.$children[0];
+				reader.render(this.currentBook, reader.getLocation());
+			}
+		},
+
+		onNext: function() {
+			if (this.currentView === EbookReader) {
+				this.$children[0].nextPage();
+			}
+		},
+		onPrevious: function() {
+			if (this.currentView === EbookReader) {
+				this.$children[0].previousPage();
+			}
+		},
+
+		onResize: function() {
+			var vm = this;
+			if (vm.currentView === EbookReader) {
+				var reader = vm.$children[0];
+				if (this.timer) {
+					window.clearTimeout(this.timer);
+				}
+				this.timer = window.setTimeout(function() {
+					vm.currentLocation = reader.getLocation();
+					reader.render(vm.currentBook, vm.currentLocation);
+					this.timer = null;
+				}, 500);
+			}
+		},
+		
+		onStop: function() {
+			// Save current location in Journal on Stop
+			if (this.currentView === EbookReader) {
+				var reader = this.$children[0];
+				require(["sugar-web/activity/activity"], function(activity) {
+					console.log("writing...");
+					var jsonData = JSON.stringify(reader.getLocation());
+					activity.getDatastoreObject().setDataAsText(jsonData);
+					activity.getDatastoreObject().save(function(error) {
+						if (error === null) {
+							console.log("write done.");
+						} else {
+							console.log("write failed.");
+						}
+					});
+				});
 			}
 		}
 	}
