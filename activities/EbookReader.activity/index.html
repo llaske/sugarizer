@@ -26,6 +26,9 @@
   </button>
   <button class="toolbutton" id="next-button" title="Next">
   </button>
+  <div class="splitbar"></div>
+  <button class="toolbutton" id="library-button" title="Library">
+  </button>
 
   <!-- Add more buttons here -->
 
@@ -39,12 +42,14 @@
 
   <!-- Replace this message with your own content -->
   <div id="app">
-		<ebook-reader></ebook-reader>
+	  <component :is="currentView"></component>
   </div>
 
 </div>
 <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+<script src="js/constant.js"></script>
 <script src="js/reader.js"></script>
+<script src="js/library.js"></script>
 <script src="js/activity.js"></script>
 </body>
 

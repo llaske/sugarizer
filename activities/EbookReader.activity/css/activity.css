@@ -40,3 +40,7 @@
 	visibility: hidden;
 	z-index: 5;
 }
+
+#main-toolbar #library-button {
+  background-image: url(../icons/library.svg);
+}

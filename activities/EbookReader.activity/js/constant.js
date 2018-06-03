@@ -34,4 +34,4 @@ constant.library = {
 			file: "books/Grimm_ContesI.epub",
 		},
 	]
-];
+};

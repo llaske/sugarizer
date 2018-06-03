@@ -7,9 +7,11 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: { 'ebook-reader': EbookReader },
+	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer },
 	data: {
-		currentBook: null
+		currentBook: null,
+		currentLocation: null,
+		currentView: EbookReader
 	},
 	created: function() {
 		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
@@ -21,6 +23,7 @@ var app = new Vue({
 		// Load book
 		var vm = this;
 		this.currentBook = ePub("books/pg36780-images.epub");
+		this.currentLocation = null;
 
 		// Render e-book
 		var reader = this.$children[0];
@@ -43,10 +46,14 @@ var app = new Vue({
 
 		// Handle previous/next page
 		document.getElementById("next-button").addEventListener("click", function() {
-			reader.nextPage();
+			if (vm.currentView === EbookReader) {
+				vm.$children[0].nextPage();
+			}
 		});
 		document.getElementById("previous-button").addEventListener("click", function() {
-			reader.previousPage();
+			if (vm.currentView === EbookReader) {
+				vm.$children[0].previousPage();
+			}
 		});
 
 		// Handle full screen
@@ -66,12 +73,16 @@ var app = new Vue({
 		// Handle resize
 		var timer = null;
 		window.addEventListener("resize", function() {
-			if (timer) {
-				window.clearTimeout(timer);
+			if (vm.currentView === EbookReader) {
+				var reader = vm.$children[0];
+				if (timer) {
+					window.clearTimeout(timer);
+				}
+				timer = window.setTimeout(function() {
+					vm.currentLocation = reader.getLocation();
+					reader.render(vm.currentBook, vm.currentLocation);
+				}, 500);
 			}
-			timer = window.setTimeout(function() {
-				reader.render(vm.currentBook, reader.getLocation());
-			}, 500);
 		});
 
 		// Save current location in Journal on Stop
@@ -89,5 +100,25 @@ var app = new Vue({
 				});
 			});
 		});
+
+		// Handle library button
+		document.getElementById("library-button").addEventListener("click", function() {
+			vm.switchView();
+		});
+	},
+	updated: function() {
+		if (this.currentView === EbookReader) {
+			this.$children[0].render(this.currentBook, this.currentLocation);
+		}
+	},
+	methods: {
+		switchView: function() {
+			if (this.currentView === EbookReader) {
+				this.currentLocation = this.$children[0].getLocation();
+				this.currentView = LibraryViewer;
+			} else {
+				this.currentView = EbookReader;
+			}
+		}
 	}
 });
