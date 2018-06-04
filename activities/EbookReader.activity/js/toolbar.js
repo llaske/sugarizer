@@ -1,57 +1,40 @@
 
+
+// Toolbar item
+var ToolbarItem = {
+	template: `
+		<div class="splitbar" v-if="isSplitbar"/>
+		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" v-bind:class="toRight ? 'toolbutton pull-right' : 'toolbutton'" v-else/>
+	`,
+	props: ['id', 'title', 'isSplitbar', 'toRight'],
+	methods: {
+		onClick: function() {
+			this.$emit('clicked');
+		}
+	}
+}
+
 // Vue for toolbar
 var toolbar = new Vue({
 	el: '#toolbar',
+	components: {'toolbar-item': ToolbarItem},
 	template: `
 		<div id="main-toolbar" class="toolbar">
-			<button class="toolbutton" id="activity-button" title="My Activity"></button>
+			<toolbar-item id="activity-button" title="My Activity"></toolbar-item>
+			<toolbar-item isSplitbar="true"></toolbar-item>
 
+			<toolbar-item v-on:clicked="getApp().onPrevious()" id="previous-button" title="Previous"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onNext()" id="next-button" title="Next"></toolbar-item>
 			<div class="splitbar"></div>
-			<button class="toolbutton" id="previous-button" title="Previous">
-			</button>
-			<button class="toolbutton" id="next-button" title="Next">
-			</button>
-			<div class="splitbar"></div>
-			<button class="toolbutton" id="library-button" title="Library">
-			</button>
+			<toolbar-item v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" title="Library"></toolbar-item>
 
-			<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
-			<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().fullscreen()" id="fullscreen-button" title="Fullscreen" toRight="true"></toolbar-item>
 		</div>
 	`,
-	mounted: function() {
-		// Handle previous/next page
-		document.getElementById("next-button").addEventListener("click", function() {
-			app.onNext();
-		});
-		document.getElementById("previous-button").addEventListener("click", function() {
-			app.onPrevious();
-		});
-
-		// Handle full screen
-		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			console.log("fullscreen");
-		});
-		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-			console.log("unfullscreen");
-		});
-
-		// Handle library button
-		document.getElementById("library-button").addEventListener("click", function() {
-			app.switchView();
-		});
-
-		// Handle full screen / unfull screen buttons
-		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			app.fullscreen();
-		});
-		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-			app.unfullscreen();
-		});
-
-		// Handle stop button
-		document.getElementById("stop-button").addEventListener('click', function(event) {
-			app.onStop();
-		});
+	methods: {
+		getApp: function() {
+			return app;
+		}
 	}
 });

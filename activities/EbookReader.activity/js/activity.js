@@ -51,6 +51,11 @@ var app = new Vue({
 		window.addEventListener("resize", function() {
 			vm.onResize();
 		});
+
+		// Handle unfull screen buttons (b)
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			vm.unfullscreen();
+		});
 	},
 
 	updated: function() {
@@ -114,7 +119,7 @@ var app = new Vue({
 				}, 500);
 			}
 		},
-		
+
 		onStop: function() {
 			// Save current location in Journal on Stop
 			if (this.currentView === EbookReader) {
