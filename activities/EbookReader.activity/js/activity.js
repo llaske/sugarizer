@@ -7,7 +7,7 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer },
+	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, "localization": Localization },
 	data: {
 		currentBook: null,
 		currentLocation: null,
@@ -65,6 +65,9 @@ var app = new Vue({
 	},
 
 	methods: {
+
+		localized: function() {
+		},
 
 		switchView: function() {
 			if (this.currentView === EbookReader) {
