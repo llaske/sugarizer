@@ -14,43 +14,45 @@ var ToolbarItem = {
 	}
 }
 
-// Vue for toolbar
-var toolbar = new Vue({
-	el: '#toolbar',
-	components: {'toolbar-item': ToolbarItem, 'localization': Localization},
+// Toolbar component
+var Toolbar = {
+	components: {'toolbar-item': ToolbarItem},
 	template: `
 		<div id="main-toolbar" class="toolbar">
-			<toolbar-item id="activity-button" title="Ebook Reader Activity"></toolbar-item>
+			<toolbar-item id="activity-button" v-bind:title="l10n.stringEbookReaderActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 
-			<toolbar-item v-on:clicked="getApp().onPrevious()" id="previous-button" v-bind:title="stringPrevious"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().onNext()" id="next-button" v-bind:title="stringNext"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onPrevious()" id="previous-button" v-bind:title="l10n.stringPrevious"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onNext()" id="next-button" v-bind:title="l10n.stringNext"></toolbar-item>
 			<div class="splitbar"></div>
-			<toolbar-item v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" v-bind:title="stringLibrary"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" v-bind:title="l10n.stringLibrary"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="stringFullscreen" toRight="true"></toolbar-item>
-			<localization ref="localization" v-on:localized="localized"/>
+			<toolbar-item v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
 		</div>
 	`,
 	data: function() {
 		return {
-			stringPrevious: '',
-			stringNext: '',
-			stringLibrary: '',
-			stringFullscreen: '',
+			l10n: {
+				stringEbookReaderActivity: '',
+				stringPrevious: '',
+				stringNext: '',
+				stringLibrary: '',
+				stringFullscreen: ''
+			}
 		}
 	},
 	methods: {
-		localized: function() {
-			this.stringPrevious = this.$refs.localization.get("Previous");
-			this.stringNext = this.$refs.localization.get("Next");
-			this.stringLibrary= this.$refs.localization.get("Library");
-			this.stringFullscreen= this.$refs.localization.get("Fullscreen");
+		localized: function(localization) {
+			this.l10n.stringEbookReaderActivity = localization.get("EbookReaderActivity");
+			this.l10n.stringPrevious = localization.get("Previous");
+			this.l10n.stringNext = localization.get("Next");
+			this.l10n.stringLibrary= localization.get("Library");
+			this.l10n.stringFullscreen= localization.get("Fullscreen");
 		},
 
 		getApp: function() {
 			return app;
 		}
 	}
-});
+}

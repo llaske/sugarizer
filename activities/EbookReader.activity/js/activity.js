@@ -7,7 +7,7 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, "localization": Localization },
+	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization },
 	data: {
 		currentBook: null,
 		currentLocation: null,
@@ -29,7 +29,7 @@ var app = new Vue({
 		this.currentLocation = null;
 
 		// Render e-book
-		var reader = this.$children[0];
+		var reader = this.$children[1];
 		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
 			// Load last location from Journal
 			env.getEnvironment(function(err, environment) {
@@ -60,18 +60,19 @@ var app = new Vue({
 
 	updated: function() {
 		if (this.currentView === EbookReader) {
-			this.$children[0].render(this.currentBook, this.currentLocation);
+			this.$children[1].render(this.currentBook, this.currentLocation);
 		}
 	},
 
 	methods: {
 
 		localized: function() {
+			this.$children[0].localized(this.$refs.localization);
 		},
 
 		switchView: function() {
 			if (this.currentView === EbookReader) {
-				this.currentLocation = this.$children[0].getLocation();
+				this.currentLocation = this.$children[1].getLocation();
 				this.currentView = LibraryViewer;
 			} else {
 				this.currentView = EbookReader;
@@ -83,7 +84,7 @@ var app = new Vue({
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			if (this.currentView === EbookReader) {
-				var reader = this.$children[0];
+				var reader = this.$children[1];
 				reader.render(this.currentBook, reader.getLocation());
 			}
 		},
@@ -92,26 +93,26 @@ var app = new Vue({
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			if (this.currentView === EbookReader) {
-				var reader = this.$children[0];
+				var reader = this.$children[1];
 				reader.render(this.currentBook, reader.getLocation());
 			}
 		},
 
 		onNext: function() {
 			if (this.currentView === EbookReader) {
-				this.$children[0].nextPage();
+				this.$children[1].nextPage();
 			}
 		},
 		onPrevious: function() {
 			if (this.currentView === EbookReader) {
-				this.$children[0].previousPage();
+				this.$children[1].previousPage();
 			}
 		},
 
 		onResize: function() {
 			var vm = this;
 			if (vm.currentView === EbookReader) {
-				var reader = vm.$children[0];
+				var reader = vm.$children[1];
 				if (this.timer) {
 					window.clearTimeout(this.timer);
 				}
@@ -126,7 +127,7 @@ var app = new Vue({
 		onStop: function() {
 			// Save current location in Journal on Stop
 			if (this.currentView === EbookReader) {
-				var reader = this.$children[0];
+				var reader = this.$children[1];
 				require(["sugar-web/activity/activity"], function(activity) {
 					console.log("writing...");
 					var jsonData = JSON.stringify(reader.getLocation());

@@ -19,17 +19,16 @@
 </head>
 
 <body>
-	<div id="toolbar">
-	</div>
+	<div id="app">
+		<toolbar></toolbar>
 
-	<div id="canvas">
-		<div id="app">
-			<component :is="currentView"></component>
-			<localization ref="localization" v-on:localized="localized"/>
+		<div id="canvas">
+				<component :is="currentView"></component>
 		</div>
-	</div>
 
-	<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+		<localization ref="localization" v-on:localized="localized"/>
+	</div>
 
 	<script src="js/constant.js"></script>
 	<script src="js/l10n.js"></script>
