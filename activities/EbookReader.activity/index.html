@@ -20,10 +20,10 @@
 
 <body>
 	<div id="app">
-		<toolbar></toolbar>
+		<toolbar ref="toolbar"></toolbar>
 
 		<div id="canvas">
-				<component :is="currentView"></component>
+				<component ref="view" :is="currentView"></component>
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
