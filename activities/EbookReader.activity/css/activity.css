@@ -1,13 +1,16 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
+  outline: none;
 }
 
 #previous-button {
   background-image: url(../icons/go-previous.svg);
+  outline: none;
 }
 
 #next-button {
   background-image: url(../icons/go-next.svg);
+  outline: none;
 }
 
 .splitbar {
@@ -25,6 +28,7 @@
 
 #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
+	outline: none;
 }
 
 #unfullscreen-button {
@@ -39,8 +43,54 @@
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
+	outline: none;
 }
 
 #main-toolbar #library-button {
   background-image: url(../icons/library.svg);
+  outline: none;
+}
+
+.palette .row {
+	display: block;
+	margin: 0 0 !important;
+	box-sizing: initial !important;
+	font-size: 10pt;
+}
+
+.palette .expand {
+	font-family: sans-serif;
+	font-size: 10pt;
+}
+
+.palette input#title.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: calc(100% - 20px);
+}
+
+.palette textarea#description.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: calc(100% - 16px);
+}
+
+.palette input[type='text'].expand {
+	font-family: system-ui;
+	font-size: 11px;
+}
+
+.palette .container {
+	padding-left: 5px;
+	padding-right: 0px;
+	box-sizing: initial;
+}
+
+.palette .wrapper {
+	font-size: 10pt;
+	box-sizing: initial;
+}
+
+.palette *, ::after, ::before {
+	box-sizing: initial;
 }
