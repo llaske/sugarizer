@@ -2,7 +2,7 @@
 // Library item
 var LibraryItem = {
 	template: `
-		<div class="col-xs-12 col-md-6 col-lg-4 library-col">
+		<div class="col-xs-12 col-md-6 col-lg-4 library-col" v-on:click="onClick">
 			<div class="media library-item">
 				<div v-if="image" class="mr3 library-item-image" v-bind:style="'background-image: url('+image+')'"></div>
 				<div v-else class="mr3 library-item-image" style="background-image: url(books/images/generic-book.png)"></div>
@@ -10,7 +10,7 @@ var LibraryItem = {
 					<h5 class="mt-0">{{title}}</h5>
 					{{author}}
 				</div>
-				<img v-if="image" v-bind:src="image" v-on:error="onImageError()" style="visibility:hidden;width:0px;height:0px;"/>
+				<img v-if="image" v-bind:src="image" v-on:error="onImageError" style="visibility:hidden;width:0px;height:0px;"/>
 			</div>
 		</div>
 		`,
@@ -30,20 +30,20 @@ var LibraryViewer = {
 	components: {'library-item': LibraryItem},
 	template: `
 		<div class="row">
-			<library-item v-for="item in library" :key="item.file"
+			<library-item v-for="item in library.database" :key="item.file"
 			 	v-bind:title="item.title"
 				v-bind:author="item.author"
 				v-bind:image="item.image"
 				v-bind:url="item.file"
+				v-on:clicked="bookClicked(item)"
 				v-on:imageerror="item.image=''">
 			</library-item>
 		</div>
 	`,
-	data: function() {
-		return {
-			library: constant.library.database,
-		};
-	},
+	props: ['library'],
 	methods: {
+		bookClicked: function(book) {
+			this.$emit('bookselected', book);
+		}
 	}
 };

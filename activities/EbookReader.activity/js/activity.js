@@ -10,8 +10,9 @@ var app = new Vue({
 	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization },
 	data: {
 		currentBook: null,
-		currentLocation: null,
-		currentView: EbookReader,
+		currentEpub: null,
+		currentView: LibraryViewer,
+		currentLibrary: null,
 		timer: null
 	},
 
@@ -23,26 +24,19 @@ var app = new Vue({
 	},
 
 	mounted: function() {
-		// Load book
+		// Load last library from Journal
 		var vm = this;
-		this.currentBook = ePub("books/pg36780-images.epub");
-		this.currentLocation = null;
-
-		// Render e-book
-		var reader = this.$refs.view;
 		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
-			// Load last location from Journal
 			env.getEnvironment(function(err, environment) {
 				if (environment.objectId) {
 					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 						if (error==null && data!=null) {
 							// Render at last position
-							reader.render(vm.currentBook, JSON.parse(data));
+							vm.currentLibrary = JSON.parse(data);
 						}
 					});
 				} else {
-					// Render from the beginning
-					reader.render(vm.currentBook);
+					vm.currentLibrary = constant.library;
 				}
 			});
 		});
@@ -60,7 +54,7 @@ var app = new Vue({
 
 	updated: function() {
 		if (this.currentView === EbookReader) {
-			this.$refs.view.render(this.currentBook, this.currentLocation);
+			this.$refs.view.render(this.currentEpub, this.currentBook.location);
 		}
 	},
 
@@ -70,9 +64,17 @@ var app = new Vue({
 			this.$refs.toolbar.localized(this.$refs.localization);
 		},
 
-		switchView: function() {
+		saveContext: function() {
 			if (this.currentView === EbookReader) {
-				this.currentLocation = this.$refs.view.getLocation();
+				this.currentBook.location = this.$refs.view.getLocation();
+			} else {
+				this.currentLibrary = this.$refs.view.library;
+			}
+		},
+
+		switchView: function() {
+			this.saveContext();
+			if (this.currentView === EbookReader) {
 				this.currentView = LibraryViewer;
 			} else {
 				this.currentView = EbookReader;
@@ -85,7 +87,7 @@ var app = new Vue({
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			if (this.currentView === EbookReader) {
 				var reader = this.$refs.view;
-				reader.render(this.currentBook, reader.getLocation());
+				reader.render(this.currentEpub, reader.getLocation());
 			}
 		},
 		unfullscreen: function() {
@@ -94,7 +96,7 @@ var app = new Vue({
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			if (this.currentView === EbookReader) {
 				var reader = this.$refs.view;
-				reader.render(this.currentBook, reader.getLocation());
+				reader.render(this.currentEpub, reader.getLocation());
 			}
 		},
 
@@ -109,6 +111,15 @@ var app = new Vue({
 			}
 		},
 
+		onBookSelected: function(book) {
+			if (this.currentView == LibraryViewer) {
+				// Load book
+				this.currentBook = book;
+				this.currentEpub = ePub(this.currentBook.file);
+				this.currentView = EbookReader;
+			}
+		},
+
 		onResize: function() {
 			var vm = this;
 			if (vm.currentView === EbookReader) {
@@ -117,30 +128,29 @@ var app = new Vue({
 					window.clearTimeout(this.timer);
 				}
 				this.timer = window.setTimeout(function() {
-					vm.currentLocation = reader.getLocation();
-					reader.render(vm.currentBook, vm.currentLocation);
+					vm.currentBook.location = reader.getLocation();
+					reader.render(vm.currentEpub, vm.currentBook.location);
 					this.timer = null;
 				}, 500);
 			}
 		},
 
 		onStop: function() {
-			// Save current location in Journal on Stop
-			if (this.currentView === EbookReader) {
-				var reader = this.$refs.view;
-				require(["sugar-web/activity/activity"], function(activity) {
-					console.log("writing...");
-					var jsonData = JSON.stringify(reader.getLocation());
-					activity.getDatastoreObject().setDataAsText(jsonData);
-					activity.getDatastoreObject().save(function(error) {
-						if (error === null) {
-							console.log("write done.");
-						} else {
-							console.log("write failed.");
-						}
-					});
+			// Save current library in Journal on Stop
+			var vm = this;
+			vm.saveContext();
+			require(["sugar-web/activity/activity"], function(activity) {
+				console.log("writing...");
+				var jsonData = JSON.stringify({information:vm.currentLibrary.information, database:vm.currentLibrary.database});
+				activity.getDatastoreObject().setDataAsText(jsonData);
+				activity.getDatastoreObject().save(function(error) {
+					if (error === null) {
+						console.log("write done.");
+					} else {
+						console.log("write failed.");
+					}
 				});
-			}
+			});
 		}
 	}
 });

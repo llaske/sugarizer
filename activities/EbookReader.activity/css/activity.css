@@ -1,16 +1,16 @@
 #main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
-  outline: none;
+	background-image: url(../activity/activity-icon.svg);
+	outline: none;
 }
 
 #previous-button {
-  background-image: url(../icons/go-previous.svg);
-  outline: none;
+	background-image: url(../icons/go-previous.svg);
+	outline: none;
 }
 
 #next-button {
-  background-image: url(../icons/go-next.svg);
-  outline: none;
+	background-image: url(../icons/go-next.svg);
+	outline: none;
 }
 
 .splitbar {
@@ -47,8 +47,12 @@
 }
 
 #main-toolbar #library-button {
-  background-image: url(../icons/library.svg);
-  outline: none;
+	background-image: url(../icons/library.svg);
+	outline: none;
+}
+
+#main-toolbar #stop-button {
+	outline: none;
 }
 
 .palette .row {

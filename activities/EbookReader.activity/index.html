@@ -27,7 +27,7 @@
 		<toolbar ref="toolbar"></toolbar>
 
 		<div id="canvas">
-				<component ref="view" :is="currentView"></component>
+				<component ref="view" :is="currentView" v-on:bookselected="onBookSelected" v-bind:library="currentLibrary"></component>
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
