@@ -10,6 +10,7 @@ var LibraryItem = {
 					<h5 class="mt-0">{{title}}</h5>
 					{{author}}
 				</div>
+				<img v-if="image" v-bind:src="image" v-on:error="onImageError()" style="visibility:hidden;width:0px;height:0px;"/>
 			</div>
 		</div>
 		`,
@@ -19,7 +20,7 @@ var LibraryItem = {
 			this.$emit('clicked');
 		},
 		onImageError: function() {
-			console.log("Error");
+			this.$emit('imageerror');
 		}
 	}
 }
@@ -33,7 +34,8 @@ var LibraryViewer = {
 			 	v-bind:title="item.title"
 				v-bind:author="item.author"
 				v-bind:image="item.image"
-				v-bind:url="item.file">
+				v-bind:url="item.file"
+				v-on:imageerror="item.image=''">
 			</library-item>
 		</div>
 	`,
