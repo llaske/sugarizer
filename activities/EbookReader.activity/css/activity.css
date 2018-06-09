@@ -94,3 +94,35 @@
 .palette *, ::after, ::before {
 	box-sizing: initial;
 }
+
+body {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+#canvas {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.library-col {
+	padding-left: 20px;
+	padding-right: 25px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+.library-item {
+	background-color: white;
+	border: 1px solid black;
+	box-shadow: 8px 8px 8px #888888
+}
+
+.library-item-image {
+	width: 150px;
+	height: 200px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: 5px;
+}
