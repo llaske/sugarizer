@@ -5,7 +5,7 @@ var LibraryItem = {
 		<div class="col-xs-12 col-md-6 col-lg-4 library-col" v-on:click="onClick">
 			<div class="media library-item">
 				<div v-if="image" class="mr3 library-item-image" v-bind:style="'background-image: url('+image+')'"></div>
-				<div v-else class="mr3 library-item-image" style="background-image: url(books/images/generic-book.png)"></div>
+				<div v-else class="mr3 library-item-image" style="background-image: url(images/generic-book.png)"></div>
 				<div class="media-body">
 					<h5 class="mt-0">{{title}}</h5>
 					{{author}}
@@ -33,7 +33,7 @@ var LibraryViewer = {
 			<library-item v-for="item in library.database" :key="item.file"
 			 	v-bind:title="item.title"
 				v-bind:author="item.author"
-				v-bind:image="item.image"
+				v-bind:image="library.information.imageprefix+item.image"
 				v-bind:url="item.file"
 				v-on:clicked="bookClicked(item)"
 				v-on:imageerror="item.image=''">

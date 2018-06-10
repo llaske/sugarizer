@@ -12,7 +12,7 @@ var app = new Vue({
 		currentBook: null,
 		currentEpub: null,
 		currentView: LibraryViewer,
-		currentLibrary: null,
+		currentLibrary: {database: []},
 		timer: null
 	},
 
@@ -35,7 +35,7 @@ var app = new Vue({
 							vm.currentLibrary = parsed.library;
 							if (parsed.current !== undefined) {
 								vm.currentBook = vm.currentLibrary.database[parsed.current];
-								vm.currentEpub = ePub(vm.currentBook.file);
+								vm.currentEpub = ePub(vm.currentLibrary.information.fileprefix+vm.currentBook.file);
 								vm.currentView = EbookReader;
 							}
 						}
@@ -117,10 +117,10 @@ var app = new Vue({
 		},
 
 		onBookSelected: function(book) {
-			if (this.currentView == LibraryViewer) {
+			if (this.currentView === LibraryViewer) {
 				// Load book
 				this.currentBook = book;
-				this.currentEpub = ePub(this.currentBook.file);
+				this.currentEpub = ePub(this.currentLibrary.information.fileprefix+this.currentBook.file);
 				this.currentView = EbookReader;
 			}
 		},
