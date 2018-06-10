@@ -82,7 +82,9 @@ var app = new Vue({
 			if (this.currentView === EbookReader) {
 				this.currentView = LibraryViewer;
 			} else {
-				this.currentView = EbookReader;
+				if (this.currentBook) {
+					this.currentView = EbookReader;
+				}
 			}
 		},
 
