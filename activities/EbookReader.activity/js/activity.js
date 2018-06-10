@@ -31,8 +31,13 @@ var app = new Vue({
 				if (environment.objectId) {
 					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 						if (error==null && data!=null) {
-							// Render at last position
-							vm.currentLibrary = JSON.parse(data);
+							var parsed = JSON.parse(data);
+							vm.currentLibrary = parsed.library;
+							if (parsed.current !== undefined) {
+								vm.currentBook = vm.currentLibrary.database[parsed.current];
+								vm.currentEpub = ePub(vm.currentBook.file);
+								vm.currentView = EbookReader;
+							}
 						}
 					});
 				} else {
@@ -141,7 +146,13 @@ var app = new Vue({
 			vm.saveContext();
 			require(["sugar-web/activity/activity"], function(activity) {
 				console.log("writing...");
-				var jsonData = JSON.stringify({information:vm.currentLibrary.information, database:vm.currentLibrary.database});
+				var context = {
+					library: { information:vm.currentLibrary.information, database:vm.currentLibrary.database }
+				};
+				if (vm.currentView === EbookReader) {
+					context.current = vm.currentLibrary.database.indexOf(vm.currentBook);
+				}
+				var jsonData = JSON.stringify(context);
 				activity.getDatastoreObject().setDataAsText(jsonData);
 				activity.getDatastoreObject().save(function(error) {
 					if (error === null) {
