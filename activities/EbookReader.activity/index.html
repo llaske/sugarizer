@@ -17,6 +17,7 @@
 <script src="lib/vue.js"></script>
 <!--script src="lib/vue.min.js"></script-->
 <script src="lib/jquery-3.3.1.slim.min.js"></script>
+<script src="lib/axios.min.js"></script>
 <script src="lib/popper.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
 <script src="lib/require.js"></script>
@@ -30,11 +31,12 @@
 				<component ref="view" :is="currentView" v-on:bookselected="onBookSelected" v-bind:library="currentLibrary"></component>
 		</div>
 
+		<img id="spinner" src="images/spinner-light.gif"/>
+		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 		<localization ref="localization" v-on:localized="localized"/>
 	</div>
 
-	<script src="js/constant.js"></script>
 	<script src="js/l10n.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/reader.js"></script>

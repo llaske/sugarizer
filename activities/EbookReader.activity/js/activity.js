@@ -37,11 +37,20 @@ var app = new Vue({
 								vm.currentBook = vm.currentLibrary.database[parsed.current];
 								vm.currentEpub = ePub(vm.currentLibrary.information.fileprefix+vm.currentBook.file);
 								vm.currentView = EbookReader;
+								document.getElementById("spinner").style.visibility = "hidden";
 							}
 						}
 					});
 				} else {
-					vm.currentLibrary = constant.library;
+					axios.get("./library.json")
+						.then(function(response) {
+							vm.currentLibrary = response.data;
+							document.getElementById("spinner").style.visibility = "hidden";
+						})
+						.catch(function(error) {
+							document.getElementById("spinner").style.visibility = "hidden";
+							document.getElementById("cloudwarning").style.visibility = "visible";
+						});
 				}
 			});
 		});
