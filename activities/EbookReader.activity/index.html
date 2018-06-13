@@ -34,10 +34,12 @@
 		<img id="spinner" src="images/spinner-light.gif"/>
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
-		<localization ref="localization" v-on:localized="localized"/>
+		<popup ref="settings" v-on:after-show="settingsShown" v-on:after-close="settingsClosed"></popup>
+		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
 
 	<script src="js/l10n.js"></script>
+	<script src="js/popup.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/reader.js"></script>
 	<script src="js/library.js"></script>

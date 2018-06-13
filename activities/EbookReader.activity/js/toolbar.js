@@ -26,6 +26,8 @@ var Toolbar = {
 			<toolbar-item v-on:clicked="getApp().onNext()" id="next-button" v-bind:title="l10n.stringNext"></toolbar-item>
 			<div class="splitbar"></div>
 			<toolbar-item v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" v-bind:title="l10n.stringLibrary"></toolbar-item>
+			<div class="splitbar"></div>
+			<toolbar-item v-on:clicked="getApp().setLibraryUrl()" class="toolbutton" id="settings-button" v-bind:title="l10n.stringSettings"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
@@ -38,6 +40,7 @@ var Toolbar = {
 				stringPrevious: '',
 				stringNext: '',
 				stringLibrary: '',
+				stringSettings: '',
 				stringFullscreen: ''
 			}
 		}
@@ -48,6 +51,7 @@ var Toolbar = {
 			this.l10n.stringPrevious = localization.get("Previous");
 			this.l10n.stringNext = localization.get("Next");
 			this.l10n.stringLibrary= localization.get("Library");
+			this.l10n.stringSettings= localization.get("Settings");
 			this.l10n.stringFullscreen= localization.get("Fullscreen");
 		},
 

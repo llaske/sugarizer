@@ -7,7 +7,7 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization },
+	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization, 'popup': Popup },
 	data: {
 		currentBook: null,
 		currentEpub: null,
@@ -97,6 +97,7 @@ var app = new Vue({
 			}
 		},
 
+		// Handle fullscreen mode
 		fullscreen: function() {
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
@@ -116,6 +117,40 @@ var app = new Vue({
 			}
 		},
 
+		// Handling popup settings
+		setLibraryUrl: function() {
+			this.$refs.settings.show({
+				content: "\
+					<div id='popup-toolbar' class='toolbar' style='padding: 0'>\
+						<button class='toolbutton pull-right' id='popup-ok-button' title='$titleOk' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-ok.svg)'></button>\
+						<button class='toolbutton pull-right' id='popup-cancel-button' title='$titleCancel' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>\
+						<div style='position: absolute; top: 20px; left: 60px;'>$titleChoose</div>\
+					</div>\
+					<div id='popup-container' style='width: 100%; overflow:auto'></div>",
+				closeButton: false,
+				modalStyles: {
+					backgroundColor: "white",
+					height: "400px",
+					width: "600px",
+					maxWidth: "90%"
+				}
+			});
+		},
+		settingsShown: function() {
+			var vm = this;
+			document.getElementById('popup-container').style.height = (document.getElementById("popup-toolbar").parentNode.offsetHeight - 55*2) + "px";
+			document.getElementById('popup-ok-button').addEventListener('click', function() {
+				vm.$refs.settings.close();
+			});
+			document.getElementById('popup-cancel-button').addEventListener('click', function() {
+				vm.$refs.settings.close();
+			});
+		},
+		settingsClosed: function(result) {
+			this.$refs.settings.destroy();
+		},
+
+		// Handle events
 		onNext: function() {
 			if (this.currentView === EbookReader) {
 				this.$refs.view.nextPage();

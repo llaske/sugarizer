@@ -51,6 +51,11 @@
 	outline: none;
 }
 
+#main-toolbar #settings-button {
+	background-image: url(../icons/settings.svg);
+	outline: none;
+}
+
 #main-toolbar #stop-button {
 	outline: none;
 }
