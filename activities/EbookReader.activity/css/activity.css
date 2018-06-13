@@ -151,3 +151,23 @@ body {
 	z-index: 5;
 	visibility: hidden;
 }
+
+.popup-input {
+	border-radius: 22px;
+	height: 30px;
+	width: 400px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10pt;
+	display: inline-block;
+}
+
+.popup-label {
+	color: #808080;
+	margin-bottom: 5px;
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 10px;
+}

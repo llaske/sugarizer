@@ -3,6 +3,8 @@ requirejs.config({
 	baseUrl: "lib"
 });
 
+// Default library url
+var defaultUrlLibrary = "./library.json";
 
 // Vue main app
 var app = new Vue({
@@ -42,15 +44,7 @@ var app = new Vue({
 						}
 					});
 				} else {
-					axios.get("./library.json")
-						.then(function(response) {
-							vm.currentLibrary = response.data;
-							document.getElementById("spinner").style.visibility = "hidden";
-						})
-						.catch(function(error) {
-							document.getElementById("spinner").style.visibility = "hidden";
-							document.getElementById("cloudwarning").style.visibility = "visible";
-						});
+					vm.loadLibrary(defaultUrlLibrary);
 				}
 			});
 		});
@@ -76,6 +70,23 @@ var app = new Vue({
 
 		localized: function() {
 			this.$refs.toolbar.localized(this.$refs.localization);
+		},
+
+		loadLibrary: function(url) {
+			var vm = this;
+			vm.currentLibrary = {database: []};
+			defaultUrlLibrary = url;
+			document.getElementById("spinner").style.visibility = "visible";
+			axios.get(url)
+				.then(function(response) {
+					vm.currentLibrary = response.data;
+					document.getElementById("spinner").style.visibility = "hidden";
+					document.getElementById("cloudwarning").style.visibility = "hidden";
+				})
+				.catch(function(error) {
+					document.getElementById("spinner").style.visibility = "hidden";
+					document.getElementById("cloudwarning").style.visibility = "visible";
+				});
 		},
 
 		saveContext: function() {
@@ -119,18 +130,25 @@ var app = new Vue({
 
 		// Handling popup settings
 		setLibraryUrl: function() {
+			var titleOk = this.$refs.localization.get("Ok"),
+				titleCancel = this.$refs.localization.get("Cancel"),
+				titleSettings = this.$refs.localization.get("Settings"),
+				titleUrl = this.$refs.localization.get("Url");
 			this.$refs.settings.show({
-				content: "\
-					<div id='popup-toolbar' class='toolbar' style='padding: 0'>\
-						<button class='toolbutton pull-right' id='popup-ok-button' title='$titleOk' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-ok.svg)'></button>\
-						<button class='toolbutton pull-right' id='popup-cancel-button' title='$titleCancel' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>\
-						<div style='position: absolute; top: 20px; left: 60px;'>$titleChoose</div>\
-					</div>\
-					<div id='popup-container' style='width: 100%; overflow:auto'></div>",
+				content: `
+					<div id='popup-toolbar' class='toolbar' style='padding: 0'>
+						<button class='toolbutton pull-right' id='popup-ok-button' title='`+titleOk+`' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-ok.svg)'></button>
+						<button class='toolbutton pull-right' id='popup-cancel-button' title='`+titleCancel+`' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>
+						<div style='position: absolute; top: 20px; left: 60px;'>`+titleSettings+`</div>
+					</div>
+					<div id='popup-container' style='width: 100%; overflow:auto'>
+						<div class='popup-label'>`+titleUrl+`</div>
+						<input id='input' class='popup-input'/>
+					</div>`,
 				closeButton: false,
 				modalStyles: {
 					backgroundColor: "white",
-					height: "400px",
+					height: "160px",
 					width: "600px",
 					maxWidth: "90%"
 				}
@@ -140,13 +158,17 @@ var app = new Vue({
 			var vm = this;
 			document.getElementById('popup-container').style.height = (document.getElementById("popup-toolbar").parentNode.offsetHeight - 55*2) + "px";
 			document.getElementById('popup-ok-button').addEventListener('click', function() {
-				vm.$refs.settings.close();
+				vm.$refs.settings.close(true);
 			});
 			document.getElementById('popup-cancel-button').addEventListener('click', function() {
 				vm.$refs.settings.close();
 			});
+			document.getElementById('input').value = defaultUrlLibrary;
 		},
 		settingsClosed: function(result) {
+			if (result) {
+				this.loadLibrary(document.getElementById('input').value);
+			}
 			this.$refs.settings.destroy();
 		},
 

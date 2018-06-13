@@ -4,7 +4,8 @@ var Popup = {
 	template: '<div/>',
 	data: function() {
 		return {
-			modal: null
+			modal: null,
+			result: null
 		}
 	},
 	methods: {
@@ -16,14 +17,15 @@ var Popup = {
 					vm.$emit("after-show");
 				})
 				.afterClose(function(modal) {
-					vm.$emit("after-close", result);
+					vm.$emit("after-close", vm.result);
 				})
 				.show();
 			});
 		},
 
-		close: function() {
+		close: function(result) {
 			if (this.modal) {
+				this.result = result;
 				this.modal.close();
 			}
 		},
