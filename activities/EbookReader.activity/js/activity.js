@@ -187,9 +187,13 @@ var app = new Vue({
 		onBookSelected: function(book) {
 			if (this.currentView === LibraryViewer) {
 				// Load book
-				this.currentBook = book;
-				this.currentEpub = ePub(this.currentLibrary.information.fileprefix+this.currentBook.file);
-				this.currentView = EbookReader;
+				var vm = this;
+				vm.currentBook = book;
+				vm.currentEpub = new ePub.Book();
+				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
+					vm.currentView = EbookReader;
+				}, function() {
+				});
 			}
 		},
 
