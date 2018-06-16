@@ -7,28 +7,226 @@
 	},
 	"database": [
 		{
-			"title": "Les fables de La Fontaine",
-			"author": "La Fontaine",
-			"image": "fontaine1.png",
-			"file": "LaFontaine_FablesI.epub"
-		},
-		{
 			"title": "Alice au pays des merveilles",
 			"author": "Lewis Carroll",
 			"image": "alice.png",
 			"file": "Carroll_Alice.epub"
 		},
 		{
-			"title": "Les lettres de mon Moulin",
-			"author": "Alphonse Daudet",
-			"image": "moulin.png",
-			"file": "pg36780-images.epub"
+			"title": "Le petit prince",
+			"author": "Antoine de Saint-Exupéry",
+			"image": "petitprince_exupery.png",
+			"file": "SaintExupery_PetitPrince.epub"
+		},
+		{
+			"title": "Le Livre de la jungle",
+			"author": "Rudyard Kipling",
+			"image": "kipling_jungle.png",
+			"file": "kipling_le_livre_de_la_jungle.epub"
+		},
+		{
+			"title": "Contes merveilleux - Tome I",
+			"author": "Hans Christian Andersen",
+			"image": "andersen_contesI.png",
+			"file": "Andersen_Contes_I.epub"
+		},
+		{
+			"title": "Contes merveilleux - Tome II",
+			"author": "Hans Christian Andersen",
+			"image": "andersen_contesII.png",
+			"file": "Andersen_Contes_II.epub"
+		},
+		{
+			"title": "Fables - Livre I",
+			"author": "La Fontaine",
+			"image": "fontaine1.png",
+			"file": "LaFontaine_FablesI.epub"
+		},
+		{
+			"title": "Fables - Livre II",
+			"author": "La Fontaine",
+			"image": "fontaine2.png",
+			"file": "LaFontaine_FablesII.epub"
 		},
 		{
 			"title": "Contes merveilleux - Tome I",
 			"author": "Jacob Ludwig Karl Grimm",
 			"image": "grimmI.png",
 			"file": "Grimm_ContesI.epub"
+		},
+		{
+			"title": "Contes merveilleux - Tome II",
+			"author": "Jacob Ludwig Karl Grimm",
+			"image": "grimmII.png",
+			"file": "Grimm_ContesII.epub"
+		},
+		{
+			"title": "Les aventures de Pinocchio",
+			"author": "Carlo Collodi",
+			"image": "pinocchio.jpeg",
+			"file": "collodi_pinocchio.epub"
+		},
+		{
+			"title": "Robinson Crusoé - Tome I",
+			"author": "Daniel Defoe",
+			"image": "defoe_robinson.png",
+			"file": "defoe_robinson_crusoe_1.epub"
+		},
+		{
+			"title": "Robinson Crusoé - Tome II",
+			"author": "Daniel Defoe",
+			"image": "defoe_robinson.png",
+			"file": "defoe_robinson_crusoe_2.epub"
+		},
+		{
+			"title": "Cinq Semaines en Ballon",
+			"author": "Jules Verne",
+			"image": "5semaine_vernes.png",
+			"file": "verne_cinq_semaines_en_ballon_illustre.epub"
+		},
+		{
+			"title": "Poil de Carotte",
+			"author": "Jules Renard",
+			"image": "renard_carotte.png",
+			"file": "JulesRenard_PoilCarotte.epub"
+		},
+		{
+			"title": "La ferme des animaux",
+			"author": "George Orwell",
+			"image": "orwell_animals.png",
+			"file": "Orwell_LaFerme.epub"
+		},
+		{
+			"title": "Le Roman de la momie",
+			"author": "Théophile Gautier",
+			"image": "gautier_momie.jpg",
+			"file": "Theophile_Gautier_Le_Roman_de_la_momie.epub"
+		},
+		{
+			"title": "Contes - Tome I",
+			"author": "Marie-Catherine Baronne d'Aulnoy",
+			"image": "aulnoy_contes.jpg",
+			"file": "aulnoy_contes_1.epub"
+		},
+		{
+			"title": "Contes - Tome II",
+			"author": "Marie-Catherine Baronne d'Aulnoy",
+			"image": "aulnoy_contes.jpg",
+			"file": "aulnoy_contes_2.epub"
+		},
+		{
+			"title": "Le Robinson de douze ans",
+			"author": "Madame Mallès de Beaulieu",
+			"image": "beaulieu_robinson.png",
+			"file": "beaulieu_robinson_de_douze_ans.epub"
+		},
+		{
+			"title": "De l'autre coté du miroir",
+			"author": "Lewis Carroll",
+			"image": "caroll_miroir.png",
+			"file": "carroll_de_autre_cote_miroir.epub"
+		},
+		{
+			"title": "Cantique de Noël",
+			"author": "Charles Dickens",
+			"image": "dickens_noel.png",
+			"file": "dickens_cantique_de_noel.epub"
+		},
+		{
+			"title": "Les conteurs à la ronde",
+			"author": "Charles Dickens",
+			"image": "dickens_ronde.png",
+			"file": "dickens_conteurs_a_la_ronde.epub"
+		},
+		{
+			"title": "David Copperfield - Tome I",
+			"author": "Charles Dickens",
+			"image": "dickens_copperfield.png",
+			"file": "dickens_david_copperfield_1.epub"
+		},
+		{
+			"title": "David Copperfield - Tome II",
+			"author": "Charles Dickens",
+			"image": "dickens_copperfield.png",
+			"file": "dickens_david_copperfield_2.epub"
+		},
+		{
+			"title": "Le grillon du foyer",
+			"author": "Charles Dickens",
+			"image": "dickens_grillon.png",
+			"file": "dickens_grillon_du_foyer.epub"
+		},
+		{
+			"title": "Oliver Twist",
+			"author": "Charles Dickens",
+			"image": "dickens_twist.png",
+			"file": "dickens_oliver_twist.epub"
+		},
+		{
+			"title": "La Jeunesse de Pierrot",
+			"author": "Alexandre Dumas",
+			"image": "dumas.png",
+			"file": "Dumas_Pierrot.epub"
+		},
+		{
+			"title": "La bouillie de la comtesse Bertheet autres contes",
+			"author": "Alexandre Dumas",
+			"image": "dumas.png",
+			"file": "Dumas_La_bouillie_de_la_comtesse_Berthe_et_autres_contes.epub"
+		},
+		{
+			"title": "Histoire d'un casse-noisette",
+			"author": "Alexandre Dumas",
+			"image": "dumas.png",
+			"file": "dumas_casse_noisette.epub"
+		},
+		{
+			"title": "Divers contes",
+			"author": "Alexandre Dumas",
+			"image": "dumas.png",
+			"file": "dumas_divers_contes.epub"
+		},
+		{
+			"title": "Fables – Tome I",
+			"author": "Esope",
+			"image": "esope.png",
+			"file": "esope_fables_1.epub"
+		},
+		{
+			"title": "Fables – Tome II",
+			"author": "Esope",
+			"image": "esope.png",
+			"file": "esope_fables_2.epub"
+		},
+		{
+			"title": "La caravane",
+			"author": "Wilhelm Hauff",
+			"image": "hauff_caravane.jpg",
+			"file": "hauff_la_caravane.epub"
+		},
+		{
+			"title": "Le Second Livre de la jungle",
+			"author": "Rudyard Kipling",
+			"image": "kipling_jungle2.png",
+			"file": "kipling_le_second_livre_de_la_jungle.epub"
+		},
+		{
+			"title": "Le petit cireur de chaussures",
+			"author": "Dominique Curtiss",
+			"image": "cireur_curtis.png",
+			"file": "le_petit_cireur_de_chaussures.epub"
+		},
+		{
+			"title": "Contes",
+			"author": "Jeanne-Marie Leprince de Beaumont",
+			"image": "beaumont.png",
+			"file": "leprince_de_beaumont_contes.epub"
+		},
+		{
+			"title": "Les lettres de mon Moulin",
+			"author": "Alphonse Daudet",
+			"image": "moulin.png",
+			"file": "pg36780-images.epub"
 		}
 	]
 }
