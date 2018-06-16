@@ -6,6 +6,7 @@ var Localization = {
 	data: function() {
 		return {
 			l10n: null,
+			dictionary: null,
 			eventReceived: false
 		}
 	},
@@ -20,6 +21,7 @@ var Localization = {
 					webL10n.language.code = language;
 					window.addEventListener("localized", function() {
 						if (!vm.eventReceived) {
+							vm.dictionary = vm.l10n.dictionary;
 							vm.$emit("localized");
 							vm.eventReceived = true;
 						}
@@ -30,7 +32,14 @@ var Localization = {
 	},
 	methods: {
 		get: function(str) {
-			return this.l10n.get(str);
+			if (!this.dictionary) {
+				return str;
+			}
+			var item = this.dictionary[str];
+			if (!item || !item.textContent) {
+				return str;
+			}
+			return item.textContent;
 		}
 	}
 }
