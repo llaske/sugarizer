@@ -182,6 +182,7 @@ var app = new Vue({
 				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
 					vm.currentView = EbookReader;
 				}, function() {
+					console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
 				});
 			}
 		},
