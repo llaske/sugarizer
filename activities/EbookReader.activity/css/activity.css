@@ -3,16 +3,6 @@
 	outline: none;
 }
 
-#previous-button {
-	background-image: url(../icons/go-previous.svg);
-	outline: none;
-}
-
-#next-button {
-	background-image: url(../icons/go-next.svg);
-	outline: none;
-}
-
 .splitbar {
 	background-image: url(../icons/split.svg);
 	background-position: center;
@@ -170,4 +160,42 @@ body {
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-right: 10px;
+}
+
+.reader-area {
+	margin-left: 50px;
+	margin-right: 50px;
+	background-color: white;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.reader-left {
+	position: absolute;
+	width: 50px;
+	background-color: white;
+	background-image: url(../icons/go-previous.svg);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.reader-left-sel {
+	background-image: url(../icons/go-previous-sel.svg);
+}
+
+.reader-right {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 50px;
+	background-color: white;
+	background-image: url(../icons/go-next.svg);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.reader-right-sel {
+	background-image: url(../icons/go-next-sel.svg);
 }

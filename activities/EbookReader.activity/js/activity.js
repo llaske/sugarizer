@@ -173,17 +173,6 @@ var app = new Vue({
 		},
 
 		// Handle events
-		onNext: function() {
-			if (this.currentView === EbookReader) {
-				this.$refs.view.nextPage();
-			}
-		},
-		onPrevious: function() {
-			if (this.currentView === EbookReader) {
-				this.$refs.view.previousPage();
-			}
-		},
-
 		onBookSelected: function(book) {
 			if (this.currentView === LibraryViewer) {
 				// Load book
