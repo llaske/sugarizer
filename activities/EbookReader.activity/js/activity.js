@@ -4,7 +4,7 @@ requirejs.config({
 });
 
 // Default library url
-var defaultUrlLibrary = "./library.json";
+var defaultUrlLibrary = "http://sugarizer.org/content/books.php";
 
 // Vue main app
 var app = new Vue({
