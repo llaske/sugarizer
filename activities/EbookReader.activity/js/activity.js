@@ -77,7 +77,7 @@ var app = new Vue({
 			vm.currentLibrary = {database: []};
 			defaultUrlLibrary = url;
 			document.getElementById("spinner").style.visibility = "visible";
-			axios.get(url)
+			axios.get(url+"?lang="+vm.$refs.localization.code)
 				.then(function(response) {
 					vm.currentLibrary = response.data;
 					document.getElementById("spinner").style.visibility = "hidden";

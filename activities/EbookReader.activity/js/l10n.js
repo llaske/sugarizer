@@ -6,6 +6,7 @@ var Localization = {
 	data: function() {
 		return {
 			l10n: null,
+			code: null,
 			dictionary: null,
 			eventReceived: false
 		}
@@ -21,6 +22,7 @@ var Localization = {
 					webL10n.language.code = language;
 					window.addEventListener("localized", function() {
 						if (!vm.eventReceived) {
+							vm.code = language;
 							vm.dictionary = vm.l10n.dictionary;
 							vm.$emit("localized");
 							vm.eventReceived = true;
