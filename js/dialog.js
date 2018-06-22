@@ -1001,7 +1001,8 @@ enyo.kind({
 					color: preferences.getColor(),
 					language: preferences.getLanguage(),
 					role: "student",
-					password: this.$.password.getPassword()
+					password: this.$.password.getPassword(),
+					options: { sync: preferences.getOptions("sync"), stats: preferences.getOptions("stats") }
 				},
 				function(inSender, inResponse) {
 					that.login();
