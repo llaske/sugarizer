@@ -19,6 +19,9 @@ enyo.kind({
 		{name: "message", classes: "cloud-message", showing: false},
 		{name: "settings", classes: "cloud-line", showing: false, components:[
 			{name: "gotosettings", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "preferences-system.svg"}, classes: "listview-button cloud-gotosettings", ontap: "doSettings"}
+		]},
+		{name: "refresh", classes: "cloud-line", showing: false, components:[
+			{name: "refreshstate", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "system-restart.svg"}, classes: "listview-button cloud-gotosettings", ontap: "doRefresh"}
 		]}
 	],
 	// Constructor: init list
@@ -130,6 +133,7 @@ enyo.kind({
 			this.$.empty.setShowing(false);
 			this.$.message.setShowing(false);
 			this.$.settings.setShowing(false);
+			this.$.refresh.setShowing(false);
 			presence.listUsers(enyo.bind(this, "userListReceived"));
 			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 		}
@@ -141,6 +145,7 @@ enyo.kind({
 			this.$.empty.setShowing(false);
 			this.$.message.setShowing(false);
 			this.$.settings.setShowing(false);
+			this.$.refresh.setShowing(false);
 			sugarizerOS.isWifiEnabled(function(value){
 				if (value != 0) {
 					sugarizerOS.scanWifi();
@@ -161,7 +166,13 @@ enyo.kind({
 			this.$.server.setShowing(false);
 			this.$.empty.setShowing(true);
 			this.$.message.setShowing(true);
-			this.$.settings.setShowing(true);
+			if (preferences.isConnected()) {
+				this.$.message.setContent(l10n.get("UnableToConnect"));
+				this.$.refresh.setShowing(true);
+			} else {
+				this.$.message.setContent(l10n.get("ServerNotSet"));
+				this.$.settings.setShowing(true);
+			}
 		}
 	},
 
@@ -232,6 +243,21 @@ enyo.kind({
 		this.getPopup().hidePopup();
 		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
 		this.otherview.show();
+	},
+	doRefresh: function() {
+		if (!presence.isConnected()) {
+			var that = this;
+			presence.joinNetwork(function(error, user) {
+				if (error) {
+					console.log("WARNING: Can't connect to presence server");
+				} else {
+					that.updateNetworkState();
+				}
+			});
+		} else {
+			this.updateNetworkState();
+		}
+
 	},
 
 	// Popup menu for server handling
@@ -513,10 +539,11 @@ enyo.kind({
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4-10)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
 		this.$.empty.applyStyle("margin-top", margintop+"px");
-		this.$.message.applyStyle("margin-top", (margintop+70)+"px");
-		this.$.message.setContent(l10n.get("ServerNotSet"));
+		this.$.message.applyStyle("margin-top", (margintop+70)+"px");;
 		this.$.gotosettings.applyStyle("margin-top", (margintop+90)+"px");
 		this.$.gotosettings.setText(l10n.get("MySettings"));
+		this.$.refreshstate.applyStyle("margin-top", (margintop+90)+"px");
+		this.$.refreshstate.setText(l10n.get("Refresh"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
 		tutorial.setElement("server", this.$.server.getAttribute("id"));
 
