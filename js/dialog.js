@@ -974,6 +974,11 @@ enyo.kind({
 			myserver.getServerInformation(this.$.servername.getValue(), function(inSender, inResponse) {
 				that.currentserver = inResponse;
 				that.currentserver.url = that.$.servername.getValue();
+				if (that.currentserver.secure) {
+					that.currentserver.url = that.currentserver.url.replace(constant.http, constant.https);
+				} else {
+					that.currentserver.url = that.currentserver.url.replace(constant.https, constant.http);
+				}
 				preferences.setServer(that.currentserver);
 				that.initservername = that.$.servername.getValue();
 				that.step++;

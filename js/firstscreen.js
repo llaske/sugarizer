@@ -208,6 +208,11 @@ enyo.kind({
 			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
 				var server = inResponse;
 				server.url = that.$.server.getValue();
+				if (server.secure) {
+					server.url = server.url.replace(constant.http, constant.https);
+				} else {
+					server.url = server.url.replace(constant.https, constant.http);
+				}
 				preferences.setServer(server);
 				that.step++;
 				that.displayStep();
