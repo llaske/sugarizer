@@ -44,21 +44,32 @@ To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome
 
 ![](images/chromewebstore.png)
 
-To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), close any running instances of Chrome and re-launch it using the command line:
+To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
+
+For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
     chrome --allow-file-access-from-files index.html
 
-The option `--allow-file-access-from-files` is needed to enable access to local files.
+On Mac OS, you should launch:
 
-Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
+	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
 
-If you run Sugarizer this way often, you should create an alias for this command ([learn more](https://en.wikipedia.org/wiki/Alias_(command))).
+For **Firefox**, type in the address bar:
+
+    about:config
+    
+Search for the `security.fileuri.strict_origin_policy` parameter and 
+set it to `false`.
+
+For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
+
+
 
 # Sugarizer Web Application
 
 [Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
-Sugarizer Web App is a web application that runs on any device with a recent Chrome version and has also been tested successfully on Firefox, Safari and EDGE.
+Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox, Safari or EDGE browser.
 
 As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
@@ -202,11 +213,17 @@ To remove resources for **Etoys**, remove directory [activities/Etoys.activities
 
 If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce size of all JavaScript files.
 
+First ensure than Node.js and npm is installed on your machine. See [here](http://nodejs.org/) for more information.
+
 The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
 	npm install -g grunt-cli
 
-Then just launch:
+Then install specific component for Sugarizer by running:
+
+	npm install
+
+Finally launch:
 
 	grunt
 
@@ -263,17 +280,8 @@ Note that this translation is for Sugarizer only. Each activity could provide it
 
 As all Open Source software, contributions to this software are welcome.
 
-The best way to start is to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
+Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Sugarizer.
 
-Then, you could start to contribute by trying to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues).
-
-Note than the **master** branch of the repository is for released/stable version, the **dev** branch is for development. So to contribute:
-
-* Fork the **dev** branch of the repository,
-* Update it with your contribution,
-* Send a pull request to the repository.
-
-Thanks in advance for your contribution.
 
 
 # License
