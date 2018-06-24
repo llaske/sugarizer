@@ -33,7 +33,20 @@ enyo.kind({
 		this.index = 0;
 		this.computeSize();
 		this.favorite = false;
-		this.loadDatabase();
+	},
+
+	loadLibraries: function() {
+		var that = this;
+		Util.loadLibraries(
+			function() {
+				app.showLibraries();
+			},
+			function(sender) {
+				that.$.spinner.setShowing(false);
+				that.$.cloudwarning.setShowing(true);
+				console.log("Error loading library on '"+sender.url+"'");
+			}
+		);
 	},
 
 	loadDatabase: function() {
@@ -122,7 +135,7 @@ enyo.kind({
 		this.$.libraryDialog.reload();
 		this.$.libraryDialog.show();
 	},
-	
+
 	hideLibraries: function() {
 		this.$.libraryDialog.hide();
 	},
@@ -131,7 +144,7 @@ enyo.kind({
 		if (Util.getLibrary() == null)
 			this.showLibraries();
 	},
-	
+
 	setFilter: function(filter) {
 		Util.setFilter(filter);
 	},

@@ -7,16 +7,29 @@ Two set of videos are linked natively with the activity: [Khan Academy](http://k
 
 Video Viewer is a Sugar-Web activity, it could work both into Sugar Learning platform and in Sugarizer.
 
-A standard set of libraries is set with the activity (see `constant.libraries` property in [constant.js](constant.js)). You could add your own library using the library dialog (click on the library icon on the toolbar). You should provide to the dialog the URL of a JSON file that include an object with all these properties:
+A standard set of libraries is load by the activities on the URL [http://sugarizer.org/content/videos.json](http://sugarizer.org/content/videos.json). You could replace this URL by updating the variable `constant.librariesUrl` in the file [constant.js](constant.js). Note that this URL is called with a `lang` parameter set with the current language.
+This file is an array of libraries:
 
-	{
-		name: "canope",
-		title: "Canopé",
-		image: "images/canope.png",
-		database: "http://sugarizer.org/content/canope.php",
-		videos: "https://videos.reseau-canope.fr/download.php?file=lesfondamentaux/%id%_sd",
-		images: "https://www.reseau-canope.fr/lesfondamentaux/uploads/tx_cndpfondamentaux/%image%.png"
-	}
+	[
+		{
+			"name": "khanacademy",
+			"title": "Khan Academy",
+			"image": "images/khanacademy.png",
+			"database": "http://sugarizer.org/content/khan.php?lang=%language%",
+			"videos": "http://s3.amazonaws.com/KA-youtube-converted/%id%.mp4/%id%",
+			"images": "http://s3.amazonaws.com/KA-youtube-converted/%id%.mp4/%id%.png"
+		},
+		{
+			"name": "canope",
+			"title": "Canopé",
+			"image": "images/canope.png",
+			"database": "http://sugarizer.org/content/canope.php",
+			"videos": "https://videos.reseau-canope.fr/download.php?file=lesfondamentaux/%id%_sd",
+			"images": "https://www.reseau-canope.fr/lesfondamentaux/uploads/tx_cndpfondamentaux/%image%.png"
+		}
+	]
+
+You could dynamically add your own library using the library dialog (click on the library icon on the toolbar). You should provide to the dialog the URL of a JSON file that include an object with all these properties.
 
 Here what means each field:
 

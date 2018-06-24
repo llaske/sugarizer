@@ -9,7 +9,7 @@ Util = {};
 var app;
 Util.context = {
 	filter: {category: "", text: "", favorite: false},
-	libraries: constant.libraries,
+	libraries: null,
 	library: null,
 	favorites: {},
 	readtimes: {},
@@ -25,18 +25,26 @@ Util.saveContext = function() {
 };
 Util.loadContext = function(callback, loaded) {
 	if (!Util.onSugar()) {
-		var datastoreObject = app.activity.getDatastoreObject();
-		app.showLibraries();
-		datastoreObject.loadAsText(function (error, metadata, data) {
-			//console.log("LOAD CONTEXT <"+data+">");
-			var context = JSON.parse(data);
-			if (context) {
-				Util.context = context;
-				app.loadDatabase();
-				app.hideLibraries();
-			}
-			callback();
+		require(["sugar-web/env"], function (env) {
+			env.getEnvironment(function(err, environment) {
+				if (environment.objectId) {
+					var datastoreObject = app.activity.getDatastoreObject();
+					datastoreObject.loadAsText(function (error, metadata, data) {
+						//console.log("LOAD CONTEXT <"+data+">");
+						var context = JSON.parse(data);
+						if (context) {
+							Util.context = context;
+							app.loadDatabase();
+						}
+						callback();
+					});
+				} else {
+					app.loadLibraries();
+				}
+			});
 		});
+
+
 	} else {
 		Util.context = loaded;
 		app.loadDatabase();
@@ -92,6 +100,21 @@ Util.getReadTime = function(id) {
 
 Util.database = [];
 Util.categories = [];
+Util.loadLibraries = function(response, error) {
+	Util.getLanguage(function(language) {
+		var ajax = new enyo.Ajax({
+			url: constant.librariesUrl+"?lang="+language,
+			method: "GET",
+			handleAs: "json"
+		});
+		ajax.response(function(sender, data) {
+			Util.context.libraries = data;
+			response();
+		});
+		ajax.error(error);
+		ajax.go();
+	});
+}
 Util.loadDatabase = function(response, error) {
 	if (Util.context.library == null)
 		return;
