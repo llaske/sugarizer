@@ -63,7 +63,7 @@ if (_THIS_IS_MUSIC_BLOCKS_) {
 define(MYDEFINES, function (compatibility) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!','activity/sugarizer-compatibility'], function (doc) {
+    requirejs(['domReady!','activity/sugarizer-compatibility'], function (doc) {
         if (sugarizerCompatibility.isInsideSugarizer()) {
             window.addEventListener('localized', function() {
                 sugarizerCompatibility.loadData(function () {

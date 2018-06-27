@@ -53,9 +53,9 @@ Here's an extract on our original `icons/pawn-icon.svg` file:
 		</g>
 	</svg>
 
-To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **file_color**. 
+To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **file_color**.
 
-Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`. 
+Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`.
 
 Here, using your text editor you must replace `#808080` by `&fill_color;` and `#f0f0f0` by `&stroke_color;`.
 
@@ -123,7 +123,7 @@ Let's first remove the default message, you could find it in `index.html` file:
 Replace these few lines by a single line:
 
 	<div id="user"></div>
-	
+
 We need only a single `div` because we will generate the welcome message dynamically in JavaScript.
 
 To do that, let's study the file `js/activity.js`. It's really the heart of your new activity. The current implementation is:
@@ -131,7 +131,7 @@ To do that, let's study the file `js/activity.js`. It's really the heart of your
 	define(["sugar-web/activity/activity"], function (activity) {
 
 		// Manipulate the DOM only when it is ready.
-		require(['domReady!'], function (doc) {
+		requirejs(['domReady!'], function (doc) {
 
 			// Initialize the activity.
 			activity.setup();
@@ -144,37 +144,37 @@ These lines relied on the framework **require.js** that is used by Sugar-Web to 
 
 * `define` is a way to define a new module and express its dependancies. Here for example we're going to define a new module that depends of the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
 
-* `require` is pretty the same. It tell to **require**: run the following function but before, load dependancies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading. 
+* `requirejs` is pretty the same. It tell to **require**: run the following function but before, load dependancies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
 
 Then come the most important line of our activity:
 
 	// Initialize the activity.
 	activity.setup();
-			
+
 It's a call to the `setup` method of the Sugar-Web activity library.
 
 If you have to keep only one line in your activity, keep that one because it's responsible of all the magic inside Sugarizer: it initialize Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forgot this call. Let's do it by commenting the line:
 
 	// Initialize the activity.
-	//activity.setup(); 
- 
+	//activity.setup();
+
 Then run again your new activity. Here's what happens:
 
 
 ![](images/tutorial_step2_3.png)
- 
-Ooops! Colors for our nice icons has disappear and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-( 
+
+Ooops! Colors for our nice icons has disappear and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
 
 So uncomment this precious line and never forget to call it again!
 
 		// Initialize the activity.
-		activity.setup(); 
+		activity.setup();
 
 Now, to display our welcome message, we will use the user's name.
 
 To do that we're going to use another Sugar-Web library named **env**. So, we need to add it in your dependancies. Update the define call to add the env Sugar-Web library:
 
-	define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) { 
+	define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 
 This library contains a very interesting method `getEnvironment`. This method allow you to retrieve all users settings: name, prefered colours, language, favorites, ...
 So add a call to this method to retrieve the user name:
@@ -186,7 +186,7 @@ So add a call to this method to retrieve the user name:
 	env.getEnvironment(function(err, environment) {
 			document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 	});
-		
+
 When you call the getEnvironment method, it should be loads the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
 
 	document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";

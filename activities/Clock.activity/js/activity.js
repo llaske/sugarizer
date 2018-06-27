@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n"], function (activity,radioButtonsGroup,mustache,moment) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();

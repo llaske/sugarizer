@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
 		activity.setup();
@@ -51,16 +51,16 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 		};
 		var showHideEditor = document.getElementById("wmd-showHideEditor-button");
 		var showHidePreview = document.getElementById("wmd-showHidePreview-button");
-		
+
 		var panel = document.getElementById("wmd-panel");
 		var preview = document.getElementById("wmd-preview-second");
 		var textArea = document.getElementById("wmd-input-second");
-		
+
 		function isElementHidden (element) {
 			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
 		}
 		showHideEditor.onclick = function(){
-			
+
 			if(isElementHidden(preview))
 			{
 				preview.style.display = "inline";
@@ -78,7 +78,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 				panel.style.width = "1%";
 				preview.style.width = "97%";
 			}
-				
+
 		}
 		showHidePreview.onclick = function(){
 			if(isElementHidden(panel))
@@ -98,7 +98,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 				preview.style.width = "1%";
 				panel.style.width = "94%";
 			}
-				
+
 		}
 
 		function insertAtCursor(myField, myValue) {

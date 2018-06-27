@@ -1,6 +1,6 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    require(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;

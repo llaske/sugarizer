@@ -25,7 +25,7 @@ Util.saveContext = function() {
 };
 Util.loadContext = function(callback, loaded) {
 	if (!Util.onSugar()) {
-		require(["sugar-web/env"], function (env) {
+		requirejs(["sugar-web/env"], function (env) {
 			env.getEnvironment(function(err, environment) {
 				if (environment.objectId) {
 					var datastoreObject = app.activity.getDatastoreObject();

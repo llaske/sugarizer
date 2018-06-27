@@ -15,7 +15,9 @@
     <!--<link rel="stylesheet" href="css/normalize.css">-->
     <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <script data-main="js/loader" src="lib/require.js"></script>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="lib/webaudio.js"></script>
+    <script>if (window.module) module = window.module;</script>
 </head>
 
 <body>

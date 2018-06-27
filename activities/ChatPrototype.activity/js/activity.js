@@ -1,8 +1,8 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,wl10n, palette,presencepalette) {
-    var activity = require("sugar-web/activity/activity");
+    var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();

@@ -1,6 +1,6 @@
 define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions"], function (activity, TWEEN, rAF, maze, directions) {
 
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
         activity.setup();
 
 		var soundType = /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? '.mp3' : '.ogg';
