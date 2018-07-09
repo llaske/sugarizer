@@ -19,9 +19,7 @@ l10n = {
 	language: '*',
 
 	init: function() {
-		var env = process.env;
-		var language = env.LANG || env.LANGUAGE || env.LC_ALL || env.LC_MESSAGES;
-		this.language = (language && language.length >= 2) ? language.substr(0, 2) : "*";
+		this.language = app.getLocale() || "*";
 		this.ini = ini.parse(fs.readFileSync('./locale.ini', 'utf-8'));
 	},
 
