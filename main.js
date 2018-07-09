@@ -1,6 +1,8 @@
 // Main file, used only for Electron
 
-var electron = require('electron');
+var electron = require('electron'),
+	fs = require('fs'),
+	ini = require('ini');
 
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
@@ -9,6 +11,43 @@ var Menu = electron.Menu;
 var mainWindow = null;
 
 var requirejs = require('requirejs');
+
+
+// Localization features
+l10n = {
+	ini: null,
+	language: '*',
+
+	init: function() {
+		var env = process.env;
+		var language = env.LANG || env.LANGUAGE || env.LC_ALL || env.LC_MESSAGES;
+		this.language = (language && language.length >= 2) ? language.substr(0, 2) : "*";
+		this.ini = ini.parse(fs.readFileSync('./locale.ini', 'utf-8'));
+	},
+
+	setLanguage: function(lang) {
+		this.language = lang;
+	},
+
+	getLanguage: function() {
+		return this.language;
+	},
+
+	get: function(text, params) {
+		var locales = this.ini[this.language];
+		if (!locales) {
+			locales = this.ini['*'];
+		}
+		if (!locales[text]) {
+			return text;
+		}
+		var translate = locales[text];
+		for (var param in params) {
+			translate = translate.replace('{{'+param+'}}', params[param]);
+		}
+		return translate;
+	}
+}
 
 function createWindow () {
 	// Create the browser window.
@@ -25,11 +64,14 @@ function createWindow () {
 
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.once('ready-to-show', function() {
+		// Initialize locales
+		l10n.init();
+
 		// Build menu
 		var template = [];
 		if (process.platform === 'darwin') {
 			var appname = electron.app.getName();
-			template.unshift({
+			var menu = {
 				label: appname,
 				submenu: [{
 					label: 'Quit',
@@ -38,7 +80,9 @@ function createWindow () {
 						app.quit()
 					}
 				}]
-			});
+			};
+			menu.submenu[0].label = l10n.get("Quit");
+			template.unshift(menu);
 		}
 		var menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
