@@ -4,6 +4,7 @@ var electron = require('electron');
 
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
+var Menu = electron.Menu;
 
 var mainWindow = null;
 
@@ -24,6 +25,25 @@ function createWindow () {
 
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.once('ready-to-show', function() {
+		// Build menu
+		var template = [];
+		if (process.platform === 'darwin') {
+			var appname = electron.app.getName();
+			template.unshift({
+				label: appname,
+				submenu: [{
+					label: 'Quit',
+					accelerator: 'Command+Q',
+					click: function () {
+						app.quit()
+					}
+				}]
+			});
+		}
+		var menu = Menu.buildFromTemplate(template);
+		Menu.setApplicationMenu(menu);
+
+		// Show wmain window
 		mainWindow.show();
 	});
 
