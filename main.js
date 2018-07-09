@@ -54,8 +54,12 @@ function createWindow () {
 		backgroundColor: '#FFF',
 		minWidth: 640,
 		minHeight: 480,
-		webPreferences: {webSecurity: false}
+		webPreferences: {webSecurity: false},
+		icon: './res/icon/electron/icon-1024.png'
 	});
+	if (process.platform === 'darwin') {
+		app.dock.setIcon('./res/icon/electron/icon-1024.png');
+	}
 
 	// Load the index.html of Sugarizer
 	mainWindow.loadFile('index.html');
