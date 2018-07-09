@@ -2,7 +2,8 @@
 
 var electron = require('electron'),
 	fs = require('fs'),
-	ini = require('ini');
+	ini = require('ini'),
+	requirejs = require('requirejs');
 
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
@@ -10,7 +11,6 @@ var Menu = electron.Menu;
 
 var mainWindow = null;
 
-var requirejs = require('requirejs');
 
 
 // Localization features
@@ -50,7 +50,7 @@ l10n = {
 }
 
 function createWindow () {
-	// Create the browser window.
+	// Create the browser window
 	mainWindow = new BrowserWindow({
 		show: false,
 		backgroundColor: '#FFF',
@@ -59,7 +59,7 @@ function createWindow () {
 		webPreferences: {webSecurity: false}
 	});
 
-	// and load the index.html of the app.
+	// Load the index.html of Sugarizer
 	mainWindow.loadFile('index.html');
 
 	// Wait for 'ready-to-show' to display our window
@@ -91,18 +91,14 @@ function createWindow () {
 		mainWindow.show();
 	});
 
-	// Emitted when the window is closed.
+	// Emitted when the window is closed
 	mainWindow.on('closed', function() {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
 }
 
 // This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// initialization and is ready to create browser windows
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
