@@ -1,7 +1,7 @@
 /* Start of the app, we require everything that is needed */
 define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n"], function (activity,presence,captureHelper,datastore,webL10n) {
 
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         window.addEventListener('localized', function() {
             window.l10n = webL10n;

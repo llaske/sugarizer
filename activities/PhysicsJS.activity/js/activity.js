@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity"], function (activity) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity
 		activity.setup();
@@ -43,7 +43,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				;
 
 			// let's use the pixi renderer
-			require(['pixi'], function( PIXI ){
+			requirejs(['pixi'], function( PIXI ){
 				window.PIXI = PIXI;
 				// create a renderer
 				renderer = Physics.renderer('pixi', {

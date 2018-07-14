@@ -8,7 +8,7 @@ var mouse = {};
 define(["sugar-web/activity/activity"], function (activity) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!',"settings"], function (doc, settings) {
+	requirejs(['domReady!',"settings"], function (doc, settings) {
 
 		// Initialize the activity.
 		activity.setup();

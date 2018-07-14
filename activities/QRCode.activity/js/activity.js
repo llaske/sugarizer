@@ -3,7 +3,7 @@
 define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n"], function (activity, datastore, env, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!', 'humane'], function (doc, humane) {
+	requirejs(['domReady!', 'humane'], function (doc, humane) {
 
 		// Initialize the activity.
 		activity.setup();

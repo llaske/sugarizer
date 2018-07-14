@@ -1,7 +1,7 @@
 define(["sugar-web/env", "sugar-web/activity/activity"], function (env, activity) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
         //
         // Initialize the python environment.
         compiler = RapydScript.create_embedded_compiler()

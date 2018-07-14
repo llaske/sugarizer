@@ -10,7 +10,7 @@ define([
 	function (activity,messages,print,jquery,ol,hammer,l10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette){
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
 		activity.setup();

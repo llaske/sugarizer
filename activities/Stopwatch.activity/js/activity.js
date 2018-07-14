@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","mustache"], function (activity,mustache) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();

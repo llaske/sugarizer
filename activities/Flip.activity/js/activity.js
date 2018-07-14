@@ -1,10 +1,10 @@
 define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activity/flipdot'], function (act) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		require(["sugar-web/env","sugar-web/datastore","activity/sizepalette"], function(env,datastore,sizepalette) {
+		requirejs(["sugar-web/env","sugar-web/datastore","activity/sizepalette"], function(env,datastore,sizepalette) {
 			act.setup();
 			act.getXOColor(function (error, colors) {
 				runactivity(act,doc,colors,env,datastore,sizepalette);
@@ -22,7 +22,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-		canvas.width = window.innerWidth; 
+		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight-55;
 		stage = new createjs.Stage(canvas);
 		stage.update();
@@ -38,7 +38,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		var hasBeenResized = false;
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
-			canvas.width = window.innerWidth; 
+			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight-55;
 			g.initialiseFromArray();
 		}

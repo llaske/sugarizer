@@ -51,7 +51,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	}, false);
 
 	// Wait for DOM is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 		if (--toload == 0) {
 			loadpreference();
 		}

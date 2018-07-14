@@ -1,7 +1,16 @@
 {
   "name": "Sugarizer",
   "version": "1.0.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/llaske/sugarizer",
+  "license": "Apache-2.0",
   "devDependencies": {
+    "electron": "^2.0.0",
+    "requirejs": "~2.3.5",
+    "ini": "1.1.x",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",

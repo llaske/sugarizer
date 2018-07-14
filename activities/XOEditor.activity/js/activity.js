@@ -1,10 +1,10 @@
 define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/editor','activity/colourcircle','activity/xoman'], function (act) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		require(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore"], function(xocol,env,datastore) {
+		requirejs(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore"], function(xocol,env,datastore) {
 			act.setup();
 			act.getXOColor(function (error, colors) {
 				runactivity(act,xocol,doc,colors,env,datastore);
@@ -22,7 +22,7 @@ function runactivity(act,xocolor,doc,colors,env,datastore){
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-    	canvas.width = window.innerWidth; 
+    	canvas.width = window.innerWidth;
     	canvas.height = window.innerHeight-55;
 
     	stage = new createjs.Stage(canvas);

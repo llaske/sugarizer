@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","speechpalette","languagepalette","activity/sax","activity/dom-js","activity/AIMLInterpreter","activity/Speech"], function (activity, speakActivity, facepalette, speechpalette, languagepalette) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();

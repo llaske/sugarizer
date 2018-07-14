@@ -1,5 +1,5 @@
 define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor'], function (activity, l10n, Board, State, patterns, shadeColor) {
-  require(['domReady!'], function (doc) {
+  requirejs(['domReady!'], function (doc) {
     activity.setup();
     window.addEventListener('localized', function () {
       activity.getXOColor(function (err, color) {

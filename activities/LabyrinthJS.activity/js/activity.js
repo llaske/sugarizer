@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","fontpalette","tutorial","sugar-web/env"], function (activity, l10n, datastore, colorpalette, zoompalette, textpalette, tutorial, env) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
 		activity.setup();

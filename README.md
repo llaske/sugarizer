@@ -44,6 +44,18 @@ To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome
 
 ![](images/chromewebstore.png)
 
+To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, you could use [electron](https://github.com/electron/electron). So first install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
+
+	npm install
+
+Then launch Sugarizer for GNU Linux with:
+
+	npm start > /dev/null
+	
+Or, for Mac OS/Windows, just:
+
+	npm start
+
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
