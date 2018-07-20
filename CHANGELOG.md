@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Desktop version for GNU Linux, MacOS and Windows using electron
 
+### Changed
+- Portuguese localization
+
 
 ## [1.0.1] - 2018-07-07
 ### Added
