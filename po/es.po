@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Fri Jul 20 2018 18:04:07 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -489,6 +489,11 @@ msgctxt "LicenseTerms"
 msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
 msgstr "Sugarizer es un software de código abierto bajo la licencia Apache 2.0."
 
+#: LicenseTermsPlus
+msgctxt "LicenseTermsPlus"
+msgid "Most activities use this license too but some could use a different license, check activities credits to be sure."
+msgstr "Most activities use this license too but some could use a different license, check activities credits to be sure."
+
 #: RestartActivity
 msgctxt "RestartActivity"
 msgid "Restart"
@@ -743,6 +748,21 @@ msgstr "Wrote file to {{file}}"
 msgctxt "ErrorWritingFile"
 msgid "Can't write file"
 msgstr "Can't write file"
+
+#: UnableToConnect
+msgctxt "UnableToConnect"
+msgid "Unable to connect to server"
+msgstr "Unable to connect to server"
+
+#: Refresh
+msgctxt "Refresh"
+msgid "Retry"
+msgstr "Retry"
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr "Quit"
 
 #: Tutorial
 msgctxt "Tutorial"

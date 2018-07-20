@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Fri Jul 20 2018 18:04:07 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -497,12 +497,17 @@ msgstr "Mo"
 #: Copyright
 msgctxt "Copyright"
 msgid "Copyright and license"
-msgstr "Copyright et license"
+msgstr "Copyright et licence"
 
 #: LicenseTerms
 msgctxt "LicenseTerms"
 msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
-msgstr "Sugarizer est un logiciel open source couvert par les termes de la license Apache 2.0."
+msgstr "Sugarizer est un logiciel open source couvert par les termes de la licence Apache 2.0."
+
+#: LicenseTermsPlus
+msgctxt "LicenseTermsPlus"
+msgid "Most activities use this license too but some could use a different license, check activities credits to be sure."
+msgstr "La plupart des activités utilisent cette licence également mais certaines peuvent utiliser une licence différente, vérifiez les crédits des activités pour plus d'information."
 
 #: RestartActivity
 msgctxt "RestartActivity"
@@ -731,7 +736,7 @@ msgstr "Synchronisation du Journal..."
 #: AllDataWillBeLost
 msgctxt "AllDataWillBeLost"
 msgid "Journal and settings will be lost"
-msgstr "Le journal est les préférences vont être supprimées"
+msgstr "Le journal et les préférences vont être supprimés"
 
 #: ClickMore
 msgctxt "ClickMore"
@@ -763,6 +768,21 @@ msgstr "Fichier enregistré en {{file}}"
 msgctxt "ErrorWritingFile"
 msgid "Can't write file"
 msgstr "Erreur d'enregistrement"
+
+#: UnableToConnect
+msgctxt "UnableToConnect"
+msgid "Unable to connect to server"
+msgstr "Impossible de se connecter au serveur"
+
+#: Refresh
+msgctxt "Refresh"
+msgid "Retry"
+msgstr "Réessayer"
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr "Quitter"
 
 #: Tutorial
 msgctxt "Tutorial"
