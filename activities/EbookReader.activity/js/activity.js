@@ -9,7 +9,7 @@ var defaultUrlLibrary = "http://sugarizer.org/content/books.php";
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization, 'popup': Popup },
+	components: { 'ebook-reader': EbookReader, 'library-viewer': LibraryViewer, 'toolbar': Toolbar, 'localization': Localization, 'popup': Popup, 'tutorial': Tutorial },
 	data: {
 		currentBook: null,
 		currentEpub: null,
@@ -70,6 +70,7 @@ var app = new Vue({
 
 		localized: function() {
 			this.$refs.toolbar.localized(this.$refs.localization);
+			this.$refs.tutorial.localized(this.$refs.localization);
 		},
 
 		loadLibrary: function(url) {
@@ -200,6 +201,10 @@ var app = new Vue({
 					this.timer = null;
 				}, 500);
 			}
+		},
+
+		onHelp: function() {
+			this.$refs.tutorial.show();
 		},
 
 		onStop: function() {

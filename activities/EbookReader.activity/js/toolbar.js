@@ -28,6 +28,7 @@ var Toolbar = {
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
 		</div>
 	`,
 	data: function() {
@@ -38,18 +39,17 @@ var Toolbar = {
 				stringNext: '',
 				stringLibrary: '',
 				stringSettings: '',
+				stringHelp: '',
 				stringFullscreen: ''
 			}
 		}
 	},
 	methods: {
 		localized: function(localization) {
-			this.l10n.stringEbookReaderActivity = localization.get("EbookReaderActivity");
-			this.l10n.stringPrevious = localization.get("Previous");
-			this.l10n.stringNext = localization.get("Next");
-			this.l10n.stringLibrary= localization.get("Library");
-			this.l10n.stringSettings= localization.get("Settings");
-			this.l10n.stringFullscreen= localization.get("Fullscreen");
+			var vm = this;
+			Object.keys(this.l10n).forEach(function(key, index) {
+				vm.l10n[key] = localization.get(key.substr(6));
+			});
 		},
 
 		getApp: function() {

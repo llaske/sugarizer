@@ -4,10 +4,10 @@ var LibraryItem = {
 	template: `
 		<div class="col-xs-12 col-md-6 col-lg-4 library-col" v-on:click="onClick">
 			<div class="media library-item">
-				<div v-if="image" class="mr3 library-item-image" v-bind:style="'background-image: url('+prefix+image+')'"></div>
+				<img v-if="image" class="mr3 library-item-image" v-bind:src="prefix+image"></img>
 				<div v-else class="mr3 library-item-image" style="background-image: url(images/generic-book.png)"></div>
 				<div class="media-body">
-					<h5 class="mt-0">{{title}}</h5>
+					<h5 class="mt-0 library-item-title">{{title}}</h5>
 					{{author}}
 				</div>
 				<img v-if="image" v-bind:src="prefix+image" v-on:error="onImageError" style="visibility:hidden;width:0px;height:0px;"/>

@@ -11,6 +11,7 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-tour.min.css">
 <link rel="stylesheet" href="css/activity.css">
 <script src="lib/epub.min.js"></script>
 <script src="lib/jszip.min.js"></script>
@@ -20,6 +21,7 @@
 <script src="lib/axios.min.js"></script>
 <script src="lib/popper.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
+<script src="lib/bootstrap-tour.min.js"></script>
 <script src="lib/require.js"></script>
 </head>
 
@@ -36,9 +38,11 @@
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 		<popup ref="settings" v-on:after-show="settingsShown" v-on:after-close="settingsClosed"></popup>
 		<localization ref="localization" v-on:localized="localized"></localization>
+		<tutorial ref="tutorial"></tutorial>
 	</div>
 
 	<script src="js/l10n.js"></script>
+	<script src="js/tutorial.js"></script>
 	<script src="js/popup.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/reader.js"></script>
