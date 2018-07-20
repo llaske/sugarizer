@@ -1,12 +1,17 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor'], function (activity, l10n, Board, State, patterns, shadeColor) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env'], function (activity, l10n, Board, State, patterns, shadeColor, env) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
-    window.addEventListener('localized', function () {
-      activity.getXOColor(function (err, color) {
-        var dataStore = activity.getDatastoreObject();
-        main(Board, State, patterns, color, shadeColor, l10n, dataStore);
-      });
-    });
+	env.getEnvironment(function(err, environment) {
+		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+		var language = environment.user ? environment.user.language : defaultLanguage;
+		l10n.language.code = language;
+		window.addEventListener('localized', function () {
+	      activity.getXOColor(function (err, color) {
+	        var dataStore = activity.getDatastoreObject();
+	        main(Board, State, patterns, color, shadeColor, l10n, dataStore);
+	      });
+	    });
+	});
   });
 });
 

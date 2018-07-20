@@ -18,7 +18,7 @@ msgstr ""
 #: sounddir
 msgctxt "sounddir"
 msgid "en"
-msgstr "pt_BR"
+msgstr "fr"
 
 #: learn
 msgctxt "learn"
