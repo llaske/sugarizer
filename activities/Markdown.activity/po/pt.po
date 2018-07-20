@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:16:51 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2018-05-07 19:27+0000\n"
+"PO-Revision-Date: 2018-05-10 19:05+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-markdown/pt/>\n"
@@ -38,7 +38,7 @@ msgstr "Escreva aqui oque você estiver citando"
 #: wmd-bold-button-second
 msgctxt "wmd-bold-button-second"
 msgid "Strong <strong> Ctrl+B"
-msgstr "Negrito <forte> Ctrl+B"
+msgstr "Negrito <strong> Ctrl+B"
 
 #: wmd-italic-button-second
 msgctxt "wmd-italic-button-second"
@@ -53,7 +53,7 @@ msgstr "Título <h1>/<h2> Ctrl+H"
 #: wmd-hr-button
 msgctxt "wmd-hr-button"
 msgid "Horizontal Rule <hr> Ctrl+R"
-msgstr "Regra horizontal <hr> Ctrl+R"
+msgstr "Linha horizontal <hr> Ctrl+R"
 
 #: wmd-olist-button
 msgctxt "wmd-olist-button"
@@ -63,7 +63,7 @@ msgstr "Lista numerada <ol> Ctrl+O"
 #: wmd-ulist-button
 msgctxt "wmd-ulist-button"
 msgid "Bulleted List <ul> Ctrl+U"
-msgstr "Lista pontilhada <ul> Ctrl+U"
+msgstr "Lista com pontos <ul> Ctrl+U"
 
 #: wmd-code-button
 msgctxt "wmd-code-button"
@@ -78,7 +78,7 @@ msgstr "Bloco de citação <blockquote> Ctrl+Q"
 #: wmd-link-button
 msgctxt "wmd-link-button"
 msgid "Hyperlink <a> Ctrl+L"
-msgstr "Hyperlink <a> Ctrl+L"
+msgstr "Hiperlink <a> Ctrl+L"
 
 #: wmd-undo-button
 msgctxt "wmd-undo-button"
@@ -98,4 +98,4 @@ msgstr "Mostrar/ocultar editor"
 #: wmd-showHidePreview-button
 msgctxt "wmd-showHidePreview-button"
 msgid "Show/Hide Preview"
-msgstr "Mostrar/ocultar prévia"
+msgstr "Mostrar/ocultar previsão"

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2018-05-07 20:09+0000\n"
+"PO-Revision-Date: 2018-05-10 19:00+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-fototoon/pt/>\n"
@@ -33,7 +33,7 @@ msgstr "Exclamação"
 #: Whisper
 msgctxt "Whisper"
 msgid "Whisper"
-msgstr "Susurro"
+msgstr "Sussurro"
 
 #: Think
 msgctxt "Think"
@@ -53,7 +53,7 @@ msgstr "Título"
 #: SetGlobeText
 msgctxt "SetGlobeText"
 msgid "Set globe text:"
-msgstr "Definir texto do globo:"
+msgstr "Editar texto do globo:"
 
 #: of
 msgctxt "of"
@@ -103,7 +103,7 @@ msgstr "Salvar como imagem"
 #: ImageSaved
 msgctxt "ImageSaved"
 msgid "Image saved in journal"
-msgstr "Imagem salva no diário"
+msgstr "Imagem salva no Diário"
 
 #: SavingError
 msgctxt "SavingError"
@@ -138,7 +138,7 @@ msgstr "Editar texto"
 #: Sort
 msgctxt "Sort"
 msgid "Sort boxes"
-msgstr "Sortear caixas"
+msgstr "Classificar caixas"
 
 #: Clean
 msgctxt "Clean"

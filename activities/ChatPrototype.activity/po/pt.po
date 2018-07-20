@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 17:52:44 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-07 19:44+0000\n"
+"PO-Revision-Date: 2018-05-07 20:03+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-chatprototype/pt/>\n"
@@ -43,7 +43,8 @@ msgstr "Erro"
 #: status
 msgctxt "status"
 msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
-msgstr "Clique no ícone do bairro na paleta de presença para iniciar a conversa"
+msgstr ""
+"Clique no ícone da vizinhança na paleta de presença para iniciar a conversa"
 
 #: Join
 msgctxt "Join"

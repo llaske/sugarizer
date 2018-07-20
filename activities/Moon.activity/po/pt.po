@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2018-05-07 19:40+0000\n"
+"PO-Revision-Date: 2018-05-07 19:56+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-moon/pt/>\n"
@@ -33,7 +33,7 @@ msgstr "Quarto crescente"
 #: phase-3
 msgctxt "phase-3"
 msgid "Waxing Gibbous"
-msgstr "Lua gibosa"
+msgstr "Lua Crescente Corcunda"
 
 #: phase-4
 msgctxt "phase-4"
@@ -43,7 +43,7 @@ msgstr "Lua cheia"
 #: phase-5
 msgctxt "phase-5"
 msgid "Waning Gibbous"
-msgstr "Lua balsâmica"
+msgstr "Lua Minguante Balsâmica"
 
 #: phase-6
 msgctxt "phase-6"
@@ -68,7 +68,7 @@ msgstr "Fase"
 #: julian
 msgctxt "julian"
 msgid "Julian Date"
-msgstr "Data juliana"
+msgstr "Data Juliana"
 
 #: age
 msgctxt "age"
@@ -138,7 +138,7 @@ msgstr "através da lunação"
 #: in
 msgctxt "in"
 msgid "in"
-msgstr "dentro"
+msgstr "em"
 
 #: estimated
 msgctxt "estimated"
@@ -168,12 +168,12 @@ msgstr "Nascer do sol"
 #: SNWE
 msgctxt "SNWE"
 msgid "SNWE"
-msgstr "SNWE"
+msgstr "SNOL"
 
 #: NSEW
 msgctxt "NSEW"
 msgid "NSEW"
-msgstr "NSEW"
+msgstr "NSLO"
 
 #: Latitude
 msgctxt "Latitude"

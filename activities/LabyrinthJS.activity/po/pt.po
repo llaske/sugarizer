@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:13:19 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-04-25 19:48+0000\n"
+"PO-Revision-Date: 2018-05-07 19:40+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-labyrinthjs/pt/>\n"
@@ -73,7 +73,7 @@ msgstr "Negrito"
 #: italicButtonTitle
 msgctxt "italicButtonTitle"
 msgid "Italic"
-msgstr "Italico"
+msgstr "Itálico"
 
 #: fontMinusButtonTitle
 msgctxt "fontMinusButtonTitle"
@@ -113,15 +113,15 @@ msgstr "Finalizar"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Labyrinth Activity"
-msgstr "Atividade de labirinto"
+msgstr "Atividade Labirinto"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "This activity is a lightweight mind-mapping activity. A mind-map is a diagram used to represent words, ideas, tasks or other items linked to and arranged radially around a central key word or idea."
 msgstr ""
-"Esta é uma ativade de mapeamento mental inicial. Um mapa mental é um "
-"diagrama utilizado para representar palavras, ideias, tarefas ou outros "
-"itens ligados e organizados em torno de uma palavra ou ideia central."
+"Esta é uma atividade de mapa mental inicial. Um mapa mental é um diagrama "
+"utilizado para representar palavras, ideias, tarefas ou outros itens ligados "
+"e organizados em torno de uma palavra ou ideia central."
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
@@ -169,8 +169,8 @@ msgstr "Adicionar ligação"
 msgctxt "TutoLinkContent"
 msgid "If this icon is active, when you click on nodes you could create new links between us."
 msgstr ""
-"Se este ícone estiver ativado, quando você clicar em algum nó novos vínculos "
-"poderão ser criados."
+"Se este ícone estiver ativado, novos vínculos poderão ser criados quando "
+"você clicar em algum nó."
 
 #: TutoRemoveTitle
 msgctxt "TutoRemoveTitle"
@@ -212,7 +212,7 @@ msgstr "Ampliar"
 #: TutoZoomContent
 msgctxt "TutoZoomContent"
 msgid "This menu let you adapt the zoom level in the board."
-msgstr "Esse menu permite adaptar o nível de ampliação do quadro."
+msgstr "Este menu permite adaptar o nível de ampliação do quadro."
 
 #: TutoStopTitle
 msgctxt "TutoStopTitle"
@@ -233,8 +233,8 @@ msgstr "Exportar para PNG"
 msgctxt "TutoPngContent"
 msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the mindmap."
 msgstr ""
-"Clique neste ícone para gerar um arquivo PNG com todo o conteúdo do mapa "
-"mental no diário."
+"Clique neste ícone para gerar no Diário um arquivo PNG com todo o conteúdo "
+"do mapa mental."
 
 #: TutoTextTitle
 msgctxt "TutoTextTitle"
@@ -254,7 +254,7 @@ msgstr "Plano de fundo"
 #: TutoBackgroundContent
 msgctxt "TutoBackgroundContent"
 msgid "Click here to choose the background color of the current node."
-msgstr "Clique aqui para selecionar a cor do plano de fundo do nó selecionado."
+msgstr "Clique aqui para escolher a cor do plano de fundo do nó selecionado."
 
 #: TutoForegroundTitle
 msgctxt "TutoForegroundTitle"
@@ -264,7 +264,7 @@ msgstr "Primeiro plano"
 #: TutoForegroundContent
 msgctxt "TutoForegroundContent"
 msgid "Click here to choose the foreground color of the current node."
-msgstr "Clique aqui para selecionar a cor do primeiro plano do nó selecionado."
+msgstr "Clique aqui para escolher a cor do primeiro plano do nó selecionado."
 
 #: TutoBoldTitle
 msgctxt "TutoBoldTitle"
@@ -296,7 +296,7 @@ msgstr "Fonte"
 #: TutoFontContent
 msgctxt "TutoFontContent"
 msgid "Click here to choose the font for the current text node."
-msgstr "Clique aqui para selecionar a fonte do nó selecionado."
+msgstr "Clique aqui para escolher a fonte do nó selecionado."
 
 #: TutoFontPlusTitle
 msgctxt "TutoFontPlusTitle"

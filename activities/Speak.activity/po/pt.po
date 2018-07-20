@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:13:58 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-07 19:54+0000\n"
+"PO-Revision-Date: 2018-05-11 14:25+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-speak/pt/>\n"
@@ -34,7 +34,7 @@ msgstr "Fala"
 #: Face
 msgctxt "Face"
 msgid "Face"
-msgstr "Cara"
+msgstr "Face"
 
 #: TypeSomethingToHear
 msgctxt "TypeSomethingToHear"
@@ -169,12 +169,12 @@ msgstr "Português"
 #: langro
 msgctxt "langro"
 msgid "Romanian"
-msgstr "Romena"
+msgstr "Romeno"
 
 #: langsk
 msgctxt "langsk"
 msgid "Slovak"
-msgstr "Slovaco"
+msgstr "Eslovaco"
 
 #: langsv
 msgctxt "langsv"
