@@ -1,0 +1,224 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: YourNewIdea
+msgctxt "YourNewIdea"
+msgid "<Your content>"
+msgstr ""
+
+#: nodetextTitle
+msgctxt "nodetextTitle"
+msgid "Text idea"
+msgstr ""
+
+#: removeButtonTitle
+msgctxt "removeButtonTitle"
+msgid "Remove"
+msgstr ""
+
+#: undoButtonTitle
+msgctxt "undoButtonTitle"
+msgid "Undo"
+msgstr ""
+
+#: redoButtonTitle
+msgctxt "redoButtonTitle"
+msgid "Redo"
+msgstr ""
+
+#: zoomButtonTitle
+msgctxt "zoomButtonTitle"
+msgid "View"
+msgstr ""
+
+#: pngButtonTitle
+msgctxt "pngButtonTitle"
+msgid "Export to PNG"
+msgstr ""
+
+#: networkButtonTitle
+msgctxt "networkButtonTitle"
+msgid "Network"
+msgstr ""
+
+#: helpButtonTitle
+msgctxt "helpButtonTitle"
+msgid "Tutorial"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity Menu"
+msgstr ""
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "This colored menu is the activity menu. Click on it now to open it."
+msgstr ""
+
+#: TutoTitleTitle
+msgctxt "TutoTitleTitle"
+msgid "Name in Journal"
+msgstr ""
+
+#: TutoTitleContent
+msgctxt "TutoTitleContent"
+msgid "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
+msgstr ""
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Stop"
+msgstr ""
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr ""
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network Menu"
+msgstr ""
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "This menu let you share your activity with other users. Click on it now to open it."
+msgstr ""
+
+#: TutoSharedTitle
+msgctxt "TutoSharedTitle"
+msgid "Share"
+msgstr ""
+
+#: TutoSharedContent
+msgctxt "TutoSharedContent"
+msgid "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
+msgstr ""
+
+#: TutoHelpTitle
+msgctxt "TutoHelpTitle"
+msgid "Tutorial"
+msgstr ""
+
+#: TutoHelpContent
+msgctxt "TutoHelpContent"
+msgid "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Shared Notes Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
+msgstr ""
+
+#: TutoNodeTitle
+msgctxt "TutoNodeTitle"
+msgid "Board"
+msgstr ""
+
+#: TutoNodeContent
+msgctxt "TutoNodeContent"
+msgid "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
+msgstr ""
+
+#: TutoColorTitle
+msgctxt "TutoColorTitle"
+msgid "Color"
+msgstr ""
+
+#: TutoColorContent
+msgctxt "TutoColorContent"
+msgid "This menu let you change the color of a note and choose the color for the next note."
+msgstr ""
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "Add note"
+msgstr ""
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "If this icon is active, when you click in the board a new note appear."
+msgstr ""
+
+#: TutoRemoveTitle
+msgctxt "TutoRemoveTitle"
+msgid "Remove note"
+msgstr ""
+
+#: TutoRemoveContent
+msgctxt "TutoRemoveContent"
+msgid "If this icon is active, when you click on a note, it will be remove."
+msgstr ""
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr ""
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "With this icon you could undo your last change."
+msgstr ""
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr ""
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "With this icon you could redo your last undo."
+msgstr ""
+
+#: TutoZoomTitle
+msgctxt "TutoZoomTitle"
+msgid "Zoom"
+msgstr ""
+
+#: TutoZoomContent
+msgctxt "TutoZoomContent"
+msgid "This menu let you adapt the zoom level in the board."
+msgstr ""
+
+#: TutoPngTitle
+msgctxt "TutoPngTitle"
+msgid "Export PNG"
+msgstr ""
+
+#: TutoPngContent
+msgctxt "TutoPngContent"
+msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
+msgstr ""

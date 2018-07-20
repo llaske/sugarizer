@@ -1,0 +1,144 @@
+#. extracted from ../localization.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: AddAglobe
+msgctxt "AddAglobe"
+msgid "Add a globe"
+msgstr ""
+
+#: Globe
+msgctxt "Globe"
+msgid "Globe"
+msgstr ""
+
+#: Exclamation
+msgctxt "Exclamation"
+msgid "Exclamation"
+msgstr ""
+
+#: Whisper
+msgctxt "Whisper"
+msgid "Whisper"
+msgstr ""
+
+#: Think
+msgctxt "Think"
+msgid "Think"
+msgstr ""
+
+#: Box
+msgctxt "Box"
+msgid "Box"
+msgstr ""
+
+#: Title
+msgctxt "Title"
+msgid "Title"
+msgstr ""
+
+#: SetGlobeText
+msgctxt "SetGlobeText"
+msgid "Set globe text:"
+msgstr ""
+
+#: of
+msgctxt "of"
+msgid "of"
+msgstr ""
+
+#: ATENTION
+msgctxt "ATENTION"
+msgid "ATENTION"
+msgstr ""
+
+#: RemoveAllConfirmMessage
+msgctxt "RemoveAllConfirmMessage"
+msgid "Do you want remove all the boxes in your FotoToon?"
+msgstr ""
+
+#: Yes
+msgctxt "Yes"
+msgid "Yes"
+msgstr ""
+
+#: No
+msgctxt "No"
+msgid "No"
+msgstr ""
+
+#: OneRow
+msgctxt "OneRow"
+msgid "One row"
+msgstr ""
+
+#: OneColumn
+msgctxt "OneColumn"
+msgid "One column"
+msgstr ""
+
+#: TwoColumns
+msgctxt "TwoColumns"
+msgid "Two columns"
+msgstr ""
+
+#: SaveAsImage
+msgctxt "SaveAsImage"
+msgid "Save as image"
+msgstr ""
+
+#: ImageSaved
+msgctxt "ImageSaved"
+msgid "Image saved in journal"
+msgstr ""
+
+#: SavingError
+msgctxt "SavingError"
+msgid "Error saving image"
+msgstr ""
+
+#: ToonSaved
+msgctxt "ToonSaved"
+msgid "FotoToon saved"
+msgstr ""
+
+#: Previous
+msgctxt "Previous"
+msgid "Previous"
+msgstr ""
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr ""
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr ""
+
+#: EditText
+msgctxt "EditText"
+msgid "Edit text"
+msgstr ""
+
+#: Sort
+msgctxt "Sort"
+msgid "Sort boxes"
+msgstr ""
+
+#: Clean
+msgctxt "Clean"
+msgid "Clean all"
+msgstr ""
