@@ -204,7 +204,17 @@ var app = new Vue({
 		},
 
 		onHelp: function() {
-			this.$refs.tutorial.show();
+			var options = {};
+			options.switchbutton = this.$refs.toolbar.$refs.switchbutton.$el;
+			options.settingsbutton = this.$refs.toolbar.$refs.settings.$el;
+			options.fullscreenbutton = this.$refs.toolbar.$refs.fullscreen.$el;
+			if (this.currentView === LibraryViewer && this.$refs.view.$refs.item0 && this.$refs.view.$refs.item0[0]) {
+				options.book = this.$refs.view.$refs.item0[0].$el;
+			} else if (this.currentView === EbookReader) {
+				options.prevbutton = document.getElementById("left");
+				options.nextbutton = document.getElementById("right");
+			}
+			this.$refs.tutorial.show(options);
 		},
 
 		onStop: function() {

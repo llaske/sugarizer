@@ -30,7 +30,8 @@ var LibraryViewer = {
 	components: {'library-item': LibraryItem},
 	template: `
 		<div class="row">
-			<library-item v-for="item in library.database" :key="item.file"
+			<library-item v-for="(item,i) in library.database" :key="item.file"
+				v-bind:ref="'item'+(i++)"
 			 	v-bind:title="item.title"
 				v-bind:author="item.author"
 				v-bind:image="item.image"

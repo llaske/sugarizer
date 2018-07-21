@@ -9,7 +9,19 @@ var Tutorial = {
 				stringNextShort: '',
 				stringEndShort: '',
 				stringTutoExplainTitle: '',
-				stringTutoExplainContent: ''
+				stringTutoExplainContent: '',
+				stringTutoBookTitle: '',
+				stringTutoBookContent: '',
+				stringTutoLibraryButtonTitle: '',
+				stringTutoLibraryButtonContent: '',
+				stringTutoSettingsButtonTitle: '',
+				stringTutoSettingsButtonContent: '',
+				stringTutoFullscreenButtonTitle: '',
+				stringTutoFullscreenButtonContent: '',
+				stringTutoNextButtonTitle: '',
+				stringTutoNextButtonContent: '',
+				stringTutoPrevButtonTitle: '',
+				stringTutoPrevButtonContent: '',
 			}
 		}
 	},
@@ -22,6 +34,7 @@ var Tutorial = {
 		},
 
 		show: function(options) {
+			options = options || {};
 			var steps = [
 				{
 					element: "",
@@ -29,7 +42,43 @@ var Tutorial = {
 					placement: "bottom",
 					title: this.l10n.stringTutoExplainTitle,
 					content: this.l10n.stringTutoExplainContent
-				}
+				},
+				{
+					element: options.book,
+					placement: "right",
+					title: this.l10n.stringTutoBookTitle,
+					content: this.l10n.stringTutoBookContent
+				},
+				{
+					element: options.switchbutton,
+					placement: "bottom",
+					title: this.l10n.stringTutoLibraryButtonTitle,
+					content: this.l10n.stringTutoLibraryButtonContent
+				},
+				{
+					element: options.settingsbutton,
+					placement: "bottom",
+					title: this.l10n.stringTutoSettingsButtonTitle,
+					content: this.l10n.stringTutoSettingsButtonContent
+				},
+				{
+					element: options.fullscreenbutton,
+					placement: "bottom",
+					title: this.l10n.stringTutoFullscreenButtonTitle,
+					content: this.l10n.stringTutoFullscreenButtonContent
+				},
+				{
+					element: options.prevbutton,
+					placement: "right",
+					title: this.l10n.stringTutoPrevButtonTitle,
+					content: this.l10n.stringTutoPrevButtonContent
+				},
+				{
+					element: options.nextbutton,
+					placement: "left",
+					title: this.l10n.stringTutoNextButtonTitle,
+					content: this.l10n.stringTutoNextButtonContent
+				},
 			];
 			var tour = new Tour({
 				template: "\
