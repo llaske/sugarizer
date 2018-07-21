@@ -70,13 +70,15 @@
 .palette input#title.expand {
 	font-family: system-ui;
 	font-size: 11px;
-	width: calc(100% - 20px);
+	width: 245px;
+	color: black;
 }
 
 .palette textarea#description.expand {
 	font-family: system-ui;
 	font-size: 11px;
-	width: calc(100% - 16px);
+	width: 255px;
+	color: black;
 }
 
 .palette input[type='text'].expand {
