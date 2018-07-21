@@ -179,11 +179,15 @@ var app = new Vue({
 				// Load book
 				var vm = this;
 				vm.currentBook = book;
+				book.author = book.author+" "; // HACK: spinner is not detected 
+				book.spinner = true;
 				vm.currentEpub = new ePub.Book();
 				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
 					vm.currentView = EbookReader;
+					book.spinner = false;
 				}, function() {
 					console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
+					book.spinner = false;
 				});
 			}
 		},

@@ -138,6 +138,14 @@ body {
 	margin-right: 5px;
 }
 
+.library-item-spinner {
+	position: absolute;
+	left: 230px;
+	top: 130px;
+	width: 40px;
+	z-index: 5;
+}
+
 #spinner {
 	position: absolute;
 	margin-left: 45%;

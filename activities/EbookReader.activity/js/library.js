@@ -10,11 +10,12 @@ var LibraryItem = {
 					<h5 class="mt-0 library-item-title">{{title}}</h5>
 					{{author}}
 				</div>
+				<img v-show="spinner" src="images/spinner-light.gif" class="library-item-spinner"/>
 				<img v-if="image" v-bind:src="prefix+image" v-on:error="onImageError" style="visibility:hidden;width:0px;height:0px;"/>
 			</div>
 		</div>
 		`,
-	props: ['title', 'author', 'image', 'url', 'prefix'],
+	props: ['title', 'author', 'image', 'url', 'prefix', 'spinner'],
 	methods: {
 		onClick: function() {
 			this.$emit('clicked');
@@ -38,7 +39,8 @@ var LibraryViewer = {
 				v-bind:url="item.file"
 				v-bind:prefix="library.information.imageprefix"
 				v-on:clicked="bookClicked(item)"
-				v-on:imageerror="item.image=''">
+				v-on:imageerror="item.image=''"
+				v-bind:spinner="item.spinner">
 			</library-item>
 		</div>
 	`,
