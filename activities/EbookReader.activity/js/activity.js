@@ -179,8 +179,7 @@ var app = new Vue({
 				// Load book
 				var vm = this;
 				vm.currentBook = book;
-				book.author = book.author+" "; // HACK: spinner is not detected 
-				book.spinner = true;
+				Vue.set(book, 'spinner', true);
 				vm.currentEpub = new ePub.Book();
 				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
 					vm.currentView = EbookReader;
