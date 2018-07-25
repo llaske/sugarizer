@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Desktop version for GNU Linux, MacOS and Windows using electron
+- Ebook Reader activity
 
 ### Changed
 - Portuguese localization
