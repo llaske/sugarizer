@@ -19,7 +19,7 @@ var app = new Vue({
 	},
 
 	created: function() {
-		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
 			// Initialize Sugarizer
 			activity.setup();
 		});
@@ -28,7 +28,7 @@ var app = new Vue({
 	mounted: function() {
 		// Load last library from Journal
 		var vm = this;
-		require(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
 			env.getEnvironment(function(err, environment) {
 				if (environment.objectId) {
 					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
@@ -224,7 +224,7 @@ var app = new Vue({
 			// Save current library in Journal on Stop
 			var vm = this;
 			vm.saveContext();
-			require(["sugar-web/activity/activity"], function(activity) {
+			requirejs(["sugar-web/activity/activity"], function(activity) {
 				console.log("writing...");
 				var context = {
 					library: { information:vm.currentLibrary.information, database:vm.currentLibrary.database }

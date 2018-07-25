@@ -11,7 +11,7 @@ var Popup = {
 	methods: {
 		show: function(options) {
 			var vm = this;
-			require(['picoModal'], function(picoModal) {
+			requirejs(['picoModal'], function(picoModal) {
 				vm.modal = modal = picoModal(options)
 				.afterShow(function(modal) {
 					vm.$emit("after-show");

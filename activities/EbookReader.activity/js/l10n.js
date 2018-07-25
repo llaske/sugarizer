@@ -14,7 +14,7 @@ var Localization = {
 	mounted: function() {
 		var vm = this;
 		if (vm.l10n == null) {
-			require(["sugar-web/env", "webL10n"], function (env, webL10n) {
+			requirejs(["sugar-web/env", "webL10n"], function (env, webL10n) {
 				env.getEnvironment(function(err, environment) {
 					vm.l10n = webL10n;
 					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
