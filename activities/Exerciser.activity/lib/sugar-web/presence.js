@@ -66,7 +66,7 @@ define(function (require) {
 
 	}
 
-	// Create presence object
+	// Create isHost object
 	var presence = new SugarPresence();
 
 	// Test if connected to network

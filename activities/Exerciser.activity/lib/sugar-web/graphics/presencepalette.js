@@ -47,7 +47,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 		div.appendChild(privatebutton);
 		div.appendChild(sharedbutton);
     var usersDiv = document.createElement('div');
-    usersDiv.setAttribute("id", "presence-users");
+    usersDiv.setAttribute("id", "isHost-users");
     div.appendChild(usersDiv);
 
 		this.setContent([div]);

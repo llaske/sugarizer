@@ -3,7 +3,7 @@ define(["webL10n",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
-		"sugar-web/presence",
+		"sugar-web/isHost",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
     l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
