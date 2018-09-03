@@ -732,9 +732,13 @@ enyo.kind({
 	components: [
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop"},
-		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
-		{name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
+		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filter-palette", contentsClasses: "journal-filter-content", contents: [
+			{content:"Hello world!", ontap: "helloWorld"},
+			{kind: "Button", title: "Yolo", ontap: "helloWorld2"}
+		]},
+		{showing: false, name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
+		{showing: false, name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
 
@@ -755,6 +759,7 @@ enyo.kind({
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
+		this.$.typepalette.setText(l10n.get("AllType"));
 
 		// Set time selectbox content
 		this.$.timeselect.setItems([
@@ -786,6 +791,20 @@ enyo.kind({
 		this.$.favoritebutton.setColorized(!this.$.favoritebutton.getColorized());
 		this.$.favoritebutton.render();
 		this.filterEntries();
+	},
+
+	showTypePalette: function() {
+		this.$.typepalette.switchPalette(app.otherview);
+	},
+
+	helloWorld: function(e, s) {
+		console.log("Bonjour monde")
+		console.log(e)
+		console.log(s)
+	},
+
+	helloWorld2: function() {
+		console.log("Bonjour2 monde")
 	},
 
 	// Compute filter

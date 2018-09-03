@@ -429,6 +429,64 @@ body {
 	width: 200px;
 }
 
+.palette-sugarizer {
+	margin-top: 0px;
+	height: 53px;
+}
+.palette-sugarizer:hover {
+	background-color: black;
+}
+
+.palette-icon {
+	margin-top: 12px !important;
+}
+
+.palette-down {
+	background-image: url('../lib/sugar-web/graphics/icons/emblems/arrow-down.svg');
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	background-position-x: center;
+}
+
+.palette-up {
+	background-image: url('../lib/sugar-web/graphics/icons/emblems/arrow-up.svg');
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	background-position-x: center;
+	background-color: black;
+	background-size: 47px;
+	border: 2px solid #808080;
+	border-bottom: 0;
+}
+
+.palette-text {
+	margin-top: 14px;
+	margin-left: 32px;
+	margin-right: 4px;
+}
+
+.palette-content {
+	position: absolute;
+	background-color: black;
+	max-width: 271px;
+	min-width: 161px;
+	min-height: 51px;
+	pointer-events: auto;
+	border: 2px solid #808080;
+}
+
+.journal-filter-palette {
+	position: absolute;
+	top: 0px;
+	left: 480px;
+}
+
+.journal-filter-content {
+	background-color: blue;
+	width: 200px;
+	height: 200px;
+}
+
 .journal-time {
 	position: absolute;
 	right: 40px;
