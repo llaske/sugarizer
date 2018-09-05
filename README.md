@@ -51,7 +51,7 @@ To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, you could use [ele
 Then launch Sugarizer for GNU Linux with:
 
 	npm start > /dev/null
-	
+
 Or, for Mac OS/Windows, just:
 
 	npm start
@@ -69,8 +69,8 @@ On Mac OS, you should launch:
 For **Firefox**, type in the address bar:
 
     about:config
-    
-Search for the `security.fileuri.strict_origin_policy` parameter and 
+
+Search for the `security.fileuri.strict_origin_policy` parameter and
 set it to `false`.
 
 For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
@@ -237,7 +237,7 @@ Then install specific component for Sugarizer by running:
 
 Finally launch:
 
-	grunt
+	grunt -v
 
 At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
 
