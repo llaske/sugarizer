@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Desktop version for GNU Linux, MacOS and Windows using electron
 - Ebook Reader activity
+- Exerciser activity
 
 ### Changed
 - Portuguese localization
