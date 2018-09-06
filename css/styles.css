@@ -418,12 +418,6 @@ body {
 	width: 350px;
 }
 
-.journal-filter-type {
-	margin-left: 60px;
-	margin-top: 0px;
-	width: 250px;
-}
-
 .journal-filter-time {
 	margin-left: 10px;
 	width: 200px;
@@ -471,8 +465,27 @@ body {
 	max-width: 271px;
 	min-width: 161px;
 	min-height: 51px;
+	max-height: 80vh;
 	pointer-events: auto;
 	border: 2px solid #808080;
+	color: white;
+	overflow: auto;
+}
+
+.palette-header {
+	height: 50px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 19px;
+	font-weight: bold;
+	line-height: 71px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.palette-hr {
+	border: 1px solid #808080;
+	margin-top: 0;
 }
 
 .journal-filter-palette {
@@ -482,9 +495,17 @@ body {
 }
 
 .journal-filter-content {
-	background-color: blue;
 	width: 200px;
-	height: 200px;
+	height: 80vh;
+}
+
+.journal-filter-line {
+	margin-top: 8px;
+	height: 38px;
+	margin-bottom: 8px;
+}
+.journal-filter-line:hover {
+	background-color: #808080;
 }
 
 .journal-time {
@@ -1733,7 +1754,7 @@ body {
 		visibility: hidden;
 	}
 
-	.journal-filter-type {
+	.journal-filter-palette {
 		visibility: hidden;
 		width: 0px;
 	}
@@ -1820,6 +1841,10 @@ body {
 		left: 20px;
 	}
 
+	.journal-filter-palette {
+		visibility: hidden;
+	}
+
 	.warningbox-cancel-button .icon-button-text {
 		visibility: hidden;
 	}
@@ -1871,8 +1896,8 @@ body {
 		left: 270px;
 	}
 
-	.journal-filter-type {
-		visibility: hidden;
+	.journal-filter-palette {
+		left: 320px;
 	}
 
 	.journal-filter-time {
@@ -1880,7 +1905,7 @@ body {
 	}
 }
 @media screen and (min-width: 660px) {
-	.journal-filter-type {
+	.journal-filter-palette {
 		visibility: visible;
 	}
 }

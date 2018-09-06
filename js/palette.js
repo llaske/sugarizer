@@ -6,7 +6,8 @@ enyo.kind({
 		icon: null,
 		text: null,
 		contents: null,
-		contentsClasses: ""
+		contentsClasses: "",
+		header: null
 	},
 	classes: "palette-sugarizer palette-down",
 	components: [
@@ -43,6 +44,10 @@ enyo.kind({
 			name: id,
 			classes: "palette-content "+this.contentsClasses
 		});
+		if (this.header) {
+			this.palette.createComponent({content: this.header, classes: "palette-header"}, {owner: this.palette});
+			this.palette.createComponent({classes: "palette-hr"}, {owner: this.palette});
+		}
 		this.paletteEvents = [];
 		for (var i = 0 ; i < this.contents.length ; i++) {
 			var newObject = this.palette.createComponent(this.contents[i], {owner: this.palette});
@@ -54,6 +59,10 @@ enyo.kind({
 		}
 		this.palette.render();
 		_updatePosition(this);
+	},
+
+	setItems: function(items) {
+		this.contents = items;
 	},
 
 	bindedFunction: function(o, e) {

@@ -733,11 +733,7 @@ enyo.kind({
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
-		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filter-palette", contentsClasses: "journal-filter-content", contents: [
-			{content:"Hello world!", ontap: "helloWorld"},
-			{kind: "Button", title: "Yolo", ontap: "helloWorld2"}
-		]},
-		{showing: false, name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
+		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filter-palette", contentsClasses: "journal-filter-content", contents: []},
 		{showing: false, name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
@@ -746,6 +742,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.localize();
+		this.typeselected = 0;
 	},
 
 	rendered: function() {
@@ -773,12 +770,19 @@ enyo.kind({
 
 		// Set type selectbox content
 		var items = [];
-		items.push({icon: null, name: l10n.get("Anything")});
+		this.$.typepalette.setHeader(l10n.get("SelectFilter"));
+		items.push({id: "0", classes: "journal-filter-line", components:[
+			{kind: "Sugar.Icon", icon: {directory: "icons", icon: "application-x-generic.svg"}, x: 5, y: 3, size: constant.iconSizeFavorite},
+			{classes: "item-name", content: l10n.get("AllType")}
+		], ontap: "tapLine"});
 		var activities = preferences.getActivities();
 		for(var i = 0 ; i < activities.length ; i++) {
-			items.push({icon: activities[i], name: activities[i].name});
+			items.push({id: ""+(i+1), classes: "journal-filter-line", components:[
+				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
+				{classes: "item-name", content: activities[i].name}
+			], ontap: "tapLine"});
 		}
-		this.$.typeselect.setItems(items);
+		this.$.typepalette.setItems(items);
 	},
 
 	// Event handling
@@ -797,28 +801,25 @@ enyo.kind({
 		this.$.typepalette.switchPalette(app.otherview);
 	},
 
-	helloWorld: function(e, s) {
-		console.log("Bonjour monde")
-		console.log(e)
-		console.log(s)
-	},
-
-	helloWorld2: function() {
-		console.log("Bonjour2 monde")
+	tapLine: function(e, s) {
+		this.typeselected = e.getId();
+		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : preferences.getActivities()[this.typeselected-1].name));
+		this.filterEntries();
+		this.$.typepalette.switchPalette(app.otherview);
 	},
 
 	// Compute filter
 	hasFilter: function() {
 		return this.$.journalsearch.getText() != ""
 			|| this.$.favoritebutton.getColorized()
-			|| this.$.typeselect.getSelected() > 0
+			|| this.typeselected > 0
 			|| this.$.timeselect.getSelected() > 0;
 	},
 
 	filterEntries: function() {
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
-		var selected = this.$.typeselect.getSelected();
+		var selected = this.typeselected;
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
 		selected = this.$.timeselect.getSelected();
 		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
@@ -831,7 +832,7 @@ enyo.kind({
 	},
 
 	removeFilter: function() {
-		this.$.typeselect.setSelected(0);
+		this.$.typeselected = 0;
 		this.$.timeselect.setSelected(0);
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
@@ -841,7 +842,7 @@ enyo.kind({
 	startTutorial: function() {
 		tutorial.setElement("favoritebutton", this.$.favoritebutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
-		tutorial.setElement("typeselect", this.$.typeselect.getAttribute("id"));
+		tutorial.setElement("typepalette", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.timeselect.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
