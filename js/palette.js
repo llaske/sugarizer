@@ -110,7 +110,7 @@ function _getOffset(elem) {
 	var y = -1 * style.marginTop.slice(0, -2);
 
 	var rect = elem.getBoundingClientRect();
-	x += rect.left;
+	x = rect.left;
 	y += rect.top;
 	return {
 		top: y,

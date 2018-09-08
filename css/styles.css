@@ -276,6 +276,7 @@ body {
 .homeview-filter-text {
 	position: relative;
 	width: 350px;
+	margin-top: 2px;
 }
 
 .popup-title {
@@ -416,6 +417,8 @@ body {
 .journal-filter-text {
 	position: relative;
 	width: 350px;
+	top: 0px;
+	vertical-align: middle;
 }
 
 .journal-filter-time {
@@ -489,9 +492,9 @@ body {
 }
 
 .journal-filter-palette {
-	position: absolute;
-	top: 0px;
-	left: 480px;
+	display: inline-block;
+	margin-left: 70px;
+	vertical-align: middle;
 }
 
 .journal-filter-content {
@@ -643,6 +646,7 @@ body {
 .neighbor-filter-text {
 	position: relative;
 	width: 350px;
+	margin-top: 2px;
 }
 
 .icon-button {
@@ -1894,10 +1898,6 @@ body {
 
 	.journal-filter-favorite {
 		left: 270px;
-	}
-
-	.journal-filter-palette {
-		left: 320px;
 	}
 
 	.journal-filter-time {
