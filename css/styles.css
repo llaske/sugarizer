@@ -491,24 +491,51 @@ body {
 	margin-top: 0;
 }
 
-.journal-filter-palette {
+.journal-filtertype-palette {
 	display: inline-block;
 	margin-left: 70px;
 	vertical-align: middle;
 }
 
-.journal-filter-content {
+.journal-filtertype-content {
 	width: 200px;
 	height: 80vh;
+	z-index: 3;
 }
 
-.journal-filter-line {
+.journal-filtertype-line {
 	margin-top: 8px;
 	height: 38px;
 	margin-bottom: 8px;
 }
-.journal-filter-line:hover {
+.journal-filtertype-line:hover {
 	background-color: #808080;
+}
+
+.journal-filterdate-palette {
+	display: inline-block;
+	margin-left: 20px;
+	vertical-align: middle;
+}
+
+.journal-filterdate-content {
+	width: 150px;
+	height: 325px;
+	max-height: 80vh;
+	z-index: 3;
+}
+
+.journal-filterdate-line {
+	margin-top: 10px;
+	height: 38px;
+	margin-bottom: 8px;
+}
+.journal-filterdate-line:hover {
+	background-color: #808080;
+}
+
+.journal-filterdate-item {
+	margin-left: 5px;
 }
 
 .journal-time {
@@ -1758,7 +1785,7 @@ body {
 		visibility: hidden;
 	}
 
-	.journal-filter-palette {
+	.journal-filtertype-palette {
 		visibility: hidden;
 		width: 0px;
 	}
@@ -1845,7 +1872,7 @@ body {
 		left: 20px;
 	}
 
-	.journal-filter-palette {
+	.journal-filtertype-palette {
 		visibility: hidden;
 	}
 
@@ -1904,8 +1931,13 @@ body {
 		visibility: hidden;
 	}
 }
+@media screen and (max-width: 635px) {
+	.journal-filterdate-palette {
+		visibility: hidden;
+	}
+}
 @media screen and (min-width: 660px) {
-	.journal-filter-palette {
+	.journal-filtertype-palette {
 		visibility: visible;
 	}
 }

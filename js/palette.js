@@ -1,3 +1,6 @@
+
+var _displayedPalette = null;
+
 // Class for a Sugar palette
 enyo.kind({
 	name: "Sugar.Palette",
@@ -36,6 +39,10 @@ enyo.kind({
 	},
 
 	displayPopup: function(view) {
+		if (_displayedPalette) {
+			_displayedPalette.switchPalette(view);
+			_displayedPalette = null;
+		}
 		if (this.contents == null) {
 			return;
 		}
@@ -59,6 +66,7 @@ enyo.kind({
 		}
 		this.palette.render();
 		_updatePosition(this);
+		_displayedPalette = this;
 	},
 
 	setItems: function(items) {
@@ -84,6 +92,7 @@ enyo.kind({
 		if (toDestroy) {
 			toDestroy.destroy();
 		}
+		_displayedPalette = null;
 	},
 
 	switchPalette: function(view) {
