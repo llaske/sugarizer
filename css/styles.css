@@ -535,7 +535,35 @@ body {
 }
 
 .journal-filterdate-item {
+	padding-top: 3px;
 	margin-left: 5px;
+}
+
+.journal-sort-palette {
+	display: inline-block;
+	margin-left: 20px;
+	vertical-align: middle;
+}
+
+.journal-sort-content {
+	width: 250px;
+	height: 230px;
+	max-height: 80vh;
+	z-index: 3;
+}
+
+.journal-sort-line {
+	margin-top: 10px;
+	height: 38px;
+	margin-bottom: 8px;
+}
+.journal-sort-line:hover {
+	background-color: #808080;
+}
+
+.journal-sort-item {
+	padding-top: 5px;
+	margin-left: 35px;
 }
 
 .journal-time {
@@ -1939,6 +1967,11 @@ body {
 @media screen and (min-width: 660px) {
 	.journal-filtertype-palette {
 		visibility: visible;
+	}
+}
+@media screen and (max-width: 685px) {
+	.journal-sort-palette {
+		visibility: hidden;
 	}
 }
 @media screen and (min-width: 880px) {

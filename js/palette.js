@@ -110,7 +110,7 @@ enyo.kind({
 
 // Internal functions adapted from sugar-web/palette.js
 
-function _getOffset(elem) {
+function _getOffset(elem, paletteElem) {
 	// Ugly hack to consider the palette margin.
 	var style = elem.currentStyle || window.getComputedStyle(elem, '');
 
@@ -121,6 +121,13 @@ function _getOffset(elem) {
 	var rect = elem.getBoundingClientRect();
 	x = rect.left;
 	y += rect.top;
+
+	// Shift to the right if overflow screen
+	var delta = x + paletteElem.offsetWidth - document.getElementById("canvas").offsetWidth;
+	if (delta > 0) {
+		x -= delta;
+	}
+
 	return {
 		top: y,
 		left: x,
@@ -129,19 +136,10 @@ function _getOffset(elem) {
 	};
 }
 
-function _updatePosition(that, clickX, clickY) {
-	var paletteX;
-	var paletteY;
-
-	if (typeof (clickX) !== 'undefined' &&
-		typeof (clickY) !== 'undefined') {
-		paletteX = clickX;
-		paletteY = clickY;
-	} else {
-		var invokerOffset = _getOffset(that.hasNode());
-		paletteX = invokerOffset.left;
-		paletteY = invokerOffset.top;
-	}
+function _updatePosition(that) {
+	var invokerOffset = _getOffset(that.hasNode(), that.palette.hasNode());
+	var paletteX = invokerOffset.left;
+	var paletteY = invokerOffset.top;
 
 	var paletteElem = document.getElementById(that.palette.getAttribute("id"));
 	paletteElem.style.left = paletteX + "px";
