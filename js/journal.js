@@ -219,7 +219,14 @@ enyo.kind({
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
 		inEvent.item.$.title.setContent(entry.metadata.title);
-		inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2, this.smallTime));
+		var sortfield = this.getToolbar().getSortType();
+		if (sortfield == 1) {
+			inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.creation_time, 2, this.smallTime));
+		} else if (sortfield == 2) {
+			inEvent.item.$.time.setContent(util.formatSize(entry.metadata.textsize || 0));
+		} else {
+			inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.timestamp, 2, this.smallTime));
+		}
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
@@ -295,9 +302,16 @@ enyo.kind({
 	// Filter entries handling
 	filterEntries: function(name, favorite, typeactivity, timeperiod, offset) {
 		// Filter remote entries
+		var sortfield = this.getToolbar().getSortType();
 		if (this.journalType != constant.journalLocal) {
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var that = this;
+			var sort = '-timestamp';
+			if (sortfield == 1) {
+				sort = '-creation_time';
+			} else if (sortfield == 2) {
+				sort = '-textsize';
+			}
 			var request = {
 				typeactivity: typeactivity,
 				title: (name !== undefined) ? name : undefined,
@@ -305,6 +319,7 @@ enyo.kind({
 				favorite: favorite,
 				field: constant.fieldMetadata,
 				limit: constant.pageJournalSize,
+				sort: sort,
 				offset: (offset !== undefined ? offset : 0)
 			}
 			myserver.getJournal(journalId, request,
@@ -336,15 +351,22 @@ enyo.kind({
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
 				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
 		});
+		var that = this;
 		this.journal = this.journal.sort(function(e0, e1) {
-			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+			if (sortfield == 1) {
+				return parseInt(e1.metadata.creation_time) - parseInt(e0.metadata.creation_time);
+			} else if (sortfield == 2) {
+				return parseInt(e1.metadata.textsize || 0) - parseInt(e0.metadata.textsize || 0);
+			} else {
+				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
+			}
 		});
 		this.journalChanged();
 	},
 
 	nofilter: function() {
 		this.toolbar.removeFilter();
-		this.filterEntries("", undefined, undefined, undefined);
+		this.filterEntries("", undefined, undefined, undefined, undefined);
 	},
 
 	// Activity popup
@@ -500,7 +522,14 @@ enyo.kind({
 		var request = {
 			field: constant.fieldMetadata,
 			limit: constant.pageJournalSize,
-			offset: (offset !== undefined ? offset : 0)
+			offset: (offset !== undefined ? offset : 0),
+			sort: '-timestamp'
+		}
+		var sortfield = this.getToolbar().getSortType();
+		if (sortfield == 1) {
+			request.sort = '-creation_time';
+		} else if (sortfield == 2) {
+			request.sort = '-textsize';
 		}
 		myserver.getJournal(journalId, request,
 			function(inSender, inResponse) {
@@ -732,9 +761,10 @@ enyo.kind({
 	components: [
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
-		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", title:"Home", ontap: "gotoDesktop"},
-		{name: "typeselect", kind: "Sugar.SelectBox", classes: "journal-filter-type", onIndexChanged: "filterEntries"},
-		{name: "timeselect", kind: "Sugar.SelectBox", classes: "journal-filter-time", onIndexChanged: "filterEntries"},
+		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
+		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filtertype-palette", contentsClasses: "journal-filtertype-content", contents: []},
+		{name: "datepalette", kind: "Sugar.Palette", ontap: "showDatePalette", icon: {directory: "icons", icon: "view-created.svg"}, size: constant.iconSizeList, classes: "journal-filterdate-palette", contentsClasses: "journal-filterdate-content", contents: []},
+		{name: "sortpalette", kind: "Sugar.Palette", ontap: "showSortPalette", icon: {directory: "icons", icon: "view-lastedit.svg"}, size: constant.iconSizeList, classes: "journal-sort-palette", contentsClasses: "journal-sort-content", contents: []},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
 
@@ -742,6 +772,9 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.localize();
+		this.typeselected = 0;
+		this.dateselected = 0;
+		this.sortfield = 0;
 	},
 
 	rendered: function() {
@@ -755,25 +788,47 @@ enyo.kind({
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
+		this.$.typepalette.setText(l10n.get("AllType"));
+		this.$.datepalette.setText(l10n.get("Anytime"));
 
 		// Set time selectbox content
-		this.$.timeselect.setItems([
-			{icon: null, name: l10n.get("Anytime")},
-			{icon: null, name: l10n.get("Today")},
-			{icon: null, name: l10n.get("SinceYesterday")},
-			{icon: null, name: l10n.get("PastWeek")},
-			{icon: null, name: l10n.get("PastMonth")},
-			{icon: null, name: l10n.get("PastYear")}
-		]);
+		this.dates = [l10n.get("Anytime"), l10n.get("Today"), l10n.get("SinceYesterday"), l10n.get("PastWeek"), l10n.get("PastMonth")];
+		var items = [];
+		this.$.datepalette.setHeader(l10n.get("SelectFilter"));
+		for(var i = 0 ; i < this.dates.length ; i++) {
+			items.push({id: ""+(i+1), classes: "journal-filterdate-line", components:[
+				{classes: "journal-filterdate-item", content: this.dates[i]}
+			], ontap: "tapDate"});
+		}
+		this.$.datepalette.setItems(items);
 
 		// Set type selectbox content
-		var items = [];
-		items.push({icon: null, name: l10n.get("Anything")});
+		items = [];
+		this.$.typepalette.setHeader(l10n.get("SelectFilter"));
+		items.push({id: "0", classes: "journal-filtertype-line", components:[
+			{kind: "Sugar.Icon", icon: {directory: "icons", icon: "application-x-generic.svg"}, x: 5, y: 3, size: constant.iconSizeFavorite},
+			{classes: "item-name", content: l10n.get("AllType")}
+		], ontap: "tapLine"});
 		var activities = preferences.getActivities();
 		for(var i = 0 ; i < activities.length ; i++) {
-			items.push({icon: activities[i], name: activities[i].name});
+			items.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
+				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
+				{classes: "item-name", content: activities[i].name}
+			], ontap: "tapLine"});
 		}
-		this.$.typeselect.setItems(items);
+		this.$.typepalette.setItems(items);
+
+		// Set sort selectbox content
+		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}];
+		var items = [];
+		this.$.sortpalette.setHeader(l10n.get("SortDisplay"));
+		for(var i = 0 ; i < this.sorts.length ; i++) {
+			items.push({id: ""+(i+1), classes: "journal-sort-line", components:[
+				{kind: "Sugar.Icon", icon: {directory: "icons", icon: this.sorts[i].icon}, x: 5, y: 3, size: constant.iconSizeFavorite},
+				{classes: "journal-sort-item", content: this.sorts[i].text}
+			], ontap: "tapSort"});
+		}
+		this.$.sortpalette.setItems(items);
 	},
 
 	// Event handling
@@ -788,32 +843,75 @@ enyo.kind({
 		this.filterEntries();
 	},
 
+	showTypePalette: function() {
+		this.$.typepalette.switchPalette(app.otherview);
+	},
+
+	tapLine: function(e, s) {
+		var activities = preferences.getActivities();
+		var generic = {directory: "icons", icon: "application-x-generic.svg"};
+		this.typeselected = e.getId();
+		this.$.typepalette.setIcon((this.typeselected == 0 ? generic : activities[this.typeselected-1]));
+		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : activities[this.typeselected-1].name));
+		this.filterEntries();
+		this.$.typepalette.switchPalette(app.otherview);
+	},
+
+	showDatePalette: function() {
+		this.$.datepalette.switchPalette(app.otherview);
+	},
+
+	tapDate: function(e, s) {
+		this.dateselected = e.getId()-1;
+		this.$.datepalette.setText(this.dates[this.dateselected]);
+		this.filterEntries();
+		this.$.datepalette.switchPalette(app.otherview);
+	},
+
+	showSortPalette: function() {
+		this.$.sortpalette.switchPalette(app.otherview);
+	},
+
+	tapSort: function(e, s) {
+		this.sortfield = e.getId()-1;
+		this.$.sortpalette.setIcon({directory: "icons", icon: this.sorts[this.sortfield].icon});
+		this.filterEntries();
+		this.$.sortpalette.switchPalette(app.otherview);
+	},
+
 	// Compute filter
 	hasFilter: function() {
 		return this.$.journalsearch.getText() != ""
 			|| this.$.favoritebutton.getColorized()
-			|| this.$.typeselect.getSelected() > 0
-			|| this.$.timeselect.getSelected() > 0;
+			|| this.typeselected > 0
+			|| this.dateselected > 0;
+	},
+
+	getSortType: function() {
+		return this.sortfield;
 	},
 
 	filterEntries: function() {
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
-		var selected = this.$.typeselect.getSelected();
+		var selected = this.typeselected;
 		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
-		selected = this.$.timeselect.getSelected();
+		selected = this.dateselected;
 		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
 		var filtertext = 'q=' + text;
 		if (favorite) filtertext += '&favorite=true';
 		if (typeselected) filtertext += '&type=' + typeselected;
 		if (timeselected) filtertext += '&time=' + timeselected;
 		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
-		app.otherview.filterEntries(text, favorite, typeselected, timeselected);
+		app.otherview.filterEntries(text, favorite, typeselected, timeselected, undefined, this.sortfield);
 	},
 
 	removeFilter: function() {
-		this.$.typeselect.setSelected(0);
-		this.$.timeselect.setSelected(0);
+		this.typeselected = 0;
+		this.$.typepalette.setIcon({directory: "icons", icon: "application-x-generic.svg"});
+		this.dateselected = 0;
+		this.sortfield = 0;
+		this.$.sortpalette.setIcon({directory: "icons", icon: "view-lastedit.svg"})
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
 		this.render();
@@ -822,8 +920,8 @@ enyo.kind({
 	startTutorial: function() {
 		tutorial.setElement("favoritebutton", this.$.favoritebutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
-		tutorial.setElement("typeselect", this.$.typeselect.getAttribute("id"));
-		tutorial.setElement("timeselect", this.$.timeselect.getAttribute("id"));
+		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
+		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
