@@ -65,6 +65,7 @@ constant.minStorageSizePercent = 5;
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
 constant.iconSizeFavorite = 20;
+constant.iconSizeLargeFavorite = 40;
 
 constant.popupMarginLeft = 5;
 constant.popupMarginTop = -50;

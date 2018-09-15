@@ -12,7 +12,7 @@ enyo.kind({
 			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 				{name: "item", classes: "journal-list-item", components: [
-					{name: "favorite", kind: "Sugar.Icon", x: 10, y: 14, size: constant.iconSizeFavorite, ontap: "switchFavorite"},
+					{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "switchFavorite"},
 					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
 					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},
@@ -215,7 +215,7 @@ enyo.kind({
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		}
 		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
-		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite.svg"});
+		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
 		inEvent.item.$.title.setContent(entry.metadata.title);

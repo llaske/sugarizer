@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Desktop version for GNU Linux, MacOS and Windows using electron
 - Ebook Reader activity
 - Exerciser activity
+- Add a sort palette in Journal
 
 ### Changed
 - Portuguese localization
+- Replace filter popups in Journal by palettes
+- Increase favorite icon size in Journal and List View
 
 ### Fixed
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
