@@ -64,6 +64,7 @@ enyo.kind({
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
 		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
+		this.journalChanged();
 	},
 
 	// Handle scroll to lazy display on local content
