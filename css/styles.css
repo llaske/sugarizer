@@ -395,9 +395,17 @@ body {
 	height: 60px;
 }
 
+.journal-check {
+	position: absolute;
+	margin-left: 10px !important;
+	margin-top: 18px !important;
+	width: 18px !important;
+	height: 18px !important;
+}
+
 .journal-title {
 	position: absolute;
-	margin-left: 120px;
+	margin-left: 160px;
 	margin-top: 15px;
 	font-weight: bold;
 	font-size: 14px;
@@ -405,7 +413,7 @@ body {
 
 .journal-title-edit {
 	position: absolute;
-	margin-left: 120px;
+	margin-left: 160px;
 	margin-top: 15px;
 	font-size: 14px;
 }
@@ -424,6 +432,39 @@ body {
 .journal-filter-time {
 	margin-left: 10px;
 	width: 200px;
+}
+
+.journal-unselectall {
+	position: relative;
+	top: 5px;
+	display: inline-block;
+}
+
+.journal-selectall {
+	position: relative;
+	top: 5px;
+	left: 10px;
+	display: inline-block;
+}
+
+.journal-selectcount {
+	position: relative;
+	left: 10px;
+	height: 0px;
+	width: 200px;
+	top: 17px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	width: 3px;
+	margin-left: 15px;
+	margin-right: 4px;
+	height: 47px;
+	display: inline-block;
+	vertical-align: bottom;
 }
 
 .palette-sugarizer {

@@ -12,8 +12,9 @@ enyo.kind({
 			{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 			{name: "journalList", classes: "journal-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 				{name: "item", classes: "journal-list-item", components: [
-					{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "switchFavorite"},
-					{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
+					{name: "check", kind: "Input", type: "checkbox", classes: "toggle journal-check", onchange: "switchCheck"},
+					{name: "favorite", kind: "Sugar.Icon", x: 40, y: 4, size: constant.iconSizeLargeFavorite, ontap: "switchFavorite"},
+					{name: "activity", kind: "Sugar.Icon", x: 100, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
 					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},
 					{name: "time", classes: "journal-time"},
@@ -73,9 +74,12 @@ enyo.kind({
 		var scrollAtBottom = ((scrollBounds.maxTop - scrollBounds.top) < constant.journalScrollLimit);
 		var currentCount = this.$.journalList.get("count");
 		if (this.journalType == constant.journalLocal && !this.getToolbar().hasFilter() && scrollAtBottom && this.realLength > currentCount) {
+			var selection = this.getSelection();
 			var length = Math.min(currentCount + constant.journalStepCount, this.journal.length);
 			humane.log(l10n.get("Loading"));
 			this.$.journalList.set("count", length, true);
+			this.setSelection(selection);
+			this.updateSelectionCount();
 		}
 	},
 
@@ -83,6 +87,7 @@ enyo.kind({
 	pageNext: function() {
 		var result = this.loadResult;
 		if ((result.offset+result.limit) < result.total) {
+			this.getToolbar().setMultiselectToolbarVisibility(false);
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var offset = result.offset + result.limit;
 			if (result.total - offset < result.limit) {
@@ -101,6 +106,7 @@ enyo.kind({
 	pagePrevious: function() {
 		var result = this.loadResult;
 		if (result.offset > 0) {
+			this.getToolbar().setMultiselectToolbarVisibility(false);
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var offset = result.offset - result.limit;
 			if (offset < result.limit) {
@@ -260,6 +266,52 @@ enyo.kind({
 		ds.save();
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
+	},
+
+	// Check/uncheck an item Checkbox
+	switchCheck: function(inSender, inEvent) {
+		this.getToolbar().setMultiselectToolbarVisibility(this.updateSelectionCount() > 0);
+	},
+
+	updateSelectionCount: function() {
+		var selection = this.getSelection();
+		this.getToolbar().setSelectedCount(selection.length, this.$.journalList.get("count"));
+		return selection.length;
+	},
+
+	getSelection: function() {
+		var selection = [];
+		var length = this.$.journalList.get("count");
+		for (var i = 0 ; i < length ; i++) {
+			if (this.$.journalList.children[i].$.check.getNodeProperty("checked")) {
+				selection.push(i);
+			}
+		}
+		return selection;
+	},
+
+	setSelection: function(selection) {
+		var length = selection.length;
+		for (var i = 0 ; i < length ; i++) {
+			var index = selection[i];
+			this.$.journalList.children[index].$.check.setNodeProperty("checked", true);
+		}
+	},
+
+	selectAll: function() {
+		var length = this.$.journalList.get("count");
+		for (var i = 0 ; i < length ; i++) {
+			this.$.journalList.children[i].$.check.setNodeProperty("checked", true);
+		}
+		this.getToolbar().setSelectedCount(length, length);
+	},
+
+	unselectAll: function() {
+		var length = this.$.journalList.get("count");
+		for (var i = 0 ; i < length ; i++) {
+			this.$.journalList.children[i].$.check.setNodeProperty("checked", false);
+		}
+		this.getToolbar().setMultiselectToolbarVisibility(false);
 	},
 
 	// Run activity from icon or from the popup menu
@@ -748,6 +800,7 @@ enyo.kind({
 		this.$.cloudonebutton.addRemoveClass('active', newType == constant.journalRemotePrivate);
 		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);
 		this.getToolbar().removeFilter();
+		this.getToolbar().setMultiselectToolbarVisibility(false);
 	}
 });
 
@@ -760,6 +813,10 @@ enyo.kind({
 	name: "Sugar.JournalToolbar",
 	kind: enyo.Control,
 	components: [
+		{name: "unselallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-unselectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-none.svg"}, size: constant.iconSizeList, ontap: "unselectAll"},
+		{name: "selallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-selectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-all.svg"}, size: constant.iconSizeList, ontap: "selectAll"},
+		{name: "split1", showing: false, classes: "splitbar"},
+		{name: "selectcount", showing: false, classes: "journal-selectcount"},
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
@@ -788,6 +845,8 @@ enyo.kind({
 		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
+		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
+		this.$.selallbutton.setNodeProperty("title", l10n.get("SelectAll"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
@@ -880,6 +939,22 @@ enyo.kind({
 		this.$.sortpalette.switchPalette(app.otherview);
 	},
 
+	selectAll: function() {
+		app.otherview.selectAll();
+	},
+
+	unselectAll: function() {
+		app.otherview.unselectAll();
+	},
+
+	setSelectedCount: function(count, total) {
+		if (count <= 1) {
+			this.$.selectcount.setContent(l10n.get("Selected_one", {count: count, total: total}));
+		} else {
+			this.$.selectcount.setContent(l10n.get("Selected_other", {count: count, total: total}));
+		}
+	},
+
 	// Compute filter
 	hasFilter: function() {
 		return this.$.journalsearch.getText() != ""
@@ -916,6 +991,30 @@ enyo.kind({
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
 		this.render();
+	},
+
+	setMultiselectToolbarVisibility: function(shown) {
+		if (this.$.typepalette.isOpen()) {
+			this.$.typepalette.switchPalette(app.otherview);
+		}
+		if (this.$.datepalette.isOpen()) {
+			this.$.datepalette.switchPalette(app.otherview);
+		}
+		if (this.$.sortpalette.isOpen()) {
+			this.$.sortpalette.switchPalette(app.otherview);
+		}
+		this.$.favoritebutton.setShowing(!shown);
+		this.$.journalsearch.setShowing(!shown);
+		this.$.radialbutton.setShowing(!shown);
+		this.$.typepalette.setShowing(!shown);
+		this.$.datepalette.setShowing(!shown);
+		this.$.sortpalette.setShowing(!shown);
+		this.$.helpbutton.setShowing(!shown);
+
+		this.$.unselallbutton.setShowing(shown);
+		this.$.selallbutton.setShowing(shown);
+		this.$.split1.setShowing(shown);
+		this.$.selectcount.setShowing(shown);
 	},
 
 	startTutorial: function() {

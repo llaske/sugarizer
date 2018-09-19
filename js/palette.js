@@ -96,7 +96,7 @@ enyo.kind({
 	},
 
 	switchPalette: function(view) {
-		var isOpen = this.hasClass("palette-up");
+		var isOpen = this.isOpen();
 		this.addRemoveClass("palette-down", isOpen);
 		this.addRemoveClass("palette-up", !isOpen);
 		if (!isOpen) {
@@ -104,6 +104,10 @@ enyo.kind({
 		} else {
 			this.hidePopup(view);
 		}
+	},
+
+	isOpen: function() {
+		return this.hasClass("palette-up");
 	}
 });
 
