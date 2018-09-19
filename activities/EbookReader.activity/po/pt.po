@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-09-19 19:09+0000\n"
+"PO-Revision-Date: 2018-09-19 19:11+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-ebook-reader/pt/>\n"
@@ -68,7 +68,7 @@ msgstr "Cancelar"
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: NextShort
 msgctxt "NextShort"
@@ -90,7 +90,7 @@ msgctxt "TutoExplainContent"
 msgid "This activity is a library that allow you to read electronic books at ePub format."
 msgstr ""
 "Esta atividade é uma biblioteca que permite ler livros eletrônicos no "
-"formato ePub"
+"formato ePub."
 
 #: TutoBookTitle
 msgctxt "TutoBookTitle"
@@ -100,7 +100,7 @@ msgstr "Um livro eletrônico"
 #: TutoBookContent
 msgctxt "TutoBookContent"
 msgid "Click on an ebook to start or continue reading."
-msgstr "Clique em um livro para iniciar ou continuar a leitura."
+msgstr "Clique em um livro para iniciar ou continuar uma leitura."
 
 #: TutoLibraryButtonTitle
 msgctxt "TutoLibraryButtonTitle"
