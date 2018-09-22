@@ -6,6 +6,7 @@ enyo.kind({
 	published: { journal: null },
 	kind: "FittableRows",
 	components: [
+		{name: "warningbox", kind: "Sugar.GenericDialogBox", showing: false, classes: "journal-dialogbox", onCancel: "removeSelectedCancel", onOk: "removeSelectedOk"},
 		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", onScroll: "onscroll", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
@@ -88,6 +89,7 @@ enyo.kind({
 		var result = this.loadResult;
 		if ((result.offset+result.limit) < result.total) {
 			this.getToolbar().setMultiselectToolbarVisibility(false);
+			this.$.warningbox.setShowing(false);
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var offset = result.offset + result.limit;
 			if (result.total - offset < result.limit) {
@@ -107,6 +109,7 @@ enyo.kind({
 		var result = this.loadResult;
 		if (result.offset > 0) {
 			this.getToolbar().setMultiselectToolbarVisibility(false);
+			this.$.warningbox.setShowing(false);
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
 			var offset = result.offset - result.limit;
 			if (offset < result.limit) {
@@ -270,6 +273,7 @@ enyo.kind({
 
 	// Check/uncheck an item Checkbox
 	switchCheck: function(inSender, inEvent) {
+		this.$.warningbox.setShowing(false);
 		this.getToolbar().setMultiselectToolbarVisibility(this.updateSelectionCount() > 0);
 	},
 
@@ -312,6 +316,37 @@ enyo.kind({
 			this.$.journalList.children[i].$.check.setNodeProperty("checked", false);
 		}
 		this.getToolbar().setMultiselectToolbarVisibility(false);
+	},
+
+	removeSelected: function() {
+		this.$.warningbox.setTitle(l10n.get("Erase"));
+		var length = this.getSelection().length;
+		this.$.warningbox.setMessage(length == 1 ? l10n.get("Erase_one",{count:length}) : l10n.get("Erase_other",{count:length}));
+		this.$.warningbox.setOkText(l10n.get("Ok"));
+		this.$.warningbox.setCancelText(l10n.get("Cancel"));
+		this.$.warningbox.setShowing(true);
+	},
+
+	removeSelectedOk: function() {
+		this.$.warningbox.setShowing(false);
+		this.getToolbar().setMultiselectToolbarVisibility(false);
+		var selection = this.getSelection();
+		var toRemove = [];
+		for (var i = 0 ; i < selection.length ; i++) {
+			toRemove.push(this.journal[selection[i]]);
+		}
+		var that = this;
+		humane.log(l10n.get("Erasing"));
+		window.setTimeout(function() {
+			for (var i = 0 ; i < toRemove.length ; i++) {
+				that.removeEntry(toRemove[i]);
+			}
+		}, 100);
+	},
+
+	removeSelectedCancel: function() {
+		this.$.warningbox.setShowing(false);
+		this.getToolbar().setMultiselectToolbarVisibility(true);
 	},
 
 	// Run activity from icon or from the popup menu
@@ -801,6 +836,7 @@ enyo.kind({
 		this.$.cloudallbutton.addRemoveClass('active', newType == constant.journalRemoteShared);
 		this.getToolbar().removeFilter();
 		this.getToolbar().setMultiselectToolbarVisibility(false);
+		this.$.warningbox.setShowing(false);
 	}
 });
 
@@ -813,9 +849,11 @@ enyo.kind({
 	name: "Sugar.JournalToolbar",
 	kind: enyo.Control,
 	components: [
-		{name: "unselallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-unselectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-none.svg"}, size: constant.iconSizeList, ontap: "unselectAll"},
-		{name: "selallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-selectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-all.svg"}, size: constant.iconSizeList, ontap: "selectAll"},
+		{name: "unselallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-unselectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-none.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "unselectAll"},
+		{name: "selallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-selectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-all.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "selectAll"},
 		{name: "split1", showing: false, classes: "splitbar"},
+		{name: "removebutton", showing: false, kind: "Sugar.Icon", classes: "journal-remove", x: 0, y: 0, icon: {directory: "icons", icon: "list-remove.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "removeSelected"},
+		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
@@ -847,6 +885,7 @@ enyo.kind({
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
 		this.$.selallbutton.setNodeProperty("title", l10n.get("SelectAll"));
+		this.$.removebutton.setNodeProperty("title", l10n.get("Erase"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
@@ -940,10 +979,16 @@ enyo.kind({
 	},
 
 	selectAll: function() {
+		if (this.$.selallbutton.getDisabled()) {
+			return;
+		}
 		app.otherview.selectAll();
 	},
 
 	unselectAll: function() {
+		if (this.$.unselallbutton.getDisabled()) {
+			return;
+		}
 		app.otherview.unselectAll();
 	},
 
@@ -953,6 +998,17 @@ enyo.kind({
 		} else {
 			this.$.selectcount.setContent(l10n.get("Selected_other", {count: count, total: total}));
 		}
+	},
+
+	removeSelected: function() {
+		if (this.$.removebutton.getDisabled()) {
+			return;
+		}
+		this.$.unselallbutton.setDisabled(true);
+		this.$.selallbutton.setDisabled(true);
+		this.$.removebutton.setDisabled(true);
+		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", true);
+		app.otherview.removeSelected();
 	},
 
 	// Compute filter
@@ -1014,7 +1070,14 @@ enyo.kind({
 		this.$.unselallbutton.setShowing(shown);
 		this.$.selallbutton.setShowing(shown);
 		this.$.split1.setShowing(shown);
+		this.$.removebutton.setShowing(shown);
+		this.$.split2.setShowing(shown);
 		this.$.selectcount.setShowing(shown);
+
+		this.$.unselallbutton.setDisabled(!shown);
+		this.$.selallbutton.setDisabled(!shown);
+		this.$.removebutton.setDisabled(!shown);
+		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", !shown);
 	},
 
 	startTutorial: function() {
