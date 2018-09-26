@@ -144,7 +144,6 @@ enyo.kind({
 	yChanged: function() {
 		if (this.y != -1) {
 			this.applyStyle("margin-top", this.y+"px");
-			this.$.disable.applyStyle("margin-top", (-this.size)+"px");
 		}
 	},
 
@@ -188,7 +187,6 @@ enyo.kind({
 
 	disabledChanged: function() {
 		this.$.disable.setShowing(this.disabled);
-		this.$.disable.applyStyle("margin-top", (-this.size)+"px"); // Force disable position if not set at start
 	},
 
 	// Colorize

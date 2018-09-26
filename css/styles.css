@@ -212,7 +212,9 @@ body {
 
 .web-activity-disable {
 	position: absolute;
+	top: 0px;
 	opacity: 0.5;
+	padding: 2px;
 }
 
 .launcher-icons {
@@ -464,7 +466,14 @@ body {
 .journal-remove {
 	position: relative;
 	top: 5px;
-	left: 5px;
+	margin-left: 15px !important;
+	display: inline-block;
+}
+
+.journal-copy {
+	position: relative;
+	top: 5px;
+	margin-left: 15px !important;
 	display: inline-block;
 }
 

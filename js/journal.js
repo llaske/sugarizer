@@ -6,7 +6,7 @@ enyo.kind({
 	published: { journal: null },
 	kind: "FittableRows",
 	components: [
-		{name: "warningbox", kind: "Sugar.GenericDialogBox", showing: false, classes: "journal-dialogbox", onCancel: "removeSelectedCancel", onOk: "removeSelectedOk"},
+		{name: "warningbox", kind: "Sugar.GenericDialogBox", showing: false, classes: "journal-dialogbox", onCancel: "dialogSelectedCancel", onOk: "dialogSelectedOk"},
 		{name: "content", kind: "Scroller", fit: true, classes: "journal-content", onresize: "draw", onScroll: "onscroll", components: [
 			{name: "empty", classes: "journal-empty", showing: true},
 			{name: "message", classes: "journal-message", showing: true},
@@ -46,6 +46,7 @@ enyo.kind({
 		this.loadingError = false;
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
+		this.dialogAction = -1;
 		this.journalChanged();
 		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
 		if (l10n.language.direction == "rtl") {
@@ -319,6 +320,7 @@ enyo.kind({
 	},
 
 	removeSelected: function() {
+		this.dialogAction = constant.journalRemove;
 		this.$.warningbox.setTitle(l10n.get("Erase"));
 		var length = this.getSelection().length;
 		this.$.warningbox.setMessage(length == 1 ? l10n.get("Erase_one",{count:length}) : l10n.get("Erase_other",{count:length}));
@@ -327,24 +329,42 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 	},
 
-	removeSelectedOk: function() {
+	copySelected: function(dest) {
+		this.dialogAction = dest;
+		var title = ["CopyToLocal", "CopyToPrivate", "CopyToShared"];
+		this.$.warningbox.setTitle(l10n.get(title[dest]));
+		var length = this.getSelection().length;
+		this.$.warningbox.setMessage(length == 1 ? l10n.get(title[dest]+"_one",{count:length}) : l10n.get(title[dest]+"_other",{count:length}));
+		this.$.warningbox.setOkText(l10n.get("Ok"));
+		this.$.warningbox.setCancelText(l10n.get("Cancel"));
+		this.$.warningbox.setShowing(true);
+	},
+
+	dialogSelectedOk: function() {
 		this.$.warningbox.setShowing(false);
 		this.getToolbar().setMultiselectToolbarVisibility(false);
 		var selection = this.getSelection();
-		var toRemove = [];
+		var toProcess = [];
 		for (var i = 0 ; i < selection.length ; i++) {
-			toRemove.push(this.journal[selection[i]]);
+			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		humane.log(l10n.get("Erasing"));
+		humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		window.setTimeout(function() {
-			for (var i = 0 ; i < toRemove.length ; i++) {
-				that.removeEntry(toRemove[i]);
+			for (var i = 0 ; i < toProcess.length ; i++) {
+				if (that.dialogAction == constant.journalRemove) {
+					that.removeEntry(toProcess[i]);
+				} else if (that.dialogAction == constant.journalLocal) {
+					that.copyToLocal(toProcess[i]);
+				} else {
+					that.copyToRemote(toProcess[i], (that.dialogAction == constant.journalRemotePrivate ? preferences.getPrivateJournal() : preferences.getSharedJournal()));
+				}
 			}
+			that.unselectAll();
 		}, 100);
 	},
 
-	removeSelectedCancel: function() {
+	dialogSelectedCancel: function() {
 		this.$.warningbox.setShowing(false);
 		this.getToolbar().setMultiselectToolbarVisibility(true);
 	},
@@ -492,7 +512,7 @@ enyo.kind({
 			data: [entry, null]
 		});
 		items.push({
-			icon: {directory: "icons", icon: "activity-journal.svg"},
+			icon: {directory: "icons", icon: "copy-journal.svg"},
 			colorized: false,
 			name: l10n.get("CopyToLocal"),
 			action: enyo.bind(this, "copyToLocal"),
@@ -500,20 +520,20 @@ enyo.kind({
 			disable: this.journalType == constant.journalLocal
 		});
 		items.push({
-			icon: {directory: "icons", icon: "cloud-one.svg"},
+			icon: {directory: "icons", icon: "copy-cloud-one.svg"},
 			colorized: false,
 			name: l10n.get("CopyToPrivate"),
 			action: enyo.bind(this, "copyToRemote"),
 			data: [entry, preferences.getPrivateJournal()],
-			disable: this.journalType == constant.journalRemotePrivate
+			disable: !preferences.isConnected() || this.journalType == constant.journalRemotePrivate
 		});
 		items.push({
-			icon: {directory: "icons", icon: "cloud-all.svg"},
+			icon: {directory: "icons", icon: "copy-cloud-all.svg"},
 			colorized: false,
 			name: l10n.get("CopyToShared"),
 			action: enyo.bind(this, "copyToRemote"),
 			data: [entry, preferences.getSharedJournal()],
-			disable: this.journalType == constant.journalRemoteShared
+			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared
 		});
 		if (util.getClientType() == constant.appType && (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios)) {
 			items.push({
@@ -837,6 +857,10 @@ enyo.kind({
 		this.getToolbar().removeFilter();
 		this.getToolbar().setMultiselectToolbarVisibility(false);
 		this.$.warningbox.setShowing(false);
+	},
+
+	getJournalType: function() {
+		return this.journalType;
 	}
 });
 
@@ -852,6 +876,9 @@ enyo.kind({
 		{name: "unselallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-unselectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-none.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "unselectAll"},
 		{name: "selallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-selectall", x: 0, y: 0, icon: {directory: "icons", icon: "select-all.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "selectAll"},
 		{name: "split1", showing: false, classes: "splitbar"},
+		{name: "copyjournalbutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-journal.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
+		{name: "copycloudonebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-one.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
+		{name: "copycloudallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-all.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "removebutton", showing: false, kind: "Sugar.Icon", classes: "journal-remove", x: 0, y: 0, icon: {directory: "icons", icon: "list-remove.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "removeSelected"},
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
@@ -886,6 +913,9 @@ enyo.kind({
 		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
 		this.$.selallbutton.setNodeProperty("title", l10n.get("SelectAll"));
 		this.$.removebutton.setNodeProperty("title", l10n.get("Erase"));
+		this.$.copyjournalbutton.setNodeProperty("title", l10n.get("CopyToLocal"));
+		this.$.copycloudonebutton.setNodeProperty("title", l10n.get("CopyToPrivate"));
+		this.$.copycloudallbutton.setNodeProperty("title", l10n.get("CopyToShared"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
@@ -1004,11 +1034,24 @@ enyo.kind({
 		if (this.$.removebutton.getDisabled()) {
 			return;
 		}
-		this.$.unselallbutton.setDisabled(true);
-		this.$.selallbutton.setDisabled(true);
-		this.$.removebutton.setDisabled(true);
-		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", true);
+		this.disableMultiselectToolbarVisibility();
 		app.otherview.removeSelected();
+	},
+
+	copySelected: function(e, s) {
+		if (e.getDisabled()) {
+			return;
+		}
+		this.disableMultiselectToolbarVisibility();
+		var dest;
+		if (e.name == "copycloudonebutton") {
+			dest = constant.journalRemotePrivate;
+		} else if (e.name == "copycloudallbutton") {
+			dest = constant.journalRemoteShared;
+		} else {
+			dest = constant.journalLocal;
+		}
+		app.otherview.copySelected(dest);
 	},
 
 	// Compute filter
@@ -1071,13 +1114,30 @@ enyo.kind({
 		this.$.selallbutton.setShowing(shown);
 		this.$.split1.setShowing(shown);
 		this.$.removebutton.setShowing(shown);
+		var journalType = app.otherview.getJournalType();
+		this.$.copyjournalbutton.setShowing(shown && journalType != constant.journalLocal);
+		this.$.copycloudonebutton.setShowing(shown && journalType != constant.journalRemotePrivate && preferences.isConnected());
+		this.$.copycloudallbutton.setShowing(shown && journalType != constant.journalRemoteShared && preferences.isConnected());
 		this.$.split2.setShowing(shown);
 		this.$.selectcount.setShowing(shown);
 
 		this.$.unselallbutton.setDisabled(!shown);
 		this.$.selallbutton.setDisabled(!shown);
 		this.$.removebutton.setDisabled(!shown);
+		this.$.copyjournalbutton.setDisabled(!shown);
+		this.$.copycloudonebutton.setDisabled(!shown);
+		this.$.copycloudallbutton.setDisabled(!shown);
 		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", !shown);
+	},
+
+	disableMultiselectToolbarVisibility: function() {
+		this.$.unselallbutton.setDisabled(true);
+		this.$.selallbutton.setDisabled(true);
+		this.$.removebutton.setDisabled(true);
+		this.$.copyjournalbutton.setDisabled(true);
+		this.$.copycloudonebutton.setDisabled(true);
+		this.$.copycloudallbutton.setDisabled(true);
+		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", true);
 	},
 
 	startTutorial: function() {

@@ -28,6 +28,7 @@ constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_vi
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
+constant.journalRemove = 3;
 constant.journalInitCount = 40;
 constant.journalStepCount = 10;
 constant.journalScrollLimit = 200;
