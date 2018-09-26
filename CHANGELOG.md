@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ebook Reader activity
 - Exerciser activity
 - Add a sort palette in Journal
+- Allow action on multiple items in Journal
 
 ### Changed
 - Portuguese localization
