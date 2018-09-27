@@ -248,6 +248,7 @@ enyo.kind({
 			inEvent.item.$.time.addClass("rtl-14");
 		}
 		if (inEvent.index == 0) {
+			tutorial.setElement("checkitem", inEvent.item.$.check.getAttribute("id"));
 			tutorial.setElement("activityitem", inEvent.item.$.activity.getAttribute("id"));
 			tutorial.setElement("titleitem", inEvent.item.$.title.getAttribute("id"));
 			tutorial.setElement("timeitem", inEvent.item.$.time.getAttribute("id"));
@@ -1145,6 +1146,7 @@ enyo.kind({
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
 		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));
+		tutorial.setElement("sortselect", this.$.sortpalette.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
