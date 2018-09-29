@@ -536,15 +536,13 @@ enyo.kind({
 			data: [entry, preferences.getSharedJournal()],
 			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared
 		});
-		if (util.getClientType() == constant.appType && (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios)) {
-			items.push({
-				icon: {directory: "icons", icon: "module-about_my_computer.svg"},
-				colorized: false,
-				name: l10n.get("CopyToDevice"),
-				action: enyo.bind(this, "copyToDevice"),
-				data: [entry, null]
-			});
-		}
+		items.push({
+			icon: {directory: "icons", icon: "copy-to-device.svg"},
+			colorized: false,
+			name: l10n.get("CopyToDevice"),
+			action: enyo.bind(this, "copyToDevice"),
+			data: [entry, null]
+		});
 		items.push({
 			icon: {directory: "icons", icon: "list-remove.svg"},
 			colorized: false,
