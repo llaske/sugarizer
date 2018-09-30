@@ -8,8 +8,12 @@ var electron = require('electron'),
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var Menu = electron.Menu;
+var ipc = electron.ipcMain;
+var dialog = electron.dialog;
 
 var mainWindow = null;
+
+var debug = false;
 
 
 
@@ -69,6 +73,31 @@ function createWindow () {
 		// Initialize locales
 		l10n.init();
 
+		// Handle save file dialog
+		ipc.on('save-file-dialog', function(event, arg) {
+			dialog.showSaveDialog({
+				title: l10n.get("SaveFile"),
+				defaultPath: arg.filename,
+				buttonLabel: l10n.get("Save"),
+				filters: [
+					{ name: arg.mimetype, extensions: [arg.extension] }
+				]
+			}, function(file) {
+				if (file) {
+					var buf;
+					if (arg.text) {
+						buf = arg.text;
+					} else {
+						var data = arg.binary.replace(/^data:.+;base64,/, "");
+						buf = new Buffer(data, 'base64');
+					}
+					fs.writeFile(file, buf, function(err) {
+						event.sender.send('save-file-reply', {err: err, filename: file});
+					});
+				}
+			});
+		});
+
 		// Build menu
 		var template = [];
 		if (process.platform === 'darwin') {
@@ -88,6 +117,11 @@ function createWindow () {
 		}
 		var menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
+
+		// Debug console
+		if (debug) {
+			mainWindow.webContents.openDevTools();
+		}
 
 		// Show wmain window
 		mainWindow.show();

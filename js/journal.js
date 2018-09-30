@@ -583,18 +583,14 @@ enyo.kind({
 	// Copy activity content into a file onthe device
 	copyToDevice: function(entry) {
 		var that = this;
+		that.$.activityPopup.hidePopup();
 		this.loadEntry(entry, function(err, metadata, text) {
-			if (text == null) {
-				that.$.activityPopup.hidePopup();
-				return;
-			}
 			util.writeFile(metadata, text, function(err, filename) {
 				if (err) {
 					humane.log(l10n.get("ErrorWritingFile"));
 				} else {
 					humane.log(l10n.get("FileWroteTo",{file:filename}));
 				}
-				that.$.activityPopup.hidePopup();
 			});
 		});
 	},
