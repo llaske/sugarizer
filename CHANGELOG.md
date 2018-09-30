@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Exerciser activity
 - Add a sort palette in Journal
 - Allow action on multiple items in Journal
+- Copy from Journal to device now available on all platforms
 
 ### Changed
 - Portuguese localization
