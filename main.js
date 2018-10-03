@@ -3,6 +3,7 @@
 var electron = require('electron'),
 	fs = require('fs'),
 	ini = require('ini'),
+	path = require('path'),
 	requirejs = require('requirejs');
 
 var app = electron.app;
@@ -51,6 +52,20 @@ l10n = {
 	}
 }
 
+// Save a file
+function saveFile(file, arg, sender) {
+	var buf;
+	if (arg.text) {
+		buf = arg.text;
+	} else {
+		var data = arg.binary.replace(/^data:.+;base64,/, "");
+		buf = new Buffer(data, 'base64');
+	}
+	fs.writeFile(file, buf, function(err) {
+		sender.send('save-file-reply', {err: err, filename: file});
+	});
+}
+
 function createWindow () {
 	// Create the browser window
 	mainWindow = new BrowserWindow({
@@ -75,25 +90,34 @@ function createWindow () {
 
 		// Handle save file dialog
 		ipc.on('save-file-dialog', function(event, arg) {
-			dialog.showSaveDialog({
-				title: l10n.get("SaveFile"),
-				defaultPath: arg.filename,
-				buttonLabel: l10n.get("Save"),
-				filters: [
-					{ name: arg.mimetype, extensions: [arg.extension] }
-				]
-			}, function(file) {
+			var saveFunction = function(file) {
 				if (file) {
-					var buf;
-					if (arg.text) {
-						buf = arg.text;
-					} else {
-						var data = arg.binary.replace(/^data:.+;base64,/, "");
-						buf = new Buffer(data, 'base64');
-					}
-					fs.writeFile(file, buf, function(err) {
-						event.sender.send('save-file-reply', {err: err, filename: file});
-					});
+					saveFile(file, arg, event.sender);
+				}
+			}
+			if (!arg.directory) {
+				// Ask directory to use, then save
+				dialog.showSaveDialog({
+					title: l10n.get("SaveFile"),
+					defaultPath: arg.filename,
+					buttonLabel: l10n.get("Save"),
+					filters: [
+						{ name: arg.mimetype, extensions: [arg.extension] }
+					]
+				}, saveFunction);
+			} else {
+				// Save in the directory provided
+				saveFunction(path.join(arg.directory,arg.filename));
+			}
+		});
+		ipc.on('choose-directory-dialog', function(event) {
+			dialog.showOpenDialog({
+				title: l10n.get("ChooseDirectory"),
+				buttonLabel: l10n.get("Choose"),
+				properties: ['openDirectory', 'createDirectory']
+			}, function(files) {
+				if (files && files.length > 0) {
+					event.sender.send('choose-directory-reply', files[0]);
 				}
 			});
 		});

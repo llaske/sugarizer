@@ -332,7 +332,7 @@ enyo.kind({
 
 	copySelected: function(dest) {
 		this.dialogAction = dest;
-		var title = ["CopyToLocal", "CopyToPrivate", "CopyToShared"];
+		var title = ["CopyToLocal", "CopyToPrivate", "CopyToShared", "", "CopyToDevice"];
 		this.$.warningbox.setTitle(l10n.get(title[dest]));
 		var length = this.getSelection().length;
 		this.$.warningbox.setMessage(length == 1 ? l10n.get(title[dest]+"_one",{count:length}) : l10n.get(title[dest]+"_other",{count:length}));
@@ -350,16 +350,27 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && (!enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios));
+		if (!isMultiple) {
+			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
+		}
 		window.setTimeout(function() {
-			for (var i = 0 ; i < toProcess.length ; i++) {
-				if (that.dialogAction == constant.journalRemove) {
-					that.removeEntry(toProcess[i]);
-				} else if (that.dialogAction == constant.journalLocal) {
-					that.copyToLocal(toProcess[i]);
-				} else {
-					that.copyToRemote(toProcess[i], (that.dialogAction == constant.journalRemotePrivate ? preferences.getPrivateJournal() : preferences.getSharedJournal()));
+			if (!isMultiple) {
+				// Do action on each entry
+				for (var i = 0 ; i < toProcess.length ; i++) {
+					if (that.dialogAction == constant.journalDevice) {
+						that.copyToDevice(toProcess[i]);
+					} else if (that.dialogAction == constant.journalRemove) {
+						that.removeEntry(toProcess[i]);
+					} else if (that.dialogAction == constant.journalLocal) {
+						that.copyToLocal(toProcess[i]);
+					} else {
+						that.copyToRemote(toProcess[i], (that.dialogAction == constant.journalRemotePrivate ? preferences.getPrivateJournal() : preferences.getSharedJournal()));
+					}
 				}
+			} else {
+				// Do action on all entries
+				that.copyMultipleToDevice(toProcess);
 			}
 			that.unselectAll();
 		}, 100);
@@ -580,18 +591,28 @@ enyo.kind({
 		});
 	},
 
-	// Copy activity content into a file onthe device
-	copyToDevice: function(entry) {
+	// Copy activity content into a file on the device
+	copyToDevice: function(entry, directory) {
 		var that = this;
 		that.$.activityPopup.hidePopup();
 		this.loadEntry(entry, function(err, metadata, text) {
-			util.writeFile(metadata, text, function(err, filename) {
+			util.writeFile(directory, metadata, text, function(err, filename) {
 				if (err) {
 					humane.log(l10n.get("ErrorWritingFile"));
 				} else {
 					humane.log(l10n.get("FileWroteTo",{file:filename}));
 				}
 			});
+		});
+	},
+
+	// Copy a set of entries on the device: ask directory, then copy each entry
+	copyMultipleToDevice: function(entries) {
+		var that = this;
+		util.askDirectory(function(directory) {
+			for (var i = 0 ; i < entries.length ; i++) {
+				that.copyToDevice(entries[i], directory);
+			}
 		});
 	},
 
@@ -874,6 +895,7 @@ enyo.kind({
 		{name: "copyjournalbutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-journal.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "copycloudonebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-one.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "copycloudallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-all.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
+		{name: "copydevicebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-to-device.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "removebutton", showing: false, kind: "Sugar.Icon", classes: "journal-remove", x: 0, y: 0, icon: {directory: "icons", icon: "list-remove.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "removeSelected"},
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
@@ -911,6 +933,7 @@ enyo.kind({
 		this.$.copyjournalbutton.setNodeProperty("title", l10n.get("CopyToLocal"));
 		this.$.copycloudonebutton.setNodeProperty("title", l10n.get("CopyToPrivate"));
 		this.$.copycloudallbutton.setNodeProperty("title", l10n.get("CopyToShared"));
+		this.$.copydevicebutton.setNodeProperty("title", l10n.get("CopyToDevice"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
@@ -1039,7 +1062,9 @@ enyo.kind({
 		}
 		this.disableMultiselectToolbarVisibility();
 		var dest;
-		if (e.name == "copycloudonebutton") {
+		if (e.name == "copydevicebutton") {
+			dest = constant.journalDevice;
+		} else if (e.name == "copycloudonebutton") {
 			dest = constant.journalRemotePrivate;
 		} else if (e.name == "copycloudallbutton") {
 			dest = constant.journalRemoteShared;
@@ -1113,6 +1138,7 @@ enyo.kind({
 		this.$.copyjournalbutton.setShowing(shown && journalType != constant.journalLocal);
 		this.$.copycloudonebutton.setShowing(shown && journalType != constant.journalRemotePrivate && preferences.isConnected());
 		this.$.copycloudallbutton.setShowing(shown && journalType != constant.journalRemoteShared && preferences.isConnected());
+		this.$.copydevicebutton.setShowing(shown);
 		this.$.split2.setShowing(shown);
 		this.$.selectcount.setShowing(shown);
 
@@ -1122,6 +1148,7 @@ enyo.kind({
 		this.$.copyjournalbutton.setDisabled(!shown);
 		this.$.copycloudonebutton.setDisabled(!shown);
 		this.$.copycloudallbutton.setDisabled(!shown);
+		this.$.copydevicebutton.setDisabled(!shown);
 		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", !shown);
 	},
 
@@ -1132,6 +1159,7 @@ enyo.kind({
 		this.$.copyjournalbutton.setDisabled(true);
 		this.$.copycloudonebutton.setDisabled(true);
 		this.$.copycloudallbutton.setDisabled(true);
+		this.$.copydevicebutton.setDisabled(true);
 		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", true);
 	},
 
