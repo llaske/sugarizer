@@ -97,25 +97,27 @@ function createWindow () {
 			}
 			if (!arg.directory) {
 				// Ask directory to use, then save
-				dialog.showSaveDialog({
-					title: l10n.get("SaveFile"),
+				var dialogSettings = {
 					defaultPath: arg.filename,
-					buttonLabel: l10n.get("Save"),
 					filters: [
 						{ name: arg.mimetype, extensions: [arg.extension] }
 					]
-				}, saveFunction);
+				};
+				dialogSettings.title = l10n.get("SaveFile");
+				dialogSettings.buttonLabel = l10n.get("Save");
+				dialog.showSaveDialog(dialogSettings, saveFunction);
 			} else {
 				// Save in the directory provided
 				saveFunction(path.join(arg.directory,arg.filename));
 			}
 		});
 		ipc.on('choose-directory-dialog', function(event) {
-			dialog.showOpenDialog({
-				title: l10n.get("ChooseDirectory"),
-				buttonLabel: l10n.get("Choose"),
+			var dialogSettings = {
 				properties: ['openDirectory', 'createDirectory']
-			}, function(files) {
+			};
+			dialogSettings.title = l10n.get("ChooseDirectory");
+			dialogSettings.buttonLabel = l10n.get("Choose");
+			dialog.showOpenDialog(dialogSettings, function(files) {
 				if (files && files.length > 0) {
 					event.sender.send('choose-directory-reply', files[0]);
 				}
@@ -129,7 +131,6 @@ function createWindow () {
 			var menu = {
 				label: appname,
 				submenu: [{
-					label: 'Quit',
 					accelerator: 'Command+Q',
 					click: function () {
 						app.quit()
