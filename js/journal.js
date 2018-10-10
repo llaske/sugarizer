@@ -905,6 +905,9 @@ enyo.kind({
 		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filtertype-palette", contentsClasses: "journal-filtertype-content", contents: []},
 		{name: "datepalette", kind: "Sugar.Palette", ontap: "showDatePalette", icon: {directory: "icons", icon: "view-created.svg"}, size: constant.iconSizeList, classes: "journal-filterdate-palette", contentsClasses: "journal-filterdate-content", contents: []},
 		{name: "sortpalette", kind: "Sugar.Palette", ontap: "showSortPalette", icon: {directory: "icons", icon: "view-lastedit.svg"}, size: constant.iconSizeList, classes: "journal-sort-palette", contentsClasses: "journal-sort-content", contents: []},
+		{name: "split3", classes: "splitbar journal-split split3"},
+		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
+		{name: "split4", classes: "splitbar journal-split split4"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
 
@@ -915,6 +918,9 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
+		if (util.getClientType() == constant.webAppType) {
+			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
+		}
 	},
 
 	rendered: function() {
@@ -1074,6 +1080,31 @@ enyo.kind({
 		app.otherview.copySelected(dest);
 	},
 
+	fromDeviceSelected: function() {
+		if (util.getClientType() == constant.webAppType) {
+			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json");
+			this.$.file.setNodeProperty("multiple", "true");
+			this.$.file.hasNode().click();
+		}
+	},
+
+	fileSelected: function() {
+		var files = this.$.file.getNodeProperty("files");
+		for (var i = 0 ; i < files.length ; i++) {
+			util.loadFile(files[i], function(file, err, metadata, text) {
+				if (err) {
+					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
+					return;
+				}
+				metadata.timestamp = new Date().getTime();
+				metadata.creation_time = new Date().getTime();
+				datastore.create(metadata, function() {
+					app.otherview.loadLocalJournal();
+				}, text);
+			});
+		}
+	},
+
 	// Compute filter
 	hasFilter: function() {
 		return this.$.journalsearch.getText() != ""
@@ -1122,19 +1153,22 @@ enyo.kind({
 		if (this.$.sortpalette.isOpen()) {
 			this.$.sortpalette.switchPalette(app.otherview);
 		}
+		var journalType = app.otherview.getJournalType();
 		this.$.favoritebutton.setShowing(!shown);
 		this.$.journalsearch.setShowing(!shown);
 		this.$.radialbutton.setShowing(!shown);
 		this.$.typepalette.setShowing(!shown);
 		this.$.datepalette.setShowing(!shown);
 		this.$.sortpalette.setShowing(!shown);
+		this.$.split3.setShowing(!shown && journalType == constant.journalLocal);
+		this.$.fromdevicebutton.setShowing(!shown && journalType == constant.journalLocal);
+		this.$.split4.setShowing(!shown);
 		this.$.helpbutton.setShowing(!shown);
 
 		this.$.unselallbutton.setShowing(shown);
 		this.$.selallbutton.setShowing(shown);
 		this.$.split1.setShowing(shown);
 		this.$.removebutton.setShowing(shown);
-		var journalType = app.otherview.getJournalType();
 		this.$.copyjournalbutton.setShowing(shown && journalType != constant.journalLocal);
 		this.$.copycloudonebutton.setShowing(shown && journalType != constant.journalRemotePrivate && preferences.isConnected());
 		this.$.copycloudallbutton.setShowing(shown && journalType != constant.journalRemoteShared && preferences.isConnected());

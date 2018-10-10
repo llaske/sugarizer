@@ -106,9 +106,10 @@ body {
 
 .help-button-journal {
 	background-image: url(../icons/help.svg);
-	position: absolute !important;
-	top: 0px;
-	left: 950px;
+	position: relative;
+	display: inline-block;
+	left: 10px;
+	vertical-align: top;
 }
 
 .favorite-button {
@@ -475,6 +476,18 @@ body {
 	top: 5px;
 	margin-left: 15px !important;
 	display: inline-block;
+}
+
+.journal-fromdevice {
+	position: relative;
+	display: inline-block;
+	height: 30px;
+	top: 5px;
+	left: 10px;
+}
+
+.journal-split {
+	vertical-align: top !important;
 }
 
 .journal-dialogbox {
@@ -2074,12 +2087,25 @@ body {
 		visibility: hidden;
 	}
 }
+@media screen and (max-width: 825px) {
+	.split3 {
+		visibility: hidden;
+	}
+
+	.journal-fromdevice{
+		visibility: hidden;
+	}
+}
 @media screen and (min-width: 880px) {
 	.journal-filter-time {
 		visibility: visible;
 	}
 }
 @media screen and (max-width: 1080px) {
+	.split4 {
+		visibility: hidden;
+	}
+
 	.help-button-journal {
 		visibility: hidden;
 	}
