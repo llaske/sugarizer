@@ -1085,6 +1085,22 @@ enyo.kind({
 			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
+		} else {
+			util.askFiles(function(file, err, metadata, text) {
+				if (err) {
+					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
+					return;
+				}
+				metadata.timestamp = new Date().getTime();
+				metadata.creation_time = new Date().getTime();
+				datastore.create(metadata, function(err) {
+					if (err) {
+						humane.log(l10n.get("ErrorLoadingFile",{file:file}));
+						return;
+					}
+					app.otherview.loadLocalJournal();
+				}, text);
+			});
 		}
 	},
 

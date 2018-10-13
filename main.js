@@ -66,6 +66,25 @@ function saveFile(file, arg, sender) {
 	});
 }
 
+// Load a file
+function LoadFile(event, file) {
+	var extension = path.extname(file).substr(1);
+	var fileProperty = {};
+	fileProperty.name = path.basename(file);
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm'};
+	for (var ext in extToMimetypes) {
+		if (ext == extension) {
+			fileProperty.type = extToMimetypes[ext];
+			break;
+		}
+	}
+	var json = (extension == 'json' ? 'utf8' : null);
+	fs.readFile(file, function(err, data) {
+		var text = (json ? data : "data:"+fileProperty.type+";base64,"+data.toString('base64'));
+		event.sender.send('choose-files-reply', fileProperty, err, text);
+	});
+}
+
 function createWindow () {
 	// Create the browser window
 	mainWindow = new BrowserWindow({
@@ -120,6 +139,24 @@ function createWindow () {
 			dialog.showOpenDialog(dialogSettings, function(files) {
 				if (files && files.length > 0) {
 					event.sender.send('choose-directory-reply', files[0]);
+				}
+			});
+		});
+		ipc.on('choose-files-dialog', function(event) {
+			var dialogSettings = {
+				properties: ['openFile', 'multiSelections'],
+				filters: [
+					{name: 'Activities', extensions: ['jpg','png','json','webm','wav']}
+				]
+			};
+			dialogSettings.title = l10n.get("ChooseFiles");
+			dialogSettings.buttonLabel = l10n.get("Choose");
+			dialogSettings.filters[0].name = l10n.get("FilesSupported");
+			dialog.showOpenDialog(dialogSettings, function(files) {
+				if (files && files.length > 0) {
+					for (var i = 0 ; i < files.length ; i++) {
+						LoadFile(event, files[i]);
+					}
 				}
 			});
 		});
