@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a sort palette in Journal
 - Allow action on multiple items in Journal
 - Copy from Journal to device now available on all platforms
+- Copy from device to Journal feature
 
 ### Changed
 - Portuguese localization
