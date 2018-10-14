@@ -1219,6 +1219,7 @@ enyo.kind({
 		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));
 		tutorial.setElement("sortselect", this.$.sortpalette.getAttribute("id"));
+		tutorial.setElement("fromdevicebutton", this.$.fromdevicebutton.getAttribute("id"));
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
