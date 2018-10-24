@@ -1,4 +1,11 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions"], function (activity, TWEEN, rAF, maze, directions) {
+define([
+    "sugar-web/activity/activity",
+    "sugar-web/graphics/presencepalette",
+    "tween",
+    "rAF",
+    "activity/maze",
+    "activity/directions"
+], function (activity, presencepalette, TWEEN, rAF, maze, directions) {
 
     requirejs(['domReady!'], function (doc) {
         activity.setup();
@@ -12,6 +19,8 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         var startColor = "hsl(0, 0%, 80%)";
         var startPlayerColor = "hsl(0, 90%, 50%)";
         var goalColor;
+
+        var levelCount = 0;
 
         var cellWidth;
         var cellHeight;
@@ -279,7 +288,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             tween.start();
         }
 
-        var runLevel = function () {
+        var runLevel = function (gameSize) {
             maze.generate(window.innerWidth / window.innerHeight, gameSize);
             updateMazeSize();
             updateSprites();
@@ -287,7 +296,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             winner = undefined;
             onLevelStart();
         }
-        runLevel();
+        runLevel(gameSize);
 
         var onLevelComplete = function (player) {
             winner = player;
@@ -317,7 +326,8 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
         var nextLevel = function () {
             gameSize *= 1.2;
-            runLevel();
+            levelCount += 1;
+            runLevel(gameSize);
         }
 
         var Player = function (control) {
@@ -589,6 +599,55 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             }
         };
         animate();
+
+        var presence = null;
+        var isHost = false;
+        var networkpalette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+        networkpalette.addEventListener('shared', function () {
+            networkpalette.popDown();
+            presence = activity.getPresenceObject(function (error, network) {
+                if (error) {
+                    return;
+                }
+                network.createSharedActivity('org.sugarlabs.MazeWebActivity', function (groupId) {
+                    isHost = true;
+                });
+                if (presence) {
+                    presence.sendMessage(presence.getSharedInfo().id, {
+            			user: presence.getUserInfo()
+            		});
+                }
+                network.onDataReceived(onNetworkDataReceived);
+                network.onSharedActivityUserChanged(onNetworkUserChanged);
+            });
+        });
+
+        var onNetworkUserChanged = function(msg) {
+
+        	if (isHost) {
+        		presence.sendMessage(presence.getSharedInfo().id, {
+        			user: presence.getUserInfo(),
+        			content: {
+        				action: 'init',
+                        data: gameSize
+        			}
+        		});
+        	}
+        };
+
+        var onNetworkDataReceived = function(msg) {
+        	if (presence.getUserInfo().networkId === msg.user.networkId) {
+        		return;
+        	}
+        	switch (msg.content.action) {
+        		case 'init':
+                    gameSize = msg.content.data;
+                    runLevel(gameSize);
+        			break;
+        		case 'update':
+        			break;
+        	}
+        };
 
     });
 

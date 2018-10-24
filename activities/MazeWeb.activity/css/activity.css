@@ -1,9 +1,55 @@
-#main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
-}
-
 #canvas {
   background-color: #101010;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+#main-toolbar #activity-button {
+background-image:url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+.network-text {
+font-size: 12pt;
+}
+
+#private-button {
+background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+width: 47px;
+height: 47px;
+margin: 4px 2px;
+color: white;
+color: transparent;
+background-color: transparent;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border: 0;
+border-radius: 5.5px;
+}
+
+#shared-button {
+background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+width: 47px;
+height: 47px;
+margin: 4px 2px;
+color: white;
+color: transparent;
+background-color: transparent;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border: 0;
+border-radius: 5.5px;
+}
+
+#game-players {
+    background: #005983;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:56px;
 }

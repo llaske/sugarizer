@@ -2,14 +2,18 @@ define(["webL10n",
         "sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
+        "sugar-web/presence",
         "sugar-web/datastore",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, icon, activitypalette) {
+    l10n, shortcut, bus, env, presence, datastore, icon, activitypalette) {
 
     'use strict';
 
     var datastoreObject = null;
+
+    var presenceCallback = null;
+	var presenceResponse = null;
 
     var activity = {};
 
@@ -75,6 +79,23 @@ define(["webL10n",
                     "activity_id": environment.activityId
                 });
             }
+            if (env.isSugarizer()) {
+				presence.joinNetwork(function(error, presence) {
+					if (environment.sharedId) {
+						presence.joinSharedActivity(environment.sharedId, function() {
+							var group_color = presence.getSharedInfo().colorvalue;
+							icon.colorize(activityButton, group_color);
+							datastoreObject.setMetadata({"buddy_color":group_color});
+							datastoreObject.save(function() {});
+						});
+					}
+					if (presenceCallback) {
+						presenceCallback(error, presence);
+					} else {
+						presenceResponse = {error: error, presence: presence};
+					}
+				});
+			}
             datastoreObject.save(function () {
                 datastoreObject.getMetadata(function (error, metadata) {
                     activityPalette.setTitleDescription(metadata);
@@ -89,6 +110,16 @@ define(["webL10n",
     activity.getDatastoreObject = function () {
         return datastoreObject;
     };
+
+    activity.getPresenceObject = function(connectionCallback) {
+		if (presenceResponse == null) {
+			presenceCallback = connectionCallback;
+		} else {
+			connectionCallback(presenceResponse.error, presenceResponse.presence);
+			presenceResponse = null;
+		}
+		return presence;
+	};
 
     activity.getXOColor = function (callback) {
         function onResponseReceived(error, result) {
