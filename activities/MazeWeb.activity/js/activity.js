@@ -20,8 +20,6 @@ define([
         var startPlayerColor = "hsl(0, 90%, 50%)";
         var goalColor;
 
-        var levelCount = 0;
-
         var cellWidth;
         var cellHeight;
 
@@ -39,6 +37,7 @@ define([
         var controlColors = {};
         var controlSprites = {};
 
+        var presenceSharing = false;
         var players = {};
         var winner;
 
@@ -266,7 +265,6 @@ define([
                 y = ((maze.goalPoint.y + 1) * cellHeight) - height;
             }
             ctx.fillRect(x, y, width, height);
-
             drawPoint(ctx, maze.startPoint.x, maze.startPoint.y, startColor,
                       0.9 * levelStartingValue);
         }
@@ -312,21 +310,24 @@ define([
             var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
                                   Math.pow(window.innerHeight, 2));
 
-            tween = new TWEEN.Tween({radius: 0});
-            tween.to({radius: hypot}, 1200);
-            tween.easing(TWEEN.Easing.Circular.Out);
-            tween.onUpdate(function () {
-                levelTransitionRadius = this.radius;
-            });
-            tween.onComplete(function () {
-                nextLevel();
-            });
-            tween.start();
+            // In event of presence, allow next level only when all
+            // players have completed the maze
+            if (!presenceSharing) {
+                tween = new TWEEN.Tween({radius: 0});
+                tween.to({radius: hypot}, 1200);
+                tween.easing(TWEEN.Easing.Circular.Out);
+                tween.onUpdate(function () {
+                    levelTransitionRadius = this.radius;
+                });
+                tween.onComplete(function () {
+                    nextLevel();
+                });
+                tween.start();
+            }
         }
 
         var nextLevel = function () {
             gameSize *= 1.2;
-            levelCount += 1;
             runLevel();
         }
 
@@ -599,17 +600,14 @@ define([
             }
         };
         animate();
-
 		// Connect to network
         var presenceObject;
         var isHost = false;
-        var previousGameSize = 0;
-        var subscriberGameLevel = 0;
 		function shareActivity() {
 			presenceObject = activity.getPresenceObject(function (error, presence) {
 				// Unable to join
 				if (error)  {
-					console.log("Error");
+					console.log("Connection Error");
 					return;
 				}
 
@@ -623,17 +621,29 @@ define([
 				// Show a disconnected message when the connection is closed.
 				presence.onConnectionClosed(function (event) {
 					console.log("Connection Closed");
+                    isHost = false;
+                    presenceSharing = false;
 				});
 
 				// Display connection changed
 				presence.onSharedActivityUserChanged(function (msg) {
+                    presenceSharing = true;
                     if (isHost) {
                         // Host will always share maze level with subscribers
                         // so that the host will not lose game progress
                         presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
                 			user: presenceObject.getUserInfo(),
                 			content: {
-                				data: gameSize
+                                action: 'init',
+                				value: levelStartingValue,
+                                size: gameSize,
+                                start: maze.startPoint,
+                                goal: maze.goalPoint,
+                                wall: maze.walls,
+                                visit: maze.visited,
+                                direction: maze.directions,
+                                fork: maze.forks,
+                                dirty: dirtyCells
                 			}
                 		});
                     }
@@ -641,8 +651,28 @@ define([
 
 				// Handle messages received
 				presence.onDataReceived(function (msg) {
-                    gameSize = msg.content.data;
-                    runLevel(gameSize);
+                    switch (msg.content.action) {
+                    		case 'init':
+                                levelStartingValue = msg.content.value;
+                                gameSize = msg.content.size;
+                                maze.startPoint.x = msg.content.start;
+                                maze.goalPoint.y = msg.content.goal;
+                                maze.walls = msg.content.wall;
+                                maze.visited = msg.content.visit;
+                                maze.directions = msg.content.direction;
+                                maze.forks = msg.content.fork;
+                                dirtyCells = msg.content.dirty;
+                                drawMaze();
+                                maze.generate(window.innerWidth / window.innerHeight, gameSize);
+                                updateMazeSize();
+                                updateSprites();
+                                // players = {};
+                                // winner = undefined;
+                                onLevelStart();
+                    			break;
+                    		case 'update':
+                    			break;
+                    	}
 				});
 			});
 		}
@@ -656,6 +686,7 @@ define([
         var networkButton = document.getElementById("network-button");
 		presencepalette = new presencepalette.PresencePalette(networkButton, undefined);
 		presencepalette.addEventListener('shared', shareActivity);
+
 
     });
 
