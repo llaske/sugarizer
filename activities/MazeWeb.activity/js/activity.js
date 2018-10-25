@@ -288,7 +288,7 @@ define([
             tween.start();
         }
 
-        var runLevel = function (gameSize) {
+        var runLevel = function () {
             maze.generate(window.innerWidth / window.innerHeight, gameSize);
             updateMazeSize();
             updateSprites();
@@ -296,7 +296,7 @@ define([
             winner = undefined;
             onLevelStart();
         }
-        runLevel(gameSize);
+        runLevel();
 
         var onLevelComplete = function (player) {
             winner = player;
@@ -327,7 +327,7 @@ define([
         var nextLevel = function () {
             gameSize *= 1.2;
             levelCount += 1;
-            runLevel(gameSize);
+            runLevel();
         }
 
         var Player = function (control) {
@@ -600,54 +600,62 @@ define([
         };
         animate();
 
-        var presence = null;
+		// Connect to network
+        var presenceObject;
         var isHost = false;
-        var networkpalette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
-        networkpalette.addEventListener('shared', function () {
-            networkpalette.popDown();
-            presence = activity.getPresenceObject(function (error, network) {
-                if (error) {
-                    return;
-                }
-                network.createSharedActivity('org.sugarlabs.MazeWebActivity', function (groupId) {
-                    isHost = true;
+        var previousGameSize = 0;
+        var subscriberGameLevel = 0;
+		function shareActivity() {
+			presenceObject = activity.getPresenceObject(function (error, presence) {
+				// Unable to join
+				if (error)  {
+					console.log("Error");
+					return;
+				}
+
+				// Not found, create a new shared activity
+				if (!window.top.sugar.environment.sharedId) {
+					presence.createSharedActivity('org.sugarlabs.MazeWebActivity', function (groupId) {
+                        isHost = true;
+					});
+				}
+
+				// Show a disconnected message when the connection is closed.
+				presence.onConnectionClosed(function (event) {
+					console.log("Connection Closed");
+				});
+
+				// Display connection changed
+				presence.onSharedActivityUserChanged(function (msg) {
+                    if (isHost) {
+                        // Host will always share maze level with subscribers
+                        // so that the host will not lose game progress
+                        presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                			user: presenceObject.getUserInfo(),
+                			content: {
+                				data: gameSize
+                			}
+                		});
+                    }
                 });
-                if (presence) {
-                    presence.sendMessage(presence.getSharedInfo().id, {
-            			user: presence.getUserInfo()
-            		});
-                }
-                network.onDataReceived(onNetworkDataReceived);
-                network.onSharedActivityUserChanged(onNetworkUserChanged);
-            });
-        });
 
-        var onNetworkUserChanged = function(msg) {
-
-        	if (isHost) {
-        		presence.sendMessage(presence.getSharedInfo().id, {
-        			user: presence.getUserInfo(),
-        			content: {
-        				action: 'init',
-                        data: gameSize
-        			}
-        		});
-        	}
-        };
-
-        var onNetworkDataReceived = function(msg) {
-        	if (presence.getUserInfo().networkId === msg.user.networkId) {
-        		return;
-        	}
-        	switch (msg.content.action) {
-        		case 'init':
+				// Handle messages received
+				presence.onDataReceived(function (msg) {
                     gameSize = msg.content.data;
                     runLevel(gameSize);
-        			break;
-        		case 'update':
-        			break;
-        	}
-        };
+				});
+			});
+		}
+
+        if (window.top.sugar.environment.sharedId) {
+			shareActivity();
+			presencepalette.setShared(true);
+		}
+
+		// Create network palette
+        var networkButton = document.getElementById("network-button");
+		presencepalette = new presencepalette.PresencePalette(networkButton, undefined);
+		presencepalette.addEventListener('shared', shareActivity);
 
     });
 
