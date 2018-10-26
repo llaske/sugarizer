@@ -644,7 +644,9 @@ define([
                                 direction: maze.directions,
                                 fork: maze.forks,
                                 dirty: dirtyCells,
-                                status: levelStatus
+                                status: levelStatus,
+                                mazeWidth: maze.width,
+                                mazeHeight: maze.height
                 			}
                 		});
                     }
@@ -664,11 +666,13 @@ define([
                                 maze.forks = msg.content.fork;
                                 dirtyCells = msg.content.dirty;
                                 levelStatus = msg.content.status;
-                                maze.generate(window.innerWidth / window.innerHeight, gameSize);
+                                maze.width = msg.content.mazeWidth;
+                                maze.height = msg.content.mazeHeight;
+                                drawMaze();
                                 updateMazeSize();
                                 updateSprites();
-                                // players = {};
-                                // winner = undefined;
+                                players = {};
+                                winner = undefined;
                                 onLevelStart();
                     			break;
                     		case 'update':
@@ -680,7 +684,9 @@ define([
 
         if (window.top.sugar.environment.sharedId) {
 			shareActivity();
-			presencepalette.setShared(true);
+			if (isHost) {
+                presencepalette.setShared(true);
+            }
 		}
 
 		// Create network palette
