@@ -956,7 +956,10 @@
         }
 
         var nonSuckyBrowserPreviewSet = function (text) {
-            panels.preview.innerHTML = text;
+            var output = panels.preview.contentWindow.document;
+            output.open();
+            output.writeln(text);
+            output.close();
         }
 
         var previewSetter;
