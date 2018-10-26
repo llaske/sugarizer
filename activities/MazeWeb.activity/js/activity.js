@@ -643,7 +643,8 @@ define([
                                 visit: maze.visited,
                                 direction: maze.directions,
                                 fork: maze.forks,
-                                dirty: dirtyCells
+                                dirty: dirtyCells,
+                                status: levelStatus
                 			}
                 		});
                     }
@@ -655,14 +656,14 @@ define([
                     		case 'init':
                                 levelStartingValue = msg.content.value;
                                 gameSize = msg.content.size;
-                                maze.startPoint.x = msg.content.start;
-                                maze.goalPoint.y = msg.content.goal;
+                                maze.startPoint = msg.content.start;
+                                maze.goalPoint = msg.content.goal;
                                 maze.walls = msg.content.wall;
                                 maze.visited = msg.content.visit;
                                 maze.directions = msg.content.direction;
                                 maze.forks = msg.content.fork;
                                 dirtyCells = msg.content.dirty;
-                                drawMaze();
+                                levelStatus = msg.content.status;
                                 maze.generate(window.innerWidth / window.innerHeight, gameSize);
                                 updateMazeSize();
                                 updateSprites();
