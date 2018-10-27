@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
+- DOM-based XSS vulnerability in the MarkDown Editor Activity #158
 
 
 ## [1.0.1] - 2018-07-07
