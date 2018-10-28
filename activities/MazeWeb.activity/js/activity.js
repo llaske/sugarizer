@@ -38,9 +38,8 @@ define([
         var controlSprites = {};
 
         var presenceSharing = false;
-        var presencePlayer;
-        var presenceCount = 0;
-        // var presenceConnections[4];
+        var presencePlayers;
+        var hostControl;
 
         var players = {};
         var winner;
@@ -151,9 +150,24 @@ define([
                                 maze.visited = msg.content.visit;
                                 maze.directions = msg.content.direction;
                                 maze.forks = msg.content.fork;
+                                console.log(presencePlayers);
                                 dirtyCells.forEach(function (cell) {
                                     drawMazeCell(cell.x, cell.y);
                                 });
+
+                                break;
+
+                            case 'sendSprites':
+                                players = msg.content.sprite;
+                                presencePlayers = players;
+                                break;
+
+                            case 'hostPlayer':
+                                hostControl = msg.content.sendHost;
+                                break;
+
+                            case 'getPlayers':
+                                var currentControl = msg.content.sendPlayers;
                                 break;
                         }
                 });
@@ -307,6 +321,18 @@ define([
                 drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
             }
 
+            if (presenceObject) {
+                if (isHost) {
+                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                        user: presenceObject.getUserInfo(),
+                        content: {
+                            action: 'sendSprites',
+                            sprite: players
+                        }
+                    });
+                }
+            }
+
             for (control in players) {
                 var player = players[control];
                 if (x == player.x && y == player.y) {
@@ -452,6 +478,26 @@ define([
 
         var Player = function (control) {
             this.control = control;
+            if (presenceObject) {
+                if (isHost) {
+                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                        user: presenceObject.getUserInfo(),
+                        content: {
+                            action: 'hostPlayer',
+                            sendHost: this.control
+                        }
+                    });
+                }
+                else {
+                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                        user: presenceObject.getUserInfo(),
+                        content: {
+                            action: 'getPlayers',
+                            sendPlayers: this.control
+                        }
+                    });
+                }
+            }
             this.x = maze.startPoint.x;
             this.y = maze.startPoint.y;
             if (!(control in controlColors)) {
