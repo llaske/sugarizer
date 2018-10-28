@@ -32,7 +32,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 				if (spanElement.innerHTML == "Save to Sugarizer"){
 					spanElement.click();
 					console.log("Call saved successfully");
-					break;
 				}
 				else{
 					console.log("Unable to save");
@@ -51,7 +50,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 								document.getElementById("myBlocks").value = data;
 								spanElement.click();
 								console.log("Loaded successfully");
-								break;
 							}
 							else{
 								console.log("Unable to load");

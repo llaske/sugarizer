@@ -21,13 +21,7 @@ define(function (require) {
         if (title.trim() === '') {
             return false;
         }
-        var item = this.model.create(title
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-        );
+        var item = this.model.create(title);
         var list = document.getElementById("todo-list");
         list.innerHTML += this.view.show([item]);
         return true;
