@@ -38,8 +38,8 @@ define([
         var controlSprites = {};
 
         var presenceSharing = false;
-        var presencePlayers;
         var hostControl;
+        var presenceControls = [];
 
         var players = {};
         var winner;
@@ -150,24 +150,43 @@ define([
                                 maze.visited = msg.content.visit;
                                 maze.directions = msg.content.direction;
                                 maze.forks = msg.content.fork;
-                                console.log(presencePlayers);
                                 dirtyCells.forEach(function (cell) {
                                     drawMazeCell(cell.x, cell.y);
                                 });
-
-                                break;
-
-                            case 'sendSprites':
-                                players = msg.content.sprite;
-                                presencePlayers = players;
                                 break;
 
                             case 'hostPlayer':
                                 hostControl = msg.content.sendHost;
+                                presenceControls = msg.content.controls;
+                                var counter = 0;
+                                for (var i = 0; i < presenceControls.length; i ++) {
+                                    // Check for duplicate controls
+                                    if (presenceControls[i] == hostControl) {
+                                        counter += 1;
+                                    }
+                                }
+                                if (counter == 0) {
+                                    // Host control is unique
+                                    presenceControls.push(hostControl);
+                                    players[hostControl] = new Player(hostControl);
+                                }
                                 break;
 
                             case 'getPlayers':
                                 var currentControl = msg.content.sendPlayers;
+                                presenceControls = msg.content.controls;
+                                var counter = 0;
+                                for (var i = 0; i < presenceControls.length; i ++) {
+                                    // Check for duplicate controls
+                                    if (presenceControls[i] == currentControl) {
+                                        counter += 1;
+                                    }
+                                }
+                                if (counter == 0) {
+                                    // Current control is unique
+                                    presenceControls.push(currentControl);
+                                    players[currentControl] = new Player(currentControl);
+                                }
                                 break;
                         }
                 });
@@ -321,18 +340,6 @@ define([
                 drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
             }
 
-            if (presenceObject) {
-                if (isHost) {
-                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
-                        user: presenceObject.getUserInfo(),
-                        content: {
-                            action: 'sendSprites',
-                            sprite: players
-                        }
-                    });
-                }
-            }
-
             for (control in players) {
                 var player = players[control];
                 if (x == player.x && y == player.y) {
@@ -484,7 +491,8 @@ define([
                         user: presenceObject.getUserInfo(),
                         content: {
                             action: 'hostPlayer',
-                            sendHost: this.control
+                            sendHost: this.control,
+                            controls: presenceControls
                         }
                     });
                 }
@@ -493,7 +501,8 @@ define([
                         user: presenceObject.getUserInfo(),
                         content: {
                             action: 'getPlayers',
-                            sendPlayers: this.control
+                            sendPlayers: this.control,
+                            controls: presenceControls
                         }
                     });
                 }
