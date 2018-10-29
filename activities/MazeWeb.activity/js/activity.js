@@ -40,6 +40,8 @@ define([
         var presenceSharing = false;
         var hostControl;
         var presenceControls = [];
+        var checkEndGame = 0;
+        var presencePlayers = 0;
 
         var players = {};
         var winner;
@@ -85,10 +87,10 @@ define([
                 // Display connection changed
                 presence.onSharedActivityUserChanged(function (msg) {
                     presenceSharing = true;
+                    presencePlayers += 1;
                     if (isHost) {
                         // Host will always share maze level with subscribers
                         // so that the host will not lose game progress
-
                         presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
                             user: presenceObject.getUserInfo(),
                             content: {
@@ -104,7 +106,8 @@ define([
                                 dirty: dirtyCells,
                                 status: levelStatus,
                                 mazeWidth: maze.width,
-                                mazeHeight: maze.height
+                                mazeHeight: maze.height,
+                                playerCount: presencePlayers
                             }
                         });
                     }
@@ -127,6 +130,9 @@ define([
                                 levelStatus = msg.content.status;
                                 maze.width = msg.content.mazeWidth;
                                 maze.height = msg.content.mazeHeight;
+                                presencePlayers = msg.content.playerCount;
+
+                                presenceSharing = true;
 
                                 drawMaze();
                                 updateMazeSize();
@@ -146,10 +152,30 @@ define([
                                 dirtyCells = msg.content.dirty;
                                 Player.x = msg.content.mazeX;
                                 Player.y = msg.content.mazeY;
+                                maze.goalPoint = msg.content.goal;
                                 maze.walls = msg.content.wall;
                                 maze.visited = msg.content.visit;
                                 maze.directions = msg.content.direction;
                                 maze.forks = msg.content.fork;
+
+                                if (msg.content.mazeWinner.x == maze.goalPoint.x &&
+                                    msg.content.mazeWinner.y == maze.goalPoint.y) {
+                                        if (msg.content.mazeWinner != undefined) {
+                                            console.log(msg.content.mazeWinner.control + " won");
+                                            for (var i = 0; i < presenceControls.length; i ++) {
+                                                if (msg.content.mazeWinner.control == presenceControls[i]) {
+                                                    checkEndGame += 1;
+                                                }
+                                            }
+                                        }
+                                        if (checkEndGame == presencePlayers) {
+                                            console.log("Game has ended");
+                                            presenceSharing = false;
+                                            onLevelComplete(msg.content.mazeWinner);
+                                            presenceSharing = true;
+                                        }
+                                }
+
                                 dirtyCells.forEach(function (cell) {
                                     drawMazeCell(cell.x, cell.y);
                                 });
@@ -450,7 +476,9 @@ define([
 
         var onLevelComplete = function (player) {
             winner = player;
-            levelStatus = 'transition';
+            if (!presenceSharing) {
+                levelStatus = 'transition';
+            }
 
             var audio = new Audio('sounds/win'+soundType);
             audio.play();
@@ -459,12 +487,10 @@ define([
                 players[control].stop();
             }
 
-            var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
-                                  Math.pow(window.innerHeight, 2));
-
-            // In event of presence, allow next level only when all
-            // players have completed the maze
             if (!presenceSharing) {
+                var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
+                                      Math.pow(window.innerHeight, 2));
+
                 tween = new TWEEN.Tween({radius: 0});
                 tween.to({radius: hypot}, 1200);
                 tween.easing(TWEEN.Easing.Circular.Out);
@@ -670,7 +696,8 @@ define([
                             wall: maze.walls,
                             visit: maze.visited,
                             direction: maze.directions,
-                            fork: maze.forks
+                            fork: maze.forks,
+                            mazeWinner: that
                         }
                     });
                 }
