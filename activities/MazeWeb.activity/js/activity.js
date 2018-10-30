@@ -38,10 +38,11 @@ define([
         var controlSprites = {};
 
         var presenceSharing = false;
-        var hostControl;
         var presenceControls = [];
         var checkEndGame = 0;
         var presencePlayers = 0;
+        var identifyWinners = [];
+        var identifyPlayers = {};
 
         var players = {};
         var winner;
@@ -118,6 +119,12 @@ define([
                     switch (msg.content.action) {
                             case 'init':
                                 // Send maze
+                                presenceControls = [];
+                                checkEndGame = 0;
+                                presencePlayers = 0;
+                                identifyWinners = [];
+                                identifyPlayers = {};
+
                                 levelStartingValue = msg.content.value;
                                 gameSize = msg.content.size;
                                 maze.startPoint = msg.content.start;
@@ -134,12 +141,13 @@ define([
 
                                 presenceSharing = true;
 
+                                players = {};
+                                presenceControls = [];
+                                winner = undefined;
+
                                 drawMaze();
                                 updateMazeSize();
                                 updateSprites();
-
-                                players = {};
-                                winner = undefined;
 
                                 onLevelStart();
 
@@ -157,22 +165,36 @@ define([
                                 maze.visited = msg.content.visit;
                                 maze.directions = msg.content.direction;
                                 maze.forks = msg.content.fork;
+                                controlColors = msg.content.sendControlColors;
+                                controlSprites = msg.content.sendControlSprites;
+                                var player = msg.content.mazeWinner;
 
-                                if (msg.content.mazeWinner.x == maze.goalPoint.x &&
-                                    msg.content.mazeWinner.y == maze.goalPoint.y) {
-                                        if (msg.content.mazeWinner != undefined) {
-                                            console.log(msg.content.mazeWinner.control + " won");
+                                player.sprite.image = spriteCanvas;
+                                createPlayerSprite(player.control);
+
+                                if (player.x == maze.goalPoint.x &&
+                                    player.y == maze.goalPoint.y) {
+                                        if (player != undefined) {
+                                            identifyWinners.push(player.control);
+                                            var audio = new Audio('sounds/win'+soundType);
+                                            audio.play();
                                             for (var i = 0; i < presenceControls.length; i ++) {
-                                                if (msg.content.mazeWinner.control == presenceControls[i]) {
+                                                if (player.control == presenceControls[i]) {
                                                     checkEndGame += 1;
                                                 }
                                             }
                                         }
                                         if (checkEndGame == presencePlayers) {
                                             console.log("Game has ended");
+                                            console.log("Winner is " + identifyPlayers[identifyWinners[0]]);
                                             presenceSharing = false;
-                                            onLevelComplete(msg.content.mazeWinner);
+                                            onLevelComplete(player);
                                             presenceSharing = true;
+                                            presenceControls = [];
+                                            checkEndGame = 0;
+                                            presencePlayers = 0;
+                                            identifyWinners = [];
+                                            identifyPlayers = {};
                                         }
                                 }
 
@@ -181,26 +203,9 @@ define([
                                 });
                                 break;
 
-                            case 'hostPlayer':
-                                hostControl = msg.content.sendHost;
-                                presenceControls = msg.content.controls;
-                                var counter = 0;
-                                for (var i = 0; i < presenceControls.length; i ++) {
-                                    // Check for duplicate controls
-                                    if (presenceControls[i] == hostControl) {
-                                        counter += 1;
-                                    }
-                                }
-                                if (counter == 0) {
-                                    // Host control is unique
-                                    presenceControls.push(hostControl);
-                                    players[hostControl] = new Player(hostControl);
-                                }
-                                break;
-
                             case 'getPlayers':
-                                var currentControl = msg.content.sendPlayers;
                                 presenceControls = msg.content.controls;
+                                var currentControl = msg.content.sendPlayers;
                                 var counter = 0;
                                 for (var i = 0; i < presenceControls.length; i ++) {
                                     // Check for duplicate controls
@@ -210,9 +215,10 @@ define([
                                 }
                                 if (counter == 0) {
                                     // Current control is unique
+                                    identifyPlayers[currentControl] = msg.user.name;
                                     presenceControls.push(currentControl);
-                                    players[currentControl] = new Player(currentControl);
                                 }
+
                                 break;
                         }
                 });
@@ -338,7 +344,7 @@ define([
                           cellWidth * spriteData.x, cellHeight * spriteData.y,
                           cellWidth, cellHeight,
                           cellWidth * x, cellHeight * y,
-                          cellWidth, cellHeight)
+                          cellWidth, cellHeight);
         }
 
         var drawMazeCell = function (x, y, ctx) {
@@ -507,31 +513,44 @@ define([
         var nextLevel = function () {
             gameSize *= 1.2;
             runLevel();
+            if (isHost) {
+                // Host will always share maze level with subscribers
+                // so that the host will not lose game progress
+                presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                    user: presenceObject.getUserInfo(),
+                    content: {
+                        action: 'init',
+                        value: levelStartingValue,
+                        size: gameSize,
+                        start: maze.startPoint,
+                        goal: maze.goalPoint,
+                        wall: maze.walls,
+                        visit: maze.visited,
+                        direction: maze.directions,
+                        fork: maze.forks,
+                        dirty: dirtyCells,
+                        status: levelStatus,
+                        mazeWidth: maze.width,
+                        mazeHeight: maze.height,
+                        playerCount: presencePlayers
+                    }
+                });
+            }
         }
 
         var Player = function (control) {
             this.control = control;
             if (presenceObject) {
-                if (isHost) {
-                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
-                        user: presenceObject.getUserInfo(),
-                        content: {
-                            action: 'hostPlayer',
-                            sendHost: this.control,
-                            controls: presenceControls
-                        }
-                    });
-                }
-                else {
-                    presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
-                        user: presenceObject.getUserInfo(),
-                        content: {
-                            action: 'getPlayers',
-                            sendPlayers: this.control,
-                            controls: presenceControls
-                        }
-                    });
-                }
+                presenceObject.sendMessage(presenceObject.getSharedInfo().id, {
+                    user: presenceObject.getUserInfo(),
+                    content: {
+                        action: 'getPlayers',
+                        sendControlColors: controlColors,
+                        sendControlSprites: controlSprites,
+                        sendPlayers: this.control,
+                        controls: presenceControls
+                    }
+                });
             }
             this.x = maze.startPoint.x;
             this.y = maze.startPoint.y;
@@ -697,7 +716,9 @@ define([
                             visit: maze.visited,
                             direction: maze.directions,
                             fork: maze.forks,
-                            mazeWinner: that
+                            mazeWinner: that,
+                            sendControlColors: controlColors,
+                            sendControlSprites: controlSprites
                         }
                     });
                 }
