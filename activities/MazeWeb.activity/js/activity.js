@@ -45,6 +45,7 @@ define([
         var identifyPlayers = {};
 
         var players = {};
+        var player;
         var winner;
 
         var gameSize = 60;
@@ -119,12 +120,6 @@ define([
                     switch (msg.content.action) {
                             case 'init':
                                 // Send maze
-                                presenceControls = [];
-                                checkEndGame = 0;
-                                presencePlayers = 0;
-                                identifyWinners = [];
-                                identifyPlayers = {};
-
                                 levelStartingValue = msg.content.value;
                                 gameSize = msg.content.size;
                                 maze.startPoint = msg.content.start;
@@ -164,13 +159,12 @@ define([
                                 maze.forks = msg.content.fork;
                                 controlColors = msg.content.sendControlColors;
                                 controlSprites = msg.content.sendControlSprites;
-                                var player = msg.content.mazeWinner;
+                                player = msg.content.mazeWinner;
 
                                 player.sprite.x = msg.content.mazeX;
                                 player.sprite.y = msg.content.mazeY;
 
                                 player.sprite.image = spriteCanvas;
-                                createPlayerSprite(player.control);
 
                                 console.log(player);
 
@@ -207,6 +201,7 @@ define([
                                 break;
 
                             case 'getPlayers':
+
                                 presenceControls = msg.content.controls;
                                 var currentControl = msg.content.sendPlayers;
                                 var counter = 0;
@@ -220,6 +215,9 @@ define([
                                     // Current control is unique
                                     identifyPlayers[currentControl] = msg.user.name;
                                     presenceControls.push(currentControl);
+                                }
+                                else {
+                                    // Do something **
                                 }
 
                                 break;
@@ -343,6 +341,7 @@ define([
         }
 
         var drawSprite = function (ctx, x, y, spriteData) {
+            spriteData.image = spriteCanvas;
             ctx.drawImage(spriteData.image,
                           cellWidth * spriteData.x, cellHeight * spriteData.y,
                           cellWidth, cellHeight,
@@ -551,7 +550,8 @@ define([
                         sendControlColors: controlColors,
                         sendControlSprites: controlSprites,
                         sendPlayers: this.control,
-                        controls: presenceControls
+                        controls: presenceControls,
+                        that: this
                     }
                 });
             }
