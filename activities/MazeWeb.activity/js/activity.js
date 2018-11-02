@@ -157,8 +157,6 @@ define([
                                 // Send move
 
                                 dirtyCells = msg.content.dirty;
-                                Player.x = msg.content.mazeX;
-                                Player.y = msg.content.mazeY;
                                 maze.goalPoint = msg.content.goal;
                                 maze.walls = msg.content.wall;
                                 maze.visited = msg.content.visit;
@@ -168,8 +166,13 @@ define([
                                 controlSprites = msg.content.sendControlSprites;
                                 var player = msg.content.mazeWinner;
 
+                                player.sprite.x = msg.content.mazeX;
+                                player.sprite.y = msg.content.mazeY;
+
                                 player.sprite.image = spriteCanvas;
                                 createPlayerSprite(player.control);
+
+                                console.log(player);
 
                                 if (player.x == maze.goalPoint.x &&
                                     player.y == maze.goalPoint.y) {
@@ -709,8 +712,8 @@ define([
                         content: {
                             action: 'update',
                             dirty: dirtyCells,
-                            mazeX: Player.x,
-                            mazeY: Player.y,
+                            mazeX: that.x,
+                            mazeY: that.y,
                             goal: maze.goalPoint,
                             wall: maze.walls,
                             visit: maze.visited,
