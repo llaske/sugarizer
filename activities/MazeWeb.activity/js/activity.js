@@ -142,7 +142,6 @@ define([
                                 presenceSharing = true;
 
                                 players = {};
-                                presenceControls = [];
                                 winner = undefined;
 
                                 drawMaze();
@@ -176,6 +175,7 @@ define([
                                     player.y == maze.goalPoint.y) {
                                         if (player != undefined) {
                                             identifyWinners.push(player.control);
+                                            console.log(player.control);
                                             var audio = new Audio('sounds/win'+soundType);
                                             audio.play();
                                             for (var i = 0; i < presenceControls.length; i ++) {
