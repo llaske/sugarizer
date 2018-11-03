@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - DOM-based XSS vulnerability in the MarkDown Editor Activity #158
 - DOM-based XSS vulnerability in the Get Things Done Activity #160
 
+### Removed
+- Remove Cordova activity
+- Remove Welcome Web activity
+
 
 ## [1.0.1] - 2018-07-07
 ### Added
