@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Desktop version for GNU Linux, MacOS and Windows using electron
 - Ebook Reader activity
 - Exerciser activity
+- Sprint Math activity
 - Add a sort palette in Journal
 - Allow action on multiple items in Journal
 - Copy from Journal to device now available on all platforms
