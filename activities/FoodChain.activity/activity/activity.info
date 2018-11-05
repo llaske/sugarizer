@@ -1,7 +1,7 @@
 [Activity]
 name = FoodChain
 activity_version = 4
-license = Apache 2.0 license
+license = ASL 2.0
 bundle_id = org.olpcfrance.FoodChain
 exec = sugar-activity-web
 icon = activity-icon
