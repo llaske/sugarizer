@@ -1,7 +1,7 @@
 [Activity]
 name = Grid Paint
 activity_version = 2
-license = Apache 2.0 license
+license = ASL 2.0
 bundle_id = org.olpcfrance.Gridpaint
 exec = sugar-activity-web
 icon = activity-icon
