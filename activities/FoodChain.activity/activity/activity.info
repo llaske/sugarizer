@@ -1,6 +1,15 @@
 [Activity]
 name = FoodChain
 activity_version = 4
+license = Apache 2.0 license
 bundle_id = org.olpcfrance.FoodChain
 exec = sugar-activity-web
 icon = activity-icon
+summary = FoodChain is a pedagogical game to learn name of animals.
+tags = Science;Game
+repository = https://github.com/llaske/FoodChain
+url = http://activities.sugarlabs.org/en-US/sugar/addon/4612
+screenshots = http://activities.sugarlabs.org/en-US/sugar/images/t/902/1352414186 http://activities.sugarlabs.org/en-US/sugar/images/t/904/1352414187
+description:
+         <p>FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?</p>
+         <p>The activity is composed of 3 little games with 20 levels of growing complexity.</p>
