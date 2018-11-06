@@ -7,8 +7,7 @@ exec = sugar-activity-web
 icon = activity-icon
 summary = Grid Paint is a simple paint activity for kids to drawing pictures using a grid of triangles.
 tags = Art
-repository = https://github.com/llaske/Gridpaint.activity
-url = http://activities.sugarlabs.org/en-US/sugar/addon/4647
-screenshots = http://activities.sugarlabs.org/en-US/sugar/images/t/964/1359929794 http://activities.sugarlabs.org/en-US/sugar/images/t/965/1359929795
+repository = https://github.com/llaske/sugarizer
+screenshots = https://github.com/Gabbar8055/sugarizer/blob/master/activities/Gridpaint.activity/screenshots/1.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/Gridpaint.activity/screenshots/2.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/Gridpaint.activity/screenshots/3.PNG
 description:
         <p>Grid Paint is a simple paint activity for kids to drawing pictures using a grid of triangles. In this activity you can fill the different colours in a grid of right-angled triangle and paint something creative.</p>
