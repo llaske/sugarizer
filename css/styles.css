@@ -1117,6 +1117,12 @@ body {
 	top: 32px;
 }
 
+.first-help {
+	position: absolute;
+	top: 10px;
+	right: 30px;
+}
+
 .first-namebox {
 	height: 100%;
 	padding-bottom: 100%;

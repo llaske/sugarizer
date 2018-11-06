@@ -5,6 +5,7 @@ enyo.kind({
 	name: "Sugar.FirstScreen",
 	kind: enyo.Control,
 	components: [
+		{name: "helpbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "help.svg"}, colorized: true, colorizedColor: {stroke: "#666666", fill: "#ffffff"}, ontap: "startTutorial", classes: "first-help"},
 		{name: "namebox", classes: "first-namebox", onresize: "resize", showing: false, components: [
 			{name: "nameline", classes: "first-nameline", components: [
 				{name: "nametext", content: "xxx", classes: "first-nametext"},
@@ -89,7 +90,15 @@ enyo.kind({
 	},
 
 	getView: function() {
-		return constant.radialView;
+		return constant.initView;
+	},
+
+	getStep: function() {
+		return this.step;
+	},
+
+	isCreatingNewUser: function() {
+		return this.createnew;
 	},
 
 	setupHistory: function(inSender, inEvent) {
@@ -459,6 +468,21 @@ enyo.kind({
 				that.$.password.startInputListening();
 			}
 		});
+	},
+
+	// Display tutorial
+	startTutorial: function() {
+		tutorial.setElement("newuser", this.$.newuser.getAttribute("id"));
+		tutorial.setElement("login", this.$.login.getAttribute("id"));
+		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
+		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
+		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
+		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
+		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
+		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
+		tutorial.setElement("next", this.$.next.getAttribute("id"));
+		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.start();
 	},
 
 	// Launch desktop

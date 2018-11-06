@@ -19,6 +19,7 @@ constant.ringAdjustAngleFactor = 3.6;
 constant.ringAdjustSizeFactor = 0.9;
 constant.ringMinRadiusSize = 108;
 
+constant.initView = -1;
 constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
