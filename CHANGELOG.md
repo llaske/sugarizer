@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
 - DOM-based XSS vulnerability in the MarkDown Editor Activity #158
 - DOM-based XSS vulnerability in the Get Things Done Activity #160
+- Save Stopwatch activity context in Journal #201
 
 ### Removed
 - Remove Cordova activity
