@@ -7,9 +7,8 @@ exec = sugar-activity-web
 icon = activity-icon
 summary = FoodChain is a pedagogical game to learn name of animals.
 tags = Science;Game
-repository = https://github.com/llaske/FoodChain
-url = http://activities.sugarlabs.org/en-US/sugar/addon/4612
-screenshots = http://activities.sugarlabs.org/en-US/sugar/images/t/902/1352414186 http://activities.sugarlabs.org/en-US/sugar/images/t/904/1352414187
+repository = https://github.com/llaske/sugarizer
+screenshots = https://github.com/Gabbar8055/sugarizer/blob/master/activities/FoodChain.activity/screenshots/1.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/FoodChain.activity/screenshots/2.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/FoodChain.activity/screenshots/3.PNG
 description:
          <p>FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?</p>
          <p>The activity is composed of 3 little games with 20 levels of growing complexity.</p>
