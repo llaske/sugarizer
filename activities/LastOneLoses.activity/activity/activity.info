@@ -6,9 +6,8 @@ icon = activity-icon
 activity_version = 2
 summary = Last One Loses (LOL) is a small game against the computer.
 tags = Maths;Game
-repositry = https://github.com/sugarlabs/last-one-loses-activity
-url = http://activities.sugarlabs.org/en-US/sugar/addon/4717
+repositry = https://github.com/llaske/sugarizer
 licence = ASL 2.0
 description:
          <p>Last One Loses (LOL) is a small game against the computer. Each one had to get between 1 to 3 items on the board. The one which get the last one on the board loses the game.</p>
-screenshots = http://activities.sugarlabs.org/en-US/sugar/images/t/1104/1383318203 http://activities.sugarlabs.org/en-US/sugar/images/t/1105/1383318203
+screenshots = https://github.com/Gabbar8055/sugarizer/blob/master/activities/LastOneLoses.activity/screenshots/1.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/LastOneLoses.activity/screenshots/2.PNG https://github.com/Gabbar8055/sugarizer/blob/master/activities/LastOneLoses.activity/screenshots/3.PNG
