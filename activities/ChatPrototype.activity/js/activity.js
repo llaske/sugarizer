@@ -5,7 +5,30 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
     requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
-        activity.setup();
+		activity.setup();
+		
+		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
+		//sanitize html messages
+		var tagOrComment = new RegExp(
+			'<(?:'
+			// Comment body.
+			+ '!--(?:(?:-*[^->])*--+|-?)'
+			// Special "raw text" elements whose content should be elided.
+			+ '|script\\b' + tagBody + '>[\\s\\S]*?</script\\s*'
+			+ '|style\\b' + tagBody + '>[\\s\\S]*?</style\\s*'
+			// Regular name
+			+ '|/?[a-z]'
+			+ tagBody
+			+ ')>',
+			'gi');
+		function removeTags(html) {
+			var oldHtml;
+			do {
+				oldHtml = html;
+				html = html.replace(tagOrComment, '');
+			} while (html !== oldHtml);
+		return html.replace(/</g, '&lt;');
+		}
 
         var form = document.getElementById('message-form');
         var messageField = document.getElementById('message');
@@ -88,7 +111,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 		// Handle message text update
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
-				var message = messageField.value;
+				var message = removeTags(messageField.value);
 
 				// Send the message through the WebSocket.
 				var toSend = {user: userSettings, content: message};
