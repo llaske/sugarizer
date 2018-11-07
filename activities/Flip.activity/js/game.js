@@ -44,14 +44,23 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	}
 
 	this.checkGameOver = function(){
+		var fgWin = true;
+		var bgWin = true;
 		for (var x = 0; x<this.startgridwidth; x++){
 			for (var y = 0; y<this.startgridheight; y++){
 				if (this.dots[x][y].colour!=0){
-					return false;
+					bgWin = false;
+				}
+				if (this.dots[x][y].colour!=1){
+					fgWin = false;
 				}
 			}
 		}
-		return true;
+		if(bgWin || fgWin) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	//Flipping
@@ -101,6 +110,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 			this.flip(dot[0],dot[1],false,false);
 			//var t = this;
 			//this.solveTimeout = setTimeout(function(){t.solve();},750);
+		}
+		if(this.checkGameOver()) {
+			this.gameOver();
 		}
 	}
 
