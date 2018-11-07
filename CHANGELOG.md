@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - DOM-based XSS vulnerability in the MarkDown Editor Activity #158
 - DOM-based XSS vulnerability in the Get Things Done Activity #160
 - Save Stopwatch activity context in Journal #201
+- Flip activity don't detect end of game #215
 
 ### Removed
 - Remove Cordova activity
