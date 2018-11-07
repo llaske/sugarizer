@@ -171,6 +171,7 @@ background-size: 100% 1.2em;
   height: 60%;
 }
 
+
 /* This probably should be upstream (sugar-web, I don't know why
    the separators in the toolbars are wrong */
 
@@ -191,3 +192,101 @@ background-size: 100% 1.2em;
 	display: inline-block;
 	vertical-align: bottom;
 }
+
+
+/*For smartphone mode*/
+
+@media only screen and (min-width: 320px) {
+    
+    .toolbar .toolbutton{
+        width: 9px;
+        margin: 4px 0.01px;
+    }
+}
+
+
+@media only screen and (min-width: 360px) {
+    
+    .toolbar .toolbutton{
+        position: relative;
+        width: 13px;
+        margin: 4px 0.01px;
+        padding: 1px;
+    }
+    
+}
+
+
+@media only screen and (min-width: 414px) {
+    .toolbar .toolbutton{
+        width: 18px;
+        margin: 4px 0.01px;
+    }
+}
+
+@media only screen and (min-width: 667px) {
+    .toolbar #stop-button{
+        position: relative;
+        right: 20px;
+        margin: 4px 2px;
+    }
+    .toolbar .toolbutton{
+        width: 40px;
+        margin: 4px 0.01px;
+    }
+}
+
+@media only screen and (min-width: 735px) {
+    .toolbar #stop-button{
+        position: relative;
+        right: 35px;
+        margin: 4px 2px;
+    }
+    .toolbar .toolbutton{
+        width: 47px;
+        margin: 4px 0.01px;
+    }
+}
+
+
+
+@media only screen and (min-width: 1080px) {
+    .toolbar #stop-button{
+        position: relative;
+        right: 500px;
+        margin: 4px 2px;
+    }
+   
+    .toolbar .toolbutton {
+        width: 30px;
+        height: 47px;
+        margin: 4px 2px;
+    }
+}
+
+@media only screen and (min-width:1366px) {
+   
+    .toolbar .toolbutton {
+        width: 47px;
+        height: 47px;
+        margin: 4px 2px;
+    }
+}
+
+
+@media only screen and (min-width: 1920px) {
+   
+    .toolbar #stop-button{
+        position: relative;
+        right: 1340px;
+        margin: 4px 2px;
+    }
+   
+    .toolbar .toolbutton {
+        width: 30px;
+        height: 47px;
+        margin: 4px 2px;
+    }
+}
+
+
