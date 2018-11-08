@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Stopwatch activity context in Journal #201
 - Flip activity don't detect end of game #215
 - Align buttons better in tutorial #135
+- ChatPrototype activity does not sanitize input #225
 
 ### Removed
 - Remove Cordova activity
