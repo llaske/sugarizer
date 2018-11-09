@@ -3,6 +3,7 @@
 var app = null;
 var toolbar = null;
 var mouse = {position: {x: -1, y: -1}};
+var isFirstLaunch = false;
 var iconLib;
 var xoPalette;
 var radioButtonsGroup;
@@ -115,6 +116,14 @@ enyo.kind({
 				}
 			);
 		}
+
+		// Launch tutorial at first launch 
+		var that = this;
+		window.setTimeout(function() {
+			if (isFirstLaunch) {
+				that.getToolbar().startTutorial();
+			}
+		}, constant.timerBeforeTutorial);
 	},
 
 	// Load and sort journal

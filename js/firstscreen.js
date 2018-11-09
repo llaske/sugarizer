@@ -89,6 +89,20 @@ enyo.kind({
 		util.hideNativeToolbar();
 	},
 
+	// Render
+	rendered: function() {
+		this.inherited(arguments);
+
+		// At first launch, display tutorial
+		var that = this;
+		window.setTimeout(function() {
+			if (that.history.length == 0) {
+				that.startTutorial();
+			}
+		}, constant.timerBeforeTutorial);
+
+	},
+
 	getView: function() {
 		return constant.initView;
 	},
@@ -489,6 +503,7 @@ enyo.kind({
 	launchDesktop: function() {
 		document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
 		document.getElementById("canvas").style.overflowY = "auto";
+		isFirstLaunch = (this.history.length == 0 && this.createnew);
 		app = new Sugar.Desktop();
 		app.renderInto(document.getElementById("canvas"));
 		preferences.save();
