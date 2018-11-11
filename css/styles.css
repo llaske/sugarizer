@@ -2070,6 +2070,10 @@ body {
 		margin-left: 350px;
 	}
 
+	.activity-help {
+		margin-left: 600px !important;
+	}
+
 	.journal-filter-favorite {
 		left: 270px;
 	}
@@ -2081,6 +2085,12 @@ body {
 @media screen and (max-width: 635px) {
 	.journal-filterdate-palette {
 		visibility: hidden;
+	}
+}
+@media screen and (max-width: 660px) {
+	.activity-help {
+		visibility: hidden;
+		margin-left: 0px !important;
 	}
 }
 @media screen and (min-width: 660px) {

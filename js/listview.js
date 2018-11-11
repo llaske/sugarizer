@@ -14,7 +14,8 @@ enyo.kind({
 				{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "doSwitchFavorite"},
 				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
-				{name: "version", classes: "activity-version"}
+				{name: "version", classes: "activity-version"},
+				{name: "help", kind: "Sugar.Icon", classes: "activity-help", x: 800, y: 4, showing: false, size: constant.iconSizeList, ontap:"doHelp"}
 			]}
 		]}
 	],
@@ -39,6 +40,10 @@ enyo.kind({
 				t.draw();
 			});
 		}
+	},
+
+	localize: function() {
+		this.activitiesChanged();
 	},
 
 	computeSize: function() {
@@ -98,6 +103,10 @@ enyo.kind({
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
+		inEvent.item.$.help.setIcon({directory: "icons", icon: "help.svg"});
+		inEvent.item.$.help.setColorized(true);
+		inEvent.item.$.help.setColorizedColor({stroke: "#666666", fill: "#ffffff"});
+		inEvent.item.$.help.setShowing(!activitiesList[inEvent.index].isNative);
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.name.addClass("rtl-14");
 			inEvent.item.$.version.addClass("rtl-14");
@@ -191,6 +200,28 @@ enyo.kind({
 	nofilter: function() {
 		app.getToolbar().setSearchText("");
 		app.filterActivities();
+	},
+
+	// Display help popup
+	doHelp: function(inSender, inEvent) {
+		var activitiesList = sorted(this.activities);
+		var activities = [];
+		for (var i = 0 ; i < activitiesList.length ; i++) {
+			var activity = activitiesList[i];
+			if (activity.isNative || activity.type == "native") {
+				continue;
+			}
+			var title = l10n.get('NameActivity', {name: activity.name});
+			var icon = {icon: activity.icon, directory: activity.directory, size: constant.sizeEmpty};
+			var description = l10n.get('TutoActivity'+activity.directory.substr(activity.directory.indexOf("/")+1).replace('.',''));
+			if (i == inEvent.index) {
+				tutorial.setElement("step", activities.length);
+			}
+			activities.push({title: title, icon: icon, description: description, step: i});
+		}
+		tutorial.setElement("activities", activities);
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
+		tutorial.start();
 	}
 });
 

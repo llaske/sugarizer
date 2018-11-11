@@ -36,6 +36,7 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Init screen
+		app = this;
 		this.inherited(arguments);
 		this.timer = null;
 		this.otherview = null;
@@ -117,7 +118,7 @@ enyo.kind({
 			);
 		}
 
-		// Launch tutorial at first launch 
+		// Launch tutorial at first launch
 		var that = this;
 		window.setTimeout(function() {
 			if (isFirstLaunch) {
@@ -228,6 +229,12 @@ enyo.kind({
 		}
 		this.draw();
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+	},
+
+	localize: function() {
+		if (this.otherview && this.otherview.localize) {
+			this.otherview.localize();
+		}
 	},
 
 	// Draw desktop
@@ -728,6 +735,9 @@ enyo.kind({
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
+		if (app.localize) {
+			app.localize();
+		}
 	},
 
 	askRedraw: function() {

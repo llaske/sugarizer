@@ -43,6 +43,7 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Init screen
+		app = this;
 		this.inherited(arguments);
 		this.$.nametext.setContent(l10n.get("Name"));
 		this.$.servertext.setContent(l10n.get("ServerUrl"));
@@ -105,14 +106,6 @@ enyo.kind({
 
 	getView: function() {
 		return constant.initView;
-	},
-
-	getStep: function() {
-		return this.step;
-	},
-
-	isCreatingNewUser: function() {
-		return this.createnew;
 	},
 
 	setupHistory: function(inSender, inEvent) {
@@ -496,6 +489,8 @@ enyo.kind({
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
 		tutorial.setElement("next", this.$.next.getAttribute("id"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.setElement("createnew", this.createnew);
+		tutorial.setElement("currentstep", this.step);
 		tutorial.start();
 	},
 
