@@ -4,6 +4,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.circleswidth = 0;
 	this.circlesheight = 0;
 	this.colours = [xocolor.stroke,xocolor.fill];
+	this.turns = 1;
 
 	this.gridwidth = 7;
 	this.gridheight = 7;
@@ -16,7 +17,6 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 
 	this.solveTimeout;
 	this.newGameTimeout;
-
 
 	//Helper functions
 	this.radiusFromX = function(){
@@ -64,8 +64,27 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	}
 
 	//Flipping
-
 	this.flip = function(x,y,playing,stack){
+		this.turns = this.turns+1;
+		document.getElementById("fliptext").innerHTML = "Turn " + (this.turns);
+		switch(this.turns){
+			case 80:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #f00";
+				break;
+			case 70:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #ff410b";
+				break;
+			case 50:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #ff7e00";
+				break;
+			case 25:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #c7ff00";
+				break;
+			case 5:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
+				console.log("12");
+				break;
+		}
 		if (playing===undefined){playing=true;}
 		if (stack===undefined){stack=true;}
 		if (stack){
@@ -232,6 +251,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		for (var i = 0; i<14; i++){
 			this.flipRandomDot();
 		}
+		this.turns = 0;
+		document.getElementById("fliptext").innerHTML = "Turn " + (this.turns);
+		document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
 	}
 
 	this.setSize = function(size){

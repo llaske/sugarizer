@@ -23,10 +23,13 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 	function init(){
 		canvas = document.getElementById('actualcanvas');
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight-55;
+		canvas.height = window.innerHeight-200;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
+
+		document.getElementById("flip-count").style.color = colors['stroke'];
+		document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
 
 		createjs.Ticker.setFPS(30);
 		createjs.Ticker.addEventListener("tick", handleTick);
