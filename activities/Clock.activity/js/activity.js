@@ -16,15 +16,19 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             } else {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
-                        console.log(data);
-                        clock.changeFace(data[0]);
+                        face=data[0];
+                        if(data[0]=="simple"){
+                            simpleClockButton.onclick();
+                        }else if(data[0]=="nice"){
+                            niceClockButton.onclick();
+                        }
                         if(data[1]=="block"){
-                            clock.changeWriteTime(true);
                             writeTime=true;
+                            writeTimeButton.onclick();
                         }
                         if(data[2]=="block"){
-                            clock.changeWriteDate(true);
-                            writeDate=true;;
+                            writeDate=true;
+                            writeDateButton.onclick();
                         }
                     }
                 });
