@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activity/flipdot'], function (act) {
+define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/game','activity/flipdot'], function (act, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -9,7 +9,15 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activ
 			act.getXOColor(function (error, colors) {
 				runactivity(act,doc,colors,env,datastore,sizepalette);
 			});
-		});
+			env.getEnvironment(function(err, environment) {
+				currentenv = environment;
+			
+				// Set current language to Sugarizer
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				webL10n.language.code = language;
+			});
+				});
 	});
 
 });
