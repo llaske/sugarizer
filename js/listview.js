@@ -103,9 +103,8 @@ enyo.kind({
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
-		inEvent.item.$.help.setIcon({directory: "icons", icon: "help.svg"});
-		inEvent.item.$.help.setColorized(true);
-		inEvent.item.$.help.setColorizedColor({stroke: "#666666", fill: "#ffffff"});
+		inEvent.item.$.help.setIcon({directory: "icons", icon: "help-rev.svg"});
+		inEvent.item.$.help.setColorized(false);
 		inEvent.item.$.help.setShowing(!activitiesList[inEvent.index].isNative);
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.name.addClass("rtl-14");
