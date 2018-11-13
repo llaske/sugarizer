@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Align buttons better in tutorial #135
 - ChatPrototype activity does not sanitize input #225
 - Fototoon close icon missing in small screens #213
+- Save Clock activity settings in Journal #204
 
 ### Removed
 - Remove Cordova activity
