@@ -64,6 +64,7 @@ background-color: #C0C0C0;
 #flip-count {
   flex: 1;
   text-align: center;
-  font-size: 72px;
+  font-size: 8vh;
   font-weight: 800;
+  padding-bottom: 2vh;
 }
