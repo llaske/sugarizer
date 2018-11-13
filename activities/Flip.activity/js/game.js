@@ -71,13 +71,13 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		diffind = this.turns - this.level*3;
 		console.log(diffind);
 		switch(diffind){
-			case 25:
+			case 40:
 				document.getElementById("fliptext").style.borderBottom = "5px solid #f00";
 				break;
-			case 20:
+			case 30:
 				document.getElementById("fliptext").style.borderBottom = "5px solid #ff410b";
 				break;
-			case 15:
+			case 20:
 				document.getElementById("fliptext").style.borderBottom = "5px solid #ff7e00";
 				break;
 			case 10:
