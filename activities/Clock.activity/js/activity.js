@@ -16,19 +16,28 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             } else {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
-                        face=data[0];
+                        Clock.face=data[0];
+                        console.log(data);
                         if(data[0]=="simple"){
-                            simpleClockButton.onclick();
-                        }else if(data[0]=="nice"){
-                            niceClockButton.onclick();
+                            document.getElementById("simple-clock-button").classList.add("active");
+                            document.getElementById("nice-clock-button").classList.remove("active");
+                            clock.changeFace("simple");
+                        }else{
+                            document.getElementById("nice-clock-button").classList.add("active");
+                            document.getElementById("simple-clock-button").classList.remove("active");
+                            clock.changeFace("nice");
                         }
                         if(data[1]=="block"){
-                            writeTime=true;
-                            writeTimeButton.onclick();
+                            document.getElementById("write-time-button").classList.add("active");
+                            clock.changeWriteTime(true);
+                        }else{
+                            document.getElementById("write-time-button").classList.remove("active");
                         }
                         if(data[2]=="block"){
-                            writeDate=true;
-                            writeDateButton.onclick();
+                            document.getElementById("write-date-button").classList.add("active");
+                            clock.changeWriteDate(true);
+                        }else{
+                            document.getElementById("write-date-button").classList.remove("active");
                         }
                     }
                 });
@@ -126,6 +135,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.changeFace = function (face) {
             this.face = face;
             this.drawBackground();
+            array[0]=face;
         }
 
 
@@ -137,14 +147,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.textTimeElem.style.display = "none";
             }
             array[1]=this.textTimeElem.style.display;
-            activity.getDatastoreObject().setDataAsText(array);
-            activity.getDatastoreObject().save(function (error) {
-                if (error === null) {
-                    console.log("write done.");
-                } else {
-                    console.log("write failed.");			
-                }
-            });
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -158,14 +160,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.textDateElem.style.display = "none";
             }
             array[2]=this.textDateElem.style.display;
-            activity.getDatastoreObject().setDataAsText(array);
-            activity.getDatastoreObject().save(function (error) {
-                if (error === null) {
-                    console.log("write done.");
-                } else {
-                    console.log("write failed.");			
-                }
-            });
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -398,29 +392,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         var simpleClockButton = document.getElementById("simple-clock-button");
         simpleClockButton.onclick = function () {
             clock.changeFace("simple");
-            array[0] = "simple";
-            activity.getDatastoreObject().setDataAsText(array);
-            activity.getDatastoreObject().save(function (error) {
-                if (error === null) {
-                    console.log("write done.");
-                } else {
-                    console.log("write failed.");			
-                }
-            });
         };
 
         var niceClockButton = document.getElementById("nice-clock-button");
         niceClockButton.onclick = function () {
             clock.changeFace("nice");
-            array[0] = "nice";
-            activity.getDatastoreObject().setDataAsText(array);
-            activity.getDatastoreObject().save(function (error) {
-                if (error === null) {
-                    console.log("write done.");
-                } else {
-                    console.log("write failed.");			
-                }
-            });
         };
 
         var simpleNiceRadio = new radioButtonsGroup.RadioButtonsGroup(
@@ -441,5 +417,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             clock.changeWriteDate(active);
         };
 
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+            activity.getDatastoreObject().setDataAsText(array);
+            activity.getDatastoreObject().save(function (error) {
+                if (error === null) {
+                    console.log("write done.");
+                } else {
+                    console.log("write failed.");
+                }
+            });
+        });
     });
 });
