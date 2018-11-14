@@ -4,6 +4,8 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.circleswidth = 0;
 	this.circlesheight = 0;
 	this.colours = [xocolor.stroke,xocolor.fill];
+	this.level = 4;
+	this.turns = 1;
 
 	this.gridwidth = 7;
 	this.gridheight = 7;
@@ -16,7 +18,6 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 
 	this.solveTimeout;
 	this.newGameTimeout;
-
 
 	//Helper functions
 	this.radiusFromX = function(){
@@ -64,8 +65,10 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	}
 
 	//Flipping
-
 	this.flip = function(x,y,playing,stack){
+		this.turns = this.turns+1;
+		document.getElementById("turnno").innerHTML = " " + (this.turns);
+		this.drawIndicator();
 		if (playing===undefined){playing=true;}
 		if (stack===undefined){stack=true;}
 		if (stack){
@@ -89,6 +92,28 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 			if (this.checkGameOver()){
 				this.gameOver();
 			}
+		}
+	}
+	this.drawIndicator = function() {
+		diffind = this.turns - this.level*3;
+		console.log(diffind);
+		switch(diffind){
+			case 40:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #f00";
+				break;
+			case 30:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #ff410b";
+				break;
+			case 20:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #ff7e00";
+				break;
+			case 10:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #c7ff00";
+				break;
+			case 5:
+				document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
+				console.log("12");
+				break;
 		}
 	}
 
@@ -143,6 +168,8 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		arr.startgridwidth = this.startgridwidth;
 		arr.startgridheight = this.startgridheight;
 		arr.dots = [];
+		arr.turns = this.turns;
+		arr.indcolour = document.getElementById("fliptext").style.borderBottom;
 		for (var x = 0; x<this.startgridwidth; x++){
 			temparr = [];
 			for (var y = 0; y<this.startgridheight; y++){
@@ -232,12 +259,16 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		for (var i = 0; i<14; i++){
 			this.flipRandomDot();
 		}
+		this.turns = 1;
+		document.getElementById("turnno").innerHTML = " " + (this.turns);
+		document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
 	}
 
 	this.setSize = function(size){
 		this.startgridwidth = size;
 		this.startgridheight = size;
 		this.newGame();
+		this.level = size;
 	}
 
 	this.init = function(){
@@ -245,6 +276,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		//console.log(activity.getDatastoreObject());
 		this.palette = new sizepalette.SizePalette(this,doc.getElementById('size-button'),undefined);
 		activity.getDatastoreObject().getMetadata(this.init_canaccessdatastore.bind(this));
+		document.getElementById("turnno").innerHTML = " " + (this.turns);
+		this.drawIndicator();
+		this.palette.setUsed();
 	}
 
 	this.init_canaccessdatastore = function(error,mdata){
@@ -271,6 +305,8 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		this.stack = data.stack;
 		this.startgridwidth = data.startgridwidth;
 		this.startgridheight = data.startgridheight;
+		this.turns = data.turns;
+		document.getElementById("fliptext").style.borderBottom = data.indcolour;
 		clearTimeout(this.newGameTimeout);
 		clearTimeout(this.solveTimeout);
 		stage.removeAllChildren();

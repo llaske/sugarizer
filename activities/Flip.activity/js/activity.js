@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activity/flipdot'], function (act) {
+define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/game','activity/flipdot'], function (act, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -9,7 +9,15 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activ
 			act.getXOColor(function (error, colors) {
 				runactivity(act,doc,colors,env,datastore,sizepalette);
 			});
-		});
+			env.getEnvironment(function(err, environment) {
+				currentenv = environment;
+			
+				// Set current language to Sugarizer
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				webL10n.language.code = language;
+			});
+				});
 	});
 
 });
@@ -23,10 +31,13 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 	function init(){
 		canvas = document.getElementById('actualcanvas');
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight-55;
+		canvas.height = window.innerHeight-200;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
+
+		document.getElementById("flip-count").style.color = colors['stroke'];
+		document.getElementById("fliptext").style.borderBottom = "5px solid #00ff1b";
 
 		createjs.Ticker.setFPS(30);
 		createjs.Ticker.addEventListener("tick", handleTick);
@@ -39,7 +50,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.height = window.innerHeight-200;
 			g.initialiseFromArray();
 		}
 
