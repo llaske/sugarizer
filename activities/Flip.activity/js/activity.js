@@ -50,7 +50,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.height = window.innerHeight-200;
 			g.initialiseFromArray();
 		}
 

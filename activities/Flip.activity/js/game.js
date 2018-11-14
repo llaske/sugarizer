@@ -278,6 +278,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		activity.getDatastoreObject().getMetadata(this.init_canaccessdatastore.bind(this));
 		document.getElementById("turnno").innerHTML = " " + (this.turns);
 		this.drawIndicator();
+		this.palette.setUsed();
 	}
 
 	this.init_canaccessdatastore = function(error,mdata){
