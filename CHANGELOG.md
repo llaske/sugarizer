@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ChatPrototype activity does not sanitize input #225
 - Fototoon close icon missing in small screens #213
 - Save Clock activity settings in Journal #204
+- Add number of play in Flip activity #234
 
 ### Removed
 - Remove Cordova activity
