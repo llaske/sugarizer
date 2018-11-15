@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow action on multiple items in Journal
 - Copy from Journal to device now available on all platforms
 - Copy from device to Journal feature
+- Help tutorial on initial screen
+- Help on activities in list view
 
 ### Changed
 - Portuguese localization
