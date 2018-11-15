@@ -15,14 +15,17 @@
       difficulty: 'normal', // Difficulty (normal|nice|evil).
       speed: 20, // The speed of the game. The higher, the faster the pieces go.
       asdwKeys: true, // Enable ASDW keys
+      savedScore: 0, //Enables score to be saved
 
       // Copy
       playButtonText: 'Play',
       gameOverText: 'Game Over',
       restartButtonText: 'Play Again',
       scoreText: 'Score',
+      continueButtonText: 'Continue', //Continue Button Text
 
       // Basic Callbacks
+      onContinue: function(){}, // on continue
       onStart: function(){},
       onRestart: function(){},
       onGameOver: function(score){},
@@ -37,6 +40,11 @@
     /**
      * Start/Restart Game
      */
+    continue: function() { //Continues the game
+      this._doContinue();
+      this.options.onContinue.call(this.element);
+    },
+
     start: function() {
       this._doStart();
       this.options.onStart.call(this.element);
@@ -64,6 +72,22 @@
       this._board.animate();
 
       this._$start.fadeOut(150);
+      this._$continue.fadeOut(150);
+      this._$gameover.fadeOut(150);
+      this._$score.fadeIn(150);
+    },
+    _doContinue: function() {
+      this._filled.clearAll();
+      this._filled._continueScore();
+      this._board.cur = this._board.nextShape();
+      this._board.started = true;
+      this._board.gameover = false;
+      this._board.dropDelay = 5;
+      this._board.render(true);
+      this._board.animate();
+
+      this._$start.fadeOut(150);
+      this._$continue.fadeOut(150);
       this._$gameover.fadeOut(150);
       this._$score.fadeIn(150);
     },
@@ -113,6 +137,10 @@
 
     showStartMessage: function() {
       this._$start.show();
+    },
+
+    showContinueMessage: function() {
+      this._$continue.show();
     },
 
     showGameOverMessage: function() {
@@ -190,6 +218,7 @@
     _$canvas: null,
     _$gameholder: null,
     _$start: null,
+    _$continue: null, //continue button UI
     _$gameover: null,
     _$score: null,
     _$scoreText: null,
@@ -600,7 +629,9 @@
           var clearedLines = game._board.lines - startLines;
           this._updateScore(clearedLines);
         },
+
         _updateScore: function(numLines) {
+
           if( numLines <= 0 ) { return; }
           var scores = [0,400,1000,3000,12000];
           if( numLines >= scores.length ){ numLines = scores.length-1 }
@@ -610,10 +641,20 @@
 
           game.options.onLine.call(game.element, numLines, scores[numLines], this.score);
         },
+
         _resetScore: function() {
           this.score = 0;
           game._$scoreText.text(this.score);
         },
+
+	       //Sets this.score to the saved score and changes score text to the saved score.
+
+        _continueScore: function() {
+          this.score = game.options.savedScore;
+          game._$scoreText.text(this.score);
+        },
+
+
         draw: function() {
           for (var i=0, len=this.data.length, row, color; i<len; i++) {
             if (this.data[i] !== undefined) {
@@ -690,10 +731,15 @@
           }
 
           this.showStartMessage();
+          this.showContinueMessage();
         },
 
         showStartMessage: function() {
           game._$start.show();
+        },
+
+        showContinueMessage: function() {
+          game._$continue.show();
         },
 
         showGameOverMessage: function() {
@@ -787,19 +833,26 @@
               this.cur.moveRight();
             }
 
+            //Test
+            var blockArray = [];
+            var fetchBlocks = function() {
+              var blockIndex = 0;
+              for (var i=0; i<cur.blocksLen; i+=2) {
+                var col = game._filled.add(x + blocks[i], y + blocks[i+1], cur.blockType, cur.blockVariation, blockIndex, cur.orientation);
+                blockArray.push(col);
+                if (y + blocks[i] < 0) {
+                  gameOver = true;
+                }
+                blockIndex++;
+              }
+            }
+
             // Test for a collision, add the piece to the filled blocks and fetch the next one
             if (drop) {
               var cur = this.cur, x = cur.x, y = cur.y, blocks = cur.getBlocks();
               if (game._checkCollisions(x, y+1, blocks, true)) {
                 drop = false;
-                var blockIndex = 0;
-                for (var i=0; i<cur.blocksLen; i+=2) {
-                  game._filled.add(x + blocks[i], y + blocks[i+1], cur.blockType, cur.blockVariation, blockIndex, cur.orientation);
-                  if (y + blocks[i] < 0) {
-                    gameOver = true;
-                  }
-                  blockIndex++;
-                }
+                fetchBlocks();
                 game._filled.checkForClears();
                 this.cur = this.nextShape();
                 this.renderChanged = true;
@@ -1194,11 +1247,30 @@
             '<a class="blockrain-btn blockrain-start-btn">'+ this.options.playButtonText +'</a>'+
           '</div>'+
         '</div>').hide();
+
+
       game._$gameholder.append(game._$start);
+
 
       game._$start.find('.blockrain-start-btn').click(function(event){
         event.preventDefault();
         game.start();
+      });
+
+      // Create continue menu
+      game._$continue = $(
+        '<div class="blockrain-continue-holder" style="position:absolute;">'+
+          '<div class="blockrain-continue" id = "continue-btn">'+
+            '<a class="blockrain-btn blockrain-continue-btn">'+ this.options.continueButtonText +'</a>'+
+          '</div>'+
+        '</div>').hide();
+
+
+      game._$gameholder.append(game._$continue);
+
+      game._$continue.find('.blockrain-continue-btn').click(function(event){
+        event.preventDefault();
+        game.continue();
       });
 
       // Create the game over menu
