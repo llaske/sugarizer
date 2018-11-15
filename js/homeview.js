@@ -48,6 +48,7 @@ enyo.kind({
 		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
 		this.restrictedModeInfo = { start: 0 };
 		util.hideNativeToolbar();
+		this.tutorialActivity = null;
 
 		// Load and sort journal
 		this.loadJournal();
@@ -228,7 +229,6 @@ enyo.kind({
 			this.showView(preferences.getView());
 		}
 		this.draw();
-		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
 	},
 
 	localize: function() {
@@ -243,7 +243,7 @@ enyo.kind({
 		var items = [];
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
-		var tutorialActivity = false;
+		this.tutorialActivity = null;
 
 		// Compute center and radius
 		var canvas_center = util.getCanvasCenter();
@@ -364,10 +364,8 @@ enyo.kind({
 			activitiesIndex++;
 
 			// Set tutorial
-			if (!tutorialActivity) {
-				tutorial.setElement("activity", newIcon.getAttribute("id"));
-				tutorial.setElement("journal", this.$.journal.getAttribute("id"));
-				tutorialActivity = true;
+			if (!this.tutorialActivity) {
+				this.tutorialActivity = newIcon;
 			}
 		}
 	},
@@ -503,6 +501,15 @@ enyo.kind({
 		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
 			humane.log(l10n.get("JournalAlmostFull"));
 			this.isJournalFull = false;
+		}
+	},
+
+	// Initialize information for tutorial
+	beforeHelp: function() {
+		tutorial.setElement("owner", app.$.owner.getAttribute("id"));
+		tutorial.setElement("journal", app.$.journal.getAttribute("id"));
+		if (this.tutorialActivity) {
+			tutorial.setElement("activity", this.tutorialActivity.getAttribute("id"));
 		}
 	},
 
@@ -812,6 +819,11 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		if (app.otherview && app.otherview.beforeHelp) {
+			app.otherview.beforeHelp();
+		} else {
+			app.beforeHelp();
+		}
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}

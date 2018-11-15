@@ -27,6 +27,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.realLength = 0;
+		this.favoriteActivityButton = null;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
 			this.computeSize();
@@ -51,6 +52,15 @@ enyo.kind({
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
 		this.applyStyle("height", canvas_height+"px");
+	},
+
+	// Initialize information for tutorial
+	beforeHelp: function() {
+		tutorial.setElement("owner", app.$.owner.getAttribute("id"));
+		tutorial.setElement("journal", app.$.journal.getAttribute("id"));
+		if (this.favoriteActivityButton) {
+			tutorial.setElement("favoriteitembutton", this.favoriteActivityButton.getAttribute("id"));
+		}
 	},
 
 	// Get linked toolbar, same than the desktop view
@@ -94,7 +104,7 @@ enyo.kind({
 			activitiesList[inEvent.index].isNative = true;
 		}
 		if (inEvent.index == 0) {
-			tutorial.setElement("favoriteitembutton", inEvent.item.$.favorite.getAttribute("id"));
+			this.favoriteActivityButton = inEvent.item.$.favorite;
 		}
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
