@@ -9,7 +9,7 @@ enyo.kind({
 		{name: "message", classes: "listview-message", showing: false},
 		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
-		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "computeSize", components: [
+		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "resize", components: [
 			{name: "item", classes: "activity-list-item", components: [
 				{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "doSwitchFavorite"},
 				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
@@ -52,6 +52,11 @@ enyo.kind({
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
 		this.applyStyle("height", canvas_height+"px");
+	},
+
+	resize: function() {
+		this.computeSize();
+		app.resize();
 	},
 
 	// Initialize information for tutorial
