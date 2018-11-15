@@ -121,7 +121,7 @@
 }
 
 .blockrain-score-msg {
-  font-size: 14px;  
+  font-size: 14px;
   line-height: 100%;
   margin-bottom: 0.2em;
 }
@@ -143,6 +143,18 @@
   text-align: center;
 }
 
+.blockrain-continue-holder { /*Contine holder */
+  position: relative;
+  width: 0%;
+  height: 0%;
+  top: 200px;
+  left: 205px;
+  right: 0;
+  bottom: 0;
+  background: transparent; /* Hides the overlay for this button */
+  text-align: center;
+}
+
 .blockrain-start, .blockrain-game-over {
   position: absolute;
   top: 50%;
@@ -150,10 +162,19 @@
   transform: translateY(-50%);
 }
 
-.blockrain-start-msg, .blockrain-game-over-msg {
+.blockrain-continue {  /* Continue button */
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.blockrain-start-msg, .blockrain-game-over-msg, .blockrain-continue-msg {
   font-size: 18px;
   margin-bottom: 30px;
 }
+
+
 
 
 @media only screen and (min-width: 500px) {
