@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env], function (activity, env) {
+define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
