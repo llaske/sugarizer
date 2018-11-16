@@ -5,6 +5,16 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 		// Initialize the activity.
 		activity.setup();
+		var myHighestScore = 0;
+
+		//Loads highest score from Journal
+		activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+			if (error == null && data != null) {
+				myHighestScore = JSON.parse(data);
+				console.log(myHighestScore);
+			}
+		});
+
 		var $game = $('#canvas').blockrain({
       speed: 20,
       theme: 'candy',
@@ -13,13 +23,33 @@ define(["sugar-web/activity/activity"], function (activity) {
 	    autoBlockWidth: true,
 		  autoBlockSize: 24,
 		  touchControls: true,
+			highestScore: myHighestScore,
       onStart: function(){},
 		  onRestart: function(){},
 		  // onGameOver: function(score){
 		  // 	console.log(score);
 		  // },
-		  onLine: function(lines, scoreIncrement, score){}
+		  onLine: function(lines, scoreIncrement, score){
+				if (score > myHighestScore){
+					myHighestScore = score;
+				}
+			}
 	  });
+
+		// Save high score in Journal on Stop
+		document.getElementById("stop-button").addEventListener('click', function (event) {
+			console.log("writing...");
+			var jsonData = JSON.stringify(myHighestScore);
+			//console.log(jsonData);
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
+		});
 
     function switchTheme(next) {
       var themes = Object.keys(BlockrainThemes);
