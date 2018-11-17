@@ -8,12 +8,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var myHighestScore = 0;
 
 		//Loads highest score from Journal
-		activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-			if (error == null && data != null) {
-				myHighestScore = JSON.parse(data);
-				console.log(myHighestScore);
-			}
-		});
+		loadHighScore();
 
 		var $game = $('#canvas').blockrain({
       speed: 20,
@@ -25,19 +20,27 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  touchControls: true,
 			highestScore: myHighestScore,
       onStart: function(){},
-		  onRestart: function(){},
-		  // onGameOver: function(score){
-		  // 	console.log(score);
-		  // },
+		  onRestart: function(){
+				loadHighScore(); // loads highscore when game is restarted.
+			},
+		  onGameOver: function(score){
+				saveHighestScore();
+			},
+
 		  onLine: function(lines, scoreIncrement, score){
 				if (score > myHighestScore){
 					myHighestScore = score;
 				}
-			}
-	  });
+			},
+		});
 
 		// Save high score in Journal on Stop
 		document.getElementById("stop-button").addEventListener('click', function (event) {
+			saveHighestScore();
+		});
+
+		//Function to save high score
+		function saveHighestScore() {
 			console.log("writing...");
 			var jsonData = JSON.stringify(myHighestScore);
 			//console.log(jsonData);
@@ -49,7 +52,18 @@ define(["sugar-web/activity/activity"], function (activity) {
 					console.log("write failed.");
 				}
 			});
-		});
+		}
+
+		//Function to load high score
+		function loadHighScore() {
+			activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+				if (error == null && data != null) {
+					myHighestScore = JSON.parse(data);
+					console.log(myHighestScore);
+				}
+			});
+		}
+
 
     function switchTheme(next) {
       var themes = Object.keys(BlockrainThemes);
