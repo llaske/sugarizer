@@ -47,8 +47,8 @@
     },
 
     restart: function() {
-      this._doStart();
       this.options.onRestart.call(this.element);
+      this._doStart();
     },
 
     gameover: function() {
@@ -638,7 +638,6 @@
           game._$scoreText.text(this.score);
         },
         _showHighScore: function() {
-          this.highscore = game.options.highestScore;
           game._$highscoreText.text(this.highscore);
         },
 
