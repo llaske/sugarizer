@@ -84,6 +84,13 @@ enyo.kind({
 	// Control popup visibility
 	showPopup: function() {
 		this.marginChanged();
+		var popupSize = 56;
+		popupSize += ((this.footer == null || this.footer.length == 0) ? 0 : 53);
+		popupSize += (this.items == null ? 0 : 42 * this.items.length);
+		var delta = mouse.position.y + this.margin.top + popupSize - document.getElementById("canvas").offsetHeight;
+		if (delta > 0) {
+			this.applyStyle("top", (mouse.position.y+this.margin.top-delta)+"px");
+		}
 		this.show();
 		this.timer = window.setInterval(enyo.bind(this, "showContent"), constant.timerPopupDuration);
 	},
