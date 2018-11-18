@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Clock activity settings in Journal #204
 - Add number of play in Flip activity #234
 - Save Blockrain activity context in Journal #203
+- Activity Idea: Math Quiz #187
 
 ### Removed
 - Remove Cordova activity
