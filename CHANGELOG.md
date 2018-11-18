@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fototoon close icon missing in small screens #213
 - Save Clock activity settings in Journal #204
 - Add number of play in Flip activity #234
+- Save Blockrain activity context in Journal #203
 
 ### Removed
 - Remove Cordova activity
