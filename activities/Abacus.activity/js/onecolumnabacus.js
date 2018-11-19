@@ -330,6 +330,8 @@ function OneColumnAbacus(stage,rods,number,base,colours,startvalue,schety,fracti
 			}
 			if((this.answertext.text).length >= 40) {
 				this.answertext.font =  parseInt(((this.blockWidth / (this.answertext.text).length)*40)) + "px Arial";
+			} else {
+				this.answertext.font =  (this.blockWidth).toString()+"px Arial";
 			}
 		}
 	}
@@ -372,6 +374,8 @@ function OneColumnAbacus(stage,rods,number,base,colours,startvalue,schety,fracti
 			}
 			if((this.answertext.text).length >= 40) {
 				this.answertext.font =  parseInt(((this.blockWidth / (this.answertext.text).length)*40)) + "px Arial";
+			} else {
+				this.answertext.font =  (this.blockWidth).toString()+"px Arial";
 			}
 		}
 		
