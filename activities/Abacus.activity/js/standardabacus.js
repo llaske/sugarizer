@@ -258,6 +258,11 @@ function StandardAbacus(stage,rods,topnumber,factor,bottomnumber,base,colours,st
 			} else {
 				this.answertext.text = "";
 			}
+			if((this.answertext.text).length >= 40) {
+				this.answertext.font =  parseInt(((this.blockWidth / (this.answertext.text).length)*40)) + "px Arial";
+			} else {
+				this.answertext.font =  (this.blockWidth).toString()+"px Arial";
+			}
 		}
 	}
 
