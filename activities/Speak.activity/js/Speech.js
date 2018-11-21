@@ -80,8 +80,19 @@ var Speech = (function() {
 		});
 	}
 
+	hiddenArray(); // Access speakArray
+
+	// Function containing the speakArray, which saves the recent talk array
+	function hiddenArray() {
+		speakArray = [];
+	}
+
 	function playVoice(language, text) {
       playing = text;
+
+			speakArray.push(playing); // Adds recent talks to speakArray
+			//console.log(speakArray);
+
       if(document.getElementById('mode').innerHTML=="2"){
 	    //After the voice is loaded, playSound callback is called
 	    getBotReply(text);
@@ -90,11 +101,12 @@ var Speech = (function() {
 		}, 4000);
   	  }
   	  else{
-		loadVoice(language, playSound);
+				loadVoice(language, playSound);
   	  }
     }
 
-    function playSound(){
+
+  function playSound(){
 		var text = playing;
 		var pitch = document.getElementById('pitch').innerHTML;
 		var speed = document.getElementById('rate').innerHTML;
