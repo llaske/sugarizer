@@ -39,6 +39,30 @@
 	background-position: 50% 50%;
 }
 
+
+/** Custom dropdown arrow for datalist **/
+.dropdown {
+  position: relative;
+}
+
+.dropdown:before {
+  content: "";
+  position: absolute;
+  right: 80px;
+  top: -5px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #000;
+  pointer-events: none;
+}
+
+
+input::-webkit-calendar-picker-indicator {
+  display: none; /** Hides original dropdown arrow **/
+}
+
 #userText {
 	height:40px;
 	margin:5px;
@@ -48,6 +72,9 @@
 	font-weight: bold;
 	z-index:0;
 }
+
+
+
 
 #activity-palette {
 	z-index: 3;
