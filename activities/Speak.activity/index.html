@@ -40,11 +40,19 @@
     <ul id="chatbox">
     </ul>
   </div>
-  <div style="top:60px;position:absolute;z-index:2" id="speechBox">
-  	<input id="userText" name="userText" type="text"></input>
-  	<button id="speakText" class="toolbutton" title="Speak"></button>
-    <hr>
-  </div>
+
+<!-- Created Datalist so user can access history of talk -->
+<div style="top:60px;position:absolute;z-index:2" id="speechBox">
+	<span class = "dropdown" title = "Saved Talk">
+		<input id ="userText" name="userText" type="text" list = 'talk-list'></input>
+		<datalist id = 'talk-list'></datalist>
+	</span>
+	<button id="speakText" class="toolbutton" title="Speak"></button>
+  <hr>
+</div>
+
+
+
   <div style="top:0px;">
   	<canvas id="canvas" height="0" width="0" style="border: 5px solide black;"></canvas>
   </div>
