@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore"], function (palette,env,l10n,datastore) {
+define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');
@@ -14,6 +14,11 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	var mouthStart = {x:windowWidth*1.35/4,y:shiftY+windowHeight*2/3.0};
 	var mouthEnd = {x:windowWidth*2.65/4,y:shiftY+windowHeight*2/3.0};
 	var noOfEyes = 2;
+	var colors;
+
+	activity.getXOColor(function (error, retcolors) {
+		colors = retcolors;
+	});
 
 	$(window).resize(function() {
 		canvas.width  = window.innerWidth;
@@ -347,7 +352,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
 		ctx.rect(0, 0, canvas.width, canvas.height);
-		ctx.fillStyle = "#999999";
+		ctx.fillStyle = colors["fill"];
 		ctx.fill();
 	}
 
