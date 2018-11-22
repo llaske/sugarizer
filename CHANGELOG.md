@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Blockrain activity context in Journal #203
 - Activity Idea: Math Quiz #187
 - Abacus does not display solution with big numbers #140
+- Change background color for Speak activity #245
 
 ### Removed
 - Remove Cordova activity
