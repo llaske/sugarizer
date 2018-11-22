@@ -26,7 +26,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 		awake = true;
 		clearInterval(idletimer);
 		drawEyes();
-		setInterval(function () {
+		idletimer = setInterval(function () {
 			awake = false;
 			var language = document.getElementById('speaklang').innerHTML;
 			var text = l10n.get("Sleepy");
