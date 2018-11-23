@@ -24,7 +24,6 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
             languageButton, datastoreObject);
 
 
-
         //Loads talk history when instance in existing
         activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
       		if (error==null && data!=null) {
@@ -51,16 +50,17 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
 
     });
 
-        // Function that creates options for datalist. Value of options is equal to saved talk.
+        // Function that creates options for select tag. Value of options is equal to saved talk.
         function speakComboBox() {
           for (var i = 0; i < speakArray.length; i ++) {
             var addUserInput = document.createElement("OPTION");
             addUserInput.setAttribute("value", speakArray[i]);
-            document.getElementById("talk-list").appendChild(addUserInput);
+            addUserInput.text = speakArray[i];
+            document.getElementById("combo-box").appendChild(addUserInput);
           }
         }
 
-        //Function that removes extra elements in the datalist.
+        //Function that removes extra elements in the select tag.
         function removeExtra(element) {
           element.sort();
           for (var x = element.length-1; x--;) {
@@ -69,6 +69,7 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
             }
           }
         }
+
 
 
 
