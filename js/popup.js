@@ -83,14 +83,21 @@ enyo.kind({
 
 	// Control popup visibility
 	showPopup: function() {
-		this.marginChanged();
+		if (this.margin == null) {
+			this.margin = { left: constant.popupMarginLeft, top: constant.popupMarginTop };
+		}
 		var popupSize = 56;
 		popupSize += ((this.footer == null || this.footer.length == 0) ? 0 : 53);
 		popupSize += (this.items == null ? 0 : 42 * this.items.length);
 		var delta = mouse.position.y + this.margin.top + popupSize - document.getElementById("canvas").offsetHeight;
-		if (delta > 0) {
-			this.applyStyle("top", (mouse.position.y+this.margin.top-delta)+"px");
+		this.overflow = false;
+		if (delta > 0 && (!this.container.hasNode() || !this.container.hasNode().style.overflowY)) {
+			// Popup will overflow window, prepare to shift menu
+			this.overflow = true;
 		}
+		this.setStyle("bottom", "");
+		this.applyStyle("top", (mouse.position.y+this.margin.top)+"px");
+		this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
 		this.show();
 		this.timer = window.setInterval(enyo.bind(this, "showContent"), constant.timerPopupDuration);
 	},
@@ -105,6 +112,11 @@ enyo.kind({
 
 	showContent: function() {
 		window.clearInterval(this.timer);
+		if (this.overflow) {
+			this.setStyle("top", "");
+			this.applyStyle("bottom", "0px");
+			this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
+		}
 		this.timer = null;
 		if (this.$.items && this.showing) {
 			if (this.items != null && this.items.length > 0) {
