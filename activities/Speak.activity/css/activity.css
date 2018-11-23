@@ -39,17 +39,28 @@
 	background-position: 50% 50%;
 }
 
+#userText {
+	height:40px;
+	margin:5px;
+	margin-left:8vh;
+	width:90vw;
+	font-size: 28pt;
+	font-weight: bold;
+	z-index:0;
+}
 
-/** Custom dropdown arrow for datalist **/
+
+/** Custom dropdown arrow for select tag **/
+
 .dropdown {
-  position: relative;
+  position: absolute;
 }
 
 .dropdown:before {
   content: "";
   position: absolute;
-  right: 80px;
-  top: -5px;
+  left: 23px;
+  top: 27px;
 	width: 0;
 	height: 0;
 	border-left: 10px solid transparent;
@@ -58,22 +69,19 @@
   pointer-events: none;
 }
 
+/** CSS for the select tag to make it look like a button **/
 
-input::-webkit-calendar-picker-indicator {
-  display: none; /** Hides original dropdown arrow **/
+#combo-box {
+  position:absolute;
+  top: 5px;
+  width:2vw;
+  height:25px;
+  line-height:20px;
+  margin:13px;
+  margin-left:3vh;
+  padding:0;
+  font-size: 0;
 }
-
-#userText {
-	height:40px;
-	margin:5px;
-	margin-left:3vh;
-	width:90vw;
-	font-size: 28pt;
-	font-weight: bold;
-	z-index:0;
-}
-
-
 
 
 #activity-palette {
@@ -110,6 +118,8 @@ body {
 	  border: 2px solid #808080;
 	}
 }
+
+
 
 @media screen and (max-width: 890px) {
 	.toolbar {
