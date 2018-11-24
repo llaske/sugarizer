@@ -9,6 +9,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		activity.setup();
 		var isMobile = (/Android/i.test(navigator.userAgent) || /iPad/i.test(navigator.userAgent) || /iPhone/i.test(navigator.userAgent)) && document.location.protocol.substr(0,4) != "http";
 		var currentCamera = 0;
+		var history = [];
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
@@ -43,6 +44,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			} else {
 				document.getElementById("user-text").classList.remove("text-url");
 			}
+			addToHistory(text);
 		}
 
 		// Process Resize events
@@ -206,11 +208,33 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			}
 		});
 
+		// Add entry to history
+		function addToHistory(text) {
+			history.push(text);
+			updateHistory();
+		}
+
+		// Update dropdown with user history
+		function updateHistory() {
+			var mhtml = '<option value="default">----</option>';
+			var index = history.length;
+			while(index--) {
+				mhtml += '<option value="'+(history[index])+'">'+(history[index])+'</option>';
+			}
+			document.getElementById("qrtextdropdown").innerHTML = mhtml;
+		}
+		
+		// QR history dropdown change
+		document.getElementById("qrtextdropdown").addEventListener('change', function () {
+			document.getElementById("user-text").value = document.getElementById("qrtextdropdown").value;
+			generateCode(document.getElementById("qrtextdropdown").value);
+		});
+
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
 			console.log("writing...");
-			var data = { userText: (photoButton.classList.contains('active') ? oldUserText : userText.value) };
+			var data = { userText: (photoButton.classList.contains('active') ? oldUserText : userText.value), uHistory: history };
 			var jsonData = JSON.stringify(data);
 			activity.getDatastoreObject().setDataAsText(jsonData);
 			activity.getDatastoreObject().save(function (error) {
@@ -233,6 +257,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 					if (error==null && data!=null) {
 						data = JSON.parse(data);
 						userText.value = data.userText;
+						history = data.uHistory;
 						generateCode(data.userText);
 					}
 				});
