@@ -84,6 +84,24 @@
 }
 
 
+
+/** Select tag custom css. Note that the select tag is invisible **/
+
+select {
+    padding:3px;
+    margin: 0;
+    background: transparent;
+    color:#888;
+    border: visible;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
+
 #activity-palette {
 	z-index: 3;
 }
@@ -99,6 +117,8 @@
 body {
 	overflow: hidden;
 }
+
+/** Added @media access for dropdown button to make it responsive **/
 
 @media screen and (min-width: 890px) {
 	.thinpalette .wrapper {
@@ -117,12 +137,85 @@ body {
 	  background-color: black;
 	  border: 2px solid #808080;
 	}
+
 }
 
 
+@media screen and (max-width: 504px) {
+	select {
+		position: absolute;
+		right: 460px;
+	}
+
+}
+@media screen and (max-width: 600px) {
+	select {
+		position: absolute;
+		right: 300px;
+	}
+
+}
+@media screen and (max-width: 630px) {
+	select {
+		position: absolute;
+		right: 570px;
+	}
+
+}
+@media screen and (max-width: 740px) {
+	select {
+		position: absolute;
+		right: 660px;
+	}
+
+}
+@media screen and (max-width: 667px) {
+	select {
+		position: absolute;
+		right: 590px;
+	}
+
+}
+
+@media screen and (max-width: 640px) {
+	select {
+		position: absolute;
+		right: 570px;
+	}
+
+}
+@media screen and (max-width: 480px) {
+	select {
+		position: absolute;
+		right: 425px;
+	}
+
+}
+@media screen and (max-width: 375px) {
+	select {
+		position: absolute;
+		right: 360px;
+	}
+
+}
+@media screen and (max-width: 360px) {
+	select {
+		position: absolute;
+		right: 345px;
+	}
+
+}
+@media screen and (max-width: 320px) {
+	select {
+		position: absolute;
+		right: 295px;
+	}
+
+}
 
 @media screen and (max-width: 890px) {
 	.toolbar {
 	 padding-left: 10px;
 	}
+
 }
