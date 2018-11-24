@@ -1,3 +1,79 @@
+/*For smartphone mode*/
+/** Splitbar only appears on desktop mode. I hid it when window size becomes small. **/
+
+.toolbar {
+  padding: 0 30px !important;
+}
+
+.palette .wrapper {
+  max-width: none !important;
+}
+
+.splitbar {
+   display: none !important;
+}
+
+#image-save, #previous-button, #next-button, #add-button, #add-globe, #text-button, #sort-button, #clean-all-button {
+  display: none;
+}
+
+@media only screen and (min-width: 250px) {
+  #text-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 290px) {
+  #image-save {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 330px) {
+  #add-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  #add-globe {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 440px) {
+  #previous-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  #sort-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 550px) {
+  #next-button {
+    display: inline-block;
+  } 
+}
+
+@media only screen and (min-width: 610px) {
+  #clean-all-button {
+    display: inline-block;
+  } 
+}
+
+@media only screen and (min-width: 690px) {
+   .splitbar {
+    display: inline-block !important;
+  }
+}
+
+/****/
+
+
 #main-toolbar #activity-button {
   background-image: url(../activity/fototoon.svg);
 }

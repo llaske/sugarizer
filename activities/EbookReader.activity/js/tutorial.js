@@ -86,7 +86,7 @@ var Tutorial = {
 					<div class='arrow'></div>\
 					<h3 class='popover-title tutorial-title'></h3>\
 					<div class='popover-content'></div>\
-					<div class='popover-navigation'>\
+					<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
 						<div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>\
 							<div class='tutorial-prev-icon1 web-activity'>\
 								<div class='tutorial-prev-icon2 web-activity-icon'></div>\
@@ -94,7 +94,7 @@ var Tutorial = {
 							</div>\
 							<div class='tutorial-icon-text'>"+this.l10n.stringPrevShort+"</div>\
 						</div>\
-						<span data-role='separator'>|</span>\
+						<span data-role='separator' style='margin: 4px'>|</span>\
 						<div class='tutorial-next-icon tutorial-icon-button' data-role='next'>\
 							<div class='tutorial-next-icon1 web-activity'>\
 								<div class='tutorial-next-icon2 web-activity-icon'></div>\

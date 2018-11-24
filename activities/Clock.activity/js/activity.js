@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n"], function (activity,radioButtonsGroup,mustache,moment) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n"], function (activity,env,radioButtonsGroup,mustache,moment) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -6,6 +6,43 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
         // Initialize the activity.
         activity.setup();
         setTranslatedStrings();
+        var array=["simple","none","none"];
+        env.getEnvironment(function(err, environment) {
+            currentenv = environment;
+            
+            // Load from datastore
+            if (!environment.objectId) {
+                console.log("New instance");
+            } else {
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        Clock.face=data[0];
+                        console.log(data);
+                        if(data[0]=="simple"){
+                            document.getElementById("simple-clock-button").classList.add("active");
+                            document.getElementById("nice-clock-button").classList.remove("active");
+                            clock.changeFace("simple");
+                        }else{
+                            document.getElementById("nice-clock-button").classList.add("active");
+                            document.getElementById("simple-clock-button").classList.remove("active");
+                            clock.changeFace("nice");
+                        }
+                        if(data[1]=="block"){
+                            document.getElementById("write-time-button").classList.add("active");
+                            clock.changeWriteTime(true);
+                        }else{
+                            document.getElementById("write-time-button").classList.remove("active");
+                        }
+                        if(data[2]=="block"){
+                            document.getElementById("write-date-button").classList.add("active");
+                            clock.changeWriteDate(true);
+                        }else{
+                            document.getElementById("write-date-button").classList.remove("active");
+                        }
+                    }
+                });
+            }
+        }); 
 
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
@@ -14,7 +51,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
 
         function Clock() {
             this.face = "simple";
-
+            
             this.handAngles = {
                 'hours': 0,
                 'minutes': 0,
@@ -28,7 +65,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
                 'minutes': "#00B20D",
                 'seconds': "#E6000A"
             };
-
+            
             this.writeTime = false;
             this.writeDate = false;
 
@@ -58,7 +95,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
                 that.drawBackground();
             };
         }
-
+        
         function setTranslatedStrings() {
             document.getElementById("simple-clock-button").title = l10n_s.get("SimpleClock");
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
@@ -98,16 +135,18 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
         Clock.prototype.changeFace = function (face) {
             this.face = face;
             this.drawBackground();
+            array[0]=face;
         }
+
 
         Clock.prototype.changeWriteTime = function (writeTime) {
             this.writeTime = writeTime;
             if (writeTime) {
                 this.textTimeElem.style.display = "block";
-            }
-            else {
+            } else {
                 this.textTimeElem.style.display = "none";
             }
+            array[1]=this.textTimeElem.style.display;
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -117,10 +156,10 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
             this.writeDate = writeDate;
             if (writeDate) {
                 this.textDateElem.style.display = "block";
-            }
-            else {
+            } else {
                 this.textDateElem.style.display = "none";
             }
+            array[2]=this.textDateElem.style.display;
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -218,6 +257,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
             }
             this.drawHands();
         }
+        
 
         // Draw the background of the simple clock.
         //
@@ -361,6 +401,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
 
         var simpleNiceRadio = new radioButtonsGroup.RadioButtonsGroup(
         [simpleClockButton, niceClockButton]);
+        
 
         var writeTimeButton = document.getElementById("write-time-button");
         writeTimeButton.onclick = function () {
@@ -376,5 +417,15 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","mu
             clock.changeWriteDate(active);
         };
 
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+            activity.getDatastoreObject().setDataAsText(array);
+            activity.getDatastoreObject().save(function (error) {
+                if (error === null) {
+                    console.log("write done.");
+                } else {
+                    console.log("write failed.");
+                }
+            });
+        });
     });
 });

@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore"], function (palette,env,l10n,datastore) {
+define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');
@@ -14,6 +14,25 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	var mouthStart = {x:windowWidth*1.35/4,y:shiftY+windowHeight*2/3.0};
 	var mouthEnd = {x:windowWidth*2.65/4,y:shiftY+windowHeight*2/3.0};
 	var noOfEyes = 2;
+	var colors;
+	var awake = true;
+	var idletimer;
+
+	activity.getXOColor(function (error, retcolors) {
+		colors = retcolors;
+	});
+
+	function idleTimer() {
+		awake = true;
+		clearInterval(idletimer);
+		idletimer = setInterval(function () {
+			awake = false;
+			var language = document.getElementById('speaklang').innerHTML;
+			var text = l10n.get("Sleepy");
+			speech.playVoice(language, text);
+			clearInterval(idletimer);
+		},60000*2)
+	}
 
 	$(window).resize(function() {
 		canvas.width  = window.innerWidth;
@@ -73,6 +92,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 				}
 			});
 		});
+		idleTimer();
 	}
 
 	function hidePalettes(){
@@ -127,32 +147,43 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	}
 
 	function drawEyes(){
-		var i;
-		var eyetype = document.getElementById('eyetype').innerHTML;
-		for(i=1;i<=noOfEyes;i++){
-			ctx.beginPath();
-			ctx.fillStyle="#000000";
-			if (eyetype == 1) {
-				ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye*1.1,0,2*Math.PI);
-				ctx.fill();
-			} else {
-				var rectsize = radiusEye*1.1;
-				ctx.fillRect(eyePos[i].x-rectsize,eyePos[i].y-rectsize,rectsize*2,rectsize*2);
+		if(awake) {
+			var i;
+			var eyetype = document.getElementById('eyetype').innerHTML;
+			for(i=1;i<=noOfEyes;i++){
+				ctx.beginPath();
+				ctx.fillStyle="#000000";
+				if (eyetype == 1) {
+					ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye*1.1,0,2*Math.PI);
+					ctx.fill();
+				} else {
+					var rectsize = radiusEye*1.1;
+					ctx.fillRect(eyePos[i].x-rectsize,eyePos[i].y-rectsize,rectsize*2,rectsize*2);
+				}
+				ctx.closePath();
 			}
-			ctx.closePath();
-		}
-		for(i=1;i<=noOfEyes;i++){
-			ctx.beginPath();
-			ctx.fillStyle="#FFFFFF";
-			if (eyetype == 1) {
-				ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye,0,2*Math.PI);
-				ctx.fill();
-			} else {
-				var rectsize = radiusEye;
-				ctx.fillRect(eyePos[i].x-rectsize,eyePos[i].y-rectsize,rectsize*2,rectsize*2);
+			for(i=1;i<=noOfEyes;i++){
+				ctx.beginPath();
+				ctx.fillStyle="#FFFFFF";
+				if (eyetype == 1) {
+					ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye,0,2*Math.PI);
+					ctx.fill();
+				} else {
+					var rectsize = radiusEye;
+					ctx.fillRect(eyePos[i].x-rectsize,eyePos[i].y-rectsize,rectsize*2,rectsize*2);
+				}
+				ctx.closePath();
 			}
-			ctx.closePath();
-		}
+		} else {
+			for(i=1;i<=noOfEyes;i++){
+				var i;
+				ctx.beginPath();
+				ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye*1.1,0.4,Math.PI-0.4);
+				ctx.lineWidth = 20;
+				ctx.stroke();
+				ctx.closePath();
+			}
+		} 
 	}
 
 	function getEyeballOffset(eye){ //eye=1 for the first eye and so on...
@@ -183,13 +214,15 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	}
 
 	function drawEyeballs(){
-		var i;
-		for(i=1;i<=noOfEyes;i++){
-			ctx.beginPath();
-			ctx.fillStyle="#000000";
-			ctx.arc(eyePos[i].x + getEyeballOffset(i).x,eyePos[i].y + getEyeballOffset(i).y,radiusEyeball,0,2*Math.PI);
-			ctx.fill();
-			ctx.closePath();
+		if(awake) {
+			var i;
+			for(i=1;i<=noOfEyes;i++){
+				ctx.beginPath();
+				ctx.fillStyle="#000000";
+				ctx.arc(eyePos[i].x + getEyeballOffset(i).x,eyePos[i].y + getEyeballOffset(i).y,radiusEyeball,0,2*Math.PI);
+				ctx.fill();
+				ctx.closePath();
+			}
 		}
 	}
 
@@ -197,6 +230,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 		var language = document.getElementById('speaklang').innerHTML;
 		var text = document.getElementById('userText').value;
 		speech.playVoice(language, text);
+		idleTimer();
 	}
 
 	document.getElementById('speakText').onmouseup = function(e){
@@ -214,6 +248,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 			var text = document.getElementById('userText').value;
 			speech.playVoice(language, text);
 			moveMouth(text);
+			idleTimer();
 			if(document.getElementById('mode').innerHTML == "3"){
 				addToChat();
 			}
@@ -347,7 +382,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
 		ctx.rect(0, 0, canvas.width, canvas.height);
-		ctx.fillStyle = "#999999";
+		ctx.fillStyle = colors["fill"];
 		ctx.fill();
 	}
 
