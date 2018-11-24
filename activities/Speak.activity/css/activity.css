@@ -92,7 +92,7 @@ select {
     margin: 0;
     background: transparent;
     color:#888;
-    border: visible;
+    border: none !important;
     outline:none;
     display: inline-block;
     -webkit-appearance:none;
