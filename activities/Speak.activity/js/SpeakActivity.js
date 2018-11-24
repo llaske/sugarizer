@@ -25,7 +25,6 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	function idleTimer() {
 		awake = true;
 		clearInterval(idletimer);
-		drawEyes();
 		idletimer = setInterval(function () {
 			awake = false;
 			var language = document.getElementById('speaklang').innerHTML;
@@ -179,11 +178,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 			for(i=1;i<=noOfEyes;i++){
 				var i;
 				ctx.beginPath();
-				if(i == 1) {
-					ctx.arc(eyePos[i].x-40,eyePos[i].y,radiusEye*1.1,0.4,Math.PI-0.4);
-				} else {
-					ctx.arc(eyePos[i].x+40,eyePos[i].y,radiusEye*1.1,0.4,Math.PI-0.4);
-				}
+				ctx.arc(eyePos[i].x,eyePos[i].y,radiusEye*1.1,0.4,Math.PI-0.4);
 				ctx.lineWidth = 20;
 				ctx.stroke();
 				ctx.closePath();
