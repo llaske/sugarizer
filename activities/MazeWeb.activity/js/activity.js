@@ -1,7 +1,53 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions"], function (activity, TWEEN, rAF, maze, directions) {
+define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette"], function (activity, TWEEN, rAF, maze, directions, presencepalette, env, icon, webL10n, palette) {
 
     requirejs(['domReady!'], function (doc) {
         activity.setup();
+        var sharedact=false;
+
+        env.getEnvironment(function(err, environment) {
+            currentenv = environment;
+        
+            // Shared instances
+            if (environment.sharedId) {
+                console.log("Shared instance");
+                presence = activity.getPresenceObject(function(error, network) {
+                    network.onDataReceived(onNetworkDataReceived);
+                    network.onSharedActivityUserChanged(onNetworkUserChanged);
+                });
+            }
+        });
+
+        var onNetworkDataReceived = function(msg) {
+            if (presence.getUserInfo().networkId === msg.user.networkId) {
+                return;
+            }
+            
+            maze.goalPoint=msg.goal;
+            maze=msg.content;
+            gameSize=msg.SizeOfGame;
+            sharedact=true;
+            console.log(maze.startPoint);
+            drawMaze();
+            updateMazeSize();
+            updateSprites();
+            drawMaze();
+           
+            
+        }; 
+
+        var onNetworkUserChanged = function(msg) {
+            if (isHost) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action:'init',
+                    playerstart: maze.startPoint,
+                    goal: maze.goalPoint,
+                    SizeOfGame: gameSize,
+                    content: maze,
+                });
+            }
+            console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+        }; 
 
 		var soundType = /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? '.mp3' : '.ogg';
         var canvasWidth;
@@ -274,7 +320,9 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             tween.onComplete(function () {
                 levelStartingValue = undefined;
                 levelStatus = 'playing';
-                drawMaze();
+                if(!sharedact){
+                    drawMaze();
+                }
             });
             tween.start();
         }
@@ -286,6 +334,17 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             players = {};
             winner = undefined;
             onLevelStart();
+            if (presence) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'update',
+                    playerstart: maze.startPoint,
+                    goal: maze.goalPoint,
+                    SizeOfGame: gameSize,
+                    content: maze,
+                });
+                console.log(maze.startPoint);
+            }
         }
         runLevel();
 
@@ -590,6 +649,26 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         };
         animate();
 
+        // Link presence palette
+        var presence = null;
+        var isHost = false;
+        var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+        palette.addEventListener('shared', function() {
+            palette.popDown();
+            console.log("Want to share");
+            presence = activity.getPresenceObject(function(error, network) {
+                if (error) {
+                    console.log("Sharing error");
+                    return;
+                }
+                network.createSharedActivity('org.sugarlabs.MazeWebActivity', function(groupId) {
+                    console.log("Activity shared");
+                    isHost = true;
+                    console.log(maze.walls);
+                });
+                network.onDataReceived(onNetworkDataReceived);
+            });
+        });
     });
 
 });
