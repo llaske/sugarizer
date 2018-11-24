@@ -59,6 +59,7 @@
 .dropdown:before {
   content: "";
   position: absolute;
+	margin-left: 5px;
   left: 23px;
   top: 27px;
 	width: 0;
@@ -85,14 +86,14 @@
 
 
 
-/** Select tag custom css. Note that the select tag is invisible **/
+/** Select tag custom css **/
 
 select {
     padding:3px;
     margin: 0;
     background: transparent;
     color:#888;
-    border: none !important;
+    border: none !important;;
     outline:none;
     display: inline-block;
     -webkit-appearance:none;
@@ -137,6 +138,7 @@ body {
 	  background-color: black;
 	  border: 2px solid #808080;
 	}
+	
 
 }
 
@@ -165,14 +167,14 @@ body {
 @media screen and (max-width: 740px) {
 	select {
 		position: absolute;
-		right: 660px;
+		right: 670px;
 	}
 
 }
 @media screen and (max-width: 667px) {
 	select {
 		position: absolute;
-		right: 590px;
+		right: 610px;
 	}
 
 }
@@ -180,42 +182,55 @@ body {
 @media screen and (max-width: 640px) {
 	select {
 		position: absolute;
-		right: 570px;
+		right: 585px;
+	}
+	.dropdown:before {
+		margin-left: -15px;
 	}
 
 }
 @media screen and (max-width: 480px) {
 	select {
 		position: absolute;
-		right: 425px;
+		right: 440px;
+	}
+	.dropdown:before {
+		margin-left:-25px;
 	}
 
 }
 @media screen and (max-width: 375px) {
 	select {
 		position: absolute;
-		right: 360px;
+		right: 365px;
 	}
 
 }
 @media screen and (max-width: 360px) {
 	select {
 		position: absolute;
-		right: 345px;
+		right: 355px;
+	}
+	}
+	.dropdown:before {
+		margin-left: -10px;
+	}
+}
+
+
+@media screen and (max-width: 890px) {
+	.toolbar {
+	 padding-left: 10px;
 	}
 
 }
 @media screen and (max-width: 320px) {
 	select {
 		position: absolute;
-		right: 295px;
+		right: 300px;
 	}
-
-}
-
-@media screen and (max-width: 890px) {
-	.toolbar {
-	 padding-left: 10px;
+	.dropdown:before {
+		margin-left: -10px;
 	}
 
 }
