@@ -90,8 +90,13 @@ var Speech = (function() {
 	function playVoice(language, text) {
       playing = text;
 
+			//Adds option when text is spoken
+			var addUserInput = document.createElement("OPTION");
+			addUserInput.setAttribute("value", playing);
+			addUserInput.text = playing;
+			document.getElementById("combo-box").appendChild(addUserInput);
+
 			speakArray.push(playing); // Adds recent talks to speakArray
-			//console.log(speakArray);
 
       if(document.getElementById('mode').innerHTML=="2"){
 	    //After the voice is loaded, playSound callback is called
