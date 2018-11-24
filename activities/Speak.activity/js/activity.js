@@ -24,7 +24,7 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
             languageButton, datastoreObject);
 
 
-        //Loads talk history when instance in existing
+        //Loads talk history when instance is existing
         activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
       		if (error==null && data!=null) {
       			speakArray = JSON.parse(data);
@@ -69,7 +69,6 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
             }
           }
         }
-
 
 
 
