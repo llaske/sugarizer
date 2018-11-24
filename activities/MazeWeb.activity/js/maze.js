@@ -1,4 +1,4 @@
-define(["rot","activity/directions"], function (ROT, directions) {
+define(["rot","activity/directions", "sugar-web/activity/activity"], function (ROT, directions, activity) {
 
     var maze = {};
 
@@ -122,12 +122,12 @@ define(["rot","activity/directions"], function (ROT, directions) {
 
         maze.startPoint = {'x': startX, 'y': startY};
         maze.goalPoint = {'x': goalX, 'y': goalY};
+        
 
     };
 
     maze.generate = function (aspectRatio, size) {
         initialize(aspectRatio, size);
-
         maze.walls = createMatrix(maze.width, maze.height);
         maze.visited = createMatrix(maze.width, maze.height);
         maze.directions = createMatrix(maze.width, maze.height);
