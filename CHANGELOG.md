@@ -38,7 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Activity Idea: Math Quiz #187
 - Abacus does not display solution with big numbers #140
 - Change background color for Speak activity #245
-- Add the sleeping face into the Speak activity #246 
+- Add the sleeping face into the Speak activity #246
+- Add an erase button into GridPaint activity #242
 
 ### Removed
 - Remove Cordova activity
