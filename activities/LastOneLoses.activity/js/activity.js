@@ -17,6 +17,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			network.onDataReceived(onNetworkDataReceived);
 		});
 	});
+	
+	// Handle click on add
+	document.getElementById("add-button").addEventListener('click', function (event) {
+
+		LOL.push(currentenv.user.colorvalue);
+		drawLOL();
+
+		document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:currentenv.user.name})+"</h1>";
+
+		if (presence) {
+			presence.sendMessage(presence.getSharedInfo().id, {
+				user: presence.getUserInfo(),
+				content: currentenv.user.colorvalue
+			});
+		}
+	});
+	
 define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup"], function (activity, radioButtonsGroup) {
 	var app;
 
