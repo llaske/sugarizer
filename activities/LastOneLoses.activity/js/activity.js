@@ -34,6 +34,88 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		}
 	});
 	
+	env.getEnvironment(function(err, environment) {
+		currentenv = environment;
+
+		// Set current language to Sugarizer
+		...
+
+		// Load from datatore
+		if (!environment.objectId) {
+			...
+		}
+
+		// Shared instances
+		if (environment.sharedId) {
+			console.log("Shared instance");
+			presence = activity.getPresenceObject(function(error, network) {
+				network.onDataReceived(onNetworkDataReceived);
+			});
+		}
+	});
+	
+	var onNetworkDataReceived = function(msg) {
+		if (presence.getUserInfo().networkId === msg.user.networkId) {
+			return;
+		}
+		switch (msg.content.action) {
+			case 'init':
+				LOL = msg.content.data;
+				drawLOL();
+				break;
+			case 'update':
+				LOL.push(msg.content.data);
+				drawLOL();
+				document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
+				break;
+		}
+	};
+	
+	network.onSharedActivityUserChanged(onNetworkUserChanged);
+		
+	var onNetworkUserChanged = function(msg) {
+		console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+	};
+	
+	presence.sendMessage(presence.getSharedInfo().id, {
+		user: presence.getUserInfo(),
+		content: {
+			action: 'update',
+			data: currentenv.user.colorvalue
+		}
+	});
+	
+	var onNetworkUserChanged = function(msg) {
+		if (isHost) {
+			presence.sendMessage(presence.getSharedInfo().id, {
+				user: presence.getUserInfo(),
+				content: {
+					action: 'init',
+					data: LOL
+				}
+			});
+		}
+		console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+	};
+	
+	var isHost = false;
+	palette.addEventListener('shared', function() {
+		palette.popDown();
+		console.log("Want to share");
+		presence = activity.getPresenceObject(function(error, network) {
+			if (error) {
+				console.log("Sharing error");
+				return;
+			}
+			network.createSharedActivity('org.sugarlabs.LOL', function(groupId) {
+				console.log("Activity shared");
+				isHost = true;
+			});
+			network.onDataReceived(onNetworkDataReceived);
+			network.onSharedActivityUserChanged(onNetworkUserChanged);
+		});
+	});
+		
 define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup"], function (activity, radioButtonsGroup) {
 	var app;
 
