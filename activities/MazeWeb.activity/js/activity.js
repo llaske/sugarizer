@@ -1,9 +1,22 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette"], function (activity, TWEEN, rAF, maze, directions, presencepalette, env, icon, webL10n, palette) {
+define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT) {
 
     requirejs(['domReady!'], function (doc) {
         activity.setup();
-        var sharedact=false;
 
+        var maze = {};
+        var ended=false;
+        var oponentEnded=false;
+        maze.width = undefined;
+        maze.height = undefined;
+        maze.startPoint = {};
+        maze.goalPoint = {};
+
+        maze.walls = [];
+        maze.visited = [];
+        maze.directions = [];
+        maze.forks = [];
+
+        
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
         
@@ -21,17 +34,21 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
             }
-            
-            maze.goalPoint=msg.goal;
-            maze=msg.content;
-            gameSize=msg.SizeOfGame;
-            sharedact=true;
-            console.log(maze.startPoint);
-            drawMaze();
-            updateMazeSize();
-            updateSprites();
-            drawMaze();
-           
+            switch (msg.action){
+                case 'start':
+                    ended=false;
+                    oponentEnded=false;
+                    maze.goalPoint=msg.goal;
+                    maze=msg.content;
+                    gameSize=msg.SizeOfGame;
+                    onLevelStart();
+                    updateMazeSize();
+                    updateSprites();
+                    maze.startPoint=msg.playerstart;
+                    break;
+                case 'ended':
+                    oponentEnded=true;
+            }
             
         }; 
 
@@ -311,6 +328,8 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         var onLevelStart = function () {
             levelStatus = 'starting';
 
+            
+
             tween = new TWEEN.Tween({t: 0});
             tween.to({t: 1}, 900);
             tween.easing(TWEEN.Easing.Quadratic.InOut);
@@ -320,47 +339,48 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             tween.onComplete(function () {
                 levelStartingValue = undefined;
                 levelStatus = 'playing';
-                if(!sharedact){
-                    drawMaze();
-                }
+                drawMaze();
+                
             });
             tween.start();
         }
 
-        var runLevel = function () {
-            maze.generate(window.innerWidth / window.innerHeight, gameSize);
-            updateMazeSize();
-            updateSprites();
-            players = {};
-            winner = undefined;
-            onLevelStart();
-            if (presence) {
-                presence.sendMessage(presence.getSharedInfo().id, {
-                    user: presence.getUserInfo(),
-                    action: 'update',
-                    playerstart: maze.startPoint,
-                    goal: maze.goalPoint,
-                    SizeOfGame: gameSize,
-                    content: maze,
-                });
-                console.log(maze.startPoint);
-            }
-        }
-        runLevel();
+        var generate = function (aspectRatio, size) {
+            initialize(aspectRatio, size);
+            ended=false;
+            oponentEnded=false;
+            maze.walls = createMatrix(maze.width, maze.height);
+            maze.visited = createMatrix(maze.width, maze.height);
+            maze.directions = createMatrix(maze.width, maze.height);
+            maze.forks = createMatrix(maze.width, maze.height);
+    
+            var rotmaze = new ROT.Map.IceyMaze(maze.width, maze.height, 1);
+            //var rotmaze = new ROT.Map.EllerMaze(maze.width, maze.height, 1);
+            rotmaze.create(onCellGenerated);
+    
+            findDirections();
+            findForks();
+        };
+
 
         var onLevelComplete = function (player) {
             winner = player;
             levelStatus = 'transition';
-
+            ended=true;
+            if(presence){
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'ended'
+                });
+            }
             var audio = new Audio('sounds/win'+soundType);
             audio.play();
-
             for (control in players) {
                 players[control].stop();
             }
 
             var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
-                                  Math.pow(window.innerHeight, 2));
+                                Math.pow(window.innerHeight, 2));
 
             tween = new TWEEN.Tween({radius: 0});
             tween.to({radius: hypot}, 1200);
@@ -368,15 +388,20 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             tween.onUpdate(function () {
                 levelTransitionRadius = this.radius;
             });
-            tween.onComplete(function () {
-                nextLevel();
-            });
-            tween.start();
+            if((presence&&oponentEnded)||!presence){
+                tween.onComplete(function () {
+                    nextLevel();
+                });
+                        
+                tween.start();
+            }
+            
         }
 
         var nextLevel = function () {
             gameSize *= 1.2;
             runLevel();
+            
         }
 
         var Player = function (control) {
@@ -402,6 +427,142 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             dirtyCells.push({'x': this.x, 'y': this.y});
         };
 
+        var countOptions = function (x, y) {
+            var dirs = maze.directions[x][y];
+            return dirs.reduce(function (previousValue, currentValue) {
+                return previousValue + currentValue;
+            });
+        };
+
+        var isDeadEnd = function (x, y) {
+            return countOptions(x, y) == 1;
+        };
+
+        var isFork = function (x, y) {
+            return countOptions(x, y) > 2;
+        };
+
+        
+
+        var initialize = function (aspectRatio, size) {
+            maze.height = Math.sqrt(size / aspectRatio);
+            maze.width = maze.height * aspectRatio;
+            maze.height = Math.floor(maze.height);
+            maze.width = Math.floor(maze.width);
+    
+            var maxCellX;
+            var maxCellY;
+            if (maze.width % 2) {
+                maxCellX = maze.width-2;
+            } else {
+                maxCellX = maze.width-3;
+            }
+            if (maze.height % 2) {
+                maxCellY = maze.height-2;
+            } else {
+                maxCellY = maze.height-3;
+            }
+    
+            var startX;
+            var goalY;
+            if (Math.random() < 0.5) {
+                startX = 1;
+                goalX = maxCellX;
+            } else {
+                startX = maxCellX;
+                goalX = 1;
+            }
+    
+            var startY;
+            var goalX;
+            if (Math.random() < 0.5) {
+                startY = 1;
+                goalY = maxCellY;
+            } else {
+                startY = maxCellY;
+                goalY = 1;
+            }
+    
+            maze.startPoint = {'x': startX, 'y': startY};
+            maze.goalPoint = {'x': goalX, 'y': goalY};
+            
+    
+        };
+
+        var createMatrix = function (width, height) {
+            var matrix = [];
+            for (var x=0; x<width; x++) {
+                matrix[x] = new Array(height);
+            }
+    
+            return matrix;
+        };
+
+        var onCellGenerated = function (x, y, value) {
+            maze.walls[x][y] = value;
+        };
+
+        var findDirections = function () {
+            for (var x=0; x<maze.width; x++) {
+                for (var y=0; y<maze.height; y++) {
+                    maze.directions[x][y] = getDirections(x, y);
+                }
+            }
+        };
+
+        var getDirections = function (x, y) {
+            var dirs = [0, 0, 0, 0];
+    
+            if (maze.walls[x][y] == 1) {
+                return dirs;
+            }
+    
+            if (maze.walls[x-1][y] == 0) {
+                dirs[directions.west] = 1;
+            }
+            if (maze.walls[x+1][y] == 0) {
+                dirs[directions.east] = 1;
+            }
+            if (maze.walls[x][y-1] == 0) {
+                dirs[directions.north] = 1;
+            }
+            if (maze.walls[x][y+1] == 0) {
+                dirs[directions.south] = 1;
+            }
+    
+            return dirs;
+        };
+
+        var findForks = function () {
+            for (var x=0; x<maze.width; x++) {
+                for (var y=0; y<maze.height; y++) {
+                    if (isDeadEnd(x, y) || isFork(x, y)) {
+                        maze.forks[x][y] = 1;
+                    }
+                }
+            }
+        };
+
+        var runLevel = function () {
+            generate(window.innerWidth / window.innerHeight, gameSize);
+            updateMazeSize();
+            updateSprites();
+            players = {};
+            winner = undefined;
+            onLevelStart();
+            if (presence) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'start',
+                    playerstart: maze.startPoint,
+                    goal: maze.goalPoint,
+                    SizeOfGame: gameSize,
+                    content: maze
+                });
+            }
+        }
+        runLevel();
+
         Player.prototype.isMoving = function () {
             return (this.animation !== undefined);
         };
@@ -416,7 +577,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
             var find = function (x, y, direction, first) {
 
-                if (!(first) && (maze.isDeadEnd(x, y) || maze.isFork(x, y))) {
+                if (!(first) && (isDeadEnd(x,y) || isFork(x,y))) {
                     return [];
                 }
 
@@ -664,7 +825,6 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
                 network.createSharedActivity('org.sugarlabs.MazeWebActivity', function(groupId) {
                     console.log("Activity shared");
                     isHost = true;
-                    console.log(maze.walls);
                 });
                 network.onDataReceived(onNetworkDataReceived);
             });
