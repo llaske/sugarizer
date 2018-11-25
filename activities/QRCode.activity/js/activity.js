@@ -216,7 +216,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 
 		// Update dropdown with user history
 		function updateHistory() {
-			var mhtml = '<option value="default">----</option>';
+			var mhtml = '';
 			var index = history.length;
 			while(index--) {
 				mhtml += '<option value="'+(history[index])+'">'+(history[index])+'</option>';

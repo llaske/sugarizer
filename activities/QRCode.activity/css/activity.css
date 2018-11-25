@@ -36,11 +36,16 @@
 #user-text {
 	height: 40px;
 	margin: 5px;
-	margin-left: 3vh;
+	margin-left: 6vw;
 	width: 89vw;
 	font-size: 28pt;
 	font-weight: bold;
 	z-index:0;
+}
+@media (max-width: 960px) {
+	#user-text {
+		margin-left: 10vw;
+	}
 }
 
 .text-url {
@@ -165,11 +170,16 @@
 	height: 45px;
 	width: 50px;
 	margin: 8px;
-	right: 60px;
+	left: -0.4vw;
 	bottom: 15px;
 	top: 2px;
 	z-index: 1;
 	position: absolute;
+}
+@media (min-width: 960px) {
+	#qrtextdropdown {
+		margin-left: 2.5vw;
+	}
 }
 #qrtextdropdown option {
 	font-size: 20px;
