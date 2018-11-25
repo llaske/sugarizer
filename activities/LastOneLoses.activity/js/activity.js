@@ -11,7 +11,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				console.log("Sharing error");
 				return;
 			}
-			network.createSharedActivity('org.sugarlabs.Pawn', function(groupId) {
+			network.createSharedActivity('org.sugarlabs.LOL', function(groupId) {
 				console.log("Activity shared");
 			});
 			network.onDataReceived(onNetworkDataReceived);
