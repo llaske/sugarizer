@@ -37,7 +37,7 @@
 	height: 40px;
 	margin: 5px;
 	margin-left: 6vw;
-	width: 89vw;
+	width: 85vw;
 	font-size: 28pt;
 	font-weight: bold;
 	z-index:0;
@@ -45,6 +45,11 @@
 @media (max-width: 960px) {
 	#user-text {
 		margin-left: 10vw;
+	}
+}
+@media (max-width: 600px) {
+	#user-text {
+		margin-left: 20vw;
 	}
 }
 
@@ -176,9 +181,9 @@
 	z-index: 1;
 	position: absolute;
 }
-@media (min-width: 960px) {
+@media (min-width: 1140px) {
 	#qrtextdropdown {
-		margin-left: 2.5vw;
+		margin-left: 1.5vw;
 	}
 }
 #qrtextdropdown option {
