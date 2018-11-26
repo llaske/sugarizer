@@ -36,11 +36,21 @@
 #user-text {
 	height: 40px;
 	margin: 5px;
-	margin-left: 3vh;
-	width: 89vw;
+	margin-left: 6vw;
+	width: 85vw;
 	font-size: 28pt;
 	font-weight: bold;
 	z-index:0;
+}
+@media (max-width: 960px) {
+	#user-text {
+		margin-left: 10vw;
+	}
+}
+@media (max-width: 600px) {
+	#user-text {
+		margin-left: 20vw;
+	}
 }
 
 .text-url {
@@ -141,4 +151,41 @@
 	margin-top: 10px;
 	visibility: hidden;
 	z-index: 4;
+}
+#qrtextdropdown {
+	height: 7vh;
+	width: 7vh;
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	background: none;
+	border: none;
+	background-image: url(../icons/go-down.svg);
+	background-size: 55px 50px;
+	background-position: 50% 50%;
+	color: #555;
+	font-size: inherit;
+	overflow: hidden;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0;
+	height: 45px;
+	width: 50px;
+	margin: 8px;
+	left: -0.4vw;
+	bottom: 15px;
+	top: 2px;
+	z-index: 1;
+	position: absolute;
+}
+@media (min-width: 1140px) {
+	#qrtextdropdown {
+		margin-left: 1.5vw;
+	}
+}
+#qrtextdropdown option {
+	font-size: 20px;
 }
