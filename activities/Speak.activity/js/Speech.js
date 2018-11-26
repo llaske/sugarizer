@@ -95,6 +95,7 @@ var Speech = (function() {
 			addUserInput.setAttribute("value", playing);
 			addUserInput.text = playing;
 			document.getElementById("combo-box").appendChild(addUserInput);
+			document.getElementById("combo-box").value= playing;
 
 			speakArray.push(playing); // Adds recent talks to speakArray
 
