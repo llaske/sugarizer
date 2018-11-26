@@ -84,6 +84,9 @@
   font-size: 0;
 }
 
+#combo-box option{
+  font-size: 20px;
+}
 
 
 /** Select tag custom css **/
