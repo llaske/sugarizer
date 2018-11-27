@@ -86,6 +86,8 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 					window.clearTimeout(timer);
 						var language = document.getElementById('speaklang').innerHTML;
 						var text = l10n.get("TypeSomething", {name:sugarSettings.name});
+						document.getElementById("combo-box").title = l10n.get("SavedTalk"); // Localized Saved talk title.
+						document.getElementsByClassName("dropdown").title = l10n.get("SavedTalk"); // Localized Saved talk title.
 						speech.playVoice(language, text);
 						moveMouth(text);
 					}, 100);
