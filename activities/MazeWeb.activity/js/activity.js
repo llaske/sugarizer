@@ -15,6 +15,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         maze.visited = [];
         maze.directions = [];
         maze.forks = [];
+        var firstentry=true;
 
         
         env.getEnvironment(function(err, environment) {
@@ -34,35 +35,25 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
             }
+            
             switch (msg.action){
                 case 'start':
                     ended=false;
                     oponentEnded=false;
-                    maze.goalPoint=msg.goal;
                     maze=msg.content;
                     gameSize=msg.SizeOfGame;
-                    onLevelStart();
                     updateMazeSize();
                     updateSprites();
-                    maze.startPoint=msg.playerstart;
+                    onLevelStart();
                     break;
                 case 'ended':
                     oponentEnded=true;
+                    break;
             }
             
         }; 
 
         var onNetworkUserChanged = function(msg) {
-            if (isHost) {
-                presence.sendMessage(presence.getSharedInfo().id, {
-                    user: presence.getUserInfo(),
-                    action:'init',
-                    playerstart: maze.startPoint,
-                    goal: maze.goalPoint,
-                    SizeOfGame: gameSize,
-                    content: maze,
-                });
-            }
             console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
         }; 
 
@@ -328,8 +319,6 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         var onLevelStart = function () {
             levelStatus = 'starting';
 
-            
-
             tween = new TWEEN.Tween({t: 0});
             tween.to({t: 1}, 900);
             tween.easing(TWEEN.Easing.Quadratic.InOut);
@@ -343,21 +332,22 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 
             });
             tween.start();
+            
         }
 
         var generate = function (aspectRatio, size) {
             initialize(aspectRatio, size);
-            ended=false;
-            oponentEnded=false;
+            
             maze.walls = createMatrix(maze.width, maze.height);
             maze.visited = createMatrix(maze.width, maze.height);
             maze.directions = createMatrix(maze.width, maze.height);
             maze.forks = createMatrix(maze.width, maze.height);
-    
+
+            
             var rotmaze = new ROT.Map.IceyMaze(maze.width, maze.height, 1);
             //var rotmaze = new ROT.Map.EllerMaze(maze.width, maze.height, 1);
             rotmaze.create(onCellGenerated);
-    
+            
             findDirections();
             findForks();
         };
@@ -378,7 +368,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             for (control in players) {
                 players[control].stop();
             }
-
+            
             var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
                                 Math.pow(window.innerHeight, 2));
 
@@ -388,20 +378,21 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             tween.onUpdate(function () {
                 levelTransitionRadius = this.radius;
             });
+            maze.startPoint={};
+            players={};
             if((presence&&oponentEnded)||!presence){
                 tween.onComplete(function () {
                     nextLevel();
                 });
-                        
-                tween.start();
-            }
+            }      
+            tween.start();
+            
             
         }
 
         var nextLevel = function () {
             gameSize *= 1.2;
             runLevel();
-            
         }
 
         var Player = function (control) {
@@ -462,7 +453,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             } else {
                 maxCellY = maze.height-3;
             }
-    
+            
             var startX;
             var goalY;
             if (Math.random() < 0.5) {
@@ -482,7 +473,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 startY = maxCellY;
                 goalY = 1;
             }
-    
+            
             maze.startPoint = {'x': startX, 'y': startY};
             maze.goalPoint = {'x': goalX, 'y': goalY};
             
@@ -545,21 +536,26 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         var runLevel = function () {
             generate(window.innerWidth / window.innerHeight, gameSize);
+            
             updateMazeSize();
             updateSprites();
-            players = {};
-            winner = undefined;
-            onLevelStart();
             if (presence) {
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
                     action: 'start',
-                    playerstart: maze.startPoint,
-                    goal: maze.goalPoint,
+                    //playerstart: maze.startPoint,
+                    //goal: maze.goalPoint,
                     SizeOfGame: gameSize,
                     content: maze
                 });
+                    
             }
+            ended=false;
+            oponentEnded=false;
+            players = {};
+            winner = undefined;
+            onLevelStart();
+            
         }
         runLevel();
 
