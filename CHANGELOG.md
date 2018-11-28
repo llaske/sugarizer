@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add an erase button into GridPaint activity #242
 - Add an history of last QR Code generated/read in QR Code activity #244
 - Save Speak history in Journal #209
+- Improve Maze activity to allow playing with presence #208
 
 ### Removed
 - Remove Cordova activity
