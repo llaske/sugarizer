@@ -1,0 +1,149 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: EbookReaderActivity
+msgctxt "EbookReaderActivity"
+msgid "Ebook Reader Activity"
+msgstr ""
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr ""
+
+#: Previous
+msgctxt "Previous"
+msgid "Previous"
+msgstr ""
+
+#: Library
+msgctxt "Library"
+msgid "Library"
+msgstr ""
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr ""
+
+#: Help
+msgctxt "Help"
+msgid "Help"
+msgstr ""
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr ""
+
+#: Url
+msgctxt "Url"
+msgid "Url"
+msgstr ""
+
+#: Ok
+msgctxt "Ok"
+msgid "Ok"
+msgstr ""
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr ""
+
+#: PrevShort
+msgctxt "PrevShort"
+msgid "Prev"
+msgstr ""
+
+#: NextShort
+msgctxt "NextShort"
+msgid "Next"
+msgstr ""
+
+#: EndShort
+msgctxt "EndShort"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Ebook Reader activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This activity is a library that allow you to read electronic books at ePub format."
+msgstr ""
+
+#: TutoBookTitle
+msgctxt "TutoBookTitle"
+msgid "One ebook"
+msgstr ""
+
+#: TutoBookContent
+msgctxt "TutoBookContent"
+msgid "Click on an ebook to start or continue reading."
+msgstr ""
+
+#: TutoLibraryButtonTitle
+msgctxt "TutoLibraryButtonTitle"
+msgid "Change view"
+msgstr ""
+
+#: TutoLibraryButtonContent
+msgctxt "TutoLibraryButtonContent"
+msgid "Click on this icon to switch between library and reading view."
+msgstr ""
+
+#: TutoSettingsButtonTitle
+msgctxt "TutoSettingsButtonTitle"
+msgid "Settings"
+msgstr ""
+
+#: TutoSettingsButtonContent
+msgctxt "TutoSettingsButtonContent"
+msgid "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
+msgstr ""
+
+#: TutoFullscreenButtonTitle
+msgctxt "TutoFullscreenButtonTitle"
+msgid "Fullscreen"
+msgstr ""
+
+#: TutoFullscreenButtonContent
+msgctxt "TutoFullscreenButtonContent"
+msgid "Click on this icon to display the current content in full screen mode."
+msgstr ""
+
+#: TutoPrevButtonTitle
+msgctxt "TutoPrevButtonTitle"
+msgid "Previous page"
+msgstr ""
+
+#: TutoPrevButtonContent
+msgctxt "TutoPrevButtonContent"
+msgid "Click here to display the previous page of the book."
+msgstr ""
+
+#: TutoNextButtonTitle
+msgctxt "TutoNextButtonTitle"
+msgid "Next page"
+msgstr ""
+
+#: TutoNextButtonContent
+msgctxt "TutoNextButtonContent"
+msgid "Click here to display the next page of the book."
+msgstr ""
