@@ -16,11 +16,9 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         maze.directions = [];
         maze.forks = [];
         var firstentry=true;
-
         
-        env.getEnvironment(function(err, environment) {
-            currentenv = environment;
         
+        env.getEnvironment(function(err, environment) {        
             // Shared instances
             if (environment.sharedId) {
                 console.log("Shared instance");
@@ -29,6 +27,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                     network.onSharedActivityUserChanged(onNetworkUserChanged);
                 });
             }
+            
         });
 
         var onNetworkDataReceived = function(msg) {
@@ -51,10 +50,20 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                     break;
             }
             
+            
         }; 
 
         var onNetworkUserChanged = function(msg) {
+            if (isHost) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'start',
+                    SizeOfGame: gameSize,
+                    content: maze
+                });
+            }
             console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+
         }; 
 
 		var soundType = /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? '.mp3' : '.ogg';
@@ -98,6 +107,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         var mazeCanvas = document.getElementById("maze");
 
         var spriteCanvas = document.createElement("canvas");
+        
 
         var updateMazeSize = function () {
             var toolbarElem = document.getElementById("main-toolbar");
@@ -114,6 +124,8 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             spriteCanvas.width = cellWidth * 2; // number of states
             spriteCanvas.height = cellHeight * controlNames.length;
         };
+
+        
 
         var onWindowResize = function () {
             updateMazeSize();
@@ -543,8 +555,6 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
                     action: 'start',
-                    //playerstart: maze.startPoint,
-                    //goal: maze.goalPoint,
                     SizeOfGame: gameSize,
                     content: maze
                 });
@@ -821,8 +831,13 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 network.createSharedActivity('org.sugarlabs.MazeWebActivity', function(groupId) {
                     console.log("Activity shared");
                     isHost = true;
+                    presence.sendMessage(presence.getSharedInfo().id, {
+                        user: presence.getUserInfo(),
+                        action: 'connect'
+                    });
                 });
                 network.onDataReceived(onNetworkDataReceived);
+                network.onSharedActivityUserChanged(onNetworkUserChanged);
             });
         });
     });
