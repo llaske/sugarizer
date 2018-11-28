@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Wed Nov 28 2018 22:27:17 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,8 +100,8 @@ msgstr "Arrêter"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
-msgid "Click on this icon to stop the activity and go back to the home."
-msgstr "Appuyez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil."
+msgid "Click on this icon to stop the activity and go back to the Sugarizer home."
+msgstr "Appuyez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil de Sugarizer."
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
