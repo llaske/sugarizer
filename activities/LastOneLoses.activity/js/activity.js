@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env"], function (activity, radioButtonsGroup, presencepalette, env) {
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, radioButtonsGroup, presencepalette, env, icon) {
 	var app;
 	var presence=null;
 	var less=0;
@@ -9,6 +9,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 	var gamesize=null;
 	var firsttime=true;
 	env.getEnvironment(function(err, environment) {
+		currentenv=environment;
 		// Shared instances
 		if (environment.sharedId) {
 			console.log("Shared instance");
@@ -150,8 +151,12 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			this.$.endmessage.setShowing(this.game.endOfGame());		
 			
 			// Play for computer
-			if (this.game.getPlayer() != this.player && !this.game.endOfGame() && !presence)
-				this.computerPlay();
+			if (this.game.getPlayer() != this.player && !this.game.endOfGame())
+				if(presence){
+					this.oponentPlay();
+				}else{
+					this.computerPlay();
+				}
 		},
 		
 		onNetworkDataReceived: function(msg) {
@@ -197,7 +202,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		
 		// Show the current player turn
 		showCurrentPlayer: function() {
-			console.log(this.game.getPlayer());
+			//console.log(this.game.getPlayer());
 			if (this.player == this.game.getPlayer() && !this.game.endOfGame())
 				this.$.player.removeClass("empty-image");
 			else
@@ -239,9 +244,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			if (this.selectedCount == 0)
 				return;	
 			gamesize-=this.selectedCount;
-			console.log(gamesize);
 			if (presence) {
-				console.log("update sent");
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
 					action: "update",
@@ -251,6 +254,18 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			this.save(this.game.play(this.selectedCount));
 			this.drawBoard();
 			this.$.playbutton.hide();
+		},
+
+		oponentPlay: function() {
+			if (this.player == this.game.getPlayer() && !this.game.endOfGame())
+				this.$.player.removeClass("empty-image");
+			else
+				this.$.player.addClass("empty-image");
+			if (this.player != this.game.getPlayer() && !this.game.endOfGame()){
+				this.$.computer.removeClass("empty-image");
+				this.$.computer.addClass("oponent-image");
+			}else
+				this.$.computer.addClass("empty-image");
 		},
 		
 		// Let's computer play
