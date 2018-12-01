@@ -1632,7 +1632,17 @@ body {
 .aboutserver-servername {
 	margin-left: 10px;
 	display: inline-block;
-	width: 165px;
+	border-radius: 22px;
+	height: 25px;
+	width: 270px;
+	margin-left: 30px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	font-size: 10pt;
+}
+
+.aboutserver-servername:focus {
+	background-color: white;
 }
 
 .aboutserver-userlabel {
