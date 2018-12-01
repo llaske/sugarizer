@@ -71,7 +71,7 @@ define(function (require) {
 
 	// Test if connected to network
 	SugarPresence.prototype.isConnected = function() {
-		return (this.socket != null);
+		return (this.socket != null && this.socket.readyState == 1);
 	}
 
 	// Get user info
