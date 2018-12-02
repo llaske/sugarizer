@@ -14,6 +14,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
+		var resizeTimer = null;
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -77,13 +78,19 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 			// resize events
 			window.addEventListener('resize', function () {
-				// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
-				viewportBounds = Physics.aabb(0-outerWidth, toolbarHeight, renderer.width+outerWidth, renderer.height);
-				// update the boundaries
-				edgeBounce.setAABB(viewportBounds);
-				innerWidth = body.offsetWidth;
-				innerHeight = body.offsetHeight;
-				zoom();
+				if (resizeTimer) {
+					clearTimeout(resizeTimer);
+				}
+				resizerTimer = setTimeout(function() {
+					renderer.resize(body.offsetWidth,body.offsetHeight);
+					// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
+					viewportBounds = Physics.aabb(0-outerWidth, toolbarHeight, renderer.width+outerWidth, renderer.height);
+					// update the boundaries
+					edgeBounce.setAABB(viewportBounds);
+					innerWidth = body.offsetWidth;
+					innerHeight = body.offsetHeight;
+					zoom();
+				}, 500);
 
 			}, true);
 
@@ -179,6 +186,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 				});
 			});
 
+			// Force resize renderer at startup to avoid glitch margin
+			setTimeout(function() {
+				renderer.resize(body.offsetWidth,body.offsetHeight);
+			}, 300);
+
 			var colors = [
 				['0x268bd2', '0x0d394f']
 				,['0xc93b3b', '0x561414']
@@ -200,6 +212,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 					canvas.style.MozTransform = "scale("+zoom+")";
 					canvas.style.MozTransformOrigin = "0 0";
 				}
+				world.wakeUpAll();
 			}
 
 			function random( min, max ){
