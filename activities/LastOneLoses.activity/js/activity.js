@@ -5,9 +5,12 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 	var items = [];
 	var isHost=false;
 	var sum=0;
-	var updated=false;
+	var sizeupdated=false;
+	var playerupdated=false;
 	var gamesize=null;
 	var firsttime=true;
+	var newgame=false;
+	var xoLogo= '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
 	env.getEnvironment(function(err, environment) {
 		currentenv=environment;
 		// Shared instances
@@ -95,6 +98,13 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			// Init game context
 			this.game = new LOLGame(this.count);
 			if (this.count > 0) this.player = this.game.getPlayer();
+			if(presence&&!isHost){
+				if(this.game.getPlayer()==0){
+					this.player=1;
+				}else{
+					this.player=0;
+				}
+			} 
 			this.count = this.size;
 			this.selectedCount = 0;
 			
@@ -117,62 +127,105 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		drawBoard: function() {
 			// Clean board
 			this.selectedCount = 0;
+			
+			if(presence&&playerupdated){
+				if(this.player!=this.game.getPlayer()){
+					this.player=this.game.getPlayer();
+					playerupdated=false;
+				}
+			}
+			
 			enyo.forEach(this.$.box.getControls(), function(item) {
 				items.push(item);
 			});	
 			for (var i = 0 ; i < items.length ; i++) {
 				items[i].destroy();
 			}
-			
+
 			// Redraw board
-			if(!updated) gamesize= this.game.getLength();
+			if(!sizeupdated) gamesize= this.game.getLength();
 			for (var i = 0 ; i < gamesize; i++) {
 				this.$.box.createComponent(
 					{ kind: "LOLItem", ontap: "selectItem" },
 					{ owner: this }
 				).render();
 			}
-			
+
 			if(!presence){
 				document.getElementById("switch-player-button").disabled = (this.game.getLength() != this.size);
 			}
 			
 			this.showCurrentPlayer();
 			
-			
 			// Test end condition
-			if (this.game.endOfGame()) {
+			if (!presence&&this.game.endOfGame()) {
 				this.$.endmessage.addClass(this.game.getPlayer() != this.player ? "end-message-win" : "end-message-lost");
 				this.$.endmessage.removeClass(this.game.getPlayer() != this.player ? "end-message-lost" : "end-message-win");
 				this.$.endaudio.setSrc(this.game.getPlayer() != this.player ? "audio/applause.ogg" : "audio/disappointed.ogg");
 				this.$.endaudio.play();
 				this.$.endmessage.show();
 			}
-			this.$.endmessage.setShowing(this.game.endOfGame());		
-			
+			this.$.endmessage.setShowing(this.game.endOfGame());
+
+			if(presence&&gamesize==0){
+				if(this.game.getPlayer()==this.player){
+					console.log("win");
+					this.$.player.addClass("empty-image");
+					this.$.computer.addClass("empty-image");
+					this.$.computer.removeClass("oponent-image");
+
+					this.$.endmessage.addClass("end-message-win");
+					this.$.endmessage.removeClass("end-message-lost");
+					this.$.endaudio.setSrc("audio/applause.ogg");
+					this.$.endaudio.play();
+					this.$.endmessage.show();
+				}else{
+					console.log("lost");
+					this.$.player.addClass("empty-image");
+					this.$.computer.removeClass("oponent-image");
+					this.$.computer.addClass("empty-image");
+
+					this.$.endmessage.addClass("player-lost");
+					this.$.endmessage.removeClass("end-message-win");
+					this.$.endaudio.setSrc("audio/disappointed.ogg");
+					this.$.endaudio.play();
+					this.$.endmessage.show();
+				}
+			}
 			// Play for computer
-			if (this.game.getPlayer() != this.player && !this.game.endOfGame())
+			if (this.game.getPlayer() != this.player && !this.game.endOfGame()&&gamesize>0){
 				if(presence){
 					this.oponentPlay();
 				}else{
 					this.computerPlay();
 				}
+			}
 		},
-		
+
 		onNetworkDataReceived: function(msg) {
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
 			}
 			switch(msg.action){
 				case 'init':
+					console.log("init");
 					gamesize=msg.content;
-					updated=true;
+					sizeupdated=true;
+					playerupdated=false;
 					app.drawBoard();
 					break;
 				case 'update':
+					console.log("update");
 					gamesize=msg.content;
-					updated=true;
+					sizeupdated=true;
+					playerupdated=true;
+					this.player=msg.curplayer;
 					app.drawBoard();
+					break;
+				case 'newgame':
+					console.log("new game");
+					newgame=true;
+					app.doRenew();
 					break;
 			}
 			
@@ -187,6 +240,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				});
 			}
 			console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+			if(!isHost) this.player=1;
 		},
 
 		// Get current level
@@ -202,7 +256,6 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		
 		// Show the current player turn
 		showCurrentPlayer: function() {
-			//console.log(this.game.getPlayer());
 			if (this.player == this.game.getPlayer() && !this.game.endOfGame())
 				this.$.player.removeClass("empty-image");
 			else
@@ -248,7 +301,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
 					action: "update",
-					content: gamesize
+					content: gamesize,
+					curplayer: this.player
 				});
 			}
 			this.save(this.game.play(this.selectedCount));
@@ -304,8 +358,20 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		
 		// Start a new game
 		doRenew: function() {
-			this.level = this.getLevel();	
-			this.init();
+			if((presence&&isHost)||!presence||newgame){
+				this.level = this.getLevel();
+				gamesize=13;
+				this.init();
+				if (presence&&isHost) {
+					presence.sendMessage(presence.getSharedInfo().id, {
+						user: presence.getUserInfo(),
+						action: 'newgame',
+						content: gamesize,
+						curplayer: this.player
+					});
+				}
+				newgame=false;
+			}
 		},
 		
 		// Load game from datastore
