@@ -178,6 +178,7 @@ enyo.kind({
 		this.$.newuser.setShowing(vnewuser);
 		this.$.newusertext.setShowing(vnewusertext);
 		this.$.namebox.setShowing(vnamebox);
+		this.$.name.setAttribute("readOnly", !vnamebox);
 		if (vnamebox) {
 			this.$.name.focus();
 			this.$.name.hasNode().select();
