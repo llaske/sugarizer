@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, radioButtonsGroup, presencepalette, env, icon) {
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore) {
 	var app;
 	var presence=null;
 	var less=0;
@@ -10,6 +10,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 	var gamesize=null;
 	var firsttime=true;
 	var newgame=false;
+	var onejoined=false;
+	var numberofplayers=0;
 	env.getEnvironment(function(err, environment) {
 		currentenv=environment;
 		// Shared instances
@@ -215,6 +217,17 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			}
 		},
 
+		Stop: function() {
+			var stopEvent = document.createEvent("CustomEvent");
+			stopEvent.initCustomEvent('activityStop', false, false, {
+				'cancelable': true
+			});
+            var result = window.dispatchEvent(stopEvent);
+            if (result) {
+                activity.close();
+            }
+        },
+
 		onNetworkDataReceived: function(msg) {
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
@@ -226,6 +239,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					sizeupdated=true;
 					playerupdated=false;
 					app.drawBoard();
+					secondplayer=true;
 					break;
 				case 'update':
 					console.log("update");
@@ -240,18 +254,31 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					newgame=true;
 					app.doRenew();
 					break;
+				case 'exit':
+					console.log("already two players");
+					if(numberofplayers<2){
+						app.Stop();
+					}
+					break;
 			}
 			
 		},
 
 		onNetworkUserChanged: function(msg) {
-			if (isHost) {
+			if (isHost&&!onejoined) {
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
 					action: 'init',
 					content: gamesize
 				});
+				onejoined=true;
+			}else if(isHost&&onejoined){
+				presence.sendMessage(presence.getSharedInfo().id, {
+					user: presence.getUserInfo(),
+					action: 'exit'
+				});
 			}
+			numberofplayers++;
 			console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
 			if(!isHost) this.player=1;
 		},
