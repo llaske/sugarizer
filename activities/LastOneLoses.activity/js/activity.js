@@ -12,6 +12,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 	var newgame=false;
 	var onejoined=false;
 	var numberofplayers=0;
+	var playerswitches=0;
+	var switched=false;
 	env.getEnvironment(function(err, environment) {
 		currentenv=environment;
 		// Shared instances
@@ -21,8 +23,13 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			document.getElementById("level-medium-button").classList.remove('active');
 			document.getElementById("level-hard-button").classList.remove('active');
 			document.getElementById("level-easy-button").setAttribute('disabled', 'disabled');
+			document.getElementById("level-easy-button").setAttribute('title', 'Not available in multiplayer');
 			document.getElementById("level-medium-button").setAttribute('disabled', 'disabled');
+			document.getElementById("level-medium-button").setAttribute('title', 'Not available in multiplayer');
 			document.getElementById("level-hard-button").setAttribute('disabled', 'disabled');
+			document.getElementById("level-hard-button").setAttribute('title', 'Not available in multiplayer');
+			document.getElementById("switch-player-button").setAttribute('disabled', 'disabled');
+			document.getElementById("switch-player-button").setAttribute('title', 'Only Host can do it');
 			presence = activity.getPresenceObject(function(error, network) {
 				network.onDataReceived(app.onNetworkDataReceived);
 				network.onSharedActivityUserChanged(app.onNetworkUserChanged);
@@ -51,7 +58,19 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		}
 
 		document.getElementById("switch-player-button").onclick = function() {
-			app.switchPlayer();
+			if(!presence||isHost){
+				app.switchPlayer();
+				switched=true;
+				if (presence) {
+					presence.sendMessage(presence.getSharedInfo().id, {
+						user: presence.getUserInfo(),
+						action: "update",
+						content: gamesize,
+						curplayer: this.player,
+						playerswitch: true
+					});
+				}
+			}
 		};
 
         // Initialize the game
@@ -75,8 +94,11 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					document.getElementById("level-medium-button").classList.remove('active');
 					document.getElementById("level-hard-button").classList.remove('active');
 					document.getElementById("level-easy-button").setAttribute('disabled', 'disabled');
+					document.getElementById("level-easy-button").setAttribute('title', 'Not available in multiplayer');
 					document.getElementById("level-medium-button").setAttribute('disabled', 'disabled');
+					document.getElementById("level-medium-button").setAttribute('title', 'Not available in multiplayer');
 					document.getElementById("level-hard-button").setAttribute('disabled', 'disabled');
+					document.getElementById("level-hard-button").setAttribute('title', 'Not available in multiplayer');
 					isHost=true;
 				});
 				network.onDataReceived(app.onNetworkDataReceived);
@@ -135,7 +157,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			if (this.level == 1&&!presence) document.getElementById("level-easy-button").classList.add('active');
 			else if (this.level == 2&&!presence) document.getElementById("level-medium-button").classList.add('active');
 			else if (this.level == 3&&!presence) document.getElementById("level-hard-button").classList.add('active');
-				
+		
 			// Draw board
 			this.drawBoard();
 		},
@@ -152,9 +174,19 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				}
 			}
 			
+			if(presence&&playerswitches%2==1){
+				this.player=this.game.getPlayer();
+			}else if(presence&&playerswitches%2==0&&playerswitches!=0){
+				if(this.game.getPlayer()==0){
+					this.player=1;
+				}else{
+					this.player=0;
+				}
+			}
+		
 			enyo.forEach(this.$.box.getControls(), function(item) {
 				items.push(item);
-			});	
+			});
 			for (var i = 0 ; i < items.length ; i++) {
 				items[i].destroy();
 			}
@@ -247,6 +279,9 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					sizeupdated=true;
 					playerupdated=true;
 					this.player=msg.curplayer;
+					if(msg.playerswitch){
+						playerswitches++;
+					}
 					app.drawBoard();
 					break;
 				case 'newgame':
@@ -342,7 +377,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					user: presence.getUserInfo(),
 					action: "update",
 					content: gamesize,
-					curplayer: this.player
+					curplayer: this.player,
+					playerswitch: false
 				});
 			}
 			this.save(this.game.play(this.selectedCount));
