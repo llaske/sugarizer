@@ -42,6 +42,17 @@
 	background-position: center;	
 }
 
+.oponent-image {
+	display: inline-block;
+	width: 200px;
+	max-width: 10%;
+	height: 100%;	
+    background-image: url(../icons/player-icon.svg);	
+	background-size: 100%;	
+	background-repeat: no-repeat;	
+	background-position: center;	
+}
+
 .empty-image {
     background-image: url(../icons/empty-icon.svg);	
 }
@@ -112,6 +123,10 @@
 
 .end-message-lost {
     background-image: url(../icons/computer-win.svg);
+}
+
+.player-lost{
+	background-image: url(../icons/player-lost.svg);
 }
 
 
