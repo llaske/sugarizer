@@ -93,6 +93,7 @@ function createWindow () {
 		minWidth: 640,
 		minHeight: 480,
 		fullscreen: true,
+		frame: false,
 		webPreferences: {webSecurity: false},
 		icon: './res/icon/electron/icon-1024.png'
 	});
