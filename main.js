@@ -92,6 +92,7 @@ function createWindow () {
 		backgroundColor: '#FFF',
 		minWidth: 640,
 		minHeight: 480,
+		fullscreen: true,
 		webPreferences: {webSecurity: false},
 		icon: './res/icon/electron/icon-1024.png'
 	});
@@ -101,6 +102,7 @@ function createWindow () {
 
 	// Load the index.html of Sugarizer
 	mainWindow.loadFile('index.html');
+	mainWindow.maximize()
 
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.once('ready-to-show', function() {
