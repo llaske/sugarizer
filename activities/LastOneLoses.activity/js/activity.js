@@ -13,7 +13,6 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 	var onejoined=false;
 	var numberofplayers=0;
 	var switchclicked=false;
-	//var playerswitches=0;
 	env.getEnvironment(function(err, environment) {
 		currentenv=environment;
 		// Shared instances
@@ -177,16 +176,6 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					playerupdated=false;
 				}
 			}
-			
-			/*if(presence&&playerswitches%2==1){
-				this.player=this.game.getPlayer();
-			}else if(presence&&playerswitches%2==0&&playerswitches!=0){
-				if(this.game.getPlayer()==0){
-					this.player=1;
-				}else{
-					this.player=0;
-				}
-			}*/
 		
 			enyo.forEach(this.$.box.getControls(), function(item) {
 				items.push(item);
