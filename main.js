@@ -15,7 +15,7 @@ var dialog = electron.dialog;
 var mainWindow = null;
 
 var debug = false;
-
+var frameless = true;
 
 
 // Localization features
@@ -86,14 +86,23 @@ function LoadFile(event, file) {
 }
 
 function createWindow () {
+	// Process argument
+	for (var i = 0 ; i < process.argv.length ; i++) {
+		if (process.argv[i] == '-debug') {
+			debug = true;
+		} else if (process.argv[i] == '-window') {
+			frameless = false;
+		}
+	}
+
 	// Create the browser window
 	mainWindow = new BrowserWindow({
 		show: false,
 		backgroundColor: '#FFF',
 		minWidth: 640,
 		minHeight: 480,
-		fullscreen: true,
-		frame: false,
+		fullscreen: frameless,
+		frame: !frameless,
 		webPreferences: {webSecurity: false},
 		icon: './res/icon/electron/icon-1024.png'
 	});
@@ -103,7 +112,9 @@ function createWindow () {
 
 	// Load the index.html of Sugarizer
 	mainWindow.loadFile('index.html');
-	mainWindow.maximize()
+	if (frameless) {
+		mainWindow.maximize();
+	}
 
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.once('ready-to-show', function() {
