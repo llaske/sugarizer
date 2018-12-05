@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Speak history in Journal #209
 - Improve Maze activity to allow playing with presence #208
 - No San-Marino and Vatican in Color My World app #174
+- Improve LOL activity to play against another user using presence #243
 
 ### Removed
 - Remove Cordova activity
