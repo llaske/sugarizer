@@ -187,9 +187,14 @@ define(["sugar-web/activity/activity"], function (activity) {
 			});
 
 			// Force resize renderer at startup to avoid glitch margin
-			setTimeout(function() {
-				renderer.resize(body.offsetWidth,body.offsetHeight);
-			}, 300);
+			var initialResize = function() {
+				if (renderer) {
+					renderer.resize(body.offsetWidth,body.offsetHeight);
+				} else {
+					setTimeout(initialResize, 300);
+				}
+			};
+			setTimeout(initialResize, 300);
 
 			var colors = [
 				['0x268bd2', '0x0d394f']
@@ -381,7 +386,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 			// Change gravity value
 			function setGravity(value) {
 				if (gravityMode == value) return;
-				document.getElementById("gravity-button").style.backgroundImage = "url(icons/gravity"+value+".svg)";
 				var acc = {};
 				switch(value) {
 				case 0:
@@ -409,6 +413,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 					acc = { x: -0.0004, y: 0.0004 };
 					break;
 				}
+				var reverse = (window.orientation == -90 ? -1 : 1);
+				acc = { x: acc.x * reverse, y: acc.y * reverse };
+				document.getElementById("gravity-button").style.backgroundImage = "url(icons/gravity"+(reverse == -1 ? (value+4)%8 : value)+".svg)";
 				gravity.setAcceleration(acc);
 				world.wakeUpAll();
 				gravityMode = value;
