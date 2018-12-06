@@ -56,6 +56,15 @@ Or, for Mac OS/Windows, just:
 
 	npm start
 
+The "start" command has two possible arguments:
+
+* "-window" to open Sugarizer in a window (instead of fullscreen)
+* "-debug" to open Sugarizer with the debug console
+
+For example if you want to combine both arguments:
+
+	npm start -- -debug -window
+
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
