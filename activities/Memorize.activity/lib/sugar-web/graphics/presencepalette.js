@@ -1,9 +1,16 @@
-define(["sugar-web/graphics/palette"], function (palette) {
+define(["sugar-web/graphics/palette", "sugar-web/env", "webL10n"], function (palette, env, webL10n) {
 
     'use strict';
 
     var presencepalette = {};
     var users = [];
+
+
+    env.getEnvironment(function(err, environment) {
+        var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+        var language = environment.user ? environment.user.language : defaultLanguage;
+        webL10n.language.code = language;
+    });
 
     presencepalette.PresencePalette = function (invoker, primaryText, presence) {
         palette.Palette.call(this, invoker, primaryText);
@@ -156,14 +163,14 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
     presencepalette.PresencePalette.prototype.onSharedActivityUserChanged = function (msg) {
         var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
-        var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>" + userName;
+        var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 
         if (msg.move === 1) {
-            showQuickModal(html + " joined")
+            showQuickModal(html + webL10n.get("PlayerJoin",{user: userName}))
         }
 
         if (msg.move === -1) {
-            showQuickModal(html + " left")
+            showQuickModal(html + webL10n.get("PlayerLeave",{user: userName}))
         }
 
         var that = this;

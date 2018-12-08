@@ -1,10 +1,10 @@
-#. extracted from ../translate.ini
+#. extracted from ../locale.ini
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:54:12 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sat Dec 08 2018 21:53:43 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

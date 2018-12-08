@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Nov 28 2018 22:27:17 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,5 +221,17 @@ msgstr ""
 #: TutoPngContent
 msgctxt "TutoPngContent"
 msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
+msgstr ""
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr ""
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
 msgstr ""
 
