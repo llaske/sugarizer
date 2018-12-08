@@ -498,9 +498,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		}
 		var onNetworkUserChanged = function(msg) {
 			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
-			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>" + userName;
+			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			if (msg.move === 1) {
-				humane.log(html + " joined");
+				humane.log(html + l10n_s.get("PlayerJoin",{user: userName}));
 				if (isHost) {
 					sendMessage({
 						action: 'initialBoard',
@@ -508,7 +508,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 					});
 				}
 			} else if (msg.move === -1) {
-				humane.log(html + " left");
+				humane.log(html + l10n_s.get("PlayerLeave",{user: userName}));
 			}
 			network.listSharedActivities(function(activities) {
 				for (var i = 0; i < activities.length; i++) {
