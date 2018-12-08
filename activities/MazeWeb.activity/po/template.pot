@@ -1,0 +1,45 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Dec 08 2018 15:46:28 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#. Do not translate {{user}}
+#: PlayerEndLevel
+msgctxt "PlayerEndLevel"
+msgid "{{user}} just ended the level"
+msgstr ""
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr ""
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr ""
+
+#. Do not translate {{count}}
+#: PlayersWaitOne
+msgctxt "PlayersWaitOne"
+msgid "Waiting for {{count}} player"
+msgstr ""
+
+#. Do not translate {{count}}
+#: PlayersWaitMany
+msgctxt "PlayersWaitMany"
+msgid "Waiting for {{count}} players"
+msgstr ""
+
