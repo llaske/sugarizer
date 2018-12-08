@@ -1,5 +1,9 @@
 
 
+#canvas {
+	background-color: #C0C0C0;
+}
+
 .level {
 	display: inline-block;
 	margin-left: 20px;
@@ -27,7 +31,7 @@
 	height: 100%;
     background-image: url(../icons/player-icon.svg);
 	background-size: 100%;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
@@ -35,26 +39,26 @@
 	display: inline-block;
 	width: 200px;
 	max-width: 10%;
-	height: 100%;	
-    background-image: url(../icons/computer-icon.svg);	
-	background-size: 100%;	
-	background-repeat: no-repeat;	
-	background-position: center;	
+	height: 100%;
+    background-image: url(../icons/computer-icon.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .oponent-image {
 	display: inline-block;
 	width: 200px;
 	max-width: 10%;
-	height: 100%;	
-    background-image: url(../icons/player-icon.svg);	
-	background-size: 100%;	
-	background-repeat: no-repeat;	
-	background-position: center;	
+	height: 100%;
+    background-image: url(../icons/player-icon.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .empty-image {
-    background-image: url(../icons/empty-icon.svg);	
+    background-image: url(../icons/empty-icon.svg) !important;
 }
 
 .switch {
@@ -69,7 +73,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .renew {
@@ -95,16 +99,14 @@
 	height: 100%;
 	margin-top: 10px;
 	margin-left: 3%;
-	background-color: brown;
-	display: inline-block;	
+	display: inline-block;
 	border-width: 1px;
 	border-style: inset;
 	border-color: darkgray;
-	box-shadow: 3px -4px 4px 2px black;	
+	box-shadow: 3px -4px 4px 2px black;
 }
 
 .lol-item-selected {
-	background-color: blue;
 }
 
 .end-message {
@@ -114,11 +116,11 @@
 	top: 24%;
 	height: 200px;
 	background-repeat: no-repeat;
-	background-position: center;	
+	background-position: center;
 }
 
 .end-message-win {
-    background-image: url(../icons/player-win.svg);	
+    background-image: url(../icons/player-win.svg);
 }
 
 .end-message-lost {
@@ -149,7 +151,7 @@
 	.lol-box {
 		height: 200px
 	}
-	
+
 	.play {
 		width: 50px;
 		height: 50px;
