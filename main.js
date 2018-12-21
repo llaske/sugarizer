@@ -25,7 +25,7 @@ l10n = {
 
 	init: function() {
 		this.language = app.getLocale() || "*";
-		this.ini = ini.parse(fs.readFileSync('./locale.ini', 'utf-8'));
+		this.ini = ini.parse(fs.readFileSync(app.getAppPath()+'/locale.ini', 'utf-8'));
 	},
 
 	setLanguage: function(lang) {
@@ -107,7 +107,7 @@ function createWindow () {
 		icon: './res/icon/electron/icon-1024.png'
 	});
 	if (process.platform === 'darwin') {
-		app.dock.setIcon('./res/icon/electron/icon-1024.png');
+		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');
 	}
 
 	// Load the index.html of Sugarizer
