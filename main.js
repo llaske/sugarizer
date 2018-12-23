@@ -88,9 +88,9 @@ function LoadFile(event, file) {
 function createWindow () {
 	// Process argument
 	for (var i = 0 ; i < process.argv.length ; i++) {
-		if (process.argv[i] == '-debug') {
+		if (process.argv[i] == '--debug') {
 			debug = true;
-		} else if (process.argv[i] == '-window') {
+		} else if (process.argv[i] == '--window') {
 			frameless = false;
 		}
 	}
