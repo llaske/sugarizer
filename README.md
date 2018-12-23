@@ -56,12 +56,13 @@ Or, for Mac OS/Windows, just:
 
 	npm start
 
-The "start" command has two possible arguments:
+The "start" command has three possible arguments:
 
 * "--window" to open Sugarizer in a window (instead of fullscreen)
 * "--debug" to open Sugarizer with the debug console
+* "--init" to remove all existing Journal and settings (all will be lost)
 
-For example if you want to combine both arguments:
+For example if you want to combine two arguments:
 
 	npm start -- --debug --window
 

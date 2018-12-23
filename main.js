@@ -16,6 +16,7 @@ var mainWindow = null;
 
 var debug = false;
 var frameless = true;
+var reinit = false;
 
 
 // Localization features
@@ -92,6 +93,8 @@ function createWindow () {
 			debug = true;
 		} else if (process.argv[i] == '--window') {
 			frameless = false;
+		} else if (process.argv[i] == '--init') {
+			reinit = true;
 		}
 	}
 
@@ -111,7 +114,7 @@ function createWindow () {
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadFile('index.html');
+	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}
