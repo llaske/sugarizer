@@ -127,6 +127,29 @@ height:5%;
 padding:3px;
 }
 
+/** Emoji Button **/
+#emoji-button {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  font-size: 0;
+}
+
+/** Dropdown for emoji button **/
+select {
+    padding:3px;
+    margin: 0;
+    background: transparent;
+    color:#888;
+    border: none !important;;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
 button {
 display:inline-block;
 border-radius:3px;
