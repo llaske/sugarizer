@@ -33,7 +33,11 @@
         <div id="content"><ul id="messages"></ul></div>
 
 
-        <textarea id="message" placeholder="Write your message here..." required autofocus readonly></textarea>
+        <div id = "textarea-container">
+          <textarea id="message" placeholder="Write your message here..." required autofocus readonly></textarea>
+          <input name="idValue" id="idValue" type="hidden">
+          <select id = "emoji-button" style = 'background: url(icons/smiley-icon.png);width:35px;height:35px;' onchange="document.getElementById('message').value=document.getElementById('message').value + this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;"></select>
+        </div>
         <p id="status">Click on the Neighborhood icon in the presence palette to start the Chat</p>
 </div>
 </body>
