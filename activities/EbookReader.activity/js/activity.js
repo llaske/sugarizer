@@ -45,6 +45,8 @@ var app = new Vue({
 								vm.currentBook = vm.currentLibrary.database[parsed.current];
 								vm.currentEpub = ePub(vm.currentLibrary.information.fileprefix+vm.currentBook.file);
 								vm.currentView = EbookReader;
+							} else if (vm.currentLibrary.database.length == 0) {
+								vm.loadLibrary(defaultUrlLibrary);
 							}
 							document.getElementById("spinner").style.visibility = "hidden";
 						}
