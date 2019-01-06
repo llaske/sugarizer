@@ -124,7 +124,17 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				return false;
             }
         };
+	    //Emoji messages
+        var selectEmoji = document.getElementById('emoji-button')
+        var emojiOption;
+        var emojRange = [128513, 128591]; //Array of emojis
 
+        for (var x = emojRange[0]; x < emojRange[1]; x++) {
+          emojiOption = document.createElement('option');
+          emojiOption.value = x;
+          emojiOption.innerHTML = "&#" + x + ";";
+          selectEmoji.appendChild(emojiOption);
+        }
     });
 
 });
