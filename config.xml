@@ -11,8 +11,8 @@
 		A taste of the Sugar on any device.
 	</description>
 
-	<author href="http://olpc-france.org" email="lionel@olpc-france.org">
-		Lionel Laské for OLPC France
+	<author href="https://sugarizer.org" email="lionel@sugarizer.org">
+		Lionel Laské
 	</author>
 
 	<preference name="Fullscreen" value="true" />
