@@ -117,21 +117,39 @@ margin-top:1.5rem;
 }
 
 textarea {
-width:98%;
-margin: 1%;
-font-size:1rem;
-border:1px solid #D9D9D9;
-border-radius:3px;
-box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
-height:5%;
-padding:3px;
+  position: relative;
+  width:94%;
+  margin: 1%;
+  font-size:1rem;
+  border:1px solid #D9D9D9;
+  border-radius:3px;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
+  height:3%;
+  padding:3px;
 }
 
-/** Emoji Button **/
-#emoji-button {
-  position: absolute;
-  bottom: 40px;
-  right: 20px;
+/** Emoji Buttons **/
+#smiley-button {
+  position: static;
+  background-repeat: no-repeat;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: 10px;
+  font-size: 0;
+}
+
+#sad-button {
+  position: static;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: 10px;
+  font-size: 0;
+}
+#others-button {
+  position: static;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: 10px;
   font-size: 0;
 }
 
@@ -140,6 +158,7 @@ select {
     padding:3px;
     margin: 0;
     background: transparent;
+    background-repeat: no-repeat;
     color:#888;
     border: none !important;;
     outline:none;
@@ -149,6 +168,7 @@ select {
     appearance:none;
     cursor:pointer;
 }
+
 
 button {
 display:inline-block;
@@ -181,4 +201,20 @@ overflow-y: auto;
 border:1px solid #CCC;
 height:80%;
 padding:1%;
+}
+
+/** Media Access Query**/
+
+@media only screen and (min-width: 360px){
+  #smiley-button, #sad-button, #others-button{
+      margin-top: 0px;
+      margin-bottom: 0px;
+  }
+}
+
+@media only screen and (min-width: 1366px){
+   #smiley-button, #sad-button, #others-button{
+      margin-top: -10px;
+      margin-bottom: -10px;
+  }
 }
