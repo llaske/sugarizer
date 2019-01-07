@@ -6,7 +6,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
         // Initialize the activity.
 		activity.setup();
-		
+
 		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
 		//sanitize html messages
 		var tagOrComment = new RegExp(
@@ -124,17 +124,62 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				return false;
             }
         };
-	    //Emoji messages
-        var selectEmoji = document.getElementById('emoji-button')
-        var emojiOption;
-        var emojRange = [128513, 128591]; //Array of emojis
+	    //Smiley Emoji options
+        var selectSmiley = document.getElementById('smiley-button')
+        var smileyOption;
+        var smileyRange = [
+          [128513, 128515], [128517, 128519], [128521, 128528] //Array of happy emojis
+        ];
 
-        for (var x = emojRange[0]; x < emojRange[1]; x++) {
-          emojiOption = document.createElement('option');
-          emojiOption.value = x;
-          emojiOption.innerHTML = "&#" + x + ";";
-          selectEmoji.appendChild(emojiOption);
+        for (var i = 0; i < smileyRange.length; i++) {
+          var range = smileyRange[i];
+          for (var x = range[0]; x < range[1]; x++) {
+
+            smileyOption = document.createElement('option');
+            smileyOption.value = x;
+            smileyOption.innerHTML = "&#" + x + ";";
+            selectSmiley.appendChild(smileyOption);
+          }
+
         }
+
+        //Sad Emoji options
+          var selectSad = document.getElementById('sad-button')
+          var sadOption;
+          var sadRange = [
+            [128531, 128533], [128545, 128551], [128555, 128558] //Array of sad or upset emojis
+          ];
+
+          for (var i = 0; i < sadRange.length; i++) {
+            var range = sadRange[i];
+            for (var x = range[0]; x < range[1]; x++) {
+
+              sadOption = document.createElement('option');
+              sadOption.value = x;
+              sadOption.innerHTML = "&#" + x + ";";
+              selectSad.appendChild(sadOption);
+            }
+
+          }
+
+          //Others Emoji options
+            var selectOthers = document.getElementById('others-button')
+            var otherOption;
+            var otherRange = [
+              [128568, 128573], [128582, 128588] //Array of other emojis
+            ];
+
+            for (var i = 0; i < otherRange.length; i++) {
+              var range = otherRange[i];
+              for (var x = range[0]; x < range[1]; x++) {
+
+                otherOption = document.createElement('option');
+                otherOption.value = x;
+                otherOption.innerHTML = "&#" + x + ";";
+                selectOthers.appendChild(otherOption);
+              }
+
+            }
     });
 
 });
