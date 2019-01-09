@@ -9,7 +9,7 @@ Let's now improve our activity to customize the content.
 
 The first task is to customize the icon. It's important because it's the visual identity of your activity.
 
-For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](images/pawn-icon.svg). Put it in a new `icons` directory into your `Pawn.activity` directory.
+For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](images/pawn-icon.svg). Right-click on it and then save it in a `pawn-icon.svg` file into a new `Pawn.activity/icons` directory.
 
 ![](images/tutorial_step2_1.png)
 
@@ -53,11 +53,11 @@ Here's an extract on our original `icons/pawn-icon.svg` file:
 		</g>
 	</svg>
 
-To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **file_color**.
+To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **fill_color**.
 
 Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`.
 
-Here, using your text editor you must replace `#808080` by `&fill_color;` and `#f0f0f0` by `&stroke_color;`.
+Here, using your text editor you must replace all `#808080` by `&fill_color;` and all `#f0f0f0` by `&stroke_color;`.
 
 Here is an extract of the result:
 
@@ -107,7 +107,7 @@ Let's run again our activity. We have now a beautiful pawn icon.
 ![](images/tutorial_step2_2.png)
 
 
-Note than a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
+Note that a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
 
 
 ### Customize content
@@ -146,14 +146,14 @@ These lines relied on the framework **require.js** that is used by Sugar-Web to 
 
 * `requirejs` is pretty the same. It tell to **require**: run the following function but before, load dependancies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
 
-Then come the most important line of our activity:
+Then comes the most important line of our activity:
 
 	// Initialize the activity.
 	activity.setup();
 
 It's a call to the `setup` method of the Sugar-Web activity library.
 
-If you have to keep only one line in your activity, keep that one because it's responsible of all the magic inside Sugarizer: it initialize Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forgot this call. Let's do it by commenting the line:
+If you have to keep only one line in your activity, keep that one because it's responsible of all the magic inside Sugarizer: it initialize Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forget this call. Let's do it by commenting the line:
 
 	// Initialize the activity.
 	//activity.setup();
@@ -163,7 +163,7 @@ Then run again your new activity. Here's what happens:
 
 ![](images/tutorial_step2_3.png)
 
-Ooops! Colors for our nice icons has disappear and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
+Ooops! Colors for our nice icons has disappeared and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
 
 So uncomment this precious line and never forget to call it again!
 
@@ -187,7 +187,7 @@ So add a call to this method to retrieve the user name:
 			document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 	});
 
-When you call the getEnvironment method, it should be loads the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
+When you call the getEnvironment method, it should load the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
 
 	document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 

@@ -72,6 +72,10 @@ For **Chrome**, close ALL running instances of Chrome and re-launch it using the
 
     chrome --allow-file-access-from-files index.html
 
+On Windows, you should launch:
+
+	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files
+	
 On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files

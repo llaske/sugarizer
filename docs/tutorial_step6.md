@@ -116,7 +116,7 @@ The new Network button and palette is here. We now have to implement the magic i
 
 ### How presence works
 
-Before further implementation let's pause to explain what exactly Sugarizer presence framework is and do.
+Before further implementation let's pause to explain what exactly Sugarizer presence framework is and what it does.
 
 The presence framework provide a real time communication between a set of clients. To do that the framework is based on the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) pattern. Every client could create one or more **topics**. Other clients could **subscribe** to these topics and everyone could **publish** messages on a topic. When a message is published on a topic, only clients connected to this topic receive the message.
 
@@ -252,7 +252,7 @@ It's like initial plays from Michaël was lost.
 
 This issue is related to the way of handling users that join the activity. Currently nothing is done to give them the initial board state. So they only seen new changes on the board. It could make sense for a chat activity: users who join a chat could not be able to see past discussions. But for our activity, it's not a good thing.
 
-To fix it, let's subscribe to a new presence callback named `onSharedActivityUserChanged`. So we will add two times - in `shared` listener and in `getEnvironment` - the following line in `activity/activity.js` file:
+To fix it, let's subscribe to a new presence callback named `onSharedActivityUserChanged`. So we will add two times - in `shared` listener and in `getEnvironment` under `network.onDataReceived` call - the following line in `activity/activity.js` file:
 
 	network.onSharedActivityUserChanged(onNetworkUserChanged);
 

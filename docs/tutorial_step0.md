@@ -29,7 +29,7 @@ To run Sugarizer locally in Chrome, close any running instances of Chrome and re
 
     chrome --allow-file-access-from-files index.html
 
-* On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe` instead.
+* On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"` or `open -n /Applications/Google\ Chrome.app --args` instead.
 
 * The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
