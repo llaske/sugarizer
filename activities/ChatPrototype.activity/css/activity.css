@@ -116,40 +116,39 @@ background-color:#F7F7F7;
 margin-top:1.5rem;
 }
 
+#text-container textarea {
+  height:41px;
+}
 textarea {
   position: relative;
-  width:94%;
-  margin: 1%;
+  width:88%;
+  margin-left: 1%;
   font-size:1rem;
   border:1px solid #D9D9D9;
   border-radius:3px;
   box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
-  height:3%;
   padding:3px;
 }
 
 /** Emoji Buttons **/
 #smiley-button {
-  position: static;
+  position: absolute;
   background-repeat: no-repeat;
-  margin-top: -10px;
-  margin-bottom: -10px;
+  margin-top: 8px;
   margin-left: 10px;
   font-size: 0;
 }
 
 #sad-button {
-  position: static;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  margin-left: 10px;
+  position: absolute;
+  margin-top:8px;
+  margin-left: 55px;
   font-size: 0;
 }
 #others-button {
-  position: static;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  margin-left: 10px;
+  position: absolute;
+  margin-top:8px;
+  margin-left: 100px;
   font-size: 0;
 }
 
@@ -206,6 +205,10 @@ padding:1%;
 /** Media Access Query**/
 
 @media only screen and (min-width: 360px){
+  textarea {
+    position: static;
+    width:60%;
+  }
   #smiley-button, #sad-button, #others-button{
       margin-top: 0px;
       margin-bottom: 0px;
@@ -213,8 +216,12 @@ padding:1%;
 }
 
 @media only screen and (min-width: 1366px){
+    textarea {
+      position: relative;
+      width:88%;
+      height: 41px;
+    }
    #smiley-button, #sad-button, #others-button{
-      margin-top: -10px;
-      margin-bottom: -10px;
+      margin-top: 8px;
   }
 }
