@@ -44,7 +44,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data){
 					if (error==null && data!=null){
-						console.log(data);
 						for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
 							var spanElement = document.getElementsByTagName("span")[i];
 							if (spanElement.innerHTML == "Load from Sugarizer"){
