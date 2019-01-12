@@ -17,7 +17,7 @@
 
 	<preference name="Fullscreen" value="true" />
 
-	<preference name="Orientation" value="userLandscape" />
+	<preference name="Orientation" value="landscape" />
 
 	<preference name="windows-target-version" value="10.0" />
 
