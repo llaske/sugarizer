@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - Remove Cordova activity
 - Remove Welcome Web activity
+- Chrome OS version
 
 
 ## [1.0.1] - 2018-07-07
