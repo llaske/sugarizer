@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Replace filter popups in Journal by palettes
 - Increase favorite icon size in Journal and List View
 - Full offline version of Scratch (sprites, background and sounds) - except on iOS
+- Add Emoji support in Chat activity
 
 ### Fixed
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
