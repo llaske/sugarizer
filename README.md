@@ -18,7 +18,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
@@ -36,15 +36,14 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 
 ![](images/applestore.png)
 
-To run **Sugarizer Application on Windows 10**, download it on [Windows Store](https://www.microsoft.com/store/apps/9nblggh4r782). You could also build yourself the Sugarizer Windows Application using instructions below.
+To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
+The Sugarizer desktop application has three possible arguments:
 
-![](images/windowstore.png)
+* `--window` to open Sugarizer in a window (instead of fullscreen)
+* `--debug` to open Sugarizer with the debug console
+* `--init` to remove all existing Journal and settings (all will be lost)
 
-To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
-
-![](images/chromewebstore.png)
-
-To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, you could use [electron](https://github.com/electron/electron). So first install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
+If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
 	npm install
 
@@ -56,15 +55,9 @@ Or, for Mac OS/Windows, just:
 
 	npm start
 
-The "start" command has three possible arguments:
+You could use Sugarizer desktop arguments using "--" after start. For example:
 
-* "--window" to open Sugarizer in a window (instead of fullscreen)
-* "--debug" to open Sugarizer with the debug console
-* "--init" to remove all existing Journal and settings (all will be lost)
-
-For example if you want to combine two arguments:
-
-	npm start -- --debug --window
+	npm start -- --window
 
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
@@ -75,7 +68,7 @@ For **Chrome**, close ALL running instances of Chrome and re-launch it using the
 On Windows, you should launch:
 
 	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files
-	
+
 On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
@@ -185,9 +178,9 @@ Let's start [here](docs/tutorial.md).
 To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
 
-# Build Application for Android, iOS or Windows 10
+# Build Application for Android and iOS
 
-Sugarizer Application could be packaged as an Android, iOS and Windows 10 application using [Cordova](http://cordova.apache.org/).
+Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
 To build it, first install Cordova as described [here](http://cordova.apache.org/).
 
