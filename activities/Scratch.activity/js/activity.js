@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], function (activity, datastore, env) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
 		activity.setup();
@@ -32,6 +32,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 				if (spanElement.innerHTML == "Save to Sugarizer"){
 					spanElement.click();
 					console.log("Call saved successfully");
+					break;
 				}
 				else{
 					console.log("Unable to save");
@@ -43,13 +44,13 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data){
 					if (error==null && data!=null){
-						console.log(data);
 						for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
 							var spanElement = document.getElementsByTagName("span")[i];
 							if (spanElement.innerHTML == "Load from Sugarizer"){
 								document.getElementById("myBlocks").value = data;
 								spanElement.click();
 								console.log("Loaded successfully");
+								break;
 							}
 							else{
 								console.log("Unable to load");

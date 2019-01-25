@@ -30,7 +30,7 @@ define(["sugar-web/activity/activity","activity/paint-activity","activity/paint-
 
   PaintApp.collaboration = p20;
 
-  require(['domReady!', 'sugar-web/datastore', 'paper-core', 'mustache', 'lzstring', 'humane'], function(doc, datastore, _paper, mustache, lzstring, humane) {
+  requirejs(['domReady!', 'sugar-web/datastore', 'paper-core', 'mustache', 'lzstring', 'humane'], function(doc, datastore, _paper, mustache, lzstring, humane) {
 
     /* Fetching and storing libraries */
     PaintApp.libs.mustache = mustache;

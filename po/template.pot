@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Mar 25 2018 21:36:27 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Wed Nov 28 2018 22:18:10 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -504,6 +504,11 @@ msgctxt "LicenseTerms"
 msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
 msgstr ""
 
+#: LicenseTermsPlus
+msgctxt "LicenseTermsPlus"
+msgid "Most activities use this license too but some could use a different license, check activities credits to be sure."
+msgstr ""
+
 #: RestartActivity
 msgctxt "RestartActivity"
 msgid "Restart"
@@ -764,6 +769,21 @@ msgctxt "ErrorWritingFile"
 msgid "Can't write file"
 msgstr ""
 
+#: UnableToConnect
+msgctxt "UnableToConnect"
+msgid "Unable to connect to server"
+msgstr ""
+
+#: Refresh
+msgctxt "Refresh"
+msgid "Retry"
+msgstr ""
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr ""
+
 #: Tutorial
 msgctxt "Tutorial"
 msgid "Tutorial"
@@ -831,7 +851,7 @@ msgstr ""
 
 #: TutoListContent
 msgctxt "TutoListContent"
-msgid "Use this button to display all activities and to select activities in the favorite view."
+msgid "Use this button to display all activities, to select activities in the favorite view and to have more information about activities."
 msgstr ""
 
 #: TutoFavswitchTitle
@@ -1067,5 +1087,538 @@ msgstr ""
 #: TutoNeighborWifiContent
 msgctxt "TutoNeighborWifiContent"
 msgid "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
+msgstr ""
+
+#: AllType
+msgctxt "AllType"
+msgid "All"
+msgstr ""
+
+#: SelectFilter
+msgctxt "SelectFilter"
+msgid "Select filter"
+msgstr ""
+
+#: SortDisplay
+msgctxt "SortDisplay"
+msgid "Sort display"
+msgstr ""
+
+#: SortByUpdated
+msgctxt "SortByUpdated"
+msgid "Sort by updated date"
+msgstr ""
+
+#: SortByCreated
+msgctxt "SortByCreated"
+msgid "Sort by creation date"
+msgstr ""
+
+#: SortBySize
+msgctxt "SortBySize"
+msgid "Sort by size"
+msgstr ""
+
+#: UnselectAll
+msgctxt "UnselectAll"
+msgid "Unselect all"
+msgstr ""
+
+#: SelectAll
+msgctxt "SelectAll"
+msgid "Select all"
+msgstr ""
+
+#. Do not translate {{count}} {{total}}
+#: Selected_one
+msgctxt "Selected_one"
+msgid "{{count}} selected on {{total}}"
+msgstr ""
+
+#. Do not translate {{count}} {{total}}
+#: Selected_other
+msgctxt "Selected_other"
+msgid "{{count}} selected on {{total}}"
+msgstr ""
+
+#. Do not translate {{count}}
+#: Erase_one
+msgctxt "Erase_one"
+msgid "Do you want to remove {{count}} entry?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: Erase_other
+msgctxt "Erase_other"
+msgid "Do you want to remove {{count}} entries?"
+msgstr ""
+
+#: Erasing
+msgctxt "Erasing"
+msgid "Removing..."
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToLocal_one
+msgctxt "CopyToLocal_one"
+msgid "Do you want to copy {{count}} entry in your local Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToLocal_other
+msgctxt "CopyToLocal_other"
+msgid "Do you want to copy {{count}} entries in your local Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToPrivate_one
+msgctxt "CopyToPrivate_one"
+msgid "Do you want to copy {{count}} entry in your remote Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToPrivate_other
+msgctxt "CopyToPrivate_other"
+msgid "Do you want to copy {{count}} entries in your remote Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToShared_one
+msgctxt "CopyToShared_one"
+msgid "Do you want to copy {{count}} entry in the shared Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToShared_other
+msgctxt "CopyToShared_other"
+msgid "Do you want to copy {{count}} entries in the shared Journal?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToDevice_one
+msgctxt "CopyToDevice_one"
+msgid "Do you want to copy {{count}} entry to your device?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: CopyToDevice_other
+msgctxt "CopyToDevice_other"
+msgid "Do you want to copy {{count}} entries to your device?"
+msgstr ""
+
+#: Copying
+msgctxt "Copying"
+msgid "Copying..."
+msgstr ""
+
+#: TutoJournalCheckTitle
+msgctxt "TutoJournalCheckTitle"
+msgid "Selection"
+msgstr ""
+
+#: TutoJournalCheckContent
+msgctxt "TutoJournalCheckContent"
+msgid "This checkbox allow you to do actions (remove, copy) on multiple items at the same time."
+msgstr ""
+
+#: TutoJournalSortButtonTitle
+msgctxt "TutoJournalSortButtonTitle"
+msgid "Sort"
+msgstr ""
+
+#: TutoJournalSortButtonContent
+msgctxt "TutoJournalSortButtonContent"
+msgid "Click here to sort items by date of last update, date of creation or size."
+msgstr ""
+
+#: SaveFile
+msgctxt "SaveFile"
+msgid "Save file..."
+msgstr ""
+
+#: Save
+msgctxt "Save"
+msgid "Save"
+msgstr ""
+
+#: ChooseDirectory
+msgctxt "ChooseDirectory"
+msgid "Choose directory..."
+msgstr ""
+
+#: Choose
+msgctxt "Choose"
+msgid "Choose"
+msgstr ""
+
+#. Do not translate {{file}}
+#: ErrorLoadingFile
+msgctxt "ErrorLoadingFile"
+msgid "Error loading file {{file}}"
+msgstr ""
+
+#: ChooseFiles
+msgctxt "ChooseFiles"
+msgid "Choose files..."
+msgstr ""
+
+#: FilesSupported
+msgctxt "FilesSupported"
+msgid "Files supported"
+msgstr ""
+
+#: ImageFromDevice
+msgctxt "ImageFromDevice"
+msgid "Image from device"
+msgstr ""
+
+#: TutoJournalFromDeviceButtonTitle
+msgctxt "TutoJournalFromDeviceButtonTitle"
+msgid "Import from device"
+msgstr ""
+
+#: TutoJournalFromDeviceButtonContent
+msgctxt "TutoJournalFromDeviceButtonContent"
+msgid "Click here to import content from your device to the Journal"
+msgstr ""
+
+#: TutoInitIntroTitle
+msgctxt "TutoInitIntroTitle"
+msgid "Welcome to Sugarizer"
+msgstr ""
+
+#: TutoInitIntroTitleIntroContent
+msgctxt "TutoInitIntroTitleIntroContent"
+msgid "Welcome to Sugarizer the leading learning platform. You will find here a set of activities to create, play, learn and share."
+msgstr ""
+
+#: TutoInitNewUserTitle
+msgctxt "TutoInitNewUserTitle"
+msgid "New user"
+msgstr ""
+
+#: TutoInitNewUserContent
+msgctxt "TutoInitNewUserContent"
+msgid "First, you need an user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgstr ""
+
+#: TutoInitLoginTitle
+msgctxt "TutoInitLoginTitle"
+msgid "User login"
+msgstr ""
+
+#: TutoInitLoginContent
+msgctxt "TutoInitLoginContent"
+msgid "You've already created a Sugarizer user on a server? Click here to give your login information."
+msgstr ""
+
+#: TutoInitHistoryTitle
+msgctxt "TutoInitHistoryTitle"
+msgid "Recent users"
+msgstr ""
+
+#: TutoInitHistoryContent
+msgctxt "TutoInitHistoryContent"
+msgid "Not your first time on this device? Just click on your name here to connect."
+msgstr ""
+
+#: TutoInitHelpTitle
+msgctxt "TutoInitHelpTitle"
+msgid "Help me"
+msgstr ""
+
+#: TutoInitHelpContent
+msgctxt "TutoInitHelpContent"
+msgid "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
+msgstr ""
+
+#: TutoInitServerTitle
+msgctxt "TutoInitServerTitle"
+msgid "Server address"
+msgstr ""
+
+#: TutoInitServerContent
+msgctxt "TutoInitServerContent"
+msgid "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
+msgstr ""
+
+#: TutoInitNameTitle
+msgctxt "TutoInitNameTitle"
+msgid "Your name"
+msgstr ""
+
+#: TutoInitNameContent
+msgctxt "TutoInitNameContent"
+msgid "The name you use to connect to the application."
+msgstr ""
+
+#: TutoInitPasswordTitle
+msgctxt "TutoInitPasswordTitle"
+msgid "Your password"
+msgstr ""
+
+#: TutoInitPasswordContent
+msgctxt "TutoInitPasswordContent"
+msgid "The series of images that you use as password to connect to the application. If you forget it, ask an administrator to remind you."
+msgstr ""
+
+#: TutoInitNameNewTitle
+msgctxt "TutoInitNameNewTitle"
+msgid "Choose a name"
+msgstr ""
+
+#: TutoInitNameNewContent
+msgctxt "TutoInitNameNewContent"
+msgid "The name you will use in the application. It could be your full name or anything you want. You could change it later."
+msgstr ""
+
+#: TutoInitPasswordNewTitle
+msgctxt "TutoInitPasswordNewTitle"
+msgid "Choose a password"
+msgstr ""
+
+#: TutoInitPasswordNewContent
+msgctxt "TutoInitPasswordNewContent"
+msgid "Choose a series of images that you will use as password to protect your content. You could change it later but don't forget it!"
+msgstr ""
+
+#: TutoInitPreviousTitle
+msgctxt "TutoInitPreviousTitle"
+msgid "Go back"
+msgstr ""
+
+#: TutoInitPreviousContent
+msgctxt "TutoInitPreviousContent"
+msgid "You're not sure of your previous choice? Not a problem, just go back to the previous step."
+msgstr ""
+
+#: TutoInitNextTitle
+msgctxt "TutoInitNextTitle"
+msgid "Go next"
+msgstr ""
+
+#: TutoInitNextContent
+msgctxt "TutoInitNextContent"
+msgid "Validate your choice and go to the next step."
+msgstr ""
+
+#: TutoInitColorTitle
+msgctxt "TutoInitColorTitle"
+msgid "Choose your colors"
+msgstr ""
+
+#: TutoInitColorContent
+msgctxt "TutoInitColorContent"
+msgid "Click here to choose your favorite colors for icons. Don't worry you will be able to change it later if you change your mind."
+msgstr ""
+
+#: TutoInitMainTitle
+msgctxt "TutoInitMainTitle"
+msgid "Home screen"
+msgstr ""
+
+#: TutoInitMainContent
+msgctxt "TutoInitMainContent"
+msgid "You're now on the Sugarizer home screen. Everything happens from here. Let's see details."
+msgstr ""
+
+#: TutoActivityAbacusactivity
+msgctxt "TutoActivityAbacusactivity"
+msgid "Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese."
+msgstr ""
+
+#: TutoActivityAbecedariumactivity
+msgctxt "TutoActivityAbecedariumactivity"
+msgid "Abecedarium is an abecedary activity to learn its alphabet using images, sounds and words."
+msgstr ""
+
+#: TutoActivityBlockrainactivity
+msgctxt "TutoActivityBlockrainactivity"
+msgid "Blockrain is a clone of the classic Tetris game. The objective of the game is to manipulate blocks to create horizontal lines."
+msgstr ""
+
+#: TutoActivityCalculateactivity
+msgctxt "TutoActivityCalculateactivity"
+msgid "Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting."
+msgstr ""
+
+#: TutoActivityChatPrototypeactivity
+msgctxt "TutoActivityChatPrototypeactivity"
+msgid "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation."
+msgstr ""
+
+#: TutoActivityClockactivity
+msgctxt "TutoActivityClockactivity"
+msgid "Clock is a simple activity to learn how to read and tell the time."
+msgstr ""
+
+#: TutoActivityColorMyWorldactivity
+msgctxt "TutoActivityColorMyWorldactivity"
+msgid "Color My World activity let you explore the world and its countries. Fill countries with color you like or use the interactive mode to find location of countries on the offline map."
+msgstr ""
+
+#: TutoActivityEbookReaderactivity
+msgctxt "TutoActivityEbookReaderactivity"
+msgid "An e-book reader to read a set of books from the classical litterature."
+msgstr ""
+
+#: TutoActivityEtoysactivity
+msgctxt "TutoActivityEtoysactivity"
+msgid "EToys is a media-rich authoring environment and visual programming system. A complete educational tool for teaching children powerful ideas in compelling ways."
+msgstr ""
+
+#: TutoActivityExerciseractivity
+msgctxt "TutoActivityExerciseractivity"
+msgid "Exerciser is a tool to create your set of interactive questions (MCQ, Cloze Text, ...) and share it with your friends."
+msgstr ""
+
+#: TutoActivityFlipactivity
+msgctxt "TutoActivityFlipactivity"
+msgid "Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult."
+msgstr ""
+
+#: TutoActivityFoodChainactivity
+msgctxt "TutoActivityFoodChainactivity"
+msgid "FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who? The activity is composed of 3 little games with 20 levels of growing complexity."
+msgstr ""
+
+#: TutoActivityFototoonactivity
+msgctxt "TutoActivityFototoonactivity"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip to share with your friends."
+msgstr ""
+
+#: TutoActivityGameOfLifeactivity
+msgctxt "TutoActivityGameOfLifeactivity"
+msgid "Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen."
+msgstr ""
+
+#: TutoActivityGearsactivity
+msgctxt "TutoActivityGearsactivity"
+msgid "Gears is a tool to explore the ways in which gears and chains transmit motion. Draw your gears and see it coming to life."
+msgstr ""
+
+#: TutoActivityGetThingsDoneactivity
+msgctxt "TutoActivityGetThingsDoneactivity"
+msgid "Get Things Done is a small tool to track your to-do list."
+msgstr ""
+
+#: TutoActivityGridpaintactivity
+msgctxt "TutoActivityGridpaintactivity"
+msgid "Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles. Never miss your drawing with Grid Paint activity!"
+msgstr ""
+
+#: TutoActivityJappyactivity
+msgctxt "TutoActivityJappyactivity"
+msgid "Jappy is a code editor with built-in examples and a run-time environment to learn Python programming language."
+msgstr ""
+
+#: TutoActivityLabyrinthJSactivity
+msgctxt "TutoActivityLabyrinthJSactivity"
+msgid "LabyrinthJS is a lightweight mind-mapping activity to visually organize your thought or informations."
+msgstr ""
+
+#: TutoActivityLastOneLosesactivity
+msgctxt "TutoActivityLastOneLosesactivity"
+msgid "Last One Loses is a small game against the computer. Each one had to get between 1 to 3 items on the board. The one which get the last one on the board loses the game."
+msgstr ""
+
+#: TutoActivityMarkdownactivity
+msgctxt "TutoActivityMarkdownactivity"
+msgid "Markdown is an editor for lightweight markup language. It allow to format (bold, italic, ...) easily a text."
+msgstr ""
+
+#: TutoActivityMazeWebactivity
+msgctxt "TutoActivityMazeWebactivity"
+msgid "A simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one."
+msgstr ""
+
+#: TutoActivityMediaVieweractivity
+msgctxt "TutoActivityMediaVieweractivity"
+msgid "An activity to display multimedia content coming from the Journal."
+msgstr ""
+
+#: TutoActivityMemorizeactivity
+msgctxt "TutoActivityMemorizeactivity"
+msgid "The famous memorize game: find matching pairs (images, sounds or text). Memorize is actually more than just a predefined game you can play, it allows you to create new games yourself as well."
+msgstr ""
+
+#: TutoActivityMoonactivity
+msgctxt "TutoActivityMoonactivity"
+msgid "Moon phase viewer, includes Lunar phase information and eclipse data."
+msgstr ""
+
+#: TutoActivityPaintactivity
+msgctxt "TutoActivityPaintactivity"
+msgid "Paint is an activity to create paintings or drawings. Change brush size or color, draw text, stamps, include images or preset patterns."
+msgstr ""
+
+#: TutoActivityPhysicsJSactivity
+msgctxt "TutoActivityPhysicsJSactivity"
+msgid "PhysicsJS is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia."
+msgstr ""
+
+#: TutoActivityQRCodeactivity
+msgctxt "TutoActivityQRCodeactivity"
+msgid "Use easily QR Code with this simple QR Code Generator and scanner."
+msgstr ""
+
+#: TutoActivityRecordactivity
+msgctxt "TutoActivityRecordactivity"
+msgid "Record is a basic rich-media capture activity. It lets you capture still images, video, and/or audio."
+msgstr ""
+
+#: TutoActivityReflectionactivity
+msgctxt "TutoActivityReflectionactivity"
+msgid "Reflection is a game designed around reflective symmetry. The user modifies an image until it has reflective symmetry around either the horizontal or vertical axis."
+msgstr ""
+
+#: TutoActivityScratchactivity
+msgctxt "TutoActivityScratchactivity"
+msgid "Scratch is a full environment where you can program your own interactive stories, games, and animations."
+msgstr ""
+
+#: TutoActivitySharedNotesactivity
+msgctxt "TutoActivitySharedNotesactivity"
+msgid "Shared Notes is an activity that let you pin small notes - like \"Post-It\" - on a virtual board and share it with other users."
+msgstr ""
+
+#: TutoActivitySpeakactivity
+msgctxt "TutoActivitySpeakactivity"
+msgid "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
+msgstr ""
+
+#: TutoActivitySprintMathactivity
+msgctxt "TutoActivitySprintMathactivity"
+msgid "Sprint Math is a simple activity to challenge yourself on mental arithmetic. Could be also played with other users through the network."
+msgstr ""
+
+#: TutoActivityStopwatchactivity
+msgctxt "TutoActivityStopwatchactivity"
+msgid "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
+msgstr ""
+
+#: TutoActivityTamTamMicroactivity
+msgctxt "TutoActivityTamTamMicroactivity"
+msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type."
+msgstr ""
+
+#: TutoActivityTankOpactivity
+msgctxt "TutoActivityTankOpactivity"
+msgid "Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty."
+msgstr ""
+
+#: TutoActivityTurtleBlocksJSactivity
+msgctxt "TutoActivityTurtleBlocksJSactivity"
+msgid "Turtle Blocks JS is an activity with a Logo-inspired graphical \"turtle\" that draws colorful art with snap-together visual programming elements."
+msgstr ""
+
+#: TutoActivityVideoVieweractivity
+msgctxt "TutoActivityVideoVieweractivity"
+msgid "A browser and a viewer for Khan Academy and Canopé videos."
+msgstr ""
+
+#: TutoActivityXOEditoractivity
+msgctxt "TutoActivityXOEditoractivity"
+msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
 msgstr ""
 

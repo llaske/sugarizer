@@ -33,6 +33,12 @@ enyo.kind({
 		this.index = 0;
 		this.computeSize();
 		this.favorite = false;
+		var that = this;
+		requirejs(["sugar-web/env"], function(env) {
+			env.getEnvironment(function(err, environment) {
+				that.$.content.applyStyle("background-color", environment.user.colorvalue.fill);
+			});
+		});
 	},
 
 	loadLibraries: function() {

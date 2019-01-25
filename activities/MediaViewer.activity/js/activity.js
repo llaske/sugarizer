@@ -1,7 +1,7 @@
 /* Start of the app, we require everything that is needed */
 define(["sugar-web/activity/activity"], function (activity) {
 
-    require(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
+    requirejs(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();
 
         if (!(window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.objectId)) {

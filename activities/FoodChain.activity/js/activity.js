@@ -5,7 +5,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 	var app = null;
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 		// Initialize the activity
 		FoodChain.activity = activity;
 		FoodChain.activity.setup();

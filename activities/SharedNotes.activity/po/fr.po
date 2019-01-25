@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,8 +100,8 @@ msgstr "Arrêter"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
-msgid "Click on this icon to stop the activity and go back to the home."
-msgstr "Appuyez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil."
+msgid "Click on this icon to stop the activity and go back to the Sugarizer home."
+msgstr "Appuyez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil de Sugarizer."
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
@@ -222,4 +222,16 @@ msgstr "Export PNG"
 msgctxt "TutoPngContent"
 msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
 msgstr "Cette icône vous permet de générer dans le Journal une image PNG du contenu du tableau."
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} a rejoint"
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} est parti"
 

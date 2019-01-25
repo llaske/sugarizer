@@ -1,0 +1,136 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:15:08 GMT+0200 (CEST)\n"
+"PO-Revision-Date: 2018-05-07 19:19+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-clock/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: SimpleClock
+msgctxt "SimpleClock"
+msgid "Simple Clock"
+msgstr "Relógio simples"
+
+#: NiceClock
+msgctxt "NiceClock"
+msgid "Nice Clock"
+msgstr "Relógio bom"
+
+#: WriteTime
+msgctxt "WriteTime"
+msgid "Write time"
+msgstr "Digite a hora"
+
+#: WriteDate
+msgctxt "WriteDate"
+msgid "Write date"
+msgstr "Digite a data"
+
+#: WhatTime
+msgctxt "WhatTime"
+msgid "What Time Is It?"
+msgstr "Que horas são?"
+
+#: Sunday
+msgctxt "Sunday"
+msgid "Sunday"
+msgstr "Domingo"
+
+#: Monday
+msgctxt "Monday"
+msgid "Monday"
+msgstr "Segunda-feira"
+
+#: Tuesday
+msgctxt "Tuesday"
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+#: Wednesday
+msgctxt "Wednesday"
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+#: Thursday
+msgctxt "Thursday"
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+#: Friday
+msgctxt "Friday"
+msgid "Friday"
+msgstr "Sexta-feira"
+
+#: Saturday
+msgctxt "Saturday"
+msgid "Saturday"
+msgstr "Sábado"
+
+#: January
+msgctxt "January"
+msgid "January"
+msgstr "Janeiro"
+
+#: February
+msgctxt "February"
+msgid "February"
+msgstr "Fevereiro"
+
+#: March
+msgctxt "March"
+msgid "March"
+msgstr "Março"
+
+#: April
+msgctxt "April"
+msgid "April"
+msgstr "Abril"
+
+#: May
+msgctxt "May"
+msgid "May"
+msgstr "Maio"
+
+#: June
+msgctxt "June"
+msgid "June"
+msgstr "Junho"
+
+#: July
+msgctxt "July"
+msgid "July"
+msgstr "Julho"
+
+#: August
+msgctxt "August"
+msgid "August"
+msgstr "Agosto"
+
+#: September
+msgctxt "September"
+msgid "September"
+msgstr "Setembro"
+
+#: October
+msgctxt "October"
+msgid "October"
+msgstr "Outubro"
+
+#: November
+msgctxt "November"
+msgid "November"
+msgstr "Novembro"
+
+#: December
+msgctxt "December"
+msgid "December"
+msgstr "Dezembro"

@@ -83,6 +83,9 @@
 	margin-top: 3%;
 	display: inline-block;
 	z-index: 0;
+	border: 0px solid black;
+	box-shadow: 8px 8px 8px #666666;
+	background-color: #666666;
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -338,7 +341,7 @@
 	height: 95%;
 	max-height: 180px;
 	background-color: #ffffff;
-	border: 2px solid #808080;	
+	border: 2px solid #808080;
 }
 
 .module-text {
@@ -347,7 +350,7 @@
 	left: 80px;
 	top: 20px;
 	color: white;
-	word-wrap: break-word;	
+	word-wrap: break-word;
 }
 
 .module-cancel-button {

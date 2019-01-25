@@ -1,7 +1,7 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity, webL10n, datastore, model, view, controller) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         var todo;
 

@@ -2,7 +2,7 @@
 define(["sugar-web/activity/activity","activity/moon-activity","webL10n"], function (activity, moonActivity, l10n) {
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
         activity.setup();

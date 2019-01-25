@@ -1,0 +1,201 @@
+#. extracted from ../data.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
+"PO-Revision-Date: 2018-05-07 19:56+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-moon/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: phase-0
+msgctxt "phase-0"
+msgid "New Moon"
+msgstr "Lua nova"
+
+#: phase-1
+msgctxt "phase-1"
+msgid "Waxing Crescent"
+msgstr "Lua crescente"
+
+#: phase-2
+msgctxt "phase-2"
+msgid "First Quarter"
+msgstr "Quarto crescente"
+
+#: phase-3
+msgctxt "phase-3"
+msgid "Waxing Gibbous"
+msgstr "Lua Crescente Corcunda"
+
+#: phase-4
+msgctxt "phase-4"
+msgid "Full Moon"
+msgstr "Lua cheia"
+
+#: phase-5
+msgctxt "phase-5"
+msgid "Waning Gibbous"
+msgstr "Lua Minguante Balsâmica"
+
+#: phase-6
+msgctxt "phase-6"
+msgid "Last Quarter"
+msgstr "Quarto minguante"
+
+#: phase-7
+msgctxt "phase-7"
+msgid "Waning Crescent"
+msgstr "Lua minguante"
+
+#: moonInfo
+msgctxt "moonInfo"
+msgid "Today\'s Moon Information"
+msgstr "Informações da lua de hoje"
+
+#: phase
+msgctxt "phase"
+msgid "Phase"
+msgstr "Fase"
+
+#: julian
+msgctxt "julian"
+msgid "Julian Date"
+msgstr "Data Juliana"
+
+#: age
+msgctxt "age"
+msgid "Age"
+msgstr "Idade"
+
+#: lunation
+msgctxt "lunation"
+msgid "Lunation"
+msgstr "Lunação"
+
+#: visibility
+msgctxt "visibility"
+msgid "Surface Visibility"
+msgstr "Visibilidade da superfície"
+
+#: seleno
+msgctxt "seleno"
+msgid "Selenographic Terminator Longitude"
+msgstr "Longitude do terminador selenográfico"
+
+#: full
+msgctxt "full"
+msgid "Next Full Moon"
+msgstr "Próxima lua cheia"
+
+#: new
+msgctxt "new"
+msgid "Next New Moon"
+msgstr "Próxima lua nova"
+
+#: lunar
+msgctxt "lunar"
+msgid "Next Lunar eclipse"
+msgstr "Próximo eclipse lunar"
+
+#: solar
+msgctxt "solar"
+msgid "Next Solar eclipse"
+msgstr "Próximo eclipse solar"
+
+#: minutes
+msgctxt "minutes"
+msgid "minutes"
+msgstr "minutos"
+
+#: hours
+msgctxt "hours"
+msgid "hours"
+msgstr "horas"
+
+#: days
+msgctxt "days"
+msgid "days"
+msgstr "dias"
+
+#: astro
+msgctxt "astro"
+msgid "(astronomical)"
+msgstr "(astronômico)"
+
+#: thru
+msgctxt "thru"
+msgid "through lunation"
+msgstr "através da lunação"
+
+#: in
+msgctxt "in"
+msgid "in"
+msgstr "em"
+
+#: estimated
+msgctxt "estimated"
+msgid "(estimated)"
+msgstr "(estimado)"
+
+#: west
+msgctxt "west"
+msgid "west"
+msgstr "oeste"
+
+#: east
+msgctxt "east"
+msgid "east"
+msgstr "leste"
+
+#: Sunset
+msgctxt "Sunset"
+msgid "Sunset"
+msgstr "Pôr do sol"
+
+#: Sunrise
+msgctxt "Sunrise"
+msgid "Sunrise"
+msgstr "Nascer do sol"
+
+#: SNWE
+msgctxt "SNWE"
+msgid "SNWE"
+msgstr "SNOL"
+
+#: NSEW
+msgctxt "NSEW"
+msgid "NSEW"
+msgstr "NSLO"
+
+#: Latitude
+msgctxt "Latitude"
+msgid "Latitude"
+msgstr "Latitude"
+
+#: Longitude
+msgctxt "Longitude"
+msgid "Longitude"
+msgstr "Longitude"
+
+#: ToggleGrid
+msgctxt "ToggleGrid"
+msgid "Toggle Grid View"
+msgstr "Alternar a visualização da grade"
+
+#: ToggleHemisphere
+msgctxt "ToggleHemisphere"
+msgid "Toggle Hemisphere View"
+msgstr "Alternar a visualização do hemisfério"
+
+#: SaveImage
+msgctxt "SaveImage"
+msgid "Save As Image"
+msgstr "Salvar como imagem"

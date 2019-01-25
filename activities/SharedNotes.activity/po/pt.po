@@ -1,0 +1,246 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
+"PO-Revision-Date: 2018-05-10 19:22+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-sharednotes/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: YourNewIdea
+msgctxt "YourNewIdea"
+msgid "<Your content>"
+msgstr "<Seu conteúdo>"
+
+#: nodetextTitle
+msgctxt "nodetextTitle"
+msgid "Text idea"
+msgstr "Texto da ideia"
+
+#: removeButtonTitle
+msgctxt "removeButtonTitle"
+msgid "Remove"
+msgstr "Remover"
+
+#: undoButtonTitle
+msgctxt "undoButtonTitle"
+msgid "Undo"
+msgstr "Desfazer"
+
+#: redoButtonTitle
+msgctxt "redoButtonTitle"
+msgid "Redo"
+msgstr "Refazer"
+
+#: zoomButtonTitle
+msgctxt "zoomButtonTitle"
+msgid "View"
+msgstr "Visualizar"
+
+#: pngButtonTitle
+msgctxt "pngButtonTitle"
+msgid "Export to PNG"
+msgstr "Exportar para PNG"
+
+#: networkButtonTitle
+msgctxt "networkButtonTitle"
+msgid "Network"
+msgstr "Rede"
+
+#: helpButtonTitle
+msgctxt "helpButtonTitle"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Anterior"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Próximo"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Finalizar"
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity Menu"
+msgstr "Menu da atividade"
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "This colored menu is the activity menu. Click on it now to open it."
+msgstr "Este menu colorido é o menu de atividades. Clique nele para abri-lo."
+
+#: TutoTitleTitle
+msgctxt "TutoTitleTitle"
+msgid "Name in Journal"
+msgstr "Nome no diário"
+
+#: TutoTitleContent
+msgctxt "TutoTitleContent"
+msgid "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
+msgstr ""
+"Este texto será o nome da sua atividade quando ela for salva no diário. "
+"Atualize-o para encontrar facilmente a atividade no Journal."
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Stop"
+msgstr "Parar"
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr "Clique neste ícone para sair da atividade e voltar ao menu principal."
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network Menu"
+msgstr "Menu da rede"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "This menu let you share your activity with other users. Click on it now to open it."
+msgstr ""
+"Esse menu permite que você compartilhe sua atividade com outros usuários. "
+"Clique para abri-lo."
+
+#: TutoSharedTitle
+msgctxt "TutoSharedTitle"
+msgid "Share"
+msgstr "Compartilhar"
+
+#: TutoSharedContent
+msgctxt "TutoSharedContent"
+msgid "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
+msgstr ""
+"Clique nesse botão para compartilhar sua atividade, de modo que outros "
+"usuários na vizinhança possam ver e se juntar."
+
+#: TutoHelpTitle
+msgctxt "TutoHelpTitle"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: TutoHelpContent
+msgctxt "TutoHelpContent"
+msgid "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
+msgstr ""
+"Este ícone mostrará os recursos dessa atividade. Você pode clicar no final "
+"deste tutorial."
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Shared Notes Activity"
+msgstr "Atividade das notas compartilhadas"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
+msgstr ""
+"Essa atividade permite que você marque pequenas notas - como \"post-it\" - "
+"em um quadro virtual, e então possa compartilha-las com outros usuários."
+
+#: TutoNodeTitle
+msgctxt "TutoNodeTitle"
+msgid "Board"
+msgstr "Quadro"
+
+#: TutoNodeContent
+msgctxt "TutoNodeContent"
+msgid "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
+msgstr ""
+"Este é um quadro onde você pode fixar suas anotações. Clique nele para "
+"adicionar uma nova nota. Clique em uma nota para atualizar seu conteúdo. "
+"Arraste o quadro para mover a vista."
+
+#: TutoColorTitle
+msgctxt "TutoColorTitle"
+msgid "Color"
+msgstr "Cor"
+
+#: TutoColorContent
+msgctxt "TutoColorContent"
+msgid "This menu let you change the color of a note and choose the color for the next note."
+msgstr ""
+"Este menu permite alterar a cor de uma nota e escolher a cor da próxima nota."
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "Add note"
+msgstr "Adicionar nota"
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "If this icon is active, when you click in the board a new note appear."
+msgstr ""
+"Se este ícone estiver ativo, quando você clicar no quadro, uma nova nota "
+"será exibida."
+
+#: TutoRemoveTitle
+msgctxt "TutoRemoveTitle"
+msgid "Remove note"
+msgstr "Remover nota"
+
+#: TutoRemoveContent
+msgctxt "TutoRemoveContent"
+msgid "If this icon is active, when you click on a note, it will be remove."
+msgstr ""
+"Se este ícone estiver ativo, quando você clicar em uma nota, ela será "
+"removida."
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Desfazer"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "With this icon you could undo your last change."
+msgstr "Com este ícone você poderá desfazer sua última mudança."
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Refazer"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "With this icon you could redo your last undo."
+msgstr "Com este ícone você poderá refazer sua última mudança."
+
+#: TutoZoomTitle
+msgctxt "TutoZoomTitle"
+msgid "Zoom"
+msgstr "Ampliar"
+
+#: TutoZoomContent
+msgctxt "TutoZoomContent"
+msgid "This menu let you adapt the zoom level in the board."
+msgstr "Este menu permite adaptar o nível de ampliação do quadro."
+
+#: TutoPngTitle
+msgctxt "TutoPngTitle"
+msgid "Export PNG"
+msgstr "Exportar para PNG"
+
+#: TutoPngContent
+msgctxt "TutoPngContent"
+msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
+msgstr ""
+"Clique neste ícone para gerar um arquivo PNG no diário com todo o conteúdo "
+"do fórum."

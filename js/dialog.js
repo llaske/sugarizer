@@ -690,7 +690,7 @@ enyo.kind({
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2018 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
+			{content: "© 2013-2019 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
 			{name: "licenseplus", content: "xxx", classes: "computer-licence"},
 			{name: "warningmessage", showing: false, content: "xxx", classes: "computer-warningmessage", showing: false}
@@ -1374,5 +1374,75 @@ enyo.kind({
 		preferences.addUserInHistory();
 		util.cleanDatastore();
 		util.restartApp();
+	}
+});
+
+
+
+
+// Class for a generic Warning box
+enyo.kind({
+	name: "Sugar.GenericDialogBox",
+	kind: enyo.Control,
+	classes: "genericbox",
+	events: { onOk: "", onCancel: "", onShow: "", onHide: "" },
+	published: {
+		title: null,
+		message: null,
+		okText: '',
+		cancelText: ''
+	},
+	components: [
+		{name: "warningtitle", content: "xxx", classes: "genericbox-title"},
+		{name: "warningmessage", content: "xxx", classes: "genericbox-message"},
+		{name: "warningcancel", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "genericbox-cancel-button", ontap: "cancel"},
+		{name: "warningok", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "genericbox-ok-button", ontap: "ok"}
+	],
+
+	// Constructor
+	create: function() {
+		this.inherited(arguments);
+		this.titleChanged();
+		this.messageChanged();
+		this.okTextChanged();
+		this.cancelTextChanged();
+		if (l10n.language.direction == "rtl") {
+			this.$.warningtitle.addClass("rtl-10");
+			this.$.warningmessage.addClass("rtl-10");
+		}
+	},
+
+	titleChanged: function() {
+		this.$.warningtitle.setContent(this.title);
+	},
+
+	messageChanged: function() {
+		this.$.warningmessage.setContent(this.message);
+	},
+
+	cancelTextChanged: function() {
+		this.$.warningcancel.setText(this.cancelText);
+	},
+
+	okTextChanged: function() {
+		this.$.warningok.setText(this.okText);
+	},
+
+	showingChanged: function() {
+		this.inherited(arguments);
+		if (this.showing) {
+			this.doShow();
+		} else {
+			this.doHide();
+		}
+	},
+
+	// Events
+	cancel: function() {
+		this.doCancel();
+	},
+
+	ok: function() {
+		this.doOk();
 	}
 });

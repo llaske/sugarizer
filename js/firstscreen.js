@@ -5,6 +5,7 @@ enyo.kind({
 	name: "Sugar.FirstScreen",
 	kind: enyo.Control,
 	components: [
+		{name: "helpbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "help.svg"}, colorized: true, colorizedColor: {stroke: "#666666", fill: "#ffffff"}, ontap: "startTutorial", classes: "first-help"},
 		{name: "namebox", classes: "first-namebox", onresize: "resize", showing: false, components: [
 			{name: "nameline", classes: "first-nameline", components: [
 				{name: "nametext", content: "xxx", classes: "first-nametext"},
@@ -42,6 +43,7 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Init screen
+		app = this;
 		this.inherited(arguments);
 		this.$.nametext.setContent(l10n.get("Name"));
 		this.$.servertext.setContent(l10n.get("ServerUrl"));
@@ -88,8 +90,22 @@ enyo.kind({
 		util.hideNativeToolbar();
 	},
 
+	// Render
+	rendered: function() {
+		this.inherited(arguments);
+
+		// At first launch, display tutorial
+		var that = this;
+		window.setTimeout(function() {
+			if (that.history.length == 0) {
+				that.startTutorial();
+			}
+		}, constant.timerBeforeTutorial);
+
+	},
+
 	getView: function() {
-		return constant.radialView;
+		return constant.initView;
 	},
 
 	setupHistory: function(inSender, inEvent) {
@@ -162,6 +178,7 @@ enyo.kind({
 		this.$.newuser.setShowing(vnewuser);
 		this.$.newusertext.setShowing(vnewusertext);
 		this.$.namebox.setShowing(vnamebox);
+		this.$.name.setAttribute("readOnly", !vnamebox);
 		if (vnamebox) {
 			this.$.name.focus();
 			this.$.name.hasNode().select();
@@ -461,10 +478,28 @@ enyo.kind({
 		});
 	},
 
+	// Display tutorial
+	startTutorial: function() {
+		tutorial.setElement("newuser", this.$.newuser.getAttribute("id"));
+		tutorial.setElement("login", this.$.login.getAttribute("id"));
+		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
+		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
+		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
+		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
+		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
+		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
+		tutorial.setElement("next", this.$.next.getAttribute("id"));
+		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.setElement("createnew", this.createnew);
+		tutorial.setElement("currentstep", this.step);
+		tutorial.start();
+	},
+
 	// Launch desktop
 	launchDesktop: function() {
 		document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
 		document.getElementById("canvas").style.overflowY = "auto";
+		isFirstLaunch = (this.history.length == 0 && this.createnew);
 		app = new Sugar.Desktop();
 		app.renderInto(document.getElementById("canvas"));
 		preferences.save();

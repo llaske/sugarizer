@@ -1,0 +1,62 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 17:52:44 GMT+0200 (CEST)\n"
+"PO-Revision-Date: 2018-05-07 20:03+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-chatprototype/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: WriteYourMessage
+msgctxt "WriteYourMessage"
+msgid "Write your message here..."
+msgstr "Escreva sua mensagem aqui..."
+
+#: DisconnectedFromWebSocket
+msgctxt "DisconnectedFromWebSocket"
+msgid "Disconnected From Web Socket."
+msgstr "Desconectado do soquete da web."
+
+#: ConnectionClosed
+msgctxt "ConnectionClosed"
+msgid "Connection Closed"
+msgstr "Conexão encerrada"
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr "Conectado"
+
+#: Error
+msgctxt "Error"
+msgid "Error"
+msgstr "Erro"
+
+#: status
+msgctxt "status"
+msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
+msgstr ""
+"Clique no ícone da vizinhança na paleta de presença para iniciar a conversa"
+
+#: Join
+msgctxt "Join"
+msgid "join"
+msgstr "juntar-se"
+
+#: Leave
+msgctxt "Leave"
+msgid "leave"
+msgstr "sair"
+
+#: Chat
+msgctxt "Chat"
+msgid "the chat"
+msgstr "a conversa"

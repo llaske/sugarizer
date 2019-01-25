@@ -15,18 +15,18 @@ Here is the icon we will use. It's just a stylized plus sign.
 
 ![](images/tutorial_step3_1.png)
 
-You could download it [here](images/add.svg). Save it as a SVG file in `icons/add.svg`.
+You could download it [here](images/add.svg). Right-click on it and then save it as a SVG file in `icons/add.svg`.
 
 ***Warning***: *The plus sign is white on a transparent background so you will see nothing if you display it on a white background.*
 
-To add this icon in the toolbar, we will first update the `index.html` file. Look for the toolbar section in the file. It look like this:
+To add this icon in the toolbar, we will first update the `index.html` file for your activity. Look for the toolbar section in the file. It looks like this:
 
 	<div id="main-toolbar" class="toolbar">
 	  <button class="toolbutton" id="activity-button" title="My Activity"></button>
-	
+
 	  <!-- Add more buttons here -->
 
-	
+
 	  <!-- Buttons with class="pull-right" will be right aligned -->
 	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 	</div>
@@ -35,10 +35,10 @@ Let's add our new button. It's just a `button` tag with the Sugar-Web `toolbutto
 
 	<div id="main-toolbar" class="toolbar">
 	  <button class="toolbutton" id="activity-button" title="My Activity"></button>
-	
+
 	  <!-- Add more buttons here -->
 	  <button class="toolbutton" id="add-button" title="Add pawn"></button>
-	
+
 	  <!-- Buttons with class="pull-right" will be right aligned -->
 	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 	</div>
@@ -63,9 +63,9 @@ To display pawns on the board, we will first update our `index.html` file.
 Add a new `div` tag below the one created for the welcome message:
 
 	<div id="user"></div>
-	<div id="pawns"></div> 
-	
-We give the value `pawns` for the tag `id` because it will contain all pawns on the board. 
+	<div id="pawns"></div>
+
+We give the value `pawns` for the attribute `id` because it will contain all pawns on the board.
 
 To draw the pawn we will reuse our nice pawn icon. So each time there will be a click on the Plus button, we will add a new pawn icon on the board.
 
@@ -89,9 +89,9 @@ Then just after the `getEnvironment` call, we will add the following event liste
 
 			document.getElementById("user").innerHTML = "<h1>"+currentenv.user.name+" played !</h1>";
 		});
- 
- This source code do three things:
- 
+
+ This source code does three things:
+
  * Declare a new event listener to add an action on the click event for the HTML element with the `id` value `add-button`, i.e. our toolbar button
  * Create a new `div` element with the `class` value `pawn` and append this element as child of our `pawns` `div`
  * Update the welcome message to indicate that a new pawn has been played by the user
@@ -115,7 +115,7 @@ Wow, it works! Each time we will click on the Plus icon a new pawn will appears.
 
 By the way, we could do better. What if we could change the pawn color?
 
-### Customize again the icon 
+### Customize again the icon
 
 Sugar activities very often rely on the user colors. It's a way to let the user think he could customize the color of activities. So, it's a good way to better engage him into the activity.
 
@@ -134,7 +134,7 @@ Let's add a call to this magic method just after the `appendChild` call:
 
 	document.getElementById("pawns").appendChild(pawn);
 	icon.colorize(pawn, currentenv.user.colorvalue);
-			
+
 Very simple, we call the method with two parameters: the new pawn element and the user color that we could find in the environment.
 
 That's all. Let's play again with our activity:

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Sprint Math</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+    <!-- Add locale.ini file -->
+    <link rel="prefetch" type="application/l10n" href="locale.ini">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <link rel="stylesheet" href="css/libnotify.css">
+
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script type='text/javascript' src='js/tinycolor.js'></script>
+	<script>if (window.module) module = window.module;</script>
+    <script data-main="js/loader" src="lib/require.js"></script>
+
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+    <button class="toolbutton" id="restart-button" title="Restart"></button>
+
+    <!-- Add more buttons here -->
+    <button class="toolbutton" id="filter-button" title="Filter"></button>
+    <button class="toolbutton" id="level-button" title="Level"></button>
+    <button class="toolbutton" id="network-button" title="Network"></button>
+
+    <!-- Buttons with class="pull-right" will be right aligned -->
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+    <!-- Replace this message with your own content -->
+    <div id="container" class="col-lg-8 col-md-12 col-12 centered">
+        <div id="time_score_container" class="col-12">
+            <div id="time" class="col-lg-3 col-md-4 col-5">
+                <span id="timeString"></span>: &nbsp;<span id="timeremaining">60</span>
+            </div>
+            <div id="score" class="col-lg-3 col-md-4 col-5 pull-right">
+                <span id="scoreString"></span>: &nbsp;<span id="scorevalue">0</span>
+            </div>
+        </div>
+        <div id="gameOver" class="col-12"></div>
+        <div class="clearfix"></div>
+        <div id="answer" class="row align-items-center justify-content-center col-12">
+            <div id="correct" class="col-lg-3 col-md-4 col-6"><span id="correctString">Correct</span></div>
+            <div id="wrong" class="col-lg-3 col-md-4 col-6"><span id="tryagainString">Wrong</span></div>
+        </div>
+        <div id="question" class="col-md-8 col-10"></div>
+
+        <div id="choices" class="col-md-8 col-10">
+            <div id="box1" class="box col-2"></div>
+            <div id="box2" class="box col-2"></div>
+            <div id="box3" class="box col-2"></div>
+            <div id="box4" class="box col-2"></div>
+        </div>
+    </div>
+
+    <textarea id="level" onchange="console.log('great it works')" style="display:none;">easy</textarea>
+
+
+</div>
+</body>
+
+</html>

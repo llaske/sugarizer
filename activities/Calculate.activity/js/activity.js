@@ -6,8 +6,8 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.palette = calcpalette;
 
   //function-plot depends on d3.
-  require(["d3"], function(d) {
-    require(["function-plot"], function(p) {
+  requirejs(["d3"], function(d) {
+    requirejs(["function-plot"], function(p) {
       CalculateApp.libs.functionPlot = p;
     });
   });
@@ -15,7 +15,7 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.activity = activity;
   CalculateApp.libs.mustache = mustache;
 
-  require(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore'], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore) {
+  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore'], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore) {
     CalculateApp.libs.webL10n = webL10n;
     CalculateApp.libs.trigopalette = trigoPaletteLib;
     CalculateApp.libs.algebrapalette = algebraPaletteLib;

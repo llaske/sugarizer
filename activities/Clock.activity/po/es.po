@@ -1,0 +1,134 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:15:08 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: SimpleClock
+msgctxt "SimpleClock"
+msgid "Simple Clock"
+msgstr ""
+
+#: NiceClock
+msgctxt "NiceClock"
+msgid "Nice Clock"
+msgstr ""
+
+#: WriteTime
+msgctxt "WriteTime"
+msgid "Write time"
+msgstr ""
+
+#: WriteDate
+msgctxt "WriteDate"
+msgid "Write date"
+msgstr ""
+
+#: WhatTime
+msgctxt "WhatTime"
+msgid "What Time Is It?"
+msgstr ""
+
+#: Sunday
+msgctxt "Sunday"
+msgid "Sunday"
+msgstr ""
+
+#: Monday
+msgctxt "Monday"
+msgid "Monday"
+msgstr ""
+
+#: Tuesday
+msgctxt "Tuesday"
+msgid "Tuesday"
+msgstr ""
+
+#: Wednesday
+msgctxt "Wednesday"
+msgid "Wednesday"
+msgstr ""
+
+#: Thursday
+msgctxt "Thursday"
+msgid "Thursday"
+msgstr ""
+
+#: Friday
+msgctxt "Friday"
+msgid "Friday"
+msgstr ""
+
+#: Saturday
+msgctxt "Saturday"
+msgid "Saturday"
+msgstr ""
+
+#: January
+msgctxt "January"
+msgid "January"
+msgstr ""
+
+#: February
+msgctxt "February"
+msgid "February"
+msgstr ""
+
+#: March
+msgctxt "March"
+msgid "March"
+msgstr ""
+
+#: April
+msgctxt "April"
+msgid "April"
+msgstr ""
+
+#: May
+msgctxt "May"
+msgid "May"
+msgstr ""
+
+#: June
+msgctxt "June"
+msgid "June"
+msgstr ""
+
+#: July
+msgctxt "July"
+msgid "July"
+msgstr ""
+
+#: August
+msgctxt "August"
+msgid "August"
+msgstr ""
+
+#: September
+msgctxt "September"
+msgid "September"
+msgstr ""
+
+#: October
+msgctxt "October"
+msgid "October"
+msgstr ""
+
+#: November
+msgctxt "November"
+msgid "November"
+msgstr ""
+
+#: December
+msgctxt "December"
+msgid "December"
+msgstr ""

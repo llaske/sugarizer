@@ -1,0 +1,167 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:14:25 GMT+0200 (CEST)\n"
+"PO-Revision-Date: 2018-05-10 18:52+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-tankop/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: Start
+msgctxt "Start"
+msgid "START"
+msgstr "COMEÇAR"
+
+#: NextMission
+msgctxt "NextMission"
+msgid "NEXT MISSION"
+msgstr "PRÓXIMA MISSÃO"
+
+#: Completed
+msgctxt "Completed"
+msgid "COMPLETED"
+msgstr "COMPLETO"
+
+#: Wave
+msgctxt "Wave"
+msgid "WAVE"
+msgstr "ONDA"
+
+#: Score
+msgctxt "Score"
+msgid "SCORE"
+msgstr "PONTUAÇÃO"
+
+#: AAS
+msgctxt "AAS"
+msgid "ADDITION AND SUBTRACTION"
+msgstr "ADIÇÃO E SUBTRAÇÃO"
+
+#: STW
+msgctxt "STW"
+msgid "SUBTRACTION TWO DIGITS"
+msgstr "SUBTRAÇÃO COM DOIS DÍGITOS"
+
+#: S020
+msgctxt "S020"
+msgid "SUBTRACTION 0 TO 20"
+msgstr "SUBTRAÇÃO DE 0 A 20"
+
+#: S010
+msgctxt "S010"
+msgid "SUBTRACTION 0 TO 10"
+msgstr "SUBTRAÇÃO DE 0 A 10"
+
+#: Missing
+msgctxt "Missing"
+msgid "MISSING NUMBERS"
+msgstr "NÚMEROS AUSENTES"
+
+#: TDN
+msgctxt "TDN"
+msgid "TWO DIGITS NUMBERS"
+msgstr "NÚMERO DE DOIS DÍGITOS"
+
+#: SUM20
+msgctxt "SUM20"
+msgid "SUMS TO 20"
+msgstr "SOMA ATÉ 20"
+
+#: SUM15
+msgctxt "SUM15"
+msgid "SUMS TO 15"
+msgstr "SOMA ATÉ 15"
+
+#: SUM10
+msgctxt "SUM10"
+msgid "SUMS TO 10"
+msgstr "SOMA ATÉ 10"
+
+#: ADD5
+msgctxt "ADD5"
+msgid "ADDITION 1 TO 5"
+msgstr "ADIÇÃO DE 1 A 5"
+
+#: ADD3
+msgctxt "ADD3"
+msgid "ADDITION 1 TO 3"
+msgstr "ADIÇÃO DE 1 A 3"
+
+#: Type
+msgctxt "Type"
+msgid "TYPE NUMBER"
+msgstr "DIGITE UM NÚMERO"
+
+#: CaC
+msgctxt "CaC"
+msgid "concept and code"
+msgstr "conceito e código"
+
+#: Arts
+msgctxt "Arts"
+msgid "arts"
+msgstr "arte"
+
+#: Vicki
+msgctxt "Vicki"
+msgid "Vicki Wenderlich (game unit)"
+msgstr "Vicki Wenderlich (unidade de jogo)"
+
+#: Tux
+msgctxt "Tux"
+msgid "Tux4kids (LCD Display)"
+msgstr "Tux4kids (Display LCD)"
+
+#: Mister
+msgctxt "Mister"
+msgid "Mister Pixel from The Noun Project (keyboard icon)"
+msgstr "Mister Pixel de The Noun Project (ícone do teclado)"
+
+#: None
+msgctxt "None"
+msgid "Black Ops One font par James Grieshaber  (military font)"
+msgstr "Black Ops One font par James Grieshaber (fonte militar)"
+
+#: Music
+msgctxt "Music"
+msgid "music"
+msgstr "música"
+
+#: Valkyries
+msgctxt "Valkyries"
+msgid "Ride of the Valkyries, Richard Wagner, Americain Symphony Orchestra 1921"
+msgstr ""
+"Cavalgada das Valquírias, Richard Wagner, Orquestra Sinfônica Americana 1921"
+
+#: Sounds
+msgctxt "Sounds"
+msgid "sounds effects"
+msgstr "efeitos sonoros"
+
+#: Fridobeck
+msgctxt "Fridobeck"
+msgid "fridobeck from freesound (explosion)"
+msgstr "fridobeck de freesound (explosão)"
+
+#: Joshfeed
+msgctxt "Joshfeed"
+msgid "joshfeed from freesound (missed)"
+msgstr "joshfeed de freesound (perdido)"
+
+#: Danipenet
+msgctxt "Danipenet"
+msgid "DANIpeNet from freesound (mission complete)"
+msgstr "DANIpeNet de freesound (missão completa)"
+
+#: Juskiddink
+msgctxt "Juskiddink"
+msgid "juskiddink from freesound (mission failed)"
+msgstr "juskiddink de freesound (missão falhou)"

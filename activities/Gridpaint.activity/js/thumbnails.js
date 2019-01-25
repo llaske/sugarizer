@@ -123,6 +123,7 @@ function editMode(save){
 	loadPos(selected);
 	changed = false;
 	if (save) saveGallery();
+	clearbtn.style.display = "inline";
 }
 
 function selectorMode(save){
@@ -131,6 +132,7 @@ function selectorMode(save){
 	onStart = handleThumbStart;
 	if(changed) savePos(selected);
 	if (save) saveGallery();
+	clearbtn.style.display = "none";
 }
 
 

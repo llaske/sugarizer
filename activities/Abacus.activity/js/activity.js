@@ -1,10 +1,10 @@
 define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activity/standardabacus','activity/standardabacuscolumn','activity/abacusbead','activity/onecolumnabacus','activity/posnegcolumn'], function (act) {
 
 	// Manipulate the DOM only when it is ready.
-	require(['domReady!'], function (doc) {
+	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		require(["sugar-web/env","sugar-web/datastore","fraction","activity/abacuspalette","activity/custompalette"], function(env,datastore,fraction,abacuspalette,custompalette) {
+		requirejs(["sugar-web/env","sugar-web/datastore","fraction","activity/abacuspalette","activity/custompalette"], function(env,datastore,fraction,abacuspalette,custompalette) {
 			act.setup();
 			act.getXOColor(function (error, colors) {
 				runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,custompalette);

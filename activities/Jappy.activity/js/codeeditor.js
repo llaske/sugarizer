@@ -1893,7 +1893,7 @@ function init() {
             return;
         }
         url_base = window.location.protocol;
-        require(ρσ_list_decorate([ "text!examples/" + file ]), (function() {
+        requirejs(ρσ_list_decorate([ "text!examples/" + file ]), (function() {
             var ρσ_anonfunc = function (data) {
                 var new_session;
                 new_session = CodeMirror.Doc(data);
@@ -2058,7 +2058,7 @@ function init() {
         bundle_name = tag.title.slice(0, tag.title.indexOf("."));
         js_output = compile();
         url_base = window.location.protocol;
-        require(ρσ_list_decorate([ "text!template" ]), (function() {
+        requirejs(ρσ_list_decorate([ "text!template" ]), (function() {
             var ρσ_anonfunc = function (data) {
                 var script, enc_js, closing_tag, html, external_files, ref, match, zip, name;
                 script = iframe.contentDocument.createElement("script");
@@ -2081,7 +2081,7 @@ function init() {
                     name = ρσ_Iter7[ρσ_Index7];
                     zip.file("src/" + name, (ρσ_expr_temp = window.files)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name].getValue());
                 }
-                require(external_files, function () {
+                requirejs(external_files, function () {
                     var data = Array.prototype.slice.call(arguments, 0);
                     if (arguments[arguments.length-1] !== null && typeof arguments[arguments.length-1] === "object" && arguments[arguments.length-1] [ρσ_kwargs_symbol] === true) data.pop();
                     var index, file;

@@ -3,6 +3,7 @@
 var app = null;
 var toolbar = null;
 var mouse = {position: {x: -1, y: -1}};
+var isFirstLaunch = false;
 var iconLib;
 var xoPalette;
 var radioButtonsGroup;
@@ -35,6 +36,7 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		// Init screen
+		app = this;
 		this.inherited(arguments);
 		this.timer = null;
 		this.otherview = null;
@@ -46,6 +48,7 @@ enyo.kind({
 		this.$.journal.setIcon({directory: "icons", icon: "activity-journal.svg"});
 		this.restrictedModeInfo = { start: 0 };
 		util.hideNativeToolbar();
+		this.tutorialActivity = null;
 
 		// Load and sort journal
 		this.loadJournal();
@@ -115,6 +118,14 @@ enyo.kind({
 				}
 			);
 		}
+
+		// Launch tutorial at first launch
+		var that = this;
+		window.setTimeout(function() {
+			if (isFirstLaunch) {
+				that.getToolbar().startTutorial();
+			}
+		}, constant.timerBeforeTutorial);
 	},
 
 	// Load and sort journal
@@ -218,7 +229,12 @@ enyo.kind({
 			this.showView(preferences.getView());
 		}
 		this.draw();
-		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+	},
+
+	localize: function() {
+		if (this.otherview && this.otherview.localize) {
+			this.otherview.localize();
+		}
 	},
 
 	// Draw desktop
@@ -227,7 +243,7 @@ enyo.kind({
 		var items = [];
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
-		var tutorialActivity = false;
+		this.tutorialActivity = null;
 
 		// Compute center and radius
 		var canvas_center = util.getCanvasCenter();
@@ -348,10 +364,8 @@ enyo.kind({
 			activitiesIndex++;
 
 			// Set tutorial
-			if (!tutorialActivity) {
-				tutorial.setElement("activity", newIcon.getAttribute("id"));
-				tutorial.setElement("journal", this.$.journal.getAttribute("id"));
-				tutorialActivity = true;
+			if (!this.tutorialActivity) {
+				this.tutorialActivity = newIcon;
 			}
 		}
 	},
@@ -487,6 +501,15 @@ enyo.kind({
 		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
 			humane.log(l10n.get("JournalAlmostFull"));
 			this.isJournalFull = false;
+		}
+	},
+
+	// Initialize information for tutorial
+	beforeHelp: function() {
+		tutorial.setElement("owner", app.$.owner.getAttribute("id"));
+		tutorial.setElement("journal", app.$.journal.getAttribute("id"));
+		if (this.tutorialActivity) {
+			tutorial.setElement("activity", this.tutorialActivity.getAttribute("id"));
 		}
 	},
 
@@ -719,6 +742,9 @@ enyo.kind({
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
+		if (app.localize) {
+			app.localize();
+		}
 	},
 
 	askRedraw: function() {
@@ -793,6 +819,11 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		if (app.otherview && app.otherview.beforeHelp) {
+			app.otherview.beforeHelp();
+		} else {
+			app.beforeHelp();
+		}
 		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
 		tutorial.start();
 	}

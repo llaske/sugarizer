@@ -3,7 +3,7 @@
 // Constants
 var constant = {};
 
-constant.sugarizerVersion = "1.0.1";
+constant.sugarizerVersion = "1.1.0";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
@@ -19,6 +19,7 @@ constant.ringAdjustAngleFactor = 3.6;
 constant.ringAdjustSizeFactor = 0.9;
 constant.ringMinRadiusSize = 108;
 
+constant.initView = -1;
 constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
@@ -28,6 +29,8 @@ constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_vi
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
+constant.journalRemove = 3;
+constant.journalDevice = 4;
 constant.journalInitCount = 40;
 constant.journalStepCount = 10;
 constant.journalScrollLimit = 200;
@@ -37,6 +40,7 @@ constant.listStepCount = 10;
 constant.listScrollLimit = 200;
 
 constant.timerUpdateNetwork = 1000;
+constant.timerBeforeTutorial = 500;
 constant.webAppType = 0; // thinClientType
 constant.appType = 1;  // clientType
 
@@ -65,6 +69,7 @@ constant.minStorageSizePercent = 5;
 constant.iconSizeStandard = 55;
 constant.iconSizeList = 40;
 constant.iconSizeFavorite = 20;
+constant.iconSizeLargeFavorite = 40;
 
 constant.popupMarginLeft = 5;
 constant.popupMarginTop = -50;

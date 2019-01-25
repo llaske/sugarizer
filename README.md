@@ -18,7 +18,7 @@ Enjoy the experience and help us reach every child on every device in every coun
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android, iOS, or Chrome OS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
@@ -36,19 +36,38 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 
 ![](images/applestore.png)
 
-To run **Sugarizer Application on Windows 10**, download it on [Windows Store](https://www.microsoft.com/store/apps/9nblggh4r782). You could also build yourself the Sugarizer Windows Application using instructions below.
+To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
+The Sugarizer desktop application has three possible arguments:
 
-![](images/windowstore.png)
+* `--window` to open Sugarizer in a window (instead of fullscreen)
+* `--debug` to open Sugarizer with the debug console
+* `--init` to remove all existing Journal and settings (all will be lost)
 
-To run **Sugarizer Application as Chrome Web App**, download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/sugarizer/omfgclgehghdlloggibhgicnlldjiboo) or use the [Chrome Apps & Extensions Developer Tool](https://chrome.google.com/webstore/detail/chrome-apps-extensions-de/ohmmkhmmmpcnpikjeljgnaoabkaalbgc) and use the Sugarizer directory as the target for the unpacked application.
+If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
-![](images/chromewebstore.png)
+	npm install
+
+Then launch Sugarizer for GNU Linux with:
+
+	npm start > /dev/null
+
+Or, for Mac OS/Windows, just:
+
+	npm start
+
+You could use Sugarizer desktop arguments using "--" after start. For example:
+
+	npm start -- --window
 
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
     chrome --allow-file-access-from-files index.html
+
+On Windows, you should launch:
+
+	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files
 
 On Mac OS, you should launch:
 
@@ -57,8 +76,8 @@ On Mac OS, you should launch:
 For **Firefox**, type in the address bar:
 
     about:config
-    
-Search for the `security.fileuri.strict_origin_policy` parameter and 
+
+Search for the `security.fileuri.strict_origin_policy` parameter and
 set it to `false`.
 
 For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
@@ -159,9 +178,9 @@ Let's start [here](docs/tutorial.md).
 To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
 
 
-# Build Application for Android, iOS or Windows 10
+# Build Application for Android and iOS
 
-Sugarizer Application could be packaged as an Android, iOS and Windows 10 application using [Cordova](http://cordova.apache.org/).
+Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
 To build it, first install Cordova as described [here](http://cordova.apache.org/).
 
@@ -225,7 +244,7 @@ Then install specific component for Sugarizer by running:
 
 Finally launch:
 
-	grunt
+	grunt -v
 
 At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
 

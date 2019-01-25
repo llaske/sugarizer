@@ -4,7 +4,55 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2019-01-20
+### Added
+- Desktop version for GNU Linux, MacOS and Windows using electron
+- Ebook Reader activity
+- Exerciser activity
+- Sprint Math activity
+- Add a sort palette in Journal
+- Allow action on multiple items in Journal
+- Copy from Journal to device now available on all platforms
+- Copy from device to Journal feature
+- Help tutorial on initial screen
+- Help on activities in list view
+
+### Changed
+- Portuguese localization
+- Replace filter popups in Journal by palettes
+- Increase favorite icon size in Journal and List View
+- Full offline version of Scratch (sprites, background and sounds) - except on iOS
+- Add Emoji support in Chat activity
+
+### Fixed
+- Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
+- DOM-based XSS vulnerability in the MarkDown Editor Activity #158
+- DOM-based XSS vulnerability in the Get Things Done Activity #160
+- Save Stopwatch activity context in Journal #201
+- Flip activity don't detect end of game #215
+- Align buttons better in tutorial #135
+- ChatPrototype activity does not sanitize input #225
+- Fototoon close icon missing in small screens #213
+- Save Clock activity settings in Journal #204
+- Add number of play in Flip activity #234
+- Save Blockrain activity context in Journal #203
+- Activity Idea: Math Quiz #187
+- Abacus does not display solution with big numbers #140
+- Change background color for Speak activity #245
+- Add the sleeping face into the Speak activity #246
+- Add an erase button into GridPaint activity #242
+- Add an history of last QR Code generated/read in QR Code activity #244
+- Save Speak history in Journal #209
+- Improve Maze activity to allow playing with presence #208
+- No San-Marino and Vatican in Color My World app #174
+- Improve LOL activity to play against another user using presence #243
+
+### Removed
+- Remove Cordova activity
+- Remove Welcome Web activity
+- Chrome OS version
+- Windows 10 version from the store, now using an installer
+
 
 ## [1.0.1] - 2018-07-07
 ### Added

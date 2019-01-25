@@ -24,7 +24,7 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-var frame, cnv, hitbuffer;
+var frame, cnv, hitbuffer, clearbtn;
 var shapes=[], colors=[];
 var cnames = ['red', 'yellow', '#ff6600', '#764300', 'limegreen', 'blue', 'darkmagenta', 'black', 'white'];
 var cletters = ['r', 'y', 'o', 'n', 'g', 'b', 'v', 'k', 'w'];
@@ -41,6 +41,7 @@ var fname = 'sqgridpos';
 
 function appInit(){
 	frame = document.getElementById('frame');	
+	clearbtn = document.getElementById("clear-button");
 	thumbframe = document.getElementById('thumbframe');	
 	cnv = document.getElementById('gridcnv');	
 	cnv.width=1024; cnv.height=748;
@@ -59,6 +60,8 @@ function appInit(){
 	hittestInit();
 	thumbsInit();
 	drawButtons();
+
+	clearbtn.addEventListener("click", handleClearButton);
 }
 
 function newShape(points){
@@ -220,4 +223,12 @@ function drawSaveButton(ctx){
 	ctx.arc(75,690,15,0,359.2*Math.PI-.001);
 	ctx.fill();
   ctx.stroke();
+}
+
+function handleClearButton(){
+	for(var i in colors){
+		colors[i] = "white";
+		fillPiece(i);
+		strokePiece(i);
+	}
 }

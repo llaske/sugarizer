@@ -51,7 +51,7 @@ function init() {
     };
 
     event_bus.on("enable-standalone", enable_standalone);
-    require(ρσ_list_decorate([ "sugar-web/graphics/palette" ]), (function() {
+    requirejs(ρσ_list_decorate([ "sugar-web/graphics/palette" ]), (function() {
         var ρσ_anonfunc = function (palette) {
             var items, row, item, span, text, i;
             tag.example_palette = new palette.Palette(tag.refs.examplebutton, "Load an example");

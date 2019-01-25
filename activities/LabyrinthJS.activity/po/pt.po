@@ -1,0 +1,319 @@
+#. extracted from ../locale.ini
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Aug 29 2017 18:13:19 GMT+0200 (CEST)\n"
+"PO-Revision-Date: 2018-05-07 19:40+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-labyrinthjs/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
+
+#: YourNewIdea
+msgctxt "YourNewIdea"
+msgid "<Your new idea>"
+msgstr "<Sua nova ideia>"
+
+#: nodetextTitle
+msgctxt "nodetextTitle"
+msgid "Text idea"
+msgstr "Texto da ideia"
+
+#: linkButtonTitle
+msgctxt "linkButtonTitle"
+msgid "Link ideas"
+msgstr "Agrupar ideias"
+
+#: removeButtonTitle
+msgctxt "removeButtonTitle"
+msgid "Remove"
+msgstr "Remover"
+
+#: undoButtonTitle
+msgctxt "undoButtonTitle"
+msgid "Undo"
+msgstr "Desfazer"
+
+#: redoButtonTitle
+msgctxt "redoButtonTitle"
+msgid "Redo"
+msgstr "Refazer"
+
+#: zoomButtonTitle
+msgctxt "zoomButtonTitle"
+msgid "View"
+msgstr "Visualizar"
+
+#: foregroundButtonTitle
+msgctxt "foregroundButtonTitle"
+msgid "Stroke Color"
+msgstr "Cor do traçado"
+
+#: backgroundButtonTitle
+msgctxt "backgroundButtonTitle"
+msgid "Fill Color"
+msgstr "Preencher cor"
+
+#: typeText
+msgctxt "typeText"
+msgid "Type the text here"
+msgstr "Digite o texto aqui"
+
+#: boldButtonTitle
+msgctxt "boldButtonTitle"
+msgid "Bold"
+msgstr "Negrito"
+
+#: italicButtonTitle
+msgctxt "italicButtonTitle"
+msgid "Italic"
+msgstr "Itálico"
+
+#: fontMinusButtonTitle
+msgctxt "fontMinusButtonTitle"
+msgid "Decrease Font size"
+msgstr "Diminuir tamanho da fonte"
+
+#: fontPlusButtonTitle
+msgctxt "fontPlusButtonTitle"
+msgid "Increase Font size"
+msgstr "Aumentar tamanho da fonte"
+
+#: fontButtonTitle
+msgctxt "fontButtonTitle"
+msgid "Choose Font"
+msgstr "Escolher fonte"
+
+#: pngButtonTitle
+msgctxt "pngButtonTitle"
+msgid "Export to PNG"
+msgstr "Exportar para PNG"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Anterior"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Próximo"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Finalizar"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Labyrinth Activity"
+msgstr "Atividade Labirinto"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This activity is a lightweight mind-mapping activity. A mind-map is a diagram used to represent words, ideas, tasks or other items linked to and arranged radially around a central key word or idea."
+msgstr ""
+"Esta é uma atividade de mapa mental inicial. Um mapa mental é um diagrama "
+"utilizado para representar palavras, ideias, tarefas ou outros itens ligados "
+"e organizados em torno de uma palavra ou ideia central."
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Quadro"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "This is the board where you could draw your map. Click on it to add a new node. Click on a node to update its content. Drag the board to move the view."
+msgstr ""
+"Este é o quadro de atividades no qual você pode desenhar o seu mapa. Clique "
+"para adicionar um nó. Clique em algum nó para adicionar um novo conteúdo. "
+"Arraste o quadro para alterar sua posição."
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity Menu"
+msgstr "Menu da atividade"
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "This colored menu is the activity menu. Here you could update the title of the activity to easily find it in the Journal."
+msgstr ""
+"Este menu colorido é o menu de atividades. Aqui você pode atualizar o título "
+"da atividade para encontrá-la mais facilmente no Diário."
+
+#: TutoNodeTitle
+msgctxt "TutoNodeTitle"
+msgid "Add node"
+msgstr "Adicionar nó"
+
+#: TutoNodeContent
+msgctxt "TutoNodeContent"
+msgid "If this icon is active, when you click in the board a new node appear."
+msgstr ""
+"Se este ícone estiver ativado, um novo nó aparecerá quando você clicar no "
+"quadro."
+
+#: TutoLinkTitle
+msgctxt "TutoLinkTitle"
+msgid "Add link"
+msgstr "Adicionar ligação"
+
+#: TutoLinkContent
+msgctxt "TutoLinkContent"
+msgid "If this icon is active, when you click on nodes you could create new links between us."
+msgstr ""
+"Se este ícone estiver ativado, novos vínculos poderão ser criados quando "
+"você clicar em algum nó."
+
+#: TutoRemoveTitle
+msgctxt "TutoRemoveTitle"
+msgid "Remove node/link"
+msgstr "Remover nó/vínculo"
+
+#: TutoRemoveContent
+msgctxt "TutoRemoveContent"
+msgid "If this icon is active, when you click on a node or on a link, it will be remove."
+msgstr ""
+"Se este ícone estiver ativado, quando você clicar em um nó ou vínculo, ele "
+"será removido."
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Desfazer"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "With this icon you could undo your last change."
+msgstr "Com este ícone você poderá desfazer sua última mudança."
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Refazer"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "With this icon you could redo your last undo."
+msgstr "Com este ícone você poderá refazer sua última mudança."
+
+#: TutoZoomTitle
+msgctxt "TutoZoomTitle"
+msgid "Zoom"
+msgstr "Ampliar"
+
+#: TutoZoomContent
+msgctxt "TutoZoomContent"
+msgid "This menu let you adapt the zoom level in the board."
+msgstr "Este menu permite adaptar o nível de ampliação do quadro."
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Stop"
+msgstr "Parar"
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr "Clique neste ícone para sair da atividade e voltar ao menu principal."
+
+#: TutoPngTitle
+msgctxt "TutoPngTitle"
+msgid "Export PNG"
+msgstr "Exportar para PNG"
+
+#: TutoPngContent
+msgctxt "TutoPngContent"
+msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the mindmap."
+msgstr ""
+"Clique neste ícone para gerar no Diário um arquivo PNG com todo o conteúdo "
+"do mapa mental."
+
+#: TutoTextTitle
+msgctxt "TutoTextTitle"
+msgid "Node text"
+msgstr "Texto do nó"
+
+#: TutoTextContent
+msgctxt "TutoTextContent"
+msgid "Here you could change the text of the current node."
+msgstr "Aqui você pode modificar o texto do nó selecionado."
+
+#: TutoBackgroundTitle
+msgctxt "TutoBackgroundTitle"
+msgid "Background"
+msgstr "Plano de fundo"
+
+#: TutoBackgroundContent
+msgctxt "TutoBackgroundContent"
+msgid "Click here to choose the background color of the current node."
+msgstr "Clique aqui para escolher a cor do plano de fundo do nó selecionado."
+
+#: TutoForegroundTitle
+msgctxt "TutoForegroundTitle"
+msgid "Foreground"
+msgstr "Primeiro plano"
+
+#: TutoForegroundContent
+msgctxt "TutoForegroundContent"
+msgid "Click here to choose the foreground color of the current node."
+msgstr "Clique aqui para escolher a cor do primeiro plano do nó selecionado."
+
+#: TutoBoldTitle
+msgctxt "TutoBoldTitle"
+msgid "Bold"
+msgstr "Negrito"
+
+#: TutoBoldContent
+msgctxt "TutoBoldContent"
+msgid "Click on this icon to bold or unbold the text for the current node."
+msgstr ""
+"Clique neste ícone para ativar ou desativar o modo negrito do nó selecionado."
+
+#: TutoItalicTitle
+msgctxt "TutoItalicTitle"
+msgid "Italic"
+msgstr "Itálico"
+
+#: TutoItalicContent
+msgctxt "TutoItalicContent"
+msgid "Click on this icon to set or unset italic on the current text node."
+msgstr ""
+"Clique neste ícone para ativar ou desativar o modo itálico do nó selecionado."
+
+#: TutoFontTitle
+msgctxt "TutoFontTitle"
+msgid "Font"
+msgstr "Fonte"
+
+#: TutoFontContent
+msgctxt "TutoFontContent"
+msgid "Click here to choose the font for the current text node."
+msgstr "Clique aqui para escolher a fonte do nó selecionado."
+
+#: TutoFontPlusTitle
+msgctxt "TutoFontPlusTitle"
+msgid "Increase font"
+msgstr "Aumentar fonte"
+
+#: TutoFontPlusContent
+msgctxt "TutoFontPlusContent"
+msgid "Click here to increase the font size for the current text node."
+msgstr "Clique aqui para ampliar o tamanho da fonte do nó selecionado."
+
+#: TutoFontMinusTitle
+msgctxt "TutoFontMinusTitle"
+msgid "Decrease font"
+msgstr "Diminuir fonte"
+
+#: TutoFontMinusContent
+msgctxt "TutoFontMinusContent"
+msgid "Click here to decrease the font size for the current text node."
+msgstr "Clique aqui para diminuir o tamanho da fonte do nó selecionado."

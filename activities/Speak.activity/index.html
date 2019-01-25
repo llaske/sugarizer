@@ -12,8 +12,10 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" href="css/inputrange.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="lib/jquery.min.js"></script>
 <script src="mespeak.js"></script>
+<script>if (window.module) module = window.module;</script>
 </head>
 
 <body>
@@ -38,11 +40,20 @@
     <ul id="chatbox">
     </ul>
   </div>
-  <div style="top:60px;position:absolute;z-index:2" id="speechBox">
-  	<input id="userText" name="userText" type="text"></input>
-  	<button id="speakText" class="toolbutton" title="Speak"></button>
-    <hr>
-  </div>
+
+
+	<!-- Created select tag so user can access history of talk -->
+	<div style="top:60px;position:absolute;z-index:2" id="speechBox">
+		<!-- The select tag acts like a drop down button, so it passes its value to the input box and not to itself -->
+		<select id = 'combo-box' title = "Saved Talk" onchange="document.getElementById('userText').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+	  </select>
+		<span class = "dropdown" name = "Saved Talk"></span>
+		<input id ="userText" name="userText" type="text" onfocus="this.select()" ></input>
+		<input name="idValue" id="idValue" type="hidden">
+		<button id="speakText" class="toolbutton" title="Speak"></button>
+	  <hr>
+	</div>
+
   <div style="top:0px;">
   	<canvas id="canvas" height="0" width="0" style="border: 5px solide black;"></canvas>
   </div>

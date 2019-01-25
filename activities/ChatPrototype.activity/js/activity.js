@@ -1,11 +1,34 @@
 define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,wl10n, palette,presencepalette) {
-    var activity = require("sugar-web/activity/activity");
+    var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
-    require(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc) {
 
         // Initialize the activity.
-        activity.setup();
+		activity.setup();
+
+		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
+		//sanitize html messages
+		var tagOrComment = new RegExp(
+			'<(?:'
+			// Comment body.
+			+ '!--(?:(?:-*[^->])*--+|-?)'
+			// Special "raw text" elements whose content should be elided.
+			+ '|script\\b' + tagBody + '>[\\s\\S]*?</script\\s*'
+			+ '|style\\b' + tagBody + '>[\\s\\S]*?</style\\s*'
+			// Regular name
+			+ '|/?[a-z]'
+			+ tagBody
+			+ ')>',
+			'gi');
+		function removeTags(html) {
+			var oldHtml;
+			do {
+				oldHtml = html;
+				html = html.replace(tagOrComment, '');
+			} while (html !== oldHtml);
+		return html.replace(/</g, '&lt;');
+		}
 
         var form = document.getElementById('message-form');
         var messageField = document.getElementById('message');
@@ -88,7 +111,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 		// Handle message text update
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
-				var message = messageField.value;
+				var message = removeTags(messageField.value);
 
 				// Send the message through the WebSocket.
 				var toSend = {user: userSettings, content: message};
@@ -101,7 +124,62 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				return false;
             }
         };
+	    //Smiley Emoji options
+        var selectSmiley = document.getElementById('smiley-button')
+        var smileyOption;
+        var smileyRange = [
+          [128513, 128515], [128517, 128519], [128521, 128528] //Array of happy emojis
+        ];
 
+        for (var i = 0; i < smileyRange.length; i++) {
+          var range = smileyRange[i];
+          for (var x = range[0]; x < range[1]; x++) {
+
+            smileyOption = document.createElement('option');
+            smileyOption.value = x;
+            smileyOption.innerHTML = "&#" + x + ";";
+            selectSmiley.appendChild(smileyOption);
+          }
+
+        }
+
+        //Sad Emoji options
+          var selectSad = document.getElementById('sad-button')
+          var sadOption;
+          var sadRange = [
+            [128531, 128533], [128545, 128551], [128555, 128558] //Array of sad or upset emojis
+          ];
+
+          for (var i = 0; i < sadRange.length; i++) {
+            var range = sadRange[i];
+            for (var x = range[0]; x < range[1]; x++) {
+
+              sadOption = document.createElement('option');
+              sadOption.value = x;
+              sadOption.innerHTML = "&#" + x + ";";
+              selectSad.appendChild(sadOption);
+            }
+
+          }
+
+          //Others Emoji options
+            var selectOthers = document.getElementById('others-button')
+            var otherOption;
+            var otherRange = [
+              [128568, 128573], [128582, 128588] //Array of other emojis
+            ];
+
+            for (var i = 0; i < otherRange.length; i++) {
+              var range = otherRange[i];
+              for (var x = range[0]; x < range[1]; x++) {
+
+                otherOption = document.createElement('option');
+                otherOption.value = x;
+                otherOption.innerHTML = "&#" + x + ";";
+                selectOthers.appendChild(otherOption);
+              }
+
+            }
     });
 
 });
