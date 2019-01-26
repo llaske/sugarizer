@@ -97,6 +97,26 @@
   top: 5px;
 }
 
+.search-field-iocancel {
+  position: absolute;
+  background-image: url(../icons/entry-cancel.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #e5e5e5;
+  right: 10px;
+  border: none;
+  background-size: 20px 20px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  top: 50%;
+  transform: translateY(-110%);
+}
+
+.search-field-iocancel:hover {
+  background-color: #e5e5e5
+}
+
 #sub-toolbar #bold-button {
   background-image: url(../icons/bold-text.svg);
 }
