@@ -142,7 +142,7 @@ To do that, let's study the file `js/activity.js`. It's really the heart of your
 
 These lines relied on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependancies. You could read more about the **require.js** framework [here](http://www.requirejs.org/) but shortly, there is only two functions to understand: `define` and `require`.
 
-* `define` is a way to define a new module and express its dependancies. Here for example we're going to define a new module that depends of the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
+* `define` is a way to define a new module and express its dependancies. Here for example we're going to define a new module that depends on the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
 
 * `requirejs` is pretty the same. It tell to **require**: run the following function but before, load dependancies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
 
