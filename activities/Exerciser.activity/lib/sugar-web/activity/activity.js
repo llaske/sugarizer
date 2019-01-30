@@ -14,7 +14,7 @@ define(["webL10n",
 
 	var presenceCallback = null;
 	var presenceResponse = null;
-	
+
     var activity = {};
 
     activity.setup = function () {
@@ -25,7 +25,7 @@ define(["webL10n",
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             window.dispatchEvent(pauseEvent);
         }
@@ -38,7 +38,7 @@ define(["webL10n",
         function sendStopEvent() {
 			var stopEvent = document.createEvent("CustomEvent");
 			stopEvent.initCustomEvent('activityStop', false, false, {
-				'cancelable': true	
+				'cancelable': true
 			});
             var result = window.dispatchEvent(stopEvent);
             if (result) {
@@ -87,7 +87,7 @@ define(["webL10n",
 						presence.joinSharedActivity(environment.sharedId, function() {
 							var group_color = presence.getSharedInfo().colorvalue;
 							icon.colorize(activityButton, group_color);
-							datastoreObject.setMetadata({"buddy_color":group_color}); 
+							datastoreObject.setMetadata({"buddy_color":group_color});
 							datastoreObject.save(function() {});
 						});
 					}
@@ -103,6 +103,9 @@ define(["webL10n",
                     activityPalette.setTitleDescription(metadata);
                 });
             });
+			if (environment.standAlone) {
+				document.getElementById("stop-button").style.visibility = "hidden";
+			};
         });
     };
 
@@ -119,7 +122,7 @@ define(["webL10n",
 		}
 		return presence;
 	};
-	
+
     activity.getXOColor = function (callback) {
         function onResponseReceived(error, result) {
             if (error === null) {

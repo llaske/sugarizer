@@ -52,9 +52,9 @@ define(function (require) {
 				}
 
 				// Call the matching callback
-				if (json.type < callbackArray.length)
-					callbackArray[json.type](json.data);
-				else
+                if (json.type < callbackArray.length) {
+                    callbackArray[json.type](json.data);
+                }else
 					console.log('Presence API error, unknown callback type:'+json.type);
 			};
 		}
@@ -66,7 +66,7 @@ define(function (require) {
 
 	}
 
-	// Create presence object
+	// Create isHost object
 	var presence = new SugarPresence();
 
 	// Test if connected to network
@@ -189,6 +189,7 @@ define(function (require) {
 		// Register call back
 		var that = this;
 		callbackArray[msgListSharedActivityUsers] = function(data) {
+			that.sharedInfo = { id: data };
 			callback(data);
 		}
 
