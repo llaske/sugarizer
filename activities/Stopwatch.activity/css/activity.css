@@ -2,6 +2,11 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+ul {
+    padding: 0;
+    margin: 0;
+}
+
 #stopwatch-app {
   text-align: center;
   margin: 0 55px;
@@ -15,7 +20,8 @@
 
 #stopwatch-list li {
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 128px;
+  border-bottom: 1px solid black;
 }
 
 #stopwatch-list li p {
@@ -24,21 +30,22 @@
 
 .counter, .marks {
   display: inline-block;
+  transform: translateY(35%);
 }
 
 .marks {
-  margin-left: 11px;
+  font-size: 30px;
 }
 
 .counter {
-  width: 110px;
-  text-align: center;
+  margin-left: 22px;
   font-weight: bold;
-  /* font-size: 20px; */
+  font-size: 30px;
 }
 
 .buttons-group {
   display: inline-block;
+  transform: translateY(15%);
 }
 
 .buttons-group button {
@@ -59,13 +66,13 @@
 
 button.remove {
   position: absolute;
-  top: 0;
+  top: 10%;
   right: 0;
-  width: 42px;
-  height: 42px;
+  width: 84px;
+  height: 84px;
   background-color: transparent;
   background-position: center;
-  background-size: 22px 22px;
+  background-size: 44px 44px;
   background-repeat: no-repeat;
   background-image: url(../icons/list-remove.svg);
   border: 0;
@@ -73,8 +80,8 @@ button.remove {
 }
 
 #add-stopwatch {
-  width: 84px;
-  height: 42px;
+  width: 168px;
+  height: 84px;
   background-position: center;
   background-size: 22px 22px;
   background-repeat: no-repeat;
@@ -84,11 +91,11 @@ button.remove {
 /* Only for stopwatch */
 .buttons-group button {
   margin-top: 5.5px;
-  height: 33px;
-  width: 33px;
+  height: 66px;
+  width: 66px;
   padding: 0;
   background-position: center;
-  background-size: 22px 22px;
+  background-size: 44px 44px;
   background-repeat: no-repeat;
 }
 
