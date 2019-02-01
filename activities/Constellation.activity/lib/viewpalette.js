@@ -35,7 +35,7 @@ define(["viewpalettetemplate",
             });
 			var currentview = document.getElementById(document.getElementById('projection-view').innerHTML);
 			if (currentview == null) currentview = document.getElementById("stereo");
-			currentview.style.backgroundColor = "grey";
+			//currentview.style.backgroundColor = "grey";
         }
 
     };
