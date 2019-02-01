@@ -35,7 +35,7 @@ define(["worldpalettetemplate",
             });
 			var currentcountry = document.getElementById("55.3781,"+document.getElementById('worldConst').innerHTML);
 			if (currentcountry == null) currentcountry = document.getElementById("55.3781,-3.4360");
-			currentcountry.style.backgroundColor = "grey";
+			//currentcountry.style.backgroundColor = "grey";
         }
 
     };
