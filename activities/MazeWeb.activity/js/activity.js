@@ -609,6 +609,13 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         }
         runLevel();
 
+        var restartButton = document.getElementById('restart-button');
+        restartButton.addEventListener('click', function(e) {
+            gameSize = 60;
+            runLevel();
+        });
+
+
         Player.prototype.isMoving = function () {
             return (this.animation !== undefined);
         };
