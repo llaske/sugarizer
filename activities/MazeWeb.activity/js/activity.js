@@ -36,6 +36,21 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 });
             }
 
+            // Load from datastore
+            if (!environment.objectId) {
+                runLevel();
+            } else {
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        data = JSON.parse(data);
+                        maze = data.maze;
+                        gameSize = data.gameSize;
+                        updateMazeSize();
+                        updateSprites();
+                        onLevelStart();
+                    }
+                });
+            }
         });
 
 		var generateXOLogoWithColor = function(color) {
@@ -886,6 +901,17 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 network.onDataReceived(onNetworkDataReceived);
                 network.onSharedActivityUserChanged(onNetworkUserChanged);
             });
+        });
+
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+            maze.visited = createMatrix(maze.width, maze.height);
+            var data = {
+                maze: maze,
+                gameSize: gameSize,
+            }
+            var jsonData = JSON.stringify(data);
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save();
         });
     });
 
