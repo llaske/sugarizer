@@ -16,6 +16,9 @@
 #main-toolbar #star-button{
 	background-image: url(../icons/star.svg);
 }
+#main-toolbar #location-button{
+	background-image: url(../icons/location.svg);
+}
 #main-toolbar #world-button{
 	background-image: url(../icons/world.svg);
 }
