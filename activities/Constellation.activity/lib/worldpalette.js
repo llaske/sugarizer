@@ -33,7 +33,7 @@ define(["worldpalettetemplate",
                 document.getElementById('worldConst').innerHTML = [(this.id).split(',')[0],(this.id).split(',')[1]];
 				that.popDown();
             });
-			var currentcountry = document.getElementById("55.3781,"+document.getElementById('worldConst').innerHTML);
+			var currentcountry = document.getElementById(document.getElementById('worldConst').innerHTML);
 			if (currentcountry == null) currentcountry = document.getElementById("55.3781,-3.4360");
 			//currentcountry.style.backgroundColor = "grey";
         }
