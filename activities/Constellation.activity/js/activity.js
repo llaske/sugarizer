@@ -32,11 +32,36 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewPale
 							showplanets: true, //Show/Hide planets
 							showplanetlabels: true, //Show/Hide planet names
 							live: false, //Disabe/Enable real time clock
-							clock: new Date() //Set clock
+							clock: new Date(), //Set clock
+
 			});
-			
-			//Array to save chart
+
+			//Necessary variables
 			var chartJournal = [true,false,"55.3781,-3.4360","stereo"];
+			var longlat = document.getElementById('worldConst').innerHTML;
+			var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+			var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+
+			//Get Location of user and set the star chart to the position
+			//when Location button is pressed
+			function getUserLocation(){
+				if (navigator.geolocation){
+					navigator.geolocation.getCurrentPosition(userPosition);
+				}
+			}
+			function userPosition(position) {
+				S("button#location-button").on('click', function(){
+					console.log(longlat);
+					document.getElementById(longlat).style.backgroundColor = 'black';
+					longlat = position.coords.latitude + "," + position.coords.longitude;
+					customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+					customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+					planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
+					chartJournal[2] = longlat;
+					console.log(chartJournal);
+				})
+			}
+			getUserLocation();
 
 			//Add 1 day to date
 			S("button#add-button").on('click', function (){
@@ -79,9 +104,9 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewPale
 
 			//Set long and lat to specific country
 			S("button.country").on('click', function (){
-				var longlat = document.getElementById('worldConst').innerHTML;
-				var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
-				var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+				longlat = document.getElementById('worldConst').innerHTML;
+				customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+				customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
 				planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
 				chartJournal[2] = longlat;
 				console.log(chartJournal);
@@ -126,7 +151,12 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewPale
 						customLatitude = planetarium.setLatitude(parseFloat(chartJournal[2].split(',')[0]));
 					 	customLongitude = planetarium.setLongitude(parseFloat(chartJournal[2].split(',')[1]));
 						planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
-						document.getElementById(chartJournal[2]).style.backgroundColor = 'grey';
+						try {
+							document.getElementById(chartJournal[2]).style.backgroundColor = 'grey';
+						}
+						catch(e){
+							console.log("User location used");
+						}
 						planetarium.selectProjection(chartJournal[3]);
 						document.getElementById(chartJournal[3]).style.backgroundColor = 'grey';
 						if (chartJournal[0] == false){
