@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - QRCode and Record no longer work on Chrome 71
 - Add a delete button in the new idea input field of Labyrinth activity #262
 - Increase size of items in StopWatch activity #261
+- Save Maze level in Journal #260
 
 
 ## [1.1.0] - 2019-01-20
