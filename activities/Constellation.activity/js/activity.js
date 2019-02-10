@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewPalette", "webL10n"], function (activity, env, worldpalette, viewpalette, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpalette", "webL10n"], function (activity, env, worldpalette, viewpalette, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
