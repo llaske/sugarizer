@@ -514,7 +514,7 @@ enyo.kind({
 			var found = 0;
 			for(var i = 0 ; i < len ; i++) {
 				for(var j = 0 ; j < len ; j++) {
-					if (activities[i].activityId == this.activities[j].activityId) {
+					if (activities[i].activityId == this.activities[j].activityId && activities[i].users.length == this.activities[j].users.length) {
 						found++;
 						break;
 					}

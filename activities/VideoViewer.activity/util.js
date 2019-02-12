@@ -35,6 +35,8 @@ Util.loadContext = function(callback, loaded) {
 						if (context) {
 							Util.context = context;
 							app.loadDatabase();
+						} else {
+							app.loadLibraries();
 						}
 						callback();
 					});

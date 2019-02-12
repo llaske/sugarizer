@@ -3,9 +3,9 @@
 # Step 5: localize the activity
 *(Estimated time: 15mn)*
 
-Your current Sugarizer session talk probably the same language than you. At the first setup, Sugarizer detect the language of your browser and use this language  for the UI and for activities.
+Your current Sugarizer session talks probably the same language as you. At the first setup, Sugarizer detects the language of your browser and uses this language for the UI and the activities
 
-You could also change the language from the settings. Let the mouse on the XO buddy icon on the Sugarizer home view and then click on settings, then to "Language" to display the language settings window.
+You could also change the language from the settings. Hover the mouse on the XO buddy icon on the Sugarizer home view and then click on settings, then to "Language" to display the language settings window.
 
 
 ![](images/tutorial_step5_1.png)

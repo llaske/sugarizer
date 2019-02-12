@@ -361,7 +361,7 @@ enyo.kind({
 					if (that.dialogAction == constant.journalDevice) {
 						that.copyToDevice(toProcess[i]);
 					} else if (that.dialogAction == constant.journalRemove) {
-						that.removeEntry(toProcess[i]);
+						that.removeEntry(toProcess[i], {isLast: (i==toProcess.length-1)});
 					} else if (that.dialogAction == constant.journalLocal) {
 						that.copyToLocal(toProcess[i]);
 					} else {
@@ -699,7 +699,7 @@ enyo.kind({
 	},
 
 	// Remove an entry in the journal
-	removeEntry: function(entry) {
+	removeEntry: function(entry, multiple) {
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
@@ -718,14 +718,18 @@ enyo.kind({
 				);
 			}
 
-			// Refresh screen
-			this.toolbar.removeFilter();
-			this.loadLocalJournal();
+			// Test if refresh
+			var refresh = (!multiple || multiple.isLast);
+			if (refresh) {
+				// Refresh screen
+				this.toolbar.removeFilter();
+				this.loadLocalJournal();
 
-			// Refresh home screen: activity menu, journal content
-			preferences.updateEntries();
-			app.journal = this.journal;
-			app.redraw();
+				// Refresh home screen: activity menu, journal content
+				preferences.updateEntries();
+				app.journal = this.journal;
+				app.redraw();
+			}
 		} else {
 			// Remove from remote journal
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();

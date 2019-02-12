@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- QRCode and Record no longer work on Chrome 71
+- Add a delete button in the new idea input field of Labyrinth activity #262
+- Increase size of items in StopWatch activity #261
+- Save Maze level in Journal #260
+
+
+## [1.1.0] - 2019-01-20
 ### Added
 - Desktop version for GNU Linux, MacOS and Windows using electron
 - Ebook Reader activity
@@ -22,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Replace filter popups in Journal by palettes
 - Increase favorite icon size in Journal and List View
 - Full offline version of Scratch (sprites, background and sounds) - except on iOS
+- Add Emoji support in Chat activity
 
 ### Fixed
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
@@ -49,6 +58,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - Remove Cordova activity
 - Remove Welcome Web activity
+- Chrome OS version
+- Windows 10 version from the store, now using an installer
 
 
 ## [1.0.1] - 2018-07-07

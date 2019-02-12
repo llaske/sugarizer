@@ -68,6 +68,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		// Handle sub toolbar
 		var subToolbar = document.getElementById("sub-toolbar");
 		var textValue = document.getElementById("textvalue");
+		var erasetextButton = document.getElementById("erasetext-button");
 		var boldButton = document.getElementById("bold-button");
 		var italicButton = document.getElementById("italics-button");
 		var foregroundButton = document.getElementById("foreground-button");
@@ -149,7 +150,18 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		});
 
 		textValue.addEventListener('input', function() {
+			if(textValue.value.length > 0)
+				$("#erasetext-button").show();
+			else
+				$("#erasetext-button").hide();
 			updateNodeText(lastSelected, textValue.value);
+			pushState();
+		});
+
+		erasetextButton.addEventListener('click', function() {
+			textValue.value = "";
+			updateNodeText(lastSelected, textValue.value);
+			$("#erasetext-button").hide();
 			pushState();
 		});
 

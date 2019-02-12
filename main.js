@@ -16,6 +16,7 @@ var mainWindow = null;
 
 var debug = false;
 var frameless = true;
+var reinit = false;
 
 
 // Localization features
@@ -25,7 +26,7 @@ l10n = {
 
 	init: function() {
 		this.language = app.getLocale() || "*";
-		this.ini = ini.parse(fs.readFileSync('./locale.ini', 'utf-8'));
+		this.ini = ini.parse(fs.readFileSync(app.getAppPath()+'/locale.ini', 'utf-8'));
 	},
 
 	setLanguage: function(lang) {
@@ -88,10 +89,12 @@ function LoadFile(event, file) {
 function createWindow () {
 	// Process argument
 	for (var i = 0 ; i < process.argv.length ; i++) {
-		if (process.argv[i] == '-debug') {
+		if (process.argv[i] == '--debug') {
 			debug = true;
-		} else if (process.argv[i] == '-window') {
+		} else if (process.argv[i] == '--window') {
 			frameless = false;
+		} else if (process.argv[i] == '--init') {
+			reinit = true;
 		}
 	}
 
@@ -107,11 +110,11 @@ function createWindow () {
 		icon: './res/icon/electron/icon-1024.png'
 	});
 	if (process.platform === 'darwin') {
-		app.dock.setIcon('./res/icon/electron/icon-1024.png');
+		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadFile('index.html');
+	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}
