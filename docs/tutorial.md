@@ -15,4 +15,4 @@ So step after step, you will learn:
 * [Step 5](tutorial_step5.md): localize the activity
 * [Step 6](tutorial_step6.md): handle multi-user with presence
 
-But let's first with the [Step 0](tutorial_step0.md), set up the development environment.
+But first let's start with the [Step 0](tutorial_step0.md), set up the development environment.
