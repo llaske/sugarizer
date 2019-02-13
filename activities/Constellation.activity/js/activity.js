@@ -42,18 +42,40 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 			var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
 			var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
 
+			//Get Location of user and set the star chart to the position
+			//when Location button is pressed
+			function getUserLocation(){
+				if (navigator.geolocation){
+					navigator.geolocation.getCurrentPosition(userPosition);
+				}
+			}
+			function userPosition(position) {
+				S("button#location-button").on('click', function(){
+					console.log(longlat);
+					document.getElementById(longlat).style.backgroundColor = 'black';
+					longlat = position.coords.latitude + "," + position.coords.longitude;
+					customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+					customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+					planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
+					chartJournal[2] = longlat;
+					console.log(chartJournal);
+				})
+			}
+
 			getUserLocation();
 
 			//Add 1 day to date
 			S("button#add-button").on('click', function (){
 				planetarium.clock.setDate(planetarium.clock.getDate() + 1);
 				planetarium.updateClock(planetarium.clock);
+				planetarium.draw();
 			})
 
 			//Minus 1 day to date
 			S("button#minus-button").on('click', function (){
 				planetarium.clock.setDate(planetarium.clock.getDate() - 1);
 				planetarium.updateClock(planetarium.clock);
+				planetarium.draw();
 			})
 
 			//Toggle Constellation Lines and Name
@@ -98,6 +120,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				var pv = document.getElementById('projection-view').innerHTML;
 				planetarium.selectProjection(pv);
 				chartJournal[3] = pv;
+				planetarium.draw();
 				console.log(chartJournal);
 			})
 
@@ -165,60 +188,41 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 					});
 				}
 			});
+
+			//Things to localize
+			function toLocalize() {
+				document.getElementById("add-button").title = webL10n.get("AddDay");
+				document.getElementById("minus-button").title = webL10n.get("MinusDay");
+				document.getElementById("const-button").title = webL10n.get("ToggleConst");
+				document.getElementById("star-button").title = webL10n.get("ToggleStar");
+				document.getElementById("location-button").title = webL10n.get("Location");
+				document.getElementById("world-button").title = webL10n.get("WorldList");
+				document.getElementById("view-button").title = webL10n.get("View");
+				document.getElementById("55.3781,-3.4360").innerHTML = webL10n.get("Britain");
+				document.getElementById("23.6345,-102.5528").innerHTML = webL10n.get("Mexico");
+				document.getElementById("40.4637,-3.7492").innerHTML = webL10n.get("Spain");
+				document.getElementById("51.1657,10.4515").innerHTML = webL10n.get("Germany");
+				document.getElementById("40.3399,127.5101").innerHTML = webL10n.get("NorthKorea");
+				document.getElementById("23.8859,45.0792").innerHTML = webL10n.get("SaudiArabia");
+				document.getElementById("35.9078,127.7669").innerHTML = webL10n.get("SouthKorea");
+				document.getElementById("46.2276,2.2137").innerHTML = webL10n.get("France");
+				document.getElementById("51.9194,19.1451").innerHTML = webL10n.get("Poland");
+				document.getElementById("41.8719,12.5674").innerHTML = webL10n.get("Italy");
+				document.getElementById("20.5937,78.9629").innerHTML = webL10n.get("India");
+				document.getElementById("9.0820,8.6753").innerHTML = webL10n.get("Nigeria");
+				document.getElementById("0.7893,113.9213").innerHTML = webL10n.get("Indonesia");
+				document.getElementById("-14.2350,-51.9253").innerHTML = webL10n.get("Brazil");
+				document.getElementById("54.5260,-105.2551").innerHTML = webL10n.get("NorthAmerica");
+				document.getElementById("-8.7832,-55.4915").innerHTML = webL10n.get("SouthAmerica");
+				document.getElementById("-8.7832,34.5085").innerHTML = webL10n.get("Africa");
+				document.getElementById("-25.2744,133.7751").innerHTML = webL10n.get("Australia");
+				document.getElementById("12.8797,121.7740").innerHTML = webL10n.get("Philippines");
+				document.getElementById("4.2105,101.9758").innerHTML = webL10n.get("Malaysia");
+				document.getElementById("36.2048,138.2529").innerHTML = webL10n.get("Japan");
+				document.getElementById("39.9042,116.4074").innerHTML = webL10n.get("China");
+			}
 		});
 
-		//Things to localize
-		function toLocalize() {
-			document.getElementById("add-button").title = webL10n.get("AddDay");
-			document.getElementById("minus-button").title = webL10n.get("MinusDay");
-			document.getElementById("const-button").title = webL10n.get("ToggleConst");
-			document.getElementById("star-button").title = webL10n.get("ToggleStar");
-			document.getElementById("location-button").title = webL10n.get("Location");
-			document.getElementById("world-button").title = webL10n.get("WorldList");
-			document.getElementById("view-button").title = webL10n.get("View");
-			document.getElementById("55.3781,-3.4360").innerHTML = webL10n.get("Britain");
-			document.getElementById("23.6345,-102.5528").innerHTML = webL10n.get("Mexico");
-			document.getElementById("40.4637,-3.7492").innerHTML = webL10n.get("Spain");
-			document.getElementById("51.1657,10.4515").innerHTML = webL10n.get("Germany");
-			document.getElementById("40.3399,127.5101").innerHTML = webL10n.get("NorthKorea");
-			document.getElementById("23.8859,45.0792").innerHTML = webL10n.get("SaudiArabia");
-			document.getElementById("35.9078,127.7669").innerHTML = webL10n.get("SouthKorea");
-			document.getElementById("46.2276,2.2137").innerHTML = webL10n.get("France");
-			document.getElementById("51.9194,19.1451").innerHTML = webL10n.get("Poland");
-			document.getElementById("41.8719,12.5674").innerHTML = webL10n.get("Italy");
-			document.getElementById("20.5937,78.9629").innerHTML = webL10n.get("India");
-			document.getElementById("9.0820,8.6753").innerHTML = webL10n.get("Nigeria");
-			document.getElementById("0.7893,113.9213").innerHTML = webL10n.get("Indonesia");
-			document.getElementById("-14.2350,-51.9253").innerHTML = webL10n.get("Brazil");
-			document.getElementById("54.5260,-105.2551").innerHTML = webL10n.get("NorthAmerica");
-			document.getElementById("-8.7832,-55.4915").innerHTML = webL10n.get("SouthAmerica");
-			document.getElementById("-8.7832,34.5085").innerHTML = webL10n.get("Africa");
-			document.getElementById("-25.2744,133.7751").innerHTML = webL10n.get("Australia");
-			document.getElementById("12.8797,121.7740").innerHTML = webL10n.get("Philippines");
-			document.getElementById("4.2105,101.9758").innerHTML = webL10n.get("Malaysia");
-			document.getElementById("36.2048,138.2529").innerHTML = webL10n.get("Japan");
-			document.getElementById("39.9042,116.4074").innerHTML = webL10n.get("China");
-		}
-
-		//Get Location of user and set the star chart to the position
-		//when Location button is pressed
-		function getUserLocation(){
-			if (navigator.geolocation){
-				navigator.geolocation.getCurrentPosition(userPosition);
-			}
-		}
-		function userPosition(position) {
-			S("button#location-button").on('click', function(){
-				console.log(longlat);
-				document.getElementById(longlat).style.backgroundColor = 'black';
-				longlat = position.coords.latitude + "," + position.coords.longitude;
-				customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
-				customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
-				planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
-				chartJournal[2] = longlat;
-				console.log(chartJournal);
-			})
-		}
 
 	});
 
