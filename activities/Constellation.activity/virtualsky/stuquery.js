@@ -406,7 +406,6 @@
 		// cache: break the cache
 		// dataType: json - will convert the text to JSON
 		//           jsonp - will add a callback function and convert the results to JSON
-
 		if(typeof url!=="string") return false;
 		if(!attrs) attrs = {};
 		var cb = "",qs = "";
@@ -451,7 +450,7 @@
 			if(oReq.status === 200) {
 				attrs.header = oReq.getAllResponseHeaders();
 				var rsp = oReq.response || oReq.responseText;
-				if(attrs['dataType']=="json") try { rsp = JSON.parse(rsp.replace(/[\n\r]/g,"\\n").replace(/^([^\(]+)\((.*)\)([^\)]*)$/,function(e,a,b,c){ return (a==cb) ? b:''; }).replace(/\\n/g,"\n")) } catch(e){ error(e); };
+				if(attrs['dataType']=="json") try{rsp = JSON.parse(rsp.replace(/[\n\r]/g,"\\n").replace(/^([^\(]+)\((.*)\)([^\)]*)$/,function(e,a,b,c){ return (a==cb) ? b:''; }).replace(/\\n/g,"\n"))} catch(e){error(e);};
 
 				// Parse out content in the appropriate callback
 				if(attrs['dataType']=="script"){
@@ -464,8 +463,12 @@
 				if(typeof attrs.success==="function") attrs.success.call((attrs['this'] ? attrs['this'] : this), rsp, attrs);
 			}else{
 				attrs['statusText'] = 'error';
+				error(evt)
 			}
 			if(typeof attrs.complete==="function") attrs.complete.call((attrs['this'] ? attrs['this'] : this), rsp, attrs);
+			//Debugging purposes
+			//console.log(attrs['url']);
+			//console.log(attrs['statusText']);
 		}
 
 		function error(evt){
@@ -478,17 +481,18 @@
 
 		if(responseTypeAware && attrs['dataType']){
 			try { oReq.responseType = attrs['dataType']; }
-			catch(err){ error(err); }
+			catch(err){error(evt); }
 		}
-		var session = 0;
+
 		try{oReq.open('GET', attrs['url']);}
-		catch(err){ error(err); }
+		catch(err){error(evt);  }
 
 		try{ oReq.send();}
-		catch(err){ error(err); }
+		catch(err){error(evt);  }
 
 		return this;
 	}
+
 	stuQuery.prototype.loadJSON = function(url,fn,attrs){
 		if(!attrs) attrs = {};
 		attrs.dataType = "json";
@@ -497,7 +501,7 @@
 		return this;
 	}
 
+
 	root.stuQuery = stuQuery;
 	root.S = function(e){ return new stuQuery(e); }
-
 })(window || this);
