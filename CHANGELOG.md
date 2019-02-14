@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Increase size of items in StopWatch activity #261
 - Save Maze level in Journal #260
 - Bad localization for some countries name in Color My World activity #265
+- Integrate presence in Labyrinth activity #263
 
 
 ## [1.1.0] - 2019-01-20
