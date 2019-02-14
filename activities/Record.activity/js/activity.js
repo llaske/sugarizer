@@ -35,16 +35,41 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
         var photoButton = document.getElementById("photo-button");
         var audioButton = document.getElementById("audio-button");
         var videoButton = document.getElementById("video-button");
+        var vidDisplay = document.getElementById("vidDisplay");
+
+        function handleVideo(stream){
+            document.querySelector('#vidDisplay').src = window.URL.createObjectURL(stream);
+        }
+        function videoError(e){
+            alert("There was some error");
+        }
 
         photoButton.addEventListener("click", function () {
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
+            }
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia ;
+            if(navigator.getUserMedia){
+                navigator.getUserMedia({video:true},handleVideo,videoError);
+            }
             captureHelper.helper.takePicture();
         });
 
         audioButton.addEventListener("click", function () {
+            if(vidDisplay.style.display != "none"){
+                vidDisplay.style.display = "none" ;
+            }
             captureHelper.helper.recordAudio();
         });
 
         videoButton.addEventListener("click", function () {
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
+            }
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia ;
+            if(navigator.getUserMedia){
+                navigator.getUserMedia({video:true},handleVideo,videoError);
+            }
             captureHelper.helper.recordVideo();
         });
 
