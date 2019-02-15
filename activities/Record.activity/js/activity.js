@@ -38,7 +38,7 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
         var vidDisplay = document.getElementById("vidDisplay");
 
         function handleVideo(stream){
-            document.querySelector('#vidDisplay').src = window.URL.createObjectURL(stream);
+            document.querySelector('#vidDisplay').srcObject = stream;
         }
         function videoError(e){
             alert("There was some error");
