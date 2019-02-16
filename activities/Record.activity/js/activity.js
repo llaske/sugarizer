@@ -45,6 +45,7 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
         }
 
         photoButton.addEventListener("click", function () {
+            captureHelper.helper.takePicture();
             if(vidDisplay.style.display == "none"){
                 vidDisplay.style.display = "block" ;
             }
@@ -52,7 +53,6 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             if(navigator.getUserMedia){
                 navigator.getUserMedia({video:true},handleVideo,videoError);
             }
-            captureHelper.helper.takePicture();
         });
 
         audioButton.addEventListener("click", function () {

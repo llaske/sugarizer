@@ -30,15 +30,10 @@
       "category": "public.app-category.education"
     },
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": [ "nsis" ]
     },
     "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": [ "AppImage", "deb" ]
     }
   }
 }
