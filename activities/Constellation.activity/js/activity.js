@@ -19,9 +19,9 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
             viewButton, datastoreObject);
 
 
-		S(document).ready(function() {
+		$(document).ready(function() {
 
-			var planetarium = S.virtualsky({
+			var planetarium = $.virtualsky({
 							id: 'starmap', //Div tag id where you want to place star chart
 							projection:'stereo', //Type of map projection used
 							keyboard: false, //Disable/Enable keyboard
@@ -35,110 +35,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 							clock: new Date(), //Set clock
 
 			});
-
-			//Necessary variables
-			var chartJournal = [true,false,"55.3781,-3.4360","stereo"];
-			var longlat = document.getElementById('worldConst').innerHTML;
-			var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
-			var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
-
-			//Get Location of user and set the star chart to the position
-			//when Location button is pressed
-			function getUserLocation(){
-				if (navigator.geolocation){
-					navigator.geolocation.getCurrentPosition(userPosition);
-				}
-			}
-			function userPosition(position) {
-				S("button#location-button").on('click', function(){
-					console.log(longlat);
-					document.getElementById(longlat).style.backgroundColor = 'black';
-					longlat = position.coords.latitude + "," + position.coords.longitude;
-					customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
-					customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
-					planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
-					chartJournal[2] = longlat;
-					console.log(chartJournal);
-				})
-			}
-
-			getUserLocation();
-
-			//Add 1 day to date
-			S("button#add-button").on('click', function (){
-				planetarium.clock.setDate(planetarium.clock.getDate() + 1);
-				planetarium.updateClock(planetarium.clock);
-				planetarium.draw();
-			})
-
-			//Minus 1 day to date
-			S("button#minus-button").on('click', function (){
-				planetarium.clock.setDate(planetarium.clock.getDate() - 1);
-				planetarium.updateClock(planetarium.clock);
-				planetarium.draw();
-			})
-
-			//Toggle Constellation Lines and Name
-			S("button#const-button").on('click', function (){
-
-				planetarium.toggleConstellationLines();
-				planetarium.toggleConstellationLabels();
-
-				if (chartJournal[0] == true){
-					chartJournal[0] = false;
-				} else{
-					chartJournal[0] = true;
-				}
-
-				console.log(chartJournal[0]);
-			})
-
-			//Toggle Star names
-			S("button#star-button").on('click', function (){
-				planetarium.toggleStarLabels();
-
-				if (chartJournal[1] == true){
-					chartJournal[1] = false;
-				} else{
-					chartJournal[1] = true;
-				}
-				console.log(chartJournal[1]);
-			})
-
-			//Set long and lat to specific country
-			S("button.country").on('click', function (){
-				longlat = document.getElementById('worldConst').innerHTML;
-				customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
-				customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
-				planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
-				chartJournal[2] = longlat;
-				console.log(chartJournal);
-			})
-
-			//Change projection view
-			S("button.view").on('click', function (){
-				var pv = document.getElementById('projection-view').innerHTML;
-				planetarium.selectProjection(pv);
-				chartJournal[3] = pv;
-				planetarium.draw();
-				console.log(chartJournal);
-			})
-
-			//Save in Journal on stop
-			document.getElementById("stop-button").addEventListener('click', function (event) {
-				console.log("writing...");
-				var jsonData = JSON.stringify(chartJournal);
-				activity.getDatastoreObject().setDataAsText(jsonData);
-				activity.getDatastoreObject().save(function (error) {
-					if (error === null) {
-						console.log("write done.");
-						console.log(jsonData);
-					} else {
-						console.log("write failed.");
-					}
-				});
-			});
-
+			
 			// Load from datastore
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -149,7 +46,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				webL10n.language.code = language;
 
 				//Set the star chart's language to Sugarizer's language
-				planetarium.language = language;
+				planetarium.loadLanguage(language);
 
 				//Process localize event
 				window.addEventListener("localized", function(){
@@ -167,8 +64,8 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 						if (error==null && data!=null) {
 							chartJournal = JSON.parse(data);
 							customLatitude = planetarium.setLatitude(parseFloat(chartJournal[2].split(',')[0]));
-						 	customLongitude = planetarium.setLongitude(parseFloat(chartJournal[2].split(',')[1]));
-							planetarium.setGeo(S(customLatitude,customLongitude)).setClock(0).draw();
+							customLongitude = planetarium.setLongitude(parseFloat(chartJournal[2].split(',')[1]));
+							planetarium.setGeo($(customLatitude,customLongitude)).setClock(0).draw();
 							try {
 								document.getElementById(chartJournal[2]).style.backgroundColor = 'grey';
 							}
@@ -188,7 +85,6 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 					});
 				}
 			});
-
 			//Things to localize
 			function toLocalize() {
 				document.getElementById("add-button").title = webL10n.get("AddDay");
@@ -221,9 +117,112 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				document.getElementById("36.2048,138.2529").innerHTML = webL10n.get("Japan");
 				document.getElementById("39.9042,116.4074").innerHTML = webL10n.get("China");
 			}
+
+
+			//Necessary variables
+			var chartJournal = [true,false,"55.3781,-3.4360","stereo"];
+			var longlat = document.getElementById('worldConst').innerHTML;
+			var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+			var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+
+			//Get Location of user and set the star chart to the position
+			//when Location button is pressed
+			function getUserLocation(){
+				if (navigator.geolocation){
+					navigator.geolocation.getCurrentPosition(userPosition);
+				}
+			}
+			function userPosition(position) {
+				$("button#location-button").on('click', function(){
+					console.log(longlat);
+					document.getElementById(longlat).style.backgroundColor = 'black';
+					longlat = position.coords.latitude + "," + position.coords.longitude;
+					customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+					customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+					planetarium.setGeo($(customLatitude,customLongitude)).setClock(0).draw();
+					chartJournal[2] = longlat;
+					console.log(chartJournal);
+				})
+			}
+
+			getUserLocation();
+
+			//Add 1 day to date
+			$("button#add-button").on('click', function (){
+				planetarium.clock.setDate(planetarium.clock.getDate() + 1);
+				planetarium.updateClock(planetarium.clock);
+				planetarium.draw();
+			})
+
+			//Minus 1 day to date
+			$("button#minus-button").on('click', function (){
+				planetarium.clock.setDate(planetarium.clock.getDate() - 1);
+				planetarium.updateClock(planetarium.clock);
+				planetarium.draw();
+			})
+
+			//Toggle Constellation Lines and Name
+			$("button#const-button").on('click', function (){
+
+				planetarium.toggleConstellationLines();
+				planetarium.toggleConstellationLabels();
+
+				if (chartJournal[0] == true){
+					chartJournal[0] = false;
+				} else{
+					chartJournal[0] = true;
+				}
+
+				console.log(chartJournal[0]);
+			})
+
+			//Toggle Star names
+			$("button#star-button").on('click', function (){
+				planetarium.toggleStarLabels();
+
+				if (chartJournal[1] == true){
+					chartJournal[1] = false;
+				} else{
+					chartJournal[1] = true;
+				}
+				console.log(chartJournal[1]);
+			})
+
+			//Set long and lat to specific country
+			$("button.country").on('click', function (){
+				longlat = document.getElementById('worldConst').innerHTML;
+				customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
+				customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+				planetarium.setGeo($(customLatitude,customLongitude)).setClock(0).draw();
+				chartJournal[2] = longlat;
+				console.log(chartJournal);
+			})
+
+			//Change projection view
+			$("button.view").on('click', function (){
+				var pv = document.getElementById('projection-view').innerHTML;
+				planetarium.selectProjection(pv);
+				chartJournal[3] = pv;
+				planetarium.draw();
+				console.log(chartJournal);
+			})
+
+			//Save in Journal on stop
+			document.getElementById("stop-button").addEventListener('click', function (event) {
+				console.log("writing...");
+				var jsonData = JSON.stringify(chartJournal);
+				activity.getDatastoreObject().setDataAsText(jsonData);
+				activity.getDatastoreObject().save(function (error) {
+					if (error === null) {
+						console.log("write done.");
+						console.log(jsonData);
+					} else {
+						console.log("write failed.");
+					}
+				});
+			});
+
 		});
-
-
 	});
 
 });
