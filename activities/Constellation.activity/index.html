@@ -13,38 +13,38 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" href="css/inputrange.css">
-<script data-main="js/loader" src="lib/require.js"></script>
-<script src="virtualsky/stuquery.js"></script>
+<script src="virtualsky/jquery-1.10.0.min.js"></script>
 <script src="virtualsky/virtualsky.min.js" type="text/javascript"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
 <body>
-<div id="main-toolbar" class="toolbar">
-  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+	<div id="main-toolbar" class="toolbar">
+	  <button class="toolbutton" id="activity-button" title="My Activity"></button>
 
-  <!-- Add more buttons here -->
-	<button class="toolbutton" id="add-button" title="Add 1 Day"></button>
-	<button class="toolbutton" id="minus-button" title="Minus 1 Day"></button>
-	<button class="toolbutton" id="const-button" title="Toggle Constellation Lines"></button>
-	<button class="toolbutton" id="star-button" title="Toggle Star Names"></button>
-	<button class="toolbutton" id="location-button" title="Set To My Location"></button>
-	<button class="toolbutton" id="world-button" title="World List"></button>
-	<button class="toolbutton" id="view-button" title="Projection View"></button>
+	  <!-- Add more buttons here -->
+		<button class="toolbutton" id="add-button" title="Add 1 Day"></button>
+		<button class="toolbutton" id="minus-button" title="Minus 1 Day"></button>
+		<button class="toolbutton" id="const-button" title="Toggle Constellation Lines"></button>
+		<button class="toolbutton" id="star-button" title="Toggle Star Names"></button>
+		<button class="toolbutton" id="location-button" title="Set To My Location"></button>
+		<button class="toolbutton" id="world-button" title="World List"></button>
+		<button class="toolbutton" id="view-button" title="Projection View"></button>
 
 
-  <!-- Buttons with class="pull-right" will be right aligned -->
-  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
-</div>
+	  <!-- Buttons with class="pull-right" will be right aligned -->
+	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	</div>
 
-<!-- The content of your activity goes inside the canvas -->
-<div id="canvas">
+	<!-- The content of your activity goes inside the canvas -->
+	<div id="canvas">
 
-  <!-- Replace this message with your own content -->
-	<div id="starmap" style="width:1365.5px;height:598.5px;"align=center></div>
+	  <!-- Replace this message with your own content -->
+		<div id="starmap" style="width:1365.5px;height:598.5px;"align=center></div>
 
-</div>
-<p id="worldConst" style="display:none;">55.3781,-3.4360</p>
-<p id="projection-view" style="display:none;">stereo</p>
+	</div>
+	<p id="worldConst" style="display:none;">55.3781,-3.4360</p>
+	<p id="projection-view" style="display:none;">stereo</p>
 </body>
 
 </html>
