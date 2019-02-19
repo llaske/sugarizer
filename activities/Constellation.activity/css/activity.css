@@ -1,0 +1,32 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #add-button {
+	background-image: url(../icons/add.svg);
+}
+
+#main-toolbar #minus-button {
+	background-image: url(../icons/minus.svg);
+}
+
+#main-toolbar #const-button{
+	background-image: url(../icons/toggle-line.svg);
+}
+#main-toolbar #star-button{
+	background-image: url(../icons/star.svg);
+}
+#main-toolbar #location-button{
+	background-image: url(../icons/location.svg);
+}
+#main-toolbar #world-button{
+	background-image: url(../icons/world.svg);
+}
+#main-toolbar #view-button{
+	background-image: url(../icons/view.svg);
+}
+
+#starmap{
+  height: 100%;
+  width:100%;
+}

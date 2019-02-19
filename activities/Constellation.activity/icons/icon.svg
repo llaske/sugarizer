@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg width="55" height="66" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="114" width="103" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path d="m89.5,57.949997l0,62"/>
+  <g id="svg_7">
+   <line transform="rotate(12.0948, 25.5, 63.95)" stroke-linecap="null" stroke-linejoin="null" id="svg_6" y2="94.949997" x2="25.5" y1="32.949997" x1="25.5" fill-opacity="null" stroke-opacity="null" stroke-width="5.5" stroke="&stroke_color;" fill="none"/>
+   <line stroke-linecap="null" stroke-linejoin="null" id="svg_4" y2="77.949997" x2="79.5" y1="34.949997" x1="35.5" fill-opacity="null" stroke-opacity="null" stroke-width="5.5" stroke="&stroke_color;" fill="none"/>
+   <line stroke-linecap="null" stroke-linejoin="null" id="svg_5" y2="73.949997" x2="78.5" y1="96.949997" x1="23.5" fill-opacity="null" stroke-opacity="null" stroke-width="5.5" stroke="&stroke_color;" fill="none"/>
+   <path id="svg_1" d="m3,22.044128l20.626312,0l6.373688,-19.59491l6.373695,19.59491l20.626305,0l-16.687004,12.110184l6.374016,19.59491l-16.687012,-12.110512l-16.687012,12.110512l6.374023,-19.59491l-16.687012,-12.110184z" stroke-width="1.5" stroke="&stroke_color;" fill="&fill_color;"/>
+   <path id="svg_2" d="m2,85.238235l14.514809,0l4.485191,-13.789017l4.485199,13.789017l14.514801,0l-11.742706,8.521973l4.485413,13.789001l-11.742706,-8.522202l-11.742706,8.522202l4.485413,-13.789001l-11.742706,-8.521973z" stroke-width="1.5" stroke="&stroke_color;" fill="&fill_color;"/>
+   <path id="svg_3" d="m57,67.689705l16.042694,0l4.957306,-15.240486l4.957306,15.240486l16.042694,0l-12.978775,9.419029l4.95755,15.240486l-12.978775,-9.419289l-12.978775,9.419289l4.95755,-15.240486l-12.978775,-9.419029z" stroke-width="1.5" stroke="&stroke_color;" fill="&fill_color;"/>
+  </g>
+ </g>
+</svg>

@@ -38,5 +38,6 @@
 	{"id": "org.sugarlabs.GTDActivity", "name": "Get Things Done", "version": 1, "directory": "activities/GetThingsDone.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.squeak.EtoysActivity", "name": "Etoys", "version": 2, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.EbookReader", "name": "Ebook Reader", "version": 1, "directory": "activities/EbookReader.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
+	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
+	{"id": "org.sugarlabs.Constellation", "name": "Constellation", "version": 1, "directory": "activities/Constellation.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
 ]
