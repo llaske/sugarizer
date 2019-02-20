@@ -49,10 +49,6 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             if(vidDisplay.style.display == "none"){
                 vidDisplay.style.display = "block" ;
             }
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia ;
-            if(navigator.getUserMedia){
-                navigator.getUserMedia({video:true},handleVideo,videoError);
-            }
         });
 
         audioButton.addEventListener("click", function () {
@@ -66,10 +62,10 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             if(vidDisplay.style.display == "none"){
                 vidDisplay.style.display = "block" ;
             }
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia ;
-            if(navigator.getUserMedia){
-                navigator.getUserMedia({video:true},handleVideo,videoError);
-            }
+            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia ;
+            // if(navigator.getUserMedia){
+            //     navigator.getUserMedia({video:true},handleVideo,videoError);
+            // }
             captureHelper.helper.recordVideo();
         });
 

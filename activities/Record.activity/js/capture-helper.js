@@ -498,7 +498,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         quality: 0
                     });
 
-
+                    document.querySelector('#vidDisplay').srcObject = mediaStream;
                     recordRTC.startRecording();
                     var maxTime = 5;
                     t.currentRecording.time = 0;
@@ -561,6 +561,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 navigator.getUserMedia({video: true}, function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {type: 'video'});
                     recordRTC.startRecording();
+                    document.querySelector('#vidDisplay').srcObject = mediaStream;
                     setTimeout(function () {
                         t.timerStart.innerHTML = "";
                         t.timerEnd.innerHTML = "";
