@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Maze level in Journal #260
 - Bad localization for some countries name in Color My World activity #265
 - Integrate presence in Labyrinth activity #263
+- Improve Record activity to see picture in real time #266
+- Allow clicking on Abacus balls to move it #146
 
 
 ## [1.1.0] - 2019-01-20
