@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Pomodoro activity
+
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
 - Add a delete button in the new idea input field of Labyrinth activity #262
