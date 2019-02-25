@@ -25,6 +25,9 @@
 #main-toolbar #view-button{
 	background-image: url(../icons/view.svg);
 }
+#main-toolbar #warn{
+	background-image: url(../icons/warning.svg);
+}
 
 #starmap{
   height: 100%;
