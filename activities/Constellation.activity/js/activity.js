@@ -6,6 +6,16 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 		// Initialize the activity.
 		activity.setup();
 
+
+		//Set background color to user color
+		var canvas = document.getElementById("canvas");
+		var canvasColor;
+		activity.getXOColor(function(error, retcolors){
+			canvasColor = retcolors;
+		});
+
+		canvas.style.backgroundColor = canvasColor["fill"];
+
 		var datastoreObject = activity.getDatastoreObject();
 
         var worldButton = document.getElementById("world-button");
@@ -17,7 +27,6 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 
         var viewPalette = new viewpalette.ActivityPalette(
             viewButton, datastoreObject);
-
 
 		$(document).ready(function() {
 
@@ -32,10 +41,10 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 							showplanets: true, //Show/Hide planets
 							showplanetlabels: true, //Show/Hide planet names
 							live: false, //Disabe/Enable real time clock
-							clock: new Date(), //Set clock
+							clock: new Date() //Set clock
 
 			});
-			
+
 			// Load from datastore
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
