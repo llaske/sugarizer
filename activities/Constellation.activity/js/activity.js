@@ -45,6 +45,19 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 
 			});
 
+			//Check if there is internet connection
+			function checkInternetConnection() {
+				var isOnLine = navigator.onLine;
+				 if (isOnLine) {
+						console.log("Online");
+				 } else {
+					 console.log("Offline");
+					 warn.style.visibility = 'visible';
+				 }
+			}
+
+			window.onload = checkInternetConnection();
+
 			// Load from datastore
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -103,6 +116,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				document.getElementById("location-button").title = webL10n.get("Location");
 				document.getElementById("world-button").title = webL10n.get("WorldList");
 				document.getElementById("view-button").title = webL10n.get("View");
+				document.getElementById("warn").title = webL10n.get("Warn");
 				document.getElementById("55.3781,-3.4360").innerHTML = webL10n.get("Britain");
 				document.getElementById("23.6345,-102.5528").innerHTML = webL10n.get("Mexico");
 				document.getElementById("40.4637,-3.7492").innerHTML = webL10n.get("Spain");
