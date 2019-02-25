@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Integrate presence in Labyrinth activity #263
 - Improve Record activity to see picture in real time #266
 - Allow clicking on Abacus balls to move it #146
+- Memorize responsive seems broken on phones #106
 
 
 ## [1.1.0] - 2019-01-20
