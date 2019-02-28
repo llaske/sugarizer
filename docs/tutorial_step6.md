@@ -167,7 +167,7 @@ Now that our activity is shared, we have to slightly update the Plus button list
 	document.getElementById("add-button").addEventListener('click', function (event) {
 
 		pawns.push(currentenv.user.colorvalue);
-		drawPawns();
+		drawPawn(currentenv.user.colorvalue);
 
 		document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:currentenv.user.name})+"</h1>";
 
@@ -213,11 +213,11 @@ The `onNetworkDataReceived` callback is the same one we used previously. So it's
 			return;
 		}
 		pawns.push(msg.content);
-		drawPawns();
+		drawPawn(msg.content);
 		document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
 	}; 
 
-This callback is call each time a message is received from the server. The message is the parameter for the callback. We first test the `networkId` in this message to ignore message that we sent ourself. Then we add the message `content` (i.e. colors for the user sending the message) to our `pawns` array and redraw the board with the `drawPawns()` call. Finally we update the welcome message to give the player's name.
+This callback is call each time a message is received from the server. The message is the parameter for the callback. We first test the `networkId` in this message to ignore message that we sent ourself. Then we add the message `content` (i.e. colors for the user sending the message) to our `pawns` array and add a pawn on the board with the `drawPawn()` call. Finally we update the welcome message to give the player's name.
 
 Let's try if everything works. From the Michaël browser, launch a new Pawn activity and share it with the network menu.
 
@@ -307,7 +307,7 @@ Then we need to update the `onNetworkDataReceived` callback to handle the new me
 				break;
 			case 'update':
 				pawns.push(msg.content.data);
-				drawPawns();
+				drawPawn(msg.content.data);
 				document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
 				break;
 		}

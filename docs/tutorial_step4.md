@@ -58,26 +58,24 @@ First we will slightly refactor (i.e. improve) our `activity/activity.js` file. 
 		document.getElementById("user").innerHTML = "<h1>"+currentenv.user.name+" played !</h1>";
 	});
 
-We will refactor it to store pawns in an array `pawns` and to add a new method `drawPawn` to draw all icons at one time. So instead of adding a new `div` element on each button click, we just add a new element in the `pawns` array and we call the `drawPawn` icon to redraw the board. Here is the resulting code:
+We will refactor it to store pawns in an array `pawns` and to add a new method `drawPawn` to draw one icon on the board. So on each button click, we add a new element in the `pawns` array and we call the `drawPawn` icon to draw one icon at a time on the board. Here is the resulting code:
 
 	// Draw pawns
 	var pawns = [];
-	var drawPawns = function() {
-		document.getElementById("pawns").innerHTML = '';
-		for (var i = 0 ; i < pawns.length ; i++) {
-			var pawn = document.createElement("div");
-			pawn.className = "pawn";
 
-			document.getElementById("pawns").appendChild(pawn);
-			icon.colorize(pawn, pawns[i]);
-		}
+	var drawPawn = function(color) {
+		var pawn = document.createElement("div");
+		pawn.className = "pawn";
+
+		document.getElementById("pawns").appendChild(pawn);
+		icon.colorize(pawn, color);
 	}
 
 	// Handle click on add
 	document.getElementById("add-button").addEventListener('click', function (event) {
 
 		pawns.push(currentenv.user.colorvalue);
-		drawPawns();
+		drawPawn(currentenv.user.colorvalue);
 
 		document.getElementById("user").innerHTML = "<h1>"+currentenv.user.name+" played !</h1>";
 	});
@@ -174,8 +172,14 @@ In the same way that the `setAsText`/`save` methods, the datastore object provid
 		}
 	});
 
-We load the string - in the data parameter -, we parse it to an object and we set it in our `pawns` array. That's all for the initialization but we need also to draw it, so here is the full source code to write in `activity/activity.js`:
+We load the string - in the data parameter -, we parse it to an object and we set it in our `pawns` array. That's all for the initialization but we need also to draw it and to draw all icons at one time we add a new method `drawPawns`, so here is the full source code to write in `activity/activity.js`:
 
+	var drawPawns = function() {
+		document.getElementById("pawns").innerHTML = '';
+		for (var i = 0 ; i < pawns.length ; i++) {
+			drawPawn(pawns[i]);
+		}
+	}
 
 	// Load from datastore
 	if (!environment.objectId) {
