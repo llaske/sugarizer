@@ -40,7 +40,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 							constellationlabels: true, //Show/Hide Constellation names
 							showplanets: true, //Show/Hide planets
 							showplanetlabels: true, //Show/Hide planet names
-							live: false, //Disabe/Enable real time clock
+							live: true, //Disabe/Enable real time clock
 							clock: new Date() //Set clock
 
 			});
@@ -54,8 +54,8 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				var language = environment.user ? environment.user.language : currentLang;
 				webL10n.language.code = language;
 
-				//Set the star chart's language to Sugarizer's language
-				planetarium.loadLanguage(language);
+				planetarium.loadLanguage(language); //Set the star chart's language to Sugarizer's language
+				document.getElementById("locale-date").innerHTML = language; //Localize date
 
 				//Process localize event
 				window.addEventListener("localized", function(){
@@ -131,7 +131,6 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				document.getElementById("39.9042,116.4074").innerHTML = webL10n.get("China");
 			}
 
-
 			//Necessary variables
 			var chartJournal = [true,false,"55.3781,-3.4360","stereo"];
 			var longlat = document.getElementById('worldConst').innerHTML;
@@ -163,6 +162,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 			}
 
 			getUserLocation();
+
 
 			//Add 1 day to date
 			$("button#add-button").on('click', function (){
