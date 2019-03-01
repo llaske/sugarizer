@@ -36,7 +36,7 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 
 ![](images/applestore.png)
 
-**Watch Video Tutorials for Sugarizer Application on GNU Linux/Mac OS/Windows** go [here](https://www.youtube.com/playlist?list=PLrlbN_j855LldrkC39FX7u_JOxlLb4pLV)
+**Watch Video Tutorials for Sugarizer Application on GNU Linux/Mac OS/Windows** go [here](https://www.youtube.com/playlist?list=PLrlbN_j855LkYhgtmeX-RaTTm-X5wBkc6)
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
 The Sugarizer desktop application has three possible arguments:
