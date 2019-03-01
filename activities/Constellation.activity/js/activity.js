@@ -45,19 +45,6 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 
 			});
 
-			//Check if there is internet connection
-			function checkInternetConnection() {
-				var isOnLine = navigator.onLine;
-				 if (isOnLine) {
-						console.log("Online");
-				 } else {
-					 console.log("Offline");
-					 warn.style.visibility = 'visible';
-				 }
-			}
-
-			window.onload = checkInternetConnection();
-
 			// Load from datastore
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -97,10 +84,14 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 							planetarium.selectProjection(chartJournal[3]);
 							document.getElementById(chartJournal[3]).style.backgroundColor = 'grey';
 							if (chartJournal[0] == false){
+								document.getElementById("const-button").classList.remove("active");
 								planetarium.toggleConstellationLines();
 								planetarium.toggleConstellationLabels();
+							} else if (chartJournal[0] == true){
+									document.getElementById("const-button").classList.add("active");
 							}
 							if (chartJournal[1] == true){
+								document.getElementById("star-button").classList.add("active");
 								planetarium.toggleStarLabels();
 							}
 						}
@@ -116,7 +107,6 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				document.getElementById("location-button").title = webL10n.get("Location");
 				document.getElementById("world-button").title = webL10n.get("WorldList");
 				document.getElementById("view-button").title = webL10n.get("View");
-				document.getElementById("warn").title = webL10n.get("Warn");
 				document.getElementById("55.3781,-3.4360").innerHTML = webL10n.get("Britain");
 				document.getElementById("23.6345,-102.5528").innerHTML = webL10n.get("Mexico");
 				document.getElementById("40.4637,-3.7492").innerHTML = webL10n.get("Spain");
@@ -147,6 +137,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 			var longlat = document.getElementById('worldConst').innerHTML;
 			var customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
 			var customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
+			document.getElementById("const-button").classList.add("active");
 
 			//Get Location of user and set the star chart to the position
 			//when Location button is pressed
@@ -158,7 +149,10 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 			function userPosition(position) {
 				$("button#location-button").on('click', function(){
 					console.log(longlat);
-					document.getElementById(longlat).style.backgroundColor = 'black';
+					try{
+						document.getElementById(longlat).style.backgroundColor = 'black';
+					}
+					catch(e){}
 					longlat = position.coords.latitude + "," + position.coords.longitude;
 					customLatitude = planetarium.setLatitude(parseFloat(longlat.split(',')[0]));
 					customLongitude = planetarium.setLongitude(parseFloat(longlat.split(',')[1]));
@@ -191,8 +185,10 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				planetarium.toggleConstellationLabels();
 
 				if (chartJournal[0] == true){
+					document.getElementById("const-button").classList.remove("active");
 					chartJournal[0] = false;
 				} else{
+					document.getElementById("const-button").classList.add("active");
 					chartJournal[0] = true;
 				}
 
@@ -204,8 +200,10 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				planetarium.toggleStarLabels();
 
 				if (chartJournal[1] == true){
+					document.getElementById("star-button").classList.remove("active");
 					chartJournal[1] = false;
 				} else{
+					document.getElementById("star-button").classList.add("active");
 					chartJournal[1] = true;
 				}
 				console.log(chartJournal[1]);
