@@ -7,14 +7,13 @@ define (function() {
 
     this.draw = function() {
       target.innerHTML = '<canvas id="progressCircle"></canvas>'
-      var canvasCSS = `
-        #progressCircle {
-          position: absolute;
-          transform: rotate(-90deg) rotateX(180deg);
-          top: 0px;
-          left: 0px;
-        }
-      `
+      var canvasCSS =
+        '#progressCircle {\
+          position: absolute;\
+         transform: rotate(-90deg) rotateX(180deg);\
+          top: 0px;\
+          left: 0px;\
+        } '
       var styleSheet = window.document.styleSheets[0]
       styleSheet.insertRule(canvasCSS, styleSheet.cssRules.length)
 
