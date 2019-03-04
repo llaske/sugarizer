@@ -13,8 +13,10 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" href="css/inputrange.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="virtualsky/jquery-1.10.0.min.js"></script>
 <script src="virtualsky/virtualsky.min.js" type="text/javascript"></script>
+<script>if (window.module) module = window.module;</script>
 <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -31,9 +33,6 @@
 		<button class="toolbutton" id="world-button" title="World List"></button>
 		<button class="toolbutton" id="view-button" title="Projection View"></button>
 
-		<!--Online/Offline icon-->
-		<button class="toolbutton" id="warn" style = 'visibility: hidden;' title="No Internet Connection!"></button>
-
 
 	  <!-- Buttons with class="pull-right" will be right aligned -->
 	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
@@ -48,6 +47,7 @@
 	</div>
 	<p id="worldConst" style="display:none;">55.3781,-3.4360</p>
 	<p id="projection-view" style="display:none;">stereo</p>
+	<p id="locale-date" style="display:none;">en</p>
 </body>
 
 </html>
