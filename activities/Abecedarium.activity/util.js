@@ -59,6 +59,8 @@ Abcd.getTextsFromLocal = function(lang) {
         return Abcd.frTexts;
     case "es":
         return Abcd.esTexts;
+    case "pt":
+        return Abcd.ptTexts;
     default:
         return Abcd.enTexts;
     }
@@ -70,6 +72,8 @@ Abcd.getLettersFromLocal = function(lang) {
         return Abcd.frLetters;
     case "es":
         return Abcd.esLetters;
+    case "pt":
+        return Abcd.ptLetters;
     default:
         return Abcd.enLetters;
     }

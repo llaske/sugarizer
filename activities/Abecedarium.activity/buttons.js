@@ -68,28 +68,28 @@ enyo.kind({
 	kind: enyo.Control,
 	classes: "switchLang",
 	components: [
-		{name: "switchToFrench", kind: "Image", src: "images/us.png", showing: false, classes: "standardButton switchLangButton", ontap: "localFrench"},
+		{name: "switchToPortuguese", kind: "Image", src: "images/us.png", showing: false, classes: "standardButton switchLangButton", ontap: "localPortuguese"},
 		{name: "switchToSpanish", kind: "Image", src: "images/fr.png", classes: "standardButton switchLangButton", ontap: "localSpanish"},
         {name: "switchToEnglish", kind: "Image", src: "images/es.png", showing: false, classes: "standardButton switchLangButton", ontap: "localEnglish"},
-        {name: "switchToPortuguese", kind: "Image", src: "images/pt.png", showing: false, classes: "standardButton switchLangButton", ontap: "localPortuguese"}
+        {name: "switchToFrench", kind: "Image", src: "images/pt.png", showing: false, classes: "standardButton switchLangButton", ontap: "localFrench"}
 	],
 
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
 		if (Abcd.context.lang == 'en')
-			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false, switchToPortuguese: false});
+			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: false, switchToPortuguese: true});
 		else if (Abcd.context.lang == 'fr')
 			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: true, switchToPortuguese: false});
 		else if (Abcd.context.lang == 'pt')
+			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false, switchToPortuguese: false});
+		else // 'es'
 			Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false, switchToPortuguese: false});
-		else
-			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: false, switchToPortuguese: true});
 	},
 
 	// Change current language
 	localEnglish: function() {
-		Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false, switchToPortuguese: false});
+		Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: false, switchToPortuguese: true});
 		Abcd.setLocale("en");
 	},
 
@@ -99,12 +99,12 @@ enyo.kind({
 	},
 
     localSpanish: function() {
-        Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: false, switchToPortuguese: true});
+        Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false, switchToPortuguese: false});
         Abcd.setLocale("es");
 	},
 
     localPortuguese: function() {
-        Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false, switchToPortuguese: false});
+        Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false, switchToPortuguese: false});
         Abcd.setLocale("pt");
 	}
 });
