@@ -341,4 +341,4 @@ It fully works now!
 
 Implementing a multi-user application is not an easy task but with a nice framework like Sugarizer presence, I'm sure you're convince now that it's feasible!
 
-[Go back to tutorial home](tutorial.md)
+[Go to next step](tutorial_step7.md)

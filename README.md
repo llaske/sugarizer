@@ -1,4 +1,4 @@
-![](images/sugar_animation.gif)
+![](images/sugarizer_logo_with_text.svg)
 
 # What is Sugarizer ?
 

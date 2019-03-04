@@ -34,6 +34,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 
 	// Wait for preferences
 	var loadpreference = function() {
+		enyo.platform.electron = /Electron/.test(navigator.userAgent);
 		if (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios) {
 			var getUrlParameter = function(name) {
 				var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);

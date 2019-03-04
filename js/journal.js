@@ -350,7 +350,7 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && (!enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios));
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && enyo.platform.electron);
 		if (!isMultiple) {
 			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		}
@@ -922,7 +922,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -1085,7 +1085,7 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
 			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
