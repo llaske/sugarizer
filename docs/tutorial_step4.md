@@ -124,7 +124,7 @@ This whole code should be call at the end of the activity. To do that we have to
 
 It's the first step: the board is now safely save in the datastore.
 
-Let's now how we could retrieve it.
+Let's know how we could retrieve it.
 
 
 ### Detect the need to load the context
@@ -201,7 +201,7 @@ Click few times on the Plus button to add some pawns and stop the activity. Now 
 
 ![](images/tutorial_step4_10.png)
 
-Yes! It's what we expected too: the activity is reopens with the right number of pawns.
+Yes! It's what we expected too: the activity reopens with the right number of pawns.
 
 The Journal is now fully supported by the Pawn activity.
 
