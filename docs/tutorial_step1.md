@@ -67,6 +67,9 @@ Now run Sugarizer, you should see the icon of a new activity like this:
 
 ![](images/tutorial_step1_2.png)
 
+Note: If you are not able to see the icon of newly added activity, empty the browser cache and reload
+OR try closing and reopening the `index.html` file in browser.
+
 Let's run the activity by clicking on it. You will see the first step of your activity.
 
 ![](images/tutorial_step1_3.png)
