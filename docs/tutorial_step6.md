@@ -22,6 +22,10 @@ To connect to a server, click on the button to access to settings, then to "Abou
 
 Check the connected box and type the URL of your server, may be `http://localhost:8080` (if you've installed your own server) or `https://dev.sugarizer.org`. You will have to choose few images as password, then click on restart.
 
+Click on **Neighborhood view** icon on homepage.
+
+![](images/tutorial_step6_3_1.png)
+
 If everything is right, you will see now the full Neighborhood view.
 
 ![](images/tutorial_step6_3.png)
@@ -41,7 +45,7 @@ Then, once the activity will be open, he will share the activity by clicking on 
 
 ![](images/tutorial_step6_5.png)
 
-From your Neighborhood view you will see the icon of the activity suddenly appear near the Michaël's icon. Just pass the mouse on the activity icon and click the Join menu and you will be able to join Michaël.
+When you go to Neighborhood view(click on **Neighborhood view** icon from homepage as shown previously) from your(LIONEL's) browser, you will see the icon of the activity suddenly appear near the Michaël's icon. Just pass the mouse on the activity icon and click the Join menu and you will be able to join Michaël.
 
 ![](images/tutorial_step6_6.png).
 
