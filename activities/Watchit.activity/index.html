@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Watchit</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <!-- Add fontawesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+
+
+  <script src="js/processing.min.js"></script>
+
+  <!-- Add locale.ini file -->
+  <link rel="prefetch" type="application/l10n" href="locale.ini">
+  <script data-main="js/loader" src="lib/require.js"></script>
+  <!-- Responsive Voice JS-->
+  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+  <div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+    <!-- Add more buttons here -->
+    <button class="toolbutton" id="add-button" title="Add spell"></button>
+
+    <!-- Buttons with class="pull-right" will be right aligned -->
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  </div>
+
+  <!-- The content of your activity goes inside the canvas -->
+
+  <!-- Replace this message with your own content -->
+  <div id="user" class="username text-center"></div>
+  <div id="play-box" class="playbox">
+    <div id="home" class="homescreen">
+      <button class="hbutton" id="start-button" title="start watchin">START</button>
+      <button class="hbutton" id="help-button" title="help watchin">HELP</button>
+      <button class="hbutton" id="about-button" title="about watchinl">ABOUT</button>
+      <button class="hbutton" id="exit-button" title="exit watchin">EXIT</button>
+    </div>
+    <div id="levels" class="gamelevel">
+
+    </div>
+    <div id="play" class="playarea">
+      <svg width="1000" height="500" class="gamesvg">
+        <text id="start" x="5" y="25" fill="red">START</text>
+        <line class="this" stroke-width="8" x1="70" y1="10" x2="200" y2="10" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="200" y1="10" x2="200" y2="100" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="200" y1="100" x2="400" y2="100" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="400" y1="100" x2="400" y2="200" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="400" y1="200" x2="700" y2="300" style="stroke:rgb(255,0,0);stroke-width:3" />
+
+        <line class="this" x1="70" y1="30" x2="180" y2="30" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="180" y1="30" x2="180" y2="120" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="180" y1="120" x2="380" y2="120" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="380" y1="120" x2="380" y2="220" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <line class="this" x1="380" y1="220" x2="720" y2="330" style="stroke:rgb(255,0,0);stroke-width:3" />
+
+        <path class="this" d="M700 300 C 740 250, 780 200, 840 300 M720 330 C 740 280, 780 230, 820 330 L920 350 M840 300 L920 315 L920 350"
+          fill="none" style="stroke:rgb(255,0,0);stroke-width:3" />
+        <text class="finish" x="870" y="333" fill="red">STOP</text>
+      </svg>
+    </div>
+
+    <div id="dialog1" class="dialogbox">
+      <h2>YOU WON</h5>
+    </div>
+    <div id="dialog2" class="dialogbox">
+      <h2>GAME OVER</h5>
+    </div>
+
+
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+[Activity]
+name = Watchit
+activity_version = 1
+bundle_id = org.sugarlabs.Watchit
+exec = sugar-activity-web
+icon = activity-icon

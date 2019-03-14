@@ -1,0 +1,129 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #add-button {
+  background-image: url(../icons/add.svg) !important;
+
+}
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #8e44ad;
+  overflow: hidden;
+}
+
+.toolbutton {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.playbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+
+
+.playarea {
+  position: relative;
+  text-align: center;
+  align-content: center;
+  vertical-align: middle;
+  display: none;
+}
+
+.gamesvg {
+  position: relative;
+  border: 1px solid white;
+  top: 10px;
+  margin: auto;
+  padding: 25px;
+}
+
+.username {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  top: 20%;
+  color: white;
+}
+
+.homescreen {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  left: 42%;
+  top: 27%;
+}
+
+.hbutton {
+  position: relative;
+  display: block;
+  margin: 2%;
+  width: 12%;
+  height: 28%;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.ic {
+  position: relative;
+  color: black;
+  padding: 7px;
+}
+
+.gamelevel {
+  position: absolute;
+  width: 20%;
+  height: 300px;
+  margin: auto;
+  display: none;
+  left: 0px;
+  right: 0px;
+  top: 22%;
+  padding: 25px;
+  background-color: rgb(105, 97, 97);
+}
+
+.level {
+  position: relative;
+  display: block;
+  text-align: center;
+  margin: 20px;
+  padding: 5px;
+  transition: all 0.5s;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: initial;
+}
+
+.level:hover {
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dialogbox {
+  position: absolute;
+  display: none;
+  width: 20%;
+  height: 20%;
+  text-align: center;
+  background-color: black;
+  color: white;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+h2 {
+  position: relative;
+  top: 30%;
+}
