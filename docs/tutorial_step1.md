@@ -4,7 +4,7 @@
 # Step 1: create the activity from the template
 *(Estimated time: 15mn)*
 
-Sugarizer comes with an empty template that you could use as base of your new activity. So first, copy all content of the Sugarizer [activities/ActivityTemplate](activities/ActivityTemplate) directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
+Sugarizer comes with an empty template that you could use as base of your new activity. So first, copy all content of the Sugarizer [activities/ActivityTemplate](https://github.com/llaske/sugarizer/tree/dev/activities/ActivityTemplate) directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
 
 
 ### File structure
