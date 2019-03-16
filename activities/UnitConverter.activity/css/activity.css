@@ -1,0 +1,13 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #weight-button {
+  background-image: url(../icons/weight-balance.svg);
+}
+#main-toolbar #ruler-button {
+  background-image: url(../icons/ruler.svg);
+}
+
+#canvas {
+  background-color: aliceblue;
+}
