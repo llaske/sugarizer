@@ -233,7 +233,7 @@ enyo.kind({
 
 	localize: function() {
 		if (this.otherview && this.otherview.localize) {
-			this.otherview.localize();
+			this.otherview.localize;
 		}
 	},
 
@@ -320,7 +320,7 @@ enyo.kind({
 				} else if (i > 0 && i == this.restrictedModeInfo.start) {
 					this.$.desktop.createComponent({
 							kind: "Sugar.Icon",
-							icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
+							icon: {directory: "icons", icon: "activity-etc.svg", name: "Previous"},
 							size: icon_size,
 							x: ix,
 							y: iy,
@@ -331,7 +331,7 @@ enyo.kind({
 				} else if (i >= this.restrictedModeInfo.start+activitiesCount-1 && this.restrictedModeInfo.start + activitiesCount < activitiesList.length) {
 					this.$.desktop.createComponent({
 							kind: "Sugar.Icon",
-							icon: {directory: "icons", icon: "activity-etc.svg", name: l10n.get("ListView")},
+							icon: {directory: "icons", icon: "activity-etc.svg", name: "Next"},
 							size: icon_size,
 							x: ix,
 							y: iy,
@@ -732,7 +732,7 @@ enyo.kind({
 
 	rendered: function() {
 		this.inherited(arguments);
-		this.localize();
+		this.localize;
 	},
 
 	localize: function() {
@@ -743,7 +743,7 @@ enyo.kind({
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		if (app.localize) {
-			app.localize();
+			app.localize;
 		}
 	},
 
