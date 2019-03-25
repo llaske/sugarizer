@@ -63,9 +63,14 @@ To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows)
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
- 	<chrome-package-name> --allow-file-access-from-files  index.html
+ 	chrome --allow-file-access-from-files  index.html
 
- > Note: get chrome-package-name by running  `sudo dpkg -l | grep chrome` 
+On Linux, you should launch:
+
+	google-chrome-stable --allow-file-access-from-files index.html
+
+> Note: you can get chrome-package-name by running `sudo dpkg -l | grep chrome`, which is `google-chrome-stable` in Ubuntu
+
 
 On Windows, you should launch:
 
