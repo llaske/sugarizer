@@ -233,7 +233,7 @@ enyo.kind({
 
 	localize: function() {
 		if (this.otherview && this.otherview.localize) {
-			this.otherview.localize;
+			this.otherview.localize();
 		}
 	},
 
@@ -732,7 +732,6 @@ enyo.kind({
 
 	rendered: function() {
 		this.inherited(arguments);
-		this.localize;
 	},
 
 	localize: function() {
@@ -743,7 +742,7 @@ enyo.kind({
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		if (app.localize) {
-			app.localize;
+			app.localize();
 		}
 	},
 
