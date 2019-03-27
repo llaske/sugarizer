@@ -65,13 +65,6 @@ For **Chrome**, close ALL running instances of Chrome and re-launch it using the
 
  	chrome --allow-file-access-from-files  index.html
 
-On Linux, you should launch:
-
-	google-chrome-stable --allow-file-access-from-files index.html
-
-> Note: you can get chrome-package-name by running `sudo dpkg -l | grep chrome`, which is `google-chrome-stable` in Ubuntu
-
-
 On Windows, you should launch:
 
 	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files
@@ -79,6 +72,12 @@ On Windows, you should launch:
 On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
+
+On Linux, you should launch:
+
+	google-chrome-stable --allow-file-access-from-files index.html
+
+> Note: `google-chrome-stable` is the name of Chrome in Ubuntu but it could be different on other distribution, you can get the package-name for Chrome by running `sudo dpkg -l | grep chrome`
 
 For **Firefox**, type in the address bar:
 
