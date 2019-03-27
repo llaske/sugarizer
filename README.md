@@ -36,6 +36,8 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 
 ![](images/applestore.png)
 
+## Installation for desktop environments
+
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
 The Sugarizer desktop application has three possible arguments:
 
@@ -43,27 +45,50 @@ The Sugarizer desktop application has three possible arguments:
 * `--debug` to open Sugarizer with the debug console
 * `--init` to remove all existing Journal and settings (all will be lost)
 
-If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
+If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron).
+
+You can also use Sugarizer by cloning the repository to your local machine. Firstly fork the repository to your GitHub account. Then make a local clone using
+
+	git clone https://github.com/<your_username>/sugarizer.git
+
+Then you'll need to install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information.
+
+Now to install the dependencies and required packages, navigate into the Sugarizer directory by doing
+
+	cd Sugarizer/
+
+Then install electron and specific modules for Sugarizer by running:
 
 	npm install
 
-Then launch Sugarizer for GNU Linux with:
+### Running Sugarizer for GNU Linux
+
+For GNU Linux, run Sugarizer with this command:
 
 	npm start > /dev/null
 
-Or, for Mac OS/Windows, just:
+### Running Sugarizer for Mac OS/Windows
+
+For Mac OS/Windows, just type:
 
 	npm start
 
-You could use Sugarizer desktop arguments using "--" after start. For example:
+You can use the Sugarizer desktop arguments by typing "--" after `npm start`. For example:
 
 	npm start -- --window
 
+
+### Running Sugarizer from the Web Browser
+
 To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
-For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
+* **Google Chrome**
+
+On Linux Systems, close ALL running instances of Chrome and re-launch it using the command line:
 
     chrome --allow-file-access-from-files index.html
+
+* Note - the command `chrome` might vary from distribution to distribution. In some cases you might need to substitute it with either `google-chrome` or `google-chrome-stable`.
 
 On Windows, you should launch:
 
@@ -73,14 +98,18 @@ On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
 
-For **Firefox**, type in the address bar:
+* **Mozilla Firefox**
+
+Type in the address bar:
 
     about:config
 
 Search for the `security.fileuri.strict_origin_policy` parameter and
 set it to `false`.
 
-For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
+* **Safari**
+
+Go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
 
 
 
@@ -175,7 +204,7 @@ Let's start [here](docs/tutorial.md).
 
 # Unit testing
 
-To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRepo/test/index.html" in your browser.
+To run unit tests for Sugarizer Application, run `file:///PathToYourSugarizerRepo/test/index.html` in your browser.
 
 
 # Build Application for Android and iOS
@@ -305,6 +334,4 @@ Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Su
 
 # License
 
-Sugarizer is licensed under the **Apache v2** license.  See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some could use a different license, check the [activities](activities) directory to be sure.
-
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+Sugarizer is licensed under the `Apache v2` license.  See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some could use a different license, check the [activities](activities) directory to be sure.
