@@ -202,7 +202,8 @@ function calcEqualClick() {
   } else {
     launchCalculation(calcInputValue, labelValue);
   }
-  CalculateApp.data.calculationDone = true
+   CalculateApp.data.calculationDone = true
+   CalculateApp.elements.calcInput.focus();
 }
 
 /* Handling of the calc remove one char button click */
@@ -291,6 +292,15 @@ function onalgebraClick(input) {
   addTextInsideInput(input.detail.value);
 }
 
+/* Set cursor's position to the end */
+function setcursor(){
+ var val = CalculateApp.elements.calcInput.value;
+ CalculateApp.elements.calcInput.value = '';
+ CalculateApp.elements.calcInput.value= val;
+
+
+}
+
 /* Gui init */
 function initGui() {
   CalculateApp.elements.modalDiv = document.getElementById("modal");
@@ -305,6 +315,9 @@ function initGui() {
   CalculateApp.elements.outputDigitsPalette = document.getElementById("output-digits-palette");
 
   CalculateApp.elements.calcInput.addEventListener("keyup", calcInputKeyUp, false);
+  CalculateApp.elements.calcInput.addEventListener("focus", setcursor, false);
+
+
 
   var buttonInputs = document.getElementsByClassName("calcbuttoninput");
   for (var i = 0; i < buttonInputs.length; i++) {
