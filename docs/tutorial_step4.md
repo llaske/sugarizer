@@ -103,10 +103,11 @@ Then save the updated object.
 		if (error === null) {
 			console.log("write done.");
 		} else {
-			console.log("write failed.");			}
+			console.log("write failed.");
+		}
 	});
 
-This whole code should be call at the end of the activity. To do that we have to catch the click on the Stop button of the activity. So here is the complete source code we will add in the `activity/activity.js` file, just below the `add-button` event listener:
+This whole code should be called at the end of the activity. To do that we have to catch the click on the Stop button of the activity. So here is the complete source code we will add in the `activity/activity.js` file, just below the `add-button` event listener:
 
 	// Save in Journal on Stop
 	document.getElementById("stop-button").addEventListener('click', function (event) {
