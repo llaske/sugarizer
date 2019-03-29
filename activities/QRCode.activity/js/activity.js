@@ -215,7 +215,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			updateHistory();
 		}
 		}
-
+		
 		// Update dropdown with user history
 		function updateHistory() {
 			var mhtml = '';
