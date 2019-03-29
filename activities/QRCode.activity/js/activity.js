@@ -211,8 +211,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		// Add entry to history
 		function addToHistory(text) {
 			if(!history.includes(text)){
-			history.push(text);
-			updateHistory();
+				history.push(text);
+				updateHistory();
 			}
 		}
 		
