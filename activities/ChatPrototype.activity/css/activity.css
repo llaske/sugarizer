@@ -136,20 +136,17 @@ textarea {
   background-repeat: no-repeat;
   margin-top: 8px;
   margin-left: 10px;
-  font-size: 0;
 }
 
 #sad-button {
   position: absolute;
   margin-top:8px;
   margin-left: 55px;
-  font-size: 0;
 }
 #others-button {
   position: absolute;
   margin-top:8px;
   margin-left: 100px;
-  font-size: 0;
 }
 
 /** Dropdown for emoji button **/
