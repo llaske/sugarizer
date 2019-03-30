@@ -202,8 +202,8 @@ function calcEqualClick() {
   } else {
     launchCalculation(calcInputValue, labelValue);
   }
-   CalculateApp.data.calculationDone = true
-   CalculateApp.elements.calcInput.focus();
+  CalculateApp.data.calculationDone = true
+  CalculateApp.elements.calcInput.focus();
 }
 
 /* Handling of the calc remove one char button click */
