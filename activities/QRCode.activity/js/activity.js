@@ -210,10 +210,12 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 
 		// Add entry to history
 		function addToHistory(text) {
-			history.push(text);
-			updateHistory();
+			if(!history.includes(text)){
+				history.push(text);
+				updateHistory();
+			}
 		}
-
+		
 		// Update dropdown with user history
 		function updateHistory() {
 			var mhtml = '';
