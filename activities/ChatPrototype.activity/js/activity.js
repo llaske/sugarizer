@@ -35,6 +35,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
+        var imageUpload = document.getElementById('imgup');
 
 	document.getElementById("status").innerHTML = l10n_s.get("status");
 	messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -79,20 +80,39 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 				// Handle messages received
 				presence.onDataReceived(function (msg) {
-					var text = msg.content;
-					var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					var colour = msg.user.colorvalue;
+					if(msg.type=='text'){
+						var text = msg.content;
+						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+						var colour = msg.user.colorvalue;
 
-					var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
 
-					myElem = document.createElement('li');
-					myElem.class = 'received';
-					myElem.style.background = colour.fill;
-					myElem.innerHTML = authorElem + text;
-					myElem.style.color = colour.stroke;
+						myElem = document.createElement('li');
+						myElem.class = 'received';
+						myElem.style.background = colour.fill;
+						myElem.innerHTML = authorElem + text;
+						myElem.style.color = colour.stroke;
 
-					messagesList.appendChild(myElem);
-					messageContent.scrollTop = messageContent.scrollHeight;
+						messagesList.appendChild(myElem);
+						messageContent.scrollTop = messageContent.scrollHeight;
+					}
+					else if(msg.type == "image"){
+						var source = msg.content;
+						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+						var colour = msg.user.colorvalue;
+
+						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+						myElem = document.createElement('li');
+						myElem.class = 'received';
+						myElem.style.background = colour.fill;
+						myElem.innerHTML = authorElem + "<img src='"+source+"' style='max-height:150px;'>";
+						myElem.style.color = colour.stroke;
+
+						messagesList.appendChild(myElem);
+						messageContent.scrollTop = messageContent.scrollHeight;
+
+
+					}
 				});
 			});
 		}
@@ -114,7 +134,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				var message = removeTags(messageField.value);
 
 				// Send the message through the WebSocket.
-				var toSend = {user: userSettings, content: message};
+				var toSend = {user: userSettings, content: message , type:'text'};
 				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
 
                 // Clear out the message field
@@ -124,6 +144,18 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				return false;
             }
         };
+
+        imageUpload.onchange = function(){
+        	var image = imageUpload.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function(){
+				var toSend = {user: userSettings, content: reader.result , type:'image'};
+				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
+				return false;
+		}
+		reader.readAsDataURL(image);
+
+        }
 	    //Smiley Emoji options
         var selectSmiley = document.getElementById('smiley-button')
         var smileyOption;

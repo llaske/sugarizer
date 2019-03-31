@@ -135,20 +135,31 @@ textarea {
   position: absolute;
   background-repeat: no-repeat;
   margin-top: 8px;
-  margin-left: 10px;
+  margin-left: 8px;
   font-size: 0;
 }
 
 #sad-button {
   position: absolute;
   margin-top:8px;
-  margin-left: 55px;
+  margin-left: 50px;
   font-size: 0;
 }
 #others-button {
   position: absolute;
   margin-top:8px;
-  margin-left: 100px;
+  margin-left: 90px;
+  font-size: 0;
+}
+
+#imageUpload{
+  position: absolute;
+  background-repeat: no-repeat;
+  margin-top: 3px;
+  height:35px;
+  width:35px;
+  opacity: 1;
+  margin-left: 130px;
   font-size: 0;
 }
 
