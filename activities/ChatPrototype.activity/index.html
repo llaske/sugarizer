@@ -34,7 +34,6 @@
               <div id = "textarea-container">
           <textarea id="message" placeholder="Write your message here..." required autofocus readonly></textarea>
           <input name="idValue" id="idValue" type="hidden">
-          <input type="file" id="imgup" hidden="hidden" />
           <button class="toolbutton" id="imageUpload" title="Send an image"><img src="icons/camera.svg" style="height:35px; width:35px;"></button>
           <select id = "smiley-button" style = 'background: url(icons/smiley-icon.svg);width:35px;height:35px;' onchange="document.getElementById('message').value=document.getElementById('message').value + this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;document.getElementById('smiley-button').value = '';">
             <option style="display:none" disabled selected value></option>
