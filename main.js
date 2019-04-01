@@ -119,6 +119,7 @@ function createWindow () {
 		mainWindow.maximize();
 	}
 
+
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.once('ready-to-show', function() {
 		// Initialize locales

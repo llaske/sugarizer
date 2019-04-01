@@ -155,7 +155,7 @@ textarea {
 #imageUpload{
   position: absolute;
   background-repeat: no-repeat;
-  margin-top: 3px;
+  margin-top: -2px;
   height:35px;
   width:35px;
   opacity: 1;

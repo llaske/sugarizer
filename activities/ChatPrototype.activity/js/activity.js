@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,wl10n, palette,presencepalette) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity,wl10n, palette,presencepalette,datastore,chooser) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -35,7 +35,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
-        var imageUpload = document.getElementById('imgup');
+        var imageUpload = document.getElementById('imageUpload');
 
 	document.getElementById("status").innerHTML = l10n_s.get("status");
 	messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -117,6 +117,11 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 			});
 		}
 
+		function senddata(data,mediatype){
+			var toSend = {user: userSettings, content: data , type:mediatype};
+			presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
+		}
+
 		// Create network palette
         var networkButton = document.getElementById("network-button");
 		presencepalette = new presencepalette.PresencePalette(networkButton, undefined);
@@ -132,10 +137,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
 				var message = removeTags(messageField.value);
+				senddata(message,'text');
 
 				// Send the message through the WebSocket.
-				var toSend = {user: userSettings, content: message , type:'text'};
-				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
+				
 
                 // Clear out the message field
 				messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -145,17 +150,22 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
             }
         };
 
-        imageUpload.onchange = function(){
-        	var image = imageUpload.files[0];
-			var reader = new FileReader();
-			reader.onloadend = function(){
-				var toSend = {user: userSettings, content: reader.result , type:'image'};
-				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
-				return false;
-		}
-		reader.readAsDataURL(image);
 
-        }
+		imageUpload.addEventListener('click', function (e) {
+			chooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				let src;
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, data) {
+					senddata(data,'image');
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
+
 	    //Smiley Emoji options
         var selectSmiley = document.getElementById('smiley-button')
         var smileyOption;
