@@ -1813,7 +1813,7 @@ function init() {
 
     event_bus.on("break-code", break_code);
     function clear_output() {
-        iframe.contentWindow.location = "about:blank";
+        iframe.contentWindow.document.getElementById("__terminal__").innerHTML="";
     };
 
     event_bus.on("clear-output", clear_output);
