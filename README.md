@@ -175,6 +175,7 @@ If you're interested to create your own activity, a full tutorial will guide you
 * **Step 4**: handle journal and datastore
 * **Step 5**: localize the activity
 * **Step 6**: handle multi-user with presence
+* **Step 7**: use journal chooser dialog
 
 Let's start [here](docs/tutorial.md).
 
@@ -188,7 +189,11 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
-To build it, first install Cordova as described [here](http://cordova.apache.org/).
+A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
+
+If you want to build it yourself, see following instructions.
+
+First install Cordova as described [here](http://cordova.apache.org/).
 
 Then create a directory for Sugarizer Cordova and put the content of the git repository in the www directory:
 
