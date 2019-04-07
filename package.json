@@ -15,7 +15,7 @@
     "ini": "1.1.x"
   },
   "devDependencies": {
-    "electron": "^2.0.18",
+    "electron": "^2.0.0",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
@@ -30,15 +30,10 @@
       "category": "public.app-category.education"
     },
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": [ "nsis" ]
     },
     "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": [ "AppImage", "deb" ]
     }
   }
 }
