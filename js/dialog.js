@@ -877,7 +877,14 @@ enyo.kind({
 			this.$.servername.setDisabled(true);
 			this.$.username.setDisabled(true);
 		}
-		this.owner.centerDialog(this);
+		this.centerDialog(this);
+	},
+
+	centerDialog: function(dialog) {
+		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		dialog.applyStyle("margin-left", margin.left+"px");
+		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+		return margin;
 	},
 
 	displayStep: function() {
@@ -895,6 +902,8 @@ enyo.kind({
 			vpasswordmessage = false,
 			vpassword = false;
 		if (this.step == 0) {
+			this.$.passwordmessage.setContent(l10n.get("PleaseConnectMessage"));
+			vpasswordmessage = true;
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
 			vtextservername = vservername = vnext = true;
