@@ -533,7 +533,6 @@ enyo.kind({
 			this.hideActivityPopup(icon);
 			util.vibrate();
 			this.runActivity(icon.icon);
-			this.postRunActivity();
 		}
 	},
 	runActivity: function(activity) {
@@ -541,7 +540,7 @@ enyo.kind({
 		util.vibrate();
 		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
 		preferences.runActivity(activity, undefined, null, null, help);
-		this.postRunActivity();
+		this.postRunActivity(activity.isNative);
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
@@ -556,11 +555,11 @@ enyo.kind({
 		util.vibrate();
 		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
 		preferences.runActivity(activity, null, null, null, help);
-		this.postRunActivity();
+		this.postRunActivity(activity.isNative);
 	},
-	postRunActivity: function() {
+	postRunActivity: function(isNative) {
 		// When run a native activity, should update journal and view to reflect journal change
-		if (window.sugarizerOS) {
+		if (window.sugarizerOS && isNative) {
 			sugarizerOS.popupTimer = new Date();
 			this.loadJournal();
 			preferences.updateEntries();
