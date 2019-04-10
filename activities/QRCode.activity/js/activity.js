@@ -38,7 +38,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		var generateCode = function(text) {
 			qrCode.clear();
 			qrCode.makeCode(text);
-			var text = userText.value.toLowerCase();
 			if (text.indexOf("http://") == 0 || text.indexOf("https://") == 0) {
 				document.getElementById("user-text").classList.add("text-url");
 			} else {
