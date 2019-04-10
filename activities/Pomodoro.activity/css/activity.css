@@ -1,0 +1,155 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #play-button.play {
+  background-image: url(../icons/play.svg);
+}
+#main-toolbar #play-button.pause {
+  background-image: url(../icons/pause.svg);
+}
+#main-toolbar #replay-button {
+  background-image: url(../icons/replay.svg);
+}
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 55px);
+  background: #F8FAFD;
+}
+.base-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  width: 350px;
+  background: white;
+  border-radius: 90px;
+  box-shadow: 0px 0px 75px 11px rgba(236,176,198,0.27);
+}
+.base-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  transition: 0.3s all ease-in-out;
+}
+#pomodoro-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.info-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0px 0px 75px 11px rgba(0,0,0,0.18);
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  transition: 0.3s all ease-in-out;
+  font-size: 43px;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+  text-transform: capitalize;
+}
+.status {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 27px;
+  left: 0px;
+  font-size: 18px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+
+.button-wrapper {
+  display: flex;
+  box-shadow: 0px 0px 75px 11px rgba(236, 176, 198, 0.27);
+  border-radius: 30px;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  transition: 0.3s all ease-in-out;
+  color: white;
+  font-size: 42px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.button span {
+  height: 55px;
+}
+
+.button.disable {
+  cursor: not-allowed !important;
+  background: #dbdce8 !important;
+}
+
+.plus-button {
+  border-radius: 30px 0px 0px 30px;
+  margin-right: 2px;
+}
+
+.minus-button {
+  border-radius: 0px 30px 30px 0px;
+  margin-left: 2px;
+}
+.button-status {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  transition: 0.3s all ease-in-out;
+}
+.button-status.disable {
+  color: #dbdce8 !important;
+}
+
+.button-label {
+  margin-top: 5px;
+  font-size: 12px;
+  text-align: center;
+  text-transform: capitalize;
+  transition: 0.3s all ease-in-out;
+}
+
+.button-label.disable {
+  color: #dbdce8 !important;
+}
+
+.button-time {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: 0.3s all ease-in-out;
+}
+
+.button-time.disable {
+  color: #dbdce8 !important;
+}

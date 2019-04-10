@@ -1,0 +1,160 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Mar 04 2019 23:58:42 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: AddDay
+msgctxt "AddDay"
+msgid "Add 1 Day"
+msgstr ""
+
+#: MinusDay
+msgctxt "MinusDay"
+msgid "Minus 1 Day"
+msgstr ""
+
+#: ToggleConst
+msgctxt "ToggleConst"
+msgid "Toggle Constellation Lines"
+msgstr ""
+
+#: ToggleStar
+msgctxt "ToggleStar"
+msgid "Toggle Star Names"
+msgstr ""
+
+#: Location
+msgctxt "Location"
+msgid "Set To My Location"
+msgstr ""
+
+#: WorldList
+msgctxt "WorldList"
+msgid "World List"
+msgstr ""
+
+#: View
+msgctxt "View"
+msgid "Projection View"
+msgstr ""
+
+#: Britain
+msgctxt "Britain"
+msgid "Britain"
+msgstr ""
+
+#: Mexico
+msgctxt "Mexico"
+msgid "Mexico"
+msgstr ""
+
+#: Spain
+msgctxt "Spain"
+msgid "Spain"
+msgstr ""
+
+#: Germany
+msgctxt "Germany"
+msgid "Germany"
+msgstr ""
+
+#: NorthKorea
+msgctxt "NorthKorea"
+msgid "NorthKorea"
+msgstr ""
+
+#: SaudiArabia
+msgctxt "SaudiArabia"
+msgid "Saudi Arabia"
+msgstr ""
+
+#: SouthKorea
+msgctxt "SouthKorea"
+msgid "South Korea"
+msgstr ""
+
+#: France
+msgctxt "France"
+msgid "France"
+msgstr ""
+
+#: Poland
+msgctxt "Poland"
+msgid "Poland"
+msgstr ""
+
+#: Italy
+msgctxt "Italy"
+msgid "Italy"
+msgstr ""
+
+#: India
+msgctxt "India"
+msgid "India"
+msgstr ""
+
+#: Nigeria
+msgctxt "Nigeria"
+msgid "Nigeria"
+msgstr ""
+
+#: Indonesia
+msgctxt "Indonesia"
+msgid "Indonesia"
+msgstr ""
+
+#: Brazil
+msgctxt "Brazil"
+msgid "Brazil"
+msgstr ""
+
+#: NorthAmerica
+msgctxt "NorthAmerica"
+msgid "North America"
+msgstr ""
+
+#: SouthAmerica
+msgctxt "SouthAmerica"
+msgid "South America"
+msgstr ""
+
+#: Africa
+msgctxt "Africa"
+msgid "Africa"
+msgstr ""
+
+#: Australia
+msgctxt "Australia"
+msgid "Australia"
+msgstr ""
+
+#: Philippines
+msgctxt "Philippines"
+msgid "Philippines"
+msgstr ""
+
+#: Malaysia
+msgctxt "Malaysia"
+msgid "Malaysia"
+msgstr ""
+
+#: Japan
+msgctxt "Japan"
+msgid "Japan"
+msgstr ""
+
+#: China
+msgctxt "China"
+msgid "China"
+msgstr ""
+

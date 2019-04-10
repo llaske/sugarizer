@@ -210,8 +210,18 @@ function PlanetModel(controller) {
 
     this.redoLocalStorageData = function () {
         this.localProjects = [];
-        var l = JSON.parse(localStorage.allProjects);
-        l.forEach(function (p, i) {
+        s = JSON.stringify(localStorage);
+        s = s.replace(/\\n/g, "\\n")  
+               .replace(/\\'/g, "\\'")
+               .replace(/\\"/g, '\\"')
+               .replace(/\\&/g, "\\&")
+               .replace(/\\r/g, "\\r")
+               .replace(/\\t/g, "\\t")
+               .replace(/\\b/g, "\\b")
+               .replace(/\\f/g, "\\f");
+        s = s.replace(/[\u0000-\u0019]+/g,"");
+        var l = JSON.parse(s);
+        Object.keys(l).forEach(function (p, i) {
             var img = localStorage['SESSIONIMAGE' + p];
             if (img === 'undefined') {
                 img = 'images/planetgraphic.png'; // EMPTYIMAGE;

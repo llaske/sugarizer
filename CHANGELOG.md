@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Constellation activity
+- Pomodoro activity
+
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
 - Add a delete button in the new idea input field of Labyrinth activity #262
@@ -12,6 +16,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Save Maze level in Journal #260
 - Bad localization for some countries name in Color My World activity #265
 - Integrate presence in Labyrinth activity #263
+- Improve Record activity to see picture in real time #266
+- Allow clicking on Abacus balls to move it #146
+- Memorize responsive seems broken on phones #106
+- Stopwatch Activity, lap Timings vanish after a few recordings #280
+- Turtle Blocks Activity hangs on Android App #185
 
 
 ## [1.1.0] - 2019-01-20

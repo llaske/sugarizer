@@ -103,10 +103,11 @@ Then save the updated object.
 		if (error === null) {
 			console.log("write done.");
 		} else {
-			console.log("write failed.");			}
+			console.log("write failed.");
+		}
 	});
 
-This whole code should be call at the end of the activity. To do that we have to catch the click on the Stop button of the activity. So here is the complete source code we will add in the `activity/activity.js` file, just below the `add-button` event listener:
+This whole code should be called at the end of the activity. To do that we have to catch the click on the Stop button of the activity. So here is the complete source code we will add in the `activity/activity.js` file, just below the `add-button` event listener:
 
 	// Save in Journal on Stop
 	document.getElementById("stop-button").addEventListener('click', function (event) {
@@ -124,7 +125,7 @@ This whole code should be call at the end of the activity. To do that we have to
 
 It's the first step: the board is now safely save in the datastore.
 
-Let's now how we could retrieve it.
+Let's know how we could retrieve it.
 
 
 ### Detect the need to load the context
@@ -201,7 +202,7 @@ Click few times on the Plus button to add some pawns and stop the activity. Now 
 
 ![](images/tutorial_step4_10.png)
 
-Yes! It's what we expected too: the activity is reopens with the right number of pawns.
+Yes! It's what we expected too: the activity reopens with the right number of pawns.
 
 The Journal is now fully supported by the Pawn activity.
 

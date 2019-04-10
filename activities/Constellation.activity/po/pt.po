@@ -1,0 +1,160 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Mar 04 2019 23:58:42 GMT+0100 (CET)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: AddDay
+msgctxt "AddDay"
+msgid "Add 1 Day"
+msgstr "Adicionar 1 dia"
+
+#: MinusDay
+msgctxt "MinusDay"
+msgid "Minus 1 Day"
+msgstr "Menos 1 dia"
+
+#: ToggleConst
+msgctxt "ToggleConst"
+msgid "Toggle Constellation Lines"
+msgstr "Alternar linhas de constelação"
+
+#: ToggleStar
+msgctxt "ToggleStar"
+msgid "Toggle Star Names"
+msgstr "Alternar nomes de estrelas"
+
+#: Location
+msgctxt "Location"
+msgid "Set To My Location"
+msgstr "Definir para minha localização"
+
+#: WorldList
+msgctxt "WorldList"
+msgid "World List"
+msgstr "Lista Mundial"
+
+#: View
+msgctxt "View"
+msgid "Projection View"
+msgstr "Vista de projeção"
+
+#: Britain
+msgctxt "Britain"
+msgid "Britain"
+msgstr "Grã-Bretanha"
+
+#: Mexico
+msgctxt "Mexico"
+msgid "Mexico"
+msgstr "México"
+
+#: Spain
+msgctxt "Spain"
+msgid "Spain"
+msgstr "Espanha"
+
+#: Germany
+msgctxt "Germany"
+msgid "Germany"
+msgstr "Alemanha"
+
+#: NorthKorea
+msgctxt "NorthKorea"
+msgid "NorthKorea"
+msgstr "Coreia do Norte"
+
+#: SaudiArabia
+msgctxt "SaudiArabia"
+msgid "Saudi Arabia"
+msgstr "Arábia Saudita"
+
+#: SouthKorea
+msgctxt "SouthKorea"
+msgid "South Korea"
+msgstr "Coreia do Sul"
+
+#: France
+msgctxt "France"
+msgid "France"
+msgstr "França"
+
+#: Poland
+msgctxt "Poland"
+msgid "Poland"
+msgstr "Polônia"
+
+#: Italy
+msgctxt "Italy"
+msgid "Italy"
+msgstr "Itália"
+
+#: India
+msgctxt "India"
+msgid "India"
+msgstr "Índia"
+
+#: Nigeria
+msgctxt "Nigeria"
+msgid "Nigeria"
+msgstr "Nigéria"
+
+#: Indonesia
+msgctxt "Indonesia"
+msgid "Indonesia"
+msgstr "Indonésia"
+
+#: Brazil
+msgctxt "Brazil"
+msgid "Brazil"
+msgstr "Brasil"
+
+#: NorthAmerica
+msgctxt "NorthAmerica"
+msgid "North America"
+msgstr "América do Norte"
+
+#: SouthAmerica
+msgctxt "SouthAmerica"
+msgid "South America"
+msgstr "América do Sul"
+
+#: Africa
+msgctxt "Africa"
+msgid "Africa"
+msgstr "África"
+
+#: Australia
+msgctxt "Australia"
+msgid "Australia"
+msgstr "Austrália"
+
+#: Philippines
+msgctxt "Philippines"
+msgid "Philippines"
+msgstr "Filipinas"
+
+#: Malaysia
+msgctxt "Malaysia"
+msgid "Malaysia"
+msgstr "Malásia"
+
+#: Japan
+msgctxt "Japan"
+msgid "Japan"
+msgstr "Japão"
+
+#: China
+msgctxt "China"
+msgid "China"
+msgstr "China"
+

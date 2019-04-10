@@ -698,6 +698,13 @@ body {
 	background-image: url(../icons/sync.svg);
 }
 
+.offline-button {
+	background-image: url(../icons/cloud-warning.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 540px;
+}
+
 .sync-home {
 	position: absolute !important;
 	top: 0px;
@@ -1727,6 +1734,7 @@ body {
 	position: absolute;
 	left: 110px;
 	margin-top: 20px;
+	margin-right: 10px;
 	color: #808080;
 }
 
@@ -1776,7 +1784,7 @@ body {
 
 .cloud-empty {
 	position: absolute;
-	background-image: url(../icons/cloud-settings.svg);
+	background-image: url(../icons/cloud-warning.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 50px 50px;
@@ -2072,6 +2080,10 @@ body {
 		left: 340px;
 	}
 
+	.offline-button {
+		left: 390px;
+	}
+
 	.homeview-filter-text {
 		width: 200px;
 	}
@@ -2136,7 +2148,7 @@ body {
 		visibility: hidden;
 	}
 }
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 650px) {
 	.help-button {
 		visibility: hidden;
 	}
@@ -2144,13 +2156,21 @@ body {
 	.sync-home {
 		left: 270px;
 	}
+
+	.offline-button {
+		left: 320px;
+	}
 }
-@media screen and (max-width: 555px) {
+@media screen and (max-width: 590px) {
 	.sync-home {
 		visibility: hidden;
 	}
 
 	.sync-button {
+		visibility: hidden;
+	}
+
+	.offline-button {
 		visibility: hidden;
 	}
 }

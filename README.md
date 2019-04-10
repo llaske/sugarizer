@@ -63,7 +63,7 @@ To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows)
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
-    chrome --allow-file-access-from-files index.html
+ 	chrome --allow-file-access-from-files  index.html
 
 On Windows, you should launch:
 
@@ -72,6 +72,12 @@ On Windows, you should launch:
 On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
+
+On Linux, you should launch:
+
+	google-chrome-stable --allow-file-access-from-files index.html
+
+> Note: `google-chrome-stable` is the name of Chrome in Ubuntu but it could be different on other distribution, you can get the package-name for Chrome by running `sudo dpkg -l | grep chrome`
 
 For **Firefox**, type in the address bar:
 
@@ -169,6 +175,7 @@ If you're interested to create your own activity, a full tutorial will guide you
 * **Step 4**: handle journal and datastore
 * **Step 5**: localize the activity
 * **Step 6**: handle multi-user with presence
+* **Step 7**: use journal chooser dialog
 
 Let's start [here](docs/tutorial.md).
 
@@ -182,7 +189,11 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
-To build it, first install Cordova as described [here](http://cordova.apache.org/).
+A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
+
+If you want to build it yourself, see following instructions.
+
+First install Cordova as described [here](http://cordova.apache.org/).
 
 Then create a directory for Sugarizer Cordova and put the content of the git repository in the www directory:
 
@@ -305,4 +316,6 @@ Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Su
 
 # License
 
-Sugarizer is licensed under the `Apache v2` license.  See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some could use a different license, check the [activities](activities) directory to be sure.
+Sugarizer is licensed under the **Apache v2** license.  See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some could use a different license, check the [activities](activities) directory to be sure.
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

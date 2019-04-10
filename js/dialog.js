@@ -580,16 +580,16 @@ enyo.kind({
 		this.$.message.setContent(l10n.get("ChooseLanguage"));
 		this.initlanguage = this.currentlanguage = preferences.getLanguage();
 		this.languageset = [
-			{code: "en", icon: null, name: l10n.get("English")},
-			{code: "es", icon: null, name: l10n.get("Spanish")},
-			{code: "fr", icon: null, name: l10n.get("French")},
-			{code: "de", icon: null, name: l10n.get("German")},
-			{code: "pt", icon: null, name: l10n.get("Portuguese")},
-			{code: "ar", icon: null, name: l10n.get("Arabic")},
-			{code: "ja", icon: null, name: l10n.get("Japanese")},
-			{code: "pl", icon: null, name: l10n.get("Polish")},
-			{code: "ibo", icon: null, name: l10n.get("Igbo")},
-			{code: "yor", icon: null, name: l10n.get("Yoruba")}
+			{code: "en", icon: null, name: "English (" + l10n.get("English") +")"},
+			{code: "es", icon: null, name: "Español (" + l10n.get("Spanish") +")"},
+			{code: "fr", icon: null, name: "Français (" + l10n.get("French") +")"},
+			{code: "de", icon: null, name: "Deutsch (" + l10n.get("German") +")"},
+			{code: "pt", icon: null, name: "Português (" + l10n.get("Portuguese") +")"},
+			{code: "ar", icon: null, name: "عربي (" + l10n.get("Arabic") +")"},
+			{code: "ja", icon: null, name: "日本語 (" + l10n.get("Japanese") +")"},
+			{code: "pl", icon: null, name: "Polski (" + l10n.get("Polish") +")"},
+			{code: "ibo", icon: null, name: "Igbo (" + l10n.get("Igbo") +")"},
+			{code: "yor", icon: null, name: "Yoruba (" + l10n.get("Yoruba") +")"}
 		];
 		this.$.languageselect.setItems(this.languageset);
 		for (var i = 0 ; i < this.languageset.length ; i++) {
@@ -877,7 +877,14 @@ enyo.kind({
 			this.$.servername.setDisabled(true);
 			this.$.username.setDisabled(true);
 		}
-		this.owner.centerDialog(this);
+		this.centerDialog(this);
+	},
+
+	centerDialog: function(dialog) {
+		var margin = util.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+		dialog.applyStyle("margin-left", margin.left+"px");
+		dialog.applyStyle("margin-top", (margin.top-55)+"px");
+		return margin;
 	},
 
 	displayStep: function() {
@@ -895,6 +902,8 @@ enyo.kind({
 			vpasswordmessage = false,
 			vpassword = false;
 		if (this.step == 0) {
+			this.$.passwordmessage.setContent(l10n.get("PleaseConnectMessage"));
+			vpasswordmessage = true;
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
 			vtextservername = vservername = vnext = true;

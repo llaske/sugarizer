@@ -87,7 +87,6 @@ Let's now handle click on the new button to display the Journal chooser. Like ot
 		document.getElementById("picture-button").addEventListener('click', function (e) {
 			journalchooser.show(function (entry) {
 				// Do nothing for the moment
-				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 		});
 

@@ -88,19 +88,29 @@ function AbacusBead(x,y,blockcol,abacus,column,i,value,beadheight){
 	this.addClickListeners = function(){
 		var th = this;
 		var col = column;
+		var previous = "down";
 		this.bead.on("mousedown", function(evt) {
 		    th.originaly = evt.stageY;
 		});
 
 		this.bead.on("pressup", function(evt) {
 		    if (th.originaly<evt.stageY){
-		    	//moved down
-		    	console.log("down");
 		    	col.shuntRight(th.index);
-		    } else if (th.originaly>evt.stageY){
-		    	console.log("up");
+		    }
+		    else if (th.originaly>evt.stageY){
 		    	col.shuntLeft(th.index);
 		    }
+		});
+
+		this.bead.addEventListener("click", function(evt){
+			if (previous === "down") {
+				col.shuntLeft(th.index);
+				previous = "up";
+			}
+			else if (previous === "up") {
+				col.shuntRight(th.index);
+				previous = "down";
+			}
 		});
 	}
 

@@ -65,58 +65,15 @@ enyo.kind({
 		}
 
 		// Check change on preferences from server
-		if (preferences.isConnected()) {
-			var networkId = preferences.getNetworkId();
+		var isConnected = preferences.isConnected();
+		this.getToolbar().showServerWarning(!isConnected);
+		if (isConnected) {
 			var that = this;
-			myserver.getUser(
-				networkId,
-				function(inSender, inResponse) {
-					var changed = preferences.merge(inResponse);
-					if (changed) {
-						preferences.save();
-						util.restartApp();
-					} else if (that.currentView == constant.journalView) {
-						that.otherview.updateNetworkBar();
-					}
-					presence.joinNetwork(function (error, user) {
-						if (error) {
-							console.log("WARNING: Can't connect to presence server");
-						}
-					});
-					autosync.synchronizeJournal(
-						function(count) {
-							if (count) {
-								setTimeout(function() {
-									var message = l10n.get("RetrievingJournal");
-									if (message) humane.log(message);
-								}, 100);
-								var toolbar = that.getToolbar();
-								if (toolbar.showSync) {
-									toolbar.showSync(true);
-								}
-							}
-						},
-						function(locale, remote, error) {
-							var toolbar = that.getToolbar();
-							if (toolbar.showSync) {
-								toolbar.showSync(false);
-							}
-
-							// Locale journal has changed, update display
-							if (locale && !error) {
-								that.loadJournal();
-								that.testJournalSize();
-								preferences.updateEntries();
-								that.draw();
-								that.render();
-							}
-						}
-					);
-				},
-				function() {
-					console.log("WARNING: Can't read network user settings");
+			this.connectToServer(function(success) {
+				if (that.getToolbar() && that.getToolbar().showServerWarning) {
+					that.getToolbar().showServerWarning(!success);
 				}
-			);
+			});
 		}
 
 		// Launch tutorial at first launch
@@ -204,6 +161,63 @@ enyo.kind({
 		else {
 			console.log("Error loading init activities");
 		}
+	},
+
+	// Try to connect to the server: update preferences, sync journal, ...
+	connectToServer: function(callback) {
+		var networkId = preferences.getNetworkId();
+		var that = this;
+		myserver.getUser(
+			networkId,
+			function(inSender, inResponse) {
+				var changed = preferences.merge(inResponse);
+				if (changed) {
+					preferences.save();
+					util.restartApp();
+				} else if (that.currentView == constant.journalView) {
+					that.otherview.updateNetworkBar();
+				}
+				presence.joinNetwork(function (error, user) {
+					if (error) {
+						console.log("WARNING: Can't connect to presence server");
+					}
+				});
+				callback(true);
+				autosync.synchronizeJournal(
+					function(count) {
+						if (count) {
+							setTimeout(function() {
+								var message = l10n.get("RetrievingJournal");
+								if (message) humane.log(message);
+							}, 100);
+							var toolbar = that.getToolbar();
+							if (toolbar.showSync) {
+								toolbar.showSync(true);
+							}
+						}
+					},
+					function(locale, remote, error) {
+						var toolbar = that.getToolbar();
+						if (toolbar.showSync) {
+							toolbar.showSync(false);
+						}
+
+						// Locale journal has changed, update display
+						if (locale && !error) {
+							that.loadJournal();
+							that.testJournalSize();
+							preferences.updateEntries();
+							that.draw();
+							that.render();
+						}
+					}
+				);
+			},
+			function() {
+				console.log("WARNING: Can't read network user settings");
+				callback(false);
+			}
+		);
 	},
 
 	// Get linked toolbar
@@ -519,7 +533,6 @@ enyo.kind({
 			this.hideActivityPopup(icon);
 			util.vibrate();
 			this.runActivity(icon.icon);
-			this.postRunActivity();
 		}
 	},
 	runActivity: function(activity) {
@@ -527,7 +540,7 @@ enyo.kind({
 		util.vibrate();
 		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
 		preferences.runActivity(activity, undefined, null, null, help);
-		this.postRunActivity();
+		this.postRunActivity(activity.isNative);
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
@@ -542,11 +555,11 @@ enyo.kind({
 		util.vibrate();
 		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
 		preferences.runActivity(activity, null, null, null, help);
-		this.postRunActivity();
+		this.postRunActivity(activity.isNative);
 	},
-	postRunActivity: function() {
+	postRunActivity: function(isNative) {
 		// When run a native activity, should update journal and view to reflect journal change
-		if (window.sugarizerOS) {
+		if (window.sugarizerOS && isNative) {
 			sugarizerOS.popupTimer = new Date();
 			this.loadJournal();
 			preferences.updateEntries();
@@ -719,6 +732,7 @@ enyo.kind({
 		{name: "searchtext", kind: "Sugar.SearchField", classes: "homeview-filter-text", onTextChanged: "filterActivities"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
+		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -742,6 +756,7 @@ enyo.kind({
 		this.$.listbutton.setNodeProperty("title", l10n.get("ListView"));
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
+		this.$.offlinebutton.setNodeProperty("title", l10n.get("NotConnected"));
 		if (app.localize) {
 			app.localize();
 		}
@@ -814,11 +829,34 @@ enyo.kind({
 		this.$.syncbutton.setShowing(showing);
 	},
 
+	showServerWarning: function(showing) {
+		this.$.offlinebutton.setShowing(showing);
+	},
+
+	doServerSettings: function() {
+		if (preferences.isConnected()) {
+			var token = preferences.getToken();
+			if (token && !token.expired) {
+				// No need to show settings, connection issue, just try to reconnect
+				var that = app;
+				app.connectToServer(function(success) {
+					if (that.getToolbar() && that.getToolbar().showServerWarning) {
+						that.getToolbar().showServerWarning(!success);
+					}
+				});
+				return;
+			}
+		}
+		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
+		otherview.show();
+	},
+
 	startTutorial: function() {
 		tutorial.setElement("radialbutton", this.$.radialbutton.getAttribute("id"));
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		tutorial.setElement("offlinebutton", this.$.offlinebutton.getAttribute("id"));
 		if (app.otherview && app.otherview.beforeHelp) {
 			app.otherview.beforeHelp();
 		} else {
