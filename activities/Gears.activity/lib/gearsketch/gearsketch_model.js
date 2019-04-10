@@ -31,6 +31,7 @@
       this.pitchRadius = Util.MODULE * (0.5 * this.numberOfTeeth);
       this.innerRadius = Util.MODULE * (0.5 * this.numberOfTeeth - 1.25);
       this.outerRadius = Util.MODULE * (0.5 * this.numberOfTeeth + 1);
+      this.hue = 255;
     }
 
     Gear.prototype.getCircumference = function() {
