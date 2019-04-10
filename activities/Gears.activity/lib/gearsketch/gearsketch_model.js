@@ -31,7 +31,7 @@
       this.pitchRadius = Util.MODULE * (0.5 * this.numberOfTeeth);
       this.innerRadius = Util.MODULE * (0.5 * this.numberOfTeeth - 1.25);
       this.outerRadius = Util.MODULE * (0.5 * this.numberOfTeeth + 1);
-      this.hue = 255;
+      this.hue = Math.floor(Math.random()*360);
     }
 
     Gear.prototype.getCircumference = function() {
@@ -58,11 +58,15 @@
     };
 
     Gear.prototype.clone = function() {
-      return new Gear(this.location.clone(), this.rotation, this.numberOfTeeth, this.id, this.momentum, this.group, this.level, Util.clone(this.connections));
+      var gearClone = new Gear(this.location.clone(), this.rotation, this.numberOfTeeth, this.id, this.momentum, this.group, this.level, Util.clone(this.connections));
+      gearClone.hue = this.hue;
+      return gearClone;
     };
 
     Gear.fromObject = function(obj) {
-      return new Gear(Point.fromObject(obj.location), obj.rotation, obj.numberOfTeeth, obj.id, obj.momentum, obj.group, obj.level, obj.connections);
+      var fromObject = new Gear(Point.fromObject(obj.location), obj.rotation, obj.numberOfTeeth, obj.id, obj.momentum, obj.group, obj.level, obj.connections);
+      fromObject.hue = obj.hue;
+      return fromObject;
     };
 
     return Gear;

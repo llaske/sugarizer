@@ -447,6 +447,7 @@
       gearCanvas.width = size;
       ctx = gearCanvas.getContext("2d");
       gearCopy = new Gear(new Point(0.5 * size, 0.5 * size), 0, gear.numberOfTeeth, gear.id);
+      gearCopy.hue = gear.hue;
       this.drawGear(ctx, gearCopy);
       image = new Image();
       image.onload = function() {
