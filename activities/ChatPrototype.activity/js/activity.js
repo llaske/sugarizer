@@ -35,7 +35,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
-        var imageUpload = document.getElementById('imageUpload');
+        var imageUpload = document.getElementById('image-upload');
 
 	document.getElementById("status").innerHTML = l10n_s.get("status");
 	messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -76,6 +76,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				presence.onSharedActivityUserChanged(function (msg) {
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
+					imageUpload.style.visibility = "visible";
 				});
 
 				// Handle messages received

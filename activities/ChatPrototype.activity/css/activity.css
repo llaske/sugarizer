@@ -6,6 +6,12 @@ background-image:url(../activity/activity-icon.svg);
 background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #image-upload {
+background-image:url(../icons/image-upload.svg);
+visibility: hidden;
+}
+
+
 .network-text {
 font-size: 12pt;
 }
@@ -135,31 +141,21 @@ textarea {
   position: absolute;
   background-repeat: no-repeat;
   margin-top: 8px;
-  margin-left: 8px;
+  margin-left: 10px;
   font-size: 0;
 }
 
 #sad-button {
   position: absolute;
   margin-top:8px;
-  margin-left: 50px;
-  font-size: 0;
-}
-#others-button {
-  position: absolute;
-  margin-top:8px;
-  margin-left: 90px;
+  margin-left: 55px;
   font-size: 0;
 }
 
-#imageUpload{
+#others-button {
   position: absolute;
-  background-repeat: no-repeat;
-  margin-top: -2px;
-  height:35px;
-  width:35px;
-  opacity: 1;
-  margin-left: 130px;
+  margin-top:8px;
+  margin-left: 100px;
   font-size: 0;
 }
 
