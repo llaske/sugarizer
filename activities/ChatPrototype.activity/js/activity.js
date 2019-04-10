@@ -81,9 +81,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				presence.onDataReceived(function (msg) {
 					var text = msg.content;
 					var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+					author = author + ": ";
 					var colour = msg.user.colorvalue;
 
-					var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+					var authorElem = '<span style = "color:' + colour.stroke + '; display:inline-table">' + author + '</span>';
 
 					myElem = document.createElement('li');
 					myElem.class = 'received';
