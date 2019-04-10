@@ -21,6 +21,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Memorize responsive seems broken on phones #106
 - Stopwatch Activity, lap Timings vanish after a few recordings #280
 - Turtle Blocks Activity hangs on Android App #185
+- Sugarizer OS hang when multiple click on an icon #338
+- Message overlaps with user name in Chat Activity #328
+- Jappy Activity print preview popup #326
+- Toolbar overlap issue in Speak Activity #324
+- Smileys not displayed properly in chat prototype activity #322
+- Cursor issue in calculator activity on Chrome #318
+- Duplicated text in QR Code Activity history #314
+- Audio bar not displaying in chrome when opening a audio file #312
+- Display language settings in 2 languages #292
 
 
 ## [1.1.0] - 2019-01-20
