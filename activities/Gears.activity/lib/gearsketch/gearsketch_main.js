@@ -286,7 +286,9 @@
             if (canPlaceGear) {
               return this.goalLocationGear = null;
             } else {
-              return this.goalLocationGear = new Gear(goalLocation, this.selectedGear.rotation, this.selectedGear.numberOfTeeth, this.selectedGear.id);
+              this.goalLocationGear = new Gear(goalLocation, this.selectedGear.rotation, this.selectedGear.numberOfTeeth, this.selectedGear.id);
+              this.goalLocationGear.hue = this.selectedGear.hue;
+              return this.goalLocationGear;
             }
           } else if (this.stroke.length > 0) {
             return this.stroke.push(point);
