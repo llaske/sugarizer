@@ -22,7 +22,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				$("#levels").toggle();
 				$("#levels").append("<span class='level'>1</span>");
 				$(".level").click(function () {
-					console.log("in");
 					$("#levels").toggle();
 					amaze();
 				});
@@ -38,44 +37,55 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			});
 
 			function amaze() {
+				var ball = document.getElementById("ball");
 				$(".playarea").css("display", "block");
-				$(".this").hover(function () {
-					$(".playarea").css("display", "none");
-					$("#dialog2").css("display", "block");
+				$("up").click((e) => {
+					ball.animate(() => {
+
+					}, 2000);
+				});
+				$("down").click((e) => {
+					ball.animate((e) => {}, 2000);
+				});
+				$("left").click((e) => {
+					ball.animate((e) => {}, 2000);
+				});
+				$("right").click((e) => {
+					ball.animate((e) => {}, 2000);
 				});
 			}
-
-
 		});
-		/* Load from datastore
-		if (environment.objectId) {
-			activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
-				if (error == null && data != null) {
-	
-				}
-			});
-		}*/
 
-
-		/* Save in Journal on Stop
-		document.getElementById("stop-button").addEventListener('click', function (event) {
-			console.log("writing...");
-			var jsonData = JSON.stringify();
-			activity.getDatastoreObject().setDataAsText(jsonData);
-			activity.getDatastoreObject().save(function (error) {
-				if (error === null) {
-					console.log("write done.");
-				} else {
-					console.log("write failed.");
-				}
-			});
-		}); 
-	
-		// Process localize event
-		window.addEventListener("localized", function () {
-			document.getElementById("user").innerHTML = "<h1>" + webL10n.get("Hello", { name: currentenv.user.name }) + "</h1>";
-			document.getElementById("add-button").title = webL10n.get("AddPawn");
-		});*/
 
 	});
+	/* Load from datastore
+			if (environment.objectId) {
+				activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
+					if (error == null && data != null) {
+		
+					}
+				});
+			}*/
+
+
+	/* Save in Journal on Stop
+			document.getElementById("stop-button").addEventListener('click', function (event) {
+				console.log("writing...");
+				var jsonData = JSON.stringify();
+				activity.getDatastoreObject().setDataAsText(jsonData);
+				activity.getDatastoreObject().save(function (error) {
+					if (error === null) {
+						console.log("write done.");
+					} else {
+						console.log("write failed.");
+					}
+				});
+			}); 
+		
+			// Process localize event
+			window.addEventListener("localized", function () {
+				document.getElementById("user").innerHTML = "<h1>" + webL10n.get("Hello", { name: currentenv.user.name }) + "</h1>";
+				document.getElementById("add-button").title = webL10n.get("AddPawn");
+			});*/
+
 });

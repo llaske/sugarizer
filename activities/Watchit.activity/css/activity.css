@@ -127,3 +127,32 @@ h2 {
   position: relative;
   top: 30%;
 }
+
+.left-controls {
+  position: absolute;
+  float: left;
+  left: 5%;
+  bottom: 10%;
+}
+
+.right-controls {
+  position: absolute;
+  float: right;
+  right: 3%;
+  bottom: 10%;
+}
+
+.ic {
+  position: relative;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  margin: 5px;
+}
