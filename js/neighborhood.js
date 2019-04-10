@@ -134,6 +134,9 @@ enyo.kind({
 			this.$.message.setShowing(false);
 			this.$.settings.setShowing(false);
 			this.$.refresh.setShowing(false);
+			if (app.toolbar && app.toolbar.showServerWarning) {
+				app.toolbar.showServerWarning(false);
+			}
 			presence.listUsers(enyo.bind(this, "userListReceived"));
 			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 		}
@@ -166,6 +169,9 @@ enyo.kind({
 			this.$.server.setShowing(false);
 			this.$.empty.setShowing(true);
 			this.$.message.setShowing(true);
+			if (app.toolbar && app.toolbar.showServerWarning) {
+				app.toolbar.showServerWarning(true);
+			}
 			if (preferences.isConnected()) {
 				this.$.message.setContent(l10n.get("UnableToConnect"));
 				this.$.refresh.setShowing(true);
@@ -241,7 +247,7 @@ enyo.kind({
 	doSettings: function() {
 		stats.trace(constant.viewNames[app.getView()], 'click', 'my_settings');
 		this.getPopup().hidePopup();
-		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogSettings"}, {owner:this});
+		this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
 		this.otherview.show();
 	},
 	doRefresh: function() {
