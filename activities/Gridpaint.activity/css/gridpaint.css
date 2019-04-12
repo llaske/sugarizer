@@ -13,8 +13,18 @@ div.frame {
  overflow: hidden;
 }
 
+.canvas-wrapper{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: #f0f0f0;
+}
+
 #canvas {
  position: relative;
+ width: 1024px;
+ height: 748px;
  top: 0px !important;
 }
 
