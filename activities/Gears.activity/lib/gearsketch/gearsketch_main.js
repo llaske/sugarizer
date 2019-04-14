@@ -286,7 +286,7 @@
             if (canPlaceGear) {
               return this.goalLocationGear = null;
             } else {
-              return this.goalLocationGear = new Gear(goalLocation, this.selectedGear.rotation, this.selectedGear.numberOfTeeth, this.selectedGear.id);
+              return this.goalLocationGear = new Gear(goalLocation, this.selectedGear.rotation, this.selectedGear.numberOfTeeth, this.selectedGear.id, this.selectedGear.hue);
             }
           } else if (this.stroke.length > 0) {
             return this.stroke.push(point);
@@ -446,7 +446,7 @@
       gearCanvas.height = size;
       gearCanvas.width = size;
       ctx = gearCanvas.getContext("2d");
-      gearCopy = new Gear(new Point(0.5 * size, 0.5 * size), 0, gear.numberOfTeeth, gear.id);
+      gearCopy = new Gear(new Point(0.5 * size, 0.5 * size), 0, gear.numberOfTeeth, gear.id, null, null, null, null, gear.hue);
       this.drawGear(ctx, gearCopy);
       image = new Image();
       image.onload = function() {
