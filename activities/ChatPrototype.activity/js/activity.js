@@ -82,7 +82,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				// Handle messages received
 				presence.onDataReceived(function (msg) {
 
-					if(msg.type=='text'){
+					if(msg.type=='text' || typeof(msg.type) == 'undefined'){
 						var text = msg.content;
 						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 						var colour = msg.user.colorvalue;
