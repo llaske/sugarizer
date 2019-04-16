@@ -74,6 +74,14 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             });
         },
 
+        deleteRecord: function(record,metadata){
+            record.parentNode.removeChild(record);
+            t.ids.splice(t.ids.indexOf(metadata),1);
+                activity.getDatastoreObject().setDataAsText(JSON.stringify({ids: t.ids}));
+                activity.getDatastoreObject().save(function (error) {
+                });
+        },
+
         generateAudioPopup: function (fullData, originalAudio, metadata) {
             var audio = document.createElement("audio");
 
@@ -206,8 +214,25 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             videoIndicator.style.height = this.height + "px";
             videoIndicator.src = "icons/photo.svg";
 
-            div.appendChild(videoIndicator);
+            div.appendChild(videoIndicator); 
 
+
+            var removeButton = document.createElement("button");
+            removeButton.style.display = 'inline-block';
+            removeButton.style.float = "left";
+            removeButton.style.position = "absolute";
+            removeButton.zIndex = "99";
+            removeButton.className = "delbtn";
+            removeButton.style.width = 0.2*this.width + "px";
+            removeButton.style.height = 0.2*this.height + "px";
+            removeButton.style.background = "url('icons/delete.svg')";
+            removeButton.addEventListener('click',function(){
+                t.deleteRecord(removeButton.parentNode,metadata);
+            });
+
+            div.appendChild(removeButton); 
+
+        
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
             } else {
