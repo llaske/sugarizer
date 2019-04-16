@@ -15,8 +15,9 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
                         webL10n.language.code = preferences.language;
                 }
             }
-            if (webL10n.get("by") !== undefined && webL10n.get("by").length > 0) {
+            if (webL10n.get("by") !== undefined && webL10n.get("by").length > 0 && webL10n.get("confirm") !== undefined && webL10n.get("confirm").length > 0) {
                 captureHelper.by = webL10n.get("by");
+                captureHelper.confirm = webL10n.get("confirm");
             }
         }, false);
 

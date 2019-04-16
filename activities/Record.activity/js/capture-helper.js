@@ -76,7 +76,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
         deleteRecord: function(record,metadata){
             var t = this;
-            var confirm = window.confirm("Are you sure you want to delete this?");
+            var confirm = window.confirm(captureHelper.confirm);
             if(confirm){
                 record.parentNode.removeChild(record);
                 t.ids.splice(t.ids.indexOf(metadata),1);
