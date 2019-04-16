@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Audio bar not displaying in chrome when opening a audio file #312
 - Display language settings in 2 languages #292
 - Gear colours are reset on resume #336
+- Added Tool tips to Calculate Activity
 
 
 ## [1.1.0] - 2019-01-20
