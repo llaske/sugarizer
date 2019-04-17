@@ -6,6 +6,12 @@ background-image:url(../activity/activity-icon.svg);
 background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #image-upload {
+background-image:url(../icons/image-upload.svg);
+visibility: hidden;
+}
+
+
 .network-text {
 font-size: 12pt;
 }
@@ -143,6 +149,7 @@ textarea {
   margin-top:8px;
   margin-left: 55px;
 }
+
 #others-button {
   position: absolute;
   margin-top:8px;

@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette"], function (activity,wl10n, palette,presencepalette) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity,wl10n, palette,presencepalette,datastore,chooser) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -35,6 +35,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
+        var imageUpload = document.getElementById('image-upload');
 
 	document.getElementById("status").innerHTML = l10n_s.get("status");
 	messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -75,27 +76,52 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				presence.onSharedActivityUserChanged(function (msg) {
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
+					imageUpload.style.visibility = "visible";
 				});
 
 				// Handle messages received
 				presence.onDataReceived(function (msg) {
-					var text = msg.content;
-					var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					author = author + ": ";
-					var colour = msg.user.colorvalue;
 
-					var authorElem = '<span style = "color:' + colour.stroke + '; display:inline-table">' + author + '</span>';
+					if(msg.type=='text' || typeof(msg.type) == 'undefined'){
+						var text = msg.content;
+						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+						var colour = msg.user.colorvalue;
 
-					myElem = document.createElement('li');
-					myElem.class = 'received';
-					myElem.style.background = colour.fill;
-					myElem.innerHTML = authorElem + text;
-					myElem.style.color = colour.stroke;
+						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
 
-					messagesList.appendChild(myElem);
-					messageContent.scrollTop = messageContent.scrollHeight;
+						myElem = document.createElement('li');
+						myElem.class = 'received';
+						myElem.style.background = colour.fill;
+						myElem.innerHTML = authorElem + text;
+						myElem.style.color = colour.stroke;
+
+						messagesList.appendChild(myElem);
+						messageContent.scrollTop = messageContent.scrollHeight;
+					}
+					else if(msg.type == "image"){
+						var source = msg.content;
+						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
+						var colour = msg.user.colorvalue;
+
+						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+						myElem = document.createElement('li');
+						myElem.class = 'received';
+						myElem.style.background = colour.fill;
+						myElem.innerHTML = authorElem + "<img src='"+source+"' style='max-height:150px;'>";
+						myElem.style.color = colour.stroke;
+
+						messagesList.appendChild(myElem);
+						messageContent.scrollTop = messageContent.scrollHeight;
+
+
+					}
 				});
 			});
+		}
+
+		function senddata(data,mediatype){
+			var toSend = {user: userSettings, content: data , type:mediatype};
+			presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
 		}
 
 		// Create network palette
@@ -113,10 +139,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         messageField.onkeydown = function (e) {
             if (e.keyCode === 13) {
 				var message = removeTags(messageField.value);
+				senddata(message,'text');
 
 				// Send the message through the WebSocket.
-				var toSend = {user: userSettings, content: message};
-				presenceObject.sendMessage(presenceObject.getSharedInfo().id, toSend);
+				
 
                 // Clear out the message field
 				messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -125,6 +151,23 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				return false;
             }
         };
+
+
+		imageUpload.addEventListener('click', function (e) {
+			chooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				let src;
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, data) {
+					senddata(data,'image');
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
+
 	    //Smiley Emoji options
         var selectSmiley = document.getElementById('smiley-button')
         var smileyOption;
