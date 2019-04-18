@@ -113,10 +113,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             video.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
             video.style.paddingBottom = "100px";
 
+            
             return this.generatePopup(fullData, video, originalVideo, metadata);
         },
 
-        generateImagePopup: function (fullData, originalImage, metadata) {
+        generateImagePopup: function (fullData, originalImage, metadata, record) {
             var img = document.createElement("img");
             //img.src = fullData.data;
             img.style.backgroundImage = "url('" + fullData.data + "')";
@@ -133,12 +134,14 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.setAttribute('height', img.style.maxHeight);
             img.setAttribute('width', img.style.maxWidth);
 
-            return this.generatePopup(fullData, img, originalImage, metadata);
+            return this.generatePopup(fullData, img, originalImage, metadata, record);
         },
 
-        generatePopup: function (fullData, innerElement, originalImage, metadata) {
+        generatePopup: function (fullData, innerElement, originalImage, metadata, record) {
             var t = this;
-
+            if(typeof(record)=='undefined'){
+                record = originalImage;
+            }
 
             var div = document.createElement("div");
 
@@ -182,6 +185,20 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             });
             div.appendChild(closeButton);
 
+            var removeButton = document.createElement("button");
+            removeButton.style.display = 'inline-block';
+            removeButton.style.float = "left";
+            removeButton.style.position = "absolute";
+            removeButton.zIndex = "99";
+            removeButton.className = "delbtn";
+            removeButton.style.background = "url('icons/delete.svg')";
+            removeButton.onclick = function(e){
+                t.deleteRecord(record, metadata);
+                div.parentNode.removeChild(div);
+                t.popupMode = false;
+            };
+            div.appendChild(removeButton); 
+            
             return div;
         },
 
@@ -220,24 +237,6 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             videoIndicator.src = "icons/photo.svg";
 
             div.appendChild(videoIndicator); 
-
-
-            var removeButton = document.createElement("button");
-            removeButton.style.display = 'inline-block';
-            removeButton.style.float = "left";
-            removeButton.style.position = "absolute";
-            removeButton.zIndex = "99";
-            removeButton.className = "delbtn";
-            removeButton.style.width = 0.2*this.width + "px";
-            removeButton.style.height = 0.2*this.height + "px";
-            removeButton.style.background = "url('icons/delete.svg')";
-            removeButton.onclick = function(e){
-                t.deleteRecord(removeButton.parentNode,metadata);
-                e.stopPropagation();
-            };
-
-            div.appendChild(removeButton); 
-
         
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
@@ -251,7 +250,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 }
                 t.popupMode = true;
 
-                var popupDiv = t.generateImagePopup(fullData, img, metadata);
+                var popupDiv = t.generateImagePopup(fullData, img, metadata, div);
                 document.body.appendChild(popupDiv);
             });
         },
@@ -289,22 +288,6 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             div.appendChild(videoIndicator);
 
-            var removeButton = document.createElement("button");
-            removeButton.style.display = 'inline-block';
-            removeButton.style.float = "left";
-            removeButton.style.position = "absolute";
-            removeButton.zIndex = "99";
-            removeButton.className = "delbtn";
-            removeButton.style.width = 0.2*this.width + "px";
-            removeButton.style.height = 0.2*this.height + "px";
-            removeButton.style.background = "url('icons/delete.svg')";
-            removeButton.onclick = function(e){
-                t.deleteRecord(removeButton.parentNode,metadata);
-                e.stopPropagation();
-            };
-
-            div.appendChild(removeButton); 
-
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
             } else {
@@ -334,22 +317,6 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             div.style.width = this.width + "px";
             div.style.height = this.height + "px";
             div.style.background = "#000";
-
-            var removeButton = document.createElement("button");
-            removeButton.style.display = 'inline-block';
-            removeButton.style.float = "left";
-            removeButton.style.position = "absolute";
-            removeButton.zIndex = "99";
-            removeButton.className = "delbtn";
-            removeButton.style.width = 0.2*this.width + "px";
-            removeButton.style.height = 0.2*this.height + "px";
-            removeButton.style.background = "url('icons/delete.svg')";
-            removeButton.onclick = function(e){
-                t.deleteRecord(removeButton.parentNode,metadata);
-                e.stopPropagation();
-            };
-
-            div.appendChild(removeButton);
 
             var img = document.createElement("img");
             img.src = "icons/audio.svg";
