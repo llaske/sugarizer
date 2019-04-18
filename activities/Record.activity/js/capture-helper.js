@@ -76,14 +76,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
         deleteRecord: function(record,metadata){
             var t = this;
-            var confirm = window.confirm(captureHelper.confirm);
-            if(confirm){
                 record.parentNode.removeChild(record);
                 t.ids.splice(t.ids.indexOf(metadata),1);
                 activity.getDatastoreObject().setDataAsText(JSON.stringify({ids: t.ids}));
                 activity.getDatastoreObject().save(function (error) {
                 });
-            }
             
         },
 
