@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Gear colours are reset on resume #336
 - Added Tool tips to Calculate Activity
 - Users should be able to send images in chat prototype #330
+- No erase button for recordings in Record activity #344 
 
 
 ## [1.1.0] - 2019-01-20
