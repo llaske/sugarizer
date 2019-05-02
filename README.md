@@ -176,6 +176,7 @@ If you're interested to create your own activity, a full tutorial will guide you
 * **Step 5**: localize the activity
 * **Step 6**: handle multi-user with presence
 * **Step 7**: use journal chooser dialog
+* **Step 8**: create your own palette
 
 Let's start [here](docs/tutorial.md).
 

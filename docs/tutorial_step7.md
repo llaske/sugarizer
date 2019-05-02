@@ -156,4 +156,4 @@ You've learn in this step how to integrate content from the Journal using the Jo
 Note that the background choosen should be store in the datastore object for the activity else it will be lost on next launch. It should be interesting also to send it to other connected users. You could try to solve these issues as an exercise.
 
 
-[Go back to tutorial home](tutorial.md)
+[Go to next step](tutorial_step8.md)
