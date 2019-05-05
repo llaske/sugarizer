@@ -61,11 +61,11 @@
   background-color: #e5e5e5;
   right: 105px;
   border: none;
-  background-size: 20px 20px;
-  width: 20px;
-  height: 20px;
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
   display: inline-block;
-  top: 58%;
+  top: 68%;
   transform: translateY(-110%);
 }
 
