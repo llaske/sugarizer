@@ -42,6 +42,7 @@
 	<plugin name="cordova-plugin-ios-longpress-fix" version="1.1.0" />
 	<plugin name="cordova-plugin-qrscanner" version="2.5.0" />
 	<plugin name="cordova-plugin-splashscreen" version="4.1.0" />
+	<plugin name="cordova-plugin-inappbrowser" version="1.0.1" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
