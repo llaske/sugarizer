@@ -19,7 +19,8 @@ enyo.kind({
 				{name: "servertext", content: "xxx", classes: "first-servertext"},
 				{classes: "first-input", components: [
 					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
-				]}
+				]},
+				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "first-qr"}
 			]},
 		]},
 		{name: "passbox", classes: "first-passbox", onresize: "resize", showing: false, components: [
@@ -144,6 +145,7 @@ enyo.kind({
 		case 1: // Server name
 			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
+			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
@@ -474,6 +476,33 @@ enyo.kind({
 			that.step--;
 			if (that.step == 4 && (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && this.createnew))) {
 				that.$.password.startInputListening();
+			}
+		});
+	},
+
+	scanQR: function() {
+		var that = this;
+		QRScanner.prepare(function(err, status) {
+			document.getElementById("toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.opacity = 0;
+			document.getElementById("qrclosebutton").style.visibility = "visible";
+			document.getElementById("qrswitchbutton").style.visibility = "visible";
+			if (err) {
+				console.log("Error "+err);
+			} else {
+				console.log(status);
+				QRScanner.scan(function(err, code) {
+					if (err) {
+						console.log("Error "+err);
+					} else {
+						that.$.server.setValue(code);
+					}
+					document.getElementById("toolbar").style.opacity = 1;
+					document.getElementById("canvas").style.opacity = 1;
+					document.getElementById("qrclosebutton").style.visibility = "hidden";
+					document.getElementById("qrswitchbutton").style.visibility = "hidden";
+				});
+				QRScanner.show(function(status) {});
 			}
 		});
 	},

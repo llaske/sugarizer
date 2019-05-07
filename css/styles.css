@@ -1159,7 +1159,7 @@ body {
 .first-serverline {
 	vertical-align: middle;
 	text-align: center;
-	width: 300px;
+	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1186,6 +1186,46 @@ body {
 	background-color: white;
 }
 
+.first-qr {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.first-qrclose-button {
+	background-image: url(../icons/dialog-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 47px;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	top: 0;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+.first-qrswitch-button {
+	background-image: url(../icons/switch-camera.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	bottom: 10px;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
 .first-passbox {
 	height: 100%;
 	padding-bottom: 100%;
@@ -1194,6 +1234,7 @@ body {
 .first-input {
 	text-align: center;
 	display: inline-block;
+	margin-top: 12px;
 }
 
 .first-warningmessage {
