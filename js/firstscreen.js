@@ -541,6 +541,7 @@ enyo.kind({
 		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
 		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
 		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
+		tutorial.setElement("qrcode", this.$.qrbutton.getAttribute("id"));
 		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
 		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
