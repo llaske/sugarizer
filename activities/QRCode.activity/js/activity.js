@@ -177,6 +177,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 								userText.value = code;
 								generateCode(code);
 							}
+							QRScanner.cancelScan(function(status){});
 							document.getElementById("main-toolbar").style.opacity = 1;
 							document.getElementById("canvas").style.opacity = 1;
 							document.getElementById("close-button").style.visibility = "hidden";

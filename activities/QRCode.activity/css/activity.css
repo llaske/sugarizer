@@ -115,6 +115,8 @@
 	background-image: url(../icons/close.svg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: transparent;
+	background-size: 47px;
 	border: 0;
 	border-radius: 0px;
 	margin: 1px;
@@ -131,6 +133,7 @@
 	background-image: url(../icons/switch-camera.svg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: transparent;
 	border: 0;
 	border-radius: 0px;
 	margin: 1px;
