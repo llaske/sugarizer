@@ -68,6 +68,14 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.name.addClass("rtl-10");
 		}
+		var that = this;
+		this.currentCamera = 0;
+		document.getElementById("qrclosebutton").addEventListener('click', function() {
+			that.closeQR();
+		});
+		document.getElementById("qrswitchbutton").addEventListener('click', function() {
+			that.switchCameraQR();
+		});
 		this.createnew = true;
 		this.step = 0;
 		this.displayStep();
@@ -480,6 +488,7 @@ enyo.kind({
 		});
 	},
 
+	// Handle QR Code scanner
 	scanQR: function() {
 		var that = this;
 		QRScanner.prepare(function(err, status) {
@@ -497,6 +506,7 @@ enyo.kind({
 					} else {
 						that.$.server.setValue(code);
 					}
+					QRScanner.cancelScan(function(status){});
 					document.getElementById("toolbar").style.opacity = 1;
 					document.getElementById("canvas").style.opacity = 1;
 					document.getElementById("qrclosebutton").style.visibility = "hidden";
@@ -505,6 +515,19 @@ enyo.kind({
 				QRScanner.show(function(status) {});
 			}
 		});
+	},
+
+	closeQR: function() {
+		QRScanner.cancelScan(function(status){});
+		document.getElementById("toolbar").style.opacity = 1;
+		document.getElementById("canvas").style.opacity = 1;
+		document.getElementById("qrclosebutton").style.visibility = "hidden";
+		document.getElementById("qrswitchbutton").style.visibility = "hidden";
+	},
+
+	switchCameraQR: function() {
+		this.currentCamera = (this.currentCamera + 1) % 2;
+		QRScanner.useCamera(this.currentCamera, function(err, status){});
 	},
 
 	// Display tutorial
