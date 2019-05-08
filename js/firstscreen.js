@@ -312,7 +312,7 @@ enyo.kind({
 		}
 	},
 	scrollToTop: function() {
-		var nodeName = document.getElementById("firstScreen");
+		var nodeName = this.$.helpbutton.hasNode();
 		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
 			setTimeout(function() {
 				nodeName.scrollIntoView(true);
@@ -491,6 +491,7 @@ enyo.kind({
 	// Handle QR Code scanner
 	scanQR: function() {
 		var that = this;
+		that.scrollToField(that.$.helpbutton);
 		QRScanner.prepare(function(err, status) {
 			document.getElementById("toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.opacity = 0;
@@ -519,6 +520,9 @@ enyo.kind({
 
 	closeQR: function() {
 		QRScanner.cancelScan(function(status){});
+		this.scrollToField(this.$.serverbox);
+		this.$.server.focus();
+		this.$.server.hasNode().select();
 		document.getElementById("toolbar").style.opacity = 1;
 		document.getElementById("canvas").style.opacity = 1;
 		document.getElementById("qrclosebutton").style.visibility = "hidden";
