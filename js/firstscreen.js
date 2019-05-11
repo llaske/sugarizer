@@ -68,14 +68,6 @@ enyo.kind({
 		if (l10n.language.direction == "rtl") {
 			this.$.name.addClass("rtl-10");
 		}
-		var that = this;
-		this.currentCamera = 0;
-		document.getElementById("qrclosebutton").addEventListener('click', function() {
-			that.closeQR();
-		});
-		document.getElementById("qrswitchbutton").addEventListener('click', function() {
-			that.switchCameraQR();
-		});
 		this.createnew = true;
 		this.step = 0;
 		this.displayStep();
@@ -492,46 +484,13 @@ enyo.kind({
 	scanQR: function() {
 		var that = this;
 		that.scrollToField(that.$.helpbutton);
-		QRScanner.prepare(function(err, status) {
-			document.getElementById("toolbar").style.opacity = 0;
-			document.getElementById("canvas").style.opacity = 0;
-			document.getElementById("qrclosebutton").style.visibility = "visible";
-			document.getElementById("qrswitchbutton").style.visibility = "visible";
-			if (err) {
-				console.log("Error "+err);
-			} else {
-				console.log(status);
-				QRScanner.scan(function(err, code) {
-					if (err) {
-						console.log("Error "+err);
-					} else {
-						that.$.server.setValue(code);
-					}
-					QRScanner.cancelScan(function(status){});
-					document.getElementById("toolbar").style.opacity = 1;
-					document.getElementById("canvas").style.opacity = 1;
-					document.getElementById("qrclosebutton").style.visibility = "hidden";
-					document.getElementById("qrswitchbutton").style.visibility = "hidden";
-				});
-				QRScanner.show(function(status) {});
-			}
+		util.scanQRCode(function(code) {
+			that.$.server.setValue(code);
+		}, function() {
+			that.scrollToField(that.$.serverbox);
+			that.$.server.focus();
+			that.$.server.hasNode().select()
 		});
-	},
-
-	closeQR: function() {
-		QRScanner.cancelScan(function(status){});
-		this.scrollToField(this.$.serverbox);
-		this.$.server.focus();
-		this.$.server.hasNode().select();
-		document.getElementById("toolbar").style.opacity = 1;
-		document.getElementById("canvas").style.opacity = 1;
-		document.getElementById("qrclosebutton").style.visibility = "hidden";
-		document.getElementById("qrswitchbutton").style.visibility = "hidden";
-	},
-
-	switchCameraQR: function() {
-		this.currentCamera = (this.currentCamera + 1) % 2;
-		QRScanner.useCamera(this.currentCamera, function(err, status){});
 	},
 
 	// Display tutorial

@@ -1186,6 +1186,17 @@ body {
 	background-color: white;
 }
 
+.first-qrbackground {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height:100vh;
+	visibility: visible;
+	background-color: transparent;
+	z-index: 4;
+}
+
 .first-qr {
 	display: inline-block;
 	margin-left: 20px;
@@ -1202,7 +1213,7 @@ body {
 	margin: 1px;
 	width: 42px;
 	height: 42px;
-	top: 0;
+	top: 10px;
 	left: 95%;
 	position: absolute;
 	visibility: hidden;
@@ -1691,6 +1702,11 @@ body {
 
 .aboutserver-servername:focus {
 	background-color: white;
+}
+
+.aboutserver-qr {
+	display: inline-block;
+	margin-left: 20px;
 }
 
 .aboutserver-userlabel {

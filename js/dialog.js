@@ -806,7 +806,8 @@ enyo.kind({
 			{name: "textconnected", content: "xxx", classes: "aboutserver-message"},
 			{components:[
 				{name: "textservername", content: "xxx", classes: "aboutserver-serverlabel"},
-				{name: "servername", kind: "Input", classes: "aboutserver-servername", onkeydown: "enterclick"}
+				{name: "servername", kind: "Input", classes: "aboutserver-servername", onkeydown: "enterclick"},
+				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "aboutserver-qr", showing: false}
 			]},
 			{name: "serversettingsname", classes: "aboutserver-settingsname"},
 			{name: "serversettingsvalue", classes: "aboutserver-settingsvalue"},
@@ -896,6 +897,7 @@ enyo.kind({
 			vservername = false,
 			vserversettingsvalue = false,
 			vserverdescriptionvalue = false,
+			vserverqr = false,
 			vtextusername = false,
 			vusername = false,
 			vnext = false,
@@ -907,6 +909,7 @@ enyo.kind({
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
 			vtextservername = vservername = vnext = true;
+			vserverqr = (enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
 			this.$.password.startInputListening();
@@ -928,6 +931,7 @@ enyo.kind({
 		this.$.serverdescription.setShowing(vserverdescription);
 		this.$.textservername.setShowing(vtextservername);
 		this.$.servername.setShowing(vservername);
+		this.$.qrbutton.setShowing(vserverqr);
 		this.$.serversettingsvalue.setShowing(vserversettingsvalue);
 		this.$.serverdescriptionvalue.setShowing(vserverdescriptionvalue);
 		this.$.textusername.setShowing(vtextusername);
@@ -1081,6 +1085,24 @@ enyo.kind({
 		}
 		preferences.save();
 		util.restartApp();
+	},
+
+	// Handle QR Code scanner
+	scanQR: function() {
+		var that = this;
+		var toolbar = document.getElementById("toolbar");
+		this.hide();
+		toolbar.style.visibility = 'hidden';
+		util.scanQRCode(function(code) {
+			toolbar.style.visibility = 'visible';
+			that.show();
+			that.$.servername.setValue(code);
+		}, function() {
+			toolbar.style.visibility = 'visible';
+			that.show();
+			that.$.servername.focus();
+			that.$.servername.hasNode().select()
+		});
 	},
 
 	// Utility
