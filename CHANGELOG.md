@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Constellation activity
 - Pomodoro activity
+- QR Code for scanning server URL on iOS/Android
+- Tutorial step 7: use journal chooser dialog
+- Tutorial step 8: create your own palette
 
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
@@ -33,7 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Gear colours are reset on resume #336
 - Added Tool tips to Calculate Activity
 - Users should be able to send images in chat prototype #330
-- No erase button for recordings in Record activity #344 
+- No erase button for recordings in Record activity #344
 
 
 ## [1.1.0] - 2019-01-20
