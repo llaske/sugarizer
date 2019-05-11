@@ -142,7 +142,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				senddata(message,'text');
 
 				// Send the message through the WebSocket.
-				
+
 
                 // Clear out the message field
 				messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -160,7 +160,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 					return;
 				}
 				// Get object content
-				let src;
 				var dataentry = new datastore.DatastoreObject(entry.objectId);
 				dataentry.loadAsText(function (err, metadata, data) {
 					senddata(data,'image');
