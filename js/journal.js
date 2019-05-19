@@ -967,11 +967,21 @@ enyo.kind({
 			{classes: "item-name", content: l10n.get("AllType")}
 		], ontap: "tapLine"});
 		var activities = preferences.getActivities();
+		var unsortedItems = [];
 		for(var i = 0 ; i < activities.length ; i++) {
-			items.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
+			unsortedItems.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
 				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
 				{classes: "item-name", content: activities[i].name}
 			], ontap: "tapLine"});
+		}
+		unsortedItems.sort(function(a,b) {
+			var ca = a.components[1].content, cb = b.components[1].content;
+			if (ca > cb) { return 1; }
+			else if (ca < cb) { return -1; }
+			else return 0;
+		});
+		for (var i = 0 ; i < unsortedItems.length ; i++) {
+			items.push(unsortedItems[i]);
 		}
 		this.$.typepalette.setItems(items);
 
