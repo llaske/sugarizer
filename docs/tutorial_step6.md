@@ -181,7 +181,7 @@ Now that our activity is shared, we have to slightly update the Plus button list
 
 If the activity is connected (i.e. presence is not null), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The first parameter of this method is the id of the share. We could retrieve this id from the presence object by `getSharedInfo().id`. The second parameter is just the message. We decided to split the message in two parts: informations about `user` that sent the message and the `content`, the user color. The user info is get from presence object using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
 
-That's all we need to create the shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when an user click on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
+That's all we need to create the shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
 
 
 	env.getEnvironment(function(err, environment) {
