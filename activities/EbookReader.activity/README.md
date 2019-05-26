@@ -11,7 +11,7 @@ By default the activity call the library to the URL `http://sugarizer.org/conten
 
 Once read, the library content is set in the Journal so this URL will not be read again for this instance.
 
-An user could change this URL by clicking on the Settings icon of the toolbar. So, because the library content is set in the Journal, you could have in your Journal Ebook reader activity instance with libraries coming from different places.
+A user could change this URL by clicking on the Settings icon of the toolbar. So, because the library content is set in the Journal, you could have in your Journal Ebook reader activity instance with libraries coming from different places.
 
 The result of the URL call should be a JSON object describing the content of the library.
 Here is an example of this JSON file:

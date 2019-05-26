@@ -31,13 +31,13 @@ And you're now connected.
 
 ### What is meant by sharing an instance
 
-Suppose that Michaël, an user connected on the same server than you want to Chat. He will launch the Chat activity.
+Suppose that Michaël, a user connected on the same server as you wants to Chat. He will launch the Chat activity.
 
 ![](images/tutorial_step6_4.png)
 
 ***Tip***: *To connect to Sugarizer with two users on the same computer, open a new "in private" browser window. So you will be able to create a new user. It's what we've done here and what we'll do below to simulate the user Michaël.*
 
-Then, once the activity will be open, he will share the activity by clicking on the toolbar Neighborhood button in the Network palette. It's a way for the user to say: *"I want to share my activity on the network"*.  
+Then, once the activity is open, he can share the activity by clicking on the toolbar Neighborhood button in the Network palette. It's a way for the user to say: *"I want to share my activity on the network"*.  
 
 ![](images/tutorial_step6_5.png)
 

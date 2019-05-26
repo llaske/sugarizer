@@ -41,7 +41,7 @@ Note that in the Journal you will see also your new Pawn activity. Let's see how
 
 ### Identify the context
 
-The "context" for our Pawn activity is the current number of pawns on the board. So an user could expect to retrieve the same number of pawns when he reopen the activity.
+The "context" for our Pawn activity is the current number of pawns on the board. So a user could expect to retrieve the same number of pawns when he reopens the activity.
 
 Let's try to implement it.
 
