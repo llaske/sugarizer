@@ -218,10 +218,7 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-	// On OS X force quit like on other platforms
-	if (process.platform == 'darwin') {
-		app.quit()
-	}
+	app.quit()
 });
 
 app.on('activate', function () {
