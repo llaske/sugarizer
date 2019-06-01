@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Users should be able to send images in chat prototype #330
 - No erase button for recordings in Record activity #344
 - Order Journal filter by activity name
+- Snapcraft version lost context #346
+- Snapcraft version don't allow to import/export file into/from Journal #350
 
 
 ## [1.1.0] - 2019-01-20
