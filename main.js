@@ -120,7 +120,7 @@ function createWindow () {
 	}
 
 	// Wait for 'ready-to-show' to display our window
-	mainWindow.once('ready-to-show', function() {
+	mainWindow.webContents.once('did-finish-load', function() {
 		// Initialize locales
 		l10n.init();
 
