@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Snapcraft version lost context #346
 - Snapcraft version don't allow to import/export file into/from Journal #350
 - Update home image for TankOp activity
+- Grammatical Errors in the Documentation #347 
 
 
 ## [1.1.0] - 2019-01-20
