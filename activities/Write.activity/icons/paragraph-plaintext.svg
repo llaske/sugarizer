@@ -1,0 +1,18 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC "-//W3C//DTD SVG 1.1//EN"  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg enable-background="new 0 0 55 55" height="55px" style="" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+    <g display="block" id="paragraph-plaintext">
+        <text x="8" y="31.5" font-size="28" font-family="Bitstream Vera" font-weight="bold" font-style="italic" fill="&fill_color;" stroke="none">T</text>
+        <text x="31" y="42.5" font-size="28" font-family="Bitstream Vera Sans" font-weight="normal" fill="&fill_color;" stroke="none">T</text>
+        <g transform="translate(8,34)">
+            <g transform="rotate(-45)">
+                <g transform="scale(0.6)">
+                    <line fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" x1="28.376" x2="28.376" y1="30.664" y2="5.712"/>
+                    <polyline fill="none" points="36.098,21.51 28.376,30.664 20.653,21.51" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

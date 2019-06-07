@@ -1,0 +1,79 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #edit-text {
+  background-image: url(../icons/scissors.svg);
+}
+
+#main-toolbar #format-text {
+  background-image: url(../icons/format-text.svg);
+}
+
+#main-toolbar #paragraph {
+  background-image: url(../icons/paragraph.svg);
+}
+
+#main-toolbar #list {
+  background-image: url(../icons/list-none.svg);
+}
+
+#main-toolbar #font-button {
+  background-image: url(../icons/font-text.svg);
+}
+
+#main-toolbar #resize-inc{
+  background-image: url(../icons/resize+.svg);
+}
+
+#main-toolbar #resize-dec {
+  background-image: url(../icons/resize-.svg);
+}
+
+#textarea {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-notselected {
+  background-color: transparent;
+}
+
+.palette-button-selected {
+  background-color: #9c9a9c;
+}
+.colorpalette {
+	z-index: 20;
+}
+.palette .colors {
+  list-style-type: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.palette .colors button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: white;
+  margin-left: 5.5px;
+  margin-top: 5.5px;
+}
+.palette .colors tr:nth-last-child(1) button {
+  margin-bottom: 5.5px;
+}
