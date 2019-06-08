@@ -43,6 +43,11 @@
   z-index: 3;
 }
 
+#main-toolbar #pause-button {
+  background-image: url(../icons/pause-play.svg);
+  z-index: 3;
+}
+
 #main-toolbar #stop-button {
   z-index: 3;
 }

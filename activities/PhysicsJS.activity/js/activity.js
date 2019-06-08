@@ -11,6 +11,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var sensorButton = document.getElementById("sensor-button");
 		var gravityButton = document.getElementById("gravity-button");
 		var appleButton = document.getElementById("apple-button");
+		var pauseButton = document.getElementById("pause-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
@@ -34,6 +35,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var init = false;
 		var gravityMode = 0;
 		var currentType = 0;
+		var physicsActive = true;
 		Physics({ timestep: 6 }, function (world) {
 
 			// bounds of the window
@@ -116,6 +118,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 			gravityButton.addEventListener('click', function () {
 				setGravity((gravityMode + 1)%8);
+			}, true);
+
+			pauseButton.addEventListener('click', function () {
+				togglePause();
 			}, true);
 
 			document.getElementById("clear-button").addEventListener('click', function () {
@@ -381,6 +387,17 @@ define(["sugar-web/activity/activity"], function (activity) {
 					newOptions.vertices = savedObject.vertices;
 				}
 				return Physics.body(savedObject.type, newOptions);
+			}
+
+			function togglePause() {
+			    if (physicsActive) {
+					document.getElementById("pause-button").classList.add('active');
+					world.pause();
+				} else {
+					document.getElementById("pause-button").classList.remove('active');
+					world.unpause();
+				}
+				physicsActive = !physicsActive;
 			}
 
 			// Change gravity value
