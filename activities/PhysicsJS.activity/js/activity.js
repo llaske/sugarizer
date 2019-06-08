@@ -389,13 +389,28 @@ define(["sugar-web/activity/activity"], function (activity) {
 				return Physics.body(savedObject.type, newOptions);
 			}
 
+			function setBodiesTreatmentStatic() {
+				var bodies = world.getBodies();
+				bodies.forEach(function(item, index, array) {
+					item.treatment = 'static';
+				});
+			}
+
+			function setBodiesTreatmentDynamic() {
+				var bodies = world.getBodies();
+				bodies.forEach(function(item, index, array) {
+					item.treatment = 'dynamic';
+				});
+			}
+
 			function togglePause() {
 			    if (physicsActive) {
 					document.getElementById("pause-button").classList.add('active');
-					world.pause();
+					setBodiesTreatmentStatic();
 				} else {
 					document.getElementById("pause-button").classList.remove('active');
-					world.unpause();
+					Physics.util.ticker.start();
+					setBodiesTreatmentDynamic();
 				}
 				physicsActive = !physicsActive;
 			}
@@ -477,11 +492,13 @@ define(["sugar-web/activity/activity"], function (activity) {
 					}
 				}
 				,'interact:release': function( pos ){
-					if (createdBody != null) {
-						createdBody.treatment = "dynamic";
-						createdBody = null;
+					if (physicsActive) {
+						if (createdBody != null) {
+							createdBody.treatment = "dynamic";
+						}
+						world.wakeUpAll();
 					}
-					world.wakeUpAll();
+					createdBody = null;
 				}
 				,'interact:grab': function ( data ) {
 					if (currentType == -1) {
