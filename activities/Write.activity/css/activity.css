@@ -37,6 +37,11 @@
   overflow-x: hidden;
 }
 
+#canvas{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .palette-button {
   width: 47px;
   height: 47px;

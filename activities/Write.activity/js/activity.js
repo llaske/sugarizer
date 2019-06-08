@@ -104,7 +104,7 @@ define([
         // Initiating colour palette for foreground and background
         var forecolorButton = document.getElementById("color-button-1");
         var changeForeColorPalette = new colorpalette.ColorPalette(forecolorButton);
-        changeForeColorPalette.setColor('rgb(150, 0, 0)');
+        changeForeColorPalette.setColor('rgb(0, 0, 0)');
 		changeForeColorPalette.addEventListener('colorChange', function(e) {
             var forergb = e.detail.color;
             var forehex = rgb2hex(forergb);
@@ -113,7 +113,7 @@ define([
         
         var backcolorButton = document.getElementById("color-button-2");
         var changeBackColorPalette = new colorpalette.ColorPalette(backcolorButton);
-        changeBackColorPalette.setColor('rgb(0, 0, 150)');
+        changeBackColorPalette.setColor('rgb(255,255,255)');
 		changeBackColorPalette.addEventListener('colorChange', function(e) {
             var backrgb = e.detail.color;
             var backhex = rgb2hex(backrgb);
