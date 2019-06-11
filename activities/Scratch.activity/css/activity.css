@@ -28,6 +28,10 @@
     font: 400 11px system-ui;
 }
 
+.offlinemode {
+    color: red;
+}
+
 body {
   overflow-x: hidden;
   overflow-y: hidden;

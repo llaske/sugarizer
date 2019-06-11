@@ -220,14 +220,15 @@ On Android, if you want to generate the Sugarizer OS version, remove the Sugariz
 
 # Reduce package size
 
-The current size of Sugarizer is about 300 Mb. This huge size is related to media content and resources include in two activities:
+The current size of Sugarizer is more than 350 Mb. This huge size is related to media content and resources include in three activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb
+* **Scratch activity**: about 50 Mb
 
-By the way, both activities are able to retrieve the content remotely if its not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those two activities or just remove the media content of this activities.
+By the way, these activities are able to retrieve the content remotely if its not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those three activities or just remove the media content of these activities.
 
-To remove activities, just remove both activities directory and update [activities.json](activities.json) file as explain above.
+To remove activities, just remove these activities directory and update [activities.json](activities.json) file as explain above.
 
 To remove media content for **Abecedarium**, remove directories:
 
@@ -238,7 +239,9 @@ To remove media content for **Abecedarium**, remove directories:
 
 The activity will look for media content on the server referenced in [activities/Abecedarium.activity/config.js](activities/Abecedarium.activity/config.js), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
 
-To remove resources for **Etoys**, remove directory [activities/Etoys.activities/resources](activities/Etoys.activities/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activities/index.html](activities/Etoys.activities/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+
+To remove resources for **Scratch**, remove directory [activities/Scratch.activity/static/internal-assets](activities/Scratch.activity/static/internal-assets) and remove the value `class="offlinemode"` in [activities/Scratch.activity/index.html](activities/Scratch.activity/index.html).
 
 # Optimize performance
 
