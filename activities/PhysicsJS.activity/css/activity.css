@@ -43,9 +43,13 @@
   z-index: 3;
 }
 
-#main-toolbar #pause-button {
-  background-image: url(../icons/pause-play.svg);
-  z-index: 3;
+#run-button {
+	background-image: url(../icons/play.svg);
+	z-index:3;
+}
+
+#run-button.running{
+	background-image: url(../icons/pause.svg);
 }
 
 #main-toolbar #stop-button {

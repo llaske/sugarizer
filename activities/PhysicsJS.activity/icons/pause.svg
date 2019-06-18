@@ -3,9 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="55px" height="55px" viewBox="0 0 55 55" enable-background="new 0 0 55 55" xml:space="preserve">
-<g id="Triangle">
-	<polygon fill="#FFFFFF" points="8.11,12.85 33.243,27.361 8.11,41.87 	"/>
-</g>
-<rect x="42.341" y="12.85" fill="#FFFFFF" width="4.549" height="29.021"/>
-<rect x="35.519" y="12.85" fill="#FFFFFF" width="4.549" height="29.021"/>
+<rect width="55" height="55"/>
+<rect x="15.121" y="9.361" fill="#FFFFFF" width="7.2" height="36"/>
+<rect x="32.4" y="9.36" fill="#FFFFFF" width="7.2" height="36"/>
 </svg>

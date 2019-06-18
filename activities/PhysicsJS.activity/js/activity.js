@@ -11,7 +11,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var sensorButton = document.getElementById("sensor-button");
 		var gravityButton = document.getElementById("gravity-button");
 		var appleButton = document.getElementById("apple-button");
-		var pauseButton = document.getElementById("pause-button");
+		var runButton = document.getElementById("run-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
@@ -120,7 +120,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				setGravity((gravityMode + 1)%8);
 			}, true);
 
-			pauseButton.addEventListener('click', function () {
+			runButton.addEventListener('click', function () {
 				togglePause();
 			}, true);
 
@@ -405,10 +405,12 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 			function togglePause() {
 			    if (physicsActive) {
-					document.getElementById("pause-button").classList.add('active');
+					document.getElementById("run-button").classList.remove('running');
+					document.getElementById("run-button").setAttribute('title', 'Play');
 					setBodiesTreatmentStatic();
 				} else {
-					document.getElementById("pause-button").classList.remove('active');
+					document.getElementById("run-button").classList.add('running');
+					document.getElementById("run-button").setAttribute('title', 'Pause');
 					Physics.util.ticker.start();
 					setBodiesTreatmentDynamic();
 				}
