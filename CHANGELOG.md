@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Constellation activity
 - Pomodoro activity
 - QR Code for scanning server URL on iOS/Android
+- Update to official Scratch 3.3 release
+- Support for localization in Scratch
 - Tutorial step 7: use journal chooser dialog
 - Tutorial step 8: create your own palette
 
@@ -41,7 +43,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Snapcraft version lost context #346
 - Snapcraft version don't allow to import/export file into/from Journal #350
 - Update home image for TankOp activity
-- Grammatical Errors in the Documentation #347 
+- Grammatical Errors in the Documentation #347
+- Now support offline mode on Scratch for iOS
 
 
 ## [1.1.0] - 2019-01-20
