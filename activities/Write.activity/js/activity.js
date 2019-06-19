@@ -10,16 +10,41 @@ define([
     "sugar-web/graphics/colorpalette",
     "activity/palettes/format-text-palette",
     "activity/palettes/font-palette",
-], function (activity, env, icon, webL10n, presencepalette, editpalette , parapalette , listpalette , colorpalette, formatpalette , fontPalette) {
+    "sugar-web/datastore",
+    "sugar-web/graphics/journalchooser",
+    "activity/palettes/export-palette",
+], function (activity, env, icon, webL10n, presencepalette, editpalette , parapalette , listpalette , colorpalette, formatpalette , fontPalette , datastore , journalchooser , exportpalette ) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
         activity.setup();
+
+        // Load From datastore
+        env.getEnvironment(function(err, environment) {
+            
+            currentenv = environment;
+
+            if (!environment.objectId) {
+                // New instance
+                // Set focus on textarea
+                richTextField.focus();
+                // Set Arial as default font 
+                richTextField.document.execCommand("fontName",false,"Arial");
+                // Set 4 as default font size
+                richTextField.document.execCommand("fontSize",false,"4");
+            } else {
+                // Existing instance
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        html = JSON.parse(data);
+                        richTextField.document.getElementsByTagName('body')[0].innerHTML = html;
+                    }
+                });
+            }
+        });
         
-        // Setting default font settings ( Will be removed after journal integration 
-        // and will be invoked only for new activity)
         // Set focus on textarea
         richTextField.focus();
         // Set Arial as default font 
@@ -70,10 +95,24 @@ define([
         });
 
         document.getElementById("5").addEventListener("click",function(){
-            richTextField.document.execCommand("justifyLeft",false,null);
+   
+            if(!currentImage){
+                richTextField.document.execCommand("justifyLeft",false,null);
+            } else {
+                // Float left for images
+                var image = richTextField.document.getElementById(currentImage);
+                image.style.cssFloat = "left";
+            }
         })
         document.getElementById("6").addEventListener("click",function(){
-            richTextField.document.execCommand("justifyRight",false,null);
+            
+            if(!currentImage){
+                richTextField.document.execCommand("justifyRight",false,null);
+            } else {
+                // Float right for images
+                var image = richTextField.document.getElementById(currentImage);
+                image.style.cssFloat = "right";
+            }
         });
         document.getElementById("7").addEventListener("click",function(){
             richTextField.document.execCommand("justifyCenter",false,null);
@@ -163,25 +202,104 @@ define([
             richTextField.document.execCommand("fontName",false,newfont);
         });
 
-        // Set the functioning of increase and decrease of font size
+        // Set the functioning of increase and decrease of font size and selected image
         // Increase
         document.getElementById("resize-inc").addEventListener('click',function(e){
             var cursize = richTextField.document.queryCommandValue ('fontSize');
+            if(!cursize) cursize=4;
             cursize++;
             richTextField.document.execCommand("fontSize",false,cursize);
+            // Resize for images
+            if(currentImage){
+                var image = richTextField.document.getElementById(currentImage);
+                var curwidth = image.offsetWidth;
+                curwidth=curwidth+20;
+                image.style.width=curwidth+"px";
+            }
         });
         // Decrease
         document.getElementById("resize-dec").addEventListener('click',function(e){
             var cursize = richTextField.document.queryCommandValue ('fontSize');
             cursize--;
             richTextField.document.execCommand("fontSize",false,cursize);
+            // Resize for images
+            if(currentImage){
+                var image = richTextField.document.getElementById(currentImage);
+                var curwidth = image.offsetWidth;
+                console.log(curwidth);
+                curwidth=curwidth-80;
+                image.style.width=curwidth+"px";
+            }
         });
 
-        // Journal handling ( Load and save )
+        // Images Handling
+	
+        // variable to maintain id of current image
+        var currentImage;
+        var imgSrcs = [];
+        var borderurl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM4SURBVHhe7du9bRtBFIVRNeHcLaoXV6HMgZpw7EwVOFDgTJk8GxgwiMc7GHl34fU7B7gZgeHPfgRIgg8AAAAAAAAAAAAAAAAAH/Q09n7CDlEdtPe2J4i+BDKZQHoTyGQC6U0gkwmkN4FMJpDeBDKZQHoTyGQC6U0gkwmkN4FM9jL2xdpue/2r62LvHaI6yOyKO0R1kNkVd4jqILMr7hDVQWZX3CGqg8yuuENUB+29r2OfrO2217+6LvbeIaqD9p7fQXrzO8hkAulNIJMJpDeBTCaQ3gQymUB6E8hkAulNIJMJpDeBTCaQ3gQymUB6E8hkAuntcWy7Bu7t3v9Fnseq29/bIaqD7u1t7PZBvI5Vt/1z2xME92x/qrq9rrZ9HruUH2O3D+LbGPwNgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUBwuUCe7uxt7PZBvI5Vt53tcQw2lwukurN7b4uEPrY3xNs3yd97Gauukeex6vZpp6ju7N477cHwT9he7+o62HunqA7eewLpRSCLE0gvAlmcQHoRyOIE0otAFieQXgSyOIH0IpDFCaQXgSxOIL0IZHEC6UUgixNILwJZnEB6Ecjifo59tzbbXu/qOth7p6gONrvCTlEdbHaFnaI62OwKO0V1sNkVdorq4L3nQ3qv+ZC+OF/z9uJr3sUJpBeBLE4gvQhkcQLpRSCLE0gvAlmcQHr5rwKBvQkEAAAAAAAAAAAAAACAD3p4+AULle55ucyNGwAAAABJRU5ErkJggg=="
+        //  Insert image Handling
+        document.getElementById("insert-picture").addEventListener('click', function (e) {
+            journalchooser.show(function (entry) {
+                //  No selection
+                if (!entry) {
+                    return;
+                }
+                //  Get object content
+                var dataentry = new datastore.DatastoreObject(entry.objectId);
+                dataentry.loadAsText(function (err, metadata, data) {
+                    img=data.toString();
+                    var id = "rand" + Math.random();
+                    img = "<img src='" + img + "' id=" + id + " style='float:none'>";
+                    richTextField.document.execCommand("insertHTML", false, img);
+                    richTextField.document.getElementById(id).addEventListener("click",function(){
+                    var imgs = richTextField.document.getElementsByTagName("img");
+                    for (var i = 0; i < imgs.length; i++) {
+                        imgSrcs.push(imgs[i].id);
+                    }
+                    console.log(imgSrcs);
+                        if(id==currentImage){
+                            console.log("Unselect mode");
+                            for(var i=0 ; i < imgSrcs.length ; i++){
+                                var i = richTextField.document.getElementById(imgSrcs[i]);
+                                i.style.border = "none";
+                                i.style.borderImage = "none";
+                            }
+                            currentImage=null;
+                        } else {
+                            console.log("select mode");
+                            currentImage=id;
+                            for(var i=0 ; i < imgSrcs.length ; i++){
+                                if(imgSrcs[i]!=currentImage){
+                                    var i = richTextField.document.getElementById(imgSrcs[i]);
+                                    i.style.border = "none";
+                                    i.style.borderImage = "none";
+                                } else {
+                                    var i = richTextField.document.getElementById(imgSrcs[i]);
+                                    i.style.border = "30px solid transparent";
+                                    i.style.borderImage = "url("+borderurl+") 45 round";
+                                }
+                            }
+                        }
+                        
+                    });
+                });
+            }, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+        });
+        
+        
+        // Journal handling ( save )
 
         // Save in Journal on Stop
         document.getElementById("stop-button").addEventListener('click', function (event) {
             
+            // Remove image border's if image left selected
+            for(var i=0 ; i < imgSrcs.length ; i++){
+                var i = richTextField.document.getElementById(imgSrcs[i]);
+                i.style.border = "none";
+                i.style.borderImage = "none";
+            }
+            // Journal handling
             var data = richTextField.document.getElementsByTagName('body')[0].innerHTML ;
             var jsondata = JSON.stringify(data);
             activity.getDatastoreObject().setDataAsText(jsondata);
@@ -195,27 +313,56 @@ define([
             
         });
 
-        // Load From datastore
-        env.getEnvironment(function(err, environment) {
-            
-            currentenv = environment;
+        // Initiating export-palette ( for cut/copy/undo/redo )
 
-            if (!environment.objectId) {
-                // New instance
-            } else {
-                // Existing instance
-                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-                    if (error==null && data!=null) {
-                        html = JSON.parse(data);
-                        richTextField.document.getElementsByTagName('body')[0].innerHTML = html;
-                        console.log(html);
-                    }
-                });
-            }
+		var exportButton = document.getElementById("export");
+        var options = [
+            {"id": 15, "title": "export to txt" , "cmd":"save-as-txt"},
+            {"id": 16, "title": "export to html", "cmd":"save-as-html"},
+            {"id": 17, "title": "export to pdf", "cmd":"save-as-pdf"},
+        ];
+        exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
+        exportpalette.setCategories(options);
+        exportpalette.addEventListener('export', function () {
+            exportpalette.popDown();
         });
 
+        // save as txt
+        document.getElementById("15").addEventListener('click',function(){
+            // Remove image border's if image left selected
+            for(var i=0 ; i < imgSrcs.length ; i++){
+                var i = richTextField.document.getElementById(imgSrcs[i]);
+                i.style.border = "none";
+                i.style.borderImage = "none";
+            }
+            var content = richTextField.document.getElementsByTagName('body')[0].textContent ;
+            var link = document.createElement('a');
+            var mimeType='text/plain';
+            link.setAttribute('download','download.txt');
+            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(content));
+            document.body.append(link);
+            link.click();
+            document.body.removeChild(link);
+        });
         
-        
+        // save as html
+        document.getElementById("16").addEventListener('click',function(){
+            // Remove image border's if image left selected
+            for(var i=0 ; i < imgSrcs.length ; i++){
+                var i = richTextField.document.getElementById(imgSrcs[i]);
+                i.style.border = "none";
+                i.style.borderImage = "none";
+            }
+            var content = richTextField.document.getElementsByTagName('body')[0].innerHTML ;
+            var link = document.createElement('a');
+            var mimeType='text/html';
+            link.setAttribute('download','download.html');
+            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(content));
+            document.body.append(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
 	});
 
 });

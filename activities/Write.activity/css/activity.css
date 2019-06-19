@@ -30,11 +30,27 @@
   background-image: url(../icons/resize-.svg);
 }
 
+#main-toolbar #insert-picture {
+  background-image: url(../icons/insert-picture.svg);
+}
+
+#main-toolbar #insert-table {
+  background-image: url(../icons/create-table.svg);
+}
+
+#main-toolbar #export {
+  background-image: url(../icons/file-export.svg);
+}
+
 #textarea {
   margin: 0px;
   height: 100%;
   width: 100%;
   overflow-x: hidden;
+}
+
+#textarea div {
+  display: inline;
 }
 
 #canvas{

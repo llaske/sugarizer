@@ -16,7 +16,7 @@ define([
       this.fontChangeEvent.initCustomEvent('fontChange', true, true, {
         'family': 'Arial'
       });
-      this.template = '<center><table><tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button lineHeight="{{lineHeight}}" title="{{fontFamily}}" style="height:55px; width:55px; background-size:40px !important;  background: #fff url({{ icon }}) no-repeat center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody></table></center>' + '<br/>';
+      this.template = '<center style="padding-top:6px ; "><table><tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button lineHeight="{{lineHeight}}" title="{{fontFamily}}" style="height:55px; width:55px; background-size:40px !important;  background: #fff url({{ icon }}) no-repeat center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody></table></center>' + '<br/>';
       var rows = [
         [{
           icon: 'icons/font-arial.svg',
