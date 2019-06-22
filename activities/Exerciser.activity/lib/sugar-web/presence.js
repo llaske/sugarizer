@@ -52,9 +52,9 @@ define(function (require) {
 				}
 
 				// Call the matching callback
-                if (json.type < callbackArray.length) {
-                    callbackArray[json.type](json.data);
-                }else
+				if (json.type < callbackArray.length)
+					callbackArray[json.type](json.data);
+				else
 					console.log('Presence API error, unknown callback type:'+json.type);
 			};
 		}
@@ -71,7 +71,7 @@ define(function (require) {
 
 	// Test if connected to network
 	SugarPresence.prototype.isConnected = function() {
-		return (this.socket != null && this.socket.readyState == 1);
+		return (this.socket != null);
 	}
 
 	// Get user info
