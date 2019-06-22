@@ -74,6 +74,8 @@ enyo.kind({
 					that.getToolbar().showServerWarning(!success);
 				}
 			});
+		} else {
+			util.updateFavicon();
 		}
 
 		// Launch tutorial at first launch
@@ -171,6 +173,7 @@ enyo.kind({
 			networkId,
 			function(inSender, inResponse) {
 				var changed = preferences.merge(inResponse);
+				util.updateFavicon();
 				if (changed) {
 					preferences.save();
 					util.restartApp();

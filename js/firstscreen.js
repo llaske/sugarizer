@@ -71,6 +71,7 @@ enyo.kind({
 		this.createnew = true;
 		this.step = 0;
 		this.displayStep();
+		util.updateFavicon();
 
 		// Get server information
 		this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
