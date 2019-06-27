@@ -10,6 +10,10 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/libnotify.css">
+<script src="js/export-to-PDF/jspdf.min.js"></script>
+<script src="js/export-to-PDF/html2canvas.js"></script>
+<script src="js/export-to-PDF/script.js"></script>
 <script data-main="js/loader" src="lib/require.js"></script>
 <script src="js/editor.js"></script>
 </head>
@@ -19,6 +23,7 @@
   <button class="toolbutton" id="activity-button" title="Write Activity"></button>
 
   <!-- Add more buttons here -->
+  <button class="toolbutton" id="network-button" title="Network"></button>
   <button class="toolbutton" id="export" title="Export"></button>
   <button class="toolbutton" id="edit-text" title="edit text"></button>
   <button class="toolbutton" id="paragraph" title="paragraph"></button>
@@ -42,7 +47,6 @@
   <iframe id="textarea" name="richTextField"></iframe>
 
 </div>
-
 </body>
 
 </html>
