@@ -76,7 +76,6 @@ define([
                 for (var i = 0; i < imgs.length; i++) {
                     imgSrcs[i]=imgs[i].id;
                 }
-                
                 imgSrcs.forEach(function (id, index) {
                     text.getElementById(id).addEventListener("click",function(){
                         if(id==currentImage){
@@ -102,8 +101,15 @@ define([
                         }
                         
                     })
-                  });
+                    if(currentImage){
+                        var selectimage = text.getElementById(currentImage);
+                        selectimage.style.border = "30px solid transparent";
+                        selectimage.style.borderImage = "url("+borderurl+") 45 round";
+                    }
+                    
+                });
             }
+            
         }
         
 		
