@@ -763,8 +763,9 @@ enyo.kind({
 	},
 
 	reinit: function() {
-		util.cleanDatastore(true);
-		util.restartApp();
+		util.cleanDatastore(true, function() {
+			util.restartApp();
+		});
 	},
 
 	switchInit: function() {
@@ -1403,8 +1404,9 @@ enyo.kind({
 	ok: function() {
 		this.hide();
 		preferences.addUserInHistory();
-		util.cleanDatastore();
-		util.restartApp();
+		util.cleanDatastore(null, function() {
+			util.restartApp();
+		});
 	}
 });
 
