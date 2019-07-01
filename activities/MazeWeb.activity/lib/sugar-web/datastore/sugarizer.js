@@ -358,7 +358,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		};
 		request.onsuccess = function(event) {
 			if (then) {
-				then(null, request.result?request.result.text:undefined);
+				then(null, request.result?request.result.text:null);
 			}
 		};
 	};
