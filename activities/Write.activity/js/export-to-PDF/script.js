@@ -1,6 +1,6 @@
 function downloadPDF(){
-    richTextField.document.body.scrollTop = richTextField.document.documentElement.scrollTop = 0;
-    html2canvas(richTextField.document.getElementsByTagName('body')[0],{
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    html2canvas(document.getElementById("textarea"),{
         onrendered : function(canvas){
             var imgData = canvas.toDataURL('image/png');
 
