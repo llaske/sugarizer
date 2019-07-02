@@ -21,7 +21,7 @@ function restoreRangePosition(textarea)
 textarea.focus();
 var sel=window.getSelection(),range=sel.getRangeAt(0);
 var x,C,sC=textarea,eC=textarea;
-
+if (typeof rp === 'undefined') return;
 C=rp.sC;x=C.length;while(x--)sC=sC.childNodes[C[x]];
 C=rp.eC;x=C.length;while(x--)eC=eC.childNodes[C[x]];
 
