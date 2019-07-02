@@ -443,22 +443,64 @@ define([
         document.getElementById("15").addEventListener('click',function(){
             // Remove image border's if image left selected
             removeSelection();
-            var content = text.getElementById("textarea").textContent ;
-            var link = document.createElement('a');
-            var mimeType='text/plain';
-            link.setAttribute('download','download.txt');
-            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(content));
-            document.body.append(link);
-            link.click();
-            document.body.removeChild(link);
+            var mimetype = 'text/plain';
+            var inputData = text.getElementById("textarea").textContent;
+            inputData=JSON.stringify(inputData);
+            var metadata = {
+			mimetype: mimetype,
+			title: "Write TXT",
+			activity: "org.sugarlabs.Write",
+			timestamp: new Date().getTime(),
+			creation_time: new Date().getTime(),
+			file_size: 0
+		};
+		datastore.create(metadata, function() {
+			console.log("export done.")
+		}, inputData);
         });
         
         // save as PDF
         document.getElementById("16").addEventListener('click',function(){
             // Remove image border's if image left selected
             removeSelection();
-            downloadPDF();
-        });
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            html2canvas(document.getElementById("textarea"),{
+                onrendered : function(canvas){
+                    var imgData = canvas.toDataURL('image/png');
+
+                    var imgWidth = 210;
+                    var pageHeight = 295;
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+                    var heightLeft = imgHeight;
+
+                    var doc = new jsPDF('p', 'mm');
+                    var position = 0;
+
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    }
+                    var inputData = doc.output('dataurlstring');
+                    var mimetype = 'application/pdf';
+                    var metadata = {
+                        mimetype: mimetype,
+                        title: "write PDF",
+                        activity: "org.sugarlabs.Write",
+                        timestamp: new Date().getTime(),
+                        creation_time: new Date().getTime(),
+                        file_size: 0
+                    };
+                    datastore.create(metadata, function() {
+                        console.log("export done.")
+                    }, inputData);
+                }
+            })
+            });
 
         // Multi User collab.
 

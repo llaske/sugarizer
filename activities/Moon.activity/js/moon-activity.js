@@ -290,6 +290,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 
 		var mimetype = 'image/jpeg';
         var inputData = canvas.toDataURL(mimetype, 1);
+        console.log(inputData);
 		var metadata = {
 			mimetype: mimetype,
 			title: "Image Moon",
