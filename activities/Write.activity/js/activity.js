@@ -577,14 +577,17 @@ define([
             storechangesinstack();
             saveRangePosition(document.getElementById("textarea"));
         });
-        // document.getElementById("textarea").addEventListener("click",function(){
-        //     if(document.getElementById(currentImage)){
-        //         console.log("rem");
-        //         document.getElementById(currentImage).click();
-        //     } else {
-        //         saveRangePosition(document.getElementById("textarea"));
-        //     }
-        // })
+        // Remove image selection on clicking in textarea  ( if image is in select mode )
+        // Also save the carset position
+        document.getElementById("textarea").addEventListener("click",function(event){
+            if(document.getElementById(currentImage)){
+                if(event.target==event.currentTarget){
+                    document.getElementById(currentImage).click();
+                }                
+            } else {
+                saveRangePosition(document.getElementById("textarea"));
+            }
+        })
         function updateContent(){
             if(presence){
                 var data = text.getElementById("textarea").innerHTML ;
