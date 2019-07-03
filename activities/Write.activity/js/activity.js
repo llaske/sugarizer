@@ -342,7 +342,7 @@ define([
         // Images Handling
 	
         // variable to maintain id of current image
-        var currentImage;
+        var currentImage = null;
         var imgSrcs = [];
         var borderurl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM4SURBVHhe7du9bRtBFIVRNeHcLaoXV6HMgZpw7EwVOFDgTJk8GxgwiMc7GHl34fU7B7gZgeHPfgRIgg8AAAAAAAAAAAAAAAAAH/Q09n7CDlEdtPe2J4i+BDKZQHoTyGQC6U0gkwmkN4FMJpDeBDKZQHoTyGQC6U0gkwmkN4FM9jL2xdpue/2r62LvHaI6yOyKO0R1kNkVd4jqILMr7hDVQWZX3CGqg8yuuENUB+29r2OfrO2217+6LvbeIaqD9p7fQXrzO8hkAulNIJMJpDeBTCaQ3gQymUB6E8hkAulNIJMJpDeBTCaQ3gQymUB6E8hkAuntcWy7Bu7t3v9Fnseq29/bIaqD7u1t7PZBvI5Vt/1z2xME92x/qrq9rrZ9HruUH2O3D+LbGPwNgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUBwuUCe7uxt7PZBvI5Vt53tcQw2lwukurN7b4uEPrY3xNs3yd97Gauukeex6vZpp6ju7N477cHwT9he7+o62HunqA7eewLpRSCLE0gvAlmcQHoRyOIE0otAFieQXgSyOIH0IpDFCaQXgSxOIL0IZHEC6UUgixNILwJZnEB6Ecjifo59tzbbXu/qOth7p6gONrvCTlEdbHaFnaI62OwKO0V1sNkVdorq4L3nQ3qv+ZC+OF/z9uJr3sUJpBeBLE4gvQhkcQLpRSCLE0gvAlmcQHr5rwKBvQkEAAAAAAAAAAAAAACAD3p4+AULle55ucyNGwAAAABJRU5ErkJggg=="
         //  Insert image Handling
@@ -577,11 +577,13 @@ define([
             storechangesinstack();
             saveRangePosition(document.getElementById("textarea"));
         });
+        
         // Remove image selection on clicking in textarea  ( if image is in select mode )
         // Also save the carset position
         document.getElementById("textarea").addEventListener("click",function(event){
-            if(document.getElementById(currentImage)){
-                if(event.target==event.currentTarget){
+            if(document.getElementById(currentImage) && currentImage!=null){
+
+                if(document.getElementById(currentImage)!=event.target){
                     document.getElementById(currentImage).click();
                 }                
             } else {
