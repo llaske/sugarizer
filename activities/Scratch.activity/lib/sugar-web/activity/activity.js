@@ -43,7 +43,9 @@ define(["webL10n",
             var result = window.dispatchEvent(stopEvent);
             if (result) {
                 datastoreObject.save(function() {
-                    activity.close();
+                    datastore.waitPendingSave(function() {
+                        activity.close();
+                    });
                 });
             }
         }
