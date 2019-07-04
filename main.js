@@ -72,7 +72,7 @@ function LoadFile(event, file) {
 	var extension = path.extname(file).substr(1);
 	var fileProperty = {};
 	fileProperty.name = path.basename(file);
-	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm'};
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','txt':'text/plain','pdf':'application/pdf'};
 	for (var ext in extToMimetypes) {
 		if (ext == extension) {
 			fileProperty.type = extToMimetypes[ext];
@@ -163,7 +163,7 @@ function createWindow () {
 			var dialogSettings = {
 				properties: ['openFile', 'multiSelections'],
 				filters: [
-					{name: 'Activities', extensions: ['jpg','png','json','webm','wav']}
+					{name: 'Activities', extensions: ['jpg','png','json','webm','wav','pdf','txt']}
 				]
 			};
 			dialogSettings.title = l10n.get("ChooseFiles");
