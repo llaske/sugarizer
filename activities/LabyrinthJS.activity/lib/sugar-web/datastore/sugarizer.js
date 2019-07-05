@@ -319,7 +319,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		var request = window.indexedDB.open(filestoreName, 1);
 		request.onerror = function(event) {
 			if (then) {
-				then(request.errorCode);
+				then(-2);
 			}
 		};
 		request.onsuccess = function(event) {
@@ -334,7 +334,11 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			objectStore.createIndex("objectId", "objectId", { unique: true });
 		};
 	}
-	html5indexedDB.load();
+	html5indexedDB.load(function(err) {
+		if (err) {
+			console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
+		}
+	});
 
 	// Handle pending requests
 	html5indexedDB.addPending = function(req) {
