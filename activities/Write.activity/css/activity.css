@@ -132,3 +132,6 @@
 .palette .colors tr:nth-last-child(1) button {
   margin-bottom: 5.5px;
 }
+.caret{
+  position: absolute;
+}

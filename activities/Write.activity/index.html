@@ -14,6 +14,8 @@
 <script src="js/export-to-PDF/jspdf.min.js"></script>
 <script src="js/export-to-PDF/html2canvas.js"></script>
 <script src="js/carsetretain.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.caret.js"></script>
 <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -42,8 +44,11 @@
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas" style="background-color: white;">
-
+  
+  <!-- This the diiv which acts as textarea -->
   <div id="textarea" contenteditable="true"></div>
+  <!-- This div contains all the cursors -->
+  <div id="cursors"></div>
 
 </div>
 </body>
