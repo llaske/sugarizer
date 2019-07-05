@@ -236,8 +236,9 @@ enyo.kind({
 			this.otherview.show();
 		} else {
 			preferences.addUserInHistory();
-			util.cleanDatastore();
-			util.restartApp();
+			util.cleanDatastore(null, function() {
+				util.restartApp();
+			});
 		}
 	},
 	doRestart: function() {

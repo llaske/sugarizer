@@ -81,7 +81,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 activity.getDatastoreObject().setDataAsText(JSON.stringify({ids: t.ids}));
                 activity.getDatastoreObject().save(function (error) {
                 });
-            
+
         },
 
         generateAudioPopup: function (fullData, originalAudio, metadata) {
@@ -110,7 +110,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             video.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
             video.style.paddingBottom = "100px";
 
-            
+
             return this.generatePopup(fullData, video, originalVideo, metadata);
         },
 
@@ -194,8 +194,8 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 div.parentNode.removeChild(div);
                 t.popupMode = false;
             };
-            div.appendChild(removeButton); 
-            
+            div.appendChild(removeButton);
+
             return div;
         },
 
@@ -233,8 +233,8 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             videoIndicator.style.height = this.height + "px";
             videoIndicator.src = "icons/photo.svg";
 
-            div.appendChild(videoIndicator); 
-        
+            div.appendChild(videoIndicator);
+
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
             } else {
@@ -322,7 +322,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.style.display = 'inline-block';
 
             div.appendChild(img);
- 
+
 
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
@@ -360,8 +360,9 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
         },
 
-        getData: function (ids) {
+        getData: function (ids, callback) {
             var allData = datastore.find();
+            var toload = [];
             var medias = [];
             for (var i = 0; i < allData.length; i++) {
                 var d = allData[i];
@@ -374,14 +375,18 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 if (mimetype.indexOf("audio") !== 0 && mimetype.indexOf("video") !== 0 && mimetype.indexOf("image") !== 0) {
                     continue;
                 }
-
-				var dsObject = new datastore.DatastoreObject(d.objectId);
+                toload.push(d.objectId);
+            }
+            var remain = toload.length;
+            for (var i = 0 ; i < toload.length ; i++) {
+				var dsObject = new datastore.DatastoreObject(toload[i]);
 				dsObject.loadAsText(function(err, metadata, text) {
-					d.text = text;
-					medias.push(d);
+					medias.push({metadata: metadata, text: text});
+                    if (callback && --remain == 0) {
+                        callback(medias.reverse());
+                    }
 				});
             }
-            return medias.reverse();
         },
 
         helper: undefined,

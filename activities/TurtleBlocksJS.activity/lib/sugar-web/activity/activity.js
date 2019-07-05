@@ -1,4 +1,4 @@
-define(["webL10n.sugarizer",
+define(["webL10n",
         "sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
@@ -43,7 +43,9 @@ define(["webL10n.sugarizer",
             var result = window.dispatchEvent(stopEvent);
             if (result) {
                 datastoreObject.save(function() {
-                    activity.close();
+                    datastore.waitPendingSave(function() {
+                        activity.close();
+                    });
                 });
             }
         }
