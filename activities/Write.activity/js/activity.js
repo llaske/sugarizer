@@ -93,6 +93,7 @@ define([
                             image.style.borderImage = "none";
                             currentImage=null;
                             console.log("Des");
+                            restoreRangePosition(document.getElementById("textarea"));
                         } else {
                             console.log("sel");
                             currentImage=id;
@@ -374,6 +375,7 @@ define([
                             image.style.border = "none";
                             image.style.borderImage = "none";
                             currentImage=null;
+                            restoreRangePosition(document.getElementById("textarea"));
                     } else {
                         currentImage=id;
                         imgSrcs.forEach(function(id2,index2){
