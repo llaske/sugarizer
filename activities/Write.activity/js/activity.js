@@ -449,13 +449,14 @@ define([
         document.getElementById("15").addEventListener('click',function(){
             // Remove image border's if image left selected
             removeSelection();
+            var title = document.getElementById("title").value;
             var mimetype = 'text/plain';
             var inputData = text.getElementById("textarea").textContent;
             inputData=JSON.stringify(inputData);
             var metadata = {
 			mimetype: mimetype,
-			title: "Write TXT",
-			activity: "org.sugarlabs.Write",
+			title: title+".txt",
+			activity: "",
 			timestamp: new Date().getTime(),
 			creation_time: new Date().getTime(),
 			file_size: 0
@@ -469,6 +470,7 @@ define([
         document.getElementById("16").addEventListener('click',function(){
             // Remove image border's if image left selected
             removeSelection();
+            var title = document.getElementById("title").value;
             document.body.scrollTop = document.documentElement.scrollTop = 0;
             html2canvas(document.getElementById("textarea"),{
                 onrendered : function(canvas){
@@ -495,8 +497,8 @@ define([
                     var mimetype = 'application/pdf';
                     var metadata = {
                         mimetype: mimetype,
-                        title: "write PDF",
-                        activity: "org.sugarlabs.Write",
+                        title: title+".pdf",
+                        activity: "",
                         timestamp: new Date().getTime(),
                         creation_time: new Date().getTime(),
                         file_size: 0
@@ -566,7 +568,6 @@ define([
                     carets[i].remove();
                 }
                 if(msg.position.top!=null){
-                    console.log("Ran?");
                     var html = "<div><img class='caret' id=" + msg.user.networkId.toString() + " style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'></div>"
                     text.getElementById("cursors").innerHTML = text.getElementById("cursors").innerHTML + html;
                 } else {
