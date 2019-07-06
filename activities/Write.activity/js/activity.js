@@ -150,7 +150,7 @@ define([
         });
         document.getElementById("3").addEventListener("click",function(){
             if(presence){
-                if(isHost) undo();
+                undo();
             } else {
                 text.execCommand("undo",false,null);
             }
@@ -158,7 +158,7 @@ define([
         });
         document.getElementById("4").addEventListener("click",function(){
             if(presence){
-                if(isHost) redo();
+                redo();
             } else{
                 text.execCommand("redo",false,null);
             }
@@ -515,6 +515,34 @@ define([
         // Link presence palette
         var presence = null;
         var isHost = false;
+        var connectedPeople = {};
+        // Maintain a list of connected users
+        function displayConnectedPeople(){
+            var presenceUsersDiv = document.getElementById("presence-users");
+            var html = "<hr><ul style='list-style: none; padding:0;'>";
+            for (var key in connectedPeople) {
+                html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
+            }
+              html += "</ul>"
+              presenceUsersDiv.innerHTML = html
+        }
+
+        function getConnectedPeople(users){
+            var presenceUsersDiv = document.getElementById("presence-users");
+            if (!users || !presenceUsersDiv) {
+            return;
+            }
+            connectedPeople = {};
+            presence.listSharedActivityUsers(presence.getSharedInfo().id , function(usersConnected){
+                connectedPeople = {};
+                for (var i = 0; i < usersConnected.length; i++) {
+                    var userConnected = usersConnected[i];
+                    connectedPeople[i] = userConnected;
+                }
+                displayConnectedPeople();
+            });
+        }
+
         var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
         palette.addEventListener('shared', function() {
             palette.popDown();
@@ -615,12 +643,31 @@ define([
             // handle user enter/exit Notifications
             var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
             var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>"
+            
+            presence.listSharedActivities(function(activities){
+                for (var i = 0; i < activities.length; i++) {
+                    if (activities[i].id === presence.getSharedInfo().id) {
+                        getConnectedPeople(activities[i].users);
+                    }
+                  }
+            });
+            for (var key in connectedPeople) {
+                console.log(connectedPeople[key].name,key,connectedPeople[key].networkId);
+            }
             if (msg.move === 1) {
             humane.log(html+userName+" Joined");
             }
 
             if (msg.move === -1) {
             humane.log(html+userName+" Left");
+            // Show undo redo for second master if first master leaves
+            if(msg.user.networkId == connectedPeople[0].networkId){
+                if(connectedPeople[1].networkId == myid){
+                    document.getElementById("3").style.display = "inline";
+                    document.getElementById("4").style.display = "inline";
+                    console.log(stack);
+                }
+            }
             var carets = document.getElementsByClassName("caret");
             for(var i = 0 ; i<carets.length ; i++){
                 if(carets[i].id == msg.user.networkId)
@@ -677,7 +724,7 @@ define([
         }
         
         function undo(){
-            if(top==-1){
+            if(top==-1||top==0){
                 console.log("No changes made");
             }
             else {
@@ -690,7 +737,7 @@ define([
         
         function redo(){
             
-            if(top==-1){
+            if(top==-1||top==0){
                 console.log("No changes made");
             } else{
                 var check = top+1;
