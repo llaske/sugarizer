@@ -722,7 +722,7 @@ enyo.kind({
 		this.$.useragent_value.setContent(navigator.userAgent);
 		var that = this;
 		util.computeDatastoreSize(function(size) {
-			that.$.storage_value.setContent(l10n.get("StorageSize", {used: size.used, percent: (100*size.used/size.total).toFixed()}));
+			that.$.storage_value.setContent(l10n.get("StorageSize", {used: size.bytes, formatted: size.formatted}));
 		});
 
 		if (l10n.language.direction == "rtl") {
