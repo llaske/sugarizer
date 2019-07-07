@@ -41,7 +41,7 @@ define([
                 // New instance
                 // Set focus on textarea
                 document.getElementById("textarea").focus();
-                text.execCommand("fontSize",false,4);
+                document.execCommand('defaultParagraphSeparator', false, 'p');
                 // Set Arial as default
                 text.getElementById("textarea").style.fontFamily = "Arial";
             } else {
@@ -52,6 +52,7 @@ define([
                         text.getElementById("textarea").innerHTML = html;
                         document.getElementById("textarea").focus();
                         imageHandler();
+                        document.execCommand('defaultParagraphSeparator', false, 'p');
                     }
                 });
             }
@@ -574,7 +575,7 @@ define([
             
             // Code to show xoicons as cursors of other users
             if(msg.action == 'update'){
-            var carets = document.getElementsByClassName("caret");
+            var carets = document.getElementsByClassName("cursor-container");
             var found = false;
             for(var i = 0 ; i<carets.length ; i++){
                 if(carets[i].id == myid){
@@ -586,19 +587,20 @@ define([
                 }
             }
             if(found == false){
-                var html = "<div><img class='caret' id=" + msg.user.networkId.toString() + " style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'></div>"
+                console.log(msg.user.colorvalue);
+                var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + "><span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span></span>"
                 text.getElementById("cursors").innerHTML = text.getElementById("cursors").innerHTML + html;
                 }
             }
             if(msg.action == 'init'){
                 document.getElementById("cursors").innerHTML = msg.cursors;
-                var carets = document.getElementsByClassName("caret");
+                var carets = document.getElementsByClassName("cursor-container");
                 for(var i = 0 ; i<carets.length ; i++){
                     if(carets[i].id == myid)
                     carets[i].remove();
                 }
                 if(msg.position.top!=null){
-                    var html = "<div><img class='caret' id=" + msg.user.networkId.toString() + " style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'></div>"
+                    var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + "><span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span></span>";
                     text.getElementById("cursors").innerHTML = text.getElementById("cursors").innerHTML + html;
                 } else {
                     console.log("NO",msg.position);
