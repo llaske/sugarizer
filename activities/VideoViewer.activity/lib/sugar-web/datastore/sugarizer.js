@@ -329,6 +329,8 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
 	// -- HTML5 IndexedDB handling
 
+	html5indexedDB.db = null;
+
 	// Test indexedDB support
 	html5indexedDB.test = function() {
 		return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
@@ -336,13 +338,16 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
 	// Load database or create database on first launch
 	html5indexedDB.load = function(then) {
+		if (html5indexedDB.db != null) {
+			then(null);
+			return;
+		}
 		if (!html5indexedDB.test()) {
 			if (then) {
 				then(-1);
 			}
 			return;
 		}
-		html5indexedDB.db = null;
 		var request = window.indexedDB.open(filestoreName, 1);
 		request.onerror = function(event) {
 			if (then) {
@@ -361,14 +366,9 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			objectStore.createIndex("objectId", "objectId", { unique: true });
 		};
 	}
-	html5indexedDB.load(function(err) {
-		if (err) {
-			console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
-		}
-	});
 
 	// Set a value in the database
-	html5indexedDB.setValue = function(key, value, then) {
+	function indexedDB_setValue(key, value, then) {
 		var transaction = html5indexedDB.db.transaction([filestoreName], "readwrite");
 		var objectStore = transaction.objectStore(filestoreName);
 		var request = objectStore.put({objectId: key, text: value});
@@ -382,10 +382,23 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				then(null);
 			}
 		};
+	}
+	html5indexedDB.setValue = function(key, value, then) {
+		if (html5indexedDB.db == null) {
+			html5indexedDB.load(function(err) {
+				if (err) {
+					console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
+				} else {
+					indexedDB_setValue(key, value, then);
+				}
+			});
+		} else {
+			indexedDB_setValue(key, value, then);
+		}
 	};
 
 	// Get a value from the database
-	html5indexedDB.getValue = function(key, then) {
+	function indexedDB_getValue(key, then) {
 		var transaction = html5indexedDB.db.transaction([filestoreName], "readonly");
 		var objectStore = transaction.objectStore(filestoreName);
 		var request = objectStore.get(key);
@@ -399,10 +412,23 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				then(null, request.result?request.result.text:null);
 			}
 		};
+	}
+	html5indexedDB.getValue = function(key, then) {
+		if (html5indexedDB.db == null) {
+			html5indexedDB.load(function(err) {
+				if (err) {
+					console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
+				} else {
+					indexedDB_getValue(key, then);
+				}
+			});
+		} else {
+			indexedDB_getValue(key, then);
+		}
 	};
 
 	// Get all existing keys in the database
-	html5indexedDB.getAll = function(then) {
+	function indexedDB_getAll(then) {
 		var transaction = html5indexedDB.db.transaction([filestoreName], "readonly");
 		var objectStore = transaction.objectStore(filestoreName);
 		var request = objectStore.openCursor();
@@ -423,10 +449,23 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				}
 			}
 		};
+	}
+	html5indexedDB.getAll = function(then) {
+		if (html5indexedDB.db == null) {
+			html5indexedDB.load(function(err) {
+				if (err) {
+					console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
+				} else {
+					indexedDB_getAll(then);
+				}
+			});
+		} else {
+			indexedDB_getAll(then);
+		}
 	};
 
 	// Remove a value from the database
-	html5indexedDB.removeValue = function(key, then) {
+	function indexedDB_removeValue(key, then) {
 		var transaction = html5indexedDB.db.transaction([filestoreName], "readwrite");
 		var objectStore = transaction.objectStore(filestoreName);
 		var request = objectStore.delete(key);
@@ -440,6 +479,19 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 				then(null);
 			}
 		};
+	}
+	html5indexedDB.removeValue = function(key, then) {
+		if (html5indexedDB.db == null) {
+			html5indexedDB.load(function(err) {
+				if (err) {
+					console.log("FATAL ERROR: indexedDB not supported, could be related to use of private mode");
+				} else {
+					indexedDB_removeValue(key, then);
+				}
+			});
+		} else {
+			indexedDB_removeValue(key, then);
+		}
 	};
 
 	return datastore;
