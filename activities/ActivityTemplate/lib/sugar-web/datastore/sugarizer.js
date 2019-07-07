@@ -10,6 +10,9 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 	var filestoreName = 'sugar_filestore';
 	var initialized = false;
 
+	var pending = 0;
+	var waiter = null;
+
 	//- Utility function
 
 	// Get parameter from query string
@@ -40,6 +43,28 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		}
 		return callback;
 	};
+
+	// Handle pending requests
+	function addPending() {
+		pending++;
+	}
+	function removePending() {
+		if (--pending == 0 && waiter) {
+			waiter();
+			waiter = null;
+		}
+	}
+	function waitPending(callback) {
+		setTimeout(function(){
+			if (pending == 0) {
+				if (callback) {
+					callback()
+				}
+			} else {
+				waiter = callback;
+			}
+		}, 50);
+	}
 
 
 	//- Static Datastore methods
@@ -102,7 +127,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
 	// Wait for pending save actions
 	datastore.waitPendingSave = function(callback) {
-		html5indexedDB.waitPending(callback);
+		waitPending(callback);
 	};
 
 	//- Instance datastore methods
@@ -180,6 +205,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 
 	// Save data
 	DatastoreObject.prototype.save = function(callback, dontupdatemetadata) {
+		addPending();
 		if (this.objectId === undefined) {
 			var that = this;
 			this.newMetadata["timestamp"] = this.newMetadata["creation_time"] = new Date().getTime();
@@ -207,7 +233,7 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		if (this.newDataAsText != null) {
 			if (!dontupdatemetadata) {
 				this.newMetadata["textsize"] = this.newDataAsText.length;
-			};
+			}
 		}
 		var that = this;
 		if (html5storage.setValue(datastorePrefix + this.objectId, {
@@ -221,12 +247,15 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 					} else {
 						callback_c(null, that.newMetadata, that.newDataAsText);
 					}
+					removePending();
 				});
 			} else {
 				callback_c(null, this.newMetadata, this.newDataAsText);
+				removePending();
 			}
 		} else {
 			callback_c(-1, null);
+			removePending();
 		}
 	};
 
@@ -314,8 +343,6 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			return;
 		}
 		html5indexedDB.db = null;
-		html5indexedDB.pending = [];
-		html5indexedDB.waiter = null;
 		var request = window.indexedDB.open(filestoreName, 1);
 		request.onerror = function(event) {
 			if (then) {
@@ -340,47 +367,20 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 		}
 	});
 
-	// Handle pending requests
-	html5indexedDB.addPending = function(req) {
-		html5indexedDB.pending.push(req);
-	}
-	html5indexedDB.removePending = function(req) {
-		var index = html5indexedDB.pending.indexOf(req);
-		if (index > -1) {
-			html5indexedDB.pending.splice(index, 1);
-		}
-		if (html5indexedDB.pending.length == 0 && html5indexedDB.waiter) {
-			html5indexedDB.waiter();
-			html5indexedDB.waiter = null;
-		}
-	}
-	html5indexedDB.waitPending = function(callback) {
-		if (html5indexedDB.pending.length == 0) {
-			if (callback) {
-				callback()
-			}
-		} else {
-			html5indexedDB.waiter = callback;
-		}
-	}
-
 	// Set a value in the database
 	html5indexedDB.setValue = function(key, value, then) {
 		var transaction = html5indexedDB.db.transaction([filestoreName], "readwrite");
 		var objectStore = transaction.objectStore(filestoreName);
 		var request = objectStore.put({objectId: key, text: value});
-		html5indexedDB.addPending(request);
 		request.onerror = function(event) {
 			if (then) {
 				then(request.errorCode);
 			}
-			html5indexedDB.removePending(request);
 		};
 		request.onsuccess = function(event) {
 			if (then) {
 				then(null);
 			}
-			html5indexedDB.removePending(request);
 		};
 	};
 
