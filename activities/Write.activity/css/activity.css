@@ -83,6 +83,10 @@
   overflow-x: hidden;
 }
 
+p{
+  margin: 0px;
+}
+
 #textarea div {
   display: inline;
 }
@@ -149,6 +153,11 @@
   top: 0;
   bottom: 0;
 }
-p{
-  margin: 0px;
+
+.cursor-name{
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  opacity: 0.5;
 }
+

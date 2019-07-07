@@ -564,7 +564,7 @@ define([
                 network.onSharedActivityUserChanged(onNetworkUserChanged);
             });
         });
-
+        var nomoreinit = false;
         var onNetworkDataReceived = function(msg) {
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
@@ -587,24 +587,28 @@ define([
                 }
             }
             if(found == false){
-                console.log(msg.user.colorvalue);
-                var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + "><span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span></span>"
-                text.getElementById("cursors").innerHTML = text.getElementById("cursors").innerHTML + html;
+                var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
+                    "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "</span>";
+                document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + html;
                 }
             }
-            if(msg.action == 'init'){
+            if(msg.action == 'init' && !nomoreinit){
+                nomoreinit = true;
                 document.getElementById("cursors").innerHTML = msg.cursors;
                 var carets = document.getElementsByClassName("cursor-container");
                 for(var i = 0 ; i<carets.length ; i++){
                     if(carets[i].id == myid)
-                    carets[i].remove();
+                    {carets[i].remove(); console.log("REmove my cursor");}
                 }
                 if(msg.position.top!=null){
-                    var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + "><span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span></span>";
-                    text.getElementById("cursors").innerHTML = text.getElementById("cursors").innerHTML + html;
-                } else {
-                    console.log("NO",msg.position);
-                }
+                    var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
+                    "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "</span>";
+                    document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + html;
+                } 
                 
             }
             
@@ -660,6 +664,14 @@ define([
             }
             if (msg.move === 1) {
             humane.log(html+userName+" Joined");
+            if(msg.user.networkId != myid){
+                console.log("user join ",msg.user.name);
+                var cursor = "<span style='top:0px; left:0px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
+                    "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "</span>";
+                document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + cursor;
+            }
             }
 
             if (msg.move === -1) {
@@ -669,13 +681,14 @@ define([
                 if(connectedPeople[1].networkId == myid){
                     document.getElementById("3").style.display = "inline";
                     document.getElementById("4").style.display = "inline";
-                    console.log(stack);
                 }
             }
-            var carets = document.getElementsByClassName("caret");
+            // Remove the cursor of the user who left
+            var carets = document.getElementsByClassName("cursor-container");
             for(var i = 0 ; i<carets.length ; i++){
-                if(carets[i].id == msg.user.networkId)
-                carets[i].remove();
+                if(carets[i].id == msg.user.networkId){
+                    carets[i].remove();
+                }
             }
             }
         };
@@ -691,6 +704,8 @@ define([
         // Remove image selection on clicking in textarea  ( if image is in select mode )
         // Also save the carset position
         document.getElementById("textarea").addEventListener("click",function(event){
+            myposition = $("#textarea").caret('position');
+            if(myposition) updateContent();
             if(document.getElementById(currentImage) && currentImage!=null){
 
                 if(document.getElementById(currentImage)!=event.target){
