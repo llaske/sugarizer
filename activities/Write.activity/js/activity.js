@@ -570,6 +570,11 @@ define([
                 return;
             }
             saveRangePosition(textarea);
+            var screenheight = document.getElementById('textarea').clientHeight;
+            if(screenheight - msg.position.top <= 100){
+                screenheight=screenheight+msg.position.top;
+                document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
+            }
             // Changes made by user in presence will be handled here
             text.getElementById("textarea").innerHTML = msg.data ;
             
@@ -600,7 +605,7 @@ define([
                 var carets = document.getElementsByClassName("cursor-container");
                 for(var i = 0 ; i<carets.length ; i++){
                     if(carets[i].id == myid)
-                    {carets[i].remove(); console.log("REmove my cursor");}
+                    {carets[i].remove();}
                 }
                 if(msg.position.top!=null){
                     var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
@@ -696,6 +701,11 @@ define([
         // For loading content of other users (update)
         text.addEventListener("keyup",function(){
             myposition = $("#textarea").caret('position');
+            var screenheight = document.getElementById('textarea').clientHeight;
+            if(screenheight - myposition.top <= 100){
+                screenheight=screenheight+842;
+                document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
+            }
             updateContent();
             storechangesinstack();
             saveRangePosition(document.getElementById("textarea"));
