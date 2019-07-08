@@ -50,6 +50,7 @@ define([
                     if (error==null && data!=null) {
                         html = JSON.parse(data);
                         text.getElementById("textarea").innerHTML = html;
+                        document.getElementById('textarea').setAttribute("style","display:block;height:100%");
                         document.getElementById("textarea").focus();
                         imageHandler();
                         document.execCommand('defaultParagraphSeparator', false, 'p');
@@ -577,7 +578,6 @@ define([
             }
             // Changes made by user in presence will be handled here
             text.getElementById("textarea").innerHTML = msg.data ;
-            
             // Code to show xoicons as cursors of other users
             if(msg.action == 'update'){
             var carets = document.getElementsByClassName("cursor-container");
