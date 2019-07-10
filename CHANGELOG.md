@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dynamically generate favicon and title
 - Tutorial step 7: use journal chooser dialog
 - Tutorial step 8: create your own palette
+- Use IndexedDB instead of localStorage for storing Journal items content
 - Support for TXT/PDF files in Journal
 
 ### Fixed
