@@ -361,8 +361,8 @@ define(["sugar-web/bus", "sugar-web/env"], function(bus, env) {
 			}
 		};
 		request.onupgradeneeded = function(event) {
-			html5indexedDB.db = event.target.result;
-			var objectStore = html5indexedDB.db.createObjectStore(filestoreName, {keyPath: "objectId"});
+			var db = event.target.result;
+			var objectStore = db.createObjectStore(filestoreName, {keyPath: "objectId"});
 			objectStore.createIndex("objectId", "objectId", { unique: true });
 		};
 	}
