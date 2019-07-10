@@ -225,7 +225,15 @@ enyo.kind({
 		if (entry.metadata.buddy_color) {
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		}
-		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
+		var activityIcon = preferences.getActivity(entry.metadata.activity);
+		if (activityIcon == preferences.genericActivity) {
+			if (entry.metadata.mimetype == "text/plain") {
+				activityIcon = {directory: "icons", icon: "application-x-txt.svg"};
+			} else if (entry.metadata.mimetype == "application/pdf") {
+				activityIcon = {directory: "icons", icon: "application-x-pdf.svg"};
+			}
+		}
+		inEvent.item.$.activity.setIcon(activityIcon);
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
@@ -521,7 +529,8 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
-			data: [entry, null]
+			data: [entry, null],
+			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity)
 		});
 		items.push({
 			icon: {directory: "icons", icon: "copy-journal.svg"},
@@ -1096,7 +1105,7 @@ enyo.kind({
 
 	fromDeviceSelected: function() {
 		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
-			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json");
+			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.pdf,.txt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
 		} else {
