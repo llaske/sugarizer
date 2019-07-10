@@ -42,6 +42,7 @@ define([
                 // Set focus on textarea
                 document.getElementById("textarea").focus();
                 document.execCommand('defaultParagraphSeparator', false, 'p');
+                document.execCommand("fontSize",false,4);
                 // Set Arial as default
                 text.getElementById("textarea").style.fontFamily = "Arial";
             } else {
@@ -50,10 +51,12 @@ define([
                     if (error==null && data!=null) {
                         html = JSON.parse(data);
                         text.getElementById("textarea").innerHTML = html;
+                        document.execCommand('defaultParagraphSeparator', false, 'p')
+                        document.execCommand("fontSize",false,4);
                         document.getElementById('textarea').setAttribute("style","display:block;height:100%");
                         document.getElementById("textarea").focus();
                         imageHandler();
-                        document.execCommand('defaultParagraphSeparator', false, 'p');
+                        
                     }
                 });
             }
@@ -95,7 +98,7 @@ define([
                             image.style.borderImage = "none";
                             currentImage=null;
                             console.log("Des");
-                            restoreRangePosition(document.getElementById("textarea"));
+                            if(!presence) restoreRangePosition(document.getElementById("textarea"));
                         } else {
                             console.log("sel");
                             currentImage=id;
@@ -367,7 +370,7 @@ define([
                     img=data.toString();
                     var id = "rand" + Math.random();
                     img = "<img src='" + img + "' id=" + id + " style='float:none'>";
-                    restoreRangePosition(document.getElementById("textarea"));
+                    if(!presence) restoreRangePosition(document.getElementById("textarea"));
                     document.execCommand("insertHTML", false, img);
                     imgSrcs.push(id);
                     text.getElementById(id).addEventListener("click",function(){
@@ -377,7 +380,7 @@ define([
                             image.style.border = "none";
                             image.style.borderImage = "none";
                             currentImage=null;
-                            restoreRangePosition(document.getElementById("textarea"));
+                            if(!presence) restoreRangePosition(document.getElementById("textarea"));
                     } else {
                         currentImage=id;
                         imgSrcs.forEach(function(id2,index2){
@@ -570,14 +573,30 @@ define([
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
             }
-            saveRangePosition(textarea);
+            
             var screenheight = document.getElementById('textarea').clientHeight;
             if(screenheight - msg.position.top <= 100){
                 screenheight=screenheight+msg.position.top;
                 document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
             }
             // Changes made by user in presence will be handled here
+            var inilen = document.getElementById("textarea").textContent.length;
+            var restore;
+            text.getElementById("fake").innerHTML = msg.data;
+            var finallen = document.getElementById("fake").textContent.length;
+            if(finallen==inilen){
+                var restore = saveCaretPosition(textarea);
+            } else {
+                saveRangePosition(textarea);
+            }
             text.getElementById("textarea").innerHTML = msg.data ;
+            
+            if(inilen==finallen){
+                restore();
+            } else {
+                restoreRangePosition(textarea);
+            }
+            
             // Code to show xoicons as cursors of other users
             if(msg.action == 'update'){
             var carets = document.getElementsByClassName("cursor-container");
@@ -594,7 +613,7 @@ define([
             if(found == false){
                 var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
                     "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
-                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.fill.toString()+"'>"+msg.user.name.toString()+"</span>"+
                     "</span>";
                 document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + html;
                 }
@@ -610,7 +629,7 @@ define([
                 if(msg.position.top!=null){
                     var html = "<span style='top:"+msg.position.top.toString()+"px; left:"+msg.position.left.toString()+"px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
                     "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
-                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.fill.toString()+"'>"+msg.user.name.toString()+"</span>"+
                     "</span>";
                     document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + html;
                 } 
@@ -619,7 +638,7 @@ define([
             
             // Add event list. to images
             imageHandler();
-            restoreRangePosition(textarea);
+            if(!presence) restoreRangePosition(textarea);
             // Store the changes made by non host users in stack 
             storechangesinstack();
         };
@@ -673,7 +692,7 @@ define([
                 console.log("user join ",msg.user.name);
                 var cursor = "<span style='top:0px; left:0px;' class='cursor-container' id=" + msg.user.networkId.toString() + ">"+
                     "<span class='cursor' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'></span>"+
-                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.stroke.toString()+"'>"+msg.user.name.toString()+"</span>"+
+                    "<span class='cursor-name' style='background-color:"+msg.user.colorvalue.fill.toString()+"'>"+msg.user.name.toString()+"</span>"+
                     "</span>";
                 document.getElementById("cursors").innerHTML = document.getElementById("cursors").innerHTML + cursor;
             }
@@ -708,7 +727,7 @@ define([
             }
             updateContent();
             storechangesinstack();
-            saveRangePosition(document.getElementById("textarea"));
+            // saveRangePosition(document.getElementById("textarea"));
         });
         
         // Remove image selection on clicking in textarea  ( if image is in select mode )
@@ -722,7 +741,7 @@ define([
                     document.getElementById(currentImage).click();
                 }                
             } else {
-                saveRangePosition(document.getElementById("textarea"));
+                if(!presence) saveRangePosition(document.getElementById("textarea"));
             }
         })
         function updateContent(){

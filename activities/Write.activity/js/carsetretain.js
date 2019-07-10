@@ -1,5 +1,6 @@
 // Code to retain carset position in multi user collab
         
+// Function to save and restore cursor position for single user mode
 
 // Function to save positon
 
@@ -31,3 +32,40 @@ sel.removeAllRanges();
 sel.addRange(range)
 }
 function getNodeIndex(n){var i=0;while(n=n.previousSibling)i++;return i}
+
+// Functions to save and retain cursor position in multi user collab
+
+function saveCaretPosition(context){
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+    range.setStart(  context, 0 );
+    var len = range.toString().length;
+
+    return function restore(){
+        var pos = getTextNodeAtPosition(context, len);
+        selection.removeAllRanges();
+        var range = new Range();
+        range.setStart(pos.node ,pos.position);
+        selection.addRange(range);
+
+    }
+}
+
+function getTextNodeAtPosition(root, index){
+    var lastNode = null;
+
+    var treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT,function next(node) {
+        if(index >= node.textContent.length){
+            index -= node.textContent.length;
+            lastNode = node;
+            return NodeFilter.FILTER_REJECT
+        }
+        return NodeFilter.FILTER_ACCEPT;
+    });
+    var c = treeWalker.nextNode();
+    return {
+        node: c? c: root,
+        position: c? index:  0
+    };
+}
+
