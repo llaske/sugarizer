@@ -98,7 +98,7 @@ define([
                             image.style.borderImage = "none";
                             currentImage=null;
                             console.log("Des");
-                            if(!presence) restoreRangePosition(document.getElementById("textarea"));
+                            restoreRangePosition(document.getElementById("textarea"));
                         } else {
                             console.log("sel");
                             currentImage=id;
@@ -370,7 +370,7 @@ define([
                     img=data.toString();
                     var id = "rand" + Math.random();
                     img = "<img src='" + img + "' id=" + id + " style='float:none'>";
-                    if(!presence) restoreRangePosition(document.getElementById("textarea"));
+                    restoreRangePosition(document.getElementById("textarea"));
                     document.execCommand("insertHTML", false, img);
                     imgSrcs.push(id);
                     text.getElementById(id).addEventListener("click",function(){
@@ -380,7 +380,7 @@ define([
                             image.style.border = "none";
                             image.style.borderImage = "none";
                             currentImage=null;
-                            if(!presence) restoreRangePosition(document.getElementById("textarea"));
+                            restoreRangePosition(document.getElementById("textarea"));
                     } else {
                         currentImage=id;
                         imgSrcs.forEach(function(id2,index2){
@@ -638,7 +638,7 @@ define([
             
             // Add event list. to images
             imageHandler();
-            if(!presence) restoreRangePosition(textarea);
+            restoreRangePosition(textarea);
             // Store the changes made by non host users in stack 
             storechangesinstack();
         };
