@@ -55,7 +55,7 @@ function getTextNodeAtPosition(root, index){
     var lastNode = null;
 
     var treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT,function next(node) {
-        if(index >= node.textContent.length){
+        if(index > node.textContent.length){
             index -= node.textContent.length;
             lastNode = node;
             return NodeFilter.FILTER_REJECT
