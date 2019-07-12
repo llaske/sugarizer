@@ -162,3 +162,79 @@ p{
   height: 20px;
 }
 
+#edit-text , #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
+  display: none;
+}
+
+@media only screen and (min-width: 330px) {
+  #edit-text {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 385px) {
+  #paragraph {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 440px) {
+  #list {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 510px) {
+  #format-text {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 570px) {
+  #font-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  #resize-inc {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 660px) {
+  #resize-dec {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 715px) {
+  #color-button-1 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 770px) {
+  #color-button-2 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 825px) {
+  #insert-picture {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 880px) {
+  #insert-table {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 935px) {
+  #export {
+    display: inline-block;
+  }
+}
+
