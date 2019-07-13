@@ -580,21 +580,24 @@ define([
                 document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
             }
             // Changes made by user in presence will be handled here
-            var inilen = document.getElementById("textarea").textContent.length;
-            var restore;
-            text.getElementById("fake").innerHTML = msg.data;
-            var finallen = document.getElementById("fake").textContent.length;
-            if(finallen==inilen){
-                var restore = saveCaretPosition(textarea);
-            } else {
-                saveRangePosition(textarea);
-            }
-            text.getElementById("textarea").innerHTML = msg.data ;
-            
-            if(inilen==finallen){
-                restore();
-            } else {
-                restoreRangePosition(textarea);
+            if(text.getElementById("textarea").innerHTML!=msg.data){
+                var inilen = document.getElementById("textarea").textContent.length;
+                var restore;
+                text.getElementById("fake").innerHTML = msg.data;
+                var finallen = document.getElementById("fake").textContent.length;
+                if(finallen==inilen){
+                    var restore = saveCaretPosition(textarea);
+                } else {
+                    saveRangePosition(textarea);
+                }
+                
+                text.getElementById("textarea").innerHTML = msg.data ;
+                
+                if(inilen==finallen){
+                    restore();
+                } else {
+                    restoreRangePosition(textarea);
+                }
             }
             
             // Code to show xoicons as cursors of other users
