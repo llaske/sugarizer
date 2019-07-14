@@ -434,6 +434,7 @@ define([
         var options = [
             {"id": 15, "title": "export to txt" , "cmd":"save-as-txt"},
             {"id": 16, "title": "export to pdf", "cmd":"save-as-pdf"},
+            {"id": 17, "title": "export to doc", "cmd":"save-as-word"},
         ];
         exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
         exportpalette.setCategories(options);
@@ -515,6 +516,32 @@ define([
                     }, inputData);
                 }
             })
+            });
+
+            // save as docx
+            document.getElementById("17").addEventListener('click',function(){
+                // Remove image border's if image left selected
+                removeSelection();
+                var content = '<!DOCTYPE html>' + document.getElementById("textarea").innerHTML;
+                var orientation = "portrait";
+                var converted = htmlDocx.asBlob(content, {orientation: orientation});
+                var reader = new FileReader();
+                reader.readAsDataURL(converted); 
+                reader.onloadend = function() {
+                    var inputData = reader.result;
+                    var mimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';                
+                    var metadata = {
+                        mimetype: mimetype,
+                        title: title+".docx",
+                        activity: "",
+                        timestamp: new Date().getTime(),
+                        creation_time: new Date().getTime(),
+                        file_size: 0
+                    };
+                    datastore.create(metadata, function() {
+                        console.log("export done.");
+                    }, inputData);
+                }
             });
 
         // Multi User collab.
@@ -730,7 +757,7 @@ define([
             }
             updateContent();
             storechangesinstack();
-            // saveRangePosition(document.getElementById("textarea"));
+            if(!presence) saveRangePosition(document.getElementById("textarea"));
         });
         
         // Remove image selection on clicking in textarea  ( if image is in select mode )
