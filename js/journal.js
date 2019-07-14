@@ -1105,7 +1105,7 @@ enyo.kind({
 
 	fromDeviceSelected: function() {
 		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
-			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.pdf,.txt");
+			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
 		} else {
