@@ -521,6 +521,7 @@ define([
             // save as docx
             document.getElementById("17").addEventListener('click',function(){
                 // Remove image border's if image left selected
+                var title = document.getElementById("title").value;
                 removeSelection();
                 var content = '<!DOCTYPE html>' + document.getElementById("textarea").innerHTML;
                 var orientation = "portrait";
@@ -770,8 +771,6 @@ define([
                 if(document.getElementById(currentImage)!=event.target){
                     document.getElementById(currentImage).click();
                 }                
-            } else {
-                if(!presence) saveRangePosition(document.getElementById("textarea"));
             }
         })
         function updateContent(){
