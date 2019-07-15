@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Tutorial step 8: create your own palette
 - Use IndexedDB instead of localStorage for storing Journal items content
 - Support for TXT/PDF files in Journal
+- Support for MP3/MP4 files in Journal
+- Add export sound to Journal feature in Abecedarium activity
 
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
