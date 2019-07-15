@@ -8,6 +8,11 @@
   background-image: url(icons/save-image.svg);
 }
 
+#main-toolbar #sound-button {
+  margin-left: 10px;
+  background-image: url(icons/save-sound.svg);
+}
+
 @font-face {
 	font-family: Cursive-standard;
 	src: url('Cursive-standard.ttf');

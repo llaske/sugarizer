@@ -40,6 +40,7 @@ enyo.kind({
 		this.playing = null;
 		this.slideshowIndex = -1;
 		this.exportPNG = enyo.bind(this, "clickExportPNG");
+		this.exportSOUND = enyo.bind(this, "clickExportSOUND");
 
 		// Set previous context
 		this.restoreContext();
@@ -108,18 +109,35 @@ enyo.kind({
 		var pngButton = document.getElementById("png-button");
 		var tojournal;
 		if (pngButton.classList.contains("active")) {
-			tojournal = false;
+			tojournal = 0;
 		} else {
-			tojournal = true;
+			tojournal = 1;
+		}
+		this.putEntriesJournalModeTo(tojournal);
+	},
+
+	// Handle click on exportSOUND buttons
+	clickExportSOUND: function() {
+		var soundButton = document.getElementById("sound-button");
+		var tojournal;
+		if (soundButton.classList.contains("active")) {
+			tojournal = 0;
+		} else {
+			tojournal = 2;
 		}
 		this.putEntriesJournalModeTo(tojournal);
 	},
 
 	putEntriesJournalModeTo: function(tojournal) {
-		if (tojournal) {
+		if (tojournal == 1) {
 			document.getElementById("png-button").classList.add("active");
+			document.getElementById("sound-button").classList.remove("active");
+		} else if (tojournal == 2) {
+			document.getElementById("sound-button").classList.add("active");
+			document.getElementById("png-button").classList.remove("active");
 		} else {
 			document.getElementById("png-button").classList.remove("active");
+			document.getElementById("sound-button").classList.remove("active");
 		}
 		enyo.forEach(this.$.box.getControls(), function(entry) {
 			if (entry.kind == "Abcd.Entry") {
@@ -139,8 +157,11 @@ enyo.kind({
 		this.$.box.createComponent({ classes: "linebreak" }).render();
 		Abcd.changeVisibility(this, {home: true, back: false, prev: false, next: false, pageCount: false, startSlideshow: false, stopSlideshow: false});
 		document.getElementById("png-button").style.visibility = "hidden";
+		document.getElementById("sound-button").style.visibility = "hidden";
 		document.getElementById("png-button").classList.remove("active");
+		document.getElementById("sound-button").classList.remove("active");
 		document.getElementById("png-button").removeEventListener("click", this.exportPNG);
+		document.getElementById("sound-button").removeEventListener("click", this.exportSOUND);
 		this.$.colorBar.addClass("themeColor"+this.theme);
 		for (var i = 0 ; i < length ; i++) {
 			this.$.box.createComponent(
@@ -173,8 +194,11 @@ enyo.kind({
 		this.$.box.removeClass("box-4-theme");
 		this.$.box.addClass("box-4-collection");
 		document.getElementById("png-button").style.visibility = "hidden";
+		document.getElementById("sound-button").style.visibility = "hidden";
 		document.getElementById("png-button").classList.remove("active");
+		document.getElementById("sound-button").classList.remove("active");
 		document.getElementById("png-button").removeEventListener("click", this.exportPNG);
+		document.getElementById("sound-button").removeEventListener("click", this.exportSOUND);
 		this.$.box.createComponent({ classes: "linebreak" }).render();
 		this.$.box.createComponent({ classes: "linebreak" }).render();
 		for (var i = 0 ; i < length ; i++) {
@@ -222,8 +246,11 @@ enyo.kind({
 		this.$.colorBar.addClass("themeColor"+this.theme);
 		this.$.box.removeClass("box-4-theme");
 		document.getElementById("png-button").style.visibility = "hidden";
+		document.getElementById("sound-button").style.visibility = "hidden";
 		document.getElementById("png-button").classList.remove("active");
+		document.getElementById("sound-button").classList.remove("active");
 		document.getElementById("png-button").removeEventListener("click", this.exportPNG);
+		document.getElementById("sound-button").removeEventListener("click", this.exportSOUND);
 		this.displayEntriesFrom(this.entry+1);
 	},
 
@@ -255,7 +282,9 @@ enyo.kind({
 		this.$.pageCount.setContent(Math.ceil(i/entriesByScreen)+"/"+Math.ceil(length/entriesByScreen));
 		this.position = position-1;
 		document.getElementById("png-button").style.visibility = "visible";
+		document.getElementById("sound-button").style.visibility = "visible";
 		document.getElementById("png-button").addEventListener("click", this.exportPNG);
+		document.getElementById("sound-button").addEventListener("click", this.exportSOUND);
 
 		// Save context
 		Abcd.saveContext();
