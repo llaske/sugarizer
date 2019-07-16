@@ -775,7 +775,7 @@ define([
             }
             updateContent();
             storechangesinstack();
-            // if(!presence) saveRangePosition(document.getElementById("textarea"));
+            if(!presence) saveRangePosition(document.getElementById("textarea"));
         }, 250);
         
         // For loading content of other users (update)
