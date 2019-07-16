@@ -597,6 +597,10 @@ define([
             });
         });
         var nomoreinit = false;
+        var selection , len ;
+        var inlen = 0;
+        var change = 0;
+        var delay = false;
         var onNetworkDataReceived = function(msg) {
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
@@ -608,24 +612,34 @@ define([
                 document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
             }
             // Changes made by user in presence will be handled here
-            if(text.getElementById("textarea").innerHTML!=msg.data){
-                var inilen = document.getElementById("textarea").textContent.length;
-                var restore;
-                text.getElementById("fake").innerHTML = msg.data;
-                var finallen = document.getElementById("fake").textContent.length;
-                if(finallen==inilen){
-                    var restore = saveCaretPosition(textarea);
+            function editer(){
+                if(text.getElementById("textarea").innerHTML!=msg.data){
+                    selection = window.getSelection();
+                    var range = selection.getRangeAt(0);
+                    range.setStart( text.getElementById("textarea"), 0 );
+                    len = range.toString().length;
+                    console.log("inlen-",len,"change-",msg.lenchange);
+                    if(msg.inlen<=len){
+                        len=len+msg.lenchange;
+                    }
+                    inlen=len;
+                    text.getElementById("textarea").innerHTML = msg.data ;
+                    var pos = getTextNodeAtPosition(document.getElementById("textarea"), len);
+                    selection.removeAllRanges();
+                    var range = new Range();
+                    range.setStart(pos.node ,pos.position);
+                    selection.addRange(range);
+                }
+                if(delay==true){
+                    setTimeout(function(){
+                        delay=false;
+                        editer();
+                    },3000);
                 } else {
-                    saveRangePosition(textarea);
+                    editer();
                 }
                 
-                text.getElementById("textarea").innerHTML = msg.data ;
-                
-                if(inilen==finallen){
-                    restore();
-                } else {
-                    restoreRangePosition(textarea);
-                }
+
             }
             
             // Code to show xoicons as cursors of other users
@@ -747,10 +761,13 @@ define([
             }
             }
         };
-        
-        // For loading content of other users (update)
-        text.addEventListener("keyup",function(){
+
+        var Keyuphandel = debounce(function() {
+            // All the taxing stuff you do
+            console.log("key");
             myposition = $("#textarea").caret('position');
+            change = getLen(document.getElementById('textarea'));
+            change = change-inlen;
             var screenheight = document.getElementById('textarea').clientHeight;
             if(screenheight - myposition.top <= 100){
                 screenheight=screenheight+842;
@@ -758,13 +775,17 @@ define([
             }
             updateContent();
             storechangesinstack();
-            if(!presence) saveRangePosition(document.getElementById("textarea"));
-        });
+            // if(!presence) saveRangePosition(document.getElementById("textarea"));
+        }, 250);
+        
+        // For loading content of other users (update)
+        document.addEventListener("keyup",Keyuphandel);
         
         // Remove image selection on clicking in textarea  ( if image is in select mode )
         // Also save the carset position
-        document.getElementById("textarea").addEventListener("click",function(event){
+        document.addEventListener("click",function(event){
             myposition = $("#textarea").caret('position');
+            // inlen = getLen(document.getElementById('textarea'));
             if(myposition) updateContent();
             if(document.getElementById(currentImage) && currentImage!=null){
 
@@ -775,13 +796,16 @@ define([
         })
         function updateContent(){
             if(presence){
-                var data = text.getElementById("textarea").innerHTML ;
+                var data = document.getElementById("textarea").innerHTML ;
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
                     action: 'update',
                     data: data,
-                    position : myposition
+                    position : myposition,
+                    inlen: inlen,
+                    lenchange: change
                 });
+                inlen=change+inlen;
             }
         }
 
