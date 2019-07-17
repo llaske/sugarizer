@@ -87,6 +87,11 @@ p{
   margin: 0px;
 }
 
+body{
+  font-family: Arial;
+  font-size: 20px;
+}
+
 #textarea div {
   display: inline;
 }
