@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Write Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/libnotify.css">
+<script src="js/export-to-PDF/jspdf.min.js"></script>
+<script src="js/export-to-PDF/html2canvas.js"></script>
+<script src="js/carsetretain.js"></script>
+<script src="js/html-docx.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.caret.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Write Activity"></button>
+
+  <!-- Add more buttons here -->
+  <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="edit-text" title="edit text"></button>
+  <button class="toolbutton" id="paragraph" title="paragraph"></button>
+  <button class="toolbutton" id="list" title="list"></button>
+  <button class="toolbutton" id="color-button-1" title="Foreground Color"></button>
+  <button class="toolbutton" id="color-button-2" title="Background Color"></button>
+  <button class="toolbutton" id="format-text" title="format text"></button>
+  <button class="toolbutton" id="font-button" title="font"></button>
+  <button class="toolbutton" id="resize-inc" title="Increase font size"></button>
+  <button class="toolbutton" id="resize-dec" title="Decrease font size"></button>
+  <button class="toolbutton" id="insert-picture" title="Image"></button>
+  <button class="toolbutton" id="insert-table" title="Insert Table"></button>
+  <button class="toolbutton" id="export" title="Export"></button>
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas" style="background-color: white;">
+  
+  <!-- This the diiv which acts as textarea -->
+  <div id="textarea" contenteditable="true"></div>
+  <!-- This div contains all the cursors -->
+  <div id="cursors"></div>
+</div>
+<div id="fake" style="display: none"></div>
+</body>
+
+</html>
