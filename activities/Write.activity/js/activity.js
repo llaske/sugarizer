@@ -600,7 +600,6 @@ define([
         var selection , len ;
         var inlen = 0;
         var change = 0;
-        var delay = false;
         var onNetworkDataReceived = function(msg) {
             if (presence.getUserInfo().networkId === msg.user.networkId) {
                 return;
@@ -612,34 +611,22 @@ define([
                 document.getElementById('textarea').setAttribute("style","display:block;height:"+screenheight+"px");
             }
             // Changes made by user in presence will be handled here
-            function editer(){
-                if(text.getElementById("textarea").innerHTML!=msg.data){
-                    selection = window.getSelection();
-                    var range = selection.getRangeAt(0);
-                    range.setStart( text.getElementById("textarea"), 0 );
-                    len = range.toString().length;
-                    console.log("inlen-",len,"change-",msg.lenchange);
-                    if(msg.inlen<=len){
-                        len=len+msg.lenchange;
-                    }
-                    inlen=len;
-                    text.getElementById("textarea").innerHTML = msg.data ;
-                    var pos = getTextNodeAtPosition(document.getElementById("textarea"), len);
-                    selection.removeAllRanges();
-                    var range = new Range();
-                    range.setStart(pos.node ,pos.position);
-                    selection.addRange(range);
+            if(text.getElementById("textarea").innerHTML!=msg.data){
+                selection = window.getSelection();
+                var range = selection.getRangeAt(0);
+                range.setStart( text.getElementById("textarea"), 0 );
+                len = range.toString().length;
+                console.log("inlen-",len,"change-",msg.lenchange);
+                if(msg.inlen<=len){
+                    len=len+msg.lenchange;
                 }
-                if(delay==true){
-                    setTimeout(function(){
-                        delay=false;
-                        editer();
-                    },3000);
-                } else {
-                    editer();
-                }
-                
-
+                inlen=len;
+                text.getElementById("textarea").innerHTML = msg.data ;
+                var pos = getTextNodeAtPosition(document.getElementById("textarea"), len);
+                selection.removeAllRanges();
+                var range = new Range();
+                range.setStart(pos.node ,pos.position);
+                selection.addRange(range);
             }
             
             // Code to show xoicons as cursors of other users
