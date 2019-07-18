@@ -17,15 +17,17 @@ Abcd.context = {
 	screenContext: null
 };
 Abcd.saveContext = function() {
-	var values = [];
-	values.push(Abcd.context.object!=null?Abcd.context.object.kindName:"");
-	values.push(Abcd.context.lang);
-	values.push(Abcd.context.casevalue);
-	values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
-	var datastoreObject = Abcd.activity.getDatastoreObject();
-	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
-	datastoreObject.setDataAsText(jsonData);
-	datastoreObject.save(function() {});
+	document.getElementById("stop-button").addEventListener('click', function (event) {
+		var values = [];
+		values.push(Abcd.context.object!=null?Abcd.context.object.kindName:"");
+		values.push(Abcd.context.lang);
+		values.push(Abcd.context.casevalue);
+		values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
+		var datastoreObject = Abcd.activity.getDatastoreObject();
+		var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
+		datastoreObject.setDataAsText(jsonData);
+		datastoreObject.save(function() {});
+	});
 };
 Abcd.loadContext = function(callback) {
 	var datastoreObject = Abcd.activity.getDatastoreObject();
@@ -33,6 +35,7 @@ Abcd.loadContext = function(callback) {
 		var context = JSON.parse(data);
 		if (context) {
 			var values = context.context.split('#');
+			console.log(values);
 			Abcd.context.screen = values[0];
 			Abcd.context.lang = values[1];
 			Abcd.context.casevalue = values[2];
@@ -91,6 +94,7 @@ Abcd.goHome = function() {
 		if (Abcd.context.object == null)
 			return;
 		Abcd.context.screen = "";
+		Abcd.context.object = null;
 		Abcd.context.home.renderInto(document.getElementById("body"));
 		Abcd.context.home.playTheme();
 	}
@@ -195,26 +199,3 @@ Abcd.mix = function(chain) {
 
 	return mixedchain;
 };
-
-// Encoding functions taken from
-// https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
-function uint6ToB64 (nUint6) {
-	return nUint6 < 26 ?
-		nUint6 + 65 : nUint6 < 52 ?
-		nUint6 + 71 : nUint6 < 62 ?
-		nUint6 - 4 : nUint6 === 62 ?
-		43 : nUint6 === 63 ?
-		47 : 65;
-}
-Abcd.toBase64 = function(aBytes) {
-	var eqLen = (3 - (aBytes.length % 3)) % 3, sB64Enc = "";
-	for (var nMod3, nLen = aBytes.length, nUint24 = 0, nIdx = 0; nIdx < nLen; nIdx++) {
-		nMod3 = nIdx % 3;
-		nUint24 |= aBytes[nIdx] << (16 >>> nMod3 & 24);
-		if (nMod3 === 2 || aBytes.length - nIdx === 1) {
-			sB64Enc += String.fromCharCode(uint6ToB64(nUint24 >>> 18 & 63), uint6ToB64(nUint24 >>> 12 & 63), uint6ToB64(nUint24 >>> 6 & 63), uint6ToB64(nUint24 & 63));
-			nUint24 = 0;
-		}
-	}
-	return  eqLen === 0 ? sB64Enc : sB64Enc.substring(0, sB64Enc.length - eqLen) + (eqLen === 1 ? "=" : "==");
-}
