@@ -58,7 +58,9 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       var data = JSON.parse(jsonData);
       if (data !== undefined) {
         CalculateApp.data.calculations = data;
-        CalculateApp.displayAllCalculations();
+        if (CalculateApp.data.calculations != null){
+          CalculateApp.displayAllCalculations();
+        }
       }
     });
   });
