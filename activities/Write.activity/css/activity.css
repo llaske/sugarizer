@@ -1,7 +1,6 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
-
 #main-toolbar #edit-text {
   background-image: url(../icons/scissors.svg);
 }
@@ -26,78 +25,17 @@
   background-image: url(../icons/resize+.svg);
 }
 
-#main-toolbar #resize-dec {
-  background-image: url(../icons/resize-.svg);
-}
-
 #main-toolbar #insert-picture {
   background-image: url(../icons/insert-picture.svg);
-}
-
-#main-toolbar #insert-table {
-  background-image: url(../icons/create-table.svg);
 }
 
 #main-toolbar #export {
   background-image: url(../icons/file-export.svg);
 }
 
-#main-toolbar #network-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-}
-
-#private-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-  width: 47px;
-  height: 47px;
-  margin: 4px 2px;
-  color: white;
-  color: transparent;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 0;
-  border-radius: 5.5px;
-}
-
-#shared-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-  width: 47px;
-  height: 47px;
-  margin: 4px 2px;
-  color: white;
-  color: transparent;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 0;
-  border-radius: 5.5px;
-}
-
-#textarea {
-  margin: 0px;
-  height: 842px;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-p{
-  margin: 0px;
-}
-
-body{
-  font-family: Arial;
-  font-size: 20px;
-}
-
-#textarea div {
-  display: inline;
-}
-
-#canvas{
-  overflow-x: hidden;
+#editor{
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .palette-button {
@@ -112,13 +50,25 @@ body{
   margin: 4px;
 }
 
+.palette-button-2 {
+  width: 80px;
+  height: 40px;
+  margin-left: 25px;
+  color: transparent;
+  background-size: 59px;
+  border: 0;
+  border-radius: 5.5px;
+  display: block;
+}
+
+.filter-item {
+  color: white;
+  font-size: 12pt;
+}
 .palette-button-notselected {
   background-color: transparent;
 }
 
-.palette-button-selected {
-  background-color: #9c9a9c;
-}
 .colorpalette {
 	z-index: 20;
 }
@@ -141,105 +91,14 @@ body{
   margin-bottom: 5.5px;
 }
 
-.cursor-container{
-  margin-left: -9px;
-  padding: 0 9px;
-  z-index: 1;
-  position: absolute;
-  height: 25px;
+.ql-font-arial {
+  font-family: 'Arial';
 }
 
-.cursor{
-  position: absolute;
-  width: 3px;
-  height: 25px;
-  margin-left: -1px;
-  top: 0;
-  bottom: 0;
+.ql-font-Verdana {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.cursor-name{
-  display: inline-block;
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
-  opacity: 0.5;
-  font-size: 20px;
-  height: 20px;
+.ql-font-comic {
+  font-family: 'Comic Sans MS';
 }
-
-#edit-text , #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
-  display: none;
-}
-
-@media only screen and (min-width: 330px) {
-  #edit-text {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 385px) {
-  #paragraph {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 440px) {
-  #list {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 510px) {
-  #format-text {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 570px) {
-  #font-button {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 601px) {
-  #resize-inc {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 660px) {
-  #resize-dec {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 715px) {
-  #color-button-1 {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 770px) {
-  #color-button-2 {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 825px) {
-  #insert-picture {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 880px) {
-  #insert-table {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 935px) {
-  #export {
-    display: inline-block;
-  }
-}
-
