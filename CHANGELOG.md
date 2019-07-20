@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for TXT/PDF files in Journal
 - Support for MP3/MP4 files in Journal
 - Add export sound to Journal feature in Abecedarium activity
+- Add export video to Journal feature in VideoViewer activity
 
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
