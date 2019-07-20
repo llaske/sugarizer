@@ -131,7 +131,7 @@ enyo.kind({
 		// Compute format
 		var format = "";
 		var mimetype = ""
-		if (Abcd.sound.canPlayType("audio/mpeg")) {
+		if (Abcd.sound.canPlayType("audio/mpeg") && !enyo.platform.android && !enyo.platform.androidChrome) {
 			format = ".mp3";
 			mimetype = "audio/mpeg";
 		} else if (Abcd.sound.canPlayType("audio/ogg")) {
