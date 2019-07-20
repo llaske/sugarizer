@@ -1,4 +1,4 @@
-﻿// Utility functions
+// Utility functions
 
 
 // Namespace
@@ -17,15 +17,17 @@ Abcd.context = {
 	screenContext: null
 };
 Abcd.saveContext = function() {
-	var values = [];
-	values.push(Abcd.context.object!=null?Abcd.context.object.kindName:"");
-	values.push(Abcd.context.lang);
-	values.push(Abcd.context.casevalue);
-	values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
-	var datastoreObject = Abcd.activity.getDatastoreObject();
-	var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
-	datastoreObject.setDataAsText(jsonData);
-	datastoreObject.save(function() {});
+  document.getElementById("stop-button").addEventListener('click', function (event) {
+    var values = [];
+    values.push(Abcd.context.object!=null?Abcd.context.object.kindName:"");
+    values.push(Abcd.context.lang);
+    values.push(Abcd.context.casevalue);
+    values.push(Abcd.context.object!=null?Abcd.context.object.saveContext():"");
+    var datastoreObject = Abcd.activity.getDatastoreObject();
+    var jsonData = JSON.stringify({context:values.join("#"), database:Abcd.context.getDatabase()});
+    datastoreObject.setDataAsText(jsonData);
+    datastoreObject.save(function() {});
+  });
 };
 Abcd.loadContext = function(callback) {
 	var datastoreObject = Abcd.activity.getDatastoreObject();
@@ -87,13 +89,14 @@ Abcd.log = function(msg) {
 
 // Home handling
 Abcd.goHome = function() {
-	if (Abcd.context.home != null) {
-		if (Abcd.context.object == null)
-			return;
-		Abcd.context.screen = "";
-		Abcd.context.home.renderInto(document.getElementById("body"));
-		Abcd.context.home.playTheme();
-	}
+if (Abcd.context.home != null) {
+  if (Abcd.context.object == null)
+    return;
+  Abcd.context.screen = "";
+  Abcd.context.object = null;
+  Abcd.context.home.renderInto(document.getElementById("body"));
+  Abcd.context.home.playTheme();
+}
 };
 
 
