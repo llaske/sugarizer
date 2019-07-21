@@ -31,7 +31,7 @@ define([
 				resize: true,
 				toolbar: true
 			  },
-			  cursors: true
+			  cursors: true,
 			},
 			};
 		Quill.register('modules/cursors', QuillCursors);
@@ -64,10 +64,9 @@ define([
 
 				// Hide GUI of undo and redo for non host users
                 document.getElementById("3").style.display = "none";
-                document.getElementById("4").style.display = "none";
-
+				document.getElementById("4").style.display = "none";
+				document.getElementById("shared-button").click();
 				presence = activity.getPresenceObject(function(error, network) {
-					
 					network.onDataReceived(onNetworkDataReceived);
 					network.onSharedActivityUserChanged(onNetworkUserChanged);
 				});

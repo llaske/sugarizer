@@ -1,5 +1,5 @@
 [Activity]
-name = Write Activity
+name = Write
 activity_version = 1
 bundle_id = org.sugarlabs.Write
 exec = sugar-activity-web
