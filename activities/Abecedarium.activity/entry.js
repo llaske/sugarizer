@@ -138,9 +138,14 @@ enyo.kind({
 			format = ".ogg";
 			mimetype = "audio/ogg";
 		}
-		var url = window.location.href;
-		url = url.substring(0, url.indexOf('/index.html'));
-		url += "/"+this.sound+format;
+		var url = "";
+		if (this.sound.indexOf("http") == 0) {
+			url = this.sound+format;
+		} else {
+			url = window.location.href;
+			url = url.substring(0, url.indexOf('/index.html'));
+			url += "/"+this.sound+format;
+		}
 
 		// Load file
 		var request = new XMLHttpRequest();
