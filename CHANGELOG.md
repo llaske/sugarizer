@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a pause button to the Physics activity #354
 - Context is lost the second time in Abecedarium activity #359
 - Sound not play on Memorize activity in iOS
+- Record activity don't work in Safari #362
 
 
 ## [1.1.0] - 2019-01-20
