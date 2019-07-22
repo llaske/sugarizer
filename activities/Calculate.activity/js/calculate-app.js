@@ -196,6 +196,9 @@ var CalculateApp = {
 
   /* Add calculation to list */
   storeCalculation: function(calculation) {
+    if(CalculateApp.data.calculations === null){
+      CalculateApp.data.calculations = [];
+    }
     CalculateApp.data.calculations.push(calculation);
   },
 
@@ -257,8 +260,10 @@ var CalculateApp = {
     while (CalculateApp.elements.resultsZoneDiv.firstChild) {
       CalculateApp.elements.resultsZoneDiv.removeChild(CalculateApp.elements.resultsZoneDiv.firstChild);
     }
-    for (var i = 0; i < CalculateApp.data.calculations.length; i++) {
-      CalculateApp.displayCalculation(CalculateApp.data.calculations[i]);
+    if(CalculateApp.data.calculations !== null){
+      for (var i = 0; i < CalculateApp.data.calculations.length; i++) {
+        CalculateApp.displayCalculation(CalculateApp.data.calculations[i]);
+      }
     }
   },
 
