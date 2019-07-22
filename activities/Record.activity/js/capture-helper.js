@@ -460,7 +460,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             captureHelper.displayLoading();
             try {
-                navigator.getUserMedia({audio: true}, function (mediaStream) {
+                navigator.mediaDevices.getUserMedia({audio: true}).then(function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {
                         type: 'audio'
                     });
@@ -499,7 +499,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         }
                     }, 1000);
 
-                }, function (error) {
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });
@@ -524,7 +524,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             captureHelper.displayLoading();
             try {
-                navigator.getUserMedia({video: true}, function (mediaStream) {
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {
                         type: 'video',
                         frameRate: 80,
@@ -566,7 +566,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         }
                     }, 1000);
 
-                }, function (error) {
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });
@@ -591,53 +591,24 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             var video = document.createElement("video");
             try {
                 captureHelper.displayLoading();
-                navigator.getUserMedia({video: true}, function (mediaStream) {
-                    var recordRTC = RecordRTC(mediaStream, {type: 'video'});
-                    recordRTC.startRecording();
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (mediaStream) {
                     document.querySelector('#vidDisplay').srcObject = mediaStream;
                     setTimeout(function () {
-                        t.timerStart.innerHTML = "";
-                        t.timerEnd.innerHTML = "";
-                        document.getElementById("loading-progress").value = 0;
-                        recordRTC.stopRecording(function () {
-                            recordRTC.getDataURL(function (dataURL) {
-                                video.addEventListener('loadeddata', function () {
-                                    video.play();
-                                });
+                        var canvas = document.createElement("canvas");
+                        var width = captureHelper.width;
+                        var height = captureHelper.height;
 
-                                video.addEventListener('canplaythrough', function () {
-                                    video.play();
-                                });
+                        canvas.width = width;
+                        canvas.height = height;
 
-                                video.addEventListener('canplay', function () {
-                                    video.play();
-                                });
-
-                                video.addEventListener("playing", function () {
-                                    setTimeout(function () {
-                                        var canvas = document.createElement("canvas");
-                                        var width = captureHelper.width;
-                                        var height = captureHelper.height;
-
-                                        canvas.width = width;
-                                        canvas.height = height;
-
-                                        canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-                                        var imgSrc = canvas.toDataURL("image/png");
-                                        captureHelper.forgeAndInsertData(imgSrc);
-                                        if (mediaStream.stop) mediaStream.stop();
-                                        t.recording = false;
-                                        captureHelper.hideLoading();
-                                    }, 1200);
-                                }, false);
-
-                                video.src = dataURL;
-                            });
-
-
-                        });
-                    }, 1500);
-                }, function (error) {
+                        canvas.getContext('2d').drawImage(document.querySelector('#vidDisplay'), 0, 0, width, height);
+                        var imgSrc = canvas.toDataURL("image/png");
+                        captureHelper.forgeAndInsertData(imgSrc);
+                        if (mediaStream.stop) mediaStream.stop();
+                        t.recording = false;
+                        captureHelper.hideLoading();
+                    }, 2700);
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });
