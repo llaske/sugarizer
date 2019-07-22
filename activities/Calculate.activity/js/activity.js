@@ -61,6 +61,8 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
         CalculateApp.displayAllCalculations();
       }
     });
+
+
   });
 
 });
