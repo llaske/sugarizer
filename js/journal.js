@@ -233,6 +233,8 @@ enyo.kind({
 				activityIcon = {directory: "icons", icon: "application-x-pdf.svg"};
 			} else if (entry.metadata.mimetype == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
 				activityIcon = {directory: "icons", icon: "application-x-doc.svg"};
+			} else if (entry.metadata.mimetype == "application/vnd.ms-word;charset=utf-8") {
+				activityIcon = {directory: "icons", icon: "application-x-doc.svg"};
 			}
 		}
 		inEvent.item.$.activity.setIcon(activityIcon);
@@ -1107,7 +1109,7 @@ enyo.kind({
 
 	fromDeviceSelected: function() {
 		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
-			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.docx");
+			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.docx,.doc");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
 		} else {
