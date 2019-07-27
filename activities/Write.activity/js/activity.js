@@ -279,7 +279,8 @@ define([
         var options = [
             {"id": 19, "title": "export to txt" , "cmd":"save-as-txt"},
             {"id": 20, "title": "export to pdf", "cmd":"save-as-pdf"},
-            {"id": 21, "title": "export to MSWord", "cmd":"save-as-word"},
+			{"id": 21, "title": "export to MSWord", "cmd":"save-as-word"},
+			{"id": 22, "title": "export to Libre Office", "cmd":"libre"},
         ];
         exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
         exportpalette.setCategories(options);
@@ -349,20 +350,14 @@ define([
             })
 			});
 
-		// Save as docx
+		// Save as doc for msword
 		document.getElementById(21).addEventListener('click',function(){
 			var title = document.getElementById("title").value;
-			var content = '<!DOCTYPE html>' + document.getElementById("editor").innerHTML;
-			var orientation = "portrait";
-			var converted = htmlDocx.asBlob(content, {orientation: orientation});
-			var reader = new FileReader();
-			reader.readAsDataURL(converted); 
-			reader.onloadend = function() {
-				var inputData = reader.result;
-				var mimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';                
+			$("#editor").wordExport(function(inputData){
+				var mimetype = 'application/vnd.ms-word;charset=utf-8';
 				var metadata = {
 					mimetype: mimetype,
-					title: title+".docx",
+					title: title+"Word"+".doc",
 					activity: "",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
@@ -371,7 +366,32 @@ define([
 				datastore.create(metadata, function() {
 					console.log("export done.");
 				}, inputData);
-			}
+			});
+		});
+
+		// Save as doc for Libre Office
+		document.getElementById(22).addEventListener("click",function(){
+			var title = document.getElementById("title").value;
+			var content =document.getElementById("editor").innerHTML;
+			var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'></head><body>";
+        	var footer = "</body></html>";
+			var sourceHTML = header+content+footer;
+			var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));;
+			var mimetype = 'application/vnd.ms-word;charset=utf-8';
+			var metadata = {
+				mimetype: mimetype,
+				title: title+"Libre"+".doc",
+				activity: "",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			datastore.create(metadata, function() {
+				console.log("export done.");
+			}, inputData);
 		});
 
 		// On content change handlers , sends data to other users on content being changed
