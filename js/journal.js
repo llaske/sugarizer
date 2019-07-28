@@ -396,9 +396,17 @@ enyo.kind({
 		this.runCurrentActivity(this.journal[inEvent.index]);
 	},
 	runCurrentActivity: function(activity) {
-		// Generic
+		// Generic activity type, try to open as a document
 		var activityInstance = preferences.getActivity(activity.metadata.activity);
 		if (activityInstance == preferences.genericActivity) {
+			if (activity.metadata.mimetype == "application/pdf") {
+				var that = this;
+				this.loadEntry(activity, function(err, metadata, text) {
+					that.$.activityPopup.hidePopup();
+					util.openAsDocument(metadata, text);
+					return;
+				});
+			}
 			return;
 		}
 
@@ -531,8 +539,8 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
-			data: [entry, null],
-			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity)
+			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity && entry.metadata.mimetype != "application/pdf"),
+			data: [entry, null]
 		});
 		items.push({
 			icon: {directory: "icons", icon: "copy-journal.svg"},

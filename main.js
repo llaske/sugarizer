@@ -2,6 +2,7 @@
 
 var electron = require('electron'),
 	fs = require('fs'),
+	temp = require('tmp'),
 	ini = require('ini'),
 	path = require('path'),
 	requirejs = require('requirejs');
@@ -174,6 +175,17 @@ function createWindow () {
 					for (var i = 0 ; i < files.length ; i++) {
 						LoadFile(event, files[i]);
 					}
+				}
+			});
+		});
+		ipc.on('create-tempfile', function(event, arg) {
+			temp.file('sugarizer', function(err, path, fd) {
+				if (!err) {
+					var data = arg.text.replace(/^data:.+;base64,/, "");
+					var buf = new Buffer(data, 'base64');
+					fs.writeFile(fd, buf, function(err) {
+						event.sender.send('create-tempfile-reply', path);
+					});
 				}
 			});
 		});
