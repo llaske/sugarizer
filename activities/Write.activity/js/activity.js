@@ -468,6 +468,9 @@ define([
 					}
 				}
 				cursors.update();
+				// Create Fake event to init Cursors
+				document.getElementById("list-ordered").click();
+				document.getElementById("list-ordered").click();
 				nomoreinit=true;
 			}
 			if(msg.content.action=='typing'){
