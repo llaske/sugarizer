@@ -475,10 +475,9 @@ define([
 			}
 			if(msg.content.action=='typing'){
 				editor.updateContents(msg.content.data);
-				cursors.moveCursor(msg.user.networkId,msg.content.range);
 			}
 			if(msg.content.action=='selection'){
-				cursors.moveCursor(msg.user.networkId,msg.content.range);
+				setTimeout(() => cursors.moveCursor(msg.user.networkId,msg.content.range) , 5);
 			}
 			
 		}; 
