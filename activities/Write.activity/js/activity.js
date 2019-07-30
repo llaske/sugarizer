@@ -279,8 +279,7 @@ define([
         var options = [
             {"id": 19, "title": "export to txt" , "cmd":"save-as-txt"},
             {"id": 20, "title": "export to pdf", "cmd":"save-as-pdf"},
-			{"id": 21, "title": "export to MSWord", "cmd":"save-as-word"},
-			{"id": 22, "title": "export to Libre Office", "cmd":"libre"},
+			{"id": 21, "title": "export to doc", "cmd":"doc"},
         ];
         exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
         exportpalette.setCategories(options);
@@ -350,27 +349,8 @@ define([
             })
 			});
 
-		// Save as doc for msword
-		document.getElementById(21).addEventListener('click',function(){
-			var title = document.getElementById("title").value;
-			$("#editor").wordExport(function(inputData){
-				var mimetype = 'application/vnd.ms-word;charset=utf-8';
-				var metadata = {
-					mimetype: mimetype,
-					title: title+"Word"+".doc",
-					activity: "",
-					timestamp: new Date().getTime(),
-					creation_time: new Date().getTime(),
-					file_size: 0
-				};
-				datastore.create(metadata, function() {
-					console.log("export done.");
-				}, inputData);
-			});
-		});
-
-		// Save as doc for Libre Office
-		document.getElementById(22).addEventListener("click",function(){
+		// Save as doc 
+		document.getElementById(21).addEventListener("click",function(){
 			var title = document.getElementById("title").value;
 			var content =document.getElementById("editor").innerHTML;
 			var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
@@ -383,7 +363,7 @@ define([
 			var mimetype = 'application/vnd.ms-word;charset=utf-8';
 			var metadata = {
 				mimetype: mimetype,
-				title: title+"Libre"+".doc",
+				title: title+".doc",
 				activity: "",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
