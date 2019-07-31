@@ -26,11 +26,7 @@ define([
 			  history: {
 				maxStack: 500,
 			  },
-			  imageResize: {
-				displaySize: true,
-				resize: true,
-				toolbar: true
-			  },
+			  imageResize: {},
 			  cursors: {
 				transformOnTextChange: true,
 			  },
