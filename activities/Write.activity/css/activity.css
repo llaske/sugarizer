@@ -25,6 +25,10 @@
   background-image: url(../icons/resize+.svg);
 }
 
+#main-toolbar #resize-dec{
+  background-image: url(../icons/resize-.svg);
+}
+
 #main-toolbar #insert-picture {
   background-image: url(../icons/insert-picture.svg);
 }
@@ -138,7 +142,7 @@
 }
 
 
-#edit-text , #format-text , #paragraph ,#list,#font-button,#resize-inc,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
+#edit-text , #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
   display: none;
 }
 
@@ -172,8 +176,11 @@
   }
 }
 
-@media only screen and (min-width: 621px) {
+@media only screen and (min-width: 641px) {
   #resize-inc {
+    display: inline-block;
+  }
+  #resize-dec {
     display: inline-block;
   }
 }

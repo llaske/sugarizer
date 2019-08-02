@@ -6,13 +6,12 @@ define([
 	"activity/palettes/paragraph-palette",
 	"activity/palettes/font-palette",
 	"sugar-web/graphics/colorpalette",
-	"activity/palettes/font-size-palette",
 	"sugar-web/datastore",
 	"sugar-web/graphics/journalchooser",
 	"sugar-web/env",
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
-], function (activity,editpalette,formatpalette,listpalette,parapalette,fontPalette,colorpalette,sizepalette , datastore , journalchooser,env,presencepalette,exportpalette) {
+], function (activity,editpalette,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
@@ -36,6 +35,7 @@ define([
 		var container = document.getElementById('editor');
 		var editor = new Quill(container,options);
 		editor.focus();
+		editor.format('size','24px');
 		const cursors = editor.getModule('cursors');
 		// Journal Handling (Load)
 		env.getEnvironment(function(err, environment) {
@@ -214,36 +214,27 @@ define([
 		});
 		
 
-		// Initiating font-size-palette ( for small,normal,large,huge )
-
-		var sizeButton = document.getElementById("resize-inc");
-		var options = [
-			{"id": 15, "title": "small" , "cmd":"small"},
-			{"id": 16, "title": "normal", "cmd":"normal"},
-			{"id": 17, "title": "large", "cmd":"large"},
-			{"id": 18, "title": "huge", "cmd":"huge"},
-		];
-		sizepalette = new sizepalette.Sizepalette(sizeButton, undefined);
-		sizepalette.setCategories(options);
-		sizepalette.addEventListener('size', function () {
-			sizepalette.popDown();
-			editor.focus();
+		// Initiating font-size-palette 
+		// For increase
+		var sizes = ['16px','24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
+		var sizeIncButton = document.getElementById("resize-inc");
+		sizeIncButton.addEventListener("click",function(){
+			var currentSize = editor.getFormat();
+			var index = sizes.indexOf(currentSize.size);
+			index++;
+			if(index<sizes.length){
+				editor.format('size',sizes[index]);
+			}
 		});
-		document.getElementById(15).addEventListener("click",function(){
-			changeMadebyUser=true;
-			editor.format('size','24px');
-		});
-		document.getElementById(16).addEventListener("click",function(){
-			changeMadebyUser=true;
-			editor.format('size','48px');
-		});
-		document.getElementById(17).addEventListener("click",function(){
-			changeMadebyUser=true;
-			editor.format('size','75px');
-		});
-		document.getElementById(18).addEventListener("click",function(){
-			changeMadebyUser=true;
-			editor.format('size','100px');
+		// For decrease
+		var sizeDecButton = document.getElementById("resize-dec");
+		sizeDecButton.addEventListener("click",function(){
+			var currentSize = editor.getFormat();
+			var index = sizes.indexOf(currentSize.size);
+			index--;
+			if(index>=0){
+				editor.format('size',sizes[index]);
+			}
 		});
 
 		// Insert Image handling

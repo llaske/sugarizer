@@ -35,5 +35,5 @@ Font.whitelist = ['comic', 'arial','Verdana'];
 Quill.register(Font, true);
 // Register Font sizes
 var fontSizeStyle = Quill.import('attributors/style/size');
-fontSizeStyle.whitelist = ['24px', '48px', '75px', '100px'];
+fontSizeStyle.whitelist = ['16px','24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
 Quill.register(fontSizeStyle, true);
