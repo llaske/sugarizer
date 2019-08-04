@@ -42,10 +42,17 @@ define([
             
             currentenv = environment;
             
-            if (!environment.objectId) {
-                // New instance
-                // Set focus on textarea
-				
+            if (!environment.objectId && !environment.sharedId) {
+				// New instance
+				var greet = 'Welcome ! ';
+				var name = environment.user.name + ' ';
+				editor.setContents([
+					{ insert:  greet, attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
+					{ insert: name, },
+					{ insert: '\n' }
+				]);
+				var index = greet.length + name.length ;
+				editor.setSelection(index,0);				
             } else {
                 // Existing instance
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
