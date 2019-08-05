@@ -223,7 +223,7 @@ define([
 
 		// Initiating font-size-palette 
 		// For increase
-		var sizes = ['16px','24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
+		var sizes = ['24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
 		var sizeIncButton = document.getElementById("resize-inc");
 		sizeIncButton.addEventListener("click",function(){
 			var currentSize = editor.getFormat();
