@@ -21,6 +21,8 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featureLocalJournal.placeholder = "$holderSearchJournal";
 	featureLocalJournal.icon = "lib/sugar-web/graphics/icons/actions/activity-journal.svg";
 	featureLocalJournal.beforeActivate = function() {
+		featureLocalJournal.isFavorite = false;
+		document.getElementById('favorite-button').style.backgroundImage = "url(lib/sugar-web/graphics/icons/emblems/favorite.svg)";
 		fillJournal.apply(null, featureLocalJournal.filters);
 	};
 	featureLocalJournal.beforeUnactivate = function() {
@@ -41,16 +43,19 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featureLocalJournal.onCancelSearch = function() {
 		fillJournal.apply(null, featureLocalJournal.filters);
 	};
-	featureLocalJournal.isFavorite = false;
 
 	// Chooser feature to search in Abecedarium database
 	var featureAbecedarium = {};
-	featureAbecedarium.id = "journal-button";
+	featureAbecedarium.id = "abecedarium-button";
 	featureAbecedarium.title = "$titleAbecedarium";
 	featureAbecedarium.placeholder = "$holderSearchAbecedarium";
 	featureAbecedarium.icon = "lib/sugar-web/graphics/icons/actions/activity-abecedarium.svg";
-	featureAbecedarium.beforeActivate = function() {};
-	featureAbecedarium.beforeUnactivate = function() {};
+	featureAbecedarium.beforeActivate = function() {
+		document.getElementById('favorite-button').style.visibility = "hidden";
+	};
+	featureAbecedarium.beforeUnactivate = function() {
+		document.getElementById('favorite-button').style.visibility = "visible";
+	};
 	featureAbecedarium.onFavorite = function() {};
 	featureAbecedarium.onSearch = function() {};
 	featureAbecedarium.onCancelSearch = function() {};
@@ -65,7 +70,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	// 		chooser.show({activity: 'org.olpcfrance.PaintActivity'}, {mimetype: 'image/png'})
 	var modal;
 	var result;
-	var features = [featureLocalJournal];
+	var features = [featureLocalJournal, featureAbecedarium];
 	var currentFeature = 0;
 	chooser.show = function(callback, filter1, orFilter2, orFilter3, orFilter4) {
 		result = null;
@@ -102,7 +107,28 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
 			var radios = [];
 			for (var i = 0 ; i < features.length ; i++) {
-				radios.push(document.getElementById(features[i].id));
+				var radio = document.getElementById(features[i].id);
+				radios.push(radio);
+				radio.addEventListener("click", function(e) {
+					var index = -1;
+					for (var j = 0 ; j < features.length ; j++) {
+						if (features[j].id == e.srcElement.id) {
+							index = j;
+							break;
+						}
+					}
+					if (index != currentFeature) {
+						features[currentFeature].beforeUnactivate();
+						document.getElementById(features[currentFeature].id).style.backgroundImage = "url("+features[currentFeature].icon+")";
+						document.getElementById('journal-container').innerHTML = "";
+						document.getElementById('search-text').value = '';
+						currentFeature = index;
+						features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+						features[currentFeature].beforeActivate();
+						icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
+						document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
+					}
+				})
 			}
 			new radioButtonsGroup.RadioButtonsGroup(radios);
 
@@ -270,11 +296,11 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	// Util: Localize content - currently means only localize in English
 	var l10n = {
 		titleJournal: 'Local journal',
-		titleAbecedarium: 'Abecedarium database',
+		titleAbecedarium: 'Abecedarium',
 		titleClose: 'Cancel',
 		titleChoose: 'Choose an object',
 		holderSearchJournal: 'Search in Journal',
-		holderSearchAbecedarium: 'Search in Abecedarium database',
+		holderSearchAbecedarium: 'Search in Abecedarium',
 		noMatchingEntries: 'No matching entries',
 		SecondsAgo: 'Seconds ago',
 		Ago: ' ago',
