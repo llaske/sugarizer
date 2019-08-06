@@ -60,6 +60,14 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featureAbecedarium.onSearch = function() {};
 	featureAbecedarium.onCancelSearch = function() {};
 
+	// Init feature list: overload it if you want to change the feature list at init
+	var features = [];
+	var currentFeature = -1;
+	chooser.init = function() {
+		features = [featureLocalJournal];
+		currentFeature = 0;
+	}
+
 	// Display object chooser dialog with journal content
 	// Each filter has the form = {title: "%hysics", creation_time: "<12222", activity: ["org.olpcfrance.Paint","org.olpcfrance.Record"]}
 	// When more than one filter is provided, an entry is valid if it match one filter or more. Usage examples:
@@ -70,10 +78,12 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	// 		chooser.show({activity: 'org.olpcfrance.PaintActivity'}, {mimetype: 'image/png'})
 	var modal;
 	var result;
-	var features = [featureLocalJournal, featureAbecedarium];
-	var currentFeature = 0;
 	chooser.show = function(callback, filter1, orFilter2, orFilter3, orFilter4) {
 		result = null;
+		chooser.init();
+		if ((filter1 && filter1.mimetype == "image/png") || (orFilter2 && orFilter2.mimetype == "image/png") || (orFilter3 && orFilter3.mimetype == "image/png") || (orFilter4 && orFilter4.mimetype == "image/png")) {
+			features.push(featureAbecedarium);
+		}
 		var contentHeader = "<div id='pictotoolbar' class='toolbar' style='padding: 0'>";
 		for (var i = 0 ; i < features.length ; i++) {
 			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
