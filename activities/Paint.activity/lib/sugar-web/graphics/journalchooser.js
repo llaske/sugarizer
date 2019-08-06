@@ -1,5 +1,5 @@
 // Journal object chooser dialog
-define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','sugar-web/env'], function(picoModal,datastore,icon,mustache,env) {
+define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','sugar-web/env','sugar-web/graphics/radiobuttonsgroup'], function(picoModal,datastore,icon,mustache,env,radioButtonsGroup) {
 
 	var chooser = {};
 
@@ -14,38 +14,46 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		}
 	});
 
-	// Localize content
-	var l10n = {
-		titleJournal: 'Local journal',
-		titleClose: 'Cancel',
-		titleChoose: 'Choose an object',
-		holderSearch: 'Search in Journal',
-		noMatchingEntries: 'No matching entries',
-		SecondsAgo: 'Seconds ago',
-		Ago: ' ago',
-		Minutes_one: 'minute',
-		Minutes_other: 'minutes',
-		Hours_one: 'hour',
-		Hours_other: 'hours',
-		Days_one: 'day',
-		Days_other: 'days',
-		Weeks_one: 'week',
-		Weeks_other: 'weeks',
-		Months_one: 'month',
-		Months_other: 'months',
-		Years_one: 'year',
-		Years_other: 'years'
+	// Chooser feature to search in the Local Journal
+	var featureLocalJournal = {};
+	featureLocalJournal.id = "journal-button";
+	featureLocalJournal.title = "$titleJournal";
+	featureLocalJournal.placeholder = "$holderSearchJournal";
+	featureLocalJournal.icon = "lib/sugar-web/graphics/icons/actions/activity-journal.svg";
+	featureLocalJournal.beforeActivate = function() {
+		fillJournal.apply(null, featureLocalJournal.filters);
 	};
-	function doLocalize(str) {
-		var out = str;
-		for(var current in l10n) {
-			out = out.replace('$'+current, l10n[current]);
+	featureLocalJournal.beforeUnactivate = function() {
+	};
+	featureLocalJournal.onFavorite = function() {
+		var favorite = document.getElementById('favorite-button');
+		if (!featureLocalJournal.isFavorite) {
+			icon.colorize(favorite, userSettings.colorvalue, function() {});
+		} else {
+			favorite.style.backgroundImage = "url(lib/sugar-web/graphics/icons/emblems/favorite.svg)";
 		}
-		return out;
-	}
+		featureLocalJournal.isFavorite = !featureLocalJournal.isFavorite;
+		fillJournal.apply(null, featureLocalJournal.filters);
+	};
+	featureLocalJournal.onSearch = function() {
+		fillJournal.apply(null, featureLocalJournal.filters);
+	};
+	featureLocalJournal.onCancelSearch = function() {
+		fillJournal.apply(null, featureLocalJournal.filters);
+	};
+	featureLocalJournal.isFavorite = false;
 
-	// Favorite
-	var isFavorite = false;
+	// Chooser feature to search in Abecedarium database
+	var featureAbecedarium = {};
+	featureAbecedarium.id = "journal-button";
+	featureAbecedarium.title = "$titleAbecedarium";
+	featureAbecedarium.placeholder = "$holderSearchAbecedarium";
+	featureAbecedarium.icon = "lib/sugar-web/graphics/icons/actions/activity-abecedarium.svg";
+	featureAbecedarium.beforeActivate = function() {};
+	featureAbecedarium.beforeUnactivate = function() {};
+	featureAbecedarium.onFavorite = function() {};
+	featureAbecedarium.onSearch = function() {};
+	featureAbecedarium.onCancelSearch = function() {};
 
 	// Display object chooser dialog with journal content
 	// Each filter has the form = {title: "%hysics", creation_time: "<12222", activity: ["org.olpcfrance.Paint","org.olpcfrance.Record"]}
@@ -57,18 +65,21 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	// 		chooser.show({activity: 'org.olpcfrance.PaintActivity'}, {mimetype: 'image/png'})
 	var modal;
 	var result;
+	var features = [featureLocalJournal];
+	var currentFeature = 0;
 	chooser.show = function(callback, filter1, orFilter2, orFilter3, orFilter4) {
 		result = null;
+		var contentHeader = "<div id='pictotoolbar' class='toolbar' style='padding: 0'>";
+		for (var i = 0 ; i < features.length ; i++) {
+			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
+		}
+		contentHeader += "<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>";
+		contentHeader += "<div style='position: relative; display: inline-block; margin-left: 10px; vertical-align:middle; height:55px'>$titleChoose</div></div>";
 		modal = picoModal({
-			content: doLocalize("\
-				<div id='pictotoolbar' class='toolbar' style='padding: 0'>\
-					<button class='toolbutton active' id='journal-button' title='$titleJournal' style='background-image: url(lib/sugar-web/graphics/icons/actions/activity-journal.svg)'></button>\
-					<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>\
-					<div style='position: absolute; top: 20px; left: 60px;'>$titleChoose</div>\
-				</div>\
+			content: doLocalize(contentHeader+"\
 				<div class='toolbar' style='border-top-style: solid; border-color: #c0c0c0; border-width: 1px'>\
 					<span class='icon-input' style='vertical-align:top;'>\
-					<input id='search-text' type='text' placeholder='$holderSearch' style='width: 200px; font-size: 10pt'/>\
+					<input id='search-text' type='text' style='width: 200px; font-size: 10pt'/>\
 					<button id='cancel-search' class='cancel right'></button>\
 					</span>\
 					<button class='toolbutton' id='favorite-button' title='$titleFavorite' style='background-image: url(lib/sugar-web/graphics/icons/emblems/favorite.svg)'></button>\
@@ -88,36 +99,37 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		})
 		.afterShow(function(modal) {
 			var color = userSettings.colorvalue;
-			icon.colorize(document.getElementById('journal-button'), color, function() {});
+			icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
+			var radios = [];
+			for (var i = 0 ; i < features.length ; i++) {
+				radios.push(document.getElementById(features[i].id));
+			}
+			new radioButtonsGroup.RadioButtonsGroup(radios);
 
 			var targetHeight = document.getElementById("pictotoolbar").parentNode.offsetHeight - 55*2;
 			document.getElementById('journal-container').style.height = targetHeight + "px";
 
 			var favorite = document.getElementById('favorite-button');
 			favorite.addEventListener('click', function() {
-				if (!isFavorite) {
-					icon.colorize(favorite, color, function() {});
-				} else {
-					favorite.style.backgroundImage = "url(lib/sugar-web/graphics/icons/emblems/favorite.svg)";
-				}
-				isFavorite = !isFavorite;
-				fillJournal(filter1, orFilter2, orFilter3, orFilter4);
+				features[currentFeature].onFavorite();
 			});
 
 			document.getElementById('search-text').addEventListener('keyup', function() {
-				fillJournal(filter1, orFilter2, orFilter3, orFilter4);
+				features[currentFeature].onSearch();
 			});
 
 			document.getElementById('cancel-search').addEventListener('click', function() {
 				document.getElementById('search-text').value = '';
-				fillJournal(filter1, orFilter2, orFilter3, orFilter4);
+				features[currentFeature].onCancelSearch();
 			});
 			document.getElementById('close-button').addEventListener('click', function() {
 				result = null;
 				modal.close();
 			});
 
-			fillJournal(filter1, orFilter2, orFilter3, orFilter4);
+			document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
+			features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+			features[currentFeature].beforeActivate();
 		})
 		.afterClose(function(modal) {
 			modal.destroy();
@@ -143,7 +155,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		for (var i = 0 ; i < journal.length ; i++) {
 			var entry = journal[i];
 			var match = true;
-			if (isFavorite) {
+			if (featureLocalJournal.isFavorite) {
 				match = match && entry.metadata.keep;
 			}
 			var title = document.getElementById('search-text').value;
@@ -217,62 +229,6 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		document.getElementById('journal-empty').style.visibility = (journal.entries.length != 0 ? 'hidden' : 'visible');
 	}
 
-	// Util: compute elapsed time as a string
-	function timestampToElapsedString(timestamp) {
-		var l10n = {
-			SecondsAgo: 'Seconds ago',
-			Ago: ' ago',
-			Minutes_one: 'minute',
-			Minutes_other: 'minutes',
-			Hours_one: 'hour',
-			Hours_other: 'hours',
-			Days_one: 'day',
-			Days_other: 'days',
-			Weeks_one: 'week',
-			Weeks_other: 'weeks',
-			Months_one: 'month',
-			Months_other: 'months',
-			Years_one: 'year',
-			Years_other: 'years'
-		};
-		var units = [{name:'Years', factor:356 * 24 * 60 * 60},
-					 {name:'Months', factor:30 * 24 * 60 * 60},
-					 {name:'Weeks', factor:7 * 24 * 60 * 60},
-					 {name:'Days', factor:24 * 60 * 60},
-					 {name:'Hours', factor:60 * 60},
-					 {name:'Minutes', factor:60}];
-		var maxlevel = 1;
-		var levels = 0;
-		var time_period = '';
-		var time_stamp = (new Date(timestamp).getTime());
-		var elapsed_seconds = ((new Date().getTime()) - time_stamp)/1000;
-		for (var i = 0; i < units.length ; i++) {
-			var factor = units[i].factor;
-
-			var elapsed_units = Math.floor(elapsed_seconds / factor);
-			if (elapsed_units > 0) {
-				if (levels > 0)
-					time_period += ',';
-
-				time_period += ' '+elapsed_units+" "+(elapsed_units==1?l10n[units[i].name+"_one"]:l10n[units[i].name+"_other"]);
-
-				elapsed_seconds -= elapsed_units * factor;
-			}
-
-			if (time_period != '')
-				levels += 1;
-
-			if (levels == maxlevel)
-				break;
-		}
-
-		if (levels == 0) {
-			return l10n["SecondsAgo"];
-		}
-
-		return time_period+l10n["Ago"];
-	}
-
 	// Test if an entry match a value
 	function entryMatch(entry, name, value) {
 		var fieldValue = entry[name];
@@ -308,6 +264,79 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			}
 		}
 		return match;
+	}
+
+
+	// Util: Localize content - currently means only localize in English
+	var l10n = {
+		titleJournal: 'Local journal',
+		titleAbecedarium: 'Abecedarium database',
+		titleClose: 'Cancel',
+		titleChoose: 'Choose an object',
+		holderSearchJournal: 'Search in Journal',
+		holderSearchAbecedarium: 'Search in Abecedarium database',
+		noMatchingEntries: 'No matching entries',
+		SecondsAgo: 'Seconds ago',
+		Ago: ' ago',
+		Minutes_one: 'minute',
+		Minutes_other: 'minutes',
+		Hours_one: 'hour',
+		Hours_other: 'hours',
+		Days_one: 'day',
+		Days_other: 'days',
+		Weeks_one: 'week',
+		Weeks_other: 'weeks',
+		Months_one: 'month',
+		Months_other: 'months',
+		Years_one: 'year',
+		Years_other: 'years'
+	};
+	function doLocalize(str) {
+		var out = str;
+		for(var current in l10n) {
+			out = out.replace('$'+current, l10n[current]);
+		}
+		return out;
+	}
+
+	// Util: compute elapsed time as a string
+	function timestampToElapsedString(timestamp) {
+		var units = [{name:'Years', factor:356 * 24 * 60 * 60},
+					 {name:'Months', factor:30 * 24 * 60 * 60},
+					 {name:'Weeks', factor:7 * 24 * 60 * 60},
+					 {name:'Days', factor:24 * 60 * 60},
+					 {name:'Hours', factor:60 * 60},
+					 {name:'Minutes', factor:60}];
+		var maxlevel = 1;
+		var levels = 0;
+		var time_period = '';
+		var time_stamp = (new Date(timestamp).getTime());
+		var elapsed_seconds = ((new Date().getTime()) - time_stamp)/1000;
+		for (var i = 0; i < units.length ; i++) {
+			var factor = units[i].factor;
+
+			var elapsed_units = Math.floor(elapsed_seconds / factor);
+			if (elapsed_units > 0) {
+				if (levels > 0)
+					time_period += ',';
+
+				time_period += ' '+elapsed_units+" "+(elapsed_units==1?doLocalize("$"+units[i].name+"_one"):doLocalize("$"+units[i].name+"_other"));
+
+				elapsed_seconds -= elapsed_units * factor;
+			}
+
+			if (time_period != '')
+				levels += 1;
+
+			if (levels == maxlevel)
+				break;
+		}
+
+		if (levels == 0) {
+			return doLocalize("$SecondsAgo");
+		}
+
+		return time_period+doLocalize("$Ago");
 	}
 
 	return chooser;
