@@ -315,13 +315,12 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	function abecedariumInit(callback) {
 		featureAbecedarium.database = {};
 		document.getElementById('journal-empty').style.visibility = 'visible';
-		var baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
-		var lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
+		featureAbecedarium.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
+		featureAbecedarium.lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		var count = 0;
-		featureAbecedarium.lang = lang;
 		var loadDatabase = function(file, entry) {
 			var client = new XMLHttpRequest();
-			var source = baseURL+file;
+			var source = featureAbecedarium.baseURL+file;
 			client.onload = function() {
 				if (entry == "ping") {
 					featureAbecedarium.database[entry]=(this.status == 0 || (this.status >= 200 && this.status < 300));
@@ -333,7 +332,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 						var len = featureAbecedarium.database.meta.length;
 						var entries = [];
 						for (var i = 0 ; i < len; i++) {
-							if (featureAbecedarium.database.meta[i][lang]) {
+							if (featureAbecedarium.database.meta[i][featureAbecedarium.lang]) {
 								entries.push({"code":featureAbecedarium.database.meta[i]["code"],"text":featureAbecedarium.database.words[featureAbecedarium.database.meta[i]["text"]]});
 							}
 						}
@@ -361,7 +360,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		};
 		loadDatabase("database/db_url.json", "url");
 		loadDatabase("database/db_meta.json", "meta");
-		loadDatabase("database/db_"+lang+".json", "words");
+		loadDatabase("database/db_"+featureAbecedarium.lang+".json", "words");
 		loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping");
 	}
 
@@ -410,7 +409,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 
 	// Create a record in Journal for the entry
 	function abecedariumCreateEntry(entry, callback) {
-		var url = featureAbecedarium.database.ping?"/activities/Abecedarium.activity/":featureAbecedarium.database.url;
+		var url = featureAbecedarium.database.ping?featureAbecedarium.baseURL:featureAbecedarium.database.url;
 		var mimetype = "image/png";
 		var request = new XMLHttpRequest();
 		request.open("GET",url+"images/database/"+entry.code+".png",true);
