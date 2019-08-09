@@ -23,7 +23,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featureLocalJournal.beforeActivate = function() {
 		featureLocalJournal.isFavorite = false;
 		document.getElementById('favorite-button').style.backgroundImage = "url(lib/sugar-web/graphics/icons/emblems/favorite.svg)";
-		fillJournal.apply(null, featureLocalJournal.filters);
+		journalFill.apply(null, featureLocalJournal.filters);
 	};
 	featureLocalJournal.beforeUnactivate = function() {
 	};
@@ -35,13 +35,13 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			favorite.style.backgroundImage = "url(lib/sugar-web/graphics/icons/emblems/favorite.svg)";
 		}
 		featureLocalJournal.isFavorite = !featureLocalJournal.isFavorite;
-		fillJournal.apply(null, featureLocalJournal.filters);
+		journalFill.apply(null, featureLocalJournal.filters);
 	};
 	featureLocalJournal.onSearch = function() {
-		fillJournal.apply(null, featureLocalJournal.filters);
+		journalFill.apply(null, featureLocalJournal.filters);
 	};
 	featureLocalJournal.onCancelSearch = function() {
-		fillJournal.apply(null, featureLocalJournal.filters);
+		journalFill.apply(null, featureLocalJournal.filters);
 	};
 
 	// Chooser feature to search in Abecedarium database
@@ -52,13 +52,18 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featureAbecedarium.icon = "lib/sugar-web/graphics/icons/actions/activity-abecedarium.svg";
 	featureAbecedarium.beforeActivate = function() {
 		document.getElementById('favorite-button').style.visibility = "hidden";
+		abecedariumInit(abecedariumFill);
 	};
 	featureAbecedarium.beforeUnactivate = function() {
 		document.getElementById('favorite-button').style.visibility = "visible";
 	};
 	featureAbecedarium.onFavorite = function() {};
-	featureAbecedarium.onSearch = function() {};
-	featureAbecedarium.onCancelSearch = function() {};
+	featureAbecedarium.onSearch = function() {
+		abecedariumFill();
+	};
+	featureAbecedarium.onCancelSearch = function() {
+		abecedariumFill();
+	};
 
 	// Init feature list: overload it if you want to change the feature list at init
 	var features = [];
@@ -176,8 +181,10 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		.show();
 	}
 
+	// --- Journal feature functions
+
 	// Get journal entries and fill dialog with entries
-	function fillJournal(filter1, orFilter2, orFilter3, orFilter4) {
+	function journalFill(filter1, orFilter2, orFilter3, orFilter4) {
 		// Get filters
 		var filters = [];
 		if (filter1) { filters.push(filter1); }
@@ -210,7 +217,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 				var entry = rawJournal[i];
 				var match = false;
 				for (var j = 0 ; j < length ; j++) {
-					match = match || filterMatch(entry, filters[j]);
+					match = match || journalFilterMatch(entry, filters[j]);
 				}
 				if (match) {
 					filteredJournal.push(entry);
@@ -266,7 +273,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	}
 
 	// Test if an entry match a value
-	function entryMatch(entry, name, value) {
+	function journalEntryMatch(entry, name, value) {
 		var fieldValue = entry[name];
 		if (!fieldValue) { return false; }
 		var firstChar = value[0];
@@ -282,7 +289,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	}
 
 	// Test if an entry match a filter
-	function filterMatch(entry, filter) {
+	function journalFilterMatch(entry, filter) {
 		var metadata = entry.metadata;
 		var keys = Object.keys(filter);
 		var match = true;
@@ -292,18 +299,157 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			if (value instanceof Array) {
 				var or = false;
 				for (var k = 0 ; k < value.length ; k++) {
-					or = or || entryMatch(metadata, field, value[k]);
+					or = or || journalEntryMatch(metadata, field, value[k]);
 				}
 				match = match && or;
 			} else {
-				match = match && entryMatch(metadata, field, value);
+				match = match && journalEntryMatch(metadata, field, value);
 			}
 		}
 		return match;
 	}
 
+	// --- Abecedarium feature functions
 
-	// Util: Localize content - currently means only localize in English
+	// Load Abecedarium database
+	function abecedariumInit(callback) {
+		featureAbecedarium.database = {};
+		document.getElementById('journal-empty').style.visibility = 'visible';
+		var baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
+		var lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
+		var count = 0;
+		featureAbecedarium.lang = lang;
+		var loadDatabase = function(file, entry) {
+			var client = new XMLHttpRequest();
+			var source = baseURL+file;
+			client.onload = function() {
+				if (entry == "ping") {
+					featureAbecedarium.database[entry]=(this.status == 0 || (this.status >= 200 && this.status < 300));
+					return;
+				}
+				if (this.status == 0 || (this.status >= 200 && this.status < 300)) {
+					featureAbecedarium.database[entry]=JSON.parse(this.responseText);
+					if (++count == 3) {
+						var len = featureAbecedarium.database.meta.length;
+						var entries = [];
+						for (var i = 0 ; i < len; i++) {
+							if (featureAbecedarium.database.meta[i][lang]) {
+								entries.push({"code":featureAbecedarium.database.meta[i]["code"],"text":featureAbecedarium.database.words[featureAbecedarium.database.meta[i]["text"]]});
+							}
+						}
+						entries.sort(function(a,b) {
+							var at = a.text.toLowerCase();
+							var bt = b.text.toLowerCase();
+							if (at<bt) return -1;
+							else if (at>bt) return 1;
+							else return 0;
+						});
+						var sortedEntries = [];
+						for (var i = 0 ; i < entries.length ; i++) {
+							entries[i].i = sortedEntries.length;
+							sortedEntries.push(entries[i]);
+						}
+						featureAbecedarium.database.content = sortedEntries;
+						delete featureAbecedarium.database.meta;
+						delete featureAbecedarium.database.words;
+						callback();
+					}
+				}
+			};
+			client.open("GET", source);
+			client.send();
+		};
+		loadDatabase("database/db_url.json", "url");
+		loadDatabase("database/db_meta.json", "meta");
+		loadDatabase("database/db_"+lang+".json", "words");
+		loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping");
+	}
+
+	// Fill popup with Abecedarium items
+	function abecedariumFill() {
+		// Find entries matching search field
+		var content = featureAbecedarium.database.content;
+		var title = document.getElementById('search-text').value.toLowerCase();
+		if (title.length) {
+			content = [];
+			for (var i = 0 ; i < featureAbecedarium.database.content.length ; i++) {
+				if (featureAbecedarium.database.content[i].text.indexOf(title) != -1) {
+					content.push(featureAbecedarium.database.content[i]);
+				}
+			}
+		}
+
+		// Display entries
+		var template = "\
+			{{#items}}\
+			<div id='entry_{{i}}' style='height:60px'>\
+				<div id='eicon_{{i}}' class='toolbutton' style='background-image:url(../../activities/MediaViewer.activity/activity/activity-icon.svg);background-size:40px 40px;width:40px;height:40px;display:inline-block;margin-left:20px;margin-top:5px;'></div>\
+				<div id='etext_{{i}}' style='color:black;display:inline-block;vertical-align:middle;margin-left:30px;height:60px;margin-top:10px;font-weight:bold;font-size:14px;'>{{text}}</div>\
+			</div>\
+			{{/items}}\
+		";
+		var items = {items: content};
+		var render = mustache.render(template, items);
+		document.getElementById('journal-empty').style.visibility = (content.length != 0 ? 'hidden' : 'visible');
+		document.getElementById('journal-container').innerHTML = render;
+
+		// Handle click
+		for (var i = 0 ; i < content.length; i++) {
+			var entry = document.getElementById('entry_'+content[i].i);
+			entry.addEventListener('click', function(e) {
+				var id = e.target.id;
+				id = id.substr(id.indexOf("_")+1);
+				var line = document.getElementById('entry_'+id);
+				line.style.backgroundColor = "#808080";
+				abecedariumCreateEntry(featureAbecedarium.database.content[id], function() {
+					modal.close(result);
+				});
+			});
+		}
+	}
+
+	// Create a record in Journal for the entry
+	function abecedariumCreateEntry(entry, callback) {
+		var url = featureAbecedarium.database.ping?"/activities/Abecedarium.activity/":featureAbecedarium.database.url;
+		var mimetype = "image/png";
+		var request = new XMLHttpRequest();
+		request.open("GET",url+"images/database/"+entry.code+".png",true);
+		request.setRequestHeader("Content-type",mimetype);
+		request.responseType = "arraybuffer";
+		var that = this;
+		request.onload = function() {
+			if (request.status == 200 || request.status == 0) {
+				var blob = new Uint8Array(this.response);
+				var base64 = "data:"+mimetype+";base64,"+toBase64(blob);
+				var metadata = {
+					mimetype: mimetype,
+					title: entry.text+".png",
+					activity: "org.olpcfrance.MediaViewerActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				datastore.create(metadata, function(err, objectId) {
+					console.log("Entry '"+entry.text+"' saved in journal.");
+					metadata.objectId = objectId;
+					result = metadata;
+					callback();
+				}, base64);
+			} else {
+				console.log("Error loading entry '"+entry.code+"'.");
+				callback();
+			}
+		};
+		request.onerror = function() {
+			console.log("Error loading entry '"+entry.code+"'.");
+			callback();
+		};
+		request.send();
+	}
+
+	// --- Utility functions
+
+	// Localize content - currently means only localize in English
 	var l10n = {
 		titleJournal: 'Local journal',
 		titleAbecedarium: 'Abecedarium',
@@ -335,7 +481,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		return out;
 	}
 
-	// Util: compute elapsed time as a string
+	// Compute elapsed time as a string
 	function timestampToElapsedString(timestamp) {
 		var units = [{name:'Years', factor:356 * 24 * 60 * 60},
 					 {name:'Months', factor:30 * 24 * 60 * 60},
@@ -373,6 +519,29 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		}
 
 		return time_period+doLocalize("$Ago");
+	}
+
+	// Encoding functions taken from
+	// https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
+	function uint6ToB64(nUint6) {
+		return nUint6 < 26 ?
+			nUint6 + 65 : nUint6 < 52 ?
+			nUint6 + 71 : nUint6 < 62 ?
+			nUint6 - 4 : nUint6 === 62 ?
+			43 : nUint6 === 63 ?
+			47 : 65;
+	}
+	function toBase64(aBytes) {
+		var eqLen = (3 - (aBytes.length % 3)) % 3, sB64Enc = "";
+		for (var nMod3, nLen = aBytes.length, nUint24 = 0, nIdx = 0; nIdx < nLen; nIdx++) {
+			nMod3 = nIdx % 3;
+			nUint24 |= aBytes[nIdx] << (16 >>> nMod3 & 24);
+			if (nMod3 === 2 || aBytes.length - nIdx === 1) {
+				sB64Enc += String.fromCharCode(uint6ToB64(nUint24 >>> 18 & 63), uint6ToB64(nUint24 >>> 12 & 63), uint6ToB64(nUint24 >>> 6 & 63), uint6ToB64(nUint24 & 63));
+				nUint24 = 0;
+			}
+		}
+		return  eqLen === 0 ? sB64Enc : sB64Enc.substring(0, sB64Enc.length - eqLen) + (eqLen === 1 ? "=" : "==");
 	}
 
 	return chooser;
