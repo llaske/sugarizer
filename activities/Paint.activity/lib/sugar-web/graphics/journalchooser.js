@@ -37,6 +37,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		featureLocalJournal.isFavorite = !featureLocalJournal.isFavorite;
 		journalFill.apply(null, featureLocalJournal.filters);
 	};
+	featureLocalJournal.onScroll = function() {};
 	featureLocalJournal.onSearch = function() {
 		journalFill.apply(null, featureLocalJournal.filters);
 	};
@@ -58,6 +59,14 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		document.getElementById('favorite-button').style.visibility = "visible";
 	};
 	featureAbecedarium.onFavorite = function() {};
+	featureAbecedarium.onScroll = function() {
+		var container = document.getElementById('journal-container');
+		var scrollValue = (container.scrollTop) / (container.scrollHeight - container.clientHeight);
+		if (scrollValue > 0.90) {
+			featureAbecedarium.resultCount += 30;
+			abecedariumDisplay(featureAbecedarium.results, featureAbecedarium.resultCount);
+		}
+	};
 	featureAbecedarium.onSearch = function() {
 		abecedariumFill();
 	};
@@ -149,6 +158,11 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 
 			var targetHeight = document.getElementById("pictotoolbar").parentNode.offsetHeight - 55*2;
 			document.getElementById('journal-container').style.height = targetHeight + "px";
+			document.getElementById('journal-container').addEventListener("scroll", function() {
+				features[currentFeature].onScroll();
+			});
+
+
 
 			var favorite = document.getElementById('favorite-button');
 			favorite.addEventListener('click', function() {
@@ -378,6 +392,13 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			}
 		}
 
+		// Display result
+		featureAbecedarium.results = content;
+		featureAbecedarium.resultCount = 30;
+		abecedariumDisplay(content, featureAbecedarium.resultCount);
+	}
+
+	function abecedariumDisplay(content, count) {
 		// Display entries
 		var template = "\
 			{{#items}}\
@@ -387,13 +408,14 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			</div>\
 			{{/items}}\
 		";
-		var items = {items: content};
+		var items = {items: content.slice(0, count)};
 		var render = mustache.render(template, items);
 		document.getElementById('journal-empty').style.visibility = (content.length != 0 ? 'hidden' : 'visible');
 		document.getElementById('journal-container').innerHTML = render;
 
 		// Handle click
-		for (var i = 0 ; i < content.length; i++) {
+		var len = Math.min(count, content.length);
+		for (var i = 0 ; i < len; i++) {
 			var entry = document.getElementById('entry_'+content[i].i);
 			entry.addEventListener('click', function(e) {
 				var id = e.target.id;
