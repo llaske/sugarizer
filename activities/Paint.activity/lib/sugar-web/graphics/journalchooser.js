@@ -426,6 +426,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					modal.close(result);
 				});
 			});
+			document.getElementById('eicon_'+content[i].i).style.backgroundImage="url("+(featureAbecedarium.database.ping?featureAbecedarium.baseURL:featureAbecedarium.database.url)+"images/database/"+content[i].code+".png"+")"
 		}
 	}
 
