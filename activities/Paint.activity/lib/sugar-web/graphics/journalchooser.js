@@ -351,11 +351,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 							}
 						}
 						entries.sort(function(a,b) {
-							var at = a.text.toLowerCase();
-							var bt = b.text.toLowerCase();
-							if (at<bt) return -1;
-							else if (at>bt) return 1;
-							else return 0;
+							return a.text.localeCompare(b.text, 'en', {sensitivity: 'base'});
 						});
 						var sortedEntries = [];
 						for (var i = 0 ; i < entries.length ; i++) {
@@ -386,7 +382,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		if (title.length) {
 			content = [];
 			for (var i = 0 ; i < featureAbecedarium.database.content.length ; i++) {
-				if (featureAbecedarium.database.content[i].text.indexOf(title) != -1) {
+				if (featureAbecedarium.database.content[i].text.toLowerCase().indexOf(title) != -1) {
 					content.push(featureAbecedarium.database.content[i]);
 				}
 			}
