@@ -274,6 +274,7 @@ define([
             {"id": 19, "title": "export to txt" , "cmd":"save-as-txt"},
             {"id": 20, "title": "export to pdf", "cmd":"save-as-pdf"},
 			{"id": 21, "title": "export to doc", "cmd":"doc"},
+			{"id": 22, "title": "export to odt", "cmd":"odt"},
         ];
         exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
         exportpalette.setCategories(options);
@@ -353,7 +354,7 @@ define([
             "<head><meta charset='utf-8'></head><body>";
         	var footer = "</body></html>";
 			var sourceHTML = header+content+footer;
-			var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));;
+			var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
 			var mimetype = 'application/vnd.ms-word;charset=utf-8';
 			var metadata = {
 				mimetype: mimetype,
@@ -367,6 +368,28 @@ define([
 				console.log("export done.");
 			}, inputData);
 		});
+		
+		//Save as odt
+		document.getElementById("22").addEventListener("click",function(){
+			// resetXML();
+			var data = document.getElementsByClassName("ql-editor");
+			var xml = traverse(data[0]);
+			var mimetype = 'application/vnd.oasis.opendocument.text';
+			var title = document.getElementById("title").value;
+			var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+			var metadata = {
+				mimetype: mimetype,
+				title: title+".odt",
+				activity: "",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			datastore.create(metadata, function() {
+				console.log("export done.");
+			}, inputData);
+
+		}); 
 
 		// On content change handlers , sends data to other users on content being changed
 		
