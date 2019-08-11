@@ -73,7 +73,7 @@ function LoadFile(event, file) {
 	var extension = path.extname(file).substr(1);
 	var fileProperty = {};
 	fileProperty.name = path.basename(file);
-	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','doc':'application/vnd.ms-word;charset=utf-8','odt':'application/vnd.oasis.opendocument.text'};
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','doc':'application/msword','odt':'application/vnd.oasis.opendocument.text'};
 	for (var ext in extToMimetypes) {
 		if (ext == extension) {
 			fileProperty.type = extToMimetypes[ext];
