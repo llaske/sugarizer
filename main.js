@@ -73,7 +73,7 @@ function LoadFile(event, file) {
 	var extension = path.extname(file).substr(1);
 	var fileProperty = {};
 	fileProperty.name = path.basename(file);
-	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','doc':'application/vnd.ms-word;charset=utf-8','odt':'application/vnd.oasis.opendocument.text'};
 	for (var ext in extToMimetypes) {
 		if (ext == extension) {
 			fileProperty.type = extToMimetypes[ext];
@@ -164,7 +164,7 @@ function createWindow () {
 			var dialogSettings = {
 				properties: ['openFile', 'multiSelections'],
 				filters: [
-					{name: 'Activities', extensions: ['jpg','png','json','webm','wav','mp3','mp4','pdf','txt','docx']}
+					{name: 'Activities', extensions: ['jpg','png','json','webm','wav','mp3','mp4','pdf','txt','doc','odt']}
 				]
 			};
 			dialogSettings.title = l10n.get("ChooseFiles");
