@@ -7,15 +7,8 @@ function rgbToHex(a){
   }
 
 function resetXML(){
-    xml = '<office:body>' 
-    +'<office:text>'
-    +'<text:sequence-decls>'
-    +'<text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>'
-    +'<text:sequence-decl text:display-outline-level="0" text:name="Table"/>'
-    +'<text:sequence-decl text:display-outline-level="0" text:name="Text"/>'
-    +'<text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>'
-    +'<text:sequence-decl text:display-outline-level="0" text:name="Figure"/>'
-    +'</text:sequence-decls>';
+    xml = xmlinitialcopy ;
+    automaticstyles = automaticstylesinitialcopy ;
 }
     
 function traverse(ancestor){
@@ -142,7 +135,7 @@ function traverse(ancestor){
                 if(tagName=='u') tagName='span';
                 if(tagName=='s') tagName='span';
                 xml = xml+'<text:'+tagName+' '+addstyle+'>';
-                if(childnodes[i].childNodes.length>1 || childnodes[i].childNodes[0].tagName == 'SPAN' || childnodes[i].childNodes[0].tagName == 'IMG'){
+                if(childnodes[i].childNodes.length>1 || childnodes[i].childNodes[0].tagName == 'SPAN' || childnodes[i].childNodes[0].tagName == 'IMG' || childnodes[i].childNodes[0].tagName == 'U' || childnodes[i].childNodes[0].tagName == 'S' || childnodes[i].childNodes[0].tagName == 'STRONG' || childnodes[i].childNodes[0].tagName == 'EM'){
                     traverse(childnodes[i]);
                     xml = xml+'</text:'+tagName+'>';
                 } else {
@@ -151,6 +144,8 @@ function traverse(ancestor){
                 }
             }
             
+        } else {
+            xml = xml + '<text:span>' + childnodes[i].textContent + ' </text:span>'
         }
         
     }
@@ -422,6 +417,8 @@ var automaticstyles = '<office:automatic-styles>'
     +'</text:list-level-style-bullet>'
     +'</text:list-style>';
 
+var automaticstylesinitialcopy = automaticstyles;
+
 var automaticstylesend = '<style:page-layout style:name="pm1">'
     +'<style:page-layout-properties fo:page-width="21.001cm" fo:page-height="29.7cm" style:num-format="1" style:print-orientation="portrait" fo:margin-top="2cm" fo:margin-bottom="2cm" fo:margin-left="2cm" fo:margin-right="2cm" fo:background-color="#ffffff" style:writing-mode="lr-tb" style:layout-grid-color="#c0c0c0" style:layout-grid-lines="40" style:layout-grid-base-height="0.423cm" style:layout-grid-ruby-height="0.212cm" style:layout-grid-mode="none" style:layout-grid-ruby-below="false" style:layout-grid-print="false" style:layout-grid-display="false" style:layout-grid-base-width="0.37cm" style:layout-grid-snap-to="true" draw:fill="solid" draw:fill-color="#ffffff" draw:opacity="100%" style:footnote-max-height="0cm">'
     +'<style:footnote-sep style:width="0.018cm" style:distance-before-sep="0.101cm" style:distance-after-sep="0.101cm" style:line-style="solid" style:adjustment="left" style:rel-width="0%" style:color="#000000"/>'
@@ -443,6 +440,8 @@ var xml = '<office:body>'
     +'<text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>'
     +'<text:sequence-decl text:display-outline-level="0" text:name="Figure"/>'
     +'</text:sequence-decls>';
+
+var xmlinitialcopy = xml ;
 
 var footer = '</office:text>'
     +'</office:body>'

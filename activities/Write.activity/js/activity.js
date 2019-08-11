@@ -387,6 +387,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
+				resetXML();
 			}, inputData);
 
 		}); 
