@@ -95,8 +95,25 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	chooser.show = function(callback, filter1, orFilter2, orFilter3, orFilter4) {
 		result = null;
 		chooser.init();
-		if ((filter1 && filter1.mimetype == "image/png") || (orFilter2 && orFilter2.mimetype == "image/png") || (orFilter3 && orFilter3.mimetype == "image/png") || (orFilter4 && orFilter4.mimetype == "image/png")) {
-			features.push(featureAbecedarium);
+		var imageType = "image/png";
+		var soundType = /Android/i.test(navigator.userAgent)?"audio/ogg":"audio/mpeg";
+		var filters = [filter1, orFilter2, orFilter3, orFilter4];
+		for (var i = 0 ; i < filters.length ; i++) {
+			if (filters[i]) {
+				if (filters[i].mimetype == imageType) {
+					featureAbecedarium.fileformat = ".png";
+					featureAbecedarium.mimetype = imageType;
+					featureAbecedarium.filelocation = "images/database/";
+					features.push(featureAbecedarium);
+					break;
+				} else if (filters[i].mimetype == soundType) {
+					featureAbecedarium.fileformat = (soundType == "audio/ogg"?".ogg":".mp3");
+					featureAbecedarium.mimetype = soundType;
+					featureAbecedarium.filelocation = "audio/{{lang}}/database/";
+					features.push(featureAbecedarium);
+					break;
+				}
+			}
 		}
 		var contentHeader = "<div id='pictotoolbar' class='toolbar' style='padding: 0'>";
 		for (var i = 0 ; i < features.length ; i++) {
@@ -161,18 +178,13 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			document.getElementById('journal-container').addEventListener("scroll", function() {
 				features[currentFeature].onScroll();
 			});
-
-
-
 			var favorite = document.getElementById('favorite-button');
 			favorite.addEventListener('click', function() {
 				features[currentFeature].onFavorite();
 			});
-
 			document.getElementById('search-text').addEventListener('keyup', function() {
 				features[currentFeature].onSearch();
 			});
-
 			document.getElementById('cancel-search').addEventListener('click', function() {
 				document.getElementById('search-text').value = '';
 				features[currentFeature].onCancelSearch();
@@ -331,6 +343,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		document.getElementById('journal-empty').style.visibility = 'visible';
 		featureAbecedarium.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
 		featureAbecedarium.lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
+		featureAbecedarium.filelocation = featureAbecedarium.filelocation.replace("{{lang}}",featureAbecedarium.lang);
 		var count = 0;
 		var loadDatabase = function(file, entry) {
 			var client = new XMLHttpRequest();
@@ -422,16 +435,18 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					modal.close(result);
 				});
 			});
-			document.getElementById('eicon_'+content[i].i).style.backgroundImage="url("+(featureAbecedarium.database.ping?featureAbecedarium.baseURL:featureAbecedarium.database.url)+"images/database/"+content[i].code+".png"+")"
+			if (featureAbecedarium.mimetype == "image/png") {
+				document.getElementById('eicon_'+content[i].i).style.backgroundImage="url("+(featureAbecedarium.database.ping?featureAbecedarium.baseURL:featureAbecedarium.database.url)+"images/database/"+content[i].code+".png"+")";
+			}
 		}
 	}
 
 	// Create a record in Journal for the entry
 	function abecedariumCreateEntry(entry, callback) {
 		var url = featureAbecedarium.database.ping?featureAbecedarium.baseURL:featureAbecedarium.database.url;
-		var mimetype = "image/png";
+		var mimetype = featureAbecedarium.mimetype;
 		var request = new XMLHttpRequest();
-		request.open("GET",url+"images/database/"+entry.code+".png",true);
+		request.open("GET",url+featureAbecedarium.filelocation+entry.code+featureAbecedarium.fileformat,true);
 		request.setRequestHeader("Content-type",mimetype);
 		request.responseType = "arraybuffer";
 		var that = this;
@@ -441,7 +456,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 				var base64 = "data:"+mimetype+";base64,"+toBase64(blob);
 				var metadata = {
 					mimetype: mimetype,
-					title: entry.text+".png",
+					title: entry.text+featureAbecedarium.fileformat,
 					activity: "org.olpcfrance.MediaViewerActivity",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
