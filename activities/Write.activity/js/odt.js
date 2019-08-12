@@ -34,9 +34,7 @@ function traverse(ancestor){
                           +'</office:binary-data>'
                           +'</draw:image>'
                           +'</draw:frame>'
-                if(childnodes[i].parentNode.tagName == 'P'){
-                    img = img + childnodes[i].parentNode.textContent + '</text:p><text:p>';
-                }
+                img = img + '</text:p><text:p>';
                 xml=xml+img;
 
             } else if(childnodes[i].tagName == 'UL' || childnodes[i].tagName == 'OL' || childnodes[i].tagName == 'LI'){
