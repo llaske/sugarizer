@@ -484,32 +484,36 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 
 	// Localize content - currently means only localize in English
 	var l10n = {
-		titleJournal: 'Local journal',
-		titleAbecedarium: 'Abecedarium',
-		titleClose: 'Cancel',
-		titleChoose: 'Choose an object',
-		holderSearchJournal: 'Search in Journal',
-		holderSearchAbecedarium: 'Search in Abecedarium',
-		noMatchingEntries: 'No matching entries',
-		SecondsAgo: 'Seconds ago',
-		Ago: ' ago',
-		Minutes_one: 'minute',
-		Minutes_other: 'minutes',
-		Hours_one: 'hour',
-		Hours_other: 'hours',
-		Days_one: 'day',
-		Days_other: 'days',
-		Weeks_one: 'week',
-		Weeks_other: 'weeks',
-		Months_one: 'month',
-		Months_other: 'months',
-		Years_one: 'year',
-		Years_other: 'years'
+		titleJournal: {en: 'Local journal', fr: 'Journal local', es: 'Local diario'},
+		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium'},
+		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar'},
+		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto'},
+		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario'},
+		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium'},
+		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes'},
+		SecondsAgo: {en: 'Seconds ago', fr: "A l'instant", es: 'Segundos atrás'},
+		Ago: {en: '{{time}} ago', fr: 'il y a {{time}}', es: '{{time}} atrás'},
+		Minutes_one: {en: 'minute', fr: 'minute', es: 'minuto'},
+		Minutes_other: {en: 'minutes', fr: 'minutes', es: 'minutos'},
+		Hours_one: {en: 'hour', fr: 'heure', es: 'hora'},
+		Hours_other: {en: 'hours', fr: 'heures', es: 'horas'},
+		Days_one: {en: 'day', fr: 'jour', es: 'día'},
+		Days_other: {en: 'days', fr: 'jours', es: 'días'},
+		Weeks_one: {en: 'week', fr: 'semaine', es: 'semana'},
+		Weeks_other: {en: 'weeks', fr: 'semaines', es: 'semanas'},
+		Months_one: {en: 'month', fr: 'mois', es: 'mes'},
+		Months_other: {en: 'months', fr: 'mois', es: 'meses'},
+		Years_one: {en: 'year', fr: 'année', es: 'año'},
+		Years_other: {en: 'years', fr: 'années', es: 'años'},
 	};
-	function doLocalize(str) {
+	function doLocalize(str, params) {
+		var lang = (["en","fr","es"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		var out = str;
 		for(var current in l10n) {
-			out = out.replace('$'+current, l10n[current]);
+			out = out.replace('$'+current, l10n[current][lang]);
+		}
+		for(var param in params) {
+			out = out.replace('{{'+param+'}}', params[param]);
 		}
 		return out;
 	}
@@ -551,7 +555,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			return doLocalize("$SecondsAgo");
 		}
 
-		return time_period+doLocalize("$Ago");
+		return doLocalize("$Ago", {time: time_period});
 	}
 
 	// Encoding functions taken from
