@@ -484,30 +484,30 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 
 	// Localize content - currently means only localize in English
 	var l10n = {
-		titleJournal: {en: 'Local journal', fr: 'Journal local', es: 'Local diario'},
-		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium'},
-		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar'},
-		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto'},
-		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario'},
-		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium'},
-		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes'},
-		SecondsAgo: {en: 'Seconds ago', fr: "A l'instant", es: 'Segundos atrás'},
-		Ago: {en: '{{time}} ago', fr: 'il y a {{time}}', es: '{{time}} atrás'},
-		Minutes_one: {en: 'minute', fr: 'minute', es: 'minuto'},
-		Minutes_other: {en: 'minutes', fr: 'minutes', es: 'minutos'},
-		Hours_one: {en: 'hour', fr: 'heure', es: 'hora'},
-		Hours_other: {en: 'hours', fr: 'heures', es: 'horas'},
-		Days_one: {en: 'day', fr: 'jour', es: 'día'},
-		Days_other: {en: 'days', fr: 'jours', es: 'días'},
-		Weeks_one: {en: 'week', fr: 'semaine', es: 'semana'},
-		Weeks_other: {en: 'weeks', fr: 'semaines', es: 'semanas'},
-		Months_one: {en: 'month', fr: 'mois', es: 'mes'},
-		Months_other: {en: 'months', fr: 'mois', es: 'meses'},
-		Years_one: {en: 'year', fr: 'année', es: 'año'},
-		Years_other: {en: 'years', fr: 'années', es: 'años'},
+		titleJournal: {en: 'Journal', fr: 'Journal', es: 'Diario', pt: 'Diário'},
+		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium', pt: 'Abecedarium'},
+		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar', pt: 'Cancelar'},
+		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto', pt: 'Escolher um objeto'},
+		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario', pt: 'Pesquisar no diário'},
+		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium', pt: 'Pesquisar no Abecedarium'},
+		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes', pt: 'Sem atividades correspondentes'},
+		SecondsAgo: {en: 'Seconds ago', fr: "A l'instant", es: 'Segundos atrás', pt: 'Segundos atrás'},
+		Ago: {en: '{{time}} ago', fr: 'il y a {{time}}', es: '{{time}} atrás', pt: '{{time}} atrás'},
+		Minutes_one: {en: 'minute', fr: 'minute', es: 'minuto', pt: 'minuto'},
+		Minutes_other: {en: 'minutes', fr: 'minutes', es: 'minutos', pt: 'minutos'},
+		Hours_one: {en: 'hour', fr: 'heure', es: 'hora', pt: 'hora'},
+		Hours_other: {en: 'hours', fr: 'heures', es: 'horas', pt: 'horas'},
+		Days_one: {en: 'day', fr: 'jour', es: 'día', pt: 'dia'},
+		Days_other: {en: 'days', fr: 'jours', es: 'días', pt: 'dias'},
+		Weeks_one: {en: 'week', fr: 'semaine', es: 'semana', pt: 'semana'},
+		Weeks_other: {en: 'weeks', fr: 'semaines', es: 'semanas', pt: 'semanas'},
+		Months_one: {en: 'month', fr: 'mois', es: 'mes', pt: 'mês'},
+		Months_other: {en: 'months', fr: 'mois', es: 'meses', pt: 'meses'},
+		Years_one: {en: 'year', fr: 'année', es: 'año', pt: 'ano'},
+		Years_other: {en: 'years', fr: 'années', es: 'años', pt: 'anos'},
 	};
 	function doLocalize(str, params) {
-		var lang = (["en","fr","es"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
+		var lang = (["en","fr","es", "pt"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		var out = str;
 		for(var current in l10n) {
 			out = out.replace('$'+current, l10n[current][lang]);
