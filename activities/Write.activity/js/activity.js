@@ -355,7 +355,7 @@ define([
         	var footer = "</body></html>";
 			var sourceHTML = header+content+footer;
 			var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
-			var mimetype = 'application/ms-word;';
+			var mimetype = 'application/msword';
 			var metadata = {
 				mimetype: mimetype,
 				title: title+".doc",
