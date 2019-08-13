@@ -15,11 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Tutorial step 7: use journal chooser dialog
 - Tutorial step 8: create your own palette
 - Use IndexedDB instead of localStorage for storing Journal items content
-- Support for TXT/DOCX/PDF files in Journal
+- Support for TXT/DOC/ODT/PDF files in Journal
 - Support for MP3/MP4 files in Journal
 - Add export sound to Journal feature in Abecedarium activity
 - Add export video to Journal feature in VideoViewer activity
 - Click on a PDF in Journal now open a preview window
+- Add access to Abecedarium database (image/sound) from Journal Chooser popup
 
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
