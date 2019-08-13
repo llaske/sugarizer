@@ -464,8 +464,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 				};
 				datastore.create(metadata, function(err, objectId) {
 					console.log("Entry '"+entry.text+"' saved in journal.");
-					metadata.objectId = objectId;
-					result = metadata;
+					result = {metadata:metadata, objectId: objectId};
 					callback();
 				}, base64);
 			} else {
