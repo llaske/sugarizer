@@ -99,6 +99,21 @@ function traverse(ancestor){
                         size=size*0.75;
                         style = style + ' fo:font-size="'+size+'pt" ';
                     }
+                    if(childnodes[i].className){
+                        var classname = childnodes[i].className ;
+                        if(classname.length > 1){
+                            classname = classname.substring(8,classname.length);
+                            if(classname=="arial"){
+                                style = style + ' style:font-name="Arial" ';
+                            }
+                            if(classname=="comic"){
+                                style = style + ' style:font-name="Comic Sans MS" ';
+                            }
+                            if(classname=="Verdana"){
+                                style = style + ' style:font-name="Verdana" ';
+                            }
+                        }
+                    }
                     if(tagName=='p'){
                         var classname = childnodes[i].className ;
                         if(classname.length>1){
