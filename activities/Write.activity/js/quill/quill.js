@@ -10763,7 +10763,7 @@ var Image = function (_Parchment$Embed) {
   }, {
     key: 'sanitize',
     value: function sanitize(url) {
-      return (0, _link.sanitize)(url, ['http', 'https', 'data']) ? url : '//:0';
+      return (0, _link.sanitize)(url, ['http', 'https', 'data' , 'blob']) ? url : '//:0';
     }
   }, {
     key: 'value',

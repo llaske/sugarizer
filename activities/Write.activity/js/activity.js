@@ -252,6 +252,8 @@ define([
 				}
 				var dataentry = new datastore.DatastoreObject(entry.objectId);
 				dataentry.loadAsText(function (err, metadata, data) {
+					var blob = base64toBlob(metadata.mimetype, data);
+					var blobUrl = URL.createObjectURL(blob);
 					editor.focus();
 					changeMadebyUser=true;
 					var Delta =  Quill.import('delta');
