@@ -11,7 +11,8 @@ define([
 	"sugar-web/env",
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
-], function (activity,editpalette,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette) {
+	"webL10n",
+], function (activity,editpalette,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
@@ -535,13 +536,13 @@ define([
                 console.log(connectedPeople[key].name,key,connectedPeople[key].networkId);
             }
 			if(msg.move==1){
-				humane.log(html+userName+" Joined");
+				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
 				var c = cursors.createCursor(msg.user.networkId, userName, msg.user.colorvalue.stroke);
 				if(myid==msg.user.networkId) {mycursor=c;}
 			}
 			if (msg.move === -1) {
 				cursors.removeCursor(msg.user.networkId);
-				humane.log(html+userName+" Left");
+				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
 				if(msg.user.networkId == connectedPeople[0].networkId){
 					if(connectedPeople[1].networkId == myid){
 						document.getElementById(3).style.display = "inline";
