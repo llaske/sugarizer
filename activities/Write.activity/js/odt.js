@@ -1,19 +1,19 @@
-// Code To handle Export To ODT Feature
+    // Code To handle Export To ODT Feature
 
-var count = 0;
-var pcount = 0;
+    var count = 0;
+    var pcount = 0;
 
-function rgbToHex(a){
+    function rgbToHex(a){
     a=a.replace(/[^\d,]/g,"").split(","); 
     return"#"+((1<<24)+(+a[0]<<16)+(+a[1]<<8)+ +a[2]).toString(16).slice(1)
-  }
+    }
 
-function resetXML(){
+    function resetXML(){
     xml = xmlinitialcopy ;
     automaticstyles = automaticstylesinitialcopy ;
-}
-    
-function traverse(ancestor){
+    }
+
+    function traverse(ancestor){
     var childnodes = ancestor.childNodes ;
     for(var i = 0 ; i < childnodes.length ; i++){
         if(childnodes[i].tagName=='P'){
@@ -31,11 +31,11 @@ function traverse(ancestor){
                     img = img + '</text:p>';
                 }
                 img += '<text:p><draw:frame draw:style-name="fr1" draw:name="Picture" text:anchor-type="char" svg:width="'+width+'cm" svg:height="'+h+'cm" draw:z-index="0"><draw:image loext:mime-type="image/jpeg">'
-                          +'<office:binary-data>'
-                          +splitStr
-                          +'</office:binary-data>'
-                          +'</draw:image>'
-                          +'</draw:frame>'
+                            +'<office:binary-data>'
+                            +splitStr
+                            +'</office:binary-data>'
+                            +'</draw:image>'
+                            +'</draw:frame>'
                 img = img + '</text:p><text:p>';
                 xml=xml+img;
 
@@ -59,7 +59,7 @@ function traverse(ancestor){
                         classname = classname.substring(9,classname.length);
                         if(classname=='right') classname = 'end';
                         if(classname=='left') classname = 'start';
-                         
+                            
                         style = '<style:style style:name="P'+pcount+'" style:family="paragraph" style:parent-style-name="Text_20_body">'
                         +'<style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.397cm" loext:contextual-spacing="false" fo:text-align="'+classname+'" style:justify-single-word="false" fo:orphans="2" fo:widows="2" fo:padding="0cm" fo:border="none"';
                         pcount++;
@@ -122,7 +122,7 @@ function traverse(ancestor){
                             classname = classname.substring(9,classname.length);
                             if(classname=='right') classname = 'end';
                             if(classname=='left') classname = 'start';
-                             
+                                
                             style = '<style:style style:name="P'+pcount+'" style:family="paragraph" style:parent-style-name="Text_20_body">'
                             +'<style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.397cm" loext:contextual-spacing="false" fo:text-align="'+classname+'" style:justify-single-word="false" fo:orphans="2" fo:widows="2" fo:padding="0cm" fo:border="none"';
                             pcount++;
@@ -165,9 +165,9 @@ function traverse(ancestor){
         
     }
     return header+officestyles+automaticstyles+automaticstylesend+xml+footer;
-}
+    }
 
-var header = '<?xml version="1.0" encoding="UTF-8"?>' 
+    var header = '<?xml version="1.0" encoding="UTF-8"?>' 
     + '<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">'
     + ' <office:meta><meta:creation-date>2017-08-02T11:09:18</meta:creation-date><dc:language>en-US</dc:language><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>P2171DT9H31M46S</meta:editing-duration><meta:generator>LibreOffice/6.2.5.2$MacOSX_X86_64 LibreOffice_project/1ec314fa52f458adc18c4f025c545a4e8b22c159</meta:generator><dc:date>2019-08-09T16:43:46.820976332</dc:date><meta:document-statistic meta:table-count="0" meta:image-count="1" meta:object-count="0" meta:page-count="1" meta:paragraph-count="3" meta:word-count="11" meta:character-count="52" meta:non-whitespace-character-count="42"/></office:meta>'
     + '<office:settings>'
@@ -313,7 +313,7 @@ var header = '<?xml version="1.0" encoding="UTF-8"?>'
     + '<style:font-face style:name="Symbol1" svg:font-family="Symbol" style:font-family-generic="system" style:font-pitch="variable"/>'
     + '</office:font-face-decls>'   ;
 
-var automaticstyles = '<office:automatic-styles>' 
+    var automaticstyles = '<office:automatic-styles>' 
     +'<style:style style:name="fr1" style:family="graphic" style:parent-style-name="Graphics">'
     +'<style:graphic-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0cm" fo:margin-bottom="0cm" style:wrap="none" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" fo:background-color="transparent" draw:fill="none" draw:fill-color="#ffffff" fo:padding="0cm" fo:border="none" style:mirror="none" fo:clip="rect(0cm, 0cm, 0cm, 0cm)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="100%" draw:color-inversion="false" draw:image-opacity="100%" draw:color-mode="standard" style:flow-with-text="true"/>'
     +'</style:style>'
@@ -432,9 +432,9 @@ var automaticstyles = '<office:automatic-styles>'
     +'</text:list-level-style-bullet>'
     +'</text:list-style>';
 
-var automaticstylesinitialcopy = automaticstyles;
+    var automaticstylesinitialcopy = automaticstyles;
 
-var automaticstylesend = '<style:page-layout style:name="pm1">'
+    var automaticstylesend = '<style:page-layout style:name="pm1">'
     +'<style:page-layout-properties fo:page-width="21.001cm" fo:page-height="29.7cm" style:num-format="1" style:print-orientation="portrait" fo:margin-top="2cm" fo:margin-bottom="2cm" fo:margin-left="2cm" fo:margin-right="2cm" fo:background-color="#ffffff" style:writing-mode="lr-tb" style:layout-grid-color="#c0c0c0" style:layout-grid-lines="40" style:layout-grid-base-height="0.423cm" style:layout-grid-ruby-height="0.212cm" style:layout-grid-mode="none" style:layout-grid-ruby-below="false" style:layout-grid-print="false" style:layout-grid-display="false" style:layout-grid-base-width="0.37cm" style:layout-grid-snap-to="true" draw:fill="solid" draw:fill-color="#ffffff" draw:opacity="100%" style:footnote-max-height="0cm">'
     +'<style:footnote-sep style:width="0.018cm" style:distance-before-sep="0.101cm" style:distance-after-sep="0.101cm" style:line-style="solid" style:adjustment="left" style:rel-width="0%" style:color="#000000"/>'
     +'</style:page-layout-properties>'
@@ -446,7 +446,7 @@ var automaticstylesend = '<style:page-layout style:name="pm1">'
     +'<style:master-page style:name="Standard" style:page-layout-name="pm1"/>'
     +'</office:master-styles>';
 
-var xml = '<office:body>' 
+    var xml = '<office:body>' 
     +'<office:text>'
     +'<text:sequence-decls>'
     +'<text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>'
@@ -456,13 +456,13 @@ var xml = '<office:body>'
     +'<text:sequence-decl text:display-outline-level="0" text:name="Figure"/>'
     +'</text:sequence-decls>';
 
-var xmlinitialcopy = xml ;
+    var xmlinitialcopy = xml ;
 
-var footer = '</office:text>'
+    var footer = '</office:text>'
     +'</office:body>'
     +'</office:document>';
 
-var officestyles = '<office:styles>'
+    var officestyles = '<office:styles>'
     +'<style:default-style style:family="graphic">'
     +'<style:graphic-properties svg:stroke-color="#3465a4" draw:fill-color="#729fcf" fo:wrap-option="no-wrap" draw:shadow-offset-x="0.3cm" draw:shadow-offset-y="0.3cm" draw:start-line-spacing-horizontal="0.283cm" draw:start-line-spacing-vertical="0.283cm" draw:end-line-spacing-horizontal="0.283cm" draw:end-line-spacing-vertical="0.283cm" style:flow-with-text="false"/>'
     +'<style:paragraph-properties style:text-autospace="ideograph-alpha" style:line-break="strict" style:font-independent-line-spacing="false">'
