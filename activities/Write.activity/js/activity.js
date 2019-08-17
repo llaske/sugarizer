@@ -320,7 +320,8 @@ define([
 			file_size: 0
 		};
 		datastore.create(metadata, function() {
-			console.log("export done.")
+			console.log("export done.");
+			humane.log("Export to TXT Done");
 		}, inputData);
 		});
 		
@@ -361,7 +362,8 @@ define([
                         file_size: 0
                     };
                     datastore.create(metadata, function() {
-                        console.log("export done.")
+						console.log("export done.");
+						humane.log("Export to PDF Done");
                     }, inputData);
                 }
             })
@@ -389,6 +391,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
+				humane.log("Export to DOC Done");
 			}, inputData);
 		});
 		
@@ -410,6 +413,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
+				humane.log("Export to ODT Done");
 				resetXML();
 			}, inputData);
 
