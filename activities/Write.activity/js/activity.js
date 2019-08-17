@@ -43,9 +43,9 @@ define([
 		// Journal Handling (Load)
 		env.getEnvironment(function(err, environment) {
             
-            currentenv = environment;
+        	currentenv = environment;
             
-            if (!environment.objectId && !environment.sharedId) {
+			if (!environment.objectId && !environment.sharedId) {
 				// New instance
 				var greet = 'Welcome ! ';
 				var name = environment.user.name + ' ';
@@ -56,22 +56,22 @@ define([
 				]);
 				var index = greet.length + name.length ;
 				editor.setSelection(index,0);				
-            } else {
-                // Existing instance
-                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-                    if (error==null && data!=null) {
+			} else {
+				// Existing instance
+				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+					if (error==null && data!=null) {
 						var delta = JSON.parse(data);
 						console.log(delta);
 						editor.setContents(delta);
-                    }
-                });
+					}
+				});
 			}
 			// Shared instances
 			if (environment.sharedId) {
 				console.log("Shared instance");
 
 				// Hide GUI of undo and redo for non host users
-                document.getElementById("3").style.display = "none";
+				document.getElementById("3").style.display = "none";
 				document.getElementById("4").style.display = "none";
 				document.getElementById("shared-button").click();
 				presence = activity.getPresenceObject(function(error, network) {
@@ -83,21 +83,21 @@ define([
 		});
 		
 		// Save in Journal on Stop
-        document.getElementById("stop-button").addEventListener('click', function (event) {
-            
-            // Journal handling
+		document.getElementById("stop-button").addEventListener('click', function (event) {
+			
+			// Journal handling
 			var data = editor.getContents();
-            var jsondata = JSON.stringify(data);
-            activity.getDatastoreObject().setDataAsText(jsondata);
-            activity.getDatastoreObject().save(function (error) {
-                if (error === null) {
-                    console.log("write done.");
-                } else {
-                    console.log("write failed.");
-                }
-            });
-            
-        });
+			var jsondata = JSON.stringify(data);
+			activity.getDatastoreObject().setDataAsText(jsondata);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
+			
+		});
 		
 		var changeMadebyUser=false;
 		// Initiating edit-text-palette ( for cut/copy/undo/redo )
@@ -142,17 +142,18 @@ define([
 		document.getElementById(4).addEventListener('click',function(){
 			editor.history.redo();
 		});
+		
 		// Initiating format-text-palette ( for cut/copy/undo/redo )
 		var formatButton = document.getElementById("format-text");
-        var formatoptions = [
-            {"id": 5, "title": "bold", "cmd":"bold"},
-            {"id": 6, "title": "italic", "cmd":"italic"},
-            {"id": 7, "title": "underline", "cmd":"underline"},
-            {"id": 8, "title": "strike", "cmd":"strikeThrough"}
-        ];
-        formatpalette = new formatpalette.Formatpalette(formatButton, undefined);
-        formatpalette.setCategories(formatoptions);
-        formatpalette.addEventListener('format', function () {
+		var formatoptions = [
+			{"id": 5, "title": "bold", "cmd":"bold"},
+			{"id": 6, "title": "italic", "cmd":"italic"},
+			{"id": 7, "title": "underline", "cmd":"underline"},
+			{"id": 8, "title": "strike", "cmd":"strikeThrough"}
+		];
+		formatpalette = new formatpalette.Formatpalette(formatButton, undefined);
+		formatpalette.setCategories(formatoptions);
+		formatpalette.addEventListener('format', function () {
 			formatpalette.popDown();
 			editor.focus();
 		});
@@ -171,55 +172,55 @@ define([
 		
 
 		// Initiating lists palette
-        var listButton = document.getElementById("list");
-        var listoptions = [
-            {"id": 9, "title": "ordered list", "cmd":"insertorderedList"},
-            {"id": 10, "title": "unordered list", "cmd":"insertUnorderedList"},
-        ];
-        listpalette = new listpalette.Listpalette(listButton, undefined);
-        listpalette.setCategories(listoptions);
-        listpalette.addEventListener('list', function () {
-            listpalette.popDown();
+		var listButton = document.getElementById("list");
+		var listoptions = [
+			{"id": 9, "title": "ordered list", "cmd":"insertorderedList"},
+			{"id": 10, "title": "unordered list", "cmd":"insertUnorderedList"},
+		];
+		listpalette = new listpalette.Listpalette(listButton, undefined);
+		listpalette.setCategories(listoptions);
+		listpalette.addEventListener('list', function () {
+			listpalette.popDown();
 		});
 		document.getElementById("9").addEventListener("click",function(){
 			document.getElementById("list-ordered").click();
-        });
-        document.getElementById("10").addEventListener("click",function(){
+		});
+		document.getElementById("10").addEventListener("click",function(){
 			document.getElementById("list-unordered").click();
-        });
+		});
 
 		// Initiating paragraph palette ( Alignment settings )
         
-        var paraButton = document.getElementById("paragraph");
-        var paraoptions = [
-            {"id": 11, "title":"justify Left" , "cmd":"justifyLeft"},
-            {"id": 12, "title":"justify Right" , "cmd":"justifyRight"},
-            {"id": 13, "title":"justify Center" , "cmd":"justifyCenter"},
-        ];
-        parapalette = new parapalette.Parapalette(paraButton, undefined);
-        parapalette.setCategories(paraoptions);
-        parapalette.addEventListener('para', function () {
+		var paraButton = document.getElementById("paragraph");
+		var paraoptions = [
+			{"id": 11, "title":"justify Left" , "cmd":"justifyLeft"},
+			{"id": 12, "title":"justify Right" , "cmd":"justifyRight"},
+			{"id": 13, "title":"justify Center" , "cmd":"justifyCenter"},
+		];
+		parapalette = new parapalette.Parapalette(paraButton, undefined);
+		parapalette.setCategories(paraoptions);
+		parapalette.addEventListener('para', function () {
 			parapalette.popDown();
 			editor.focus();
-        });
+		});
 
-        document.getElementById(11).addEventListener("click",function(){
+		document.getElementById(11).addEventListener("click",function(){
 			changeMadebyUser=true;
 			editor.format('align','justify');
-        })
-        document.getElementById(12).addEventListener("click",function(){         
+		})
+		document.getElementById(12).addEventListener("click",function(){         
 			changeMadebyUser=true;
 			editor.format('align','right');
-        });
-        document.getElementById(13).addEventListener("click",function(){
+		});
+		document.getElementById(13).addEventListener("click",function(){
 			changeMadebyUser=true;
 			editor.format('align','center');
-        });
+		});
 		
 		// Initialise font palette
-        var fontButton = document.getElementById("font-button");
-        fontPalette = new fontPalette.Fontpalette(fontButton);
-        fontPalette.addEventListener('fontChange', function(e) {
+		var fontButton = document.getElementById("font-button");
+		fontPalette = new fontPalette.Fontpalette(fontButton);
+		fontPalette.addEventListener('fontChange', function(e) {
 			var newfont = e.detail.family;
 			if(newfont=="Arial") newfont="arial";
 			if(newfont=="Comic Sans MS") newfont="comic";
@@ -228,17 +229,17 @@ define([
 		});
 		
 		// Initiating colour palette for foreground and background
-        var forecolorButton = document.getElementById("color-button-1");
-        var changeForeColorPalette = new colorpalette.ColorPalette(forecolorButton);
-        changeForeColorPalette.setColor('rgb(0, 0, 0)');
+		var forecolorButton = document.getElementById("color-button-1");
+		var changeForeColorPalette = new colorpalette.ColorPalette(forecolorButton);
+		changeForeColorPalette.setColor('rgb(0, 0, 0)');
 		changeForeColorPalette.addEventListener('colorChange', function(e) {
 			changeMadebyUser=true;
 			editor.format('color',e.detail.color);
 		});
-		
+
 		var backcolorButton = document.getElementById("color-button-2");
-        var changeBackColorPalette = new colorpalette.ColorPalette(backcolorButton);
-        changeBackColorPalette.setColor('rgb(255,255,255)');
+		var changeBackColorPalette = new colorpalette.ColorPalette(backcolorButton);
+		changeBackColorPalette.setColor('rgb(255,255,255)');
 		changeBackColorPalette.addEventListener('colorChange', function(e) {
 			changeMadebyUser=true;
 			editor.format('background-color',e.detail.color);
@@ -272,7 +273,7 @@ define([
 		document.getElementById("insert-picture").addEventListener("click",function(e){
 			journalchooser.show(function (entry) {
 				if (!entry) {
-                    return;
+					return;
 				}
 				var dataentry = new datastore.DatastoreObject(entry.objectId);
 				dataentry.loadAsText(function (err, metadata, data) {
@@ -283,7 +284,7 @@ define([
 						.retain(editor.getSelection().index)
 						.insert({ 
 							image: data
-						  }),
+							}),
 					);
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
@@ -293,25 +294,25 @@ define([
 		// Initiating export-palette 
 
 		var exportButton = document.getElementById("export");
-        var options = [
-            {"id": 19, "title": "export to txt" , "cmd":"save-as-txt"},
-            {"id": 20, "title": "export to pdf", "cmd":"save-as-pdf"},
+		var options = [
+			{"id": 19, "title": "export to txt" , "cmd":"save-as-txt"},
+			{"id": 20, "title": "export to pdf", "cmd":"save-as-pdf"},
 			{"id": 21, "title": "export to doc", "cmd":"doc"},
 			{"id": 22, "title": "export to odt", "cmd":"odt"},
-        ];
-        exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
-        exportpalette.setCategories(options);
-        exportpalette.addEventListener('export', function () {
-            exportpalette.popDown();
+		];
+		exportpalette = new exportpalette.Exportpalette(exportButton, undefined);
+		exportpalette.setCategories(options);
+		exportpalette.addEventListener('export', function () {
+			exportpalette.popDown();
 		});
 		
 		// save as txt
-        document.getElementById("19").addEventListener('click',function(){
-            var title = document.getElementById("title").value;
-            var mimetype = 'text/plain';
-            var inputData = document.getElementById("editor").textContent;
+		document.getElementById("19").addEventListener('click',function(){
+			var title = document.getElementById("title").value;
+			var mimetype = 'text/plain';
+			var inputData = document.getElementById("editor").textContent;
 			inputData=JSON.stringify(inputData);
-            var metadata = {
+			var metadata = {
 			mimetype: mimetype,
 			title: title+".txt",
 			activity: "",
@@ -326,47 +327,47 @@ define([
 		});
 		
 		// save as PDF
-        document.getElementById("20").addEventListener('click',function(){
+		document.getElementById("20").addEventListener('click',function(){
 
-            var title = document.getElementById("title").value;
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
-            html2canvas(document.getElementById("editor"),{
-                onrendered : function(canvas){
-                    var imgData = canvas.toDataURL('image/png');
+			var title = document.getElementById("title").value;
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
+			html2canvas(document.getElementById("editor"),{
+				onrendered : function(canvas){
+					var imgData = canvas.toDataURL('image/png');
 
-                    var imgWidth = 210;
-                    var pageHeight = 295;
-                    var imgHeight = canvas.height * imgWidth / canvas.width;
-                    var heightLeft = imgHeight;
+					var imgWidth = 210;
+					var pageHeight = 295;
+					var imgHeight = canvas.height * imgWidth / canvas.width;
+					var heightLeft = imgHeight;
 
-                    var doc = new jsPDF('p', 'mm');
-                    var position = 0;
+					var doc = new jsPDF('p', 'mm');
+					var position = 0;
 
-                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
+					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+					heightLeft -= pageHeight;
 
-                    while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    doc.addPage();
-                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                    }
-                    var inputData = doc.output('dataurlstring');
-                    var mimetype = 'application/pdf';
-                    var metadata = {
-                        mimetype: mimetype,
-                        title: title+".pdf",
-                        activity: "",
-                        timestamp: new Date().getTime(),
-                        creation_time: new Date().getTime(),
-                        file_size: 0
-                    };
-                    datastore.create(metadata, function() {
+					while (heightLeft >= 0) {
+					position = heightLeft - imgHeight;
+					doc.addPage();
+					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+					heightLeft -= pageHeight;
+					}
+					var inputData = doc.output('dataurlstring');
+					var mimetype = 'application/pdf';
+					var metadata = {
+						mimetype: mimetype,
+						title: title+".pdf",
+						activity: "",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					datastore.create(metadata, function() {
 						console.log("export done.");
 						humane.log("Export to PDF Done");
-                    }, inputData);
-                }
-            })
+					}, inputData);
+				}
+			})
 			});
 
 		// Save as doc 
@@ -374,10 +375,10 @@ define([
 			var title = document.getElementById("title").value;
 			var content =document.getElementById("editor").innerHTML;
 			var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-            "xmlns='http://www.w3.org/TR/REC-html40'>"+
-            "<head><meta charset='utf-8'></head><body>";
-        	var footer = "</body></html>";
+			"xmlns:w='urn:schemas-microsoft-com:office:word' "+
+			"xmlns='http://www.w3.org/TR/REC-html40'>"+
+			"<head><meta charset='utf-8'></head><body>";
+			var footer = "</body></html>";
 			var sourceHTML = header+content+footer;
 			var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
 			var mimetype = 'application/msword';
@@ -451,7 +452,7 @@ define([
 				});
 				} 
 			} 
-			});
+		});
 
 		// Presence Palette
 		// Link presence palette
@@ -461,21 +462,21 @@ define([
 		var nomoreinit = false;
 		var mycursor;
 		var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
-        palette.addEventListener('shared', function() {
-            palette.popDown();
-            console.log("Want to share");
-            presence = activity.getPresenceObject(function(error, network) {
-                if (error) {
-                    console.log("Sharing error");
-                    return;
-                }
-                network.createSharedActivity('org.sugarlabs.Write', function(groupId) {
-                    console.log("Activity shared");
-                    isHost = true;
-                });
-                network.onDataReceived(onNetworkDataReceived);
-                network.onSharedActivityUserChanged(onNetworkUserChanged);
-            });
+		palette.addEventListener('shared', function() {
+			palette.popDown();
+			console.log("Want to share");
+			presence = activity.getPresenceObject(function(error, network) {
+				if (error) {
+					console.log("Sharing error");
+					return;
+				}
+				network.createSharedActivity('org.sugarlabs.Write', function(groupId) {
+					console.log("Activity shared");
+					isHost = true;
+				});
+				network.onDataReceived(onNetworkDataReceived);
+				network.onSharedActivityUserChanged(onNetworkUserChanged);
+			});
 		});
 		
 		var onNetworkDataReceived = function(msg) {
@@ -524,21 +525,21 @@ define([
 				mycursor.range = null;
 			}
 			if(!myid){
-                myid = msg.user.networkId;
-            }
+				myid = msg.user.networkId;
+			}
 			// handle user enter/exit Notifications
-            var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			presence.listSharedActivities(function(activities){
-                for (var i = 0; i < activities.length; i++) {
-                    if (activities[i].id === presence.getSharedInfo().id) {
-                        getConnectedPeople(activities[i].users);
-                    }
-                  }
-            });
-            for (var key in connectedPeople) {
-                console.log(connectedPeople[key].name,key,connectedPeople[key].networkId);
-            }
+				for (var i = 0; i < activities.length; i++) {
+					if (activities[i].id === presence.getSharedInfo().id) {
+						getConnectedPeople(activities[i].users);
+					}
+					}
+			});
+			for (var key in connectedPeople) {
+				console.log(connectedPeople[key].name,key,connectedPeople[key].networkId);
+			}
 			if(msg.move==1){
 				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
 				var c = cursors.createCursor(msg.user.networkId, userName, msg.user.colorvalue.stroke);
@@ -559,41 +560,41 @@ define([
 		
 		
 		var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
-        function generateXOLogoWithColor(color) {
-            var coloredLogo = xoLogo;
-            coloredLogo = coloredLogo.replace("#010101", color.stroke)
-            coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
-        
-            return "data:image/svg+xml;base64," + btoa(coloredLogo);
+		function generateXOLogoWithColor(color) {
+			var coloredLogo = xoLogo;
+			coloredLogo = coloredLogo.replace("#010101", color.stroke)
+			coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
+		
+			return "data:image/svg+xml;base64," + btoa(coloredLogo);
 		}
 		
 		var connectedPeople = {};
-        // Maintain a list of connected users
-        function displayConnectedPeople(){
-            var presenceUsersDiv = document.getElementById("presence-users");
-            var html = "<hr><ul style='list-style: none; padding:0;'>";
-            for (var key in connectedPeople) {
-                html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
-            }
-              html += "</ul>"
-              presenceUsersDiv.innerHTML = html
-        }
+		// Maintain a list of connected users
+		function displayConnectedPeople(){
+			var presenceUsersDiv = document.getElementById("presence-users");
+			var html = "<hr><ul style='list-style: none; padding:0;'>";
+			for (var key in connectedPeople) {
+				html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
+			}
+				html += "</ul>"
+				presenceUsersDiv.innerHTML = html
+		}
 
-        function getConnectedPeople(users){
-            var presenceUsersDiv = document.getElementById("presence-users");
-            if (!users || !presenceUsersDiv) {
-            return;
-            }
-            connectedPeople = {};
-            presence.listSharedActivityUsers(presence.getSharedInfo().id , function(usersConnected){
-                connectedPeople = {};
-                for (var i = 0; i < usersConnected.length; i++) {
-                    var userConnected = usersConnected[i];
-                    connectedPeople[i] = userConnected;
-                }
-                displayConnectedPeople();
-            });
-        }
+		function getConnectedPeople(users){
+			var presenceUsersDiv = document.getElementById("presence-users");
+			if (!users || !presenceUsersDiv) {
+			return;
+			}
+			connectedPeople = {};
+			presence.listSharedActivityUsers(presence.getSharedInfo().id , function(usersConnected){
+				connectedPeople = {};
+				for (var i = 0; i < usersConnected.length; i++) {
+					var userConnected = usersConnected[i];
+					connectedPeople[i] = userConnected;
+				}
+				displayConnectedPeople();
+			});
+		}
 
 	});
 		
