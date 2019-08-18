@@ -51,7 +51,6 @@ define([
 			
 			if (!environment.objectId && !environment.sharedId) {
 				// New instance
-				console.log(window.initialImageDataUrl);
 				// Intentionally added setTimeout to allow locale.ini file to be loaded
 				setTimeout(function(){
 					editor.setContents([
