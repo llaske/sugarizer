@@ -55,7 +55,7 @@ define([
 				setTimeout(function(){
 					editor.setContents([
 						{insert:  'Welcome ! ' + environment.user.name + ' ', attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
-						{ insert: '\n' },
+						{insert: '\n' },
 						{insert: webL10n.get('Write')+' '},
 						{insert: webL10n.get("Type")+' ' ,attributes: { bold: true }},
 						{insert: webL10n.get('Your')+' '},
@@ -64,12 +64,12 @@ define([
 						{insert: webL10n.get('Play')},
 						{insert: ' colors ' , attributes: { color : environment.user.colorvalue.fill}},
 						{insert: ', fonts ' , attributes: { color : 'rgb(0,255,0)'}},
-						{ insert: ' , ' },
+						{insert: ' , ' },
 						{insert: 'Images ' , attributes: { color : 'rgb(0,0,255)'}},
-						{ insert: webL10n.get('Work') },
-						{ insert: '\n\n' + webL10n.get('Enjoy') + '!\n\n' },
-						{ insert: { image : window.initialImageDataUrl } },
-						{ insert: '\n' },
+						{insert: webL10n.get('Work') },
+						{insert: '\n\n' + webL10n.get('Enjoy') + '!\n\n' },
+						{insert: { image : window.initialImageDataUrl } },
+						{insert: '\n' },
 					]);
 				},200);				
 			} else {
@@ -338,7 +338,7 @@ define([
 		};
 		datastore.create(metadata, function() {
 			console.log("export done.");
-			humane.log("Export to TXT Done");
+			humane.log(webL10n.get("Txt"));
 		}, inputData);
 		});
 		
@@ -380,7 +380,7 @@ define([
 					};
 					datastore.create(metadata, function() {
 						console.log("export done.");
-						humane.log("Export to PDF Done");
+						humane.log(webL10n.get("Pdf"));
 					}, inputData);
 				}
 			})
@@ -408,7 +408,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
-				humane.log("Export to DOC Done");
+				humane.log(webL10n.get("Doc"));
 			}, inputData);
 		});
 		
@@ -430,7 +430,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
-				humane.log("Export to ODT Done");
+				humane.log(webL10n.get("Odt"));
 				resetXML();
 			}, inputData);
 
