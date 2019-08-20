@@ -54,23 +54,21 @@ define([
 				// Intentionally added setTimeout to allow locale.ini file to be loaded
 				setTimeout(function(){
 					editor.setContents([
-						{insert:  'Welcome ! ' + environment.user.name + ' ', attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
-						{insert: '\n' },
-						{insert: webL10n.get('Write')+' '},
-						{insert: webL10n.get("Type")+' ' ,attributes: { bold: true }},
-						{insert: webL10n.get('Your')+' '},
-						{insert: 'text ' ,attributes: { underline: true }},
-						{insert: webL10n.get('Idea')+' .'},
-						{insert: webL10n.get('Play')},
-						{insert: ' colors ' , attributes: { color : environment.user.colorvalue.fill}},
-						{insert: ', fonts ' , attributes: { color : 'rgb(0,255,0)'}},
-						{insert: ' , ' },
-						{insert: 'Images ' , attributes: { color : 'rgb(0,0,255)'}},
-						{insert: webL10n.get('Work') },
-						{insert: '\n\n' + webL10n.get('Enjoy') + '!\n\n' },
-						{insert: { image : window.initialImageDataUrl } },
-						{insert: '\n' },
+						{insert:  webL10n.get('Welcome',{username: environment.user.name}) + '\n' , attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
 					]);
+					var length = editor.getLength();
+					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Write'));
+					length = editor.getLength();
+					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Writefeatures'));
+					length = editor.getLength();
+					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Enjoy')+' !');
+					editor.updateContents(
+						new Delta()
+						.retain(editor.getSelection().index+1)
+						.insert({ 
+							image: window.initialImageDataUrl
+							}),
+					);
 				},200);				
 			} else {
 				// Existing instance
