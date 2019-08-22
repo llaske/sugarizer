@@ -19,7 +19,9 @@ define(function () {
 				activityName: getUrlParameter("n"),
 				bundleId: getUrlParameter("a"),
 				objectId: getUrlParameter("o"),
-				sharedId: getUrlParameter("s")
+				sharedId: getUrlParameter("s"),
+				help: getUrlParameter("h"),
+				standAlone: getUrlParameter("sa")
 			};
 			if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
 				chrome.storage.local.get('sugar_settings', function(values) {
