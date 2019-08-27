@@ -98,9 +98,10 @@ define(["webL10n.sugarizer",
         shortcut.add("Ctrl", "Q", this.close);
 
         env.getEnvironment(function (error, environment) {
+            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
             if (!environment.objectId) {
                 datastoreObject.setMetadata({
-                    "title": environment.activityName + " Activity",
+                    "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
                     "title_set_by_user": "0",
                     "activity": environment.bundleId,
                     "activity_id": environment.activityId
