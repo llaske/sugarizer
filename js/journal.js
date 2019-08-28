@@ -1134,6 +1134,7 @@ enyo.kind({
 						return;
 					}
 					app.otherview.loadLocalJournal();
+					app.otherview.syncJournal();
 				}, text);
 			});
 		}
@@ -1151,6 +1152,7 @@ enyo.kind({
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function() {
 					app.otherview.loadLocalJournal();
+					app.otherview.syncJournal();
 				}, text);
 			});
 		}
