@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC "-//W3C//DTD SVG 1.1//EN"  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg enable-background="new 0 0 55 55" height="55px" style="" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
+    <g display="block" id="toolbar-bulletlist">
+        <circle cx="13.5" cy="14.47" r="3" fill="&fill_color;" stroke="none"/>
+        <text x="10" y="28.7" font-size="10" font-family="Bitstream Vera Sans" font-weight="bold" fill="&fill_color;" stroke="none">1</text>
+        <text x="10" y="39.5" font-size="10" font-family="Bitstream Vera Sans" font-weight="bold" fill="&fill_color;" stroke="none">A</text>
+        <line fill="none" stroke="&fill_color;" stroke-width="4" x1="21.16" x2="44.16" y1="14.57" y2="14.57"/>
+        <line fill="none" stroke="&fill_color;" stroke-width="4" x1="21.16" x2="44.16" y1="25.26" y2="25.26"/>
+        <line fill="none" stroke="&fill_color;" stroke-width="4" x1="21.16" x2="44.16" y1="35.64" y2="35.64"/>
+    </g>
+</svg>
