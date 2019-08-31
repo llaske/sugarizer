@@ -1,8 +1,21 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
-#main-toolbar #edit-text {
-  background-image: url(../icons/scissors.svg);
+
+#main-toolbar #edit-undo {
+  background-image: url(../icons/undo.svg);
+}
+
+#main-toolbar #edit-redo {
+  background-image: url(../icons/redo.svg);
+}
+
+#main-toolbar #edit-copy {
+  background-image: url(../icons/copy.svg);
+}
+
+#main-toolbar #edit-paste {
+  background-image: url(../icons/paste.svg);
 }
 
 #main-toolbar #format-text {
@@ -142,51 +155,50 @@
 }
 
 
-#edit-text , #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
+ #edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
   display: none;
 }
 
+
 @media only screen and (min-width: 330px) {
-  #edit-text {
+  #color-button-1 {
     display: inline-block;
   }
 }
 
+
 @media only screen and (min-width: 385px) {
-  #paragraph {
+  #color-button-2 {
     display: inline-block;
   }
 }
 
 @media only screen and (min-width: 440px) {
-  #list {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 510px) {
   #format-text {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 570px) {
-  #font-button {
+@media only screen and (min-width: 510px) {
+  #paragraph {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 641px) {
-  #resize-inc {
-    display: inline-block;
-  }
-  #resize-dec {
+@media only screen and (min-width: 570px) {
+  #list {
     display: inline-block;
   }
 }
 
 @media only screen and (min-width: 715px) {
-  #color-button-1 {
+  #resize-inc {
+    display: inline-block;
+  }
+  #font-button {
+    display: inline-block;
+  }
+  #resize-dec {
     display: inline-block;
   }
 }
@@ -198,14 +210,25 @@
 }
 
 @media only screen and (min-width: 880px) {
+  #edit-undo {
+    display: inline-block;
+  }
+  #edit-redo {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 980px) {
+  #edit-copy {
+    display: inline-block;
+  }
+  #edit-paste {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1042px) {
   #export {
     display: inline-block;
   }
 }
-
-@media only screen and (min-width: 900px) {
-  #color-button-2 {
-    display: inline-block;
-  }
-}
-

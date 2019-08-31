@@ -1,6 +1,5 @@
 define([
 	"sugar-web/activity/activity",
-	"activity/palettes/edit-text-palette",
 	"activity/palettes/format-text-palette",
 	"activity/palettes/list-palette",
 	"activity/palettes/paragraph-palette",
@@ -12,14 +11,14 @@ define([
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
 	"webL10n",
-], function (activity,editpalette,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n) {
+], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
 
 		// Initialize the activity.
 		activity.setup();
-		
+
 		var options = {
 			modules: {
 			  toolbar: '#main-toolbar',
@@ -42,13 +41,43 @@ define([
 
 		// Journal Handling (Load)
 		env.getEnvironment(function(err, environment) {
-            
+
 			currentenv = environment;
 			// Language Settings
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-            var language = environment.user ? environment.user.language : defaultLanguage;
+			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
-			
+			window.addEventListener("localized", function() {
+				document.getElementById("network-button").title = webL10n.get("Network");
+				document.getElementById("color-button-1").title = webL10n.get("ForegroundColor");
+				document.getElementById("color-button-2").title = webL10n.get("BackgroundColor");
+				document.getElementById("format-text").title = webL10n.get("Formattext");
+				document.getElementById("paragraph").title = webL10n.get("Paragraph");
+				document.getElementById("list").title = webL10n.get("List");
+				document.getElementById("resize-inc").title = webL10n.get("Increasefontsize");
+				document.getElementById("font-button").title = webL10n.get("ChooseFont");
+				document.getElementById("resize-dec").title = webL10n.get("Decreasefontsize");
+				document.getElementById("insert-picture").title = webL10n.get("Image");
+				document.getElementById("edit-undo").title = webL10n.get("Undo");
+				document.getElementById("edit-redo").title = webL10n.get("Redo");
+				document.getElementById("edit-copy").title = webL10n.get("Copy");
+				document.getElementById("edit-paste").title = webL10n.get("Paste");
+				document.getElementById("export").title = webL10n.get("Export");
+				document.getElementById(5).title = webL10n.get("Bold");
+				document.getElementById(6).title = webL10n.get("Italic");
+				document.getElementById(7).title = webL10n.get("Underline");
+				document.getElementById(8).title = webL10n.get("Strike");
+				document.getElementById(9).title = webL10n.get("OrderedList");
+				document.getElementById(10).title = webL10n.get("UnorderedList");
+				document.getElementById(11).title = webL10n.get("JustifyLeft");
+				document.getElementById(12).title = webL10n.get("JustifyRight");
+				document.getElementById(13).title = webL10n.get("JustifyCenter");
+				document.getElementById(19).title = webL10n.get("ExportToTxt");
+				document.getElementById(20).title = webL10n.get("ExportToPdf");
+				document.getElementById(21).title = webL10n.get("ExportToDoc");
+				document.getElementById(22).title = webL10n.get("ExportToOdt");
+			});
+
 			if (!environment.objectId && !environment.sharedId) {
 				// New instance
 				// Intentionally added setTimeout to allow locale.ini file to be loaded
@@ -61,15 +90,18 @@ define([
 					length = editor.getLength();
 					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Writefeatures'));
 					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Enjoy')+' !');
+					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Enjoy'));
+					length = editor.getLength();
+					editor.clipboard.dangerouslyPasteHTML(length,"<br></br>");
+					length = editor.getLength();
 					editor.updateContents(
 						new Delta()
 						.retain(editor.getSelection().index+1)
-						.insert({ 
+						.insert({
 							image: window.initialImageDataUrl
 							}),
 					);
-				},200);				
+				},200);
 			} else {
 				// Existing instance
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
@@ -85,8 +117,8 @@ define([
 				console.log("Shared instance");
 
 				// Hide GUI of undo and redo for non host users
-				document.getElementById("3").style.display = "none";
-				document.getElementById("4").style.display = "none";
+				document.getElementById("edit-undo").style.display = "none";
+				document.getElementById("edit-redo").style.display = "none";
 				document.getElementById("shared-button").click();
 				presence = activity.getPresenceObject(function(error, network) {
 					network.onDataReceived(onNetworkDataReceived);
@@ -95,10 +127,10 @@ define([
 			}
 
 		});
-		
+
 		// Save in Journal on Stop
 		document.getElementById("stop-button").addEventListener('click', function (event) {
-			
+
 			// Journal handling
 			var data = editor.getContents();
 			var jsondata = JSON.stringify(data);
@@ -110,32 +142,18 @@ define([
 					console.log("write failed.");
 				}
 			});
-			
-		});
-		
-		var changeMadebyUser=false;
-		// Initiating edit-text-palette ( for cut/copy/undo/redo )
 
-		var editButton = document.getElementById("edit-text");
-		var options = [
-			{"id": 1, "title": "copy" , "cmd":"copy"},
-			{"id": 2, "title": "paste", "cmd":"paste"},
-			{"id": 3, "title": "undo", "cmd":"undo"},
-			{"id": 4, "title": "redo", "cmd":"redo"},
-		];
-		editpalette = new editpalette.Editpalette(editButton, undefined);
-		editpalette.setCategories(options);
-		editpalette.addEventListener('edit', function () {
-			editpalette.popDown();
-			editor.focus();
 		});
+
+		var changeMadebyUser=false;
+
 		var copiedContent = null ;
 
-		document.getElementById(1).addEventListener('click',function(){
+		document.getElementById("edit-copy").addEventListener('click',function(){
 			var range = editor.getSelection();
 			copiedContent = editor.getContents(range.index,range.length);
 		});
-		document.getElementById(2).addEventListener('click',function(){
+		document.getElementById("edit-paste").addEventListener('click',function(){
 			if(copiedContent!=null) {
 				changeMadebyUser=true;
 				editor.updateContents(
@@ -145,18 +163,18 @@ define([
 				);
 			}
 		});
-		
-		// Sync Keyboard Shortcut of copy paste with custom events
-		editor.keyboard.addBinding({ key: 'C', shortKey: true }, function(){document.getElementById(1).click()});
-		editor.keyboard.addBinding({ key: 'V', shortKey: true }, function(){document.getElementById(2).click()});
 
-		document.getElementById(3).addEventListener('click',function(){
+		// Sync Keyboard Shortcut of copy paste with custom events
+		editor.keyboard.addBinding({ key: 'C', shortKey: true }, function(){document.getElementById("edit-copy").click()});
+		editor.keyboard.addBinding({ key: 'V', shortKey: true }, function(){document.getElementById("edit-paste").click()});
+
+		document.getElementById("edit-undo").addEventListener('click',function(){
 			editor.history.undo();
 		});
-		document.getElementById(4).addEventListener('click',function(){
+		document.getElementById("edit-redo").addEventListener('click',function(){
 			editor.history.redo();
 		});
-		
+
 		// Initiating format-text-palette ( for cut/copy/undo/redo )
 		var formatButton = document.getElementById("format-text");
 		var formatoptions = [
@@ -183,13 +201,13 @@ define([
 		document.getElementById(8).addEventListener('click',function(){
 			document.getElementById("strike").click();
 		});
-		
+
 
 		// Initiating lists palette
 		var listButton = document.getElementById("list");
 		var listoptions = [
-			{"id": 9, "title": "ordered list", "cmd":"insertorderedList"},
 			{"id": 10, "title": "unordered list", "cmd":"insertUnorderedList"},
+			{"id": 9, "title": "ordered list", "cmd":"insertorderedList"},
 		];
 		listpalette = new listpalette.Listpalette(listButton, undefined);
 		listpalette.setCategories(listoptions);
@@ -204,12 +222,12 @@ define([
 		});
 
 		// Initiating paragraph palette ( Alignment settings )
-        
+
 		var paraButton = document.getElementById("paragraph");
 		var paraoptions = [
 			{"id": 11, "title":"justify Left" , "cmd":"justifyLeft"},
-			{"id": 12, "title":"justify Right" , "cmd":"justifyRight"},
 			{"id": 13, "title":"justify Center" , "cmd":"justifyCenter"},
+			{"id": 12, "title":"justify Right" , "cmd":"justifyRight"},
 		];
 		parapalette = new parapalette.Parapalette(paraButton, undefined);
 		parapalette.setCategories(paraoptions);
@@ -222,7 +240,7 @@ define([
 			changeMadebyUser=true;
 			editor.format('align','justify');
 		})
-		document.getElementById(12).addEventListener("click",function(){         
+		document.getElementById(12).addEventListener("click",function(){
 			changeMadebyUser=true;
 			editor.format('align','right');
 		});
@@ -230,7 +248,7 @@ define([
 			changeMadebyUser=true;
 			editor.format('align','center');
 		});
-		
+
 		// Initialise font palette
 		var fontButton = document.getElementById("font-button");
 		fontPalette = new fontPalette.Fontpalette(fontButton);
@@ -241,7 +259,7 @@ define([
 			changeMadebyUser=true;
 			editor.format('font',newfont);
 		});
-		
+
 		// Initiating colour palette for foreground and background
 		var forecolorButton = document.getElementById("color-button-1");
 		var changeForeColorPalette = new colorpalette.ColorPalette(forecolorButton);
@@ -258,9 +276,9 @@ define([
 			changeMadebyUser=true;
 			editor.format('background-color',e.detail.color);
 		});
-		
 
-		// Initiating font-size-palette 
+
+		// Initiating font-size-palette
 		// For increase
 		var sizes = ['24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
 		var sizeIncButton = document.getElementById("resize-inc");
@@ -296,7 +314,7 @@ define([
 					editor.updateContents(
 						new Delta()
 						.retain(editor.getSelection().index)
-						.insert({ 
+						.insert({
 							image: data
 							}),
 					);
@@ -305,7 +323,7 @@ define([
 		});
 
 
-		// Initiating export-palette 
+		// Initiating export-palette
 
 		var exportButton = document.getElementById("export");
 		var options = [
@@ -319,7 +337,7 @@ define([
 		exportpalette.addEventListener('export', function () {
 			exportpalette.popDown();
 		});
-		
+
 		// save as txt
 		document.getElementById("19").addEventListener('click',function(){
 			var title = document.getElementById("title").value;
@@ -339,7 +357,7 @@ define([
 			humane.log(webL10n.get("Txt"));
 		}, inputData);
 		});
-		
+
 		// save as PDF
 		document.getElementById("20").addEventListener('click',function(){
 
@@ -384,7 +402,7 @@ define([
 			})
 			});
 
-		// Save as doc 
+		// Save as doc
 		document.getElementById(21).addEventListener("click",function(){
 			var title = document.getElementById("title").value;
 			var content =document.getElementById("editor").innerHTML;
@@ -409,7 +427,7 @@ define([
 				humane.log(webL10n.get("Doc"));
 			}, inputData);
 		});
-		
+
 		//Save as odt
 		document.getElementById("22").addEventListener("click",function(){
 			// resetXML();
@@ -432,10 +450,10 @@ define([
 				resetXML();
 			}, inputData);
 
-		}); 
+		});
 
 		// On content change handlers , sends data to other users on content being changed
-		
+
 		editor.on('text-change', function(delta, oldDelta, source) {
 			// Executes on text or formatting changes
 			if ((source == 'user' || changeMadebyUser==true) && presence!=null) {
@@ -450,7 +468,7 @@ define([
 				});
 				changeMadebyUser=false;
 			}
-			
+
 		});
 
 		editor.on('selection-change', function(range, oldRange, source) {
@@ -464,8 +482,8 @@ define([
 						range: range
 					}
 				});
-				} 
-			} 
+				}
+			}
 		});
 
 		// Presence Palette
@@ -492,7 +510,7 @@ define([
 				network.onSharedActivityUserChanged(onNetworkUserChanged);
 			});
 		});
-		
+
 		var onNetworkDataReceived = function(msg) {
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
@@ -519,8 +537,8 @@ define([
 			if(msg.content.action=='selection'){
 				setTimeout(() => cursors.moveCursor(msg.user.networkId,msg.content.range) , 5);
 			}
-			
-		}; 
+
+		};
 
 		var onNetworkUserChanged = function(msg) {
 			if (isHost) {
@@ -569,19 +587,19 @@ define([
 						isHost=true;
 					}
 				}
-			}	
+			}
 		};
-		
-		
+
+
 		var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
 		function generateXOLogoWithColor(color) {
 			var coloredLogo = xoLogo;
 			coloredLogo = coloredLogo.replace("#010101", color.stroke)
 			coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
-		
+
 			return "data:image/svg+xml;base64," + btoa(coloredLogo);
 		}
-		
+
 		var connectedPeople = {};
 		// Maintain a list of connected users
 		function displayConnectedPeople(){
@@ -611,5 +629,5 @@ define([
 		}
 
 	});
-		
+
 });
