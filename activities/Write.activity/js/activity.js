@@ -262,24 +262,37 @@ define([
 
 		// Initiating font-size-palette 
 		// For increase
-		var sizes = ['24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
+		var sizes = ['16px', '24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'];
 		var sizeIncButton = document.getElementById("resize-inc");
 		sizeIncButton.addEventListener("click",function(){
 			var currentSize = editor.getFormat();
-			var index = sizes.indexOf(currentSize.size);
-			index++;
-			if(index<sizes.length){
-				editor.format('size',sizes[index]);
+			if(currentSize.size==null){
+				var index = sizes.indexOf('24px');
+				editor.format('size',sizes[index+1]);
+			}
+			else {
+				var index = sizes.indexOf(currentSize.size);
+				index++;
+				if(index<sizes.length){
+					editor.format('size',sizes[index]);
+				}
 			}
 		});
 		// For decrease
 		var sizeDecButton = document.getElementById("resize-dec");
 		sizeDecButton.addEventListener("click",function(){
 			var currentSize = editor.getFormat();
-			var index = sizes.indexOf(currentSize.size);
-			index--;
-			if(index>=0){
-				editor.format('size',sizes[index]);
+			if(currentSize.size==null){
+				var index = sizes.indexOf('24px');
+				if(index>0)
+				editor.format('size',sizes[index-1]);
+			}
+			else {
+				var index = sizes.indexOf(currentSize.size);
+				index--;
+				if(index>=0){
+					editor.format('size',sizes[index]);
+				}
 			}
 		});
 
