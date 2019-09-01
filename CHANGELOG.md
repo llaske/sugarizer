@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Click on a PDF in Journal now open a preview window
 - Add access to Abecedarium database (image/sound) from Journal Chooser popup
 
+### Changed
+- Improve consistency about shared palette position in toolbar
+
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
 - Add a delete button in the new idea input field of Labyrinth activity #262
