@@ -30,6 +30,7 @@ define([
 			  cursors: {
 				transformOnTextChange: true,
 			  },
+			  clipboard: true
 			},
 			};
 		Quill.register('modules/cursors', QuillCursors);
@@ -39,7 +40,6 @@ define([
 		editor.format('size','24px');
 		const cursors = editor.getModule('cursors');
 		const Delta =  Quill.import('delta');
-
 		// Journal Handling (Load)
 		env.getEnvironment(function(err, environment) {
             
@@ -134,21 +134,24 @@ define([
 		document.getElementById(1).addEventListener('click',function(){
 			var range = editor.getSelection();
 			copiedContent = editor.getContents(range.index,range.length);
+			document.execCommand('copy');
 		});
 		document.getElementById(2).addEventListener('click',function(){
-			if(copiedContent!=null) {
-				changeMadebyUser=true;
-				editor.updateContents(
-					new Delta()
-					.retain(editor.getSelection().index)
-					.concat(copiedContent)
-				);
+			if(document.execCommand('paste')){
+				// Your browser supports execCommand('paste')
+			} else if(copiedContent!=null) {
+					// Your browser does not support execCommand('paste')
+					changeMadebyUser=true;
+					editor.updateContents(
+						new Delta()
+						.retain(editor.getSelection().index)
+						.concat(copiedContent)
+					);
 			}
 		});
 		
-		// Sync Keyboard Shortcut of copy paste with custom events
+		// Sync Keyboard Shortcut of copy with custom events
 		editor.keyboard.addBinding({ key: 'C', shortKey: true }, function(){document.getElementById(1).click()});
-		editor.keyboard.addBinding({ key: 'V', shortKey: true }, function(){document.getElementById(2).click()});
 
 		document.getElementById(3).addEventListener('click',function(){
 			editor.history.undo();
