@@ -378,45 +378,43 @@ define([
 		document.getElementById("20").addEventListener('click',function(){
 
 			var title = document.getElementById("title").value;
-			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			html2canvas(document.getElementById("editor"),{
-				onrendered : function(canvas){
-					var imgData = canvas.toDataURL('image/png');
+			editor.scrollingContainer.style.overflow = 'visible';
+			html2canvas(editor.scrollingContainer).then(function(canvas){
+				var imgData = canvas.toDataURL('image/png');
+				var imgData = canvas.toDataURL('image/png');
+				var imgWidth = 210;
+				var pageHeight = 295;
+				var imgHeight = canvas.height * imgWidth / canvas.width;
+				var heightLeft = imgHeight;
 
-					var imgWidth = 210;
-					var pageHeight = 295;
-					var imgHeight = canvas.height * imgWidth / canvas.width;
-					var heightLeft = imgHeight;
+				var doc = new jsPDF('p', 'mm');
+				var position = 0;
 
-					var doc = new jsPDF('p', 'mm');
-					var position = 0;
-
-					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-					heightLeft -= pageHeight;
-
-					while (heightLeft >= 0) {
-					position = heightLeft - imgHeight;
-					doc.addPage();
-					doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-					heightLeft -= pageHeight;
-					}
-					var inputData = doc.output('dataurlstring');
-					var mimetype = 'application/pdf';
-					var metadata = {
-						mimetype: mimetype,
-						title: title+".pdf",
-						activity: "",
-						timestamp: new Date().getTime(),
-						creation_time: new Date().getTime(),
-						file_size: 0
-					};
-					datastore.create(metadata, function() {
-						console.log("export done.");
-						humane.log(webL10n.get("Pdf"));
-					}, inputData);
+				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+				heightLeft -= pageHeight;
+				console.log(heightLeft);
+				while (heightLeft >= 0) {
+				position = heightLeft - imgHeight;
+				doc.addPage();
+				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+				heightLeft -= pageHeight;
 				}
-			})
+				var inputData = doc.output('dataurlstring');
+				var mimetype = 'application/pdf';
+				var metadata = {
+					mimetype: mimetype,
+					title: title+".pdf",
+					activity: "",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				datastore.create(metadata, function() {
+					console.log("export done.");
+					humane.log(webL10n.get("Pdf"));
+				}, inputData);
 			});
+		});
 
 		// Save as doc
 		document.getElementById(21).addEventListener("click",function(){
