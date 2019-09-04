@@ -375,15 +375,15 @@ define([
 				var imgHeight = canvas.height * imgWidth / canvas.width;
 				var heightLeft = imgHeight;
 
-				var doc = new jsPDF('p', 'mm');
+				var doc = new jsPDF('p', 'mm' , '',true);
 				var position = 0;
 
-				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight , '' , 'FAST');
 				heightLeft -= pageHeight;
 				while (heightLeft >= 0) {
 				position = heightLeft - imgHeight;
 				doc.addPage();
-				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight , '' , 'FAST');
 				heightLeft -= pageHeight;
 				}
 				var inputData = doc.output('dataurlstring');
