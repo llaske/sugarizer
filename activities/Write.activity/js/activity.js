@@ -360,8 +360,14 @@ define([
 		document.getElementById("20").addEventListener('click',function(){
 
 			var title = document.getElementById("title").value;
-			editor.scrollingContainer.style.overflow = 'visible';
+			editor.scrollingContainer.style.overflowY = 'visible';
+			console.log(editor.scrollingContainer.style.height);
+			var h = editor.scrollingContainer.offsetHeight;
+			editor.scrollingContainer.style.height="auto";
+			editor.scrollingContainer.scrollTop=0;
 			html2canvas(editor.scrollingContainer).then(function(canvas){
+				editor.scrollingContainer.style.height=h;
+				editor.scrollingContainer.style.overflowY = 'auto';
 				var imgData = canvas.toDataURL('image/png');
 				var imgData = canvas.toDataURL('image/png');
 				var imgWidth = 210;
@@ -374,7 +380,6 @@ define([
 
 				doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
 				heightLeft -= pageHeight;
-				console.log(heightLeft);
 				while (heightLeft >= 0) {
 				position = heightLeft - imgHeight;
 				doc.addPage();
