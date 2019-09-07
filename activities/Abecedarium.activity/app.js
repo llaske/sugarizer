@@ -18,27 +18,27 @@ enyo.kind({
 		{components: [
 			{name: "credit", kind: "Image", src: "images/credit.png", classes: "creditButton no-select-image", ontap: "displayCredits"},
 			{name: "learn", kind: "Image", src: "images/learn.png", classes: "learnButton no-select-image", ontap: "learnGame"},
-			{name: "play", kind: "Image", src: "images/play.png", classes: "playButton no-select-image", ontap: "playGame"},	
+			{name: "play", kind: "Image", src: "images/play.png", classes: "playButton no-select-image", ontap: "playGame"},
 			{name: "build", kind: "Image", src: "images/build.png", classes: "buildButton no-select-image", ontap: "buildGame"},
 			{name: "networkCheck", kind: "Abcd.NetworkCheck"}
 		]},
-		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},	
+		{name: "creditsPopup", kind: "Abcd.CreditsPopup"},
 		{kind: "Signals", onEndOfSound: "endOfSound", onSoundTimeupdate: "soundTimeupdate"}
 	],
-	
+
 	// Constructor, save home
 	create: function() {
 		this.inherited(arguments);
 		Abcd.context.home = this;
 		Abcd.context.object = null;
 	},
-	
+
 	// Render
 	rendered: function() {
 		this.playTheme();
 		this.$.networkCheck.check();
 	},
-	
+
 	// Start the last closed activity if context not null
 	restartLastGame: function() {
 		Abcd.sound.pause();
@@ -52,22 +52,28 @@ enyo.kind({
 			});
 		}
 	},
-	
+
 	// Play theme
 	playTheme: function() {
 		this.soundindex = 0;
 		this.soundpos = 0;
 		Abcd.sound.play(soundThemes[this.soundindex]);
 	},
-	
+
 	// Launch activities
 	learnGame: function(e, s) {
+		if (Abcd.context.database == null) {
+			return;
+		}
 		Abcd.sound.pause();
 		Abcd.context.object = new Abcd.Learn().renderInto(document.getElementById("body"));
 	},
-	
+
 	playGame: function(e, s) {
-		Abcd.sound.pause();	
+		if (Abcd.context.database == null) {
+			return;
+		}
+		Abcd.sound.pause();
 		Abcd.context.object = new Abcd.Play().renderInto(document.getElementById("body"));
 	},
 
@@ -75,21 +81,21 @@ enyo.kind({
 	displayCredits: function(e, s) {
 		this.$.creditsPopup.show();
 	},
-	
+
 	// Sound ended, play next instrument
 	endOfSound: function(e, s) {
 		if (s.sound == soundThemes[this.soundindex])
 			this.nextInstrument();
 	},
-	
+
 	nextInstrument: function() {
 		this.soundindex = (this.soundindex + 1) % soundThemes.length;
 		this.soundpos = 0;
-		this.$.letter.setContent("");		
+		this.$.letter.setContent("");
 		this.$.instrument.setSrc("images/instrument"+this.soundindex+".png");
-		Abcd.sound.play(soundThemes[this.soundindex]);	
+		Abcd.sound.play(soundThemes[this.soundindex]);
 	},
-	
+
 	soundTimeupdate: function(e, s) {
 		for (var i = this.soundpos ; i < soundNotesPos.length ; i++) {
 			var val = soundNotesPos[i];
@@ -102,12 +108,12 @@ enyo.kind({
 				break;
 			}
 		}
-		this.$.letter.setContent("");		
+		this.$.letter.setContent("");
 	},
-	
+
 	// Test if database is installed
 	checkDatabase: function(then) {
-		this.$.networkCheck.check(then);	
+		this.$.networkCheck.check(then);
 	},
 	hasDatabase: function() {
 		return this.$.networkCheck.getConnected();

@@ -2,6 +2,7 @@
 
 var electron = require('electron'),
 	fs = require('fs'),
+	temp = require('tmp'),
 	ini = require('ini'),
 	path = require('path'),
 	requirejs = require('requirejs');
@@ -72,7 +73,7 @@ function LoadFile(event, file) {
 	var extension = path.extname(file).substr(1);
 	var fileProperty = {};
 	fileProperty.name = path.basename(file);
-	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm'};
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','doc':'application/msword','odt':'application/vnd.oasis.opendocument.text'};
 	for (var ext in extToMimetypes) {
 		if (ext == extension) {
 			fileProperty.type = extToMimetypes[ext];
@@ -120,7 +121,7 @@ function createWindow () {
 	}
 
 	// Wait for 'ready-to-show' to display our window
-	mainWindow.once('ready-to-show', function() {
+	mainWindow.webContents.once('did-finish-load', function() {
 		// Initialize locales
 		l10n.init();
 
@@ -163,7 +164,7 @@ function createWindow () {
 			var dialogSettings = {
 				properties: ['openFile', 'multiSelections'],
 				filters: [
-					{name: 'Activities', extensions: ['jpg','png','json','webm','wav']}
+					{name: 'Activities', extensions: ['jpg','png','json','webm','wav','mp3','mp4','pdf','txt','doc','odt']}
 				]
 			};
 			dialogSettings.title = l10n.get("ChooseFiles");
@@ -174,6 +175,17 @@ function createWindow () {
 					for (var i = 0 ; i < files.length ; i++) {
 						LoadFile(event, files[i]);
 					}
+				}
+			});
+		});
+		ipc.on('create-tempfile', function(event, arg) {
+			temp.file('sugarizer', function(err, path, fd) {
+				if (!err) {
+					var data = arg.text.replace(/^data:.+;base64,/, "");
+					var buf = new Buffer(data, 'base64');
+					fs.writeFile(fd, buf, function(err) {
+						event.sender.send('create-tempfile-reply', path);
+					});
 				}
 			});
 		});
@@ -218,10 +230,7 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-	// On OS X force quit like on other platforms
-	if (process.platform == 'darwin') {
-		app.quit()
-	}
+	app.quit()
 });
 
 app.on('activate', function () {

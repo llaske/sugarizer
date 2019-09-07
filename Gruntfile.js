@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 					'activities/TankOp.activity/**/*.js',
 					'activities/TurtleBlocksJS.activity/**/*.js',
 					'activities/VideoViewer.activity/**/*.js',
+					'activities/Write.activity/js/*.js',  // TODO: lib/quill is in ES6
 					'activities/XOEditor.activity/**/*.js'
 				],
 				dest: 'build/'

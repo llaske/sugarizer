@@ -1,6 +1,6 @@
 {
   "name": "Sugarizer",
-  "version": "1.1.0",
+  "version": "1.2.0-alpha",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -16,10 +16,11 @@
   },
   "devDependencies": {
     "electron": "^2.0.0",
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "~0.5.0"
+    "tmp": "^0.1.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-uglify": "^0.5.1"
   },
   "build": {
     "appId": "org.olpc-france.sugarizer",
@@ -30,10 +31,15 @@
       "category": "public.app-category.education"
     },
     "win": {
-      "target": [ "nsis" ]
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
-      "target": [ "AppImage", "deb" ]
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     }
   }
 }

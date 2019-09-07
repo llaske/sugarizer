@@ -63,7 +63,7 @@ To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows)
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
-    chrome --allow-file-access-from-files index.html
+ 	chrome --allow-file-access-from-files  index.html
 
 On Windows, you should launch:
 
@@ -72,6 +72,12 @@ On Windows, you should launch:
 On Mac OS, you should launch:
 
 	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
+
+On Linux, you should launch:
+
+	google-chrome-stable --allow-file-access-from-files index.html
+
+> Note: `google-chrome-stable` is the name of Chrome in Ubuntu but it could be different on other distribution, you can get the package-name for Chrome by running `sudo dpkg -l | grep chrome`
 
 For **Firefox**, type in the address bar:
 
@@ -169,6 +175,8 @@ If you're interested to create your own activity, a full tutorial will guide you
 * **Step 4**: handle journal and datastore
 * **Step 5**: localize the activity
 * **Step 6**: handle multi-user with presence
+* **Step 7**: use journal chooser dialog
+* **Step 8**: create your own palette
 
 Let's start [here](docs/tutorial.md).
 
@@ -182,7 +190,11 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
-To build it, first install Cordova as described [here](http://cordova.apache.org/).
+A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
+
+If you want to build it yourself, see following instructions.
+
+First install Cordova as described [here](http://cordova.apache.org/).
 
 Then create a directory for Sugarizer Cordova and put the content of the git repository in the www directory:
 
@@ -208,14 +220,15 @@ On Android, if you want to generate the Sugarizer OS version, remove the Sugariz
 
 # Reduce package size
 
-The current size of Sugarizer is about 300 Mb. This huge size is related to media content and resources include in two activities:
+The current size of Sugarizer is more than 350 Mb. This huge size is related to media content and resources include in three activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb
+* **Scratch activity**: about 50 Mb
 
-By the way, both activities are able to retrieve the content remotely if its not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those two activities or just remove the media content of this activities.
+By the way, these activities are able to retrieve the content remotely if its not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those three activities or just remove the media content of these activities.
 
-To remove activities, just remove both activities directory and update [activities.json](activities.json) file as explain above.
+To remove activities, just remove these activities directory and update [activities.json](activities.json) file as explain above.
 
 To remove media content for **Abecedarium**, remove directories:
 
@@ -224,9 +237,11 @@ To remove media content for **Abecedarium**, remove directories:
 * [activities/Abecedarium.activity/audio/es](activities/Abecedarium.activity/audio/es)
 * [activities/Abecedarium.activity/images/database](activities/Abecedarium.activity/images/database)
 
-The activity will look for media content on the server referenced in [activities/Abecedarium.activity/config.js](activities/Abecedarium.activity/config.js), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
+The activity will look for media content on the server referenced in [activities/Abecedarium.activity/database/db_url.json](activities/Abecedarium.activity/database/db_url.json), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
 
-To remove resources for **Etoys**, remove directory [activities/Etoys.activities/resources](activities/Etoys.activities/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activities/index.html](activities/Etoys.activities/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+
+To remove resources for **Scratch**, remove directory [activities/Scratch.activity/static/internal-assets](activities/Scratch.activity/static/internal-assets) and remove the value `class="offlinemode"` in [activities/Scratch.activity/index.html](activities/Scratch.activity/index.html).
 
 # Optimize performance
 
@@ -305,4 +320,6 @@ Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Su
 
 # License
 
-Sugarizer is licensed under the `Apache v2` license.  See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some could use a different license, check the [activities](activities) directory to be sure.
+Sugarizer is licensed under the **Apache-2.0** license. See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some use a different license, see [here](docs/licenses.md) for details.
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

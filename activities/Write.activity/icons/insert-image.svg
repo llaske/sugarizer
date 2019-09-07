@@ -1,0 +1,13 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="insert-image">
+	<g>
+		<polyline fill="#C6C8CA" points="44.475,18.064 10.275,18.064 10.275,43.264 44.475,43.264 44.475,18.064   "/>
+		
+			<line fill="none" stroke="#808284" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" x1="27.376" x2="27.376" y1="33.664" y2="7.712"/>
+		<polyline fill="none" points="35.098,24.51     27.376,33.664 19.653,24.51   " stroke="#808284" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+	</g>
+	<g>
+		
+			<line fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" x1="27.376" x2="27.376" y1="33.664" y2="7.712"/>
+		<polyline fill="none" points="35.098,24.51     27.376,33.664 19.653,24.51   " stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+	</g>
+</g></svg>

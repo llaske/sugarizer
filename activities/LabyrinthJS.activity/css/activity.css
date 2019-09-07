@@ -382,17 +382,49 @@ body {
  }
 }
 
+@media screen and (max-width: 760px) {
+    #network-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #help-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}
+
+@media screen and (max-width: 682px) {
+    #png-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}
+
+@media screen and (max-width: 642px) {
+    #zoom-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}
+
 @media screen and (max-width: 650px) {
  .search-field-border {
    margin-left: 5px;
  }
 }
 
-@media screen and (max-width: 640px) {
- #main-toolbar #png-button {
-   visibility: hidden;
-   width: 0px;
- }
+@media screen and (max-width: 558px) {
+    #undo-button {
+        visibility: hidden;
+        width: 0px;
+    }
+    #redo-button {
+        visibility: hidden;
+        width: 0px;
+    }
 }
 
 @media screen and (max-width: 600px) {

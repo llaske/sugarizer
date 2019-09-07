@@ -166,6 +166,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore","sugar-w
 
 		erasetextButton.addEventListener('click', function() {
 			textValue.value = "";
+			textValue.focus();
 			updateNodeText(lastSelected, textValue.value);
 			$("#erasetext-button").hide();
 			pushState();

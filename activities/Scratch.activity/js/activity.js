@@ -24,38 +24,36 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 					} else {
 						console.log("write failed.");
 					}
+					window.onbeforeunload = null;
 					activity.close();
 				});
 			});
+			var found = false;
 			for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
 				var spanElement = document.getElementsByTagName("span")[i];
 				if (spanElement.innerHTML == "Save to Sugarizer"){
 					spanElement.click();
-					console.log("Call saved successfully");
+					found = true;
 					break;
 				}
-				else{
-					console.log("Unable to save");
-				}
 			}
+			console.log(found?"Call saved successfully":"Unable to save");
 		});
 
 		env.getEnvironment(function(err, environment) {
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data){
 					if (error==null && data!=null){
+						var found = false;
 						for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
 							var spanElement = document.getElementsByTagName("span")[i];
 							if (spanElement.innerHTML == "Load from Sugarizer"){
 								document.getElementById("myBlocks").value = data;
-								spanElement.click();
-								console.log("Loaded successfully");
+								found = true;
 								break;
 							}
-							else{
-								console.log("Unable to load");
-							}
 						}
+						console.log(found?"Loaded successfully":"Unable to load");
 					}
 				});
 			}

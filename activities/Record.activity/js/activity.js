@@ -79,8 +79,9 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             captureHelper.ids = data.ids;
 
             if (data.ids && data.ids.length > 0) {
-                var oldData = captureHelper.getData(data.ids);
-                captureHelper.displayAllData(oldData);
+                captureHelper.getData(data.ids, function(oldData) {
+                    captureHelper.displayAllData(oldData)
+                });;
             }
         });
     })

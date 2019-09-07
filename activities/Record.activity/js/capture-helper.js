@@ -74,6 +74,16 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             });
         },
 
+        deleteRecord: function(record,metadata){
+            var t = this;
+                record.parentNode.removeChild(record);
+                t.ids.splice(t.ids.indexOf(metadata),1);
+                activity.getDatastoreObject().setDataAsText(JSON.stringify({ids: t.ids}));
+                activity.getDatastoreObject().save(function (error) {
+                });
+
+        },
+
         generateAudioPopup: function (fullData, originalAudio, metadata) {
             var audio = document.createElement("audio");
 
@@ -100,10 +110,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             video.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
             video.style.paddingBottom = "100px";
 
+
             return this.generatePopup(fullData, video, originalVideo, metadata);
         },
 
-        generateImagePopup: function (fullData, originalImage, metadata) {
+        generateImagePopup: function (fullData, originalImage, metadata, record) {
             var img = document.createElement("img");
             //img.src = fullData.data;
             img.style.backgroundImage = "url('" + fullData.data + "')";
@@ -120,12 +131,14 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.setAttribute('height', img.style.maxHeight);
             img.setAttribute('width', img.style.maxWidth);
 
-            return this.generatePopup(fullData, img, originalImage, metadata);
+            return this.generatePopup(fullData, img, originalImage, metadata, record);
         },
 
-        generatePopup: function (fullData, innerElement, originalImage, metadata) {
+        generatePopup: function (fullData, innerElement, originalImage, metadata, record) {
             var t = this;
-
+            if(typeof(record)=='undefined'){
+                record = originalImage;
+            }
 
             var div = document.createElement("div");
 
@@ -168,6 +181,20 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 t.popupMode = false;
             });
             div.appendChild(closeButton);
+
+            var removeButton = document.createElement("button");
+            removeButton.style.display = 'inline-block';
+            removeButton.style.float = "left";
+            removeButton.style.position = "absolute";
+            removeButton.zIndex = "99";
+            removeButton.className = "delbtn";
+            removeButton.style.background = "url('icons/delete.svg')";
+            removeButton.onclick = function(e){
+                t.deleteRecord(record, metadata);
+                div.parentNode.removeChild(div);
+                t.popupMode = false;
+            };
+            div.appendChild(removeButton);
 
             return div;
         },
@@ -220,7 +247,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 }
                 t.popupMode = true;
 
-                var popupDiv = t.generateImagePopup(fullData, img, metadata);
+                var popupDiv = t.generateImagePopup(fullData, img, metadata, div);
                 document.body.appendChild(popupDiv);
             });
         },
@@ -296,6 +323,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             div.appendChild(img);
 
+
             if (first && this.records.childNodes && this.records.childNodes.length > 0) {
                 this.records.insertBefore(div, this.records.firstChild)
             } else {
@@ -332,8 +360,9 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
         },
 
-        getData: function (ids) {
+        getData: function (ids, callback) {
             var allData = datastore.find();
+            var toload = [];
             var medias = [];
             for (var i = 0; i < allData.length; i++) {
                 var d = allData[i];
@@ -346,14 +375,18 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 if (mimetype.indexOf("audio") !== 0 && mimetype.indexOf("video") !== 0 && mimetype.indexOf("image") !== 0) {
                     continue;
                 }
-
-				var dsObject = new datastore.DatastoreObject(d.objectId);
+                toload.push(d.objectId);
+            }
+            var remain = toload.length;
+            for (var i = 0 ; i < toload.length ; i++) {
+				var dsObject = new datastore.DatastoreObject(toload[i]);
 				dsObject.loadAsText(function(err, metadata, text) {
-					d.text = text;
-					medias.push(d);
+					medias.push({metadata: metadata, text: text});
+                    if (callback && --remain == 0) {
+                        callback(medias.reverse());
+                    }
 				});
             }
-            return medias.reverse();
         },
 
         helper: undefined,
@@ -427,7 +460,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             captureHelper.displayLoading();
             try {
-                navigator.getUserMedia({audio: true}, function (mediaStream) {
+                navigator.mediaDevices.getUserMedia({audio: true}).then(function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {
                         type: 'audio'
                     });
@@ -466,7 +499,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         }
                     }, 1000);
 
-                }, function (error) {
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });
@@ -491,7 +524,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
             captureHelper.displayLoading();
             try {
-                navigator.getUserMedia({video: true}, function (mediaStream) {
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {
                         type: 'video',
                         frameRate: 80,
@@ -533,7 +566,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         }
                     }, 1000);
 
-                }, function (error) {
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });
@@ -558,53 +591,24 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             var video = document.createElement("video");
             try {
                 captureHelper.displayLoading();
-                navigator.getUserMedia({video: true}, function (mediaStream) {
-                    var recordRTC = RecordRTC(mediaStream, {type: 'video'});
-                    recordRTC.startRecording();
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (mediaStream) {
                     document.querySelector('#vidDisplay').srcObject = mediaStream;
                     setTimeout(function () {
-                        t.timerStart.innerHTML = "";
-                        t.timerEnd.innerHTML = "";
-                        document.getElementById("loading-progress").value = 0;
-                        recordRTC.stopRecording(function () {
-                            recordRTC.getDataURL(function (dataURL) {
-                                video.addEventListener('loadeddata', function () {
-                                    video.play();
-                                });
+                        var canvas = document.createElement("canvas");
+                        var width = captureHelper.width;
+                        var height = captureHelper.height;
 
-                                video.addEventListener('canplaythrough', function () {
-                                    video.play();
-                                });
+                        canvas.width = width;
+                        canvas.height = height;
 
-                                video.addEventListener('canplay', function () {
-                                    video.play();
-                                });
-
-                                video.addEventListener("playing", function () {
-                                    setTimeout(function () {
-                                        var canvas = document.createElement("canvas");
-                                        var width = captureHelper.width;
-                                        var height = captureHelper.height;
-
-                                        canvas.width = width;
-                                        canvas.height = height;
-
-                                        canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-                                        var imgSrc = canvas.toDataURL("image/png");
-                                        captureHelper.forgeAndInsertData(imgSrc);
-                                        if (mediaStream.stop) mediaStream.stop();
-                                        t.recording = false;
-                                        captureHelper.hideLoading();
-                                    }, 1200);
-                                }, false);
-
-                                video.src = dataURL;
-                            });
-
-
-                        });
-                    }, 1500);
-                }, function (error) {
+                        canvas.getContext('2d').drawImage(document.querySelector('#vidDisplay'), 0, 0, width, height);
+                        var imgSrc = canvas.toDataURL("image/png");
+                        captureHelper.forgeAndInsertData(imgSrc);
+                        if (mediaStream.stop) mediaStream.stop();
+                        t.recording = false;
+                        captureHelper.hideLoading();
+                    }, 2700);
+                }).catch(function (error) {
                     t.recording = false;
                     captureHelper.hideLoading();
                 });

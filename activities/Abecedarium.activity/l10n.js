@@ -2,12 +2,15 @@
 
 
 // Change current language setting
-__$FC_l10n = Abcd.enLetters;
-Abcd.letters = Abcd.enLetters;
-if (Abcd.context !== undefined && Abcd.context.lang !== undefined) {
-    __$FC_l10n = Abcd.getTextsFromLocal(Abcd.context.lang);
-    Abcd.letters = Abcd.getLettersFromLocal(Abcd.context.lang);
+Abcd.initL10n = function() {
+    __$FC_l10n = Abcd.enLetters;
+    Abcd.letters = Abcd.enLetters;
+    if (Abcd.context !== undefined && Abcd.context.lang !== undefined) {
+        __$FC_l10n = Abcd.getTextsFromLocal(Abcd.context.lang);
+        Abcd.letters = Abcd.getLettersFromLocal(Abcd.context.lang);
+    }
 }
+
 
 __$FC_l10n_set = function(texts) {
 	__$FC_l10n = texts;

@@ -38,13 +38,18 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		var generateCode = function(text) {
 			qrCode.clear();
 			qrCode.makeCode(text);
+			addToHistory(text);
 			var text = userText.value.toLowerCase();
+			if (text.length > 0) {
+				document.getElementById("erasetext-button").style.visibility = "visible";
+			} else {
+				document.getElementById("erasetext-button").style.visibility = "hidden";
+			}
 			if (text.indexOf("http://") == 0 || text.indexOf("https://") == 0) {
 				document.getElementById("user-text").classList.add("text-url");
 			} else {
 				document.getElementById("user-text").classList.remove("text-url");
 			}
-			addToHistory(text);
 		}
 
 		// Process Resize events
@@ -70,6 +75,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		var userText = document.getElementById("user-text");
 		userText.addEventListener('keyup', function() {
 			var text = userText.value.toLowerCase();
+			if (text.length > 0) {
+				document.getElementById("erasetext-button").style.visibility = "visible";
+			} else {
+				document.getElementById("erasetext-button").style.visibility = "hidden";
+			}
 			if (text.indexOf("http://") == 0 || text.indexOf("https://") == 0) {
 				document.getElementById("user-text").classList.add("text-url");
 			} else {
@@ -79,8 +89,18 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		userText.addEventListener('click', function() {
 			var text = userText.value.toLowerCase();
 			if (text.indexOf("http://") == 0 || text.indexOf("https://") == 0) {
-				window.open(userText.value);
+				if (isMobile) {
+					cordova.InAppBrowser.open(userText.value, '_system');
+				} else {
+					window.open(userText.value);
+				}
 			}
+		});
+		document.getElementById("erasetext-button").addEventListener('click', function() {
+			userText.value = "";
+			userText.focus();
+			document.getElementById("erasetext-button").style.visibility = "hidden";
+			document.getElementById("user-text").classList.remove("text-url");
 		});
 
 		// Handle text change
@@ -157,6 +177,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 								userText.value = code;
 								generateCode(code);
 							}
+							QRScanner.cancelScan(function(status){});
 							document.getElementById("main-toolbar").style.opacity = 1;
 							document.getElementById("canvas").style.opacity = 1;
 							document.getElementById("close-button").style.visibility = "hidden";
@@ -210,8 +231,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 
 		// Add entry to history
 		function addToHistory(text) {
-			history.push(text);
-			updateHistory();
+			if(!history.includes(text)){
+				history.push(text);
+				updateHistory();
+			}
 		}
 
 		// Update dropdown with user history
@@ -223,7 +246,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			}
 			document.getElementById("qrtextdropdown").innerHTML = mhtml;
 		}
-		
+
 		// QR history dropdown change
 		document.getElementById("qrtextdropdown").addEventListener('change', function () {
 			document.getElementById("user-text").value = document.getElementById("qrtextdropdown").value;

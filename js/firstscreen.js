@@ -19,7 +19,8 @@ enyo.kind({
 				{name: "servertext", content: "xxx", classes: "first-servertext"},
 				{classes: "first-input", components: [
 					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
-				]}
+				]},
+				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "first-qr"}
 			]},
 		]},
 		{name: "passbox", classes: "first-passbox", onresize: "resize", showing: false, components: [
@@ -70,6 +71,7 @@ enyo.kind({
 		this.createnew = true;
 		this.step = 0;
 		this.displayStep();
+		util.updateFavicon();
 
 		// Get server information
 		this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
@@ -144,6 +146,7 @@ enyo.kind({
 		case 1: // Server name
 			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
+			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
@@ -302,7 +305,7 @@ enyo.kind({
 		}
 	},
 	scrollToTop: function() {
-		var nodeName = document.getElementById("firstScreen");
+		var nodeName = this.$.helpbutton.hasNode();
 		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
 			setTimeout(function() {
 				nodeName.scrollIntoView(true);
@@ -478,6 +481,19 @@ enyo.kind({
 		});
 	},
 
+	// Handle QR Code scanner
+	scanQR: function() {
+		var that = this;
+		that.scrollToField(that.$.helpbutton);
+		util.scanQRCode(function(code) {
+			that.$.server.setValue(code);
+		}, function() {
+			that.scrollToField(that.$.serverbox);
+			that.$.server.focus();
+			that.$.server.hasNode().select()
+		});
+	},
+
 	// Display tutorial
 	startTutorial: function() {
 		tutorial.setElement("newuser", this.$.newuser.getAttribute("id"));
@@ -485,6 +501,7 @@ enyo.kind({
 		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
 		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
 		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
+		tutorial.setElement("qrcode", this.$.qrbutton.getAttribute("id"));
 		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
 		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
@@ -642,5 +659,50 @@ enyo.kind({
 			default: {
 			}
 		}
+	},
+
+	encoded: "\
+5118425f65645b621642576961df1822183a57645f5b62164457686c575b701822183d6564705762\
+6516455a5f57685a1822184357646b5b6216476b5fe765645b69182218395e685f696a5f57641649\
+6a68655b6a635764641822184057696564164d5b576a5e5b6869586f182218466b645b5b6a164157\
+6b68182218465f5b68685b164c5768626f1822184457605f1638656b6370656b5d5e182218495e5f\
+68695e16505f58586b182218465f656a681637646a6569701822184a6f63656416462448575a705f\
+6118221843576ae35769164357686ae3645b70182218395e5768625b691639656969df1822184c5f\
+596a6568164a576157615f18221838685f576416495f626c5b68635764182218435764615f68576a\
+16495f645d5e1822183b685f59164f656564182218625b656457685a59601822183c685b5a5a5f5b\
+441822186457655c6b63182218416b6457621643655e6a571822183c685b5b163b5a6b59576a5f65\
+6457621649655c6a6d57685b165c6568164365585f625b163a5b6c5f595b691623164a6857646962\
+576a5f656469166a6516386857705f625f5764164665686a6b5d6b5b695b1822185959682a581822\
+18395e685f696a65665e163a5b68645a65685c5b681822183f5d6457595f651648655a68e35d6b5b\
+701822183857696a5f5b64182218495764576a57641822184357686a5f641637585b646a5b164257\
+5e576f5b1822184065685d5b163762585b686a65163de9635b701642e9665b70182218385b686a16\
+3c685b6b5a5b64585b685d182218496b68576018221837645a685b57163d65647057625b69182218\
+445f616562576f163d656966655a5f64656c1822183b6a5e576416445b6269656423436565685b18\
+2218495764595e5f6a164157666565681822183c685764596516396568685b571822184857605b5b\
+6c1648576c5f645a685764182218495b5857696a5f576416495f626c571822186023695e6b585e18\
+2218435f595e57e16216455e576f656418221837686f576416435b5a5f68576a6a57182218695a70\
+5f6b5a5718221838576a595e6b164c5b6461576a164c5f695e576218221849576b68576c16466857\
+6a5f5e57681822184d57626a5b6816385b645a5b68182218486569571637645f62163d5b65685d5b\
+1822183b6b57641645645d1822183a5f645b695e16395e656b5a5e57686f1822186a68575a705f61\
+1822186266276a5b61182218615f685f5a5f6e1822186c6068601822183e5768685f696564424157\
+6a70182218435f595e575b6216466b1822184957635b5b6816416b6357681649576a6f575a576869\
+5e5f1822183762576416375d6b5f57681822184957636f656116445b665762182218465f656a6816\
+37646a656970182218495763696564163d655a5a6f18221846576b6265163c685764595f69596516\
+49626563661822183a576c5b1639686569696257645a1853\
+",
+
+	contributors: function() {
+		var json = "";
+		for(var i = 0 ; i < this.encoded.length ; i+=2) {
+			var hex = parseInt(this.encoded.substr(i, 2), 16);
+			json += String.fromCharCode(hex+10);
+		}
+		var contribs = JSON.parse(json);
+		var list = [];
+		for (var i = 0 ; i < contribs.length ; i++) {
+			var color = !i ? {stroke:"#005FE4",fill:"#FF2B34"}: xoPalette.colors[Math.floor(Math.random()*xoPalette.colors.length)];
+			list.push({networkId: "nxx"+i, name: contribs[i], colorvalue: color});
+		}
+		return list;
 	}
 });

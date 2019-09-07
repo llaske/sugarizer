@@ -18,6 +18,10 @@
   background-image: url(../icons/library.svg);
 }
 
+#main-toolbar #exportvideo-button {
+  background-image: url(../icons/save-video.svg);
+}
+
 .palette-button {
 	width: 200px;
 	height: 47px;
@@ -516,7 +520,7 @@
 	}
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 820px) {
 	#search {
 		visibility: hidden;
 	}

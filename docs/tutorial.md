@@ -15,5 +15,6 @@ So step after step, you will learn:
 * [Step 5](tutorial_step5.md): localize the activity
 * [Step 6](tutorial_step6.md): handle multi-user with presence
 * [Step 7](tutorial_step7.md): use journal chooser dialog
+* [Step 8](tutorial_step8.md): create your own palette
 
 But let's first with the [Step 0](tutorial_step0.md), set up the development environment.

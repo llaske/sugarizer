@@ -6,8 +6,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Write activity
 - Constellation activity
 - Pomodoro activity
+- QR Code for scanning server URL on iOS/Android
+- Update to official Scratch 3.3 release
+- Support for localization in Scratch
+- Dynamically generate favicon and title
+- Tutorial step 7: use journal chooser dialog
+- Tutorial step 8: create your own palette
+- Use IndexedDB instead of localStorage for storing Journal items content
+- Support for TXT/DOC/ODT/PDF files in Journal
+- Support for MP3/MP4 files in Journal
+- Add export sound to Journal feature in Abecedarium activity
+- Add export video to Journal feature in VideoViewer activity
+- Click on a PDF in Journal now open a preview window
+- Add access to Abecedarium database (image/sound) from Journal Chooser popup
+
+### Changed
+- Improve consistency about shared palette position in toolbar
 
 ### Fixed
 - QRCode and Record no longer work on Chrome 71
@@ -21,6 +38,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Memorize responsive seems broken on phones #106
 - Stopwatch Activity, lap Timings vanish after a few recordings #280
 - Turtle Blocks Activity hangs on Android App #185
+- Sugarizer OS hang when multiple click on an icon #338
+- Message overlaps with user name in Chat Activity #328
+- Jappy Activity print preview popup #326
+- Toolbar overlap issue in Speak Activity #324
+- Smileys not displayed properly in chat prototype activity #322
+- Cursor issue in calculator activity on Chrome #318
+- Duplicated text in QR Code Activity history #314
+- Audio bar not displaying in chrome when opening a audio file #312
+- Display language settings in 2 languages #292
+- Gear colours are reset on resume #336
+- Added Tool tips to Calculate Activity
+- Users should be able to send images in chat prototype #330
+- No erase button for recordings in Record activity #344
+- Order Journal filter by activity name
+- Snapcraft version lost context #346
+- Snapcraft version don't allow to import/export file into/from Journal #350
+- Update home image for TankOp activity
+- Grammatical Errors in the Documentation #347
+- Now support offline mode on Scratch for iOS
+- Camera doesn't work on Record/QRCode activities for Snapcraft version #351
+- Add a pause button to the Physics activity #354
+- Context is lost the second time in Abecedarium activity #359
+- Sound not play on Memorize activity in iOS
+- Record activity don't work in Safari #362
+- Error in console in Calculate activity when reopen an empty instance #358
+- Localize activity name in title
 
 
 ## [1.1.0] - 2019-01-20

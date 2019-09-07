@@ -27,9 +27,9 @@ function init() {
     };
     this.refs.erasebutton.onclick = function () {
         window.state = "clean";
+        event_bus.trigger("clear-output");
         event_bus.trigger("traybutton-close", false);
         tag.update();
-        event_bus.trigger("clear-output");
     };
     function activity_ready(activity) {
         tag.refs.stopbutton.onclick = function () {
