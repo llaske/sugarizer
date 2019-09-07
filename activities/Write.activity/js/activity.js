@@ -99,7 +99,7 @@ define([
 						.retain(editor.getSelection().index+1)
 						.insert({
 							image: window.initialImageDataUrl
-							}),
+							})
 					);
 				},200);
 			} else {
@@ -332,7 +332,7 @@ define([
 						.retain(editor.getSelection().index)
 						.insert({
 							image: data
-							}),
+							})
 					);
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
@@ -549,7 +549,7 @@ define([
 				editor.updateContents(msg.content.data);
 			}
 			if(msg.content.action=='selection'){
-				setTimeout(() => cursors.moveCursor(msg.user.networkId,msg.content.range) , 5);
+				setTimeout(function() {cursors.moveCursor(msg.user.networkId,msg.content.range)} , 5);
 			}
 
 		};
