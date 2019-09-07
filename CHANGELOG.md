@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Write activity
 - Constellation activity
 - Pomodoro activity
 - QR Code for scanning server URL on iOS/Android

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Write Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+    href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+    href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/quill/quill.core.css">
+  <link rel="stylesheet" href="css/libnotify.css">
+  <!-- Add locale.ini file -->
+  <link rel="prefetch" type="application/l10n" href="locale.ini">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/quill/quill-cursors.js"></script>
+  <script src="lib/quill/quill.min.js"></script>
+  <script src="lib/quill/modules/image-resize.min.js"></script>
+  <script src="lib/quill/editor.js"></script>
+  <script src="lib/export-to-PDF/jspdf.min.js"></script>
+  <script src="lib/export-to-PDF/html2canvas.js"></script>
+  <script>if (window.module) module = window.module;</script>
+  <script src="js/odt.js"></script>
+  <script src="js/initialimage.js"></script>
+  <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="color-button-1" title="Foreground Color"></button>
+  <button class="toolbutton" id="color-button-2" title="Background Color"></button>
+  <button class="toolbutton" id="format-text" title="format text"></button>
+  <button class="toolbutton" id="paragraph" title="paragraph"></button>
+  <button class="toolbutton" id="list" title="list"></button>
+  <button class="toolbutton" id="resize-inc" title="Increase font size"></button>
+  <button class="toolbutton" class="toolbutton" id="font-button" title="font" data-value="monospace"></button>
+  <button class="toolbutton" id="resize-dec" title="Decrease font size"></button>
+  <button class="toolbutton" id="insert-picture" title="Image"></button>
+  <button class="toolbutton" id="edit-undo" title="Undo"></button>
+  <button class="toolbutton" id="edit-redo" title="Redo"></button>
+  <button class="toolbutton" id="edit-copy" title="Copy"></button>
+  <button class="toolbutton" id="edit-paste" title="Paste"></button>
+  <button class="toolbutton" id="export" title="Export"></button>
+
+  <!-- Create Fake buttons with required quiljs classes-->
+  <button style="display: none" id="bold" class="ql-bold"></button>
+  <button style="display: none" id="underline" class="ql-underline"></button>
+  <button style="display: none" id="strike" class="ql-strike"></button>
+  <button style="display: none" id="italic" class="ql-italic"></button>
+  <button style="display: none" id="list-ordered" class="ql-list" value="ordered"></button>
+  <button style="display: none" id="list-unordered" class="ql-list" value="bullet"></button>
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div style="background-color: white" id="canvas">
+
+  <div id="editor"></div>
+
+</div>
+</body>
+
+</html>
