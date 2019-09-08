@@ -2,19 +2,17 @@
 
 # What is Sugarizer ?
 
-The [Sugar Learning Platform](https://sugarlabs.org/) is a leading learning platform that began in the famous One Laptop Per Child project.
-It is used every day by nearly 3 million children around the world.
+Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used every day by more than 2 million children around the world.
 
-Sugarizer is a web implementation of the platform and runs on every device - from tiny Raspberry Pi computers to small Android and iOS phones to tablets and to laptops and desktops.
+Sugarizer runs on every device: from Raspberry Pi computers to Android and iOS phones to tablets and to laptops and desktops.
 
-Like Sugar, Sugarizer includes a bunch of pedagogic activities thought for children.
+Sugarizer includes a bunch of pedagogic activities thought for children, see [here](https://sugarizer.org) for more.
 
 Sugarizer is available as:
 
 * Application: an installable app for every operating system
 * Web Application: a web application that runs in modern web browsers
 
-Enjoy the experience and help us reach every child on every device in every country.
 
 # Sugarizer Application
 
@@ -59,7 +57,7 @@ You could use Sugarizer desktop arguments using "--" after start. For example:
 
 	npm start -- --window
 
-To run **Sugarizer Application from the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
+To run locally **Sugarizer Application into the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
@@ -105,15 +103,20 @@ To install your own Sugarizer Server, follow instructions on
 
 
 
-# Activities
+# Architecture
 
-Sugarizer includes a bunch of pedagogic activities.
-All activities could be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
+If you're a developer and you want to learn more about Sugarizer architecture, see the dedicated page [here](docs/architecture.md).
+
+
+
+# Activities distribution
+
+All activities could be found in the [activities](../activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](../activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
-To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
+To do that, you first need to adapt the content of the [activities](../activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
-Then you need to update the [activities.json](activities.json) file to reflect your choice.
+Then you need to update the [activities.json](../activities.json) file to reflect your choice.
 Here an example of this file:
 
 	[
@@ -158,8 +161,8 @@ Remove in this file rows for activities that you want to remove. Add in this fil
 
 Note than:
 
-1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
-2. The [activities.json](activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
+1. The [activities/ActivityTemplate](../activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
+2. The [activities.json](../activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](../activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
 
 # Create your own activity
 
@@ -192,31 +195,8 @@ Sugarizer Application could be packaged as an Android or iOS application using [
 
 A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
 
-If you want to build it yourself, see following instructions.
+If you want to build it yourself, you could adapt the [source code](https://github.com/llaske/sugarizer-apkbuilder/blob/master/src/make_android.sh) of this tool.
 
-First install Cordova as described [here](http://cordova.apache.org/).
-
-Then create a directory for Sugarizer Cordova and put the content of the git repository in the www directory:
-
-	cordova create sugar-cordova
-	cd sugar-cordova
-	rm config.xml
-	rm -fr www
-	git clone https://github.com/llaske/sugarizer.git www
-
-Add the platform you want to add (here Android):
-
-	cordova platform add android
-
-Replace the auto generated config.xml file by the Sugarizer one:
-
-	cp www/config.xml .
-
-Build the package:
-
-	cordova build android
-
-On Android, if you want to generate the Sugarizer OS version, remove the SugarizerOS comment around the `cordova-plugin-sugarizeros` plugin in [config.xml](config.xml) file.
 
 # Reduce package size
 
