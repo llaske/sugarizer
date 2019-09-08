@@ -65,6 +65,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Record activity don't work in Safari #362
 - Error in console in Calculate activity when reopen an empty instance #358
 - Localize activity name in title
+- Activity palette icon has reversed colors
 
 
 ## [1.1.0] - 2019-01-20
