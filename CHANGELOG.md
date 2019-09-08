@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update to official Scratch 3.3 release
 - Support for localization in Scratch
 - Dynamically generate favicon and title
+- Architecture page and schemas
 - Tutorial step 7: use journal chooser dialog
 - Tutorial step 8: create your own palette
 - Use IndexedDB instead of localStorage for storing Journal items content
