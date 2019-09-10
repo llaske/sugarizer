@@ -120,7 +120,6 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 		temparr.x = this.width;
 		temparr.y = this.height;
 		arr.push(temparr);
-
 		for (var i in this.dots){
 			temparr = {};
 			temparr.fill = this.dots[i].innercol;
@@ -133,7 +132,14 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 
 		var js = JSON.stringify(arr);
 		activity.getDatastoreObject().setDataAsText(js);
-		activity.getDatastoreObject().save();
+		activity.getDatastoreObject().save(function (error) {
+			if (error === null) {
+				console.log("write done.");
+			}
+			else {
+				console.log("write failed.");
+			}
+		});
 	}
 
 	this.init = function(){

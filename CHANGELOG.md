@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Error in console in Calculate activity when reopen an empty instance #358
 - Localize activity name in title
 - Activity palette icon has reversed colors
+- XOEditor activity generate multiple entries in the Journal #370
 
 
 ## [1.1.0] - 2019-01-20
