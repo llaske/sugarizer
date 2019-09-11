@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - QR Code for scanning server URL on iOS/Android
 - Update to official Scratch 3.3 release
 - Support for localization in Scratch
+- Improved Exerciser activity: multimedia support, new templates, results detail
 - Dynamically generate favicon and title
+- Architecture page and schemas
 - Tutorial step 7: use journal chooser dialog
 - Tutorial step 8: create your own palette
 - Use IndexedDB instead of localStorage for storing Journal items content
@@ -64,6 +66,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Record activity don't work in Safari #362
 - Error in console in Calculate activity when reopen an empty instance #358
 - Localize activity name in title
+- Activity palette icon has reversed colors
+- XOEditor activity generate multiple entries in the Journal #370
 
 
 ## [1.1.0] - 2019-01-20
