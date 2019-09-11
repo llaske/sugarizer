@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - QR Code for scanning server URL on iOS/Android
 - Update to official Scratch 3.3 release
 - Support for localization in Scratch
+- Improved Exerciser activity: multimedia support, new templates, results detail
 - Dynamically generate favicon and title
 - Architecture page and schemas
 - Tutorial step 7: use journal chooser dialog

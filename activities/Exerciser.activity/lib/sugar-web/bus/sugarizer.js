@@ -54,14 +54,14 @@ define(["sugar-web/env"], function (env) {
 			if (typeof chrome != 'undefined'  && chrome.app && chrome.app.runtime) {
 				 chrome.storage.local.get("sugar_settings", function(values) {
 					color = JSON.parse(values.sugar_settings).colorvalue;
-					callback(null, [[color.stroke, color.fill]]);
+					callback(null, [[color.fill, color.stroke]]);
 				});
 			} else if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
 				try {
 					 color = JSON.parse(window.localStorage.getItem("sugar_settings")).colorvalue;
 				} catch(err) {}
 			}
-            callback(null, [[color.stroke, color.fill]]);
+            callback(null, [[color.fill, color.stroke]]);
         }
         return;
     };
