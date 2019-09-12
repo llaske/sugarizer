@@ -235,7 +235,7 @@ The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized v
 
 Then install specific component for Sugarizer by running:
 
-	npm install
+	npm install --dev
 
 Finally launch:
 

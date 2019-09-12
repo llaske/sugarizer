@@ -1,6 +1,6 @@
 As all Open Source software, contributions to Sugarizer are welcome.
 
-The best way to start is to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
+The best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
 
 Then, you could start to contribute by trying to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues).
 
