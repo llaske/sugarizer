@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add export video to Journal feature in VideoViewer activity
 - Click on a PDF in Journal now open a preview window
 - Add access to Abecedarium database (image/sound) from Journal Chooser popup
+- Allow move/resize of inserted image in Paint activity
 
 ### Changed
 - Improve consistency about shared palette position in toolbar
