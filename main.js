@@ -107,7 +107,10 @@ function createWindow () {
 		minHeight: 480,
 		fullscreen: frameless,
 		frame: !frameless,
-		webPreferences: {webSecurity: false},
+		webPreferences: {
+			webSecurity: false,
+			nodeIntegration: true
+		},
 		icon: './res/icon/electron/icon-1024.png'
 	});
 	if (process.platform === 'darwin') {
