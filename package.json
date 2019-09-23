@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "build -mlw --x64 --ia32"
+    "dist": "electron-builder -mw"
   },
   "repository": "https://github.com/llaske/sugarizer",
   "author": "Lionel Laské <lionel@sugarizer.org>",
@@ -33,12 +33,6 @@
     "win": {
       "target": [
         "nsis"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
       ]
     }
   }
