@@ -51,7 +51,6 @@ function displayAudio(data) {
     audio.src = data;
     audio.setAttribute("controls", "");
 
-    audio.style.height = "auto";
     audio.style.maxWidth = document.body.clientWidth - 55 + "px";
     audio.style.width = document.body.clientWidth - 60 + "px";
     audio.style.marginTop = (document.body.clientHeight - 55 - audio.getBoundingClientRect().height) / 2 + "px"

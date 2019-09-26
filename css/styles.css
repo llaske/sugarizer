@@ -698,6 +698,13 @@ body {
 	background-image: url(../icons/sync.svg);
 }
 
+.offline-button {
+	background-image: url(../icons/cloud-warning.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 540px;
+}
+
 .sync-home {
 	position: absolute !important;
 	top: 0px;
@@ -1152,7 +1159,7 @@ body {
 .first-serverline {
 	vertical-align: middle;
 	text-align: center;
-	width: 300px;
+	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1179,6 +1186,57 @@ body {
 	background-color: white;
 }
 
+.first-qrbackground {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height:100vh;
+	visibility: visible;
+	background-color: transparent;
+	z-index: 4;
+}
+
+.first-qr {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.first-qrclose-button {
+	background-image: url(../icons/dialog-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 47px;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	top: 10px;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+.first-qrswitch-button {
+	background-image: url(../icons/switch-camera.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	bottom: 10px;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
 .first-passbox {
 	height: 100%;
 	padding-bottom: 100%;
@@ -1187,6 +1245,7 @@ body {
 .first-input {
 	text-align: center;
 	display: inline-block;
+	margin-top: 12px;
 }
 
 .first-warningmessage {
@@ -1645,6 +1704,11 @@ body {
 	background-color: white;
 }
 
+.aboutserver-qr {
+	display: inline-block;
+	margin-left: 20px;
+}
+
 .aboutserver-userlabel {
 	margin-left: 50px;
 	margin-top: 10px;
@@ -1727,6 +1791,7 @@ body {
 	position: absolute;
 	left: 110px;
 	margin-top: 20px;
+	margin-right: 10px;
 	color: #808080;
 }
 
@@ -1776,7 +1841,7 @@ body {
 
 .cloud-empty {
 	position: absolute;
-	background-image: url(../icons/cloud-settings.svg);
+	background-image: url(../icons/cloud-warning.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 50px 50px;
@@ -2072,6 +2137,10 @@ body {
 		left: 340px;
 	}
 
+	.offline-button {
+		left: 390px;
+	}
+
 	.homeview-filter-text {
 		width: 200px;
 	}
@@ -2136,7 +2205,7 @@ body {
 		visibility: hidden;
 	}
 }
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 650px) {
 	.help-button {
 		visibility: hidden;
 	}
@@ -2144,13 +2213,21 @@ body {
 	.sync-home {
 		left: 270px;
 	}
+
+	.offline-button {
+		left: 320px;
+	}
 }
-@media screen and (max-width: 555px) {
+@media screen and (max-width: 590px) {
 	.sync-home {
 		visibility: hidden;
 	}
 
 	.sync-button {
+		visibility: hidden;
+	}
+
+	.offline-button {
 		visibility: hidden;
 	}
 }

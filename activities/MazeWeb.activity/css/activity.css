@@ -6,6 +6,10 @@
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #restart-button {
+  background-image: url(../icons/restart-game.svg);
+}
+
 #private-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   width: 47px;

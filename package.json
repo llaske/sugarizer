@@ -1,10 +1,10 @@
 {
   "name": "Sugarizer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "build -mlw --x64 --ia32"
+    "dist": "electron-builder -mw"
   },
   "repository": "https://github.com/llaske/sugarizer",
   "author": "Lionel Laské <lionel@sugarizer.org>",
@@ -12,28 +12,28 @@
   "license": "Apache-2.0",
   "dependencies": {
     "requirejs": "~2.3.5",
+    "electron": "~6.0.0",
+    "tmp": "~0.1.0",
     "ini": "1.1.x"
   },
   "devDependencies": {
-    "electron": "^2.0.0",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "~0.5.0"
+    "grunt-contrib-uglify": "~0.5.1"
   },
   "build": {
     "appId": "org.olpc-france.sugarizer",
     "copyright": "Copyright © 2013-2019, Lionel Laské, Sugar Labs Inc. and Contributors",
     "productName": "Sugarizer",
-    "electronVersion": "2.0.14",
+    "electronVersion": "6.0.9",
     "mac": {
       "category": "public.app-category.education"
     },
     "win": {
-      "target": [ "nsis" ]
-    },
-    "linux": {
-      "target": [ "AppImage", "deb" ]
+      "target": [
+        "nsis"
+      ]
     }
   }
 }

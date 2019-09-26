@@ -1,27 +1,28 @@
 #. extracted from ../translate.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Dec 08 2018 21:54:12 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2019-03-08 22:55+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-paint/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr "{{user}} joined"
+msgstr "{{user}} ingressou"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr "{{user}} left"
-
+msgstr "{{user}} saiu"

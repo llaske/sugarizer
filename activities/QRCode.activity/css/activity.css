@@ -53,9 +53,30 @@
 	}
 }
 
+.user-text-cancel {
+  position: absolute;
+  background-image: url(../icons/entry-cancel.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #e5e5e5;
+  right: 105px;
+  border: none;
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  top: 68%;
+  transform: translateY(-110%);
+}
+
+.user-text-cancel:hover {
+  background-color: #e5e5e5
+}
+
 .text-url {
 	color: blue;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 #generate-button {
@@ -94,6 +115,8 @@
 	background-image: url(../icons/close.svg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: transparent;
+	background-size: 47px;
 	border: 0;
 	border-radius: 0px;
 	margin: 1px;
@@ -110,6 +133,7 @@
 	background-image: url(../icons/switch-camera.svg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: transparent;
 	border: 0;
 	border-radius: 0px;
 	margin: 1px;

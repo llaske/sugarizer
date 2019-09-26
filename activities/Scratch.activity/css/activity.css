@@ -3,7 +3,7 @@
 }
 
 #activity-palette {
-  z-index: 30;
+  z-index: 1000;
 }
 
 #activity-palette #title {
@@ -28,9 +28,13 @@
     font: 400 11px system-ui;
 }
 
+.offlinemode {
+    color: red;
+}
+
 body {
   overflow-x: hidden;
-  overflow-y: hidden;	
+  overflow-y: hidden;
 }
 #canvas {
   overflow-x: hidden;

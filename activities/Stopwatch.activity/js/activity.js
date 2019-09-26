@@ -30,15 +30,25 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             stopwatchList.appendChild(this.elem);
 
             this.template =
-                '<p class="counter">00:00:00</p>' +
-                '<div class="buttons-group">' +
-                '<button class="start-stop-button start"></button>' +
-                '<button class="reset-button"></button>' +
-                '<button class="mark-button"></button>' +
-                '<button class="clear-marks-button"></button>' +
-                '</div>' +
-                '<p class="marks"></p>' +
-                '<button class="remove"></button>';
+                '<div class="panel-body"></div>' +
+                    '<div class="row">' +
+                      '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
+                        '<div class="counter">00:00:00</div>' +
+                      '</div>' +
+                      '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
+                        '<div class="buttons-group">' +
+                            '<button class="start-stop-button start"></button>' +
+                            '<button class="reset-button"></button>' +
+                            '<button class="mark-button"></button>' +
+                            '<button class="clear-marks-button"></button>' +
+                        '</div>' +
+                      '</div>' +
+                      '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
+                        '<div class="marks"></div>' +
+                        '<button class="remove"></button>' +
+                      '</div>' +
+                    '</div>' +
+                '</div>';
 
             this.elem.innerHTML = mustache.render(this.template, {});
 
@@ -116,6 +126,9 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
+            if (this.marks.length >= 10) {
+                this.marks.shift();
+            }
             this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' +
                             pad(this.tenthsOfSecond));
             this.updateMarks();

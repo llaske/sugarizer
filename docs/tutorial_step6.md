@@ -31,13 +31,13 @@ And you're now connected.
 
 ### What is meant by sharing an instance
 
-Suppose that Michaël, an user connected on the same server than you want to Chat. He will launch the Chat activity.
+Suppose that Michaël, a user connected on the same server as you wants to Chat. He will launch the Chat activity.
 
 ![](images/tutorial_step6_4.png)
 
 ***Tip***: *To connect to Sugarizer with two users on the same computer, open a new "in private" browser window. So you will be able to create a new user. It's what we've done here and what we'll do below to simulate the user Michaël.*
 
-Then, once the activity will be open, he will share the activity by clicking on the toolbar Neighborhood button in the Network palette. It's a way for the user to say: *"I want to share my activity on the network"*.  
+Then, once the activity is open, he can share the activity by clicking on the toolbar Neighborhood button in the Network palette. It's a way for the user to say: *"I want to share my activity on the network"*.  
 
 ![](images/tutorial_step6_5.png)
 
@@ -181,7 +181,7 @@ Now that our activity is shared, we have to slightly update the Plus button list
 
 If the activity is connected (i.e. presence is not null), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The first parameter of this method is the id of the share. We could retrieve this id from the presence object by `getSharedInfo().id`. The second parameter is just the message. We decided to split the message in two parts: informations about `user` that sent the message and the `content`, the user color. The user info is get from presence object using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
 
-That's all we need to create the shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when an user click on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
+That's all we need to create the shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
 
 
 	env.getEnvironment(function(err, environment) {
@@ -341,4 +341,4 @@ It fully works now!
 
 Implementing a multi-user application is not an easy task but with a nice framework like Sugarizer presence, I'm sure you're convince now that it's feasible!
 
-[Go back to tutorial home](tutorial.md)
+[Go to next step](tutorial_step7.md)

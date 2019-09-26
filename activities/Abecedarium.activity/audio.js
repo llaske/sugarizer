@@ -220,6 +220,10 @@ enyo.kind({
 		this.format = null;
 	},
 
+	canPlayType: function(soundtype) {
+	 	return (this.$.sound.canPlayType(soundtype));
+	},
+
 	// First render, test sound format supported
 	rendered: function() {
 		this.inherited(arguments);

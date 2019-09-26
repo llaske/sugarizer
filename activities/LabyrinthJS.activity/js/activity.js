@@ -1,4 +1,10 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","fontpalette","tutorial","sugar-web/env"], function (activity, l10n, datastore, colorpalette, zoompalette, textpalette, tutorial, env) {
+define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","sugar-web/graphics/presencepalette","humane","fontpalette","tutorial","sugar-web/env"], function (activity, webL10n, datastore, colorpalette, zoompalette, presencepalette, humane, textpalette, tutorial, env) {
+	var defaultColor = '#FFF29F';
+	var isShared = false;
+	var isHost = false;
+	var network = null;
+	var connectedPeople = {};
+	var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -68,6 +74,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		// Handle sub toolbar
 		var subToolbar = document.getElementById("sub-toolbar");
 		var textValue = document.getElementById("textvalue");
+		var erasetextButton = document.getElementById("erasetext-button");
 		var boldButton = document.getElementById("bold-button");
 		var italicButton = document.getElementById("italics-button");
 		var foregroundButton = document.getElementById("foreground-button");
@@ -149,7 +156,19 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 		});
 
 		textValue.addEventListener('input', function() {
+			if(textValue.value.length > 0)
+				$("#erasetext-button").show();
+			else
+				$("#erasetext-button").hide();
 			updateNodeText(lastSelected, textValue.value);
+			pushState();
+		});
+
+		erasetextButton.addEventListener('click', function() {
+			textValue.value = "";
+			textValue.focus();
+			updateNodeText(lastSelected, textValue.value);
+			$("#erasetext-button").hide();
 			pushState();
 		});
 
@@ -232,26 +251,26 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 			env.getEnvironment(function(err, environment) {
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
-				if (l10n_s.language.code != language) {
-					l10n_s.language.code = language;
+				if (webL10n.language.code != language) {
+					webL10n.language.code = language;
 				};
 				var oldDefaultText = defaultText;
-				defaultText = l10n_s.get("YourNewIdea");
-				nodetextButton.title = l10n.get("nodetextTitle");
-				linkButton.title = l10n.get("linkButtonTitle");
-				removeButton.title = l10n.get("removeButtonTitle");
-				undoButton.title = l10n.get("undoButtonTitle");
-				redoButton.title = l10n.get("redoButtonTitle");
-				zoomButton.title = l10n.get("zoomButtonTitle");
-				foregroundButton.title = l10n.get("foregroundButtonTitle");
-				backgroundButton.title = l10n.get("backgroundButtonTitle");
-				textValue.placeholder = l10n.get("typeText");
-				boldButton.title = l10n.get("boldButtonTitle");
-				italicButton.title = l10n.get("italicButtonTitle");
-				fontMinusButton.title = l10n.get("fontMinusButtonTitle");
-				fontPlusButton.title = l10n.get("fontPlusButtonTitle");
-				fontButton.title = l10n.get("fontButtonTitle");
-				pngButton.title = l10n.get("pngButtonTitle");
+				defaultText = webL10n.get("YourNewIdea");
+				nodetextButton.title = webL10n.get("nodetextTitle");
+				linkButton.title = webL10n.get("linkButtonTitle");
+				removeButton.title = webL10n.get("removeButtonTitle");
+				undoButton.title = webL10n.get("undoButtonTitle");
+				redoButton.title = webL10n.get("redoButtonTitle");
+				zoomButton.title = webL10n.get("zoomButtonTitle");
+				foregroundButton.title = webL10n.get("foregroundButtonTitle");
+				backgroundButton.title = webL10n.get("backgroundButtonTitle");
+				textValue.placeholder = webL10n.get("typeText");
+				boldButton.title = webL10n.get("boldButtonTitle");
+				italicButton.title = webL10n.get("italicButtonTitle");
+				fontMinusButton.title = webL10n.get("fontMinusButtonTitle");
+				fontPlusButton.title = webL10n.get("fontPlusButtonTitle");
+				fontButton.title = webL10n.get("fontButtonTitle");
+				pngButton.title = webL10n.get("pngButtonTitle");
 				if (cy) {
 					var nodes = cy.elements("node");
 					for(var i = 0; i < nodes.length ; i++) {
@@ -619,7 +638,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 			stateIndex = 0;
 		}
 
-		var pushState = function() {
+		var pushState = function(fromNetwork) {
 			if (stateIndex < stateHistory.length - 1) {
 				var stateCopy = [];
 				for (var i = 0 ; i < stateIndex + 1; i++)
@@ -636,18 +655,34 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 				stateHistory[stateLength-1] = currentState;
 			}
 			stateIndex = stateHistory.length - 1;
+			if (isShared && !fromNetwork) {
+				sendMessage({
+					action: 'updateBoard',
+					data: getGraph()
+				});
+			}
 			updateStateButtons();
 		}
 
-		var undoState = function() {
+		var undoState = function(fromNetwork) {
 			if (stateHistory.length < 1 || (stateHistory.length >= 1 && stateIndex == 0)) return;
 			displayGraph(stateHistory[--stateIndex]);
+			if (isShared && !fromNetwork) {
+				sendMessage({
+					action: 'undoBoard'
+				});
+			}
 			updateStateButtons();
 		}
 
-		var redoState = function() {
+		var redoState = function(fromNetwork) {
 			if (stateIndex+1 >= stateHistory.length) return;
 			displayGraph(stateHistory[++stateIndex]);
+			if (isShared && !fromNetwork) {
+				sendMessage({
+					action: 'redoBoard'
+				});
+			}
 			updateStateButtons();
 		}
 
@@ -656,5 +691,151 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","sugar-web
 			undoButton.disabled = (stateHistory.length < 1 || (stateHistory.length >= 1 && stateIndex == 0));
 			redoButton.disabled = (stateIndex+1 >= stateLength);
 		}
+
+		// Users network list functions
+		var generateXOLogoWithColor = function(color) {
+			var coloredLogo = xoLogo;
+			coloredLogo = coloredLogo.replace("#010101", color.stroke)
+			coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
+			return "data:image/svg+xml;base64," + btoa(coloredLogo);
+		}
+		var displayConnectedPeopleHtml = function() {
+			var presenceUsersDiv = document.getElementById("presence-users");
+			var html = "<hr><ul style='list-style: none; padding:0;'>"
+			for (var key in connectedPeople) {
+				html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
+			}
+			html += "</ul>"
+			presenceUsersDiv.innerHTML = html
+		}
+		var displayConnectedPeople = function(users) {
+			var presenceUsersDiv = document.getElementById("presence-users");
+			if (!users || !presenceUsersDiv) {
+				return;
+			}
+			network.listSharedActivityUsers(network.getSharedInfo().id, function(usersConnected) {
+				connectedPeople = {};
+				for (var i = 0; i < usersConnected.length; i++) {
+					var userConnected = usersConnected[i];
+					connectedPeople[userConnected.networkId] = userConnected;
+				}
+				displayConnectedPeopleHtml();
+			});
+		}
+
+		// Handle activity sharing
+		var networkButton = document.getElementById("network-button");
+		var presence = new presencepalette.PresencePalette(networkButton, undefined);
+		networkButton.addEventListener('click', function(e) {
+			hideSubToolbar();
+		});
+
+		var shareActivity = function() {
+			network = activity.getPresenceObject(function(error, network) {
+				// Unable to join
+				if (error) {
+					console.log("error");
+					return;
+				}
+				isShared = true;
+
+				// Store settings
+				userSettings = network.getUserInfo();
+				console.log("connected");
+
+				// Not found, create a new shared activity
+				if (!window.top.sugar.environment.sharedId) {
+					isHost = true;
+					network.createSharedActivity('org.olpc-france.labyrinthjs', function(groupId) {});
+				}
+
+				// Show a disconnected message when the WebSocket is closed.
+				network.onConnectionClosed(function(event) {
+					console.log(event);
+					console.log("Connection closed");
+				});
+
+				// Display connection changed
+				network.onSharedActivityUserChanged(function(msg) {
+					onNetworkUserChanged(msg);
+				});
+
+				// Handle messages received
+				network.onDataReceived(onNetworkDataReceived);
+			});
+		}
+
+		var sendMessage = function(content) {
+			try {
+				network.sendMessage(network.getSharedInfo().id, {
+					user: network.getUserInfo(),
+					content: content
+			});
+			} catch (e) {}
+		}
+
+		var onNetworkDataReceived = function(msg) {
+			// Ignore messages coming from ourselves
+			if (network.getUserInfo().networkId === msg.user.networkId) {
+			  return;
+			}
+			switch (msg.content.action) {
+				case 'initialBoard':
+					// Receive initial board from the host
+					displayGraph(msg.content.data);
+					break;
+
+				case 'updateBoard':
+					// Board change received
+					displayGraph(msg.content.data);
+					pushState(true);
+					break;
+
+				case 'undoBoard':
+					// Undo board
+					undoState(true);
+					break;
+
+				case 'redoBoard':
+					// Redo board
+					redoState(true);
+					break;
+			}
+		}
+
+		var onNetworkUserChanged = function(msg) {
+			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+			if (msg.move === 1) {
+				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
+				if (isHost) {
+					sendMessage({
+						action: 'initialBoard',
+						data: getGraph()
+					});
+				}
+			} else if (msg.move === -1) {
+				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
+			}
+			network.listSharedActivities(function(activities) {
+				for (var i = 0; i < activities.length; i++) {
+					if (activities[i].id === network.getSharedInfo().id) {
+						displayConnectedPeople(activities[i].users);
+					}
+				}
+			});
+		}
+
+		// Handle presence palette
+		presence.addEventListener('shared', function() {
+			presence.popDown();
+			shareActivity();
+		});
+		if (window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.sharedId) {
+			console.log("ehy00");
+			shareActivity();
+			presence.setShared(true);
+		}
+
 	});
 });

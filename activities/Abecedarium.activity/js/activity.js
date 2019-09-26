@@ -17,12 +17,18 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 		Abcd.sound = new Abcd.Audio();
 		Abcd.sound.renderInto(document.getElementById("header"));
 
-		// Create and display first screen
-		app = new Abcd.App().renderInto(document.getElementById("body"));
+		// Load Database
+		Abcd.loadDatabase(function(err) {
+			// Init localization 
+			Abcd.initL10n();
 
-		// Load context
-		Abcd.loadContext(function() {
-			app.restartLastGame();
+			// Create and display first screen
+			app = new Abcd.App().renderInto(document.getElementById("body"));
+
+			// Load context
+			Abcd.loadContext(function() {
+				app.restartLastGame();
+			});
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android

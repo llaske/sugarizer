@@ -7,7 +7,8 @@ enyo.kind({
 		title: "",
 		category: "",
 		isFavorite: false,
-		image: ""
+		image: "",
+		tojournal: false
 	},
 	events: {
 		onVideoPlayed: ""
@@ -29,6 +30,7 @@ enyo.kind({
 		this.nameChanged();
 		this.titleChanged();
 		this.isFavoriteChanged();
+		this.tojournalChanged();
 	},
 
 	// Item setup
@@ -65,6 +67,15 @@ enyo.kind({
 		this.$.background.setShowing(false);
 	},
 
+	tojournalChanged: function() {
+		if (this.tojournal) {
+			this.$.itemPlay.setSrc("icons/tojournal.svg");
+		} else {
+			this.$.itemPlay.setSrc("images/play.svg");
+		}
+		this.$.itemPlay.render();
+	},
+
 	defaultImage: function() {
 		this.$.itemImage.setAttribute("src", "images/notloaded.png");
 		this.$.itemImage.setShowing(true);
@@ -82,14 +93,46 @@ enyo.kind({
 		output = output.replace(new RegExp("%title%", "g"), this.title);
 		return output;
 	},
-	
+
 	videoURL: function() {
 		return this.replaceValues(Util.getVideos())+"."+constant.videoType;
+	},
 
+	exportToVideo: function() {
+		// Load file
+		var url =this.videoURL();
+		var mimetype = (constant.videoType=="mp4"?"video/mp4":"video/webm");
+		var request = new XMLHttpRequest();
+		request.open("GET",url,true);
+		request.setRequestHeader("Content-type",mimetype);
+		request.responseType = "arraybuffer";
+		var that = this;
+		request.onload = function() {
+			if (request.status == 200 || request.status == 0) {
+				var blob = new Uint8Array(this.response);
+				var base64 = "data:"+mimetype+";base64,"+Util.toBase64(blob);
+				var metadata = {
+					mimetype: mimetype,
+					title: that.title+"."+constant.videoType,
+					activity: "org.olpcfrance.MediaViewerActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				app.datastore.create(metadata, function() {
+					console.log("video '"+that.title+"' saved in journal.");
+				}, base64);
+			}
+		};
+		request.send();
 	},
 
 	// Handle event
 	showVideo: function() {
+		if (this.tojournal) {
+			this.exportToVideo();
+		}
 		this.doVideoPlayed();
+
 	}
 });

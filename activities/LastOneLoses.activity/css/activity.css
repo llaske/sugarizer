@@ -75,3 +75,17 @@
 		padding-left: 10px;
 	}
 }
+
+@media screen and (max-width: 548px) {
+    #network-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}
+
+@media screen and (max-width: 508px) {
+    #switch-player-button {
+        visibility: hidden;
+        width: 0px;
+    }
+}

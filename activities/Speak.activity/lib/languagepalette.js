@@ -1,4 +1,4 @@
-define(["languagepalettetemplate",
+define(["widepalette",
         "text!languagepalette.html"], function (palette, template) {
 
     'use strict';

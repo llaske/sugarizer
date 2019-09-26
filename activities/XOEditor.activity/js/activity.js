@@ -58,10 +58,8 @@ function runactivity(act,xocolor,doc,colors,env,datastore){
         	e.init();
         });
 
-        window.addEventListener('activityStop', function (eve) {
-        	eve.preventDefault();
+        document.getElementById("stop-button").addEventListener('click', function (event) {
 	        e.stop();
-	        act.close();
         });
 	}
     init();
