@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Double size of Record images in WebApp and electron App
+
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
+- Record images don't fit the thumbnail size in iOS/Android
 
 
 ## [1.2.0] - 2019-09-26
