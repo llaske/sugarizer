@@ -643,7 +643,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 fullCardDiv.resultDiv = div;
 
                 var clickEvent = "click";
-                if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                if ("ontouchstart" in document.documentElement) {
                     clickEvent = "touchend";
                 }
                 fullCardDiv.addEventListener(clickEvent, onCardClick, false);
