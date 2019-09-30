@@ -21,7 +21,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
-    shouldPlay: false
+    shouldPlay: false,
+    generationTimeInterval: 100,
+    speedIcon: 'speed1x'
   });
   var randomPattern = patterns[0],
       gliderPattern = patterns[1],
@@ -64,7 +66,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
           generation: prev.generation + 1
         };
       });
-      setTimeout(generateGeneration, 100);
+      setTimeout(generateGeneration, state.state.generationTimeInterval);
     } else {
       return 0;
     }
@@ -127,6 +129,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       if (value) {
         generateGeneration();
       }
+    }],
+    speedIcon: ['#speed-button', function(elem, value, prevValue) {
+      elem.className = value + ' toolbutton';
     }]
   });
 
@@ -167,6 +172,50 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       return {
         playPauseIcon: iconToSet,
         shouldPlay: togglePlay
+      };
+    });
+  });
+
+  document.querySelector('#speed-button').addEventListener('click', function() {
+    var newTimeInterval;
+    var speedIconToSet;
+    var defaultTimeInterval = 100;
+    state.set(function(prev) {
+
+      switch(prev.speedIcon){
+        case 'speed1x':
+          speedIconToSet = 'speed2x';
+          newTimeInterval = defaultTimeInterval/2;
+          break;
+
+        case 'speed2x':
+          speedIconToSet = 'speed4x';
+          newTimeInterval = defaultTimeInterval/4;
+          break;
+
+        case 'speed4x':
+          speedIconToSet = 'speed_5x';
+          newTimeInterval = defaultTimeInterval*2;
+          break;
+
+        case 'speed_5x':
+          speedIconToSet = 'speed_25x';
+          newTimeInterval = defaultTimeInterval*4;
+          break;
+
+        case 'speed_25x':
+          speedIconToSet = 'speed1x';
+          newTimeInterval = defaultTimeInterval;
+          break;
+
+        default:
+          speedIconToSet = 'speed1x';
+          newTimeInterval = 100;
+      }
+
+      return {
+        speedIcon: speedIconToSet,
+        generationTimeInterval: newTimeInterval
       };
     });
   });
