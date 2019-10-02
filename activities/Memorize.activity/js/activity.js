@@ -92,7 +92,7 @@ define(function (require) {
             }, 3000);
         }
 
-        presencepalette.PresencePalette.prototype.onSharedActivityUserChanged = function (msg) {
+        onSharedActivityUserChangedCallback = function (msg) {
             var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
             var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 
@@ -118,10 +118,17 @@ define(function (require) {
             })
         };
 
+        activity.getPresenceObject(function(error, presence) {
+            presence.onSharedActivityUserChanged(onSharedActivityUserChangedCallback);
+        });
+
         var onUsersListChangedCallback = null;
-        presencepalette.PresencePalette.prototype.onUsersListChanged = function (callback) {
-            onUsersListChangedCallback = callback;
-        };
+
+        activity.getPresenceObject(function(error, presence) {
+            presence.onUsersListChanged(function(callback) {
+                onUsersListChangedCallback = callback;
+            });
+        });
     });
 });
 
