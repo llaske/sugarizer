@@ -7,21 +7,11 @@
 #main-toolbar #play-pause.pause {
   background-image: url(../icons/pause.svg)
 }
-#main-toolbar #speed-button.speed1x {
-  background-image: url(../icons/speed1x.svg);
+
+#main-toolbar #speed-button {
+  background-image: url(../icons/gen-speed.svg);
 }
-#main-toolbar #speed-button.speed2x {
-  background-image: url(../icons/speed2x.svg);
-}
-#main-toolbar #speed-button.speed4x {
-  background-image: url(../icons/speed4x.svg);
-}
-#main-toolbar #speed-button.speed_5x {
-  background-image: url(../icons/speed_5x.svg);
-}
-#main-toolbar #speed-button.speed_25x {
-  background-image: url(../icons/speed_25x.svg);
-}
+
 #main-toolbar #random {
   background-image: url(../icons/random.svg);
 }

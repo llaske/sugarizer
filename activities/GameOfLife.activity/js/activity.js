@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env'], function (activity, l10n, Board, State, patterns, shadeColor, env) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -16,19 +16,22 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
   });
 });
 
-function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
+function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette) {
   var state = new State({
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
     shouldPlay: false,
-    generationTimeInterval: 100,
-    speedIcon: 'speed1x'
+    generationTimeInterval: 235
   });
   var randomPattern = patterns[0],
       gliderPattern = patterns[1],
       noPattern = patterns[2],
       blankPattern = patterns[3];
+
+  var genSpeedButton = document.getElementById("speed-button");
+  var genSpeedButtonPallete = new genSpeedPalette.ActivityPalette(
+        genSpeedButton, state);
 
   var target = document.querySelector('.main canvas');
   var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
@@ -129,9 +132,6 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       if (value) {
         generateGeneration();
       }
-    }],
-    speedIcon: ['#speed-button', function(elem, value, prevValue) {
-      elem.className = value + ' toolbutton';
     }]
   });
 
@@ -172,50 +172,6 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       return {
         playPauseIcon: iconToSet,
         shouldPlay: togglePlay
-      };
-    });
-  });
-
-  document.querySelector('#speed-button').addEventListener('click', function() {
-    var newTimeInterval;
-    var speedIconToSet;
-    var defaultTimeInterval = 100;
-    state.set(function(prev) {
-
-      switch(prev.speedIcon){
-        case 'speed1x':
-          speedIconToSet = 'speed2x';
-          newTimeInterval = defaultTimeInterval/2;
-          break;
-
-        case 'speed2x':
-          speedIconToSet = 'speed4x';
-          newTimeInterval = defaultTimeInterval/4;
-          break;
-
-        case 'speed4x':
-          speedIconToSet = 'speed_5x';
-          newTimeInterval = defaultTimeInterval*2;
-          break;
-
-        case 'speed_5x':
-          speedIconToSet = 'speed_25x';
-          newTimeInterval = defaultTimeInterval*4;
-          break;
-
-        case 'speed_25x':
-          speedIconToSet = 'speed1x';
-          newTimeInterval = defaultTimeInterval;
-          break;
-
-        default:
-          speedIconToSet = 'speed1x';
-          newTimeInterval = 100;
-      }
-
-      return {
-        speedIcon: speedIconToSet,
-        generationTimeInterval: newTimeInterval
       };
     });
   });
