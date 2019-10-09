@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
 - Record images don't fit the thumbnail size in iOS/Android
-- Long touch on Memory items don't work on Android 
+- Long touch on Memory items don't work on Android
+- Jump in generation in Game of Life activity on Chrome #388 
 
 
 ## [1.2.0] - 2019-09-26
