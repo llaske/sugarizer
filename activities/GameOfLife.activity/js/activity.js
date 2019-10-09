@@ -6,11 +6,12 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 		var language = environment.user ? environment.user.language : defaultLanguage;
 		l10n.language.code = language;
 		window.addEventListener('localized', function () {
-	      activity.getXOColor(function (err, color) {
-	        var dataStore = activity.getDatastoreObject();
-	        main(Board, State, patterns, color, shadeColor, l10n, dataStore);
-	      });
+          document.querySelector('.generation-status').innerText = l10n.get('Generation');
 	    });
+        activity.getXOColor(function (err, color) {
+          var dataStore = activity.getDatastoreObject();
+          main(Board, State, patterns, color, shadeColor, l10n, dataStore);
+        });
 	});
   });
 });
@@ -31,7 +32,6 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
   document.querySelector('.generation-count').style.color = color.fill;
   document.querySelector('.generation-status').style.color = color.fill;
-  document.querySelector('.generation-status').innerText = l10n.get('Generation');
 
   board.draw();
 
