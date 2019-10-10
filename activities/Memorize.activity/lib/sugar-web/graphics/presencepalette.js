@@ -1,61 +1,53 @@
-define(["sugar-web/graphics/palette", "sugar-web/env", "webL10n"], function (palette, env, webL10n) {
+define(["sugar-web/graphics/palette"], function (palette) {
 
     'use strict';
 
     var presencepalette = {};
-    var users = [];
 
-    presencepalette.PresencePalette = function (invoker, primaryText, presence) {
+    presencepalette.PresencePalette = function (invoker, primaryText, menuData) {
         palette.Palette.call(this, invoker, primaryText);
 
-        this.users = users;
-        this.presence = presence;
-        this.sharedEvent = document.createEvent("CustomEvent");
-        this.sharedEvent.initCustomEvent('shared', true, true, {});
+		this.sharedEvent = document.createEvent("CustomEvent");
+		this.sharedEvent.initCustomEvent('shared', true, true, {});
 
-        var div = document.createElement('div');
-        var txt = document.createElement('span');
-        txt.innerHTML = "Private";
-        txt.className = 'network-text';
-        var hr = document.createElement('hr');
-        var privatebutton = document.createElement('button');
-        privatebutton.className = 'toolbutton';
-        privatebutton.setAttribute('id', 'private-button');
-        privatebutton.onclick = function () {
-            that.setShared(false);
-        };
+		var div = document.createElement('div');
+		var txt = document.createElement('span');
+		txt.innerHTML = "Private";
+		txt.className = 'network-text';
+		var hr = document.createElement('hr');
+		var privatebutton = document.createElement('button');
+		privatebutton.className = 'toolbutton';
+		privatebutton.setAttribute('id','private-button');
+		privatebutton.onclick = function() {
+			that.setShared(false);
+		}
+		var sharedbutton = document.createElement('button');
+		sharedbutton.className = 'toolbutton';
+		sharedbutton.setAttribute('id','shared-button');
+		sharedbutton.onclick = function() {
+			that.setShared(true);
+		}
+		this.setShared = function(state) {
+			if (state) {
+				txt.innerHTML = "My neighborhood";
+				privatebutton.disabled = true;
+				sharedbutton.disabled = true;
+				invoker.style.backgroundImage = 'url(lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg)';
+				that.getPalette().childNodes[0].style.backgroundImage = 'url(lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg)';
+				that.getPalette().dispatchEvent(that.sharedEvent);
+			} else {
+				txt.innerHTML = "Private";
+				privatebutton.disabled = false;
+				sharedbutton.disabled = false;
+			}
+		}
 
-        var sharedbutton = document.createElement('button');
-        sharedbutton.className = 'toolbutton';
-        sharedbutton.setAttribute('id', 'shared-button');
-        sharedbutton.onclick = function () {
-            that.setShared(true);
-        };
+		div.appendChild(txt);
+		div.appendChild(hr);
+		div.appendChild(privatebutton);
+		div.appendChild(sharedbutton);
 
-        this.setShared = function (state) {
-            if (state) {
-                txt.innerHTML = "My neighborhood";
-                privatebutton.disabled = true;
-                sharedbutton.disabled = true;
-                invoker.style.backgroundImage = 'url(lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg)';
-                that.getPalette().childNodes[0].style.backgroundImage = 'url(lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg)';
-                that.getPalette().dispatchEvent(that.sharedEvent);
-            } else {
-                txt.innerHTML = "Private";
-                privatebutton.disabled = false;
-                sharedbutton.disabled = false;
-            }
-        };
-
-        div.appendChild(txt);
-        div.appendChild(hr);
-        div.appendChild(privatebutton);
-        div.appendChild(sharedbutton);
-        var usersDiv = document.createElement('div');
-        usersDiv.setAttribute("id", "presence-users");
-        div.appendChild(usersDiv);
-
-        this.setContent([div]);
+		this.setContent([div]);
 
         // Pop-down the palette when a item in the menu is clicked.
 
@@ -67,8 +59,8 @@ define(["sugar-web/graphics/palette", "sugar-web/env", "webL10n"], function (pal
         }
 
         for (var i = 0; i < this.buttons.length; i++) {
-            if (this.buttons[i].id == "shared-button")
-                this.buttons[i].addEventListener('shared', popDownOnButtonClick);
+			if (this.buttons[i].id == "shared-button")
+				this.buttons[i].addEventListener('shared', popDownOnButtonClick);
         }
     };
 
@@ -85,10 +77,9 @@ define(["sugar-web/graphics/palette", "sugar-web/env", "webL10n"], function (pal
                 writable: true
             }
         });
-
-    presencepalette.PresencePalette.prototype.setShared = function (state) {
-        this.setShared(state);
-    };
+	presencepalette.PresencePalette.prototype.setShared = function(state) {
+		this.setShared(state);
+	}
 
     return presencepalette;
 });
