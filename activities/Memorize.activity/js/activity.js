@@ -68,6 +68,7 @@ define(function (require) {
         var tmpDiv = null;
         var tmpTimeout = null;
 
+
         function showQuickModal(text) {
             if (tmpDiv !== null) {
                 tmpDiv.parentElement.removeChild(tmpDiv);
@@ -91,38 +92,34 @@ define(function (require) {
                 tmpDiv = null;
             }, 3000);
         }
-
-        onSharedActivityUserChangedCallback = function (msg) {
-            var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
-            var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
-
-            if (msg.move === 1) {
-                showQuickModal(html + webL10n.get("PlayerJoin",{user: userName}))
-            }
-
-            if (msg.move === -1) {
-                showQuickModal(html + webL10n.get("PlayerLeave",{user: userName}))
-            }
-
-            var that = this;
-            that.presence.listUsers(function (users) {
-                that.presence.listSharedActivities(function (activities) {
-                    for (var i = 0; i < activities.length; i++) {
-                        if (activities[i].id === that.presence.sharedInfo.id) {
-                            var activity = activities[i];
-                            displayUsers(findUsersInsideAllActivities(activity, users));
-                            break;
-                        }
-                    }
-                });
-            })
-        };
-
-        activity.getPresenceObject(function(error, presence) {
-            presence.onSharedActivityUserChanged(onSharedActivityUserChangedCallback);
-        });
     });
 });
+
+var onSharedActivityUserChangedCallback = function (msg) {
+    var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+    var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+
+    if (msg.move === 1) {
+        showQuickModal(html + webL10n.get("PlayerJoin",{user: userName}))
+    }
+
+    if (msg.move === -1) {
+        showQuickModal(html + webL10n.get("PlayerLeave",{user: userName}))
+    }
+
+    var that = this;
+    that.presence.listUsers(function (users) {
+        that.presence.listSharedActivities(function (activities) {
+            for (var i = 0; i < activities.length; i++) {
+                if (activities[i].id === that.presence.sharedInfo.id) {
+                    var activity = activities[i];
+                    displayUsers(findUsersInsideAllActivities(activity, users));
+                    break;
+                }
+            }
+        });
+    });
+};
 
 function loadData(activity, memorizeApp, callback) {
     var timeout = 0;
@@ -165,14 +162,9 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
         memorizeApp.presence = presence;
         var networkButton = document.getElementById("network-button");
         var presencePalette = new presencepalette.PresencePalette(networkButton, undefined, presence);
-        presence.onSharedActivityUserChanged(function (msg) {
-            presencePalette.onSharedActivityUserChanged(msg);
-        });
 
         //We use one of the palette feature that allows us to get the full list of current users everytime the list changes
-        presencePalette.onUsersListChanged(function (users) {
-            memorizeApp.onUsersListChanged(users);
-        });
+        presence.onSharedActivityUserChanged(onSharedActivityUserChangedCallback);
 
 
         // Launched with a shared id, activity is already shared
