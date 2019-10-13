@@ -87,7 +87,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 						var colour = msg.user.colorvalue;
 
-						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + '</span>';
+						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
 
 						myElem = document.createElement('li');
 						myElem.class = 'received';
@@ -103,7 +103,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 						var colour = msg.user.colorvalue;
 
-						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + '</span>';
+						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
 						myElem = document.createElement('li');
 						myElem.class = 'received';
 						myElem.style.background = colour.fill;
