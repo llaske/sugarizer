@@ -10,7 +10,7 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 	    });
         activity.getXOColor(function (err, color) {
           var dataStore = activity.getDatastoreObject();
-          main(Board, State, patterns, color, shadeColor, l10n, dataStore);
+          main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette);
         });
 	});
   });
