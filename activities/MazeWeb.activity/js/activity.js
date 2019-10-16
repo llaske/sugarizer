@@ -1,7 +1,114 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/directions"], function (activity, TWEEN, rAF, maze, directions) {
+define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane) {
 
     requirejs(['domReady!'], function (doc) {
         activity.setup();
+
+        var maze = {};
+        var ended=false;
+        var oponentEnded = 0;
+		var oponentCount = 0;
+        maze.width = undefined;
+        maze.height = undefined;
+        maze.startPoint = {};
+        maze.goalPoint = {};
+
+        maze.walls = [];
+        maze.visited = [];
+        maze.directions = [];
+        maze.forks = [];
+        var firstentry=true;
+
+		var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
+
+
+        env.getEnvironment(function(err, environment) {
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+
+            // Shared instances
+            if (environment.sharedId) {
+                console.log("Shared instance");
+                presence = activity.getPresenceObject(function(error, network) {
+                    network.onDataReceived(onNetworkDataReceived);
+                    network.onSharedActivityUserChanged(onNetworkUserChanged);
+                });
+            }
+
+            // Load from datastore
+            if (!environment.objectId) {
+                runLevel();
+            } else {
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        data = JSON.parse(data);
+                        maze = data.maze;
+                        gameSize = data.gameSize;
+                        updateMazeSize();
+                        updateSprites();
+                        onLevelStart();
+                    }
+                });
+            }
+        });
+
+		var generateXOLogoWithColor = function(color) {
+			var coloredLogo = xoLogo;
+			coloredLogo = coloredLogo.replace("#010101", color.stroke)
+			coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
+			return "data:image/svg+xml;base64," + btoa(coloredLogo);
+		}
+
+        var onNetworkDataReceived = function(msg) {
+            if (presence.getUserInfo().networkId === msg.user.networkId) {
+                return;
+            }
+
+            switch (msg.action){
+                case 'start':
+                    ended=false;
+                    oponentEnded=0;
+                    maze=msg.content;
+                    gameSize=msg.SizeOfGame;
+					oponentCount=msg.oponentCount;
+                    updateMazeSize();
+                    updateSprites();
+                    onLevelStart();
+                    break;
+                case 'ended':
+                    oponentEnded++;
+					var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+					var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+					humane.log(html + webL10n.get("PlayerEndLevel",{user: userName}));
+                    break;
+            }
+
+
+        };
+
+        var onNetworkUserChanged = function(msg) {
+			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+			if (msg.move === 1) {
+				oponentCount++;
+				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
+			} else if (msg.move === -1) {
+				oponentCount--;
+				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
+			}
+            if (isHost) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'start',
+                    SizeOfGame: gameSize,
+					oponentCount: oponentCount,
+                    content: maze
+                });
+            }
+            console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
+
+        };
 
 		var soundType = /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? '.mp3' : '.ogg';
         var canvasWidth;
@@ -45,6 +152,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
         var spriteCanvas = document.createElement("canvas");
 
+
         var updateMazeSize = function () {
             var toolbarElem = document.getElementById("main-toolbar");
 
@@ -60,6 +168,8 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             spriteCanvas.width = cellWidth * 2; // number of states
             spriteCanvas.height = cellHeight * controlNames.length;
         };
+
+
 
         var onWindowResize = function () {
             updateMazeSize();
@@ -275,33 +385,48 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
                 levelStartingValue = undefined;
                 levelStatus = 'playing';
                 drawMaze();
+
             });
             tween.start();
+
         }
 
-        var runLevel = function () {
-            maze.generate(window.innerWidth / window.innerHeight, gameSize);
-            updateMazeSize();
-            updateSprites();
-            players = {};
-            winner = undefined;
-            onLevelStart();
-        }
-        runLevel();
+        var generate = function (aspectRatio, size) {
+            initialize(aspectRatio, size);
+
+            maze.walls = createMatrix(maze.width, maze.height);
+            maze.visited = createMatrix(maze.width, maze.height);
+            maze.directions = createMatrix(maze.width, maze.height);
+            maze.forks = createMatrix(maze.width, maze.height);
+
+
+            var rotmaze = new ROT.Map.IceyMaze(maze.width, maze.height, 1);
+            //var rotmaze = new ROT.Map.EllerMaze(maze.width, maze.height, 1);
+            rotmaze.create(onCellGenerated);
+
+            findDirections();
+            findForks();
+        };
+
 
         var onLevelComplete = function (player) {
             winner = player;
             levelStatus = 'transition';
-
+            ended=true;
+            if(presence){
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'ended'
+                });
+            }
             var audio = new Audio('sounds/win'+soundType);
             audio.play();
-
             for (control in players) {
                 players[control].stop();
             }
 
             var hypot = Math.sqrt(Math.pow(window.innerWidth, 2) +
-                                  Math.pow(window.innerHeight, 2));
+                                Math.pow(window.innerHeight, 2));
 
             tween = new TWEEN.Tween({radius: 0});
             tween.to({radius: hypot}, 1200);
@@ -309,10 +434,26 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             tween.onUpdate(function () {
                 levelTransitionRadius = this.radius;
             });
-            tween.onComplete(function () {
-                nextLevel();
-            });
+            maze.startPoint={};
+            players={};
+			if(!presence){
+				tween.onComplete(function () {
+					nextLevel();
+				});
+			} else {
+				if(oponentEnded+1==oponentCount){
+	                tween.onComplete(function () {
+	                    nextLevel();
+	                });
+	            } else {
+					var waitCount = (oponentCount-oponentEnded-1);
+					humane.log(webL10n.get((waitCount > 1 ?"PlayersWaitMany":"PlayersWaitOne"), {count: waitCount}));
+				}
+
+			}
             tween.start();
+
+
         }
 
         var nextLevel = function () {
@@ -343,6 +484,153 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
             dirtyCells.push({'x': this.x, 'y': this.y});
         };
 
+        var countOptions = function (x, y) {
+            var dirs = maze.directions[x][y];
+            return dirs.reduce(function (previousValue, currentValue) {
+                return previousValue + currentValue;
+            });
+        };
+
+        var isDeadEnd = function (x, y) {
+            return countOptions(x, y) == 1;
+        };
+
+        var isFork = function (x, y) {
+            return countOptions(x, y) > 2;
+        };
+
+
+
+        var initialize = function (aspectRatio, size) {
+            maze.height = Math.sqrt(size / aspectRatio);
+            maze.width = maze.height * aspectRatio;
+            maze.height = Math.floor(maze.height);
+            maze.width = Math.floor(maze.width);
+
+            var maxCellX;
+            var maxCellY;
+            if (maze.width % 2) {
+                maxCellX = maze.width-2;
+            } else {
+                maxCellX = maze.width-3;
+            }
+            if (maze.height % 2) {
+                maxCellY = maze.height-2;
+            } else {
+                maxCellY = maze.height-3;
+            }
+
+            var startX;
+            var goalY;
+            if (Math.random() < 0.5) {
+                startX = 1;
+                goalX = maxCellX;
+            } else {
+                startX = maxCellX;
+                goalX = 1;
+            }
+
+            var startY;
+            var goalX;
+            if (Math.random() < 0.5) {
+                startY = 1;
+                goalY = maxCellY;
+            } else {
+                startY = maxCellY;
+                goalY = 1;
+            }
+
+            maze.startPoint = {'x': startX, 'y': startY};
+            maze.goalPoint = {'x': goalX, 'y': goalY};
+
+
+        };
+
+        var createMatrix = function (width, height) {
+            var matrix = [];
+            for (var x=0; x<width; x++) {
+                matrix[x] = new Array(height);
+            }
+
+            return matrix;
+        };
+
+        var onCellGenerated = function (x, y, value) {
+            maze.walls[x][y] = value;
+        };
+
+        var findDirections = function () {
+            for (var x=0; x<maze.width; x++) {
+                for (var y=0; y<maze.height; y++) {
+                    maze.directions[x][y] = getDirections(x, y);
+                }
+            }
+        };
+
+        var getDirections = function (x, y) {
+            var dirs = [0, 0, 0, 0];
+
+            if (maze.walls[x][y] == 1) {
+                return dirs;
+            }
+
+            if (maze.walls[x-1][y] == 0) {
+                dirs[directions.west] = 1;
+            }
+            if (maze.walls[x+1][y] == 0) {
+                dirs[directions.east] = 1;
+            }
+            if (maze.walls[x][y-1] == 0) {
+                dirs[directions.north] = 1;
+            }
+            if (maze.walls[x][y+1] == 0) {
+                dirs[directions.south] = 1;
+            }
+
+            return dirs;
+        };
+
+        var findForks = function () {
+            for (var x=0; x<maze.width; x++) {
+                for (var y=0; y<maze.height; y++) {
+                    if (isDeadEnd(x, y) || isFork(x, y)) {
+                        maze.forks[x][y] = 1;
+                    }
+                }
+            }
+        };
+
+        var runLevel = function () {
+            generate(window.innerWidth / window.innerHeight, gameSize);
+
+            updateMazeSize();
+            updateSprites();
+            if (presence) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'start',
+                    SizeOfGame: gameSize,
+                    content: maze,
+					oponentCount: oponentCount
+                });
+
+            }
+            ended=false;
+            oponentEnded=0;
+            players = {};
+            winner = undefined;
+            onLevelStart();
+
+        }
+        runLevel();
+
+        var restartButton = document.getElementById('restart-button');
+        restartButton.addEventListener('click', function(e) {
+            gameSize = 60;
+            runLevel();
+        });
+
+
         Player.prototype.isMoving = function () {
             return (this.animation !== undefined);
         };
@@ -357,7 +645,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
 
             var find = function (x, y, direction, first) {
 
-                if (!(first) && (maze.isDeadEnd(x, y) || maze.isFork(x, y))) {
+                if (!(first) && (isDeadEnd(x,y) || isFork(x,y))) {
                     return [];
                 }
 
@@ -590,6 +878,41 @@ define(["sugar-web/activity/activity","tween","rAF","activity/maze","activity/di
         };
         animate();
 
+        // Link presence palette
+        var presence = null;
+        var isHost = false;
+        var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+        palette.addEventListener('shared', function() {
+            palette.popDown();
+            console.log("Want to share");
+            presence = activity.getPresenceObject(function(error, network) {
+                if (error) {
+                    console.log("Sharing error");
+                    return;
+                }
+                network.createSharedActivity('org.sugarlabs.MazeWebActivity', function(groupId) {
+                    console.log("Activity shared");
+                    isHost = true;
+                    presence.sendMessage(presence.getSharedInfo().id, {
+                        user: presence.getUserInfo(),
+                        action: 'connect'
+                    });
+                });
+                network.onDataReceived(onNetworkDataReceived);
+                network.onSharedActivityUserChanged(onNetworkUserChanged);
+            });
+        });
+
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+            maze.visited = createMatrix(maze.width, maze.height);
+            var data = {
+                maze: maze,
+                gameSize: gameSize,
+            }
+            var jsonData = JSON.stringify(data);
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save();
+        });
     });
 
 });

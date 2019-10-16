@@ -33,6 +33,14 @@ enyo.kind({
 		this.index = 0;
 		this.computeSize();
 		this.favorite = false;
+		document.getElementById("exportvideo-button").addEventListener("click", enyo.bind(this, "clickExportVideo"));
+		var that = this;
+		requirejs(["sugar-web/env","sugar-web/datastore"], function(env,datastore) {
+			env.getEnvironment(function(err, environment) {
+				that.$.content.applyStyle("background-color", environment.user.colorvalue.fill);
+				that.datastore = datastore;
+			});
+		});
 	},
 
 	loadLibraries: function() {
@@ -90,6 +98,7 @@ enyo.kind({
 		// Display items
 		var collection = this.collection;
 		var len = collection.length;
+		var exportButton = document.getElementById("exportvideo-button");
 		for(var i = 0 ; i < constant.pageCount && this.index+i < len ; i++ ) {
 			this.$.items.createComponent(
 				{
@@ -99,7 +108,8 @@ enyo.kind({
 					category: collection[this.index+i].category,
 					isFavorite: Util.getFavorite(collection[this.index+i].id),
 					image: collection[this.index+i].image,
-					onVideoPlayed: "showVideo"
+					onVideoPlayed: "showVideo",
+					tojournal: exportButton.classList.contains("active")
 				},
 				{ owner: this }
 			).render();
@@ -111,6 +121,18 @@ enyo.kind({
 		var lastPage = Math.ceil(len/constant.pageCount);
 		this.$.pagecount.setContent(currentPage+"/"+lastPage);
 		this.$.nextbutton.setShowing(currentPage < lastPage);
+	},
+
+	putItemsJournalModeTo: function(tojournal) {
+		if (tojournal) {
+			document.getElementById("exportvideo-button").classList.add("active");
+		} else {
+			document.getElementById("exportvideo-button").classList.remove("active");
+		}
+		enyo.forEach(this.$.items.getControls(), function(item) {
+			item.tojournal = tojournal;
+			item.tojournalChanged();
+		});
 	},
 
 	// Page event
@@ -127,6 +149,10 @@ enyo.kind({
 	},
 
 	showVideo: function(item) {
+		if (item.tojournal) {
+			this.putItemsJournalModeTo(false);
+			return;
+		}
 		this.$.videoDialog.show();
 		this.$.videoDialog.setItem(item);
 	},
@@ -154,6 +180,13 @@ enyo.kind({
 		this.index = (index !== undefined ? index : 0);
 		this.saveContext();
 		this.draw();
+	},
+
+	clickExportVideo: function() {
+		var exportButton = document.getElementById("exportvideo-button");
+		var tojournal;
+		tojournal = !exportButton.classList.contains("active");
+		this.putItemsJournalModeTo(tojournal);
 	},
 
 	saveContext: function() {

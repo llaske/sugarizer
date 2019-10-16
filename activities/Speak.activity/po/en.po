@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:13:58 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Wed Nov 28 2018 22:23:47 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,11 +13,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
 
+#: SavedTalk
+msgctxt "SavedTalk"
+msgid "Saved Talk"
+msgstr "Saved Talk"
+
 #. Do not translate {{name}}
 #: TypeSomething
 msgctxt "TypeSomething"
 msgid "Hello {{name}}. Please Type something."
 msgstr "Hello {{name}}. Please Type something."
+
+#: Sleepy
+msgctxt "Sleepy"
+msgid "I'm sleepy"
+msgstr "I'm sleepy"
 
 #: Language
 msgctxt "Language"

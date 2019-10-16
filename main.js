@@ -2,6 +2,7 @@
 
 var electron = require('electron'),
 	fs = require('fs'),
+	temp = require('tmp'),
 	ini = require('ini'),
 	path = require('path'),
 	requirejs = require('requirejs');
@@ -15,7 +16,8 @@ var dialog = electron.dialog;
 var mainWindow = null;
 
 var debug = false;
-
+var frameless = true;
+var reinit = false;
 
 
 // Localization features
@@ -25,7 +27,7 @@ l10n = {
 
 	init: function() {
 		this.language = app.getLocale() || "*";
-		this.ini = ini.parse(fs.readFileSync('./locale.ini', 'utf-8'));
+		this.ini = ini.parse(fs.readFileSync(app.getAppPath()+'/locale.ini', 'utf-8'));
 	},
 
 	setLanguage: function(lang) {
@@ -71,7 +73,7 @@ function LoadFile(event, file) {
 	var extension = path.extname(file).substr(1);
 	var fileProperty = {};
 	fileProperty.name = path.basename(file);
-	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm'};
+	var extToMimetypes = {'json':'application/json','jpg':'image/jpeg','png':'image/png','wav':'audio/wav','webm':'video/webm','mp3':'audio/mp3','mp4':'video/mp4','txt':'text/plain','pdf':'application/pdf','doc':'application/msword','odt':'application/vnd.oasis.opendocument.text'};
 	for (var ext in extToMimetypes) {
 		if (ext == extension) {
 			fileProperty.type = extToMimetypes[ext];
@@ -86,24 +88,43 @@ function LoadFile(event, file) {
 }
 
 function createWindow () {
+	// Process argument
+	for (var i = 0 ; i < process.argv.length ; i++) {
+		if (process.argv[i] == '--debug') {
+			debug = true;
+		} else if (process.argv[i] == '--window') {
+			frameless = false;
+		} else if (process.argv[i] == '--init') {
+			reinit = true;
+		}
+	}
+
 	// Create the browser window
 	mainWindow = new BrowserWindow({
 		show: false,
 		backgroundColor: '#FFF',
 		minWidth: 640,
 		minHeight: 480,
-		webPreferences: {webSecurity: false},
+		fullscreen: frameless,
+		frame: !frameless,
+		webPreferences: {
+			webSecurity: false,
+			nodeIntegration: true
+		},
 		icon: './res/icon/electron/icon-1024.png'
 	});
 	if (process.platform === 'darwin') {
-		app.dock.setIcon('./res/icon/electron/icon-1024.png');
+		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadFile('index.html');
+	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':''));
+	if (frameless) {
+		mainWindow.maximize();
+	}
 
 	// Wait for 'ready-to-show' to display our window
-	mainWindow.once('ready-to-show', function() {
+	mainWindow.webContents.once('did-finish-load', function() {
 		// Initialize locales
 		l10n.init();
 
@@ -146,7 +167,7 @@ function createWindow () {
 			var dialogSettings = {
 				properties: ['openFile', 'multiSelections'],
 				filters: [
-					{name: 'Activities', extensions: ['jpg','png','json','webm','wav']}
+					{name: 'Activities', extensions: ['jpg','png','json','webm','wav','mp3','mp4','pdf','txt','doc','odt']}
 				]
 			};
 			dialogSettings.title = l10n.get("ChooseFiles");
@@ -157,6 +178,17 @@ function createWindow () {
 					for (var i = 0 ; i < files.length ; i++) {
 						LoadFile(event, files[i]);
 					}
+				}
+			});
+		});
+		ipc.on('create-tempfile', function(event, arg) {
+			temp.file('sugarizer', function(err, path, fd) {
+				if (!err) {
+					var data = arg.text.replace(/^data:.+;base64,/, "");
+					var buf = new Buffer(data, 'base64');
+					fs.writeFile(fd, buf, function(err) {
+						event.sender.send('create-tempfile-reply', path);
+					});
 				}
 			});
 		});
@@ -201,10 +233,7 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-	// On OS X force quit like on other platforms
-	if (process.platform == 'darwin') {
-		app.quit()
-	}
+	app.quit()
 });
 
 app.on('activate', function () {

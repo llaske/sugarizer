@@ -3,14 +3,10 @@
 	background-color: white;
 }
 
-.maincontent {
-	background-color: #cecfce;
-}
-
 .item {
 	border-radius: 10%;
 	width: 120px;
-	max-width: 10%;	
+	max-width: 10%;
 	background-color: #9c9a9c;
 	display: inline-block;
 	margin: .2% .2% .2% .2%;
@@ -18,7 +14,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .itemImage {
@@ -26,14 +22,14 @@
 	text-align: center;
 }
 
-.items {
+/*.items {
 	background-color: #cecfce;
-}
+}*/
 
 .collection {
 	border-radius: 10%;
 	width: 120px;
-	max-width: 10%;	
+	max-width: 10%;
 	background-color: #212021;
 	display: inline-block;
 	margin: .2% .2% .2% .2%;
@@ -41,7 +37,7 @@
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
 .collectionImage {

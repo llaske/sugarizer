@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:21:28 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2018-05-07 19:41+0000\n"
+"POT-Creation-Date: Sat Dec 08 2018 21:54:12 GMT+0100 (CET)\n"
+"PO-Revision-Date: 2019-03-08 22:55+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-paint/pt/>\n"
@@ -15,17 +15,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.16\n"
 
-#: label
-msgctxt "label"
-msgid "Label"
-msgstr "Título"
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} ingressou"
 
-#: calcul
-msgctxt "calcul"
-msgid "Calculation"
-msgstr "Cálculo"
-
-#: clear
-msgctxt "clear"
-msgid "Clear"
-msgstr "Apagar"
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} saiu"

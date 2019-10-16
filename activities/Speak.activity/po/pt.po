@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:13:58 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-11 14:25+0000\n"
+"POT-Creation-Date: Wed Nov 28 2018 22:23:47 GMT+0100 (CET)\n"
+"PO-Revision-Date: 2018-11-30 11:53+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-speak/pt/>\n"
@@ -15,11 +15,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.16\n"
 
+#: SavedTalk
+msgctxt "SavedTalk"
+msgid "Saved Talk"
+msgstr "Conversa salva"
+
 #. Do not translate {{name}}
 #: TypeSomething
 msgctxt "TypeSomething"
 msgid "Hello {{name}}. Please Type something."
 msgstr "Olá {{nome}}. Por favor, digite algo."
+
+#: Sleepy
+msgctxt "Sleepy"
+msgid "I'm sleepy"
+msgstr "Estou com sono"
 
 #: Language
 msgctxt "Language"

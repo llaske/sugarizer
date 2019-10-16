@@ -11,9 +11,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var sensorButton = document.getElementById("sensor-button");
 		var gravityButton = document.getElementById("gravity-button");
 		var appleButton = document.getElementById("apple-button");
+		var runButton = document.getElementById("run-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
+		var resizeTimer = null;
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -33,6 +35,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var init = false;
 		var gravityMode = 0;
 		var currentType = 0;
+		var physicsActive = true;
 		Physics({ timestep: 6 }, function (world) {
 
 			// bounds of the window
@@ -77,13 +80,19 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 			// resize events
 			window.addEventListener('resize', function () {
-				// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
-				viewportBounds = Physics.aabb(0-outerWidth, toolbarHeight, renderer.width+outerWidth, renderer.height);
-				// update the boundaries
-				edgeBounce.setAABB(viewportBounds);
-				innerWidth = body.offsetWidth;
-				innerHeight = body.offsetHeight;
-				zoom();
+				if (resizeTimer) {
+					clearTimeout(resizeTimer);
+				}
+				resizerTimer = setTimeout(function() {
+					renderer.resize(body.offsetWidth,body.offsetHeight);
+					// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
+					viewportBounds = Physics.aabb(0-outerWidth, toolbarHeight, renderer.width+outerWidth, renderer.height);
+					// update the boundaries
+					edgeBounce.setAABB(viewportBounds);
+					innerWidth = body.offsetWidth;
+					innerHeight = body.offsetHeight;
+					zoom();
+				}, 500);
 
 			}, true);
 
@@ -109,6 +118,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 			gravityButton.addEventListener('click', function () {
 				setGravity((gravityMode + 1)%8);
+			}, true);
+
+			runButton.addEventListener('click', function () {
+				togglePause();
 			}, true);
 
 			document.getElementById("clear-button").addEventListener('click', function () {
@@ -179,6 +192,16 @@ define(["sugar-web/activity/activity"], function (activity) {
 				});
 			});
 
+			// Force resize renderer at startup to avoid glitch margin
+			var initialResize = function() {
+				if (renderer) {
+					renderer.resize(body.offsetWidth,body.offsetHeight);
+				} else {
+					setTimeout(initialResize, 300);
+				}
+			};
+			setTimeout(initialResize, 300);
+
 			var colors = [
 				['0x268bd2', '0x0d394f']
 				,['0xc93b3b', '0x561414']
@@ -200,6 +223,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 					canvas.style.MozTransform = "scale("+zoom+")";
 					canvas.style.MozTransformOrigin = "0 0";
 				}
+				world.wakeUpAll();
 			}
 
 			function random( min, max ){
@@ -365,10 +389,37 @@ define(["sugar-web/activity/activity"], function (activity) {
 				return Physics.body(savedObject.type, newOptions);
 			}
 
+			function setBodiesTreatmentStatic() {
+				var bodies = world.getBodies();
+				bodies.forEach(function(item, index, array) {
+					item.treatment = 'static';
+				});
+			}
+
+			function setBodiesTreatmentDynamic() {
+				var bodies = world.getBodies();
+				bodies.forEach(function(item, index, array) {
+					item.treatment = 'dynamic';
+				});
+			}
+
+			function togglePause() {
+			    if (physicsActive) {
+					document.getElementById("run-button").classList.remove('running');
+					document.getElementById("run-button").setAttribute('title', 'Play');
+					setBodiesTreatmentStatic();
+				} else {
+					document.getElementById("run-button").classList.add('running');
+					document.getElementById("run-button").setAttribute('title', 'Pause');
+					Physics.util.ticker.start();
+					setBodiesTreatmentDynamic();
+				}
+				physicsActive = !physicsActive;
+			}
+
 			// Change gravity value
 			function setGravity(value) {
 				if (gravityMode == value) return;
-				document.getElementById("gravity-button").style.backgroundImage = "url(icons/gravity"+value+".svg)";
 				var acc = {};
 				switch(value) {
 				case 0:
@@ -396,6 +447,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 					acc = { x: -0.0004, y: 0.0004 };
 					break;
 				}
+				var reverse = (window.orientation == -90 ? -1 : 1);
+				acc = { x: acc.x * reverse, y: acc.y * reverse };
+				document.getElementById("gravity-button").style.backgroundImage = "url(icons/gravity"+(reverse == -1 ? (value+4)%8 : value)+".svg)";
 				gravity.setAcceleration(acc);
 				world.wakeUpAll();
 				gravityMode = value;
@@ -440,11 +494,13 @@ define(["sugar-web/activity/activity"], function (activity) {
 					}
 				}
 				,'interact:release': function( pos ){
-					if (createdBody != null) {
-						createdBody.treatment = "dynamic";
-						createdBody = null;
+					if (physicsActive) {
+						if (createdBody != null) {
+							createdBody.treatment = "dynamic";
+						}
+						world.wakeUpAll();
 					}
-					world.wakeUpAll();
+					createdBody = null;
 				}
 				,'interact:grab': function ( data ) {
 					if (currentType == -1) {

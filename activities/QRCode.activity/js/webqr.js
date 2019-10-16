@@ -82,17 +82,12 @@ function isCanvasSupported(){
   var elem = document.createElement('canvas');
   return !!(elem.getContext && elem.getContext('2d'));
 }
-function success(stream) {
-    if(webkit)
-        v.src = window.URL.createObjectURL(stream);
-    else
-    if(moz)
-    {
-        v.mozSrcObject = stream;
-        v.play();
-    }
-    else
-        v.src = stream;
+function success(stream)
+{
+
+    v.srcObject = stream;
+    v.play();
+
     gUM=true;
     setTimeout(captureToCanvas, 500);
 }
@@ -163,6 +158,17 @@ function setwebcam2(options)
 	v.style.width = qrSize + "px";
 	v.style.marginLeft = margin + "px";
 
+
+    if(n.mediaDevices.getUserMedia)
+    {
+        n.mediaDevices.getUserMedia({video: options, audio: false}).
+            then(function(stream){
+                success(stream);
+            }).catch(function(error){
+                error(error)
+            });
+    }
+    else
     if(n.getUserMedia)
 	{
 		webkit=true;
@@ -173,12 +179,6 @@ function setwebcam2(options)
     {
         webkit=true;
         n.webkitGetUserMedia({video:options, audio: false}, success, error);
-    }
-    else
-    if(n.mozGetUserMedia)
-    {
-        moz=true;
-        n.mozGetUserMedia({video: options, audio: false}, success, error);
     }
 
     stype=1;

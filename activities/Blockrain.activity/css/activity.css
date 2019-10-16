@@ -121,12 +121,31 @@
 }
 
 .blockrain-score-msg {
-  font-size: 14px;  
+  font-size: 14px;
   line-height: 100%;
   margin-bottom: 0.2em;
 }
 
 .blockrain-score-num {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* High Score */
+.blockrain-Hscore-holder {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  text-align: left;
+}
+.blockrain-Hscore-msg {
+  font-size: 14px;
+  line-height: 100%;
+  margin-bottom: 0.2em;
+
+}
+.blockrain-Hscore-num {
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
 }

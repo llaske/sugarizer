@@ -1,0 +1,208 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Sep 07 2019 17:19:14 GMT+0200 (GMT+02:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} a rejoint"
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} est parti"
+
+#: Write
+msgctxt "Write"
+msgid "Write is an editor where you could <strong>type</strong> and <em>format</em> your <u>text</u> and ideas."
+msgstr "Write est un traitement de texte avec lequel vous pouvez <strong>taper</strong> et <em>formater</em> vos <u>textes</u> et vos idées."
+
+#: Writefeatures
+msgctxt "Writefeatures"
+msgid "You can also play with <span style=\"color:rgb(255, 0, 0)"
+msgstr "Vous pouvez aussi jouer avec les <span style =\"color:rgb(255, 0, 0)\""
+
+#: Enjoy
+msgctxt "Enjoy"
+msgid "Enjoy"
+msgstr "A vous de jouer !"
+
+#: Doc
+msgctxt "Doc"
+msgid "Export to DOC Done"
+msgstr "DOC exporté dans le Journal"
+
+#: Odt
+msgctxt "Odt"
+msgid "Export to ODT Done"
+msgstr "ODT exporté dans le Journal"
+
+#: Pdf
+msgctxt "Pdf"
+msgid "Export to PDF Done"
+msgstr "PDF exporté dans le Journal"
+
+#: Txt
+msgctxt "Txt"
+msgid "Export to TXT Done"
+msgstr "TXT exporté dans le Journal"
+
+#. Do not translate {{username}}
+#: Welcome
+msgctxt "Welcome"
+msgid "Welcome {{username}}!"
+msgstr "Bienvenue {{username}} !"
+
+#: Network
+msgctxt "Network"
+msgid "Network"
+msgstr "Partage"
+
+#: ForegroundColor
+msgctxt "ForegroundColor"
+msgid "Foreground Color"
+msgstr "Couleur encre"
+
+#: BackgroundColor
+msgctxt "BackgroundColor"
+msgid "Background Color"
+msgstr "Couleur fond"
+
+#: Formattext
+msgctxt "Formattext"
+msgid "Format text"
+msgstr "Formater texte"
+
+#: Paragraph
+msgctxt "Paragraph"
+msgid "Paragraph"
+msgstr "Paragraphe"
+
+#: List
+msgctxt "List"
+msgid "List"
+msgstr "Liste"
+
+#: Increasefontsize
+msgctxt "Increasefontsize"
+msgid "Increase Font size"
+msgstr "Augmenter taille police"
+
+#: ChooseFont
+msgctxt "ChooseFont"
+msgid "Choose Font"
+msgstr "Choisir police"
+
+#: Decreasefontsize
+msgctxt "Decreasefontsize"
+msgid "Decrease Font size"
+msgstr "Diminuer taille police"
+
+#: Image
+msgctxt "Image"
+msgid "Insert Image"
+msgstr "Insérer Image"
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr "Annuler"
+
+#: Redo
+msgctxt "Redo"
+msgid "Redo"
+msgstr "Rétablir"
+
+#: Copy
+msgctxt "Copy"
+msgid "Copy"
+msgstr "Copier"
+
+#: Paste
+msgctxt "Paste"
+msgid "Paste"
+msgstr "Coller"
+
+#: Export
+msgctxt "Export"
+msgid "Export"
+msgstr "Exporter"
+
+#: Bold
+msgctxt "Bold"
+msgid "Bold"
+msgstr "Gras"
+
+#: Italic
+msgctxt "Italic"
+msgid "Italic"
+msgstr "Italique"
+
+#: Underline
+msgctxt "Underline"
+msgid "Underline"
+msgstr "Souligné"
+
+#: Strike
+msgctxt "Strike"
+msgid "Strike"
+msgstr "Barré"
+
+#: OrderedList
+msgctxt "OrderedList"
+msgid "Ordered List"
+msgstr "Liste ordonnée"
+
+#: UnorderedList
+msgctxt "UnorderedList"
+msgid "Unordered List"
+msgstr "Liste non ordonnée"
+
+#: JustifyLeft
+msgctxt "JustifyLeft"
+msgid "Justify Left"
+msgstr "Justifier à gauche"
+
+#: JustifyRight
+msgctxt "JustifyRight"
+msgid "Justify Right"
+msgstr "Justifier à droite"
+
+#: JustifyCenter
+msgctxt "JustifyCenter"
+msgid "Justify Center"
+msgstr "Aligner"
+
+#: ExportToTxt
+msgctxt "ExportToTxt"
+msgid "Export to TXT"
+msgstr "Exporter en TXT"
+
+#: ExportToPdf
+msgctxt "ExportToPdf"
+msgid "Export to PDF"
+msgstr "Exporter en PDF"
+
+#: ExportToDoc
+msgctxt "ExportToDoc"
+msgid "Export to DOC"
+msgstr "Exporter en DOC"
+
+#: ExportToOdt
+msgctxt "ExportToOdt"
+msgid "Export to ODT"
+msgstr "Exporter en ODT"
+

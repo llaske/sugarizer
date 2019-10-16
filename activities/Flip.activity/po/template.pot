@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:19:09 GMT+0100 (CET)\n"
+"POT-Creation-Date: Wed Nov 28 2018 22:25:30 GMT+0100 (CET)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,5 +56,10 @@ msgstr ""
 #: size-button.title
 msgctxt "size-button.title"
 msgid "Change size of grid"
+msgstr ""
+
+#: turntext
+msgctxt "turntext"
+msgid "Turn"
 msgstr ""
 

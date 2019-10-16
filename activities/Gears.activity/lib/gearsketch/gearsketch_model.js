@@ -16,7 +16,7 @@
   window.gearsketch.model = {};
 
   Gear = (function() {
-    function Gear(location, rotation, numberOfTeeth, id, momentum, group, level, connections) {
+    function Gear(location, rotation, numberOfTeeth, id, momentum, group, level, connections, hue) {
       this.location = location;
       this.rotation = rotation;
       this.numberOfTeeth = numberOfTeeth;
@@ -31,6 +31,7 @@
       this.pitchRadius = Util.MODULE * (0.5 * this.numberOfTeeth);
       this.innerRadius = Util.MODULE * (0.5 * this.numberOfTeeth - 1.25);
       this.outerRadius = Util.MODULE * (0.5 * this.numberOfTeeth + 1);
+      this.hue = hue != null? hue : Math.floor(Math.random()*360);
     }
 
     Gear.prototype.getCircumference = function() {
@@ -57,11 +58,11 @@
     };
 
     Gear.prototype.clone = function() {
-      return new Gear(this.location.clone(), this.rotation, this.numberOfTeeth, this.id, this.momentum, this.group, this.level, Util.clone(this.connections));
+      return new Gear(this.location.clone(), this.rotation, this.numberOfTeeth, this.id, this.momentum, this.group, this.level, Util.clone(this.connections), this.hue);
     };
 
     Gear.fromObject = function(obj) {
-      return new Gear(Point.fromObject(obj.location), obj.rotation, obj.numberOfTeeth, obj.id, obj.momentum, obj.group, obj.level, obj.connections);
+      return new Gear(Point.fromObject(obj.location), obj.rotation, obj.numberOfTeeth, obj.id, obj.momentum, obj.group, obj.level, obj.connections, obj.hue);
     };
 
     return Gear;

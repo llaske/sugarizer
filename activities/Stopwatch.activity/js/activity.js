@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","mustache"], function (activity,mustache) {
+define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (activity,mustache,env) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -24,21 +24,31 @@ define(["sugar-web/activity/activity","mustache"], function (activity,mustache) 
             }
         }
 
-        function Stopwatch() {
+        function Stopwatch(counter, marks) {
             this.elem = document.createElement('li');
             var stopwatchList = document.getElementById('stopwatch-list');
             stopwatchList.appendChild(this.elem);
 
             this.template =
-                '<p class="counter">00:00:00</p>' +
-                '<div class="buttons-group">' +
-                '<button class="start-stop-button start"></button>' +
-                '<button class="reset-button"></button>' +
-                '<button class="mark-button"></button>' +
-                '<button class="clear-marks-button"></button>' +
-                '</div>' +
-                '<p class="marks"></p>' +
-                '<button class="remove"></button>';
+                '<div class="panel-body"></div>' +
+                    '<div class="row">' +
+                      '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
+                        '<div class="counter">00:00:00</div>' +
+                      '</div>' +
+                      '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
+                        '<div class="buttons-group">' +
+                            '<button class="start-stop-button start"></button>' +
+                            '<button class="reset-button"></button>' +
+                            '<button class="mark-button"></button>' +
+                            '<button class="clear-marks-button"></button>' +
+                        '</div>' +
+                      '</div>' +
+                      '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
+                        '<div class="marks"></div>' +
+                        '<button class="remove"></button>' +
+                      '</div>' +
+                    '</div>' +
+                '</div>';
 
             this.elem.innerHTML = mustache.render(this.template, {});
 
@@ -49,7 +59,19 @@ define(["sugar-web/activity/activity","mustache"], function (activity,mustache) 
             this.tenthsOfSecond = 0;
             this.seconds = 0;
             this.minutes = 0;
-            this.marks = [];
+            if(marks) {
+                this.marks = marks;
+                this.updateMarks();
+            }
+            else {
+                this.marks = [];
+            }
+            if(counter) {
+                this.minutes = parseInt(counter.split(":")[0]);
+                this.seconds = parseInt(counter.split(":")[1]);
+                this.tenthsOfSecond = parseInt(counter.split(":")[2]);
+                this.updateView();
+            }
 
             var that = this;
 
@@ -104,7 +126,10 @@ define(["sugar-web/activity/activity","mustache"], function (activity,mustache) 
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
-            this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + '.' +
+            if (this.marks.length >= 10) {
+                this.marks.shift();
+            }
+            this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' +
                             pad(this.tenthsOfSecond));
             this.updateMarks();
         };
@@ -149,7 +174,7 @@ define(["sugar-web/activity/activity","mustache"], function (activity,mustache) 
 
         Stopwatch.prototype.updateView = function () {
             this.counterElem.innerHTML = pad(this.minutes) + ':' +
-                pad(this.seconds) + '.' + pad(this.tenthsOfSecond);
+                pad(this.seconds) + ':' + pad(this.tenthsOfSecond);
         };
 
         Stopwatch.prototype.updateMarks = function () {
@@ -173,16 +198,50 @@ define(["sugar-web/activity/activity","mustache"], function (activity,mustache) 
             }
         };
 
-        // Start with five stopwatches.
-        for (var i = 0; i < 5; i++) {
-            new Stopwatch();
-        }
-
         // Button to add more stopwatches.
         var addButton = document.getElementById('add-stopwatch');
         addButton.onclick = function () {
             new Stopwatch();
         };
+
+        
+        env.getEnvironment(function(err, environment) {
+            currentenv = environment;
+            if (!environment.objectId) {
+                 // Start with five stopwatches.
+                for (var i = 0; i < 5; i++) {
+                    new Stopwatch();
+                }
+            } else {
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        stopwatchData = JSON.parse(data);
+                        var i;
+                        for (i = 0; i < Object.keys(stopwatchData).length; i++) { 
+                            // Generate saved stopwatches
+                            counter = stopwatchData[i]["counter"];
+                            marks = stopwatchData[i]["marks"];
+                            new Stopwatch(counter, marks);
+                        }
+                    }
+                });
+            }
+        });
+    });
+    // Saving stopwatch data on stop.
+    document.getElementById("stop-button").addEventListener('click', function (event) {
+        var stopwatchData = document.getElementById("stopwatch-list").getElementsByTagName("li");
+        stopwatchDict = {};
+        var i;
+        for (i = 0; i < stopwatchData.length; i++) { 
+            stopwatchDict[i] = {};
+            (stopwatchDict[i])["counter"] = stopwatchData[i].getElementsByClassName("counter")[0].innerHTML;
+            (stopwatchDict[i])["marks"] = stopwatchData[i].getElementsByClassName("marks")[0].innerHTML.split(" - ");
+        }
+        stopwatchJSON = JSON.stringify(stopwatchDict);
+        activity.getDatastoreObject().setDataAsText(stopwatchJSON);
+        activity.getDatastoreObject().save();
+
     });
 
 });

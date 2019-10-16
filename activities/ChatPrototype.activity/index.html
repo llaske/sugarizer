@@ -19,6 +19,7 @@
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="ChatPrototype"></button>
   <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="image-upload" title="Upload an image"></button>
 
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
@@ -29,12 +30,23 @@
 
   <!-- Replace this message with your own content -->
 
-
         <div id="content"><ul id="messages"></ul></div>
 
+              <div id = "textarea-container">
+          <textarea id="message" placeholder="Write your message here..." required autofocus readonly></textarea>
+          <input name="idValue" id="idValue" type="hidden">
+          <select id = "smiley-button" style = 'background: url(icons/smiley-icon.svg);width:35px;height:35px;' onchange="document.getElementById('message').value=document.getElementById('message').value + this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;document.getElementById('smiley-button').value = '';">
+            <option style="display:none" disabled selected value></option>
+          </select>
+          <select id = "sad-button" style = 'background: url(icons/sad-icon.svg);width:31px;height:31px;' onchange="document.getElementById('message').value=document.getElementById('message').value + this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;document.getElementById('sad-button').value = '';">
+            <option style="display:none" disabled selected value></option>
+          </select>
+          <select id = "others-button" style = 'background: url(icons/others-icon.svg);width:33px;height:33px;' onchange="document.getElementById('message').value=document.getElementById('message').value + this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;document.getElementById('others-button').value = '';">
+            <option style="display:none" disabled selected value></option>
+          </select>
+          <p id="status">Click on the Neighborhood icon in the presence palette to start the Chat</p>
+        </div>
 
-        <textarea id="message" placeholder="Write your message here..." required autofocus readonly></textarea>
-        <p id="status">Click on the Neighborhood icon in the presence palette to start the Chat</p>
 </div>
 </body>
 

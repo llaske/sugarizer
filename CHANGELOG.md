@@ -5,6 +5,86 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Double size of Record images in WebApp and electron App
+
+### Fixed
+- Activity palette not visible on Tank Operation activity #371
+- Record images don't fit the thumbnail size in iOS/Android
+- Long touch on Memory items don't work on Android
+- Jump in generation in Game of Life activity on Chrome #388
+- Long name hide text in Chat activity #383
+
+
+## [1.2.0] - 2019-09-26
+### Added
+- Write activity
+- Constellation activity
+- Pomodoro activity
+- QR Code for scanning server URL on iOS/Android
+- Update to official Scratch 3.3 release
+- Support for localization in Scratch
+- Improved Exerciser activity: multimedia support, new templates, results detail
+- Dynamically generate favicon and title
+- Architecture page and schemas
+- Tutorial step 7: use journal chooser dialog
+- Tutorial step 8: create your own palette
+- Use IndexedDB instead of localStorage for storing Journal items content
+- Support for TXT/DOC/ODT/PDF files in Journal
+- Support for MP3/MP4 files in Journal
+- Add export sound to Journal feature in Abecedarium activity
+- Add export video to Journal feature in VideoViewer activity
+- Click on a PDF in Journal now open a preview window
+- Add access to Abecedarium database (image/sound) from Journal Chooser popup
+- Allow move/resize of inserted image in Paint activity
+
+### Changed
+- Improve consistency about shared palette position in toolbar
+
+### Fixed
+- QRCode and Record no longer work on Chrome 71
+- Add a delete button in the new idea input field of Labyrinth activity #262
+- Increase size of items in StopWatch activity #261
+- Save Maze level in Journal #260
+- Bad localization for some countries name in Color My World activity #265
+- Integrate presence in Labyrinth activity #263
+- Improve Record activity to see picture in real time #266
+- Allow clicking on Abacus balls to move it #146
+- Memorize responsive seems broken on phones #106
+- Stopwatch Activity, lap Timings vanish after a few recordings #280
+- Turtle Blocks Activity hangs on Android App #185
+- Sugarizer OS hang when multiple click on an icon #338
+- Message overlaps with user name in Chat Activity #328
+- Jappy Activity print preview popup #326
+- Toolbar overlap issue in Speak Activity #324
+- Smileys not displayed properly in chat prototype activity #322
+- Cursor issue in calculator activity on Chrome #318
+- Duplicated text in QR Code Activity history #314
+- Audio bar not displaying in chrome when opening a audio file #312
+- Display language settings in 2 languages #292
+- Gear colours are reset on resume #336
+- Added Tool tips to Calculate Activity
+- Users should be able to send images in chat prototype #330
+- No erase button for recordings in Record activity #344
+- Order Journal filter by activity name
+- Snapcraft version lost context #346
+- Snapcraft version don't allow to import/export file into/from Journal #350
+- Update home image for TankOp activity
+- Grammatical Errors in the Documentation #347
+- Now support offline mode on Scratch for iOS
+- Camera doesn't work on Record/QRCode activities for Snapcraft version #351
+- Add a pause button to the Physics activity #354
+- Context is lost the second time in Abecedarium activity #359
+- Sound not play on Memorize activity in iOS
+- Record activity don't work in Safari #362
+- Error in console in Calculate activity when reopen an empty instance #358
+- Localize activity name in title
+- Activity palette icon has reversed colors
+- XOEditor activity generate multiple entries in the Journal #370
+- Clear icon in XOEditor activity is not consistent #372
+
+
+## [1.1.0] - 2019-01-20
 ### Added
 - Desktop version for GNU Linux, MacOS and Windows using electron
 - Ebook Reader activity
@@ -14,21 +94,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow action on multiple items in Journal
 - Copy from Journal to device now available on all platforms
 - Copy from device to Journal feature
+- Help tutorial on initial screen
+- Help on activities in list view
 
 ### Changed
 - Portuguese localization
 - Replace filter popups in Journal by palettes
 - Increase favorite icon size in Journal and List View
 - Full offline version of Scratch (sprites, background and sounds) - except on iOS
+- Add Emoji support in Chat activity
 
 ### Fixed
 - Update Lunar ephemerides phase for 2018 to 2024 in Moon activity #219
 - DOM-based XSS vulnerability in the MarkDown Editor Activity #158
 - DOM-based XSS vulnerability in the Get Things Done Activity #160
+- Save Stopwatch activity context in Journal #201
+- Flip activity don't detect end of game #215
+- Align buttons better in tutorial #135
+- ChatPrototype activity does not sanitize input #225
+- Fototoon close icon missing in small screens #213
+- Save Clock activity settings in Journal #204
+- Add number of play in Flip activity #234
+- Save Blockrain activity context in Journal #203
+- Activity Idea: Math Quiz #187
+- Abacus does not display solution with big numbers #140
+- Change background color for Speak activity #245
+- Add the sleeping face into the Speak activity #246
+- Add an erase button into GridPaint activity #242
+- Add an history of last QR Code generated/read in QR Code activity #244
+- Save Speak history in Journal #209
+- Improve Maze activity to allow playing with presence #208
+- No San-Marino and Vatican in Color My World app #174
+- Improve LOL activity to play against another user using presence #243
 
 ### Removed
 - Remove Cordova activity
 - Remove Welcome Web activity
+- Chrome OS version
+- Windows 10 version from the store, now using an installer
 
 
 ## [1.0.1] - 2018-07-07

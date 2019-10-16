@@ -35,16 +35,33 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
         var photoButton = document.getElementById("photo-button");
         var audioButton = document.getElementById("audio-button");
         var videoButton = document.getElementById("video-button");
+        var vidDisplay = document.getElementById("vidDisplay");
+
+        function handleVideo(stream){
+            document.querySelector('#vidDisplay').srcObject = stream;
+        }
+        function videoError(e){
+            alert("There was some error");
+        }
 
         photoButton.addEventListener("click", function () {
             captureHelper.helper.takePicture();
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
+            }
         });
 
         audioButton.addEventListener("click", function () {
+            if(vidDisplay.style.display != "none"){
+                vidDisplay.style.display = "none" ;
+            }
             captureHelper.helper.recordAudio();
         });
 
         videoButton.addEventListener("click", function () {
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
+            }
             captureHelper.helper.recordVideo();
         });
 
@@ -62,8 +79,9 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             captureHelper.ids = data.ids;
 
             if (data.ids && data.ids.length > 0) {
-                var oldData = captureHelper.getData(data.ids);
-                captureHelper.displayAllData(oldData);
+                captureHelper.getData(data.ids, function(oldData) {
+                    captureHelper.displayAllData(oldData)
+                });;
             }
         });
     })

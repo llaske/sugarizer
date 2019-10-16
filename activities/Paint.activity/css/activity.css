@@ -49,13 +49,13 @@
   }
 }
 
-@media only screen and (min-width: 660px) {
+@media only screen and (min-width: 715px) {
   #stamps-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 715px) {
+@media only screen and (min-width: 1147px) {
   #filters-button {
     display: inline-block;
   }
@@ -103,7 +103,7 @@
   }
 }
 
-@media only screen and (min-width: 1147px) {
+@media only screen and (min-width: 660px) {
   #clear-button {
     display: inline-block;
   }

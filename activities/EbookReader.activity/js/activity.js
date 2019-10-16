@@ -30,6 +30,12 @@ var app = new Vue({
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
 			env.getEnvironment(function(err, environment) {
+					// Use buddy color for background
+					env.getEnvironment(function(err, environment) {
+						document.getElementById("canvas").style.backgroundColor = environment.user.colorvalue.fill;
+					});
+
+				// Load context
 				if (environment.objectId) {
 					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 						if (error==null && data!=null) {
@@ -39,6 +45,8 @@ var app = new Vue({
 								vm.currentBook = vm.currentLibrary.database[parsed.current];
 								vm.currentEpub = ePub(vm.currentLibrary.information.fileprefix+vm.currentBook.file);
 								vm.currentView = EbookReader;
+							} else if (vm.currentLibrary.database.length == 0) {
+								vm.loadLibrary(defaultUrlLibrary);
 							}
 							document.getElementById("spinner").style.visibility = "hidden";
 						}

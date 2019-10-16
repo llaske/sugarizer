@@ -16,11 +16,15 @@
       speed: 20, // The speed of the game. The higher, the faster the pieces go.
       asdwKeys: true, // Enable ASDW keys
 
+      //Highest score
+      highestScore: 0,
+
       // Copy
       playButtonText: 'Play',
       gameOverText: 'Game Over',
       restartButtonText: 'Play Again',
       scoreText: 'Score',
+      highscoreText: 'High Score', // High score text
 
       // Basic Callbacks
       onStart: function(){},
@@ -43,8 +47,8 @@
     },
 
     restart: function() {
-      this._doStart();
       this.options.onRestart.call(this.element);
+      this._doStart();
     },
 
     gameover: function() {
@@ -56,6 +60,7 @@
     _doStart: function() {
       this._filled.clearAll();
       this._filled._resetScore();
+      this._filled._showHighScore(); // shows high score at the beginning of game. Initial high score is 0
       this._board.cur = this._board.nextShape();
       this._board.started = true;
       this._board.gameover = false;
@@ -66,6 +71,7 @@
       this._$start.fadeOut(150);
       this._$gameover.fadeOut(150);
       this._$score.fadeIn(150);
+      this._$highscore.fadeIn(150);
     },
 
 
@@ -106,6 +112,15 @@
       }
       return this._filled.score;
     },
+
+    highscore: function() {
+
+    this._filled.highscore = parseInt(game.options.highestScore);
+    this._$highscoreText.text(this._filled_highscore);
+
+    return this._filled.highscore;
+    },
+
 
     freesquares: function() {
       return this._filled.getFreeSpaces();
@@ -193,6 +208,8 @@
     _$gameover: null,
     _$score: null,
     _$scoreText: null,
+    _$highscore: null,
+    _$highscoreText: null,
 
 
     // Canvas
@@ -536,6 +553,7 @@
       this._filled = {
         data: new Array(game._BLOCK_WIDTH * game._BLOCK_HEIGHT),
         score: 0,
+        highscore: game.options.highestScore,
         toClear: {},
         check: function(x, y) {
           return this.data[this.asIndex(x, y)];
@@ -599,6 +617,11 @@
 
           var clearedLines = game._board.lines - startLines;
           this._updateScore(clearedLines);
+
+          //Updates high score when score is more than the current high score
+          if (this.score > this.highscore) {
+            this._updateHighScore();
+          }
         },
         _updateScore: function(numLines) {
           if( numLines <= 0 ) { return; }
@@ -613,6 +636,14 @@
         _resetScore: function() {
           this.score = 0;
           game._$scoreText.text(this.score);
+        },
+        _showHighScore: function() {
+          game._$highscoreText.text(this.highscore);
+        },
+
+        _updateHighScore: function() {
+          this.highscore = this.score;
+          game._$highscoreText.text(this.highscore);
         },
         draw: function() {
           for (var i=0, len=this.data.length, row, color; i<len; i++) {
@@ -1186,6 +1217,19 @@
         '</div>').hide();
       game._$scoreText = game._$score.find('.blockrain-score-num');
       game._$gameholder.append(game._$score);
+
+      // High Score
+      game._$highscore = $(
+        '<div class="blockrain-Hscore-holder" style="position:absolute;">'+
+          '<div class="blockrain-Hscore">'+
+            '<div class="blockrain-Hscore-msg">'+ this.options.highscoreText +'</div>'+
+            '<div class="blockrain-Hscore-num">0</div>'+
+          '</div>'+
+        '</div>').hide();
+
+      game._$highscoreText = game._$highscore.find('.blockrain-Hscore-num');
+      game._$gameholder.append(game._$highscore);
+
 
       // Create the start menu
       game._$start = $(

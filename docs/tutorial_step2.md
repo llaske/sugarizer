@@ -9,11 +9,11 @@ Let's now improve our activity to customize the content.
 
 The first task is to customize the icon. It's important because it's the visual identity of your activity.
 
-For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](images/pawn-icon.svg). Put it in a new `icons` directory into your `Pawn.activity` directory.
+For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](images/pawn-icon.svg). Right-click on it and then save it in a `pawn-icon.svg` file into a new `Pawn.activity/icons` directory.
 
 ![](images/tutorial_step2_1.png)
 
-In Sugarizer, images for icons or buttons must be SVG graphic files. Plus, it need to be adapted to support users colors because as you could see on the home page all icons in Sugarizer are dynamically adapted to users colors.
+In Sugarizer, images for icons or buttons must be SVG graphic files. It needs to be adapted to support users' colors because as you could see on the home page, all icons in Sugarizer are dynamically adapted to users' colors.
 
 To do that, we need to update our original SVG file.
 Here's an extract on our original `icons/pawn-icon.svg` file:
@@ -53,11 +53,11 @@ Here's an extract on our original `icons/pawn-icon.svg` file:
 		</g>
 	</svg>
 
-To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **file_color**.
+To adapt this SVG file to Sugarizer, we will update the start of the file to add ENTITY variables named **stroke_color** and **fill_color**.
 
 Then we will replace raw colors value `#xxxxxx` in the SVG file, by reference to `&fill_color;` and `&stroke_color;`.
 
-Here, using your text editor you must replace `#808080` by `&fill_color;` and `#f0f0f0` by `&stroke_color;`.
+Here, using your text editor you must replace all `#808080` by `&fill_color;` and all `#f0f0f0` by `&stroke_color;`.
 
 Here is an extract of the result:
 
@@ -102,12 +102,12 @@ Here is an extract of the result:
 
 To update the activity icon, replace also the content of `activity/activity-icon.svg` by the content of the `pawn-icon.svg` file.
 
-Let's run again our activity. We have now a beautiful pawn icon.
+Let's run again our activity. Now, we have a beautiful pawn icon.
 
 ![](images/tutorial_step2_2.png)
 
 
-Note than a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
+Note that a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
 
 
 ### Customize content
@@ -140,20 +140,20 @@ To do that, let's study the file `js/activity.js`. It's really the heart of your
 
 	});
 
-These lines relied on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependancies. You could read more about the **require.js** framework [here](http://www.requirejs.org/) but shortly, there is only two functions to understand: `define` and `require`.
+These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependancies. You could read more about the **require.js** framework [here](http://www.requirejs.org/) but shortly, there is only two functions to understand: `define` and `require`.
 
-* `define` is a way to define a new module and express its dependancies. Here for example we're going to define a new module that depends of the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
+* `define` is a way to define a new module and express its dependencies. Here for example we're going to define a new module that depends on the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
 
-* `requirejs` is pretty the same. It tell to **require**: run the following function but before, load dependancies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
+* `requirejs` is pretty the same. It tells to **require**: run the following function but before that, load dependencies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
 
-Then come the most important line of our activity:
+Then comes the most important line of our activity:
 
 	// Initialize the activity.
 	activity.setup();
 
 It's a call to the `setup` method of the Sugar-Web activity library.
 
-If you have to keep only one line in your activity, keep that one because it's responsible of all the magic inside Sugarizer: it initialize Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forgot this call. Let's do it by commenting the line:
+If you have to keep only one line in your activity, keep that one because it's responsible for all the magic inside Sugarizer: it initializes Datastore, Presence and the Sugarizer UI. A classical error for a beginner in Sugar-Web development is to forget this call. Let's do it by commenting the line:
 
 	// Initialize the activity.
 	//activity.setup();
@@ -163,7 +163,7 @@ Then run again your new activity. Here's what happens:
 
 ![](images/tutorial_step2_3.png)
 
-Ooops! Colors for our nice icons has disappear and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
+Ooops! Colors for our nice icons has disappeared and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
 
 So uncomment this precious line and never forget to call it again!
 
@@ -172,7 +172,7 @@ So uncomment this precious line and never forget to call it again!
 
 Now, to display our welcome message, we will use the user's name.
 
-To do that we're going to use another Sugar-Web library named **env**. So, we need to add it in your dependancies. Update the define call to add the env Sugar-Web library:
+To do that we're going to use another Sugar-Web library named **env**. So, we need to add it in our dependencies. Update the define call to add the env Sugar-Web library:
 
 	define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 
@@ -187,13 +187,13 @@ So add a call to this method to retrieve the user name:
 			document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 	});
 
-When you call the getEnvironment method, it should be loads the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
+When you call the getEnvironment method, it should load the Sugarizer environment then call your function with a JavaScript object environment that contains context of your activity and user settings. So we could display our welcome message by forcing HTML in the `div` object using `environment.user.name`. Here's the line:
 
 	document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 
-That's all. Run again the activity.
+That's all. Run the activity again.
 
-Congratulation! the welcome message will now appear:
+Congratulations! The welcome message will now appear:
 
 
 ![](images/tutorial_step2_4.png)

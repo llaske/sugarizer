@@ -225,7 +225,19 @@ enyo.kind({
 		if (entry.metadata.buddy_color) {
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		}
-		inEvent.item.$.activity.setIcon(preferences.getActivity(entry.metadata.activity));
+		var activityIcon = preferences.getActivity(entry.metadata.activity);
+		if (activityIcon == preferences.genericActivity) {
+			if (entry.metadata.mimetype == "text/plain") {
+				activityIcon = {directory: "icons", icon: "application-x-txt.svg"};
+			} else if (entry.metadata.mimetype == "application/pdf") {
+				activityIcon = {directory: "icons", icon: "application-x-pdf.svg"};
+			} else if (entry.metadata.mimetype == "application/msword") {
+				activityIcon = {directory: "icons", icon: "application-x-doc.svg"};
+			} else if (entry.metadata.mimetype == "application/vnd.oasis.opendocument.text") {
+				activityIcon = {directory: "icons", icon: "application-x-odt.svg"};
+			}
+		}
+		inEvent.item.$.activity.setIcon(activityIcon);
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
 		var keep = entry.metadata.keep;
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
@@ -350,7 +362,7 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && (!enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios));
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && enyo.platform.electron);
 		if (!isMultiple) {
 			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		}
@@ -361,7 +373,7 @@ enyo.kind({
 					if (that.dialogAction == constant.journalDevice) {
 						that.copyToDevice(toProcess[i]);
 					} else if (that.dialogAction == constant.journalRemove) {
-						that.removeEntry(toProcess[i]);
+						that.removeEntry(toProcess[i], {isLast: (i==toProcess.length-1)});
 					} else if (that.dialogAction == constant.journalLocal) {
 						that.copyToLocal(toProcess[i]);
 					} else {
@@ -386,9 +398,17 @@ enyo.kind({
 		this.runCurrentActivity(this.journal[inEvent.index]);
 	},
 	runCurrentActivity: function(activity) {
-		// Generic
+		// Generic activity type, try to open as a document
 		var activityInstance = preferences.getActivity(activity.metadata.activity);
 		if (activityInstance == preferences.genericActivity) {
+			if (activity.metadata.mimetype == "application/pdf") {
+				var that = this;
+				this.loadEntry(activity, function(err, metadata, text) {
+					that.$.activityPopup.hidePopup();
+					util.openAsDocument(metadata, text);
+					return;
+				});
+			}
 			return;
 		}
 
@@ -521,6 +541,7 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
+			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity && entry.metadata.mimetype != "application/pdf"),
 			data: [entry, null]
 		});
 		items.push({
@@ -699,7 +720,7 @@ enyo.kind({
 	},
 
 	// Remove an entry in the journal
-	removeEntry: function(entry) {
+	removeEntry: function(entry, multiple) {
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
@@ -718,14 +739,18 @@ enyo.kind({
 				);
 			}
 
-			// Refresh screen
-			this.toolbar.removeFilter();
-			this.loadLocalJournal();
+			// Test if refresh
+			var refresh = (!multiple || multiple.isLast);
+			if (refresh) {
+				// Refresh screen
+				this.toolbar.removeFilter();
+				this.loadLocalJournal();
 
-			// Refresh home screen: activity menu, journal content
-			preferences.updateEntries();
-			app.journal = this.journal;
-			app.redraw();
+				// Refresh home screen: activity menu, journal content
+				preferences.updateEntries();
+				app.journal = this.journal;
+				app.redraw();
+			}
 		} else {
 			// Remove from remote journal
 			var journalId = (this.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
@@ -918,7 +943,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -963,11 +988,21 @@ enyo.kind({
 			{classes: "item-name", content: l10n.get("AllType")}
 		], ontap: "tapLine"});
 		var activities = preferences.getActivities();
+		var unsortedItems = [];
 		for(var i = 0 ; i < activities.length ; i++) {
-			items.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
+			unsortedItems.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
 				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
 				{classes: "item-name", content: activities[i].name}
 			], ontap: "tapLine"});
+		}
+		unsortedItems.sort(function(a,b) {
+			var ca = a.components[1].content, cb = b.components[1].content;
+			if (ca > cb) { return 1; }
+			else if (ca < cb) { return -1; }
+			else return 0;
+		});
+		for (var i = 0 ; i < unsortedItems.length ; i++) {
+			items.push(unsortedItems[i]);
 		}
 		this.$.typepalette.setItems(items);
 
@@ -1081,8 +1116,8 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType) {
-			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json");
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
 		} else {
@@ -1099,6 +1134,9 @@ enyo.kind({
 						return;
 					}
 					app.otherview.loadLocalJournal();
+					if (preferences.isConnected()) {
+						app.otherview.syncJournal();
+					}
 				}, text);
 			});
 		}
@@ -1116,6 +1154,9 @@ enyo.kind({
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function() {
 					app.otherview.loadLocalJournal();
+					if (preferences.isConnected()) {
+						app.otherview.syncJournal();
+					}
 				}, text);
 			});
 		}

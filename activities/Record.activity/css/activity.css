@@ -34,6 +34,22 @@
     height:40%;
 }
 
+.delbtn{
+    position:relative;
+    bottom:1%;
+    right:1%;
+    height:55px;
+    width:56px;
+}
+
+.delbtn:hover{
+    border-style:none;
+}
+
+.delbtn:focus{
+    border-style: none;
+}
+
 html, body {
     overflow-y: visible;
 }

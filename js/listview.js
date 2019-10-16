@@ -9,12 +9,13 @@ enyo.kind({
 		{name: "message", classes: "listview-message", showing: false},
 		{name: "nofilter", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "listview-button", ontap: "nofilter", showing: false},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
-		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "computeSize", components: [
+		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "resize", components: [
 			{name: "item", classes: "activity-list-item", components: [
 				{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "doSwitchFavorite"},
 				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
-				{name: "version", classes: "activity-version"}
+				{name: "version", classes: "activity-version"},
+				{name: "help", kind: "Sugar.Icon", classes: "activity-help", x: 800, y: 4, showing: false, size: constant.iconSizeList, ontap:"doHelp"}
 			]}
 		]}
 	],
@@ -26,6 +27,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.realLength = 0;
+		this.favoriteActivityButton = null;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
 			this.computeSize();
@@ -41,11 +43,29 @@ enyo.kind({
 		}
 	},
 
+	localize: function() {
+		this.activitiesChanged();
+	},
+
 	computeSize: function() {
 		var toolbar = document.getElementById("toolbar");
 		var canvas = document.getElementById("canvas");
 		var canvas_height = canvas.offsetHeight;
 		this.applyStyle("height", canvas_height+"px");
+	},
+
+	resize: function() {
+		this.computeSize();
+		app.resize();
+	},
+
+	// Initialize information for tutorial
+	beforeHelp: function() {
+		tutorial.setElement("owner", app.$.owner.getAttribute("id"));
+		tutorial.setElement("journal", app.$.journal.getAttribute("id"));
+		if (this.favoriteActivityButton) {
+			tutorial.setElement("favoriteitembutton", this.favoriteActivityButton.getAttribute("id"));
+		}
 	},
 
 	// Get linked toolbar, same than the desktop view
@@ -89,7 +109,7 @@ enyo.kind({
 			activitiesList[inEvent.index].isNative = true;
 		}
 		if (inEvent.index == 0) {
-			tutorial.setElement("favoriteitembutton", inEvent.item.$.favorite.getAttribute("id"));
+			this.favoriteActivityButton = inEvent.item.$.favorite;
 		}
 		inEvent.item.$.activity.setIcon(activitiesList[inEvent.index]);
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
@@ -98,6 +118,9 @@ enyo.kind({
 		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
+		inEvent.item.$.help.setIcon({directory: "icons", icon: "help-rev.svg"});
+		inEvent.item.$.help.setColorized(false);
+		inEvent.item.$.help.setShowing(!activitiesList[inEvent.index].isNative);
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.name.addClass("rtl-14");
 			inEvent.item.$.version.addClass("rtl-14");
@@ -191,6 +214,28 @@ enyo.kind({
 	nofilter: function() {
 		app.getToolbar().setSearchText("");
 		app.filterActivities();
+	},
+
+	// Display help popup
+	doHelp: function(inSender, inEvent) {
+		var activitiesList = sorted(this.activities);
+		var activities = [];
+		for (var i = 0 ; i < activitiesList.length ; i++) {
+			var activity = activitiesList[i];
+			if (activity.isNative || activity.type == "native") {
+				continue;
+			}
+			var title = l10n.get('NameActivity', {name: activity.name});
+			var icon = {icon: activity.icon, directory: activity.directory, size: constant.sizeEmpty};
+			var description = l10n.get('TutoActivity'+activity.directory.substr(activity.directory.indexOf("/")+1).replace('.',''));
+			if (i == inEvent.index) {
+				tutorial.setElement("step", activities.length);
+			}
+			activities.push({title: title, icon: icon, description: description, step: i});
+		}
+		tutorial.setElement("activities", activities);
+		stats.trace(constant.viewNames[app.getView()], 'tutorial', 'start', null);
+		tutorial.start();
 	}
 });
 

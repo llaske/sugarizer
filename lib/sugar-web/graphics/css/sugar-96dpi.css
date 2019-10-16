@@ -147,6 +147,8 @@ button.icon span {
   top: 2px;
   left: 2px;
 }
+
+
 /* One line text input */
 input[type='text'] {
   width: 165px;
@@ -452,3 +454,4 @@ ul.flat-list.striped li:nth-child(odd) {
 #activity-palette .wrapper {
   width: 271px;
 }
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Pomodoro Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+  <!-- Add more buttons here -->
+  <button class="toolbutton play" id="play-button" title="Play/Pause"></button>
+  <button class="toolbutton replay" id="replay-button" title="Replay"></button>
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+  <!-- Replace this message with your own content -->
+  <div id='container'>
+    <div class='button-container'>
+      <div class='button-wrapper'>
+        <div class='button work plus-button'>
+          <span>+</span>
+        </div>
+        <div class='button-status'>
+          <div data-l10n-id='work' class='button-label work'>work</div>
+          <div class='button-time work'></div>
+        </div>
+        <div class='button work minus-button'>
+          <span>-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class='base-board'>
+      <div class='base-circle'>
+        <div id='pomodoro-container'></div>
+        <div class='info-circle'>
+          <div class='status'></div>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class='button-container'>
+        <div class='button-wrapper'>
+          <div class='button break plus-button'>
+            <span>+</span>
+          </div>
+          <div class='button-status'>
+            <div data-l10n-id='break' class='button-label break'>break</div>
+            <div class='button-time break'></div>
+          </div>
+          <div class='button break minus-button'>
+            <span>-</span>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>

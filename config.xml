@@ -3,16 +3,16 @@
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
-		version   = "1.1.0-alpha"
-		android-versionCode = "11000">
+		version   = "1.2.0"
+		android-versionCode = "12000">
 	<name>Sugarizer</name>
 
 	<description>
 		A taste of the Sugar on any device.
 	</description>
 
-	<author href="http://olpc-france.org" email="lionel@olpc-france.org">
-		Lionel Laské for OLPC France
+	<author href="https://sugarizer.org" email="lionel@sugarizer.org">
+		Lionel Laské
 	</author>
 
 	<preference name="Fullscreen" value="true" />
@@ -28,20 +28,24 @@
 
 	<preference name="android-minSdkVersion" value="14" />
 
-	<plugin name="cordova-plugin-camera" version="1.2.0" />
-	<plugin name="cordova-plugin-device-motion" version="1.2.0" />
-	<plugin name="cordova-plugin-dialogs" version="1.2.0" />
-	<plugin name="cordova-plugin-network-information" version="1.1.0" />
-	<plugin name="cordova-plugin-device" version="1.1.0" />
-	<plugin name="cordova-plugin-media" version="1.0.1" />
-	<plugin name="cordova-plugin-file" version="4.2.0" />
-	<plugin name="cordova-plugin-file-transfer" version="1.6.0" />
-	<plugin name="cordova-plugin-vibration" version="2.1.1" />
-	<plugin name="cordova-plugin-fullscreen" version="1.1.0" />
-	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git"/>
-	<plugin name="cordova-plugin-ios-longpress-fix" version="1.1.0" />
-	<plugin name="cordova-plugin-qrscanner" version="2.5.0" />
-	<plugin name="cordova-plugin-splashscreen" version="4.1.0" />
+	<engine name="android" spec="6.3.0" />
+	<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" />
+	<plugin name="cordova-plugin-camera" spec="2.4.0" />
+	<plugin name="cordova-plugin-file" spec="4.3.1" />
+	<plugin name="cordova-plugin-device" spec="1.1.0" />
+	<plugin name="cordova-plugin-device-motion" spec="1.2.0" />
+	<plugin name="cordova-plugin-dialogs" spec="1.2.0" />
+	<plugin name="cordova-plugin-file-transfer" spec="1.6.0" />
+	<plugin name="cordova-plugin-fullscreen" spec="1.1.0" />
+	<plugin name="cordova-plugin-ios-longpress-fix" spec="1.1.0" />
+	<plugin name="cordova-plugin-media" spec="1.0.1" />
+	<plugin name="cordova-plugin-network-information" spec="1.1.0" />
+	<plugin name="cordova-plugin-qrscanner" spec="3.0.1" />
+	<plugin name="cordova-plugin-splashscreen" spec="4.1.0" />
+	<plugin name="cordova-plugin-swift-support" spec="3.1.1" />
+	<plugin name="cordova-plugin-vibration" spec="2.1.1" />
+	<plugin name="cordova-plugin-whitelist" spec="1.3.1" />
+	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
