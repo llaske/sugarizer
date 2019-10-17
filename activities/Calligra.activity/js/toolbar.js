@@ -62,10 +62,7 @@ var Toolbar = {
 	},
 	methods: {
 		localized: function(localization) {
-			var vm = this;
-			Object.keys(this.l10n).forEach(function(key, index) {
-				vm.l10n[key] = localization.get(key.substr(6));
-			});
+			localization.localize(this.l10n);
 		},
 
 		getApp: function() {
