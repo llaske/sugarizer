@@ -179,8 +179,8 @@ var app = new Vue({
 			var options = {};
 			options.templatebutton = this.$refs.toolbar.$refs.templatebutton.$el;
 			options.fullscreenbutton = this.$refs.toolbar.$refs.fullscreen.$el;
-			if (this.currentView === TemplateViewer && this.$refs.view.$refs.item0 && this.$refs.view.$refs.item0[0]) {
-				options.book = this.$refs.view.$refs.item0[0].$el;
+			if (this.currentView === TemplateViewer && this.currentTemplate && this.currentTemplate.images && this.currentTemplate.images[0]) {
+				options.item = this.$refs.view.$refs.item0[0].$el;
 			} else if (this.currentView === Editor) {
 			}
 			this.$refs.tutorial.show(options);

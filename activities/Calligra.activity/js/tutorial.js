@@ -12,6 +12,8 @@ var Tutorial = {
 				stringTutoExplainContent: '',
 				stringTutoFullscreenButtonTitle: '',
 				stringTutoFullscreenButtonContent: '',
+				stringTutoItemTitle: '',
+				stringTutoItemContent: '',
 				stringTutoTemplateButtonTitle: '',
 				stringTutoTemplateButtonContent: ''
 			}
@@ -37,6 +39,12 @@ var Tutorial = {
 					placement: "bottom",
 					title: this.l10n.stringTutoTemplateButtonTitle,
 					content: this.l10n.stringTutoTemplateButtonContent
+				},
+				{
+					element: options.item,
+					placement: "right",
+					title: this.l10n.stringTutoItemTitle,
+					content: this.l10n.stringTutoItemContent
 				},
 				{
 					element: options.fullscreenbutton,
