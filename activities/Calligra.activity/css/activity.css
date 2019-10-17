@@ -150,6 +150,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: 5px;
+	cursor: pointer;
 }
 
 #spinner {

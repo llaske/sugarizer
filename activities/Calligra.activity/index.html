@@ -30,7 +30,7 @@
 		<toolbar ref="toolbar"></toolbar>
 
 		<div id="canvas">
-			<component ref="view" :is="currentView" v-on:itemselected="onItemSelected" v-bind:template="currentTemplate"></component>
+			<component ref="view" :is="currentView" v-on:selected="onItemSelected" v-bind:template="currentTemplate" v-bind:item="currentItem"></component>
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>

@@ -83,7 +83,8 @@ var app = new Vue({
 		currentView: TemplateViewer,
 		currentLibrary: null,
 		currentTemplate: null,
-		currentItem: -1
+		currentItem: null,
+		color: '#00000'
 	},
 
 	created: function() {
@@ -100,7 +101,8 @@ var app = new Vue({
 			env.getEnvironment(function(err, environment) {
 					// Use buddy color for background
 					env.getEnvironment(function(err, environment) {
-						document.getElementById("canvas").style.backgroundColor = environment.user.colorvalue.fill;
+						vm.color = environment.user.colorvalue.fill;
+						document.getElementById("canvas").style.backgroundColor = vm.color;
 					});
 
 				// Load context
@@ -134,9 +136,6 @@ var app = new Vue({
 		});
 	},
 
-	updated: function() {
-	},
-
 	methods: {
 
 		localized: function() {
@@ -161,13 +160,17 @@ var app = new Vue({
 		onTemplateSelected: function(template) {
 			var vm = this;
 			vm.currentTemplate=vm.currentLibrary[template.index];
+			vm.currentView = TemplateViewer;
+			document.getElementById("canvas").style.backgroundColor = vm.color;
 		},
 
 		onItemSelected: function(item) {
 			if (this.currentView === TemplateViewer) {
-				// Load book
+				// Load item
 				var vm = this;
+				vm.currentView = Editor;
 				vm.currentItem = item;
+				document.getElementById("canvas").style.backgroundColor = "#ffffff";
 			}
 		},
 

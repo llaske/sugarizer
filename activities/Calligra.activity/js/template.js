@@ -31,7 +31,7 @@ var TemplateViewer = {
 	props: ['template'],
 	methods: {
 		itemClicked: function(item) {
-			this.$emit('itemselected', item);
+			this.$emit('selected', item);
 		}
 	}
 };
