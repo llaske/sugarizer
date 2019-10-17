@@ -13,7 +13,30 @@ var defaultTemplates = [
 		images: [
 			{image:"icons/lower-a.svg"},
 			{image:"icons/lower-b.svg"},
-			{image:"icons/lower-c.svg"}
+			{image:"icons/lower-c.svg"},
+			{image:"icons/lower-d.svg"},
+			{image:"icons/lower-e.svg"},
+			{image:"icons/lower-f.svg"},
+			{image:"icons/lower-g.svg"},
+			{image:"icons/lower-h.svg"},
+			{image:"icons/lower-i.svg"},
+			{image:"icons/lower-j.svg"},
+			{image:"icons/lower-k.svg"},
+			{image:"icons/lower-l.svg"},
+			{image:"icons/lower-m.svg"},
+			{image:"icons/lower-n.svg"},
+			{image:"icons/lower-o.svg"},
+			{image:"icons/lower-p.svg"},
+			{image:"icons/lower-q.svg"},
+			{image:"icons/lower-r.svg"},
+			{image:"icons/lower-s.svg"},
+			{image:"icons/lower-t.svg"},
+			{image:"icons/lower-u.svg"},
+			{image:"icons/lower-v.svg"},
+			{image:"icons/lower-w.svg"},
+			{image:"icons/lower-x.svg"},
+			{image:"icons/lower-y.svg"},
+			{image:"icons/lower-z.svg"}
 		]
 	},
 	{
@@ -21,7 +44,30 @@ var defaultTemplates = [
 		images: [
 			{image:"icons/upper-a.svg"},
 			{image:"icons/upper-b.svg"},
-			{image:"icons/upper-c.svg"}
+			{image:"icons/upper-c.svg"},
+			{image:"icons/upper-d.svg"},
+			{image:"icons/upper-e.svg"},
+			{image:"icons/upper-f.svg"},
+			{image:"icons/upper-g.svg"},
+			{image:"icons/upper-h.svg"},
+			{image:"icons/upper-i.svg"},
+			{image:"icons/upper-j.svg"},
+			{image:"icons/upper-k.svg"},
+			{image:"icons/upper-l.svg"},
+			{image:"icons/upper-m.svg"},
+			{image:"icons/upper-n.svg"},
+			{image:"icons/upper-o.svg"},
+			{image:"icons/upper-p.svg"},
+			{image:"icons/upper-q.svg"},
+			{image:"icons/upper-r.svg"},
+			{image:"icons/upper-s.svg"},
+			{image:"icons/upper-t.svg"},
+			{image:"icons/upper-u.svg"},
+			{image:"icons/upper-v.svg"},
+			{image:"icons/upper-w.svg"},
+			{image:"icons/upper-x.svg"},
+			{image:"icons/upper-y.svg"},
+			{image:"icons/upper-z.svg"}
 		]
 	}
 ];

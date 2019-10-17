@@ -2,7 +2,7 @@
 // Template item
 var TemplateItem = {
 	template: `
-		<div class="col-xs-12 col-md-6 col-lg-4 template-col" v-on:click="onClick">
+		<div class="col-xs-4 col-md-2 col-lg-2 template-col" v-on:click="onClick">
 			<img class="mr3 template-item-image" v-bind:src="image"></img>
 		</div>
 		`,
