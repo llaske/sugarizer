@@ -33,6 +33,7 @@ var Localization = {
 		}
 	},
 	methods: {
+		// Get a single string value
 		get: function(str) {
 			if (!this.dictionary) {
 				return str;
@@ -42,6 +43,14 @@ var Localization = {
 				return str;
 			}
 			return item.textContent;
+		},
+
+		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
+		localize: function(strings) {
+			var vm = this;
+			Object.keys(strings).forEach(function(key, index) {
+				strings[key] = vm.get(key.substr(6));
+			});
 		}
 	}
 }
