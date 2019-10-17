@@ -9,7 +9,7 @@ requirejs.config({
 // Default templates
 var defaultTemplates = [
 	{
-		template: "template-lower",
+		name: "template-lower",
 		images: [
 			{image:"icons/lower-a.svg"},
 			{image:"icons/lower-b.svg"},
@@ -17,7 +17,7 @@ var defaultTemplates = [
 		]
 	},
 	{
-		template: "template-upper",
+		name: "template-upper",
 		images: [
 			{image:"icons/upper-a.svg"},
 			{image:"icons/upper-b.svg"},
@@ -35,8 +35,8 @@ var app = new Vue({
 	},
 	data: {
 		currentView: TemplateViewer,
-		currentLibrary: defaultTemplates,
-		currentTemplate: defaultTemplates[0],
+		currentLibrary: null,
+		currentTemplate: null,
 		currentItem: -1
 	},
 
@@ -58,7 +58,22 @@ var app = new Vue({
 					});
 
 				// Load context
-				// TODO: load context
+				if (environment.objectId) {
+					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+						if (error==null && data!=null) {
+							var parsed = JSON.parse(data);
+							vm.currentLibrary = parsed.library;
+							vm.currentTemplate = parsed.template;
+							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
+						} else {
+							vm.currentLibrary = defaultTemplates;
+							vm.currentTemplate = defaultTemplates[0];
+						}
+					});
+				} else {
+					vm.currentLibrary = defaultTemplates;
+					vm.currentTemplate = defaultTemplates[0];
+				}
 			});
 		});
 
@@ -130,7 +145,22 @@ var app = new Vue({
 			var vm = this;
 			requirejs(["sugar-web/activity/activity"], function(activity) {
 				console.log("writing...");
-				// TODO: save context
+				requirejs(["sugar-web/activity/activity"], function(activity) {
+					console.log("writing...");
+					var context = {
+						library: vm.currentLibrary,
+						template: vm.currentTemplate
+					};
+					var jsonData = JSON.stringify(context);
+					activity.getDatastoreObject().setDataAsText(jsonData);
+					activity.getDatastoreObject().save(function(error) {
+						if (error === null) {
+							console.log("write done.");
+						} else {
+							console.log("write failed.");
+						}
+					});
+				});
 			});
 		}
 	}
