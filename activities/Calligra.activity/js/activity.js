@@ -44,10 +44,6 @@ var app = new Vue({
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "activity/palettes/templatepalette"], function(activity, env, templatepalette) {
 			// Initialize Sugarizer
 			activity.setup();
-			var addpalette = new templatepalette.TemplatePalette(document.getElementById("template-button"));
-			addpalette.addEventListener("templateSelected", function(event) {
-				console.log(event.index);
-			});
 		});
 	},
 
@@ -101,6 +97,11 @@ var app = new Vue({
 
 
 		// Handle events
+		onTemplateSelected: function(template) {
+			var vm = this;
+			vm.currentTemplate=vm.currentLibrary[template.index];
+		},
+
 		onItemSelected: function(item) {
 			if (this.currentView === TemplateViewer) {
 				// Load book
