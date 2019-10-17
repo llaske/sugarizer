@@ -19,11 +19,13 @@ var TemplateViewer = {
 	components: {'template-item': TemplateItem},
 	template: `
 		<div class="row">
+		<template v-if="template">
 			<template-item v-for="(item,i) in template.images" :key="item.image"
 				v-bind:ref="'item'+(i++)"
 				v-bind:image="item.image"
 				v-on:clicked="itemClicked(item)">
 			</template-item>
+		</template>
 		</div>
 	`,
 	props: ['template'],
