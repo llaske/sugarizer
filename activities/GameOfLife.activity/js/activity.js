@@ -7,7 +7,6 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 		l10n.language.code = language;
 		window.addEventListener('localized', function () {
           document.querySelector('.generation-status').innerText = l10n.get('Generation');
-          document.querySelector('#speedlabel').innerText = l10n.get('speed');
 	    });
         activity.getXOColor(function (err, color) {
           var dataStore = activity.getDatastoreObject();
