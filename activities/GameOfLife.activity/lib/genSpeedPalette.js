@@ -22,9 +22,8 @@ define(["sugar-web/graphics/palette",
         this.speedScale = containerElem.querySelector('#speedvalue');
 
         this.speedScale.onclick = function() {
-            var val = this.value/100;
-            var newTimeInterval = 950*val*val-1900*val+1000;
-            console.log(newTimeInterval);
+            var newTimeInterval = 460 - this.value*(450/100);
+//            console.log("Generation time interval" + newTimeInterval);
             state.set({
               generationTimeInterval : newTimeInterval
             });
