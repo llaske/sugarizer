@@ -143,6 +143,11 @@ var app = new Vue({
 			this.$refs.tutorial.localized(this.$refs.localization);
 		},
 
+		displayTemplateView: function() {
+			var vm = this;
+			vm.currentView = TemplateViewer;
+		},
+
 		// Handle fullscreen mode
 		fullscreen: function() {
 			document.getElementById("main-toolbar").style.opacity = 0;
@@ -176,6 +181,9 @@ var app = new Vue({
 
 		onResize: function() {
 			var vm = this;
+			if (vm.currentView === Editor) {
+				vm.$refs.view.fitSize();
+			}
 		},
 
 		onHelp: function() {
