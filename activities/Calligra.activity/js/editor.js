@@ -4,7 +4,7 @@ var Editor = {
 		<div>
 			<div id="back" class="editor-goback" v-on:click="goBack()"></div>
 			<div id="area" class="editor-area">
-				<img id="letter" class="" v-bind:src="item.image"></img>
+				<img id="letter" v-bind:src="item.image" v-on:load="onLoad()"></img>
 			</div>
 		</div>`,
 	props: ['item'],
@@ -17,15 +17,16 @@ var Editor = {
 			var lettersize = Math.min(size.width, size.height);
 			var letter = document.getElementById("letter");
 			letter.style.width = lettersize + "px";
-			letter.style.marginLeft = (size.width-lettersize-50)/2 + "px";
+			letter.style.marginLeft = (size.width-lettersize)/2-50 + "px";
+			//console.log("ratio="+lettersize/letter.naturalWidth);
+		},
+
+		onLoad: function() {
+			this.fitSize();
 		},
 
 		goBack: function() {
 			app.displayTemplateView();
 		}
-	},
-
-	mounted: function() {
-		this.fitSize();
 	}
 };
