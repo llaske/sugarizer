@@ -190,9 +190,10 @@ body {
 	margin-right: 10px;
 }
 
-.reader-area {
+.editor-area {
+	display: inline-block;
 	margin-left: 50px;
-	margin-right: 50px;
+	margin-top: 25px;
 	background-color: white;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -200,32 +201,22 @@ body {
 	user-select: none;
 }
 
-.reader-left {
-	position: absolute;
+.editor-goback {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	height: 50px;
+	top: 10px;
+	left: 20px;
 	width: 50px;
 	background-color: white;
-	background-image: url(../icons/go-previous.svg);
+	background-image: url(../icons/go-back-sel.svg);
 	background-position: center center;
 	background-repeat: no-repeat;
 }
 
-.reader-left-sel {
-	background-image: url(../icons/go-previous-sel.svg);
-}
-
-.reader-right {
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	width: 50px;
-	background-color: white;
-	background-image: url(../icons/go-next.svg);
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-.reader-right-sel {
-	background-image: url(../icons/go-next-sel.svg);
+.editor-goback:hover  {
+	background-image: url(../icons/go-back.svg);
 }
 
 .tutorial-icon-button {
