@@ -146,18 +146,27 @@ var app = new Vue({
 		displayTemplateView: function() {
 			var vm = this;
 			vm.currentView = TemplateViewer;
+			document.getElementById("canvas").style.backgroundColor = vm.color;
 		},
 
 		// Handle fullscreen mode
 		fullscreen: function() {
+			var vm = this;
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			if (vm.currentView === Editor) {
+				vm.$refs.view.fitSize();
+			}
 		},
 		unfullscreen: function() {
+			var vm = this;
 			document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			if (vm.currentView === Editor) {
+				vm.$refs.view.fitSize();
+			}
 		},
 
 
