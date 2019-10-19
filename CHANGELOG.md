@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Long touch on Memory items don't work on Android
 - Jump in generation in Game of Life activity on Chrome #388
 - Long name hide text in Chat activity #383
+- Allow to control speed generation in Game of Life activity #380
 
 
 ## [1.2.0] - 2019-09-26
