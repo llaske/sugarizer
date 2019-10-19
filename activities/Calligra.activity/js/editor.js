@@ -3,8 +3,9 @@ var Editor = {
 	template: `
 		<div>
 			<div id="back" class="editor-goback" v-on:click="goBack()"></div>
+			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image" v-on:load="onLoad()"></img>
 			<div id="area" class="editor-area">
-				<img id="letter" v-bind:src="item.image" v-on:load="onLoad()"></img>
+				<img id="letter" v-bind:src="item.image"></img>
 			</div>
 		</div>`,
 	props: ['item'],

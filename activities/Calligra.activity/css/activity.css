@@ -219,6 +219,13 @@ body {
 	background-image: url(../icons/go-back.svg);
 }
 
+.editor-miniletter {
+	 width: 100px;
+	 position: absolute;
+	 top: 80px;
+	 left: 0px;
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;
