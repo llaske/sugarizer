@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env'], function (activity, l10n, Board, State, patterns, shadeColor, env) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -7,26 +7,32 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 		l10n.language.code = language;
 		window.addEventListener('localized', function () {
           document.querySelector('.generation-status').innerText = l10n.get('Generation');
+          document.querySelector('#speedlabel').innerText = l10n.get('speed');
 	    });
         activity.getXOColor(function (err, color) {
           var dataStore = activity.getDatastoreObject();
-          main(Board, State, patterns, color, shadeColor, l10n, dataStore);
+          main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette);
         });
 	});
   });
 });
 
-function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
+function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette) {
   var state = new State({
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
-    shouldPlay: false
+    shouldPlay: false,
+    generationTimeInterval: 235
   });
   var randomPattern = patterns[0],
       gliderPattern = patterns[1],
       noPattern = patterns[2],
       blankPattern = patterns[3];
+
+  var genSpeedButton = document.getElementById("speed-button");
+  var genSpeedButtonPallete = new genSpeedPalette.ActivityPalette(
+        genSpeedButton, state);
 
   var target = document.querySelector('.main canvas');
   var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
@@ -64,7 +70,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
           generation: prev.generation + 1
         };
       });
-      setTimeout(generateGeneration, 100);
+      setTimeout(generateGeneration, state.state.generationTimeInterval);
     } else {
       return 0;
     }
