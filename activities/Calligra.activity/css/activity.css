@@ -226,6 +226,16 @@ body {
 	 left: 0px;
 }
 
+.editor-start {
+	position: absolute;
+	top: 50px;
+	width: 30px;
+	height: 30px;
+	right: 70px;
+	background-image: url(../icons/route-start.svg);
+	background-size: contain;
+}
+
 .editor-add {
 	position: absolute;
 	top: 20px;
@@ -251,6 +261,44 @@ body {
 }
 
 .editor-remove:disabled {
+	background-color: lightgray;
+}
+
+.editor-path {
+	position: absolute;
+	top: 170px;
+	width: 30px;
+	height: 30px;
+	right: 70px;
+	background-image: url(../icons/route.svg);
+	background-size: contain;
+}
+
+.editor-addpath {
+	position: absolute;
+	top: 140px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/add.svg);
+	background-size: contain;
+}
+
+.editor-addpath:disabled {
+	background-color: lightgray;
+}
+
+.editor-removepath {
+	position: absolute;
+	top: 190px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/delete.svg);
+	background-size: contain;
+}
+
+.editor-removepath:disabled {
 	background-color: lightgray;
 }
 
