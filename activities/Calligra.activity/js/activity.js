@@ -156,7 +156,7 @@ var app = new Vue({
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			if (vm.currentView === Editor) {
-				vm.$refs.view.fitSize();
+				vm.$refs.view.computeSize();
 			}
 		},
 		unfullscreen: function() {
@@ -165,7 +165,7 @@ var app = new Vue({
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			if (vm.currentView === Editor) {
-				vm.$refs.view.fitSize();
+				vm.$refs.view.computeSize();
 			}
 		},
 
@@ -191,7 +191,7 @@ var app = new Vue({
 		onResize: function() {
 			var vm = this;
 			if (vm.currentView === Editor) {
-				vm.$refs.view.fitSize();
+				vm.$refs.view.computeSize();
 			}
 		},
 
