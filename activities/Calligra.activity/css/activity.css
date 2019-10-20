@@ -226,6 +226,34 @@ body {
 	 left: 0px;
 }
 
+.editor-add {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/add.svg);
+	background-size: contain;
+}
+
+.editor-add:disabled {
+	background-color: lightgray;
+}
+
+.editor-remove {
+	position: absolute;
+	top: 80px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/delete.svg);
+	background-size: contain;
+}
+
+.editor-remove:disabled {
+	background-color: lightgray;
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;

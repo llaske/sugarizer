@@ -13,7 +13,7 @@ var defaultTemplates = [
 		images: [
 			{image:"icons/lower-a.svg"},
 			{image:"icons/lower-b.svg"},
-			{image:"icons/lower-c.svg"},
+			{image:"icons/lower-c.svg", starts: [{x:108, y:87}]},
 			{image:"icons/lower-d.svg"},
 			{image:"icons/lower-e.svg"},
 			{image:"icons/lower-f.svg"},
@@ -49,7 +49,7 @@ var defaultTemplates = [
 			{image:"icons/upper-e.svg"},
 			{image:"icons/upper-f.svg"},
 			{image:"icons/upper-g.svg"},
-			{image:"icons/upper-h.svg"},
+			{image:"icons/upper-h.svg", starts: [{x:97, y:65}]},
 			{image:"icons/upper-i.svg"},
 			{image:"icons/upper-j.svg"},
 			{image:"icons/upper-k.svg"},
@@ -173,6 +173,12 @@ var app = new Vue({
 		// Handle events
 		onTemplateSelected: function(template) {
 			var vm = this;
+			for (var i = 0; i < vm.currentLibrary.length ; i++) { // Save change
+				if (vm.currentTemplate == vm.currentLibrary[i]) {
+					vm.currentLibrary[i] = vm.currentTemplate;
+					break;
+				}
+			}
 			vm.currentTemplate=vm.currentLibrary[template.index];
 			vm.currentView = TemplateViewer;
 			document.getElementById("canvas").style.backgroundColor = vm.color;

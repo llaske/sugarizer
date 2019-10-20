@@ -7,16 +7,21 @@ var Editor = {
 			<div id="area" class="editor-area">
 				<canvas id="letter"></canvas>
 			</div>
+			<button id="editor-add" class="editor-add"></button>
+			<button id="editor-remove" class="editor-remove"></button>
 		</div>`,
 	props: ['item'],
 	data: function() {
 		return {
 			size: -1,
-			zoom: -1
+			zoom: -1,
+			current: -1,
+			keyboardEvent: null
 		}
 	},
 	methods: {
 		computeSize: function() {
+			// Compute optimal size for letter
 			var vm = this;
 			var body = document.getElementById("canvas") || document.getElementById("body");
 			var body_height = body.offsetHeight-50;
@@ -28,10 +33,13 @@ var Editor = {
 			letter.height = vm.size;
 			letter.style.marginLeft = (size.width-vm.size)/2-50 + "px";
 			vm.zoom = vm.size/document.getElementById("miniletter").naturalWidth;
+
+			// Draw
 			this.draw();
 		},
 
 		initEvent: function() {
+			// Register click/touch on letter event
 			var vm = this;
 			var clickEvent = "click";
 			var touchScreen = ("ontouchstart" in document.documentElement);
@@ -42,17 +50,73 @@ var Editor = {
 			letter.addEventListener(clickEvent, function(e) {
 				var x = (e.clientX-letter.getBoundingClientRect().left)/vm.zoom;
 				var y = (e.clientY-letter.getBoundingClientRect().top)/vm.zoom;
-				console.log(x+","+y);
+				if (vm.current != -1) {
+					var point = vm.item.starts[vm.current];
+					point.x = x;
+					point.y = y;
+					vm.draw();
+				}
 			});
+
+			// Register button events
+			document.getElementById("editor-add").addEventListener("click", function() {
+				if (!vm.item.starts) {
+					vm.item.starts = [];
+				}
+				var len = vm.item.starts.length;
+				vm.item.starts.push({x: 5+5*len, y: 5+5*len});
+				vm.draw();
+			});
+			document.getElementById("editor-remove").addEventListener("click", function() {
+				vm.item.starts.pop();
+				vm.draw();
+			});
+
+			// Register keyboard event
+			vm.keyboardEvent = function(e) {
+				if (vm.current != -1) {
+					var point = vm.item.starts[vm.current];
+					if (e.keyCode == '38') {
+						point.y--;
+					} else if (e.keyCode == '40') {
+						point.y++;
+					}
+					else if (e.keyCode == '37') {
+						point.x--;
+					}
+					else if (e.keyCode == '39') {
+						point.x++;
+					}
+					vm.draw();
+				}
+			}
+			document.addEventListener("keydown", vm.keyboardEvent);
 		},
 
 		draw: function() {
+			// Draw board
 			var vm = this;
 			var letter = document.getElementById("letter");
 			var context = letter.getContext('2d');
+			context.clearRect(0, 0, vm.size, vm.size);
 			var imageObj = new Image();
 			imageObj.onload = function() {
+				// Draw letter
 				context.drawImage(imageObj, 0, 0, vm.size, vm.size);
+
+				// Draw start points
+				if (vm.item.starts && vm.item.starts.length) {
+					document.getElementById("editor-remove").disabled = false;
+					vm.item.starts.forEach(function(startpoint, i) {
+						context.beginPath();
+						context.arc(startpoint.x*vm.zoom, startpoint.y*vm.zoom, 2*vm.zoom, 0, 2 * Math.PI);
+						context.fillStyle = "red";
+						context.fill();
+						vm.current = i;
+					});
+				} else {
+					document.getElementById("editor-remove").disabled = true;
+				}
 			};
 			imageObj.src = vm.item.image;
 		},
@@ -65,5 +129,9 @@ var Editor = {
 		goBack: function() {
 			app.displayTemplateView();
 		}
+	},
+
+	beforeDestroy: function() {
+		document.removeEventListener("keydown", this.keyboardEvent);
 	}
 };
