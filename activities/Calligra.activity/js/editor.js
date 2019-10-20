@@ -9,6 +9,10 @@ var Editor = {
 			</div>
 			<button id="editor-add" class="editor-add"></button>
 			<button id="editor-remove" class="editor-remove"></button>
+			<div class="editor-start"></div>
+			<button id="editor-addpath" class="editor-addpath"></button>
+			<button id="editor-removepath" class="editor-removepath"></button>
+			<div class="editor-path"></div>
 		</div>`,
 	props: ['item'],
 	data: function() {
@@ -52,8 +56,14 @@ var Editor = {
 				var y = (e.clientY-letter.getBoundingClientRect().top)/vm.zoom;
 				if (vm.current != -1) {
 					var point = vm.item.starts[vm.current];
-					point.x = x;
-					point.y = y;
+					if (!point.path || !point.path.length) {
+						point.x = x;
+						point.y = y;
+					} else {
+						var pathpoint = point.path[point.path.length-1];
+						pathpoint.x = x;
+						pathpoint.y = y;
+					}
 					vm.draw();
 				}
 			});
@@ -71,11 +81,29 @@ var Editor = {
 				vm.item.starts.pop();
 				vm.draw();
 			});
+			document.getElementById("editor-addpath").addEventListener("click", function() {
+				var start = vm.item.starts[vm.current];
+				if (!start.path) {
+					start.path = [];
+				}
+				var len = start.path.length;
+				start.path.push({x: 5+5*len, y: 5+5*len});
+				vm.draw();
+			});
+			document.getElementById("editor-removepath").addEventListener("click", function() {
+				var start = vm.item.starts[vm.current];
+				start.path.pop();
+				vm.draw();
+			});
 
 			// Register keyboard event
 			vm.keyboardEvent = function(e) {
 				if (vm.current != -1) {
 					var point = vm.item.starts[vm.current];
+					var point = vm.item.starts[vm.current];
+					if (point.path && point.path.length) {
+						point = point.path[point.path.length-1];
+					}
 					if (e.keyCode == '38') {
 						point.y--;
 					} else if (e.keyCode == '40') {
@@ -107,15 +135,29 @@ var Editor = {
 				// Draw start points
 				if (vm.item.starts && vm.item.starts.length) {
 					document.getElementById("editor-remove").disabled = false;
+					document.getElementById("editor-addpath").disabled = false;
 					vm.item.starts.forEach(function(startpoint, i) {
 						context.beginPath();
 						context.arc(startpoint.x*vm.zoom, startpoint.y*vm.zoom, 2*vm.zoom, 0, 2 * Math.PI);
 						context.fillStyle = "red";
 						context.fill();
 						vm.current = i;
+						document.getElementById("editor-removepath").disabled = !(startpoint.path&&startpoint.path.length);
+
+						// Draw path points
+						if (startpoint.path && startpoint.path.length) {
+							startpoint.path.forEach(function(pathpoint) {
+								context.beginPath();
+								context.arc(pathpoint.x*vm.zoom, pathpoint.y*vm.zoom, 1*vm.zoom, 0, 2 * Math.PI);
+								context.fillStyle = "yellow";
+								context.fill();
+							})
+						}
 					});
 				} else {
 					document.getElementById("editor-remove").disabled = true;
+					document.getElementById("editor-addpath").disabled = true;
+					document.getElementById("editor-removepath").disabled = true;
 				}
 			};
 			imageObj.src = vm.item.image;
