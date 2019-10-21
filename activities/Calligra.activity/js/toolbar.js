@@ -49,7 +49,7 @@ var Toolbar = {
 				paletteEvent="templateSelected"
 				v-on:templateSelected="getApp().onTemplateSelected($event)">
 			</toolbar-item>
-			<toolbar-item ref="settings" id="settings-button" disabled></toolbar-item>
+			<toolbar-item ref="settings" id="settings-button" v-on:clicked="getApp().onSettings()" disabled></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>

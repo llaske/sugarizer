@@ -77,7 +77,7 @@ var app = new Vue({
 	el: '#app',
 	components: {
 		'toolbar': Toolbar, 'localization': Localization, 'tutorial': Tutorial,
-		'template-viewer': TemplateViewer, 'editor': Editor
+		'template-viewer': TemplateViewer, 'editor': Editor, 'player': Player
 	},
 	data: {
 		currentView: TemplateViewer,
@@ -148,6 +148,7 @@ var app = new Vue({
 			vm.$refs.toolbar.$refs.settings.isDisabled = true;
 			vm.currentView = TemplateViewer;
 			document.getElementById("canvas").style.backgroundColor = vm.color;
+			document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
 		},
 
 		// Handle fullscreen mode
@@ -156,7 +157,7 @@ var app = new Vue({
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			if (vm.currentView === Editor) {
+			if (vm.currentView === Player) {
 				vm.$refs.view.computeSize();
 			}
 		},
@@ -165,7 +166,7 @@ var app = new Vue({
 			document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			if (vm.currentView === Editor) {
+			if (vm.currentView === Player) {
 				vm.$refs.view.computeSize();
 			}
 		},
@@ -189,15 +190,26 @@ var app = new Vue({
 				// Load item
 				var vm = this;
 				vm.$refs.toolbar.$refs.settings.isDisabled = false;
-				vm.currentView = Editor;
+				vm.currentView = Player;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
 			}
 		},
 
+		onSettings: function() {
+			var vm = this;
+			if (vm.currentView === Player) {
+				vm.currentView = Editor;
+				document.getElementById("settings-button").style.backgroundImage = "url(icons/play.svg)";
+			} else {
+				vm.currentView = Player;
+				document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
+			}
+		},
+
 		onResize: function() {
 			var vm = this;
-			if (vm.currentView === Editor) {
+			if (vm.currentView === Player) {
 				vm.$refs.view.computeSize();
 			}
 		},
@@ -208,7 +220,7 @@ var app = new Vue({
 			options.fullscreenbutton = this.$refs.toolbar.$refs.fullscreen.$el;
 			if (this.currentView === TemplateViewer && this.currentTemplate && this.currentTemplate.images && this.currentTemplate.images[0]) {
 				options.item = this.$refs.view.$refs.item0[0].$el;
-			} else if (this.currentView === Editor) {
+			} else if (this.currentView === Player) {
 			}
 			this.$refs.tutorial.show(options);
 		},
