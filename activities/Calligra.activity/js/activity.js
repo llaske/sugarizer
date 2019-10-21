@@ -111,7 +111,7 @@ var app = new Vue({
 						if (error==null && data!=null) {
 							var parsed = JSON.parse(data);
 							vm.currentLibrary = parsed.library;
-							vm.currentTemplate = parsed.template;
+							vm.currentTemplate = parsed.library[parsed.template];
 							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
 						} else {
 							vm.currentLibrary = defaultTemplates;
@@ -219,9 +219,16 @@ var app = new Vue({
 				console.log("writing...");
 				requirejs(["sugar-web/activity/activity"], function(activity) {
 					console.log("writing...");
+					var i = 0;
+					for (; i < vm.currentLibrary.length ; i++) { // Save change
+						if (vm.currentTemplate == vm.currentLibrary[i]) {
+							vm.currentLibrary[i] = vm.currentTemplate;
+							break;
+						}
+					}
 					var context = {
 						library: vm.currentLibrary,
-						template: vm.currentTemplate
+						template: i
 					};
 					var jsonData = JSON.stringify(context);
 					activity.getDatastoreObject().setDataAsText(jsonData);
