@@ -145,6 +145,7 @@ var app = new Vue({
 
 		displayTemplateView: function() {
 			var vm = this;
+			vm.$refs.toolbar.$refs.settings.isDisabled = true;
 			vm.currentView = TemplateViewer;
 			document.getElementById("canvas").style.backgroundColor = vm.color;
 		},
@@ -180,14 +181,14 @@ var app = new Vue({
 				}
 			}
 			vm.currentTemplate=vm.currentLibrary[template.index];
-			vm.currentView = TemplateViewer;
-			document.getElementById("canvas").style.backgroundColor = vm.color;
+			vm.displayTemplateView();
 		},
 
 		onItemSelected: function(item) {
 			if (this.currentView === TemplateViewer) {
 				// Load item
 				var vm = this;
+				vm.$refs.toolbar.$refs.settings.isDisabled = false;
 				vm.currentView = Editor;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
