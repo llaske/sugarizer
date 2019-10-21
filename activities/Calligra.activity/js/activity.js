@@ -13,7 +13,7 @@ var defaultTemplates = [
 		images: [
 			{image:"icons/lower-a.svg"},
 			{image:"icons/lower-b.svg"},
-			{image:"icons/lower-c.svg", starts: [{x:108, y:87}]},
+			{image:"icons/lower-c.svg", starts:[{"x":108,"y":87,"path":[{"x":104,"y":86},{"x":101,"y":86},{"x":98,"y":87},{"x":95,"y":88},{"x":92,"y":90},{"x":89,"y":93},{"x":87,"y":96},{"x":86,"y":99},{"x":86,"y":103},{"x":87,"y":107},{"x":88,"y":110},{"x":90,"y":113},{"x":92,"y":115},{"x":94,"y":117},{"x":97,"y":119},{"x":100,"y":120},{"x":103,"y":121},{"x":106,"y":121},{"x":109,"y":121},{"x":112,"y":120},{"x":115,"y":118},{"x":118,"y":116},{"x":121,"y":114},{"x":123,"y":112},{"x":125,"y":110},{"x":127,"y":108}]}]},
 			{image:"icons/lower-d.svg"},
 			{image:"icons/lower-e.svg"},
 			{image:"icons/lower-f.svg"},
