@@ -84,7 +84,7 @@ var app = new Vue({
 		currentLibrary: null,
 		currentTemplate: null,
 		currentItem: null,
-		color: '#00000'
+		color: {stroke:'#00000', fill:'#ffffff'}
 	},
 
 	created: function() {
@@ -101,8 +101,8 @@ var app = new Vue({
 			env.getEnvironment(function(err, environment) {
 					// Use buddy color for background
 					env.getEnvironment(function(err, environment) {
-						vm.color = environment.user.colorvalue.fill;
-						document.getElementById("canvas").style.backgroundColor = vm.color;
+						vm.color = environment.user.colorvalue;
+						document.getElementById("canvas").style.backgroundColor = vm.color.fill;
 					});
 
 				// Load context
@@ -147,7 +147,7 @@ var app = new Vue({
 			var vm = this;
 			vm.$refs.toolbar.$refs.settings.isDisabled = true;
 			vm.currentView = TemplateViewer;
-			document.getElementById("canvas").style.backgroundColor = vm.color;
+			document.getElementById("canvas").style.backgroundColor = vm.color.fill;
 			document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
 		},
 
