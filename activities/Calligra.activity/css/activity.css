@@ -3,6 +3,10 @@
 	outline: none;
 }
 
+button:disabled {
+	opacity: 0.3 !important;
+}
+
 .splitbar {
 	background-image: url(../icons/split.svg);
 	background-position: center;
