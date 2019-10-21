@@ -52,8 +52,8 @@ var Editor = {
 			}
 			var letter = document.getElementById("letter");
 			letter.addEventListener(clickEvent, function(e) {
-				var x = (e.clientX-letter.getBoundingClientRect().left)/vm.zoom;
-				var y = (e.clientY-letter.getBoundingClientRect().top)/vm.zoom;
+				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
+				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
 				if (vm.current != -1) {
 					var point = vm.item.starts[vm.current];
 					if (!point.path || !point.path.length) {
