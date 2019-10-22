@@ -13,7 +13,8 @@ var Player = {
 		return {
 			size: -1,
 			zoom: -1,
-			current: { start: -1, track: -1, tracks: [] }
+			current: { start: -1, track: -1, tracks: [] },
+			mode: ''
 		}
 	},
 	methods: {
@@ -38,15 +39,20 @@ var Player = {
 		initEvent: function() {
 			// Register click/touch on letter event
 			var vm = this;
-			var clickEvent = "click";
+			var clickEvent = "mousemove";
 			var touchScreen = ("ontouchstart" in document.documentElement);
 			if (touchScreen) {
 				clickEvent = "touchend";
 			}
 			var letter = document.getElementById("letter");
 			letter.addEventListener(clickEvent, function(e) {
+				if (vm.mode != 'input') {
+					return;
+				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
+				vm.current.tracks.push({x: x, y: y});
+				vm.draw();
 			});
 		},
 
@@ -60,6 +66,20 @@ var Player = {
 			imageObj.onload = function() {
 				// Draw letter
 				context.drawImage(imageObj, 0, 0, vm.size, vm.size);
+
+				// Draw current position
+				if (vm.mode == 'input' && vm.current.tracks.length) {
+					context.beginPath();
+					context.strokeStyle = app.color.stroke;
+					context.lineWidth = 10;
+					context.lineCap = "round";
+					context.lineJoin = "round";
+					context.moveTo(vm.zoom*vm.current.tracks[0].x, vm.zoom*vm.current.tracks[0].y);
+					for (var i = 1 ; i < vm.current.tracks.length ; i++) {
+						context.lineTo(vm.zoom*vm.current.tracks[i].x, vm.zoom*vm.current.tracks[i].y);
+					}
+					context.stroke();
+				}
 			};
 			imageObj.src = vm.item.image;
 		},
@@ -77,6 +97,7 @@ var Player = {
 	mounted: function() {
 		var vm = this;
 		var timeout = 70;
+		vm.mode = 'show';
 		var step = function() {
 			// Draw a segment of path
 			var line = vm.current.tracks[vm.current.start][vm.current.track];
@@ -89,6 +110,7 @@ var Player = {
 			context.strokeStyle = app.color.stroke;
 			context.lineWidth = 10;
 			context.lineCap = "round";
+			context.lineJoin = "round";
 			context.moveTo(vm.zoom*line.x0, vm.zoom*line.y0);
 			context.lineTo(vm.zoom*line.x1, vm.zoom*line.y1);
 			context.stroke();
@@ -98,6 +120,18 @@ var Player = {
 				vm.current.track = 0;
 				if (vm.current.start < vm.current.tracks.length) {
 					setTimeout(step, timeout);
+				} else {
+					setTimeout(function() {
+						vm.mode = 'input';
+						vm.current.start = 0;
+						vm.current.track = 0;
+						vm.current.tracks = [];
+						if (vm.item.starts && vm.item.starts.length) {
+							vm.current.tracks.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
+							vm.current.tracks.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
+						}
+						vm.draw();
+					}, 500);
 				}
 			} else {
 				setTimeout(step, timeout);
