@@ -47,6 +47,7 @@ var app = new Vue({
 							vm.currentLibrary = parsed.library;
 							vm.currentTemplate = parsed.library[parsed.template];
 							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
+							vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)"; 
 						} else {
 							vm.currentLibrary = defaultTemplates;
 							vm.currentTemplate = defaultTemplates[0];

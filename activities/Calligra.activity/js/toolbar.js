@@ -6,10 +6,11 @@ var ToolbarItem = {
 		<div class="splitbar" v-if="isSplitbar"/>
 		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="isDisabled" v-bind:class="toRight ? 'toolbutton pull-right' : 'toolbutton'" v-else/>
 	`,
-	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteObject', 'paletteFile', 'paletteEvent','disabled'],
+	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteClass', 'paletteFile', 'paletteEvent','disabled'],
 	data: function() {
 		return {
-			isDisabled: this.disabled
+			isDisabled: this.disabled,
+			paletteObject: null
 		}
 	},
 	methods: {
@@ -21,11 +22,11 @@ var ToolbarItem = {
 	mounted: function() {
 		// Create palette if present
 		var vm = this;
-		if (vm.id && vm.paletteObject && vm.paletteFile) {
+		if (vm.id && vm.paletteClass && vm.paletteFile) {
 			requirejs([vm.paletteFile], function(palette) {
-				var paletteObject = new palette[vm.paletteObject](document.getElementById(vm.id));
+				vm.paletteObject = new palette[vm.paletteClass](document.getElementById(vm.id));
 				if (vm.paletteEvent) {
-					paletteObject.addEventListener(vm.paletteEvent, function(event) {
+					vm.paletteObject.addEventListener(vm.paletteEvent, function(event) {
 						vm.$emit(vm.paletteEvent, event);
 					});
 				}
@@ -45,7 +46,7 @@ var Toolbar = {
 			<toolbar-item ref="templatebutton" class="toolbutton" id="template-button"
 				v-bind:title="l10n.stringTemplate"
 				paletteFile="activity/palettes/templatepalette"
-				paletteObject="TemplatePalette"
+				paletteClass="TemplatePalette"
 				paletteEvent="templateSelected"
 				v-on:templateSelected="getApp().onTemplateSelected($event)">
 			</toolbar-item>
