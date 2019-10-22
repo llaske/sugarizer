@@ -74,7 +74,7 @@ var Editor = {
 					vm.item.starts = [];
 				}
 				var len = vm.item.starts.length;
-				vm.item.starts.push({x: 5+5*len, y: 5+5*len});
+				vm.item.starts.push({x: 5+5*len, y: 5+5*len, path:[]});
 				vm.draw();
 			});
 			document.getElementById("editor-remove").addEventListener("click", function() {

@@ -78,8 +78,12 @@ var Player = {
 		var vm = this;
 		var timeout = 70;
 		var step = function() {
+			// Draw a segment of path
 			var line = vm.current.tracks[vm.current.start][vm.current.track];
 			var letter = document.getElementById("letter");
+			if (!letter) {
+				return;
+			}
 			var context = letter.getContext('2d');
 			context.beginPath();
 			context.strokeStyle = app.color.stroke;
@@ -100,6 +104,7 @@ var Player = {
 			}
 		}
 		if (vm.item.starts) {
+			// Create lines set to draw letter
 			vm.current.start = 0;
 			vm.current.track = 0;
 			vm.current.tracks = [];
