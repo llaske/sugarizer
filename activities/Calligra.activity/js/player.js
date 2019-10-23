@@ -14,7 +14,8 @@ var Player = {
 			size: -1,
 			zoom: -1,
 			current: { start: -1, track: -1, tracks: [] },
-			mode: ''
+			mode: '',
+			drawing: false
 		}
 	},
 	methods: {
@@ -37,22 +38,32 @@ var Player = {
 		},
 
 		initEvent: function() {
-			// Register click/touch on letter event
+			// Register mouse/touch on letter event
 			var vm = this;
-			var clickEvent = "mousemove";
+			var downEvent = "mousedown";
+			var moveEvent = "mousemove"
+			var upEvent = "mouseup";
 			var touchScreen = ("ontouchstart" in document.documentElement);
 			if (touchScreen) {
-				clickEvent = "touchend";
+				downEvent = "touchstart";
+				moveEvent = "touchmove";
+				upEvent = "touchend";
 			}
 			var letter = document.getElementById("letter");
-			letter.addEventListener(clickEvent, function(e) {
-				if (vm.mode != 'input') {
+			letter.addEventListener(downEvent, function(e) {
+				vm.drawing = (vm.mode == 'input');
+			});
+			letter.addEventListener(upEvent, function(e) {
+				vm.drawing = false;
+			});
+			letter.addEventListener(moveEvent, function(e) {
+				if (vm.mode != 'input' || !vm.drawing) {
 					return;
 				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
 				vm.current.tracks.push({x: x, y: y});
-				vm.draw();
+				vm.drawStoke();
 			});
 		},
 
@@ -67,21 +78,29 @@ var Player = {
 				// Draw letter
 				context.drawImage(imageObj, 0, 0, vm.size, vm.size);
 
-				// Draw current position
+				// Draw current drawing
 				if (vm.mode == 'input' && vm.current.tracks.length) {
-					context.beginPath();
-					context.strokeStyle = app.color.stroke;
-					context.lineWidth = 10;
-					context.lineCap = "round";
-					context.lineJoin = "round";
-					context.moveTo(vm.zoom*vm.current.tracks[0].x, vm.zoom*vm.current.tracks[0].y);
-					for (var i = 1 ; i < vm.current.tracks.length ; i++) {
-						context.lineTo(vm.zoom*vm.current.tracks[i].x, vm.zoom*vm.current.tracks[i].y);
-					}
-					context.stroke();
+					vm.drawStoke();
 				}
 			};
 			imageObj.src = vm.item.image;
+		},
+
+		drawStoke: function() {
+			// Draw user stroke
+			var vm = this;
+			var letter = document.getElementById("letter");
+			var context = letter.getContext('2d');
+			context.beginPath();
+			context.strokeStyle = app.color.stroke;
+			context.lineWidth = 10;
+			context.lineCap = "round";
+			context.lineJoin = "round";
+			context.moveTo(vm.zoom*vm.current.tracks[0].x, vm.zoom*vm.current.tracks[0].y);
+			for (var i = 1 ; i < vm.current.tracks.length ; i++) {
+				context.lineTo(vm.zoom*vm.current.tracks[i].x, vm.zoom*vm.current.tracks[i].y);
+			}
+			context.stroke();
 		},
 
 		onLoad: function() {
