@@ -306,6 +306,20 @@ body {
 	background-color: lightgray;
 }
 
+.player-restart {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/restart.svg);
+	background-size: contain;
+}
+
+.player-restart:disabled {
+	background-color: lightgray;
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;

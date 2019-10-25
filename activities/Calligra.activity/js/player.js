@@ -7,6 +7,7 @@ var Player = {
 			<div id="area" class="editor-area">
 				<canvas id="letter"></canvas>
 			</div>
+			<button id="player-restart" class="player-restart"></button>
 		</div>`,
 	props: ['item'],
 	data: function() {
@@ -38,8 +39,14 @@ var Player = {
 		},
 
 		initEvent: function() {
-			// Register mouse/touch on letter event
+			// Restart button
 			var vm = this;
+			var restart = document.getElementById("player-restart");
+			restart.addEventListener("click", function(e) {
+				vm.startInputMode();
+			});
+
+			// Register mouse/touch on letter event
 			var downEvent = "mousedown";
 			var moveEvent = "mousemove"
 			var upEvent = "mouseup";
@@ -64,23 +71,26 @@ var Player = {
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
 				var target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
 				var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
-				if (distance < 2)
+				if (distance <= 2.8)
 				{
 					vm.current.strokes[vm.current.start].push({x: x, y: y});
 					vm.drawStoke();
-					vm.current.index++;
-					if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
-						vm.current.start++;
-						vm.current.index = 0;
-						if (vm.current.start >= vm.item.starts.length) {
-							console.log("END");
-							vm.mode = 'end';
-						} else {
-							var lines = [];
-							lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
-							lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
-							vm.current.strokes.push(lines);
-							vm.drawStoke();
+					if (distance <= 2) {
+console.log("point "+vm.current.index)
+						vm.current.index++;
+						if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
+							vm.current.start++;
+							vm.current.index = 0;
+							if (vm.current.start >= vm.item.starts.length) {
+console.log("END");
+								vm.mode = 'end';
+							} else {
+								var lines = [];
+								lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
+								lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
+								vm.current.strokes.push(lines);
+								vm.drawStoke();
+							}
 						}
 					}
 				}
@@ -125,6 +135,22 @@ var Player = {
 			}
 		},
 
+		startInputMode: function() {
+			var vm = this;
+			vm.mode = 'input';
+			vm.current.start = 0;
+			vm.current.stroke = 0;
+			vm.current.index = 0;
+			vm.current.strokes = [];
+			if (vm.item.starts && vm.item.starts.length) {
+				var lines = [];
+				lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
+				lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
+				vm.current.strokes.push(lines);
+			}
+			vm.draw();
+		},
+
 		onLoad: function() {
 			this.computeSize();
 			this.initEvent();
@@ -163,19 +189,8 @@ var Player = {
 					setTimeout(step, timeout);
 				} else {
 					setTimeout(function() {
-						// En of draw, start input mode
-						vm.mode = 'input';
-						vm.current.start = 0;
-						vm.current.stroke = 0;
-						vm.current.index = 0;
-						vm.current.strokes = [];
-						if (vm.item.starts && vm.item.starts.length) {
-							var lines = [];
-							lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
-							lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
-							vm.current.strokes.push(lines);
-						}
-						vm.draw();
+						// End of draw, start input mode
+						vm.startInputMode();
 					}, 500);
 				}
 			} else {
