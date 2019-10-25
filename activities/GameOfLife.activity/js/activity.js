@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -8,44 +8,55 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 		window.addEventListener('localized', function () {
           document.querySelector('.generation-status').innerText = l10n.get('Generation');
           document.querySelector('#speedlabel').innerText = l10n.get('speed');
+          document.querySelector('#sizelabel').innerText = l10n.get('size');
 	    });
         activity.getXOColor(function (err, color) {
           var dataStore = activity.getDatastoreObject();
-          main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette);
+          main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette);
         });
 	});
   });
 });
 
-function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette) {
+function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette) {
   var state = new State({
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
     shouldPlay: false,
-    generationTimeInterval: 235
+    generationTimeInterval: 235,
+    gridCols: 40,
+    gridRows: 20
   });
   var randomPattern = patterns[0],
       gliderPattern = patterns[1],
       noPattern = patterns[2],
       blankPattern = patterns[3];
 
+  var target = document.querySelector('.main canvas');
+  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
+
   var genSpeedButton = document.getElementById("speed-button");
   var genSpeedButtonPallete = new genSpeedPalette.ActivityPalette(
         genSpeedButton, state);
 
-  var target = document.querySelector('.main canvas');
-  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
+  var gridSizeButton = document.getElementById("size-button");
+  var gridSizePallete = new gridSizePalette.ActivityPalette(
+              gridSizeButton, state, board);
+
   document.querySelector('.generation-count').style.color = color.fill;
   document.querySelector('.generation-status').style.color = color.fill;
 
-  board.draw();
+  board.draw(state);
 
   var storeLocally = function storeLocally(state) {
     dataStore.setDataAsText({
       boardState: state.boardState,
-      generation: state.generation
+      generation: state.generation,
+      gridCols : state.gridCols,
+      gridRows : state.gridRows
     });
+    console.log(state);
     console.log('writing');
     dataStore.save(function (err) {
       if (err) {
@@ -100,10 +111,10 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
   };
 
   var findNeighbours = function findNeighbours(x, y) {
-    var leftX = x - 1 === -1 ? 49 : x - 1;
-    var rightX = x + 1 === 50 ? 0 : x + 1;
-    var topY = y - 1 === -1 ? 29 : y - 1;
-    var bottomY = y + 1 === 30 ? 0 : y + 1;
+    var leftX = x - 1 === -1 ? state.state.gridCols -1 : x - 1;
+    var rightX = x + 1 === state.state.gridCols ? 0 : x + 1;
+    var topY = y - 1 === -1 ? state.state.gridRows -1: y - 1;
+    var bottomY = y + 1 === state.state.gridRows ? 0 : y + 1;
     var boardState = state.state.boardState;
 
     var left = boardState[y][leftX];
@@ -133,15 +144,33 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
       if (value) {
         generateGeneration();
       }
+    }],
+
+    gridCols: ['.fake-selector', function (fakeElem, value, prevValue) {
+      let sizeScale = document.getElementById('sizevalue');
+      sizeScale.value = value / 20;
+      board.handleResize(window.innerWidth, state.state.boardState, state);
+    }],
+
+    gridRows: ['.fake-selector', function (fakeElem, value, prevValue) {
+      let sizeScale = document.getElementById('sizevalue');
+      sizeScale.value = value / 10;
+      board.handleResize(window.innerWidth, state.state.boardState, state);
     }]
   });
 
   dataStore.loadAsText(function (err, metadata, data) {
-    var boardState = data ? data.boardState : randomPattern();
+    var boardState = data ? data.boardState : randomPattern(state);
     var generation =  data ? data.generation : 0;
+    let gridCols =  data ? data.gridCols : 40;
+    let gridRows =  data ? data.gridRows : 20;
+    console.log(data);
+    console.log(gridCols);
     state.set({
       boardState: boardState,
-      generation: parseInt(generation)
+      generation: parseInt(generation),
+      gridCols : parseInt(gridCols),
+      gridRows : parseInt(gridRows)
     });
   });
 
@@ -167,7 +196,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
       if (prev.shouldPlay) {
         storeLocally({
           boardState: state.state.boardState,
-          generation: state.state.generation
+          generation: state.state.generation,
+          gridCols : state.state.gridCols,
+          gridRows : state.state.gridRows
         });
       }
       return {
@@ -180,31 +211,33 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
   document.querySelector('#stop-button').addEventListener('click', function() {
     storeLocally({
       boardState: state.state.boardState,
-      generation: state.state.generation
+      generation: state.state.generation,
+      gridCols : state.state.gridCols,
+      gridRows : state.state.gridRows
     });
   })
 
   document.querySelector('#random').addEventListener('click', function () {
     state.set({
-      boardState: randomPattern(),
+      boardState: randomPattern(state),
       generation: 0
     });
   });
   document.querySelector('#glider').addEventListener('click', function () {
     state.set({
-      boardState: glider(),
+      boardState: gliderPattern(state),
       generation: 0
     });
   });
   document.querySelector('#no').addEventListener('click', function () {
     state.set({
-      boardState: no(),
+      boardState: noPattern(state),
       generation: 0
     });
   });
   document.querySelector('#clear').addEventListener('click', function () {
     state.set({
-      boardState: blankPattern(),
+      boardState: blankPattern(state),
       generation: 0,
       playPauseIcon: 'play',
       shouldPlay: false
@@ -212,7 +245,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
   });
 
   window.addEventListener('resize', function (e) {
-    board.handleResize(window.innerWidth, state.state.boardState);
+    board.handleResize(window.innerWidth, state.state.boardState,state);
   });
-  board.handleResize(window.innerWidth, state.state.boardState);
+  board.handleResize(window.innerWidth, state.state.boardState,state);
 }

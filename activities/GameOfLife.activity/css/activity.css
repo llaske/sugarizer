@@ -12,6 +12,10 @@
   background-image: url(../icons/gen-speed.svg);
 }
 
+#main-toolbar #size-button {
+  background-image: url(../icons/grid-size.svg);
+}
+
 #main-toolbar #random {
   background-image: url(../icons/random.svg);
 }
