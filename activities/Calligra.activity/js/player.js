@@ -105,6 +105,9 @@ console.log("END");
 			context.clearRect(0, 0, vm.size, vm.size);
 			var imageObj = new Image();
 			imageObj.onload = function() {
+				// Draw lines
+				vm.drawLines();
+
 				// Draw letter
 				context.drawImage(imageObj, 0, 0, vm.size, vm.size);
 
@@ -114,6 +117,24 @@ console.log("END");
 				}
 			};
 			imageObj.src = vm.item.image;
+		},
+
+		drawLines: function() {
+			if (app.$refs.toolbar.$refs.lines.isActive)
+			{
+				var vm = this;
+				var letter = document.getElementById("letter");
+				var context = letter.getContext('2d');
+				context.strokeStyle = "lightgray";
+				context.lineWidth = 3;
+				var linesY = [8, 85, 122, 202];
+				for (var i = 0 ; i < linesY.length ; i++) {
+					context.beginPath();
+					context.moveTo(vm.zoom*0, vm.zoom*linesY[i]);
+					context.lineTo(vm.zoom*208,vm.zoom*linesY[i]);
+					context.stroke();
+				}
+			}
 		},
 
 		drawStoke: function() {
