@@ -50,6 +50,11 @@ button:disabled {
 	outline: none;
 }
 
+#main-toolbar #lines-button {
+	background-image: url(../icons/lines.svg);
+	outline: none;
+}
+
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
 	outline: none;
@@ -308,8 +313,8 @@ body {
 
 .player-restart {
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 70px;
+	right: 17px;
 	width: 40px;
 	height: 40px;
 	background-image: url(../icons/restart.svg);

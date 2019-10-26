@@ -47,7 +47,7 @@ var app = new Vue({
 							vm.currentLibrary = parsed.library;
 							vm.currentTemplate = parsed.library[parsed.template];
 							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
-							vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)"; 
+							vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
 						} else {
 							vm.currentLibrary = defaultTemplates;
 							vm.currentTemplate = defaultTemplates[0];
@@ -81,6 +81,7 @@ var app = new Vue({
 		displayTemplateView: function() {
 			var vm = this;
 			vm.$refs.toolbar.$refs.settings.isDisabled = true;
+			vm.$refs.toolbar.$refs.lines.isDisabled = true;
 			vm.currentView = TemplateViewer;
 			document.getElementById("canvas").style.backgroundColor = vm.color.fill;
 			document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
@@ -125,6 +126,7 @@ var app = new Vue({
 				// Load item
 				var vm = this;
 				vm.$refs.toolbar.$refs.settings.isDisabled = false;
+				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.currentView = Player;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
@@ -139,6 +141,14 @@ var app = new Vue({
 			} else {
 				vm.currentView = Player;
 				document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
+			}
+		},
+
+		onLines: function() {
+			var vm = this;
+			vm.$refs.toolbar.$refs.lines.isActive = !vm.$refs.toolbar.$refs.lines.isActive;
+			if (vm.currentView === Player) {
+				vm.$refs.view.draw();
 			}
 		},
 

@@ -4,18 +4,23 @@
 var ToolbarItem = {
 	template: `
 		<div class="splitbar" v-if="isSplitbar"/>
-		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="isDisabled" v-bind:class="toRight ? 'toolbutton pull-right' : 'toolbutton'" v-else/>
+		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="isDisabled" v-bind:class="computeClass()" v-else/>
 	`,
-	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteClass', 'paletteFile', 'paletteEvent','disabled'],
+	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteClass', 'paletteFile', 'paletteEvent', 'disabled', 'active'],
 	data: function() {
 		return {
-			isDisabled: this.disabled,
+			isDisabled: (this.disabled!==undefined),
+			isActive: (this.active!==undefined),
 			paletteObject: null
 		}
 	},
 	methods: {
 		onClick: function() {
 			this.$emit('clicked');
+		},
+
+		computeClass: function() {
+			return (this.toRight?'toolbutton pull-right':'toolbutton')+(this.isActive?' active':'');
 		}
 	},
 
@@ -51,6 +56,7 @@ var Toolbar = {
 				v-on:templateSelected="getApp().onTemplateSelected($event)">
 			</toolbar-item>
 			<toolbar-item ref="settings" id="settings-button" v-on:clicked="getApp().onSettings()" disabled></toolbar-item>
+			<toolbar-item ref="lines" id="lines-button" v-on:clicked="getApp().onLines()" disabled active></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
