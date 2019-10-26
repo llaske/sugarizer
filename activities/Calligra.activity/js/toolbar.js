@@ -55,8 +55,16 @@ var Toolbar = {
 				paletteEvent="templateSelected"
 				v-on:templateSelected="getApp().onTemplateSelected($event)">
 			</toolbar-item>
-			<toolbar-item ref="settings" id="settings-button" v-on:clicked="getApp().onSettings()" disabled></toolbar-item>
 			<toolbar-item ref="lines" id="lines-button" v-on:clicked="getApp().onLines()" disabled active></toolbar-item>
+			<toolbar-item ref="zoombutton" class="toolbutton" id="zoom-button"
+				v-bind:title="l10n.stringZoom"
+				paletteFile="activity/palettes/zoompalette"
+				paletteClass="ZoomPalette"
+				paletteEvent="zoom"
+				v-on:zoom="getApp().onZoom($event)"
+				disabled>
+			</toolbar-item>
+			<toolbar-item ref="settings" id="settings-button" v-on:clicked="getApp().onSettings()" disabled></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>

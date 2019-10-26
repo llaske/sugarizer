@@ -55,6 +55,11 @@ button:disabled {
 	outline: none;
 }
 
+
+#main-toolbar #zoom-button {
+	background-image: url(../icons/zoom.svg);
+}
+
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
 	outline: none;
@@ -323,6 +328,22 @@ body {
 
 .player-restart:disabled {
 	background-color: lightgray;
+}
+
+
+ #zoompalette {
+	 width: 200px;
+ }
+
+.zoombuttons {
+	border: 0px;
+	background: #000000;
+	border-radius: 5.5px !important;
+}
+
+.zoombutton:active {
+	background-color: #808080;
+	border-radius: 5.5px !important;
 }
 
 .tutorial-icon-button {

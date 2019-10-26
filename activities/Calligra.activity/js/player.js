@@ -15,6 +15,7 @@ var Player = {
 			size: -1,
 			zoom: -1,
 			current: { start: -1, stroke: -1, strokes: [], index: -1 },
+			zoomMult: 1,
 			mode: '',
 			drawing: false
 		}
@@ -32,7 +33,8 @@ var Player = {
 			letter.width = vm.size;
 			letter.height = vm.size;
 			letter.style.marginLeft = (size.width-vm.size)/2-50 + "px";
-			vm.zoom = vm.size/document.getElementById("miniletter").naturalWidth;
+			vm.zoom = (vm.size/document.getElementById("miniletter").naturalWidth)*vm.zoomMult;
+			vm.size *= vm.zoomMult;
 
 			// Draw
 			this.draw();
@@ -175,6 +177,22 @@ console.log("END");
 		onLoad: function() {
 			this.computeSize();
 			this.initEvent();
+		},
+
+		doZoom: function(level) {
+			var vm = this;
+			switch(level.zoom) {
+				case 0:
+					vm.zoomMult *= 0.9;
+					break;
+				case 1:
+					vm.zoomMult = 1;
+					break;
+				case 2:
+					vm.zoomMult *= 1.1;
+					break;
+			}
+			vm.computeSize();
 		},
 
 		goBack: function() {

@@ -43,7 +43,7 @@ var defaultTemplates = [
 			{image:"icons/upper-e.svg"},
 			{image:"icons/upper-f.svg"},
 			{image:"icons/upper-g.svg"},
-			{image:"icons/upper-h.svg", starts: [{x:97, y:65}]},
+			{image:"icons/upper-h.svg", starts: [{x:97, y:65, path:[]}]},
 			{image:"icons/upper-i.svg"},
 			{image:"icons/upper-j.svg"},
 			{image:"icons/upper-k.svg"},

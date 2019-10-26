@@ -82,6 +82,7 @@ var app = new Vue({
 			var vm = this;
 			vm.$refs.toolbar.$refs.settings.isDisabled = true;
 			vm.$refs.toolbar.$refs.lines.isDisabled = true;
+			vm.$refs.toolbar.$refs.zoombutton.isDisabled = true;
 			vm.currentView = TemplateViewer;
 			document.getElementById("canvas").style.backgroundColor = vm.color.fill;
 			document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
@@ -127,9 +128,17 @@ var app = new Vue({
 				var vm = this;
 				vm.$refs.toolbar.$refs.settings.isDisabled = false;
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
+				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
 				vm.currentView = Player;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
+			}
+		},
+
+		onZoom: function(item) {
+			var vm = this;
+			if (vm.currentView === Player) {
+				vm.$refs.view.doZoom(item.detail);
 			}
 		},
 
