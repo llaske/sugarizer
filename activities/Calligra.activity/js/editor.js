@@ -100,7 +100,6 @@ var Editor = {
 			vm.keyboardEvent = function(e) {
 				if (vm.current != -1) {
 					var point = vm.item.starts[vm.current];
-					var point = vm.item.starts[vm.current];
 					if (point.path && point.path.length) {
 						point = point.path[point.path.length-1];
 					}
@@ -114,6 +113,8 @@ var Editor = {
 					}
 					else if (e.keyCode == '39') {
 						point.x++;
+					} else if (e.keyCode == '80') {
+						document.getElementById("editor-addpath").click();
 					}
 					vm.draw();
 				}
