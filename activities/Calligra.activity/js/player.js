@@ -215,6 +215,12 @@ console.log("END");
 		onLoad: function() {
 			this.computeSize();
 			this.initEvent();
+
+			// Colorize cursor
+			requirejs(["sugar-web/graphics/icon"], function(iconlib) {
+				iconlib.colorize(document.getElementById("cursor"), app.color, function() {
+				});
+			});
 		},
 
 		doZoom: function(level) {
