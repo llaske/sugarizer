@@ -64,6 +64,9 @@ var Player = {
 				if (vm.mode != 'input' || !vm.drawing) {
 					return;
 				}
+				if (touchScreen) {
+					e = e.touches[0];
+				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
 				vm.handleMouseMove(x, y);
@@ -85,6 +88,9 @@ var Player = {
 			letter.addEventListener(moveEvent, function(e) {
 				if (vm.mode != 'input' || !vm.drawing) {
 					return;
+				}
+				if (touchScreen) {
+					e = e.touches[0];
 				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
