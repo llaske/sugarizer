@@ -174,11 +174,10 @@ var Player = {
 			var target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
 			vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
 			var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
-			var iwhile = 1;
-			while (distance <= 2) {
+			if (distance <= 5) {
 				vm.current.strokes[vm.current.start].push({x: target.x, y: target.y});
 				vm.drawStoke();
-console.log("point "+vm.current.index+" "+(iwhile++))
+console.log("point "+vm.current.index)
 				vm.current.index++;
 				if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
 					vm.current.start++;
@@ -187,7 +186,6 @@ console.log("point "+vm.current.index+" "+(iwhile++))
 console.log("END");
 						vm.mode = 'end';
 						vm.setCursorVisibility(false);
-						break;
 					} else {
 						var lines = [{x: vm.item.starts[vm.current.start].x, y:vm.item.starts[vm.current.start].y}];
 						vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
@@ -195,9 +193,6 @@ console.log("END");
 						vm.drawStoke();
 					}
 				}
-				target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
-				vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
-				distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
 			}
 		},
 
