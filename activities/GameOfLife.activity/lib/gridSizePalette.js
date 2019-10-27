@@ -41,7 +41,7 @@ define(["sugar-web/graphics/palette",
     activitypalette.ActivityPalette.prototype =
         Object.create(palette.Palette.prototype, {
             setTitleDescription: {
-                value: "Speed Palette:",
+                value: "Size Palette:",
                 enumerable: true,
                 configurable: true,
                 writable: true
