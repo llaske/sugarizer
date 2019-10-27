@@ -8,13 +8,14 @@ var Player = {
 				<canvas id="letter"></canvas>
 			</div>
 			<button id="player-restart" class="player-restart"></button>
+			<div id="cursor" class="player-cursor"></div>
 		</div>`,
 	props: ['item'],
 	data: function() {
 		return {
 			size: -1,
 			zoom: -1,
-			current: { start: -1, stroke: -1, strokes: [], index: -1 },
+			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0} },
 			zoomMult: 1,
 			mode: '',
 			drawing: false
@@ -58,6 +59,22 @@ var Player = {
 				moveEvent = "touchmove";
 				upEvent = "touchend";
 			}
+			var cursor = document.getElementById("cursor");
+			cursor.addEventListener(moveEvent, function(e) {
+				if (vm.mode != 'input' || !vm.drawing) {
+					return;
+				}
+				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
+				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
+				vm.handleMouseMove(x, y);
+			});
+			cursor.addEventListener(downEvent, function(e) {
+				vm.drawing = (vm.mode == 'input');
+			});
+			cursor.addEventListener(upEvent, function(e) {
+				vm.drawing = false;
+			});
+
 			var letter = document.getElementById("letter");
 			letter.addEventListener(downEvent, function(e) {
 				vm.drawing = (vm.mode == 'input');
@@ -71,31 +88,7 @@ var Player = {
 				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
-				var target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
-				var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
-				if (distance <= 2.8)
-				{
-					vm.current.strokes[vm.current.start].push({x: x, y: y});
-					vm.drawStoke();
-					if (distance <= 2) {
-console.log("point "+vm.current.index)
-						vm.current.index++;
-						if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
-							vm.current.start++;
-							vm.current.index = 0;
-							if (vm.current.start >= vm.item.starts.length) {
-console.log("END");
-								vm.mode = 'end';
-							} else {
-								var lines = [];
-								lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
-								lines.push({x: vm.item.starts[vm.current.start].x, y: vm.item.starts[vm.current.start].y});
-								vm.current.strokes.push(lines);
-								vm.drawStoke();
-							}
-						}
-					}
-				}
+				vm.handleMouseMove(x, y);
 			});
 		},
 
@@ -150,11 +143,55 @@ console.log("END");
 			context.lineJoin = "round";
 			for (var i = 0 ; i < vm.current.strokes.length ; i++) {
 				context.beginPath();
-				context.moveTo(vm.zoom*vm.current.strokes[i].x, vm.zoom*vm.current.strokes[i].y);
-				for (var j = 1 ; j < vm.current.strokes[i].length ; j++) {
+				for (var j = 0 ; j < vm.current.strokes[i].length ; j++) {
 					context.lineTo(vm.zoom*vm.current.strokes[i][j].x, vm.zoom*vm.current.strokes[i][j].y);
 				}
 				context.stroke();
+			}
+		},
+
+		moveCursor: function(e) {
+			var vm = this;
+			var cursor = document.getElementById("cursor");
+			cursor.style.left = (e.x+letter.getBoundingClientRect().left-23)+"px";
+			cursor.style.top = (e.y)+"px";
+			vm.current.cursor = {x: e.x, y: e.y};
+		},
+
+		setCursorVisibility: function(visible) {
+			var cursor = document.getElementById("cursor");
+			cursor.style.visibility = visible?"visible":"hidden";
+		},
+
+		handleMouseMove: function(x, y) {
+			var vm = this;
+			var target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
+			vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
+			var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
+			var iwhile = 1;
+			while (distance <= 2) {
+				vm.current.strokes[vm.current.start].push({x: target.x, y: target.y});
+				vm.drawStoke();
+console.log("point "+vm.current.index+" "+(iwhile++))
+				vm.current.index++;
+				if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
+					vm.current.start++;
+					vm.current.index = 0;
+					if (vm.current.start >= vm.item.starts.length) {
+console.log("END");
+						vm.mode = 'end';
+						vm.setCursorVisibility(false);
+						break;
+					} else {
+						var lines = [{x: vm.item.starts[vm.current.start].x, y:vm.item.starts[vm.current.start].y}];
+						vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
+						vm.current.strokes.push(lines);
+						vm.drawStoke();
+					}
+				}
+				target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
+				vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
+				distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
 			}
 		},
 
@@ -166,9 +203,9 @@ console.log("END");
 			vm.current.index = 0;
 			vm.current.strokes = [];
 			if (vm.item.starts && vm.item.starts.length) {
-				var lines = [];
-				lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
-				lines.push({x: vm.item.starts[0].x, y: vm.item.starts[0].y});
+				var lines = [{x: vm.item.starts[0].x, y:vm.item.starts[0].y}];
+				vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
+				vm.setCursorVisibility(true)
 				vm.current.strokes.push(lines);
 			}
 			vm.draw();
@@ -181,18 +218,21 @@ console.log("END");
 
 		doZoom: function(level) {
 			var vm = this;
+			var zoomMult = 1;
 			switch(level.zoom) {
 				case 0:
-					vm.zoomMult *= 0.9;
+					zoomMult = 0.9;
 					break;
 				case 1:
 					vm.zoomMult = 1;
 					break;
 				case 2:
-					vm.zoomMult *= 1.1;
+					zoomMult *= 1.1;
 					break;
 			}
+			vm.zoomMult *= zoomMult;
 			vm.computeSize();
+			vm.moveCursor({x:zoomMult*vm.current.cursor.x, y:zoomMult*vm.current.cursor.y});
 		},
 
 		goBack: function() {

@@ -330,6 +330,17 @@ body {
 	background-color: lightgray;
 }
 
+.player-cursor {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 50px;
+	height: 50px;
+	visibility: hidden; 
+	background-image: url(../icons/cursor.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
 
  #zoompalette {
 	 width: 200px;
