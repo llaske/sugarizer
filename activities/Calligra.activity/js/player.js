@@ -46,7 +46,7 @@ var Player = {
 			var vm = this;
 			var restart = document.getElementById("player-restart");
 			restart.addEventListener("click", function(e) {
-				vm.startInputMode();
+				vm.startDemoMode();
 			});
 
 			// Register mouse/touch on letter event
@@ -177,13 +177,11 @@ var Player = {
 			if (distance <= 5) {
 				vm.current.strokes[vm.current.start].push({x: target.x, y: target.y});
 				vm.drawStoke();
-console.log("point "+vm.current.index)
 				vm.current.index++;
 				if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
 					vm.current.start++;
 					vm.current.index = 0;
 					if (vm.current.start >= vm.item.starts.length) {
-console.log("END");
 						vm.mode = 'end';
 						vm.setCursorVisibility(false);
 					} else {
@@ -193,6 +191,75 @@ console.log("END");
 						vm.drawStoke();
 					}
 				}
+			}
+		},
+
+		startDemoMode: function() {
+			var vm = this;
+			var timeout = 70;
+			vm.mode = 'show';
+			var step = function() {
+				// Draw a segment of path
+				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
+				var letter = document.getElementById("letter");
+				if (!letter) {
+					return;
+				}
+				var context = letter.getContext('2d');
+				context.beginPath();
+				context.strokeStyle = app.color.stroke;
+				context.lineWidth = 10;
+				context.lineCap = "round";
+				context.lineJoin = "round";
+				context.moveTo(vm.zoom*line.x0, vm.zoom*line.y0);
+				context.lineTo(vm.zoom*line.x1, vm.zoom*line.y1);
+				context.stroke();
+				vm.moveCursor({x: vm.zoom*line.x1, y: vm.zoom*line.y1});
+				vm.current.stroke++;
+				if (vm.current.stroke >= vm.current.strokes[vm.current.start].length) {
+					vm.current.start++;
+					vm.current.stroke = 0;
+					if (vm.current.start < vm.current.strokes.length) {
+						setTimeout(function() { // Pause on each start
+							setTimeout(step, timeout);
+						}, timeout*3);
+					} else {
+						setTimeout(function() {
+							// End of draw, start input mode
+							vm.startInputMode();
+						}, 700);
+					}
+				} else {
+					setTimeout(step, timeout);
+				}
+			}
+			if (vm.item.starts) {
+				// Create lines set to draw letter
+				vm.current.start = 0;
+				vm.current.stroke = 0;
+				vm.current.strokes = [];
+				for (var i = 0 ; i < vm.item.starts.length ; i++) {
+					if (!vm.item.starts[i].path) {
+						continue;
+					}
+					var lines = [];
+					var path = vm.item.starts[i].path;
+					if (!vm.item.starts[i].path.length) {
+						lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: vm.item.starts[i].x, y1: vm.item.starts[i].y})
+					} else {
+						lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: path[0].x, y1: path[0].y})
+					}
+					for (var j = 0 ; j < path.length ; j++) {
+						if (j+1 < path.length) {
+							lines.push({x0: path[j].x, y0: path[j].y, x1: path[j+1].x, y1: path[j+1].y});
+						}
+					}
+					vm.current.strokes.push(lines);
+				}
+				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
+				vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
+				vm.setCursorVisibility(true);
+				setTimeout(step, timeout);
 			}
 		},
 
@@ -249,71 +316,6 @@ console.log("END");
 	},
 
 	mounted: function() {
-		var vm = this;
-		var timeout = 70;
-		vm.mode = 'show';
-		var step = function() {
-			// Draw a segment of path
-			var line = vm.current.strokes[vm.current.start][vm.current.stroke];
-			var letter = document.getElementById("letter");
-			if (!letter) {
-				return;
-			}
-			var context = letter.getContext('2d');
-			context.beginPath();
-			context.strokeStyle = app.color.stroke;
-			context.lineWidth = 10;
-			context.lineCap = "round";
-			context.lineJoin = "round";
-			context.moveTo(vm.zoom*line.x0, vm.zoom*line.y0);
-			context.lineTo(vm.zoom*line.x1, vm.zoom*line.y1);
-			context.stroke();
-			vm.moveCursor({x: vm.zoom*line.x1, y: vm.zoom*line.y1});
-			vm.current.stroke++;
-			if (vm.current.stroke >= vm.current.strokes[vm.current.start].length) {
-				vm.current.start++;
-				vm.current.stroke = 0;
-				if (vm.current.start < vm.current.strokes.length) {
-					setTimeout(function() { // Pause on each start
-						setTimeout(step, timeout);
-					}, timeout*3);
-				} else {
-					setTimeout(function() {
-						// End of draw, start input mode
-						vm.startInputMode();
-					}, 700);
-				}
-			} else {
-				setTimeout(step, timeout);
-			}
-		}
-		if (vm.item.starts) {
-			// Create lines set to draw letter
-			vm.current.start = 0;
-			vm.current.stroke = 0;
-			vm.current.strokes = [];
-			for (var i = 0 ; i < vm.item.starts.length ; i++) {
-				if (!vm.item.starts[i].path) {
-					continue;
-				}
-				var lines = [];
-				var path = vm.item.starts[i].path;
-				if (!vm.item.starts[i].path.length) {
-					lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: vm.item.starts[i].x, y1: vm.item.starts[i].y})
-				} else {
-					lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: path[0].x, y1: path[0].y})
-				}
-				for (var j = 0 ; j < path.length ; j++) {
-					if (j+1 < path.length) {
-						lines.push({x0: path[j].x, y0: path[j].y, x1: path[j+1].x, y1: path[j+1].y});
-					}
-				}
-				vm.current.strokes.push(lines);
-			}
-			var line = vm.current.strokes[vm.current.start][vm.current.stroke];
-			vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
-			vm.setCursorVisibility(true);
-			setTimeout(step, timeout);
-		}
+		this.startDemoMode();
 	}
 };
