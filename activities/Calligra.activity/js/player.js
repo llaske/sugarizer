@@ -233,7 +233,7 @@ var Player = {
 					setTimeout(step, timeout);
 				}
 			}
-			if (vm.item.starts) {
+			if (vm.item.starts && vm.item.starts[0].path.length) {
 				// Create lines set to draw letter
 				vm.current.start = 0;
 				vm.current.stroke = 0;
