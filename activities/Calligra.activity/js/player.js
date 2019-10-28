@@ -268,17 +268,20 @@ console.log("END");
 			context.moveTo(vm.zoom*line.x0, vm.zoom*line.y0);
 			context.lineTo(vm.zoom*line.x1, vm.zoom*line.y1);
 			context.stroke();
+			vm.moveCursor({x: vm.zoom*line.x1, y: vm.zoom*line.y1});
 			vm.current.stroke++;
 			if (vm.current.stroke >= vm.current.strokes[vm.current.start].length) {
 				vm.current.start++;
 				vm.current.stroke = 0;
 				if (vm.current.start < vm.current.strokes.length) {
-					setTimeout(step, timeout);
+					setTimeout(function() { // Pause on each start
+						setTimeout(step, timeout);
+					}, timeout*3);
 				} else {
 					setTimeout(function() {
 						// End of draw, start input mode
 						vm.startInputMode();
-					}, 500);
+					}, 700);
 				}
 			} else {
 				setTimeout(step, timeout);
@@ -307,6 +310,9 @@ console.log("END");
 				}
 				vm.current.strokes.push(lines);
 			}
+			var line = vm.current.strokes[vm.current.start][vm.current.stroke];
+			vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
+			vm.setCursorVisibility(true);
 			setTimeout(step, timeout);
 		}
 	}
