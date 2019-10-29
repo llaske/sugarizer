@@ -83,8 +83,9 @@ var app = new Vue({
 			vm.$refs.toolbar.$refs.lines.isDisabled = true;
 			vm.$refs.toolbar.$refs.zoombutton.isDisabled = true;
 			vm.currentView = TemplateViewer;
+			vm.$refs.toolbar.$refs.insertimage.isDisabled = !vm.$refs.view.editMode;
 			document.getElementById("canvas").style.backgroundColor = vm.color.fill;
-			document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
+			document.getElementById("settings-button").style.backgroundImage = vm.$refs.view.editMode?"url(icons/play.svg)":"url(icons/settings.svg)";
 		},
 
 		// Handle fullscreen mode
@@ -140,6 +141,7 @@ var app = new Vue({
 				// Dosplay item
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
+				vm.$refs.toolbar.$refs.insertimage.isDisabled = true;
 				vm.currentView = Player;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
@@ -157,6 +159,7 @@ var app = new Vue({
 			var vm = this;
 			if (vm.currentView === TemplateViewer) {
 				vm.$refs.view.editMode = !vm.$refs.view.editMode;
+				vm.$refs.toolbar.$refs.insertimage.isDisabled = !vm.$refs.toolbar.$refs.insertimage.isDisabled;
 				document.getElementById("settings-button").style.backgroundImage = vm.$refs.view.editMode?"url(icons/play.svg)":"url(icons/settings.svg)";
 			} else if (vm.currentView === Player) {
 				vm.currentView = Editor;
@@ -165,6 +168,26 @@ var app = new Vue({
 				vm.currentView = Player;
 				document.getElementById("settings-button").style.backgroundImage = "url(icons/settings.svg)";
 			}
+		},
+
+		onInsertImage: function() {
+			var vm = this;
+			if (vm.currentView !== TemplateViewer || !vm.$refs.view.editMode) {
+				return;
+			}
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
+				setTimeout(function() {
+					journalchooser.show(function(entry) {
+						if (!entry) {
+							return;
+						}
+						var dataentry = new datastore.DatastoreObject(entry.objectId);
+						dataentry.loadAsText(function(err, metadata, data) {
+							vm.currentTemplate.images.push({image: data});
+						});
+					}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+				}, 0);
+			});
 		},
 
 		onLines: function() {

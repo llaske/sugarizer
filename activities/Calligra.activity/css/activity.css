@@ -55,6 +55,9 @@ button:disabled {
 	outline: none;
 }
 
+#main-toolbar #insertimage-button {
+	background-image: url(../icons/insert-image.svg);
+}
 
 #main-toolbar #zoom-button {
 	background-image: url(../icons/zoom.svg);
