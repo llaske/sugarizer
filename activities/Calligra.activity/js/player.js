@@ -15,7 +15,7 @@ var Player = {
 		return {
 			size: -1,
 			zoom: -1,
-			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0} },
+			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0}, timeout: null },
 			zoomMult: 1,
 			mode: '',
 			drawing: false
@@ -159,6 +159,9 @@ var Player = {
 		moveCursor: function(e) {
 			var vm = this;
 			var cursor = document.getElementById("cursor");
+			if (!cursor) {
+				return;
+			}
 			cursor.style.left = (e.x+letter.getBoundingClientRect().left-23)+"px";
 			cursor.style.top = (e.y)+"px";
 			vm.current.cursor = {x: e.x, y: e.y};
@@ -166,6 +169,9 @@ var Player = {
 
 		setCursorVisibility: function(visible) {
 			var cursor = document.getElementById("cursor");
+			if (!cursor) {
+				return;
+			}
 			cursor.style.visibility = visible?"visible":"hidden";
 		},
 
@@ -220,17 +226,18 @@ var Player = {
 					vm.current.start++;
 					vm.current.stroke = 0;
 					if (vm.current.start < vm.current.strokes.length) {
-						setTimeout(function() { // Pause on each start
-							setTimeout(step, timeout);
+						vm.current.timeout = setTimeout(function() { // Pause on each start
+							vm.current.timeout = setTimeout(step, timeout);
 						}, timeout*3);
 					} else {
-						setTimeout(function() {
+						vm.current.timeout = setTimeout(function() {
 							// End of draw, start input mode
 							vm.startInputMode();
+							vm.current.timeout = null;
 						}, 700);
 					}
 				} else {
-					setTimeout(step, timeout);
+					vm.current.timeout = setTimeout(step, timeout);
 				}
 			}
 			if (vm.item.starts && vm.item.starts[0].path.length) {
@@ -259,7 +266,7 @@ var Player = {
 				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
 				vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
 				vm.setCursorVisibility(true);
-				setTimeout(step, timeout);
+				vm.current.timeout = setTimeout(step, timeout);
 			}
 		},
 
@@ -317,5 +324,12 @@ var Player = {
 
 	mounted: function() {
 		this.startDemoMode();
+	},
+
+	beforeDestroy: function() {
+		var vm = this;
+		if (vm.current.timeout) {
+			clearTimeout(vm.current.timeout);
+		}
 	}
 };
