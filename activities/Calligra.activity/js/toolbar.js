@@ -56,6 +56,7 @@ var Toolbar = {
 				v-on:templateSelected="getApp().onTemplateSelected($event)">
 			</toolbar-item>
 			<toolbar-item ref="settings" id="settings-button" v-on:clicked="getApp().onSettings()"></toolbar-item>
+			<toolbar-item ref="insertimage" id="insertimage-button" v-on:clicked="getApp().onInsertImage()" disabled></toolbar-item>
 			<toolbar-item ref="lines" id="lines-button" v-on:clicked="getApp().onLines()" disabled active></toolbar-item>
 			<toolbar-item ref="zoombutton" class="toolbutton" id="zoom-button"
 				v-bind:title="l10n.stringZoom"
