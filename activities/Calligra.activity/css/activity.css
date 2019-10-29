@@ -167,6 +167,21 @@ body {
 	cursor: pointer;
 }
 
+.template-item-remove {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	width: 30px;
+	height: 30px;
+	background-image: url(../icons/delete.svg);
+	background-size: contain;
+	visibility: hidden;
+}
+
+.template-item-remove-editable {
+	visibility: visible !important;
+}
+
 #spinner {
 	position: absolute;
 	margin-left: 45%;
@@ -336,7 +351,7 @@ body {
 	left: 100px;
 	width: 50px;
 	height: 50px;
-	visibility: hidden; 
+	visibility: hidden;
 	background-image: url(../icons/cursor.svg);
 	background-repeat: no-repeat;
 	background-size: contain;
