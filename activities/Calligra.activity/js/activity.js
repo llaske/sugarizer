@@ -80,7 +80,6 @@ var app = new Vue({
 
 		displayTemplateView: function() {
 			var vm = this;
-			vm.$refs.toolbar.$refs.settings.isDisabled = true;
 			vm.$refs.toolbar.$refs.lines.isDisabled = true;
 			vm.$refs.toolbar.$refs.zoombutton.isDisabled = true;
 			vm.currentView = TemplateViewer;
@@ -122,11 +121,23 @@ var app = new Vue({
 			vm.displayTemplateView();
 		},
 
-		onItemSelected: function(item) {
-			if (this.currentView === TemplateViewer) {
-				// Load item
-				var vm = this;
-				vm.$refs.toolbar.$refs.settings.isDisabled = false;
+		onItemSelected: function(item, editMode) {
+			var vm = this;
+			if (vm.currentView === TemplateViewer) {
+				// Remove item
+				if (editMode) {
+					var index = -1;
+					for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
+						if (vm.currentTemplate.images[i] == item) {
+							index = i;
+							break;
+						}
+					}
+					vm.currentTemplate.images.splice(index, 1);
+					return;
+				}
+
+				// Dosplay item
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
 				vm.currentView = Player;
@@ -144,7 +155,10 @@ var app = new Vue({
 
 		onSettings: function() {
 			var vm = this;
-			if (vm.currentView === Player) {
+			if (vm.currentView === TemplateViewer) {
+				vm.$refs.view.editMode = !vm.$refs.view.editMode;
+				document.getElementById("settings-button").style.backgroundImage = vm.$refs.view.editMode?"url(icons/play.svg)":"url(icons/settings.svg)";
+			} else if (vm.currentView === Player) {
 				vm.currentView = Editor;
 				document.getElementById("settings-button").style.backgroundImage = "url(icons/play.svg)";
 			} else {
