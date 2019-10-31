@@ -206,12 +206,27 @@ var app = new Vue({
 		},
 
 		onHelp: function() {
+			var vm = this;
 			var options = {};
-			options.templatebutton = this.$refs.toolbar.$refs.templatebutton.$el;
-			options.fullscreenbutton = this.$refs.toolbar.$refs.fullscreen.$el;
-			if (this.currentView === TemplateViewer && this.currentTemplate && this.currentTemplate.images && this.currentTemplate.images[0]) {
-				options.item = this.$refs.view.$refs.item0[0].$el;
-			} else if (this.currentView === Player) {
+			options.currentView = vm.currentView;
+			options.editMode = vm.$refs.view.editMode || vm.currentView === Editor;
+			options.templatebutton = vm.$refs.toolbar.$refs.templatebutton.$el;
+			options.fullscreenbutton = vm.$refs.toolbar.$refs.fullscreen.$el;
+			options.settingsbutton = vm.$refs.toolbar.$refs.settings.$el;
+			if (vm.currentView === TemplateViewer) {
+				options.insertimagebutton = vm.$refs.toolbar.$refs.insertimage.$el;
+				if (vm.currentTemplate && vm.currentTemplate.images && vm.currentTemplate.images[0]) {
+					options.item = vm.$refs.view.$refs.item0[0].$el;
+				}
+			} else {
+				options.linesbutton = vm.$refs.toolbar.$refs.lines.$el;
+				options.zoombutton = vm.$refs.toolbar.$refs.zoombutton.$el;
+				options.backbutton = document.getElementById("back");
+				options.restartbutton = document.getElementById("player-restart");
+				options.editoraddbutton = document.getElementById("editor-add");
+				options.editorremovebutton = document.getElementById("editor-remove");
+				options.editoraddpathbutton = document.getElementById("editor-addpath");
+				options.editorremovepathbutton = document.getElementById("editor-removepath");
 			}
 			this.$refs.tutorial.show(options);
 		},
