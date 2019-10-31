@@ -28,6 +28,12 @@ define(["sugar-web/graphics/palette","text!activity/palettes/templatepalette.htm
 			that.getPalette().children[0].style.backgroundImage = invoker.style.backgroundImage = "url(icons/template-upper.svg)";
 			that.popDown();
 		});
+		document.getElementById("item-number").addEventListener('click', function(event) {
+			that.templateSelectedEvent.index = 2;
+			that.getPalette().dispatchEvent(that.templateSelectedEvent);
+			that.getPalette().children[0].style.backgroundImage = invoker.style.backgroundImage = "url(icons/template-number.svg)";
+			that.popDown();
+		});
 	};
 
 	var addEventListener = function(type, listener, useCapture) {
