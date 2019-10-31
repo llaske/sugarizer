@@ -12,8 +12,36 @@ var Tutorial = {
 				stringTutoExplainContent: '',
 				stringTutoFullscreenButtonTitle: '',
 				stringTutoFullscreenButtonContent: '',
-				stringTutoItemTitle: '',
-				stringTutoItemContent: '',
+				stringTutoEditorItemTitle: '',
+				stringTutoEditorItemContent: '',
+				stringTutoPlayerItemTitle: '',
+				stringTutoPlayerItemContent: '',
+				stringTutoInsertImageButtonTitle: '',
+				stringTutoInsertImageButtonContent: '',
+				stringTutoEditorTemplateButtonTitle: '',
+				stringTutoEditorTemplateButtonContent: '',
+				stringTutoPlayerTemplateButtonTitle: '',
+				stringTutoPlayerTemplateButtonContent: '',
+				stringTutoEditorItemButtonTitle: '',
+				stringTutoEditorItemButtonContent: '',
+				stringTutoPlayerItemButtonTitle: '',
+				stringTutoPlayerItemButtonContent: '',
+				stringTutoLinesButtonTitle: '',
+				stringTutoLinesButtonContent: '',
+				stringTutoZoomButtonTitle: '',
+				stringTutoZoomButtonContent: '',
+				stringTutoBackButtonTitle: '',
+				stringTutoBackButtonContent: '',
+				stringTutoRestartButtonTitle: '',
+				stringTutoRestartButtonContent: '',
+				stringTutoEditorAddButtonTitle: '',
+				stringTutoEditorAddButtonContent: '',
+				stringTutoEditorRemoveButtonTitle: '',
+				stringTutoEditorRemoveButtonContent: '',
+				stringTutoEditorAddPathButtonTitle: '',
+				stringTutoEditorAddPathButtonContent: '',
+				stringTutoEditorRemovePathButtonTitle: '',
+				stringTutoEditorRemovePathButtonContent: '',
 				stringTutoTemplateButtonTitle: '',
 				stringTutoTemplateButtonContent: ''
 			}
@@ -26,14 +54,19 @@ var Tutorial = {
 
 		show: function(options) {
 			options = options || {};
-			var steps = [
-				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
-					title: this.l10n.stringTutoExplainTitle,
-					content: this.l10n.stringTutoExplainContent
-				},
+			var steps = [];
+			if (options.currentView === TemplateViewer && !options.editMode) {
+				steps.push(
+					{
+						element: "",
+						orphan: true,
+						placement: "bottom",
+						title: this.l10n.stringTutoExplainTitle,
+						content: this.l10n.stringTutoExplainContent
+					}
+				);
+			}
+			steps = steps.concat([
 				{
 					element: options.templatebutton,
 					placement: "bottom",
@@ -43,16 +76,87 @@ var Tutorial = {
 				{
 					element: options.item,
 					placement: "right",
-					title: this.l10n.stringTutoItemTitle,
-					content: this.l10n.stringTutoItemContent
+					title: options.editMode?this.l10n.stringTutoEditorItemTitle:this.l10n.stringTutoPlayerItemTitle,
+					content: options.editMode?this.l10n.stringTutoEditorItemContent:this.l10n.stringTutoPlayerItemContent
+				}
+			]);
+			if (options.currentView === TemplateViewer && options.editMode) {
+				steps.push(
+					{
+						element: options.insertimagebutton,
+						placement: "bottom",
+						title: this.l10n.stringTutoInsertImageButtonTitle,
+						content: this.l10n.stringTutoInsertImageButtonContent
+					}
+				);
+			}
+			var settingsItemName = "stringTuto"+(options.editMode?"Player":"Editor")+(options.currentView === TemplateViewer?"Template":"Item")+"Button";
+			steps = steps.concat([
+				{
+					element: options.settingsbutton,
+					placement: "bottom",
+					title: this.l10n[settingsItemName+"Title"],
+					content: this.l10n[settingsItemName+"Content"]
 				},
 				{
 					element: options.fullscreenbutton,
 					placement: "bottom",
 					title: this.l10n.stringTutoFullscreenButtonTitle,
 					content: this.l10n.stringTutoFullscreenButtonContent
-				},
-			];
+				}
+			]);
+			if (options.currentView !== TemplateViewer) {
+				steps = steps.concat([
+					{
+						element: options.linesbutton,
+						placement: "bottom",
+						title: this.l10n.stringTutoLinesButtonTitle,
+						content: this.l10n.stringTutoLinesButtonContent
+					},
+					{
+						element: options.zoombutton,
+						placement: "bottom",
+						title: this.l10n.stringTutoZoomButtonTitle,
+						content: this.l10n.stringTutoZoomButtonContent
+					},
+					{
+						element: options.backbutton,
+						placement: "right",
+						title: this.l10n.stringTutoBackButtonTitle,
+						content: this.l10n.stringTutoBackButtonContent
+					},
+					{
+						element: options.editoraddbutton,
+						placement: "left",
+						title: this.l10n.stringTutoEditorAddButtonTitle,
+						content: this.l10n.stringTutoEditorAddButtonContent
+					},
+					{
+						element: options.editorremovebutton,
+						placement: "left",
+						title: this.l10n.stringTutoEditorRemoveButtonTitle,
+						content: this.l10n.stringTutoEditorRemoveButtonContent
+					},
+					{
+						element: options.editoraddpathbutton,
+						placement: "left",
+						title: this.l10n.stringTutoEditorAddPathButtonTitle,
+						content: this.l10n.stringTutoEditorAddPathButtonContent
+					},
+					{
+						element: options.editorremovepathbutton,
+						placement: "left",
+						title: this.l10n.stringTutoEditorRemovePathButtonTitle,
+						content: this.l10n.stringTutoEditorRemovePathButtonContent
+					},
+					{
+						element: options.restartbutton,
+						placement: "left",
+						title: this.l10n.stringTutoRestartButtonTitle,
+						content: this.l10n.stringTutoRestartButtonContent
+					}
+				]);
+			}
 			var tour = new Tour({
 				template: "\
 				<div class='popover tour'>\
