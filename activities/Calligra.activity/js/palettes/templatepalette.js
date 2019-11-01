@@ -34,6 +34,12 @@ define(["sugar-web/graphics/palette","text!activity/palettes/templatepalette.htm
 			that.getPalette().children[0].style.backgroundImage = invoker.style.backgroundImage = "url(icons/template-number.svg)";
 			that.popDown();
 		});
+		document.getElementById("item-figure").addEventListener('click', function(event) {
+			that.templateSelectedEvent.index = 3;
+			that.getPalette().dispatchEvent(that.templateSelectedEvent);
+			that.getPalette().children[0].style.backgroundImage = invoker.style.backgroundImage = "url(icons/template-figure.svg)";
+			that.popDown();
+		});
 	};
 
 	var addEventListener = function(type, listener, useCapture) {
