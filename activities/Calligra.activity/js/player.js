@@ -3,7 +3,7 @@ var Player = {
 	template: `
 		<div>
 			<div id="back" class="editor-goback" v-on:click="goBack()"></div>
-			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image" v-on:load="onLoad()"></img>
+			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image"></img>
 			<div id="area" class="editor-area">
 				<canvas id="letter"></canvas>
 			</div>
@@ -14,6 +14,7 @@ var Player = {
 	data: function() {
 		return {
 			size: -1,
+			imageSize: -1,
 			zoom: -1,
 			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0}, timeout: null },
 			zoomMult: 1,
@@ -34,7 +35,7 @@ var Player = {
 			letter.width = vm.size;
 			letter.height = vm.size;
 			letter.style.marginLeft = (size.width-vm.size)/2-50 + "px";
-			vm.zoom = (vm.size/document.getElementById("miniletter").naturalWidth)*vm.zoomMult;
+			vm.zoom = (vm.size/vm.imageSize)*vm.zoomMult;
 			vm.size *= vm.zoomMult;
 
 			// Draw
@@ -323,7 +324,15 @@ var Player = {
 	},
 
 	mounted: function() {
-		this.startDemoMode();
+		var vm = this;
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			vm.imageSize = imageObj.width;
+
+			vm.onLoad();
+			vm.startDemoMode();
+		};
+		imageObj.src = vm.item.image;
 	},
 
 	beforeDestroy: function() {

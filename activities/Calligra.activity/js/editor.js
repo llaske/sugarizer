@@ -3,7 +3,7 @@ var Editor = {
 	template: `
 		<div>
 			<div id="back" class="editor-goback" v-on:click="goBack()"></div>
-			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image" v-on:load="onLoad()"></img>
+			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image"></img>
 			<div id="area" class="editor-area">
 				<canvas id="letter"></canvas>
 			</div>
@@ -18,6 +18,7 @@ var Editor = {
 	data: function() {
 		return {
 			size: -1,
+			imageSize: -1,
 			zoom: -1,
 			current: -1,
 			keyboardEvent: null
@@ -36,7 +37,7 @@ var Editor = {
 			letter.width = vm.size;
 			letter.height = vm.size;
 			letter.style.marginLeft = (size.width-vm.size)/2-50 + "px";
-			vm.zoom = vm.size/document.getElementById("miniletter").naturalWidth;
+			vm.zoom = vm.size/vm.imageSize;
 
 			// Draw
 			this.draw();
@@ -172,6 +173,17 @@ var Editor = {
 		goBack: function() {
 			app.displayTemplateView();
 		}
+	},
+
+	mounted: function() {
+		var vm = this;
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			vm.imageSize = imageObj.width;
+
+			vm.onLoad();
+		};
+		imageObj.src = vm.item.image;
 	},
 
 	beforeDestroy: function() {
