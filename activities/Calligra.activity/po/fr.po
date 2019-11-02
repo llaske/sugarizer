@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sat Nov 02 2019 10:44:35 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,30 +13,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
 
-#: EbookReaderActivity
-msgctxt "EbookReaderActivity"
-msgid "Ebook Reader Activity"
-msgstr "Activité lecteur Ebook"
-
-#: Next
-msgctxt "Next"
-msgid "Next"
-msgstr "Suivant"
-
-#: Previous
-msgctxt "Previous"
-msgid "Previous"
-msgstr "Précédent"
-
-#: Library
-msgctxt "Library"
-msgid "Library"
-msgstr "Bibliothèque"
-
-#: Settings
-msgctxt "Settings"
-msgid "Settings"
-msgstr "Paramètres"
+#: CalligraActivity
+msgctxt "CalligraActivity"
+msgid "Calligra Activity"
+msgstr "Activité Calligra"
 
 #: Help
 msgctxt "Help"
@@ -48,20 +28,25 @@ msgctxt "Fullscreen"
 msgid "Fullscreen"
 msgstr "Plein écran"
 
-#: Url
-msgctxt "Url"
-msgid "Url"
-msgstr "Url"
+#: Settings
+msgctxt "Settings"
+msgid "Editor/Play mode"
+msgstr "Mode Editer/Jouer"
 
-#: Ok
-msgctxt "Ok"
-msgid "Ok"
-msgstr "Ok"
+#: Lines
+msgctxt "Lines"
+msgid "Show/Hide Lines"
+msgstr "Cacher/Montrer Lignes"
 
-#: Cancel
-msgctxt "Cancel"
-msgid "Cancel"
-msgstr "Cancel"
+#: Zoom
+msgctxt "Zoom"
+msgid "Zoom"
+msgstr "Zoom"
+
+#: InsertImage
+msgctxt "InsertImage"
+msgid "Insert item"
+msgstr "Insérer Image"
 
 #: PrevShort
 msgctxt "PrevShort"
@@ -78,45 +63,100 @@ msgctxt "EndShort"
 msgid "End"
 msgstr "Fin"
 
+#: Template
+msgctxt "Template"
+msgid "Templates"
+msgstr "Modèles"
+
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
-msgid "Ebook Reader activity"
-msgstr "Activité lecteur E-Book"
+msgid "Calligra activity"
+msgstr "Activité Calligra"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid "This activity is a library that allow you to read electronic books at ePub format."
-msgstr "Cette activité est une bibliothèque qui vous permet de lire des livres électroniques au format ePub."
+msgid "Welcome to the Calligra activity. This activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr "Bienvenue dans l'activité Calligra. Cette activité est une activité amusante pour aider les enfants à apprendre l'écriture cursive: lettres, nombres et figures."
 
-#: TutoBookTitle
-msgctxt "TutoBookTitle"
-msgid "One ebook"
-msgstr "Un livre électronique"
+#: TutoTemplateButtonTitle
+msgctxt "TutoTemplateButtonTitle"
+msgid "Templates"
+msgstr "Modèles"
 
-#: TutoBookContent
-msgctxt "TutoBookContent"
-msgid "Click on an ebook to start or continue reading."
-msgstr "Cliquer sur un livre pour démarrer ou continuer sa lecture."
+#: TutoTemplateButtonContent
+msgctxt "TutoTemplateButtonContent"
+msgid "Click on the palette to choose template to draw."
+msgstr "Cliquer sur la palette pour choisir les modèles à dessiner."
 
-#: TutoLibraryButtonTitle
-msgctxt "TutoLibraryButtonTitle"
-msgid "Change view"
-msgstr "Changer de vue"
+#: TutoEditorItemTitle
+msgctxt "TutoEditorItemTitle"
+msgid "Item to remove"
+msgstr "Elément à supprimer"
 
-#: TutoLibraryButtonContent
-msgctxt "TutoLibraryButtonContent"
-msgid "Click on this icon to switch between library and reading view."
-msgstr "Cliquer sur ce bouton pour passer de la vue bibliothèque à la vue lecture et inversement."
+#: TutoEditorItemContent
+msgctxt "TutoEditorItemContent"
+msgid "Click on the item you want to remove."
+msgstr "Cliquer sur l'élément que vous voulez supprimer."
 
-#: TutoSettingsButtonTitle
-msgctxt "TutoSettingsButtonTitle"
-msgid "Settings"
-msgstr "Paramètres"
+#: TutoPlayerItemTitle
+msgctxt "TutoPlayerItemTitle"
+msgid "Item to draw"
+msgstr "Elément à dessiner"
 
-#: TutoSettingsButtonContent
-msgctxt "TutoSettingsButtonContent"
-msgid "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
-msgstr "Cliquer sur ce bouton si vous voulez accéder à une autre bibliothèque de livres électroniques sur internet. Voir le fichier README de l'activité pour plus d'information."
+#: TutoPlayerItemContent
+msgctxt "TutoPlayerItemContent"
+msgid "Click on the item you want to draw."
+msgstr "Cliquer sur l'élément que vous voulez dessiner."
+
+#: TutoInsertImageButtonTitle
+msgctxt "TutoInsertImageButtonTitle"
+msgid "Insert item"
+msgstr "Insérer élément"
+
+#: TutoInsertImageButtonContent
+msgctxt "TutoInsertImageButtonContent"
+msgid "Click here to create a new item. It will let you choose the image for the new item."
+msgstr "Cliquer ici pour créer un nouvel élément. Cela vous permettra de choisir l'image à utiliser pour l'élément."
+
+#: TutoEditorTemplateButtonTitle
+msgctxt "TutoEditorTemplateButtonTitle"
+msgid "Switch to editor mode"
+msgstr "Passer en mode Editer"
+
+#: TutoEditorTemplateButtonContent
+msgctxt "TutoEditorTemplateButtonContent"
+msgid "Click to switch to the editor mode where you could update the template: create new item or remove an existing item."
+msgstr "Cliquer pour passer en mode éditer où vous pourrez mettre à jour le modèle: créer un nouvel élément ou en supprimer."
+
+#: TutoPlayerTemplateButtonTitle
+msgctxt "TutoPlayerTemplateButtonTitle"
+msgid "Switch to play mode"
+msgstr "Passer en mode Jouer"
+
+#: TutoPlayerTemplateButtonContent
+msgctxt "TutoPlayerTemplateButtonContent"
+msgid "Click to switch to the play mode where you could draw items in the template."
+msgstr "Cliquer pour passer en mode jouer où vous pourrez dessiner les éléments dans le modèle."
+
+#: TutoEditorItemButtonTitle
+msgctxt "TutoEditorItemButtonTitle"
+msgid "Switch to editor mode"
+msgstr "Passer en mode Editer"
+
+#: TutoEditorItemButtonContent
+msgctxt "TutoEditorItemButtonContent"
+msgid "Click to switch to the editor mode where you could define drawing paths for this item."
+msgstr "Cliquer pour passer en mode éditer où vous pourrez définir les tracés pour dessiner l'élément."
+
+#: TutoPlayerItemButtonTitle
+msgctxt "TutoPlayerItemButtonTitle"
+msgid "Switch to play mode"
+msgstr "Passer en mode Jouer"
+
+#: TutoPlayerItemButtonContent
+msgctxt "TutoPlayerItemButtonContent"
+msgid "Click to switch to the play mode where you could draw the item."
+msgstr "Cliquer pour passer en mode jouer où vous pourrez dessiner l'élément."
 
 #: TutoFullscreenButtonTitle
 msgctxt "TutoFullscreenButtonTitle"
@@ -126,25 +166,85 @@ msgstr "Plein écran"
 #: TutoFullscreenButtonContent
 msgctxt "TutoFullscreenButtonContent"
 msgid "Click on this icon to display the current content in full screen mode."
-msgstr "Cliquer sur ce bouton pour afficher le contenu actuel en mode plein écran."
+msgstr "Cliquer sur ce bouton pour passer en mode plein écran."
 
-#: TutoPrevButtonTitle
-msgctxt "TutoPrevButtonTitle"
-msgid "Previous page"
-msgstr "Page précédente"
+#: TutoLinesButtonTitle
+msgctxt "TutoLinesButtonTitle"
+msgid "Show/Hide Lines"
+msgstr "Cacher/Montrer Lignes"
 
-#: TutoPrevButtonContent
-msgctxt "TutoPrevButtonContent"
-msgid "Click here to display the previous page of the book."
-msgstr "Cliquer ici pour passer à la page précédente du livre."
+#: TutoLinesButtonContent
+msgctxt "TutoLinesButtonContent"
+msgid "Click to show/hide lines to guide your drawing."
+msgstr "Cliquer pour cache/montrer les lignes pour guider le dessin."
 
-#: TutoNextButtonTitle
-msgctxt "TutoNextButtonTitle"
-msgid "Next page"
-msgstr "Page suivante"
+#: TutoZoomButtonTitle
+msgctxt "TutoZoomButtonTitle"
+msgid "Zoom"
+msgstr "Zoom"
 
-#: TutoNextButtonContent
-msgctxt "TutoNextButtonContent"
-msgid "Click here to display the next page of the book."
-msgstr "Cliquer ici pour passer à la page suivante du livre."
+#: TutoZoomButtonContent
+msgctxt "TutoZoomButtonContent"
+msgid "Click on this palette to zoom in/zoom out the item."
+msgstr "Cliquer sur cette palette pour faire un zoom avant/arrière de l'élément."
+
+#: TutoBackButtonTitle
+msgctxt "TutoBackButtonTitle"
+msgid "Back"
+msgstr "Retour"
+
+#: TutoBackButtonContent
+msgctxt "TutoBackButtonContent"
+msgid "Click here to go back to the list of items."
+msgstr "Cliquer ici pour retourner à la liste des éléments."
+
+#: TutoRestartButtonTitle
+msgctxt "TutoRestartButtonTitle"
+msgid "Restart"
+msgstr "Redémarrer"
+
+#: TutoRestartButtonContent
+msgctxt "TutoRestartButtonContent"
+msgid "Click here to restart the drawing."
+msgstr "Cliquer ici pour redémarrer le dessin."
+
+#: TutoEditorAddButtonTitle
+msgctxt "TutoEditorAddButtonTitle"
+msgid "Add start point"
+msgstr "Ajouter un point de départ"
+
+#: TutoEditorAddButtonContent
+msgctxt "TutoEditorAddButtonContent"
+msgid "Click here to add a start point. Each drawing could have as many start points that you want. It's generally a good way to show where the pen should be up. Once the point is add, use mouse or arrow keys to move it."
+msgstr "Cliquer ici pour ajouter un point de départ. Chaque dessin peut avoir autant de points de départ que vous voulez. Cela permet généralement d'indiquer les endroits où le stylo doit être relevé. Une fois le point ajouté, utiliser la souris ou les touches flèches pour le déplacer."
+
+#: TutoEditorRemoveButtonTitle
+msgctxt "TutoEditorRemoveButtonTitle"
+msgid "Remove start point"
+msgstr "Supprimer point de départ"
+
+#: TutoEditorRemoveButtonContent
+msgctxt "TutoEditorRemoveButtonContent"
+msgid "Click here to remove the last start point."
+msgstr "Cliquer ici pour supprimer le dernier point de départ."
+
+#: TutoEditorAddPathButtonTitle
+msgctxt "TutoEditorAddPathButtonTitle"
+msgid "Add path point"
+msgstr "Ajouter un point de tracé"
+
+#: TutoEditorAddPathButtonContent
+msgctxt "TutoEditorAddPathButtonContent"
+msgid "Click here (or type the P key) to add a path point. Use path points to define the path to follow to draw your item. It's better if path points are not very far from one another. Once the point is add, use mouse or arrow keys to move it."
+msgstr "Cliquer ici (ou appuyer sur la touche P) pour ajouter un point de tracé. Utiliser les points de tracé pour définir le chemin à suivre pour dessiner l'élément. Il est préférable que les points de tracé ne soient pas trop éloignés les uns des autres. Une fois le point ajouté, utiliser la souris ou les touches flèches pour le déplacer."
+
+#: TutoEditorRemovePathButtonTitle
+msgctxt "TutoEditorRemovePathButtonTitle"
+msgid "Remove path point"
+msgstr "Supprimer point de tracé"
+
+#: TutoEditorRemovePathButtonContent
+msgctxt "TutoEditorRemovePathButtonContent"
+msgid "Click here to remove the last path point."
+msgstr "Cliquer ici pour supprimer le dernier point de tracé."
 
