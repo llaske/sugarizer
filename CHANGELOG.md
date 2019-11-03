@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Long name hide text in Chat activity #383
 - Allow to control speed generation in Game of Life activity #380
 - Image selection error in Write activity after scrolling #390
+- Add an option to choose board size of Game of Life activity #381
 
 
 ## [1.2.0] - 2019-09-26
