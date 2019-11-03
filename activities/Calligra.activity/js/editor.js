@@ -53,6 +53,10 @@ var Editor = {
 			}
 			var letter = document.getElementById("letter");
 			letter.addEventListener(clickEvent, function(e) {
+				e.preventDefault();
+				if (touchScreen) {
+					e = e.changedTouches[0];
+				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
 				if (vm.current != -1) {

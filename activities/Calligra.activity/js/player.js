@@ -62,6 +62,7 @@ var Player = {
 			}
 			var cursor = document.getElementById("cursor");
 			cursor.addEventListener(moveEvent, function(e) {
+				e.preventDefault();
 				if (vm.mode != 'input' || !vm.drawing) {
 					return;
 				}
@@ -73,20 +74,25 @@ var Player = {
 				vm.handleMouseMove(x, y);
 			});
 			cursor.addEventListener(downEvent, function(e) {
+				e.preventDefault();
 				vm.drawing = (vm.mode == 'input');
 			});
 			cursor.addEventListener(upEvent, function(e) {
+				e.preventDefault();
 				vm.drawing = false;
 			});
 
 			var letter = document.getElementById("letter");
 			letter.addEventListener(downEvent, function(e) {
+				e.preventDefault();
 				vm.drawing = (vm.mode == 'input');
 			});
 			letter.addEventListener(upEvent, function(e) {
+				e.preventDefault();
 				vm.drawing = false;
 			});
 			letter.addEventListener(moveEvent, function(e) {
+				e.preventDefault();
 				if (vm.mode != 'input' || !vm.drawing) {
 					return;
 				}
