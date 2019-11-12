@@ -1,6 +1,19 @@
 define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane) {
 
-    requirejs(['domReady!'], function (doc) {
+    // Resize screen
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    console.log('RESIZE')    
+    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("canvas").style.top = "0px";
+    document.getElementById("unfullscreen-button").style.visibility = "visible";
+  });
+  document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("canvas").style.top = "55px";
+    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+  });  
+  
+  requirejs(['domReady!'], function (doc) {
         activity.setup();
 
         var maze = {};
@@ -87,7 +100,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         };
 
-        var onNetworkUserChanged = function(msg) {
+      var onNetworkUserChanged = function(msg) {
 			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			if (msg.move === 1) {
