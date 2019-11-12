@@ -43,7 +43,7 @@
   width: 45px;
   height: 45px;
   top: 0;
-  left: 95%;
+  right: 5%;
   position: absolute;
   visibility: hidden;
   z-index: 5;
