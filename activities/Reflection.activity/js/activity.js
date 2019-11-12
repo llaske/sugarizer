@@ -39,7 +39,7 @@ function runactivity(act,doc,colors,env,datastore){
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.height = window.innerHeight-(+document.getElementById("main-toolbar").style.opacity ? 55 : 0);
 			stage.removeAllChildren();
 			g.resize();
 		}
