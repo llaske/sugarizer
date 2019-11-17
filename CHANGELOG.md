@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Calligra activity
+- Tutorial step 9: integrate a tutorial
 
 ### Changed
 - Double size of Record images in WebApp and electron App
