@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Image selection error in Write activity after scrolling #390
 - Add an option to choose board size of Game of Life activity #381
 - Board is not drawn correctly in LastOneLost activity when open from the Journal #419
+- Clear icon in Game of Life activity is non standard #397
 
 
 ## [1.2.0] - 2019-09-26
