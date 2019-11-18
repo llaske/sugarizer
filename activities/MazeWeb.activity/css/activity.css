@@ -42,8 +42,7 @@
 
 #canvas {
   background-color: #101010;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 #fullscreen-button {
@@ -58,8 +57,8 @@
   width: 45px;
   height: 45px;
   top: 0;
-  left: 95%;
+  right: 5%;
   position: absolute;
-  visibility: hidden;
+  display: none;
   z-index: 5;
 }

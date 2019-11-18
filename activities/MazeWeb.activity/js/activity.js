@@ -2,15 +2,14 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
     // Resize screen
   document.getElementById("fullscreen-button").addEventListener('click', function() {
-    console.log('RESIZE')    
-    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("main-toolbar").style.display = "none";
     document.getElementById("canvas").style.top = "0px";
-    document.getElementById("unfullscreen-button").style.visibility = "visible";
+    document.getElementById("unfullscreen-button").style.display = "inline-block";
   });
   document.getElementById("unfullscreen-button").addEventListener('click', function() {
-    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("main-toolbar").style.display = "block";
     document.getElementById("canvas").style.top = "55px";
-    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+    document.getElementById("unfullscreen-button").style.display = "none";
   });  
   
   requirejs(['domReady!'], function (doc) {
@@ -42,7 +41,6 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
             // Shared instances
             if (environment.sharedId) {
-                console.log("Shared instance");
                 presence = activity.getPresenceObject(function(error, network) {
                     network.onDataReceived(onNetworkDataReceived);
                     network.onSharedActivityUserChanged(onNetworkUserChanged);
@@ -897,14 +895,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
         palette.addEventListener('shared', function() {
             palette.popDown();
-            console.log("Want to share");
             presence = activity.getPresenceObject(function(error, network) {
                 if (error) {
-                    console.log("Sharing error");
                     return;
                 }
                 network.createSharedActivity('org.sugarlabs.MazeWebActivity', function(groupId) {
-                    console.log("Activity shared");
                     isHost = true;
                     presence.sendMessage(presence.getSharedInfo().id, {
                         user: presence.getUserInfo(),
