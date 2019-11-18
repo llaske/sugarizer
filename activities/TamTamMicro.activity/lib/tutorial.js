@@ -1,4 +1,4 @@
-define([], function () {
+define(["webL10n"], function (l10n) {
     var tutorial = {};
 
     tutorial.start = function () {
@@ -7,19 +7,19 @@ define([], function () {
                 element: "",
                 orphan: true,
                 placement: "bottom",
-                title: "Pawn Activity",
-                content: "Welcome into the Pawn activity. This activity is an activity to test Sugarizer development."
+                title: l10n.get("TutoExplainTitle"),
+                content: l10n.get("TutoExplainContent")
             },
             {
-                element: "#add-button",
+                element: ".collection:first-child",
                 placement: "bottom",
-                title: "Add pawn",
-                content: "Click here to add one to three pawns on the board."
+                title: l10n.get("TutoSelectTitle"),
+                content: l10n.get("TutoSelectContent")
             },
             {
-                element: "#picture-button",
-                title: "Change background",
-                content: "Click here to choose a new background for the board."
+                element: ".item:first-child",
+                title: l10n.get("TutoPlayTitle"),
+                content: l10n.get("TutoPlayContent")
             }
         ];
         var tour = new Tour({
@@ -34,7 +34,7 @@ define([], function () {
                             <div class='tutorial-prev-icon2 web-activity-icon'></div>\
                             <div class='tutorial-prev-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>Prev</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoPrev") + "</div>\
                     </div>\
                     <span data-role='separator' style='margin: 4px'>|</span>\
                     <div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -42,14 +42,14 @@ define([], function () {
                             <div class='tutorial-next-icon2 web-activity-icon'></div>\
                             <div class='tutorial-next-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>Next</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoNext") + "</div>\
                     </div>\
                     <div class='tutorial-end-icon icon-button' data-role='end'>\
                         <div class='tutorial-end-icon1 web-activity'>\
                             <div class='tutorial-end-icon2 web-activity-icon'></div>\
                             <div class='tutorial-end-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>End</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoEnd") + "</div>\
                     </div>\
                 </div>\
             </div>",
