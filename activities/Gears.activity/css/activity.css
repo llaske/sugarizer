@@ -28,7 +28,7 @@
 }
 
 #main-toolbar #help-button {
-  background-image: url(../icons/toolbar-help.svg);
+  background-image: url(../icons/help.svg);
 }
 
 @media screen and (max-width: 567px) {
