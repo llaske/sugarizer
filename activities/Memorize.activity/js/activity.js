@@ -1,6 +1,11 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", "tutorial", 'activity/memorize-app'], function (doc, activity, presencePalette, tutorial, memorizeApp) {
+
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function (e) {
+            tutorial.start();
+        });
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
