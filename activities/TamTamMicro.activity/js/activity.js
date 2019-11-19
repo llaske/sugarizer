@@ -8,6 +8,7 @@ define(["sugar-web/activity/activity", "tutorial"], function (activity, tutorial
 		tutorial.start();
 	});
 
+
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 		// Initialize the activity.
