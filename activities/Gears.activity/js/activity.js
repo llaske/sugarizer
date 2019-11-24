@@ -119,16 +119,19 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
 
         // Full screen
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			
 			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("canvas").style.top = "0px";
-			document.getElementById("unfullscreen-button").style.visibility = "visible";
+            document.getElementById("canvas").style.top = "0px";
+            gearSketch.canvasOffsetY = gearSketch.canvas.getBoundingClientRect().top;
+            gearSketch.updateCanvasSize();
+            document.getElementById("unfullscreen-button").style.visibility = "visible";
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 1;
-			document.getElementById("canvas").style.top = "55px";
-			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-		});
+            document.getElementById("canvas").style.top = "55px";
+            gearSketch.canvasOffsetY = gearSketch.canvas.getBoundingClientRect().top;
+            gearSketch.updateCanvasSize();
+            document.getElementById("unfullscreen-button").style.visibility = "hidden";
+        });
 
     });
 
