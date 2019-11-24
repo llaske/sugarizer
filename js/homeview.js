@@ -184,6 +184,11 @@ enyo.kind({
 					if (error) {
 						console.log("WARNING: Can't connect to presence server");
 					}
+					presence.onConnectionClosed(function (event) {
+						console.log("Disconnected");
+						var message = l10n.get((event.code == 4999) ? "YouveGotDisconnectedAutomatically" : "YouveGotDisconnected");
+						if (message) humane.log(message);
+					});
 				});
 				callback(true);
 				autosync.synchronizeJournal(
