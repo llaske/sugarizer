@@ -115,7 +115,7 @@ define(function (require) {
   }
 
   function xhrLoadText(url, onSuccess, onFailure, asynchronous) {
-    onSuccess = onSuccess || function _onSuccess(data) { };
+    onSuccess = onSuccess || function _onSuccess(data) {};
     onFailure = onFailure || function _onFailure() {
       consoleWarn(url + ' not found.');
     };
@@ -125,7 +125,7 @@ define(function (require) {
     if (xhr.overrideMimeType) {
       xhr.overrideMimeType('text/plain; charset=utf-8');
     }
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         if (xhr.status == 200 || xhr.status === 0) {
           onSuccess(xhr.responseText);
@@ -178,15 +178,15 @@ define(function (require) {
       if (text.lastIndexOf('\\') < 0)
         return text;
       return text.replace(/\\\\/g, '\\')
-        .replace(/\\n/g, '\n')
-        .replace(/\\r/g, '\r')
-        .replace(/\\t/g, '\t')
-        .replace(/\\b/g, '\b')
-        .replace(/\\f/g, '\f')
-        .replace(/\\{/g, '{')
-        .replace(/\\}/g, '}')
-        .replace(/\\"/g, '"')
-        .replace(/\\'/g, "'");
+                 .replace(/\\n/g, '\n')
+                 .replace(/\\r/g, '\r')
+                 .replace(/\\t/g, '\t')
+                 .replace(/\\b/g, '\b')
+                 .replace(/\\f/g, '\f')
+                 .replace(/\\{/g, '{')
+                 .replace(/\\}/g, '}')
+                 .replace(/\\"/g, '"')
+                 .replace(/\\'/g, "'");
     }
 
     // parse *.properties text data into an l10n dictionary
@@ -221,7 +221,7 @@ define(function (require) {
               match = reSection.exec(line);
               currentLang = match[1];
               skipLang = (currentLang !== '*') &&
-                (currentLang !== lang) && (currentLang !== genericLang);
+              (currentLang !== lang) && (currentLang !== genericLang);
               continue;
             } else if (skipLang) {
               continue;
@@ -242,7 +242,7 @@ define(function (require) {
 
       // import another *.properties file
       function loadImport(url) {
-        xhrLoadText(url, function (content) {
+        xhrLoadText(url, function(content) {
           parseRawLines(content, false); // don't allow recursive imports
         }, null, false); // load synchronously
       }
@@ -253,7 +253,7 @@ define(function (require) {
     }
 
     // load and parse l10n data (warning: global variables are used here)
-    xhrLoadText(href, function (response) {
+    xhrLoadText(href, function(response) {
       gTextData += response; // mostly for debug
 
       // parse *.properties text data into an l10n dictionary
@@ -284,7 +284,7 @@ define(function (require) {
 
   // load and parse all resources for the specified locale
   function loadLocale(lang, callback) {
-    callback = callback || function _callback() { };
+    callback = callback || function _callback() {};
 
     clear();
     gLanguage = lang;
@@ -312,7 +312,7 @@ define(function (require) {
     // start the callback when all resources are loaded
     var onResourceLoaded = null;
     var gResourceCount = 0;
-    onResourceLoaded = function () {
+    onResourceLoaded = function() {
       gResourceCount++;
       if (gResourceCount >= langCount) {
         callback();
@@ -325,9 +325,9 @@ define(function (require) {
     function l10nResourceLink(link) {
       var href = link.href;
       var type = link.type;
-      this.load = function (lang, callback) {
+      this.load = function(lang, callback) {
         var applied = lang;
-        parseResource(href, lang, callback, function () {
+        parseResource(href, lang, callback, function() {
           consoleWarn(href + ' not found.');
           applied = '';
         });
@@ -487,7 +487,6 @@ define(function (require) {
       'pl': 13,
       'ps': 3,
       'pt': 3,
-      'pt-BR': 3,
       'rm': 3,
       'ro': 9,
       'rof': 3,
@@ -557,10 +556,10 @@ define(function (require) {
     // list of all plural rules methods:
     // map an integer to the plural form name to use
     var pluralRules = {
-      '0': function (n) {
+      '0': function(n) {
         return 'other';
       },
-      '1': function (n) {
+      '1': function(n) {
         if ((isBetween((n % 100), 3, 10)))
           return 'few';
         if (n === 0)
@@ -573,7 +572,7 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '2': function (n) {
+      '2': function(n) {
         if (n !== 0 && (n % 10) === 0)
           return 'many';
         if (n == 2)
@@ -582,36 +581,36 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '3': function (n) {
+      '3': function(n) {
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '4': function (n) {
+      '4': function(n) {
         if ((isBetween(n, 0, 1)))
           return 'one';
         return 'other';
       },
-      '5': function (n) {
+      '5': function(n) {
         if ((isBetween(n, 0, 2)) && n != 2)
           return 'one';
         return 'other';
       },
-      '6': function (n) {
+      '6': function(n) {
         if (n === 0)
           return 'zero';
         if ((n % 10) == 1 && (n % 100) != 11)
           return 'one';
         return 'other';
       },
-      '7': function (n) {
+      '7': function(n) {
         if (n == 2)
           return 'two';
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '8': function (n) {
+      '8': function(n) {
         if ((isBetween(n, 3, 6)))
           return 'few';
         if ((isBetween(n, 7, 10)))
@@ -622,50 +621,50 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '9': function (n) {
+      '9': function(n) {
         if (n === 0 || n != 1 && (isBetween((n % 100), 1, 19)))
           return 'few';
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '10': function (n) {
+      '10': function(n) {
         if ((isBetween((n % 10), 2, 9)) && !(isBetween((n % 100), 11, 19)))
           return 'few';
         if ((n % 10) == 1 && !(isBetween((n % 100), 11, 19)))
           return 'one';
         return 'other';
       },
-      '11': function (n) {
+      '11': function(n) {
         if ((isBetween((n % 10), 2, 4)) && !(isBetween((n % 100), 12, 14)))
           return 'few';
         if ((n % 10) === 0 ||
-          (isBetween((n % 10), 5, 9)) ||
-          (isBetween((n % 100), 11, 14)))
+            (isBetween((n % 10), 5, 9)) ||
+            (isBetween((n % 100), 11, 14)))
           return 'many';
         if ((n % 10) == 1 && (n % 100) != 11)
           return 'one';
         return 'other';
       },
-      '12': function (n) {
+      '12': function(n) {
         if ((isBetween(n, 2, 4)))
           return 'few';
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '13': function (n) {
+      '13': function(n) {
         if ((isBetween((n % 10), 2, 4)) && !(isBetween((n % 100), 12, 14)))
           return 'few';
         if (n != 1 && (isBetween((n % 10), 0, 1)) ||
-          (isBetween((n % 10), 5, 9)) ||
-          (isBetween((n % 100), 12, 14)))
+            (isBetween((n % 10), 5, 9)) ||
+            (isBetween((n % 100), 12, 14)))
           return 'many';
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '14': function (n) {
+      '14': function(n) {
         if ((isBetween((n % 100), 3, 4)))
           return 'few';
         if ((n % 100) == 2)
@@ -674,7 +673,7 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '15': function (n) {
+      '15': function(n) {
         if (n === 0 || (isBetween((n % 100), 2, 10)))
           return 'few';
         if ((isBetween((n % 100), 11, 19)))
@@ -683,12 +682,12 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '16': function (n) {
+      '16': function(n) {
         if ((n % 10) == 1 && n != 11)
           return 'one';
         return 'other';
       },
-      '17': function (n) {
+      '17': function(n) {
         if (n == 3)
           return 'few';
         if (n === 0)
@@ -701,26 +700,26 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '18': function (n) {
+      '18': function(n) {
         if (n === 0)
           return 'zero';
         if ((isBetween(n, 0, 2)) && n !== 0 && n != 2)
           return 'one';
         return 'other';
       },
-      '19': function (n) {
+      '19': function(n) {
         if ((isBetween(n, 2, 10)))
           return 'few';
         if ((isBetween(n, 0, 1)))
           return 'one';
         return 'other';
       },
-      '20': function (n) {
+      '20': function(n) {
         if ((isBetween((n % 10), 3, 4) || ((n % 10) == 9)) && !(
-          isBetween((n % 100), 10, 19) ||
-          isBetween((n % 100), 70, 79) ||
-          isBetween((n % 100), 90, 99)
-        ))
+            isBetween((n % 100), 10, 19) ||
+            isBetween((n % 100), 70, 79) ||
+            isBetween((n % 100), 90, 99)
+            ))
           return 'few';
         if ((n % 1000000) === 0 && n !== 0)
           return 'many';
@@ -730,24 +729,24 @@ define(function (require) {
           return 'one';
         return 'other';
       },
-      '21': function (n) {
+      '21': function(n) {
         if (n === 0)
           return 'zero';
         if (n == 1)
           return 'one';
         return 'other';
       },
-      '22': function (n) {
+      '22': function(n) {
         if ((isBetween(n, 0, 1)) || (isBetween(n, 11, 99)))
           return 'one';
         return 'other';
       },
-      '23': function (n) {
+      '23': function(n) {
         if ((isBetween((n % 10), 1, 2)) || (n % 20) === 0)
           return 'one';
         return 'other';
       },
-      '24': function (n) {
+      '24': function(n) {
         if ((isBetween(n, 3, 10) || isBetween(n, 13, 19)))
           return 'few';
         if (isIn(n, [2, 12]))
@@ -872,7 +871,7 @@ define(function (require) {
       }
 
       str = str.substring(0, match.index) + sub +
-        str.substr(match.index + match[0].length);
+            str.substr(match.index + match[0].length);
       match = reArgs.exec(str);
     }
     return str;
@@ -902,7 +901,7 @@ define(function (require) {
           found = false;
         for (var i = 0, l = children.length; i < l; i++) {
           if (children[i].nodeType === 3 &&
-            /\S/.test(children[i].textContent)) { // XXX
+              /\S/.test(children[i].textContent)) { // XXX
             // using nodeValue seems cross-browser
             if (found) {
               children[i].nodeValue = '';
@@ -959,7 +958,7 @@ define(function (require) {
   function l10nStartup() {
     gReadyState = 'interactive';
     consoleLog('loading [' + navigator.language + '] resources, ' +
-      (gAsyncResourceLoading ? 'asynchronously.' : 'synchronously.'));
+        (gAsyncResourceLoading ? 'asynchronously.' : 'synchronously.'));
 
     // load the default locale and translate the document if required
     if (document.documentElement.lang === navigator.language) {
