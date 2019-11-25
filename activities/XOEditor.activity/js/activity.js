@@ -64,3 +64,15 @@ function runactivity(act,xocolor,doc,colors,env,datastore){
 	}
     init();
 }
+
+// Full screen.
+document.getElementById("fullscreen-button").addEventListener('click', function() {
+	document.getElementById("main-toolbar").style.opacity = 0;
+	document.getElementById("canvas").style.top = "0px";
+	document.getElementById("unfullscreen-button").style.visibility = "visible";
+});
+document.getElementById("unfullscreen-button").addEventListener('click', function() {
+	document.getElementById("main-toolbar").style.opacity = 1;
+	document.getElementById("canvas").style.top = "55px";
+	document.getElementById("unfullscreen-button").style.visibility = "hidden";
+});
