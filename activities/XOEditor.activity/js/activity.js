@@ -66,17 +66,24 @@ function runactivity(act,xocolor,doc,colors,env,datastore){
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;
             document.getElementById("canvas").style.top = "0px";
-            resizeCanvas();
+            canvas.height = window.innerHeight;
+            stage = new createjs.Stage(canvas);
+            stage.update();
+            e = new Editor(stage,xocolor,doc,colors,act,env,datastore);
+            e.init();
             document.getElementById("unfullscreen-button").style.visibility = "visible";
         });
         document.getElementById("unfullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 1;
             document.getElementById("canvas").style.top = "55px";
-            resizeCanvas();
+            stage = new createjs.Stage(canvas);
+            stage.update();
+            e = new Editor(stage,xocolor,doc,colors,act,env,datastore);
+            e.init();
             document.getElementById("unfullscreen-button").style.visibility = "hidden";
         });
 
 	}
-    init();
+	init();
 }
 
