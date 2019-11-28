@@ -248,4 +248,20 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     board.handleResize(window.innerWidth, state.state.boardState,state);
   });
   board.handleResize(window.innerWidth, state.state.boardState,state);
+
+  // Full screen.
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("canvas").style.top = "0px";
+    gearSketch.canvasOffsetY = gearSketch.canvas.getBoundingClientRect().top;
+    gearSketch.updateCanvasSize();
+    document.getElementById("unfullscreen-button").style.visibility = "visible";
+});
+document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("canvas").style.top = "55px";
+    gearSketch.canvasOffsetY = gearSketch.canvas.getBoundingClientRect().top;
+    gearSketch.updateCanvasSize();
+    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+});
 }
