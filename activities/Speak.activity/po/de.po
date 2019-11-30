@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed Nov 28 2018 22:23:47 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2019-11-30 18:18+0000\n"
+"Last-Translator: Christoph Derndorfer <christoph@derndorfer.eu>\n"
+"Language-Team: German <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-speak/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: SavedTalk
 msgctxt "SavedTalk"
@@ -32,7 +34,7 @@ msgstr "I'm sleepy"
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr "Language"
+msgstr "Sprache"
 
 #: Speech
 msgctxt "Speech"
@@ -198,4 +200,3 @@ msgstr "Turkish"
 msgctxt "langzh"
 msgid "Chinese"
 msgstr "Chinese"
-
