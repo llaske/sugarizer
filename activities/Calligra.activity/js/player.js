@@ -307,7 +307,7 @@ var Player = {
 		doZoom: function(level) {
 			var vm = this;
 			var zoomMult = 1;
-			var cursor = {x:vm.current.cursor.x/vm.zoom, y:vm.current.cursor.y/vm.zoom}
+			var cursor = {x:vm.current.cursor.x/vm.zoom, y:vm.current.cursor.y/vm.zoom};
 			switch(level.zoom) {
 				case 0:
 					zoomMult = 0.9;
@@ -320,6 +320,13 @@ var Player = {
 					break;
 			}
 			vm.zoomMult *= zoomMult;
+			vm.computeSize();
+			vm.moveCursor({x:vm.zoom*cursor.x, y:vm.zoom*cursor.y});
+		},
+
+		doFullscreen: function(full) {
+			var vm = this;
+			var cursor = {x:vm.current.cursor.x/vm.zoom, y:vm.current.cursor.y/vm.zoom};
 			vm.computeSize();
 			vm.moveCursor({x:vm.zoom*cursor.x, y:vm.zoom*cursor.y});
 		},
