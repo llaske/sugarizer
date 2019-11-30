@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed Nov 28 2018 22:18:10 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2019-11-30 18:31+0000\n"
+"Last-Translator: Christoph Derndorfer <christoph@derndorfer.eu>\n"
+"Language-Team: German <http://translate.sugarizer.org/projects/sugarizer"
+"/sugarizer-core/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: StartNew
 msgctxt "StartNew"
@@ -180,7 +182,7 @@ msgstr "wo"
 #: Weeks_other_short
 msgctxt "Weeks_other_short"
 msgid "wk"
-msgstr "wo"
+msgstr "wk"
 
 #: Months_one_short
 msgctxt "Months_one_short"
@@ -451,18 +453,18 @@ msgstr "User-Agent:"
 #: Storage
 msgctxt "Storage"
 msgid "Storage:"
-msgstr "Storage:"
+msgstr "Speicher:"
 
 #. Do not translate {{used}} {{percent}}
 #: StorageSize
 msgctxt "StorageSize"
 msgid "{{used}} bytes - {{percent}}%"
-msgstr "{{used}} bytes - {{percent}}%"
+msgstr "{{used}} Bytes - {{percent}}%"
 
 #: JournalAlmostFull
 msgctxt "JournalAlmostFull"
 msgid "Warning: Journal almost full!"
-msgstr "Warning: Journal almost full!"
+msgstr "Warnung: Journal ist fast voll!"
 
 #: ShortForBytes
 msgctxt "ShortForBytes"
@@ -711,12 +713,12 @@ msgstr "Laden..."
 #: Synchronize
 msgctxt "Synchronize"
 msgid "Synchronize"
-msgstr "Synchronize"
+msgstr "Synchronisieren"
 
 #: RetrievingJournal
 msgctxt "RetrievingJournal"
 msgid "Synchronizing Journal..."
-msgstr "Synchronizing Journal..."
+msgstr "Journal synchronisieren..."
 
 #: AllDataWillBeLost
 msgctxt "AllDataWillBeLost"
@@ -752,17 +754,17 @@ msgstr "Kann Datei nicht schreiben"
 #: UnableToConnect
 msgctxt "UnableToConnect"
 msgid "Unable to connect to server"
-msgstr "Unable to connect to server"
+msgstr "Verbindung zum Server nicht möglich"
 
 #: Refresh
 msgctxt "Refresh"
 msgid "Retry"
-msgstr "Retry"
+msgstr "Wiederholen"
 
 #: Quit
 msgctxt "Quit"
 msgid "Quit"
-msgstr "Quit"
+msgstr "Beenden"
 
 #: Tutorial
 msgctxt "Tutorial"
@@ -812,7 +814,9 @@ msgstr "Journal"
 #: TutoJournalContent
 msgctxt "TutoJournalContent"
 msgid "Journal is the place to retrieve the work you've done in activities and access your history."
-msgstr "Journal ist der Ort um die Arbeit, die du in Activities gemacht hast, und deine Geschichte abzurufen."
+msgstr ""
+"Journal ist der Ort um die Arbeit, die du in der Vergangenheit in Activities "
+"gemacht hast, abzurufen."
 
 #: TutoFavoriteTitle
 msgctxt "TutoFavoriteTitle"
@@ -997,7 +1001,7 @@ msgstr "Klicke auf dieses Icon um den Inhalt des geteilten Journals am Server an
 #: TutoGotoHomeTitle
 msgctxt "TutoGotoHomeTitle"
 msgid "Home view"
-msgstr "Home view"
+msgstr "Heim Ansicht"
 
 #: TutoGotoHomeContent
 msgctxt "TutoGotoHomeContent"
@@ -1072,32 +1076,32 @@ msgstr "Dies ist ein WiFi Access Point in deiner Nähe. Ziehe die Maus darüber 
 #: AllType
 msgctxt "AllType"
 msgid "All"
-msgstr "All"
+msgstr "Alle"
 
 #: SelectFilter
 msgctxt "SelectFilter"
 msgid "Select filter"
-msgstr "Select filter"
+msgstr "Filter auswählen"
 
 #: SortDisplay
 msgctxt "SortDisplay"
 msgid "Sort display"
-msgstr "Sort display"
+msgstr "Anzeige sortieren"
 
 #: SortByUpdated
 msgctxt "SortByUpdated"
 msgid "Sort by updated date"
-msgstr "Sort by updated date"
+msgstr "Nach Aktualisierungsdatum sortieren"
 
 #: SortByCreated
 msgctxt "SortByCreated"
 msgid "Sort by creation date"
-msgstr "Sort by creation date"
+msgstr "Nach Erstellungsdatum sortieren"
 
 #: SortBySize
 msgctxt "SortBySize"
 msgid "Sort by size"
-msgstr "Sort by size"
+msgstr "Nach Größe sortieren"
 
 #: UnselectAll
 msgctxt "UnselectAll"
@@ -1107,36 +1111,36 @@ msgstr "Unselect all"
 #: SelectAll
 msgctxt "SelectAll"
 msgid "Select all"
-msgstr "Select all"
+msgstr "Alle auswählen"
 
 #. Do not translate {{count}} {{total}}
 #: Selected_one
 msgctxt "Selected_one"
 msgid "{{count}} selected on {{total}}"
-msgstr "{{count}} selected on {{total}}"
+msgstr "{{count}} von {{total}} ausgewählt"
 
 #. Do not translate {{count}} {{total}}
 #: Selected_other
 msgctxt "Selected_other"
 msgid "{{count}} selected on {{total}}"
-msgstr "{{count}} selected on {{total}}"
+msgstr "{{count}} von {{total}} ausgewählt"
 
 #. Do not translate {{count}}
 #: Erase_one
 msgctxt "Erase_one"
 msgid "Do you want to remove {{count}} entry?"
-msgstr "Do you want to remove {{count}} entry?"
+msgstr "Willst du {{count}} Einträge entfernen?"
 
 #. Do not translate {{count}}
 #: Erase_other
 msgctxt "Erase_other"
 msgid "Do you want to remove {{count}} entries?"
-msgstr "Do you want to remove {{count}} entries?"
+msgstr "Willst du {{count}} Einträge entfernen?"
 
 #: Erasing
 msgctxt "Erasing"
 msgid "Removing..."
-msgstr "Removing..."
+msgstr "Entfernen..."
 
 #. Do not translate {{count}}
 #: CopyToLocal_one
@@ -1148,7 +1152,7 @@ msgstr "Do you want to copy {{count}} entry in your local Journal?"
 #: CopyToLocal_other
 msgctxt "CopyToLocal_other"
 msgid "Do you want to copy {{count}} entries in your local Journal?"
-msgstr "Do you want to copy {{count}} entries in your local Journal?"
+msgstr "Willst du {{count}} Einträge in deinem lokalen Journal kopieren?"
 
 #. Do not translate {{count}}
 #: CopyToPrivate_one
@@ -1295,7 +1299,7 @@ msgstr "You've already created a Sugarizer user on a server? Click here to give 
 #: TutoInitHistoryTitle
 msgctxt "TutoInitHistoryTitle"
 msgid "Recent users"
-msgstr "Recent users"
+msgstr "Letzte Benutzer"
 
 #: TutoInitHistoryContent
 msgctxt "TutoInitHistoryContent"
@@ -1320,7 +1324,9 @@ msgstr "Server address"
 #: TutoInitServerContent
 msgctxt "TutoInitServerContent"
 msgid "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
-msgstr "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
+msgstr ""
+"Tippe die Server Adresse, wo deine Daten gespeichert sind, ein. Sie sollte "
+"mit \"http://\" oder \"https://\" beginnen."
 
 #: TutoInitNameTitle
 msgctxt "TutoInitNameTitle"
@@ -1525,7 +1531,7 @@ msgstr "The famous memorize game: find matching pairs (images, sounds or text). 
 #: TutoActivityMoonactivity
 msgctxt "TutoActivityMoonactivity"
 msgid "Moon phase viewer, includes Lunar phase information and eclipse data."
-msgstr "Moon phase viewer, includes Lunar phase information and eclipse data."
+msgstr "Mondphasenanzeige, enthält Mondphaseninformationen und Eclipse-Daten."
 
 #: TutoActivityPaintactivity
 msgctxt "TutoActivityPaintactivity"
@@ -1565,7 +1571,9 @@ msgstr "Shared Notes is an activity that let you pin small notes - like \"Post-I
 #: TutoActivitySpeakactivity
 msgctxt "TutoActivitySpeakactivity"
 msgid "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
-msgstr "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
+msgstr ""
+"Speak ist ein sprechenden Gesicht. Alles, was du eingibst, wird mit dem "
+"Sprachsynthesizer laut gesprochen."
 
 #: TutoActivitySprintMathactivity
 msgctxt "TutoActivitySprintMathactivity"
@@ -1575,7 +1583,9 @@ msgstr "Sprint Math is a simple activity to challenge yourself on mental arithme
 #: TutoActivityStopwatchactivity
 msgctxt "TutoActivityStopwatchactivity"
 msgid "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
-msgstr "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
+msgstr ""
+"StopWatch ist eine simple Stoppuhr. Sie zeigt dem Benutzer mehrere digitale "
+"Stoppuhren, wobei alle unabhängig voneinander sind."
 
 #: TutoActivityTamTamMicroactivity
 msgctxt "TutoActivityTamTamMicroactivity"
@@ -1601,4 +1611,3 @@ msgstr "A browser and a viewer for Khan Academy and Canopé videos."
 msgctxt "TutoActivityXOEditoractivity"
 msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
 msgstr "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
-
