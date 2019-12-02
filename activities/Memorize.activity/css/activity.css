@@ -18,10 +18,9 @@
 	background-image: url(../icons/view-return.svg);
 	border: 0;
 	border-radius: 0px;
-	margin: 1px;
 	width: 45px;
 	height: 45px;
-	top: 0;
+	top: 3px;
 	right: 5%;
 	position: absolute;
 	visibility: hidden;
