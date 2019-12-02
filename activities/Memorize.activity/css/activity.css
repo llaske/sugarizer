@@ -4,7 +4,14 @@
 }
 
 #fullscreen-button {
-	background-image: url(../icons/view-fullscreen.svg);
+    background-image: url(../icons/view-fullscreen.svg);
+    z-index: 5;
+}
+
+.toolbutton {
+    height:50%;
+    width:50%;
+    padding:20px;
 }
 
 #unfullscreen-button {
@@ -19,6 +26,10 @@
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
+}
+
+#stop-button {
+    z-index: 5;
 }
 
 #main-toolbar #activity-button {
@@ -108,6 +119,10 @@
     padding: 5px;
 }
 
+.toolbar {
+    padding:0 15px;
+}
+
 input[type='text'] {
     color: #000 !important;
 }
@@ -116,14 +131,3 @@ textarea {
     color: #000 !important;
 }
 
-@media screen and (min-width: 590px) and (max-width: 654px){
-    .toolbar{
-        padding: 0 25px; 
-    } 
-}
-
-@media screen and (min-width: 275px) and (max-width: 326px){
-    .toolbar{
-        padding: 0 20px;
-    }
-}
