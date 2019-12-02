@@ -3,6 +3,24 @@
     min-height: 55px !important;
 }
 
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
 #main-toolbar #activity-button {
     background-image: url(../activity/activity-icon.svg);
 }
