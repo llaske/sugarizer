@@ -1,6 +1,7 @@
 .toolbar {
     height: auto !important;
     min-height: 55px !important;
+    position:block;
 }
 
 #fullscreen-button {
@@ -12,6 +13,12 @@
     height:50%;
     width:50%;
     padding:20px;
+    position:block;
+
+}
+
+#canvas {
+    position:block;
 }
 
 #unfullscreen-button {
