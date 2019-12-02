@@ -21,25 +21,18 @@ define(function (require) {
             })
 
         }
-
-        // Full screen
+        
+        // Zoom in/out the game grid
         var zoomIn = function () {
             var height = document.body.clientHeight;
             var buffer = height*0.03; 
             var gridHeight = document.getElementById("game-grid").offsetWidth;
-            var zoom = (height-buffer) / gridHeight
-            console.log("height is " +height);
-            console.log("gridHeight is "+gridHeight);
+            var zoom = (height-buffer) / gridHeight;
             document.getElementById("game-grid").style.zoom = zoom;
-            // document.getElementById("game-grid").style.zIndex = 5;
-
         }
 
-        // Full screen
         var zoomOut = function () {
             document.getElementById("game-grid").style.zoom = 1;
-            // document.getElementById("game-grid").style.zIndex = -1;
-
         }
 
 
@@ -47,14 +40,13 @@ define(function (require) {
 			document.getElementById("main-toolbar").style.opacity = 0;
             document.getElementById("unfullscreen-button").style.visibility = "visible";
             zoomIn();
-		});
+        });
+        
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 1;
             document.getElementById("unfullscreen-button").style.visibility = "hidden";
             zoomOut();
         });
-        
-
     });
 });
 
