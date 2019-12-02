@@ -1,6 +1,6 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
+    requirejs(['domReady!', 'sugar-web/activity/activity', 'sugar-web/graphics/presencepalette', 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
@@ -26,25 +26,25 @@ define(function (require) {
         var zoomIn = function () {
             var height = document.body.clientHeight;
             var buffer = height*0.03; 
-            var gridHeight = document.getElementById("game-grid").offsetWidth;
+            var gridHeight = document.getElementById('game-grid').offsetWidth;
             var zoom = (height-buffer) / gridHeight;
-            document.getElementById("game-grid").style.zoom = zoom;
+            document.getElementById('game-grid').style.zoom = zoom;
         }
 
         var zoomOut = function () {
-            document.getElementById("game-grid").style.zoom = 1;
+            document.getElementById('game-grid').style.zoom = 1;
         }
 
 
-		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 0;
-            document.getElementById("unfullscreen-button").style.visibility = "visible";
+		document.getElementById('fullscreen-button').addEventListener('click', function() {
+			document.getElementById('main-toolbar').style.opacity = 0;
+            document.getElementById('unfullscreen-button').style.visibility = 'visible';
             zoomIn();
         });
         
-		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 1;
-            document.getElementById("unfullscreen-button").style.visibility = "hidden";
+		document.getElementById('unfullscreen-button').addEventListener('click', function() {
+			document.getElementById('main-toolbar').style.opacity = 1;
+            document.getElementById('unfullscreen-button').style.visibility = 'hidden';
             zoomOut();
         });
     });
@@ -75,7 +75,7 @@ function loadData(activity, memorizeApp, callback) {
                 memorizeApp.game = data.game;
                 memorizeApp.game.multiplayer = false;
                 memorizeApp.game.selectedCards = [];
-                memorizeApp.game.currentPlayer = "";
+                memorizeApp.game.currentPlayer = '';
                 memorizeApp.game.players = []
             }
 
@@ -89,7 +89,7 @@ function loadData(activity, memorizeApp, callback) {
 function initPresence(activity, memorizeApp, presencepalette, callback) {
     activity.getPresenceObject(function (error, presence) {
         memorizeApp.presence = presence;
-        var networkButton = document.getElementById("network-button");
+        var networkButton = document.getElementById('network-button');
         var presencePalette = new presencepalette.PresencePalette(networkButton, undefined, presence);
         presence.onSharedActivityUserChanged(function (msg) {
             presencePalette.onSharedActivityUserChanged(msg);
@@ -132,7 +132,7 @@ function shareActivity(activity, presence, memorizeApp, isHost) {
     // Show a disconnected message when the WebSocket is closed.
     presence.onConnectionClosed(function (event) {
         console.log(event);
-        console.log("Connection closed");
+        console.log('Connection closed');
     });
 
     presence.onDataReceived(function (data) {
