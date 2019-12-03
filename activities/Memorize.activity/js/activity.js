@@ -24,10 +24,12 @@ define(function (require) {
         
         // Zoom in/out the game grid
         var zoomIn = function () {
-            var height = document.body.clientHeight;
-            var buffer = height*0.03; 
+            // Using the minimum of height and width accounts for mobile devices
+            var sideLen = Math.min(document.body.clientHeight, document.body.clientWidth);
+            var buffer = sideLen*0.03;
             var gridHeight = document.getElementById('game-grid').offsetWidth;
-            var zoom = (height-buffer) / gridHeight;
+             // zoom = how much do we multiply gridHeight by to get sidelen-buffer?
+            var zoom = (sideLen-buffer) / gridHeight;
             document.getElementById('game-grid').style.zoom = zoom;
         }
 
