@@ -15,9 +15,10 @@ var dialog = electron.dialog;
 
 var mainWindow = null;
 
-var debug = false;
+var debug = true;
 var frameless = true;
 var reinit = false;
+
 
 
 // Localization features
@@ -113,6 +114,7 @@ function createWindow () {
 		},
 		icon: './res/icon/electron/icon-1024.png'
 	});
+
 	if (process.platform === 'darwin') {
 		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');
 	}
@@ -204,9 +206,17 @@ function createWindow () {
 					click: function () {
 						app.quit()
 					}
+				}, {
+					accelerator: 'F12',
+					click: function () {
+						console.log("open");
+						mainWindow.webContents.openDevTools();
+					}
 				}]
 			};
 			menu.submenu[0].label = l10n.get("Quit");
+			menu.submenu[1].label = l10n.get("Open dev tools");
+
 			template.unshift(menu);
 		}
 		var menu = Menu.buildFromTemplate(template);
