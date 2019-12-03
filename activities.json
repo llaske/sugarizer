@@ -41,5 +41,6 @@
 	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.PomodoroActivity", "name": "Pomodoro", "version": 1, "directory": "activities/Pomodoro.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.Constellation", "name": "Constellation", "version": 1, "directory": "activities/Constellation.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.Write", "name": "Write", "version": 1, "directory": "activities/Write.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
+	{"id": "org.sugarlabs.Write", "name": "Write", "version": 1, "directory": "activities/Write.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Pawn", "name": "Pawn", "version": 1, "directory": "activities/Pawn.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
 ]

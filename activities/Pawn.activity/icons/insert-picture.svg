@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" id="insert-image.svg">
+  <defs>
+    <mask id="Mask" maskUnits="userSpaceOnUse" x="0" y="0" width="55" height="55">
+      <rect x="0" y="0" width="55" height="55" fill="white" />
+      <line x1="35" y1="4" x2="35" y2="26" stroke-width="10.0" stroke="black" />
+      <line x1="24" y1="15" x2="46" y2="15" stroke-width="10.0" stroke="black" />
+      <polyline points="17.7,38.7 26.3,31 21,38.7" style="fill:black;;stroke:none;;stroke-width:0" />
+    </mask>
+  </defs>
+  <g transform="translate(2,2)">
+      <rect
+         style="opacity:1;fill:#000000;fill-opacity:0;stroke:#ffffff;stroke-width:2.89933752999999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect3161"
+         width="37.150295"
+         height="28.059385"
+         x="7.0200901"
+         y="12.647797" />
+      <polyline
+         points="13,39.7 27.6,29.6 34.3,33.6 34.3,39.7"
+         mask="url(#Mask)"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:3;stroke-opacity:1"
+         id="polyline23"
+         transform="matrix(0.9827085,0,0,0.9742491,10.040979,0.9463818)" />
+      <polyline
+         points="5,35 13.7,32.3 20.3,34.1"
+         mask="url(#Mask)"
+         style="fill:none;stroke:#ffffff;stroke-width:2.50000000000000000;stroke-opacity:1"
+         id="polyline21"
+         transform="translate(3.3549781,4.1125541)" />
+  </g>
+  <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="7" x1="28.376" x2="28.376" y1="30.664" y2="5.712"/>
+  <polyline fill="none" points="36.098,21.51 28.376,30.664 20.653,21.51" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+  <line fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" x1="28.376" x2="28.376" y1="30.664" y2="5.712"/>
+  <polyline fill="none" points="36.098,21.51 28.376,30.664 20.653,21.51" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+</svg>
