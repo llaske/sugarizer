@@ -81,6 +81,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
             presencePalette.setShared(true);
         } else {
             presencePalette.addEventListener('shared', function () {
+                presencePalette.popDown();
                 shareActivity(activity, presence, memorizeApp, true);
             });
         }
@@ -92,6 +93,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
 }
 
 function shareActivity(activity, presence, memorizeApp, isHost) {
+
     memorizeApp.shareActivity(isHost);
 
     var userSettings = presence.getUserInfo();
