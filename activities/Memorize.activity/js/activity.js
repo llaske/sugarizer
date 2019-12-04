@@ -81,7 +81,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
             presencePalette.setShared(true);
         } else {
             presencePalette.addEventListener('shared', function () {
-              presencePalette.popDown();
+                presencePalette.popDown();
                 shareActivity(activity, presence, memorizeApp, true);
             });
         }
