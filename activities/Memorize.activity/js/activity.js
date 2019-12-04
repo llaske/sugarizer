@@ -26,10 +26,9 @@ define(function (require) {
         var zoomIn = function () {
             // Using the minimum of height and width accounts for mobile devices
             var sideLen = Math.min(document.body.clientHeight, document.body.clientWidth);
-            var buffer = sideLen*0.03;
             var gridHeight = document.getElementById('game-grid').offsetWidth;
-             // zoom = how much do we multiply gridHeight by to get sidelen-buffer?
-            var zoom = (sideLen-buffer) / gridHeight;
+             // zoom = how much do we multiply gridHeight by to get sidelen?
+            var zoom = sideLen / gridHeight;
             document.getElementById('game-grid').style.zoom = zoom;
         }
 
@@ -39,13 +38,13 @@ define(function (require) {
 
 
         document.getElementById('fullscreen-button').addEventListener('click', function() {
-            document.getElementById('main-toolbar').style.opacity = 0;
+            document.getElementById('main-toolbar').style.display = 'none';
             document.getElementById('unfullscreen-button').style.visibility = 'visible';
             zoomIn();
         });
         
         document.getElementById('unfullscreen-button').addEventListener('click', function() {
-            document.getElementById('main-toolbar').style.opacity = 1;
+            document.getElementById('main-toolbar').style.display = '';
             document.getElementById('unfullscreen-button').style.visibility = 'hidden';
             zoomOut();
         });
