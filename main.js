@@ -15,7 +15,7 @@ var dialog = electron.dialog;
 
 var mainWindow = null;
 
-var debug = false;
+var debug = true;
 var frameless = true;
 var reinit = false;
 
@@ -206,15 +206,20 @@ function createWindow () {
 					click: function () {
 						app.quit()
 					}
-				}, {
+				}]
+            };
+            
+            menu.submenu[0].label = l10n.get("Quit");
+            
+            if(debug) {
+                menu.submenu.push({
+                    label: "Open dev tools",
 					accelerator: 'F12',
 					click: function () {
 						mainWindow.webContents.openDevTools();
 					}
-				}]
-			};
-			menu.submenu[0].label = l10n.get("Quit");
-			menu.submenu[1].label = l10n.get("Open dev tools");
+                });
+            }
 
 			template.unshift(menu);
 		}
