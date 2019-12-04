@@ -45,7 +45,9 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 		// Connect to network
         var presenceObject;
 		function shareActivity() {
+      			presencepalette.popDown();
 			presenceObject = activity.getPresenceObject(function (error, presence) {
+
 				// Unable to join
 				if (error)  {
 					socketStatus.innerHTML = l10n_s.get('Error');
