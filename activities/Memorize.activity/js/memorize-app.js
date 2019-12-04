@@ -369,7 +369,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             fullCardDiv.perspective = "500px";
             fullCardDiv.style.border = "3px solid #fff";
             fullCardDiv.style.borderRadius = "6px";
-            fullCardDiv.style.margin = "5px";
+            fullCardDiv.style.margin = "3px";
             fullCardDiv.style.webkitTransition = "transform 0.5s";
             fullCardDiv.style.transition = "transform 0.5s";
 
