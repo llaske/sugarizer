@@ -209,7 +209,7 @@ function createWindow () {
             
             menu.submenu[0].label = l10n.get("Quit");
             
-            if(debug) {
+            if (debug) {
                 menu.submenu.push({
                     label: "Open dev tools",
 					accelerator: 'F12',
