@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve Gears Tutorial #396
 - Image insertion don't work in shared mode in Paint activity #384
 - Close the presence palette when the activity is shared #398
+- Add a fullscreen button in Memorize activity #401
 
 
 ## [1.2.0] - 2019-09-26
