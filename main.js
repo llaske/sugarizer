@@ -20,7 +20,6 @@ var frameless = true;
 var reinit = false;
 
 
-
 // Localization features
 l10n = {
 	ini: null,
@@ -114,7 +113,6 @@ function createWindow () {
 		},
 		icon: './res/icon/electron/icon-1024.png'
 	});
-
 	if (process.platform === 'darwin') {
 		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');
 	}
