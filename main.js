@@ -209,7 +209,6 @@ function createWindow () {
 				}, {
 					accelerator: 'F12',
 					click: function () {
-						console.log("open");
 						mainWindow.webContents.openDevTools();
 					}
 				}]
