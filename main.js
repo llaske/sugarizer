@@ -205,18 +205,18 @@ function createWindow () {
 						app.quit()
 					}
 				}]
-            };
-            menu.submenu[0].label = l10n.get("Quit");
-            
-            if (debug) {
-                menu.submenu.push({
-                    label: 'Open dev tools',
+			};
+			menu.submenu[0].label = l10n.get("Quit");
+			
+			if (debug) {
+				menu.submenu.push({
+					label: 'Open dev tools',
 					accelerator: 'F12',
 					click: function () {
 						mainWindow.webContents.openDevTools();
 					}
-                });
-            }
+				});
+			}
 
 			template.unshift(menu);
 		}
