@@ -11,6 +11,7 @@
           href="lib/sugar-web/graphics/css/sugar-200dpi.css">
     <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/libnotify.css">
+    <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">x
 	<link rel="prefetch" type="application/l10n" href="localization.ini">
 
 
@@ -18,6 +19,8 @@
     <script data-main="js/loader" src="lib/require.js"></script>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script type="text/javascript" src="js/jquery.js" ></script>
+    <script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
   </head>
 
@@ -46,6 +49,7 @@
 	  <button class="toolbutton" id="image-save" title="Save as image">
       </button>
       <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+      <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
     </div>
     <div id="canvas">
       <canvas id="mainCanvas" width=1px height=1px>

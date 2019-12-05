@@ -78,6 +78,10 @@
   background-image: url(../activity/fototoon.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
 #doc-open {
   background-image: url(../icons/document-open.svg);
 }
