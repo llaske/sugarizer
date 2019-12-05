@@ -1,204 +1,51 @@
-* {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
+<!DOCTYPE html>
+<html>
 
-#main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
-}
+<head>
+<meta charset="utf-8" />
+<title>Blockrain Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" src="css/blockrain.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.libs.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.src.js"></script>
+<script type="text/javascript" src="js/blockrain.jquery.themes.js"></script>
+<script>if (window.module) module = window.module;</script>
+<script data-main="js/loader" src="lib/require.js"></script>
+<link rel="stylesheet" type="text/css" href="css/game.css">
+<style>
+</style>
+</head>
 
-#btn-next {
-  background-image: url(../assets/themeChanger.svg);
-}
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+	<button class="toolbutton" id="btn-next" title="Change theme"></button>
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+</div>
 
-.blockrain-game-holder {
-  position: relative;
-  padding: 0;
-  margin: 0;
-  color: #ffffff;
-  font-size: 18px;
-  line-height: 140%;
-  overflow-y: auto;
-  overflow-x: auto;
-}
+<button id="up-arrow" title="Up Arrow"></button>
+<button id="down-arrow" title="Down Arrow"></button>
+<div id="canvas">
 
-@media only screen and (min-width: 500px) {
+</div>
+<button id="left-arrow" title="Left Arrow"></button>
+<button id="right-arrow" title="Right Arrow"></button>
+<script type="text/javascript">
+  var touchEnabled = 'ontouchstart' in document.documentElement;
+  if(touchEnabled) {
+  	document.getElementsByClassName("noarrowkeys")[0].className="arrowkeys";
+  }
+</script>
 
-	.blockrain-game-holder {
-	  border-left: 1px solid black;
-	  border-right: 1px solid black;
-	}
-}
+<button class="toolbutton pull-right" id="unfullscreen-button" title="Unfullscreen"></button>
+</body>
 
-/* Touch Controls */
-.blockrain-touch {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  display: block;
-  border-radius: 100%;
-  border: 1px solid black;
-  background: rgba(255,255,255,0.2);
-  z-index: 10;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  line-height: 50px;
-  text-align: center;
-}
-
-.blockrain-touch:active {
-  background: rgba(255,255,255,0.3);
-}
-
-.blockrain-touch-left {
-  left: -60px;
-  bottom: 10px;
-}
-
-/* Buttons */
-.blockrain-btn {
-  position: relative;
-  display: inline-block;
-  background: none;
-  color: #ffffff;
-  text-decoration: none;
-  border: 2px solid #ffffff;
-  padding: 15px 30px;
-  font-size: 18px;
-  text-align: center;
-  cursor: default;
-}
-
-.blockrain-btn::before {
-  position: absolute;
-  content: "";
-  top: 100%;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  border: 2px solid #ffffff;
-  border-top: none;
-  border-right: none;
-  transition: all 0.2s ease;
-}
-
-.blockrain-btn::after {
-  position: absolute;
-  content: "";
-  top: 0px;
-  left: 100%;
-  bottom: 0px;
-  right: 0px;
-  border: 2px solid #ffffff;
-  border-left: none;
-  border-bottom: none;
-  transition: all 0.2s ease;
-}
-
-.blockrain-btn:hover::before {
-  left: 5px;
-  bottom: -8px;
-  right: -8px;
-}
-
-.blockrain-btn:hover::after {
-  top: 5px;
-  bottom: -8px;
-  right: -8px;
-}
-
-/* Score */
-.blockrain-score-holder {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  text-align: right;
-}
-
-.blockrain-score-msg {
-  font-size: 14px;
-  line-height: 100%;
-  margin-bottom: 0.2em;
-}
-
-.blockrain-score-num {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* High Score */
-.blockrain-Hscore-holder {
-  position: absolute;
-  top: 20px;
-  left: 15px;
-  text-align: left;
-}
-.blockrain-Hscore-msg {
-  font-size: 14px;
-  line-height: 100%;
-  margin-bottom: 0.2em;
-
-}
-.blockrain-Hscore-num {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* Menu */
-.blockrain-start-holder, .blockrain-game-over-holder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background: rgba(0,0,0,0.8);
-  text-align: center;
-}
-
-.blockrain-start, .blockrain-game-over {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-}
-
-.blockrain-start-msg, .blockrain-game-over-msg {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-
-@media only screen and (min-width: 500px) {
-    #canvas {
-        width: 65vw;
-        right: 17.5vw;
-        left: 17.5vw;
-    }
-}
-@media only screen and (min-width: 800px) {
-    #canvas {
-        width: 50vw;
-        right: 25vw;
-        left: 25vw;
-    }
-}
-@media only screen and (min-width: 1100px) {
-    #canvas {
-        width: 40vw;
-        right: 30vw;
-        left: 30vw;
-    }
-}
-@media only screen and (max-width: 500px) {
-    #canvas {
-        width: 100vw;
-        height: 70vh;
-    }
-}
+</html>
