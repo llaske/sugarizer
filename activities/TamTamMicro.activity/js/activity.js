@@ -22,7 +22,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("app_content").style.top = "0px";
 			document.getElementById("app_content").style.height = "100%";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			TamTam.App.computeSize();
+			app.computeSize();
 		});
 
 		//Return to normal size
@@ -31,7 +31,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("app_content").style.top = "0px";
 			document.getElementById("app_content").style.height = "50%";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			TamTam.App.computeSize();
+			app.computeSize();
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
