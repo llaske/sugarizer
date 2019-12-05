@@ -14,8 +14,15 @@
   width: 45px;
   height: 45px;
   top: 0;
-  right: 5%;
+  right: 2%;
   position: absolute;
   visibility: hidden;
   z-index: 5;
+}
+
+@media screen and (width: 500px)
+{
+  #unfullscreen-button{
+    right: 3%;
+  }
 }
