@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Image insertion don't work in shared mode in Paint activity #384
 - Close the presence palette when the activity is shared #398
 - Add a fullscreen button in Memorize activity #401
+- Add a fullscreen button in XO Editor activity #415
 
 
 ## [1.2.0] - 2019-09-26
