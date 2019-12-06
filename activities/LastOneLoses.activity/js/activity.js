@@ -483,9 +483,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			}
 		},
 	});
-
-});
-//Full Screen and Unfull Screen		
+		//Full Screen and Unfull Screen		
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
@@ -498,3 +496,6 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			resizeCanvas();
 		});
+
+});
+		
