@@ -34,20 +34,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 			},
 		});
 
-		// Switch to full screen when the full screen button is pressed
-		document.getElementById("fullscreen-button").addEventListener('click', function() {
-		  document.getElementById("main-toolbar").style.display = "none";
-		  document.getElementById("canvas").style.top = "0px";
-		  document.getElementById("unfullscreen-button").style.visibility = "visible";
-		});
-
-		//Return to normal size
-		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-		  document.getElementById("main-toolbar").style.display = "block";
-		  document.getElementById("canvas").style.top = "55px";
-		  document.getElementById("unfullscreen-button").style.visibility = "hidden";
-		});
-
 		// Save high score in Journal on Stop
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			saveHighestScore();
