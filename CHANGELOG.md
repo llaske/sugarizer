@@ -30,7 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Close the presence palette when the activity is shared #398
 - Add a fullscreen button in Memorize activity #401
 - Add a fullscreen button in XO Editor activity #415
--  Add a fullscreen button in TamTam micro activity #409
+- Add a fullscreen button in TamTam micro activity #409
+- Add a fullscreen button in Clock activity #412
 
 
 ## [1.2.0] - 2019-09-26
