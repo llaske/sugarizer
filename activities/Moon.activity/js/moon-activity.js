@@ -12,6 +12,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 
 	var first = true;
 
+
 	l10n.ready(function() {
 		if (first) {
 			first = false;
@@ -31,6 +32,25 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
     var IMAGE_SIZE, HALF_SIZE, updateTimeout;
     var showGrid, showSouth;
 
+    // Switch to full screen when the full screen button is pressed
+    document.getElementById("fullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.display = "none";
+      document.getElementById("panel-container").style.top = "0px";
+      document.getElementById("panel-container").style.height = "100%";
+      document.getElementById("unfullscreen-button").style.visibility = "visible";
+      updateSizes();
+      updateView();
+    });
+
+    //Return to normal size
+    document.getElementById("unfullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.display = "block";
+      document.getElementById("panel-container").style.top = "55px";
+      document.getElementById("panel-container").style.height = "100%";
+      document.getElementById("unfullscreen-button").style.visibility = "hidden";
+      updateSizes();
+      updateView();
+    });
 
 
     function setup() {
