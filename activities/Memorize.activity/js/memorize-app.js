@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore'], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore', "tutorial"], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore, tutorial) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -863,6 +863,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.gameEditorButton = document.getElementById("game-editor-button");
             MemorizeApp.ui.gameEditorInsertModeButton = document.getElementById("game-editor-insert-mode-button");
             MemorizeApp.ui.gameEditorPlayModeButton = document.getElementById("game-editor-play-mode-button");
+            
 
             MemorizeApp.ui.gameEditorPlayModeButton.addEventListener("click", function() {
                 if (MemorizeApp.game.template.mode == MODE_CLASSIC) {
@@ -903,6 +904,16 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 } else {
                     enterEditMode();
                 }
+            });
+            
+            MemorizeApp.ui.tutorialButton = document.getElementById("help-button");
+
+            MemorizeApp.ui.tutorialButton.addEventListener("click", function() {
+                if (MemorizeApp.inEditMode) {
+                    tutorial.startEditorTutorial();
+                } else {
+                    tutorial.startMainTutorial();
+                };
             });
 
             MemorizeApp.ui.gameEditorInsertModeButton.disabled = true;

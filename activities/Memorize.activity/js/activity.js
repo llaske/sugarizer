@@ -21,8 +21,14 @@ define(function (require) {
             })
 
         }
+
     });
+
+    
+
 });
+
+
 
 function loadData(activity, memorizeApp, callback) {
     var timeout = 0;
