@@ -94,24 +94,26 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 that.updateSizes();
                 that.drawBackground();
             };
+
             // Switch to full screen when the full screen button is pressed
             document.getElementById("fullscreen-button").addEventListener('click', function() {
-              document.getElementById("main-toolbar").style.display = "none";
-              document.getElementById("canvas").style.top = "0px";
-              document.getElementById("unfullscreen-button").style.visibility = "visible";
+                document.getElementById("main-toolbar").style.display = "none";
+                document.getElementById("canvas").style.top = "0px";
+                document.getElementById("unfullscreen-button").style.visibility = "visible";
 
-              //update the size and draw the background
-              that.updateSizes();
-              that.drawBackground();
-            });
+                //update the size and draw the background
+                that.updateSizes();
+                that.drawBackground();
+              });
 
             //Return to normal size
             document.getElementById("unfullscreen-button").addEventListener('click', function() {
-              document.getElementById("main-toolbar").style.display = "block";
-              document.getElementById("canvas").style.top = "8.7%";
-              document.getElementById("unfullscreen-button").style.visibility = "hidden";
-              that.updateSizes();
-              that.drawBackground();
+                document.getElementById("main-toolbar").style.display = "block";
+                document.getElementById("canvas").style.top = "55px";
+                document.getElementById("unfullscreen-button").style.visibility = "hidden";
+
+                that.updateSizes();
+                that.drawBackground();
             });
         }
 
@@ -122,8 +124,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
         }
-
-
 
         Clock.prototype.start = function (face) {
             this.updateSizes();
