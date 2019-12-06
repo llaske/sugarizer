@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in XO Editor activity #415
 - Add a fullscreen button in TamTam micro activity #409
 - Add a fullscreen button in Clock activity #412
+- Add a fullscreen button in Moon activity #413
 
 
 ## [1.2.0] - 2019-09-26
