@@ -1,6 +1,41 @@
 .toolbar {
     height: auto !important;
     min-height: 55px !important;
+    position:block;
+}
+
+#fullscreen-button {
+    background-image: url(../icons/view-fullscreen.svg);
+    z-index: 5;
+}
+
+.toolbutton {
+    height:50%;
+    width:50%;
+    padding:20px;
+    position:block;
+
+}
+
+#canvas {
+    position:block;
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	width: 45px;
+	height: 45px;
+	top: 3px;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#stop-button {
+    z-index: 5;
 }
 
 #main-toolbar #activity-button {
@@ -88,6 +123,10 @@
 .palette .wrapper {
     min-width: 10px;
     padding: 5px;
+}
+
+.toolbar {
+    padding:0 15px;
 }
 
 input[type='text'] {

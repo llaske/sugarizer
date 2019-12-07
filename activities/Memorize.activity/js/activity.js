@@ -21,6 +21,33 @@ define(function (require) {
             })
 
         }
+        
+        // Zoom in/out the game grid
+        var zoomIn = function () {
+            // Using the minimum of height and width accounts for mobile devices
+            var sideLen = Math.min(document.body.clientHeight, document.body.clientWidth);
+            var gridHeight = document.getElementById('game-grid').offsetWidth;
+             // zoom = how much do we multiply gridHeight by to get sidelen?
+            var zoom = sideLen / gridHeight;
+            document.getElementById('game-grid').style.zoom = zoom;
+        }
+
+        var zoomOut = function () {
+            document.getElementById('game-grid').style.zoom = 1;
+        }
+
+
+        document.getElementById('fullscreen-button').addEventListener('click', function() {
+            document.getElementById('main-toolbar').style.display = 'none';
+            document.getElementById('unfullscreen-button').style.visibility = 'visible';
+            zoomIn();
+        });
+        
+        document.getElementById('unfullscreen-button').addEventListener('click', function() {
+            document.getElementById('main-toolbar').style.display = '';
+            document.getElementById('unfullscreen-button').style.visibility = 'hidden';
+            zoomOut();
+        });
 
     });
 
@@ -87,6 +114,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
             presencePalette.setShared(true);
         } else {
             presencePalette.addEventListener('shared', function () {
+                presencePalette.popDown();
                 shareActivity(activity, presence, memorizeApp, true);
             });
         }
@@ -98,6 +126,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
 }
 
 function shareActivity(activity, presence, memorizeApp, isHost) {
+
     memorizeApp.shareActivity(isHost);
 
     var userSettings = presence.getUserInfo();

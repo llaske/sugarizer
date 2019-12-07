@@ -369,7 +369,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             fullCardDiv.perspective = "500px";
             fullCardDiv.style.border = "3px solid #fff";
             fullCardDiv.style.borderRadius = "6px";
-            fullCardDiv.style.margin = "5px";
+            fullCardDiv.style.margin = "3px";
             fullCardDiv.style.webkitTransition = "transform 0.5s";
             fullCardDiv.style.transition = "transform 0.5s";
             if (i < middle) {
@@ -649,7 +649,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 fullCardDiv.resultDiv = div;
 
                 var clickEvent = "click";
-                if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                if ("ontouchstart" in document.documentElement) {
                     clickEvent = "touchend";
                 }
                 fullCardDiv.addEventListener(clickEvent, onCardClick, false);
@@ -931,15 +931,15 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.gameEditorClearButton.disabled = true;
             MemorizeApp.ui.gameEditorClearButton.style.opacity = 0.3;
 
-            //window.onresize = function () {
-            //    setTimeout(function () {
-            //        if (MemorizeApp.inEditMode) {
-            //            displayEditor()
-            //        } else {
-            //            MemorizeApp.drawGame();
-            //        }
-            //    }, 250);
-            //};
+            window.onresize = function () {
+               setTimeout(function () {
+                   if (MemorizeApp.inEditMode) {
+                       displayEditor()
+                   } else {
+                       MemorizeApp.drawGame();
+                   }
+               }, 250);
+            };
 
 
             if (callback) {
