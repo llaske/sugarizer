@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","filterpalette"], function (activity, env, filterpalette) {
+define(["sugar-web/activity/activity","sugar-web/env","filterpalette","tutorial"], function (activity, env, filterpalette, tutorial) {
 	var isFavorite = false;
 
 	// Manipulate the DOM only when it is ready.
@@ -25,6 +25,9 @@ define(["sugar-web/activity/activity","sugar-web/env","filterpalette"], function
 		};
 		document.getElementById("library-button").onclick = function(s, e) {
 			app.showLibraries();
+		};
+		document.getElementById("help-button").onclick= function(e) {
+			tutorial.start();
 		};
 
 		// Launch main screen
