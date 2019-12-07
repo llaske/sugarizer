@@ -11,6 +11,25 @@
   background-image: url(../assets/themeChanger.svg);
 }
 
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 8%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
 .blockrain-game-holder {
   position: relative;
   padding: 0;
@@ -21,6 +40,7 @@
   overflow-y: auto;
   overflow-x: auto;
 }
+
 
 @media only screen and (min-width: 500px) {
 
@@ -196,9 +216,16 @@
         left: 30vw;
     }
 }
+
+/*Adjusted unfullscreen button position so it won't overlap with the activity container*/
 @media only screen and (max-width: 500px) {
     #canvas {
         width: 100vw;
         height: 70vh;
+    }
+    #unfullscreen-button
+    {
+      top: 70%;
+      right: 3%;
     }
 }
