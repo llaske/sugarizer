@@ -25,7 +25,23 @@
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
 
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
 .splitbar {
 	background-image: url(../icons/split.svg);
 	background-position: center;
