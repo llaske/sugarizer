@@ -1,12 +1,8 @@
 define(["webL10n"], function (l10n) {
-//define([], function () {
 	var tutorial = {};
 
 	tutorial.start = function(language) {
         
-        //l10n.language.code = "e";
-        //console.log("In tutorial lang: "+language);
-        //console.log("In tutorial lang: "+l10n.language.code);
 		var steps = [
 			{
 				element: "",

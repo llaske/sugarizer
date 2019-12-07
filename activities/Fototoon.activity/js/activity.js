@@ -31,6 +31,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         activity.setup();
 
         // HERE GO YOUR CODE
+
         var initialData =  {"version": "1", "boxs": [{'globes':[]}]};
 
         var mainCanvas = document.getElementById("mainCanvas");
@@ -225,7 +226,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 		cleanAllButton.title = _("Clean");
 
         cleanAllButton.addEventListener('click', function (e) {
-            
+  
             toonModel.setData(initialData);
             if (!editMode) {
                 toonModel.changeToEditMode();
