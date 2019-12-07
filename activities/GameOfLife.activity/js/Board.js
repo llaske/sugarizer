@@ -12,16 +12,16 @@ function Board(boardState, lineColor, deadCellColor, aliveYoungCellColor, aliveO
     });
   };
 
-  this.draw = function () {
-    canvasWidth = (cellWidth + rowPadding) * 50 - 2;
-    canvasHeight = (cellHeight + colPadding) * 30 - 2;
+  this.draw = function (state) {
+    canvasWidth = 1000;
+    canvasHeight = 500;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     canvas.style.background = lineColor;
     canvas.style.boxShadow = '5px 5px 25px 0px rgba(46, 61, 73, 0.2)';
     this.ctx = canvas.getContext('2d');
-    this.cellWidth = cellWidth;
-    this.cellHeight = cellHeight;
+    this.cellWidth = (canvas.width - 2 * state.state.gridCols) / state.state.gridCols;
+    this.cellHeight = (canvas.height - 2 * state.state.gridRows) / state.state.gridRows;
     this.update(boardState);
   };
 
@@ -39,21 +39,18 @@ function Board(boardState, lineColor, deadCellColor, aliveYoungCellColor, aliveO
     });
   };
 
-  this.handleResize = function (windowWidth, state) {
-    var scale = windowWidth / canvasWidth;
+  this.handleResize = function (windowWidth, _state, state) {
+    let scale = windowWidth / canvasWidth;
     if (scale < 1) {
       canvas.width = canvasWidth * (scale - 0.1);
       canvas.height = canvasHeight * (scale - 0.1);
-      this.cellWidth = (canvas.width - 2 * 50) / 50;
-      this.cellHeight = (canvas.height - 2 * 30) / 30;
-      this.update(state);
     } else {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
-      this.cellWidth = cellWidth;
-      this.cellHeight = cellHeight;
-      this.update(state);
     }
+    this.cellWidth = (canvas.width - 2 * state.state.gridCols) / state.state.gridCols;
+    this.cellHeight = (canvas.height - 2 * state.state.gridRows) / state.state.gridRows;
+    this.update(_state);
   };
 }
 

@@ -7,6 +7,15 @@
 #main-toolbar #play-pause.pause {
   background-image: url(../icons/pause.svg)
 }
+
+#main-toolbar #speed-button {
+  background-image: url(../icons/gen-speed.svg);
+}
+
+#main-toolbar #size-button {
+  background-image: url(../icons/grid-size.svg);
+}
+
 #main-toolbar #random {
   background-image: url(../icons/random.svg);
 }
