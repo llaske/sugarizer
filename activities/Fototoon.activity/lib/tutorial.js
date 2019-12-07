@@ -1,79 +1,75 @@
 define(["webL10n"], function (l10n) {
-//define([], function () {
-	var tutorial = {};
+    var tutorial = {};
 
-	tutorial.start = function(language) {
-        
-        //l10n.language.code = "e";
-        //console.log("In tutorial lang: "+language);
-        //console.log("In tutorial lang: "+l10n.language.code);
-		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
+    tutorial.start = function (language) {
+
+        var steps = [
+            {
+                element: "",
+                orphan: true,
+                placement: "bottom",
+                title: l10n.get("TutoExplainTitle"),
+                content: l10n.get("TutoExplainContent")
             },
             {
-				element: "#previous-button",
-				placement: "bottom",
-				title: l10n.get("Previous"),
-				content: l10n.get("TutoPreviousExplanation")
+                element: "#previous-button",
+                placement: "bottom",
+                title: l10n.get("Previous"),
+                content: l10n.get("TutoPreviousExplanation")
             },
             {
-				element: "#next-button",
-				placement: "bottom",
-				title: l10n.get("Next"),
-				content: l10n.get("TutoNextExplanation")
-			},
-			{
-				element: "#add-button",
-				placement: "bottom",
-				title: l10n.get("TutoAddPage"),
-				content: l10n.get("TutoAddPageExplanation")
+                element: "#next-button",
+                placement: "bottom",
+                title: l10n.get("Next"),
+                content: l10n.get("TutoNextExplanation")
             },
             {
-				element: "#add-globe",
-				placement: "bottom",
-				title: l10n.get("Add")+l10n.get("globe"),
-				content: l10n.get("TutoAddGlobeExplanation")
+                element: "#add-button",
+                placement: "bottom",
+                title: l10n.get("TutoAddPage"),
+                content: l10n.get("TutoAddPageExplanation")
             },
-			{
+            {
+                element: "#add-globe",
+                placement: "bottom",
+                title: l10n.get("Add") + l10n.get("globe"),
+                content: l10n.get("TutoAddGlobeExplanation")
+            },
+            {
                 element: "#text-button",
                 placement: "bottom",
-				title: l10n.get("TutoEditText"),
-				content: l10n.get("TutoEditTextExplanation")
+                title: l10n.get("TutoEditText"),
+                content: l10n.get("TutoEditTextExplanation")
             },
             {
-				element: "#sort-button",
-				placement: "bottom",
-				title: l10n.get("TutoSortBoxes"),
-				content: l10n.get("TutoSortBoxesExplanation")
+                element: "#sort-button",
+                placement: "bottom",
+                title: l10n.get("TutoSortBoxes"),
+                content: l10n.get("TutoSortBoxesExplanation")
             },
             {
-				element: "#clean-all-button",
-				placement: "bottom",
-				title: l10n.get("TutoCleanAll"),
-				content: l10n.get("TutoCleanAllExplanation")
+                element: "#clean-all-button",
+                placement: "bottom",
+                title: l10n.get("TutoCleanAll"),
+                content: l10n.get("TutoCleanAllExplanation")
             },
             {
-				element: "#image-save",
-				placement: "bottom",
-				title: l10n.get("TutoImageSave"),
-				content: l10n.get("TutoImageSaveExplanation")
+                element: "#image-save",
+                placement: "bottom",
+                title: l10n.get("TutoImageSave"),
+                content: l10n.get("TutoImageSaveExplanation")
             },
             {
-				element: "#page-counter",
-				placement: "left",
-				title: l10n.get("TutoPageCounter"),
-				content: l10n.get("TutoPageCounterExplanation")
+                element: "#page-counter",
+                placement: "left",
+                title: l10n.get("TutoPageCounter"),
+                content: l10n.get("TutoPageCounterExplanation")
             },
             {
-				element: "#stop-button",
-				placement: "left",
-				title: l10n.get("TutoStop"),
-				content: l10n.get("TutoStopExplanation")
+                element: "#stop-button",
+                placement: "left",
+                title: l10n.get("TutoStop"),
+                content: l10n.get("TutoStopExplanation")
             }
         ];
         var tour = new Tour({
@@ -88,7 +84,7 @@ define(["webL10n"], function (l10n) {
                             <div class='tutorial-prev-icon2 web-activity-icon'></div>\
                             <div class='tutorial-prev-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoPrev") + "</div>\
                     </div>\
                     <span data-role='separator' style='margin: 4px'>|</span>\
                     <div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -96,14 +92,14 @@ define(["webL10n"], function (l10n) {
                             <div class='tutorial-next-icon2 web-activity-icon'></div>\
                             <div class='tutorial-next-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoNext") + "</div>\
                     </div>\
                     <div class='tutorial-end-icon icon-button' data-role='end'>\
                         <div class='tutorial-end-icon1 web-activity'>\
                             <div class='tutorial-end-icon2 web-activity-icon'></div>\
                             <div class='tutorial-end-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
+                        <div class='icon-tutorial-text'>"+ l10n.get("TutoEnd") + "</div>\
                     </div>\
                 </div>\
             </div>",
@@ -111,11 +107,10 @@ define(["webL10n"], function (l10n) {
             backdrop: true,
             steps: steps
         });
-		tour.init();
-		tour.start(true);
+        tour.init();
+        tour.start(true);
+    };
 
-	};
-
-	return tutorial;
+    return tutorial;
 });
 
