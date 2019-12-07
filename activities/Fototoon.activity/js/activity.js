@@ -4,10 +4,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
     // initialize canvas size
     var sugarCellSize = 75;
     var sugarSubCellSize = 15;
+    var language;
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-		var language = environment.user ? environment.user.language : defaultLanguage;
+        language = environment.user ? environment.user.language : defaultLanguage;
 		l10n.language.code = language;
 		console.log('LANG ' + language);
 	});
@@ -30,7 +31,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         activity.setup();
 
         // HERE GO YOUR CODE
-
         var initialData =  {"version": "1", "boxs": [{'globes':[]}]};
 
         var mainCanvas = document.getElementById("mainCanvas");
@@ -114,7 +114,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
         });
 
-		// Load from datatore
+        // Load from datatore
 		env.getEnvironment(function(err, environment) {
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, JSONdata) {
@@ -225,7 +225,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 		cleanAllButton.title = _("Clean");
 
         cleanAllButton.addEventListener('click', function (e) {
-
             toonModel.setData(initialData);
             if (!editMode) {
                 toonModel.changeToEditMode();
@@ -235,7 +234,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
         // Launch tutorial
 	    document.getElementById("help-button").addEventListener('click', function(e) {
-		    tutorial.start();
+            l10n.language.code=language;
+            window.addEventListener("localized", function() {
+                tutorial.start(language);
+            });
 	    });
 
     });
