@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in Moon activity #413
 - Add a fullscreen button in BlockRain activity #416
 - Add a fullscreen button in ColorMyWorld activity #414
+- Add a fullscreen button in Abacus activity #402
 
 
 ## [1.2.0] - 2019-09-26
