@@ -1,7 +1,7 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
-	tutorial.startMainTutorial = function() {
+	tutorial.startMainTutorial = function( ) {
 		var steps = [
 			{
 				element: "",
@@ -9,6 +9,27 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: "Memorize Activity",
 			    content: l10n.get("TutoExplainContent")
+			},
+			{
+				element: "#numberOneTutorial",
+				orphan: true,
+				placement: "right",
+				title: "Card type 1",
+			    content: l10n.get("TutoNumberOne")
+			},
+			{
+				element: "#numberTwoTutorial",
+				orphan: true,
+				placement: "right",
+				title: "Card type 2",
+			    content: l10n.get("TutoNumberTwo")
+			},
+			{
+				element: "",
+				orphan: true,
+				placement: "bottom",
+				title: "Instructions",
+			    content: l10n.get("TutoExplainPlay")
 			},
 			{
 				element: "#activity-button",
@@ -45,6 +66,13 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: "Open editor",
 			    content: l10n.get("TutoOpenEditor")
+			},
+			{
+				element: "",
+				orphan: true,
+				placement: "bottom",
+				title: "End of Tutorial!",
+			    content: l10n.get("TutoEndMessage")
 			}
 		];
 		var tour = new Tour({
@@ -106,6 +134,36 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: "Clear",
 			    content: l10n.get("TutoClear")
+			},
+			{
+				element: "#InputBox",
+				placement: "bottom",
+				title: "Input",
+			    content: l10n.get("TutoEditorInputBox")
+			},
+			{
+				element: "#InsertImage",
+				placement: "right",
+				title: "Insert image",
+			    content: l10n.get("TutorEditorInsertImage")
+			},
+			{
+				element: "#EditorAddButton",
+				placement: "left",
+				title: "Add card",
+			    content: l10n.get("TutoEditorAddButton")
+			},
+			{
+				element: "#EditorUpdateButton",
+				placement: "left",
+				title: "Update",
+			    content: l10n.get("TutoEditorUpdateButton")
+			},
+			{
+				element: "#EditorDeleteButton",
+				placement: "left",
+				title: "Clear card",
+			    content: l10n.get("TutoEditorDeleteButton")
 			}
 		];
 		var tour = new Tour({

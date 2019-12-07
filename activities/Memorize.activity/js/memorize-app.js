@@ -362,7 +362,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             source.start(0);
         }
 
-        function createFullCardDiv(i, minSize, card) {
+        function createFullCardDiv(i, minSize, card, middle) {
             var fullCardDiv = document.createElement("div");
             fullCardDiv.cardPosition = i;
             fullCardDiv.webkitPerspective = "500px";
@@ -372,6 +372,12 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             fullCardDiv.style.margin = "5px";
             fullCardDiv.style.webkitTransition = "transform 0.5s";
             fullCardDiv.style.transition = "transform 0.5s";
+            if (i < middle) {
+                fullCardDiv.id = "numberOneTutorial"
+            } else {
+                fullCardDiv.id = "numberTwoTutorial"
+            }
+           
 
             fullCardDiv.style.transitionDuration = "0.5s";
             fullCardDiv.style.webkitTransitionDuration = "0.5s";
@@ -635,7 +641,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     gameDiv.appendChild(div);
                 }
 
-                var fullCardDiv = createFullCardDiv(i, minSize, card);
+                var fullCardDiv = createFullCardDiv(i, minSize, card, middle);
                 var front = createFrontDiv(i, middle, minSize);
                 var div = createDiv(i, minSize, card);
 
@@ -1011,6 +1017,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             }
 
             var importPicture = document.createElement("img");
+            importPicture.id = "InsertImage"
             importPicture.style.marginLeft = "5px";
             importPicture.style.marginTop = "5px";
             importPicture.style.textAlign = "center";
@@ -1019,6 +1026,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             importPicture.className = "insertImage";
 
             var input = document.createElement("input");
+            input.id = "InputBox"
             input.setAttribute("type", "text");
             input.style.marginRight = "auto";
             input.style.marginLeft = "auto";
@@ -1062,6 +1070,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
             var buttonSize = parseInt((minSize / 3.5) / 5) + "px";
 
+            addButton.id = "EditorAddButton"
             addButton.style.padding = "5px";
             addButton.style.userSelect = "none";
             addButton.style.webkitUserSelect = "none";
@@ -1101,6 +1110,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 displayEditor();
             });
 
+            updateButton.id = "EditorUpdateButton"
             updateButton.style.padding = "5px";
             updateButton.style.userSelect = "none";
             updateButton.style.webkitUserSelect = "none";
@@ -1140,6 +1150,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 displayEditor();
             });
 
+            deleteButton.id = "EditorDeleteButton"
             deleteButton.style.padding = "5px";
             deleteButton.style.userSelect = "none";
             deleteButton.style.webkitUserSelect = "none";
