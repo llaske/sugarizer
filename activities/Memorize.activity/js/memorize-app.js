@@ -377,6 +377,11 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             } else {
                 fullCardDiv.id = "numberTwoTutorial"
             }
+            if (i === middle - 2) {
+                fullCardDiv.id = "soundTutorial"
+            } else if (i === middle + 2) {
+                fullCardDiv.id = "soundTutorial2"
+            }
            
 
             fullCardDiv.style.transitionDuration = "0.5s";
@@ -603,6 +608,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
         }
 
+
         function drawGame() {
             if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                 MemorizeApp.ui.gameEditorInsertModeButton.style.backgroundImage = "url(icons/pair-non-equals.svg)"
@@ -644,6 +650,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 var fullCardDiv = createFullCardDiv(i, minSize, card, middle);
                 var front = createFrontDiv(i, middle, minSize);
                 var div = createDiv(i, minSize, card);
+                
+
 
                 fullCardDiv.card = card;
                 fullCardDiv.resultDiv = div;
@@ -915,10 +923,18 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.tutorialButton = document.getElementById("help-button");
 
             MemorizeApp.ui.tutorialButton.addEventListener("click", function() {
+                var boardElement = Object.keys(MemorizeApp.game.cards[0]);
+                var boardType = 0
+                if (boardElement[0] === "text") {
+                    boardType = 1
+                } else if (boardElement[0] === "image") {
+                    boardType = 2
+                }
+
                 if (MemorizeApp.inEditMode) {
                     tutorial.startEditorTutorial();
                 } else {
-                    tutorial.startMainTutorial();
+                    tutorial.startMainTutorial(boardType);
                 };
             });
 

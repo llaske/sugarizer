@@ -1,7 +1,8 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
-	tutorial.startMainTutorial = function( ) {
+	tutorial.startMainTutorial = function(boardType) {
+		
 		var steps = [
 			{
 				element: "",
@@ -9,27 +10,6 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: "Memorize Activity",
 			    content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#numberOneTutorial",
-				orphan: true,
-				placement: "right",
-				title: "Card type 1",
-			    content: l10n.get("TutoNumberOne")
-			},
-			{
-				element: "#numberTwoTutorial",
-				orphan: true,
-				placement: "right",
-				title: "Card type 2",
-			    content: l10n.get("TutoNumberTwo")
-			},
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: "Instructions",
-			    content: l10n.get("TutoExplainPlay")
 			},
 			{
 				element: "#activity-button",
@@ -71,10 +51,46 @@ define(["webL10n"], function (l10n) {
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: "End of Tutorial!",
-			    content: l10n.get("TutoEndMessage")
-			}
+				title: "Instructions",
+			    content: l10n.get("TutoExplainPlay")
+			},
+			
 		];
+
+		if (boardType === 1) {
+			steps.splice(7, 0, {
+				element: "#numberOneTutorial",
+				orphan: true,
+				placement: "right",
+				title: "Card type 1",
+				content: l10n.get("TutoNumberOne")
+			},
+			{
+				element: "#numberTwoTutorial",
+				orphan: true,
+				placement: "right",
+				title: "Card type 2",
+				content: l10n.get("TutoNumberTwo")
+			});
+		} else if (boardType === 2) {
+			steps.splice(7, 0, {
+				element: "#soundTutorial",
+				orphan: true,
+				placement: "bottom",
+				title: "Sounds mode",
+				content: l10n.get("TutoSounds")
+			},
+			{
+				element: "#soundTutorial2",
+				orphan: true,
+				placement: "top",
+				title: "Sounds mode",
+				content: l10n.get("TutoSounds2")
+			})
+		};
+
+		
+
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\
@@ -117,6 +133,13 @@ define(["webL10n"], function (l10n) {
 
 	tutorial.startEditorTutorial = function() {
 		var steps = [
+			
+			{
+				element: "#game-editor-button",
+				placement: "bottom",
+				title: "Play mode",
+				content: l10n.get("TutoEditorPlayMode")
+			},
 			{
 				element: "#game-editor-insert-mode-button",
 				placement: "bottom",
