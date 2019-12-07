@@ -230,7 +230,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 
 			// Full screen
 			document.getElementById("fullscreen-button").addEventListener('click', function() {
-				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("main-toolbar").style.opacity = 1;
 				document.getElementById("canvas").style.top = "0px";
 				document.getElementById("unfullscreen-button").style.visibility = "visible";
 			});
