@@ -8,7 +8,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-        language = environment.user ? environment.user.language : defaultLanguage;
+        	language = environment.user ? environment.user.language : defaultLanguage;
 		l10n.language.code = language;
 		console.log('LANG ' + language);
 	});
@@ -115,7 +115,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
         });
 
-        // Load from datatore
+        	// Load from datatore
 		env.getEnvironment(function(err, environment) {
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, JSONdata) {
