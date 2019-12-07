@@ -50,3 +50,31 @@ canvas {
 #main-toolbar #write-date-button {
   background-image: url(../icons/write-date.svg);
 }
+
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 8%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+/*Added the media query to avoid accidentally stopping*/
+/*the activity on double clicking the unfullscreen button*/
+@media only screen and (max-width: 870px)
+{
+  #unfullscreen-button
+  {
+    right: 15%;
+  }
+}
