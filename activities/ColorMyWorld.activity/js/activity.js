@@ -83,5 +83,19 @@ define([
 		var modeButton = document.getElementById("mode-button");
 		modepalette = new modepalette.ModePalette(modeButton, undefined);
 		colormyworld.change_areaCB(true,'World');
+	
+		// Full screen
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeCanvas();
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeCanvas();
+		});
 	});
 });
