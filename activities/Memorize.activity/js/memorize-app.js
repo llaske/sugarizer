@@ -2,7 +2,7 @@
  * Created by ohayon_m on 17/08/15.
  */
 
-define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore'], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore) {
+define(["activity/sample-ressources", "activity/palettes/template-palette", "activity/palettes/size-palette", "activity/lz-string", "sugar-web/graphics/journalchooser", 'sugar-web/datastore', "tutorial"], function (SampleRessources, templatePalette, sizePalette, lzString, chooser, datastore, tutorial) {
 
         var FOUND_COLOR = "#84f060";
         var MODE_CLASSIC = "classic";
@@ -362,7 +362,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             source.start(0);
         }
 
-        function createFullCardDiv(i, minSize, card) {
+        function createFullCardDiv(i, minSize, card, middle) {
             var fullCardDiv = document.createElement("div");
             fullCardDiv.cardPosition = i;
             fullCardDiv.webkitPerspective = "500px";
@@ -372,6 +372,17 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             fullCardDiv.style.margin = "3px";
             fullCardDiv.style.webkitTransition = "transform 0.5s";
             fullCardDiv.style.transition = "transform 0.5s";
+            if (i < middle) {
+                fullCardDiv.id = "numberOneTutorial"
+            } else {
+                fullCardDiv.id = "numberTwoTutorial"
+            }
+            if (i === middle - 2) {
+                fullCardDiv.id = "soundTutorial"
+            } else if (i === middle + 2) {
+                fullCardDiv.id = "soundTutorial2"
+            }
+           
 
             fullCardDiv.style.transitionDuration = "0.5s";
             fullCardDiv.style.webkitTransitionDuration = "0.5s";
@@ -597,6 +608,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
         }
 
+
         function drawGame() {
             if (MemorizeApp.editor.pairMode == MODE_EQUAL) {
                 MemorizeApp.ui.gameEditorInsertModeButton.style.backgroundImage = "url(icons/pair-non-equals.svg)"
@@ -635,9 +647,11 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     gameDiv.appendChild(div);
                 }
 
-                var fullCardDiv = createFullCardDiv(i, minSize, card);
+                var fullCardDiv = createFullCardDiv(i, minSize, card, middle);
                 var front = createFrontDiv(i, middle, minSize);
                 var div = createDiv(i, minSize, card);
+                
+
 
                 fullCardDiv.card = card;
                 fullCardDiv.resultDiv = div;
@@ -863,6 +877,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.gameEditorButton = document.getElementById("game-editor-button");
             MemorizeApp.ui.gameEditorInsertModeButton = document.getElementById("game-editor-insert-mode-button");
             MemorizeApp.ui.gameEditorPlayModeButton = document.getElementById("game-editor-play-mode-button");
+            
 
             MemorizeApp.ui.gameEditorPlayModeButton.addEventListener("click", function() {
                 if (MemorizeApp.game.template.mode == MODE_CLASSIC) {
@@ -903,6 +918,24 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 } else {
                     enterEditMode();
                 }
+            });
+            
+            MemorizeApp.ui.tutorialButton = document.getElementById("help-button");
+
+            MemorizeApp.ui.tutorialButton.addEventListener("click", function() {
+                var boardElement = Object.keys(MemorizeApp.game.cards[0]);
+                var boardType = 0
+                if (boardElement[0] === "text") {
+                    boardType = 1
+                } else if (boardElement[0] === "image") {
+                    boardType = 2
+                }
+
+                if (MemorizeApp.inEditMode) {
+                    tutorial.startEditorTutorial();
+                } else {
+                    tutorial.startMainTutorial(boardType);
+                };
             });
 
             MemorizeApp.ui.gameEditorInsertModeButton.disabled = true;
@@ -1000,6 +1033,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             }
 
             var importPicture = document.createElement("img");
+            importPicture.id = "InsertImage"
             importPicture.style.marginLeft = "5px";
             importPicture.style.marginTop = "5px";
             importPicture.style.textAlign = "center";
@@ -1008,6 +1042,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             importPicture.className = "insertImage";
 
             var input = document.createElement("input");
+            input.id = "InputBox"
             input.setAttribute("type", "text");
             input.style.marginRight = "auto";
             input.style.marginLeft = "auto";
@@ -1051,6 +1086,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
             var buttonSize = parseInt((minSize / 3.5) / 5) + "px";
 
+            addButton.id = "EditorAddButton"
             addButton.style.padding = "5px";
             addButton.style.userSelect = "none";
             addButton.style.webkitUserSelect = "none";
@@ -1090,6 +1126,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 displayEditor();
             });
 
+            updateButton.id = "EditorUpdateButton"
             updateButton.style.padding = "5px";
             updateButton.style.userSelect = "none";
             updateButton.style.webkitUserSelect = "none";
@@ -1129,6 +1166,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 displayEditor();
             });
 
+            deleteButton.id = "EditorDeleteButton"
             deleteButton.style.padding = "5px";
             deleteButton.style.userSelect = "none";
             deleteButton.style.webkitUserSelect = "none";

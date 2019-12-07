@@ -21,6 +21,7 @@ define(function (require) {
             })
 
         }
+
         
         // Zoom in/out the game grid
         var zoomIn = function () {
@@ -48,8 +49,14 @@ define(function (require) {
             document.getElementById('unfullscreen-button').style.visibility = 'hidden';
             zoomOut();
         });
+
     });
+
+    
+
 });
+
+
 
 function loadData(activity, memorizeApp, callback) {
     var timeout = 0;
