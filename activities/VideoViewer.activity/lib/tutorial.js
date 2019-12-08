@@ -1,9 +1,8 @@
 define(["webL10n"], function (l10n) {
-	var tutorial = {};
+    var tutorial = {};
 
-	tutorial.start = function() {
-		var steps = [
-            {
+    tutorial.start = function () {
+        var steps = [{
                 element: "",
                 orphan: true,
                 placement: "bottom",
@@ -38,11 +37,11 @@ define(["webL10n"], function (l10n) {
             },
             {
                 element: "#app_item",
-                title: l10n.get("TutoVideoideoTitle"),
+                title: l10n.get("TutoVideoTitle"),
                 content: l10n.get("TutoVideoContent")
             }
         ];
-		var tour = new Tour({
+        var tour = new Tour({
             template: "\
             <div class='popover tour'>\
                 <div class='arrow'></div>\
@@ -54,7 +53,7 @@ define(["webL10n"], function (l10n) {
                             <div class='tutorial-prev-icon2 web-activity-icon'></div>\
                             <div class='tutorial-prev-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
+                        <div class='icon-tutorial-text'>" + l10n.get("TutoPrev") + "</div>\
                     </div>\
                     <span data-role='separator' style='margin: 4px'>|</span>\
                     <div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -62,14 +61,14 @@ define(["webL10n"], function (l10n) {
                             <div class='tutorial-next-icon2 web-activity-icon'></div>\
                             <div class='tutorial-next-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
+                        <div class='icon-tutorial-text'>" + l10n.get("TutoNext") + "</div>\
                     </div>\
                     <div class='tutorial-end-icon icon-button' data-role='end'>\
                         <div class='tutorial-end-icon1 web-activity'>\
                             <div class='tutorial-end-icon2 web-activity-icon'></div>\
                             <div class='tutorial-end-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
+                        <div class='icon-tutorial-text'>" + l10n.get("TutoEnd") + "</div>\
                     </div>\
                 </div>\
             </div>",
@@ -77,10 +76,10 @@ define(["webL10n"], function (l10n) {
             backdrop: true,
             steps: steps
         });
-		tour.init();
-		tour.start(true);
+        tour.init();
+        tour.start(true);
 
-	};
+    };
 
-	return tutorial;
+    return tutorial;
 });
