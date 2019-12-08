@@ -32,6 +32,11 @@ define(["webL10n"], function (l10n) {
                 content: l10n.get("TutoExportvideoContent")
             },
             {
+                element: "#search",
+                title: l10n.get("TutoSearchTitle"),
+                content: l10n.get("TutoSearchContent")
+            },
+            {
                 element: "#app_item",
                 title: l10n.get("TutoVideoideoTitle"),
                 content: l10n.get("TutoVideoContent")
