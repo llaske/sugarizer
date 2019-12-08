@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in ColorMyWorld activity #414
 - Add a fullscreen button in Abacus activity #402
 - Add a tutorial to the Memorize activity #427
+- Add a tutorial to the VideoViewer activity #435
 
 
 ## [1.2.0] - 2019-09-26
