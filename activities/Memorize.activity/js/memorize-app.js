@@ -372,17 +372,19 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             fullCardDiv.style.margin = "3px";
             fullCardDiv.style.webkitTransition = "transform 0.5s";
             fullCardDiv.style.transition = "transform 0.5s";
-            if (i < middle) {
-                fullCardDiv.id = "numberOneTutorial"
+            if (MemorizeApp.game.template.mode == MODE_SPLITTED) {
+                if (i < middle) {
+                    fullCardDiv.id = "numberOneTutorial"
+                } else {
+                    fullCardDiv.id = "numberTwoTutorial"
+                }
             } else {
-                fullCardDiv.id = "numberTwoTutorial"
+                if (i === middle - 2) {
+                    fullCardDiv.id = "soundTutorial"
+                } else if (i === middle + 2) {
+                    fullCardDiv.id = "soundTutorial2"
+                }
             }
-            if (i === middle - 2) {
-                fullCardDiv.id = "soundTutorial"
-            } else if (i === middle + 2) {
-                fullCardDiv.id = "soundTutorial2"
-            }
-           
 
             fullCardDiv.style.transitionDuration = "0.5s";
             fullCardDiv.style.webkitTransitionDuration = "0.5s";
@@ -650,7 +652,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 var fullCardDiv = createFullCardDiv(i, minSize, card, middle);
                 var front = createFrontDiv(i, middle, minSize);
                 var div = createDiv(i, minSize, card);
-                
+
 
 
                 fullCardDiv.card = card;
@@ -877,7 +879,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.gameEditorButton = document.getElementById("game-editor-button");
             MemorizeApp.ui.gameEditorInsertModeButton = document.getElementById("game-editor-insert-mode-button");
             MemorizeApp.ui.gameEditorPlayModeButton = document.getElementById("game-editor-play-mode-button");
-            
+
 
             MemorizeApp.ui.gameEditorPlayModeButton.addEventListener("click", function() {
                 if (MemorizeApp.game.template.mode == MODE_CLASSIC) {
@@ -919,17 +921,12 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                     enterEditMode();
                 }
             });
-            
+
             MemorizeApp.ui.tutorialButton = document.getElementById("help-button");
 
             MemorizeApp.ui.tutorialButton.addEventListener("click", function() {
                 var boardElement = Object.keys(MemorizeApp.game.cards[0]);
-                var boardType = 0
-                if (boardElement[0] === "text") {
-                    boardType = 1
-                } else if (boardElement[0] === "image") {
-                    boardType = 2
-                }
+                var boardType = (MemorizeApp.game.template.mode == MODE_SPLITTED)?1:2;
 
                 if (MemorizeApp.inEditMode) {
                     tutorial.startEditorTutorial();

@@ -2,59 +2,59 @@ define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
 	tutorial.startMainTutorial = function(boardType) {
-		
+
 		var steps = [
 			{
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: "Memorize Activity",
+				title: l10n.get("TutoTitleMemorize"),
 			    content: l10n.get("TutoExplainContent")
 			},
 			{
 				element: "#activity-button",
 				placement: "bottom",
-				title: "Activity",
+				title: l10n.get("TutoTitleActivity"),
 				content: l10n.get("TutoActivity")
 			},
 			{
 				element: "#network-button",
 				placement: "bottom",
-				title: "Network",
+				title: l10n.get("TutoTitleNetwork"),
 			    content: l10n.get("TutoNetwork")
 			},
 			{
 				element: "#game-templates-button",
 				placement: "bottom",
-				title: "Game template",
+				title: l10n.get("TutoTitleTemplate"),
 			    content: l10n.get("TutoGameTemplate")
 			},
 			{
 				element: "#game-size-button",
 				placement: "bottom",
-				title: "Game size",
+				title: l10n.get("TutoTitleSize"),
 			    content: l10n.get("TutoGameSize")
             },
             {
 				element: "#game-reset-button",
 				placement: "bottom",
-				title: "Reset game",
+				title: l10n.get("TutoTitleReset"),
 			    content: l10n.get("TutoResetGame")
             },
             {
 				element: "#game-editor-button",
 				placement: "bottom",
-				title: "Open editor",
+				title: l10n.get("TutoTitleOpen"),
 			    content: l10n.get("TutoOpenEditor")
 			},
 			{
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: "Instructions",
+				title: l10n.get("TutoTitleInstructions"),
 			    content: l10n.get("TutoExplainPlay")
 			},
-			
+
 		];
 
 		if (boardType === 1) {
@@ -62,14 +62,14 @@ define(["webL10n"], function (l10n) {
 				element: "#numberOneTutorial",
 				orphan: true,
 				placement: "right",
-				title: "Card type 1",
+				title: l10n.get("TutoTitleCardType1"),
 				content: l10n.get("TutoNumberOne")
 			},
 			{
 				element: "#numberTwoTutorial",
 				orphan: true,
 				placement: "right",
-				title: "Card type 2",
+				title: l10n.get("TutoTitleCardType2"),
 				content: l10n.get("TutoNumberTwo")
 			});
 		} else if (boardType === 2) {
@@ -77,19 +77,19 @@ define(["webL10n"], function (l10n) {
 				element: "#soundTutorial",
 				orphan: true,
 				placement: "bottom",
-				title: "Sounds mode",
+				title: l10n.get("TutoTitleSounds"),
 				content: l10n.get("TutoSounds")
 			},
 			{
 				element: "#soundTutorial2",
 				orphan: true,
 				placement: "top",
-				title: "Sounds mode",
+				title: l10n.get("TutoTitleSounds"),
 				content: l10n.get("TutoSounds2")
 			})
 		};
 
-		
+
 
 		var tour = new Tour({
 			template: "\
@@ -133,59 +133,59 @@ define(["webL10n"], function (l10n) {
 
 	tutorial.startEditorTutorial = function() {
 		var steps = [
-			
+
 			{
 				element: "#game-editor-button",
 				placement: "bottom",
-				title: "Play mode",
+				title: l10n.get("TutoTitleGoPlay"),
 				content: l10n.get("TutoEditorPlayMode")
 			},
 			{
 				element: "#game-editor-insert-mode-button",
 				placement: "bottom",
-				title: "Insert mode",
+				title: l10n.get("TutoTitleInsert"),
 				content: l10n.get("TutoInsertMode")
 			},
 			{
 				element: "#game-editor-play-mode-button",
 				placement: "bottom",
-				title: "Play mode",
+				title: l10n.get("TutoTitlePlay"),
 			    content: l10n.get("TutoPlayMode")
 			},
 			{
 				element: "#game-editor-clear-button",
 				placement: "bottom",
-				title: "Clear",
+				title: l10n.get("TutoTitleClear"),
 			    content: l10n.get("TutoClear")
 			},
 			{
 				element: "#InputBox",
 				placement: "bottom",
-				title: "Input",
+				title: l10n.get("TutoTitleInput"),
 			    content: l10n.get("TutoEditorInputBox")
 			},
 			{
 				element: "#InsertImage",
 				placement: "right",
-				title: "Insert image",
+				title: l10n.get("TutoTitleInsertImage"),
 			    content: l10n.get("TutorEditorInsertImage")
 			},
 			{
 				element: "#EditorAddButton",
 				placement: "left",
-				title: "Add card",
+				title: l10n.get("TutoTitleAddCard"),
 			    content: l10n.get("TutoEditorAddButton")
 			},
 			{
 				element: "#EditorUpdateButton",
 				placement: "left",
-				title: "Update",
+				title: l10n.get("TutoTitleUpdateCard"),
 			    content: l10n.get("TutoEditorUpdateButton")
 			},
 			{
 				element: "#EditorDeleteButton",
 				placement: "left",
-				title: "Clear card",
+				title: l10n.get("TutoTitleClearCard"),
 			    content: l10n.get("TutoEditorDeleteButton")
 			}
 		];
@@ -230,4 +230,3 @@ define(["webL10n"], function (l10n) {
 
 	return tutorial;
 });
-
