@@ -17,21 +17,25 @@ define(["webL10n"], function (l10n) {
             },
             {
                 element: "#favorite-button",
+                placement: "bottom",
                 title: l10n.get("TutoFavoriteTitle"),
                 content: l10n.get("TutoFavoriteContent")
             },
             {
                 element: "#library-button",
+                placement: "bottom",
                 title: l10n.get("TutoLibraryTitle"),
                 content: l10n.get("TutoLibraryContent")
             },
             {
                 element: "#exportvideo-button",
+                placement: "bottom",
                 title: l10n.get("TutoExportvideoTitle"),
                 content: l10n.get("TutoExportvideoContent")
             },
             {
                 element: "#search",
+                placement: "bottom",
                 title: l10n.get("TutoSearchTitle"),
                 content: l10n.get("TutoSearchContent")
             },
