@@ -30,6 +30,11 @@ define(["webL10n"], function (l10n) {
                 element: "#exportvideo-button",
                 title: l10n.get("TutoExportvideoTitle"),
                 content: l10n.get("TutoExportvideoContent")
+            },
+            {
+                element: "#app_item",
+                title: l10n.get("TutoVideoideoTitle"),
+                content: l10n.get("TutoVideoContent")
             }
         ];
 		var tour = new Tour({
