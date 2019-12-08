@@ -53,6 +53,24 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             }
         });
 
+        document.getElementById("fullscreen-button").addEventListener('click', function() {
+            document.getElementById("main-toolbar").style.opacity = 0;
+            console.log("1");
+            document.getElementById("canvas").style.top = "0px";
+            console.log("2");
+            document.getElementById("unfullscreen-button").style.visibility = "visible";
+            console.log("3");
+            onWindowResize();
+            console.log("4");
+        });
+        
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			onWindowResize();
+		});
+
 		var generateXOLogoWithColor = function(color) {
 			var coloredLogo = xoLogo;
 			coloredLogo = coloredLogo.replace("#010101", color.stroke)
@@ -157,8 +175,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             var toolbarElem = document.getElementById("main-toolbar");
 
             canvasWidth = window.innerWidth;
-            canvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
-
+            if (document.getElementById("unfullscreen-button").style.visibility == "visible") {
+                canvasHeight = window.innerHeight - 3;
+            } else {
+                canvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
+            }
             cellWidth = Math.floor(canvasWidth / maze.width);
             cellHeight = Math.floor(canvasHeight / maze.height);
 
