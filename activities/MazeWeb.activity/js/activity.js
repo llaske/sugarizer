@@ -1,6 +1,6 @@
 define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane) {
 
-    requirejs(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc)   {
         activity.setup();
 
         var maze = {};
@@ -55,13 +55,9 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;
-            console.log("1");
             document.getElementById("canvas").style.top = "0px";
-            console.log("2");
             document.getElementById("unfullscreen-button").style.visibility = "visible";
-            console.log("3");
             onWindowResize();
-            console.log("4");
         });
         
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
