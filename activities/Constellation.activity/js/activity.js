@@ -233,11 +233,13 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				document.getElementById("main-toolbar").style.opacity = 1;
 				document.getElementById("canvas").style.top = "0px";
 				document.getElementById("unfullscreen-button").style.visibility = "visible";
+				planetarium.resize()
 			});
 			document.getElementById("unfullscreen-button").addEventListener('click', function() {
 				document.getElementById("main-toolbar").style.opacity = 1;
 				document.getElementById("canvas").style.top = "55px";
 				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+				planetarium.resize()
 			});
 
 			//Save in Journal on stop
