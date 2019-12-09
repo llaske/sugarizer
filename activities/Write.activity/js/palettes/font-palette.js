@@ -5,9 +5,7 @@ define([
     'sugar-web/graphics/palette',
     'mustache'
   ], function(palette, mustache) {
-
     var fontpalette = {};
-
     /* We setup the palette with fonts */
     fontpalette.Fontpalette = function(invoker, primaryText) {
       palette.Palette.call(this, invoker, primaryText);
@@ -16,7 +14,7 @@ define([
       this.fontChangeEvent.initCustomEvent('fontChange', true, true, {
         'family': 'Arial'
       });
-      this.template = '<center style="padding-top:6px ; "><table id = "font-table"><tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button lineHeight="{{lineHeight}}" title="{{fontFamily}}" style="height:55px; width:55px; background-size:40px !important;  background: #fff url({{ icon }}) no-repeat center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody></table></center>' + '<br/>';
+      this.template = '<center style="padding-top:6px ; "><table><tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button lineHeight="{{lineHeight}}" title="{{fontFamily}}" style="height:55px; width:55px; background-size:40px !important;  background: #fff url({{ icon }}) no-repeat center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody></table></center>' + '<br/>';
       var rows = [
         [{
           icon: 'icons/font-arial.svg',
@@ -54,7 +52,6 @@ define([
           }
         ]
       ];
-
       var textsElem = document.createElement('div');
       textsElem.innerHTML = mustache.render(this.template, {
         rows: rows
