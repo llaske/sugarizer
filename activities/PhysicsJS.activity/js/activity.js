@@ -199,10 +199,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 				if (renderer) {
 					renderer.resize(body.offsetWidth,body.offsetHeight);
 				} else {
-					setTimeout(initialResize, 300);
+					setTimeout(initialResize, 100);
 				}
 			};
-			setTimeout(initialResize, 300);
+			setTimeout(initialResize, 100);
 
 			var colors = [
 				['0x268bd2', '0x0d394f']
@@ -457,6 +457,18 @@ define(["sugar-web/activity/activity"], function (activity) {
 				gravityMode = value;
 			}
 
+			// Full screen
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.display = "none";
+				document.getElementById("canvas").style.top = "0px";
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+			});
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.display="block";
+				document.getElementById("canvas").style.top = "55px";
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			});
+
 			// add some fun interaction
 			var createdBody = null;
 			var createdStart = null;
@@ -542,14 +554,3 @@ define(["sugar-web/activity/activity"], function (activity) {
     });
 
 });
-// Full screen
-			document.getElementById("fullscreen-button").addEventListener('click', function() {
-				document.getElementById("main-toolbar").style.opacity = 0;
-				document.getElementById("canvas").style.top = "0px";
-				document.getElementById("unfullscreen-button").style.visibility = "visible";
-			});
-			document.getElementById("unfullscreen-button").addEventListener('click', function() {
-				document.getElementById("main-toolbar").style.opacity = 1;
-				document.getElementById("canvas").style.top = "55px";
-				document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			});
