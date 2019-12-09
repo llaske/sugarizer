@@ -1,51 +1,51 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #box-button {
   background-image: url(../icons/box.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #circle-button {
   background-image: url(../icons/circle.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #triangle-button {
   background-image: url(../icons/triangle.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #gravity-button {
   background-image: url(../icons/gravity0.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #sensor-button {
   background-image: url(../icons/sensor.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #clear-button {
   background-image: url(../icons/clear.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #polygon-button {
   background-image: url(../icons/polygon.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #main-toolbar #apple-button {
   background-image: url(../icons/apple.svg);
-  z-index: 3;
+  z-index: 5;
 }
 
 #run-button {
 	background-image: url(../icons/play.svg);
-	z-index:3;
+	z-index:5;
 }
 
 #run-button.running{
@@ -53,11 +53,39 @@
 }
 
 #main-toolbar #stop-button {
-  z-index: 3;
+  z-index: 5;
+}
+
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 0px;
+  width: 45px;
+  height: 45px;
+  top: 2px;
+  right: 9%;
+  position: absolute;
+  display: all;
+  z-index: 5;
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 0px;
+  width: 45px;
+  height: 45px;
+  top: 2px;
+  right: 9%;
+  position: absolute;
+  display: block;
+  z-index: 4;
 }
 
 html, body, #viewport {
-  margin: 0; background: #ffffff;
+  margin: 0; background: #fff;
 }
 
 .palette {
@@ -74,9 +102,8 @@ canvas {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
 }
-
 
 @media screen and (max-width: 657px) {
 	.toolbar {

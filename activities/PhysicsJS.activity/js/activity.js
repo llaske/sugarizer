@@ -128,6 +128,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 				currentType = -1;
 				switchToType(currentType);
 			}, true);
+			
+			
 
 			// Handle acceleration and gravity mode
 			sensorButton.addEventListener('click', function () {
@@ -242,7 +244,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
 			}
-
+			
 			function dropInBody(type, pos){
 
 				var body;
@@ -540,3 +542,14 @@ define(["sugar-web/activity/activity"], function (activity) {
     });
 
 });
+// Full screen
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("canvas").style.top = "0px";
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+			});
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("canvas").style.top = "55px";
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			});
