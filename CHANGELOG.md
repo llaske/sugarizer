@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Calligra activity
 - Tutorial step 9: integrate a tutorial
 - Add a fullscreen button in Gears activity #411
+- Add new Fonts for Write Activity
 
 ### Changed
 - Double size of Record images in WebApp and electron App
