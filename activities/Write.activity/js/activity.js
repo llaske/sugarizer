@@ -259,6 +259,11 @@ define([
 			var newfont = e.detail.family;
 			if(newfont=="Arial") newfont="arial";
 			if(newfont=="Comic Sans MS") newfont="comic";
+			if(newfont=="Times New Roman")newfont="Times";
+			if(newfont=="Courier New")newfont="Courier";
+			if(newfont=="Lucida Console")newfont="Lucida";
+			if(newfont=="Impact")newfont="Impact";
+			if(newfont=="Georgia")newfont="Georgia";
 			changeMadebyUser=true;
 			editor.format('font',newfont);
 		});

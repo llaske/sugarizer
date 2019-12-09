@@ -154,6 +154,25 @@
   font-family: 'Comic Sans MS';
 }
 
+.ql-font-Times {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.ql-font-Courier {
+  font-family: "Courier New", Courier New, monospace;
+}
+
+.ql-font-Lucida {
+  font-family: "Lucida Console", Lucida Console, monospace;
+}
+.ql-font-Impact {
+  font-family: "Impact", fantasy;
+}
+.ql-font-Georgia {
+  font-family: "Georgia", serif;
+}
+
+
 
  #edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
   display: none;
