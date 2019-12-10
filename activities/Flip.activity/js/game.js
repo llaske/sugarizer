@@ -115,6 +115,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 				console.log("12");
 				break;
 		}
+
 	}
 
 	this.getRandomInt = function(min, max) {
@@ -157,6 +158,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		this.palette.setUsed();
 		var t = this;
 		this.newGameTimeout = setTimeout(function(){t.newGame();},2000);
+
+		//If user win and level is updated automatically, update grid size
+		this.setGridDimension(this.startgridwidth);
 	}
 
 	//Save
@@ -187,7 +191,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	}
 
 	//Init
-	
+
 	this.initialiseFromArray = function(){
 		clearTimeout(this.newGameTimeout);
 		clearTimeout(this.solveTimeout);
@@ -254,7 +258,6 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		stage.removeAllChildren();
 		this.calculateDimensions();
 		this.initDots();
-		//console.log(this.dots);
 		this.stack = [];
 		for (var i = 0; i<14; i++){
 			this.flipRandomDot();
@@ -267,12 +270,22 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.setSize = function(size){
 		this.startgridwidth = size;
 		this.startgridheight = size;
+
+		//When level is manually set by user, update grid size.
+		this.setGridDimension(size);
+
 		this.newGame();
 		this.level = size;
 	}
 
+	//The grid is shrunk as the amount of dots becomes too many for the
+	//canvas to handle
+	this.setGridDimension = function(size){
+		this.gridwidth = size * 1.5;
+		this.gridheight = size * 1.5;
+	}
+
 	this.init = function(){
-		//console.log("init");
 		//console.log(activity.getDatastoreObject());
 		this.palette = new sizepalette.SizePalette(this,doc.getElementById('size-button'),undefined);
 		activity.getDatastoreObject().getMetadata(this.init_canaccessdatastore.bind(this));
