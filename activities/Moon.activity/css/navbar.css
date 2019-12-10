@@ -18,3 +18,7 @@
 #save-image-button {
     background-image: url(../icons/save-image.svg);
 }
+
+#main-toolbar #help-button {
+    background-image: url(../icons/help.svg);
+  }
