@@ -40,7 +40,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the Memorize activity #427
 - Add a tutorial to the VideoViewer activity #435
 - Add a fullscreen button in the Maze activity #400
-- Add a fullscreen button in Constellation activity #417 
+- Add a fullscreen button in Constellation activity #417
+- Add a tutorial to the Fototoon activity #443  
 
 
 ## [1.2.0] - 2019-09-26
