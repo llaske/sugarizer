@@ -171,6 +171,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		arr.stack = this.stack;
 		arr.startgridwidth = this.startgridwidth;
 		arr.startgridheight = this.startgridheight;
+		arr.level = this.level;
 		arr.dots = [];
 		arr.turns = this.turns;
 		arr.indcolour = document.getElementById("fliptext").style.borderBottom;
@@ -309,6 +310,21 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		if (error==null&&data!=null){
 			data = JSON.parse(data);
 			this.restoreFromDatastore(data);
+
+			//Restore saved data from datastore
+			this.stack = data.stack;
+			this.startgridwidth = data.startgridwidth;
+			this.startgridheight = data.startgridheight;
+			this.setSize(data.startgridheight);
+			this.turns = data.turns;
+			document.getElementById("turnno").innerHTML = " " + (this.turns);
+			document.getElementById("fliptext").style.borderBottom = data.indcolour;
+			clearTimeout(this.newGameTimeout);
+			clearTimeout(this.solveTimeout);
+			stage.removeAllChildren();
+			this.calculateDimensions();
+			this.initDots(data.dots);
+
 		} else {
 			this.newGame();
 		}
