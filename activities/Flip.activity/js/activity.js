@@ -11,7 +11,7 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 			});
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
-			
+
 				// Set current language to Sugarizer
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
@@ -31,7 +31,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 	function init(){
 		canvas = document.getElementById('actualcanvas');
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight-200;
+		canvas.height = window.innerHeight;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
@@ -46,14 +46,14 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		}
 		var g = new Game(stage,colors,doc,datastore,act,sizepalette);
 		setTimeout(function(){ g.init(); }, 500);
+
 		var hasBeenResized = false;
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-200;
+			canvas.height = window.innerHeight;
 			g.initialiseFromArray();
 		}
-
 		var solveButton = doc.getElementById("solve-button");
 		solveButton.addEventListener('click', function (a) {
 			g.solve();
