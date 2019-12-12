@@ -29,7 +29,7 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoToggleHemisphereButtonContent"),
 			},
 			{
-				element: "#save-image-button", 
+				element: "#save-image-button",
 				placement: "bottom",
 				title: l10n.get("TutoSaveImageButtonTitle"),
 				content: l10n.get("TutoSaveImageButtonContent"),
@@ -41,15 +41,15 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoFullScreenButtonContent"),
 			},
 			{
+				element: "#panel-left",
+				title: l10n.get("TutoPanelLeftTitle"),
+				content: l10n.get("TutoPanelLeftContent"),
+			},
+			{
 				element: "#stop-button",
 				placement: "bottom",
 				title: l10n.get("TutoStopButtonTitle"),
 				content: l10n.get("TutoStopButtonContent"),
-			},
-			{
-				element: "#panel-left",
-				title: l10n.get("TutoPanelLeftTitle"),
-				content: l10n.get("TutoPanelLeftContent"),
 			},
 		];
 		var tour = new Tour({
