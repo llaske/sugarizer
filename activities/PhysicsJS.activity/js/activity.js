@@ -79,7 +79,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			});
 
 			// resize events
-			window.addEventListener('resize', function () {
+			function resizeHandler() {
 				if (resizeTimer) {
 					clearTimeout(resizeTimer);
 				}
@@ -94,7 +94,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 					zoom();
 				}, 500);
 
-			}, true);
+			}
+			window.addEventListener('resize', resizeHandler, true);
 
 			// handle toolbar buttons
 			document.getElementById("box-button").addEventListener('click', function (e) {
@@ -129,6 +130,22 @@ define(["sugar-web/activity/activity"], function (activity) {
 				switchToType(currentType);
 			}, true);
 
+			// Full screen
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("viewport").style.top = "0px";
+				toolbarHeight = 0;
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+				resizeHandler();
+			}, true);
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("viewport").style.top = "55px";
+				toolbarHeight = 55;
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+				resizeHandler();
+			});
+			
 			// Handle acceleration and gravity mode
 			sensorButton.addEventListener('click', function () {
 				sensorMode = !sensorMode;
