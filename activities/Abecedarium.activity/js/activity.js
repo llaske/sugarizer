@@ -43,7 +43,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			document.getElementById("learn_caseButton").style.visibility = "hidden";
 			document.getElementById("learn_languageButton").style.visibility = "hidden";
-
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 1;
