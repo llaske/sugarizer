@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in Constellation activity #417
 - Add a tutorial to the Fototoon activity #443
 - Board size in Flip activity is not optimized #405
+- Add a tutorial to the Moon activity #432
 
 
 ## [1.2.0] - 2019-09-26
