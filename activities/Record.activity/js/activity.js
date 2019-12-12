@@ -1,9 +1,8 @@
-/* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity", "sugar-web/presence", "activity/capture-helper", "sugar-web/datastore", "webL10n", "tutorial", "sugar-web/env"], function (activity, presence, captureHelper, datastore, webL10n, tutorial, env) {
+define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n","tutorial","sugar-web/env"], function (activity,presence,captureHelper,datastore,webL10n,tutorial,env) {
 
     requirejs(['domReady!'], function (doc) {
 
-        window.addEventListener('localized', function () {
+        window.addEventListener('localized', function() {
             window.l10n = webL10n;
             if (datastore !== undefined && datastore.localStorage !== undefined) {
                 var preferences = datastore.localStorage.getValue('sugar_settings');
@@ -46,30 +45,30 @@ define(["sugar-web/activity/activity", "sugar-web/presence", "activity/capture-h
         var videoButton = document.getElementById("video-button");
         var vidDisplay = document.getElementById("vidDisplay");
 
-        function handleVideo(stream) {
+        function handleVideo(stream){
             document.querySelector('#vidDisplay').srcObject = stream;
         }
-        function videoError(e) {
+        function videoError(e){
             alert("There was some error");
         }
 
         photoButton.addEventListener("click", function () {
             captureHelper.helper.takePicture();
-            if (vidDisplay.style.display == "none") {
-                vidDisplay.style.display = "block";
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
             }
         });
 
         audioButton.addEventListener("click", function () {
-            if (vidDisplay.style.display != "none") {
-                vidDisplay.style.display = "none";
+            if(vidDisplay.style.display != "none"){
+                vidDisplay.style.display = "none" ;
             }
             captureHelper.helper.recordAudio();
         });
 
         videoButton.addEventListener("click", function () {
-            if (vidDisplay.style.display == "none") {
-                vidDisplay.style.display = "block";
+            if(vidDisplay.style.display == "none"){
+                vidDisplay.style.display = "block" ;
             }
             captureHelper.helper.recordVideo();
         });
@@ -80,7 +79,7 @@ define(["sugar-web/activity/activity", "sugar-web/presence", "activity/capture-h
         });
 
 
-        activity.getDatastoreObject().loadAsText(function (error, metadata, jsonData) {
+        activity.getDatastoreObject().loadAsText(function(error, metadata, jsonData) {
             if (jsonData == null) {
                 return;
             }
@@ -93,7 +92,7 @@ define(["sugar-web/activity/activity", "sugar-web/presence", "activity/capture-h
             captureHelper.ids = data.ids;
 
             if (data.ids && data.ids.length > 0) {
-                captureHelper.getData(data.ids, function (oldData) {
+                captureHelper.getData(data.ids, function(oldData) {
                     captureHelper.displayAllData(oldData)
                 });;
             }
