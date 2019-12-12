@@ -1,123 +1,122 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
-	tutorial.start = function() {
-		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-            {
-				element: "#network-button",
-                placement: "bottom",
-				title: l10n.get("TutoNetworkTitle"),
-				content: l10n.get("TutoNetworkContent")
-			},
-			{
-				element: "#colors-button-fill",
-                placement: "bottom",
-				title: l10n.get("TutoColorsButtonFillTitle"),
-				content: l10n.get("TutoColorsButtonFillContent")
-			},
-			{
-				element: "#colors-button-stroke",
-                placement: "bottom",
-				title: l10n.get("TutoColorsButtonStrokeTitle"),
-				content: l10n.get("TutoColorsButtonStrokeContent")
-			},
-			{
-				element: "#undo-button",
-                placement: "bottom",
-				title: l10n.get("TutoUndoTitle"),
-				content: l10n.get("TutoUndoContent")
-			},
-			{
-				element: "#redo-button",
-                placement: "bottom",
-				title: l10n.get("TutoRedoTitle"),
-				content: l10n.get("TutoRedoContent")
-			},
-			{
-				element: "#size-button",
-                placement: "bottom",
-				title: l10n.get("TutoSizeTitle"),
-				content: l10n.get("TutoSizeContent")
-			},
-			{
-				element: "#pen-button",
-                placement: "bottom",
-				title: l10n.get("TutoPenTitle"),
-				content: l10n.get("TutoPenContent")
-			},
-			{
-				element: "#eraser-button",
-                placement: "bottom",
-				title: l10n.get("TutoEraserTitle"),
-				content: l10n.get("TutoEraserContent")
-			},
-			{
-				element: "#stamps-button",
-                placement: "bottom",
-				title: l10n.get("TutoStampsTitle"),
-				content: l10n.get("TutoStampsContent")
-			},
-			{
-				element: "#text-button",
-                placement: "bottom",
-				title: l10n.get("TutoTextTitle"),
-				content: l10n.get("TutoTextContent")
-			},
-			{
-				element: "#insertimage-button",
-                placement: "bottom",
-				title: l10n.get("TutoInsertimageTitle"),
-				content: l10n.get("TutoInsertimageContent")
-			},
-			{
-				element: "#drawings-button",
-                placement: "bottom",
-				title: l10n.get("TutoDrawingsTitle"),
-				content: l10n.get("TutoDrawingsContent")
-			},
-			{
-				element: "#bucket-button",
-                placement: "bottom",
-				title: l10n.get("TutoBucketTitle"),
-				content: l10n.get("TutoBucketContent")
-			},
-			{
-				element: "#filters-button",
-                placement: "bottom",
-				title: l10n.get("TutoFiltersTitle"),
-				content: l10n.get("TutoFiltersContent")
-			},
-			{
-				element: "#copy-button",
-                placement: "bottom",
-				title: l10n.get("TutoCopyTitle"),
-				content: l10n.get("TutoCopyContent")
-			},
-			{
-				element: "#paste-button",
-                placement: "bottom",
-				title: l10n.get("TutoPasteTitle"),
-				content: l10n.get("TutoPasteContent")
-			},
-			{
-				element: "#clear-button",
-                placement: "bottom",
-				title: l10n.get("TutoClearTitle"),
-				content: l10n.get("TutoClearContent")
-			},
-			{
-				element: "#paint-canvas",
-				placement: "top",
-				title: l10n.get("TutoCanvasTitle"),
-				content: l10n.get("TutoCanvasContent")
-			}
+	tutorial.start = function () {
+		var steps = [{
+			element: "",
+			orphan: true,
+			placement: "bottom",
+			title: l10n.get("TutoExplainTitle"),
+			content: l10n.get("TutoExplainContent")
+		},
+		{
+			element: "#network-button",
+			placement: "bottom",
+			title: l10n.get("TutoNetworkTitle"),
+			content: l10n.get("TutoNetworkContent")
+		},
+		{
+			element: "#colors-button-fill",
+			placement: "bottom",
+			title: l10n.get("TutoColorsButtonFillTitle"),
+			content: l10n.get("TutoColorsButtonFillContent")
+		},
+		{
+			element: "#colors-button-stroke",
+			placement: "bottom",
+			title: l10n.get("TutoColorsButtonStrokeTitle"),
+			content: l10n.get("TutoColorsButtonStrokeContent")
+		},
+		{
+			element: "#undo-button",
+			placement: "bottom",
+			title: l10n.get("TutoUndoTitle"),
+			content: l10n.get("TutoUndoContent")
+		},
+		{
+			element: "#redo-button",
+			placement: "bottom",
+			title: l10n.get("TutoRedoTitle"),
+			content: l10n.get("TutoRedoContent")
+		},
+		{
+			element: "#size-button",
+			placement: "bottom",
+			title: l10n.get("TutoSizeTitle"),
+			content: l10n.get("TutoSizeContent")
+		},
+		{
+			element: "#pen-button",
+			placement: "bottom",
+			title: l10n.get("TutoPenTitle"),
+			content: l10n.get("TutoPenContent")
+		},
+		{
+			element: "#eraser-button",
+			placement: "bottom",
+			title: l10n.get("TutoEraserTitle"),
+			content: l10n.get("TutoEraserContent")
+		},
+		{
+			element: "#stamps-button",
+			placement: "bottom",
+			title: l10n.get("TutoStampsTitle"),
+			content: l10n.get("TutoStampsContent")
+		},
+		{
+			element: "#text-button",
+			placement: "bottom",
+			title: l10n.get("TutoTextTitle"),
+			content: l10n.get("TutoTextContent")
+		},
+		{
+			element: "#insertimage-button",
+			placement: "bottom",
+			title: l10n.get("TutoInsertimageTitle"),
+			content: l10n.get("TutoInsertimageContent")
+		},
+		{
+			element: "#drawings-button",
+			placement: "bottom",
+			title: l10n.get("TutoDrawingsTitle"),
+			content: l10n.get("TutoDrawingsContent")
+		},
+		{
+			element: "#bucket-button",
+			placement: "bottom",
+			title: l10n.get("TutoBucketTitle"),
+			content: l10n.get("TutoBucketContent")
+		},
+		{
+			element: "#filters-button",
+			placement: "bottom",
+			title: l10n.get("TutoFiltersTitle"),
+			content: l10n.get("TutoFiltersContent")
+		},
+		{
+			element: "#copy-button",
+			placement: "bottom",
+			title: l10n.get("TutoCopyTitle"),
+			content: l10n.get("TutoCopyContent")
+		},
+		{
+			element: "#paste-button",
+			placement: "bottom",
+			title: l10n.get("TutoPasteTitle"),
+			content: l10n.get("TutoPasteContent")
+		},
+		{
+			element: "#clear-button",
+			placement: "bottom",
+			title: l10n.get("TutoClearTitle"),
+			content: l10n.get("TutoClearContent")
+		},
+		{
+			element: "#paint-canvas",
+			placement: "top",
+			title: l10n.get("TutoCanvasTitle"),
+			content: l10n.get("TutoCanvasContent")
+		}
 		];
 		var tour = new Tour({
 			template: "\
