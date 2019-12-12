@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Board size in Flip activity is not optimized #405
 - Add a tutorial to the Paint activity #425
 - Add a tutorial to the Moon activity #432
+- Add a tutorial to the Record activity #433
 
 
 ## [1.2.0] - 2019-09-26
