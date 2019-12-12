@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "webL10n", "humane"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, webL10n, humane) {
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "webL10n", "humane", "tutorial"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, webL10n, humane, tutorial) {
 	var app;
 	var presence=null;
 	var isHost=false;
@@ -64,6 +64,11 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			app.doRenew();
 		};
 
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+		
 		levelRadio = new radioButtonsGroup.RadioButtonsGroup([
 			document.getElementById("level-easy-button"),
 			document.getElementById("level-medium-button"),
@@ -443,6 +448,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				currentthis.level = data.level;
 				currentthis.player = data.player;
 				currentthis.init();
+				currentthis.drawBoard();
 			});
 		},
 
