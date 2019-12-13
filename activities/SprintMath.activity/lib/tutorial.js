@@ -10,12 +10,6 @@ define(["webL10n"], function (l10n) {
                 content: l10n.get("TutoExplainContent")
             },
             {
-                element: "#network-button",
-                placement: "bottom",
-                title: l10n.get("TutoNetworkTitle"),
-                content: l10n.get("TutoNetworkContent")
-            },
-            {
                 element: "#restart-button",
                 placement: "bottom",
                 title: l10n.get("TutoRestartTitle"),
@@ -56,6 +50,12 @@ define(["webL10n"], function (l10n) {
                 placement: "bottom",
                 title: l10n.get("TutoChoicesTitle"),
                 content: l10n.get("TutoChoicesContent")
+            },
+            {
+                element: "#network-button",
+                placement: "bottom",
+                title: l10n.get("TutoNetworkTitle"),
+                content: l10n.get("TutoNetworkContent")
             },
         ];
         var tour = new Tour({
