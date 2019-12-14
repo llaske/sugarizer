@@ -221,6 +221,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.style.backgroundImage = "url('" + fullData.data + "')";
             img.style.backgroundRepeat = "no-repeat";
             img.style.backgroundPosition = "center";
+            img.style.backgroundSize = "contain";
 
             div.appendChild(img);
 
@@ -595,8 +596,8 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                     document.querySelector('#vidDisplay').srcObject = mediaStream;
                     setTimeout(function () {
                         var canvas = document.createElement("canvas");
-                        var width = captureHelper.width;
-                        var height = captureHelper.height;
+                        var width = 320;
+                        var height = 240;
 
                         canvas.width = width;
                         canvas.height = height;

@@ -39,6 +39,7 @@
 	overflow-x: hidden;
 }
 
+dev-constellation
 .tutorial-title {
 	background-color: #808080 !important;
 	color: #ffffff !important;
@@ -165,4 +166,21 @@
 	height: 35px;
 	background-color: #808080;
 	border: 2px solid #808080;
+
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
 }

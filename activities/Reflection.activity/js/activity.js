@@ -39,7 +39,7 @@ function runactivity(act,doc,colors,env,datastore){
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.height = window.innerHeight-(+document.getElementById("main-toolbar").style.opacity ? 55 : 0);
 			stage.removeAllChildren();
 			g.resize();
 		}
@@ -75,6 +75,19 @@ function runactivity(act,doc,colors,env,datastore){
 		window.addEventListener('activityStop', function (eve) {
 			eve.preventDefault();
 			g.stop();
+		});
+		// Full screen
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeCanvas();
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeCanvas();
 		});
 	}
 	init();
