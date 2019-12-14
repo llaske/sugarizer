@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Double size of Record images in WebApp and electron App
 - Add a message when disconnected by the server or by another device
+- Improve Exerciser UI to avoid accidental deletion #455 
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
