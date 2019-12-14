@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","speechpalette","languagepalette","activity/sax","activity/dom-js","activity/AIMLInterpreter","activity/Speech", "tutorial", "webL10n"], function (activity, speakActivity, facepalette, speechpalette, languagepalette, tutorial, webL10n) {
+define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","speechpalette","languagepalette","activity/sax","activity/dom-js","activity/AIMLInterpreter","activity/Speech", "tutorial"], function (activity, speakActivity, facepalette, speechpalette, languagepalette, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -50,9 +50,9 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
 
     });
 
-        document.getElementById("help-button").addEventListener('click', function(e) {
-          tutorial.start();
-        });
+      document.getElementById("help-button").addEventListener('click', function(event){
+        tutorial.start();
+      });
 
         // Function that creates options for select tag. Value of options is equal to saved talk.
         function speakComboBox() {
