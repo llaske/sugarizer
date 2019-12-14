@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in Gears activity #411
 - Add new Fonts for Write Activity
 - Add an option to choose board size of Game of Life activity #381
+- Allow to control speed generation in Game of Life activity #380
 - Add a fullscreen button in Memorize activity #401
 - Add a fullscreen button in XO Editor activity #415
 - Add a fullscreen button in TamTam micro activity #409
@@ -32,7 +33,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Double size of Record images in WebApp and electron App
 - Add a message when disconnected by the server or by another device
-- Improve Exerciser UI to avoid accidental deletion #455 
+- Improve Gears Tutorial #396
+- Improve Exerciser UI to avoid accidental deletion #455
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -40,11 +42,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Long touch on Memory items don't work on Android
 - Jump in generation in Game of Life activity on Chrome #388
 - Long name hide text in Chat activity #383
-- Allow to control speed generation in Game of Life activity #380
 - Image selection error in Write activity after scrolling #390
 - Board is not drawn correctly in LastOneLost activity when open from the Journal #419
 - Clear icon in Game of Life activity is non standard #397
-- Improve Gears Tutorial #396
 - Image insertion don't work in shared mode in Paint activity #384
 - Close the presence palette when the activity is shared #398
 - Board size in Flip activity is not optimized #405
