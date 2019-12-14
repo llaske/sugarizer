@@ -24,7 +24,7 @@
   width: 45px;
   height: 45px;
   top: 10px;
-  right: 1%;
+  right: 15px;
   position: absolute;
   visibility: hidden;
 }
@@ -120,7 +120,6 @@
 	height: 50px;
 	right: 85px;
 	top: 10px;
-	visibility: visible;
 }
 
 .switchCaseButton {
@@ -130,7 +129,6 @@
 	position: absolute;
 	right: 20px;
 	top: 10px;
-	visibility: visible;
 }
 
 .switchLangButton {

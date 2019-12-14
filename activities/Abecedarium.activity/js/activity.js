@@ -35,41 +35,43 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			Abcd.sound.pause();
 		});
-		function hidebutton(){
+
+		//Buttons to show and hide Language and Case Button
+		function hideLangandCasebutton(){
 			var x = document.getElementsByClassName("switchCase");
 			var y = document.getElementsByClassName("switchLang");
 			var i;
 			for (i = 0; i < x.length; i++) {
-  			x[i].style.visibility = "hidden";
+  				x[i].style.visibility = "hidden";
   			}
   			for (i = 0; i < y.length; i++) {
-  			y[i].style.visibility = "hidden";
+  				y[i].style.visibility = "hidden";
   			}
   		}
-  		function showbutton(){
+  		function showLangandCasebutton(){
 			var x = document.getElementsByClassName("switchCase");
 			var y = document.getElementsByClassName("switchLang");
 			var i;
 			for (i = 0; i < x.length; i++) {
-  			x[i].style.visibility = "visible";
-  			}
+				x[i].style.visibility = "visible";
+			}
   			for (i = 0; i < y.length; i++) {
-  			y[i].style.visibility = "visible";
+  				y[i].style.visibility = "visible";
   			}
   		}
 
 		// Full screen
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("main-toolbar").style.visibility = "hidden";
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";  
-			hidebutton();
+			hideLangandCasebutton();
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
-			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("main-toolbar").style.visibility = "visible";
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			showbutton();
+			showLangandCasebutton();
 		});
 	});
 

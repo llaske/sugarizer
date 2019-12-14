@@ -40,7 +40,11 @@ enyo.kind({
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
-		Abcd.changeVisibility(this, caseVisibilityTab[Abcd.context.casevalue]);
+		if (document.getElementById("main-toolbar").style.visibility == "hidden")
+			Abcd.changeVisibility(this,{switchToUpper: false, switchToScript: false, switchToLower: false});
+		document.getElementById("unfullscreen-button").onclick = function(){
+			Abcd.changeVisibility(this, caseVisibilityTab[Abcd.context.casevalue]);
+		}
 	},
 	
 	// Change current case
@@ -60,8 +64,6 @@ enyo.kind({
 	}
 });
 
-
-
 // Switch language button
 enyo.kind({
 	name: "Abcd.LanguageButton",
@@ -72,18 +74,23 @@ enyo.kind({
 		{name: "switchToSpanish", kind: "Image", src: "images/fr.png", classes: "standardButton switchLangButton", ontap: "localSpanish"},
         {name: "switchToEnglish", kind: "Image", src: "images/es.png", showing: false, classes: "standardButton switchLangButton", ontap: "localEnglish"},
 	],
-	
+
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
-		if (Abcd.context.lang == 'en')
-			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
-		else if (Abcd.context.lang == 'fr')
-			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: true});
-		else
-			Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false});
+		if (document.getElementById("main-toolbar").style.visibility == "hidden")
+			Abcd.changeVisibility(this,{switchToEnglish: false, switchToFrench: false, switchToSpanish: false});
+		else 
+			(document.getElementById("unfullscreen-button").onclick = function() {
+			if (Abcd.context.lang == 'en')
+				Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
+			else if (Abcd.context.lang == 'fr')
+				Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: true});
+			else
+				Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false});
+			})
 	},
-	
+
 	// Change current language
 	localEnglish: function() {
 		Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
@@ -100,7 +107,6 @@ enyo.kind({
         Abcd.setLocale("es");
 	}
 });	
-
 
 // Play type button
 enyo.kind({
