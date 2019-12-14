@@ -165,6 +165,7 @@
 	height: 35px;
 	background-color: #808080;
 	border: 2px solid #808080;
+}
 
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
