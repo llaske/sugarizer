@@ -63,6 +63,8 @@ define([
 				document.getElementById("edit-copy").title = webL10n.get("Copy");
 				document.getElementById("edit-paste").title = webL10n.get("Paste");
 				document.getElementById("export").title = webL10n.get("Export");
+				document.getElementById("super-script").title = webL10n.get("SuperScript");
+				document.getElementById("sub-script").title = webL10n.get("SubScript");
 				document.getElementById(5).title = webL10n.get("Bold");
 				document.getElementById(6).title = webL10n.get("Italic");
 				document.getElementById(7).title = webL10n.get("Underline");
@@ -177,6 +179,17 @@ define([
 		document.getElementById("edit-redo").addEventListener('click',function(){
 			editor.history.redo();
 		});
+
+		// Superscript
+		document.getElementById("super-script").addEventListener('click', function(){
+			document.getElementById("super").click();
+		});
+
+		// Subscript
+		document.getElementById("sub-script").addEventListener('click', function() {
+			document.getElementById("sub").click();
+		})
+
 
 		// Initiating format-text-palette ( for cut/copy/undo/redo )
 		var formatButton = document.getElementById("format-text");

@@ -54,6 +54,20 @@
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #super-script {
+  background-image: url(../icons/superscript.svg);
+  width: 47px;
+  height: 47px;
+  border-radius: 0px;
+}
+
+#main-toolbar #sub-script {
+  background-image: url(../icons/subscript.svg);
+  width: 47px;
+  height: 47px;
+  border-radius: 0px;
+}
+
 #private-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   width: 47px;
