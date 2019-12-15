@@ -24,22 +24,22 @@ Here's the source code to insert into the new Pawn palette file:
 
 
     define(["sugar-web/graphics/palette"], function(palette) {
-    
+
     	var pawnpalette = {};
-    
+
     	pawnpalette.PawnPalette = function(invoker, primaryText) {
     		palette.Palette.call(this, invoker, primaryText);
-    
+
     		var template = '<strong>Hello palette!</strong>';
     		var containerElem = document.createElement('div');
     		containerElem.innerHTML = template;
     		this.setContent([containerElem]);
     	};
-    
+
     	var addEventListener = function(type, listener, useCapture) {
     		return this.getPalette().addEventListener(type, listener, useCapture);
     	};
-    
+
     	pawnpalette.PawnPalette.prototype = Object.create(palette.Palette.prototype, {
     		addEventListener: {
     			value: addEventListener,
@@ -48,10 +48,10 @@ Here's the source code to insert into the new Pawn palette file:
     			writable: true
     		}
     	});
-    
+
     	return pawnpalette;
     });
-    
+
 
 As we've already seen in [step 2](tutorial_step2.md#customize-content), the `define` function is a way to define a new module and express its dependencies. Here we're going to define a new module that depends on the JavaScript library `sugar-web/graphics/palette`. This `palette` library is precisely the base class for all Palette objects.
 
@@ -130,19 +130,19 @@ It create three `div` elements, each one represent an item and its specific UI. 
       padding-top: 15px;
       padding-left: 10px;
     }
-    
+
     .palette-item:hover {
       background-color: #808080;
     }
-    
+
     .palette-icon {
       width: 30px;
     }
-    
+
     .palette-text {
       vertical-align: super;
     }
-    
+
     .item-icon {
       padding-top: 3px;
       height: 40px;
@@ -153,7 +153,7 @@ Then we need to update the palette source code to use this HTML file as template
 First, let's update the first line that define the module. We're going to add a new dependancy on the `pawnpalette.html` file. Here's the line once updated:
 
     define(["sugar-web/graphics/palette","text!pawnpalette.html"], function(palette, template) {
-    
+
 
 The `text!` prefix before the file name tell to **require.js** framework to process the file as text content instead of JavaScript.
 
@@ -251,4 +251,4 @@ Voila! now you are able to create your own custom palette and how to add event i
 To learn more, I suggest you to explore the source code for other activities that use palettes, for example [Paint](../activities/Paint.activity) or [Speak](../activities/Speak.activity). You could study for example how the Color palette, used in multiple activities, works.
 
 
-[Go back to tutorial home](tutorial.md)
+[Go to next step](tutorial_step9.md)

@@ -443,6 +443,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				currentthis.level = data.level;
 				currentthis.player = data.player;
 				currentthis.init();
+				currentthis.drawBoard();
 			});
 		},
 
