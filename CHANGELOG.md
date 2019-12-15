@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the Moon activity #432
 - Add a tutorial to the SprintMath activity #444
 - Add a tutorial to the Record activity #433
+- Add a tutorial to the Constellation activity #446
 
 ### Changed
 - Double size of Record images in WebApp and electron App
