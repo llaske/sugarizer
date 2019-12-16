@@ -40,31 +40,8 @@ enyo.kind({
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
-		function hideLangandCasebutton(){
-			var x = document.getElementsByClassName("switchCase");
-			var y = document.getElementsByClassName("switchLang");
-			var i;
-			for (i = 0; i < x.length; i++) {
-				x[i].style.visibility = "hidden";
-			}
-			for (i = 0; i < y.length; i++) {
-				y[i].style.visibility = "hidden";
-			}
-		}
-		function showLangandCasebutton(){
-  			var x = document.getElementsByClassName("switchCase");
-  			var y = document.getElementsByClassName("switchLang");
-  			var i;
-  			for (i = 0; i < x.length; i++) {
-  				x[i].style.visibility = "visible";
-  			}
-  			for (i = 0; i < y.length; i++) {
-  				y[i].style.visibility = "visible";
-  			}
-  		}
 		if (document.getElementById("main-toolbar").style.visibility == "hidden")
-			hideLangandCasebutton()
-		document.getElementById("main-toolbar").style.visibility = "visible";
+			Abcd.hideCase()
 		Abcd.changeVisibility(this, caseVisibilityTab[Abcd.context.casevalue]);
 	},
 	
@@ -99,6 +76,8 @@ enyo.kind({
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
+  		if (document.getElementById("main-toolbar").style.visibility == "hidden")
+			Abcd.hideLang()
 		if (Abcd.context.lang == 'en')
 			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
 		else if (Abcd.context.lang == 'fr')
