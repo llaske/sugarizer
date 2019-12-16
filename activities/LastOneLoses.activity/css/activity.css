@@ -70,6 +70,44 @@
 	border-radius: 5.5px;
 }
 
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin:1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 8%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
+
+/*Move the playbutton to the left as it overlaps with the activity*/
+#lOLGameApp_playbutton{
+  margin-top: -50px;
+  margin-left: 30px;
+}
+
+/*Make the unfullscreen button and the playbutton responsive*/
+@media screen and (max-width: 1000px){
+	#unfullscreen-button{
+		right: 2%;
+	}
+	#lOLGameApp_playbutton{
+		margin-left: 10px;
+		width: 10vw;
+		height: 10vw;
+	}
+}
+
 @media screen and (max-width: 620px) {
 	.toolbar {
 		padding-left: 10px;
