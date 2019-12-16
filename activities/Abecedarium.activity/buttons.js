@@ -40,11 +40,32 @@ enyo.kind({
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
-		if (document.getElementById("main-toolbar").style.visibility == "hidden")
-			Abcd.changeVisibility(this,{switchToUpper: false, switchToScript: false, switchToLower: false});
-		document.getElementById("unfullscreen-button").onclick = function(){
-			Abcd.changeVisibility(this, caseVisibilityTab[Abcd.context.casevalue]);
+		function hideLangandCasebutton(){
+			var x = document.getElementsByClassName("switchCase");
+			var y = document.getElementsByClassName("switchLang");
+			var i;
+			for (i = 0; i < x.length; i++) {
+				x[i].style.visibility = "hidden";
+			}
+			for (i = 0; i < y.length; i++) {
+				y[i].style.visibility = "hidden";
+			}
 		}
+		function showLangandCasebutton(){
+  			var x = document.getElementsByClassName("switchCase");
+  			var y = document.getElementsByClassName("switchLang");
+  			var i;
+  			for (i = 0; i < x.length; i++) {
+  				x[i].style.visibility = "visible";
+  			}
+  			for (i = 0; i < y.length; i++) {
+  				y[i].style.visibility = "visible";
+  			}
+  		}
+		if (document.getElementById("main-toolbar").style.visibility == "hidden")
+			hideLangandCasebutton()
+		document.getElementById("main-toolbar").style.visibility = "visible";
+		Abcd.changeVisibility(this, caseVisibilityTab[Abcd.context.casevalue]);
 	},
 	
 	// Change current case
@@ -78,17 +99,12 @@ enyo.kind({
 	// Constructor
 	rendered: function() {
 		this.inherited(arguments);
-		if (document.getElementById("main-toolbar").style.visibility == "hidden")
-			Abcd.changeVisibility(this,{switchToEnglish: false, switchToFrench: false, switchToSpanish: false});
-		else 
-			(document.getElementById("unfullscreen-button").onclick = function() {
-			if (Abcd.context.lang == 'en')
-				Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
-			else if (Abcd.context.lang == 'fr')
-				Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: true});
-			else
-				Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false});
-			})
+		if (Abcd.context.lang == 'en')
+			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: true, switchToSpanish: false});
+		else if (Abcd.context.lang == 'fr')
+			Abcd.changeVisibility(this, {switchToEnglish: false, switchToFrench: false, switchToSpanish: true});
+		else
+			Abcd.changeVisibility(this, {switchToEnglish: true, switchToFrench: false, switchToSpanish: false});
 	},
 
 	// Change current language
