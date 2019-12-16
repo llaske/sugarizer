@@ -58,16 +58,14 @@
   background-image: url(../icons/superscript.svg);
   width: 47px;
   height: 47px;
-  border-radius: 0px;
-  margin: 4px 2px;
+  background-size: 80%;
 }
 
 #main-toolbar #sub-script {
   background-image: url(../icons/subscript.svg);
   width: 47px;
   height: 47px;
-  border-radius: 0px;
-  margin: 4px 2px;
+  background-size: 80%;
 }
 
 #private-button {
