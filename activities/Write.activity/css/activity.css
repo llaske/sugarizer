@@ -59,6 +59,7 @@
   width: 47px;
   height: 47px;
   border-radius: 0px;
+  margin: 4px 2px;
 }
 
 #main-toolbar #sub-script {
@@ -66,6 +67,7 @@
   width: 47px;
   height: 47px;
   border-radius: 0px;
+  margin: 4px 2px;
 }
 
 #private-button {
