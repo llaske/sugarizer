@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpalette", "webL10n"], function (activity, env, worldpalette, viewpalette, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpalette", "webL10n", "tutorial"], function (activity, env, worldpalette, viewpalette, webL10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -228,6 +228,11 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				console.log(chartJournal);
 			})
 
+
+			// Launch tutorial
+			document.getElementById("help-button").addEventListener('click', function(e) {
+				tutorial.start();
+			});
 			// Full screen
 			document.getElementById("fullscreen-button").addEventListener('click', function() {
 				document.getElementById("main-toolbar").style.opacity = 1;
