@@ -118,7 +118,26 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		});
 	});
 
+		// Switch to full screen when the full screen button is pressed
+	document.getElementById("fullscreen-button").addEventListener('click', function() {
+		document.getElementById("main-toolbar").style.display = "none";
+		document.getElementById("canvas").style.top = "0px";
+		document.getElementById("unfullscreen-button").style.visibility = "visible";
 
+		document.getElementById("lOLGameApp_box").style.marginTop = "-30px";
+		document.getElementById("lOLGameApp_box").style.height = "90vh";
+
+	});
+
+	//Return to normal size
+	document.getElementById("unfullscreen-button").addEventListener('click', function() {
+		document.getElementById("main-toolbar").style.display = "block";
+		document.getElementById("canvas").style.top = "55px";
+		document.getElementById("unfullscreen-button").style.visibility = "hidden";
+
+		document.getElementById("lOLGameApp_box").style.marginTop = "0px";
+		document.getElementById("lOLGameApp_box").style.height = "100%";
+	});
 
 	// Main app class
 	enyo.kind({
@@ -419,6 +438,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		doRenew: function() {
 			this.level = this.getLevel();
 			this.game = new LOLGame(this.count);
+			this.$.playbutton.hide(); //Hide playbutton when game is renewed
 			this.init();
 			this.drawBoard();
 			if (presence&&isHost) {
