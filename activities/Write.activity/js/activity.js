@@ -63,6 +63,8 @@ define([
 				document.getElementById("edit-copy").title = webL10n.get("Copy");
 				document.getElementById("edit-paste").title = webL10n.get("Paste");
 				document.getElementById("export").title = webL10n.get("Export");
+				document.getElementById("super-script").title = webL10n.get("SuperScript");
+				document.getElementById("sub-script").title = webL10n.get("SubScript");
 				document.getElementById(5).title = webL10n.get("Bold");
 				document.getElementById(6).title = webL10n.get("Italic");
 				document.getElementById(7).title = webL10n.get("Underline");
@@ -178,6 +180,17 @@ define([
 			editor.history.redo();
 		});
 
+		// Superscript
+		document.getElementById("super-script").addEventListener('click', function(){
+			document.getElementById("super").click();
+		});
+
+		// Subscript
+		document.getElementById("sub-script").addEventListener('click', function() {
+			document.getElementById("sub").click();
+		})
+
+
 		// Initiating format-text-palette ( for cut/copy/undo/redo )
 		var formatButton = document.getElementById("format-text");
 		var formatoptions = [
@@ -259,6 +272,11 @@ define([
 			var newfont = e.detail.family;
 			if(newfont=="Arial") newfont="arial";
 			if(newfont=="Comic Sans MS") newfont="comic";
+			if(newfont=="Times New Roman")newfont="Times";
+			if(newfont=="Courier New")newfont="Courier";
+			if(newfont=="Lucida Console")newfont="Lucida";
+			if(newfont=="Impact")newfont="Impact";
+			if(newfont=="Georgia")newfont="Georgia";
 			changeMadebyUser=true;
 			editor.format('font',newfont);
 		});
