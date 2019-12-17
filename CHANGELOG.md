@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add superscript and subscript features to Write activity
 - Add a fullscreen button in Abecedarium activity #406
 - Add a tutorial to the XOEditor activity #439
+- Add a fullscreen button in LastOneLose activity #418 
 
 ### Changed
 - Double size of Record images in WebApp and electron App
