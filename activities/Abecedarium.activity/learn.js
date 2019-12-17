@@ -97,6 +97,8 @@ enyo.kind({
 	setCase: function() {
 		// Redraw entry
 		enyo.forEach(this.$.box.getControls(), function(entry) {
+			if (document.getElementById("main-toolbar").style.visibility == "hidden")
+			Abcd.changeVisibility({switchToEnglish: false, switchToFrench: false, switchToSpanish: false});
 			if (entry.kind == 'Abcd.Letter')
 				entry.letterChanged();
 			else if (entry.kind != 'Control')
