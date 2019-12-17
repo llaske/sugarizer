@@ -11,7 +11,8 @@ define([
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
 	"webL10n",
-], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n) {
+	"tutorial"
+], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n,tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
@@ -143,6 +144,11 @@ define([
 				}
 			});
 
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		var changeMadebyUser=false;
