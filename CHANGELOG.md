@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the Constellation activity #446
 - Add a tutorial to the Reflection activity #440
 - Add superscript and subscript features to Write activity
+- Add a fullscreen button in Abecedarium activity #406 
 
 ### Changed
 - Double size of Record images in WebApp and electron App
