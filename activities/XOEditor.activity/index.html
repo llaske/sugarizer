@@ -10,6 +10,12 @@
   <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
   	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
   <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+  <link rel="prefetch" type="application/l10n" href="locale.ini">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-tour-standalone.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
   <script data-main="js/loader" src="lib/require.js"></script>
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
   <script src="lib/jquery-1.10.1.js"></script>
@@ -27,13 +33,15 @@
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
   <button class="toolbutton" id="save-button" title="Save Colours"></button>
   <button class="toolbutton" id="reset-button" title="Reset Circles"></button>
-
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
 <canvas id="actualcanvas"></canvas>
 </div>
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 </body>
 
 </html>
