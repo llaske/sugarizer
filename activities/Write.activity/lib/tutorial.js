@@ -102,7 +102,7 @@ define(["webL10n"], function (l10n) {
             },
             {
 				element: "#canvas",
-				placement: "bottom",
+				placement: "top",
 				title: l10n.get("TutoCanvasTitle"),
 				content: l10n.get("TutoCanvasContent")
 			},
