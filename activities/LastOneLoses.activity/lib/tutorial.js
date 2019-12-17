@@ -11,10 +11,10 @@ define(["webL10n"], function(l10n) {
 				content: l10n.get("TutoExplainContent")
 			},
 			{
-				element: "#network-button",
-				placement: "bottom",
-				title: l10n.get("TutoNetworkTitle"),
-				content: l10n.get("TutoNetworkContent")
+				element: "#lOLGameApp_box",
+				placement: "top",
+				title: l10n.get("TutoBoardTitle"),
+				content: l10n.get("TutoBoardContent")
 			},
 			{
 				element: "#new-game-button",
@@ -47,10 +47,10 @@ define(["webL10n"], function(l10n) {
 				content: l10n.get("TutoSwitchContent")
 			},
 			{
-				element: "#lOLGameApp_box",
-				placement: "top",
-				title: l10n.get("TutoBoardTitle"),
-				content: l10n.get("TutoBoardContent")
+				element: "#network-button",
+				placement: "bottom",
+				title: l10n.get("TutoNetworkTitle"),
+				content: l10n.get("TutoNetworkContent")
 			}
 		];
 		var tour = new Tour({

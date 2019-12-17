@@ -19,7 +19,13 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		// Set current language to Sugarizer
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		webL10n.language.code = language;
+		window.addEventListener('localized', function(e) {
+			if (e.language != language) {
+				setTimeout(function() {
+				  webL10n.language.code = language;
+				}, 50);
+			}
+		});
 
 		// Shared instances
 		if (environment.sharedId) {
@@ -68,7 +74,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		document.getElementById("help-button").addEventListener('click', function(e) {
 			tutorial.start();
 		});
-		
+
 		levelRadio = new radioButtonsGroup.RadioButtonsGroup([
 			document.getElementById("level-easy-button"),
 			document.getElementById("level-medium-button"),
