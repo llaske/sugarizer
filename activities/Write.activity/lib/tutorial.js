@@ -71,6 +71,18 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoInsertContent")
 			},
 			{
+				element: "#super-script",
+				placement: "bottom",
+				title: l10n.get("TutoSuperTitle"),
+				content: l10n.get("TutoSuperContent")
+			},
+			{
+				element: "#sub-script",
+				placement: "bottom",
+				title: l10n.get("TutoSubTitle"),
+				content: l10n.get("TutoSubContent")
+			},
+			{
 				element: "#edit-undo",
 				placement: "bottom",
 				title: l10n.get("TutoUndoTitle"),
