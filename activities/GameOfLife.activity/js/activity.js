@@ -221,9 +221,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     var x = document.getElementsByClassName("main")
     for(var i=0;i<x.length;i++){
       x[i].style.height="100%";
-      x[i].style.height="100%";
     }
   }
+
   // Full screen
   document.getElementById("fullscreen-button").addEventListener('click', function() {
     document.getElementById("main-toolbar").style.opacity = 0;
