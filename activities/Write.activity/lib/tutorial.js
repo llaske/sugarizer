@@ -11,10 +11,10 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoExplainContent")
 			},
 			{
-				element: "#network-button",
-				placement: "bottom",
-				title: l10n.get("TutoNetworkTitle"),
-				content: l10n.get("TutoNetworkContent")
+				element: "#canvas",
+				placement: "top",
+				title: l10n.get("TutoCanvasTitle"),
+				content: l10n.get("TutoCanvasContent")
 			},
 			{
 				element: "#color-button-1",
@@ -113,10 +113,10 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoExportContent")
 			},
 			{
-				element: "#canvas",
-				placement: "top",
-				title: l10n.get("TutoCanvasTitle"),
-				content: l10n.get("TutoCanvasContent")
+				element: "#network-button",
+				placement: "bottom",
+				title: l10n.get("TutoNetworkTitle"),
+				content: l10n.get("TutoNetworkContent")
 			},
 		];
 		var tour = new Tour({
