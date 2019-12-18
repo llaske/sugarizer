@@ -217,6 +217,26 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     });
   })
 
+  function resize() {
+    var x = document.getElementsByClassName("main")
+    for(var i=0;i<x.length;i++){
+      x[i].style.height="100%";
+      x[i].style.height="100%";
+    }
+  }
+  // Full screen
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("canvas").style.top = "0px";
+    document.getElementById("unfullscreen-button").style.visibility = "visible";
+    resize();
+  });
+  document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("canvas").style.top = "55px";
+    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+  });
+
   document.querySelector('#random').addEventListener('click', function () {
     state.set({
       boardState: randomPattern(state),
