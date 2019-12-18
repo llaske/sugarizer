@@ -49,11 +49,31 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 			g.stop();
 		});
 
+		document.getElementById('fullscreen-button').addEventListener('click', () => {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeCanvas();
+		});
+
+		document.getElementById("unfullscreen-button").addEventListener('click', () => {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeCanvas();
+		});
+
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
+			if (document.getElementById("unfullscreen-button").style.visibility === "hidden") {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight-55;
 			g.resize();
+			} else {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				g.resize();
+			}
 		}
 
 		var clearButton = doc.getElementById("clear-button");

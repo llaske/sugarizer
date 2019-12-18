@@ -1,20 +1,28 @@
-define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activity/symmetrydot'], function (act) {
+define(["sugar-web/activity/activity", 'easeljs', 'tweenjs', 'activity/game', 'activity/symmetrydot'], function (act) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(["sugar-web/env","sugar-web/datastore"], function(env,datastore) {
+		requirejs(["sugar-web/env", "sugar-web/datastore", "tutorial", "webL10n"], function (env, datastore, tutorial, webL10n) {
 			act.setup();
+			env.getEnvironment(function (err, environment) {
+				currentenv = environment;
+
+				// Set current language to Sugarizer
+				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				webL10n.language.code = language;
+			});
 			act.getXOColor(function (error, colors) {
-				runactivity(act,doc,colors,env,datastore);
+				runactivity(act, doc, colors, env, datastore, tutorial);
 			});
 		});
 	});
 
 });
 
-function runactivity(act,doc,colors,env,datastore){
+function runactivity(act, doc, colors, env, datastore, tutorial) {
 	var canvas;
 	var stage;
 	var g;
@@ -39,7 +47,7 @@ function runactivity(act,doc,colors,env,datastore){
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.height = window.innerHeight-(+document.getElementById("main-toolbar").style.opacity ? 55 : 0);
 			stage.removeAllChildren();
 			g.resize();
 		}
@@ -75,6 +83,25 @@ function runactivity(act,doc,colors,env,datastore){
 		window.addEventListener('activityStop', function (eve) {
 			eve.preventDefault();
 			g.stop();
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+    
+		// Full screen
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 0;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeCanvas();
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeCanvas();
 		});
 	}
 	init();
