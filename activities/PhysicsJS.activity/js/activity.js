@@ -477,8 +477,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 			var createdStart = null;
 			world.on({
 				'interact:poke': function( pos ){
-					// create body at a static place
-					if (currentType != -1 && pos.y > toolbarHeight) {
+
+					// do not create body if clicking on unfullscreen button
+					if (pos.y < 45 && pos.x < 45) {
+					} else if (currentType != -1 && pos.y > toolbarHeight) {
+						// create body at a static place
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
