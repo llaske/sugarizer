@@ -31,6 +31,21 @@
   background-image: url(../icons/digits-6.svg);
   display: none;
 }
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 5px;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+}
 .palette .wrapper {
   min-width: 10px;
   padding: 5px;

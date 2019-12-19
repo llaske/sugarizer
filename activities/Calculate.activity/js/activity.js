@@ -44,6 +44,21 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
     //We auto fire the onResize event
     CalculateApp.onResize();
 
+    // Full screen
+    document.getElementById("fullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.visibility = "hidden";
+      document.getElementById("body").style.bottom = "5px";
+      document.getElementById("unfullscreen-button").style.visibility = "visible";
+      CalculateApp.onResize();
+    });
+    // Unfull screen
+    document.getElementById("unfullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.visibility = "visible";
+      document.getElementById("body").style.bottom = "25px";
+      document.getElementById("body").style.top = "0px";
+      document.getElementById("unfullscreen-button").style.visibility = "hidden";
+      CalculateApp.onResize();
+    });
 
     //Launch of the activity, color and data fetch
     activity.setup();
