@@ -1,7 +1,7 @@
 var app;
 var sound;
 
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -32,6 +32,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("app_content").style.height = "50%";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			app.computeSize();
+		});
+		
+		//Run tutorial when help button is clicked
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
