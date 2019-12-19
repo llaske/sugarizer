@@ -47,14 +47,14 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
     // Full screen
     document.getElementById("fullscreen-button").addEventListener('click', function() {
       document.getElementById("main-toolbar").style.visibility = "hidden";
-      document.getElementById("body").style.bottom = "5px";
-      document.getElementById("unfullscreen-button").style.visibility = "visible";
+      document.getElementById("body").style.bottom = "40px";
+      document.getElementById("unfullscreen-button").style.visibility = "visible";    
+      document.getElementById("unfullscreen-button").style.top = "60px";    
     });
     // Unfull screen
     document.getElementById("unfullscreen-button").addEventListener('click', function() {
       document.getElementById("main-toolbar").style.visibility = "visible";
-      document.getElementById("body").style.bottom = "25px";
-      document.getElementById("body").style.top = "0px";
+      document.getElementById("body").style.bottom = "0px";
       document.getElementById("unfullscreen-button").style.visibility = "hidden";
     });
 

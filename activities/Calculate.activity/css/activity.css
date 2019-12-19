@@ -3,8 +3,8 @@
     overflow-y: hidden;
 }
 .toolbar {
-  height: auto !important;
-  min-height: 55px !important;
+  height: auto;
+  min-height: 55px;
 }
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
@@ -42,9 +42,10 @@
   width: 45px;
   height: 45px;
   top: 5px;
-  right: 5%;
+  right: 2%;
   position: absolute;
   visibility: hidden;
+  z-index: 5;
 }
 .palette .wrapper {
   min-width: 10px;
