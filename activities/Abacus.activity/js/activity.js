@@ -11,7 +11,13 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activ
 				// Set current language to Sugarizer
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
-				webL10n.language.code = language;
+				window.addEventListener('localized', function(e) {
+					if (e.language != language) {
+						setTimeout(function() {
+						  webL10n.language.code = language;
+						}, 50);
+					}
+				});
 			});
 			act.getXOColor(function (error, colors) {
 				runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,custompalette,tutorial);
