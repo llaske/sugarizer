@@ -49,7 +49,6 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       document.getElementById("main-toolbar").style.visibility = "hidden";
       document.getElementById("body").style.bottom = "5px";
       document.getElementById("unfullscreen-button").style.visibility = "visible";
-      CalculateApp.onResize();
     });
     // Unfull screen
     document.getElementById("unfullscreen-button").addEventListener('click', function() {
@@ -57,7 +56,6 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       document.getElementById("body").style.bottom = "25px";
       document.getElementById("body").style.top = "0px";
       document.getElementById("unfullscreen-button").style.visibility = "hidden";
-      CalculateApp.onResize();
     });
 
     //Launch of the activity, color and data fetch
