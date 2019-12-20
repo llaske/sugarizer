@@ -4,10 +4,10 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(["sugar-web/env","sugar-web/datastore","activity/sizepalette"], function(env,datastore,sizepalette) {
+		requirejs(["sugar-web/env","sugar-web/datastore","activity/sizepalette","tutorial"], function(env,datastore,sizepalette,tutorial) {
 			act.setup();
 			act.getXOColor(function (error, colors) {
-				runactivity(act,doc,colors,env,datastore,sizepalette);
+				runactivity(act,doc,colors,env,datastore,sizepalette,tutorial);
 			});
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -22,7 +22,7 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 
 });
 
-function runactivity(act,doc,colors,env,datastore,sizepalette){
+function runactivity(act,doc,colors,env,datastore,sizepalette,tutorial){
 	var canvas;
 	var stage;
 	var g;
@@ -62,6 +62,11 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		var newGameButton = doc.getElementById("new-game-button");
 		newGameButton.addEventListener('click', function (a) {
 			g.newGame();
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		window.addEventListener('activityStop', function (eve) {
