@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane) {
+define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane", "tutorial"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane, tutorial) {
 
     requirejs(['domReady!'], function (doc)   {
         activity.setup();
@@ -645,6 +645,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         restartButton.addEventListener('click', function(e) {
             gameSize = 60;
             runLevel();
+        });
+
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
         });
 
 
