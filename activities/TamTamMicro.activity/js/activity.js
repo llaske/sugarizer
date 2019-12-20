@@ -15,6 +15,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Launch main screen
 		app = new TamTam.App({activity: activity});
 		app.renderInto(document.getElementById("keyboard"));
+		
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 
 		// Switch to full screen when the full screen button is pressed
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
