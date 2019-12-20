@@ -38,7 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the LastOneLose activity #447
 - Add a tutorial to the Write activity #445
 - Add a tutorial to the Abacus activity #441
-- Add a fullscreen button in Calculate activity #408 
+- Add a fullscreen button in Calculate activity #408
+- Add a tutorial to the MazeWeb activity #424 
 
 ### Changed
 - Double size of Record images in WebApp and electron App
