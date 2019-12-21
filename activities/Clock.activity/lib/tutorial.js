@@ -10,26 +10,32 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoExplainContent")
 			},
 			{
-				element: "#simple-clock-button",
+				element: "#clock-container",
 				placement: "right",
+				title: l10n.get("TutoHandTitle"),
+				content: l10n.get("TutoHandContent")
+			},
+			{
+				element: "#simple-clock-button",
+				placement: "bottom",
 				title: l10n.get("TutoSimpleTitle"),
 				content: l10n.get("TutoSimpleContent")
 			},
 			{
 				element: "#nice-clock-button",
-				placement: "right",
+				placement: "bottom",
 				title: l10n.get("TutoNiceTitle"),
 				content: l10n.get("TutoNiceContent")
 			},
 			{
 				element: "#write-time-button",
-				placement: "right",
+				placement: "bottom",
 				title: l10n.get("TutoTimeTitle"),
 				content: l10n.get("TutoTimeContent")
 			},
 			{
 				element: "#write-date-button",
-				placement: "right",
+				placement: "bottom",
 				title: l10n.get("TutoDateTitle"),
 				content: l10n.get("TutoDateContent")
 			}
