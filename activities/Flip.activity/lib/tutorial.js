@@ -15,6 +15,12 @@ define(["webL10n"], function (l10n) {
 				placement: "top",
 				title: l10n.get("TutoBoardTitle"),
 				content: l10n.get("TutoBoardContent")
+            },
+            {
+				element: "#flip-count",
+				placement: "bottom",
+				title: l10n.get("TutoCountTitle"),
+				content: l10n.get("TutoCountContent")
 			},
 			{
 				element: "#new-game-button",
