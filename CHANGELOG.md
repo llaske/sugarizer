@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the MazeWeb activity #424
 - Add a tutorial to the TamTam Micro activity #426
 - Add a tutorial to the Clock activity #430
+- Support for no signup mode
 
 ### Changed
 - Double size of Record images in WebApp and electron App

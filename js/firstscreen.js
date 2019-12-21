@@ -178,8 +178,8 @@ enyo.kind({
 
 		this.$.login.setShowing(vlogin);
 		this.$.logintext.setShowing(vlogintext);
-		this.$.newuser.setShowing(vnewuser);
-		this.$.newusertext.setShowing(vnewusertext);
+		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
+		this.$.newusertext.setShowing(vnewusertext && !constant.noSignupMode);
 		this.$.namebox.setShowing(vnamebox);
 		this.$.name.setAttribute("readOnly", !vnamebox);
 		if (vnamebox) {
@@ -352,10 +352,11 @@ enyo.kind({
 			left += constant.sizeNewUser+30;
 			this.$.historybox.applyStyle("margin-left", left+"px");
 		} else {
+			var newuser = (constant.noSignupMode?-80:0);
 			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
 			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-			this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
-			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
+			this.$.login.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
+			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 		}
 	},
 
