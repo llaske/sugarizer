@@ -133,14 +133,14 @@ define(["sugar-web/activity/activity"], function (activity) {
 				document.getElementById("main-toolbar").style.opacity = 0;
 				document.getElementById("unfullscreen-button").style.visibility = "visible";
 				toolbarHeight = 0;
-				document.dispatchEvent('resize');
+				document.dispatchEvent(new Event('resize'));
 			});
 
 			document.getElementById("unfullscreen-button").addEventListener('click', function() {
 				document.getElementById("main-toolbar").style.opacity = 1;
 				document.getElementById("unfullscreen-button").style.visibility = "hidden";
 				toolbarHeight = 55;
-				document.dispatchEvent('resize');
+				document.dispatchEvent(new Event('resize'));
 			});
 
 			// Handle acceleration and gravity mode
