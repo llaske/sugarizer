@@ -129,6 +129,20 @@ define(["sugar-web/activity/activity"], function (activity) {
 				switchToType(currentType);
 			}, true);
 
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+				toolbarHeight = 0;
+				document.dispatchEvent('resize');
+			});
+
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+				toolbarHeight = 55;
+				document.dispatchEvent('resize');
+			});
+
 			// Handle acceleration and gravity mode
 			sensorButton.addEventListener('click', function () {
 				sensorMode = !sensorMode;
