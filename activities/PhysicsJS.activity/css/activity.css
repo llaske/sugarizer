@@ -1,3 +1,67 @@
+#circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button {
+  display: none;
+}
+
+@media only screen and (min-width: 220px) {
+  #fullscreen-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 275px) {
+  #run-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 393px) {
+  #circle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 449px) {
+  #box-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 493px) {
+  #triangle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 549px) {
+  #polygon-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 603px) {
+  #gravity-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 659px) {
+  #sensor-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 713px) {
+  #apple-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 350px) {
+  #clear-button {
+    display: inline-block;
+  }
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
   z-index: 3;
@@ -97,24 +161,9 @@ canvas {
 }
 
 
-@media screen and (max-width: 657px) {
+
+@media screen and (max-width: 760px) {
 	.toolbar {
 		padding-left: 10px;
-	}
-
-	#main-toolbar #polygon-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #gravity-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #stop-button {
-		position: absolute;
 	}
 }
