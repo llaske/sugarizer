@@ -72,7 +72,7 @@
 	right: 5%;
 	position: absolute;
 	visibility: hidden;
-	z-index: 5;
+	z-index: 3;
 }
 
 html, body, #viewport {
