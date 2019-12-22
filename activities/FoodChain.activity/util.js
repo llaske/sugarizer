@@ -60,7 +60,8 @@ FoodChain.setLocale = function() {
 	else if (l10n.language.code.indexOf("pt_BR") == 0) { document.getElementById("pt_BR-button").classList.add('active'); }
 	if (FoodChain.context.object != null)
 		FoodChain.context.object.setLocale();
-}
+};
+
 FoodChain.log = function(msg) {
 	console.log(msg);
 };
