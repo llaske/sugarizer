@@ -1,6 +1,5 @@
 #body {
-	overflow-x: hidden;
-    overflow-y: hidden;
+  overflow: auto;
 }
 .toolbar {
   height: auto !important;
