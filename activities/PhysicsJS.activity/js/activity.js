@@ -129,11 +129,14 @@ define(["sugar-web/activity/activity"], function (activity) {
 				switchToType(currentType);
 			}, true);
 
+			let isFullscreen = false;
+
 			document.getElementById("fullscreen-button").addEventListener('click', function() {
 				document.getElementById("main-toolbar").style.opacity = 0;
 				document.getElementById("unfullscreen-button").style.visibility = "visible";
 				toolbarHeight = 0;
 				document.dispatchEvent(new Event('resize'));
+				isFullscreen = true;
 			});
 
 			document.getElementById("unfullscreen-button").addEventListener('click', function() {
@@ -141,6 +144,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				document.getElementById("unfullscreen-button").style.visibility = "hidden";
 				toolbarHeight = 55;
 				document.dispatchEvent(new Event('resize'));
+				isFullscreen = false;
 			});
 
 			// Handle acceleration and gravity mode
@@ -469,13 +473,33 @@ define(["sugar-web/activity/activity"], function (activity) {
 				gravityMode = value;
 			}
 
+			let currentXPos;
+			//Find the mouse position relative to the document (pos.x is relative to the element clicked, not the document)
+			function findViewCoords(mouseEvent) {
+  				var xpos;
+  				var ypos;
+  				if (mouseEvent) {
+ 				   //FireFox
+				    xpos = mouseEvent.pageX - document.body.scrollLeft;
+ 				    ypos = mouseEvent.pageY - document.body.scrollTop;
+  				}
+  				else {
+    				//IE
+    				xpos = window.event.x + 2;
+    				ypos = window.event.y + 2;
+				  }
+				currentXPos = xpos;
+			}
+			
+			document.getElementById("body").onmousemove = findViewCoords;
+
 			// add some fun interaction
 			var createdBody = null;
 			var createdStart = null;
 			world.on({
 				'interact:poke': function( pos ){
 					// create body at a static place
-					if (currentType != -1 && pos.y > toolbarHeight) {
+					if (currentType != -1 && ((pos.y > 55) || (isFullscreen && (currentXPos < (window.innerWidth - (window.innerWidth*.05+45))) || (currentXPos > (window.innerWidth - (window.innerWidth*.05)))))) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
