@@ -18,7 +18,7 @@ enyo.kind({
 			{name: "serverline", classes: "first-serverline", components: [
 				{name: "servertext", content: "xxx", classes: "first-servertext"},
 				{classes: "first-input", components: [
-					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
+					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick", disabled: true, ontap: "unlockURL"}
 				]},
 				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "first-qr"}
 			]},
@@ -288,6 +288,14 @@ enyo.kind({
 		if (inEvent.keyCode === 13) {
 			this.next();
 			return true;
+		}
+	},
+
+	unlockURL: function() {
+		if (this.$.server.disabled) {
+			this.$.server.setDisabled(!this.$.server.disabled);
+			this.$.server.focus();
+			this.$.server.hasNode().select();
 		}
 	},
 

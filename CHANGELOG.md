@@ -43,13 +43,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the TamTam Micro activity #426
 - Add a tutorial to the Clock activity #430
 - Support for no signup mode
-- Add a tutorial to the Flip activity #442 
+- Add a tutorial to the Flip activity #442
 
 ### Changed
 - Double size of Record images in WebApp and electron App
 - Add a message when disconnected by the server or by another device
 - Improve Gears Tutorial #396
 - Improve Exerciser UI to avoid accidental deletion #455
+- Changing server URL at login need one more click now
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
