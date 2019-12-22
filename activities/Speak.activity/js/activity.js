@@ -50,8 +50,8 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
 
     });
 
-      document.getElementById("help-button").addEventListener('click', function(event){
-        tutorial.start();
+        document.getElementById("help-button").addEventListener('click', function(e){
+          tutorial.start();
       });
 
         // Function that creates options for select tag. Value of options is equal to saved talk.

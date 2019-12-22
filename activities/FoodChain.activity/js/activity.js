@@ -1,6 +1,6 @@
 ﻿
 
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore"], function (activity, _l10n, radioButtonsGroup, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore", "tutorial"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial) {
 	l10n = _l10n;
 	var app = null;
 
@@ -27,6 +27,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 			l10n.language.code = "pt_BR";
 			FoodChain.setLocale();
 		};
+
 
 		// Wait for locale load
 		var localized_received = function() {
@@ -57,7 +58,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
         // Stop sound at end of game to sanitize media environment, specifically on Android
         document.getElementById("stop-button").addEventListener('click', function (event) {
 			FoodChain.sound.pause();
-        });
+		});
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
     });
 
 });
