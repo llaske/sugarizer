@@ -80,6 +80,76 @@
 	z-index: 3;
 }
 
+#circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button, #help-button {
+  display: none;
+}
+
+@media only screen and (min-width: 220px) {
+  #fullscreen-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 381px) {
+  #run-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 435px) {
+  #circle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 490px) {
+  #box-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 545px) {
+  #triangle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #polygon-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 701px) {
+  #gravity-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 756px) {
+  #sensor-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 811px) {
+  #apple-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 326px) {
+  #clear-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 271px) {
+  #help-button {
+    display: inline-block;
+  }
+}
+
 html, body, #viewport {
   margin: 0; background: #ffffff;
   overflow: hidden;
@@ -233,21 +303,5 @@ canvas {
 @media screen and (max-width: 657px) {
 	.toolbar {
 		padding-left: 10px;
-	}
-
-	#main-toolbar #polygon-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #gravity-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #stop-button {
-		position: absolute;
 	}
 }
