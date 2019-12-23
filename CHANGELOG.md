@@ -135,6 +135,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Activity palette icon has reversed colors
 - XOEditor activity generate multiple entries in the Journal #370
 - Clear icon in XOEditor activity is not consistent #372
+- Make responsive the toolbar in Write activity #515
 
 
 ## [1.1.0] - 2019-01-20
