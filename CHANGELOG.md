@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Calligra activity
+- Tutorial step 9: integrate a tutorial
+- Add a fullscreen button in Gears activity #411
+
+### Changed
+- Double size of Record images in WebApp and electron App
+- Add a message when disconnected by the server or by another device
+
+### Fixed
+- Activity palette not visible on Tank Operation activity #371
+- Record images don't fit the thumbnail size in iOS/Android
+- Long touch on Memory items don't work on Android
+- Jump in generation in Game of Life activity on Chrome #388
+- Long name hide text in Chat activity #383
+- Allow to control speed generation in Game of Life activity #380
+- Image selection error in Write activity after scrolling #390
+- Add an option to choose board size of Game of Life activity #381
+- Board is not drawn correctly in LastOneLost activity when open from the Journal #419
+- Clear icon in Game of Life activity is non standard #397
+- Improve Gears Tutorial #396
+- Image insertion don't work in shared mode in Paint activity #384
+- Close the presence palette when the activity is shared #398
+- Add a fullscreen button in Memorize activity #401
+- Add a fullscreen button in XO Editor activity #415
+-  Add a fullscreen button in TamTam micro activity #409
+
+
 ## [1.2.0] - 2019-09-26
 ### Added
 - Write activity

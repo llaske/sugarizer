@@ -203,7 +203,6 @@ function calcEqualClick() {
     launchCalculation(calcInputValue, labelValue);
   }
   CalculateApp.data.calculationDone = true
-  CalculateApp.focus();
 }
 
 /* Handling of the calc remove one char button click */
