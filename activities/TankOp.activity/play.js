@@ -183,7 +183,7 @@ enyo.kind({
 
 	// Resize
 	resize: function() {
-		
+
 		wsize = document.body.clientWidth;
 		if (wsize <= 480) {
 			this.zoom = 0.4;
@@ -410,10 +410,9 @@ enyo.kind({
 		this.units = alives;
 		this.endOfGame = (livingHq == 0 || (livingEnemy == 0 && this.enemyCount == 0));
 		this.win = (livingHq > 0);
-
+		this.resize();
 		// Game play
 		if (!this.endOfGame) {
-			this.resize();
 			// Next wave
 			if (this.enemyNextWaveCount == 0) {
 				this.wave++;
