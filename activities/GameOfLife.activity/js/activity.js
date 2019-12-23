@@ -222,13 +222,13 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     document.getElementById("main-toolbar").style.opacity = 0;
     document.getElementById("canvas").style.top = "0px";
     document.getElementById("unfullscreen-button").style.visibility = "visible";
-    //board.handleResize(window.innerWidth, state.state.boardState,state);
+    board.handleResize(window.innerWidth, state.state.boardState,state);
   });
   document.getElementById("unfullscreen-button").addEventListener('click', function() {
     document.getElementById("main-toolbar").style.opacity = 1;
     document.getElementById("canvas").style.top = "55px";
     document.getElementById("unfullscreen-button").style.visibility = "hidden";
-    //board.handleResize(window.innerWidth, state.state.boardState,state);
+    board.handleResize(window.innerWidth, state.state.boardState,state);
   });
 
   document.querySelector('#random').addEventListener('click', function () {
