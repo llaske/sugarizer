@@ -1,5 +1,4 @@
-/* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n"], function (activity,presence,captureHelper,datastore,webL10n) {
+define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n","tutorial","sugar-web/env"], function (activity,presence,captureHelper,datastore,webL10n,tutorial,env) {
 
     requirejs(['domReady!'], function (doc) {
 
@@ -21,6 +20,15 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
         }, false);
 
         activity.setup();
+
+        env.getEnvironment(function (err, environment) {
+            currentenv = environment;
+
+            // Set current language to Sugarizer
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+        });
 
         if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
             chrome.storage.local.get('sugar_settings', function (values) {
@@ -63,6 +71,11 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
                 vidDisplay.style.display = "block" ;
             }
             captureHelper.helper.recordVideo();
+        });
+
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function (e) {
+            tutorial.start();
         });
 
 

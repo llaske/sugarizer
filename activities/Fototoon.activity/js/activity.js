@@ -1,13 +1,14 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon","tutorial"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial) {
 
 
     // initialize canvas size
     var sugarCellSize = 75;
     var sugarSubCellSize = 15;
+    var language;
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-		var language = environment.user ? environment.user.language : defaultLanguage;
+        	language = environment.user ? environment.user.language : defaultLanguage;
 		l10n.language.code = language;
 		console.log('LANG ' + language);
 	});
@@ -114,7 +115,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
         });
 
-		// Load from datatore
+        	// Load from datatore
 		env.getEnvironment(function(err, environment) {
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, JSONdata) {
@@ -225,13 +226,25 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 		cleanAllButton.title = _("Clean");
 
         cleanAllButton.addEventListener('click', function (e) {
-
+  
             toonModel.setData(initialData);
             if (!editMode) {
                 toonModel.changeToEditMode();
                 editMode = true;
             };
         });
+
+        // Launch tutorial
+	    document.getElementById("help-button").addEventListener('click', function(e) {
+            l10n.language.code=language;
+            var once=1;
+            window.addEventListener("localized", function() {
+                if (once) {
+                    once=0;
+                    tutorial.start(language);
+                }
+            });
+	    });
 
     });
 

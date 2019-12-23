@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="css/activity.css">
   <link rel="stylesheet" href="css/quill/quill.core.css">
   <link rel="stylesheet" href="css/libnotify.css">
+  <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-tour-standalone.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
   <!-- Add locale.ini file -->
   <link rel="prefetch" type="application/l10n" href="locale.ini">
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -40,12 +45,15 @@
   <button class="toolbutton" class="toolbutton" id="font-button" title="font" data-value="monospace"></button>
   <button class="toolbutton" id="resize-dec" title="Decrease font size"></button>
   <button class="toolbutton" id="insert-picture" title="Image"></button>
+  <button class="toolbutton" id="super-script" title="SuperScript"></button>
+  <button class="toolbutton" id="sub-script" title="SubScript"></button>
   <button class="toolbutton" id="edit-undo" title="Undo"></button>
   <button class="toolbutton" id="edit-redo" title="Redo"></button>
   <button class="toolbutton" id="edit-copy" title="Copy"></button>
   <button class="toolbutton" id="edit-paste" title="Paste"></button>
   <button class="toolbutton" id="export" title="Export"></button>
-
+ 
+ 
   <!-- Create Fake buttons with required quiljs classes-->
   <button style="display: none" id="bold" class="ql-bold"></button>
   <button style="display: none" id="underline" class="ql-underline"></button>
@@ -53,9 +61,12 @@
   <button style="display: none" id="italic" class="ql-italic"></button>
   <button style="display: none" id="list-ordered" class="ql-list" value="ordered"></button>
   <button style="display: none" id="list-unordered" class="ql-list" value="bullet"></button>
+  <button style="display: none" id="super" class="ql-script" value="super"></button>
+  <button style="display: none" id="sub" class="ql-script" value="sub"></button>
 
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <!-- The content of your activity goes inside the canvas -->

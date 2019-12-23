@@ -1,10 +1,22 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', 'webL10n', 'activity/memorize-app'], function (doc, activity, presencePalette, env, webL10n, memorizeApp) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
         memorizeApp.activity.setup();
+
+        env.getEnvironment(function(err, environment) {
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            window.addEventListener('localized', function(e) {
+                if (e.language != language) {
+                    setTimeout(function() {
+                      webL10n.language.code = language;
+                    }, 50);
+                }
+            });
+        });
 
         if (window.top.sugar.environment.sharedId) {
             memorizeApp.initUI(function () {
@@ -21,6 +33,7 @@ define(function (require) {
             })
 
         }
+
         
         // Zoom in/out the game grid
         var zoomIn = function () {
@@ -48,8 +61,14 @@ define(function (require) {
             document.getElementById('unfullscreen-button').style.visibility = 'hidden';
             zoomOut();
         });
+
     });
+
+    
+
 });
+
+
 
 function loadData(activity, memorizeApp, callback) {
     var timeout = 0;

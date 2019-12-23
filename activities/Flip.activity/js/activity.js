@@ -4,14 +4,14 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(["sugar-web/env","sugar-web/datastore","activity/sizepalette"], function(env,datastore,sizepalette) {
+		requirejs(["sugar-web/env","sugar-web/datastore","activity/sizepalette","tutorial"], function(env,datastore,sizepalette,tutorial) {
 			act.setup();
 			act.getXOColor(function (error, colors) {
-				runactivity(act,doc,colors,env,datastore,sizepalette);
+				runactivity(act,doc,colors,env,datastore,sizepalette,tutorial);
 			});
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
-			
+
 				// Set current language to Sugarizer
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
@@ -22,7 +22,7 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 
 });
 
-function runactivity(act,doc,colors,env,datastore,sizepalette){
+function runactivity(act,doc,colors,env,datastore,sizepalette,tutorial){
 	var canvas;
 	var stage;
 	var g;
@@ -31,7 +31,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 	function init(){
 		canvas = document.getElementById('actualcanvas');
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight-200;
+		canvas.height = window.innerHeight;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
@@ -46,14 +46,14 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		}
 		var g = new Game(stage,colors,doc,datastore,act,sizepalette);
 		setTimeout(function(){ g.init(); }, 500);
+
 		var hasBeenResized = false;
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-200;
+			canvas.height = window.innerHeight;
 			g.initialiseFromArray();
 		}
-
 		var solveButton = doc.getElementById("solve-button");
 		solveButton.addEventListener('click', function (a) {
 			g.solve();
@@ -62,6 +62,11 @@ function runactivity(act,doc,colors,env,datastore,sizepalette){
 		var newGameButton = doc.getElementById("new-game-button");
 		newGameButton.addEventListener('click', function (a) {
 			g.newGame();
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		window.addEventListener('activityStop', function (eve) {

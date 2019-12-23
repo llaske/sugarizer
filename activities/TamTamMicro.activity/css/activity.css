@@ -2,6 +2,10 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
 }
@@ -18,6 +22,135 @@
   position: absolute;
   visibility: hidden;
   z-index: 5;
+}
+
+/*Tutorial CSS*/
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
 }
 
 @media screen and (width: 500px)

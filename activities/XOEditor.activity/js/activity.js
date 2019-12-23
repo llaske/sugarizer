@@ -4,17 +4,25 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/editor','act
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore"], function(xocol,env,datastore) {
+		requirejs(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore","tutorial","webL10n"], function(xocol,env,datastore,tutorial,webL10n) {
 			act.setup();
+			env.getEnvironment(function(err, environment) {
+				currentenv = environment;
+
+				// Set current language to Sugarizer
+				var defaultLanguage =(typeof chrome != "undefined" && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage(): navigator.language;
+				var language = environment.user ? environment.user.language : defaultLanguage;
+				webL10n.language.code = language;
+			});
 			act.getXOColor(function (error, colors) {
-				runactivity(act,xocol,doc,colors,env,datastore);
+				runactivity(act,xocol,doc,colors,env,datastore,tutorial);
 			});
 		});
 	});
 
 });
 
-function runactivity(act,xocolor,doc,colors,env,datastore){
+function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 	var canvas;
 	var stage;
 	var g;
@@ -85,6 +93,10 @@ function runactivity(act,xocolor,doc,colors,env,datastore){
             document.getElementById("unfullscreen-button").style.visibility = "hidden";
         });
 
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
+        });
 	}
 	init();
 }
