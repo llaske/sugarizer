@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for no signup mode
 - Add a tutorial to the Flip activity #442
 - Add a tutorial to the PhysicsJS activity #428
+- Add a fullscreen button in Physics activity #410
 
 ### Changed
 - Double size of Record images in WebApp and electron App
