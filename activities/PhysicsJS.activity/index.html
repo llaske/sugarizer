@@ -10,6 +10,12 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="prefetch" type="application/l10n" href="localize.ini">
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="lib/raf.js"></script>
 <script src="lib/physicsjs-full.min.js"></script>
@@ -33,6 +39,7 @@
   <button class="toolbutton running" id="run-button" title="Pause"></button>
 
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <div id="viewport"></div>
