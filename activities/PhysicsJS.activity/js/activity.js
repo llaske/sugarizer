@@ -1,10 +1,19 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], function (activity,tutorial,webL10n,env) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity
 		activity.setup();
+
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+		
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 
 		// Initialize cordova
 		var useragent = navigator.userAgent.toLowerCase();
@@ -147,6 +156,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 				document.dispatchEvent(new Event('resize'));
 				isFullscreen = false;
 				event.preventDefault();
+			// Launch tutorial
+			document.getElementById("help-button").addEventListener('click', function(e) {
+				tutorial.start();
 			});
 
 			// Handle acceleration and gravity mode
