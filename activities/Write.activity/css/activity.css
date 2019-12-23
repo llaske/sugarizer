@@ -192,43 +192,43 @@
 
 
 
- #edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
+#edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2,#sub-script,#super-script{
   display: none;
 }
 
 
-@media only screen and (min-width: 330px) {
+@media only screen and (min-width: 377px) {
   #color-button-1 {
     display: inline-block;
   }
 }
 
 
-@media only screen and (min-width: 385px) {
+@media only screen and (min-width: 431px) {
   #color-button-2 {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 440px) {
+@media only screen and (min-width: 486px) {
   #format-text {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 510px) {
+@media only screen and (min-width: 541px) {
   #paragraph {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 570px) {
+@media only screen and (min-width: 596px) {
   #list {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 715px) {
+@media only screen and (min-width: 760px) {
   #resize-inc {
     display: inline-block;
   }
@@ -240,13 +240,22 @@
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 814px) {
   #insert-picture {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 880px) {
+@media only screen and (min-width: 924px) {
+  #sub-script {
+    display: inline-block;
+  }
+  #super-script {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1033px) {
   #edit-undo {
     display: inline-block;
   }
@@ -255,7 +264,7 @@
   }
 }
 
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 1142px) {
   #edit-copy {
     display: inline-block;
   }
@@ -264,7 +273,7 @@
   }
 }
 
-@media only screen and (min-width: 1042px) {
+@media only screen and (min-width: 1197px) {
   #export {
     display: inline-block;
   }
