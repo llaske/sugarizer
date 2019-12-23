@@ -143,6 +143,22 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 				tutorial.start();
 			});
 
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+				toolbarHeight = 0;
+				document.dispatchEvent(new Event('resize'));
+				event.preventDefault();
+			});
+
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+				toolbarHeight = 55;
+				document.dispatchEvent(new Event('resize'));
+				event.preventDefault();
+			});
+
 			// Handle acceleration and gravity mode
 			sensorButton.addEventListener('click', function () {
 				sensorMode = !sensorMode;
@@ -475,7 +491,7 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 			world.on({
 				'interact:poke': function( pos ){
 					// create body at a static place
-					if (currentType != -1 && pos.y > toolbarHeight) {
+					if (currentType != -1 && pos.y > 55) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
