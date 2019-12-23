@@ -48,7 +48,7 @@
   position: relative;
   width: 100%;
   background: #FBF6F5;
-  height: calc(100vh - 56px);
+  height: 100%;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
