@@ -102,7 +102,7 @@
   }
 }
 
-@media only screen and (min-width: 490px) {
+@media only screen and (min-width: 491px) {
   #box-button {
     display: inline-block;
   }
@@ -138,7 +138,7 @@
   }
 }
 
-@media only screen and (min-width: 326px) {
+@media only screen and (min-width: 327px) {
   #clear-button {
     display: inline-block;
   }
