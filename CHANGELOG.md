@@ -136,6 +136,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - XOEditor activity generate multiple entries in the Journal #370
 - Clear icon in XOEditor activity is not consistent #372
 - Make responsive the toolbar in Write activity #515
+- Make responsive the toolbar in Physics activity #516 
 
 
 ## [1.1.0] - 2019-01-20
