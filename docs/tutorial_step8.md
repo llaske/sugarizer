@@ -70,7 +70,12 @@ It could be done by adding a new button in the toolbar like we've done in [step 
 
 To do that, let's update our `js/activity.js` file.
 
-^
+As usual, to integrate new features, we will first update the dependancies list of libraries at the first line of the file.
+
+	define(["sugar-web/activity/activity", ... ,"sugar-web/graphics/journalchooser","pawnpalette"], function (activity, ... ,presencepalette, datastore, journalchooser, pawnpalette) {
+
+This time you need to add the `pawnpalette` library created before. Add the string `"pawnpalette"` at the end of dependancies array and declare a new `pawnpalette` variable at the end of the function declaration.
+
 Let's now create the palette and associate it to the icon. Add the following code just before the `addEventListener('click',...)` call for the add button:
 
     var addpalette = new pawnpalette.PawnPalette(document.getElementById("add-button"), "Add pawn");

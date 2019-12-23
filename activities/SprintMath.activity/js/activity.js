@@ -5,8 +5,9 @@ define([
     "webL10n",
     "sugar-web/graphics/presencepalette",
     "toolpalette",
-    "humane"
-], function (activity, env, icon, webL10n, presencepalette, toolpalette, humane) {
+    "humane",
+    "tutorial"
+], function (activity, env, icon, webL10n, presencepalette, toolpalette, humane, tutorial) {
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
 
@@ -360,6 +361,11 @@ define([
         }
 
         document.getElementById("restart-button").onclick = startGame;
+
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
+        });
 
         // Sugar functions
         document.getElementById("stop-button").addEventListener('click', function (event) {

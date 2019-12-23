@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n"], function (activity,env,radioButtonsGroup,mustache,moment) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, webL10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -9,6 +9,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         var array=["simple","none","none"];
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
+		
+            // Set current language to Sugarizer
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
 
             // Load from datastore
             if (!environment.objectId) {
@@ -42,6 +47,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                     }
                 });
             }
+        });
+	    
+        //Run tutorial when help button is clicked
+        document.getElementById("help-button").addEventListener('click', function(e) {
+           tutorial.start();
         });
 
         var requestAnimationFrame = window.requestAnimationFrame ||

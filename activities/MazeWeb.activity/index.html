@@ -6,6 +6,11 @@
 <title>Maze Activity</title>
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
 <link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
 <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
       href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
@@ -20,12 +25,15 @@
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
   <button class="toolbutton" id="network-button" title="Network"></button>
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
   <button class="toolbutton" id="restart-button" title="Restart"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <div id="canvas">
   <canvas id="maze"></canvas>
 </div>
+<button class="toolbutton pull-right" id="unfullscreen-button" title="Fullscreen"></button>
 </body>
 
 </html>
