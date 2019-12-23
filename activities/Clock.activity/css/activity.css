@@ -51,6 +51,10 @@ canvas {
   background-image: url(../icons/write-date.svg);
 }
 
+#main-toolbar #set-time-button {
+  background-image: url(../icons/set-time.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }

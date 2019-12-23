@@ -6,10 +6,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         // Initialize the activity.
         activity.setup();
         setTranslatedStrings();
-        var array=["simple","none","none"];
+
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
-		
+
             // Set current language to Sugarizer
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
@@ -21,9 +21,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             } else {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
-                        Clock.face=data[0];
+                        Clock.face=data.face;
                         console.log(data);
-                        if(data[0]=="simple"){
+                        if(data.face=="simple"){
                             document.getElementById("simple-clock-button").classList.add("active");
                             document.getElementById("nice-clock-button").classList.remove("active");
                             clock.changeFace("simple");
@@ -32,23 +32,39 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                             document.getElementById("simple-clock-button").classList.remove("active");
                             clock.changeFace("nice");
                         }
-                        if(data[1]=="block"){
-                            document.getElementById("write-time-button").classList.add("active");
-                            clock.changeWriteTime(true);
-                        }else{
-                            document.getElementById("write-time-button").classList.remove("active");
+                        if(data.isSetTime){
+                           clock.setTime = true;
+                           clock.writeDate = false;
+
+                           if(data.isSmiley){
+                             clock.isSmiley = true;
+                           }
+                           clock.handAngles = data.handAngles;
+                           clock.targetInSetTime = data.targetInSetTime;
+
+                           document.getElementById("write-time-button").classList.add("active");
+                           clock.writeTimeInSetTime();
                         }
-                        if(data[2]=="block"){
-                            document.getElementById("write-date-button").classList.add("active");
-                            clock.changeWriteDate(true);
-                        }else{
-                            document.getElementById("write-date-button").classList.remove("active");
+                        else{
+                          if(data.writeTime){
+                              document.getElementById("write-time-button").classList.add("active");
+                              clock.changeWriteTime(true);
+                          }else{
+                              document.getElementById("write-time-button").classList.remove("active");
+                          }
+                          if(data.writeDate){
+                              document.getElementById("write-date-button").classList.add("active");
+                              clock.changeWriteDate(true);
+                          }else{
+                              document.getElementById("write-date-button").classList.remove("active");
+                          }
                         }
+
                     }
                 });
             }
         });
-	    
+
         //Run tutorial when help button is clicked
         document.getElementById("help-button").addEventListener('click', function(e) {
            tutorial.start();
@@ -73,11 +89,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 'white': "#FFFFFF",
                 'hours': "#005FE4",
                 'minutes': "#00B20D",
-                'seconds': "#E6000A"
+                'seconds': "#E6000A",
+                'yellow' : "#FFFF00"
             };
 
             this.writeTime = false;
             this.writeDate = false;
+            this.setTime = false;
+            this.isDrag = false;
+            this.isSmiley = false;
+
 
             // These are calculated on each resize to fill the available space.
             this.size = undefined;
@@ -88,6 +109,14 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.lineWidthBase = undefined;
             this.handSizes = undefined;
             this.lineWidths = undefined;
+            this.selectedHand = undefined;
+            this.canvasX = undefined;
+            this.canvasY = undefined;
+            this.targetInSetTime = {
+              'hours': undefined,
+              'minutes': undefined,
+              'seconds': undefined
+            };
 
             // DOM elements.
             this.textTimeElem = document.getElementById('text-time');
@@ -132,6 +161,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
             document.getElementById("write-time-button").title = l10n_s.get("WriteTime");
             document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
+            document.getElementById("set-time-button").title = l10n_s.get("SetTime");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
         }
 
@@ -139,7 +169,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.updateSizes();
             this.drawBackground();
             this.update();
-            this.drawHands();
+            if(this.setTime){
+              this.moveHandsInSetTime();
+            }
+            else{
+              this.drawHands();
+            }
 
             this.previousTime = Date.now();
             this.tick();
@@ -148,17 +183,23 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.tick = function () {
             var currentTime = Date.now();
 
-            // Update each second (1000 miliseconds).
-            if ((currentTime - this.previousTime) > 1000) {
-                this.previousTime = currentTime;
-                this.update();
-                this.drawHands();
-                if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
-                    // HACK: Force redraw on Android
-                    this.clockCanvasElem.style.display='none';
-                    this.clockCanvasElem.offsetHeight;
-                    this.clockCanvasElem.style.display='block';
-                }
+            //if set time mode not activated i.e. normal mode
+            if(!this.setTime){
+              // Update each second (1000 miliseconds).
+              if ((currentTime - this.previousTime) > 1000) {
+                  this.previousTime = currentTime;
+                  this.update();
+                  this.drawHands();
+                  if (/Android/i.test(navigator.userAgent) && document.location.protocol.substr(0,4) != "http") {
+                      // HACK: Force redraw on Android
+                      this.clockCanvasElem.style.display='none';
+                      this.clockCanvasElem.offsetHeight;
+                      this.clockCanvasElem.style.display='block';
+                  }
+              }
+            }
+            else{
+              this.moveHandsInSetTime();
             }
             requestAnimationFrame(this.tick.bind(this));
         }
@@ -166,18 +207,18 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.changeFace = function (face) {
             this.face = face;
             this.drawBackground();
-            array[0]=face;
         }
 
 
         Clock.prototype.changeWriteTime = function (writeTime) {
             this.writeTime = writeTime;
+
             if (writeTime) {
                 this.textTimeElem.style.display = "block";
             } else {
                 this.textTimeElem.style.display = "none";
             }
-            array[1]=this.textTimeElem.style.display;
+
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -185,12 +226,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         Clock.prototype.changeWriteDate = function (writeDate) {
             this.writeDate = writeDate;
+
             if (writeDate) {
                 this.textDateElem.style.display = "block";
             } else {
                 this.textDateElem.style.display = "none";
             }
-            array[2]=this.textDateElem.style.display;
+
             this.updateSizes();
             this.update();
             this.drawBackground();
@@ -243,39 +285,43 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
 
-            var zeroFill = function (number) {
-                return ('00' + number).substr(-2);
-            };
-
-            var template =
-                '<span style="color: {{ colors.hours }}">{{ hours }}' +
-                '</span>' +
-                ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
-                '</span>' +
-                ':<span style="color: {{ colors.seconds }}">{{ seconds }}' +
-                '</span>';
-
-            if (this.writeTime) {
-                var templateData = {'colors': this.colors,
-                                    'hours': zeroFill(hours),
-                                    'minutes': zeroFill(minutes),
-                                    'seconds': zeroFill(seconds)
-                                   }
-
-                this.textTimeElem.innerHTML = mustache.render(template,
-                                                              templateData);
-            }
-
-            if (this.writeDate) {
-				var momentDate = moment(date);
-                this.textDateElem.innerHTML = momentDate.format('LLLL').replace(momentDate.format('LT'), '');
-            }
+            this.displayTimeAndDate(hours, minutes, seconds, date);
 
             this.handAngles.hours = Math.PI - (Math.PI / 6 * hours +
                 Math.PI / 360 * minutes);
 
             this.handAngles.minutes = Math.PI - Math.PI / 30 * minutes;
             this.handAngles.seconds = Math.PI - Math.PI / 30 * seconds;
+        }
+
+        Clock.prototype.displayTimeAndDate = function (hours, minutes, seconds, date) {
+          var zeroFill = function (number) {
+              return ('00' + number).substr(-2);
+          };
+
+          var template =
+              '<span style="color: {{ colors.hours }}">{{ hours }}' +
+              '</span>' +
+              ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
+              '</span>' +
+              ':<span style="color: {{ colors.seconds }}">{{ seconds }}' +
+              '</span>';
+
+          if (this.writeTime) {
+              var templateData = {'colors': this.colors,
+                                  'hours': zeroFill(hours),
+                                  'minutes': zeroFill(minutes),
+                                  'seconds': zeroFill(seconds)
+                                 }
+
+              this.textTimeElem.innerHTML = mustache.render(template,
+                                                            templateData);
+          }
+
+          if (this.writeDate) {
+      var momentDate = moment(date);
+              this.textDateElem.innerHTML = momentDate.format('LLLL').replace(momentDate.format('LT'), '');
+          }
         }
 
         Clock.prototype.drawBackground = function () {
@@ -286,9 +332,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             else {
                 this.drawNiceBackground();
             }
-            this.drawHands();
+            if(this.setTime){
+              this.moveHandsInSetTime();
+            }
+            else{
+               this.drawHands();
+            }
         }
-
 
         // Draw the background of the simple clock.
         //
@@ -413,6 +463,135 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
         }
 
+        // Draw the hands of the analog clocks in set time mode.
+        Clock.prototype.drawHandsInSetTime = function () {
+            var ctx = this.clockCanvasElem.getContext("2d");
+
+            // Clear canvas first.
+            ctx.clearRect(this.margin, this.margin, this.radius * 2,
+                          this.radius * 2);
+                          this.drawSmiley();
+            var handNames = ['hours', 'minutes', 'seconds'];
+            // tempPos is used to position circle on each hand in set time mode
+            var tempPos = [0.400,0.607,0.8125];
+
+            for (var i = 0; i < handNames.length; i++) {
+                let name = handNames[i];
+                ctx.lineCap = 'round';
+                ctx.lineWidth = this.lineWidths[name];
+                ctx.strokeStyle = this.colors[name];
+
+                ctx.beginPath();
+                ctx.arc(this.centerX, this.centerY, ctx.lineWidth * 0.6, 0,
+                        2 * Math.PI);
+                ctx.moveTo(this.centerX, this.centerY);
+                let angle = this.handAngles[name];
+
+                let tempRadius = this.radius * 0.08;
+                let tempX = this.centerX + this.handSizes[name] * tempPos[i] * Math.sin(angle);
+                let tempY = this.centerY + this.handSizes[name] * tempPos[i] * Math.cos(angle);
+
+                ctx.lineTo(
+                    this.centerX + ((this.handSizes[name] * tempPos[i]) - tempRadius) *
+                        Math.sin(angle),
+                    this.centerY + ((this.handSizes[name] * tempPos[i]) - tempRadius ) *
+                        Math.cos(angle));
+
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(tempX, tempY, tempRadius, 0, 2 * Math.PI);
+
+                ctx.moveTo(
+                    this.centerX + ((this.handSizes[name] * tempPos[i]) + tempRadius) *
+                        Math.sin(angle),
+                    this.centerY + ((this.handSizes[name] * tempPos[i]) + tempRadius) *
+                        Math.cos(angle));
+
+                ctx.lineTo(
+                    this.centerX + this.handSizes[name] *
+                        Math.sin(angle),
+                    this.centerY + this.handSizes[name] *
+                        Math.cos(angle));
+                ctx.stroke();
+
+            }
+        }
+
+        Clock.prototype.moveHandsInSetTime = function () {
+
+          if(this.isDrag){
+            let px = this.canvasX;
+            let py = this.canvasY;
+            let deltaY = Math.abs(py - this.centerY);
+            let deltaX = Math.abs(px - this.centerX)
+            let theta = Math.atan2(deltaY, deltaX);
+            let newAngle = undefined;
+            let rSin = this.radius * Math.sin(theta);
+            let rCos = this.radius * Math.cos(theta);
+
+
+            if(py <= this.centerY){
+              if(px >= this.centerX){
+                newAngle = Math.PI / 2 + theta;
+              }
+              else{
+                newAngle = -1 *( Math.PI / 2 + theta);
+              }
+            }
+            else{
+              if(px >= this.centerX){
+                newAngle = Math.PI / 2 - theta;
+              }
+              else{
+                newAngle = -1 *( Math.PI / 2 - theta);
+              }
+            }
+
+          this.handAngles[this.selectedHand] = newAngle;
+
+          }
+          this.drawHandsInSetTime();
+        }
+
+        //to write random target time in set time mode
+        Clock.prototype.writeTimeInSetTime = function () {
+          this.writeTime = true;
+          this.textTimeElem.style.display = "block";
+
+
+          if(this.targetInSetTime['hours']==undefined){
+             this.targetInSetTime['hours'] = Math.floor(Math.random() * 25);
+             this.targetInSetTime['minutes'] = this.targetInSetTime['hours'] != 24 ? Math.floor(Math.random() * 61) : 0;
+             this.targetInSetTime['seconds'] = this.targetInSetTime['hours'] != 24 && this.targetInSetTime['minutes'] !=60 ? Math.floor(Math.random() * 61) : 0;
+           }
+
+          this.displayTimeAndDate(this.targetInSetTime['hours'], this.targetInSetTime['minutes'], this.targetInSetTime['seconds']);
+
+          this.updateSizes();
+          this.drawBackground();
+        }
+
+        //to draw smiley on the clock
+        Clock.prototype.drawSmiley = function () {
+          if(this.isSmiley){
+            var ctx = this.clockCanvasElem.getContext("2d");
+
+            ctx.lineCap = 'round';
+            ctx.lineWidth = this.lineWidthBase * 10;
+            ctx.strokeStyle = this.colors['yellow'];
+            ctx.beginPath();
+            ctx.arc(this.centerX, this.centerY, this.radius * 0.5, 0,  Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(this.centerX - this.radius * 0.3 , this.centerY - this.radius * 0.3, 25, 0,  2 * Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(this.centerX + this.radius * 0.3 , this.centerY - this.radius * 0.3, 25, 0,  2 * Math.PI);
+            ctx.stroke();
+          }
+        }
+
+
         // Create the clock.
 
         var clock = new Clock();
@@ -436,20 +615,141 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         var writeTimeButton = document.getElementById("write-time-button");
         writeTimeButton.onclick = function () {
-            this.classList.toggle('active');
-            var active = this.classList.contains('active');
-            clock.changeWriteTime(active);
+            if(!clock.setTime){
+              this.classList.toggle('active');
+              var active = this.classList.contains('active');
+              clock.changeWriteTime(active);
+            }
         };
 
         var writeDateButton = document.getElementById("write-date-button");
         writeDateButton.onclick = function () {
-            this.classList.toggle('active');
-            var active = this.classList.contains('active');
-            clock.changeWriteDate(active);
+            if(!clock.setTime){
+              this.classList.toggle('active');
+              var active = this.classList.contains('active');
+              clock.changeWriteDate(active);
+            }
         };
 
+        var setTimeButton = document.getElementById("set-time-button");
+        setTimeButton.onclick = function () {
+
+          if (clock.setTime) {
+            clock.setTime = false;
+            clock.isSmiley = false;
+            clock.targetInSetTime = {
+              'hours': undefined,
+              'minutes': undefined,
+              'seconds': undefined
+            };
+            document.getElementById("write-time-button").classList.remove("active");
+            clock.changeWriteTime(false);
+
+          } else {
+            clock.setTime = true;
+            clock.writeDate = false;
+            document.getElementById("write-date-button").classList.remove("active");
+            clock.changeWriteDate(false);
+
+            document.getElementById("write-time-button").classList.add("active");
+            clock.writeTimeInSetTime();
+          }
+
+        }
+
+        clock.clockCanvasElem.onmousedown = handleOnMouseDown;
+        clock.clockCanvasElem.onmouseup = handleOnMouseUp;
+        clock.clockCanvasElem.onmousemove = handleOnMouseMove;
+
+        function handleOnMouseDown(e){
+          var handNames = ['hours', 'minutes', 'seconds'];
+          var tempPos = [0.400,0.607,0.8125];
+
+          for(var i=0;i<3;i++){
+            var name = handNames[i];
+            let tempRadius = clock.radius * 0.08;
+            let tempX = clock.centerX + clock.handSizes[name] * tempPos[i] * Math.sin(clock.handAngles[name]);
+            let tempY = clock.centerY + clock.handSizes[name] * tempPos[i] * Math.cos(clock.handAngles[name]);
+            const rect = clock.clockCanvasElem.getBoundingClientRect();
+            const canvasX = event.clientX - rect.left;
+            const canvasY = event.clientY - rect.top;
+            let dist = Math.sqrt(Math.pow(tempX - canvasX, 2) + Math.pow(tempY - canvasY, 2));
+
+            if (dist <= tempRadius){
+              clock.isDrag = true;
+              clock.selectedHand = name;
+              break;
+            }
+          }
+        }
+
+        function handleOnMouseUp(e) {
+           clock.isDrag = false;
+           let handNames = ['hours', 'minutes', 'seconds'];
+           let targetAngles = [];
+
+           targetAngles.push (Math.PI - (Math.PI / 6 * (clock.targetInSetTime['hours']%12) + Math.PI / 360 * clock.targetInSetTime['minutes'] ));
+           targetAngles.push(Math.PI - Math.PI / 30 * clock.targetInSetTime['minutes'] - Math.PI / 1800 * clock.targetInSetTime['seconds']);
+           targetAngles.push(Math.PI - Math.PI / 30 * clock.targetInSetTime['seconds']);
+
+
+           let ctr = 0;
+           for(let i=0;i<3;i++){
+             let name = handNames[i];
+             let angle = clock.handAngles[name];
+             let target = targetAngles[i];
+
+             let diff;
+             let u1,u2,l1,l2;
+             if(angle * target <0){
+
+               if(angle<0){
+                 u1 = Math.abs(-180 - angle)
+                 l1 = Math.abs(angle);
+               }
+               if(target<0){
+                 u2 = Math.abs(180 - angle)
+                 l2 = angle;
+               }
+                diff = Math.min(u1+u2, l1+l2);
+             }
+             else{
+               diff = Math.abs(angle - target);
+             }
+
+             if (diff < 3*Math.PI/180) {
+               ctr++;
+             }
+           }
+           if(ctr==3){
+             console.log("correct");
+             clock.isSmiley = true;
+           }else{
+             clock.isSmiley = false;
+           }
+
+        }
+
+        function handleOnMouseMove(e) {
+          const rect = clock.clockCanvasElem.getBoundingClientRect();
+          const canvasX = e.clientX - rect.left;
+          const canvasY = e.clientY - rect.top;
+
+          clock.canvasX = canvasX;
+          clock.canvasY = canvasY;
+        }
+
         document.getElementById("stop-button").addEventListener('click', function (event) {
-            activity.getDatastoreObject().setDataAsText(array);
+          let stateObj = {
+              face : clock.face,
+              writeTime : clock.writeTime,
+              writeDate : clock.writeDate,
+              isSetTime : clock.setTime,
+              isSmiley : clock.isSmiley,
+              handAngles : clock.handAngles,
+              targetInSetTime : clock.targetInSetTime
+            }
+            activity.getDatastoreObject().setDataAsText(stateObj);
             activity.getDatastoreObject().save(function (error) {
                 if (error === null) {
                     console.log("write done.");
