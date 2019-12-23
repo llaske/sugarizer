@@ -26,27 +26,160 @@
   background-image: url(../icons/mode-chat.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+/*Tutorial CSS*/
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
 #speakText {
-	height:45px;
-	width:50px;
-	margin:8px;
-	right:4px;
-	bottom: 15px;
-	z-index:1;
-	position:absolute;
-	background-image: url(../icons/go-right.svg);
-	background-size: 55px 50px;
-	background-position: 50% 50%;
+  height:45px;
+  width:50px;
+  margin:8px;
+  right:4px;
+  bottom: 15px;
+  z-index:1;
+  position:absolute;
+  background-image: url(../icons/go-right.svg);
+  background-size: 55px 50px;
+  background-position: 50% 50%;
 }
 
 #userText {
-	height:40px;
-	margin:5px;
-	margin-left:8vh;
-	width:90vw;
-	font-size: 28pt;
-	font-weight: bold;
-	z-index:0;
+  height:40px;
+  margin:5px;
+  margin-left:8vh;
+  width:90vw;
+  font-size: 28pt;
+  font-weight: bold;
+  z-index:0;
 }
 
 
@@ -59,14 +192,14 @@
 .dropdown:before {
   content: "";
   position: absolute;
-	margin-left: 5px;
+  margin-left: 5px;
   left: 23px;
   top: 27px;
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-top: 10px solid #000;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #000;
   pointer-events: none;
 }
 
@@ -92,148 +225,147 @@
 /** Select tag custom css **/
 
 select {
-    padding:3px;
-    margin: 0;
-    background: transparent;
-    color:#888;
-    border: none !important;;
-    outline:none;
-    display: inline-block;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    cursor:pointer;
+  padding:3px;
+  margin: 0;
+  background: transparent;
+  color:#888;
+  border: none !important;;
+  outline:none;
+  display: inline-block;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  cursor:pointer;
 }
 
 
 #activity-palette {
-	z-index: 3;
+  z-index: 3;
 }
 
 .widepalette {
-	z-index: 3;
+  z-index: 3;
 }
 
 .thinpalette {
-	z-index: 3;
+  z-index: 3;
 }
 
 body {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 /** Added @media access for dropdown button to make it responsive **/
 
 @media screen and (min-width: 890px) {
-	.thinpalette .wrapper {
-	  max-width: 66px;
-	  min-width: 61px;
-	  min-height: 51px;
-	  pointer-events: auto;
-	  background-color: black;
-	  border: 2px solid #808080;
-	}
-	.widepalette .wrapper {
-	  max-width: 500px;
-	  min-width: 500px;
-	  min-height: 51px;
-	  pointer-events: auto;
-	  background-color: black;
-	  border: 2px solid #808080;
-	}
+  .thinpalette .wrapper {
+    max-width: 66px;
+    min-width: 61px;
+    min-height: 51px;
+    pointer-events: auto;
+    background-color: black;
+    border: 2px solid #808080;
+  }
+  .widepalette .wrapper {
+    max-width: 500px;
+    min-width: 500px;
+    min-height: 51px;
+    pointer-events: auto;
+    background-color: black;
+    border: 2px solid #808080;
+  }
 	
-
 }
 
 
 @media screen and (max-width: 504px) {
-	select {
-		position: absolute;
-		right: 460px;
-	}
+  select {
+    position: absolute;
+    right: 460px;
+  }
 
 }
 @media screen and (max-width: 600px) {
-	select {
-		position: absolute;
-		right: 300px;
-	}
+  select {
+    position: absolute;
+    right: 300px;
+  }
 
 }
 @media screen and (max-width: 630px) {
-	select {
-		position: absolute;
-		right: 570px;
-	}
+  select {
+    position: absolute;
+    right: 570px;
+  }
 
 }
 @media screen and (max-width: 740px) {
-	select {
-		position: absolute;
-		right: 670px;
-	}
+  select {
+    position: absolute;
+    right: 670px;
+  }
 
 }
 @media screen and (max-width: 667px) {
-	select {
-		position: absolute;
-		right: 610px;
-	}
+  select {
+    position: absolute;
+    right: 610px;
+  }
 
 }
 
 @media screen and (max-width: 640px) {
-	select {
-		position: absolute;
-		right: 585px;
-	}
-	.dropdown:before {
-		margin-left: -15px;
-	}
+  select {
+    position: absolute;
+    right: 585px;
+  }
+  .dropdown:before {
+    margin-left: -15px;
+  }
 
 }
 @media screen and (max-width: 480px) {
-	select {
-		position: absolute;
-		right: 440px;
-	}
-	.dropdown:before {
-		margin-left:-25px;
-	}
+  select {
+    position: absolute;
+    right: 440px;
+  }
+  .dropdown:before {
+    margin-left:-25px;
+  }
 
 }
 @media screen and (max-width: 375px) {
-	select {
-		position: absolute;
-		right: 365px;
-	}
+  select {
+    position: absolute;
+    right: 365px;
+  }
 
 }
 @media screen and (max-width: 360px) {
-	select {
-		position: absolute;
-		right: 355px;
-	}
-	}
-	.dropdown:before {
-		margin-left: -10px;
-	}
+  select {
+    position: absolute;
+    right: 355px;
+  }
+
+  .dropdown:before {
+    margin-left: -10px;
+  }
 }
 
 
 @media screen and (max-width: 890px) {
-	.toolbar {
-	 padding-left: 10px;
-	}
+  .toolbar {
+    padding-left: 10px;
+  }
 
 }
 @media screen and (max-width: 320px) {
-	select {
-		position: absolute;
-		right: 300px;
-	}
-	.dropdown:before {
-		margin-left: -10px;
-	}
+  select {
+    position: absolute;
+    right: 300px;
+  }
+  .dropdown:before {
+    margin-left: -10px;
+  }
 
 }
