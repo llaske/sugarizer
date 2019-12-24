@@ -45,6 +45,76 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
 				element: ".information",
 				title: l10n.get("TutoShadowTitle"),
 				content: l10n.get("TutoShadowContent")
+			},
+			{
+				element: "#learnGame_card",
+				title: l10n.get("TutoLCardTitle"),
+				content: l10n.get("TutoLCardContent")
+			},
+			{
+				element: "#playGame_card",
+				title: l10n.get("TutoPCardTitle"),
+				content: l10n.get("TutoPCardContent")
+			},
+			{
+				element: "#buildGame_card",
+				title: l10n.get("TutoBCardTitle"),
+				content: l10n.get("TutoBCardContent")
+			},
+			{
+				element: "#learnGame_pause_button",
+				title: l10n.get("TutoLPauseTitle"),
+				content: l10n.get("TutoLPauseContent")
+			},
+			{
+				element: "#learnGame_play_button",
+				title: l10n.get("TutoLPlayTitle"),
+				content: l10n.get("TutoLPlayContent")
+			},
+			{
+				element: "#learnGame_home_button",
+				title: l10n.get("TutoLHomeTitle"),
+				content: l10n.get("TutoLHomeContent")
+			},
+			{
+				element: "#buildGame_validate_button",
+				title: l10n.get("TutoBValidTitle"),
+				content: l10n.get("TutoBValidContent")
+			},
+			{
+				element: "#buildGame_play_button",
+				title: l10n.get("TutoBPlayTitle"),
+				content: l10n.get("TutoBPlayContent")
+			},
+			{
+				element: "#buildGame_pause_button",
+				title: l10n.get("TutoBPauseTitle"),
+				content: l10n.get("TutoBPauseContent")
+			},
+			{
+				element: "#buildGame_home_button",
+				title: l10n.get("TutoBHomeTitle"),
+				content: l10n.get("TutoBHomeContent")
+			},
+			{
+				element: "#buildGame_restart_button",
+				title: l10n.get("TutoBRestartTitle"),
+				content: l10n.get("TutoBRestartContent")
+			},
+			{
+				element: "#playGame_play_button",
+				title: l10n.get("TutoPPlayTitle"),
+				content: l10n.get("TutoPPlayContent")
+			},
+			{
+				element: "#playGame_pause_button",
+				title: l10n.get("TutoPPauseTitle"),
+				content: l10n.get("TutoPPauseContent")
+			},
+			{
+				element: "#playGame_home_button",
+				title: l10n.get("TutoPHomeTitle"),
+				content: l10n.get("TutoPHomeContent")
 			}
 		];
 		var tour = new bootstrapTour({steps: steps});var tour = new Tour({
