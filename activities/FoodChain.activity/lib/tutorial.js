@@ -25,7 +25,27 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
                 element: "#pt_BR-button",
                 title: l10n.get("TutoPtTitle"),
                 content: l10n.get("TutoPtContent")
-            }
+			},
+			{
+				element: ".game-LearnGame",
+				title: l10n.get("TutoLearnTitle"),
+				content: l10n.get("TutoLearnContent")
+			},
+			{
+				element: ".game-PlayGame",
+				title: l10n.get("TutoPlayTitle"),
+				content: l10n.get("TutoPlayContent")
+			},
+			{
+				element: ".game-BuildGame",
+				title: l10n.get("TutoBuildTitle"),
+				content: l10n.get("TutoBuildContent")
+			},
+			{
+				element: ".information",
+				title: l10n.get("TutoShadowTitle"),
+				content: l10n.get("TutoShadowContent")
+			}
 		];
 		var tour = new bootstrapTour({steps: steps});var tour = new Tour({
 			template: "\
