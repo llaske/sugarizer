@@ -52,14 +52,9 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
 				content: l10n.get("TutoLCardContent")
 			},
 			{
-				element: "#playGame_card",
-				title: l10n.get("TutoPCardTitle"),
-				content: l10n.get("TutoPCardContent")
-			},
-			{
-				element: "#buildGame_card",
-				title: l10n.get("TutoBCardTitle"),
-				content: l10n.get("TutoBCardContent")
+				element: "#buildGame_gamebox",
+				title: l10n.get("TutoBBoxTitle"),
+				content: l10n.get("TutoBBoxContent")
 			},
 			{
 				element: "#learnGame_pause_button",
