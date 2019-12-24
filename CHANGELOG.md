@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the PhysicsJS activity #428
 - Add a fullscreen button in Physics activity #410
 - Add a fullscren button in GameOfLife activity #407
+- Add a fullscreen button in the Flip activity #514
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -67,6 +68,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Image insertion don't work in shared mode in Paint activity #384
 - Close the presence palette when the activity is shared #398
 - Board size in Flip activity is not optimized #405
+- Make responsive the toolbar in Write activity #515
+- Make responsive the toolbar in Physics activity #516
 
 
 ## [1.2.0] - 2019-09-26
@@ -135,8 +138,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Activity palette icon has reversed colors
 - XOEditor activity generate multiple entries in the Journal #370
 - Clear icon in XOEditor activity is not consistent #372
-- Make responsive the toolbar in Write activity #515
-- Make responsive the toolbar in Physics activity #516 
 
 
 ## [1.1.0] - 2019-01-20
