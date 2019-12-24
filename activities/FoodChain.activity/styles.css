@@ -466,7 +466,7 @@
 }
 
 .tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
+	background-image: url(../../icons/go-left.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
@@ -500,7 +500,7 @@
 }
 
 .tutorial-next-icon2 {
-	background-image: url(../icons/go-right.svg);
+	background-image: url(../../icons/go-right.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
@@ -534,7 +534,7 @@
 }
 
 .tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
+	background-image: url(../../icons/dialog-cancel.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
