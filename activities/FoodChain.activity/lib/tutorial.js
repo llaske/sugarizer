@@ -77,6 +77,11 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
 				content: l10n.get("TutoLHomeContent")
 			},
 			{
+				element: "#learnGame_forward_button",
+				title: l10n.get("TutoLForwTitle"),
+				content: l10n.get("TutoLForwContent")				
+			},
+			{
 				element: "#buildGame_validate_button",
 				title: l10n.get("TutoBValidTitle"),
 				content: l10n.get("TutoBValidContent")
@@ -102,6 +107,11 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
 				content: l10n.get("TutoBRestartContent")
 			},
 			{
+				element: "#buildGame_forward_button",
+				title: l10n.get("TutoBForwTitle"),
+				content: l10n.get("TutoBForwContent")
+			},
+			{
 				element: "#playGame_play_button",
 				title: l10n.get("TutoPPlayTitle"),
 				content: l10n.get("TutoPPlayContent")
@@ -115,7 +125,13 @@ define(["webL10n", "bootstrap-tour-standalone.min"], function (l10n, bootstrapTo
 				element: "#playGame_home_button",
 				title: l10n.get("TutoPHomeTitle"),
 				content: l10n.get("TutoPHomeContent")
+			},
+			{
+				element: "#playGame_forward_button",
+				title: l10n.get("TutoPForwTitle"),
+				content: l10n.get("TutoPForwContent")
 			}
+			
 		];
 		var tour = new bootstrapTour({steps: steps});var tour = new Tour({
 			template: "\
