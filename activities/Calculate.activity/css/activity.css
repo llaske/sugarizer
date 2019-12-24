@@ -1,10 +1,14 @@
 #body {
 	overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 .toolbar {
   height: auto;
-  min-height: 55px;
+  width: 100%;
+  min-height: 55px !important;
+  position: fixed;
+  top: 0;
+  z-index: 3;
 }
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
@@ -43,9 +47,9 @@
   height: 45px;
   top: 5px;
   right: 2%;
-  position: absolute;
+  position: fixed;
   visibility: hidden;
-  z-index: 5;
+  z-index: 3;
 }
 .palette .wrapper {
   min-width: 10px;
