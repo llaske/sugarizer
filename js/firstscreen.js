@@ -141,6 +141,8 @@ enyo.kind({
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vhistory = true;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			this.$.server.setDisabled(true);
 			break;
 
 		case 1: // Server name
