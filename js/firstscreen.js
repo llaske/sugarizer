@@ -144,7 +144,6 @@ enyo.kind({
 			break;
 
 		case 1: // Server name
-			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
 			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
@@ -294,6 +293,7 @@ enyo.kind({
 	unlockURL: function() {
 		if (this.$.server.disabled) {
 			this.$.server.setDisabled(!this.$.server.disabled);
+			this.scrollToField(this.$.serverbox);
 			this.$.server.focus();
 			this.$.server.hasNode().select();
 		}
