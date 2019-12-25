@@ -80,7 +80,7 @@ enyo.kind({
 		} else {
 			this.zoom = 1;
 		}
-
+		console.log(constant.areaHeight);
 		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
 		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});
 
@@ -185,21 +185,9 @@ enyo.kind({
 	resize: function() {
 
 		wsize = document.body.clientWidth;
-		if (wsize <= 480) {
-			this.zoom = 0.4;
-		} else if (wsize <= 640) {
-			this.zoom = 0.55;
-		} else if (wsize <= 768) {
-			this.zoom = 0.62;
-		} else if (wsize <= 854) {
-			this.zoom = 0.65;
-		} else if (wsize <= 960) {
-			this.zoom = 0.75;
-		} else if (wsize <= 1024) {
-			this.zoom = 0.88;
-		} else {
-			this.zoom = 1;
-		}
+		var ratio = Math.abs(wsize-100)/1000;
+		this.zoom = Math.max(ratio,0.4);
+		this.zoom = Math.min(this.zoom,1);
 		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
 		this.canvas.hasNode().style.MozTransform = "scale("+this.zoom+")";
 		this.canvas.hasNode().style.zoom = this.zoom;
