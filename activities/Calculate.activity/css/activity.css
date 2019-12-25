@@ -1,14 +1,10 @@
 #body {
 	overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 .toolbar {
   height: auto;
-  width: 100%;
-  min-height: 55px !important;
-  position: fixed;
-  top: 0;
-  z-index: 3;
+  min-height: 55px;
 }
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
@@ -46,7 +42,7 @@
   width: 45px;
   height: 45px;
   top: 5px;
-  right: 2%;
+  right: 3%;
   position: fixed;
   visibility: hidden;
   z-index: 3;
@@ -75,7 +71,6 @@ textarea {
 }
 #results-zone {
   display: none;
-  overflow-y: scroll;
 }
 .result {
   font-size: 300% !important;
@@ -110,6 +105,9 @@ textarea {
   #output-digits-palette {
     display: inline-block !important;
   }
+  #results-zone {
+    overflow-y: hidden;
+  }
 }
 @media only screen and (min-width:560px) {
   .calcbutton {
@@ -117,6 +115,9 @@ textarea {
   }
   .calcbutton-large {
     height: 50px;
+  }
+  #results-zone {
+    overflow-y: hidden;
   }
 }
 @media only screen and (min-width:760px) {
@@ -126,6 +127,9 @@ textarea {
   .calcbutton-large {
     height: 100px;
   }
+  #results-zone {
+    overflow-y: scroll;
+  }
 }
 @media only screen and (min-width:1000px) {
   .calcbutton {
@@ -134,6 +138,9 @@ textarea {
   .calcbutton-large {
     height: 120px;
   }
+  #results-zone {
+    overflow-y: scroll;
+  }
 }
 @media only screen and (min-width:1200px) {
   .calcbutton {
@@ -141,6 +148,9 @@ textarea {
   }
   .calcbutton-large {
     height: 120px;
+  }
+  #results-zone {
+    overflow-y: scroll;
   }
 }
 .nanoModal {
