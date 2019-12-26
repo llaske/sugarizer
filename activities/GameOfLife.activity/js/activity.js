@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette',"tutorial"], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette,tutorial) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -16,6 +16,11 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
         });
 	});
   });
+
+  // Launch tutorial
+	document.querySelector("#help-button").addEventListener('click', function(e) {
+    tutorial.start();
+	});
 });
 
 function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette) {
