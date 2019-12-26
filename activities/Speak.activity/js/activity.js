@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","speechpalette","languagepalette","activity/sax","activity/dom-js","activity/AIMLInterpreter","activity/Speech"], function (activity, speakActivity, facepalette, speechpalette, languagepalette) {
+define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","speechpalette","languagepalette","tutorial","activity/sax","activity/dom-js","activity/AIMLInterpreter","activity/Speech"], function (activity, speakActivity, facepalette, speechpalette, languagepalette,tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -22,6 +22,10 @@ define(["sugar-web/activity/activity","activity/SpeakActivity","facepalette","sp
 
         var languagePalette = new languagepalette.ActivityPalette(
             languageButton, datastoreObject);
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function(e) {
+          tutorial.start();
+        });
 
 
         //Loads talk history when instance is existing
