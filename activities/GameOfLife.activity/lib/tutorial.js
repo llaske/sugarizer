@@ -147,10 +147,10 @@ define(["webL10n"], function (l10n) {
 		]);
 		tutorial.icons = {
 			steps: {
-				2: {icon: 'underpopulation.png', directory: 'photos', size: 100},
-				3: {icon: 'nextgeneration.png', directory: 'photos', size: 100},
-				4: {icon: 'overpopulation.png', directory: 'photos', size: 100},
-				5: {icon: 'reproduction.png', directory: 'photos', size: 100},
+				2: {icon: 'underpopulation.png', directory: 'images', size: 100},
+				3: {icon: 'nextgeneration.png', directory: 'images', size: 100},
+				4: {icon: 'overpopulation.png', directory: 'images', size: 100},
+				5: {icon: 'reproduction.png', directory: 'images', size: 100},
 			}
 		};
 		tour.init();
