@@ -2,7 +2,7 @@
 //Please look at calculateapp.js to see the related functions
 
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","activity/calculate-activity","activity/calculate-app","math","parser","nanomodal"], function (activity, mustache, calcpalette) {
+define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette", "tutorial", "activity/calculate-activity","activity/calculate-app","math","parser","nanomodal"], function (activity, mustache, calcpalette, tutorial) {
   CalculateApp.libs.palette = calcpalette;
 
   //function-plot depends on d3.
@@ -48,8 +48,8 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
     document.getElementById("fullscreen-button").addEventListener('click', function() {
       document.getElementById("main-toolbar").style.visibility = "hidden";
       document.getElementById("body").style.bottom = "40px";
-      document.getElementById("unfullscreen-button").style.visibility = "visible";    
-      document.getElementById("unfullscreen-button").style.top = "60px";    
+      document.getElementById("unfullscreen-button").style.visibility = "visible";
+      document.getElementById("unfullscreen-button").style.top = "60px";
     });
     // Unfull screen
     document.getElementById("unfullscreen-button").addEventListener('click', function() {
@@ -57,7 +57,10 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       document.getElementById("body").style.bottom = "0px";
       document.getElementById("unfullscreen-button").style.visibility = "hidden";
     });
-
+    // Tutorial button
+    document.getElementById("help-button").addEventListener('click', function(e) {
+        tutorial.start();
+    });
     //Launch of the activity, color and data fetch
     activity.setup();
     activity.getXOColor(function(s, color) {
