@@ -88,6 +88,7 @@ define(["sugar-web/env", "webL10n"], function (env, webL10n) {
   function shareActivity() {
     var activity = PaintApp.libs.activity;
     PaintApp.data.presence = activity.getPresenceObject(function(error, presence) {
+      presencepalette.popDown();
       // Unable to join
       if (error) {
         console.log("error");

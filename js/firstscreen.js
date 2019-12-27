@@ -18,7 +18,7 @@ enyo.kind({
 			{name: "serverline", classes: "first-serverline", components: [
 				{name: "servertext", content: "xxx", classes: "first-servertext"},
 				{classes: "first-input", components: [
-					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
+					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick", disabled: true, ontap: "unlockURL"}
 				]},
 				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "first-qr"}
 			]},
@@ -141,10 +141,11 @@ enyo.kind({
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vhistory = true;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			this.$.server.setDisabled(true);
 			break;
 
 		case 1: // Server name
-			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
 			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
@@ -178,8 +179,8 @@ enyo.kind({
 
 		this.$.login.setShowing(vlogin);
 		this.$.logintext.setShowing(vlogintext);
-		this.$.newuser.setShowing(vnewuser);
-		this.$.newusertext.setShowing(vnewusertext);
+		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
+		this.$.newusertext.setShowing(vnewusertext && !constant.noSignupMode);
 		this.$.namebox.setShowing(vnamebox);
 		this.$.name.setAttribute("readOnly", !vnamebox);
 		if (vnamebox) {
@@ -291,6 +292,15 @@ enyo.kind({
 		}
 	},
 
+	unlockURL: function() {
+		if (this.$.server.disabled) {
+			this.$.server.setDisabled(!this.$.server.disabled);
+			this.scrollToField(this.$.serverbox);
+			this.$.server.focus();
+			this.$.server.hasNode().select();
+		}
+	},
+
 	enterPassword: function() {
 		this.next();
 	},
@@ -352,10 +362,11 @@ enyo.kind({
 			left += constant.sizeNewUser+30;
 			this.$.historybox.applyStyle("margin-left", left+"px");
 		} else {
+			var newuser = (constant.noSignupMode?-80:0);
 			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
 			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-			this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
-			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
+			this.$.login.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
+			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 		}
 	},
 

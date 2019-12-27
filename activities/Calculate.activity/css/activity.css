@@ -3,8 +3,8 @@
     overflow-y: hidden;
 }
 .toolbar {
-  height: auto !important;
-  min-height: 55px !important;
+  height: auto;
+  min-height: 55px;
 }
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
@@ -33,6 +33,22 @@
 #output-digits-palette {
   background-image: url(../icons/digits-6.svg);
   display: none;
+}
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 5px;
+  right: 2%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
 }
 .palette .wrapper {
   min-width: 10px;
