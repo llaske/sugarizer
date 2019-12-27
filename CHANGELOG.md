@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscren button in GameOfLife activity #407
 - Add a fullscreen button in the Flip activity #514
 - Add a tutorial on Game of Life activity #382
+- Add a tutorial to the Speak activity #431
 
 ### Changed
 - Double size of Record images in WebApp and electron App
