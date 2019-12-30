@@ -58,6 +58,12 @@ define(["webL10n"], function (l10n) {
 				title: l10n.get("TutoOutputTitle"),
 				content: l10n.get("TutoOutputContent")
 			},
+			{
+				element: "#calc-input",
+				placement: "bottom",
+				title: l10n.get("TutoFunctionTitle"),
+				content: l10n.get("TutoFunctionContent")
+			},
 		];
 		var tour = new Tour({
 			template: "\
