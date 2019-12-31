@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon","tutorial"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial) {
 
 
     // initialize canvas size
@@ -56,6 +56,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 		textButton.title = _('EditText');
         var tp = new textpalette.TextPalette(textButton, toonModel,
                                              _('SetGlobeText'));
+
+        // Launch tutorial
+	    document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
+        });
 
        // page counter
         var pageCounter = document.getElementById("page-counter");
