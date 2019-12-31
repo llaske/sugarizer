@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve Gears Tutorial #396
 - Improve Exerciser UI to avoid accidental deletion #455
 - Changing server URL at login need one more click now
+- ColorMyWorld language is now linked to core language
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -74,6 +75,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Board size in Flip activity is not optimized #405
 - Make responsive the toolbar in Write activity #515
 - Make responsive the toolbar in Physics activity #516
+- Horizontal scrollbar appears in the Write activity #538
 
 
 ## [1.2.0] - 2019-09-26
