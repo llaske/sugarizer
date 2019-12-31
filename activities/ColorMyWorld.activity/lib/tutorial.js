@@ -1,7 +1,9 @@
-define(["webL10n"], function (l10n) {
+define(["webL10n"], function (webL10n) {
 	var tutorial = {};
 
 	tutorial.start = function() {
+		console.log("Language")
+		console.log(webL10n.language.code)
 		var steps = [
 			{
 				element: "",
