@@ -311,7 +311,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         // Update text and hand angles using the current time.
         Clock.prototype.update = function () {
-      //    if(this.setTime != )
             var date = new Date();
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -643,6 +642,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
          this.timeToBeDisplayed['minutes'] = Math.floor((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI);
          this.timeToBeDisplayed['hours'] = Math.floor((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI);
 
+         if(this.timeToBeDisplayed['hours'] == 0){
+           this.timeToBeDisplayed['hours'] = 12;
+         }
+
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
 
           this.updateSizes();
@@ -656,9 +659,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
 
           if(this.timeToBeDisplayed['hours']==undefined){
-             this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 12);
-             this.timeToBeDisplayed['minutes'] = this.timeToBeDisplayed['hours'] != 12 ? Math.floor(Math.random() * 61) : 0;
-             this.timeToBeDisplayed['seconds'] = this.timeToBeDisplayed['hours'] != 12 && this.timeToBeDisplayed['minutes'] !=60 ? Math.floor(Math.random() * 61) : 0;
+             this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 12) + 1;
+             this.timeToBeDisplayed['minutes'] = Math.floor(Math.random() * 61);
+             this.timeToBeDisplayed['seconds'] = this.timeToBeDisplayed['minutes'] !=60 ? Math.floor(Math.random() * 61) : 0;
            }
 
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
@@ -720,11 +723,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         var writeDateButton = document.getElementById("write-date-button");
         writeDateButton.onclick = function () {
-          //  if(!clock.setTimeGame && !clock.setTime){
               this.classList.toggle('active');
               var active = this.classList.contains('active');
               clock.changeWriteDate(active);
-          //  }
         };
 
         var setTimeButton = document.getElementById("set-time-button");
