@@ -15,49 +15,7 @@ define(["webL10n"], function (l10n) {
 				placement: "top",
 				title: l10n.get("TutoInputTitle"),
 				content: l10n.get("TutoInputContent")
-			}/*,
-			{
-				element: "#label-input",
-				placement: "bottom",
-				title: l10n.get("TutoLabelTitle"),
-				content: l10n.get("TutoLabelContent")
-			},
-			{
-				element: "#results-zone",
-				placement: "top",
-				title: l10n.get("TutoResultTitle"),
-				content: l10n.get("TutoResultContent")
-			},
-			{
-				element: "#trigo-palette",
-				placement: "bottom",
-				title: l10n.get("TutoTrigoTitle"),
-				content: l10n.get("TutoTrigoContent")
-			},
-			{
-				element: "#algebra-palette",
-				placement: "bottom",
-				title: l10n.get("TutoAlgebraTitle"),
-				content: l10n.get("TutoAlgebraContent")
-			},
-			{
-				element: "#base-palette",
-				placement: "bottom",
-				title: l10n.get("TutoBaseTitle"),
-				content: l10n.get("TutoBaseContent")
-			},
-			{
-				element: "#radian-degree-palette",
-				placement: "bottom",
-				title: l10n.get("TutoAngleTitle"),
-				content: l10n.get("TutoAngleContent")
-			},
-			{
-				element: "#output-digits-palette",
-				placement: "bottom",
-				title: l10n.get("TutoOutputTitle"),
-				content: l10n.get("TutoOutputContent")
-			},*/
+			}
 		];
 		var tour = new Tour({
 			template: "\
