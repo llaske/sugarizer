@@ -184,9 +184,15 @@ enyo.kind({
 	// Resize
 	resize: function() {
 
+		var keyboard_div = document.getElementById("play_keyboard");
+		var keyboard_style = window.getComputedStyle(keyboard_div);
+		var keyboard_width = keyboard_style.width;
 		wsize = document.body.clientWidth;
-		var ratio = Math.abs(wsize-100)/1000;
-		this.zoom = Math.max(ratio,0.4);
+		keyboard_width = keyboard_width.slice(0, -2); //to remove 'px' from keyboard_width
+		keyboard_width = parseInt(keyboard_width);
+		wsize = wsize - keyboard_width;
+		var ratio = wsize/1000;
+		this.zoom = Math.max(ratio,0.3);
 		this.zoom = Math.min(this.zoom,1);
 		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
 		this.canvas.hasNode().style.MozTransform = "scale("+this.zoom+")";
