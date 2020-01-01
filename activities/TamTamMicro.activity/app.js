@@ -12,8 +12,8 @@ enyo.kind({
 			{name: "items", classes: "items", components: [
 			]}
 		]}
-    ],
-    pianoMode: false,
+	],
+	pianoMode: false,
 
 	// Constructor
 	create: function() {
@@ -43,52 +43,52 @@ enyo.kind({
 
 	// Draw screen
 	draw: function() {
-        // Remove collections
-        var items = [];
-        enyo.forEach(this.$.collections.getControls(), function(item) { items.push(item); });
-        for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
+		// Remove collections
+		var items = [];
+		enyo.forEach(this.$.collections.getControls(), function(item) { items.push(item); });
+		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
 
-        // Remove items
-        var items = [];
-        this.$.items.applyStyle("background-color", this.userColor.fill);
-        enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
-        for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
-        if(this.pianoMode) {
-            document.getElementById("body").style.backgroundColor = this.userColor.fill;
-            this.$.collections.createComponent(
-                { kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
-                { owner: this }
-            ).render();
-        } else {
-            // Display collections
-            document.getElementById("body").style.backgroundColor = this.userColor.fill;
-            this.$.collections.applyStyle("background-color", this.userColor.fill);
-            var len = TamTam.collections.length;
-            for(var i = 0 ; i < len ; i++ ) {
-                this.$.collections.createComponent(
-                    { kind: "TamTam.Collection", name: TamTam.collections[i].name, selection: (i == this.collection), ontap: "changeCollection" },
-                    { owner: this }
-                ).render();
-            }
-            
-            // TODO: get icon
-            this.$.collections.createComponent(
-                { kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
-                { owner: this }
-            ).render();
-    
-            // Display items
-            var collection = TamTam.collections[this.collection];
-            var len = collection.content.length;
-            for(var i = 0 ; i < len ; i++ ) {
-                var item = this.$.items.createComponent(
-                    { kind: "TamTam.Item", name: collection.content[i] },
-                    { owner: this }
-                );
-                item.applyStyle("background-color", this.userColor.stroke);
-                item.render();
-            }
-        }
+		// Remove items
+		var items = [];
+		this.$.items.applyStyle("background-color", this.userColor.fill);
+		enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
+		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
+		if(this.pianoMode) {
+			document.getElementById("body").style.backgroundColor = this.userColor.fill;
+			this.$.collections.createComponent(
+				{ kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
+				{ owner: this }
+			).render();
+		} else {
+			// Display collections
+			document.getElementById("body").style.backgroundColor = this.userColor.fill;
+			this.$.collections.applyStyle("background-color", this.userColor.fill);
+			var len = TamTam.collections.length;
+			for(var i = 0 ; i < len ; i++ ) {
+				this.$.collections.createComponent(
+					{ kind: "TamTam.Collection", name: TamTam.collections[i].name, selection: (i == this.collection), ontap: "changeCollection" },
+					{ owner: this }
+				).render();
+			}
+			
+			// TODO: get icon
+			this.$.collections.createComponent(
+				{ kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
+				{ owner: this }
+			).render();
+	
+			// Display items
+			var collection = TamTam.collections[this.collection];
+			var len = collection.content.length;
+			for(var i = 0 ; i < len ; i++ ) {
+				var item = this.$.items.createComponent(
+					{ kind: "TamTam.Item", name: collection.content[i] },
+					{ owner: this }
+				);
+				item.applyStyle("background-color", this.userColor.stroke);
+				item.render();
+			}
+		}
 	},
 
 	// Handle event
@@ -105,11 +105,11 @@ enyo.kind({
 				return;
 			}
 		}
-    },
-    
-    changePianoMode: function(e) {
-        console.log("changed");
-        this.pianoMode = !this.pianoMode;
-        this.draw();
-    }
+	},
+	
+	changePianoMode: function(e) {
+		console.log("changed");
+		this.pianoMode = !this.pianoMode;
+		this.draw();
+	}
 });
