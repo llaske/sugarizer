@@ -27,7 +27,7 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activity, datastore) {
+define(["sugar-web/activity/activity","sugar-web/datastore","tutorial"], function (_activity, datastore, tutorial) {
     activity = _activity;
 
     // Manipulate the DOM only when it is ready.
@@ -50,6 +50,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activit
 			else
 				selectorMode();
 			loadPos(selected);
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
     });
 
