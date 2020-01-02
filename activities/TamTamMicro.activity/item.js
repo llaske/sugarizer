@@ -22,6 +22,8 @@ enyo.kind({
 	
 	// Play sound using the media
 	play: function() {
+        console.log("setting mode to "+this.name)
+        currentPianoMode = this.name;
 		this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
 		if (this.name != null) {
 			this.sound = "audio/database/"+this.name;

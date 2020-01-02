@@ -40,6 +40,9 @@ TamTam.collections = [
 	]},
 ];
 
+// Current piano sound
+var currentPianoMode = null;
+
 
 
 

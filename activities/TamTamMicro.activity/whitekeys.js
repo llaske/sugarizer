@@ -2,7 +2,7 @@ enyo.kind({
 	name: "TamTam.WhiteKeys",
     components: [
         { tag: "ul", components: [
-            { tag: "li", name: "C", classes:"standard red", components: [
+            { tag: "li", name: "C", classes:"standard red", ontap: "handlePlayNote", components: [
                 {tag: "span", content: "1", classes:"number"}
             ]},
 
@@ -31,4 +31,11 @@ enyo.kind({
             ]},
         ] } 
     ],
+
+    handlePlayNote: function(s, e) {
+        var pitch = s.name;
+        console.log(pitch);
+        console.log(currentPianoMode)
+    }
+
 });
