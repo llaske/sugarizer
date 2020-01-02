@@ -55,10 +55,21 @@ enyo.kind({
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
 		if(this.pianoMode) {
 			document.getElementById("body").style.backgroundColor = this.userColor.fill;
+			
 			this.$.collections.createComponent(
 				{ kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
 			).render();
+			
+			this.$.items.createComponent(
+				{ kind: "TamTam.WhiteKeys"},
+				{ owner: this }
+			).render();	
+
+			this.$.items.createComponent(
+				{ kind: "TamTam.BlackKeys"},
+				{ owner: this }
+			).render();	
 		} else {
 			// Display collections
 			document.getElementById("body").style.backgroundColor = this.userColor.fill;
@@ -109,6 +120,7 @@ enyo.kind({
 	
 	changePianoMode: function(e) {
 		console.log("changed");
+		console.log(this.$)
 		this.pianoMode = !this.pianoMode;
 		this.draw();
 	}
