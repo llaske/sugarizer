@@ -1,58 +1,7 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
-
+	
 	tutorial.start = function() {
-		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#en-button",
-				placement: "bottom",
-				title: l10n.get("TutoEnTitle"),
-				content: l10n.get("TutoEnContent")
-			},
-			{
-				element: "#fr-button",
-				placement: "bottom",
-				title: l10n.get("TutoFrTitle"),
-				content: l10n.get("TutoFrContent")
-			},
-			{
-				element: "#pt_BR-button",
-				placement: "bottom",
-				title: l10n.get("TutoPtTitle"),
-				content: l10n.get("TutoPtContent")
-			},
-			{
-				element: "#app_LearnGame_button",
-				placement: "right",
-				title: l10n.get("TutoLearnTitle"),
-				content: l10n.get("TutoLearnContent")
-			},
-			{
-				element: "#app_BuildGame_button",
-				placement: "bottom",
-				title: l10n.get("TutoBuildTitle"),
-				content: l10n.get("TutoBuildContent")
-			},
-			{
-				element: "#app_PlayGame_button",
-				placement: "left",
-				title: l10n.get("TutoPlayTitle"),
-				content: l10n.get("TutoPlayContent")
-			},
-			{
-				element: "#app_shadowButton_button",
-				placement: "left",
-				title: l10n.get("TutoInfoTitle"),
-				content: l10n.get("TutoInfoContent")
-			},
-		];
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\
@@ -86,8 +35,213 @@ define(["webL10n"], function (l10n) {
 			</div>",
 			storage: false,
 			backdrop: true,
-			steps: steps
+			steps: [],
+			onShown: function() {
+				if (tutorial.icons && tutorial.icons.steps && tutorial.icons.steps[tour.getCurrentStep()]) {
+					var icon = tutorial.icons.steps[tour.getCurrentStep()];
+					var iconElement = document.getElementById("icon-tutorial");
+					iconElement.style.visibility = 'visible';
+					iconElement.style.backgroundImage = "url('"+ icon.directory + "/" + icon.icon + "')";
+					iconElement.style.backgroundSize = icon.size + "px";
+					iconElement.style.width = icon.size + "px";
+					iconElement.style.height = icon.size + "px";
+					iconElement.style.marginTop = "15px";
+					iconElement.style.marginLeft = "5px";
+					if (icon.color) {
+						iconLib.colorize(iconElement, icon.color, function(){});
+					}
+				}
+			},
+			onEnd: function() {
+				tutorial.elements = [];
+				tutorial.icons = null;
+			}
 		});
+		var currentView=FoodChain.context.object.id;
+		console.log(currentView);
+		if(currentView=='app'){
+			tour.addSteps([
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoExplainTitle"),
+					content: l10n.get("TutoExplainContent")
+				},
+				{
+					element: "#en-button",
+					placement: "bottom",
+					title: l10n.get("TutoEnTitle"),
+					content: l10n.get("TutoEnContent")
+				},
+				{
+					element: "#fr-button",
+					placement: "bottom",
+					title: l10n.get("TutoFrTitle"),
+					content: l10n.get("TutoFrContent")
+				},
+				{
+					element: "#pt_BR-button",
+					placement: "bottom",
+					title: l10n.get("TutoPtTitle"),
+					content: l10n.get("TutoPtContent")
+				},
+				{
+					element: "#app_LearnGame_button",
+					placement: "right",
+					title: l10n.get("TutoLearnTitle"),
+					content: l10n.get("TutoLearnContent")
+				},
+				{
+					element: "#app_BuildGame_button",
+					placement: "bottom",
+					title: l10n.get("TutoBuildTitle"),
+					content: l10n.get("TutoBuildContent")
+				},
+				{
+					element: "#app_PlayGame_button",
+					placement: "left",
+					title: l10n.get("TutoPlayTitle"),
+					content: l10n.get("TutoPlayContent")
+				},
+				{
+					element: "#app_shadowButton_button",
+					placement: "left",
+					title: l10n.get("TutoInfoTitle"),
+					content: l10n.get("TutoInfoContent")
+				},
+			]
+			);
+		}else if(currentView=='buildGame'){
+			tour.addSteps([
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoExplainGameTitle"),
+					content: l10n.get("TutoExplainGameContent")
+				},
+				{
+					element: "#buildGame_home_button",
+					placement: "bottom",
+					title: l10n.get("TutoHomeTitle"),
+					content: l10n.get("TutoHomeContent")
+				},
+				{
+					element: "#buildGame_validate_button",
+					placement: "bottom",
+					title: l10n.get("TutoValidateTitle"),
+					content: l10n.get("TutoValidateContent")
+				},
+				{
+					element: "#buildGame_pause_button",
+					placement: "bottom",
+					title: l10n.get("TutoPauseTitle"),
+					content: l10n.get("TutoPauseContent")
+				},
+				{
+					element: "#buildGame_play_button",
+					placement: "bottom",
+					title: l10n.get("TutoPlayTitle"),
+					content: l10n.get("TutoPlayContent")
+				},
+				{
+					element: "#buildGame_gamebox",
+					placement: "top",
+					title: l10n.get("TutoBoardTitle"),
+					content: l10n.get("TutoBoardContent")
+				},
+			]
+			);
+		}else if(currentView=='learnGame'){
+			tour.addSteps([
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoExplainLearnTitle"),
+					content: l10n.get("TutoExplainLearnContent")
+				},
+				{
+					element: "#learnGame_home_button",
+					placement: "bottom",
+					title: l10n.get("TutoHomeTitle"),
+					content: l10n.get("TutoHomeContent")
+				},
+				{
+					element: "#learnGame_pause_button",
+					placement: "bottom",
+					title: l10n.get("TutoPauseTitle"),
+					content: l10n.get("TutoPauseContent")
+				},
+				{
+					element: "#learnGame_play_button",
+					placement: "bottom",
+					title: l10n.get("TutoPlayTitle"),
+					content: l10n.get("TutoPlayContent")
+				},
+				{
+					element: "#learnGame_card",
+					placement: "bottom",
+					title: l10n.get("TutoStartTitle"),
+					content: l10n.get("TutoStartContent")
+				},
+				{
+					element: "#learnGame_herbbox",
+					placement: "top",
+					title: l10n.get("TutoHerbTitle"),
+					content: l10n.get("TutoHerbContent")
+				},
+				{
+					element: "#learnGame_carnbox",
+					placement: "top",
+					title: l10n.get("TutoCarnTitle"),
+					content: l10n.get("TutoCarnContent")
+				},
+			]
+			);
+		}else if(currentView=='playGame'){
+			tour.addSteps([
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoExplainPlayTitle"),
+					content: l10n.get("TutoExplainPlayContent")
+				},
+				{
+					element: "#playGame_home_button",
+					placement: "left",
+					title: l10n.get("TutoHomeTitle"),
+					content: l10n.get("TutoHomeContent")
+				},
+				{
+					element: "#playGame_pause_button",
+					placement: "left",
+					title: l10n.get("TutoPauseTitle"),
+					content: l10n.get("TutoPauseContent")
+				},
+				{
+					element: "#playGame_play_button",
+					placement: "left",
+					title: l10n.get("TutoPlayTitle"),
+					content: l10n.get("TutoPlayContent")
+				},
+				{
+					element: "#canvas",
+					placement: "top",
+					title: l10n.get("TutoCanvasTitle"),
+					content: l10n.get("TutoCanvasContent")
+				},
+				{
+					element: "#playGame_lifes",
+					placement: "top",
+					title: l10n.get("TutoLivesTitle"),
+					content: l10n.get("TutoLivesContent")
+				},
+			]
+			);
+		}
 		tour.init();
 		tour.start(true);
 
