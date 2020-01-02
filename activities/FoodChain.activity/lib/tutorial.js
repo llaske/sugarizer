@@ -100,8 +100,8 @@ define(["webL10n"], function (l10n) {
 				{
 					element: "#app_PlayGame_button",
 					placement: "left",
-					title: l10n.get("TutoPlayTitle"),
-					content: l10n.get("TutoPlayContent")
+					title: l10n.get("TutoPlayGameTitle"),
+					content: l10n.get("TutoPlayGameContent")
 				},
 				{
 					element: "#app_shadowButton_button",
