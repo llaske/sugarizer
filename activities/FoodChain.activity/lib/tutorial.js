@@ -1,6 +1,6 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
-	
+
 	tutorial.start = function() {
 		var tour = new Tour({
 			template: "\
@@ -68,24 +68,6 @@ define(["webL10n"], function (l10n) {
 					content: l10n.get("TutoExplainContent")
 				},
 				{
-					element: "#en-button",
-					placement: "bottom",
-					title: l10n.get("TutoEnTitle"),
-					content: l10n.get("TutoEnContent")
-				},
-				{
-					element: "#fr-button",
-					placement: "bottom",
-					title: l10n.get("TutoFrTitle"),
-					content: l10n.get("TutoFrContent")
-				},
-				{
-					element: "#pt_BR-button",
-					placement: "bottom",
-					title: l10n.get("TutoPtTitle"),
-					content: l10n.get("TutoPtContent")
-				},
-				{
 					element: "#app_LearnGame_button",
 					placement: "right",
 					title: l10n.get("TutoLearnTitle"),
@@ -104,6 +86,24 @@ define(["webL10n"], function (l10n) {
 					content: l10n.get("TutoPlayGameContent")
 				},
 				{
+					element: "#en-button",
+					placement: "bottom",
+					title: l10n.get("TutoEnTitle"),
+					content: l10n.get("TutoEnContent")
+				},
+				{
+					element: "#fr-button",
+					placement: "bottom",
+					title: l10n.get("TutoFrTitle"),
+					content: l10n.get("TutoFrContent")
+				},
+				{
+					element: "#pt_BR-button",
+					placement: "bottom",
+					title: l10n.get("TutoPtTitle"),
+					content: l10n.get("TutoPtContent")
+				},
+				{
 					element: "#app_shadowButton_button",
 					placement: "left",
 					title: l10n.get("TutoInfoTitle"),
@@ -119,6 +119,12 @@ define(["webL10n"], function (l10n) {
 					placement: "bottom",
 					title: l10n.get("TutoExplainGameTitle"),
 					content: l10n.get("TutoExplainGameContent")
+				},
+				{
+					element: "#buildGame_gamebox",
+					placement: "top",
+					title: l10n.get("TutoBoardTitle"),
+					content: l10n.get("TutoBoardContent")
 				},
 				{
 					element: "#buildGame_home_button",
@@ -144,12 +150,6 @@ define(["webL10n"], function (l10n) {
 					title: l10n.get("TutoPlayTitle"),
 					content: l10n.get("TutoPlayContent")
 				},
-				{
-					element: "#buildGame_gamebox",
-					placement: "top",
-					title: l10n.get("TutoBoardTitle"),
-					content: l10n.get("TutoBoardContent")
-				},
 			]
 			);
 		}else if(currentView=='FoodChain.LearnGame'){
@@ -166,18 +166,6 @@ define(["webL10n"], function (l10n) {
 					placement: "bottom",
 					title: l10n.get("TutoHomeTitle"),
 					content: l10n.get("TutoHomeContent")
-				},
-				{
-					element: "#learnGame_pause_button",
-					placement: "bottom",
-					title: l10n.get("TutoPauseTitle"),
-					content: l10n.get("TutoPauseContent")
-				},
-				{
-					element: "#learnGame_play_button",
-					placement: "bottom",
-					title: l10n.get("TutoPlayTitle"),
-					content: l10n.get("TutoPlayContent")
 				},
 				{
 					element: "#learnGame_card",
@@ -197,6 +185,18 @@ define(["webL10n"], function (l10n) {
 					title: l10n.get("TutoCarnTitle"),
 					content: l10n.get("TutoCarnContent")
 				},
+				{
+					element: "#learnGame_pause_button",
+					placement: "bottom",
+					title: l10n.get("TutoPauseTitle"),
+					content: l10n.get("TutoPauseContent")
+				},
+				{
+					element: "#learnGame_play_button",
+					placement: "bottom",
+					title: l10n.get("TutoPlayTitle"),
+					content: l10n.get("TutoPlayContent")
+				},
 			]
 			);
 		}else if(currentView=='FoodChain.PlayGame'){
@@ -207,6 +207,18 @@ define(["webL10n"], function (l10n) {
 					placement: "bottom",
 					title: l10n.get("TutoExplainPlayTitle"),
 					content: l10n.get("TutoExplainPlayContent")
+				},
+				{
+					element: "#canvas",
+					placement: "top",
+					title: l10n.get("TutoCanvasTitle"),
+					content: l10n.get("TutoCanvasContent")
+				},
+				{
+					element: "#playGame_lifes",
+					placement: "top",
+					title: l10n.get("TutoLivesTitle"),
+					content: l10n.get("TutoLivesContent")
 				},
 				{
 					element: "#playGame_home_button",
@@ -225,18 +237,6 @@ define(["webL10n"], function (l10n) {
 					placement: "left",
 					title: l10n.get("TutoPlayTitle"),
 					content: l10n.get("TutoPlayContent")
-				},
-				{
-					element: "#canvas",
-					placement: "top",
-					title: l10n.get("TutoCanvasTitle"),
-					content: l10n.get("TutoCanvasContent")
-				},
-				{
-					element: "#playGame_lifes",
-					placement: "top",
-					title: l10n.get("TutoLivesTitle"),
-					content: l10n.get("TutoLivesContent")
 				},
 			]
 			);
