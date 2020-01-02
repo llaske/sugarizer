@@ -3,8 +3,8 @@
     overflow-y: hidden;
 }
 .toolbar {
-  height: auto !important;
-  min-height: 55px !important;
+  height: auto;
+  min-height: 55px;
 }
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
@@ -14,6 +14,9 @@
 }
 #main-toolbar #clear-button {
   background-image: url(../icons/edit-clear.svg);
+}
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
 }
 #trigo-palette {
   background-image: url(../icons/toolbar-trigonometry.svg);
@@ -30,6 +33,22 @@
 #output-digits-palette {
   background-image: url(../icons/digits-6.svg);
   display: none;
+}
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 5px;
+  right: 2%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
 }
 .palette .wrapper {
   min-width: 10px;
@@ -86,9 +105,142 @@ textarea {
   font-weight: bold !important;
   font-size: 200% !important;
 }
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
 @media only screen and (min-width:515px) {
   #output-digits-palette {
     display: inline-block !important;
+  }
+}
+@media only screen and (max-width:595px) {
+  #help-button {
+    visibility: hidden;
   }
 }
 @media only screen and (min-width:560px) {

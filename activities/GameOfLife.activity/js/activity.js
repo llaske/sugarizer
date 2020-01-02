@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette'], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette',"tutorial"], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette,tutorial) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -16,6 +16,11 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
         });
 	});
   });
+
+  // Launch tutorial
+	document.querySelector("#help-button").addEventListener('click', function(e) {
+    tutorial.start();
+	});
 });
 
 function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette) {
@@ -216,6 +221,20 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
       gridRows : state.state.gridRows
     });
   })
+
+  // Full screen
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("canvas").style.top = "0px";
+    document.getElementById("unfullscreen-button").style.visibility = "visible";
+    board.handleResize(window.innerWidth, state.state.boardState,state);
+  });
+  document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("canvas").style.top = "55px";
+    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+    board.handleResize(window.innerWidth, state.state.boardState,state);
+  });
 
   document.querySelector('#random').addEventListener('click', function () {
     state.set({

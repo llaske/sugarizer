@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n"], function (activity,env,radioButtonsGroup,mustache,moment) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, webL10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -9,7 +9,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         var array=["simple","none","none"];
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
-            
+		
+            // Set current language to Sugarizer
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+
             // Load from datastore
             if (!environment.objectId) {
                 console.log("New instance");
@@ -42,7 +47,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                     }
                 });
             }
-        }); 
+        });
+	    
+        //Run tutorial when help button is clicked
+        document.getElementById("help-button").addEventListener('click', function(e) {
+           tutorial.start();
+        });
 
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
@@ -51,7 +61,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         function Clock() {
             this.face = "simple";
-            
+
             this.handAngles = {
                 'hours': 0,
                 'minutes': 0,
@@ -65,7 +75,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 'minutes': "#00B20D",
                 'seconds': "#E6000A"
             };
-            
+
             this.writeTime = false;
             this.writeDate = false;
 
@@ -94,8 +104,29 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 that.updateSizes();
                 that.drawBackground();
             };
+
+            // Switch to full screen when the full screen button is pressed
+            document.getElementById("fullscreen-button").addEventListener('click', function() {
+                document.getElementById("main-toolbar").style.display = "none";
+                document.getElementById("canvas").style.top = "0px";
+                document.getElementById("unfullscreen-button").style.visibility = "visible";
+
+                //update the size and draw the background
+                that.updateSizes();
+                that.drawBackground();
+              });
+
+            //Return to normal size
+            document.getElementById("unfullscreen-button").addEventListener('click', function() {
+                document.getElementById("main-toolbar").style.display = "block";
+                document.getElementById("canvas").style.top = "55px";
+                document.getElementById("unfullscreen-button").style.visibility = "hidden";
+
+                that.updateSizes();
+                that.drawBackground();
+            });
         }
-        
+
         function setTranslatedStrings() {
             document.getElementById("simple-clock-button").title = l10n_s.get("SimpleClock");
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
@@ -257,7 +288,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
             this.drawHands();
         }
-        
+
 
         // Draw the background of the simple clock.
         //
@@ -401,7 +432,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         var simpleNiceRadio = new radioButtonsGroup.RadioButtonsGroup(
         [simpleClockButton, niceClockButton]);
-        
+
 
         var writeTimeButton = document.getElementById("write-time-button");
         writeTimeButton.onclick = function () {

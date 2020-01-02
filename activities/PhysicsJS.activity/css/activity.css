@@ -52,12 +52,107 @@
 	background-image: url(../icons/pause.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+  z-index: 3;
+}
+
 #main-toolbar #stop-button {
   z-index: 3;
 }
 
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+  z-index: 3;
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 3;
+}
+
+#circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button, #help-button {
+  display: none;
+}
+
+@media only screen and (min-width: 220px) {
+  #fullscreen-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 381px) {
+  #run-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 435px) {
+  #circle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 491px) {
+  #box-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 545px) {
+  #triangle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #polygon-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 701px) {
+  #gravity-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 756px) {
+  #sensor-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 811px) {
+  #apple-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 327px) {
+  #clear-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 271px) {
+  #help-button {
+    display: inline-block;
+  }
+}
+
 html, body, #viewport {
   margin: 0; background: #ffffff;
+  overflow: hidden;
 }
 
 .palette {
@@ -77,25 +172,136 @@ canvas {
   z-index: 1;
 }
 
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
 
 @media screen and (max-width: 657px) {
 	.toolbar {
 		padding-left: 10px;
-	}
-
-	#main-toolbar #polygon-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #gravity-button {
-		visibility: hidden;
-		position: absolute;
-		z-index: 0;
-	}
-
-	#main-toolbar #stop-button {
-		position: absolute;
 	}
 }
