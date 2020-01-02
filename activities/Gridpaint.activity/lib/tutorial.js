@@ -7,14 +7,20 @@ define(["webL10n"], function (l10n) {
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
+				title: "Grid Paint Activity",
+				content: "Welcome into the Grid Paint activity.Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles."
 			},
 			{
-				element: "#activity-button",
+				element: "#canvas",
 				placement: "top",
-				title: l10n.get("TutoInputTitle"),
-				content: l10n.get("TutoInputContent")
+				title: "Drawing Grids",
+				content: "Click on any grid to start painting."
+			},
+			{
+				element: "#clear-button",
+				placement: "bottom",
+				title: "Clear Button",
+				content: "Click here to clear all grids."
 			}
 		];
 		var tour = new Tour({
@@ -29,7 +35,7 @@ define(["webL10n"], function (l10n) {
 							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
 							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
+						<div class='icon-tutorial-text'>"+"Prev"+"</div>\
 					</div>\
 					<span data-role='separator' style='margin: 4px'>|</span>\
 					<div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -37,14 +43,14 @@ define(["webL10n"], function (l10n) {
 							<div class='tutorial-next-icon2 web-activity-icon'></div>\
 							<div class='tutorial-next-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
+						<div class='icon-tutorial-text'>"+"Next"+"</div>\
 					</div>\
 					<div class='tutorial-end-icon icon-button' data-role='end'>\
 						<div class='tutorial-end-icon1 web-activity'>\
 							<div class='tutorial-end-icon2 web-activity-icon'></div>\
 							<div class='tutorial-end-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
+						<div class='icon-tutorial-text'>"+"End"+"</div>\
 					</div>\
 				</div>\
 			</div>",
