@@ -1,6 +1,6 @@
 ﻿
 
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore"], function (activity, _l10n, radioButtonsGroup, datastore) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore","tutorial"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial) {
 	l10n = _l10n;
 	var app = null;
 
@@ -27,6 +27,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 			l10n.language.code = "pt_BR";
 			FoodChain.setLocale();
 		};
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
 
 		// Wait for locale load
 		var localized_received = function() {
