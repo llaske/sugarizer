@@ -11,7 +11,7 @@ enyo.kind({
 		{name: "line", classes: "password-line", components: [
 			{name: "text", content: "xxx", classes: "password-label"},
 			{classes: "password-input", components: [
-				{name: "pass", kind: "Input", classes: "password-value", content: "", onkeydown: "convertKeyToEmoji", oninput: "refreshCancel"},
+				{name: "pass", kind: "Input", classes: "password-value", content: "", onkeydown: "onKeyDown", oninput: "refreshCancel"},
 				{name: "cancel", classes: "password-iconcancel", showing: false, ontap: "cancelClicked"},
 			]},
 			{components:[
@@ -48,7 +48,14 @@ enyo.kind({
 
 	rendered: function() {
 		this.inherited(arguments);
-		this.$.pass.hasNode().autocomplete="off";
+		var node = this.$.pass.hasNode();
+		node.autocomplete="off";
+		// HACK: On Android the onkeydown event don't work, so using beforeinput and save value instead
+		this.isAndroid = (enyo.platform.android || enyo.platform.androidChrome);
+		if (this.isAndroid) {
+			this.savedValue = "";
+			node.addEventListener("beforeinput", enyo.bind(this, "onBeforeInput"));
+		}
 	},
 
 	// Property changed
@@ -78,7 +85,14 @@ enyo.kind({
 	},
 
 	// Event handling
-	convertKeyToEmoji: function(s, e) {
+	onKeyDown: function(s, e) {
+		// HACK: On Android the onkeydown event don't work, so using beforeinput instead
+		if (this.isAndroid) {
+			e.stopPropagation();
+			return;
+		}
+
+		// Convert key to equivalent emoji and set the emoji value instead of the character
 		var emoji = this.convertToEmoji(e.key);
 		if (emoji) {
 			this.$.pass.setValue(this.$.pass.getValue()+String.fromCodePoint(emoji));
@@ -91,11 +105,33 @@ enyo.kind({
 		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
 	},
 
+	onBeforeInput: function(e) {
+		// On Android only, intercept key before input and save the value
+		this.$.pass.setValue(this.savedValue);
+		if (e.inputType == "insertText" || e.inputType == "insertCompositionText") {
+			this.addCharacter(e.data[e.data.length-1]);
+			this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+			this.savedValue = this.$.pass.getValue();
+		} else if (e.inputType == "deleteContentBackward") {
+			if (this.savedValue.length >= 2) {
+				this.savedValue = this.savedValue.substr(0, this.savedValue.length-2);
+				this.$.cancel.setShowing(this.savedValue.length>0);
+				this.$.pass.setValue(this.savedValue);
+			}
+		} else if (e.inputType == "insertLineBreak") {
+			this.doEnter();
+		}
+		e.stopPropagation();
+	},
+
 	emojiClicked: function(emoji) {
 		emoji.animate();
 		this.addCharacter(constant.emojis[emoji.getIndex()].letter);
 		this.$.pass.focus();
 		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+		if (this.isAndroid) {
+			this.savedValue = this.$.pass.getValue();
+		}
 	},
 
 	category0Clicked: function(category) {
@@ -155,11 +191,19 @@ enyo.kind({
 
 	cancelClicked: function() {
 		this.$.pass.setValue("");
+		if (this.isAndroid) {
+			this.savedValue = "";
+		}
 		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
 		this.$.pass.focus();
 	},
 
-	refreshCancel: function() {
+	refreshCancel: function(s,e) {
+		if (this.isAndroid) {
+			this.$.pass.setValue(this.savedValue);
+			e.stopPropagation();
+			return;
+		}
 		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
 	},
 
