@@ -57,9 +57,8 @@ define(["webL10n"], function (l10n) {
 				tutorial.icons = null;
 			}
 		});
-		var currentView=FoodChain.context.object.id;
-		console.log(currentView);
-		if(currentView=='app'){
+		var currentView=FoodChain.context.game;
+		if(currentView==''){
 			tour.addSteps([
 				{
 					element: "",
@@ -112,7 +111,7 @@ define(["webL10n"], function (l10n) {
 				},
 			]
 			);
-		}else if(currentView=='buildGame'){
+		}else if(currentView=='FoodChain.BuildGame'){
 			tour.addSteps([
 				{
 					element: "",
@@ -153,7 +152,7 @@ define(["webL10n"], function (l10n) {
 				},
 			]
 			);
-		}else if(currentView=='learnGame'){
+		}else if(currentView=='FoodChain.LearnGame'){
 			tour.addSteps([
 				{
 					element: "",
@@ -200,7 +199,7 @@ define(["webL10n"], function (l10n) {
 				},
 			]
 			);
-		}else if(currentView=='playGame'){
+		}else if(currentView=='FoodChain.PlayGame'){
 			tour.addSteps([
 				{
 					element: "",
