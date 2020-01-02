@@ -27,7 +27,7 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-define(["sugar-web/activity/activity","sugar-web/datastore","tutorial"], function (_activity, datastore, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/datastore","webL10n","tutorial"], function (_activity, datastore, l10n, tutorial) {
     activity = _activity;
 
     // Manipulate the DOM only when it is ready.

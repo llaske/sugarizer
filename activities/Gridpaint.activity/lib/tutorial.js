@@ -1,27 +1,26 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
-
 	tutorial.start = function() {
 		var steps = [
 			{
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: "Grid Paint Activity",
-				content: "Welcome into the Grid Paint activity.Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles."
+				title: l10n.get("TutoExplainTitle"),
+				content: l10n.get("TutoExplainContent")
 			},
 			{
 				element: "#canvas",
 				placement: "top",
-				title: "Drawing Grids",
-				content: "Click on any grid to start painting."
+				title: l10n.get("TutoGridTitle"),
+				content: l10n.get("TutoGridContent")
 			},
 			{
 				element: "#clear-button",
 				placement: "bottom",
-				title: "Clear Button",
-				content: "Click here to clear all grids."
-			}
+				title: l10n.get("TutoClearTitle"),
+				content: l10n.get("TutoClearContent")
+			},
 		];
 		var tour = new Tour({
 			template: "\
@@ -35,7 +34,7 @@ define(["webL10n"], function (l10n) {
 							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
 							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+"Prev"+"</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
 					</div>\
 					<span data-role='separator' style='margin: 4px'>|</span>\
 					<div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -43,14 +42,14 @@ define(["webL10n"], function (l10n) {
 							<div class='tutorial-next-icon2 web-activity-icon'></div>\
 							<div class='tutorial-next-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+"Next"+"</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
 					</div>\
 					<div class='tutorial-end-icon icon-button' data-role='end'>\
 						<div class='tutorial-end-icon1 web-activity'>\
 							<div class='tutorial-end-icon2 web-activity-icon'></div>\
 							<div class='tutorial-end-icon3 web-activity-disable'></div>\
 						</div>\
-						<div class='icon-tutorial-text'>"+"End"+"</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
 					</div>\
 				</div>\
 			</div>",
