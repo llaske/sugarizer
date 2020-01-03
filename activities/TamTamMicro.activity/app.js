@@ -60,6 +60,13 @@ enyo.kind({
 				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
 			).render();
+
+			if(currentPianoMode !== null) {
+				this.$.collections.createComponent(
+					{ kind: "TamTam.Collection", name: currentPianoMode},
+					{ owner: this }
+				).render();
+			}
 			
 			this.$.items.createComponent(
 				{ kind: "TamTam.Piano"},
