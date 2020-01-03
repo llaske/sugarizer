@@ -1,3 +1,7 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+
+#main-toolbar #piano-button {
+    background-image: url(../images/database/piano-icon.svg);
+}

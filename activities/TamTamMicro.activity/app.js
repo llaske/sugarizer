@@ -55,11 +55,6 @@ enyo.kind({
 			document.getElementById("body").style.backgroundColor = '#ffffff';
 			this.$.collections.applyStyle("background-color", '#ffffff');
 
-			this.$.collections.createComponent(
-				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
-				{ owner: this }
-			).render();
-
 			if(currentPianoMode !== null) {
 				this.$.collections.createComponent(
 					{ kind: "TamTam.Collection", name: currentPianoMode},
@@ -83,12 +78,6 @@ enyo.kind({
 					{ owner: this }
 				).render();
 			}
-
-			// TODO: get icon
-			this.$.collections.createComponent(
-				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
-				{ owner: this }
-			).render();
 
 			// Display items
 			var collection = TamTam.collections[this.collection];
