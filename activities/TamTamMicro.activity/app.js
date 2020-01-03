@@ -113,6 +113,11 @@ enyo.kind({
 		console.log("changed");
 		console.log(this.$)
 		this.pianoMode = !this.pianoMode;
+		if(this.pianoMode) {
+			document.getElementById('piano-button').classList.add('active');
+		} else {
+			document.getElementById('piano-button').classList.remove('active');
+		}
 		this.draw();
 	}
 });
