@@ -99,7 +99,7 @@ ul .standard:active {
 .blackkeys {
   margin: 0 4vw;
   position: absolute;
-  top:2.5vh;
+  top:10.5vh;
 
   /* adjust top property to however tall the button is */
 }

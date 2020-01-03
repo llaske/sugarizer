@@ -57,7 +57,7 @@ enyo.kind({
 			document.getElementById("body").style.backgroundColor = this.userColor.fill;
 			
 			this.$.collections.createComponent(
-				{ kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
+				{ kind: "TamTam.Collection", name: "piano", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
 			).render();
 			
@@ -80,7 +80,7 @@ enyo.kind({
 			
 			// TODO: get icon
 			this.$.collections.createComponent(
-				{ kind: "TamTam.Collection", name: "Toggle Piano", selection: (i == this.collection), ontap: "changePianoMode" },
+				{ kind: "TamTam.Collection", name: "piano", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
 			).render();
 	
