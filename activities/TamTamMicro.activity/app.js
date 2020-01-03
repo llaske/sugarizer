@@ -50,11 +50,12 @@ enyo.kind({
 
 		// Remove items
 		var items = [];
-		this.$.items.applyStyle("background-color", this.userColor.fill);
 		enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
 		if(this.pianoMode) {
-			document.getElementById("body").style.backgroundColor = this.userColor.fill;
+			document.getElementById("body").style.backgroundColor = '#ffffff';
+			this.$.collections.applyStyle("background-color", '#ffffff');
+
 			
 			this.$.collections.createComponent(
 				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
