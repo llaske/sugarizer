@@ -1,3 +1,21 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+
+#fullscreen-button {
+  background-image: url(../images/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../images/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
