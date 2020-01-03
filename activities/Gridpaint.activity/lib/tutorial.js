@@ -1,27 +1,7 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
+
 	tutorial.start = function() {
-		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#canvas",
-				placement: "top",
-				title: l10n.get("TutoGridTitle"),
-				content: l10n.get("TutoGridContent")
-			},
-			{
-				element: "#clear-button",
-				placement: "bottom",
-				title: l10n.get("TutoClearTitle"),
-				content: l10n.get("TutoClearContent")
-			},
-		];
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\
@@ -55,8 +35,42 @@ define(["webL10n"], function (l10n) {
 			</div>",
 			storage: false,
 			backdrop: true,
-			steps: steps
+			steps: [],
 		});
+		if(mode=='edit'){
+			tour.addSteps([
+			{
+				element: "#canvas",
+				placement: "top",
+				title: l10n.get("TutoEditTitle"),
+				content: l10n.get("TutoEditContent")
+			},
+			{
+				element: "#clear-button",
+				placement: "bottom",
+				title: l10n.get("TutoClearTitle"),
+				content: l10n.get("TutoClearContent")
+			}
+			]
+			);
+		}else {
+			tour.addSteps([
+			{
+				element: "",
+				orphan: true,
+				placement: "bottom",
+				title: l10n.get("TutoExplainTitle"),
+				content: l10n.get("TutoExplainContent")
+			},
+			{
+				element: "#canvas",
+				placement: "top",
+				title: l10n.get("TutoGridTitle"),
+				content: l10n.get("TutoGridContent")
+			}
+			]
+			);
+		}
 		tour.init();
 		tour.start(true);
 
