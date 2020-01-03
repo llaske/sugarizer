@@ -1,5 +1,4 @@
-﻿
-// Main app class
+﻿// Main app class
 enyo.kind({
 	name: "TamTam.App",
 	kind: "FittableRows",
@@ -56,7 +55,6 @@ enyo.kind({
 			document.getElementById("body").style.backgroundColor = '#ffffff';
 			this.$.collections.applyStyle("background-color", '#ffffff');
 
-			
 			this.$.collections.createComponent(
 				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
@@ -68,7 +66,7 @@ enyo.kind({
 					{ owner: this }
 				).render();
 			}
-			
+
 			this.$.items.createComponent(
 				{ kind: "TamTam.Piano"},
 				{ owner: this }
@@ -85,13 +83,13 @@ enyo.kind({
 					{ owner: this }
 				).render();
 			}
-			
+
 			// TODO: get icon
 			this.$.collections.createComponent(
 				{ kind: "TamTam.Collection", name: "pianobutton", selection: (i == this.collection), ontap: "changePianoMode" },
 				{ owner: this }
 			).render();
-	
+
 			// Display items
 			var collection = TamTam.collections[this.collection];
 			var len = collection.content.length;
@@ -121,7 +119,7 @@ enyo.kind({
 			}
 		}
 	},
-	
+
 	changePianoMode: function(e) {
 		console.log("changed");
 		console.log(this.$)

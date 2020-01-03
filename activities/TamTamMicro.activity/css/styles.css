@@ -1,5 +1,4 @@
-﻿
-.body {
+﻿.body {
 	background-color: white;
 }
 
@@ -21,10 +20,6 @@
 	width: 100%;
 	text-align: center;
 }
-
-/*.items {
-	background-color: #cecfce;
-}*/
 
 .collection {
 	border-radius: 10%;
@@ -52,15 +47,19 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+
 .green {
   background-color: #4bc826 !important;
 }
+
 .yellow {
   background-color: #ecea21 !important;
 }
+
 .round-button {
   border-radius: 100% !important;
 }
+
 ul,li { list-style-type: none;
   list-style-position:inside;
   margin:0;
@@ -100,42 +99,50 @@ ul .standard:active {
   position: absolute;
   margin: 0 4vw;
   top:0;
-
-  /* adjust top property to however tall the button is */
 }
 .red {
   background-color: #f85220;
 }
+
 .orange {
   background-color: #f87f24; 
 }
+
 .yellow {
   background-color: #f0f42e;
 }
+
 .green {
   background-color: #57e237;
 }
+
 .aquamarine {
   background-color: #04af82;
 }
+
 .blue {
   background-color: #01009a;
 }
+
 .purple {
   background-color: #3801cc;
 }
+
 .red {
   background-color: #f85220;
 }
+
 .black:active {
 	box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -2px 2px 3px rgba(0,0,0,0.6) inset, 0 1px 2px rgba(0,0,0,0.5);
 	background:linear-gradient(left, #444 0%,#222 100%);
 }
+
 .number {
   margin: 60vh auto;
   color: white;
   font-size: 7em;
 }
+
 @media (max-height: 800px) {
   .number {
     margin: 30vh auto;
@@ -143,16 +150,17 @@ ul .standard:active {
   ul .standard {
     height:calc(60vh);
   }
-
   .black {
       height:20vh;
   }
 }
+
 @media (orientation:landscape) {
   .rotate-display {
     display: none;
   }
 }
+
 .rotate-display { 
   position: fixed;
   text-align: center;
