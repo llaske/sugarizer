@@ -41,7 +41,7 @@ define(["webL10n"], function (l10n) {
 			tour.addSteps([
 			{
 				element: "#canvas",
-				placement: "center",
+				placement: "top",
 				title: l10n.get("TutoEditTitle"),
 				content: l10n.get("TutoEditContent")
 			},
@@ -64,7 +64,7 @@ define(["webL10n"], function (l10n) {
 			},
 			{
 				element: "#canvas",
-				placement: "center",
+				placement: "top",
 				title: l10n.get("TutoGridTitle"),
 				content: l10n.get("TutoGridContent")
 			}
