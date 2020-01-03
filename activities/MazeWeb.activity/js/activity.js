@@ -1,6 +1,6 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane) {
+define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane", "tutorial"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane, tutorial) {
 
-    requirejs(['domReady!'], function (doc) {
+    requirejs(['domReady!'], function (doc)   {
         activity.setup();
 
         var maze = {};
@@ -52,6 +52,20 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 });
             }
         });
+
+        document.getElementById("fullscreen-button").addEventListener('click', function() {
+            document.getElementById("main-toolbar").style.opacity = 0;
+            document.getElementById("canvas").style.top = "0px";
+            document.getElementById("unfullscreen-button").style.visibility = "visible";
+            onWindowResize();
+        });
+        
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			onWindowResize();
+		});
 
 		var generateXOLogoWithColor = function(color) {
 			var coloredLogo = xoLogo;
@@ -157,8 +171,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             var toolbarElem = document.getElementById("main-toolbar");
 
             canvasWidth = window.innerWidth;
-            canvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
-
+            if (document.getElementById("unfullscreen-button").style.visibility == "visible") {
+                canvasHeight = window.innerHeight - 3;
+            } else {
+                canvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
+            }
             cellWidth = Math.floor(canvasWidth / maze.width);
             cellHeight = Math.floor(canvasHeight / maze.height);
 
@@ -628,6 +645,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         restartButton.addEventListener('click', function(e) {
             gameSize = 60;
             runLevel();
+        });
+
+        // Launch tutorial
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
         });
 
 

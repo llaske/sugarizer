@@ -1,10 +1,19 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], function (activity,tutorial,webL10n,env) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity
 		activity.setup();
+
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+		
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 
 		// Initialize cordova
 		var useragent = navigator.userAgent.toLowerCase();
@@ -128,6 +137,27 @@ define(["sugar-web/activity/activity"], function (activity) {
 				currentType = -1;
 				switchToType(currentType);
 			}, true);
+
+			// Launch tutorial
+			document.getElementById("help-button").addEventListener('click', function(e) {
+				tutorial.start();
+			});
+
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+				toolbarHeight = 0;
+				document.dispatchEvent(new Event('resize'));
+				event.preventDefault();
+			});
+
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
+				toolbarHeight = 55;
+				document.dispatchEvent(new Event('resize'));
+				event.preventDefault();
+			});
 
 			// Handle acceleration and gravity mode
 			sensorButton.addEventListener('click', function () {
@@ -461,7 +491,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			world.on({
 				'interact:poke': function( pos ){
 					// create body at a static place
-					if (currentType != -1 && pos.y > toolbarHeight) {
+					if (currentType != -1 && pos.y > 55) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}

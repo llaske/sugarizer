@@ -91,10 +91,11 @@
 	left: 0px;
 	top: -20px;
 	height: 50px;
-	font-size: 40px;
+	font-size: 30px;
 	font-family: 'Conv_BlackOpsOne-Regular';
 	color: white;
 	display:inline-block;
+	margin-left: 40%;
 }
 
 .board {
@@ -188,13 +189,6 @@
 
 .image-preload {
 	visibility: hidden;
-}
-
-.title {
-	font-size: 30px;
-	font-family: 'Conv_BlackOpsOne-Regular';
-	width: 100%;
-	text-align: center;
 }
 
 .home-button {

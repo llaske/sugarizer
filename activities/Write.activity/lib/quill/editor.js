@@ -31,7 +31,7 @@ class ImageFormat extends BaseImageFormat {
 Quill.register(ImageFormat, true);
 // Register font families
 var Font = Quill.import('formats/font');
-Font.whitelist = ['comic', 'arial','Verdana'];
+Font.whitelist = ['comic', 'arial','Verdana', 'Times', 'Courier', 'Lucida', 'Impact', 'Georgia'];
 Quill.register(Font, true);
 // Register Font sizes
 var fontSizeStyle = Quill.import('attributors/style/size');
