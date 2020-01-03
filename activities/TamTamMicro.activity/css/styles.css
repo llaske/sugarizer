@@ -99,7 +99,9 @@ ul .standard:active {
 .blackkeys {
   margin: 0 4vw;
   position: absolute;
-  top:0;
+  top:2.5vh;
+
+  /* adjust top property to however tall the button is */
 }
 .red {
   background-color: #f85220;
@@ -158,3 +160,7 @@ ul .standard:active {
 
 ul li:first-child { border-radius:5px 0 5px 5px; }
 ul li:last-child { border-radius:0 5px 5px 5px; }
+
+.hidden {
+    z-index: -1;
+}

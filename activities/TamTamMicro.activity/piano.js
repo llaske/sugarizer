@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "TamTam.WhiteKeys",
+	name: "TamTam.Piano",
     components: [
         { tag: "ul", components: [
             { tag: "li", name: "C", classes:"standard red", ontap: "handlePlayNote", components: [
@@ -29,7 +29,16 @@ enyo.kind({
             { tag: "li", name: "B", classes:"standard purple", ontap: "handlePlayNote", components: [
                 {tag: "span", content: "7", classes:"number"}
             ]},
-        ] } 
+        ]},
+        {tag: "ul", classes: "blackkeys", components: [
+                { tag: "li", name: "C#", classes:"black", ontap: "handlePlayNote"},
+                { tag: "li", name: "D#", classes:"black", ontap: "handlePlayNote"},
+                { tag: "li", name: "hidden", classes:"black hidden"},
+                { tag: "li", name: "F#", classes:"black", ontap: "handlePlayNote"},
+                { tag: "li", name: "G#", classes:"black", ontap: "handlePlayNote"},
+                { tag: "li", name: "A#", classes:"black", ontap: "handlePlayNote"},
+            ]
+        } 
     ],
     
     handlePlayNote: function(s, e) {
@@ -38,15 +47,19 @@ enyo.kind({
         
         var pitchMap = {
             'C': 0,
+            'C#': 1,
             'D': 2,
+            'D#': 3,
             'E': 4,
             'F': 6,
+            'F#': 7,
             'G': 8,
+            'G#': 9,
             'A': 10,
+            'A#': 11,
             'B': 12
         }
 
-        console.log("pitch is "+pitchMap[pitchName])
         var player = new Tone.Player('./audio/database/'+currentPianoMode+".mp3");
         var pitchShift = new Tone.PitchShift({
             pitch: pitchMap[pitchName]

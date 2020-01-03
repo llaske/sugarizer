@@ -62,14 +62,10 @@ enyo.kind({
 			).render();
 			
 			this.$.items.createComponent(
-				{ kind: "TamTam.WhiteKeys"},
+				{ kind: "TamTam.Piano"},
 				{ owner: this }
 			).render();	
 
-			this.$.items.createComponent(
-				{ kind: "TamTam.BlackKeys"},
-				{ owner: this }
-			).render();	
 		} else {
 			// Display collections
 			document.getElementById("body").style.backgroundColor = this.userColor.fill;
