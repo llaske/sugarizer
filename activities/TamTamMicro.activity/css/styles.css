@@ -73,7 +73,7 @@ ul,li { list-style-type: none;
 li { margin:0; padding:0; list-style:none; position:relative; float:left; }
 
 ul .standard {
-  height:calc(90vh); width:calc(100vw/8);
+  height:calc(75vh); width:calc(100vw/8);
 	border-left:1px solid #bbb;
 	border-bottom:1px solid #bbb;
 	border-radius:0 0 5px 5px;
@@ -132,13 +132,20 @@ ul .standard:active {
 	background:linear-gradient(left, #444 0%,#222 100%);
 }
 .number {
-  margin: 70vh auto;
+  margin: 60vh auto;
   color: white;
   font-size: 7em;
 }
 @media (max-height: 800px) {
   .number {
-    margin: 60vh auto;
+    margin: 30vh auto;
+  }
+  ul .standard {
+    height:calc(60vh);
+  }
+
+  .black {
+      height:20vh;
   }
 }
 @media (orientation:landscape) {
