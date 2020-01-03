@@ -31,11 +31,36 @@ enyo.kind({
             ]},
         ] } 
     ],
-
+    
     handlePlayNote: function(s, e) {
-        var pitch = s.name;
-        console.log(pitch);
-        console.log(currentPianoMode)
-    }
+        var pitchName = s.name;
+        this.sound = "audio/database/"+currentPianoMode;
+        
+        var pitchMap = {
+            'C': 0,
+            'D': 2,
+            'E': 4,
+            'F': 6,
+            'G': 8,
+            'A': 10,
+            'B': 12
+        }
 
+        console.log("pitch is "+pitchMap[pitchName])
+        var player = new Tone.Player('./audio/database/'+currentPianoMode+".mp3");
+        var pitchShift = new Tone.PitchShift({
+            pitch: pitchMap[pitchName]
+        }).toMaster();
+        player.connect(pitchShift);
+        player.autostart = true;
+    },
+
+    endofsound: function() {
+		if (this.$.itemImage)
+			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+	},
+
+    abort: function() {
+	    this.endofsound();
+    },
 });
