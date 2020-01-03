@@ -47,6 +47,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the PhysicsJS activity #428
 - Add a fullscreen button in Physics activity #410
 - Add a fullscren button in GameOfLife activity #407
+- Add a fullscreen button in the Flip activity #514
+- Add a tutorial on Game of Life activity #382
+- Add a tutorial to the Speak activity #431
+- Add a tutorial to the Calculate activity #429
+- Add a tutorial to the ColorMyWorld activity #438
+- Add a tutorial to the FoodChain activity #436
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -54,6 +60,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve Gears Tutorial #396
 - Improve Exerciser UI to avoid accidental deletion #455
 - Changing server URL at login need one more click now
+- ColorMyWorld language is now linked to core language
+- Use a real input field for password
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -67,6 +75,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Image insertion don't work in shared mode in Paint activity #384
 - Close the presence palette when the activity is shared #398
 - Board size in Flip activity is not optimized #405
+- Make responsive the toolbar in Write activity #515
+- Make responsive the toolbar in Physics activity #516
+- Horizontal scrollbar appears in the Write activity #538
+- Handle window resize in TankOp activity during play #404
 
 
 ## [1.2.0] - 2019-09-26
@@ -135,8 +147,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Activity palette icon has reversed colors
 - XOEditor activity generate multiple entries in the Journal #370
 - Clear icon in XOEditor activity is not consistent #372
-- Make responsive the toolbar in Write activity #515
-- Make responsive the toolbar in Physics activity #516 
 
 
 ## [1.1.0] - 2019-01-20

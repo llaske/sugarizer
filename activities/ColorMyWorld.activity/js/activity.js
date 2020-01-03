@@ -4,10 +4,10 @@ define([
 		"activity/jquery-1.11.2.min",
 		"activity/ol",
 		"activity/hammer.min",
-		"l10n/l10n",
-		"config","colormyworld","map","roll_up_div","util","languagepalette","sugar-web/graphics/colorpalette","filterpalette","modepalette"
+		"webL10n",
+		"config","colormyworld","map","roll_up_div","util","languagepalette","sugar-web/graphics/colorpalette","filterpalette","modepalette","tutorial","sugar-web/env"
 	],
-	function (activity,messages,print,jquery,ol,hammer,l10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette){
+	function (activity,messages,print,jquery,ol,hammer,webL10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette,tutorial,env){
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -19,13 +19,14 @@ define([
 		map.setup_map();
 //		colormyworld.change_areaCB(1,INSTALLED['keys'][0]);
 //		window.onresize=util.updateTitle;
-		var lang=document.webL10n.getLanguage();
+		
+		document.webL10n.getLanguage();
 		if(typeof('lang')=='undefined'){
 			print("setting english");
 			lang='en';
 			document.webL10n.getLanguage(lang);
 		}
-
+				
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
 			console.log("writing...");
@@ -94,6 +95,21 @@ define([
 			document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+		});
+		
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+		
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			document.webL10n.setLanguage(language);
+			
 		});
 	});
 		

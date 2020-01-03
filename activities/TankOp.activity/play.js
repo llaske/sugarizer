@@ -65,22 +65,9 @@ enyo.kind({
 
 		// Init canvas
 		var wsize = document.body.clientWidth;
-		if (wsize <= 480) {
-			this.zoom = 0.4;
-		} else if (wsize <= 640) {
-			this.zoom = 0.55;
-		} else if (wsize <= 768) {
-			this.zoom = 0.62;
-		} else if (wsize <= 854) {
-			this.zoom = 0.65;
-		} else if (wsize <= 960) {
-			this.zoom = 0.75;
-		} else if (wsize <= 1024) {
-			this.zoom = 0.88;
-		} else {
-			this.zoom = 1;
-		}
-
+		var ratio = wsize/1000;
+		this.zoom = Math.max(ratio,0.3);
+		this.zoom = Math.min(this.zoom,1);
 		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
 		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", attributes: {width: constant.areaWidth, height: constant.areaHeight}});
 
@@ -179,6 +166,24 @@ enyo.kind({
 			this.canvas.hasNode().style.MozTransformOrigin = "0 0";
 			this.canvas.hasNode().style.zoom = this.zoom;
 		}
+	},
+
+	// Resize
+	resize: function() {
+
+		var keyboard_div = document.getElementById("play_keyboard");
+		var keyboard_style = window.getComputedStyle(keyboard_div);
+		var keyboard_width = keyboard_style.width;
+		wsize = document.body.clientWidth;
+		keyboard_width = keyboard_width.slice(0, -2); //to remove 'px' from keyboard_width
+		keyboard_width = parseInt(keyboard_width);
+		wsize = wsize - keyboard_width;
+		ratio = wsize/1000;
+		this.zoom = Math.max(ratio,0.3);
+		this.zoom = Math.min(this.zoom,1);
+		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
+		this.canvas.hasNode().style.MozTransform = "scale("+this.zoom+")";
+		this.canvas.hasNode().style.zoom = this.zoom;
 	},
 
 	cacheLoaded: function() {
@@ -386,7 +391,7 @@ enyo.kind({
 		this.units = alives;
 		this.endOfGame = (livingHq == 0 || (livingEnemy == 0 && this.enemyCount == 0));
 		this.win = (livingHq > 0);
-
+		this.resize();
 		// Game play
 		if (!this.endOfGame) {
 			// Next wave

@@ -134,17 +134,17 @@ enyo.kind({
 			vhistory = false;
 		var currentserver;
 		var serverurl;
-		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vhistory = true;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			this.$.server.setDisabled(true);
 			break;
 
 		case 1: // Server name
-			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
 			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
@@ -158,11 +158,10 @@ enyo.kind({
 			break;
 
 		case 3: // Type password
-			this.scrollToTop();
+			this.scrollToField(this.$.passbox);
 			vpassbox = vprevious = vnext = true;
 			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
-			this.$.password.startInputListening();
 			break;
 
 		case 4: // Choose color
@@ -192,6 +191,9 @@ enyo.kind({
 			this.$.server.hasNode().select();
 		}
 		this.$.passbox.setShowing(vpassbox);
+		if (this.$.passbox) {
+			this.$.password.giveFocus();
+		}
 		this.$.colortext.setShowing(vcolortext);
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
@@ -294,6 +296,7 @@ enyo.kind({
 	unlockURL: function() {
 		if (this.$.server.disabled) {
 			this.$.server.setDisabled(!this.$.server.disabled);
+			this.scrollToField(this.$.serverbox);
 			this.$.server.focus();
 			this.$.server.hasNode().select();
 		}
@@ -484,9 +487,6 @@ enyo.kind({
 			that.$.warningmessage.setShowing(true);
 			that.$.spinner.setShowing(false);
 			that.step--;
-			if (that.step == 4 && (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && this.createnew))) {
-				that.$.password.startInputListening();
-			}
 		});
 	},
 

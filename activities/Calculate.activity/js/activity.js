@@ -15,12 +15,17 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.activity = activity;
   CalculateApp.libs.mustache = mustache;
 
-  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore'], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore) {
+  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore', "tutorial"], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore, tutorial) {
     CalculateApp.libs.webL10n = webL10n;
     CalculateApp.libs.trigopalette = trigoPaletteLib;
     CalculateApp.libs.algebrapalette = algebraPaletteLib;
 
     initGui();
+
+    // Launch tutorial
+    document.getElementById("help-button").addEventListener('click', function(e) {
+      tutorial.start();
+    });
 
     //Localization handling
     window.addEventListener('localized', function() {
