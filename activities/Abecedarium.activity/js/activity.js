@@ -1,6 +1,6 @@
 ﻿
 
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity, datastore) {
+define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-web/env","webL10n"], function (activity, datastore, tutorial, env, webL10n) {
 	if (!Abcd) {
 		Abcd = {};
 	}
@@ -12,6 +12,15 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 	requirejs(['domReady!'], function (doc) {
 		// Initialize the activity
 		Abcd.activity.setup();
+
+		env.getEnvironment(function(err, environment) {
+			currentenv = environment;
+		
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 
 		// Create sound component
 		Abcd.sound = new Abcd.Audio();
@@ -34,6 +43,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (activity
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			Abcd.sound.pause();
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 	});
 
