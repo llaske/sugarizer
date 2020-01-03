@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve Exerciser UI to avoid accidental deletion #455
 - Changing server URL at login need one more click now
 - ColorMyWorld language is now linked to core language
+- Use a real input field for password
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
