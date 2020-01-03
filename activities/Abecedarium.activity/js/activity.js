@@ -49,6 +49,21 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 		document.getElementById("help-button").addEventListener('click', function(e) {
 			tutorial.start();
 		});
-	});
 
+		// Full screen
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.visibility = "hidden";
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";  
+			Abcd.hideLang();
+			Abcd.hideCase();
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.visibility = "visible";
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			Abcd.showLang();
+			Abcd.showCase();
+		});
+	});
 });

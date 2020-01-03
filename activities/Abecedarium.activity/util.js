@@ -99,6 +99,36 @@ if (Abcd.context.home != null) {
 }
 };
 
+//Buttons to show and hide Language and Case Button\
+var x = document.getElementsByClassName("switchCase");
+var y = document.getElementsByClassName("switchLang");
+
+Abcd.hideCase =	function() {
+	var i;
+	for (i = 0; i < x.length; i++) {
+		x[i].style.visibility = "hidden";
+	}
+}
+		
+Abcd.showCase = function() {
+  	var i;
+  	for (i = 0; i < x.length; i++) {
+  		x[i].style.visibility = "visible";
+  	}
+ }
+Abcd.hideLang =	function() {
+	var i;
+	for (i = 0; i < y.length; i++) {
+		y[i].style.visibility = "hidden";
+	}
+}
+		
+Abcd.showLang = function() {
+  	var i;
+  	for (i = 0; i < y.length; i++) {
+  		y[i].style.visibility = "visible";
+  	}
+}
 
 //--- Utilities
 

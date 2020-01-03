@@ -50,8 +50,26 @@
   background-image: url(../icons/file-export.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
 #main-toolbar #network-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#main-toolbar #super-script {
+  background-image: url(../icons/superscript.svg);
+  width: 47px;
+  height: 47px;
+  background-size: 80%;
+}
+
+#main-toolbar #sub-script {
+  background-image: url(../icons/subscript.svg);
+  width: 47px;
+  height: 47px;
+  background-size: 80%;
 }
 
 #private-button {
@@ -154,44 +172,63 @@
   font-family: 'Comic Sans MS';
 }
 
+.ql-font-Times {
+  font-family: "Times New Roman", Times, serif;
+}
 
- #edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2{
+.ql-font-Courier {
+  font-family: "Courier New", Courier New, monospace;
+}
+
+.ql-font-Lucida {
+  font-family: "Lucida Console", Lucida Console, monospace;
+}
+.ql-font-Impact {
+  font-family: "Impact", fantasy;
+}
+.ql-font-Georgia {
+  font-family: "Georgia", serif;
+}
+
+
+
+#edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2,#sub-script,#super-script{
   display: none;
 }
 
 
-@media only screen and (min-width: 330px) {
+@media only screen and (min-width: 377px) {
   #color-button-1 {
     display: inline-block;
   }
 }
 
 
-@media only screen and (min-width: 385px) {
+@media only screen and (min-width: 431px) {
   #color-button-2 {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 440px) {
+@media only screen and (min-width: 486px) {
   #format-text {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 510px) {
+@media only screen and (min-width: 541px) {
   #paragraph {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 570px) {
+@media only screen and (min-width: 596px) {
   #list {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 715px) {
+@media only screen and (min-width: 760px) {
   #resize-inc {
     display: inline-block;
   }
@@ -203,13 +240,22 @@
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 815px) {
   #insert-picture {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 880px) {
+@media only screen and (min-width: 924px) {
+  #sub-script {
+    display: inline-block;
+  }
+  #super-script {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1033px) {
   #edit-undo {
     display: inline-block;
   }
@@ -218,7 +264,7 @@
   }
 }
 
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 1142px) {
   #edit-copy {
     display: inline-block;
   }
@@ -227,8 +273,136 @@
   }
 }
 
-@media only screen and (min-width: 1042px) {
+@media only screen and (min-width: 1197px) {
   #export {
     display: inline-block;
   }
+}
+
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
 }

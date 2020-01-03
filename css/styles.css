@@ -1237,6 +1237,14 @@ body {
 	z-index: 5;
 }
 
+#firstScreen_server:disabled {
+	background-image: url(../icons/locked.svg);
+	background-repeat: no-repeat;
+	background-position: top 3px right 10px;
+	background-color: #E5E5E5;
+	background-size: 20px 20px;
+}
+
 .first-passbox {
 	height: 100%;
 	padding-bottom: 100%;
@@ -1352,6 +1360,7 @@ body {
 .password-value {
 	font-size: 16pt;
 	font-family: "Noto Emoji";
+	border: none;
 	width: 270px;
 	padding: 4px;
 	line-height: 30px;
