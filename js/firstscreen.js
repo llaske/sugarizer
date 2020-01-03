@@ -134,7 +134,6 @@ enyo.kind({
 			vhistory = false;
 		var currentserver;
 		var serverurl;
-		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
@@ -159,11 +158,10 @@ enyo.kind({
 			break;
 
 		case 3: // Type password
-			this.scrollToTop();
+			this.scrollToField(this.$.passbox);
 			vpassbox = vprevious = vnext = true;
 			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
-			this.$.password.startInputListening();
 			break;
 
 		case 4: // Choose color
@@ -193,6 +191,9 @@ enyo.kind({
 			this.$.server.hasNode().select();
 		}
 		this.$.passbox.setShowing(vpassbox);
+		if (this.$.passbox) {
+			this.$.password.giveFocus();
+		}
 		this.$.colortext.setShowing(vcolortext);
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
@@ -486,9 +487,6 @@ enyo.kind({
 			that.$.warningmessage.setShowing(true);
 			that.$.spinner.setShowing(false);
 			that.step--;
-			if (that.step == 4 && (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && this.createnew))) {
-				that.$.password.startInputListening();
-			}
 		});
 	},
 

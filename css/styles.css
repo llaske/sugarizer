@@ -1360,6 +1360,7 @@ body {
 .password-value {
 	font-size: 16pt;
 	font-family: "Noto Emoji";
+	border: none;
 	width: 270px;
 	padding: 4px;
 	line-height: 30px;
