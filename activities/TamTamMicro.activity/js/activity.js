@@ -44,24 +44,24 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		
 		//Run tutorial when help button is clicked
 		document.getElementById("help-button").addEventListener('click', function(e) {
-            if(app.pianoMode) {
-                app.changePianoMode();
-            }
-            tutorial.start();
+			if(app.pianoMode) {
+				app.changePianoMode();
+			}
+			tutorial.start();
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			sound.pause();
-        });
-        
-        document.getElementById("piano-button").addEventListener('click', function (event) {
+		});
+		
+		document.getElementById("piano-button").addEventListener('click', function (event) {
 			app.changePianoMode();
-        });
-        
-        document.getElementById("keyboard").addEventListener('click', function() {
-            app.draw();
-        })
+		});
+		
+		document.getElementById("keyboard").addEventListener('click', function() {
+			app.draw();
+		})
 	});
 
 });
