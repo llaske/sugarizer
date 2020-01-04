@@ -68,18 +68,6 @@ define(["webL10n"], function(l10n) {
 					content: l10n.get("TutoExplainContent")
 				},
 				{
-					element: "#app_instrument",
-					placement: "bottom",
-					title: l10n.get("TutoInstrumentTitle"),
-					content: l10n.get("TutoInstrumentContent")
-				},
-				{
-					element: "#app_credit",
-					placement: "left",
-					title: l10n.get("TutoInfoTitle"),
-					content: l10n.get("TutoInfoContent")
-				},
-				{
 					element: "#app_learn",
 					placement: "top",
 					title: l10n.get("TutoLearnButtonTitle"),
@@ -96,18 +84,98 @@ define(["webL10n"], function(l10n) {
 					placement: "top",
 					title: l10n.get("TutoBuildButtonTitle"),
 					content: l10n.get("TutoBuildButtonContent")
+				},
+				{
+					element: "#app_instrument",
+					placement: "bottom",
+					title: l10n.get("TutoInstrumentTitle"),
+					content: l10n.get("TutoInstrumentContent")
+				},
+				{
+					element: "#app_credit",
+					placement: "left",
+					title: l10n.get("TutoInfoTitle"),
+					content: l10n.get("TutoInfoContent")
 				}
 			]);
 		} else if (Abcd.context.object.id == "learn") {
+			tour.addSteps([
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoLearnExplainTitle"),
+					content: l10n.get("TutoLearnExplainContent")
+				},
+				{
+					element: ".box-4-theme",
+					placement: "top",
+					title: l10n.get("TutoLearnBoxThemeTitle"),
+					content: l10n.get("TutoLearnBoxThemeContent")
+				},
+				{
+					element: ".box-4-collection",
+					placement: "top",
+					title: l10n.get("TutoLearnBoxCollectionTitle"),
+					content: l10n.get("TutoLearnBoxCollectionContent")
+				},
+				{
+					element: ".box-4-entry",
+					placement: "top",
+					title: l10n.get("TutoLearnBoxEntryTitle"),
+					content: l10n.get("TutoLearnBoxEntryContent")
+				},
+				{
+					element: "#learn_caseButton",
+					placement: "bottom",
+					title: l10n.get("TutoFontTitle"),
+					content: l10n.get("TutoFontContent")
+				},
+				{
+					element: "#learn_languageButton",
+					placement: "left",
+					title: l10n.get("TutoLangTitle"),
+					content: l10n.get("TutoLangContent")
+				},
+				{
+					element: "#learn_home_home",
+					placement: "bottom",
+					title: l10n.get("TutoHomeTitle"),
+					content: l10n.get("TutoHomeContent")
+				},
+				{
+					element: "#learn_back",
+					placement: "bottom",
+					title: l10n.get("TutoBackTitle"),
+					content: l10n.get("TutoBackContent")
+				},
+				{
+					element: "#learn_prev",
+					placement: "bottom",
+					title: l10n.get("TutoPrevPageTitle"),
+					content: l10n.get("TutoPrevPageContent")
+				},
+				{
+					element: "#learn_startSlideshow",
+					placement: "bottom",
+					title: l10n.get("TutoListenTitle"),
+					content: l10n.get("TutoListenContent")
+				},
+				{
+					element: "#learn_stopSlideshow",
+					placement: "bottom",
+					title: l10n.get("TutoPauseTitle"),
+					content: l10n.get("TutoPauseContent")
+				},
+				{
+					element: "#learn_next",
+					placement: "bottom",
+					title: l10n.get("TutoNextPageTitle"),
+					content: l10n.get("TutoNextPageContent")
+				}
+			]);
 			if(document.getElementById("png-button").style.visibility=="visible"){
 				tour.addSteps([
-					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
-						title: l10n.get("TutoLearnExplainTitle"),
-						content: l10n.get("TutoLearnExplainContent")
-					},
 					{
 						element: "#png-button",
 						placement: "bottom",
@@ -119,148 +187,6 @@ define(["webL10n"], function(l10n) {
 						placement: "bottom",
 						title: l10n.get("TutoSoundTitle"),
 						content: l10n.get("TutoSoundContent")
-					},
-					{
-						element: "#learn_home_home",
-						placement: "bottom",
-						title: l10n.get("TutoHomeTitle"),
-						content: l10n.get("TutoHomeContent")
-					},
-					{
-						element: "#learn_back",
-						placement: "bottom",
-						title: l10n.get("TutoBackTitle"),
-						content: l10n.get("TutoBackContent")
-					},
-					{
-						element: "#learn_prev",
-						placement: "bottom",
-						title: l10n.get("TutoPrevPageTitle"),
-						content: l10n.get("TutoPrevPageContent")
-					},
-					{
-						element: "#learn_startSlideshow",
-						placement: "bottom",
-						title: l10n.get("TutoListenTitle"),
-						content: l10n.get("TutoListenContent")
-					},
-					{
-						element: "#learn_stopSlideshow",
-						placement: "bottom",
-						title: l10n.get("TutoPauseTitle"),
-						content: l10n.get("TutoPauseContent")
-					},
-					{
-						element: "#learn_next",
-						placement: "bottom",
-						title: l10n.get("TutoNextPageTitle"),
-						content: l10n.get("TutoNextPageContent")
-					},
-					{
-						element: ".box-4-theme",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxThemeTitle"),
-						content: l10n.get("TutoLearnBoxThemeContent")
-					},
-					{
-						element: ".box-4-collection",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxCollectionTitle"),
-						content: l10n.get("TutoLearnBoxCollectionContent")
-					},
-					{
-						element: ".box-4-entry",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxEntryTitle"),
-						content: l10n.get("TutoLearnBoxEntryContent")
-					},
-					{
-						element: "#learn_caseButton",
-						placement: "bottom",
-						title: l10n.get("TutoFontTitle"),
-						content: l10n.get("TutoFontContent")
-					},
-					{
-						element: "#learn_languageButton",
-						placement: "left",
-						title: l10n.get("TutoLangTitle"),
-						content: l10n.get("TutoLangContent")
-					}
-				]);
-			}else{
-				tour.addSteps([
-					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
-						title: l10n.get("TutoLearnExplainTitle"),
-						content: l10n.get("TutoLearnExplainContent")
-					},
-					{
-						element: "#learn_home_home",
-						placement: "bottom",
-						title: l10n.get("TutoHomeTitle"),
-						content: l10n.get("TutoHomeContent")
-					},
-					{
-						element: "#learn_back",
-						placement: "bottom",
-						title: l10n.get("TutoBackTitle"),
-						content: l10n.get("TutoBackContent")
-					},
-					{
-						element: "#learn_prev",
-						placement: "bottom",
-						title: l10n.get("TutoPrevPageTitle"),
-						content: l10n.get("TutoPrevPageContent")
-					},
-					{
-						element: "#learn_startSlideshow",
-						placement: "bottom",
-						title: l10n.get("TutoListenTitle"),
-						content: l10n.get("TutoListenContent")
-					},
-					{
-						element: "#learn_stopSlideshow",
-						placement: "bottom",
-						title: l10n.get("TutoPauseTitle"),
-						content: l10n.get("TutoPauseContent")
-					},
-					{
-						element: "#learn_next",
-						placement: "bottom",
-						title: l10n.get("TutoNextPageTitle"),
-						content: l10n.get("TutoNextPageContent")
-					},
-					{
-						element: ".box-4-theme",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxThemeTitle"),
-						content: l10n.get("TutoLearnBoxThemeContent")
-					},
-					{
-						element: ".box-4-collection",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxCollectionTitle"),
-						content: l10n.get("TutoLearnBoxCollectionContent")
-					},
-					{
-						element: ".box-4-entry",
-						placement: "top",
-						title: l10n.get("TutoLearnBoxEntryTitle"),
-						content: l10n.get("TutoLearnBoxEntryContent")
-					},
-					{
-						element: "#learn_caseButton",
-						placement: "bottom",
-						title: l10n.get("TutoFontTitle"),
-						content: l10n.get("TutoFontContent")
-					},
-					{
-						element: "#learn_languageButton",
-						placement: "left",
-						title: l10n.get("TutoLangTitle"),
-						content: l10n.get("TutoLangContent")
 					}
 				]);
 			}
@@ -272,24 +198,6 @@ define(["webL10n"], function(l10n) {
 					placement: "bottom",
 					title: l10n.get("TutoPlayExplainTitle"),
 					content: l10n.get("TutoPlayExplainContent")
-				},
-				{
-					element: "#play_home_home",
-					placement: "bottom",
-					title: l10n.get("TutoHomeTitle"),
-					content: l10n.get("TutoHomeContent")
-				},
-				{
-					element: "#play_back",
-					placement: "bottom",
-					title: l10n.get("TutoBackTitle"),
-					content: l10n.get("TutoBackContent")
-				},
-				{
-					element: "#play_filter",
-					placement: "bottom",
-					title: l10n.get("TutoLearnBoxThemeTitle"),
-					content: l10n.get("TutoLearnBoxThemeContent")
 				},
 				{
 					element: "#play_playTypeButton",
@@ -305,7 +213,7 @@ define(["webL10n"], function(l10n) {
 				},
 				{
 					element: "#play_playTypeButton3",
-					placement: "bottom",
+					placement: "top",
 					title: l10n.get("TutoPlay3Title"),
 					content: l10n.get("TutoPlay3Content")
 				},
@@ -350,6 +258,24 @@ define(["webL10n"], function(l10n) {
 					placement: "left",
 					title: l10n.get("TutoLangTitle"),
 					content: l10n.get("TutoLangContent")
+				},
+				{
+					element: "#play_home_home",
+					placement: "bottom",
+					title: l10n.get("TutoHomeTitle"),
+					content: l10n.get("TutoHomeContent")
+				},
+				{
+					element: "#play_back",
+					placement: "bottom",
+					title: l10n.get("TutoBackTitle"),
+					content: l10n.get("TutoBackContent")
+				},
+				{
+					element: "#play_filter",
+					placement: "bottom",
+					title: l10n.get("TutoLearnBoxThemeTitle"),
+					content: l10n.get("TutoLearnBoxThemeContent")
 				}
 			]);
 		}
