@@ -176,6 +176,13 @@ enyo.kind({
 			x[i].style.height = "100%";
 			x[i].style.width = "100%";
 		}
+		wsize = document.body.clientWidth;
+		ratio = wsize/1000;
+		this.zoom = Math.max(ratio,0.3);
+		this.zoom = Math.min(this.zoom,1);
+		this.$.gamebox.setStyle("max-height: "+(this.zoom*constant.areaHeight)+"px;");
+		this.canvas.hasNode().style.MozTransform = "scale("+this.zoom+")";
+		this.canvas.hasNode().style.zoom = this.zoom;
 	},
 
 	cacheLoaded: function() {
