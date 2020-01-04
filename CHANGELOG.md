@@ -64,6 +64,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ColorMyWorld language is now linked to core language
 - Use a real input field for password
 - Remove the two steps popup opening
+- Automatically shift popup menu to the left when it will override the right border
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371

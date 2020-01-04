@@ -89,11 +89,11 @@ enyo.kind({
 		var popupSize = 56;
 		popupSize += ((this.footer == null || this.footer.length == 0) ? 0 : 53);
 		popupSize += (this.items == null ? 0 : 42 * this.items.length);
-		var delta = mouse.position.y + this.margin.top + popupSize - document.getElementById("canvas").offsetHeight;
-		this.overflow = false;
-		if (delta > 0 && (!this.container.hasNode() || !this.container.hasNode().style.overflowY)) {
+		var deltaY = mouse.position.y + this.margin.top + popupSize - document.getElementById("canvas").offsetHeight;
+		this.overflowY = false;
+		if (deltaY > 0 && (!this.container.hasNode() || !this.container.hasNode().style.overflowY)) {
 			// Popup will overflow window, prepare to shift menu
-			this.overflow = true;
+			this.overflowY = true;
 		}
 		this.setStyle("bottom", "");
 		this.applyStyle("top", (mouse.position.y+this.margin.top)+"px");
@@ -112,10 +112,14 @@ enyo.kind({
 
 	showContent: function() {
 		window.clearInterval(this.timer);
-		if (this.overflow) {
+		if (this.overflowY) {
 			this.setStyle("top", "");
 			this.applyStyle("bottom", "0px");
 			this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
+		}
+		var deltaX = mouse.position.x + this.margin.left + this.hasNode().offsetWidth - document.getElementById("canvas").offsetWidth;
+		if (deltaX > 1) {
+			this.applyStyle("left", (mouse.position.x+this.margin.left-deltaX)+"px");
 		}
 		this.timer = null;
 		if (this.$.items && this.showing) {
