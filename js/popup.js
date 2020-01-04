@@ -99,7 +99,7 @@ enyo.kind({
 		this.applyStyle("top", (mouse.position.y+this.margin.top)+"px");
 		this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
 		this.show();
-		this.timer = window.setInterval(enyo.bind(this, "showContent"), constant.timerPopupDuration);
+		this.timer = window.setInterval(enyo.bind(this, "showContent"), 0);
 	},
 
 	hidePopup: function() {

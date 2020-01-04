@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changing server URL at login need one more click now
 - ColorMyWorld language is now linked to core language
 - Use a real input field for password
+- Remove the two steps popup opening
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
