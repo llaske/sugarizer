@@ -170,8 +170,8 @@ enyo.kind({
 
 	// Resize
 	resize: function() {
-
-		var keyboard_div = document.getElementById("play_keyboard");
+		var keyboard_id = document.querySelector('.keyboard-set').id;
+		var keyboard_div = document.getElementById(keyboard_id);
 		var keyboard_style = window.getComputedStyle(keyboard_div);
 		var keyboard_width = keyboard_style.width;
 		wsize = document.body.clientWidth;
