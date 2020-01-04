@@ -110,8 +110,6 @@ enyo.kind({
 	},
 
 	changePianoMode: function(e) {
-		console.log("changed");
-		console.log(this.$)
 		this.pianoMode = !this.pianoMode;
 		if(this.pianoMode) {
 			document.getElementById('piano-button').classList.add('active');
