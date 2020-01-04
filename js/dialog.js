@@ -466,7 +466,7 @@ enyo.kind({
 		this.$.text.setContent(l10n.get("MySecurity"));
 		this.$.message.setContent(l10n.get("SecurityMessage"));
 		this.$.next.setText(l10n.get("Next"));
-		this.$.password.startInputListening();
+		this.$.password.giveFocus();
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.message.addClass("rtl-10");
@@ -483,13 +483,11 @@ enyo.kind({
 
 	// Event handling
 	cancel: function() {
-		this.$.password.stopInputListening();
 		this.hide();
 		this.owner.show();
 	},
 
 	ok: function() {
-		this.$.password.stopInputListening();
 		this.hide();
 		this.owner.show();
 	},
@@ -541,6 +539,7 @@ enyo.kind({
 				function(response, error) {
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
 					that.$.warningmessage.setShowing(true);
+					that.$.password.giveFocus();
 					that.$.spinner.setShowing(false);
 				}
 			);
@@ -913,7 +912,6 @@ enyo.kind({
 			vserverqr = (enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
-			this.$.password.startInputListening();
 			if (preferences.getToken() && preferences.getToken().expired) {
 				this.$.passwordmessage.setContent(l10n.get("SecurityMessageExpired", {min: util.getMinPasswordSize()}));
 			} else {
@@ -940,6 +938,9 @@ enyo.kind({
 		this.$.next.setShowing(vnext);
 		this.$.passwordmessage.setShowing(vpasswordmessage);
 		this.$.password.setShowing(vpassword);
+		if (vpassword) {
+			this.$.password.giveFocus();
+		}
 	},
 
 	// Event handling
@@ -949,7 +950,6 @@ enyo.kind({
 		}
 		this.hide();
 		this.owner.show();
-		this.$.password.stopInputListening();
 	},
 
 	ok: function() {
@@ -961,7 +961,6 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
-		this.$.password.stopInputListening();
 	},
 
 	switchConnection: function() {
