@@ -44,7 +44,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		
 		//Run tutorial when help button is clicked
 		document.getElementById("help-button").addEventListener('click', function(e) {
-			tutorial.start();
+            if(app.pianoMode) {
+                app.changePianoMode();
+            }
+            tutorial.start();
 		});
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
