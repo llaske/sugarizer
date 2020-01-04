@@ -17,12 +17,15 @@ enyo.kind({
 	
 	// Item setup
 	nameChanged: function() {
-		this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+        if(currentPianoMode === this.name) {
+            this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
+        } else {
+            this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+        }
 	},
 	
 	// Play sound using the media
 	play: function() {
-        console.log("setting mode to "+this.name)
         currentPianoMode = this.name;
 		this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
 		if (this.name != null) {
@@ -30,13 +33,4 @@ enyo.kind({
 			sound.play(this);
 		}
 	},
-	
-	endofsound: function() {
-		if (this.$.itemImage)
-			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
-	},
-
-	abort: function() {
-		this.endofsound();
-	}	
 });

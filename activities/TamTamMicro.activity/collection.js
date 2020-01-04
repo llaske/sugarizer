@@ -17,7 +17,7 @@ enyo.kind({
 	
 	// Collection setup
 	nameChanged: function() {
-		if (this.selection)
+		if (this.selection || currentPianoMode === this.name)
 			this.$.collectionImage.setAttribute("src", "images/database/"+this.name+"sel.png");
 		else
 			this.$.collectionImage.setAttribute("src", "images/database/"+this.name+".png");

@@ -23,7 +23,11 @@ define(["sugar-web/activity/activity"], function (activity) {
         
         document.getElementById("piano-button").addEventListener('click', function (event) {
 			app.changePianoMode();
-		});
+        });
+        
+        document.getElementById("keyboard").addEventListener('click', function() {
+            app.draw();
+        })
 	});
 
 });
