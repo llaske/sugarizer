@@ -56,10 +56,12 @@ enyo.kind({
 			this.$.collections.applyStyle("background-color", '#ffffff');
 
 			if(currentPianoMode !== null) {
-				this.$.items.createComponent(
+				var item = this.$.items.createComponent(
 					{ kind: "TamTam.Item", name: currentPianoMode},
 					{ owner: this }
-				).render();
+                ).render();
+                item.applyStyle("background-color", this.userColor.stroke);
+				item.render();
 			}
 
 			this.$.items.createComponent(
