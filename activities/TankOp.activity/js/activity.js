@@ -49,6 +49,18 @@ define(["sugar-web/activity/activity"], function (activity) {
 			};
 			window.addEventListener('localized', localized_received, false);
 		});
+		// Full screen
+		play = new TankOp.Play({activity: activity});
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.visibility = "hidden";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			play.resize();
+		});
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.visibility = "visible";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			play.resize();
+		});
 	});
 
 });
