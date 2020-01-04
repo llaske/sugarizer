@@ -226,12 +226,16 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 		cleanAllButton.title = _("Clean");
 
         cleanAllButton.addEventListener('click', function (e) {
-  
-            toonModel.setData(initialData);
-            if (!editMode) {
-                toonModel.changeToEditMode();
-                editMode = true;
-            };
+            if(editMode)
+            {
+                toonModel._data['boxs'].splice(1, toonModel._data['boxs'].length-1);
+                toonModel.activeBox = 0;
+                toonModel._data['previews'] = [];
+                toonModel.comicBox.init(toonModel._data['boxs'][toonModel.activeBox],
+                                toonModel._data['images'], false);
+                toonModel._updatePageCounter();
+
+            }
         });
 
         // Launch tutorial
