@@ -123,7 +123,7 @@ function hittestInit(){
 	hitbuffer.style.visibility = 'hidden';
 	var ctx = hitbuffer.getContext('2d');
 	ctx.save();
-	ctx.translate(150, 30);
+	ctx.translate(210, 30);
 	ctx.scale(scale, scale);
 	for(var i=0;i<shapes.length;i++){	
 		var low = hexdigit(i&0xf);
@@ -157,7 +157,7 @@ function hexdigit(n){return '0123456789ABCDEF'.charAt(n);}
 function fillPiece(i){
 	var ctx = cnv.getContext('2d');
 	ctx.save();
-	ctx.translate(175, 25);
+	ctx.translate(140, 30);
 	ctx.scale(scale, scale);
 	ctx.fillStyle = colors[i]; 
 	shapePath(i, ctx);
@@ -168,7 +168,7 @@ function fillPiece(i){
 function strokePiece(i){
 	var ctx = cnv.getContext('2d');
 	ctx.save();
-	ctx.translate(175, 20);
+	ctx.translate(140, 30);
 	ctx.scale(scale, scale);
 	ctx.strokeStyle = '#404040'; 
 	ctx.lineWidth = 1;
