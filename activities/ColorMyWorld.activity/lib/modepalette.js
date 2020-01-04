@@ -77,51 +77,9 @@ define(["sugar-web/graphics/palette","util","colormyworld","print"], function (p
 		r.insertCell(-1).appendChild(regionLabel);
 		r.insertCell(-1).appendChild(regionbuttonnext);
 
-//LANGUAGES:
-		me.setLanguage= function(inc){
-			var current_language=document.webL10n.getLanguage();
-			print(current_language);
-			var languageNum=LANGUAGE_NAMES["keys"].indexOf(current_language)+inc;
-			print(languageNum);
-			if(languageNum<0)languageNum=LANGUAGE_NAMES["keys"].length-1;
-			else if(languageNum>LANGUAGE_NAMES["keys"].length-1)languageNum=0;
-			document.webL10n.setLanguage(LANGUAGE_NAMES["keys"][languageNum]);
-			document.getElementById("languagelabel").innerHTML=LANGUAGE_NAMES[LANGUAGE_NAMES["keys"][languageNum]];
-			window.setTimeout(window.onresize,500);
-		}
-
-		var languagebuttonprev = document.createElement('button');
-		languagebuttonprev.className = 'toolbutton palette-button palette-button-selected';
-		languagebuttonprev.setAttribute('id','language-button-prev');
-		languagebuttonprev.setAttribute('title','Previous Language');
-		languagebuttonprev.onclick=function(){me.setLanguage(-1)};
-
-		var languagebuttonnext = document.createElement('button');
-		languagebuttonnext.className = 'toolbutton palette-button palette-button-selected';
-		languagebuttonnext.setAttribute('id','language-button-next');
-		languagebuttonnext.setAttribute('title','Next Language');
-		languagebuttonnext.onclick=function(){me.setLanguage(+1)};
-
-		var languageLabel=document.createElement("div");
-		languageLabel.className="languagelabel";
-		languageLabel.id="languagelabel";
-		languageLabel.title=LANGUAGE_NAMES[0];
-		var languageNum=LANGUAGE_NAMES["keys"].indexOf(document.webL10n.getLanguage());
-		languageLabel.innerHTML=(languageNum != -1 ? LANGUAGE_NAMES[LANGUAGE_NAMES["keys"][languageNum]]:"English");
-
-		var languageTable=document.createElement("table");
-		var r=languageTable.insertRow(-1);
-		r.insertCell(-1).appendChild(languagebuttonprev);
-		r.insertCell(-1).appendChild(languageLabel);
-		r.insertCell(-1).appendChild(languagebuttonnext);
-
-
 		modeDiv.appendChild(modeTable);
 		modeDiv.appendChild(regionTable);
-		modeDiv.appendChild(languageTable);
 		this.setContent([modeDiv]);
-
-		//		this.buttons = modeDiv.querySelectorAll('button');
 
 	};
 

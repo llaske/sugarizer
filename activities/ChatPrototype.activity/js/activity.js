@@ -45,7 +45,9 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 		// Connect to network
         var presenceObject;
 		function shareActivity() {
+      			presencepalette.popDown();
 			presenceObject = activity.getPresenceObject(function (error, presence) {
+
 				// Unable to join
 				if (error)  {
 					socketStatus.innerHTML = l10n_s.get('Error');
@@ -87,7 +89,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 						var colour = msg.user.colorvalue;
 
-						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
 
 						myElem = document.createElement('li');
 						myElem.class = 'received';
@@ -103,7 +105,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 						var author = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 						var colour = msg.user.colorvalue;
 
-						var authorElem = '<span style = "color:' + colour.stroke + '">' + author + '</span>';
+						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
 						myElem = document.createElement('li');
 						myElem.class = 'received';
 						myElem.style.background = colour.fill;

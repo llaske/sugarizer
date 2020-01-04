@@ -11,6 +11,12 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link href="lib/enyo/enyo.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<link rel="prefetch" type="application/l10n" href="locale.ini">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="lib/enyo/enyo.js" type="text/javascript"></script>
 <script src="constant.js" type="text/javascript"></script>
@@ -22,6 +28,7 @@
 <script src="searchfield.js" type="text/javascript"></script>
 <script>if (window.module) module = window.module;</script>
 <script data-main="js/loader" src="lib/require.js"></script>
+
 </head>
 
 <body id="body">
@@ -33,6 +40,7 @@
 	  <button class="toolbutton" id="exportvideo-button" title="Export Video"></button>
 	  <div id="search"></div>
 	  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 	</div>
 
 	<div id="viewer">
