@@ -67,6 +67,8 @@ enyo.kind({
 			} else if(s.ctrlKey) {
 				if("12456".includes(s.key)) {
 					pitchName += "#";
+				} else if(s.key == "3") {
+					pitchName = "F";
 				} else {
 					return;
 				}
