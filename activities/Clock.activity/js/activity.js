@@ -582,7 +582,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               }
             }
 
-
             if(this.initiateAngles){
               this.initialAngles = {...this.handAngles};
               this.initiateAngles = false;
@@ -618,7 +617,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             else{
 
               let prev = Math.floor(this.handAngles['seconds'] / Math.PI *30);
-              this.handAngles['seconds'] = newAngle;
+              this.handAngles['seconds'] =  Math.floor(newAngle / Math.PI * 30) * Math.PI / 30;
               let next = Math.floor(this.handAngles['seconds'] / Math.PI *30);
 
               if (45<prev && prev<=59 && 0<=next && next<15) {
@@ -632,7 +631,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
               let tmp = Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
               if(tmp == 0){
-                tmp = this.handAngles['seconds']*Math.PI / 1800;
+                tmp = Math.PI / 1800;
               }
               let toset = (Math.floor(this.initialAngles['minutes'] / Math.PI * 30 + this.ctr) * Math.PI / 30 + tmp)%(2*Math.PI);
               if(toset < 0){
@@ -668,10 +667,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         //to write time in set time mode
         Clock.prototype.writeTimeInSetTime = function () {
-
-         this.timeToBeDisplayed['seconds'] = Math.floor(this.handAngles['seconds'] * 30 / Math.PI) ;
-         this.timeToBeDisplayed['minutes'] = Math.floor((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI);
-         let tmp = Math.floor((Number.parseFloat(this.handAngles['hours']).toFixed(5) % (2*Math.PI)) * 6 / Math.PI);
+         let tmp;
+         this.timeToBeDisplayed['seconds'] = Math.floor(Number.parseFloat(this.handAngles['seconds'] * 30 / Math.PI).toFixed(5)) ;
+         this.timeToBeDisplayed['minutes'] = Math.floor(Number.parseFloat((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI).toFixed(5))%60;
+         tmp = Math.floor(Number.parseFloat((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI).toFixed(5));
          this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 12;
 
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
