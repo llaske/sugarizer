@@ -120,4 +120,13 @@ enyo.kind({
 	abort: function() {
 		this.endofsound();
 	},
+
+	destroy: function () {
+		var that = this;
+		window.clearInterval(that.job);
+		that.inherited(arguments);
+		document.removeEventListener('keydown', function(event) {
+			that.handlePlayNote(event);
+		});
+	}
 });
