@@ -83,6 +83,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Make responsive the toolbar in Physics activity #516
 - Horizontal scrollbar appears in the Write activity #538
 - Handle window resize in TankOp activity during play #404
+- Resize function gives error in TankOp Activity #549
 
 
 ## [1.2.0] - 2019-09-26
