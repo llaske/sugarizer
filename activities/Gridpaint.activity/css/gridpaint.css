@@ -16,9 +16,10 @@ div.frame {
 .canvas-wrapper{
  width: 100vw;
  height: 100%;
- display: flex;
+ display: inline-flex;
  justify-content: center;
  background: #f0f0f0;
+ overflow-y: scroll;
 }
 
 #canvas {
@@ -26,6 +27,7 @@ div.frame {
  width: 1024px;
  height: 748px;
  top: 0px !important;
+ overflow: hidden;
 }
 
 canvas.gridcnv {
