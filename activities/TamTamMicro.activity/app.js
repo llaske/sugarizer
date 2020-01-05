@@ -12,7 +12,6 @@ enyo.kind({
 			]}
 		]}
 	],
-	pianoMode: false,
 
 	// Constructor
 	create: function() {
@@ -51,7 +50,7 @@ enyo.kind({
 		var items = [];
 		enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
-		if(this.pianoMode) {
+		if(pianoMode) {
 			document.getElementById("body").style.backgroundColor = '#ffffff';
 			this.$.collections.applyStyle("background-color", '#ffffff');
 
@@ -112,8 +111,8 @@ enyo.kind({
 	},
 
 	changePianoMode: function(e) {
-		this.pianoMode = !this.pianoMode;
-		if(this.pianoMode) {
+		pianoMode = !pianoMode;
+		if(pianoMode) {
 			document.getElementById('piano-button').classList.add('active');
 		} else {
 			document.getElementById('piano-button').classList.remove('active');

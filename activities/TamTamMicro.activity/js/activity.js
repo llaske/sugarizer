@@ -1,5 +1,6 @@
 var app;
 var sound;
+var pianoMode = false;
 
 define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
 
@@ -44,9 +45,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		
 		//Run tutorial when help button is clicked
 		document.getElementById("help-button").addEventListener('click', function(e) {
-			if(app.pianoMode) {
-				app.changePianoMode();
-			}
 			tutorial.start();
 		});
 

@@ -15,7 +15,7 @@ var dialog = electron.dialog;
 
 var mainWindow = null;
 
-var debug = false;
+var debug = true;
 var frameless = true;
 var reinit = false;
 
