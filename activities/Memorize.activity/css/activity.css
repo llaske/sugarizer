@@ -139,8 +139,8 @@ textarea {
 
 @media screen and (min-width: 590px) and (max-width: 654px){
     .toolbar{
-        padding: 0 25px; 
-    } 
+        padding: 0 25px;
+    }
 }
 
 @media screen and (min-width: 275px) and (max-width: 326px){
@@ -151,6 +151,12 @@ textarea {
 
 #main-toolbar #help-button {
     background-image: url(../icons/help.svg);
+}
+
+@media screen and (max-width: 676px) {
+  #help-button {
+    visibility: hidden;
+  }
 }
 
 .tutorial-title {
