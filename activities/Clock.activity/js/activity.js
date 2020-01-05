@@ -325,7 +325,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.handAngles.seconds = Math.PI / 30 * seconds;
         }
 
-        Clock.prototype.displayTime = function (hours, minutes, seconds) {
+        Clock.prototype.displayTime = function (hours, minutes, seconds, txt = "") {
           var zeroFill = function (number) {
               return ('00' + number).substr(-2);
           };
@@ -336,7 +336,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
               '</span>' +
               ':<span style="color: {{ colors.seconds }}">{{ seconds }}' +
-              '</span>';
+              '</span>' +
+              '<span style="color: {{ colors.yellow }}">' + txt +
+              '</span>'
+              ;
 
           if (this.writeTime) {
               var templateData = {'colors': this.colors,
@@ -579,58 +582,86 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               }
             }
 
-          if(this.initiateAngles){
-            this.initialAngles = {...this.handAngles};
-            this.initiateAngles = false;
-          }
 
-          //to make angles of one hands dependent on each other.
-          if(this.selectedHand == 'hours'){
-
-            this.handAngles['hours'] = Math.floor(newAngle / Math.PI * 6) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
-          }
-          else if (this.selectedHand == 'minutes') {
-
-            let prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
-            this.handAngles['minutes'] = Math.floor(newAngle / Math.PI * 30) * Math.PI / 30 + Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
-            let next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
-
-            if (prev == 59 && next == 0) {
-              this.ctr++;
-            }
-            else if (prev == 0 && next == 59) {
-              this.ctr--;
+            if(this.initiateAngles){
+              this.initialAngles = {...this.handAngles};
+              this.initiateAngles = false;
             }
 
-            this.handAngles['hours'] = Math.floor((this.initialAngles['hours']  / Math.PI * 6) + this.ctr ) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
-
-          }
-          else{
-
-            let prev = Math.floor(this.handAngles['seconds'] / Math.PI *30);
-            this.handAngles['seconds'] = newAngle;
-            let next = Math.floor(this.handAngles['seconds'] / Math.PI *30);
-
-            if (prev == 59 && next == 0) {
-              this.ctr++;
+            //to make angles of one hands dependent on each other.
+            if(this.selectedHand == 'hours'){
+              this.handAngles['hours'] = Math.floor(newAngle / Math.PI * 6) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
             }
-            else if (prev == 0 && next == 59) {
-              this.ctr--;
-            }
+            else if (this.selectedHand == 'minutes') {
 
-            prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
-            this.handAngles['minutes'] = Math.floor(this.initialAngles['minutes'] / Math.PI * 30 + this.ctr) * Math.PI / 30 + Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
-            next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
+              let prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
+              this.handAngles['minutes'] = Math.floor(newAngle / Math.PI * 30) * Math.PI / 30 + Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
+              let next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
 
-            if (prev == 59 && next == 0) {
-              this.ctr1++;
-            }
-            else if (prev == 0 && next == 59) {
-              this.ctr1--;
-            }
-            this.handAngles['hours'] = Math.floor(this.initialAngles['hours'] / Math.PI * 6 + this.ctr1) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
-          }
+              if (45<prev && prev<=59 && 0<=next && next<15) {
+                this.ctr++;
+              }
+              else if (15>prev && prev>=0 && 59<=next && next>=45) {
+                this.ctr--;
+              }
 
+              let toset = (Math.floor(this.initialAngles['hours'] / Math.PI * 6) + this.ctr ) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
+              if (toset < 0) {
+                this.handAngles['hours'] = 2*Math.PI + toset;
+                this.initialAngles['hours'] = 2*Math.PI + toset;
+                this.ctr = 0;
+              }
+              else {
+                this.handAngles['hours'] = toset;
+              }
+            }
+            else{
+
+              let prev = Math.floor(this.handAngles['seconds'] / Math.PI *30);
+              this.handAngles['seconds'] = newAngle;
+              let next = Math.floor(this.handAngles['seconds'] / Math.PI *30);
+
+              if (45<prev && prev<=59 && 0<=next && next<15) {
+                this.ctr++;
+              }
+              else if (15>prev && prev>=0 && 59<=next && next>=45) {
+                this.ctr--;
+              }
+
+              prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
+
+              let tmp = Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
+              if(tmp == 0){
+                tmp = this.handAngles['seconds']*Math.PI / 1800;
+              }
+              let toset = (Math.floor(this.initialAngles['minutes'] / Math.PI * 30 + this.ctr) * Math.PI / 30 + tmp)%(2*Math.PI);
+              if(toset < 0){
+                this.handAngles['minutes'] = 2*Math.PI + toset;
+                this.initialAngles['minutes'] = 2*Math.PI + toset;
+                this.ctr = 0;
+              }
+              else {
+                this.handAngles['minutes'] = toset;
+              }
+              next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
+
+              if (45<prev && prev<=59 && 0<=next && next<15) {
+                this.ctr1++;
+              }
+              else if (15>prev && prev>=0 && 59<=next && next>=45) {
+                this.ctr1--;
+              }
+
+              toset = (Math.floor(this.initialAngles['hours'] / Math.PI * 6 + this.ctr1) * Math.PI/6 + Math.floor((this.handAngles['minutes'] % (2*Math.PI)) / Math.PI * 30) * Math.PI / 360);
+              if(toset < 0){
+                this.handAngles['hours'] = 2*Math.PI + toset;
+                this.initialAngles['hours'] = 2*Math.PI + toset;
+                this.ctr1 = 0;
+              }
+              else {
+                this.handAngles['hours'] = toset;
+              }
+            }
           }
           this.drawHandsInSetTime();
         }
@@ -640,11 +671,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
          this.timeToBeDisplayed['seconds'] = Math.floor(this.handAngles['seconds'] * 30 / Math.PI) ;
          this.timeToBeDisplayed['minutes'] = Math.floor((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI);
-         this.timeToBeDisplayed['hours'] = Math.floor((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI);
-
-         if(this.timeToBeDisplayed['hours'] == 0){
-           this.timeToBeDisplayed['hours'] = 12;
-         }
+         let tmp = Math.floor((Number.parseFloat(this.handAngles['hours']).toFixed(5) % (2*Math.PI)) * 6 / Math.PI);
+         this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 12;
 
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
 
@@ -660,11 +688,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
           if(this.timeToBeDisplayed['hours']==undefined){
              this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 12) + 1;
-             this.timeToBeDisplayed['minutes'] = Math.floor(Math.random() * 61);
-             this.timeToBeDisplayed['seconds'] = this.timeToBeDisplayed['minutes'] !=60 ? Math.floor(Math.random() * 61) : 0;
+             this.timeToBeDisplayed['minutes'] = Math.floor(Math.random() * 60);
+             this.timeToBeDisplayed['seconds'] = Math.floor(Math.random() * 60);
            }
-
-          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
+          let txt = "??";
+          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], txt);
 
           this.updateSizes();
           this.drawBackground();
@@ -777,6 +805,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("set-time-button").classList.remove("active");
             document.getElementById("set-timeGame-button").classList.add("active");
             document.getElementById("write-time-button").classList.add("active");
+
+            clock.handAngles['seconds'] = 0;
+            clock.handAngles['minutes'] = 0;
+            clock.handAngles['hours'] = 0;
+
             clock.writeTimeInSetTimeGame();
 
           }
@@ -814,6 +847,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
            clock.isDrag = false;
            clock.ctr = 0;
            clock.ctr1 = 0;
+           this.initialAngles = {...this.handAngles};
+
         }
 
         function handleOnMouseMove(e) {
@@ -839,23 +874,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               let angle = clock.handAngles[name] % (2 * Math.PI);
               let target = targetAngles[i];
 
-              let diff;
-              let u1,u2,l1,l2;
-              if(angle * target <0){
-
-                if(angle<0){
-                  u1 = Math.abs(-180 - angle)
-                  l1 = Math.abs(angle);
-                }
-                if(target<0){
-                  u2 = Math.abs(180 - angle)
-                  l2 = angle;
-                }
-                 diff = Math.min(u1+u2, l1+l2);
-              }
-              else{
-                diff = Math.abs(angle - target);
-              }
+              let diff = Math.abs(angle - target);
 
               if (diff < 3*Math.PI/180) {
                 ctr++;
