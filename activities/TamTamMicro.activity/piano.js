@@ -42,9 +42,38 @@ enyo.kind({
 			} 
 		]}
 	],
-	
-	handlePlayNote: function(s, e) {
-		var pitchName = s.name;
+
+	handlePlayNote: function(s) {
+		var fromKeyPress = false;
+		if(s.type == "keydown") {
+			fromKeyPress = true;
+		}
+
+		var pitchName;
+		var keyMap = {
+			'1': 'C',
+			'2': 'D',
+			'3': 'E',
+			'4': 'F',
+			'5': 'G',
+			'6': 'A',
+			'7': 'B',
+		};
+
+		if(fromKeyPress) {
+			pitchName = keyMap[s.key];
+			if(!"1234567".includes(s.key)) {
+				return;
+			} else if(s.ctrlKey) {
+				if("12456".includes(s.key)) {
+					pitchName += "#";
+				} else {
+					return;
+				}
+			}
+		} else {
+			pitchName = s.name;
+		}
 		this.sound = "audio/database/"+currentPianoMode;
 		
 		var pitchMap = {
@@ -60,7 +89,7 @@ enyo.kind({
 			'A': 9,
 			'A#': 10,
 			'B': 11
-		}
+		};
 
 		var player = new Tone.Player('./audio/database/'+currentPianoMode+".mp3");
 		var pitchShift = new Tone.PitchShift({
@@ -68,6 +97,16 @@ enyo.kind({
 		}).toMaster();
 		player.connect(pitchShift);
 		player.autostart = true;
+	},
+	
+	create: function() {
+		this.inherited(arguments);
+		this.collection = 0;
+		var that = this;
+		document.addEventListener('keydown', function(event) {
+			that.handlePlayNote(event);
+		});
+		return;
 	},
 
 	endofsound: function() {
