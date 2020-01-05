@@ -38,30 +38,19 @@ define(["sugar-web/activity/activity"], function (activity) {
 					app.load();
 					app.renderInto(document.getElementById("board"));
 
-					function zoomin(){
-						var x=document.getElementsByClassName("body");
-						for (var i = 0; i < x.length; i++) {
-							x[i].style.bottom="40px";
-						} 
-					}
-
-					function zoomout(){
-						var x=document.getElementsByClassName("body");
-						for (var i = 0; i < x.length; i++) {
-							x[i].style.bottom="0px";
-						} 
-					}
+					play= new TankOp.Play();
 					// Full screen
 					document.getElementById("fullscreen-button").addEventListener('click', function() {
 						document.getElementById("main-toolbar").style.visibility = "hidden";
 						document.getElementById("unfullscreen-button").style.visibility = "visible";
-						document.getElementById("unfullscreen-button").style.top = "40px";
-						zoomin();
+						if (app.init())
+							play.resize();
 					});
 					document.getElementById("unfullscreen-button").addEventListener('click', function() {
 						document.getElementById("main-toolbar").style.visibility = "visible";
 						document.getElementById("unfullscreen-button").style.visibility = "hidden";
-						zoomout();
+						if (app.init())
+							play.resize();
 					});
 
 					// Stop sound at end of game to sanitize media environment, specifically on Android
