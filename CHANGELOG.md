@@ -54,6 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the ColorMyWorld activity #438
 - Add a tutorial to the FoodChain activity #436
 - Add a tutorial to the GridPaint activity #437
+- Add a tutorial to the Abecedarium activity #434
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -63,6 +64,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changing server URL at login need one more click now
 - ColorMyWorld language is now linked to core language
 - Use a real input field for password
+- Remove the two steps popup opening
+- Automatically shift popup menu to the left when it will override the right border
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
