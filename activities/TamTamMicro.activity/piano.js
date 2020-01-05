@@ -44,6 +44,7 @@ enyo.kind({
 	],
 
 	handlePlayNote: function(s) {
+		if(s.repeat) return;
 		var fromKeyPress = false;
 		if(s.type == "keydown") {
 			fromKeyPress = true;
