@@ -121,6 +121,12 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoSizeContent"),
 			},
 			{
+				element: "#deadCells-button",
+				placement: "bottom",
+				title: l10n.get("TutoDeadCellsTitle"),
+				content: l10n.get("TutoDeadCellsContent"),
+			},
+			{
 				element: "#random",
 				placement: "bottom",
 				title: l10n.get("TutoRandomTitle"),

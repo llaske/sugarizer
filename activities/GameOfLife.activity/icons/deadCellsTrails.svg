@@ -1,0 +1,37 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- This work is a derivative( different stroke and fill) of <a rel="license" href="https://www.svgrepo.com/svg/193504/visualization-grid">svgrepo's visualization grid vector</a> licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. -->
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <g id="svg_2">
+    <g id="svg_3">
+     <path stroke="#ffffff" fill="#ffffff" id="svg_4" d="m187.628,0l-143.921,0c-24.1,0 -43.707,19.607 -43.707,43.707l0,143.921c0,24.1 19.607,43.707 43.707,43.707l143.921,0c24.1,0 43.707,-19.607 43.707,-43.707l0,-143.921c0,-24.1 -19.607,-43.707 -43.707,-43.707z"/>
+     <path stroke="#ffffff" fill="#ffffff" id="svg_5" d="m468.293,0l-143.921,0c-24.1,0 -43.707,19.607 -43.707,43.707l0,143.921c0,24.1 19.607,43.707 43.707,43.707l143.921,0c24.1,0 43.707,-19.607 43.707,-43.707l0,-143.921c0,-24.1 -19.607,-43.707 -43.707,-43.707z"/>
+     <path stroke="#ffffff" fill="#ffffff" id="svg_6" d="m187.628,280.665l-143.921,0c-24.1,0 -43.707,19.607 -43.707,43.707l0,143.921c0,24.1 19.607,43.707 43.707,43.707l143.921,0c24.1,0 43.707,-19.607 43.707,-43.707l0,-143.921c0,-24.1 -19.607,-43.707 -43.707,-43.707z"/>
+     <path stroke="#ffffff" fill="#ffffff" id="svg_7" d="m468.293,280.665l-143.921,0c-24.1,0 -43.707,19.607 -43.707,43.707l0,143.921c0,24.1 19.607,43.707 43.707,43.707l143.921,0c24.1,0 43.707,-19.607 43.707,-43.707l0,-143.921c0,-24.1 -19.607,-43.707 -43.707,-43.707z"/>
+    </g>
+   </g>
+  </g>
+  <g id="svg_8"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <g id="svg_11"/>
+  <g id="svg_12"/>
+  <g id="svg_13"/>
+  <g id="svg_14"/>
+  <g id="svg_15"/>
+  <g id="svg_16"/>
+  <g id="svg_17"/>
+  <g id="svg_18"/>
+  <g id="svg_19"/>
+  <g id="svg_20"/>
+  <g id="svg_21"/>
+  <g id="svg_22"/>
+ </g>
+</svg>

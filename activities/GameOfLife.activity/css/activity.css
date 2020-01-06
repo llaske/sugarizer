@@ -16,6 +16,10 @@
   background-image: url(../icons/grid-size.svg);
 }
 
+#main-toolbar #deadCells-button {
+  background-image: url(../icons/deadCellsTrails.svg);
+}
+
 #main-toolbar #random {
   background-image: url(../icons/random.svg);
 }
