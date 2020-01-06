@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:15:18 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2020-01-06 14:17+0000\n"
-"Last-Translator: Davide Costa <davide@sardu.pro>\n"
+"PO-Revision-Date: 2020-01-06 14:22+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Italian <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-colormyworld/it/>\n"
 "Language: it\n"
@@ -23,12 +23,12 @@ msgstr "Colorare il Mio Mondo!"
 #: appname.title
 msgctxt "appname.title"
 msgid "ColorMyWorld"
-msgstr "Colorare il Mio Mondo"
+msgstr "Colora il Mio Mondo!"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Il_prossimo"
+msgstr "Avanti"
 
 #: Nations
 msgctxt "Nations"
@@ -83,7 +83,7 @@ msgstr "Nazioni_Insulari"
 #: Australia_Region
 msgctxt "Australia_Region"
 msgid "Australia_Region"
-msgstr "Australia_Regione"
+msgstr "Regione Australiana"
 
 #: Antarctica_Region
 msgctxt "Antarctica_Region"
