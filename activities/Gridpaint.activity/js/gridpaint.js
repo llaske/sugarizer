@@ -104,8 +104,8 @@ function handleEnd(e){
 
 
 function handleButton(y){
-	if(y>650) selectorMode(true);
-	var b = Math.floor((y-20)/70);
+	if(y>50 & y<100) selectorMode(true);
+	var b = Math.floor((y-110)/70);
 	if(b<0) return;
 	if(b>=cnames.length) return;
 	bselected = b;
@@ -197,7 +197,7 @@ function drawButtons(){
 function drawButton(ctx, n, c){
 	ctx.fillStyle = cnames[n]; 
 	ctx.lineWidth = (n==bselected)?4:2;
-	roundRectPath(ctx, 10,30+70*n,30,30);
+	roundRectPath(ctx, 10,110+70*n,30,30);
 	ctx.fill();
   ctx.stroke();
 }
@@ -217,10 +217,11 @@ function roundRectPath(ctx, x, y, w, h){
 }
 
 function drawSaveButton(ctx){
-	ctx.fillStyle = 'green'; 
-	ctx.lineWidth = 3;
+	var image=document.getElementById("back")
+	var pat = ctx.createPattern(image, "no-repeat");
+	ctx.fillStyle = pat; 
 	ctx.beginPath();
-	ctx.arc(25,690,15,0,359.2*Math.PI-.001);
+	ctx.fillRect(0, 25, 55, 55);
 	ctx.fill();
   ctx.stroke();
 }
