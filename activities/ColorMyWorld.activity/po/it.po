@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:15:18 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2020-01-06 14:22+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2020-01-06 14:47+0000\n"
+"Last-Translator: Davide Costa <davide@sardu.pro>\n"
 "Language-Team: Italian <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-colormyworld/it/>\n"
 "Language: it\n"
@@ -23,7 +23,7 @@ msgstr "Colorare il Mio Mondo!"
 #: appname.title
 msgctxt "appname.title"
 msgid "ColorMyWorld"
-msgstr "Colora il Mio Mondo!"
+msgstr "Colora il Mio Mondo"
 
 #: Next
 msgctxt "Next"
@@ -68,12 +68,12 @@ msgstr "Nord_America_Nazioni"
 #: Central_American_Nations
 msgctxt "Central_American_Nations"
 msgid "Central_American_Nations"
-msgstr "Central_America"
+msgstr "America_Centrale_Nazioni"
 
 #: South_American_Nations
 msgctxt "South_American_Nations"
 msgid "South_American_Nations"
-msgstr "Nazioni_Sudamericane"
+msgstr "Nazioni_SudAmericane"
 
 #: Island_Nations
 msgctxt "Island_Nations"
@@ -323,7 +323,7 @@ msgstr "Repubblica_Democratica_del_Congo"
 #: Macau
 msgctxt "Macau"
 msgid "Macau"
-msgstr "Macau"
+msgstr "Macao"
 
 #: Burundi
 msgctxt "Burundi"
@@ -338,12 +338,12 @@ msgstr "Cina"
 #: Afghanistan
 msgctxt "Afghanistan"
 msgid "Afghanistan"
-msgstr "afghanistan"
+msgstr "Afghanistan"
 
 #: Cape_Verde
 msgctxt "Cape_Verde"
 msgid "Cape_Verde"
-msgstr "capo_Verde"
+msgstr "Capo_Verde"
 
 #: Monaco
 msgctxt "Monaco"
@@ -358,7 +358,7 @@ msgstr "Bhutan"
 #: Chile
 msgctxt "Chile"
 msgid "Chile"
-msgstr "Chile"
+msgstr "Cile"
 
 #: Cayman_Islands
 msgctxt "Cayman_Islands"
@@ -373,7 +373,7 @@ msgstr "Camerun"
 #: Chad
 msgctxt "Chad"
 msgid "Chad"
-msgstr "Chad"
+msgstr "Ciad"
 
 #: Costa_Rica
 msgctxt "Costa_Rica"
@@ -408,7 +408,7 @@ msgstr "Danimarca"
 #: Djibouti
 msgctxt "Djibouti"
 msgid "Djibouti"
-msgstr "Djibouti"
+msgstr "Gibuti"
 
 #: Dominica
 msgctxt "Dominica"
@@ -428,7 +428,7 @@ msgstr "Estonia"
 #: Eritrea
 msgctxt "Eritrea"
 msgid "Eritrea"
-msgstr "L'Eritrea"
+msgstr "Eritrea"
 
 #: Dominican_Republic
 msgctxt "Dominican_Republic"
@@ -513,7 +513,7 @@ msgstr "Isole_Falkland_(Malvinas)"
 #: Thailand
 msgctxt "Thailand"
 msgid "Thailand"
-msgstr "Tailandia"
+msgstr "Thailandia"
 
 #: Tajikistan
 msgctxt "Tajikistan"
@@ -543,7 +543,7 @@ msgstr "Kuwait"
 #: Kazakhstan
 msgctxt "Kazakhstan"
 msgid "Kazakhstan"
-msgstr "Kazakhstan"
+msgstr "Kazakistan"
 
 #: Laos
 msgctxt "Laos"
@@ -668,7 +668,7 @@ msgstr "India"
 #: Iran
 msgctxt "Iran"
 msgid "Iran"
-msgstr "Ho_corso"
+msgstr "Iran"
 
 #: Mongolia
 msgctxt "Mongolia"
@@ -708,7 +708,7 @@ msgstr "Giamaica"
 #: Kenya
 msgctxt "Kenya"
 msgid "Kenya"
-msgstr "Kenia"
+msgstr "Kenya"
 
 #: Kyrgyzstan
 msgctxt "Kyrgyzstan"
@@ -803,7 +803,7 @@ msgstr "Messico"
 #: Malaysia
 msgctxt "Malaysia"
 msgid "Malaysia"
-msgstr "Malaysia"
+msgstr "Malesia"
 
 #: Mozambique
 msgctxt "Mozambique"
@@ -903,7 +903,7 @@ msgstr "Nauru"
 #: Norfolk_Island
 msgctxt "Norfolk_Island"
 msgid "Norfolk_Island"
-msgstr "Norfolk_Island"
+msgstr "Isola_Norfolk"
 
 #: Cocos_Islands
 msgctxt "Cocos_Islands"
@@ -1003,7 +1003,7 @@ msgstr "Romania"
 #: Puerto_Rico
 msgctxt "Puerto_Rico"
 msgid "Puerto_Rico"
-msgstr "Puerto_Rico"
+msgstr "Porto_Rico"
 
 #: Russia
 msgctxt "Russia"
@@ -1138,7 +1138,7 @@ msgstr "Tanzania"
 #: Togo
 msgctxt "Togo"
 msgid "Togo"
-msgstr "Andare"
+msgstr "Togo"
 
 #: Sao_Tome_and_Principe
 msgctxt "Sao_Tome_and_Principe"
@@ -1153,7 +1153,7 @@ msgstr "Tunisia"
 #: Turkey
 msgctxt "Turkey"
 msgid "Turkey"
-msgstr "tacchino"
+msgstr "Turchia"
 
 #: British_Virgin_Islands
 msgctxt "British_Virgin_Islands"
@@ -1163,7 +1163,7 @@ msgstr "Isole_Vergini_Britanniche"
 #: Viet_Nam
 msgctxt "Viet_Nam"
 msgid "Viet_Nam"
-msgstr "Viet_Nam"
+msgstr "Vietnam"
 
 #: Uganda
 msgctxt "Uganda"
@@ -1183,7 +1183,7 @@ msgstr "Ucraina"
 #: United_States
 msgctxt "United_States"
 msgid "United_States"
-msgstr "stati_Uniti"
+msgstr "Stati_Uniti"
 
 #: Burkina_Faso
 msgctxt "Burkina_Faso"
@@ -1238,7 +1238,7 @@ msgstr "Swaziland"
 #: Yemen
 msgctxt "Yemen"
 msgid "Yemen"
-msgstr "yemen"
+msgstr "Yemen"
 
 #: Zambia
 msgctxt "Zambia"
@@ -1298,7 +1298,7 @@ msgstr "Isole_Marshall"
 #: Saint_Helena
 msgctxt "Saint_Helena"
 msgid "Saint_Helena"
-msgstr "Santa_Helena"
+msgstr "Sant_Elena"
 
 #: San_Marino
 msgctxt "San_Marino"
@@ -1313,7 +1313,7 @@ msgstr "Isole_Turks_e_Caicos"
 #: Western_Sahara
 msgctxt "Western_Sahara"
 msgid "Western_Sahara"
-msgstr "Sahara_occidentale"
+msgstr "Sahara_Occidentale"
 
 #: Serbia
 msgctxt "Serbia"
@@ -1338,17 +1338,17 @@ msgstr "San_Martin"
 #: Saint_Barthelemy
 msgctxt "Saint_Barthelemy"
 msgid "Saint_Barthelemy"
-msgstr "saint_Barthelemy"
+msgstr "Saint_Barthelemy"
 
 #: Guernsey
 msgctxt "Guernsey"
 msgid "Guernsey"
-msgstr "maglione"
+msgstr "Guernsey"
 
 #: Jersey
 msgctxt "Jersey"
 msgid "Jersey"
-msgstr "maglia"
+msgstr "Jersey"
 
 #: South_Georgia_South_Sandwich_Islands
 msgctxt "South_Georgia_South_Sandwich_Islands"
