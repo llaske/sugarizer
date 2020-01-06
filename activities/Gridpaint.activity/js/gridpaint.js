@@ -187,7 +187,7 @@ function shapePath(n, ctx, shift){
 
 function drawButtons(){
 	var ctx = cnv.getContext('2d');
-	ctx.fillStyle = '#f0f0f0';
+	ctx.fillStyle = '#d0d0d0';
 	ctx.fillRect(0, 0, 120, 700);
 	ctx.strokeStyle = '#505050'; 
 	for(var i=0;i<cnames.length;i++) drawButton(ctx, i);

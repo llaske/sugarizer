@@ -5,7 +5,7 @@ body {
 }
 
 div.frame {
- background: #f0f0f0;
+ background: #d0d0d0;
  margin: 0 auto;
  position: relative;
  width: 1024px;
@@ -18,8 +18,7 @@ div.frame {
  height: 100%;
  display: inline-flex;
  justify-content: center;
- background: #f0f0f0;
- overflow-y: scroll;
+ background: #c0c0c0;
 }
 
 #canvas {
