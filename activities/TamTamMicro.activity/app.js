@@ -47,14 +47,14 @@ enyo.kind({
 
 		// Remove items
 		var items = [];
-        enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
+		enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
 
-        for (var i = 0; i < collections.length; i++) {
-            collections[i].destroy();
-        }
+		for (var i = 0; i < collections.length; i++) {
+			collections[i].destroy();
+		}
 		for (var i = 0; i < items.length; i++) {
-            items[i].destroy();
-        }
+			items[i].destroy();
+		}
 
 		if(pianoMode) {
 			document.getElementById("body").style.backgroundColor = '#ffffff';
@@ -64,8 +64,8 @@ enyo.kind({
 				var item = this.$.items.createComponent(
 					{ kind: "TamTam.Item", name: currentPianoMode},
 					{ owner: this }
-                ).render();
-                item.applyStyle("background-color", this.userColor.stroke);
+				).render();
+				item.applyStyle("background-color", this.userColor.stroke);
 				item.render();
 			}
 
