@@ -42,14 +42,20 @@ enyo.kind({
 	// Draw screen
 	draw: function() {
 		// Remove collections
-		var items = [];
-		enyo.forEach(this.$.collections.getControls(), function(item) { items.push(item); });
-		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
+		var collections = [];
+		enyo.forEach(this.$.collections.getControls(), function(item) { collections.push(item); });
 
 		// Remove items
 		var items = [];
-		enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
-		for (var i = 0 ; i < items.length ; i++) { items[i].destroy();	}
+        enyo.forEach(this.$.items.getControls(), function(item) { items.push(item); });
+
+        for (var i = 0; i < collections.length; i++) {
+            collections[i].destroy();
+        }
+		for (var i = 0; i < items.length; i++) {
+            items[i].destroy();
+        }
+
 		if(pianoMode) {
 			document.getElementById("body").style.backgroundColor = '#ffffff';
 			this.$.collections.applyStyle("background-color", '#ffffff');
