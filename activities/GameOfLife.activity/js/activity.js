@@ -40,7 +40,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
       blankPattern = patterns[3];
 
   var target = document.querySelector('.main canvas');
-  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', '#c8cfbc', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
+  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', '#57595D', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
 
   var genSpeedButton = document.getElementById("speed-button");
   var genSpeedButtonPallete = new genSpeedPalette.ActivityPalette(
