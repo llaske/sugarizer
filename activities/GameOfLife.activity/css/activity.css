@@ -20,6 +20,12 @@
   background-image: url(../icons/deadCellsTrails.svg);
 }
 
+@media screen and (max-width: 705px) {
+  .toolbar {
+    padding-left: 10px;
+  }
+}
+
 #main-toolbar #random {
   background-image: url(../icons/random.svg);
 }
