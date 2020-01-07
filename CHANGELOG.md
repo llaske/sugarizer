@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the FoodChain activity #436
 - Add a tutorial to the GridPaint activity #437
 - Add a tutorial to the Abecedarium activity #434
+- Add dead cells in Game of life activity #379
 
 ### Changed
 - Double size of Record images in WebApp and electron App
