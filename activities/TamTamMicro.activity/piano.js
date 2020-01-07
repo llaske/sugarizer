@@ -102,13 +102,16 @@ enyo.kind({
 		player.autostart = true;
 	},
 	
+	handlePlayNoteListener: function(event) {
+		that.handlePlayNote(event);
+	},
+
 	create: function() {
 		this.inherited(arguments);
 		this.collection = 0;
 		var that = this;
-		document.addEventListener('keydown', function(event) {
-			that.handlePlayNote(event);
-		});
+
+		document.addEventListener('keydown', that.handlePlayNoteListener);
 		return;
 	},
 
@@ -124,8 +127,6 @@ enyo.kind({
 	destroy: function () {
 		var that = this;
 		that.inherited(arguments);
-		document.removeEventListener('keydown', function(event) {
-			that.handlePlayNote(event);
-		});
+		document.removeEventListener('keydown', that.handlePlayNoteListener);
 	}
 });
