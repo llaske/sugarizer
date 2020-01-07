@@ -58,7 +58,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		});
 		
 		document.getElementById("keyboard").addEventListener('click', function() {
-			app.draw();
+			app.update();
 		})
 	});
 
