@@ -243,15 +243,21 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.textTimeElem.style.display = "none";
             }
 
-            this.updateSizes();
+            if (this.setTime) {
+              this.writeTimeInSetTime();
+            }
+            else {
+              this.updateSizes();
 
-            var date = new Date();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-            this.displayTime(hours, minutes, seconds);
+              var date = new Date();
+              var hours = date.getHours();
+              var minutes = date.getMinutes();
+              var seconds = date.getSeconds();
+              this.displayTime(hours, minutes, seconds);
 
-            this.drawBackground();
+              this.drawBackground();
+            }
+
         }
 
         Clock.prototype.changeWriteDate = function (writeDate) {
@@ -815,13 +821,24 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         }
 
-        clock.clockCanvasElem.onmousedown = handleOnMouseDown;
-        clock.clockCanvasElem.onmouseup = handleOnMouseUp;
-        clock.clockCanvasElem.onmousemove = handleOnMouseMove;
+        var touchScreen = ("ontouchstart" in document.documentElement);
+        if (touchScreen) {
+          clock.clockCanvasElem.addEventListener('touchstart', handleOnMouseDown, false);
+          clock.clockCanvasElem.addEventListener('touchend', handleOnMouseUp, false);
+          clock.clockCanvasElem.addEventListener('touchmove', handleOnMouseMove, false);
+
+        }
+        else {
+          clock.clockCanvasElem.onmousedown = handleOnMouseDown;
+          clock.clockCanvasElem.onmouseup = handleOnMouseUp;
+          clock.clockCanvasElem.onmousemove = handleOnMouseMove;
+        }
 
         function handleOnMouseDown(e){
           var handNames = ['hours', 'minutes', 'seconds'];
           var tempPos = [0.400,0.607,0.8125];
+
+          if (touchScreen) e = e.touches[0];
 
           for(var i=0;i<3;i++){
             var name = handNames[i];
@@ -829,8 +846,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             let tempX = clock.centerX + clock.handSizes[name] * tempPos[i] * Math.sin(clock.handAngles[name]);
             let tempY = clock.centerY - clock.handSizes[name] * tempPos[i] * Math.cos(clock.handAngles[name]);
             const rect = clock.clockCanvasElem.getBoundingClientRect();
-            const canvasX = event.clientX - rect.left;
-            const canvasY = event.clientY - rect.top;
+            const canvasX = e.clientX - rect.left;
+            const canvasY = e.clientY - rect.top;
+            clock.canvasX = canvasX;
+            clock.canvasY = canvasY;
             let dist = Math.sqrt(Math.pow(tempX - canvasX, 2) + Math.pow(tempY - canvasY, 2));
 
             if (dist <= tempRadius){
@@ -851,10 +870,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         }
 
         function handleOnMouseMove(e) {
+          if (touchScreen) e = e.touches[0];
           const rect = clock.clockCanvasElem.getBoundingClientRect();
           const canvasX = e.clientX - rect.left;
           const canvasY = e.clientY - rect.top;
-
           clock.canvasX = canvasX;
           clock.canvasY = canvasY;
 
