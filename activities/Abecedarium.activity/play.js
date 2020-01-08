@@ -301,6 +301,8 @@ enyo.kind({
 	// Check taped
 	checkTaped: function() {
 		this.forbidentry = true;
+		if (this.playing != null)
+			this.playing.abort();		
 		if (this.selected == null) {
 			Abcd.sound.play("audio/disappointed");
 			this.selected = this.from;
