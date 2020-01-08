@@ -12,6 +12,10 @@ enyo.kind({
 			]}
 		]}
 	],
+	openItems: {},
+	handlers: {
+		onSelectionChange: "updateItem",
+	},
 
 	// Constructor
 	create: function() {
@@ -90,14 +94,18 @@ enyo.kind({
 			var collection = TamTam.collections[this.collection];
 			var len = collection.content.length;
 			for(var i = 0 ; i < len ; i++ ) {
-				var item = this.$.items.createComponent(
+				this.openItems[collection.content[i]] = this.$.items.createComponent(
 					{ kind: "TamTam.Item", name: collection.content[i] },
 					{ owner: this }
 				);
-				item.applyStyle("background-color", this.userColor.stroke);
-				item.render();
+				this.openItems[collection.content[i]].applyStyle("background-color", this.userColor.stroke);
+				this.openItems[collection.content[i]].render();
 			}
 		}
+	},
+	
+	updateItem: function(sender, event) {
+		this.openItems[event.toChange].deselect();
 	},
 
 	// Handle event

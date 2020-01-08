@@ -7,6 +7,9 @@ enyo.kind({
 	components: [
 		{ name: "itemImage", classes: "itemImage", kind: "Image", ontap: "play" }
 	],
+	events: {
+		onSelectionChange:""
+	},
 	
 	// Constructor
 	create: function() {
@@ -24,10 +27,15 @@ enyo.kind({
 		}
 	},
 	
+	deselect: function() {
+		this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+	},
+	
 	// Play sound using the media
 	play: function() {
+		this.doSelectionChange({toChange: currentPianoMode});
 		currentPianoMode = this.name;
-		this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
+		this.nameChanged();
 		if (this.name != null) {
 			this.sound = "audio/database/"+this.name;
 			sound.play(this);
