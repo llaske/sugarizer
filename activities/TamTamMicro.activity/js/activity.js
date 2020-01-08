@@ -1,5 +1,6 @@
 var app;
 var sound;
+var pianoMode = false;
 
 define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
 
@@ -51,6 +52,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			sound.pause();
 		});
+		
+		document.getElementById("piano-button").addEventListener('click', function (event) {
+			app.changePianoMode();
+		});
+		
+		document.getElementById("keyboard").addEventListener('click', function() {
+			app.draw();
+		})
 	});
 
 });

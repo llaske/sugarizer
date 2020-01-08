@@ -2,6 +2,10 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #piano-button {
+    background-image: url(../icons/piano-icon.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
