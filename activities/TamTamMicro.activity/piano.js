@@ -110,8 +110,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.collection = 0;
 		var that = this;
-
-		document.addEventListener('keydown', that.handlePlayNoteListener.bind(that));
+		that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
+		document.addEventListener('keydown', that.handlePlayNoteListener, false);
 		return;
 	},
 
@@ -127,6 +127,6 @@ enyo.kind({
 	destroy: function () {
 		var that = this;
 		that.inherited(arguments);
-		document.removeEventListener('keydown', that.handlePlayNoteListener.bind(that));
+		document.removeEventListener('keydown', that.handlePlayNoteListener, false);
 	}
 });
