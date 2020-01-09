@@ -47,8 +47,8 @@ define(["webL10n"], function (l10n) {
 				{
 					element: "#piano-button",
 					placement: "bottom",
-					title: l10n.get("TutoPianoTitle"),
-					content: l10n.get("TutoPianoContent")
+					title: l10n.get("TutoPianoInfoTitle"),
+					content: l10n.get("TutoPianoInfoContent")
 				}
 			]
 		}
