@@ -57,9 +57,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 			app.changePianoMode();
 		});
 		
-		document.getElementById("keyboard").addEventListener('click', function() {
-			app.draw();
-		})
 	});
 
 });
