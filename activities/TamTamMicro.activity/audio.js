@@ -205,9 +205,6 @@ enyo.kind({
 
 	// Play a sound
 	play: function(soundObject, loop) {
-		if (this.soundObject) {
-			this.soundObject.abort();
-		}
 		this.soundObject = soundObject;
 		if (this.format == null)
 			return;

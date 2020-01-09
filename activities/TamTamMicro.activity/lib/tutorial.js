@@ -1,28 +1,58 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 	tutorial.start = function() {
-		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#app_items",
-				placement: "top",
-				title: l10n.get("TutoSoundsTitle"),
-				content: l10n.get("TutoSoundsContent")
-			},
-			{
-				element: "#app_collections",
-				placement: "bottom",
-				title: l10n.get("TutoFilterTitle"),
-				content: l10n.get("TutoFilterContent")
-			}
+		steps = [];
+		if(pianoMode) {
+			steps = [
+				{
+					element:"#app_"+currentPianoMode,
+					placement: "bottom",
+					title: l10n.get("TutoCurrentModeTitle"),
+					content: l10n.get("TutoCurrentModeContent")
+				},
+				{
+					element:"#"+document.querySelectorAll(".container")[0].id,
+					placement:"top",
+					title: l10n.get("TutoPianoTitle"),
+					content: l10n.get("TutoPianoContent")
+				},
+				{
+					element: "#piano-button",
+					placement:"bottom",
+					title: l10n.get("TutoPianoButtonTitle"),
+					content: l10n.get("TutoPianoButtonContent")
+				}
+			]
+		} else {
+			steps = [
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: l10n.get("TutoExplainTitle"),
+					content: l10n.get("TutoExplainContent")
+				},
+				{
+					element: "#app_items",
+					placement: "top",
+					title: l10n.get("TutoSoundsTitle"),
+					content: l10n.get("TutoSoundsContent")
+				},
+				{
+					element: "#app_collections",
+					placement: "bottom",
+					title: l10n.get("TutoFilterTitle"),
+					content: l10n.get("TutoFilterContent")
+				},
+				{
+					element: "#piano-button",
+					placement: "bottom",
+					title: l10n.get("TutoPianoInfoTitle"),
+					content: l10n.get("TutoPianoInfoContent")
+				}
+			]
+		}
 
-		];
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\

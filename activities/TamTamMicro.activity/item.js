@@ -7,6 +7,9 @@ enyo.kind({
 	components: [
 		{ name: "itemImage", classes: "itemImage", kind: "Image", ontap: "play" }
 	],
+	events: {
+		onSelectionChange:""
+	},
 	
 	// Constructor
 	create: function() {
@@ -17,24 +20,27 @@ enyo.kind({
 	
 	// Item setup
 	nameChanged: function() {
-		this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+		if(currentPianoMode === this.name) {
+			this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
+		} else {
+			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+		}
+	},
+	
+	deselect: function() {
+		if(this.$.itemImage !== undefined) {
+			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+		}
 	},
 	
 	// Play sound using the media
 	play: function() {
-		this.$.itemImage.setAttribute("src", "images/database/"+this.name+"sel.png");
+		this.doSelectionChange({toChange: currentPianoMode});
+		currentPianoMode = this.name;
+		this.nameChanged();
 		if (this.name != null) {
 			this.sound = "audio/database/"+this.name;
 			sound.play(this);
 		}
 	},
-	
-	endofsound: function() {
-		if (this.$.itemImage)
-			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
-	},
-
-	abort: function() {
-		this.endofsound();
-	}	
 });
