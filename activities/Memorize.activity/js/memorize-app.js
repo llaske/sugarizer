@@ -188,7 +188,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             initUI: initUI,
             drawGame: drawGame,
             onUsersListChanged: onUsersListChanged,
-            onDataReceived: onDataReceived
+            onDataReceived: onDataReceived,
+            sendMessage: sendMessage,
         };
 
         function shuffle(array) {
