@@ -105,14 +105,8 @@ enyo.kind({
 	},
 	
 	updateItem: function(sender, event) {
-		try {
+		if(this.openItems[event.toChange] !== undefined) {
 			this.openItems[event.toChange].deselect();
-		} catch (e) {
-			if(e instanceof TypeError) {
-				return;
-			} else {
-				throw e;
-			}
 		}
 	},
 
