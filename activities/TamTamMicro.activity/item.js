@@ -28,7 +28,9 @@ enyo.kind({
 	},
 	
 	deselect: function() {
-		this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+		if(this.$.itemImage !== undefined) {
+			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
+		}
 	},
 	
 	// Play sound using the media
