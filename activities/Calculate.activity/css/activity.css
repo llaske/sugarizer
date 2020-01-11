@@ -77,6 +77,7 @@ textarea {
 }
 .result {
   font-size: 300% !important;
+  margin-bottom: 5px;
 }
 #label-input {
   padding-top:3px !important;
@@ -232,7 +233,7 @@ textarea {
   border: 2px solid #808080;
 }
 
-@media only screen and (min-width:760px) {
+@media only screen and (min-width:780px) {
   #output-digits-palette {
     display: inline-block !important;
   }
@@ -251,7 +252,7 @@ textarea {
     visibility: hidden;
   }
 }
-@media only screen and (min-width:760px) {
+@media only screen and (min-width:770px) {
   .calcbutton {
     height: 100px;
   }
@@ -261,6 +262,7 @@ textarea {
   #results-zone {
     overflow-y: scroll;
   }
+
 }
 @media only screen and (min-width:1000px) {
   .calcbutton {
