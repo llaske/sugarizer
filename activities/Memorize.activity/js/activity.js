@@ -116,7 +116,7 @@ function generateXOLogoWithColor(color) {
     return "data:image/svg+xml;base64," + btoa(coloredLogo);
 }
 
-var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memorizeApp){
+var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memorizeApp,sharedId){
     var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
     var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
     if (msg.move === 1) {
@@ -125,7 +125,6 @@ var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memori
         humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
     }
     var content={action: "updateGame", game: memorizeApp.game};
-    var sharedId = window.top.sugar.environment.sharedId;
     if (isHost) {
         console.log('message sent');
         presence.sendMessage(sharedId,{user: presence.getUserInfo(),content: content});
@@ -169,11 +168,12 @@ function shareActivity(activity, presence, memorizeApp, isHost, humane, webL10n)
     memorizeApp.shareActivity(isHost);
 
     var userSettings = presence.getUserInfo();
-
+    var sharedId;
     // Not found, create a new shared activity
     if (!window.top.sugar.environment.sharedId) {
         presence.createSharedActivity('org.olpcfrance.MemorizeActivity', function (groupId) {
             //console.log(groupId)
+            sharedId=presence.getSharedInfo().id;
         });
     }
 
@@ -184,12 +184,12 @@ function shareActivity(activity, presence, memorizeApp, isHost, humane, webL10n)
     });
 
     presence.onSharedActivityUserChanged( function(msg){
-        onNetworkUserChanged(msg,humane,webL10n,isHost,presence,memorizeApp);
+        onNetworkUserChanged(msg,humane,webL10n,isHost,presence,memorizeApp,sharedId);
     });
 
     presence.onDataReceived(function (data) {
-        memorizeApp.onDataReceived(data);
         console.log('message delivered');
+        memorizeApp.onDataReceived(data);
     });
 
     presence.listUsers(function (users) {
