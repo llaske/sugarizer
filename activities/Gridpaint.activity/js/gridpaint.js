@@ -125,7 +125,7 @@ if (useragent.indexOf('chrome') == -1) {
 		hitbuffer.style.visibility = 'hidden';
 		var ctx = hitbuffer.getContext('2d');
 		ctx.save();
-		ctx.translate(210, 30);
+		ctx.translate(220, 30);
 		ctx.scale(scale, scale);
 		for(var i=0;i<shapes.length;i++){	
 			var low = hexdigit(i&0xf);
