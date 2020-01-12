@@ -1,6 +1,6 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', 'webL10n', 'activity/memorize-app', "humane"], function (doc, activity, presencePalette, env, webL10n, memorizeApp, humane) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', 'webL10n', 'activity/memorize-app', "humane", "activity/lz-string"], function (doc, activity, presencePalette, env, webL10n, memorizeApp, humane, lzString) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
@@ -20,11 +20,11 @@ define(function (require) {
 
         if (window.top.sugar.environment.sharedId) {
             memorizeApp.initUI(function () {
-                initPresence(memorizeApp.activity, memorizeApp, presencePalette, humane, webL10n);
+                initPresence(memorizeApp.activity, memorizeApp, presencePalette, humane, webL10n, lzString);
             })
         } else {
             memorizeApp.initUI(function () {
-                initPresence(memorizeApp.activity, memorizeApp, presencePalette, humane, webL10n);
+                initPresence(memorizeApp.activity, memorizeApp, presencePalette, humane, webL10n, lzString);
                 memorizeApp.computeCards(true);
                 memorizeApp.drawGame();
                 loadData(memorizeApp.activity, memorizeApp, function () {
@@ -116,7 +116,7 @@ function generateXOLogoWithColor(color) {
     return "data:image/svg+xml;base64," + btoa(coloredLogo);
 }
 
-var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memorizeApp,sharedId){
+var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memorizeApp, sharedId, lzString){
     var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
     var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
     if (msg.move === 1) {
@@ -127,7 +127,7 @@ var onNetworkUserChanged=function(msg, humane, webL10n, isHost, presence, memori
     var content={action: "updateGame", game: memorizeApp.game};
     if (isHost) {
         console.log('message sent');
-        presence.sendMessage(sharedId,{user: presence.getUserInfo(),content: content});
+        presence.sendMessage(sharedId,{user: presence.getUserInfo(),content: lzString.compressToUTF16(JSON.stringify(content))});
     }
 }
 
@@ -136,7 +136,7 @@ var onUsersListChanged = function (callback) {
     onUsersListChangedCallback = callback;
 };
 
-function initPresence(activity, memorizeApp, presencepalette, humane, webL10n, callback) {
+function initPresence(activity, memorizeApp, presencepalette, humane, webL10n, lzString, callback) {
     activity.getPresenceObject(function (error, presence) {
         memorizeApp.presence = presence;
         var networkButton = document.getElementById("network-button");
@@ -148,12 +148,12 @@ function initPresence(activity, memorizeApp, presencepalette, humane, webL10n, c
 
         // Launched with a shared id, activity is already shared
         if (window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.sharedId) {
-            shareActivity(activity, presence, memorizeApp, false, humane, webL10n);
+            shareActivity(activity, presence, memorizeApp, false, humane, webL10n, lzString);
             presencePalette.setShared(true);
         } else {
             presencePalette.addEventListener('shared', function () {
                 presencePalette.popDown();
-                shareActivity(activity, presence, memorizeApp, true, humane, webL10n);
+                shareActivity(activity, presence, memorizeApp, true, humane, webL10n, lzString);
             });
         }
 
@@ -163,7 +163,7 @@ function initPresence(activity, memorizeApp, presencepalette, humane, webL10n, c
     });
 }
 
-function shareActivity(activity, presence, memorizeApp, isHost, humane, webL10n) {
+function shareActivity(activity, presence, memorizeApp, isHost, humane, webL10n, lzString) {
 
     memorizeApp.shareActivity(isHost);
 
@@ -184,7 +184,7 @@ function shareActivity(activity, presence, memorizeApp, isHost, humane, webL10n)
     });
 
     presence.onSharedActivityUserChanged( function(msg){
-        onNetworkUserChanged(msg,humane,webL10n,isHost,presence,memorizeApp,sharedId);
+        onNetworkUserChanged(msg,humane,webL10n,isHost,presence,memorizeApp,sharedId,lzString);
     });
 
     presence.onDataReceived(function (data) {
