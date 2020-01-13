@@ -124,8 +124,16 @@ if (useragent.indexOf('chrome') == -1) {
 	function hittestInit(){
 		hitbuffer.style.visibility = 'hidden';
 		var ctx = hitbuffer.getContext('2d');
+		var winwidth = document.body.clientWidth;
 		ctx.save();
-		ctx.translate(220, 38);
+		if (winwidth < "1024px")
+			ctx.translate(190,38)
+		else if (winwidth < "1280px" & winwidth > "1140px")
+			ctx.translate(200,38)
+		else if (winwidth < "1140px" & winwidth > "1024px")
+			ctx.translate(210,38)
+		else
+			ctx.translate(220,38)
 		ctx.scale(scale, scale);
 		for(var i=0;i<shapes.length;i++){	
 			var low = hexdigit(i&0xf);
