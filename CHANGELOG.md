@@ -54,6 +54,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the ColorMyWorld activity #438
 - Add a tutorial to the FoodChain activity #436
 - Add a tutorial to the GridPaint activity #437
+- Add a tutorial to the Abecedarium activity #434
+- Add dead cells in Game of life activity #379
+- Add a set time mode to the Clock activity #387
+- Add a synth keyboard mode in TamTam Micro activity #389 
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -63,6 +67,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changing server URL at login need one more click now
 - ColorMyWorld language is now linked to core language
 - Use a real input field for password
+- Remove the two steps popup opening
+- Automatically shift popup menu to the left when it will override the right border
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -80,6 +86,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Make responsive the toolbar in Physics activity #516
 - Horizontal scrollbar appears in the Write activity #538
 - Handle window resize in TankOp activity during play #404
+- Resize function gives error in TankOp Activity #549
 
 
 ## [1.2.0] - 2019-09-26
