@@ -239,8 +239,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                         "</div>" + 
                         "</div>" +
                         "<div>" +
-                        "<button class='cancel-changes warningbox-cancel-button'><img src='icons/dialog-cancel.svg' style='width: 20px; height: 20px;'> Cancel Changes</button> " +
-                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 20px;'> Continue</button>" +
+                        "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " +  _("Cancel changes") + "</button> " +
+                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ _("Continue") + "</button>" +
                         "</div>",
                     closeButton: false,
                     modalStyles: {

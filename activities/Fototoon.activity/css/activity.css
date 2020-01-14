@@ -405,12 +405,20 @@ background-size: 100% 1.2em;
       right: 240px;
       width: 210px;
       float:right;
-  }
-  .warningbox-refresh-button {
-    position: absolute;
-    right: 10px;
-    width: 210px;
-    float: right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+    }
+    .warningbox-refresh-button {
+      position: absolute;
+      right: 10px;
+      width: 210px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
   }
   
 }
@@ -419,14 +427,20 @@ background-size: 100% 1.2em;
     .warningbox-cancel-button {
 	    position: absolute;
       right: 170px;
-      width: 140px;
+      width: 160px;
       float: right;
+      text-align: left;
+      padding-left: 10px;
+      font-size:15px;
   }
   .warningbox-refresh-button {
     position: absolute;
     right: 10px;
     width: 140px;
     float: right;
+    text-align: left;
+    padding-left: 10px;
+    font-size:15px;
   }
   
 }
