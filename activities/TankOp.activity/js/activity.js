@@ -1,7 +1,7 @@
 var app = null;
 var l10n;
 var preferences;
-var play;
+var play = null;
 var sound;
 var mouse = {};
 
@@ -38,18 +38,28 @@ define(["sugar-web/activity/activity"], function (activity) {
 					app.load();
 					app.renderInto(document.getElementById("board"));
 
-					play= new TankOp.Play();
 					// Full screen
 					document.getElementById("fullscreen-button").addEventListener('click', function() {
 						document.getElementById("main-toolbar").style.visibility = "hidden";
 						document.getElementById("unfullscreen-button").style.visibility = "visible";
-						if (app.init())
+						document.getElementById("unfullscreen-button").style.top = "60px";
+						var x = document.getElementsByClassName("body")
+						for (i = 0; i < x.length; i++) {
+							x[i].style.bottom = "55px"
+						};
+						if (play){
+							document.getElementById("unfullscreen-button").style.right = "8%"
 							play.resize();
+						}
 					});
 					document.getElementById("unfullscreen-button").addEventListener('click', function() {
 						document.getElementById("main-toolbar").style.visibility = "visible";
 						document.getElementById("unfullscreen-button").style.visibility = "hidden";
-						if (app.init())
+						var x = document.getElementsByClassName("body")
+						for (i = 0; i < x.length; i++) {
+							x[i].style.bottom = "0px"
+						}
+						if (play)
 							play.resize();
 					});
 
