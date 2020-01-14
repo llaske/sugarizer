@@ -45,10 +45,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 						document.getElementById("unfullscreen-button").style.top = "60px";
 						var x = document.getElementsByClassName("body")
 						for (i = 0; i < x.length; i++) {
-							x[i].style.bottom = "55px"
+							x[i].style.bottom = "50px"
 						};
 						if (play){
-							document.getElementById("unfullscreen-button").style.right = "8%"
+							document.getElementById("unfullscreen-button").style.right = "12%"
 							play.resize();
 						}
 					});
