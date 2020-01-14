@@ -1,7 +1,7 @@
 var app = null;
 var l10n;
 var preferences;
-var play = null;
+var play;
 var sound;
 var mouse = {};
 
