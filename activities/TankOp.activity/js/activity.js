@@ -48,7 +48,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 							x[i].style.bottom = "50px"
 						};
 						if (play){
-							document.getElementById("unfullscreen-button").style.right = "12%"
 							play.resize();
 						}
 					});
