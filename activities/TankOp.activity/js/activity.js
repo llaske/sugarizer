@@ -47,7 +47,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 						for (i = 0; i < x.length; i++) {
 							x[i].style.bottom = "50px"
 						};
-						if (play){
+						if (play) {
 							play.resize();
 						}
 					});
@@ -58,8 +58,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 						for (i = 0; i < x.length; i++) {
 							x[i].style.bottom = "0px"
 						}
-						if (play)
+						if (play) {
 							play.resize();
+						}
 					});
 
 					// Stop sound at end of game to sanitize media environment, specifically on Android
