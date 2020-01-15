@@ -121,7 +121,7 @@ function handleButton(y){
 
 var useragent = navigator.userAgent.toLowerCase();
 if (useragent.indexOf('chrome') == -1) {
-	function hittestInit(n){
+	function hittestInit(){
 		hitbuffer.style.visibility = 'hidden';
 		var ctx = hitbuffer.getContext('2d');
 		var winwidth = document.body.clientWidth;
