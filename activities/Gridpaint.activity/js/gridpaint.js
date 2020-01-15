@@ -104,7 +104,7 @@ function handleEnd(e){
 
 
 function handleButton(y){
-	if(y>50 & y<100) selectorMode(true);
+	if(y>40 & y<100) selectorMode(true);
 	var b = Math.floor((y-110)/70);
 	if(b<0) return;
 	if(b>=cnames.length) return;
@@ -121,19 +121,12 @@ function handleButton(y){
 
 var useragent = navigator.userAgent.toLowerCase();
 if (useragent.indexOf('chrome') == -1) {
-	function hittestInit(){
+	function hittestInit(n){
 		hitbuffer.style.visibility = 'hidden';
 		var ctx = hitbuffer.getContext('2d');
 		var winwidth = document.body.clientWidth;
 		ctx.save();
-		if (winwidth < "1024px")
-			ctx.translate(190,38)
-		else if (winwidth < "1280px" & winwidth > "1140px")
-			ctx.translate(200,38)
-		else if (winwidth < "1140px" & winwidth > "1024px")
-			ctx.translate(210,38)
-		else
-			ctx.translate(220,38)
+		ctx.translate(235,38)
 		ctx.scale(scale, scale);
 		for(var i=0;i<shapes.length;i++){	
 			var low = hexdigit(i&0xf);

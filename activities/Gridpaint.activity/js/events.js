@@ -44,10 +44,8 @@ function eventInit(){
 	document.getElementById("canvas").style.zoom = zoom;
 	var useragent = navigator.userAgent.toLowerCase();
 	if (useragent.indexOf('chrome') == -1) {
-		document.getElementById("canvas").style.MozTransform = "scale("+zoom+") translateX(" + (576*(1-zoom)) + "px)";
-		document.getElementById("canvas").style.MozTransformOrigin = "top left";
-		document.getElementById("canvas").style.width = "1024px";
-		document.getElementById("canvas").style.height = "748px";
+		document.getElementById("canvas").style.MozTransform = "scale("+zoom+") translateX(" + (700*(1-zoom)) + "px)";
+		document.getElementById("canvas").style.MozTransformOrigin = "0 0";
 	}
 }
 
