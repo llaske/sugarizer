@@ -223,7 +223,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         });
 
         var cleanAllButton = document.getElementById("clean-all-button");
-		cleanAllButton.title = _("Clean");
+        cleanAllButton.title = _("Clean");
+        var cancel_button_title = _("CancelChanges");
+        var continue_button_title = _("Continue");
+        var cleanall_message = _("CleanAllMessage");
 
         cleanAllButton.addEventListener('click', function (e) {
 
@@ -235,12 +238,12 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                         "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
                         "<div style='width:300px;float:left;margin-left:20px;'>" + 
                         "<div style='color:white;margin-top:10px;'><b>Warning</b></div>" +  
-                        "<div style='color:white;margin-top:2px;'> All the objects will be removed </div>" +
+                        "<div style='color:white;margin-top:2px;'>" + cleanall_message + "</div>" +
                         "</div>" + 
                         "</div>" +
                         "<div>" +
-                        "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " +  _("Cancel changes") + "</button> " +
-                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ _("Continue") + "</button>" +
+                        "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " +  cancel_button_title + "</button> " +
+                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ continue_button_title + "</button>" +
                         "</div>",
                     closeButton: false,
                     modalStyles: {
