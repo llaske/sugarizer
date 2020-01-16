@@ -54,7 +54,7 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       document.getElementById("main-toolbar").style.visibility = "hidden";
       document.getElementById("body").style.bottom = "40px";
       document.getElementById("unfullscreen-button").style.visibility = "visible";    
-      document.getElementById("unfullscreen-button").style.top = "60px";    
+      document.getElementById("unfullscreen-button").style.top = "20px";    
     });
     // Unfull screen
     document.getElementById("unfullscreen-button").addEventListener('click', function() {

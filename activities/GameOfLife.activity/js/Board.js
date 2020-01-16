@@ -1,4 +1,6 @@
-function Board(boardState, lineColor, deadCellColor, aliveYoungCellColor, aliveOldCellColor, cellWidth, cellHeight, rowPadding, colPadding, canvas) {
+function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCellColor, aliveOldCellColor, cellWidth, cellHeight, rowPadding, colPadding, canvas) {
+
+  this.showTrails = false;
 
   this.onClick = function (clickHandler) {
     var _this = this;
@@ -28,12 +30,22 @@ function Board(boardState, lineColor, deadCellColor, aliveYoungCellColor, aliveO
   this.update = function (state) {
     var _this2 = this;
 
-    var cellColorFromState = [deadCellColor, aliveOldCellColor, aliveYoungCellColor];
+    var cellColorFromState = [deadCellColor, aliveOldCellColor, aliveYoungCellColor,trailsColor];
     state.forEach(function (row, rowIndex) {
       var y = (_this2.cellHeight + colPadding) * rowIndex;
       row.forEach(function (cell, cellIndex) {
         var x = (_this2.cellWidth + rowPadding) * cellIndex;
-        _this2.ctx.fillStyle = cellColorFromState[cell];
+        if (cell == 3) {
+          if (_this2.showTrails) {
+            _this2.ctx.fillStyle = cellColorFromState[cell];
+          }
+          else{
+            _this2.ctx.fillStyle = cellColorFromState[0];
+          }
+        }else {
+          _this2.ctx.fillStyle = cellColorFromState[cell];
+        }
+
         _this2.ctx.fillRect(x, y, _this2.cellWidth, _this2.cellHeight);
       });
     });
