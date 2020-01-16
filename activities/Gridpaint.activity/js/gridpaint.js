@@ -197,7 +197,7 @@ function drawButtons(){
 function drawButton(ctx, n, c){
 	ctx.fillStyle = cnames[n]; 
 	ctx.lineWidth = (n==bselected)?4:2;
-	roundRectPath(ctx,10,110+70*n,30,30);
+	roundRectPath(ctx,55,110+70*n,30,30);
 	ctx.fill();
   ctx.stroke();
 }
@@ -221,7 +221,7 @@ function drawSaveButton(ctx){
 	var pat = ctx.createPattern(image, "no-repeat");
 	ctx.fillStyle = pat;
 	ctx.beginPath();
-	ctx.fillRect(0, 25, 55, 55);
+	ctx.fillRect(0, 25, 95, 55);
 	ctx.fill();
   ctx.stroke();
 }
