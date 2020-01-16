@@ -45,10 +45,10 @@
   width: 45px;
   height: 45px;
   top: 5px;
-  right: 2%;
-  position: absolute;
+  right: 3%;
+  position: fixed;
   visibility: hidden;
-  z-index: 5;
+  z-index: 3;
 }
 .palette .wrapper {
   min-width: 10px;
@@ -74,10 +74,10 @@ textarea {
 }
 #results-zone {
   display: none;
-  overflow-y: scroll;
 }
 .result {
   font-size: 300% !important;
+  margin-bottom: 5px;
 }
 #label-input {
   padding-top:3px !important;
@@ -233,9 +233,18 @@ textarea {
   border: 2px solid #808080;
 }
 
-@media only screen and (min-width:515px) {
+@media only screen and (min-width:780px) {
   #output-digits-palette {
     display: inline-block !important;
+  }
+  .calcbutton {
+    height: 80px;
+  }
+  .calcbutton-large {
+    height: 80px;
+  }
+  #results-zone {
+    overflow-y: hidden;
   }
 }
 @media only screen and (max-width:595px) {
@@ -243,21 +252,17 @@ textarea {
     visibility: hidden;
   }
 }
-@media only screen and (min-width:560px) {
-  .calcbutton {
-    height: 50px;
-  }
-  .calcbutton-large {
-    height: 50px;
-  }
-}
-@media only screen and (min-width:760px) {
+@media only screen and (min-width:770px) {
   .calcbutton {
     height: 100px;
   }
   .calcbutton-large {
     height: 100px;
   }
+  #results-zone {
+    overflow-y: scroll;
+  }
+
 }
 @media only screen and (min-width:1000px) {
   .calcbutton {
@@ -266,6 +271,9 @@ textarea {
   .calcbutton-large {
     height: 120px;
   }
+  #results-zone {
+    overflow-y: scroll;
+  }
 }
 @media only screen and (min-width:1200px) {
   .calcbutton {
@@ -273,6 +281,9 @@ textarea {
   }
   .calcbutton-large {
     height: 120px;
+  }
+  #results-zone {
+    overflow-y: scroll;
   }
 }
 .nanoModal {

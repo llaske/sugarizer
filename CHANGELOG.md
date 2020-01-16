@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the Abecedarium activity #434
 - Add dead cells in Game of life activity #379
 - Add a set time mode to the Clock activity #387
-- Add a synth keyboard mode in TamTam Micro activity #389 
+- Add a synth keyboard mode in TamTam Micro activity #389
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -87,6 +87,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Horizontal scrollbar appears in the Write activity #538
 - Handle window resize in TankOp activity during play #404
 - Resize function gives error in TankOp Activity #549
+- Can't see the previous result on small screens for Calculate activity #517
 
 
 ## [1.2.0] - 2019-09-26
