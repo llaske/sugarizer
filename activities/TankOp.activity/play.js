@@ -302,6 +302,8 @@ enyo.kind({
 			return;
 		}
 
+		play = null
+
 		// Stop game loop
 		window.clearInterval(this.loopTimer);
 

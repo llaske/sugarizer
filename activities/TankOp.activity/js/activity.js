@@ -38,6 +38,31 @@ define(["sugar-web/activity/activity"], function (activity) {
 					app.load();
 					app.renderInto(document.getElementById("board"));
 
+					// Full screen
+					document.getElementById("fullscreen-button").addEventListener('click', function() {
+						document.getElementById("main-toolbar").style.visibility = "hidden";
+						document.getElementById("unfullscreen-button").style.visibility = "visible";
+						document.getElementById("unfullscreen-button").style.top = "60px";
+						var x = document.getElementsByClassName("body")
+						for (i = 0; i < x.length; i++) {
+							x[i].style.bottom = "50px"
+						};
+						if (play) {
+							play.resize();
+						}
+					});
+					document.getElementById("unfullscreen-button").addEventListener('click', function() {
+						document.getElementById("main-toolbar").style.visibility = "visible";
+						document.getElementById("unfullscreen-button").style.visibility = "hidden";
+						var x = document.getElementsByClassName("body")
+						for (i = 0; i < x.length; i++) {
+							x[i].style.bottom = "0px"
+						}
+						if (play) {
+							play.resize();
+						}
+					});
+
 					// Stop sound at end of game to sanitize media environment, specifically on Android
 					document.getElementById("stop-button").addEventListener('click', function (event) {
 						sound.pause();

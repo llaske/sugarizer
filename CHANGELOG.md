@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add dead cells in Game of life activity #379
 - Add a set time mode to the Clock activity #387
 - Add a synth keyboard mode in TamTam Micro activity #389
+- Add a fullscreen button to the TankOp activity #547
 
 ### Changed
 - Double size of Record images in WebApp and electron App
