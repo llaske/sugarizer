@@ -119,21 +119,43 @@ function handleButton(y){
 //
 /////////////////////////
 
-function hittestInit(){
-	hitbuffer.style.visibility = 'hidden';
-	var ctx = hitbuffer.getContext('2d');
-	ctx.save();
-	ctx.translate(140, 20);
-	ctx.scale(scale, scale);
-	for(var i=0;i<shapes.length;i++){	
-		var low = hexdigit(i&0xf);
-		var mid = hexdigit((i>>4)&0xf);
-		var high = hexdigit((i>>8)&0xf);
-		ctx.fillStyle = '#'+high+'F'+mid+'F'+low+'F';
-		shapePath(i, ctx, true);
-	  ctx.fill();		
+var useragent = navigator.userAgent.toLowerCase();
+if (useragent.indexOf('chrome') == -1) {
+	function hittestInit(){
+		hitbuffer.style.visibility = 'hidden';
+		var ctx = hitbuffer.getContext('2d');
+		var winwidth = document.body.clientWidth;
+		ctx.save();
+		ctx.translate(235,38)
+		ctx.scale(scale, scale);
+		for(var i=0;i<shapes.length;i++){	
+			var low = hexdigit(i&0xf);
+			var mid = hexdigit((i>>4)&0xf);
+			var high = hexdigit((i>>8)&0xf);
+			ctx.fillStyle = '#'+high+'F'+mid+'F'+low+'F';
+			shapePath(i, ctx, true);
+		  ctx.fill();		
+		}
+		ctx.restore();
 	}
-	ctx.restore();
+}
+else{
+	function hittestInit(){
+		hitbuffer.style.visibility = 'hidden';
+		var ctx = hitbuffer.getContext('2d');
+		ctx.save();
+		ctx.translate(140, 20);
+		ctx.scale(scale, scale);
+		for(var i=0;i<shapes.length;i++){	
+			var low = hexdigit(i&0xf);
+			var mid = hexdigit((i>>4)&0xf);
+			var high = hexdigit((i>>8)&0xf);
+			ctx.fillStyle = '#'+high+'F'+mid+'F'+low+'F';
+			shapePath(i, ctx, true);
+		  ctx.fill();		
+		}
+		ctx.restore();
+	}
 }
 
 function findPiece(x,y){
