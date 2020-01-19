@@ -114,6 +114,21 @@
                             if(classname=="Verdana"){
                                 style = style + ' style:font-name="Verdana" ';
                             }
+                            if(classname=="Times"){
+                                style = style + ' style:font-name="Times New Roman" ';
+                            }
+                            if(classname=="Courier"){
+                                style = style + ' style:font-name="Courier" ';
+                            }
+                            if(classname=="Lucida"){
+                                style = style + ' style:font-name="Lucida Grande" ';
+                            }
+                            if(classname=="Impact"){
+                                style = style + ' style:font-name="Impact" ';
+                            }
+                            if(classname=="Georgia"){
+                                style = style + ' style:font-name="Georgia" ';
+                            }
                         }
                     }
                     if(tagName=='p'){
@@ -304,6 +319,11 @@
     + '<style:font-face style:name="OpenSymbol" svg:font-family="OpenSymbol, &apos;Arial Unicode MS&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>'
     + '<style:font-face style:name="Symbol" svg:font-family="Symbol" style:font-family-generic="roman" style:font-pitch="variable"/>'
     + '<style:font-face style:name="Comic Sans MS" svg:font-family="&apos;Comic Sans MS&apos;" style:font-family-generic="script" style:font-pitch="variable"/>'
+    + '<style:font-face style:name="Courier" svg:font-family="Courier" style:font-family-generic="modern" style:font-pitch="variable"/>'
+    + '<style:font-face style:name="Times New Roman" svg:font-family="&apos;Times New Roman&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>'
+    + '<style:font-face style:name="Georgia" svg:font-family="Georgia" style:font-family-generic="roman" style:font-pitch="variable"/>'
+    + '<style:font-face style:name="Lucida Grande" svg:font-family="&apos;Lucida Grande&apos;" style:font-pitch="variable"/>'
+    + '<style:font-face style:name="Impact" svg:font-family="Impact" style:font-family-generic="swiss" style:font-pitch="variable"/>'
     + '<style:font-face style:name="Arial" svg:font-family="Arial" style:font-family-generic="swiss" style:font-pitch="variable"/>'
     + '<style:font-face style:name="Liberation Sans" svg:font-family="&apos;Liberation Sans&apos;, Arial" style:font-family-generic="swiss" style:font-pitch="variable"/>'
     + '<style:font-face style:name="Verdana" svg:font-family="Verdana" style:font-family-generic="swiss" style:font-pitch="variable"/>'
