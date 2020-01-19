@@ -227,7 +227,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         var cancel_button_title = _("CancelChanges");
         var continue_button_title = _("Continue");
         var cleanall_message = _("CleanAllMessage");
-
+        var warning_title = _("Warning");
         cleanAllButton.addEventListener('click', function (e) {
 
             if(editMode)
@@ -237,7 +237,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                     content:"<div style = 'width:400px;margin-bottom:60px'>" +
                         "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
                         "<div style='width:300px;float:left;margin-left:20px;'>" + 
-                        "<div style='color:white;margin-top:10px;'><b>Warning</b></div>" +  
+                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +  
                         "<div style='color:white;margin-top:2px;'>" + cleanall_message + "</div>" +
                         "</div>" + 
                         "</div>" +
