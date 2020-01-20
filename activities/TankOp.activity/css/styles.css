@@ -13,31 +13,29 @@
 }
 
 #board {
-
 	align-items: center;
 }
 
-
-#main-toolbar{
+#main-toolbar {
 	padding: 0%;
 	margin-right: 0%;
 }
 
 @media only screen and (max-height: 450px) {
+	#play_control {
+		align-items: flex-start;
+		position: relative;
+	}
 
-#play_control{
-	align-items: flex-start;
-	position: relative;
-}
-#play_keyboard{
+#play_keyboard {
 	align-items: flex-end;
 }
 
-#app_control2{
+#app_control2 {
 	position: relative;
 }
 
-#app_control8{
+#app_control8 {
 	position: relative;
 
 }
