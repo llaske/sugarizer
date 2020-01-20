@@ -12,8 +12,38 @@
 	user-select: none;
 }
 
+#board {
+
+	align-items: center;
+}
+
+
+#main-toolbar{
+	padding: 0%;
+	margin-right: 0%;
+}
+
+@media only screen and (max-height: 450px) {
+
+#play_control{
+	align-items: flex-start;
+	position: relative;
+}
+#play_keyboard{
+	align-items: flex-end;
+}
+
+#app_control2{
+	position: relative;
+}
+
+#app_control8{
+	position: relative;
+
+}
 .body {
 	background-color: white;
+	overflow-x: hidden;
 }
 
 .home {
@@ -190,12 +220,22 @@
 	visibility: hidden;
 }
 
-.title {
-	font-size: 30px;
-	font-family: 'Conv_BlackOpsOne-Regular';
-	width: 100%;
-	text-align: center;
+@media only screen and (min-width: 300px) {
+	.title {
+		font-size: 30px;
+		font-family: 'Conv_BlackOpsOne-Regular';
+		width: 100%;
+		text-align: center;
+		}
 }
+
+@media only screen and (max-width: 300px) {
+	.title {
+		font-size: 1px;
+		font-family: 'Conv_BlackOpsOne-Regular';
+		}
+}
+
 
 .home-button {
 	position: absolute;
@@ -373,6 +413,11 @@
 	color: white;
 }
 
+@media screen and (max-width: 480px) {
+#main-toolbar {
+	/* width: 100%; */
+	}
+}
 
 @media screen and (max-width: 480px) {
 	.title {
