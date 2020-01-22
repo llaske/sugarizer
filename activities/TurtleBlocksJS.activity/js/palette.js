@@ -216,7 +216,7 @@ function Palettes () {
             shape.height = windowHeight();
             this.stage.addChild(shape);
             this.background = shape;
-	}
+        }
 
         function __processUpIcon(palettes, name, bitmap, args) {
             bitmap.scaleX = bitmap.scaleY = bitmap.scale = 0.4;
@@ -226,7 +226,7 @@ function Palettes () {
             bitmap.visible = false;
             palettes.upIndicator = bitmap;
 
-	    palettes.upIndicator.on('click', function (event) {
+            palettes.upIndicator.on('click', function (event) {
                 palettes.menuScrollEvent(1, 40);
                 palettes.hidePaletteIconCircles();
             });
@@ -238,10 +238,10 @@ function Palettes () {
             bitmap.x = 55;
             bitmap.y = (windowHeight() / palettes.scale) - 27;
 
-	    bitmap.visible = true;
+            bitmap.visible = true;
             palettes.downIndicator = bitmap;
 
-	    palettes.downIndicator.on('click', function (event) {
+            palettes.downIndicator.on('click', function (event) {
                 palettes.menuScrollEvent(-1, 40);
                 palettes.hidePaletteIconCircles();
             });
@@ -328,7 +328,7 @@ function Palettes () {
 
         if (this.background != null) {
             this.background.visible = true;
-	}
+        }
 
         // If the palette indicators were visible, restore them.
         if (this.upIndicatorStatus) {
@@ -337,7 +337,7 @@ function Palettes () {
 
         if (this.downIndicatorStatus && this.downIndicator != null) {
             this.downIndicator.visible = true;
-	}
+        }
 
         this.refreshCanvas();
     };
@@ -1053,7 +1053,7 @@ function Palette(palettes, name) {
 
     this._updateBlockMasks = function () {
         var h = Math.min(maxPaletteHeight(this.palettes.cellSize, this.palettes.scale), this.y);
-	var w = MENUWIDTH + this._getOverflowWidth();
+        var w = MENUWIDTH + this._getOverflowWidth();
         for (var i in this.protoContainers) {
             var s = new createjs.Shape();
             s.graphics.r(0, 0, w, h);
@@ -2037,4 +2037,4 @@ function makePaletteBitmap(palette, data, name, callback, extras) {
     };
 
     img.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(data)));
-};
+ };
