@@ -141,7 +141,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                     // add a globe for the title
                     var titleGlobe = {
                         "direction": null, "text_font_description": "Sans 30",
-                        "globe_type": "RECTANGLE", "height": 50, "width": 200,
+                        "globe_type": "RECTANGLE", "height": this._canvas.height/10, "width": this._canvas.width/5,
                         "text_color": [0, 0, 0], "radio": 15, "text_width": 76,
                         "y": this._canvas.height / 2,
                         "x": this._canvas.width / 2,
@@ -822,7 +822,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             this._textView.lineWidth = this._globe._width * 2;
             this._textView.x = this._globe._x;
             this._textView.y = this._globe._y -
-            this._textView.getMeasuredHeight() / 2;
+                this._textView.getMeasuredHeight() / 2;
             this._globe._stage.addChild(this._textView);
             this._globe._stage.update();
         };
@@ -885,7 +885,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             } else {
                 editor.style.fontWeight = 'normal';
             };
-
         };
 
         this.remove = function() {

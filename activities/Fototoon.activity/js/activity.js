@@ -68,6 +68,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         toonModel.init();
         toonModel.attachPageCounterViewer(pageCounter);
         toonModel.attachPrevNextButtons(previousButton, nextButton);
+        
         var editMode = true;
 
         var addGlobeButton = document.getElementById("add-globe");
@@ -235,13 +236,17 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
             };
         });
 
-                
-        $(window).on("resize", function(event) {
+        window.addEventListener('resize', function(e) {
+            var resizeTimeout;            
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function(){    
+            console.log("hello");  
             mainCanvas.height = window.innerHeight - sugarCellSize - 5;
             mainCanvas.width = mainCanvas.height * 4 / 3;
             mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
             var toonModel = new toon.Model(initialData, mainCanvas, tp);
             toonModel.init();
+        }, 5);
         });
 
         // Launch tutorial
