@@ -822,7 +822,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             this._textView.lineWidth = this._globe._width * 2;
             this._textView.x = this._globe._x;
             this._textView.y = this._globe._y -
-                this._textView.getMeasuredHeight() / 2;
+            this._textView.getMeasuredHeight() / 2;
             this._globe._stage.addChild(this._textView);
             this._globe._stage.update();
         };
@@ -885,6 +885,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             } else {
                 editor.style.fontWeight = 'normal';
             };
+
         };
 
         this.remove = function() {
