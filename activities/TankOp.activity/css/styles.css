@@ -12,38 +12,8 @@
 	user-select: none;
 }
 
-#activity-button {
-	margin-left: 5%;
-}
-
-@media only screen and (max-height: 466px) {
-
-	#play_control {
-		font-family: 'Conv_BlackOpsOne-Regular';
-		font-size: 15px;
-	}
-
-	#play_control2 {
-		text-align: left;
-		margin-left: 4%;
-	}
-
-	#play_image {
-		position: relative;
-	}
-}
-
-@media only screen and (max-height: 440px) {
-
-#app_control2 {
-		position: relative;
-	}
-}
-
-
 .body {
 	background-color: white;
-	overflow-x: hidden;
 }
 
 .home {
@@ -74,9 +44,6 @@
 	max-width: 20%;
 }
 
-#stop-button {
-	margin-right: 3%;
-}
 .start-button-text {
 	position: absolute;
 	text-align: center;
@@ -121,7 +88,6 @@
 
 .title {
 	position: absolute;
-	text-align: center;
 	left: 0px;
 	top: -20px;
 	height: 50px;
@@ -129,7 +95,7 @@
 	font-family: 'Conv_BlackOpsOne-Regular';
 	color: white;
 	display:inline-block;
-	margin-left: 36%;
+	margin-left: 40%;
 }
 
 .board {
@@ -204,9 +170,9 @@
 }
 
 .mission {
-	background-size: 20px 20px;
-	width: 20px;
-	height: 20px;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
 }
 
 .mission-completed {
@@ -401,11 +367,11 @@
 	color: white;
 }
 
+
 @media screen and (max-width: 480px) {
 	.title {
 		font-size: 20px;
 		top: 0px;
-		margin-left: 27%;
 	}
 
 	.start-button-text {
