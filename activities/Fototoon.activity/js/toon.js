@@ -885,7 +885,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             } else {
                 editor.style.fontWeight = 'normal';
             };
-
         };
 
         this.remove = function() {
