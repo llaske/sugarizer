@@ -710,7 +710,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 
             this._text = '';
             this._color = BLACK;
-            document.getElementsByClassName("color-picker")[0].style.border = "5px solid #696969";
             this._width = globe._width - 20;
             this._height = SIZE_RESIZE_AREA / 2;
             this._size = DEFAULT_FONT_SIZE;
@@ -893,15 +892,32 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             // (used when a globe is selected)
             editor.style.fontSize = this._size + 'px';
             editor.style.color = this._color;
+            let color_class = document.getElementsByClassName("color-picker");
+            for(let index=0; index<=9; index++)
+            {
+                if(color_class[index].value == this._color)
+                {
+                    color_class[index].style.border = "5px solid #696969";
+                }
+                else
+                {
+                    color_class[index].style.border = "2px solid white";
+                }
+                
+            }
             if (this._italic) {
                 editor.style.fontStyle = 'italic';
+                document.getElementById("text-set-italic").style.backgroundColor = "grey";
             } else {
                 editor.style.fontStyle = 'normal';
+                document.getElementById("text-set-italic").style.backgroundColor = "";
             };
             if (this._bold) {
                 editor.style.fontWeight = 'bold';
+                document.getElementById("text-set-bold").style.backgroundColor = "grey";
             } else {
                 editor.style.fontWeight = 'normal';
+                document.getElementById("text-set-bold").style.backgroundColor = "";
             };
         };
 
