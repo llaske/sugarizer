@@ -237,8 +237,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         window.addEventListener('resize', function(e) {
             var resizeTimeout;            
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function(){    
-            console.log("hello");  
+            resizeTimeout = setTimeout(function(){      
             mainCanvas.height = window.innerHeight - sugarCellSize - 5;
             mainCanvas.width = mainCanvas.height * 4 / 3;
             mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
