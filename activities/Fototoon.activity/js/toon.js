@@ -842,7 +842,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.setColor = function(color) {
-            console.log("Before: " + this._color);
             let color_class = document.getElementsByClassName("color-picker");
             for(let index=0; index<=9; index++)
             {
@@ -858,7 +857,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             }
             this._color = color;
             this.update();
-            console.log("After: " + this._color);
             return this._color;
         };
 
