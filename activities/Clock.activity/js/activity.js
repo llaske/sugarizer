@@ -81,6 +81,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
            tutorial.start();
         });
 
+        var niceImage = new Image();
+        niceImage.src = './clock.svg';
+
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -442,16 +445,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.drawNiceBackground = function () {
             var ctx = this.bgCanvasElem.getContext('2d');
 
-            var niceImageElem = document.createElement('img');
-            var that = this;
-            var onLoad = function () {
-                ctx.clearRect(that.margin, that.margin,
-                              that.radius * 2, that.radius * 2);
-                ctx.drawImage(niceImageElem, that.margin, that.margin,
-                              that.radius * 2, that.radius * 2);
-            };
-            niceImageElem.addEventListener('load', onLoad, false);
-            niceImageElem.src = "clock.svg";
+            ctx.clearRect(this.margin, this.margin,
+                              this.radius * 2, this.radius * 2);
+            ctx.drawImage(niceImage, this.margin, this.margin,
+                              this.radius * 2, this.radius * 2);
         }
 
         // Draw the numbers of the hours.
