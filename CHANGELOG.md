@@ -91,6 +91,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Resize function gives error in TankOp Activity #549
 - Can't see the previous result on small screens for Calculate activity #517
 - Fix the clean all button in the Fototoon activity #513
+- Disappearance of clock in set time mode in clock activity #581
 
 
 ## [1.2.0] - 2019-09-26
