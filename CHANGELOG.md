@@ -71,6 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use a real input field for password
 - Remove the two steps popup opening
 - Automatically shift popup menu to the left when it will override the right border
+- Allow teachers to login
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -92,7 +93,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Can't see the previous result on small screens for Calculate activity #517
 - Fix the clean all button in the Fototoon activity #513
 - Disappearance of clock in set time mode in clock activity #581
-- Improve design of Text Palette in Fototoon activity #575 
+- Improve design of Text Palette in Fototoon activity #575
 
 
 ## [1.2.0] - 2019-09-26
