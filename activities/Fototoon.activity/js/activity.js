@@ -39,8 +39,6 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         // remove 5 more to be sure no scrollbars are visible
         mainCanvas.height = window.innerHeight - sugarCellSize - 5;
         mainCanvas.width = mainCanvas.height * 4 / 3;
-
-        console.log(mainCanvas.width);
         mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
 
         var previousButton = document.getElementById("previous-button");
@@ -68,7 +66,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         toonModel.init();
         toonModel.attachPageCounterViewer(pageCounter);
         toonModel.attachPrevNextButtons(previousButton, nextButton);
-        
+
         var editMode = true;
 
         var addGlobeButton = document.getElementById("add-globe");
