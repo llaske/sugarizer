@@ -398,3 +398,49 @@ background-size: 100% 1.2em;
 	background-color: #808080;
 	border: 2px solid #808080;
 }
+@media screen and (min-width: 775px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 240px;
+      width: 210px;
+      float:right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+    }
+    .warningbox-refresh-button {
+      position: absolute;
+      right: 10px;
+      width: 210px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+  }
+  
+}
+@media screen and (max-width: 774px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 170px;
+      width: 160px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      font-size:15px;
+  }
+  .warningbox-refresh-button {
+    position: absolute;
+    right: 10px;
+    width: 140px;
+    float: right;
+    text-align: left;
+    padding-left: 10px;
+    font-size:15px;
+  }
+  
+}

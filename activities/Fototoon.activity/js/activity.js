@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon","tutorial"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon","tutorial", "picoModal"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial, picoModal) {
 
 
     // initialize canvas size
@@ -223,15 +223,50 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         });
 
         var cleanAllButton = document.getElementById("clean-all-button");
-		cleanAllButton.title = _("Clean");
-
+        cleanAllButton.title = _("Clean");
+        var cancel_button_title = _("CancelChanges");
+        var continue_button_title = _("Continue");
+        var cleanall_message = _("CleanAllMessage");
+        var warning_title = _("Warning");
         cleanAllButton.addEventListener('click', function (e) {
-  
-            toonModel.setData(initialData);
-            if (!editMode) {
-                toonModel.changeToEditMode();
-                editMode = true;
-            };
+
+            if(editMode)
+            {
+
+                picoModal({
+                    content:"<div style = 'width:400px;margin-bottom:60px'>" +
+                        "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
+                        "<div style='width:300px;float:left;margin-left:20px;'>" + 
+                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +  
+                        "<div style='color:white;margin-top:2px;'>" + cleanall_message + "</div>" +
+                        "</div>" + 
+                        "</div>" +
+                        "<div>" +
+                        "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " +  cancel_button_title + "</button> " +
+                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ continue_button_title + "</button>" +
+                        "</div>",
+                    closeButton: false,
+                    modalStyles: {
+                            backgroundColor: "#000000",
+                            height: "120px",
+                            width: "60%",
+                            textColor: "white"
+                        },
+                }).afterCreate(modal => {
+                    modal.modalElem().addEventListener("click", evt => {
+                        if (evt.target && evt.target.matches(".continue")) {
+                            toonModel._data['boxs'].splice(1, toonModel._data['boxs'].length-1);
+                            toonModel._data['boxs'][0]['globes'] = [];
+                            toonModel._data['previews'] = [];
+                            toonModel.init();
+                            modal.close();
+                        } else if (evt.target && evt.target.matches(".cancel-changes")) {
+                            modal.close();
+                        }
+                    });
+                }).show();
+
+            }
         });
 
         // Launch tutorial
