@@ -573,8 +573,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 var bold = box.getSelectedGlobe().getTextViewer().toggleBold();
                 if (bold) {
                     editor.style.fontWeight = 'bold';
+                    document.getElementById("text-set-bold").style.backgroundColor = "grey";
                 } else {
                     editor.style.fontWeight = 'normal';
+                    document.getElementById("text-set-bold").style.backgroundColor = "";
                 };
             });
 
@@ -582,8 +584,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 var italic = box.getSelectedGlobe().getTextViewer().toggleItalic();
                 if (italic) {
                     editor.style.fontStyle = 'italic';
+                    document.getElementById("text-set-italic").style.backgroundColor = "grey";
                 } else {
                     editor.style.fontStyle = 'normal';
+                    document.getElementById("text-set-italic").style.backgroundColor = "";
                 };
             });
 
@@ -706,6 +710,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 
             this._text = '';
             this._color = BLACK;
+            document.getElementsByClassName("color-picker")[0].style.border = "5px solid #696969";
             this._width = globe._width - 20;
             this._height = SIZE_RESIZE_AREA / 2;
             this._size = DEFAULT_FONT_SIZE;
@@ -837,8 +842,23 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.setColor = function(color) {
+            console.log("Before: " + this._color);
+            let color_class = document.getElementsByClassName("color-picker");
+            for(let index=0; index<=9; index++)
+            {
+                if(color_class[index].value == this._color)
+                {
+                    color_class[index].style.border = "2px solid white";
+                }
+                if(color_class[index].value == color)
+                {
+                    color_class[index].style.border = "5px solid #696969";
+                }
+                
+            }
             this._color = color;
             this.update();
+            console.log("After: " + this._color);
             return this._color;
         };
 
