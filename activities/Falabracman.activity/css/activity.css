@@ -1,0 +1,19 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #restart-button {
+  background-image: url(../icons/restart.svg);
+}
+
+@font-face {
+    font-family: 'VeraBd';
+    font-weight: 250;
+    src: url('../fonts/VeraBd.ttf');
+}
+
+@font-face {
+    font-family: 'ds_moster';
+    font-weight: 250;
+    src: local('ds_moster'), url('../fonts/ds_moster.ttf');
+}
