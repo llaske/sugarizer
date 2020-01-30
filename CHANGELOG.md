@@ -94,6 +94,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix the clean all button in the Fototoon activity #513
 - Disappearance of clock in set time mode in clock activity #581
 - Improve design of Text Palette in Fototoon activity #575
+- Fix Unit Test
 
 
 ## [1.2.0] - 2019-09-26
