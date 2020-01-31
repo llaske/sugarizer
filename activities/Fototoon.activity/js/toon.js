@@ -233,6 +233,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (this.activeBox > this._data['boxs'].length - 1) {
                 this.activeBox --;
             }
+            this.init();
             this.comicBox.init(this._data['boxs'][this.activeBox],
                                this._data['images'], (this.activeBox > 0));
 

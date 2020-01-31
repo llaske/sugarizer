@@ -235,14 +235,44 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         });
 
         window.addEventListener('resize', function(e) {
-            var resizeTimeout;            
-            clearTimeout(resizeTimeout);
+            var dataWithoutImages = {}
+            dataWithoutImages['version'] = toonModel.getData()['version'];
+            dataWithoutImages['boxs'] = toonModel.getData()['boxs'];
+
+            dataImages = {};
+            for(var key in toonModel.getData()['images']) {
+                var imageName = key;
+                console.log('saving image ' + imageName);
+				dataImages[imageName] = LZString.compressToUTF16(toonModel.getData()['images'][imageName]);
+            };
+
+			var fullData = {
+				dataWithoutImages: dataWithoutImages,
+				dataImages: dataImages
+			};
+
+            var images = dataImages;
+            dataWithoutImages.images = {};
+            for(var key in images) {
+                 var imageName = key;
+                 dataWithoutImages.images[imageName] = LZString.decompressFromUTF16(images[imageName]);
+            }
+
             resizeTimeout = setTimeout(function(){      
             mainCanvas.height = window.innerHeight - sugarCellSize - 5;
             mainCanvas.width = mainCanvas.height * 4 / 3;
             mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
-            var toonModel = new toon.Model(initialData, mainCanvas, tp);
+            var toonModel = new toon.Model(dataWithoutImages, mainCanvas, tp);
             toonModel.init();
+            toonModel.setData(dataWithoutImages);
+
+            if((toonModel.getData()['images'][imageName] != undefined)){
+                toonModel.addImage(toonModel.getData()['images'][imageName]);
+            }
+            else {
+                toonModel.setData(dataWithoutImages);
+            }
+
         }, 5);
         });
 
