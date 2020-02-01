@@ -60,6 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a synth keyboard mode in TamTam Micro activity #389
 - Add a fullscreen button to the TankOp activity #547
 - Add a home button in Grid Paint activity #546
+- Add a quit application button in Electron
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -72,6 +73,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove the two steps popup opening
 - Automatically shift popup menu to the left when it will override the right border
 - Allow teachers to login
+- Reorder buddy menu icons
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
