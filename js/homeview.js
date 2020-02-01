@@ -648,7 +648,7 @@ enyo.kind({
 			colorized: true,
 			name: preferences.getName(),
 			title: null,
-			action: null
+			action: enyo.bind(this, "doSettings")
 		});
 		this.getPopup().setItems(null);
 		var items = [];

@@ -74,6 +74,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Automatically shift popup menu to the left when it will override the right border
 - Allow teachers to login
 - Reorder buddy menu icons
+- Click on buddy icon/name in buddy menu is now like clicking on settings item
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
