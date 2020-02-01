@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activity/resources", "activity/paladict", "data/en/dict.js", "data/bra/dict.js", "data/esp/dict.js", "webL10n"], function(activity, env, Game, Resources, Paladict, dictEn, dictPt, dictEs, webL10n) {
+define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activity/resources", "activity/paladict", "data/en/dict.js", "webL10n", "tutorial"], function(activity, env, Game, Resources, Paladict, dictEn, webL10n, tutorial) {
 
   // Manipulate the DOM only when it is ready.
   requirejs(['domReady!'], function(doc) {
@@ -7,6 +7,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     activity.setup();
 
     var currentEnv;
+    display = 'homeScreen';
 
     var resources = new Resources();
     resources.load([
@@ -43,8 +44,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - toolbarElem.offsetHeight - 3;
 
-    //var paladict = new Paladict(dictEn);
-    var game = new Game(canvas, resources, Paladict, dictEn, dictPt, dictEs, webL10n);
+    var paladict = new Paladict(dictEn);
+    var game = new Game(canvas, resources, paladict, webL10n);
 
     env.getEnvironment(function(env, environment) {
       currentEnv = environment;
@@ -57,17 +58,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       if (!environment.objectId) {
         console.log("New instance");
         resources.onReady(function() {
+          display = 'homeScreen';
           game.main();
         });
       } else {
 
         activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
           if (error == null && data != null) {
-            game.changeWordLanguage(data.language);
 
             console.log(data);
             if (data.playScreen) {
               game.playScreen = true;
+              display = 'playScreen';
               game.homeScreen = false;
               game.obstacles = data.obstacles;
               game.playerX = data.playerX;
@@ -75,7 +77,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
               game.lives = data.lives;
               game.targetWordLetters = data.targetWordLetters;
               game.targetWord = data.targetWord;
+              game.resizeGame(canvas.width,canvas.height);
               game.run();
+            } else if (data.homeScreen) {
+              game.homeScreen = true;
+              display = 'homeScreen';
+              game.playScreen = false;
+              game.main();
             }
           }
         })
@@ -91,7 +99,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       y: undefined
     };
 
-    document.addEventListener('keydown', handleOnKeyDown);
+    document.addEventListener('keyup', handleOnKeyDown, false);
 
     var touchScreen = ("ontouchstart" in document.documentElement);
 
@@ -134,45 +142,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     function handleMenuChoose(selected) {
       game.menuAudio.play();
       if (selected == 0) {
-        if (game.langMenu) {
-          game.changeWordLanguage('en');
-          game.langMenu = false;
-          game.menuSelected = 0;
-          game.drawHomeScreen();
-        } else {
-          game.homeScreen = false;
-          game.playScreen = true;
-          game.main();
-        }
+        game.homeScreen = false;
+        game.creditScreen = false;
+        game.playScreen = true;
+        display = 'playScreen';
+        game.main();
       } else if (selected == 1) {
-        if (game.langMenu) {
-          game.changeWordLanguage('pt')
-          game.langMenu = false;
-          game.menuSelected = 0;
-          game.drawHomeScreen();
-        } else {
-          game.homeScreen = false;
-          game.drawCreditScreen();
-        }
+        game.homeScreen = false;
+        game.drawCreditScreen();
+
       } else if (selected == 2) {
-        if (game.langMenu) {
-          game.changeWordLanguage('es')
-          game.langMenu = false;
-          game.menuSelected = 0;
-          game.drawHomeScreen();
-        } else {
-          game.langMenu = true;
-          game.menuSelected = 0;
-          game.drawHomeScreen();
-        }
-      } else if (selected == 3) {
-        if (game.langMenu) {
-          game.langMenu = false;
-          game.menuSelected = 0;
-          game.drawHomeScreen();
-        } else {
-          stopButton.click();
-        }
+        stopButton.click();
       }
     }
 
@@ -191,29 +171,31 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         case 38:
           if (game.homeScreen) {
             if (game.menuSelected == 0) {
-              game.menuSelected = 3;
+              game.menuSelected = 2;
             } else {
               game.menuSelected--;
             }
             game.menuAudio.play();
             game.drawHomeScreen();
+          } else {
+            handleKeyUp();
           }
-          handleKeyUp();
           break;
         case 39:
           handleKeyRight();
           break;
         case 40:
           if (game.homeScreen) {
-            if (game.menuSelected == 3) {
+            if (game.menuSelected == 2) {
               game.menuSelected = 0;
             } else {
               game.menuSelected++;
             }
             game.menuAudio.play();
             game.drawHomeScreen();
+          } else {
+            handleKeyDown();
           }
-          handleKeyDown();
           break;
       }
 
@@ -304,7 +286,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
     window.addEventListener('resize', function() {
       let newCanvasWidth = window.innerWidth;
-      let newCanvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
+      let toolbarHeight = toolbarElem.style.opacity ? 0 : toolbarElem.offsetHeight + 3 ;
+      let newCanvasHeight = window.innerHeight - toolbarHeight;
 
       game.resizeGame(newCanvasWidth, newCanvasHeight);
     });
@@ -313,10 +296,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     restartButton.addEventListener('click', function() {
       game.menuSelected = 0;
       game.homeScreen = true;
-      game.creditScreen = false;
+      display = 'homeScreen';
       game.playScreen = false;
       game.reset(true);
-    });
+      game.gameAudio.pause();
+    }, false);
+
 
     var stopButton = document.getElementById("stop-button");
     stopButton.addEventListener('click', function(event) {
@@ -329,8 +314,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         lives: game.lives,
         targetWordLetters: game.targetWordLetters,
         targetWord: game.targetWord,
-        frameNo: game.frameNo,
-        language: game.language
+        frameNo: game.frameNo
       };
       activity.getDatastoreObject().setDataAsText(stateObj);
       activity.getDatastoreObject().save(function(error) {
@@ -340,7 +324,32 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
           console.log("write failed.");
         }
       });
-    })
+    });
+
+    //full screen
+    document.getElementById("fullscreen-button").addEventListener('click', function() {
+
+      document.getElementById("main-toolbar").style.opacity = 0;
+      document.getElementById("canvas").style.top = "0px";
+      document.getElementById("unfullscreen-button").style.visibility = "visible";
+      let newCanvasWidth = window.innerWidth;
+      let newCanvasHeight = window.innerHeight;
+
+      game.resizeGame(newCanvasWidth, newCanvasHeight);
+    });
+    document.getElementById("unfullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.opacity = 1;
+      document.getElementById("canvas").style.top = "55px";
+      document.getElementById("unfullscreen-button").style.visibility = "hidden";
+      let newCanvasWidth = window.innerWidth;
+      let newCanvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
+
+      game.resizeGame(newCanvasWidth, newCanvasHeight);
+    });
+
+    document.getElementById("help-button").addEventListener('click', function(e) {
+		tutorial.start();
+	});
 
   });
 
