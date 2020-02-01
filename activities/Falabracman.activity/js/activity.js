@@ -77,7 +77,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
               game.lives = data.lives;
               game.targetWordLetters = data.targetWordLetters;
               game.targetWord = data.targetWord;
-              game.resizeGame(canvas.width,canvas.height);
+              game.prevCanvasWidth = data.prevCanvasWidth;
+              game.prevCanvasHeight = data.prevCanvasHeight;
+              game.resizeGame(canvas.width, canvas.height);
               game.run();
             } else if (data.homeScreen) {
               game.homeScreen = true;
@@ -314,7 +316,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         lives: game.lives,
         targetWordLetters: game.targetWordLetters,
         targetWord: game.targetWord,
-        frameNo: game.frameNo
+        frameNo: game.frameNo,
+        prevCanvasWidth: game.prevCanvasWidth,
+        prevCanvasHeight: game.prevCanvasHeight
       };
       activity.getDatastoreObject().setDataAsText(stateObj);
       activity.getDatastoreObject().save(function(error) {

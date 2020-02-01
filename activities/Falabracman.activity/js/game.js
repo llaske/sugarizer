@@ -32,6 +32,8 @@ function Game(canvas, resources, paladict, webL10n) {
   this.frameHeight = screen.height * 0.10;
   this.obstWidth = screen.width * 0.10;
   this.obstHeight = screen.height * 0.10;
+  this.prevCanvasWidth = canvas.width;
+  this.prevCanvasHeight = canvas.height;
   this.lives = 3;
   this.frameX = 0;
   this.frameY = 0;
@@ -95,14 +97,14 @@ function Game(canvas, resources, paladict, webL10n) {
   };
 
   this.resizeGame = function(newCanvasWidth, newCanvasHeight) {
-    let pxr = this.playerX / canvas.width;
-    let pyr = this.playerY / canvas.height;
+    let pxr = this.playerX / this.prevCanvasWidth;
+    let pyr = this.playerY / this.prevCanvasHeight;
     let obstaclesCoordRatio = [];
     let targetWordLettersCoordRat = [];
 
     for (var i = 0; i < this.obstacles.length; i++) {
-      let tmpX = this.obstacles[i].x / canvas.width;
-      let tmpY = this.obstacles[i].y / canvas.height;
+      let tmpX = this.obstacles[i].x / this.prevCanvasWidth;
+      let tmpY = this.obstacles[i].y / this.prevCanvasHeight;
       let obj = {
         xr: tmpX,
         yr: tmpY
@@ -111,8 +113,8 @@ function Game(canvas, resources, paladict, webL10n) {
     }
 
     for (var i = 0; i < this.targetWordLetters.length; i++) {
-      let tmpX = this.targetWordLetters[i].x / canvas.width;
-      let tmpY = this.targetWordLetters[i].y / canvas.height;
+      let tmpX = this.targetWordLetters[i].x / this.prevCanvasWidth;
+      let tmpY = this.targetWordLetters[i].y / this.prevCanvasHeight;
       let obj = {
         xr: tmpX,
         yr: tmpY
@@ -122,6 +124,8 @@ function Game(canvas, resources, paladict, webL10n) {
 
     canvas.width = newCanvasWidth;
     canvas.height = newCanvasHeight;
+    this.prevCanvasWidth = newCanvasWidth;
+    this.prevCanvasHeight = newCanvasHeight;
 
     //changing the values
     this.resizeImages();
