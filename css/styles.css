@@ -338,7 +338,7 @@ body {
 }
 
 .item-list-item {
-	height: 35px;
+	height: 40px;
 	z-index: 1;
 }
 
@@ -350,7 +350,7 @@ body {
 	margin-left: 30px;
 	margin-top: 0px;
 	margin-right: 20px;
-	padding: 5px;
+	padding: 8px 5px 8px 5px;
 	z-index: 1;
 }
 
