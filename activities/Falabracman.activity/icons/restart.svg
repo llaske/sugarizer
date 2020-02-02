@@ -1,5 +1,5 @@
-<svg width="52" height="52" xmlns="http://www.w3.org/2000/svg">
-!-- This work is a derivative( different stroke and fill) of <a rel="license" href="https://www.svgrepo.com/svg/127827/restart">svgrepo's restart svg </a> licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. -->
+<svg width="95.664" height="95.664" xmlns="http://www.w3.org/2000/svg">
+<!-- This work is a derivative( different stroke and fill) of <a rel="license" href="https://www.svgrepo.com/svg/11178/home-silhouette">svgrepo's home silhouette svg </a> licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. -->
  <g>
   <title>background</title>
   <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
@@ -7,9 +7,9 @@
  <g>
   <title>Layer 1</title>
   <g stroke="null" id="svg_1">
-   <path stroke="null" fill="#ffffff" id="svg_2" d="m25,6.000001c-12.131308,0 -22,9.420115 -22,21s9.868692,21 22,21s22,-9.420115 22,-21s-9.868692,-21 -22,-21zm0,40.384615c-11.197154,0 -20.307692,-8.696423 -20.307692,-19.384615s9.110538,-19.384615 20.307692,-19.384615s20.307692,8.696423 20.307692,19.384615s-9.110538,19.384615 -20.307692,19.384615z"/>
-   <polygon stroke="null" fill="#ffffff" id="svg_3" points="30.076923370361328,35.7093484189154 30.076923370361328,18.469154604467803 14.882538795471191,26.84330773531474 "/>
+   <path stroke="null" fill="#ffffff" id="svg_2" d="m94.666,39.131081l-45.332,-31.582856c-0.889,-0.619962 -2.115,-0.619962 -3.004,0l-45.332,31.582856c-0.86,0.598648 -1.21,1.640259 -0.869,2.585492c0.341,0.945234 1.296,1.582803 2.371,1.582803l6.832,0l0,49.964874c0,1.279772 1.119,2.31675 2.5,2.31675l21.75,0c1.381,0 2.5,-1.036977 2.5,-2.31675l0,-24.943052l23.5,0l0,24.943052c0,1.279772 1.119,2.31675 2.5,2.31675l21.75,0c1.381,0 2.5,-1.036977 2.5,-2.31675l0,-49.964874l6.832,0c1.075,0 2.03,-0.637569 2.371,-1.582803c0.341,-0.945234 -0.009,-1.986844 -0.869,-2.585492z"/>
   </g>
+  <g id="svg_3"/>
   <g id="svg_4"/>
   <g id="svg_5"/>
   <g id="svg_6"/>
@@ -24,6 +24,5 @@
   <g id="svg_15"/>
   <g id="svg_16"/>
   <g id="svg_17"/>
-  <g id="svg_18"/>
  </g>
 </svg>
