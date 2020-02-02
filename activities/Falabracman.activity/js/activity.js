@@ -39,6 +39,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     ]);
 
     var toolbarElem = document.getElementById("main-toolbar");
+    toolbarElem.style.opacity = 1;
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -288,9 +289,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
     window.addEventListener('resize', function() {
       let newCanvasWidth = window.innerWidth;
-      let toolbarHeight = toolbarElem.style.opacity ? 0 : toolbarElem.offsetHeight + 3 ;
+      let toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
       let newCanvasHeight = window.innerHeight - toolbarHeight;
-
       game.resizeGame(newCanvasWidth, newCanvasHeight);
     });
 

@@ -1,5 +1,5 @@
 [Activity]
-name =  Activity
+name =  Falabracman Activity
 activity_version = 1
 bundle_id = org.sugarlabs.Falabracman
 exec = sugar-activity-web

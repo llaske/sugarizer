@@ -28,10 +28,10 @@ function Game(canvas, resources, paladict, webL10n) {
   this.langMenu = false;
 
   this.obstacles = [];
-  this.frameWidth = screen.width * 0.10;
-  this.frameHeight = screen.height * 0.10;
-  this.obstWidth = screen.width * 0.10;
-  this.obstHeight = screen.height * 0.10;
+  this.frameWidth = 76;
+  this.frameHeight = 80;
+  this.obstWidth = 130;
+  this.obstHeight = 64;
   this.prevCanvasWidth = canvas.width;
   this.prevCanvasHeight = canvas.height;
   this.lives = 3;
@@ -71,10 +71,15 @@ function Game(canvas, resources, paladict, webL10n) {
     }
   };
 
-  this.reset = function(empty) {
+  this.reset = function(empty, lives) {
     this.PlayerStop = true;
     this.gameEnded = false;
-    this.lives = 3;
+    if (lives != null) {
+      this.lives = lives;
+    }
+    else {
+      this.lives = 3;
+    }
     this.targetWordLetters = [];
     this.obstacles = [];
     this.frameNo = 0;
@@ -87,13 +92,40 @@ function Game(canvas, resources, paladict, webL10n) {
 
   };
 
-  this.resizeImages = function () {
-    var ratio = Math.min(canvas.width / (screen.width ), canvas.height / (screen.height ));
-    this.frameWidth = ratio * screen.width * 0.10;
-    this.frameHeight = ratio * screen.height * 0.10;
-    this.obstWidth = ratio * screen.width * 0.10;
-    this.obstHeight = ratio * screen.height * 0.10;
-    this.targetLetterSize = ratio * screen.height * 0.10;
+  this.resizeImagesAndFont = function () {
+    let aspectRatio = 76 / 80;
+    let obstAspectRatio = 130 / 64;
+
+    let canvasAspectRatio = canvas.width / canvas.height;
+
+    //resizing frame or player's image
+    if (aspectRatio >= canvasAspectRatio) {
+      this.frameWidth = canvas.width * 0.10;
+      this.frameHeight = this.frameWidth / aspectRatio;
+    }
+    else {
+      this.frameHeight = canvas.height * 0.10;
+      this.frameWidth = this.frameHeight * aspectRatio;
+    }
+
+    //resizing obstacles's images
+    if (obstAspectRatio >= canvasAspectRatio) {
+      this.obstWidth = canvas.width * 0.10;
+      this.obstHeight = this.obstWidth / obstAspectRatio;
+    }
+    else {
+      this.obstHeight = canvas.height * 0.10;
+      this.obstWidth = this.obstHeight * obstAspectRatio;
+    }
+
+    //resizing font of targetword and targetWordLetters
+    if (1 >= canvasAspectRatio) {
+      this.targetLetterSize = canvas.width * 0.10;
+    }
+    else {
+      this.targetLetterSize = canvas.height * 0.10;
+    }
+
   };
 
   this.resizeGame = function(newCanvasWidth, newCanvasHeight) {
@@ -128,7 +160,7 @@ function Game(canvas, resources, paladict, webL10n) {
     this.prevCanvasHeight = newCanvasHeight;
 
     //changing the values
-    this.resizeImages();
+    this.resizeImagesAndFont();
 
     this.playerX = pxr * canvas.width;
     this.playerY = pyr * canvas.height;
@@ -244,7 +276,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
         let livesImg;
         livesImg = resources.get('./images/zeek0.png');
-        let x = canvas.width * 0.95 - i * canvas.width * 0.10;
+        let x = canvas.width * 0.95 - i * this.frameWidth;
         ctx.drawImage(livesImg, x, 10, this.frameWidth, this.frameHeight);
 
       }
@@ -265,7 +297,9 @@ function Game(canvas, resources, paladict, webL10n) {
             _this.gameAudio.pause();
           }
           else {
-            _this.reset(false);
+            let tmp = _this.lives;
+            console.log(tmp);
+            _this.reset(false,tmp);
           }
 
           requestAnimationFrame(_this.run.bind(_this));
@@ -282,7 +316,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
   this.initializeObstacles = function() {
 
-    this.resizeImages();
+    this.resizeImagesAndFont();
 
     for (var i = 0; i < 6;) {
 
@@ -350,6 +384,7 @@ function Game(canvas, resources, paladict, webL10n) {
         doPush2 = true;
 
       //to ensure the letter do not overlaps with any obstacles
+      // to ensure the letter do not overlaps even after resizing the window to the full, we are considering maximum size a letter can attain
       for (var k = 0; k < this.obstacles.length; k++) {
         let isCollide = this.collides({
           x: x,
@@ -359,8 +394,8 @@ function Game(canvas, resources, paladict, webL10n) {
         }, {
           x: this.obstacles[k].x,
           y: this.obstacles[k].y,
-          width: this.obstWidth,
-          height: this.obstHeight
+          width: screen.width * 0.10,
+          height: screen.height * 0.10
         });
         if (isCollide) {
           doPush1 = false;
