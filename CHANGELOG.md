@@ -75,6 +75,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow teachers to login
 - Reorder buddy menu icons
 - Click on buddy icon/name in buddy menu is now like clicking on settings item
+- Remove restart message on settings/about me and settings/about language
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
