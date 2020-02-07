@@ -775,9 +775,15 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (parts.length == 2) {
                 size = parts[1];
                 style = '';
-            } else {
+            } 
+            else if(parts.length == 3) {
                 style = parts[1] + ' ';
                 size = parts[2];
+            }
+            else
+            {
+                style = parts[1] + ' ' + parts[2] + ' ';
+                size = parts[3];
             };
             this._size = Number(size);
             this._family = family;
