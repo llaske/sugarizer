@@ -20,6 +20,9 @@ function ColourCircle(innercol, outercol, x, y, stage,xoman,arrno){
 		var s = stage;
 		var xo = xoman;
 
+		//enabling touch events
+		createjs.Touch.enable(s);
+		
 		this.circle.on("mousedown", function (evt) {
 			this.offset = {x: c.x - evt.stageX, y: c.y - evt.stageY};
 			this.dragging = false;
@@ -48,7 +51,7 @@ function ColourCircle(innercol, outercol, x, y, stage,xoman,arrno){
 		circle.graphics.setStrokeStyle(this.strokewidth);
 		circle.graphics.drawCircle(0,0,this.radius);
 		this.circle = circle;
-		
+
 		this.setContainerPosition(x,y);
 		this.setDragDropListeners();
 	}
