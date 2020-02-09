@@ -101,6 +101,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix Unit Test
 - Presence is initialized as unsecure by default instead of using location.protocol value
 
+### Removed
+- Remove .OGG sounds, now replaced by .MP3 only
+
 
 ## [1.2.0] - 2019-09-26
 ### Added
