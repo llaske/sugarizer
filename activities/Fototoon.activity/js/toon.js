@@ -841,8 +841,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.setColor = function(color) {
-            let color_class = document.getElementsByClassName("color-picker");
-            for(let index=0; index<=9; index++)
+            var color_class = document.getElementsByClassName("color-picker");
+            for(var index=0; index<=9; index++)
             {
                 if(color_class[index].value == this._color)
                 {
@@ -852,7 +852,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 {
                     color_class[index].style.border = "5px solid #696969";
                 }
-                
+
             }
             this._color = color;
             this.update();
@@ -892,8 +892,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             // (used when a globe is selected)
             editor.style.fontSize = this._size + 'px';
             editor.style.color = this._color;
-            let color_class = document.getElementsByClassName("color-picker");
-            for(let index=0; index<=9; index++)
+            var color_class = document.getElementsByClassName("color-picker");
+            for(var index=0; index<=9; index++)
             {
                 if(color_class[index].value == this._color)
                 {
@@ -903,7 +903,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 {
                     color_class[index].style.border = "2px solid white";
                 }
-                
+
             }
             if (this._italic) {
                 editor.style.fontStyle = 'italic';
