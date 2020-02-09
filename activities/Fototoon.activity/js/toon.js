@@ -573,8 +573,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 var bold = box.getSelectedGlobe().getTextViewer().toggleBold();
                 if (bold) {
                     editor.style.fontWeight = 'bold';
+                    document.getElementById("text-set-bold").style.backgroundColor = "grey";
                 } else {
                     editor.style.fontWeight = 'normal';
+                    document.getElementById("text-set-bold").style.backgroundColor = "";
                 };
             });
 
@@ -582,8 +584,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 var italic = box.getSelectedGlobe().getTextViewer().toggleItalic();
                 if (italic) {
                     editor.style.fontStyle = 'italic';
+                    document.getElementById("text-set-italic").style.backgroundColor = "grey";
                 } else {
                     editor.style.fontStyle = 'normal';
+                    document.getElementById("text-set-italic").style.backgroundColor = "";
                 };
             });
 
@@ -775,9 +779,15 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (parts.length == 2) {
                 size = parts[1];
                 style = '';
-            } else {
+            } 
+            else if(parts.length == 3) {
                 style = parts[1] + ' ';
                 size = parts[2];
+            }
+            else
+            {
+                style = parts[1] + ' ' + parts[2] + ' ';
+                size = parts[3];
             };
             this._size = Number(size);
             this._family = family;
@@ -837,6 +847,19 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.setColor = function(color) {
+            var color_class = document.getElementsByClassName("color-picker");
+            for(var index=0; index<=9; index++)
+            {
+                if(color_class[index].value == this._color)
+                {
+                    color_class[index].style.border = "2px solid white";
+                }
+                if(color_class[index].value == color)
+                {
+                    color_class[index].style.border = "5px solid #696969";
+                }
+
+            }
             this._color = color;
             this.update();
             return this._color;
@@ -875,15 +898,32 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             // (used when a globe is selected)
             editor.style.fontSize = this._size + 'px';
             editor.style.color = this._color;
+            var color_class = document.getElementsByClassName("color-picker");
+            for(var index=0; index<=9; index++)
+            {
+                if(color_class[index].value == this._color)
+                {
+                    color_class[index].style.border = "5px solid #696969";
+                }
+                else
+                {
+                    color_class[index].style.border = "2px solid white";
+                }
+
+            }
             if (this._italic) {
                 editor.style.fontStyle = 'italic';
+                document.getElementById("text-set-italic").style.backgroundColor = "grey";
             } else {
                 editor.style.fontStyle = 'normal';
+                document.getElementById("text-set-italic").style.backgroundColor = "";
             };
             if (this._bold) {
                 editor.style.fontWeight = 'bold';
+                document.getElementById("text-set-bold").style.backgroundColor = "grey";
             } else {
                 editor.style.fontWeight = 'normal';
+                document.getElementById("text-set-bold").style.backgroundColor = "";
             };
         };
 

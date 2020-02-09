@@ -81,6 +81,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
            tutorial.start();
         });
 
+        var niceImage = new Image();
+        niceImage.src = './clock.svg';
+
         var requestAnimationFrame = window.requestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -331,7 +334,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.handAngles.seconds = Math.PI / 30 * seconds;
         }
 
-        Clock.prototype.displayTime = function (hours, minutes, seconds, txt = "") {
+        Clock.prototype.displayTime = function (hours, minutes, seconds, txt) {
+          if (!txt) { txt = "" };
           var zeroFill = function (number) {
               return ('00' + number).substr(-2);
           };
@@ -442,16 +446,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.drawNiceBackground = function () {
             var ctx = this.bgCanvasElem.getContext('2d');
 
-            var niceImageElem = document.createElement('img');
-            var that = this;
-            var onLoad = function () {
-                ctx.clearRect(that.margin, that.margin,
-                              that.radius * 2, that.radius * 2);
-                ctx.drawImage(niceImageElem, that.margin, that.margin,
-                              that.radius * 2, that.radius * 2);
-            };
-            niceImageElem.addEventListener('load', onLoad, false);
-            niceImageElem.src = "clock.svg";
+            ctx.clearRect(this.margin, this.margin,
+                              this.radius * 2, this.radius * 2);
+            ctx.drawImage(niceImage, this.margin, this.margin,
+                              this.radius * 2, this.radius * 2);
         }
 
         // Draw the numbers of the hours.
@@ -519,7 +517,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var tempPos = [0.400,0.607,0.8125];
 
             for (var i = 0; i < handNames.length; i++) {
-                let name = handNames[i];
+                var name = handNames[i];
                 ctx.lineCap = 'round';
                 ctx.lineWidth = this.lineWidths[name];
                 ctx.strokeStyle = this.colors[name];
@@ -528,11 +526,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 ctx.arc(this.centerX, this.centerY, ctx.lineWidth * 0.6, 0,
                         2 * Math.PI);
                 ctx.moveTo(this.centerX, this.centerY);
-                let angle = this.handAngles[name];
+                var angle = this.handAngles[name];
 
-                let tempRadius = this.radius * 0.08;
-                let tempX = this.centerX + this.handSizes[name] * tempPos[i] * Math.sin(angle);
-                let tempY = this.centerY - this.handSizes[name] * tempPos[i] * Math.cos(angle);
+                var tempRadius = this.radius * 0.08;
+                var tempX = this.centerX + this.handSizes[name] * tempPos[i] * Math.sin(angle);
+                var tempY = this.centerY - this.handSizes[name] * tempPos[i] * Math.cos(angle);
 
                 ctx.lineTo(
                     this.centerX + ((this.handSizes[name] * tempPos[i]) - tempRadius) *
@@ -564,12 +562,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.moveHandsInSetTime = function () {
 
           if(this.isDrag){
-            let px = this.canvasX;
-            let py = this.canvasY;
-            let deltaY = Math.abs(py - this.centerY);
-            let deltaX = Math.abs(px - this.centerX)
-            let theta = Math.atan2(deltaY, deltaX);
-            let newAngle = undefined;
+            var px = this.canvasX;
+            var py = this.canvasY;
+            var deltaY = Math.abs(py - this.centerY);
+            var deltaX = Math.abs(px - this.centerX)
+            var theta = Math.atan2(deltaY, deltaX);
+            var newAngle = undefined;
 
             if(py <= this.centerY){
               if(px >= this.centerX){
@@ -589,7 +587,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
 
             if(this.initiateAngles){
-              this.initialAngles = {...this.handAngles};
+              for (var prop in this.handAngles) {
+                  this.initialAngles[prop] = this.handAngles[prop];
+              }
               this.initiateAngles = false;
             }
 
@@ -599,9 +599,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
             else if (this.selectedHand == 'minutes') {
 
-              let prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
+              var prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
               this.handAngles['minutes'] = Math.floor(newAngle / Math.PI * 30) * Math.PI / 30 + Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
-              let next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
+              var next = Math.floor(this.handAngles['minutes'] / Math.PI *30);
 
               if (45<prev && prev<=59 && 0<=next && next<15) {
                 this.ctr++;
@@ -610,7 +610,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.ctr--;
               }
 
-              let toset = (Math.floor(this.initialAngles['hours'] / Math.PI * 6) + this.ctr ) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
+              var toset = (Math.floor(this.initialAngles['hours'] / Math.PI * 6) + this.ctr ) * Math.PI/6 + Math.floor(this.handAngles['minutes'] / Math.PI * 30) * Math.PI / 360;
               if (toset < 0) {
                 this.handAngles['hours'] = 2*Math.PI + toset;
                 this.initialAngles['hours'] = 2*Math.PI + toset;
@@ -622,9 +622,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
             else{
 
-              let prev = Math.floor(this.handAngles['seconds'] / Math.PI *30);
+              var prev = Math.floor(this.handAngles['seconds'] / Math.PI *30);
               this.handAngles['seconds'] =  Math.floor(newAngle / Math.PI * 30) * Math.PI / 30;
-              let next = Math.floor(this.handAngles['seconds'] / Math.PI *30);
+              var next = Math.floor(this.handAngles['seconds'] / Math.PI *30);
 
               if (45<prev && prev<=59 && 0<=next && next<15) {
                 this.ctr++;
@@ -635,11 +635,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
               prev = Math.floor(this.handAngles['minutes'] / Math.PI *30) ;
 
-              let tmp = Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
+              var tmp = Math.floor(this.handAngles['seconds'] / Math.PI *30) * Math.PI / 1800;
               if(tmp == 0){
                 tmp = Math.PI / 1800;
               }
-              let toset = (Math.floor(this.initialAngles['minutes'] / Math.PI * 30 + this.ctr) * Math.PI / 30 + tmp)%(2*Math.PI);
+              var toset = (Math.floor(this.initialAngles['minutes'] / Math.PI * 30 + this.ctr) * Math.PI / 30 + tmp)%(2*Math.PI);
               if(toset < 0){
                 this.handAngles['minutes'] = 2*Math.PI + toset;
                 this.initialAngles['minutes'] = 2*Math.PI + toset;
@@ -673,7 +673,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         //to write time in set time mode
         Clock.prototype.writeTimeInSetTime = function () {
-         let tmp;
+         var tmp;
          this.timeToBeDisplayed['seconds'] = Math.floor(Number.parseFloat(this.handAngles['seconds'] * 30 / Math.PI).toFixed(5)) ;
          this.timeToBeDisplayed['minutes'] = Math.floor(Number.parseFloat((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI).toFixed(5))%60;
          tmp = Math.floor(Number.parseFloat((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI).toFixed(5));
@@ -696,7 +696,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
              this.timeToBeDisplayed['minutes'] = Math.floor(Math.random() * 60);
              this.timeToBeDisplayed['seconds'] = Math.floor(Math.random() * 60);
            }
-          let txt = "??";
+          var txt = "??";
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], txt);
 
           this.updateSizes();
@@ -842,15 +842,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
           for(var i=0;i<3;i++){
             var name = handNames[i];
-            let tempRadius = clock.radius * 0.08;
-            let tempX = clock.centerX + clock.handSizes[name] * tempPos[i] * Math.sin(clock.handAngles[name]);
-            let tempY = clock.centerY - clock.handSizes[name] * tempPos[i] * Math.cos(clock.handAngles[name]);
+            var tempRadius = clock.radius * 0.08;
+            var tempX = clock.centerX + clock.handSizes[name] * tempPos[i] * Math.sin(clock.handAngles[name]);
+            var tempY = clock.centerY - clock.handSizes[name] * tempPos[i] * Math.cos(clock.handAngles[name]);
             const rect = clock.clockCanvasElem.getBoundingClientRect();
             const canvasX = e.clientX - rect.left;
             const canvasY = e.clientY - rect.top;
             clock.canvasX = canvasX;
             clock.canvasY = canvasY;
-            let dist = Math.sqrt(Math.pow(tempX - canvasX, 2) + Math.pow(tempY - canvasY, 2));
+            var dist = Math.sqrt(Math.pow(tempX - canvasX, 2) + Math.pow(tempY - canvasY, 2));
 
             if (dist <= tempRadius){
               clock.isDrag = true;
@@ -865,7 +865,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
            clock.isDrag = false;
            clock.ctr = 0;
            clock.ctr1 = 0;
-           this.initialAngles = {...this.handAngles};
+           for (var prop in this.handAngles) {
+               this.initialAngles[prop] = this.handAngles[prop];
+           }
 
         }
 
@@ -878,21 +880,21 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
           clock.canvasY = canvasY;
 
           if(clock.setTimeGame){
-            let handNames = ['hours', 'minutes', 'seconds'];
-            let targetAngles = [];
+            var handNames = ['hours', 'minutes', 'seconds'];
+            var targetAngles = [];
 
             targetAngles.push (Math.PI / 6 * (clock.timeToBeDisplayed['hours']%12) + Math.PI / 360 * clock.timeToBeDisplayed['minutes']);
             targetAngles.push(Math.PI / 30 * clock.timeToBeDisplayed['minutes'] + Math.PI / 1800 * clock.timeToBeDisplayed['seconds']);
             targetAngles.push(Math.PI / 30 * clock.timeToBeDisplayed['seconds']);
 
 
-            let ctr = 0;
-            for(let i=0;i<3;i++){
-              let name = handNames[i];
-              let angle = clock.handAngles[name] % (2 * Math.PI);
-              let target = targetAngles[i];
+            var ctr = 0;
+            for(var i=0;i<3;i++){
+              var name = handNames[i];
+              var angle = clock.handAngles[name] % (2 * Math.PI);
+              var target = targetAngles[i];
 
-              let diff = Math.abs(angle - target);
+              var diff = Math.abs(angle - target);
 
               if (diff < 3*Math.PI/180) {
                 ctr++;
@@ -912,7 +914,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         }
 
         document.getElementById("stop-button").addEventListener('click', function (event) {
-          let stateObj = {
+          var stateObj = {
               face : clock.face,
               writeTime : clock.writeTime,
               writeDate : clock.writeDate,

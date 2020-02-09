@@ -648,24 +648,10 @@ enyo.kind({
 			colorized: true,
 			name: preferences.getName(),
 			title: null,
-			action: null
+			action: enyo.bind(this, "doSettings")
 		});
 		this.getPopup().setItems(null);
 		var items = [];
-		items.push({
-			icon: {directory: "icons", icon: "system-shutdown.svg"},
-			colorized: false,
-			name: l10n.get("Logoff"),
-			action: enyo.bind(this, "doLogoff"),
-			data: null
-		});
-		items.push({
-			icon: {directory: "icons", icon: "system-restart.svg"},
-			colorized: false,
-			name: l10n.get("Restart"),
-			action: enyo.bind(this, "doRestart"),
-			data: null
-		});
 		items.push({
 			icon: {directory: "icons", icon: "preferences-system.svg"},
 			colorized: false,
@@ -673,6 +659,22 @@ enyo.kind({
 			action: enyo.bind(this, "doSettings"),
 			data: null
 		});
+		items.push({
+			icon: {directory: "icons", icon: "system-shutdown.svg"},
+			colorized: false,
+			name: l10n.get("Logoff"),
+			action: enyo.bind(this, "doLogoff"),
+			data: null
+		});
+		if (enyo.platform.electron) {
+			items.push({
+				icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"},
+				colorized: false,
+				name: l10n.get("Quit"),
+				action: enyo.bind(this, "doQuit"),
+				data: null
+			});
+		}
 		this.getPopup().setFooter(items);
 
 		// Show popup
@@ -698,9 +700,9 @@ enyo.kind({
 			});
 		}
 	},
-	doRestart: function() {
-		stats.trace(constant.viewNames[this.getView()], 'click', 'restart');
-		util.restartApp();
+	doQuit: function() {
+		stats.trace(constant.viewNames[this.getView()], 'click', 'quit');
+		util.quitApp();
 	},
 	doSettings: function() {
 		stats.trace(constant.viewNames[this.getView()], 'click', 'my_settings');

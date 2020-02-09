@@ -19,14 +19,13 @@
 
 	<preference name="Orientation" value="landscape" />
 
-	<preference name="windows-target-version" value="10.0" />
-
 	<content src="index.html" />
 	<plugin name="cordova-plugin-whitelist" version="1" />
 	<access origin="*" />
 	<allow-navigation href="*" />
 
 	<preference name="android-minSdkVersion" value="14" />
+	<preference name="android-targetSdkVersion" value="28" />
 
 	<engine name="android" spec="6.3.0" />
 	<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" />

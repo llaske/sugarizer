@@ -110,7 +110,7 @@ define(function (require) {
 			// Get server name
 			var server = location.hostname;
 			var port = 8039;
-			var secure = false;
+			var secure = (location.protocol == 'https:');
 			if (sugar_settings) {
 				var sugarSettings = JSON.parse(sugar_settings);
 				if (sugarSettings.server) {
