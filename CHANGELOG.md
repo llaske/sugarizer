@@ -100,6 +100,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve design of Text Palette in Fototoon activity #575
 - Fix Unit Test
 - Presence is initialized as unsecure by default instead of using location.protocol value
+- XO Editor don't work on touch screens #588
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
