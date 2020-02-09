@@ -25,13 +25,12 @@ function Game(canvas, resources, paladict, webL10n) {
   this.playScreen = false;
   this.PlayerStop = true;
   this.gameEnded = false;
-  this.langMenu = false;
 
   this.obstacles = [];
-  this.frameWidth = screen.width * 0.10;
-  this.frameHeight = screen.height * 0.10;
-  this.obstWidth = screen.width * 0.10;
-  this.obstHeight = screen.height * 0.10;
+  this.frameWidth = 76;
+  this.frameHeight = 80;
+  this.obstWidth = 130;
+  this.obstHeight = 64;
   this.prevCanvasWidth = canvas.width;
   this.prevCanvasHeight = canvas.height;
   this.lives = 3;
@@ -44,12 +43,22 @@ function Game(canvas, resources, paladict, webL10n) {
   this.key = undefined;
   this.lastTime = Date.now();
   this.PlayerTimeInterval = 25;
-  this.PlayerDistMoves = 25;
+  this.playerSpeed = ( 2 + canvas.width / screen.width * (screen.width / 300) ) / this.PlayerTimeInterval;
+
   this.targetWord = "";
   this.targetWordLetters = [];
   this.targetLetterSize = screen.height * 0.10;
   this.menuSelected = 0;
   this.menuTexts = [];
+
+  //for setting screen
+  this.settingScreen = false;
+  this.useCustomDict = false;
+  this.customDictWordEdit = false;
+  this.wordInSetting = null;
+  this.customDict = [];
+  this.wordToBeEdited = null;
+  this.customDictLang = null;
 
 
   this.splashAudio = new Audio('./sounds/splash.ogg');
@@ -60,10 +69,16 @@ function Game(canvas, resources, paladict, webL10n) {
 
 
   this.main = function() {
+    if (!this.useCustomDict) {
+      this.initializeCustomDict();
+    }
+
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.creditScreen) {
       this.drawCreditScreen();
+    } else if (this.settingScreen) {
+      this.drawSettingScreen();
     } else if (this.playScreen) {
       this.initializeObstacles();
       this.generateTargetWord();
@@ -71,10 +86,15 @@ function Game(canvas, resources, paladict, webL10n) {
     }
   };
 
-  this.reset = function(empty) {
+  this.reset = function(empty, lives) {
     this.PlayerStop = true;
     this.gameEnded = false;
-    this.lives = 3;
+    if (lives != null) {
+      this.lives = lives;
+    }
+    else {
+      this.lives = 3;
+    }
     this.targetWordLetters = [];
     this.obstacles = [];
     this.frameNo = 0;
@@ -87,13 +107,40 @@ function Game(canvas, resources, paladict, webL10n) {
 
   };
 
-  this.resizeImages = function () {
-    var ratio = Math.min(canvas.width / (screen.width ), canvas.height / (screen.height ));
-    this.frameWidth = ratio * screen.width * 0.10;
-    this.frameHeight = ratio * screen.height * 0.10;
-    this.obstWidth = ratio * screen.width * 0.10;
-    this.obstHeight = ratio * screen.height * 0.10;
-    this.targetLetterSize = ratio * screen.height * 0.10;
+  this.resizeImagesAndFont = function () {
+    let aspectRatio = 76 / 80;
+    let obstAspectRatio = 130 / 64;
+
+    let canvasAspectRatio = canvas.width / canvas.height;
+
+    //resizing frame or player's image
+    if (aspectRatio >= canvasAspectRatio) {
+      this.frameWidth = canvas.width * 0.10;
+      this.frameHeight = this.frameWidth / aspectRatio;
+    }
+    else {
+      this.frameHeight = canvas.height * 0.10;
+      this.frameWidth = this.frameHeight * aspectRatio;
+    }
+
+    //resizing obstacles's images
+    if (obstAspectRatio >= canvasAspectRatio) {
+      this.obstWidth = canvas.width * 0.10;
+      this.obstHeight = this.obstWidth / obstAspectRatio;
+    }
+    else {
+      this.obstHeight = canvas.height * 0.10;
+      this.obstWidth = this.obstHeight * obstAspectRatio;
+    }
+
+    //resizing font of targetword and targetWordLetters
+    if (1 >= canvasAspectRatio) {
+      this.targetLetterSize = canvas.width * 0.10;
+    }
+    else {
+      this.targetLetterSize = canvas.height * 0.10;
+    }
+
   };
 
   this.resizeGame = function(newCanvasWidth, newCanvasHeight) {
@@ -128,10 +175,12 @@ function Game(canvas, resources, paladict, webL10n) {
     this.prevCanvasHeight = newCanvasHeight;
 
     //changing the values
-    this.resizeImages();
+    this.resizeImagesAndFont();
 
     this.playerX = pxr * canvas.width;
     this.playerY = pyr * canvas.height;
+    this.playerSpeed = ( 2 + canvas.width / screen.width * (2 + screen.width / 300) ) / this.PlayerTimeInterval;
+
 
     for (var i = 0; i < this.obstacles.length; i++) {
       this.obstacles[i].x = obstaclesCoordRatio[i].xr * canvas.width;
@@ -145,10 +194,13 @@ function Game(canvas, resources, paladict, webL10n) {
     if (this.homeScreen) {
       this.drawHomeScreen();
     }
+    else if (this.settingScreen) {
+      this.drawSettingScreen();
+    }
 
   }
 
-  this.drawHomeScreen = function() {
+  this.drawHomeScreen = function () {
     let ctx = canvas.getContext("2d");
     let backgroundMenu = resources.get('./images/menu.jpg');
     ctx.drawImage(backgroundMenu, 0, 0, canvas.width, canvas.height);
@@ -160,10 +212,10 @@ function Game(canvas, resources, paladict, webL10n) {
   this.drawMenu = function() {
     let ctx = canvas.getContext("2d");
     ctx.textBaseline = "top";
-    var menu = ['Play', 'Credits', 'Quit'];
+    var menu = ['Play', 'Credits', 'Settings', 'Quit'];
     this.menuTexts = [];
     let _this = this;
-    document.fonts.load('40px ds_moster').then(function() {
+    document.fonts.load('30px ds_moster').then(function() {
       for (var i = 0; i < menu.length; i++) {
         if (_this.menuSelected == i) {
           ctx.fillStyle = "Red";
@@ -199,6 +251,99 @@ function Game(canvas, resources, paladict, webL10n) {
         _this.drawHomeScreen();
       }, 2000);
     }, 2000);
+
+  };
+
+  this.initializeCustomDict = function (customDict) {
+    this.customDict = [];
+    this.customDictLang = webL10n.language.code;
+    let dict;
+    if (customDict == null) {
+      let len = paladict.defaultDict.length;
+      for (var i = 0; i < len; i++) {
+        let word = webL10n.get(paladict.defaultDict[i]);
+        this.customDict.push(word);
+      }
+    }
+    else {
+      this.customDict = customDict;
+    }
+  };
+
+  this.drawSettingScreen = function () {
+    let ctx = canvas.getContext("2d");
+    let backgroundMenu = resources.get('./images/menu.jpg');
+    ctx.drawImage(backgroundMenu, 0, 0, canvas.width, canvas.height);
+
+    let dictionaryListElem = document.getElementById('dictionary');
+    let settingScreenElem = document.getElementById("settingScreen");
+    let panelBodyElem = document.getElementById("panel-body");
+    let wordInputElem = document.getElementById('word');
+
+    settingScreenElem.style.visibility = "visible";
+
+    settingScreenElem.style.top = canvas.height * 0.5 + "px";
+    settingScreenElem.style.left = window.innerWidth * 0.05 + "px";
+    settingScreenElem.style.right = window.innerWidth * 0.05 + "px";
+    settingScreenElem.style.width = window.innerWidth * 0.9 + "px";
+    settingScreenElem.style.height = canvas.height * 0.35 + "px";
+    panelBodyElem.style.height = 100 + "%";
+    panelBodyElem.style.width = window.innerWidth * 0.5 + "px";
+    wordInputElem.style.width = window.innerWidth * 0.38 + "px";
+
+    let wordInSetting = this.wordInSetting;
+
+    dictionaryListElem.innerHTML = "";
+
+    if (this.customDictWordEdit) {
+      let tmp = document.createElement('li');
+
+      let tmpRow = '<div class="dictRow">'+
+        '<div>' + wordInSetting + '</div>'+
+        '<div>'+
+          '<button type="button" id="'+this.wordToBeEdited+'" class="settingButtons saveEditWord" name="button">OK</button>'+
+          '<button type="button" id="'+this.wordToBeEdited+'" class="settingButtons resetEditWord" name="button">BACK</button>'+
+        '</div>'+
+        '</div>';
+
+      tmp.innerHTML = tmpRow;
+      dictionaryListElem.appendChild(tmp);
+    }
+    else {
+
+      for (var i = 0; i < this.customDict.length; i++) {
+        let word = this.customDict[i];
+        if (wordInSetting != null) {
+          if (word.toUpperCase().startsWith(wordInSetting.toUpperCase())) {
+            let tmp = document.createElement('li');
+
+            let tmpRow = '<div class="dictRow">'+
+              '<div>' + word + '</div>'+
+              '<div>'+
+                '<button type="button" id="'+word+'" class="settingButtons editWord" name="button">edt</button>'+
+                '<button type="button" id="'+word+'" class="settingButtons deleteWord" name="button">del</button>'+
+              '</div>'+
+              '</div>';
+
+            tmp.innerHTML = tmpRow;
+            dictionaryListElem.appendChild(tmp);
+          }
+        }
+        else {
+          let tmp = document.createElement('li');
+          let tmpRow = '<div class="dictRow">'+
+            '<div>' + word + '</div>'+
+            '<div>'+
+              '<button type="button" id="'+word+'" class="settingButtons editWord" name="button">edt</button>'+
+              '<button type="button" id="'+word+'" class="settingButtons deleteWord" name="button">del</button>'+
+            '</div>'+
+            '</div>';
+
+          tmp.innerHTML = tmpRow;
+          dictionaryListElem.appendChild(tmp);
+        }
+      }
+    }
 
   };
 
@@ -244,7 +389,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
         let livesImg;
         livesImg = resources.get('./images/zeek0.png');
-        let x = canvas.width * 0.95 - i * canvas.width * 0.10;
+        let x = canvas.width * 0.95 - i * this.frameWidth;
         ctx.drawImage(livesImg, x, 10, this.frameWidth, this.frameHeight);
 
       }
@@ -265,7 +410,9 @@ function Game(canvas, resources, paladict, webL10n) {
             _this.gameAudio.pause();
           }
           else {
-            _this.reset(false);
+            let tmp = _this.lives;
+            console.log(tmp);
+            _this.reset(false,tmp);
           }
 
           requestAnimationFrame(_this.run.bind(_this));
@@ -282,7 +429,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
   this.initializeObstacles = function() {
 
-    this.resizeImages();
+    this.resizeImagesAndFont();
 
     for (var i = 0; i < 6;) {
 
@@ -332,7 +479,13 @@ function Game(canvas, resources, paladict, webL10n) {
 
   this.generateTargetWord = function() {
     let targetWord = paladict.getRandomWord();
-    this.targetWord = webL10n.get(targetWord).toUpperCase();
+    console.log(paladict.dict);
+    if (this.useCustomDict) {
+      this.targetWord = targetWord.toUpperCase();
+    }
+    else {
+      this.targetWord = webL10n.get(targetWord).toUpperCase();
+    }
 
     let tempArr = this.targetWord.split('');
 
@@ -350,6 +503,7 @@ function Game(canvas, resources, paladict, webL10n) {
         doPush2 = true;
 
       //to ensure the letter do not overlaps with any obstacles
+      // to ensure the letter do not overlaps even after resizing the window to the full, we are considering maximum size a letter can attain
       for (var k = 0; k < this.obstacles.length; k++) {
         let isCollide = this.collides({
           x: x,
@@ -359,8 +513,8 @@ function Game(canvas, resources, paladict, webL10n) {
         }, {
           x: this.obstacles[k].x,
           y: this.obstacles[k].y,
-          width: this.obstWidth,
-          height: this.obstHeight
+          width: screen.width * 0.10,
+          height: screen.height * 0.10
         });
         if (isCollide) {
           doPush1 = false;
@@ -454,7 +608,7 @@ function Game(canvas, resources, paladict, webL10n) {
             this.framesSequenceNo++;
             this.frameNo = framesSequence['LEFT'][this.framesSequenceNo];
           }
-          this.playerX -= this.PlayerDistMoves;
+          this.playerX -= this.playerSpeed * this.PlayerTimeInterval;
         }
 
         this.lastTime = Date.now();
@@ -479,7 +633,7 @@ function Game(canvas, resources, paladict, webL10n) {
             this.framesSequenceNo++;
             this.frameNo = framesSequence['UP'][this.framesSequenceNo];
           }
-          this.playerY -= this.PlayerDistMoves;
+          this.playerY -= this.playerSpeed * this.PlayerTimeInterval;
         }
 
         this.lastTime = Date.now();
@@ -503,7 +657,7 @@ function Game(canvas, resources, paladict, webL10n) {
             this.framesSequenceNo++;
             this.frameNo = framesSequence['RIGHT'][this.framesSequenceNo];
           }
-          this.playerX += this.PlayerDistMoves;
+          this.playerX += this.playerSpeed * this.PlayerTimeInterval;
         }
 
         this.lastTime = Date.now();
@@ -527,7 +681,7 @@ function Game(canvas, resources, paladict, webL10n) {
             this.framesSequenceNo++;
             this.frameNo = framesSequence['DOWN'][this.framesSequenceNo];
           }
-          this.playerY += this.PlayerDistMoves;
+          this.playerY += this.playerSpeed * this.PlayerTimeInterval;
         }
 
         this.lastTime = Date.now();

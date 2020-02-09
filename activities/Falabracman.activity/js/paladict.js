@@ -1,8 +1,9 @@
 function Paladict (dict) {
   this.dict = dict;
+  this.defaultDict = [...dict];
 
   this.changeDict = function (_dict) {
-    this.dict = _dict;
+    this.dict = [..._dict];
   }
   this.getRandomWord = function () {
     let no = Math.floor(Math.random() * this.dict.length);
