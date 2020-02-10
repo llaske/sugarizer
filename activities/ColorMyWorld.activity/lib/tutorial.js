@@ -27,7 +27,10 @@ define(["webL10n"], function (webL10n) {
 			{
 				element: "#run-button",
 				title: document.webL10n.get("TutoRunTitle"),
-				content: document.webL10n.get("TutoRunContent")
+				content: document.webL10n.get("TutoRunContent"),
+				onNext: function () {
+					tour.end();
+				}
 			}
 		];
 		var tour = new Tour({
