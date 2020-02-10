@@ -101,7 +101,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix Unit Test
 - Presence is initialized as unsecure by default instead of using location.protocol value
 - XO Editor don't work on touch screens #588
-- Font size of Title reduces in fototoon activity #563 
+- Font size of Title reduces in fototoon activity #563
+- Fix TXT file generation in Write activity
+- Fix TXT import file
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
