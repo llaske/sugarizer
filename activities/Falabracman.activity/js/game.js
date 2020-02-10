@@ -43,11 +43,12 @@ function Game(canvas, resources, paladict, webL10n) {
   this.key = undefined;
   this.lastTime = Date.now();
   this.PlayerTimeInterval = 25;
-  this.playerSpeed = ( 2 + canvas.width / screen.width * (screen.width / 300) ) / this.PlayerTimeInterval;
+  this.playerSpeed = (2 + canvas.width / screen.width * (screen.width / 300)) / this.PlayerTimeInterval;
 
   this.targetWord = "";
   this.targetWordLetters = [];
   this.targetLetterSize = screen.height * 0.10;
+  this.homeScreenFontSize = canvas.height * 0.07;
   this.menuSelected = 0;
   this.menuTexts = [];
 
@@ -91,8 +92,7 @@ function Game(canvas, resources, paladict, webL10n) {
     this.gameEnded = false;
     if (lives != null) {
       this.lives = lives;
-    }
-    else {
+    } else {
       this.lives = 3;
     }
     this.targetWordLetters = [];
@@ -107,7 +107,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
   };
 
-  this.resizeImagesAndFont = function () {
+  this.resizeImagesAndFont = function() {
     let aspectRatio = 76 / 80;
     let obstAspectRatio = 130 / 64;
 
@@ -117,8 +117,7 @@ function Game(canvas, resources, paladict, webL10n) {
     if (aspectRatio >= canvasAspectRatio) {
       this.frameWidth = canvas.width * 0.10;
       this.frameHeight = this.frameWidth / aspectRatio;
-    }
-    else {
+    } else {
       this.frameHeight = canvas.height * 0.10;
       this.frameWidth = this.frameHeight * aspectRatio;
     }
@@ -127,8 +126,7 @@ function Game(canvas, resources, paladict, webL10n) {
     if (obstAspectRatio >= canvasAspectRatio) {
       this.obstWidth = canvas.width * 0.10;
       this.obstHeight = this.obstWidth / obstAspectRatio;
-    }
-    else {
+    } else {
       this.obstHeight = canvas.height * 0.10;
       this.obstWidth = this.obstHeight * obstAspectRatio;
     }
@@ -136,10 +134,14 @@ function Game(canvas, resources, paladict, webL10n) {
     //resizing font of targetword and targetWordLetters
     if (1 >= canvasAspectRatio) {
       this.targetLetterSize = canvas.width * 0.10;
-    }
-    else {
+    } else {
       this.targetLetterSize = canvas.height * 0.10;
     }
+
+    //for resizing homescreen's text font size
+
+    this.homeScreenFontSize = canvas.height * 0.07;
+
 
   };
 
@@ -179,7 +181,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
     this.playerX = pxr * canvas.width;
     this.playerY = pyr * canvas.height;
-    this.playerSpeed = ( 2 + canvas.width / screen.width * (2 + screen.width / 300) ) / this.PlayerTimeInterval;
+    this.playerSpeed = (2 + canvas.width / screen.width * (2 + screen.width / 300)) / this.PlayerTimeInterval;
 
 
     for (var i = 0; i < this.obstacles.length; i++) {
@@ -193,14 +195,13 @@ function Game(canvas, resources, paladict, webL10n) {
     }
     if (this.homeScreen) {
       this.drawHomeScreen();
-    }
-    else if (this.settingScreen) {
+    } else if (this.settingScreen) {
       this.drawSettingScreen();
     }
 
   }
 
-  this.drawHomeScreen = function () {
+  this.drawHomeScreen = function() {
     let ctx = canvas.getContext("2d");
     let backgroundMenu = resources.get('./images/menu.jpg');
     ctx.drawImage(backgroundMenu, 0, 0, canvas.width, canvas.height);
@@ -215,18 +216,18 @@ function Game(canvas, resources, paladict, webL10n) {
     var menu = ['Play', 'Credits', 'Settings', 'Quit'];
     this.menuTexts = [];
     let _this = this;
-    document.fonts.load('30px ds_moster').then(function() {
+    document.fonts.load(_this.homeScreenFontSize + 'px ds_moster').then(function() {
       for (var i = 0; i < menu.length; i++) {
         if (_this.menuSelected == i) {
           ctx.fillStyle = "Red";
         } else {
           ctx.fillStyle = "Black";
         }
-        ctx.font = "40px ds_moster";
+        ctx.font = _this.homeScreenFontSize + "px ds_moster";
         let text = webL10n.get(menu[i]);
         let menuTextObj = {
           x: canvas.width / 4,
-          y: canvas.height / 2 + i * 50,
+          y: canvas.height / 2 + i * _this.homeScreenFontSize + i * 10,
           text: text
         }
         _this.menuTexts.push(menuTextObj);
@@ -254,7 +255,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
   };
 
-  this.initializeCustomDict = function (customDict) {
+  this.initializeCustomDict = function(customDict) {
     this.customDict = [];
     this.customDictLang = webL10n.language.code;
     let dict;
@@ -264,32 +265,43 @@ function Game(canvas, resources, paladict, webL10n) {
         let word = webL10n.get(paladict.defaultDict[i]);
         this.customDict.push(word);
       }
-    }
-    else {
+    } else {
       this.customDict = customDict;
     }
   };
 
-  this.drawSettingScreen = function () {
-    let ctx = canvas.getContext("2d");
-    let backgroundMenu = resources.get('./images/menu.jpg');
-    ctx.drawImage(backgroundMenu, 0, 0, canvas.width, canvas.height);
+  this.resizeSettingScreen = function() {
 
-    let dictionaryListElem = document.getElementById('dictionary');
     let settingScreenElem = document.getElementById("settingScreen");
     let panelBodyElem = document.getElementById("panel-body");
     let wordInputElem = document.getElementById('word');
 
-    settingScreenElem.style.visibility = "visible";
-
-    settingScreenElem.style.top = canvas.height * 0.5 + "px";
+    settingScreenElem.style.top = window.innerHeight * 0.15 + "px";
     settingScreenElem.style.left = window.innerWidth * 0.05 + "px";
     settingScreenElem.style.right = window.innerWidth * 0.05 + "px";
     settingScreenElem.style.width = window.innerWidth * 0.9 + "px";
-    settingScreenElem.style.height = canvas.height * 0.35 + "px";
-    panelBodyElem.style.height = 100 + "%";
-    panelBodyElem.style.width = window.innerWidth * 0.5 + "px";
-    wordInputElem.style.width = window.innerWidth * 0.38 + "px";
+    settingScreenElem.style.height = window.innerHeight * 0.8 + "px";
+    if (window.innerHeight < 500) {
+      panelBodyElem.style.height = window.innerHeight * 0.2 + "px";
+    } else {
+      panelBodyElem.style.height = window.innerHeight * 0.4 + "px";
+    }
+    panelBodyElem.style.width = 100 + "%";
+    wordInputElem.style.width = window.innerWidth * 0.9 + "px";
+  };
+
+  this.drawSettingScreen = function() {
+    let ctx = canvas.getContext("2d");
+    let backgroundMenu = resources.get('./images/setting.jpg');
+    ctx.drawImage(backgroundMenu, 0, 0, canvas.width, canvas.height);
+
+    let settingScreenElem = document.getElementById("settingScreen");
+    let dictionaryListElem = document.getElementById('dictionary');
+
+    settingScreenElem.style.visibility = "visible";
+
+    this.resizeSettingScreen();
+
 
     let wordInSetting = this.wordInSetting;
 
@@ -298,18 +310,17 @@ function Game(canvas, resources, paladict, webL10n) {
     if (this.customDictWordEdit) {
       let tmp = document.createElement('li');
 
-      let tmpRow = '<div class="dictRow">'+
-        '<div>' + wordInSetting + '</div>'+
-        '<div>'+
-          '<button type="button" id="'+this.wordToBeEdited+'" class="settingButtons saveEditWord" name="button">OK</button>'+
-          '<button type="button" id="'+this.wordToBeEdited+'" class="settingButtons resetEditWord" name="button">BACK</button>'+
-        '</div>'+
+      let tmpRow = '<div class="dictRow">' +
+        '<div>' + wordInSetting + '</div>' +
+        '<div>' +
+        '<button type="button" id="' + this.wordToBeEdited + '" class="settingButtons saveEditWord" name="button" title="Okay"></button>' +
+        '<button type="button" id="' + this.wordToBeEdited + '" class="settingButtons resetEditWord" name="button" title="Cancel"></button>' +
+        '</div>' +
         '</div>';
 
       tmp.innerHTML = tmpRow;
       dictionaryListElem.appendChild(tmp);
-    }
-    else {
+    } else {
 
       for (var i = 0; i < this.customDict.length; i++) {
         let word = this.customDict[i];
@@ -317,26 +328,30 @@ function Game(canvas, resources, paladict, webL10n) {
           if (word.toUpperCase().startsWith(wordInSetting.toUpperCase())) {
             let tmp = document.createElement('li');
 
-            let tmpRow = '<div class="dictRow">'+
-              '<div>' + word + '</div>'+
-              '<div>'+
-                '<button type="button" id="'+word+'" class="settingButtons editWord" name="button">edt</button>'+
-                '<button type="button" id="'+word+'" class="settingButtons deleteWord" name="button">del</button>'+
-              '</div>'+
+            let tmpRow = '<div class="dictRow">' +
+              '<div>' + word + '</div>' +
+              '<div>' +
+              '<button type="button" id="' + word + '" class="settingButtons editWord" name="button" title="Edit"></button>';
+            if (this.customDict.length != 1) {
+              tmpRow += '<button type="button" id="' + word + '" class="settingButtons deleteWord" name="button title="Delete""></button>';
+            }
+            tmpRow += '</div>' +
               '</div>';
 
             tmp.innerHTML = tmpRow;
             dictionaryListElem.appendChild(tmp);
           }
-        }
-        else {
+        } else {
           let tmp = document.createElement('li');
-          let tmpRow = '<div class="dictRow">'+
-            '<div>' + word + '</div>'+
-            '<div>'+
-              '<button type="button" id="'+word+'" class="settingButtons editWord" name="button">edt</button>'+
-              '<button type="button" id="'+word+'" class="settingButtons deleteWord" name="button">del</button>'+
-            '</div>'+
+
+          let tmpRow = '<div class="dictRow">' +
+            '<div>' + word + '</div>' +
+            '<div>' +
+            '<button type="button" id="' + word + '" class="settingButtons editWord" name="button" title="Edit"></button>';
+          if (this.customDict.length != 1) {
+            tmpRow += '<button type="button" id="' + word + '" class="settingButtons deleteWord" name="button" title="Delete"></button>';
+          }
+          tmpRow += '</div>' +
             '</div>';
 
           tmp.innerHTML = tmpRow;
@@ -355,7 +370,7 @@ function Game(canvas, resources, paladict, webL10n) {
     if (this.playScreen) {
 
       if (this.key != undefined) {
-          this.gameAudio.play();
+        this.gameAudio.play();
       }
 
       let bar;
@@ -408,11 +423,10 @@ function Game(canvas, resources, paladict, webL10n) {
             _this.homeScreen = true;
             display = 'homeScreen';
             _this.gameAudio.pause();
-          }
-          else {
+          } else {
             let tmp = _this.lives;
             console.log(tmp);
-            _this.reset(false,tmp);
+            _this.reset(false, tmp);
           }
 
           requestAnimationFrame(_this.run.bind(_this));
@@ -479,11 +493,9 @@ function Game(canvas, resources, paladict, webL10n) {
 
   this.generateTargetWord = function() {
     let targetWord = paladict.getRandomWord();
-    console.log(paladict.dict);
     if (this.useCustomDict) {
       this.targetWord = targetWord.toUpperCase();
-    }
-    else {
+    } else {
       this.targetWord = webL10n.get(targetWord).toUpperCase();
     }
 
