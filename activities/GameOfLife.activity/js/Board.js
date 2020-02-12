@@ -52,7 +52,7 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
   };
 
   this.handleResize = function (windowWidth, _state, state) {
-    let scale = windowWidth / canvasWidth;
+    var scale = windowWidth / canvasWidth;
     if (scale < 1) {
       canvas.width = canvasWidth * (scale - 0.1);
       canvas.height = canvasHeight * (scale - 0.1);

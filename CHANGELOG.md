@@ -60,6 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a synth keyboard mode in TamTam Micro activity #389
 - Add a fullscreen button to the TankOp activity #547
 - Add a home button in Grid Paint activity #546
+- Add a quit application button in Electron
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -71,6 +72,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use a real input field for password
 - Remove the two steps popup opening
 - Automatically shift popup menu to the left when it will override the right border
+- Allow teachers to login
+- Reorder buddy menu icons
+- Click on buddy icon/name in buddy menu is now like clicking on settings item
+- Remove restart message on settings/about me and settings/about language
+- Increase link width in LabyrinthJS activity
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
@@ -91,6 +97,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Resize function gives error in TankOp Activity #549
 - Can't see the previous result on small screens for Calculate activity #517
 - Fix the clean all button in the Fototoon activity #513
+- Disappearance of clock in set time mode in clock activity #581
+- Improve design of Text Palette in Fototoon activity #575
+- Fix Unit Test
+- Presence is initialized as unsecure by default instead of using location.protocol value
+- XO Editor don't work on touch screens #588
+- Font size of Title reduces in fototoon activity #563
+- Fix TXT file generation in Write activity
+- Fix TXT import file
+
+### Removed
+- Remove .OGG sounds, now replaced by .MP3 only
 
 
 ## [1.2.0] - 2019-09-26

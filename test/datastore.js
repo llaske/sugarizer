@@ -15,25 +15,25 @@ describe('Datastore', function() {
 				chai.assert.equal(null, err);
 				chai.assert.notEqual(null, oid);
 				chai.assert.equal(36, oid.length);
+
+				var results = datastore.find();
+				chai.assert.equal(1, results.length);
+				chai.assert.equal("entry", results[0].metadata.name);
+				chai.assert.equal("test", results[0].metadata.activity);
+				chai.assert.isNotNull(results[0].text);
+
+				var results = datastore.find("test");
+				chai.assert.equal(1, results.length);
+				chai.assert.equal("entry", results[0].metadata.name);
+				chai.assert.equal("test", results[0].metadata.activity);
+				chai.assert.isNotNull(results[0].text);
+
+				var entry = new datastore.DatastoreObject(objectIds[0]);
+				entry.loadAsText(function(err, metadata, text) {
+					chai.assert.equal("100", text.value);
+					done();
+				});
 			}, {value: "100"});
-
-			var results = datastore.find();
-			chai.assert.equal(1, results.length);
-			chai.assert.equal("entry", results[0].metadata.name);
-			chai.assert.equal("test", results[0].metadata.activity);
-			chai.assert.isNotNull(results[0].text);
-
-			var results = datastore.find("test");
-			chai.assert.equal(1, results.length);
-			chai.assert.equal("entry", results[0].metadata.name);
-			chai.assert.equal("test", results[0].metadata.activity);
-			chai.assert.isNotNull(results[0].text);
-
-			var entry = new datastore.DatastoreObject(objectIds[0]);
-			entry.loadAsText(function(err, metadata, text) {
-				chai.assert.equal("100", text.value);
-				done();
-			});
 		});
 
 		it('should set text to null if undefined', function() {

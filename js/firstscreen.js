@@ -5,6 +5,7 @@ enyo.kind({
 	name: "Sugar.FirstScreen",
 	kind: enyo.Control,
 	components: [
+		{name: "stopbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"}, colorized: true, colorizedColor: {fill: "#666666", stroke: "#ffffff"}, ontap: "quitApplication", classes: "first-quit"},
 		{name: "helpbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "help.svg"}, colorized: true, colorizedColor: {stroke: "#666666", fill: "#ffffff"}, ontap: "startTutorial", classes: "first-help"},
 		{name: "namebox", classes: "first-namebox", onresize: "resize", showing: false, components: [
 			{name: "nameline", classes: "first-nameline", components: [
@@ -120,6 +121,7 @@ enyo.kind({
 	// Display current step items
 	displayStep: function() {
 		var vlogin = false,
+			vstop = false;
 			vlogintext = false,
 			vnewuser = false,
 			vnewusertext = false,
@@ -139,6 +141,7 @@ enyo.kind({
 		case 0: // Choose between New User/Login
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
+			vstop = enyo.platform.electron;
 			vhistory = true;
 			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
 			this.$.server.setDisabled(true);
@@ -175,6 +178,7 @@ enyo.kind({
 			return;
 		}
 
+		this.$.stopbutton.setShowing(vstop);
 		this.$.login.setShowing(vlogin);
 		this.$.logintext.setShowing(vlogintext);
 		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
@@ -503,12 +507,18 @@ enyo.kind({
 		});
 	},
 
+	// Quit application - only on Electron
+	quitApplication: function() {
+		util.quitApp();
+	},
+
 	// Display tutorial
 	startTutorial: function() {
 		tutorial.setElement("newuser", this.$.newuser.getAttribute("id"));
 		tutorial.setElement("login", this.$.login.getAttribute("id"));
 		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
 		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
+		tutorial.setElement("stopbutton", this.$.stopbutton.getAttribute("id"));
 		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
 		tutorial.setElement("qrcode", this.$.qrbutton.getAttribute("id"));
 		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
