@@ -78,19 +78,19 @@ define([
                 </table>\
               </div>\
 \
-          <div style="float:left; width: 150px; padding-top:10px">\
+          <div style="float:left; width: 130px; padding-top:10px">\
           Red\
-          <input class="multiplatformInputSlider" type="range"  min="0" max="255" />\
+          <input class="multiplatformInputSlider" style="width:130px;" type="range"  min="0" max="255" />\
 \
           <br/>\
           <br/>\
           Green\
-          <input class="multiplatformInputSlider" type="range"  min="0" max="255" />\
+          <input class="multiplatformInputSlider" style="width:130px;" type="range"  min="0" max="255" />\
 \
           <br/>\
           <br/>\
           Blue\
-          <input class="multiplatformInputSlider" type="range"  min="0" max="255" />\
+          <input class="multiplatformInputSlider" style="width:130px;" type="range"  min="0" max="255" />\
 \
           </div>\
 \
