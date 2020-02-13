@@ -78,7 +78,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
             game.customDict = data.customDict;
             game.useCustomDict = data.useCustomDict;
             paladict.changeDict(data.customDict);
-            
+
             if (data.playScreen) {
               game.playScreen = true;
               display = 'playScreen';
@@ -177,12 +177,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     }
 
     function handleOnKeyDown(e, sts) {
-      let code = e.keyCode;
+      var code = e.keyCode;
 
       switch (code) {
         case 13:
           if (game.homeScreen) {
-            let sel = game.menuSelected;
+            var sel = game.menuSelected;
             handleMenuChoose(sel);
           }
           break;
@@ -238,11 +238,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       endPoint.x = e.clientX - rect.left;
       endPoint.y = e.clientY - rect.top;
 
-      let sel;
+      var sel;
       if (game.homeScreen) {
 
         for (var i = 0; i < game.menuTexts.length; i++) {
-          let isCollide = game.collides({
+          var isCollide = game.collides({
             x: game.menuTexts[i].x,
             y: game.menuTexts[i].y,
             width: ctx.measureText(game.menuTexts[i].text).width,
@@ -263,9 +263,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       }
 
       if (game.playScreen) {
-        let deltaY = Math.abs(endPoint.y - startPoint.y);
-        let deltaX = Math.abs(endPoint.x - startPoint.x)
-        let theta = Math.atan2(deltaY, deltaX);
+        var deltaY = Math.abs(endPoint.y - startPoint.y);
+        var deltaX = Math.abs(endPoint.x - startPoint.x)
+        var theta = Math.atan2(deltaY, deltaX);
 
         if (endPoint.y <= startPoint.y) {
           if (endPoint.x >= startPoint.x) {
@@ -314,7 +314,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         game.wordInSetting = null;
       }
       if (game.customDictWordEdit) {
-        let dictionaryListElem = document.getElementById('dictionary');
+        var dictionaryListElem = document.getElementById('dictionary');
         dictionaryListElem.children[0].children[0].children[0].innerHTML = e.target.value;
       } else {
         game.drawSettingScreen();
@@ -324,14 +324,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
     var addWordButton = document.getElementById("addWord");
     addWordButton.addEventListener('click', function() {
-      let dictionaryListElem = document.getElementById('dictionary');
-      let flag = 0;
+      var dictionaryListElem = document.getElementById('dictionary');
+      var flag = 0;
       //checking if a word already existed in dictionary or not
       if (!game.customDictWordEdit) {
         game.menuAudio.play();
         if (game.wordInSetting != null) {
           for (var i = 0; i < dictionaryListElem.children.length; i++) {
-            let wordShown = dictionaryListElem.children[i].children[0].children[0].innerHTML;
+            var wordShown = dictionaryListElem.children[i].children[0].children[0].innerHTML;
             if (wordShown.toUpperCase() == game.wordInSetting.toUpperCase()) {
               flag = 1;
               break;
@@ -353,7 +353,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     deleteAllWordsButton.addEventListener('click', function() {
       if (!game.customDictWordEdit) {
         game.menuAudio.play();
-        let firstWord = webL10n.get('Play');
+        var firstWord = webL10n.get('Play');
         game.customDict = [firstWord];
         wordInputElem.value = "";
         game.wordInSetting = null;
@@ -395,10 +395,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
       var element = event.target;
 
-      let addWordElem = document.getElementById('addWord');
-      let deleteAllWordsElem = document.getElementById('deleteAllWords');
-      let saveDictElem = document.getElementById('saveDict');
-      let resetDictElem = document.getElementById('resetDict');
+      var addWordElem = document.getElementById('addWord');
+      var deleteAllWordsElem = document.getElementById('deleteAllWords');
+      var saveDictElem = document.getElementById('saveDict');
+      var resetDictElem = document.getElementById('resetDict');
 
       // Climb up the document tree from the target of the event
       while (element) {
@@ -406,7 +406,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
           // The user clicked on a <button> or clicked on an element inside a <button>
           // with a class name called "deleteWord"
           game.menuAudio.play();
-          let filtered = game.customDict.filter(function(value, index, arr) {
+          var filtered = game.customDict.filter(function(value, index, arr) {
             return value != element.id;
           });
           game.customDict = filtered;
@@ -480,9 +480,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
 
     window.addEventListener('resize', function() {
-      let newCanvasWidth = window.innerWidth;
-      let toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
-      let newCanvasHeight = window.innerHeight - toolbarHeight;
+      var newCanvasWidth = window.innerWidth;
+      var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
+      var newCanvasHeight = window.innerHeight - toolbarHeight;
       game.resizeGame(newCanvasWidth, newCanvasHeight);
 
       if (game.settingScreen) {
@@ -501,7 +501,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         game.settingScreen = false;
         wordInputElem.value = "";
         game.wordInSetting = null;
-        game.customDict = [...paladict.dict];
+        game.customDict = [].concat(paladict.dict);
         game.customDictWordEdit = false;
 
         document.getElementById("settingScreen").style.visibility = "hidden";
@@ -517,7 +517,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
     var stopButton = document.getElementById("stop-button");
     stopButton.addEventListener('click', function(event) {
-      let stateObj = {
+      var stateObj = {
         homeScreen: game.homeScreen,
         playScreen: game.playScreen,
         playerX: game.playerX,
@@ -549,8 +549,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       document.getElementById("main-toolbar").style.opacity = 0;
       document.getElementById("canvas").style.top = "0px";
       document.getElementById("unfullscreen-button").style.visibility = "visible";
-      let newCanvasWidth = window.innerWidth;
-      let newCanvasHeight = window.innerHeight;
+      var newCanvasWidth = window.innerWidth;
+      var newCanvasHeight = window.innerHeight;
 
       game.resizeGame(newCanvasWidth, newCanvasHeight);
     });
@@ -558,8 +558,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       document.getElementById("main-toolbar").style.opacity = 1;
       document.getElementById("canvas").style.top = "55px";
       document.getElementById("unfullscreen-button").style.visibility = "hidden";
-      let newCanvasWidth = window.innerWidth;
-      let newCanvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
+      var newCanvasWidth = window.innerWidth;
+      var newCanvasHeight = window.innerHeight - toolbarElem.offsetHeight - 3;
 
       game.resizeGame(newCanvasWidth, newCanvasHeight);
     });
