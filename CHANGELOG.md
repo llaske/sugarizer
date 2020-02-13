@@ -105,6 +105,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Font size of Title reduces in fototoon activity #563
 - Fix TXT file generation in Write activity
 - Fix TXT import file
+- Journal chooser sometimes load Abecedarium images from server instead of from local directory
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
