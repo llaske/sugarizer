@@ -93,8 +93,8 @@ define(["webL10n"], function(l10n) {
           content: l10n.get("TutoResetDictContent")
         },
         {
-          element: "#return",
-          placement: "top",
+          element: "#restart-button",
+          placement: "bottom",
           title: l10n.get("TutoReturnTitle"),
           content: l10n.get("TutoReturnContent")
         },
