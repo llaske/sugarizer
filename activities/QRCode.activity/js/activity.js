@@ -1,6 +1,6 @@
 
 
-define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n"], function (activity, datastore, env, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n", "tutorial"], function (activity, datastore, env, webL10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!', 'humane'], function (doc, humane) {
@@ -138,6 +138,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 				humane.log(webL10n.get('QRCodeSaved'))
 				console.log("export done.")
 			}, inputData);
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		// Full screen
