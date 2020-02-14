@@ -16,24 +16,6 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoQRContent")
 			},
 			{
-				element: "#photo-button",
-				placement: "bottom",
-				title: l10n.get("TutoPhotoTitle"),
-				content: l10n.get("TutoPhotoContent")
-			},
-			{
-				element: "#png-button",
-				placement: "bottom",
-				title: l10n.get("TutoPNGTitle"),
-				content: l10n.get("TutoPNGContent")
-			},
-			{
-				element: "#qrtextdropdown",
-				placement: "bottom",
-				title: l10n.get("TutoListTitle"),
-				content: l10n.get("TutoListContent")
-			},
-			{
 				element: "#user-text",
 				placement: "bottom",
 				title: l10n.get("TutoInputTitle"),
@@ -44,6 +26,24 @@ define(["webL10n"], function (l10n) {
 				placement: "left",
 				title: l10n.get("TutoGenerateTitle"),
 				content: l10n.get("TutoGenerateContent")
+			},
+			{
+				element: "#qrtextdropdown",
+				placement: "bottom",
+				title: l10n.get("TutoListTitle"),
+				content: l10n.get("TutoListContent")
+			},
+			{
+				element: "#photo-button",
+				placement: "bottom",
+				title: l10n.get("TutoPhotoTitle"),
+				content: l10n.get("TutoPhotoContent")
+			},
+			{
+				element: "#png-button",
+				placement: "bottom",
+				title: l10n.get("TutoPNGTitle"),
+				content: l10n.get("TutoPNGContent")
 			}
 		];
 		var tour = new Tour({
