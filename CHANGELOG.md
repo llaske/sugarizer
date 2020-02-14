@@ -77,6 +77,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Click on buddy icon/name in buddy menu is now like clicking on settings item
 - Remove restart message on settings/about me and settings/about language
 - Increase link width in LabyrinthJS activity
+- Disable overscroll on iOS/Android
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371
