@@ -1,4 +1,32 @@
 enyo.kind({
+	name: "TamTam.TonePlayer",
+
+	create: function() {
+		this.player = new Tone.Player();
+		this.pitchShift = new Tone.PitchShift();
+	},
+
+	load: function(file) {
+		this.player.load(file+"?time="+(new Date().getTime())); // HACK: Don't load in the cache
+	},
+
+	play: function(pitch) {
+		this.pitchShift.pitch = pitch;
+		this.pitchShift.toMaster();
+		this.player.connect(this.pitchShift);
+		this.player.start();
+	},
+
+	destroy: function() {
+		this.pitchShift.disconnect();
+		this.pitchShift.dispose();
+		this.player.disconnect();
+		this.player.dispose();
+	}
+});
+
+
+enyo.kind({
 	name: "TamTam.Piano",
 	components: [
 		{tag: "div", classes: "container", components: [
@@ -6,27 +34,27 @@ enyo.kind({
 				{ tag: "li", name: "C", classes:"standard red", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "1", classes:"number"}
 				]},
-	
+
 				{ tag: "li", name: "D", classes:"standard orange", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "2", classes:"number"}
 				]},
-	
+
 				{ tag: "li", name: "E", classes:"standard yellow", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "3", classes:"number"}
-				]}, 
-	
+				]},
+
 				{ tag: "li", name: "F", classes:"standard green", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "4", classes:"number"}
 				]},
-	
+
 				{ tag: "li", name: "G", classes:"standard aquamarine", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "5", classes:"number"}
 				]},
-	
+
 				{ tag: "li", name: "A", classes:"standard blue", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "6", classes:"number"}
 				]},
-	
+
 				{ tag: "li", name: "B", classes:"standard purple", ontap: "handlePlayNote", components: [
 					{tag: "span", content: "7", classes:"number"}
 				]},
@@ -39,7 +67,7 @@ enyo.kind({
 					{ tag: "li", name: "G#", classes:"black", ontap: "handlePlayNote"},
 					{ tag: "li", name: "A#", classes:"black", ontap: "handlePlayNote"},
 				]
-			} 
+			}
 		]}
 	],
 
@@ -77,8 +105,7 @@ enyo.kind({
 		} else {
 			pitchName = s.name;
 		}
-		this.sound = "audio/database/"+currentPianoMode;
-		
+
 		var pitchMap = {
 			'C': 0,
 			'C#': 1,
@@ -94,14 +121,9 @@ enyo.kind({
 			'B': 11
 		};
 
-		var player = new Tone.Player('./audio/database/'+currentPianoMode+".mp3");
-		var pitchShift = new Tone.PitchShift({
-			pitch: pitchMap[pitchName]
-		}).toMaster();
-		player.connect(pitchShift);
-		player.autostart = true;
+		tonePlayer.play(pitchMap[pitchName]);
 	},
-	
+
 	handlePlayNoteListener: function(event) {
 		this.handlePlayNote(event);
 	},
@@ -112,16 +134,8 @@ enyo.kind({
 		var that = this;
 		that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
 		document.addEventListener('keydown', that.handlePlayNoteListener, false);
+		tonePlayer.load('audio/database/'+currentPianoMode+".mp3");
 		return;
-	},
-
-	endofsound: function() {
-		if (this.$.itemImage)
-			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
-	},
-
-	abort: function() {
-		this.endofsound();
 	},
 
 	destroy: function () {
