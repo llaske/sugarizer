@@ -27,14 +27,14 @@ The Journal chooser popup will appear.
 
 ![](images/tutorial_step7_3.png)
 
-Click on the Image Moon item in the list, it will be add to your drawing and you will be able to paint on it!
+Click on the Image Moon item in the list, it will be added to your drawing and you will be able to paint on it!
 
 ![](images/tutorial_step7_4.png)
 
-It's a way to use the result of an activity, here Moon, into another activity, here Paint. Lot of others activities (Record, Labyrinth, Abecedarium, ...) are able to generate contents that other activities (Fototoon, Memorize, Paint, ...) can use. It's why it's useful to understand how the Journal chooser can be integrate into an activity.
+It's a way to use the result of an activity, here Moon, into another activity, here Paint.A Lot of other activities (Record, Labyrinth, Abecedarium, ...) are able to generate contents that other activities (Fototoon, Memorize, Paint, ...) can use. It's why it's useful to understand how the Journal chooser can be integrated into an activity.
 
 
-### A button to customize background
+### A button to customize the background
 
 Let's suppose that we would like to let the user customize the background of our Pawn activity. So instead of an ugly gray background we could let the user replace it, for example, by a checkboard image.
 
@@ -45,7 +45,7 @@ To do that, let's first add a new button **Insert Image** button in the toolbar 
 First, let's retrieve the icon. 
 You could download it [here](images/insert-picture.svg). Right-click on it and then save it as a SVG file in `icons/insert-picture.svg`.
 
-Then, let's add our new button. You already know how to do because you've done it during [step 3](tutorial_step3.md). You have to update the toolbar section of the `index.html` file for your activity. Add a `button` tag with the Sugar-Web `toolbutton` class. Here is the result:
+Then, let's add our new button. You already know how to do it because you've done it during [step 3](tutorial_step3.md). You have to update the toolbar section of the `index.html` file for your activity. Add a `button` tag with the Sugar-Web `toolbutton` class. Here is the result:
 
 	<div id="main-toolbar" class="toolbar">
 	  ...
@@ -72,7 +72,7 @@ Let's run the activity. Good job! the new button is here:
 It's time now to add source code to display Journal chooser and integrate our background.
 
 
-As usual, to integrate new features, we will update the dependancies list of libraries at the first line of `activity/activity.js`.
+As usual, to integrate new features, we will update the dependencies list of libraries at the first line of `activity/activity.js`.
 
 	define(["sugar-web/activity/activity", ... ,"sugar-web/graphics/presencepalette", "sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity, ... ,presencepalette, datastore, journalchooser) {
  
@@ -134,7 +134,7 @@ We will now ready to add the source code to change the background. Here's the ne
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 
 When the callback is called, if the `entry` parameter is `null` it's mean that the dialog box was closed without selection. 
-Else the `entry` parameter contains metadata for the selected item. So we can create a `DatastoreObject` to handle the object and specifically load its content using the `loadAsText` method. We've already seen this method in [step 4](tutorial_step4.md) but this time it's not to load the Journal item associated to the activity but to load another Journal item.
+Else the `entry` parameter contains metadata for the selected item. So we can create a `DatastoreObject` to handle the object and specifically load its content using the `loadAsText` method. We've already seen this method in [step 4](tutorial_step4.md) but this time it's not to load the Journal item associated with the activity but to load another Journal item.
 
 The callback for the `loadAsText` method receive the content of the item into the `data` parameter. In the case of an image, it's a base64 encoding of the image. Something like: 
 
@@ -150,10 +150,10 @@ I'm sure you can't wait to test it. Relaunch the Pawn activity, click on the but
 
 Waooow, a very beautiful background for our pawns!
 
-You've learn in this step how to integrate content from the Journal using the Journal chooser dialog. It's a nice way to allow learners to combine multiple activities and create powerful contents.
+You've learned in this step how to integrate content from the Journal using the Journal chooser dialog. It's a nice way to allow learners to combine multiple activities and create powerful contents.
 
 
-Note that the background choosen should be store in the datastore object for the activity else it will be lost on next launch. It should be interesting also to send it to other connected users. You could try to solve these issues as an exercise.
+Note that the background chosen should be stored in the datastore object for the activity else it will be lost on the next launch. It should be interesting also to send it to other connected users. You could try to solve these issues as an exercise.
 
 
 [Go to next step](tutorial_step8.md)

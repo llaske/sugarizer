@@ -1,8 +1,13 @@
 
 # Create your own activity
 
+<<<<<<< HEAD
 With Sugarizer it's easy to create your own activity with a bunch of HTML and JavaScript.
 In the following tutorial you will learn from scratch how to create a full featured activity named "Pawn".
+=======
+With Sugarizer, it's easy to create your own activity with a bunch of HTML and JavaScript.
+In the following tutorial, you will learn from scratch how to create a full-featured activity named "Pawn".
+>>>>>>> d7714f55... corrected typos in tutorials
 
 ![](images/tutorial_teaser.png)
 
