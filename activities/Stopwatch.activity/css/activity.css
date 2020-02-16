@@ -126,3 +126,7 @@ button.remove {
 .buttons-group button.clear-marks-button {
   background-image: url(../icons/edit-clear.svg);
 }
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
