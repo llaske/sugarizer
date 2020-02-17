@@ -79,6 +79,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove restart message on settings/about me and settings/about language
 - Increase link width in LabyrinthJS activity
 - Disable overscroll on iOS/Android
+- Click on activity icon/name in listview menu launch activity, reorder items
 
 ### Fixed
 - Activity palette not visible on Tank Operation activity #371

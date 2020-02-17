@@ -175,22 +175,23 @@ enyo.kind({
 			colorized: true,
 			name: activity.name,
 			title: null,
-			action: null
+			action: enyo.bind(this, "runNewActivity"),
+			data: [activity, null]
 		});
 		var items = [];
-		items.push({
-			icon: icon.parent.container.$.favorite.icon,
-			colorized: !activity.favorite,
-			name: activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
-			action: enyo.bind(this, "switchFavorite"),
-			data: [icon.parent.container.$.favorite, icon.icon]
-		});
 		items.push({
 			icon: activity,
 			colorized: false,
 			name: l10n.get("StartNew"),
 			action: enyo.bind(this, "runNewActivity"),
 			data: [activity, null]
+		});
+		items.push({
+			icon: icon.parent.container.$.favorite.icon,
+			colorized: !activity.favorite,
+			name: activity.favorite ? l10n.get("RemoveFavorite") : l10n.get("MakeFavorite"),
+			action: enyo.bind(this, "switchFavorite"),
+			data: [icon.parent.container.$.favorite, icon.icon]
 		});
 		this.$.activityPopup.setFooter(items);
 
