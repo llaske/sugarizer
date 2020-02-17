@@ -5,7 +5,7 @@ body {
 }
 
 div.frame {
- background: #f0f0f0;
+ background: #c0c0c0;
  margin: 0 auto;
  position: relative;
  width: 1024px;
@@ -19,6 +19,7 @@ div.frame {
 }
 
 canvas.gridcnv {
+ background: #f0f0f0;
  position: relative;
  width: 1024px;
  height: 748px;
