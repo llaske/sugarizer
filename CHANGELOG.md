@@ -111,6 +111,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Journal chooser sometimes load Abecedarium images from server instead of from local directory
 - RGB bars in ColorMyWorld activity overflows #605
 - Harsh Sound in TamTam Micro activity in keyboard mode on Firefox and Safari #564
+- Grid Paint Activity screen not working properly on Firefox #342
+- Gridpaint don't handle window resize #403
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
