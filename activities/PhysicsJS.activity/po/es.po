@@ -1,0 +1,140 @@
+#. extracted from ../localize.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:34:04 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Physics Activity"
+msgstr "Physics Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Physics activity. Physics is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia"
+msgstr "Welcome into the Physics activity. Physics is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia"
+
+#: TutoCircleTitle
+msgctxt "TutoCircleTitle"
+msgid "Circle"
+msgstr "Circle"
+
+#: TutoCircleContent
+msgctxt "TutoCircleContent"
+msgid "Click here to set circle mode. The next item created will be a circle"
+msgstr "Click here to set circle mode. The next item created will be a circle"
+
+#: TutoBoxTitle
+msgctxt "TutoBoxTitle"
+msgid "Box"
+msgstr "Box"
+
+#: TutoBoxContent
+msgctxt "TutoBoxContent"
+msgid "Click here to set box mode. The next item created will be a box"
+msgstr "Click here to set box mode. The next item created will be a box"
+
+#: TutoTriangleTitle
+msgctxt "TutoTriangleTitle"
+msgid "Triangle"
+msgstr "Triangle"
+
+#: TutoTriangleContent
+msgctxt "TutoTriangleContent"
+msgid "Click here to set triangle mode. The next item created will be a triangle"
+msgstr "Click here to set triangle mode. The next item created will be a triangle"
+
+#: TutoPolygonTitle
+msgctxt "TutoPolygonTitle"
+msgid "Polygon"
+msgstr "Polygon"
+
+#: TutoPolygonContent
+msgctxt "TutoPolygonContent"
+msgid "Click here to set polygon mode. The next item created will be a polygon"
+msgstr "Click here to set polygon mode. The next item created will be a polygon"
+
+#: TutoGravityTitle
+msgctxt "TutoGravityTitle"
+msgid "Gravity direction"
+msgstr "Gravity direction"
+
+#: TutoGravityContent
+msgctxt "TutoGravityContent"
+msgid "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees"
+msgstr "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees"
+
+#: TutoSensorTitle
+msgctxt "TutoSensorTitle"
+msgid "Sensor"
+msgstr "Sensor"
+
+#: TutoSensorContent
+msgctxt "TutoSensorContent"
+msgid "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity"
+msgstr "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity"
+
+#: TutoAppleTitle
+msgctxt "TutoAppleTitle"
+msgid "Newton"
+msgstr "Newton"
+
+#: TutoAppleContent
+msgctxt "TutoAppleContent"
+msgid "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object"
+msgstr "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Remove"
+msgstr "Remove"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to pass in remove mode. Every object you will click will be deleted"
+msgstr "Click here to pass in remove mode. Every object you will click will be deleted"
+
+#: TutoPauseTitle
+msgctxt "TutoPauseTitle"
+msgid "Pause"
+msgstr "Pause"
+
+#: TutoPauseContent
+msgctxt "TutoPauseContent"
+msgid "Click here to freeze the screen or unfreeze it"
+msgstr "Click here to freeze the screen or unfreeze it"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "Here all of your objects will appear. Click anywhere to add a new item of the current type or click on an existing item on the board to move it. All objects will be attracted to the point of gravity"
+msgstr "Here all of your objects will appear. Click anywhere to add a new item of the current type or click on an existing item on the board to move it. All objects will be attracted to the point of gravity"
+

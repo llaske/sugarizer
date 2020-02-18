@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Mar 04 2019 23:58:42 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:24:34 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: NorthKorea
 msgctxt "NorthKorea"
-msgid "NorthKorea"
+msgid "North Korea"
 msgstr ""
 
 #: SaudiArabia
@@ -156,5 +156,110 @@ msgstr ""
 #: China
 msgctxt "China"
 msgid "China"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Constellation Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Constellation activity. Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth"
+msgstr ""
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "One day forward"
+msgstr ""
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "Click here to move forward the sky by 1 day"
+msgstr ""
+
+#: TutoMinusTitle
+msgctxt "TutoMinusTitle"
+msgid "One day backward"
+msgstr ""
+
+#: TutoMinusContent
+msgctxt "TutoMinusContent"
+msgid "Click here to move backward the sky by 1 day"
+msgstr ""
+
+#: TutoConstTitle
+msgctxt "TutoConstTitle"
+msgid "Constellations"
+msgstr ""
+
+#: TutoConstContent
+msgctxt "TutoConstContent"
+msgid "Click here to toggle display of constellations"
+msgstr ""
+
+#: TutoStarTitle
+msgctxt "TutoStarTitle"
+msgid "Stars"
+msgstr ""
+
+#: TutoStarContent
+msgctxt "TutoStarContent"
+msgid "Click here to toggle display of star names"
+msgstr ""
+
+#: TutoLocationTitle
+msgctxt "TutoLocationTitle"
+msgid "Location"
+msgstr ""
+
+#: TutoLocationContent
+msgctxt "TutoLocationContent"
+msgid "Click here to set the sky to your current location"
+msgstr ""
+
+#: TutoWorldTitle
+msgctxt "TutoWorldTitle"
+msgid "Countries"
+msgstr ""
+
+#: TutoWorldContent
+msgctxt "TutoWorldContent"
+msgid "Click here to select a country. You will see how the sky above this country looks"
+msgstr ""
+
+#: TutoViewTitle
+msgctxt "TutoViewTitle"
+msgid "Projection type"
+msgstr ""
+
+#: TutoViewContent
+msgctxt "TutoViewContent"
+msgid "Click here to choose projection type. It will change the way the sky is displayed"
+msgstr ""
+
+#: TutoTimeTitle
+msgctxt "TutoTimeTitle"
+msgid "Date & Time"
+msgstr ""
+
+#: TutoTimeContent
+msgctxt "TutoTimeContent"
+msgid "Here you can see the date and time for which the sky is shown"
 msgstr ""
 

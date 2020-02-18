@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,4 +142,134 @@ msgstr "Sort boxes"
 msgctxt "Clean"
 msgid "Clean all"
 msgstr "Clean all"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "FotoToon Activity"
+msgstr "FotoToon Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+msgstr "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+
+#: TutoPreviousExplanation
+msgctxt "TutoPreviousExplanation"
+msgid "Click here to go to the previous box in your comic strip"
+msgstr "Click here to go to the previous box in your comic strip"
+
+#: TutoNextExplanation
+msgctxt "TutoNextExplanation"
+msgid "Click here to go to the next box in your comic strip"
+msgstr "Click here to go to the next box in your comic strip"
+
+#: TutoAddPage
+msgctxt "TutoAddPage"
+msgid "Add box"
+msgstr "Add box"
+
+#: TutoAddPageExplanation
+msgctxt "TutoAddPageExplanation"
+msgid "Click here to add picture, drawing or image as a new box"
+msgstr "Click here to add picture, drawing or image as a new box"
+
+#: TutoAddGlobeExplanation
+msgctxt "TutoAddGlobeExplanation"
+msgid "Click here to add a new globe in current your box"
+msgstr "Click here to add a new globe in current your box"
+
+#: TutoEditText
+msgctxt "TutoEditText"
+msgid "Edit text"
+msgstr "Edit text"
+
+#: TutoEditTextExplanation
+msgctxt "TutoEditTextExplanation"
+msgid "Click here to update the current text"
+msgstr "Click here to update the current text"
+
+#: TutoSortBoxes
+msgctxt "TutoSortBoxes"
+msgid "Sort boxes"
+msgstr "Sort boxes"
+
+#: TutoSortBoxesExplanation
+msgctxt "TutoSortBoxesExplanation"
+msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+msgstr "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+
+#: TutoCleanAll
+msgctxt "TutoCleanAll"
+msgid "Clean all"
+msgstr "Clean all"
+
+#: TutoCleanAllExplanation
+msgctxt "TutoCleanAllExplanation"
+msgid "Click here to clear all boxes"
+msgstr "Click here to clear all boxes"
+
+#: TutoImageSave
+msgctxt "TutoImageSave"
+msgid "Save as image"
+msgstr "Save as image"
+
+#: TutoImageSaveExplanation
+msgctxt "TutoImageSaveExplanation"
+msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+msgstr "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+
+#: TutoPageCounter
+msgctxt "TutoPageCounter"
+msgid "Box counter"
+msgstr "Box counter"
+
+#: TutoPageCounterExplanation
+msgctxt "TutoPageCounterExplanation"
+msgid "It shows current box out of total number of boxes in your comic strip"
+msgstr "It shows current box out of total number of boxes in your comic strip"
+
+#: TutoStop
+msgctxt "TutoStop"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopExplanation
+msgctxt "TutoStopExplanation"
+msgid "Click here to end activity ang go back to Sugarizer home page"
+msgstr "Click here to end activity ang go back to Sugarizer home page"
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel"
+msgstr "Cancel"
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr "Continue"
+
+#: CleanAllMessage
+msgctxt "CleanAllMessage"
+msgid "All the boxes in your comic strip will be removed!"
+msgstr "All the boxes in your comic strip will be removed!"
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
+msgstr "Warning"
 

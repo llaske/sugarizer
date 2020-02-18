@@ -1,0 +1,90 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:28:53 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Abacus Activity"
+msgstr "Activité Abacus"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese"
+msgstr "Bienvenue dans l'activité Abacus. Abacus vous permet d'explorer la représentation des nombres en utilisant différent type de bouliers utilisés par les Romains et Chinois anciens"
+
+#: TutoAbacusTitle
+msgctxt "TutoAbacusTitle"
+msgid "Abacus Choice"
+msgstr "Choix boulier"
+
+#: TutoAbacusContent
+msgctxt "TutoAbacusContent"
+msgid "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus"
+msgstr "Cliquez ici pour choisir le type de boulier à utiliser. Certains bouliers permettent de manipuler des décimaux, certains permettent de manipuler des fractions, certains permettent de manipuler des nombres en base 2 et vous pouvez même créer votre propre boulier"
+
+#: TutoCustomTitle
+msgctxt "TutoCustomTitle"
+msgid "Custom"
+msgstr "Personnaliser"
+
+#: TutoCustomContent
+msgctxt "TutoCustomContent"
+msgid "Click here to create a custom abacus. You could define number of rods, lines and base"
+msgstr "Cliquez ici pour créer votre propre boulier. Vous pouvez définir le nombre de colonnes, lignes et la base"
+
+#: TutoCopyTitle
+msgctxt "TutoCopyTitle"
+msgid "Copy"
+msgstr "Copier"
+
+#: TutoCopyContent
+msgctxt "TutoCopyContent"
+msgid "Click here to copy the current value into the clipboard"
+msgstr "Cliquez ici pour copier la valeur actuelle dans le presse-papier"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr "Effacer"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to reinit the value of abacus to 0"
+msgstr "Cliquez ici pour réinitialiser la valeur du boulier à zéro"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Abacus"
+msgstr "Abacus"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
+msgstr "Ceci est le corps du boulier. Cliquez ou déplacer les perles vers la zone centrale pour créer les nombres"
+

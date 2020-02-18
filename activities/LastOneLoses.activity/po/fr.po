@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 15:45:50 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,4 +24,99 @@ msgstr "{{user}} a rejoint"
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
 msgstr "{{user}} est parti"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Last One Loses Activity"
+msgstr "Activité Last One Loses"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
+msgstr "Bienvenue dans l'activité Last One Loses. Last One Loses est un petit jeu où chaque joueur essaye d'éviter de prendre le dernier élément sur le plateau. Vous pouvez jouer contre l'ordinateur ou contre un autre joueur sur le réseau"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Réseau"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the game on the network so an opponent could play against you"
+msgstr "Cliquez ici pour partager le jeu sur le réseau. Ainsi, un opposant pourra le rejoindre jouer contre vous"
+
+#: TutoNewgameTitle
+msgctxt "TutoNewgameTitle"
+msgid "New Game"
+msgstr "Nouveau jeu"
+
+#: TutoNewgameContent
+msgctxt "TutoNewgameContent"
+msgid "Click here to start a new game. It will reinit the board with 13 items."
+msgstr "Cliquez ici pour démarrer un nouveau jeu. Cela réinitialisera le plateau avec 13 éléments"
+
+#: TutoEasyTitle
+msgctxt "TutoEasyTitle"
+msgid "Easy Level"
+msgstr "Niveau Facile"
+
+#: TutoEasyContent
+msgctxt "TutoEasyContent"
+msgid "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
+msgstr "Cliquez ici pour choisir le niveau de difficulté facile. A ce niveau, l'ordinateur sera l'équivalent d'un joueur débutant"
+
+#: TutoMediumTitle
+msgctxt "TutoMediumTitle"
+msgid "Medium Level"
+msgstr "Niveau Moyen"
+
+#: TutoMediumContent
+msgctxt "TutoMediumContent"
+msgid "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
+msgstr "Cliquez ici pour choisir le niveau de difficulté moyen. A ce niveau, l'ordinateur sera l'équivalent d'un joueur moyen"
+
+#: TutoHardTitle
+msgctxt "TutoHardTitle"
+msgid "Hard Level"
+msgstr "Niveau Difficile"
+
+#: TutoHardContent
+msgctxt "TutoHardContent"
+msgid "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
+msgstr "Cliquez ici pour choisir le niveau de difficulté difficile. A ce niveau, l'ordinateur sera l'équivalent d'un joueur expert"
+
+#: TutoSwitchTitle
+msgctxt "TutoSwitchTitle"
+msgid "Switch Player"
+msgstr "Changer de joueur"
+
+#: TutoSwitchContent
+msgctxt "TutoSwitchContent"
+msgid "Click here to let your opponent begin the game. It will work only at the begining of the game"
+msgstr "Cliquez ici pour laisser l'adversaire commencer le jeu. Cela fonctionnera uniquement au début du jeu"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Plateau"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
+msgstr "Le jeu démarre avec 13 éléments sur le plateau. A son tour, chaque joueur doit prendre entre 1 et 3 éléments sur le plateau en cliquant dessus, puis en appuyant sur le bouton valider. Le joueur qui prend le dernier élément sur le plateau perd le jeu"
 

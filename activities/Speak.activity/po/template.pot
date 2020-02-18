@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Nov 28 2018 22:23:47 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:35:12 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,5 +197,110 @@ msgstr ""
 #: langzh
 msgctxt "langzh"
 msgid "Chinese"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Speak Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Speak activity. Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer"
+msgstr ""
+
+#: TutoReadTitle
+msgctxt "TutoReadTitle"
+msgid "Reading"
+msgstr ""
+
+#: TutoReadContent
+msgctxt "TutoReadContent"
+msgid "Click here to enter \"Reading\" mode. Type something to hear it"
+msgstr ""
+
+#: TutoQuestionTitle
+msgctxt "TutoQuestionTitle"
+msgid "Questions"
+msgstr ""
+
+#: TutoQuestionContent
+msgctxt "TutoQuestionContent"
+msgid "Click here to enter \"Question\" mode. Ask robot any questions (available soon)"
+msgstr ""
+
+#: TutoVoiceTitle
+msgctxt "TutoVoiceTitle"
+msgid "Voice Chat"
+msgstr ""
+
+#: TutoVoiceContent
+msgctxt "TutoVoiceContent"
+msgid "Click here to enter \"Voice chat\" mode. There you can talk with the robot (available soon)"
+msgstr ""
+
+#: TutoLanguageTitle
+msgctxt "TutoLanguageTitle"
+msgid "Language"
+msgstr ""
+
+#: TutoLanguageContent
+msgctxt "TutoLanguageContent"
+msgid "Click here to change language. It's important to set the right language to be sure to have the right pronounciation"
+msgstr ""
+
+#: TutoSpeechTitle
+msgctxt "TutoSpeechTitle"
+msgid "Speech"
+msgstr ""
+
+#: TutoSpeechContent
+msgctxt "TutoSpeechContent"
+msgid "Click here to change speech parameters, such as rate and pitch"
+msgstr ""
+
+#: TutoFaceTitle
+msgctxt "TutoFaceTitle"
+msgid "Face"
+msgstr ""
+
+#: TutoFaceContent
+msgctxt "TutoFaceContent"
+msgid "Click here to change the look of the face. For example eyes shape and count"
+msgstr ""
+
+#: TutoTextTitle
+msgctxt "TutoTextTitle"
+msgid "Text"
+msgstr ""
+
+#: TutoTextContent
+msgctxt "TutoTextContent"
+msgid "Type here the text to speech. Click on the right arrow to launch the speech"
+msgstr ""
+
+#: TutoHistoryTitle
+msgctxt "TutoHistoryTitle"
+msgid "History"
+msgstr ""
+
+#: TutoHistoryContent
+msgctxt "TutoHistoryContent"
+msgid "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
 msgstr ""
 
