@@ -150,8 +150,8 @@
   margin:1px;
   width: 45px;
   height: 45px;
-  top: 0;
-  right: 0;
+  top: 5%;
+  right: 5%;
   position: absolute;
   visibility: hidden;
   z-index: 5;
