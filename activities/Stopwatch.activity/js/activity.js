@@ -245,21 +245,19 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
     });
     
     // Switch to full screen when the full screen button is pressed
-  	document.getElementById("fullscreen-button").addEventListener('click', function() {
-  		document.getElementById("main-toolbar").style.display = "none";
-  		document.getElementById("canvas").style.top = "0px";
-  		document.getElementById("unfullscreen-button").style.visibility = "visible";
+    document.getElementById("fullscreen-button").addEventListener('click', function() {
+        document.getElementById("main-toolbar").style.display = "none";
+        document.getElementById("canvas").style.top = "0px";
+        document.getElementById("unfullscreen-button").style.visibility = "visible";
+    });
+    
 
+    //Return to normal size
+    document.getElementById("unfullscreen-button").addEventListener('click', function() {
+        document.getElementById("main-toolbar").style.display = "block";
+        document.getElementById("canvas").style.top = "55px";
+        document.getElementById("unfullscreen-button").style.visibility = "hidden";
 
-
-  	});
-
-  	//Return to normal size
-  	document.getElementById("unfullscreen-button").addEventListener('click', function() {
-  		document.getElementById("main-toolbar").style.display = "block";
-  		document.getElementById("canvas").style.top = "55px";
-  		document.getElementById("unfullscreen-button").style.visibility = "hidden";
-
-  	});
+    });
 
 });
