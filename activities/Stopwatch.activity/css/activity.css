@@ -2,9 +2,28 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin:1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 1%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
 ul {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 #stopwatch-app {
