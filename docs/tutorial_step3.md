@@ -5,7 +5,7 @@
 
 It's time now to implement the logic of our new activity.
 
-Because the activity is called "Pawn", the idea is to allow user to play pawns on the board.
+Because the activity is called "Pawn", the idea is to allow the user to play pawns on the board.
 
 In Sugar, the toolbar - the black area at the top of the window - is the place where activities put actions for the user. So we will add a new button in the toolbar to let the user play a new pawn.
 
@@ -54,7 +54,7 @@ Let's run the activity.
 
 ![](images/tutorial_step3_2.png)
 
-The new toolbar button is now here. Click on it. Of course nothing happen thought there is no logic beside. It's our next step.
+The new toolbar button is now here. Click on it. Of course, nothing happens thought there is no logic beside. It's our next step.
 
 ### Add the event
 
@@ -111,7 +111,7 @@ Can't wait to run again our activity:
 
 ![](images/tutorial_step3_3.png)
 
-Wow, it works! Each time we will click on the Plus icon a new pawn will appears.
+Wow, it works! Each time we will click on the Plus icon a new pawn will appear.
 
 By the way, we could do better. What if we could change the pawn color?
 
@@ -143,7 +143,7 @@ That's all. Let's play again with our activity:
 
 Beautiful isn't it?
 
-Note that if you're interested by how to integrate the Sugar UI in your activities, you could find more samples on this subject [here](http://sugarlabs.github.io/sugar-web-samples/).
+Note that if you're interested in how to integrate the Sugar UI in your activities, you could find more samples on this subject [here](http://sugarlabs.github.io/sugar-web-samples/).
 
 
 
