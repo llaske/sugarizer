@@ -20,7 +20,7 @@ To connect to a server, click on the button to access to settings, then to "Abou
 
 ![](images/tutorial_step6_2.png)
 
-Check the connected box and type the URL of your server, may be `http://localhost:8080` (if you've installed your own server) or `https://dev.sugarizer.org`. You will have to choose few images as password, then click on restart.
+Check the connected box and type the URL of your server, may be `http://localhost:8080` (if you've installed your own server) or `https://dev.sugarizer.org`. You will have to choose a few images as password, then click on restart.
 
 If everything is right, you will see now the full Neighborhood view.
 
