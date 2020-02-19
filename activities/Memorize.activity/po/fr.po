@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:53:43 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:02:13 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,231 @@ msgstr ""
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr "{{user}} a rejoint"
+msgstr "{{user}} joined"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr "{{user}} est parti"
+msgstr "{{user}} left"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoTitleMemorize
+msgctxt "TutoTitleMemorize"
+msgid "Memorize Activity"
+msgstr "Activité Memorize"
+
+#: TutoTitleActivity
+msgctxt "TutoTitleActivity"
+msgid "Activity"
+msgstr "Activité"
+
+#: TutoTitleNetwork
+msgctxt "TutoTitleNetwork"
+msgid "Network"
+msgstr "Réseau"
+
+#: TutoTitleTemplate
+msgctxt "TutoTitleTemplate"
+msgid "Game type"
+msgstr "Type de jeu"
+
+#: TutoTitleSize
+msgctxt "TutoTitleSize"
+msgid "Game size"
+msgstr "Taille du jeu"
+
+#: TutoTitleReset
+msgctxt "TutoTitleReset"
+msgid "Reset game"
+msgstr "Réinitialiser"
+
+#: TutoTitleOpen
+msgctxt "TutoTitleOpen"
+msgid "Editor"
+msgstr "Editeur"
+
+#: TutoTitleGoPlay
+msgctxt "TutoTitleGoPlay"
+msgid "Play"
+msgstr "Jouer"
+
+#: TutoTitleInstructions
+msgctxt "TutoTitleInstructions"
+msgid "Instructions"
+msgstr "Instructions"
+
+#: TutoTitleCardType1
+msgctxt "TutoTitleCardType1"
+msgid "Card type 1"
+msgstr "Cartes 1"
+
+#: TutoTitleCardType2
+msgctxt "TutoTitleCardType2"
+msgid "Card type 2"
+msgstr "Cartes 2"
+
+#: TutoTitleSounds
+msgctxt "TutoTitleSounds"
+msgid "Cards"
+msgstr "Cartes"
+
+#: TutoTitlePlay
+msgctxt "TutoTitlePlay"
+msgid "Group mode"
+msgstr "Mode regroupement"
+
+#: TutoTitleInsert
+msgctxt "TutoTitleInsert"
+msgid "Pair type"
+msgstr "Type de paire"
+
+#: TutoTitleClear
+msgctxt "TutoTitleClear"
+msgid "Clear"
+msgstr "Effacer"
+
+#: TutoTitleInput
+msgctxt "TutoTitleInput"
+msgid "Card content"
+msgstr "Contenu carte"
+
+#: TutoTitleInsertImage
+msgctxt "TutoTitleInsertImage"
+msgid "Image card"
+msgstr "Carte image"
+
+#: TutoTitleAddCard
+msgctxt "TutoTitleAddCard"
+msgid "Add pair"
+msgstr "Ajouter paire"
+
+#: TutoTitleUpdateCard
+msgctxt "TutoTitleUpdateCard"
+msgid "Update pair"
+msgstr "Mettre à jour paire"
+
+#: TutoTitleClearCard
+msgctxt "TutoTitleClearCard"
+msgid "Remove pair"
+msgstr "Supprimer paire"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the famous memorize game: find matching pairs in pre-existing game (addition, letters, sounds) or create easily new games by yourself"
+msgstr "Bienvenue dans le fameux jeu de mémoire: trouvez les paires dans les jeux proposés (addition, lettres, sons) ou créez facilement par vous même de nouveaux jeux"
+
+#: TutoNumberOne
+msgctxt "TutoNumberOne"
+msgid "Choose one of the number 1 cards..."
+msgstr "Choisissez une carte de numéro 1..."
+
+#: TutoNumberTwo
+msgctxt "TutoNumberTwo"
+msgid "...then choose one of the number 2 card to begin matching"
+msgstr "...puis un carte de numéro 2 pour faire la correspondance"
+
+#: TutoExplainPlay
+msgctxt "TutoExplainPlay"
+msgid "Try to remember where all the cards are and match them"
+msgstr "Essayez de vous rappeler où se trouvent les cartes pour les faire correspondre"
+
+#: TutoActivity
+msgctxt "TutoActivity"
+msgid "Click here to update the title of the activity to easily find it in the Journal"
+msgstr "Cliquez ici pour mettre à jour le titre de votre activité pour la retrouver facilement dans le journal"
+
+#: TutoNetwork
+msgctxt "TutoNetwork"
+msgid "This menu let you share your activity with other users"
+msgstr "Ce menu vous permet de partager l'activité avec les autres utilisateurs"
+
+#: TutoGameTemplate
+msgctxt "TutoGameTemplate"
+msgid "Click here to choose the types of cards you want to match (addition, letters, sounds)"
+msgstr "Cliquez ici pour choisir le type de cartes à faire correspondre (addition, lettres, sons)"
+
+#: TutoGameSize
+msgctxt "TutoGameSize"
+msgid "Click here to change the grid size of your board"
+msgstr "Cliquez ici pour changer la taille de la grille de votre jeu"
+
+#: TutoResetGame
+msgctxt "TutoResetGame"
+msgid "Click here to reset the game"
+msgstr "Cliquez pour réinitialiser le jeu"
+
+#: TutoOpenEditor
+msgctxt "TutoOpenEditor"
+msgid "Click here to create your new game or update the current one"
+msgstr "Cliquez ici pour passer en mode éditeur afin de créer votre jeu ou modifier le jeu actuel"
+
+#: TutoInsertMode
+msgctxt "TutoInsertMode"
+msgid "Click here to define if the user will search two times the same card or if he will search two different cards representing the same concept"
+msgstr "Cliquez ici pour choisir si l'utilisateur recherchera deux fois la même carte ou s'il cherchera deux cartes différentes représentant le même concept"
+
+#: TutoPlayMode
+msgctxt "TutoPlayMode"
+msgid "Click here to define if cards are splitted in two groups or if cards are mixed together"
+msgstr "Cliquez ici pour définir si les cartes des paires sont séparées en deux groupes ou toutes mélangées"
+
+#: TutoClear
+msgctxt "TutoClear"
+msgid "Click here to clear all cards"
+msgstr "Cliquez ici pour supprimer toutes les cartes"
+
+#: TutoEditorInputBox
+msgctxt "TutoEditorInputBox"
+msgid "Type here the text for your card"
+msgstr "Tapez ici le texte de la carte"
+
+#: TutorEditorInsertImage
+msgctxt "TutorEditorInsertImage"
+msgid "Click here to use an image for your card instead of a text"
+msgstr "Cliquez ici pour choisir une image pour la carte plutôt que du texte"
+
+#: TutoEditorAddButton
+msgctxt "TutoEditorAddButton"
+msgid "Click here to create a new pair"
+msgstr "Cliquez ici pour créer une nouvelle paire"
+
+#: TutoEditorUpdateButton
+msgctxt "TutoEditorUpdateButton"
+msgid "Click here to update the pair"
+msgstr "Cliquez ici pour mettre à jour la paire"
+
+#: TutoEditorDeleteButton
+msgctxt "TutoEditorDeleteButton"
+msgid "Click here to clear the current pair"
+msgstr "Cliquez ici pour supprimer la paire courante"
+
+#: TutoSounds
+msgctxt "TutoSounds"
+msgid "Choose one card..."
+msgstr "Choisissez une carte..."
+
+#: TutoSounds2
+msgctxt "TutoSounds2"
+msgid "...then choose one other card to begin matching"
+msgstr "...puis une autre carte pour faire la correspondance"
+
+#: TutoEditorPlayMode
+msgctxt "TutoEditorPlayMode"
+msgid "Click here to go back to play mode"
+msgstr "Cliquez ici pour retourner au jeu"
 

@@ -4,6 +4,123 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Calligra activity
+- Tutorial step 9: integrate a tutorial
+- Add a fullscreen button in Gears activity #411
+- Add new Fonts for Write Activity
+- Add an option to choose board size of Game of Life activity #381
+- Allow to control speed generation in Game of Life activity #380
+- Add a fullscreen button in Memorize activity #401
+- Add a fullscreen button in XO Editor activity #415
+- Add a fullscreen button in TamTam micro activity #409
+- Add a fullscreen button in Clock activity #412
+- Add a fullscreen button in Moon activity #413
+- Add a fullscreen button in BlockRain activity #416
+- Add a fullscreen button in ColorMyWorld activity #414
+- Add a fullscreen button in Abacus activity #402
+- Add a tutorial to the Memorize activity #427
+- Add a tutorial to the VideoViewer activity #435
+- Add a fullscreen button in the Maze activity #400
+- Add a fullscreen button in Constellation activity #417
+- Add a tutorial to the Fototoon activity #443
+- Add a tutorial to the Paint activity #425
+- Add a tutorial to the Moon activity #432
+- Add a tutorial to the SprintMath activity #444
+- Add a tutorial to the Record activity #433
+- Add a tutorial to the Constellation activity #446
+- Add a tutorial to the Reflection activity #440
+- Add superscript and subscript features to Write activity
+- Add a fullscreen button in Abecedarium activity #406
+- Add a tutorial to the XOEditor activity #439
+- Add a fullscreen button in LastOneLose activity #418
+- Add a tutorial to the LastOneLose activity #447
+- Add a tutorial to the Write activity #445
+- Add a tutorial to the Abacus activity #441
+- Add a fullscreen button in Calculate activity #408
+- Add a tutorial to the MazeWeb activity #424
+- Add a tutorial to the TamTam Micro activity #426
+- Add a tutorial to the Clock activity #430
+- Support for no signup mode
+- Add a tutorial to the Flip activity #442
+- Add a tutorial to the PhysicsJS activity #428
+- Add a fullscreen button in Physics activity #410
+- Add a fullscren button in GameOfLife activity #407
+- Add a fullscreen button in the Flip activity #514
+- Add a tutorial on Game of Life activity #382
+- Add a tutorial to the Speak activity #431
+- Add a tutorial to the Calculate activity #429
+- Add a tutorial to the ColorMyWorld activity #438
+- Add a tutorial to the FoodChain activity #436
+- Add a tutorial to the GridPaint activity #437
+- Add a tutorial to the Abecedarium activity #434
+- Add dead cells in Game of life activity #379
+- Add a set time mode to the Clock activity #387
+- Add a synth keyboard mode in TamTam Micro activity #389
+- Add a fullscreen button to the TankOp activity #547
+- Add a home button in Grid Paint activity #546
+- Add a quit application button in Electron
+- Add a tutorial to the QR Code activity #595
+- Add a fullscreen button in the Stopwatch activity #599
+
+### Changed
+- Double size of Record images in WebApp and electron App
+- Add a message when disconnected by the server or by another device
+- Improve Gears Tutorial #396
+- Improve Exerciser UI to avoid accidental deletion #455
+- Changing server URL at login need one more click now
+- ColorMyWorld language is now linked to core language
+- Use a real input field for password
+- Remove the two steps popup opening
+- Automatically shift popup menu to the left when it will override the right border
+- Allow teachers to login
+- Reorder buddy menu icons
+- Click on buddy icon/name in buddy menu is now like clicking on settings item
+- Remove restart message on settings/about me and settings/about language
+- Increase link width in LabyrinthJS activity
+- Disable overscroll on iOS/Android
+- Click on activity icon/name in listview menu launch activity, reorder items
+- Use Sugarizer default language for FoodChain default language
+- Use Sugarizer default language for Abecedarium default language
+
+### Fixed
+- Activity palette not visible on Tank Operation activity #371
+- Record images don't fit the thumbnail size in iOS/Android
+- Long touch on Memory items don't work on Android
+- Jump in generation in Game of Life activity on Chrome #388
+- Long name hide text in Chat activity #383
+- Image selection error in Write activity after scrolling #390
+- Board is not drawn correctly in LastOneLost activity when open from the Journal #419
+- Clear icon in Game of Life activity is non standard #397
+- Image insertion don't work in shared mode in Paint activity #384
+- Close the presence palette when the activity is shared #398
+- Board size in Flip activity is not optimized #405
+- Make responsive the toolbar in Write activity #515
+- Make responsive the toolbar in Physics activity #516
+- Horizontal scrollbar appears in the Write activity #538
+- Handle window resize in TankOp activity during play #404
+- Resize function gives error in TankOp Activity #549
+- Can't see the previous result on small screens for Calculate activity #517
+- Fix the clean all button in the Fototoon activity #513
+- Disappearance of clock in set time mode in clock activity #581
+- Improve design of Text Palette in Fototoon activity #575
+- Fix Unit Test
+- Presence is initialized as unsecure by default instead of using location.protocol value
+- XO Editor don't work on touch screens #588
+- Font size of Title reduces in fototoon activity #563
+- Fix TXT file generation in Write activity
+- Fix TXT import file
+- Journal chooser sometimes load Abecedarium images from server instead of from local directory
+- RGB bars in ColorMyWorld activity overflows #605
+- Harsh Sound in TamTam Micro activity in keyboard mode on Firefox and Safari #564
+- Grid Paint Activity screen not working properly on Firefox #342
+- Gridpaint don't handle window resize #403
+
+### Removed
+- Remove .OGG sounds, now replaced by .MP3 only
+
+
 ## [1.2.0] - 2019-09-26
 ### Added
 - Write activity

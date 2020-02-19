@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:04:07 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Video Viewer Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more."
+msgstr ""
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filter"
+msgstr ""
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Click here to filter the videos by category"
+msgstr ""
+
+#: TutoFavoriteTitle
+msgctxt "TutoFavoriteTitle"
+msgid "Favorite videos"
+msgstr ""
+
+#: TutoFavoriteContent
+msgctxt "TutoFavoriteContent"
+msgid "Click here to see the videos marked by you as favorite"
+msgstr ""
+
+#: TutoLibraryTitle
+msgctxt "TutoLibraryTitle"
+msgid "Libraries"
+msgstr ""
+
+#: TutoLibraryContent
+msgctxt "TutoLibraryContent"
+msgid "Click here to choose between Khan Academy, Canopé videos or to add your own library"
+msgstr ""
+
+#: TutoExportvideoTitle
+msgctxt "TutoExportvideoTitle"
+msgid "Export videos"
+msgstr ""
+
+#: TutoExportvideoContent
+msgctxt "TutoExportvideoContent"
+msgid "Click here to save a video in the Journal. First click here then click on the video you want to save"
+msgstr ""
+
+#: TutoVideoTitle
+msgctxt "TutoVideoTitle"
+msgid "Video"
+msgstr ""
+
+#: TutoVideoContent
+msgctxt "TutoVideoContent"
+msgid "Click here to play the video"
+msgstr ""
+
+#: TutoSearchTitle
+msgctxt "TutoSearchTitle"
+msgid "Search"
+msgstr ""
+
+#: TutoSearchContent
+msgctxt "TutoSearchContent"
+msgid "Type here to search for a video by its name"
+msgstr ""
+

@@ -9,6 +9,11 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link href="enyo/enyo.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 	<script src="enyo/enyo.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../../cordova.js"></script><!-- HACK: need only on Android -->
@@ -48,6 +53,7 @@
 
       <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
       <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+	    <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
     </div>
 
     <!-- The content of the activity goes inside the canvas -->

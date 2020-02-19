@@ -1,0 +1,140 @@
+#. extracted from ../localize.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:34:04 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Physics Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Physics activity. Physics is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia"
+msgstr ""
+
+#: TutoCircleTitle
+msgctxt "TutoCircleTitle"
+msgid "Circle"
+msgstr ""
+
+#: TutoCircleContent
+msgctxt "TutoCircleContent"
+msgid "Click here to set circle mode. The next item created will be a circle"
+msgstr ""
+
+#: TutoBoxTitle
+msgctxt "TutoBoxTitle"
+msgid "Box"
+msgstr ""
+
+#: TutoBoxContent
+msgctxt "TutoBoxContent"
+msgid "Click here to set box mode. The next item created will be a box"
+msgstr ""
+
+#: TutoTriangleTitle
+msgctxt "TutoTriangleTitle"
+msgid "Triangle"
+msgstr ""
+
+#: TutoTriangleContent
+msgctxt "TutoTriangleContent"
+msgid "Click here to set triangle mode. The next item created will be a triangle"
+msgstr ""
+
+#: TutoPolygonTitle
+msgctxt "TutoPolygonTitle"
+msgid "Polygon"
+msgstr ""
+
+#: TutoPolygonContent
+msgctxt "TutoPolygonContent"
+msgid "Click here to set polygon mode. The next item created will be a polygon"
+msgstr ""
+
+#: TutoGravityTitle
+msgctxt "TutoGravityTitle"
+msgid "Gravity direction"
+msgstr ""
+
+#: TutoGravityContent
+msgctxt "TutoGravityContent"
+msgid "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees"
+msgstr ""
+
+#: TutoSensorTitle
+msgctxt "TutoSensorTitle"
+msgid "Sensor"
+msgstr ""
+
+#: TutoSensorContent
+msgctxt "TutoSensorContent"
+msgid "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity"
+msgstr ""
+
+#: TutoAppleTitle
+msgctxt "TutoAppleTitle"
+msgid "Newton"
+msgstr ""
+
+#: TutoAppleContent
+msgctxt "TutoAppleContent"
+msgid "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object"
+msgstr ""
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Remove"
+msgstr ""
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to pass in remove mode. Every object you will click will be deleted"
+msgstr ""
+
+#: TutoPauseTitle
+msgctxt "TutoPauseTitle"
+msgid "Pause"
+msgstr ""
+
+#: TutoPauseContent
+msgctxt "TutoPauseContent"
+msgid "Click here to freeze the screen or unfreeze it"
+msgstr ""
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr ""
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "Here all of your objects will appear. Click anywhere to add a new item of the current type or click on an existing item on the board to move it. All objects will be attracted to the point of gravity"
+msgstr ""
+

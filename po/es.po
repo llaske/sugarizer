@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Nov 28 2018 22:18:10 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:42:57 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -453,11 +453,11 @@ msgctxt "Storage"
 msgid "Storage:"
 msgstr "Storage:"
 
-#. Do not translate {{used}} {{percent}}
+#. Do not translate {{used}} {{formatted}}
 #: StorageSize
 msgctxt "StorageSize"
-msgid "{{used}} bytes - {{percent}}%"
-msgstr "{{used}} bytes - {{percent}}%"
+msgid "{{used}} bytes - {{formatted}}"
+msgstr "{{used}} bytes - {{formatted}}"
 
 #: JournalAlmostFull
 msgctxt "JournalAlmostFull"
@@ -491,8 +491,8 @@ msgstr "Sugarizer es un software de código abierto bajo la licencia Apache 2.0.
 
 #: LicenseTermsPlus
 msgctxt "LicenseTermsPlus"
-msgid "Most activities use this license too but some could use a different license, check activities credits to be sure."
-msgstr "Most activities use this license too but some could use a different license, check activities credits to be sure."
+msgid "Most activities use this license too but some could use a different license, check the README file to be sure."
+msgstr "Most activities use this license too but some could use a different license, check the README file for more information."
 
 #: RestartActivity
 msgctxt "RestartActivity"
@@ -1279,8 +1279,8 @@ msgstr "New user"
 
 #: TutoInitNewUserContent
 msgctxt "TutoInitNewUserContent"
-msgid "First, you need an user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
-msgstr "First, you need an user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgid "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgstr "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
 
 #: TutoInitLoginTitle
 msgctxt "TutoInitLoginTitle"
@@ -1312,6 +1312,16 @@ msgctxt "TutoInitHelpContent"
 msgid "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
 msgstr "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
 
+#: TutoInitStopTitle
+msgctxt "TutoInitStopTitle"
+msgid "Quit Sugarizer"
+msgstr "Quit Sugarizer"
+
+#: TutoInitStopContent
+msgctxt "TutoInitStopContent"
+msgid "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+msgstr "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+
 #: TutoInitServerTitle
 msgctxt "TutoInitServerTitle"
 msgid "Server address"
@@ -1319,8 +1329,8 @@ msgstr "Server address"
 
 #: TutoInitServerContent
 msgctxt "TutoInitServerContent"
-msgid "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
-msgstr "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
+msgid "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
+msgstr "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
 
 #: TutoInitNameTitle
 msgctxt "TutoInitNameTitle"
@@ -1601,4 +1611,64 @@ msgstr "A browser and a viewer for Khan Academy and Canopé videos."
 msgctxt "TutoActivityXOEditoractivity"
 msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
 msgstr "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
+
+#: TutoActivityPomodoroactivity
+msgctxt "TutoActivityPomodoroactivity"
+msgid "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+msgstr "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+
+#: TutoActivityConstellationactivity
+msgctxt "TutoActivityConstellationactivity"
+msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+
+#: NotConnected
+msgctxt "NotConnected"
+msgid "Not connected"
+msgstr "Not connected"
+
+#: TutoOfflineTitle
+msgctxt "TutoOfflineTitle"
+msgid "Not connected icon"
+msgstr "Not connected icon"
+
+#: TutoOfflineContent
+msgctxt "TutoOfflineContent"
+msgid "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+msgstr "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+
+#: PleaseConnectMessage
+msgctxt "PleaseConnectMessage"
+msgid "Connect your account to a server to use collaboration features and to backup your work."
+msgstr "Connect your account to a server to use collaboration features and to backup your work."
+
+#: TutoInitQRCodeTitle
+msgctxt "TutoInitQRCodeTitle"
+msgid "Scan server code"
+msgstr "Scan server code"
+
+#: TutoInitQRCodeContent
+msgctxt "TutoInitQRCodeContent"
+msgid "Use this button to scan the QR code of your server instead of typing its address."
+msgstr "Use this button to scan the QR code of your server instead of typing its address."
+
+#: TutoActivityWriteactivity
+msgctxt "TutoActivityWriteactivity"
+msgid "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+msgstr "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+
+#: TutoActivityCalligraactivity
+msgctxt "TutoActivityCalligraactivity"
+msgid "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+
+#: YouveGotDisconnected
+msgctxt "YouveGotDisconnected"
+msgid "You've been disconnected by the server"
+msgstr "You've been disconnected by the server"
+
+#: YouveGotDisconnectedAutomatically
+msgctxt "YouveGotDisconnectedAutomatically"
+msgid "You've been disconnected by another device"
+msgstr "You've been disconnected by another device"
 

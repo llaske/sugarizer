@@ -338,7 +338,7 @@ body {
 }
 
 .item-list-item {
-	height: 35px;
+	height: 40px;
 	z-index: 1;
 }
 
@@ -350,7 +350,7 @@ body {
 	margin-left: 30px;
 	margin-top: 0px;
 	margin-right: 20px;
-	padding: 5px;
+	padding: 8px 5px 8px 5px;
 	z-index: 1;
 }
 
@@ -1127,6 +1127,12 @@ body {
 .first-help {
 	position: absolute;
 	top: 10px;
+	left: 30px;
+}
+
+.first-quit {
+	position: absolute;
+	top: 10px;
 	right: 30px;
 }
 
@@ -1235,6 +1241,14 @@ body {
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
+}
+
+#firstScreen_server:disabled {
+	background-image: url(../icons/locked.svg);
+	background-repeat: no-repeat;
+	background-position: top 3px right 10px;
+	background-color: #E5E5E5;
+	background-size: 20px 20px;
 }
 
 .first-passbox {
@@ -1352,6 +1366,7 @@ body {
 .password-value {
 	font-size: 16pt;
 	font-family: "Noto Emoji";
+	border: none;
 	width: 270px;
 	padding: 4px;
 	line-height: 30px;

@@ -1,19 +1,19 @@
-var initialPattern = function initialPattern() {
-  return new Array(30).fill(0).map(function () {
-    return new Array(50).fill(0);
+var initialPattern = function initialPattern(state) {
+  return new Array(state.state.gridRows).fill(0).map(function () {
+    return new Array(state.state.gridCols).fill(0);
   });
 };
-var generateRandomBoardState = function generateRandomBoardState() {
-  return new Array(30).fill(0).map(function () {
-    var row = new Array(50).fill(0);
+var generateRandomBoardState = function generateRandomBoardState(state) {
+  return new Array(state.state.gridRows).fill(0).map(function () {
+    var row = new Array(state.state.gridCols).fill(0);
     return row.map(function () {
       return Math.floor(Math.random() * 2);
     });
   });
 };
 
-var glider = function glider() {
-  var pattern = initialPattern();
+var glider = function glider(state) {
+  var pattern = initialPattern(state);
   pattern[5][7] = 1;
   pattern[6][5] = 1;
   pattern[6][6] = 1;
@@ -22,11 +22,11 @@ var glider = function glider() {
   return pattern;
 };
 
-var no = function no() {
-  var pattern = initialPattern();
-  for (var j = 0; j < 30; j++) {
+var no = function no(state) {
+  var pattern = initialPattern(state);
+  for (var j = 0; j < state.state.gridRows; j++) {
     if (!((j + 1) % 4 === 0)) {
-      for (var i = 2; i < 50; i += 4) {
+      for (var i = 2; i < state.state.gridCols; i += 4) {
         pattern[j][i] = 1;
       }
     }

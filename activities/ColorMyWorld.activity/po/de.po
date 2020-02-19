@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:15:18 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:36:11 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,10 +493,10 @@ msgctxt "Kiribati"
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: Korea_Republic
-msgctxt "Korea_Republic"
-msgid "Korea,_Republic_of"
-msgstr "Korea,_Republik_von"
+#: North_Korea
+msgctxt "North_Korea"
+msgid "Korea,_Democratic_People's_Republic"
+msgstr "Korea,_Democratic_People's_Republic"
 
 #: Trinidad_and_Tobago
 msgctxt "Trinidad_and_Tobago"
@@ -713,10 +713,10 @@ msgctxt "Kyrgyzstan"
 msgid "Kyrgyzstan"
 msgstr "Kirgisistan"
 
-#: Korea
-msgctxt "Korea"
-msgid "Korea"
-msgstr "Korea"
+#: South_Korea
+msgctxt "South_Korea"
+msgid "Korea,_Republic_of"
+msgstr "Korea,_Republic_of"
 
 #: Liberia
 msgctxt "Liberia"
@@ -738,9 +738,9 @@ msgctxt "Liechtenstein"
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: Libyan_Arab_Jamahiriya
-msgctxt "Libyan_Arab_Jamahiriya"
-msgid "Libyan_Arab_Jamahiriya"
+#: Libya
+msgctxt "Libya"
+msgid "Libya"
 msgstr "Libyen"
 
 #: Madagascar
@@ -755,7 +755,7 @@ msgstr "Martinique"
 
 #: The_former_Yugoslav_Republic_of_Macedonia
 msgctxt "The_former_Yugoslav_Republic_of_Macedonia"
-msgid "The_former_Yugoslav_Republic_of_Macedonia"
+msgid "Macedonia,_Republic_of"
 msgstr "Mazedonien"
 
 #: Mali
@@ -1015,7 +1015,7 @@ msgstr "Tokelau"
 
 #: Republic_of_Moldova
 msgctxt "Republic_of_Moldova"
-msgid "Republic_of_Moldova"
+msgid "Moldova,_Republic_of"
 msgstr "Moldawien"
 
 #: Philippines
@@ -1098,14 +1098,19 @@ msgctxt "Sudan"
 msgid "Sudan"
 msgstr "Sudan"
 
+#: South_Sudan
+msgctxt "South_Sudan"
+msgid "South_Sudan"
+msgstr "South_Sudan"
+
 #: Sweden
 msgctxt "Sweden"
 msgid "Sweden"
 msgstr "Schweden"
 
-#: Syrian_Arab_Republic
-msgctxt "Syrian_Arab_Republic"
-msgid "Syrian_Arab_Republic"
+#: Syria
+msgctxt "Syria"
+msgid "Syria"
 msgstr "Syrien"
 
 #: Switzerland
@@ -1392,4 +1397,59 @@ msgstr "Tour"
 msgctxt "Interactive"
 msgid "Interactive"
 msgstr "Interaktiv"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Color My World Activity"
+msgstr "Color My World Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Color My World activity. In Color My World, you can color the countries of the world to create your own customized map of the world. You can also play a geography game and go on a virtual tour across the world"
+msgstr "Welcome into the Color My World activity. In Color My World, you can color the countries of the world to create your own customized map of the world. You can also play a geography game and go on a virtual tour across the world"
+
+#: TutoModeTitle
+msgctxt "TutoModeTitle"
+msgid "Play Mode"
+msgstr "Play Mode"
+
+#: TutoModeContent
+msgctxt "TutoModeContent"
+msgid "Click here to select the mode of the activity.<br/> You can either color countries by selecting <b>Coloring</b> (default), play a geography game by selecting <b>Interactive</b>, or go on a virtual tour across the world by selecting <b>Tour</b>.<br/>You can also play on the entire world or just to focus a specific region of it"
+msgstr "Click here to select the mode of the activity.<br/> You can either color countries by selecting <b>Coloring</b> (default), play a geography game by selecting <b>Interactive</b>, or go on a virtual tour across the world by selecting <b>Tour</b>.<br/>You can also play on the entire world or just to focus a specific region of it"
+
+#: TutoColorTitle
+msgctxt "TutoColorTitle"
+msgid "Current Color"
+msgstr "Current Color"
+
+#: TutoColorContent
+msgctxt "TutoColorContent"
+msgid "Click here to choose the current color to use to color countries"
+msgstr "Click here to choose the current color to use to color countries"
+
+#: TutoRunTitle
+msgctxt "TutoRunTitle"
+msgid "Run"
+msgstr "Run"
+
+#: TutoRunContent
+msgctxt "TutoRunContent"
+msgid "If you selected Interactive or Tour play mode, click here to start running the game"
+msgstr "If you selected Interactive or Tour play mode, click here to start running the game"
 

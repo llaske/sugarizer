@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Nov 28 2018 22:18:10 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:42:57 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,11 +468,11 @@ msgctxt "Storage"
 msgid "Storage:"
 msgstr "Stockage:"
 
-#. Do not translate {{used}} {{percent}}
+#. Do not translate {{used}} {{formatted}}
 #: StorageSize
 msgctxt "StorageSize"
-msgid "{{used}} bytes - {{percent}}%"
-msgstr "{{used}} octets - {{percent}}%"
+msgid "{{used}} bytes - {{formatted}}"
+msgstr "{{used}} octets - {{formatted}}"
 
 #: JournalAlmostFull
 msgctxt "JournalAlmostFull"
@@ -506,8 +506,8 @@ msgstr "Sugarizer est un logiciel open source couvert par les termes de la licen
 
 #: LicenseTermsPlus
 msgctxt "LicenseTermsPlus"
-msgid "Most activities use this license too but some could use a different license, check activities credits to be sure."
-msgstr "La plupart des activités utilisent cette licence également mais certaines peuvent utiliser une licence différente, vérifiez les crédits des activités pour plus d'information."
+msgid "Most activities use this license too but some could use a different license, check the README file to be sure."
+msgstr "La plupart des activités utilisent cette licence également mais certaines peuvent utiliser une licence différente, vérifiez le fichier README pour plus d'information."
 
 #: RestartActivity
 msgctxt "RestartActivity"
@@ -1290,7 +1290,7 @@ msgstr "Bienvenue dans Sugarizer"
 #: TutoInitIntroTitleIntroContent
 msgctxt "TutoInitIntroTitleIntroContent"
 msgid "Welcome to Sugarizer the leading learning platform. You will find here a set of activities to create, play, learn and share."
-msgstr "Bienvenue dans Sugarizer, la plateforme éducative numéro 1. Vous trouverez ici un ensemble d'activités pour créer, jouer, apprendre et partager."
+msgstr "Bienvenue dans Sugarizer, la première plateforme éducative pour enfant. Vous trouverez ici un ensemble d'activités pour créer, jouer, apprendre et partager."
 
 #: TutoInitNewUserTitle
 msgctxt "TutoInitNewUserTitle"
@@ -1299,7 +1299,7 @@ msgstr "Nouvel utilisateur"
 
 #: TutoInitNewUserContent
 msgctxt "TutoInitNewUserContent"
-msgid "First, you need an user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgid "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
 msgstr "D'abord, vous devez créer un utilisateur auquel vous associerez vos contenus. Cliquez ici si c'est votre première fois dans Sugarizer. Cela vous permettra de créer un nouvel utilisateur."
 
 #: TutoInitLoginTitle
@@ -1332,6 +1332,16 @@ msgctxt "TutoInitHelpContent"
 msgid "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
 msgstr "Rappelez-vous de cette icône. Si vous êtes perdu, où que vous soyez, vous pourrez toujours cliquez dessus pour recevoir de l'aide."
 
+#: TutoInitStopTitle
+msgctxt "TutoInitStopTitle"
+msgid "Quit Sugarizer"
+msgstr "Quitter Sugarizer"
+
+#: TutoInitStopContent
+msgctxt "TutoInitStopContent"
+msgid "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+msgstr "Cliquez sur cette icône si vous voulez vraiment quitter Sugarizer. Vous nous manquerez !"
+
 #: TutoInitServerTitle
 msgctxt "TutoInitServerTitle"
 msgid "Server address"
@@ -1339,8 +1349,8 @@ msgstr "Adresse du serveur"
 
 #: TutoInitServerContent
 msgctxt "TutoInitServerContent"
-msgid "Type here the server address where your data is store. It should start by \"http://\" or \"https://\"."
-msgstr "Tapez ici l'adresse du serveur où vos données sont stockées. Elle doit démarrer par \"http://\" ou \"https://\"."
+msgid "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
+msgstr "Ceci est l'adresse du serveur où vos données sont stockées. Si vous la connaissez, cliquez sur le cadenas et tapez l'adresse. Elle doit commencer par \"http://\" ou \"https://\"."
 
 #: TutoInitNameTitle
 msgctxt "TutoInitNameTitle"
@@ -1621,4 +1631,64 @@ msgstr "Un outil de navigation et de visualisation des vidéos de la Khan Academ
 msgctxt "TutoActivityXOEditoractivity"
 msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
 msgstr "Un éditeur pour changer la couleur de vos icônes. Cette activité vous permet d'explorer différentes couleurs et modèles et de choisir vos favoris."
+
+#: TutoActivityPomodoroactivity
+msgctxt "TutoActivityPomodoroactivity"
+msgid "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+msgstr "Pomodoro est un minuteur utilisé pour diviser le travail en intervalles séparés par des courtes pauses."
+
+#: TutoActivityConstellationactivity
+msgctxt "TutoActivityConstellationactivity"
+msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr "Constellation est un planétarium, ne nécessitant pas de connexion Internet, qui vous permet de voir le ciel tel qu'il est visible depuis n'importe quelle endroit sur Terre."
+
+#: NotConnected
+msgctxt "NotConnected"
+msgid "Not connected"
+msgstr "Non connecté"
+
+#: TutoOfflineTitle
+msgctxt "TutoOfflineTitle"
+msgid "Not connected icon"
+msgstr "Non connecté"
+
+#: TutoOfflineContent
+msgctxt "TutoOfflineContent"
+msgid "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+msgstr "Quand il est visible, cet icône vous rappelle que vous n'êtes pas conecté. Connectez votre machine à un serveur pour bénéficier des fonctionnalités de collaboration et pour sauvegarder votre travail."
+
+#: PleaseConnectMessage
+msgctxt "PleaseConnectMessage"
+msgid "Connect your account to a server to use collaboration features and to backup your work."
+msgstr "Connectez votre machine à un serveur pour bénéficier des fonctionnalités de collaboration et pour sauvegarder votre travail."
+
+#: TutoInitQRCodeTitle
+msgctxt "TutoInitQRCodeTitle"
+msgid "Scan server code"
+msgstr "Scannez le code du serveur"
+
+#: TutoInitQRCodeContent
+msgctxt "TutoInitQRCodeContent"
+msgid "Use this button to scan the QR code of your server instead of typing its address."
+msgstr "Utilisez ce bouton pour scanner le QR Code de votre serveur au lieu de tapez son adresse."
+
+#: TutoActivityWriteactivity
+msgctxt "TutoActivityWriteactivity"
+msgid "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+msgstr "L'activité Write est un traitement de texte basique avec une interface adaptée aux enfants pour leur permettre d'écrire des histoires, poèmes ou essais. Elle supporte l'insertion d'image, de la mise en page et la génération de fichiers PDF, ODT ou DOC."
+
+#: TutoActivityCalligraactivity
+msgctxt "TutoActivityCalligraactivity"
+msgid "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr "L'activité Calligra est une activité amusante pour aider les enfants à apprendre l'écriture cursive: lettres, nombres et figures."
+
+#: YouveGotDisconnected
+msgctxt "YouveGotDisconnected"
+msgid "You've been disconnected by the server"
+msgstr "Vous avez été déconnecté par le serveur"
+
+#: YouveGotDisconnectedAutomatically
+msgctxt "YouveGotDisconnectedAutomatically"
+msgid "You've been disconnected by another device"
+msgstr "Vous avez été déconnecté par un autre appareil"
 

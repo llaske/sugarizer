@@ -11,6 +11,11 @@
 
   <link rel="stylesheet" href="css/activity.css">
   <link rel="stylesheet" href="css/libnotify.css">
+  <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-tour-standalone.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
   <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -35,6 +40,7 @@
     <button class="toolbutton" id="paste-button" title="Paste"></button>
     <button class="toolbutton" id="clear-button" title="Clear"></button>
     <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    <button class="toolbutton pull-right" id="help-button" title="Stop"></button>
   </div>
   <canvas id="paint-canvas" style="width:100%; "></canvas>
 </body>

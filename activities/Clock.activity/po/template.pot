@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:15:08 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:31:33 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,16 @@ msgstr ""
 #: WriteDate
 msgctxt "WriteDate"
 msgid "Write date"
+msgstr ""
+
+#: SetTime
+msgctxt "SetTime"
+msgid "Set-Time Mode"
+msgstr ""
+
+#: SetTimeGame
+msgctxt "SetTimeGame"
+msgid "Set-Time-Game Mode"
 msgstr ""
 
 #: WhatTime
@@ -131,5 +141,100 @@ msgstr ""
 #: December
 msgctxt "December"
 msgid "December"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Clock Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Clock is a simple activity to learn how to read and tell the time"
+msgstr ""
+
+#: TutoHandTitle
+msgctxt "TutoHandTitle"
+msgid "The Clock and its \"hands\""
+msgstr ""
+
+#: TutoHandContent
+msgctxt "TutoHandContent"
+msgid "The Red, Green and Blue lines are the hands of the clock. The Blue hand tells the hour, the Green hand tells the minutes and the Red hand is the seconds"
+msgstr ""
+
+#: TutoSimpleTitle
+msgctxt "TutoSimpleTitle"
+msgid "Simple Clock"
+msgstr ""
+
+#: TutoSimpleContent
+msgctxt "TutoSimpleContent"
+msgid "Click this icon to change the look of the clock into simple mode"
+msgstr ""
+
+#: TutoNiceTitle
+msgctxt "TutoNiceTitle"
+msgid "Nice Clock"
+msgstr ""
+
+#: TutoNiceContent
+msgctxt "TutoNiceContent"
+msgid "Click this icon to change the clock look into nice mode"
+msgstr ""
+
+#: TutoTimeTitle
+msgctxt "TutoTimeTitle"
+msgid "Show Digital Time"
+msgstr ""
+
+#: TutoTimeContent
+msgctxt "TutoTimeContent"
+msgid "Click this icon to also display the time in number format"
+msgstr ""
+
+#: TutoDateTitle
+msgctxt "TutoDateTitle"
+msgid "Show Date"
+msgstr ""
+
+#: TutoDateContent
+msgctxt "TutoDateContent"
+msgid "Click this icon to also display the current date"
+msgstr ""
+
+#: TutoSetTimeTitle
+msgctxt "TutoSetTimeTitle"
+msgid "Set-Time Mode"
+msgstr ""
+
+#: TutoSetTimeContent
+msgctxt "TutoSetTimeContent"
+msgid "Click this icon to switch to set-time mode. In this mode you could move the hands to display the hour you want"
+msgstr ""
+
+#: TutoSetTimeGameTitle
+msgctxt "TutoSetTimeGameTitle"
+msgid "Game Mode"
+msgstr ""
+
+#: TutoSetTimeGameContent
+msgctxt "TutoSetTimeGameContent"
+msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
 msgstr ""
 

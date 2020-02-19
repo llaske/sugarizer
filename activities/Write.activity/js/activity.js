@@ -11,7 +11,8 @@ define([
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
 	"webL10n",
-], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n) {
+	"tutorial"
+], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n,tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
@@ -63,6 +64,8 @@ define([
 				document.getElementById("edit-copy").title = webL10n.get("Copy");
 				document.getElementById("edit-paste").title = webL10n.get("Paste");
 				document.getElementById("export").title = webL10n.get("Export");
+				document.getElementById("super-script").title = webL10n.get("SuperScript");
+				document.getElementById("sub-script").title = webL10n.get("SubScript");
 				document.getElementById(5).title = webL10n.get("Bold");
 				document.getElementById(6).title = webL10n.get("Italic");
 				document.getElementById(7).title = webL10n.get("Underline");
@@ -145,6 +148,11 @@ define([
 
 		});
 
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+
 		var changeMadebyUser=false;
 
 		var copiedContent = null ;
@@ -177,6 +185,17 @@ define([
 		document.getElementById("edit-redo").addEventListener('click',function(){
 			editor.history.redo();
 		});
+
+		// Superscript
+		document.getElementById("super-script").addEventListener('click', function(){
+			document.getElementById("super").click();
+		});
+
+		// Subscript
+		document.getElementById("sub-script").addEventListener('click', function() {
+			document.getElementById("sub").click();
+		})
+
 
 		// Initiating format-text-palette ( for cut/copy/undo/redo )
 		var formatButton = document.getElementById("format-text");
@@ -259,6 +278,11 @@ define([
 			var newfont = e.detail.family;
 			if(newfont=="Arial") newfont="arial";
 			if(newfont=="Comic Sans MS") newfont="comic";
+			if(newfont=="Times New Roman")newfont="Times";
+			if(newfont=="Courier New")newfont="Courier";
+			if(newfont=="Lucida Console")newfont="Lucida";
+			if(newfont=="Impact")newfont="Impact";
+			if(newfont=="Georgia")newfont="Georgia";
 			changeMadebyUser=true;
 			editor.format('font',newfont);
 		});
@@ -359,7 +383,6 @@ define([
 			var title = document.getElementById("title").value;
 			var mimetype = 'text/plain';
 			var inputData = document.getElementById("editor").textContent;
-			inputData=JSON.stringify(inputData);
 			var metadata = {
 			mimetype: mimetype,
 			title: title+".txt",

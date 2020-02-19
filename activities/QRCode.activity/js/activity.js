@@ -1,6 +1,6 @@
 
 
-define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n"], function (activity, datastore, env, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n", "tutorial"], function (activity, datastore, env, webL10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!', 'humane'], function (doc, humane) {
@@ -17,7 +17,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		});
 
 		// Compute size of QR Code
-		var headerSize = 55 + 40;
+		var toolbarSize = 55;
+		var headerSize = toolbarSize + 40;
 		var marginPercent = 20;
 		var qrSize = document.getElementById("canvas").parentNode.offsetHeight - headerSize;
 		qrSize -= (marginPercent*qrSize)/100;
@@ -53,8 +54,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		}
 
 		// Process Resize events
-		window.addEventListener('resize', function() {
-			var windowSize = document.body.clientHeight - headerSize;
+
+		var resizeHandler = function() {
+			var windowSize = document.body.clientHeight - headerSize + (document.getElementById("unfullscreen-button").style.visibility == "visible"?toolbarSize:0);
 			var zoom = windowSize/((qrSize*(100+marginPercent))/100);
 			document.getElementById("qr-code").style.zoom = zoom;
 			var useragent = navigator.userAgent.toLowerCase();
@@ -69,7 +71,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 					document.getElementById("outdiv").style.MozTransformOrigin = "0 0";
 				}
 			}
-		});
+		}
+		window.addEventListener('resize', resizeHandler);
 
 		// Get settings
 		var userText = document.getElementById("user-text");
@@ -137,6 +140,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			}, inputData);
 		});
 
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+
 		// Full screen
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
 			if (document.getElementById("photo-button").classList.contains('active')) {
@@ -146,12 +154,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			document.getElementById("input-box").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeHandler();
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("input-box").style.opacity = 1;
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeHandler();
 		});
 
 		// Capture photo
