@@ -1,5 +1,4 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -11,7 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: SavedTalk
 msgctxt "SavedTalk"
@@ -32,7 +32,7 @@ msgstr "I'm sleepy"
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr "Language"
+msgstr "Sprache"
 
 #: Speech
 msgctxt "Speech"
@@ -303,4 +303,3 @@ msgstr "History"
 msgctxt "TutoHistoryContent"
 msgid "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
 msgstr "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
-
