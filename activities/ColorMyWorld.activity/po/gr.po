@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:36:11 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Wed Feb 19 2020 10:48:22 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -910,7 +910,7 @@ msgstr "νησί_Νόρφολκ"
 
 #: Cocos_Islands
 msgctxt "Cocos_Islands"
-msgid "Îles_Cocos"
+msgid "Cocos_Islands"
 msgstr "Νήσοι_Κόκος"
 
 #: Antarctica

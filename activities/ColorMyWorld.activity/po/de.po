@@ -1,17 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:36:11 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Wed Feb 19 2020 10:48:22 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: appname
 msgctxt "appname"
@@ -905,7 +905,7 @@ msgstr "Norfolk-Insel"
 
 #: Cocos_Islands
 msgctxt "Cocos_Islands"
-msgid "Îles_Cocos"
+msgid "Cocos_Islands"
 msgstr "Kokosinseln"
 
 #: Antarctica
@@ -1452,3 +1452,4 @@ msgstr "Run"
 msgctxt "TutoRunContent"
 msgid "If you selected Interactive or Tour play mode, click here to start running the game"
 msgstr "If you selected Interactive or Tour play mode, click here to start running the game"
+
