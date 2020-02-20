@@ -35,6 +35,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 		// Initialize the activity.
 		activity.setup();
 		var datastoreObject = activity.getDatastoreObject();
+		var zoom;
+		var g;
 
 		env.getEnvironment(function(err, environment) {
 			// Set current language to Sugarizer
@@ -64,19 +66,98 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 			tutorial.start();
 		});
 
+		// function computeSize() {
+		// 	var wsize = document.body.clientHeight;
+		// 	//reduces size of window 
+		// 	zoom = wsize/700;
+		// 	//places window to left
+		// 	var leftMargin = (document.body.clientWidth-1024*zoom)/2;
+		// 	document.getElementById("frame").style.marginLeft = leftMargin+"px";
+		// 	var setTransform = function(element) {
+		// 		element.style.transform = "scale("+zoom+","+zoom+")";
+		// 		element.style.transformOrigin = "0% 0%";
+		// 		element.style.width = "100%";
+		// 		element.style.height = "100%";
+		// 	}
+		// 	setTransform(document.getElementById("gridcnv"));
+		// 	setTransform(document.getElementById("hitbuffer"));
+		// 	setTransform(document.getElementById("thumbframe"));
+		// }
+
+		function computeSize() {
+			var wsize = document.body.clientHeight-55;
+			zoom = wsize/748;
+			var leftMargin = (document.body.clientWidth-1024*zoom)/2;
+			document.getElementById("frame").style.marginLeft = leftMargin+"px";
+			var setTransform = function(element) {
+				element.style.transform = "scale("+zoom+","+zoom+")";
+				//helps in centering the canvas imp here
+				element.style.transformOrigin = "50% 50%";
+				//manipulates size of main frame imp here
+				element.style.width = "1024px";
+				element.style.height = "748px";
+			}
+			setTransform(document.getElementById("gridcnv"));
+			setTransform(document.getElementById("hitbuffer"));
+			setTransform(document.getElementById("thumbframe"));
+		}
+		
+
+		
+		// function resizeCanvas() {
+		// 	if (document.getElementById("unfullscreen-button").style.visibility === "hidden") {
+		// 	canvas.width = window.innerWidth;
+		// 	canvas.height = window.innerHeight-55;
+		// 	g.resize();
+		// 	} else {
+		// 		canvas.width = window.innerWidth;
+		// 		canvas.height = window.innerHeight;
+		// 		g.resize();
+		// 	}
+		// }
+		// window.addEventListener('resize', resizeCanvas, false);
+
 			// Full screen
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			//document.getElementById("main-toolbar").style.opacity = 0;
+			//document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("main-toolbar").style.display = "none";
+			
 			document.getElementById("canvas").style.top = "0px";
+			
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			//resizeCanvas();
+			computeSize();
+			//window.addEventListener('resize', computeSize);
 			
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			//document.getElementById("main-toolbar").style.opacity = 1;
+			
 			document.getElementById("main-toolbar").style.display = "block";
+			
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			//resizeCanvas();
+			computeSize();
+			//window.addEventListener('resize', computeSize);
   
 		});
+
+		//window.addEventListener('resize', resizeCanvas, false);
+		// function resizeCanvas() {
+		// 	if (document.getElementById("unfullscreen-button").style.visibility === "hidden") {
+		// 	canvas.width = window.innerWidth;
+		// 	canvas.height = window.innerHeight-55;
+		// 	//g.resize();
+		// 	} else {
+		// 		canvas.width = window.innerWidth;
+		// 		canvas.height = window.innerHeight;
+		// 		//g.resize();
+		// 	}
+		// }
+
+		
   
 
  });
