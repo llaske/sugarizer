@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:04:07 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Poprz"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Dalej"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Koniec"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Video Viewer Activity"
+msgstr "Video Viewer"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more."
+msgstr "Witaj w Video Viewer! To wyszukiwarka i przeglądarka filmów Khan Academy i Canopé."
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filter"
+msgstr "Filtruj"
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Click here to filter the videos by category"
+msgstr "Kliknij aby filtrować filmy"
+
+#: TutoFavoriteTitle
+msgctxt "TutoFavoriteTitle"
+msgid "Favorite videos"
+msgstr "Ulubione"
+
+#: TutoFavoriteContent
+msgctxt "TutoFavoriteContent"
+msgid "Click here to see the videos marked by you as favorite"
+msgstr "Kliknij aby zobaczyć filmy oznaczone przez Ciebie jako ulubione."
+
+#: TutoLibraryTitle
+msgctxt "TutoLibraryTitle"
+msgid "Libraries"
+msgstr "Biblioteki"
+
+#: TutoLibraryContent
+msgctxt "TutoLibraryContent"
+msgid "Click here to choose between Khan Academy, Canopé videos or to add your own library"
+msgstr "Kliknij aby wybrać pomiędzy filmami Khan Academy i Canopé."
+
+#: TutoExportvideoTitle
+msgctxt "TutoExportvideoTitle"
+msgid "Export videos"
+msgstr "Eksportuj"
+
+#: TutoExportvideoContent
+msgctxt "TutoExportvideoContent"
+msgid "Click here to save a video in the Journal. First click here then click on the video you want to save"
+msgstr "Kliknij aby zapisać film w Dzienniku."
+
+#: TutoVideoTitle
+msgctxt "TutoVideoTitle"
+msgid "Video"
+msgstr "Wideo"
+
+#: TutoVideoContent
+msgctxt "TutoVideoContent"
+msgid "Click here to play the video"
+msgstr "Kliknij tutaj aby odtworzyć film."
+
+#: TutoSearchTitle
+msgctxt "TutoSearchTitle"
+msgid "Search"
+msgstr "Wyszukaj"
+
+#: TutoSearchContent
+msgctxt "TutoSearchContent"
+msgid "Type here to search for a video by its name"
+msgstr "Zacznij pisać aby wyszukać film."
+

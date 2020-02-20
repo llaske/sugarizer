@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:13:17 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:39:27 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,4 +17,89 @@ msgstr ""
 msgctxt "QRCodeSaved"
 msgid "QRCode was saved to journal!"
 msgstr "QR Code enregistré dans le journal"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "QRCode Activity"
+msgstr "Activité QRCode"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the QRCode activity. QRCode activity is a simple QR Code generator and reader"
+msgstr "Bienvenue dans l'activité QRCode. L'activité QRCode est un simple générateur et lecteur de QR Codes"
+
+#: TutoPhotoTitle
+msgctxt "TutoPhotoTitle"
+msgid "Read QR Code"
+msgstr "Lire QR Code"
+
+#: TutoPhotoContent
+msgctxt "TutoPhotoContent"
+msgid "Click here to scan a QR code through Camera of your device"
+msgstr "Cliquez ici pour lire un QR Code avec la caméra de votre machine"
+
+#: TutoPNGTitle
+msgctxt "TutoPNGTitle"
+msgid "Export to PNG"
+msgstr "Exporter en PNG"
+
+#: TutoPNGContent
+msgctxt "TutoPNGContent"
+msgid "Click this icon to export the QR Code in Journal as a PNG file"
+msgstr "Cliquez ici pour exporter le QR Code dans le Journal sous forme d'un fichier PNG"
+
+#: TutoGenerateTitle
+msgctxt "TutoGenerateTitle"
+msgid "Generate"
+msgstr "Générer"
+
+#: TutoGenerateContent
+msgctxt "TutoGenerateContent"
+msgid "Click this icon to launch generation"
+msgstr "Cliquez sur cet icône pour lancer la génération"
+
+#: TutoListTitle
+msgctxt "TutoListTitle"
+msgid "History"
+msgstr "Historique"
+
+#: TutoListContent
+msgctxt "TutoListContent"
+msgid "Click here to get a list of previously generated QR Codes"
+msgstr "Cliquez ici pour afficher la liste des QR Codes générés précédemment"
+
+#: TutoQRTitle
+msgctxt "TutoQRTitle"
+msgid "QR Code"
+msgstr "QR Code"
+
+#: TutoQRContent
+msgctxt "TutoQRContent"
+msgid "Here is shown the generated QR Code"
+msgstr "Ici s'affiche le QR Code généré"
+
+#: TutoInputTitle
+msgctxt "TutoInputTitle"
+msgid "Text to generate"
+msgstr "Texte à générer"
+
+#: TutoInputContent
+msgctxt "TutoInputContent"
+msgid "Type here the text you want to generate as a QR Code"
+msgstr "Tapez ici le texte que vous voulez générer sous forme de QR Code"
 

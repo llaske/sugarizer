@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:23:42 GMT+0100 (CET)\n"
+"POT-Creation-Date: Wed Feb 19 2020 10:40:07 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,156 @@ msgstr ""
 
 #: label
 msgctxt "label"
-msgid "Label"
+msgid ""
 msgstr ""
 
 #: calcul
 msgctxt "calcul"
-msgid "Calculation"
+msgid ""
 msgstr ""
 
 #: clear
 msgctxt "clear"
-msgid "Clear"
+msgid ""
 msgstr ""
+
+#: trigo.title
+msgctxt "trigo.title"
+msgid ""
+msgstr ""
+
+#: algebra.title
+msgctxt "algebra.title"
+msgid ""
+msgstr ""
+
+#: base.title
+msgctxt "base.title"
+msgid ""
+msgstr ""
+
+#: angle.title
+msgctxt "angle.title"
+msgid ""
+msgstr ""
+
+#: digit.title
+msgctxt "digit.title"
+msgid ""
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid ""
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid ""
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid ""
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid ""
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid ""
+msgstr ""
+
+#: TutoTrigoTitle
+msgctxt "TutoTrigoTitle"
+msgid ""
+msgstr ""
+
+#: TutoTrigoContent
+msgctxt "TutoTrigoContent"
+msgid ""
+msgstr ""
+
+#: TutoAlgebraTitle
+msgctxt "TutoAlgebraTitle"
+msgid ""
+msgstr ""
+
+#: TutoAlgebraContent
+msgctxt "TutoAlgebraContent"
+msgid ""
+msgstr ""
+
+#: TutoBaseTitle
+msgctxt "TutoBaseTitle"
+msgid ""
+msgstr ""
+
+#: TutoBaseContent
+msgctxt "TutoBaseContent"
+msgid ""
+msgstr ""
+
+#: TutoAngleTitle
+msgctxt "TutoAngleTitle"
+msgid ""
+msgstr ""
+
+#: TutoAngleContent
+msgctxt "TutoAngleContent"
+msgid ""
+msgstr ""
+
+#: TutoOutputTitle
+msgctxt "TutoOutputTitle"
+msgid ""
+msgstr ""
+
+#: TutoOutputContent
+msgctxt "TutoOutputContent"
+msgid ""
+msgstr ""
+
+#: TutoInputTitle
+msgctxt "TutoInputTitle"
+msgid ""
+msgstr ""
+
+#: TutoInputContent
+msgctxt "TutoInputContent"
+msgid ""
+msgstr ""
+
+#: TutoResultTitle
+msgctxt "TutoResultTitle"
+msgid ""
+msgstr ""
+
+#: TutoResultContent
+msgctxt "TutoResultContent"
+msgid ""
+msgstr ""
+
+#: TutoLabelTitle
+msgctxt "TutoLabelTitle"
+msgid ""
+msgstr ""
+
+#: TutoLabelContent
+msgctxt "TutoLabelContent"
+msgid ""
+msgstr ""
+
+#: TutoFunctionTitle
+msgctxt "TutoFunctionTitle"
+msgid ""
+msgstr ""
+
+#: TutoFunctionContent
+msgctxt "TutoFunctionContent"
+msgid ""
+msgstr ""
+

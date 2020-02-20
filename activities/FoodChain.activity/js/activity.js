@@ -1,6 +1,6 @@
 ﻿
 
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore","tutorial"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore","tutorial", "sugar-web/env"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial, env) {
 	l10n = _l10n;
 	var app = null;
 
@@ -36,19 +36,30 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 		var localized_received = function() {
 			// Init activity
 			if (app == null) {
-				// Init sound component
-				FoodChain.sound = new FoodChain.Audio();
-				FoodChain.sound.renderInto(document.getElementById("header"));
+				env.getEnvironment(function(err, environment) {
+					// Set current language to Sugarizer
+					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+					var language = environment.user ? environment.user.language : defaultLanguage;
+					if (language == 'fr' || language == 'en') {
+						l10n.language.code = language;
+					} else if (language == 'pt') {
+						l10n.language.code = "pt_BR";
+					}
 
-				// Create and display first screen
-				FoodChain.context.home = app = new FoodChain.App().renderInto(document.getElementById("body"));
-				FoodChain.setLocale();
+					// Init sound component
+					FoodChain.sound = new FoodChain.Audio();
+					FoodChain.sound.renderInto(document.getElementById("header"));
 
-				// Load context
-				FoodChain.loadContext(function() {
-					app.playGame({
-						name: FoodChain.context.game.replace("FoodChain.", ""),
-						level: FoodChain.context.level
+					// Create and display first screen
+					FoodChain.context.home = app = new FoodChain.App().renderInto(document.getElementById("body"));
+					FoodChain.setLocale();
+
+					// Load context
+					FoodChain.loadContext(function() {
+						app.playGame({
+							name: FoodChain.context.game.replace("FoodChain.", ""),
+							level: FoodChain.context.level
+						});
 					});
 				});
 			} else {

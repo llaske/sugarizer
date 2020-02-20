@@ -1,0 +1,140 @@
+#. extracted from ../localize.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:34:04 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Poprz"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Dalej"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Koniec"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Physics Activity"
+msgstr "PhysicsJS"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Physics activity. Physics is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia"
+msgstr "Witaj w aplikacji PhysicsJS. PhysicsJS to symulator i plac zabaw fizycznego świata. Możesz dodawać kwadraty, trójkąty oraz kółka i patrzeć jak oddziałowują z siłami (np. grawitacją czy siłami Newtona) i inercją."
+
+#: TutoCircleTitle
+msgctxt "TutoCircleTitle"
+msgid "Circle"
+msgstr "Kółko"
+
+#: TutoCircleContent
+msgctxt "TutoCircleContent"
+msgid "Click here to set circle mode. The next item created will be a circle"
+msgstr "Kliknij aby zacząć tworzyć kółko."
+
+#: TutoBoxTitle
+msgctxt "TutoBoxTitle"
+msgid "Box"
+msgstr "Kwadrat"
+
+#: TutoBoxContent
+msgctxt "TutoBoxContent"
+msgid "Click here to set box mode. The next item created will be a box"
+msgstr "Kliknij aby zacząć tworzyć kwadrat."
+
+#: TutoTriangleTitle
+msgctxt "TutoTriangleTitle"
+msgid "Triangle"
+msgstr "Trójkąt"
+
+#: TutoTriangleContent
+msgctxt "TutoTriangleContent"
+msgid "Click here to set triangle mode. The next item created will be a triangle"
+msgstr "Kliknij aby zacząć tworzyć trójkąt."
+
+#: TutoPolygonTitle
+msgctxt "TutoPolygonTitle"
+msgid "Polygon"
+msgstr "Wielokąt"
+
+#: TutoPolygonContent
+msgctxt "TutoPolygonContent"
+msgid "Click here to set polygon mode. The next item created will be a polygon"
+msgstr "Kliknij aby zacząć tworzyć wielokąt."
+
+#: TutoGravityTitle
+msgctxt "TutoGravityTitle"
+msgid "Gravity direction"
+msgstr "Grawitacja"
+
+#: TutoGravityContent
+msgctxt "TutoGravityContent"
+msgid "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees"
+msgstr "Kliknij aby zmienić środek grawitacji."
+
+#: TutoSensorTitle
+msgctxt "TutoSensorTitle"
+msgid "Sensor"
+msgstr "Sensor"
+
+#: TutoSensorContent
+msgctxt "TutoSensorContent"
+msgid "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity"
+msgstr "Kliknij aby stworzyć sensor."
+
+#: TutoAppleTitle
+msgctxt "TutoAppleTitle"
+msgid "Newton"
+msgstr "Newton"
+
+#: TutoAppleContent
+msgctxt "TutoAppleContent"
+msgid "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object"
+msgstr "Klinij aby włączyć prawo Newtona. Obiekty zaczną się przyciągać. Wartość siły zależy od wielkości obiektu."
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Remove"
+msgstr "Usuń"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to pass in remove mode. Every object you will click will be deleted"
+msgstr "Kliknij tutaj a później na obiekt aby go usunąć."
+
+#: TutoPauseTitle
+msgctxt "TutoPauseTitle"
+msgid "Pause"
+msgstr "Pauza"
+
+#: TutoPauseContent
+msgctxt "TutoPauseContent"
+msgid "Click here to freeze the screen or unfreeze it"
+msgstr "Kliknij aby zamrozić ekran."
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Plansza"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "Here all of your objects will appear. Click anywhere to add a new item of the current type or click on an existing item on the board to move it. All objects will be attracted to the point of gravity"
+msgstr "Tutaj pojawią się wszytskie twoje obiekty. Będą one przyciągane do środka grawitacji."
+

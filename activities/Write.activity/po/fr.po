@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Sep 07 2019 17:19:14 GMT+0200 (GMT+02:00)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,4 +205,219 @@ msgstr "Exporter en DOC"
 msgctxt "ExportToOdt"
 msgid "Export to ODT"
 msgstr "Exporter en ODT"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Write Activity"
+msgstr "Activité Write"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Write activity. The Write activity is a basic word processor with a simple interface for children. Like a standard word processor, you will be able to format your text using buttons in the toolbar"
+msgstr "L'activité Write est un traitement de texte basique avec une interface adaptée aux enfants. Comme un traitement de texte standard, Write vous permet de formatter votre texte en utilisant les boutons dans la barre d'outil"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Réseau"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the activity so other users on the network could co-edit the text with you"
+msgstr "Cliquez ici pour partager l'activité pour que d'autres utilisateurs sur le réseau puissent co-éditer le texte avec vous"
+
+#: TutoForegroundTitle
+msgctxt "TutoForegroundTitle"
+msgid "Text Color"
+msgstr "Couleur Texte"
+
+#: TutoForegroundContent
+msgctxt "TutoForegroundContent"
+msgid "Click here to change the color for the text"
+msgstr "Cliquez ici pour changer la couleur du texte"
+
+#: TutoBackgroundTitle
+msgctxt "TutoBackgroundTitle"
+msgid "Background Color"
+msgstr "Couleur Fond"
+
+#: TutoBackgroundContent
+msgctxt "TutoBackgroundContent"
+msgid "Click here to change the background color for the text"
+msgstr "Cliquez ici pour changer la couleur de fond du texte"
+
+#: TutoFormatTitle
+msgctxt "TutoFormatTitle"
+msgid "Style"
+msgstr "Style"
+
+#: TutoFormatContent
+msgctxt "TutoFormatContent"
+msgid "Click here to change the text style. It will allow you to use bold, italic, underline or strike"
+msgstr "Cliquez ici pour changer le style du texte. Cela vous permet d'utiliser gras, italique, souligné ou barré"
+
+#: TutoParagraphTitle
+msgctxt "TutoParagraphTitle"
+msgid "Paragraph"
+msgstr "Paragraphe"
+
+#: TutoParagraphContent
+msgctxt "TutoParagraphContent"
+msgid "Click here to change paragraph alignement. You could align text to the right, to the left or to the center"
+msgstr "Cliquer ici pour changer l'alignement du paragraphe. Vous pouvez aligner le texte à droite, à gauche ou au centre"
+
+#: TutoListTitle
+msgctxt "TutoListTitle"
+msgid "List"
+msgstr "Liste"
+
+#: TutoListContent
+msgctxt "TutoListContent"
+msgid "Click here to create an ordered or unordered list"
+msgstr "Cliquer ici pour créer un liste ordonnée ou non ordonnée"
+
+#: TutoIncreaseTitle
+msgctxt "TutoIncreaseTitle"
+msgid "Increase Font Size"
+msgstr "Augmenter taille fonte"
+
+#: TutoIncreaseContent
+msgctxt "TutoIncreaseContent"
+msgid "Click here to increase font size"
+msgstr "Cliquez ici pour augmenter la taille de la fonte"
+
+#: TutoFontTitle
+msgctxt "TutoFontTitle"
+msgid "Font"
+msgstr "Fonte"
+
+#: TutoFontContent
+msgctxt "TutoFontContent"
+msgid "Click here to change font for the text: Arial, Comic Sans MS, Verdana, ..."
+msgstr "Cliquez ici pour changer la fonte du texte: Arial, Comic Sans MS, Verdane, ..."
+
+#: TutoDecreaseTitle
+msgctxt "TutoDecreaseTitle"
+msgid "Decrease Font Size"
+msgstr "Diminuer taille fonte"
+
+#: TutoDecreaseContent
+msgctxt "TutoDecreaseContent"
+msgid "Click here to decrease font size"
+msgstr "Cliquez ici pour diminuer la taille de la fonte"
+
+#: TutoInsertTitle
+msgctxt "TutoInsertTitle"
+msgid "Insert Image"
+msgstr "Insérer Image"
+
+#: TutoInsertContent
+msgctxt "TutoInsertContent"
+msgid "Click here to insert into the document an image from Journal"
+msgstr "Cliquez ici pour insérer dans le document une image du Journal"
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Annuler"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click here to undo last action"
+msgstr "Cliquez ici pour annuler la dernière action"
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Répéter"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "Click here to redo last action"
+msgstr "Cliquez ici pour répéter la dernière action"
+
+#: TutoCopyTitle
+msgctxt "TutoCopyTitle"
+msgid "Copy"
+msgstr "Copier"
+
+#: TutoCopyContent
+msgctxt "TutoCopyContent"
+msgid "Click here to copy selected text"
+msgstr "Cliquez ici pour copier le texte sélectionné"
+
+#: TutoPasteTitle
+msgctxt "TutoPasteTitle"
+msgid "Paste"
+msgstr "Coller"
+
+#: TutoPasteContent
+msgctxt "TutoPasteContent"
+msgid "Click here to paste copied text"
+msgstr "Cliquez ici pour coller le texte qui a été copié"
+
+#: TutoExportTitle
+msgctxt "TutoExportTitle"
+msgid "Export"
+msgstr "Exporter"
+
+#: TutoExportContent
+msgctxt "TutoExportContent"
+msgid "Click here to export your document in the Journal as a TXT, PDF, DOC or ODT file"
+msgstr "Cliquez ici pour exporter votre document dans le Journal en tant que fichier TXT, PDF, DOC ou ODT"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Content"
+msgstr "Contenu"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Here is the place where you can type, edit text and insert images. By default there is a sample text but feel free to remove it and begin to create!"
+msgstr "Ici est l'endroit où vous pouvez taper ou éditer le texte et insérer des images. Par défaut, elle contient un texte exemple mais bien sûr vous pouvez le supprimer et commencer à créer le votre"
+
+#: SuperScript
+msgctxt "SuperScript"
+msgid "SuperScript"
+msgstr "Exposant"
+
+#: SubScript
+msgctxt "SubScript"
+msgid "SubScript"
+msgstr "Indice"
+
+#: TutoSuperTitle
+msgctxt "TutoSuperTitle"
+msgid "Superscript"
+msgstr "Exposant"
+
+#: TutoSuperContent
+msgctxt "TutoSuperContent"
+msgid "Click here to format text as a superscript: i.e. above the current line of text"
+msgstr "Cliquez ici pour formater le texte comme un exposant, c'est à dire au-dessus de la ligne du texte"
+
+#: TutoSubTitle
+msgctxt "TutoSubTitle"
+msgid "Subscript"
+msgstr "Indice"
+
+#: TutoSubContent
+msgctxt "TutoSubContent"
+msgid "Click here to fortmat text as a subcript: i.e. under the current line of text"
+msgstr "Cliquez ici pour formater le texte comme un indice, c'est à dire en-dessous de la ligne du texte"
 

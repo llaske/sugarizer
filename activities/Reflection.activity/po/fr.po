@@ -1,0 +1,110 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:25:17 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Reflection Activity"
+msgstr "Activité Reflection"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry"
+msgstr "Bienvenue dans l'activité Reflection. Reflection est un jeu pour apprendre la symétrie réflexive"
+
+#: TutoBuddyTitle
+msgctxt "TutoBuddyTitle"
+msgid "Your colors"
+msgstr "Vos couleurs"
+
+#: TutoBuddyContent
+msgctxt "TutoBuddyContent"
+msgid "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors"
+msgstr "Cliquez ici pour utiliser vos couleurs pour les jetons. Cela donnera le choix entre 4 couleurs différentes pour chaque jeton"
+
+#: TutoRainbowTitle
+msgctxt "TutoRainbowTitle"
+msgid "Rainbow colors"
+msgstr "Couleurs de l'arc-en-ciel"
+
+#: TutoRainbowContent
+msgctxt "TutoRainbowContent"
+msgid "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors"
+msgstr "Cliquez ici pour utiliser les couleurs de l'arc-en-ciel pour les jetons. Cela donnera le choix entre 8 couleurs différentes pour chaque jeton"
+
+#: TutoHorizontalTitle
+msgctxt "TutoHorizontalTitle"
+msgid "Horizontal Symmetry"
+msgstr "Symétrie Horizontale"
+
+#: TutoHorizontalContent
+msgctxt "TutoHorizontalContent"
+msgid "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen"
+msgstr "Cliquez ici pour jouer avec la symétrie horizontale. La partie gauche de l'écran devra être identique à la partie droite de l'écran"
+
+#: TutoVerticalTitle
+msgctxt "TutoVerticalTitle"
+msgid "Vertical Symmetry"
+msgstr "Symétrie Verticale"
+
+#: TutoVerticalContent
+msgctxt "TutoVerticalContent"
+msgid "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen"
+msgstr "Cliquez ici pour jouer avec la symétrie verticale. La partie haute de l'écran devra être identique à la partie basse de l'écran"
+
+#: TutoBilateralTitle
+msgctxt "TutoBilateralTitle"
+msgid "Bilateral Symmetry"
+msgstr "Symétrie Bilatérale"
+
+#: TutoBilateralContent
+msgctxt "TutoBilateralContent"
+msgid "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical"
+msgstr "Cliquez ici pour jouer à la fois avec la symétrie horizontale et verticale. Les 4 parties de l'écran doivent être identiques"
+
+#: TutoRobotTitle
+msgctxt "TutoRobotTitle"
+msgid "Robot mode"
+msgstr "Mode Robot"
+
+#: TutoRobotContent
+msgctxt "TutoRobotContent"
+msgid "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!"
+msgstr "Cliquez ici pour activer/désactiver le mode Robot. En mode Robot, quand vous cliquez sur un jeton, le jeton symétrique change de couleur en même temps. Trop facile !"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Board"
+msgstr "Plateau"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Click on tokens to change their colors until the image become symmetric"
+msgstr "Cliquez sur les jetons pour changer leurs couleurs jusqu'à ce que l'image devienne symétrique"
+

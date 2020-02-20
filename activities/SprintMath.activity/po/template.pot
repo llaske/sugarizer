@@ -1,0 +1,179 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:19:46 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Time
+msgctxt "Time"
+msgid "Time"
+msgstr ""
+
+#: Score
+msgctxt "Score"
+msgid "Score"
+msgstr ""
+
+#: easy
+msgctxt "easy"
+msgid "easy"
+msgstr ""
+
+#: medium
+msgctxt "medium"
+msgid "medium"
+msgstr ""
+
+#: hard
+msgctxt "hard"
+msgid "hard"
+msgstr ""
+
+#: correct
+msgctxt "correct"
+msgid "correct"
+msgstr ""
+
+#: wrong
+msgctxt "wrong"
+msgid "wrong"
+msgstr ""
+
+#. Do not translate {{name}} {{score}}
+#: GameOver
+msgctxt "GameOver"
+msgid "{{name}}'s score is {{score}}"
+msgstr ""
+
+#. Do not translate {{name}}
+#: GamePlaying
+msgctxt "GamePlaying"
+msgid "{{name}} is playing"
+msgstr ""
+
+#. Do not translate {{name}}
+#: joined
+msgctxt "joined"
+msgid "{{name}} joined!"
+msgstr ""
+
+#. Do not translate {{name}}
+#: left
+msgctxt "left"
+msgid "{{name}} left!"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Sprint Math Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Sprint Math activity. Sprint Math is a simple activity to challenge yourself on mental arithmetic"
+msgstr ""
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr ""
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the activity on the network so you could play against other users"
+msgstr ""
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Restart"
+msgstr ""
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to restart the game"
+msgstr ""
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filters"
+msgstr ""
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Click here to choose mathematical operations that you want to work on (addition, subtraction, multiplication or all of that)"
+msgstr ""
+
+#: TutoLevelTitle
+msgctxt "TutoLevelTitle"
+msgid "Level"
+msgstr ""
+
+#: TutoLevelContent
+msgctxt "TutoLevelContent"
+msgid "Click here to select the difficulty level (easy, medium, hard). More difficult the level is, more larger numbers are"
+msgstr ""
+
+#: TutoTimeTitle
+msgctxt "TutoTimeTitle"
+msgid "Time"
+msgstr ""
+
+#: TutoTimeContent
+msgctxt "TutoTimeContent"
+msgid "Time left to finish the game. You've got 60 seconds to solve a maximum of operations"
+msgstr ""
+
+#: TutoScoreTitle
+msgctxt "TutoScoreTitle"
+msgid "Score"
+msgstr ""
+
+#: TutoScoreContent
+msgctxt "TutoScoreContent"
+msgid "Your current score. Each correct answer increase the score of one"
+msgstr ""
+
+#: TutoQuestionTitle
+msgctxt "TutoQuestionTitle"
+msgid "Question"
+msgstr ""
+
+#: TutoQuestionContent
+msgctxt "TutoQuestionContent"
+msgid "Here is the operation you have to solve"
+msgstr ""
+
+#: TutoChoicesTitle
+msgctxt "TutoChoicesTitle"
+msgid "Choices"
+msgstr ""
+
+#: TutoChoicesContent
+msgctxt "TutoChoicesContent"
+msgid "Select the correct answer in these 4 propositions"
+msgstr ""
+

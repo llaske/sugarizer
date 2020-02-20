@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:30:23 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "TamTam Micro Activity"
+msgstr "TamTam Micro Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
+msgstr "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
+
+#: TutoSoundsTitle
+msgctxt "TutoSoundsTitle"
+msgid "Sounds"
+msgstr "Sounds"
+
+#: TutoSoundsContent
+msgctxt "TutoSoundsContent"
+msgid "Click on images to hear each sound"
+msgstr "Click on images to hear each sound"
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filter"
+msgstr "Filter"
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Click here to filter by category the sounds you want to see and hear"
+msgstr "Click here to filter by category the sounds you want to see and hear"
+
+#: TutoPianoTitle
+msgctxt "TutoPianoTitle"
+msgid "Piano"
+msgstr "Piano"
+
+#: TutoPianoContent
+msgctxt "TutoPianoContent"
+msgid "Click here to make music with your selected sound, or press 1-7 on your keyboard. Pressing ctrl+a number will add a sharp"
+msgstr "Click here to make music with your selected sound, or press 1-7 on your keyboard. Pressing ctrl+a number will add a sharp"
+
+#: TutoPianoInfoTitle
+msgctxt "TutoPianoInfoTitle"
+msgid "Piano Mode"
+msgstr "Piano Mode"
+
+#: TutoPianoInfoContent
+msgctxt "TutoPianoInfoContent"
+msgid "Click here to display a piano where you could make music with your selected sound"
+msgstr "Click here to display a piano where you could make music with your selected sound"
+
+#: TutoCurrentModeTitle
+msgctxt "TutoCurrentModeTitle"
+msgid "Current Instrument"
+msgstr "Current Instrument"
+
+#: TutoCurrentModeContent
+msgctxt "TutoCurrentModeContent"
+msgid "Look here to see the current instrument you have selected. The piano will make music using this sound"
+msgstr "Look here to see the current instrument you have selected. The piano will make music using this sound"
+
+#: TutoPianoButtonTitle
+msgctxt "TutoPianoButtonTitle"
+msgid "Switch instrument"
+msgstr "Switch instrument"
+
+#: TutoPianoButtonContent
+msgctxt "TutoPianoButtonContent"
+msgid "Click on this button to go back to the screen to choose instrument"
+msgstr "Click on this button to go back to the screen to choose instrument"
+
