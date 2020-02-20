@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a quit application button in Electron
 - Add a tutorial to the QR Code activity #595
 - Add a fullscreen button in the Stopwatch activity #599
+- Add a fullscreen button in the FoodChain activity #598
 
 ### Changed
 - Double size of Record images in WebApp and electron App
