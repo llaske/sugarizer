@@ -4,26 +4,29 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:21:28 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2019-11-30 18:35+0000\n"
+"Last-Translator: Christoph Derndorfer <christoph@derndorfer.eu>\n"
+"Language-Team: German <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-paint/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: label
+#, fuzzy
 msgctxt "label"
 msgid "Label"
-msgstr ""
+msgstr "Beschriftung"
 
 #: calcul
 msgctxt "calcul"
 msgid "Calculation"
-msgstr ""
+msgstr "Berechnung"
 
 #: clear
 msgctxt "clear"
 msgid "Clear"
-msgstr ""
+msgstr "Löschen"

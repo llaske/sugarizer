@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Mar 04 2019 23:58:42 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:24:34 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr "Allemagne"
 
 #: NorthKorea
 msgctxt "NorthKorea"
-msgid "NorthKorea"
+msgid "North Korea"
 msgstr "Corée du Nord"
 
 #: SaudiArabia
@@ -157,4 +157,109 @@ msgstr "Japon"
 msgctxt "China"
 msgid "China"
 msgstr "Chine"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Constellation Activity"
+msgstr "Activité Constellation"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Constellation activity. Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth"
+msgstr "L'activité Constellation est un planétarium, ne nécessitant pas de connexion Internet, qui vous permet de voir le ciel tel qu'il est visible depuis n'importe quelle endroit sur Terre"
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "One day forward"
+msgstr "Avancer d'un jour"
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "Click here to move forward the sky by 1 day"
+msgstr "Cliquez ici pour avancer le ciel d'une journée"
+
+#: TutoMinusTitle
+msgctxt "TutoMinusTitle"
+msgid "One day backward"
+msgstr "Reculer d'un jour"
+
+#: TutoMinusContent
+msgctxt "TutoMinusContent"
+msgid "Click here to move backward the sky by 1 day"
+msgstr "Cliquez ici pour reculer le ciel d'une journée"
+
+#: TutoConstTitle
+msgctxt "TutoConstTitle"
+msgid "Constellations"
+msgstr "Constellations"
+
+#: TutoConstContent
+msgctxt "TutoConstContent"
+msgid "Click here to toggle display of constellations"
+msgstr "Cliquez ici pour voir/cacher l'affichage des constellations"
+
+#: TutoStarTitle
+msgctxt "TutoStarTitle"
+msgid "Stars"
+msgstr "Etoiles"
+
+#: TutoStarContent
+msgctxt "TutoStarContent"
+msgid "Click here to toggle display of star names"
+msgstr "Cliquez ici pour voir/cacher l'affichage du nom des étoiles"
+
+#: TutoLocationTitle
+msgctxt "TutoLocationTitle"
+msgid "Location"
+msgstr "Localisation"
+
+#: TutoLocationContent
+msgctxt "TutoLocationContent"
+msgid "Click here to set the sky to your current location"
+msgstr "Cliquez ici pour positionner le ciel comme à l'endroit où vous êtes"
+
+#: TutoWorldTitle
+msgctxt "TutoWorldTitle"
+msgid "Countries"
+msgstr "Pays"
+
+#: TutoWorldContent
+msgctxt "TutoWorldContent"
+msgid "Click here to select a country. You will see how the sky above this country looks"
+msgstr "Cliquez ici pour choisir un pays. Vous verrez le ciel comme il est dans le pays choisi"
+
+#: TutoViewTitle
+msgctxt "TutoViewTitle"
+msgid "Projection type"
+msgstr "Type Projection"
+
+#: TutoViewContent
+msgctxt "TutoViewContent"
+msgid "Click here to choose projection type. It will change the way the sky is displayed"
+msgstr "Cliquez ici pour choisir le type de projection. Cela changera la manière dont le ciel est affiché"
+
+#: TutoTimeTitle
+msgctxt "TutoTimeTitle"
+msgid "Date & Time"
+msgstr "Date & Heure"
+
+#: TutoTimeContent
+msgctxt "TutoTimeContent"
+msgid "Here you can see the date and time for which the sky is shown"
+msgstr "Ici vous pouvez voir la date et l'heure à laquelle le ciel correspond"
 

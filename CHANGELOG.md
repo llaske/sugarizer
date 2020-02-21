@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a quit application button in Electron
 - Add a tutorial to the QR Code activity #595
 - Add a fullscreen button in the Stopwatch activity #599
+- Add a fullscreen button in the FoodChain activity #598
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -116,6 +117,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Harsh Sound in TamTam Micro activity in keyboard mode on Firefox and Safari #564
 - Grid Paint Activity screen not working properly on Firefox #342
 - Gridpaint don't handle window resize #403
+- In Journal Popup in iOS/Safari, Choose item text is not centered
+- RGB bars in LabyrinthJS and Write activity overflows #620 
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only

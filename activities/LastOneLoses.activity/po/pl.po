@@ -1,0 +1,122 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} dołączył"
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} opuścił grę"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Poprz"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Dalej"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Koniec"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Last One Loses Activity"
+msgstr "Ostatni Przegrywa"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
+msgstr "Witaj w Ostatni Przegrywa. Jest to mała gra komputerowa."
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Sieć"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the game on the network so an opponent could play against you"
+msgstr "Kliknij aby zmienić z Prywatnego na Sąsiedztwo."
+
+#: TutoNewgameTitle
+msgctxt "TutoNewgameTitle"
+msgid "New Game"
+msgstr "Nowa Gra"
+
+#: TutoNewgameContent
+msgctxt "TutoNewgameContent"
+msgid "Click here to start a new game. It will reinit the board with 13 items."
+msgstr "Kliknij aby rozpocząć nową grę."
+
+#: TutoEasyTitle
+msgctxt "TutoEasyTitle"
+msgid "Easy Level"
+msgstr "Łatwy Poziom"
+
+#: TutoEasyContent
+msgctxt "TutoEasyContent"
+msgid "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
+msgstr "Kliknij aby wybrać łatwy poziom trudności."
+
+#: TutoMediumTitle
+msgctxt "TutoMediumTitle"
+msgid "Medium Level"
+msgstr "Średni poziom"
+
+#: TutoMediumContent
+msgctxt "TutoMediumContent"
+msgid "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
+msgstr "Kliknij aby wybrać średni poziom trudności."
+
+#: TutoHardTitle
+msgctxt "TutoHardTitle"
+msgid "Hard Level"
+msgstr "Trudny Poziom"
+
+#: TutoHardContent
+msgctxt "TutoHardContent"
+msgid "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
+msgstr "Kliknij aby wybrać trudny poziom trudności."
+
+#: TutoSwitchTitle
+msgctxt "TutoSwitchTitle"
+msgid "Switch Player"
+msgstr "Zmień Gracza"
+
+#: TutoSwitchContent
+msgctxt "TutoSwitchContent"
+msgid "Click here to let your opponent begin the game. It will work only at the begining of the game"
+msgstr "Kliknij aby oddać swoją turę komputerowi lub drugiemu graczowi."
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Patyki"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
+msgstr "Każdy gracz musi wziąć od 1 do 3 patyków z planszy. Ten, który weźmie ostatniego, przegrywa."
+

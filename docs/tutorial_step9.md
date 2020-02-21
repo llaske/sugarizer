@@ -5,7 +5,7 @@
 
 Because Sugarizer is a platform dedicated to children, activities should be self-understandable. By the way, it's fair to provide some help to shy users that don't want to click everywhere.
 
-In this tutorial you'll learn how to easily integrate a tutorial into your Pawn activity.
+In this tutorial, you'll learn how to easily integrate a tutorial into your Pawn activity.
 
 ### What's a tutorial in Sugarizer?
 
@@ -20,7 +20,7 @@ Let's see how to do the same in our Pawn activity.
 
 ### Prepare the UI
 
-First, we're goint to prepare the UI of the activity.
+First, we're going to prepare the UI of the activity.
 
 Sugarizer users expect to find the help button into the toolbar. It will be our first step to add it.
 
@@ -56,7 +56,7 @@ The button is here. That's a good start.
 
 ### Integrate Bootstrap tour components
 
-Sugarizer rely on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
+Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
 
 **Bootstrap tour** is a set of components - based on the famous [Boostrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/) libraries - dedicated to build interactive tutorial. It could be integrated into web pages that already use Bootstrap/jQuery but is also usable standalone for web pages that don't use them (like in our case).
 
@@ -87,9 +87,9 @@ Note that we've done script integration around `if (typeof module ...)` and `if 
 
 ### Display the tutorial
 
-Only few Javascript lines are need to display a tutorial with Bootstrap tour. By the way, it's a good practise to separate this specific code in a dedicated file.
+Only a few Javascript lines are needed to display a tutorial with Bootstrap tour. By the way, it's a good practice to separate this specific code in a dedicated file.
 
-So, let's create a new Javascript file `lib/tutorial.js` to handle everything related to tutorial.
+So, let's create a new Javascript file `lib/tutorial.js` to handle everything related to the tutorial.
 
 Insert in this file the following code:
 
@@ -130,19 +130,19 @@ Since [tutorial step 2](tutorial_step2.md), you should now be familiar with the 
 
 The `start` method contains all the stuff to call Bootstrap tour. 
 
-We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've choosed a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons.
+We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've chosen a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons.
 
-Then we've created the `Tour` object, exposed by the Bootstrap tour library. Finally we've called the `init()` and `start()` method on this object to display the tutorial.
+Then we've created the `Tour` object, exposed by the Bootstrap tour library. Finally, we've called the `init()` and `start()` method on this object to display the tutorial.
 
 Really easy, isn't it?
 
 Can't wait to test it! 
 
-But we need first to integrate our new components in the main source code for our Pawn activity. Once again, we will update the dependancies list of libraries at the first line of the `js/activity.js` file.
+But we need first to integrate our new components in the main source code for our Pawn activity. Once again, we will update the dependencies list of libraries at the first line of the `js/activity.js` file.
 
 	define(["sugar-web/activity/activity", ... ,"pawnpalette","tutorial"], function (activity, ... , pawnpalette, tutorial) {
 
-This time you need to add the `tutorial` library created before. Add the string `"tutorial"` at the end of dependancies array and declare a new `tutorial` variable at the end of the function declaration.
+This time you need to add the `tutorial` library created before. Add the string `"tutorial"` at the end of dependencies array and declare a new `tutorial` variable at the end of the function declaration.
 
 Then we need to add an event listener to handle click on our new help button:
 
@@ -201,7 +201,7 @@ So we're going to update the call to Bootstrap tour into `lib/tutorial.js` to in
 			steps: steps
 		});
 
-We need also to define CSS class used in the template. To do that, add following lines to the `css/activity.css` file:
+We need also to define CSS class used in the template. To do that, add the following lines to the `css/activity.css` file:
 
 	.tutorial-title {
 		background-color: #808080 !important;
@@ -344,7 +344,7 @@ It's much better now!
 
 We're almost done but we must add a final step to our tutorial. As we've mentioned in [tutorial step 5](tutorial_step5.md), your activity should be localized to automatically adapt to the user language. The same is true for our tutorial.
 
-So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learn during the [tutorial step 5](tutorial_step5.md), update your `locale.ini` file to define new ressource strings:
+So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the [tutorial step 5](tutorial_step5.md), update your `locale.ini` file to define new resource strings:
 
 	TutoPrev=Prev
 	TutoNext=Next
@@ -385,7 +385,7 @@ We're now able to reference our new resource strings by using call to `l10n.get(
 			}
 		];
 		
-Then into the template to change text for buttons:
+Then into the template to change the text for buttons:
 
 		var tour = new Tour({
 			template: "\

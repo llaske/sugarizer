@@ -1,0 +1,70 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:37:49 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Grid Paint Activity"
+msgstr "Activité Grid Paint"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Grid Paint activity. Grid Paint is a simple paint activity to draw pictures using a grid of triangles"
+msgstr "Grid Paint est une activité de dessin simple qui permet de dessiner en utilisant une grille de triangles"
+
+#: TutoGridTitle
+msgctxt "TutoGridTitle"
+msgid "Grids"
+msgstr "Grilles"
+
+#: TutoGridContent
+msgctxt "TutoGridContent"
+msgid "Here is the list of grids. You've got 15 grids, some are empty some are already filled. Click on any grid to start painting on it"
+msgstr "Ceci est la liste des grilles. Vous avez 15 grilles, certaines sont vides, certaines sont déjà remplies. Cliquez sur une des grilles pour commencer à dessiner dessus"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr "Effacer"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear all triangles in the grid"
+msgstr "Cliquez ici pour effacer tous les triangles de la grille"
+
+#: TutoEditTitle
+msgctxt "TutoEditTitle"
+msgid "Paint"
+msgstr "Dessiner"
+
+#: TutoEditContent
+msgctxt "TutoEditContent"
+msgid "Click on any triangle to fill it with the current color. Squares to the left are colors, click on any square to select it as current color. Click on the back icon to go back to the list of grids"
+msgstr "Cliquez sur n'importe quel triangle pour le remplir avec la couleur courante. Les carrés à gauche sont les couleurs, cliquez sur n'importe quel carré pour le choisir comme couleur courante. Cliquez sur l'icône retour pour retourner à la liste des grilles"
+
