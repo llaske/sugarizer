@@ -983,6 +983,7 @@ define(function (require) {
     get: function l10n_get(key, args, fallback) {
       var data = getL10nData(key, args) || fallback;
       if (data) {
+        console.log(data);
         return 'textContent' in data ? data.textContent : '';
       }
       return '{{' + key + '}}';
