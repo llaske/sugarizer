@@ -40,7 +40,7 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                             '<button class="start-stop-button start"></button>' +
                             '<button class="reset-button"></button>' +
                             '<button class="mark-button"></button>' +
-                            '<button class="clear-marks-button"></button>' +
+                            
                         '</div>' +
                       '</div>' +
                       '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
@@ -90,11 +90,6 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                 that.onMarkClicked();
             };
 
-            this.clearButton = this.elem.querySelector('.clear-marks-button');
-            this.clearButton.onclick = function () {
-                that.onClearMarksClicked();
-            };
-
             this.removeButton = this.elem.querySelector('.remove');
             this.removeButton.onclick = function () {
                 that.onRemoveClicked();
@@ -105,9 +100,16 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             if (!this.running) {
                 this.running = true;
                 this.tick();
+                this.startStopButton = this.elem.querySelector('.start-stop-button');
+                this.startStopButton.title="Stop";
+                this.resetButton = this.elem.querySelector('.reset-button');
+                this.resetButton.disabled = true;
             }
             else {
                 this.running = false;
+                this.startStopButton.title="Start";
+                this.resetButton = this.elem.querySelector('.reset-button');
+                this.resetButton.disabled = false;
             }
             this.updateButtons();
         };
@@ -123,6 +125,7 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                 this.running = false;
             }
             this.updateView();
+            this.onClearMarksClicked();
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
