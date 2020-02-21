@@ -84,23 +84,23 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 		// 	setTransform(document.getElementById("thumbframe"));
 		// }
 
-		function computeSize() {
-			var wsize = document.body.clientHeight-0;
-			zoom = wsize/748;
-			var leftMargin = (document.body.clientWidth-1024*zoom)/2;
-			document.getElementById("frame").style.marginLeft = leftMargin+"px";
-			var setTransform = function(element) {
-				element.style.transform = "scale("+zoom+","+zoom+")";
-				//helps in centering the canvas imp here
-				element.style.transformOrigin = "50% 50%";
-				//manipulates size of main frame imp here
-				element.style.width = "1024px";
-				element.style.height = "748px";
-			}
-			setTransform(document.getElementById("gridcnv"));
-			setTransform(document.getElementById("hitbuffer"));
-			setTransform(document.getElementById("thumbframe"));
-		}
+		// function computeSize() {
+		// 	var wsize = document.body.clientHeight-0;
+		// 	zoom = wsize/748;
+		// 	var leftMargin = (document.body.clientWidth-1024*zoom)/2;
+		// 	document.getElementById("frame").style.marginLeft = leftMargin+"px";
+		// 	var setTransform = function(element) {
+		// 		element.style.transform = "scale("+zoom+","+zoom+")";
+		// 		//helps in centering the canvas imp here
+		// 		element.style.transformOrigin = "50% 50%";
+		// 		//manipulates size of main frame imp here
+		// 		element.style.width = "1024px";
+		// 		element.style.height = "748px";
+		// 	}
+		// 	setTransform(document.getElementById("gridcnv"));
+		// 	setTransform(document.getElementById("hitbuffer"));
+		// 	setTransform(document.getElementById("thumbframe"));
+		// }
 		
 
 		
@@ -127,8 +127,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 			
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			//resizeCanvas();
-			computeSize();
+			//computeSize();
 			//window.addEventListener('resize', computeSize);
+			app.resize();
 			
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
@@ -139,8 +140,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			//resizeCanvas();
-			computeSize();
+			//computeSize();
 			//window.addEventListener('resize', computeSize);
+			app.resize();
   
 		});
 
