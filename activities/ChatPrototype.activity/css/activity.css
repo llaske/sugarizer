@@ -229,3 +229,7 @@ padding:1%;
       margin-top: 8px;
   }
 }
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}

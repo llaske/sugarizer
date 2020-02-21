@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity,wl10n, palette,presencepalette,datastore,chooser) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial"], function (activity,wl10n, palette,presencepalette,datastore,chooser,tutorial) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -224,7 +224,12 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
                 selectOthers.appendChild(otherOption);
               }
 
-            }
+			}
+			
+			// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
     });
 
 });
