@@ -85,7 +85,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 		// }
 
 		function computeSize() {
-			var wsize = document.body.clientHeight-55;
+			var wsize = document.body.clientHeight-0;
 			zoom = wsize/748;
 			var leftMargin = (document.body.clientWidth-1024*zoom)/2;
 			document.getElementById("frame").style.marginLeft = leftMargin+"px";
