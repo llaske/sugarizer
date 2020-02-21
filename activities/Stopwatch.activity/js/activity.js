@@ -30,23 +30,25 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             stopwatchList.appendChild(this.elem);
 
             this.template =
-                '<div class="panel-body"></div>' +
+                '<div class="card-body">' +
                     '<div class="row">' +
-                      '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
-                        '<div class="counter">00:00:00</div>' +
-                      '</div>' +
-                      '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
-                        '<div class="buttons-group">' +
-                            '<button class="start-stop-button start"></button>' +
-                            '<button class="reset-button"></button>' +
-                            '<button class="mark-button"></button>' +
-                            '<button class="clear-marks-button"></button>' +
+                        '<div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-center">' +
+                            '<div class="counter">00:00:00</div>' +
                         '</div>' +
-                      '</div>' +
-                      '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
-                        '<div class="marks"></div>' +
-                        '<button class="remove"></button>' +
-                      '</div>' +
+                        '<div class="col-md-4 col-lg-4 col-xl-4 d-flex justify-content-center align-items-center">' +
+                            '<div class="buttons-group">' +
+                                '<button class="start-stop-button start"></button>' +
+                                '<button class="reset-button"></button>' +
+                                '<button class="mark-button"></button>' +
+                                '<button class="clear-marks-button"></button>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-5 col-lg-5 col-xl-5 d-flex align-items-center justify-content-center">' +
+                            '<div class="marks"></div>' +
+                        '</div>' +
+                        '<div class="col-md-1 col-lg-1 col-xl-1 d-flex justify-content-center align-items-center">' +
+                            '<button class ="remove"></button>' +
+                        '</div>' +
                     '</div>' +
                 '</div>';
 
