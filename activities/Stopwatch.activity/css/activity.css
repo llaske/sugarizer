@@ -26,8 +26,43 @@ ul {
   margin: 0;
 }
 
-.card{
-  background-color: white;
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+.card-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.d-flex{
+  display: flex !important;
+  padding: 0 15px;
+}
+
+.justify-content-center{
+  justify-content: center !important;
+}
+
+.align-items-center{
+  align-items: center !important;
 }
 
 #stopwatch-app {
@@ -160,13 +195,16 @@ button.remove {
   }
 }
 
-@media only screen and (max-width: 484px){
-  button.remove {
-    margin-right: 0;
+@media only screen and (max-width: 767px){
+  .d-flex{
+    width: 100%;
   }
 }
 
 @media only screen and (max-width: 484px){
+  button.remove {
+    margin-right: 0;
+  }
   .buttons-group button {
     height: 42px;
     width: 42px;
