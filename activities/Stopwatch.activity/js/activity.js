@@ -37,15 +37,15 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                       '</div>' +
                       '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
                         '<div class="buttons-group">' +
-                            '<button class="start-stop-button start"></button>' +
-                            '<button class="reset-button"></button>' +
-                            '<button class="mark-button"></button>' +
+                            '<button class="start-stop-button start" title="Start"></button>' +
+                            '<button class="reset-button" title="Reset"></button>' +
+                            '<button class="mark-button" title="Mark"></button>' +
                             
                         '</div>' +
                       '</div>' +
                       '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
                         '<div class="marks"></div>' +
-                        '<button class="remove"></button>' +
+                        '<button class="remove" title="Remove"></button>' +
                       '</div>' +
                     '</div>' +
                 '</div>';
