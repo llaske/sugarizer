@@ -1,8 +1,8 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
-	tutorial.start = function() {
-		var steps = [
+	tutorial.start = function(play) {
+		var homeSteps = [
                 {
                     element: "",
                     orphan: true,
@@ -42,6 +42,34 @@ define(["webL10n"], function (l10n) {
                 }
         ];
         
+        var playSteps = [
+                {
+                    element: "",
+                    orphan: true,
+                    placement: "bottom",
+                    title: l10n.get("TutoPlayExplainTitle"),
+                    content: l10n.get("TutoPlayExplainContent")
+                },
+                {
+                    element: "#play_control3",
+                    placement: "left",
+                    title: l10n.get("TutoPlayControlsTitle"),
+                    content: l10n.get("TutoPlayControlsContent")
+                },
+                {
+                    element: "#play_image12",
+                    placement: "top",
+                    title: l10n.get("TutoPlayFire"),
+                    content: l10n.get("TutoPlayFireContent")
+                },
+                {
+                    element: "#play_image",
+                    placement: "top",
+                    title: l10n.get("TutoPlayHomeTitle"),
+                    content: l10n.get("TutoPlayHomeContent")
+                }
+        ];
+        
         var tour = new Tour({
             template: "\
             <div class='popover tour'>\
@@ -75,7 +103,7 @@ define(["webL10n"], function (l10n) {
             </div>",
             storage: false,
             backdrop: true,
-            steps: steps
+            steps: play? playSteps : homeSteps
         });
 		tour.init();
 		tour.start(true);

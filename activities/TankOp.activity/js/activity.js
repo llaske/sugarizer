@@ -54,7 +54,7 @@ define(["sugar-web/activity/activity", "tutorial"], function (activity, tutorial
 
 					// Launch tutorial
 					document.getElementById("help-button").addEventListener('click', function(e) {
-						tutorial.start();
+						tutorial.start(play);
 					});
 
 					document.getElementById("unfullscreen-button").addEventListener('click', function() {
