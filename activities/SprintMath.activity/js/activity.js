@@ -644,5 +644,20 @@ define([
             document.getElementById("network-button").classList.add('disabled');
         }
 
+        document.getElementById("fullscreen-button").addEventListener('click', function() {
+            document.getElementById("main-toolbar").style.display = "none";
+            document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			
+		});
+
+        document.getElementById("unfullscreen-button").addEventListener('click', function() {
+            document.getElementById("main-toolbar").style.display = "block";
+            document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			
+		});
+
+
     });
 });
