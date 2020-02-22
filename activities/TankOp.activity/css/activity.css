@@ -25,7 +25,7 @@
 }
 
 .tutorial-title {
-  background-color: #808080 !important;
+  background-color: #808080 !important ;
   color: #ffffff !important;
 }
 
@@ -141,7 +141,12 @@
 .web-activity-icon {
   background-repeat: no-repeat;
   background-position: center;
+  color: white;
   padding: 2px;
+}
+
+.web-activity-disable{
+  color: black;
 }
 
 .icon-button {
