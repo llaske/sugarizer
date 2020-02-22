@@ -10,7 +10,6 @@ define(["webL10n","sugar-web/env"], function (webL10n,env) {
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			console.log(environment.user.language);
 			settings.language = language;
 			settings.l10n.language.code = language;
 			callback();

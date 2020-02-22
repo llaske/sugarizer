@@ -3,43 +3,43 @@ define(["webL10n"], function (l10n) {
 
 	tutorial.start = function() {
 		var steps = [
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#fullscreen-button",
-				placement: "bottom",
-				title: l10n.get("TutoFullScreenButtonTitle"),
-				content: l10n.get("TutoFullScreenButtonContent")
-            },
-            {
-				element: "#stop-button",
-				placement: "left",
-				title: l10n.get("TutoStopButtonTitle"),
-				content: l10n.get("TutoStopButtonContent")
-            },
-            {
-				element: "#app_image3",
-				placement: "left",
-				title: l10n.get("TutoCreditsTitle"),
-				content: l10n.get("TutoCreditsContent")
-            },
-            {
-				element: "#app_control6",
-				placement: "top",
-				title: l10n.get("TutoChangeMissionTitle"),
-				content: l10n.get("TutoChangeMissionContent")
-            },
-			{
-				element: "#app_image2",
-                title: l10n.get("TutoStartActivityTitle"),
-                placement: "bottom",
-				content: l10n.get("TutoStartActivityContent")
-			}
+                {
+                    element: "",
+                    orphan: true,
+                    placement: "bottom",
+                    title: l10n.get("TutoExplainTitle"),
+                    content: l10n.get("TutoExplainContent")
+                },
+                {
+                    element: "#fullscreen-button",
+                    placement: "bottom",
+                    title: l10n.get("TutoFullScreenButtonTitle"),
+                    content: l10n.get("TutoFullScreenButtonContent")
+                },
+                {
+                    element: "#stop-button",
+                    placement: "left",
+                    title: l10n.get("TutoStopButtonTitle"),
+                    content: l10n.get("TutoStopButtonContent")
+                },
+                {
+                    element: "#app_image3",
+                    placement: "left",
+                    title: l10n.get("TutoCreditsTitle"),
+                    content: l10n.get("TutoCreditsContent")
+                },
+                {
+                    element: "#app_control6",
+                    placement: "top",
+                    title: l10n.get("TutoChangeMissionTitle"),
+                    content: l10n.get("TutoChangeMissionContent")
+                },
+                {
+                    element: "#app_image2",
+                    title: l10n.get("TutoStartActivityTitle"),
+                    placement: "bottom",
+                    content: l10n.get("TutoStartActivityContent")
+                }
         ];
         
         var tour = new Tour({
