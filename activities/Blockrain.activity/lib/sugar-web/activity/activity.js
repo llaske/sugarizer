@@ -6,8 +6,9 @@ define(["webL10n",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette",
-        "tutorial"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette,tutorial) {
+        "tutorial",
+        "webL10n"], function (
+    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette,tutorial,webL10n) {
 
     'use strict';
 
@@ -104,6 +105,9 @@ define(["webL10n",
 
         env.getEnvironment(function (error, environment) {
             var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+	        var language = environment.user ? environment.user.language : defaultLanguage;
+	        webL10n.language.code = language;
             if (!environment.objectId) {
                 datastoreObject.setMetadata({
                     "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
