@@ -99,12 +99,7 @@ define(["webL10n",
 
         document.getElementById("help-button").addEventListener('click', function(e) {
 		    tutorial.start();
-            // // l10n.language.code=language;
-            // window.addEventListener("localized", function() {
-            //     console.log("d");
-            //     tutorial.start(language);
-            //     console.log("d1");
-            // });
+            
 	    });
 
         shortcut.add("Ctrl", "Q", this.close);
