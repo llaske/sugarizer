@@ -5,8 +5,9 @@ define(["webL10n",
         "sugar-web/datastore",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
-        "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
+        "sugar-web/graphics/activitypalette",
+        "tutorial"], function (
+    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette,tutorial) {
 
     'use strict';
 
@@ -93,6 +94,10 @@ define(["webL10n",
         var stopButton = document.getElementById("stop-button");
         stopButton.addEventListener('click', function (e) {
             sendStopEvent();
+        });
+
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
         });
 
         shortcut.add("Ctrl", "Q", this.close);

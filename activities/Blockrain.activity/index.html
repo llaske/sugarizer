@@ -11,7 +11,10 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" src="css/blockrain.css">
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/blockrain.jquery.libs.js"></script>
 <script type="text/javascript" src="js/blockrain.jquery.src.js"></script>
@@ -25,10 +28,11 @@
 
 <body>
 <div id="main-toolbar" class="toolbar">
-  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  	<button class="toolbutton" id="activity-button" title="My Activity"></button>
 	<button class="toolbutton" id="btn-next" title="Change theme"></button>
-  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 	<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+	<button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <button id="up-arrow" title="Rotate Block"></button>
