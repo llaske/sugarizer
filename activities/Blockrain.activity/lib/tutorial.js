@@ -1,4 +1,4 @@
-define([], function () {
+define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
 	tutorial.start = function() {
@@ -7,44 +7,50 @@ define([], function () {
 				element: "",
 				orphan: true,
 				placement: "bottom",
-				title: "Blockrain",
-				content: "Welcome into the Blockrain activity. Blockrain is a tile-matching puzzle video game."
+				title: l10n.get("TutoExplainTitle"),
+				content: l10n.get("TutoExplainContent")
             },
             {
 				element: "#canvas",
 				placement: "right",
-				title: "Rules",
-				content: "You can only move the pieces in specific ways, your game is over if your pieces reach the top of the screen, and you can only remove pieces from the screen by filling all the blank space in a line (horizontally)."
+				title: l10n.get("TutoCanvasTitle"),
+				content: l10n.get("TutoCanvasContent")
             },
 			{
 				element: "#btn-next",
 				placement: "bottom",
-				title: "Change Theme",
-				content: "Click here to change the there of the game."
+				title: l10n.get("TutoThemeTitle"),
+				content: l10n.get("TutoThemeContent")
             },
 			{
 				element: "#up-arrow",
 				placement: "right",
-				title: "Rotate",
-				content: "Click here to rotate the incoming blocks."
+				title: l10n.get("TutoRotateTitle"),
+				content: l10n.get("TutoRotateContent")
             },
 			{
 				element: "#down-arrow",
 				placement: "right",
-				title: "Move Down",
-				content: "Click here to move the incoming blocks in downward direction."
+				title: l10n.get("TutoDownTitle"),
+				content: l10n.get("TutoDownContent")
             },
 			{
 				element: "#left-arrow",
 				placement: "left",
-				title: "Move Left",
-				content: "Click here to move the incoming blocks in left direction."
+				title: l10n.get("TutoLeftTitle"),
+				content: l10n.get("TutoLeftContent")
             },
 			{
 				element: "#right-arrow",
 				placement: "left",
-				title: "Move Right",
-				content: "Click here to move the incoming blocks in right direction."
+				title: l10n.get("TutoRightTitle"),
+				content: l10n.get("TutoRightContent")
+			},
+            {
+				element: "#canvas",
+				placement: "right",
+				title: l10n.get("TutoCanvasThemeTitle"),
+				content: l10n.get("TutoCanvasThemeContent")
             }
 		];
 		var tour = new Tour({
@@ -59,7 +65,7 @@ define([], function () {
                             <div class='tutorial-prev-icon2 web-activity-icon'></div>\
                             <div class='tutorial-prev-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>Prev</div>\
+                        <div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
                     </div>\
                     <span data-role='separator' style='margin: 4px'>|</span>\
                     <div class='tutorial-next-icon icon-button' data-role='next'>\
@@ -67,14 +73,14 @@ define([], function () {
                             <div class='tutorial-next-icon2 web-activity-icon'></div>\
                             <div class='tutorial-next-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>Next</div>\
+                        <div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
                     </div>\
                     <div class='tutorial-end-icon icon-button' data-role='end'>\
                         <div class='tutorial-end-icon1 web-activity'>\
                             <div class='tutorial-end-icon2 web-activity-icon'></div>\
                             <div class='tutorial-end-icon3 web-activity-disable'></div>\
                         </div>\
-                        <div class='icon-tutorial-text'>End</div>\
+                        <div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
                     </div>\
                 </div>\
             </div>",
@@ -82,8 +88,8 @@ define([], function () {
             backdrop: true,
             steps: steps
         });
-		tour.init();
-		tour.start(true);
+	tour.init();
+	tour.start(true);
 
 	};
 

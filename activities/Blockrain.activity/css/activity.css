@@ -102,8 +102,8 @@
   color: white;
 }
 
-.tutorial-end-icon.icon-button.disabled {
-  color: black;
+  .tutorial-end-icon.icon-button.disabled {
+color: black;
 }
 
 .tutorial-end-icon1 {
@@ -176,10 +176,10 @@
 
 @media only screen and (min-width: 500px) {
 
-  .blockrain-game-holder {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-  }
+.blockrain-game-holder {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
 }
 
 /* Touch Controls */
