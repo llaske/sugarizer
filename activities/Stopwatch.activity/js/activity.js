@@ -28,10 +28,11 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial"], 
             this.elem = document.createElement('li');
             var stopwatchList = document.getElementById('stopwatch-list');
             stopwatchList.appendChild(this.elem);
+            var numStopWatches = document.getElementsByTagName('li').length;
 
             this.template =
                 '<div class="panel-body"></div>' +
-                    '<div class="row">' +
+                    '<div class="row" id="' + numStopWatches + '">' +
                       '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
                         '<div class="counter">00:00:00</div>' +
                       '</div>' +

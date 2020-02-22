@@ -21,6 +21,42 @@ define(["webL10n"], function (l10n) {
                 placement: "left",
                 title: l10n.get("TutoStopButtonTitle"),
                 content: l10n.get("TutoStopButtonContent")
+            },
+            {
+                element: "#add-stopwatch",
+                placement: "right",
+                title: l10n.get("TutoAddTitle"),
+                content: l10n.get("TutoAddContent")
+            },
+            {
+                element: "#1 .remove",
+                placement: "left",
+                title: l10n.get("TutoAddTitle"),
+                content: l10n.get("TutoAddContent")
+            },
+            {
+                element: "#1 .counter",
+                placement: "right",
+                title: l10n.get("TutoCounterTitle"),
+                content: l10n.get("TutoCounterContent")
+            },
+            {
+                element: "#1 .start-stop-button",
+                placement: "bottom",
+                title: l10n.get("TutoStartStopTitle"),
+                content: l10n.get("TutoStartStopContent")
+            },
+            {
+                element: "#1 .reset-button",
+                placement: "bottom",
+                title: l10n.get("TutoResetTitle"),
+                content: l10n.get("TutoResetContent")
+            },
+            {
+                element: "#1 .mark-button",
+                placement: "bottom",
+                title: l10n.get("TutoMarkTitle"),
+                content: l10n.get("TutoMarkContent")
             }
 		];
         var tour = new Tour({
