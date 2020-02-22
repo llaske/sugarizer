@@ -6,8 +6,9 @@ define(["webL10n",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette",
-        "tutorial"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette,tutorial) {
+        "tutorial",
+        "webL10n"], function (
+    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette,tutorial,webL10n) {
 
     'use strict';
 
@@ -97,13 +98,23 @@ define(["webL10n",
         });
 
         document.getElementById("help-button").addEventListener('click', function(e) {
-            tutorial.start();
-        });
+		    tutorial.start();
+            // // l10n.language.code=language;
+            // window.addEventListener("localized", function() {
+            //     console.log("d");
+            //     tutorial.start(language);
+            //     console.log("d1");
+            // });
+	    });
 
         shortcut.add("Ctrl", "Q", this.close);
 
         env.getEnvironment(function (error, environment) {
             var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+	        var language = environment.user ? environment.user.language : defaultLanguage;
+	        webL10n.language.code = language;
+            console.log('LANG ' + language);
             if (!environment.objectId) {
                 datastoreObject.setMetadata({
                     "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
