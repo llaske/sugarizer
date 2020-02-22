@@ -45,6 +45,12 @@ define(["webL10n"], function (l10n) {
 				placement: "left",
 				title: l10n.get("TutoRightTitle"),
 				content: l10n.get("TutoRightContent")
+			},
+            {
+				element: "#canvas",
+				placement: "right",
+				title: l10n.get("TutoCanvasThemeTitle"),
+				content: l10n.get("TutoCanvasThemeContent")
             }
 		];
 		var tour = new Tour({

@@ -109,7 +109,7 @@ define(["webL10n",
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 	        var language = environment.user ? environment.user.language : defaultLanguage;
 	        webL10n.language.code = language;
-            console.log('LANG ' + language);
+            
             if (!environment.objectId) {
                 datastoreObject.setMetadata({
                     "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
