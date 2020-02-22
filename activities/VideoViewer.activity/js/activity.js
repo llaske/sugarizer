@@ -39,6 +39,18 @@ define(["sugar-web/activity/activity","sugar-web/env","filterpalette","tutorial"
 			tutorial.start();
 		};
 
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.display = "none";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			app.resize();
+		});
+		
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.display = "block";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			app.resize();
+		});
+
 		// Launch main screen
 		app = new VideoViewer.App({activity: activity, filter: filterpalette});
 		app.renderInto(document.getElementById("viewer"));
