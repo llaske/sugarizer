@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (activity,mustache,env) {
+define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial"], function (activity,mustache,env, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -262,5 +262,9 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         document.getElementById("unfullscreen-button").style.visibility = "hidden";
 
     });
+
+    document.getElementById("help-button").addEventListener('click', function(e) {
+		tutorial.start();
+	});
 
 });
