@@ -328,37 +328,37 @@
 
 
 @media only screen and (min-width: 500px) {
-    #canvas {
-        width: 65vw;
-        right: 17.5vw;
-        left: 17.5vw;
-    }
+  #canvas {
+    width: 65vw;
+    right: 17.5vw;
+    left: 17.5vw;
+  }
 }
 @media only screen and (min-width: 800px) {
-    #canvas {
-        width: 50vw;
-        right: 25vw;
-        left: 25vw;
-    }
+  #canvas {
+    width: 50vw;
+    right: 25vw;
+    left: 25vw;
+  }
 }
 @media only screen and (min-width: 1100px) {
-    #canvas {
-        width: 40vw;
-        right: 30vw;
-        left: 30vw;
-    }
+  #canvas {
+    width: 40vw;
+    right: 30vw;
+    left: 30vw;
+  }
 }
 
 /*Adjusted unfullscreen button position so it won't overlap with the activity container*/
 @media only screen and (max-width: 500px) {
-    #canvas {
-        width: 100vw;
-        height: 70vh;
-    }
-    #unfullscreen-button
-    {
-      top: 70%;
-      right: 3%;
-    }
+  #canvas {
+    width: 100vw;
+    height: 70vh;
+  }
+  #unfullscreen-button
+  {
+    top: 70%;
+    right: 3%;
+  }
 }
 
