@@ -98,13 +98,10 @@ define(["webL10n",
         shortcut.add("Ctrl", "Q", this.close);
 
         env.getEnvironment(function (error, environment) {
-            var localization ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
-            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-	        var language = environment.user ? environment.user.language : defaultLanguage;
-	        l10n.language.code = language;
+            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
             if (!environment.objectId) {
                 datastoreObject.setMetadata({
-                    "title": (localization[environment.user.language]||localization["en"]).replace("{{name}}", environment.activityName),
+                    "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
                     "title_set_by_user": "0",
                     "activity": environment.bundleId,
                     "activity_id": environment.activityId
