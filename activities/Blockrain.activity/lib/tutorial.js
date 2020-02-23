@@ -8,31 +8,31 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: l10n.get("TutoExplainTitle"),
 				content: l10n.get("TutoExplainContent")
-            },
-            {
+			},
+			{
 				element: "#canvas",
 				placement: "right",
 				title: l10n.get("TutoCanvasTitle"),
 				content: l10n.get("TutoCanvasContent")
-            },
+			},
 			{
 				element: "#up-arrow",
 				placement: "right",
 				title: l10n.get("TutoRotateTitle"),
 				content: l10n.get("TutoRotateContent")
-            },
+			},
 			{
 				element: "#down-arrow",
 				placement: "right",
 				title: l10n.get("TutoDownTitle"),
 				content: l10n.get("TutoDownContent")
-            },
+			},
 			{
 				element: "#left-arrow",
 				placement: "left",
 				title: l10n.get("TutoLeftTitle"),
 				content: l10n.get("TutoLeftContent")
-            },
+			},
 			{
 				element: "#right-arrow",
 				placement: "left",
@@ -44,10 +44,10 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: l10n.get("TutoThemeTitle"),
 				content: l10n.get("TutoThemeContent")
-            }
+			}
 		];
 		var tour = new Tour({
-            template: "\
+			template: "\
 			<div class='popover tour'>\
 				<div class='arrow'></div>\
 				<h3 class='popover-title tutorial-title'></h3>\
@@ -77,10 +77,10 @@ define(["webL10n"], function (l10n) {
 					</div>\
 				</div>\
 			</div>",
-            storage: false,
-            backdrop: true,
-            steps: steps
-        });
+			storage: false,
+			backdrop: true,
+			steps: steps
+		});
 		tour.init();
 		tour.start(true);
 
