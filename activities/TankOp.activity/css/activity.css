@@ -48,7 +48,7 @@
 }
 
 .tutorial-prev-icon2 {
-  background-image: url(../images/go-left.svg);
+  background-image: url(../images/go-left-tuto.svg);
   width: 20px;
   height: 20px;
   background-size: 20px 20px;
@@ -82,7 +82,7 @@
 }
 
 .tutorial-next-icon2 {
-  background-image: url(../images/go-right.svg);
+  background-image: url(../images/go-right-tuto.svg);
   width: 20px;
   height: 20px;
   background-size: 20px 20px;
