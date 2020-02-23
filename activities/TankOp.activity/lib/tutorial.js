@@ -11,6 +11,24 @@ define(["webL10n"], function (l10n) {
                 content: l10n.get("TutoExplainContent")
             },
             {
+                element: "#app_control2",
+                placement: "top",
+                title: l10n.get("TutoChangeMissionTitle"),
+                content: l10n.get("TutoChangeMissionContent")
+            },
+            {
+                element: "#app_image2",
+                placement: "top",
+                title: l10n.get("TutoStartActivityTitle"),
+                content: l10n.get("TutoStartActivityContent")
+            },
+            {
+                element: "#app_control7",
+                placement: "top",
+                title: l10n.get("TutoCompletedMissionsTitle"),
+                content: l10n.get("TutoCompletedMissionsContent")
+            },
+            {
                 element: "#fullscreen-button",
                 placement: "bottom",
                 title: l10n.get("TutoFullScreenButtonTitle"),
@@ -27,18 +45,6 @@ define(["webL10n"], function (l10n) {
                 placement: "left",
                 title: l10n.get("TutoCreditsTitle"),
                 content: l10n.get("TutoCreditsContent")
-            },
-            {
-                element: "#app_control6",
-                placement: "top",
-                title: l10n.get("TutoChangeMissionTitle"),
-                content: l10n.get("TutoChangeMissionContent")
-            },
-            {
-                element: "#app_image2",
-                title: l10n.get("TutoStartActivityTitle"),
-                placement: "bottom",
-                content: l10n.get("TutoStartActivityContent")
             }
         ];
         
@@ -51,7 +57,13 @@ define(["webL10n"], function (l10n) {
                 content: l10n.get("TutoPlayExplainContent")
             },
             {
-                element: "#play_control3",
+                element: "canvas",
+                placement: "right",
+                title: l10n.get("TutoGameTitle"),
+                content: l10n.get("TutoGameContent")
+            },
+            {
+                element: "#play_keyboard",
                 placement: "left",
                 title: l10n.get("TutoPlayControlsTitle"),
                 content: l10n.get("TutoPlayControlsContent")
@@ -61,6 +73,18 @@ define(["webL10n"], function (l10n) {
                 placement: "top",
                 title: l10n.get("TutoPlayFire"),
                 content: l10n.get("TutoPlayFireContent")
+            },
+            {
+                element: "#play_wave",
+                placement: "left",
+                title: l10n.get("TutoWaveTitle"),
+                content: l10n.get("TutoWaveContent")
+            },
+            {
+                element: "#play_score",
+                placement: "left",
+                title: l10n.get("TutoScoreTitle"),
+                content: l10n.get("TutoScoreContent")
             },
             {
                 element: "#play_image",
