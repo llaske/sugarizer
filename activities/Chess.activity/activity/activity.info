@@ -1,0 +1,6 @@
+[Activity]
+name = Chess
+activity_version = 1
+bundle_id = org.sugarlabs.Chess
+exec = sugar-activity-web
+icon = activity-icon
