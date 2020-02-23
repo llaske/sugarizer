@@ -2,7 +2,6 @@ define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
 	tutorial.start = function() {
-		//console.log(l10n.get('status'));
 		var steps = [
 			{
 				element: "",
@@ -20,8 +19,26 @@ define(["webL10n"], function (l10n) {
 			{
 				element: "#message",
 				placement: "top",
-				ttitle: l10n.get("TutoMessageTitle"),
+				title: l10n.get("TutoMessageTitle"),
 				content: l10n.get("TutoMessageContent")			
+			},
+			{
+				element: "#smiley-button",
+				placement: "top",
+				title: l10n.get("TutoSmileyTitle"),
+				content: l10n.get("TutoSmileyContent")			
+			},
+			{
+				element: "#sad-button",
+				placement: "top",
+				title: l10n.get("TutoSadTitle"),
+				content: l10n.get("TutoSadContent")			
+			},
+			{
+				element: "#others-button",
+				placement: "top",
+				title: l10n.get("TutoEmojiTitle"),
+				content: l10n.get("TutoEmojiContent")			
 			},
 			{
 				element: "#stop-button",
@@ -30,6 +47,16 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoStopContent")			
 			}
 		];
+		var object={
+				element: "#image-upload",
+				orphan: false,
+				placement: "bottom",
+				title: l10n.get("TutoImageTitle"),
+				content: l10n.get("TutoImageContent")			
+			};
+		if(document.getElementById("image-upload").style.visibility!="hidden"){
+			steps.push(object);
+		}
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\
@@ -67,8 +94,6 @@ define(["webL10n"], function (l10n) {
 		});
 		tour.init();
 		tour.start(true);
-
 	};
-
 	return tutorial;
 });

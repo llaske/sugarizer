@@ -35,12 +35,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messagesList = document.getElementById('messages');
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
-        var imageUpload = document.getElementById('image-upload');
+        var imageUpload = document.getElementById('image-upload');  		
 
-  		
-
-	document.getElementById("status").innerHTML = l10n_s.get("status");
-	messageField.placeholder = l10n_s.get("WriteYourMessage");
+		document.getElementById("status").innerHTML = l10n_s.get("status");
+		messageField.placeholder = l10n_s.get("WriteYourMessage");
 
 	    var userSettings = null;
 

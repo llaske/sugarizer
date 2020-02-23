@@ -7,7 +7,7 @@ background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #main-toolbar #help-button {
-  background-image: url(../icons/help.svg);
+background-image: url(../icons/help.svg);
 }
 
 #main-toolbar #image-upload {
