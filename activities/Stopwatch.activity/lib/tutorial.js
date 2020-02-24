@@ -11,36 +11,6 @@ define(["webL10n"], function (l10n) {
                 content: l10n.get("TutoExplainContent")
             },
             {
-                element: "#fullscreen-button",
-                placement: "bottom",
-                title: l10n.get("TutoFullScreenButtonTitle"),
-                content: l10n.get("TutoFullScreenButtonContent")
-            },
-            {
-                element: "#stop-button",
-                placement: "left",
-                title: l10n.get("TutoStopButtonTitle"),
-                content: l10n.get("TutoStopButtonContent")
-            },
-            {
-                element: "#add-stopwatch",
-                placement: "right",
-                title: l10n.get("TutoAddTitle"),
-                content: l10n.get("TutoAddContent")
-            },
-            {
-                element: "#1 .counter",
-                placement: "right",
-                title: l10n.get("TutoCounterTitle"),
-                content: l10n.get("TutoCounterContent")
-            },
-            {
-                element: "#1 .remove",
-                placement: "left",
-                title: l10n.get("TutoRemoveTitle"),
-                content: l10n.get("TutoRemoveContent")
-            },
-            {
                 element: "#1 .start-stop-button",
                 placement: "bottom",
                 title: l10n.get("TutoStartStopTitle"),
@@ -57,6 +27,37 @@ define(["webL10n"], function (l10n) {
                 placement: "bottom",
                 title: l10n.get("TutoMarkTitle"),
                 content: l10n.get("TutoMarkContent")
+            },
+            {
+                element: "#1 .counter",
+                placement: "right",
+                title: l10n.get("TutoCounterTitle"),
+                content: l10n.get("TutoCounterContent")
+            },
+            {
+                element: "#add-stopwatch",
+                placement: $('#add-stopwatch').outerHeight() * 2 + $('#add-stopwatch').position().top 
+                            + $('#canvas').scrollTop() > $("#canvas").height()? "top" : "right",
+                title: l10n.get("TutoAddTitle"),
+                content: l10n.get("TutoAddContent")
+            },
+            {
+                element: "#1 .remove",
+                placement: "left",
+                title: l10n.get("TutoRemoveTitle"),
+                content: l10n.get("TutoRemoveContent")
+            },
+            {
+                element: "#fullscreen-button",
+                placement: "bottom",
+                title: l10n.get("TutoFullScreenButtonTitle"),
+                content: l10n.get("TutoFullScreenButtonContent")
+            },
+            {
+                element: "#stop-button",
+                placement: "left",
+                title: l10n.get("TutoStopButtonTitle"),
+                content: l10n.get("TutoStopButtonContent")
             }
         ];
 
@@ -106,13 +107,13 @@ define(["webL10n"], function (l10n) {
             autoscroll: true,
             onNext: function (tour) {
                 var currentStep = tour.getCurrentStep();
-                if (currentStep === 2)  scrollToAddButton();
-                if (currentStep === 3)  scrollToTop();
+                if (currentStep === 4)  scrollToAddButton();
+                if (currentStep === 5)  scrollToTop();
             },
             onPrev: function (tour) {
                 var currentStep = tour.getCurrentStep();
-                if (currentStep === 4)  scrollToAddButton();
-                if (currentStep === 3)  scrollToTop();
+                if (currentStep === 6)  scrollToAddButton();
+                if (currentStep === 5)  scrollToTop();
             },
             storage: false,
             backdrop: true,
