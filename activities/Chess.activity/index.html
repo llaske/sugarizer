@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>My Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<!-- Add locale.ini file -->
+<link rel="prefetch" type="application/l10n" href="locale.ini">
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/chessboard-1.0.0.css">
+<script src="js/jquery.js"></script>
+<script src="js/chess.js"></script>
+<script src="js/chessboard-1.0.0.js"></script>
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="newgame-button" title="New Game"></button>
+  <button class="toolbutton" id="swap-button" title="Swap Side"></button>
+  <button class="toolbutton" id="dedifficulty-button" title="Decrease Difficulty"></button>
+  <div class="difficulty_indicator" id="diff_indicator">STUPID</div>
+  <button class="toolbutton" id="indifficulty-button" title="Increase Difficulty"></button>
+  <button class="toolbutton" id="network-button" title="Network"></button>
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+</div>
+<!-- The content of your activity goes inside the canvas -->
+<div id="wrapper">
+  <button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
+  <div id="myBoard"></div><br><br>
+  <div id="Banner"><span id="PlayerOne"></span><span id="Versus"></span><span id="PlayerTwo"></span></div>
+</div>
+</body>
+</html>
