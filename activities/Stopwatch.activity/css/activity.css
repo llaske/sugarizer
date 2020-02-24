@@ -277,3 +277,11 @@ button.remove {
   background-color: #808080;
   border: 2px solid #808080;
 }
+
+.popover {
+  color: #000000;
+}
+
+.tutorial-title{
+  font-weight: bold;
+}
