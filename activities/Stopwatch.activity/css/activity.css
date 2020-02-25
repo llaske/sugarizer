@@ -39,6 +39,7 @@ ul {
 
 #stopwatch-list li {
   position: relative;
+  padding-bottom: 128px;
   border-bottom: 1px solid black;
 }
 
@@ -46,36 +47,9 @@ ul {
   line-height: 1.2;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.marks-container {
-  width: 50%;
-}
-.buttons-group {
-  margin: 20px;
-}
-.counter-container {
-  margin: 30px;
-}
-
-@media (max-width: 940px) {
-  .row {
-    justify-content: center;
-  }
-  .marks-container {
-    width: 90%;
-  }
-}
-
-.marks-group {
-  display: flex;
-  margin: 30px auto;
-  overflow-x: auto;
-  white-space: nowrap;
+.counter, .marks {
+  display: inline-block;
+  transform: translateY(35%);
 }
 
 .marks {
@@ -88,6 +62,11 @@ ul {
   font-size: 30px;
 }
 
+.buttons-group {
+  display: inline-block;
+  transform: translateY(15%);
+}
+
 .buttons-group button {
   border-radius: 0;
   margin-left: 0;
@@ -95,12 +74,12 @@ ul {
 }
 
 .buttons-group button:first-child {
-  border-radius: 20px 0 0 20px;
+  border-radius: 22px 0 0 22px;
   margin-right: 0;
 }
 
 .buttons-group button:last-child {
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 22px 22px 0;
   margin-left: 0;
 }
 
@@ -132,7 +111,7 @@ button.remove {
 .buttons-group button {
   margin-top: 5.5px;
   height: 66px;
-  width: 55px;
+  width: 66px;
   padding: 0;
   background-position: center;
   background-size: 44px 44px;
