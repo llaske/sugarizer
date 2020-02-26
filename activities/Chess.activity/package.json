@@ -6,5 +6,8 @@
       "sugar-web": "github:sugarlabs/sugar-web/master",
       "domReady": "github:requirejs/domReady/2.0.1"
     }
+  },
+  "dependencies": {
+    "@chrisoakman/chessboardjs": "^1.0.0"
   }
 }

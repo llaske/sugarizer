@@ -1,3 +1,8 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+#myBoard {
+	display: inline-block;
+	width: 75vw;
+	max-width: 864px;
+}
