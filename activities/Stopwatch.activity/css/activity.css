@@ -39,6 +39,7 @@ ul {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+
 .card-body {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -63,6 +64,10 @@ ul {
 
 .align-items-center{
   align-items: center !important;
+}
+
+div.p-0{
+  padding: 0;
 }
 
 #stopwatch-app {
