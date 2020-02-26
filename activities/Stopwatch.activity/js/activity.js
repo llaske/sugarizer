@@ -129,9 +129,8 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             if (this.marks.length >= 10) {
                 this.marks.shift();
             }
-            if(pad(this.minutes)!=00||pad(this.seconds)!=00||pad(this.tenthsOfSecond)!=00)
-            {
-            this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' + pad(this.tenthsOfSecond));
+            if(pad(this.minutes)!=00||pad(this.seconds)!=00||pad(this.tenthsOfSecond)!=00) {
+                this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' + pad(this.tenthsOfSecond));
             }
             this.updateMarks();
         };
