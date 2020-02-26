@@ -45,7 +45,7 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                         '<div class="col-sm-5 col-md-5 col-lg-5 d-flex align-items-center justify-content-center">' +
                             '<div class="marks"></div>' +
                         '</div>' +
-                        '<div class="col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center align-items-center">' +
+                        '<div class="col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center align-items-center p-0">' +
                             '<button class ="remove" title="Remove"></button>' +
                         '</div>' +
                     '</div>' +
