@@ -64,6 +64,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the QR Code activity #595
 - Add a fullscreen button in the Stopwatch activity #599
 - Add a fullscreen button in the FoodChain activity #598
+- Add a fullscreen button to the Video Viewer activity #600
+- Add a tutorial to the TankOp activity #597 
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -118,7 +120,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Grid Paint Activity screen not working properly on Firefox #342
 - Gridpaint don't handle window resize #403
 - In Journal Popup in iOS/Safari, Choose item text is not centered
-- RGB bars in LabyrinthJS and Write activity overflows #620 
+- RGB bars in LabyrinthJS and Write activity overflows #620
+- Time laps in stopwatch activity should be reset when reset button is clicked #624
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
