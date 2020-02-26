@@ -32,10 +32,10 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             this.template =
                 '<div class="panel-body"></div>' +
                     '<div class="row">' +
-                      '<div class="counter-container">' +
+                      '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
                         '<div class="counter">00:00:00</div>' +
                       '</div>' +
-                      '<div class="buttons-container">' +
+                      '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
                         '<div class="buttons-group">' +
                             '<button class="start-stop-button start" title="Start"></button>' +
                             '<button class="reset-button" title="Reset"></button>' +
@@ -43,10 +43,8 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                             
                         '</div>' +
                       '</div>' +
-                      '<div class="marks-container">' +
-                        '<div class="marks-group">' +
-                            '<div class="marks"></div>' +
-                        '</div>' +
+                      '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
+                        '<div class="marks"></div>' +
                         '<button class="remove" title="Remove"></button>' +
                       '</div>' +
                     '</div>' +
@@ -56,9 +54,7 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
 
             this.counterElem = this.elem.querySelector('.counter');
             this.marksElem = this.elem.querySelector('.marks');
-            this.marksGroup = this.elem.querySelector('.marks-group');
             this.running = false;
-            this.firstRun = false;
             this.previousTime = Date.now();
             this.tenthsOfSecond = 0;
             this.seconds = 0;
@@ -101,7 +97,6 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         }
 
         Stopwatch.prototype.onStartStopClicked = function () {
-            this.firstRun = true;
             if (!this.running) {
                 this.running = true;
                 this.tick();
@@ -134,9 +129,6 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
-            if(!this.firstRun) {
-                return;
-            }
             if (this.marks.length >= 10) {
                 this.marks.shift();
             }
@@ -196,7 +188,6 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                     this.marksElem.innerHTML += ' - ';
                 }
             }
-            this.marksGroup.scrollLeft = this.marksGroup.scrollWidth;
         };
 
         Stopwatch.prototype.updateButtons = function () {
