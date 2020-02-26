@@ -117,6 +117,11 @@ var app = new Vue({
 			}
 		},
 
+		showContents: function() {
+			// console.log(this.currentEpub.contents, this.$refs.view);
+			this.$refs.view.goToPage(this.currentEpub.contents);
+		},
+
 		// Handle fullscreen mode
 		fullscreen: function() {
 			document.getElementById("main-toolbar").style.opacity = 0;
@@ -190,6 +195,13 @@ var app = new Vue({
 				Vue.set(book, 'spinner', true);
 				vm.currentEpub = new ePub.Book();
 				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
+					vm.currentEpub.loaded.navigation.then(function(sections) {
+						sections.forEach(function(section) {
+							if(section.label.toUpperCase().trim() == "CONTENTS") {
+								vm.currentEpub.contents = section.href;
+							}
+						});
+					});
 					vm.currentView = EbookReader;
 					book.spinner = false;
 				}, function() {
