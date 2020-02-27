@@ -123,6 +123,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - RGB bars in LabyrinthJS and Write activity overflows #620
 - Time laps in stopwatch activity should be reset when reset button is clicked #624
 - Unnecessary display of time lapse when stopwatch not started #638
+- Stop Watch Activity is not responsive and has text overflowing problem #604
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
