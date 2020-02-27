@@ -14,37 +14,31 @@ define(["webL10n"], function (l10n) {
 				element: "#network-button",
 				placement: "bottom",
 				title: l10n.get("TutoNetworkTitle"),
-				content: l10n.get("TutoNetworkContent")			
+				content: l10n.get("TutoNetworkContent")
 			},
 			{
 				element: "#message",
 				placement: "top",
 				title: l10n.get("TutoMessageTitle"),
-				content: l10n.get("TutoMessageContent")			
+				content: l10n.get("TutoMessageContent")
 			},
 			{
 				element: "#smiley-button",
 				placement: "top",
 				title: l10n.get("TutoSmileyTitle"),
-				content: l10n.get("TutoSmileyContent")			
+				content: l10n.get("TutoSmileyContent")
 			},
 			{
 				element: "#sad-button",
 				placement: "top",
 				title: l10n.get("TutoSadTitle"),
-				content: l10n.get("TutoSadContent")			
+				content: l10n.get("TutoSadContent")
 			},
 			{
 				element: "#others-button",
 				placement: "top",
 				title: l10n.get("TutoEmojiTitle"),
-				content: l10n.get("TutoEmojiContent")			
-			},
-			{
-				element: "#stop-button",
-				placement: "bottom",
-				title: l10n.get("TutoStopTitle"),
-				content: l10n.get("TutoStopContent")			
+				content: l10n.get("TutoEmojiContent")
 			}
 		];
 		var object={
@@ -52,11 +46,17 @@ define(["webL10n"], function (l10n) {
 				orphan: false,
 				placement: "bottom",
 				title: l10n.get("TutoImageTitle"),
-				content: l10n.get("TutoImageContent")			
+				content: l10n.get("TutoImageContent")
 			};
 		if(window.getComputedStyle(document.getElementById("image-upload")).visibility !== "hidden"){
 			steps.push(object);
 		}
+		steps.push({
+			element: "#stop-button",
+			placement: "bottom",
+			title: l10n.get("TutoStopTitle"),
+			content: l10n.get("TutoStopContent")
+		});
 		var tour = new Tour({
 			template: "\
 			<div class='popover tour'>\

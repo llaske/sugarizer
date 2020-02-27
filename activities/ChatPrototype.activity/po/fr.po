@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 17:52:45 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Thu Feb 27 2020 22:51:57 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,4 +57,99 @@ msgstr "a quitté"
 msgctxt "Chat"
 msgid "the chat"
 msgstr "la discussion"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Chat Activity"
+msgstr "Activité Chat"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
+msgstr "Bienvenue dans l'activité Chat. Chat propose une interface simple pour des discussions collaboratives entre des utilisateurs sur le réseau"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Join Network"
+msgstr "Rejoindre le réseau"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Want to start a Chat? Click on the Neighborhood icon in this menu"
+msgstr "Vous voulez démarrer une discussion ? Cliquez sur l'icône Voisinage réseau dans ce menu"
+
+#: TutoMessageTitle
+msgctxt "TutoMessageTitle"
+msgid "Message"
+msgstr "Message"
+
+#: TutoMessageContent
+msgctxt "TutoMessageContent"
+msgid "Write your message here and hit enter to share it in your conversation"
+msgstr "Ecrivez votre message ici et tapez sur Entrée pour le partager dans votre conversation"
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Quit"
+msgstr "Quitter"
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
+msgstr "Vous avez trop discuté ? Cliquez sur cet icône pour quitter cette activité et retourner à la page d'accueil Sugarizer"
+
+#: TutoImageTitle
+msgctxt "TutoImageTitle"
+msgid "Share Image"
+msgstr "Partager Image"
+
+#: TutoImageContent
+msgctxt "TutoImageContent"
+msgid "Click this icon if you want to send an image in your conversation"
+msgstr "Cliquez sur cet icône si vous voulez envoyer une image dans votre conversation"
+
+#: TutoSmileyTitle
+msgctxt "TutoSmileyTitle"
+msgid "Smiley Emojis"
+msgstr "Emojis Souriants"
+
+#: TutoSmileyContent
+msgctxt "TutoSmileyContent"
+msgid "Express Smiles. Send Smiley Emojis in message"
+msgstr "Souriez. Envoyez des Emojis souriants dans le message"
+
+#: TutoSadTitle
+msgctxt "TutoSadTitle"
+msgid "Sad Emojis"
+msgstr "Emojis Tristes"
+
+#: TutoSadContent
+msgctxt "TutoSadContent"
+msgid "Express Sadness. Send Sad Emojis in message"
+msgstr "Tristesse. Envoyez des Emojis tristes dans le message"
+
+#: TutoEmojiTitle
+msgctxt "TutoEmojiTitle"
+msgid "Other Emojis"
+msgstr "Autres Emojis"
+
+#: TutoEmojiContent
+msgctxt "TutoEmojiContent"
+msgid "Have a different expression. Look through the list to send different Emojis"
+msgstr "Une différente expression ? Parcourez cette liste pour envoyer différents Emojis"
 
