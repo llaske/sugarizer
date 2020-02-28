@@ -1,0 +1,110 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:25:17 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Reflection Activity"
+msgstr "Reflection Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry"
+msgstr "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry"
+
+#: TutoBuddyTitle
+msgctxt "TutoBuddyTitle"
+msgid "Your colors"
+msgstr "Your colors"
+
+#: TutoBuddyContent
+msgctxt "TutoBuddyContent"
+msgid "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors"
+msgstr "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors"
+
+#: TutoRainbowTitle
+msgctxt "TutoRainbowTitle"
+msgid "Rainbow colors"
+msgstr "Rainbow colors"
+
+#: TutoRainbowContent
+msgctxt "TutoRainbowContent"
+msgid "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors"
+msgstr "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors"
+
+#: TutoHorizontalTitle
+msgctxt "TutoHorizontalTitle"
+msgid "Horizontal Symmetry"
+msgstr "Horizontal Symmetry"
+
+#: TutoHorizontalContent
+msgctxt "TutoHorizontalContent"
+msgid "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen"
+msgstr "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen"
+
+#: TutoVerticalTitle
+msgctxt "TutoVerticalTitle"
+msgid "Vertical Symmetry"
+msgstr "Vertical Symmetry"
+
+#: TutoVerticalContent
+msgctxt "TutoVerticalContent"
+msgid "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen"
+msgstr "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen"
+
+#: TutoBilateralTitle
+msgctxt "TutoBilateralTitle"
+msgid "Bilateral Symmetry"
+msgstr "Bilateral Symmetry"
+
+#: TutoBilateralContent
+msgctxt "TutoBilateralContent"
+msgid "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical"
+msgstr "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical"
+
+#: TutoRobotTitle
+msgctxt "TutoRobotTitle"
+msgid "Robot mode"
+msgstr "Robot mode"
+
+#: TutoRobotContent
+msgctxt "TutoRobotContent"
+msgid "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!"
+msgstr "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Click on tokens to change their colors until the image become symmetric"
+msgstr "Click on tokens to change their colors until the image become symmetric"
+

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:54:12 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:15:21 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,4 +24,199 @@ msgstr "{{user}} a rejoint"
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
 msgstr "{{user}} est parti"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Paint Activity"
+msgstr "Activité Paint"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
+msgstr "Bienvenue dans l'activité Paint. Paint est une activité pour créer des peintures et dessins"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Réseau"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share your work with other users on the network"
+msgstr "Cliquez ici pour partager votre travail avec les autres utilisateurs sur le réseau"
+
+#: TutoColorsButtonFillTitle
+msgctxt "TutoColorsButtonFillTitle"
+msgid "Pen color"
+msgstr "Couleur pinceau"
+
+#: TutoColorsButtonFillContent
+msgctxt "TutoColorsButtonFillContent"
+msgid "Click here to choose pen color"
+msgstr "Cliquez ici pour choisir la couleur du pinceau"
+
+#: TutoColorsButtonStrokeTitle
+msgctxt "TutoColorsButtonStrokeTitle"
+msgid "Border color"
+msgstr "Couleur bordure"
+
+#: TutoColorsButtonStrokeContent
+msgctxt "TutoColorsButtonStrokeContent"
+msgid "Click here to choose border color"
+msgstr "Cliquez ici pour choir la couleur de la bordure"
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Annuler"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click here to undo previous actions"
+msgstr "Cliquez ici pour annuler les actions précédentes"
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Répéter"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "Click here to redo previous actions"
+msgstr "Cliquez ici pour répéter les actions précédentes"
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr "Taille"
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to select brush size. Each click increase the brush size until the maximum size"
+msgstr "Cliquez ici pour choisir la taille du pinceau. Chaque clic augmente la taille du pinceau, jusqu'à ce que vous soyez arrivé à la taille maximale"
+
+#: TutoPenTitle
+msgctxt "TutoPenTitle"
+msgid "Pen mode"
+msgstr "Mode pinceau"
+
+#: TutoPenContent
+msgctxt "TutoPenContent"
+msgid "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
+msgstr "Cliquez ici pour choisir le mode pinceau. En mode pinceau vous pouvez dessiner sur l'écran en utilisant la couleur du pinceau"
+
+#: TutoEraserTitle
+msgctxt "TutoEraserTitle"
+msgid "Eraser mode"
+msgstr "Mode gomme"
+
+#: TutoEraserContent
+msgctxt "TutoEraserContent"
+msgid "Click here to select eraser mode. In eraser mode everything under your pen is erased"
+msgstr "Cliquez ici pour choisir le mode gomme. En mode gomme vous effacez tout ce sur lequel vous passez"
+
+#: TutoStampsTitle
+msgctxt "TutoStampsTitle"
+msgid "Stamps mode"
+msgstr "Mode tampons"
+
+#: TutoStampsContent
+msgctxt "TutoStampsContent"
+msgid "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
+msgstr "Cliquez ici pour choisir le mode tampons. En mode tampons vous pouvez dessinez des tampons pré-définis (coeur, étoile, carré, ...). Cliquez pour dessinez le tampon puis deplacez-vous pour changer sa taille. Utilisez la couleur du pinceau et de la bordure pour choisir la couleur des tampons"
+
+#: TutoTextTitle
+msgctxt "TutoTextTitle"
+msgid "Text mode"
+msgstr "Mode texte"
+
+#: TutoTextContent
+msgctxt "TutoTextContent"
+msgid "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
+msgstr "Cliquez ici pour écrire du texte dans votre dessin. Tapez le texte à écrire dans la palette et choisissez une fonte. Puis cliquez sur le dessin pour écrire le texte et déplacez-vous pour changer sa taille"
+
+#: TutoInsertimageTitle
+msgctxt "TutoInsertimageTitle"
+msgid "Insert image"
+msgstr "Insérer image"
+
+#: TutoInsertimageContent
+msgctxt "TutoInsertimageContent"
+msgid "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
+msgstr "Cliquez ici pour insérer dans votre dessin une image en provenance du Journal. Cliquez une fois pour placer l'image à l'endroit où vous le souhaitez puis une autre fois pour changer sa taille"
+
+#: TutoDrawingsTitle
+msgctxt "TutoDrawingsTitle"
+msgid "Drawings"
+msgstr "Coloriage"
+
+#: TutoDrawingsContent
+msgctxt "TutoDrawingsContent"
+msgid "Click here to select a background from preset drawings that you could fill like in a colouring book"
+msgstr "Cliquez ici pour choisir des dessins pré-définis comme dans un livre de coloriage"
+
+#: TutoBucketTitle
+msgctxt "TutoBucketTitle"
+msgid "Bucket"
+msgstr "Remplissage"
+
+#: TutoBucketContent
+msgctxt "TutoBucketContent"
+msgid "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
+msgstr "Cliquez ici pour choisir le mode remplissage. En mode remplissage vous pouvez remplir toute une zone de votre dessin avec la couleur du pinceau"
+
+#: TutoFiltersTitle
+msgctxt "TutoFiltersTitle"
+msgid "Filters"
+msgstr "Filtres"
+
+#: TutoFiltersContent
+msgctxt "TutoFiltersContent"
+msgid "Click here to choose a filter to change your image appearance"
+msgstr "Cliquez ici pour choisir un filtre pour changer l'apparence de votre image"
+
+#: TutoCopyTitle
+msgctxt "TutoCopyTitle"
+msgid "Copy"
+msgstr "Copier"
+
+#: TutoCopyContent
+msgctxt "TutoCopyContent"
+msgid "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
+msgstr "Cliquez ici pour copier une partie de votre dessin. Tracez un cadre autour de la partie à copier puis utilisez le bouton Coller pour répéter la partie du dessin choisie"
+
+#: TutoPasteTitle
+msgctxt "TutoPasteTitle"
+msgid "Paste"
+msgstr "Coller"
+
+#: TutoPasteContent
+msgctxt "TutoPasteContent"
+msgid "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
+msgstr "Cliquez ici pour coller une partie de votre dessin que vous avez copié avec le bouton Copier. Cliquez autant de fois que vous voulez pour répéter le dessin"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr "Effacer"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
+msgstr "Cliquez ici pour effacer le dessin. Tout sera supprimé. Cliquez sur le bouton Annuler pour le retrouver"
 

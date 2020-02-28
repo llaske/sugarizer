@@ -13,8 +13,16 @@
           href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 
     <link rel="stylesheet" href="css/activity.css">
-    <!--<link rel="stylesheet" href="css/normalize.css">-->
-    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+
+    <!---->
+    <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap-tour-standalone.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
+
+    <!-- <link rel="stylesheet" href="css/normalize.css"> -->
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
     <script data-main="js/loader" src="lib/require.js"></script>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="lib/webaudio.js"></script>
@@ -37,8 +45,19 @@
     <button class="toolbutton" id="game-editor-clear-button" title="Clear"></button>
 
     <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+
+    <!--adds help button-->
+    <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+
+    <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+
+
+
 </div>
 
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+
+<!-- Wrapper for entire game board -->
 <div id="game-grid"></div>
 <div id="game-editor" style="display:none; "></div>
 <div id="game-players" style="display:none;"></div>

@@ -200,10 +200,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 
-		if (this.$.sound.canPlayType("audio/ogg"))
-			this.format = ".ogg";
-		else if (this.$.sound.canPlayType("audio/mpeg"))
-			this.format = ".mp3";
+		this.format = ".mp3";
 	},
 
 	// Play a sound

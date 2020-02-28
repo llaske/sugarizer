@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:18:10 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,4 +197,99 @@ msgstr "Cambiar a vista hemisferio"
 msgctxt "SaveImage"
 msgid "Save As Image"
 msgstr "Guardarla como una imagen"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Moon Activity"
+msgstr "Moon Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
+msgstr "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
+
+#: TutoActivityButtonTitle
+msgctxt "TutoActivityButtonTitle"
+msgid "Activity"
+msgstr "Activity"
+
+#: TutoActivityButtonContent
+msgctxt "TutoActivityButtonContent"
+msgid "Click here to update the title of the activity to easily find it in the Journal"
+msgstr "Click here to update the title of the activity to easily find it in the Journal"
+
+#: TutoToggleGridButtonTitle
+msgctxt "TutoToggleGridButtonTitle"
+msgid "Show/Hide Grid"
+msgstr "Show/Hide Grid"
+
+#: TutoToggleGridButtonContent
+msgctxt "TutoToggleGridButtonContent"
+msgid "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
+msgstr "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
+
+#: TutoToggleHemisphereButtonTitle
+msgctxt "TutoToggleHemisphereButtonTitle"
+msgid "Rotation"
+msgstr "Rotation"
+
+#: TutoToggleHemisphereButtonContent
+msgctxt "TutoToggleHemisphereButtonContent"
+msgid "Click here to rotate the Moon to 180 degrees to it's back"
+msgstr "Click here to rotate the Moon to 180 degrees to it's back"
+
+#: TutoSaveImageButtonTitle
+msgctxt "TutoSaveImageButtonTitle"
+msgid "Save in Journal"
+msgstr "Save in Journal"
+
+#: TutoSaveImageButtonContent
+msgctxt "TutoSaveImageButtonContent"
+msgid "Click here to save the current moon image to your journal, where you can use it for other activites"
+msgstr "Click here to save the current moon image to your journal, where you can use it for other activites"
+
+#: TutoFullScreenButtonTitle
+msgctxt "TutoFullScreenButtonTitle"
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: TutoFullScreenButtonContent
+msgctxt "TutoFullScreenButtonContent"
+msgid "Click here to toggle between full and non-full screen"
+msgstr "Click here to toggle between full and non-full screen"
+
+#: TutoStopButtonTitle
+msgctxt "TutoStopButtonTitle"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopButtonContent
+msgctxt "TutoStopButtonContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr "Click on this icon to stop the activity and go back to the home."
+
+#: TutoPanelLeftTitle
+msgctxt "TutoPanelLeftTitle"
+msgid "Moon information"
+msgstr "Moon information"
+
+#: TutoPanelLeftContent
+msgctxt "TutoPanelLeftContent"
+msgid "Find here live information on the Moon and its current whereabouts"
+msgstr "Find here live information on the Moon and its current whereabouts"
 

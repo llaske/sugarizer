@@ -315,7 +315,6 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
-		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "message", content: "xxx", classes: "aboutme-message"},
 			{classes: "aboutme-icons", components: [
@@ -390,10 +389,7 @@ enyo.kind({
 			this.owner.show();
 			return;
 		}
-		this.$.warningbox.setShowing(true);
-		this.$.okbutton.setDisabled(true);
-		this.$.cancelbutton.setDisabled(true);
-		this.$.name.addRemoveClass('aboutme-name-validate', true);
+		this.restart();
 	},
 
 	setcolor: function(icon) {
@@ -403,11 +399,9 @@ enyo.kind({
 		}
 		this.currentcolor = newcolor;
 		this.render();
-		this.$.restartmessage.setShowing(true);
 	},
 
 	namechanged: function() {
-		this.$.restartmessage.setShowing(true);
 		this.currentname = this.$.name.getValue().trim();
 	},
 
@@ -420,10 +414,9 @@ enyo.kind({
 		preferences.saveToServer(myserver, function() {
 			util.restartApp();
 		}, function(error, code) {
-			that.$.warningbox.setShowing(false);
-			that.$.okbutton.setDisabled(false);
-			that.$.cancelbutton.setDisabled(false);
+			that.$.restartmessage.setShowing(true);
 			that.currentname = preferences.getName();
+			preferences.setName(that.initname);
 			if (code == 22) {
 				that.$.restartmessage.setContent(l10n.get("UserAlreadyExist"));
 			} else {
@@ -466,7 +459,7 @@ enyo.kind({
 		this.$.text.setContent(l10n.get("MySecurity"));
 		this.$.message.setContent(l10n.get("SecurityMessage"));
 		this.$.next.setText(l10n.get("Next"));
-		this.$.password.startInputListening();
+		this.$.password.giveFocus();
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.message.addClass("rtl-10");
@@ -483,13 +476,11 @@ enyo.kind({
 
 	// Event handling
 	cancel: function() {
-		this.$.password.stopInputListening();
 		this.hide();
 		this.owner.show();
 	},
 
 	ok: function() {
-		this.$.password.stopInputListening();
 		this.hide();
 		this.owner.show();
 	},
@@ -541,6 +532,7 @@ enyo.kind({
 				function(response, error) {
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
 					that.$.warningmessage.setShowing(true);
+					that.$.password.giveFocus();
 					that.$.spinner.setShowing(false);
 				}
 			);
@@ -565,11 +557,9 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
-		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "message", content: "xxx", classes: "language-message"},
-			{name: "languageselect", kind: "Sugar.SelectBox", classes: "language-select", onIndexChanged: "languageChanged"},
-			{name: "restartmessage", content: "xxx", classes: "language-restart", showing: false}
+			{name: "languageselect", kind: "Sugar.SelectBox", classes: "language-select", onIndexChanged: "languageChanged"}
 		]}
 	],
 
@@ -598,11 +588,9 @@ enyo.kind({
 				break;
 			}
 		}
-		this.$.restartmessage.setContent(l10n.get("ChangesRequireRestart"));
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.message.addClass("rtl-10");
-			this.$.restartmessage.addClass("rtl-10");
 		}
 	},
 
@@ -626,13 +614,10 @@ enyo.kind({
 			this.owner.show();
 			return;
 		}
-		this.$.warningbox.setShowing(true);
-		this.$.okbutton.setDisabled(true);
-		this.$.cancelbutton.setDisabled(true);
+		this.restart();
 	},
 
 	languageChanged: function() {
-		this.$.restartmessage.setShowing(true);
 		this.currentlanguage = this.languageset[this.$.languageselect.getSelected()].code;
 	},
 
@@ -690,7 +675,8 @@ enyo.kind({
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2019 Lionel Laské, Sugar Labs Inc and Contributors", classes: "computer-contributor"},
+			{content: "© 2013-2020 Lionel Laské, Sugar Labs Inc and&nbsp;", allowHtml: true, classes: "computer-contributor"},
+			{content: "contributors", classes: "computer-contributor-link", allowHtml: true, ontap: "viewContributors"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
 			{name: "licenseplus", content: "xxx", classes: "computer-licence"},
 			{name: "warningmessage", showing: false, content: "xxx", classes: "computer-warningmessage", showing: false}
@@ -770,6 +756,10 @@ enyo.kind({
 
 	switchInit: function() {
 		this.$.warningmessage.setShowing(this.$.reinitcheck.getNodeProperty("checked"));
+	},
+
+	viewContributors: function() {
+		util.openAsUrl("https://github.com/llaske/sugarizer/blob/dev/docs/credits.md");
 	},
 
 	version: function() {
@@ -913,7 +903,6 @@ enyo.kind({
 			vserverqr = (enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
-			this.$.password.startInputListening();
 			if (preferences.getToken() && preferences.getToken().expired) {
 				this.$.passwordmessage.setContent(l10n.get("SecurityMessageExpired", {min: util.getMinPasswordSize()}));
 			} else {
@@ -940,6 +929,9 @@ enyo.kind({
 		this.$.next.setShowing(vnext);
 		this.$.passwordmessage.setShowing(vpasswordmessage);
 		this.$.password.setShowing(vpassword);
+		if (vpassword) {
+			this.$.password.giveFocus();
+		}
 	},
 
 	// Event handling
@@ -949,7 +941,6 @@ enyo.kind({
 		}
 		this.hide();
 		this.owner.show();
-		this.$.password.stopInputListening();
 	},
 
 	ok: function() {
@@ -961,7 +952,6 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 		this.$.okbutton.setDisabled(true);
 		this.$.cancelbutton.setDisabled(true);
-		this.$.password.stopInputListening();
 	},
 
 	switchConnection: function() {
@@ -1138,7 +1128,6 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
-		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancel", onRestart: "restart"},
 		{name: "content", components: [
 			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
 			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
@@ -1184,9 +1173,7 @@ enyo.kind({
 			this.owner.show();
 			return;
 		}
-		this.$.warningbox.setShowing(true);
-		this.$.okbutton.setDisabled(true);
-		this.$.cancelbutton.setDisabled(true);
+		this.restart();
 	},
 
 	restart: function() {

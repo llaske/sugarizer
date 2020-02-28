@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 17:52:44 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Thu Feb 27 2020 22:51:57 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,5 +56,100 @@ msgstr ""
 #: Chat
 msgctxt "Chat"
 msgid "the chat"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Chat Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
+msgstr ""
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Join Network"
+msgstr ""
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Want to start a Chat? Click on the Neighborhood icon in this menu"
+msgstr ""
+
+#: TutoMessageTitle
+msgctxt "TutoMessageTitle"
+msgid "Message"
+msgstr ""
+
+#: TutoMessageContent
+msgctxt "TutoMessageContent"
+msgid "Write your message here and hit enter to share it in your conversation"
+msgstr ""
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Quit"
+msgstr ""
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
+msgstr ""
+
+#: TutoImageTitle
+msgctxt "TutoImageTitle"
+msgid "Share Image"
+msgstr ""
+
+#: TutoImageContent
+msgctxt "TutoImageContent"
+msgid "Click this icon if you want to send an image in your conversation"
+msgstr ""
+
+#: TutoSmileyTitle
+msgctxt "TutoSmileyTitle"
+msgid "Smiley Emojis"
+msgstr ""
+
+#: TutoSmileyContent
+msgctxt "TutoSmileyContent"
+msgid "Express Smiles. Send Smiley Emojis in message"
+msgstr ""
+
+#: TutoSadTitle
+msgctxt "TutoSadTitle"
+msgid "Sad Emojis"
+msgstr ""
+
+#: TutoSadContent
+msgctxt "TutoSadContent"
+msgid "Express Sadness. Send Sad Emojis in message"
+msgstr ""
+
+#: TutoEmojiTitle
+msgctxt "TutoEmojiTitle"
+msgid "Other Emojis"
+msgstr ""
+
+#: TutoEmojiContent
+msgctxt "TutoEmojiContent"
+msgid "Have a different expression. Look through the list to send different Emojis"
 msgstr ""
 

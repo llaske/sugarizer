@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:20:09 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:18:10 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,4 +197,99 @@ msgstr "Changer d'hémisphère"
 msgctxt "SaveImage"
 msgid "Save As Image"
 msgstr "Enregistrer en tant qu'image"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Moon Activity"
+msgstr "Activité Moon"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
+msgstr "Bienvenue dans l'activité Moon. Moon vous permet de visualiser les phases de la Lune, notamment les données de lunaisons et les éclipses"
+
+#: TutoActivityButtonTitle
+msgctxt "TutoActivityButtonTitle"
+msgid "Activity"
+msgstr "Activité"
+
+#: TutoActivityButtonContent
+msgctxt "TutoActivityButtonContent"
+msgid "Click here to update the title of the activity to easily find it in the Journal"
+msgstr "Cliquez ici pour mettre à jour le titre de l'activité pour la retrouver facilement dans le journal"
+
+#: TutoToggleGridButtonTitle
+msgctxt "TutoToggleGridButtonTitle"
+msgid "Show/Hide Grid"
+msgstr "Afficher/Masquer la grille"
+
+#: TutoToggleGridButtonContent
+msgctxt "TutoToggleGridButtonContent"
+msgid "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
+msgstr "Cliquez ici pour afficher une grille avec la Latitude et Longitude (en degrés) de chaque zone de la Lune"
+
+#: TutoToggleHemisphereButtonTitle
+msgctxt "TutoToggleHemisphereButtonTitle"
+msgid "Rotation"
+msgstr "Rotation"
+
+#: TutoToggleHemisphereButtonContent
+msgctxt "TutoToggleHemisphereButtonContent"
+msgid "Click here to rotate the Moon to 180 degrees to it's back"
+msgstr "Cliquez ici pour faire une rotation de la Lune de 180 degrés sur sa face cachée"
+
+#: TutoSaveImageButtonTitle
+msgctxt "TutoSaveImageButtonTitle"
+msgid "Save in Journal"
+msgstr "Enregistrer dans le Journal"
+
+#: TutoSaveImageButtonContent
+msgctxt "TutoSaveImageButtonContent"
+msgid "Click here to save the current moon image to your journal, where you can use it for other activites"
+msgstr "Cliquez ici pour enregistrer l'image courante de la Lune dans votre Journal où vous pourrez l'utiliser pour d'autres activités"
+
+#: TutoFullScreenButtonTitle
+msgctxt "TutoFullScreenButtonTitle"
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#: TutoFullScreenButtonContent
+msgctxt "TutoFullScreenButtonContent"
+msgid "Click here to toggle between full and non-full screen"
+msgstr "Cliquez ici pour passer en mode écran ou revenir dans le mode actuel"
+
+#: TutoStopButtonTitle
+msgctxt "TutoStopButtonTitle"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopButtonContent
+msgctxt "TutoStopButtonContent"
+msgid "Click on this icon to stop the activity and go back to the home."
+msgstr "Appuyez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil"
+
+#: TutoPanelLeftTitle
+msgctxt "TutoPanelLeftTitle"
+msgid "Moon information"
+msgstr "Information sur la Lune"
+
+#: TutoPanelLeftContent
+msgctxt "TutoPanelLeftContent"
+msgid "Find here live information on the Moon and its current whereabouts"
+msgstr "Trouvez ici les informations et la localisation en temps réel de la Lune"
 

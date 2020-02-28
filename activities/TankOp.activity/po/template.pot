@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:14:25 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Tue Feb 25 2020 22:32:10 GMT+0100 (heure normale d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,5 +161,160 @@ msgstr ""
 #: Juskiddink
 msgctxt "Juskiddink"
 msgid "juskiddink from freesound (mission failed)"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Tank Operation Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Tank Operation activity. Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty"
+msgstr ""
+
+#: TutoFullScreenButtonTitle
+msgctxt "TutoFullScreenButtonTitle"
+msgid "Fullscreen"
+msgstr ""
+
+#: TutoFullScreenButtonContent
+msgctxt "TutoFullScreenButtonContent"
+msgid "Click this icon to switch to Full Screen mode"
+msgstr ""
+
+#: TutoStopButtonTitle
+msgctxt "TutoStopButtonTitle"
+msgid "Stop"
+msgstr ""
+
+#: TutoStopButtonContent
+msgctxt "TutoStopButtonContent"
+msgid "Click this icon to quit the activity and go back to Sugarizer home view"
+msgstr ""
+
+#: TutoCreditsTitle
+msgctxt "TutoCreditsTitle"
+msgid "Credits"
+msgstr ""
+
+#: TutoCreditsContent
+msgctxt "TutoCreditsContent"
+msgid "Press this button to know more about developers behind this activity"
+msgstr ""
+
+#: TutoChangeMissionTitle
+msgctxt "TutoChangeMissionTitle"
+msgid "Select Mission"
+msgstr ""
+
+#: TutoChangeMissionContent
+msgctxt "TutoChangeMissionContent"
+msgid "Here you could choose the mission. Each mission is an opportunity to explore operations (number, addition, substraction, ...). Use the left and right buttons to change mission"
+msgstr ""
+
+#: TutoStartActivityTitle
+msgctxt "TutoStartActivityTitle"
+msgid "Start Game"
+msgstr ""
+
+#: TutoStartActivityContent
+msgctxt "TutoStartActivityContent"
+msgid "Press this button to start the game with the current selected mission"
+msgstr ""
+
+#: TutoCompletedMissionsTitle
+msgctxt "TutoCompletedMissionsTitle"
+msgid "Completed Missions"
+msgstr ""
+
+#: TutoCompletedMissionsContent
+msgctxt "TutoCompletedMissionsContent"
+msgid "Here you could see the missions already completed. Each yellow stars is a mission completed. Complete all 12 missions to be a champion!"
+msgstr ""
+
+#: TutoGameTitle
+msgctxt "TutoGameTitle"
+msgid "Battleground"
+msgstr ""
+
+#: TutoGameContent
+msgctxt "TutoGameContent"
+msgid "Your units are on left and enemy units enter on right. Obstacles could slow down units depending of their types"
+msgstr ""
+
+#: TutoWaveTitle
+msgctxt "TutoWaveTitle"
+msgid "Eneny Wave"
+msgstr ""
+
+#: TutoWaveContent
+msgctxt "TutoWaveContent"
+msgid "Shows the number of current enemy wave. You should destroy the five waves to complete the mission"
+msgstr ""
+
+#: TutoScoreTitle
+msgctxt "TutoScoreTitle"
+msgid "Score"
+msgstr ""
+
+#: TutoScoreContent
+msgctxt "TutoScoreContent"
+msgid "Shows your current score. You gain point for each enemy unit destroyed"
+msgstr ""
+
+#: TutoPlayExplainTitle
+msgctxt "TutoPlayExplainTitle"
+msgid "Rules of game"
+msgstr ""
+
+#: TutoPlayExplainContent
+msgctxt "TutoPlayExplainContent"
+msgid "Destroy each wave of enemy units before they destroy your headquarters. Enemy troops are destroyed when you type the right result of operation"
+msgstr ""
+
+#: TutoPlayControlsTitle
+msgctxt "TutoPlayControlsTitle"
+msgid "Enter Result"
+msgstr ""
+
+#: TutoPlayControlsContent
+msgctxt "TutoPlayControlsContent"
+msgid "Click on these numbers to enter result or type it on your keyboard."
+msgstr ""
+
+#: TutoPlayFire
+msgctxt "TutoPlayFire"
+msgid "Fire"
+msgstr ""
+
+#: TutoPlayFireContent
+msgctxt "TutoPlayFireContent"
+msgid "Press this button or press the spacebar on your keyboard to fire. Units matching the result will be destroyed"
+msgstr ""
+
+#: TutoPlayHomeTitle
+msgctxt "TutoPlayHomeTitle"
+msgid "Home"
+msgstr ""
+
+#: TutoPlayHomeContent
+msgctxt "TutoPlayHomeContent"
+msgid "Press this button to go back to home"
 msgstr ""
 

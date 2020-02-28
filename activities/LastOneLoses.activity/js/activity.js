@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "webL10n", "humane"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, webL10n, humane) {
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "webL10n", "humane", "tutorial"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, webL10n, humane, tutorial) {
 	var app;
 	var presence=null;
 	var isHost=false;
@@ -19,7 +19,13 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		// Set current language to Sugarizer
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		webL10n.language.code = language;
+		window.addEventListener('localized', function(e) {
+			if (e.language != language) {
+				setTimeout(function() {
+				  webL10n.language.code = language;
+				}, 50);
+			}
+		});
 
 		// Shared instances
 		if (environment.sharedId) {
@@ -63,6 +69,11 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		document.getElementById("new-game-button").onclick = function() {
 			app.doRenew();
 		};
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
 
 		levelRadio = new radioButtonsGroup.RadioButtonsGroup([
 			document.getElementById("level-easy-button"),
@@ -118,7 +129,26 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		});
 	});
 
+		// Switch to full screen when the full screen button is pressed
+	document.getElementById("fullscreen-button").addEventListener('click', function() {
+		document.getElementById("main-toolbar").style.display = "none";
+		document.getElementById("canvas").style.top = "0px";
+		document.getElementById("unfullscreen-button").style.visibility = "visible";
 
+		document.getElementById("lOLGameApp_box").style.marginTop = "-30px";
+		document.getElementById("lOLGameApp_box").style.height = "90vh";
+
+	});
+
+	//Return to normal size
+	document.getElementById("unfullscreen-button").addEventListener('click', function() {
+		document.getElementById("main-toolbar").style.display = "block";
+		document.getElementById("canvas").style.top = "55px";
+		document.getElementById("unfullscreen-button").style.visibility = "hidden";
+
+		document.getElementById("lOLGameApp_box").style.marginTop = "0px";
+		document.getElementById("lOLGameApp_box").style.height = "100%";
+	});
 
 	// Main app class
 	enyo.kind({
@@ -207,7 +237,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					this.$.endmessage.addClass(this.game.getPlayer() != this.player ? "end-message-win" : "player-lost");
 					this.$.endmessage.removeClass(this.game.getPlayer() != this.player ? "player-lost" : "end-message-win");
 				}
-				this.$.endaudio.setSrc(this.game.getPlayer() != this.player ? "audio/applause.ogg" : "audio/disappointed.ogg");
+				this.$.endaudio.setSrc(this.game.getPlayer() != this.player ? "audio/applause.mp3" : "audio/disappointed.mp3");
 				this.$.endaudio.play();
 				this.$.endmessage.show();
 			}
@@ -419,6 +449,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		doRenew: function() {
 			this.level = this.getLevel();
 			this.game = new LOLGame(this.count);
+			this.$.playbutton.hide(); //Hide playbutton when game is renewed
 			this.init();
 			this.drawBoard();
 			if (presence&&isHost) {
@@ -443,6 +474,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 				currentthis.level = data.level;
 				currentthis.player = data.player;
 				currentthis.init();
+				currentthis.drawBoard();
 			});
 		},
 

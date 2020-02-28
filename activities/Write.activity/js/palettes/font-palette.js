@@ -5,9 +5,7 @@ define([
     'sugar-web/graphics/palette',
     'mustache'
   ], function(palette, mustache) {
-  
     var fontpalette = {};
-  
     /* We setup the palette with fonts */
     fontpalette.Fontpalette = function(invoker, primaryText) {
       palette.Palette.call(this, invoker, primaryText);
@@ -30,16 +28,39 @@ define([
           icon: 'icons/font-verdana.svg',
           lineHeight: '0.8',
           fontFamily: 'Verdana'
-        }]
+        }, {
+          icon: 'icons/font-times.svg',
+          lineHeight: '0.8',
+          fontFamily: 'Times New Roman'
+        }],[
+          {
+            icon: 'icons/font-courier.svg',
+            lineHeight: '0.8',
+            fontFamily: 'Courier New'
+          }, {
+            icon: 'icons/font-lucida.svg',
+            lineHeight: '0.8',
+            fontFamily: 'Lucida Console'
+          }, {
+            icon: 'icons/font-impact.svg',
+            lineHeight: '0.8',
+            fontFamily: 'Impact'
+          }, {
+            icon: 'icons/font-georgia.svg',
+            lineHeight: '0.8',
+            fontFamily: 'Georgia'
+          }
+        ]
       ];
       var textsElem = document.createElement('div');
       textsElem.innerHTML = mustache.render(this.template, {
         rows: rows
       });
+
       this.setContent([textsElem]);
       var buttons = textsElem.querySelectorAll('button');
       var that = this;
-  
+
       function popDownOnButtonClick(event) {
         that.popDown();
       }
@@ -49,12 +70,15 @@ define([
           that.getPalette().dispatchEvent(that.fontChangeEvent);
           that.popDown();
         });
+
       }
+
       popDownOnButtonClick({
         target: buttons[0]
       });
     };
-  
+
+
     var setFont = function (font) {
       var buttons = this.getPalette().querySelectorAll('button');
       for (var i = 0; i < buttons.length; i++) {
@@ -64,11 +88,11 @@ define([
           buttons[i].style.border = '0px solid #000';
       }
     };
-      
+
     var addEventListener = function(type, listener, useCapture) {
       return this.getPalette().addEventListener(type, listener, useCapture);
     };
-  
+
     fontpalette.Fontpalette.prototype = Object.create(palette.Palette.prototype, {
       setFont: {
         value: setFont,
@@ -85,4 +109,3 @@ define([
     });
     return fontpalette;
   });
-  

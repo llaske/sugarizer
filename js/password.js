@@ -4,7 +4,6 @@ enyo.kind({
 	kind: enyo.Control,
 	published: {
 		label: '',
-		password: '',
 	},
 	events: { onEnter: "" },
 	classes: "password-class",
@@ -12,7 +11,7 @@ enyo.kind({
 		{name: "line", classes: "password-line", components: [
 			{name: "text", content: "xxx", classes: "password-label"},
 			{classes: "password-input", components: [
-				{name: "pass", classes: "password-value", content: "", allowHtml: true},
+				{name: "pass", kind: "Input", classes: "password-value", content: "", onkeydown: "onKeyDown", oninput: "refreshCancel"},
 				{name: "cancel", classes: "password-iconcancel", showing: false, ontap: "cancelClicked"},
 			]},
 			{components:[
@@ -45,33 +44,18 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.labelChanged();
-		this.listen = false;
-		this.password = "";
-		var that = this;
-		document.addEventListener('keydown', function(event) {
-			if (that.listen) {
-				if (event.keyCode === 13) {
-					that.doEnter();
-					return true;
-				} else if (event.keyCode == 8) {
-					that.removeCharacter();
-					return true;
-				} else {
-					that.addCharacter(event.key);
-					return true;
-				}
-				return false;
-			}
-			return false;
-		});
 	},
 
-	startInputListening: function() {
-		this.listen = true;
-	},
-
-	stopInputListening: function() {
-		this.listen = false;
+	rendered: function() {
+		this.inherited(arguments);
+		var node = this.$.pass.hasNode();
+		node.autocomplete="off";
+		// HACK: On Android the onkeydown event don't work, so using beforeinput and save value instead
+		this.isAndroid = (enyo.platform.android || enyo.platform.androidChrome);
+		if (this.isAndroid) {
+			this.savedValue = "";
+			node.addEventListener("beforeinput", enyo.bind(this, "onBeforeInput"));
+		}
 	},
 
 	// Property changed
@@ -79,17 +63,75 @@ enyo.kind({
 		this.$.text.setContent(this.label);
 	},
 
-	passwordChanged: function() {
-		this.drawPassword();
-		if (this.password.length == 0) {
-			this.$.cancel.setShowing(false);
+	getPassword: function() {
+		var current = this.$.pass.getValue();
+		var password = "";
+		split = current.split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/);
+		for (var i=0; i<split.length; i++) {
+			char = split[i]
+			if (char !== "") {
+				password += this.convertToChar(char);
+			}
 		}
+		return password;
+	},
+
+	setPassword: function(newvalue) {
+		var value = "";
+		for (var i = 0; i < newvalue.length; i++) {
+			value += convertToEmoji(newvalue[i]);
+		}
+		this.$.pass.setValue(value);
 	},
 
 	// Event handling
+	onKeyDown: function(s, e) {
+		// HACK: On Android the onkeydown event don't work, so using beforeinput instead
+		if (this.isAndroid) {
+			e.stopPropagation();
+			return;
+		}
+
+		// Convert key to equivalent emoji and set the emoji value instead of the character
+		var emoji = this.convertToEmoji(e.key);
+		if (emoji) {
+			this.$.pass.setValue(this.$.pass.getValue()+String.fromCodePoint(emoji));
+			e.preventDefault();
+		} else if (e.keyCode == 13) {
+			this.doEnter();
+		} else if (e.keyCode != 8) {
+			e.preventDefault();
+		}
+		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+	},
+
+	onBeforeInput: function(e) {
+		// On Android only, intercept key before input and save the value
+		this.$.pass.setValue(this.savedValue);
+		if (e.inputType == "insertText" || e.inputType == "insertCompositionText") {
+			this.addCharacter(e.data[e.data.length-1]);
+			this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+			this.savedValue = this.$.pass.getValue();
+		} else if (e.inputType == "deleteContentBackward") {
+			if (this.savedValue.length >= 2) {
+				this.savedValue = this.savedValue.substr(0, this.savedValue.length-2);
+				this.$.cancel.setShowing(this.savedValue.length>0);
+				this.$.pass.setValue(this.savedValue);
+			}
+		} else if (e.inputType == "insertLineBreak") {
+			this.doEnter();
+		}
+		e.stopPropagation();
+	},
+
 	emojiClicked: function(emoji) {
 		emoji.animate();
 		this.addCharacter(constant.emojis[emoji.getIndex()].letter);
+		this.$.pass.focus();
+		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+		if (this.isAndroid) {
+			this.savedValue = this.$.pass.getValue();
+		}
 	},
 
 	category0Clicked: function(category) {
@@ -148,52 +190,54 @@ enyo.kind({
 	},
 
 	cancelClicked: function() {
-		this.password = "";
-		this.drawPassword();
-		this.$.cancel.setShowing(false);
+		this.$.pass.setValue("");
+		if (this.isAndroid) {
+			this.savedValue = "";
+		}
+		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+		this.$.pass.focus();
 	},
 
-	// Handle password changed
-	drawPassword: function() {
-		var html = "";
-		for (var i = 0 ; i < this.password.length ; i++) {
-			for (var j = 0 ; j < constant.emojis.length ; j++) {
-				if (constant.emojis[j].letter == this.password[i]) {
-					html += "&#x"+constant.emojis[j].value+";";
-				}
+	refreshCancel: function(s,e) {
+		if (this.isAndroid) {
+			this.$.pass.setValue(this.savedValue);
+			e.stopPropagation();
+			return;
+		}
+		this.$.cancel.setShowing(this.$.pass.getValue().length>0);
+	},
+
+	// Convert a char to an emoji code and reversly
+	convertToEmoji: function(char) {
+		for (var i = 0 ; i < constant.emojis.length ; i++) {
+			var item = constant.emojis[i];
+			if (item.letter == char) {
+				return "0x"+item.value;
 			}
 		}
-		this.$.pass.setContent(html);
+		return "";
+	},
+	convertToChar: function(emoji) {
+		for (var i = 0 ; i < constant.emojis.length ; i++) {
+			var item = constant.emojis[i];
+			if (String.fromCodePoint("0x"+item.value) == emoji) {
+				return item.letter;
+			}
+		}
+		return "";
 	},
 
+	// Set focus
+	giveFocus: function() {
+		this.$.pass.focus();
+	},
+
+	// Add a character
 	addCharacter: function(char) {
-		if (this.password.length == 8) {
-			return;
+		var emoji = this.convertToEmoji(char);
+		if (emoji) {
+			this.$.pass.setValue(this.$.pass.getValue()+String.fromCodePoint(emoji));
 		}
-		var len = constant.emojis.length;
-		for (var i = 0 ; i < len ; i++) {
-			if (char == constant.emojis[i].letter) {
-				break;
-			}
-		}
-		if (i == len) {
-			return;
-		}
-		this.password += char;
-		this.$.cancel.setShowing(true);
-		this.drawPassword();
-	},
-
-	removeCharacter: function() {
-		var len = this.password.length;
-		if (len == 0) {
-			return;
-		}
-		this.password = this.password.substr(0, len-1);
-		if (this.password.length == 0) {
-			this.$.cancel.setShowing(false);
-		}
-		this.drawPassword();
 	}
 });
 
