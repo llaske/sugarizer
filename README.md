@@ -295,6 +295,8 @@ Note that this translation is for Sugarizer only. Each activity could provide it
 
 As all Open Source software, contributions to this software are welcome.
 
+See [here](docs/credits.md) the current list of Sugarizer contributors.
+
 Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Sugarizer.
 
 

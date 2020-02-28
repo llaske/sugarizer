@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:14:25 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Tue Feb 25 2020 22:32:10 GMT+0100 (heure normale d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,4 +162,159 @@ msgstr "DANIpeNet from freesound (mission terminée)"
 msgctxt "Juskiddink"
 msgid "juskiddink from freesound (mission failed)"
 msgstr "juskiddink from freesound (mission echouée)"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Tank Operation Activity"
+msgstr "Activité Tank Operation"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Tank Operation activity. Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty"
+msgstr "Bienvenue dans l'activité Tank Operation. Tank Operation est un jeu d'arcade qui aide les enfants à pratiquer leur arithmétique avec différents niveaux de difficultés"
+
+#: TutoFullScreenButtonTitle
+msgctxt "TutoFullScreenButtonTitle"
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#: TutoFullScreenButtonContent
+msgctxt "TutoFullScreenButtonContent"
+msgid "Click this icon to switch to Full Screen mode"
+msgstr "Cliquez cet icône pour passer en mode plein écran"
+
+#: TutoStopButtonTitle
+msgctxt "TutoStopButtonTitle"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopButtonContent
+msgctxt "TutoStopButtonContent"
+msgid "Click this icon to quit the activity and go back to Sugarizer home view"
+msgstr "Cliquez cet icône pour quitter l'activité et revenir à la page d'accueil de Sugarizer"
+
+#: TutoCreditsTitle
+msgctxt "TutoCreditsTitle"
+msgid "Credits"
+msgstr "Crédits"
+
+#: TutoCreditsContent
+msgctxt "TutoCreditsContent"
+msgid "Press this button to know more about developers behind this activity"
+msgstr "Appuyez sur ce bouton pour en savoir plus sur les développeurs de cette activité"
+
+#: TutoChangeMissionTitle
+msgctxt "TutoChangeMissionTitle"
+msgid "Select Mission"
+msgstr "Choisir Mission"
+
+#: TutoChangeMissionContent
+msgctxt "TutoChangeMissionContent"
+msgid "Here you could choose the mission. Each mission is an opportunity to explore operations (number, addition, substraction, ...). Use the left and right buttons to change mission"
+msgstr "Ici vous pouvez choisir la mission. Chaque mission vous permet d'explorer les opérations (nombres, addition, soustraction, ...). Utilisez les boutons gauche et droite pour changer de mission"
+
+#: TutoStartActivityTitle
+msgctxt "TutoStartActivityTitle"
+msgid "Start Game"
+msgstr "Démarrer Jeu"
+
+#: TutoStartActivityContent
+msgctxt "TutoStartActivityContent"
+msgid "Press this button to start the game with the current selected mission"
+msgstr "Appuyez sur ce bouton pour démarrer le jeu avec la mission actuellement sélectionnée"
+
+#: TutoCompletedMissionsTitle
+msgctxt "TutoCompletedMissionsTitle"
+msgid "Completed Missions"
+msgstr "Missions Terminées"
+
+#: TutoCompletedMissionsContent
+msgctxt "TutoCompletedMissionsContent"
+msgid "Here you could see the missions already completed. Each yellow stars is a mission completed. Complete all 12 missions to be a champion!"
+msgstr "Ici vous pouvez voir les missions déjà terminées. Chaque étoile jaune correspond à une mission terminée. Terminez les 12 missions pour être un champion !"
+
+#: TutoGameTitle
+msgctxt "TutoGameTitle"
+msgid "Battleground"
+msgstr "Champs de bataille"
+
+#: TutoGameContent
+msgctxt "TutoGameContent"
+msgid "Your units are on left and enemy units enter on right. Obstacles could slow down units depending of their types"
+msgstr "Vos unités sont à gauche et les unités ennemies sont à droite. Les obstacles peuvent ralentir les unités en fonction de leur type"
+
+#: TutoWaveTitle
+msgctxt "TutoWaveTitle"
+msgid "Eneny Wave"
+msgstr "Vague Ennemie"
+
+#: TutoWaveContent
+msgctxt "TutoWaveContent"
+msgid "Shows the number of current enemy wave. You should destroy the five waves to complete the mission"
+msgstr "Affiche le numéro actuel de la vague ennemie. Vous devez détruire les cinq vagues pour terminer la mission"
+
+#: TutoScoreTitle
+msgctxt "TutoScoreTitle"
+msgid "Score"
+msgstr "Score"
+
+#: TutoScoreContent
+msgctxt "TutoScoreContent"
+msgid "Shows your current score. You gain point for each enemy unit destroyed"
+msgstr "Affiche le score actuel. Vous gagnez des points pour chaque unité ennemie détruite"
+
+#: TutoPlayExplainTitle
+msgctxt "TutoPlayExplainTitle"
+msgid "Rules of game"
+msgstr "Règles du jeu"
+
+#: TutoPlayExplainContent
+msgctxt "TutoPlayExplainContent"
+msgid "Destroy each wave of enemy units before they destroy your headquarters. Enemy troops are destroyed when you type the right result of operation"
+msgstr "Détruire chaque vague d'unités ennemies avant qu'elles détruisent vos quartiers généraux. Les troupes ennemies sont détruites quand vous tapez le résultat correct de l'opération"
+
+#: TutoPlayControlsTitle
+msgctxt "TutoPlayControlsTitle"
+msgid "Enter Result"
+msgstr "Saisir Résultat"
+
+#: TutoPlayControlsContent
+msgctxt "TutoPlayControlsContent"
+msgid "Click on these numbers to enter result or type it on your keyboard."
+msgstr "Cliquez sur ces chiffres pour saisir le résultat, ou tapez les sur le clavier"
+
+#: TutoPlayFire
+msgctxt "TutoPlayFire"
+msgid "Fire"
+msgstr "Feu"
+
+#: TutoPlayFireContent
+msgctxt "TutoPlayFireContent"
+msgid "Press this button or press the spacebar on your keyboard to fire. Units matching the result will be destroyed"
+msgstr "Appuyez sur ce bouton ou sur la touche espace du clavier pour tirer. Les unités correspondants aux résultats seront détruites"
+
+#: TutoPlayHomeTitle
+msgctxt "TutoPlayHomeTitle"
+msgid "Home"
+msgstr "Accueil"
+
+#: TutoPlayHomeContent
+msgctxt "TutoPlayHomeContent"
+msgid "Press this button to go back to home"
+msgstr "Appuyez sur ce bouton pour retourner à la page d'accueil"
 
