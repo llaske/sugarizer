@@ -383,7 +383,6 @@ define([
 			var title = document.getElementById("title").value;
 			var mimetype = 'text/plain';
 			var inputData = document.getElementById("editor").textContent;
-			inputData=JSON.stringify(inputData);
 			var metadata = {
 			mimetype: mimetype,
 			title: title+".txt",

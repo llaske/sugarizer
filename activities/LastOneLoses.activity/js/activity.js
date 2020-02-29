@@ -237,7 +237,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					this.$.endmessage.addClass(this.game.getPlayer() != this.player ? "end-message-win" : "player-lost");
 					this.$.endmessage.removeClass(this.game.getPlayer() != this.player ? "player-lost" : "end-message-win");
 				}
-				this.$.endaudio.setSrc(this.game.getPlayer() != this.player ? "audio/applause.ogg" : "audio/disappointed.ogg");
+				this.$.endaudio.setSrc(this.game.getPlayer() != this.player ? "audio/applause.mp3" : "audio/disappointed.mp3");
 				this.$.endaudio.play();
 				this.$.endmessage.show();
 			}

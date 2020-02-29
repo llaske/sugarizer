@@ -1,0 +1,70 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:26:28 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "XO Editor Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the XO Editor activity. XO Editor allow you to customize easily your buddy icon colors"
+msgstr ""
+
+#: TutoSaveTitle
+msgctxt "TutoSaveTitle"
+msgid "Save colours"
+msgstr ""
+
+#: TutoSaveContent
+msgctxt "TutoSaveContent"
+msgid "Click here to set the current color in the middle as your buddy's color"
+msgstr ""
+
+#: TutoResetTitle
+msgctxt "TutoResetTitle"
+msgid "Reset board"
+msgstr ""
+
+#: TutoResetContent
+msgctxt "TutoResetContent"
+msgid "Click here to reset the board as it was at the beginning. It's useful if you've played to move color combinations"
+msgstr ""
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Color variations"
+msgstr ""
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Here are all existing color combinations. Click on a combination, it will instantly appear on the buddy in the middle to allow you to see if you like it. If so and if you want to keep it, click on the Save button then quit the activity"
+msgstr ""
+

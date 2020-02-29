@@ -131,13 +131,8 @@ enyo.kind({
 		// Compute format
 		var format = "";
 		var mimetype = ""
-		if (Abcd.sound.canPlayType("audio/mpeg") && !enyo.platform.android && !enyo.platform.androidChrome) {
-			format = ".mp3";
-			mimetype = "audio/mpeg";
-		} else if (Abcd.sound.canPlayType("audio/ogg")) {
-			format = ".ogg";
-			mimetype = "audio/ogg";
-		}
+		format = ".mp3";
+		mimetype = "audio/mpeg";
 		var url = "";
 		if (this.sound.indexOf("http") == 0) {
 			url = this.sound+format;

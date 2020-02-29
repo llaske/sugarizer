@@ -1,146 +1,275 @@
 #. extracted from ../localization.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2018-09-19 18:52+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-fototoon/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: AddAglobe
 msgctxt "AddAglobe"
 msgid "Add a globe"
-msgstr "Adicione um globo"
+msgstr "Add a globe"
 
 #: Globe
 msgctxt "Globe"
 msgid "Globe"
-msgstr "Globo"
+msgstr "Globe"
 
 #: Exclamation
 msgctxt "Exclamation"
 msgid "Exclamation"
-msgstr "Exclamação"
+msgstr "Exclamation"
 
 #: Whisper
 msgctxt "Whisper"
 msgid "Whisper"
-msgstr "Sussurro"
+msgstr "Whisper"
 
 #: Think
 msgctxt "Think"
 msgid "Think"
-msgstr "Pensar"
+msgstr "Think"
 
 #: Box
 msgctxt "Box"
 msgid "Box"
-msgstr "Caixa"
+msgstr "Box"
 
 #: Title
 msgctxt "Title"
 msgid "Title"
-msgstr "Título"
+msgstr "Title"
 
 #: SetGlobeText
 msgctxt "SetGlobeText"
 msgid "Set globe text:"
-msgstr "Editar texto do globo:"
+msgstr "Set globe text:"
 
 #: of
 msgctxt "of"
 msgid "of"
-msgstr "de"
+msgstr "of"
 
 #: ATENTION
 msgctxt "ATENTION"
 msgid "ATENTION"
-msgstr "ATENÇÃO"
+msgstr "ATENTION"
 
 #: RemoveAllConfirmMessage
 msgctxt "RemoveAllConfirmMessage"
 msgid "Do you want remove all the boxes in your FotoToon?"
-msgstr "Você quer remover todas as caixas do seu FotoToon?"
+msgstr "Do you want remove all the boxes in your FotoToon?"
 
 #: Yes
 msgctxt "Yes"
 msgid "Yes"
-msgstr "Sim"
+msgstr "Yes"
 
 #: No
 msgctxt "No"
 msgid "No"
-msgstr "Não"
+msgstr "No"
 
 #: OneRow
 msgctxt "OneRow"
 msgid "One row"
-msgstr "Uma linha"
+msgstr "One row"
 
 #: OneColumn
 msgctxt "OneColumn"
 msgid "One column"
-msgstr "Uma coluna"
+msgstr "One column"
 
 #: TwoColumns
 msgctxt "TwoColumns"
 msgid "Two columns"
-msgstr "Duas colunas"
+msgstr "Two columns"
 
 #: SaveAsImage
 msgctxt "SaveAsImage"
 msgid "Save as image"
-msgstr "Salvar como imagem"
+msgstr "Save as image"
 
 #: ImageSaved
 msgctxt "ImageSaved"
 msgid "Image saved in journal"
-msgstr "Imagem salva no Diário"
+msgstr "Image saved in journal"
 
 #: SavingError
 msgctxt "SavingError"
 msgid "Error saving image"
-msgstr "Erro ao salvar imagem"
+msgstr "Error saving image"
 
 #: ToonSaved
 msgctxt "ToonSaved"
 msgid "FotoToon saved"
-msgstr "FotoToon salvo"
+msgstr "FotoToon saved"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr "Aterior"
+msgstr "Previous"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Próximo"
+msgstr "Next"
 
 #: Add
 msgctxt "Add"
 msgid "Add"
-msgstr "Adicionar"
+msgstr "Add"
 
 #: EditText
 msgctxt "EditText"
 msgid "Edit text"
-msgstr "Editar texto"
+msgstr "Edit text"
 
 #: Sort
 msgctxt "Sort"
 msgid "Sort boxes"
-msgstr "Classificar caixas"
+msgstr "Sort boxes"
 
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
-msgstr "Limpar tudo"
+msgstr "Clean all"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "FotoToon Activity"
+msgstr "FotoToon Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+msgstr "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+
+#: TutoPreviousExplanation
+msgctxt "TutoPreviousExplanation"
+msgid "Click here to go to the previous box in your comic strip"
+msgstr "Click here to go to the previous box in your comic strip"
+
+#: TutoNextExplanation
+msgctxt "TutoNextExplanation"
+msgid "Click here to go to the next box in your comic strip"
+msgstr "Click here to go to the next box in your comic strip"
+
+#: TutoAddPage
+msgctxt "TutoAddPage"
+msgid "Add box"
+msgstr "Add box"
+
+#: TutoAddPageExplanation
+msgctxt "TutoAddPageExplanation"
+msgid "Click here to add picture, drawing or image as a new box"
+msgstr "Click here to add picture, drawing or image as a new box"
+
+#: TutoAddGlobeExplanation
+msgctxt "TutoAddGlobeExplanation"
+msgid "Click here to add a new globe in current your box"
+msgstr "Click here to add a new globe in current your box"
+
+#: TutoEditText
+msgctxt "TutoEditText"
+msgid "Edit text"
+msgstr "Edit text"
+
+#: TutoEditTextExplanation
+msgctxt "TutoEditTextExplanation"
+msgid "Click here to update the current text"
+msgstr "Click here to update the current text"
+
+#: TutoSortBoxes
+msgctxt "TutoSortBoxes"
+msgid "Sort boxes"
+msgstr "Sort boxes"
+
+#: TutoSortBoxesExplanation
+msgctxt "TutoSortBoxesExplanation"
+msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+msgstr "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+
+#: TutoCleanAll
+msgctxt "TutoCleanAll"
+msgid "Clean all"
+msgstr "Clean all"
+
+#: TutoCleanAllExplanation
+msgctxt "TutoCleanAllExplanation"
+msgid "Click here to clear all boxes"
+msgstr "Click here to clear all boxes"
+
+#: TutoImageSave
+msgctxt "TutoImageSave"
+msgid "Save as image"
+msgstr "Save as image"
+
+#: TutoImageSaveExplanation
+msgctxt "TutoImageSaveExplanation"
+msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+msgstr "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+
+#: TutoPageCounter
+msgctxt "TutoPageCounter"
+msgid "Box counter"
+msgstr "Box counter"
+
+#: TutoPageCounterExplanation
+msgctxt "TutoPageCounterExplanation"
+msgid "It shows current box out of total number of boxes in your comic strip"
+msgstr "It shows current box out of total number of boxes in your comic strip"
+
+#: TutoStop
+msgctxt "TutoStop"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopExplanation
+msgctxt "TutoStopExplanation"
+msgid "Click here to end activity ang go back to Sugarizer home page"
+msgstr "Click here to end activity ang go back to Sugarizer home page"
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel"
+msgstr "Cancel"
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr "Continue"
+
+#: CleanAllMessage
+msgctxt "CleanAllMessage"
+msgid "All the boxes in your comic strip will be removed!"
+msgstr "All the boxes in your comic strip will be removed!"
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
+msgstr "Warning"
+

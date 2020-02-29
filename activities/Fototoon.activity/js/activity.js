@@ -236,10 +236,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                 picoModal({
                     content:"<div style = 'width:400px;margin-bottom:60px'>" +
                         "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
-                        "<div style='width:300px;float:left;margin-left:20px;'>" + 
-                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +  
+                        "<div style='width:300px;float:left;margin-left:20px;'>" +
+                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +
                         "<div style='color:white;margin-top:2px;'>" + cleanall_message + "</div>" +
-                        "</div>" + 
+                        "</div>" +
                         "</div>" +
                         "<div>" +
                         "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " +  cancel_button_title + "</button> " +
@@ -252,8 +252,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                             width: "60%",
                             textColor: "white"
                         },
-                }).afterCreate(modal => {
-                    modal.modalElem().addEventListener("click", evt => {
+                }).afterCreate(function(modal) {
+                    modal.modalElem().addEventListener("click", function(evt) {
                         if (evt.target && evt.target.matches(".continue")) {
                             toonModel._data['boxs'].splice(1, toonModel._data['boxs'].length-1);
                             toonModel._data['boxs'][0]['globes'] = [];

@@ -154,13 +154,13 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     }],
 
     gridCols: ['.fake-selector', function (fakeElem, value, prevValue) {
-      let sizeScale = document.getElementById('sizevalue');
+      var sizeScale = document.getElementById('sizevalue');
       sizeScale.value = value / 20;
       board.handleResize(window.innerWidth, state.state.boardState, state);
     }],
 
     gridRows: ['.fake-selector', function (fakeElem, value, prevValue) {
-      let sizeScale = document.getElementById('sizevalue');
+      var sizeScale = document.getElementById('sizevalue');
       sizeScale.value = value / 10;
       board.handleResize(window.innerWidth, state.state.boardState, state);
     }],
@@ -181,9 +181,9 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
   dataStore.loadAsText(function (err, metadata, data) {
     var boardState = data ? data.boardState : randomPattern(state);
     var generation =  data ? data.generation : 0;
-    let gridCols =  data ? data.gridCols : 40;
-    let gridRows =  data ? data.gridRows : 20;
-    let showTrails = data ? data.showTrails : false;
+    var gridCols =  data ? data.gridCols : 40;
+    var gridRows =  data ? data.gridRows : 20;
+    var showTrails = data ? data.showTrails : false;
     console.log(data);
     state.set({
       boardState: boardState,

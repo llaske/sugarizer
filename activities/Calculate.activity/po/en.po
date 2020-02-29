@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:23:42 GMT+0100 (CET)\n"
+"POT-Creation-Date: Wed Feb 19 2020 10:40:07 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,16 +15,156 @@ msgstr ""
 
 #: label
 msgctxt "label"
-msgid "Label"
+msgid ""
 msgstr "Label"
 
 #: calcul
 msgctxt "calcul"
-msgid "Calculation"
+msgid ""
 msgstr "Calculation"
 
 #: clear
 msgctxt "clear"
-msgid "Clear"
+msgid ""
 msgstr "Clear"
+
+#: trigo.title
+msgctxt "trigo.title"
+msgid ""
+msgstr "Select Trigonometric Function"
+
+#: algebra.title
+msgctxt "algebra.title"
+msgid ""
+msgstr "Select Algebra Type"
+
+#: base.title
+msgctxt "base.title"
+msgid ""
+msgstr "Select Base"
+
+#: angle.title
+msgctxt "angle.title"
+msgid ""
+msgstr "Select Angle Type"
+
+#: digit.title
+msgctxt "digit.title"
+msgid ""
+msgstr "Select Output Digits"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid ""
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid ""
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid ""
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid ""
+msgstr "Calculate Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid ""
+msgstr "Welcome into the Calculate activity. Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting"
+
+#: TutoTrigoTitle
+msgctxt "TutoTrigoTitle"
+msgid ""
+msgstr "Trigonometric Functions"
+
+#: TutoTrigoContent
+msgctxt "TutoTrigoContent"
+msgid ""
+msgstr "Click here to select a trigonometric function, such as sin or cos. The value given to the function should be in brackets"
+
+#: TutoAlgebraTitle
+msgctxt "TutoAlgebraTitle"
+msgid ""
+msgstr "Algebric Functions"
+
+#: TutoAlgebraContent
+msgctxt "TutoAlgebraContent"
+msgid ""
+msgstr "Click here to select an algebric function, such as power or square root. The value given to the function should be in brackets"
+
+#: TutoBaseTitle
+msgctxt "TutoBaseTitle"
+msgid ""
+msgstr "Base"
+
+#: TutoBaseContent
+msgctxt "TutoBaseContent"
+msgid ""
+msgstr "Click here to select base used for computation: decimal (10), binary (2), octal (8) and hexadecimal (16)"
+
+#: TutoAngleTitle
+msgctxt "TutoAngleTitle"
+msgid ""
+msgstr "Angle Type"
+
+#: TutoAngleContent
+msgctxt "TutoAngleContent"
+msgid ""
+msgstr "Click here to select angle type from degrees (default) and radians"
+
+#: TutoOutputTitle
+msgctxt "TutoOutputTitle"
+msgid ""
+msgstr "Output Digits"
+
+#: TutoOutputContent
+msgctxt "TutoOutputContent"
+msgid ""
+msgstr "Click here to change number digits after the decimal point: from 6 (default) to 15"
+
+#: TutoInputTitle
+msgctxt "TutoInputTitle"
+msgid ""
+msgstr "Input"
+
+#: TutoInputContent
+msgctxt "TutoInputContent"
+msgid ""
+msgstr "Here you can see the calculator. You can either write numbers on your keyboard or tap the buttons"
+
+#: TutoResultTitle
+msgctxt "TutoResultTitle"
+msgid ""
+msgstr "Result"
+
+#: TutoResultContent
+msgctxt "TutoResultContent"
+msgid ""
+msgstr "Here is the history of all of your operations"
+
+#: TutoLabelTitle
+msgctxt "TutoLabelTitle"
+msgid ""
+msgstr "Label"
+
+#: TutoLabelContent
+msgctxt "TutoLabelContent"
+msgid ""
+msgstr "Type here to give a label to your current compute that will be then shown in the result zone"
+
+#: TutoFunctionTitle
+msgctxt "TutoFunctionTitle"
+msgid ""
+msgstr "Plot Function"
+
+#: TutoFunctionContent
+msgctxt "TutoFunctionContent"
+msgid ""
+msgstr "To plot a graph, type its equation in the calculation field. For example: f(x)=2*x+3"
 
