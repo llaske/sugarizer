@@ -78,7 +78,7 @@ enyo.kind({
 		var toolbaroffset = !Util.onSugar() ? toolbar.offsetHeight : 37.5;
 		var canvas = document.getElementById("body");
 		var canvas_height = canvas.offsetHeight;
-		this.$.content.applyStyle("height", (canvas_height-(toolbaroffset*2))+"px");
+		this.$.content.applyStyle("height", (canvas_height-(toolbaroffset + 55))+"px");
 	},
 
 	resize: function() {

@@ -30,23 +30,24 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             stopwatchList.appendChild(this.elem);
 
             this.template =
-                '<div class="panel-body"></div>' +
+                '<div class="card-body">' +
                     '<div class="row">' +
-                      '<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">' +
-                        '<div class="counter">00:00:00</div>' +
-                      '</div>' +
-                      '<div class="col-xs-5 col-sm-5 col-md-4 col-lg-3">' +
-                        '<div class="buttons-group">' +
-                            '<button class="start-stop-button start"></button>' +
-                            '<button class="reset-button"></button>' +
-                            '<button class="mark-button"></button>' +
-                            '<button class="clear-marks-button"></button>' +
+                        '<div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-center align-items-center">' +
+                            '<div class="counter">00:00:00</div>' +
                         '</div>' +
-                      '</div>' +
-                      '<div class="col-xs-4 col-sm-4 col-md-6 col-lg-7">' +
-                        '<div class="marks"></div>' +
-                        '<button class="remove"></button>' +
-                      '</div>' +
+                        '<div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-center align-items-center">' +
+                            '<div class="buttons-group">' +
+                                '<button class="start-stop-button start" title="Start"></button>' +
+                                '<button class="reset-button" title="Reset"></button>' +
+                                '<button class="mark-button" title="Mark"></button>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-sm-5 col-md-5 col-lg-5 d-flex align-items-center justify-content-center">' +
+                            '<div class="marks"></div>' +
+                        '</div>' +
+                        '<div class="col-sm-1 col-md-1 col-lg-1 d-flex justify-content-center align-items-center p-0">' +
+                            '<button class ="remove" title="Remove"></button>' +
+                        '</div>' +
                     '</div>' +
                 '</div>';
 
@@ -90,11 +91,6 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                 that.onMarkClicked();
             };
 
-            this.clearButton = this.elem.querySelector('.clear-marks-button');
-            this.clearButton.onclick = function () {
-                that.onClearMarksClicked();
-            };
-
             this.removeButton = this.elem.querySelector('.remove');
             this.removeButton.onclick = function () {
                 that.onRemoveClicked();
@@ -105,9 +101,16 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             if (!this.running) {
                 this.running = true;
                 this.tick();
+                this.startStopButton = this.elem.querySelector('.start-stop-button');
+                this.startStopButton.title="Stop";
+                this.resetButton = this.elem.querySelector('.reset-button');
+                this.resetButton.disabled = true;
             }
             else {
                 this.running = false;
+                this.startStopButton.title="Start";
+                this.resetButton = this.elem.querySelector('.reset-button');
+                this.resetButton.disabled = false;
             }
             this.updateButtons();
         };
@@ -123,14 +126,16 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
                 this.running = false;
             }
             this.updateView();
+            this.onClearMarksClicked();
         };
 
         Stopwatch.prototype.onMarkClicked = function () {
             if (this.marks.length >= 10) {
                 this.marks.shift();
             }
-            this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' +
-                            pad(this.tenthsOfSecond));
+            if(pad(this.minutes)!=00||pad(this.seconds)!=00||pad(this.tenthsOfSecond)!=00) {
+                this.marks.push(pad(this.minutes) + ':' + pad(this.seconds) + ':' + pad(this.tenthsOfSecond));
+            }
             this.updateMarks();
         };
 

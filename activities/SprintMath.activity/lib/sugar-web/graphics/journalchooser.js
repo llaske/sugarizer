@@ -120,7 +120,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
 		}
 		contentHeader += "<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>";
-		contentHeader += "<div style='position: relative; display: inline-block; margin-left: 10px; vertical-align:middle; height:55px'>$titleChoose</div></div>";
+		contentHeader += "<div style='position: absolute; display: inline-block; margin-left: 10px; top: 20px; height:55px'>$titleChoose</div></div>";
 		modal = picoModal({
 			content: doLocalize(contentHeader+"\
 				<div class='toolbar' style='border-top-style: solid; border-color: #c0c0c0; border-width: 1px'>\

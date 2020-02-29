@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity,wl10n, palette,presencepalette,datastore,chooser) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial","sugar-web/env"], function (activity,l10n_s, palette,presencepalette,datastore,chooser,tutorial,env) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -6,6 +6,12 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
         // Initialize the activity.
 		activity.setup();
+
+    	env.getEnvironment(function(err, environment) {
+    		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+    		var language = environment.user ? environment.user.language : defaultLanguage;
+    		l10n_s.language.code = language;
+    	});
 
 		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
 		//sanitize html messages
@@ -37,8 +43,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var messageContent = document.getElementById('content');
         var imageUpload = document.getElementById('image-upload');
 
-	document.getElementById("status").innerHTML = l10n_s.get("status");
-	messageField.placeholder = l10n_s.get("WriteYourMessage");
+        window.addEventListener("localized", function() {
+            document.getElementById("status").innerHTML = l10n_s.get("status");
+            messageField.placeholder = l10n_s.get("WriteYourMessage");
+        });
 
 	    var userSettings = null;
 
@@ -225,6 +233,9 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
               }
 
             }
+            document.getElementById("help-button").addEventListener('click', function(e) {
+				tutorial.start();
+		});
     });
 
 });
