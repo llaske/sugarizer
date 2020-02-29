@@ -66,7 +66,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a fullscreen button in the FoodChain activity #598
 - Add a fullscreen button to the Video Viewer activity #600
 - Add a tutorial to the TankOp activity #597
-- Add a tutorial to the Chat activity #594 
+- Add a tutorial to the Chat activity #594
+- Add a tutorial to the Block Rain activity #593
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -125,6 +126,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Time laps in stopwatch activity should be reset when reset button is clicked #624
 - Unnecessary display of time lapse when stopwatch not started #638
 - Stop Watch Activity is not responsive and has text overflowing problem #604
+- Wrong text appears upon hovering on buttons in Blockrain activity #627
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
