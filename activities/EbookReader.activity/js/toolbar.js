@@ -22,9 +22,10 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringEbookReaderActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 
-			<toolbar-item ref="switchbutton" v-on:clicked="getApp().showContents()" class="toolbutton" id="contents-button" v-bind:title="l10n.stringContents" v-if="showContentsBtn()"></toolbar-item>
 			<toolbar-item ref="switchbutton" v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" v-bind:title="l10n.stringLibrary"></toolbar-item>
 			<div class="splitbar"></div>
+			<toolbar-item ref="contentsbutton" v-on:clicked="getApp().showContents()" class="toolbutton" id="contents-button" v-bind:title="l10n.stringContents" v-if="showContentsBtn()"></toolbar-item>
+			<div class="splitbar" v-if="showContentsBtn()"></div>
 			<toolbar-item ref="settings" v-on:clicked="getApp().setLibraryUrl()" class="toolbutton" id="settings-button" v-bind:title="l10n.stringSettings"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
