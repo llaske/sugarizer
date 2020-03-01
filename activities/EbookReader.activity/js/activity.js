@@ -118,7 +118,6 @@ var app = new Vue({
 		},
 
 		showContents: function() {
-			// console.log(this.currentEpub.contents, this.$refs.view);
 			this.$refs.view.goToPage(this.currentEpub.contents);
 		},
 
