@@ -37,6 +37,7 @@ var wordsArr = [
  'Postcard',
  'Stamps',
  'Spring',
+ 'Summer',
  'Autumn',
  'Winter',
  'Coffee',

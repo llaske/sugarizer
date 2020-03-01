@@ -8,7 +8,7 @@
 @font-face {
     font-family: 'ds_moster';
     font-weight: 250;
-    src: local('ds_moster'), url('../fonts/ds_moster.ttf');
+    src: url('../fonts/Lagunas-9a95.ttf');
 }
 
 #main-toolbar #activity-button {

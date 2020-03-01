@@ -1,0 +1,540 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Mar 01 2020 22:11:54 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Play
+msgctxt "Play"
+msgid "Play"
+msgstr "Jouer"
+
+#: Credits
+msgctxt "Credits"
+msgid "Credits"
+msgstr "Crédits"
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr "Paramètres"
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr "Quitter"
+
+#: Word
+msgctxt "Word"
+msgid "Word"
+msgstr "Mot"
+
+#: Dictionary
+msgctxt "Dictionary"
+msgid "Dictionary"
+msgstr "Dictionnaire"
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr "Ajouter"
+
+#: DeleteAll
+msgctxt "DeleteAll"
+msgid "DeleteAll"
+msgstr "Supprimer tout"
+
+#: Save
+msgctxt "Save"
+msgid "Save"
+msgstr "Enregistrer"
+
+#: Reset
+msgctxt "Reset"
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: Return
+msgctxt "Return"
+msgid "Return"
+msgstr "Retourner"
+
+#: Yes
+msgctxt "Yes"
+msgid "Yes"
+msgstr "Oui"
+
+#: Thanks
+msgctxt "Thanks"
+msgid "Thanks"
+msgstr "Merci"
+
+#: favor
+msgctxt "favor"
+msgid "Please"
+msgstr "Pardon"
+
+#: Day
+msgctxt "Day"
+msgid "Day"
+msgstr "Jour"
+
+#: Afternoon
+msgctxt "Afternoon"
+msgid "Afternoon"
+msgstr "Midi"
+
+#: Night
+msgctxt "Night"
+msgid "Night"
+msgstr "Nuit"
+
+#: Goodbye
+msgctxt "Goodbye"
+msgid "Goodbye"
+msgstr "Bonjour"
+
+#: Woman
+msgctxt "Woman"
+msgid "Woman"
+msgstr "Femme"
+
+#: Museum
+msgctxt "Museum"
+msgid "Museum"
+msgstr "Musée"
+
+#: Bank
+msgctxt "Bank"
+msgid "Bank"
+msgstr "Banque"
+
+#: Hospital
+msgctxt "Hospital"
+msgid "Hospital"
+msgstr "Hôpital"
+
+#: Pharmacy
+msgctxt "Pharmacy"
+msgid "Pharmacy"
+msgstr "Pharmacie"
+
+#: Store
+msgctxt "Store"
+msgid "Store"
+msgstr "Magasin"
+
+#: restaurant
+msgctxt "restaurant"
+msgid "restaurant"
+msgstr "Restaurant"
+
+#: Church
+msgctxt "Church"
+msgid "Church"
+msgstr "Eglise"
+
+#: WC
+msgctxt "WC"
+msgid "WC"
+msgstr "Toilette"
+
+#: Beach
+msgctxt "Beach"
+msgid "Beach"
+msgstr "Plage"
+
+#: Street
+msgctxt "Street"
+msgid "Street"
+msgstr "Rue"
+
+#: Pool
+msgctxt "Pool"
+msgid "Pool"
+msgstr "Piscine"
+
+#: Omnibus
+msgctxt "Omnibus"
+msgid "Omnibus"
+msgstr "Bus"
+
+#: Airport
+msgctxt "Airport"
+msgid "Airport"
+msgstr "Aéroport"
+
+#: Train
+msgctxt "Train"
+msgid "Train"
+msgstr "Train"
+
+#: Taxi
+msgctxt "Taxi"
+msgid "Taxi"
+msgstr "Taxi"
+
+#: Car
+msgctxt "Car"
+msgid "Car"
+msgstr "Voiture"
+
+#: Parking
+msgctxt "Parking"
+msgid "Parking"
+msgstr "Parking"
+
+#: Match
+msgctxt "Match"
+msgid "Match"
+msgstr "Match"
+
+#: Arrival
+msgctxt "Arrival"
+msgid "Arrival"
+msgstr "Arrivée"
+
+#: Money
+msgctxt "Money"
+msgid "Money"
+msgstr "Argent"
+
+#: Coins
+msgctxt "Coins"
+msgid "Coins"
+msgstr "Pièce"
+
+#: Rate
+msgctxt "Rate"
+msgid "Rate"
+msgstr "Taux"
+
+#: Receipt
+msgctxt "Receipt"
+msgid "Receipt"
+msgstr "Ticket"
+
+#: expensive
+msgctxt "expensive"
+msgid "expensive"
+msgstr "Dépense"
+
+#: Cheap
+msgctxt "Cheap"
+msgid "Cheap"
+msgstr "Cher"
+
+#: Open
+msgctxt "Open"
+msgid "Open"
+msgstr "Ouvert"
+
+#: Closed
+msgctxt "Closed"
+msgid "Closed"
+msgstr "Fermé"
+
+#: Postcard
+msgctxt "Postcard"
+msgid "Postcard"
+msgstr "Carte"
+
+#: Stamps
+msgctxt "Stamps"
+msgid "Stamps"
+msgstr "Timbre"
+
+#: Spring
+msgctxt "Spring"
+msgid "Spring"
+msgstr "Printemps"
+
+#: Summer
+msgctxt "Summer"
+msgid "Summer"
+msgstr "été"
+
+#: Autumn
+msgctxt "Autumn"
+msgid "Autumn"
+msgstr "Automne"
+
+#: Winter
+msgctxt "Winter"
+msgid "Winter"
+msgstr "Hiver"
+
+#: Coffee
+msgctxt "Coffee"
+msgid "Coffee"
+msgstr "Café"
+
+#: Dinner
+msgctxt "Dinner"
+msgid "Jantar"
+msgstr "Diner"
+
+#: Account
+msgctxt "Account"
+msgid "Account"
+msgstr "Compte"
+
+#: Napkin
+msgctxt "Napkin"
+msgid "Napkin"
+msgstr "Serviette"
+
+#: Cup
+msgctxt "Cup"
+msgid "Cup"
+msgstr "Tasse"
+
+#: Dish
+msgctxt "Dish"
+msgid "Dish"
+msgstr "Assiette"
+
+#: Fork
+msgctxt "Fork"
+msgid "Fork"
+msgstr "Fourchette"
+
+#: Knife
+msgctxt "Knife"
+msgid "Knife"
+msgstr "Couteau"
+
+#: Spoon
+msgctxt "Spoon"
+msgid "Spoon"
+msgstr "Cuillère"
+
+#: Table
+msgctxt "Table"
+msgid "Table"
+msgstr "Table"
+
+#: Chair
+msgctxt "Chair"
+msgid "Chair"
+msgstr "Chaise"
+
+#: Left
+msgctxt "Left"
+msgid "Left"
+msgstr "Gauche"
+
+#: Right
+msgctxt "Right"
+msgid "Right"
+msgstr "Droite"
+
+#: Front
+msgctxt "Front"
+msgid "Front"
+msgstr "Devant"
+
+#: Up
+msgctxt "Up"
+msgid "Up"
+msgstr "Haut"
+
+#: Low
+msgctxt "Low"
+msgid "Low"
+msgstr "Bas"
+
+#: Far
+msgctxt "Far"
+msgid "Far"
+msgstr "Loin"
+
+#: Near
+msgctxt "Near"
+msgid "Near"
+msgstr "Proche"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Rules"
+msgstr "Règles"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Collect the letters of the target word shown in top left in correct order. Warning: you have to move without getting drowned in ponds!"
+msgstr "Récupérer dans le bon ordre les lettres du mot affiché en haut à gauche. Attention: vous devez vous déplacer sans tomber dans les mares !"
+
+#: TutoHomeTitle
+msgctxt "TutoHomeTitle"
+msgid "Menu"
+msgstr "Menu"
+
+#: TutoHomeContent
+msgctxt "TutoHomeContent"
+msgid "Click Play to start the game, click Settings to customize the list of words"
+msgstr "Cliquez sur Jouer pour démarrer le jeu, cliquez sur Paramètres pour personnaliser la liste des mots"
+
+#: TutoWelcomeTitle
+msgctxt "TutoWelcomeTitle"
+msgid "Falabracman activity"
+msgstr "Activité Falabracman"
+
+#: TutoWelcomeContent
+msgctxt "TutoWelcomeContent"
+msgid "Welcome in the Falabracman activity. Falabracman is an addictive game where you should collect letter to build words"
+msgstr "Bienvenue dans l'activité Falabracman. Falabracman est un jeu addictif où vous devez récupérer les lettres pour construire des mots"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Go to Home"
+msgstr "Retour à l'accueil"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to go back to home and restart the game"
+msgstr "Cliquez ici pour retourner sur la page d'accueil et recommencer le jeu"
+
+#: TutoGameTitle
+msgctxt "TutoGameTitle"
+msgid "Move"
+msgstr "Déplacement"
+
+#: TutoGameContent
+msgctxt "TutoGameContent"
+msgid "Use keyboard arrows or drag mouse in a direction to move the falabracman. Falabracman can only move in four directions i.e. NORTH, EAST, WEST, SOUTH"
+msgstr "Utilisez les flèches du clavier pour déplacer le falabracman dans la direction souhaitée. Falabracman peut se déplacer uniquement dans les quatres directions i.e. NORD, EST, OUEST, SUD"
+
+#: TutoSettingTitle
+msgctxt "TutoSettingTitle"
+msgid "Dictionary Settings"
+msgstr "Paramètres"
+
+#: TutoSettingContent
+msgctxt "TutoSettingContent"
+msgid "In this screen, you can make your own custom dictionary of words"
+msgstr "Sur cet écran, vous pouvez personnaliser les mots du dictionnaire"
+
+#: TutoDictTitle
+msgctxt "TutoDictTitle"
+msgid "Words"
+msgstr "Mots"
+
+#: TutoDictContent
+msgctxt "TutoDictContent"
+msgid "Here the current list of words in the dictionary. You could filter this list by typing text in the word-bar"
+msgstr "Ici se trouve la liste actuelle des mots dans le dictionnaire. Vous pouvez filtrer la liste en saisissant du texte dans la barre"
+
+#: TutoWordInputTitle
+msgctxt "TutoWordInputTitle"
+msgid "Word-Bar"
+msgstr "Barre"
+
+#: TutoWordInputContent
+msgctxt "TutoWordInputContent"
+msgid "Enter the word which you want to search or add or delete or edit"
+msgstr "Entrez le mot que vous voulez chercher, ajouter, supprimer ou modifier"
+
+#: TutoAddWordTitle
+msgctxt "TutoAddWordTitle"
+msgid "Add word"
+msgstr "Ajouter mot"
+
+#: TutoAddWordContent
+msgctxt "TutoAddWordContent"
+msgid "Click this button to add word you have entered in your word-bar"
+msgstr "Cliquez ce bouton pour ajouter le mot que vous avez saisi dans la barre"
+
+#: TutoDeleteAllWordsTitle
+msgctxt "TutoDeleteAllWordsTitle"
+msgid "Delete All"
+msgstr "Supprimer tout"
+
+#: TutoDeleteAllWordsContent
+msgctxt "TutoDeleteAllWordsContent"
+msgid "Click this button to delete all words. Only one default word will be there after this"
+msgstr "Cliquez ce bouton pour supprimer tous les mots. Un seul mot par défaut sera dans le dictionnaire après ça"
+
+#: TutoSaveDictTitle
+msgctxt "TutoSaveDictTitle"
+msgid "Save"
+msgstr "Enregistrer"
+
+#: TutoSaveDictContent
+msgctxt "TutoSaveDictContent"
+msgid "Click this button to save changes you have made. Without clicking this button your changes will get lost"
+msgstr "Cliquez ce bouton pour enregistrer les changements que vous avez fait. Si vous ne le faite pas, tous vos changements seront perdus"
+
+#: TutoResetDictTitle
+msgctxt "TutoResetDictTitle"
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: TutoResetDictContent
+msgctxt "TutoResetDictContent"
+msgid "Click this button to reset the dictionary to the default one"
+msgstr "Cliquez ce bouton pour réinitialiser le dictionnaire à sa valeur par défaut"
+
+#: TutoReturnTitle
+msgctxt "TutoReturnTitle"
+msgid "Return"
+msgstr "Retourner"
+
+#: TutoReturnContent
+msgctxt "TutoReturnContent"
+msgid "Click this button to Return to Home Screen"
+msgstr "Cliquez sur ce bouton pour Retourner à l'Ecran d'accueil"
+
+#: TutoAddStepTitle
+msgctxt "TutoAddStepTitle"
+msgid "Steps To Add new Word"
+msgstr "Etapes pour Ajouter un nouveau mot"
+
+#: TutoAddStepContent
+msgctxt "TutoAddStepContent"
+msgid "(1) Enter the word in word-bar (2) Click Add (3) Click Save"
+msgstr "(1) Entrez le mot dans la barre (2) Cliquez Ajouter (3) Cliquez Enregistrer"
+
+#: TutoDeleteStepTitle
+msgctxt "TutoDeleteStepTitle"
+msgid "Steps To Delete an existing Word"
+msgstr "Etapes pour Supprimer un mot existant"
+
+#: TutoDeleteStepContent
+msgctxt "TutoDeleteStepContent"
+msgid "(1) Enter the word in word-bar (2) Click the delete icon in dictionary section (3) Click Save"
+msgstr "(1) Entrez le mot dans la barre (2) Cliquez l'icône Supprimer dans le dictionnaire (3) Cliquez Enregistrer"
+
+#: TutoEditStepTitle
+msgctxt "TutoEditStepTitle"
+msgid "Steps To Edit an existing Word"
+msgstr "Etapes pour Modifier un mot existant"
+
+#: TutoEditStepContent
+msgctxt "TutoEditStepContent"
+msgid "(1) Enter the word in word-bar (2) Click the edit icon in dictionary section (3) Write the new edited word in word-bar (4) Click 'okay icon (5) Click Save"
+msgstr "(1) Entrez le mot dans la barre (2) Cliquez l'icône Modifier dans le dictionnaire (3) Ecrire le mot modifié (4) Cliquez l'icône OK (5) Cliquez Enregistrer"
+

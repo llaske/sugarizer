@@ -42,6 +42,13 @@ define(["webL10n"], function(l10n) {
         element: "",
         orphan: true,
         placement: "bottom",
+        title: l10n.get("TutoWelcomeTitle"),
+        content: l10n.get("TutoWelcomeContent")
+      },
+      {
+        element: "",
+        orphan: true,
+        placement: "bottom",
         onNext: function() {
           tour.end();
         },
@@ -93,32 +100,32 @@ define(["webL10n"], function(l10n) {
           content: l10n.get("TutoResetDictContent")
         },
         {
-          element: "#restart-button",
-          placement: "bottom",
-          title: l10n.get("TutoReturnTitle"),
-          content: l10n.get("TutoReturnContent")
-        },
-        {
           element: "",
           orphan: true,
           placement: "bottom",
           title: l10n.get("TutoAddStepTitle"),
           content: l10n.get("TutoAddStepContent")
         },
-				{
+        {
           element: "",
           orphan: true,
           placement: "bottom",
           title: l10n.get("TutoEditStepTitle"),
           content: l10n.get("TutoEditStepContent")
         },
-				{
+        {
           element: "",
           orphan: true,
           placement: "bottom",
           title: l10n.get("TutoDeleteStepTitle"),
-          content: l10n.get("TutoDeleteStepContent"),
-					onNext: function() {
+          content: l10n.get("TutoDeleteStepContent")
+        },
+        {
+          element: "#restart-button",
+          placement: "bottom",
+          title: l10n.get("TutoReturnTitle"),
+          content: l10n.get("TutoReturnContent"),
+          onNext: function() {
             tour.end();
           }
         }
