@@ -22,7 +22,7 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringEbookReaderActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 
-			<toolbar-item ref="switchbutton" v-on:clicked="getApp().showContents()" class="toolbutton" id="contents-button" v-bind:title="l10n.stringContents" v-if="getApp().currentView == getReader()"></toolbar-item>
+			<toolbar-item ref="switchbutton" v-on:clicked="getApp().showContents()" class="toolbutton" id="contents-button" v-bind:title="l10n.stringContents" v-if="showContentsBtn()"></toolbar-item>
 			<toolbar-item ref="switchbutton" v-on:clicked="getApp().switchView()" class="toolbutton" id="library-button" v-bind:title="l10n.stringLibrary"></toolbar-item>
 			<div class="splitbar"></div>
 			<toolbar-item ref="settings" v-on:clicked="getApp().setLibraryUrl()" class="toolbutton" id="settings-button" v-bind:title="l10n.stringSettings"></toolbar-item>
@@ -52,6 +52,11 @@ var Toolbar = {
 			Object.keys(this.l10n).forEach(function(key, index) {
 				vm.l10n[key] = localization.get(key.substr(6));
 			});
+		},
+
+		showContentsBtn: function() {
+			if(typeof this.getApp() == 'undefined') return false;
+			return this.getApp().currentView == this.getReader();
 		},
 
 		getApp: function() {
