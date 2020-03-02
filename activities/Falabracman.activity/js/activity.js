@@ -61,52 +61,51 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       window.addEventListener('localized', function() {
         document.getElementById('WordHeading').innerHTML = webL10n.get('Word');
         document.getElementById('DictHeading').innerHTML = webL10n.get('Dictionary');
-      });
 
-      //load from datastore
-      if (!environment.objectId) {
-        console.log("New instance");
         resources.onReady(function() {
-          display = 'homeScreen';
-          game.main();
-        });
-      } else {
+          if (!environment.objectId) {
+            console.log("New instance");
+            display = 'homeScreen';
+            game.main();
+          } else {
+            //load from datastore
+            activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+              if (error == null && data != null) {
 
-        activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-          if (error == null && data != null) {
+                game.customDict = data.customDict;
+                game.useCustomDict = data.useCustomDict;
+                if (game.useCustomDict) {
+                  paladict.changeDict(data.customDict);
+                }
 
-            game.customDict = data.customDict;
-            game.useCustomDict = data.useCustomDict;
-            if (game.useCustomDict) {
-              paladict.changeDict(data.customDict);
-            }
-
-            if (data.playScreen) {
-              game.playScreen = true;
-              display = 'playScreen';
-              game.homeScreen = false;
-              game.obstacles = data.obstacles;
-              game.playerX = data.playerX;
-              game.playerY = data.playerY;
-              game.lives = data.lives;
-              game.targetWordLetters = data.targetWordLetters;
-              game.targetWord = data.targetWord;
-              game.prevCanvasWidth = data.prevCanvasWidth;
-              game.prevCanvasHeight = data.prevCanvasHeight;
-              game.resizeGame(canvas.width, canvas.height);
-              if (!game.useCustomDict) {
-                game.initializeCustomDict();
+                if (data.playScreen) {
+                  game.playScreen = true;
+                  display = 'playScreen';
+                  game.homeScreen = false;
+                  game.obstacles = data.obstacles;
+                  game.playerX = data.playerX;
+                  game.playerY = data.playerY;
+                  game.lives = data.lives;
+                  game.targetWordLetters = data.targetWordLetters;
+                  game.targetWord = data.targetWord;
+                  game.prevCanvasWidth = data.prevCanvasWidth;
+                  game.prevCanvasHeight = data.prevCanvasHeight;
+                  game.resizeGame(canvas.width, canvas.height);
+                  if (!game.useCustomDict) {
+                    game.initializeCustomDict();
+                  }
+                  game.run();
+                } else {
+                  game.homeScreen = true;
+                  display = 'homeScreen';
+                  game.playScreen = false;
+                  game.main();
+                }
               }
-              game.run();
-            } else {
-              game.homeScreen = true;
-              display = 'homeScreen';
-              game.playScreen = false;
-              game.main();
-            }
+            })
           }
-        })
-      }
+        });
+      });
     });
 
     var startPoint = {
