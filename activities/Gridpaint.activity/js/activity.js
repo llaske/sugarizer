@@ -67,37 +67,18 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 		});
 
 		
-
-		function computeSize() {
-			var wsize = document.body.clientHeight;
-			zoom = wsize/748;
-			var bottomMargin = (document.body.clientWidth-1024*zoom);
-			document.getElementById("frame").style.marginBottom = bottomMargin+"px";
-			var setTransform = function(element) {
-				element.style.transform = "scale("+zoom+","+zoom+")";
-				//helps in centering the canvas imp here
-				element.style.transformOrigin = "50% 50%";
-				//manipulates size of main frame imp here
-				element.style.width = "1024px";
-				element.style.height = "748px";
-			}
-			setTransform(document.getElementById("gridcnv"));
-			setTransform(document.getElementById("hitbuffer"));
-			setTransform(document.getElementById("thumbframe"));
-		}
-		
         // Full screen
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.display = "none";
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			computeSize();
+			events.computeSize();
 		});
 		document.getElementById("unfullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.display = "block";
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			computeSize();
+			events.computeSize();
   
 		});
 
