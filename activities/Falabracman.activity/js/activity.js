@@ -77,7 +77,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
             game.customDict = data.customDict;
             game.useCustomDict = data.useCustomDict;
-            paladict.changeDict(data.customDict);
+            if (game.useCustomDict) {
+              paladict.changeDict(data.customDict);
+            }
 
             if (data.playScreen) {
               game.playScreen = true;
