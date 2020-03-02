@@ -27,7 +27,7 @@
 		<toolbar ref="toolbar"></toolbar>
 
 		<div id="canvas">
-			<chess-template ref="chesstemplate" v-bind:single-player="true" v-bind:currentpgn="currentpgn" />
+			<chess-template ref="chesstemplate" v-bind:opponent="opponent" v-bind:spectator="spectator" v-bind:currentpgn="currentpgn" v-bind:presence="presence" v-bind:currentcolor="currentcolor" />
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
@@ -38,7 +38,6 @@
 
 	<script src="js/l10n.js"></script>
 	<script src="js/tutorial.js"></script>
-	<script src="js/database.js"></script>
 	<script src="js/engine.js"></script>
 	<script src="js/display.js"></script>
 	<script src="js/chess-template.js"></script>

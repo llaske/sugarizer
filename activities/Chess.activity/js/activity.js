@@ -16,9 +16,12 @@ let app = new Vue({
 	data: {
 		currentUser: null,
 		isHost: false,
-		presense: null,
+		presence: null,
 		palette: null,
 		currentpgn: null,
+		currentcolor: 'w',
+		opponent: null,
+		spectator: false
 	},
 
 	created: function() {
@@ -49,6 +52,19 @@ let app = new Vue({
 						}
 					});
 				}
+
+				// Shared instances
+				if (environment.sharedId) {
+					console.log("Shared instance");
+					vm.presence = activity.getPresenceObject(function(error, network) {
+						if(error) {
+							console.log(error);
+						}
+						console.log('Presence created');
+						network.onDataReceived(vm.onNetworkDataReceived);
+						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
+					});
+				}
 			});
 
 			vm.palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
@@ -60,10 +76,11 @@ let app = new Vue({
 						console.log("Sharing error");
 						return;
 					}
-					network.createSharedActivity('org.sugarlabs.Pawn', function(groupId) {
+					network.createSharedActivity('org.sugarlabs.Chess', function(groupId) {
 						console.log("Activity shared");
 						vm.isHost = true;
 					});
+					console.log('presence created', vm.presence);
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 				});
@@ -115,10 +132,28 @@ let app = new Vue({
 
 		restartGame: function() {
 			this.$refs.chesstemplate.startNewGame();
+			// presence
+			if (this.opponent && this.presence) {
+				this.presence.sendMessage(this.presence.sharedInfo.id, {
+					user: this.presence.getUserInfo(),
+					content: {
+						action: 'restart',
+					}
+				});
+			}
 		},
 	
 		undo: function() {
 			this.$refs.chesstemplate.undo();
+			// presence
+			if (this.opponent && this.presence) {
+				this.presence.sendMessage(this.presence.sharedInfo.id, {
+					user: this.presence.getUserInfo(),
+					content: {
+						action: 'undo',
+					}
+				});
+			}
 		},
 
 		onZoom: function(item) {
@@ -126,26 +161,6 @@ let app = new Vue({
 			if (vm.currentView === Player) {
 				vm.$refs.view.doZoom(item.detail);
 			}
-		},
-
-		onInsertImage: function() {
-			var vm = this;
-			if (vm.currentView !== TemplateViewer || !vm.$refs.view.editMode) {
-				return;
-			}
-			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
-				setTimeout(function() {
-					journalchooser.show(function(entry) {
-						if (!entry) {
-							return;
-						}
-						var dataentry = new datastore.DatastoreObject(entry.objectId);
-						dataentry.loadAsText(function(err, metadata, data) {
-							vm.currentTemplate.images.push({image: data});
-						});
-					}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
-				}, 0);
-			});
 		},
 
 		onHelp: function() {
@@ -174,21 +189,70 @@ let app = new Vue({
 			this.$refs.tutorial.show(options);
 		},
 
-		onNetworkDataReceived: function() {
-			if (presence.getUserInfo().networkId === msg.user.networkId) {
+		onNetworkDataReceived: function(msg) {
+			let vm = this;
+			if (vm.presence.userInfo.networkId === msg.user.networkId) {
 				return;
+			}
+			console.log(msg.content);
+			switch (msg.content.action) {
+				case 'init':
+					this.currentpgn = msg.content.gamePGN;
+					this.opponent = msg.user.networkId;
+					this.currentcolor = 'b';
+					break;
+				case 'move':
+					console.log('move received', msg.content.move);
+					this.$refs.chesstemplate.onDrop(msg.content.move.from, msg.content.move.to);
+					this.$refs.chesstemplate.onSnapEnd();
+					break;
+				case 'restart':
+					console.log('restart received');
+					this.$refs.chesstemplate.startNewGame();
+					break;
+				case 'undo':
+					console.log('undo received');
+					this.$refs.chesstemplate.undo();
+					break;
+				// case 'spectate':
+				// 	console.log('spectator');
+				// 	this.currentpgn = msg.content.gamePGN;
+				// 	this.spectator = true;
+				// 	break;
 			}
 		},
 
-		onNetworkUserChanged: function() {
-			if (this.isHost) {
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
-						action: 'init',
-						data: pawns
+		onNetworkUserChanged: function(msg) {
+			let vm = this;
+			if(this.opponent == null) {
+				if (this.isHost) {
+					this.presence.sendMessage(this.presence.getSharedInfo().id, {
+						user: vm.presence.getUserInfo(),
+						content: {
+							action: 'init',
+							gamePGN: vm.$refs.chesstemplate.game.pgn()
+						}
+					});
+				}
+			}
+			// Spectator functionality
+
+			// 	this.presence.sendMessage(this.presence.getSharedInfo().id, {
+			// 		user: vm.presence.getUserInfo(),
+			// 		content: {
+			// 			action: 'spectate'
+			// 		}
+			// 	});
+
+			console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"), msg.user);
+			if(this.presence.userInfo.networkId != msg.user.networkId) {
+				if(msg.move == 1) this.opponent = msg.user.networkId;
+				else {
+					if(msg.user.networkId == this.opponent) {
+						this.opponent = null;
+						vm.currentcolor = 'w';
 					}
-				});
+				}
 			}
 		},
 

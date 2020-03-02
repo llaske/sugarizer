@@ -45,7 +45,7 @@ var Toolbar = {
 	components: {'toolbar-item': ToolbarItem},
 	template: `
 		<div id="main-toolbar" class="toolbar">
-			<toolbar-item id="activity-button" v-bind:title="l10n.stringCalligraActivity"></toolbar-item>
+			<toolbar-item id="activity-button" v-bind:title="l10n.stringChessActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			
 			<toolbar-item ref="restartBtn" id="restart-button" v-on:clicked="getApp().restartGame()" v-bind:title="l10n.stringRestart"></toolbar-item>
@@ -61,13 +61,14 @@ var Toolbar = {
 	data: function() {
 		return {
 			l10n: {
-				stringCalligraActivity: '',
+				stringChessActivity: '',
 				stringTemplate: '',
 				stringRestart: '',
 				stringLines: '',
 				stringZoom: '',
 				stringInsertImage: '',
 				stringHelp: '',
+				stringUndo: '',
 				stringFullscreen: '',
 				stringNetwork: '',
 			}

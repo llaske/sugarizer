@@ -2,6 +2,7 @@
 let ChessTemplate = {
 	template: `
 		<div class="chess-container">
+			<div class="greeting">{{ greetingText }}</div>
 			<div id="chessboard"></div>
 			<div class="chess-info">
 				<div class="status-container">
@@ -20,14 +21,16 @@ let ChessTemplate = {
 			</div>
 		</div>
 	`,
-	props: ['singlePlayer', 'currentpgn'],
+	props: ['opponent', 'spectator', 'currentpgn', 'presence', 'currentcolor'],
 	data: function() {
 		return {
 			game: null,
 			board: null,
 			gameAI: null,
-			whiteSquareGrey: "#a9a9a9",
-			blackSquareGrey: '#696969',
+			whiteSquareGrey: "#7b98ed",
+			blackSquareGrey: '#476bd6',
+			// whiteSquareGrey: "#a9a9a9",
+			// blackSquareGrey: '#696969',
 			legalMoves: [],
 			status: 'White to move',
 			checkText: '',
@@ -38,6 +41,16 @@ let ChessTemplate = {
 		}
 	},
 	computed: {
+		greetingText: function() {
+			let text;
+			if(this.spectator) {
+				return "You are a spectator."
+			}
+			text = "Playing against";
+			text += this.opponent != null ? " Player." : " Computer.";
+			text += this.currentcolor == 'w' ? " You are White." : " You are Black.";
+			return text;
+		},
 		pgnModified: function() {
 			let a = [];
 			for(let i=2; i<this.pgn.length; i+=2) {
@@ -47,11 +60,18 @@ let ChessTemplate = {
 		}
 	},
 	watch: {
-		currentpgn: function(oldVal, newVal) {
-			console.log("gamePGN: ", this.currentpgn);
+		currentpgn: function(newVal, oldVal) {
 			this.game.load_pgn(this.currentpgn);
 			this.updateBoardAI();
 			this.updateStatus();
+		},
+		opponent: function(newVal, oldVal) {
+			if(newVal == null) {
+				if(this.game.turn() != this.currentcolor) {
+					this.computer_move();
+					this.board.position(this.game.fen());
+				}
+			}
 		}
 	},
 	mounted: function() {
@@ -125,6 +145,12 @@ let ChessTemplate = {
 		},
 		
 		onDragStart: function(source, piece) {
+			//spectator
+			if(this.spectator) return false;
+
+			// opponent's turn
+			if(this.game.turn() != this.currentcolor) return false;
+
 			// do not pick up pieces if the game is over
 			if (this.game.game_over()) return false
 		
@@ -153,10 +179,33 @@ let ChessTemplate = {
 			this.updateStatus();
 			this.gameAI.move(source, target);
 
-			if(this.singlePlayer) this.computer_move();
+			// let app = this.getApp();
+			if(this.opponent == null) {
+				this.computer_move();
+			}
+
+			// presence
+			if (this.opponent && this.presence) {
+				this.presence.sendMessage(this.presence.getSharedInfo().id, {
+					user: this.presence.getUserInfo(),
+					content: {
+						action: 'move',
+						move: {
+							from: source,
+							to: target
+						}
+					}
+				});
+			}
 		},
 		
 		onMouseoverSquare: function(square, piece) {
+			// spectator
+			if(this.spectator) return;
+
+			// opponent's turn
+			if(this.game.turn() != this.currentcolor) return;
+
 			// get list of possible moves for this square
 			this.legalMoves = this.game.moves({
 				square: square,
@@ -164,7 +213,7 @@ let ChessTemplate = {
 			})
 		
 			// exit if there are no moves available for this square
-			if (this.legalMoves.length === 0) return
+			if (this.legalMoves.length === 0) return;
 
 			let start = { to: square };
 			this.legalMoves.push(start);
@@ -234,7 +283,7 @@ let ChessTemplate = {
 		updatePgn: function() {
 			let vm = this;
 			let temp = ' ' + this.game.pgn();
-			this.pgn = temp.split(/( \d*\. )/);
+			this.pgn = temp.split(/(\s*\d*\. )/);
 			setTimeout(function() {
 				vm.scrollToBottom();
 			}, 100);
@@ -247,6 +296,10 @@ let ChessTemplate = {
 
 		pieceTheme: function(piece) {
 			return 'images/chesspieces/svg/' + piece + '.svg'
+		},
+
+		getApp: function() {
+			return app;
 		}
 	}
 };

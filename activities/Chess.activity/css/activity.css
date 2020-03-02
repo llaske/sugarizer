@@ -31,6 +31,15 @@ p {
 	padding: 20px;
 }
 
+.greeting {
+	width: 100%;
+	font-size: 1.5em;
+	font-weight: 400;
+	color: #2c2c2c;
+	text-align: center;
+	padding: 10px 0;
+}
+
 #chessboard {
 	width: 40%;
 }
@@ -104,10 +113,13 @@ p {
 	}
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 620px) {
 	.chess-container {
 		padding: 0;
 		max-height: 92vh;
+	}
+	.greeting {
+		font-size: 1.2em;
 	}
 	#chessboard {
 		width: 95%;
@@ -122,7 +134,7 @@ p {
 	}
 	.chess-info {
 		width: 100%;
-		padding: 10px 5px;
+		padding: 5px;
 		display: flex;
 		justify-content: space-around;
 	}
@@ -171,7 +183,7 @@ p {
 }
 
 #main-toolbar #undo-button {
-	background-image: url(../icons/go-left.svg);
+	background-image: url(../icons/edit-undo.svg);
 	outline: none;
 }
 
