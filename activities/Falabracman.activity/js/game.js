@@ -425,7 +425,6 @@ function Game(canvas, resources, paladict, webL10n) {
             _this.gameAudio.pause();
           } else {
             var tmp = _this.lives;
-            console.log(tmp);
             _this.reset(false, tmp);
           }
 

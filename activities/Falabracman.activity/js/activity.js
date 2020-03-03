@@ -64,7 +64,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
         resources.onReady(function() {
           if (!environment.objectId) {
-            console.log("New instance");
             display = 'homeScreen';
             game.main();
           } else {
