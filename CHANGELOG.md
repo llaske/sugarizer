@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Calligra activity
+- Falabracman activity
 - Tutorial step 9: integrate a tutorial
 - Add a fullscreen button in Gears activity #411
 - Add new Fonts for Write Activity
