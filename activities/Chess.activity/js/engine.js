@@ -699,7 +699,7 @@ function p4_findmove(state, level, colour, ep){
     p4_prepare(state);
     p4_optimise_piece_list(state);
     var board = state.board;
-    if (arguments.length == 2){
+    if (arguments.length == 2) {
         colour = state.to_play;
         ep = state.enpassant;
     }

@@ -1,5 +1,3 @@
-
-
 // Toolbar item
 var ToolbarItem = {
 	template: `
@@ -7,31 +5,31 @@ var ToolbarItem = {
 		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="isDisabled" v-bind:class="computeClass()" v-else/>
 	`,
 	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteClass', 'paletteFile', 'paletteEvent', 'disabled', 'active'],
-	data: function() {
+	data: function () {
 		return {
-			isDisabled: (this.disabled!==undefined),
-			isActive: (this.active!==undefined),
+			isDisabled: (this.disabled !== undefined),
+			isActive: (this.active !== undefined),
 			paletteObject: null
 		}
 	},
 	methods: {
-		onClick: function() {
+		onClick: function () {
 			this.$emit('clicked');
 		},
 
-		computeClass: function() {
-			return (this.toRight?'toolbutton pull-right':'toolbutton')+(this.isActive?' active':'');
+		computeClass: function () {
+			return (this.toRight ? 'toolbutton pull-right' : 'toolbutton') + (this.isActive ? ' active' : '');
 		}
 	},
 
-	mounted: function() {
+	mounted: function () {
 		// Create palette if present
 		var vm = this;
 		if (vm.id && vm.paletteClass && vm.paletteFile) {
-			requirejs([vm.paletteFile], function(palette) {
+			requirejs([vm.paletteFile], function (palette) {
 				vm.paletteObject = new palette[vm.paletteClass](document.getElementById(vm.id));
 				if (vm.paletteEvent) {
-					vm.paletteObject.addEventListener(vm.paletteEvent, function(event) {
+					vm.paletteObject.addEventListener(vm.paletteEvent, function (event) {
 						vm.$emit(vm.paletteEvent, event);
 					});
 				}
@@ -42,7 +40,7 @@ var ToolbarItem = {
 
 // Toolbar component
 var Toolbar = {
-	components: {'toolbar-item': ToolbarItem},
+	components: { 'toolbar-item': ToolbarItem },
 	template: `
 		<div id="main-toolbar" class="toolbar">
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringChessActivity"></toolbar-item>
@@ -50,6 +48,13 @@ var Toolbar = {
 			
 			<toolbar-item ref="restartBtn" id="restart-button" v-on:clicked="getApp().restartGame()" v-bind:title="l10n.stringRestart"></toolbar-item>
 			<toolbar-item ref="undoBtn" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
+			<toolbar-item ref="difficultyBtn" class="toolbutton" id="difficulty-button"
+				v-bind:title="l10n.stringDifficulty"
+				paletteFile="activity/palettes/difficultypalette"
+				paletteClass="DifficultyPalette"
+				paletteEvent="difficultySelected"
+				v-on:difficultySelected="getApp().onDifficultySelected($event)">
+			</toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			<toolbar-item ref="networkBtn" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
 
@@ -58,7 +63,7 @@ var Toolbar = {
 			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
 		</div>
 	`,
-	data: function() {
+	data: function () {
 		return {
 			l10n: {
 				stringChessActivity: '',
@@ -71,20 +76,17 @@ var Toolbar = {
 				stringUndo: '',
 				stringFullscreen: '',
 				stringNetwork: '',
+				stringDifficulty: ''
 			}
 		}
 	},
 	methods: {
-		localized: function(localization) {
+		localized: function (localization) {
 			localization.localize(this.l10n);
 		},
 
-		getApp: function() {
+		getApp: function () {
 			return app;
-		},
-		
-		getChessTemp: function() {
-			return ChessTemplate;
-		},
+		}
 	}
 }

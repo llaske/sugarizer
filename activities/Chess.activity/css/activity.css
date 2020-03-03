@@ -187,6 +187,11 @@ p {
 	outline: none;
 }
 
+#main-toolbar #difficulty-button {
+	background-image: url(../icons/robot-on.svg);
+	outline: none;
+}
+
 #main-toolbar #settings-button {
 	background-image: url(../icons/settings.svg);
 	outline: none;
@@ -265,8 +270,6 @@ p {
 }
 
 .palette .container {
-	padding-left: 5px;
-	padding-right: 0px;
 	box-sizing: initial;
 }
 
@@ -281,12 +284,12 @@ p {
 }
 
 #template-palette {
-	width: 70px;
+	width: fit-content;
 }
 
 .palette-item {
-	width: 55px;
-	height: 55px;
+	cursor: pointer;
+	padding: 10px;
 }
 
 .palette-item:hover {
@@ -374,118 +377,6 @@ p {
 	margin-right: 10px;
 }
 
-.editor-area {
-	display: inline-block;
-	margin-left: 50px;
-	margin-top: 25px;
-	background-color: white;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-.editor-goback {
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	height: 50px;
-	top: 10px;
-	left: 20px;
-	width: 50px;
-	background-color: white;
-	background-image: url(../icons/go-back-sel.svg);
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-.editor-goback:hover  {
-	background-image: url(../icons/go-back.svg);
-}
-
-.editor-miniletter {
-	 width: 100px;
-	 position: absolute;
-	 top: 80px;
-	 left: 0px;
-}
-
-.editor-start {
-	position: absolute;
-	top: 50px;
-	width: 30px;
-	height: 30px;
-	right: 70px;
-	background-image: url(../icons/route-start.svg);
-	background-size: contain;
-}
-
-.editor-add {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 40px;
-	height: 40px;
-	background-image: url(../icons/add.svg);
-	background-size: contain;
-}
-
-.editor-add:disabled {
-	background-color: lightgray;
-}
-
-.editor-remove {
-	position: absolute;
-	top: 70px;
-	right: 20px;
-	width: 40px;
-	height: 40px;
-	background-image: url(../icons/delete.svg);
-	background-size: contain;
-}
-
-.editor-remove:disabled {
-	background-color: lightgray;
-}
-
-.editor-path {
-	position: absolute;
-	top: 170px;
-	width: 30px;
-	height: 30px;
-	right: 70px;
-	background-image: url(../icons/route.svg);
-	background-size: contain;
-}
-
-.editor-addpath {
-	position: absolute;
-	top: 140px;
-	right: 20px;
-	width: 40px;
-	height: 40px;
-	background-image: url(../icons/add.svg);
-	background-size: contain;
-}
-
-.editor-addpath:disabled {
-	background-color: lightgray;
-}
-
-.editor-removepath {
-	position: absolute;
-	top: 190px;
-	right: 20px;
-	width: 40px;
-	height: 40px;
-	background-image: url(../icons/delete.svg);
-	background-size: contain;
-}
-
-.editor-removepath:disabled {
-	background-color: lightgray;
-}
-
 .player-restart {
 	position: absolute;
 	top: 70px;
@@ -510,21 +401,6 @@ p {
 	background-image: url(../icons/cursor.svg);
 	background-repeat: no-repeat;
 	background-size: contain;
-}
-
- #zoompalette {
-	 width: 200px;
- }
-
-.zoombuttons {
-	border: 0px;
-	background: #000000;
-	border-radius: 5.5px !important;
-}
-
-.zoombutton:active {
-	background-color: #808080;
-	border-radius: 5.5px !important;
 }
 
 .tutorial-icon-button {

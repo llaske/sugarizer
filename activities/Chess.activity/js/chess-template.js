@@ -6,6 +6,7 @@ let ChessTemplate = {
 			<div id="chessboard"></div>
 			<div class="chess-info">
 				<div class="status-container">
+					<p style="font-size: 10px; margin: 0" v-if="opponent == null">Level: {{ difficulty }}</p>
 					<p id="status">{{ status }}</p>
 					<p class="check">{{ checkText }}</p>
 				</div>
@@ -21,7 +22,7 @@ let ChessTemplate = {
 			</div>
 		</div>
 	`,
-	props: ['opponent', 'spectator', 'currentpgn', 'presence', 'currentcolor'],
+	props: ['opponent', 'spectator', 'currentpgn', 'level', 'humane', 'currentcolor'],
 	data: function() {
 		return {
 			game: null,
@@ -51,6 +52,20 @@ let ChessTemplate = {
 			text += this.currentcolor == 'w' ? " You are White." : " You are Black.";
 			return text;
 		},
+		difficulty: function() {
+			switch(this.level) {
+				case 0:
+					return "Very Easy";
+				case 1:
+					return "Easy";
+				case 2:
+					return "Moderate";
+				case 3:
+					return "Hard";
+				case 4:
+					return "Very Hard";
+			}
+		},
 		pgnModified: function() {
 			let a = [];
 			for(let i=2; i<this.pgn.length; i+=2) {
@@ -72,10 +87,13 @@ let ChessTemplate = {
 					this.board.position(this.game.fen());
 				}
 			}
+		},
+		currentcolor: function(newVal, oldVal) {
+			this.checkOrientation();
 		}
 	},
 	mounted: function() {
-		console.log("Mounted", this.singlePlayer);
+		console.log("Mounted");
 		let vm = this;
 		
 		this.startNewGame();
@@ -92,8 +110,9 @@ let ChessTemplate = {
 	methods: {
 		startNewGame: function() {
 			console.log('start new game');
+			if(this.spectator) return;
+
 			let fen = P4_INITIAL_BOARD;
-			
 			// Chess.js
 			this.game = new Chess(fen);
 			//Chessboard.js
@@ -109,14 +128,20 @@ let ChessTemplate = {
 				pieceTheme: this.pieceTheme,
 			}
 			this.board = Chessboard('chessboard', config);
+			this.checkOrientation();
 			//P4wn.js
 			this.gameAI = p4_fen2state(fen);
 
 			this.updateStatus();
 		},
 
+		checkOrientation: function() {
+			return this.currentcolor == 'b' ? this.board.orientation('black') : this.board.orientation('white');
+		},
+
 		undo: function() {
 			console.log('undo');
+			if(this.spectator) return;
 			this.game.undo();
 			this.game.undo();
 			this.updateBoardAI();
@@ -166,37 +191,7 @@ let ChessTemplate = {
 				this.removeGreySquares(this.legalMoves[i].to)
 			}
 		
-			// see if the move is legal
-			var move = this.game.move({
-				from: source,
-				to: target,
-				promotion: 'q' // NOTE: always promote to a queen for simplicity
-			})
-		
-			// illegal move
-			if (move === null) return 'snapback';
-
-			this.updateStatus();
-			this.gameAI.move(source, target);
-
-			// let app = this.getApp();
-			if(this.opponent == null) {
-				this.computer_move();
-			}
-
-			// presence
-			if (this.opponent && this.presence) {
-				this.presence.sendMessage(this.presence.getSharedInfo().id, {
-					user: this.presence.getUserInfo(),
-					content: {
-						action: 'move',
-						move: {
-							from: source,
-							to: target
-						}
-					}
-				});
-			}
+			this.makeMove(source, target);
 		},
 		
 		onMouseoverSquare: function(square, piece) {
@@ -234,8 +229,33 @@ let ChessTemplate = {
 			this.board.position(this.game.fen());
 		},
 
+		makeMove: function(source, target, fromOpponent = false) {
+			// see if the move is legal
+			var move = this.game.move({
+				from: source,
+				to: target,
+				promotion: 'q' // NOTE: always promote to a queen for simplicity
+			})
+		
+			// illegal move
+			if (move === null) return 'snapback';
+
+			this.updateStatus();
+			this.gameAI.move(source, target);
+
+			// let app = this.getApp();
+			if(this.opponent == null && !this.spectator) {
+				this.computer_move();
+			}
+
+			// presence
+			if(!fromOpponent) {
+				this.$emit('move', { from: source, to: target });
+			}
+		},
+
 		computer_move: function() {
-			let moves = this.gameAI.findmove(P4WN_DEFAULT_LEVEL + 1);
+			let moves = this.gameAI.findmove(this.level + 1);
 			let start = String.fromCharCode(96+(moves[0]%10)) + (Math.floor(moves[0]/10)-1);
 			let end = String.fromCharCode(96+(moves[1]%10)) + (Math.floor(moves[1]/10)-1);
 
@@ -257,12 +277,14 @@ let ChessTemplate = {
 			// checkmate?
 			if (this.game.in_checkmate()) {
 				this.popupText = this.status = 'Game over, ' + moveColor + ' is in checkmate.';
+				this.humane.log(this.popupText);
 				this.openPopup = true;
 			}
 		
 			// draw?
 			else if (this.game.in_draw()) {
 				this.popupText = this.status = 'Game over, drawn position';
+				this.humane.log(this.popupText);
 				this.openPopup = true;
 			}
 		
@@ -273,6 +295,7 @@ let ChessTemplate = {
 				// check?
 				if (this.game.in_check()) {
 					this.checkText += moveColor + ' is in check';
+					this.humane.log(this.checkText);
 				}
 			}
 		
