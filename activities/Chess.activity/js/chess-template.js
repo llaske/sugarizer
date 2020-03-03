@@ -2,9 +2,10 @@
 let ChessTemplate = {
 	template: `
 		<div class="chess-container">
-			<div class="greeting">{{ greetingText }}</div>
-			<div id="chessboard"></div>
-			<div class="chess-info">
+			<div id="opponent-info">{{ opponentText }}</div>
+			<chess-tutorial ref="chesstutorial" v-if="tutorialRunning"></chess-tutorial>
+			<div id="chessboard" v-show="!tutorialRunning"></div>
+			<div id="chess-info" class="chess-info">
 				<div class="status-container">
 					<p style="font-size: 10px; margin: 0" v-if="opponent == null">Level: {{ difficulty }}</p>
 					<p id="status">{{ status }}</p>
@@ -22,7 +23,10 @@ let ChessTemplate = {
 			</div>
 		</div>
 	`,
-	props: ['opponent', 'spectator', 'currentpgn', 'level', 'humane', 'currentcolor'],
+	components: {
+		'chess-tutorial': ChessTutorial
+	},
+	props: ['opponent', 'spectator', 'currentpgn', 'level', 'humane', 'currentcolor', 'tutorialRunning'],
 	data: function() {
 		return {
 			game: null,
@@ -42,7 +46,7 @@ let ChessTemplate = {
 		}
 	},
 	computed: {
-		greetingText: function() {
+		opponentText: function() {
 			let text;
 			if(this.spectator) {
 				return "You are a spectator."
@@ -110,7 +114,6 @@ let ChessTemplate = {
 	methods: {
 		startNewGame: function() {
 			console.log('start new game');
-			if(this.spectator) return;
 
 			let fen = P4_INITIAL_BOARD;
 			// Chess.js
@@ -141,7 +144,6 @@ let ChessTemplate = {
 
 		undo: function() {
 			console.log('undo');
-			if(this.spectator) return;
 			this.game.undo();
 			this.game.undo();
 			this.updateBoardAI();
@@ -320,9 +322,9 @@ let ChessTemplate = {
 		pieceTheme: function(piece) {
 			return 'images/chesspieces/svg/' + piece + '.svg'
 		},
-
-		getApp: function() {
-			return app;
-		}
+		
+		onTutStartPos: function() {
+			this.$refs.chesstutorial.startPos();
+		},
 	}
 };

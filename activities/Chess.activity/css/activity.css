@@ -18,6 +18,10 @@ p {
 	margin: 0.6em 0;
 }
 
+.toolbar {
+	padding: 0 2%;
+}
+
 #canvas {
 	background: white !important;
 	overflow-x: hidden;
@@ -31,7 +35,7 @@ p {
 	padding: 20px;
 }
 
-.greeting {
+#opponent-info {
 	width: 100%;
 	font-size: 1.5em;
 	font-weight: 400;
@@ -42,6 +46,9 @@ p {
 
 #chessboard {
 	width: 40%;
+}
+#chessboard-tut {
+	width: 30%;
 }
 
 .chess-info {
@@ -121,7 +128,7 @@ p {
 	.greeting {
 		font-size: 1.2em;
 	}
-	#chessboard {
+	#chessboard, #chessboard-tut {
 		width: 95%;
 	}
 	.moves-container {
@@ -197,8 +204,13 @@ p {
 	outline: none;
 }
 
-#main-toolbar #help-button {
+#main-toolbar #help-ui-button {
 	background-image: url(../icons/help.svg);
+	outline: none;
+}
+
+#main-toolbar #help-rules-button {
+	background-image: url(../icons/help-rules.svg);
 	outline: none;
 }
 

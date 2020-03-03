@@ -23,7 +23,8 @@ let app = new Vue({
 		currentcolor: 'w',
 		level: 2,
 		opponent: null,
-		spectator: false
+		spectator: false,
+		tutorialRunning: false
 	},
 
 	created: function () {
@@ -110,18 +111,12 @@ let app = new Vue({
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			if (vm.currentView === Player) {
-				vm.$refs.view.doFullscreen(true);
-			}
 		},
 		unfullscreen: function () {
 			var vm = this;
 			document.getElementById("main-toolbar").style.opacity = 1;
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			if (vm.currentView === Player) {
-				vm.$refs.view.doFullscreen(false);
-			}
 		},
 
 		onDifficultySelected: function (difficulty) {
@@ -131,6 +126,7 @@ let app = new Vue({
 		},
 
 		restartGame: function () {
+			if(this.spectator) return;
 			this.$refs.chesstemplate.startNewGame();
 			// presence
 			if (this.opponent && this.presence) {
@@ -144,6 +140,7 @@ let app = new Vue({
 		},
 
 		undo: function () {
+			if(this.spectator) return;
 			this.$refs.chesstemplate.undo();
 			// presence
 			if (this.opponent && this.presence) {
@@ -171,37 +168,19 @@ let app = new Vue({
 			}
 		},
 
-		onZoom: function (item) {
-			var vm = this;
-			if (vm.currentView === Player) {
-				vm.$refs.view.doZoom(item.detail);
+		onHelp: function (type) {
+			if(type == 'rules') {
+				this.tutorialRunning = true;
 			}
+			this.$refs.tutorial.show(type);
 		},
 
-		onHelp: function () {
-			var vm = this;
-			var options = {};
-			options.currentView = vm.currentView;
-			options.editMode = vm.$refs.view.editMode || vm.currentView === Editor;
-			options.templatebutton = vm.$refs.toolbar.$refs.templatebutton.$el;
-			options.fullscreenbutton = vm.$refs.toolbar.$refs.fullscreen.$el;
-			options.settingsbutton = vm.$refs.toolbar.$refs.settings.$el;
-			if (vm.currentView === TemplateViewer) {
-				options.insertimagebutton = vm.$refs.toolbar.$refs.insertimage.$el;
-				if (vm.currentTemplate && vm.currentTemplate.images && vm.currentTemplate.images[0]) {
-					options.item = vm.$refs.view.$refs.item0[0].$el;
-				}
-			} else {
-				options.linesbutton = vm.$refs.toolbar.$refs.lines.$el;
-				options.zoombutton = vm.$refs.toolbar.$refs.zoombutton.$el;
-				options.backbutton = document.getElementById("back");
-				options.restartbutton = document.getElementById("player-restart");
-				options.editoraddbutton = document.getElementById("editor-add");
-				options.editorremovebutton = document.getElementById("editor-remove");
-				options.editoraddpathbutton = document.getElementById("editor-addpath");
-				options.editorremovepathbutton = document.getElementById("editor-removepath");
-			}
-			this.$refs.tutorial.show(options);
+		onTutStartPos: function() {
+			this.$refs.chesstemplate.onTutStartPos();
+		},
+
+		onHelpEnd: function() {
+			this.tutorialRunning = false;
 		},
 
 		onNetworkDataReceived: function (msg) {

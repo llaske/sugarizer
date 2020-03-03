@@ -8,42 +8,40 @@ var Tutorial = {
 				stringPrevShort: '',
 				stringNextShort: '',
 				stringEndShort: '',
-				stringTutoExplainTitle: '',
-				stringTutoExplainContent: '',
-				stringTutoFullscreenButtonTitle: '',
-				stringTutoFullscreenButtonContent: '',
-				stringTutoEditorItemTitle: '',
-				stringTutoEditorItemContent: '',
-				stringTutoPlayerItemTitle: '',
-				stringTutoPlayerItemContent: '',
-				stringTutoInsertImageButtonTitle: '',
-				stringTutoInsertImageButtonContent: '',
-				stringTutoEditorTemplateButtonTitle: '',
-				stringTutoEditorTemplateButtonContent: '',
-				stringTutoPlayerTemplateButtonTitle: '',
-				stringTutoPlayerTemplateButtonContent: '',
-				stringTutoEditorItemButtonTitle: '',
-				stringTutoEditorItemButtonContent: '',
-				stringTutoPlayerItemButtonTitle: '',
-				stringTutoPlayerItemButtonContent: '',
-				stringTutoLinesButtonTitle: '',
-				stringTutoLinesButtonContent: '',
-				stringTutoZoomButtonTitle: '',
-				stringTutoZoomButtonContent: '',
-				stringTutoBackButtonTitle: '',
-				stringTutoBackButtonContent: '',
-				stringTutoRestartButtonTitle: '',
-				stringTutoRestartButtonContent: '',
-				stringTutoEditorAddButtonTitle: '',
-				stringTutoEditorAddButtonContent: '',
-				stringTutoEditorRemoveButtonTitle: '',
-				stringTutoEditorRemoveButtonContent: '',
-				stringTutoEditorAddPathButtonTitle: '',
-				stringTutoEditorAddPathButtonContent: '',
-				stringTutoEditorRemovePathButtonTitle: '',
-				stringTutoEditorRemovePathButtonContent: '',
-				stringTutoTemplateButtonTitle: '',
-				stringTutoTemplateButtonContent: ''
+				stringTutoUITitle: '',
+				stringTutoUIContent: '',
+				stringTutoRulesTitle: '',
+				stringTutoRulesContent: '',
+				stringTutoGoalTitle: '',
+				stringTutoGoalContent: '',
+				stringTutoChessboardTitle: '',
+				stringTutoChessboardContent: '',
+				stringTutoChessInfoTitle: '',
+				stringTutoChessInfoContent: '',
+				stringTutoOpponentInfoTitle: '',
+				stringTutoOpponentInfoContent: '',
+				stringTutoRestartTitle: '',
+				stringTutoRestartContent: '',
+				stringTutoUndoTitle: '',
+				stringTutoUndoContent: '',
+				stringTutoDifficultyTitle: '',
+				stringTutoDifficultyContent: '',
+				stringTutoNetworkTitle: '',
+				stringTutoNetworkContent: '',
+				stringTutoPawnTitle: '',
+				stringTutoPawnContent: '',
+				stringTutoKnightTitle: '',
+				stringTutoKnightContent: '',
+				stringTutoBishopTitle: '',
+				stringTutoBishopContent: '',
+				stringTutoRookTitle: '',
+				stringTutoRookContent: '',
+				stringTutoQueenTitle: '',
+				stringTutoQueenContent: '',
+				stringTutoKingTitle: '',
+				stringTutoKingContent: '',
+				stringTutoInitPositionTitle: '',
+				stringTutoInitPositionContent: ''
 			}
 		}
 	},
@@ -52,109 +50,129 @@ var Tutorial = {
 			localization.localize(this.l10n);
 		},
 
-		show: function(options) {
-			options = options || {};
+		show: function(type) {
+			let vm = this;
 			var steps = [];
-			if (options.currentView === TemplateViewer && !options.editMode) {
+			if(type == 'ui') {
 				steps.push(
 					{
 						element: "",
 						orphan: true,
 						placement: "bottom",
-						title: this.l10n.stringTutoExplainTitle,
-						content: this.l10n.stringTutoExplainContent
+						title: this.l10n.stringTutoUITitle,
+						content: this.l10n.stringTutoUIContent
 					}
 				);
-			}
-			steps = steps.concat([
-				{
-					element: options.templatebutton,
-					placement: "bottom",
-					title: this.l10n.stringTutoTemplateButtonTitle,
-					content: this.l10n.stringTutoTemplateButtonContent
-				},
-				{
-					element: options.item,
-					placement: "right",
-					title: options.editMode?this.l10n.stringTutoEditorItemTitle:this.l10n.stringTutoPlayerItemTitle,
-					content: options.editMode?this.l10n.stringTutoEditorItemContent:this.l10n.stringTutoPlayerItemContent
-				}
-			]);
-			if (options.currentView === TemplateViewer && options.editMode) {
-				steps.push(
-					{
-						element: options.insertimagebutton,
-						placement: "bottom",
-						title: this.l10n.stringTutoInsertImageButtonTitle,
-						content: this.l10n.stringTutoInsertImageButtonContent
-					}
-				);
-			}
-			var settingsItemName = "stringTuto"+(options.editMode?"Player":"Editor")+(options.currentView === TemplateViewer?"Template":"Item")+"Button";
-			steps = steps.concat([
-				{
-					element: options.settingsbutton,
-					placement: "bottom",
-					title: this.l10n[settingsItemName+"Title"],
-					content: this.l10n[settingsItemName+"Content"]
-				},
-				{
-					element: options.fullscreenbutton,
-					placement: "bottom",
-					title: this.l10n.stringTutoFullscreenButtonTitle,
-					content: this.l10n.stringTutoFullscreenButtonContent
-				}
-			]);
-			if (options.currentView !== TemplateViewer) {
 				steps = steps.concat([
 					{
-						element: options.linesbutton,
-						placement: "bottom",
-						title: this.l10n.stringTutoLinesButtonTitle,
-						content: this.l10n.stringTutoLinesButtonContent
-					},
-					{
-						element: options.zoombutton,
-						placement: "bottom",
-						title: this.l10n.stringTutoZoomButtonTitle,
-						content: this.l10n.stringTutoZoomButtonContent
-					},
-					{
-						element: options.backbutton,
+						element: "#chessboard",
 						placement: "right",
-						title: this.l10n.stringTutoBackButtonTitle,
-						content: this.l10n.stringTutoBackButtonContent
+						title: this.l10n.stringTutoChessboardTitle,
+						content: this.l10n.stringTutoChessboardContent
 					},
 					{
-						element: options.editoraddbutton,
+						element: "#chess-info",
 						placement: "left",
-						title: this.l10n.stringTutoEditorAddButtonTitle,
-						content: this.l10n.stringTutoEditorAddButtonContent
+						title: this.l10n.stringTutoChessInfoTitle,
+						content: this.l10n.stringTutoChessInfoContent
 					},
 					{
-						element: options.editorremovebutton,
-						placement: "left",
-						title: this.l10n.stringTutoEditorRemoveButtonTitle,
-						content: this.l10n.stringTutoEditorRemoveButtonContent
+						element: "#opponent-info",
+						placement: "bottom",
+						title: this.l10n.stringTutoOpponentInfoTitle,
+						content: this.l10n.stringTutoOpponentInfoContent
 					},
 					{
-						element: options.editoraddpathbutton,
-						placement: "left",
-						title: this.l10n.stringTutoEditorAddPathButtonTitle,
-						content: this.l10n.stringTutoEditorAddPathButtonContent
+						element: "#restart-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoRestartTitle,
+						content: this.l10n.stringTutoRestartContent
 					},
 					{
-						element: options.editorremovepathbutton,
-						placement: "left",
-						title: this.l10n.stringTutoEditorRemovePathButtonTitle,
-						content: this.l10n.stringTutoEditorRemovePathButtonContent
+						element: "#undo-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoUndoTitle,
+						content: this.l10n.stringTutoUndoContent
 					},
 					{
-						element: options.restartbutton,
-						placement: "left",
-						title: this.l10n.stringTutoRestartButtonTitle,
-						content: this.l10n.stringTutoRestartButtonContent
+						element: "#difficulty-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoDifficultyTitle,
+						content: this.l10n.stringTutoDifficultyContent
+					},
+					{
+						element: "#network-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoNetworkTitle,
+						content: this.l10n.stringTutoNetworkContent
 					}
+				]);
+			} else if(type == 'rules') {
+				steps.push(
+					{
+						element: "",
+						orphan: true,
+						placement: "bottom",
+						title: this.l10n.stringTutoRulesTitle,
+						content: this.l10n.stringTutoRulesContent
+					}
+				);
+				steps = steps.concat([
+					{
+						element: "#chessboard-tut",
+						placement: "right",
+						title: this.l10n.stringTutoChessboardTitle,
+						content: this.l10n.stringTutoChessboardContent
+					},
+					{
+						element: "img[id|='wP']",
+						placement: "top",
+						title: this.l10n.stringTutoPawnTitle,
+						content: this.l10n.stringTutoPawnContent
+					},
+					{
+						element: "img[id|='wN']",
+						placement: "top",
+						title: this.l10n.stringTutoKnightTitle,
+						content: this.l10n.stringTutoKnightContent
+					},
+					{
+						element: "img[id|='wB']",
+						placement: "top",
+						title: this.l10n.stringTutoBishopTitle,
+						content: this.l10n.stringTutoBishopContent
+					},
+					{
+						element: "img[id|='wR']",
+						placement: "top",
+						title: this.l10n.stringTutoRookTitle,
+						content: this.l10n.stringTutoRookContent
+					},
+					{
+						element: "img[id|='wQ']",
+						placement: "top",
+						title: this.l10n.stringTutoQueenTitle,
+						content: this.l10n.stringTutoQueenContent
+					},
+					{
+						element: "img[id|='wK']",
+						placement: "top",
+						title: this.l10n.stringTutoKingTitle,
+						content: this.l10n.stringTutoKingContent
+					},
+					{
+						element: "#chessboard-tut",
+						placement: "right",
+						title: this.l10n.stringTutoInitPositionTitle,
+						content: this.l10n.stringTutoInitPositionContent
+					},
+					{
+						element: "",
+						orphan: true,
+						placement: "bottom",
+						title: this.l10n.stringTutoGoalTitle,
+						content: this.l10n.stringTutoGoalContent
+					},
 				]);
 			}
 			var tour = new Tour({
@@ -190,7 +208,18 @@ var Tutorial = {
 				</div>",
 				storage: false,
 				backdrop: true,
-				steps: steps
+				steps: steps,
+				onShow: function (tour) {
+					if(tour._current == 7) {
+						vm.$emit('startpos');
+					} 
+					else if(tour._current == 8) {
+						vm.$emit('end');
+					}
+				},
+				onEnd: function (tour) {
+					vm.$emit('end');
+				},
 			});
 			tour.init();
 			tour.start(true);

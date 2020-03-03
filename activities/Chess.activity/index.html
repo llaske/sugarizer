@@ -15,34 +15,39 @@
 	<link rel="stylesheet" href="css/p4wn2.css">
 	<link rel="stylesheet" href="css/libnotify.css">
 	<link rel="stylesheet" href="css/chessboard-1.0.0.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/jquery-3.4.1.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/chess.js"></script>
 	<script src="lib/chessboard-1.0.0.min.js"></script>
-	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 </head>
 
 <body>
 	<div id="app">
-		<toolbar ref="toolbar"></toolbar>
+		<toolbar ref="toolbar" v-bind:opponent="opponent" v-bind:spectator="spectator"></toolbar>
 
 		<div id="canvas">
 			<chess-template ref="chesstemplate" v-bind:opponent="opponent" v-bind:spectator="spectator"
-				v-bind:currentpgn="currentpgn" v-bind:currentcolor="currentcolor" v-bind:level="level" v-bind:humane="humane" v-on:move="onMove" />
+				v-bind:currentpgn="currentpgn" v-bind:currentcolor="currentcolor" v-bind:level="level" v-bind:humane="humane"
+				v-bind:tutorial-running="tutorialRunning" v-on:move="onMove" />
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
 		<localization ref="localization" v-on:localized="localized"></localization>
-		<tutorial ref="tutorial"></tutorial>
+		<tutorial ref="tutorial" v-on:end="onHelpEnd" v-on:startpos="onTutStartPos"></tutorial>
 	</div>
 
 	<script src="js/l10n.js"></script>
 	<script src="js/tutorial.js"></script>
 	<script src="js/engine.js"></script>
 	<script src="js/display.js"></script>
+	<script src="js/chess-tutorial.js"></script>
 	<script src="js/chess-template.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/activity.js"></script>

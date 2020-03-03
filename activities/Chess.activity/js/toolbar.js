@@ -50,6 +50,7 @@ var Toolbar = {
 			<toolbar-item ref="undoBtn" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
 			<toolbar-item ref="difficultyBtn" class="toolbutton" id="difficulty-button"
 				v-bind:title="l10n.stringDifficulty"
+				v-if="opponent == null && !spectator"
 				paletteFile="activity/palettes/difficultypalette"
 				paletteClass="DifficultyPalette"
 				paletteEvent="difficultySelected"
@@ -60,9 +61,11 @@ var Toolbar = {
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onHelp('ui')" id="help-ui-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
+			<toolbar-item v-on:clicked="getApp().onHelp('rules')" id="help-rules-button" v-bind:title="l10n.stringRules" toRight="true"></toolbar-item>
 		</div>
 	`,
+	props: ['opponent', 'spectator'],
 	data: function () {
 		return {
 			l10n: {
@@ -76,7 +79,8 @@ var Toolbar = {
 				stringUndo: '',
 				stringFullscreen: '',
 				stringNetwork: '',
-				stringDifficulty: ''
+				stringDifficulty: '',
+				stringRules: '',
 			}
 		}
 	},
