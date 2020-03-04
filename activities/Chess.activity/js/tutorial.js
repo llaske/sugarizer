@@ -14,6 +14,8 @@ var Tutorial = {
 				stringTutoRulesContent: '',
 				stringTutoGoalTitle: '',
 				stringTutoGoalContent: '',
+				stringTutoChessboardUITitle: '',
+				stringTutoChessboardUIContent: '',
 				stringTutoChessboardTitle: '',
 				stringTutoChessboardContent: '',
 				stringTutoChessInfoTitle: '',
@@ -67,8 +69,8 @@ var Tutorial = {
 					{
 						element: "#chessboard",
 						placement: "right",
-						title: this.l10n.stringTutoChessboardTitle,
-						content: this.l10n.stringTutoChessboardContent
+						title: this.l10n.stringTutoChessboardUITitle,
+						content: this.l10n.stringTutoChessboardUIContent
 					},
 					{
 						element: "#chess-info",

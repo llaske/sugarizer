@@ -1,5 +1,3 @@
-
-
 // Localization component
 var Localization = {
 	template: '<div/>',

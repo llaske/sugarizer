@@ -7,14 +7,16 @@ let ChessTemplate = {
 			<div id="chessboard" v-show="!tutorialRunning"></div>
 			<div id="chess-info" class="chess-info">
 				<div class="status-container">
-					<p style="font-size: 10px; margin: 0" v-if="opponent == null">Level: {{ difficulty }}</p>
+					<p style="font-size: 10px; margin: 0" v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
 					<p id="status">{{ status }}</p>
 					<p class="check">{{ checkText }}</p>
 				</div>
 				<div class="moves-container">
-					<p class="title">Moves</p>
+					<p class="title">{{ l10n.stringMoves }}</p>
 					<div class="move-list">
-						<p v-for="(item, i) in pgnModified" :key="i">{{ i+1 }}. {{ item }}</p>
+						<p v-for="(item, i) in pgnModified" :key="i">
+							{{ i+1 }}. <span v-bind:style="{ color: whiteColors.fill }">{{ item.w }}</span> <span v-bind:style="{ color: blackColors.fill }">{{ item.b }}</span>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -26,7 +28,7 @@ let ChessTemplate = {
 	components: {
 		'chess-tutorial': ChessTutorial
 	},
-	props: ['opponent', 'spectator', 'currentpgn', 'level', 'humane', 'currentcolor', 'tutorialRunning'],
+	props: ['opponent', 'spectator', 'currentpgn', 'level', 'humane', 'currentcolor', 'tutorialRunning', 'whiteColors', 'blackColors'],
 	data: function() {
 		return {
 			game: null,
@@ -34,46 +36,70 @@ let ChessTemplate = {
 			gameAI: null,
 			whiteSquareGrey: "#7b98ed",
 			blackSquareGrey: '#476bd6',
-			// whiteSquareGrey: "#a9a9a9",
-			// blackSquareGrey: '#696969',
 			legalMoves: [],
 			status: 'White to move',
 			checkText: '',
 			popupText: '',
 			openPopup: false,
 			fen: '',
-			pgn: []
+			pgn: [],
+			l10n: {
+				stringLevel: '',
+				stringMoves: '',
+				stringPlayer: '',
+				stringComputer: '',
+				stringPlayingAgainst: '',
+				stringYouAre: '',
+				stringBlack: '',
+				stringWhite: '',
+				stringYouAreSpectator: '',
+				stringToMove: '',
+				stringVeryEasy: '',
+				stringEasy: '',
+				stringModerate: '',
+				stringHard: '',
+				stringVeryHard: '',
+				stringIsInCheck: '',
+				stringIsInCheckmate: '',
+				stringIsInGameOver: '',
+			}
 		}
 	},
 	computed: {
 		opponentText: function() {
 			let text;
 			if(this.spectator) {
-				return "You are a spectator."
+				return this.l10n.stringYouAreSpectator + ".";
 			}
-			text = "Playing against";
-			text += this.opponent != null ? " Player." : " Computer.";
-			text += this.currentcolor == 'w' ? " You are White." : " You are Black.";
+			text = this.l10n.stringPlayingAgainst + " ";
+			text += this.opponent != null ? this.l10n.stringPlayer : this.l10n.stringComputer;
+			text += ". ";
+			text += this.currentcolor == 'w' ? this.l10n.stringYouAre + ' ' + this.l10n.stringWhite : this.l10n.stringYouAre + ' ' + this.l10n.stringBlack;
+			text += ".";
 			return text;
 		},
 		difficulty: function() {
 			switch(this.level) {
 				case 0:
-					return "Very Easy";
+					return this.l10n.stringVeryEasy;
 				case 1:
-					return "Easy";
+					return this.l10n.stringEasy;
 				case 2:
-					return "Moderate";
+					return this.l10n.stringModerate;
 				case 3:
-					return "Hard";
+					return this.l10n.stringHard;
 				case 4:
-					return "Very Hard";
+					return this.l10n.stringVeryHard;
 			}
 		},
 		pgnModified: function() {
 			let a = [];
 			for(let i=2; i<this.pgn.length; i+=2) {
-				a.push(this.pgn[i]);
+				let split = this.pgn[i].split(' ');
+				a.push({
+					w: split[0],
+					b: split[1]
+				});
 			}
 			return a;
 		}
@@ -97,7 +123,6 @@ let ChessTemplate = {
 		}
 	},
 	mounted: function() {
-		console.log("Mounted");
 		let vm = this;
 		
 		this.startNewGame();
@@ -112,6 +137,10 @@ let ChessTemplate = {
 		});
 	},
 	methods: {
+		localized: function (localization) {
+			localization.localize(this.l10n);
+		},
+
 		startNewGame: function() {
 			console.log('start new game');
 
@@ -271,14 +300,14 @@ let ChessTemplate = {
 			this.status = '';
 			this.checkText = '';
 		
-			var moveColor = 'White'
+			var moveColor = this.l10n.stringWhite;
 			if (this.game.turn() === 'b') {
-				moveColor = 'Black';
+				moveColor = this.l10n.stringBlack;
 			}
 		
 			// checkmate?
 			if (this.game.in_checkmate()) {
-				this.popupText = this.status = 'Game over, ' + moveColor + ' is in checkmate.';
+				this.popupText = this.status = this.l10n.stringGameOver + ', ' + moveColor + ' ' + this.l10n.stringIsInCheckmate;
 				this.humane.log(this.popupText);
 				this.openPopup = true;
 			}
@@ -292,11 +321,11 @@ let ChessTemplate = {
 		
 			// this.game still on
 			else {
-				this.status = moveColor + ' to move';
+				this.status = moveColor + ' ' + this.l10n.stringToMove;
 		
 				// check?
 				if (this.game.in_check()) {
-					this.checkText += moveColor + ' is in check';
+					this.checkText += moveColor + ' ' + this.l10n.stringIsInCheck;
 					this.humane.log(this.checkText);
 				}
 			}

@@ -14,7 +14,12 @@ let app = new Vue({
 		'chess-template': ChessTemplate
 	},
 	data: {
-		currentUser: null,
+		currentUser: {
+			colorvalue: {
+				stroke: "#000",
+				fill: "#000"
+			}
+		},
 		isHost: false,
 		presence: null,
 		palette: null,
@@ -23,8 +28,21 @@ let app = new Vue({
 		currentcolor: 'w',
 		level: 2,
 		opponent: null,
+		opponentColors: {
+			stroke: "#000",
+			fill: "#000"
+		},
 		spectator: false,
 		tutorialRunning: false
+	},
+
+	computed: {
+		whiteColors: function() {
+			return this.currentcolor == 'w' ? this.currentUser.colorvalue : this.opponentColors;
+		},
+		blackColors: function() {
+			return this.currentcolor == 'w' ? this.opponentColors : this.currentUser.colorvalue;
+		},
 	},
 
 	created: function () {
@@ -102,6 +120,7 @@ let app = new Vue({
 
 		localized: function () {
 			this.$refs.toolbar.localized(this.$refs.localization);
+			this.$refs.chesstemplate.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
 		},
 
@@ -190,8 +209,10 @@ let app = new Vue({
 
 			switch (msg.content.action) {
 				case 'init':
+					this.humane.log("Synchronizing Board...");
 					this.currentcolor = 'b';
 					this.opponent = msg.user.networkId;
+					this.opponentColors = msg.user.colorvalue;
 					this.currentpgn = msg.content.gamePGN;
 					break;
 				case 'move':
@@ -227,6 +248,7 @@ let app = new Vue({
 					if (this.opponent == null) {
 						// No opponent => make opponent
 						this.opponent = msg.user.networkId;
+						this.opponentColors = msg.user.colorvalue;
 						this.presence.sendMessage(this.presence.getSharedInfo().id, {
 							user: vm.presence.getUserInfo(),
 							content: {
@@ -250,6 +272,10 @@ let app = new Vue({
 			else {
 				if (msg.user.networkId == this.opponent) {
 					this.opponent = null;
+					this.opponentColors = {
+						stroke: "#000",
+						fill: "#000"
+					}
 					vm.currentcolor = 'w';
 				}
 			}

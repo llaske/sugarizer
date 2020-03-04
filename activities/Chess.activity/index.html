@@ -34,7 +34,8 @@
 		<div id="canvas">
 			<chess-template ref="chesstemplate" v-bind:opponent="opponent" v-bind:spectator="spectator"
 				v-bind:currentpgn="currentpgn" v-bind:currentcolor="currentcolor" v-bind:level="level" v-bind:humane="humane"
-				v-bind:tutorial-running="tutorialRunning" v-on:move="onMove" />
+				v-bind:tutorial-running="tutorialRunning" v-bind:white-colors="whiteColors"
+				v-bind:black-colors="blackColors" v-on:move="onMove" />
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
