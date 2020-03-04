@@ -280,6 +280,40 @@ button.remove {
 
 .popover {
   color: #000000;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  font-size: 14px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+}
+
+.popover-title {
+  font-size: 14px;
+  border-radius: 5px 5px 0 0
+}
+
+.popover-content {
+  color: #000000;
+}
+
+.popover-navigation{
+  overflow: hidden;
 }
 
 .tutorial-title{
