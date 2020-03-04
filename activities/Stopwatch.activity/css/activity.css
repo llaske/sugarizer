@@ -30,6 +30,50 @@ ul {
   margin: 0;
 }
 
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.d-flex{
+  display: flex !important;
+  padding: 0 15px;
+}
+
+.justify-content-center{
+  justify-content: center !important;
+}
+
+.align-items-center{
+  align-items: center !important;
+}
+
+div.p-0{
+  padding: 0;
+}
+
 #stopwatch-app {
   text-align: center;
   margin: 0 55px;
@@ -43,7 +87,6 @@ ul {
 
 #stopwatch-list li {
   position: relative;
-  padding-bottom: 128px;
   border-bottom: 1px solid black;
 }
 
@@ -51,24 +94,13 @@ ul {
   line-height: 1.2;
 }
 
-.counter, .marks {
-  display: inline-block;
-  transform: translateY(35%);
-}
-
 .marks {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .counter {
-  margin-left: 22px;
   font-weight: bold;
   font-size: 30px;
-}
-
-.buttons-group {
-  display: inline-block;
-  transform: translateY(15%);
 }
 
 .buttons-group button {
@@ -88,13 +120,9 @@ ul {
 }
 
 button.remove {
-  position: absolute;
-  top: 10%;
-  right: 0;
-  width: 84px;
-  height: 84px;
+  width: 44px;
+  height: 44px;
   background-color: transparent;
-  background-position: center;
   background-size: 44px 44px;
   background-repeat: no-repeat;
   background-image: url(../icons/list-remove.svg);
@@ -319,4 +347,52 @@ button.remove {
 .tutorial-title{
   font-weight: bold;
   line-height: 1.42857143;
+}
+
+/* Below code is used to make responsive changes */
+
+@media only screen and (max-width: 1130px) and (min-width: 767px){
+  .marks{
+    font-size: 26px;
+  }
+}
+
+@media only screen and (max-width: 1060px) and (min-width: 767px){
+  .marks{
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 767px){
+  .buttons-group button {
+    height: 42px;
+    width: 42px;
+    background-size: 32px 32px;
+  }
+  .counter, .marks {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .d-flex{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 484px){
+  button.remove {
+    margin-right: 0;
+  }
+  .buttons-group button {
+    height: 42px;
+    width: 42px;
+    background-size: 32px 32px;
+  }
+  .counter, .marks {
+    font-size: 22px;
+  }
+  #stopwatch-app {
+    margin: 0 10px;
+  }
 }
