@@ -14,6 +14,8 @@ input {
 #canvas {
 	background-color: white;
 	overflow-y: hidden;
+	position: absolute;
+	z-index: 1;
 }
 
 body {
@@ -201,8 +203,10 @@ body {
 }
 
 .web-activity-icon {
+	position: absolute;
 	background-repeat: no-repeat;
 	background-position: center;
+	z-index: 1;
 	padding: 2px;
 }
 
@@ -242,6 +246,21 @@ body {
 
 .owner-icon {
 	position: absolute;
+}
+
+.scroller{
+	font-size: 30px;
+	position: absolute;
+	/* pointer-events: none; */
+	z-index: -1000;
+}
+
+.scroller-inner{
+	width: 100%;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	box-sizing: border-box !important;
+	overflow: hidden;
 }
 
 .journal-icon {

@@ -19,7 +19,6 @@ var stats;
 var autosync;
 
 
-
 // Main app class
 enyo.kind({
 	name: "Sugar.Desktop",
@@ -28,6 +27,10 @@ enyo.kind({
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "owner-icon", showing: false},
 		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", classes: "journal-icon", showing: false},
 		{name: "desktop", showing: true, onresize: "resize", components: []},
+		{name: "scroller", kind: "Scroller", showing: false, classes: "scroller scroller-right", thumb: false, components: [], onScroll: "handleScroll",
+			strategyKind: "TouchScrollStrategy", touchOverscroll: false},
+		{name: "scrollerLeft", kind: "Scroller", showing: false, classes: "scroller scroller-left", thumb: false, components: [], onScroll: "handleScrollLeft",
+			strategyKind: "TouchScrollStrategy", touchOverscroll: false},
 		{name: "otherview", showing: true, components: []},
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activities", kind: "enyo.WebService", onResponse: "queryActivitiesResponse", onError: "queryActivitiesFail"}
@@ -85,6 +88,23 @@ enyo.kind({
 				that.getToolbar().startTutorial();
 			}
 		}, constant.timerBeforeTutorial);
+	},
+
+	handleScroll: function(){
+		let scrollPosition = this.$.scroller.getScrollTop();
+		const scrollBounds = this.$.scrollerLeft.getScrollBounds();
+		this.$.scrollerLeft.setScrollTop(scrollBounds.maxTop - scrollPosition);
+		let val = parseInt(scrollPosition/util.getCanvasCenter().y)
+		if (val !== this.restrictedModeInfo.start){
+			this.restrictedModeInfo.start = val;
+			this.draw();
+		}
+	},
+
+	handleScrollLeft: function(){
+		let scrollPosition = this.$.scrollerLeft.getScrollTop();
+		const scrollBounds = this.$.scrollerLeft.getScrollBounds();
+		this.$.scroller.setScrollTop(scrollBounds.maxTop - scrollPosition);
 	},
 
 	// Load and sort journal
@@ -263,6 +283,7 @@ enyo.kind({
 	draw: function() {
 		// Clean desktop
 		var items = [];
+		this.$.scroller.hide();
 		enyo.forEach(this.$.desktop.getControls(), function(item) {	items.push(item); });
 		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
 		this.tutorialActivity = null;
@@ -306,6 +327,30 @@ enyo.kind({
 				this.restrictedModeInfo.count = activitiesCount;
 				this.restrictedModeInfo.length = activitiesList.length;
 				base_angle = (PI2/parseFloat(activitiesCount+1));
+				const totalScrollerHeight = canvas_center.y * (activitiesList.length - (activitiesCount - 2));
+				this.$.scroller.createComponent(
+					{
+						classes: "scroller-inner",
+						style:`height: ${totalScrollerHeight}px`,
+						content:(` `)
+					}
+				);
+				this.$.scrollerLeft.createComponent(
+					{
+						classes: "scroller-inner",
+						style:`height: ${totalScrollerHeight}px`,
+						content:(` `)
+					}
+				);
+				this.$.scroller.applyStyle("width", `${canvas_center.x}px`);
+				this.$.scroller.applyStyle("margin-left", `${canvas_center.x}px`);
+				this.$.scrollerLeft.applyStyle("width", `${canvas_center.x}px`);
+				this.$.scrollerLeft.applyStyle("transform", "rotate(180deg)");
+				this.$.scroller.applyStyle("height", `${canvas_center.y * 2}px`);
+				this.$.scrollerLeft.applyStyle("height", `${canvas_center.y * 2}px`);
+				this.$.scroller.applyStyle("z-index", "0");
+				this.$.scroller.show();
+				this.$.scrollerLeft.show();
 			}
 		}
 
@@ -427,8 +472,7 @@ enyo.kind({
 		if (newStart < 0) {
 			newStart = 0;
 		}
-		this.restrictedModeInfo.start = newStart;
-		this.draw();
+		this.$.scroller.setScrollTop(newStart*util.getCanvasCenter().y);
 	},
 
 	showNextRestrictedList: function() {
@@ -439,8 +483,7 @@ enyo.kind({
 		} else if (newStart+this.restrictedModeInfo.count > this.restrictedModeInfo.length) {
 			newStart = this.restrictedModeInfo.length - this.restrictedModeInfo.count;
 		}
-		this.restrictedModeInfo.start = newStart;
-		this.draw();
+		this.$.scroller.setScrollTop(newStart*util.getCanvasCenter().y);
 	},
 
 	// Switch between radial and other views (list or journal)
