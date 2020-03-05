@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Feb 29 2020 11:39:04 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Blockrain"
+msgstr "Blockrain"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Blockrain activity. Blockrain is a tile-matching puzzle video game inspired by the classic Tetris game"
+msgstr "Bienvenue dans l'activité Blockrain. Blockrain est un puzzle avec des blocs, inspiré du grand classique Tetris"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Rules"
+msgstr "Règles"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "The objective of the game is to manipulate blocks to create horizontal lines. You can only move the pieces in specific ways, your game is over if your pieces reach the top of the screen, and you can only remove pieces from the screen by filling all the blank space in a line (horizontally)"
+msgstr "L'objectif du jeu est de manipuler les blocs pour créer des lignes horizontales. Vous pouvez déplacer les pièces seulement d'une certaine manière. Le jeu se termine quand une pièce atteint le haut de l'écran et vous pouvez supprimer des pièces seulement en remplissant tous les espaces d'une ligne horizontale"
+
+#: TutoThemeTitle
+msgctxt "TutoThemeTitle"
+msgid "Theme"
+msgstr "Thème"
+
+#: TutoThemeContent
+msgctxt "TutoThemeContent"
+msgid "Click here to change the theme of the game"
+msgstr "Cliquez ici pour change le thème du jeu"
+
+#: TutoRotateTitle
+msgctxt "TutoRotateTitle"
+msgid "Rotate"
+msgstr "Rotation"
+
+#: TutoRotateContent
+msgctxt "TutoRotateContent"
+msgid "Click here to rotate the incoming blocks clockwise"
+msgstr "Cliquez ici pour faire pivoter le bloc qui arrive, dans le sens des aiguilles d'une montre"
+
+#: TutoDownTitle
+msgctxt "TutoDownTitle"
+msgid "Move Down"
+msgstr "Bas"
+
+#: TutoDownContent
+msgctxt "TutoDownContent"
+msgid "Click here to move the incoming blocks in downward direction"
+msgstr "Cliquez ici pour faire avancer vers le bas le bloc qui arrive"
+
+#: TutoLeftTitle
+msgctxt "TutoLeftTitle"
+msgid "Move Left"
+msgstr "Gauche"
+
+#: TutoLeftContent
+msgctxt "TutoLeftContent"
+msgid "Click here to move the incoming blocks in left direction"
+msgstr "Cliquez ici pour déplacer vers la gauche le bloc qui arrive"
+
+#: TutoRightTitle
+msgctxt "TutoRightTitle"
+msgid "Move Right"
+msgstr "Droite"
+
+#: TutoRightContent
+msgctxt "TutoRightContent"
+msgid "Click here to move the incoming blocks in right direction"
+msgstr "Cliquez ici pour déplacer vers la droite le bloc qui arrive"
+
