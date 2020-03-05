@@ -49,13 +49,13 @@ var app = new Vue({
 							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
 							vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
 						} else {
-							vm.currentLibrary = defaultTemplates;
-							vm.currentTemplate = defaultTemplates[0];
+							vm.currentLibrary = JSON.parse(JSON.stringify( defaultTemplates ));
+							vm.currentTemplate = vm.currentLibrary[0];
 						}
 					});
 				} else {
-					vm.currentLibrary = defaultTemplates;
-					vm.currentTemplate = defaultTemplates[0];
+					vm.currentLibrary = JSON.parse(JSON.stringify( defaultTemplates ));
+					vm.currentTemplate = vm.currentLibrary[0];
 				}
 			});
 		});
@@ -84,6 +84,7 @@ var app = new Vue({
 			vm.$refs.toolbar.$refs.zoombutton.isDisabled = true;
 			vm.currentView = TemplateViewer;
 			vm.$refs.toolbar.$refs.insertimage.isDisabled = !vm.$refs.view.editMode;
+			vm.$refs.toolbar.$refs.resettemplate.isDisabled = !vm.$refs.view.editMode;
 			document.getElementById("canvas").style.backgroundColor = vm.color.fill;
 			document.getElementById("settings-button").style.backgroundImage = vm.$refs.view.editMode?"url(icons/play.svg)":"url(icons/settings.svg)";
 		},
@@ -122,6 +123,16 @@ var app = new Vue({
 			vm.displayTemplateView();
 		},
 
+		onTemplateReset: function() {
+			let vm = this;
+			for (let i = 0; i < vm.currentLibrary.length ; i++) {
+				if (vm.currentTemplate == vm.currentLibrary[i]) {
+					vm.currentTemplate = vm.currentLibrary[i] = JSON.parse(JSON.stringify( defaultTemplates[i] ));
+					break;
+				}
+			}
+		},
+
 		onItemSelected: function(item, editMode) {
 			var vm = this;
 			if (vm.currentView === TemplateViewer) {
@@ -138,10 +149,11 @@ var app = new Vue({
 					return;
 				}
 
-				// Dosplay item
+				// Display item
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
 				vm.$refs.toolbar.$refs.insertimage.isDisabled = true;
+				vm.$refs.toolbar.$refs.resettemplate.isDisabled = true;
 				vm.currentView = Player;
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
@@ -160,6 +172,7 @@ var app = new Vue({
 			if (vm.currentView === TemplateViewer) {
 				vm.$refs.view.editMode = !vm.$refs.view.editMode;
 				vm.$refs.toolbar.$refs.insertimage.isDisabled = !vm.$refs.toolbar.$refs.insertimage.isDisabled;
+				vm.$refs.toolbar.$refs.resettemplate.isDisabled = !vm.$refs.toolbar.$refs.resettemplate.isDisabled;
 				document.getElementById("settings-button").style.backgroundImage = vm.$refs.view.editMode?"url(icons/play.svg)":"url(icons/settings.svg)";
 			} else if (vm.currentView === Player) {
 				vm.currentView = Editor;

@@ -59,6 +59,10 @@ button:disabled {
 	background-image: url(../icons/insert-image.svg);
 }
 
+#main-toolbar #reset-button {
+	background-image: url(../icons/restart.svg);
+}
+
 #main-toolbar #zoom-button {
 	background-image: url(../icons/zoom.svg);
 }
