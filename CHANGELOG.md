@@ -130,6 +130,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Stop Watch Activity is not responsive and has text overflowing problem #604
 - Wrong text appears upon hovering on buttons in Blockrain activity #627
 - Sound don't restart in FoodChain activity #360
+- Video erase button hidden in Record Activity #655
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
