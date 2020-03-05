@@ -131,6 +131,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Wrong text appears upon hovering on buttons in Blockrain activity #627
 - Sound don't restart in FoodChain activity #360
 - Video erase button hidden in Record Activity #655
+- Text not visible in search bar of Calligra Activity #661
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
