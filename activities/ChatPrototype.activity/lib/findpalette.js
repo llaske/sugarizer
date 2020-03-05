@@ -16,7 +16,7 @@ define(["sugar-web/graphics/palette", "text!findpalette.html"], function(palette
     document.getElementById("find-container").addEventListener('submit', function(event) {
       event.preventDefault();
     });
-    document.getElementById("find").addEventListener('click', function(event) {
+    document.getElementById("query-input").addEventListener('input', function(event) {
       that.findClickEvent.query = document.getElementById('query-input').value;
       that.getPalette().dispatchEvent(that.findClickEvent);
     });
