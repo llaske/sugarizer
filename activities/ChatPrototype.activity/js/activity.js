@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity,wl10n, palette,presencepalette,datastore,chooser) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser", "findpalette"], function (activity,wl10n, palette,presencepalette,datastore,chooser, findpalette) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -36,6 +36,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var socketStatus = document.getElementById('status');
         var messageContent = document.getElementById('content');
         var imageUpload = document.getElementById('image-upload');
+        var findButton = document.getElementById('find-button');
 
 	document.getElementById("status").innerHTML = l10n_s.get("status");
 	messageField.placeholder = l10n_s.get("WriteYourMessage");
@@ -79,6 +80,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
 					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
 					imageUpload.style.visibility = "visible";
+					findButton.style.visibility = "visible";
 				});
 
 				// Handle messages received
@@ -114,8 +116,6 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 						messagesList.appendChild(myElem);
 						messageContent.scrollTop = messageContent.scrollHeight;
-
-
 					}
 				});
 			});
@@ -167,6 +167,29 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 					senddata(data,'image');
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
+
+		let addpalette = new findpalette.FindPalette(findButton, undefined);
+		findButton.addEventListener('click', function(event) {
+			if(addpalette.isDown()) {
+				messagesList.childNodes.forEach(function(node) {
+					node.classList.remove('hide');
+				});
+			}
+		});
+		addpalette.addEventListener('findClick', function (event) {
+			let regex = new RegExp(event.query, "ig");
+			let found = [];
+			messagesList.childNodes.forEach(function(node) {
+				if(node.childNodes.length == 2) {
+					found = node.childNodes[1].textContent.match(regex);
+					if(found && found.length > 0) {
+						node.classList.remove('hide');
+					} else {
+						node.classList.add('hide');
+					}
+				}
+			});
 		});
 
 	    //Smiley Emoji options

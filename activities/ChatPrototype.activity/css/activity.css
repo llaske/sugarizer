@@ -11,9 +11,24 @@ background-image:url(../icons/image-upload.svg);
 visibility: hidden;
 }
 
+#main-toolbar #find-button {
+background-image:url(../icons/find.svg);
+visibility: hidden;
+}
+
+#find {
+  height: 30px;
+  margin: 5px;
+  background-image:url(../icons/find.svg);
+  background-size: cover;
+}
 
 .network-text {
 font-size: 12pt;
+}
+
+.palette-find {
+  padding: 10px;
 }
 
 #private-button {
@@ -112,6 +127,10 @@ color:black;
 font-size:.9rem;
 text-transform:uppercase;
 letter-spacing:1px;
+}
+
+.hide {
+  display: none;
 }
 
 .sent {
