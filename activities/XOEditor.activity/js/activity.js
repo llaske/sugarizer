@@ -30,7 +30,11 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-    	canvas.width = window.innerWidth;
+    	if(window.innerWidth <= 667) {
+				canvas.width = window.innerWidth;
+			} else {
+				canvas.width = 667;
+			}
     	canvas.height = window.innerHeight-55;
 
     	stage = new createjs.Stage(canvas);
@@ -45,10 +49,14 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 
 	    window.addEventListener('resize', resizeCanvas, false);
 	    function resizeCanvas() {
-	        canvas.width = window.innerWidth;
-	        canvas.height = window.innerHeight-55;
-	        stage.update();
-	        location.reload();
+				if(window.innerWidth <= 667) {
+					canvas.width = window.innerWidth;
+				} else {
+					canvas.width = 667;
+				}
+				canvas.height = window.innerHeight-55;
+				stage.update();
+				location.reload();
 	    }
 
 	    e = new Editor(stage,xocolor,doc,colors,act,env,datastore);
