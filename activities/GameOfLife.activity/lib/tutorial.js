@@ -67,31 +67,31 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoExplainContent")
 			},
 			{
-				element: "#canvas",
+				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoCanvasTitle"),
 				content: l10n.get("TutoCanvasContent")
 			},
 			{
-				element: "#canvas",
+				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoUnderTitle"),
 				content: l10n.get("TutoUnderContent")
 			},
 			{
-				element: "#canvas",
+				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoNextTitle"),
 				content: l10n.get("TutoNextContent")
 			},
 			{
-				element: "#canvas",
+				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoOverTitle"),
 				content: l10n.get("TutoOverContent")
 			},
 			{
-				element: "#canvas",
+				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoReproductionTitle"),
 				content: l10n.get("TutoReproductionContent"),
