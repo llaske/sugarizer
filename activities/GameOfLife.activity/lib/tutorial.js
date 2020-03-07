@@ -7,8 +7,8 @@ define(["webL10n"], function (l10n) {
 			<div class='popover tour'>\
 				<div class='arrow'></div>\
 				<h3 class='popover-title tutorial-title'></h3>\
-				<table><tr><td style='vertical-align:top;'><div id='icon-tutorial' style='visibility:hidden;display:inline-block;'></div>\
-				</td><td><div class='popover-content'></div></td></tr></table>\
+				<div class='popover-content'>\
+				</div>\
 				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
 					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
 						<div class='tutorial-prev-icon1 web-activity'>\
@@ -41,13 +41,6 @@ define(["webL10n"], function (l10n) {
 				if (tutorial.icons && tutorial.icons.steps && tutorial.icons.steps[tour.getCurrentStep()]) {
 					var icon = tutorial.icons.steps[tour.getCurrentStep()];
 					var iconElement = document.getElementById("icon-tutorial");
-					iconElement.style.visibility = 'visible';
-					iconElement.style.backgroundImage = "url('"+ icon.directory + "/" + icon.icon + "')";
-					iconElement.style.backgroundSize = icon.size + "px";
-					iconElement.style.width = icon.size + "px";
-					iconElement.style.height = icon.size + "px";
-					iconElement.style.marginTop = "15px";
-					iconElement.style.marginLeft = "5px";
 					if (icon.color) {
 						iconLib.colorize(iconElement, icon.color, function(){});
 					}
@@ -57,7 +50,26 @@ define(["webL10n"], function (l10n) {
 				tutorial.elements = [];
 				tutorial.icons = null;
 			}
-		});
+        	});
+        
+		tutorial.icons = {
+			steps: {
+				2: {icon: 'underpopulation.png', directory: 'images', size: 100},
+				3: {icon: 'nextgeneration.png', directory: 'images', size: 100},
+				4: {icon: 'overpopulation.png', directory: 'images', size: 100},
+				5: {icon: 'reproduction.png', directory: 'images', size: 100},
+			}
+		}
+	
+		tutorial.getStepContainer = function(step, text){
+			const {icon, directory, size} = tutorial.icons.steps[step];
+			return "<div style='display: flex'>\
+					<div id='icon-tutorial' style='flex-shrink:0; width: "+size+"px; \
+						height: "+size+"px; background-image: url("+directory+"/"+icon+"')'></div>\
+					<div style='flex-shrink:1; margin-left: 15px'>"+text+"</div>\
+				</div>"
+		}
+
 		tour.addSteps([
 			{
 				element: "",
@@ -76,25 +88,25 @@ define(["webL10n"], function (l10n) {
 				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoUnderTitle"),
-				content: l10n.get("TutoUnderContent")
+				content: tutorial.getStepContainer(2, l10n.get("TutoUnderContent"))
 			},
 			{
 				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoNextTitle"),
-				content: l10n.get("TutoNextContent")
+				content: tutorial.getStepContainer(3, l10n.get("TutoNextContent"))
 			},
 			{
 				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoOverTitle"),
-				content: l10n.get("TutoOverContent")
+				content: tutorial.getStepContainer(4, l10n.get("TutoOverContent"))
 			},
 			{
 				element: "canvas",
 				placement: "top",
 				title: l10n.get("TutoReproductionTitle"),
-				content: l10n.get("TutoReproductionContent"),
+				content: tutorial.getStepContainer(5, l10n.get("TutoReproductionContent"))
 			},
 			{
 				element: ".generation-container",
@@ -151,14 +163,6 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoClearContent"),
 			},
 		]);
-		tutorial.icons = {
-			steps: {
-				2: {icon: 'underpopulation.png', directory: 'images', size: 100},
-				3: {icon: 'nextgeneration.png', directory: 'images', size: 100},
-				4: {icon: 'overpopulation.png', directory: 'images', size: 100},
-				5: {icon: 'reproduction.png', directory: 'images', size: 100},
-			}
-		};
 		tour.init();
 		tour.start(true);
 
