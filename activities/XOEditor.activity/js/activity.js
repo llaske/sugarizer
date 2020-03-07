@@ -30,10 +30,10 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-    	if(window.innerWidth <= 667) {
+    	if(window.innerWidth <= 750) {
 				canvas.width = window.innerWidth;
 			} else {
-				canvas.width = 667;
+				canvas.width = 750;
 			}
     	canvas.height = window.innerHeight-55;
 
@@ -49,10 +49,10 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 
 	    window.addEventListener('resize', resizeCanvas, false);
 	    function resizeCanvas() {
-				if(window.innerWidth <= 667) {
+				if(window.innerWidth <= 750) {
 					canvas.width = window.innerWidth;
 				} else {
-					canvas.width = 667;
+					canvas.width = 750;
 				}
 				canvas.height = window.innerHeight-55;
 				stage.update();
