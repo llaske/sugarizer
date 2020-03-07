@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (activity,mustache,env) {
+define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial"], function (activity,mustache,env, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -28,10 +28,11 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             this.elem = document.createElement('li');
             var stopwatchList = document.getElementById('stopwatch-list');
             stopwatchList.appendChild(this.elem);
+            var numStopWatches = document.getElementsByTagName('li').length;
 
             this.template =
                 '<div class="card-body">' +
-                    '<div class="row">' +
+                    '<div class="row" id="' + numStopWatches + '">' +
                         '<div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-center align-items-center">' +
                             '<div class="counter">00:00:00</div>' +
                         '</div>' +
@@ -263,6 +264,10 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         document.getElementById("canvas").style.top = "55px";
         document.getElementById("unfullscreen-button").style.visibility = "hidden";
 
+    });
+
+    document.getElementById("help-button").addEventListener('click', function(e) {
+        tutorial.start();
     });
 
 });
