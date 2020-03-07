@@ -36,7 +36,7 @@ define(["webL10n"], function (l10n) {
             },
             {
                 element: "#add-stopwatch",
-                placement: $('#add-stopwatch').outerHeight() * 2 + $('#add-stopwatch').position().top 
+                placement: $('#add-stopwatch').outerHeight() * 2 + $('#add-stopwatch').position().top
                             + $('#canvas').scrollTop() > $("#canvas").height()? "top" : "right",
                 title: l10n.get("TutoAddTitle"),
                 content: l10n.get("TutoAddContent")
@@ -46,18 +46,6 @@ define(["webL10n"], function (l10n) {
                 placement: "left",
                 title: l10n.get("TutoRemoveTitle"),
                 content: l10n.get("TutoRemoveContent")
-            },
-            {
-                element: "#fullscreen-button",
-                placement: "bottom",
-                title: l10n.get("TutoFullScreenButtonTitle"),
-                content: l10n.get("TutoFullScreenButtonContent")
-            },
-            {
-                element: "#stop-button",
-                placement: "left",
-                title: l10n.get("TutoStopButtonTitle"),
-                content: l10n.get("TutoStopButtonContent")
             }
         ];
 
