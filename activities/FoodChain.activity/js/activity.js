@@ -56,10 +56,14 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 
 					// Load context
 					FoodChain.loadContext(function() {
-						app.playGame({
-							name: FoodChain.context.game.replace("FoodChain.", ""),
-							level: FoodChain.context.level
-						});
+						if(FoodChain.context.game!=""){
+							app.playGame({
+								name: FoodChain.context.game.replace("FoodChain.", ""),
+								level: FoodChain.context.level
+							});
+							FoodChain.context.object.pause();
+							FoodChain.context.object.play();
+						}
 					});
 				});
 			} else {
@@ -72,6 +76,19 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
         // Stop sound at end of game to sanitize media environment, specifically on Android
         document.getElementById("stop-button").addEventListener('click', function (event) {
 			FoodChain.sound.pause();
+			FoodChain.saveContext();
+        });
+
+	// Add Fullscreen/Unfullscreen functionality
+        document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+        });
+        document.getElementById("unfullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.opacity = 1;
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
         });
     });
 

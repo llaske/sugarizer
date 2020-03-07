@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Calligra activity
+- Falabracman activity
 - Tutorial step 9: integrate a tutorial
 - Add a fullscreen button in Gears activity #411
 - Add new Fonts for Write Activity
@@ -63,6 +64,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a quit application button in Electron
 - Add a tutorial to the QR Code activity #595
 - Add a fullscreen button in the Stopwatch activity #599
+- Add a fullscreen button in the FoodChain activity #598
+- Add a fullscreen button to the Video Viewer activity #600
+- Add a tutorial to the TankOp activity #597
+- Add a tutorial to the Chat activity #594
+- Add a tutorial to the Block Rain activity #593
+- Add an option to navigate back to Contents in Ebook Reader #651
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -117,6 +124,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Grid Paint Activity screen not working properly on Firefox #342
 - Gridpaint don't handle window resize #403
 - In Journal Popup in iOS/Safari, Choose item text is not centered
+- RGB bars in LabyrinthJS and Write activity overflows #620
+- Time laps in stopwatch activity should be reset when reset button is clicked #624
+- Unnecessary display of time lapse when stopwatch not started #638
+- Stop Watch Activity is not responsive and has text overflowing problem #604
+- Wrong text appears upon hovering on buttons in Blockrain activity #627
+- Sound don't restart in FoodChain activity #360
+- Video erase button hidden in Record Activity #655
+- Text not visible in search bar of Calligra Activity #661
+- Text overflows in Shared notes activity #333
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
