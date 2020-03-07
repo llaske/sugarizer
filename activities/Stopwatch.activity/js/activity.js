@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial"], function (activity,mustache,env, tutorial) {
+define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "webL10n"], function (activity,mustache,env, tutorial, webL10n) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -213,6 +213,11 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial"], 
         
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
+
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+    
             if (!environment.objectId) {
                  // Start with five stopwatches.
                 for (var i = 0; i < 5; i++) {
