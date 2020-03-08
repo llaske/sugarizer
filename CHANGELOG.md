@@ -71,6 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a tutorial to the Block Rain activity #593
 - Add an option to navigate back to Contents in Ebook Reader #651
 - Add a tutorial to the Stopwatch activity #596
+- Add a fullscreen button in the Exerciser activity #602
 
 ### Changed
 - Double size of Record images in WebApp and electron App
