@@ -153,3 +153,22 @@
 .button-time.disable {
   color: #dbdce8 !important;
 }
+
+@media screen and (max-height: 500px) {
+  #container{
+    flex-direction: row;
+  }
+  .button-wrapper{
+    flex-direction: column;
+  }
+  .button span{
+    height: auto;
+  }
+  .button-container{
+    width: auto;
+    margin: 20px;
+  }
+  .plus-button, .minus-button, .minus-button span{
+    transform: rotate(90deg);
+  }
+}
