@@ -147,6 +147,34 @@
 	height: 50px;
 }
 
+.gameFinished{
+	padding: 90px;
+}
+
+.gameFinsihed-message{
+	font-size: 50px;
+	text-align: center;
+}
+
+.gameFinished-controls{
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.replayButton{
+	background-color: black !important;
+	margin-right: 40px;
+}
+
+.hide{
+	display: none;
+}
+
+.backToSelectionBtn{
+	margin-top: 0! important;
+}
+
 .backButton {
 	margin-top: 10px;
 	margin-left: 10px;
