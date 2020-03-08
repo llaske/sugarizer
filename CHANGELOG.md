@@ -134,6 +134,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Video erase button hidden in Record Activity #655
 - Text not visible in search bar of Calligra Activity #661
 - Text overflows in Shared notes activity #333
+- Dialog box has no background in Markdown #671
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
