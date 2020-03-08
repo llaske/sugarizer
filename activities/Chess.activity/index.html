@@ -10,12 +10,15 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
 <link rel="stylesheet" href="css/chessboard-1.0.0.css">
 <script src="js/jquery.js"></script>
 <script src="js/chess.js"></script>
 <script src="js/chessboard-1.0.0.js"></script>
-<script src="lib/jquery.min.js"></script>
-
 <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -28,24 +31,16 @@
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton" id="network-button" title="Network"></button>
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
   
 </div>
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
-
-  <!-- Replace this message with your own content -->
-  <!-- <h1>Congratulations!</h1>
-  <p>You are ready to develop this activity. Go ahead and edit the files.<br />
-    You can remove this message in the index.html.</p> -->
-    <div id="myBoard1" style="width:400px"></div>
-    <div id="myBoard" style="width: 400px"></div><br><br>
-    <button id="startBtn">Start Position</button>
-    <button id="showPositionBtn">Show position in console</button>
-    <button id="clearBtn">Clear Board</button>
-    <br><label>Status:</label>
-    <div id="status"></div>
-    <button id="swap-button">Swap</button>
+    <div id="myBoard" style="width: 500px;padding-left: 32%;"></div><br><br>
+    <br><h1 style="text-align: center">Status:</h1>
+    <div id="status" style="text-align: center"></div><br>
+    <button id="start-button" style="margin-left: 48%;">Start</button>
 </div>
 
 </body>
