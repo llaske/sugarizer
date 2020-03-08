@@ -148,7 +148,11 @@
 }
 
 .gameFinished{
-	padding: 90px;
+	padding: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .gameFinsihed-message{
@@ -165,6 +169,9 @@
 .replayButton{
 	background-color: black !important;
 	margin-right: 40px;
+	border-radius: 50%;
+	padding: 2px;
+	box-sizing: border-box;
 }
 
 .hide{
