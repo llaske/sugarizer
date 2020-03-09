@@ -31,10 +31,21 @@ enyo.kind({
 				components: [
 					{content: "Game finished!...", classes: "gameFinsihed-message"},
 					{classes: "gameFinished-controls", components: [
-						{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton replayButton", ontap: "replayTaped"},
-						{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton backToSelectionBtn", ontap: "backToSelectionTaped"}
+						{tag: 'span', classes: "replayButton", ontap: "replayTaped", 
+							components: [
+								{classes: "gameFinished-controls-text", content: "Replay"},
+								{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton"}
+							]
+						},
+						{tag: 'span', classes: "backToSelectionBtn", ontap: "backToSelectionTaped",
+							components: [
+								{classes: "gameFinished-controls-text", content: "Game Selection"},
+								{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton"}
+							]
+						}
 					]}
-				]}
+				]
+			}
 		]},		
 		{name: "box", classes: "playbox", components: [
 		]},
