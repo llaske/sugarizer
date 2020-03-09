@@ -148,8 +148,7 @@
 }
 
 .gameFinished{
-	padding: 80px;
-	padding-bottom: 0px;
+	margin-top: 80px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -164,18 +163,23 @@
 .gameFinished-controls{
 	display: flex;
 	justify-content: center;
-	margin-top: 50px;
+	width: 100vw;
+	margin-top: 40px;
 }
 
 .replayButton, .backToSelectionBtn{
 	border: 5px solid black;
-	display: flex;
+	display: flex !important;
 	align-items: center;
-	border-radius: 35px;
+	justify-content: center;
+	width: 400px !important;
+	height: 100px;
+	font-size: 20px;
+	margin-left: 0 !important;
 }
 
 .replayButton {
-	margin-right: 40px;
+	margin-right: 50px;
 }
 
 .replayButton img{
@@ -186,19 +190,12 @@
 	box-sizing: border-box;
 }
 
-.gameFinished-controls-text{
-	font-size: 20px;
-	margin: 5px;
-	margin-right: 0;
-	cursor: pointer;
-}
-
 .hide{
 	display: none;
 }
 
 .backToSelectionBtn img{
-	margin: 5px !important;
+	margin-top: 0! important;
 }
 
 .backButton {

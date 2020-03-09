@@ -29,17 +29,17 @@ enyo.kind({
 			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"},
 			{name: "gameFinished", kind: "Control", showing: false, classes: "gameFinished", 
 				components: [
-					{content: "Game finished!...", classes: "gameFinsihed-message"},
+					{content: "Game Finished", classes: "gameFinsihed-message"},
 					{classes: "gameFinished-controls", components: [
-						{tag: 'span', classes: "replayButton", ontap: "replayTaped", 
+						{tag: 'span', classes: "entry replayButton", ontap: "replayTaped", 
 							components: [
 								{classes: "gameFinished-controls-text", content: "Replay"},
 								{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton"}
 							]
 						},
-						{tag: 'span', classes: "backToSelectionBtn", ontap: "backToSelectionTaped",
+						{tag: 'span', classes: "entry backToSelectionBtn", ontap: "backToSelectionTaped",
 							components: [
-								{classes: "gameFinished-controls-text", content: "Game Selection"},
+								{classes: "gameFinished-controls-text", content: "Select"},
 								{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton"}
 							]
 						}
