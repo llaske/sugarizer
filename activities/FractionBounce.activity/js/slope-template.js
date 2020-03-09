@@ -59,6 +59,13 @@ let SlopeTemplate = {
 			this.context.fill();
 			this.context.strokeStyle = '#ffffff';
 			this.context.stroke();
+			// 0 and 1 text
+			this.context.font = "28px Times New Roman";
+			this.context.fillStyle = "#000";
+			this.context.textAlign = "center";
+			this.context.fillText("0", 20, slopeCanvas.height - 20);
+			this.context.fillStyle = "#fff";
+			this.context.fillText("1", slopeCanvas.width-20, slopeCanvas.height - 20);
 		},
 
 		drawDivisions: function(i = 0) {

@@ -12,6 +12,7 @@ body {
 	margin: 0;
 	box-sizing: border-box;
 	background: white !important;
+	overflow: hidden;
 }
 
 p {
@@ -21,20 +22,27 @@ p {
 .toolbar {
 	padding: 0 2%;
 }
+.helpText {
+	position: absolute;
+	color: white;
+	width: 40px;
+}
 
-.content {
+#content {
 	position: relative;
 }
 
 .log {
 	position: absolute;
-	z-index: 10;
+	z-index: 2;
 }
-
 .log ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+}
+.log img {
+	z-index: inherit;
 }
 
 #mainCanvas {
@@ -51,128 +59,74 @@ p {
 	top: 0;
 }
 
-.chess-container {
+.settings {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: center;
-	align-items: stretch;
-	padding: 20px;
+	font-size: 2em;
+	padding: 10px;
+}
+.palette {
+	z-index: 10;
+}
+.palette .wrapper {
+	max-width: fit-content;
+}
+.settings input {
+	width: 50px;
+	margin: 0 20px;
+	padding: 4px;
+	line-height: 22px;
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+	border-radius: 22px;
+	outline: 0;
+}
+/* Chrome, Safari, Edge, Opera */
+.settings input::-webkit-outer-spin-button,
+.settings input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.settings input[type=number] {
+  -moz-appearance: textfield;
 }
 
-#opponent-info {
-	width: 100%;
-	font-size: 1.5em;
-	font-weight: 400;
-	color: #2c2c2c;
-	text-align: center;
-	padding: 10px 0;
+.settings #add-button {
+	background: url(../icons/add.svg);
+	background-size: cover;
+	background-position: center;
+	border: none;
+	border-radius: 0;
+	width: 40px;
+	margin-left: 0;
+	margin-right: 30px;
+	padding: 0;
 }
 
-#chessboard {
-	width: 40%;
-}
-#chessboard-tut {
-	width: 30%;
-}
-
-.chess-info {
-	position: relative;
-	text-align: center;
-	width: 20%;
-	max-height: 100%;
-	border-radius: 10px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-	margin: 5px;
-	padding: 20px;
-}
-.status-container {
-	padding: 5px 0;
-	border-bottom: solid 1px rgb(223, 223, 223);
-}
-.move-list {
-	text-align: left;
-}
-.chess-info #status {
-	font-size: 1.3em;
-	font-weight: 600;
-}
-.chess-info .check {
-	color: red;
-	font-size: 1.3em;
-	font-weight: 600;
-}
-.chess-info .title {
-	font-size: 1.2em;
-	font-weight: 600;
-}
-.chess-info .move-list {
-	font-size: 1.1em;
-	height: 30vh;
-	overflow-y: auto;
-}
-
-.popup-bg {
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background: rgba(0, 0, 0, 0.4);
-}
-.popup {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	text-align: center;
+.ball-select {
+	/* padding: 10px; */
 	width: fit-content;
-	height: fit-content;
-	padding: 30px;
-	font-size: 1.8em;
-	font-weight: 700;
-	background: white;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-	border-radius: 10px;
+	text-align: center;
 }
-
-@media screen and (max-width: 870px) {
-	.chess-info .move-list {
-		font-size: 1.1em;
-		height: 15vh;
-	}
+.ball-select button {
+	border: none;
+	border-radius: 0;
 }
-
-@media screen and (max-width: 620px) {
-	.chess-container {
-		padding: 0;
-		max-height: 92vh;
-	}
-	.greeting {
-		font-size: 1.2em;
-	}
-	#chessboard, #chessboard-tut {
-		width: 95%;
-	}
-	.moves-container {
-		padding-left: 30px;
-		width: 40%;
-		border-left: solid 1px rgb(223, 223, 223);
-	}
-	.status-container {
-		border-bottom: none;
-	}
-	.chess-info {
-		width: 100%;
-		padding: 5px;
-		display: flex;
-		justify-content: space-around;
-	}
-	.chess-info .move-list {
-		font-size: 1em;
-		height: 10vh;
-	}
+.ball-select-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	background: transparent;
+	width: 90%;
+}
+.ball-select-item img {
+	width: 40px;
+	margin: 10px;
+}
+.ball-select-item div {
+	margin: 0 10px;
 }
 
 .splitbar {
@@ -208,18 +162,18 @@ p {
 	outline: none;
 }
 
-#main-toolbar #restart-button {
-	background-image: url(../icons/restart.svg);
+#main-toolbar #fractions-button {
+	background-image: url(../icons/fraction.svg);
 	outline: none;
 }
 
-#main-toolbar #undo-button {
-	background-image: url(../icons/edit-undo.svg);
+#main-toolbar #sectors-button {
+	background-image: url(../icons/sector.svg);
 	outline: none;
 }
 
-#main-toolbar #difficulty-button {
-	background-image: url(../icons/robot-on.svg);
+#main-toolbar #percents-button {
+	background-image: url(../icons/percent.svg);
 	outline: none;
 }
 
@@ -228,13 +182,18 @@ p {
 	outline: none;
 }
 
-#main-toolbar #help-ui-button {
-	background-image: url(../icons/help.svg);
+#main-toolbar #ball-button {
+	background-image: url(../icons/soccerball.svg);
 	outline: none;
 }
 
-#main-toolbar #help-rules-button {
-	background-image: url(../icons/help-rules.svg);
+#main-toolbar #bg-button {
+	background-image: url(../icons/insert-picture.svg);
+	outline: none;
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
 	outline: none;
 }
 

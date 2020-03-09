@@ -46,26 +46,40 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringChessActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			
-			<toolbar-item ref="restartBtn" id="restart-button" v-on:clicked="getApp().restartGame()" v-bind:title="l10n.stringRestart"></toolbar-item>
-			<toolbar-item ref="undoBtn" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
-			<toolbar-item ref="difficultyBtn" class="toolbutton" id="difficulty-button"
-				v-bind:title="l10n.stringDifficulty"
-				v-if="opponent == null && !spectator"
-				paletteFile="activity/palettes/difficultypalette"
-				paletteClass="DifficultyPalette"
-				paletteEvent="difficultySelected"
-				v-on:difficultySelected="getApp().onDifficultySelected($event)">
+			<toolbar-item ref="settingsBtn" class="toolbutton" id="settings-button"
+				v-bind:title="l10n.stringSettings"
+				paletteFile="activity/palettes/settingspalette"
+				paletteClass="SettingsPalette"
+				paletteEvent="fractionAdded"
+				v-on:fractionAdded="getApp().onFractionAdded($event)">
 			</toolbar-item>
+			<toolbar-item ref="ballBtn" class="toolbutton" id="ball-button"
+				v-bind:title="l10n.stringBall"
+				paletteFile="activity/palettes/ballpalette"
+				paletteClass="BallPalette"
+				paletteEvent="ballSelected"
+				v-on:ballSelected="getApp().onBallSelected($event)">
+			</toolbar-item>
+			<toolbar-item ref="bgBtn" class="toolbutton" id="bg-button"
+				v-bind:title="l10n.stringBg"
+				paletteFile="activity/palettes/bgpalette"
+				paletteClass="BgPalette"
+				paletteEvent="bgSelected"
+				v-on:bgSelected="getApp().onBgSelected($event)">
+			</toolbar-item>
+
+			<div class="helpText">{{ helpText }}</div>
+
 			<toolbar-item isSplitbar="true"></toolbar-item>
-			<toolbar-item ref="networkBtn" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
+			<toolbar-item ref="fractionsBtn" id="fractions-button" v-on:clicked="getApp().changeMode('fractions')" v-bind:title="l10n.stringFractions"></toolbar-item>
+			<toolbar-item ref="sectorsBtn" id="sectors-button" v-on:clicked="getApp().changeMode('sectors')" v-bind:title="l10n.stringSectors"></toolbar-item>
+			<toolbar-item ref="percentsBtn" id="percents-button" v-on:clicked="getApp().changeMode('percents')" v-bind:title="l10n.stringPercents"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().onHelp('ui')" id="help-ui-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().onHelp('rules')" id="help-rules-button" v-bind:title="l10n.stringRules" toRight="true"></toolbar-item>
 		</div>
 	`,
-	props: ['opponent', 'spectator'],
+	props: ['parts', 'answer'],
 	data: function () {
 		return {
 			l10n: {
@@ -73,11 +87,23 @@ var Toolbar = {
 				stringTemplate: '',
 				stringRestart: '',
 				stringHelp: '',
-				stringUndo: '',
+				stringSettings: '',
+				stringBall: '',
+				stringBg: '',
 				stringFullscreen: '',
 				stringNetwork: '',
-				stringDifficulty: '',
-				stringRules: '',
+				stringFractions: '',
+				stringSectors: '',
+				stringPercents: '',
+			}
+		}
+	},
+	computed: {
+		helpText: function() {
+			if(this.answer == -1) {
+				return "Click on the ball to start. Use arrow keys to move the ball.";
+			} else {
+				return "Bounce the ball to a position " + this.answer + "/" + this.parts + " of the way from the left side of the bar.";
 			}
 		}
 	},

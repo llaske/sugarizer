@@ -20,7 +20,9 @@ let app = new Vue({
 				fill: "#000"
 			}
 		},
+		full: false,
 		context: null,
+		mode: 'fractions',
 		img: null,
 		interval: null,
 		cx: 100,
@@ -37,9 +39,10 @@ let app = new Vue({
 		launchDelay: 1000,
 		height: 100,
 		parts: 4,
-		answer: null,
+		answer: -1,
 		correctAnswers: 0,
-		log: {}
+		log: {},
+		userFractions: []
 	},
 
 	created: function () {
@@ -47,6 +50,12 @@ let app = new Vue({
 			// Initialize Sugarizer
 			activity.setup();
 		});
+	},
+
+	watch: {
+		mode: function(newVal, oldVal) {
+
+		}
 	},
 
 	mounted: function () {
@@ -65,6 +74,7 @@ let app = new Vue({
 						if (error == null && data != null) {
 							let context = JSON.parse(data);
 							console.log(context);
+							vm.userFractions = context.userFractions;
 						} else {
 							console.log("Error loading from journal");
 						}
@@ -129,20 +139,28 @@ let app = new Vue({
 		fullscreen: function () {
 			var vm = this;
 			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			this.full = true;
+			this.init();
 		},
 		unfullscreen: function () {
 			var vm = this;
 			document.getElementById("main-toolbar").style.opacity = 1;
-			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			this.full = false;
+			this.init();
 		},
 
 		init: function () {
 			let vm = this;
 			mainCanvas.width = window.innerWidth;
-			mainCanvas.height = window.innerHeight - 56;
+			if(this.full){
+				document.getElementById('content').style.top = '-55px';
+				mainCanvas.height = window.innerHeight;
+			} else {
+				document.getElementById('content').style.top = '0';
+				mainCanvas.height = window.innerHeight - 56;
+			}
 			// Initializing the slope
 			this.$refs.slopecanvas.initSlope();
 
@@ -153,7 +171,7 @@ let app = new Vue({
 			this.img.onload = function () {
 				vm.context.drawImage(this, vm.cx, vm.cy);
 			}
-			this.img.src = 'images/beachball.svg';
+			this.img.src = 'images/soccerball.svg';
 			this.img.width = this.radius; this.img.height = this.radius;
 			this.cx = mainCanvas.width / 2;
 			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
@@ -180,23 +198,26 @@ let app = new Vue({
 		next: function () {
 			let upper = 8,
 				lower = 3;
-			this.parts = Math.floor((Math.random() * (upper - lower)) + lower);
-			this.answer = Math.floor((Math.random() * (this.parts - 1)) + 1);
+
+			let selection = Math.floor(Math.random()*2);
+			if(selection == 1 && this.userFractions.length > 0) {
+				let i = Math.floor(Math.random()*this.userFractions.length);
+				this.parts = this.userFractions[i].den;
+				this.answer = this.userFractions[i].num;
+			} else {
+				this.parts = Math.floor((Math.random() * (upper - lower)) + lower);
+				this.answer = Math.floor((Math.random() * (this.parts - 1)) + 1);
+			}
 			this.$refs.slopecanvas.updateSlope(this.parts);
 			console.log('answer: ', this.answer + '/' + this.parts);
-			this.startAnimation();
-		},
 
-		startAnimation: function () {
 			document.addEventListener("keydown", this.changeSpeed);
 			this.interval = setInterval(this.drawBall, this.frameInterval);
 		},
 
 		drawBall: function () {
 			let vm = this;
-			this.context.translate(this.radius, 2 * this.radius);
-			this.context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-			this.context.translate(-this.radius, -2 * this.radius);
+			this.clearCanvas();
 			this.context.fillStyle = "#0000ff";
 
 			if (this.cx + this.radius >= mainCanvas.width) {
@@ -250,11 +271,22 @@ let app = new Vue({
 			// this.context.closePath();
 			// this.context.fill();
 			vm.context.drawImage(this.img, vm.cx, vm.cy);
-			this.context.font = "28px Times New Roman";
-			let str = this.answer + '/' + this.parts;
+			this.context.font = "24px Times New Roman";
+			let str = '';
+			if(this.mode == 'percents') {
+				str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
+			} else {
+				str = this.answer + '/' + this.parts;
+			}
 			this.context.fillStyle = "#000";
 			this.context.textAlign = "center";
 			this.context.fillText(str, vm.cx + this.radius, vm.cy + this.radius - 15);
+		},
+
+		clearCanvas: function() {
+			this.context.translate(this.radius, 2 * this.radius);
+			this.context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+			this.context.translate(-this.radius, -2 * this.radius);
 		},
 
 		changeSpeed: function (event) {
@@ -276,62 +308,58 @@ let app = new Vue({
 			return ((-this.height / mainCanvas.width) * x + mainCanvas.height);
 		},
 
-		restartGame: function () {
-			if (this.spectator) return;
-			this.$refs.chesstemplate.startNewGame();
-			// presence
-			if (this.opponent && this.presence) {
-				this.presence.sendMessage(this.presence.sharedInfo.id, {
-					user: this.presence.getUserInfo(),
-					content: {
-						action: 'restart',
-					}
-				});
+		onFractionAdded: function(event) {
+			console.log('Added fraction');
+			this.userFractions.push({
+				num: event.numerator,
+				den: event.denominator
+			});
+		},
+
+		onBallSelected: function(event) {
+			this.clearCanvas();
+			this.img.src = 'images/' + event.ball + '.svg';
+			switch(event.ball) {
+				case 'rugbyball':
+				case 'soccerball':
+					mainCanvas.style.background = 'url(images/grass_background.png)';
+					break;
+				case 'bowlingball':
+				case 'basketball':
+					mainCanvas.style.background = 'url(images/parquet_background.png)';
+					break;
+				case 'feather':
+					mainCanvas.style.background = 'url(images/feather_background.png)';
+					break;
+				case 'beachball':
+					mainCanvas.style.background = 'url(images/beach_background.png)';
+					break;
 			}
 		},
 
-		undo: function () {
-			if (this.spectator) return;
-			this.$refs.chesstemplate.undo();
-			// presence
-			if (this.opponent && this.presence) {
-				this.presence.sendMessage(this.presence.sharedInfo.id, {
-					user: this.presence.getUserInfo(),
-					content: {
-						action: 'undo',
-					}
-				});
+		onBgSelected: function(event) {
+			switch(event.bg) {
+				case 'grass':
+					mainCanvas.style.background = 'url(images/grass_background.png)';
+					break;
+				case 'wood':
+					mainCanvas.style.background = 'url(images/parquet_background.png)';
+					break;
+				case 'clouds':
+					mainCanvas.style.background = 'url(images/feather_background.png)';
+					break;
+				case 'sand':
+					mainCanvas.style.background = 'url(images/beach_background.png)';
+					break;
 			}
 		},
 
-		onMove: function (move) {
-			if (this.opponent && this.presence) {
-				this.presence.sendMessage(this.presence.getSharedInfo().id, {
-					user: this.presence.getUserInfo(),
-					content: {
-						action: 'move',
-						move: {
-							from: move.from,
-							to: move.to
-						}
-					}
-				});
-			}
+		changeMode: function(mode) {
+			this.mode = mode;
 		},
 
 		onHelp: function (type) {
-			if (type == 'rules') {
-				this.tutorialRunning = true;
-			}
 			this.$refs.tutorial.show(type);
-		},
-
-		onTutStartPos: function () {
-			this.$refs.chesstemplate.onTutStartPos();
-		},
-
-		onHelpEnd: function () {
-			this.tutorialRunning = false;
 		},
 
 		onNetworkDataReceived: function (msg) {
@@ -425,7 +453,7 @@ let app = new Vue({
 				console.log("writing...");
 
 				let context = {
-					gamePGN: vm.$refs.chesstemplate.game.pgn()
+					userFractions: vm.userFractions
 				};
 				var jsonData = JSON.stringify(context);
 				activity.getDatastoreObject().setDataAsText(jsonData);
