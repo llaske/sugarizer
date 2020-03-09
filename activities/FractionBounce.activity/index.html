@@ -25,13 +25,27 @@
 
 <body>
 	<div id="app">
-		<toolbar ref="toolbar" v-bind:opponent="opponent" v-bind:spectator="spectator"></toolbar>
+		<toolbar ref="toolbar"></toolbar>
 
-		<div id="canvas">
-			<chess-template ref="chesstemplate" v-bind:opponent="opponent" v-bind:spectator="spectator"
-				v-bind:currentpgn="currentpgn" v-bind:currentcolor="currentcolor" v-bind:level="level" v-bind:humane="humane"
-				v-bind:tutorial-running="tutorialRunning" v-bind:white-colors="whiteColors"
-				v-bind:black-colors="blackColors" v-on:move="onMove" />
+		<div class="content">
+			<table class="log">
+				<thead>
+					<th v-for="(item, key) in log" v-bind:key="key"> {{ key }} </th>
+				</thead>
+				<tbody>
+					<td v-for="(items, key) in log" v-bind:key="key" valign="top"> 
+						<ul>
+							<li v-if="items" v-for="item in items" v-bind:key="items">
+								<img src="./images/smiley.svg" alt="smiley" v-if="item">	
+								<img src="./images/frown.svg" alt="smiley" v-else>	
+							</li>	
+						</ul>	
+					</td>
+				</tbody>
+			</table>
+			<canvas id="mainCanvas" width="500" height="500"></canvas>
+			<slope-template ref="slopecanvas" v-bind:height="height" v-bind:parts="parts" v-bind:radius="radius" v-bind:cx="cx"
+						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" />
 		</div>
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
@@ -42,10 +56,7 @@
 
 	<script src="js/l10n.js"></script>
 	<script src="js/tutorial.js"></script>
-	<script src="js/engine.js"></script>
-	<script src="js/display.js"></script>
-	<script src="js/chess-tutorial.js"></script>
-	<script src="js/chess-template.js"></script>
+	<script src="js/slope-template.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/activity.js"></script>
 </body>
