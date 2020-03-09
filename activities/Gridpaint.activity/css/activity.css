@@ -11,6 +11,23 @@
   background-image: url(../icons/help.svg);
 }
 
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 10px;
+  right: 15px;
+  position: absolute;
+  visibility: hidden;
+}
+
 .tutorial-title {
   background-color: #808080 !important;
   color: #ffffff !important;

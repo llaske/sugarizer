@@ -51,11 +51,17 @@ var EbookReader = {
 				var location = vm.getLocation();
 				vm.rendition.prev().then(function() {},
 					function() {vm.rendition.display(location)}
-				);;
+				);
 				document.getElementById("left").classList.add("reader-left-sel");
 				setTimeout(function() {
 					document.getElementById("left").classList.remove("reader-left-sel");
 				}, 100);
+			}
+		},
+
+		goToPage: function(location) {
+			if (this.rendition != null) {
+				this.rendition.display(location);
 			}
 		},
 
