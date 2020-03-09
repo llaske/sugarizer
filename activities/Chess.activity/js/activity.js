@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presencepalette","sugar-web/graphics/icon","tutorial"], function (activity,env,presencepalette,icon,tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presencepalette","sugar-web/graphics/icon","tutorial","webL10n"], function (activity,env,presencepalette,icon,tutorial,webL10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -6,7 +6,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		// Initialize the activity.
 		activity.setup();
 
-
+		//chess board
 		var isHost = false;
 		var board = null
 		pos='start'
@@ -16,6 +16,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		var $pgn = $('#pgn')
 		var whiteSquareGrey = '#a9a9a9'
 		var blackSquareGrey = '#696969'
+		//full-screen
+		var toolbarSize = 55;
+		var marginPercent = 20;
+		var headerSize = toolbarSize + 40;
+		var qrSize = document.getElementById("canvas").parentNode.offsetHeight - headerSize;
+		qrSize -= (marginPercent*qrSize)/100;
+		var margin = (document.getElementById("canvas").parentNode.offsetWidth - qrSize) / 2;
+		document.getElementById("canvas").style.marginLeft =  "px";
+		document.getElementById("canvas").style.marginTop = "px";
 		
 		// Welcome user
 		env.getEnvironment(function(err, environment) {
@@ -23,7 +32,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 			
 			// Shared instances
 			if (environment.sharedId) {
-				console.log("Shared instance");
+				//console.log("Shared instance");
 				presence = activity.getPresenceObject(function(error, network) {
 					network.onDataReceived(onNetworkDataReceived);
 					network.onSharedActivityUserChanged(onNetworkUserChanged);
@@ -31,13 +40,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 				});
 			
 			}	
-
+			
 			// Load from datastore
 			if (!environment.objectId) {
-				console.log("New instance");
+				//console.log("New instance");
 			} else {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-					console.log(data.configuration);
+					//console.log(data.configuration);
 					if (error==null && data!=null) {
 						
 						game=new Chess(pos);
@@ -71,17 +80,17 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
 		palette.addEventListener('shared', function() {
 			palette.popDown();
-			console.log("Want to share");
+			//console.log("Want to share");
 			presence = activity.getPresenceObject(function(error, network) {
 				network.onDataReceived(onNetworkDataReceived);
 				
 				
 				if (error) {
-					console.log("Sharing error");
+					//console.log("Sharing error");
 					return;
 				}
 				network.createSharedActivity('org.sugarlabs.Chess', function(groupId) {
-					console.log("Activity shared");
+					//console.log("Activity shared");
 					isHost = true;
 				});
 
@@ -98,7 +107,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 	
 		var onNetworkDataReceived = function(msg) {
 			
-			console.log("hi");
+			//console.log("hi");
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				
 				return;
@@ -106,9 +115,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 			// if(msg.stop){
 			// 	document.getElementById("stop-button").click();
 			// }
-			console.log(msg.content.alignment)
+			//console.log(msg.content.alignment)
 			game=new Chess(msg.content.configuration);
-			console.log(msg.content.configuration);
+			//console.log(msg.content.configuration);
 			
 			
 			
@@ -145,7 +154,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 
 
 		var onNetworkUserChanged = function(msg) {
-			console.log("hello");
+			//console.log("hello");
 			
 
 			
@@ -374,6 +383,35 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		document.getElementById("help-button").addEventListener('click', function(e) {
 			tutorial.start();
 		});
+
+		var resizeHandler = function() {
+			var windowSize = document.body.clientHeight - headerSize + (document.getElementById("unfullscreen-button").style.visibility == "visible"?toolbarSize:0);
+			var zoom = windowSize/((qrSize*(100+marginPercent))/100);
+			document.getElementById("canvas").style.zoom = zoom;
+			var useragent = navigator.userAgent.toLowerCase();
+			if (useragent.indexOf('chrome') == -1) {
+				document.getElementById("canvas").style.MozTransform = "scale("+zoom+")";
+				document.getElementById("canvas").style.MozTransformOrigin = "0 0";
+			}
+			
+		}
+		window.addEventListener('resize', resizeHandler);
+
+		document.getElementById("fullscreen-button").addEventListener('click', function(event) {
+			document.getElementById("main-toolbar").style.display = "none";
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			resizeHandler();
+		  });
+  
+		  
+		  document.getElementById("unfullscreen-button").addEventListener('click', function(event) {
+			document.getElementById("main-toolbar").style.display = "block";
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			resizeHandler();
+		});
+
 
 	});
 

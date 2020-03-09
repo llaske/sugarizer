@@ -8,7 +8,8 @@
 <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
-	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -32,16 +33,19 @@
   <button class="toolbutton" id="network-button" title="Network"></button>
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
   <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
   
 </div>
 
+
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
-    <div id="myBoard" style="width: 500px;padding-left: 32%;"></div><br><br>
+    <div id="myBoard"></div><br><br>
     <br><h1 style="text-align: center">Status:</h1>
     <div id="status" style="text-align: center"></div><br>
     <button id="start-button" style="margin-left: 48%;">Start</button>
 </div>
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
 </body>
 

@@ -5,10 +5,14 @@
 	display: inline-block;
 	width: 75vw;
 	max-width: 864px;
+	position: relative;
+	width: 400px;
+	padding-left: 35%;
 }
 
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	position: relative;
   }
   
   #private-button {
@@ -24,6 +28,7 @@
 	background-size: contain;
 	border: 0;
 	border-radius: 5.5px;
+	position: relative;
   }
   
   #shared-button {
@@ -39,10 +44,12 @@
 	background-size: contain;
 	border: 0;
 	border-radius: 5.5px;
+	position: relative;
   }
 
   #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
+	position: relative;
   }
 
   .tutorial-title {
@@ -171,4 +178,23 @@
 	height: 35px;
 	background-color: #808080;
 	border: 2px solid #808080;
+}
+
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+	position: relative;
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
 }
