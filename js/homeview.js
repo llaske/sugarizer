@@ -289,23 +289,35 @@ enyo.kind({
 		var activitiesIndex = 0;
 		var radiusx, radiusy, base_angle, spiralMode, restrictedMode;
 		var PI2 = Math.PI*2;
+		console.log("PI2=",+PI2);
 		radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size));
+		console.log("radiusx=",radiusx);
+		console.log("radiusy=",radiusy);
+		
 		var circumference = PI2*radiusx;
 		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
 			spiralMode = restrictedMode = false;
 			base_angle = (PI2/parseFloat(activitiesList.length));
+			console.log("base angle=",+base_angle);
 		} else {
 			if (this.hasRoomForSpiral(canvas_center, icon_padding)) {
 				spiralMode = true; restrictedMode = false;
-				radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
-				activitiesCount = parseInt((PI2*radiusx)/icon_padding);
+				radiusx = radiusy = (icon_padding*constant.ringInitSpaceFactor)+25;
+				console.log("radius2=",+radiusy);
+				console.log("radiusx1=",+radiusx);
+				activitiesCount = (parseInt((PI2*radiusx)/icon_padding));
+				console.log("activitiesCount=",+activitiesCount);
 				base_angle = PI2/activitiesCount;
+				console.log("base angle2=",+base_angle);
 			} else {
 				restrictedMode = true; spiralMode = false;
 				activitiesCount = parseInt(circumference/icon_padding)-1;
+				
 				this.restrictedModeInfo.count = activitiesCount;
 				this.restrictedModeInfo.length = activitiesList.length;
+				
 				base_angle = (PI2/parseFloat(activitiesCount+1));
+				
 			}
 		}
 
