@@ -2,6 +2,7 @@ var app;
 var sound;
 var tonePlayer;
 var pianoMode = false;
+var simonMode = false;
 
 define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
 
@@ -57,6 +58,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 
 		document.getElementById("piano-button").addEventListener('click', function (event) {
 			app.changePianoMode();
+		});
+
+		document.getElementById("simon-button").addEventListener('click', function (event) {
+			app.changeSimonMode();
 		});
 
 	});

@@ -6,6 +6,10 @@
     background-image: url(../icons/piano-icon.svg);
 }
 
+#main-toolbar #simon-button {
+  background-image: url(../icons/simon-icon.png);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }

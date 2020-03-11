@@ -183,3 +183,18 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 .container {
     position: relative;
 }
+
+.Simon-game{
+  width: 520px;
+  height: 520px;
+  border-radius: 255px !important;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px auto;
+}
+
+.Simon-button{
+  width: 250px;
+  height: 250px;
+  border: 5px solid black;
+}
