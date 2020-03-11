@@ -166,5 +166,31 @@ enyo.kind({
 			document.getElementById('simon-button').classList.remove('active');
 		}
 		this.draw();
+	},
+
+	setContext: function(context){
+		pianoMode = context.piano;
+		currentPianoMode = context.currentPianoMode;
+		simonMode = context.simon;
+		currentSimonMode = context.currentSimonMode;
+
+		if(simonMode) {
+			document.getElementById('simon-button').classList.add('active');
+			document.getElementById('piano-button').classList.remove('active');
+		}
+
+		if(pianoMode) {
+			document.getElementById('piano-button').classList.add('active');
+			document.getElementById('simon-button').classList.remove('active');
+		}
+	},
+
+	getContext: function(){
+		return {
+			piano: pianoMode,
+			currentPianoMode: currentPianoMode,
+			simon: simonMode,
+			currentSimonMode: currentSimonMode
+		}
 	}
 });

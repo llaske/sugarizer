@@ -11,21 +11,35 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Initialize the activity.
 		activity.setup();
 
-		// Create sound component
-		sound = new TamTam.Audio();
-		sound.renderInto(document.getElementById("audio"));
-		tonePlayer = new TamTam.TonePlayer();
-
-		// Launch main screen
-		app = new TamTam.App({activity: activity});
-		app.renderInto(document.getElementById("keyboard"));
-
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
+
+			// Create sound component
+			sound = new TamTam.Audio();
+			sound.renderInto(document.getElementById("audio"));
+			tonePlayer = new TamTam.TonePlayer();
+
+			app = new TamTam.App({activity: activity});
+
+			// Load from data store
+			if (environment.objectId) {
+				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+					if (error==null && data!=null) {
+						var journalData = JSON.parse(data);
+
+						// Launch main screen
+						app.setContext(journalData);
+						app.renderInto(document.getElementById("keyboard"));
+					}
+				});
+			} else {
+				// Launch main screen
+				app.renderInto(document.getElementById("keyboard"));
+			}
 		});
 
 		// Switch to full screen when the full screen button is pressed
@@ -54,6 +68,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			sound.pause();
+			var jsonData = JSON.stringify(app.getContext());
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
 		});
 
 		document.getElementById("piano-button").addEventListener('click', function (event) {
