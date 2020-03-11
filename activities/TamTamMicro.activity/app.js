@@ -149,6 +149,7 @@ enyo.kind({
 		simonMode = false;
 		if(pianoMode) {
 			document.getElementById('piano-button').classList.add('active');
+			document.getElementById('simon-button').classList.remove('active');
 		} else {
 			document.getElementById('piano-button').classList.remove('active');
 		}
@@ -160,6 +161,7 @@ enyo.kind({
 		pianoMode = false;
 		if(simonMode) {
 			document.getElementById('simon-button').classList.add('active');
+			document.getElementById('piano-button').classList.remove('active');
 		} else {
 			document.getElementById('simon-button').classList.remove('active');
 		}

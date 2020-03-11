@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "TamTam.Simon",
 	components: [
-        {tag: "div", classes: "container", components: [
+        {tag: "div", classes: "", components: [
             {tag: "div", classes: "Simon-game", components: [
                 {tag: "div", name: "A", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {tag: "div", name: "E", classes: "Simon-button green", ontap: "handlePlayNote"},
