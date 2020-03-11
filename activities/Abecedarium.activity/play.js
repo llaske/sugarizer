@@ -36,7 +36,7 @@ enyo.kind({
 					},
 					{classes: "gameFinished-controls", components: [
 						{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton replayButton", ontap: "replayTaped"},
-						{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton", ontap: "backToSelectionTaped"}
+						{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton backSelection", ontap: "backToSelectionTaped"}
 					]}
 				]
 			}
@@ -65,8 +65,9 @@ enyo.kind({
 		else
 			this.displayButtons();
 			
-		if (this.gamecount === entriesByGame)
+		if (this.gamecount === entriesByGame){
 			this.showGameFinished();
+		}
 	},
 	
 	// Context handling
@@ -309,8 +310,10 @@ enyo.kind({
 		Abcd.changeVisibility(this, {home: false, back: false, filter: false, check: false, itemCount: false});
 		Abcd.hideLang();
 		this.$.caseButton.hide();
-		var l10n ={"en":"Game Finished","fr":"Game Finished","es":"Game Finished","pt":"Game Finished","de":"Game Finished"};
-		this.$.gameFinishedMsg.setContent(l10n[Abcd.languageCode]);
+		var playMode = this;
+		requirejs(["webL10n"], function(webL10n) {
+			playMode.$.gameFinishedMsg.setContent(webL10n.get("GameFinised"));
+		});
 		this.$.gameFinished.show();
 	},
 

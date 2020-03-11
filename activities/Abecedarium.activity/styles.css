@@ -180,8 +180,14 @@
 	display: none;
 }
 
-.backButton {
+.backSelection {
 	margin-top: 0! important;
+	margin-left: 0! important;
+}
+
+.backButton {
+	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .pageCount {
