@@ -213,7 +213,9 @@ let app = new Vue({
 
 			document.addEventListener("keydown", this.changeSpeed);
 			document.addEventListener("touchstart", this.onTouchStart);
+			document.addEventListener("mousedown", this.onTouchStart);
 			document.addEventListener("touchend", this.onTouchEnd);
+			document.addEventListener("mouseup", this.onTouchEnd);
 			this.interval = setInterval(this.drawBall, this.frameInterval);
 		},
 
@@ -234,6 +236,7 @@ let app = new Vue({
 				this.vx = 0;
 				document.removeEventListener("keydown", this.changeSpeed);
 				document.removeEventListener("touchstart", this.onTouchStart);
+				document.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
 				if (this.vy < 0.5) {
 					let result = this.$refs.slopecanvas.checkAnswer();
@@ -375,9 +378,12 @@ let app = new Vue({
 
 		changeSpeed: function (event) {
 			let vm = this;
-			//Touch event
+
 			if(this.touchEvent) {
-				if(this.touchEvent.touches[0].clientX > this.cx) {
+				//Touch event
+				if((this.touchEvent.touches && this.touchEvent.touches[0].clientX > this.cx) ||
+					//Mouse event
+					(this.touchEvent.clientX > this.cx)) {
 					this.vx += 10;
 				} else {
 					this.vx -= 10;
