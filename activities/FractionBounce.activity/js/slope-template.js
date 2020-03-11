@@ -42,7 +42,6 @@ let SlopeTemplate = {
 			let i = Math.floor(this.cx/(this.lengthOfDivision-this.tolerance));
 			this.drawAnswer();
 			if(this.cx > i*this.lengthOfDivision-this.tolerance && this.cx < i*this.lengthOfDivision+this.tolerance) {
-				console.log('Yes', i + '/' + this.parts);
 				// this.drawDivisions(i);
 				return i;
 			}

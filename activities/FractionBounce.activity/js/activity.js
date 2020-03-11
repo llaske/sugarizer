@@ -75,7 +75,6 @@ let app = new Vue({
 					activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
 							let context = JSON.parse(data);
-							console.log(context);
 							vm.userFractions = context.userFractions;
 						} else {
 							console.log("Error loading from journal");
@@ -211,7 +210,6 @@ let app = new Vue({
 				this.answer = Math.floor((Math.random() * (this.parts - 1)) + 1);
 			}
 			this.$refs.slopecanvas.updateSlope(this.parts);
-			console.log('answer: ', this.answer + '/' + this.parts);
 
 			document.addEventListener("keydown", this.changeSpeed);
 			document.addEventListener("touchstart", this.onTouchStart);
@@ -406,7 +404,6 @@ let app = new Vue({
 		},
 
 		onFractionAdded: function(event) {
-			console.log('Added fraction');
 			this.userFractions.push({
 				num: event.numerator,
 				den: event.denominator
@@ -498,31 +495,14 @@ let app = new Vue({
 
 			switch (msg.content.action) {
 				case 'init':
-					this.humane.log("Synchronizing Board...");
 					this.currentcolor = 'b';
 					this.opponent = msg.user.networkId;
 					this.opponentColors = msg.user.colorvalue;
 					this.currentpgn = msg.content.gamePGN;
 					break;
 				case 'move':
-					console.log('move received', msg.content.move);
 					this.$refs.chesstemplate.makeMove(msg.content.move.from, msg.content.move.to, true);
 					this.$refs.chesstemplate.onSnapEnd();
-					break;
-				case 'restart':
-					console.log('restart received');
-					this.$refs.chesstemplate.startNewGame();
-					break;
-				case 'undo':
-					console.log('undo received');
-					this.$refs.chesstemplate.undo();
-					break;
-				case 'spectate':
-					console.log('spectator');
-					if (this.opponent == null) {
-						this.spectator = true;
-						this.currentpgn = msg.content.gamePGN;
-					}
 					break;
 			}
 		},
