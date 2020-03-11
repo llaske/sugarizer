@@ -25,6 +25,8 @@ let app = new Vue({
 		mode: 'fractions',
 		img: null,
 		interval: null,
+		touchEvent: null,
+		touchInterval: null,
 		cx: 100,
 		cy: 500,
 		vx: 0,
@@ -212,6 +214,8 @@ let app = new Vue({
 			console.log('answer: ', this.answer + '/' + this.parts);
 
 			document.addEventListener("keydown", this.changeSpeed);
+			document.addEventListener("touchstart", this.onTouchStart);
+			document.addEventListener("touchend", this.onTouchEnd);
 			this.interval = setInterval(this.drawBall, this.frameInterval);
 		},
 
@@ -231,6 +235,8 @@ let app = new Vue({
 			if (this.cy + this.radius >= this.calcY(this.cx)) {
 				this.vx = 0;
 				document.removeEventListener("keydown", this.changeSpeed);
+				document.removeEventListener("touchstart", this.onTouchStart);
+				this.onTouchEnd();
 				if (this.vy < 0.5) {
 					let result = this.$refs.slopecanvas.checkAnswer();
 					if (result == this.answer) {
@@ -359,15 +365,36 @@ let app = new Vue({
 			this.context.translate(-this.radius, -2 * this.radius);
 		},
 
+		onTouchStart: function(event) {
+			this.touchEvent = event;
+			this.touchInterval = setInterval(this.changeSpeed, 2*this.frameInterval);
+		},
+
+		onTouchEnd: function(event) {
+			this.touchEvent = null;
+			clearInterval(this.touchInterval);
+		},
+
 		changeSpeed: function (event) {
 			let vm = this;
-			switch (event.keyCode) {
-				case 37:
-					this.vx -= 10;
-					break;
-				case 39:
+			//Touch event
+			if(this.touchEvent) {
+				if(this.touchEvent.touches[0].clientX > this.cx) {
 					this.vx += 10;
-					break;
+				} else {
+					this.vx -= 10;
+				}
+			}
+			// Keyboard event
+			else {
+				switch (event.keyCode) {
+					case 37:
+						this.vx -= 10;
+						break;
+					case 39:
+						this.vx += 10;
+						break;
+				}
 			}
 			setTimeout(function () {
 				vm.vx = 0;
