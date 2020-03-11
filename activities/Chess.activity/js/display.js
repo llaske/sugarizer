@@ -26,8 +26,8 @@ var P4WN_LEVELS = ['stupid', 'middling', 'default', 'slow', 'slowest'];
 var P4WN_DEFAULT_LEVEL = 2;
 var P4WN_ADAPTIVE_LEVELS = false;
 
-var button5_title = "Pawn promotes to ";
-var button6_title = "Computer Level  ";
+// var button5_title = "Pawn promotes to ";
+// var button6_title = "Computer Level  ";
 var move_successful = null;
 var P4WN_IMAGE_DIR = 'images';
 
@@ -129,6 +129,8 @@ _p4d_proto.next_move = function(){
 };
 
 _p4d_proto.computer_move = function(){
+    var xoplayerlogo = document.getElementById("player_logo").innerHTML;
+    document.getElementById("player_logo").innerHTML = "<img src='icons/white-computer.svg'>";
     this.auto_play_timeout = undefined;
     var state = this.board_state;
     var mv;
@@ -146,7 +148,11 @@ _p4d_proto.computer_move = function(){
             p4_log("retry at depth", depth, " total time:", delta);
         }
     }
-    this.move(mv[0], mv[1]);
+    var computer_move_result = this.move(mv[0], mv[1]);
+    if(computer_move_result == true)
+    {
+        document.getElementById("player_logo").innerHTML = xoplayerlogo;
+    }
 };
 
 _p4d_proto.display_move_text = function(moveno, string){
@@ -397,28 +403,28 @@ var P4WN_CONTROLS = [
         label: "<b>undo</b>"
     },
     {/* pawn promotion*/
-        onclick_wrap: function(p4d){
-            return function(e){
-                var x = (p4d.pawn_becomes + 1) % P4WN_PROMOTION_STRINGS.length;
-                p4d.pawn_becomes = x;
-                _event_target(e).innerHTML = button5_title + ': <b>' + P4WN_PROMOTION_STRINGS[x] + '</b>';
-            };
-        },
-        refresh: function(el){
-            el.innerHTML = button5_title + ': <b>' + P4WN_PROMOTION_STRINGS[this.pawn_becomes] + '</b>';
-        }
+        // onclick_wrap: function(p4d){
+        //     return function(e){
+        //         var x = (p4d.pawn_becomes + 1) % P4WN_PROMOTION_STRINGS.length;
+        //         p4d.pawn_becomes = x;
+        //         _event_target(e).innerHTML = button5_title + ': <b>' + P4WN_PROMOTION_STRINGS[x] + '</b>';
+        //     };
+        // },
+        // refresh: function(el){
+        //     el.innerHTML = button5_title + ': <b>' + P4WN_PROMOTION_STRINGS[this.pawn_becomes] + '</b>';
+        // }
     },
     {/*computer level*/
-        onclick_wrap: function(p4d){
-            return function(e){
-                var x = (p4d.computer_level + 1) % P4WN_LEVELS.length;
-                p4d.computer_level = x;
-                _event_target(e).innerHTML = button6_title + ': <b>' + P4WN_LEVELS[x] + '</b>';
-            };
-        },
-        refresh: function(el){
-            el.innerHTML = button6_title + ': <b>' + P4WN_LEVELS[this.computer_level] + '</b>';
-        }
+        // onclick_wrap: function(p4d){
+        //     return function(e){
+        //         var x = (p4d.computer_level + 1) % P4WN_LEVELS.length;
+        //         p4d.computer_level = x;
+        //         _event_target(e).innerHTML = button6_title + ': <b>' + P4WN_LEVELS[x] + '</b>';
+        //     };
+        // },
+        // refresh: function(el){
+        //     el.innerHTML = button6_title + ': <b>' + P4WN_LEVELS[this.computer_level] + '</b>';
+        // }
     },
     {/*draw button -- hidden unless a draw is offered */
         id: 'draw_button',
@@ -464,6 +470,10 @@ _p4d_proto.write_controls_html = function(lut){
         if (o.debug && ! P4_DEBUG)
             continue;
         var button_id = "button" + (i+1);
+        if((i+1 == 5) || (i+1 == 6))
+        {
+            continue;
+        }
         var toolbar_button = document.getElementById(button_id);
         buttons.elements.push(toolbar_button);
         _add_event_listener(toolbar_button, "click",

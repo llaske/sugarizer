@@ -29,6 +29,5 @@
     }
   }
 }
-
 window.onresize = displayResize;
 window.onload = displayResize;

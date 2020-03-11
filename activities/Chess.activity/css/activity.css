@@ -10,6 +10,10 @@
   background-image: url(../icons/help-icon.svg);
 }
 
+#button3{
+  display: none;
+}
+
 #private-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   width: 47px;
@@ -72,11 +76,12 @@
 
 #button4{
   bottom: 12px;
+  background-size: 60px;
 } 
 
 @supports (-moz-appearance:none) {
   #button4{
-    bottom: 0px;
+    top:8px;
   }  
    
 }
@@ -87,27 +92,32 @@
     /* margin-top: 12%; */
     /* margin-right: 2%; */
   }
-  #button5{
+  /* #button5{
     cursor: pointer;
     width: 165px;
     height: 24px;
     border: 1px solid #d67b46;
     font-size: 12px;
-  }
-  #button6{
+  } */
+  /* #button6{
     cursor: pointer;
     width: 170px;
     display: inline-block;
     height: 24px;
     border: 1px solid #d67b46;
     font-size: 12px;
+  } */
+  #player_logo img{
+    margin-top: 10%;
+    height: 200px;
+    width:90px;
   }
   #button7{
     cursor: pointer;
-    width: 140px;
+    width: 90px;
     display: inline-block;
     height: 24px;
-    border: 1px solid #d67b46;
+    border: 1px solid #B58863;
     font-size: 12px;
   }
   .column{
@@ -125,7 +135,7 @@
   .p4wn-log-move{
     margin-left: 8px;
     font-size: 13px;
-    color: white;
+    color: black;
   }
 }
 
@@ -135,14 +145,14 @@
     margin-top: 12%;
     margin-right: 2%;
   }
-  #button5{
+  /* #button5{
     cursor: pointer;
     width: 180px;
     height: 26px;
     border: 2px solid #d67b46;
     font-size: 13px;
-  }
-  #button6{
+  } */
+  /* #button6{
     cursor: pointer;
     width: 180px;
     margin-top: 10px;
@@ -150,14 +160,18 @@
     height: 26px;
     border: 2px solid #d67b46;
     font-size: 13px;
+  } */
+  #player_logo img{
+    height: 200px;
+    width:120px;
   }
   #button7{
     cursor: pointer;
-    width: 180px;
+    width: 120px;
     margin-top: 10px;
     display: block;
     height: 24px;
-    border: 2px solid #d67b46;
+    border: 2px solid #B58863;
     font-size: 13px;
   }
   .column{
@@ -174,7 +188,7 @@
   .p4wn-log-move{
     margin-left: 8px;
     font-size: 13px;
-    color: white;
+    color: black;
   }
 }
 
@@ -184,14 +198,14 @@
     margin-top: 12%;
     margin-right: 3%;
   }
-  #button5{
+  /* #button5{
     cursor: pointer;
     width: 200px;
     height: 35px;
     border: 4px solid #d67b46;
     font-size: 15px;
-  }
-  #button6{
+  } */
+  /* #button6{
     cursor: pointer;
     width: 200px;
     margin-top: 10px;
@@ -199,14 +213,18 @@
     height: 35px;
     border: 4px solid #d67b46;
     font-size: 15px;
+  } */
+  #player_logo img{
+    height: 200px;
+    width: 150px;
   }
   #button7{
     cursor: pointer;
-    width: 220px;
+    width: 150px;
     margin-top: 10px;
     display: block;
     height: 32px;
-    border: 4px solid #d67b46;
+    border: 4px solid #B58863;
     font-size: 15px;
   }
   .column{
@@ -223,7 +241,7 @@
   .p4wn-log-move{
     margin-left: 15px;
     font-size: 15px;
-    color: white;
+    color: black;
   }
 }  
 
@@ -246,20 +264,20 @@
 }
 
 .board_table{
-  color: #d67b46;
+  color: black;
   font-weight: normal;
   font-size: 13px;
 }
 
 #canvas{
-  background:
+  /* background:
   linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
   linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
   linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
   linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
   linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
   linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #131313;
+  background-color: #131313; */
   background-size: 20px 20px;
 }
 
@@ -391,3 +409,90 @@
   background-color: #808080;
   border: 2px solid #808080;
 }
+
+@media screen and (min-width: 775px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 240px;
+      width: 210px;
+      float:right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+    }
+    .warningbox-refresh-button {
+      position: absolute;
+      right: 10px;
+      width: 210px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+  }
+  
+}
+@media screen and (max-width: 774px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 170px;
+      width: 160px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      font-size:15px;
+  }
+  .warningbox-refresh-button {
+    position: absolute;
+    right: 10px;
+    width: 140px;
+    float: right;
+    text-align: left;
+    padding-left: 10px;
+    font-size:15px;
+  }
+  
+}
+
+.palette-item {
+  width: 200px;
+  height: 30px;
+  padding-top: 15px;
+  padding-left: 10px;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-icon {
+  width: 30px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 25%; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: lightgray;
+  margin: auto;
+  padding: 20px;
+  border: 4px solid black;
+  width: 80%;
+}
+

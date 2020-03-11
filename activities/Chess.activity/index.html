@@ -24,11 +24,14 @@
   <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
   <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="restart-game" title="Restart" style="background-image: url(icons/restart-game.svg);"></button>
   <button class="toolbutton" id="button1" title="White player" style="background-image: url(icons/white-human.svg);"></button>
   <button class="toolbutton" id="button2" title="Black player" style="background-image: url(icons/black-computer.svg);"></button>
-  <button class="toolbutton" id="button3" title="Swap" style="background-image: url(icons/swap.svg);"></button>
+  <button class="toolbutton" id="button6" title="Computer Level" style="background-image: url(icons/white-computer.svg);"></button>
+  <button class="toolbutton" id="button5" title="Pawn promotes to" style="background-image: url(images/white_queen.svg);"></button>
+  <button class="toolbutton" id="button3" title="Swap" style="display: none;"></button>
   <button class="toolbutton" id="button4" title="Undo" style="background-image: url(icons/undo.svg);"></button>
-
+  <button class="toolbutton" id="theme-changer" title="Change board theme" style="background-image: url(icons/theme-icon.svg);"></button>
   <!-- Add more buttons here -->
   
   <!-- Buttons with class="pull-right" will be right aligned -->
@@ -39,9 +42,19 @@
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <h1 id="game-over" style="padding-left:40%;">Game Over!!</h1>
+    <button id="play-again" style="margin-left: 40%;width:150px;">Play Again</button>
+  </div>
+
+</div>
   <div id="controlButtons" class="column">
-    <button id="button5"></button>
-    <button id="button6"></button>
+    <div id="player_logo"></div>
     <button id="button7"></button>
 </div>
   <!-- Put anything you like here... -->

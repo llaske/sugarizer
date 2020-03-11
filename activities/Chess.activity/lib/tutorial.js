@@ -29,12 +29,6 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("AboutPawn")
             },
             {
-				element: "#button5",
-				placement: "right",
-				title: "Pawn promotion",
-				content: l10n.get("AboutPawnPromotion")
-            },
-            {
 				element: ".black_rook:first",
 				placement: "right",
 				title: "Rook",
@@ -106,10 +100,10 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("AboutMoveDiv")
             },
             {
-                element: "#button6",
-				placement: "right",
-				title: l10n.get("ComputerLevelTitle"),
-				content: l10n.get("AboutComputerLevel")
+                element: "#restart-game",
+				placement: "bottom",
+				title: l10n.get("RestartTitle"),
+				content: l10n.get("TutoRestartContent")
             },
             {
                 element: "#button1",
@@ -130,12 +124,29 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("AboutSwap")
             },
             {
+                element: "#button6",
+				placement: "bottom",
+				title: l10n.get("ComputerLevelTitle"),
+				content: l10n.get("AboutComputerLevel")
+            },
+            {
+				element: "#button5",
+				placement: "bottom",
+				title: "Pawn promotion",
+				content: l10n.get("AboutPawnPromotion")
+            },
+            {
                 element: "#button4",
 				placement: "bottom",
 				title: l10n.get("Undo"),
 				content: l10n.get("AboutUndo")
             },
-            
+            {
+                element: "#theme-changer",
+				placement: "bottom",
+				title: l10n.get("ChangeChessboardTheme"),
+				content: l10n.get("AboutChangeChessboardTheme")
+            }
             
 		];
 		var tour = new Tour({

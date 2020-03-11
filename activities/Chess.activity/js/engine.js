@@ -1134,12 +1134,18 @@ function p4_move2string(state, s, e, S, promotion, flags, moves){
     }
     if (flags & P4_MOVE_FLAG_CHECK){
         if (flags & P4_MOVE_FLAG_MATE)
+        {
             mv += '#';
+            document.getElementById("myModal").style.display = "inherit";
+        }
         else
             mv += '+';
     }
     else if (flags & P4_MOVE_FLAG_MATE)
+    {
         mv += ' stalemate';
+        document.getElementById("myModal").style.display = "inherit";
+    }
     return mv;
 }
 

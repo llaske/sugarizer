@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/presencepalette", "tutorial"], function (activity, env, icon, webL10n, presencepalette, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/presencepalette", "tutorial", "picoModal", "activity/palettes/computerdifficultypalette", "activity/palettes/pawnpromotionpalette"], function (activity, env, icon, webL10n, presencepalette, tutorial, picoModal, computerdifficultypalette, pawnpromotionpalette) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -18,15 +18,83 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				document.getElementById("button2").title = webL10n.get("BlackPlayer");
 				document.getElementById("button3").title = webL10n.get("Swap");
 				document.getElementById("button4").title = webL10n.get("Undo");
-				P4WN_LEVELS[0] = webL10n.get("stupid");
-				P4WN_LEVELS[1] = webL10n.get("middling");
-				P4WN_LEVELS[2] = webL10n.get("default");
-				P4WN_LEVELS[3] = webL10n.get("slow");
-				P4WN_LEVELS[4] = webL10n.get("slowest");
-				button5_title = webL10n.get("PawnPromotesTo");
-				button6_title = webL10n.get("ComputerLevel");
+				document.getElementById("button6").title = webL10n.get("ComputerLevel");
+				document.getElementById("computerlevelheader").innerHTML = webL10n.get("ComputerLevel");
+				document.getElementById("restart-game").title = webL10n.get("RestartTitle");
+				document.getElementById("option-stupid").innerHTML = webL10n.get("stupid");
+				document.getElementById("option-middling").innerHTML = webL10n.get("middling");
+				document.getElementById("option-default").innerHTML = webL10n.get("default");
+				document.getElementById("option-slow").innerHTML = webL10n.get("slow");
+				document.getElementById("option-slowest").innerHTML = webL10n.get("slowest");
+				document.getElementById("button5").title = webL10n.get("PawnPromotesTo");
+				document.getElementById("pawnpromotionheader").innerHTML = webL10n.get("PawnPromotesTo");
+				document.getElementById("theme-changer").title = webL10n.get("ChangeChessboardTheme");
+				document.getElementById("game-over").innerHTML = webL10n.get("Gameover");
+				document.getElementById("play-again").innerHTML = webL10n.get("PlayAgain");
 			});
 
+			document.getElementById("button7").style.border = "4px solid" + currentenv.user.colorvalue.stroke;
+
+			document.getElementById("play-again").addEventListener('click', function(){
+				game.start = 0;
+				game.draw_offers = 0;
+				game.board_state = p4_new_game();
+				document.getElementsByClassName("p4wn-log")[0].innerHTML = "";
+				document.getElementById("myModal").style.display = "none";
+				game.refresh();
+			});
+
+			var theme_no = 1;
+
+			//theme button
+			document.getElementById("theme-changer").addEventListener('click', function(){
+				theme_no++;
+				if(theme_no >= 5)
+					theme_no = 1;
+				var white_square = document.getElementsByClassName("p4wn-white-square");
+				var black_square = document.getElementsByClassName("p4wn-black-square");
+				switch (theme_no) {
+					case 1:{
+						for(var i=0;i<32;i++){
+							white_square[i].style.backgroundColor = "#F0D9B5";
+							black_square[i].style.backgroundColor = "#B58863";
+						}
+						break;
+					}
+					case 2:{
+						for(var i=0;i<32;i++){
+							white_square[i].style.backgroundColor = "#EEEED2";
+							black_square[i].style.backgroundColor = "#769656";
+						}
+						break;
+					}
+					case 3:{
+						for(var i=0;i<32;i++){
+							white_square[i].style.backgroundColor = "grey";
+							black_square[i].style.backgroundColor = "white";
+						}
+						break;
+					}
+					case 4:{
+						for(var i=0;i<32;i++){
+							white_square[i].style.backgroundColor = "#6F82BA";
+							black_square[i].style.backgroundColor = "white";
+						}
+						break;
+					}
+				}
+			});
+			
+			//Computer Level palette
+			var computerlevelpalette = new computerdifficultypalette.DifficultyPalette(document.getElementById("button6"));
+			computerlevelpalette.addEventListener('difficulty', function(event){
+				game.computer_level = event.option;
+			});
+			//Pawn promotion palette
+			var promotionpalette = new pawnpromotionpalette.Promotionpalette(document.getElementById("button5"));
+			promotionpalette.addEventListener('pawnpromotion', function(event){
+				game.pawn_becomes = event.option;
+			});
 			// Full screen
 			document.getElementById("fullscreen-button").addEventListener('click', function() {
 				document.getElementById("main-toolbar").style.opacity = 0;
@@ -43,6 +111,56 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			// Launch tutorial
 			document.getElementById("help-button").addEventListener('click', function(e) {
 				tutorial.start();
+			});
+
+			var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
+			var generateXOLogoWithColor = function(color) {
+				var coloredLogo = xoLogo;
+				coloredLogo = coloredLogo.replace("#010101", color.stroke)
+				coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
+				return "data:image/svg+xml;base64," + btoa(coloredLogo);
+			}
+			document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+
+			//Restart game
+			document.getElementById("restart-game").addEventListener('click', function(){
+				var cancel_button_title = webL10n.get("CancelChanges");
+        		var continue_button_title = webL10n.get("Continue");
+				var warning_title = webL10n.get("Warning");
+				var warning_content = webL10n.get("RestartWarningContent");
+				picoModal({
+                    content:"<div style = 'width:400px;margin-bottom:60px'>" +
+                        "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
+                        "<div style='width:300px;float:left;margin-left:20px;'>" +
+                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +
+                        "<div style='color:white;margin-top:2px;'>" + warning_content + "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div>" +
+                        "<button class='cancel-changes warningbox-cancel-button'><img  src='icons/dialog-cancel.svg' style='width: 20px; height: 16px;margin-right:5px;'> " + cancel_button_title + "</button> " +
+                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ continue_button_title + "</button>" +
+                        "</div>",
+                    closeButton: false,
+                    modalStyles: {
+                            backgroundColor: "#000000",
+                            height: "120px",
+                            width: "60%",
+                            textColor: "white"
+                        },
+                }).afterCreate(function(modal) {
+                    modal.modalElem().addEventListener("click", function(evt) {
+                        if (evt.target && evt.target.matches(".continue")) {
+							game.start = 0;
+							game.draw_offers = 0;
+							game.board_state = p4_new_game();
+							document.getElementsByClassName("p4wn-log")[0].innerHTML = "";
+							game.refresh();
+                            modal.close();
+                        } else if (evt.target && evt.target.matches(".cancel-changes")) {
+                            modal.close();
+                        }
+                    });
+                }).show();
 			});
 
 			//'update' action when undo button is pressed(for presence)
@@ -102,6 +220,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						game["board_state"]["stalemate_scores"] = data_obj["stalemate_scores"];
 						game["board_state"]["best_pieces"] = data_obj["best_pieces"];
 						game["board_state"]["values"] = data_obj["values"];
+						
+						if(game.pawn_becomes == 0){
+							document.getElementById("button5").style.backgroundImage = "url('images/white_queen.svg')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_queen.svg')";
+						}
+						else if(game.pawn_becomes == 1){
+							document.getElementById("button5").style.backgroundImage = "url('images/white_rook.svg')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_rook.svg')";
+						}
+						else if(game.pawn_becomes == 2){
+							document.getElementById("button5").style.backgroundImage = "url('images/white_knight.svg')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_knight.svg')";
+						}
+						else if(game.pawn_becomes == 3){
+							document.getElementById("button5").style.backgroundImage = "url('images/white_bishop.svg')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_bishop.svg')";
+						}
 			}
 
 			// Link presence palette
@@ -149,6 +284,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					});
 				}
 				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
+				document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 				document.getElementsByClassName("humane-libnotify")[0].style.display = "";
  				document.getElementsByClassName("humane-libnotify")[0].innerHTML = msg.user.name + " " +(msg.move == 1 ? "joined": "left"); 
 				var notificationDiv = function(){
@@ -221,6 +357,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							document.getElementById("button7").style.display = 'inline-block';
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
 						game.rotate_board_for_black();
+						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 						break;
 					}
 					case 'update':{
@@ -230,12 +367,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						if(game["draw_offers"] == 1)
 							document.getElementById("button7").style.display = 'inline-block';
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
+						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 						break;
 					}
 				}
 			}; 
 			
-
 			// Load from datastore
 			if (!environment.objectId) {} 
 			else {
