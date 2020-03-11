@@ -20,6 +20,7 @@ define(["sugar-web/graphics/palette","text!activity/palettes/bgpalette.html"], f
     document.getElementById("sand").addEventListener('click', onClick);
     document.getElementById("clouds").addEventListener('click', onClick);
     document.getElementById("wood").addEventListener('click', onClick);
+    document.getElementById("journal-bg").addEventListener('click', onClick);
     
     function onClick(event) {
       that.bgSelectedEvent.bg = event.currentTarget.id;

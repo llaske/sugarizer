@@ -21,7 +21,8 @@ define(["sugar-web/graphics/palette","text!activity/palettes/ballpalette.html"],
     document.getElementById("beachball").addEventListener('click', onClick);
     document.getElementById("feather").addEventListener('click', onClick);
     document.getElementById("rugbyball").addEventListener('click', onClick);
-    document.getElementById("bowlingball").addEventListener('click', onClick);
+		document.getElementById("bowlingball").addEventListener('click', onClick);
+    document.getElementById("journal-ball").addEventListener('click', onClick);
     
     function onClick(event) {
       that.ballSelectedEvent.ball = event.currentTarget.id;

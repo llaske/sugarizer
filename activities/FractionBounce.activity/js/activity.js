@@ -172,7 +172,7 @@ let app = new Vue({
 				vm.context.drawImage(this, vm.cx, vm.cy);
 			}
 			this.img.src = 'images/soccerball.svg';
-			this.img.width = this.radius; this.img.height = this.radius;
+			this.img.width = this.radius; this.img.height = this.radius; this.img.style.width = this.radius; this.img.style.height = this.radius;
 			this.cx = mainCanvas.width / 2;
 			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
 
@@ -272,16 +272,34 @@ let app = new Vue({
 			switch(this.mode) {
 				case 'percents':
 					str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
-					this.context.drawImage(this.img, this.cx, this.cy);
+					// Custom image is set
+					if(this.img.getAttribute('src')[0] == 'd') {
+						this.context.translate(0, this.radius);
+						this.context.drawImage(this.img, this.cx, this.cy, 2*this.radius, 2*this. radius);
+						this.context.translate(0, -this.radius);
+						// Top Rectangle
+						this.createTopRectangle();
+					} else {
+						this.context.drawImage(this.img, this.cx, this.cy);
+					}
 					break;
 				case 'fractions':
 					str = this.answer + '/' + this.parts;
-					this.context.drawImage(this.img, this.cx, this.cy);
+					// Custom image is set
+					if(this.img.getAttribute('src')[0] == 'd') {
+						this.context.translate(0, this.radius);
+						this.context.drawImage(this.img, this.cx, this.cy, 2*this.radius, 2*this. radius);
+						this.context.translate(0, -this.radius);
+						// Top Rectangle
+						this.createTopRectangle()
+					} else {
+						this.context.drawImage(this.img, this.cx, this.cy);
+					}
 					break;
 				case 'sectors':
 					str = this.answer + '/' + this.parts;
-					// Numerator
 					this.context.translate(this.radius, 2 * this.radius);
+					// Numerator
 					this.context.fillStyle = this.currentUser.colorvalue.fill;
 					this.context.beginPath();
 					this.context.moveTo(this.cx, this.cy);
@@ -303,22 +321,11 @@ let app = new Vue({
 					this.context.arc(this.cx, this.cy, this.radius, 0, this.toRadians(360));
 					this.context.closePath();
 					this.context.stroke();
+
 					this.context.translate(-this.radius, -2 * this.radius);
 					
 					// Top Rectangle
-					this.context.fillStyle = '#fff';
-					this.context.beginPath();
-					this.context.moveTo(this.cx + 10, this.cy);
-					this.context.lineTo(this.cx + 2*this.radius - 10, this.cy);
-					this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy, this.cx + 2*this.radius, this.cy + 10);
-					this.context.lineTo(this.cx + 2*this.radius, this.cy + 35 - 10);
-					this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy + 35, this.cx + 2*this.radius - 10, this.cy + 35);
-					this.context.lineTo(this.cx + 10, this.cy + 35);
-					this.context.quadraticCurveTo(this.cx, this.cy + 35, this.cx, this.cy + 35 - 10);
-					this.context.lineTo(this.cx, this.cy + 10);
-					this.context.quadraticCurveTo(this.cx, this.cy, this.cx + 10, this.cy);
-					this.context.closePath();
-					this.context.fill();
+					this.createTopRectangle()
 					break;
 			}
 			this.context.fillStyle = "#000";
@@ -328,6 +335,22 @@ let app = new Vue({
 
 		toRadians: function(deg) {
 			return deg * Math.PI / 180;
+		},
+
+		createTopRectangle: function() {
+			this.context.fillStyle = '#fff';
+			this.context.beginPath();
+			this.context.moveTo(this.cx + 10, this.cy);
+			this.context.lineTo(this.cx + 2*this.radius - 10, this.cy);
+			this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy, this.cx + 2*this.radius, this.cy + 10);
+			this.context.lineTo(this.cx + 2*this.radius, this.cy + 35 - 10);
+			this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy + 35, this.cx + 2*this.radius - 10, this.cy + 35);
+			this.context.lineTo(this.cx + 10, this.cy + 35);
+			this.context.quadraticCurveTo(this.cx, this.cy + 35, this.cx, this.cy + 35 - 10);
+			this.context.lineTo(this.cx, this.cy + 10);
+			this.context.quadraticCurveTo(this.cx, this.cy, this.cx + 10, this.cy);
+			this.context.closePath();
+			this.context.fill();
 		},
 
 		clearCanvas: function() {
@@ -364,7 +387,13 @@ let app = new Vue({
 		},
 
 		onBallSelected: function(event) {
+			let vm = this;
 			this.clearCanvas();
+			if(event.ball == "journal-ball") {
+				this.insertImage('ball');
+				return;
+			}
+
 			this.img.src = 'images/' + event.ball + '.svg';
 			switch(event.ball) {
 				case 'rugbyball':
@@ -385,6 +414,11 @@ let app = new Vue({
 		},
 
 		onBgSelected: function(event) {
+			let vm = this;
+			if(event.bg == "journal-bg") {
+				this.insertImage('bg');
+				return;
+			}
 			switch(event.bg) {
 				case 'grass':
 					document.body.style.backgroundImage = 'url(images/grass_background.png)';
@@ -399,6 +433,27 @@ let app = new Vue({
 					document.body.style.backgroundImage = 'url(images/beach_background.png)';
 					break;
 			}
+		},
+
+		insertImage: function(to) {
+			let vm = this;
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
+				setTimeout(function() {
+					journalchooser.show(function(entry) {
+						if (!entry) {
+							return;
+						}
+						var dataentry = new datastore.DatastoreObject(entry.objectId);
+						dataentry.loadAsText(function(err, metadata, data) {
+							if(to == 'ball') {
+								vm.img.src = data;
+							} else if(to == 'bg') {
+								document.body.style.backgroundImage = 'url(' + data + ')';
+							}
+						});
+					}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+				}, 10);
+			});
 		},
 
 		changeMode: function(mode) {
