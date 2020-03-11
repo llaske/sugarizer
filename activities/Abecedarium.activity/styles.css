@@ -162,45 +162,26 @@
 
 .gameFinished-controls{
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: center;
 	width: 100vw;
 	margin-top: 40px;
 }
 
-.replayButton, .backToSelectionBtn{
-	border: 5px solid black;
-	display: flex !important;
-	align-items: center;
-	justify-content: center;
-	width: 400px !important;
-	height: 100px;
-	font-size: 20px;
-	margin-left: 0 !important;
-}
-
-.replayButton {
-	margin-right: 50px;
-}
-
-.replayButton img{
+.replayButton{
 	background-color: black !important;
 	border-radius: 50%;
-	margin: 5px;
 	padding: 2px;
 	box-sizing: border-box;
+	margin-left: 80px;
 }
 
 .hide{
 	display: none;
 }
 
-.backToSelectionBtn img{
-	margin-top: 0! important;
-}
-
 .backButton {
-	margin-top: 10px;
-	margin-left: 10px;
+	margin-top: 0! important;
 }
 
 .pageCount {

@@ -29,20 +29,14 @@ enyo.kind({
 			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"},
 			{name: "gameFinished", kind: "Control", showing: false, classes: "gameFinished", 
 				components: [
-					{content: "Game Finished", classes: "gameFinsihed-message"},
+					{
+						name: "gameFinishedMsg",
+						content: "",
+						classes: "gameFinsihed-message"
+					},
 					{classes: "gameFinished-controls", components: [
-						{tag: 'span', classes: "entry replayButton", ontap: "replayTaped", 
-							components: [
-								{classes: "gameFinished-controls-text", content: "Replay"},
-								{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton"}
-							]
-						},
-						{tag: 'span', classes: "entry backToSelectionBtn", ontap: "backToSelectionTaped",
-							components: [
-								{classes: "gameFinished-controls-text", content: "Select"},
-								{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton"}
-							]
-						}
+						{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton replayButton", ontap: "replayTaped"},
+						{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton", ontap: "backToSelectionTaped"}
 					]}
 				]
 			}
@@ -55,7 +49,6 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		
 		this.theme = -1;
 		this.themeButton = null;
 		this.gamecount = 0;
@@ -71,6 +64,9 @@ enyo.kind({
 			this.doGame(this.themeButton);
 		else
 			this.displayButtons();
+			
+		if (this.gamecount === entriesByGame)
+			this.showGameFinished();
 	},
 	
 	// Context handling
@@ -313,6 +309,8 @@ enyo.kind({
 		Abcd.changeVisibility(this, {home: false, back: false, filter: false, check: false, itemCount: false});
 		Abcd.hideLang();
 		this.$.caseButton.hide();
+		var l10n ={"en":"Game Finished","fr":"Game Finished","es":"Game Finished","pt":"Game Finished","de":"Game Finished"};
+		this.$.gameFinishedMsg.setContent(l10n[Abcd.languageCode]);
 		this.$.gameFinished.show();
 	},
 
