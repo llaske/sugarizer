@@ -369,17 +369,17 @@ let app = new Vue({
 			switch(event.ball) {
 				case 'rugbyball':
 				case 'soccerball':
-					mainCanvas.style.background = 'url(images/grass_background.png)';
+					document.body.style.backgroundImage = 'url(images/grass_background.png)';
 					break;
 				case 'bowlingball':
 				case 'basketball':
-					mainCanvas.style.background = 'url(images/parquet_background.png)';
+					document.body.style.backgroundImage = 'url(images/parquet_background.png)';
 					break;
 				case 'feather':
-					mainCanvas.style.background = 'url(images/feather_background.png)';
+					document.body.style.backgroundImage = 'url(images/feather_background.png)';
 					break;
 				case 'beachball':
-					mainCanvas.style.background = 'url(images/beach_background.png)';
+					document.body.style.backgroundImage = 'url(images/beach_background.png)';
 					break;
 			}
 		},
@@ -387,16 +387,16 @@ let app = new Vue({
 		onBgSelected: function(event) {
 			switch(event.bg) {
 				case 'grass':
-					mainCanvas.style.background = 'url(images/grass_background.png)';
+					document.body.style.backgroundImage = 'url(images/grass_background.png)';
 					break;
 				case 'wood':
-					mainCanvas.style.background = 'url(images/parquet_background.png)';
+					document.body.style.backgroundImage = 'url(images/parquet_background.png)';
 					break;
 				case 'clouds':
-					mainCanvas.style.background = 'url(images/feather_background.png)';
+					document.body.style.backgroundImage = 'url(images/feather_background.png)';
 					break;
 				case 'sand':
-					mainCanvas.style.background = 'url(images/beach_background.png)';
+					document.body.style.backgroundImage = 'url(images/beach_background.png)';
 					break;
 			}
 		},

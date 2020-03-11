@@ -11,8 +11,10 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	background: white !important;
 	overflow: hidden;
+	background: url(../images/grass_background.png);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 p {
@@ -21,11 +23,20 @@ p {
 
 .toolbar {
 	padding: 0 2%;
+	overflow-y: hidden;
 }
+
 .helpText {
-	position: absolute;
+	display: inline-block;
+	position: relative;
 	color: white;
-	width: 40px;
+	transform: translateY(-100%);
+}
+
+@media only screen and (max-width: 980px) {
+	.helpText {
+		display: none;
+	}
 }
 
 #content {
@@ -34,7 +45,7 @@ p {
 
 .log {
 	position: absolute;
-	z-index: 2;
+	z-index: 1;
 }
 .log ul {
 	list-style: none;
@@ -49,14 +60,18 @@ p {
 	position: fixed;
 	box-sizing: border-box;
 	border: solid 1px black;
-	background: url(../images/grass_background.png);
+	/* background: url(../images/grass_background.png); */
+	background: transparent;
 	background-size: cover;
+	z-index: 2;
 }
 
 #slopeCanvas {
 	position: absolute;
 	left: 0;
 	top: 0;
+	background: transparent;
+	z-index: 2;
 }
 
 .settings {

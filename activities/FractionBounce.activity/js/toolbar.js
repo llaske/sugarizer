@@ -68,18 +68,19 @@ var Toolbar = {
 				v-on:bgSelected="getApp().onBgSelected($event)">
 			</toolbar-item>
 
-			<div class="helpText">{{ helpText }}</div>
-
+			
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			<toolbar-item ref="fractionsBtn" id="fractions-button" v-on:clicked="getApp().changeMode('fractions')" v-bind:title="l10n.stringFractions"></toolbar-item>
 			<toolbar-item ref="sectorsBtn" id="sectors-button" v-on:clicked="getApp().changeMode('sectors')" v-bind:title="l10n.stringSectors"></toolbar-item>
 			<toolbar-item ref="percentsBtn" id="percents-button" v-on:clicked="getApp().changeMode('percents')" v-bind:title="l10n.stringPercents"></toolbar-item>
+			
+			<span class="helpText">{{ helpText }}</span>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
 		</div>
 	`,
-	props: ['parts', 'answer'],
+	props: ['parts', 'answer', 'mode'],
 	data: function () {
 		return {
 			l10n: {
@@ -102,6 +103,8 @@ var Toolbar = {
 		helpText: function() {
 			if(this.answer == -1) {
 				return "Click on the ball to start. Use arrow keys to move the ball.";
+			} else if(this.mode == 'percents') {
+				return "Bounce the ball to a position " + Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%' + " of the way from the left side of the bar.";
 			} else {
 				return "Bounce the ball to a position " + this.answer + "/" + this.parts + " of the way from the left side of the bar.";
 			}
