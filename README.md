@@ -92,7 +92,7 @@ For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel chec
 
 [Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
-Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox, Safari or EDGE browser.
+Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox or Safari browser.
 
 As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
