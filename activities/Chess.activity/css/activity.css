@@ -17,7 +17,17 @@
 #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
 }
-
+.difficulty_indicator{
+	color: white;
+	display: inline-block;
+	height: inherit;
+    width: auto;
+    vertical-align: top;
+    text-align: center;
+    line-height: 3;
+    font-size: 1.3em;
+    margin: 0px;
+}
 #unfullscreen-button {
 	background-image: url(../icons/view-return.svg);
 	border: 0;
@@ -46,7 +56,12 @@
   border: 0;
   border-radius: 5.5px;
 }
-
+#main-toolbar #indifficulty-button {
+	background-image: url(../icons/increase.svg);
+}
+#main-toolbar #dedifficulty-button {
+	background-image: url(../icons/decrease.svg);
+}
 #shared-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
   width: 47px;

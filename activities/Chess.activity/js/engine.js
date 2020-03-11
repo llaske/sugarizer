@@ -1718,13 +1718,7 @@ function p4_initialise_state(){
 function p4_new_game(){
     return p4_fen2state(P4_INITIAL_BOARD);
 }
-function p4_reload_game(a){
-    return p4_fen2state(a);
-}
 
-function p4_reload_game_shared(a){
-    return p4_fen2state_copy(a);
-}
 
 /*convert an arbitrary movestring into a pair of integers offsets into
  * the board. The string might be in any of these forms:

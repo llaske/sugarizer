@@ -26,6 +26,10 @@ var P4WN_LEVELS = ['stupid', 'middling', 'default', 'slow', 'slowest'];
 var P4WN_DEFAULT_LEVEL = 2;
 var P4WN_ADAPTIVE_LEVELS = false;
 
+
+var toolbut5_value = "";
+var toolbut6_value = "";
+var move_successful = null;
 var P4WN_IMAGE_DIR = 'images';
 
 var P4WN_IMAGE_NAMES = [
@@ -48,6 +52,7 @@ var P4WN_IMAGE_NAMES = [
 
 /*the next two should match*/
 var P4WN_PROMOTION_STRINGS = ['queen', 'rook', 'knight', 'bishop'];
+var P4WN_PROMOTION_IMG_URL = ['images/white_queen.svg','images/white_rook.svg','images','white_knight','images/white_bishop'];
 var P4WN_PROMOTION_INTS = [P4_QUEEN, P4_ROOK, P4_KNIGHT, P4_BISHOP];
 
 var _p4d_proto = {};
@@ -68,7 +73,7 @@ function _event_target(e){
     return (e.currentTarget) ? e.currentTarget : e.srcElement;
 }
 
-_p4d_proto.square_clicked = function(square){
+_p4d_proto.tapped = function(square){
     var board = this.board_state.board;
     var mover = this.board_state.to_play;
     if (this.players[mover] == 'computer'){
@@ -248,10 +253,17 @@ function p4d_new_child(element, childtag, className){
 _p4d_proto.write_board_html = function(){
     var div = this.elements.board;
     var pieces = this.elements.pieces = [];
-    var table = p4d_new_child(div, "table");
-    var tbody = p4d_new_child(table, "tbody");
+    var table = p4d_new_child(div, "table","tabular_board");
+    var table_html = "<thead class='tabular_board_head'><tr><th></th>";
+    for(var i = 1;  i < 9; i++){
+        table_html += "<th style='padding-bottom:1px;'>"+ String.fromCharCode(96+i) +"</th>";
+    }
+    table_html+="</tr><thead>";
+    table.innerHTML=table_html;
+    var tbody = p4d_new_child(table, "tbody","tabular_board_body");
     for (var y = 9; y > 1; y--){
         var tr = p4d_new_child(tbody, "tr");
+        tr.innerHTML = "<td style='padding-right:3px;font-weight:bold;'>"+ (y-1) +"</td>";
         for(var x = 1;  x < 9; x++){
             var i = y * 10 + x;
             var td = p4d_new_child(tr, "td");
@@ -259,7 +271,7 @@ _p4d_proto.write_board_html = function(){
             _add_event_listener(td, 'click',
                                 function(p4d, n){
                                     return function(e){
-                                        p4d.square_clicked(p4d.orientation ? 119 - n : n);
+                                        p4d.tapped(p4d.orientation ? 119 - n : n);
                                     };
                                 }(this, i));
             var img = p4d_new_child(td, "img");
@@ -286,13 +298,45 @@ _p4d_proto.maybe_rotate_board = function(){
         this.refresh();
     }
 };
-
-_p4d_proto.flip_player = function(i){
-    this.players[i] = (this.players[i] == 'human') ? 'computer' : 'human';
+_p4d_proto.board_bl_rotation = function(){
+    this.orientation =  1;
+    this.refresh();
+    var table_head = document.getElementsByClassName("board_table_head")[0];
+    var table_body = document.getElementsByClassName("board_table_body")[0];
+    for(var i=0;i<8;i++)
+    {
+        table_head.rows[0].cells[i+1].innerHTML = String.fromCharCode(104-i);
+        table_body.rows[i].cells[0].innerHTML = i+1;
+    }
+};
+_p4d_proto.record_values = function(firstPlayer, secondPlayer, pawnPromote, computerLevel, drawOffer){
+    this.players[0] = firstPlayer;
+    this.players[1] = secondPlayer;
+    this.pawn_becomes = pawnPromote;
+    this.computer_level = computerLevel;
+    this.draw_offers = drawOffer;
     this.refresh_buttons();
     this.maybe_rotate_board();
     this.next_move();
 };
+
+_p4d_proto.flip_player = function(i){
+    if( i==0 && this.players[0] === "human" && this.players[1] === "computer"){
+        this.players[0] = "computer";
+        this.players[1] = "human";
+        console.log("image set");
+	}
+    else if( i==1 && this.players[1] === "human" && this.players[0] === "computer"){
+        this.players[1] = "computer";
+        this.players[0] = "human";
+    }
+    else
+        this.players[i] = (this.players[i] == 'human') ? 'computer' : 'human';
+    this.refresh_buttons();
+    this.maybe_rotate_board();
+    this.next_move();
+};
+
 /*Button set up data. The *_wrap ones expect the display object and
  * return a this-agnostic function.
  * onclick_wrap()       -- makes a click handler.
@@ -303,32 +347,34 @@ _p4d_proto.flip_player = function(i){
  * debug                -- only drawn if P4_DEBUG is true
  * hidden               -- created but not shown by default
 */
+
 var P4WN_CONTROLS = [
     {/*white player */
         onclick_wrap: function(p4d){
-            return function(e){
+            return function(evnt){
                 p4d.flip_player(0);
             };
         },
-        refresh: function(el){
-            var s = this.players[0];
-            el.innerHTML = 'white <img src="' + P4WN_IMAGE_DIR + '/' + s + '.png" alt="' + s + '">';
+        refresh: function(evt){
+            var icon_detail = this.players[0];
+            evt.style["background-image"] = 'url(icons/white-' + icon_detail +'.svg)';
+            
         }
     },
     {/*black player */
         onclick_wrap: function(p4d){
-            return function(e){
+            return function(evnt){
                 p4d.flip_player(1);
             };
         },
-        refresh: function(el){
-            var s = this.players[1];
-            el.innerHTML = 'black <img src="' + P4WN_IMAGE_DIR + '/' + s + '.png" alt="' + s + '">';
+        refresh: function(evt){
+            var icon_detail = this.players[1];
+            evt.style["background-image"] = 'url(icons/black-' + icon_detail +'.svg)';
         }
     },
     {/*swap sides */
         onclick_wrap: function(p4d){
-            return function(e){
+            return function(evnt){
                 var p = p4d.players;
                 var tmp = p[0];
                 p[0] = p[1];
@@ -341,48 +387,58 @@ var P4WN_CONTROLS = [
                 p4d.next_move();
             };
         },
-        refresh: function(el){
+        refresh: function(evt){
             if (this.players[0] != this.players[1])
-                el.innerHTML = '<b>swap</b>';
+            {
+                evt.disabled = false;
+                evt.style["background-image"] = 'url(icons/swap-svgrepo-com.svg)';
+            }
             else
-                el.innerHTML = 'swap';
+            {
+                evt.disabled = true;
+            }
         }
     },
     {/* undo*/
         onclick_wrap: function(p4d){
-            return function(e){
+            return function(evnt){
                 p4d.goto_move(-2);
             };
         },
-        label: "<b>undo</i>"
+        label: "<b>undo</b>"
     },
-    {/* pawn promotion*/
-        onclick_wrap: function(p4d){
-            return function(e){
-                var x = (p4d.pawn_becomes + 1) % P4WN_PROMOTION_STRINGS.length;
-                p4d.pawn_becomes = x;
-                _event_target(e).innerHTML = 'pawn promotes to <b>' + P4WN_PROMOTION_STRINGS[x] + '</b>';
-            };
-        },
-        refresh: function(el){
-            el.innerHTML = 'pawn promotes to <b>' + P4WN_PROMOTION_STRINGS[this.pawn_becomes] + '</b>';
-        }
+   {/* pawn promotion*/
+    onclick_wrap: function(p4d){
+        return function(evnt){
+            var x = (p4d.pawn_becomes + 1) % P4WN_PROMOTION_STRINGS.length;
+            p4d.pawn_becomes = x;
+            _event_target(evnt).innerHTML = toolbut5_value + ' <b>' + P4WN_PROMOTION_STRINGS[x] + '</b>';
+        };
+    },
+    refresh: function(evt){
+        evt.innerHTML = toolbut5_value + ' <b>' + P4WN_PROMOTION_STRINGS[this.pawn_becomes] + '</b>';
+    }
     },
     {/*computer level*/
         onclick_wrap: function(p4d){
-            return function(e){
+            return function(evnt){
                 var x = (p4d.computer_level + 1) % P4WN_LEVELS.length;
+                console.log("x");
+                console.log(x);
                 p4d.computer_level = x;
-                _event_target(e).innerHTML = 'computer level: <b>' + P4WN_LEVELS[x] + '</b>';
+                _event_target(evnt).innerHTML = toolbut6_value + ' <b>' + P4WN_LEVELS[x] + '</b>';
+                console.log("xp");
+                
             };
         },
         refresh: function(el){
-            el.innerHTML = 'computer level: <b>' + P4WN_LEVELS[this.computer_level] + '</b>';
+            el.innerHTML = toolbut6_value + '<b>' + P4WN_LEVELS[this.computer_level] + '</b>';
+            console.log("xap");
         }
     },
     {/*draw button -- hidden unless a draw is offered */
         id: 'draw_button',
-        label: '<b>Draw?</b>',
+        label: '<b style="color: white;">Draw?</b>',
         onclick_wrap: function(p4d){
             return function(e){
                 window.clearTimeout(p4d.next_move_timeout);
@@ -417,30 +473,33 @@ var P4WN_CONTROLS = [
 ];
 
 _p4d_proto.write_controls_html = function(lut){
-    var div = this.elements.controls;
+    //lut contains P4WN_CONTROLS
     var buttons = this.buttons;
     for (var i = 0; i < lut.length; i++){
         var o = lut[i];
         if (o.debug && ! P4_DEBUG)
             continue;
-        var span = p4d_new_child(div, "span");
-        span.className = 'p4wn-control-button';
-        buttons.elements.push(span);
-        _add_event_listener(span, "click",
+        
+        var toolbut_id = "toolbut" + (i+1);
+        var toolbar_button = document.getElementById(toolbut_id);
+        buttons.elements.push(toolbar_button);
+        _add_event_listener(toolbar_button, "click",
                             o.onclick_wrap(this));
         if (o.label)
-            span.innerHTML = o.label;
+        console.log(o.label);
+        toolbar_button.innerHTML = o.label;
         if (o.move_listener_wrap)
             this.move_listeners.push(o.move_listener_wrap(this));
         if (o.hidden)
-            span.style.display = 'none';
+            toolbar_button.style.display = 'none';
         if (o.refresh)
-            buttons.refreshers.push([o.refresh, span]);
+            buttons.refreshers.push([o.refresh, toolbar_button]);
         if (o.id)
-            this.elements[o.id] = span;
+            this.elements[o.id] = toolbar_button;
     }
     this.refresh_buttons();
 };
+
 
 function parse_query(query){
     if (query === undefined)
@@ -490,7 +549,7 @@ _p4d_proto.interpret_query_string = function(){
     }
 };
 
-function P4wn_display(target,x,load_fen,sharing){
+function P4wn_display(target){
     if (! this instanceof P4wn_display){
         return new P4wn_display(target);
     }
@@ -511,17 +570,7 @@ function P4wn_display(target,x,load_fen,sharing){
     this.elements.controls = p4d_new_child(container, "div", P4WN_CONTROLS_CLASS);
     this.start = 0;
     this.draw_offers = 0;
-    if (x){
-        if(sharing==1){
-            this.board_state=p4_reload_game_shared(load_fen);
-        }else{
-            this.board_state=p4_reload_game(load_fen);
-        }
-        // this.board_state=p4_reload_game(load_fen);
-    } else{
-        this.board_state = p4_new_game();
-    }
-        
+    this.board_state = p4_new_game();
     this.players = ['human', 'computer']; //[white, black] controllers
     this.pawn_becomes = 0; //index into P4WN_PROMOTION_* arrays
     this.computer_level = P4WN_DEFAULT_LEVEL;
@@ -540,10 +589,10 @@ _p4d_proto.render_elements = function(square_height, square_width){
     e.log.style.height = board_height;
     e.board.style.height = board_height;
     e.controls.style.width = (11 * square_width) + 'px';
-}
+};
 
-function p4wnify(id,x,load_fen,sharing){
-    var p4d = new P4wn_display(id,x,load_fen,sharing);
+function p4wnify(id){
+    var p4d = new P4wn_display(id);
     p4d.render_elements(P4WN_SQUARE_HEIGHT, P4WN_SQUARE_WIDTH);
     p4d.write_board_html();
     p4d.write_controls_html(P4WN_CONTROLS);

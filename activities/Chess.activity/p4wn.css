@@ -1,5 +1,13 @@
+.grid{
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+
 .p4wn-board table{
-  border-spacing: 1px;
+  border-spacing: 0px;
 }
 
 .p4wn-board td{
@@ -13,6 +21,9 @@
 .p4wn-black-square {
   background-color:#B58863;
 }
+
+
+
 
 .p4wn-board {
   position: relative;
