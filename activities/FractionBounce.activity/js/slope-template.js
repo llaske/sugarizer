@@ -40,11 +40,11 @@ let SlopeTemplate = {
 
 		checkAnswer: function() {
 			let i = Math.floor(this.cx/(this.lengthOfDivision-this.tolerance));
-			this.drawAnswer();
 			if(this.cx > i*this.lengthOfDivision-this.tolerance && this.cx < i*this.lengthOfDivision+this.tolerance) {
-				// this.drawDivisions(i);
+				this.drawAnswer(i);
 				return i;
 			}
+			this.drawAnswer(-1);
 			return -1;
 		},
 		
@@ -90,10 +90,14 @@ let SlopeTemplate = {
 			this.context.strokeStyle = '#000000';
 		},
 
-		drawAnswer: function() {
+		drawAnswer: function(landedOn) {
 			let i = this.answer*this.lengthOfDivision;
 			this.context.beginPath();
-			this.context.strokeStyle = '#ff0000';
+			if(landedOn == this.answer) {
+				this.context.strokeStyle = '#00ff00';
+			} else {
+				this.context.strokeStyle = '#ff0000';
+			}
 			this.context.lineWidth = 10;
 			this.context.moveTo(i-this.tolerance, this.calcY(i-this.tolerance));
 			this.context.lineTo(i+this.tolerance, this.calcY(i+this.tolerance));
