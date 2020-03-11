@@ -6,7 +6,7 @@ enyo.kind({
                 {name: "A", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {name: "E", classes: "Simon-button green", ontap: "handlePlayNote"},
                 {name: "E", classes: "Simon-button blue", ontap: "handlePlayNote"},
-                {name: "C#", classes: "Simon-button yellow", ontap: "handlePlayNote"},
+                {name: "C-s", classes: "Simon-button yellow", ontap: "handlePlayNote"},
                 {classes: "Simon-centre"}
             ]}
         ]}
@@ -17,7 +17,7 @@ enyo.kind({
 
 		var pitchName = s.name;
 		var pitchMap = {
-			'C#': 1,
+			'C-s': 1,
 			'E': 4,
 			'A': 9,
 		};

@@ -23,7 +23,52 @@ define(["webL10n"], function (l10n) {
 					content: l10n.get("TutoPianoButtonContent")
 				}
 			]
-		} else {
+		} else if (simonMode) {
+			steps = [
+				{
+					element:"#app_"+currentSimonMode,
+					placement: "bottom",
+					title: l10n.get("TutoCurrentModeTitle"),
+					content: l10n.get("TutoSimonModeContent")
+				},
+				{
+					element:"#"+document.querySelectorAll(".Simon-game")[0].id,
+					placement:"top",
+					title: l10n.get("TutoSimonTitle"),
+					content: l10n.get("TutoSimonContent")
+				},
+				{
+					element:"#"+document.querySelectorAll(".Simon-button.red")[0].id,
+					placement:"left",
+					title: l10n.get("TutoRedTitle"),
+					content: l10n.get("TutoRedContent")
+				},
+				{
+					element:"#"+document.querySelectorAll(".Simon-button.green")[0].id,
+					placement:"right",
+					title: l10n.get("TutoGreenTitle"),
+					content: l10n.get("TutoGreenContent")
+				},
+				{
+					element:"#"+document.querySelectorAll(".Simon-button.yellow")[0].id,
+					placement:"right",
+					title: l10n.get("TutoYellowTitle"),
+					content: l10n.get("TutoYellowContent")
+				},
+				{
+					element:".Simon-button.blue",
+					placement:"left",
+					title: l10n.get("TutoBlueTitle"),
+					content: l10n.get("TutoBlueContent")
+				},
+				{
+					element: "#simon-button",
+					placement:"bottom",
+					title: l10n.get("TutoPianoButtonTitle"),
+					content: l10n.get("TutoPianoButtonContent")
+				}
+			]
+		}else {
 			steps = [
 				{
 					element: "",
