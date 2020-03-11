@@ -266,21 +266,68 @@ let app = new Vue({
 			this.cx += this.vx;
 			this.cy += this.vy;
 
-			// this.context.beginPath();
-			// this.context.arc(this.cx, this.cy, this.radius, 0, Math.PI*2, true); 
-			// this.context.closePath();
-			// this.context.fill();
-			vm.context.drawImage(this.img, vm.cx, vm.cy);
+
 			this.context.font = "24px Times New Roman";
 			let str = '';
-			if(this.mode == 'percents') {
-				str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
-			} else {
-				str = this.answer + '/' + this.parts;
+			switch(this.mode) {
+				case 'percents':
+					str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
+					this.context.drawImage(this.img, this.cx, this.cy);
+					break;
+				case 'fractions':
+					str = this.answer + '/' + this.parts;
+					this.context.drawImage(this.img, this.cx, this.cy);
+					break;
+				case 'sectors':
+					str = this.answer + '/' + this.parts;
+					// Numerator
+					this.context.translate(this.radius, 2 * this.radius);
+					this.context.fillStyle = this.currentUser.colorvalue.fill;
+					this.context.beginPath();
+					this.context.moveTo(this.cx, this.cy);
+					this.context.arc(this.cx, this.cy, this.radius, 0 - this.toRadians(90), this.toRadians(this.answer/this.parts*360) - this.toRadians(90));
+					this.context.lineTo(this.cx, this.cy);
+					this.context.closePath();
+					this.context.fill();
+					// Denominator
+					this.context.fillStyle = this.currentUser.colorvalue.stroke;
+					this.context.beginPath();
+					this.context.moveTo(this.cx, this.cy);
+					this.context.arc(this.cx, this.cy, this.radius, this.toRadians(this.answer/this.parts*360) - this.toRadians(90), 0 - this.toRadians(90));
+					this.context.lineTo(this.cx, this.cy);
+					this.context.closePath();
+					this.context.fill();
+					//Outline
+					this.context.strokeStyle = this.currentUser.colorvalue.stroke;
+					this.context.beginPath();
+					this.context.arc(this.cx, this.cy, this.radius, 0, this.toRadians(360));
+					this.context.closePath();
+					this.context.stroke();
+					this.context.translate(-this.radius, -2 * this.radius);
+					
+					// Top Rectangle
+					this.context.fillStyle = '#fff';
+					this.context.beginPath();
+					this.context.moveTo(this.cx + 10, this.cy);
+					this.context.lineTo(this.cx + 2*this.radius - 10, this.cy);
+					this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy, this.cx + 2*this.radius, this.cy + 10);
+					this.context.lineTo(this.cx + 2*this.radius, this.cy + 35 - 10);
+					this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy + 35, this.cx + 2*this.radius - 10, this.cy + 35);
+					this.context.lineTo(this.cx + 10, this.cy + 35);
+					this.context.quadraticCurveTo(this.cx, this.cy + 35, this.cx, this.cy + 35 - 10);
+					this.context.lineTo(this.cx, this.cy + 10);
+					this.context.quadraticCurveTo(this.cx, this.cy, this.cx + 10, this.cy);
+					this.context.closePath();
+					this.context.fill();
+					break;
 			}
 			this.context.fillStyle = "#000";
 			this.context.textAlign = "center";
 			this.context.fillText(str, vm.cx + this.radius, vm.cy + this.radius - 15);
+		},
+
+		toRadians: function(deg) {
+			return deg * Math.PI / 180;
 		},
 
 		clearCanvas: function() {
