@@ -21,7 +21,7 @@ p {
 	margin: 0.6em 0;
 }
 
-.toolbar {
+#main-toolbar.toolbar {
 	padding: 0 2%;
 	overflow-y: hidden;
 }
