@@ -3,7 +3,7 @@ let SlopeTemplate = {
 	template: `
 		<canvas id="slopeCanvas"></canvas>
 	`,
-	props: ['height', 'parts', 'answer', 'radius', 'cx', 'correctAnswers'],
+	props: ['height', 'parts', 'answer', 'radius', 'cx', 'correctAnswers', 'mode'],
 	data: function() {
 		return {
 			context: null
@@ -58,13 +58,17 @@ let SlopeTemplate = {
 			this.context.fill();
 			this.context.strokeStyle = '#ffffff';
 			this.context.stroke();
-			// 0 and 1 text
+			// 0 and 1/100% text
 			this.context.font = "28px Times New Roman";
 			this.context.fillStyle = "#000";
 			this.context.textAlign = "center";
 			this.context.fillText("0", 20, slopeCanvas.height - 20);
 			this.context.fillStyle = "#fff";
-			this.context.fillText("1", slopeCanvas.width-20, slopeCanvas.height - 20);
+			if(this.mode == 'percents') {
+				this.context.fillText("100%", slopeCanvas.width-40, slopeCanvas.height - 20);
+			} else {
+				this.context.fillText("1", slopeCanvas.width-20, slopeCanvas.height - 20);
+			}
 		},
 
 		drawDivisions: function(i = 0) {
