@@ -6,7 +6,8 @@ enyo.kind({
                 {tag: "div", name: "A", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {tag: "div", name: "E", classes: "Simon-button green", ontap: "handlePlayNote"},
                 {tag: "div", name: "E", classes: "Simon-button blue", ontap: "handlePlayNote"},
-                {tag: "div", name: "C#", classes: "Simon-button yellow", ontap: "handlePlayNote"}
+                {tag: "div", name: "C#", classes: "Simon-button yellow", ontap: "handlePlayNote"},
+                {tag: "div", classes: "Simon-centre"}
             ]}
         ]}
     ],

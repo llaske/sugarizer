@@ -185,18 +185,43 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 }
 
 .Simon-game{
-  width: 520px;
-  height: 520px;
-  box-sizing: border-box;
-  border-radius:260px;
+  width: 60vh;
+  height: 60vh;
+  border-radius:50%;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   margin: 0px auto;
+  position: relative;
 }
 
-.Simon-button{
-  width: 250px;
-  height: 250px;
-  margin: 5px;
+.Simon-button, .Simon-centre{
+  width: 30vh;
+  height: 30vh;
+  box-sizing: border-box;
+}
+
+.red, .green{
+  border-bottom: 5px solid white;
+}
+
+.red, .blue{
+  border-right: 5px solid white;
+}
+
+.green, .yellow{
+  border-left: 5px solid white;
+}
+
+.yellow, .blue{
+  border-top: 5px solid white;
+}
+
+.Simon-centre{
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
