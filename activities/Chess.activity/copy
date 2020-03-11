@@ -10,7 +10,6 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			var pawns = [];
 			var isHost = false;
 			var networkButton = document.getElementById("network-button");
-			var difficulty=1;
 			// var presencepalette = new presencepalette.PresencePalette(networkButton,undefined);
 			// presencepalette.addEventListener('shared',shareActivity);
 			var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
@@ -21,9 +20,6 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
-			document.getElementById("PlayerOne").innerHTML=environment.user.name.toUpperCase();
-			document.getElementById("Versus").innerHTML=" vs ";
-			document.getElementById("PlayerTwo").innerHTML="COMPUTER";
 			document.getElementById("canvas").style.backgroundColor=environment.user.colorvalue.fill;
 			P4WN_LEVELS[0] = webL10n.get("stupid");
 			P4WN_LEVELS[1] = webL10n.get("middling");
@@ -32,7 +28,7 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			P4WN_LEVELS[4] = webL10n.get("slowest");
 			button5_title = webL10n.get("PawnPromotesTo");
 			button6_title = webL10n.get("ComputerLevel");
-			
+			// document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
 			var set_board = function(data_obj){
 				for(var key in data_obj)
 					{
@@ -61,7 +57,7 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					game["board_state"]["best_pieces"] = data_obj["best_pieces"];
 					game["board_state"]["values"] = data_obj["values"];
 			}
-				
+
 			if (!environment.objectId) {
 				
 
@@ -72,7 +68,7 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data){
 					if (error==null && data!=null){
 						recieved_fen = JSON.parse(data);
-						game.record_values(
+						game.set_data(
 							recieved_fen[0],
 							recieved_fen[1],
 							parseInt(recieved_fen[2]),
@@ -106,9 +102,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				console.log("Want to share");
 				game.players[0] = "human";
 				game.players[1] = "human";
-				document.getElementById("toolbut1").disabled = true;
-				document.getElementById("toolbut2").disabled = true;
-				document.getElementById("toolbut3").disabled = true;
+				document.getElementById("button1").disabled = true;
+				document.getElementById("button2").disabled = true;
+				document.getElementById("button6").disabled = true;
 				game.refresh_buttons();
 				presence = activity.getPresenceObject(function(error,network){
 					// if no error in getting presence obj means connected to server
@@ -148,10 +144,16 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 						}
 					});
 				}
-				window.alert("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
+				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
+				document.getElementsByClassName("humane-libnotify")[0].style.display = "";
+				document.getElementsByClassName("humane-libnotify")[0].innerHTML = msg.user.name + " " +(msg.move == 1 ? "joined": "left"); 
+				var notificationDiv = function(){
+					document.getElementsByClassName("humane-libnotify")[0].style.display = "none";
+				}
+				setTimeout(notificationDiv, 1000);
 			};
-			
-			game.tapped = function(square){
+
+			game.square_clicked = function(square){
 				var board = game.board_state.board;
 				var mover = game.board_state.to_play;
 				var piece = board[square];
@@ -194,6 +196,11 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					}
 				}
 			}
+			var promotion_position=0;
+			
+			document.getElementById("button5").addEventListener('click',function(event){
+
+			});
 			var onNetworkDataReceived = function(msg){
 				if (presence.getUserInfo().networkId === msg.user.networkId) {
 					console.log("ret");
@@ -201,23 +208,23 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				}
 				switch(msg.content.action){
 					case 'init':
-						console.log("init case #204");
+						console.log("inside init");
 						game.players[0] = "human";
 						game.players[1] = "human";
-						document.getElementById("toolbut1").disabled = true;
-						document.getElementById("toolbut2").disabled = true;
-						document.getElementById("toolbut6").disabled = true;
+						document.getElementById("button1").disabled = true;
+						document.getElementById("player_black").disabled = true;
+						document.getElementById("button6").disabled = true;
 						game.refresh_buttons();
 						set_board(msg.content.data["board_state"]);
 						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
 						if(game["draw_offers"] == 1)
 							document.getElementById("toolbut7").style.display = 'inline-block';
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
-						game.board_bl_rotation();
+						game.rotate_board_for_black();
 						break;
 	
 					case 'update':{
-						console.log("update case #220");
+						console.log("inside update");
 						set_board(msg.content.data["board_state"]);
 						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
 						if(game["draw_offers"] == 1)
@@ -227,8 +234,7 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					}
 					
 			}
-			document.getElementById("PlayerTwo").innerHTML=msg.user.name.toUpperCase();
-			
+	
 			};	
 		});
 		
@@ -239,47 +245,33 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		
 		console.log("activity started");
 		
-		
+		// console.log(p);
 		var guest_joined = function(a){
 			did_guest_join=a;
 		}
-		var difficulty = 1;
-		document.getElementById("indifficulty-button").addEventListener('click', function() {
-			if(difficulty<4){
-				difficulty++;
-				Change_Status(difficulty); 
-			} 					
-		});
-		document.getElementById("dedifficulty-button").addEventListener('click', function() {
-			if(difficulty>1){
-				difficulty--;
-				Change_Status(difficulty); 
-			}
-		});
 		
-		var Change_Status=function(level){
-			difficulty=level;
-			//console.log("Check");
-			switch(difficulty){
-				case 1:
-					document.getElementById("diff_indicator").innerHTML=webL10n.get("VeryEasy");
-					break;
-				case 2:
-					document.getElementById("diff_indicator").innerHTML=webL10n.get("Easy");
-					break;
-				case 3:
-					document.getElementById("diff_indicator").innerHTML=webL10n.get("Medium");
-					break;
-				case 4:
-					document.getElementById("diff_indicator").innerHTML=webL10n.get("Hard");
-					break;
-			}
-		};
+		// document.getElementById("button1").addEventListener('click',function(event){
+		// 	// {/*white player */
+		// 	// 	onclick_wrap: function(p4d){
+		// 	// 		return function(e){
+		// 	// 			p4d.flip_player(0);
+		// 	// 		};
+		// 	// 	},
+		// 	// 	refresh: function(el){
+		// 	// 		var s = this.players[0];
+		// 	// 		el.innerHTML = 'white <img src="' + P4WN_IMAGE_DIR + '/' + s + '.png" alt="' + s + '">';
+		// 	// 	}
+		// 	// }
+		// 	game.flip_player(0);
+		// console.log("clicker");
+		// });
+
 		document.getElementById("fullscreen-button").addEventListener('click', function(event) {
 			// document.getElementById("main-toolbar").style.display = "none";
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			// resizeHandler();
 		  });
   
 		  //Return to normal size
@@ -287,25 +279,43 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("main-toolbar").style.opacity = 1;
 			// document.getElementById("main-toolbar").style.display = "block";
 			document.getElementById("canvas").style.top = "55px";
+			
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			// resizeHandler();
 		});
 
 		document.getElementById("restart_button").addEventListener('click',function(event){
+			// var game = p4wnify("board-goes-here");
+			// game.next_move();
 			window.location.reload(true);
 			return false;
-		});
+		  });
+
+		var resizeHandler = function() {
+			var windowSize = document.body.clientHeight - headerSize + (document.getElementById("unfullscreen-button").style.visibility == "visible"?toolbarSize:0);
+			var zoom = windowSize/((qrSize*(100+marginPercent))/100);
+			document.getElementById("canvas").style.zoom = zoom;
+			var useragent = navigator.userAgent.toLowerCase();
+			if (useragent.indexOf('chrome') == -1) {
+				document.getElementById("canvas").style.MozTransform = "scale("+zoom+")";
+				document.getElementById("canvas").style.MozTransformOrigin = "0 0";
+			}
+			
+		}
+		window.addEventListener('resize', resizeHandler);
+
 		document.getElementById("stop-button").addEventListener('click',function (event) {
 			console.log("stop clicked.");
-			var stringifiedData = [];
-			stringifiedData.push(game.players[0]);
-			stringifiedData.push(game.players[1]);
-			stringifiedData.push(game.pawn_becomes);
-			stringifiedData.push(game.computer_level);
-			stringifiedData.push(game.draw_offers);
-			stringifiedData.push(game["board_state"]);
+			var data = [];
+			data.push(game.players[0]);
+			data.push(game.players[1]);
+			data.push(game.pawn_becomes);
+			data.push(game.computer_level);
+			data.push(game.draw_offers);
+			data.push(game["board_state"]);
 			var log_div = document.getElementsByClassName("p4wn-log")[0];
-			stringifiedData.push(log_div.innerHTML);
-			var jsonData = JSON.stringify(stringifiedData);
+			data.push(log_div.innerHTML);
+			var jsonData = JSON.stringify(updated_fenstring);
 			console.log("stringified");
 			
 			activity.getDatastoreObject().setDataAsText(jsonData);
@@ -335,5 +345,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("toolbut4").title=webL10n.get("UFB");
 			document.getElementById("restart-button").title=webL10n.get("Restart");
 		};
+
+		
 	});
+	
+
 });

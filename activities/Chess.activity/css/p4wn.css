@@ -1,7 +1,10 @@
-
-body {
-  background-color: #339d60;
+.grid{
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
 }
+
+
 
 .p4wn-board table{
   border-spacing: 0px;
@@ -12,20 +15,15 @@ body {
 }
 
 .p4wn-white-square {
-  background-color: #ffe0b7;
+  background-color: #F0D9B5;
 }
 
 .p4wn-black-square {
-  background-color:#d67b46;
+  background-color:#B58863;
 }
 
-.p4wn2-white-square {
-  background-color: #ccc;
-}
 
-.p4wn2-black-square {
-  background-color:#888;
-}
+
 
 .p4wn-board {
   position: relative;
@@ -47,6 +45,7 @@ body {
 
 .p4wn-controls{
   clear: both;
+  margin-top: 100px;
   /*border:1px solid green;*/
 }
 
@@ -64,5 +63,5 @@ body {
 }
 
 .p4wn-wrapper{
-  /*border: 1px solid yellow;*/
+  /* border: 1px solid yellow; */
 }

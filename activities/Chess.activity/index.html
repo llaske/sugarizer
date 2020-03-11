@@ -11,61 +11,68 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
-<link rel="stylesheet" href="p4wn.css" />
+<link rel="stylesheet" href="css/p4wn.css" />
 <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/bootstrap-tour-standalone.min.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script data-main="js/loader" src="lib/require.js"></script>
-<script src="lib/engine.js"></script>
-<script src="lib/display.js"></script>
+
 
 </head>
 
-<body>
-<div id="main-toolbar" class="toolbar">
-  <button class="toolbutton" id="activity-button" title="My Activity"></button>
-  <button class="toolbutton" id="network-button" title="Network"></button>
-  <button title="add" id="addd">add</button>
-  <!-- <button title="start" id="startt" style="visibility: hidden;">start</button> -->
-  <!-- Add more buttons here -->
 
+
+<body>
+  <div class="humane humane-libnotify" style="display:none;"></div>
+  <div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Chess "></button>
+  <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="restart_button" title="Restart" style="background-image: url(icons/restart.svg);"></button>
+  <button class="toolbutton" id="toolbut1" title="White player" style="background-image: url(icons/player-white.svg);"></button>
+  <button class="toolbutton" id="toolbut2" title="Black player" style="background-image: url(icons/robot-on-black.svg);"></button>
+  <button class="toolbutton" id="toolbut3" title="Swap" style="background-image: url(icons/index.png);"></button>
+  <button class="toolbutton" id="toolbut4" title="Undo" style="background-image: url(icons/edit-undo.svg);"></button>
+  <button id="toolbut5" class="tool-button" title="Pawn promotes to"></button>
+  <button class="toolbutton" id="dedifficulty-button" title="Decrease Difficulty"></button>
+  <div class="difficulty_indicator" id="diff_indicator" style="padding-top: 0.7%;">STUPID</div>
+  <button class="toolbutton" id="indifficulty-button" title="Increase Difficulty"></button>
+  
+  
+  <!-- Add more buttons here -->
+  
   <!-- Buttons with class="pull-right" will be right aligned -->
-  
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
-  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
-  
   <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
 <!-- The content of your activity goes inside the canvas -->
-<div id="canvas">
-
-  <!-- Replace this message with your own content -->
-    <div id="board-goes-here" style="margin-left: 90px;margin-bottom: 40px;padding-bottom: 50px;" ></div>
-    <div id="board-goes-here2" style="margin-left: 90px;margin-bottom: 40px;padding-bottom: 50px;display: block;" ></div>
-    <div id="board-goes-here3" style="margin-left: 90px;margin-bottom: 40px;padding-bottom: 50px;display: block;" ></div>
-    <div id="board-goes-here4" style="margin-left: 90px;margin-bottom: 40px;padding-bottom: 50px;display: block;" ></div>
-    <div id="board-goes-here5" style="margin-left: 90px;margin-bottom: 40px;padding-bottom: 50px;display: block;" ></div>
-    <div id="onevstwo" >
-    <div id="PlayerOne" ></div>
-    <div id="Versus"></div>
-    <div id="PlayerTwo"></div>
-    <button title="start" id="startt" style=" display:none;">start</button>
-    <button title="make move" id="make-move" style=" display:none;">make move</button>
-    <button title="make move" id="make-move1" style=" display:none;">make move</button>
-  </div>
+<div id="canvas" style="padding-left: 3%;">
+  <div id="controlButtons" class="column" style="margin-top: 50px;">
+    <button id="toolbut6" class="tool-button" title="Computer level" style="display: none;"></button>
+    <button id="toolbut7"></button>
 </div>
+  <!-- Put anything you like here... -->
+  <div id="Banner" style="margin-left: 25%;padding-bottom: 1%;"><span id="PlayerOne"></span><span id="Versus"></span><span id="PlayerTwo"></span></div>
+  <div style="margin-left:71%;padding-bottom: 1%;">Game Logs</div>
+  <div id="board-goes-here" class="column"></div>
+
+<!-- ...and here -->
+
+<script type="text/javascript" src="js/engine.js"></script>
+<script type="text/javascript" src="js/display.js"></script>
 <script>
-  P4WN_SQUARE_WIDTH = 60;  /* default is 30 x 30 */
-  P4WN_SQUARE_HEIGHT = 60;
-  // var game = p4wnify("board-goes-here");
-  // game.next_move();
+var game = p4wnify("board-goes-here");
+game.next_move();
+</script>
+<script type="text/javascript" src="js/resolutionawareness.js"></script>
+<script type="text/javascript">
+  
   </script>
-  
-  
-  <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+</div>
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 </body>
 
 </html>
