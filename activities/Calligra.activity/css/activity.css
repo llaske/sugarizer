@@ -496,3 +496,7 @@ body {
 	padding-right: 38px;
 	display: inline-block;
 }
+
+#search-text {
+	color: black;
+}

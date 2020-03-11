@@ -1,0 +1,540 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Mar 01 2020 22:11:54 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Play
+msgctxt "Play"
+msgid "Play"
+msgstr "Jugar"
+
+#: Credits
+msgctxt "Credits"
+msgid "Credits"
+msgstr "Creditos"
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr "Settings"
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr "Salir"
+
+#: Word
+msgctxt "Word"
+msgid "Word"
+msgstr "Palabra"
+
+#: Dictionary
+msgctxt "Dictionary"
+msgid "Dictionary"
+msgstr "Diccionario"
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr "Añadir"
+
+#: DeleteAll
+msgctxt "DeleteAll"
+msgid "DeleteAll"
+msgstr "Eliminar Todos"
+
+#: Save
+msgctxt "Save"
+msgid "Save"
+msgstr "Salvar"
+
+#: Reset
+msgctxt "Reset"
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: Return
+msgctxt "Return"
+msgid "Return"
+msgstr "Regreso"
+
+#: Yes
+msgctxt "Yes"
+msgid "Yes"
+msgstr "Si"
+
+#: Thanks
+msgctxt "Thanks"
+msgid "Thanks"
+msgstr "Gracias"
+
+#: favor
+msgctxt "favor"
+msgid "Please"
+msgstr "Favor"
+
+#: Day
+msgctxt "Day"
+msgid "Day"
+msgstr "Dia"
+
+#: Afternoon
+msgctxt "Afternoon"
+msgid "Afternoon"
+msgstr "Tarde"
+
+#: Night
+msgctxt "Night"
+msgid "Night"
+msgstr "Noche"
+
+#: Goodbye
+msgctxt "Goodbye"
+msgid "Goodbye"
+msgstr "Adios"
+
+#: Woman
+msgctxt "Woman"
+msgid "Woman"
+msgstr "Mujer"
+
+#: Museum
+msgctxt "Museum"
+msgid "Museum"
+msgstr "Museo"
+
+#: Bank
+msgctxt "Bank"
+msgid "Bank"
+msgstr "Banco"
+
+#: Hospital
+msgctxt "Hospital"
+msgid "Hospital"
+msgstr "Hospital"
+
+#: Pharmacy
+msgctxt "Pharmacy"
+msgid "Pharmacy"
+msgstr "Farmacia"
+
+#: Store
+msgctxt "Store"
+msgid "Store"
+msgstr "Tienda"
+
+#: restaurant
+msgctxt "restaurant"
+msgid "restaurant"
+msgstr "restaurante"
+
+#: Church
+msgctxt "Church"
+msgid "Church"
+msgstr "Iglesia"
+
+#: WC
+msgctxt "WC"
+msgid "WC"
+msgstr "bano"
+
+#: Beach
+msgctxt "Beach"
+msgid "Beach"
+msgstr "playa"
+
+#: Street
+msgctxt "Street"
+msgid "Street"
+msgstr "Calle"
+
+#: Pool
+msgctxt "Pool"
+msgid "Pool"
+msgstr "Piscina"
+
+#: Omnibus
+msgctxt "Omnibus"
+msgid "Omnibus"
+msgstr "General"
+
+#: Airport
+msgctxt "Airport"
+msgid "Airport"
+msgstr "Aeropuerto"
+
+#: Train
+msgctxt "Train"
+msgid "Train"
+msgstr "Tren"
+
+#: Taxi
+msgctxt "Taxi"
+msgid "Taxi"
+msgstr "Taxi"
+
+#: Car
+msgctxt "Car"
+msgid "Car"
+msgstr "Coche"
+
+#: Parking
+msgctxt "Parking"
+msgid "Parking"
+msgstr "Estacionamiento"
+
+#: Match
+msgctxt "Match"
+msgid "Match"
+msgstr "Partido"
+
+#: Arrival
+msgctxt "Arrival"
+msgid "Arrival"
+msgstr "Llegada"
+
+#: Money
+msgctxt "Money"
+msgid "Money"
+msgstr "Dinero"
+
+#: Coins
+msgctxt "Coins"
+msgid "Coins"
+msgstr "Monedas"
+
+#: Rate
+msgctxt "Rate"
+msgid "Rate"
+msgstr "Velocidad"
+
+#: Receipt
+msgctxt "Receipt"
+msgid "Receipt"
+msgstr "Recibo"
+
+#: expensive
+msgctxt "expensive"
+msgid "expensive"
+msgstr "costosa"
+
+#: Cheap
+msgctxt "Cheap"
+msgid "Cheap"
+msgstr "Barata"
+
+#: Open
+msgctxt "Open"
+msgid "Open"
+msgstr "Abierto"
+
+#: Closed
+msgctxt "Closed"
+msgid "Closed"
+msgstr "Cerrada"
+
+#: Postcard
+msgctxt "Postcard"
+msgid "Postcard"
+msgstr "postal"
+
+#: Stamps
+msgctxt "Stamps"
+msgid "Stamps"
+msgstr "Sellos"
+
+#: Spring
+msgctxt "Spring"
+msgid "Spring"
+msgstr "Primavera"
+
+#: Summer
+msgctxt "Summer"
+msgid "Summer"
+msgstr "Verano"
+
+#: Autumn
+msgctxt "Autumn"
+msgid "Autumn"
+msgstr "Otoño"
+
+#: Winter
+msgctxt "Winter"
+msgid "Winter"
+msgstr "Invierno"
+
+#: Coffee
+msgctxt "Coffee"
+msgid "Coffee"
+msgstr "café"
+
+#: Dinner
+msgctxt "Dinner"
+msgid "Jantar"
+msgstr "Cena"
+
+#: Account
+msgctxt "Account"
+msgid "Account"
+msgstr "Cuenta"
+
+#: Napkin
+msgctxt "Napkin"
+msgid "Napkin"
+msgstr "Servilleta"
+
+#: Cup
+msgctxt "Cup"
+msgid "Cup"
+msgstr "taza"
+
+#: Dish
+msgctxt "Dish"
+msgid "Dish"
+msgstr "Plato"
+
+#: Fork
+msgctxt "Fork"
+msgid "Fork"
+msgstr "Tenedora"
+
+#: Knife
+msgctxt "Knife"
+msgid "Knife"
+msgstr "Cuchillo"
+
+#: Spoon
+msgctxt "Spoon"
+msgid "Spoon"
+msgstr "Cuchara"
+
+#: Table
+msgctxt "Table"
+msgid "Table"
+msgstr "Mesa"
+
+#: Chair
+msgctxt "Chair"
+msgid "Chair"
+msgstr "Silla"
+
+#: Left
+msgctxt "Left"
+msgid "Left"
+msgstr "Izquierda"
+
+#: Right
+msgctxt "Right"
+msgid "Right"
+msgstr "Derecho"
+
+#: Front
+msgctxt "Front"
+msgid "Front"
+msgstr "Frente"
+
+#: Up
+msgctxt "Up"
+msgid "Up"
+msgstr "Arriba"
+
+#: Low
+msgctxt "Low"
+msgid "Low"
+msgstr "Baja"
+
+#: Far
+msgctxt "Far"
+msgid "Far"
+msgstr "Lejos"
+
+#: Near
+msgctxt "Near"
+msgid "Near"
+msgstr "cerca"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Rules"
+msgstr "Rules"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Collect the letters of the target word shown in top left in correct order. Warning: you have to move without getting drowned in ponds!"
+msgstr "Collect the letters of the target word shown in top left in correct order. Warning: you have to move without getting drowned in ponds!"
+
+#: TutoHomeTitle
+msgctxt "TutoHomeTitle"
+msgid "Menu"
+msgstr "Menu"
+
+#: TutoHomeContent
+msgctxt "TutoHomeContent"
+msgid "Click Play to start the game, click Settings to customize the list of words"
+msgstr "Click Play to start the game, click Settings to customize the list of words"
+
+#: TutoWelcomeTitle
+msgctxt "TutoWelcomeTitle"
+msgid "Falabracman activity"
+msgstr "Falabracman activity"
+
+#: TutoWelcomeContent
+msgctxt "TutoWelcomeContent"
+msgid "Welcome in the Falabracman activity. Falabracman is an addictive game where you should collect letter to build words"
+msgstr "Welcome in the Falabracman activity. Falabracman is an addictive game where you should collect letter to build words"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Go to Home"
+msgstr "Go to Home"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to go back to home and restart the game"
+msgstr "Click here to go back to home and restart the game"
+
+#: TutoGameTitle
+msgctxt "TutoGameTitle"
+msgid "Move"
+msgstr "Move"
+
+#: TutoGameContent
+msgctxt "TutoGameContent"
+msgid "Use keyboard arrows or drag mouse in a direction to move the falabracman. Falabracman can only move in four directions i.e. NORTH, EAST, WEST, SOUTH"
+msgstr "Use keyboard arrows or drag mouse in a direction to move the falabracman. Falabracman can only move in four directions i.e. NORTH, EAST, WEST, SOUTH"
+
+#: TutoSettingTitle
+msgctxt "TutoSettingTitle"
+msgid "Dictionary Settings"
+msgstr "Dictionary Settings"
+
+#: TutoSettingContent
+msgctxt "TutoSettingContent"
+msgid "In this screen, you can make your own custom dictionary of words"
+msgstr "In this screen, you can make your own custom dictionary of words"
+
+#: TutoDictTitle
+msgctxt "TutoDictTitle"
+msgid "Words"
+msgstr "Words"
+
+#: TutoDictContent
+msgctxt "TutoDictContent"
+msgid "Here the current list of words in the dictionary. You could filter this list by typing text in the word-bar"
+msgstr "Here the current list of words in the dictionary. You could filter this list by typing text in the word-bar"
+
+#: TutoWordInputTitle
+msgctxt "TutoWordInputTitle"
+msgid "Word-Bar"
+msgstr "Word-Bar"
+
+#: TutoWordInputContent
+msgctxt "TutoWordInputContent"
+msgid "Enter the word which you want to search or add or delete or edit"
+msgstr "Enter the word which you want to search or add or delete or edit"
+
+#: TutoAddWordTitle
+msgctxt "TutoAddWordTitle"
+msgid "Add word"
+msgstr "Add word"
+
+#: TutoAddWordContent
+msgctxt "TutoAddWordContent"
+msgid "Click this button to add word you have entered in your word-bar"
+msgstr "Click this button to add word you have entered in your word-bar"
+
+#: TutoDeleteAllWordsTitle
+msgctxt "TutoDeleteAllWordsTitle"
+msgid "Delete All"
+msgstr "Delete All"
+
+#: TutoDeleteAllWordsContent
+msgctxt "TutoDeleteAllWordsContent"
+msgid "Click this button to delete all words. Only one default word will be there after this"
+msgstr "Click this button to delete all words. Only one default word will be there after this"
+
+#: TutoSaveDictTitle
+msgctxt "TutoSaveDictTitle"
+msgid "Save"
+msgstr "Save"
+
+#: TutoSaveDictContent
+msgctxt "TutoSaveDictContent"
+msgid "Click this button to save changes you have made. Without clicking this button your changes will get lost"
+msgstr "Click this button to save changes you have made. Without clicking this button your changes will get lost"
+
+#: TutoResetDictTitle
+msgctxt "TutoResetDictTitle"
+msgid "Reset"
+msgstr "Reset"
+
+#: TutoResetDictContent
+msgctxt "TutoResetDictContent"
+msgid "Click this button to reset the dictionary to the default one"
+msgstr "Click this button to reset the dictionary to the default one"
+
+#: TutoReturnTitle
+msgctxt "TutoReturnTitle"
+msgid "Return"
+msgstr "Return"
+
+#: TutoReturnContent
+msgctxt "TutoReturnContent"
+msgid "Click this button to Return to Home Screen"
+msgstr "Click this button to Return to Home Screen"
+
+#: TutoAddStepTitle
+msgctxt "TutoAddStepTitle"
+msgid "Steps To Add new Word"
+msgstr "Steps To Add new Word"
+
+#: TutoAddStepContent
+msgctxt "TutoAddStepContent"
+msgid "(1) Enter the word in word-bar (2) Click Add (3) Click Save"
+msgstr "(1) Enter the word in word-bar (2) Click Add (3) Click Save"
+
+#: TutoDeleteStepTitle
+msgctxt "TutoDeleteStepTitle"
+msgid "Steps To Delete an existing Word"
+msgstr "Steps To Delete an existing Word"
+
+#: TutoDeleteStepContent
+msgctxt "TutoDeleteStepContent"
+msgid "(1) Enter the word in word-bar (2) Click the delete icon in dictionary section (3) Click Save"
+msgstr "(1) Enter the word in word-bar (2) Click the delete icon in dictionary section (3) Click Save"
+
+#: TutoEditStepTitle
+msgctxt "TutoEditStepTitle"
+msgid "Steps To Edit an existing Word"
+msgstr "Steps To Edit an existing Word"
+
+#: TutoEditStepContent
+msgctxt "TutoEditStepContent"
+msgid "(1) Enter the word in word-bar (2) Click the edit icon in dictionary section (3) Write the new edited word in word-bar (4) Click 'okay icon (5) Click Save"
+msgstr "(1) Enter the word in word-bar (2) Click the edit icon in dictionary section (3) Write the new edited word in word-bar (4) Click 'okay icon (5) Click Save"
+

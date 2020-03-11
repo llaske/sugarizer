@@ -36,6 +36,11 @@
 	outline: none;
 }
 
+#main-toolbar #contents-button {
+	background-image: url(../icons/lines.svg);
+	outline: none;
+}
+
 #main-toolbar #library-button {
 	background-image: url(../icons/library.svg);
 	outline: none;
