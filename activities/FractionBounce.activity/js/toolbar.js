@@ -2,13 +2,21 @@
 var ToolbarItem = {
 	template: `
 		<div class="splitbar" v-if="isSplitbar"/>
-		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="isDisabled" v-bind:class="computeClass()" v-else/>
+		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" :disabled="disabled" v-bind:class="computeClass()" v-else/>
 	`,
-	props: ['id', 'title', 'isSplitbar', 'toRight', 'paletteClass', 'paletteFile', 'paletteEvent', 'disabled', 'active'],
+	props: {
+		'id': String, 
+		'title': String, 
+		'isSplitbar': Boolean, 
+		'toRight': Boolean, 
+		'paletteClass': String, 
+		'paletteFile': String, 
+		'paletteEvent': String, 
+		'disabled': Boolean, 
+		'active': Boolean
+	},
 	data: function () {
 		return {
-			isDisabled: (this.disabled !== undefined),
-			isActive: (this.active !== undefined),
 			paletteObject: null
 		}
 	},
@@ -18,7 +26,7 @@ var ToolbarItem = {
 		},
 
 		computeClass: function () {
-			return (this.toRight ? 'toolbutton pull-right' : 'toolbutton') + (this.isActive ? ' active' : '');
+			return (this.toRight ? 'toolbutton pull-right' : 'toolbutton') + (this.active ? ' active' : '');
 		}
 	},
 
@@ -67,12 +75,30 @@ var Toolbar = {
 				paletteEvent="bgSelected"
 				v-on:bgSelected="getApp().onBgSelected($event)">
 			</toolbar-item>
-
 			
 			<toolbar-item isSplitbar="true"></toolbar-item>
-			<toolbar-item ref="fractionsBtn" id="fractions-button" v-on:clicked="getApp().changeMode('fractions')" v-bind:title="l10n.stringFractions"></toolbar-item>
-			<toolbar-item ref="sectorsBtn" id="sectors-button" v-on:clicked="getApp().changeMode('sectors')" v-bind:title="l10n.stringSectors"></toolbar-item>
-			<toolbar-item ref="percentsBtn" id="percents-button" v-on:clicked="getApp().changeMode('percents')" v-bind:title="l10n.stringPercents"></toolbar-item>
+			
+			<toolbar-item 
+				ref="fractionsBtn" 
+				id="fractions-button" 
+				v-on:clicked="getApp().changeMode('fractions')" 
+				v-bind:active="mode == 'fractions'"
+				v-bind:title="l10n.stringFractions">
+			</toolbar-item>
+			<toolbar-item 
+				ref="sectorsBtn" 
+				id="sectors-button" 
+				v-on:clicked="getApp().changeMode('sectors')" 
+				v-bind:active="mode == 'sectors'"
+				v-bind:title="l10n.stringSectors">
+			</toolbar-item>
+			<toolbar-item 
+				ref="percentsBtn" 
+				id="percents-button" 
+				v-on:clicked="getApp().changeMode('percents')" 
+				v-bind:active="mode == 'percents'"
+				v-bind:title="l10n.stringPercents">
+			</toolbar-item>
 			
 			<span class="helpText">{{ helpText }}</span>
 
