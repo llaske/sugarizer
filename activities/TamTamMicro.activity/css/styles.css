@@ -184,6 +184,17 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
     position: relative;
 }
 
+.Simon{
+  width: 63vh;
+  height: 63vh;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto;
+}
+
 .Simon-game{
   width: 60vh;
   height: 60vh;
@@ -193,6 +204,7 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   flex-wrap: wrap;
   margin: 0px auto;
   position: relative;
+  background-color: black;
 }
 
 .Simon-button, .Simon-centre{
@@ -202,27 +214,44 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   z-index: 1000 !important;
 }
 
+.Simon-button{
+  border-radius: 2vw !important;
+}
+
 .Simon-button.red, .Simon-button.green{
-  border-bottom: 5px solid white;
+  border-bottom: 5px solid black;
 }
 
 .Simon-button.red, .Simon-button.yellow{
-  border-right: 5px solid white;
+  border-right: 5px solid black;
 }
 
 .Simon-button.green, .Simon-button.blue{
-  border-left: 5px solid white;
+  border-left: 5px solid black;
 }
 
 .Simon-button.yellow, .Simon-button.blue{
-  border-top: 5px solid white;
+  border-top: 5px solid black;
+}
+
+.Simon-centre-white{
+  background-color: white;
+  border-radius: 50%;
+  width: 27vh;
+  height: 27vh;
 }
 
 .Simon-centre{
   border-radius: 50%;
-  background-color: white;
+}
+
+.Simon-centre-black{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  align-items: center;
+  background-color: black;
+  justify-content: center;
 }

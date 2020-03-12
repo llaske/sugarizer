@@ -1,13 +1,13 @@
 enyo.kind({
 	name: "TamTam.Simon",
 	components: [
-        {classes: "", components: [
+        {classes: "Simon", components: [
             {classes: "Simon-game", components: [
                 {name: "A", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {name: "E", classes: "Simon-button green", ontap: "handlePlayNote"},
                 {name: "C-s", classes: "Simon-button yellow", ontap: "handlePlayNote"},
                 {name: "E", classes: "Simon-button blue", ontap: "handlePlayNote"},
-                {classes: "Simon-centre"}
+                {classes: "Simon-centre Simon-centre-black", components: [{classes: "Simon-centre Simon-centre-white"}]}
             ]}
         ]}
     ],
