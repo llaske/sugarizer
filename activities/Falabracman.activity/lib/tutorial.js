@@ -147,11 +147,17 @@ define(["webL10n"], function(l10n) {
         {
           element: "#restart-button",
           placement: "bottom",
+          title: l10n.get("TutoRestartTitle"),
+          content: l10n.get("TutoRestartContent")
+        },
+        {
+          element: "#sound-button",
+          placement: "bottom",
           onNext: function() {
             tour.end();
           },
-          title: l10n.get("TutoRestartTitle"),
-          content: l10n.get("TutoRestartContent")
+          title: l10n.get("TutoSoundTitle"),
+          content: l10n.get("TutoSoundContent")
         }
       ]);
     }

@@ -154,7 +154,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     }
 
     function handleMenuChoose(_selected) {
-      game.menuAudio.play();
+      if (game.soundEnabled) {
+        game.menuAudio.play();
+      }
       if (_selected == 0) {
         game.homeScreen = false;
         game.creditScreen = false;
@@ -196,7 +198,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
             } else {
               game.menuSelected--;
             }
-            game.menuAudio.play();
+            if (game.soundEnabled) {
+              game.menuAudio.play();
+            }
             game.drawHomeScreen();
           } else {
             handleKeyUp();
@@ -212,7 +216,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
             } else {
               game.menuSelected++;
             }
-            game.menuAudio.play();
+            if (game.soundEnabled) {
+              game.menuAudio.play();
+            }
             game.drawHomeScreen();
           } else {
             handleKeyDown();
@@ -308,7 +314,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
 
     function handleOnTextChange(e) {
       game.wordInSetting = e.target.value;
-      game.menuAudio.play();
+      if (game.soundEnabled) {
+        game.menuAudio.play();
+      }
 
       if (game.wordInSetting == "") {
         game.wordInSetting = null;
@@ -328,7 +336,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       var flag = 0;
       //checking if a word already existed in dictionary or not
       if (!game.customDictWordEdit) {
-        game.menuAudio.play();
+        if (game.soundEnabled) {
+          game.menuAudio.play();
+        }
         if (game.wordInSetting != null) {
           for (var i = 0; i < dictionaryListElem.children.length; i++) {
             var wordShown = dictionaryListElem.children[i].children[0].children[0].innerHTML;
@@ -352,7 +362,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     var deleteAllWordsButton = document.getElementById("deleteAllWords");
     deleteAllWordsButton.addEventListener('click', function() {
       if (!game.customDictWordEdit) {
-        game.menuAudio.play();
+        if (game.soundEnabled) {
+          game.menuAudio.play();
+        }
         var firstWord = webL10n.get('Play');
         game.customDict = [firstWord];
         wordInputElem.value = "";
@@ -364,7 +376,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     var saveDictButton = document.getElementById("saveDict");
     saveDictButton.addEventListener('click', function() {
       if (!game.customDictWordEdit) {
-        game.menuAudio.play();
+        if (game.soundEnabled) {
+          game.menuAudio.play();
+        }
         paladict.changeDict(game.customDict);
         game.useCustomDict = true;
         game.drawSettingScreen();
@@ -374,7 +388,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     var resetDictButton = document.getElementById("resetDict");
     resetDictButton.addEventListener('click', function() {
       if (!game.customDictWordEdit) {
-        game.menuAudio.play();
+        if (game.soundEnabled) {
+          game.menuAudio.play();
+        }
         game.initializeCustomDict();
         wordInputElem.value = "";
         game.wordInSetting = null;
@@ -405,7 +421,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         if (element.nodeName === "BUTTON" && /deleteWord/.test(element.className)) {
           // The user clicked on a <button> or clicked on an element inside a <button>
           // with a class name called "deleteWord"
-          game.menuAudio.play();
+          if (game.soundEnabled) {
+            game.menuAudio.play();
+          }
           var filtered = game.customDict.filter(function(value, index, arr) {
             return value != element.id;
           });
@@ -418,7 +436,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         if (element.nodeName === "BUTTON" && /editWord/.test(element.className)) {
           // The user clicked on a <button> or clicked on an element inside a <button>
           // with a class name called "editWord"
-          game.menuAudio.play();
+          if (game.soundEnabled) {
+            game.menuAudio.play();
+          }
           wordInputElem.value = element.id;
           game.wordInSetting = wordInputElem.value;
           game.wordToBeEdited = wordInputElem.value;
@@ -436,7 +456,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         if (element.nodeName === "BUTTON" && /saveEditWord/.test(element.className)) {
           // The user clicked on a <button> or clicked on an element inside a <button>
           // with a class name called "saveEditWord"
-          game.menuAudio.play();
+          if (game.soundEnabled) {
+            game.menuAudio.play();
+          }
           if (game.wordInSetting != null) {
             game.customDict[game.customDict.indexOf(game.wordToBeEdited)] = game.wordInSetting;
             game.customDictWordEdit = false;
@@ -457,8 +479,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         if (element.nodeName === "BUTTON" && /resetEditWord/.test(element.className)) {
           // The user clicked on a <button> or clicked on an element inside a <button>
           // with a class name called "saveEditWord"
-
-          game.menuAudio.play();
+          if (game.soundEnabled) {
+            game.menuAudio.play();
+          }
           game.customDict[game.customDict.indexOf(game.wordToBeEdited)] = game.wordToBeEdited;
           game.customDictWordEdit = false;
           game.wordInSetting = "";
@@ -484,10 +507,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
       var newCanvasHeight = window.innerHeight - toolbarHeight;
       game.resizeGame(newCanvasWidth, newCanvasHeight);
-
-      if (game.settingScreen) {
-        game.resizeSettingScreen();
-      }
     });
 
     var restartButton = document.getElementById("restart-button");
@@ -505,12 +524,29 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         game.customDictWordEdit = false;
 
         document.getElementById("settingScreen").style.visibility = "hidden";
-
         document.getElementById("addWord").style.opacity = 1;
         document.getElementById("deleteAllWords").style.opacity = 1;
         document.getElementById("saveDict").style.opacity = 1;
         document.getElementById("resetDict").style.opacity = 1;
         game.main();
+      }
+    }, false);
+
+    var soundButton = document.getElementById("sound-button");
+    soundButton.addEventListener('click', function() {
+      game.soundEnabled = !game.soundEnabled;
+      if (game.soundEnabled) {
+        document.getElementById("sound-button").style.backgroundImage = "url(./icons/speaker-muted-100.svg)";
+        document.getElementById('sound-button').title = 'Mute The Game';
+      }
+      else {
+        document.getElementById("sound-button").style.backgroundImage = "url(./icons/speaker-muted-000.svg)";
+        document.getElementById('sound-button').title = 'Unmute The Game';
+        game.gameAudio.pause();
+        game.aplausoAudio.pause();
+        game.splashAudio.pause();
+        game.moneyAudio.pause();
+        game.menuAudio.pause();
       }
     }, false);
 

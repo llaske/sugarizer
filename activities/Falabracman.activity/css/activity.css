@@ -19,6 +19,10 @@
   background-image: url(../icons/restart.svg);
 }
 
+#main-toolbar #sound-button {
+  background-image: url(../icons/speaker-muted-100.svg);
+}
+
 /*Add image to fullscreen/unfullscreen button*/
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);

@@ -61,7 +61,7 @@ function Game(canvas, resources, paladict, webL10n) {
   this.wordToBeEdited = null;
   this.customDictLang = null;
 
-
+  this.soundEnabled = true;
   this.splashAudio = new Audio('./sounds/splash.mp3');
   this.aplausoAudio = new Audio('./sounds/aplauso.mp3');
   this.moneyAudio = new Audio('./sounds/money.mp3');
@@ -193,6 +193,9 @@ function Game(canvas, resources, paladict, webL10n) {
       this.targetWordLetters[i].x = targetWordLettersCoordRat[i].xr * canvas.width;
       this.targetWordLetters[i].y = targetWordLettersCoordRat[i].yr * canvas.height;
     }
+
+    this.resizeSettingScreen();
+
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.settingScreen) {
@@ -370,7 +373,9 @@ function Game(canvas, resources, paladict, webL10n) {
     if (this.playScreen) {
 
       if (this.key != undefined) {
-        this.gameAudio.play();
+        if (this.soundEnabled) {
+          this.gameAudio.play();
+        }
       }
 
       var bar;
@@ -486,7 +491,9 @@ function Game(canvas, resources, paladict, webL10n) {
         this.obstacles.push(obj);
       }
     }
-    this.aplausoAudio.play();
+    if (this.soundEnabled) {
+      this.aplausoAudio.play();
+    }
 
   };
 
@@ -726,7 +733,9 @@ function Game(canvas, resources, paladict, webL10n) {
       });
       if (isCollide) {
         this.targetWordLetters.splice(0, 1);
-        this.moneyAudio.play();
+        if (this.soundEnabled) {
+          this.moneyAudio.play();
+        }
         this.drawTargetLetters();
       }
     }
@@ -757,7 +766,9 @@ function Game(canvas, resources, paladict, webL10n) {
       this.playerX = canvas.width * 0.88;
       this.playerY = canvas.height * 0.15;
       this.frameNo = 0;
-      this.splashAudio.play();
+      if (this.soundEnabled) {
+        this.splashAudio.play();
+      }
 
     }
     return isCollide;
