@@ -39,7 +39,7 @@ let SlopeTemplate = {
 		},
 
 		checkAnswer: function() {
-			let i = Math.floor(this.cx/(this.lengthOfDivision-this.tolerance));
+			let i = Math.floor((this.cx + this.tolerance)/this.lengthOfDivision);
 			if(this.cx > i*this.lengthOfDivision-this.tolerance && this.cx < i*this.lengthOfDivision+this.tolerance) {
 				this.drawAnswer(i);
 				return i;

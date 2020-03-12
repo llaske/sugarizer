@@ -422,7 +422,6 @@ let app = new Vue({
 		},
 
 		onFractionAdded: function(event) {
-			console.log(event);
 			this.userFractions.push({
 				num: event.numerator,
 				den: event.denominator
