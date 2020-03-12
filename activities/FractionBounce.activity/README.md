@@ -1,1 +1,1 @@
-# Chess Activity for GSoC 2020
+# Fraction Bounce Activity port from Sugar
