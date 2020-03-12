@@ -27,6 +27,7 @@ function Game(canvas, resources, paladict, webL10n) {
   this.gameEnded = false;
 
   this.obstacles = [];
+  this.noOfObstacles = 6;
   this.frameWidth = 76;
   this.frameHeight = 80;
   this.obstWidth = 130;
@@ -42,8 +43,9 @@ function Game(canvas, resources, paladict, webL10n) {
   this.playerY = canvas.height * 0.15;
   this.key = undefined;
   this.lastTime = Date.now();
-  this.PlayerTimeInterval = 25;
-  this.playerSpeed = (2 + canvas.width / screen.width * (screen.width / 300)) / this.PlayerTimeInterval;
+  this.PlayerTimeInterval = 20;
+  this.difficulty = 2;
+  this.playerSpeed = (this.difficulty + canvas.width / screen.width * (screen.width / 300)) / this.PlayerTimeInterval;
 
   this.targetWord = "";
   this.targetWordLetters = [];
@@ -181,7 +183,7 @@ function Game(canvas, resources, paladict, webL10n) {
 
     this.playerX = pxr * canvas.width;
     this.playerY = pyr * canvas.height;
-    this.playerSpeed = (2 + canvas.width / screen.width * (2 + screen.width / 300)) / this.PlayerTimeInterval;
+    this.playerSpeed = (this.difficulty  + canvas.width / screen.width * (screen.width / 300)) / this.PlayerTimeInterval;
 
 
     for (var i = 0; i < this.obstacles.length; i++) {
@@ -193,6 +195,9 @@ function Game(canvas, resources, paladict, webL10n) {
       this.targetWordLetters[i].x = targetWordLettersCoordRat[i].xr * canvas.width;
       this.targetWordLetters[i].y = targetWordLettersCoordRat[i].yr * canvas.height;
     }
+
+    this.resizeSettingScreen();
+
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.settingScreen) {
@@ -444,11 +449,11 @@ function Game(canvas, resources, paladict, webL10n) {
 
     this.resizeImagesAndFont();
 
-    for (var i = 0; i < 6;) {
+    for (var i = 0; i < this.noOfObstacles;) {
 
       var arr = [];
       for (var k = 0; k < 6; k++) {
-        if (obstaclesPossiblePos[i][k] == 1) {
+        if (obstaclesPossiblePos[i%6][k] == 1) {
           arr.push(k);
         }
       }

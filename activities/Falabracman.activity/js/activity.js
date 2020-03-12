@@ -77,6 +77,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
                   paladict.changeDict(data.customDict);
                 }
 
+                changeDifficulty(data.difficulty);
+
                 if (data.playScreen) {
                   game.playScreen = true;
                   display = 'playScreen';
@@ -173,6 +175,27 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         game.drawSettingScreen();
       } else if (_selected == 3) {
         stopButton.click();
+      }
+    }
+
+    function changeDifficulty(difficulty) {
+      game.difficulty = difficulty;
+      switch (difficulty) {
+        case 2:
+          game.noOfObstacles = 6;
+          game.PlayerTimeInterval = 20;
+          break;
+        case 3:
+          game.noOfObstacles = 7;
+          game.PlayerTimeInterval = 25;
+          break;
+        case 5:
+          game.noOfObstacles = 9;
+          game.PlayerTimeInterval = 30;
+          break;
+        default:
+          game.noOfObstacles = 6;
+          game.PlayerTimeInterval = 20;
       }
     }
 
@@ -382,6 +405,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       }
     });
 
+    var levelEasyButton = document.getElementById("level-easy-button");
+    levelEasyButton.addEventListener('click', function() {
+      changeDifficulty(2);
+    });
+
+    var levelMediumButton = document.getElementById("level-medium-button");
+    levelMediumButton.addEventListener('click', function() {
+      changeDifficulty(3);
+    });
+
+    var levelHardButton = document.getElementById("level-hard-button");
+    levelHardButton.addEventListener('click', function() {
+      changeDifficulty(5);
+    });
 
     if (document.addEventListener) {
       document.addEventListener("click", handleButtonClick, true);
@@ -485,9 +522,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       var newCanvasHeight = window.innerHeight - toolbarHeight;
       game.resizeGame(newCanvasWidth, newCanvasHeight);
 
-      if (game.settingScreen) {
-        game.resizeSettingScreen();
-      }
     });
 
     var restartButton = document.getElementById("restart-button");
@@ -531,7 +565,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
         prevCanvasHeight: game.prevCanvasHeight,
         customDict: game.customDict,
         useCustomDict: game.useCustomDict,
-        customDictLang: game.customDictLang
+        customDictLang: game.customDictLang,
+        difficulty: game.difficulty
       };
       activity.getDatastoreObject().setDataAsText(stateObj);
       activity.getDatastoreObject().save(function(error) {

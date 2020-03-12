@@ -19,6 +19,34 @@
   background-image: url(../icons/restart.svg);
 }
 
+#level-easy-button {
+  height: 70px;
+  width: 70px;
+  background-image: url(../icons/level-easy.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: black;
+}
+
+#level-medium-button {
+  height: 70px;
+  width: 70px;
+  background-image: url(../icons/level-medium.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: black;
+}
+
+#level-hard-button {
+  height: 70px;
+  width: 70px;
+  background-image: url(../icons/level-hard.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: black;
+}
+
+
 /*Add image to fullscreen/unfullscreen button*/
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
@@ -56,6 +84,7 @@
   z-index: 5;
 }
 
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
@@ -71,6 +100,14 @@
   justify-content: space-between;
   margin: 5px;
 }
+
+.difficulty-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: auto 0;
+}
+
 
 #addWord {
   height: 80px;
@@ -207,6 +244,30 @@ button.resetEditWord {
 
   .fontSettingMain {
     font-size: 20px;
+  }
+
+}
+
+@media only screen and (max-height: 400px) {
+  .fontSettingMain {
+    font-size: 15px;
+  }
+  #level-easy-button {
+    height: 30px;
+    width: 30px;
+  }
+
+  #level-medium-button {
+    height: 30px;
+    width: 30px;
+  }
+
+  #level-hard-button {
+    height: 30px;
+    width: 30px;
+  }
+  .settingScreen {
+    justify-content: space-around;
   }
 
 }

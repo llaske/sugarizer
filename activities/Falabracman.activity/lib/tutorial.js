@@ -100,6 +100,24 @@ define(["webL10n"], function(l10n) {
           content: l10n.get("TutoResetDictContent")
         },
         {
+          element: "#level-easy-button",
+          placement: "medium",
+          title: l10n.get("TutoLevelEasyTitle"),
+          content: l10n.get("TutoLevelEasyContent")
+        },
+        {
+          element: "#level-medium-button",
+          placement: "medium",
+          title: l10n.get("TutoLevelMediumTitle"),
+          content: l10n.get("TutoLevelMediumContent")
+        },
+        {
+          element: "#level-hard-button",
+          placement: "medium",
+          title: l10n.get("TutoLevelHardTitle"),
+          content: l10n.get("TutoLevelHardContent")
+        },
+        {
           element: "",
           orphan: true,
           placement: "bottom",
