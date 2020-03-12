@@ -522,7 +522,7 @@ enyo.kind({
 		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
 		tutorial.setElement("qrcode", this.$.qrbutton.getAttribute("id"));
 		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
-		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
+		tutorial.setElement("passbox", this.$.password.children[0].id);
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
 		tutorial.setElement("next", this.$.next.getAttribute("id"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
