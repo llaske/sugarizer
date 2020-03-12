@@ -239,6 +239,9 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   border-radius: 50%;
   width: 27vh;
   height: 27vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Simon-centre{
@@ -254,4 +257,12 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   align-items: center;
   background-color: black;
   justify-content: center;
+}
+
+.disableElement{
+  pointer-events: none;
+}
+
+.darkenElement{
+  filter: brightness(60%);
 }
