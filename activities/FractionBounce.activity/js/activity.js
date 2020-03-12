@@ -55,16 +55,10 @@ let app = new Vue({
 		});
 	},
 
-	watch: {
-		mode: function(newVal, oldVal) {
-
-		}
-	},
-
 	mounted: function () {
 		// Load last library from Journal
 		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette", "humane"], function (activity, env, presencepalette, humane) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env", "humane"], function (activity, env, humane) {
 			env.getEnvironment(function (err, environment) {
 
 				env.getEnvironment(function (err, environment) {
@@ -82,39 +76,9 @@ let app = new Vue({
 						}
 					});
 				}
-
-				// Shared instances
-				if (environment.sharedId) {
-					console.log("Shared instance");
-					vm.presence = activity.getPresenceObject(function (error, network) {
-						if (error) {
-							console.log(error);
-						}
-						network.onDataReceived(vm.onNetworkDataReceived);
-						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
-					});
-				}
 			});
 
 			vm.humane = humane;
-
-			vm.palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
-			vm.palette.addEventListener('shared', function () {
-				vm.palette.popDown();
-				console.log("Want to share");
-				vm.presence = activity.getPresenceObject(function (error, network) {
-					if (error) {
-						console.log("Sharing error");
-						return;
-					}
-					network.createSharedActivity('org.sugarlabs.Chess', function (groupId) {
-						console.log("Activity shared");
-						vm.isHost = true;
-					});
-					network.onDataReceived(vm.onNetworkDataReceived);
-					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
-				});
-			});
 		});
 
 		// Handle unfull screen buttons (b)
@@ -417,7 +381,7 @@ let app = new Vue({
 			}, this.frameInterval);
 		},
 
-		calcY(x) {
+		calcY: function(x) {
 			return ((-this.height / mainCanvas.width) * x + mainCanvas.height);
 		},
 
@@ -504,73 +468,6 @@ let app = new Vue({
 
 		onHelp: function (type) {
 			this.$refs.tutorial.show(type);
-		},
-
-		onNetworkDataReceived: function (msg) {
-			if (this.presence.getUserInfo().networkId === msg.user.networkId) {
-				return;
-			}
-
-			switch (msg.content.action) {
-				case 'init':
-					this.currentcolor = 'b';
-					this.opponent = msg.user.networkId;
-					this.opponentColors = msg.user.colorvalue;
-					this.currentpgn = msg.content.gamePGN;
-					break;
-				case 'move':
-					this.$refs.chesstemplate.makeMove(msg.content.move.from, msg.content.move.to, true);
-					this.$refs.chesstemplate.onSnapEnd();
-					break;
-			}
-		},
-
-		onNetworkUserChanged: function (msg) {
-			let vm = this;
-
-			// If user joins
-			if (msg.move == 1) {
-				// Handling only by the host
-				if (this.isHost) {
-					if (this.opponent == null) {
-						// No opponent => make opponent
-						this.opponent = msg.user.networkId;
-						this.opponentColors = msg.user.colorvalue;
-						this.presence.sendMessage(this.presence.getSharedInfo().id, {
-							user: vm.presence.getUserInfo(),
-							content: {
-								action: 'init',
-								gamePGN: vm.$refs.chesstemplate.game.pgn()
-							}
-						});
-					} else {
-						// Opponent => Spectator
-						this.presence.sendMessage(this.presence.getSharedInfo().id, {
-							user: vm.presence.getUserInfo(),
-							content: {
-								action: 'spectate',
-								gamePGN: vm.$refs.chesstemplate.game.pgn()
-							}
-						});
-					}
-				}
-			}
-			// If user leaves
-			else {
-				if (msg.user.networkId == this.opponent) {
-					this.opponent = null;
-					this.opponentColors = {
-						stroke: "#000",
-						fill: "#000"
-					}
-					vm.currentcolor = 'w';
-				}
-			}
-
-			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
-			if (this.presence.getUserInfo().networkId !== msg.user.networkId) {
-				this.humane.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
-			}
 		},
 
 		onStop: function () {
