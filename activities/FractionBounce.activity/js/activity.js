@@ -35,7 +35,8 @@ let app = new Vue({
 		gravity: 0.05,
 		damping: 0.1,
 		traction: 0.1,
-		paused: false,
+		paused: true,
+		onSlope: true,
 
 		frameInterval: 20,
 		launchDelay: 1000,
@@ -183,17 +184,25 @@ let app = new Vue({
 
 		startGame: function (event) {
 			let x = event.pageX,
-				y = event.pageY;
+			y = event.pageY;
 			if (x <= this.cx + this.radius && x >= this.cx - this.radius && y <= this.cy + 5 * this.radius / 2 && y >= this.cy + this.radius / 2) {
-				this.launch();
-				document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
+				this.paused = !this.paused;
+				if(!this.paused) {
+					this.launch();
+				}
 			}
 		},
 
 		launch: function() {
-			this.vy = -7;
-			this.cy -= this.cy + this.radius - this.calcY(this.cx) + 1;
-			this.next();
+			if(this.onSlope) {
+				this.vy = -7;
+				this.cy -= this.cy + this.radius - this.calcY(this.cx) + 1;
+				this.onSlope = false;
+				this.next();
+			} else {
+				// Game was paused
+				this.interval = setInterval(this.drawBall, this.frameInterval);
+			}
 		},
 
 		next: function () {
@@ -212,17 +221,19 @@ let app = new Vue({
 			this.$refs.slopecanvas.updateSlope(this.parts);
 
 			document.addEventListener("keydown", this.changeSpeed);
-			document.addEventListener("touchstart", this.onTouchStart);
-			document.addEventListener("mousedown", this.onTouchStart);
-			document.addEventListener("touchend", this.onTouchEnd);
-			document.addEventListener("mouseup", this.onTouchEnd);
+			slopeCanvas.addEventListener("touchstart", this.onTouchStart);
+			slopeCanvas.addEventListener("mousedown", this.onTouchStart);
+			slopeCanvas.addEventListener("touchend", this.onTouchEnd);
+			slopeCanvas.addEventListener("mouseup", this.onTouchEnd);
 			this.interval = setInterval(this.drawBall, this.frameInterval);
 		},
 
 		drawBall: function () {
 			let vm = this;
 			this.clearCanvas();
-			this.context.fillStyle = "#0000ff";
+			if (this.paused) {
+				clearInterval(this.interval);
+			}
 
 			if (this.cx + this.radius >= mainCanvas.width) {
 				this.vx = -this.vx * this.damping;
@@ -235,8 +246,8 @@ let app = new Vue({
 			if (this.cy + this.radius >= this.calcY(this.cx)) {
 				this.vx = 0;
 				document.removeEventListener("keydown", this.changeSpeed);
-				document.removeEventListener("touchstart", this.onTouchStart);
-				document.removeEventListener("mousedown", this.onTouchStart);
+				slopeCanvas.removeEventListener("touchstart", this.onTouchStart);
+				slopeCanvas.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
 				if (this.vy < 0.5) {
 					let result = this.$refs.slopecanvas.checkAnswer();
@@ -255,6 +266,7 @@ let app = new Vue({
 						}
 					}
 					clearInterval(this.interval);
+					this.onSlope = true;
 					setTimeout(function () {
 						vm.launch();
 					}, this.launchDelay);
@@ -268,7 +280,7 @@ let app = new Vue({
 				this.cy = this.radius;
 			}
 
-			this.vy += this.gravity; // <--- this is it
+			this.vy += this.gravity;
 
 			this.cx += this.vx;
 			this.cy += this.vy;
@@ -410,6 +422,7 @@ let app = new Vue({
 		},
 
 		onFractionAdded: function(event) {
+			console.log(event);
 			this.userFractions.push({
 				num: event.numerator,
 				den: event.denominator

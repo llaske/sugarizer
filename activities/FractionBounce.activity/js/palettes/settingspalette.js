@@ -19,7 +19,6 @@ define(["sugar-web/graphics/palette","text!activity/palettes/settingspalette.htm
 		document.getElementById("add-button").addEventListener('click', function(event) {
 			let numerator = document.getElementById('numerator').value;
 			let denominator = document.getElementById('denominator').value;
-			console.log(numerator, denominator);
 			if(numerator < denominator) {
 				that.fractionAddedEvent.numerator = numerator;
 				that.fractionAddedEvent.denominator = denominator;
