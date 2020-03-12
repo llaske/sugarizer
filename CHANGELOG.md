@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add an option to navigate back to Contents in Ebook Reader #651
 - Add a tutorial to the Stopwatch activity #596
 - Add a fullscreen button in the Exerciser activity #602
-- Add a fullscreen button in the GridPaint activity #601 
+- Add a fullscreen button in the GridPaint activity #601
 
 ### Changed
 - Double size of Record images in WebApp and electron App
@@ -139,6 +139,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dialog box has no background in Markdown #671
 - Markdown link opens in frame which crashes the output #673
 - Responsiveness issue in Pomodoro Activity #675
+- Password Tutorial targets the wrong element #689
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
