@@ -217,36 +217,15 @@ p {
 	outline: none;
 }
 
-#main-toolbar #network-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+.tour#step-1 {
+	margin-top: 70vh;
 }
-#private-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-  width: 47px;
-  height: 47px;
-  margin: 4px 2px;
-  color: white;
-  color: transparent;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 0;
-  border-radius: 5.5px;
+.tour#step-3 {
+	margin-top: 85vh;
+	margin-left: -30vw;
 }
-#shared-button {
-  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-  width: 47px;
-  height: 47px;
-  margin: 4px 2px;
-  color: white;
-  color: transparent;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 0;
-  border-radius: 5.5px;
+.tour#step-4 {
+	margin-left: 10vw;
 }
 
 .palette .row {
@@ -326,46 +305,11 @@ p {
 	font-size: 1.25em;
 }
 
-.template-item-image {
-	width: 150px;
-	height: 150px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center center;
-	margin-right: 5px;
-	cursor: pointer;
-}
-
-.template-item-remove {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-	width: 30px;
-	height: 30px;
-	background-image: url(../icons/delete.svg);
-	background-size: contain;
-	visibility: hidden;
-}
-
-.template-item-remove-editable {
-	visibility: visible !important;
-}
-
 #spinner {
 	position: absolute;
 	margin-left: 45%;
 	margin-top: 20%;
 	width: 8%;
-}
-
-#cloudwarning {
-	position: absolute;
-	margin-left: 45%;
-	margin-right: auto;
-	margin-top: 20%;
-	width: 100px;
-	z-index: 5;
-	visibility: hidden;
 }
 
 .popup-input {
@@ -386,32 +330,6 @@ p {
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-right: 10px;
-}
-
-.player-restart {
-	position: absolute;
-	top: 70px;
-	right: 17px;
-	width: 40px;
-	height: 40px;
-	background-image: url(../icons/restart.svg);
-	background-size: contain;
-}
-
-.player-restart:disabled {
-	background-color: lightgray;
-}
-
-.player-cursor {
-	position: absolute;
-	top: 100px;
-	left: 100px;
-	width: 50px;
-	height: 50px;
-	visibility: hidden;
-	background-image: url(../icons/cursor.svg);
-	background-repeat: no-repeat;
-	background-size: contain;
 }
 
 .tutorial-icon-button {

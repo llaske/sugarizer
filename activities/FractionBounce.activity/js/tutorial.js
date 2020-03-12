@@ -8,42 +8,28 @@ var Tutorial = {
 				stringPrevShort: '',
 				stringNextShort: '',
 				stringEndShort: '',
-				stringTutoUITitle: '',
-				stringTutoUIContent: '',
-				stringTutoRulesTitle: '',
-				stringTutoRulesContent: '',
-				stringTutoGoalTitle: '',
-				stringTutoGoalContent: '',
-				stringTutoChessboardUITitle: '',
-				stringTutoChessboardUIContent: '',
-				stringTutoChessboardTitle: '',
-				stringTutoChessboardContent: '',
-				stringTutoChessInfoTitle: '',
-				stringTutoChessInfoContent: '',
-				stringTutoOpponentInfoTitle: '',
-				stringTutoOpponentInfoContent: '',
-				stringTutoRestartTitle: '',
-				stringTutoRestartContent: '',
-				stringTutoUndoTitle: '',
-				stringTutoUndoContent: '',
-				stringTutoDifficultyTitle: '',
-				stringTutoDifficultyContent: '',
-				stringTutoNetworkTitle: '',
-				stringTutoNetworkContent: '',
-				stringTutoPawnTitle: '',
-				stringTutoPawnContent: '',
-				stringTutoKnightTitle: '',
-				stringTutoKnightContent: '',
-				stringTutoBishopTitle: '',
-				stringTutoBishopContent: '',
-				stringTutoRookTitle: '',
-				stringTutoRookContent: '',
-				stringTutoQueenTitle: '',
-				stringTutoQueenContent: '',
-				stringTutoKingTitle: '',
-				stringTutoKingContent: '',
-				stringTutoInitPositionTitle: '',
-				stringTutoInitPositionContent: ''
+				stringTutoTitle: '',
+				stringTutoContent: '',
+				stringTutoBallTitle: '',
+				stringTutoBallContent: '',
+				stringTutoBallControlsTitle: '',
+				stringTutoBallControlsContent: '',
+				stringTutoSlopeTitle: '',
+				stringTutoSlopeContent: '',
+				stringTutoLogTitle: '',
+				stringTutoLogContent: '',
+				stringTutoSettingsTitle: '',
+				stringTutoSettingsContent: '',
+				stringTutoBallSelectTitle: '',
+				stringTutoBallSelectContent: '',
+				stringTutoBgSelectTitle: '',
+				stringTutoBgSelectContent: '',
+				stringTutoFractionsModeTitle: '',
+				stringTutoFractionsModeContent: '',
+				stringTutoSectorsModeTitle: '',
+				stringTutoSectorsModeContent: '',
+				stringTutoPercentsModeTitle: '',
+				stringTutoPercentsModeContent: '',
 			}
 		}
 	},
@@ -55,128 +41,81 @@ var Tutorial = {
 		show: function(type) {
 			let vm = this;
 			var steps = [];
-			if(type == 'ui') {
-				steps.push(
-					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
-						title: this.l10n.stringTutoUITitle,
-						content: this.l10n.stringTutoUIContent
-					}
-				);
-				steps = steps.concat([
-					{
-						element: "#chessboard",
-						placement: "right",
-						title: this.l10n.stringTutoChessboardUITitle,
-						content: this.l10n.stringTutoChessboardUIContent
-					},
-					{
-						element: "#chess-info",
-						placement: "left",
-						title: this.l10n.stringTutoChessInfoTitle,
-						content: this.l10n.stringTutoChessInfoContent
-					},
-					{
-						element: "#opponent-info",
-						placement: "bottom",
-						title: this.l10n.stringTutoOpponentInfoTitle,
-						content: this.l10n.stringTutoOpponentInfoContent
-					},
-					{
-						element: "#restart-button",
-						placement: "bottom",
-						title: this.l10n.stringTutoRestartTitle,
-						content: this.l10n.stringTutoRestartContent
-					},
-					{
-						element: "#undo-button",
-						placement: "bottom",
-						title: this.l10n.stringTutoUndoTitle,
-						content: this.l10n.stringTutoUndoContent
-					},
-					{
-						element: "#difficulty-button",
-						placement: "bottom",
-						title: this.l10n.stringTutoDifficultyTitle,
-						content: this.l10n.stringTutoDifficultyContent
-					},
-					{
-						element: "#network-button",
-						placement: "bottom",
-						title: this.l10n.stringTutoNetworkTitle,
-						content: this.l10n.stringTutoNetworkContent
-					}
-				]);
-			} else if(type == 'rules') {
-				steps.push(
-					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
-						title: this.l10n.stringTutoRulesTitle,
-						content: this.l10n.stringTutoRulesContent
-					}
-				);
-				steps = steps.concat([
-					{
-						element: "#chessboard-tut",
-						placement: "right",
-						title: this.l10n.stringTutoChessboardTitle,
-						content: this.l10n.stringTutoChessboardContent
-					},
-					{
-						element: "img[id|='wP']",
-						placement: "top",
-						title: this.l10n.stringTutoPawnTitle,
-						content: this.l10n.stringTutoPawnContent
-					},
-					{
-						element: "img[id|='wN']",
-						placement: "top",
-						title: this.l10n.stringTutoKnightTitle,
-						content: this.l10n.stringTutoKnightContent
-					},
-					{
-						element: "img[id|='wB']",
-						placement: "top",
-						title: this.l10n.stringTutoBishopTitle,
-						content: this.l10n.stringTutoBishopContent
-					},
-					{
-						element: "img[id|='wR']",
-						placement: "top",
-						title: this.l10n.stringTutoRookTitle,
-						content: this.l10n.stringTutoRookContent
-					},
-					{
-						element: "img[id|='wQ']",
-						placement: "top",
-						title: this.l10n.stringTutoQueenTitle,
-						content: this.l10n.stringTutoQueenContent
-					},
-					{
-						element: "img[id|='wK']",
-						placement: "top",
-						title: this.l10n.stringTutoKingTitle,
-						content: this.l10n.stringTutoKingContent
-					},
-					{
-						element: "#chessboard-tut",
-						placement: "right",
-						title: this.l10n.stringTutoInitPositionTitle,
-						content: this.l10n.stringTutoInitPositionContent
-					},
-					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
-						title: this.l10n.stringTutoGoalTitle,
-						content: this.l10n.stringTutoGoalContent
-					},
-				]);
-			}
+			
+			steps.push(
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoTitle,
+					content: this.l10n.stringTutoContent
+				}
+			);
+			steps = steps.concat([
+				{
+					element: "#mainCanvas",
+					placement: "top",
+					backdrop: false,
+					title: this.l10n.stringTutoBallTitle,
+					content: this.l10n.stringTutoBallContent
+				},
+				{
+					element: "#mainCanvas",
+					placement: "top",
+					title: this.l10n.stringTutoBallControlsTitle,
+					content: this.l10n.stringTutoBallControlsContent
+				},
+				{
+					element: "#slopeCanvas",
+					placement: "top",
+					backdrop: false,
+					title: this.l10n.stringTutoSlopeTitle,
+					content: this.l10n.stringTutoSlopeContent
+				},
+				{
+					element: ".log",
+					placement: "right",
+					title: this.l10n.stringTutoLogTitle,
+					content: this.l10n.stringTutoLogContent
+				},
+				{
+					element: "#settings-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoSettingsTitle,
+					content: this.l10n.stringTutoSettingsContent
+				},
+				{
+					element: "#ball-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoBallSelectTitle,
+					content: this.l10n.stringTutoBallSelectContent
+				},
+				{
+					element: "#bg-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoBgSelectTitle,
+					content: this.l10n.stringTutoBgSelectContent
+				},
+				{
+					element: "#fractions-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoFractionsModeTitle,
+					content: this.l10n.stringTutoFractionsModeContent
+				},
+				{
+					element: "#sectors-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoSectorsModeTitle,
+					content: this.l10n.stringTutoSectorsModeContent
+				},
+				{
+					element: "#percents-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPercentsModeTitle,
+					content: this.l10n.stringTutoPercentsModeContent
+				},
+			]);
+			
 			var tour = new Tour({
 				template: "\
 				<div class='popover tour'>\
