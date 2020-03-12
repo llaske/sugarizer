@@ -5,8 +5,8 @@ enyo.kind({
             {classes: "Simon-game", components: [
                 {name: "A", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {name: "E", classes: "Simon-button green", ontap: "handlePlayNote"},
-                {name: "E", classes: "Simon-button blue", ontap: "handlePlayNote"},
                 {name: "C-s", classes: "Simon-button yellow", ontap: "handlePlayNote"},
+                {name: "E", classes: "Simon-button blue", ontap: "handlePlayNote"},
                 {classes: "Simon-centre"}
             ]}
         ]}

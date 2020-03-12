@@ -51,13 +51,13 @@ define(["webL10n"], function (l10n) {
 				},
 				{
 					element:"#"+document.querySelectorAll(".Simon-button.yellow")[0].id,
-					placement:"right",
+					placement:"left",
 					title: l10n.get("TutoYellowTitle"),
 					content: l10n.get("TutoYellowContent")
 				},
 				{
 					element:".Simon-button.blue",
-					placement:"left",
+					placement:"right",
 					title: l10n.get("TutoBlueTitle"),
 					content: l10n.get("TutoBlueContent")
 				},

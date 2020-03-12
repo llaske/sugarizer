@@ -199,21 +199,22 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   width: 30vh;
   height: 30vh;
   box-sizing: border-box;
+  z-index: 1000 !important;
 }
 
-.red, .green{
+.Simon-button.red, .Simon-button.green{
   border-bottom: 5px solid white;
 }
 
-.red, .blue{
+.Simon-button.red, .Simon-button.yellow{
   border-right: 5px solid white;
 }
 
-.green, .yellow{
+.Simon-button.green, .Simon-button.blue{
   border-left: 5px solid white;
 }
 
-.yellow, .blue{
+.Simon-button.yellow, .Simon-button.blue{
   border-top: 5px solid white;
 }
 
