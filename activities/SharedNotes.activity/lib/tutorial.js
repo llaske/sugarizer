@@ -86,7 +86,7 @@ define(["webL10n", "activity/activity"], function () {
 				},
 				{
 					element: tutorial.getElement("node"),
-					placement: "right",
+					placement: "left",
 					title: l10n.get("TutoNodeTitle"),
 					content: l10n.get("TutoNodeContent")
 				},
