@@ -46,6 +46,11 @@ p {
 .log {
 	position: absolute;
 	z-index: 1;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
 .log ul {
 	list-style: none;

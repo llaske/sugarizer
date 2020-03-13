@@ -262,7 +262,11 @@ let app = new Vue({
 			let str = '';
 			switch(this.mode) {
 				case 'percents':
-					str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
+					// To get decimals in percentage
+					// str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
+					// Without decimal
+					str = Math.floor(this.answer/this.parts*100) + '%';
+
 					// Custom image is set
 					if(this.img.getAttribute('src')[0] == 'd') {
 						this.context.translate(0, this.radius);

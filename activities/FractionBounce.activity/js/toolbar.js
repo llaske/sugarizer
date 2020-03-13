@@ -133,7 +133,7 @@ var Toolbar = {
 			if(this.answer == -1) {
 				return this.l10n.stringHelpClickToStart;
 			} else if(this.mode == 'percents') {
-				return this.l10n.stringHelpBounceToPosition + ' ' + Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%' + ' ' + this.l10n.stringHelpOfTheWay;
+				return this.l10n.stringHelpBounceToPosition + ' ' + Math.floor(this.answer/this.parts*100) + '%' + ' ' + this.l10n.stringHelpOfTheWay;
 			} else {
 				return this.l10n.stringHelpBounceToPosition + ' ' + this.answer + "/" + this.parts + ' ' + this.l10n.stringHelpOfTheWay;
 			}
