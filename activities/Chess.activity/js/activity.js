@@ -252,9 +252,11 @@ var app = new Vue({
           if (msg.content.data.chessColor) {
             vm.$refs.chessgame.board.orientation('white');
             vm.$refs.chessgame.playercolor = 0;
+            $('#color-button').css('background-image', 'url(./icons/white-rook.svg)');
           } else {
             vm.$refs.chessgame.board.orientation('black');
             vm.$refs.chessgame.playercolor = 1;
+            $('#color-button').css('background-image', 'url(./icons/black-rook.svg)');
           }
           vm.$refs.chessgame.onClockSelected(msg.content.data.clock);
 
