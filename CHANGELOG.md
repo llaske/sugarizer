@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a home button in Grid Paint activity #546
 - Add a quit application button in Electron
 - Add an option to navigate back to Contents in Ebook Reader #651
+- Add a way to restart game in Abecedarium #680
 - Add a fullscreen button in Gears activity #411
 - Add a fullscreen button in Memorize activity #401
 - Add a fullscreen button in XO Editor activity #415
