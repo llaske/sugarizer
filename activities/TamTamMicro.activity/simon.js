@@ -1,8 +1,11 @@
 enyo.kind({
 	name: "TamTam.Simon",
 	components: [
+        {classes: "Simon-info", components: [
+            {name: "SimonLevel", classes: "Simon-level", content: ""},
+            {name: "SimonScroe", classes: "Simon-scroe", content: ""}
+        ]},
         {classes: "Simon", components: [
-            {name: "simonScore", classes: "Simon-score", content: ""},
             {classes: "Simon-game", components: [
                 {name: "Red", classes: "Simon-button red", ontap: "handlePlayNote"},
                 {name: "Green", classes: "Simon-button green", ontap: "handlePlayNote"},
@@ -12,14 +15,14 @@ enyo.kind({
                     components: [{
                         classes: "Simon-centre Simon-centre-white",
                         components: [
-                            {name: "Simon-start", content: "START", ontap: "startGame"},
-                            {name: "Simon-pause", content: "p", ontap: "pauseGame", showing: false},
-                            {name: "Simon-reset", content: "r", ontap: "resetGame", showing: false}
+                            {name: "SimonStart", classes: "Simon-start", content: "START", ontap: "startGame"},
+                            {name: "SimonReplay", content: "", ontap: "pauseGame", showing: false}
                         ]
                     }]
                 }
-            ]}
-        ]}
+            ]},
+        ]},
+        {kind: "Image", src: "icons/redo.svg", classes: "Simon-reset", ontap: "resetGame"}
     ],
 
     handlePlayNote: function(s) {
@@ -41,7 +44,9 @@ enyo.kind({
             this.correctSequence = [];
             this.userSequence = [];
             this.level++;
-            this.startGame();
+            this.$.SimonLevel.setContent("Level : " + this.level);
+            this.$.SimonScroe.setContent("Score : " + this.score);
+            this.$.SimonStart.show();
         }
     },
     
@@ -77,6 +82,9 @@ enyo.kind({
         this.correctSequence = [];
         this.userSequence = [];
         this.score = 0;
+        this.$.SimonLevel.setContent("Level : " + this.level);
+        this.$.SimonScroe.setContent("Score : " + this.score);
+        
 		var that = this;
 		that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
 		tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
@@ -86,6 +94,7 @@ enyo.kind({
     startGame: function(){
         var colors = ["Red", "Green", "Yellow", "Blue"];
         this.addRemoveAll(colors, 'disableElement', true);
+        this.$.SimonStart.hide();
         var steps = this.level + 1;
         var delay = 1000;
         while(steps--){
@@ -99,6 +108,17 @@ enyo.kind({
         setTimeout(function(){
             this.addRemoveAll(colors, 'disableElement', false);
         }.bind(this), delay);
+    },
+
+    resetGame: function(){
+        this.collection = 0;
+        this.level = 1;
+        this.correctSequence = [];
+        this.userSequence = [];
+        this.score = 0;
+        this.$.SimonLevel.setContent("Level : " + this.level);
+        this.$.SimonScroe.setContent("Score : " + this.score);
+        this.$.SimonStart.show();
     },
     
     destroy: function () {

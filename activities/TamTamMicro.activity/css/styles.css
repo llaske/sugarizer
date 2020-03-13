@@ -1,4 +1,9 @@
-﻿.body {
+﻿@font-face{
+  font-family: 'Pixels';
+  src: url('../fonts/PixelEmulator.ttf');
+}
+
+.body {
 	background-color: white;
 }
 
@@ -185,19 +190,23 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 }
 
 .Simon{
-  width: 63vh;
-  height: 63vh;
+  width: 79vh;
+  height: 79vh;
   border-radius: 50%;
   background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0px auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 12vh;
 }
 
 .Simon-game{
-  width: 60vh;
-  height: 60vh;
+  width: 76vh;
+  height: 76vh;
   border-radius:50%;
   overflow: hidden;
   display: flex;
@@ -208,8 +217,8 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 }
 
 .Simon-button, .Simon-centre{
-  width: 30vh;
-  height: 30vh;
+  width: 38vh;
+  height: 38vh;
   box-sizing: border-box;
   z-index: 1000 !important;
 }
@@ -219,26 +228,26 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 }
 
 .Simon-button.red, .Simon-button.green{
-  border-bottom: 5px solid black;
+  border-bottom: 10px solid black;
 }
 
 .Simon-button.red, .Simon-button.yellow{
-  border-right: 5px solid black;
+  border-right: 10px solid black;
 }
 
 .Simon-button.green, .Simon-button.blue{
-  border-left: 5px solid black;
+  border-left: 10px solid black;
 }
 
 .Simon-button.yellow, .Simon-button.blue{
-  border-top: 5px solid black;
+  border-top: 10px solid black;
 }
 
 .Simon-centre-white{
   background-color: white;
   border-radius: 50%;
-  width: 27vh;
-  height: 27vh;
+  width: 33vh;
+  height: 33vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,4 +274,64 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 
 .darkenElement{
   filter: brightness(60%);
+}
+
+.Simon-start{
+  font-family: 'Pixels';
+  font-size: 8vh;
+  cursor: pointer;
+}
+
+.Simon-level, .Simon-scroe{
+  position: absolute;
+  top: 3vh;
+  font-family: Pixels;
+  font-size: 5vh;
+}
+
+.Simon-level{
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Simon-scroe{
+  right: 2%;
+}
+
+.Simon-reset{
+  position: absolute;
+  background-color: black;
+  border-radius: 50%;
+  right: 3%;
+  width: 13vh;
+  height: 13vh;
+  bottom: 3vh;
+}
+
+@media (max-height: 500px){
+  .Simon-button.red, .Simon-button.green{
+    border-bottom: 5px solid black;
+  }
+  
+  .Simon-button.red, .Simon-button.yellow{
+    border-right: 5px solid black;
+  }
+  
+  .Simon-button.green, .Simon-button.blue{
+    border-left: 5px solid black;
+  }
+  
+  .Simon-button.yellow, .Simon-button.blue{
+    border-top: 5px solid black;
+  }
+
+  .Simon{
+    transform: translateX(-50%) translateY(-6%) scale(0.87);
+  }
+
+  .Simon-reset{
+    width: 20vh;
+    height: 20vh;
+    bottom: 5vh;
+  }
 }
