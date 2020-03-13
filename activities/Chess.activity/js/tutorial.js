@@ -31,6 +31,28 @@ var Tutorial = {
         stringTutoRestartContent: '',
         stringTutoColorChangeTitle: '',
         stringTutoColorChangeContent: '',
+        stringTutoBasicTitle: '',
+        stringTutoBasicContent: '',
+        stringTutoAimTitle: '',
+        stringTutoAimContent: '',
+        stringTutoPawnTitle: '',
+        stringTutoPawnContent: '',
+        stringTutoKnightTitle: '',
+        stringTutoKnightContent: '',
+        stringTutoBishopTitle: '',
+        stringTutoBishopContent: '',
+        stringTutoRookTitle: '',
+        stringTutoRookContent: '',
+        stringTutoQueenTitle: '',
+        stringTutoQueenContent: '',
+        stringTutoKingTitle: '',
+        stringTutoKingContent: '',
+        stringTutoPawnPromotionTitle: '',
+        stringTutoPawnPromotionContent: '',
+        stringTutoCastlingTitle: '',
+        stringTutoCastlingContent: '',
+        stringTutoDrawTitle: '',
+        stringTutoDrawContent: '',
       }
     }
   },
@@ -114,7 +136,85 @@ var Tutorial = {
           placement: "bottom",
           title: this.l10n.stringTutoColorChangeTitle,
           content: this.l10n.stringTutoColorChangeContent
-        }
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoBasicTitle,
+          content: this.l10n.stringTutoBasicContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoAimTitle,
+          content: this.l10n.stringTutoAimContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoPawnTitle,
+          content: this.l10n.stringTutoPawnContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoKnightTitle,
+          content: this.l10n.stringTutoKnightContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoBishopTitle,
+          content: this.l10n.stringTutoBishopContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoRookTitle,
+          content: this.l10n.stringTutoRookContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoQueenTitle,
+          content: this.l10n.stringTutoQueenContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoKingTitle,
+          content: this.l10n.stringTutoKingContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoPawnPromotionTitle,
+          content: this.l10n.stringTutoPawnPromotionContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoCastlingTitle,
+          content: this.l10n.stringTutoCastlingContent
+        },
+        {
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoDrawTitle,
+          content: this.l10n.stringTutoDrawContent
+        },
+
       ]);
 
       var tour = new Tour({
