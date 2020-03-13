@@ -45,7 +45,7 @@ let app = new Vue({
 		answer: -1,
 		correctAnswers: 0,
 		bounceCount: 0,
-		stopAfter: 1,
+		stopAfter: 10,
 		log: {},
 		userFractions: []
 	},
