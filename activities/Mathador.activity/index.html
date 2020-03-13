@@ -13,11 +13,27 @@
 <script data-main="js/loader" src="lib/require.js"></script>
 <script src="js/mindmath.js"></script>
 </head>
-<!-- <script type="text/javascript">
-  function solve(){
-    console.log("conn");
-  }
-</script> -->
+<script type="text/javascript">
+
+var inputArguments = [5];
+var inputArgumentsCopy = [5];
+var targetResult;
+function loadParameters(){
+    console.log("clicked solve button in index.html file");
+    for(var i=0;i<5;i++){
+        inputArguments[i]=document.getElementById("number"+(i+1)).value;
+        inputArgumentsCopy[i]=document.getElementById("number"+(i+1)).value;
+    }
+    targetResult = document.getElementById("target").value;
+    console.log(inputArguments);
+    console.log(targetResult);
+    solve();
+}
+// document.getElementById("input1").addEventListener("click",function(){
+//     console.log(document.getElementById("input1").value);
+// });
+
+</script>
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
@@ -30,10 +46,49 @@
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
-
+  <h1>for user</h1>
+  <button id="play" onclick="play()">Play</button>
+  <div id="operations">
+    <button id="plus" value="+">+</button>
+    <button id="minus" value="-">-</button>
+    <button id="product" value="*">*</button>
+    <button id="division" value="/">/</button>
+  </div><br>
+  <div id="inputs">
+    <button id="input1" value="4">4</button>
+    <button id="input2" value="2">2</button>
+    <button id="input3" value="7">7</button>
+    <button id="input4" value="8">8</button>
+    <button id="input5" value="11">11</button>
+  </div><br>
+  <div id="slot1">
+    <button id="slot1input1"></button>
+    <button id="slot1opr1"></button>
+    <button id="slot1input2"></button>=
+    <button id="slot1answer1"></button>
+  </div>
+  <div id="slot2">
+    <button id="slot2input1"></button>
+    <button id="slot2opr1"></button>
+    <button id="slot2input2"></button>=
+    <button id="slot2answer2"></button>
+  </div>
+  <div id="slot3">
+    <button id="slot3input1"></button>
+    <button id="slot3opr1"></button>
+    <button id="slot3input2"></button>=
+    <button id="slot2answer2"></button>
+  </div>
+  <div id="slot4">
+    <button id="slot4input1"></button>
+    <button id="slot4opr1"></button>
+    <button id="slot4input2"></button>=
+    <button id="slot2answer2"></button>
+  </div>
   <!-- Replace this message with your own content -->
+  <br><h1>Backend</h1><br>
   <h1>Mind Math Solver</h1><br>
-  <form action="#" id="input_form" onsubmit="loadParameters()">
+  <form action="#" id="input_form" onsubmit="solve()">
     <label>Target: <input type="number" min="0" id="target" value=""/> </label>
     <h4>Input Numbers:</h4>
     <input type="number" min="0" id="number1" value=""/>
@@ -47,6 +102,7 @@
   </form>
   <h3>All Possible expressions to reach the target</h3>
   <ol id="outputexpr"></ol>
+  
 </div>
 </body>
 
