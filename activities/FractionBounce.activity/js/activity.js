@@ -135,7 +135,15 @@ let app = new Vue({
 			this.img = document.createElement('img');
 			this.context.translate(-this.radius, -2 * this.radius);
 			this.img.onload = function () {
-				vm.context.drawImage(this, vm.cx, vm.cy);
+				if(vm.img.getAttribute('src')[0] == 'd') {
+					vm.context.translate(0, vm.radius);
+					vm.context.drawImage(vm.img, vm.cx, vm.cy, 2*vm.radius, 2*vm. radius);
+					vm.context.translate(0, -vm.radius);
+					// Top Rectangle
+					vm.createTopRectangle();
+				} else {
+					vm.context.drawImage(vm.img, vm.cx, vm.cy);
+				}
 			}
 			this.img.src = 'images/soccerball.svg';
 			this.img.width = this.radius; this.img.height = this.radius; this.img.style.width = this.radius; this.img.style.height = this.radius;
@@ -425,6 +433,7 @@ let app = new Vue({
 				this.insertImage('bg');
 				return;
 			}
+			document.body.style.backgroundSize = 'cover';
 			switch(event.bg) {
 				case 'grass':
 					document.body.style.backgroundImage = 'url(images/grass_background.png)';
@@ -447,6 +456,9 @@ let app = new Vue({
 				setTimeout(function() {
 					journalchooser.show(function(entry) {
 						if (!entry) {
+							if(to == 'ball') {
+								vm.img.onload();
+							}
 							return;
 						}
 						var dataentry = new datastore.DatastoreObject(entry.objectId);
@@ -455,10 +467,11 @@ let app = new Vue({
 								vm.img.src = data;
 							} else if(to == 'bg') {
 								document.body.style.backgroundImage = 'url(' + data + ')';
+								document.body.style.backgroundSize = 'contain';
 							}
 						});
 					}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
-				}, 10);
+				}, 0);
 			});
 		},
 

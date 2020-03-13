@@ -14,7 +14,6 @@ body {
 	overflow: hidden;
 	background: url(../images/grass_background.png);
 	background-size: cover;
-	background-repeat: no-repeat;
 	background-position: center;
 }
 
