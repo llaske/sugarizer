@@ -40,6 +40,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 				// Launch main screen
 				app.renderInto(document.getElementById("keyboard"));
 			}
+			if (!pianoMode && !simonMode)
+				document.getElementById('instruments-button').classList.add('active');
 		});
 
 		// Switch to full screen when the full screen button is pressed
@@ -85,6 +87,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 
 		document.getElementById("simon-button").addEventListener('click', function (event) {
 			app.changeSimonMode();
+		});
+
+		document.getElementById("instruments-button").addEventListener('click', function (event) {
+			app.changeInstrumentsMode();
 		});
 
 	});

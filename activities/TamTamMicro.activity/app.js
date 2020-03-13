@@ -145,26 +145,29 @@ enyo.kind({
 	},
 
 	changePianoMode: function(e) {
-		pianoMode = !pianoMode;
+		pianoMode = true;
 		simonMode = false;
-		if(pianoMode) {
-			document.getElementById('piano-button').classList.add('active');
-			document.getElementById('simon-button').classList.remove('active');
-		} else {
-			document.getElementById('piano-button').classList.remove('active');
-		}
+		document.getElementById('piano-button').classList.add('active');
+		document.getElementById('simon-button').classList.remove('active');
+		document.getElementById('instruments-button').classList.remove('active');
 		this.draw();
 	},
 
 	changeSimonMode: function(e) {
-		simonMode = !simonMode;
+		simonMode = true;
 		pianoMode = false;
-		if(simonMode) {
-			document.getElementById('simon-button').classList.add('active');
-			document.getElementById('piano-button').classList.remove('active');
-		} else {
-			document.getElementById('simon-button').classList.remove('active');
-		}
+		document.getElementById('simon-button').classList.add('active');
+		document.getElementById('piano-button').classList.remove('active');
+		document.getElementById('instruments-button').classList.remove('active');
+		this.draw();
+	},
+
+	changeInstrumentsMode: function(e) {
+		simonMode = false;
+		pianoMode = false;
+		document.getElementById('instruments-button').classList.add('active');
+		document.getElementById('piano-button').classList.remove('active');
+		document.getElementById('simon-button').classList.remove('active');
 		this.draw();
 	},
 
