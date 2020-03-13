@@ -32,15 +32,15 @@ enyo.kind({
         this.userSequence.push(s.name);
         var correct = this.userSequence[this.userSequence.length-1] === this.correctSequence[this.userSequence.length-1]
         if (!correct){
-            alert("incorrect")
+            this.correctSequence = [];
             this.userSequence = [];
+            this.$.SimonStart.show();
         }
 
         if (correct && this.correctSequence.length === this.userSequence.length){
             var steps = this.level + 1;
             // n points for nth step in a level
             this.score += steps*(steps + 1)/2;
-            alert(`level cleared! score = ${this.score}`);
             this.correctSequence = [];
             this.userSequence = [];
             this.level++;
