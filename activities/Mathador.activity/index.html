@@ -11,8 +11,13 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <script data-main="js/loader" src="lib/require.js"></script>
+<script src="js/mindmath.js"></script>
 </head>
-
+<script type="text/javascript">
+  function solve(){
+    console.log("conn");
+  }
+</script>
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
@@ -27,10 +32,21 @@
 <div id="canvas">
 
   <!-- Replace this message with your own content -->
-  <h1>Congratulations!</h1>
-  <p>You are ready to develop this activity. Go ahead and edit the files.<br />
-    You can remove this message in the index.html.</p>
+  <h1>Mind Math Solver</h1><br>
+  <form action="#" id="input_form" onsubmit="solve()">
+    <label>Target: <input type="number" min="0" id="target" value=""/> </label>
+    <h4>Input Numbers:</h4>
+    <input type="number" min="0" id="number1" value=""/>
+    <input type="number" min="0" id="number1" value=""/>
+    <input type="number" min="0" id="number1" value=""/>
+    <input type="number" min="0" id="number1" value=""/>
+    <input type="number" min="0" id="number1" value=""/>
 
+    <button type="submit" id="solvebut">Solve</button>
+    <button type="submit" id="stopbut" disabled>Stop</button>
+  </form>
+  <h3>All Possible expressions to reach the target</h3>
+  <ol id="outputexpr"></ol>
 </div>
 </body>
 
