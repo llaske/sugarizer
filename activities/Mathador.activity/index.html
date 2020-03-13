@@ -13,11 +13,11 @@
 <script data-main="js/loader" src="lib/require.js"></script>
 <script src="js/mindmath.js"></script>
 </head>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   function solve(){
     console.log("conn");
   }
-</script>
+</script> -->
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
@@ -33,14 +33,14 @@
 
   <!-- Replace this message with your own content -->
   <h1>Mind Math Solver</h1><br>
-  <form action="#" id="input_form" onsubmit="solve()">
+  <form action="#" id="input_form" onsubmit="loadParameters()">
     <label>Target: <input type="number" min="0" id="target" value=""/> </label>
     <h4>Input Numbers:</h4>
     <input type="number" min="0" id="number1" value=""/>
-    <input type="number" min="0" id="number1" value=""/>
-    <input type="number" min="0" id="number1" value=""/>
-    <input type="number" min="0" id="number1" value=""/>
-    <input type="number" min="0" id="number1" value=""/>
+    <input type="number" min="0" id="number2" value=""/>
+    <input type="number" min="0" id="number3" value=""/>
+    <input type="number" min="0" id="number4" value=""/>
+    <input type="number" min="0" id="number5" value=""/>
 
     <button type="submit" id="solvebut">Solve</button>
     <button type="submit" id="stopbut" disabled>Stop</button>
