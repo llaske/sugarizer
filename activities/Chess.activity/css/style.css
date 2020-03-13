@@ -1,0 +1,9 @@
+
+
+.sideMenu {
+	float: left; 
+	width: 300px;
+	background: #ebebeb;
+	border-right: 1px solid #ccc;
+	margin-right: 30px;
+}
