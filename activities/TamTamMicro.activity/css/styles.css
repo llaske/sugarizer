@@ -308,6 +308,20 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   bottom: 3vh;
 }
 
+.rightGreen{
+  background-color: green !important;
+  color: green !important;
+}
+
+.wrongRed{
+  background-color: red !important;
+  color: red !important;
+}
+
+#SimonStart{
+  background-color: transparent !important;
+}
+
 @media (max-height: 500px){
   .Simon-button.red, .Simon-button.green{
     border-bottom: 5px solid black;

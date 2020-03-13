@@ -15,7 +15,7 @@ enyo.kind({
                     components: [{
                         classes: "Simon-centre Simon-centre-white",
                         components: [
-                            {name: "SimonStart", classes: "Simon-start", content: "START", ontap: "startGame"},
+                            {name: "SimonStart", id: "SimonStart", classes: "Simon-start", content: "START", ontap: "startGame"},
                             {name: "SimonReplay", content: "", ontap: "pauseGame", showing: false}
                         ]
                     }]
@@ -26,15 +26,20 @@ enyo.kind({
     ],
 
     handlePlayNote: function(s) {
+        var colors = ["Red", "Green", "Yellow", "Blue"];
         if(s.repeat || !simonMode) return;
         
         this.clickColor(s.name);
         this.userSequence.push(s.name);
+        this.$.SimonStart.setContent(this.userSequence.length);
         var correct = this.userSequence[this.userSequence.length-1] === this.correctSequence[this.userSequence.length-1]
         if (!correct){
             this.correctSequence = [];
             this.userSequence = [];
             this.$.SimonStart.show();
+            this.$.SimonStart.setContent("WRONG");
+            this.addRemoveAll(colors.concat("SimonStart"), "wrongRed", true);
+            this.showStart();
         }
 
         if (correct && this.correctSequence.length === this.userSequence.length){
@@ -46,8 +51,20 @@ enyo.kind({
             this.level++;
             this.$.SimonLevel.setContent("Level : " + this.level);
             this.$.SimonScroe.setContent("Score : " + this.score);
-            this.$.SimonStart.show();
+            this.$.SimonStart.setContent("RIGHT");
+            this.addRemoveAll(colors.concat("SimonStart"), "rightGreen", true);
+            this.showStart();
         }
+    },
+
+    showStart: function(){
+        var colors = ["Red", "Green", "Yellow", "Blue"];
+        setTimeout(function(){
+            this.addRemoveAll(colors.concat("SimonStart"), "rightGreen", false);
+            this.addRemoveAll(colors.concat("SimonStart"), "wrongRed", false);
+            this.$.SimonStart.addRemoveClass('disableElement', false);
+            this.$.SimonStart.setContent("START");
+        }.bind(this), 2000);
     },
     
     clickColor(colorName){
@@ -93,8 +110,9 @@ enyo.kind({
 
     startGame: function(){
         var colors = ["Red", "Green", "Yellow", "Blue"];
-        this.addRemoveAll(colors, 'disableElement', true);
-        this.$.SimonStart.hide();
+        this.addRemoveAll(["SimonStart"].concat(colors), 'disableElement', true);
+        // this.$.SimonStart.hide();
+
         var steps = this.level + 1;
         var delay = 1000;
         while(steps--){
@@ -102,11 +120,13 @@ enyo.kind({
                 var randomColor = colors[Math.floor(Math.random()*4)];
                 this.clickColor(randomColor);
                 this.correctSequence.push(randomColor);
+                this.$.SimonStart.setContent(this.correctSequence.length);
             }.bind(this), delay);
             delay += 1100;
         }
         setTimeout(function(){
             this.addRemoveAll(colors, 'disableElement', false);
+            this.$.SimonStart.setContent("");
         }.bind(this), delay);
     },
 
