@@ -480,13 +480,373 @@ function loadParameters(){
     console.log(targetResult);
     solve();
 }
+
 function play(){
+    var slot1=true;
+    var slot2= true;
+    var slot3=true;
+    var slot4= true;
+    var buffer1=null;
+    var buffer2=null;
+    var buffer3=null;
+    var buffer4=null;
+    var x=null;
+    var sender1=null;
+    var sender2=null;
+    var counter=0;
+    var opr=null;
+    var y = null;
+    var evaluate=false;
     console.log("clicked");
-    document.getElementById("input1").addEventListener('click',function(event){
-    console.log(document.getElementById("input1").value);
-});
+    document.getElementById("input1").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("input1").value;
+            counter++;
+            sender1="input1";
+
+        }
+        else{
+            y=document.getElementById("input1").value;
+            counter++;
+            sender2="input1";
+        }
+    });
+    document.getElementById("input3").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("input3").value;
+            counter++;
+            sender1="input3";
+
+        }
+        else{
+            y=document.getElementById("input3").value;
+            counter++;
+            sender2="input3";
+        }
+
+        
+    });
+    document.getElementById("input2").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("input2").value;
+            counter++;
+            sender1="input2";
+        }
+        else{
+            y=document.getElementById("input2").value;
+            counter++;
+            sender2="input2";
+        }
+
+        
+    });
+    
+    document.getElementById("input4").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("input4").value;
+            counter++;
+            sender1="input4";
+        }
+        else{
+            y=document.getElementById("input4").value;
+            counter++;
+            sender2="input4";
+        }
+
+        
+    });
+    document.getElementById("input5").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("input5").value;
+            counter++;
+            sender1="input5";
+
+        }
+        else{
+            y=document.getElementById("input5").value;
+            counter++;
+            sender2="input5";
+
+        }
+        
+    });
+    document.getElementById("buffer1").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("buffer1").value;
+            counter++;
+            // sender1="input5";
+
+        }
+        else{
+            y=document.getElementById("buffer1").value;
+            counter++;
+            // sender2="input5";
+
+        }
+    });
+    document.getElementById("buffer4").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("buffer4").value;
+            counter++;
+            // sender1="input5";
+
+        }
+        else{
+            y=document.getElementById("buffer4").value;
+            counter++;
+            // sender2="input5";
+
+        }
+    });
+    document.getElementById("buffer2").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("buffer2").value;
+            counter++;
+            // sender1="input5";
+
+        }
+        else{
+            y=document.getElementById("buffer2").value;
+            counter++;
+            // sender2="input5";
+
+        }
+    });
+    document.getElementById("buffer3").addEventListener('click',function(){
+        if(x==null){
+            x=document.getElementById("buffer3").value;
+            counter++;
+            // sender1="input5";
+
+        }
+        else{
+            y=document.getElementById("buffer3").value;
+            counter++;
+            // sender2="input5";
+
+        }
+    });
+    document.getElementById("plus").addEventListener('click',function(){
+        opr=document.getElementById("plus").value;
+        counter++;
+    });
+    document.getElementById("minus").addEventListener('click',function(){
+        opr=document.getElementById("minus").value;
+        counter++;
+    });
+    document.getElementById("product").addEventListener('click',function(){
+        opr=document.getElementById("product").value;
+        counter++;
+    });
+    document.getElementById("division").addEventListener('click',function(){
+        opr=document.getElementById("division").value;
+        counter++;
+    });
+    document.getElementById("calc").addEventListener('click',function(){
+        console.log(x,y,opr);
+        if(opr == '+' ){
+            var res= parseInt(x) + parseInt(y);
+            x=null;
+            y=null;
+            counter=0;
+            if(buffer1==null){
+                document.getElementById("buffer1").innerHTML=res;
+                document.getElementById("buffer1").value=res;
+                buffer1=1;
+            }
+            else if(buffer2==null){
+                document.getElementById("buffer2").innerHTML=res;
+                document.getElementById("buffer2").value=res;
+                buffer2=2;
+            }
+            else if(buffer3==null){
+                document.getElementById("buffer3").innerHTML=res;
+                document.getElementById("buffer3").value=res;
+                buffer3=3;
+            }
+            else if(buffer4==null){
+                document.getElementById("buffer4").innerHTML=res;
+                document.getElementById("buffer4").value=res;
+                buffer4=4;
+            }
+        }
+        else if(opr == '-'){
+            var res= parseInt(x) - parseInt(y);
+            x=null;
+            y=null;
+            counter=0;
+            if(buffer1==null){
+                document.getElementById("buffer1").innerHTML=res;
+                document.getElementById("buffer1").value=res;
+                buffer1=1;
+            }
+            else if(buffer2==null){
+                document.getElementById("buffer2").innerHTML=res;
+                document.getElementById("buffer2").value=res;
+                buffer2=2;
+            }
+            else if(buffer3==null){
+                document.getElementById("buffer3").innerHTML=res;
+                document.getElementById("buffer3").value=res;
+                buffer3=3;
+            }
+            else if(buffer4==null){
+                document.getElementById("buffer4").innerHTML=res;
+                document.getElementById("buffer4").value=res;
+                buffer4=4;
+            }
+        }
+        else if(opr == '*'){
+            var res= parseInt(x) * parseInt(y);
+            x=null;
+            y=null;
+            counter=0;
+            if(buffer1==null){
+                document.getElementById("buffer1").innerHTML=res;
+                document.getElementById("buffer1").value=res;
+                buffer1=1;
+            }
+            else if(buffer2==null){
+                document.getElementById("buffer2").innerHTML=res;
+                document.getElementById("buffer2").value=res;
+                buffer2=2;
+            }
+            else if(buffer3==null){
+                document.getElementById("buffer3").innerHTML=res;
+                document.getElementById("buffer3").value=res;
+                buffer3=3;
+            }
+            else if(buffer4==null){
+                document.getElementById("buffer4").innerHTML=res;
+                document.getElementById("buffer4").value=res;
+                buffer4=4;
+            }
+        }
+        else if(opr == '/'){
+            var res= parseInt(x) / parseInt(y);
+            x=null;
+            y=null;
+            counter=0;
+            if(buffer1==null){
+                document.getElementById("buffer1").innerHTML=res;
+                document.getElementById("buffer1").value=res;
+                buffer1=1;
+            }
+            else if(buffer2==null){
+                document.getElementById("buffer2").innerHTML=res;
+                document.getElementById("buffer2").value=res;
+                buffer2=2;
+            }
+            else if(buffer3==null){
+                document.getElementById("buffer3").innerHTML=res;
+                document.getElementById("buffer3").value=res;
+                buffer3=3;
+            }
+            else if(buffer4==null){
+                document.getElementById("buffer4").innerHTML=res;
+                document.getElementById("buffer4").value=res;
+                buffer4=4;
+            }
+        }
+        if(sender1 == 'input1' ){
+            document.getElementById("input1").value="";
+            document.getElementById("input1").innerHTML="";
+
+        }
+        if(sender1 == 'input2' ){
+            document.getElementById("input2").value="";
+            document.getElementById("input2").innerHTML="";
+
+        }
+        if(sender1 == 'input3' ){
+            document.getElementById("input3").value="";
+            document.getElementById("input3").innerHTML="";
+
+        }
+        if(sender1 == 'input4' ){
+            document.getElementById("input4").value="";
+            document.getElementById("input4").innerHTML="";
+
+        }
+        if(sender1 == 'input5' ){
+            document.getElementById("input5").value="";
+            document.getElementById("input5").innerHTML="";
+        }
+        if(sender2 == 'input1' ){
+            document.getElementById("input1").value="";
+            document.getElementById("input1").innerHTML="";
+
+        }
+        if(sender2 == 'input2' ){
+            document.getElementById("input2").value="";
+            document.getElementById("input2").innerHTML="";
+
+        }
+        if(sender2 == 'input3' ){
+            document.getElementById("input3").value="";
+            document.getElementById("input3").innerHTML="";
+
+        }
+        if(sender2 == 'input4' ){
+            document.getElementById("input4").value="";
+            document.getElementById("input4").innerHTML="";
+
+        }
+        if(sender2 == 'input5' ){
+            document.getElementById("input5").value="";
+            document.getElementById("input5").innerHTML="";
+        }
+    });
+
+    document.getElementById("submit").addEventListener('click',function(){
+        if(document.getElementById("buffer4").value!=""){
+            if(document.getElementById("buffer4").value == document.getElementById('targett').value){
+                document.getElementById("resultt").innerHTML="Correct";
+            }
+            else{
+                console.log("1");
+                document.getElementById("resultt").innerHTML="inCorrect";
+            }
+
+        }
+        else if(document.getElementById("buffer3").value!=""){
+            if(document.getElementById("buffer3").value == document.getElementById('targett').value){
+                document.getElementById("resultt").innerHTML="Correct";
+            }
+            else{
+                console.log("2");
+                document.getElementById("resultt").innerHTML="inCorrect";
+            }
+
+        }
+        else if(document.getElementById("buffer2").value!=""){
+            if(document.getElementById("buffer2").value == document.getElementById('targett').value){
+                document.getElementById("resultt").innerHTML="Correct";
+            }
+            else{
+                console.log("e;00");
+                document.getElementById("resultt").innerHTML="inCorrect";
+            }
+
+        }
+        else if(document.getElementById("buffer1").value!=""){
+            if(document.getElementById("buffer1").value == document.getElementById('targett').value){
+                document.getElementById("resultt").innerHTML="Correct";
+            }
+            else{
+                console.log("4");
+                document.getElementById("resultt").innerHTML="inCorrect";
+            }
+
+        }
+    });
 document.getElementById("slot1answer1").addEventListener('click',function(event){
     console.log(document.getElementById("slot1answer1").value="6");
     document.getElementById("slot1answer1").value=6;
 });
+
+
+    
+
 }
+
