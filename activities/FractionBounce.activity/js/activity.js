@@ -258,6 +258,9 @@ let app = new Vue({
 					this.bounceCount++;
 					setTimeout(function () {
 						vm.launch();
+						if(vm.launchDelay > 0) {
+							vm.launchDelay -= 100;
+						}
 					}, this.launchDelay);
 				}
 				this.vy = -this.vy * this.damping;
