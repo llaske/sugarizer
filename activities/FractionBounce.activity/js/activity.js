@@ -172,7 +172,7 @@ let app = new Vue({
 
 		launch: function() {
 			if(this.onSlope) {
-				this.vy = -7;
+				this.vy = -1 * Math.sqrt(window.innerHeight)/3.90;
 				this.cy -= this.cy + this.radius - this.calcY(this.cx) + 1;
 				this.onSlope = false;
 				this.next();
