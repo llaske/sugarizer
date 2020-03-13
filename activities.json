@@ -1,5 +1,6 @@
 [
 	{"id": "org.sugarlabs.Falabracman", "name": "Falabracman", "version": 1, "directory": "activities/Falabracman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Chess", "name": "Chess", "version": 1, "directory": "activities/Chess.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Exerciser", "name": "Exerciser", "version": 1, "directory": "activities/Exerciser.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
