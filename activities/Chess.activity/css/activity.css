@@ -1,0 +1,453 @@
+#canvas {
+  background-color: #a3e84f;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #color-button {
+  background-image: url(../icons/white-rook.svg);
+}
+
+#main-toolbar #new-button {
+  background-image: url(../icons/new-game.svg);
+}
+
+#main-toolbar #level-button {
+  background-image: url(../icons/robot.svg);
+}
+
+#main-toolbar #clock-button {
+  background-image: url(../icons/timer-0.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 5px;
+  right: 3%;
+  position: fixed;
+  visibility: hidden;
+  z-index: 3;
+}
+
+#chess-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#play-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  height: 90%;
+  text-align: center;
+  padding-top: 5px;
+  vertical-align: middle;
+}
+
+#board {
+  width: 40%;
+}
+
+#chess-panel {
+  width: 30%;
+  position: relative;
+  height: 40vw;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  transition: 0.3s;
+  background-color: #b58863;
+  margin: 2%;
+
+}
+
+#info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 90%;
+  margin: 5%;
+}
+
+#moves-container{
+  height: 50%;
+  width: 90%;
+  overflow: auto;
+  margin: 5%;
+  background-color: #f0d9b5;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+
+#moves-container li{
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: left;
+  height: 40px;
+}
+
+#moves-container li.bB{
+  background-image:url(../img/chesspieces/wikipedia/bB.png);
+}
+
+#moves-container li.bK{
+  background-image:url(../img/chesspieces/wikipedia/bK.png);
+}
+
+#moves-container li.bN{
+  background-image:url(../img/chesspieces/wikipedia/bN.png);
+}
+
+#moves-container li.bP{
+  background-image:url(../img/chesspieces/wikipedia/bP.png);
+}
+
+#moves-container li.bQ{
+  background-image:url(../img/chesspieces/wikipedia/bQ.png);
+}
+
+#moves-container li.bR{
+  background-image:url(../img/chesspieces/wikipedia/bR.png);
+}
+
+#moves-container li.wB{
+  background-image:url(../img/chesspieces/wikipedia/wB.png);
+}
+
+#moves-container li.wK{
+  background-image:url(../img/chesspieces/wikipedia/wK.png);
+}
+
+#moves-container li.wN{
+  background-image:url(../img/chesspieces/wikipedia/wN.png);
+}
+
+#moves-container li.wP{
+  background-image:url(../img/chesspieces/wikipedia/wP.png);
+}
+
+#moves-container li.wQ{
+  background-image:url(../img/chesspieces/wikipedia/wQ.png);
+}
+
+#moves-container li.wR{
+  background-image:url(../img/chesspieces/wikipedia/wR.png);
+}
+
+
+
+#opponent-clock {
+  height: 30%;
+  display:flex;
+  flex-direction: row;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+
+#flagDiv {
+  background-color: #a3e84f;
+  height: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+
+#player-clock {
+  height: 30%;
+  display:flex;
+  flex-direction: row;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+
+.usrlogo {
+  width: 30%;
+  background-image: url(../icons/computer-icon.svg);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+.usrtime {
+  background-color: #f0d9b5;
+  width: 70%;
+}
+
+#gameover-container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+#gameover {
+  background-color: #808080;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 60%;
+  overflow: hidden;
+  background-image: url(../icons/player-win.svg);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+@media screen and (orientation: portrait) {
+  #canvas {
+    font-size: 18px;
+  }
+  #play-container {
+    flex-direction: column;
+  }
+  #board{
+    width: 50vw;
+  }
+  #chess-panel {
+    width: 50vw;
+    height: 40%;
+    flex-direction: row;
+
+  }
+  #info-container {
+    height: 90%;
+    width: 50%;
+  }
+  #moves-container{
+    height: 90%;
+    width: 50%;
+  }
+
+  #moves-container li{
+    background-size: 30px;
+    font-size: 14px;
+    text-align: right;
+  }
+
+}
+@media screen and (orientation: landscape)  {
+
+  #board{
+    width: 80vh;
+  }
+  #chess-panel {
+    height: 80vh;
+  }
+
+ }
+
+ @media screen and (max-height: 400px)  {
+   #canvas {
+     font-size: 18px;
+   }
+
+  }
+
+.palette-item {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.selected {
+  background-color: #808080;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.tutorial-icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-prev-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-prev-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-next-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-next-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-next-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-end-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-end-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-end-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-icon-text {
+	margin-top: 7px;
+	padding-left: 4px;
+	padding-right: 38px;
+	display: inline-block;
+}
