@@ -54,6 +54,18 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			
+			<toolbar-item ref="playBtn" class="toolbutton" id="play-button"
+				v-bind:title="l10n.stringPlay"
+				v-on:clicked="getApp().changeGameState()"
+				v-if="paused">
+			</toolbar-item>
+			
+			<toolbar-item ref="pauseBtn" class="toolbutton" id="pause-button"
+				v-bind:title="l10n.stringPause"
+				v-on:clicked="getApp().changeGameState()"
+				v-else>
+			</toolbar-item>
+			
 			<toolbar-item ref="settingsBtn" class="toolbutton" id="settings-button"
 				v-bind:title="l10n.stringSettings"
 				paletteFile="activity/palettes/settingspalette"
@@ -107,7 +119,7 @@ var Toolbar = {
 			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
 		</div>
 	`,
-	props: ['parts', 'answer', 'mode'],
+	props: ['parts', 'answer', 'mode', 'paused'],
 	data: function () {
 		return {
 			l10n: {
@@ -115,6 +127,8 @@ var Toolbar = {
 				stringTemplate: '',
 				stringRestart: '',
 				stringHelp: '',
+				stringPlay: '',
+				stringPause: '',
 				stringSettings: '',
 				stringBall: '',
 				stringBg: '',

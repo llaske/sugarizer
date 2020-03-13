@@ -197,6 +197,16 @@ p {
 	outline: none;
 }
 
+#main-toolbar #play-button {
+	background-image: url(../icons/play.svg);
+	outline: none;
+}
+
+#main-toolbar #pause-button {
+	background-image: url(../icons/pause.svg);
+	outline: none;
+}
+
 #main-toolbar #settings-button {
 	background-image: url(../icons/settings.svg);
 	outline: none;

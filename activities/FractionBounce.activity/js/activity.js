@@ -158,10 +158,15 @@ let app = new Vue({
 			let x = event.pageX,
 			y = event.pageY;
 			if (x <= this.cx + this.radius && x >= this.cx - this.radius && y <= this.cy + 5 * this.radius / 2 && y >= this.cy + this.radius / 2) {
-				this.paused = !this.paused;
-				if(!this.paused) {
-					this.launch();
-				}
+				this.changeGameState();
+			}
+			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
+		},
+
+		changeGameState: function() {
+			this.paused = !this.paused;
+			if(!this.paused) {
+				this.launch();
 			}
 		},
 
