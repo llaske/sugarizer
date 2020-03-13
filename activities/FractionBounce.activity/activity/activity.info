@@ -1,5 +1,5 @@
 [Activity]
-name = Fraction Bounce
+name = Fraction
 activity_version = 1
 bundle_id = org.sugarlabs.FractionBounce
 exec = sugar-activity-web

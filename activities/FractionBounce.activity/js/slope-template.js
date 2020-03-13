@@ -9,6 +9,11 @@ let SlopeTemplate = {
 			context: null
 		}
 	},
+	watch: {
+		mode: function(newVal, oldVal) {
+			this.updateSlope();
+		}
+	},
 	computed: {
 		lengthOfDivision: function() {
 			return Math.floor(slopeCanvas.width/this.parts);
@@ -112,7 +117,9 @@ let SlopeTemplate = {
 		},
 
 		updateSlope: function(parts) {
-			this.parts = parts;
+			if(parts) {
+				this.parts = parts;
+			}
 			this.context.clearRect(0, 0, slopeCanvas.width, slopeCanvas.height);
 			this.drawSlope();
 			if(this.correctAnswers < 100) {
