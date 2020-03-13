@@ -44,6 +44,8 @@ let app = new Vue({
 		parts: 4,
 		answer: -1,
 		correctAnswers: 0,
+		bounceCount: 0,
+		stopAfter: 1,
 		log: {},
 		userFractions: []
 	},
@@ -160,7 +162,6 @@ let app = new Vue({
 			if (x <= this.cx + this.radius && x >= this.cx - this.radius && y <= this.cy + 5 * this.radius / 2 && y >= this.cy + this.radius / 2) {
 				this.changeGameState();
 			}
-			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
 
 		changeGameState: function() {
@@ -168,10 +169,20 @@ let app = new Vue({
 			if(!this.paused) {
 				this.launch();
 			}
+			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
 
 		launch: function() {
-			if(this.onSlope) {
+			if(this.bounceCount == this.stopAfter) {
+				this.changeGameState();
+				this.bounceCount = 0;
+			} else if(this.onSlope) {
+				// To restart the game after (this.stopAfter) attempts
+				if(this.bounceCount == 0) {
+					this.log = {};
+					this.correctAnswers = 0;
+				}
+
 				this.vy = -1 * Math.sqrt(window.innerHeight)/3.90;
 				this.cy -= this.cy + this.radius - this.calcY(this.cx) + 1;
 				this.onSlope = false;
@@ -244,6 +255,7 @@ let app = new Vue({
 					}
 					clearInterval(this.interval);
 					this.onSlope = true;
+					this.bounceCount++;
 					setTimeout(function () {
 						vm.launch();
 					}, this.launchDelay);

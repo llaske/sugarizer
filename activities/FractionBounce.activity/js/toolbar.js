@@ -119,7 +119,7 @@ var Toolbar = {
 			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
 		</div>
 	`,
-	props: ['parts', 'answer', 'mode', 'paused'],
+	props: ['parts', 'answer', 'mode', 'paused', 'bounceCount'],
 	data: function () {
 		return {
 			l10n: {
@@ -139,6 +139,7 @@ var Toolbar = {
 				stringHelpClickToStart: '',
 				stringHelpBounceToPosition: '',
 				stringHelpOfTheWay: '',
+				stringHelpGameOver: '',
 			}
 		}
 	},
@@ -146,6 +147,8 @@ var Toolbar = {
 		helpText: function() {
 			if(this.answer == -1) {
 				return this.l10n.stringHelpClickToStart;
+			} else if(this.paused && this.bounceCount == 0) {
+				return this.l10n.stringHelpGameOver;
 			} else if(this.mode == 'percents') {
 				return this.l10n.stringHelpBounceToPosition + ' ' + Math.floor(this.answer/this.parts*100) + '%' + ' ' + this.l10n.stringHelpOfTheWay;
 			} else {
