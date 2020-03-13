@@ -191,6 +191,66 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				}
 			});
 
+			function highlight_possible_move(s){
+
+				var board = game["board_state"]["board"];
+				var box_value = board[s];
+				var colour = null;
+				if([2,4,6,8,10,12].indexOf(box_value) > -1){
+					colour = 0;
+				}
+				if([3,5,7,9,11,13].indexOf(box_value) > -1){
+					colour = 1;
+				}
+				// console.log("colour ", colour, box_value);
+				var dir = (10 - 20 * colour);
+				var e,E;
+				var other_colour = 1 - colour;
+				var ep=game["board_state"].enpassant;
+				//pawn
+				if((box_value == 2) || (box_value == 3)){
+					e =s + dir;
+					console.log("e ", e,s,dir,colour);
+					if(!board[e]){
+						// movelist.push([weight + weight_lut[e], s, e]);
+						// document.getElementsByClassName("box" + e)[0].style.backgroundColor = "red";
+						console.log("1",s, e);
+
+						var e2 = e + dir;
+						if(s * (120 - s) < 3200 && (!board[e2])){
+							// movelist.push([weight + weight_lut[e2], s, e2]);
+							// document.getElementsByClassName("box" + e2)[0].style.backgroundColor = "red";
+							console.log("2",s,e2);
+						}
+					}
+
+					/* +/-1 for pawn capturing */
+					E = board[--e];
+					if(E && (E & 17) == other_colour){
+						// document.getElementsByClassName("box" + e)[0].style.backgroundColor = "red";
+						console.log("3",s,e);
+					}
+					e = e+2;
+					E = board[e];
+					if(E && (E & 17) == other_colour){
+                		// document.getElementsByClassName("box" + e)[0].style.backgroundColor = "red";
+						console.log("4",s,e);
+					}
+				}
+				// else if(colour != null && a!=null){
+				
+				// }
+			}
+
+			for (var y = 9; y > 1; y--){
+				for(var x = 1;  x < 9; x++){
+					var i = y * 10 + x;
+					document.getElementsByClassName("box" + i)[0].addEventListener("mouseover", function(event){
+                		highlight_possible_move(parseInt(this.className.split('x')[1]));
+					});
+				}
+			}
+
 			//function to set board from datastore data
 			//also for setting board during multiplayer
 			var set_board = function(data_obj){

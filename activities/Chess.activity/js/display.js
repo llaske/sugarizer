@@ -265,6 +265,7 @@ _p4d_proto.write_board_html = function(){
             var i = y * 10 + x;
             var td = p4d_new_child(tr, "td");
             td.className = (x + y) & 1 ? P4WN_BLACK_SQUARE : P4WN_WHITE_SQUARE;
+            td.className = td.className + " box" + i;
             _add_event_listener(td, 'click',
                                 function(p4d, n){
                                     return function(e){

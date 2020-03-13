@@ -442,6 +442,8 @@ function p4_parse(state, colour, ep, score) {
                     movelist.push([weight + weight_lut[e2], s, e2]);
                 }
             }
+            // if(state.to_play == 0)
+            // console.log("movelist inside parser ", s, e);
             /* +/-1 for pawn capturing */
             E = board[--e];
             if(E && (E & 17) == other_colour){
