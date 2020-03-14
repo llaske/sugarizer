@@ -484,10 +484,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
       var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
       var newCanvasHeight = window.innerHeight - toolbarHeight;
       game.resizeGame(newCanvasWidth, newCanvasHeight);
-
-      if (game.settingScreen) {
-        game.resizeSettingScreen();
-      }
     });
 
     var restartButton = document.getElementById("restart-button");
