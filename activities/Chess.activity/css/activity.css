@@ -133,6 +133,9 @@ p {
 	height: 30vh;
 	overflow-y: auto;
 }
+.chess-info .level {
+	width: 100%;
+}
 
 .popup-bg {
 	position: absolute;
@@ -166,17 +169,29 @@ p {
 	}
 	.moves-container {
 		padding-left: 30px;
-		width: 40%;
-		border-left: solid 1px rgb(223, 223, 223);
+		width: 100%;
 	}
 	.status-container {
-		border-bottom: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		width: 100%;
 	}
 	.chess-info {
 		width: 100%;
 		padding: 5px;
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-around;
+	}
+	.chess-info #opponent-info {
+		width: 40%;
+	}
+	.chess-info .row {
+		width: 50%;
+		border-top: none;
+		border-left: solid 1px rgb(223, 223, 223);
+		margin-left: 20px;
 	}
 	.chess-info .move-list {
 		font-size: 1em;
@@ -195,8 +210,7 @@ p {
 	}
 	#chessboard, #chessboard-tut {
 		width: 95%;
-	}
-	
+	}	
 }
 
 .splitbar {

@@ -6,7 +6,8 @@ let ChessTemplate = {
 			<div id="chessboard" v-show="!tutorialRunning"></div>
 			<div id="chess-info" class="chess-info">
 				<div class="status-container">
-					<p v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
+					<p class="level" v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
+					<div></div>
 					<div id="opponent-info" v-if="!spectator">
 						<div class="player-info" id="user">
 							<div class="player-icons">
@@ -89,11 +90,14 @@ let ChessTemplate = {
 				stringModerate: '',
 				stringHard: '',
 				stringVeryHard: '',
+				stringAreIn: '',
+				stringIsIn: '',
 				stringCheck: '',
-				stringIsInCheck: '',
-				stringIsInCheckmate: '',
+				stringCheckmate: '',
 				stringGameOver: '',
 				stringDrawPosition: '',
+				stringYou: '',
+				stringOpponent: ''
 			}
 		}
 	},
@@ -369,16 +373,23 @@ let ChessTemplate = {
 		
 			// checkmate?
 			if (this.game.in_checkmate()) {
-				this.checkText = this.popupText = this.status = this.l10n.stringGameOver + ', ' + moveColor + ' ' + this.l10n.stringIsInCheckmate;
+				this.status = this.l10n.stringGameOver + ', ';
+				if(this.game.turn() == this.currentcolor) {
+					this.status += this.l10n.stringYou  + ' ' + this.l10n.stringAreIn + ' ' + this.l10n.stringCheckmate;
+				} else {
+					this.status += this.l10n.stringOpponent + ' ' + this.l10n.stringIsIn + ' ' + this.l10n.stringCheckmate;
+				}
 				this.humane.log(this.popupText);
 				this.openPopup = true;
+				this.checkText = this.popupText = this.status;
 			}
 		
 			// draw?
 			else if (this.game.in_draw()) {
-				this.checkText = this.popupText = this.status = this.l10n.stringGameOver + ', ' + this.l10n.stringDrawPosition;
+				this.status = this.l10n.stringGameOver + ', ' + this.l10n.stringDrawPosition;
 				this.humane.log(this.popupText);
 				this.openPopup = true;
+				this.checkText = this.popupText = this.status;
 			}
 		
 			// this.game still on
@@ -387,7 +398,11 @@ let ChessTemplate = {
 		
 				// check?
 				if (this.game.in_check()) {
-					this.checkText += moveColor + ' ' + this.l10n.stringIsInCheck;
+					if(this.game.turn() == this.currentcolor) {
+						this.checkText += this.l10n.stringYou + ' ' + this.l10n.stringAreIn + ' ' + this.l10n.stringCheck;
+					} else {
+						this.checkText += this.l10n.stringOpponent + ' ' + this.l10n.stringIsIn + ' ' + this.l10n.stringCheck;
+					}
 					this.humane.log(this.checkText);
 				}
 			}
