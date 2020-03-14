@@ -149,7 +149,6 @@ let ChessTemplate = {
 			this.game = new Chess(fen);
 			//Chessboard.js
 			let config = {
-				showNotation: false,
 				draggable: true,
 				position: fen,
 				onDragStart: this.onDragStart,
