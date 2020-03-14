@@ -1,8 +1,8 @@
 function displayResize(evt) {
-    var available_height = window.innerHeight - 100,
+    var available_height = window.innerHeight - 132,
         available_width = window.innerWidth;
     var tmp_square_height = available_height >> 3,
-        tmp_square_width = available_width / 11.5;
+        tmp_square_width = available_width / 12.5;
     var tmp = tmp_square_height > tmp_square_width ?
         tmp_square_width : tmp_square_height;
     var tmp_square = tmp < 30 ? 30 : tmp;

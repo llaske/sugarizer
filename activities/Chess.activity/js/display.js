@@ -11,8 +11,8 @@
  */
 /* The routines here draw the screen and handle user interaction */
 
-var P4WN_SQUARE_WIDTH = 50;
-var P4WN_SQUARE_HEIGHT = 50;
+var P4WN_SQUARE_WIDTH = 30;
+var P4WN_SQUARE_HEIGHT = 30;
 var P4WN_WRAPPER_CLASS = 'p4wn-wrapper';
 var P4WN_BOARD_CLASS = 'p4wn-board';
 var P4WN_MESSAGES_CLASS = 'p4wn-messages';
