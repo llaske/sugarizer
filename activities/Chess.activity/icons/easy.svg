@@ -1,0 +1,4 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#666666">
+	<!ENTITY fill_color "#ffffff">
+]><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#ffffff;stroke:#000000;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g data-name="363-Computer" id="_363-Computer"><polyline class="cls-1" points="21 1 31 1 31 22 1 22 1 1 11 1"/><rect class="cls-1" height="6" width="8" x="12" y="22"/><polygon class="cls-1" points="23 31 9 31 10 28 22 28 23 31"/><line class="cls-1" x1="1" x2="31" y1="16" y2="16"/><line class="cls-1" x1="6" x2="26" y1="31" y2="31"/><polyline class="cls-1" points="20 7 16 11 12 7"/><line class="cls-1" x1="16" x2="16" y1="11"/></g></svg>

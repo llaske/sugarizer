@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta" />
+<title>Chess Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+  href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="lib/chessboardjs/css/chessboard-1.0.0.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+<script src="js/jquery.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script src="lib/p4wn/engine.js"></script>
+<script src="lib/chessjs/chess.js"></script>
+<script src="lib/chessboardjs/js/chessboard-1.0.0.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body id="body">
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+  <!-- Add more buttons here -->
+  <button class="toolbutton" id="network-button" title="Network"></button>
+  <button class="toolbutton" id="easy-button" title="Easy"></button>
+  <button class="toolbutton" id="hard-button" title="Hard"></button>
+  <button class="toolbutton" id="undo-button" title="Undo"></button>
+  <button class="toolbutton" id="restart-button" title="Restart"></button>
+  <button class="toolbutton" id="leave-game-button" title="Leave Game"></button>
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+  <!-- Replace this message with your own content -->
+  <button class="toolbutton pull-right" id="unfullscreen-button" title="Un-Fullscreen"></button>
+  <div class="container">
+    <div id="header"></div>
+    <div class="row">
+      <div class="col-xs-2">
+        <div id="information"></div>
+        <!-- <div id="ascii"></div> -->
+        <div id="in-check"></div>
+        <div id="in-checkmate"></div>
+        <div id="in-draw"></div>
+        <div id="in-stalemate"></div>
+        <div id="result"></div>
+        <div id="spectators" style="visibility: hidden;"><h4 id="spectators-title"></h4></div>
+      </div>
+      <div class="col-xs-7">
+        <div id="board"></div>
+      </div>
+      <div class="col-xs-3">
+        <h3 id="move-history-title"></h3>
+        <div id="move-history"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+
+</html>
