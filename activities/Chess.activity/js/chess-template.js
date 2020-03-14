@@ -2,14 +2,41 @@
 let ChessTemplate = {
 	template: `
 		<div class="chess-container">
-			<div id="opponent-info">{{ opponentText }}</div>
 			<chess-tutorial ref="chesstutorial" v-if="tutorialRunning"></chess-tutorial>
 			<div id="chessboard" v-show="!tutorialRunning"></div>
 			<div id="chess-info" class="chess-info">
 				<div class="status-container">
-					<p style="font-size: 10px; margin: 0" v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
-					<p id="status">{{ status }}</p>
-					<p class="check">{{ checkText }}</p>
+					<p v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
+					<div id="opponent-info" v-if="!spectator">
+						<div class="player-info" id="user">
+							<div class="player-icons">
+								<div class="buddy" id="user-buddy"></div>
+								<img v-bind:src="currentcolor == 'w' ? './images/chesspieces/svg/wP.svg' : './images/chesspieces/svg/bP.svg' " class="pawn-icon" id="user-pawn">							
+							</div>
+							<p>You</p>
+						</div>
+						<span>VS</span>
+						<div class="player-info" id="opponent">
+							<div class="player-icons">
+								<img src="./icons/robot-on.svg" v-if="opponent == null && !spectator" id="opponent-computer">
+								<div class="buddy" v-else id="opponent-buddy"></div>
+								<img v-bind:src="currentcolor == 'w' ? './images/chesspieces/svg/bP.svg' : './images/chesspieces/svg/wP.svg' " class="pawn-icon" id="user-pawn">
+							</div>
+							<p>{{ opponent ? 'Opponent' : 'Computer' }}</p>
+						</div>
+					</div>
+					<p style="font-size: 1.6em; font-weight: bold" v-else>SPECTATOR</p>
+					<div class="row">
+						<div id="status" v-if="popupText == ''">
+							<span>
+								{{ l10n.stringTurn }}: 
+								<img v-bind:src="turnSrc" class="pawn-icon" id="user-pawn">
+							</span>
+						</div>
+						<div id="check" :class="{ danger: checkText != '' }">
+							<span>{{ checkText }}</span>
+						</div>
+					</div>
 				</div>
 				<div class="moves-container">
 					<p class="title">{{ l10n.stringMoves }}</p>
@@ -38,6 +65,8 @@ let ChessTemplate = {
 			blackSquareGrey: '#476bd6',
 			legalMoves: [],
 			status: 'White to move',
+			turn: 'w',
+			inDanger: '',
 			checkText: '',
 			popupText: '',
 			openPopup: false,
@@ -48,6 +77,7 @@ let ChessTemplate = {
 				stringMoves: '',
 				stringPlayer: '',
 				stringComputer: '',
+				stringTurn: '',
 				stringPlayingAgainst: '',
 				stringYouAre: '',
 				stringBlack: '',
@@ -59,9 +89,11 @@ let ChessTemplate = {
 				stringModerate: '',
 				stringHard: '',
 				stringVeryHard: '',
+				stringCheck: '',
 				stringIsInCheck: '',
 				stringIsInCheckmate: '',
-				stringIsInGameOver: '',
+				stringGameOver: '',
+				stringDrawPosition: '',
 			}
 		}
 	},
@@ -101,7 +133,12 @@ let ChessTemplate = {
 					b: split[1]
 				});
 			}
+			//Update turn
+			this.turn = this.game ? this.game.turn() : 'w';
 			return a;
+		},
+		turnSrc: function() {
+			return this.turn == 'w' ? './images/chesspieces/svg/wP.svg' : './images/chesspieces/svg/bP.svg';
 		}
 	},
 	watch: {
@@ -120,6 +157,12 @@ let ChessTemplate = {
 		},
 		currentcolor: function(newVal, oldVal) {
 			this.checkOrientation();
+		},
+		whiteColors: function(newVal, oldVal) {
+			this.colorBuddies();
+		},
+		blackColors: function(newVal, oldVal) {
+			this.colorBuddies();
 		}
 	},
 	mounted: function() {
@@ -164,6 +207,26 @@ let ChessTemplate = {
 			this.gameAI = p4_fen2state(fen);
 
 			this.updateStatus();
+		},
+
+		colorBuddies: function() {
+			let vm = this;
+			requirejs(["sugar-web/graphics/icon"], function (icon) {
+				let user = document.getElementById('user-buddy');
+				let opponent = document.getElementById('opponent-buddy');
+				if(vm.currentcolor == 'w') {
+					icon.colorize(user, vm.whiteColors);
+					if(vm.opponent != null && !vm.spectator) {
+						icon.colorize(opponent, vm.blackColors);
+					}
+				} else {
+					icon.colorize(user, vm.blackColors);
+					if(vm.opponent != null && !vm.spectator) {
+						icon.colorize(opponent, vm.whiteColors);
+					}
+				}
+
+			});
 		},
 
 		checkOrientation: function() {
@@ -306,14 +369,14 @@ let ChessTemplate = {
 		
 			// checkmate?
 			if (this.game.in_checkmate()) {
-				this.popupText = this.status = this.l10n.stringGameOver + ', ' + moveColor + ' ' + this.l10n.stringIsInCheckmate;
+				this.checkText = this.popupText = this.status = this.l10n.stringGameOver + ', ' + moveColor + ' ' + this.l10n.stringIsInCheckmate;
 				this.humane.log(this.popupText);
 				this.openPopup = true;
 			}
 		
 			// draw?
 			else if (this.game.in_draw()) {
-				this.popupText = this.status = 'Game over, drawn position';
+				this.checkText = this.popupText = this.status = this.l10n.stringGameOver + ', ' + this.l10n.stringDrawPosition;
 				this.humane.log(this.popupText);
 				this.openPopup = true;
 			}

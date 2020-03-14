@@ -16,8 +16,8 @@ let app = new Vue({
 	data: {
 		currentUser: {
 			colorvalue: {
-				stroke: "#000",
-				fill: "#000"
+				stroke: "#000000",
+				fill: "#000000"
 			}
 		},
 		isHost: false,
@@ -29,8 +29,8 @@ let app = new Vue({
 		level: 2,
 		opponent: null,
 		opponentColors: {
-			stroke: "#000",
-			fill: "#000"
+			stroke: "#000000",
+			fill: "#000000"
 		},
 		spectator: false,
 		tutorialRunning: false
@@ -60,6 +60,7 @@ let app = new Vue({
 
 				env.getEnvironment(function (err, environment) {
 					vm.currentUser = environment.user;
+					document.getElementById('canvas').style.background = environment.user.colorvalue.fill;
 				});
 
 				// Load context
@@ -139,7 +140,6 @@ let app = new Vue({
 		},
 
 		onDifficultySelected: function (difficulty) {
-			console.log('onDifficultySelected', difficulty);
 			this.level = difficulty.index;
 			console.log(this.level);
 		},
