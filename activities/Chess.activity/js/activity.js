@@ -198,8 +198,13 @@ let app = new Vue({
 			this.$refs.chesstemplate.onTutStartPos();
 		},
 
-		onHelpEnd: function() {
-			this.tutorialRunning = false;
+		onHelpEnd: function(type) {
+			if(type == 'ui') {
+				this.$refs.tutorial.show('rules');
+				this.tutorialRunning = true;
+			} else {
+				this.tutorialRunning = false;
+			}
 		},
 
 		onNetworkDataReceived: function (msg) {

@@ -216,11 +216,11 @@ var Tutorial = {
 						vm.$emit('startpos');
 					} 
 					else if(tour._current == 8) {
-						vm.$emit('end');
+						vm.$emit('end', type);
 					}
 				},
 				onEnd: function (tour) {
-					vm.$emit('end');
+					vm.$emit('end', type);
 				},
 			});
 			tour.init();
