@@ -334,6 +334,7 @@ _p4d_proto.flip_player = function(i){
     this.refresh_buttons();
     this.maybe_rotate_board();
     this.next_move();
+    this.refresh();
 };
 /*Button set up data. The *_wrap ones expect the display object and
  * return a this-agnostic function.

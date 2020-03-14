@@ -581,7 +581,11 @@ function p4_check_check(state, colour){
     var board = state.board;
     /*find the king.  The pieces list updates from the end,
      * so the last-most king is correctly placed.*/
-    var pieces = state.pieces[colour];
+    if(state.pieces === undefined)
+        return false;
+     var pieces = state.pieces[colour];
+    if(pieces === undefined)
+     return false;
     var p;
     var i = pieces.length;
     do {
