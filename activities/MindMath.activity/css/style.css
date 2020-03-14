@@ -1,0 +1,52 @@
+body{
+    text-align: center;
+    
+    background: #136a8a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #267871, #136a8a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #267871, #136a8a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background-size: cover ;
+}
+
+.btn{
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 5%;
+    height: 10%;
+    width: 5%;;
+}
+
+.header{
+    text-align: center;
+    margin-top:3% ;
+    margin-bottom: 5%;
+}
+
+.input{
+    text-align: center;
+    margin: 5%;
+}
+.output{
+    text-align: center;
+}
+#msg {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 15%;
+  }
+h1{
+  
+
+    font-family: 'Kaushan Script', cursive;
+    color:white;
+}
