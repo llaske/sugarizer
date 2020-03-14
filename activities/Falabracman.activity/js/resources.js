@@ -5,7 +5,7 @@ function Resources() {
 
     // Load an image url or an array of image urls
     this.load = function (urlOrArr) {
-      let _this = this;
+      var _this = this;
         if(urlOrArr instanceof Array) {
             urlOrArr.forEach(function(url) {
                 _this.loadIn(url);
@@ -17,7 +17,7 @@ function Resources() {
     }
 
     this.loadIn = function (url) {
-      let _this = this;
+      var _this = this;
         if(this.resourceCache[url]) {
             return this.resourceCache[url];
         }
