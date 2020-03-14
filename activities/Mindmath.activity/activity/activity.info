@@ -1,0 +1,6 @@
+[Activity]
+name = Mindmath
+activity_version = 1
+bundle_id = org.sugarlabs.Mindmath
+exec = sugar-activity-web
+icon = mindmath
