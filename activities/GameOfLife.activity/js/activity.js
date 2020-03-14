@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env'], function (activity, l10n, Board, State, patterns, shadeColor, env) {
+define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette',"tutorial"], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette,tutorial) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
@@ -6,21 +6,33 @@ define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/va
 		var language = environment.user ? environment.user.language : defaultLanguage;
 		l10n.language.code = language;
 		window.addEventListener('localized', function () {
-	      activity.getXOColor(function (err, color) {
-	        var dataStore = activity.getDatastoreObject();
-	        main(Board, State, patterns, color, shadeColor, l10n, dataStore);
-	      });
+          document.querySelector('.generation-status').innerText = l10n.get('Generation');
+          document.querySelector('#speedlabel').innerText = l10n.get('speed');
+          document.querySelector('#sizelabel').innerText = l10n.get('size');
 	    });
+        activity.getXOColor(function (err, color) {
+          var dataStore = activity.getDatastoreObject();
+          main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette);
+        });
 	});
   });
+
+  // Launch tutorial
+	document.querySelector("#help-button").addEventListener('click', function(e) {
+    tutorial.start();
+	});
 });
 
-function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
+function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpeedPalette, gridSizePalette) {
   var state = new State({
     boardState: [],
     generation: 0,
     playPauseIcon: 'play',
-    shouldPlay: false
+    shouldPlay: false,
+    generationTimeInterval: 235,
+    gridCols: 40,
+    gridRows: 20,
+    showTrails: false,
   });
   var randomPattern = patterns[0],
       gliderPattern = patterns[1],
@@ -28,18 +40,30 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       blankPattern = patterns[3];
 
   var target = document.querySelector('.main canvas');
-  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
+  var board = new Board(state.state.boardState, color.fill, '#FBF6F5', '#C0C0C0', shadeColor(color.stroke, 10), color.stroke, 12, 12, 2, 2, target);
+
+  var genSpeedButton = document.getElementById("speed-button");
+  var genSpeedButtonPallete = new genSpeedPalette.ActivityPalette(
+        genSpeedButton, state);
+
+  var gridSizeButton = document.getElementById("size-button");
+  var gridSizePallete = new gridSizePalette.ActivityPalette(
+              gridSizeButton, state, board);
+
   document.querySelector('.generation-count').style.color = color.fill;
   document.querySelector('.generation-status').style.color = color.fill;
-  document.querySelector('.generation-status').innerText = l10n.get('Generation');
 
-  board.draw();
+  board.draw(state);
 
   var storeLocally = function storeLocally(state) {
     dataStore.setDataAsText({
       boardState: state.boardState,
-      generation: state.generation
+      generation: state.generation,
+      gridCols : state.gridCols,
+      gridRows : state.gridRows,
+      showTrails : state.showTrails
     });
+    console.log(state);
     console.log('writing');
     dataStore.save(function (err) {
       if (err) {
@@ -64,7 +88,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
           generation: prev.generation + 1
         };
       });
-      setTimeout(generateGeneration, 100);
+      setTimeout(generateGeneration, state.state.generationTimeInterval);
     } else {
       return 0;
     }
@@ -78,26 +102,26 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
     var numOfAliveNeighbours = aliveInNeighbour.length;
     if (cellIsAlive) {
       if (numOfAliveNeighbours < 2) {
-        return 0;
+        return 3;
       } else if (numOfAliveNeighbours === 2 || numOfAliveNeighbours === 3) {
         return 1;
       } else {
-        return 0;
+        return 3;
       }
     } else {
       if (numOfAliveNeighbours === 3) {
         return 2;
       } else {
-        return 0;
+        return cell;
       }
     }
   };
 
   var findNeighbours = function findNeighbours(x, y) {
-    var leftX = x - 1 === -1 ? 49 : x - 1;
-    var rightX = x + 1 === 50 ? 0 : x + 1;
-    var topY = y - 1 === -1 ? 29 : y - 1;
-    var bottomY = y + 1 === 30 ? 0 : y + 1;
+    var leftX = x - 1 === -1 ? state.state.gridCols -1 : x - 1;
+    var rightX = x + 1 === state.state.gridCols ? 0 : x + 1;
+    var topY = y - 1 === -1 ? state.state.gridRows -1: y - 1;
+    var bottomY = y + 1 === state.state.gridRows ? 0 : y + 1;
     var boardState = state.state.boardState;
 
     var left = boardState[y][leftX];
@@ -127,15 +151,46 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       if (value) {
         generateGeneration();
       }
+    }],
+
+    gridCols: ['.fake-selector', function (fakeElem, value, prevValue) {
+      var sizeScale = document.getElementById('sizevalue');
+      sizeScale.value = value / 20;
+      board.handleResize(window.innerWidth, state.state.boardState, state);
+    }],
+
+    gridRows: ['.fake-selector', function (fakeElem, value, prevValue) {
+      var sizeScale = document.getElementById('sizevalue');
+      sizeScale.value = value / 10;
+      board.handleResize(window.innerWidth, state.state.boardState, state);
+    }],
+
+    showTrails : ['#deadCells-button', function (elem, value, prevValue) {
+      if (value) {
+        elem.className = 'toolbutton active';
+        board.showTrails = true;
+      }
+      else{
+        elem.className = 'toolbutton';
+        board.showTrails = false;
+      }
+      board.update(state.state.boardState);
     }]
   });
 
   dataStore.loadAsText(function (err, metadata, data) {
-    var boardState = data ? data.boardState : randomPattern();
+    var boardState = data ? data.boardState : randomPattern(state);
     var generation =  data ? data.generation : 0;
+    var gridCols =  data ? data.gridCols : 40;
+    var gridRows =  data ? data.gridRows : 20;
+    var showTrails = data ? data.showTrails : false;
+    console.log(data);
     state.set({
       boardState: boardState,
-      generation: parseInt(generation)
+      generation: parseInt(generation),
+      gridCols : parseInt(gridCols),
+      gridRows : parseInt(gridRows),
+      showTrails : showTrails
     });
   });
 
@@ -144,7 +199,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       var newState = [].concat(prev.boardState);
       var clickedCell = newState[cellY][cellX]
       if (clickedCell === 1 || clickedCell === 2) {
-        newState[cellY][cellX] = 0;
+        newState[cellY][cellX] = 3;
       } else {
         newState[cellY][cellX] = 2;
       }
@@ -161,7 +216,10 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
       if (prev.shouldPlay) {
         storeLocally({
           boardState: state.state.boardState,
-          generation: state.state.generation
+          generation: state.state.generation,
+          gridCols : state.state.gridCols,
+          gridRows : state.state.gridRows,
+          showTrails : state.state.showTrails,
         });
       }
       return {
@@ -171,34 +229,63 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
     });
   });
 
+  document.querySelector('#deadCells-button').addEventListener('click', function () {
+    if (board.showTrails) {
+      state.set({
+        showTrails : false
+      });
+    }
+    else {
+      state.set({
+        showTrails : true
+      });
+    }
+  });
+
   document.querySelector('#stop-button').addEventListener('click', function() {
     storeLocally({
       boardState: state.state.boardState,
-      generation: state.state.generation
+      generation: state.state.generation,
+      gridCols : state.state.gridCols,
+      gridRows : state.state.gridRows,
+      showTrails : state.state.showTrails
     });
   })
 
+  // Full screen
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 0;
+    document.getElementById("canvas").style.top = "0px";
+    document.getElementById("unfullscreen-button").style.visibility = "visible";
+    board.handleResize(window.innerWidth, state.state.boardState,state);
+  });
+  document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    document.getElementById("main-toolbar").style.opacity = 1;
+    document.getElementById("canvas").style.top = "55px";
+    document.getElementById("unfullscreen-button").style.visibility = "hidden";
+    board.handleResize(window.innerWidth, state.state.boardState,state);
+  });
   document.querySelector('#random').addEventListener('click', function () {
     state.set({
-      boardState: randomPattern(),
+      boardState: randomPattern(state),
       generation: 0
     });
   });
   document.querySelector('#glider').addEventListener('click', function () {
     state.set({
-      boardState: glider(),
+      boardState: gliderPattern(state),
       generation: 0
     });
   });
   document.querySelector('#no').addEventListener('click', function () {
     state.set({
-      boardState: no(),
+      boardState: noPattern(state),
       generation: 0
     });
   });
   document.querySelector('#clear').addEventListener('click', function () {
     state.set({
-      boardState: blankPattern(),
+      boardState: blankPattern(state),
       generation: 0,
       playPauseIcon: 'play',
       shouldPlay: false
@@ -206,7 +293,7 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore) {
   });
 
   window.addEventListener('resize', function (e) {
-    board.handleResize(window.innerWidth, state.state.boardState);
+    board.handleResize(window.innerWidth, state.state.boardState,state);
   });
-  board.handleResize(window.innerWidth, state.state.boardState);
+  board.handleResize(window.innerWidth, state.state.boardState,state);
 }

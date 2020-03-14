@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 15:45:50 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,4 +24,99 @@ msgstr "{{user}} joined"
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
 msgstr "{{user}} left"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Last One Loses Activity"
+msgstr "Last One Loses Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
+msgstr "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Network"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the game on the network so an opponent could play against you"
+msgstr "Click here to share the game on the network so an opponent could play against you"
+
+#: TutoNewgameTitle
+msgctxt "TutoNewgameTitle"
+msgid "New Game"
+msgstr "New Game"
+
+#: TutoNewgameContent
+msgctxt "TutoNewgameContent"
+msgid "Click here to start a new game. It will reinit the board with 13 items."
+msgstr "Click here to start a new game. It will reinit the board with 13 items."
+
+#: TutoEasyTitle
+msgctxt "TutoEasyTitle"
+msgid "Easy Level"
+msgstr "Easy Level"
+
+#: TutoEasyContent
+msgctxt "TutoEasyContent"
+msgid "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
+msgstr "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
+
+#: TutoMediumTitle
+msgctxt "TutoMediumTitle"
+msgid "Medium Level"
+msgstr "Medium Level"
+
+#: TutoMediumContent
+msgctxt "TutoMediumContent"
+msgid "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
+msgstr "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
+
+#: TutoHardTitle
+msgctxt "TutoHardTitle"
+msgid "Hard Level"
+msgstr "Hard Level"
+
+#: TutoHardContent
+msgctxt "TutoHardContent"
+msgid "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
+msgstr "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
+
+#: TutoSwitchTitle
+msgctxt "TutoSwitchTitle"
+msgid "Switch Player"
+msgstr "Switch Player"
+
+#: TutoSwitchContent
+msgctxt "TutoSwitchContent"
+msgid "Click here to let your opponent begin the game. It will work only at the begining of the game"
+msgstr "Click here to let your opponent begin the game. It will work only at the begining of the game"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
+msgstr "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
 

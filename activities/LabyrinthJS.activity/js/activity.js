@@ -343,6 +343,12 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore","sugar-w
 					css: {
 						'font-family': 'Verdana'
 					}
+				},
+				{
+				selector: 'edge',
+					style: {
+						 'width': 3
+					}
 				}
 			]
 		});

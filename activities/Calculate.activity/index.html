@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="css/activity.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="prefetch" type="application/l10n" href="translate.ini" />
+  <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-tour-standalone.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
   <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -23,8 +28,11 @@
     <button class="toolbutton" id="radian-degree-palette" data-l10n-id="angle" title="Select Angle Type"></button>
     <button class="toolbutton" id="output-digits-palette" data-l10n-id="digit" title="Select Output Digits"></button>
     <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+    <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
   </div>
-  <div class="bootstrap-container-fluid">
+  <button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
+  <div class="bootstrap-container-fluid" style="overflow-y: auto; max-height: 92vh;">
     <div class="bootstrap-row-fluid">
       <div id="calc-input-div" class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
         <div style="padding:5px;">

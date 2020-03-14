@@ -4,15 +4,15 @@
 # Step 6: handle multi-user with presence
 *(Estimated time: 1h30mn)*
 
-What if the Pawn activity could be played by multiple players at the same time? After all, it's a logical feature for a game. That's what we will doing in this step.
+What if the Pawn activity could be played by multiple players at the same time? After all, it's a logical feature for a game. That's what we will be doing in this step.
 
 ### Connect to a server
 
-From the begining of this tutorial we use Sugarizer stand alone. All HTML and JavaScript are run locallly and do not depend of external code. For this step however, because we need to have communication between multiple clients, we will need a Sugarizer Server too. The Sugarizer Server is a backend that provide connection features to Sugarizer Apps.
+From the beginning of this tutorial, we use Sugarizer stand alone. All HTML and JavaScript are run locally and do not depend on external code. For this step however, because we need to have communication between multiple clients, we will need a Sugarizer Server too. The Sugarizer Server is a backend that provides connection features to Sugarizer Apps.
 
 You could install a Sugarizer Server locally following instruction [here](https://github.com/llaske/sugarizer-server/blob/master/README.md) or use the test server available on [https://dev.sugarizer.org](https://dev.sugarizer.org).
 
-To see if you're connected to a server, click on the Neighborhood view - the icon with multiple dot - on the Sugarizer toolbar. Because you're not connected yet, here is the message you will see:
+To see if you're connected to a server, click on the Neighborhood view - the icon with multiple dots - on the Sugarizer toolbar. Because you're not connected yet, here is the message you will see:
 
 ![](images/tutorial_step6_1.png)
 
@@ -31,7 +31,7 @@ And you're now connected.
 
 ### What is meant by sharing an instance
 
-Suppose that Michaël, a user connected on the same server as you wants to Chat. He will launch the Chat activity.
+Suppose that Michaël, a user connected on the same server as you want to Chat. He will launch the Chat activity.
 
 ![](images/tutorial_step6_4.png)
 
@@ -54,7 +54,7 @@ Easy, isn't it ? And thanks to the unique Sugarizer presence framework, do the s
 
 ### Add the presence palette
 
-All activities that could be shared have to include the Network palette in its toolbar. Like in the Chat activity it's the way for user to share its current work and allow other users to join. Let's do it in Pawn activity.
+All activities that could be shared have to include the Network palette in its toolbar. Like in the Chat activity it's the way for the user to share its current work and allow other users to join. Let's do it in Pawn activity.
 
 First start by adding a button for the network in the `index.html` file. We add it just after the existing `add` button.
   
@@ -96,9 +96,9 @@ We will now define this new button in the `css/activity.css` file. We define als
 	  border-radius: 5.5px;
 	}
 
-The name "palette" refer to a popup menu in the toolbar. When the user click on the toolbar icon, the popup appear and display items inside - most often other buttons. To handle this feature Sugar-Web expose a Palette library and, more precisely, a PresencePalette too. 
+The name "palette" refers to a popup menu in the toolbar. When the user clicks on the toolbar icon, the popup appears and display items inside - most often other buttons. To handle this feature Sugar-Web exposes a Palette library and, more precisely, a PresencePalette too. 
 
-As usual, to integrate this library, we will update the dependancies list at the first line of `activity/activity.js`.
+As usual, to integrate this library, we will update the dependencies list at the first line of `activity/activity.js`.
 
 	define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n","sugar-web/graphics/presencepalette"], function (activity, env, icon, webL10n, presencepalette) {
 
@@ -118,17 +118,17 @@ The new Network button and palette is here. We now have to implement the magic i
 
 Before further implementation let's pause to explain what exactly Sugarizer presence framework is and what it does.
 
-The presence framework provide a real time communication between a set of clients. To do that the framework is based on the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) pattern. Every client could create one or more **topics**. Other clients could **subscribe** to these topics and everyone could **publish** messages on a topic. When a message is published on a topic, only clients connected to this topic receive the message.
+The presence framework provides a real time communication between a set of clients. To do that the framework is based on the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) pattern. Every client could create one or more **topics**. Other clients could **subscribe** to these topics and everyone could **publish** messages on a topic. When a message is published on a topic, only clients connected to this topic receive the message.
 
 In the context of Sugarizer, clients are Sugarizer App/WebApp connected to the Server. One topic is a shared activity. The Sugarizer Server is responsible to keep the list of topics and clients and dispatch messages to clients subscribed to topics. So the server is the central point and in fact, clients communicate only with the server.
 
-Let's take an example. Michaël, Lionel and Bastien are three users connected to the same Sugarizer Server. Michaël share a Chat activity. Lionel decide to join the activity. Bastien share its own Paint activity but he's alone on the activity.
+Let's take an example. Michaël, Lionel and Bastien are three users connected to the same Sugarizer Server. Michaël shares a Chat activity. Lionel decides to join the activity. Bastien shares its own Paint activity but he's alone on the activity.
 
 ![](images/tutorial_step6_9.png)
 
-The server know that two activities are shared: one Chat activity with Michaël and Lionel as subscribers, one Paint activity with only Bastien as subscriber.
+The server knows that two activities are shared: one Chat activity with Michaël and Lionel as subscribers, one Paint activity with only Bastien as subscriber.
 
-If Michaël post a message for the Chat activity, the server will automatically send back the message to Michaël and Lionel but not to Bastien.
+If Michaël posts a message for the Chat activity, the server will automatically send back the message to Michaël and Lionel but not to Bastien.
 
 Easy to understand isn't it?
 
@@ -155,11 +155,11 @@ Now, let's update our Pawn activity to integrate presence. Start first by handli
 		});
 	});
 
-In this listener, we have to retrieve the presence object. As usual it's exposed by the `activity` object. So you just need a call to `activity.getPresenceObject` method. If everything goes well, you will retrieve a presence object. That's a way to indicate that you're connected to a server.
+In this listener, we have to retrieve the presence object. As usual, it's exposed by the `activity` object. So you just need a call to `activity.getPresenceObject` method. If everything goes well, you will retrieve a presence object. That's a way to indicate that you're connected to a server.
 
-The `createSharedActivity` on this object allow you to create a new shared activity. You must pass as parameter the type of the activity so Sugarizer could display the right icon in the neighborhood view. Then you receive the unique identifier of the share in the `groupId` parameter of the callback.
+The `createSharedActivity` on this object allows you to create a new shared activity. You must pass as parameter the type of the activity so Sugarizer could display the right icon in the neighborhood view. Then you receive the unique identifier of the share in the `groupId` parameter of the callback.
 
-Finally we register a callback to handle message received, with a call to `onDataReceived` method. We will have a look on this callback later.
+Finally, we register a callback to handle the message received, with a call to `onDataReceived` method. We will have a look on this callback later.
 
 Now that our activity is shared, we have to slightly update the Plus button listener. Because now we should notify other users when a new pawn is played. Here's how the new listener will look like:
 
@@ -179,9 +179,9 @@ Now that our activity is shared, we have to slightly update the Plus button list
 		}
 	});
 
-If the activity is connected (i.e. presence is not null), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The first parameter of this method is the id of the share. We could retrieve this id from the presence object by `getSharedInfo().id`. The second parameter is just the message. We decided to split the message in two parts: informations about `user` that sent the message and the `content`, the user color. The user info is get from presence object using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
+If the activity is connected (i.e. presence is not null), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The first parameter of this method is the id of the share. We could retrieve this id from the presence object by `getSharedInfo().id`. The second parameter is just the message. We decided to split the message in two parts: information about `user` that sent the message and the `content`, the user color. The user info is get from presence object using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
 
-That's all we need to create the shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
+That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. So we will update the `getEnvironment` call in the `activity/activity.js` file to handle this case:
 
 
 	env.getEnvironment(function(err, environment) {
@@ -217,7 +217,7 @@ The `onNetworkDataReceived` callback is the same one we used previously. So it's
 		document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
 	}; 
 
-This callback is call each time a message is received from the server. The message is the parameter for the callback. We first test the `networkId` in this message to ignore message that we sent ourself. Then we add the message `content` (i.e. colors for the user sending the message) to our `pawns` array and redraw the board with the `drawPawns()` call. Finally we update the welcome message to give the player's name.
+This callback is called each time a message is received from the server. The message is the parameter for the callback. We first test the `networkId` in this message to ignore the message that we sent ourselves. Then we add the message `content` (i.e. colors for the user sending the message) to our `pawns` array and redraw the board with the `drawPawns()` call. Finally, we update the welcome message to give the player's name.
 
 Let's try if everything works. From the Michaël browser, launch a new Pawn activity and share it with the network menu.
 
@@ -244,13 +244,13 @@ And it works for any number of users connected at the same time on the shared ac
 
 Let's go a bit further or more precisely, let's fix a small issue in the previous implementation. 
 
-If Michaël start to play some pawns on the board before Lionel join the activity, there will be a difference between the boards:
+If Michaël starts to play some pawns on the board before Lionel joins the activity, there will be a difference between the boards:
 
 ![](images/tutorial_step6_14.png)
 
 It's like initial plays from Michaël was lost.
 
-This issue is related to the way of handling users that join the activity. Currently nothing is done to give them the initial board state. So they only seen new changes on the board. It could make sense for a chat activity: users who join a chat could not be able to see past discussions. But for our activity, it's not a good thing.
+This issue is related to the way of handling users that join the activity. Currently nothing is done to give them the initial board state. So they only saw new changes on the board. It could make sense for a chat activity: users who join a chat could not be able to see past discussions. But for our activity, it's not a good thing.
 
 To fix it, let's subscribe to a new presence callback named `onSharedActivityUserChanged`. So we will add two times - in `shared` listener and in `getEnvironment` under `network.onDataReceived` call - the following line in `activity/activity.js` file:
 
@@ -262,12 +262,12 @@ Here's a first simple implementation for this new callback:
 		console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
 	};
 
-The `onSharedActivityUserChanged` message is send automatically by the server when the subscribers list for a shared activity has changed. You will receive in the message a `move` field telling if the user has joined (the `move` value is `1`) or left (the `move` value is `-1`). And you will receive in the `user` field of the message informations (`name`, `networkId` and `colorvalue`) about the user. 
+The `onSharedActivityUserChanged` message is sent automatically by the server when the subscriber's list for a shared activity has changed. You will receive in the message a `move` field telling if the user has joined (the `move` value is `1`) or left (the `move` value is `-1`). And you will receive in the `user` field of the message informations (`name`, `networkId` and `colorvalue`) about the user. 
 
 The `onSharedActivityUserChanged` message is useful to display a list of users currently connected, and for example displaying this list. Thanks to this message we will be able too to fix our current issue.
 
-The idea is to identify the host for the share (Michaël in our sample). When a new subscriber join the share, the host - and only the host - send to the new subscriber a message with the current board state.
-But because current message contains only the color for the added pawn, we have to create a new type of message for that. Here's the suggested implementation to do that.
+The idea is to identify the host for the share (Michaël in our sample). When a new subscriber joins the share, the host - and only the host - send to the new subscriber a message with the current board state.
+But because the current message contains only the color for the added pawn, we have to create a new type of message for that. Here's the suggested implementation to do that.
 
 First let's modify the current send message call to integrate the 'update' message type to keep compatibility with current implementation:
 
@@ -339,6 +339,6 @@ Let's repeat the test by launching the activity from Michaël's browser with an 
 
 It fully works now!
 
-Implementing a multi-user application is not an easy task but with a nice framework like Sugarizer presence, I'm sure you're convince now that it's feasible!
+Implementing a multi-user application is not an easy task but with a nice framework like Sugarizer presence, I'm sure you're convinced now that it's feasible!
 
 [Go to next step](tutorial_step7.md)

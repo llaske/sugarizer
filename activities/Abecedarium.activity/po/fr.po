@@ -1,0 +1,330 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:38:45 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Abecedarium Activity"
+msgstr "Activité Abecedarium"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Abecedarium activity. Abecedarium is an abecedary activity to learn its alphabet using images, sounds and words"
+msgstr "Bienvenue dans l'activité Abecedarium. Abecedarium est un abécédaire pour apprendre l'alphabet en utilisant des images, des sons et des mots"
+
+#: TutoInstrumentTitle
+msgctxt "TutoInstrumentTitle"
+msgid "Instrument"
+msgstr "Instrument"
+
+#: TutoInstrumentContent
+msgctxt "TutoInstrumentContent"
+msgid "Click here to change the instrument playing the background sound"
+msgstr "Cliquez ici pour changer l'instrument qui joue la musique de fond"
+
+#: TutoInfoTitle
+msgctxt "TutoInfoTitle"
+msgid "Credits"
+msgstr "Crédits"
+
+#: TutoInfoContent
+msgctxt "TutoInfoContent"
+msgid "Click here to see credits of the activity"
+msgstr "Cliquez ici pour voir les crédits de l'activité"
+
+#: TutoLearnButtonTitle
+msgctxt "TutoLearnButtonTitle"
+msgid "Learn"
+msgstr "Apprendre"
+
+#: TutoLearnButtonContent
+msgctxt "TutoLearnButtonContent"
+msgid "Click here to enter the \"Learn\" mode. There you can explore and learn several thousands of words in English, French and Spanish"
+msgstr "Cliquez ici pour entrer dans le mode \"Apprendre\". Ici vous pouvez explorer et apprendre plusieurs milliers de mots en Anglais, Français et Espagnol"
+
+#: TutoPlayButtonTitle
+msgctxt "TutoPlayButtonTitle"
+msgid "Play"
+msgstr "Jouer"
+
+#: TutoPlayButtonContent
+msgctxt "TutoPlayButtonContent"
+msgid "Click here to enter the \"Play\" mode. There you can test the knowledge you have learned in \"Learn\" mode. Guess the word matching sound, image or text"
+msgstr "Cliquez ici pour entrer dans le mode \"Jouer\". Ici vous pouvez tester les connaissances que vous avez apprises dans le mode \"Apprendre\". Devinez le mot correspondant au son, à l'image ou au texte présenté"
+
+#: TutoBuildButtonTitle
+msgctxt "TutoBuildButtonTitle"
+msgid "Build"
+msgstr "Construire"
+
+#: TutoBuildButtonContent
+msgctxt "TutoBuildButtonContent"
+msgid "Click here to enter the \"Build\" mode. Will be available soon"
+msgstr "Cliquez ici pour entrer dans le mode \"Construire\". Bientôt disponible"
+
+#: TutoLearnExplainTitle
+msgctxt "TutoLearnExplainTitle"
+msgid "Learn"
+msgstr "Apprendre"
+
+#: TutoLearnExplainContent
+msgctxt "TutoLearnExplainContent"
+msgid "Here you can explore and learn words in English, French and Spanish"
+msgstr "Ici vous pouvez explorer et apprendre des mots en Anglais, Français et Espagnol"
+
+#: TutoHomeTitle
+msgctxt "TutoHomeTitle"
+msgid "Home"
+msgstr "Accueil"
+
+#: TutoHomeContent
+msgctxt "TutoHomeContent"
+msgid "Click here to go back to the Home page"
+msgstr "Cliquez ici pour retourner à la page d'Accueil"
+
+#: TutoFontTitle
+msgctxt "TutoFontTitle"
+msgid "Text style"
+msgstr "Style Texte"
+
+#: TutoFontContent
+msgctxt "TutoFontContent"
+msgid "Click here to change text style: lower case, upper case or cursive"
+msgstr "Cliquez ici pour changer le style du texte: minuscule, majuscule ou cursive"
+
+#: TutoLangTitle
+msgctxt "TutoLangTitle"
+msgid "Language"
+msgstr "Langue"
+
+#: TutoLangContent
+msgctxt "TutoLangContent"
+msgid "Click here to change language: French, Spanish or English"
+msgstr "Cliquez ici pour changer la langue: Français, Espagnol ou Anglais"
+
+#: TutoLearnBoxThemeTitle
+msgctxt "TutoLearnBoxThemeTitle"
+msgid "Filter"
+msgstr "Filtrer"
+
+#: TutoLearnBoxThemeContent
+msgctxt "TutoLearnBoxThemeContent"
+msgid "Here you can choose the category or the first letter of the words you want to learn more about"
+msgstr "Ici vous pouvez choisir la catégorie ou la première lettre des mots que vous voulez apprendre"
+
+#: TutoLearnBoxCollectionTitle
+msgctxt "TutoLearnBoxCollectionTitle"
+msgid "Filter"
+msgstr "Filtrer"
+
+#: TutoLearnBoxCollectionContent
+msgctxt "TutoLearnBoxCollectionContent"
+msgid "Here you can choose the category of the words you want to learn more about"
+msgstr "Ici vous pouvez choisir la catégorie de mots que vous voulez apprendre"
+
+#: TutoLearnBoxEntryTitle
+msgctxt "TutoLearnBoxEntryTitle"
+msgid "Words"
+msgstr "Mots"
+
+#: TutoLearnBoxEntryContent
+msgctxt "TutoLearnBoxEntryContent"
+msgid "Here you can see the words, click on a word to listen the matching sound"
+msgstr "Ici vous pouvez voir les mots, cliquez sur un mot pour écouter le son correspondant"
+
+#: TutoBackTitle
+msgctxt "TutoBackTitle"
+msgid "Back"
+msgstr "Retour"
+
+#: TutoBackContent
+msgctxt "TutoBackContent"
+msgid "Click here to go back to the previous page"
+msgstr "Cliquez ici pour retourner à la page précédente"
+
+#: TutoListenTitle
+msgctxt "TutoListenTitle"
+msgid "Listen all"
+msgstr "Tout écouter"
+
+#: TutoListenContent
+msgctxt "TutoListenContent"
+msgid "Click here to listen all the words in the page, one following another"
+msgstr "Cliquez ici pour écouter tous les mots de la page l'un après l'autre"
+
+#: TutoPauseTitle
+msgctxt "TutoPauseTitle"
+msgid "Pause"
+msgstr "Pause"
+
+#: TutoPauseContent
+msgctxt "TutoPauseContent"
+msgid "Click here to pause the listening of all words"
+msgstr "Cliquez pour mettre en pause l'écoute de tous les mots"
+
+#: TutoPrevPageTitle
+msgctxt "TutoPrevPageTitle"
+msgid "Previous page"
+msgstr "Précédent"
+
+#: TutoPrevPageContent
+msgctxt "TutoPrevPageContent"
+msgid "Click here to move to the previous page of words"
+msgstr "Cliquez ici pour passer à la page de mots précédente"
+
+#: TutoNextPageTitle
+msgctxt "TutoNextPageTitle"
+msgid "Next page"
+msgstr "Suivant"
+
+#: TutoNextPageContent
+msgctxt "TutoNextPageContent"
+msgid "Click here to move to the next page of words"
+msgstr "Cliquez ici pour passer à la page de mots suivante"
+
+#: TutoPlayExplainTitle
+msgctxt "TutoPlayExplainTitle"
+msgid "Play"
+msgstr "Jouer"
+
+#: TutoPlayExplainContent
+msgctxt "TutoPlayExplainContent"
+msgid "Here you can test the knowledge you have learned in \"Learn\" mode. There is 6 guess games. In each game you have to guess the word matching to an image, a sound or a text"
+msgstr "Ici vous pouvez tester les connaissances que vous avez apprises dans le mode \"Apprendre\". Il y a 6 jeux. Dans chaque jeu vous devez deviner le mot correspondant à l'image, au son ou au texte"
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filter"
+msgstr "Filtrer"
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Here you can choose the category or the first letter of the words you want to practise"
+msgstr "Ici vous pouvez choisir la catégorie ou la première lettre des mots avec lesquels vous voulez jouer"
+
+#: TutoPlay1Title
+msgctxt "TutoPlay1Title"
+msgid "Image to text"
+msgstr "Image en texte"
+
+#: TutoPlay1Content
+msgctxt "TutoPlay1Content"
+msgid "In this game, you will see the image and you have to guess the correct text that is written"
+msgstr "Dans ce jeu, vous verrez une image et vous devrez deviner le texte écrit correspondant"
+
+#: TutoPlay2Title
+msgctxt "TutoPlay2Title"
+msgid "Image to sound"
+msgstr "Image en son"
+
+#: TutoPlay2Content
+msgctxt "TutoPlay2Content"
+msgid "In this game, you will see the image and you have to guess the correct sound"
+msgstr "Dans ce jeu, vous verrez une image et vous devrez deviner le son correspondant"
+
+#: TutoPlay3Title
+msgctxt "TutoPlay3Title"
+msgid "Text to image"
+msgstr "Texte en image"
+
+#: TutoPlay3Content
+msgctxt "TutoPlay3Content"
+msgid "In this game, you will see the text and you have to guess the correct image of how it looks"
+msgstr "Dans ce jeu, vous verrez un texte et vous devrez deviner l'image correspondante"
+
+#: TutoPlay4Title
+msgctxt "TutoPlay4Title"
+msgid "Text to sound"
+msgstr "Texte en son"
+
+#: TutoPlay4Content
+msgctxt "TutoPlay4Content"
+msgid "In this game, you will see the text and you have to guess the correct sound"
+msgstr "Dans ce jeu, vous verrez un texte et vous devrez deviner le son correspondant"
+
+#: TutoPlay5Title
+msgctxt "TutoPlay5Title"
+msgid "Sound to image"
+msgstr "Son en image"
+
+#: TutoPlay5Content
+msgctxt "TutoPlay5Content"
+msgid "In this game, you will hear the sound and you have to guess the correct image of how it looks"
+msgstr "Dans ce jeu, vous entendrez un son et vous devrez deviner l'image correspondante"
+
+#: TutoPlay6Title
+msgctxt "TutoPlay6Title"
+msgid "Sound to text"
+msgstr "Son en texte"
+
+#: TutoPlay6Content
+msgctxt "TutoPlay6Content"
+msgid "In this game, you will hear the sound and you have to guess the correct text that is written"
+msgstr "Dans ce jeu, vous entendrez un son et vous devrez deviner le texte écrit correspondant"
+
+#: TutoPlayEntryBoxTitle
+msgctxt "TutoPlayEntryBoxTitle"
+msgid "Question"
+msgstr "Question"
+
+#: TutoPlayEntryBoxContent
+msgctxt "TutoPlayEntryBoxContent"
+msgid "Here is the word to guess. You need to choose the correct answer from three answers given below"
+msgstr "Ceci est le mot à deviner. Vous devez choisir la réponse correcte parmi les trois réponses en dessous"
+
+#: TutoCheckTitle
+msgctxt "TutoCheckTitle"
+msgid "Check"
+msgstr "Vérifier"
+
+#: TutoCheckContent
+msgctxt "TutoCheckContent"
+msgid "Click here to check if your answer is correct"
+msgstr "Cliquez ici pour vérifier si votre réponse est correcte"
+
+#: TutoPngTitle
+msgctxt "TutoPngTitle"
+msgid "Save PNG"
+msgstr "Enregistrer PNG"
+
+#: TutoPngContent
+msgctxt "TutoPngContent"
+msgid "Here you can export to Journal the image of a word. Click here then on the word to export"
+msgstr "Ici vous pouvez exporter dans le Journal l'image correspondant à un mot. Cliquez ici puis sur le mot à exporter"
+
+#: TutoSoundTitle
+msgctxt "TutoSoundTitle"
+msgid "Save sound"
+msgstr "Enregistrer son"
+
+#: TutoSoundContent
+msgctxt "TutoSoundContent"
+msgid "Here you can export to Journal the sound of a word. Click here then on the word to export"
+msgstr "Ici vous pouvez exporter dans le Journal le son correspondant à un mot. Cliquez ici puis sur le mot à exporter"
+

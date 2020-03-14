@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:13:17 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:39:27 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,5 +16,90 @@ msgstr ""
 #: QRCodeSaved
 msgctxt "QRCodeSaved"
 msgid "QRCode was saved to journal!"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "QRCode Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the QRCode activity. QRCode activity is a simple QR Code generator and reader"
+msgstr ""
+
+#: TutoPhotoTitle
+msgctxt "TutoPhotoTitle"
+msgid "Read QR Code"
+msgstr ""
+
+#: TutoPhotoContent
+msgctxt "TutoPhotoContent"
+msgid "Click here to scan a QR code through Camera of your device"
+msgstr ""
+
+#: TutoPNGTitle
+msgctxt "TutoPNGTitle"
+msgid "Export to PNG"
+msgstr ""
+
+#: TutoPNGContent
+msgctxt "TutoPNGContent"
+msgid "Click this icon to export the QR Code in Journal as a PNG file"
+msgstr ""
+
+#: TutoGenerateTitle
+msgctxt "TutoGenerateTitle"
+msgid "Generate"
+msgstr ""
+
+#: TutoGenerateContent
+msgctxt "TutoGenerateContent"
+msgid "Click this icon to launch generation"
+msgstr ""
+
+#: TutoListTitle
+msgctxt "TutoListTitle"
+msgid "History"
+msgstr ""
+
+#: TutoListContent
+msgctxt "TutoListContent"
+msgid "Click here to get a list of previously generated QR Codes"
+msgstr ""
+
+#: TutoQRTitle
+msgctxt "TutoQRTitle"
+msgid "QR Code"
+msgstr ""
+
+#: TutoQRContent
+msgctxt "TutoQRContent"
+msgid "Here is shown the generated QR Code"
+msgstr ""
+
+#: TutoInputTitle
+msgctxt "TutoInputTitle"
+msgid "Text to generate"
+msgstr ""
+
+#: TutoInputContent
+msgctxt "TutoInputContent"
+msgid "Type here the text you want to generate as a QR Code"
 msgstr ""
 

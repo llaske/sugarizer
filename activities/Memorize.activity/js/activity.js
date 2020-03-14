@@ -1,10 +1,22 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'activity/memorize-app'], function (doc, activity, presencePalette, memorizeApp) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', 'webL10n', 'activity/memorize-app'], function (doc, activity, presencePalette, env, webL10n, memorizeApp) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
         memorizeApp.activity.setup();
+
+        env.getEnvironment(function(err, environment) {
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            window.addEventListener('localized', function(e) {
+                if (e.language != language) {
+                    setTimeout(function() {
+                      webL10n.language.code = language;
+                    }, 50);
+                }
+            });
+        });
 
         if (window.top.sugar.environment.sharedId) {
             memorizeApp.initUI(function () {
@@ -21,8 +33,42 @@ define(function (require) {
             })
 
         }
+
+        
+        // Zoom in/out the game grid
+        var zoomIn = function () {
+            // Using the minimum of height and width accounts for mobile devices
+            var sideLen = Math.min(document.body.clientHeight, document.body.clientWidth);
+            var gridHeight = document.getElementById('game-grid').offsetWidth;
+             // zoom = how much do we multiply gridHeight by to get sidelen?
+            var zoom = sideLen / gridHeight;
+            document.getElementById('game-grid').style.zoom = zoom;
+        }
+
+        var zoomOut = function () {
+            document.getElementById('game-grid').style.zoom = 1;
+        }
+
+
+        document.getElementById('fullscreen-button').addEventListener('click', function() {
+            document.getElementById('main-toolbar').style.display = 'none';
+            document.getElementById('unfullscreen-button').style.visibility = 'visible';
+            zoomIn();
+        });
+        
+        document.getElementById('unfullscreen-button').addEventListener('click', function() {
+            document.getElementById('main-toolbar').style.display = '';
+            document.getElementById('unfullscreen-button').style.visibility = 'hidden';
+            zoomOut();
+        });
+
     });
+
+    
+
 });
+
+
 
 function loadData(activity, memorizeApp, callback) {
     var timeout = 0;
@@ -81,6 +127,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
             presencePalette.setShared(true);
         } else {
             presencePalette.addEventListener('shared', function () {
+                presencePalette.popDown();
                 shareActivity(activity, presence, memorizeApp, true);
             });
         }
@@ -92,6 +139,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
 }
 
 function shareActivity(activity, presence, memorizeApp, isHost) {
+
     memorizeApp.shareActivity(isHost);
 
     var userSettings = presence.getUserInfo();

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 15:46:28 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:29:36 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,4 +42,59 @@ msgstr "En attente d'un joueur"
 msgctxt "PlayersWaitMany"
 msgid "Waiting for {{count}} players"
 msgstr "En attente de {{count}} joueurs"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Maze Activity"
+msgstr "Activité Maze"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Maze activity. Maze activity is a simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one"
+msgstr "Bienvenue dans l'activité Maze. Maze est un jeu de labyrinthe. Déplacez-vous dans le labyrinthe pour atteindre la sortie. Chaque labyrinthe devient plus grand et plus difficile que le précédent"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Réseau"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the activity so other users on the network could play with you"
+msgstr "Cliquez ici pour partager l'activité afin que d'autres utilisateurs sur le réseau puissent jouer avec vous"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Restart"
+msgstr "Redémarrer"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to get restart the game. It will restart to the first level of difficulty"
+msgstr "Cliquez ici pour redémarrer le jeu. Il redémarrera au premier niveau de difficulté"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Maze"
+msgstr "Labyrinthe"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Here is the maze. Use arrows keys or click in the direction you want to go to guide your buddy to the exit: the colorful box. You will stop on each intersection to decide which way do you want to go next"
+msgstr "Voilà le labyrinthe. Utilisez les flêches du clavier ou cliquez dans la direction où vous voulez aller pour rejoindre la sortie: la boite colorée. Vous serez arrêté à chaque intersection pour décider où vous voulez aller ensuite"
 

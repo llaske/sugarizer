@@ -11,6 +11,157 @@
   background-image: url(../assets/themeChanger.svg);
 }
 
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+  .tutorial-end-icon.icon-button.disabled {
+color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 8%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
 .blockrain-game-holder {
   position: relative;
   padding: 0;
@@ -22,12 +173,13 @@
   overflow-x: auto;
 }
 
+
 @media only screen and (min-width: 500px) {
 
-	.blockrain-game-holder {
-	  border-left: 1px solid black;
-	  border-right: 1px solid black;
-	}
+.blockrain-game-holder {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
 }
 
 /* Touch Controls */
@@ -176,29 +328,37 @@
 
 
 @media only screen and (min-width: 500px) {
-    #canvas {
-        width: 65vw;
-        right: 17.5vw;
-        left: 17.5vw;
-    }
+  #canvas {
+    width: 65vw;
+    right: 17.5vw;
+    left: 17.5vw;
+  }
 }
 @media only screen and (min-width: 800px) {
-    #canvas {
-        width: 50vw;
-        right: 25vw;
-        left: 25vw;
-    }
+  #canvas {
+    width: 50vw;
+    right: 25vw;
+    left: 25vw;
+  }
 }
 @media only screen and (min-width: 1100px) {
-    #canvas {
-        width: 40vw;
-        right: 30vw;
-        left: 30vw;
-    }
+  #canvas {
+    width: 40vw;
+    right: 30vw;
+    left: 30vw;
+  }
 }
+
+/*Adjusted unfullscreen button position so it won't overlap with the activity container*/
 @media only screen and (max-width: 500px) {
-    #canvas {
-        width: 100vw;
-        height: 70vh;
-    }
+  #canvas {
+    width: 100vw;
+    height: 70vh;
+  }
+  #unfullscreen-button
+  {
+    top: 70%;
+    right: 3%;
+  }
 }
+

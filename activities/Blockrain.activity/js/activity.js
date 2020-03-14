@@ -1,10 +1,15 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], function (activity,env, webL10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
 		activity.setup();
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+		});
 		var myHighestScore = 0;
 
 		//Loads highest score from Journal
@@ -32,6 +37,21 @@ define(["sugar-web/activity/activity"], function (activity) {
 					myHighestScore = score;
 				}
 			},
+		});
+
+		// Switch to full screen when the full screen button is pressed
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+		  document.getElementById("main-toolbar").style.display = "none";
+		  document.getElementById("canvas").style.top = "0px";
+		  document.getElementById("unfullscreen-button").style.visibility = "visible";
+
+		});
+
+		//Return to normal size
+		document.getElementById("unfullscreen-button").addEventListener('click', function() {
+		  document.getElementById("main-toolbar").style.display = "block";
+		  document.getElementById("canvas").style.top = "55px";
+		  document.getElementById("unfullscreen-button").style.visibility = "hidden";
 		});
 
 		// Save high score in Journal on Stop
@@ -82,7 +102,9 @@ define(["sugar-web/activity/activity"], function (activity) {
     document.getElementById("btn-next").onclick = function() {
         switchTheme(true);
     };
-
+	document.getElementById("help-button").addEventListener('click', function(e) {
+		tutorial.start();
+	});
 	});
 
 });
