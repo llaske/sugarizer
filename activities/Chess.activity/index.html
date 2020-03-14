@@ -11,12 +11,11 @@
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/chess.css" />
+
 <script data-main="js/loader" src="lib/require.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.1.7/underscore-min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.5.1/backbone-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
 		
 </head>
 
@@ -29,125 +28,60 @@
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
 </div>
-
+  
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
-
+    <div class="header">
+        <h1><u>Chess Activity</u> </h1>
+          <h2><a href="#rules" onclick="rules()">See Rules</a></h2>
+    </div>  
+  
   <!-- Replace this message with your own content -->
-  <div class="container">
-            
-    <div class="sideMenu" >
-      <h1>Set Moves </h1>
-      <input type="button" style="margin: 1%;" class="btn btn-secondary" value="clearBoard" id="clearBoard" />
-      <input type="button" class="btn btn-secondary" value="resetBoard" id="resetBoard" />
-      <input value="H7" placeholder="Current position" id="oldposition" />
-      <input value="H5" placeholder="New position" id="newposition" />
-      <input type="button" class="btn btn-secondary" value="changePosition" id="changePosition" />
-      <input value="D1" id="lookup" />
-      <input type="button" class="btn btn-secondary" value="lookupPosition" id="lookupPosition" />
-
-
-    <div class="instr">
-      <h1>Instruction </h1>
-      <ul>
-        <li>Players play one by one  </li>
-        <li>Players can move pieces using above options</li>
-        <li>Check if any location is empty or not using lookup</li>
-        <li>Connect to other players using network</li>
-      </ul>
-
-      <h1><a href="#rules" onclick="rules()"> See Rules</a></h1>
-    </div>
-    </div>
-
-
-
-          <div class="contentPane">
-      
-      <table id="chess_board" cellpadding="0" cellspacing="0">
-        <tr>
-          <td id="A8"></td>
-          <td id="B8"></td>
-          <td id="C8"></td>
-          <td id="D8"></td>
-          <td id="E8"></td>
-          <td id="F8"></td>
-          <td id="G8"></td>
-          <td id="H8"></td>
-        </tr>
-        <tr>
-          <td id="A7"></td>
-          <td id="B7"></td>
-          <td id="C7"></td>
-          <td id="D7"></td>
-          <td id="E7"></td>
-          <td id="F7"></td>
-          <td id="G7"></td>
-          <td id="H7"></td>
-        </tr>
-        <tr>
-          <td id="A6"></td>
-          <td id="B6"></td>
-          <td id="C6"></td>
-          <td id="D6"></td>
-          <td id="E6"></td>
-          <td id="F6"></td>
-          <td id="G6"></td>
-          <td id="H6"></td>
-        </tr>
-        <tr>
-          <td id="A5"></td>
-          <td id="B5"></td>
-          <td id="C5"></td>
-          <td id="D5"></td>
-          <td id="E5"></td>
-          <td id="F5"></td>
-          <td id="G5"></td>
-          <td id="H5"></td>
-        </tr>
-        <tr>
-          <td id="A4"></td>
-          <td id="B4"></td>
-          <td id="C4"></td>
-          <td id="D4"></td>
-          <td id="E4"></td>
-          <td id="F4"></td>
-          <td id="G4"></td>
-          <td id="H4"></td>
-        </tr>
-        <tr>
-          <td id="A3"></td>
-          <td id="B3"></td>
-          <td id="C3"></td>
-          <td id="D3"></td>
-          <td id="E3"></td>
-          <td id="F3"></td>
-          <td id="G3"></td>
-          <td id="H3"></td>
-        </tr>
-        <tr>
-          <td id="A2"></td>
-          <td id="B2"></td>
-          <td id="C2"></td>
-          <td id="D2"></td>
-          <td id="E2"></td>
-          <td id="F2"></td>
-          <td id="G2"></td>
-          <td id="H2"></td>
-        </tr>
-        <tr>
-          <td id="A1"></td>
-          <td id="B1"></td>
-          <td id="C1"></td>
-          <td id="D1"></td>
-          <td id="E1"></td>
-          <td id="F1"></td>
-          <td id="G1"></td>
-          <td id="H1"></td>
-        </tr>
-      </table>
-          </div>
+  <div id="game">
+    
+  <div class="option-nav">
+    
+      <div id="player-nav">
+        Player: <span id="player"></span>
       </div>
+      <div id="option" class="btn">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span class="tooltiptext">OPTION</span>
+      </div>
+      <div id="undo-btn" class="btn">
+        <i class="fa fa-undo" aria-hidden="true"></i>
+        <span class="tooltiptext">UNDO</span>
+      </div>
+    </div>
+    <div id="board">
+      <div id="result" class="hide"></div>
+      <div id="pawn-promotion-option" class="hide">
+         <span id="queen" class="option"></span>
+         <span id="rook" class="option"></span>
+         <span id="knight" class="option"></span>
+         <span id="bishop" class="option"></span>
+      </div>
+      <div id="option-menu" class="hide">
+         <div id="back-btn" class="button">BACK</div>
+         <div id="theme-menu">
+           THEME: <span id="theme-option" class="button"></span>
+         </div>
+         <div id="color-menu">
+           COLOR: <span id="color-option" class="button"></span>
+         </div>
+         <div id="restart-btn" class="button">NEW GAME</div>
+      </div>
+      <div id="game" ng-app="myApp" ng-controller="GameController">
+         <div class="row" ng-repeat="y in widths">
+            <div class="box" ng-repeat="x in widths" ng-attr-id="{{'box-' + x + '-' + y}}" piece="">
+            </div>
+         </div>
+      </div>
+    </div>
+  </div>
+
+      
+
       <div id="rules" class="container">
       <div id="chess-rules">
         <h1>Chess Rules</h1>
@@ -207,11 +141,13 @@
     document.getElementById("rules").style.display="none";
 		function rules(){
 			document.getElementById("rules").style.display="block";		
-		}</script>
-      <!-- Include the ChessBoard Api -->
-      <script src="js/chess.js"></script>
-      <!-- Include the Backbone.js MVC's -->
-   <script src="js/game.js"></script>
+    }
+    
+    </script>
+    <script src="js/chess.js"></script>
+   
+  
+     
 </body>
 
 </html>
