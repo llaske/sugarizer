@@ -22,7 +22,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		var getInstances = function (environment) {
 			setTimeout(function () {
 				document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + environment.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-off.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Easy") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
-				document.getElementById("information").innerHTML = "<h3>Next turn: <br><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'></h3>";
+				document.getElementById("information").innerHTML = "<h3>" + webL10n.get("NextTurn") + ": <br><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'></h3>";
 				document.getElementById("spectators-title").innerHTML = webL10n.get("SpectatorsTitle") + ": ";
 				document.getElementById("move-history-title").innerHTML = webL10n.get("MoveHistory");
 				document.getElementById("canvas").style.backgroundColor = currentenv.user.colorvalue.stroke;
