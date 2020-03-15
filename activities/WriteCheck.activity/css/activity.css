@@ -1,6 +1,12 @@
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
+#main-toolbar #pencil-button {
+  background-image: url(../images/pencil_alt.png);
+}
+#main-toolbar #eraser-button {
+  background-image: url(../images/eraser.png);
+}
 body{
 	 background-color: #282828;
 	 overflow: hidden;
@@ -31,7 +37,7 @@ body{
 	text-align: center;
 	position: absolute;
 	left: 35vw;
-	top: 14vh;
+	top: 11vh;
 	color: white;
 	font-family: Walter Turncoat;
 	-webkit-user-select: none;  
@@ -45,7 +51,7 @@ body{
 	text-align: center;
 	position: absolute;
 	left: 35vw;
-	bottom: 11vh;
+	bottom: 10vh;
 	border-style: solid;
 	border-color: white;
 	border-width: 2px;
@@ -60,16 +66,16 @@ body{
 }
 #paint-app{
 	position: absolute;
-	width: 25vw;
-	height: 25vw;
-	top: 24vh;
-	left: 37.5vw;
+	width: 35vw;
+	height: 35vw;
+	top: 19vh;
+	left: 32.5vw;
 	border-style: solid;
 	border-color: white;
-	border-width: 2px;
+	border-width:0px;
 }
 #paint-canvas{
-	cursor: crosshair;
+	cursor: url('../images/pencil.png'), crosshair;
 }
 /*#wrapper{
 	display: grid;

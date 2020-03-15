@@ -47,6 +47,7 @@
             let top3 = letterScores.slice(0, 3);
 
             window.alert(top3[0].letter);
+            console.log(top3);
         });
     }
 
