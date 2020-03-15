@@ -1125,7 +1125,7 @@ body {
 }
 
 .first-help {
-	position: absolute;
+	position: fixed;
 	top: 10px;
 	left: 30px;
 }
@@ -1138,6 +1138,7 @@ body {
 
 .first-namebox {
 	height: 100%;
+	padding-bottom: 100%;
 }
 
 .first-nameline {
@@ -1158,6 +1159,7 @@ body {
 
 .first-serverbox {
 	height: 100%;
+	padding-bottom: 100%;
 }
 
 .first-serverline {
@@ -1251,6 +1253,7 @@ body {
 
 .first-passbox {
 	height: 100%;
+	padding-bottom: 100%;
 }
 
 .first-input {
