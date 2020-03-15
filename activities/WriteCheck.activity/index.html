@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>WriteCheck Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link href='https://fonts.googleapis.com/css?family=Walter Turncoat' rel='stylesheet'>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.2"></script>
+ <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script> -->
+
+<script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+<div id="wrapper">
+  <img src="images/teacher.png" id="teacher">
+  <div id="message">Write Character Below</div>
+  <div id="paint-app"><canvas id="paint-canvas"></canvas></div>
+  <div id="Check">Let's see what you Wrote  &rarr;</div>
+  <!-- <div id="paintapp"></div>
+  <div id="resultapp"></div>
+  <button id="CheckButton">Check</button>
+  <button id="ClearButton">Clear</button> -->
+</div>
+<!-- The content of your activity goes inside the canvas -->
+     <script src="js/predicter.js"></script>
+
+</body>
+
+</html>

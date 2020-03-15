@@ -1,0 +1,6 @@
+[Activity]
+name = WriteCheck Activity
+activity_version = 1
+bundle_id = org.sugarlabs.WriteCheck
+exec = sugar-activity-web
+icon = activity-icon

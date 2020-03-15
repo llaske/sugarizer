@@ -1,0 +1,146 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+body{
+	 background-color: #282828;
+	 overflow: hidden;
+}
+#wrapper{
+	width:100vw;
+	height:90vh;
+	background-image: url(../images/greenboard.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
+}
+#teacher{
+	position: absolute;
+	bottom: 1vh;
+	left:14vw;
+	height: 50vh;
+	width: auto;
+	 -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */     
+	/*transform: perspective(50em) rotateX(50deg)*/
+}
+#message{
+	font-size: 2.5vw;
+	width: 30vw;
+	text-align: center;
+	position: absolute;
+	left: 35vw;
+	top: 14vh;
+	color: white;
+	font-family: Walter Turncoat;
+	-webkit-user-select: none;  
+	-moz-user-select: none;     
+	-ms-user-select: none;      
+	user-select: none;           
+}
+#Check{
+	font-size: 2vw;
+	width: 30vw;
+	text-align: center;
+	position: absolute;
+	left: 35vw;
+	bottom: 11vh;
+	border-style: solid;
+	border-color: white;
+	border-width: 2px;
+	border-radius: 10px;
+	color: white;
+	font-family: Walter Turncoat;
+	-webkit-user-select: none;  
+	-moz-user-select: none;     
+	-ms-user-select: none;   
+	user-select: none;       
+	cursor: pointer;
+}
+#paint-app{
+	position: absolute;
+	width: 25vw;
+	height: 25vw;
+	top: 24vh;
+	left: 37.5vw;
+	border-style: solid;
+	border-color: white;
+	border-width: 2px;
+}
+#paint-canvas{
+	cursor: crosshair;
+}
+/*#wrapper{
+	display: grid;
+	grid-template-columns: 67vw 33vw;
+	grid-template-rows: 85vh;
+	margin-top: 3vw;
+	scroll-behavior: auto;
+}
+#paintapp{
+	width: 60vw;
+	margin-left: 3.5vw;
+	height: 100%;
+	background-color: black;
+	border-style: solid;
+	border-width:5px;
+	border-color:#65bef0;
+	border-radius:15px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+#resultapp{
+	width: 33vw;
+	margin-left: -3.5vw;
+	margin-right: 3.5vw;
+	height: 100%;
+	background-color: white;
+	border-style: solid;
+	border-width:5px;
+	border-color:#65bef0;
+	border-radius:15px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-left-width:10px;
+}
+#CheckButton{
+	position: absolute;
+
+	left:57vw;
+	top:42vh;
+	margin: 10px auto 0;
+	width: 13vw;
+	font-size: 2.5vw;
+	padding: 1vw 1vw;
+	font-family: monospace;
+	font-weight: 700;
+	color:#1c1c2a;
+	border: 2px solid #65bef0;
+	border-radius: 3px;
+	background: #65bef0;
+	cursor: pointer;
+}
+#ClearButton{
+	position: absolute;
+	left:57vw;
+	top:50vh;
+	margin: 10px auto 0;
+	width: 13vw;
+	font-size: 2.5vw;
+	padding: 1vw 1vw;
+	font-family: monospace;
+	font-weight: 700;
+	color:#1c1c2a;
+	border: 2px solid #65bef0;
+	border-radius: 3px;
+	background: #65bef0;
+	cursor: pointer;
+}*/
+/*@media only screen and (max-width: 768px){
+	#wrapper{
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 45vh 45vh;
+	}
+}*/
