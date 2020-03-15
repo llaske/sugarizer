@@ -10,142 +10,82 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap-tour-standalone.min.js"></script>
+<script>if (window.module) module = window.module;</script>
+
+
+<link rel="stylesheet" href="lib/chessboardjs/css/chessboard-0.3.0.css">
 <script data-main="js/loader" src="lib/require.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-
+<script src="lib/chessboardjs/js/chess.js"></script>
+<script src="lib/chessboardjs/js/chessboard-0.3.0.js"></script>
+<!-- <script src="lib/jquery/jquery-3.2.1.min.js"></script>
+    -->
 		
 </head>
 
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="picture-button" title="Change background"></button>
   <button class="toolbutton" id="network-button" title="Network"></button>
   <!-- Add more buttons here -->
 
   <!-- Buttons with class="pull-right" will be right aligned -->
   <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
   
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
     <div class="header">
         <h1><u>Chess Activity</u> </h1>
-          <h2><a href="#rules" onclick="rules()">See Rules</a></h2>
+          
     </div>  
   
   <!-- Replace this message with your own content -->
   <div id="game">
-    
-  <div class="option-nav">
-    
-      <div id="player-nav">
-        Player: <span id="player"></span>
-      </div>
-      <div id="option" class="btn">
-        <i class="fa fa-cog" aria-hidden="true"></i>
-        <span class="tooltiptext">OPTION</span>
-      </div>
-      <div id="undo-btn" class="btn">
-        <i class="fa fa-undo" aria-hidden="true"></i>
-        <span class="tooltiptext">UNDO</span>
-      </div>
-    </div>
-    <div id="board">
-      <div id="result" class="hide"></div>
-      <div id="pawn-promotion-option" class="hide">
-         <span id="queen" class="option"></span>
-         <span id="rook" class="option"></span>
-         <span id="knight" class="option"></span>
-         <span id="bishop" class="option"></span>
-      </div>
-      <div id="option-menu" class="hide">
-         <div id="back-btn" class="button">BACK</div>
-         <div id="theme-menu">
-           THEME: <span id="theme-option" class="button"></span>
-         </div>
-         <div id="color-menu">
-           COLOR: <span id="color-option" class="button"></span>
-         </div>
-         <div id="restart-btn" class="button">NEW GAME</div>
-      </div>
-      <div id="game" ng-app="myApp" ng-controller="GameController">
-         <div class="row" ng-repeat="y in widths">
-            <div class="box" ng-repeat="x in widths" ng-attr-id="{{'box-' + x + '-' + y}}" piece="">
-            </div>
-         </div>
-      </div>
+    <div id="level"> <button onclick="begin()">Beginner</button>
+    <button onclick="inter()">Intermediate </button>
+    <button onclick="dif()">Difficult</button></div>
+   
+    <div id="board" class="board"></div>
+    <div class="info">
+       
+        <select id="search-depth">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button id="undo">Undo </button>
+        <button id="reset" onclick="window.location.reload(true);"> Reset </button>
+        <br>
+        <span>Positions evaluated: <span id="position-count"></span></span>
+        <br>
+        <span>Time: <span id="time"></span></span>
+        <br>
+        <span>Positions/s: <span id="positions-per-s"></span> </span>
+        <br>
+        <br>
+        <h4>Move Hisory</h4>
+        
+        <div id="move-history" class="move-history">
+          
+        </div>
     </div>
   </div>
-
-      
-
-      <div id="rules" class="container">
-      <div id="chess-rules">
-        <h1>Chess Rules</h1>
-        <li > <b>Chess game goal</b><br>
-          The ultimate aim in the chess game is delivering a checkmate – trapping your opponent´s king. The term checkmate is an alteration of the Persian phrase “Shah Mat”, meaning literally, “the King is ambushed”, and not “the King is dead”, that is a common misconception.
-          <br>
-         <b> General Chess Rules</b><br>
-          White is always first to move and players take turns alternately moving one piece at a time. Movement is required. If a player´s turn is to move, he is not in check but has no legal moves, this situation is called “Stalemate” and it ends the game in a draw.
-          <br>
-          Each type of piece has its own method of movement. A piece may be moved to another position or may capture an opponent´s piece, replacing on its square (en passant being the only exception). With the exception of the knight, a piece may not move over or through any of the other pieces.
-          <br>
-          When a king is threatened with capture (but can protect himself or escape), it´s called check. If a king is in check, then the player must make a move that eliminates the threat of capture and cannot leave the king in check.
-          <br>
-          Checkmate happens when a king is placed in check and there is no legal move to escape. Checkmate ends the game and the side whose king was checkmated looses. Chess for kids would be a great option to help the kid enhance his thinking capability with the chess strategies involved.
-          <br>
-          <b>The initial position setup</b><br>
-          The chessboard is made up of eight rows and eight columns for a total of 64 squares of alternating colors. Each square of the chessboard is identified with a unique pair of a letter and a number. The vertical files are labeled a through h, from White´s left (i.e. the queenside) to White´s right. Similarly, the horizontal ranks are numbered from 1 to 8, starting from the one nearest White´s side of the board. Each square of the board, then, is uniquely identified by its file letter and rank number.
-          <br>
-          In the initial position setup, the light queen is positioned on a light square and the dark queen is situated on a dark square.
-          <br>
-          The diagram below shows how the pieces should be initially situated.
-         
-        </li>
-          <li>
-          <b>Chess moves</b>><br>
-          King can move exactly one square horizontally, vertically, or diagonally. At most once in every game, each king is allowed to make a special move, known as castling.
-          Queen can move any number of vacant squares diagonally, horizontally, or vertically.
-          Rook can move any number of vacant squares vertically or horizontally. It also is moved while castling.
-          Bishop can move any number of vacant squares in any diagonal direction.
-          Knight can move one square along any rank or file and then at an angle. The knight´s movement can also be viewed as an “L” or “7″ laid out at any horizontal or vertical angle.
-          Pawns can move forward one square, if that square is unoccupied. If it has not yet moved, the pawn has the option of moving two squares forward provided both squares in front of the pawn are unoccupied. A pawn cannot move backward. Pawns are the only pieces that capture differently from how they move. They can capture an enemy piece on either of the two spaces adjacent to the space in front of them (i.e., the two squares diagonally in front of them) but cannot move to these spaces if they are vacant. The pawn is also involved in the two special moves en passant and promotion.
-          <br>
-          Castling<br>
-          Castling is the only time in the chess game when more than one piece moves during a turn. This chess move has been invented in the 1500´s to help speeding up the game and improving balance of the offense and defense.
-          <br>
-          During the castling, the king moves two squares towards the rook he intends to castle with, and the rook moves to the square through which the king passed.
-          <br>
-          Castling is only permissible if all of the following conditions hold:
-          <br>
-          Neither king nor rook involved in castling may have moved from the original position;
-          There must be no pieces between the king and the rook;
-          The king may not currently be in check, nor may the king pass through or end up in a square that is under attack by an enemy piece (though the rook is permitted to be under attack and to pass over an attacked square)
-          </li>
-          <li>
-          <b>En Passant</b><br>
-          En Passant may only occur when a pawn is moved two squares on its initial movement. When this happens, the opposing player has the option to take the moved pawn “en passant” as if it had only moved one square. This option, though, only stays open for one move.
-          The En Passant move was developed after pawns were allowed to move more than one square on their initial move. The idea behind this rule was to retain restrictions imposed by slow movement, while at the same time speeding up the game.
-        </li>
-          <li>
-         <b> Pawn promotion</b><br>
-          If a pawn reaches the opponent´s edge of the table, it will be promoted – the pawn may be converted to a queen, rook, bishop or knight, as the player desires. The choice is not limited to previously captured pieces. Thus its´ theoretically possible having up to nine queens or up to ten rooks, bishops, or knights if all pawns are promoted.
-          </li>
-        </div>
-      </div>
 </div>
-    <script >
-    document.getElementById("rules").style.display="none";
-		function rules(){
-			document.getElementById("rules").style.display="block";		
-    }
     
-    </script>
-    <script src="js/chess.js"></script>
    
+   
+    <script src="js/script.js"></script>
   
      
 </body>
