@@ -71,27 +71,27 @@ function _event_target(e){
     return (e.currentTarget) ? e.currentTarget : e.srcElement;
 }
 
-_p4d_proto.square_clicked = function(square){
-    var board = this.board_state.board;
-    var mover = this.board_state.to_play;
-    if (this.players[mover] == 'computer'){
-        p4_log("not your turn!");
-        return;
-    }
-    var piece = board[square];
-    if (this.start == square){
-        //clicked back on previously chosen piece -- putting it down again
-        this.stop_moving_piece();
-    }
-    else if (piece && (mover == (piece & 1))){
-        //clicked on player's colour, so it becomes start
-        this.start_moving_piece(square);
-    }
-    else if (this.move(this.start, square, P4WN_PROMOTION_INTS[this.pawn_becomes])){
-        /*If the move works, drop the piece.*/
-        this.stop_moving_piece(square);
-    }
-};
+// _p4d_proto.square_clicked = function(square){
+//     var board = this.board_state.board;
+//     var mover = this.board_state.to_play;
+//     if (this.players[mover] == 'computer'){
+//         p4_log("not your turn!");
+//         return;
+//     }
+//     var piece = board[square];
+//     if (this.start == square){
+//         //clicked back on previously chosen piece -- putting it down again
+//         this.stop_moving_piece();
+//     }
+//     else if (piece && (mover == (piece & 1))){
+//         //clicked on player's colour, so it becomes start
+//         this.start_moving_piece(square);
+//     }
+//     else if (this.move(this.start, square, P4WN_PROMOTION_INTS[this.pawn_becomes])){
+//         /*If the move works, drop the piece.*/
+//         this.stop_moving_piece(square);
+//     }
+// };
 
 _p4d_proto.move = function(start, end, promotion){
     var state = this.board_state;
@@ -266,10 +266,31 @@ _p4d_proto.write_board_html = function(){
             var td = p4d_new_child(tr, "td");
             td.className = (x + y) & 1 ? P4WN_BLACK_SQUARE : P4WN_WHITE_SQUARE;
             td.className = td.className + " box" + i;
-            _add_event_listener(td, 'click',
+            // _add_event_listener(td, 'click',
+            //                     function(p4d, n){
+            //                         return function(e){
+            //                             p4d.square_clicked(p4d.orientation ? 119 - n : n);
+            //                         };
+            //                     }(this, i));
+            _add_event_listener(td, 'dragstart',
                                 function(p4d, n){
                                     return function(e){
-                                        p4d.square_clicked(p4d.orientation ? 119 - n : n);
+                                        p4d.drag_start(e, n);
+                                        // console.log("drag started", n);
+                                    };
+                                }(this, i));
+            _add_event_listener(td, 'drag',
+                                function(p4d, n){
+                                    return function(e){
+                                        p4d.dragging(e, n);
+                                        // console.log("dragging", n);
+                                    };
+                                }(this, i));
+            _add_event_listener(td, 'dragend',
+                                function(p4d, n){
+                                    return function(e){
+                                        p4d.drag_stop(e, n);
+                                        // console.log("drag end", n);
                                     };
                                 }(this, i));
             var img = p4d_new_child(td, "img");

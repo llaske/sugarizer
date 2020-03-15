@@ -194,7 +194,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				}
 			});
 
-			//sunction to set background color
+			//function to set background color
 			function set_box_color(s,e){
 				document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
 				document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
@@ -217,6 +217,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 			var piece_not_picked = true;
 
+			//function to highlight moves
 			function highlight_possible_move(s){
 
 				var board = game["board_state"]["board"];
@@ -228,7 +229,24 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				if([3,5,7,9,11,13].indexOf(box_value) > -1){
 					colour = 1;
 				}
-				// console.log(game["board_state"].to_play, colour, game.orientation,box_value);
+				var mover = game.board_state.to_play;
+
+				//condition to make sure player doesn't make move of other in presence 
+				if(presence != null)
+				{
+					if(mover == 0)
+					{
+						if(isHost){}
+						else
+							return;
+					}
+					else
+					{
+						if(isHost == false){}
+						else
+							return;
+					}
+				}
 				if(piece_not_picked && (game["board_state"].to_play == colour)){
 					var pieces = null;
 					var dir = (10 - 20 * colour);
@@ -298,7 +316,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						}
 						else{//rook, bishop, queen
 							var mlen = moves.length;
-							for(i=0;i<mlen;){     //goeth thru list of moves
+							for(i=0;i<mlen;){
 								var m = moves[i++];
 								e=s;
 								do {
@@ -315,6 +333,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				}
 			}
 
+			//adding mouseover and mouseout events to all boxes
 			for (var y = 9; y > 1; y--){
 				for(var x = 1;  x < 9; x++){
 					var i = y * 10 + x;
@@ -327,7 +346,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					});
 					document.getElementsByClassName("box" + i)[0].addEventListener("mouseout", function(event){
 						clearInterval(timerId);
-						// console.log("mouse out");
 						theme_change(theme_no);
 					});
 				}
@@ -435,53 +453,58 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				setTimeout(notificationDiv, 1000);
 			};
 
-			//function to control movement of chess pieces
-			game.square_clicked = function(square){
-				var board = game.board_state.board;
-				var mover = game.board_state.to_play;
-				var piece = board[square];
-				//condition to make sure player doesn't make move of other in presence 
-				if(presence != null)
-				{
-					if(mover == 0)
-					{
-						if(isHost){}
-						else
-							return;
+			var drag_on_box = null;
+			var drag_piece_color = null;
+
+			game.drag_start = function(e,position){};
+
+			game.dragging = function(e,position){
+				
+				document.ondragover = function(e){
+					var box = e.target;
+					drag_on_box = box.parentNode.className.split('x')[1];
+					if(drag_on_box){
+
+						document.getElementsByClassName("box" + drag_on_box)[0].style.border = "2px solid orange";
 					}
-					else
-					{
-						if(isHost == false){}
-						else
-							return;
-					}
-				}
-				if (game.start == square){
-					//clicked back on previously chosen piece -- putting it down again
-					game.stop_moving_piece();
-					piece_not_picked = true;
-				}
-				else if (piece && (mover == (piece & 1))){
-					//clicked on player's colour, so it becomes start
-					game.start_moving_piece(square);
-					piece_not_picked = false;
-				}
-				else if (game.move(game.start, square, P4WN_PROMOTION_INTS[game.pawn_becomes])){
-					/*If the move works, drop the piece.*/
-					game.stop_moving_piece(square);
-					piece_not_picked = true;
-					if (presence) {
-						presence.sendMessage(presence.getSharedInfo().id, {
-							user: presence.getUserInfo(),
-							content: {
-								action:'update',
-								data: game,
-								log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-							}
-						});
+				};
+				document.ondragleave = function(e){
+					var box = e.target;
+					drag_on_box = box.parentNode.className.split('x')[1];
+					if(drag_on_box){
+						document.getElementsByClassName("box" + drag_on_box)[0].style.border = "";
 					}
 				}
-			}
+
+			};
+
+			game.drag_stop = function(e,pos){
+				var board_arr = game.board_state.board;
+				var drag_box_value = board_arr[((game.orientation == undefined) || (game.orientation == 0))? pos :(119- pos)];
+				if([2,4,6,8,10,12].indexOf(drag_box_value) > -1){
+					drag_piece_color = 0;
+				}
+				if([3,5,7,9,11,13].indexOf(drag_box_value) > -1){
+					drag_piece_color = 1;
+				}
+				if((drag_on_box != undefined) && (drag_piece_color == game.board_state.to_play)){
+					var result = game.move(((game.orientation == undefined) || (game.orientation == 0))? pos :(119- pos),
+					((game.orientation == undefined) || (game.orientation == 0))? drag_on_box :(119- drag_on_box),
+					P4WN_PROMOTION_INTS[game.pawn_becomes]);
+					if(result == true){
+						if (presence) {
+							presence.sendMessage(presence.getSharedInfo().id, {
+								user: presence.getUserInfo(),
+								content: {
+									action:'update',
+									data: game,
+									log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+								}
+							});
+						}
+					}
+				}
+			};
 
 			var onNetworkDataReceived = function(msg) {
 				if (presence.getUserInfo().networkId === msg.user.networkId) {

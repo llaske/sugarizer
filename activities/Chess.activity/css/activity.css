@@ -110,7 +110,7 @@
   #player_logo img{
     margin-top: 10%;
     height: 200px;
-    width:90px;
+    width:60px;
   }
   #button7{
     cursor: pointer;
@@ -129,8 +129,8 @@
   }
   .p4wn-log{
     /* scrollbar-color: #d67b46 #CFD8DC; */
-    padding-top: 10px;
-    width: 150px;
+    padding-top: 150px;
+    width: 180px;
   }
   .p4wn-log-move{
     margin-left: 8px;
@@ -163,7 +163,7 @@
   } */
   #player_logo img{
     height: 200px;
-    width:120px;
+    width:90px;
   }
   #button7{
     cursor: pointer;
@@ -183,7 +183,7 @@
   .p4wn-log{
     /* scrollbar-color: #d67b46 #CFD8DC; */
     padding-top: 10px;
-    width: 150px;
+    width: 180px;
   }
   .p4wn-log-move{
     margin-left: 8px;
@@ -236,14 +236,14 @@
   .p4wn-log{
     /* scrollbar-color: #d67b46 #CFD8DC; */
     padding-top: 10px;
-    width: 180px;
+    width: 220px;
   }
   .p4wn-log-move{
     margin-left: 15px;
     font-size: 15px;
     color: black;
   }
-}  
+}
 
 #fullscreen-button {
     background-image: url(../icons/view-fullscreen.svg);
