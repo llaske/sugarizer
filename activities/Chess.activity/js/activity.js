@@ -194,23 +194,25 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				}
 			});
 
-			//function to check if particular move removes check or not
-			function move_removed_check(s,e,box_value,colour){
-				var board = game["board_state"]["board"];
-				var board_s_value = board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s)];
-				var board_e_value = board[((game.orientation == undefined) || (game.orientation == 0))?e:(119-e)];
-				var result = false; 
-				board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s)] = 0;
-				board[((game.orientation == undefined) || (game.orientation == 0))?e:(119-e)] = box_value;
-				if(p4_check_check(game["board_state"], colour)){
-					result = false;	
+			//sunction to set background color
+			function set_box_color(s,e){
+				document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
+				document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
+			}
+
+			//check if particular move creates 'check'
+			function move_creates_check(s,e,colour){
+				var move_will_check = false;
+				if(game["board_state"].pieces != undefined){
+					var changes = p4_make_move(game["board_state"], ((game.orientation == undefined) || (game.orientation == 0))?s:(119-s), ((game.orientation == undefined) || (game.orientation == 0))?e:(119-e), game.pawn_becomes);
+					if (p4_check_check(game["board_state"], colour)){
+						move_will_check = true;
+					}
+					p4_unmake_move(game["board_state"], changes);
 				}
-				else{
-					result = true;
+				if(!move_will_check){
+					set_box_color(s,e);
 				}
-				board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s)] = board_s_value;
-				board[((game.orientation == undefined) || (game.orientation == 0))?e:(119-e)] = board_e_value;
-				return result;
 			}
 
 			var piece_not_picked = true;
@@ -247,30 +249,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						e =s + dir;
 						var board_e_conditon = ((game.orientation == undefined) || (game.orientation == 0))? board[e]:board[119-e];
 						if(!board_e_conditon){
-							if(check){
-								if(move_removed_check(s,e,box_value,colour)){
-									document.getElementsByClassName("box" + s)[0].style.background = "darkblue";
-									document.getElementsByClassName("box" + e)[0].style.background = "#6495ED";
-								}
-							}
-							else{
-								document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-								document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-							}
+							move_creates_check(s,e,colour);
 								
 
 							var e2 = e + dir;
 							if(s * (120 - s) < 3200 && (!board[((game.orientation == undefined) || (game.orientation == 0))?e2:(119-e2)])){
-								if(check){
-									if(move_removed_check(s,e2,box_value,colour)){
-										document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-										document.getElementsByClassName("box" + e2)[0].style.backgroundColor = "#6495ED";
-									}
-								}
-								else{
-									document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-									document.getElementsByClassName("box" + e2)[0].style.backgroundColor = "#6495ED";
-								}
+								move_creates_check(s,e2,colour);
 							}
 						}
 
@@ -278,31 +262,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						e = e-1;
 						E = ((game.orientation == undefined) || (game.orientation == 0))? board[e] : board[119-e];
 						if(E && (E & 17) == other_colour){
-
-							if(check){
-								if(move_removed_check(s,e,box_value,colour)){
-									document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-									document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-								}
-							}
-							else{
-								document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-								document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-							}
+							move_creates_check(s,e,colour);
 						}
 						e = e+2;
 						E = ((game.orientation == undefined) || (game.orientation == 0))? board[e]:board[119-e] ;
 						if(E && (E & 17) == other_colour){
-							if(check){
-								if(move_removed_check(s,e,box_value,colour)){
-									document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-									document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-								}
-							}
-							else{
-								document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-								document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-							}
+							move_creates_check(s,e,colour);
 						}
 					}
 					else if(colour != null && pieces!=null){
@@ -312,39 +277,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							for(i = 0; i < 8; i++){
 								e = s + moves[i];
 								E = board[((game.orientation == undefined) || (game.orientation == 0))?e:(119-e)];
-								if(!E){
-									if(check){
-										if(move_removed_check(s,e,box_value,colour)){
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-										}
-									}
-									else{
-										var changes = p4_make_move(game["board_state"], ((game.orientation == undefined) || (game.orientation == 0))?s:(119-s), ((game.orientation == undefined) || (game.orientation == 0))?e:(119-e), game.pawn_becomes);
-										var move_will_check = false;
-										if (p4_check_check(game["board_state"], colour)){
-											move_will_check = true;
-										}
-										p4_unmake_move(game["board_state"], changes);
-										if(!move_will_check){
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-										}
-										
-									}
-								}
-								else if((E&17)==other_colour){
-
-									if(check){
-										if(move_removed_check(s,e,box_value,colour)){
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-										}
-									}
-									else{
-										document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-										document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-									}
+								if(!E || ((E&17)==other_colour)){
+									move_creates_check(s,e,colour);
 								}
 							}
 							if(a == P4_KING && castle_flags){
@@ -353,31 +287,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 									board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s) - 2] +
 									board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s) - 3] == 0) &&
 									p4_check_castling(board, ((game.orientation == undefined) || (game.orientation == 0))?s:(119-s) - 2, other_colour, dir, -1)){//Q side
-									if(check){
-										if(move_removed_check(s,s-2,box_value,colour)){
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + (s-2))[0].style.backgroundColor = "#6495ED";
-										}
-									}
-									else{
-										document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-										document.getElementsByClassName("box" + (s-2))[0].style.backgroundColor = "#6495ED";
-									}
-
+									move_creates_check(s,(s-2),colour);
 								}
 								if((castle_flags & 2) && (board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s) + 1] +
 								 	board[((game.orientation == undefined) || (game.orientation == 0))?s:(119-s) + 2] == 0) &&
 									p4_check_castling(board, ((game.orientation == undefined) || (game.orientation == 0))?s:(119-s), other_colour, dir, 1)){//K side
-									if(check){
-										if(move_removed_check(s,s+2,box_value,colour)){
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + (s+2))[0].style.backgroundColor = "#6495ED";
-										}
-									}
-									else{
-										document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-										document.getElementsByClassName("box" + (s+2))[0].style.backgroundColor = "#6495ED";
-									}
+									move_creates_check(s,(s+2),colour);
 								}
 							}
 						}
@@ -389,29 +304,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 								do {
 									e+=m;
 									E=board[((game.orientation == undefined) || (game.orientation == 0))?e:(119-e)];
-									if(!E){
-										if(check){
-											if(move_removed_check(s,e,box_value,colour)){
-												document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-												document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-											}
-										}
-										else{
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-										}
-									}
-									else if((E&17)==other_colour){
-										if(check){
-											if(move_removed_check(s,e,box_value,colour)){
-												document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-												document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-											}
-										}
-										else{
-											document.getElementsByClassName("box" + s)[0].style.background = "#0F52BA";
-											document.getElementsByClassName("box" + e)[0].style.backgroundColor = "#6495ED";
-										}
+									if(!E || ((E&17)==other_colour)){
+										move_creates_check(s,e,colour);
 									}
 								}while(!E);
 							}

@@ -823,7 +823,6 @@ function p4_make_move(state, s, e, promotion){
             mask |= 8 >> shift;
         state.castles &= ~mask;
     }
-
     var old_pieces = state.pieces.concat();
     var our_pieces = old_pieces[moved_colour];
     var dest = state.pieces[moved_colour] = [];
