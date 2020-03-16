@@ -38,12 +38,17 @@
 #main-toolbar #restart-button {
   background-image: url(../icons/system-restart.svg);
   color: white;
-  margin-left: 2%;
+}
+
+#main-toolbar #switch-player-button {
+  background-image: url(../icons/switch-player.svg);
+  color: white;
 }
 
 #main-toolbar #undo-button {
-  background-image: url(../icons/go-left.svg);
+  background-image: url(../icons/undo.svg);
   color: white;
+  margin-left: 2%;
 }
 
 #main-toolbar #leave-game-button {

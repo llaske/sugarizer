@@ -29,6 +29,12 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoNetworkContent")
 			},
 			{
+				element: "#switch-player-button",
+				placement: "bottom",
+				title: l10n.get("TutoSwitchPlayerTitle"),
+				content: l10n.get("TutoSwitchPlayerContent")
+			},
+			{
 				element: "#restart-button",
 				placement: "bottom",
 				title: l10n.get("TutoRestartTitle"),

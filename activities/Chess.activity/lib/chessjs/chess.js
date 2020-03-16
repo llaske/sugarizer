@@ -1616,6 +1616,15 @@ var Chess = function (fen) {
             return turn
         },
 
+        setTurn: function (newTurn) {
+        	if (newTurn === 'w') {
+        		turn = WHITE;
+        	}
+        	else {
+        		turn = BLACK;
+        	}
+        },
+
         move: function (move, options) {
             /* The move function can be called with in the following parameters:
              *

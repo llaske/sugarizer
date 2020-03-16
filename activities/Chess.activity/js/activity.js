@@ -17,6 +17,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		var easy = true;
 		var medium = false;
 		var hasLeftTheGame = false;
+		var isSinglePlayerBlack = false;
 		var canvasSize = document.getElementById("canvas").parentNode.offsetHeight - 55;
 		var userIcon = null;
 		canvasSize -= (3 * canvasSize) / 100;
@@ -86,6 +87,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 				easyButton.style.visibility = "hidden";
 				hardButton.style.visibility = "hidden";
+				switchPlayerButton.style.visibility = "hidden";
 				restartButton.style.visibility = "hidden";
 				undoButton.style.visibility = "hidden";
 				leaveGameButton.style.visibility = "visible";
@@ -578,6 +580,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		var moveHistory = document.getElementById("move-history");
 		var undoButton = document.getElementById("undo-button");
 		var leaveGameButton = document.getElementById("leave-game-button");
+		var switchPlayerButton = document.getElementById("switch-player-button");
 
 		easyButton.addEventListener("click", function(event) {
 			var userIcon = generateXOLogoWithColor(currentenv.user.colorvalue);
@@ -627,6 +630,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			var moveHistory = document.getElementById("move-history");
 			moveHistory.innerHTML = "";
 			easy = true;
+			medium = false;
+			isSinglePlayerBlack = false;
 			document.getElementById("in-check").innerHTML = "";
 			document.getElementById("in-checkmate").innerHTML = "";
 			document.getElementById("in-draw").innerHTML = "";
@@ -644,6 +649,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				isBlackPlayer = false;
 				easyButton.style.visibility = "visible";
 				hardButton.style.visibility = "visible";
+				switchPlayerButton.style.visibility = "visible";
 				restartButton.style.visibility = "visible";
 				undoButton.style.visibility = "visible";
 				leaveGameButton.style.visibility = "hidden";
@@ -702,6 +708,42 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			};
 			board = ChessBoard('board', config);
 		}
+		switchPlayerButton.addEventListener("click", function (event) {
+			if (isSinglePlayerBlack) {
+				game.undo();
+				game.setTurn('w');
+				var config = {
+					draggable: true,
+					position: game.fen(),
+					onDragStart: onDragStart,
+					onDrop: onDrop,
+					onMouseoutSquare: onMouseoutSquare,
+					onMouseoverSquare: onMouseoverSquare,
+					onSnapEnd: onSnapEnd,
+					orientation: 'white'
+				};
+				board = ChessBoard('board', config);
+				isSinglePlayerBlack = false;
+				
+			}
+			else {
+				game.undo();
+				game.setTurn('b');
+				var config = {
+					draggable: true,
+					position: game.fen(),
+					onDragStart: onDragStart,
+					onDrop: onDrop,
+					onMouseoutSquare: onMouseoutSquare,
+					onMouseoverSquare: onMouseoverSquare,
+					onSnapEnd: onSnapEnd,
+					orientation: 'black'
+				};
+				board = ChessBoard('board', config);
+				isSinglePlayerBlack = true;
+				
+			}
+		});
 		// Launch tutorial
 		document.getElementById("help-button").addEventListener('click', function (event) {
 			// board = Chessboard('board', position='start');
@@ -802,12 +844,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					moveHistory.innerHTML = "";
 					var easyButton = document.getElementById("easy-button");
 					var hardButton = document.getElementById("hard-button");
+					var switchPlayerButton = document.getElementById("switch-player-button");
 					var restartButton = document.getElementById("restart-button");
 					var undoButton = document.getElementById("undo-button");
 					var leaveGameButton = document.getElementById("leave-game-button");
 
 					easyButton.style.visibility = "hidden";
 					hardButton.style.visibility = "hidden";
+					switchPlayerButton.style.visibility = "hidden";
 					restartButton.style.visibility = "hidden";
 					undoButton.style.visibility = "hidden";
 					leaveGameButton.style.visibility = "visible";
