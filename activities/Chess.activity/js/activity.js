@@ -34,6 +34,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			});
 
 			document.getElementById("button7").style.border = "4px solid" + currentenv.user.colorvalue.stroke;
+			
+			var connectedUsers = {};
 
 			document.getElementById("play-again").addEventListener('click', function(){
 				game.start = 0;
@@ -175,6 +177,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							action:'update',
 							data: game,
 							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+							users_connected: connectedUsers
 						}
 					});
 				}
@@ -189,6 +192,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							action:'update',
 							data: game,
 							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+							users_connected: connectedUsers
 						}
 					});
 				}
@@ -257,6 +261,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					var castle_flags = (game["board_state"].castles >> (colour * 2)) & 3;
 					if(game["board_state"].pieces !== undefined)
 						pieces = game["board_state"].pieces[colour];
+					else
+						pieces = 0;
 					var check = false;
 					if(p4_check_check(game["board_state"], colour)){
 						check = true;
@@ -431,17 +437,31 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				});
 			});
 			
+			
 			var onNetworkUserChanged = function(msg) {
 				if (isHost) {
+					console.log("host");
 					var log_div = document.getElementsByClassName("p4wn-log")[0];
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
 						content: {
 							action: 'init',
 							data: game,
-							log_div_html: log_div.innerHTML
+							log_div_html: log_div.innerHTML,
+							users_connected: connectedUsers
 						}
 					});
+				}
+				else if(msg.content!=undefined){
+					connectedUsers = msg.content.users_connected;
+					connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+				}
+				console.log(connectedUsers);
+				if(msg.move == 1){
+					connectedUsers[msg.user.networkId] = msg.user.name;
+				}
+				if(msg.move == -1){
+					delete connectedUsers[msg.user.networkId];
 				}
 				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
 				document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
@@ -499,6 +519,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 									action:'update',
 									data: game,
 									log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+									users_connected: connectedUsers
 								}
 							});
 						}
@@ -506,13 +527,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				}
 			};
 
+			var is_spectator = false;
+			var second_player = null;
 			var onNetworkDataReceived = function(msg) {
 				if (presence.getUserInfo().networkId === msg.user.networkId) {
 					return;
 				}
 				switch (msg.content.action) {
 					case 'init':{
-						console.log("inside init");
+						connectedUsers = msg.content.users_connected;
+						connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+						// console.log("inside init");
+						console.log("connected user in init", connectedUsers);
 						game.players[0] = "human";
 						game.players[1] = "human";
 						document.getElementById("button1").disabled = true;
@@ -520,21 +546,50 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						document.getElementById("button6").disabled = true;
 						game.refresh_buttons();
 						set_board(msg.content.data["board_state"]);
-						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
-						if(game["draw_offers"] == 1)
-							document.getElementById("button7").style.display = 'inline-block';
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
 						game.rotate_board_for_black();
 						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
-						break;
-					}
-					case 'update':{
-						console.log("inside update");
-						set_board(msg.content.data["board_state"]);
+						if(Object.keys(connectedUsers).length == 2){
+							second_player = currentenv.user.networkId;
+						}
+						//SPECTATOR MODE
+						if(Object.keys(connectedUsers).length > 2 && (is_spectator == false) && (second_player != currentenv.user.networkId)){
+							console.log("is_spectator ", is_spectator);
+							is_spectator = true;
+							document.getElementById("restart-game").disabled = true;
+							document.getElementById("button5").disabled = true;
+							document.getElementById("button4").disabled = true;
+							document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "none";
+							console.log("SPECTATOR MODE",Object.keys(connectedUsers).length);
+							break;
+						}
 						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
 						if(game["draw_offers"] == 1)
 							document.getElementById("button7").style.display = 'inline-block';
+						break;
+					}
+					case 'update':{
+						connectedUsers = msg.content.users_connected;
+						connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+						document.getElementById("restart-game").disabled = false;
+						document.getElementById("button5").disabled = false;
+						document.getElementById("button4").disabled = false;
+						// console.log("inside update");
+						console.log("connected user in update", connectedUsers);
+						set_board(msg.content.data["board_state"]);
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
+						//SPECTATOR MODE
+						if(is_spectator){
+							document.getElementById("restart-game").disabled = true;
+							document.getElementById("button5").disabled = true;
+							document.getElementById("button4").disabled = true;
+							document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "none";
+							// // console.log("SPECTATOR MODE");
+							break;
+						}
+						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
+						if(game["draw_offers"] == 1)
+							document.getElementById("button7").style.display = 'inline-block';
 						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 						break;
 					}
@@ -561,6 +616,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					}
 				});
 			}
+
 			// Shared instances
 			if (environment.sharedId) {
 				console.log("Shared instance", game);
