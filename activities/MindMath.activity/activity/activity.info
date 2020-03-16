@@ -1,6 +1,0 @@
-[Activity]
-name = My Activity
-activity_version = 1
-bundle_id = org.sugarlabs.MyActivity
-exec = sugar-activity-web
-icon = activity-icon
