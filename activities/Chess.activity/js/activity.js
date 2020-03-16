@@ -177,7 +177,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							action:'update',
 							data: game,
 							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-							users_connected: connectedUsers
+							users_connected: connectedUsers,
+							second_user:second_player
 						}
 					});
 				}
@@ -192,7 +193,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							action:'update',
 							data: game,
 							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-							users_connected: connectedUsers
+							users_connected: connectedUsers,
+							second_user:second_player
 						}
 					});
 				}
@@ -448,19 +450,46 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							action: 'init',
 							data: game,
 							log_div_html: log_div.innerHTML,
-							users_connected: connectedUsers
+							users_connected: connectedUsers,
+							second_user:second_player
 						}
 					});
 				}
 				else if(msg.content!=undefined){
 					connectedUsers = msg.content.users_connected;
 					connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+					second_player = msg.content.second_user;
+					if(Object.keys(connectedUsers).length == 2){
+						second_player = currentenv.user.networkId;
+						// msg.content.second_user = second_player;
+					}
 				}
-				console.log(connectedUsers);
+				console.log("second player", second_player);
 				if(msg.move == 1){
 					connectedUsers[msg.user.networkId] = msg.user.name;
 				}
-				if(msg.move == -1){
+				console.log("inside onNetworkUserChanged",
+				 second_player,msg.user.networkId,
+				 msg);
+				if(msg.move == -1 && (second_player == msg.user.networkId)){
+					var connectedUsers_keys = Object.keys(connectedUsers);
+					var index = connectedUsers_keys.indexOf(second_player);
+					second_player = connectedUsers_keys[index+1];
+					delete connectedUsers[msg.user.networkId];
+					if (presence) {
+						presence.sendMessage(presence.getSharedInfo().id, {
+							user: presence.getUserInfo(),
+							content: {
+								action:'update',
+								data: game,
+								log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+								users_connected: connectedUsers,
+								second_user:second_player
+							}
+						});
+					}
+				}
+				else if(msg.move == -1){
 					delete connectedUsers[msg.user.networkId];
 				}
 				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
@@ -519,7 +548,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 									action:'update',
 									data: game,
 									log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-									users_connected: connectedUsers
+									users_connected: connectedUsers,
+									second_user:second_player
 								}
 							});
 						}
@@ -537,8 +567,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					case 'init':{
 						connectedUsers = msg.content.users_connected;
 						connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+						second_player = msg.content.second_user;
 						// console.log("inside init");
-						console.log("connected user in init", connectedUsers);
+						// console.log("connected user in init", connectedUsers);
 						game.players[0] = "human";
 						game.players[1] = "human";
 						document.getElementById("button1").disabled = true;
@@ -551,7 +582,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 						if(Object.keys(connectedUsers).length == 2){
 							second_player = currentenv.user.networkId;
+							// msg.content.second_user = second_player;
 						}
+						console.log("second player in init", second_player);
 						//SPECTATOR MODE
 						if(Object.keys(connectedUsers).length > 2 && (is_spectator == false) && (second_player != currentenv.user.networkId)){
 							console.log("is_spectator ", is_spectator);
@@ -571,15 +604,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					case 'update':{
 						connectedUsers = msg.content.users_connected;
 						connectedUsers[currentenv.user.networkId] = currentenv.user.name;
+						second_player = msg.content.second_user;
 						document.getElementById("restart-game").disabled = false;
 						document.getElementById("button5").disabled = false;
 						document.getElementById("button4").disabled = false;
+						document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "auto";
 						// console.log("inside update");
 						console.log("connected user in update", connectedUsers);
 						set_board(msg.content.data["board_state"]);
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
+						if((Object.keys(connectedUsers).length == 2) && (isHost!=true)){
+							second_player = currentenv.user.networkId;
+							// msg.content.second_user = second_player;
+						}
+						// console.log("second player in update", second_player);
 						//SPECTATOR MODE
-						if(is_spectator){
+						console.log("in update", is_spectator,second_player,currentenv.user.networkId);
+						if(is_spectator && (second_player != currentenv.user.networkId)){
 							document.getElementById("restart-game").disabled = true;
 							document.getElementById("button5").disabled = true;
 							document.getElementById("button4").disabled = true;
