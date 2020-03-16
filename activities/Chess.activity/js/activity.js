@@ -15,6 +15,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		var isBlackPlayer = false;
 		var isSpectator = false;
 		var easy = true;
+		var medium = false;
 		var hasLeftTheGame = false;
 		var canvasSize = document.getElementById("canvas").parentNode.offsetHeight - 55;
 		var userIcon = null;
@@ -171,7 +172,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				game.move(newGameMove);
 
 				//take the negative as AI plays as black
-				var boardValue = -evaluateBoard(game.board())
+				var boardValue = -evaluateBoard12(game.board())
 				game.undo();
 				if (boardValue > bestValue) {
 					bestValue = boardValue;
@@ -183,21 +184,21 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 		};
 
-		var evaluateBoard = function (board) {
+		var evaluateBoard12 = function (board) {
 			var totalEvaluation = 0;
 			for (var i = 0; i < 8; i++) {
 				for (var j = 0; j < 8; j++) {
-					totalEvaluation = totalEvaluation + getPieceValue(board[i][j]);
+					totalEvaluation = totalEvaluation + getPieceValue12(board[i][j]);
 				}
 			}
 			return totalEvaluation;
 		};
 
-		var getPieceValue = function (piece) {
+		var getPieceValue12 = function (piece) {
 			if (piece === null) {
 				return 0;
 			}
-			var getAbsoluteValue = function (piece) {
+			var getAbsoluteValue12 = function (piece) {
 				if (piece.type === 'p') {
 					return 10;
 				} else if (piece.type === 'r') {
@@ -214,7 +215,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				throw "Unknown piece type: " + piece.type;
 			};
 
-			var absoluteValue = getAbsoluteValue(piece, piece.color === 'w');
+			var absoluteValue = getAbsoluteValue12(piece, piece.color === 'w');
 			return piece.color === 'w' ? absoluteValue : -absoluteValue;
 		};
 
@@ -272,6 +273,126 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			}
 		};
 
+		var evaluateBoard = function (board) {
+			var totalEvaluation = 0;
+			for (var i = 0; i < 8; i++) {
+				for (var j = 0; j < 8; j++) {
+					totalEvaluation = totalEvaluation + getPieceValue(board[i][j], i, j);
+				}
+			}
+			return totalEvaluation;
+		};
+
+		var reverseArray = function (array) {
+			return array.slice().reverse();
+		};
+
+		var pawnEvalWhite =
+			[
+				[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+				[5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0],
+				[1.0, 1.0, 2.0, 3.0, 3.0, 2.0, 1.0, 1.0],
+				[0.5, 0.5, 1.0, 2.5, 2.5, 1.0, 0.5, 0.5],
+				[0.0, 0.0, 0.0, 2.0, 2.0, 0.0, 0.0, 0.0],
+				[0.5, -0.5, -1.0, 0.0, 0.0, -1.0, -0.5, 0.5],
+				[0.5, 1.0, 1.0, -2.0, -2.0, 1.0, 1.0, 0.5],
+				[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+			];
+
+		var pawnEvalBlack = reverseArray(pawnEvalWhite);
+
+		var knightEval =
+			[
+				[-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0],
+				[-4.0, -2.0, 0.0, 0.0, 0.0, 0.0, -2.0, -4.0],
+				[-3.0, 0.0, 1.0, 1.5, 1.5, 1.0, 0.0, -3.0],
+				[-3.0, 0.5, 1.5, 2.0, 2.0, 1.5, 0.5, -3.0],
+				[-3.0, 0.0, 1.5, 2.0, 2.0, 1.5, 0.0, -3.0],
+				[-3.0, 0.5, 1.0, 1.5, 1.5, 1.0, 0.5, -3.0],
+				[-4.0, -2.0, 0.0, 0.5, 0.5, 0.0, -2.0, -4.0],
+				[-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0]
+			];
+
+		var bishopEvalWhite = [
+			[-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0],
+			[-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0],
+			[-1.0, 0.0, 0.5, 1.0, 1.0, 0.5, 0.0, -1.0],
+			[-1.0, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, -1.0],
+			[-1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, -1.0],
+			[-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0],
+			[-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0],
+			[-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0]
+		];
+
+		var bishopEvalBlack = reverseArray(bishopEvalWhite);
+
+		var rookEvalWhite = [
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5],
+			[-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5],
+			[-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5],
+			[-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5],
+			[-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5],
+			[-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5],
+			[0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0]
+		];
+
+		var rookEvalBlack = reverseArray(rookEvalWhite);
+
+		var evalQueen =
+			[
+				[-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
+				[-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0],
+				[-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0],
+				[-0.5, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5],
+				[0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5],
+				[-1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0],
+				[-1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -1.0],
+				[-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0]
+			];
+
+		var kingEvalWhite = [
+
+			[-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+			[-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+			[-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+			[-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+			[-2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0],
+			[-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0],
+			[2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0],
+			[2.0, 3.0, 1.0, 0.0, 0.0, 1.0, 3.0, 2.0]
+		];
+
+		var kingEvalBlack = reverseArray(kingEvalWhite);
+
+
+
+
+		var getPieceValue = function (piece, x, y) {
+			if (piece === null) {
+				return 0;
+			}
+			var getAbsoluteValue = function (piece, isWhite, x, y) {
+				if (piece.type === 'p') {
+					return 10 + (isWhite ? pawnEvalWhite[y][x] : pawnEvalBlack[y][x]);
+				} else if (piece.type === 'r') {
+					return 50 + (isWhite ? rookEvalWhite[y][x] : rookEvalBlack[y][x]);
+				} else if (piece.type === 'n') {
+					return 30 + knightEval[y][x];
+				} else if (piece.type === 'b') {
+					return 30 + (isWhite ? bishopEvalWhite[y][x] : bishopEvalBlack[y][x]);
+				} else if (piece.type === 'q') {
+					return 90 + evalQueen[y][x];
+				} else if (piece.type === 'k') {
+					return 900 + (isWhite ? kingEvalWhite[y][x] : kingEvalBlack[y][x]);
+				}
+				throw "Unknown piece type: " + piece.type;
+			};
+
+			var absoluteValue = getAbsoluteValue(piece, piece.color === 'w', x, y);
+			return piece.color === 'w' ? absoluteValue : -absoluteValue;
+		};
+
 
 		/* board visualization and games state handling starts here*/
 
@@ -309,8 +430,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			if (easy) {
 				var bestMove = calculateBestMove1(game);
 			}
-			else {
+			else if (medium) {
 				var bestMove = calculateBestMove2(game);
+			}
+			else {
+				positionCount = 0;
+				var bestMove = minimaxRoot(3, game, true);
+
 			}
 			
 			return bestMove;
@@ -454,14 +580,37 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 		var leaveGameButton = document.getElementById("leave-game-button");
 
 		easyButton.addEventListener("click", function(event) {
-			easy = true;
 			var userIcon = generateXOLogoWithColor(currentenv.user.colorvalue);
-			document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-off.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Easy") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+			if (easy) {
+				return;
+			}
+			else {
+				if (medium) {
+					medium = false;
+					easy = true;
+					document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-off.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Easy") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+				}
+				else {
+					medium = true;
+					document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-off.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Medium") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+				}
+			}
 		});
 		hardButton.addEventListener("click", function(event) {
-			easy = false;
-			var userIcon = generateXOLogoWithColor(currentenv.user.colorvalue);
-			document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-on.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Hard") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+			if (easy) {
+				easy = false;
+				medium = true;
+				document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-off.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Medium") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+			}
+			else {
+				if (medium) {
+					medium = false;
+					document.getElementById("header").innerHTML = "<h2><img class='labelled' src='img/chesspieces/wikipedia/wQ.png'><strong> " + currentenv.user.name + "<img src='" + userIcon + "'></strong> vs. <img src='icons/robot-on.svg'>" + webL10n.get("Computer") + " (<strong>" + webL10n.get("Hard") + "</strong>) <img class='labelled' src='img/chesspieces/wikipedia/bQ.png'>" + "</h2>";
+				}
+				else {
+					return;
+				}
+			}
 		});
 		restartButton.addEventListener("click", function(event) {
 			var config = {
