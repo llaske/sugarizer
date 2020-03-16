@@ -382,20 +382,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						game["board_state"]["values"] = data_obj["values"];
 						
 						if(game.pawn_becomes == 0){
-							document.getElementById("button5").style.backgroundImage = "url('images/white_queen.svg')";
-							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_queen.svg')";
+							document.getElementById("button5").style.backgroundImage = "url('images/white_queen.png')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_queen.png')";
 						}
 						else if(game.pawn_becomes == 1){
-							document.getElementById("button5").style.backgroundImage = "url('images/white_rook.svg')";
-							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_rook.svg')";
+							document.getElementById("button5").style.backgroundImage = "url('images/white_rook.png')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_rook.png')";
 						}
 						else if(game.pawn_becomes == 2){
-							document.getElementById("button5").style.backgroundImage = "url('images/white_knight.svg')";
-							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_knight.svg')";
+							document.getElementById("button5").style.backgroundImage = "url('images/white_knight.png')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_knight.png')";
 						}
 						else if(game.pawn_becomes == 3){
-							document.getElementById("button5").style.backgroundImage = "url('images/white_bishop.svg')";
-							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_bishop.svg')";
+							document.getElementById("button5").style.backgroundImage = "url('images/white_bishop.png')";
+							document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_bishop.png')";
 						}
 			}
 
@@ -465,7 +465,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					drag_on_box = box.parentNode.className.split('x')[1];
 					if(drag_on_box){
 
-						document.getElementsByClassName("box" + drag_on_box)[0].style.border = "2px solid orange";
+						document.getElementsByClassName("box" + drag_on_box)[0].style.border = "1px ridge orange";
 					}
 				};
 				document.ondragleave = function(e){

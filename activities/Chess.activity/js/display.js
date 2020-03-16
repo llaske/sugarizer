@@ -34,18 +34,18 @@ var P4WN_IMAGE_DIR = 'images';
 var P4WN_IMAGE_NAMES = [
     'empty.gif',
     '',   // 1 is unused
-    'white_pawn.svg',
-    'black_pawn.svg',
-    'white_rook.svg',
-    'black_rook.svg',
-    'white_knight.svg',
-    'black_knight.svg',
-    'white_bishop.svg',
-    'black_bishop.svg',
-    'white_king.svg',
-    'black_king.svg',
-    'white_queen.svg',
-    'black_queen.svg'
+    'white_pawn.png',
+    'black_pawn.png',
+    'white_rook.png',
+    'black_rook.png',
+    'white_knight.png',
+    'black_knight.png',
+    'white_bishop.png',
+    'black_bishop.png',
+    'white_king.png',
+    'black_king.png',
+    'white_queen.png',
+    'black_queen.png'
   ];
 
 

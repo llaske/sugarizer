@@ -13,29 +13,29 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/pawnpromotionpalet
 		var that = this;
 		document.getElementById("option-queen").addEventListener('click', function(event) {
 			that.promotionEvent.option = 0;
-			document.getElementById("button5").style.backgroundImage = "url('images/white_queen.svg')";
-			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_queen.svg')";
+			document.getElementById("button5").style.backgroundImage = "url('images/white_queen.png')";
+			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_queen.png')";
 			that.getPalette().dispatchEvent(that.promotionEvent);
 			that.popDown();
 		});
 		document.getElementById("option-rook").addEventListener('click', function(event) {
 			that.promotionEvent.option = 1;
-			document.getElementById("button5").style.backgroundImage = "url('images/white_rook.svg')";
-			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_rook.svg')";
+			document.getElementById("button5").style.backgroundImage = "url('images/white_rook.png')";
+			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_rook.png')";
 			that.getPalette().dispatchEvent(that.promotionEvent);
 			that.popDown();
 		});
 		document.getElementById("option-knight").addEventListener('click', function(event) {
 			that.promotionEvent.option = 2;
-			document.getElementById("button5").style.backgroundImage = "url('images/white_knight.svg')";
-			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_knight.svg')";
+			document.getElementById("button5").style.backgroundImage = "url('images/white_knight.png')";
+			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_knight.png')";
 			that.getPalette().dispatchEvent(that.promotionEvent);
 			that.popDown();
 		});
 		document.getElementById("option-bishop").addEventListener('click', function(event) {
 			that.promotionEvent.option = 3;
-			document.getElementById("button5").style.backgroundImage = "url('images/white_bishop.svg')";
-			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_bishop.svg')";
+			document.getElementById("button5").style.backgroundImage = "url('images/white_bishop.png')";
+			document.getElementsByClassName("palette-invoker")[2].style.backgroundImage = "url('images/white_bishop.png')";
 			that.getPalette().dispatchEvent(that.promotionEvent);
 			that.popDown();
 		});
