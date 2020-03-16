@@ -39,18 +39,21 @@
 <script type="text/javascript" src="js/webqr.js"></script>
 <script type="text/javascript" src="js/qrcodegen.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
+<script src="searchfield.js" type="text/javascript"></script>
 <script>if (window.module) module = window.module;</script>
 </head>
 
 <body>
 <div id="main-toolbar" class="toolbar">
 	<button class="toolbutton" id="activity-button" title="QR Code"></button>
+	
 
 	<!-- Add more buttons here -->
 	<div class="splitbar"></div>
 	<button class="toolbutton" id="photo-button" title="Photo"></button>
 	<div class="splitbar"></div>
 	<button class="toolbutton" id="png-button" title="Export to PNG"></button>
+	
 
 	<!-- Buttons with class="pull-right" will be right aligned -->
 	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
@@ -60,10 +63,12 @@
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
+	
 	<div id="input-box">
 			<select id="qrtextdropdown">
 				</select>
-		<input id="user-text" name="userText" type="text"></input>
+		<div id="user-back"><input id="user-text" name="userText" type="text" class="search-field-input"></input>
+		</div>
 		<button id="erasetext-button" class="user-text-cancel"  title="Erase Input"></button>
 		<button id="generate-button" class="toolbutton" title="Generate"></button>
 		<br>
