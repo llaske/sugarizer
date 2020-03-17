@@ -276,21 +276,18 @@ _p4d_proto.write_board_html = function(){
                                 function(p4d, n){
                                     return function(e){
                                         p4d.drag_start(e, n);
-                                        // console.log("drag started", n);
                                     };
                                 }(this, i));
             _add_event_listener(td, 'drag',
                                 function(p4d, n){
                                     return function(e){
                                         p4d.dragging(e, n);
-                                        // console.log("dragging", n);
                                     };
                                 }(this, i));
             _add_event_listener(td, 'dragend',
                                 function(p4d, n){
                                     return function(e){
                                         p4d.drag_stop(e, n);
-                                        // console.log("drag end", n);
                                     };
                                 }(this, i));
             var img = p4d_new_child(td, "img");
@@ -315,6 +312,18 @@ _p4d_proto.maybe_rotate_board = function(){
     if (p[0] != p[1] && P4WN_ROTATE_BOARD){
         this.orientation = p[0] == 'computer' ? 1 : 0;
         this.refresh();
+    }
+};
+
+_p4d_proto.rotate_board_for_white = function(){
+    this.orientation =  0;
+    this.refresh();
+    var table_head = document.getElementsByClassName("board_table_head")[0];
+    var table_body = document.getElementsByClassName("board_table_body")[0];
+    for(var i=0;i<8;i++)
+    {
+        table_head.rows[0].cells[i+1].innerHTML = String.fromCharCode(97+i);
+        table_body.rows[i].cells[0].innerHTML = 8-i;
     }
 };
 
@@ -352,6 +361,18 @@ _p4d_proto.flip_player = function(i){
     }
     else
         this.players[i] = (this.players[i] == 'human') ? 'computer' : 'human';
+
+    //set board
+    if(this.players[0] === "human" && this.players[1] === "computer"){
+        this.rotate_board_for_white();
+	}
+    else if(this.players[0] === "computer" && this.players[1] === "human"){
+        this.rotate_board_for_black();
+    }
+    else if(this.players[0] === "human" && this.players[1] === "human"){
+        this.rotate_board_for_white();
+    }
+    
     this.refresh_buttons();
     this.maybe_rotate_board();
     this.next_move();

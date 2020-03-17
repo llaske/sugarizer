@@ -35,6 +35,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 			document.getElementById("button7").style.border = "4px solid" + currentenv.user.colorvalue.stroke;
 			
+			//to keep track of connected users when activity is shared
+			//key - networkId
+			//value - name
 			var connectedUsers = {};
 
 			document.getElementById("play-again").addEventListener('click', function(){
@@ -46,6 +49,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				game.refresh();
 			});
 
+			//to keep track of theme no
 			var theme_no = 1;
 			function theme_change(theme_no){
 				var white_square = document.getElementsByClassName("p4wn-white-square");
@@ -118,6 +122,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				tutorial.start();
 			});
 
+			//function to generate xo with given colorvalue
 			var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
 			var generateXOLogoWithColor = function(color) {
 				var coloredLogo = xoLogo;
@@ -170,34 +175,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 			//'update' action when undo button is pressed(for presence)
 			document.getElementById("button4").addEventListener('click', function(){
-				if (presence) {
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						content: {
-							action:'update',
-							data: game,
-							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-							users_connected: connectedUsers,
-							second_user:second_player
-						}
-					});
-				}
+				update_presence(connectedUsers, second_player);
 			});
 
 			//'update' action when draw button is pressed(for presence)
 			document.getElementById("button7").addEventListener('click', function(){
-				if (presence) {
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						content: {
-							action:'update',
-							data: game,
-							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-							users_connected: connectedUsers,
-							second_user:second_player
-						}
-					});
-				}
+				update_presence(connectedUsers, second_player);
 			});
 
 			//function to set background color
@@ -427,6 +410,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						return;
 					}
 					network.createSharedActivity('org.sugarlabs.Chess', function(groupId) {
+							game.orientation = 0;
+							game.refresh();
 							console.log("Activity shared");
 							isHost = true;
 					});
@@ -439,10 +424,28 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				});
 			});
 			
-			
+			function update_presence(connectedUsers, second_player){
+				if (presence) {
+					presence.sendMessage(presence.getSharedInfo().id, {
+						user: presence.getUserInfo(),
+						content: {
+							action:'update',
+							data: game,
+							log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
+							users_connected: connectedUsers,
+							second_user:second_player
+						}
+					});
+				}
+			}
+
+			//called when any user join/leave
 			var onNetworkUserChanged = function(msg) {
+				game.players[1] = "human";
+				game.players[1] = "human";
+				game.refresh_buttons();
+
 				if (isHost) {
-					console.log("host");
 					var log_div = document.getElementsByClassName("p4wn-log")[0];
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
@@ -461,52 +464,80 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					second_player = msg.content.second_user;
 					if(Object.keys(connectedUsers).length == 2){
 						second_player = currentenv.user.networkId;
-						// msg.content.second_user = second_player;
+						update_presence(connectedUsers, second_player);	
 					}
 				}
-				console.log("second player", second_player);
+
 				if(msg.move == 1){
 					connectedUsers[msg.user.networkId] = msg.user.name;
 				}
-				console.log("inside onNetworkUserChanged",
-				 second_player,msg.user.networkId,
-				 msg);
+
+				//if user left was playing with host
 				if(msg.move == -1 && (second_player == msg.user.networkId)){
 					var connectedUsers_keys = Object.keys(connectedUsers);
 					var index = connectedUsers_keys.indexOf(second_player);
 					second_player = connectedUsers_keys[index+1];
 					delete connectedUsers[msg.user.networkId];
-					if (presence) {
-						presence.sendMessage(presence.getSharedInfo().id, {
-							user: presence.getUserInfo(),
-							content: {
-								action:'update',
-								data: game,
-								log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-								users_connected: connectedUsers,
-								second_user:second_player
-							}
-						});
-					}
+					update_presence(connectedUsers, second_player);
 				}
 				else if(msg.move == -1){
+					//if host leaves then stop the activity for all
+					if(Object.keys(connectedUsers)[0] == msg.user.networkId){
+						document.getElementById("stop-button").click();
+					}
 					delete connectedUsers[msg.user.networkId];
 				}
+
+				//when all connected users left
+				if(isHost && (Object.keys(connectedUsers).length == 1) && (msg.move == -1)){
+					game.players[1] = "computer";
+					document.getElementById("button1").disabled = false;
+					document.getElementById("button2").disabled = false;
+					document.getElementById("button6").disabled = false;
+					document.getElementById("restart-game").disabled = false;
+					document.getElementById("button5").disabled = false;
+					document.getElementById("button4").disabled = false;
+					document.getElementById("button7").disabled = false;
+					document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+					game.refresh_buttons();
+
+				}
+				
 				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
-				document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+
+				// document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 				document.getElementsByClassName("humane-libnotify")[0].style.display = "";
- 				document.getElementsByClassName("humane-libnotify")[0].innerHTML = msg.user.name + " " +(msg.move == 1 ? "joined": "left"); 
-				var notificationDiv = function(){
+ 				document.getElementsByClassName("humane-libnotify")[0].innerHTML = "<img height=20 src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>" + " " +msg.user.name + " " +(msg.move == 1 ? "joined": "left"); 
+				
+				//notification box for joining and leaving user
+				 var notificationDiv = function(){
 					document.getElementsByClassName("humane-libnotify")[0].style.display = "none";
 				}
 				setTimeout(notificationDiv, 1000);
+				if (presence && (presence.getSharedInfo()!=undefined)) {
+					update_presence(connectedUsers, second_player);
+				}
+
+				//function to update xo color of opponent for host
+				if(isHost && Object.keys(connectedUsers)[1]){
+					presence.listSharedActivityUsers(presence.getSharedInfo().id , function(users){
+						for (var i = 0; i < users.length; i++) {
+							if(users[i].networkId == Object.keys(connectedUsers)[1]){
+								document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(users[i].colorvalue) + "'>";
+								break;
+							}
+						}
+					});
+				}
 			};
 
 			var drag_on_box = null;
 			var drag_piece_color = null;
 
+			//function called when drag starts
 			game.drag_start = function(e,position){};
 
+			//function called when dragging occurs
 			game.dragging = function(e,position){
 				
 				document.ondragover = function(e){
@@ -527,6 +558,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 			};
 
+			//function when dragging stops
 			game.drag_stop = function(e,pos){
 				var board_arr = game.board_state.board;
 				var drag_box_value = board_arr[((game.orientation == undefined) || (game.orientation == 0))? pos :(119- pos)];
@@ -541,24 +573,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					((game.orientation == undefined) || (game.orientation == 0))? drag_on_box :(119- drag_on_box),
 					P4WN_PROMOTION_INTS[game.pawn_becomes]);
 					if(result == true){
-						if (presence) {
-							presence.sendMessage(presence.getSharedInfo().id, {
-								user: presence.getUserInfo(),
-								content: {
-									action:'update',
-									data: game,
-									log_div_html: document.getElementsByClassName("p4wn-log")[0].innerHTML,
-									users_connected: connectedUsers,
-									second_user:second_player
-								}
-							});
-						}
+						update_presence(connectedUsers, second_player);
 					}
 				}
 			};
 
+			//to check whether use will be a spectator or opponent
 			var is_spectator = false;
 			var second_player = null;
+
 			var onNetworkDataReceived = function(msg) {
 				if (presence.getUserInfo().networkId === msg.user.networkId) {
 					return;
@@ -568,32 +591,35 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						connectedUsers = msg.content.users_connected;
 						connectedUsers[currentenv.user.networkId] = currentenv.user.name;
 						second_player = msg.content.second_user;
-						// console.log("inside init");
-						// console.log("connected user in init", connectedUsers);
 						game.players[0] = "human";
 						game.players[1] = "human";
 						document.getElementById("button1").disabled = true;
 						document.getElementById("button2").disabled = true;
+						computerlevelpalette.popDown();
 						document.getElementById("button6").disabled = true;
 						game.refresh_buttons();
 						set_board(msg.content.data["board_state"]);
-						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
-						game.rotate_board_for_black();
 						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
+						if(!isHost){
+							game.rotate_board_for_black();
+						}
+
 						if(Object.keys(connectedUsers).length == 2){
 							second_player = currentenv.user.networkId;
-							// msg.content.second_user = second_player;
 						}
-						console.log("second player in init", second_player);
+
 						//SPECTATOR MODE
-						if(Object.keys(connectedUsers).length > 2 && (is_spectator == false) && (second_player != currentenv.user.networkId)){
-							console.log("is_spectator ", is_spectator);
+						if((Object.keys(connectedUsers).length > 2) && (is_spectator == false) && (second_player != currentenv.user.networkId)){
+
 							is_spectator = true;
 							document.getElementById("restart-game").disabled = true;
+							promotionpalette.popDown();
 							document.getElementById("button5").disabled = true;
 							document.getElementById("button4").disabled = true;
+							document.getElementById("button7").disabled = true;
 							document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "none";
-							console.log("SPECTATOR MODE",Object.keys(connectedUsers).length);
+
 							break;
 						}
 						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
@@ -608,30 +634,28 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						document.getElementById("restart-game").disabled = false;
 						document.getElementById("button5").disabled = false;
 						document.getElementById("button4").disabled = false;
+						document.getElementById("button7").disabled = false;
 						document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "auto";
-						// console.log("inside update");
-						console.log("connected user in update", connectedUsers);
 						set_board(msg.content.data["board_state"]);
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
 						if((Object.keys(connectedUsers).length == 2) && (isHost!=true)){
 							second_player = currentenv.user.networkId;
-							// msg.content.second_user = second_player;
+
 						}
-						// console.log("second player in update", second_player);
+
 						//SPECTATOR MODE
-						console.log("in update", is_spectator,second_player,currentenv.user.networkId);
 						if(is_spectator && (second_player != currentenv.user.networkId)){
 							document.getElementById("restart-game").disabled = true;
+							promotionpalette.popDown();
 							document.getElementById("button5").disabled = true;
 							document.getElementById("button4").disabled = true;
+							document.getElementById("button7").disabled = true;
 							document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "none";
-							// // console.log("SPECTATOR MODE");
 							break;
 						}
 						game["draw_offers"] = parseInt(msg.content.data.draw_offers);
 						if(game["draw_offers"] == 1)
 							document.getElementById("button7").style.display = 'inline-block';
-						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 						break;
 					}
 				}
@@ -660,7 +684,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 			// Shared instances
 			if (environment.sharedId) {
-				console.log("Shared instance", game);
+				console.log("Shared instance");
 				presence = activity.getPresenceObject(function(error, network) {
 					network.onDataReceived(onNetworkDataReceived);
 					network.onSharedActivityUserChanged(onNetworkUserChanged);
