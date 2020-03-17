@@ -39,7 +39,6 @@
 <script type="text/javascript" src="js/webqr.js"></script>
 <script type="text/javascript" src="js/qrcodegen.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
-<script src="searchfield.js" type="text/javascript"></script>
 <script>if (window.module) module = window.module;</script>
 </head>
 
@@ -67,9 +66,11 @@
 	<div id="input-box">
 			<select id="qrtextdropdown">
 				</select>
-		<div id="user-back"><input id="user-text" name="userText" type="text" class="search-field-input"></input>
+		<div class="search-field-border search-field-border-nofocus">
+			<input id="user-text" class="search-field-input" placeholder="Type the text value"></input>
+			<button id="erasetext-button" class="search-field-iocancel"  title="Erase Input"></button>
+		
 		</div>
-		<button id="erasetext-button" class="user-text-cancel"  title="Erase Input"></button>
 		<button id="generate-button" class="toolbutton" title="Generate"></button>
 		<br>
 		<hr>
