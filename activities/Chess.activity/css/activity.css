@@ -3,24 +3,25 @@
  
 }
 #main-toolbar #begin-button {
-	background-image: url(../icons/beginner.png);
+	background-image: url(../icons/b.png);
+	border-radius:50% ;
    
   }
 #main-toolbar #dif-button {
-	background-image: url(../icons/dif.svg);
-   
+	background-image: url(../icons/d.png);
+	border-radius:70% ;
   }
   #main-toolbar #inter-button {
-	background-image: url(../icons/inter.png);
-   
+	background-image: url(../icons/i.png);
+	border-radius:50% ;
   }
   #main-toolbar #reset {
 	background-image: url(../icons/reset.jpg);
-   
+	border-radius:60% ;
   }
   #main-toolbar #undo{
-	background-image: url(../icons/undo.png);
-   
+	background-image: url(../icons/u.png);
+	border-radius:50% ;
   }
 #main-toolbar #network-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
