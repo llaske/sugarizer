@@ -10,7 +10,7 @@ We will run Sugarizer from a local directory that will contain all files needed.
 
 ### Create the Sugarizer directory
 
-To start, download **Sugarizer** from [here](https://github.com/llaske/sugarizer/archive/dev.zip). It's a 320Mb package so it could take some time. Once downloaded, unzip it. 
+To start, download **Sugarizer** from [here](https://github.com/llaske/sugarizer/archive/dev.zip). It's a 320Mb package so it could take some time. Once downloaded, unzip it.
 
 If you're familiar with **git**, you could clone the repository - dev branch - instead like this:
 
@@ -23,7 +23,7 @@ Whatever method used, you should have at end a Sugarizer directory like this:
 
 ### Run Sugarizer
 
-We will use **Chrome** in this tutorial but any other browser will work as well. 
+We will use **Chrome** in this tutorial but any other browser will work as well.
 
 To run Sugarizer locally in Chrome, close any running instances of Chrome and re-launch it using the command line:
 
@@ -31,7 +31,7 @@ To run Sugarizer locally in Chrome, close any running instances of Chrome and re
 
 * On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"` or `open -n /Applications/Google\ Chrome.app --args` instead.
 
-* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser [are available](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
+* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser, see how to run *Sugarizer Application into the Web Browser* in [README.md](../README.md).
 
 * The `index.html` file is located in the new Sugarizer directory so you will have to use `cd` command line to change location to this directory before running the command.
 
