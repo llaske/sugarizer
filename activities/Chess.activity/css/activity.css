@@ -2,7 +2,26 @@
   background-image: url(../activity/activity-icon.svg);
  
 }
-
+#main-toolbar #begin-button {
+	background-image: url(../icons/beginner.png);
+   
+  }
+#main-toolbar #dif-button {
+	background-image: url(../icons/dif.svg);
+   
+  }
+  #main-toolbar #inter-button {
+	background-image: url(../icons/inter.png);
+   
+  }
+  #main-toolbar #reset {
+	background-image: url(../icons/reset.jpg);
+   
+  }
+  #main-toolbar #undo{
+	background-image: url(../icons/undo.png);
+   
+  }
 #main-toolbar #network-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
