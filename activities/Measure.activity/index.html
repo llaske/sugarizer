@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>My Activity</title>
+<script type="text/javascript" src="lib/p5.js" ></script>
+  <script type="text/javascript" src="lib/p5.sound.js"></script>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <link rel="prefetch" type="application/l10n" href="locale.ini">
+  <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap-tour-standalone.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
+
+
+  
+  <script data-main="js/loader" src="lib/require.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="timebased" style="background-image: url(images/domain-time.svg);" value="0" title="TIME BASED"></button>
+  <button class="toolbutton" id="freqbased" style="background-image: url(images/domain-freq.svg);visibility: hidden; " value="0" title="FREQUENCY BASED" ></button>
+  <button class="toolbutton" id="timebased2" style="background-image: url(images/domain-time.svg);visibility: hidden; " value="0" title="TIME BASED" ></button>
+  <button class="toolbutton" id="freqbased2" style="background-image: url(images/domain-freq.svg);visibility: hidden;" value="0" title="FREQUENCY BASED"></button>
+  <!-- Add more buttons here -->
+
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+  
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+
+  <!-- Replace this message with your own content -->
+  <div id="one"></div> <br>
+    <div id="three"></div>
+    <div id="two"></div>
+  <br>
+
+  
+  <script language="javascript" type="text/javascript" src="js/main.js"></script>
+ 
+
+</div>
+<button class="toolbutton pull-right" id="unfullscreen-button" title="Unfullscreen"></button>
+</body>
+
+</html>
