@@ -1,0 +1,66 @@
+var planets = [
+  {
+    "name": "Mercury",
+    "type": "Terrestrial",
+    "moons": "0",
+    "mass": "330,104,000,000,000,000,000,000 kg",
+    "year": "88",
+    "temperature": "-173 to 427&#176;C"
+  },
+  {
+    "name": "Venus",
+    "type": "Terrestrial",
+    "moons": "0",
+    "mass": "4,867,320,000,000,000,000,000,000 kg",
+    "year": "225",
+    "temperature": "462&#176;C"
+  },
+  {
+    "name": "Earth",
+    "type": "Terrestrial",
+    "moons": "1",
+    "mass": "5,972,190,000,000,000,000,000,000 kg",
+    "year": "365",
+    "temperature": "-88 to 58&#176;C"
+  },
+  {
+    "name": "Mars",
+    "type": "Terrestrial",
+    "moons": "2",
+    "mass": "641,693,000,000,000,000,000,000 kg",
+    "year": "687",
+    "temperature": "-153 to 20&#176;C"
+  },
+  {
+    "name": "Jupiter",
+    "type": "Gas Giant",
+    "moons": "79",
+    "mass": "1,898,130,000,000,000,000,000,000,000 kg",
+    "year": "4,333",
+    "temperature": "No Data"
+  },
+  {
+    "name": "Saturn",
+    "type": "Gas Giant",
+    "moons": "83",
+    "mass": "568,319,000,000,000,000,000,000,000 kg",
+    "year": "10,759",
+    "temperature": "No Data"
+  },
+  {
+    "name": "Uranus",
+    "type": "Ice Giant",
+    "moons": "27",
+    "mass": "86,810,300,000,000,000,000,000,000 kg",
+    "year": "30,687",
+    "temperature": "No Data"
+  },
+  {
+    "name": "Neptune",
+    "type": "Ice Giant",
+    "moons": "14",
+    "mass": "102,410,000,000,000,000,000,000,000 kg",
+    "year": "60,190",
+    "temperature": "No Data"
+  },
+]
