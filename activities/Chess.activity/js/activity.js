@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n","sugar-web/graphics/presencepalette","tutorial", "sugar-web/datastore","sugar-web/graphics/journalchooser"], function (activity, env, icon, webL10n, presencepalette,tutorial, datastore, journalchooser) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n","sugar-web/graphics/presencepalette","tutorial", "sugar-web/datastore","sugar-web/graphics/journalchooser","chesspalette"], function (activity, env, icon, webL10n, presencepalette,tutorial, datastore, journalchooser,chesspalette) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -78,6 +78,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 		});
 		
+		var addpalette = new chesspalette.ChessPalette(document.getElementById("dif-button"), "Levels");
+
 	});
 
 });

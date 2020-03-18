@@ -16,11 +16,11 @@
 	border-radius:50% ;
   }
   #main-toolbar #reset {
-	background-image: url(../icons/reset.jpg);
+	background-image: url(../icons/reset.png);
 	border-radius:60% ;
   }
   #main-toolbar #undo{
-	background-image: url(../icons/u.png);
+	background-image: url(../icons/edit-undo.svg);
 	border-radius:50% ;
   }
 #main-toolbar #network-button {
@@ -60,11 +60,11 @@
 }
 .chess-rules{
   padding: 3%;
-  margin-top: 4%;
+  /* margin-top: 4%; */
   margin: 5%;
 }
 #canvas{
-  margin-top: 5%;
+  /* margin-top: 5%; */
 }
 .header {
   text-align: center;
@@ -228,3 +228,29 @@
 #main-toolbar #picture-button {
 	background-image: url(../icons/insert-picture.svg);
 }
+.palette-item {
+	width: 200px;
+	height: 30px;
+	padding-top: 15px;
+	text-align: center;
+	padding-left: 10px;
+  }
+  
+  .palette-item:hover {
+	background-color: #808080;
+  }
+  
+  .palette-icon {
+	width: 30px;
+  }
+  
+  .palette-text {
+	vertical-align: super;
+  }
+  
+  .item-icon {
+	padding-top: 3px;
+	height: 40px;
+  }
+
+
