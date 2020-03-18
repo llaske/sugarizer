@@ -36,9 +36,11 @@ enyo.kind({
         if (!correct){
             this.correctSequence = [];
             this.userSequence = [];
+            this.level = 1;
+            this.$.SimonLevel.setContent("Level : " + this.level);
             this.$.SimonStart.show();
             this.$.SimonStart.setContent("WRONG");
-            this.addRemoveAll(colors.concat("SimonStart"), "wrongRed", true);
+            this.$.SimonStart.addRemoveClass('wrongRed', true);
             this.showStart();
         }
 
@@ -46,13 +48,12 @@ enyo.kind({
             var steps = this.level + 1;
             // n points for nth step in a level
             this.score += steps*(steps + 1)/2;
-            this.correctSequence = [];
             this.userSequence = [];
             this.level++;
             this.$.SimonLevel.setContent("Level : " + this.level);
             this.$.SimonScroe.setContent("Score : " + this.score);
             this.$.SimonStart.setContent("RIGHT");
-            this.addRemoveAll(colors.concat("SimonStart"), "rightGreen", true);
+            this.$.SimonStart.addRemoveClass('rightGreen', true);
             this.showStart();
         }
     },
@@ -60,10 +61,10 @@ enyo.kind({
     showStart: function(){
         var colors = ["Red", "Green", "Yellow", "Blue"];
         setTimeout(function(){
-            this.addRemoveAll(colors.concat("SimonStart"), "rightGreen", false);
-            this.addRemoveAll(colors.concat("SimonStart"), "wrongRed", false);
+            this.$.SimonStart.addRemoveClass('rightGreen', false);
+            this.$.SimonStart.addRemoveClass('wrongRed', false);
             this.$.SimonStart.addRemoveClass('disableElement', false);
-            this.$.SimonStart.setContent("START");
+            this.startGame();
         }.bind(this), 2000);
     },
     
@@ -111,16 +112,14 @@ enyo.kind({
     startGame: function(){
         var colors = ["Red", "Green", "Yellow", "Blue"];
         this.addRemoveAll(["SimonStart"].concat(colors), 'disableElement', true);
-        // this.$.SimonStart.hide();
 
-        var steps = this.level + 1;
+        var randomColor = colors[Math.floor(Math.random()*4)];
+        this.correctSequence.push(randomColor);
         var delay = 1000;
-        while(steps--){
+        for(let steps = 0; steps < this.level; steps++){
             setTimeout(function(){
-                var randomColor = colors[Math.floor(Math.random()*4)];
-                this.clickColor(randomColor);
-                this.correctSequence.push(randomColor);
-                this.$.SimonStart.setContent(this.correctSequence.length);
+                this.clickColor(this.correctSequence[steps]);
+                this.$.SimonStart.setContent(steps + 1);
             }.bind(this), delay);
             delay += 1100;
         }
