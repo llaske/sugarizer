@@ -50,7 +50,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		function initPlanet(name, type, year, mass, temperature, moons){
 
 			//Variable action detectors
-			var showInfo;
+			var showInfo = true;
 			var stopRotation;
 			var save;
 
@@ -112,7 +112,6 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 			//When click on a planet, show more info about that planet
 			document.getElementById("planet-" + name).addEventListener("click", function(){
-				showInfo = true;
 				stopRotation = false;
 				interactContainer.style.display = "block";
 				homeDisplay.style.display = "none";
