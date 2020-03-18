@@ -15,7 +15,7 @@ enyo.kind({
                     components: [{
                         classes: "Simon-centre Simon-centre-white",
                         components: [
-                            {name: "SimonStart", id: "SimonStart", classes: "Simon-start", content: "START", ontap: "startGame"},
+                            {name: "SimonStart", id: "SimonStart", classes: "Simon-start", content: "", ontap: "startGame"},
                             {name: "SimonReplay", content: "", ontap: "pauseGame", showing: false}
                         ]
                     }]
@@ -55,9 +55,9 @@ enyo.kind({
             this.userSequence = [];
             this.level = 1;
             this.keysEnabled = false;
-            this.$.SimonLevel.setContent("Level : " + this.level);
+            this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
             this.$.SimonStart.show();
-            this.$.SimonStart.setContent("WRONG");
+            this.$.SimonStart.setContent(this.WRONG_MSG);
             this.$.SimonStart.addRemoveClass('wrongRed', true);
             this.showStart();
         }
@@ -69,9 +69,9 @@ enyo.kind({
             this.userSequence = [];
             this.level++;
             this.keysEnabled = false;
-            this.$.SimonLevel.setContent("Level : " + this.level);
-            this.$.SimonScroe.setContent("Score : " + this.score);
-            this.$.SimonStart.setContent("RIGHT");
+            this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
+            this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
+            this.$.SimonStart.setContent(this.RIGHT_MSG);
             this.$.SimonStart.addRemoveClass('rightGreen', true);
             this.showStart();
         }
@@ -122,10 +122,18 @@ enyo.kind({
         this.userSequence = [];
         this.score = 0;
         this.keysEnabled = false;
-        this.$.SimonLevel.setContent("Level : " + this.level);
-        this.$.SimonScroe.setContent("Score : " + this.score);
         
-		var that = this;
+        var that = this;
+        requirejs(["webL10n"], function(webL10n) {
+            that.START_MSG = webL10n.get("SimonStartMsg");
+            that.SCORE_MSG = webL10n.get("SimonScoreMsg");
+            that.LEVEL_MSG = webL10n.get("SimonLevelMsg");
+            that.WRONG_MSG = webL10n.get("SimonWrongMsg");
+            that.RIGHT_MSG = webL10n.get("SimonRightMsg");
+            that.$.SimonStart.setContent(that.START_MSG);
+            that.$.SimonLevel.setContent(that.LEVEL_MSG + " : " + that.level);
+            that.$.SimonScroe.setContent(that.SCORE_MSG + " : " + that.score);
+        });
         that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
         document.addEventListener('keydown', that.handlePlayNoteListener, false);
 		tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
@@ -160,8 +168,8 @@ enyo.kind({
         this.correctSequence = [];
         this.userSequence = [];
         this.score = 0;
-        this.$.SimonLevel.setContent("Level : " + this.level);
-        this.$.SimonScroe.setContent("Score : " + this.score);
+        this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
+        this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
         this.$.SimonStart.show();
     },
     
