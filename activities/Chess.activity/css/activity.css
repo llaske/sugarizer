@@ -85,164 +85,75 @@
   }  
    
 }
-@media only screen and (min-width: 500px) {
-  #controlButtons{
-    margin: 5px;
-    /* margin-left: 5px; */
-    /* margin-top: 12%; */
-    /* margin-right: 2%; */
-  }
-  /* #button5{
-    cursor: pointer;
-    width: 165px;
-    height: 24px;
-    border: 1px solid #d67b46;
-    font-size: 12px;
-  } */
-  /* #button6{
-    cursor: pointer;
-    width: 170px;
-    display: inline-block;
-    height: 24px;
-    border: 1px solid #d67b46;
-    font-size: 12px;
-  } */
-  #player_logo img{
-    margin-top: 10%;
-    height: 200px;
-    width:60px;
-  }
-  #button7{
-    cursor: pointer;
-    width: 90px;
-    display: inline-block;
-    height: 24px;
-    border: 1px solid #B58863;
-    font-size: 12px;
-  }
-  .column{
-    float: left;
-  }
-  #board-goes-here{
-    margin-top: 0px;
-    margin-left: 5px;
-  }
-  .p4wn-log{
-    /* scrollbar-color: #d67b46 #CFD8DC; */
-    padding-top: 150px;
-    width: 180px;
-  }
-  .p4wn-log-move{
-    margin-left: 8px;
-    font-size: 13px;
-    color: black;
-  }
+
+.opponents{
+  /* max-width: 170px; */
+  background-color: rgb(240, 217, 181);
+  width:200px;
+  /* margin-left: 600px; */
+  /* margin-top: 30px; */
+  border:7px solid rgb(181, 136, 99);
 }
 
-@media only screen and (min-width: 660px) {
-  #controlButtons{
-    margin-left: 2%;
-    margin-top: 12%;
-    margin-right: 2%;
-  }
-  /* #button5{
-    cursor: pointer;
-    width: 180px;
-    height: 26px;
-    border: 2px solid #d67b46;
-    font-size: 13px;
-  } */
-  /* #button6{
-    cursor: pointer;
-    width: 180px;
-    margin-top: 10px;
-    display: block;
-    height: 26px;
-    border: 2px solid #d67b46;
-    font-size: 13px;
-  } */
-  #player_logo img{
-    height: 200px;
-    width:90px;
-  }
-  #button7{
-    cursor: pointer;
-    width: 120px;
-    margin-top: 10px;
-    display: block;
-    height: 24px;
-    border: 2px solid #B58863;
-    font-size: 13px;
-  }
-  .column{
-    float: left;
-  }
-  #board-goes-here{
-    margin-top: 0px;
-  }
-  .p4wn-log{
-    /* scrollbar-color: #d67b46 #CFD8DC; */
-    padding-top: 10px;
-    width: 180px;
-  }
-  .p4wn-log-move{
-    margin-left: 8px;
-    font-size: 13px;
-    color: black;
-  }
+#button7{
+  display: block;
+  cursor: pointer;
+  margin: 4px;
+  width: 192px;
+  height: 25px;
+  /* border: 1px solid #B58863; */
+  font-size: 12px;
+  background-color: rgb(181, 136, 99);
 }
 
-@media only screen and (min-width: 965px) {
-  #controlButtons{
-    margin-left: 3%;
-    margin-top: 12%;
-    margin-right: 3%;
-  }
-  /* #button5{
-    cursor: pointer;
-    width: 200px;
-    height: 35px;
-    border: 4px solid #d67b46;
-    font-size: 15px;
-  } */
-  /* #button6{
-    cursor: pointer;
-    width: 200px;
-    margin-top: 10px;
-    display: block;
-    height: 35px;
-    border: 4px solid #d67b46;
-    font-size: 15px;
-  } */
-  #player_logo img{
-    height: 200px;
-    width: 150px;
-  }
-  #button7{
-    cursor: pointer;
-    width: 150px;
-    margin-top: 10px;
-    display: block;
-    height: 32px;
-    border: 4px solid #B58863;
-    font-size: 15px;
-  }
-  .column{
-    float: left;
-  }
-  #board-goes-here{
-    margin-top: 0px;
-  }
-  .p4wn-log{
-    /* scrollbar-color: #d67b46 #CFD8DC; */
-    padding-top: 10px;
-    width: 220px;
-  }
-  .p4wn-log-move{
-    margin-left: 15px;
-    font-size: 15px;
-    color: black;
-  }
+.playerOneIcon{
+  display: inline-block;
+  margin: 2px;
+  width: 50px;
+  height: 40px;
+  background-color:rgb(181, 136, 99);
+  border-radius: 5px;
+}
+.playerOneName{
+  display: inline-block;
+  margin: 2px;
+  width: 139px;
+  height: 40px;
+  background-color:rgb(181, 136, 99);
+  border-radius: 5px;
+}
+.vsBox{
+  color: rgb(240, 217, 181);
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 22px;
+  display: grid;
+  margin: 2px;
+  width: 192px;
+  height: 25px;
+  background-color:rgb(181, 136, 99);
+  border-radius: 5px;
+}
+.playerTwoIcon{
+  display: inline-block;
+  margin: 2px;
+  width: 50px;
+  height: 40px;
+  background-color:rgb(181, 136, 99);
+  border-radius: 5px;
+}
+.playerTwoName{
+  display: inline-block;
+  margin: 2px;
+  width: 139px;
+  height: 40px;
+  background-color:rgb(181, 136, 99);
+  border-radius: 5px;
+}
+
+#player_logo{
+  display: none;
 }
 
 #fullscreen-button {
@@ -267,6 +178,7 @@
   color: black;
   font-weight: normal;
   font-size: 13px;
+  margin-right: 10px;
 }
 
 #canvas{
@@ -495,4 +407,3 @@
   border: 4px solid black;
   width: 80%;
 }
-

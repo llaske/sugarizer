@@ -600,6 +600,15 @@ function P4wn_display(target){
     this.elements.inner = inner;
     this.elements.container = container;
     var board = this.elements.board = p4d_new_child(inner, "div", P4WN_BOARD_CLASS);
+    var opponent_div = p4d_new_child(inner, "div", "opponents");
+    var player_1_icon = p4d_new_child(opponent_div, "div", "playerOneIcon");
+    var player_1_name = p4d_new_child(opponent_div, "div", "playerOneName");
+    var vsBox = p4d_new_child(opponent_div, "div", "vsBox");
+    vsBox.innerHTML = "vs";
+    var player_2_icon = p4d_new_child(opponent_div, "div", "playerTwoIcon");
+    var player_2_name = p4d_new_child(opponent_div, "div", "playerTwoName");
+    var draw_button_display = p4d_new_child(opponent_div, "button", "drawButton");
+    document.getElementsByClassName("drawButton")[0].id = "button7";
     var log = this.elements.log = p4d_new_child(inner, "div", P4WN_LOG_CLASS);
     // this.elements.messages = p4d_new_child(inner, "div", P4WN_MESSAGES_CLASS);
     // this.elements.controls = p4d_new_child(container, "div", P4WN_CONTROLS_CLASS);
@@ -620,9 +629,11 @@ function P4wn_display(target){
 _p4d_proto.render_elements = function(square_height, square_width){
     // responsible for resizing (called from resolutionawareness.js)
     var e = this.elements;
-    var board_height = (8 * (square_height + 3)) + 'px';
+    var board_height = (8 * (square_height + 3));
+    document.getElementsByClassName("opponents")[0].style.marginLeft = board_height + 29 + 'px';
+    board_height = board_height + 'px';
     e.inner.style.height = board_height;
-    e.log.style.height = board_height;
+    e.log.style.height = (5.5 * (square_height + 3)) + 'px';
     e.board.style.height = board_height;
 }
 

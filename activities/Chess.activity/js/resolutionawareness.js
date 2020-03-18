@@ -28,6 +28,35 @@
       pieces[i].width = tmp_square;
     }
   }
+  if(window.innerHeight < 415){
+    document.getElementsByClassName("playerOneIcon")[0].style.height = "30px";
+    document.getElementsByClassName("playerOneName")[0].style.height = "30px";
+    document.getElementsByClassName("playerTwoIcon")[0].style.height = "30px";
+    document.getElementsByClassName("playerTwoName")[0].style.height = "30px";
+  }
+  else{
+    document.getElementsByClassName("playerOneIcon")[0].style.height = "40px";
+    document.getElementsByClassName("playerOneName")[0].style.height = "40px";
+    document.getElementsByClassName("playerTwoIcon")[0].style.height = "40px";
+    document.getElementsByClassName("playerTwoName")[0].style.height = "40px";
+  }
 }
 window.onresize = displayResize;
 window.onload = displayResize;
+function myFunction(x){
+  if(x.matches && window.innerHeight>= 654){
+    document.getElementById("board-goes-here").style.marginLeft = "";
+    document.getElementsByClassName("p4wn-log")[0].style.width = "150px";
+  }
+  else if(x.matches && window.innerHeight<= 654 && window.innerWidth<=600 && window.innerWidth>=300){
+    document.getElementById("board-goes-here").style.marginLeft = "";
+    document.getElementsByClassName("p4wn-log")[0].style.width = "150px";
+  }
+  else{
+    document.getElementById("board-goes-here").style.marginLeft = "10%";
+    document.getElementsByClassName("p4wn-log")[0].style.width = "200px";
+  }
+}
+var x = window.matchMedia("(max-width: 845px)");
+myFunction(x);
+x.addListener(myFunction);

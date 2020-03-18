@@ -24,14 +24,27 @@
   float: left;
 }
 
+.p4wn-wrapper{
+  padding-top: 1px;
+  margin-top: -1px;
+}
+
 .p4wn-log {
   font-family: monospace;
   white-space: pre;
   font-size: smaller;
   overflow: auto;
   /* max-width: 170px; */
-  height: 90%;
-  /*border:1px solid blue;*/
+  background-color: rgb(240, 217, 181);
+  width:200px;
+  margin-top: 5px;
+  border:7px solid rgb(181, 136, 99);
+}
+
+.p4wn-log-move{
+  /* margin-left: 8px; */
+  font-size: 15px;
+  color: black;
 }
 
 .p4wn-controls{
@@ -49,9 +62,4 @@
 
 .p4wn-log-move {
   padding: 0px 7px;
-  /* cursor: pointer; */
-}
-
-.p4wn-wrapper{
-  /*border: 1px solid yellow;*/
 }

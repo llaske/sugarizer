@@ -33,8 +33,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				document.getElementById("play-again").innerHTML = webL10n.get("PlayAgain");
 			});
 
-			document.getElementById("button7").style.border = "4px solid" + currentenv.user.colorvalue.stroke;
-			
+			document.getElementById("canvas").style.backgroundColor = currentenv.user.colorvalue.fill;
+			var table_head = document.getElementsByClassName("board_table_head")[0];
+			var table_body = document.getElementsByClassName("board_table_body")[0];
+			for(var i=0;i<8;i++)
+			{
+				table_head.rows[0].cells[i+1].style.color = "rgb(240, 217, 181)";
+				table_body.rows[i].cells[0].style.color = "rgb(240, 217, 181)";
+			}
+
 			//to keep track of connected users when activity is shared
 			//key - networkId
 			//value - name
