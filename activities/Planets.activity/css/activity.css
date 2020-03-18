@@ -1,0 +1,62 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #home-button {
+  background-image: url(../icons/home-icon.svg);
+}
+
+#main-toolbar #info-button {
+  background-image: url(../icons/info-icon.svg);
+}
+
+#main-toolbar #rotation-button {
+  background-image: url(../icons/rotation-icon.svg);
+}
+
+#main-toolbar #image-button {
+  background-image: url(../icons/save-image.svg);
+}
+
+.planets{
+  display: -webkit-inline-box;
+  height: 250px;
+  width: 245px;
+  margin: 30px;
+}
+
+#planet-container{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.interactive{
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  width: 100%;
+}
+
+#planet-display{
+  position: relative;
+  width: 60%;
+  overflow: hidden;
+}
+
+#planet-info {
+  overflow: hidden;
+  padding: 20px;
+  width: 40%;
+}
+
+.info{
+  margin-bottom: 20px;
+}
+
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
