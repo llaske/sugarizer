@@ -28,15 +28,33 @@ enyo.kind({
     handlePlayNote: function(s) {
         var colors = ["Red", "Green", "Yellow", "Blue"];
         if(s.repeat || !simonMode) return;
+
+        var fromKeyPress = false;
+		if(s.type == "keydown") {
+			fromKeyPress = true;
+        }
         
-        this.clickColor(s.name);
-        this.userSequence.push(s.name);
+        var keyColourMap = {
+            'ArrowUp': 'Red',
+            'ArrowDown': 'Blue',
+            'ArrowRight': 'Green',
+            'ArrowLeft': 'Yellow'
+        }
+        
+        if (fromKeyPress){
+            this.clickColor(keyColourMap[s.key]);
+            this.userSequence.push(keyColourMap[s.key]);
+        } else {
+            this.clickColor(s.name);
+            this.userSequence.push(s.name);
+        }
         this.$.SimonStart.setContent(this.userSequence.length);
         var correct = this.userSequence[this.userSequence.length-1] === this.correctSequence[this.userSequence.length-1]
         if (!correct){
             this.correctSequence = [];
             this.userSequence = [];
             this.level = 1;
+            this.keysEnabled = false;
             this.$.SimonLevel.setContent("Level : " + this.level);
             this.$.SimonStart.show();
             this.$.SimonStart.setContent("WRONG");
@@ -50,6 +68,7 @@ enyo.kind({
             this.score += steps*(steps + 1)/2;
             this.userSequence = [];
             this.level++;
+            this.keysEnabled = false;
             this.$.SimonLevel.setContent("Level : " + this.level);
             this.$.SimonScroe.setContent("Score : " + this.score);
             this.$.SimonStart.setContent("RIGHT");
@@ -90,7 +109,9 @@ enyo.kind({
     },
 
     handlePlayNoteListener: function(event) {
-		this.handlePlayNote(event);
+        if (this.keysEnabled){
+            this.handlePlayNote(event);
+        }
     },
 
     create: function() {
@@ -100,16 +121,19 @@ enyo.kind({
         this.correctSequence = [];
         this.userSequence = [];
         this.score = 0;
+        this.keysEnabled = false;
         this.$.SimonLevel.setContent("Level : " + this.level);
         this.$.SimonScroe.setContent("Score : " + this.score);
         
 		var that = this;
-		that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
+        that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
+        document.addEventListener('keydown', that.handlePlayNoteListener, false);
 		tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
 		return;
     },
 
     startGame: function(){
+        this.keysEnabled = false;
         var colors = ["Red", "Green", "Yellow", "Blue"];
         this.addRemoveAll(["SimonStart"].concat(colors), 'disableElement', true);
 
@@ -125,6 +149,7 @@ enyo.kind({
         }
         setTimeout(function(){
             this.addRemoveAll(colors, 'disableElement', false);
+            this.keysEnabled = true;
             this.$.SimonStart.setContent("");
         }.bind(this), delay);
     },
@@ -142,7 +167,8 @@ enyo.kind({
     
     destroy: function () {
 		var that = this;
-		that.inherited(arguments);
+        that.inherited(arguments);
+		document.removeEventListener('keydown', that.handlePlayNoteListener, false);
     },
 
     // adds or removes a class from all elements
