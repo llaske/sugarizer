@@ -137,7 +137,58 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 				coloredLogo = coloredLogo.replace("#FFFFFF", color.fill)
 				return "data:image/svg+xml;base64," + btoa(coloredLogo);
 			}
-			document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+
+			//function to change icon and name of users in opponent box
+			game.opponent_box =function(){
+			var playerOneIcon_div = document.getElementsByClassName("playerOneIcon")[0];
+			var playerOneName_div = document.getElementsByClassName("playerOneName")[0];
+			var playerTwoIcon_div = document.getElementsByClassName("playerTwoIcon")[0];
+			var playerTwoName_div = document.getElementsByClassName("playerTwoName")[0];
+			if(game.players[0] == "human"){
+				playerOneIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+				playerOneName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ currentenv.user.name + "</h3>";
+			}
+			if(game.players[0] == "computer"){
+				playerOneIcon_div.innerHTML = "<img src='icons/black-computer.svg'>";
+				playerOneName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ "Computer" + "</h3>";
+			}
+			playerOneIcon_div.firstChild.style.height = playerOneIcon_div.style.height;
+			playerOneIcon_div.firstChild.style.marginLeft = "5px";
+			if(game.players[1] == "human"){
+				playerTwoIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+				playerTwoName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ currentenv.user.name + "</h3>";
+			}
+			if(game.players[1] == "computer"){
+				playerTwoIcon_div.innerHTML = "<img src='icons/black-computer.svg'>";
+				playerTwoName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ "Computer" + "</h3>";
+			}
+
+			playerTwoIcon_div.firstChild.style.height = playerTwoIcon_div.style.height;
+			playerTwoIcon_div.firstChild.style.marginLeft = "5px";
+			}
+			game.opponent_box();
+
+
+			function opponent_box_for_presence(playerone, playertwo){
+				var playerOneIcon_div = document.getElementsByClassName("playerOneIcon")[0];
+				var playerOneName_div = document.getElementsByClassName("playerOneName")[0];
+				var playerTwoIcon_div = document.getElementsByClassName("playerTwoIcon")[0];
+				var playerTwoName_div = document.getElementsByClassName("playerTwoName")[0];
+				playerOneIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(playerone.colorvalue) + "'>";
+				playerOneName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ playerone.name + "</h3>";
+				playerOneIcon_div.firstChild.style.height = playerOneIcon_div.style.height;
+				playerOneIcon_div.firstChild.style.marginLeft = "5px";
+				playerTwoIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(playertwo.colorvalue) + "'>";
+				playerTwoName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
+											+ playertwo.name + "</h3>";
+				playerTwoIcon_div.firstChild.style.height = playerTwoIcon_div.style.height;
+				playerTwoIcon_div.firstChild.style.marginLeft = "5px";
+			}
 
 			//Restart game
 			document.getElementById("restart-game").addEventListener('click', function(){
@@ -505,14 +556,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					document.getElementById("button5").disabled = false;
 					document.getElementById("button4").disabled = false;
 					document.getElementById("button7").disabled = false;
-					document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(currentenv.user.colorvalue) + "'>";
+					game.opponent_box();
 					game.refresh_buttons();
 
 				}
 				
 				console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "left"));
 
-				// document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 				document.getElementsByClassName("humane-libnotify")[0].style.display = "";
  				document.getElementsByClassName("humane-libnotify")[0].innerHTML = "<img height=20 src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>" + " " +msg.user.name + " " +(msg.move == 1 ? "joined": "left"); 
 				
@@ -530,7 +580,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					presence.listSharedActivityUsers(presence.getSharedInfo().id , function(users){
 						for (var i = 0; i < users.length; i++) {
 							if(users[i].networkId == Object.keys(connectedUsers)[1]){
-								document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(users[i].colorvalue) + "'>";
+
+								document.getElementsByClassName("playerTwoIcon")[0].firstChild.src = generateXOLogoWithColor(users[i].colorvalue);
+								document.getElementsByClassName("playerTwoName")[0].firstChild.innerHTML = users[i].name;
 								break;
 							}
 						}
@@ -606,7 +658,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 						document.getElementById("button6").disabled = true;
 						game.refresh_buttons();
 						set_board(msg.content.data["board_state"]);
-						document.getElementById("player_logo").innerHTML = "<img src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
+						document.getElementsByClassName("playerOneIcon")[0].firstChild.src = generateXOLogoWithColor(msg.user.colorvalue);
+						document.getElementsByClassName("playerOneName")[0].firstChild.innerHTML = msg.user.name;
 						document.getElementsByClassName("p4wn-log")[0].innerHTML = msg.content.log_div_html;
 						if(!isHost){
 							game.rotate_board_for_black();
@@ -614,6 +667,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 
 						if(Object.keys(connectedUsers).length == 2){
 							second_player = currentenv.user.networkId;
+							document.getElementsByClassName("playerTwoIcon")[0].firstChild.src = generateXOLogoWithColor(currentenv.user.colorvalue);
+							document.getElementsByClassName("playerTwoName")[0].firstChild.innerHTML = currentenv.user.name;
 						}
 
 						//SPECTATOR MODE
@@ -626,6 +681,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							document.getElementById("button4").disabled = true;
 							document.getElementById("button7").disabled = true;
 							document.getElementsByClassName("p4wn-board")[0].style.pointerEvents = "none";
+							presence.listSharedActivityUsers(presence.getSharedInfo().id , function(users){
+								for (var i = 0; i < users.length; i++) {
+									if(users[i].networkId == Object.keys(connectedUsers)[1]){
+										document.getElementsByClassName("playerTwoIcon")[0].firstChild.src = generateXOLogoWithColor(users[i].colorvalue);
+										document.getElementsByClassName("playerTwoName")[0].firstChild.innerHTML = users[i].name;
+										break;
+									}
+								}
+							});
 
 							break;
 						}
@@ -649,6 +713,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 							second_player = currentenv.user.networkId;
 
 						}
+
+						presence.listSharedActivityUsers(presence.getSharedInfo().id , function(users){
+							for (var i = 0; i < users.length; i++) {
+								if(users[i].networkId == Object.keys(connectedUsers)[1]){
+									document.getElementsByClassName("playerTwoIcon")[0].firstChild.src = generateXOLogoWithColor(users[i].colorvalue);
+									document.getElementsByClassName("playerTwoName")[0].firstChild.innerHTML = users[i].name;
+									break;
+								}
+							}
+						});
 
 						//SPECTATOR MODE
 						if(is_spectator && (second_player != currentenv.user.networkId)){

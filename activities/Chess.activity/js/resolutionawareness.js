@@ -28,17 +28,33 @@
       pieces[i].width = tmp_square;
     }
   }
+  var playerOneIcon_div = document.getElementsByClassName("playerOneIcon")[0];
+	var playerOneName_div = document.getElementsByClassName("playerOneName")[0];
+	var playerTwoIcon_div = document.getElementsByClassName("playerTwoIcon")[0];
+	var playerTwoName_div = document.getElementsByClassName("playerTwoName")[0];
   if(window.innerHeight < 415){
-    document.getElementsByClassName("playerOneIcon")[0].style.height = "30px";
-    document.getElementsByClassName("playerOneName")[0].style.height = "30px";
-    document.getElementsByClassName("playerTwoIcon")[0].style.height = "30px";
-    document.getElementsByClassName("playerTwoName")[0].style.height = "30px";
+    playerOneIcon_div.style.height = "30px";
+    if(playerOneIcon_div.firstChild != null){
+      playerOneIcon_div.firstChild.style.height = "30px";
+    }
+    playerOneName_div.style.height = "30px";
+    playerTwoIcon_div.style.height = "30px";
+    if(playerTwoIcon_div.firstChild != null){
+      playerTwoIcon_div.firstChild.style.height = "30px";
+    }
+    playerTwoName_div.style.height = "30px";
   }
   else{
-    document.getElementsByClassName("playerOneIcon")[0].style.height = "40px";
-    document.getElementsByClassName("playerOneName")[0].style.height = "40px";
-    document.getElementsByClassName("playerTwoIcon")[0].style.height = "40px";
-    document.getElementsByClassName("playerTwoName")[0].style.height = "40px";
+    playerOneIcon_div.style.height = "40px";
+    if(playerOneIcon_div.firstChild != null){
+      playerOneIcon_div.firstChild.style.height = "40px";
+    }
+    playerOneName_div.style.height = "40px";
+    playerTwoIcon_div.style.height = "40px";
+    if(playerTwoIcon_div.firstChild != null){
+      playerTwoIcon_div.firstChild.style.height = "40px";
+    }
+    playerTwoName_div.style.height = "40px";
   }
 }
 window.onresize = displayResize;

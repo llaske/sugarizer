@@ -115,6 +115,7 @@
   border-radius: 5px;
 }
 .playerOneName{
+  position: absolute;
   display: inline-block;
   margin: 2px;
   width: 139px;
@@ -122,6 +123,7 @@
   background-color:rgb(181, 136, 99);
   border-radius: 5px;
 }
+
 .vsBox{
   color: rgb(240, 217, 181);
   font-weight: bold;
@@ -129,7 +131,8 @@
   vertical-align: middle;
   font-size: 22px;
   display: grid;
-  margin: 2px;
+  margin-left:4px;
+  margin-bottom: 3px;
   width: 192px;
   height: 25px;
   background-color:rgb(181, 136, 99);
@@ -144,6 +147,7 @@
   border-radius: 5px;
 }
 .playerTwoName{
+  position: absolute;
   display: inline-block;
   margin: 2px;
   width: 139px;

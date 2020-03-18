@@ -129,8 +129,7 @@ _p4d_proto.next_move = function(){
 };
 
 _p4d_proto.computer_move = function(){
-    var xoplayerlogo = document.getElementById("player_logo").innerHTML;
-    document.getElementById("player_logo").innerHTML = "<img src='icons/white-computer.svg'>";
+
     this.auto_play_timeout = undefined;
     var state = this.board_state;
     var mv;
@@ -149,10 +148,6 @@ _p4d_proto.computer_move = function(){
         }
     }
     var computer_move_result = this.move(mv[0], mv[1]);
-    if(computer_move_result == true)
-    {
-        document.getElementById("player_logo").innerHTML = xoplayerlogo;
-    }
 };
 
 _p4d_proto.display_move_text = function(moveno, string){
@@ -350,6 +345,8 @@ _p4d_proto.set_data = function(firstPlayer, secondPlayer, pawnPromote, computerL
     this.next_move();
 };
 
+_p4d_proto.opponent_box =function(){};
+
 _p4d_proto.flip_player = function(i){
     if( i==0 && this.players[0] === "human" && this.players[1] === "computer"){
         this.players[0] = "computer";
@@ -377,6 +374,7 @@ _p4d_proto.flip_player = function(i){
     this.maybe_rotate_board();
     this.next_move();
     this.refresh();
+    this.opponent_box();
 };
 /*Button set up data. The *_wrap ones expect the display object and
  * return a this-agnostic function.
