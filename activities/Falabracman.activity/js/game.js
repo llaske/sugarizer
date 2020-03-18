@@ -193,6 +193,9 @@ function Game(canvas, resources, paladict, webL10n) {
       this.targetWordLetters[i].x = targetWordLettersCoordRat[i].xr * canvas.width;
       this.targetWordLetters[i].y = targetWordLettersCoordRat[i].yr * canvas.height;
     }
+
+    this.resizeSettingScreen();
+    
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.settingScreen) {
