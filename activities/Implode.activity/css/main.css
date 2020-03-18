@@ -1,0 +1,65 @@
+
+.empty{
+    width: 50px;
+    height: 50px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: black;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+
+.red{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+.green{
+    width: 50px;
+    height: 50px;
+    background-color: green;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+.yellow{
+    width: 50px;
+    height: 50px;
+    background-color: yellow;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+.orange{
+    width: 50px;
+    height: 50px;
+    background-color: orange;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+.purple{
+    width: 50px;
+    height: 50px;
+    background-color: purple;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
+.squareShape{
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    margin-left: 2px;
+    margin-right: 2px;
+    /* outline: 2px solid black; */
+    display: inline-block;
+}
