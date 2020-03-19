@@ -628,6 +628,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 					drag_piece_color = 1;
 				}
 				if((drag_on_box != undefined) && (drag_piece_color == game.board_state.to_play)){
+					
+					pos = parseInt(pos);
+					drag_on_box = parseInt(drag_on_box);
 					var result = game.move(((game.orientation == undefined) || (game.orientation == 0))? pos :(119- pos),
 					((game.orientation == undefined) || (game.orientation == 0))? drag_on_box :(119- drag_on_box),
 					P4WN_PROMOTION_INTS[game.pawn_becomes]);
