@@ -1,3 +1,4 @@
+/**Toolbar Buttons**/
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
@@ -18,6 +19,30 @@
   background-image: url(../icons/save-image.svg);
 }
 
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 7%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+/**Make main canvas black**/
+#canvas{
+  background-color: black;
+}
+
+/**Planet List on Homepage**/
 .planets{
   display: -webkit-inline-box;
   height: 250px;
@@ -25,6 +50,7 @@
   margin: 30px;
 }
 
+/**Planet container with its model and info**/
 #planet-container{
   height: 100%;
   width: 100%;
@@ -53,7 +79,6 @@
 .info{
   margin-bottom: 20px;
 }
-
 
 canvas {
   position: absolute;
