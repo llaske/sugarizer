@@ -5,7 +5,8 @@ define(["webL10n",
         "sugar-web/datastore",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
-        "sugar-web/graphics/activitypalette"], function (
+        "sugar-web/graphics/activitypalette",
+        ], function (
     l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
@@ -94,6 +95,8 @@ define(["webL10n",
         stopButton.addEventListener('click', function (e) {
             sendStopEvent();
         });
+
+        
 
         shortcut.add("Ctrl", "Q", this.close);
 

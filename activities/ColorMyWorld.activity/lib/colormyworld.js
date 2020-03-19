@@ -121,10 +121,6 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 		var modeNum=me.getMode();
 		document.getElementById("modelabel").innerHTML=MODE_NAMES[modeNum];
 
-		document.webL10n.setLanguage(state['lang']);
-		var languageNum=LANGUAGE_NAMES["keys"].indexOf(state['lang'])
-		document.getElementById("languagelabel").innerHTML=(languageNum!=-1 ? LANGUAGE_NAMES[LANGUAGE_NAMES["keys"][languageNum]]:"English");
-
 		me.set_background(state['cmw_bg'])
 
 		print("sleeping 2000");

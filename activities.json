@@ -1,4 +1,6 @@
 [
+	{"id": "org.sugarlabs.Pawn", "name": "Pawn", "version": 1, "directory": "activities/Pawn.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Falabracman", "name": "Falabracman", "version": 1, "directory": "activities/Falabracman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Exerciser", "name": "Exerciser", "version": 1, "directory": "activities/Exerciser.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -27,7 +29,7 @@
 	{"id": "com.homegrownapps.abacus", "name": "Abacus", "version": 1, "directory": "activities/Abacus.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.SprintMath", "name": "Sprint Math", "version": 1, "directory": "activities/SprintMath.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Blockrain", "name": "Blockrain", "version": 1, "directory": "activities/Blockrain.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
-	{"id": "org.sugarlabs.StopwatchActivity", "name": "Stopwatch", "version": 1, "directory": "activities/Stopwatch.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.StopwatchActivity", "name": "Stopwatch", "version": 1, "directory": "activities/Stopwatch.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "com.homegrownapps.flip", "name": "Flip", "version": 1, "directory": "activities/Flip.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.somosazucar.JappyActivity", "name": "Jappy", "favorite": false, "version": 1, "directory": "activities/Jappy.activity", "icon": "activity/activity-icon.svg", "activityId": null},
 	{"id": "org.olpcfrance.qrcode", "name": "QRCode", "version": 1, "directory": "activities/QRCode.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -38,6 +40,7 @@
 	{"id": "org.sugarlabs.GTDActivity", "name": "Get Things Done", "version": 1, "directory": "activities/GetThingsDone.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.squeak.EtoysActivity", "name": "Etoys", "version": 2, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.EbookReader", "name": "Ebook Reader", "version": 1, "directory": "activities/EbookReader.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.olpcfrance.Calligra", "name": "Calligra", "version": 1, "directory": "activities/Calligra.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.PomodoroActivity", "name": "Pomodoro", "version": 1, "directory": "activities/Pomodoro.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.Constellation", "name": "Constellation", "version": 1, "directory": "activities/Constellation.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

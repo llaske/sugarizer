@@ -2,9 +2,76 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin:1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 1%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
 ul {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.d-flex{
+  display: flex !important;
+  padding: 0 15px;
+}
+
+.justify-content-center{
+  justify-content: center !important;
+}
+
+.align-items-center{
+  align-items: center !important;
+}
+
+div.p-0{
+  padding: 0;
 }
 
 #stopwatch-app {
@@ -20,7 +87,6 @@ ul {
 
 #stopwatch-list li {
   position: relative;
-  padding-bottom: 128px;
   border-bottom: 1px solid black;
 }
 
@@ -28,24 +94,13 @@ ul {
   line-height: 1.2;
 }
 
-.counter, .marks {
-  display: inline-block;
-  transform: translateY(35%);
-}
-
 .marks {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .counter {
-  margin-left: 22px;
   font-weight: bold;
   font-size: 30px;
-}
-
-.buttons-group {
-  display: inline-block;
-  transform: translateY(15%);
 }
 
 .buttons-group button {
@@ -65,13 +120,9 @@ ul {
 }
 
 button.remove {
-  position: absolute;
-  top: 10%;
-  right: 0;
-  width: 84px;
-  height: 84px;
+  width: 44px;
+  height: 44px;
   background-color: transparent;
-  background-position: center;
   background-size: 44px 44px;
   background-repeat: no-repeat;
   background-image: url(../icons/list-remove.svg);
@@ -125,4 +176,223 @@ button.remove {
 
 .buttons-group button.clear-marks-button {
   background-image: url(../icons/edit-clear.svg);
+}
+
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+  color: black;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+.popover {
+  color: #000000;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  font-size: 14px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+}
+
+.popover-title {
+  font-size: 14px;
+  border-radius: 5px 5px 0 0
+}
+
+.popover-content {
+  color: #000000;
+}
+
+.popover-navigation{
+  overflow: hidden;
+}
+
+.tutorial-title{
+  font-weight: bold;
+  line-height: 1.42857143;
+}
+
+/* Below code is used to make responsive changes */
+
+@media only screen and (max-width: 1130px) and (min-width: 767px){
+  .marks{
+    font-size: 26px;
+  }
+}
+
+@media only screen and (max-width: 1060px) and (min-width: 767px){
+  .marks{
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 767px){
+  .buttons-group button {
+    height: 42px;
+    width: 42px;
+    background-size: 32px 32px;
+  }
+  .counter, .marks {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .d-flex{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 484px){
+  button.remove {
+    margin-right: 0;
+  }
+  .buttons-group button {
+    height: 42px;
+    width: 42px;
+    background-size: 32px 32px;
+  }
+  .counter, .marks {
+    font-size: 22px;
+  }
+  #stopwatch-app {
+    margin: 0 10px;
+  }
 }

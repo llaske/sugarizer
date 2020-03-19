@@ -15,12 +15,17 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.activity = activity;
   CalculateApp.libs.mustache = mustache;
 
-  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore'], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore) {
+  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore', "tutorial"], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore, tutorial) {
     CalculateApp.libs.webL10n = webL10n;
     CalculateApp.libs.trigopalette = trigoPaletteLib;
     CalculateApp.libs.algebrapalette = algebraPaletteLib;
 
     initGui();
+
+    // Launch tutorial
+    document.getElementById("help-button").addEventListener('click', function(e) {
+      tutorial.start();
+    });
 
     //Localization handling
     window.addEventListener('localized', function() {
@@ -44,6 +49,19 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
     //We auto fire the onResize event
     CalculateApp.onResize();
 
+    // Full screen
+    document.getElementById("fullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.visibility = "hidden";
+      document.getElementById("body").style.bottom = "40px";
+      document.getElementById("unfullscreen-button").style.visibility = "visible";    
+      document.getElementById("unfullscreen-button").style.top = "20px";    
+    });
+    // Unfull screen
+    document.getElementById("unfullscreen-button").addEventListener('click', function() {
+      document.getElementById("main-toolbar").style.visibility = "visible";
+      document.getElementById("body").style.bottom = "0px";
+      document.getElementById("unfullscreen-button").style.visibility = "hidden";
+    });
 
     //Launch of the activity, color and data fetch
     activity.setup();

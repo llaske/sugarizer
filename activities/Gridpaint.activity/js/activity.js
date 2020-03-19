@@ -27,7 +27,7 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activity, datastore) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","webL10n","tutorial"], function (_activity, datastore, env, l10n, tutorial) {
     activity = _activity;
 
     // Manipulate the DOM only when it is ready.
@@ -35,6 +35,13 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activit
 		// Initialize the activity.
 		activity.setup();
 		var datastoreObject = activity.getDatastoreObject();
+
+		env.getEnvironment(function(err, environment) {
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			l10n.language.code = language;
+		});
 
 		// Init activity and launch it
 		loadGallery(null);
@@ -51,6 +58,28 @@ define(["sugar-web/activity/activity","sugar-web/datastore"], function (_activit
 				selectorMode();
 			loadPos(selected);
 		});
-    });
 
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
+		});
+
+		// Handle fullscreen/unfullscreen
+		document.getElementById("fullscreen-button").addEventListener('click', function() {
+			document.getElementById("main-toolbar").style.display = "none";
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			computeSize();
+		});
+		var unfullscreen = function(e) {
+			document.getElementById("main-toolbar").style.display = "block";
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			computeSize();
+		};
+		document.getElementById("unfullscreen-button").addEventListener('click', unfullscreen);
+		if ("ontouchstart" in document.documentElement) {
+			document.getElementById("unfullscreen-button").addEventListener("touchstart", unfullscreen, false);
+		}
+	});
 });

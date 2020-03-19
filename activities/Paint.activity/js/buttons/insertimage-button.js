@@ -87,6 +87,23 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
                             ctx=0;
                             printImage = false;
                             resizeImage = false;
+
+                            /* If the activity is shared we send the element to everyone */
+                            if (PaintApp.data.isShared) {
+                                try {
+                                    PaintApp.collaboration.sendMessage({
+                                        action: 'toDataURL',
+                                        data: {
+                                            width: PaintApp.elements.canvas.width / window.devicePixelRatio,
+                                            height: PaintApp.elements.canvas.height / window.devicePixelRatio,
+                                            src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
+                                        }
+                                    });
+                                    console.log(width);
+                                } catch (e) {}
+
+                            }
+
                             if (touchScreen) {
                                 removeEventListener("touchmove", imageMousemove);
                                 removeEventListener("touchend", imageMouseup);
@@ -94,6 +111,8 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
                                 removeEventListener("mousemove", imageMousemove);
                                 removeEventListener("mouseup", imageMouseup);
                             }
+
+
                         }
                     }
 
@@ -105,19 +124,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
                         addEventListener("mouseup", imageMouseup);
                     }
 
-                    /* If the activity is shared we send the element to everyone */
-                    if (PaintApp.data.isShared) {
-                        try {
-                            PaintApp.collaboration.sendMessage({
-                                action: 'toDataURL',
-                                data: {
-                                    width: PaintApp.elements.canvas.width / window.devicePixelRatio,
-                                    height: PaintApp.elements.canvas.height / window.devicePixelRatio,
-                                    src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
-                                }
-                            });
-                        } catch (e) {}
-                    }
+
                 }
             });
         }, {mimetype: 'image/png'}, {mimetype: 'image/jpeg'});

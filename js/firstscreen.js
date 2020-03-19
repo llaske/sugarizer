@@ -5,6 +5,7 @@ enyo.kind({
 	name: "Sugar.FirstScreen",
 	kind: enyo.Control,
 	components: [
+		{name: "stopbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"}, colorized: true, colorizedColor: {fill: "#666666", stroke: "#ffffff"}, ontap: "quitApplication", classes: "first-quit"},
 		{name: "helpbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "help.svg"}, colorized: true, colorizedColor: {stroke: "#666666", fill: "#ffffff"}, ontap: "startTutorial", classes: "first-help"},
 		{name: "namebox", classes: "first-namebox", onresize: "resize", showing: false, components: [
 			{name: "nameline", classes: "first-nameline", components: [
@@ -18,7 +19,7 @@ enyo.kind({
 			{name: "serverline", classes: "first-serverline", components: [
 				{name: "servertext", content: "xxx", classes: "first-servertext"},
 				{classes: "first-input", components: [
-					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick"}
+					{name: "server", kind: "Input", classes: "first-servervalue", onkeydown: "enterclick", disabled: true, ontap: "unlockURL"}
 				]},
 				{name: "qrbutton", kind: "Sugar.Icon", size: constant.sizeEmpty, icon: {directory: "icons", icon: "qrcode.svg"}, ontap: "scanQR", classes: "first-qr"}
 			]},
@@ -120,6 +121,7 @@ enyo.kind({
 	// Display current step items
 	displayStep: function() {
 		var vlogin = false,
+			vstop = false;
 			vlogintext = false,
 			vnewuser = false,
 			vnewusertext = false,
@@ -134,17 +136,18 @@ enyo.kind({
 			vhistory = false;
 		var currentserver;
 		var serverurl;
-		this.$.password.stopInputListening();
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
+			vstop = enyo.platform.electron;
 			vhistory = true;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			this.$.server.setDisabled(true);
 			break;
 
 		case 1: // Server name
-			this.scrollToField(this.$.serverbox);
 			vserverbox = vnext = vprevious = true;
 			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
 			this.$.next.setText(l10n.get("Next"));
@@ -158,11 +161,10 @@ enyo.kind({
 			break;
 
 		case 3: // Type password
-			this.scrollToTop();
+			this.scrollToField(this.$.passbox);
 			vpassbox = vprevious = vnext = true;
 			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
-			this.$.password.startInputListening();
 			break;
 
 		case 4: // Choose color
@@ -176,10 +178,11 @@ enyo.kind({
 			return;
 		}
 
+		this.$.stopbutton.setShowing(vstop);
 		this.$.login.setShowing(vlogin);
 		this.$.logintext.setShowing(vlogintext);
-		this.$.newuser.setShowing(vnewuser);
-		this.$.newusertext.setShowing(vnewusertext);
+		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
+		this.$.newusertext.setShowing(vnewusertext && !constant.noSignupMode);
 		this.$.namebox.setShowing(vnamebox);
 		this.$.name.setAttribute("readOnly", !vnamebox);
 		if (vnamebox) {
@@ -192,6 +195,9 @@ enyo.kind({
 			this.$.server.hasNode().select();
 		}
 		this.$.passbox.setShowing(vpassbox);
+		if (this.$.passbox) {
+			this.$.password.giveFocus();
+		}
 		this.$.colortext.setShowing(vcolortext);
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
@@ -291,6 +297,15 @@ enyo.kind({
 		}
 	},
 
+	unlockURL: function() {
+		if (this.$.server.disabled) {
+			this.$.server.setDisabled(!this.$.server.disabled);
+			this.scrollToField(this.$.serverbox);
+			this.$.server.focus();
+			this.$.server.hasNode().select();
+		}
+	},
+
 	enterPassword: function() {
 		this.next();
 	},
@@ -352,10 +367,11 @@ enyo.kind({
 			left += constant.sizeNewUser+30;
 			this.$.historybox.applyStyle("margin-left", left+"px");
 		} else {
+			var newuser = (constant.noSignupMode?-80:0);
 			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
 			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-			this.$.login.applyStyle("margin-left", (canvas_center.x+25)+"px");
-			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25)+"px");
+			this.$.login.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
+			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 		}
 	},
 
@@ -475,9 +491,6 @@ enyo.kind({
 			that.$.warningmessage.setShowing(true);
 			that.$.spinner.setShowing(false);
 			that.step--;
-			if (that.step == 4 && (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && this.createnew))) {
-				that.$.password.startInputListening();
-			}
 		});
 	},
 
@@ -494,16 +507,22 @@ enyo.kind({
 		});
 	},
 
+	// Quit application - only on Electron
+	quitApplication: function() {
+		util.quitApp();
+	},
+
 	// Display tutorial
 	startTutorial: function() {
 		tutorial.setElement("newuser", this.$.newuser.getAttribute("id"));
 		tutorial.setElement("login", this.$.login.getAttribute("id"));
 		tutorial.setElement("historybox", this.$.historybox.getAttribute("id"));
 		tutorial.setElement("helpbutton", this.$.helpbutton.getAttribute("id"));
+		tutorial.setElement("stopbutton", this.$.stopbutton.getAttribute("id"));
 		tutorial.setElement("serverbox", this.$.server.getAttribute("id"));
 		tutorial.setElement("qrcode", this.$.qrbutton.getAttribute("id"));
 		tutorial.setElement("namebox", this.$.name.getAttribute("id"));
-		tutorial.setElement("passbox", this.$.password.getAttribute("id"));
+		tutorial.setElement("passbox", this.$.password.children[0].id);
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
 		tutorial.setElement("next", this.$.next.getAttribute("id"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
@@ -668,27 +687,33 @@ enyo.kind({
 6b68182218465f5b68685b164c5768626f1822184457605f1638656b6370656b5d5e182218495e5f\
 68695e16505f58586b182218465f656a681637646a6569701822184a6f63656416462448575a705f\
 6118221843576ae35769164357686ae3645b70182218395e5768625b691639656969df1822184c5f\
-596a6568164a576157615f18221838685f576416495f626c5b68635764182218435764615f68576a\
-16495f645d5e1822183b685f59164f656564182218625b656457685a59601822183c685b5a5a5f5b\
-441822186457655c6b63182218416b6457621643655e6a571822183c685b5b163b5a6b59576a5f65\
+596a6568164a576157615f18221838685f576416495f626c5b686357641822185959682a58182218\
+4065685d5b163762585b686a65163de9635b701642e9665b70182218395e685f696a65665e163a5b\
+68645a65685c5b68182218376f6b695e1642655e57645f18221838576a595e6b164c5b6461576a16\
+4c5f695e5762182218495764576a57641822183f5d6457595f651648655a68e35d6b5b7018221849\
+5764595e5f6a16415766656568182218495763696564163d655a5a6f1822184857605b5b6c164857\
+6c5f645a685764182218466857585e6b164657646a18221846576b6265163c685764595f69596516\
+496265636618221843655e5f6a16495e57686357182218435764615f68576a16495f645d5e182218\
+6a68575a705f61182218435f595e57e16216455e576f656418221863576a5f57696357686a5f645b\
+5b5b70182218495b5857696a5f576416495f626c57182218416b6457621643655e6a57182218496b\
+6857601822186023695e6b585e1822184668576157695e164b60606d5762182218695a705f6b5a57\
+18221857685f5b6969571822183e5768685f6965641641576a701822183764695e6b63576416385e\
+57685a6d5760182218376c5f6457695e16375d57686d5762182218435f595e575b6216466b182218\
+6266276a5b61182218435f5e5f6816495e575e1822183a5f645b695e16395e656b5a5e57686f1822\
+183b6a5e576416445b6269656423436565685b182218465f656a681637646a656970182218486569\
+571637645f62163d5b65685d5b1822183c685b5a5a5f5b441822183c685b5b163b5a6b59576a5f65\
 6457621649655c6a6d57685b165c6568164365585f625b163a5b6c5f595b691623164a6857646962\
-576a5f656469166a6516386857705f625f5764164665686a6b5d6b5b695b1822185959682a581822\
-18395e685f696a65665e163a5b68645a65685c5b681822183f5d6457595f651648655a68e35d6b5b\
-701822183857696a5f5b64182218495764576a57641822184357686a5f641637585b646a5b164257\
-5e576f5b1822184065685d5b163762585b686a65163de9635b701642e9665b70182218385b686a16\
-3c685b6b5a5b64585b685d182218496b68576018221837645a685b57163d65647057625b69182218\
-445f616562576f163d656966655a5f64656c1822183b6a5e576416445b6269656423436565685b18\
-2218495764595e5f6a164157666565681822183c685764596516396568685b571822184857605b5b\
-6c1648576c5f645a685764182218495b5857696a5f576416495f626c571822186023695e6b585e18\
-2218435f595e57e16216455e576f656418221837686f576416435b5a5f68576a6a57182218695a70\
-5f6b5a5718221838576a595e6b164c5b6461576a164c5f695e576218221849576b68576c16466857\
-6a5f5e57681822184d57626a5b6816385b645a5b68182218486569571637645f62163d5b65685d5b\
-1822183b6b57641645645d1822183a5f645b695e16395e656b5a5e57686f1822186a68575a705f61\
-1822186266276a5b61182218615f685f5a5f6e1822186c6068601822183e5768685f696564424157\
-6a70182218435f595e575b6216466b1822184957635b5b6816416b6357681649576a6f575a576869\
-5e5f1822183762576416375d6b5f57681822184957636f656116445b665762182218465f656a6816\
-37646a656970182218495763696564163d655a5a6f18221846576b6265163c685764595f69596516\
-49626563661822183a576c5b1639686569696257645a1853\
+576a5f656469166a6516386857705f625f5764164665686a6b5d6b5b695b18221857695e5f695e16\
+575d5d57686d57621822186c6068601822183b685f59164f6565641822184957635b5b6816416b63\
+57681649576a6f575a5768695e5f1822183762576416375d6b5f57681822186457655c6b63182218\
+37645a685b57163d65647057625b691822183f586b616b6465626b6d57163c576a65615f1822184b\
+6a615768695e1648576016495f645d5e1822184957636f656116445b665762182218385b686a163c\
+685b6b5a5b64585b685d18221849576b68576c164668576a5f5e57681822184357686a5f64163758\
+5b646a5b1642575e576f5b1822183a576c5b1639686569696257645a182218445f616562576f163d\
+656966655a5f64656c182218665e65685f5957621822183c685764596516396568685b571822183b\
+6b57641645645d182218625b656457685a596018221837686f576416435b5a5f68576a6a57182218\
+4f57695e57695e6c5f163a576c5b1822183857696a5f5b641822184d57626a5b6816385b645a5b68\
+1853\
 ",
 
 	contributors: function() {

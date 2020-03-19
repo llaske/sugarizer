@@ -39,9 +39,6 @@ class GearSketch
     ["chainButton", "ChainIcon.png"]
     ["momentumButton", "MomentumIcon.png"]
     ["playButton", "PlayIcon.png"]
-    ["clearButton", "ClearIcon.png"]
-    ["cloudButton", "CloudIcon.png"]
-    ["helpButton", "HelpIcon.png"]
   ]
 
   MovementAction =
@@ -179,13 +176,7 @@ class GearSketch
     else
       button = @getButtonAt(x, y)
       if button
-        if button.name is "clearButton"
-          # remove hash from url and clear board
-          parent.location.hash = ""
-          @board.clear()
-        else if button.name is "cloudButton"
-          @uploadBoard()
-        else if button.name is "helpButton"
+        if button.name is "helpButton"
           @playDemo()
         else
           @selectButton(button.name)
@@ -624,14 +615,12 @@ class GearSketch
   updateCanvasSize: () ->
     @canvas.width = @canvas.parentElement.getBoundingClientRect().width
     @canvas.height = @canvas.parentElement.getBoundingClientRect().height
-    @buttons["clearButton"].location.x = Math.max(@canvas.width - 260, @buttons["playButton"].location.x + 80)
-    @buttons["cloudButton"].location.x = @buttons["clearButton"].location.x + 80
-    @buttons["helpButton"].location.x = @buttons["cloudButton"].location.x + 80
+  
 
   # -- usage demo --
   loadDemoMovements: ->
     @demoMovements = [
-      from: @getButtonCenter("helpButton")
+      from: @getButtonCenter("playButton")
       to: @getButtonCenter("gearButton")
       atEnd: MovementAction.PEN_TAP
       type: MovementType.STRAIGHT

@@ -108,7 +108,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             video.style.width = "100%";
             video.style.maxHeight = (90 * document.body.clientHeight / 100) + "px";
             video.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
-            video.style.paddingBottom = "100px";
+            video.style.paddingBottom = "60px";
 
 
             return this.generatePopup(fullData, video, originalVideo, metadata);
@@ -125,6 +125,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.style.zIndex = "98";
             img.style.margin = "auto";
             img.style.display = "block";
+            img.style.width = "100%";
             img.style.maxHeight = (90 * document.body.clientHeight / 100) + "px";
             img.style.maxWidth = (90 * document.body.clientWidth / 100) + "px";
             img.style.backgroundSize = "contain";
@@ -147,9 +148,12 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             div.style.background = "#000";
             div.style.zIndex = "97";
             div.style.minHeight = "42px";
-            div.style.top = parseInt(5 * document.body.clientHeight / 100) + "px";
-            div.style.left = parseInt(5 * document.body.clientWidth / 100) + "px";
-            div.style.width = parseInt(90 * document.body.clientWidth / 100) + "px";
+            div.style.top = 0;
+            div.style.bottom = 0;
+            div.style.left = 0;
+            div.style.right = 0;
+            div.style.margin = "auto";
+            div.style.width = parseInt(80 * document.body.clientWidth / 100) + "px";
 
             var title = document.createElement("span");
             title.style.zIndex = "98";
@@ -221,6 +225,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             img.style.backgroundImage = "url('" + fullData.data + "')";
             img.style.backgroundRepeat = "no-repeat";
             img.style.backgroundPosition = "center";
+            img.style.backgroundSize = "contain";
 
             div.appendChild(img);
 
@@ -595,8 +600,8 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                     document.querySelector('#vidDisplay').srcObject = mediaStream;
                     setTimeout(function () {
                         var canvas = document.createElement("canvas");
-                        var width = captureHelper.width;
-                        var height = captureHelper.height;
+                        var width = 320;
+                        var height = 240;
 
                         canvas.width = width;
                         canvas.height = height;

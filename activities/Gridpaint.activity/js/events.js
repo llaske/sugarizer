@@ -39,16 +39,24 @@ function eventInit(){
 		frame.onmousemove = evMousemove;
 		frame.onmouseup = evMouseup;
 	}
-	var wsize = document.body.clientHeight-55;
+	computeSize();
+	window.addEventListener('resize', computeSize);
+}
+
+function computeSize() {
+	var wsize = document.body.clientHeight-(document.getElementById("unfullscreen-button").style.visibility=="hidden"?55:0);
 	zoom = wsize/748;
-	document.getElementById("canvas").style.zoom = zoom;
-	var useragent = navigator.userAgent.toLowerCase();
-	if (useragent.indexOf('chrome') == -1) {
-		document.getElementById("canvas").style.MozTransform = "scale("+zoom+")";
-		document.getElementById("canvas").style.MozTransformOrigin = "0 0";
-		document.getElementById("canvas").style.width = "1024px";
-		document.getElementById("canvas").style.height = "748px";
+	var leftMargin = (document.body.clientWidth-1024*zoom)/2;
+	document.getElementById("frame").style.marginLeft = leftMargin+"px";
+	var setTransform = function(element) {
+		element.style.transform = "scale("+zoom+","+zoom+")";
+		element.style.transformOrigin = "0% 0%";
+		element.style.width = "1024px";
+		element.style.height = "748px";
 	}
+	setTransform(document.getElementById("gridcnv"));
+	setTransform(document.getElementById("hitbuffer"));
+	setTransform(document.getElementById("thumbframe"));
 }
 
 function evMousedown(e){
@@ -79,7 +87,7 @@ function evMouseup(e){
 	onEnd();
 }
 
-function localx(gx){return (gx/zoom-frame.getBoundingClientRect().left);}
+function localx(gx){return (gx-frame.getBoundingClientRect().left)/zoom;}
 function localy(gy){
-	return (gy/zoom-frame.getBoundingClientRect().top);
+	return (gy-frame.getBoundingClientRect().top)/zoom;
 }
