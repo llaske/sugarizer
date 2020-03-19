@@ -19,6 +19,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		var interactContainer = document.getElementById("planet-container");
 		var planetDisplay = document.getElementById("planet-display");
 		var planetInfo = document.getElementById("planet-info");
+		var mainCanvas = document.getElementById("canvas");
 
 		//Allow interaction with planet
 		var controls = new THREE.TrackballControls(camera, renderer.domElement);
@@ -113,6 +114,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			//When click on a planet, show more info about that planet
 			document.getElementById("planet-" + name).addEventListener("click", function(){
 				stopRotation = false;
+				mainCanvas.style.backgroundColor = "#c0c0c0";
 				interactContainer.style.display = "block";
 				homeDisplay.style.display = "none";
 				document.getElementById("planet-info").style.display = "block";
@@ -176,39 +178,50 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					}
 				}
 
-				resizePlanet = function() {
-
-					var width = planetDisplay.clientWidth;
-					var height = planetDisplay.clientHeight;
-
-					renderer.setSize(width, height);
-					camera.aspect = width/height;
-					camera.updateProjectionMatrix();
-					controls.handleResize();
-
-				}
-
 				animatePlanet = function() {
+					if (resizePlanet(renderer)) {
+						camera.aspect = planetDisplay.clientWidth/planetDisplay.clientHeight;
+						camera.updateProjectionMatrix();
+						controls.handleResize();
+					}
+
 					requestAnimationFrame(animatePlanet);
 					if (stopRotation === false){
 						planetMesh.rotation.y += 0.1 * Math.PI/180;
 					}
+
 					controls.update();
 					lightHolder.quaternion.copy(camera.quaternion);
 					renderer.render(scene, camera);
 				}
+
+				resizePlanet = function(renderer) {
+
+					var width = planetDisplay.clientWidth;
+					var height = planetDisplay.clientHeight;
+					var needResize = planetDisplay.width !== width || planetDisplay.height !== height;
+
+					if (needResize) {
+						renderer.setSize(width, height);
+					}
+
+					return needResize;
+
+				}
+
 
 
 				document.getElementById("image-button").addEventListener("click", function(){
 					save = true;
 					saveImage();
 				});
-				resizePlanet();
+
 				animatePlanet();
 
 			});
 
 			document.getElementById("rotation-button").addEventListener("click", function(){
+
 				if (stopRotation === false){
 					stopRotation = true;
 				} else{
@@ -224,14 +237,14 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					document.getElementById("planet-info").style.display = "none";
 					planetDisplay.style.width = "100%";
 					renderer.setSize( window.innerWidth, window.innerHeight);
-					resizePlanet();
+					resizePlanet(renderer);
 					showInfo = false;
 				}
 				else{
 					document.getElementById("planet-info").style.display = "block";
 					planetDisplay.style.width = "60%";
 					renderer.setSize( planetDisplay.clientWidth, window.innerHeight);
-					resizePlanet();
+					resizePlanet(renderer);
 					showInfo = true;
 				}
 				planetDisplay.appendChild(renderer.domElement);
@@ -241,6 +254,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			document.getElementById("home-button").addEventListener("click", function(){
 				interactContainer.style.display = "none";
 				homeDisplay.style.display = "block";
+				mainCanvas.style.backgroundColor = "black";
 				document.getElementById("rotation-button").style.display = "none";
 				document.getElementById("info-button").style.display = "none";
 				document.getElementById("home-button").style.display = "none";
@@ -251,6 +265,20 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					 scene.remove(scene.children[0]);
 				};
 
+			});
+
+			// Switch to fullscreen mode on click
+			document.getElementById("fullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("canvas").style.top = "0px";
+				document.getElementById("unfullscreen-button").style.visibility = "visible";
+			});
+
+			// Switch to unfullscreen mode
+			document.getElementById("unfullscreen-button").addEventListener('click', function() {
+				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("canvas").style.top = "55px";
+				document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			});
 
 
