@@ -1,3 +1,4 @@
+
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
 	tutorial.start = function() {
