@@ -163,20 +163,23 @@
 	position: relative;
 	z-index: 2;
 	background-color: #c0c0c0; 
+	line-height: 47px;	
+	
 	
 	
 }
 
 
 .search-field-border {
-	position: relative;
+	position: absolute;
 	border-radius: 22px;
 	top: 2px;
 	margin-left: 77px;
-	width: 350px;
+	width: 85vw;
 	height: 45px;
 	display: inline-block;
 	vertical-align: top;
+	z-index: 0;
   }
   
   .search-field-border-focus {
@@ -196,12 +199,13 @@
 	border: 0px;
 	display: inline-block;
 	background-color: #e5e5e5;
-	width: 270px;
+	width: 80vw;
 	line-height: 22px;
 	outline: 0;
 	font-size: 15pt;
 	position: relative;
 	top: 5px;
+	position: absolute;
   }
   
   .search-field-iocancel {
@@ -225,13 +229,21 @@
   }
 
 @media (max-width: 960px) {
-	#user-text {
-		margin-left: 5vw;
+	.search-field-border  {
+		margin-left: 7vw;
 	}
+	.search-field-input{
+		width: 75vw;
+	}
+
 }
 @media (max-width: 600px) {
-	#user-text {
-		margin-left: 10vw;
+	.search-field-border{
+		margin-left: 15vw;
+		
+	}
+	.search-field-input{
+		width: 75vw;
 	}
 }
 
@@ -244,8 +256,8 @@
 }
 
 #generate-button {
-	height: 45px;
-	width: 50px;
+	height: 43px;
+	width: 43px;
 	margin: 8px;
 	right: 4px;
 	bottom: 15px;
@@ -253,8 +265,14 @@
 	z-index: 1;
 	position: absolute;
 	background-image: url(../icons/go-right.svg);
-	background-size: 55px 50px;
+	background-size: 43px 43px;
 	background-position: 50% 50%;
+}
+@media (max-width: 600px) {
+	#generate-button{
+		margin-left: 9vw;
+		position: absolute;
+	}
 }
 
 #fullscreen-button {
