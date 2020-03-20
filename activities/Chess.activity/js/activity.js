@@ -172,22 +172,38 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon
 			}
 			game.opponent_box();
 
+			//notification popup for check
+			game.check_notification = function(){
+				var continue_button_title = webL10n.get("Continue");
+				var warning_title = webL10n.get("Warning");
+				var warning_content = webL10n.get("KingIsInCheck");
 
-			function opponent_box_for_presence(playerone, playertwo){
-				var playerOneIcon_div = document.getElementsByClassName("playerOneIcon")[0];
-				var playerOneName_div = document.getElementsByClassName("playerOneName")[0];
-				var playerTwoIcon_div = document.getElementsByClassName("playerTwoIcon")[0];
-				var playerTwoName_div = document.getElementsByClassName("playerTwoName")[0];
-				playerOneIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(playerone.colorvalue) + "'>";
-				playerOneName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
-											+ playerone.name + "</h3>";
-				playerOneIcon_div.firstChild.style.height = playerOneIcon_div.style.height;
-				playerOneIcon_div.firstChild.style.marginLeft = "5px";
-				playerTwoIcon_div.innerHTML = "<img src='" + generateXOLogoWithColor(playertwo.colorvalue) + "'>";
-				playerTwoName_div.innerHTML = "<h3 style='text-align: center;margin-top:6px;color:rgb(240, 217, 181);'>" 
-											+ playertwo.name + "</h3>";
-				playerTwoIcon_div.firstChild.style.height = playerTwoIcon_div.style.height;
-				playerTwoIcon_div.firstChild.style.marginLeft = "5px";
+				picoModal({
+                    content:"<div style = 'width:400px;margin-bottom:60px'>" +
+                        "<div style='width:50px;float:left'><img src='icons/emblem-warning.svg' style='padding:10px;height:40px;'></div>" +
+                        "<div style='width:300px;float:left;margin-left:20px;'>" +
+                        "<div style='color:white;margin-top:10px;'><b>" + warning_title + "</b></div>" +
+                        "<div style='color:white;margin-top:2px;'>" + warning_content + "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div>" +
+                        "<button class='continue warningbox-refresh-button'><img src='icons/dialog-ok.svg' style='width: 20px; height: 16px;margin-right:5px;'> "+ continue_button_title + "</button>" +
+                        "</div>",
+                    closeButton: false,
+                    modalStyles: {
+                            backgroundColor: "#000000",
+                            height: "120px",
+                            width: "60%",
+                            textColor: "white"
+                        },
+                }).afterCreate(function(modal) {
+                    modal.modalElem().addEventListener("click", function(evt) {
+                        if (evt.target && evt.target.matches(".continue")) {
+                            modal.close();
+                        }
+                    });
+                }).show();
+
 			}
 
 			//Restart game

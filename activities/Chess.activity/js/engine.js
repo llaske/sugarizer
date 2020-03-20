@@ -1142,8 +1142,9 @@ function p4_move2string(state, s, e, S, promotion, flags, moves){
             mv += '#';
             document.getElementById("myModal").style.display = "inherit";
         }
-        else
+        else{
             mv += '+';
+        }
     }
     else if (flags & P4_MOVE_FLAG_MATE)
     {

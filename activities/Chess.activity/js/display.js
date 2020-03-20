@@ -93,9 +93,14 @@ function _event_target(e){
 //     }
 // };
 
+_p4d_proto.check_notification = function(){}
+
 _p4d_proto.move = function(start, end, promotion){
     var state = this.board_state;
     var move_result = state.move(start, end, promotion);
+    if((move_result.string.indexOf('+')>-1) && (game.players[state.to_play]!="computer")){
+        this.check_notification();
+    }
     if(move_result.ok){
         this.display_move_text(state.moveno, move_result.string);
         this.refresh();
