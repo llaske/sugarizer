@@ -202,7 +202,8 @@
 	width: 79vw;
 	line-height: 22px;
 	outline: 0;
-	font-size: 15pt;
+	font-size: 22pt;
+	font-weight: bold;
 	position: relative;
 	top: 5px;
 	position: absolute;
