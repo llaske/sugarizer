@@ -1,0 +1,10 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="activity-measure">
+	<g>
+		<path d="M48.143,36.983c0,3.3-2.7,6-6,6H12.705c-3.3,0-6-2.7-6-6V18.213c0-3.3,2.7-6,6-6h29.438c3.3,0,6,2.7,6,6    V36.983z" fill="&fill_color;"/>
+		<path d="M48.143,36.983c0,3.3-2.7,6-6,6H12.705    c-3.3,0-6-2.7-6-6V18.213c0-3.3,2.7-6,6-6h29.438c3.3,0,6,2.7,6,6V36.983z" fill="none" stroke="&stroke_color;" stroke-linejoin="round" stroke-width="3.5"/>
+	</g>
+	<path d="M8.007,27.598   c10.118,0,6.243,9.431,11.213,9.431c4.375,0,2.154-19.154,6.279-19.154c4.875,0,1.719,19.154,6.719,19.154   c4.406,0,1.781-11.529,5.156-11.529s2,4.875,4.25,4.875c2.375,0,0.25-3.375,5.75-3.375" fill="&fill_color;" stroke="&stroke_color;" stroke-linejoin="round" stroke-width="3.5"/>
+</g></svg>
