@@ -142,6 +142,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Responsiveness issue in Pomodoro Activity #675
 - Password Tutorial targets the wrong element #68
 - Tutorial error in Shared Notes Activity #693
+- TamTam Micro Activity Piano Mode Not working in Chrome in file:// #679
+- Bug While Resizing game screen after resizing setting screen in Falabracman activity #703
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only
