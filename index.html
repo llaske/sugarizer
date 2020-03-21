@@ -59,6 +59,38 @@
 
     <button class="toolbutton first-qrswitch-button" id="qrswitchbutton"></button>
     <button class="toolbutton first-qrclose-button" id="qrclosebutton"></button>
-  </body>
+  
+	<script>
+	
+	
+	function geoFindMe() {
+	
+	function success(position) {
+	  const latitude  = position.coords.latitude;
+	  const longitude = position.coords.longitude;
+	
+
+	
+	  console.log(latitude);
+	  console.log(longitude);
+	}
+	
+	function error() {
+	  console.log("error locating");
+	}
+	
+	if (!navigator.geolocation) {
+		console.log("Geolocation is not supported by your browser")}
+	 else {
+
+	  navigator.geolocation.getCurrentPosition(success, error);
+	}
+	
+	}
+	window.onload = geoFindMe();
+	
+	</script>
+	
+	</body>
 
 </html>
