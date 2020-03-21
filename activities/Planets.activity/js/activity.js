@@ -65,18 +65,8 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			var stopRotation;
 			var save;
 
-			//Url of image files
+			//Url of planet map files
 			var url = "images/" + name.toLowerCase() + "map.jpg";
-			if(type !== "Gas Giant" && type !== "Ice Giant"){
-				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
-			}
-			if(name === "Earth"){
-				var specUrl = "images/" + name.toLowerCase() + "spec.png";
-				var cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
-			}
-			if(name === "Saturn"){
-				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
-			}
 
 
 			//Create Planet
@@ -86,46 +76,59 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				map: loadTexture,
 				shininess: 5
 			});
+			var light = new THREE.DirectionalLight(0xffffff);
+			var lightHolder = new THREE.Group();
 			var planetMesh = new THREE.Mesh(geometry, material);
 
 			//Create clouds for Earth
-			var loadCloudTexture = new THREE.TextureLoader().load(cloudUrl);
-			var light = new THREE.DirectionalLight(0xffffff);
-			var lightHolder = new THREE.Group();
-			var cloudGeometry = new THREE.SphereGeometry(2.03, 32, 32);
-			var cloudMaterial = new THREE.MeshPhongMaterial({
-				map: loadCloudTexture,
-				side: THREE.DoubleSide,
-				opacity: 0.5,
-				transparent: true,
-				depthWrite: false
-			});
-			var cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
-			planetMesh.add(cloudMesh);
+			if(name === "Earth"){
+				var specUrl = "images/" + name.toLowerCase() + "spec.png";
+				var cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
+				var loadCloudTexture = new THREE.TextureLoader().load(cloudUrl);
+				var cloudGeometry = new THREE.SphereGeometry(2.03, 32, 32);
+				var cloudMaterial = new THREE.MeshPhongMaterial({
+					map: loadCloudTexture,
+					side: THREE.DoubleSide,
+					opacity: 0.5,
+					transparent: true,
+					depthWrite: false
+				});
+				var cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
+				material.specularMap = new THREE.TextureLoader().load(specUrl);
+				material.specular  = new THREE.Color('grey');
+				planetMesh.add(cloudMesh);
+			};
 
 			//Create Rings
-			var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
-			var ringGeometry = new THREE.RingBufferGeometry(2.5, 5, 40);
-			var position = ringGeometry.attributes.position;
-			var vector = new THREE.Vector3();
-			for (let i = 0; i < position.count; i++){
-				vector.fromBufferAttribute(position, i);
-				ringGeometry.attributes.uv.setXY(i, vector.length() < 4 ? 0 : 1, 1);
+			if(name === "Saturn"){
+				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
+				var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
+				var ringGeometry = new THREE.RingBufferGeometry(2.5, 5, 40);
+				var position = ringGeometry.attributes.position;
+				var vector = new THREE.Vector3();
+				for (let i = 0; i < position.count; i++){
+					vector.fromBufferAttribute(position, i);
+					ringGeometry.attributes.uv.setXY(i, vector.length() < 4 ? 0 : 1, 1);
+				}
+				var ringMaterial = new THREE.MeshPhongMaterial({
+					map: loadRingTexture,
+					side: THREE.DoubleSide,
+					opacity: 0.6,
+					transparent: true,
+					depthWrite: true
+				});
+				var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 			}
-			var ringMaterial = new THREE.MeshPhongMaterial({
-				map: loadRingTexture,
-				side: THREE.DoubleSide,
-				opacity: 0.6,
-				transparent: true,
-				depthWrite: true
-			});
-			var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 
 			//For planets with terrain, add bumps
-			material.bumpMap = new THREE.TextureLoader().load(bumpUrl);
-			material.specularMap = new THREE.TextureLoader().load(specUrl);
-			material.specular  = new THREE.Color('grey')
-			material.bumpScale = 0.1;
+			if (type === "Terrestrial"){
+				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
+				material.bumpMap = new THREE.TextureLoader().load(bumpUrl);
+				material.bumpScale = 0.1;
+			}
+
+
+
 
 			//Active buttons
 			document.getElementById("rotation-button").classList.add("active");
