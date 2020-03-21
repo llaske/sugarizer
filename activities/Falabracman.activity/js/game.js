@@ -716,7 +716,7 @@ function Game(canvas, resources, paladict, webL10n) {
     var isCollide = false;
 
     if (this.targetWordLetters.length > 0) {
-      for(let i=0; i<this.targetWordLetters.length; i++) {
+      for(var i=0; i<this.targetWordLetters.length; i++) {
         if(this.targetWordLetters[i].letter == this.targetWordLetters[0].letter) {
           isCollide = this.collides({
             x: this.playerX,
@@ -731,9 +731,9 @@ function Game(canvas, resources, paladict, webL10n) {
           });
           if (isCollide) {
             if(i != 0) {
-              //Swapping the x and y positions with first letter
-              let tempX = this.targetWordLetters[0].x;
-              let tempY = this.targetWordLetters[0].y;
+              //Swapping the x and y of first letter with the current
+              var tempX = this.targetWordLetters[0].x;
+              var tempY = this.targetWordLetters[0].y;
               this.targetWordLetters[0].x = this.targetWordLetters[i].x;
               this.targetWordLetters[0].y = this.targetWordLetters[i].y;
               this.targetWordLetters[i].x = tempX;
