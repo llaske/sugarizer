@@ -35,8 +35,7 @@
 	width:50px;
 	margin:8px;
 	right:4px;
-	bottom: -1.5vh;
-	
+	bottom: -1.1vh;
 	z-index:1;
 	position:absolute;
 	background-image: url(../icons/go-right.svg);
@@ -50,8 +49,8 @@
 	margin:5px;
 	top: 8px;
 	margin-left: 8vh;
-	width: 90vw;
-	height: 40px;
+	width: 89vw;
+	height: 47px;
 	display: inline-block;
 	vertical-align: top;
 	z-index:0;
@@ -66,20 +65,40 @@
 	background-color: #e5e5e5;
 	border: 2px solid #e5e5e5;
   }
+
+  /* #userText {
+	height:40px;
+	margin:5px;
+	margin-left:8vh;
+	width:90vw;
+	font-size: 28pt;
+	font-weight: bold;
+	z-index:0;
+	} */
+	
+	
   
-  .search-field-input {
+  #userText {
 	opacity: 1;
 	margin-left: 30px;
 	border: 0px;
 	display: inline-block;
 	background-color: #e5e5e5;
-	width: 270px;
+	height:40px;
+	width: 80vw;
 	line-height: 22px;
 	outline: 0;
-	font-size: 12pt;
+	font-size: 25pt;
+	font-weight: bold;
 	position: relative;
-	top: 5px;
+	top: 1px;
   }
+  	@media screen and (max-width: 940px) {
+		#userText{
+			width: 67vw;
+		}
+	
+}
   
 /** Custom dropdown arrow for select tag **/
 
