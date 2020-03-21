@@ -5,12 +5,19 @@
     <meta charset="utf-8" />
     <title>Stopwatch Activity</title>
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+    <link rel="prefetch" type="application/l10n" href="locale.ini">
     <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
       href="lib/sugar-web/graphics/css/sugar-96dpi.css">
     <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
       href="lib/sugar-web/graphics/css/sugar-200dpi.css">
-    <link rel="stylesheet" href="css/activity.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-tour.min.css">
+    <link rel="stylesheet" href="css/activity.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-tour.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
     <script data-main="js/loader" src="lib/require.js"></script>
   </head>
 
@@ -18,13 +25,16 @@
     <div id="main-toolbar" class="toolbar">
       <button class="toolbutton" id="activity-button" title="My Activity"></button>
       <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+      <button class = "toolbutton pull-right" id = "fullscreen-button" title = "Fullscreen"></button>
+      <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
     </div>
     <div id="canvas">
       <div id="stopwatch-app">
-        <ul style="list-style-type:none;" class="panel" id="stopwatch-list"></ul>
-        <button id="add-stopwatch"></button>
+        <ul style="list-style-type:none;" class="card" id="stopwatch-list"></ul>
+        <button id="add-stopwatch" title="Add Stopwatch"></></button>
       </div>
     </div>
+    <button class = "toolbutton pull-right" id = "unfullscreen-button" title = "Unfullscreen"></button>
   </body>
 
 </html>

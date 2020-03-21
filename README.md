@@ -92,7 +92,7 @@ For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel chec
 
 [Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
 
-Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox, Safari or EDGE browser.
+Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox or Safari browser.
 
 As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
@@ -294,6 +294,8 @@ Note that this translation is for Sugarizer only. Each activity could provide it
 # How to contribute
 
 As all Open Source software, contributions to this software are welcome.
+
+See [here](docs/credits.md) the current list of Sugarizer contributors.
 
 Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Sugarizer.
 

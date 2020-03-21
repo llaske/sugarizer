@@ -1653,6 +1653,12 @@ body {
 .computer-contributor {
 	margin-left: 30px;
 	margin-top: 20px;
+	display: inline-block;
+}
+
+.computer-contributor-link {
+	display: inline-block;
+	text-decoration: underline;
 }
 
 .computer-licence {

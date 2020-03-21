@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:23:42 GMT+0100 (CET)\n"
+"POT-Creation-Date: Wed Feb 19 2020 10:40:07 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,16 +15,156 @@ msgstr ""
 
 #: label
 msgctxt "label"
-msgid "Label"
-msgstr "Intitulé"
+msgid ""
+msgstr "Libellé"
 
 #: calcul
 msgctxt "calcul"
-msgid "Calculation"
+msgid ""
 msgstr "Calcul"
 
 #: clear
 msgctxt "clear"
-msgid "Clear"
+msgid ""
 msgstr "Effacer"
+
+#: trigo.title
+msgctxt "trigo.title"
+msgid ""
+msgstr "Choisir fonction trigonométrique"
+
+#: algebra.title
+msgctxt "algebra.title"
+msgid ""
+msgstr "Choisir fonction algébrique"
+
+#: base.title
+msgctxt "base.title"
+msgid ""
+msgstr "Choisir base"
+
+#: angle.title
+msgctxt "angle.title"
+msgid ""
+msgstr "Choisir type d'angle"
+
+#: digit.title
+msgctxt "digit.title"
+msgid ""
+msgstr "Choisir précision"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid ""
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid ""
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid ""
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid ""
+msgstr "Activité Calculate"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid ""
+msgstr "Calculate est une calculatrice. L'interface propose les fonctions les plus simples directement mais elle supporte aussi des fonctions et variables mathématique complexes et même du tracé de courbes"
+
+#: TutoTrigoTitle
+msgctxt "TutoTrigoTitle"
+msgid ""
+msgstr "Fonctions Trigonométriques"
+
+#: TutoTrigoContent
+msgctxt "TutoTrigoContent"
+msgid ""
+msgstr "Cliquez ici pour choisir une fonction trigonométrique comme sin ou cos. La valeur donnée à la fonction doit être entre parenthèses"
+
+#: TutoAlgebraTitle
+msgctxt "TutoAlgebraTitle"
+msgid ""
+msgstr "Fonctions Algébriques"
+
+#: TutoAlgebraContent
+msgctxt "TutoAlgebraContent"
+msgid ""
+msgstr "Cliquez ici pour choisir une fonction algébrique comme puissance ou racine carrée. La valeur donnée à la fonction doit être entre parenthèses"
+
+#: TutoBaseTitle
+msgctxt "TutoBaseTitle"
+msgid ""
+msgstr "Base"
+
+#: TutoBaseContent
+msgctxt "TutoBaseContent"
+msgid ""
+msgstr "Cliquez ici pour choisir la base pour les calculs: décimal (10), binaire (2), octal (8) et hexadécimal (16)"
+
+#: TutoAngleTitle
+msgctxt "TutoAngleTitle"
+msgid ""
+msgstr "Type d'angle"
+
+#: TutoAngleContent
+msgctxt "TutoAngleContent"
+msgid ""
+msgstr "Cliquez ici pour choisir le type pour les angles: degrés (défaut) ou radians"
+
+#: TutoOutputTitle
+msgctxt "TutoOutputTitle"
+msgid ""
+msgstr "Précision"
+
+#: TutoOutputContent
+msgctxt "TutoOutputContent"
+msgid ""
+msgstr "Cliquez ici pour changer le nombre de chiffres après la virgule: de 6 (défaut) à 15"
+
+#: TutoInputTitle
+msgctxt "TutoInputTitle"
+msgid ""
+msgstr "Entrée"
+
+#: TutoInputContent
+msgctxt "TutoInputContent"
+msgid ""
+msgstr "Ici se trouve la calculatrice. Vous pouvez soit écrire les nombres avec le clavier ou utiliser les boutons"
+
+#: TutoResultTitle
+msgctxt "TutoResultTitle"
+msgid ""
+msgstr "Résultats"
+
+#: TutoResultContent
+msgctxt "TutoResultContent"
+msgid ""
+msgstr "Ici vous pouvez visualiser l'historique de toutes vos opérations"
+
+#: TutoLabelTitle
+msgctxt "TutoLabelTitle"
+msgid ""
+msgstr "Libellé"
+
+#: TutoLabelContent
+msgctxt "TutoLabelContent"
+msgid ""
+msgstr "Si vous souhaitez donner un libellé à votre calcul actuel pour le retrouver dans l'historique, tapez le ici"
+
+#: TutoFunctionTitle
+msgctxt "TutoFunctionTitle"
+msgid ""
+msgstr "Tracé de courbe"
+
+#: TutoFunctionContent
+msgctxt "TutoFunctionContent"
+msgid ""
+msgstr "Pour tracer une courbe, tapez son équation dans la zone de calcul. Par exemple: f(x)=2*x+3"
 

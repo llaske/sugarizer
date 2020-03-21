@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,5 +141,135 @@ msgstr ""
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "FotoToon Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+msgstr ""
+
+#: TutoPreviousExplanation
+msgctxt "TutoPreviousExplanation"
+msgid "Click here to go to the previous box in your comic strip"
+msgstr ""
+
+#: TutoNextExplanation
+msgctxt "TutoNextExplanation"
+msgid "Click here to go to the next box in your comic strip"
+msgstr ""
+
+#: TutoAddPage
+msgctxt "TutoAddPage"
+msgid "Add box"
+msgstr ""
+
+#: TutoAddPageExplanation
+msgctxt "TutoAddPageExplanation"
+msgid "Click here to add picture, drawing or image as a new box"
+msgstr ""
+
+#: TutoAddGlobeExplanation
+msgctxt "TutoAddGlobeExplanation"
+msgid "Click here to add a new globe in current your box"
+msgstr ""
+
+#: TutoEditText
+msgctxt "TutoEditText"
+msgid "Edit text"
+msgstr ""
+
+#: TutoEditTextExplanation
+msgctxt "TutoEditTextExplanation"
+msgid "Click here to update the current text"
+msgstr ""
+
+#: TutoSortBoxes
+msgctxt "TutoSortBoxes"
+msgid "Sort boxes"
+msgstr ""
+
+#: TutoSortBoxesExplanation
+msgctxt "TutoSortBoxesExplanation"
+msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+msgstr ""
+
+#: TutoCleanAll
+msgctxt "TutoCleanAll"
+msgid "Clean all"
+msgstr ""
+
+#: TutoCleanAllExplanation
+msgctxt "TutoCleanAllExplanation"
+msgid "Click here to clear all boxes"
+msgstr ""
+
+#: TutoImageSave
+msgctxt "TutoImageSave"
+msgid "Save as image"
+msgstr ""
+
+#: TutoImageSaveExplanation
+msgctxt "TutoImageSaveExplanation"
+msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+msgstr ""
+
+#: TutoPageCounter
+msgctxt "TutoPageCounter"
+msgid "Box counter"
+msgstr ""
+
+#: TutoPageCounterExplanation
+msgctxt "TutoPageCounterExplanation"
+msgid "It shows current box out of total number of boxes in your comic strip"
+msgstr ""
+
+#: TutoStop
+msgctxt "TutoStop"
+msgid "Stop"
+msgstr ""
+
+#: TutoStopExplanation
+msgctxt "TutoStopExplanation"
+msgid "Click here to end activity ang go back to Sugarizer home page"
+msgstr ""
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel"
+msgstr ""
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr ""
+
+#: CleanAllMessage
+msgctxt "CleanAllMessage"
+msgid "All the boxes in your comic strip will be removed!"
+msgstr ""
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
 msgstr ""
 

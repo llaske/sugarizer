@@ -140,11 +140,11 @@ To do that, let's study the file `js/activity.js`. It's really the heart of your
 
 	});
 
-These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependancies. You could read more about the **require.js** framework [here](http://www.requirejs.org/) but shortly, there is only two functions to understand: `define` and `require`.
+These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependencies. You could read more about the **require.js** framework [here](http://www.requirejs.org/) but shortly, there are only two functions to understand: `define` and `require`.
 
 * `define` is a way to define a new module and express its dependencies. Here for example we're going to define a new module that depends on the JavaScript library `sugar-web/activity/activity`. So when the `js/activity.js` is run, **require** will first load the Sugar-Web activity library and put a reference on it in the `activity` variable.
 
-* `requirejs` is pretty the same. It tells to **require**: run the following function but before that, load dependencies and give me a reference to it. There is small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
+* `requirejs` is pretty the same. It tells to **require**: run the following function but before that, load dependencies and give me a reference to it. There is a small hack here because `domReady!` is a special library used to wait for the end of the HTML page loading.
 
 Then comes the most important line of our activity:
 
@@ -163,7 +163,7 @@ Then run again your new activity. Here's what happens:
 
 ![](images/tutorial_step2_3.png)
 
-Ooops! Colors for our nice icons has disappeared and when you click on the Stop button nothing happens. Clearly you've broken the Sugarizer logic :-(
+Ooops! Colors for our nice icons have disappeared and when you click on the Stop button nothing happens. Clearly, you've broken the Sugarizer logic :-(
 
 So uncomment this precious line and never forget to call it again!
 
@@ -176,7 +176,7 @@ To do that we're going to use another Sugar-Web library named **env**. So, we ne
 
 	define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 
-This library contains a very interesting method `getEnvironment`. This method allow you to retrieve all users settings: name, prefered colours, language, favorites, ...
+This library contains a very interesting method `getEnvironment`. This method allows you to retrieve all users settings: name, preferred colours, language, favorites, ...
 So add a call to this method to retrieve the user name:
 
 	// Initialize the activity.

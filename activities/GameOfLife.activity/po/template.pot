@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:17:57 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:34:32 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,5 +16,180 @@ msgstr ""
 #: Generation
 msgctxt "Generation"
 msgid "Generation"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Game of Life Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Game of Life activity. Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen"
+msgstr ""
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Rules of Game of Life"
+msgstr ""
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Every cell on the board interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each generation, the following transitions occur:"
+msgstr ""
+
+#: TutoUnderTitle
+msgctxt "TutoUnderTitle"
+msgid "Underpopulation"
+msgstr ""
+
+#: TutoUnderContent
+msgctxt "TutoUnderContent"
+msgid "Any live cell with fewer than two live neighbours dies, as if by underpopulation"
+msgstr ""
+
+#: TutoNextTitle
+msgctxt "TutoNextTitle"
+msgid "Next generation"
+msgstr ""
+
+#: TutoNextContent
+msgctxt "TutoNextContent"
+msgid "Any live cell with two or three live neighbours lives on to the next generation"
+msgstr ""
+
+#: TutoOverTitle
+msgctxt "TutoOverTitle"
+msgid "Overpopulation"
+msgstr ""
+
+#: TutoOverContent
+msgctxt "TutoOverContent"
+msgid "Any live cell with more than three live neighbours dies, as if by overpopulation"
+msgstr ""
+
+#: TutoReproductionTitle
+msgctxt "TutoReproductionTitle"
+msgid "Reproduction"
+msgstr ""
+
+#: TutoReproductionContent
+msgctxt "TutoReproductionContent"
+msgid "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
+msgstr ""
+
+#: TutoRunTitle
+msgctxt "TutoRunTitle"
+msgid "Run/Pause"
+msgstr ""
+
+#: TutoRunContent
+msgctxt "TutoRunContent"
+msgid "Click here to start or freeze the game"
+msgstr ""
+
+#: TutoRandomTitle
+msgctxt "TutoRandomTitle"
+msgid "Random Pattern"
+msgstr ""
+
+#: TutoRandomContent
+msgctxt "TutoRandomContent"
+msgid "Click here to generate a board fill with a random number of cells"
+msgstr ""
+
+#: TutoGliderTitle
+msgctxt "TutoGliderTitle"
+msgid "'Glider' Pattern"
+msgstr ""
+
+#: TutoGliderContent
+msgctxt "TutoGliderContent"
+msgid "Click here to generate a board with a pattern called 'Glider' who move at each generation"
+msgstr ""
+
+#: TutoNoTitle
+msgctxt "TutoNoTitle"
+msgid "'Blinker' Pattern"
+msgstr ""
+
+#: TutoNoContent
+msgctxt "TutoNoContent"
+msgid "Click here to generate a board filled with pattern called 'Blinker' who live forever"
+msgstr ""
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr ""
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear the board. You could then click on it to draw your own pattern"
+msgstr ""
+
+#: TutoCountTitle
+msgctxt "TutoCountTitle"
+msgid "Generation Count"
+msgstr ""
+
+#: TutoCountContent
+msgctxt "TutoCountContent"
+msgid "Here you can see which generation are you actually on"
+msgstr ""
+
+#: TutoSpeedTitle
+msgctxt "TutoSpeedTitle"
+msgid "Speed"
+msgstr ""
+
+#: TutoSpeedContent
+msgctxt "TutoSpeedContent"
+msgid "Click here to make generation faster or slower"
+msgstr ""
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr ""
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to change the size of the board"
+msgstr ""
+
+#: TutoDeadCellsTitle
+msgctxt "TutoDeadCellsTitle"
+msgid "Trails"
+msgstr ""
+
+#: TutoDeadCellsContent
+msgctxt "TutoDeadCellsContent"
+msgid "Click here to see/hide trails of cells deaths"
+msgstr ""
+
+#: speed
+msgctxt "speed"
+msgid "speed :"
+msgstr ""
+
+#: size
+msgctxt "size"
+msgid "size :"
 msgstr ""
 

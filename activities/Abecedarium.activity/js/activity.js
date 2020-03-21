@@ -15,11 +15,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
-		
+
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
+			if (language == 'fr' || language == 'en' || language == 'es') {
+				Abcd.context.lang = language;
+			}
 		});
 
 		// Create sound component
@@ -28,7 +31,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 
 		// Load Database
 		Abcd.loadDatabase(function(err) {
-			// Init localization 
+			// Init localization
 			Abcd.initL10n();
 
 			// Create and display first screen
@@ -54,7 +57,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 		document.getElementById("fullscreen-button").addEventListener('click', function() {
 			document.getElementById("main-toolbar").style.visibility = "hidden";
 			document.getElementById("canvas").style.top = "0px";
-			document.getElementById("unfullscreen-button").style.visibility = "visible";  
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			Abcd.hideLang();
 			Abcd.hideCase();
 		});

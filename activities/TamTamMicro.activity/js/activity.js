@@ -1,5 +1,6 @@
 var app;
 var sound;
+var tonePlayer;
 var pianoMode = false;
 
 define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
@@ -12,11 +13,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Create sound component
 		sound = new TamTam.Audio();
 		sound.renderInto(document.getElementById("audio"));
+		tonePlayer = new TamTam.TonePlayer();
 
 		// Launch main screen
 		app = new TamTam.App({activity: activity});
 		app.renderInto(document.getElementById("keyboard"));
-		
+
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
@@ -42,7 +44,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 			app.computeSize();
 		});
-		
+
 		//Run tutorial when help button is clicked
 		document.getElementById("help-button").addEventListener('click', function(e) {
 			tutorial.start();
@@ -52,11 +54,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			sound.pause();
 		});
-		
+
 		document.getElementById("piano-button").addEventListener('click', function (event) {
 			app.changePianoMode();
 		});
-		
+
 	});
 
 });

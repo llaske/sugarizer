@@ -26,6 +26,15 @@ define(["webL10n", "activity/activity"], function () {
 					content: l10n.get("TutoActivityContent")
 				},
 				{
+					onPrev: function(tourType){
+						document.getElementById("activity-palette").style.visibility = "hidden";
+					},
+					onShow: function(tourType){
+						document.getElementById("activity-palette").style.visibility = "visible";
+					},
+					onNext: function(tourType){
+						document.getElementById("activity-palette").style.visibility = "hidden";
+					},
 					element: tutorial.getElement("title"),
 					placement: "right",
 					title: l10n.get("TutoTitleTitle"),
@@ -39,6 +48,15 @@ define(["webL10n", "activity/activity"], function () {
 					content: l10n.get("TutoNetworkContent")
 				},
 				{
+					onPrev: function(tourType){
+						document.getElementsByClassName("palette")[3].style.visibility = "hidden";
+					},
+					onShow: function(tourType){
+						document.getElementsByClassName("palette")[3].style.visibility = "visible";
+					},
+					onNext: function(tourType){
+						document.getElementsByClassName("palette")[3].style.visibility = "hidden";
+					},
 					element: tutorial.getElement("shared"),
 					placement: "right",
 					title: l10n.get("TutoSharedTitle"),
@@ -68,7 +86,7 @@ define(["webL10n", "activity/activity"], function () {
 				},
 				{
 					element: tutorial.getElement("node"),
-					placement: "right",
+					placement: "left",
 					title: l10n.get("TutoNodeTitle"),
 					content: l10n.get("TutoNodeContent")
 				},

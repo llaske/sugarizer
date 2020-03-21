@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 15:46:28 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2019-03-08 22:58+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-maze/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:29:36 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #. Do not translate {{user}}
 #: PlayerEndLevel
@@ -44,3 +42,59 @@ msgstr "Aguardando um {{count}} jogador"
 msgctxt "PlayersWaitMany"
 msgid "Waiting for {{count}} players"
 msgstr "Aguardando por {{count}} jogadores"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Maze Activity"
+msgstr "Maze Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Maze activity. Maze activity is a simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one"
+msgstr "Welcome into the Maze activity. Maze activity is a simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Network"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share the activity so other users on the network could play with you"
+msgstr "Click here to share the activity so other users on the network could play with you"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Restart"
+msgstr "Restart"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to get restart the game. It will restart to the first level of difficulty"
+msgstr "Click here to get restart the game. It will restart to the first level of difficulty"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Maze"
+msgstr "Maze"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Here is the maze. Use arrows keys or click in the direction you want to go to guide your buddy to the exit: the colorful box. You will stop on each intersection to decide which way do you want to go next"
+msgstr "Here is the maze. Use arrows keys or click in the direction you want to go to guide your buddy to the exit: the colorful box. You will stop on each intersection to decide which way do you want to go next"
+

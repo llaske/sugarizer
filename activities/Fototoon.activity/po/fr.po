@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:22:44 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr "ATTENTION"
 #: RemoveAllConfirmMessage
 msgctxt "RemoveAllConfirmMessage"
 msgid "Do you want remove all the boxes in your FotoToon?"
-msgstr "Voulez-vous supprimer tous les cadres dans votre FotoToon ?"
+msgstr "Voulez-vous vraiment supprimer tous les cadres ?"
 
 #: Yes
 msgctxt "Yes"
@@ -76,7 +76,7 @@ msgstr "Oui"
 #: No
 msgctxt "No"
 msgid "No"
-msgstr "Non"
+msgstr "non"
 
 #: OneRow
 msgctxt "OneRow"
@@ -106,12 +106,12 @@ msgstr "Image enregistrée dans le journal"
 #: SavingError
 msgctxt "SavingError"
 msgid "Error saving image"
-msgstr "Erreur enregistrement"
+msgstr "Erreur d'enregistrement de l'image"
 
 #: ToonSaved
 msgctxt "ToonSaved"
 msgid "FotoToon saved"
-msgstr "FotoToon enregistrée"
+msgstr "FotoToon enregistré"
 
 #: Previous
 msgctxt "Previous"
@@ -141,5 +141,135 @@ msgstr "Trier cadres"
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
-msgstr "Supprimer tout"
+msgstr "Tout supprimer"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "FotoToon Activity"
+msgstr "Activité FotoToon"
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel"
+msgstr "Abandonner"
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr "Continuer"
+
+#: CleanAllMessage
+msgctxt "CleanAllMessage"
+msgid "All the boxes in your comic strip will be removed!"
+msgstr "Tous les cadres de la bande dessinée seront supprimés !"
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
+msgstr "Attention"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+msgstr "FotoToon vous permet d'utiliser les photos, dessins ou images du Journal pour créer en quelques minutes une bande dessinée amusante"
+
+#: TutoPreviousExplanation
+msgctxt "TutoPreviousExplanation"
+msgid "Click here to go to the previous box in your comic strip"
+msgstr "Cliquez ici pour aller au cadre précédent de votre bande dessinée"
+
+#: TutoNextExplanation
+msgctxt "TutoNextExplanation"
+msgid "Click here to go to the next box in your comic strip"
+msgstr "Cliquez ici pour aller au cadre suivant de votre bande dessinée"
+
+#: TutoAddPage
+msgctxt "TutoAddPage"
+msgid "Add box"
+msgstr "Ajouter cadre"
+
+#: TutoAddPageExplanation
+msgctxt "TutoAddPageExplanation"
+msgid "Click here to add picture, drawing or image as a new box"
+msgstr "Cliquez ici pour ajouter un nouveau cadre avec une photo, un dessin ou une image"
+
+#: TutoAddGlobeExplanation
+msgctxt "TutoAddGlobeExplanation"
+msgid "Click here to add a new globe in current your box"
+msgstr "Cliquez ici pour ajouter une nouvelle bulle dans le cadre actuel"
+
+#: TutoEditText
+msgctxt "TutoEditText"
+msgid "Edit text"
+msgstr "Modifier texte"
+
+#: TutoEditTextExplanation
+msgctxt "TutoEditTextExplanation"
+msgid "Click here to update the current text"
+msgstr "Cliquez ici pour mettre à jour le texte actuel"
+
+#: TutoSortBoxes
+msgctxt "TutoSortBoxes"
+msgid "Sort boxes"
+msgstr "Trier cadres"
+
+#: TutoSortBoxesExplanation
+msgctxt "TutoSortBoxesExplanation"
+msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+msgstr "Cliquez ici pour trier les cadres dans votre bande dessinée. Faites simplement un glisser/déposer pour organiser les cadres comme vous le souhaitez. Cliquez à nouveau ici pour revenir sur la vue cadre"
+
+#: TutoCleanAll
+msgctxt "TutoCleanAll"
+msgid "Clean all"
+msgstr "Tout supprimer"
+
+#: TutoCleanAllExplanation
+msgctxt "TutoCleanAllExplanation"
+msgid "Click here to clear all boxes"
+msgstr "Cliquez ici pour supprimer tous les cadres"
+
+#: TutoImageSave
+msgctxt "TutoImageSave"
+msgid "Save as image"
+msgstr "Enregistrer comme image"
+
+#: TutoImageSaveExplanation
+msgctxt "TutoImageSaveExplanation"
+msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+msgstr "Cliquez ici pour enregistrer votre bande dessinée dans le Journal. Vous pouvez choisir si la page contiendra tous les cadres sur une ligne, sur une colonne ou sur deux colonnes"
+
+#: TutoPageCounter
+msgctxt "TutoPageCounter"
+msgid "Box counter"
+msgstr "Compteur cadres"
+
+#: TutoPageCounterExplanation
+msgctxt "TutoPageCounterExplanation"
+msgid "It shows current box out of total number of boxes in your comic strip"
+msgstr "Ce compteur indique la position du cadre actuel et le nombre de cadres dans votre bande dessinée"
+
+#: TutoStop
+msgctxt "TutoStop"
+msgid "Stop"
+msgstr "Stop"
+
+#: TutoStopExplanation
+msgctxt "TutoStopExplanation"
+msgid "Click here to end activity ang go back to Sugarizer home page"
+msgstr "Cliquez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil de Sugarizer"
 

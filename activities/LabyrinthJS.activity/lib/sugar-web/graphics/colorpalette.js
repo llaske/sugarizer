@@ -135,7 +135,6 @@ define([
         this.setContent([colorsElem]);
         colorsElem.parentNode.style.backgroundColor = 'black';
         colorsElem.parentNode.parentNode.style.maxWidth = '400px';
-        colorsElem.parentNode.style.width = '330px';
         colorsElem.parentNode.style.height = '225px';
         colorsElem.parentNode.style.overflowY = 'auto';
         colorsElem.parentNode.style.overflowX = 'hidden';

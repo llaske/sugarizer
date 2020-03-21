@@ -1,0 +1,222 @@
+#. extracted from ../translate.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Feb 18 2020 22:15:21 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} joined"
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} left"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Poprz"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Dalej"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Koniec"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Paint Activity"
+msgstr "Rysowanie"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
+msgstr "Witaj w Rysowaniu. Rysowanie to aplikacja do tworzenia obrazów."
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Sieć"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share your work with other users on the network"
+msgstr "Kliknij tutaj aby przejść z Prywatnego do Sąsiedztwa."
+
+#: TutoColorsButtonFillTitle
+msgctxt "TutoColorsButtonFillTitle"
+msgid "Pen color"
+msgstr "Kolor wypełnienia"
+
+#: TutoColorsButtonFillContent
+msgctxt "TutoColorsButtonFillContent"
+msgid "Click here to choose pen color"
+msgstr "Kliknij aby wybrać kolor wypełnienia."
+
+#: TutoColorsButtonStrokeTitle
+msgctxt "TutoColorsButtonStrokeTitle"
+msgid "Border color"
+msgstr "Kolor obramowania"
+
+#: TutoColorsButtonStrokeContent
+msgctxt "TutoColorsButtonStrokeContent"
+msgid "Click here to choose border color"
+msgstr "Kliknij aby wybrać kolor obramowania."
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Wstecz"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click here to undo previous actions"
+msgstr "Kliknij aby cofnąć akcję."
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Redo"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "Click here to redo previous actions"
+msgstr "Kliknij aby wykonać akcję ponownie."
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr "Rozmiar"
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to select brush size. Each click increase the brush size until the maximum size"
+msgstr "Kliknij aby wybrać rozmiar pędzla."
+
+#: TutoPenTitle
+msgctxt "TutoPenTitle"
+msgid "Pen mode"
+msgstr "Długopis"
+
+#: TutoPenContent
+msgctxt "TutoPenContent"
+msgid "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
+msgstr "Kliknij aby wybrać długopis."
+
+#: TutoEraserTitle
+msgctxt "TutoEraserTitle"
+msgid "Eraser mode"
+msgstr "Gumka"
+
+#: TutoEraserContent
+msgctxt "TutoEraserContent"
+msgid "Click here to select eraser mode. In eraser mode everything under your pen is erased"
+msgstr "Kliknij aby wybrać gumkę."
+
+#: TutoStampsTitle
+msgctxt "TutoStampsTitle"
+msgid "Stamps mode"
+msgstr "Znaczki"
+
+#: TutoStampsContent
+msgctxt "TutoStampsContent"
+msgid "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
+msgstr "Kliknij aby wybrać kształt znaczka."
+
+#: TutoTextTitle
+msgctxt "TutoTextTitle"
+msgid "Text mode"
+msgstr "Tekst"
+
+#: TutoTextContent
+msgctxt "TutoTextContent"
+msgid "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
+msgstr "Kliknij aby wybrać pole tekstowe"
+
+#: TutoInsertimageTitle
+msgctxt "TutoInsertimageTitle"
+msgid "Insert image"
+msgstr "Wstaw zdjęcie"
+
+#: TutoInsertimageContent
+msgctxt "TutoInsertimageContent"
+msgid "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
+msgstr "Kliknij aby wstawić zdjęcie z Dziennika"
+
+#: TutoDrawingsTitle
+msgctxt "TutoDrawingsTitle"
+msgid "Drawings"
+msgstr "Rysunki"
+
+#: TutoDrawingsContent
+msgctxt "TutoDrawingsContent"
+msgid "Click here to select a background from preset drawings that you could fill like in a colouring book"
+msgstr "Kliknij aby zmienić tło na jeden z wgranych rysunków."
+
+#: TutoBucketTitle
+msgctxt "TutoBucketTitle"
+msgid "Bucket"
+msgstr "Wiadro"
+
+#: TutoBucketContent
+msgctxt "TutoBucketContent"
+msgid "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
+msgstr "Kliknij aby wybrać wiadro."
+
+#: TutoFiltersTitle
+msgctxt "TutoFiltersTitle"
+msgid "Filters"
+msgstr "Filtry"
+
+#: TutoFiltersContent
+msgctxt "TutoFiltersContent"
+msgid "Click here to choose a filter to change your image appearance"
+msgstr "Kliknij aby zobaczyć filtry."
+
+#: TutoCopyTitle
+msgctxt "TutoCopyTitle"
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: TutoCopyContent
+msgctxt "TutoCopyContent"
+msgid "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
+msgstr "Kliknij aby zaznaczyć prostokątem pole do kopiowania."
+
+#: TutoPasteTitle
+msgctxt "TutoPasteTitle"
+msgid "Paste"
+msgstr "Wklej"
+
+#: TutoPasteContent
+msgctxt "TutoPasteContent"
+msgid "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
+msgstr "Kliknij aby wkleić skopiowany prostokąt."
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr "Czyść"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
+msgstr "Kliknij aby wyczyścić płótno."
+

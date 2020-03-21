@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Nov 28 2018 22:25:30 GMT+0100 (CET)\n"
+"POT-Creation-Date: Tue Feb 18 2020 22:32:39 GMT+0100 (GMT+01:00)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,4 +57,79 @@ msgstr "7x7 grid"
 msgctxt "turntext"
 msgid "Turn"
 msgstr "Turn"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Flip Activity"
+msgstr "Flip Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Flip activity. Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult"
+msgstr "Welcome into the Flip activity. Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult"
+
+#: TutoNewTitle
+msgctxt "TutoNewTitle"
+msgid "Restart"
+msgstr "Restart"
+
+#: TutoNewContent
+msgctxt "TutoNewContent"
+msgid "Click here to create a new game on the same level of the current size of the board"
+msgstr "Click here to create a new game on the same level of the current size of the board"
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr "Size"
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to choose size for the board (4x4, 5x5, 6x6, 7x7). The bigger the board is, the harder the game is"
+msgstr "Click here to choose size for the board (4x4, 5x5, 6x6, 7x7). The bigger the board is, the harder the game is"
+
+#: TutoSolveTitle
+msgctxt "TutoSolveTitle"
+msgid "Robot Help"
+msgstr "Robot Help"
+
+#: TutoSolveContent
+msgctxt "TutoSolveContent"
+msgid "Click here to get an help from the Robot. The Robot will do a correct move flip of \"coins\" for you. Don't ask him a lot!"
+msgstr "Click here to get an help from the Robot. The Robot will do a correct move flip of \"coins\" for you. Don't ask him a lot!"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "You need to make all the \"coins\" have the same color. By clicking on one particular \"coin\" the others on the top, right, bottom and left will change as well"
+msgstr "You need to make all the \"coins\" have the same color. By clicking on one particular \"coin\" the others on the top, right, bottom and left will change as well"
+
+#: TutoCountTitle
+msgctxt "TutoCountTitle"
+msgid "Turn Number"
+msgstr "Turn Number"
+
+#: TutoCountContent
+msgctxt "TutoCountContent"
+msgid "This counter shows how many moves you have made. Try to solve the game into a minimum of turns"
+msgstr "This counter shows how many moves you have made. Try to solve the game into a minimum of turns"
 
