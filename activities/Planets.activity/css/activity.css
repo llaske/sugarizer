@@ -3,10 +3,6 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
-#main-toolbar #home-button {
-  background-image: url(../icons/home-icon.svg);
-}
-
 #main-toolbar #info-button {
   background-image: url(../icons/info-icon.svg);
 }
@@ -20,21 +16,21 @@
 }
 
 #fullscreen-button {
-	background-image: url(../icons/view-fullscreen.svg);
+  background-image: url(../icons/view-fullscreen.svg);
 }
 
 #unfullscreen-button {
-	background-image: url(../icons/view-return.svg);
-	border: 0;
-	border-radius: 0px;
-	margin: 1px;
-	width: 45px;
-	height: 45px;
-	top: 0;
-	right: 7%;
-	position: absolute;
-	visibility: hidden;
-	z-index: 5;
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 7%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
 }
 
 /**Make main canvas black**/
@@ -45,10 +41,20 @@
 /**Planet List on Homepage**/
 .planets{
   display: -webkit-inline-box;
-  height: 250px;
-  width: 245px;
-  margin: 30px;
+  height: 270px;
+  width: 240px;
+  margin-top: 30px;
+  margin-left: 30px;
+  border: 10px solid black;
 }
+
+.name{
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
+
+
 
 /**Planet container with its model and info**/
 #planet-container{
@@ -77,11 +83,31 @@
 }
 
 .info{
-  margin-bottom: 20px;
+  margin-top: 25px;
 }
 
 canvas {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+
+/**Back Button**/
+#back-button {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 50px;
+  bottom: 10px;
+  left: 0px;
+  width: 50px;
+  background-color: "#c0c0c0";
+  background-image: url(../icons/go-back-sel.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#back-button:hover  {
+  background-image: url(../icons/go-back.svg);
 }
