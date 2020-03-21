@@ -195,7 +195,7 @@ function Game(canvas, resources, paladict, webL10n) {
     }
 
     this.resizeSettingScreen();
-    
+
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.settingScreen) {
@@ -417,6 +417,7 @@ function Game(canvas, resources, paladict, webL10n) {
       var won = this.checkIfGameEnded();
 
       if (this.gameEnded) {
+        this.gameEnded = false;
         this.drawEndGameScreen(won);
         var _this = this;
         setTimeout(function() {
