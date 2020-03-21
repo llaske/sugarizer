@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (activity,mustache,env) {
+define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "webL10n"], function (activity,mustache,env, tutorial, webL10n) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -28,10 +28,11 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
             this.elem = document.createElement('li');
             var stopwatchList = document.getElementById('stopwatch-list');
             stopwatchList.appendChild(this.elem);
+            var numStopWatches = document.getElementsByTagName('li').length;
 
             this.template =
                 '<div class="card-body">' +
-                    '<div class="row">' +
+                    '<div class="row" id="' + numStopWatches + '">' +
                         '<div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-center align-items-center">' +
                             '<div class="counter">00:00:00</div>' +
                         '</div>' +
@@ -212,6 +213,11 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
+
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+    
             if (!environment.objectId) {
                  // Start with five stopwatches.
                 for (var i = 0; i < 5; i++) {
@@ -263,6 +269,10 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env"], function (ac
         document.getElementById("canvas").style.top = "55px";
         document.getElementById("unfullscreen-button").style.visibility = "hidden";
 
+    });
+
+    document.getElementById("help-button").addEventListener('click', function(e) {
+        tutorial.start();
     });
 
 });

@@ -107,6 +107,12 @@ blockquote {
 	border-left: 3px groove black;
 }
 
+.wmd-prompt-dialog {
+	background: #282828;
+	color: white;
+	padding: 10px;
+}
+
 
 @media screen and (max-width: 480px) {
 	#wmd-showHidePreview-button
