@@ -25,7 +25,6 @@ function Resources() {
             var img = new Image();
             img.onload = function() {
                 _this.resourceCache[url] = img;
-
                 if(_this.isReady()) {
                     _this.readyCallbacks.forEach(function(func) { func(); });
                 }
@@ -52,6 +51,9 @@ function Resources() {
 
     this.onReady = function (func) {
         this.readyCallbacks.push(func);
+        if(this.isReady()) {
+            this.readyCallbacks.forEach(function(func) { func(); });
+        }
     }
 
 };
