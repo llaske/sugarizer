@@ -26,7 +26,20 @@ enyo.kind({
 			{name: "itemCount", content: "-/-", classes: "itemCount", showing: false},		
 			{name: "back", kind: "Image", src: "images/back.png", showing: false, classes: "standardButton backButton", ontap: "backTaped"},
 			{name: "filter", kind: "Image", src: "images/filter.png", showing: false, classes: "standardButton filterButton", ontap: "filterTaped"},
-			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"}
+			{name: "check", kind: "Image", src: "images/check.png", showing: false, classes: "standardButton checkButton", ontap: "checkTaped"},
+			{name: "gameFinished", kind: "Control", showing: false, classes: "gameFinished", 
+				components: [
+					{
+						name: "gameFinishedMsg",
+						content: "",
+						classes: "gameFinsihed-message"
+					},
+					{classes: "gameFinished-controls", components: [
+						{name: "replay", kind: "Image", src: "images/redo.svg", classes: "standardButton replayButton", ontap: "replayTaped"},
+						{name: "backToSelection", kind: "Image", src: "images/back.png", classes: "standardButton backButton backSelection", ontap: "backToSelectionTaped"}
+					]}
+				]
+			}
 		]},		
 		{name: "box", classes: "playbox", components: [
 		]},
@@ -36,7 +49,6 @@ enyo.kind({
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
-		
 		this.theme = -1;
 		this.themeButton = null;
 		this.gamecount = 0;
@@ -52,6 +64,10 @@ enyo.kind({
 			this.doGame(this.themeButton);
 		else
 			this.displayButtons();
+			
+		if (this.gamecount === entriesByGame){
+			this.showGameFinished();
+		}
 	},
 	
 	// Context handling
@@ -288,6 +304,36 @@ enyo.kind({
 			this.selected = entry;
 		}
 	},
+
+	showGameFinished: function(){
+		this.cleanBox();
+		Abcd.changeVisibility(this, {home: false, back: false, filter: false, check: false, itemCount: false});
+		Abcd.hideLang();
+		this.$.caseButton.hide();
+		var playMode = this;
+		requirejs(["webL10n"], function(webL10n) {
+			playMode.$.gameFinishedMsg.setContent(webL10n.get("GameFinised"));
+		});
+		this.$.gameFinished.show();
+	},
+
+	hideGameFinished: function(){
+		this.$.gameFinished.hide();
+		Abcd.showLang();
+		this.$.caseButton.show();
+	},
+	
+	replayTaped: function() {
+		this.hideGameFinished();
+		Abcd.changeVisibility(this, {home: false, back: true, filter: false, check: true, itemCount: true});
+		this.gamecount = 0;
+		this.computeGame();
+	},
+
+	backToSelectionTaped: function(){
+		this.hideGameFinished();
+		this.backTaped();
+	},
 	
 	// Go to the home of the game
 	backTaped: function() {
@@ -340,8 +386,7 @@ enyo.kind({
 			
 			// Next game or try another game
 			if ( ++this.gamecount == entriesByGame ) {
-				this.gamecount = 0;
-				this.displayButtons();
+				this.showGameFinished();
 			} else
 				this.computeGame();
 		}

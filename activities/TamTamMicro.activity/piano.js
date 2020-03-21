@@ -7,7 +7,16 @@ enyo.kind({
 	},
 
 	load: function(file) {
-		this.player.load(file+"?time="+(new Date().getTime())); // HACK: Don't load in the cache
+		// HACK: Use XHR Blob because Tone.Buffer can't load file from file:///
+		var that = this;
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', file+"?time="+(new Date().getTime()), true);
+		xhr.responseType = 'blob';
+		xhr.onload = function(){
+			var blob = URL.createObjectURL(this.response);
+			that.player.load(blob);
+		};
+		xhr.send();
 	},
 
 	play: function(pitch) {

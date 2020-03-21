@@ -147,6 +147,44 @@
 	height: 50px;
 }
 
+.gameFinished{
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.gameFinsihed-message{
+	font-size: 50px;
+	text-align: center;
+}
+
+.gameFinished-controls{
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	width: 100vw;
+	margin-top: 40px;
+}
+
+.replayButton{
+	background-color: black !important;
+	border-radius: 50%;
+	padding: 2px;
+	box-sizing: border-box;
+	margin-left: 80px;
+}
+
+.hide{
+	display: none;
+}
+
+.backSelection {
+	margin-top: 0! important;
+	margin-left: 0! important;
+}
+
 .backButton {
 	margin-top: 10px;
 	margin-left: 10px;
