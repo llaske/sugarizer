@@ -21,6 +21,12 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		var planetInfo = document.getElementById("planet-info");
 		var mainCanvas = document.getElementById("canvas");
 
+		//Back Button to go back to homepage
+		var backButton = document.createElement("div");
+		backButton.id = "back-button";
+		backButton.title = "Back to Planet List"
+		planetInfo.appendChild(backButton);
+
 		//Allow interaction with planet
 		var controls = new THREE.TrackballControls(camera, renderer.domElement);
 		controls.target.set(0,0,0);
@@ -29,7 +35,6 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		interactContainer.style.display = "none";
 		document.getElementById("rotation-button").style.display = "none";
 		document.getElementById("info-button").style.display = "none";
-		document.getElementById("home-button").style.display = "none";
 		document.getElementById("image-button").style.display = "none";
 
 		for (var i = 0; i < planet.length; i ++){
@@ -41,8 +46,13 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			var planetImage = document.createElement('img');
 			planetImage.className = planet[i].name;
 			planetImage.src = "images/" + planet[i].name + ".jpg";
-			planetImage.width = 250;
+			planetImage.width = 240;
 			document.getElementById("planet-" + planet[i].name).appendChild(planetImage);
+
+			var planetName = document.createElement('span');
+			planetName.className = "name"
+			planetName.innerHTML = '<p>' + planet[i].name + '</p>';
+			document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
 			initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons);
 		}
@@ -56,11 +66,18 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			var save;
 
 			//Url of image files
-			var url = "images/" + name + "map.jpg";
-			var bumpUrl = "images/" + name + "bump.png";
-			var specUrl = "images/" + name + "spec.png";
-			var cloudUrl = "images/" + name + "cloudmap.jpg";
-			var ringUrl = "images/" + name + "ringcolor.jpg";
+			var url = "images/" + name.toLowerCase() + "map.jpg";
+			if(type !== "Gas Giant" && type !== "Ice Giant"){
+				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
+			}
+			if(name === "Earth"){
+				var specUrl = "images/" + name.toLowerCase() + "spec.png";
+				var cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
+			}
+			if(name === "Saturn"){
+				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
+			}
+
 
 			//Create Planet
 			var loadTexture = new THREE.TextureLoader().load(url);
@@ -110,9 +127,14 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			material.specular  = new THREE.Color('grey')
 			material.bumpScale = 0.1;
 
+			//Active buttons
+			document.getElementById("rotation-button").classList.add("active");
+			document.getElementById("info-button").classList.add("active");
 
 			//When click on a planet, show more info about that planet
 			document.getElementById("planet-" + name).addEventListener("click", function(){
+
+				//Show planet display
 				stopRotation = false;
 				mainCanvas.style.backgroundColor = "#c0c0c0";
 				interactContainer.style.display = "block";
@@ -121,7 +143,6 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				planetDisplay.style.width = "60%";
 				document.getElementById("rotation-button").style.display = "inline";
 				document.getElementById("info-button").style.display = "inline";
-				document.getElementById("home-button").style.display = "inline";
 				document.getElementById("image-button").style.display = "inline";
 
 				renderer.setSize( planetDisplay.clientWidth, window.innerHeight);
@@ -147,7 +168,6 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					information.id = infoType[i];
 					information.className = 'info';
 					planetInfo.appendChild(information);
-
 				}
 
 				document.getElementById("Name").innerHTML = '<p>' + "Planet Name: " + '</br>' + name + '</p>';
@@ -220,17 +240,20 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 			});
 
+			//Toggle Planet rotation
 			document.getElementById("rotation-button").addEventListener("click", function(){
 
 				if (stopRotation === false){
 					stopRotation = true;
+					document.getElementById("rotation-button").classList.add("active");
 				} else{
 					stopRotation = false;
+					document.getElementById("rotation-button").classList.remove("active");
 				}
 
 			});
 
-
+			//Toggle Planet Info
 			document.getElementById("info-button").addEventListener("click", function(){
 
 				if (showInfo){
@@ -239,6 +262,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					renderer.setSize( window.innerWidth, window.innerHeight);
 					resizePlanet(renderer);
 					showInfo = false;
+					document.getElementById("info-button").classList.remove("active");
 				}
 				else{
 					document.getElementById("planet-info").style.display = "block";
@@ -246,18 +270,20 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					renderer.setSize( planetDisplay.clientWidth, window.innerHeight);
 					resizePlanet(renderer);
 					showInfo = true;
+					document.getElementById("info-button").classList.add("active");
 				}
 				planetDisplay.appendChild(renderer.domElement);
 
 			});
 
-			document.getElementById("home-button").addEventListener("click", function(){
+			//Back button to go back to planet list view
+			backButton.addEventListener("click", function(){
 				interactContainer.style.display = "none";
 				homeDisplay.style.display = "block";
 				mainCanvas.style.backgroundColor = "black";
+				stopRotation = true;
 				document.getElementById("rotation-button").style.display = "none";
 				document.getElementById("info-button").style.display = "none";
-				document.getElementById("home-button").style.display = "none";
 				document.getElementById("image-button").style.display = "none";
 
 				//Remove previous scene
