@@ -136,7 +136,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sound don't restart in FoodChain activity #360
 - Video erase button hidden in Record Activity #655
 - Text not visible in search bar of Calligra Activity #661
-- Text overflows in Shared notes activity #333
 - Dialog box has no background in Markdown #671
 - Markdown link opens in frame which crashes the output #673
 - Responsiveness issue in Pomodoro Activity #675
