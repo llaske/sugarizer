@@ -105,6 +105,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			document.getElementById("erasetext-button").style.visibility = "hidden";
 			document.getElementById("user-text").classList.remove("text-url");
 		});
+		//localization for placeholder text
+		window.addEventListener("localized", function() {
+			document.getElementById("user-text").placeholder = webL10n.get("Text");
+		});
 
 		// Handle text change
 		document.getElementById("generate-button").addEventListener('click', function() {
