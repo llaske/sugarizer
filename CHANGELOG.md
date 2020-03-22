@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
+- Falabracman only accepts a specific letter in case of repeated letters in a word #725
 
 
 ## [1.3.0]
