@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Falabacraman activity don't detect win condition for restarted game #723
+
+
+## [1.3.0]
 ### Added
 - Calligra activity
 - Falabracman activity
