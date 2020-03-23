@@ -125,10 +125,12 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			userText.value = code;
 			generateCode(code);
 		};
+
 		var x = document.getElementById("input-box");
 		x.addEventListener("focus", myFocusFunction, true);
 		x.addEventListener("blur", myBlurFunction, true);
-		// Event handling to mimic Sugar focus handling
+		
+		// Function to change searchbar color
 		function myFocusFunction() {
 			document.getElementById("user-text").style.backgroundColor = "white"; 
 			document.getElementById("field").style.backgroundColor = "white"; 
