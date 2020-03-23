@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title> p4wn: javascript chess </title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="chess_6k.css" type="text/css" />
+<script src="fancy_chess_6k.js" type="text/javascript"></script>
+<!-- <script src="chess_6k.js"></script> -->
+</head>
+<body onload="H()">
+<form name="FF" method="post" action="test.html">
+ <table border="0" cellspacing="2" align="center" class="mainTable">
+ <tbody>
+ <tr>
+   <td colspan="2" class="controlBar controlBarUpper">
+     <table width="100%"><tr>
+     <td class="buttonBarUpper">
+       <button onclick="window.location.href='index.php'">&nbsp;new game&nbsp;</button>
+       <button onclick="Gb(); return false;">&nbsp;undo&nbsp;</button>
+       <button onclick="Rf(8-P); return false;">&nbsp;swap&nbsp;</button><br/>
+     </td>
+     <td>
+       <button onclick="about(); return false;">&nbsp;?&nbsp;</button>
+     </td>
+     </tr></table>
+   </td>
+ </tr>
+ <tr>
+   <td>
+     <script src="chess_6k.js"></script>
+   </td>
+   <td>
+     <textarea name="b" cols="12" rows="18"></textarea>
+   </td>
+ </tr>
+ <tr>
+   <td colspan="2" class="controlBar controlBarBottom">
+     Next pawn becomes:
+     <select name="h">
+       <option selected>queen</option>
+       <option>bishop</option>
+       <option>knight</option>
+       <option>rook</option>
+     </select>
+     
+     Computer level:
+     <select name="i">
+       <option>stupid</option>
+       <option selected>middling</option>
+       <option>slow</option>
+     </select>
+   </td>
+ </tr>
+ </tbody>
+ </table>
+</form>
+<br/>
+
+<table id="tableAbout" width="460" align="center">
+<tbody>
+<tr>
+ <td align="left" id="aboutCell">
+   <p>
+     <strong>P4wn</strong> is Javascript chess written by Douglas Bagnall. Original website can be found here: <a href="http://p4wn.sourceforge.net/">http://p4wn.sourceforge.net/</a>.
+   </p>
+   <p>
+     This version is 6K engine with new graphics for better readability and respective code changes.
+   </p>
+   <p>
+     <strong>Notes</strong>
+   </p>
+   <ul>
+     <li>Castling is done by moving the king, rook moves automatically.</li>
+     <li>When swapping sides computer makes its move instantly (since it's its turn) so you may be disoriented at first and not notice it.</li>
+     <li>May be slow/jerky with some browsers/computers</li>
+   </ul>
+   <p align="right">
+     <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#97;&#98;&#114;&#97;&#109;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" title="e-mail">aab</a>
+   </p>
+ </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

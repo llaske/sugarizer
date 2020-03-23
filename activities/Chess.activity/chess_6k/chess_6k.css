@@ -1,0 +1,133 @@
+body {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	
+    background-color: #F6FBEC;
+	color: black;
+	font-family: Verdana, "Lucida Grande", Tahoma, Helvetica;
+	font-size: small;
+}
+
+a {
+	color: #981900;
+}
+
+.g {
+	background-color: #ddd;
+}
+
+.w {
+	background-color: #F8F5DF;
+}
+
+.b {
+	background-color: #C3A480;
+}
+
+.h {
+	background-color: #eec;
+}
+
+.t {
+	background: white;
+}
+
+#PI {
+	position: absolute;
+	left: 100px;
+	top: 20px;
+}
+
+form {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;	
+}
+
+textarea {
+	background: #EDEBDB;
+	border: 0px;
+	height: 304px;
+}
+
+.mainTable {
+	margin-top: 10px;
+	border-width: 5px;
+	border-color: #CDB287;
+	border-style: solid;
+}
+
+button, select {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 5px;
+	background-color: #F4EEC3;
+	
+	border-width: 3px;
+	border-color: #CDB287;
+	border-style: solid;
+}
+
+button {
+    cursor: pointer;
+    cursor: hand;
+}
+
+select {
+	margin-right: 5px;
+	background-color: #F5F2DC;
+}
+
+.controlBar {
+	background-color: #CEDCB1;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+	text-align: center;
+}
+
+.controlBarUpper {
+	height: 45px;
+
+	background-color: #CEDCB1;
+	background-image: url('top_background.png');
+	background-repeat: no-repeat;
+	background-position: top right;
+	
+	text-align: left;
+}
+
+.controlBarBottom {
+	height: 45px;
+	
+	background-image: url('bottom_background.png');
+	background-repeat: no-repeat;
+	background-position: bottom right;
+}
+
+.buttonBarUpper {
+	text-align: left;
+}
+
+#tableAbout {
+	display: none;
+	background-color: #EAF3D7;
+	
+	border-width: 0px;
+	border-top-width: 5px;
+	border-bottom-width: 5px;
+	border-color: #CDB287;
+	border-style: solid;
+}
+
+#aboutCell {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}

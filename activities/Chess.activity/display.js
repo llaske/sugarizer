@@ -328,7 +328,7 @@ var P4WN_CONTROLS = [
         },
         refresh: function(el){
             var s = this.players[0];
-            el.innerHTML = 'white <img src="' + P4WN_IMAGE_DIR + '/' + s + '.png" alt="' + s + '">';
+            el.innerHTML = 'white <img src="' + P4WN_IMAGE_DIR + '/' + s + '.png" alt="' + s + '" draggable=true>';
         }
     },
     {/*black player */
