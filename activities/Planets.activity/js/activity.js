@@ -63,6 +63,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			//Variable action detectors
 			var showInfo = true;
 			var stopRotation;
+			var requestAnim;
 			var save;
 
 			//Url of planet map files
@@ -139,6 +140,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 				//Show planet display
 				stopRotation = false;
+				requestAnim = true;
 				mainCanvas.style.backgroundColor = "#c0c0c0";
 				interactContainer.style.display = "block";
 				homeDisplay.style.display = "none";
@@ -208,10 +210,17 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 						controls.handleResize();
 					}
 
-					requestAnimationFrame(animatePlanet);
+					if (requestAnim === true){
+						requestAnimationFrame(animatePlanet);
+					}
+					else{
+						cancelAnimationFrame(animatePlanet);
+					}
+
 					if (stopRotation === false){
 						planetMesh.rotation.y += 0.1 * Math.PI/180;
 					}
+
 
 					controls.update();
 					lightHolder.quaternion.copy(camera.quaternion);
@@ -238,9 +247,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					save = true;
 					saveImage();
 				});
-
 				animatePlanet();
-
 			});
 
 			//Toggle Planet rotation
@@ -285,6 +292,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				homeDisplay.style.display = "block";
 				mainCanvas.style.backgroundColor = "black";
 				stopRotation = true;
+				requestAnim = false;
 				document.getElementById("rotation-button").style.display = "none";
 				document.getElementById("info-button").style.display = "none";
 				document.getElementById("image-button").style.display = "none";
