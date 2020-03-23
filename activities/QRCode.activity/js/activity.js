@@ -125,6 +125,19 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			userText.value = code;
 			generateCode(code);
 		};
+		var x = document.getElementById("input-box");
+		x.addEventListener("focus", myFocusFunction, true);
+		x.addEventListener("blur", myBlurFunction, true);
+		// Event handling to mimic Sugar focus handling
+		function myFocusFunction() {
+			document.getElementById("user-text").style.backgroundColor = "white"; 
+			document.getElementById("field").style.backgroundColor = "white"; 
+		}
+	
+		function myBlurFunction() {
+			document.getElementById("user-text").style.backgroundColor = "#e5e5e5";
+			document.getElementById("field").style.backgroundColor = "#e5e5e5"; 
+		}
 
 		// Export as PNG image
 		document.getElementById("png-button").addEventListener('click', function() {
