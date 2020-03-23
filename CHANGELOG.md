@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Falabacraman activity don't detect win condition for restarted game #723
 - Falabracman only accepts a specific letter in case of repeated letters in a word #725
 - Speak Text button hides text under it in speak activity #727
+- Video Viewer shows tutorial for a feature not available #731
 
 
 ## [1.3.0]
