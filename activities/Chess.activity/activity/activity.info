@@ -1,0 +1,6 @@
+[Activity]
+name = Pawn
+activity_version = 1
+bundle_id = org.sugarlabs.Pawn
+exec = sugar-activity-web
+icon = activity-icon

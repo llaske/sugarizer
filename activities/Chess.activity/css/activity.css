@@ -1,0 +1,81 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #add-button {
+	background-image: url(../icons/add.svg);
+}
+#main-toolbar #add-button2 {
+	background-image: url(../icons/add.svg);
+}
+
+.pawn {
+  background-image: url(../icons/pawn-icon.svg);
+  display: inline-block;
+  width: 65px;
+  height: 65px;
+}
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+#main-toolbar #picture-button {
+	background-image: url(../icons/insert-picture.svg);
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+.palette-item {
+  width: 200px;
+  height: 30px;
+  padding-top: 15px;
+  padding-left: 10px;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-icon {
+  width: 30px;
+}
+
+.palette-text {
+  vertical-align: super;
+}
+
+.item-icon {
+  padding-top: 3px;
+  height: 40px;
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
