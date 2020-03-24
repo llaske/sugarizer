@@ -12,6 +12,7 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
   <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/inputrange.css">
   <link rel="prefetch" type="application/l10n" href="locale.ini">
   <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -27,10 +28,12 @@
 <body>
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <button class="toolbutton" id="speech-button" title="Speech:"></button>
   <button class="toolbutton" id="timebased" style="background-image: url(images/domain-time.svg);" value="0" title="TIME BASED"></button>
   <button class="toolbutton" id="freqbased" style="background-image: url(images/domain-freq.svg);visibility: hidden; " value="0" title="FREQUENCY BASED" ></button>
   <button class="toolbutton" id="timebased2" style="background-image: url(images/domain-time.svg);visibility: hidden; " value="0" title="TIME BASED" ></button>
   <button class="toolbutton" id="freqbased2" style="background-image: url(images/domain-freq.svg);visibility: hidden;" value="0" title="FREQUENCY BASED"></button>
+  
   <!-- Add more buttons here -->
 
   <!-- Buttons with class="pull-right" will be right aligned -->
