@@ -12,6 +12,9 @@
 	margin-top: 83px;
 	margin-bottom: -5px;
 }
+#speech-button{
+	background-image: url(../icons/settings.svg);
+}
   
 #canvas{
   background-color: black;
