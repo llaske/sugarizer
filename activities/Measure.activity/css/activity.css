@@ -1,5 +1,5 @@
 #main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
+	background-image: url(../activity/activity-icon.svg);
 }
 #main-toolbar #help-button {
 	background-image: url(../images/help.svg);
@@ -8,6 +8,10 @@
 	margin-top: 83px;
 	margin-bottom: -7px;
 }
+
+#main-toolbar #image-button {
+	background-image: url(../icons/save-image.svg);
+	}
 #defaultCanvas1{
 	margin-top: 83px;
 	margin-bottom: -5px;
@@ -15,39 +19,39 @@
 #speech-button{
 	background-image: url(../icons/settings.svg);
 }
-  
+
 #canvas{
-  background-color: black;
+	background-color: black;
 }
 #two{
-  margin-top: -4.7%;
+	margin-top: -4.7%;
 }
 #one{
-  margin-top: -4.7%;
+	margin-top: -4.7%;
 }
 body{
-  overflow-y: hidden;
-  overflow-x: hidden;
+	overflow-y: hidden;
+	overflow-x: hidden;
 } 
 #timebtny1{
-  width: 58px;
-  height: 58px;
-  background: url(../images/amplow.svg);
+	width: 58px;
+	height: 58px;
+	background: url(../images/amplow.svg);
 }
 #timebtny2{
-  width: 58px;
-  height: 58px;
-  background: url(../images/amphigh.svg);
+	width: 58px;
+	height: 58px;
+	background: url(../images/amphigh.svg);
 }
 #timebtnx1{
-  width: 58px;
-  height: 58px;
-  background: url(../images/freqhigh.svg);
+	width: 58px;
+	height: 58px;
+	background: url(../images/freqhigh.svg);
 }
 #timebtnx2{
-  width: 58px;
-  height: 58px;
-  background: url(../images/freqlow.svg);
+	width: 58px;
+	height: 58px;
+	background: url(../images/freqlow.svg);
 }
 #freqbtny1{
 	width: 58px;

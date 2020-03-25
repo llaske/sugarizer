@@ -11,16 +11,16 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoExplainContent")
 			},
 			{
+				element: "#speech-button",
+				placement: "bottom",
+				title: l10n.get("Tutodespeech-buttonTitle"),
+				content: l10n.get("Tutodespeech-buttonContent")
+			},
+			{
 				element: "#timebased",
 				placement: "bottom",
 				title: l10n.get("TutoTimeBaseTitle"),
 				content: l10n.get("TutoTimeBaseContent")
-			},
-			{
-				element: "#freqbased",
-				placement: "bottom",
-				title: l10n.get("TutoFreqBaseTitle"),
-				content: l10n.get("TutoFreqBaseContent")
 			},
 			{
 				element: "#defaultCanvas0",
@@ -28,6 +28,7 @@ define(["webL10n"], function (l10n) {
 				title: l10n.get("TutodefaultCanvas0Title"),
 				content: l10n.get("TutodefaultCanvas0Content")
 			},
+			
 			{
 				element: "#timeyslider",
 				placement: "up",
