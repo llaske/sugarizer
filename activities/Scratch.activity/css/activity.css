@@ -40,9 +40,10 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+
 @media screen and (max-width: 900px) {
 	#stop-button{
-    position: absolute;
+		position: absolute;
 		left: 85vw;
   }
 
