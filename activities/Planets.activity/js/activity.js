@@ -101,15 +101,20 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			};
 
 			//Create Rings
-			if(name === "Saturn"){
+			if(name === "Saturn" || name === "Uranus"){
 				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
 				var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
-				var ringGeometry = new THREE.RingBufferGeometry(2.5, 5, 40);
-				var position = ringGeometry.attributes.position;
-				var vector = new THREE.Vector3();
-				for (let i = 0; i < position.count; i++){
-					vector.fromBufferAttribute(position, i);
-					ringGeometry.attributes.uv.setXY(i, vector.length() < 4 ? 0 : 1, 1);
+				if (name === "Saturn"){
+					var ringGeometry = new THREE.RingBufferGeometry(2.5, 5, 40);
+					var position = ringGeometry.attributes.position;
+					var vector = new THREE.Vector3();
+					for (let i = 0; i < position.count; i++){
+						vector.fromBufferAttribute(position, i);
+						ringGeometry.attributes.uv.setXY(i, vector.length() < 4 ? 0 : 1, 1);
+					}
+				}
+				else{
+					var ringGeometry = new THREE.RingBufferGeometry(3.8, 4, 40);
 				}
 				var ringMaterial = new THREE.MeshPhongMaterial({
 					map: loadRingTexture,
@@ -120,6 +125,8 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				});
 				var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 			}
+
+
 
 			//For planets with terrain, add bumps
 			if (type === "Terrestrial"){
@@ -160,8 +167,13 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				scene.add(planetMesh);
 				scene.add(camera);
 
-				if (name === "Saturn"){
-					ringMesh.rotation.x = 33;
+				if (name === "Saturn" || name === "Uranus"){
+					if (name === "Saturn"){
+						ringMesh.rotation.x = 33;
+					}
+					else{
+						ringMesh.rotation.x = 0;
+					}
 					scene.add(ringMesh);
 				}
 
