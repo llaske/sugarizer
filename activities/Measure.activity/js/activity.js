@@ -80,11 +80,8 @@ document.getElementById("timebased").addEventListener("click",function(event){
 		var speechButtonPalette = new speechpalette.ActivityPalette(
 			speechButton);
 
-			
-			
-		console.log("in1");
+
 		p.mic1 = new p5.AudioIn();
-		console.log("in");
 		p.mic1.start();
 		p.fft = new p5.FFT();
 		p.fft.setInput(p.mic1);
@@ -94,17 +91,14 @@ document.getElementById("timebased").addEventListener("click",function(event){
 		document.getElementById("pitchvalue").min="1.3";
 		document.getElementById("pitchvalue").max="6.3";
 		document.getElementById("pitchvalue").addEventListener('click',function(){
-			console.log("ac");
+
 			p.xp=this.value;
-			console.log(p.xp);
 		});
 		document.getElementById("ratevalue").min="1";
 		document.getElementById("ratevalue").max="5";
 		document.getElementById("ratevalue").addEventListener('click',function(){
-			console.log("ratevalue");
 			p.yp=this.value;
 			
-			console.log(p.yp);
 		});
 		p.xaxis1=p.createP("Sound  Time Base");
 		p.xaxis1.style('padding-left:40%');
@@ -166,16 +160,16 @@ document.getElementById("timebased").addEventListener("click",function(event){
 		document.getElementById("pitchvalue").min="1";
 		document.getElementById("pitchvalue").max="2";
 		document.getElementById("pitchvalue").addEventListener('click',function(){
-			console.log("ac");
+
 			p.xp=this.value;
-			console.log(p.xp);
+
 		});
 		document.getElementById("ratevalue").min="0.2";
 		document.getElementById("ratevalue").max="2";
 		document.getElementById("ratevalue").addEventListener('click',function(){
-			console.log("ratevalue");
+
 			p.yp=this.value;
-			console.log(p.yp);
+
 		});
 		p.xaxis=p.createP("Sound  Frequency Base");
 		p.xaxis.style('padding-left:40%');
