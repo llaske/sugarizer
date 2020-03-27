@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Speak Text button hides text under it in speak activity #727
 - Video Viewer shows tutorial for a feature not available #731
 - Labyrinth shows tutorial for functions not available on small screens #733
+- Blockrain tutorial overflows off screen on smaller screens #736
 
 
 ## [1.3.0] - 2020-03-28
