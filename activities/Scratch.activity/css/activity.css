@@ -42,9 +42,8 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-#stop-button{
-position: absolute;
-left: 85vw;
-}
-
+  #stop-button{
+    position: absolute;
+    left: 85vw;
+  }
 }
