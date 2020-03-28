@@ -10,10 +10,10 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 
 * Paint, Memorize, Record and Calculate activities by  Michaël Ohayon
 * Gridpaint by Brian Silverman
-* Speak by Vishal Batchu 
+* Speak by Vishal Batchu
 * Chat, Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
-* EToys by Bert Freudenberg 
+* EToys by Bert Freudenberg
 * Abacus, Reflection, XOEditor, Flip by Euan Ong  
 * ColorMyWorld by Charles Cossé
 * Blockrain by Sanchit Kapoor
@@ -22,9 +22,10 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Fototoon by Gonzalo Odiard
 * Game of Life by Sanatan Kumar
 * Exerciser by Mankirat Singh and Avinash Agarwal
-* Write by Ashish Aggarval 
+* Write by Ashish Aggarval
 * Constellation by Andrea Gonzales
-* Pomodoro by Sanatan 
+* Pomodoro by Sanatan
+* Falabracman by Prakash Ujjwal 
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
@@ -37,5 +38,3 @@ Lot of students contributed to Sugarizer during GSoC and GCI.
 Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, Mankirat Singh, Prakash Ujjwal, Walter Bender, Alan Aguiar, Sanatan, Andrea Gonzales, matiasmartineeez, Batchu Venkat Vishal, Christoph Derndorfer, Aryan Mediratta, Piotr Antosz, vjrj, j-shubh, naofum, Samyok Nepal, Prabhu Pant, Dinesh Choudhary, Ibukunoluwa Fatoki, leonardcj, Michaël Ohayon, tradzik, Utkarsh Raj Singh, Bert Freudenberg, Martin Abente Lahaye, Ayush Lohani, Mohit Sharma, Nikolay Gospodinov, Sanchit Kapoor, sdziuda, ariessa, Sameer Kumar Satyadarshi, Ignacio Rodríguez, Eric Yoon, Paulo Francisco Slomp, lp1tek, Ethan Nelson-Moore, phorical, Michael Pu, Saurav Pratihar, Avinash Agarwal, Samson Goddy, Bastien, Rosa Anil George, Rajeev Ravindran, Sebastian Silva, Yashashvi Dave, Dave Crossland, Franco Correa, Mihir Shah, Jorge Alberto Gómez López, FreddieN, Harrison Katz, Kunal Mohta, Euan Ong, Anshuman Bhardwaj, ashish aggarwal, ccr4b and Suraj.
 
 Many thanks to all Sugarizer contributors in past, present and future.
-
-
