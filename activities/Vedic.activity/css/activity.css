@@ -1,0 +1,47 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#con {
+  padding-left: 300px;
+}
+#p {
+  margin-left: 900px;
+} 
+#canvas {
+  background-image: url(../img/background_1200_900.gif);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+ #game-container {
+  height: 100%;
+  width: 100%;
+}
+.menu-buttons{
+  margin-left: 50%;
+}
+#welcome-board{
+  background-image: url(../img/homework_green_board.gif);
+  background-position: center;
+  width: 900px;
+  height: 260px;
+  background-repeat: no-repeat;
+  /* padding-left: 20%;
+  padding-right: 20%; */
+  margin-left: 10%;
+  position: relative;
+}
+
+#welcome_heading1 {
+padding-top: 110px;
+text-align: center;
+}
+#welcome_heading2 {
+  text-align: center;
+}
+
+#previous #next #learn-trick #learn-now #let-me-try-the-trick{
+  display: none;
+  visibility: hidden;
+}
