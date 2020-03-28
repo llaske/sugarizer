@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Labyrinth shows tutorial for functions not available on small screens #733
 - Blockrain tutorial overflows off screen on smaller screens #736
 - Get Things Done can't handle multiple lines #741
+- Stop button not visible in Scratch activity on small screens #715
 
 
 ## [1.3.0] - 2020-03-28
