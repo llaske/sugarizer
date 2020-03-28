@@ -36,21 +36,26 @@ body{
 #timebtny1{
 	width: 58px;
 	height: 58px;
+	padding-top: 23px;
 	background: url(../images/amplow.svg);
 }
 #timebtny2{
 	width: 58px;
 	height: 58px;
+	padding-top: 23px;
 	background: url(../images/amphigh.svg);
 }
 #timebtnx1{
 	width: 58px;
 	height: 58px;
+	padding-top: 23px;
 	background: url(../images/freqhigh.svg);
+	
 }
 #timebtnx2{
 	width: 58px;
 	height: 58px;
+	padding-top: 23px;
 	background: url(../images/freqlow.svg);
 }
 #freqbtny1{

@@ -199,7 +199,6 @@ document.getElementById("timebased").addEventListener("click",function(event){
 	document.getElementById("freqbased").style.visibility="hidden";
 	document.getElementById("freqbased").style.display="none";
 	document.getElementById("timebased2").style.visibility="visible";
-//   
 	document.getElementById("one").style.display="none";
 
 	}
