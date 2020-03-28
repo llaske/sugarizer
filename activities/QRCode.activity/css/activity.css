@@ -221,7 +221,7 @@
 	width: 24px;
 	height: 24px;
 	display: inline-block;
-	top: 75%;
+	top: 80%;
 	transform: translateY(-110%);
 	background-size: 27px 27px;
 	background-position: 50% 50%;
@@ -264,7 +264,7 @@
 	margin: 8px;
 	right: 4px;
 	bottom: 15px;
-	top: 2px;
+	top: -5%;
 	z-index: 1;
 	position: absolute;
 	background-image: url(../icons/go-right.svg);
