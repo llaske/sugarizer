@@ -302,7 +302,6 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleBreakPlusClick = function () {
     if (!this.state.isButtonsDisable) {
       this.state.breakTimerLimit = this.state.breakTimerLimit + 1;
-      resetTimer()
       updateBreakPomodoro();
       saveInDataStore()
     }
@@ -311,7 +310,6 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleBreakMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.breakTimerLimit > 1) {
       this.state.breakTimerLimit = this.state.breakTimerLimit - 1;
-      resetTimer()
       updateBreakPomodoro();
       saveInDataStore()
     }
