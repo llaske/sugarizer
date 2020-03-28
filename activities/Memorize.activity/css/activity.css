@@ -121,8 +121,12 @@
 
 
 .palette .wrapper {
-    min-width: 10px;
-    padding: 5px;
+    max-width: 271px;
+	min-width: 161px;
+	min-height: 51px;
+	pointer-events: auto;
+	background-color: black;
+	border: 2px solid #808080;
 }
 
 .toolbar {
