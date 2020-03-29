@@ -435,7 +435,286 @@ define(["sugar-web/activity/activity"], function (activity) {
 				
 			});
 		});
+		var question_num, question_txt, answer_helper_left, answer_helper_right;
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
 
+		function verifyAnswer(a,b,c) {
+			var answered_right = false;
+			var user_answer = (parseInt(a) != NaN) ? parseInt(a) : 0
+			console.log("user_answer",user_answer);
+			switch(b) {
+			case 0:
+			  if (user_answer === c.question_num * c.question_num) {
+				answered_right = true;
+				console.log("t");
+			}
+			break;
+		  
+			case 1:
+			  if (user_answer === c.question_num * c.question_num) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 2:
+			  if (user_answer === c.question_num * 9) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 3:
+			  if (user_answer === c.question_num * c.question_num) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 4:
+			  if (user_answer === c.question_num * c.question_num) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 5:
+			  if (user_answer === c.question_num * 5) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 6:
+			  if (user_answer === c.question_num * 11) {
+				answered_right = true;
+			}
+			break;
+		  
+			case 7:
+			  if (user_answer === c.question_num[0] * c.question_num[1]) {
+				answered_right = true;
+			}
+			break;
+		  
+			default:
+			// break;
+			}
+			
+			if (answered_right) {
+			//   lollipops_count = lollipops_count + 10;
+			//   lollipops_count_txt.setText(lollipops_count);
+			//   if(lollipops_count >= 100) {
+			// 	game.state.start('end');
+			//   }
+			console.log(answered_right);
+			//   setQuestion();
+			}
+			// answer_field.destroy();
+			// setInputField(answered_right);
+			// answer_field.focus();  
+		  }
+		  
+		  function setQuestion(a){
+			switch(a) {
+				case 0:
+				//Square of a number ending with 5
+				var question_num = Math.round(Math.random() * 9) * 10 + 5;
+				var first_digit = Math.floor(question_num/10);
+			
+				var question_txt = '( ' + question_num + ' )²';
+				var answer_helper_left = first_digit + ' * Next number to ' + first_digit + '  (' + (++first_digit) + ')';
+				var answer_helper_right = '5 * 5';
+				var answer_helper_middle = '';
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				
+				break;
+			
+				case 1:
+				//Square of numbers just below 100
+				var question_num = getRandomInt(91, 96);
+			
+				var question_txt = '( ' + question_num + ' )²';
+				var answer_helper_middle = '';
+				var answer_helper_left = question_num +' - '+ (100 - question_num);
+				var answer_helper_right = 'Square of '+ (100 - question_num);
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+			
+				case 2:
+				// multiply a number with 9
+				var question_num = getRandomInt(10, 99);
+				var first_digit = Math.floor(question_num/10);
+				var second_digit = Math.floor(question_num%10);
+			
+				var question_txt = '( ' + question_num + ' ) * 9';
+				var answer_helper_middle = '';
+				var answer_helper_left = question_num +' - '+ (first_digit + 1);
+				var answer_helper_right = '10 - '+ second_digit;
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+				case 3:
+				// Square of number just above 100
+				var question_num = getRandomInt(104, 109);
+			
+				var question_txt = '( ' + question_num + ' )²';
+				var answer_helper_middle = '';
+				var answer_helper_left = question_num +' + '+ (question_num - 100);
+				var answer_helper_right = 'Square of '+ (question_num - 100);
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+			
+				case 4:
+				// square of any three digit number with a zero in between
+				var question_num = getRandomInt(101, 109) + Math.round((Math.random() * 5)) * 100;
+				var first_digit = Math.floor(question_num/100);
+				var last_digit = Math.floor(question_num%10);
+			
+				var question_txt = '( ' + question_num + ' )²'; 
+				var answer_helper_middle = '(' + first_digit +') * ('+ last_digit + ') * 2';
+				var answer_helper_left = 'Square of '+ first_digit;
+				var answer_helper_right = 'Square of '+ last_digit;
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+			
+				case 5:
+				// multiply any number with 5
+				var question_num = getRandomInt(10, 49) * 2;
+			
+				var question_txt = '( ' + question_num + ' ) * 5'; 
+				var answer_helper_middle = 'Half of '+ question_num + ' * 10';
+				var answer_helper_left = '';
+				var answer_helper_right = '';
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+				
+				case 6:
+				// multiply a two digit number with 11  
+				while(true) {
+					var question_num = getRandomInt(10, 99);
+					if((Math.floor(question_num/10) + Math.floor(question_num%10) ) < 10)
+					break;
+				}
+				var first_digit = Math.floor(question_num/10);
+				var second_digit = Math.floor(question_num%10);
+			
+				var question_txt = '( ' + question_num + ' ) * 11'; 
+				var answer_helper_middle = first_digit +' + '+ second_digit;
+				var answer_helper_left = 'First digit ('+ first_digit +')';
+				var answer_helper_right = 'Last digit ('+ second_digit +')';
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+			
+				case 7:
+				// multiply two digits when the sum of the one's digit is 10
+				var question_num = getRandomInt(20, 99);
+				var first_digit = Math.floor(question_num/10);
+				var question_num_one = question_num;
+				var question_num_two = question_num + ((10 - Math.floor(question_num%10)) - Math.floor(question_num%10));
+			
+				var question_txt = '( ' + question_num_one + ' * '+ question_num_two +' )'; 
+				var answer_helper_middle = '';
+				var answer_helper_left = first_digit +' * Next number to '+ first_digit +' (' + first_digit +' * '+ (first_digit + 1) +')';
+				var answer_helper_right =  (Math.floor(question_num_one%10)) +' * '+ (Math.floor(question_num_two%10));
+			
+				question_num = [question_num_one, question_num_two];
+				var ret = {
+					question_num:question_num,
+					question_txt:question_txt,
+					answer_helper_left:answer_helper_left,
+					answer_helper_right:answer_helper_right,
+					answer_helper_middle:answer_helper_middle
+				};
+				return ret;
+				break;
+			
+				case 8:
+			
+				case 9:
+			
+				default:
+			}
+		  }
+		var values;
+		document.getElementById("let-me-try-the-trick").addEventListener('click',function(){
+			console.log("let me try the trick clicked");
+			document.getElementById("welcome-board").style.backgroundImage = "url(../Vedic.activity/img/homework_template_3.gif)"; 
+			document.getElementById("welcome-board").style.width="900px";
+			document.getElementById("welcome-board").style.height="640px";
+			document.getElementById("submit").style.display="block";
+			document.getElementById("submit").style.visibility="visible";
+			console.log(trick_show_counter);
+
+			values=setQuestion(trick_show_counter);
+
+			var trick_green_board = document.getElementById("welcome-board");
+			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
+			
+			trick_green_board.innerHTML="<p id='let-me-try-the-trick-question'>problem question</p>\
+			<div id='left_helper'>a</div>\
+			<div id='middle_helper'>a</div>\
+			<div id='right_helper'>b</div>\
+			<input type='text' id='let-me-try-the-trick-answer' placeholder='Your answer'>";
+			document.getElementById("let-me-try-the-trick-question").innerHTML = values.question_txt;
+			document.getElementById("left_helper").innerHTML = values.answer_helper_left;
+			document.getElementById("middle_helper").innerHTML =values.answer_helper_middle;
+			document.getElementById("right_helper").innerHTML = values.answer_helper_right;
+			// verifyAnswer(document.getElementById("let-me-try-the-trick-answer").value,trick_show_counter);
+			// var user_answerr = document.getElementById("let-me-try-the-trick-answer").value;
+			
+			// console.log(user_answer);
+		});
+		document.getElementById("submit").addEventListener('click',function(){
+			console.log(document.getElementById("let-me-try-the-trick-answer").value);
+			verifyAnswer(document.getElementById("let-me-try-the-trick-answer").value,trick_show_counter,values);
+			console.log("reached");
+		});
 		document.getElementById("learn-a-trick").addEventListener('click',function(){
 			console.log("clicked learn-a-trick");
 		});
@@ -443,6 +722,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 		document.getElementById("calculator-challenge").addEventListener('click',function(){
 			console.log("clicked calculator-challenge");
 		});
+
+
+
+
 
 		
 	});

@@ -48,3 +48,34 @@ text-align: center;
 #to{
   color: pink;
 }
+
+#left_helper{
+  position: absolute;
+  top:310px;
+  left:170px;
+  text-align: center;
+}
+
+#right_helper{
+  position: absolute;
+  top:310px;
+  left:700px;
+  text-align: center;
+}
+#middle_helper{
+  position: absolute;
+  top:310px;
+  left:370px;
+  
+}
+#let-me-try-the-trick-answer{
+  position: absolute;
+  top:480px;
+  left:370px;
+}
+#let-me-try-the-trick-question{
+  position: absolute;
+  top:142px;
+  left:420px;
+  text-align: center;
+}
