@@ -250,7 +250,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("welcome-board").style.backgroundImage = "url(../Vedic.activity/img/board.jpg)"; 
 			document.getElementById("welcome-board").style.width="900px";
 			document.getElementById("welcome-board").style.height="640px"; 
-			chosen_tutorial_steps = all_example_steps[trick_show_counter];
+			chosen_tutorial_steps = all_tutorial_steps[trick_show_counter];
 			chosen_example_steps = all_example_steps[trick_show_counter];
 			tutorial_steps = [];
 			tutorial_steps = chosen_tutorial_steps;
@@ -258,14 +258,36 @@ define(["sugar-web/activity/activity"], function (activity) {
 			example_steps = chosen_example_steps;
 			var trick_green_board = document.getElementById("welcome-board");
 			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
-			trick_green_board.innerHTML="<p>"+ tutorial_steps[tutorial_example_step_counter]+"</p>\
-			<p>"+ example_steps[tutorial_example_step_counter]+"</p>\
+			trick_green_board.innerHTML="<p id='tuto-step'>"+ tutorial_steps[tutorial_example_step_counter]+"</p>\
+			<div><ul id='example_step_list'></ul></div>\
+			<p id='exam-step'>"+ example_steps[tutorial_example_step_counter]+"</p>\
 			<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>\
-			<p>Changed</p>\
 			";
-			
+			tutorial_example_step_counter++;
 			console.log(chosen_example_steps);
 			console.log(chosen_tutorial_steps);
+
+			document.getElementById("next-step").addEventListener('click',function(){
+				if(tutorial_example_step_counter < tutorial_steps.length || tutorial_example_step_counter < example_steps.length){
+				document.getElementById("tuto-step").innerHTML=tutorial_steps[tutorial_example_step_counter];
+				document.getElementById("exam-step").innerHTML=example_steps[tutorial_example_step_counter];
+				var node= document.createElement("LI");
+				var text = example_steps[tutorial_example_step_counter-1];
+				var textnode = document.createTextNode("Step"+tutorial_example_step_counter+" :"+ text );
+				node.appendChild(textnode);
+
+				document.getElementById("example_step_list").appendChild(node);
+				tutorial_example_step_counter++;
+				}
+				else{
+					console.log("tutorial ends");
+					document.getElementById("next-step").style.display="none";
+					document.getElementById("next-step").style.visibility="hidden";
+					document.getElementById("done").style.display="block";
+					document.getElementById("done").style.visibility="visible";
+				}
+				
+			});
 		});
 
 		document.getElementById("learn-a-trick").addEventListener('click',function(){
