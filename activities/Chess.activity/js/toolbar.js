@@ -46,6 +46,9 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringChessActivity"></toolbar-item>
 			<toolbar-item isSplitbar="true"></toolbar-item>
 			
+			<toolbar-item ref="networkBtn" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
+			<toolbar-item isSplitbar="true"></toolbar-item>
+
 			<toolbar-item ref="restartBtn" id="restart-button" v-on:clicked="getApp().restartGame()" v-bind:title="l10n.stringRestart"></toolbar-item>
 			<toolbar-item ref="undoBtn" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
 			<toolbar-item ref="difficultyBtn" class="toolbutton" id="difficulty-button"
@@ -56,13 +59,10 @@ var Toolbar = {
 				paletteEvent="difficultySelected"
 				v-on:difficultySelected="getApp().onDifficultySelected($event)">
 			</toolbar-item>
-			<toolbar-item isSplitbar="true"></toolbar-item>
-			<toolbar-item ref="networkBtn" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
 			<toolbar-item v-on:clicked="getApp().onHelp('ui')" id="help-ui-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
-			<toolbar-item v-on:clicked="getApp().onHelp('rules')" id="help-rules-button" v-bind:title="l10n.stringRules" toRight="true"></toolbar-item>
 		</div>
 	`,
 	props: ['opponent', 'spectator'],
