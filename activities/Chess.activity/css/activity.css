@@ -370,6 +370,11 @@ p {
 	background-color: #808080;
 }
 
+.palette-item.active {
+	background-color: #777777;
+	font-weight: bold;
+}
+
 .palette-icon {
 	width: 50px;
 }

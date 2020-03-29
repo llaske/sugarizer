@@ -14,33 +14,32 @@ define(["sugar-web/graphics/palette","text!activity/palettes/difficultypalette.h
 
 		this.difficultySelectedEvent = document.createEvent('CustomEvent');
 		this.difficultySelectedEvent.initCustomEvent('difficultySelected', true, true, { index: -1 });
-
+		
 		var that = this;
-		document.getElementById("difficulty-0").addEventListener('click', function(event) {
-			that.difficultySelectedEvent.index = 0;
+		var levels = document.getElementsByClassName('palette-item');
+		for(var i=0; i<levels.length; i++) {
+			levels[i].addEventListener('click', onClick);
+		}
+
+		function onClick(event) {
+			var level = event.currentTarget.id[11];
+			that.difficultySelectedEvent.index = +level;
+			bindClasses(level);
 			that.getPalette().dispatchEvent(that.difficultySelectedEvent);
 			that.popDown();
-		});
-		document.getElementById("difficulty-1").addEventListener('click', function(event) {
-			that.difficultySelectedEvent.index = 1;
-			that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-			that.popDown();
-		});
-		document.getElementById("difficulty-2").addEventListener('click', function(event) {
-			that.difficultySelectedEvent.index = 2;
-			that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-			that.popDown();
-		});
-		document.getElementById("difficulty-3").addEventListener('click', function(event) {
-			that.difficultySelectedEvent.index = 3;
-			that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-			that.popDown();
-		});
-		document.getElementById("difficulty-4").addEventListener('click', function(event) {
-			that.difficultySelectedEvent.index = 4;
-			that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-			that.popDown();
-		});
+		}
+
+		function bindClasses(level) {
+			for(var i=0; i<levels.length; i++) {
+				if(levels[i].id[11] == level) {
+					levels[i].classList.add('active');
+				} else {
+					levels[i].classList.remove('active');
+				}
+			}
+		}
+
+		bindClasses(2);
 	};
 
 	var addEventListener = function(type, listener, useCapture) {

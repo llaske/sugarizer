@@ -6,8 +6,6 @@ let ChessTemplate = {
 			<div id="chessboard" v-show="!tutorialRunning"></div>
 			<div id="chess-info" class="chess-info">
 				<div class="status-container">
-					<p class="level" v-if="opponent == null && !spectator">{{ l10n.stringLevel }}: {{ difficulty }}</p>
-					<div></div>
 					<div id="opponent-info" v-if="!spectator">
 						<div class="player-info" id="user">
 							<div class="player-icons">
