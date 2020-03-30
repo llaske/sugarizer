@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Text not showing under erase button in qr-code activity #700
 - Food Chain tutorial off screen in small resolutions #752
 - Food Chain activity palette behind canvas #754
+- Awkward placement of Labyrinth canvas tutorial #758
 
 
 ## [1.3.0] - 2020-03-28
