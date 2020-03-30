@@ -39,6 +39,54 @@
 	overflow-x: hidden;
 }
 
+#add-button, #minus-button, #const-button, #star-button, #location-button, #world-button, #view-button {
+  display: none;
+}
+
+
+@media only screen and (min-width: 377px) {
+  #add-button {
+    display: inline-block;
+  }
+}
+
+
+@media only screen and (min-width: 431px) {
+  #minus-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 486px) {
+  #const-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 541px) {
+  #star-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 596px) {
+  #location-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 651px) {
+  #world-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 706px) {
+  #view-button {
+    display: inline-block;
+  }
+}
+
 .tutorial-title {
 	background-color: #808080 !important;
 	color: #ffffff !important;
