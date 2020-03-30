@@ -760,6 +760,133 @@ define(["sugar-web/activity/activity"], function (activity) {
 			
 
 		});
+		var chosen_challenge=0;
+		var challenge_question_txt;
+		var challenge_question;
+		
+		function getChallengeQuestion() {
+			chosen_challenge = Math.round(Math.random() * 7);
+			switch(chosen_challenge) {
+				case 0:
+				//Square of a number ending with 5
+				challenge_question = Math.round(Math.random() * 9) * 10 + 5;
+				var first_digit = Math.floor(challenge_question/10);
+
+				challenge_question_txt = '( ' + challenge_question + ' )²';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 1:
+				//Square of numbers just below 100
+				challenge_question = getRandomInt(91, 96);
+
+				challenge_question_txt = '( ' + challenge_question + ' )²';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 2:
+				// multiply a number with 9
+				challenge_question = getRandomInt(10, 99);
+				var first_digit = Math.floor(challenge_question/10);
+				var second_digit = Math.floor(challenge_question%10);
+
+				challenge_question_txt = '( ' + challenge_question + ' ) * 9';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 3:
+				// Square of number just above 100
+				challenge_question = getRandomInt(104, 109);
+
+				challenge_question_txt = '( ' + challenge_question + ' )²';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 4:
+				// square of any three digit number with a zero in between
+				challenge_question = getRandomInt(101, 109) + Math.round((Math.random() * 5)) * 100;
+				var first_digit = Math.floor(challenge_question/100);
+				var last_digit = Math.floor(challenge_question%10);
+
+				challenge_question_txt = '( ' + challenge_question + ' )²';
+				 
+				break;
+
+				case 5:
+				// multiply any number with 5
+				challenge_question = getRandomInt(10, 49) * 2;
+
+				challenge_question_txt = '( ' + challenge_question + ' ) * 5';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 6:
+			  // multiply a two digit number with 11  
+				while(true) {
+				challenge_question = getRandomInt(10, 99);
+				if((Math.floor(challenge_question/10) + Math.floor(challenge_question%10) ) < 10)
+				break;
+				}
+				var first_digit = Math.floor(challenge_question/10);
+				var second_digit = Math.floor(challenge_question%10);
+
+				challenge_question_txt = '( ' + challenge_question + ' ) * 11';
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+				case 7:
+				// multiply two digits when the sum of the one's digit is 10
+				challenge_question = getRandomInt(20, 99);
+				var first_digit = Math.floor(challenge_question/10);
+				var question_num_one = challenge_question;
+				var question_num_two = challenge_question + ((10 - Math.floor(challenge_question%10)) - Math.floor(challenge_question%10));
+
+				challenge_question_txt = '( ' + question_num_one + ' * '+ question_num_two +' )'; 
+
+				challenge_question = [question_num_one, question_num_two];
+				var ret_challenge = {
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
+				break;
+
+				case 8:
+				break;
+
+				case 9:
+				break;
+
+				default:
+				break;
+			}
+			
+			// challenge_timer.start();
+			// challenge_set = true;
+			}
 
 		document.getElementById("calculator-challenge").addEventListener('click',function(){
 			console.log("clicked calculator-challenge");
@@ -773,10 +900,16 @@ define(["sugar-web/activity/activity"], function (activity) {
 			var trick_green_board = document.getElementById("welcome-board");
 			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
 			
-			trick_green_board.innerHTML="";
+			trick_green_board.innerHTML="<div id='boy_monitor_penguin'>\
+			<div id='boy_at_desk'></div>\
+			<div id='monitor'><p id='calculator_timer'>20 s</p><p id='calculator_questions_answered'>Correct answered:</p></div>\
+			<div id='penguin_using_computer'></div>\
+			</div>\
+			<div id='calculator_questions'>On Your Mark<br />Get Set!</div>\
+			";
+			document.getElementById("calculator-go").style.display="block";
+			document.getElementById("calculator-go").style.visibility="visible";
 		});
-
-
 
 
 

@@ -116,3 +116,46 @@ text-align: center;
   top: 110px;
   left: 85px;
 }
+#boy_monitor_penguin{
+  display: inline-block;
+  /* align-self: center; */
+  margin:0 auto;
+  width: 100%;
+  height: 200px;
+}
+
+#boy_at_desk{
+  background-image: url(../img/boy_at_desk.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 15%;
+  left: 20%;
+  height: 90px;
+  width: 90px;
+  position: absolute;
+}
+#monitor{
+  background-image: url(../img/monitor.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 32%;
+  left: 40%;
+  height: 90px;
+  width: 90px;
+  position: absolute;
+}
+#penguin_using_computer{
+  background-image: url(../img/penguin_using_computer.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 15%;
+  left: 60%;
+  height: 90px;
+  width: 90px;
+  position: absolute;
+}
+#calculator_questions{
+  /* margin:0 auto;
+  padding:0 auto; */
+  text-align: center;
+}
