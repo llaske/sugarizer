@@ -701,8 +701,15 @@ define(["sugar-web/activity/activity"], function (activity) {
 			val=setQuestion(ab);
 			return val;
 		}
+		var elapsed_seconds=0;
+		function update_time_counter(){
+			elapsed_seconds++;
+			document.getElementById("timer").innerHTML=elapsed_seconds+'s';
+		}
 		document.getElementById("let-me-try-the-trick").addEventListener('click',function(){
 			console.log("let me try the trick clicked");
+			document.getElementById("let-me-try-the-trick").style.display="none";
+			document.getElementById("let-me-try-the-trick").style.visibility="hidden";
 			document.getElementById("welcome-board").style.backgroundImage = "url(../Vedic.activity/img/homework_template_3.gif)"; 
 			document.getElementById("welcome-board").style.width="900px";
 			document.getElementById("welcome-board").style.height="640px";
@@ -716,7 +723,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
 			
 			trick_green_board.innerHTML="<div id='timer'></div>\
+			<div id='time'>Time</div>\
 			<div id='lollipop'></div>\
+			<div id='lollipops'>Lollipops</div>\
 			<div id='let-me-try-the-trick-question'>problem question</div>\
 			<div id='left_helper'>a</div>\
 			<div id='middle_helper'>a</div>\
@@ -726,7 +735,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("left_helper").innerHTML = values.answer_helper_left;
 			document.getElementById("middle_helper").innerHTML =values.answer_helper_middle;
 			document.getElementById("right_helper").innerHTML = values.answer_helper_right;
-			
+			setInterval(update_time_counter,1000);
 			// verifyAnswer(document.getElementById("let-me-try-the-trick-answer").value,trick_show_counter);
 			// var user_answerr = document.getElementById("let-me-try-the-trick-answer").value;
 			
@@ -748,10 +757,23 @@ define(["sugar-web/activity/activity"], function (activity) {
 		});
 		document.getElementById("learn-a-trick").addEventListener('click',function(){
 			console.log("clicked learn-a-trick");
+			
+
 		});
 
 		document.getElementById("calculator-challenge").addEventListener('click',function(){
 			console.log("clicked calculator-challenge");
+			document.getElementById("welcome-board").style.backgroundImage = "none"; 
+			document.getElementById("learn-a-trick").style.display="none";
+			document.getElementById("learn-a-trick").style.visibility="hidden";
+			document.getElementById("show-all-tricks").style.display="none";
+			document.getElementById("show-all-tricks").style.visibility="hidden";
+			document.getElementById("calculator-challenge").style.display="none";
+			document.getElementById("calculator-challenge").style.visibility="hidden";
+			var trick_green_board = document.getElementById("welcome-board");
+			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
+			
+			trick_green_board.innerHTML="";
 		});
 
 

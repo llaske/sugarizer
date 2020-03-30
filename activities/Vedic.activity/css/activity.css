@@ -104,3 +104,15 @@ text-align: center;
   text-align: center;
   padding-top: 50px;
 }
+#lollipops {
+  padding-top: 45px;
+  position: absolute;
+  top: 110px;
+  left: 780px;
+}
+#time {
+  padding-top: 45px;
+  position: absolute;
+  top: 110px;
+  left: 85px;
+}
