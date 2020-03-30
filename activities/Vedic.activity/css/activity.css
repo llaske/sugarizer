@@ -79,3 +79,28 @@ text-align: center;
   left:420px;
   text-align: center;
 }
+
+#timer {
+  /* height: 110vw; */
+  height: 110px;
+  width: 110px;
+  background-repeat: no-repeat;
+  background-image: url(../img/timer_board.gif);
+  top: 40px;
+  left: 50px;
+  position: relative;
+  text-align: center;
+  padding-top: 50px;
+}
+
+#lollipop {
+  height: 110px;
+  width: 110px;
+  background-repeat: no-repeat;
+  background-image: url(../img/timer_board.gif);
+  top: 40px;
+  left: 750px;
+  position: absolute;
+  text-align: center;
+  padding-top: 50px;
+}

@@ -439,7 +439,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		function getRandomInt(min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
-
+		var lollipops_count=0;
 		function verifyAnswer(a,b,c) {
 			var answered_right = false;
 			var user_answer = (parseInt(a) != NaN) ? parseInt(a) : 0
@@ -499,19 +499,33 @@ define(["sugar-web/activity/activity"], function (activity) {
 			}
 			
 			if (answered_right) {
-			//   lollipops_count = lollipops_count + 10;
-			//   lollipops_count_txt.setText(lollipops_count);
+			  lollipops_count = lollipops_count + 10;
+			  document.getElementById("lollipop").innerHTML=lollipops_count;
 			//   if(lollipops_count >= 100) {
 			// 	game.state.start('end');
 			//   }
 			console.log(answered_right);
+			document.getElementById("let-me-try-the-trick-answer").style.borderColor="green";
+			fun();
+			setTimeout(colorNeutral,2000);
+			// document.getElementById("let-me-try-the-trick-answer").style.borderColor="";
 			//   setQuestion();
 			}
+			if(!answered_right){
+				
+				document.getElementById("let-me-try-the-trick-answer").style.borderColor="red";
+				setTimeout(colorNeutral,2000);
+			}
+			document.getElementById("let-me-try-the-trick-answer").value="";
 			// answer_field.destroy();
 			// setInputField(answered_right);
 			// answer_field.focus();  
 		  }
-		  
+		  function colorNeutral(){
+			document.getElementById("let-me-try-the-trick-answer").style.borderColor="";
+		  }
+		
+
 		  function setQuestion(a){
 			switch(a) {
 				case 0:
@@ -682,6 +696,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 			}
 		  }
 		var values;
+		var val;
+		function getQuestions(ab){
+			val=setQuestion(ab);
+			return val;
+		}
 		document.getElementById("let-me-try-the-trick").addEventListener('click',function(){
 			console.log("let me try the trick clicked");
 			document.getElementById("welcome-board").style.backgroundImage = "url(../Vedic.activity/img/homework_template_3.gif)"; 
@@ -691,12 +710,14 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("submit").style.visibility="visible";
 			console.log(trick_show_counter);
 
-			values=setQuestion(trick_show_counter);
+			values=getQuestions(trick_show_counter);
 
 			var trick_green_board = document.getElementById("welcome-board");
 			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
 			
-			trick_green_board.innerHTML="<p id='let-me-try-the-trick-question'>problem question</p>\
+			trick_green_board.innerHTML="<div id='timer'></div>\
+			<div id='lollipop'></div>\
+			<div id='let-me-try-the-trick-question'>problem question</div>\
 			<div id='left_helper'>a</div>\
 			<div id='middle_helper'>a</div>\
 			<div id='right_helper'>b</div>\
@@ -705,15 +726,25 @@ define(["sugar-web/activity/activity"], function (activity) {
 			document.getElementById("left_helper").innerHTML = values.answer_helper_left;
 			document.getElementById("middle_helper").innerHTML =values.answer_helper_middle;
 			document.getElementById("right_helper").innerHTML = values.answer_helper_right;
+			
 			// verifyAnswer(document.getElementById("let-me-try-the-trick-answer").value,trick_show_counter);
 			// var user_answerr = document.getElementById("let-me-try-the-trick-answer").value;
 			
 			// console.log(user_answer);
 		});
+		function fun(){
+			
+			values=getQuestions(trick_show_counter);
+			document.getElementById("let-me-try-the-trick-question").innerHTML = values.question_txt;
+			document.getElementById("left_helper").innerHTML = values.answer_helper_left;
+			document.getElementById("middle_helper").innerHTML =values.answer_helper_middle;
+			document.getElementById("right_helper").innerHTML = values.answer_helper_right;
+		}
 		document.getElementById("submit").addEventListener('click',function(){
 			console.log(document.getElementById("let-me-try-the-trick-answer").value);
 			verifyAnswer(document.getElementById("let-me-try-the-trick-answer").value,trick_show_counter,values);
 			console.log("reached");
+			// fun();
 		});
 		document.getElementById("learn-a-trick").addEventListener('click',function(){
 			console.log("clicked learn-a-trick");
