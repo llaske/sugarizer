@@ -82,6 +82,60 @@ canvas {
   z-index: 5;
 }
 
+
+#simple-clock-button,#nice-clock-button, #hr1, #write-time-button, #write-date-button, #hr2, #set-time-button , #set-timeGame-button {
+  display: none;
+}
+
+
+@media only screen and (min-width: 377px) {
+  #simple-clock-button {
+    display: inline-block;
+  }
+}
+
+
+@media only screen and (min-width: 431px) {
+  #nice-clock-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 445px) {
+  #hr1 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  #write-time-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 555px) {
+  #write-date-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 569px) {
+  #hr2 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 624px) {
+  #set-time-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 679px) {
+  #set-timeGame-button {
+    display: inline-block;
+}
+
 /*Tutorial CSS*/
 .tutorial-title {
   background-color: #808080 !important;
