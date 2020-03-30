@@ -45,7 +45,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 			var planetImage = document.createElement('img');
 			planetImage.className = planet[i].name;
-			planetImage.src = "images/" + planet[i].name + ".jpg";
+			planetImage.src = "images/" + planet[i].name.toLowerCase() + ".jpg";
 			planetImage.width = 240;
 			document.getElementById("planet-" + planet[i].name).appendChild(planetImage);
 
