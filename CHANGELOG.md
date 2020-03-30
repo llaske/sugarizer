@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Get Things Done can't handle multiple lines #741
 - Stop button not visible in Scratch activity on small screens #715
 - Wrong title of network button in Memorize activity #745
+- Text not showing under erase button in qr-code activity #700
 
 
 ## [1.3.0] - 2020-03-28
