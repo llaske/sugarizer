@@ -760,10 +760,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 			
 
 		});
+		var correctAnswered=0;
 		var chosen_challenge=0;
 		var challenge_question_txt;
 		var challenge_question;
-		
+		var challenge_set=false;
 		function getChallengeQuestion() {
 			chosen_challenge = Math.round(Math.random() * 7);
 			switch(chosen_challenge) {
@@ -774,6 +775,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' )²';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -786,6 +788,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' )²';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -800,6 +803,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' ) * 9';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -812,6 +816,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' )²';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -825,7 +830,12 @@ define(["sugar-web/activity/activity"], function (activity) {
 				var last_digit = Math.floor(challenge_question%10);
 
 				challenge_question_txt = '( ' + challenge_question + ' )²';
-				 
+				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
+					challenge_question:challenge_question,
+					challenge_question_txt:challenge_question_txt
+				};
+				return ret_challenge;
 				break;
 
 				case 5:
@@ -834,6 +844,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' ) * 5';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -852,6 +863,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question_txt = '( ' + challenge_question + ' ) * 11';
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -868,6 +880,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 				challenge_question = [question_num_one, question_num_two];
 				var ret_challenge = {
+					chosen_challenge:chosen_challenge,
 					challenge_question:challenge_question,
 					challenge_question_txt:challenge_question_txt
 				};
@@ -885,8 +898,135 @@ define(["sugar-web/activity/activity"], function (activity) {
 			}
 			
 			// challenge_timer.start();
-			// challenge_set = true;
+			challenge_set = true;
+			console.log(challenge_set,"cha;;");
+		}
+		function verifyChallengeAnswer(a,b) {
+			var answered_right = false;
+			console.log(a,"check3");
+			// if (challenge_set) {
+		  
+				var answerFromUser = parseInt(a);
+				console.log(answerFromUser,"check2");
+				if (answerFromUser != NaN) {
+		  
+				switch(b.chosen_challenge) {
+					case 0:
+					if (answerFromUser === b.challenge_question * b.challenge_question) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 1:
+					if (answerFromUser === b.challenge_question * b.challenge_question) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 2:
+					if (answerFromUser === b.challenge_question * 9) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 3:
+					if (answerFromUser === b.challenge_question * b.challenge_question) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 4:
+					if (answerFromUser === b.challenge_question * b.challenge_question) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 5:
+					if (answerFromUser === b.challenge_question * 5) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 6:
+					if (answerFromUser === b.challenge_question * 11) {
+						answered_right = true;
+					}
+					break;
+			  
+					case 7:
+					if (answerFromUser === b.challenge_question[0] * b.challenge_question[1]) {
+						answered_right = true;
+					}
+					break;
+			  
+					default:
+					// break;
+				}
+		  
+				}
+		  
+				// challenge_set = false;
+		  
+				if (answered_right) {
+				// lollipops_count = lollipops_count + 10;
+				// challenge_succeed_count.setText('You answered: ' + (lollipops_count/10) + '/' + (challenge_attempt_count+1));
+				// if(lollipops_count === 100 || challenge_attempt_count >= 10) {
+					// game.state.start('end');
+
+				// }
+				console.log("correct");
+				document.getElementById("user_challenge_question_answer").style.borderColor="green";
+				correctAnswered=correctAnswered+1;
+				calculator_time_elapsed = calculator_time_elapsed+20;
+				totalTime=totalTime+calculator_time_elapsed;
+				updateCalculatorQuestion();
+				setTimeout(calcInputNeutralColor,2000);
+				document.getElementById("user_challenge_question_answer").value="";
+				// console.log(calculator_time_elapsed);
+				}
+				else {
+					console.log("incor");
+					document.getElementById("user_challenge_question_answer").style.borderColor="red";
+					calculator_time_elapsed = calculator_time_elapsed+5;
+					totalTime=totalTime+calculator_time_elapsed;
+					setTimeout(calcInputNeutralColor,2000);
+					document.getElementById("user_challenge_question_answer").value="";
+					// console.log(calculator_time_elapsed);
+				}
+				// prepareNextChallenge();
+			// }
 			}
+		function calcInputNeutralColor(){
+			document.getElementById("user_challenge_question_answer").style.borderColor="";
+		}	
+		function prepareNextChallenge() {
+			if(challenge_attempt_count >= 10) {
+				game.state.start('end');
+			}
+			else {
+				challenge_attempt_count += 1;
+				challenge_input.destroy();
+				setInputFieldForChallenge();
+				challenge_timer.stop();
+				seconds_left = Math.round(Math.random() * 5) + 10;
+				challenge_timer.loop(1000, updateChallengeCounter, this);
+				challenge_timer.start();
+			
+				getChallengeQuestion();
+				challenge_input.focus();
+			}
+			}
+			
+		function updateChallengeCounter() {
+			if(seconds_left > 0) {
+				seconds_left--;
+			}
+			else {
+			
+				challenge_timer.stop();
+				prepareNextChallenge();
+			}
+		}	
 
 		document.getElementById("calculator-challenge").addEventListener('click',function(){
 			console.log("clicked calculator-challenge");
@@ -905,11 +1045,60 @@ define(["sugar-web/activity/activity"], function (activity) {
 			<div id='monitor'><p id='calculator_timer'>20 s</p><p id='calculator_questions_answered'>Correct answered:</p></div>\
 			<div id='penguin_using_computer'></div>\
 			</div>\
-			<div id='calculator_questions'>On Your Mark<br />Get Set!</div>\
+			<div id='calculator-questions'>On Your Mark<br />Get Set!</div>\
+			<div id='user_answer_input'><input type='text' id='user_challenge_question_answer' placeholder='Your answer'></div>\
 			";
+			document.getElementById("user_challenge_question_answer").style.display="none";
+			document.getElementById("user_challenge_question_answer").style.visibility="hidden";
 			document.getElementById("calculator-go").style.display="block";
 			document.getElementById("calculator-go").style.visibility="visible";
 		});
+		var tim;
+		var ques_values;
+		var calculator_time_elapsed=20;
+		var totalTime=calculator_time_elapsed;
+		function calculatorChallengeTime(){
+			calculator_time_elapsed--;
+			if(calculator_time_elapsed<0){
+				clearInterval(tim);
+				calculatorChallengeEnded();
+				return;
+			}
+			console.log(calculator_time_elapsed);
+			document.getElementById("calculator_timer").innerHTML=calculator_time_elapsed+' s';
+		}
+		var newCalcQues;
+		function getNextCalculatorChallenge(){
+			newCalcQues=getChallengeQuestion();
+			return newCalcQues;
+		}
+		function updateCalculatorQuestion(){
+			ques_values=getNextCalculatorChallenge();
+			document.getElementById("calculator-questions").innerHTML=ques_values.challenge_question_txt;
+		}
+		document.getElementById("calculator-go").addEventListener('click',function(){
+			ques_values=getNextCalculatorChallenge();
+			// if(calculator_time_elapsed>0){
+			// 	setInterval(calculatorChallengeTime,1000);
+			// }
+			tim=setInterval(calculatorChallengeTime,1000);
+			document.getElementById("calculator-go").style.display="none";
+			document.getElementById("calculator-go").style.visibility="hidden";
+			document.getElementById("submit-calculator-challenge").style.display="block";
+			document.getElementById("submit-calculator-challenge").style.visibility="visible";
+			document.getElementById("user_challenge_question_answer").style.display="block";
+			document.getElementById("user_challenge_question_answer").style.visibility="visible";
+			document.getElementById("calculator-questions").innerHTML=ques_values.challenge_question_txt;
+			console.log(ques_values);
+		});
+		document.getElementById("submit-calculator-challenge").addEventListener('click',function(){
+			verifyChallengeAnswer(document.getElementById("user_challenge_question_answer").value,ques_values);
+			console.log("check1");
+		});
+
+		function calculatorChallengeEnded(){
+			console.log("ended");
+		}
 
 
 

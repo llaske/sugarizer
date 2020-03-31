@@ -24,13 +24,14 @@
 #welcome-board{
   background-image: url(../img/homework_green_board.gif);
   background-position: center;
-  width: 900px;
+  width: 100%;
   height: 260px;
   background-repeat: no-repeat;
   /* padding-left: 20%;
   padding-right: 20%; */
-  margin-left: 10%;
+  /* margin-left: 10%; */
   position: relative;
+  margin: 0 auto;
 }
 
 #welcome_heading1 {
@@ -140,8 +141,8 @@ text-align: center;
   background-repeat: no-repeat;
   top: 32%;
   left: 40%;
-  height: 90px;
-  width: 90px;
+  height: 120px;
+  width: 120px;
   position: absolute;
 }
 #penguin_using_computer{
@@ -154,8 +155,22 @@ text-align: center;
   width: 90px;
   position: absolute;
 }
-#calculator_questions{
+#calculator-questions{
   /* margin:0 auto;
   padding:0 auto; */
   text-align: center;
+}
+#calculator_timer{
+  text-align: center;
+}
+#calculator_questions_answered{
+  padding-left: 5px;
+}
+#user_answer_input{
+  display: inline-block;
+  /* align-self: center; */
+  margin:0 auto;
+  text-align: center;
+  width: 100%;
+  padding-left: 35%;
 }
