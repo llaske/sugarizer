@@ -162,9 +162,9 @@ body {
 }
 
 @media screen and (max-width: 657px) {
-	.toolbar {
-		padding-left: 10px;
-	}
+  .toolbar {
+    padding-left: 10px;
+  }
 }
 
 #language-button, #face-button, #speech-button, #gamemode1-button, #gamemode2-button, #gamemode3-button {
