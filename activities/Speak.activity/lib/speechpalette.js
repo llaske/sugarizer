@@ -23,10 +23,10 @@ define(["widepalette",
         this.pitchScale = containerElem.querySelector('#pitchvalue');
         this.rateScale = containerElem.querySelector('#ratevalue');
 
-        this.pitchScale.onclick = function() {
+        this.pitchScale.oninput = function() {
             document.getElementById('pitch').innerHTML = this.value;
         }
-        this.rateScale.onclick = function() {
+        this.rateScale.oninput = function() {
             document.getElementById('rate').innerHTML = this.value*(300/100) + 10;
         }
 
