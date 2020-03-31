@@ -82,14 +82,13 @@ canvas {
   z-index: 5;
 }
 
-
 @media screen and (max-width: 677px) {
-	.toolbar {
-		padding-left: 10px;
-	}
+  .toolbar {
+    padding-left: 10px;
+  }
 }
 
-#simple-clock-button,#nice-clock-button, #hr1, #write-time-button, #write-date-button, #hr2, #set-time-button , #set-timeGame-button {
+#simple-clock-button, #nice-clock-button, #hr1, #write-time-button, #write-date-button, #hr2, #set-time-button, #set-timeGame-button {
   display: none;
 }
 
@@ -97,7 +96,6 @@ canvas {
   #set-time-button {
     display: inline-block;
   }
-
 }
 
 @media only screen and (min-width: 382px) {
@@ -273,10 +271,8 @@ canvas {
 
 /*Added the media query to avoid accidentally stopping*/
 /*the activity on double clicking the unfullscreen button*/
-@media only screen and (max-width: 870px)
-{
-  #unfullscreen-button
-  {
+@media only screen and (max-width: 870px) {
+  #unfullscreen-button {
     right: 15%;
   }
 }
