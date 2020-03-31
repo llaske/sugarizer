@@ -55,12 +55,12 @@
 	vertical-align: top;
 	z-index:0;
 }
-  
+
 .search-field-border-focus {
 	background-color: white;
 	border: 2px solid white;
 }
-  
+
 .search-field-border-nofocus {
 	background-color: #e5e5e5;
 	border: 2px solid #e5e5e5;
@@ -81,14 +81,14 @@
 	position: relative;
 	top: 1px;
   }
-	  
+
 @media screen and (max-width: 940px) {
 	#userText{
 		width: 68vw;
 	}
-	
+
 }
-  
+
 /** Custom dropdown arrow for select tag **/
 
 .dropdown {
@@ -159,6 +159,52 @@ select {
 
 body {
 	overflow: hidden;
+}
+
+@media screen and (max-width: 657px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+}
+
+#language-button, #face-button, #speech-button, #gamemode1-button, #gamemode2-button, #gamemode3-button {
+  display: none;
+}
+
+@media only screen and (min-width: 276px) {
+  #gamemode1-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 331px) {
+  #gamemode2-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 386px) {
+  #gamemode3-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 439px) {
+  #language-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 494px) {
+  #speech-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 549px) {
+  #face-button {
+    display: inline-block;
+  }
 }
 
 .tutorial-title {
@@ -308,7 +354,7 @@ body {
 	  background-color: black;
 	  border: 2px solid #808080;
 	}
-	
+
 
 }
 
