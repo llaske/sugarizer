@@ -1125,7 +1125,7 @@ body {
 }
 
 .first-help {
-	position: absolute;
+	position: fixed;
 	top: 10px;
 	left: 30px;
 }
