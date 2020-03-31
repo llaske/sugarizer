@@ -977,9 +977,11 @@ define(["sugar-web/activity/activity"], function (activity) {
 				console.log("correct");
 				document.getElementById("user_challenge_question_answer").style.borderColor="green";
 				correctAnswered=correctAnswered+1;
+				
 				calculator_time_elapsed = calculator_time_elapsed+20;
 				totalTime=totalTime+calculator_time_elapsed;
 				updateCalculatorQuestion();
+				document.getElementById("calculator_questions_answered").innerHTML='Correct answered:'+correctAnswered;
 				setTimeout(calcInputNeutralColor,2000);
 				document.getElementById("user_challenge_question_answer").value="";
 				// console.log(calculator_time_elapsed);
@@ -999,34 +1001,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		function calcInputNeutralColor(){
 			document.getElementById("user_challenge_question_answer").style.borderColor="";
 		}	
-		function prepareNextChallenge() {
-			if(challenge_attempt_count >= 10) {
-				game.state.start('end');
-			}
-			else {
-				challenge_attempt_count += 1;
-				challenge_input.destroy();
-				setInputFieldForChallenge();
-				challenge_timer.stop();
-				seconds_left = Math.round(Math.random() * 5) + 10;
-				challenge_timer.loop(1000, updateChallengeCounter, this);
-				challenge_timer.start();
-			
-				getChallengeQuestion();
-				challenge_input.focus();
-			}
-			}
-			
-		function updateChallengeCounter() {
-			if(seconds_left > 0) {
-				seconds_left--;
-			}
-			else {
-			
-				challenge_timer.stop();
-				prepareNextChallenge();
-			}
-		}	
+	
 
 		document.getElementById("calculator-challenge").addEventListener('click',function(){
 			console.log("clicked calculator-challenge");
@@ -1098,6 +1073,23 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 		function calculatorChallengeEnded(){
 			console.log("ended");
+			document.getElementById("welcome-board").style.backgroundImage = "url(../Vedic.activity/img/board.jpg)"; 
+			document.getElementById("welcome-board").style.width="900px";
+			document.getElementById("welcome-board").style.height="640px"; 
+			document.getElementById("submit-calculator-challenge").style.display="none";
+			document.getElementById("submit-calculator-challenge").style.visibility="hidden";
+			document.getElementById("user_challenge_question_answer").style.display="none";
+			document.getElementById("user_challenge_question_answer").style.visibility="hidden";
+			var trick_green_board = document.getElementById("welcome-board");
+			// var bottom_permanent_message = "<p>To learn a step again, We recommend to start over as it helps you learn it meaningfully!</p>";
+			
+			trick_green_board.innerHTML="<div>\
+			<p>Good work!</p>\
+			<p>You answered "+correctAnswered+" mathematical calculation problems in "+totalTime+"seconds</p>\
+			<p>There is always scope for improvement.Go to learn tricks section to improve your mathematical calculation skills. </p>\
+			</div>\
+			";
+		
 		}
 
 
