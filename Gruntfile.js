@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 					'activities/Constellation.activity/**/*.js',
 					'activities/Etoys.activity/**/*.js',
 					'activities/EbookReader.activity/lib/*.js', // TODO: js/vue.js don't work
+					'activities/Falabracman.activity/**/*.js',
 					'activities/Flip.activity/**/*.js',
 					'activities/FoodChain.activity/**/*.js',
 					'activities/Fototoon.activity/**/*.js',

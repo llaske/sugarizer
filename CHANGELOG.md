@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Falabacraman activity don't detect win condition for restarted game #723
+- Falabracman only accepts a specific letter in case of repeated letters in a word #725
+- Speak Text button hides text under it in speak activity #727
+- Video Viewer shows tutorial for a feature not available #731
+- Labyrinth shows tutorial for functions not available on small screens #733
+- Blockrain tutorial overflows off screen on smaller screens #736
+- Get Things Done can't handle multiple lines #741
+- Stop button not visible in Scratch activity on small screens #715
+- Wrong title of network button in Memorize activity #745
+- Text not showing under erase button in qr-code activity #700
+- Food Chain tutorial off screen in small resolutions #752
+- Food Chain activity palette behind canvas #754
+- Awkward placement of Labyrinth canvas tutorial #758
+- Stopwatch activity palette text not visible #756
+
+
+## [1.3.0] - 2020-03-28
 ### Added
 - Calligra activity
 - Falabracman activity
@@ -136,12 +154,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sound don't restart in FoodChain activity #360
 - Video erase button hidden in Record Activity #655
 - Text not visible in search bar of Calligra Activity #661
-- Text overflows in Shared notes activity #333
 - Dialog box has no background in Markdown #671
 - Markdown link opens in frame which crashes the output #673
 - Responsiveness issue in Pomodoro Activity #675
 - Password Tutorial targets the wrong element #68
 - Tutorial error in Shared Notes Activity #693
+- TamTam Micro Activity Piano Mode Not working in Chrome in file:// #679
+- Bug While Resizing game screen after resizing setting screen in Falabracman activity #703
 
 ### Removed
 - Remove .OGG sounds, now replaced by .MP3 only

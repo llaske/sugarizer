@@ -10,6 +10,7 @@ define(function (require) {
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
             window.addEventListener('localized', function(e) {
+                document.getElementById("network-button").title = webL10n.get("TutoTitleNetwork");
                 if (e.language != language) {
                     setTimeout(function() {
                       webL10n.language.code = language;

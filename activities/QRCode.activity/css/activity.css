@@ -162,48 +162,95 @@
 #input-box {
 	position: relative;
 	z-index: 2;
-	background-color: #c0c0c0;
+	background-color: #c0c0c0; 
+	line-height: 47px;	
+	
+	
+	
 }
 
-#user-text {
-	height: 40px;
-	margin: 5px;
-	margin-left: 6vw;
+
+.search-field-border {
+	position: absolute;
+	border-radius: 22px;
+	top: 2px;
+	margin-left: 77px;
 	width: 85vw;
-	font-size: 28pt;
+	height: 45px;
+	display: inline-block;
+	vertical-align: top;
+	z-index: 0;
+  }
+  
+  .search-field-border-focus {
+	background-color: #c0c0c0;
+	border: 2px solid #c0c0c0;
+  }
+  
+  .search-field-border-nofocus {
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+  }
+  
+  .search-field-input {
+	  
+	opacity: 1;
+	margin-left: 30px;
+	border: 0px;
+	display: inline-block;
+	background-color: #e5e5e5;
+	width: 79vw;
+	line-height: 22px;
+	outline: 0;
+	font-size: 22pt;
 	font-weight: bold;
-	z-index:0;
-}
+	position: relative;
+	top: 5px;
+	position: absolute;
+  }
+  
+  .search-field-iocancel {
+	position: absolute;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #e5e5e5;
+	right: 10px;
+	border: none;
+	background-size: 20px 20px;
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	top: 80%;
+	transform: translateY(-110%);
+	background-size: 27px 27px;
+	background-position: 50% 50%;
+  }
+  
+  .search-field-iocancel:hover {
+	background-color: #e5e5e5
+  }
+
 @media (max-width: 960px) {
-	#user-text {
-		margin-left: 10vw;
+	.search-field-border  {
+		margin-left: 7vw;
 	}
+	.search-field-input{
+		width: 75vw;
+	}
+
 }
 @media (max-width: 600px) {
-	#user-text {
-		margin-left: 20vw;
+	.search-field-border{
+		margin-left: 15vw;
+		
+	}
+	.search-field-input{
+		width: 75vw;
 	}
 }
 
-.user-text-cancel {
-  position: absolute;
-  background-image: url(../icons/entry-cancel.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #e5e5e5;
-  right: 105px;
-  border: none;
-  background-size: 30px 30px;
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  top: 68%;
-  transform: translateY(-110%);
-}
 
-.user-text-cancel:hover {
-  background-color: #e5e5e5
-}
 
 .text-url {
 	color: blue;
@@ -212,17 +259,23 @@
 }
 
 #generate-button {
-	height: 45px;
-	width: 50px;
+	height: 43px;
+	width: 43px;
 	margin: 8px;
 	right: 4px;
 	bottom: 15px;
-	top: 2px;
+	top: -5%;
 	z-index: 1;
 	position: absolute;
 	background-image: url(../icons/go-right.svg);
-	background-size: 55px 50px;
+	background-size: 43px 43px;
 	background-position: 50% 50%;
+}
+@media (max-width: 600px) {
+	#generate-button{
+		margin-left: 9vw;
+		position: absolute;
+	}
 }
 
 #fullscreen-button {
