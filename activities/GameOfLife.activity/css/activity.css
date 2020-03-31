@@ -78,6 +78,52 @@ canvas {
   z-index: 1;
 }
 
+#speed-button, #size-button, #deadCells-button, #random, #glider, #no, #clear {
+  display: none;
+}
+
+@media only screen and (min-width: 381px) {
+  #speed-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 436px) {
+  #size-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 491px) {
+  #deadCells-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 546px) {
+  #random {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #glider {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 655px) {
+  #no {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 758px) {
+  #clear {
+    display: inline-block;
+  }
+}
+
 .generation-container {
   display: flex;
   flex-direction: column;
