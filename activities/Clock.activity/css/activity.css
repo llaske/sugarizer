@@ -83,57 +83,63 @@ canvas {
 }
 
 
+@media screen and (max-width: 677px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+}
+
 #simple-clock-button,#nice-clock-button, #hr1, #write-time-button, #write-date-button, #hr2, #set-time-button , #set-timeGame-button {
   display: none;
 }
 
+@media only screen and (min-width: 330px) {
+  #set-time-button {
+    display: inline-block;
+  }
 
-@media only screen and (min-width: 377px) {
-  #simple-clock-button {
+}
+
+@media only screen and (min-width: 382px) {
+  #set-timeGame-button {
     display: inline-block;
   }
 }
 
-
-@media only screen and (min-width: 431px) {
-  #nice-clock-button {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 445px) {
-  #hr1 {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 500px) {
-  #write-time-button {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 555px) {
-  #write-date-button {
-    display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 569px) {
+@media only screen and (min-width: 392px) {
   #hr2 {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 624px) {
-  #set-time-button {
+@media only screen and (min-width: 447px) {
+  #write-date-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 679px) {
-  #set-timeGame-button {
+@media only screen and (min-width: 505px) {
+  #write-time-button {
     display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 515px) {
+  #hr1 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 570px) {
+  #simple-clock-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 625px) {
+  #nice-clock-button {
+    display: inline-block;
+  }
 }
 
 /*Tutorial CSS*/
