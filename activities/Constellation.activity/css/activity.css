@@ -43,45 +43,50 @@
   display: none;
 }
 
+@media screen and (max-width: 710px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+}
 
-@media only screen and (min-width: 377px) {
+@media only screen and (min-width: 330px) {
   #add-button {
     display: inline-block;
   }
 }
 
 
-@media only screen and (min-width: 431px) {
+@media only screen and (min-width: 384px) {
   #minus-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 486px) {
+@media only screen and (min-width: 439px) {
   #const-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 541px) {
+@media only screen and (min-width: 490px) {
   #star-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 596px) {
+@media only screen and (min-width: 545px) {
   #location-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 651px) {
+@media only screen and (min-width: 600px) {
   #world-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 706px) {
+@media only screen and (min-width: 656px) {
   #view-button {
     display: inline-block;
   }
