@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette", "sugar-web/env", "webL10n"], function (palette, env, webL10n) {
+define(["sugar-web/graphics/palette"], function (palette) {
 
     'use strict';
 
