@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Pomodoro timer resets on break change #750
 - Awkward positioning of contents in the searchfield of video viewer activity #761
 - Size and speed palettes of game of life activity don't works on touch screen #766
+- Speech and Face Palettes of speak activity doesn't work on touch screen #764
 
 
 ## [1.3.0] - 2020-03-28
