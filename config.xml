@@ -90,21 +90,4 @@
 		<splash src="res/splash/ios/Default@2x~ipad~anyany.png" />
 		<splash src="res/splash/ios/Default@2x~ipad~comany.png" />
 	</platform>
-	<platform name="windows">
-		<splash width="620" height="300" src="res/splash/windows/SplashScreen.scale-100.png" />
-		<splash width="1152" height="1920" src="res/splash/windows/SplashScreenPhone.scale-240.png" />
-		<icon width="150" height="150" src="res/icon/windows/Square150x150Logo.scale-100.png" />
-		<icon width="360" height="360" src="res/icon/windows/Square150x150Logo.scale-240.png" />
-		<icon width="30" height="30" src="res/icon/windows/Square30x30Logo.scale-100.png" />
-		<icon width="310" height="310" src="res/icon/windows/Square310x310Logo.scale-100.png" />
-		<icon width="44" height="44" src="res/icon/windows/Square44x44Logo.scale-100.png" />
-		<icon width="106" height="106" src="res/icon/windows/Square44x44Logo.scale-240.png" />
-		<icon width="70" height="70" src="res/icon/windows/Square70x70Logo.scale-100.png" />
-		<icon width="71" height="71" src="res/icon/windows/Square71x71Logo.scale-100.png" />
-		<icon width="170" height="170" src="res/icon/windows/Square71x71Logo.scale-240.png" />
-		<icon width="50" height="50" src="res/icon/windows/StoreLogo.scale-100.png" />
-		<icon width="120" height="120" src="res/icon/windows/StoreLogo.scale-240.png" />
-		<icon width="310" height="150" src="res/icon/windows/Wide310x150Logo.scale-100.png" />
-		<icon width="744" height="360" src="res/icon/windows/Wide310x150Logo.scale-240.png" />
-	</platform>
 </widget>
