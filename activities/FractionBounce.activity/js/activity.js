@@ -237,8 +237,8 @@ let app = new Vue({
 				slopeCanvas.removeEventListener("touchstart", this.onTouchStart);
 				slopeCanvas.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
+				let result = this.$refs.slopecanvas.checkAnswer();
 				if (this.vy < 0.5) {
-					let result = this.$refs.slopecanvas.checkAnswer();
 					if (result == this.answer) {
 						this.correctAnswers++;
 						if (this.log.hasOwnProperty(this.answer + '/' + this.parts)) {
@@ -258,7 +258,7 @@ let app = new Vue({
 					this.bounceCount++;
 					setTimeout(function () {
 						vm.launch();
-						if(vm.launchDelay > 0) {
+						if(vm.launchDelay-100 > 0) {
 							vm.launchDelay -= 100;
 						}
 					}, this.launchDelay);
