@@ -60,6 +60,7 @@
 		<icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
 		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
 		<icon density="xxxhdpi" src="res/icon/android/icon-192-xxxhdpi.png" />
+		<plugin name="cordova-plugin-ionic-keyboard" spec="2.2.0" />
 	</platform>
 	<platform name="ios">
 		<icon src="res/icon/ios/icon-60@3x.png" width="180" height="180" />
