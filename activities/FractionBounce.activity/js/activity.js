@@ -404,6 +404,7 @@ let app = new Vue({
 
 		onTouchStart: function(event) {
 			this.touchEvent = event;
+			this.changeSpeed();
 			this.touchInterval = setInterval(this.changeSpeed, 2*this.frameInterval);
 		},
 
