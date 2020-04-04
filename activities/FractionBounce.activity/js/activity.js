@@ -47,7 +47,9 @@ let app = new Vue({
 		bounceCount: 0,
 		stopAfter: 10,
 		log: {},
-		userFractions: []
+		userFractions: [],
+		successSound: null,
+		failSound: null
 	},
 
 	created: function () {
@@ -152,8 +154,29 @@ let app = new Vue({
 			this.cx = mainCanvas.width / 2;
 			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
 
+			if(this.successSound == null || this.failSound == null) {
+				this.initSounds();
+			}
+
 			// start by clicking ball
 			document.getElementById('slopeCanvas').addEventListener('click', this.startGame);
+		},
+
+		initSounds: function() {
+			//Success
+			this.successSound = document.createElement("audio");
+			this.successSound.src = "./audio/success.mp3";
+			this.successSound.setAttribute("preload", "auto");
+			this.successSound.setAttribute("controls", "none");
+			this.successSound.style.display = "none";
+			document.body.appendChild(this.successSound);
+			//Failure
+			this.failSound = document.createElement("audio");
+			this.failSound.src = "./audio/fail.mp3";
+			this.failSound.setAttribute("preload", "auto");
+			this.failSound.setAttribute("controls", "none");
+			this.failSound.style.display = "none";
+			document.body.appendChild(this.failSound);
 		},
 
 		startGame: function (event) {
@@ -238,6 +261,11 @@ let app = new Vue({
 				slopeCanvas.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
 				let result = this.$refs.slopecanvas.checkAnswer();
+				if (result == this.answer) {
+					this.successSound.play();
+				} else {
+					this.failSound.play();
+				}
 				if (this.vy < 0.5) {
 					if (result == this.answer) {
 						this.correctAnswers++;
