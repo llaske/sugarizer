@@ -29,6 +29,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		// Welcome user
 		env.getEnvironment(function(err, environment) {
 			document.getElementById("canvas").style.backgroundColor=environment.user.colorvalue.fill;
+
+			// Set current language to Sugarizer
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			webL10n.language.code = language;
+
 			currentenv = environment;
 			
 			// Shared instances
