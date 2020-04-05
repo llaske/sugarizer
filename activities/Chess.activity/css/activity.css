@@ -198,3 +198,8 @@
 	visibility: hidden;
 	z-index: 5;
 }
+
+#start-button{
+	background-image: url(../icons/system-restart.svg);
+	position: relative;
+  }
