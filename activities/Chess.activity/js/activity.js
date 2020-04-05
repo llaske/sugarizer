@@ -28,6 +28,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 		
 		// Welcome user
 		env.getEnvironment(function(err, environment) {
+			document.getElementById("canvas").style.backgroundColor=environment.user.colorvalue.fill;
 			currentenv = environment;
 			
 			// Shared instances
@@ -39,8 +40,10 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 					
 				});
 			
-			}	
+			}
+
 			
+
 			// Load from datastore
 			if (!environment.objectId) {
 				//console.log("New instance");
