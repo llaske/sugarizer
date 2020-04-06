@@ -49,7 +49,18 @@ let app = new Vue({
 		log: {},
 		userFractions: [],
 		successSound: null,
-		failSound: null
+		failSound: null,
+		readyToWatch: false,
+		watchId: null,
+	},
+
+	watch: {
+		readyToWatch: function(newVal, oldVal) {
+			let vm = this;
+			if(newVal) {
+				vm.watchId = navigator.accelerometer.watchAcceleration(vm.accelerationChanged, null, { frequency: 2*vm.frameInterval });
+			}
+		}
 	},
 
 	created: function () {
@@ -89,6 +100,14 @@ let app = new Vue({
 		document.getElementById("unfullscreen-button").addEventListener('click', function () {
 			vm.unfullscreen();
 		});
+
+		//Accelerometer
+		var useragent = navigator.userAgent.toLowerCase();
+		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
+			document.addEventListener('deviceready', function() {
+				vm.readyToWatch = true;
+			}, false);
+		}
 		
 		// handle resize
 		window.addEventListener('resize', function() {
@@ -266,6 +285,7 @@ let app = new Vue({
 				} else {
 					this.failSound.play();
 				}
+				this.onSlope = true;
 				if (this.vy < 0.5) {
 					if (result == this.answer) {
 						this.correctAnswers++;
@@ -282,7 +302,6 @@ let app = new Vue({
 						}
 					}
 					clearInterval(this.interval);
-					this.onSlope = true;
 					this.bounceCount++;
 					setTimeout(function () {
 						vm.launch();
@@ -402,6 +421,12 @@ let app = new Vue({
 			this.context.translate(-this.radius, -2 * this.radius);
 		},
 
+		accelerationChanged: function(acceleration) {
+			this.changeSpeed({
+				acceleration: acceleration
+			});
+		},
+
 		onTouchStart: function(event) {
 			this.touchEvent = event;
 			this.changeSpeed();
@@ -424,6 +449,31 @@ let app = new Vue({
 					this.vx += 10;
 				} else {
 					this.vx -= 10;
+				}
+			} else if(event.acceleration) {
+				// Accelerometer
+				if(this.paused || this.onSlope) return;
+				if (event.acceleration.x < -4.5) {
+					if (event.acceleration.y > 4.75) {
+						this.vx -= 10;
+					}
+					else if (event.acceleration.y < -4.75) {
+						this.vx += 10;
+					}
+				} else if (event.acceleration.x <= 4.5 && event.acceleration.x >= -4.5) {
+					if (event.acceleration.y > 4.75) {
+						this.vx += 10;
+					}
+					else if (event.acceleration.y < -4.75) {
+						this.vx -= 10;
+					}
+				} else if (event.acceleration.x > 4.5) {
+					if (event.acceleration.y > 4.75) {
+						this.vx += 10;
+					}
+					else if (event.acceleration.y < -4.75) {
+						this.vx -= 10;
+					}
 				}
 			}
 			// Keyboard event
