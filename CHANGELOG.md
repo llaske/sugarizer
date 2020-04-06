@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Speech and Face Palettes of speak activity doesn't work on touch screen #764
 - Keyboard overlaps input fields on Android #739
 - Alignment of help button in some activities #777
+- Presence palette implementation in Memorize is non standard #374
 
 
 ## [1.3.0] - 2020-03-28
