@@ -18,6 +18,8 @@ var Tutorial = {
 				stringTutoSlopeContent: '',
 				stringTutoLogTitle: '',
 				stringTutoLogContent: '',
+				stringTutoPlayTitle: '',
+				stringTutoPlayContent: '',
 				stringTutoSettingsTitle: '',
 				stringTutoSettingsContent: '',
 				stringTutoBallSelectTitle: '',
@@ -77,6 +79,18 @@ var Tutorial = {
 					placement: "right",
 					title: this.l10n.stringTutoLogTitle,
 					content: this.l10n.stringTutoLogContent
+				},
+				{
+					element: "#play-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayTitle,
+					content: this.l10n.stringTutoPlayContent
+				},
+				{
+					element: "#pause-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayTitle,
+					content: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#settings-button",
