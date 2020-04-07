@@ -136,7 +136,8 @@ enyo.kind({
         });
         that.handlePlayNoteListener = that.handlePlayNoteListener.bind(this);
         document.addEventListener('keydown', that.handlePlayNoteListener, false);
-		tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
+        tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
+        this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
 		return;
     },
 
