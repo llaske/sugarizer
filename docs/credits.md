@@ -25,7 +25,8 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Write by Ashish Aggarval
 * Constellation by Andrea Gonzales
 * Pomodoro by Sanatan
-* Falabracman by Prakash Ujjwal 
+* Falabracman by Prakash Ujjwal
+* Fraction by Dhruv Misra
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
