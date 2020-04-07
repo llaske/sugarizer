@@ -26,6 +26,7 @@ module.exports = function(grunt) {
 					'activities/Flip.activity/**/*.js',
 					'activities/FoodChain.activity/**/*.js',
 					'activities/Fototoon.activity/**/*.js',
+					'activities/FractionBounce.activity/lib/*.js', // TODO: js/vue.js don't work
 					'activities/GameOfLife.activity/**/*.js',
 					'activities/Gears.activity/js/*.js', // TODO: lib/gearsketch dont work
 					'activities/GetThingsDone.activity/**/*.js',
