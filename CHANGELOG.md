@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Fraction activity
+- Fraction activity #205
 
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
