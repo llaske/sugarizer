@@ -42,7 +42,7 @@ TamTam.collections = [
 
 // Current piano sound
 var currentPianoMode = "piano";
-var currentSimonMode = "sitar";
+var currentSimonMode = "piano";
 
 
 

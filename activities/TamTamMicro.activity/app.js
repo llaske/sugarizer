@@ -180,11 +180,13 @@ enyo.kind({
 		if(simonMode) {
 			document.getElementById('simon-button').classList.add('active');
 			document.getElementById('piano-button').classList.remove('active');
+			document.getElementById("instruments-button").classList.remove('active');
 		}
 
 		if(pianoMode) {
 			document.getElementById('piano-button').classList.add('active');
 			document.getElementById('simon-button').classList.remove('active');
+			document.getElementById("instruments-button").classList.remove('active');
 		}
 	},
 
@@ -193,7 +195,7 @@ enyo.kind({
 			piano: pianoMode,
 			currentPianoMode: currentPianoMode,
 			simon: simonMode,
-			currentSimonMode: currentSimonMode
+			currentSimonMode: currentSimonMode,
 		}
 	}
 });
