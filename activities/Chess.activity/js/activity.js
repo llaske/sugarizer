@@ -128,6 +128,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/presen
 			game=new Chess(msg.content.configuration);
 			//console.log(msg.content.configuration);
 			
+			//localization
+			window.addEventListener("localized", function() {
+			
+				document.getElementById("status-update").title = webL10n.get("Status");
+			});
 			
 			
 			
