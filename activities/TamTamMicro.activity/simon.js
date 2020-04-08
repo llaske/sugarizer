@@ -79,12 +79,12 @@ enyo.kind({
 
     showStart: function(){
         var colors = ["Red", "Green", "Yellow", "Blue"];
-        setTimeout(function(){
+        this.timeouts.push(setTimeout(function(){
             this.$.SimonStart.addRemoveClass('rightGreen', false);
             this.$.SimonStart.addRemoveClass('wrongRed', false);
             this.$.SimonStart.addRemoveClass('disableElement', false);
             this.startGame();
-        }.bind(this), 2000);
+        }.bind(this), 2000));
     },
     
     clickColor(colorName){
@@ -95,9 +95,9 @@ enyo.kind({
             "Yellow": "C-s"
         }
         this.$[colorName].addRemoveClass('darkenElement', true);
-        setTimeout(function(){
+        this.timeouts.push(setTimeout(function(){
             this.$[colorName].addRemoveClass('darkenElement', false);
-        }.bind(this), 1000)
+        }.bind(this), 1000));
 
         var pitchName = colorMap[colorName];
 		var pitchMap = {
@@ -122,6 +122,7 @@ enyo.kind({
         this.userSequence = [];
         this.score = 0;
         this.keysEnabled = false;
+        this.timeouts = [];
         
         var that = this;
         requirejs(["webL10n"], function(webL10n) {
@@ -150,17 +151,17 @@ enyo.kind({
         this.correctSequence.push(randomColor);
         var delay = 1000;
         for(let steps = 0; steps < this.level; steps++){
-            setTimeout(function(){
+            this.timeouts.push(setTimeout(function(){
                 this.clickColor(this.correctSequence[steps]);
                 this.$.SimonStart.setContent(steps + 1);
-            }.bind(this), delay);
+            }.bind(this), delay));
             delay += 1100;
         }
-        setTimeout(function(){
+        this.timeouts.push(setTimeout(function(){
             this.addRemoveAll(colors, 'disableElement', false);
             this.keysEnabled = true;
             this.$.SimonStart.setContent("");
-        }.bind(this), delay);
+        }.bind(this), delay));
     },
 
     resetGame: function(){
@@ -175,9 +176,10 @@ enyo.kind({
     },
     
     destroy: function () {
-		var that = this;
+        var that = this;
+        that.timeouts.forEach((id)=>clearTimeout(id));
         that.inherited(arguments);
-		document.removeEventListener('keydown', that.handlePlayNoteListener, false);
+        document.removeEventListener('keydown', that.handlePlayNoteListener, false);
     },
 
     // adds or removes a class from all elements
