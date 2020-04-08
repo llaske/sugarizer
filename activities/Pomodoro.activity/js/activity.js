@@ -145,7 +145,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     this.workTimer = new Stopwatch(timerInMS);
     this.state.status = 'work';
     const progressToStart = (this.state.progressLeftAt === false)
-      ? 1
+      ? this.state.workTimerLimit
       : this.state.progressLeftAt
     this.workTimer.onTime(function (time) {
       var progress = mapRange({
@@ -177,7 +177,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     this.state.status = 'break';
 
     const progressToStart = (this.state.progressLeftAt === false)
-      ? 1
+      ? this.state.breakTimerLimit
       : this.state.progressLeftAt
     this.breakTimer.onTime(function (time) {
       var progress = mapRange({
@@ -217,7 +217,11 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   }
 
   function renderPomodoro() {
-    this.pomodoro.update(this.state.progress);
+    if (this.state.status === 'work') {
+      this.pomodoro.update(this.state.progress/this.state.workTimerLimit);
+    } else {
+      this.pomodoro.update(this.state.progress/this.state.breakTimerLimit);
+    }
   }
 
   function renderPomodoroText() {
@@ -265,9 +269,8 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   function updateWorkPomodoro() {
     this.state.currentWorkText = convertReadableMS(this.state.workTimerLimit * 60 * 1000);
     document.querySelector('.button-time.work').innerText = this.state.workTimerLimit;
-    this.pomodoro.update(1);
-    renderPomodoroText();
     if (this.state.status === 'work') {
+      setProgress(this.state.progress, this.state.progress * 60 * 1000);
       startWork();
     }
   }
@@ -275,8 +278,8 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   function updateBreakPomodoro() {
     this.state.currentBreakText = convertReadableMS(this.state.breakTimerLimit * 60 * 1000);
     document.querySelector('.button-time.break').innerText = this.state.breakTimerLimit;
-    renderPomodoroText();
     if (this.state.status === 'break') {
+      setProgress(this.state.progress, this.state.progress * 60 * 1000);
       startBreak();
     }
   }
@@ -284,7 +287,9 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleWorkPlusClick = function () {
     if (!this.state.isButtonsDisable) {
       this.state.workTimerLimit = this.state.workTimerLimit + 1;
-      resetTimer()
+      if(this.state.status === 'work') {
+        this.state.progress += 1;
+      }
       updateWorkPomodoro();
       saveInDataStore()
     }
@@ -293,7 +298,9 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleWorkMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.workTimerLimit > 1) {
       this.state.workTimerLimit = this.state.workTimerLimit - 1;
-      resetTimer()
+      if(this.state.status === 'work' && this.state.progress > 1) {
+        this.state.progress -= 1;
+      }
       updateWorkPomodoro();
       saveInDataStore()
     }
@@ -302,7 +309,9 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleBreakPlusClick = function () {
     if (!this.state.isButtonsDisable) {
       this.state.breakTimerLimit = this.state.breakTimerLimit + 1;
-      resetTimer()
+      if(this.state.status === 'break') {
+        this.state.progress += 1;
+      }
       updateBreakPomodoro();
       saveInDataStore()
     }
@@ -311,7 +320,9 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
   this.handleBreakMinusClick = function () {
     if (!this.state.isButtonsDisable && this.state.breakTimerLimit > 1) {
       this.state.breakTimerLimit = this.state.breakTimerLimit - 1;
-      resetTimer()
+      if(this.state.status === 'break' && this.state.progress > 1) {
+        this.state.progress -= 1;
+      }
       updateBreakPomodoro();
       saveInDataStore()
     }

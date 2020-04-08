@@ -96,7 +96,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		result = null;
 		chooser.init();
 		var imageType = "image/png";
-		var soundType = /Android/i.test(navigator.userAgent)?"audio/ogg":"audio/mpeg";
+		var soundType = "audio/mpeg";
 		var filters = [filter1, orFilter2, orFilter3, orFilter4];
 		for (var i = 0 ; i < filters.length ; i++) {
 			if (filters[i]) {
@@ -107,7 +107,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					features.push(featureAbecedarium);
 					break;
 				} else if (filters[i].mimetype == soundType) {
-					featureAbecedarium.fileformat = (soundType == "audio/ogg"?".ogg":".mp3");
+					featureAbecedarium.fileformat = ".mp3";
 					featureAbecedarium.mimetype = soundType;
 					featureAbecedarium.filelocation = "audio/{{lang}}/database/";
 					features.push(featureAbecedarium);
@@ -120,7 +120,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
 		}
 		contentHeader += "<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>";
-		contentHeader += "<div style='position: relative; display: inline-block; margin-left: 10px; vertical-align:middle; height:55px'>$titleChoose</div></div>";
+		contentHeader += "<div style='position: absolute; display: inline-block; margin-left: 10px; top: 20px; height:55px'>$titleChoose</div></div>";
 		modal = picoModal({
 			content: doLocalize(contentHeader+"\
 				<div class='toolbar' style='border-top-style: solid; border-color: #c0c0c0; border-width: 1px'>\
@@ -344,18 +344,30 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		featureAbecedarium.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
 		featureAbecedarium.lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		featureAbecedarium.filelocation = featureAbecedarium.filelocation.replace("{{lang}}",featureAbecedarium.lang);
-		var count = 0;
-		var loadDatabase = function(file, entry) {
+		var loadDatabase = function(file, entry, subcallback) {
 			var client = new XMLHttpRequest();
 			var source = featureAbecedarium.baseURL+file;
 			client.onload = function() {
 				if (entry == "ping") {
 					featureAbecedarium.database[entry]=(this.status == 0 || (this.status >= 200 && this.status < 300));
-					return;
-				}
-				if (this.status == 0 || (this.status >= 200 && this.status < 300)) {
+				} else if (this.status == 0 || (this.status >= 200 && this.status < 300)) {
 					featureAbecedarium.database[entry]=JSON.parse(this.responseText);
-					if (++count == 3) {
+				}
+				subcallback();
+			};
+			client.onerror = function() {
+				if (entry == "ping") {
+					featureAbecedarium.database[entry]=false;
+					subcallback();
+				}
+			}
+			client.open("GET", source);
+			client.send();
+		};
+		loadDatabase("database/db_url.json", "url", function() {
+			loadDatabase("database/db_meta.json", "meta", function() {
+				loadDatabase("database/db_"+featureAbecedarium.lang+".json", "words", function() {
+					loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping", function() {
 						var len = featureAbecedarium.database.meta.length;
 						var entries = [];
 						for (var i = 0 ; i < len; i++) {
@@ -375,16 +387,10 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 						delete featureAbecedarium.database.meta;
 						delete featureAbecedarium.database.words;
 						callback();
-					}
-				}
-			};
-			client.open("GET", source);
-			client.send();
-		};
-		loadDatabase("database/db_url.json", "url");
-		loadDatabase("database/db_meta.json", "meta");
-		loadDatabase("database/db_"+featureAbecedarium.lang+".json", "words");
-		loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping");
+					});
+				});
+			});
+		});
 	}
 
 	// Fill popup with Abecedarium items

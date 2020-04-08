@@ -40,12 +40,12 @@ var fname = 'sqgridpos';
 /////////////////////////
 
 function appInit(){
-	frame = document.getElementById('frame');	
+	frame = document.getElementById('frame');
 	clearbtn = document.getElementById("clear-button");
-	thumbframe = document.getElementById('thumbframe');	
-	cnv = document.getElementById('gridcnv');	
+	thumbframe = document.getElementById('thumbframe');
+	cnv = document.getElementById('gridcnv');
 	cnv.width=1024; cnv.height=748;
-	hitbuffer = document.getElementById('hitbuffer');	
+	hitbuffer = document.getElementById('hitbuffer');
 	hitbuffer.width=1024; hitbuffer.height=748;
 	var hsplit = location.href.split('--');
 	if(hsplit.length==3) fname = hsplit[1];
@@ -89,7 +89,7 @@ function handleStart(x,y){
 
 function handleMove(x,y){
 	changed = true;
-	var p = findPiece(x,y); 
+	var p = findPiece(x,y);
 	if(p<0) return;
 	colors[p] = newcolor;
 	fillPiece(p);
@@ -125,13 +125,13 @@ function hittestInit(){
 	ctx.save();
 	ctx.translate(140, 20);
 	ctx.scale(scale, scale);
-	for(var i=0;i<shapes.length;i++){	
+	for(var i=0;i<shapes.length;i++){
 		var low = hexdigit(i&0xf);
 		var mid = hexdigit((i>>4)&0xf);
 		var high = hexdigit((i>>8)&0xf);
 		ctx.fillStyle = '#'+high+'F'+mid+'F'+low+'F';
 		shapePath(i, ctx, true);
-	  ctx.fill();		
+	  ctx.fill();
 	}
 	ctx.restore();
 }
@@ -159,24 +159,24 @@ function fillPiece(i){
 	ctx.save();
 	ctx.translate(140, 20);
 	ctx.scale(scale, scale);
-	ctx.fillStyle = colors[i]; 
+	ctx.fillStyle = colors[i];
 	shapePath(i, ctx);
   ctx.fill();
   ctx.restore();
-}	
+}
 
 function strokePiece(i){
 	var ctx = cnv.getContext('2d');
 	ctx.save();
 	ctx.translate(140, 20);
 	ctx.scale(scale, scale);
-	ctx.strokeStyle = '#404040'; 
+	ctx.strokeStyle = '#404040';
 	ctx.lineWidth = 1;
 	shapePath(i, ctx);
   ctx.stroke();
   ctx.restore();
-}	
-	
+}
+
 function shapePath(n, ctx, shift){
 	var pp = shapes[n].points;
 	ctx.beginPath();
@@ -189,15 +189,15 @@ function drawButtons(){
 	var ctx = cnv.getContext('2d');
 	ctx.fillStyle = '#f0f0f0';
 	ctx.fillRect(0, 0, 120, 700);
-	ctx.strokeStyle = '#505050'; 
+	ctx.strokeStyle = '#505050';
 	for(var i=0;i<cnames.length;i++) drawButton(ctx, i);
 	drawSaveButton(ctx);
 }
 
 function drawButton(ctx, n, c){
-	ctx.fillStyle = cnames[n]; 
+	ctx.fillStyle = cnames[n];
 	ctx.lineWidth = (n==bselected)?4:2;
-	roundRectPath(ctx,55,110+70*n,30,30);
+	roundRectPath(ctx,45,110+70*n,30,30);
 	ctx.fill();
   ctx.stroke();
 }

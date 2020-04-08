@@ -61,6 +61,15 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 		}
 	}, false);
 
+	// HACK: on iOS, create a media to initialize sound
+	if (enyo.platform.ios && document.location.protocol.substr(0,4) != "http") {
+		document.addEventListener("deviceready", function() {
+			var release = function() { media.release(); }
+			var media = new Media("audio/silence.mp3", release, release, release);
+			media.play();
+		});
+	}
+
 	// Wait for DOM is ready.
 	requirejs(['domReady!'], function (doc) {
 		if (--toload == 0) {

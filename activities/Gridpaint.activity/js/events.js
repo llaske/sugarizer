@@ -44,7 +44,7 @@ function eventInit(){
 }
 
 function computeSize() {
-	var wsize = document.body.clientHeight-55;
+	var wsize = document.body.clientHeight-(document.getElementById("unfullscreen-button").style.visibility!="visible"?55:0);
 	zoom = wsize/748;
 	var leftMargin = (document.body.clientWidth-1024*zoom)/2;
 	document.getElementById("frame").style.marginLeft = leftMargin+"px";
