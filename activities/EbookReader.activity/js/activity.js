@@ -228,6 +228,7 @@ var app = new Vue({
 		onHelp: function() {
 			var options = {};
 			options.switchbutton = this.$refs.toolbar.$refs.switchbutton.$el;
+			options.contentsbutton = this.$refs.toolbar.$refs.contentsbutton.$el;
 			options.settingsbutton = this.$refs.toolbar.$refs.settings.$el;
 			options.fullscreenbutton = this.$refs.toolbar.$refs.fullscreen.$el;
 			if (this.currentView === LibraryViewer && this.$refs.view.$refs.item0 && this.$refs.view.$refs.item0[0]) {

@@ -1,31 +1,4 @@
-enyo.kind({
-	name: "TamTam.TonePlayer",
-
-	create: function() {
-		this.player = new Tone.Player();
-		this.pitchShift = new Tone.PitchShift();
-	},
-
-	load: function(file) {
-		this.player.load(file+"?time="+(new Date().getTime())); // HACK: Don't load in the cache
-	},
-
-	play: function(pitch) {
-		this.pitchShift.pitch = pitch;
-		this.pitchShift.toMaster();
-		this.player.connect(this.pitchShift);
-		this.player.start();
-	},
-
-	destroy: function() {
-		this.pitchShift.disconnect();
-		this.pitchShift.dispose();
-		this.player.disconnect();
-		this.player.dispose();
-	}
-});
-
-
+// Handling of Piano mode
 enyo.kind({
 	name: "TamTam.Piano",
 	components: [

@@ -25,6 +25,13 @@
   z-index: 5;
 }
 
+.palette {
+  color: black;
+}
+.palette label {
+  color: white;
+}
+
 ul {
   padding: 0;
   margin: 0;

@@ -1,5 +1,4 @@
 var app;
-var sound;
 var tonePlayer;
 var pianoMode = false;
 var simonMode = false;
@@ -11,6 +10,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Initialize the activity.
 		activity.setup();
 
+		// Create sound component
+		tonePlayer = new TamTam.TonePlayer();
+
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
@@ -18,28 +20,27 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
 
-			// Create sound component
-			sound = new TamTam.Audio();
-			sound.renderInto(document.getElementById("audio"));
-			tonePlayer = new TamTam.TonePlayer();
-
 			app = new TamTam.App({activity: activity});
 
 			// Load from data store
 			if (environment.objectId) {
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 					if (error==null && data!=null) {
+						console.log("jornal data loaded!");
 						var journalData = JSON.parse(data);
-
+						console.log(journalData);
 						// Launch main screen
 						app.setContext(journalData);
 						app.renderInto(document.getElementById("keyboard"));
+
+					} else{
+						console.log(data);
 					}
 				});
 			} else {
-				// Launch main screen
 				app.renderInto(document.getElementById("keyboard"));
 			}
+
 			if (!pianoMode && !simonMode)
 				document.getElementById('instruments-button').classList.add('active');
 		});
@@ -69,7 +70,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
-			sound.pause();
+			console.log(app.getContext());
 			var jsonData = JSON.stringify(app.getContext());
 			activity.getDatastoreObject().setDataAsText(jsonData);
 			activity.getDatastoreObject().save(function (error) {

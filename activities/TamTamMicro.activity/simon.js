@@ -16,13 +16,11 @@ enyo.kind({
                         classes: "Simon-centre Simon-centre-white",
                         components: [
                             {name: "SimonStart", id: "SimonStart", classes: "Simon-start", content: "", ontap: "startGame"},
-                            {name: "SimonReplay", content: "", ontap: "pauseGame", showing: false}
                         ]
                     }]
                 }
             ]},
-        ]},
-        {kind: "Image", src: "icons/redo.svg", classes: "Simon-reset", ontap: "resetGame"}
+        ]}
     ],
 
     handlePlayNote: function(s) {
@@ -162,17 +160,6 @@ enyo.kind({
             this.keysEnabled = true;
             this.$.SimonStart.setContent("");
         }.bind(this), delay));
-    },
-
-    resetGame: function(){
-        this.collection = 0;
-        this.level = 1;
-        this.correctSequence = [];
-        this.userSequence = [];
-        this.score = 0;
-        this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
-        this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
-        this.$.SimonStart.show();
     },
     
     destroy: function () {

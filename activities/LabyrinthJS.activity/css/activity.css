@@ -354,25 +354,13 @@ body {
    visibility: hidden;
    width: 0px;
  }
-
- #sub-toolbar #fontminus-button {
-   visibility: hidden;
- }
-
- #sub-toolbar #font-button {
-   visibility: hidden;
- }
-
  #fontpalette {
-   left: 0px !important;
- }
-
- #sub-toolbar #fontplus-button {
-   visibility: hidden;
- }
+    left: initial !important;
+    right: 0px !important;
+  }
 }
 
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 820px) {
  .search-field-input {
   width: 120px;
  }
@@ -393,6 +381,22 @@ body {
     #help-button {
         visibility: hidden;
         width: 0px;
+    }
+    
+    #sub-toolbar #fontminus-button {
+      display: none;
+    }
+
+    #sub-toolbar #font-button {
+      display: none;
+    }
+
+    #fontpalette {
+      left: 0px !important;
+    }
+
+    #sub-toolbar #fontplus-button {
+      display: none;
     }
 }
 

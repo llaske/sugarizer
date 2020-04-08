@@ -23,7 +23,7 @@ define(["webL10n", "activity/activity"], function () {
 			},
 			{
 				element: tutorial.getElement("board"),
-				placement: "right",
+				placement: "top",
 				title: l10n.get("TutoBoardTitle"),
 				content: l10n.get("TutoBoardContent")
 			},

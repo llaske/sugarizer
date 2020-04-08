@@ -10,14 +10,13 @@ enyo.kind({
 	events: {
 		onSelectionChange:""
 	},
-	
+
 	// Constructor
 	create: function() {
 		this.inherited(arguments);
 		this.nameChanged();
-		this.sound = null;
 	},
-	
+
 	// Item setup
 	nameChanged: function() {
 		if(currentPianoMode === this.name) {
@@ -26,13 +25,13 @@ enyo.kind({
 			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
 		}
 	},
-	
+
 	deselect: function() {
 		if(this.$.itemImage !== undefined) {
 			this.$.itemImage.setAttribute("src", "images/database/"+this.name+".png");
 		}
 	},
-	
+
 	// Play sound using the media
 	play: function() {
 		this.doSelectionChange({toChange: currentPianoMode});
@@ -40,8 +39,7 @@ enyo.kind({
 		currentSimonMode = this.name;
 		this.nameChanged();
 		if (this.name != null) {
-			this.sound = "audio/database/"+this.name;
-			sound.play(this);
+			tonePlayer.playSound("audio/database/"+this.name+".mp3");
 		}
 	},
 });

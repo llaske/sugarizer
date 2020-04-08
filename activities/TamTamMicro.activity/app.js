@@ -76,7 +76,7 @@ enyo.kind({
 			this.$.items.createComponent(
 				{ kind: "TamTam.Piano"},
 				{ owner: this }
-			).render();	
+			).render();
 
 		} else if(simonMode){
 			document.getElementById("body").style.backgroundColor = '#ffffff';
@@ -121,7 +121,7 @@ enyo.kind({
 			}
 		}
 	},
-	
+
 	updateItem: function(sender, event) {
 		if(this.openItems[event.toChange] !== undefined) {
 			this.openItems[event.toChange].deselect();
@@ -130,9 +130,6 @@ enyo.kind({
 
 	// Handle event
 	changeCollection: function(s, e) {
-		// Stop sound
-		sound.pause();
-
 		// Select the collection
 		var len = TamTam.collections.length;
 		for(var i = 0 ; i < len ; i++) {

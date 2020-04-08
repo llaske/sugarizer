@@ -290,22 +290,13 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 }
 
 .Simon-level{
-  left: 50%;
+  left: 30%;
   transform: translateX(-50%);
 }
 
 .Simon-scroe{
-  right: 2%;
-}
-
-.Simon-reset{
-  position: absolute;
-  background-color: black;
-  border-radius: 50%;
-  right: 3%;
-  width: 13vh;
-  height: 13vh;
-  bottom: 3vh;
+  right: 30%;
+  transform: translateX(50%);
 }
 
 .rightGreen{

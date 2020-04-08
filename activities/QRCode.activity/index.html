@@ -45,12 +45,14 @@
 <body>
 <div id="main-toolbar" class="toolbar">
 	<button class="toolbutton" id="activity-button" title="QR Code"></button>
+	
 
 	<!-- Add more buttons here -->
 	<div class="splitbar"></div>
 	<button class="toolbutton" id="photo-button" title="Photo"></button>
 	<div class="splitbar"></div>
 	<button class="toolbutton" id="png-button" title="Export to PNG"></button>
+	
 
 	<!-- Buttons with class="pull-right" will be right aligned -->
 	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
@@ -60,11 +62,15 @@
 
 <!-- The content of your activity goes inside the canvas -->
 <div id="canvas">
+	
 	<div id="input-box">
 			<select id="qrtextdropdown">
 				</select>
-		<input id="user-text" name="userText" type="text"></input>
-		<button id="erasetext-button" class="user-text-cancel"  title="Erase Input"></button>
+		<div class="search-field-border search-field-border-nofocus" id="field">
+			<input id="user-text" class="search-field-input" placeholder="Text"></input>
+			<button id="erasetext-button" class="search-field-iocancel"  title="Erase Input"></button>
+		
+		</div>
 		<button id="generate-button" class="toolbutton" title="Generate"></button>
 		<br>
 		<hr>
