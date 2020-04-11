@@ -5,7 +5,8 @@ var planets = [
     "moons": "0",
     "mass": "330,104,000,000,000,000,000,000 kg",
     "year": "88",
-    "temperature": "-173 to 427&#176;C"
+    "temperature": "-173 to 427&#176;C",
+    "radius": "2,439.7"
   },
   {
     "name": "Venus",
@@ -13,7 +14,8 @@ var planets = [
     "moons": "0",
     "mass": "4,867,320,000,000,000,000,000,000 kg",
     "year": "225",
-    "temperature": "462&#176;C"
+    "temperature": "462&#176;C",
+    "radius": "6,051.8"
   },
   {
     "name": "Earth",
@@ -21,7 +23,8 @@ var planets = [
     "moons": "1",
     "mass": "5,972,190,000,000,000,000,000,000 kg",
     "year": "365",
-    "temperature": "-88 to 58&#176;C"
+    "temperature": "-88 to 58&#176;C",
+    "radius": "6,371.00"
   },
   {
     "name": "Mars",
@@ -29,7 +32,8 @@ var planets = [
     "moons": "2",
     "mass": "641,693,000,000,000,000,000,000 kg",
     "year": "687",
-    "temperature": "-153 to 20&#176;C"
+    "temperature": "-153 to 20&#176;C",
+    "radius": "3,389.5"
   },
   {
     "name": "Jupiter",
@@ -37,7 +41,8 @@ var planets = [
     "moons": "79",
     "mass": "1,898,130,000,000,000,000,000,000,000 kg",
     "year": "4,333",
-    "temperature": "No Data"
+    "temperature": "No Data",
+    "radius": "69,911"
   },
   {
     "name": "Saturn",
@@ -45,7 +50,8 @@ var planets = [
     "moons": "83",
     "mass": "568,319,000,000,000,000,000,000,000 kg",
     "year": "10,759",
-    "temperature": "No Data"
+    "temperature": "No Data",
+    "radius": "58,232"
   },
   {
     "name": "Uranus",
@@ -53,7 +59,8 @@ var planets = [
     "moons": "27",
     "mass": "86,810,300,000,000,000,000,000,000 kg",
     "year": "30,687",
-    "temperature": "No Data"
+    "temperature": "No Data",
+    "radius": "25,362"
   },
   {
     "name": "Neptune",
@@ -61,6 +68,7 @@ var planets = [
     "moons": "14",
     "mass": "102,410,000,000,000,000,000,000,000 kg",
     "year": "60,190",
-    "temperature": "No Data"
+    "temperature": "No Data",
+    "radius": "24,622"
   },
 ]
