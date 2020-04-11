@@ -15,6 +15,16 @@
   background-image: url(../icons/save-image.svg);
 }
 
+#main-toolbar #position-button {
+  background-image: url(../icons/compare-icon.svg);
+}
+#main-toolbar #list-button {
+  background-image: url(../icons/observe-icon.svg);
+}
+#main-toolbar #radius-button {
+  background-image: url(../icons/radius.svg);
+}
+
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
 }
@@ -53,8 +63,6 @@
   text-align: center;
   font-size: 20px;
 }
-
-
 
 /**Planet container with its model and info**/
 #planet-container{
@@ -110,4 +118,27 @@ canvas {
 
 #back-button:hover  {
   background-image: url(../icons/go-back.svg);
+}
+
+/**Planet Position and Size**/
+#planet-pos{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.planet-new-name {
+  position: absolute;
+  bottom: 210px;
+  z-index: 100;
+  display:block;
+  color: white;
+}
+
+.planet-radius {
+  position: absolute;
+  bottom: 170px;
+  z-index: 100;
+  display:block;
+  color: white;
 }
