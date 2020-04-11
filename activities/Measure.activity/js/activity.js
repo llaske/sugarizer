@@ -68,11 +68,16 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					data.last_graph=1;
 				}
 				else if(initial_values.last_graph==0){
+					console.log("for freq initial",initial_values);
 					console.log("three check");
-					freqbased(initial_values);
+					data.palettechecker=1;
+					console.log("for freq initial",initial_values);
+					freqbased(initial_values,data.palettechecker);
 					// hideElementstime();
+					freq_flag=1;
+					time_flag=0;
 					data.last_graph=0;
-					palettechecker=1;
+					// palettechecker=1;
 				}
 				// console.log(initial_values);
 			}
@@ -84,7 +89,8 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			timeyp:"2",
 			freqxp:"1.1",
 			freqyp:"0.5",
-			last_graph:"1"
+			last_graph:"1",
+			palettechecker:"0"
 		};
 		document.getElementById("stop-button").addEventListener('click',function(){
 			console.log("writing");
@@ -170,6 +176,8 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 	});
 	
 	function timebased(argument_values){
+		freq_flag=0;
+		time_flag=1;
 		if(document.getElementById("timebased").value == 0){
 			console.log("time",argument_values)
 			var s = function(p){
@@ -278,16 +286,40 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		}
 	};
 document.getElementById("timebased").addEventListener("click",function(event){
-	timebased(check_data);
+	
+	//test for data.palettechecker=1
+	if(data.palettechecker==1){
+		timebased(check_data);
+		console.log("test1");
+		document.getElementById("one").style.display="block";
+		document.getElementById("two").style.display="none";
+		// document.getElementById("timepitchvalue").min="1.3";
+		// document.getElementById("timepitchvalue").max="6.3";
+		// document.getElementById("timeratevalue").min="1";
+		// document.getElementById("timeratevalue").max="5";
+		// document.getElementById("timeratevalue").value=data.timeyp;
+		// document.getElementById("timepitchvalue").value=data.timexp;
+		document.getElementById("freqbased2").style.width="47px";
+		document.getElementById("freqbased2").style.height="47px";
+		document.getElementById("freqbased2").style.left="-20px";
+		document.getElementById("freqbased2").style.visibility="visible";
+	}
+	else{
+		timebased(check_data);
+	}
 	// hideElementsfreq();
 	// data.last_graph=1;
 	
 	
 	});
 	
-	function freqbased(argument_values){
+	function freqbased(argument_values,x){
+		freq_flag=1;
+		time_flag=0;
 		if(document.getElementById("freqbased").value == 0){
 			console.log("freq",argument_values);
+			console.log("freqdata",data);
+
 			var t = function(p){
 				p.mic2;
 				p.cnv;
@@ -300,12 +332,13 @@ document.getElementById("timebased").addEventListener("click",function(event){
 				p.py;
 				p.setup = function(){
 				p.cnv=p.createCanvas(window.innerWidth-100,window.innerHeight-250);	
-				if(palettechecker==1){
+				if(x==1){
 					var speechButtonn = document.getElementById("speech-button");
-			
+					console.log(x,"pal");
 					var speechButtonPalette = new speechpalette.ActivityPalette(
 						speechButtonn);
-						palettechecker=0;
+					x=1;
+						
 				}
 				p.mic2 = new p5.AudioIn();
 				p.mic2.start();
@@ -380,7 +413,19 @@ document.getElementById("timebased").addEventListener("click",function(event){
 		
 			document.getElementById("freqbased").style.visibility="hidden";
 			document.getElementById("freqbased").style.display="none";
-			document.getElementById("timebased2").style.visibility="visible";
+			console.log("tee");
+			if(x==1){
+				document.getElementById("timebased2").style.width="0px";
+				document.getElementById("timebased2").style.height="0px";
+				document.getElementById("timebased2").style.visibility="hidden";
+				document.getElementById("timebased2").style.display="none";
+				console.log(x,"pal2");
+			}
+			else{
+				document.getElementById("timebased2").style.visibility="visible";
+			}
+
+			
 			document.getElementById("one").style.display="none";
 		
 			}
