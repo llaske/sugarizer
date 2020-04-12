@@ -1,10 +1,14 @@
 As all Open Source software, contributions to Sugarizer are welcome.
 
-The best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
+A good way to start to contribute is testing and trying Sugarizer to find some issues. If you find one, don't be shy, submit your issue [here](https://github.com/llaske/Sugarizer/issues) by giving the maximum information on it, specifically detailed steps to reproduce it. We will check your issue and ask your more information if needed.
 
-Then, you could start to contribute by trying to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues).
+If you're a developper, the best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
 
-Note than the **master** branch of the repository is for released/stable version, the **dev** branch is for development. So to contribute:
+When you think you're ready, you could try to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues). If you find a fix, send a Pull Request, we will be please to review it.
+
+Note than the **master** branch of the repository is for released/stable version, the **dev** branch is for development.
+
+So to send your Pull Request:
 
 * [ ] Clone this repository,
 * [ ] Fork the **dev** branch of your new repository,
@@ -20,4 +24,4 @@ Few rules to respect when you fix an issue:
 
 Please note there is <u>no need to ask permission to work on an issue</u>. You should check for pull requests linked to an issue you are addressing; if there are none, then assume nobody has done anything. Begin to fix the problem, test, make your commits, push your commits, then make a pull request. These practices allow the competition of ideas and give priority to meritocracy.
 
-Thanks in advance for your contribution.
+Thanks in advance for your contribution and to become a member of Sugarizer community!
