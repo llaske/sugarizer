@@ -83,26 +83,7 @@ body{
 	padding-top: 23px;
 	background: url(../images/freqlow.svg);
 }
-/* #freqbtny1{
-	width: 58px;
-	height: 58px;
-	background: url(../images/amplow.svg);
-}
-#freqbtny2{
-	width: 58px;
-	height: 58px;
-	background: url(../images/amphigh.svg);
-}
-#freqbtnx1{
-	width: 58px;
-	height: 58px;
-	background: url(../images/freqhigh.svg);
-}
-#freqbtnx2{
-	width: 58px;
-	height: 58px;
-	background: url(../images/freqlow.svg);
-} */
+
 #fullscreen-button {
 	background-image: url(../images/view-fullscreen.svg);
 }
