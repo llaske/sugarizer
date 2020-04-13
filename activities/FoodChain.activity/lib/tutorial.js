@@ -75,7 +75,7 @@ define(["webL10n"], function (l10n) {
 				},
 				{
 					element: "#app_BuildGame_button",
-					placement: "bottom",
+					placement: "right",
 					title: l10n.get("TutoBuildTitle"),
 					content: l10n.get("TutoBuildContent")
 				},

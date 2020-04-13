@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-02-28 13:55+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-lastoneloses/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -28,17 +30,17 @@ msgstr "{{user}} saiu"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -113,10 +115,9 @@ msgstr "Click here to let your opponent begin the game. It will work only at the
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Board"
-msgstr "Board"
+msgstr "Tabuleiro"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
 msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
 msgstr "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
-

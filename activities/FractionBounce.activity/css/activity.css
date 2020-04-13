@@ -1,0 +1,469 @@
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+	outline: none;
+}
+
+button:disabled {
+	opacity: 0.3 !important;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: url(../images/grass_background.png);
+	background-size: cover;
+	background-position: center;
+}
+
+p {
+	margin: 0.6em 0;
+}
+
+#main-toolbar.toolbar {
+	padding: 0 2%;
+	overflow-y: hidden;
+}
+
+.helpText {
+	display: inline-block;
+	position: relative;
+	color: white;
+	transform: translateY(-100%);
+}
+
+@media only screen and (max-width: 980px) {
+	.helpText {
+		display: none;
+	}
+}
+
+#content {
+	position: relative;
+}
+
+.log {
+	position: absolute;
+	z-index: 1;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+}
+.log ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.log img {
+	z-index: inherit;
+}
+
+#mainCanvas {
+	position: fixed;
+	box-sizing: border-box;
+	border: solid 1px black;
+	/* background: url(../images/grass_background.png); */
+	background: transparent;
+	background-size: cover;
+	z-index: 2;
+}
+
+#slopeCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: transparent;
+	z-index: 2;
+}
+
+.settings {
+	display: flex;
+	justify-content: center;
+	font-size: 2em;
+	padding: 10px;
+}
+.palette {
+	z-index: 10;
+}
+.palette .wrapper {
+	max-width: fit-content;
+}
+.settings input {
+	width: 50px;
+	margin: 0 20px;
+	padding: 4px;
+	line-height: 22px;
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+	border-radius: 22px;
+	outline: 0;
+}
+/* Chrome, Safari, Edge, Opera */
+.settings input::-webkit-outer-spin-button,
+.settings input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.settings input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.settings #add-button {
+	background: url(../icons/add.svg);
+	background-size: cover;
+	background-position: center;
+	border: none;
+	border-radius: 0;
+	width: 40px;
+	margin-left: 0;
+	margin-right: 30px;
+	padding: 0;
+}
+
+.ball-select {
+	/* padding: 10px; */
+	width: fit-content;
+	text-align: center;
+}
+.ball-select button {
+	border: none;
+	border-radius: 0;
+}
+.ball-select-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	background: transparent;
+	width: 90%;
+}
+.ball-select-item img {
+	width: 40px;
+	margin: 10px;
+}
+.ball-select-item div {
+	margin: 0 10px;
+}
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+	outline: none;
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+	outline: none;
+}
+
+#main-toolbar #fractions-button {
+	background-image: url(../icons/fraction.svg);
+	outline: none;
+}
+
+#main-toolbar #sectors-button {
+	background-image: url(../icons/sector.svg);
+	outline: none;
+}
+
+#main-toolbar #percents-button {
+	background-image: url(../icons/percent.svg);
+	outline: none;
+}
+
+#main-toolbar #play-button {
+	background-image: url(../icons/play.svg);
+	outline: none;
+}
+
+#main-toolbar #pause-button {
+	background-image: url(../icons/pause.svg);
+	outline: none;
+}
+
+#main-toolbar #settings-button {
+	background-image: url(../icons/settings.svg);
+	outline: none;
+}
+
+#main-toolbar #ball-button {
+	background-image: url(../icons/soccerball.svg);
+	outline: none;
+}
+
+#main-toolbar #bg-button {
+	background-image: url(../icons/insert-picture.svg);
+	outline: none;
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+	outline: none;
+}
+
+#main-toolbar #stop-button {
+	outline: none;
+}
+
+.tour#step-1 {
+	margin-top: 70vh;
+}
+.tour#step-3 {
+	margin-top: 85vh;
+	margin-left: -30vw;
+}
+.tour#step-4 {
+	margin-left: 10vw;
+}
+
+.palette .row {
+	display: block;
+	margin: 0 0 !important;
+	box-sizing: initial !important;
+	font-size: 10pt;
+}
+
+.palette .expand {
+	font-family: sans-serif;
+	font-size: 10pt;
+}
+
+.palette input#title.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: 245px;
+	color: black;
+}
+
+.palette textarea#description.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: 255px;
+	color: black;
+}
+
+.palette input[type='text'].expand {
+	font-family: system-ui;
+	font-size: 11px;
+}
+
+.palette .container {
+	box-sizing: initial;
+}
+
+.palette .wrapper {
+	font-size: 10pt;
+	box-sizing: initial;
+	min-width: 70px;
+}
+
+.palette *, ::after, ::before {
+	box-sizing: initial;
+}
+
+#template-palette {
+	width: fit-content;
+}
+
+.palette-item {
+	cursor: pointer;
+	padding: 10px;
+}
+
+.palette-item:hover {
+	background-color: #808080;
+}
+
+.palette-icon {
+	width: 50px;
+}
+
+.template-col {
+	padding-left: 20px;
+	padding-right: 25px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+.template-item {
+	background-color: white;
+	border: 1px solid black;
+	box-shadow: 8px 8px 8px #888888;
+	display: inline-table;
+	font-size: 1.25em;
+}
+
+#spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
+}
+
+.popup-input {
+	border-radius: 22px;
+	height: 30px;
+	width: 400px;
+	background-color: #e5e5e5;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10pt;
+	display: inline-block;
+}
+
+.popup-label {
+	color: #808080;
+	margin-bottom: 5px;
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+.tutorial-icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-prev-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-prev-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-next-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-next-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-next-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-end-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-end-icon.tutorial-icon-button {
+	color: white;
+}
+
+.tutorial-end-icon.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-icon-text {
+	margin-top: 7px;
+	padding-left: 4px;
+	padding-right: 38px;
+	display: inline-block;
+}

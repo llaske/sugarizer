@@ -672,10 +672,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 
 		// Event: tap on the board
 		cy.on('tap', function(e){
-			if (e.target === cy) {
+			if (e.cyTarget === cy) {
 				if (currentMode == 0) {
 					saveAndFinishEdit();
-					var newNode = createNode(newId(), defaultText, e.position, defaultColor);
+					var newNode = createNode(newId(), defaultText, e.cyPosition, defaultColor);
 					pushState({
 						redo: {action:"create", id:newNode.id(), text: newNode.data("content"), position: {x: newNode.position().x, y: newNode.position().y}, color: defaultColor},
 						undo: {action:"delete", id:newNode.id()}

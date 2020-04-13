@@ -111,12 +111,12 @@ If you're a developer and you want to learn more about Sugarizer architecture, s
 
 # Activities distribution
 
-All activities could be found in the [activities](../activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](../activities/Abecedarium.activity)
+All activities could be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
-To do that, you first need to adapt the content of the [activities](../activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
+To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
-Then you need to update the [activities.json](../activities.json) file to reflect your choice.
+Then you need to update the [activities.json](activities.json) file to reflect your choice.
 Here an example of this file:
 
 	[
@@ -161,8 +161,8 @@ Remove in this file rows for activities that you want to remove. Add in this fil
 
 Note than:
 
-1. The [activities/ActivityTemplate](../activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
-2. The [activities.json](../activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](../activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
+1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
+2. The [activities.json](activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
 
 # Create your own activity
 
@@ -282,7 +282,7 @@ Sugarizer settings display a list of all available languages. You need to add yo
 
 		French=Français
 
-* Add your string in the [js/dialog.js](dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
+* Add your string in the [js/dialog.js](js/dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
 
 		{code: "fr", icon: null, name: l10n.get("French")},
 
