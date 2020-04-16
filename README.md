@@ -242,9 +242,8 @@ Finally launch:
 
 	grunt -v
 
-At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
+At the end of the process, all JavaScript files in all directories have been replaced by an optimized version.
 
-	cp -r build/* .
 
 # Localization
 
