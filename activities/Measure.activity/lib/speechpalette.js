@@ -22,7 +22,16 @@ define(["sugar-web/graphics/palette",
         this.pitchScale = containerElem.querySelector('#timepitchvalue');
         this.rateScale = containerElem.querySelector('#timeratevalue');
 
-        
+        this.pitchScale.onclick = function() {
+            // console.log("he;;p");
+            console.log(this.value,"pitch");
+            // document.getElementById('pitch').innerHTML = this.value;
+        }
+        this.rateScale.onclick = function() {
+            console.log(this.value,"rate");
+            // document.getElementById('rate').innerHTML = this.value*(300/100) + 10;
+            // console.log("hell");
+        }
 
 
     };

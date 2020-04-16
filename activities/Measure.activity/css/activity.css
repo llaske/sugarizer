@@ -18,6 +18,12 @@
 }
 #speech-button{
 	background-image: url(../icons/settings.svg);
+	max-width: 47px;
+	max-height: 47px;
+}
+
+#save-image-button {
+	background-image: url(../icons/save-image.svg);
 }
 
 #canvas{

@@ -19,9 +19,8 @@
   <script src="lib/jquery.min.js"></script>
   <script src="lib/bootstrap-tour-standalone.min.js"></script>
   <script>if (window.module) module = window.module;</script>
-
-
-  
+  <script type="text/javascript" src="js/html2canvas.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
   <script data-main="js/loader" src="lib/require.js"></script>
 </head>
 
@@ -29,6 +28,7 @@
 <div id="main-toolbar" class="toolbar">
   <button class="toolbutton" id="activity-button" title="My Activity"></button>
   <button class="toolbutton" id="speech-button" title="Amplitude and Frequency Settings"></button>
+  <button class="toolbutton" id="save-image-button" title="Save As Image"></button>
   <button class="toolbutton" id="timebased" style="background-image: url(images/domain-time.svg);" value="0" title="TIME BASED"></button>
   <button class="toolbutton" id="freqbased" style="background-image: url(images/domain-freq.svg);visibility: hidden;width: 0px;height: 0px; " value="0" title="FREQUENCY BASED" ></button>
   <button class="toolbutton" id="timebased2" style="background-image: url(images/domain-time.svg);visibility: hidden; " value="0" title="TIME BASED" ></button>
@@ -44,20 +44,21 @@
 </div>
 
 <!-- The content of your activity goes inside the canvas -->
-<div id="canvas">
+  <div id="canvas">
 
-  <!-- Replace this message with your own content -->
-  <div id="one"></div> <br>
-    <div id="three"></div>
-    <div id="two"></div>
-  <br>
-
+    <!-- Replace this message with your own content -->
+    <div id="one"></div> <br>
+      <div id="three"></div>
+      <div id="two"></div>
+    <br>
   
+    
+    
+   
   
- 
-
-</div>
+  </div>
 <button class="toolbutton pull-right" id="unfullscreen-button" title="Unfullscreen"></button>
+
 </body>
 
 </html>
