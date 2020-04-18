@@ -17,7 +17,53 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("Tutodespeech-buttonContent")
 			},
 			{
-				element: "#timebased",
+				onPrev: function(){
+					document.getElementsByClassName("palette")[1].style.visibility = "hidden";
+				},
+				onShow: function(){
+					document.getElementsByClassName("palette")[1].style.visibility = "visible";
+				}
+			},
+			{
+				element: "#timebtny1",
+				placement: "bottom",
+				title: l10n.get("Tutotimebtny1Title"),
+				content: l10n.get("Tutotimebtny1Content")
+			},
+			{
+				element: "#timebtny2",
+				placement: "bottom",
+				title: l10n.get("Tutotimebtny2Title"),
+				content: l10n.get("Tutotimebtny2Content")
+			},
+			{
+				element: "#timebtnx1",
+				placement: "bottom",
+				title: l10n.get("Tutotimebtnx1Title"),
+				content: l10n.get("Tutotimebtnx1Content")
+			},
+			{
+				element: "#timebtnx2",
+				placement: "bottom",
+				title: l10n.get("Tutotimebtnx2Title"),
+				content: l10n.get("Tutotimebtnx2Content")
+			},
+			{
+				onNext: function(){
+					document.getElementsByClassName("palette")[1].style.visibility = "hidden";
+				},
+				onPrev: function(){
+					document.getElementsByClassName("palette")[1].style.visibility = "visible";
+				}
+			},
+			{
+				element: "#save-image-button",
+				placement: "bottom",
+				title: l10n.get("TutosaveTitle"),
+				content: l10n.get("TutosaveContent")
+			},
+			{
+				element: "#freqbased",
 				placement: "bottom",
 				title: l10n.get("TutoTimeBaseTitle"),
 				content: l10n.get("TutoTimeBaseContent")
@@ -28,84 +74,11 @@ define(["webL10n"], function (l10n) {
 				title: l10n.get("TutodefaultCanvas0Title"),
 				content: l10n.get("TutodefaultCanvas0Content")
 			},
-			
-			{
-				element: "#timeyslider",
-				placement: "up",
-				title: l10n.get("TutotimeysliderTitle"),
-				content: l10n.get("TutotimeysliderContent")
-			},
-			{
-				element: "#timebtny1",
-				placement: "up",
-				title: l10n.get("Tutotimebtny1Title"),
-				content: l10n.get("Tutotimebtny1Content")
-			},
-			{
-				element: "#timebtny2",
-				placement: "up",
-				title: l10n.get("Tutotimebtny2Title"),
-				content: l10n.get("Tutotimebtny2Content")
-			},
-			{
-				element: "#timexslider",
-				placement: "up",
-				title: l10n.get("TutotimexsliderTitle"),
-				content: l10n.get("TutotimexsliderContent")
-			},
-			{
-				element: "#timebtnx1",
-				placement: "up",
-				title: l10n.get("Tutotimebtnx1Title"),
-				content: l10n.get("Tutotimebtnx1Content")
-			},
-			{
-				element: "#timebtnx2",
-				placement: "up",
-				title: l10n.get("Tutotimebtnx2Title"),
-				content: l10n.get("Tutotimebtnx2Content")
-			},
 			{
 				element: "#defaultCanvas1",
 				placement: "right",
 				title: l10n.get("TutodefaultCanvas1Title"),
 				content: l10n.get("TutodefaultCanvas1Content")
-			},
-			{
-				element: "#freqyslider",
-				placement: "up",
-				title: l10n.get("TutofreqysliderTitle"),
-				content: l10n.get("TutofreqysliderContent")
-			},
-			{
-				element: "#freqbtny1",
-				placement: "up",
-				title: l10n.get("Tutofreqbtny1Title"),
-				content: l10n.get("Tutofreqbtny1Content")
-			},
-			{
-				element: "#freqbtny2",
-				placement: "up",
-				title: l10n.get("Tutofreqbtny2Title"),
-				content: l10n.get("Tutofreqbtny2Content")
-			},
-			{
-				element: "#freqxslider",
-				placement: "up",
-				title: l10n.get("TutofreqxsliderTitle"),
-				content: l10n.get("TutofreqxsliderContent")
-			},
-			{
-				element: "#freqbtnx1",
-				placement: "up",
-				title: l10n.get("Tutofreqbtnx1Title"),
-				content: l10n.get("Tutofreqbtnx1Content")
-			},
-			{
-				element: "#freqbtnx2",
-				placement: "up",
-				title: l10n.get("Tutofreqbtnx2Title"),
-				content: l10n.get("Tutofreqbtnx2Content")
 			},
 			{
 				element: "#help-button",

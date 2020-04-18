@@ -8,12 +8,11 @@
 	margin-top: 83px;
 	margin-bottom: -7px;
 }
-
 #main-toolbar #image-button {
 	background-image: url(../icons/save-image.svg);
 	}
 #defaultCanvas1{
-	margin-top: 83px;
+	margin-top: 100px;
 	margin-bottom: -5px;
 }
 #speech-button{
@@ -21,11 +20,9 @@
 	max-width: 47px;
 	max-height: 47px;
 }
-
 #save-image-button {
 	background-image: url(../icons/save-image.svg);
 }
-
 #canvas{
 	background-color: black;
 }
@@ -89,11 +86,9 @@ body{
 	padding-top: 23px;
 	background: url(../images/freqlow.svg);
 }
-
 #fullscreen-button {
 	background-image: url(../images/view-fullscreen.svg);
 }
-
 #unfullscreen-button {
 	background-image: url(../images/view-return.svg);
 	border: 0;
@@ -107,7 +102,6 @@ body{
 	visibility: hidden;
 	z-index: 5;
 }
-
 
 .tutorial-title {
 	background-color: #808080 !important;
@@ -199,17 +193,13 @@ body{
 	margin-left: 6px;
 	margin-top: 6px;
 }
-/* #board-goes-here{
-	margin-right: 1100px;
-} */
+
 .tutorial-end-icon2 {
 	background-image: url(../icons/dialog-cancel.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
 }
-
-
 
 .tutorial-end-icon3 {
 	display: none;
