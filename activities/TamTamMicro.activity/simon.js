@@ -143,7 +143,9 @@ enyo.kind({
     startGame: function(){
         if (this.level === 1){
             this.score = 0;
+            this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
         }
+        this.$.SimonStart.setContent(' ');
         this.keysEnabled = false;
         var colors = ["Red", "Green", "Yellow", "Blue"];
         this.addRemoveAll(["SimonStart"].concat(colors), 'disableElement', true);
