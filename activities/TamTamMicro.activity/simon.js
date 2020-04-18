@@ -53,12 +53,11 @@ enyo.kind({
             this.userSequence = [];
             this.level = 1;
             this.keysEnabled = false;
-            this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
             this.$.SimonStart.show();
             this.$.SimonStart.setContent(this.WRONG_MSG);
             this.$.SimonStart.addRemoveClass('wrongRed', true);
             this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
-            this.showStart();
+            this.showPlayAgain();
         }
 
         if (correct && this.correctSequence.length === this.userSequence.length){
@@ -67,22 +66,21 @@ enyo.kind({
             this.userSequence = [];
             this.level++;
             this.keysEnabled = false;
-            this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
             this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
             this.$.SimonStart.setContent(this.RIGHT_MSG);
             this.$.SimonStart.addRemoveClass('rightGreen', true);
             this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
-            this.showStart();
+            this.timeouts.push(setTimeout(function(){
+                this.startGame();
+            }.bind(this), 2000));
         }
     },
 
-    showStart: function(){
-        var colors = ["Red", "Green", "Yellow", "Blue"];
+    showPlayAgain: function(){
         this.timeouts.push(setTimeout(function(){
-            this.$.SimonStart.addRemoveClass('rightGreen', false);
-            this.$.SimonStart.addRemoveClass('wrongRed', false);
             this.$.SimonStart.addRemoveClass('disableElement', false);
-            this.startGame();
+            this.$.SimonStart.addRemoveClass('wrongRed', false);
+            this.$.SimonStart.setContent(this.PLAY_AGAIN);
         }.bind(this), 2000));
     },
     
@@ -130,6 +128,7 @@ enyo.kind({
             that.LEVEL_MSG = webL10n.get("SimonLevelMsg");
             that.WRONG_MSG = webL10n.get("SimonWrongMsg");
             that.RIGHT_MSG = webL10n.get("SimonRightMsg");
+            that.PLAY_AGAIN = webL10n.get("SimonPlayAgain");
             that.$.SimonStart.setContent(that.START_MSG);
             that.$.SimonLevel.setContent(that.LEVEL_MSG + " : " + that.level);
             that.$.SimonScroe.setContent(that.SCORE_MSG + " : " + that.score);
@@ -142,6 +141,9 @@ enyo.kind({
     },
 
     startGame: function(){
+        if (this.level === 1){
+            this.score = 0;
+        }
         this.keysEnabled = false;
         var colors = ["Red", "Green", "Yellow", "Blue"];
         this.addRemoveAll(["SimonStart"].concat(colors), 'disableElement', true);
@@ -151,7 +153,9 @@ enyo.kind({
         var delay = 1000;
         for(let steps = 0; steps < this.level; steps++){
             this.timeouts.push(setTimeout(function(){
+                this.$.SimonStart.addRemoveClass('rightGreen', false);
                 this.clickColor(this.correctSequence[steps]);
+                this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
                 this.$.SimonStart.setContent(steps + 1);
             }.bind(this), delay));
             delay += 1100;

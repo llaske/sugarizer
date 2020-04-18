@@ -278,8 +278,9 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 
 .Simon-start{
   font-family: 'Pixels';
-  font-size: 8vh;
+  font-size: 7vh;
   cursor: pointer;
+  text-align: center;
 }
 
 .Simon-level, .Simon-scroe{
