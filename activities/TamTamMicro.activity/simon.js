@@ -57,13 +57,13 @@ enyo.kind({
             this.$.SimonStart.show();
             this.$.SimonStart.setContent(this.WRONG_MSG);
             this.$.SimonStart.addRemoveClass('wrongRed', true);
+            this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
             this.showStart();
         }
 
         if (correct && this.correctSequence.length === this.userSequence.length){
-            var steps = this.level + 1;
             // n points for nth step in a level
-            this.score += steps*(steps + 1)/2;
+            this.score += this.level*(this.level + 1)/2;
             this.userSequence = [];
             this.level++;
             this.keysEnabled = false;
@@ -71,6 +71,7 @@ enyo.kind({
             this.$.SimonScroe.setContent(this.SCORE_MSG + " : " + this.score);
             this.$.SimonStart.setContent(this.RIGHT_MSG);
             this.$.SimonStart.addRemoveClass('rightGreen', true);
+            this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
             this.showStart();
         }
     },
