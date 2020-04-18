@@ -28,7 +28,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 					if (error==null && data!=null) {
 						console.log("jornal data loaded!");
 						var journalData = JSON.parse(data);
-						console.log(journalData);
 						// Launch main screen
 						app.setContext(journalData);
 						app.renderInto(document.getElementById("keyboard"));

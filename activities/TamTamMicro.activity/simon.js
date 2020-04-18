@@ -2,15 +2,15 @@ enyo.kind({
 	name: "TamTam.Simon",
 	components: [
         {classes: "Simon-info", components: [
-            {name: "SimonLevel", classes: "Simon-level", content: ""},
-            {name: "SimonScroe", classes: "Simon-scroe", content: ""}
+            {name: "SimonLevel", id: "SimonLevel", classes: "Simon-level", content: ""},
+            {name: "SimonScroe", id: "SimonScroe", classes: "Simon-scroe", content: ""}
         ]},
-        {classes: "Simon", components: [
+        {classes: "Simon", id:"Simon-board", components: [
             {classes: "Simon-game", components: [
-                {name: "Red", classes: "Simon-button red", ontap: "handlePlayNote"},
-                {name: "Green", classes: "Simon-button green", ontap: "handlePlayNote"},
-                {name: "Yellow", classes: "Simon-button yellow", ontap: "handlePlayNote"},
-                {name: "Blue", classes: "Simon-button blue", ontap: "handlePlayNote"},
+                {name: "Red", id:"Red", classes: "Simon-button red", ontap: "handlePlayNote"},
+                {name: "Green", id: "Green", classes: "Simon-button green", ontap: "handlePlayNote"},
+                {name: "Yellow", id: "Yellow", classes: "Simon-button yellow", ontap: "handlePlayNote"},
+                {name: "Blue", id: "Blue", classes: "Simon-button blue", ontap: "handlePlayNote"},
                 {classes: "Simon-centre Simon-centre-black",
                     components: [{
                         classes: "Simon-centre Simon-centre-white",
