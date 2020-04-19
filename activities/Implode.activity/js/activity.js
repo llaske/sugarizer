@@ -43,6 +43,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 
 		function new_game(diff_level){
+			//remove previous blocks and initializes new blocks
 			stage.removeAllChildren();
 			stage.removeAllEventListeners();
 			level = diff_level;
@@ -56,6 +57,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function draw_square(square, i, k, color){
+			//used to draw blocks of given size
 			square.graphics.beginStroke(backgorund_color);
 			square.graphics.setStrokeStyle(0);
 			square.graphics.beginFill(color);
@@ -79,7 +81,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function init(){
-		  
+		  //This function initialises the game. It creates total no. of blocks according
+		  //to size and assigns color to them.
 			for(var i=0;i<max_size[0];i++){
 			  var k = 0;
 			  for(var j=max_size[1]-1;j>=0;j--){
@@ -130,6 +133,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function clear_prev_higlight(){
+			//This function is called on mouseout event.
+			//It unhighlights the highlighted boxes.
+
 			for(var i=0;i<highlighted_blocks.length;i++){
 			  var block_name = highlighted_blocks[i].split('_');
 			  block_name[0] = parseInt(block_name[0]);
@@ -145,6 +151,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function highlight_same_color(){
+			//It highlights same color boxes
+
 			for(var i=0;i<highlighted_blocks.length;i++){
 			  var block_name = highlighted_blocks[i].split('_');
 			  block_name[0] = parseInt(block_name[0]);
@@ -157,6 +165,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function sameColorBlocks(col, row, color) {
+			//This function finds boxes of same color
+
 			var block = stage.getChildByName(`${col}_${row}`);
 			var block_color = block.graphics._instructions[2].style;
 			  if (block_color == backgorund_color 
@@ -184,7 +194,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function drop(){
-			
+			//This function performs dropping action of blocks.
+
 			for(var i=0;i<(max_size[0]*max_size[1]);i++){
 			  var block = stage.getChildAt(i);
 			  block.prev_color = block.graphics._instructions[2].style;
@@ -217,7 +228,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 		  
 		  function shiftLeft(){
-			
+			//This function shifts right row towards left
+
 			for (var col = 0; col < max_size[0]; col++) {
 				  if(stage.getChildByName(`${col}_0`).graphics._instructions[2].style == backgorund_color){
 				for(var col_index=col;col_index<max_size[0];col_index++){
@@ -277,11 +289,12 @@ define(["sugar-web/activity/activity"], function (activity) {
 			if(stage.getChildByName("0_0").graphics._instructions[2].style != backgorund_color){
 			  return false;
 			}
-			alert('Game over!!');
+			alert('You Won!!');
 			return true;
 		  }
 		  
 		  function Undo(){
+			//This function performs undo action
 			if(undo_stack.length > 0){
 			  var last_changes = undo_stack[undo_stack.length-1];
 			  var keys = Object.keys(last_changes);
@@ -302,6 +315,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 
 		  function stage_resize(){
+			//This function resizes stage on window resize.
 			main_canvas.width = canvas_div.clientWidth;
 			main_canvas.height = canvas_div.clientHeight;
 			stage.scaleX = 0.5;
