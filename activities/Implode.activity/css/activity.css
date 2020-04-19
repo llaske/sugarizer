@@ -1,0 +1,23 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #new-game {
+  background-image: url(../icons/new-game.svg);
+}
+
+#main-toolbar #undo {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #easy {
+  background-image: url(../icons/easy-level.svg);
+}
+
+#main-toolbar #medium {
+  background-image: url(../icons/medium-level.svg);
+}
+
+#main-toolbar #hard {
+  background-image: url(../icons/hard-level.svg);
+}
