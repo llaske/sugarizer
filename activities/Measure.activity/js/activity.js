@@ -8,16 +8,20 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		var retreived_datastore;
 		var pawns;
 		var check_data;
-		var freq_flag;
-		var time_flag;
-		var palettechecker=0;
-		var resizeFlag=0;
 		var play=0;
 		var pause=1;
 		var isImageDiplayed=0;
-		var timegraphsDisplay=0;
+		var timegraphDisplay=0;
 		var freqgraphDisplay=0;
 		var isResized=0;
+		var time_waveform;
+		var time_i;
+		var time_x;
+		var time_y;
+		var freq_spectrum;
+		var freq_i;
+		var freq_x;
+		var freq_h;
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
@@ -26,7 +30,6 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			webL10n.language.code = language;
 			
 			if(!environment.objectId){
-				console.log("New INstance");
 				setRetreivedDatastore(data);
 				initiator();
 			}
@@ -34,11 +37,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 					if (error==null && data!=null) {
 						pawns = JSON.parse(data);
-						console.log(pawns);
 						check_data=pawns;
 						trans();
 						data=check_data;
-						console.log(data);
 					}
 				});
 			}
@@ -46,11 +47,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 
 		function setRetreivedDatastore(data_val){
 			retreived_datastore=data_val;
-			console.log("retreived",retreived_datastore);
 		}
 
 		function trans(){
-			console.log(check_data);
 			setRetreivedDatastore(check_data);
 			initiator(retreived_datastore);
 		}
@@ -60,30 +59,24 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			html2canvas(ss).then(function(canvas){
 				var mimetype = 'image/jpeg';
 				var inputData=canvas.toDataURL("image/jpeg",1);
-				console.log(inputData);
 				var metadata = {
 					mimetype: mimetype,
-					title: "Measure",
+					title: "Measure Image",
 					activity: "org.olpcfrance.MediaViewerActivity",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
 					file_size: 0
 				};
 				datastore.create(metadata, function() {
-					console.log("export done.")
 				}, inputData);
 			});
 		}
 		document.getElementById("pause").addEventListener('click',pauseGraph);
 		function pauseGraph(){
-			// if(play==1){
-			// 	document.getElementById("one").style.display="block";
-			// 	document.getElementById("play-pause").style.backgroundImage="url('../icons/pause.svg')";
-			// 	play=0;
-			// 	pause=1;
-			// }
+
 			if(pause==1){
 				var ssplaypause = document.getElementById("canvas");
+				
 				html2canvas(ssplaypause).then(function(canvas){
 					
 					var playpauseInputData=canvas.toDataURL("image/jpeg",1);
@@ -93,30 +86,18 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					play=1;
 					
 					document.getElementById("graph-image").style.display="block";
-					
-					// document.getElementById("two").style.display="none";
 					document.getElementById("pause").style.display="none";
-					// document.getElementById("pause").style.visibility="hidden";
 					document.getElementById("play").style.display="inline";
 					if(document.getElementById("one").style.display!="none"){
 						document.getElementById("one").style.display="none";
 						timegraphDisplay=1;
-						console.log("true");
 					}
 					else if(document.getElementById("two").style.display!="none"){
 						document.getElementById("two").style.display="none";
 						freqgraphDisplay=1;
 					}
-					// if(document.getElementById("one").style.display=="block"){
-					// 	console.log("fal");
-					// }
-					// console.log(playpauseInputData);
 				});
-				
 			}
-			
-			
-
 		}
 
 		document.getElementById("play").addEventListener('click',playGraph);
@@ -133,7 +114,6 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				if(document.getElementById("two").style.display=="none" && freqgraphDisplay==1)
 					document.getElementById("two").style.display="block";
 					freqgraphDisplay=0;
-				// document.getElementById("two").style.display="block";
 				play=0;
 				pause=1;
 			}
@@ -193,8 +173,6 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			activity.getDatastoreObject().save(function (error) {
 				if (error === null) {
 					console.log("write done.");
-					console.log(data);
-					console.log("json",jsonData);
 				} else {
 					console.log("write failed.");
 				}
@@ -211,12 +189,11 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("timebased2").style.width="0px";
 			document.getElementById("timebased2").style.height="0px";
 			document.getElementById("timebased2").style.visibility="hidden";
-			document.getElementById("timebased2").style.display="none"; //change
+			document.getElementById("timebased2").style.display="none";
 			document.getElementById("freqbased2").style.width="47px";
 			document.getElementById("freqbased2").style.height="47px";
-			// document.getElementById("freqbased2").style.left="-20px";
 			document.getElementById("freqbased2").style.visibility="visible";
-			document.getElementById("freqbased2").style.display="inline";//change
+			document.getElementById("freqbased2").style.display="inline";
 			document.getElementById("timepitchvalue").min="1.3";
 			document.getElementById("timepitchvalue").max="6.3";
 			document.getElementById("timeratevalue").min="1";
@@ -278,27 +255,14 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			if(isResized==0){
 				var calcHeight=incSizeHeight(document.getElementById("defaultCanvas0").style.height,1);
 				var calcWidth=incSizeWidth(document.getElementById("defaultCanvas0").style.width,1);
-				console.log(calcWidth,calcHeight,"cac");
 				
 				document.getElementById("defaultCanvas0").style.height=String(calcHeight)+"px";
 				document.getElementById("defaultCanvas0").style.width=String(calcWidth)+"px";
 				document.getElementById("defaultCanvas0").style.marginLeft="25px";
 				document.getElementById("defaultCanvas1").style.height=String(calcHeight)+"px";
 				document.getElementById("defaultCanvas1").style.width=String(calcWidth)+"px";
-				
 				document.getElementById("defaultCanvas1").style.marginLeft="25px";
-				
-				// document.getElementById("defaultCanvas1").style.height="801px";
 			}
-			// if(isImageDiplayed==1){
-			// 	console.log(innerwidth,innerheight,"hei");
-			// 	document.getElementById("graph-image").style.height=innerheight;
-			// 	document.getElementById("graph-image").style.width=innerwidth;
-			// 	console.log("tp");
-			// }
-			
-			// document.getElementById("defaultCanvas0").style.height="801px";
-			// document.getElementById("defaultCanvas1").style.height="801px";
 		});
 
 		//Return to normal size
@@ -309,32 +273,21 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			if(isResized==0){
 				var calcHeight=incSizeHeight(document.getElementById("defaultCanvas0").style.height,0);
 				var calcWidth=incSizeWidth(document.getElementById("defaultCanvas0").style.width,0);
-				console.log(calcWidth,calcHeight,"cac");
+
 				document.getElementById("defaultCanvas0").style.height=String(calcHeight)+"px";
 				document.getElementById("defaultCanvas0").style.width=String(calcWidth)+"px";
 				document.getElementById("defaultCanvas1").style.height=String(calcHeight)+"px";
 				document.getElementById("defaultCanvas1").style.width=String(calcWidth)+"px";
-				
 				document.getElementById("defaultCanvas0").style.marginLeft="50px";
 				document.getElementById("defaultCanvas1").style.marginLeft="50px";
-				// document.getElementById("defaultCanvas1").style.height="801px";
 			}
 		});
 	
 		function timebased(argument_values){
 			if(document.getElementById("timebased").value == 0){
 				var s = function(p){
-					p.mic1;
-					p.yslider;
-					p.xslider;
-					p.buttonx1;
-					p.buttony1;
-					p.buttonx2;
-					p.buttony2;
-					p.bg;
-					p.img;
 					p.setup = function(){
-						p.createCanvas(window.innerWidth-100,window.innerHeight-250);
+						p.createCanvas(window.innerWidth-100,window.innerHeight-320);
 						if(retreived_datastore.palettechecker != 1){
 							var speechButton = document.getElementById("speech-button");
 							var speechButtonPalette = new speechpalette.ActivityPalette(
@@ -395,14 +348,14 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 
 					p.draw = function(){
 						p.background(p.bg);
-						let waveform = p.fft.waveform();
+						time_waveform = p.fft.waveform();
 						p.noFill();
 						p.beginShape();
 						p.stroke(255);
-						for (let i = 0; i < waveform.length; i++){
-							let x = p.map(i*p.txp, 0, waveform.length, 0, p.width);
-							let y = p.map( waveform[i]*p.typ, -1, 1, 0, p.height);
-							p.vertex(x,y);
+						for (time_i = 0; time_i < time_waveform.length; time_i++){
+							time_x = p.map(time_i*p.txp, 0, time_waveform.length, 0, p.width);
+							time_y = p.map( time_waveform[time_i]*p.typ, -1, 1, 0, p.height);
+							p.vertex(time_x,time_y);
 						}
 						p.endShape();
 					};
@@ -410,19 +363,14 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 						isResized=1
 						p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 						document.getElementById("fullscreen-button").addEventListener('click',function(){
-							console.log("po");
 							p.resizeCanvas(window.innerWidth-70,window.innerHeight-150);
 							document.getElementById("defaultCanvas0").style.marginLeft="33px";
 							document.getElementById("defaultCanvas1").style.marginLeft="33px";
-							console.log(document.getElementById("defaultCanvas0").style.height,document.getElementById("defaultCanvas1").style.height,"height01");
-							
 						});
 						document.getElementById("unfullscreen-button").addEventListener('click',function(){
-							console.log("pot");
 							p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 							document.getElementById("defaultCanvas0").style.marginLeft="50px";
 							document.getElementById("defaultCanvas1").style.marginLeft="50px";
-							
 						});
 					};
 				};
@@ -435,12 +383,12 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("freqbased").style.visibility="visible";
 			document.getElementById("freqbased").style.width="47px";
 			document.getElementById("freqbased").style.height="47px";
-			document.getElementById("timebased2").style.display="none"; //change
-			document.getElementById("timebased2").style.width="0px"; //change
-			document.getElementById("timebased2").style.height="0px"; //change
-			document.getElementById("freqbased2").style.display="none"; //change
-			document.getElementById("freqbased2").style.width="0px"; //change
-			document.getElementById("freqbased2").style.height="0px"; //change
+			document.getElementById("timebased2").style.display="none";
+			document.getElementById("timebased2").style.width="0px";
+			document.getElementById("timebased2").style.height="0px";
+			document.getElementById("freqbased2").style.display="none";
+			document.getElementById("freqbased2").style.width="0px";
+			document.getElementById("freqbased2").style.height="0px";
 			}
 		};
 
@@ -452,10 +400,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				timebased(retreived_datastore);
 				document.getElementById("one").style.display="block";
 				document.getElementById("two").style.display="none";
-				document.getElementById("freqbased2").style.display="inline"; //change
+				document.getElementById("freqbased2").style.display="inline";
 				document.getElementById("freqbased2").style.width="47px";
 				document.getElementById("freqbased2").style.height="47px";
-				// document.getElementById("freqbased2").style.left="-20px";
 				document.getElementById("freqbased2").style.visibility="visible";
 				retreived_datastore.last_graph=1;
 			}
@@ -472,17 +419,8 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			retreived_datastore.last_graph=0;
 			if(document.getElementById("freqbased").value == 0){
 				var t = function(p){
-					p.mic2;
-					p.cnv;
-					p.yslider;
-					p.xslider;
-					p.yaxis;
-					p.xaxis;
-					p.bg;
-					p.px;
-					p.py;
 					p.setup = function(){
-						p.cnv=p.createCanvas(window.innerWidth-100,window.innerHeight-250);	
+						p.cnv=p.createCanvas(window.innerWidth-100,window.innerHeight-320);
 						if(x==1){
 							var speechButtonn = document.getElementById("speech-button");
 							var speechButtonPalette = new speechpalette.ActivityPalette(
@@ -541,34 +479,29 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					};
 					p.draw = function(){
 						p.background(p.bg);
-						let spectrum = p.fft.analyze();
+						freq_spectrum = p.fft.analyze();
 						p.noStroke();
 						p.fill(255, 255, 255);
-						for (let i = 0; i< spectrum.length; i++){
-							let x = p.map(i*p.fxp, 0, spectrum.length, 0, p.width);
-							let h = -p.height + p.map(spectrum[i]*p.fyp, 0, 255, p.height, 0);
-							p.rect(x, p.height, p.width / spectrum.length, h )
+						for (freq_i = 0; freq_i< freq_spectrum.length; freq_i++){
+							freq_x = p.map(freq_i*p.fxp, 0, freq_spectrum.length, 0, p.width);
+							freq_h = -p.height + p.map(freq_spectrum[freq_i]*p.fyp, 0, 255, p.height, 0);
+							p.rect(freq_x, p.height, p.width / freq_spectrum.length, freq_h )
 						}
 						p.stroke(255);
 					};
 			
 					p.windowResized = function(){
 						isResized=1;
-						console.log("changed",resizeFlag);
 						p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 						document.getElementById("fullscreen-button").addEventListener('click',function(){
-							console.log("po");
 							p.resizeCanvas(window.innerWidth-70,window.innerHeight-140);
 							document.getElementById("defaultCanvas0").style.marginLeft="33px";
 							document.getElementById("defaultCanvas1").style.marginLeft="33px";
-							console.log(document.getElementById("defaultCanvas0").style.height,document.getElementById("defaultCanvas1").style.height,"height01");
 						});
 						document.getElementById("unfullscreen-button").addEventListener('click',function(){
-							console.log("pot");
 							p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 							document.getElementById("defaultCanvas0").style.marginLeft="50px";
 							document.getElementById("defaultCanvas1").style.marginLeft="50px";
-							
 						});
 					};
 				};
@@ -592,11 +525,9 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			retreived_datastore.time_flag=0;
 			retreived_datastore.freq_flag=1;
 			document.getElementById("timebased2").style.visibility="visible";
-			document.getElementById("timebased2").style.display="inline"; //change
-			document.getElementById("timebased2").style.width="47px"; //change
-			document.getElementById("timebased2").style.height="47px"; //change
-			// document.getElementById("speech-button").style.left="-20px"; //change
-			// document.getElementsByClassName("palette")[1].style.left="162px";
+			document.getElementById("timebased2").style.display="inline";
+			document.getElementById("timebased2").style.width="47px";
+			document.getElementById("timebased2").style.height="47px";
 			freqbased(retreived_datastore);
 			retreived_datastore.last_graph=0;
 		});
