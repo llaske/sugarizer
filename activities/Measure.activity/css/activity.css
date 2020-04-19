@@ -5,15 +5,19 @@
 	background-image: url(../images/help.svg);
 }
 #defaultCanvas0{
-	margin-top: 83px;
+	margin-top: 100px;
 	margin-bottom: -7px;
+	margin-left:50px ;
+	max-height: 820px;
 }
 #main-toolbar #image-button {
 	background-image: url(../icons/save-image.svg);
-	}
-#defaultCanvas1{
-	margin-top: 100px;
-	margin-bottom: -5px;
+}
+#defaultCanvas1 {
+	margin-top: 83px;
+	margin-bottom: -7px;
+	margin-left:50px ;
+	max-height: 820px;
 }
 #speech-button{
 	background-image: url(../icons/settings.svg);
@@ -22,6 +26,12 @@
 }
 #save-image-button {
 	background-image: url(../icons/save-image.svg);
+}
+#pause{
+	background-image: url(../icons/pause.svg);
+}
+#play{
+	background-image: url(../icons/play.svg);
 }
 #canvas{
 	background-color: black;

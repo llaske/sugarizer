@@ -11,6 +11,10 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		var freq_flag;
 		var time_flag;
 		var palettechecker=0;
+		var resizeFlag=0;
+		var play=0;
+		var pause=1;
+		var isImageDiplayed=0;
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
@@ -66,6 +70,50 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					console.log("export done.")
 				}, inputData);
 			});
+		}
+		document.getElementById("pause").addEventListener('click',pauseGraph);
+		function pauseGraph(){
+			// if(play==1){
+			// 	document.getElementById("one").style.display="block";
+			// 	document.getElementById("play-pause").style.backgroundImage="url('../icons/pause.svg')";
+			// 	play=0;
+			// 	pause=1;
+			// }
+			if(pause==1){
+				var ssplaypause = document.getElementById("canvas");
+				html2canvas(ssplaypause).then(function(canvas){
+					
+					var playpauseInputData=canvas.toDataURL("image/jpeg",1);
+					document.getElementById("graph-image").src=playpauseInputData;
+					isImageDiplayed=1;
+					pause=0;
+					play=1;
+					document.getElementById("graph-image").style.display="block";
+					document.getElementById("one").style.display="none";
+					document.getElementById("pause").style.display="none";
+					// document.getElementById("pause").style.visibility="hidden";
+					document.getElementById("play").style.display="inline";
+					
+					
+					// console.log(playpauseInputData);
+				});
+				
+			}
+			
+			
+
+		}
+
+		document.getElementById("play").addEventListener('click',playGraph);
+		function playGraph(){
+			if(play==1){
+				document.getElementById("play").style.display="none";
+				document.getElementById("graph-image").style.display="none";
+				document.getElementById("pause").style.display="inline";
+				document.getElementById("one").style.display="block";
+				play=0;
+				pause=1;
+			}
 		}
 
 		//receives retreived_datastore
@@ -133,12 +181,12 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("timebased2").style.width="0px";
 			document.getElementById("timebased2").style.height="0px";
 			document.getElementById("timebased2").style.visibility="hidden";
-
+			document.getElementById("timebased2").style.display="none"; //change
 			document.getElementById("freqbased2").style.width="47px";
 			document.getElementById("freqbased2").style.height="47px";
-			document.getElementById("freqbased2").style.left="-20px";
+			// document.getElementById("freqbased2").style.left="-20px";
 			document.getElementById("freqbased2").style.visibility="visible";
-
+			document.getElementById("freqbased2").style.display="inline";//change
 			document.getElementById("timepitchvalue").min="1.3";
 			document.getElementById("timepitchvalue").max="6.3";
 			document.getElementById("timeratevalue").min="1";
@@ -155,14 +203,14 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		document.getElementById("freqbased2").addEventListener('click',function(){
 			document.getElementById("one").style.display="none";
 			document.getElementById("two").style.display="block";
-			document.getElementById("freqbased2").style.visibility="hidden";
+			document.getElementById("freqbased2").style.display="none";
 			document.getElementById("timebased2").style.width="47px";
 			document.getElementById("timebased2").style.height="47px";
 
 			document.getElementById("freqbased2").style.width="0px";
 			document.getElementById("freqbased2").style.height="0px";
 			document.getElementById("timebased2").style.visibility="visible";
-
+			document.getElementById("timebased2").style.display="inline";
 			document.getElementById("timepitchvalue").min="1";
 			document.getElementById("timepitchvalue").max="2";
 			document.getElementById("timeratevalue").min="0.2";
@@ -179,6 +227,8 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("main-toolbar").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			// document.getElementById("defaultCanvas0").style.height="801px";
+			// document.getElementById("defaultCanvas1").style.height="801px";
 		});
 
 		//Return to normal size
@@ -276,10 +326,19 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					p.windowResized = function(){
 						p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 						document.getElementById("fullscreen-button").addEventListener('click',function(){
-							p.resizeCanvas(window.innerWidth-50,window.innerHeight-100);
+							console.log("po");
+							p.resizeCanvas(window.innerWidth-70,window.innerHeight-150);
+							document.getElementById("defaultCanvas0").style.marginLeft="33px";
+							document.getElementById("defaultCanvas1").style.marginLeft="33px";
+							console.log(document.getElementById("defaultCanvas0").style.height,document.getElementById("defaultCanvas1").style.height,"height01");
+							
 						});
 						document.getElementById("unfullscreen-button").addEventListener('click',function(){
+							console.log("pot");
 							p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
+							document.getElementById("defaultCanvas0").style.marginLeft="50px";
+							document.getElementById("defaultCanvas1").style.marginLeft="50px";
+							
 						});
 					};
 				};
@@ -292,6 +351,12 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("freqbased").style.visibility="visible";
 			document.getElementById("freqbased").style.width="47px";
 			document.getElementById("freqbased").style.height="47px";
+			document.getElementById("timebased2").style.display="none"; //change
+			document.getElementById("timebased2").style.width="0px"; //change
+			document.getElementById("timebased2").style.height="0px"; //change
+			document.getElementById("freqbased2").style.display="none"; //change
+			document.getElementById("freqbased2").style.width="0px"; //change
+			document.getElementById("freqbased2").style.height="0px"; //change
 			}
 		};
 
@@ -303,9 +368,10 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				timebased(retreived_datastore);
 				document.getElementById("one").style.display="block";
 				document.getElementById("two").style.display="none";
+				document.getElementById("freqbased2").style.display="inline"; //change
 				document.getElementById("freqbased2").style.width="47px";
 				document.getElementById("freqbased2").style.height="47px";
-				document.getElementById("freqbased2").style.left="-20px";
+				// document.getElementById("freqbased2").style.left="-20px";
 				document.getElementById("freqbased2").style.visibility="visible";
 				retreived_datastore.last_graph=1;
 			}
@@ -403,14 +469,22 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 					};
 			
 					p.windowResized = function(){
+						resizeFlag=1;
+						console.log("changed",resizeFlag);
 						p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
 						document.getElementById("fullscreen-button").addEventListener('click',function(){
 							console.log("po");
-							p.resizeCanvas(window.innerWidth-50,window.innerHeight-100);
+							p.resizeCanvas(window.innerWidth-20,window.innerHeight-140);
+							document.getElementById("defaultCanvas0").style.marginLeft="33px";
+							document.getElementById("defaultCanvas1").style.marginLeft="33px";
+							console.log(document.getElementById("defaultCanvas0").style.height,document.getElementById("defaultCanvas1").style.height,"height01");
 						});
 						document.getElementById("unfullscreen-button").addEventListener('click',function(){
 							console.log("pot");
 							p.resizeCanvas(window.innerWidth-100,window.innerHeight-200);
+							document.getElementById("defaultCanvas0").style.marginLeft="50px";
+							document.getElementById("defaultCanvas1").style.marginLeft="50px";
+							
 						});
 					};
 				};
@@ -418,6 +492,8 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 				document.getElementById("freqbased").style.visibility="hidden";
 				document.getElementById("freqbased").style.display="none";
 				if(x==1){
+					document.getElementById("timebased2").style.display="none";
+					document.getElementById("freqbased2").style.display="none";
 					document.getElementById("timebased2").style.width="0px";
 					document.getElementById("timebased2").style.height="0px";
 					document.getElementById("timebased2").style.visibility="hidden";
@@ -431,6 +507,12 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		document.getElementById("freqbased").addEventListener("click",function(event){
 			retreived_datastore.time_flag=0;
 			retreived_datastore.freq_flag=1;
+			document.getElementById("timebased2").style.visibility="visible";
+			document.getElementById("timebased2").style.display="inline"; //change
+			document.getElementById("timebased2").style.width="47px"; //change
+			document.getElementById("timebased2").style.height="47px"; //change
+			// document.getElementById("speech-button").style.left="-20px"; //change
+			// document.getElementsByClassName("palette")[1].style.left="162px";
 			freqbased(retreived_datastore);
 			retreived_datastore.last_graph=0;
 		});
