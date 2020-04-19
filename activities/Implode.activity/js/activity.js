@@ -11,19 +11,19 @@ define(["sugar-web/activity/activity"], function (activity) {
 		main_canvas.width = canvas_div.clientWidth;
 		main_canvas.height = canvas_div.clientHeight;
 		var stage = new createjs.Stage("mainCanvas");
-		var block_size = 25;
 		var backgorund_color = "black";
 		var difficulty = [[8, 6], [12, 10], [20, 15]];
+		var block_size = 25;
 		var level = 0;
 		var max_size = difficulty[level];
 		var board = generate_board(5,max_size);
 		var colors = ["yellow", "aqua", "red", "blue", "green"];
 		board[0].simplify();
-		console.log(board[0].__repr__())
 		var pieces = board[0]._data;
 		var undo_stack = [];
 		var highlighted_blocks = [];
 		stage.enableMouseOver(30);
+
 
 		document.getElementById("undo").addEventListener("click", function(){
 			Undo();
@@ -41,10 +41,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 			new_game(2);
 		})
 
+
 		function new_game(diff_level){
 			stage.removeAllChildren();
 			stage.removeAllEventListeners();
-			// stage.update();
 			level = diff_level;
 			max_size = difficulty[level];
 			board = generate_board(max_colors=5,max_size);
@@ -59,9 +59,23 @@ define(["sugar-web/activity/activity"], function (activity) {
 			square.graphics.beginStroke(backgorund_color);
 			square.graphics.setStrokeStyle(0);
 			square.graphics.beginFill(color);
-			square.graphics.drawRect(Math.floor(window.innerWidth/2)+i*(block_size + 10), k*(block_size + 10), block_size, block_size);
+			if((level == 0) || (level == 1)){
+				block_size = (level == 0)? 55:30;
+				square.graphics.drawRect(
+					Math.floor(window.innerWidth/3)+i*(block_size + 10), 
+					40+k*(block_size + 10),
+					block_size,block_size
+					);
+			}
+			else{
+				block_size = 25;
+				square.graphics.drawRect(
+					Math.floor(window.innerWidth/4)+i*(block_size + 10), 
+					5+k*(block_size + 10),
+					block_size,block_size
+					);
+			}
 			square.graphics.endFill();
-			// square.shadow = new createjs.Shadow('#777E8B',  0, 0, 0);
 		  }
 		  
 		  function init(){
@@ -288,7 +302,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 		  }
 
 		  function stage_resize(){
-		   
+			main_canvas.width = canvas_div.clientWidth;
+			main_canvas.height = canvas_div.clientHeight;
 			stage.scaleX = 0.5;
 			stage.scaleY = 0.5;
 			var window_width = window.innerWidth.toString();
