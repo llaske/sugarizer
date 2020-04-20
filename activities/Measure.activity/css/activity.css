@@ -5,7 +5,7 @@
 	background-image: url(../images/help.svg);
 }
 #defaultCanvas0{
-	margin-top: 100px;
+	margin-top: 60px;
 	margin-bottom: -7px;
 	margin-left:50px ;
 	max-height: 820px;
@@ -16,7 +16,7 @@
 }
 
 #defaultCanvas1 {
-	margin-top: 100px;
+	margin-top: 60px;
 	margin-bottom: -7px;
 	margin-left:50px ;
 	max-height: 820px;
@@ -37,21 +37,12 @@
 	background-image: url(../icons/play.svg);
 }
 #graph-image{
-	margin-top: 5%;
-	/* max-width: 100%;
-	max-height: 100%; */
+	margin-top: 0px;
 }
 #canvas{
 	background-color: black;
-	/* position: absolute; */
 	overflow-y: hidden;
 	overflow-x: hidden;
-}
-#two{
-	margin-top: -4.7%;
-}
-#one{
-	margin-top: -4.7%;
 }
 body{
 	overflow-y: hidden;
