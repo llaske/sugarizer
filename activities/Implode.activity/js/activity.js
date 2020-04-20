@@ -17,7 +17,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 		var level = 0;
 		var max_size = difficulty[level];
 		var board = generate_board(5,max_size);
-		var colors = ["yellow", "aqua", "red", "blue", "green"];
+		var colors = ["#7F00BF", "#E6000A", "#00EA11", "#FFFA00", "#FF8F00"];
 		board[0].simplify();
 		var pieces = board[0]._data;
 		var undo_stack = [];
