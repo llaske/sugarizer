@@ -11,13 +11,13 @@ define(["sugar-web/activity/activity"], function (activity) {
 		main_canvas.width = canvas_div.clientWidth;
 		main_canvas.height = canvas_div.clientHeight;
 		var stage = new createjs.Stage("mainCanvas");
-		var backgorund_color = "black";
+		var backgorund_color = "#5959B3";
 		var difficulty = [[8, 6], [12, 10], [20, 15]];
 		var block_size = 25;
 		var level = 0;
 		var max_size = difficulty[level];
 		var board = generate_board(5,max_size);
-		var colors = ["#7F00BF", "#E6000A", "#00EA11", "#FFFA00", "#FF8F00"];
+		var colors = ["#E6000A", "#00EA11", "#FFFA00","#5E008C", "#FF8F00" ];
 		board[0].simplify();
 		var pieces = board[0]._data;
 		var undo_stack = [];
