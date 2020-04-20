@@ -27,19 +27,38 @@ define(["sugar-web/activity/activity"], function (activity) {
 
 		document.getElementById("undo").addEventListener("click", function(){
 			Undo();
-		})
+		});
 		document.getElementById("new-game").addEventListener("click", function(){
 			new_game(level);
-		})
+		});
 		document.getElementById("easy").addEventListener("click", function(){
 			new_game(0);
-		})
+		});
 		document.getElementById("medium").addEventListener("click", function(){
 			new_game(1);
-		})
+		});
 		document.getElementById("hard").addEventListener("click", function(){
 			new_game(2);
-		})
+		});
+
+		//Handle fullscreen mode
+		document.getElementById("fullscreen-button").addEventListener("click", function(){
+			document.getElementById("main-toolbar").style.display = "none";
+			document.getElementById("canvas").style.top = "0px";
+			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			main_canvas.width = canvas_div.clientWidth;
+			main_canvas.height = canvas_div.clientHeight;
+			stage.update();
+		});
+		//Handle unfullscreen mode
+		document.getElementById("unfullscreen-button").addEventListener("click", function(){
+			document.getElementById("main-toolbar").style.display = "block";
+			document.getElementById("canvas").style.top = "55px";
+			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			main_canvas.width = canvas_div.clientWidth;
+			main_canvas.height = canvas_div.clientHeight;
+			stage.update();
+		});
 
 
 		function new_game(diff_level){
@@ -73,7 +92,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 				block_size = 25;
 				square.graphics.drawRect(
 					Math.floor(window.innerWidth/4)+i*(block_size + 10), 
-					5+k*(block_size + 10),
+					5+k*(block_size + 5),
 					block_size,block_size
 					);
 			}
