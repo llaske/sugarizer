@@ -24,7 +24,7 @@ function Board(){
     }
 
     this.get_value = function(x, y){
-        
+
         // Return the value at coordinate (x,y), or undefined if no value is
         // present.
         var col = this._data[x]
@@ -40,7 +40,6 @@ function Board(){
 
     this.set_value = function(x, y, value){
         // Set the value at coordinate (x,y) to the given value.
-
         // assert y >= 0
 
         var col = this._data[x]
@@ -56,8 +55,7 @@ function Board(){
             if(value == undefined)
                 this._trim_column(x)
         }
-        else if(value == undefined)
-            {}
+        else if(value == undefined){}
         else{
             col = col.concat(this.repeat([undefined] , (y - col.length)))
             col = col.concat([value])

@@ -10,6 +10,10 @@
   background-image: url(../icons/edit-undo.svg);
 }
 
+#main-toolbar #redo {
+  background-image: url(../icons/edit-redo.svg);
+}
+
 #main-toolbar #easy {
   background-image: url(../icons/easy-level.svg);
 }
@@ -37,4 +41,17 @@
   right: 15px;
   position: absolute;
   visibility: hidden;
+}
+
+.splitbar {
+  background-image: url(../icons/split.svg);
+  background-position: center;
+  background-repeat: no;
+  width: 3px;
+  margin-left: 5px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  height: 45px;
+  display: inline-block;
+  vertical-align: bottom;
 }
