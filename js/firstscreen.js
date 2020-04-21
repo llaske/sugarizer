@@ -257,6 +257,8 @@ enyo.kind({
 			this.step++;
 			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
 				this.step++;
+			} else {
+				this.checkUsername(name);
 			}
 			this.displayStep();
 		} else if (this.step == 3) {
@@ -421,6 +423,33 @@ enyo.kind({
 		else {
 			this.loginUser();
 		}
+	},
+
+	checkUsername: function(name) {
+		var that = this;
+		that.$.spinner.setShowing(true);
+		myserver.postUser(
+			{
+				name: name,
+				role: "student",
+				beforeSignup: true
+			},
+			function(inSender, inResponse) {
+				// Username is unique
+				that.$.spinner.setShowing(false);
+			},
+			function(response, error) {
+				that.$.spinner.setShowing(false);
+				that.step--;
+				that.displayStep();
+				if (error == 22) {
+					that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+				}
+				that.$.warningmessage.setShowing(true);
+			}
+		);
 	},
 
 	createUser: function() {
