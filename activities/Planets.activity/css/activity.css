@@ -87,6 +87,7 @@
 #planet-info {
   overflow: hidden;
   padding: 20px;
+  padding-top: 50px;
   width: 40%;
 }
 
@@ -107,8 +108,8 @@ canvas {
   display: inline-block;
   vertical-align: top;
   height: 50px;
-  bottom: 10px;
-  left: 0px;
+  bottom: 685px;
+  left: 10px;
   width: 50px;
   background-color: "#c0c0c0";
   background-image: url(../icons/go-back-sel.svg);
