@@ -55,3 +55,16 @@
   display: inline-block;
   vertical-align: bottom;
 }
+
+#canvas{
+  background-color: #5959B3;
+}
+
+#canvasDiv {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#mainCanvas {
+  background-color: #5959B3;
+}

@@ -8,12 +8,10 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         var canvas_div = document.getElementById("canvas");
         var main_canvas = document.getElementById("mainCanvas");
-        main_canvas.width = canvas_div.clientWidth;
-        main_canvas.height = canvas_div.clientHeight;
         var stage = new createjs.Stage("mainCanvas");
         var backgorund_color = "#5959B3";
         var difficulty = [[8, 6], [12, 10], [20, 15]];
-        var block_size = 25;
+        var block_size = 15;
         var level = 0;
         var max_size = difficulty[level];
         var board = generate_board(5,max_size);
@@ -45,23 +43,22 @@ define(["sugar-web/activity/activity"], function (activity) {
             new_game(2);
         });
 
+        var fullScreenMode = false;
         //Handle fullscreen mode
         document.getElementById("fullscreen-button").addEventListener("click", function(){
             document.getElementById("main-toolbar").style.display = "none";
             document.getElementById("canvas").style.top = "0px";
             document.getElementById("unfullscreen-button").style.visibility = "visible";
-            main_canvas.width = canvas_div.clientWidth;
-            main_canvas.height = canvas_div.clientHeight;
-            stage.update();
+            fullScreenMode = true;
+            stage_resize();
         });
         //Handle unfullscreen mode
         document.getElementById("unfullscreen-button").addEventListener("click", function(){
             document.getElementById("main-toolbar").style.display = "block";
             document.getElementById("canvas").style.top = "55px";
             document.getElementById("unfullscreen-button").style.visibility = "hidden";
-            main_canvas.width = canvas_div.clientWidth;
-            main_canvas.height = canvas_div.clientHeight;
-            stage.update();
+            fullScreenMode = false;
+            stage_resize();
         });
 
 
@@ -76,31 +73,31 @@ define(["sugar-web/activity/activity"], function (activity) {
             pieces = board[0]._data;
             undo_stack = [];
             highlighted_blocks = []
+            stage_resize();
             init();
         }
 
         function draw_square(square, i, k, color){
             //used to draw blocks of given size
             square.graphics.beginStroke(backgorund_color);
-            square.graphics.setStrokeStyle(0);
+            square.graphics.setStrokeStyle(border_width(level));
             square.graphics.beginFill(color);
-            if((level == 0) || (level == 1)){
-                block_size = (level == 0)? 55:30;
-                square.graphics.drawRect(
-                    Math.floor(window.innerWidth/3)+i*(block_size + 10), 
-                    40+k*(block_size + 10),
-                    block_size,block_size
-                );
-            }
-            else{
-                block_size = 25;
-                square.graphics.drawRect(
-                    Math.floor(window.innerWidth/4)+i*(block_size + 10), 
-                    5+k*(block_size + 5),
-                    block_size,block_size
-                );
-            }
+            square.graphics.drawRect(
+                i*(block_size), 
+                k*(block_size),
+                block_size-border_width(level),block_size-border_width(level)
+            );
             square.graphics.endFill();
+        }
+
+        function border_width(level){
+            // This function returns border width for box.
+            if(level == 0)
+                return 8
+            else if(level == 1)
+                return 5
+            else
+                return 3
         }
 
         function init(){
@@ -165,7 +162,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 var block = stage.getChildByName(`${block_name[0]}_${block_name[1]}`);
                 block.highlighted = false;
                 block.graphics["_stroke"]["style"] = backgorund_color;
-                block.graphics["_strokeStyle"]["width"] = 0;
+                block.graphics["_strokeStyle"]["width"] = border_width(level);
             }
             stage.update();
             highlighted_blocks = []
@@ -179,8 +176,8 @@ define(["sugar-web/activity/activity"], function (activity) {
                 block_name[0] = parseInt(block_name[0]);
                 block_name[1] = parseInt(block_name[1]);
                 var block = stage.getChildByName(`${block_name[0]}_${block_name[1]}`);
-                block.graphics["_stroke"]["style"] = "pink";
-                block.graphics["_strokeStyle"]["width"] = 5;
+                block.graphics["_stroke"]["style"] = "white";
+                block.graphics["_strokeStyle"]["width"] = border_width(level);
             }
             stage.update();
         }
@@ -293,7 +290,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 var block = stage.getChildByName(`${parseInt(name[0])}_${parseInt(name[1])}`);
                 block.highlighted = false;
                 block.graphics["_stroke"]["style"] = backgorund_color;
-                block.graphics["_strokeStyle"]["width"] = 0;
+                block.graphics["_strokeStyle"]["width"] = border_width(level);
                 changes[block.name] = block.prev_color;
             }
 
@@ -350,30 +347,44 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         function stage_resize(){
             //This function resizes stage on window resize.
-            main_canvas.width = canvas_div.clientWidth;
-            main_canvas.height = canvas_div.clientHeight;
-            stage.scaleX = 0.5;
-            stage.scaleY = 0.5;
-            var window_width = window.innerWidth.toString();
-            if(window_width.length == 3){
-                if(parseInt(window_width[1]) > 5){
-                    stage.scaleX = 0.1*parseInt(window_width[0]);
-                    stage.scaleY = 0.1*parseInt(window_width[0]);
-                }
-                else{
-                    stage.scaleX = 0.1*(parseInt(window_width[0]) - 1);
-                    stage.scaleY = 0.1*(parseInt(window_width[0]) - 1);
-                }
+
+            var prev_block_size = block_size;
+            var block_width = (window.innerWidth-200)/max_size[0];
+            if(fullScreenMode){
+                main_canvas.height = window.innerHeight-45;
             }
             else{
-                stage.scaleX = 1;
-                stage.scaleY = 1;
+                main_canvas.height = window.innerHeight-95;
+            }
+            block_size = main_canvas.height/max_size[1];
+            if(block_width < block_size){
+                block_size = block_width;
+            }
+            main_canvas.width = block_size*max_size[0];
+            if((stage.children.length > 0) && (prev_block_size!=block_size)){
+                
+                var j = 0;
+                var k = 0;
+                for(var i=0;i<(max_size[0]*max_size[1]);i++){
+                    var block = stage.getChildAt(i);
+                    block.graphics._instructions[1]["h"] = block_size - border_width(level);
+                    block.graphics._instructions[1]["w"] = block_size - border_width(level);
+                    block.graphics._instructions[1]["x"] = k*block_size;
+                    block.graphics._instructions[1]["y"] = j*block_size;
+                    if(j == (max_size[1]-1)){
+                        j = 0;
+                        k++;
+                    }
+                    else{
+                        j++;
+                    }
+                }
             }
             stage.update();
         }
 
-        init();
         stage_resize();
+        init();
         window.addEventListener("resize", stage_resize);
 
     });
