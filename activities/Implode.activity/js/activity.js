@@ -360,7 +360,8 @@ define(["sugar-web/activity/activity"], function (activity) {
             if(block_width < block_size){
                 block_size = block_width;
             }
-            main_canvas.width = block_size*max_size[0];
+            main_canvas.width = block_size*max_size[0] + 15;
+            main_canvas.height = main_canvas.height + 8;
             if((stage.children.length > 0) && (prev_block_size!=block_size)){
                 
                 var j = 0;
@@ -380,13 +381,16 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                 }
             }
+
+            stage.x = 10;
+            stage.y = 5;
             stage.update();
         }
 
         stage_resize();
         init();
         window.addEventListener("resize", stage_resize);
-
+        console.log(stage);
     });
 
 });
