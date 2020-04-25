@@ -257,7 +257,7 @@ enyo.kind({
 			this.step++;
 			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
 				this.step++;
-			} else {
+			} else if(this.createnew) {
 				this.checkUsername(name);
 			}
 			this.displayStep();
