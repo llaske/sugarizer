@@ -16,7 +16,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		controls.target.set(0,0,0);
 
 		//Planet Information
-		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons"];
+		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Distance"];
 		var planet = planets;
 
 		//Containers
@@ -29,14 +29,14 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 		//Used for planet position view
 		var distance = -96;
-		var textDistance = 3.5;
+		var textDistance =11.5;
 		var frustumSize = 5;
 
 		//Back Button to go back to homepage
 		var backButton = document.createElement("div");
 		backButton.id = "back-button";
 		backButton.title = "Back to Planet List"
-		planetInfo.appendChild(backButton);
+		interactContainer.appendChild(backButton);
 
 		//Do not show unnecessary buttons
 		interactContainer.style.display = "none";
@@ -48,6 +48,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 		planetPos.style.display="none";
 
+		initPosition("Sun", "Star", 0);
 		for (var i = 0; i < planet.length; i ++){
 			var planetList = document.createElement('div');
 			planetList.id = 'planet-' + planet[i].name;
@@ -65,7 +66,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 			planetName.innerHTML = '<p>' + planet[i].name + '</p>';
 			document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
-			initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons);
+			initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].distancefromsun);
 			initPosition(planet[i].name, planet[i].type, planet[i].radius);
 
 			// Switch to fullscreen mode on click
@@ -94,7 +95,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 		}
 
 		//Show planet function
-		function initPlanet(name, type, year, mass, temperature, moons){
+		function initPlanet(name, type, year, mass, temperature, moons, distance){
 
 			//Variable action detectors
 			var showInfo = true;
@@ -219,7 +220,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				camera.position.z = 5;
 
 
-				for (var i = 0; i < 6; i++){
+				for (var i = 0; i < 7; i++){
 					var information = document.createElement('div');
 					information.id = infoType[i];
 					information.className = 'info';
@@ -232,6 +233,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				document.getElementById("Mass").innerHTML = '<p>' + "Mass: " + '</br>' + mass + '</p>';
 				document.getElementById("Temperature").innerHTML = '<p>' + "Surface Temperature: " + '</br>' + temperature + '</p>';
 				document.getElementById("Moons").innerHTML = '<p>' + "Number of Moons: " + '</br>' + moons + '</p>';
+				document.getElementById("Distance").innerHTML = '<p>' + "Distance from the Sun: " + '</br>' + distance + '</p>';
 
 				saveImage = function(){
 
@@ -370,7 +372,10 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 			//Url of planet map files
 			var url = "images/" + name.toLowerCase() + "map.jpg";
-			if (name === "Mercury"){
+			if (name === "Sun"){
+				planetSize = 45;
+			}
+			else if (name === "Mercury"){
 				planetSize = 0.5;
 			} else if (name === "Venus" || name === "Earth"){
 				planetSize = 2;
@@ -418,7 +423,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
 				var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
 				if (name === "Saturn"){
-					var ringGeometry = new THREE.RingBufferGeometry(13, 22, 40);
+					var ringGeometry = new THREE.RingBufferGeometry(12, 23, 64);
 					var position = ringGeometry.attributes.position;
 					var vector = new THREE.Vector3();
 					for (let i = 0; i < position.count; i++){
@@ -427,14 +432,13 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 					}
 				}
 				else{
-					var ringGeometry = new THREE.RingBufferGeometry(9, 10, 40);
+					var ringGeometry = new THREE.RingBufferGeometry(9, 10, 64);
 				}
 				var ringMaterial = new THREE.MeshPhongMaterial({
 					map: loadRingTexture,
 					side: THREE.DoubleSide,
 					opacity: 0.4,
 					transparent: true,
-					depthWrite: true
 				});
 				var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 			}
@@ -447,41 +451,51 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 				material.bumpScale = 0.1;
 			}
 
-			//Add names to planets
-			var planetNewName = document.createElement("div");
-			planetNewName.id = "new-name-" + name;
-			planetNewName.className = "planet-new-name";
-			planetNewName.innerHTML = name;
-			planetPos.appendChild(planetNewName);
-			document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
+			if (name !== "Sun"){
+				//Add names to planets
+				var planetNewName = document.createElement("div");
+				planetNewName.id = "new-name-" + name;
+				planetNewName.className = "planet-new-name";
+				planetNewName.innerHTML = name;
+				planetPos.appendChild(planetNewName);
+				document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
 
-			//Add radius to planets
-			var planetRadius = document.createElement("div");
-			planetRadius.id = "radius-" + name;
-			planetRadius.className = "planet-radius";
-			planetRadius.innerHTML = radius + " km";
-			planetPos.appendChild(planetRadius);
-			document.getElementById("radius-" + name).style.marginLeft = textDistance - 0.5 + "%";
+				//Add radius to planets
+				var planetRadius = document.createElement("div");
+				planetRadius.id = "radius-" + name;
+				planetRadius.className = "planet-radius";
+				planetRadius.innerHTML = radius + " km";
+				planetPos.appendChild(planetRadius);
+				document.getElementById("radius-" + name).style.marginLeft = textDistance - 0.5 + "%";
+			}
 
-			if (name === "Mercury" || name === "Venus" || name === "Earth" || name === "Mars"){
+
+			if (name === "Sun"){
+				distance +=-27;
+			}
+			else if (name === "Mercury"){
+				distance +=52;
+				textDistance += 7.7;
+			}
+			else if (name === "Venus" || name === "Earth" || name === "Mars"){
 				distance +=15;
-				textDistance += 8.5;
+				textDistance += 8.3;
 			}
 			else if (name === "Uranus"){
 				distance += 35;
-				textDistance += 13.3;
+				textDistance += 11;
 			}
 			else if (name === "Neptune"){
-				distance += 25;
-				textDistance += 13.3;
+				distance += 20;
+				textDistance += 15;
 			}
 			else if (name === "Jupiter"){
 				distance += 17;
-				textDistance += 20;
+				textDistance += 18.5;
 			}
 			else{
-				distance += 35;
-				textDistance += 20;
+				distance += 36;
+				textDistance += 18;
 			}
 
 			planetMesh.position.x = distance;
@@ -505,7 +519,7 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 				renderer.setSize( planetPos.clientWidth, planetPos.clientHeight);
 				planetPos.appendChild(renderer.domElement);
-				light.position.set( 1, 1, 5 );
+				light.position.set( 1, 0.2, 5 );
 
 				lightHolder.add(light);
 				scene.add(lightHolder);
@@ -516,17 +530,17 @@ define(["sugar-web/activity/activity", 'sugar-web/datastore'], function (activit
 
 				if (name === "Saturn" || name === "Uranus"){
 					if (name === "Saturn"){
-						ringMesh.rotation.x = 20;
-						ringMesh.position.x = 16;
+						ringMesh.rotation.x = 30;
+						ringMesh.position.x = 27;
 					}
 					else{
 						ringMesh.rotation.x = 0;
-						ringMesh.position.x = 51;
+						ringMesh.position.x = 62;
 					}
 					scene.add(ringMesh);
 				}
 
-				camera.zoom = 0.0028;
+				camera.zoom = 0.0026;
 				camera.updateProjectionMatrix();
 
 				animatePlanet = function() {
