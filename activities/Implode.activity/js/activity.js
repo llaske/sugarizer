@@ -112,27 +112,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     square.highlighted = false;
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
-                        if(e.target.graphics._instructions[2].style != backgorund_color
-                        || (e.target.highlighted == false))
-                        {
-                            var square_name = e.target.name.split('_');
-                            square_name[0] = parseInt(square_name[0]);
-                            square_name[1] = parseInt(square_name[1]);
-                            var square_color = stage.getChildByName(`${square_name[0]}_${square_name[1]}`)
-                                                .graphics._instructions[2].style
-                            sameColorBlocks(square_name[0],square_name[1], square_color);
-                            highlight_same_color();
-                        }
-                    });
-                    square.addEventListener('mouseout', function(e){
-                        clear_prev_higlight();
-                    });
-                    square.addEventListener('click', function(e){
-                        if(highlighted_blocks.length > 2){
-                            drop();
-                            shiftLeft();
-                            IsGameOver();
-                        }
+                        highlight_mouseover(stage.getChildByName(e.target.name));
                     });
                     stage.addChild(square);
                     k++;
@@ -148,7 +128,90 @@ define(["sugar-web/activity/activity"], function (activity) {
                     block.prev_color = colors[pieces[i][j]-1];
                 }
             }
+            var circle = new createjs.Shape();
+            circle.graphics.beginFill("white").drawCircle(-10, -10, 5);
+            circle.name = "white_circle";
+            circle.parent_box = ''
+            stage.addChild(circle);
             stage.update();
+        }
+
+        var circle_move = false;
+
+        canvas_div.addEventListener('click', function(e){
+            if(highlighted_blocks.length > 2){
+                drop();
+                shiftLeft();
+                IsGameOver();
+                adjust_circle();
+            }
+        });
+
+        function adjust_circle(){
+
+            var circle_parent = stage.getChildByName("white_circle").parent_box;
+            circle_move = true;
+            highlight_mouseover(stage.getChildByName(circle_parent));
+            circle_move = false;
+        }
+
+        var valid_parent_box = false;
+
+        function highlight_mouseover(square){
+            //This function highlight similar color boxes.
+        
+            var circle = stage.getChildByName("white_circle");
+            
+            var square_name = square.name.split('_');
+            square_name[0] = parseInt(square_name[0]);
+            square_name[1] = parseInt(square_name[1]);
+            
+            if(stage.getChildByName(`${square_name[0]}_0`).graphics._instructions[2].style != backgorund_color){
+                clear_prev_higlight();
+                var centre_x = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["x"];
+                var centre_y = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["y"];
+                circle.graphics._instructions[1]["x"] = centre_x;
+                circle.graphics._instructions[1]["y"] = centre_y;
+                circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
+                circle.parent_box = square.name;
+                valid_parent_box = true;
+            }
+            else if(stage.getChildByName(`${square_name[0]}_0`).graphics._instructions[2].style == backgorund_color
+                    && (circle_move == true)){
+                clear_prev_higlight();
+                var i=max_size[0]-1;
+                for(;i>=0;i--){
+                    if(stage.getChildByName(`${i}_0`).graphics._instructions[2].style != backgorund_color){
+                        break;
+                    }
+                }
+                square = stage.getChildByName(`${i}_${square_name[1]}`);
+                square_name = square.name.split('_');
+                square_name[0] = parseInt(square_name[0]);
+                square_name[1] = parseInt(square_name[1]);
+                var centre_x = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["x"];
+                var centre_y = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["y"];
+                circle.graphics._instructions[1]["x"] = centre_x;
+                circle.graphics._instructions[1]["y"] = centre_y;
+                circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
+                circle.parent_box = square.name;
+                valid_parent_box = true;
+            }
+            else{
+                valid_parent_box = false;
+            }
+
+            if(square.graphics._instructions[2].style != backgorund_color
+                || (square.highlighted == false))
+            {
+                var square_color = stage.getChildByName(`${square_name[0]}_${square_name[1]}`)
+                                .graphics._instructions[2].style
+                sameColorBlocks(square_name[0],square_name[1], square_color);
+                highlight_same_color();
+            }
+            else if(valid_parent_box == true){
+                stage.update();
+            }
         }
 
         function clear_prev_higlight(){
@@ -164,20 +227,22 @@ define(["sugar-web/activity/activity"], function (activity) {
                 block.graphics["_stroke"]["style"] = backgorund_color;
                 block.graphics["_strokeStyle"]["width"] = border_width(level);
             }
-            stage.update();
+
             highlighted_blocks = []
         }
 
         function highlight_same_color(){
             //It highlights same color boxes
-
-            for(var i=0;i<highlighted_blocks.length;i++){
-                var block_name = highlighted_blocks[i].split('_');
-                block_name[0] = parseInt(block_name[0]);
-                block_name[1] = parseInt(block_name[1]);
-                var block = stage.getChildByName(`${block_name[0]}_${block_name[1]}`);
-                block.graphics["_stroke"]["style"] = "white";
-                block.graphics["_strokeStyle"]["width"] = border_width(level);
+            if(highlighted_blocks.length > 2){
+                for(var i=0;i<highlighted_blocks.length;i++){
+                    var block_name = highlighted_blocks[i].split('_');
+                    block_name[0] = parseInt(block_name[0]);
+                    block_name[1] = parseInt(block_name[1]);
+                    var block = stage.getChildByName(`${block_name[0]}_${block_name[1]}`);
+                    block.graphics["_stroke"]["style"] = "white";
+                    block.graphics["_strokeStyle"]["width"] = border_width(level);
+                }
+            
             }
             stage.update();
         }
@@ -322,6 +387,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 }
                 undo_stack.pop();
                 redo_stack.push(changes);
+                adjust_circle();
                 stage.update();
             }
         }
@@ -341,6 +407,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 }
                 redo_stack.pop();
                 undo_stack.push(changes);
+                adjust_circle();
                 stage.update();
             }
         }
@@ -384,13 +451,24 @@ define(["sugar-web/activity/activity"], function (activity) {
 
             stage.x = 10;
             stage.y = 5;
+            if((stage.children.length > 0)){
+                var circle = stage.getChildByName("white_circle");
+                var square = stage.getChildByName(circle.parent_box);
+                if(square != null){
+                    var centre_x = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["x"];
+                    var centre_y = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["y"];
+                    circle.graphics._instructions[1]["x"] = centre_x;
+                    circle.graphics._instructions[1]["y"] = centre_y;
+                    circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
+                }
+            }
             stage.update();
         }
 
         stage_resize();
         init();
         window.addEventListener("resize", stage_resize);
-        console.log(stage);
+
     });
 
 });
