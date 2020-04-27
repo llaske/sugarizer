@@ -61,9 +61,31 @@ define(["sugar-web/activity/activity"], function (activity) {
             stage_resize();
         });
 
+        function button_highlight(level){
+            //This function changes background color of difficulty buttons
+
+            if(level == 0){
+                document.getElementById("easy").style.backgroundColor = "grey";
+                document.getElementById("medium").style.backgroundColor = "black";
+                document.getElementById("hard").style.backgroundColor = "black";
+            }
+            else if(level == 1){
+                document.getElementById("easy").style.backgroundColor = "black";
+                document.getElementById("medium").style.backgroundColor = "grey";
+                document.getElementById("hard").style.backgroundColor = "black";
+            }
+            else{
+                document.getElementById("easy").style.backgroundColor = "black";
+                document.getElementById("medium").style.backgroundColor = "black";
+                document.getElementById("hard").style.backgroundColor = "grey";
+            }
+        }
+
+        button_highlight(level);
 
         function new_game(diff_level){
             //remove previous blocks and initializes new blocks
+            button_highlight(diff_level);
             stage.removeAllChildren();
             stage.removeAllEventListeners();
             level = diff_level;
