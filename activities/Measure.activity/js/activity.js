@@ -191,6 +191,7 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			if(window.location.protocol == 'file:'){
 				document.getElementById("pause").style.display="none";
 				document.getElementById("play").style.display="inline";
+				document.getElementById("user-gesture-time-base").style.display="block";
 				document.getElementById("user-gesture-image").style.marginTop="60px";
 				document.getElementById("user-gesture-image").style.marginLeft="50px";
 				document.getElementById("user-gesture-image").style.height=window.innerHeight-320 + "px";
