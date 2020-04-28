@@ -106,7 +106,7 @@ enyo.kind({
     },
 
     handlePlayNoteListener: function(event) {
-        if (this.keysEnabled){
+        if (this.keysEnabled && (['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft'].indexOf(event.key) !== -1)){
             this.handlePlayNote(event);
         }
     },
