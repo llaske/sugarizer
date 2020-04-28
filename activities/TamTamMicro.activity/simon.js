@@ -1,6 +1,6 @@
 enyo.kind({
-	name: "TamTam.Simon",
-	components: [
+    name: "TamTam.Simon",
+    components: [
         {classes: "Simon-info", components: [
             {name: "SimonLevel", id: "SimonLevel", classes: "Simon-level", content: ""},
             {name: "SimonScroe", id: "SimonScroe", classes: "Simon-scroe", content: ""}
@@ -28,8 +28,8 @@ enyo.kind({
         if(s.repeat || !simonMode) return;
 
         var fromKeyPress = false;
-		if(s.type == "keydown") {
-			fromKeyPress = true;
+        if(s.type == "keydown") {
+            fromKeyPress = true;
         }
         
         var keyColourMap = {
@@ -97,12 +97,12 @@ enyo.kind({
         }.bind(this), 1000));
 
         var pitchName = colorMap[colorName];
-		var pitchMap = {
-			'C-s': 1,
-			'E': 4,
-			'A': 9,
+        var pitchMap = {
+            'C-s': 1,
+            'E': 4,
+            'A': 9,
         };
-		tonePlayer.play(pitchMap[pitchName]);
+        tonePlayer.play(pitchMap[pitchName]);
     },
 
     handlePlayNoteListener: function(event) {
@@ -112,7 +112,7 @@ enyo.kind({
     },
 
     create: function() {
-		this.inherited(arguments);
+        this.inherited(arguments);
         this.collection = 0;
         this.level = 1;
         this.correctSequence = [];
@@ -137,7 +137,7 @@ enyo.kind({
         document.addEventListener('keydown', that.handlePlayNoteListener, false);
         tonePlayer.load('audio/database/'+currentSimonMode+".mp3");
         this.addRemoveAll(["Red", "Green", "Yellow", "Blue"], 'disableElement', true);
-		return;
+        return;
     },
 
     startGame: function(){
