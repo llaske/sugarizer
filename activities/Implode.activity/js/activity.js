@@ -135,6 +135,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
                         highlight_mouseover(stage.getChildByName(e.target.name));
+                        stage.update();
                     });
                     stage.addChild(square);
                     k++;
@@ -164,8 +165,8 @@ define(["sugar-web/activity/activity"], function (activity) {
             if(highlighted_blocks.length > 2){
                 drop();
                 shiftLeft();
-                IsGameOver();
                 adjust_circle();
+                IsGameOver();
             }
         });
 
@@ -175,9 +176,9 @@ define(["sugar-web/activity/activity"], function (activity) {
             circle_move = true;
             highlight_mouseover(stage.getChildByName(circle_parent));
             circle_move = false;
+            stage_resize();
         }
 
-        var valid_parent_box = false;
 
         function highlight_mouseover(square){
             //This function highlight similar color boxes.
@@ -196,7 +197,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                 circle.graphics._instructions[1]["y"] = centre_y;
                 circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
                 circle.parent_box = square.name;
-                valid_parent_box = true;
             }
             else if(stage.getChildByName(`${square_name[0]}_0`).graphics._instructions[2].style == backgorund_color
                     && (circle_move == true)){
@@ -206,6 +206,9 @@ define(["sugar-web/activity/activity"], function (activity) {
                     if(stage.getChildByName(`${i}_0`).graphics._instructions[2].style != backgorund_color){
                         break;
                     }
+                }
+                if(i == -1){
+                    return;
                 }
                 square = stage.getChildByName(`${i}_${square_name[1]}`);
                 square_name = square.name.split('_');
@@ -217,10 +220,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                 circle.graphics._instructions[1]["y"] = centre_y;
                 circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
                 circle.parent_box = square.name;
-                valid_parent_box = true;
-            }
-            else{
-                valid_parent_box = false;
             }
 
             if(square.graphics._instructions[2].style != backgorund_color
@@ -230,9 +229,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                                 .graphics._instructions[2].style
                 sameColorBlocks(square_name[0],square_name[1], square_color);
                 highlight_same_color();
-            }
-            else if(valid_parent_box == true){
-                stage.update();
             }
         }
 
@@ -266,7 +262,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                 }
             
             }
-            stage.update();
         }
 
         function sameColorBlocks(col, row, color) {
@@ -383,7 +378,6 @@ define(["sugar-web/activity/activity"], function (activity) {
 
             undo_stack.push(changes);
             highlighted_blocks = []
-            stage.update();
         }
 
         function IsGameOver(){
@@ -410,7 +404,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                 undo_stack.pop();
                 redo_stack.push(changes);
                 adjust_circle();
-                stage.update();
             }
         }
 
@@ -430,27 +423,73 @@ define(["sugar-web/activity/activity"], function (activity) {
                 redo_stack.pop();
                 undo_stack.push(changes);
                 adjust_circle();
-                stage.update();
             }
         }
-
+        
         function stage_resize(){
-            //This function resizes stage on window resize.
+            //This function resizes stage
+
+            var flag = false;
+            var row_empty = 0;
+            var col_empty = 0;
+            if(stage.children.length>0){
+
+                for(var i=0;i<(max_size[0]*max_size[1]);i++){
+                    var block = stage.getChildAt(i);
+                    block.visible = true;
+                }
+
+                
+                for(var i=max_size[1]-1;i>=0;i--){
+                    for(var j=0;j<max_size[0];j++){
+                        if(stage.getChildByName(`${j}_${i}`).graphics._instructions[2].style != backgorund_color){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag == true){
+                        break;
+                    }
+                    row_empty++;
+                }
+
+                for(var i=max_size[1]-1;i>=(max_size[1]-row_empty);i--){
+                    for(var j=0;j<max_size[0];j++){
+                        stage.getChildByName(`${j}_${i}`).visible = false;
+                    }
+                }
+
+                flag = false;
+                for(var i=max_size[0]-1;i>=0;i--){
+                    for(var j=0;j<max_size[1];j++){
+                        if(stage.getChildByName(`${i}_${j}`).graphics._instructions[2].style != backgorund_color){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag == true){
+                        break;
+                    }
+                    col_empty++;
+                }
+            }
 
             var prev_block_size = block_size;
-            var block_width = (window.innerWidth-200)/max_size[0];
+            var block_width = (window.innerWidth-200)/(max_size[0]-col_empty);
             if(fullScreenMode){
                 main_canvas.height = window.innerHeight-45;
             }
             else{
                 main_canvas.height = window.innerHeight-95;
             }
-            block_size = main_canvas.height/max_size[1];
+            block_size = main_canvas.height/(max_size[1]-row_empty);
             if(block_width < block_size){
                 block_size = block_width;
             }
-            main_canvas.width = block_size*max_size[0] + 15;
-            main_canvas.height = main_canvas.height + 8;
+            main_canvas.width = block_size*(max_size[0]-col_empty) + 15;
+            // main_canvas.height = main_canvas.height + 8;
+            main_canvas.height = block_size*(max_size[1]-row_empty) + 8;
+
             if((stage.children.length > 0) && (prev_block_size!=block_size)){
                 
                 var j = 0;
@@ -484,7 +523,13 @@ define(["sugar-web/activity/activity"], function (activity) {
                     circle.graphics._instructions[1]["radius"] = square.graphics._instructions[1]["h"]/9;
                 }
             }
+
+            if((max_size[1]-row_empty-1)>=0 && stage.children.length>0){
+                stage.setTransform(10, -1*(stage.getChildByName(`0_${max_size[1]-row_empty-1}`).graphics._instructions[1]["y"]-5));
+            }
+
             stage.update();
+        
         }
 
         stage_resize();
