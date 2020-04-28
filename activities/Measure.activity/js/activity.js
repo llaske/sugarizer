@@ -188,28 +188,45 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		}
 
 		if(isChr == 1){
-			if(window.location.protocol == 'file:'){
-				document.getElementById("pause").style.display="none";
-				document.getElementById("play").style.display="inline";
-				document.getElementById("user-gesture-time-base").style.display="block";
-				document.getElementById("user-gesture-image").style.marginTop="60px";
-				document.getElementById("user-gesture-image").style.marginLeft="50px";
-				document.getElementById("user-gesture-image").style.height=window.innerHeight-320 + "px";
-				document.getElementById("user-gesture-image").style.width=window.innerWidth-100 + "px";
-				document.getElementById("user-gesture-image").style.display="block";
-				if(document.getElementById("one").style.display!="none"){
-					document.getElementById("one").style.display="none";
-					timegraphDisplay=1;
-				}
-				else if(document.getElementById("two").style.display!="none"){
-					document.getElementById("two").style.display="none";
-					freqgraphDisplay=1;
-				}
-				isChr=2;
+			document.getElementById("pause").style.display="none";
+			document.getElementById("play").style.display="inline";
+			document.getElementById("user-gesture-time-base").style.display="block";
+			document.getElementById("user-gesture-image").style.marginTop="60px";
+			document.getElementById("user-gesture-image").style.marginLeft="50px";
+			document.getElementById("user-gesture-image").style.height=window.innerHeight-320 + "px";
+			document.getElementById("user-gesture-image").style.width=window.innerWidth-100 + "px";
+			document.getElementById("user-gesture-image").style.display="block";
+			if(document.getElementById("one").style.display!="none"){
+				document.getElementById("one").style.display="none";
+				timegraphDisplay=1;
 			}
-			else{
-				console.log("file protocol error");
+			else if(document.getElementById("two").style.display!="none"){
+				document.getElementById("two").style.display="none";
+				freqgraphDisplay=1;
 			}
+			isChr=2;
+			// if(window.location.protocol == 'file:'){
+			// 	document.getElementById("pause").style.display="none";
+			// 	document.getElementById("play").style.display="inline";
+			// 	document.getElementById("user-gesture-time-base").style.display="block";
+			// 	document.getElementById("user-gesture-image").style.marginTop="60px";
+			// 	document.getElementById("user-gesture-image").style.marginLeft="50px";
+			// 	document.getElementById("user-gesture-image").style.height=window.innerHeight-320 + "px";
+			// 	document.getElementById("user-gesture-image").style.width=window.innerWidth-100 + "px";
+			// 	document.getElementById("user-gesture-image").style.display="block";
+			// 	if(document.getElementById("one").style.display!="none"){
+			// 		document.getElementById("one").style.display="none";
+			// 		timegraphDisplay=1;
+			// 	}
+			// 	else if(document.getElementById("two").style.display!="none"){
+			// 		document.getElementById("two").style.display="none";
+			// 		freqgraphDisplay=1;
+			// 	}
+			// 	isChr=2;
+			// }
+			// else{
+			// 	console.log("file protocol error");
+			// }
 			
 		}
 		document.getElementById("play").addEventListener('click',function(){
@@ -248,6 +265,23 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		});
 
 		document.getElementById("timebased2").addEventListener('click',function(){
+			if(isImageDiplayed==1){ //change
+				if(document.getElementById("graph-image").style.display != "none"){ //change
+					isImageDiplayed=0;
+					document.getElementById("graph-image").style.display = "none"; //change
+					document.getElementById("play").style.display="none"; //change
+					document.getElementById("pause").style.display="inline"; //change
+					if(document.getElementById("one").style.display=="none" && timegraphDisplay==1){
+						document.getElementById("one").style.display="block";
+						timegraphDisplay=0;
+					}
+					if(document.getElementById("two").style.display=="none" && freqgraphDisplay==1)
+						document.getElementById("two").style.display="block";
+						freqgraphDisplay=0;
+					play=0; //change
+					pause=1; //change
+				} //change
+			} //change
 			document.getElementById("one").style.display="block";
 			document.getElementById("two").style.display="none";
 			document.getElementById("timebased2").style.width="0px";
@@ -272,6 +306,23 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 		});
 	
 		document.getElementById("freqbased2").addEventListener('click',function(){
+			if(isImageDiplayed==1){ //change
+				if(document.getElementById("graph-image").style.display != "none"){ //change
+					isImageDiplayed=0;
+					document.getElementById("graph-image").style.display = "none"; //change
+					document.getElementById("play").style.display="none"; //change
+					document.getElementById("pause").style.display="inline"; //change
+					if(document.getElementById("one").style.display=="none" && timegraphDisplay==1){
+						document.getElementById("one").style.display="block";
+						timegraphDisplay=0;
+					}
+					if(document.getElementById("two").style.display=="none" && freqgraphDisplay==1)
+						document.getElementById("two").style.display="block";
+						freqgraphDisplay=0;
+					play=0; //change
+					pause=1; //change
+				} //change
+			} //change
 			document.getElementById("one").style.display="none";
 			document.getElementById("two").style.display="block";
 			document.getElementById("freqbased2").style.display="none";
@@ -604,6 +655,24 @@ define(["sugar-web/activity/activity", "sugar-web/env","sugar-web/graphics/icon"
 			document.getElementById("timebased2").style.display="inline";
 			document.getElementById("timebased2").style.width="47px";
 			document.getElementById("timebased2").style.height="47px";
+			if(isImageDiplayed==1){ //change
+				if(document.getElementById("graph-image").style.display != "none"){ //change
+					isImageDiplayed=0;
+					document.getElementById("graph-image").style.display = "none"; //change
+					document.getElementById("play").style.display="none"; //change
+					document.getElementById("pause").style.display="inline"; //change
+					if(document.getElementById("one").style.display=="none" && timegraphDisplay==1){
+						document.getElementById("one").style.display="block";
+						timegraphDisplay=0;
+					}
+					if(document.getElementById("two").style.display=="none" && freqgraphDisplay==1)
+						document.getElementById("two").style.display="block";
+						freqgraphDisplay=0;
+					play=0; //change
+					pause=1; //change
+				} //change
+			} //change
+			
 			freqbased(retreived_datastore);
 			retreived_datastore.last_graph=0;
 		});
