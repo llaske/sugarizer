@@ -254,10 +254,13 @@ enyo.kind({
 			if (name.length == 0) {
 				return;
 			}
-			this.step++;
+
 			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
+				this.step += 2;
+				this.displayStep();
+			} else if(!this.createnew) {  // Login
 				this.step++;
-			} else if(this.createnew) {
+			} else {  // Signup
 				this.checkUsername(name);
 			}
 			this.displayStep();
@@ -435,19 +438,29 @@ enyo.kind({
 				beforeSignup: true
 			},
 			function(inSender, inResponse) {
-				// Username is unique
+				if(!inResponse.exists) {
+					// Username unique
+					that.step++;
+					that.displayStep();
+				}
 				that.$.spinner.setShowing(false);
 			},
 			function(response, error) {
-				that.$.spinner.setShowing(false);
-				that.step--;
-				that.displayStep();
-				if (error == 22) {
-					that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+				if(error == 2) {
+					// Server does not support fix -> old workflow
+					that.step++;
+					that.displayStep();
 				} else {
-					that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+					// Server supports fix -> new workflow
+					if(error == 22) {
+						// Username already exists
+						that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+					} else {
+						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+					}
+					that.$.warningmessage.setShowing(true);
 				}
-				that.$.warningmessage.setShowing(true);
+				that.$.spinner.setShowing(false);
 			}
 		);
 	},
