@@ -31,6 +31,11 @@ canvas {
   margin: 0;
 }
 
+.toolbar hr {
+  vertical-align: bottom;
+  margin-bottom: 10px;
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-clock.svg);
 }

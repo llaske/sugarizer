@@ -546,6 +546,9 @@ define([
         };
 
         function adduser() {
+            if (!presence) {
+                return;
+            }
             presence.sendMessage(presence.getSharedInfo().id, {
                 user: presence.getUserInfo(),
                 content: {
