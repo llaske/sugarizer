@@ -22,16 +22,26 @@ define(["sugar-web/activity/activity"], function (activity) {
         var redo_stack = [];
         var highlighted_blocks = [];
         stage.enableMouseOver(30);
+        var anim_over = true;
 
 
         document.getElementById("undo").addEventListener("click", function(){
-            Undo();
+            if(anim_over == true){
+                Undo();
+            }
         });
         document.getElementById("redo").addEventListener("click", function(){
-            Redo();
+            if(anim_over == true){
+                Redo();
+            }
         });
         document.getElementById("new-game").addEventListener("click", function(){
             new_game(level);
+        });
+        document.getElementById("replay").addEventListener("click", function(){
+            if(anim_over == true){
+                replay_game();
+            }
         });
         document.getElementById("easy").addEventListener("click", function(){
             new_game(0);
@@ -94,9 +104,47 @@ define(["sugar-web/activity/activity"], function (activity) {
             board[0].simplify()
             pieces = board[0]._data;
             undo_stack = [];
+            redo_stack = [];
             highlighted_blocks = []
             stage_resize();
             init();
+        }
+
+        function replay_game(){
+            //restarts game with initial set of blocks
+
+            var keys = Object.keys(pieces);
+            for(var i in keys){
+                i = keys[parseInt(i)];
+                for(var j=0;j<pieces[i].length;j++){
+                    var block = stage.getChildByName(`${i}_${j}`);
+                    block.graphics._instructions[2].style = colors[pieces[i][j]-1];
+                    block.prev_color = colors[pieces[i][j]-1];
+                }
+            }
+
+            for(var i=0;i<highlighted_blocks.length;i++){
+                var name = highlighted_blocks[i].split("_");
+                var block = stage.getChildByName(`${parseInt(name[0])}_${parseInt(name[1])}`);
+                block.highlighted = false;
+                block.graphics["_stroke"]["style"] = backgorund_color;
+                block.graphics["_strokeStyle"]["width"] = border_width(level);
+            }
+
+            undo_stack = [];
+            redo_stack = [];
+            highlighted_blocks = [];
+
+            var circle = stage.getChildByName("white_circle");
+            if(circle.parent_box == ''){
+                circle.graphics._instructions[1]["x"] = -10;
+                circle.graphics._instructions[1]["y"] = -10;
+                circle.graphics._instructions[1]["radius"] = 5;
+                stage.update();
+            }
+            else{
+                adjust_circle();
+            }
         }
 
         function draw_square(square, i, k, color){
@@ -122,7 +170,6 @@ define(["sugar-web/activity/activity"], function (activity) {
                 return 3
         }
 
-        var anim_over = true;
         function init(){
             //This function initialises the game. It creates total no. of blocks according
             //to size and assigns color to them.
@@ -166,7 +213,7 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         canvas_div.addEventListener('click', function(e){
 
-            if(highlighted_blocks.length > 2){
+            if(highlighted_blocks.length > 2 && anim_over == true){
                 anim_over = false;
                     // console.log(stage.getChildAt(0).alpha)
 

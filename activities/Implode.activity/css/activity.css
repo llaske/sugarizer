@@ -43,6 +43,10 @@
   visibility: hidden;
 }
 
+#replay {
+  background-image: url(../icons/replay-game.svg);
+}
+
 .splitbar {
   background-image: url(../icons/split.svg);
   background-position: center;
