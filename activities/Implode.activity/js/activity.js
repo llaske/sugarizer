@@ -122,6 +122,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 return 3
         }
 
+        var anim_over = true;
         function init(){
             //This function initialises the game. It creates total no. of blocks according
             //to size and assigns color to them.
@@ -134,8 +135,10 @@ define(["sugar-web/activity/activity"], function (activity) {
                     square.highlighted = false;
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
-                        highlight_mouseover(stage.getChildByName(e.target.name));
-                        stage.update();
+                        if(anim_over == true){
+                            highlight_mouseover(stage.getChildByName(e.target.name));
+                            stage.update();
+                        }
                     });
                     stage.addChild(square);
                     k++;
@@ -162,12 +165,40 @@ define(["sugar-web/activity/activity"], function (activity) {
         var circle_move = false;
 
         canvas_div.addEventListener('click', function(e){
+
             if(highlighted_blocks.length > 2){
-                drop();
-                shiftLeft();
-                adjust_circle();
-                IsGameOver();
+                anim_over = false;
+                    // console.log(stage.getChildAt(0).alpha)
+
+                for(var i=0;i<highlighted_blocks.length;i++){
+                    createjs.Tween.get(stage.getChildByName(highlighted_blocks[i])).to({alpha: 0},150);
+                }
+
+                setTimeout(function(){    
+                    
+                    for(var i=0;i<highlighted_blocks.length;i++){
+                        stage.getChildByName(highlighted_blocks[i]).alpha = 1;
+                    }
+
+                    drop();
+
+                    for(var i=0;i<highlighted_blocks.length;i++){
+                        var name = highlighted_blocks[i].split("_");
+                        var block = stage.getChildByName(`${parseInt(name[0])}_${parseInt(name[1])}`);
+                        block.highlighted = false;
+                        block.graphics["_stroke"]["style"] = backgorund_color;
+                        block.graphics["_strokeStyle"]["width"] = border_width(level);
+                    }
+                    stage.update();
+                    setTimeout(function(){
+                        shiftLeft();
+                        adjust_circle();
+                        IsGameOver();
+                        anim_over = true;
+                    },150)
+                }, 300)
             }
+
         });
 
         function adjust_circle(){
@@ -370,9 +401,9 @@ define(["sugar-web/activity/activity"], function (activity) {
             for(var i=0;i<highlighted_blocks.length;i++){
                 var name = highlighted_blocks[i].split("_");
                 var block = stage.getChildByName(`${parseInt(name[0])}_${parseInt(name[1])}`);
-                block.highlighted = false;
-                block.graphics["_stroke"]["style"] = backgorund_color;
-                block.graphics["_strokeStyle"]["width"] = border_width(level);
+                // block.highlighted = false;
+                // block.graphics["_stroke"]["style"] = backgorund_color;
+                // block.graphics["_strokeStyle"]["width"] = border_width(level);
                 changes[block.name] = block.prev_color;
             }
 
@@ -535,6 +566,8 @@ define(["sugar-web/activity/activity"], function (activity) {
         stage_resize();
         init();
         window.addEventListener("resize", stage_resize);
+        createjs.Ticker.addEventListener("tick", stage);
+
 
     });
 
