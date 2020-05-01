@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Alignment of help button in some activities #777
 - Presence palette implementation in Memorize is non standard #374
 - Splitbar in toolbar of Clock activity are half sized in Chrome #789
+- Wrong title of blinker button in Game Of Life activity #792
 
 
 ## [1.3.0] - 2020-03-28
