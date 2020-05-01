@@ -71,22 +71,95 @@ define(["sugar-web/activity/activity"], function (activity) {
             stage_resize();
         });
 
+        document.onkeyup = function(e){
+            //keyboard controls for activity
+
+            var x = event.which || event.keyCode;
+            var square_name = stage.getChildByName("white_circle").parent_box.split('_');
+            if(anim_over == true){
+
+                switch(keys[x]){
+
+                    case 'up':{
+                        var square_up = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])+1}`);
+                        if(square_up != null){
+                            highlight_mouseover(square_up);
+                            stage.update();
+                        }
+                        break;
+                    }
+                    case 'down':{
+                        var square_down = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])-1}`);
+                        if(square_down != null){
+                            highlight_mouseover(square_down);
+                            stage.update();
+                        }
+                        break;
+                    }
+                    case 'left':{
+                        var square_left = stage.getChildByName(`${parseInt(square_name[0])-1}_${parseInt(square_name[1])}`);
+                        if(square_left != null){
+                            highlight_mouseover(square_left);
+                            stage.update();
+                        }
+                        break;
+                    }
+                    case 'right':{
+                        var square_right = stage.getChildByName(`${parseInt(square_name[0])+1}_${parseInt(square_name[1])}`);
+                        if(square_right != null){
+                            highlight_mouseover(square_right);
+                            stage.update();
+                        }
+                        break;
+                    }
+                    case 'select':{
+                        move();
+                        break;
+                    }
+                    case 'new':{
+                        new_game(level);
+                        break;
+                    }
+                    case 'easy_level':{
+                        new_game(0);
+                        break;
+                    }
+                    case 'medium_level':{
+                        new_game(1);
+                        break;
+                    }
+                    case 'hard_level':{
+                        new_game(2);
+                        break;
+                    }
+                    case 'undo_move':{
+                        Undo();
+                        break;
+                    }
+                    case 'redo_move':{
+                        Redo();
+                        break;
+                    }
+                }
+            }
+        }
+
         function button_highlight(level){
             //This function changes background color of difficulty buttons
 
             if(level == 0){
                 document.getElementById("easy").style.backgroundColor = "grey";
-                document.getElementById("medium").style.backgroundColor = "black";
-                document.getElementById("hard").style.backgroundColor = "black";
+                document.getElementById("medium").style.backgroundColor = "#282828";
+                document.getElementById("hard").style.backgroundColor = "#282828";
             }
             else if(level == 1){
-                document.getElementById("easy").style.backgroundColor = "black";
+                document.getElementById("easy").style.backgroundColor = "#282828";
                 document.getElementById("medium").style.backgroundColor = "grey";
-                document.getElementById("hard").style.backgroundColor = "black";
+                document.getElementById("hard").style.backgroundColor = "#282828";
             }
             else{
-                document.getElementById("easy").style.backgroundColor = "black";
-                document.getElementById("medium").style.backgroundColor = "black";
+                document.getElementById("easy").style.backgroundColor = "#282828";
+                document.getElementById("medium").style.backgroundColor = "#282828";
                 document.getElementById("hard").style.backgroundColor = "grey";
             }
         }
@@ -135,16 +208,7 @@ define(["sugar-web/activity/activity"], function (activity) {
             redo_stack = [];
             highlighted_blocks = [];
 
-            var circle = stage.getChildByName("white_circle");
-            if(circle.parent_box == ''){
-                circle.graphics._instructions[1]["x"] = -10;
-                circle.graphics._instructions[1]["y"] = -10;
-                circle.graphics._instructions[1]["radius"] = 5;
-                stage.update();
-            }
-            else{
-                adjust_circle();
-            }
+            adjust_circle();
         }
 
         function draw_square(square, i, k, color){
@@ -202,27 +266,38 @@ define(["sugar-web/activity/activity"], function (activity) {
                 }
             }
             var circle = new createjs.Shape();
-            circle.graphics.beginFill("white").drawCircle(-10, -10, 5);
+            var square = stage.getChildByName("0_0");
+            circle.graphics.beginFill("white").drawCircle(
+                square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["x"],
+                square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["y"],
+                square.graphics._instructions[1]["h"]/9
+            );
+            circle.graphics.endFill();
             circle.name = "white_circle";
-            circle.parent_box = ''
+            circle.parent_box = square.name;
             stage.addChild(circle);
+            highlight_mouseover(square);
             stage.update();
         }
 
         var circle_move = false;
 
         canvas_div.addEventListener('click', function(e){
+            move();
+        });
 
+        function move(){
             if(highlighted_blocks.length > 2 && anim_over == true){
                 anim_over = false;
                     // console.log(stage.getChildAt(0).alpha)
-
+                
+                var listener = createjs.Ticker.on("tick", stage);
                 for(var i=0;i<highlighted_blocks.length;i++){
                     createjs.Tween.get(stage.getChildByName(highlighted_blocks[i])).to({alpha: 0},150);
                 }
 
                 setTimeout(function(){    
-                    
+                    createjs.Ticker.off("tick", listener);
                     for(var i=0;i<highlighted_blocks.length;i++){
                         stage.getChildByName(highlighted_blocks[i]).alpha = 1;
                     }
@@ -245,8 +320,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     },150)
                 }, 300)
             }
-
-        });
+        }
 
         function adjust_circle(){
 
@@ -552,6 +626,12 @@ define(["sugar-web/activity/activity"], function (activity) {
                 }
             }
 
+            for(var i=max_size[0]-1;i>=(max_size[0]-col_empty);i--){
+                for(var j=0;j<max_size[1];j++){
+                    stage.getChildByName(`${i}_${j}`).visible = false;
+                }
+            }
+
             var prev_block_size = block_size;
             var block_width = (window.innerWidth-200)/(max_size[0]-col_empty);
             if(fullScreenMode){
@@ -613,8 +693,6 @@ define(["sugar-web/activity/activity"], function (activity) {
         stage_resize();
         init();
         window.addEventListener("resize", stage_resize);
-        createjs.Ticker.addEventListener("tick", stage);
-
 
     });
 
