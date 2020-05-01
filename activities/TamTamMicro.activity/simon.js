@@ -84,7 +84,7 @@ enyo.kind({
         }.bind(this), 2000));
     },
     
-    clickColor(colorName){
+    clickColor(colorName, delay){
         var colorMap = {
             "Red": "A",
             "Green": "E",
@@ -94,7 +94,7 @@ enyo.kind({
         this.$[colorName].addRemoveClass('darkenElement', true);
         this.timeouts.push(setTimeout(function(){
             this.$[colorName].addRemoveClass('darkenElement', false);
-        }.bind(this), 1000));
+        }.bind(this), (delay? delay : 1000)));
 
         var pitchName = colorMap[colorName];
         var pitchMap = {
@@ -156,11 +156,11 @@ enyo.kind({
         for(let steps = 0; steps < this.level; steps++){
             this.timeouts.push(setTimeout(function(){
                 this.$.SimonStart.addRemoveClass('rightGreen', false);
-                this.clickColor(this.correctSequence[steps]);
+                this.clickColor(this.correctSequence[steps], 1000 - (this.level * 50));
                 this.$.SimonLevel.setContent(this.LEVEL_MSG + " : " + this.level);
                 this.$.SimonStart.setContent(steps + 1);
             }.bind(this), delay));
-            delay += 1100;
+            delay += 1100 - (this.level * 50);
         }
         this.timeouts.push(setTimeout(function(){
             this.addRemoveAll(colors, 'disableElement', false);
