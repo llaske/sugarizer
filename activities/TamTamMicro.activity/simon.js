@@ -90,7 +90,10 @@ enyo.kind({
             "Green": "E",
             "Blue": "E",
             "Yellow": "C-s"
-        }
+        };
+        ["Red", "Green", "Blue", "Yellow"].forEach(color => {
+            this.$[color].addRemoveClass('darkenElement', false);
+        });
         this.$[colorName].addRemoveClass('darkenElement', true);
         this.timeouts.push(setTimeout(function(){
             this.$[colorName].addRemoveClass('darkenElement', false);
