@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -9,21 +9,20 @@ define(["sugar-web/activity/activity"], function (activity) {
         var canvas_div = document.getElementById("canvas");
         var main_canvas = document.getElementById("mainCanvas");
         var stage = new createjs.Stage("mainCanvas");
+        createjs.Touch.enable(stage);
         var backgorund_color = "#5959B3";
         var difficulty = [[8, 6], [12, 10], [20, 15]];
         var block_size = 15;
         var level = 0;
         var max_size = difficulty[level];
-        var board = generate_board(5,max_size);
         var colors = ["#E6000A", "#00EA11", "#FFFA00","#5E008C", "#FF8F00" ];
-        board[0].simplify();
-        var pieces = board[0]._data;
+        var pieces = {};
         var undo_stack = [];
         var redo_stack = [];
         var highlighted_blocks = [];
         stage.enableMouseOver(30);
         var anim_over = true;
-
+        button_highlight(level);
 
         document.getElementById("undo").addEventListener("click", function(){
             if(anim_over == true){
@@ -71,18 +70,28 @@ define(["sugar-web/activity/activity"], function (activity) {
             stage_resize();
         });
 
-        document.onkeyup = function(e){
+        document.addEventListener("keydown",function(event){
+            var x = event.which || event.keyCode;
+            if(keys[x] != undefined && 
+                document.getElementById("activity-palette").style.visibility != "visible"){
+                event.preventDefault();
+            }
+        });
+
+        document.addEventListener("keyup",function(event){
             //keyboard controls for activity
+            event.preventDefault();
 
             var x = event.which || event.keyCode;
             var square_name = stage.getChildByName("white_circle").parent_box.split('_');
-            if(anim_over == true){
+            if(anim_over == true && 
+                document.getElementById("activity-palette").style.visibility != "visible"){
 
                 switch(keys[x]){
 
                     case 'up':{
                         var square_up = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])+1}`);
-                        if(square_up != null){
+                        if(square_up != null && square_up.visible == true){
                             highlight_mouseover(square_up);
                             stage.update();
                         }
@@ -90,7 +99,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                     case 'down':{
                         var square_down = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])-1}`);
-                        if(square_down != null){
+                        if(square_down != null && square_down.visible == true){
                             highlight_mouseover(square_down);
                             stage.update();
                         }
@@ -98,7 +107,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                     case 'left':{
                         var square_left = stage.getChildByName(`${parseInt(square_name[0])-1}_${parseInt(square_name[1])}`);
-                        if(square_left != null){
+                        if(square_left != null && square_left.visible == true){
                             highlight_mouseover(square_left);
                             stage.update();
                         }
@@ -106,7 +115,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                     case 'right':{
                         var square_right = stage.getChildByName(`${parseInt(square_name[0])+1}_${parseInt(square_name[1])}`);
-                        if(square_right != null){
+                        if(square_right != null && square_right.visible == true){
                             highlight_mouseover(square_right);
                             stage.update();
                         }
@@ -142,7 +151,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                 }
             }
-        }
+        });
 
         function button_highlight(level){
             //This function changes background color of difficulty buttons
@@ -164,8 +173,6 @@ define(["sugar-web/activity/activity"], function (activity) {
             }
         }
 
-        button_highlight(level);
-
         function new_game(diff_level){
             //remove previous blocks and initializes new blocks
             button_highlight(diff_level);
@@ -173,7 +180,7 @@ define(["sugar-web/activity/activity"], function (activity) {
             stage.removeAllEventListeners();
             level = diff_level;
             max_size = difficulty[level];
-            board = generate_board(max_colors=5,max_size);
+            var board = generate_board(max_colors=5,max_size);
             board[0].simplify()
             pieces = board[0]._data;
             undo_stack = [];
@@ -288,9 +295,8 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         function move(){
             if(highlighted_blocks.length > 2 && anim_over == true){
-                anim_over = false;
-                    // console.log(stage.getChildAt(0).alpha)
                 
+                anim_over = false;
                 var listener = createjs.Ticker.on("tick", stage);
                 for(var i=0;i<highlighted_blocks.length;i++){
                     createjs.Tween.get(stage.getChildByName(highlighted_blocks[i])).to({alpha: 0},150);
@@ -624,14 +630,14 @@ define(["sugar-web/activity/activity"], function (activity) {
                     }
                     col_empty++;
                 }
-            }
 
-            for(var i=max_size[0]-1;i>=(max_size[0]-col_empty);i--){
-                for(var j=0;j<max_size[1];j++){
-                    stage.getChildByName(`${i}_${j}`).visible = false;
+                for(var i=max_size[0]-1;i>=(max_size[0]-col_empty);i--){
+                    for(var j=0;j<max_size[1];j++){
+                        stage.getChildByName(`${i}_${j}`).visible = false;
+                    }
                 }
-            }
 
+            }
             var prev_block_size = block_size;
             var block_width = (window.innerWidth-200)/(max_size[0]-col_empty);
             if(fullScreenMode){
@@ -674,6 +680,10 @@ define(["sugar-web/activity/activity"], function (activity) {
                 var circle = stage.getChildByName("white_circle");
                 var square = stage.getChildByName(circle.parent_box);
                 if(square != null){
+                    if(square.visible == false){
+                        square = stage.getChildByName("0_0");
+                        circle.parent_box = "0_0";
+                    }
                     var centre_x = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["x"];
                     var centre_y = square.graphics._instructions[1]["h"]/2 + square.graphics._instructions[1]["y"];
                     circle.graphics._instructions[1]["x"] = centre_x;
@@ -690,8 +700,82 @@ define(["sugar-web/activity/activity"], function (activity) {
         
         }
 
-        stage_resize();
-        init();
+        env.getEnvironment(function(err, environment) {
+            currentenv = environment;
+        
+            // Load from datastore
+            if (!environment.objectId) {
+                // New instance
+                var board = generate_board(5,max_size);
+                board[0].simplify();
+                pieces = board[0]._data;
+                stage_resize();
+                init();
+
+            } else {
+                // Existing instance
+                activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (error==null && data!=null) {
+                        var datastore_data = JSON.parse(data);
+                        level = datastore_data["level"];
+                        max_size = difficulty[level];
+                        pieces = datastore_data["pieces"];
+                        undo_stack = datastore_data["undo_stack"];
+                        redo_stack = datastore_data["redo_stack"];
+                        init();
+                        for(var i=0;i<stage.children.length;i++){
+                            var block = stage.getChildAt(i);
+                            if(block.name != "white_circle"){
+                                block.graphics._instructions[2].style = datastore_data["blocks_data"][block.name][0];
+                                block.prev_color = datastore_data["blocks_data"][block.name][1];
+                                block.visible = datastore_data["blocks_data"][block.name][2];
+                            }
+                        }
+                        var circle = stage.getChildByName("white_circle");
+                        circle.parent_box = datastore_data["circle_parent"];
+                        button_highlight(level);
+                        highlight_mouseover(stage.getChildByName(circle.parent_box));
+                        stage_resize();
+                    }
+                });
+            }
+        });
+
+        // Save in Journal on Stop
+        document.getElementById("stop-button").addEventListener('click', function (event) {
+            console.log("writing...");
+
+            var blocks = {}
+            for(var i=0;i<(max_size[0]*max_size[1]);i++){
+                var block_data = [];
+                var block = stage.getChildAt(i);
+                block_data.push(block.graphics._instructions[2].style);
+                block_data.push(block.prev_color);
+                block_data.push(block.visible);
+                blocks[block.name] = block_data;
+            }
+            var circle = stage.getChildByName("white_circle");
+
+            var data = {
+                "blocks_data": blocks,
+                "level": level,
+                "pieces": pieces ,
+                "undo_stack": undo_stack,
+                "redo_stack": redo_stack,
+                "circle_parent": circle.parent_box,
+            }
+
+            var jsonData = JSON.stringify(data);
+            activity.getDatastoreObject().setDataAsText(jsonData);
+            activity.getDatastoreObject().save(function (error) {
+                if (error === null) {
+                    console.log("write done.");
+                } else {
+                    console.log("write failed.");
+                }
+            });
+        });
+
         window.addEventListener("resize", stage_resize);
 
     });
