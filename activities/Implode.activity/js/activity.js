@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (activity, env, picoModal) {
+define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", "tutorial"], function (activity, env, picoModal, webL10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -53,6 +53,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
         });
         document.getElementById("hard").addEventListener("click", function(){
             new_game(2);
+        });
+        document.getElementById("help-button").addEventListener('click', function(e) {
+            tutorial.start();
         });
 
         var fullScreenMode = false;
@@ -254,12 +257,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
 
         function border_width(level){
             // This function returns border width for box.
-            if(level == 0)
-                return 8
-            else if(level == 1)
-                return 5
-            else
-                return 3
+
+            return Math.floor(block_size/10);
         }
 
         function init(){
@@ -692,8 +691,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
         }
 
         function lose(){
-            var continue_button_title = "Continue";
-            var msg_content = "Stuck? You can still solve the puzzle by undo some moves."
+            var continue_button_title = webL10n.get("Continue");
+            var msg_content = webL10n.get("StuckMessage");
             picoModal({
                 content:"<div style = 'width:400px;margin-bottom:60px'>" +
                     "<div style='width:40vw;float:left;margin-left:20px;'>" +
@@ -839,6 +838,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
                     block.graphics._instructions[1]["w"] = block_size - border_width(level);
                     block.graphics._instructions[1]["x"] = k*block_size;
                     block.graphics._instructions[1]["y"] = j*block_size;
+                    block.graphics._instructions[3]["width"] = border_width(level);
                     if(j == (max_size[1]-1)){
                         j = 0;
                         k++;
@@ -878,7 +878,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
 
         env.getEnvironment(function(err, environment) {
             currentenv = environment;
-        
+
+            // Set current language to Sugarizer
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            webL10n.language.code = language;
+
             // Load from datastore
             if (!environment.objectId) {
                 // New instance
@@ -983,6 +988,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal"], function (
             else{
                 stage_resize();
             }
+        });
+
+        // Process localize event
+        window.addEventListener("localized", function() {
+            document.getElementById("new-game").title = webL10n.get("NewGame");
+            document.getElementById("replay").title = webL10n.get("Replay");
+            document.getElementById("undo").title = webL10n.get("Undo");
+            document.getElementById("redo").title = webL10n.get("Redo");
+            document.getElementById("easy").title = webL10n.get("Easy");
+            document.getElementById("medium").title = webL10n.get("Medium");
+            document.getElementById("hard").title = webL10n.get("Hard");
         });
 
     });
