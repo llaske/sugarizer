@@ -95,44 +95,52 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             event.preventDefault();
 
             var x = event.which || event.keyCode;
+            var circle = stage.getChildByName("white_circle");
             if(anim_over == true && 
                 document.getElementById("activity-palette").style.visibility != "visible"){
-
                 switch(keys[x]){
 
                     case 'up':{
-                        var square_name = stage.getChildByName("white_circle").parent_box.split('_');
-                        var square_up = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])+1}`);
-                        if(square_up != null && square_up.visible == true && game_status == "playing"){
-                            highlight_mouseover(square_up);
-                            stage.update();
+                        if(circle != null && game_status == "playing"){
+                            var square_name = circle.parent_box.split('_');
+                            var square_up = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])+1}`);
+                            if(square_up != null && square_up.visible == true){
+                                highlight_mouseover(square_up);
+                                stage.update();
+                            }
                         }
                         break;
                     }
                     case 'down':{
-                        var square_name = stage.getChildByName("white_circle").parent_box.split('_');
-                        var square_down = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])-1}`);
-                        if(square_down != null && square_down.visible == true && game_status == "playing"){
-                            highlight_mouseover(square_down);
-                            stage.update();
+                        if(circle != null && game_status == "playing"){
+                            var square_name = circle.parent_box.split('_');
+                            var square_down = stage.getChildByName(`${parseInt(square_name[0])}_${parseInt(square_name[1])-1}`);
+                            if(square_down != null && square_down.visible == true){
+                                highlight_mouseover(square_down);
+                                stage.update();
+                            }
                         }
                         break;
                     }
                     case 'left':{
-                        var square_name = stage.getChildByName("white_circle").parent_box.split('_');
-                        var square_left = stage.getChildByName(`${parseInt(square_name[0])-1}_${parseInt(square_name[1])}`);
-                        if(square_left != null && square_left.visible == true && game_status == "playing"){
-                            highlight_mouseover(square_left);
-                            stage.update();
+                        if(circle != null && game_status == "playing"){
+                            var square_name = circle.parent_box.split('_');
+                            var square_left = stage.getChildByName(`${parseInt(square_name[0])-1}_${parseInt(square_name[1])}`);
+                            if(square_left != null && square_left.visible == true){
+                                highlight_mouseover(square_left);
+                                stage.update();
+                            }
                         }
                         break;
                     }
                     case 'right':{
-                        var square_name = stage.getChildByName("white_circle").parent_box.split('_');
-                        var square_right = stage.getChildByName(`${parseInt(square_name[0])+1}_${parseInt(square_name[1])}`);
-                        if(square_right != null && square_right.visible == true && game_status == "playing"){
-                            highlight_mouseover(square_right);
-                            stage.update();
+                        if(circle != null && game_status == "playing"){
+                            var square_name = circle.parent_box.split('_');
+                            var square_right = stage.getChildByName(`${parseInt(square_name[0])+1}_${parseInt(square_name[1])}`);
+                            if(square_right != null && square_right.visible == true){
+                                highlight_mouseover(square_right);
+                                stage.update();
+                            }
                         }
                         break;
                     }
