@@ -78,3 +78,31 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+@media screen and (min-width: 775px)
+{
+  .warningbox-refresh-button {
+    position: absolute;
+    right: 10px;
+    width: 210px;
+    float: right;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 40px;
+    font-size:15px;
+  }
+
+}
+@media screen and (max-width: 774px)
+{
+  .warningbox-refresh-button {
+    position: absolute;
+    right: 10px;
+    width: 140px;
+    float: right;
+    text-align: center;
+    padding-left: 10px;
+    font-size:15px;
+  }
+
+}
