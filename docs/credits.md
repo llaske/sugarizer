@@ -20,12 +20,11 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Jappy by Sebastian Silva
 * Scratch by Emily Ong
 * Fototoon by Gonzalo Odiard
-* Game of Life by Sanatan Kumar
+* Game of Life, Pomodoro by Sanatan Kumar
 * Sprint Math by Mankirat Singh
 * Exerciser by Mankirat Singh and Avinash Agarwal
 * Write by Ashish Aggarval
 * Constellation by Andrea Gonzales
-* Pomodoro by Sanatan
 * Falabracman by Prakash Ujjwal
 * Fraction by Dhruv Misra
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
