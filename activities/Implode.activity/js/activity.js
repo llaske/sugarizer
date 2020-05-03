@@ -769,6 +769,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         function stage_resize(){
             //This function resizes stage
 
+            document.getElementById("activity-palette").style.left = (window.innerWidth>770)?"55px":"8px";
             var flag = false;
             var row_empty = 0;
             var col_empty = 0;
