@@ -6,7 +6,8 @@ var planets = [
     "mass": "330,104,000,000,000,000,000,000 kg",
     "year": "88",
     "temperature": "-173 to 427&#176;C",
-    "radius": "2,439.7"
+    "radius": "2,439.7 km",
+    "distancefromsun": "58,000,000 km"
   },
   {
     "name": "Venus",
@@ -15,7 +16,8 @@ var planets = [
     "mass": "4,867,320,000,000,000,000,000,000 kg",
     "year": "225",
     "temperature": "462&#176;C",
-    "radius": "6,051.8"
+    "radius": "6,051.8 km",
+    "distancefromsun": "108,000,000 km"
   },
   {
     "name": "Earth",
@@ -24,7 +26,8 @@ var planets = [
     "mass": "5,972,190,000,000,000,000,000,000 kg",
     "year": "365",
     "temperature": "-88 to 58&#176;C",
-    "radius": "6,371.00"
+    "radius": "6,371.00 km",
+    "distancefromsun": "150,000,000 km"
   },
   {
     "name": "Mars",
@@ -33,7 +36,8 @@ var planets = [
     "mass": "641,693,000,000,000,000,000,000 kg",
     "year": "687",
     "temperature": "-153 to 20&#176;C",
-    "radius": "3,389.5"
+    "radius": "3,389.5 km",
+    "distancefromsun": "228,000,000 km"
   },
   {
     "name": "Jupiter",
@@ -42,7 +46,8 @@ var planets = [
     "mass": "1,898,130,000,000,000,000,000,000,000 kg",
     "year": "4,333",
     "temperature": "No Data",
-    "radius": "69,911"
+    "radius": "69,911 km",
+    "distancefromsun": "778,000,000 km"
   },
   {
     "name": "Saturn",
@@ -51,7 +56,8 @@ var planets = [
     "mass": "568,319,000,000,000,000,000,000,000 kg",
     "year": "10,759",
     "temperature": "No Data",
-    "radius": "58,232"
+    "radius": "58,232 km",
+    "distancefromsun": "1,400,000,000 km"
   },
   {
     "name": "Uranus",
@@ -60,7 +66,8 @@ var planets = [
     "mass": "86,810,300,000,000,000,000,000,000 kg",
     "year": "30,687",
     "temperature": "No Data",
-    "radius": "25,362"
+    "radius": "25,362 km",
+    "distancefromsun": "2,900,000,000 km"
   },
   {
     "name": "Neptune",
@@ -69,6 +76,7 @@ var planets = [
     "mass": "102,410,000,000,000,000,000,000,000 kg",
     "year": "60,190",
     "temperature": "No Data",
-    "radius": "24,622"
+    "radius": "24,622 km",
+    "distancefromsun": "4,500,000,000 km"
   },
 ]
