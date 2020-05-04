@@ -21,9 +21,6 @@
 #main-toolbar #list-button {
   background-image: url(../icons/observe-icon.svg);
 }
-#main-toolbar #radius-button {
-  background-image: url(../icons/radius.svg);
-}
 
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
@@ -136,7 +133,7 @@ canvas {
   color: white;
 }
 
-.planet-radius {
+.planet-distance {
   position: absolute;
   bottom: 170px;
   z-index: 100;
