@@ -26,6 +26,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         button_highlight(level);
         var game_status = 'playing';
         var smiley_color = backgorund_color;
+        var doubleTap = false;
 
         document.getElementById("undo").addEventListener("click", function(){
             if(anim_over == true){
@@ -284,9 +285,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                     square.marked = false; //used for Game Over
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
-                        if(anim_over == true){
+                        if(anim_over == true && ("ontouchstart" in document.documentElement) == false){
                             highlight_mouseover(stage.getChildByName(e.target.name));
                             stage.update();
+                        }
+                    });
+                    square.addEventListener('click', function(e){
+                        if(("ontouchstart" in document.documentElement) == true){
+                            HandleTap(e);
                         }
                     });
                     stage.addChild(square);
@@ -320,8 +326,24 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
 
         var circle_move = false;
 
-        canvas_div.addEventListener('click', function(e){
+        function HandleTap(e) {
+            if(!doubleTap) {
+                doubleTap = true;
+                setTimeout( function() { doubleTap = false; }, 300 );
+                if(anim_over == true){
+                    highlight_mouseover(stage.getChildByName(e.target.name));
+                    stage.update();
+                }
+                return false;
+            }
+            e.preventDefault();
             move();
+        }
+
+        canvas_div.addEventListener('click', function(e){
+            if(("ontouchstart" in document.documentElement) == false){
+                move();
+            }
         });
 
         function move(){
