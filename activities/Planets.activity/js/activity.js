@@ -16,7 +16,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 		controls.target.set(0,0,0);
 
 		//Planet Information
-		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Distance"];
+		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Radius"];
 		var planet = planets;
 
 		//Containers
@@ -44,10 +44,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 		document.getElementById("info-button").style.display = "none";
 		document.getElementById("image-button").style.display = "none";
 		document.getElementById("list-button").style.display = "none";
-		document.getElementById("radius-button").style.display = "none";
 
 		//Data to save to Journal
-		var saveData = [false, true, null, true, true];
+		var saveData = [false, null, true, true];
 
 		planetPos.style.display="none";
 
@@ -76,8 +75,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				planetName.innerHTML = '<p>' + planet[i].name + '</p>';
 				document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
-				initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].distancefromsun);
-				initPosition(planet[i].name, planet[i].type, planet[i].radius);
+				initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius);
+				initPosition(planet[i].name, planet[i].type, planet[i].distancefromsun);
 
 				// Switch to fullscreen mode on click
 				document.getElementById("fullscreen-button").addEventListener('click', function() {
@@ -115,18 +114,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					saveData = JSON.parse(data);
 						if (saveData[0] === true){
 							document.getElementById("position-button").click();
-							if(saveData[1] === false){
-								document.getElementById("radius-button").click();
-							}
 						}
 						else{
-							if (saveData[2] !== null){
-								document.getElementById("planet-"+saveData[2]).click();
+							if (saveData[1] !== null){
+								document.getElementById("planet-"+saveData[1]).click();
 
-								if (saveData[3] === false){
+								if (saveData[2] === false){
 									document.getElementById("rotation-button").click();
 								}
-								if (saveData[4] === false){
+								if (saveData[3] === false){
 									document.getElementById("info-button").click();
 								}
 							}
@@ -156,7 +152,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 
 
 		//Show planet function
-		function initPlanet(name, type, year, mass, temperature, moons, distance){
+		function initPlanet(name, type, year, mass, temperature, moons, radius){
 
 			//Variable action detectors
 			var showInfo = true;
@@ -253,7 +249,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				document.getElementById("info-button").style.display = "inline";
 				document.getElementById("image-button").style.display = "inline";
 
-				saveData[2] = name;
+				saveData[1] = name;
 
 				//Remove previous scene
 				while(scene.children.length > 0){
@@ -296,7 +292,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				document.getElementById("Mass").innerHTML = '<p>' + "Mass: " + '</br>' + mass + '</p>';
 				document.getElementById("Temperature").innerHTML = '<p>' + "Surface Temperature: " + '</br>' + temperature + '</p>';
 				document.getElementById("Moons").innerHTML = '<p>' + "Number of Moons: " + '</br>' + moons + '</p>';
-				document.getElementById("Distance").innerHTML = '<p>' + "Distance from the Sun: " + '</br>' + distance + '</p>';
+				document.getElementById("Radius").innerHTML = '<p>' + "Planet Radius: " + '</br>' + radius + '</p>';
 
 				saveImage = function(){
 
@@ -377,7 +373,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					document.getElementById("rotation-button").classList.remove("active");
 				}
 
-				saveData[3] = stopRotation;
+				saveData[2] = stopRotation;
 
 			});
 
@@ -401,7 +397,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					document.getElementById("info-button").classList.add("active");
 				}
 
-				saveData[4] = showInfo;
+				saveData[3] = showInfo;
 				planetDisplay.appendChild(renderer.domElement);
 
 			});
@@ -411,7 +407,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				interactContainer.style.display = "none";
 				homeDisplay.style.display = "block";
 				mainCanvas.style.backgroundColor = "black";
-				saveData[2] = null;
+				saveData[1] = null;
 				stopRotation = true;
 				requestAnim = false;
 				document.getElementById("rotation-button").style.display = "none";
@@ -429,14 +425,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 			});
 		}
 
-		function initPosition(name, type, radius){
+		function initPosition(name, type, sunDistance){
 
 			var planetSize;
 			var requestAnim;
-			var showRadius;
-
-			//Active Buttons
-			document.getElementById("radius-button").classList.add("active");
 
 			//Url of planet map files
 			var url = "images/" + name.toLowerCase() + "map.jpg";
@@ -528,13 +520,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				planetPos.appendChild(planetNewName);
 				document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
 
-				//Add radius to planets
-				var planetRadius = document.createElement("div");
-				planetRadius.id = "radius-" + name;
-				planetRadius.className = "planet-radius";
-				planetRadius.innerHTML = radius + " km";
-				planetPos.appendChild(planetRadius);
-				document.getElementById("radius-" + name).style.marginLeft = textDistance - 0.5 + "%";
+				//Add distance from Sun
+				var planetDistance = document.createElement("div");
+				planetDistance.id = "distance-" + name;
+				planetDistance.className = "planet-distance";
+				planetDistance.innerHTML = sunDistance;
+				planetPos.appendChild(planetDistance);
+				document.getElementById("distance-" + name).style.marginLeft = textDistance - 1.5 + "%";
 			}
 
 
@@ -569,7 +561,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 			planetMesh.position.x = distance;
 
 
-			//Show planet position and radius
+			//Show planet position and distance from Sun
 			document.getElementById("position-button").addEventListener("click", function(){
 				var aspect = planetPos.clientHeight/planetPos.clientWidth;
 				var camera = new THREE.OrthographicCamera( frustumSize / - 20, frustumSize / 20, frustumSize * aspect / 20, frustumSize * aspect / - 20, -500, 2000 );
@@ -579,7 +571,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				homeDisplay.style.display="none";
 				planetPos.style.display="block";
 				document.getElementById("list-button").style.display = "inline";
-				document.getElementById("radius-button").style.display = "inline";
 
 				saveData[0] = true;
 
@@ -652,31 +643,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 
 			//Need to set to false so to cancel animation
 			document.getElementById("list-button").addEventListener("click", function(){
-				saveData[2] = null;
+				saveData[1] = null;
 				saveData[0] = false;
 				requestAnim = false;
-				document.getElementById("radius-button").style.display = "none";
 			});
 
-			//Toggle Planet Radius
-			document.getElementById("radius-button").addEventListener("click", function(){
-
-				if (showRadius === false){
-					showRadius = true;
-					for (var i = 0; i < 8; i++){
-						document.getElementsByClassName("planet-radius")[i].style.display = "block";
-					}
-					document.getElementById("radius-button").classList.add("active");
-				} else{
-					showRadius = false;
-					for (var i = 0; i < 8; i++){
-						document.getElementsByClassName("planet-radius")[i].style.display = "none";
-					}
-					document.getElementById("radius-button").classList.remove("active");
-				}
-				saveData[1] = showRadius;
-
-			});
 
 		}
 
