@@ -12,7 +12,7 @@ define(["webL10n"], function (l10n) {
             },
             {
                 element: "#mainCanvas",
-                placement: "right",
+                placement: "top",
                 title: l10n.get("HowToPlayTitle"),
                 content: l10n.get("HowToPlayContent")
             },
@@ -40,14 +40,16 @@ define(["webL10n"], function (l10n) {
                 title: l10n.get("Redo"),
                 content: l10n.get("RedoContent")
             },
-            {
+        ];
+        if(window.innerHeight >= 500){
+            steps.push({
                 element: "",
                 orphan: true,
                 placement: "bottom",
                 title: l10n.get("KeyboardKeysTitle"),
                 content: l10n.get("KeyboardKeysContent")
-            },
-        ];
+            });
+        }
         var tour = new Tour({
             template: "\
             <div class='popover tour'>\

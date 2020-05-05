@@ -238,3 +238,20 @@
   background-color: #808080;
   border: 2px solid #808080;
 }
+
+@media screen and (max-width: 770px) {
+  .toolbar {
+    padding-left: 8px;
+  }
+  .splitbar {
+    display: none;
+  }
+}
+@media screen and (min-width: 771px) {
+  .toolbar {
+    padding-left: 57px;
+  }
+  .splitbar {
+    display: inline-block;
+  }
+}
