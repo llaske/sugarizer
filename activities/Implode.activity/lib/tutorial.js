@@ -40,6 +40,24 @@ define(["webL10n"], function (l10n) {
                 title: l10n.get("Redo"),
                 content: l10n.get("RedoContent")
             },
+            {
+                element: "#easy",
+                placement: "bottom",
+                title: l10n.get("Easy"),
+                content: l10n.get("EasyContent")
+            },
+            {
+                element: "#medium",
+                placement: "bottom",
+                title: l10n.get("Medium"),
+                content: l10n.get("MediumContent")
+            },
+            {
+                element: "#hard",
+                placement: "bottom",
+                title: l10n.get("Hard"),
+                content: l10n.get("HardContent")
+            },
         ];
         if(window.innerHeight >= 500){
             steps.push({
