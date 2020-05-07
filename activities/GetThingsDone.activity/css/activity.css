@@ -15,6 +15,7 @@
 
 #todo-list li {
   position: relative;
+  height: fit-content;
 }
 
 #todo-list li input[type="checkbox"] {

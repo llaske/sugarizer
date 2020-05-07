@@ -1,37 +1,39 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:38:45 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-02-28 13:51+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-abecedarium/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Abecedarium Activity"
-msgstr "Abecedarium Activity"
+msgstr "Atividade Abecedarium"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -41,7 +43,7 @@ msgstr "Welcome into the Abecedarium activity. Abecedarium is an abecedary activ
 #: TutoInstrumentTitle
 msgctxt "TutoInstrumentTitle"
 msgid "Instrument"
-msgstr "Instrument"
+msgstr "Instrumento"
 
 #: TutoInstrumentContent
 msgctxt "TutoInstrumentContent"
@@ -51,17 +53,17 @@ msgstr "Click here to change the instrument playing the background sound"
 #: TutoInfoTitle
 msgctxt "TutoInfoTitle"
 msgid "Credits"
-msgstr "Credits"
+msgstr "Créditos"
 
 #: TutoInfoContent
 msgctxt "TutoInfoContent"
 msgid "Click here to see credits of the activity"
-msgstr "Click here to see credits of the activity"
+msgstr "Clique aqui para visualizar os créditos da atividade"
 
 #: TutoLearnButtonTitle
 msgctxt "TutoLearnButtonTitle"
 msgid "Learn"
-msgstr "Learn"
+msgstr "Aprender"
 
 #: TutoLearnButtonContent
 msgctxt "TutoLearnButtonContent"
@@ -71,7 +73,7 @@ msgstr "Click here to enter the \"Learn\" mode. There you can explore and learn 
 #: TutoPlayButtonTitle
 msgctxt "TutoPlayButtonTitle"
 msgid "Play"
-msgstr "Play"
+msgstr "Jogar"
 
 #: TutoPlayButtonContent
 msgctxt "TutoPlayButtonContent"
@@ -81,7 +83,7 @@ msgstr "Click here to enter the \"Play\" mode. There you can test the knowledge 
 #: TutoBuildButtonTitle
 msgctxt "TutoBuildButtonTitle"
 msgid "Build"
-msgstr "Build"
+msgstr "Construir"
 
 #: TutoBuildButtonContent
 msgctxt "TutoBuildButtonContent"
@@ -91,7 +93,7 @@ msgstr "Click here to enter the \"Build\" mode. Will be available soon"
 #: TutoLearnExplainTitle
 msgctxt "TutoLearnExplainTitle"
 msgid "Learn"
-msgstr "Learn"
+msgstr "Aprender"
 
 #: TutoLearnExplainContent
 msgctxt "TutoLearnExplainContent"
@@ -101,7 +103,7 @@ msgstr "Here you can explore and learn words in English, French and Spanish"
 #: TutoHomeTitle
 msgctxt "TutoHomeTitle"
 msgid "Home"
-msgstr "Home"
+msgstr "Inicio"
 
 #: TutoHomeContent
 msgctxt "TutoHomeContent"
@@ -111,7 +113,7 @@ msgstr "Click here to go back to the Home page"
 #: TutoFontTitle
 msgctxt "TutoFontTitle"
 msgid "Text style"
-msgstr "Text style"
+msgstr "Estilo Texto"
 
 #: TutoFontContent
 msgctxt "TutoFontContent"
@@ -121,7 +123,7 @@ msgstr "Click here to change text style: lower case, upper case or cursive"
 #: TutoLangTitle
 msgctxt "TutoLangTitle"
 msgid "Language"
-msgstr "Language"
+msgstr "Idioma"
 
 #: TutoLangContent
 msgctxt "TutoLangContent"
@@ -131,7 +133,7 @@ msgstr "Click here to change language: French, Spanish or English"
 #: TutoLearnBoxThemeTitle
 msgctxt "TutoLearnBoxThemeTitle"
 msgid "Filter"
-msgstr "Filter"
+msgstr "Filtro"
 
 #: TutoLearnBoxThemeContent
 msgctxt "TutoLearnBoxThemeContent"
@@ -141,7 +143,7 @@ msgstr "Here you can choose the category or the first letter of the words you wa
 #: TutoLearnBoxCollectionTitle
 msgctxt "TutoLearnBoxCollectionTitle"
 msgid "Filter"
-msgstr "Filter"
+msgstr "Filtro"
 
 #: TutoLearnBoxCollectionContent
 msgctxt "TutoLearnBoxCollectionContent"
@@ -151,7 +153,7 @@ msgstr "Here you can choose the category of the words you want to learn more abo
 #: TutoLearnBoxEntryTitle
 msgctxt "TutoLearnBoxEntryTitle"
 msgid "Words"
-msgstr "Words"
+msgstr "Palavras"
 
 #: TutoLearnBoxEntryContent
 msgctxt "TutoLearnBoxEntryContent"
@@ -161,12 +163,12 @@ msgstr "Here you can see the words, click on a word to listen the matching sound
 #: TutoBackTitle
 msgctxt "TutoBackTitle"
 msgid "Back"
-msgstr "Back"
+msgstr "Retornar"
 
 #: TutoBackContent
 msgctxt "TutoBackContent"
 msgid "Click here to go back to the previous page"
-msgstr "Click here to go back to the previous page"
+msgstr "Clique aqui para retornar para a página anterior"
 
 #: TutoListenTitle
 msgctxt "TutoListenTitle"
@@ -181,7 +183,7 @@ msgstr "Click here to listen all the words in the page, one following another"
 #: TutoPauseTitle
 msgctxt "TutoPauseTitle"
 msgid "Pause"
-msgstr "Pause"
+msgstr "Pausar"
 
 #: TutoPauseContent
 msgctxt "TutoPauseContent"
@@ -191,7 +193,7 @@ msgstr "Click here to pause the listening of all words"
 #: TutoPrevPageTitle
 msgctxt "TutoPrevPageTitle"
 msgid "Previous page"
-msgstr "Previous page"
+msgstr "Página anterior"
 
 #: TutoPrevPageContent
 msgctxt "TutoPrevPageContent"
@@ -201,7 +203,7 @@ msgstr "Click here to move to the previous page of words"
 #: TutoNextPageTitle
 msgctxt "TutoNextPageTitle"
 msgid "Next page"
-msgstr "Next page"
+msgstr "Próxima página"
 
 #: TutoNextPageContent
 msgctxt "TutoNextPageContent"
@@ -211,7 +213,7 @@ msgstr "Click here to move to the next page of words"
 #: TutoPlayExplainTitle
 msgctxt "TutoPlayExplainTitle"
 msgid "Play"
-msgstr "Play"
+msgstr "Jogar"
 
 #: TutoPlayExplainContent
 msgctxt "TutoPlayExplainContent"
@@ -327,4 +329,3 @@ msgstr "Save sound"
 msgctxt "TutoSoundContent"
 msgid "Here you can export to Journal the sound of a word. Click here then on the word to export"
 msgstr "Here you can export to Journal the sound of a word. Click here then on the word to export"
-

@@ -193,6 +193,9 @@ function Game(canvas, resources, paladict, webL10n) {
       this.targetWordLetters[i].x = targetWordLettersCoordRat[i].xr * canvas.width;
       this.targetWordLetters[i].y = targetWordLettersCoordRat[i].yr * canvas.height;
     }
+
+    this.resizeSettingScreen();
+
     if (this.homeScreen) {
       this.drawHomeScreen();
     } else if (this.settingScreen) {
@@ -414,6 +417,7 @@ function Game(canvas, resources, paladict, webL10n) {
       var won = this.checkIfGameEnded();
 
       if (this.gameEnded) {
+        this.gameEnded = false;
         this.drawEndGameScreen(won);
         var _this = this;
         setTimeout(function() {
@@ -713,21 +717,35 @@ function Game(canvas, resources, paladict, webL10n) {
     var isCollide = false;
 
     if (this.targetWordLetters.length > 0) {
-      isCollide = this.collides({
-        x: this.playerX,
-        y: this.playerY,
-        width: this.frameWidth,
-        height: this.frameHeight
-      }, {
-        x: this.targetWordLetters[0].x,
-        y: this.targetWordLetters[0].y,
-        width: 30,
-        height: 30
-      });
-      if (isCollide) {
-        this.targetWordLetters.splice(0, 1);
-        this.moneyAudio.play();
-        this.drawTargetLetters();
+      for(var i=0; i<this.targetWordLetters.length; i++) {
+        if(this.targetWordLetters[i].letter == this.targetWordLetters[0].letter) {
+          isCollide = this.collides({
+            x: this.playerX,
+            y: this.playerY,
+            width: this.frameWidth,
+            height: this.frameHeight
+          }, {
+            x: this.targetWordLetters[i].x,
+            y: this.targetWordLetters[i].y,
+            width: 30,
+            height: 30
+          });
+          if (isCollide) {
+            if(i != 0) {
+              //Swapping the x and y of first letter with the current
+              var tempX = this.targetWordLetters[0].x;
+              var tempY = this.targetWordLetters[0].y;
+              this.targetWordLetters[0].x = this.targetWordLetters[i].x;
+              this.targetWordLetters[0].y = this.targetWordLetters[i].y;
+              this.targetWordLetters[i].x = tempX;
+              this.targetWordLetters[i].y = tempY;
+            }
+            this.targetWordLetters.splice(0, 1);
+            this.moneyAudio.play();
+            this.drawTargetLetters();
+            break;
+          }
+        }
       }
     }
   };

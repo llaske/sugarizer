@@ -630,6 +630,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 						'background-color': defaultColor,
 						'text-wrap': 'wrap',
 						'text-max-width': '200px',
+						'text-overflow-wrap': 'anywhere',
 						'shadow-color': 'black',
 						'shadow-offset-x': '4px',
 						'shadow-offset-y': '4px',
@@ -673,6 +674,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		cy.on('tap', function(e){
 			if (e.cyTarget === cy) {
 				if (currentMode == 0) {
+					saveAndFinishEdit();
 					var newNode = createNode(newId(), defaultText, e.cyPosition, defaultColor);
 					pushState({
 						redo: {action:"create", id:newNode.id(), text: newNode.data("content"), position: {x: newNode.position().x, y: newNode.position().y}, color: defaultColor},

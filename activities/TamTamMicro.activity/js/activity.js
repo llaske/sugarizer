@@ -1,5 +1,4 @@
 var app;
-var sound;
 var tonePlayer;
 var pianoMode = false;
 
@@ -11,8 +10,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		activity.setup();
 
 		// Create sound component
-		sound = new TamTam.Audio();
-		sound.renderInto(document.getElementById("audio"));
 		tonePlayer = new TamTam.TonePlayer();
 
 		// Launch main screen
