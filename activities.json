@@ -1,4 +1,5 @@
 [
+	{"id": "org.sugarlabs.ActivityTemplateVue", "name": "ActivityTemplateVue", "version": 1, "directory": "activities/ActivityTemplateVue.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.FractionBounce", "name": "Fraction", "version": 1, "directory": "activities/FractionBounce.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Falabracman", "name": "Falabracman", "version": 1, "directory": "activities/Falabracman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Exerciser", "name": "Exerciser", "version": 1, "directory": "activities/Exerciser.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Fraction</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/libnotify.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+	<script src="lib/vue.min.js"></script>
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+	<script src="lib/jquery-3.4.1.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script type="text/javascript" src="../../cordova.js"></script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<toolbar ref="toolbar" v-bind:parts="parts" v-bind:answer="answer" v-bind:mode="mode" v-bind:paused="paused"
+				v-bind:bounce-count="bounceCount">
+				<toolbar-item ref="playBtn" class="toolbutton" id="play-button"
+					v-on:clicked="changeGameState()"
+					v-if="paused">
+				</toolbar-item>		
+		</toolbar>
+		<div id="content">
+			<table class="log">
+				<thead>
+					<th v-for="(item, key) in log" v-bind:key="key"> {{ key }} </th>
+				</thead>
+				<tbody>
+					<td v-for="(items, key) in log" v-bind:key="key" valign="top"> 
+						<ul>
+							<li v-if="items" v-for="item in items" v-bind:key="items">
+								<img src="./images/smiley.svg" alt="smiley" v-if="item">	
+								<img src="./images/frown.svg" alt="smiley" v-else>	
+							</li>	
+						</ul>	
+					</td>
+				</tbody>
+			</table>
+			<canvas id="mainCanvas" width="500" height="500"></canvas>
+			<slope-template ref="slopecanvas" v-bind:height="height" v-bind:parts="parts" v-bind:radius="radius" v-bind:cx="cx"
+						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" v-bind:mode="mode" />
+		</div>
+
+		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+
+		<localization ref="localization" v-on:localized="localized"></localization>
+		<tutorial ref="tutorial"></tutorial>
+	</div>
+
+	<script src="js/l10n.js"></script>
+	<script src="js/tutorial.js"></script>
+	<script src="js/slope-template.js"></script>
+	<script src="js/toolbar.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>
