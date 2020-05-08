@@ -27,28 +27,10 @@
 <body>
 	<div id="app">
 		<toolbar ref="toolbar" v-bind:parts="parts" v-bind:answer="answer" v-bind:mode="mode" v-bind:paused="paused"
-				v-bind:bounce-count="bounceCount">
-				<toolbar-item ref="playBtn" class="toolbutton" id="play-button"
-					v-on:clicked="changeGameState()"
-					v-if="paused">
-				</toolbar-item>		
-		</toolbar>
+				v-bind:bounce-count="bounceCount"></toolbar>
+
+		<div id="user"></div>
 		<div id="content">
-			<table class="log">
-				<thead>
-					<th v-for="(item, key) in log" v-bind:key="key"> {{ key }} </th>
-				</thead>
-				<tbody>
-					<td v-for="(items, key) in log" v-bind:key="key" valign="top"> 
-						<ul>
-							<li v-if="items" v-for="item in items" v-bind:key="items">
-								<img src="./images/smiley.svg" alt="smiley" v-if="item">	
-								<img src="./images/frown.svg" alt="smiley" v-else>	
-							</li>	
-						</ul>	
-					</td>
-				</tbody>
-			</table>
 			<canvas id="mainCanvas" width="500" height="500"></canvas>
 			<slope-template ref="slopecanvas" v-bind:height="height" v-bind:parts="parts" v-bind:radius="radius" v-bind:cx="cx"
 						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" v-bind:mode="mode" />
@@ -56,14 +38,18 @@
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
+		<presence ref="presence"></presence>
+		<journal ref="journal"></journal>
 		<localization ref="localization" v-on:localized="localized"></localization>
 		<tutorial ref="tutorial"></tutorial>
 	</div>
 
-	<script src="js/l10n.js"></script>
-	<script src="js/tutorial.js"></script>
 	<script src="js/slope-template.js"></script>
 	<script src="js/toolbar.js"></script>
+	<script src="js/components/journal.js"></script>
+	<script src="js/components/presence.js"></script>
+	<script src="js/components/tutorial.js"></script>
+	<script src="js/components/l10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

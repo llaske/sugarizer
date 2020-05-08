@@ -11,7 +11,7 @@ let app = new Vue({
 	el: '#app',
 	components: {
 		'toolbar': Toolbar, 'toolbar-item': ToolbarItem, 'localization': Localization, 'tutorial': Tutorial,
-		'slope-template': SlopeTemplate
+		'presence': Presence, 'journal': Journal, 'slope-template': SlopeTemplate
 	},
 	data: {
 		currentUser: {
@@ -79,18 +79,6 @@ let app = new Vue({
 				env.getEnvironment(function (err, environment) {
 					vm.currentUser = environment.user;
 				});
-
-				// Load context
-				if (environment.objectId) {
-					activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
-						if (error == null && data != null) {
-							let context = JSON.parse(data);
-							vm.userFractions = context.userFractions;
-						} else {
-							console.log("Error loading from journal");
-						}
-					});
-				}
 			});
 
 			vm.humane = humane;
@@ -584,27 +572,6 @@ let app = new Vue({
 
 		onHelp: function (type) {
 			this.$refs.tutorial.show(type);
-		},
-
-		onStop: function () {
-			// Save current library in Journal on Stop
-			var vm = this;
-			requirejs(["sugar-web/activity/activity"], function (activity) {
-				console.log("writing...");
-
-				let context = {
-					userFractions: vm.userFractions
-				};
-				var jsonData = JSON.stringify(context);
-				activity.getDatastoreObject().setDataAsText(jsonData);
-				activity.getDatastoreObject().save(function (error) {
-					if (error === null) {
-						console.log("write done.");
-					} else {
-						console.log("write failed.");
-					}
-				});
-			});
 		}
 	}
 });
