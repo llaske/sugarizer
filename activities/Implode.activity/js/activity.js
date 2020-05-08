@@ -66,7 +66,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             document.getElementById("canvas").style.top = "0px";
             document.getElementById("unfullscreen-button").style.visibility = "visible";
             fullScreenMode = true;
-            if(game_status == "won"){}
+            if(game_status == "won"){
+                winning_smiley(smiley_color);
+            }
             else{
                 stage_resize();
             }
@@ -77,7 +79,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             document.getElementById("canvas").style.top = "55px";
             document.getElementById("unfullscreen-button").style.visibility = "hidden";
             fullScreenMode = false;
-            if(game_status == "won"){}
+            if(game_status == "won"){
+                winning_smiley(smiley_color);
+            }
             else{
                 stage_resize();
             }
