@@ -12,7 +12,7 @@ body {
 	margin: 0;
 	box-sizing: border-box;
 	overflow: hidden;
-	background: url(../images/grass_background.png);
+	background: white;
 	background-size: cover;
 	background-position: center;
 }
@@ -39,114 +39,11 @@ p {
 	}
 }
 
-#content {
-	position: relative;
-}
-
-.log {
-	position: absolute;
-	z-index: 1;
-	user-select: none;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-o-user-select: none;
-}
-.log ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-.log img {
-	z-index: inherit;
-}
-
-#mainCanvas {
-	position: fixed;
-	box-sizing: border-box;
-	border: solid 1px black;
-	/* background: url(../images/grass_background.png); */
-	background: transparent;
-	background-size: cover;
-	z-index: 2;
-}
-
-#slopeCanvas {
-	position: absolute;
-	left: 0;
-	top: 0;
-	background: transparent;
-	z-index: 2;
-}
-
-.settings {
-	display: flex;
-	justify-content: center;
-	font-size: 2em;
-	padding: 10px;
-}
-.palette {
-	z-index: 10;
-}
-.palette .wrapper {
-	max-width: fit-content;
-}
-.settings input {
-	width: 50px;
-	margin: 0 20px;
-	padding: 4px;
-	line-height: 22px;
-	background-color: #e5e5e5;
-	border: 2px solid #e5e5e5;
-	border-radius: 22px;
-	outline: 0;
-}
-/* Chrome, Safari, Edge, Opera */
-.settings input::-webkit-outer-spin-button,
-.settings input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-/* Firefox */
-.settings input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.settings #add-button {
-	background: url(../icons/add.svg);
-	background-size: cover;
-	background-position: center;
-	border: none;
-	border-radius: 0;
-	width: 40px;
-	margin-left: 0;
-	margin-right: 30px;
-	padding: 0;
-}
-
-.ball-select {
-	/* padding: 10px; */
-	width: fit-content;
-	text-align: center;
-}
-.ball-select button {
-	border: none;
-	border-radius: 0;
-}
-.ball-select-item {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	background: transparent;
-	width: 90%;
-}
-.ball-select-item img {
-	width: 40px;
-	margin: 10px;
-}
-.ball-select-item div {
-	margin: 0 10px;
+.pawn {
+  background-image: url(../icons/pawn-icon.svg);
+  display: inline-block;
+  width: 65px;
+  height: 65px;
 }
 
 .splitbar {
@@ -182,48 +79,13 @@ p {
 	outline: none;
 }
 
-#main-toolbar #fractions-button {
-	background-image: url(../icons/fraction.svg);
-	outline: none;
-}
-
-#main-toolbar #sectors-button {
-	background-image: url(../icons/sector.svg);
-	outline: none;
-}
-
-#main-toolbar #percents-button {
-	background-image: url(../icons/percent.svg);
-	outline: none;
-}
-
-#main-toolbar #play-button {
-	background-image: url(../icons/play.svg);
-	outline: none;
-}
-
-#main-toolbar #pause-button {
-	background-image: url(../icons/pause.svg);
-	outline: none;
-}
-
-#main-toolbar #settings-button {
-	background-image: url(../icons/settings.svg);
-	outline: none;
-}
-
-#main-toolbar #ball-button {
-	background-image: url(../icons/soccerball.svg);
-	outline: none;
-}
-
-#main-toolbar #bg-button {
-	background-image: url(../icons/insert-picture.svg);
-	outline: none;
-}
-
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
+	outline: none;
+}
+
+#main-toolbar #add-button {
+	background-image: url(../icons/add.svg);
 	outline: none;
 }
 

@@ -23,6 +23,8 @@ var Presence = {
 						network.onDataReceived(vm.onNetworkDataReceived);
 						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 					});
+					console.log(vm.presence);
+					vm.parent.presence = vm.presence;
         }
         
 			});
@@ -45,6 +47,7 @@ var Presence = {
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 				});
+				vm.parent.presence = vm.presence;
 			});
 		});
   },
@@ -57,19 +60,13 @@ var Presence = {
 			switch (msg.content.action) {
 				case 'init':
 					console.log(msg.content);
+					this.parent.pawns = msg.content.data;
+					this.parent.drawPawns();
 					break;
-				case 'move':
-					console.log('move received', msg.content.move);
-					this.$refs.chesstemplate.makeMove(msg.content.move.from, msg.content.move.to, true);
-					this.$refs.chesstemplate.onSnapEnd();
-					break;
-				case 'restart':
-					console.log('restart received');
-					this.$refs.chesstemplate.startNewGame();
-					break;
-				case 'undo':
-					console.log('undo received');
-					this.$refs.chesstemplate.undo();
+				case 'update':
+					console.log(msg.content);
+					this.parent.pawns.push(msg.content.data);
+					this.parent.drawPawns();
 					break;
 			}
 		},
@@ -85,21 +82,14 @@ var Presence = {
 						user: vm.presence.getUserInfo(),
 						content: {
 							action: 'init',
-							data: "Hello!"
+							data: vm.parent.pawns
 						}
 					});
 				}
 			}
 			// If user leaves
 			else {
-				if (msg.user.networkId == this.opponent) {
-					this.opponent = null;
-					this.opponentColors = {
-						stroke: "#000",
-						fill: "#000"
-					}
-					vm.currentcolor = 'w';
-				}
+				
 			}
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));

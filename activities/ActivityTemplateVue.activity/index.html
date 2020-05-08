@@ -26,25 +26,22 @@
 
 <body>
 	<div id="app">
-		<toolbar ref="toolbar" v-bind:parts="parts" v-bind:answer="answer" v-bind:mode="mode" v-bind:paused="paused"
-				v-bind:bounce-count="bounceCount"></toolbar>
+		<toolbar ref="toolbar">
+			<toolbar-item id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></toolbar-item>
+		</toolbar>
+		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
 		<div id="user"></div>
-		<div id="content">
-			<canvas id="mainCanvas" width="500" height="500"></canvas>
-			<slope-template ref="slopecanvas" v-bind:height="height" v-bind:parts="parts" v-bind:radius="radius" v-bind:cx="cx"
-						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" v-bind:mode="mode" />
+		<div id="pawns">
+			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
 		</div>
-
-		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
 		<presence ref="presence"></presence>
 		<journal ref="journal"></journal>
-		<localization ref="localization" v-on:localized="localized"></localization>
 		<tutorial ref="tutorial"></tutorial>
+		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
 
-	<script src="js/slope-template.js"></script>
 	<script src="js/toolbar.js"></script>
 	<script src="js/components/journal.js"></script>
 	<script src="js/components/presence.js"></script>
