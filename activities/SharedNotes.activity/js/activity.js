@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env"], function (activity,datastore,notepalette,zoompalette,presencepalette,humane,tutorial,env) {
+define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env", "sugar-web/graphics/journalchooser"], function (activity,datastore,notepalette,zoompalette,presencepalette,humane,tutorial,env, journalchooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -82,6 +82,24 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		});
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
+
+		// Sets background image
+		document.getElementById("background-button").addEventListener('click', function (e) {
+			journalchooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, data) {
+					var cy_style = document.getElementById("cy").style;
+					cy_style.backgroundImage = "url('"+data+"')";
+					cy_style.backgroundRepeat = "no-repeat";
+					cy_style.backgroundSize = "100% 100vh";
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
 
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
@@ -299,7 +317,13 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
-				initGraph(data);
+				initGraph(data["commands"]);
+				if(data["background"] != ""){
+					var cy_style = document.getElementById("cy").style;
+					cy_style.backgroundImage = data["background"];
+					cy_style.backgroundRepeat = "no-repeat";
+					cy_style.backgroundSize = "100% 100vh";
+				}
 			});
 		}
 
@@ -318,7 +342,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
 			var commands = getGraph();
-			datastoreObject.setDataAsText(commands);
+			var datastore_data = {};
+			datastore_data["commands"] = commands;
+			datastore_data["background"] = document.getElementById("cy").style.backgroundImage;
+			datastoreObject.setDataAsText(datastore_data);
 			datastoreObject.save(callback);
 		}
 
@@ -575,6 +602,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 				pngButton.title = l10n_s.get("pngButtonTitle");
 				networkButton.title = l10n_s.get("networkButtonTitle");
 				helpButton.title = l10n_s.get("helpButtonTitle");
+				document.getElementById("background-button").title = l10n_s.get("ChangeBackground");
 				if (cy) {
 					var nodes = cy.elements("node");
 					for(var i = 0; i < nodes.length ; i++) {
