@@ -41,7 +41,7 @@ var Tutorial = {
 		},
 
 		show: function(type) {
-			let vm = this;
+			var vm = this;
 			var steps = [];
 			
 			steps.push(

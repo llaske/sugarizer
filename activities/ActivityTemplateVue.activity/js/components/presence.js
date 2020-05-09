@@ -9,10 +9,9 @@ var Presence = {
   mounted() {
     this.parent = this.$parent;
     
-    let vm = this;
+    var vm = this;
     requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette", "humane"], function (activity, env, presencepalette, humane) {
 			env.getEnvironment(function (err, environment) {
-				
 				// Handle shared instance
 				if (environment.sharedId) {
 					console.log("Shared instance");
@@ -23,10 +22,8 @@ var Presence = {
 						network.onDataReceived(vm.onNetworkDataReceived);
 						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 					});
-					console.log(vm.presence);
-					vm.parent.presence = vm.presence;
+					// vm.parent.presence = vm.presence;
         }
-        
 			});
 
 			vm.humane = humane;
@@ -47,50 +44,33 @@ var Presence = {
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 				});
-				vm.parent.presence = vm.presence;
+				// vm.parent.presence = vm.presence;
 			});
 		});
   },
   methods: {
+		getSharedInfo: function() {
+			return this.presence.getSharedInfo();
+		},
+
+		getUserInfo: function() {
+			return this.presence.getUserInfo();
+		},
+
+		sendMessage: function(message) {
+			this.presence.sendMessage(this.presence.getSharedInfo().id, message);
+		},
+
     onNetworkDataReceived: function (msg) {
-			if (this.presence.getUserInfo().networkId === msg.user.networkId) {
+			if (this.getUserInfo().networkId === msg.user.networkId) {
 				return;  	// Return if data was sent by the user
 			}
 
-			switch (msg.content.action) {
-				case 'init':
-					console.log(msg.content);
-					this.parent.pawns = msg.content.data;
-					this.parent.drawPawns();
-					break;
-				case 'update':
-					console.log(msg.content);
-					this.parent.pawns.push(msg.content.data);
-					this.parent.drawPawns();
-					break;
-			}
+			this.$emit('data-received', msg);
 		},
 
 		onNetworkUserChanged: function (msg) {
-			let vm = this;
-
-			// If user joins
-			if (msg.move == 1) {
-				// Handling only by the host
-				if (this.isHost) {
-					this.presence.sendMessage(this.presence.getSharedInfo().id, {
-						user: vm.presence.getUserInfo(),
-						content: {
-							action: 'init',
-							data: vm.parent.pawns
-						}
-					});
-				}
-			}
-			// If user leaves
-			else {
-				
-			}
+			this.$emit('user-changed', msg);
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			if (this.presence.getUserInfo().networkId !== msg.user.networkId) {

@@ -42,11 +42,11 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
 			<toolbar-item isSplitbar></toolbar-item>
 
-			<toolbar-item ref="networkBtn" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
+			<toolbar-item id="network-button" v-bind:title="l10n.stringNetwork" v-if="presence"></toolbar-item>
 			
 			<slot></slot>
 
-			<toolbar-item v-on:click="journal != null ? journal.onStop() : null" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
+			<toolbar-item v-on:click="parent.onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:click="parent.fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
 			<toolbar-item v-on:click="parent.onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
 		</div>
@@ -55,7 +55,7 @@ var Toolbar = {
 	data: function () {
 		return {
 			parent: null,
-			journal: null,
+			presence: null,
 			l10n: {
 				stringNetwork: ''
 			}
@@ -63,7 +63,7 @@ var Toolbar = {
 	},
 	mounted: function() {
 		this.parent = this.$root;
-		this.journal = this.$root.$refs.journal;
+		this.presence = this.$root.$refs.presence;
 	},
 	methods: {
 		localized: function (localization) {

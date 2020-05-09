@@ -15,7 +15,7 @@ define(["sugar-web/graphics/palette","text!activity/palettes/ballpalette.html"],
     this.ballSelectedEvent = document.createEvent('CustomEvent');
     this.ballSelectedEvent.initCustomEvent('ballSelected', true, true, { ball: '' });
     
-    let that = this;
+    var that = this;
     document.getElementById("soccerball").addEventListener('click', onClick);
     document.getElementById("basketball").addEventListener('click', onClick);
     document.getElementById("beachball").addEventListener('click', onClick);

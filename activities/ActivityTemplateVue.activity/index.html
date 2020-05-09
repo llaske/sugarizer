@@ -31,13 +31,15 @@
 		</toolbar>
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
-		<div id="user"></div>
+		<div id="user">
+			<h1>{{ displayText }}</h1>	
+		</div>
 		<div id="pawns">
 			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
 		</div>
 
-		<presence ref="presence"></presence>
-		<journal ref="journal"></journal>
+		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
+		<journal ref="journal" v-bind:activity="activity"></journal>
 		<tutorial ref="tutorial"></tutorial>
 		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
