@@ -153,23 +153,32 @@ var app = new Vue({
       var vm = this;
       var state = vm.$refs.chessgame.state;
       var playercolor = vm.$refs.chessgame.playercolor;
-      if ((state.moveno == 1 && playercolor) || (state.moveno == 0 && !playercolor)) {
-        vm.$refs.chessgame.onClockSelected(data.index);
-        vm.humane.log(vm.l10n.stringClockChanged);
+      if (!vm.$refs.chessgame.game_won && !vm.$refs.chessgame.game_lost && !vm.$refs.chessgame.game_draw ) {
+        if (!vm.presence) {
+          if ((state.moveno == 1 && playercolor) || (state.moveno == 0 && !playercolor)) {
+            vm.$refs.chessgame.onClockSelected(data.index);
+          }
+        }
+        else {
+          if (state.moveno == 0) {
+            vm.$refs.chessgame.onClockSelected(data.index);
+            vm.humane.log(vm.l10n.stringClockChanged);
 
-      }
-      if (vm.presence) {
-        vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
-          user: vm.presence.getUserInfo(),
-          content: {
-            action: 'init',
-            data: {
-              chessColor: vm.$refs.chessgame.playercolor,
-              state: vm.$refs.chessgame.state,
-              clock: vm.$refs.chessgame.clock
+            if(vm.ishost){
+              vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
+                user: vm.presence.getUserInfo(),
+                content: {
+                  action: 'init',
+                  data: {
+                    chessColor: vm.$refs.chessgame.playercolor,
+                    state: vm.$refs.chessgame.state,
+                    clock: vm.$refs.chessgame.clock
+                  }
+                }
+              });
             }
           }
-        });
+        }
       }
     },
 
@@ -252,16 +261,18 @@ var app = new Vue({
           if (msg.content.data.chessColor) {
             vm.$refs.chessgame.board.orientation('white');
             vm.$refs.chessgame.playercolor = 0;
-            $('#color-button').css('background-image', 'url(./icons/white-rook.svg)');
+            $('#player-clock').css('border-style','solid');
+            $('#opponent-clock').css('border-style','none');
           } else {
             vm.$refs.chessgame.board.orientation('black');
             vm.$refs.chessgame.playercolor = 1;
-            $('#color-button').css('background-image', 'url(./icons/black-rook.svg)');
+            $('#player-clock').css('border-style','none');
+            $('#opponent-clock').css('border-style','solid');
           }
           vm.$refs.chessgame.onClockSelected(msg.content.data.clock);
 
           vm.$refs.chessgame.board.position(p4_state2fen(vm.$refs.chessgame.state, true));
-
+          vm.$refs.chessgame.moves = [];
           vm.$refs.chessgame.updateMoves();
 
           break;
@@ -276,10 +287,11 @@ var app = new Vue({
           vm.$refs.chessgame.game_lost = msg.content.data.game_lost;
           vm.$refs.chessgame.game_draw = msg.content.data.game_draw;
           vm.$refs.chessgame.game_check = msg.content.data.game_check;
-          vm.$refs.chessgame.gameover = msg.content.data.gameover;
 
           vm.$refs.chessgame.stopClock = false;
+          $('#player-clock').css('border-style','solid');
           vm.$refs.chessgame.stopOpponentClock = true;
+          $('#opponent-clock').css('border-style','none');
 
           break;
         case 'exit':
@@ -296,11 +308,18 @@ var app = new Vue({
           vm.$refs.chessgame.game_won = false;
           vm.$refs.chessgame.game_lost = false;
           vm.$refs.chessgame.game_check = false;
-          vm.$refs.chessgame.game_over = false;
           vm.$refs.chessgame.timeexpired = false;
           vm.$refs.chessgame.board.start();
           p4_jump_to_moveno(vm.$refs.chessgame.state, 0);
           vm.$refs.chessgame.moves = [];
+          if (vm.$refs.chessgame.playercolor) {
+            $('#player-clock').css('border-style','none');
+            $('#opponent-clock').css('border-style','solid');
+          }
+          else {
+            $('#player-clock').css('border-style','solid');
+            $('#opponent-clock').css('border-style','none');
+          }
 
           break;
         case 'timeexpired':

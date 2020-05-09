@@ -69,15 +69,6 @@ var ChessGame = {
 			</div>
 		</div>
     </div>
-		<div id="gameover-container" v-show="gameover">
-				<div id="gameover">
-          <span id="closeBtn" class="close">&times;</span>
-          <p v-if="game_won">You Won</p>
-          <p v-else-if="game_lost">You Lost</p>
-          <p v-else-if="game_draw">Draw</p>
-          <p v-else-if="timeexpired">Your time's expired</p>
-        </div>
-		</div>
 	</div>
   `,
   props: ['currentuser', 'opponentuser', 'presence', 'ishost', 'humane'],
@@ -88,10 +79,9 @@ var ChessGame = {
       whiteSquareGrey: "#7b98ed",
       blackSquareGrey: '#476bd6',
       inCheckColor: '#db3a2c',
-      wonColor: '#f0d9b5',
+      wonColor: '#a3e84f',
       drawColor: '#ffffff',
-      normalColor: '#a3e84f',
-      gameover: false,
+      normalColor: '#f0d9b5',
       game_won: false,
       game_lost: false,
       game_draw: false,
@@ -154,12 +144,12 @@ var ChessGame = {
 
     game_won: function() {
       if (this.game_won) {
-        $('#gameover').css('background-image', 'url(./icons/player-win.svg)');
         $('#flagDiv').css('background-color', this.wonColor);
         this.infotext = this.l10n.stringYouWon;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        this.gameover = true;
+        $('#player-clock').css('border-style','none');
+        $('#opponent-clock').css('border-style','none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -168,16 +158,12 @@ var ChessGame = {
 
     game_lost: function() {
       if (this.game_lost) {
-        if (this.presence) {
-          $('#gameover').css('background-image', 'url(./icons/player-lost.svg)');
-        } else {
-          $('#gameover').css('background-image', 'url(./icons/computer-win.svg)');
-        }
         $('#flagDiv').css('background-color', this.inCheckColor);
         this.infotext = this.l10n.stringYouLost;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        this.gameover = true;
+        $('#player-clock').css('border-style','none');
+        $('#opponent-clock').css('border-style','none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -186,12 +172,12 @@ var ChessGame = {
 
     game_draw: function() {
       if (this.game_draw) {
-        $('#gameover').css('background-image', 'url(./icons/computer-icon.svg)');
         $('#flagDiv').css('background-color', this.drawColor);
         this.infotext = this.l10n.stringMatchDraw;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        this.gameover = true;
+        $('#player-clock').css('border-style','none');
+        $('#opponent-clock').css('border-style','none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -254,11 +240,6 @@ var ChessGame = {
       vm.board.resize();
     });
 
-    //handle closing of gameover screen
-    $("#closeBtn").click(function() {
-      vm.gameover = false;
-    });
-
   },
   methods: {
     localized: function(localization) {
@@ -276,7 +257,6 @@ var ChessGame = {
               this.game_lost = true;
               this.stopClock = true;
               this.stopOpponentClock = true;
-              this.gameover = true;
               this.timeexpired = true;
               this.$emit('timeexpired', {
                 data: {
@@ -299,7 +279,6 @@ var ChessGame = {
                 this.game_won = true;
                 this.stopClock = true;
                 this.stopOpponentClock = true;
-                this.gameover = true;
                 this.timeexpired = true;
                 this.$emit('timeexpired', {
                   data: {
@@ -375,11 +354,10 @@ var ChessGame = {
 
     makeRandomMove: function() {
       var possibleMove = this.state.findmove(this.level);
-
+      console.log(possibleMove);
       // game over
       if (possibleMove.length === 0) {
         this.game_won = true;
-        this.gameover = true;
         return;
       }
       var move = this.state.move(possibleMove[0], possibleMove[1]);
@@ -407,6 +385,8 @@ var ChessGame = {
       if (this.clock) {
         this.stopClock = false;
       }
+      $('#player-clock').css('border-style','solid');
+      $('#opponent-clock').css('border-style','none');
       this.updateMoves();
       this.infotext = this.l10n.stringVs;
 
@@ -446,6 +426,9 @@ var ChessGame = {
           this.stopOpponentClock = false;
         }
 
+        $('#player-clock').css('border-style','none');
+        $('#opponent-clock').css('border-style','solid');
+
         if (this.presence) {
           this.$emit('sendmove', {
             data: {
@@ -455,7 +438,6 @@ var ChessGame = {
               game_lost: this.game_won,
               game_draw: this.game_draw,
               game_check: this.other_check,
-              game_over: this.gameover
             }
           });
 
@@ -508,7 +490,6 @@ var ChessGame = {
       this.game_draw = false;
       this.game_check = false;
       this.other_check = false;
-      this.gameover = false;
       this.timeexpired = false;
       this.clockTime = this.clockTotalTime;
       this.opponentClockTime = this.clockTotalTime;
@@ -517,9 +498,17 @@ var ChessGame = {
 
       this.moves = [];
 
-      if (this.playercolor && !this.presence) {
+      if (this.playercolor) {
         //if it is black oriented
-        this.makeRandomMove();
+        $('#player-clock').css('border-style','none');
+        $('#opponent-clock').css('border-style','solid');
+        if (!this.presence) {
+          this.makeRandomMove();
+        }
+      }
+      else {
+        $('#player-clock').css('border-style','solid');
+        $('#opponent-clock').css('border-style','none');
       }
 
       if (this.presence) {
@@ -548,13 +537,11 @@ var ChessGame = {
       if (this.state.moveno == 0) {
         this.board.orientation('black');
         this.playercolor = 1;
-        $('#color-button').css('background-image', 'url(./icons/black-rook.svg)');
         this.newGame();
       } else if (this.state.moveno == 1) {
         this.board.start(false);
         this.board.orientation('white');
         this.playercolor = 0;
-        $('#color-button').css('background-image', 'url(./icons/white-rook.svg)');
         this.newGame();
       }
     },

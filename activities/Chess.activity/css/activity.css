@@ -13,7 +13,7 @@
 }
 
 #main-toolbar #color-button {
-  background-image: url(../icons/white-rook.svg);
+  background-image: url(../icons/switch-color.svg);
 }
 
 #main-toolbar #new-button {
@@ -115,7 +115,7 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
   transition: 0.3s;
   background-color: #b58863;
-  margin: 2%;
+  margin: 1%;
 
 }
 
@@ -139,8 +139,9 @@
 
 #moves-container li{
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 40px;
   background-position: left;
+  z-index:-1;
   height: 40px;
 }
 
@@ -202,7 +203,7 @@
 }
 
 #flagDiv {
-  background-color: #a3e84f;
+  background-color: #f0d9b5;
   height: 30%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
 }
@@ -212,6 +213,7 @@
   display:flex;
   flex-direction: row;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  border-style: solid;
 }
 
 .usrlogo {
@@ -238,34 +240,6 @@
   background-color: rgba(0,0,0,0.7);
 }
 
-#gameover {
-  background-color: #808080;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  height: 60%;
-  overflow: hidden;
-  background-image: url(../icons/player-win.svg);
-  background-repeat: no-repeat;
-  background-size: 80%;
-  background-position: center;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 
 @media screen and (orientation: portrait) {
   #canvas {
@@ -284,18 +258,20 @@
 
   }
   #info-container {
-    height: 90%;
+    height: 85%;
     width: 50%;
+    margin: 5% 2%;
   }
   #moves-container{
-    height: 90%;
+    height: 85%;
     width: 50%;
+    margin: 5% 2%;
   }
 
   #moves-container li{
     background-size: 30px;
     font-size: 14px;
-    text-align: right;
+
   }
 
 }

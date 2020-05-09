@@ -48,6 +48,8 @@ var Toolbar = {
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringChessActivity"></toolbar-item>
 
 			<toolbar-item ref="networkButton" id="network-button" v-bind:title="l10n.stringNetwork"></toolbar-item>
+      <toolbar-item ref="newButton" id="new-button" v-on:clicked="getApp().newGame()" v-bind:title="l10n.stringNew"></toolbar-item>
+      <toolbar-item ref="undoButton" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
 
 			<toolbar-item ref="levelButton" class="toolbutton" id="level-button"
 				v-bind:title="l10n.stringLevel"
@@ -66,10 +68,8 @@ var Toolbar = {
 				v-on:clockSelected="getApp().onClockSelected($event)">
 			</toolbar-item>
 
-			<toolbar-item ref="undoButton" id="undo-button" v-on:clicked="getApp().undo()" v-bind:title="l10n.stringUndo"></toolbar-item>
-			<toolbar-item ref="newButton" id="new-button" v-on:clicked="getApp().newGame()" v-bind:title="l10n.stringNew"></toolbar-item>
 			<toolbar-item ref="colorButton" id="color-button" v-on:clicked="getApp().changeColor()" v-bind:title="l10n.stringColor"></toolbar-item>
-			
+
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
 			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringTut" toRight="true"></toolbar-item>
