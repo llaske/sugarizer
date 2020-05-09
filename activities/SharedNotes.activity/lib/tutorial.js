@@ -127,6 +127,12 @@ define(["webL10n", "activity/activity"], function () {
 					content: l10n.get("TutoZoomContent")
 				},
 				{
+					element: tutorial.getElement("bg"),
+					placement: "bottom",
+					title: l10n.get("TutoBgTitle"),
+					content: l10n.get("TutoBgContent")
+				},
+				{
 					element: tutorial.getElement("png"),
 					placement: "bottom",
 					title: l10n.get("TutoPngTitle"),

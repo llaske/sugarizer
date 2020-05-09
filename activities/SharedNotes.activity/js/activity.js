@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env"], function (activity,datastore,notepalette,zoompalette,presencepalette,humane,tutorial,env) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/graphics/journalchooser","notepalette","zoompalette","bgpalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env"], function (activity,datastore,journalchooser,notepalette,zoompalette,bgpalette,presencepalette,humane,tutorial,env) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -63,6 +63,30 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 				cy.center();
 			}
 		});
+
+		var bgButton = document.getElementById("bg-button");
+		bgPalette = new bgpalette.BgPalette(bgButton);
+		bgPalette.addEventListener('bgSelected', function (e) {
+			if (e.bg=='journal-bg') {
+				journalchooser.show(function (entry) {
+					// No selection
+					if (!entry) {
+						return;
+					}
+					// Get object content
+					var dataentry = new datastore.DatastoreObject(entry.objectId);
+					dataentry.loadAsText(function (err, metadata, data) {
+						document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
+					});
+				}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+			}
+			else {
+				document.getElementById("cy").style.backgroundImage = "none";
+				document.getElementById("cy").style.backgroundColor = "white";
+			}
+
+		})
+
 		var pngButton = document.getElementById("png-button");
 		pngButton.addEventListener('click', function(e) {
 			var inputData = cy.png();
@@ -299,7 +323,12 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
-				initGraph(data);
+				if (error == null && data != null) {
+					initGraph(data.state);
+				}
+				else {
+					initGraph(null);
+				}
 			});
 		}
 
@@ -318,7 +347,12 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
 			var commands = getGraph();
-			datastoreObject.setDataAsText(commands);
+			var bgImg = document.getElementById("cy").style.backgroundImage;
+			var obj = {
+				state: commands,
+				bgImg: bgImg
+			}
+			datastoreObject.setDataAsText(obj);
 			datastoreObject.save(callback);
 		}
 
@@ -537,6 +571,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 		tutorial.setElement("help", helpButton);
 		tutorial.setElement("shared", document.getElementById("shared-button"));
 		tutorial.setElement("png", pngButton);
+		tutorial.setElement("bg", bgButton);
 		tutorial.setElement("zoom", zoomButton);
 		tutorial.setElement("color", colorButton);
 		tutorial.setElement("add", nodetextButton);
@@ -549,6 +584,14 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			tutorial.start();
 		});
 		env.getEnvironment(function(err, environment) {
+			//for background image
+			if(environment.objectId){
+				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+				  if (error == null && data != null) {
+				    document.getElementById("cy").style.backgroundImage = data.bgImg;
+				  }
+				});
+			}
 			// Initial tutorial coming from home view
 			if (environment.help) {
 				setTimeout(function() {
@@ -573,6 +616,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 				redoButton.title = l10n_s.get("redoButtonTitle");
 				zoomButton.title = l10n_s.get("zoomButtonTitle");
 				pngButton.title = l10n_s.get("pngButtonTitle");
+				bgButtonTitle.title = l10n_s.get("bgButtonTitle")
 				networkButton.title = l10n_s.get("networkButtonTitle");
 				helpButton.title = l10n_s.get("helpButtonTitle");
 				if (cy) {

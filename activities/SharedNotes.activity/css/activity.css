@@ -9,6 +9,8 @@
   left: 0;
   top: 0;
   background-color: white;
+  background-size: cover;
+  background-position: center;
 }
 
 #main-toolbar #nodetext-button {
@@ -29,6 +31,10 @@
 
 #main-toolbar #redo-button {
   background-image: url(../icons/edit-redo.svg);
+}
+
+#main-toolbar #bg-button {
+	background-image: url(../icons/insert-picture.svg);
 }
 
 #main-toolbar #png-button {
@@ -70,6 +76,29 @@
   background-size: contain;
   border: 0;
   border-radius: 5.5px;
+}
+
+.bg-select button {
+	border: none;
+	border-radius: 0;
+}
+
+.bg-select-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 0 !important;
+	background: transparent;
+	width: 100%;
+}
+
+.bg-select-item img {
+	width: 40px;
+	margin: 10px;
+}
+
+.bg-select-item div {
+	margin: 0 10px;
 }
 
 .zoombuttons {
@@ -308,7 +337,7 @@ body {
  }
 }
 
-@media screen and (max-width: 762px) {
+@media screen and (max-width: 720px) {
 	#main-toolbar #help-button {
 		visibility: hidden;
 		width: 0px;
@@ -331,21 +360,28 @@ body {
  }
 }
 
-@media screen and (max-width: 721px) {
+@media screen and (max-width: 812px) {
  #main-toolbar #network-button {
    visibility: hidden;
    width: 0px;
  }
 }
 
-@media screen and (max-width: 682px) {
+@media screen and (max-width: 675px) {
+ #main-toolbar #bg-button {
+   visibility: hidden;
+   left: 0px !important;
+ }
+}
+
+@media screen and (max-width: 780px) {
  #main-toolbar #png-button {
    visibility: hidden;
    width: 0px;
  }
 }
 
-@media screen and (max-width: 643px) {
+@media screen and (max-width: 675px) {
  .toolbar {
    padding-left: 10px;
  }
