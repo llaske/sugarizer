@@ -85,7 +85,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 				// Display connection changed
 				presence.onSharedActivityUserChanged(function (msg) {
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					messagesList.innerHTML += '<li class="received" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
+					messagesList.innerHTML += '<li class="received message-line" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
 					imageUpload.style.visibility = "visible";
 				});
 
@@ -98,9 +98,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 						var colour = msg.user.colorvalue;
 
 						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
-
 						myElem = document.createElement('li');
-						myElem.class = 'received';
+						myElem.className = 'received message-line';
 						myElem.style.background = colour.fill;
 						myElem.innerHTML = authorElem + text;
 						myElem.style.color = colour.stroke;
@@ -115,7 +114,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 						var authorElem = '<span style = "color:' + colour.stroke + ';width: auto; padding-right: 10px;">' + author + ':</span>';
 						myElem = document.createElement('li');
-						myElem.class = 'received';
+						myElem.className = 'received message-line';
 						myElem.style.background = colour.fill;
 						myElem.innerHTML = authorElem + "<img src='"+source+"' style='max-height:150px;'>";
 						myElem.style.color = colour.stroke;

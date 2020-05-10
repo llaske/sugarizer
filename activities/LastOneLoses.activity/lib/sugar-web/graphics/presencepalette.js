@@ -14,6 +14,9 @@ define(["sugar-web/graphics/palette","sugar-web/env","sugar-web/activity/activit
 			privateString = (l10nPrivate[language]||l10nPrivate["en"]);
 			sharedString = (l10nShared[language]||l10nShared["en"]);
 			var privateText = document.getElementById("private-text");
+			if (!privateText) {
+				return;
+			}
 			if (privateText.innerHTML == l10nShared["en"]) {
 				privateText.innerHTML = sharedString;
 			} else if (privateText.innerHTML == l10nPrivate["en"]) {
