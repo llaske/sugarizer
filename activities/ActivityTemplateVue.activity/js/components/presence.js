@@ -1,16 +1,12 @@
 var Presence = {
   data: {
-		parent: null,
     palette: null,
     presence: null,
-		isHost: false,
-		humane: null
+		isHost: false
   },
   mounted() {
-    this.parent = this.$parent;
-    
-    var vm = this;
-    requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette", "humane"], function (activity, env, presencepalette, humane) {
+		var vm = this;
+    requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette"], function (activity, env, presencepalette) {
 			env.getEnvironment(function (err, environment) {
 				// Handle shared instance
 				if (environment.sharedId) {
@@ -22,11 +18,8 @@ var Presence = {
 						network.onDataReceived(vm.onNetworkDataReceived);
 						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 					});
-					// vm.parent.presence = vm.presence;
         }
 			});
-
-			vm.humane = humane;
 
 			vm.palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
 			vm.palette.addEventListener('shared', function () {
@@ -44,7 +37,6 @@ var Presence = {
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 				});
-				// vm.parent.presence = vm.presence;
 			});
 		});
   },
@@ -74,7 +66,7 @@ var Presence = {
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			if (this.presence.getUserInfo().networkId !== msg.user.networkId) {
-				this.humane.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
+				this.$parent.$refs.popup.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			}
 		},
   }

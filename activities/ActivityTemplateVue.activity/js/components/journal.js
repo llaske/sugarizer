@@ -1,13 +1,7 @@
 var Journal = {
-  data: {
-		parent: null
-	},
 	props: {
 		activity: Object
 	},
-  mounted() {
-		this.parent = this.$parent;
-  },
   methods: {
 		loadData: function(callback) {
 			this.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {

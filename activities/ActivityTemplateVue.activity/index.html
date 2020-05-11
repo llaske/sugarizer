@@ -40,6 +40,7 @@
 
 		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
 		<journal ref="journal" v-bind:activity="activity"></journal>
+		<popup ref="popup"></popup>
 		<tutorial ref="tutorial"></tutorial>
 		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
@@ -48,6 +49,7 @@
 	<script src="js/components/journal.js"></script>
 	<script src="js/components/presence.js"></script>
 	<script src="js/components/tutorial.js"></script>
+	<script src="js/components/Popup.js"></script>
 	<script src="js/components/l10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>

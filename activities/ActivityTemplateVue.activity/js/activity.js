@@ -10,8 +10,12 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	components: {
-		'toolbar': Toolbar, 'toolbar-item': ToolbarItem, 'localization': Localization, 'tutorial': Tutorial,
-		'journal': Journal, 'presence': Presence
+		'toolbar': Toolbar, 
+		'toolbar-item': ToolbarItem, 
+		'localization': Localization, 
+		'tutorial': Tutorial,
+		'journal': Journal, 
+		'presence': Presence
 	},
 	data: {
 		activity: null,
