@@ -7,16 +7,6 @@ function Board(){
 
     this._data = {}
 
-    this.clone = function(){
-        // Return a copy of the board
-        b = new Board();
-        var item = this.items();
-        for (var index in item){
-            b._data[item[index][0]] = item[index][1];
-        }
-        return b;
-    }
-
     this.repeat = function (arr, n){
         var a = [];
         for (var i=0;i<n;[i++].push.apply(a,arr));
@@ -41,25 +31,28 @@ function Board(){
     this.set_value = function(x, y, value){
         // Set the value at coordinate (x,y) to the given value.
         // assert y >= 0
+        if(y >= 0){
 
-        var col = this._data[x]
-        if(col == undefined){
-            if(value !== undefined){
-                var arr = this.repeat([undefined] , y)
-                arr = arr.concat([value])
-                this._data[x] =  arr
+            var col = this._data[x]
+            if(col == undefined){
+                if(value !== undefined){
+                    var arr = this.repeat([undefined] , y)
+                    arr = arr.concat([value])
+                    this._data[x] =  arr
+                }
             }
-        }
-        else if(y < col.length){
-            col[y] = value
-            if(value == undefined)
-                this._trim_column(x)
-        }
-        else if(value == undefined){}
-        else{
-            col = col.concat(this.repeat([undefined] , (y - col.length)))
-            col = col.concat([value])
-            this._data[x] = col
+            else if(y < col.length){
+                col[y] = value
+                if(value == undefined)
+                    this._trim_column(x)
+            }
+            else if(value == undefined){}
+            else{
+                col = col.concat(this.repeat([undefined] , (y - col.length)))
+                col = col.concat([value])
+                this._data[x] = col
+            }
+
         }
     }
 
@@ -137,8 +130,10 @@ function Board(){
         if(col[col.length-1] !== undefined){
             return
         }
-        for(var i in [...Array(col.length).keys()]){
+        var arr = [...Array(col.length).keys()].reverse()
+        for(var i in arr){
             i = parseInt(i);
+            i = arr[i]
             if(col[i] !== undefined){
                 this._data[x] = col.slice(0,i + 1)
                 return
@@ -154,7 +149,7 @@ function Board(){
         var arr = Object.keys(this._data)
         for(var i in arr){
             i = parseInt(i)
-            new_arr.push([parseInt(arr[i]), this._data[i]])
+            new_arr.push([parseInt(arr[i]), this._data[parseInt(arr[i])]])
         }
 
         return new_arr
@@ -165,24 +160,22 @@ function Board(){
         // columns higher
 
         // assert num_columns >= 0
-        var new_data = {}
-        var arr = this.items();
-        for(var k in arr){
-            k = parseInt(k)
-            var i = arr[k][0]
-            var col = arr[k][1]
-            if( i < col_index){
-                new_data[i] = col
+        if(num_columns >= 0){
+            var new_data = {}
+            var arr = this.items();
+            for(var k in arr){
+                k = parseInt(k)
+                var i = arr[k][0]
+                var col = arr[k][1]
+                if( i < col_index){
+                    new_data[i] = col
+                }
+                else{
+                    new_data[i + num_columns] = col
+                }
             }
-            else{
-                new_data[i + num_columns] = col
-            }
+            this._data = JSON.parse(JSON.stringify(new_data))
         }
-        // if(new_data[col_index] == undefined){
-        //     console.log(col_index ,new_data[col_index], new_data))
-        //     delete new_data[col_index]
-        // }
-        this._data = JSON.parse(JSON.stringify(new_data))
     }
 
     this.simplify = function(){
@@ -217,7 +210,7 @@ function Board(){
         var width = this.width()
         var height = this.height()
         var lines = []
-        for(var i in [...Array(height).keys()].reverse()){
+        for(var i in [...Array(height).keys()]){
             var line = []
             for(j in [...Array(width).keys()]){
                 i = parseInt(i)
@@ -239,15 +232,13 @@ function Board(){
 }
 
 var max_size = [];
-function generate_board(max_colors=5,size=[30, 20]) {
-    max_size = size;
-
+function generate_board(fragmentation=0,max_colors=5,size=[30, 20]) {
     // Generates a new board of the given properties using the given random
     // seed as a starting point.  Returns both the board and the list of
     // moves needed to solve it.
-
-    var piece_sizes = _get_piece_sizes()
-    piece_sizes = piece_sizes.splice(0, max_size[0])
+    
+    max_size = size;
+    var piece_sizes = _get_piece_sizes(fragmentation);
     var b = new Board()
     var winning_moves = []
     for(var piece_size in piece_sizes){
@@ -259,20 +250,8 @@ function generate_board(max_colors=5,size=[30, 20]) {
             winning_moves.splice(0, 0,move)
         }
     }
-    // console.log(Object.keys(JSON.parse(JSON.stringify(b._data))).length)
     return [b, winning_moves]
 }
-
-
-function mergeObjects(){
-    var res = {};
-    for(var i = 0;i<arguments.length;i++){
-        for(var x in arguments[i]){
-            res[x] = arguments[i][x];
-        };
-    };
-    return res;
-};
 
 function _try_add_piece(b, piece_size, max_colors, max_size){
 
@@ -281,8 +260,8 @@ function _try_add_piece(b, piece_size, max_colors, max_size){
     // Also returns the lowest coordinate of the added piece (i.e. the canonical
     // move to remove it) or undefined if no piece added.
 
-    // var b2 = b.clone()
-    var b2 = mergeObjects(b)
+    var b2 = new Board();
+    b2._data = JSON.parse(JSON.stringify(b._data))
     var change = _get_starting_change(b2, max_colors, max_size)
     if(change == undefined){
         return [b, undefined]
@@ -329,8 +308,9 @@ function _get_starting_change(b, max_colors, max_size){
     while(changes.length > 0){
         var change = choice(changes)
         changes = arrayRemove(changes, change)
-        if(_change_is_colorable(b, change, max_colors))
+        if(_change_is_colorable(b, change, max_colors)){
             return change
+        }
     }
     return undefined
 }
@@ -358,14 +338,12 @@ function _enumerate_one_cell_changes(b, max_size){
             var height_arr = [...Array(col_height +1).keys()]
             for(var j in height_arr){
                 j = parseInt(j)
-                if((arr[i] <= max_size[1]) && (height_arr[j]<=max_size[0])){
-                    var obj = new _InsertCellChange(arr[i], height_arr[j])
-                    changes.push(obj)
-                }
+                var obj = new _InsertCellChange(arr[i], height_arr[j])
+                changes.push(obj)
             }
         }
     }
-    return changes
+    return changes;
 }
 
 function _try_add_cells(b, max_colors, max_size){
@@ -373,7 +351,6 @@ function _try_add_cells(b, max_colors, max_size){
     // ensures the resulting board is within the given board size and is
     // colorable with the given colors.  Returns the number of cells added
     // (zero, if no cell could be added).
-
     var a = _get_cell_changes(b, max_size)
     var cell_h_changes = a[0]
     var cell_v_changes = a[1]
@@ -399,7 +376,6 @@ function _try_add_cells(b, max_colors, max_size){
 
 function _get_cell_changes(b, max_size){
     // Returns a list of all possible standard cell insertions.
-
     var max_width = max_size[0]
     var max_height = max_size[1]
     var h_changes = []
@@ -443,7 +419,7 @@ function _get_col_changes(b, max_size){
         i = parseInt(i)
         var col_height = b.get_column_height(i)
         var highest_new_piece = 0
-        for(j in  [...Array(col_height).keys()]){
+        for(var j in  [...Array(col_height).keys()]){
             j = parseInt(j)
             var value = b.get_value(i, j)
             if(value == -1){
@@ -481,7 +457,7 @@ function _remove_change(cell_h_changes, cell_v_changes, col_changes){
     if(value < h_weight){
         return _pick(cell_h_changes)
     }
-    else if(value < h_weight + v_weight){
+    else if(value < (h_weight + v_weight)){
         return _pick(cell_v_changes)
     }
     else{
@@ -491,15 +467,20 @@ function _remove_change(cell_h_changes, cell_v_changes, col_changes){
 
 function _pick(items){
     var index = Math.floor(Math.random() * (items.length));
-    return items.splice(index,1)[0]
+    if(items[index]){
+        return items.splice(index,1)[0]
+    }
+    else{
+        return items.pop();
+    }
 }
 
 function _change_is_colorable(b, change, max_colors){
     // Returns True if the board is still colorable after the given change is
     // made, False otherwise.
 
-    // var b2 = b.clone()
-    var b2 = mergeObjects(b)
+    var b2 = new Board();
+    b2._data = JSON.parse(JSON.stringify(b._data))
     _make_change(b2, change)
     var colors = _get_new_piece_colors(b2, max_colors)
     return colors.length > 0
@@ -521,7 +502,7 @@ function _make_change(b, change){
         var new_indexes = []
         var data = []
         var col_height = b.get_column_height(change.col)
-        if(col_height < max_size[1])
+        if(change.height <= col_height)
         {
             for(var i in [...Array(col_height).keys()]){
                 i = parseInt(i)
@@ -540,25 +521,16 @@ function _make_change(b, change){
                 data.push(-1)
             }
             for(index in new_indexes){
-                index = parseInt(index)
-                data.splice(new_indexes[index],0, -1)
+                index = parseInt(index);
+                data.splice(new_indexes[index],0, -1);
             }
             for (var i in data){
                 i = parseInt(i)
                 var value = data[i]
-                // if(value == null || value == undefined){
-                //     b.set_value(change.col, i, 6)
-                // }
-                // else{
-                    b.set_value(change.col, i, value)
-                // }
+                b.set_value(change.col, i, value)
             }
-
         }
     }
-
-    // else:
-    //     assert False
 }
 
 function _color_piece_random(b, max_colors){
@@ -624,22 +596,26 @@ function _get_new_piece_coords(b){
     return coords
 }
 
-function _get_piece_sizes(){
+function _get_piece_sizes(fragmentation){
     // Returns a list containing the new piece sizes for the board.
-    var col_no = 0;
+    var max_area = max_size[0] * max_size[1] * 0.5;
+    var total_area = 0;
     var piece_sizes = []
-    while(col_no < max_size[0]){
-        var piece_size = _get_piece_size()
-        piece_sizes.push(piece_size)
-        col_no = col_no + 1;
+    while(total_area < max_area){
+        var piece_size = _get_piece_size(max_area,fragmentation)
+        total_area = total_area + piece_size
+        piece_sizes.push(piece_size);
     }
     return piece_sizes
 }
 
-function _get_piece_size(){
+function _get_piece_size(max_area,fragmentation){
     // Returns a random piece size using the given random number generator,
     // fragmentation, and board size.
-    var piece_size = Math.ceil(Math.max(3, Math.random()*max_size[1]))
+    var upper_bound = Math.ceil(Math.sqrt(max_area));
+    value = Math.random()
+    var exp = fragmentation
+    piece_size = parseInt(Math.max(3, Math.pow(value, exp) * upper_bound))
     return piece_size
 }
 
@@ -670,7 +646,7 @@ function _InsertCellChange(col, height){
     this.height = height;
     this.__eq__ = function(other){
         return ((other instanceof _InsertCellChange) &&
-                (this.col == this.col) &&
+                (this.col == other.col) &&
                 (this.height == other.height))
     }
 

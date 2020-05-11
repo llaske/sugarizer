@@ -14,7 +14,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         var difficulty = [[8, 6], [12, 10], [20, 15]];
         var block_size = 15;
         var level = 0;
-        var max_size = difficulty[level];
+        var fragmentation = 0;
+        var max_size = difficulty[level].slice();
         var colors = ["#E6000A", "#00EA11", "#FFFA00","#5E008C", "#FF8F00" ];
         var pieces = {};
         var undo_stack = [];
@@ -203,16 +204,30 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             }
         }
 
+        function SetMaxSize(pieces){
+            //This function sets value of variable max_size
+            var keys = Object.keys(pieces)
+            var max_height = 0;
+            for(var i=0;i<keys.length;i++){
+                if(max_height < pieces[parseInt(keys[i])].length){
+                    max_height = pieces[parseInt(keys[i])].length;
+                }
+            }
+            max_size[0] = keys.length;
+            max_size[1] = max_height;
+        }
+
         function new_game(diff_level){
             //remove previous blocks and initializes new blocks
             button_highlight(diff_level);
             stage.removeAllChildren();
-            // stage.removeAllEventListeners();
             level = diff_level;
-            max_size = difficulty[level];
-            var board = generate_board(max_colors=5,max_size);
+            fragmentation = (level == 2) ? 2:0;
+            max_size = difficulty[level].slice();
+            var board = generate_board(fragmentation,5,max_size);
             board[0].simplify()
             pieces = board[0]._data;
+            SetMaxSize(pieces);
             undo_stack = [];
             redo_stack = [];
             highlighted_blocks = []
@@ -860,7 +875,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                 block_size = block_width;
             }
             main_canvas.width = block_size*(max_size[0]-col_empty) + 15;
-            // main_canvas.height = main_canvas.height + 8;
             main_canvas.height = block_size*(max_size[1]-row_empty) + 8;
 
             if((stage.children.length > 0) && (prev_block_size!=block_size)){
@@ -922,9 +936,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             // Load from datastore
             if (!environment.objectId) {
                 // New instance
-                var board = generate_board(5,max_size);
+                fragmentation = (level == 2) ? 2:0;
+                var board = generate_board(fragmentation,5,max_size);
                 board[0].simplify();
                 pieces = board[0]._data;
+                SetMaxSize(pieces);
                 stage_resize();
                 init();
 
@@ -935,8 +951,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                     if (error==null && data!=null) {
                         var datastore_data = JSON.parse(data);
                         level = datastore_data["level"];
-                        max_size = difficulty[level];
+                        fragmentation = (level == 2) ? 2:0;
+                        max_size = difficulty[level].slice();
                         pieces = datastore_data["pieces"];
+                        SetMaxSize(pieces);
                         undo_stack = datastore_data["undo_stack"];
                         redo_stack = datastore_data["redo_stack"];
                         button_highlight(level);
