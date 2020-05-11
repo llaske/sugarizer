@@ -20,8 +20,7 @@ var app = new Vue({
 		currentUser: {
 			user: {}
 		},
-		presence: null,
-		journal: null,
+		eventBus: null,
 		icon: null,
 		displayText: '',
 		pawns: [],
@@ -32,8 +31,8 @@ var app = new Vue({
 		}
 	},
 	mounted: function () {
-		this.presence = this.$refs.presence;
-		this.journal = this.$refs.journal;
+		// this.presence = this.$refs.presence;
+		// this.journal = this.$refs.journal;
 
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, env, icon) {
@@ -44,7 +43,7 @@ var app = new Vue({
 			env.getEnvironment(function (err, environment) {
 				if(environment.objectId) {
 					console.log("Existing instance");
-					vm.journal.loadData(function(data, metadata) {
+					EventBus.$emit('journalLoadData', function(data, metadata) {
 						vm.pawns = data.pawns;
 						vm.drawPawns();
 					});
@@ -67,17 +66,17 @@ var app = new Vue({
 			this.pawns.push(this.currentenv.user.colorvalue);
 			this.drawPawns();
 			this.displayText = this.currentenv.user.name + " " + this.l10n.stringPlayed + "!";
-
-			if (this.presence && this.presence.presence) {
-				var message = {
-					user: this.presence.getUserInfo(),
-					content: {
-						action: 'update',
-						data: this.currentenv.user.colorvalue
+			EventBus.$emit('presenceExists', function(exists) { 
+				if(exists) {
+					var message = {
+						content: {
+							action: 'update',
+							data: vm.currentenv.user.colorvalue
+						}
 					}
+					EventBus.$emit('sendMessage', message);
 				}
-				this.presence.sendMessage(message);
-			}
+			});
 		},
 
 		drawPawns: function() {
@@ -99,7 +98,6 @@ var app = new Vue({
 		},
 
 		onNetworkDataReceived(msg) {
-			console.log(msg.content);
 			switch (msg.content.action) {
 				case 'init':
 					this.pawns = msg.content.data;
@@ -114,18 +112,21 @@ var app = new Vue({
 		},
 
 		onNetworkUserChanged(msg) {
+			let vm = this;
 			// If user joins
 			if (msg.move == 1) {
 				// Handling only by the host
-				if (this.presence.isHost) {
-					this.presence.sendMessage({
-						user: this.presence.getUserInfo(),
-						content: {
-							action: 'init',
-							data: this.pawns
-						}
-					});
-				}
+				EventBus.$emit('isHost', function(value) { 
+					if (value) {
+						var message = {
+							content: {
+								action: 'init',
+								data: vm.pawns
+							}
+						};
+						EventBus.$emit('sendMessage', message);
+					}
+				});
 			}
 			// If user leaves
 			else {
@@ -142,7 +143,7 @@ var app = new Vue({
 			var context = {
 				pawns: this.pawns
 			};
-			this.journal.saveData(context);
+			EventBus.$emit('journalSaveData', context);
     }
 	}
 });

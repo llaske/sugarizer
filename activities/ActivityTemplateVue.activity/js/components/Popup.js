@@ -3,9 +3,11 @@ Vue.component('popup', {
     humane: null
   },
   mounted() {
+    EventBus.$on('popupLog', this.log);
+
     var vm = this;
     requirejs(["humane"], function (humane) {
-      vm.humane = humane;      
+      vm.humane = humane;  
     });
   },
   methods: {

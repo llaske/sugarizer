@@ -2,6 +2,10 @@ var Journal = {
 	props: {
 		activity: Object
 	},
+	mounted() {
+		EventBus.$on('journalLoadData', this.loadData);
+		EventBus.$on('journalSaveData', this.saveData);
+	},
   methods: {
 		loadData: function(callback) {
 			this.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {

@@ -22,8 +22,8 @@
 	<script>if (window.module) module = window.module;</script>
 	<script type="text/javascript" src="../../cordova.js"></script>
 	<script src="lib/require.js"></script>
-</head>
-
+	</head>
+	
 <body>
 	<div id="app">
 		<toolbar ref="toolbar">
@@ -36,7 +36,7 @@
 		<div id="pawns">
 			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
 		</div>
-
+		
 		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
 		<journal ref="journal" v-bind:activity="activity"></journal>
 		<popup ref="popup"></popup>
@@ -44,12 +44,13 @@
 		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
 
-	<script src="js/components/Toolbar.js"></script>
+	<script src="js/components/EventBus.js"></script>
 	<script src="js/components/Journal.js"></script>
 	<script src="js/components/Presence.js"></script>
 	<script src="js/components/Tutorial.js"></script>
 	<script src="js/components/Popup.js"></script>
 	<script src="js/components/l10n.js"></script>
+	<script src="js/components/Toolbar.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

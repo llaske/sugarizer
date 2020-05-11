@@ -6,6 +6,14 @@ var Presence = {
   },
   mounted() {
 		var vm = this;
+		EventBus.$on('presenceExists', function(callback) {
+			callback(vm.presence != null);
+		});
+		EventBus.$on('isHost', function(callback) {
+			callback(vm.isHost);
+		});
+		EventBus.$on('sendMessage', this.sendMessage);
+
     requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette"], function (activity, env, presencepalette) {
 			env.getEnvironment(function (err, environment) {
 				// Handle shared instance
@@ -41,20 +49,14 @@ var Presence = {
 		});
   },
   methods: {
-		getSharedInfo: function() {
-			return this.presence.getSharedInfo();
-		},
-
-		getUserInfo: function() {
-			return this.presence.getUserInfo();
-		},
 
 		sendMessage: function(message) {
+			message.user = this.presence.getUserInfo(),
 			this.presence.sendMessage(this.presence.getSharedInfo().id, message);
 		},
 
     onNetworkDataReceived: function (msg) {
-			if (this.getUserInfo().networkId === msg.user.networkId) {
+			if (this.presence.getUserInfo().networkId === msg.user.networkId) {
 				return;  	// Return if data was sent by the user
 			}
 
@@ -62,11 +64,16 @@ var Presence = {
 		},
 
 		onNetworkUserChanged: function (msg) {
+			if (this.presence.getUserInfo().networkId === msg.user.networkId) {
+				return;  	// Return if user himself joined/left
+			}
+
 			this.$emit('user-changed', msg);
 
-			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			if (this.presence.getUserInfo().networkId !== msg.user.networkId) {
-				this.$parent.$refs.popup.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
+				var message = "User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left");
+				console.log(message);
+				EventBus.$emit('popupLog', message);
 			}
 		},
   }
