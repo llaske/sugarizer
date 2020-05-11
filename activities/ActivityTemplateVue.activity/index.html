@@ -29,7 +29,6 @@
 		<toolbar ref="toolbar">
 			<toolbar-item id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></toolbar-item>
 		</toolbar>
-		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
 		<div id="user">
 			<h1>{{ displayText }}</h1>	
@@ -45,10 +44,10 @@
 		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
 
-	<script src="js/components/toolbar.js"></script>
-	<script src="js/components/journal.js"></script>
-	<script src="js/components/presence.js"></script>
-	<script src="js/components/tutorial.js"></script>
+	<script src="js/components/Toolbar.js"></script>
+	<script src="js/components/Journal.js"></script>
+	<script src="js/components/Presence.js"></script>
+	<script src="js/components/Tutorial.js"></script>
 	<script src="js/components/Popup.js"></script>
 	<script src="js/components/l10n.js"></script>
 	<script src="js/activity.js"></script>

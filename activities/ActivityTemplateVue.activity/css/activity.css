@@ -26,6 +26,11 @@ p {
 	overflow-y: hidden;
 }
 
+#main-toolbar.hidden {
+	height: 0;
+	overflow: hidden;
+}
+
 .helpText {
 	display: inline-block;
 	position: relative;
@@ -72,9 +77,8 @@ p {
 	width: 45px;
 	height: 45px;
 	top: 0;
-	right: 5%;
+	right: 6%;
 	position: absolute;
-	visibility: hidden;
 	z-index: 5;
 	outline: none;
 }

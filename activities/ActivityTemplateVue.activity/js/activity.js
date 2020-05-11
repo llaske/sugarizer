@@ -10,8 +10,6 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	components: {
-		'toolbar': Toolbar, 
-		'toolbar-item': ToolbarItem, 
 		'localization': Localization, 
 		'tutorial': Tutorial,
 		'journal': Journal, 
@@ -22,8 +20,6 @@ var app = new Vue({
 		currentUser: {
 			user: {}
 		},
-		full: false,
-		context: null,
 		presence: null,
 		journal: null,
 		icon: null,
@@ -61,11 +57,6 @@ var app = new Vue({
 			});
 
 			vm.icon = icon;
-		});
-
-		// Handle unfull screen buttons (b)
-		document.getElementById("unfullscreen-button").addEventListener('click', function () {
-			vm.unfullscreen();
 		});
 	},
 
@@ -105,21 +96,6 @@ var app = new Vue({
 			this.$refs.localization.localize(this.l10n);
 			this.$refs.toolbar.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
-		},
-
-		// Handle fullscreen mode
-		fullscreen: function () {
-			var vm = this;
-			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("unfullscreen-button").style.visibility = "visible";
-			this.full = true;
-		},
-		
-		unfullscreen: function () {
-			var vm = this;
-			document.getElementById("main-toolbar").style.opacity = 1;
-			document.getElementById("unfullscreen-button").style.visibility = "hidden";
-			this.full = false;
 		},
 
 		onNetworkDataReceived(msg) {

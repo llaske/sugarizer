@@ -1,5 +1,5 @@
 // Toolbar item
-var ToolbarItem = {
+Vue.component('toolbar-item', {
 	template: `
 		<div class="splitbar" v-if="isSplitbar"/>
 		<button class="toolbutton" v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }" v-else/>
@@ -33,12 +33,12 @@ var ToolbarItem = {
 			});
 		}
 	}
-}
+});
 
 // Toolbar component
-var Toolbar = {
+Vue.component('toolbar', {
 	template: `
-		<div id="main-toolbar" class="toolbar">
+		<div id="main-toolbar" class="toolbar" v-bind:class="{ hidden: hidden }">
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
 			<toolbar-item isSplitbar></toolbar-item>
 
@@ -46,15 +46,15 @@ var Toolbar = {
 			
 			<slot></slot>
 
-			<toolbar-item v-on:click="parent.onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
-			<toolbar-item ref="fullscreen" v-on:click="parent.fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
-			<toolbar-item v-on:click="parent.onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
+			<toolbar-item v-on:click="$parent.onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
+			<toolbar-item v-if="!hidden" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
+			<toolbar-item v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
+			<toolbar-item v-on:click="$parent.onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
 		</div>
 	`,
-	components: { 'toolbar-item': ToolbarItem },
 	data: function () {
 		return {
-			parent: null,
+			hidden: false,
 			presence: null,
 			l10n: {
 				stringNetwork: ''
@@ -62,12 +62,20 @@ var Toolbar = {
 		}
 	},
 	mounted: function() {
-		this.parent = this.$root;
 		this.presence = this.$root.$refs.presence;
 	},
 	methods: {
 		localized: function (localization) {
 			localization.localize(this.l10n);
-		}
+		},
+		
+		// Handle fullscreen mode
+		fullscreen: function () {
+			this.hidden = true;
+		},
+
+		unfullscreen: function () {
+			this.hidden = false;
+		},
 	}
-};
+});
