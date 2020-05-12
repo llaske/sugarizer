@@ -25,16 +25,6 @@ define(["sugar-web/env", "webL10n"], function (env, webL10n) {
     return "data:image/svg+xml;base64," + btoa(coloredLogo);
   }
 
-  function displayConnectedPeopleHtml() {
-    var presenceUsersDiv = document.getElementById("presence-users");
-    var html = "<hr><ul style='list-style: none; padding:0;'>"
-    for (var key in connectedPeople) {
-      html += "<li><img style='height:30px;' src='" + generateXOLogoWithColor(connectedPeople[key].colorvalue) + "'>" + connectedPeople[key].name + "</li>"
-    }
-    html += "</ul>"
-    presenceUsersDiv.innerHTML = html
-  }
-
   function displayConnectedPeople(users) {
     var presenceUsersDiv = document.getElementById("presence-users");
     if (!users || !presenceUsersDiv) {
@@ -47,7 +37,6 @@ define(["sugar-web/env", "webL10n"], function (env, webL10n) {
 			var userConnected = usersConnected[i];
 			connectedPeople[userConnected.networkId] = userConnected;
 		}
-		displayConnectedPeopleHtml();
 	});
   }
 
