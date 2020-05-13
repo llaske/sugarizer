@@ -1,19 +1,28 @@
 var Journal = {
-	props: {
-		activity: Object
+	data: {
+		activity: null
 	},
-  methods: {
-		loadData: function(callback) {
-			this.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
-				if (error == null && data != null) {
-					var dataObj = JSON.parse(data);
-					callback(dataObj, metadata);
+	mounted() {
+		var vm = this;
+		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
+			vm.activity = activity;
+			env.getEnvironment(function (err, environment) {
+				if(environment.objectId) {
+					console.log("Existing instance");
+					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
+						if (error == null && data != null) {
+							vm.$emit('journal-data-loaded', JSON.parse(data), metadata);
+						} else {
+							console.log("Error loading from journal");
+						}
+					});
 				} else {
-					console.log("Error loading from journal");
+					console.log("New instance");
 				}
 			});
-		},
-
+		});
+	},
+  methods: {
 		saveData: function(context) {
 			var jsonData = JSON.stringify(context);
 			this.activity.getDatastoreObject().setDataAsText(jsonData);

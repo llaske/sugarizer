@@ -42,16 +42,6 @@ var app = new Vue({
 			vm.activity = activity;
 
 			env.getEnvironment(function (err, environment) {
-				if(environment.objectId) {
-					console.log("Existing instance");
-					vm.journal.loadData(function(data, metadata) {
-						vm.pawns = data.pawns;
-						vm.drawPawns();
-					});
-				} else {
-					console.log("New instance");
-				}
-
 				vm.displayText = vm.l10n.stringHello + " " + environment.user.name + "!";
 				vm.currentenv = environment;
 			});
@@ -96,6 +86,11 @@ var app = new Vue({
 			this.$refs.localization.localize(this.l10n);
 			this.$refs.toolbar.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
+		},
+		
+		onJournalDataLoaded(data, metadata) {
+			this.pawns = data.pawns;
+			this.drawPawns();
 		},
 
 		onNetworkDataReceived(msg) {
