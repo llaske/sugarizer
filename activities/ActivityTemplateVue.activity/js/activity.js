@@ -16,12 +16,12 @@ var app = new Vue({
 		'presence': Presence
 	},
 	data: {
-		activity: null,
 		currentUser: {
 			user: {}
 		},
 		presence: null,
 		journal: null,
+		localization: null,
 		icon: null,
 		displayText: '',
 		pawns: [],
@@ -34,12 +34,12 @@ var app = new Vue({
 	mounted: function () {
 		this.presence = this.$refs.presence;
 		this.journal = this.$refs.journal;
+		this.localization = this.$refs.localization;
 
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, env, icon) {
 			// Initialize Sugarizer
 			activity.setup();
-			vm.activity = activity;
 
 			env.getEnvironment(function (err, environment) {
 				vm.displayText = vm.l10n.stringHello + " " + environment.user.name + "!";
@@ -80,6 +80,12 @@ var app = new Vue({
 					this.icon.colorize(pawnElements[i], this.pawns[i])
 				}
 			});
+		},
+
+		insertBackground: function() {
+			this.journal.insertFromJournal(['image/png', 'image/jpeg'], function(data, metadata) {
+				document.getElementById("app").style.backgroundImage = `url(${data})`;
+			})
 		},
 
 		localized: function () {

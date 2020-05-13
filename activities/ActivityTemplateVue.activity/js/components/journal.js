@@ -33,6 +33,36 @@ var Journal = {
 					console.log("write failed.");
 				}
 			});
-		}
+		},
+
+		insertFromJournal: function(type, callback) {
+			var typeParameters = [null, null, null, null];
+			if(typeof type != "string") {
+				for(var i=0; i<type.length; i++) {
+					typeParameters[i] = {};
+					typeParameters[i].mimetype = type[i];
+				}
+			} else {
+				typeParameters[0] = { mimetype: type };
+			}
+			
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
+				setTimeout(function() {
+					journalchooser.show(function(entry) {
+						if (!entry) {
+							return;
+						}
+						var dataentry = new datastore.DatastoreObject(entry.objectId);
+						dataentry.loadAsText(function(err, metadata, data) {
+							if(!err) {
+								callback(data, metadata);
+							} else {
+								console.error(err);
+							}
+						});
+					}, typeParameters[0], typeParameters[1], typeParameters[2], typeParameters[3]);
+				}, 0);
+			});
+		},
   }
 }

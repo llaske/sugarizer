@@ -1,8 +1,3 @@
-#main-toolbar #activity-button {
-	background-image: url(../activity/activity-icon.svg);
-	outline: none;
-}
-
 button:disabled {
 	opacity: 0.3 !important;
 }
@@ -19,6 +14,15 @@ body {
 
 p {
 	margin: 0.6em 0;
+}
+
+#app {
+	min-height: 100%;
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+	outline: none;
 }
 
 #main-toolbar.toolbar {
@@ -85,6 +89,11 @@ p {
 
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
+	outline: none;
+}
+
+#main-toolbar #insert-button {
+	background-image: url(../icons/insert-picture.svg);
 	outline: none;
 }
 
