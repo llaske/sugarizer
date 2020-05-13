@@ -5,7 +5,7 @@ Vue.component('popup', {
   mounted() {
     var vm = this;
     requirejs(["humane"], function (humane) {
-      vm.humane = humane;      
+      vm.humane = humane;
     });
   },
   methods: {

@@ -31,8 +31,14 @@ var Localization = {
 		}
 	},
 	methods: {
+		// Get a single string with parameters
+		get: function(str, params) {
+			console.log("get called");
+			return this.l10n.get(str, params);
+		},
+
 		// Get a single string value
-		get: function(str) {
+		getString: function(str) {
 			if (!this.dictionary) {
 				return str;
 			}
@@ -47,7 +53,7 @@ var Localization = {
 		localize: function(strings) {
 			var vm = this;
 			Object.keys(strings).forEach(function(key, index) {
-				strings[key] = vm.get(key.substr(6));
+				strings[key] = vm.getString(key.substr(6));
 			});
 		}
 	}

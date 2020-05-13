@@ -26,8 +26,6 @@ var app = new Vue({
 		displayText: '',
 		pawns: [],
 		l10n: {
-			stringHello: '',
-			stringPlayed: '',
 			stringAddPawn: ''
 		}
 	},
@@ -42,8 +40,13 @@ var app = new Vue({
 			activity.setup();
 
 			env.getEnvironment(function (err, environment) {
-				vm.displayText = vm.l10n.stringHello + " " + environment.user.name + "!";
 				vm.currentenv = environment;
+				window.addEventListener('localized', initialLocalization);
+				function initialLocalization() {
+					vm.displayText = vm.localization.l10n.get("Hello", { name: environment.user.name });
+					vm.localization.localize(vm.l10n);
+					window.removeEventListener('localized', initialLocalization);
+				}
 			});
 
 			vm.icon = icon;
@@ -56,7 +59,7 @@ var app = new Vue({
 			var vm = this;
 			this.pawns.push(this.currentenv.user.colorvalue);
 			this.drawPawns();
-			this.displayText = this.currentenv.user.name + " " + this.l10n.stringPlayed + "!";
+			this.displayText = this.localization.get("Played", { name: this.currentenv.user.name });
 
 			if (this.presence && this.presence.presence) {
 				var message = {
@@ -89,7 +92,7 @@ var app = new Vue({
 		},
 
 		localized: function () {
-			this.$refs.localization.localize(this.l10n);
+			this.localization.localize(this.l10n);
 			this.$refs.toolbar.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
 		},
@@ -109,7 +112,7 @@ var app = new Vue({
 				case 'update':
 					this.pawns.push(msg.content.data);
 					this.drawPawns();
-					this.displayText = msg.user.name + " " + this.l10n.stringPlayed + "!";
+					this.displayText = this.localization.get("Played", { name: msg.user.name });
 					break;
 			}
 		},
