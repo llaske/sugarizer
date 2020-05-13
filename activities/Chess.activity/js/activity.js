@@ -76,7 +76,6 @@ var app = new Vue({
 
         // Shared instances
         if (environment.sharedId) {
-          console.log("Shared instance");
           vm.presence = activity.getPresenceObject(function(error, network) {
             if (error) {
               console.log(error);
@@ -295,7 +294,6 @@ var app = new Vue({
 
           break;
         case 'exit':
-          console.log("already two players");
           if (msg.content.data == vm.presence.getUserInfo().networkId) {
             $("#stop-button").click();
           }
@@ -371,6 +369,10 @@ var app = new Vue({
       } else {
         if (vm.opponentuser != null) {
           vm.opponentuser = null;
+          if ((vm.$refs.chessgame.state.to_play && !vm.$refs.chessgame.playercolor) || (!vm.$refs.chessgame.state.to_play && vm.$refs.chessgame.playercolor) ) {
+            vm.$refs.chessgame.makeRandomMove();
+          }
+          vm.presence = null;
         }
       }
     },
@@ -378,22 +380,18 @@ var app = new Vue({
       // Save current library in Journal on Stop
       var vm = this;
       requirejs(["sugar-web/activity/activity"], function(activity) {
-        console.log("writing...");
+        if (!vm.presence) {
+          let stateObj = {
+            playercolor: vm.$refs.chessgame.playercolor,
+            state: vm.$refs.chessgame.state,
+            moves: vm.$refs.chessgame.moves
+          };
+          var jsonData = JSON.stringify(stateObj);
+          activity.getDatastoreObject().setDataAsText(jsonData);
+          activity.getDatastoreObject().save(function(error) {
+          });
+        }
 
-        let stateObj = {
-          playercolor: vm.$refs.chessgame.playercolor,
-          state: vm.$refs.chessgame.state,
-          moves: vm.$refs.chessgame.moves
-        };
-        var jsonData = JSON.stringify(stateObj);
-        activity.getDatastoreObject().setDataAsText(jsonData);
-        activity.getDatastoreObject().save(function(error) {
-          if (error === null) {
-            console.log("write done.");
-          } else {
-            console.log("write failed.");
-          }
-        });
       });
     }
   }

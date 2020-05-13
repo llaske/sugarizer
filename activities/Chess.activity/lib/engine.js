@@ -21,7 +21,7 @@ else if (this.console === undefined){//MSIE
     p4_log = function(){};
 }
 else {
-    p4_log = function(){console.log.apply(console, arguments);};
+    p4_log = function(){/*console.log.apply(console, arguments);*/};
 }
 
 /*MSIE Date.now backport */
@@ -209,7 +209,8 @@ function p4_prepare(state){
     /*does a draw seem likely soon?*/
     var draw_likely = (state.draw_timeout > 90 || state.current_repetitions >= 2);
     if (draw_likely)
-        p4_log("draw likely", state.current_repetitions, state.draw_timeout);
+        //p4_log("draw likely", state.current_repetitions, state.draw_timeout);
+        p4_log("", state.current_repetitions, state.draw_timeout);
     state.values = [[], []];
     var qvalue = P4_VALUES[P4_QUEEN]; /*used as ballast in various ratios*/
     var material_sum = material[0] + material[1] + 2 * qvalue;
@@ -727,7 +728,7 @@ function p4_findmove(state, level, colour, ep){
         var ms = mv[1];
         var me = mv[2];
         if (mscore > P4_WIN){
-            p4_log("XXX taking king! it should never come to this");
+            //p4_log("XXX taking king! it should never come to this");
             alpha = P4_KING_VALUE;
             bs = ms;
             be = me;
@@ -986,7 +987,8 @@ function p4_move(state, s, e, promotion){
     /*is it check? */
     if (p4_check_check(state, colour)){
         p4_unmake_move(state, changes);
-        p4_log('in check', changes);
+        //p4_log('in check', changes);
+        p4_log('', changes);
         return {flags: P4_MOVE_ILLEGAL, ok: false, string: "in check!"};
     }
     /*The move is known to be legal. We won't be undoing it.*/
@@ -1050,7 +1052,8 @@ function p4_move(state, s, e, promotion){
         flags |= P4_MOVE_FLAG_MATE;
 
     var movestring = p4_move2string(state, s, e, S, promotion, flags, moves);
-    p4_log("successful move", s, e, movestring, flags);
+    //p4_log("successful move", s, e, movestring, flags);
+    p4_log("", s, e, movestring, flags);
     state.prepared = false;
     return {
         flags: flags,
@@ -1134,7 +1137,8 @@ function p4_move2string(state, s, e, S, promotion, flags, moves){
 
 
 function p4_jump_to_moveno(state, moveno){
-    p4_log('jumping to move', moveno);
+    //p4_log('jumping to move', moveno);
+    p4_log('', moveno);
     if (moveno === undefined || moveno > state.moveno)
         moveno = state.moveno;
     else if (moveno < 0){
@@ -1518,15 +1522,19 @@ function p4_find_source_point(state, e, str){
             }
         }
     }
-    p4_log("finding", str, "that goes to", e, "got", possibilities);
+    //p4_log("finding", str, "that goes to", e, "got", possibilities);
+    p4_log("", str, "", e, "", possibilities);
 
     if (possibilities.length == 0){
         return 0;
     }
     else if (possibilities.length > 1){
-        p4_log("p4_find_source_point seems to have failed",
-               state, e, str,
-               possibilities);
+        //p4_log("p4_find_source_point seems to have failed",
+        //  state, e, str,
+        //  possibilities);
+        p4_log("",
+          state, e, str,
+          possibilities);
     }
     return possibilities[0];
 }

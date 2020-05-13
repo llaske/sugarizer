@@ -145,51 +145,51 @@
   height: 40px;
 }
 
-#moves-container li.bB{
+.bB{
   background-image:url(../img/chesspieces/wikipedia/bB.png);
 }
 
-#moves-container li.bK{
+.bK{
   background-image:url(../img/chesspieces/wikipedia/bK.png);
 }
 
-#moves-container li.bN{
+.bN{
   background-image:url(../img/chesspieces/wikipedia/bN.png);
 }
 
-#moves-container li.bP{
+.bP{
   background-image:url(../img/chesspieces/wikipedia/bP.png);
 }
 
-#moves-container li.bQ{
+.bQ{
   background-image:url(../img/chesspieces/wikipedia/bQ.png);
 }
 
-#moves-container li.bR{
+.bR{
   background-image:url(../img/chesspieces/wikipedia/bR.png);
 }
 
-#moves-container li.wB{
+.wB{
   background-image:url(../img/chesspieces/wikipedia/wB.png);
 }
 
-#moves-container li.wK{
+.wK{
   background-image:url(../img/chesspieces/wikipedia/wK.png);
 }
 
-#moves-container li.wN{
+.wN{
   background-image:url(../img/chesspieces/wikipedia/wN.png);
 }
 
-#moves-container li.wP{
+.wP{
   background-image:url(../img/chesspieces/wikipedia/wP.png);
 }
 
-#moves-container li.wQ{
+.wQ{
   background-image:url(../img/chesspieces/wikipedia/wQ.png);
 }
 
-#moves-container li.wR{
+.wR{
   background-image:url(../img/chesspieces/wikipedia/wR.png);
 }
 
@@ -227,6 +227,13 @@
 .usrtime {
   background-color: #f0d9b5;
   width: 70%;
+}
+
+.tutPiece {
+  background-size: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50px;
 }
 
 #gameover-container {
@@ -286,9 +293,9 @@
 
  }
 
- @media screen and (max-height: 400px)  {
+ @media screen and (max-height: 600px)  {
    #canvas {
-     font-size: 18px;
+     font-size: 15px;
    }
 
   }

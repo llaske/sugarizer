@@ -3,6 +3,8 @@ var Tutorial = {
   template: '<div/>',
   data: function() {
     return {
+      showPiece: false,
+      visuals: "",
       l10n: {
         stringPrevShort: '',
         stringNextShort: '',
@@ -61,6 +63,62 @@ var Tutorial = {
       localization.localize(this.l10n);
     },
 
+    showPieces: function(i, step) {
+      switch (i) {
+        case 14:
+          this.visuals = "<div class='wP tutPiece'></div>"
+          break;
+        case 15:
+          this.visuals = "<div class='wN tutPiece'></div>"
+          break;
+        case 16:
+          this.visuals = "<div class='wB tutPiece'></div>"
+          break;
+        case 17:
+          this.visuals = "<div class='wR tutPiece'></div>"
+          break;
+        case 18:
+          this.visuals = "<div class='wQ tutPiece'></div>"
+          break;
+        case 19:
+          this.visuals = "<div class='wK tutPiece'></div>"
+          break;
+        default:
+          this.visuals = ""
+      }
+      return "\
+      <div class='popover tour'>\
+        <div class='arrow'></div>\
+        <h3 class='popover-title tutorial-title'></h3>\
+        <div class='popover-content'></div>"
+        + this.visuals +
+        "<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
+          <div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>\
+            <div class='tutorial-prev-icon1 web-activity'>\
+              <div class='tutorial-prev-icon2 web-activity-icon'></div>\
+              <div class='tutorial-prev-icon3 web-activity-disable'></div>\
+            </div>\
+            <div class='tutorial-icon-text'>" + this.l10n.stringPrevShort + "</div>\
+          </div>\
+          <span data-role='separator' style='margin: 4px'>|</span>\
+          <div class='tutorial-next-icon tutorial-icon-button' data-role='next'>\
+            <div class='tutorial-next-icon1 web-activity'>\
+              <div class='tutorial-next-icon2 web-activity-icon'></div>\
+              <div class='tutorial-next-icon3 web-activity-disable'></div>\
+            </div>\
+            <div class='tutorial-icon-text'>" + this.l10n.stringNextShort + "</div>\
+          </div>\
+          <div class='tutorial-end-icon tutorial-icon-button' data-role='end'>\
+            <div class='tutorial-end-icon1 web-activity'>\
+              <div class='tutorial-end-icon2 web-activity-icon'></div>\
+              <div class='tutorial-end-icon3 web-activity-disable'></div>\
+            </div>\
+            <div class='tutorial-icon-text'>" + this.l10n.stringEndShort + "</div>\
+          </div>\
+        </div>\
+      </div>";
+    },
+
     show: function() {
       let vm = this;
       var steps = [];
@@ -108,6 +166,18 @@ var Tutorial = {
           content: this.l10n.stringTutoNetworkContent
         },
         {
+          element: "#new-button",
+          placement: "bottom",
+          title: this.l10n.stringTutoRestartTitle,
+          content: this.l10n.stringTutoRestartContent
+        },
+        {
+          element: "#undo-button",
+          placement: "bottom",
+          title: this.l10n.stringTutoUndoTitle,
+          content: this.l10n.stringTutoUndoContent
+        },
+        {
           element: "#level-button",
           placement: "bottom",
           title: this.l10n.stringTutoComputerLevelTitle,
@@ -118,18 +188,6 @@ var Tutorial = {
           placement: "bottom",
           title: this.l10n.stringTutoClockTitle,
           content: this.l10n.stringTutoClockContent
-        },
-        {
-          element: "#undo-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoUndoTitle,
-          content: this.l10n.stringTutoUndoContent
-        },
-        {
-          element: "#new-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoRestartTitle,
-          content: this.l10n.stringTutoRestartContent
         },
         {
           element: "#color-button",
@@ -218,36 +276,7 @@ var Tutorial = {
       ]);
 
       var tour = new Tour({
-        template: "\
-				<div class='popover tour'>\
-					<div class='arrow'></div>\
-					<h3 class='popover-title tutorial-title'></h3>\
-					<div class='popover-content'></div>\
-					<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-						<div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>\
-							<div class='tutorial-prev-icon1 web-activity'>\
-								<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-								<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>" + this.l10n.stringPrevShort + "</div>\
-						</div>\
-						<span data-role='separator' style='margin: 4px'>|</span>\
-						<div class='tutorial-next-icon tutorial-icon-button' data-role='next'>\
-							<div class='tutorial-next-icon1 web-activity'>\
-								<div class='tutorial-next-icon2 web-activity-icon'></div>\
-								<div class='tutorial-next-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>" + this.l10n.stringNextShort + "</div>\
-						</div>\
-						<div class='tutorial-end-icon tutorial-icon-button' data-role='end'>\
-							<div class='tutorial-end-icon1 web-activity'>\
-								<div class='tutorial-end-icon2 web-activity-icon'></div>\
-								<div class='tutorial-end-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>" + this.l10n.stringEndShort + "</div>\
-						</div>\
-					</div>\
-				</div>",
+        template: this.showPieces,
         storage: false,
         backdrop: true,
         steps: steps,

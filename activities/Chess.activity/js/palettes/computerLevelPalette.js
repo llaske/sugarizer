@@ -31,9 +31,9 @@ define(["sugar-web/graphics/palette",
 
     document.getElementById("compLevelValue").addEventListener('click', function () {
       var val = this.value;
-      var level = Math.floor(val / 20);
+      var level = Math.floor(val / 20) + 1;
       that.computerlevelChangedEvent.level = level;
-      this.value = level * 20;
+      this.value = (level-1) * 20;
       that.getPalette().dispatchEvent(that.computerlevelChangedEvent);
     })
 

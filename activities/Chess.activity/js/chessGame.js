@@ -89,7 +89,7 @@ var ChessGame = {
       other_check: false,
       timeexpired: false,
       playercolor: 0,
-      level: 0,
+      level: 1,
       moves: [],
       infotext: 'Vs',
       clock: 0,
@@ -105,7 +105,8 @@ var ChessGame = {
         stringYouLost: '',
         stringMatchDraw: '',
         stringVs: '',
-        stringTimeExpired: ''
+        stringTimeExpired: '',
+        stringThinking: ''
 
       }
     }
@@ -125,8 +126,8 @@ var ChessGame = {
             fill: "#ffffff"
           }
         };
-        $("#opponent-clock .usrtime").css("background-color", nullOpponent.colorvalue.fill);
-        $('#opponent-clock .usrlogo').css('background-image', 'url(' + generateXOLogoWithColor(nullOpponent.colorvalue) + ')');
+        $("#opponent-clock .usrtime").css("background-color", this.normalColor);
+        $('#opponent-clock .usrlogo').css('background-image', 'url(./icons/computer-icon.svg)');
       }
     },
 
@@ -232,7 +233,6 @@ var ChessGame = {
     });
 
     this.tick();
-    //    console.log(this.currentuser);
     $('#player-clock .usrlogo').css('background-image', 'url(' + generateXOLogoWithColor(this.currentuser.colorvalue) + ')');
 
     // Handle resize
@@ -353,21 +353,47 @@ var ChessGame = {
     },
 
     makeRandomMove: function() {
+      this.infotext = this.l10n.stringThinking;
+
+      var start_time = Date.now();
       var possibleMove = this.state.findmove(this.level);
-      console.log(possibleMove);
+      var delta = Date.now() - start_time;
       // game over
       if (possibleMove.length === 0) {
         this.game_won = true;
         return;
       }
+      if (1 / possibleMove[2] == 1 / this.state.stalemate_scores[this.state.to_play]) {
+        this.game_draw = true;
+        return;
+      }
       var move = this.state.move(possibleMove[0], possibleMove[1]);
 
       if (!(move.flags & (1 << 0))) {
-        var tmp = this.level;
-        this.level++;
-        this.makeRandomMove();
-        this.level = tmp;
-        return;
+        var depth = this.level;
+        depth++;
+        //find at higher depths until it runs out of time
+        if (depth > 2){
+          var min_time = 25 * depth;
+          while (delta < min_time){
+              depth++;
+              possibleMove = state.findmove(depth);
+              delta = Date.now() - start_time;
+          }
+        }
+        if (possibleMove.length === 0) {
+          this.game_won = true;
+          return;
+        }
+        if (possibleMove[2] == this.state.stalemate_scores[this.state.to_play]) {
+          this.game_draw = true;
+          return;
+        }
+        move = this.state.move(possibleMove[0], possibleMove[1]);
+        if (!(move.flags & (1 << 0))) {
+          this.game_won = true;
+          return;
+        }
       }
 
       if (move.flags & (1 << 1) && move.flags & (1 << 2)) {
@@ -524,6 +550,15 @@ var ChessGame = {
     undo: function() {
       if (!this.presence) {
         if ((!this.playercolor && this.state.moveno > 0) || (this.playercolor && this.state.moveno > 1)) {
+          if(this.game_won){
+            this.game_won = false;
+          }
+          if(this.game_draw){
+            this.game_draw = false;
+          }
+          if(this.game_lost){
+            this.game_lost = false;
+          }
           p4_jump_to_moveno(this.state, this.state.moveno - 2);
           this.board.position(p4_state2fen(this.state, true));
           this.moves.pop();
