@@ -35,6 +35,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 					} else{
 						console.log(data);
 					}
+
+					if (simonMode || pianoMode){
+						app.userColor = environment.user.colorvalue;
+						app.draw();
+					}
 				});
 			} else {
 				app.renderInto(document.getElementById("keyboard"));
