@@ -33,7 +33,6 @@ var Localization = {
 	methods: {
 		// Get a single string with parameters
 		get: function(str, params) {
-			console.log("get called");
 			return this.l10n.get(str, params);
 		},
 

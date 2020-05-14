@@ -32,6 +32,16 @@ Vue.component('toolbar-item', {
 				}
 			});
 		}
+
+		if(vm.id == 'network-button') {
+			requirejs(["sugar-web/graphics/presencepalette"], function(presencepalette) {
+				var presencePalette = new presencepalette.PresencePalette(document.getElementById(vm.id), undefined);
+				presencePalette.addEventListener('shared', function () {
+					presencePalette.popDown();
+					vm.$root.$refs.presence.onShared();
+				});
+			});
+		}
 	}
 });
 

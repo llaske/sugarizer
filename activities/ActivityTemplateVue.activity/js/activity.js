@@ -61,7 +61,7 @@ var app = new Vue({
 			this.drawPawns();
 			this.displayText = this.localization.get("Played", { name: this.currentenv.user.name });
 
-			if (this.presence && this.presence.presence) {
+			if (this.presence && this.presence.isConnected()) {
 				var message = {
 					user: this.presence.getUserInfo(),
 					content: {

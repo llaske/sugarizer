@@ -1,13 +1,17 @@
 var Presence = {
   data: {
+		activity: null,
+		bundleId: '',
     palette: null,
     presence: null,
 		isHost: false
   },
   mounted() {
 		var vm = this;
-    requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/presencepalette"], function (activity, env, presencepalette) {
+    requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
+			vm.activity = activity;
 			env.getEnvironment(function (err, environment) {
+				vm.bundleId = environment.bundleId;
 				// Handle shared instance
 				if (environment.sharedId) {
 					console.log("Shared instance");
@@ -20,27 +24,14 @@ var Presence = {
 					});
         }
 			});
-
-			vm.palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
-			vm.palette.addEventListener('shared', function () {
-				vm.palette.popDown();
-				console.log("Want to share");
-				vm.presence = activity.getPresenceObject(function (error, network) {
-					if (error) {
-						console.log("Sharing error");
-						return;
-					}
-					network.createSharedActivity('org.sugarlabs.ActivityTemplateVue', function (groupId) {
-						console.log("Activity shared");
-						vm.isHost = true;
-					});
-					network.onDataReceived(vm.onNetworkDataReceived);
-					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
-				});
-			});
 		});
   },
   methods: {
+
+		isConnected: function() {
+			return this.presence != null;
+		},
+
 		getSharedInfo: function() {
 			return this.presence.getSharedInfo();
 		},
@@ -51,6 +42,23 @@ var Presence = {
 
 		sendMessage: function(message) {
 			this.presence.sendMessage(this.presence.getSharedInfo().id, message);
+		},
+
+		onShared: function() {
+			var vm = this;
+			console.log("Want to share");
+			this.presence = vm.activity.getPresenceObject(function (error, network) {
+				if (error) {
+					console.log("Sharing error");
+					return;
+				}
+				network.createSharedActivity(vm.bundleId, function (groupId) {
+					console.log("Activity shared");
+					vm.isHost = true;
+				});
+				network.onDataReceived(vm.onNetworkDataReceived);
+				network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
+			});
 		},
 
     onNetworkDataReceived: function (msg) {
