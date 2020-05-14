@@ -495,6 +495,8 @@ var ChessGame = {
 
       if (this.state.to_play != this.playercolor) return;
 
+      if (this.game_won || this.game_draw || this.game_lost) return;
+
       this.greySquare(square);
 
       // highlight the possible squares for this piece
@@ -585,7 +587,7 @@ var ChessGame = {
       this.level = lvl;
     },
 
-    onClockSelected: function(index) {
+    onClockSelected: function(index, withTime) {
       switch (index) {
         case 0:
           this.clockTotalTime = 0;
@@ -648,7 +650,12 @@ var ChessGame = {
           document.getElementById("tournament-clock").classList.remove("selected");
       }
       this.clock = index;
-      this.clockTime = this.clockTotalTime;
+      if (withTime != undefined) {
+        this.clockTime = withTime;
+      }
+      else {
+        this.clockTime = this.clockTotalTime;
+      }
       this.opponentClockTime = this.clockTotalTime;
 
     }

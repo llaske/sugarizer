@@ -57,17 +57,32 @@ var app = new Vue({
           activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
             if (error == null && data != null) {
               data = JSON.parse(data);
-              vm.$refs.chessgame.state = Object.assign(vm.$refs.chessgame.state, data.state);
 
-              if (!data.chessColor) {
+              console.log(data);
+              if (!data.playercolor) {
                 vm.$refs.chessgame.board.orientation('white');
                 vm.$refs.chessgame.playercolor = 0;
               } else {
                 vm.$refs.chessgame.board.orientation('black');
                 vm.$refs.chessgame.playercolor = 1;
               }
+              vm.$refs.chessgame.game_won = data.game_won;
+              vm.$refs.chessgame.game_draw = data.game_draw;
+              vm.$refs.chessgame.game_lost = data.game_lost;
+              vm.$refs.chessgame.game_check = data.game_check;
+
+              vm.$refs.chessgame.level = data.level;
+              document.getElementById("compLevelValue").value = (this.level-1) * 20;
+
+              vm.$refs.chessgame.state = Object.assign(vm.$refs.chessgame.state, data.state);
               vm.$refs.chessgame.board.position(p4_state2fen(vm.$refs.chessgame.state, true));
               vm.$refs.chessgame.moves = data.moves;
+
+              vm.$refs.chessgame.clock = data.clock;
+              vm.$refs.chessgame.clockTime = data.clockTime;
+              vm.$refs.chessgame.onClockSelected(data.clock, data.clockTime)
+              vm.$refs.chessgame.stopClock = data.stopClock;
+
 
             }
           });
@@ -384,7 +399,15 @@ var app = new Vue({
           let stateObj = {
             playercolor: vm.$refs.chessgame.playercolor,
             state: vm.$refs.chessgame.state,
-            moves: vm.$refs.chessgame.moves
+            moves: vm.$refs.chessgame.moves,
+            clock: vm.$refs.chessgame.clock,
+            stopClock: vm.$refs.chessgame.stopClock,
+            clockTime: vm.$refs.chessgame.clockTime,
+            game_won: vm.$refs.chessgame.game_won,
+            game_lost: vm.$refs.chessgame.game_lost,
+            game_draw: vm.$refs.chessgame.game_draw,
+            game_check: vm.$refs.chessgame.game_check,
+            level: vm.$refs.chessgame.level,
           };
           var jsonData = JSON.stringify(stateObj);
           activity.getDatastoreObject().setDataAsText(jsonData);
