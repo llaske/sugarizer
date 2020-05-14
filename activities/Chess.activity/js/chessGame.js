@@ -27,7 +27,7 @@ var ChessGame = {
           <div class="usrlogo">
           </div>
           <div class="usrtime">
-            <p v-if="!presence">PC</p>
+            <p v-if="!opponentuser">PC</p>
             <p v-else-if="!clock">_:_</p>
             <p v-else>{{parsedOpponentClockTime}}</p>
           </div>
@@ -245,7 +245,7 @@ var ChessGame = {
       localization.localize(this.l10n);
     },
     tick: function() {
-      if (((this.presence && this.ishost && this.opponentuser) || !this.presence) && this.clock) {
+      if (((this.opponentuser && this.ishost) || !this.opponentuser) && this.clock) {
         if (!this.stopClock) {
           var currentTime = new Date();
           if (currentTime - this.previousTime >= 1000) {
@@ -268,7 +268,7 @@ var ChessGame = {
           }
         }
 
-        if (this.presence && this.ishost && this.opponentuser) {
+        if (this.opponentuser && this.ishost ) {
           if (!this.stopOpponentClock) {
             var currentTime = new Date();
             if (currentTime - this.previousTime >= 1000) {
@@ -419,7 +419,7 @@ var ChessGame = {
 
     onDrop: function(source, target) {
       var turn = this.playercolor ? this.state.moveno % 2 != 0 : this.state.moveno % 2 == 0;
-      if (!this.presence || (this.presence && turn)) {
+      if (!this.opponentuser || (this.opponentuser && turn)) {
         this.removeGreySquares();
 
         var move = this.state.move(source, target);
@@ -441,7 +441,7 @@ var ChessGame = {
           this.other_check = false;
         }
 
-        if (this.presence) {
+        if (this.opponentuser) {
           if (this.ishost) {
             this.stopClock = true;
             this.stopOpponentClock = false;
@@ -454,7 +454,7 @@ var ChessGame = {
         $('#player-clock').css('border-style','none');
         $('#opponent-clock').css('border-style','solid');
 
-        if (this.presence) {
+        if (this.opponentuser) {
           this.$emit('sendmove', {
             data: {
               chessColor: this.playercolor,
@@ -470,7 +470,7 @@ var ChessGame = {
         $("#canvas").css("background-color", this.currentuser.colorvalue.fill);
         this.updateMoves();
 
-        if (!this.presence) {
+        if (!this.opponentuser) {
           // make random legal move for black
           window.setTimeout(this.makeRandomMove, 250);
         }
@@ -548,7 +548,7 @@ var ChessGame = {
     },
 
     undo: function() {
-      if (!this.presence) {
+      if (!this.opponentuser) {
         if ((!this.playercolor && this.state.moveno > 0) || (this.playercolor && this.state.moveno > 1)) {
           if(this.game_won){
             this.game_won = false;
@@ -570,27 +570,31 @@ var ChessGame = {
 
     changeColor: function(flipInMultiplayer) {
       if (flipInMultiplayer) {
-        if (this.playercolor) {
-          this.board.orientation('white');
-          this.playercolor = 0;
-        }
-        else {
-          this.board.orientation('black');
-          this.playercolor = 1;
+        if (this.state.moveno == 0) {
+          if (this.playercolor) {
+            this.board.orientation('white');
+            this.playercolor = 0;
+            this.newGame();
+          }
+          else {
+            this.board.orientation('black');
+            this.playercolor = 1;
+            this.newGame();
+          }
         }
       }
       else {
         if (this.state.moveno == 0) {
           this.board.orientation('black');
           this.playercolor = 1;
+          this.newGame();
         } else if (this.state.moveno == 1) {
           this.board.start(false);
           this.board.orientation('white');
           this.playercolor = 0;
+          this.newGame();
         }
       }
-
-      this.newGame();
 
     },
 

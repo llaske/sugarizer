@@ -168,7 +168,7 @@ var app = new Vue({
       var state = vm.$refs.chessgame.state;
       var playercolor = vm.$refs.chessgame.playercolor;
       if (!vm.$refs.chessgame.game_won && !vm.$refs.chessgame.game_lost && !vm.$refs.chessgame.game_draw ) {
-        if (!vm.presence) {
+        if (!vm.opponentuser) {
           if ((state.moveno == 1 && playercolor) || (state.moveno == 0 && !playercolor)) {
             vm.$refs.chessgame.onClockSelected(data.index);
           }
@@ -253,14 +253,14 @@ var app = new Vue({
       this.$refs.chessgame.undo();
     },
     newGame: function() {
-      if (!(this.presence && !this.ishost)) {
+      if (!(this.opponentuser && !this.ishost)) {
         this.$refs.chessgame.newGame();
       }
     },
     changeColor: function() {
       var vm = this;
-      if (!vm.presence) {
-        vm.$refs.chessgame.changeColor();
+      if (!vm.opponentuser) {
+        vm.$refs.chessgame.changeColor(false);
       }
       else {
         if (vm.$refs.chessgame.state.moveno == 0) {
@@ -375,7 +375,8 @@ var app = new Vue({
 
       if (msg.move == 1) {
         if (vm.ishost) {
-          if (vm.opponentuser == null) {
+          if (!vm.opponentuser) {
+            vm.opponentuser = msg.user;
             vm.$refs.chessgame.newGame();
             vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
               user: vm.presence.getUserInfo(),
@@ -389,7 +390,6 @@ var app = new Vue({
               }
             });
 
-            vm.opponentuser = msg.user;
           } else {
             vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
               user: vm.presence.getUserInfo(),
@@ -407,14 +407,13 @@ var app = new Vue({
           if ((vm.$refs.chessgame.state.to_play && !vm.$refs.chessgame.playercolor) || (!vm.$refs.chessgame.state.to_play && vm.$refs.chessgame.playercolor) ) {
             vm.$refs.chessgame.makeRandomMove();
           }
-          vm.presence = null;
         }
       }
     },
     onStop: function() {
       var vm = this;
       requirejs(["sugar-web/activity/activity"], function(activity) {
-        if (!vm.presence) {
+        if (!vm.opponentuser) {
           let stateObj = {
             playercolor: vm.$refs.chessgame.playercolor,
             state: vm.$refs.chessgame.state,
