@@ -24,10 +24,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         var marked_blocks = [];
         stage.enableMouseOver(30);
         var anim_over = true;
-        button_highlight(level);
         var game_status = 'playing';
         var smiley_color = backgorund_color;
-        var doubleTap = false;
 
         document.getElementById("undo").addEventListener("click", function(){
             if(anim_over == true){
@@ -305,12 +303,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
                         if(anim_over == true && ("ontouchstart" in document.documentElement) == false){
-                            highlight_mouseover(stage.getChildByName(e.target.name));
+                            highlight_mouseover(e.target);
                             stage.update();
                         }
                     });
                     square.addEventListener('click', function(e){
-                        if(("ontouchstart" in document.documentElement) == true){
+                        if(anim_over == true && ("ontouchstart" in document.documentElement) == true){
                             HandleTap(e);
                         }
                     });
@@ -346,17 +344,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         var circle_move = false;
 
         function HandleTap(e) {
-            if(!doubleTap) {
-                doubleTap = true;
-                setTimeout( function() { doubleTap = false; }, 300 );
-                if(anim_over == true){
-                    highlight_mouseover(stage.getChildByName(e.target.name));
-                    stage.update();
-                }
-                return false;
-            }
             e.preventDefault();
-            move();
+            if(e.target.highlighted == true && highlighted_blocks.length > 2){
+                highlight_mouseover(e.target);
+                move();
+            }
+            else{
+                highlight_mouseover(e.target);
+                stage.update();
+            }
         }
 
         canvas_div.addEventListener('click', function(e){
@@ -936,6 +932,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             // Load from datastore
             if (!environment.objectId) {
                 // New instance
+                button_highlight(level);
                 fragmentation = (level == 2) ? 2:0;
                 var board = generate_board(fragmentation,5,max_size);
                 board[0].simplify();
@@ -951,13 +948,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                     if (error==null && data!=null) {
                         var datastore_data = JSON.parse(data);
                         level = datastore_data["level"];
+                        button_highlight(level);
                         fragmentation = (level == 2) ? 2:0;
                         max_size = difficulty[level].slice();
                         pieces = datastore_data["pieces"];
                         SetMaxSize(pieces);
                         undo_stack = datastore_data["undo_stack"];
                         redo_stack = datastore_data["redo_stack"];
-                        button_highlight(level);
                         if(datastore_data["game_status"] == "won"){
                             game_status = "won";
                             smiley_color = datastore_data["smiley_color"];
