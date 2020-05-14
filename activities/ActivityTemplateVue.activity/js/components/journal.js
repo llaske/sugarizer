@@ -1,4 +1,4 @@
-var Journal = {
+Vue.component('journal', {
 	data: {
 		activity: null
 	},
@@ -65,4 +65,4 @@ var Journal = {
 			});
 		},
   }
-}
+});

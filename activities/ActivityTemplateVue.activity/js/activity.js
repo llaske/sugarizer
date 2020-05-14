@@ -9,12 +9,6 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
-	components: {
-		'localization': Localization, 
-		'tutorial': Tutorial,
-		'journal': Journal, 
-		'presence': Presence
-	},
 	data: {
 		currentUser: {
 			user: {}
@@ -95,6 +89,16 @@ var app = new Vue({
 			this.localization.localize(this.l10n);
 			this.$refs.toolbar.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
+		},
+
+		fullscreen: function() {
+			this.$refs.toolbar.hide();
+			// Add more code here
+		},
+
+		unfullscreen: function() {
+			this.$refs.toolbar.show();
+			// Add more code here
 		},
 		
 		onJournalDataLoaded(data, metadata) {

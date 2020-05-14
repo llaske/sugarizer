@@ -1,12 +1,12 @@
 // Toolbar item
 Vue.component('toolbar-item', {
 	template: `
-		<div class="splitbar" v-if="isSplitbar"/>
-		<button class="toolbutton" v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }" v-else/>
+		<div class="splitbar" v-if="splitbar"/>
+		<button class="toolbutton" v-else v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }"/>
 	`,
 	props: {
 		'id': String,
-		'isSplitbar': Boolean, 
+		'splitbar': Boolean,
 		'toRight': Boolean, 
 		'paletteClass': String, 
 		'paletteFile': String, 
@@ -49,42 +49,33 @@ Vue.component('toolbar-item', {
 Vue.component('toolbar', {
 	template: `
 		<div id="main-toolbar" class="toolbar" v-bind:class="{ hidden: hidden }">
-			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
-			<toolbar-item isSplitbar></toolbar-item>
-
-			<toolbar-item id="network-button" v-bind:title="l10n.stringNetwork" v-if="presence"></toolbar-item>
-			
 			<slot></slot>
-
-			<toolbar-item v-on:click="$parent.onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
-			<toolbar-item v-if="!hidden" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
-			<toolbar-item v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
-			<toolbar-item v-on:click="$parent.onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
 		</div>
 	`,
 	data: function () {
 		return {
 			hidden: false,
-			presence: null,
 			l10n: {
 				stringNetwork: ''
 			}
 		}
-	},
-	mounted: function() {
-		this.presence = this.$root.$refs.presence;
 	},
 	methods: {
 		localized: function (localization) {
 			localization.localize(this.l10n);
 		},
 		
-		// Handle fullscreen mode
-		fullscreen: function () {
-			this.hidden = true;
+		isHidden() {
+			return this.hidden;
 		},
 
-		unfullscreen: function () {
+		// Handle fullscreen mode
+		hide: function () {
+			this.hidden = true;
+
+		},
+
+		show: function () {
 			this.hidden = false;
 		},
 	}

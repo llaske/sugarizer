@@ -26,8 +26,17 @@
 <body>
 	<div id="app">
 		<toolbar ref="toolbar">
+			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
+			<toolbar-item splitbar></toolbar-item>
+
+			<toolbar-item id="network-button" v-bind:title="l10n.stringNetwork" v-if="presence"></toolbar-item>
 			<toolbar-item id="insert-button" v-on:click="insertBackground" title="Change Background"></toolbar-item>
 			<toolbar-item id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></toolbar-item>
+
+			<toolbar-item v-on:click="onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
+			<toolbar-item v-if="$refs.toolbar ? !$refs.toolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
+			<toolbar-item v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></toolbar-item>
+			<toolbar-item v-on:click="onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
 		</toolbar>
 
 		<div id="user">

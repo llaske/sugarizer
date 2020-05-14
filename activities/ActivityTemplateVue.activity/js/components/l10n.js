@@ -1,5 +1,5 @@
 // Localization component
-var Localization = {
+Vue.component('localization', {
 	template: '<div/>',
 	data: function() {
 		return {
@@ -56,4 +56,4 @@ var Localization = {
 			});
 		}
 	}
-}
+});

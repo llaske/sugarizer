@@ -1,6 +1,5 @@
-
 // Tutorial component based on bootstrap tour
-var Tutorial = {
+Vue.component('tutorial', {
 	template: '<div/>',
 	data: function() {
 		return {
@@ -180,4 +179,4 @@ var Tutorial = {
 			tour.start(true);
 		}
 	}
-}
+});

@@ -1,4 +1,4 @@
-var Presence = {
+Vue.component('presence', {
   data: {
 		activity: null,
 		bundleId: '',
@@ -78,4 +78,4 @@ var Presence = {
 			}
 		},
   }
-}
+});
