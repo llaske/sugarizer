@@ -221,7 +221,6 @@ var ChessGame = {
   mounted: function() {
     let vm = this;
 
-    //this.startNewGame();
     this.board = Chessboard('board', {
       draggable: true,
       position: 'start',
@@ -545,7 +544,6 @@ var ChessGame = {
       if (this.clock) {
         this.stopClock = false;
       }
-      //      $("#canvas").css("background-color", normalColor);
 
     },
 
@@ -570,17 +568,30 @@ var ChessGame = {
       }
     },
 
-    changeColor: function() {
-      if (this.state.moveno == 0) {
-        this.board.orientation('black');
-        this.playercolor = 1;
-        this.newGame();
-      } else if (this.state.moveno == 1) {
-        this.board.start(false);
-        this.board.orientation('white');
-        this.playercolor = 0;
-        this.newGame();
+    changeColor: function(flipInMultiplayer) {
+      if (flipInMultiplayer) {
+        if (this.playercolor) {
+          this.board.orientation('white');
+          this.playercolor = 0;
+        }
+        else {
+          this.board.orientation('black');
+          this.playercolor = 1;
+        }
       }
+      else {
+        if (this.state.moveno == 0) {
+          this.board.orientation('black');
+          this.playercolor = 1;
+        } else if (this.state.moveno == 1) {
+          this.board.start(false);
+          this.board.orientation('white');
+          this.playercolor = 0;
+        }
+      }
+
+      this.newGame();
+
     },
 
     onComputerlevelChanged: function(lvl) {

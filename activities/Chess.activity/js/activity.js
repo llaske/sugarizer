@@ -72,7 +72,7 @@ var app = new Vue({
               vm.$refs.chessgame.game_check = data.game_check;
 
               vm.$refs.chessgame.level = data.level;
-              document.getElementById("compLevelValue").value = (this.level-1) * 20;
+              document.getElementById("compLevelValue").value = (this.level-1) * 25;
 
               vm.$refs.chessgame.state = Object.assign(vm.$refs.chessgame.state, data.state);
               vm.$refs.chessgame.board.position(p4_state2fen(vm.$refs.chessgame.state, true));
@@ -175,10 +175,10 @@ var app = new Vue({
         }
         else {
           if (state.moveno == 0) {
-            vm.$refs.chessgame.onClockSelected(data.index);
-            vm.humane.log(vm.l10n.stringClockChanged);
-
             if(vm.ishost){
+              vm.$refs.chessgame.onClockSelected(data.index);
+              vm.humane.log(vm.l10n.stringClockChanged);
+
               vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
                 user: vm.presence.getUserInfo(),
                 content: {
@@ -258,9 +258,29 @@ var app = new Vue({
       }
     },
     changeColor: function() {
-      if (!this.presence) {
-        this.$refs.chessgame.changeColor();
+      var vm = this;
+      if (!vm.presence) {
+        vm.$refs.chessgame.changeColor();
       }
+      else {
+        if (vm.$refs.chessgame.state.moveno == 0) {
+          if(vm.ishost){
+            this.$refs.chessgame.changeColor(true);
+            vm.presence.sendMessage(vm.presence.getSharedInfo().id, {
+              user: vm.presence.getUserInfo(),
+              content: {
+                action: 'init',
+                data: {
+                  chessColor: vm.$refs.chessgame.playercolor,
+                  state: vm.$refs.chessgame.state,
+                  clock: vm.$refs.chessgame.clock
+                }
+              }
+            });
+          }
+        }
+      }
+
     },
     onNetworkDataReceived: function(msg) {
       var vm = this;
@@ -392,7 +412,6 @@ var app = new Vue({
       }
     },
     onStop: function() {
-      // Save current library in Journal on Stop
       var vm = this;
       requirejs(["sugar-web/activity/activity"], function(activity) {
         if (!vm.presence) {
