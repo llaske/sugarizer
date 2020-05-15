@@ -28,7 +28,7 @@ var app = new Vue({
 
 	methods: {
 
-		initializeActivity: function() {
+		initializeActivity: function () {
 			// Initialize Sugarizer
 			this.$refs.SugarActivity.setup();
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
@@ -42,7 +42,7 @@ var app = new Vue({
 			}
 		},
 
-		onAddClick: function() {
+		onAddClick: function () {
 			var vm = this;
 			this.pawns.push(this.currentenv.user.colorvalue);
 			this.drawPawns();
@@ -60,20 +60,20 @@ var app = new Vue({
 			}
 		},
 
-		drawPawns: function() {
+		drawPawns: function () {
 			/* Pawns are drawn automatically due to the Vue.js DOM updates */
 
 			// Colouring the icons
-			this.$nextTick(function() {
+			this.$nextTick(function () {
 				var pawnElements = document.getElementById("pawns").children;
-				for(var i=0; i<pawnElements.length; i++) {
+				for (var i = 0; i < pawnElements.length; i++) {
 					this.$refs.SugarActivity.colorize(pawnElements[i], this.pawns[i])
 				}
 			});
 		},
 
-		insertBackground: function() {
-			this.$refs.SugarJournal.insertFromJournal(['image/png', 'image/jpeg'], function(data, metadata) {
+		insertBackground: function () {
+			this.$refs.SugarJournal.insertFromJournal(['image/png', 'image/jpeg'], function (data, metadata) {
 				document.getElementById("app").style.backgroundImage = `url(${data})`;
 			})
 		},
@@ -84,16 +84,16 @@ var app = new Vue({
 			this.$refs.SugarTutorial.localized(this.SugarLocalization);
 		},
 
-		fullscreen: function() {
+		fullscreen: function () {
 			this.$refs.SugarToolbar.hide();
 			// Add more code here
 		},
 
-		unfullscreen: function() {
+		unfullscreen: function () {
 			this.$refs.SugarToolbar.show();
 			// Add more code here
 		},
-		
+
 		onJournalDataLoaded(data, metadata) {
 			this.pawns = data.pawns;
 			this.drawPawns();
@@ -130,12 +130,33 @@ var app = new Vue({
 			}
 			// If user leaves
 			else {
-				
+
 			}
 		},
 
-		onHelp: function (type) {
-			this.$refs.SugarTutorial.show(type);
+		onHelp: function () {
+			var steps = [
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: "stringTutoExplainTitle",
+					content: "stringTutoExplainContent"
+				},
+				{
+					element: "#add-button",
+					placement: "right",
+					title: "stringTutoAddTitle",
+					content: "stringTutoAddContent"
+				},
+				{
+					element: "#insert-button",
+					placement: "bottom",
+					title: "stringTutoBackgroundTitle",
+					content: "stringTutoBackgroundContent"
+				}
+			];
+			this.$refs.SugarTutorial.show(steps);
 		},
 
 		onStop: function () {
@@ -144,6 +165,6 @@ var app = new Vue({
 				pawns: this.pawns
 			};
 			this.$refs.SugarJournal.saveData(context);
-    }
+		}
 	}
 });

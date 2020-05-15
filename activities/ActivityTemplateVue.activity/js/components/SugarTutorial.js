@@ -1,178 +1,91 @@
 // Tutorial component based on bootstrap tour
 Vue.component('sugar-tutorial', {
-	template: '<div/>',
-	data: function() {
+	data: function () {
 		return {
 			l10n: {
-				stringPrevShort: '',
-				stringNextShort: '',
-				stringEndShort: '',
-				stringTutoTitle: '',
-				stringTutoContent: '',
-				stringTutoBallTitle: '',
-				stringTutoBallContent: '',
-				stringTutoBallControlsTitle: '',
-				stringTutoBallControlsContent: '',
-				stringTutoSlopeTitle: '',
-				stringTutoSlopeContent: '',
-				stringTutoLogTitle: '',
-				stringTutoLogContent: '',
-				stringTutoPlayTitle: '',
-				stringTutoPlayContent: '',
-				stringTutoSettingsTitle: '',
-				stringTutoSettingsContent: '',
-				stringTutoBallSelectTitle: '',
-				stringTutoBallSelectContent: '',
-				stringTutoBgSelectTitle: '',
-				stringTutoBgSelectContent: '',
-				stringTutoFractionsModeTitle: '',
-				stringTutoFractionsModeContent: '',
-				stringTutoSectorsModeTitle: '',
-				stringTutoSectorsModeContent: '',
-				stringTutoPercentsModeTitle: '',
-				stringTutoPercentsModeContent: '',
+				stringTutoPrev: '',
+				stringTutoNext: '',
+				stringTutoEnd: '',
 			}
 		}
 	},
 	methods: {
-		localized: function(localization) {
+		localized: function (localization) {
 			localization.localize(this.l10n);
 		},
 
-		show: function(type) {
+		extractStrings: function (steps) {
 			var vm = this;
-			var steps = [];
-			
-			steps.push(
-				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
-					title: this.l10n.stringTutoTitle,
-					content: this.l10n.stringTutoContent
+			var needsLocalization = false;
+			// Add strings to l10n object
+			steps.forEach(function (step) {
+				if (!(step.title in vm.l10n)) {
+					vm.l10n[step.title] = '';
+					needsLocalization = true;
 				}
-			);
-			steps = steps.concat([
-				{
-					element: "#mainCanvas",
-					placement: "top",
-					backdrop: false,
-					title: this.l10n.stringTutoBallTitle,
-					content: this.l10n.stringTutoBallContent
-				},
-				{
-					element: "#mainCanvas",
-					placement: "top",
-					title: this.l10n.stringTutoBallControlsTitle,
-					content: this.l10n.stringTutoBallControlsContent
-				},
-				{
-					element: "#slopeCanvas",
-					placement: "top",
-					backdrop: false,
-					title: this.l10n.stringTutoSlopeTitle,
-					content: this.l10n.stringTutoSlopeContent
-				},
-				{
-					element: ".log",
-					placement: "right",
-					title: this.l10n.stringTutoLogTitle,
-					content: this.l10n.stringTutoLogContent
-				},
-				{
-					element: "#play-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
-				},
-				{
-					element: "#pause-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
-				},
-				{
-					element: "#settings-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoSettingsTitle,
-					content: this.l10n.stringTutoSettingsContent
-				},
-				{
-					element: "#ball-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoBallSelectTitle,
-					content: this.l10n.stringTutoBallSelectContent
-				},
-				{
-					element: "#bg-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoBgSelectTitle,
-					content: this.l10n.stringTutoBgSelectContent
-				},
-				{
-					element: "#fractions-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoFractionsModeTitle,
-					content: this.l10n.stringTutoFractionsModeContent
-				},
-				{
-					element: "#sectors-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoSectorsModeTitle,
-					content: this.l10n.stringTutoSectorsModeContent
-				},
-				{
-					element: "#percents-button",
-					placement: "bottom",
-					title: this.l10n.stringTutoPercentsModeTitle,
-					content: this.l10n.stringTutoPercentsModeContent
-				},
-			]);
-			
+				if (!(step.content in vm.l10n)) {
+					vm.l10n[step.content] = '';
+					needsLocalization = true;
+				}
+			});
+			// Localize the l10n object if needed
+			if (needsLocalization) {
+				this.$root.$refs.SugarLocalization.localize(this.l10n);
+				needsLocalization = false;
+			}
+			// Replace values in the steps
+			steps.forEach(function (step) {
+				step.title = vm.l10n[step.title];
+				step.content = vm.l10n[step.content];
+			});
+		},
+
+		show: function (steps) {
+			this.extractStrings(steps);
+
+			var vm = this;
 			var tour = new Tour({
-				template: "\
-				<div class='popover tour'>\
-					<div class='arrow'></div>\
-					<h3 class='popover-title tutorial-title'></h3>\
-					<div class='popover-content'></div>\
-					<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-						<div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>\
-							<div class='tutorial-prev-icon1 web-activity'>\
-								<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-								<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>"+this.l10n.stringPrevShort+"</div>\
-						</div>\
-						<span data-role='separator' style='margin: 4px'>|</span>\
-						<div class='tutorial-next-icon tutorial-icon-button' data-role='next'>\
-							<div class='tutorial-next-icon1 web-activity'>\
-								<div class='tutorial-next-icon2 web-activity-icon'></div>\
-								<div class='tutorial-next-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>"+this.l10n.stringNextShort+"</div>\
-						</div>\
-						<div class='tutorial-end-icon tutorial-icon-button' data-role='end'>\
-							<div class='tutorial-end-icon1 web-activity'>\
-								<div class='tutorial-end-icon2 web-activity-icon'></div>\
-								<div class='tutorial-end-icon3 web-activity-disable'></div>\
-							</div>\
-							<div class='tutorial-icon-text'>"+this.l10n.stringEndShort+"</div>\
-						</div>\
-					</div>\
-				</div>",
+				template: `
+				<div class='popover tour'>
+					<div class='arrow'></div>
+					<h3 class='popover-title tutorial-title'></h3>
+					<div class='popover-content'></div>
+					<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>
+						<div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>
+							<div class='tutorial-prev-icon1 web-activity'>
+								<div class='tutorial-prev-icon2 web-activity-icon'></div>
+								<div class='tutorial-prev-icon3 web-activity-disable'></div>
+							</div>
+							<div class='tutorial-icon-text'>${this.l10n.stringTutoPrev}</div>
+						</div>
+						<span data-role='separator' style='margin: 4px'>|</span>
+						<div class='tutorial-next-icon tutorial-icon-button' data-role='next'>
+							<div class='tutorial-next-icon1 web-activity'>
+								<div class='tutorial-next-icon2 web-activity-icon'></div>
+								<div class='tutorial-next-icon3 web-activity-disable'></div>
+							</div>
+							<div class='tutorial-icon-text'>${this.l10n.stringTutoNext}</div>
+						</div>
+						<div class='tutorial-end-icon tutorial-icon-button' data-role='end'>
+							<div class='tutorial-end-icon1 web-activity'>
+								<div class='tutorial-end-icon2 web-activity-icon'></div>
+								<div class='tutorial-end-icon3 web-activity-disable'></div>
+							</div>
+							<div class='tutorial-icon-text'>${this.l10n.stringTutoEnd}</div>
+						</div>
+					</div>
+				</div>`,
 				storage: false,
 				backdrop: true,
 				steps: steps,
+				onStart: function (tour) {
+					vm.$emit('start', tour);
+				},
 				onShow: function (tour) {
-					if(tour._current == 7) {
-						vm.$emit('startpos');
-					} 
-					else if(tour._current == 8) {
-						vm.$emit('end');
-					}
+					vm.$emit('show', tour);
 				},
 				onEnd: function (tour) {
-					vm.$emit('end');
+					vm.$emit('end', tour);
 				},
 			});
 			tour.init();
