@@ -1,14 +1,14 @@
 Vue.component('presence', {
-  data: {
+	data: {
 		activity: null,
 		bundleId: '',
-    palette: null,
-    presence: null,
+		palette: null,
+		presence: null,
 		isHost: false
-  },
-  mounted() {
+	},
+	mounted() {
 		var vm = this;
-    requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 			vm.activity = activity;
 			env.getEnvironment(function (err, environment) {
 				vm.bundleId = environment.bundleId;
@@ -22,29 +22,30 @@ Vue.component('presence', {
 						network.onDataReceived(vm.onNetworkDataReceived);
 						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
 					});
-        }
+				}
 			});
 		});
-  },
-  methods: {
+	},
+	methods: {
 
-		isConnected: function() {
+		isConnected: function () {
 			return this.presence != null;
 		},
 
-		getSharedInfo: function() {
+		getSharedInfo: function () {
 			return this.presence.getSharedInfo();
 		},
 
-		getUserInfo: function() {
+		getUserInfo: function () {
 			return this.presence.getUserInfo();
 		},
 
-		sendMessage: function(message) {
+		sendMessage: function (message) {
 			this.presence.sendMessage(this.presence.getSharedInfo().id, message);
 		},
 
-		onShared: function() {
+		onShared: function (event, paletteObject) {
+			paletteObject.popDown();
 			var vm = this;
 			console.log("Want to share");
 			this.presence = vm.activity.getPresenceObject(function (error, network) {
@@ -61,7 +62,7 @@ Vue.component('presence', {
 			});
 		},
 
-    onNetworkDataReceived: function (msg) {
+		onNetworkDataReceived: function (msg) {
 			if (this.getUserInfo().networkId === msg.user.networkId) {
 				return;  	// Return if data was sent by the user
 			}
@@ -70,12 +71,16 @@ Vue.component('presence', {
 		},
 
 		onNetworkUserChanged: function (msg) {
+			if (this.getUserInfo().networkId === msg.user.networkId) {
+				return;  	// Return if user himself changed
+			}
+
 			this.$emit('user-changed', msg);
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
-			if (this.presence.getUserInfo().networkId !== msg.user.networkId) {
-				this.$parent.$refs.popup.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
+			if(this.$root.$refs.popup) {
+				this.$root.$refs.popup.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			}
 		},
-  }
+	}
 });

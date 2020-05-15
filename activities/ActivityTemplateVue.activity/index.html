@@ -29,10 +29,20 @@
 			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
 			<toolbar-item splitbar></toolbar-item>
 
-			<toolbar-item id="network-button" v-bind:title="l10n.stringNetwork" v-if="presence"></toolbar-item>
+			<!-- Add more buttons here -->
+			<toolbar-item 
+				id="network-button" 
+				v-bind:title="l10n.stringNetwork" 
+				v-if="presence"
+				palette-file="sugar-web/graphics/presencepalette" 
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="presence.onShared"
+			></toolbar-item>
 			<toolbar-item id="insert-button" v-on:click="insertBackground" title="Change Background"></toolbar-item>
 			<toolbar-item id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></toolbar-item>
-
+			
+			<!-- ToolbarItems with class="pull-right" will be right aligned -->
 			<toolbar-item v-on:click="onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
 			<toolbar-item v-if="$refs.toolbar ? !$refs.toolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
 			<toolbar-item v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></toolbar-item>
@@ -40,16 +50,16 @@
 		</toolbar>
 
 		<div id="user">
-			<h1>{{ displayText }}</h1>	
+			<h1>{{ displayText }}</h1>
 		</div>
 		<div id="pawns">
 			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
 		</div>
 
-		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
 		<journal ref="journal" v-on:journal-data-loaded="onJournalDataLoaded"></journal>
-		<popup ref="popup"></popup>
+		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
 		<tutorial ref="tutorial"></tutorial>
+		<popup ref="popup"></popup>
 		<localization ref="localization" v-on:localized="localized"></localization>
 	</div>
 

@@ -7,11 +7,11 @@ Vue.component('toolbar-item', {
 	props: {
 		'id': String,
 		'splitbar': Boolean,
-		'toRight': Boolean, 
-		'paletteClass': String, 
-		'paletteFile': String, 
-		'paletteEvent': String, 
-		'disabled': Boolean, 
+		'toRight': Boolean,
+		'paletteClass': String,
+		'paletteFile': String,
+		'paletteEvent': String,
+		'disabled': Boolean,
 		'active': Boolean
 	},
 	data: function () {
@@ -27,19 +27,9 @@ Vue.component('toolbar-item', {
 				vm.paletteObject = new palette[vm.paletteClass](document.getElementById(vm.id));
 				if (vm.paletteEvent) {
 					vm.paletteObject.addEventListener(vm.paletteEvent, function (event) {
-						vm.$emit(vm.paletteEvent, event);
+						vm.$emit(vm.paletteEvent, event, vm.paletteObject);
 					});
 				}
-			});
-		}
-
-		if(vm.id == 'network-button') {
-			requirejs(["sugar-web/graphics/presencepalette"], function(presencepalette) {
-				var presencePalette = new presencepalette.PresencePalette(document.getElementById(vm.id), undefined);
-				presencePalette.addEventListener('shared', function () {
-					presencePalette.popDown();
-					vm.$root.$refs.presence.onShared();
-				});
 			});
 		}
 	}
@@ -64,8 +54,8 @@ Vue.component('toolbar', {
 		localized: function (localization) {
 			localization.localize(this.l10n);
 		},
-		
-		isHidden() {
+
+		isHidden: function () {
 			return this.hidden;
 		},
 
