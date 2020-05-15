@@ -1,5 +1,5 @@
 // Tutorial component based on bootstrap tour
-Vue.component('tutorial', {
+Vue.component('sugar-tutorial', {
 	template: '<div/>',
 	data: function() {
 		return {

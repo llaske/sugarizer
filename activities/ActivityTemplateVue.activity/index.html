@@ -25,29 +25,29 @@
 
 <body>
 	<div id="app">
-		<toolbar ref="toolbar">
-			<toolbar-item id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></toolbar-item>
-			<toolbar-item splitbar></toolbar-item>
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<toolbar-item 
+			<sugar-toolitem 
 				id="network-button" 
 				v-bind:title="l10n.stringNetwork" 
-				v-if="presence"
+				v-if="SugarPresence"
 				palette-file="sugar-web/graphics/presencepalette" 
 				palette-class="PresencePalette"
 				palette-event="shared"
-				v-on:shared="presence.onShared"
-			></toolbar-item>
-			<toolbar-item id="insert-button" v-on:click="insertBackground" title="Change Background"></toolbar-item>
-			<toolbar-item id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></toolbar-item>
+				v-on:shared="SugarPresence.onShared"
+			></sugar-toolitem>
+			<sugar-toolitem id="insert-button" v-on:click="insertBackground" title="Change Background"></sugar-toolitem>
+			<sugar-toolitem id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></sugar-toolitem>
 			
 			<!-- ToolbarItems with class="pull-right" will be right aligned -->
-			<toolbar-item v-on:click="onStop()" id="stop-button" title="Stop" class="pull-right"></toolbar-item>
-			<toolbar-item v-if="$refs.toolbar ? !$refs.toolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></toolbar-item>
-			<toolbar-item v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></toolbar-item>
-			<toolbar-item v-on:click="onHelp()" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></toolbar-item>
-		</toolbar>
+			<sugar-toolitem v-on:click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-on:click="onHelp" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
+		</sugar-toolbar>
 
 		<div id="user">
 			<h1>{{ displayText }}</h1>
@@ -56,19 +56,21 @@
 			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
 		</div>
 
-		<journal ref="journal" v-on:journal-data-loaded="onJournalDataLoaded"></journal>
-		<presence ref="presence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></presence>
-		<tutorial ref="tutorial"></tutorial>
-		<popup ref="popup"></popup>
-		<localization ref="localization" v-on:localized="localized"></localization>
+		<sugar-activity ref="SugarActivity" v-on:loaded="initializeActivity"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-localization ref="SugarLocalization" v-on:localized="localized"></sugar-localization>
 	</div>
 
-	<script src="js/components/Toolbar.js"></script>
-	<script src="js/components/Journal.js"></script>
-	<script src="js/components/Presence.js"></script>
-	<script src="js/components/Tutorial.js"></script>
-	<script src="js/components/Popup.js"></script>
-	<script src="js/components/l10n.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

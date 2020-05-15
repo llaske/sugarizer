@@ -13,10 +13,8 @@ var app = new Vue({
 		currentUser: {
 			user: {}
 		},
-		presence: null,
-		journal: null,
-		localization: null,
-		icon: null,
+		SugarPresence: null,
+		SugarLocalization: null,
 		displayText: '',
 		pawns: [],
 		l10n: {
@@ -24,46 +22,41 @@ var app = new Vue({
 		}
 	},
 	mounted: function () {
-		this.presence = this.$refs.presence;
-		this.journal = this.$refs.journal;
-		this.localization = this.$refs.localization;
-
-		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, env, icon) {
-			// Initialize Sugarizer
-			activity.setup();
-
-			env.getEnvironment(function (err, environment) {
-				vm.currentenv = environment;
-				window.addEventListener('localized', initialLocalization);
-				function initialLocalization() {
-					vm.displayText = vm.localization.l10n.get("Hello", { name: environment.user.name });
-					vm.localization.localize(vm.l10n);
-					window.removeEventListener('localized', initialLocalization);
-				}
-			});
-
-			vm.icon = icon;
-		});
+		this.SugarPresence = this.$refs.SugarPresence;
+		this.SugarLocalization = this.$refs.SugarLocalization;
 	},
 
 	methods: {
+
+		initializeActivity: function() {
+			// Initialize Sugarizer
+			this.$refs.SugarActivity.setup();
+			this.currentenv = this.$refs.SugarActivity.getEnvironment();
+
+			var vm = this;
+			window.addEventListener('localized', initialLocalization);
+			function initialLocalization() {
+				vm.displayText = vm.SugarLocalization.l10n.get("Hello", { name: vm.currentenv.user.name });
+				vm.SugarLocalization.localize(vm.l10n);
+				window.removeEventListener('localized', initialLocalization);
+			}
+		},
 
 		onAddClick: function() {
 			var vm = this;
 			this.pawns.push(this.currentenv.user.colorvalue);
 			this.drawPawns();
-			this.displayText = this.localization.get("Played", { name: this.currentenv.user.name });
+			this.displayText = this.SugarLocalization.get("Played", { name: this.currentenv.user.name });
 
-			if (this.presence && this.presence.isConnected()) {
+			if (this.SugarPresence && this.SugarPresence.isConnected()) {
 				var message = {
-					user: this.presence.getUserInfo(),
+					user: this.SugarPresence.getUserInfo(),
 					content: {
 						action: 'update',
 						data: this.currentenv.user.colorvalue
 					}
 				}
-				this.presence.sendMessage(message);
+				this.SugarPresence.sendMessage(message);
 			}
 		},
 
@@ -74,30 +67,30 @@ var app = new Vue({
 			this.$nextTick(function() {
 				var pawnElements = document.getElementById("pawns").children;
 				for(var i=0; i<pawnElements.length; i++) {
-					this.icon.colorize(pawnElements[i], this.pawns[i])
+					this.$refs.SugarActivity.colorize(pawnElements[i], this.pawns[i])
 				}
 			});
 		},
 
 		insertBackground: function() {
-			this.journal.insertFromJournal(['image/png', 'image/jpeg'], function(data, metadata) {
+			this.$refs.SugarJournal.insertFromJournal(['image/png', 'image/jpeg'], function(data, metadata) {
 				document.getElementById("app").style.backgroundImage = `url(${data})`;
 			})
 		},
 
 		localized: function () {
-			this.localization.localize(this.l10n);
-			this.$refs.toolbar.localized(this.$refs.localization);
-			this.$refs.tutorial.localized(this.$refs.localization);
+			this.SugarLocalization.localize(this.l10n);
+			this.$refs.SugarToolbar.localized(this.SugarLocalization);
+			this.$refs.SugarTutorial.localized(this.SugarLocalization);
 		},
 
 		fullscreen: function() {
-			this.$refs.toolbar.hide();
+			this.$refs.SugarToolbar.hide();
 			// Add more code here
 		},
 
 		unfullscreen: function() {
-			this.$refs.toolbar.show();
+			this.$refs.SugarToolbar.show();
 			// Add more code here
 		},
 		
@@ -116,7 +109,7 @@ var app = new Vue({
 				case 'update':
 					this.pawns.push(msg.content.data);
 					this.drawPawns();
-					this.displayText = this.localization.get("Played", { name: msg.user.name });
+					this.displayText = this.SugarLocalization.get("Played", { name: msg.user.name });
 					break;
 			}
 		},
@@ -125,9 +118,9 @@ var app = new Vue({
 			// If user joins
 			if (msg.move == 1) {
 				// Handling only by the host
-				if (this.presence.isHost) {
-					this.presence.sendMessage({
-						user: this.presence.getUserInfo(),
+				if (this.SugarPresence.isHost) {
+					this.SugarPresence.sendMessage({
+						user: this.SugarPresence.getUserInfo(),
 						content: {
 							action: 'init',
 							data: this.pawns
@@ -142,7 +135,7 @@ var app = new Vue({
 		},
 
 		onHelp: function (type) {
-			this.$refs.tutorial.show(type);
+			this.$refs.SugarTutorial.show(type);
 		},
 
 		onStop: function () {
@@ -150,7 +143,7 @@ var app = new Vue({
 			var context = {
 				pawns: this.pawns
 			};
-			this.journal.saveData(context);
+			this.$refs.SugarJournal.saveData(context);
     }
 	}
 });

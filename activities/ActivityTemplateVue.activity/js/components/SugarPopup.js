@@ -1,4 +1,4 @@
-Vue.component('popup', {
+Vue.component('sugar-popup', {
   data: {
     humane: null
   },

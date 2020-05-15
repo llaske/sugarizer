@@ -1,5 +1,5 @@
 // Localization component
-Vue.component('localization', {
+Vue.component('sugar-localization', {
 	template: '<div/>',
 	data: function() {
 		return {

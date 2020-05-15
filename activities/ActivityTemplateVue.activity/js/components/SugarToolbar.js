@@ -1,5 +1,5 @@
 // Toolbar item
-Vue.component('toolbar-item', {
+Vue.component('sugar-toolitem', {
 	template: `
 		<div class="splitbar" v-if="splitbar"/>
 		<button class="toolbutton" v-else v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }"/>
@@ -36,7 +36,7 @@ Vue.component('toolbar-item', {
 });
 
 // Toolbar component
-Vue.component('toolbar', {
+Vue.component('sugar-toolbar', {
 	template: `
 		<div id="main-toolbar" class="toolbar" v-bind:class="{ hidden: hidden }">
 			<slot></slot>

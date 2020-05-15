@@ -1,4 +1,4 @@
-Vue.component('journal', {
+Vue.component('sugar-journal', {
 	data: {
 		activity: null
 	},
