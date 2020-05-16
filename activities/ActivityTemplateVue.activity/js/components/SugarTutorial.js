@@ -10,9 +10,6 @@ Vue.component('sugar-tutorial', {
 		}
 	},
 	methods: {
-		localized: function (localization) {
-			localization.localize(this.l10n);
-		},
 
 		extractStrings: function (steps) {
 			var vm = this;

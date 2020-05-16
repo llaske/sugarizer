@@ -44,17 +44,11 @@ Vue.component('sugar-toolbar', {
 	`,
 	data: function () {
 		return {
-			hidden: false,
-			l10n: {
-				stringNetwork: ''
-			}
+			hidden: false
 		}
 	},
 	methods: {
-		localized: function (localization) {
-			localization.localize(this.l10n);
-		},
-
+		
 		isHidden: function () {
 			return this.hidden;
 		},

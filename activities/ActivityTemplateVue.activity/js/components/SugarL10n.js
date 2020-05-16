@@ -31,6 +31,10 @@ Vue.component('sugar-localization', {
 		}
 	},
 	methods: {
+
+		isReady: function() {
+			return this.l10n != null;
+		},
 		// Get a single string with parameters
 		get: function(str, params) {
 			return this.l10n.get(str, params);

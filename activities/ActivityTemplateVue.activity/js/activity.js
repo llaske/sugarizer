@@ -10,9 +10,7 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	data: {
-		currentUser: {
-			user: {}
-		},
+		currentenv: null,
 		SugarPresence: null,
 		SugarLocalization: null,
 		displayText: '',
@@ -32,31 +30,31 @@ var app = new Vue({
 			// Initialize Sugarizer
 			this.$refs.SugarActivity.setup();
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-
-			var vm = this;
-			window.addEventListener('localized', initialLocalization);
-			function initialLocalization() {
-				vm.displayText = vm.SugarLocalization.l10n.get("Hello", { name: vm.currentenv.user.name });
-				vm.SugarLocalization.localize(vm.l10n);
-				window.removeEventListener('localized', initialLocalization);
-			}
+			this.SugarLocalization.$on('localized', this.localized());
 		},
 
-		onAddClick: function () {
-			var vm = this;
-			this.pawns.push(this.currentenv.user.colorvalue);
-			this.drawPawns();
-			this.displayText = this.SugarLocalization.get("Played", { name: this.currentenv.user.name });
+		localized: function () {
+			this.displayText = this.SugarLocalization.get("Hello", { name: this.currentenv.user.name });
+			this.SugarLocalization.localize(this.l10n);
+		},
 
-			if (this.SugarPresence && this.SugarPresence.isConnected()) {
-				var message = {
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'update',
-						data: this.currentenv.user.colorvalue
+		onAddClick: function (event) {
+			var vm = this;
+			for (var i = 0; i < event.count; i++) {
+				this.pawns.push(this.currentenv.user.colorvalue);
+				this.drawPawns();
+				this.displayText = this.SugarLocalization.get("Played", { name: this.currentenv.user.name });
+
+				if (this.SugarPresence && this.SugarPresence.isConnected()) {
+					var message = {
+						user: this.SugarPresence.getUserInfo(),
+						content: {
+							action: 'update',
+							data: this.currentenv.user.colorvalue
+						}
 					}
+					this.SugarPresence.sendMessage(message);
 				}
-				this.SugarPresence.sendMessage(message);
 			}
 		},
 
@@ -76,12 +74,6 @@ var app = new Vue({
 			this.$refs.SugarJournal.insertFromJournal(['image/png', 'image/jpeg'], function (data, metadata) {
 				document.getElementById("app").style.backgroundImage = `url(${data})`;
 			})
-		},
-
-		localized: function () {
-			this.SugarLocalization.localize(this.l10n);
-			this.$refs.SugarToolbar.localized(this.SugarLocalization);
-			this.$refs.SugarTutorial.localized(this.SugarLocalization);
 		},
 
 		fullscreen: function () {

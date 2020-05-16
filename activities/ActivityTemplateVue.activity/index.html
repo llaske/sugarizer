@@ -40,7 +40,14 @@
 				v-on:shared="SugarPresence.onShared"
 			></sugar-toolitem>
 			<sugar-toolitem id="insert-button" v-on:click="insertBackground" title="Change Background"></sugar-toolitem>
-			<sugar-toolitem id="add-button" v-on:click="onAddClick" v-bind:title="l10n.stringAddPawn"></sugar-toolitem>
+			<sugar-toolitem 
+				id="add-button" 
+				v-bind:title="l10n.stringAddPawn" 
+				palette-file="./js/palettes/addPawn.js" 
+				palette-class="PawnPalette"
+				palette-event="pawn-click"
+				v-on:pawn-click="onAddClick"
+			></sugar-toolitem>
 			
 			<!-- ToolbarItems with class="pull-right" will be right aligned -->
 			<sugar-toolitem v-on:click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
@@ -61,7 +68,7 @@
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
-		<sugar-localization ref="SugarLocalization" v-on:localized="localized"></sugar-localization>
+		<sugar-localization ref="SugarLocalization"></sugar-localization>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
