@@ -7,7 +7,7 @@ Vue.component('sugar-journal', {
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 			vm.activity = activity;
 			env.getEnvironment(function (err, environment) {
-				if(environment.objectId) {
+				if (environment.objectId) {
 					console.log("Existing instance");
 					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
@@ -22,8 +22,8 @@ Vue.component('sugar-journal', {
 			});
 		});
 	},
-  methods: {
-		saveData: function(context) {
+	methods: {
+		saveData: function (context) {
 			var jsonData = JSON.stringify(context);
 			this.activity.getDatastoreObject().setDataAsText(jsonData);
 			this.activity.getDatastoreObject().save(function (error) {
@@ -35,26 +35,26 @@ Vue.component('sugar-journal', {
 			});
 		},
 
-		insertFromJournal: function(type, callback) {
+		insertFromJournal: function (type, callback) {
 			var typeParameters = [null, null, null, null];
-			if(typeof type != "string") {
-				for(var i=0; i<type.length; i++) {
+			if (typeof type != "string") {
+				for (var i = 0; i < type.length; i++) {
 					typeParameters[i] = {};
 					typeParameters[i].mimetype = type[i];
 				}
 			} else {
 				typeParameters[0] = { mimetype: type };
 			}
-			
-			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
-				setTimeout(function() {
-					journalchooser.show(function(entry) {
+
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
+				setTimeout(function () {
+					journalchooser.show(function (entry) {
 						if (!entry) {
 							return;
 						}
 						var dataentry = new datastore.DatastoreObject(entry.objectId);
-						dataentry.loadAsText(function(err, metadata, data) {
-							if(!err) {
+						dataentry.loadAsText(function (err, metadata, data) {
+							if (!err) {
 								callback(data, metadata);
 							} else {
 								console.error(err);
@@ -64,5 +64,5 @@ Vue.component('sugar-journal', {
 				}, 0);
 			});
 		},
-  }
+	}
 });

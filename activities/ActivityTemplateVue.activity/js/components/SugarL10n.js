@@ -1,7 +1,7 @@
 // Localization component
 Vue.component('sugar-localization', {
 	template: '<div/>',
-	data: function() {
+	data: function () {
 		return {
 			l10n: null,
 			code: null,
@@ -9,16 +9,16 @@ Vue.component('sugar-localization', {
 			eventReceived: false
 		}
 	},
-	mounted: function() {
+	mounted: function () {
 		var vm = this;
 		if (vm.l10n == null) {
 			requirejs(["sugar-web/env", "webL10n"], function (env, webL10n) {
-				env.getEnvironment(function(err, environment) {
+				env.getEnvironment(function (err, environment) {
 					vm.l10n = webL10n;
 					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 					var language = environment.user ? environment.user.language : defaultLanguage;
 					webL10n.language.code = language;
-					window.addEventListener("localized", function() {
+					window.addEventListener("localized", function () {
 						if (!vm.eventReceived) {
 							vm.code = language;
 							vm.dictionary = vm.l10n.dictionary;
@@ -32,16 +32,16 @@ Vue.component('sugar-localization', {
 	},
 	methods: {
 
-		isReady: function() {
+		isReady: function () {
 			return this.l10n != null;
 		},
 		// Get a single string with parameters
-		get: function(str, params) {
+		get: function (str, params) {
 			return this.l10n.get(str, params);
 		},
 
 		// Get a single string value
-		getString: function(str) {
+		getString: function (str) {
 			if (!this.dictionary) {
 				return str;
 			}
@@ -53,9 +53,9 @@ Vue.component('sugar-localization', {
 		},
 
 		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
-		localize: function(strings) {
+		localize: function (strings) {
 			var vm = this;
-			Object.keys(strings).forEach(function(key, index) {
+			Object.keys(strings).forEach(function (key, index) {
 				strings[key] = vm.getString(key.substr(6));
 			});
 		}

@@ -48,7 +48,6 @@ Vue.component('sugar-toolbar', {
 		}
 	},
 	methods: {
-		
 		isHidden: function () {
 			return this.hidden;
 		},

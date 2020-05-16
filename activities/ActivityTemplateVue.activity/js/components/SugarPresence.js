@@ -78,7 +78,7 @@ Vue.component('sugar-presence', {
 			this.$emit('user-changed', msg);
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
-			if(this.$root.$refs.SugarPopup) {
+			if (this.$root.$refs.SugarPopup) {
 				this.$root.$refs.SugarPopup.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			}
 		},
