@@ -1,14 +1,12 @@
 Vue.component('sugar-activity', {
   data: {
     activity: null,
-    environment: null,
-    icon: null
+    environment: null
   },
   mounted() {
     var vm = this;
-    requirejs(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon"], function (activity, env, icon) {
+    requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
       vm.activity = activity;
-      vm.icon = icon;
       env.getEnvironment(function (err, environment) {
         vm.environment = environment;
         vm.$emit('loaded');
@@ -26,10 +24,6 @@ Vue.component('sugar-activity', {
 
     getEnvironment: function () {
       return this.environment;
-    },
-
-    colorize: function (element, colors) {
-      return this.icon.colorize(element, colors);
     }
   }
 })

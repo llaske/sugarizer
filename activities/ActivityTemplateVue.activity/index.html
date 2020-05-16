@@ -60,7 +60,7 @@
 			<h1>{{ displayText }}</h1>
 		</div>
 		<div id="pawns">
-			<div class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i"></div>
+			<pawn class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i" v-bind:colors="pawn"></pawn>
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:loaded="initializeActivity"></sugar-activity>
@@ -71,6 +71,7 @@
 		<sugar-localization ref="SugarLocalization"></sugar-localization>
 	</div>
 
+	<script src="js/Pawn.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>

@@ -9,6 +9,9 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
+	components: {
+		'pawn': Pawn
+	},
 	data: {
 		currentenv: null,
 		SugarPresence: null,
@@ -42,7 +45,6 @@ var app = new Vue({
 			var vm = this;
 			for (var i = 0; i < event.count; i++) {
 				this.pawns.push(this.currentenv.user.colorvalue);
-				this.drawPawns();
 				this.displayText = this.SugarLocalization.get("Played", { name: this.currentenv.user.name });
 
 				if (this.SugarPresence && this.SugarPresence.isConnected()) {
@@ -56,18 +58,6 @@ var app = new Vue({
 					this.SugarPresence.sendMessage(message);
 				}
 			}
-		},
-
-		drawPawns: function () {
-			/* Pawns are drawn automatically due to the Vue.js DOM updates */
-
-			// Colouring the icons
-			this.$nextTick(function () {
-				var pawnElements = document.getElementById("pawns").children;
-				for (var i = 0; i < pawnElements.length; i++) {
-					this.$refs.SugarActivity.colorize(pawnElements[i], this.pawns[i])
-				}
-			});
 		},
 
 		insertBackground: function () {
@@ -88,7 +78,6 @@ var app = new Vue({
 
 		onJournalDataLoaded(data, metadata) {
 			this.pawns = data.pawns;
-			this.drawPawns();
 		},
 
 		onNetworkDataReceived(msg) {
@@ -96,11 +85,9 @@ var app = new Vue({
 			switch (msg.content.action) {
 				case 'init':
 					this.pawns = msg.content.data;
-					this.drawPawns();
 					break;
 				case 'update':
 					this.pawns.push(msg.content.data);
-					this.drawPawns();
 					this.displayText = this.SugarLocalization.get("Played", { name: msg.user.name });
 					break;
 			}
