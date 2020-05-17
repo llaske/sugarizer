@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Fraction activity #205
-- Add a Simon mode game in TamTam activity #686
+- Implode activity #710
+- Simon mode game in TamTam activity #686
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
