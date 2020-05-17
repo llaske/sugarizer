@@ -1,6 +1,7 @@
 var app;
 var tonePlayer;
 var pianoMode = false;
+var simonMode = false;
 
 define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], function (activity, env, tutorial, webL10n) {
 
@@ -12,16 +13,40 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 		// Create sound component
 		tonePlayer = new TamTam.TonePlayer();
 
-		// Launch main screen
-		app = new TamTam.App({activity: activity});
-		app.renderInto(document.getElementById("keyboard"));
-
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			webL10n.language.code = language;
+
+			app = new TamTam.App({activity: activity});
+
+			// Load from data store
+			if (environment.objectId) {
+				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+					if (error==null && data!=null) {
+						console.log("jornal data loaded!");
+						var journalData = JSON.parse(data);
+						// Launch main screen
+						app.setContext(journalData);
+						app.renderInto(document.getElementById("keyboard"));
+
+					} else{
+						console.log(data);
+					}
+
+					if (simonMode || pianoMode){
+						app.userColor = environment.user.colorvalue;
+						app.draw();
+					}
+				});
+			} else {
+				app.renderInto(document.getElementById("keyboard"));
+			}
+
+			if (!pianoMode && !simonMode)
+				document.getElementById('instruments-button').classList.add('active');
 		});
 
 		// Switch to full screen when the full screen button is pressed
@@ -49,11 +74,28 @@ define(["sugar-web/activity/activity", "sugar-web/env", "tutorial", "webL10n"], 
 
 		// Stop sound at end of game to sanitize media environment, specifically on Android
 		document.getElementById("stop-button").addEventListener('click', function (event) {
-			sound.pause();
+			console.log(app.getContext());
+			var jsonData = JSON.stringify(app.getContext());
+			activity.getDatastoreObject().setDataAsText(jsonData);
+			activity.getDatastoreObject().save(function (error) {
+				if (error === null) {
+					console.log("write done.");
+				} else {
+					console.log("write failed.");
+				}
+			});
 		});
 
 		document.getElementById("piano-button").addEventListener('click', function (event) {
 			app.changePianoMode();
+		});
+
+		document.getElementById("simon-button").addEventListener('click', function (event) {
+			app.changeSimonMode();
+		});
+
+		document.getElementById("instruments-button").addEventListener('click', function (event) {
+			app.changeInstrumentsMode();
 		});
 
 	});

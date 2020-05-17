@@ -1,47 +1,52 @@
-﻿.body {
-	background-color: white;
+﻿@font-face{
+  font-family: 'Pixels';
+  src: url('../fonts/PixelEmulator.ttf');
+}
+
+.body {
+  background-color: white;
 }
 
 .item {
-	border-radius: 10%;
-	width: 120px;
-	max-width: 10%;
-	background-color: #9c9a9c;
-	display: inline-block;
-	margin: .2% .2% .2% .2%;
-	z-index: 0;
-	-webkit-user-select: none;
+  border-radius: 10%;
+  width: 120px;
+  max-width: 10%;
+  background-color: #9c9a9c;
+  display: inline-block;
+  margin: .2% .2% .2% .2%;
+  z-index: 0;
+  -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;
+  user-select: none;
 }
 
 .itemImage {
-	width: 100%;
-	text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .collection {
-	border-radius: 10%;
-	width: 120px;
-	max-width: 10%;
-	background-color: #212021;
-	display: inline-block;
-	margin: .2% .2% .2% .2%;
-	z-index: 0;
-	-webkit-user-select: none;
+  border-radius: 10%;
+  width: 120px;
+  max-width: 10%;
+  background-color: #212021;
+  display: inline-block;
+  margin: .2% .2% .2% .2%;
+  z-index: 0;
+  -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-	user-select: none;
+  user-select: none;
 }
 
 .collectionImage {
-	width: 100%;
-	text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .collections {
-	background-color: #cecfce;
+  background-color: #cecfce;
 }
 
 #main-toolbar #activity-button {
@@ -73,25 +78,25 @@ li { margin:0; padding:0; list-style:none; position:relative; float:left; }
 
 ul .standard {
   height:calc(75vh); width:calc(100vw/8);
-	border-left:1px solid #bbb;
-	border-bottom:1px solid #bbb;
-	border-radius:0 0 5px 5px;
-	box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset, 0 0 5px #ccc inset, 0 0 3px rgba(0,0,0,0.2);
+  border-left:1px solid #bbb;
+  border-bottom:1px solid #bbb;
+  border-radius:0 0 5px 5px;
+  box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset, 0 0 5px #ccc inset, 0 0 3px rgba(0,0,0,0.2);
   white-space: nowrap;
 }
 
 ul .standard:active {
-	box-shadow:2px 0 3px rgba(0,0,0,0.1) inset, -5px 5px 20px rgba(0,0,0,0.2) inset,0 0 3px rgba(0,0,0,0.2);
-	background: linear-gradient(top, #fff 0%,#e9e9e9 100%);
+  box-shadow:2px 0 3px rgba(0,0,0,0.1) inset, -5px 5px 20px rgba(0,0,0,0.2) inset,0 0 3px rgba(0,0,0,0.2);
+  background: linear-gradient(top, #fff 0%,#e9e9e9 100%);
 }
 
 .black {
   margin: 0 4vw !important;
-	height:40vh; width:calc(100vw/16);
-	border:1px solid #000;
+  height:40vh; width:calc(100vw/16);
+  border:1px solid #000;
   border-radius:0 0 3px 3px;
   padding: 20px;
-	box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -5px 2px 3px rgba(0,0,0,0.6) inset, 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -5px 2px 3px rgba(0,0,0,0.6) inset, 0 2px 4px rgba(0,0,0,0.5);
   background:linear-gradient(45deg, #222 0%,#555 100%);
 }
 
@@ -133,8 +138,8 @@ ul .standard:active {
 }
 
 .black:active {
-	box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -2px 2px 3px rgba(0,0,0,0.6) inset, 0 1px 2px rgba(0,0,0,0.5);
-	background:linear-gradient(left, #444 0%,#222 100%);
+  box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset, 0 -2px 2px 3px rgba(0,0,0,0.6) inset, 0 1px 2px rgba(0,0,0,0.5);
+  background:linear-gradient(left, #444 0%,#222 100%);
 }
 
 .number {
@@ -182,4 +187,157 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
 
 .container {
     position: relative;
+}
+
+.Simon{
+  width: 79vh;
+  height: 79vh;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 12vh;
+}
+
+.Simon-game{
+  width: 76vh;
+  height: 76vh;
+  border-radius:50%;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px auto;
+  position: relative;
+  background-color: black;
+}
+
+.Simon-button, .Simon-centre{
+  width: 38vh;
+  height: 38vh;
+  box-sizing: border-box;
+  z-index: 1000 !important;
+}
+
+.Simon-button{
+  border-radius: 2vw !important;
+}
+
+.Simon-button.red, .Simon-button.green{
+  border-bottom: 10px solid black;
+}
+
+.Simon-button.red, .Simon-button.yellow{
+  border-right: 10px solid black;
+}
+
+.Simon-button.green, .Simon-button.blue{
+  border-left: 10px solid black;
+}
+
+.Simon-button.yellow, .Simon-button.blue{
+  border-top: 10px solid black;
+}
+
+.Simon-centre-white{
+  background-color: white;
+  border-radius: 50%;
+  width: 33vh;
+  height: 33vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Simon-centre{
+  border-radius: 50%;
+}
+
+.Simon-centre-black{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  align-items: center;
+  background-color: black;
+  justify-content: center;
+}
+
+.disableElement{
+  pointer-events: none;
+}
+
+.darkenElement{
+  filter: brightness(60%);
+}
+
+.Simon-start{
+  font-family: 'Pixels';
+  font-size: 5vh;
+  cursor: pointer;
+  text-align: center;
+}
+
+.Simon-level, .Simon-scroe{
+  position: absolute;
+  top: 3vh;
+  font-family: Pixels;
+  font-size: 5vh;
+}
+
+.Simon-level{
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+.Simon-scroe{
+  right: 30%;
+  transform: translateX(50%);
+}
+
+.rightGreen{
+  background-color: green !important;
+  color: green !important;
+}
+
+.wrongRed{
+  background-color: red !important;
+  color: red !important;
+}
+
+#SimonStart{
+  background-color: transparent !important;
+}
+
+@media (max-height: 500px){
+  .Simon-button.red, .Simon-button.green{
+    border-bottom: 5px solid black;
+  }
+  
+  .Simon-button.red, .Simon-button.yellow{
+    border-right: 5px solid black;
+  }
+  
+  .Simon-button.green, .Simon-button.blue{
+    border-left: 5px solid black;
+  }
+  
+  .Simon-button.yellow, .Simon-button.blue{
+    border-top: 5px solid black;
+  }
+
+  .Simon{
+    transform: translateX(-50%) translateY(-6%) scale(0.87);
+  }
+
+  .Simon-reset{
+    width: 20vh;
+    height: 20vh;
+    bottom: 5vh;
+  }
 }
