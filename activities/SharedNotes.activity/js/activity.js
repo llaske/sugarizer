@@ -53,15 +53,39 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			var action = e.detail.zoom;
 			var currentZoom = cy.zoom();
 			var zoomStep = 0.25;
+			var cy_size = document.getElementById("cy").style.backgroundSize;
+			var percentage_width = 100;
+			var vh_height = 100;
+			if(cy_size != ""){
+				percentage_width = parseInt(cy_size.split("%")[0]);
+				vh_height = parseInt(cy_size.split(" ")[1].split("v")[0]);
+			}
+			else{
+				if(action == 0){
+					percentage_width = 125;
+					vh_height = 125;
+				}
+				else if(action == 1){
+					percentage_width = 75;
+					vh_height = 75;
+				}
+			}
+			var prev_zoom = cy.zoom();
 			if (action == 0) {
-				if (currentZoom != cy.minZoom() && currentZoom-zoomStep > cy.minZoom()) cy.zoom(currentZoom-zoomStep);
+				if (currentZoom != cy.minZoom() && currentZoom-zoomStep > cy.minZoom()){
+					cy.zoom(currentZoom - zoomStep);
+				}
 			} else if (action == 1) {
-				if (currentZoom != cy.maxZoom()) cy.zoom(currentZoom+zoomStep);
+				if (currentZoom != cy.maxZoom()){
+					cy.zoom(currentZoom + zoomStep);
+				}
 			} else if (action == 2) {
 				cy.fit();
 			} else if (action == 3) {
 				cy.center();
 			}
+			var factor = (cy.zoom()-prev_zoom)*100;
+			document.getElementById("cy").style.backgroundSize = `${percentage_width + factor}% ${vh_height + factor}vh`;
 		});
 		var pngButton = document.getElementById("png-button");
 		pngButton.addEventListener('click', function(e) {
@@ -96,7 +120,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 					var cy_style = document.getElementById("cy").style;
 					cy_style.backgroundImage = "url('"+data+"')";
 					cy_style.backgroundRepeat = "no-repeat";
-					cy_style.backgroundSize = "100% 100vh";
+					var factor = cy.zoom()*100 - 100;
+					cy_style.backgroundSize = `${100+factor}% ${100+factor}vh`;
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 		});
@@ -322,7 +347,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 					var cy_style = document.getElementById("cy").style;
 					cy_style.backgroundImage = data["background"];
 					cy_style.backgroundRepeat = "no-repeat";
-					cy_style.backgroundSize = "100% 100vh";
+					var factor = cy.zoom() * 100 - 100;
+					cy_style.backgroundSize = `${100 + factor}% ${100 + factor}vh`;
 				}
 			});
 		}
