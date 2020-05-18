@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Pawn Activity</title>
+	<title>My Vue Activity</title>
 	<meta name="viewport"
 		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
 	<link rel="prefetch" type="application/l10n" href="locale.ini" />
@@ -12,73 +12,32 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
-	<link rel="stylesheet" href="css/libnotify.css">
-	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
-	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
-	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-	<script src="lib/jquery-3.4.1.min.js"></script>
-	<script src="lib/bootstrap-tour-standalone.min.js"></script>
-	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 </head>
 
 <body>
 	<div id="app">
 		<sugar-toolbar ref="SugarToolbar">
-			<sugar-toolitem id="activity-button" v-bind:title="l10n.stringFractionBounceActivity"></sugar-toolitem>
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem 
-				id="network-button" 
-				v-bind:title="l10n.stringNetwork" 
-				v-if="SugarPresence"
-				palette-file="sugar-web/graphics/presencepalette" 
-				palette-class="PresencePalette"
-				palette-event="shared"
-				v-on:shared="SugarPresence.onShared"
-			></sugar-toolitem>
-			<sugar-toolitem id="insert-button" v-on:click="insertBackground" title="Change Background"></sugar-toolitem>
-			<sugar-toolitem 
-				id="add-button" 
-				v-bind:title="l10n.stringAddPawn" 
-				palette-file="./js/palettes/addPawn.js" 
-				palette-class="PawnPalette"
-				palette-event="pawn-click"
-				v-on:pawn-click="onAddClick"
-			></sugar-toolitem>
 			
-			<!-- ToolbarItems with class="pull-right" will be right aligned -->
-			<sugar-toolitem v-on:click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem v-on:click="onHelp" id="help-button" v-bind:title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
-		<div id="user">
-			<h1>{{ displayText }}</h1>
-		</div>
-		<div id="pawns">
-			<pawn class="pawn" v-for="(pawn,i) in pawns" v-bind:key="i" v-bind:colors="pawn"></pawn>
-		</div>
+		<h1>Congratulations!</h1>
+		<p>You are ready to develop this activity. Go ahead and edit the files.<br />
+		You can remove this message in the index.html.</p>
 
-		<sugar-activity ref="SugarActivity" v-on:loaded="initializeActivity"></sugar-activity>
-		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
-		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
-		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
-		<sugar-popup ref="SugarPopup"></sugar-popup>
-		<sugar-localization ref="SugarLocalization"></sugar-localization>
+		<sugar-activity ref="SugarActivity"></sugar-activity>
 	</div>
 
-	<script src="js/Pawn.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
-	<script src="js/components/SugarJournal.js"></script>
-	<script src="js/components/SugarPresence.js"></script>
-	<script src="js/components/SugarTutorial.js"></script>
-	<script src="js/components/SugarPopup.js"></script>
-	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

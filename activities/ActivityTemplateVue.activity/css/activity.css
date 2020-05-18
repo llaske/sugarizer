@@ -6,10 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	overflow: hidden;
 	background: white;
-	background-size: cover;
-	background-position: center;
 }
 
 p {
@@ -20,9 +17,12 @@ p {
 	min-height: 100%;
 }
 
-#main-toolbar #activity-button {
-	background-image: url(../activity/activity-icon.svg);
-	outline: none;
+#main-toolbar .splitbar {
+	border-right: 1.5px solid #565656;
+	margin: 7.5px 5px;
+	height: 40px;
+	display: inline-block;
+	vertical-align: bottom;
 }
 
 #main-toolbar.toolbar {
@@ -35,45 +35,15 @@ p {
 	overflow: hidden;
 }
 
-.helpText {
-	display: inline-block;
-	position: relative;
-	color: white;
-	transform: translateY(-100%);
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
 }
 
-@media only screen and (max-width: 980px) {
-	.helpText {
-		display: none;
-	}
-}
-
-.pawn {
-  background-image: url(../icons/pawn-icon.svg);
-  display: inline-block;
-  width: 65px;
-  height: 65px;
-}
-
-.splitbar {
-	background-image: url(../icons/split.svg);
-	background-position: center;
-	background-repeat: no;
-	width: 3px;
-	margin-left: 5px;
-	margin-right: 4px;
-	margin-bottom: 4px;
-	height: 45px;
-	display: inline-block;
-	vertical-align: bottom;
-}
-
-#fullscreen-button {
+#main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
-	outline: none;
 }
 
-#unfullscreen-button {
+#main-toolbar #unfullscreen-button {
 	background-image: url(../icons/view-return.svg);
 	border: 0;
 	border-radius: 0px;
@@ -84,26 +54,6 @@ p {
 	right: 6%;
 	position: absolute;
 	z-index: 5;
-	outline: none;
-}
-
-#main-toolbar #help-button {
-	background-image: url(../icons/help.svg);
-	outline: none;
-}
-
-#main-toolbar #insert-button {
-	background-image: url(../icons/insert-picture.svg);
-	outline: none;
-}
-
-#main-toolbar #add-button {
-	background-image: url(../icons/add.svg);
-	outline: none;
-}
-
-#main-toolbar #stop-button {
-	outline: none;
 }
 
 #main-toolbar #network-button {
@@ -136,17 +86,6 @@ p {
   background-size: contain;
   border: 0;
   border-radius: 5.5px;
-}
-
-.tour#step-1 {
-	margin-top: 70vh;
-}
-.tour#step-3 {
-	margin-top: 85vh;
-	margin-left: -30vw;
-}
-.tour#step-4 {
-	margin-left: 10vw;
 }
 
 .palette .row {

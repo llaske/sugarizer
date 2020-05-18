@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette", "text!activity/palettes/addPawn.html"], function (palette, template) {
+define(["sugar-web/graphics/palette", "text!activity/palettes/pawnpalette.html"], function (palette, template) {
 
   var pawnpalette = {};
 
