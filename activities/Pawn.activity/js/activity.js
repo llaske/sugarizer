@@ -72,16 +72,6 @@ var app = new Vue({
 			})
 		},
 
-		fullscreen: function () {
-			this.$refs.SugarToolbar.hide();
-			// Add more code here
-		},
-
-		unfullscreen: function () {
-			this.$refs.SugarToolbar.show();
-			// Add more code here
-		},
-
 		onJournalDataLoaded: function (data, metadata) {
 			this.pawns = data.pawns;
 		},

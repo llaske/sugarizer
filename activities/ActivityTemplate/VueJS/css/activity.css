@@ -6,7 +6,6 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	background: white;
 }
 
 p {
@@ -37,23 +36,6 @@ p {
 
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
-}
-
-#main-toolbar #fullscreen-button {
-	background-image: url(../icons/view-fullscreen.svg);
-}
-
-#main-toolbar #unfullscreen-button {
-	background-image: url(../icons/view-return.svg);
-	border: 0;
-	border-radius: 0px;
-	margin: 1px;
-	width: 45px;
-	height: 45px;
-	top: 0;
-	right: 6%;
-	position: absolute;
-	z-index: 5;
 }
 
 #main-toolbar #network-button {
@@ -131,10 +113,6 @@ p {
 
 .palette *, ::after, ::before {
 	box-sizing: initial;
-}
-
-#template-palette {
-	width: fit-content;
 }
 
 .palette-item {
