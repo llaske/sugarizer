@@ -1,0 +1,140 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun May 17 2020 22:23:49 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: NewGame
+msgctxt "NewGame"
+msgid "New game"
+msgstr "Nouveau jeu"
+
+#: Replay
+msgctxt "Replay"
+msgid "Replay"
+msgstr "Rejouer"
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr "Annuler"
+
+#: Redo
+msgctxt "Redo"
+msgid "Redo"
+msgstr "Refaire"
+
+#: Easy
+msgctxt "Easy"
+msgid "Easy"
+msgstr "Facile"
+
+#: Medium
+msgctxt "Medium"
+msgid "Medium"
+msgstr "Moyen"
+
+#: Hard
+msgctxt "Hard"
+msgid "Hard"
+msgstr "Difficile"
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr "Continuer"
+
+#: StuckMessage
+msgctxt "StuckMessage"
+msgid "Stuck? You can still solve the puzzle by undo some moves"
+msgstr "Vous êtes bloqué ? Vous pouvez toujours résoudre le puzzle en annulant certains mouvements"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Implode Activity"
+msgstr "Activité Implode"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Implode activity. Implode is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more"
+msgstr "Bienvenue dans l'activité Implode. Implode est un jeu de logique à base de blocs. L'objectif est de supprimer tous les blocs par groupe de trois ou plus"
+
+#: HowToPlayTitle
+msgctxt "HowToPlayTitle"
+msgid "How to play"
+msgstr "Comment jouer"
+
+#: HowToPlayContent
+msgctxt "HowToPlayContent"
+msgid "The game starts up with a field of blocks.Using the mouse pointer, or keyboard keys, click on a block that is in a group of three or more of the same color (clickable groups highlight as you pass the mouse cursor over them). Clicking(double tap for touchscreen) on a group removes it and compacts the playing field. To win the game, remove all blocks on the board: there is always a solution to win!"
+msgstr "Le jeu commence avec un ensemble de blocs. En utilisant la souris ou les touches du clavier, cliquez sur un bloc qui est dans un groupe de trois ou plus de la même couleur (les groupes cliquables sont entourés quand vous passez le curseur dessus). Cliquez (ou tapez deux fois sur les écrans tactiles) sur un groupe le supprime et réarrange le terrain de jeu. Pour gagner, supprimez tous les blocs: il y a toujours une solution pour y arriver !"
+
+#: NewGameContent
+msgctxt "NewGameContent"
+msgid "Click this button to try a different puzzle"
+msgstr "Cliquez sur ce bouton pour changer de puzzle"
+
+#: ReplayContent
+msgctxt "ReplayContent"
+msgid "Click this button to try the puzzle again from the beginning"
+msgstr "Cliquez sur ce bouton pour réessayer le puzzle depuis le début"
+
+#: UndoContent
+msgctxt "UndoContent"
+msgid "Click this button to undo some moves so that you can try again"
+msgstr "Cliquez sur ce bouton pour annuler les derniers mouvements afin de pouvoir réessayer"
+
+#: RedoContent
+msgctxt "RedoContent"
+msgid "Click this button to redo some moves"
+msgstr "Cliquez sur ce bouton pour refaire les derniers mouvements"
+
+#: KeyboardKeysTitle
+msgctxt "KeyboardKeysTitle"
+msgid "Keyboard keys"
+msgstr "Touches du clavier"
+
+#: KeyboardKeysContent
+msgctxt "KeyboardKeysContent"
+msgid "For moving up: w/keypad 8/up arrow key <br> For moving down: s/keypad 2/down arrow key <br> For moving left: a/keypad 4/left arrow key <br> For moving right: d/keypad 6/right arrow key <br> For selecting: enter/space/end/keypad 1/q <br> For new game: Home <br> For easy/medium/hard: 1/2/3 respectively <br> For undo: PgUp <br> For redo: PgDn"
+msgstr "Pour se déplacer vers le haut: w/pavé numérique 8/flèche haut <br> Pour se déplacer vers le bas: s/pavé numérique 2/flèche bas <br> Pour se déplacer vers la gauche: a/pavé numérique 4/flèche gauche <br> Pour se déplacer vers la droite: d/pavé numérique 6/flèche droite <br> Pour sélectionner: entrée/espace/fin/pavé numérique 1/q <br> Pour un nouveau jeu: Home <br> Pour facile/moyen/difficile: respectivement 1/2/3 <br> Pour annuler: PgUp <br> Pour refaire: PgDn"
+
+#: EasyContent
+msgctxt "EasyContent"
+msgid "In this mode, maximum board size is 8x6 (i.e 8 columns and 6 rows)"
+msgstr "Dans ce mode, la taille maximale du jeu est de 8x6 (soit 8 colonnes et 6 lignes)"
+
+#: MediumContent
+msgctxt "MediumContent"
+msgid "In this mode, maximum board size is 12x10 (i.e 12 columns and 10 rows)"
+msgstr "Dans ce mode, la taille maximale du jeu est de 12x10 (soit 12 colonnes et 10 lignes)"
+
+#: HardContent
+msgctxt "HardContent"
+msgid "In this mode, maximum board size is 20x15 (i.e 20 columns and 15 rows)"
+msgstr "Dans ce mode, la taille maximale du jeu est de 20x15 (soit 20 colonnes et 15 lignes)"
+

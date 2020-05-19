@@ -6,6 +6,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Fraction activity #205
+- Implode activity #710
+- Simon mode game in TamTam activity #686
+
+### Changed
+- Improve Presence palette UI, now handle list of users and disconnection
+
+### Fixed
+- Falabacraman activity don't detect win condition for restarted game #723
+- Falabracman only accepts a specific letter in case of repeated letters in a word #725
+- Speak Text button hides text under it in speak activity #727
+- Video Viewer shows tutorial for a feature not available #731
+- Labyrinth shows tutorial for functions not available on small screens #733
+- Blockrain tutorial overflows off screen on smaller screens #736
+- Get Things Done can't handle multiple lines #741
+- Stop button not visible in Scratch activity on small screens #715
+- Wrong title of network button in Memorize activity #745
+- Text not showing under erase button in qr-code activity #700
+- Food Chain tutorial off screen in small resolutions #752
+- Food Chain activity palette behind canvas #754
+- Awkward placement of Labyrinth canvas tutorial #758
+- Stopwatch activity palette text not visible #756
+- Tutorial button hidden on login screens #697
+- Pomodoro timer resets on break change #750
+- Awkward positioning of contents in the searchfield of video viewer activity #761
+- Size and speed palettes of game of life activity don't works on touch screen #766
+- Speech and Face Palettes of speak activity doesn't work on touch screen #764
+- Keyboard overlaps input fields on Android #739
+- Alignment of help button in some activities #777
+- Presence palette implementation in Memorize is non standard #374
+- Splitbar in toolbar of Clock activity are half sized in Chrome #789
+- Wrong title of blinker button in Game Of Life activity #792
+- Alert "user already exists" should come earlier #580
+- Wrong song is play on slow device/connection in TamTam activity #803
+
+
+## [1.3.0] - 2020-03-28
+### Added
 - Calligra activity
 - Falabracman activity
 - Tutorial step 9: integrate a tutorial
@@ -136,7 +174,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sound don't restart in FoodChain activity #360
 - Video erase button hidden in Record Activity #655
 - Text not visible in search bar of Calligra Activity #661
-- Text overflows in Shared notes activity #333
 - Dialog box has no background in Markdown #671
 - Markdown link opens in frame which crashes the output #673
 - Responsiveness issue in Pomodoro Activity #675

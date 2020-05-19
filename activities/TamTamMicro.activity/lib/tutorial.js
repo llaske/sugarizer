@@ -17,13 +17,88 @@ define(["webL10n"], function (l10n) {
 					content: l10n.get("TutoPianoContent")
 				},
 				{
-					element: "#piano-button",
+					element: "#instruments-button",
 					placement:"bottom",
-					title: l10n.get("TutoPianoButtonTitle"),
-					content: l10n.get("TutoPianoButtonContent")
+					title: l10n.get("TutoInstrumentInfoTitle"),
+					content: l10n.get("TutoInstrumentInfoContent")
+				},
+				{
+					element: "#simon-button",
+					placement:"bottom",
+					title: l10n.get("TutoSimonInfoTitle"),
+					content: l10n.get("TutoSimonInfoContent")
 				}
 			]
-		} else {
+		} else if (simonMode) {
+			steps = [
+				{
+					element:"#app_"+currentSimonMode,
+					placement: "bottom",
+					title: l10n.get("TutoCurrentModeTitle"),
+					content: l10n.get("TutoSimonModeContent")
+				},
+				{
+					element:"#Simon-board",
+					placement:"top",
+					title: l10n.get("TutoSimonTitle"),
+					content: l10n.get("TutoSimonContent")
+				},
+				{
+					element:"#Red",
+					placement:"left",
+					title: l10n.get("TutoRedTitle"),
+					content: l10n.get("TutoRedContent")
+				},
+				{
+					element:"#Green",
+					placement:"right",
+					title: l10n.get("TutoGreenTitle"),
+					content: l10n.get("TutoGreenContent")
+				},
+				{
+					element:"#Yellow",
+					placement:"left",
+					title: l10n.get("TutoYellowTitle"),
+					content: l10n.get("TutoYellowContent")
+				},
+				{
+					element:"#Blue",
+					placement:"right",
+					title: l10n.get("TutoBlueTitle"),
+					content: l10n.get("TutoBlueContent")
+				},
+				{
+					element: "#SimonStart",
+					placement:"bottom",
+					title: l10n.get("TutoSimonCentreInfo"),
+					content: l10n.get("TutoSimonCentreContent")
+				},
+				{
+					element: "#SimonLevel",
+					placement:"bottom",
+					title: l10n.get("TutoSimonLevelInfo"),
+					content: l10n.get("TutoSimonLevelContent")
+				},
+				{
+					element: "#SimonScroe",
+					placement:"bottom",
+					title: l10n.get("TutoSimonScoreInfo"),
+					content: l10n.get("TutoSimonScoreContent")
+				},
+				{
+					element: "#instruments-button",
+					placement:"bottom",
+					title: l10n.get("TutoInstrumentInfoTitle"),
+					content: l10n.get("TutoInstrumentInfoContent")
+				},
+				{
+					element: "#piano-button",
+					placement:"bottom",
+					title: l10n.get("TutoPianoInfoTitle"),
+					content: l10n.get("TutoPianoInfoContent")
+				}
+			]
+		}else {
 			steps = [
 				{
 					element: "",
@@ -49,6 +124,12 @@ define(["webL10n"], function (l10n) {
 					placement: "bottom",
 					title: l10n.get("TutoPianoInfoTitle"),
 					content: l10n.get("TutoPianoInfoContent")
+				},
+				{
+					element: "#simon-button",
+					placement:"bottom",
+					title: l10n.get("TutoSimonInfoTitle"),
+					content: l10n.get("TutoSimonInfoContent")
 				}
 			]
 		}

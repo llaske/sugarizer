@@ -546,6 +546,9 @@ define([
         };
 
         function adduser() {
+            if (!presence) {
+                return;
+            }
             presence.sendMessage(presence.getSharedInfo().id, {
                 user: presence.getUserInfo(),
                 content: {
@@ -620,13 +623,11 @@ define([
             document.getElementById("restart-button").disabled = false;
             document.getElementById("filter-button").disabled = false;
             document.getElementById("level-button").disabled = false;
-            document.getElementById("network-button").disabled = false;
 
             // enable toolbar buttons visually
             document.getElementById("restart-button").classList.remove('disabled');
             document.getElementById("filter-button").classList.remove('disabled');
             document.getElementById("level-button").classList.remove('disabled');
-            document.getElementById("network-button").classList.remove('disabled');
         }
 
         // hide toolbar buttons
@@ -635,13 +636,11 @@ define([
             document.getElementById("restart-button").disabled = true;
             document.getElementById("filter-button").disabled = true;
             document.getElementById("level-button").disabled = true;
-            document.getElementById("network-button").disabled = true;
 
             // disable toolbar buttons visually
             document.getElementById("restart-button").classList.add('disabled');
             document.getElementById("filter-button").classList.add('disabled');
             document.getElementById("level-button").classList.add('disabled');
-            document.getElementById("network-button").classList.add('disabled');
         }
 
     });

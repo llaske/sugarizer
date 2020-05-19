@@ -92,19 +92,19 @@ color:red;
 color:red;
 }
 
-ul {
+#messages {
 list-style:none;
 font-size:.95rem;
 margin:0;
 padding:0;
 }
 
-ul li {
+.message-line {
 border-bottom:1px solid #EEE;
 padding:.5rem .75rem;
 }
 
-ul li:first-child {
+.message-line:first-child {
 border-top:1px solid #EEE;
 }
 
