@@ -1,4 +1,5 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], function (activity, env, datastore) {
+var currentview = "ListView";
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "webL10n", "tutorial"], function (activity, env, datastore, l10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -58,6 +59,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 		env.getEnvironment(function(err, environment){
 			currentenv = environment;
 
+			//Set current language
+			var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : currentLang;
+			l10n.language.code = language;
+
 			for (var i = 0; i < planet.length; i ++){
 				var planetList = document.createElement('div');
 				planetList.id = 'planet-' + planet[i].name;
@@ -83,6 +89,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					document.getElementById("main-toolbar").style.opacity = 0;
 					document.getElementById("canvas").style.top = "0px";
 					document.getElementById("unfullscreen-button").style.visibility = "visible";
+					document.getElementById("back-button").style.bottom = "740px";
 				});
 
 				// Switch to unfullscreen mode
@@ -90,6 +97,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					document.getElementById("main-toolbar").style.opacity = 1;
 					document.getElementById("canvas").style.top = "55px";
 					document.getElementById("unfullscreen-button").style.visibility = "hidden";
+					document.getElementById("back-button").style.bottom = "685px";
 				});
 
 				document.getElementById("list-button").addEventListener("click", function(){
@@ -134,6 +142,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 
 
 			}
+		});
+
+		// Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e) {
+			tutorial.start();
 		});
 
 		document.getElementById("stop-button").addEventListener("click", function(event){
@@ -249,6 +262,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				document.getElementById("info-button").style.display = "inline";
 				document.getElementById("image-button").style.display = "inline";
 
+				currentview = "ExploreView";
 				saveData[1] = name;
 
 				//Remove previous scene
@@ -286,13 +300,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 					planetInfo.appendChild(information);
 				}
 
-				document.getElementById("Name").innerHTML = '<p>' + "Planet Name: " + '</br>' + name + '</p>';
-				document.getElementById("Type").innerHTML = '<p>' + "Planet Type: " + '</br>' + type + '</p>';
-				document.getElementById("Year").innerHTML = '<p>' + "Length of Year: " + '</br>' + year + " Earth Days" + '</p>';
-				document.getElementById("Mass").innerHTML = '<p>' + "Mass: " + '</br>' + mass + '</p>';
-				document.getElementById("Temperature").innerHTML = '<p>' + "Surface Temperature: " + '</br>' + temperature + '</p>';
-				document.getElementById("Moons").innerHTML = '<p>' + "Number of Moons: " + '</br>' + moons + '</p>';
-				document.getElementById("Radius").innerHTML = '<p>' + "Planet Radius: " + '</br>' + radius + '</p>';
+				document.getElementById("Name").innerHTML = '<p>' + l10n.get("PlanetName") + '</br>' + l10n.get(name) + '</p>';
+				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</br>' + type + '</p>';
+				document.getElementById("Year").innerHTML = '<p>' + l10n.get("YearLength") + '</br>' + year + " Earth Days" + '</p>';
+				document.getElementById("Mass").innerHTML = '<p>' + l10n.get("Mass") + '</br>' + mass + '</p>';
+				document.getElementById("Temperature").innerHTML = '<p>' + l10n.get("SurfaceTemperature") + '</br>' + temperature + '</p>';
+				document.getElementById("Moons").innerHTML = '<p>' + l10n.get("NumberOfMoons") + '</br>' + moons + '</p>';
+				document.getElementById("Radius").innerHTML = '<p>' + l10n.get("PlanetRadius") + '</br>' + radius + '</p>';
 
 				saveImage = function(){
 
@@ -407,6 +421,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				interactContainer.style.display = "none";
 				homeDisplay.style.display = "block";
 				mainCanvas.style.backgroundColor = "black";
+				currentview = "ListView";
 				saveData[1] = null;
 				stopRotation = true;
 				requestAnim = false;
@@ -572,6 +587,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 				planetPos.style.display="block";
 				document.getElementById("list-button").style.display = "inline";
 
+				currentview = "PositionView";
 				saveData[0] = true;
 
 				requestAnim = true;
@@ -643,6 +659,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore"], 
 
 			//Need to set to false so to cancel animation
 			document.getElementById("list-button").addEventListener("click", function(){
+				currentview = "ListView";
 				saveData[1] = null;
 				saveData[0] = false;
 				requestAnim = false;
