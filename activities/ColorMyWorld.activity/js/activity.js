@@ -1,7 +1,7 @@
 define([
 		"sugar-web/activity/activity",
 		"messages","print",
-		"activity/jquery-1.11.2.min",
+		"jquery.min",
 		"activity/ol",
 		"activity/hammer.min",
 		"webL10n",
@@ -19,14 +19,14 @@ define([
 		map.setup_map();
 //		colormyworld.change_areaCB(1,INSTALLED['keys'][0]);
 //		window.onresize=util.updateTitle;
-		
+
 		document.webL10n.getLanguage();
 		if(typeof('lang')=='undefined'){
 			print("setting english");
 			lang='en';
 			document.webL10n.getLanguage(lang);
 		}
-				
+
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
 			console.log("writing...");
@@ -96,12 +96,12 @@ define([
 			document.getElementById("canvas").style.top = "55px";
 			document.getElementById("unfullscreen-button").style.visibility = "hidden";
 		});
-		
+
 		// Launch tutorial
 		document.getElementById("help-button").addEventListener('click', function(e) {
 			tutorial.start();
 		});
-		
+
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 
@@ -109,7 +109,6 @@ define([
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
 			document.webL10n.setLanguage(language);
-			
+
 		});
 	});
-		

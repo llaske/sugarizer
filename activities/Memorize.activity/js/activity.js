@@ -49,13 +49,6 @@ define(function (require) {
             if (onUsersListChangedCallback != null) {
                 onUsersListChangedCallback(users);
             }
-            var presenceUsersDiv = document.getElementById("presence-users");
-            var html = "<hr><ul style='list-style: none; padding:0;'>";
-            for (var key in users) {
-                html += "<li><img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(users[key].colorvalue) + "'>" + users[key].name + "</li>";
-            }
-            html += "</ul>";
-            presenceUsersDiv.innerHTML = html
         }
 
         function findUsersInsideAllActivities(activity, users) {
@@ -99,7 +92,7 @@ define(function (require) {
             }, 3000);
         }
 
-        presencePalette.PresencePalette.prototype.onSharedActivityUserChanged = function (msg) {
+        memorizeApp.presenceOnSharedActivityUserChanged = function (msg) {
             var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
             var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 
@@ -111,11 +104,10 @@ define(function (require) {
                 showQuickModal(html + webL10n.get("PlayerLeave",{user: userName}))
             }
 
-            var that = this;
-            that.presence.listUsers(function (users) {
-                that.presence.listSharedActivities(function (activities) {
+            memorizeApp.presence.listUsers(function (users) {
+                memorizeApp.presence.listSharedActivities(function (activities) {
                     for (var i = 0; i < activities.length; i++) {
-                        if (activities[i].id === that.presence.sharedInfo.id) {
+                        if (activities[i].id === memorizeApp.presence.sharedInfo.id) {
                             var activity = activities[i];
                             displayUsers(findUsersInsideAllActivities(activity, users));
                             break;
@@ -150,7 +142,7 @@ define(function (require) {
             document.getElementById('unfullscreen-button').style.visibility = 'visible';
             zoomIn();
         });
-        
+
         document.getElementById('unfullscreen-button').addEventListener('click', function() {
             document.getElementById('main-toolbar').style.display = '';
             document.getElementById('unfullscreen-button').style.visibility = 'hidden';
@@ -159,7 +151,7 @@ define(function (require) {
 
     });
 
-    
+
 
 });
 
@@ -206,9 +198,7 @@ function initPresence(activity, memorizeApp, presencepalette, callback) {
         memorizeApp.presence = presence;
         var networkButton = document.getElementById("network-button");
         var presencePalette = new presencepalette.PresencePalette(networkButton, undefined, presence);
-        presence.onSharedActivityUserChanged(function (msg) {
-            presencePalette.onSharedActivityUserChanged(msg);
-        });
+        presence.onSharedActivityUserChanged(memorizeApp.presenceOnSharedActivityUserChanged);
 
         //We use one of the palette feature that allows us to get the full list of current users everytime the list changes
         presencePalette.onUsersListChanged(function (users) {

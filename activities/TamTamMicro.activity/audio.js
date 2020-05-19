@@ -31,13 +31,12 @@ enyo.kind({
 
 	playSound: function(file) {
 		var that = this;
-		this.load(file);
-		window.setTimeout(function() {
+		this.load(file, function() {
 			that.pitchShift.pitch = 0;
 			that.pitchShift.toMaster();
 			that.player.connect(that.pitchShift);
 			that.player.start();
-		}, 100);
+		});
 	},
 
 	destroy: function() {
