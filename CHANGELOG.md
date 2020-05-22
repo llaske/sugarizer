@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
+- Improve Sugarizer spiral in home view #579 
 
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
