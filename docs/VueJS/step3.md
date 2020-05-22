@@ -9,7 +9,7 @@ Because the activity is called "Pawn", the idea is to allow the user to play paw
 
 In Sugar, the toolbar - the black area at the top of the window - is the place where activities put actions for the user. So we will add a new button in the toolbar to let the user play a new pawn.
 
-# Create a new toolbar button
+## Create a new toolbar button
 
 Here is the icon we will use. It's just a stylized plus sign.
 
@@ -61,7 +61,7 @@ Let's run the activity.
 
 The new toolbar button is now here. Click on it. Of course, nothing happens thought there is no logic beside. It's our next step.
 
-# Add the event
+## Add the event
 
 To display pawns on the board, we will first update our `index.html` file.
 
@@ -136,7 +136,7 @@ Wow, it works! Each time we will click on the Plus icon a new pawn will appear.
 
 By the way, we could do better. What if we could change the pawn color?
 
-# Customize the icon (again)
+## Customize the icon (again)
 
 Sugar activities very often rely on the user colors. It's a way to let the user think he could customize the color of activities. So, it's a good way to better engage him into the activity.
 

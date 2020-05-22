@@ -5,7 +5,7 @@
 
 What if the Pawn activity could be played by multiple players at the same time? After all, it's a logical feature for a game. That's what we will be doing in this step.
 
-# Connect to a server
+## Connect to a server
 
 From the beginning of this tutorial, we use Sugarizer stand alone. All HTML and JavaScript are run locally and do not depend on external code. For this step however, because we need to have communication between multiple clients, we will need a Sugarizer Server too. The Sugarizer Server is a backend that provides connection features to Sugarizer Apps.
 
@@ -28,7 +28,7 @@ If everything is right, you will see now the full Neighborhood view.
 And you're now connected.
 
 
-# What is meant by sharing an instance
+## What is meant by sharing an instance
 
 Suppose that Michaël, a user connected on the same server as you want to Chat. He will launch the Chat activity.
 
@@ -51,7 +51,7 @@ The Chat activity will open on your side using Michaël colors, and the Chat can
 Easy, isn't it ? And thanks to the unique Sugarizer presence framework, do the same thing for our Pawn activity will not be so complex.
 
 
-# Add the presence palette
+## Add the presence palette
 
 All activities that could be shared have to include the Network palette in its toolbar. Like in the Chat activity it's the way for the user to share its current work and allow other users to join. Let's do it in Pawn activity.
 
@@ -115,7 +115,7 @@ Let's test the result by launching our Pawn activity.
 The new Network button and palette is here. We now have to implement the magic inside.
 
 
-# How presence works
+## How presence works
 
 Before further implementation let's pause to explain what exactly Sugarizer presence framework is and what it does.
 
@@ -134,7 +134,7 @@ If Michaël posts a message for the Chat activity, the server will automatically
 Easy to understand isn't it?
 
 
-# Share the instance
+## Share the instance
 
 As usual, let's first include the magic component `SugarPresence`:
 ```html
@@ -226,7 +226,7 @@ Great isn't it?
 
 And it works for any number of users connected at the same time on the shared activity!
 
-# Handling subscribers change
+## Handling subscribers change
 
 Let's go a bit further or more precisely, let's fix a small issue in the previous implementation. 
 

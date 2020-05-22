@@ -7,7 +7,7 @@ During Step 4 of this tutorial, we've seen how it's possible to store some conte
 
 In this step, we're going to see another way to integrate content from the Journal into your activity using the Journal chooser dialog.
 
-# From an activity to another
+## From an activity to another
 
 Let's run the Moon activity from the Sugarizer home view.
 
@@ -34,7 +34,7 @@ Click on the Image Moon item in the list, it will be added to your drawing and y
 It's a way to use the result of an activity, here Moon, into another activity, here Paint.A Lot of other activities (Record, Labyrinth, Abecedarium, ...) are able to generate contents that other activities (Fototoon, Memorize, Paint, ...) can use. It's why it's useful to understand how the Journal chooser can be integrated into an activity.
 
 
-# A button to customize the background
+## A button to customize the background
 
 Let's suppose that we would like to let the user customize the background of our Pawn activity. So instead of an ugly gray background we could let the user replace it, for example, by a checkboard image.
 
@@ -67,7 +67,7 @@ Let's run the activity. Good job! the new button is here:
 ![](../images/tutorial_step7_6.png)
 
 
-# Display the Journal chooser popup
+## Display the Journal chooser popup
 
 It's time now to add source code to display Journal chooser and integrate our background.
 
@@ -101,7 +101,7 @@ Let's run again the activity. Now, when you click on the new toolbar button the 
 By the way nothing happens when the item is clicked.
 
 
-# A nice background
+## A nice background
 
 We're going to start by importing a nice checkboard image. You could download it [here](../images/checkboard.png). Right-click on it and then save it on your desktop. It looks like that:
 

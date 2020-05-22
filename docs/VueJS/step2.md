@@ -5,7 +5,7 @@
 
 Let's now improve our activity to customize the content.
 
-# Customize the icon
+## Customize the icon
 
 The first task is to customize the icon. It's important because it's the visual identity of your activity.
 
@@ -110,7 +110,7 @@ Let's run again our activity. Now, we have a beautiful pawn icon.
 Note that a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
 
 
-# Customize content
+## Customize content
 
 We will now change the content of our Window. More precisely, we're going to replace the **Congratulations** message by a welcome message to the user connected.
 

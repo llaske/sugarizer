@@ -12,7 +12,7 @@ You could also change the language from the settings. Hover the mouse on the XO 
 
 If you choose another language, this new language will be used for all activities. Let's see how we could use it in our Pawn activity too.
 
-# Identify strings to localize
+## Identify strings to localize
 
 Sugarizer and Sugar-Web use the [webL10n](https://github.com/fabi1cazenave/webL10n) JavaScript library to handle localization.
 
@@ -72,7 +72,7 @@ Now we will integrate our new `locale.ini` file into `index.html`:
 
 The file is included as a HTML `link` tag and must have a `application/l10n` type to be recognized by webL10n library.
 
-# Initialize localization
+## Initialize localization
 
 We will now see how to initialize localization into the activity source code.
 
@@ -106,7 +106,7 @@ mounted: function () {
 
 The `SugarL10n` component automatically detects the language set by the user using the environment and configures the webL10n library accordingly.
 
-# Set strings value depending on the language
+## Set strings value depending on the language
 
 To get the localized version of a string, the webL10n framework provide a simple `get` method. You pass to the method the id of the string (the left side of the plus sign in the INI file) and, if need, the string parameter. You can call the `get` method of the Sugar component which will work the same way. The `SugarL10n` also provides a `localize(object)` method to localize a JavaScript object containing string id's. 
 

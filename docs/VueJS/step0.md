@@ -6,7 +6,7 @@
 For this tutorial, you will just need a browser and a text editor.
 We will run Sugarizer from a local directory that will contain all files needed.
 
-### Create the Sugarizer directory
+## Create the Sugarizer directory
 
 To start, download **Sugarizer** from [here](https://github.com/llaske/sugarizer/archive/dev.zip). It's a 260MB package so it could take some time. Once downloaded, unzip it.
 
@@ -19,7 +19,7 @@ Whatever method used, you should have at end a Sugarizer directory like this:
 ![](../images/tutorial_step0_2.png)
 
 
-### Run Sugarizer
+## Run Sugarizer
 
 We will use **Chrome** in this tutorial but any other browser will work as well.
 
@@ -44,7 +44,7 @@ Click on "New user", type your name and choose your color, you should see the Su
 To debug your code, it's a good practice too to use the development console of your browser. See [here](https://developers.google.com/web/tools/chrome-devtools/) how to activate this console on Chrome.
 
 
-### Edit source code
+## Edit source code
 
 To develop the activity and to update the source code you will need also a **text editor**. You could use for example [Lime](http://limetext.org/) on Linux, [Notepad++](https://notepad-plus-plus.org) on Windows, [Atom](https://atom.io/) on MacOS but any other text editor will work as well.
 

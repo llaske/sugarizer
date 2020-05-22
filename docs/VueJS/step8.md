@@ -12,7 +12,7 @@ In Step 6 of this tutorial, we've added a specific icon in the toolbar for the "
 As we've seen briefly in Step 6, to handle this feature Sugar-Web exposes a Palette library. Let's see how we could use this library and SugarToolitem to create our own palette.
 
 
-# Create the palette file
+## Create the palette file
 
 To create a new palette, you should first create a new palette file. This file will contain the source code to handle palette behavior.
 
@@ -61,7 +61,7 @@ You don't need to understand in detail how it works but the important part here 
 Here, the content is just a HTML div element with a simple string `'<strong>Hello palette!</strong>'` inside. In most complex palettes, the content could come from a HTML file or could be a generated set of items.
 
 
-# Integrate the palette in the toolbar
+## Integrate the palette in the toolbar
 
 Let's now integrate our new palette in the toolbar.
 
@@ -93,7 +93,7 @@ Funny isn't it?
 As an exercise, look what happens when you do not provide a palette title.
 
 
-# Customize the palette content
+## Customize the palette content
 
 Now that we've seen basic concepts of the palette, it's time to improve the UI for our custom palette.
 
@@ -173,7 +173,7 @@ Let's try by running the Pawn activity again.
 Waoow. Very beautiful!
 
 
-# Handle palette event
+## Handle palette event
 
 From the beginning of this lesson, the event handler for the **Add** button is still the same. So, when you click on the button to open the palette, a new pawn appears. And when you click again to close the palette a new pawn appears again. Of course, it's not the expected behavior. It's why we need to change the event.
 

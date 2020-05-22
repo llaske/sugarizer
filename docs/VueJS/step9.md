@@ -7,7 +7,7 @@ Because Sugarizer is a platform dedicated to children, activities should be self
 
 In this tutorial, you'll learn how to easily integrate a tutorial into your Pawn activity.
 
-# What's a tutorial in Sugarizer?
+## What's a tutorial in Sugarizer?
 
 Go to the Sugarizer home view and click on the "?" button to launch the tutorial. Use Next/Prev button to navigate.
 
@@ -18,7 +18,7 @@ As you can see, the tutorial is a set of dialog box that show you the meaning of
 Let's see how to do the same in our Pawn activity.
 
 
-# Prepare the UI
+## Prepare the UI
 
 First, we're going to prepare the UI of the activity.
 
@@ -53,7 +53,7 @@ Let's run the activity to test the result.
 The button is here. That's a good start.
 
 
-# Integrate Bootstrap tour components
+## Integrate Bootstrap tour components
 
 Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
 
@@ -84,7 +84,7 @@ The main change is to add the link on the CSS file and integrate the libraries i
 Note that we've done script integration around `if (typeof module ...)` and `if (window.module)` testing. It's related to an [incompatibility between Electron and jQuery](https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined). You don't have to worry about that.
 
 
-# Display the tutorial
+## Display the tutorial
 
 Only a few Javascript lines are needed to display a tutorial with Bootstrap tour. And as you might have guessed, we have a component for this too! Not only does it handle the displaying of steps but also has the Sugar UI so you don't have to worry about setting up Bootstrap tour or styling. Awesome!
 

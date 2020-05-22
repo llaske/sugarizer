@@ -6,7 +6,7 @@
 Sugarizer comes with an empty template that you could use as the base of your new activity. So first, copy all content of the Sugarizer `activities/ActivityTemplate/VueJS` directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
 
 
-### File structure
+## File structure
 
 In your new directory, you will find the following file structure:
 
@@ -27,7 +27,7 @@ Those are the files you'll modify in most cases. The others are:
 * `setup.py` is used if you want to run your activity in Sugar.
 
 
-### Customize the activity
+## Customize the activity
 
 Then customize the activity using your text editor. Change the name for your activity. Write `Pawn` in the activity **name** and `org.sugarlabs.Pawn` in **bundle_id** properties in `activity/activity.info` of the new directory.
 ```

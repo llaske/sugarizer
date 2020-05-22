@@ -5,7 +5,7 @@
 
 In the previous step, we've started to see how to use the unique Sugar UI. Let's see now another major feature of Sugar, the Journal, and how to handle it from our activity.
 
-# What is the Journal?
+## What is the Journal?
 
 Launch the Paint activity from the Sugarizer home view.
 
@@ -38,13 +38,13 @@ It will display the Journal view. You will see here all your past work: the init
 
 Note that in the Journal you will see also your new Pawn activity. Let's see how we could handle context saving in this activity like Paint activity.
 
-# Identify the context
+## Identify the context
 
 The "context" for our Pawn activity is the current number of pawns on the board. So a user could expect to retrieve the same number of pawns when he reopens the activity.
 
 The array `pawns` contain all pawns. It's the context for our activity.
 
-# Store context in the datastore
+## Store context in the datastore
 
 To store the context, we have to handle the **datastore**. The datastore is the place where Sugar stores the Journal. During the activity setup, Sugar-Web automatically initializes the datastore for the activity. 
 
@@ -99,7 +99,7 @@ It's the first step: the board is now safely saved in the datastore.
 
 Let's know how we could retrieve it.
 
-# Detect the need to load the context
+## Detect the need to load the context
 
 Our Pawn activity works well when it's called from the **Start new** menu, i.e. with a new instance. Because in that case, we don't have to reload the context.
 So the first question to ask is: how to detect that we need to load the context?
@@ -117,7 +117,7 @@ Now open the Pawn activity from the Journal or by clicking on the Pawn icon on t
 
 Of course, the context is not loaded for the moment in the activity but at least we've got a way to detect when it should be loaded and when it shouldn’t be loaded.
 
-# Load context from the datastore
+## Load context from the datastore
 
 When our activity is launched with an existing instance, `SugarJournal` will emit an event `journal-data-loaded` with the loaded parsed data when the activity starts. We can handle this by creating a method:
 ```js
