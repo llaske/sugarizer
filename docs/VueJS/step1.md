@@ -10,7 +10,7 @@ Sugarizer comes with an empty template that you could use as the base of your ne
 
 In your new directory, you will find the following file structure:
 
-![](../images/tutorial_step1_1.png)
+![](../images/tutorial_step1_1VueJS.png)
 
 
 * `activity/` contains information about your activity, including the name, ID, and the icon.
@@ -21,7 +21,6 @@ In your new directory, you will find the following file structure:
 
 Those are the files you'll modify in most cases. The others are:
 
-* `js/loader.js` configures the libraries paths and loads your   `js/activity.js`
 * `lib/` contains the libraries
 * `package.json` contains information about the libraries the activity depends on
 * `setup.py` is used if you want to run your activity in Sugar.
