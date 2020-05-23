@@ -147,15 +147,6 @@ var app = new Vue({
 ```
 These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependencies. You could read more about the **require.js** framework [here](http://www.requirejs.org/). The first block of code is used to configure `requirejs` baseUrl to be the `lib` directory to load our dependencies and also to add a path to `js` directory. This is followed by a new Vue.js instance with `el: '#app'` signifying that the `#app` element is being controlled by Vue.js. Make sure to add all your components/properties inside this element.
 
-For once let's peek into the SugarActivity component to understand what's happening behind the scenes.
-
-> #### Understanding the working
-> Open `js/components/SugarActivity.js` and observe the mounted() lifecycle hook. It uses `requirejs` to load the `lib/sugar-web/activity/activity` and `lib/sugar-web/env` and save it as a data property. It also has the method `setup` which calls the setp function for the activity. Refer to requirejs docs to have a better understanding but shortly, there are only two functions to understand: `define` and `require`:
-> * `define` is a way to define a new module and express its dependencies.
-> * `requirejs` is pretty the same. It tells to **require**: run the following function but before that, load dependencies and give me a reference to it. We have called it in the `mounted()` hook to run it after DOM has loaded.
->
-> Once the dependencies have loaded, data values have been set and activity has setup, the `initialized` event is emitted.
-
 Now, to display our welcome message, we will use the user's name.
 
 First add a data property `displayText` to the data object.

@@ -167,7 +167,7 @@ onAddClick: function () {
 	this.pawns.push(this.currentenv.user.colorvalue);
 	this.displayText = this.SugarL10n.get("Played", { name: this.currentenv.user.name });
 
-	if (this.SugarPresence && this.SugarPresence.isConnected()) {
+	if (this.SugarPresence.isConnected()) {
 		var message = {
 			user: this.SugarPresence.getUserInfo(),
 			content: this.currentenv.user.colorvalue
@@ -177,7 +177,7 @@ onAddClick: function () {
 },
 ```
 
-If the activity is connected (i.e. `SugarPresence` component exists and `SugarPresence.isConnected()` which tells if presence is initialized), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The parameter is the message you want to send. We decided to split the message in two parts: information about `user` that sent the message and the `content`, the user color. The user info is get from SugarPresence component using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
+If the activity is connected (i.e. `SugarPresence.isConnected()` is `true` which tells if presence is initialized), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The parameter is the message you want to send. We decided to split the message in two parts: information about `user` that sent the message and the `content`, the user color. The user info is get from SugarPresence component using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
 
 That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically intializes the presence object.
 
@@ -253,7 +253,7 @@ But because the current message contains only the color for the added pawn, we h
 
 First let's modify the current send message call to integrate the 'update' message type to keep compatibility with current implementation:
 ```js
-if (this.SugarPresence && this.SugarPresence.isConnected()) {
+if (this.SugarPresence.isConnected()) {
 	var message = {
 		user: this.SugarPresence.getUserInfo(),
 		content: {

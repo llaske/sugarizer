@@ -23,7 +23,6 @@ To add this icon in the toolbar, we will first update the `index.html` file for 
 ```html
 <sugar-toolbar ref="SugarToolbar">
   <sugar-toolitem id="activity-button"></sugar-toolitem>
-  <sugar-toolitem splitbar></sugar-toolitem>
 
   <!-- Add more buttons here -->
   
@@ -39,7 +38,6 @@ Let's add our new button. It's just an instance of `sugar-toolitem` component. W
 ```html
 <sugar-toolbar ref="SugarToolbar">
   <sugar-toolitem id="activity-button"></sugar-toolitem>
-  <sugar-toolitem splitbar></sugar-toolitem>
 
   <!-- Add more buttons here -->
   <sugar-toolitem id="add-button" title="Add Pawn"></sugar-toolitem>
