@@ -291,11 +291,12 @@ enyo.kind({
 		var PI2 = Math.PI*2.0;
 		radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size));
 		var circumference = PI2*radiusx;
+		var spiralPositions = [];
 		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
 			spiralMode = restrictedMode = false;
 			base_angle = (PI2/parseFloat(activitiesList.length));
 		} else {
-			if (this.hasRoomForSpiral(canvas_center, icon_size)) {
+			if (this.hasRoomForSpiral(canvas_center, icon_size, spiralPositions)) {
 				spiralMode = true; restrictedMode = false;
 				radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
 				activitiesCount = parseInt((PI2*radiusx)/icon_padding);
@@ -310,9 +311,7 @@ enyo.kind({
 		}
 
 		// Draw activity icons
-		var angle = (spiralMode ? Math.PI : -Math.PI/2.0-base_angle);
-		var icon_spacing = Math.sqrt(Math.pow(icon_size,2) * 2) * constant.spiralInitSpaceFactor;
-		var spiral_spacing = icon_spacing * constant.spiralSpaceFactor;
+		var angle = -Math.PI/2.0-base_angle;
 		for (var i = 0 ; i < activitiesList.length ; i++) {
 			// Compute icon position
 			var activity = activitiesList[i];
@@ -323,12 +322,8 @@ enyo.kind({
 				ix = (canvas_center.x+Math.cos(angle)*radiusx-semi_size);
 				iy = (canvas_center.y+Math.sin(angle)*radiusy-semi_size);
 			} else {
-				circumference = PI2*radiusx;
-				n = circumference / icon_spacing;
-				radiusx += (spiral_spacing / n);
-				ix = canvas_center.x-semi_size+Math.sin(angle) * radiusx;
-				iy = canvas_center.y+Math.cos(angle) * radiusx - semi_size;
-				angle -= (PI2 / n);
+				ix = spiralPositions[i].x;
+				iy = spiralPositions[i].y;
 			}
 
 			// Restricted mode for small device: integrate a way to scroll on the circle
@@ -405,7 +400,7 @@ enyo.kind({
 		this.redraw();
 	},
 
-	hasRoomForSpiral: function(canvas_center, icon_size) {
+	hasRoomForSpiral: function(canvas_center, icon_size, spiralPositions) {
 		var activitiesList = preferences.getFavoritesActivities();
 		var activitiesCount = activitiesList.length;
 		var radiusx = icon_size*constant.iconSpacingFactor*constant.ringInitSpaceFactor;
@@ -421,6 +416,7 @@ enyo.kind({
 			radiusx += (spiral_spacing / n);
 			var ix = canvas_center.x-semi_size+Math.sin(angle) * radiusx;
 			var iy = canvas_center.y+Math.cos(angle) * radiusx - semi_size;
+			spiralPositions.push({x: ix, y: iy});
 			maxX = Math.max(maxX, ix+icon_size); maxY = Math.max(maxY, iy+icon_size);
 			minX = Math.min(minX, ix); minY = Math.min(minY, iy);
 			angle -= (PI2 / n);
