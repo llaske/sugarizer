@@ -36,6 +36,7 @@ enyo.kind({
 	play: function() {
 		this.doSelectionChange({toChange: currentPianoMode});
 		currentPianoMode = this.name;
+		currentSimonMode = this.name;
 		this.nameChanged();
 		if (this.name != null) {
 			tonePlayer.playSound("audio/database/"+this.name+".mp3");

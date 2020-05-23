@@ -3,7 +3,7 @@
 # Step 1: Create the activity from the template
 *(Estimated time: 15mn)*
 
-Sugarizer comes with an empty template that you could use as the base of your new activity. So first, copy all content of the Sugarizer `activities/ActivityTemplate/VanillaJS` directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
+Sugarizer comes with an empty template that you could use as the base of your new activity in JavaScript. So first, copy all content of the Sugarizer `activities/ActivityTemplate/VanillaJS` directory in a new directory called `activities/Pawn.activity`. **Pawn** will be the name for our new activity.
 
 
 ## File structure

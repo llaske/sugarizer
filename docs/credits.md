@@ -6,9 +6,9 @@ Sugarizer is initially based on the work done on Sugar Web by Daniel Narvaez and
 
 Lionel Laské have encapsulated this work to develop an engine that mimics Sugar features and give a way to run Sugar Web activities outside of Sugar with the Journal stored in the browser. It was the Sugarizer Core. Later, a GSoC student, Suraj Gillespie, added the presence part.
 
-Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
+Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze, Get Things Done, StopWatch). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
 
-* Paint, Memorize, Record and Calculate activities by  Michaël Ohayon
+* Paint, Memorize, Record, Calculate and Media Viewer activities by  Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
 * Chat, Markdown by Suraj Gillespie
@@ -20,11 +20,11 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Jappy by Sebastian Silva
 * Scratch by Emily Ong
 * Fototoon by Gonzalo Odiard
-* Game of Life by Sanatan Kumar
+* Game of Life, Pomodoro by Sanatan Kumar
+* Sprint Math by Mankirat Singh
 * Exerciser by Mankirat Singh and Avinash Agarwal
 * Write by Ashish Aggarval
 * Constellation by Andrea Gonzales
-* Pomodoro by Sanatan
 * Falabracman by Prakash Ujjwal
 * Fraction by Dhruv Misra
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
