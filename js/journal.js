@@ -576,6 +576,14 @@ enyo.kind({
 			data: [entry, null]
 		});
 		items.push({
+			icon: {directory: "icons", icon: "duplicate.svg"},
+			colorized: false,
+			name: l10n.get("Duplicate"),
+			action: enyo.bind(this, "duplicate"),
+			data: [entry, null],
+			disable: this.journalType != constant.journalLocal
+		});
+		items.push({
 			icon: {directory: "icons", icon: "list-remove.svg"},
 			colorized: false,
 			name: l10n.get("Erase"),
@@ -650,6 +658,20 @@ enyo.kind({
 			);
 		});
 		this.$.activityPopup.hidePopup();
+	},
+
+	// Duplicate locale entry
+	duplicate: function(entry, multiple) {
+		var that = this;
+		stats.trace(constant.viewNames[app.getView()], 'duplicate', entry.objectId, null);
+		this.loadEntry(entry, function(err, metadata, text) {
+			var ds = new datastore.DatastoreObject();
+			ds.setMetadata(metadata);
+			ds.setDataAsText(text);
+			ds.save();
+			that.$.activityPopup.hidePopup();
+			that.loadLocalJournal();
+		});
 	},
 
 	// Load local journal
