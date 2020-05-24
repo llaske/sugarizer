@@ -342,6 +342,16 @@ enyo.kind({
 		this.$.warningbox.setShowing(true);
 	},
 
+	duplicateSelected: function() {
+		this.dialogAction = constant.journalDuplicate;
+		this.$.warningbox.setTitle(l10n.get("Duplicate"));
+		var length = this.getSelection().length;
+		this.$.warningbox.setMessage(length == 1 ? l10n.get("Duplicate_one",{count:length}) : l10n.get("Duplicate_other",{count:length}));
+		this.$.warningbox.setOkText(l10n.get("Ok"));
+		this.$.warningbox.setCancelText(l10n.get("Cancel"));
+		this.$.warningbox.setShowing(true);
+	},
+
 	copySelected: function(dest) {
 		this.dialogAction = dest;
 		var title = ["CopyToLocal", "CopyToPrivate", "CopyToShared", "", "CopyToDevice"];
@@ -374,6 +384,8 @@ enyo.kind({
 						that.copyToDevice(toProcess[i]);
 					} else if (that.dialogAction == constant.journalRemove) {
 						that.removeEntry(toProcess[i], {isLast: (i==toProcess.length-1)});
+					} else if (that.dialogAction == constant.journalDuplicate) {
+						that.duplicateEntry(toProcess[i], {isLast: (i==toProcess.length-1)});
 					} else if (that.dialogAction == constant.journalLocal) {
 						that.copyToLocal(toProcess[i]);
 					} else {
@@ -579,7 +591,7 @@ enyo.kind({
 			icon: {directory: "icons", icon: "duplicate.svg"},
 			colorized: false,
 			name: l10n.get("Duplicate"),
-			action: enyo.bind(this, "duplicate"),
+			action: enyo.bind(this, "duplicateEntry"),
 			data: [entry, null],
 			disable: this.journalType != constant.journalLocal
 		});
@@ -661,7 +673,7 @@ enyo.kind({
 	},
 
 	// Duplicate locale entry
-	duplicate: function(entry, multiple) {
+	duplicateEntry: function(entry, multiple) {
 		var that = this;
 		stats.trace(constant.viewNames[app.getView()], 'duplicate', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
@@ -670,7 +682,12 @@ enyo.kind({
 			ds.setDataAsText(text);
 			ds.save();
 			that.$.activityPopup.hidePopup();
-			that.loadLocalJournal();
+			var refresh = (!multiple || multiple.isLast);
+			if (refresh) {
+				// Refresh screen
+				that.toolbar.removeFilter();
+				that.loadLocalJournal();
+			}
 		});
 	},
 
@@ -943,6 +960,7 @@ enyo.kind({
 		{name: "copycloudonebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-one.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "copycloudallbutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-cloud-all.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
 		{name: "copydevicebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "copy-to-device.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "copySelected"},
+		{name: "duplicatebutton", showing: false, kind: "Sugar.Icon", classes: "journal-copy", x: 0, y: 0, icon: {directory: "icons", icon: "duplicate.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "duplicateSelected"},
 		{name: "removebutton", showing: false, kind: "Sugar.Icon", classes: "journal-remove", x: 0, y: 0, icon: {directory: "icons", icon: "list-remove.svg"}, size: constant.iconSizeList, disabledBackground: "#282828", ontap: "removeSelected"},
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
@@ -987,6 +1005,7 @@ enyo.kind({
 		this.$.copycloudonebutton.setNodeProperty("title", l10n.get("CopyToPrivate"));
 		this.$.copycloudallbutton.setNodeProperty("title", l10n.get("CopyToShared"));
 		this.$.copydevicebutton.setNodeProperty("title", l10n.get("CopyToDevice"));
+		this.$.duplicatebutton.setNodeProperty("title", l10n.get("Duplicate"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
@@ -1119,6 +1138,14 @@ enyo.kind({
 		app.otherview.removeSelected();
 	},
 
+	duplicateSelected: function() {
+		if (this.$.duplicatebutton.getDisabled()) {
+			return;
+		}
+		this.disableMultiselectToolbarVisibility();
+		app.otherview.duplicateSelected();
+	},
+
 	copySelected: function(e, s) {
 		if (e.getDisabled()) {
 			return;
@@ -1249,6 +1276,7 @@ enyo.kind({
 		this.$.split1.setShowing(shown);
 		this.$.removebutton.setShowing(shown);
 		this.$.copyjournalbutton.setShowing(shown && journalType != constant.journalLocal);
+		this.$.duplicatebutton.setShowing(shown && journalType == constant.journalLocal);
 		this.$.copycloudonebutton.setShowing(shown && journalType != constant.journalRemotePrivate && preferences.isConnected());
 		this.$.copycloudallbutton.setShowing(shown && journalType != constant.journalRemoteShared && preferences.isConnected());
 		this.$.copydevicebutton.setShowing(shown);
@@ -1262,6 +1290,7 @@ enyo.kind({
 		this.$.copycloudonebutton.setDisabled(!shown);
 		this.$.copycloudallbutton.setDisabled(!shown);
 		this.$.copydevicebutton.setDisabled(!shown);
+		this.$.duplicatebutton.setDisabled(!shown);
 		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", !shown);
 	},
 
@@ -1273,6 +1302,7 @@ enyo.kind({
 		this.$.copycloudonebutton.setDisabled(true);
 		this.$.copycloudallbutton.setDisabled(true);
 		this.$.copydevicebutton.setDisabled(true);
+		this.$.duplicatebutton.setDisabled(true);
 		this.$.selectcount.addRemoveClass("journal-selectcount-disabled", true);
 	},
 
