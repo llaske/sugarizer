@@ -106,31 +106,52 @@ So the first question to ask is: how to detect that we need to load the context?
 
 Once again, the Sugar-Web environment could help us. When an activity is launched from an existing context, the environment contains an `objectId` property with the identifier for the datastore object. When an activity is launch with a new instance, this property is null.
 
-The good part is, `SugarJournal` handles this for you! Let's display the JavaScript console on your browser and test it. Launch the Pawn activity from the **Start new** menu or from List view of activities. Here is the result:
+The good part is, `SugarJournal` handles this for you! It provides some events which you can handle however you want to. The events are:
+1. `journal-new-instance`: Emitted when the activity is a new instance.
+2. `journal-data-loaded`: Emitted when the activity is an existing instance and if there is some data stored in the journal. It returns two parameters: data and metadata.
+3. `journal-load-error`: Emitted when the activity is an existing instance and if some error occurred while loading data.
+
+Let's handle these events from the `SugarJournal` component. Add the following basic methods:
+```js
+onJournalNewInstance: function() {
+  console.log("New instance");
+},
+
+onJournalDataLoaded: function (data, metadata) {
+  console.log("Existing instance");
+},
+
+onJournalLoadError: function(error) {
+  console.log("Error loading from journal");
+},
+```
+
+Add bind them at the component instance:
+```html
+<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+```
+
+Now display the JavaScript console on your browser and test it. Launch the Pawn activity from the **Start new** menu or from List view of activities. Here is the result:
 
 ![](../images/tutorial_step4_7.png)
 
 Now open the Pawn activity from the Journal or by clicking on the Pawn icon on the Home view. Here is the result:
 
-
 ![](../images/tutorial_step4_8.png)
 
-Of course, the context is not loaded for the moment in the activity but at least we've got a way to detect when it should be loaded and when it shouldn’t be loaded.
+Of course, the context is not loaded for the moment in the activity but at least we've understood which events to handle.
+
 
 ## Load context from the datastore
 
-When our activity is launched with an existing instance, `SugarJournal` will emit an event `journal-data-loaded` with the loaded parsed data when the activity starts. We can handle this by creating a method:
+WAs we saw, when our activity is launched with an existing instance, `SugarJournal` will emit the event `journal-data-loaded` with the loaded parsed data when the activity starts. Let's use this `data` in the event handler:
 ```js
 onJournalDataLoaded: function(data, metadata) {
+  console.log("Existing instance");
   this.pawns = data.pawns;
 },
 ```
 We get the pawns array from the context we stored in the Journal and we set the `pawns` data property to it.
-
-Let's attach this method to the event emitted from the Journal:
-```html
-<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
-```
 
 Let's try if it works.
 

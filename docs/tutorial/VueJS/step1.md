@@ -16,7 +16,7 @@ In your new directory, you will find the following file structure:
 * `activity/` contains information about your activity, including the name, ID, and the icon.
 * `index.html` is where the elements that compose your activity are defined.  The template comes with a toolbar and a canvas where you can place your content.
 * `js/activity.js` is where the logic of your activity lives.
-* `js/components` contains all Sugar components which can be included and used to have a specific Sugar functionality.
+* `js/components` contains all Sugar components for Vue.js which can be included and used to have a specific Sugar functionality.
 * `css/activity.css` is where you add the styling of your activity.
 
 Those are the files you'll modify in most cases. The others are:
