@@ -10,10 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implode activity #710
 - Simon mode game in TamTam activity #686
 - Vue.js activity template
+- Duplicate action on Journal entries
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
-- Improve Sugarizer spiral in home view #579 
+- Improve Sugarizer spiral in home view #579
 
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
