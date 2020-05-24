@@ -421,7 +421,7 @@ enyo.kind({
 			minX = Math.min(minX, ix); minY = Math.min(minY, iy);
 			angle -= (PI2 / n);
 		}
-		return (maxX <= canvas_center.dx && maxY <= canvas_center.dy && minX >= 0 && minY >= 0);
+		return (maxX <= canvas_center.dx && maxY <= canvas_center.dy-5 && minX >= 0 && minY >= 0);
 	},
 
 	showPreviousRestrictedList: function() {
