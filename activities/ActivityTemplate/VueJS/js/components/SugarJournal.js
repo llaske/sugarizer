@@ -8,16 +8,15 @@ Vue.component('sugar-journal', {
 			vm.activity = activity;
 			env.getEnvironment(function (err, environment) {
 				if (environment.objectId) {
-					console.log("Existing instance");
 					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
 							vm.$emit('journal-data-loaded', JSON.parse(data), metadata);
 						} else {
-							console.log("Error loading from journal");
+							vm.$emit('journal-load-error', error);
 						}
 					});
 				} else {
-					console.log("New instance");
+					vm.$emit('journal-new-instance');
 				}
 			});
 		});
