@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>My Vue Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+
+			<!-- Add more buttons here -->
+			<sugar-toolitem id="home-button" @click="currentView = 'categories-grid'"></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			
+		</sugar-toolbar>
+
+		<component 
+			:is="currentView" 
+			:categories="categories"
+			:category-id="selectedCategoryId"
+			:skill-id="selectedSkillId"
+			@open-category="openCategory"
+			@open-skill="openSkill"
+		></component>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+	</div>
+
+	<script src="js/data.js"></script>
+	<script src="js/Categories.js"></script>
+	<script src="js/Skills.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>
