@@ -132,6 +132,9 @@ var app = new Vue({
     document.getElementById("unfullscreen-button").addEventListener('click', function() {
       vm.unfullscreen();
     });
+
+    document.getElementById("main-toolbar").style.opacity = 1;
+    window.dispatchEvent(new Event('resize'));
   },
   methods: {
     localized: function() {
@@ -146,6 +149,8 @@ var app = new Vue({
       document.getElementById("main-toolbar").style.opacity = 0;
       document.getElementById("canvas").style.top = "0px";
       document.getElementById("unfullscreen-button").style.visibility = "visible";
+      window.dispatchEvent(new Event('resize'));
+
     },
 
     unfullscreen: function() {
@@ -153,6 +158,7 @@ var app = new Vue({
       document.getElementById("main-toolbar").style.opacity = 1;
       document.getElementById("canvas").style.top = "55px";
       document.getElementById("unfullscreen-button").style.visibility = "hidden";
+      window.dispatchEvent(new Event('resize'));
     },
 
     onHelp: function(type) {

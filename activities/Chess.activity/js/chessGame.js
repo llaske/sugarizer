@@ -47,7 +47,7 @@ var ChessGame = {
 
 			</div>
 			<div id="moves-container">
-        <ol v-if="moves.length!=0">
+        <ol id="ordered-moves" v-if="moves.length!=0">
           <template v-for="(move, index) in moves" v-bind:key="index">
           <li v-bind:class="{
             bB: move.piece == 'b',
@@ -218,6 +218,12 @@ var ChessGame = {
     this.state = new p4_new_game();
 
   },
+  updated: function () {
+    const lastChild = $("#ordered-moves li:last-child");
+    if (lastChild.offset()!=undefined) {
+      document.getElementById("moves-container").scrollTo(0,lastChild.offset().top + lastChild.height());
+    }
+  },
   mounted: function() {
     let vm = this;
 
@@ -236,6 +242,42 @@ var ChessGame = {
 
     // Handle resize
     window.addEventListener("resize", function() {
+      //console.log($('#board').css('width'));
+      var toolbarElem = document.getElementById("main-toolbar");
+      var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
+      var newCanvasHeight = window.innerHeight - toolbarHeight;
+      var ratio = window.innerWidth / window.innerHeight;
+
+      if (ratio < 1) {
+
+        if (toolbarHeight !=0 ) {
+          $('#board').css('width', '60vw');
+          $('#chess-panel').css('width', '60vw');
+        }
+        else {
+          $('#board').css('width', '65vw');
+          $('#chess-panel').css('width', '65vw');
+        }
+        $('#chess-panel').css('height', '30%');
+      }
+      else if(ratio > 1 && ratio < 1.3){
+        if (toolbarHeight !=0 ) {
+          $('#board').css('width', 0.75*newCanvasHeight+'px');
+          $('#chess-panel').css('height', 0.75*newCanvasHeight+'px');
+        }
+        else {
+          $('#board').css('width', 0.8*newCanvasHeight+'px');
+          $('#chess-panel').css('height', 0.8*newCanvasHeight+'px');
+        }
+        $('#chess-panel').css('width', '35%');
+      }
+      else {
+
+        $('#board').css('width', 0.95*newCanvasHeight+'px');
+        $('#chess-panel').css('height', 0.95*newCanvasHeight+'px');
+        $('#chess-panel').css('width', '35%');
+      }
+
       vm.board.resize();
     });
 

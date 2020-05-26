@@ -96,27 +96,27 @@
   justify-content: center;
   flex-direction: row;
   width: 100%;
-  height: 90%;
+  height: 97%;
   text-align: center;
   padding-top: 5px;
   vertical-align: middle;
 }
 
 #board {
-  width: 40%;
+  width: 50%;
 }
 
 #chess-panel {
-  width: 30%;
+  width: 35%;
   position: relative;
   height: 40vw;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: 0.3s;
   background-color: #b58863;
-  margin: 1%;
-
+  margin-left: 1%;
+  margin-top: 0px;
 }
 
 #info-container {
@@ -128,91 +128,89 @@
   margin: 5%;
 }
 
-#moves-container{
+#moves-container {
   height: 50%;
   width: 90%;
   overflow: auto;
   margin: 5%;
   background-color: #f0d9b5;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-#moves-container li{
+#moves-container li {
   background-repeat: no-repeat;
   background-size: 40px;
   background-position: left;
-  z-index:-1;
+  z-index: -1;
   height: 40px;
 }
 
-.bB{
-  background-image:url(../img/chesspieces/wikipedia/bB.png);
+.bB {
+  background-image: url(../img/chesspieces/wikipedia/bB.png);
 }
 
-.bK{
-  background-image:url(../img/chesspieces/wikipedia/bK.png);
+.bK {
+  background-image: url(../img/chesspieces/wikipedia/bK.png);
 }
 
-.bN{
-  background-image:url(../img/chesspieces/wikipedia/bN.png);
+.bN {
+  background-image: url(../img/chesspieces/wikipedia/bN.png);
 }
 
-.bP{
-  background-image:url(../img/chesspieces/wikipedia/bP.png);
+.bP {
+  background-image: url(../img/chesspieces/wikipedia/bP.png);
 }
 
-.bQ{
-  background-image:url(../img/chesspieces/wikipedia/bQ.png);
+.bQ {
+  background-image: url(../img/chesspieces/wikipedia/bQ.png);
 }
 
-.bR{
-  background-image:url(../img/chesspieces/wikipedia/bR.png);
+.bR {
+  background-image: url(../img/chesspieces/wikipedia/bR.png);
 }
 
-.wB{
-  background-image:url(../img/chesspieces/wikipedia/wB.png);
+.wB {
+  background-image: url(../img/chesspieces/wikipedia/wB.png);
 }
 
-.wK{
-  background-image:url(../img/chesspieces/wikipedia/wK.png);
+.wK {
+  background-image: url(../img/chesspieces/wikipedia/wK.png);
 }
 
-.wN{
-  background-image:url(../img/chesspieces/wikipedia/wN.png);
+.wN {
+  background-image: url(../img/chesspieces/wikipedia/wN.png);
 }
 
-.wP{
-  background-image:url(../img/chesspieces/wikipedia/wP.png);
+.wP {
+  background-image: url(../img/chesspieces/wikipedia/wP.png);
 }
 
-.wQ{
-  background-image:url(../img/chesspieces/wikipedia/wQ.png);
+.wQ {
+  background-image: url(../img/chesspieces/wikipedia/wQ.png);
 }
 
-.wR{
-  background-image:url(../img/chesspieces/wikipedia/wR.png);
+.wR {
+  background-image: url(../img/chesspieces/wikipedia/wR.png);
 }
-
-
 
 #opponent-clock {
   height: 30%;
-  display:flex;
+  display: flex;
   flex-direction: row;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 #flagDiv {
   background-color: #f0d9b5;
   height: 30%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 #player-clock {
   height: 30%;
-  display:flex;
+  display: flex;
   flex-direction: row;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   border-style: solid;
 }
 
@@ -244,65 +242,87 @@
   width: 100%;
   height: 100vh;
   overflow: auto;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
-
 
 @media screen and (orientation: portrait) {
   #canvas {
     font-size: 18px;
   }
+
   #play-container {
     flex-direction: column;
   }
-  #board{
+
+  #board {
     width: 50vw;
   }
+
   #chess-panel {
     width: 50vw;
-    height: 40%;
+    height: 30%;
     flex-direction: row;
-
+    margin-top: 1%;
+    margin-left: 0px;
   }
+
   #info-container {
     height: 85%;
     width: 50%;
-    margin: 5% 2%;
+    margin: 3.5% 2%;
   }
-  #moves-container{
+
+  #moves-container {
     height: 85%;
     width: 50%;
-    margin: 5% 2%;
+    margin: 3.5% 2%;
   }
 
-  #moves-container li{
+  #moves-container li {
     background-size: 30px;
     font-size: 14px;
-
   }
 
+  #clock-box {
+    display: flex;
+    flex-direction: column;
+  }
 }
-@media screen and (orientation: landscape)  {
 
-  #board{
-    width: 80vh;
+@media screen and (orientation: landscape) {
+  #board {
+    width: 85vh;
   }
+
   #chess-panel {
-    height: 80vh;
+    height: 85vh;
   }
 
- }
-
- @media screen and (max-height: 600px)  {
-   #canvas {
-     font-size: 15px;
-   }
-
+  #clock-box {
+    display: flex;
+    flex-direction: row;
   }
+}
+
+@media screen and (max-height: 600px) {
+  #canvas {
+    font-size: 15px;
+  }
+}
+
+#color-button {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  #color-button {
+    display: inline-block;
+  }
+}
 
 .palette-item {
   cursor: pointer;
-  padding: 10px;
+  padding: 2px;
 }
 
 .selected {
@@ -314,123 +334,123 @@
 }
 
 .tutorial-icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	background-color: #808080;
-	border: 2px solid #808080;
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
 }
 
 .tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+  background-color: #808080 !important;
+  color: #ffffff !important;
 }
 
 .tutorial-prev-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-prev-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-prev-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-prev-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-prev-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-next-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-next-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-next-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-next-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-next-icon2 {
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-next-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-end-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-end-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-end-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-end-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-end-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-icon-text {
-	margin-top: 7px;
-	padding-left: 4px;
-	padding-right: 38px;
-	display: inline-block;
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
 }
