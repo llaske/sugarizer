@@ -242,7 +242,6 @@ var ChessGame = {
 
     // Handle resize
     window.addEventListener("resize", function() {
-      //console.log($('#board').css('width'));
       var toolbarElem = document.getElementById("main-toolbar");
       var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
       var newCanvasHeight = window.innerHeight - toolbarHeight;
