@@ -149,3 +149,32 @@ var categoriesData = [
     ]
   },
 ]
+
+var userData = {
+  skills: {
+    0: {
+      0: {
+        acquired: true,
+        media: {}
+      },
+      1: {
+        acquired: false,
+        media: {}
+      },
+      2: {
+        acquired: false,
+        media: {}
+      },
+    },
+    1: {
+      0: {
+        acquired: false,
+        media: {}
+      },
+    },
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+  }
+}

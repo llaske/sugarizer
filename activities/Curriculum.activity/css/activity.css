@@ -92,6 +92,14 @@ p {
 	background-image: url(../icons/home.svg);
 }
 
+#main-toolbar #acquire-button {
+	background-image: url(../icons/flag-check.svg);
+}
+
+#main-toolbar #remove-button {
+	background-image: url(../icons/flag-cross.svg);
+}
+
 .categories {
 	display: flex;
 	justify-content: center;

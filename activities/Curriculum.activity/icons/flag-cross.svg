@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+  <g id="Flag_Cross" data-name="Flag Cross" transform="translate(-184 -14)">
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="43" height="43" transform="translate(184 14)" fill="#fff" opacity="0"/>
+    <line id="Line_10" data-name="Line 10" y2="30" transform="translate(197.5 20.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    <path id="Polygon_6" data-name="Polygon 6" d="M9,0l9,16H0Z" transform="translate(216 20) rotate(90)" fill="#fff"/>
+    <path id="Icon_metro-cross" data-name="Icon metro-cross" d="M14.385,11.506h0L10.768,7.889l3.617-3.617h0a.373.373,0,0,0,0-.527L12.676,2.037a.374.374,0,0,0-.527,0h0L8.532,5.654,4.915,2.037h0a.373.373,0,0,0-.527,0L2.68,3.746a.373.373,0,0,0,0,.527h0L6.3,7.889,2.68,11.506h0a.373.373,0,0,0,0,.527l1.709,1.709a.373.373,0,0,0,.527,0h0l3.617-3.617,3.617,3.617h0a.373.373,0,0,0,.527,0l1.709-1.709a.373.373,0,0,0,0-.527Z" transform="translate(221.536 37.005) rotate(90)" fill="#fff"/>
+  </g>
+</svg>

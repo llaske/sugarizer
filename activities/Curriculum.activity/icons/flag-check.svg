@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+  <g id="Flag_Check" data-name="Flag Check" transform="translate(-184 -14)">
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="43" height="43" transform="translate(184 14)" fill="#fff" opacity="0"/>
+    <line id="Line_10" data-name="Line 10" y2="30" transform="translate(197.5 20.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    <path id="Polygon_6" data-name="Polygon 6" d="M9,0l9,16H0Z" transform="translate(216 20) rotate(90)" fill="#fff"/>
+    <path id="Icon_awesome-check" data-name="Icon awesome-check" d="M4.532,14.332.2,10a.667.667,0,0,1,0-.944l.944-.944a.667.667,0,0,1,.944,0L5,11.03l6.257-6.257a.667.667,0,0,1,.944,0l.944.944a.667.667,0,0,1,0,.944L5.476,14.332A.667.667,0,0,1,4.532,14.332Z" transform="translate(203.804 36.396)" fill="#fff"/>
+  </g>
+</svg>

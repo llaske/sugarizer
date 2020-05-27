@@ -110,7 +110,7 @@ var SkillDetails = {
 					</div>
 				</div>
 				<div class="skill-uploads">
-					<flag raised></flag>
+					<flag :raised="currentAcquired"></flag>
 					<div class="uploads"></div>
 				</div>
 			</>
@@ -119,7 +119,7 @@ var SkillDetails = {
 	components: {
 		'flag': Flag
 	},
-	props: ['categories', 'categoryId', 'skillId'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired'],
 	computed: {
 		category: function () {
 			var vm = this;

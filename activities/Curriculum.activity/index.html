@@ -24,12 +24,13 @@
 
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="home-button" v-if="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-if="currentView == 'skill-details' && !currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
+			<sugar-toolitem id="remove-button" v-if="currentView == 'skill-details' && currentAcquired" @click="setSkillAcquired(false)"></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
-			
 		</sugar-toolbar>
 
 		<component 
@@ -37,11 +38,14 @@
 			:categories="categories"
 			:category-id="selectedCategoryId"
 			:skill-id="selectedSkillId"
+			:user="user"
+			:current-acquired="currentAcquired"
 			@open-category="openCategory"
 			@open-skill="openSkill"
 		></component>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
 	</div>
 
 	<script src="js/data.js"></script>
@@ -49,6 +53,7 @@
 	<script src="js/Skills.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
