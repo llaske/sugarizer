@@ -23,7 +23,7 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" @click="currentView = 'categories-grid'"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-if="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>

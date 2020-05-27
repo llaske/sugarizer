@@ -2,7 +2,7 @@ var CategoryCard = {
   /*html*/
   template: `
     <div 
-      class="category" 
+      class="category-card" 
       :style="{ backgroundColor: category.bg, boxShadow: '0 0 5px ' + category.bg }"
       @click="$emit('category-clicked', category.id)"
     >
@@ -13,7 +13,7 @@ var CategoryCard = {
           v-for="skill in category.skills" 
           @click.stop="$emit('skill-clicked', category.id, skill.id)"
         >
-          {{skill}}
+          <img :src="skill.image">
         </div>
       </div>
     </div>

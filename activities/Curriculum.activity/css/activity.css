@@ -98,8 +98,8 @@ p {
 	flex-wrap: wrap;
 }
 
-.category {
-	flex: 1;
+.category-card {
+	flex: 1 250px;
 	padding: 20px;
 	margin: 20px;
 	border-radius: 10px;
@@ -115,8 +115,10 @@ p {
 .category-skills {
 	display: flex;
 	justify-content: center;
+	align-items: stretch;
 }
 .category-skills .skill {
+	width: 80px;
 	padding: 20px;
 	margin: 10px;
 	border-radius: 10px;
@@ -129,12 +131,19 @@ p {
 	transform: scale(1.05);
 	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
 }
+.category-skills .skill img {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+}
 
-.skills, .skill-details {
+
+.skills {
 	min-height: calc(100vh - 55px);
 	background: white;
+	padding: 0 10vw;
 }
-.skills .category-title {
+.skills .category-title, .skill {
 	position: relative;
 	width: fit-content;
 	margin: 0 auto;
@@ -160,17 +169,25 @@ p {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
-	padding: 30px;
+	align-items: stretch;
+	padding: 30px 0;
 }
 .skill-card {
-	flex: 1;
+	flex: 0 1 250px;
 	padding-top: 20px;
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 	margin: 20px;
 	border-radius: 20px 20px 0 0;
+	display: flex;
+	flex-direction: column;
+}
+.skill-card img {
+	width: 90%;
+	display: block;
+	margin: 0 auto;
 }
 .skill-card .skill-footer {
+	margin-top: auto;
 	position: relative;
 	text-align: center;
 	padding: 15px 0;
@@ -199,6 +216,48 @@ p {
 }
 .skill-card .skill-footer::after {
 	right: 20px;
+}
+
+.skill-details {
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+	margin-top: 40px;
+	padding: 20px;
+	border-radius: 20px;
+}
+.skill-info-container, .skill-uploads  {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.skill-info-container .skill-image {
+	flex: 1;
+	width: 100%;
+}
+.skill-info-container .skill-info {
+	flex: 2;
+	padding: 20px;
+}
+.skill-info-container .skill-info h1 {
+	position: relative;
+	margin-bottom: 35px;
+}
+.skill-info-container h1 .underline {
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+	width: 100%;
+	height: 15px;
+}
+.skill-uploads .flag {
+	flex: 1;
+	height: 80px;
+}
+.skill-uploads .uploads {
+	flex: 2;
+	height: 80px;
+	background: #EFEFEF;
+	border-radius: 20px;
 }
 
 .palette .row {

@@ -7,17 +7,19 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg"
       }
     ]
   },
@@ -29,17 +31,20 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       }
     ]
   },
@@ -51,17 +56,20 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       }
     ]
   },
@@ -73,17 +81,20 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       }
     ]
   },
@@ -95,17 +106,20 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       }
     ]
   },
@@ -117,17 +131,20 @@ var categoriesData = [
       {
         id: 0,
         title: "Skill 1",
-        image: "d1.jpg"
+        image: "images/skills/d1.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 1,
         title: "Skill 2",
-        image: "d2.jpg"
+        image: "images/skills/d2.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       },
       {
         id: 2,
         title: "Skill 3",
-        image: "d2.jpg"
+        image: "images/skills/d3.jpg",
+        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est."
       }
     ]
   },
