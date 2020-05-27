@@ -73,7 +73,11 @@ var Flag = {
 			<div class="flag-small">
 			</div>
 			<div class="flag-large">
-				FLAG
+				<img src="icons/clouds.svg" class="bg">
+				<div class="pole"></div>
+				<img :src="raised ? 'icons/flag-green.svg' : 'icons/flag-red.svg'" class="fly" :style="{ top: raised ? '0' : '50%' }">
+				<img v-if="raised" src="icons/flag-star.svg" class="star1">
+				<img v-if="raised" src="icons/flag-star.svg" class="star2">
 			</div>
 		</div>
 	`,
@@ -106,7 +110,7 @@ var SkillDetails = {
 					</div>
 				</div>
 				<div class="skill-uploads">
-					<flag></flag>
+					<flag raised></flag>
 					<div class="uploads"></div>
 				</div>
 			</>

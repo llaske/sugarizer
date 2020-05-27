@@ -251,13 +251,86 @@ p {
 }
 .skill-uploads .flag {
 	flex: 1;
-	height: 80px;
 }
 .skill-uploads .uploads {
 	flex: 2;
 	height: 80px;
 	background: #EFEFEF;
 	border-radius: 20px;
+}
+
+.flag {
+	position: relative;
+	margin: 20px 0;
+}
+.flag-large {
+	height: 100px;
+	margin: auto;
+	width: fit-content;
+}
+.flag-large .bg {
+	width: 45%;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -25%;
+}
+.flag-large .pole {
+	position: relative;
+	height: 100%;
+	width: 5px;
+	border-radius: 2px;
+	background: rgb(75, 19, 19);
+}
+.flag-large .pole::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -50%;
+	width: 10px;
+	height: 5px;
+	border-radius: 5px;
+	background: rgb(75, 19, 19);
+}
+.flag-large .pole::before {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: -100%;
+	width: 20px;
+	height: 3px;
+	border-radius: 50%;
+	background: rgb(192, 192, 192);
+	z-index: 0;
+}
+.flag-large .fly {
+	position: absolute;
+	top: 0;
+	left: 49%;
+	width: 20%;
+}
+.flag-large .star1 {
+	position: absolute;
+	top: 0;
+	left: 30%;
+	animation: start-move 2000ms ease-in-out infinite 300ms;
+}
+.flag-large .star2 {
+	position: absolute;
+	bottom: 20%;
+	right: 30%;
+	animation: start-move 2000ms ease-in-out infinite;
+}
+@keyframes start-move {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
 }
 
 .palette .row {
