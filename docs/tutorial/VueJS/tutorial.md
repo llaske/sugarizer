@@ -4,7 +4,7 @@
 With Sugarizer, it's easy to create your own activity using inline Vue.js.
 In the following tutorial, you will learn from scratch how to create a full-featured activity named "Pawn".
 
-![](../images/tutorial_teaser.png)
+![](../../images/tutorial_teaser.png)
 
 So step after step, you will learn:
 

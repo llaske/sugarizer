@@ -10,32 +10,32 @@ In the previous step, we've started to see how to use the unique Sugar UI. Let's
 
 Launch the Paint activity from the Sugarizer home view.
 
-![](../images/tutorial_step4_1.png)
+![](../../images/tutorial_step4_1.png)
 
 Draw something.
 
-![](../images/tutorial_step4_2.png)
+![](../../images/tutorial_step4_2.png)
 
 Then stop the activity by clicking on the Stop button to the right.
 
 Relaunch it. You will retrieve the same drawing. That what the Journal is for: take care of your work without need to save it. Stop the activity again and go to the home view. Now just let the mouse on the Paint icon without clicking on it. A popup will appear after one second.
 
-![](../images/tutorial_step4_3.png)
+![](../../images/tutorial_step4_3.png)
 
 Click on the **Start new** item.
 
 This time a new drawing is created. Draw something else and click on the Paint icon to access the activity menu. Change the text to "*My second drawing*".
 
 
-![](../images/tutorial_step4_4.png)
+![](../../images/tutorial_step4_4.png)
 
 Stop the activity to go back to the Sugarizer home view. Then click on the Journal icon under the XO buddy icon.
 
-![](../images/tutorial_step4_5.png)
+![](../../images/tutorial_step4_5.png)
 
 It will display the Journal view. You will see here all your past work: the initial drawing and the second drawing that you've renamed. Just click on one of these lines to relaunch the activity in the exact state where you leave it. That's why the Journal is so useful.
 
-![](../images/tutorial_step4_6.png)
+![](../../images/tutorial_step4_6.png)
 
 Note that in the Journal you will see also your new Pawn activity. Let's see how we could handle context saving in this activity like Paint activity.
 
@@ -154,12 +154,12 @@ env.getEnvironment(function(err, environment) {
 ```
 Let's display the JavaScript console on your browser and test it. Launch the Pawn activity from the **Start new** menu or from List view of activities. Here is the result:
 
-![](../images/tutorial_step4_7.png)
+![](../../images/tutorial_step4_7.png)
 
 Now open the Pawn activity from the Journal or by clicking on the Pawn icon on the Home view. Here is the result:
 
 
-![](../images/tutorial_step4_8.png)
+![](../../images/tutorial_step4_8.png)
 
 Of course, the context is not loaded for the moment in the activity but at least we've got a way to detect when it should be loaded and when it shouldn’t be loaded.
 
@@ -197,13 +197,13 @@ Let's try if it works.
 
 Launch the Pawn activity from the **Start new** menu. Here is the result:
 
-![](../images/tutorial_step4_9.png)
+![](../../images/tutorial_step4_9.png)
 
 The activity displays a blank board as expected.
 
 Click a few times on the Plus button to add some pawns and stop the activity. Now re-open the activity by clicking on the Pawn icon on the Home view. Here is the result:
 
-![](../images/tutorial_step4_10.png)
+![](../../images/tutorial_step4_10.png)
 
 Yes! It's what we expected too: the activity reopens with the right number of pawns.
 

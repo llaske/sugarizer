@@ -9,9 +9,9 @@ Let's now improve our activity to customize the content.
 
 The first task is to customize the icon. It's important because it's the visual identity of your activity.
 
-For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](../images/pawn-icon.svg). Right-click on it and then save it in a `pawn-icon.svg` file into a new `Pawn.activity/icons` directory.
+For our new activity, we'll take a Pawn icon inspired by Andrejs Kirma from The Noun Project. You could download this file [here](../../images/pawn-icon.svg). Right-click on it and then save it in a `pawn-icon.svg` file into a new `Pawn.activity/icons` directory.
 
-![](../images/tutorial_step2_1.png)
+![](../../images/tutorial_step2_1.png)
 
 In Sugarizer, images for icons or buttons must be SVG graphic files. It needs to be adapted to support users' colors because as you could see on the home page, all icons in Sugarizer are dynamically adapted to users' colors.
 
@@ -104,7 +104,7 @@ To update the activity icon, replace also the content of `activity/activity-icon
 
 Let's run again our activity. Now, we have a beautiful pawn icon.
 
-![](../images/tutorial_step2_2.png)
+![](../../images/tutorial_step2_2.png)
 
 
 Note that a Sugar icon set is available in `lib/sugar-web/graphics/icons/`. You could also find more information about how to create icons for Sugar [here](https://wiki.sugarlabs.org/go/Development_Team/Almanac/Making_Icons).
@@ -134,7 +134,7 @@ Now, let's study the file `js/activity.js`. It's really the heart of your new ac
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
-		activity: "../js"
+		activity: "../../js"
 	}
 });
 
@@ -183,6 +183,6 @@ Being a Vue.js reactive property, `displayText` will automatically be rendered t
 Congratulations! The welcome message will now appear:
 
 
-![](../images/tutorial_step2_4.png)
+![](../../images/tutorial_step2_4.png)
 
 [Go to next step](step3.md)

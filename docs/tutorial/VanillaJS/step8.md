@@ -7,7 +7,7 @@ Step after step we've added icons in the Pawn activity toolbar. In this new step
 
 In Step 6 of this tutorial, we've added a specific icon in the toolbar for the "Presence Palette". In the Sugar UI, the name "palette" refers to a popup menu in the toolbar. When the user clicks on the toolbar icon, the popup appears and shows items inside.
 
-![](../images/tutorial_step8_1.png)
+![](../../images/tutorial_step8_1.png)
 
 As we've seen briefly in Step 6, to handle this feature Sugar-Web exposes a Palette library. Let's see how we could use this library to create our own palette.
 
@@ -86,7 +86,7 @@ This source code call create the `PawnPalette` object and call the constructor w
 
 Let's run the Pawn activity. Now, when you click on the add toolbar button the palette is displayed.
 
-![](../images/tutorial_step8_2.png)
+![](../../images/tutorial_step8_2.png)
 
 Funny isn't it?
 
@@ -102,7 +102,7 @@ Specifically, we're going to update our palette to allow users to add between 1 
 Here's the final look we would like to obtain:
 
 
-![](../images/tutorial_step8_3.png)
+![](../../images/tutorial_step8_3.png)
 
 We would like to have 3 items each one that gives an opportunity to users to add a different number of pawns. To explore palette features each item will have a different UI: a text, an image, a text and an image combined.
 
@@ -167,7 +167,7 @@ That's all. We're now ready to display our customized palette.
 Let's try by running the Pawn activity again.
 
 
-![](../images/tutorial_step8_4.png)
+![](../../images/tutorial_step8_4.png)
 
 
 Waoow. Very beautiful!
@@ -235,7 +235,7 @@ The source code for the listener is pretty the same as the old one. The only dif
 Let's test it.
 
 
-![](../images/tutorial_step8_5.png)
+![](../../images/tutorial_step8_5.png)
 
 Open the palette by clicking on the **Add** icon.
 

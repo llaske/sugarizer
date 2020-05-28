@@ -14,9 +14,9 @@ In Sugar, the toolbar - the black area at the top of the window - is the place w
 
 Here is the icon we will use. It's just a stylized plus sign.
 
-![](../images/tutorial_step3_1.png)
+![](../../images/tutorial_step3_1.png)
 
-You could download it [here](../images/add.svg). Right-click on it and then save it as a SVG file in `icons/add.svg`.
+You could download it [here](../../images/add.svg). Right-click on it and then save it as a SVG file in `icons/add.svg`.
 
 ***Warning***: *The plus sign is white on a transparent background so you will see nothing if you display it on a white background.*
 
@@ -49,12 +49,12 @@ Let's add our new button. It's just a `button` tag with the Sugar-Web `toolbutto
 We will now associate the icon to this new button. This association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #add-button {
-	background-image: url(../icons/add.svg);
+	background-image: url(../../icons/add.svg);
 }
 ```
 Let's run the activity.
 
-![](../images/tutorial_step3_2.png)
+![](../../images/tutorial_step3_2.png)
 
 The new toolbar button is now here. Click on it. Of course, nothing happens thought there is no logic beside. It's our next step.
 
@@ -102,7 +102,7 @@ document.getElementById("add-button").addEventListener('click', function (event)
 Make sense? Yes, except that something is missing: the link between the `div` created for the pawn and the pawn icon itself. To do that we have to update the `css/activity.css` file. Add these lines at the end of the file:
 ```css
 .pawn {
-	background-image: url(../icons/pawn-icon.svg);
+	background-image: url(../../icons/pawn-icon.svg);
 	display: inline-block;
 	width: 65px;
 	height: 65px;
@@ -112,7 +112,7 @@ It defined a new CSS class named `pawn`, give it few cosmetic properties and spe
 
 Can't wait to run again our activity:
 
-![](../images/tutorial_step3_3.png)
+![](../../images/tutorial_step3_3.png)
 
 Wow, it works! Each time we will click on the Plus icon a new pawn will appear.
 
@@ -143,7 +143,7 @@ Very simple, we call the method with two parameters: the new pawn element and th
 
 That's all. Let's play again with our activity:
 
-![](../images/tutorial_step3_4.png)
+![](../../images/tutorial_step3_4.png)
 
 Beautiful isn't it?
 

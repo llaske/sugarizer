@@ -16,7 +16,7 @@ git clone -b dev https://github.com/llaske/sugarizer
 ```
 Whatever method used, you should have at end a Sugarizer directory like this:
 
-![](../images/tutorial_step0_2.png)
+![](../../images/tutorial_step0_2.png)
 
 
 ## Run Sugarizer
@@ -29,17 +29,17 @@ To run Sugarizer locally in Chrome, close any running instances of Chrome and re
 
 * On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"` or `open -n /Applications/Google\ Chrome.app --args` instead.
 
-* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser, see how to run *Sugarizer Application into the Web Browser* in [README.md](../README.md).
+* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser, see how to run *Sugarizer Application into the Web Browser* in [README.md](../../README.md).
 
 * The `index.html` file is located in the new Sugarizer directory so you will have to use `cd` command line to change location to this directory before running the command.
 
 If everything is right, you should see something like that:
 
-![](../images/tutorial_step0_0.png)
+![](../../images/tutorial_step0_0.png)
 
 Click on "New user", type your name and choose your color, you should see the Sugarizer home view:
 
-![](../images/tutorial_step0_1.png)
+![](../../images/tutorial_step0_1.png)
 
 To debug your code, it's a good practice too to use the development console of your browser. See [here](https://developers.google.com/web/tools/chrome-devtools/) how to activate this console on Chrome.
 
@@ -50,7 +50,7 @@ To develop the activity and to update the source code you will need also a **tex
 
 Let's start by opening the Sugarizer directory in your favorite editor. You should see something like that:
 
-![](../images/tutorial_step0_3.png)
+![](../../images/tutorial_step0_3.png)
 
 You're now ready to start.
 

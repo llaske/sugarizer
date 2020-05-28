@@ -11,7 +11,7 @@ In this tutorial, you'll learn how to easily integrate a tutorial into your Pawn
 
 Go to the Sugarizer home view and click on the "?" button to launch the tutorial. Use Next/Prev button to navigate.
 
-![](../images/tutorial_step9_1.png)
+![](../../images/tutorial_step9_1.png)
 
 As you can see, the tutorial is a set of dialog box that show you the meaning of UI elements by pointing on them.
 
@@ -24,9 +24,9 @@ First, we're going to prepare the UI of the activity.
 
 Sugarizer users expect to find the help button into the toolbar. It will be our first step to add it.
 
-![](../images/tutorial_step9_2.png)
+![](../../images/tutorial_step9_2.png)
 
-So, download the help icon `help.svg` [here](../images/help.svg) and copy it in the `icons` directory of your Pawn activity.
+So, download the help icon `help.svg` [here](../../images/help.svg) and copy it in the `icons` directory of your Pawn activity.
 
 Then, as usual, let's add our new button in the toolbar. To do that we will first update the `index.html` by adding the button at the end of the toolbar:
 ```html
@@ -43,12 +43,12 @@ Don't forget the `pull-right` class to align it to the right.
 We will now associate the icon to this new button. Like in Step 3 of this tutorial, this association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #help-button {
-	background-image: url(../icons/help.svg);
+	background-image: url(../../icons/help.svg);
 }
 ```
 Let's run the activity to test the result.
 
-![](../images/tutorial_step9_3.png)
+![](../../images/tutorial_step9_3.png)
 
 The button is here. That's a good start.
 
@@ -171,13 +171,13 @@ All we need to do now is to call this method on click of the help-button, like t
 
 That's all. Now launch the activity and click on the help button.
 
-![](../images/tutorial_step9_5.png)
+![](../../images/tutorial_step9_5.png)
 
 Hurrah! It works!
 
 Also try switching language to French in Sugarizer settings and relaunch the activity:
 
-![](../images/tutorial_step9_6.png)
+![](../../images/tutorial_step9_6.png)
 
 Congratulation! Your activity has now a tutorial perfectly integrated into Sugarizer environment.
 

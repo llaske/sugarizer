@@ -10,7 +10,7 @@ Sugarizer comes with an empty template that you could use as the base of your ne
 
 In your new directory, you will find the following file structure:
 
-![](../images/tutorial_step1_1VueJS.png)
+![](../../images/tutorial_step1_1VueJS.png)
 
 
 * `activity/` contains information about your activity, including the name, ID, and the icon.
@@ -67,11 +67,11 @@ Finally, update the file `activities.json` at the root of the Sugarizer director
 ```
 Now run Sugarizer, you should see the icon of a new activity like this:
 
-![](../images/tutorial_step1_2.png)
+![](../../images/tutorial_step1_2.png)
 
 Let's run the activity by clicking on it. You will see the first step of your activity.
 
-![](../images/tutorial_step1_3.png)
+![](../../images/tutorial_step1_3.png)
 
 Now you are ready to go ahead and customize your activity.
 

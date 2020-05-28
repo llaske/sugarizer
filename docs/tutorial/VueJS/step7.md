@@ -15,21 +15,21 @@ This activity is a Moon phase viewer. It shows you Lunar phase information and a
 Let's suppose you want to reuse this picture in a drawing. To do that, we're going to save the current view into the Journal as an image.
 Just click on the **Export to image** button.
 
-![](../images/tutorial_step7_1.png)
+![](../../images/tutorial_step7_1.png)
 
 Then stop the activity and go to the Journal view.
 You can see a new item named "Image Moon" for the exported image.
 
-![](../images/tutorial_step7_2.png)
+![](../../images/tutorial_step7_2.png)
 
 Now launch the Paint activity and click on the **Insert Image** button in the toolbar.
 The Journal chooser popup will appear.
 
-![](../images/tutorial_step7_3.png)
+![](../../images/tutorial_step7_3.png)
 
 Click on the Image Moon item in the list, it will be added to your drawing and you will be able to paint on it!
 
-![](../images/tutorial_step7_4.png)
+![](../../images/tutorial_step7_4.png)
 
 It's a way to use the result of an activity, here Moon, into another activity, here Paint.A Lot of other activities (Record, Labyrinth, Abecedarium, ...) are able to generate contents that other activities (Fototoon, Memorize, Paint, ...) can use. It's why it's useful to understand how the Journal chooser can be integrated into an activity.
 
@@ -40,10 +40,10 @@ Let's suppose that we would like to let the user customize the background of our
 
 To do that, let's first add a new button **Insert Image** button in the toolbar like the one in the Paint activity.
 
-![](../images/tutorial_step7_5.png)
+![](../../images/tutorial_step7_5.png)
 
 First, let's retrieve the icon. 
-You could download it [here](../images/insert-picture.svg). Right-click on it and then save it as a SVG file in `icons/insert-picture.svg`.
+You could download it [here](../../images/insert-picture.svg). Right-click on it and then save it as a SVG file in `icons/insert-picture.svg`.
 
 Then, let's add our new button. You already know how to do it because you've done it during Step 3. You have to update the toolbar section of the `index.html` file for your activity. Add a `button` tag with the Sugar-Web `toolbutton` class. Here is the result:
 ```html
@@ -59,12 +59,12 @@ Then, let's add our new button. You already know how to do it because you've don
 We will now associate the icon to this new button. This association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #picture-button {
-	background-image: url(../icons/insert-picture.svg);
+	background-image: url(../../icons/insert-picture.svg);
 }
 ```
 Let's run the activity. Good job! the new button is here:
 
-![](../images/tutorial_step7_6.png)
+![](../../images/tutorial_step7_6.png)
 
 
 ## Display the Journal chooser popup
@@ -96,26 +96,26 @@ This source code calls the `insertFromJournal` method of the `SugarJournal` comp
 
 Let's run again the activity. Now, when you click on the new toolbar button the Journal chooser is displayed and the list contains our Moon image.
 
-![](../images/tutorial_step7_7.png)
+![](../../images/tutorial_step7_7.png)
 
 By the way nothing happens when the item is clicked.
 
 
 ## A nice background
 
-We're going to start by importing a nice checkboard image. You could download it [here](../images/checkboard.png). Right-click on it and then save it on your desktop. It looks like that:
+We're going to start by importing a nice checkboard image. You could download it [here](../../images/checkboard.png). Right-click on it and then save it on your desktop. It looks like that:
 
-![](../images/checkboard.png)
+![](../../images/checkboard.png)
 
 By combining it multiple times it will become a very nice checkboard.
 
 Let's import first this image into the Journal. To do that, go to the Journal view and click on the **Copy from device** button. Select the `checkboard.png` file then click Open button. 
 
-![](../images/tutorial_step7_8.png)
+![](../../images/tutorial_step7_8.png)
 
 The file is now into the Journal.
 
-![](../images/tutorial_step7_9.png)
+![](../../images/tutorial_step7_9.png)
 
 We are now ready to add the source code to change the background. Here's the new way to define the `insertFromJournal` callback:
 ```js
@@ -137,7 +137,7 @@ This format is natively supported in HTML, so we just need to set this value int
 
 I'm sure you can't wait to test it. Relaunch the Pawn activity, click on the button to show the dialog then click on the checkboard.png image. Here what happens:
 
-![](../images/tutorial_step7_10.png)
+![](../../images/tutorial_step7_10.png)
 
 Waooow, a very beautiful background for our pawns!
 

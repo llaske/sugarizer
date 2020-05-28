@@ -8,7 +8,7 @@ Your current Sugarizer session talks probably the same language as you. At the f
 You could also change the language from the settings. Hover the mouse on the XO buddy icon on the Sugarizer home view and then click on settings, then to "Language" to display the language settings window.
 
 
-![](../images/tutorial_step5_1.png)
+![](../../images/tutorial_step5_1.png)
 
 If you choose another language, this new language will be used for all activities. Let's see how we could use it in our Pawn activity too.
 
@@ -168,7 +168,7 @@ Everything is now ready to handle localization.
 Let's test it. Change the Sugarizer language to French and let's see the result.
 
 
-![](../images/tutorial_step5_2.png)
+![](../../images/tutorial_step5_2.png)
 
 The welcome message and the button placeholder is now in French. The played message works too.
 

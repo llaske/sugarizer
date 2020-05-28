@@ -14,17 +14,17 @@ You could install a Sugarizer Server locally following instruction [here](https:
 
 To see if you're connected to a server, click on the Neighborhood view - the icon with multiple dots - on the Sugarizer toolbar. Because you're not connected yet, here is the message you will see:
 
-![](../images/tutorial_step6_1.png)
+![](../../images/tutorial_step6_1.png)
 
 To connect to a server, click on the button to access to settings, then to "About my server" icon to display the server settings window.
 
-![](../images/tutorial_step6_2.png)
+![](../../images/tutorial_step6_2.png)
 
 Check the connected box and type the URL of your server, may be `http://localhost:8080` (if you've installed your own server) or `https://dev.sugarizer.org`. You will have to choose few images as password, then click on restart.
 
 If everything is right, you will see now the full Neighborhood view.
 
-![](../images/tutorial_step6_3.png)
+![](../../images/tutorial_step6_3.png)
 
 And you're now connected.
 
@@ -33,21 +33,21 @@ And you're now connected.
 
 Suppose that Michaël, a user connected on the same server as you want to Chat. He will launch the Chat activity.
 
-![](../images/tutorial_step6_4.png)
+![](../../images/tutorial_step6_4.png)
 
 ***Tip***: *To connect to Sugarizer with two users on the same computer, open a new "in private" browser window. So you will be able to create a new user. It's what we've done here and what we'll do below to simulate the user Michaël.*
 
 Then, once the activity is open, he can share the activity by clicking on the toolbar Neighborhood button in the Network palette. It's a way for the user to say: *"I want to share my activity on the network"*.  
 
-![](../images/tutorial_step6_5.png)
+![](../../images/tutorial_step6_5.png)
 
 From your Neighborhood view you will see the icon of the activity suddenly appear near the Michaël's icon. Just pass the mouse on the activity icon and click the Join menu and you will be able to join Michaël.
 
-![](../images/tutorial_step6_6.png).
+![](../../images/tutorial_step6_6.png).
 
 The Chat activity will open on your side using Michaël colors, and the Chat can start between users.
 
-![](../images/tutorial_step6_7.png)
+![](../../images/tutorial_step6_7.png)
 
 Easy, isn't it ? And thanks to the unique Sugarizer presence framework, do the same thing for our Pawn activity will not be so complex.
 
@@ -63,11 +63,11 @@ First start by adding a button for the network in the `index.html` file. We add 
 We will now define this new button in the `css/activity.css` file. We define also the two buttons included in the palette. Note that all icons are already included in the `lib/sugar-web/graphics/icons/actions` directory.
 ```css
 #main-toolbar #network-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #private-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;
@@ -82,7 +82,7 @@ We will now define this new button in the `css/activity.css` file. We define als
 }
 
 #shared-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;
@@ -109,7 +109,7 @@ var palette = new presencepalette.PresencePalette(document.getElementById("netwo
 ```
 Let's test the result by launching our Pawn activity.
 
-![](../images/tutorial_step6_8.png)
+![](../../images/tutorial_step6_8.png)
 
 The new Network button and palette is here. We now have to implement the magic inside.
 
@@ -124,7 +124,7 @@ In the context of Sugarizer, clients are Sugarizer App/WebApp connected to the S
 
 Let's take an example. Michaël, Lionel and Bastien are three users connected to the same Sugarizer Server. Michaël shares a Chat activity. Lionel decides to join the activity. Bastien shares its own Paint activity but he's alone on the activity.
 
-![](../images/tutorial_step6_9.png)
+![](../../images/tutorial_step6_9.png)
 
 The server knows that two activities are shared: one Chat activity with Michaël and Lionel as subscribers, one Paint activity with only Bastien as subscriber.
 
@@ -222,19 +222,19 @@ This callback is called each time a message is received from the server. The mes
 
 Let's try if everything works. From the Michaël browser, launch a new Pawn activity and share it with the network menu.
 
-![](../images/tutorial_step6_10.png)
+![](../../images/tutorial_step6_10.png)
 
 Open the Lionel browser on the neighborhood view. You should see the shared Pawn activity.
 
-![](../images/tutorial_step6_11.png)
+![](../../images/tutorial_step6_11.png)
 
 Join the activity by clicking on the Join menu. The activity should open with the Michaël colors.
 
-![](../images/tutorial_step6_12.png)
+![](../../images/tutorial_step6_12.png)
 
 Click on the Plus button on the Lionel or Michaël browser: each time a pawn with the right color should be added to both windows.
 
-![](../images/tutorial_step6_13.png)
+![](../../images/tutorial_step6_13.png)
 
 Great isn't it? 
 
@@ -247,7 +247,7 @@ Let's go a bit further or more precisely, let's fix a small issue in the previou
 
 If Michaël starts to play some pawns on the board before Lionel joins the activity, there will be a difference between the boards:
 
-![](../images/tutorial_step6_14.png)
+![](../../images/tutorial_step6_14.png)
 
 It's like initial plays from Michaël was lost.
 
@@ -336,7 +336,7 @@ palette.addEventListener('shared', function() {
 ```
 Let's repeat the test by launching the activity from Michaël's browser with an initial content (for example from the Journal).
 
-![](../images/tutorial_step6_15.png)
+![](../../images/tutorial_step6_15.png)
 
 It fully works now!
 
