@@ -70,6 +70,10 @@ var app = new Vue({
 			}
 		},
 
+		goBackTo: function(view) {
+			this.currentView = view;
+		},
+
 		onJournalDataLoaded: function (data, metadata) {
 			console.log(data);
 			this.user = data.user;

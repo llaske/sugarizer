@@ -147,9 +147,16 @@ p {
 
 
 .skills {
+	position: relative;
 	min-height: calc(100vh - 55px);
 	background: white;
 	padding: 0 10vw;
+}
+.skills #back-button {
+	position: absolute;
+	top: 10px;
+	left: 2vw;
+	cursor: pointer;
 }
 .skills .category-title, .skill {
 	position: relative;
@@ -181,15 +188,21 @@ p {
 	padding: 30px 0;
 }
 .skill-card {
+	position: relative;
 	flex: 0 1 250px;
-	padding-top: 20px;
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 	margin: 20px;
 	border-radius: 20px 20px 0 0;
 	display: flex;
 	flex-direction: column;
 }
-.skill-card img {
+.skill-card .flag {
+	position: absolute;
+	top: -50px;
+	left: 10px;
+	width: fit-content;
+}
+.skill-card .skill-image {
 	width: 90%;
 	display: block;
 	margin: 0 auto;
@@ -245,6 +258,7 @@ p {
 .skill-info-container .skill-info {
 	flex: 2;
 	padding: 20px;
+	min-width: 200px;
 }
 .skill-info-container .skill-info h1 {
 	position: relative;
@@ -259,17 +273,38 @@ p {
 }
 .skill-uploads .flag {
 	flex: 1;
+	min-width: 100px;
 }
 .skill-uploads .uploads {
 	flex: 2;
-	height: 80px;
+	height: 100px;
 	background: #EFEFEF;
 	border-radius: 20px;
+	min-width: 200px;
 }
 
 .flag {
 	position: relative;
 	margin: 20px 0;
+}
+.flag-small {
+	height: 60px;
+	margin: auto;
+	width: fit-content;
+}
+.flag-small .pole {
+	position: relative;
+	height: 100%;
+	width: 3px;
+	border-radius: 2px;
+	background: rgb(75, 19, 19);
+}
+.flag-small .fly {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-2px);
+	height: 60%;
 }
 .flag-large {
 	height: 100px;
@@ -277,11 +312,11 @@ p {
 	width: fit-content;
 }
 .flag-large .bg {
-	width: 45%;
+	height: 100%;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	bottom: -25%;
+	bottom: -10%;
 }
 .flag-large .pole {
 	position: relative;
@@ -314,8 +349,9 @@ p {
 .flag-large .fly {
 	position: absolute;
 	top: 0;
-	left: 49%;
-	width: 20%;
+	left: 50%;
+	transform: translateX(-5px);
+	height: 60%;
 }
 .flag-large .star1 {
 	position: absolute;

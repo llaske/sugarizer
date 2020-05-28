@@ -1,78 +1,12 @@
-var SkillCard = {
-	/*html*/
-	template: `
-		<div 
-			class="skill-card" 
-			:style="{ border: 'solid 2px ' + categoryBg }"
-			@click="$emit('skill-clicked', skill.id)"		
-		>
-			<img :src="skill.image">
-			<div ref="footer" class="skill-footer">
-				<h2 class="skill-title">{{ skill.title }}</h2>
-			</div>
-		</div>
-	`,
-	data: {},
-	props: ['skill', 'categoryBg'],
-	mounted: function() {
-		this.$refs.footer.style.background = this.categoryBg;
-		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.categoryBg;
-	},
-	methods: {}
-};
-
-var SkillsGrid = {
-	/*html*/
-	template: `
-		<div class="skills">
-			<h1 class="category-title">
-				{{ category.title }} 
-				<span ref="underline1" class="underline"></span> 
-				<span ref="underline2" class="underline"></span>
-			</h1>
-			<div class="skills-container">
-				<skill-card 
-					v-for="skill in category.skills" 
-					:key="skill.id" 
-					:skill="skill" 
-					:categoryBg="category.bg"
-					@skill-clicked="onSkillClick"
-				></skill-card>
-			</div>
-		</div>
-	`,
-	components: {
-		'skill-card': SkillCard
-	},
-	props: ['categories', 'categoryId'],
-	computed: {
-		category: function () {
-			var vm = this;
-			return this.categories.find(function (cat) {
-				return cat.id == vm.categoryId;
-			});
-		}
-	},
-	data: {},
-	mounted: function() {
-		//Handling styles
-		this.$refs.underline1.style.background = this.category.bg;
-		this.$refs.underline2.style.background = this.category.bg;
-	},
-	methods: {
-		onSkillClick: function(skillId) {
-      this.$emit('open-skill', this.category.id, skillId);
-    },
-	}
-}
-
 var Flag = {
 	/*html*/
 	template: `
 		<div class="flag">
-			<div class="flag-small">
+			<div v-if="small" class="flag-small">
+				<div class="pole"></div>
+				<img :src="raised ? 'icons/flag-green.svg' : 'icons/flag-red.svg'" class="fly" :style="{ top: raised ? '0' : '50%' }">
 			</div>
-			<div class="flag-large">
+			<div v-else class="flag-large">
 				<img src="icons/clouds.svg" class="bg">
 				<div class="pole"></div>
 				<img :src="raised ? 'icons/flag-green.svg' : 'icons/flag-red.svg'" class="fly" :style="{ top: raised ? '0' : '50%' }">
@@ -89,13 +23,99 @@ var Flag = {
 	methods: {}
 }
 
+var SkillCard = {
+	/*html*/
+	template: `
+		<div 
+			class="skill-card" 
+			:style="{ border: 'solid 2px ' + category.bg }"
+			@click="$emit('skill-clicked', skill.id)"		
+		>
+			<flag small :raised="acquired"></flag>
+			<img :src="skill.image" class="skill-image">
+			<div ref="footer" class="skill-footer">
+				<h2 class="skill-title">{{ skill.title }}</h2>
+			</div>
+		</div>
+	`,
+	components: {
+		'flag': Flag
+	},
+	props: ['skill', 'category', 'user'],
+	computed: {
+		acquired: function () {
+			if (this.user.skills[this.category.id][this.skill.id]) {
+				return this.user.skills[this.category.id][this.skill.id].acquired;
+			}
+			return false;
+		}
+	},
+	mounted: function () {
+		this.$refs.footer.style.background = this.category.bg;
+		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.bg;
+	},
+	data: {},
+	methods: {}
+};
+
+var SkillsGrid = {
+	/*html*/
+	template: `
+		<div class="skills">
+			<img src="icons/go-left.svg" id="back-button" @click="goBack">
+			<h1 class="category-title">
+				{{ category.title }} 
+				<span ref="underline1" class="underline"></span> 
+				<span ref="underline2" class="underline"></span>
+			</h1>
+			<div class="skills-container">
+				<skill-card 
+					v-for="skill in category.skills" 
+					:key="skill.id" 
+					:skill="skill" 
+					:category="category"
+					:user="user"
+					@skill-clicked="onSkillClick"
+				></skill-card>
+			</div>
+		</div>
+	`,
+	components: {
+		'skill-card': SkillCard
+	},
+	props: ['categories', 'categoryId', 'user'],
+	computed: {
+		category: function () {
+			var vm = this;
+			return this.categories.find(function (cat) {
+				return cat.id == vm.categoryId;
+			});
+		}
+	},
+	data: {},
+	mounted: function () {
+		//Handling styles
+		this.$refs.underline1.style.background = this.category.bg;
+		this.$refs.underline2.style.background = this.category.bg;
+	},
+	methods: {
+		onSkillClick: function (skillId) {
+			this.$emit('open-skill', this.category.id, skillId);
+		},
+		goBack: function() {
+			this.$emit('go-back-to', 'categories-grid');
+		}
+	}
+}
+
 var SkillDetails = {
 	/*html*/
 	template: `
 		<div class="skills">
+			<img src="icons/go-left.svg" id="back-button" @click="goBack">
 			<h1 class="category-title">
 				{{ category.title }} 
-				<span ref="underline1" class="underline"></span> 
+				<span ref="underline1" class="underline"></span>
 				<span ref="underline2" class="underline"></span>
 			</h1>
 			<div class="skill-details">
@@ -113,7 +133,7 @@ var SkillDetails = {
 					<flag :raised="currentAcquired"></flag>
 					<div class="uploads"></div>
 				</div>
-			</>
+			</div>
 		</div>
 	`,
 	components: {
@@ -135,11 +155,15 @@ var SkillDetails = {
 		}
 	},
 	data: {},
-	mounted: function() {
+	mounted: function () {
 		//Handling styles
 		this.$refs.underline1.style.background = this.category.bg;
 		this.$refs.underline2.style.background = this.category.bg;
 		this.$refs.underline3.style.background = this.category.bg;
 	},
-	methods: {}
+	methods: {
+		goBack: function() {
+			this.$emit('go-back-to', 'skills-grid');
+		}
+	}
 }
