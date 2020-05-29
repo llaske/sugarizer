@@ -28,7 +28,7 @@ var SkillCard = {
 	template: `
 		<div 
 			class="skill-card" 
-			:style="{ border: 'solid 2px ' + category.bg }"
+			:style="{ border: 'solid 2px ' + category.color }"
 			@click="$emit('skill-clicked', skill.id)"		
 		>
 			<flag small :raised="acquired"></flag>
@@ -51,8 +51,8 @@ var SkillCard = {
 		}
 	},
 	mounted: function () {
-		this.$refs.footer.style.background = this.category.bg;
-		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.bg;
+		this.$refs.footer.style.background = this.category.color;
+		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.color;
 	},
 	data: {},
 	methods: {}
@@ -95,8 +95,8 @@ var SkillsGrid = {
 	data: {},
 	mounted: function () {
 		//Handling styles
-		this.$refs.underline1.style.background = this.category.bg;
-		this.$refs.underline2.style.background = this.category.bg;
+		this.$refs.underline1.style.background = this.category.color;
+		this.$refs.underline2.style.background = this.category.color;
 	},
 	methods: {
 		onSkillClick: function (skillId) {
@@ -157,9 +157,9 @@ var SkillDetails = {
 	data: {},
 	mounted: function () {
 		//Handling styles
-		this.$refs.underline1.style.background = this.category.bg;
-		this.$refs.underline2.style.background = this.category.bg;
-		this.$refs.underline3.style.background = this.category.bg;
+		this.$refs.underline1.style.background = this.category.color;
+		this.$refs.underline2.style.background = this.category.color;
+		this.$refs.underline3.style.background = this.category.color;
 	},
 	methods: {
 		goBack: function() {

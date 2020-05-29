@@ -108,6 +108,8 @@ p {
 
 .category-card {
 	flex: 1 250px;
+	display: flex;
+	flex-direction: column;
 	padding: 20px;
 	margin: 20px;
 	border-radius: 10px;
@@ -124,6 +126,7 @@ p {
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
+	margin-top: auto;
 }
 .category-skills .skill {
 	width: 80px;
@@ -150,7 +153,7 @@ p {
 	position: relative;
 	min-height: calc(100vh - 55px);
 	background: white;
-	padding: 0 10vw;
+	padding: 0 8vw;
 }
 .skills #back-button {
 	position: absolute;
@@ -208,10 +211,13 @@ p {
 	margin: 0 auto;
 }
 .skill-card .skill-footer {
-	margin-top: auto;
 	position: relative;
+	display: flex;
+	align-items: center;
 	text-align: center;
-	padding: 15px 0;
+	height: 100%;
+	margin-top: auto;
+	padding: 15px 20px;
 	color: white;
 	cursor: pointer;
 	transition: all 200ms ease-out;
@@ -233,10 +239,10 @@ p {
 	background: rgba(255, 255, 255, 0.4);
 }
 .skill-card .skill-footer::before {
-	left: 20px;
+	left: 10px;
 }
 .skill-card .skill-footer::after {
-	right: 20px;
+	right: 10px;
 }
 
 .skill-details {

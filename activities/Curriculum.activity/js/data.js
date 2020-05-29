@@ -2,7 +2,7 @@ var categoriesData = [
   {
     id: 0,
     title: "Category 1",
-    bg: '#FF4E4E',
+    color: '#FF4E4E',
     skills: [
       {
         id: 0,
@@ -26,7 +26,7 @@ var categoriesData = [
   {
     id: 1,
     title: "Category 2",
-    bg: '#FFD54E',
+    color: '#FFD54E',
     skills: [
       {
         id: 0,
@@ -51,7 +51,7 @@ var categoriesData = [
   {
     id: 2,
     title: "Category 3",
-    bg: '#89FF4E',
+    color: '#89FF4E',
     skills: [
       {
         id: 0,
@@ -76,7 +76,7 @@ var categoriesData = [
   {
     id: 3,
     title: "Category 4",
-    bg: '#4EFFF9',
+    color: '#4EFFF9',
     skills: [
       {
         id: 0,
@@ -101,7 +101,7 @@ var categoriesData = [
   {
     id: 4,
     title: "Category 5",
-    bg: '#4EA1FF',
+    color: '#4EA1FF',
     skills: [
       {
         id: 0,
@@ -126,7 +126,7 @@ var categoriesData = [
   {
     id: 5,
     title: "Category 6",
-    bg: '#D04EFF',
+    color: '#D04EFF',
     skills: [
       {
         id: 0,
