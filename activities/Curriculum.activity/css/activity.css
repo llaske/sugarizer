@@ -93,11 +93,11 @@ p {
 }
 
 #main-toolbar #acquire-button {
-	background-image: url(../icons/flag-check.svg);
+	background-image: url(../icons/flag-raised.svg);
 }
 
 #main-toolbar #remove-button {
-	background-image: url(../icons/flag-cross.svg);
+	background-image: url(../icons/flag-lowered.svg);
 }
 
 .categories {
@@ -283,10 +283,15 @@ p {
 }
 .skill-uploads .uploads {
 	flex: 2;
-	height: 100px;
+	min-height: 100px;
+	max-height: 300px;
+	min-width: 200px;
+	display: flex;
+	flex-wrap: wrap;
+	overflow: auto;
+	padding: 20px;
 	background: #EFEFEF;
 	border-radius: 20px;
-	min-width: 200px;
 }
 
 .flag {
@@ -381,6 +386,26 @@ p {
 	100% {
 		transform: translateY(0);
 	}
+}
+
+.upload-item {
+	padding: 3px;
+	background: black;
+	color: white;
+	width: 170px;
+	margin: 5px;
+	/* height: 100px; */
+}
+.upload-item .image-item img {
+	width: 100%;
+}
+
+#media-upload button {
+	display: block;
+	background: black;
+	border-radius: 0;
+	width: 100px;
+	padding: 10px;
 }
 
 .palette .row {

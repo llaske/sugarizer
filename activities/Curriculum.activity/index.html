@@ -26,6 +26,15 @@
 			<sugar-toolitem id="home-button" v-if="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
 			<sugar-toolitem id="acquire-button" v-if="currentView == 'skill-details' && !currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
 			<sugar-toolitem id="remove-button" v-if="currentView == 'skill-details' && currentAcquired" @click="setSkillAcquired(false)"></sugar-toolitem>
+			<sugar-toolitem 
+				id="media-button" 
+				v-if="currentView == 'skill-details'"
+				palette-file="js/palettes/mediapalette.js"
+				palette-class="MediaPalette"
+				palette-title="Upload Media"
+				palette-event="upload-item"
+				@upload-item="onUploadItem"
+			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>

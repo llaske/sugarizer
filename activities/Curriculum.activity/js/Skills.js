@@ -108,6 +108,26 @@ var SkillsGrid = {
 	}
 }
 
+var UploadItem = {
+	/*html*/
+	template: `
+		<div class="upload-item">
+			<div v-if="item.type == 'image'" class="image-item">
+				<img :src="item.data">
+			</div>
+			{{ item.title }} | {{ date }}
+		</div>
+	`,
+	props: ['item'],
+	computed: {
+		date: function() {
+			return new Date(this.item.timestamp).toDateString();
+		}
+	},
+	data: {},
+	methods: {}
+}
+
 var SkillDetails = {
 	/*html*/
 	template: `
@@ -131,13 +151,16 @@ var SkillDetails = {
 				</div>
 				<div class="skill-uploads">
 					<flag :raised="currentAcquired"></flag>
-					<div class="uploads"></div>
+					<div class="uploads">
+						<upload-item v-for="item in uploads" :key="item.timestamp" :item="item" />
+					</div>
 				</div>
 			</div>
 		</div>
 	`,
 	components: {
-		'flag': Flag
+		'flag': Flag,
+		'upload-item': UploadItem
 	},
 	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired'],
 	computed: {
@@ -152,6 +175,20 @@ var SkillDetails = {
 			return this.category.skills.find(function (skill) {
 				return skill.id == vm.skillId;
 			});
+		},
+		uploads: function () {
+			var uploads = [];
+			var mediaObj = this.user.skills[this.categoryId][this.skillId].media;
+			for(var key in mediaObj) {
+				mediaObj[key].forEach(function(item) {
+					item.type = key;
+					uploads.push(item);
+				});
+			}
+			// this.user.skills[categoryId][skillId].media.images.forEach(function(image) {
+			// 	uploads.push(image);
+			// });
+			return uploads;
 		}
 	},
 	data: {},

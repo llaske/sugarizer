@@ -28,7 +28,7 @@ var app = new Vue({
 	},
 	computed: {
 		currentAcquired: function () {
-			if (this.selectedCategoryId != null && this.selectedSkillId != null && this.user.skills[this.selectedCategoryId][this.selectedSkillId]) {
+			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
 			return false;
@@ -53,6 +53,8 @@ var app = new Vue({
 					color: '#' + section.color,
 					skills: []
 				}
+				// Updating the user object
+				vm.$set(vm.user.skills, categoryId, new Object());
 
 				var skillId = 0;
 				section.items.forEach(function(item) {
@@ -62,15 +64,21 @@ var app = new Vue({
 						image: 'js/imported/' + item.uuid + '.jpg'
 					}
 					category.skills.push(skill);
+					
+					// Updating the user object
+					vm.$set(vm.user.skills[categoryId], skillId, {
+						acquired: false,
+						media: {}
+					});
 					skillId++;
 				});
 
 				importedCategories.push(category);
-				// Updating the user object
-				vm.$set(vm.user.skills, categoryId, new Object());
 				categoryId++;
 			});
+			// Updating the categories object
 			vm.categories = vm.categories.concat(importedCategories);
+			console.log(vm.user);
 		});
 	},
 	methods: {
@@ -103,6 +111,43 @@ var app = new Vue({
 					media: {}
 				});
 			}
+		},
+
+		onUploadItem: function(event) {
+			var filters;
+			var vm = this;
+
+			switch(event.mediaType) {
+				case 'image':
+					filters = [
+						{ mimetype: 'image/png' }, 
+    				{ mimetype: 'image/jpeg' }
+					]
+					break;
+				case 'audio':
+					filters = [
+						{ mimetype: 'audio/mpeg' }
+					]
+					break;
+				case 'video':
+					filters = [
+						{ mimetype: 'video/mp4' }
+					]
+					break;
+			}
+			this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
+				var obj = {
+					data: data,
+					title: metadata.title,
+					timestamp: metadata.timestamp
+				}
+				if(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media[event.mediaType]) {
+					vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media[event.mediaType].push(obj)
+				} else {
+					vm.$set(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media, event.mediaType, new Array(obj));
+				}
+				console.log(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media);
+			});
 		},
 
 		goBackTo: function(view) {
