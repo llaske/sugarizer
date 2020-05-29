@@ -62,11 +62,11 @@ First start by adding a button for the network in the `index.html` file. We add 
 We will now define this new button in the `css/activity.css` file. We define also the two buttons included in the palette. Note that all icons are already included in the `lib/sugar-web/graphics/icons/actions` directory.
 ```css
 #main-toolbar #network-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #private-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;
@@ -81,7 +81,7 @@ We will now define this new button in the `css/activity.css` file. We define als
 }
 
 #shared-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;
@@ -143,6 +143,20 @@ As usual, let's first include the magic component `SugarPresence`:
 
 <!-- After script loads -->
 <script src="js/components/SugarPresence.js"></script>
+```
+
+Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity.
+```js
+data: {
+	currentenv: null,
+	SugarL10n: null,
+  SugarPresence: null,
+  ...
+},
+mounted: function () {
+	this.SugarL10n = this.$refs.SugarL10n;
+  this.SugarPresence = this.$refs.SugarPresence;
+},
 ```
 
 Now, let's update our Pawn activity to integrate presence. Start first by handling the click on the Share button. We will add three more attributes to the `network-button`:

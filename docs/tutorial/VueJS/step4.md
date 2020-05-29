@@ -63,7 +63,7 @@ First include the `SugarJournal` component in your activity and instantiate it i
 </body>
 ```
 
-The `ref` property is very important for the Vue.js components, it is how we will access the component throughtout the Vue instance. It is also important to follow the naming convention for `ref`, it should be the same as the name of the component file (`js/components/{FileName}.js` => `ref="FileName"`) for Sugar components.
+The `ref` property is very important for the Vue.js components, it is how we will access the component throughtout the Vue instance. It is also important to follow the naming convention for `ref`, it should always be same as the name of the component file (`js/components/{FileName}.js` => `ref="FileName"`) for Vue.js Sugar components.
 
 The `saveData()` method allows you to store a JavaScript object into the datastore which can be retrieved later. The data is converted to JSON automatically and stored as a text string.
 

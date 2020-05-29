@@ -134,7 +134,7 @@ Now, let's study the file `js/activity.js`. It's really the heart of your new ac
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
-		activity: "../../js"
+		activity: "../js"
 	}
 });
 

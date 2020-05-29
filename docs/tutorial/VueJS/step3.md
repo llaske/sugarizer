@@ -50,7 +50,7 @@ Let's add our new button. It's just an instance of `sugar-toolitem` component. W
 We will now associate the icon to this new button. This association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #add-button {
-	background-image: url(../../icons/add.svg);
+	background-image: url(../icons/add.svg);
 }
 ```
 Let's run the activity.
@@ -118,7 +118,7 @@ Now, call this method using `v-on:click` directive on the add pawn button.
 Make sense? Yes, except that something is missing: the link between the `div` created for the pawn and the pawn icon itself. To do that we have to update the `css/activity.css` file. Add these lines at the end of the file:
 ```css
 .pawn {
-	background-image: url(../../icons/pawn-icon.svg);
+	background-image: url(../icons/pawn-icon.svg);
 	display: inline-block;
 	width: 65px;
 	height: 65px;
@@ -172,7 +172,7 @@ Very simple, we call the method with two parameters: the new pawn element and th
 
 Let's add this component to our Vue instance.
 
-1. Include the file in`index.html`
+1. Include the file in `index.html`
 ```html
   ...
 	<script src="js/Pawn.js"></script>

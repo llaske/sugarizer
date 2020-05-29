@@ -45,7 +45,7 @@ Don't forget the `pull-right` class to align it to the right.
 We will now associate the icon to this new button. Like in Step 3 of this tutorial, this association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #help-button {
-	background-image: url(../../icons/help.svg);
+	background-image: url(../icons/help.svg);
 }
 ```
 Let's run the activity to test the result.
@@ -63,7 +63,7 @@ Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to pr
 
 Let's see how to integrate it in Pawn activity.
 
-First download the bootstrap tour standalone and jQuery JavaScript libraries. You could find the `bootstrap-tour-standalone.min.css` file [here](download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](download/jquery.min.js).
+First download the bootstrap tour standalone and jQuery JavaScript libraries. You could find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js).
 
 Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
 
@@ -229,7 +229,7 @@ We need also to define CSS class used in the template. To do that, add the follo
 }
 
 .tutorial-prev-icon2 {
-	background-image: url(../../icons/go-left.svg);
+	background-image: url(../icons/go-left.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
@@ -263,7 +263,7 @@ We need also to define CSS class used in the template. To do that, add the follo
 }
 
 .tutorial-next-icon2 {
-	background-image: url(../../icons/go-right.svg);
+	background-image: url(../icons/go-right.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
@@ -297,7 +297,7 @@ We need also to define CSS class used in the template. To do that, add the follo
 }
 
 .tutorial-end-icon2 {
-	background-image: url(../../icons/dialog-cancel.svg);
+	background-image: url(../icons/dialog-cancel.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;

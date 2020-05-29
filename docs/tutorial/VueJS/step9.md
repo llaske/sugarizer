@@ -43,7 +43,7 @@ Don't forget the `pull-right` class to align it to the right.
 We will now associate the icon to this new button. Like in Step 3 of this tutorial, this association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #help-button {
-	background-image: url(../../icons/help.svg);
+	background-image: url(../icons/help.svg);
 }
 ```
 Let's run the activity to test the result.
@@ -61,9 +61,9 @@ Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to pr
 
 Let's see how to integrate it in Pawn activity.
 
-First download the bootstrap tour standalone and jQuery JavaScript libraries. You could find the `bootstrap-tour-standalone.min.css` file [here](download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](download/jquery.min.js).
+The Vue.js Activity Template already contains the required bootstrap tour standalone and jQuery JavaScript libraries. 
 
-Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
+>In case you need to download them again, you can find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
 
 We're now going to reference these files from our `index.html` file. Update the file like that:
 ```html
@@ -73,7 +73,7 @@ We're now going to reference these files from our `index.html` file. Update the 
 <link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 <script src="lib/vue.min.js"></script>
 <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-<script src="lib/jquery-3.4.1.min.js"></script>
+<script src="lib/jquery.min.js"></script>
 <script src="lib/bootstrap-tour-standalone.min.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script src="lib/require.js"></script>

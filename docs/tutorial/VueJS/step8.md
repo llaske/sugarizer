@@ -153,7 +153,7 @@ Then we need to update the palette source code to use this HTML file as template
 
 First, let's update the first line that define the module. We're going to add a new dependancy on the `pawnpalette.html` file. Here's the line once updated:
 ```js
-define(["sugar-web/graphics/palette","text!pawnpalette.html"], function(palette, template) {
+define(["sugar-web/graphics/palette","text!activity/palettes/pawnpalette.html"], function(palette, template) {
 ```
 
 The `text!` prefix before the file name tell to **require.js** framework to process the file as text content instead of JavaScript.

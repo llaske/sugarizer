@@ -7,7 +7,6 @@ Your current Sugarizer session talks probably the same language as you. At the f
 
 You could also change the language from the settings. Hover the mouse on the XO buddy icon on the Sugarizer home view and then click on settings, then to "Language" to display the language settings window.
 
-
 ![](../../images/tutorial_step5_1.png)
 
 If you choose another language, this new language will be used for all activities. Let's see how we could use it in our Pawn activity too.
@@ -148,10 +147,10 @@ So we will now initialize the welcome message in the `localized` event listener,
 ```js
 initialized: function () {
   // Initialize Sugarizer
-  this.$refs.SugarActivity.setup();
   this.currentenv = this.$refs.SugarActivity.getEnvironment();
+  this.displayText = "Hello " + this.currentenv.user.name + "!";
 
-  /*Set the event listener here */
+  /* Set the event listener here */
   this.SugarL10n.$on('localized', this.localized());
 },
 

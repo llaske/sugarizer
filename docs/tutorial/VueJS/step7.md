@@ -58,8 +58,8 @@ Then, let's add our new button. You already know how to do it because you've don
 
 We will now associate the icon to this new button. This association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
-#main-toolbar #picture-button {
-	background-image: url(../../icons/insert-picture.svg);
+#main-toolbar #insert-button {
+	background-image: url(../icons/insert-picture.svg);
 }
 ```
 Let's run the activity. Good job! the new button is here:

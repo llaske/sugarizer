@@ -63,11 +63,11 @@ First start by adding a button for the network in the `index.html` file. We add 
 We will now define this new button in the `css/activity.css` file. We define also the two buttons included in the palette. Note that all icons are already included in the `lib/sugar-web/graphics/icons/actions` directory.
 ```css
 #main-toolbar #network-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #private-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;
@@ -82,7 +82,7 @@ We will now define this new button in the `css/activity.css` file. We define als
 }
 
 #shared-button {
-	background-image: url(../../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
 	width: 47px;
 	height: 47px;
 	margin: 4px 2px;

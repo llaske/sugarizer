@@ -49,7 +49,7 @@ Let's add our new button. It's just a `button` tag with the Sugar-Web `toolbutto
 We will now associate the icon to this new button. This association should be done in the `css/activity.css` file. Add these lines at the end of the file.
 ```css
 #main-toolbar #add-button {
-	background-image: url(../../icons/add.svg);
+	background-image: url(../icons/add.svg);
 }
 ```
 Let's run the activity.
@@ -102,7 +102,7 @@ document.getElementById("add-button").addEventListener('click', function (event)
 Make sense? Yes, except that something is missing: the link between the `div` created for the pawn and the pawn icon itself. To do that we have to update the `css/activity.css` file. Add these lines at the end of the file:
 ```css
 .pawn {
-	background-image: url(../../icons/pawn-icon.svg);
+	background-image: url(../icons/pawn-icon.svg);
 	display: inline-block;
 	width: 65px;
 	height: 65px;
