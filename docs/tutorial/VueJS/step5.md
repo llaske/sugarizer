@@ -21,7 +21,7 @@ The first step when you localize an activity is to identify strings to localize.
 * *"{user} played!"*: when the user played a pawn
 * *"Add pawn"*: the helper message on the toolbar button
 
-With the webL10n library, all strings have to be defined in a specific file where all translations for each string should be set. We call this file `locale.ini`.  So using your text editor, let's create a `locale.ini` file at the root of the Pawn activity. Here what it looks likes: 
+With the webL10n library, all strings have to be defined in a specific file where all translations for each string should be set. We call this file `locale.ini`. It is already present in the root of your activity, open it and add the following content: 
 ```ini
 [*]
 Hello=Hello {{name}}!

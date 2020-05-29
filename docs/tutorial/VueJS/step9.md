@@ -63,7 +63,7 @@ Let's see how to integrate it in Pawn activity.
 
 The Vue.js Activity Template already contains the required bootstrap tour standalone and jQuery JavaScript libraries. 
 
->In case you need to download them again, you can find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
+> In case you need to download them again, you can find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
 
 We're now going to reference these files from our `index.html` file. Update the file like that:
 ```html
