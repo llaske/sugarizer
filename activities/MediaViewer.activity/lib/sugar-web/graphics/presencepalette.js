@@ -86,6 +86,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","sugar-web/activity/activit
 		sharedbutton.setAttribute('id','shared-button');
 		sharedbutton.onclick = function() {
 			that.setShared(true);
+			that.getPalette().dispatchEvent(that.sharedEvent);
 		}
 		this.setSharedUI = function(state) {
 			var usersList = document.getElementById("users-list");
@@ -110,7 +111,6 @@ define(["sugar-web/graphics/palette","sugar-web/env","sugar-web/activity/activit
 		}
 		this.setShared = function(state) {
 			that.setSharedUI(state);
-			that.getPalette().dispatchEvent(that.sharedEvent);
 		}
 
 		h4.appendChild(txt);
