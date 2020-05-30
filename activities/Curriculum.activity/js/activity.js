@@ -26,6 +26,11 @@ var app = new Vue({
 			stringUnfullscreen: ''
 		}
 	},
+	watch: {
+		currentView: function(newVal, oldVal) {
+			window.scrollTo(0, 0);
+		}
+	},
 	computed: {
 		currentAcquired: function () {
 			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
@@ -38,48 +43,7 @@ var app = new Vue({
 		this.categories = categoriesData;
 		this.user = userData;
 
-		var vm = this;
-		requirejs(["text!activity/imported/sections.json"], function(sections) {
-			var sectionsObj = JSON.parse(sections);
-			var importedCategories = [];
-
-			var categoryId = vm.categories.length;
-			sectionsObj.forEach(function(section) {
-				if(section.isDomaine) return;
-
-				var category = {
-					id: categoryId,
-					title: section.titre,
-					color: '#' + section.color,
-					skills: []
-				}
-				// Updating the user object
-				vm.$set(vm.user.skills, categoryId, new Object());
-
-				var skillId = 0;
-				section.items.forEach(function(item) {
-					var skill = {
-						id: skillId,
-						title: item.titre,
-						image: 'js/imported/' + item.uuid + '.jpg'
-					}
-					category.skills.push(skill);
-					
-					// Updating the user object
-					vm.$set(vm.user.skills[categoryId], skillId, {
-						acquired: false,
-						media: {}
-					});
-					skillId++;
-				});
-
-				importedCategories.push(category);
-				categoryId++;
-			});
-			// Updating the categories object
-			vm.categories = vm.categories.concat(importedCategories);
-			console.log(vm.user);
-		});
+		this.importSkills();
 	},
 	methods: {
 		initialized: function () {
@@ -147,6 +111,50 @@ var app = new Vue({
 					vm.$set(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media, event.mediaType, new Array(obj));
 				}
 				console.log(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media);
+			});
+		},
+
+		importSkills: function() {
+			var vm = this;
+			requirejs(["text!activity/imported/sections.json"], function(sections) {
+				var sectionsObj = JSON.parse(sections);
+				var importedCategories = [];
+	
+				var categoryId = vm.categories.length;
+				sectionsObj.forEach(function(section) {
+					if(section.isDomaine) return;
+	
+					var category = {
+						id: categoryId,
+						title: section.titre,
+						color: '#' + section.color,
+						skills: []
+					}
+					// Updating the user object
+					vm.$set(vm.user.skills, categoryId, new Object());
+	
+					var skillId = 0;
+					section.items.forEach(function(item) {
+						var skill = {
+							id: skillId,
+							title: item.titre,
+							image: 'js/imported/' + item.uuid + '.jpg'
+						}
+						category.skills.push(skill);
+						
+						// Updating the user object
+						vm.$set(vm.user.skills[categoryId], skillId, {
+							acquired: false,
+							media: {}
+						});
+						skillId++;
+					});
+	
+					importedCategories.push(category);
+					categoryId++;
+				});
+				// Updating the categories object
+				vm.categories = vm.categories.concat(importedCategories);
 			});
 		},
 

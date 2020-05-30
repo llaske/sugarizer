@@ -27,7 +27,7 @@
 			<sugar-toolitem id="acquire-button" v-if="currentView == 'skill-details' && !currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
 			<sugar-toolitem id="remove-button" v-if="currentView == 'skill-details' && currentAcquired" @click="setSkillAcquired(false)"></sugar-toolitem>
 			<sugar-toolitem 
-				id="media-button" 
+				id="upload-button" 
 				v-if="currentView == 'skill-details'"
 				palette-file="js/palettes/mediapalette.js"
 				palette-class="MediaPalette"
@@ -60,6 +60,7 @@
 
 	<script src="js/data.js"></script>
 	<script src="js/Categories.js"></script>
+	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

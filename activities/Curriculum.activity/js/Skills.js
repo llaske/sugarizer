@@ -1,26 +1,29 @@
-var Flag = {
+// The components Flag and UploadItem are defined in SkillsAdditional.js
+
+var SkillsLayout = {
 	/*html*/
 	template: `
-		<div class="flag">
-			<div v-if="small" class="flag-small">
-				<div class="pole"></div>
-				<img :src="raised ? 'icons/flag-green.svg' : 'icons/flag-red.svg'" class="fly" :style="{ top: raised ? '0' : '50%' }">
-			</div>
-			<div v-else class="flag-large">
-				<img src="icons/clouds.svg" class="bg">
-				<div class="pole"></div>
-				<img :src="raised ? 'icons/flag-green.svg' : 'icons/flag-red.svg'" class="fly" :style="{ top: raised ? '0' : '50%' }">
-				<img v-if="raised" src="icons/flag-star.svg" class="star1">
-				<img v-if="raised" src="icons/flag-star.svg" class="star2">
-			</div>
+		<div class="skills">
+			<img src="icons/go-left.svg" id="back-button" @click="goBackTo">
+			<h1 class="category-title">
+				{{ category.title }} 
+				<span ref="underline1" class="underline"></span> 
+				<span ref="underline2" class="underline"></span>
+			</h1>
+			<slot></slot>
 		</div>
 	`,
-	props: {
-		small: Boolean,
-		raised: Boolean
+	props: ['category', 'backTo'],
+	mounted: function () {
+		//Handling styles
+		this.$refs.underline1.style.background = this.category.color;
+		this.$refs.underline2.style.background = this.category.color;
 	},
-	data: {},
-	methods: {}
+	methods: {
+		goBackTo: function() {
+			this.$emit('go-back-to', this.backTo);
+		}
+	}
 }
 
 var SkillCard = {
@@ -53,21 +56,13 @@ var SkillCard = {
 	mounted: function () {
 		this.$refs.footer.style.background = this.category.color;
 		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.color;
-	},
-	data: {},
-	methods: {}
+	}
 };
 
 var SkillsGrid = {
 	/*html*/
 	template: `
-		<div class="skills">
-			<img src="icons/go-left.svg" id="back-button" @click="goBack">
-			<h1 class="category-title">
-				{{ category.title }} 
-				<span ref="underline1" class="underline"></span> 
-				<span ref="underline2" class="underline"></span>
-			</h1>
+		<skills-layout :category="category" backTo="categories-grid" @go-back-to="$emit('go-back-to', $event)">
 			<div class="skills-container">
 				<skill-card 
 					v-for="skill in category.skills" 
@@ -78,10 +73,11 @@ var SkillsGrid = {
 					@skill-clicked="onSkillClick"
 				></skill-card>
 			</div>
-		</div>
+		</skills-layout>
 	`,
 	components: {
-		'skill-card': SkillCard
+		'skills-layout': SkillsLayout,
+		'skill-card': SkillCard,
 	},
 	props: ['categories', 'categoryId', 'user'],
 	computed: {
@@ -92,52 +88,17 @@ var SkillsGrid = {
 			});
 		}
 	},
-	data: {},
-	mounted: function () {
-		//Handling styles
-		this.$refs.underline1.style.background = this.category.color;
-		this.$refs.underline2.style.background = this.category.color;
-	},
 	methods: {
 		onSkillClick: function (skillId) {
 			this.$emit('open-skill', this.category.id, skillId);
-		},
-		goBack: function() {
-			this.$emit('go-back-to', 'categories-grid');
 		}
 	}
-}
-
-var UploadItem = {
-	/*html*/
-	template: `
-		<div class="upload-item">
-			<div v-if="item.type == 'image'" class="image-item">
-				<img :src="item.data">
-			</div>
-			{{ item.title }} | {{ date }}
-		</div>
-	`,
-	props: ['item'],
-	computed: {
-		date: function() {
-			return new Date(this.item.timestamp).toDateString();
-		}
-	},
-	data: {},
-	methods: {}
 }
 
 var SkillDetails = {
 	/*html*/
 	template: `
-		<div class="skills">
-			<img src="icons/go-left.svg" id="back-button" @click="goBack">
-			<h1 class="category-title">
-				{{ category.title }} 
-				<span ref="underline1" class="underline"></span>
-				<span ref="underline2" class="underline"></span>
-			</h1>
+		<skills-layout :category="category" backTo="skills-grid" @go-back-to="$emit('go-back-to', $event)">
 			<div class="skill-details">
 				<div class="skill-info-container">
 					<img :src="skill.image" class="skill-image">
@@ -156,9 +117,10 @@ var SkillDetails = {
 					</div>
 				</div>
 			</div>
-		</div>
+		</skills-layout>
 	`,
 	components: {
+		'skills-layout': SkillsLayout,
 		'flag': Flag,
 		'upload-item': UploadItem
 	},
@@ -185,22 +147,11 @@ var SkillDetails = {
 					uploads.push(item);
 				});
 			}
-			// this.user.skills[categoryId][skillId].media.images.forEach(function(image) {
-			// 	uploads.push(image);
-			// });
 			return uploads;
 		}
 	},
-	data: {},
 	mounted: function () {
 		//Handling styles
-		this.$refs.underline1.style.background = this.category.color;
-		this.$refs.underline2.style.background = this.category.color;
 		this.$refs.underline3.style.background = this.category.color;
-	},
-	methods: {
-		goBack: function() {
-			this.$emit('go-back-to', 'skills-grid');
-		}
 	}
 }

@@ -22,7 +22,7 @@ var CategoryCard = {
 	computed: {
 		skillsToShow: function() {
 			var skills = [];
-			for(var i=0; i<3; i++) {
+			for(var i=0; i<Math.min(3, this.category.skills.length); i++) {
 				skills.push(this.category.skills[i]);
 			}
 			return skills;
