@@ -16,9 +16,13 @@ var CategoryCard = {
 					<img :src="skill.image">
 				</div>
 			</div>
+			<div class="progress">
+				<img src="icons/flag-raised.svg" class="progress-acquired" v-for="n in acquiredSkills" :key="n">
+				<img src="icons/flag-raised.svg" class="progress-remaining" v-for="n in (totalSkills - acquiredSkills)" :key="n">
+			</div>
 		</div>
 	`,
-	props: ['category'],
+	props: ['category', 'user'],
 	computed: {
 		skillsToShow: function() {
 			var skills = [];
@@ -26,10 +30,18 @@ var CategoryCard = {
 				skills.push(this.category.skills[i]);
 			}
 			return skills;
+		},
+		totalSkills: function() {
+			return this.category.skills.length;
+		},
+		acquiredSkills: function() {
+			var count = 0;
+			for(var skillId in this.user.skills[this.category.id]) {
+				if(this.user.skills[this.category.id][skillId].acquired) count++;
+			}
+			return count;
 		}
-	},
-	data: {},
-	methods: {}
+	}
 };
 
 var CategoriesGrid = {
@@ -40,6 +52,7 @@ var CategoriesGrid = {
 				v-for="category in categories" 
 				:key="category.id"
 				:category="category"
+				:user="user"
 				@skill-clicked="onSkillClick"
 				@category-clicked="onCategoryClick"
 			></category-card>
@@ -48,8 +61,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories'],
-	data: {},
+	props: ['categories', 'user'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);

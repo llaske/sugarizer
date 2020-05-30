@@ -15,6 +15,7 @@ p {
 #app {
 	min-height: 100%;
 	background: white;
+	transition: background 500ms ease;
 }
 
 #main-toolbar .splitbar {
@@ -108,6 +109,7 @@ p {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	transform-origin: top;
 }
 
 .category-card {
@@ -131,6 +133,9 @@ p {
 	justify-content: center;
 	align-items: stretch;
 	margin-top: auto;
+	padding: 10px 0;
+	background: rgba(255, 255, 255, 0.25);
+	border-radius: 20px;
 }
 .category-skills .skill {
 	width: 80px;
@@ -151,12 +156,27 @@ p {
 	display: block;
 	margin: 0 auto;
 }
-
+.progress {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 10px;
+}
+.progress img {
+	width: 30px;
+}
+.progress-acquired {
+	opacity: 1;
+	filter: invert(52%) sepia(74%) saturate(1892%) hue-rotate(81deg) brightness(118%) contrast(125%) drop-shadow(0 3px 2px rgba(0, 0, 0, 0.15));
+}
+.progress-remaining {
+	opacity: 0.5;
+}
 
 .skills {
 	position: relative;
 	min-height: calc(100vh - 55px);
-	background: white;
 	padding: 0 8vw;
 }
 .skills #back-button {
@@ -413,6 +433,14 @@ p {
 	border-radius: 0;
 	width: 100px;
 	padding: 10px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 200ms;
+}
+.fade-enter, .fade-leave-to {
+	transform: scale(0.98);
+  opacity: 0;
 }
 
 .palette .row {

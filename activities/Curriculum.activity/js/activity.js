@@ -28,7 +28,14 @@ var app = new Vue({
 	},
 	watch: {
 		currentView: function(newVal, oldVal) {
-			window.scrollTo(0, 0);
+			setTimeout(function() {
+				window.scrollTo(0, 0);
+			}, 200);
+			if(newVal == 'categories-grid') {
+				document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
+			} else {
+				document.getElementById('app').style.background = 'white';
+			}
 		}
 	},
 	computed: {
