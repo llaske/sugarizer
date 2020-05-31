@@ -23,12 +23,12 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" v-if="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-if="currentView == 'skill-details' && !currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
-			<sugar-toolitem id="remove-button" v-if="currentView == 'skill-details' && currentAcquired" @click="setSkillAcquired(false)"></sugar-toolitem>
-			<sugar-toolitem 
+			<sugar-toolitem id="home-button" v-visible="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-visible="currentView == 'skill-details'" v-if="!currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
+			<sugar-toolitem id="remove-button" v-visible="currentView == 'skill-details'" v-else @click="setSkillAcquired(false)"></sugar-toolitem>
+			<sugar-toolitem
 				id="upload-button" 
-				v-if="currentView == 'skill-details'"
+				v-visible="currentView == 'skill-details'"
 				palette-file="js/palettes/mediapalette.js"
 				palette-class="MediaPalette"
 				palette-title="Upload Media"
