@@ -24,6 +24,8 @@ Vue.component('sugar-localization', {
 							vm.dictionary = vm.l10n.dictionary;
 							vm.$emit("localized");
 							vm.eventReceived = true;
+						} else if (webL10n.language.code != language) {
+								webL10n.language.code = language;
 						}
 					});
 				});
