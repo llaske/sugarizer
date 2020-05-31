@@ -121,6 +121,16 @@ var app = new Vue({
 			});
 		},
 
+		onDeleteItem: function(item) {
+			var mediaObj = this.user.skills[this.selectedCategoryId][this.selectedSkillId].media;
+			var index = mediaObj[item.type].findIndex(function(el) {
+				return el.timestamp === item.timestamp;
+			});
+			if(index !== -1) {
+				mediaObj[item.type].splice(index, 1);
+			}
+		},
+
 		importSkills: function() {
 			var vm = this;
 			requirejs(["text!activity/imported/sections.json"], function(sections) {

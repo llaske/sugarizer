@@ -24,17 +24,39 @@ var Flag = {
 var UploadItem = {
 	/*html*/
 	template: `
-		<div class="upload-item">
-			<div v-if="item.type == 'image'" class="image-item">
-				<img :src="item.data">
+		<div>
+			<div class="upload-item" @click="showPopup = true">
+				<div v-if="item.type == 'image'" class="image-item">
+					<img :src="item.data">
+				</div>
+				{{ item.title }} | {{ date }}
+
 			</div>
-			{{ item.title }} | {{ date }}
+			<div class="popup-container" v-if="showPopup" @click="showPopup = false">
+				<div class="popup" @click.stop="">
+					<img v-if="item.type == 'image'" :src="item.data" :alt="item.title" class="popup-image">
+
+					<div class="popup-actions">
+						<div class="">
+							<p>Title: {{ item.title }}</p>
+							<p>Upload Date: {{ date }}</p>
+						</div>
+						<button id="delete-button" @click="$emit('delete-item')"></button>
+					</div>
+
+				</div>
+			</div>
 		</div>
 	`,
 	props: ['item'],
 	computed: {
 		date: function() {
 			return new Date(this.item.timestamp).toDateString();
+		}
+	},
+	data: function() {
+		return {
+			showPopup: false
 		}
 	}
 }

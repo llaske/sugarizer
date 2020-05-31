@@ -113,7 +113,12 @@ var SkillDetails = {
 				<div class="skill-uploads">
 					<flag :raised="currentAcquired"></flag>
 					<div class="uploads">
-						<upload-item v-for="item in uploads" :key="item.timestamp" :item="item" />
+						<upload-item 
+							v-for="item in uploads" 
+							:key="item.timestamp" 
+							:item="item" 
+							@delete-item="$emit('delete-item', item)"
+						/>
 					</div>
 				</div>
 			</div>

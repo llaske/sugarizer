@@ -421,10 +421,44 @@ p {
 	color: white;
 	width: 170px;
 	margin: 5px;
-	/* height: 100px; */
 }
 .upload-item .image-item img {
 	width: 100%;
+}
+.popup-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 2;
+}
+.popup {
+	max-width: 90%;
+	height: 90%;
+	background: black;
+	color: white;
+	padding: 5px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+.popup-actions {
+	display: flex;
+	justify-content: space-between;
+}
+.popup-actions #delete-button {
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+	background: url(../icons/delete.svg) no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.popup-image {
+	height: 90%;
 }
 
 #media-upload button {
