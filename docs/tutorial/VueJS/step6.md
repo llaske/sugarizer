@@ -97,13 +97,13 @@ We will now define this new button in the `css/activity.css` file. We define als
 ```
 The name "palette" refers to a popup menu in the toolbar. When the user clicks on the toolbar icon, the popup appears and display items inside - most often other buttons. To handle this feature Sugar-Web exposes a Palette library and, more precisely, a PresencePalette too. But the good news for Vue.js developers is that the `SugarPresence` component handles the integration of this functionality and let's you use it directly! You are of course encouraged to study the working of the component by looking at `js/components/SugarPresence.js`.
 
-To get the presence palette working, we will add some more attributes to the `network-button`, like this:
+To get the presence palette working, we will add some more attributes to the `network-button` in `index.html`, like this:
 ```html
 <sugar-toolitem 
-  id="network-button" 
-  title="Network"
-  palette-file="sugar-web/graphics/presencepalette" 
-  palette-class="PresencePalette"
+	id="network-button" 
+	title="Network"
+	palette-file="sugar-web/graphics/presencepalette" 
+	palette-class="PresencePalette"
 ></sugar-toolitem>
 ```
 The `sugar-toolitem` component is smart, it can create a palette just by specifying the palette-defining file and a palette class.
@@ -136,7 +136,7 @@ Easy to understand isn't it?
 
 ## Share the instance
 
-As usual, let's first include the magic component `SugarPresence`:
+As usual, let's first include the magic component `SugarPresence` in the `index.html` file:
 ```html
 <!-- Inside app element -->
 <sugar-presence ref="SugarPresence"></sugar-presence>
@@ -145,21 +145,21 @@ As usual, let's first include the magic component `SugarPresence`:
 <script src="js/components/SugarPresence.js"></script>
 ```
 
-Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity.
+Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity. Upadte `js/activity.js` as:
 ```js
 data: {
 	currentenv: null,
 	SugarL10n: null,
-  SugarPresence: null,
-  ...
+	SugarPresence: null,
+	...
 },
 mounted: function () {
 	this.SugarL10n = this.$refs.SugarL10n;
-  this.SugarPresence = this.$refs.SugarPresence;
+	this.SugarPresence = this.$refs.SugarPresence;
 },
 ```
 
-Now, let's update our Pawn activity to integrate presence. Start first by handling the click on the Share button. We will add three more attributes to the `network-button`:
+Now, let's update our Pawn activity to integrate presence. Start first by handling the click on the Share button. We will add three more attributes to the `network-button` inside `index.html`:
 ```html
 <sugar-toolitem 
 	id="network-button" 
@@ -175,7 +175,7 @@ The `presence-event` is the name of the event for which you wish to attach a lis
 
 We will also use the `v-if` directive to render this button only `SugarPresence` component exists (This also makes sure `onShared()` is defined at the time of binding).
 
-Now that our activity is shared, we have to slightly update the Add button listener. Because now we should notify other users when a new pawn is played. Here's how the new listener will look like:
+Now that our activity is shared, we have to slightly update the Add button listener. Because now we should notify other users when a new pawn is played. Here's how the new listener will look like in `js/activity.js`:
 ```js
 onAddClick: function () {
 	this.pawns.push(this.currentenv.user.colorvalue);
@@ -195,7 +195,7 @@ If the activity is connected (i.e. `SugarPresence.isConnected()` is `true` which
 
 That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically intializes the presence object.
 
-There are 2 important events that you need to handle from the `SugarPresence` instance: `data-received` and `user-changed`. We will create 2 methods to handle these events:
+There are 2 important events that you need to handle from the `SugarPresence` instance: `data-received` and `user-changed`. We will create 2 methods in `js/activity.js` to handle these events:
 ```js
 onNetworkDataReceived(msg) {
 	// Handles the data-received event
@@ -206,7 +206,7 @@ onNetworkUserChanged(msg) {
 },
 ```
 
-Now bind these to the event directives:
+Now bind these to the event directives in `index.html`:
 ```html
 <sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 ```
@@ -252,7 +252,7 @@ It's like initial plays from Michaël was lost.
 
 This issue is related to the way of handling users that join the activity. Currently nothing is done to give them the initial board state. So they only saw new changes on the board. It could make sense for a chat activity: users who join a chat could not be able to see past discussions. But for our activity, it's not a good thing.
 
-To fix it, let's observe the `onNetworkUserChanged` method:
+To fix it, let's observe the `onNetworkUserChanged` method in `js/activity.js`:
 ```js
 onNetworkUserChanged: function(msg) {
 	console.log(msg);
@@ -264,6 +264,8 @@ This message is useful to display a list of users currently connected, and for e
 
 The idea is to identify the host for the share (Michaël in our sample). When a new subscriber joins the share, the host - and only the host - send to the new subscriber a message with the current board state.
 But because the current message contains only the color for the added pawn, we have to create a new type of message for that. Here's the suggested implementation to do that.
+
+Now to make some changes to `js/actitivty.js`. 
 
 First let's modify the current send message call to integrate the 'update' message type to keep compatibility with current implementation:
 ```js

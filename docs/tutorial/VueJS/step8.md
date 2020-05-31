@@ -67,14 +67,14 @@ Let's now integrate our new palette in the toolbar.
 
 It could be done by adding a new button in the toolbar as we've done in Step 3. But here we're going to redefine the behavior for the current **Add** button instead.
 
-As you have seen earlier, to integrate a palette, we will pass some attributes to the `sugar-toolitem`:
+As you have seen earlier, to integrate a palette, we will pass some attributes to the `sugar-toolitem`. Update the `index.html` add-button as follows:
 ```html
 <sugar-toolitem 
-  id="add-button" 
-  v-bind:title="l10n.stringAddPawn" 
-  palette-file="js/palettes/pawnpalette.js"
-  palette-class="PawnPalette"
-  palette-title="Add Pawn"
+	id="add-button" 
+	v-bind:title="l10n.stringAddPawn" 
+	palette-file="js/palettes/pawnpalette.js"
+	palette-class="PawnPalette"
+	palette-title="Add Pawn"
 ></sugar-toolitem>
 ```
 This time you need to pass the path to `pawnpalette` library created before. Pass the string "PawnPalette" to `palette-class` as it is the class we defined in the library. Give the `palette-title` as "Add Pawn".
@@ -211,33 +211,33 @@ That's all for the palette part. Let's now update the `js/activity.js` file to c
 Modify the `onAddClick()` method to this new source code:
 ```js
 onAddClick: function (event) {
-  for (var i = 0; i < event.count; i++) {
-    this.pawns.push(this.currentenv.user.colorvalue);
-    this.displayText = this.SugarL10n.get("Played", { name: this.currentenv.user.name });
+	for (var i = 0; i < event.count; i++) {
+		this.pawns.push(this.currentenv.user.colorvalue);
+		this.displayText = this.SugarL10n.get("Played", { name: this.currentenv.user.name });
 
-    if (this.SugarPresence.isConnected()) {
-      var message = {
-        user: this.SugarPresence.getUserInfo(),
-        content: {
-          action: 'update',
-          data: this.currentenv.user.colorvalue
-        }
-      }
-      this.SugarPresence.sendMessage(message);
-    }
-  }
+		if (this.SugarPresence.isConnected()) {
+			var message = {
+				user: this.SugarPresence.getUserInfo(),
+				content: {
+					action: 'update',
+					data: this.currentenv.user.colorvalue
+				}
+			}
+			this.SugarPresence.sendMessage(message);
+		}
+	}
 },
 ```
 And add the `palette-event` and listener to the tool item in `index.html`:
 ```html
 <sugar-toolitem 
-  id="add-button" 
-  v-bind:title="l10n.stringAddPawn" 
-  palette-file="js/palettes/pawnpalette.js"
-  palette-class="PawnPalette"
-  palette-title="Add Pawn"
-  palette-event="pawn-click"
-  v-on:pawn-click="onAddClick"
+	id="add-button" 
+	v-bind:title="l10n.stringAddPawn" 
+	palette-file="js/palettes/pawnpalette.js"
+	palette-class="PawnPalette"
+	palette-title="Add Pawn"
+	palette-event="pawn-click"
+	v-on:pawn-click="onAddClick"
 ></sugar-toolitem>
 ```
 

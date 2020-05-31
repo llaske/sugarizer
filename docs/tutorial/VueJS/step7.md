@@ -48,11 +48,11 @@ You could download it [here](../../images/insert-picture.svg). Right-click on it
 Then, let's add our new button. You already know how to do it because you've done it during Step 3. You have to update the toolbar section of the `index.html` file for your activity. Add a `button` tag with the Sugar-Web `toolbutton` class. Here is the result:
 ```html
 <sugar-toolbar ref="SugarToolbar">
-  ...
+	...
 
-  <sugar-toolitem id="insert-button" title="Change Background"></sugar-toolitem>
-  
-  ...
+	<sugar-toolitem id="insert-button" title="Change Background"></sugar-toolitem>
+	
+	...
 </sugar-toolbar>
 ```
 
@@ -73,20 +73,21 @@ It's time now to add source code to display Journal chooser and integrate our ba
 
 The `journalchooser` has been baked into the `SugarJournal` component too! Hurray! Let's see how to utilize it.
 
-First add a click listener to the picture-button.
+First add a click listener to the picture-button in `index.html`:
 ```html
 <sugar-toolitem id="insert-button" v-on:click="insertBackground" title="Change Background"></sugar-toolitem>
 ```
+
 And define the following method in `js/activity.js`:
 ```js
 insertBackground: function () {
-  var filters = [
-    { mimetype: 'image/png' }, 
-    { mimetype: 'image/jpeg' }
-  ];
-  this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-    // Do nothing at the moment
-  })
+	var filters = [
+		{ mimetype: 'image/png' }, 
+		{ mimetype: 'image/jpeg' }
+	];
+	this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
+		// Do nothing at the moment
+	})
 },
 ```
 This source code calls the `insertFromJournal` method of the `SugarJournal` component. This method take two parameters:
@@ -117,16 +118,16 @@ The file is now into the Journal.
 
 ![](../../images/tutorial_step7_9.png)
 
-We are now ready to add the source code to change the background. Here's the new way to define the `insertFromJournal` callback:
+We are now ready to add the source code to change the background. Here's the new way to define the `insertFromJournal` callback inside `js/activity.js`:
 ```js
 insertBackground: function () {
-  var filters = [
-    { mimetype: 'image/png' }, 
-    { mimetype: 'image/jpeg' }
-  ];
-  this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-    document.getElementById("app").style.backgroundImage = `url(${data})`;
-  })
+	var filters = [
+		{ mimetype: 'image/png' }, 
+		{ mimetype: 'image/jpeg' }
+	];
+	this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
+		document.getElementById("app").style.backgroundImage = `url(${data})`;
+	})
 },
 ```
 The callback method receives the content of the item into the `data` parameter. In the case of an image, it's a base64 encoding of the image. Something like: 

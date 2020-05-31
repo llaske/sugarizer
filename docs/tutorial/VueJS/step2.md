@@ -149,7 +149,7 @@ These lines rely on the framework **require.js** that is used by Sugar-Web to ha
 
 Now, to display our welcome message, we will use the user's name.
 
-First add a data property `displayText` to the data object.
+Inside `js/activity.js`, first add a data property `displayText` to the data object.
 ```js
 data: {
 	displayText: ''
@@ -161,12 +161,12 @@ You can call this method directly from the `SugarActivity` component.
 
 Before using any resources of the activity, we must wait for the `initialized` event from the `SugarActivity` component.
 
-So let's first add a click listener method to the directive of `SugarActivity`:
+So let's first add a click listener method to the directive of `SugarActivity` inside `index.html`:
 ```html
 <sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 ```
 
-And define the method to retrieve the user name and update `displayText`:
+And define the method to retrieve the user name and update `displayText` in `js/activity.js`:
 ```js
 ...
 methods: {

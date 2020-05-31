@@ -48,18 +48,17 @@ The array `pawns` contain all pawns. It's the context for our activity.
 
 To store the context, we have to handle the **datastore**. The datastore is the place where Sugar stores the Journal. During the activity setup, Sugar-Web automatically initializes the datastore for the activity. 
 
-First include the `SugarJournal` component in your activity and instantiate it inside the app element.
+First include the `SugarJournal` component in your activity and instantiate it inside the app element in `index.html`:
 ```html
-    ...
-    <sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
-    <sugar-journal ref="SugarJournal"></sugar-journal>
-  </div>
+		...
+		<!-- Inside app element -->
+		<sugar-journal ref="SugarJournal"></sugar-journal>
+	</div>
 
-  <script src="js/Pawn.js"></script>
-  <script src="js/components/SugarActivity.js"></script>
-  <script src="js/components/SugarToolbar.js"></script>
-  <script src="js/components/SugarJournal.js"></script>
-  <script src="js/activity.js"></script>
+	...
+	<!-- After script loads -->
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/activity.js"></script>
 </body>
 ```
 
@@ -71,22 +70,25 @@ The `SugarJournal` component automatically retrieves the data inside Journal (if
 
 So below is the source code to store the context in the datastore.
 
-First, convert the **pawns** array as JSON string and store it in the current object.
+First, we will define the context object and add the **pawns** array to it, then pass this to the `saveData()` method.
 ```js
 var context = {
-  pawns: this.pawns
+	pawns: this.pawns
 };
 this.$refs.SugarJournal.saveData(context);
 ```
 
 This whole code should be called at the end of the activity. To do that we have to catch the click on the Stop button of the activity. So let's create another method in `js/activity.js` to call when stopping the activity.
 ```js
-onStop: function () {
-  // Save current pawns in Journal on Stop
-  var context = {
-    pawns: this.pawns
-  };
-  this.$refs.SugarJournal.saveData(context);
+methods: {
+	...
+	onStop: function () {
+		// Save current pawns in Journal on Stop
+		var context = {
+			pawns: this.pawns
+		};
+		this.$refs.SugarJournal.saveData(context);
+	}
 }
 ```
 
@@ -111,22 +113,22 @@ The good part is, `SugarJournal` handles this for you! It provides some events w
 2. `journal-data-loaded`: Emitted when the activity is an existing instance and if there is some data stored in the journal. It returns two parameters: data and metadata.
 3. `journal-load-error`: Emitted when the activity is an existing instance and if some error occurred while loading data.
 
-Let's handle these events from the `SugarJournal` component. Add the following basic methods:
+Let's handle these events from the `SugarJournal` component. Add the following basic methods to `js/activity.js`:
 ```js
 onJournalNewInstance: function() {
-  console.log("New instance");
+	console.log("New instance");
 },
 
 onJournalDataLoaded: function (data, metadata) {
-  console.log("Existing instance");
+	console.log("Existing instance");
 },
 
 onJournalLoadError: function(error) {
-  console.log("Error loading from journal");
+	console.log("Error loading from journal");
 },
 ```
 
-Add bind them at the component instance:
+Add bind them at the component instance inside `index.html`:
 ```html
 <sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 ```
@@ -144,11 +146,11 @@ Of course, the context is not loaded for the moment in the activity but at least
 
 ## Load context from the datastore
 
-WAs we saw, when our activity is launched with an existing instance, `SugarJournal` will emit the event `journal-data-loaded` with the loaded parsed data when the activity starts. Let's use this `data` in the event handler:
+As we saw, when our activity is launched with an existing instance, `SugarJournal` will emit the event `journal-data-loaded` with the loaded parsed data when the activity starts. Let's use this `data` in the event handler we created earlier inside `js/activity.js`:
 ```js
 onJournalDataLoaded: function(data, metadata) {
-  console.log("Existing instance");
-  this.pawns = data.pawns;
+	console.log("Existing instance");
+	this.pawns = data.pawns;
 },
 ```
 We get the pawns array from the context we stored in the Journal and we set the `pawns` data property to it.
