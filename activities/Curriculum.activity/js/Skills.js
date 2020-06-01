@@ -152,11 +152,19 @@ var SkillDetails = {
 					uploads.push(item);
 				});
 			}
-			return uploads;
-		}
+			return this.sortUploads(uploads);
+		},
 	},
 	mounted: function () {
 		//Handling styles
 		this.$refs.underline3.style.background = this.category.color;
+	},
+	methods: {
+		sortUploads: function(array) {
+			array.sort(function(a, b) {
+				return b.timestamp - a.timestamp;
+			});
+			return array;
+		}
 	}
 }

@@ -25,16 +25,26 @@ var UploadItem = {
 	/*html*/
 	template: `
 		<div>
-			<div class="upload-item" @click="showPopup = true">
-				<div v-if="item.type == 'image'" class="image-item">
-					<img :src="item.data">
+			<div class="uploaded-item" @click="showPopup = true">
+				<div v-if="item.type == 'image'" class="item">
+					<img :src="item.data" class="image-preview">
 				</div>
-				{{ item.title }} | {{ date }}
+				<div v-else-if="item.type == 'audio'" class="item">
+					<img src="icons/audio.svg" class="audio-preview">
+				</div>
+				<div v-else-if="item.type == 'video'" class="item">
+					<img src="icons/video.svg" class="video-preview">
+				</div>
+				<div class="uploaded-info">
+					{{ item.title }} | {{ date }}
+				</div>
 
 			</div>
 			<div class="popup-container" v-if="showPopup" @click="showPopup = false">
 				<div class="popup" @click.stop="">
 					<img v-if="item.type == 'image'" :src="item.data" :alt="item.title" class="popup-image">
+					<audio v-if="item.type == 'audio'" :src="item.data" :title="item.title" class="popup-audio" controls></audio>
+					<video v-if="item.type == 'video'" :src="item.data" :title="item.title" class="popup-video" controls></video>
 
 					<div class="popup-actions">
 						<div class="">
