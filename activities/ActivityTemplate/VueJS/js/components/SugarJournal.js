@@ -1,16 +1,21 @@
 Vue.component('sugar-journal', {
-	data: {
-		activity: null
+	data: function () {
+		return {
+			activity: null,
+			LZString: null
+		}
 	},
 	mounted() {
 		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
+			vm.LZString = LZString;
 			env.getEnvironment(function (err, environment) {
 				if (environment.objectId) {
 					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
-							vm.$emit('journal-data-loaded', JSON.parse(data), metadata);
+							var loadedData = LZString.decompressFromUTF16(data);
+							vm.$emit('journal-data-loaded', JSON.parse(loadedData), metadata);
 						} else {
 							vm.$emit('journal-load-error', error);
 						}
@@ -23,8 +28,8 @@ Vue.component('sugar-journal', {
 	},
 	methods: {
 		saveData: function (context) {
-			var jsonData = JSON.stringify(context);
-			this.activity.getDatastoreObject().setDataAsText(jsonData);
+			var compressedData = this.LZString.compressToUTF16(JSON.stringify(context));
+			this.activity.getDatastoreObject().setDataAsText(compressedData);
 			this.activity.getDatastoreObject().save(function (error) {
 				if (error === null) {
 					console.log("write done.");
@@ -32,6 +37,14 @@ Vue.component('sugar-journal', {
 					console.log("write failed.");
 				}
 			});
+		},
+
+		turnCompressionOff: function () {
+			this.compression = false;
+		},
+
+		turnCompressionOn: function () {
+			this.compression = true;
 		},
 
 		insertFromJournal: function (type, callback) {
