@@ -4,7 +4,7 @@ var Clock = {
       <div class="detail-logo clock-logo">
       </div>
       <div class="detail-content">
-        <button class="clock">{{ currTime }}</button>
+        <div class="clock">{{ currTime }}</div>
       </div>
     </div>
   `,
