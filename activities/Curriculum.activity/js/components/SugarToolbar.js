@@ -21,7 +21,7 @@ Vue.component('sugar-toolitem', {
 		}
 	},
 	created: function() {
-		// v-visible="condition" (Use this for visibility of palettes)
+		// v-visible="condition" (Use this with palettes to avoid errors)
 		Vue.directive('visible', function(el, binding) {
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
 		});

@@ -42,20 +42,22 @@
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
-		<transition name="fade" mode="out-in">
-			<component 
-				:is="currentView" 
-				:categories="categories"
-				:category-id="selectedCategoryId"
-				:skill-id="selectedSkillId"
-				:current-acquired="currentAcquired"
-				:user="user"
-				@open-category="openCategory"
-				@open-skill="openSkill"
-				@delete-item="onDeleteItem"
-				@go-back-to="goBackTo"
-			></component>
-		</transition>
+		<div id="content">
+			<transition name="fade" mode="out-in">
+				<component 
+					:is="currentView" 
+					:categories="categories"
+					:category-id="selectedCategoryId"
+					:skill-id="selectedSkillId"
+					:current-acquired="currentAcquired"
+					:user="user"
+					@open-category="openCategory"
+					@open-skill="openSkill"
+					@delete-item="onDeleteItem"
+					@go-back-to="goBackTo"
+				></component>
+			</transition>
+		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>

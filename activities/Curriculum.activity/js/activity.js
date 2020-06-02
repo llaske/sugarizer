@@ -28,13 +28,19 @@ var app = new Vue({
 	},
 	watch: {
 		currentView: function(newVal, oldVal) {
+			// Scroll to top
 			setTimeout(function() {
-				window.scrollTo(0, 0);
+				content.scrollTo(0, 0);
 			}, 200);
+			// Switch to user color on categories-grid
 			if(newVal == 'categories-grid') {
 				document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 			} else {
 				document.getElementById('app').style.background = 'white';
+			}
+			// Close all open palettes
+			for(var palette of document.getElementsByClassName('palette')) {
+				palette.style.visibility = 'hidden';
 			}
 		}
 	},
@@ -112,12 +118,13 @@ var app = new Vue({
 					title: metadata.title,
 					timestamp: metadata.timestamp
 				}
-				if(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media[event.mediaType]) {
-					vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media[event.mediaType].push(obj)
+				var mediaObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media;
+				if(mediaObj[event.mediaType]) {
+					mediaObj[event.mediaType].push(obj)
 				} else {
-					vm.$set(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media, event.mediaType, new Array(obj));
+					vm.$set(mediaObj, event.mediaType, new Array(obj));
 				}
-				console.log(vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media);
+				console.log(mediaObj);
 			});
 		},
 

@@ -15,7 +15,12 @@ p {
 #app {
 	min-height: 100%;
 	background: white;
-	transition: background 500ms ease;
+	transition: background 400ms ease;
+}
+
+#content {
+	height: calc(100vh - 55px);
+	overflow: auto;
 }
 
 #main-toolbar .splitbar {
@@ -124,9 +129,9 @@ p {
 }
 .category-title {
 	text-align: center;
-	color: white;
-	-webkit-text-stroke: 1px black;
-	font-size: 2.5em;
+	color: black;
+	/* -webkit-text-stroke: 1px black; */
+	font-size: 2em;
 }
 .category-skills {
 	display: flex;
@@ -242,7 +247,7 @@ p {
 	height: 100%;
 	margin-top: auto;
 	padding: 15px 20px;
-	color: white;
+	color: black;
 	cursor: pointer;
 	transition: all 200ms ease-out;
 }

@@ -1,15 +1,19 @@
 Vue.component('sugar-presence', {
-	data: {
-		activity: null,
-		bundleId: '',
-		palette: null,
-		presence: null,
-		isHost: false
+	data: function () {
+		return {
+			activity: null,
+			LZString: null,
+			bundleId: '',
+			palette: null,
+			presence: null,
+			isHost: false
+		}
 	},
 	mounted() {
 		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
+		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
+			vm.LZString = LZString;
 			env.getEnvironment(function (err, environment) {
 				vm.bundleId = environment.bundleId;
 				// Handle shared instance
@@ -41,7 +45,8 @@ Vue.component('sugar-presence', {
 		},
 
 		sendMessage: function (message) {
-			this.presence.sendMessage(this.presence.getSharedInfo().id, message);
+			var compressedMsg = this.LZString.compressToUTF16(JSON.stringify(message));
+			this.presence.sendMessage(this.presence.getSharedInfo().id, compressedMsg);
 		},
 
 		onShared: function (event, paletteObject) {
@@ -63,11 +68,13 @@ Vue.component('sugar-presence', {
 		},
 
 		onNetworkDataReceived: function (msg) {
-			if (this.getUserInfo().networkId === msg.user.networkId) {
+			var decompressedMsg = JSON.parse(this.LZString.decompressFromUTF16(msg));
+
+			if (this.getUserInfo().networkId === decompressedMsg.user.networkId) {
 				return;  	// Return if data was sent by the user
 			}
 
-			this.$emit('data-received', msg);
+			this.$emit('data-received', decompressedMsg);
 		},
 
 		onNetworkUserChanged: function (msg) {
