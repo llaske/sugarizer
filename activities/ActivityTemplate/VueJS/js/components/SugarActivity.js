@@ -1,7 +1,9 @@
 Vue.component('sugar-activity', {
-	data: {
-		activity: null,
-		environment: null
+	data: function() {
+		return {
+			activity: null,
+			environment: null
+		}
 	},
 	mounted() {
 		var vm = this;
