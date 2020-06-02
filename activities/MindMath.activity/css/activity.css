@@ -118,13 +118,7 @@ p {
   height: 90%;
   display: flex;
   flex-direction: row;
-}
-
-#game-view {
-  width: 100%;
-  height: 90%;
-  display: flex;
-  flex-direction: row;
+	overflow: auto;
 }
 
 #result-view {
@@ -133,6 +127,7 @@ p {
 	display: flex;
 	justify-content: center;
 	flex-direction: row;
+	overflow: auto;
 }
 
 #target-number {
@@ -159,7 +154,7 @@ p {
   justify-content: space-around;
 }
 
-.result-panel {
+.solution-panel {
 	height: 90%;
   width: 98%;
   overflow: auto;
@@ -411,6 +406,66 @@ p {
 
 .disabled {
   opacity: 0;
+}
+
+.result-detail-panel {
+	height: 90%;
+  width: 46%;
+  overflow: auto;
+  background-color: #b58863;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  margin: 0.8%;
+  justify-content: space-around;
+	text-align: center;
+}
+
+.result-detail-panel div {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.result-detail-panel .result-detail-block {
+  width: 90%;
+  height: 150px;
+  background-color: #f0d9b5;
+  border: none;
+	margin: 4%;
+  color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.result-detail-panel .result-detail-content div {
+  font-size: 30px;
+  line-height:150px;
+  font-weight: bold;
+  border: none;
+  color: black;
+  text-align: center;
+}
+
+.result-detail-logo {
+  width: 40%;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+.score-logo {
+  background-image: url(../icons/mark.svg);
+}
+
+.result-detail-content {
+  background-color: #f0d9b5;
+  width: 60%;
+}
+
+.result-btn-number{
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
 }
 
 @media only screen and (max-width: 940px) {

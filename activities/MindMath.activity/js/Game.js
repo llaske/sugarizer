@@ -150,9 +150,9 @@ var Game = {
       else {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels
-        document.querySelector('.game-area-panel').style.width = '48.4%';
+        document.querySelector('.game-area-panel').style.width = '56.4%';
         document.querySelector('.game-area-panel').style.height = '95%';
-        document.querySelector('.slots-area-panel').style.width = '48.4%';
+        document.querySelector('.slots-area-panel').style.width = '40.4%';
         document.querySelector('.slots-area-panel').style.height = '95%';
       }
     },

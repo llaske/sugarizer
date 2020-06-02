@@ -57,8 +57,8 @@ var app = new Vue({
         vm.$set(vm.clock, 'previousTime', new Date());
         vm.tick();
       } else {
-        document.getElementById('game-button').style.backgroundImage = 'url(./icons/restart.svg)';
         //new-icon
+        //document.getElementById('game-button').style.backgroundImage = 'url(./icons/restart.svg)';
       }
     }
   },
