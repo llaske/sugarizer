@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Alert "user already exists" should come earlier #580
 - Wrong song is play on slow device/connection in TamTam activity #803
 - Removed resize option in Shared Notes
+- When connected to server, activities get shared automatically #810
+- Private button in presence palette shares the activity #811
 
 
 ## [1.3.0] - 2020-03-28
