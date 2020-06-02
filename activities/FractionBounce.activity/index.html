@@ -17,7 +17,7 @@
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-	<script src="lib/jquery-3.4.1.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script type="text/javascript" src="../../cordova.js"></script>
@@ -26,8 +26,78 @@
 
 <body>
 	<div id="app">
-		<toolbar ref="toolbar" v-bind:parts="parts" v-bind:answer="answer" v-bind:mode="mode" v-bind:paused="paused"
-				v-bind:bounce-count="bounceCount"></toolbar>
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+
+			<!-- Add more buttons here -->			
+			<sugar-toolitem ref="playBtn" class="toolbutton" id="play-button"
+				v-bind:title="l10n.stringPlay"
+				v-on:click="changeGameState"
+				v-if="paused">
+			</sugar-toolitem>
+			
+			<sugar-toolitem ref="pauseBtn" class="toolbutton" id="pause-button"
+				v-bind:title="l10n.stringPause"
+				v-on:click="changeGameState"
+				v-else>
+			</sugar-toolitem>
+			
+			<sugar-toolitem ref="settingsBtn" class="toolbutton" id="settings-button"
+				v-bind:title="l10n.stringSettings"
+				palette-file="js/palettes/settingspalette.js"
+				palette-class="SettingsPalette"
+				palette-event="fraction-added"
+				v-on:fraction-added="onFractionAdded">
+			</sugar-toolitem>
+			<sugar-toolitem ref="ballBtn" class="toolbutton" id="ball-button"
+				v-bind:title="l10n.stringBall"
+				palette-file="js/palettes/ballpalette.js"
+				palette-class="BallPalette"
+				palette-event="ball-selected"
+				v-on:ball-selected="onBallSelected">
+			</sugar-toolitem>
+			<sugar-toolitem ref="bgBtn" class="toolbutton" id="bg-button"
+				v-bind:title="l10n.stringBg"
+				palette-file="js/palettes/bgpalette.js"
+				palette-class="BgPalette"
+				palette-event="bg-selected"
+				v-on:bg-selected="onBgSelected">
+			</sugar-toolitem>
+			
+			<sugar-toolitem splitbar></sugar-toolitem>
+			
+			<sugar-toolitem 
+				ref="fractionsBtn" 
+				id="fractions-button" 
+				v-on:click="changeMode('fractions')" 
+				v-bind:active="mode == 'fractions'"
+				v-bind:title="l10n.stringFractions">
+			</sugar-toolitem>
+			<sugar-toolitem 
+				ref="sectorsBtn" 
+				id="sectors-button" 
+				v-on:click="changeMode('sectors')" 
+				v-bind:active="mode == 'sectors'"
+				v-bind:title="l10n.stringSectors">
+			</sugar-toolitem>
+			<sugar-toolitem 
+				ref="percentsBtn" 
+				id="percents-button" 
+				v-on:click="changeMode('percents')" 
+				v-bind:active="mode == 'percents'"
+				v-bind:title="l10n.stringPercents">
+			</sugar-toolitem>
+			
+			<span class="helpText">{{ helpText }}</span>
+			
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+		</sugar-toolbar>
+
 		<div id="content">
 			<table class="log">
 				<thead>
@@ -49,16 +119,18 @@
 						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" v-bind:mode="mode" />
 		</div>
 
-		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
-
-		<localization ref="localization" v-on:localized="localized"></localization>
-		<tutorial ref="tutorial"></tutorial>
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError"></sugar-journal>
+		<sugar-localization ref="SugarL10n"></sugar-localization>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
-	<script src="js/l10n.js"></script>
-	<script src="js/tutorial.js"></script>
 	<script src="js/slope-template.js"></script>
-	<script src="js/toolbar.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

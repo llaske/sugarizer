@@ -1,8 +1,3 @@
-#main-toolbar #activity-button {
-	background-image: url(../activity/activity-icon.svg);
-	outline: none;
-}
-
 button:disabled {
 	opacity: 0.3 !important;
 }
@@ -21,9 +16,62 @@ p {
 	margin: 0.6em 0;
 }
 
+#app {
+	min-height: 100%;
+}
+
+#main-toolbar .splitbar {
+	border-right: 1.5px solid #565656;
+	margin: 7.5px 5px;
+	height: 40px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
 #main-toolbar.toolbar {
 	padding: 0 2%;
 	overflow-y: hidden;
+}
+
+#main-toolbar.hidden {
+	height: 0;
+	overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
 }
 
 .helpText {
@@ -72,9 +120,9 @@ p {
 }
 
 #slopeCanvas {
-	position: absolute;
+	position: fixed;
 	left: 0;
-	top: 0;
+	bottom: 0;
 	background: transparent;
 	z-index: 2;
 }
@@ -149,25 +197,11 @@ p {
 	margin: 0 10px;
 }
 
-.splitbar {
-	background-image: url(../icons/split.svg);
-	background-position: center;
-	background-repeat: no;
-	width: 3px;
-	margin-left: 5px;
-	margin-right: 4px;
-	margin-bottom: 4px;
-	height: 45px;
-	display: inline-block;
-	vertical-align: bottom;
-}
-
-#fullscreen-button {
+#main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
-	outline: none;
 }
 
-#unfullscreen-button {
+#main-toolbar #unfullscreen-button {
 	background-image: url(../icons/view-return.svg);
 	border: 0;
 	border-radius: 0px;
@@ -175,11 +209,9 @@ p {
 	width: 45px;
 	height: 45px;
 	top: 0;
-	right: 5%;
+	right: 6%;
 	position: absolute;
-	visibility: hidden;
 	z-index: 5;
-	outline: none;
 }
 
 #main-toolbar #fractions-button {
@@ -224,11 +256,6 @@ p {
 
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
-	outline: none;
-}
-
-#main-toolbar #stop-button {
-	outline: none;
 }
 
 .tour#step-1 {
@@ -287,10 +314,6 @@ p {
 	box-sizing: initial;
 }
 
-#template-palette {
-	width: fit-content;
-}
-
 .palette-item {
 	cursor: pointer;
 	padding: 10px;
@@ -302,48 +325,6 @@ p {
 
 .palette-icon {
 	width: 50px;
-}
-
-.template-col {
-	padding-left: 20px;
-	padding-right: 25px;
-	padding-top: 10px;
-	padding-bottom: 5px;
-}
-
-.template-item {
-	background-color: white;
-	border: 1px solid black;
-	box-shadow: 8px 8px 8px #888888;
-	display: inline-table;
-	font-size: 1.25em;
-}
-
-#spinner {
-	position: absolute;
-	margin-left: 45%;
-	margin-top: 20%;
-	width: 8%;
-}
-
-.popup-input {
-	border-radius: 22px;
-	height: 30px;
-	width: 400px;
-	background-color: #e5e5e5;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 10pt;
-	display: inline-block;
-}
-
-.popup-label {
-	color: #808080;
-	margin-bottom: 5px;
-	display: inline-block;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 10px;
 }
 
 .tutorial-icon-button {
