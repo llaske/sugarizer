@@ -23,7 +23,7 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
-			<sugar-toolitem id="restart-button" title="restart"></sugar-toolitem>
+			<sugar-toolitem id="game-button" title="end / new Game" v-on:click="handleGameButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo"></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
 			<sugar-toolitem id="level-button" title="level"></sugar-toolitem>
@@ -33,7 +33,16 @@
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
-		<component v-bind:is="currentScreen" ref="currentScreen"></component>
+		<transition name="fade" id="app-content" mode="out-in">
+		<component
+			v-bind:is="currentScreen"
+			v-bind:time="clock.time"
+			v-bind:stroke-color="strokeColor"
+			v-bind:fill-color="fillColor"
+			v-bind:question="questions[qNo]"
+			v-on:end-game="onEndGame"
+		></component>
+	</transition>
 
 
 
@@ -43,6 +52,7 @@
 	<script src="js/utils/utils.js"></script>
 	<script src="js/Clock.js"></script>
 	<script src="js/Slots.js"></script>
+	<script src="js/Result.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

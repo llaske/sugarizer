@@ -1,342 +1,369 @@
 button:disabled {
-	opacity: 0.3 !important;
+  opacity: 0.3 !important;
 }
 
 body {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 p {
-	margin: 0.6em 0;
+  margin: 0.6em 0;
 }
 
 #app {
-	min-height: 100%;
+  min-height: 100%;
 }
 
-#main-toolbar .splitbar {
-	border-right: 1.5px solid #565656;
-	margin: 7.5px 5px;
-	height: 40px;
-	display: inline-block;
-	vertical-align: bottom;
-}
-
-#main-toolbar.toolbar {
-	padding: 0 2%;
-	overflow-y: hidden;
-}
-
-#main-toolbar.hidden {
-	height: 0;
-	overflow: hidden;
-}
-
-#main-toolbar #activity-button {
-	background-image: url(../activity/activity-icon.svg);
-}
-
-#main-toolbar #restart-button {
-	background-image: url(../icons/restart.svg);
-}
-
-#main-toolbar #undo-button {
-	background-image: url(../icons/edit-undo.svg);
-}
-
-#main-toolbar #timer-button {
-	background-image: url(../icons/timer-0.svg);
-}
-
-#main-toolbar #level-button {
-	background-image: url(../icons/level.svg);
-}
-
-#main-toolbar #hint-button {
-	background-image: url(../icons/robot.svg);
-}
-
-#main-toolbar #compulsory-op-button {
-	background-image: url(../icons/compulsory-op.svg);
-}
-
-#main-toolbar #network-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-}
-#private-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
-}
-#shared-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
-}
-
-#app{
+#app-content{
 	width: 100%;
 	height: 100%;
 }
 
-#game-view{
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .6s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+#main-toolbar .splitbar {
+  border-right: 1.5px solid #565656;
+  margin: 7.5px 5px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#main-toolbar.toolbar {
+  padding: 0 2%;
+  overflow-y: hidden;
+}
+
+#main-toolbar.hidden {
+  height: 0;
+  overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #game-button {
+  background-image: url(../icons/end-icon.svg);
+}
+
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #timer-button {
+  background-image: url(../icons/timer-0.svg);
+}
+
+#main-toolbar #level-button {
+  background-image: url(../icons/level.svg);
+}
+
+#main-toolbar #hint-button {
+  background-image: url(../icons/robot.svg);
+}
+
+#main-toolbar #compulsory-op-button {
+  background-image: url(../icons/compulsory-op.svg);
+}
+
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+#game-view {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+}
+
+#game-view {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+}
+
+#result-view {
 	width: 100%;
 	height: 90%;
 	display: flex;
+	justify-content: center;
 	flex-direction: row;
 }
 
-#target-number{
-	width: 20%;
-	height: 100px;
+#target-number {
+  width: 100px;
+  height: 100px;
   font-size: 40px;
-	border-radius: 20%;
-	background-color: red;
+  border-radius: 20%;
+  background-color: transparent;
   font-weight: bold;
   border: none;
   color: black;
-	line-height: 100px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	transition: width 0.8s, height 0.8s;
-}
-
-#btn-validate{
-	width: 20%;
-	height: 100px;
-  font-size: 40px;
-	border-radius: 20%;
-	background-image: url(../icons/validate.svg);
-	background-color: red;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 90%;
-  font-weight: bold;
-  border: none;
-  color: white;
-	text-align: center;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	transition: width 0.8s, height 0.8s;
-}
-
-#btn-validate:hover {
-	background-size: 100%;
-}
-
-.disabled{
-	opacity: 0.4;
+  background-image: url(../icons/target.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+  line-height: 100px;
+  transition: width 0.8s, height 0.8s;
 }
 
 #target-container {
-	text-align: center;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.result-panel {
+	height: 90%;
+  width: 98%;
+  overflow: auto;
+  background-color: #b58863;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  margin: 0.8%;
+  justify-content: space-around;
 }
 
 .btn-operator {
   width: 100px;
-	height: 100px;
+  height: 100px;
   font-size: 40px;
   font-weight: bold;
   padding: 1%;
   border: none;
   color: black;
-	border-radius: 50%;
+  border-radius: 50%;
   text-align: center;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	transition: width 0.8s, height 0.8s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  transition: width 0.8s, height 0.8s;
 }
 
 .btn-operator:hover {
   font-size: 60px;
-	box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
 
-.selected-op{
-	width: 110px;
-	height: 110px;
-	font-size: 60px;
-	box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
+.selected-op {
+  width: 110px;
+  height: 110px;
+  font-size: 60px;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
 
-.list-operators{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	margin: 2%;
+.list-operators {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 2%;
 }
 
 .btn-number {
   width: 100px;
-	height: 100px;
+  height: 100px;
   font-size: 30px;
   font-weight: bold;
-	background-color: transparent;
+  background-color: transparent;
   padding: 1%;
   border: none;
-	border-radius: 50%;
+  border-radius: 50%;
   color: white;
-	text-align: center;
-	line-height: 100px;
- 	transition: background 0.8s;
-	transition: width 0.8s, height 0.8s;
+  text-align: center;
+  line-height: 100px;
+  transition: background 0.8s;
+  transition: width 0.8s, height 0.8s;
 }
 
-.diamond{
-	background-image: url(../icons/diamond.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
+.diamond {
+  background-image: url(../icons/diamond.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
 }
 
 .btn-number:hover {
   font-size: 40px;
 }
 
-.selected-num{
-	font-size: 40px;
-	background: rgba(0, 0, 0, 0.3);
+.selected-num {
+  font-size: 40px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.list-numbers{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	margin: 2%;
+.list-numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 2%;
 }
 
-.list-slots{
-	vertical-align: middle;
-	overflow-y: auto;
+.list-slots {
+  vertical-align: middle;
+  overflow-y: auto;
 }
 
-.slot{
-	margin: 1%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+.slot {
+  margin: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-.slot div{
-	width: 70px;
-	height: 70px;
-	font-size: 30px;
-	font-weight: bold;
-	background: transparent;
-	line-height: 70px;
-	border-radius: 20%;
-	padding: 1%;
-	border: 4px solid black;
-	color: white;
-	text-align: center;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	transition: width 0.8s, height 0.8s;
-}
-
-.slot .symbol{
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border: none;
-	color: black;
-	background-image: url(../icons/diamond.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
-	box-shadow: none;
-}
-
-.slot .operator{
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border: 4px solid black;
-	font-weight: bold;
-  color: black;
-	border-radius: 50%;
-	background-color: #f0d9b5;
+.slot div {
+  width: 70px;
+  height: 70px;
+  font-size: 30px;
+  font-weight: bold;
+  background: transparent;
+  line-height: 70px;
+  border-radius: 20%;
+  padding: 1%;
+  border: 2px solid black;
+  color: white;
   text-align: center;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  transition: width 0.8s, height 0.8s;
 }
 
-.game-area-panel{
+.slot .symbol {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+  color: black;
+  background-image: url(../icons/diamond.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  box-shadow: none;
+}
+
+.slot .operator {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 2px solid black;
+  font-weight: bold;
+  color: black;
+  border-radius: 50%;
+  background-color: #f0d9b5;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.slot .acheived {
+  background-image: url(../icons/target.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+
+.game-area-panel {
   height: 90%;
   width: 46%;
   overflow: auto;
   background-color: #b58863;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	display: flex;
-	flex-direction: column;
-	margin: 0.8%;
-	justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  margin: 0.8%;
+  justify-content: space-around;
 }
 
-.slots-area-panel{
+.game-area-container {
+  vertical-align: middle;
+  overflow-y: auto;
+}
+
+.slots-area-panel {
   height: 90%;
   width: 46%;
   overflow: auto;
   background-color: #b58863;
-	margin: 0.8%;
+  margin: 0.8%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.details-area-section{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 1% 4%;
-	height: 70px;
+.details-area-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1% 4%;
+  height: 70px;
 }
 
 .details-area-section div {
   text-align: center;
-	display: flex;
+  display: flex;
   flex-direction: row;
 }
 
-.details-area-section .detail-block{
-	width: 35%;
-	height: 100%;
-	background-color: #f0d9b5;
-	border: none;
-	color: black;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+.details-area-section .detail-block {
+  width: 35%;
+  height: 100%;
+  background-color: #f0d9b5;
+  border: none;
+  color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .details-area-section .detail-content div {
-	font-size: 30px;
-	line-height: 80px;
-	font-weight: bold;
-	border: none;
-	color: black;
-	text-align: center;
+  font-size: 30px;
+  line-height: 80px;
+  font-weight: bold;
+  border: none;
+  color: black;
+  text-align: center;
 }
-
 
 .detail-logo {
   width: 40%;
@@ -345,12 +372,12 @@ p {
   background-position: center;
 }
 
-.clock-logo{
-	background-image: url(../icons/clock.svg);
+.clock-logo {
+  background-image: url(../icons/clock.svg);
 }
 
-.score-logo{
-	background-image: url(../icons/mark.svg);
+.score-logo {
+  background-image: url(../icons/mark.svg);
 }
 
 .detail-content {
@@ -358,394 +385,411 @@ p {
   width: 60%;
 }
 
+#validate-block {
+  width: 20%;
+}
+
+#btn-validate {
+  width: 100%;
+  height: 100%;
+  border-radius: 20%;
+  font-weight: bold;
+  border: none;
+  background-image: url(../icons/validate.svg);
+  background-color: #f0d9b5;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  transition: width 0.8s, height 0.8s, opacity 0.8s;
+}
+
+#btn-validate:hover {
+  background-size: 100%;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
+}
+
+.disabled {
+  opacity: 0;
+}
+
 @media only screen and (max-width: 940px) {
-	.btn-operator {
-	  width: 75px;
-		height: 75px;
-		font-size: 40px;
-	}
+  .btn-operator {
+    width: 75px;
+    height: 75px;
+    font-size: 40px;
+  }
 
-	.selected-op{
-		width: 85px;
-		height: 85px;
-		font-size: 50px;
-	}
+  .selected-op {
+    width: 85px;
+    height: 85px;
+    font-size: 50px;
+  }
 
-	.slot div{
-		width: 50px;
-		height: 50px;
-		line-height: 50px;
-	}
+  .slot div {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+  }
 
-	.slot .symbol{
-		width: 35px;
-		height: 35px;
-		line-height: 35px;
-	}
+  .slot .symbol {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
 
-	.slot .operator{
-		width: 35px;
-		height: 35px;
-		line-height: 35px;
-	}
+  .slot .operator {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
 }
 
 @media only screen and (max-width: 750px) {
-	#target-number{
-		width: 20%;
-		height: 60px;
-		line-height: 60px;
-	}
-
-	#btn-validate{
-		width: 20%;
-		height: 60px;
-	}
+  #target-number {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+  }
 }
 
 @media only screen and (max-width: 650px) {
-	.btn-operator {
-	  width: 55px;
-		height: 55px;
-	}
+  .btn-operator {
+    width: 55px;
+    height: 55px;
+  }
 
-	.selected-op{
-		width: 65px;
-		height: 65px;
-	}
+  .selected-op {
+    width: 65px;
+    height: 65px;
+  }
 
-	.btn-number {
-	  width: 55px;
-		height: 55px;
-		line-height: 55px;
-		font-size: 20px;
-	}
+  .btn-number {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 20px;
+  }
 
-	.btn-number:hover {
-	  font-size: 30px;
-	}
+  .btn-number:hover {
+    font-size: 30px;
+  }
 
-	.selected-num{
-		font-size: 30px;
-	}
+  .selected-num {
+    font-size: 30px;
+  }
 
-	.details-area-section {
-		height: 60px;
-	}
+  .details-area-section {
+    height: 60px;
+  }
 
-	.details-area-section .detail-content div {
-		line-height: 60px;
-		font-size: 20px;
-	}
+  .details-area-section .detail-content div {
+    line-height: 60px;
+    font-size: 20px;
+  }
 
-	.slot div{
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		font-size: 20px;
-	}
+  .slot div {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
 
-	.slot .symbol{
-		width: 25px;
-		height: 25px;
-		line-height: 25px;
-	}
+  .slot .symbol {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
 
-	.slot .operator{
-		width: 25px;
-		height: 25px;
-		line-height: 25px;
-	}
+  .slot .operator {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
 }
-
 
 @media only screen and (max-height: 450px) {
+  .details-area-section {
+    height: 45px;
+  }
 
-	.details-area-section {
-		height: 45px;
-	}
+  .details-area-section .detail-content div {
+    line-height: 45px;
+    font-size: 20px;
+  }
 
-	.details-area-section .detail-content div {
-		line-height: 45px;
-		font-size: 20px;
-	}
+  #target-number {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    background-size: 70%;
+  }
 
-	#target-number{
-		width: 20%;
-		height: 40px;
-		line-height: 40px;
-	}
+  .btn-operator {
+    width: 50px;
+    height: 50px;
+  }
 
-	#btn-validate{
-		width: 20%;
-		height: 40px;
-	}
+  .selected-op {
+    width: 60px;
+    height: 60px;
+  }
 
-	.btn-operator {
-	  width: 50px;
-		height: 50px;
-	}
+  .btn-number {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 20px;
+  }
 
-	.selected-op{
-		width: 60px;
-		height: 60px;
-	}
+  .btn-number:hover {
+    font-size: 30px;
+  }
 
-	.btn-number {
-	  width: 55px;
-		height: 55px;
-		line-height: 55px;
-		font-size: 20px;
-	}
+  .selected-num {
+    font-size: 30px;
+  }
 
-	.btn-number:hover {
-	  font-size: 30px;
-	}
+  .slot div {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
 
-	.selected-num{
-		font-size: 30px;
-	}
+  .slot .symbol {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
 
-	.slot div{
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		font-size: 20px;
-	}
-
-	.slot .symbol{
-		width: 25px;
-		height: 25px;
-		line-height: 25px;
-	}
-
-	.slot .operator{
-		width: 25px;
-		height: 25px;
-		line-height: 25px;
-	}
-
+  .slot .operator {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
 }
 
-
 .palette .row {
-	display: block;
-	margin: 0 0 !important;
-	box-sizing: initial !important;
-	font-size: 10pt;
+  display: block;
+  margin: 0 0 !important;
+  box-sizing: initial !important;
+  font-size: 10pt;
 }
 
 .palette .expand {
-	font-family: sans-serif;
-	font-size: 10pt;
+  font-family: sans-serif;
+  font-size: 10pt;
 }
 
 .palette input#title.expand {
-	font-family: system-ui;
-	font-size: 11px;
-	width: 245px;
-	color: black;
+  font-family: system-ui;
+  font-size: 11px;
+  width: 245px;
+  color: black;
 }
 
 .palette textarea#description.expand {
-	font-family: system-ui;
-	font-size: 11px;
-	width: 255px;
-	color: black;
+  font-family: system-ui;
+  font-size: 11px;
+  width: 255px;
+  color: black;
 }
 
 .palette input[type='text'].expand {
-	font-family: system-ui;
-	font-size: 11px;
+  font-family: system-ui;
+  font-size: 11px;
 }
 
 .palette .container {
-	box-sizing: initial;
+  box-sizing: initial;
 }
 
 .palette .wrapper {
-	font-size: 10pt;
-	box-sizing: initial;
-	min-width: 70px;
+  font-size: 10pt;
+  box-sizing: initial;
+  min-width: 70px;
 }
 
 .palette *, ::after, ::before {
-	box-sizing: initial;
+  box-sizing: initial;
 }
 
 .palette-item {
-	cursor: pointer;
-	padding: 10px;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .palette-item:hover {
-	background-color: #808080;
+  background-color: #808080;
 }
 
 .palette-icon {
-	width: 50px;
+  width: 50px;
 }
 
 .template-col {
-	padding-left: 20px;
-	padding-right: 25px;
-	padding-top: 10px;
-	padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .template-item {
-	background-color: white;
-	border: 1px solid black;
-	box-shadow: 8px 8px 8px #888888;
-	display: inline-table;
-	font-size: 1.25em;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 8px 8px 8px #888888;
+  display: inline-table;
+  font-size: 1.25em;
 }
 
 #spinner {
-	position: absolute;
-	margin-left: 45%;
-	margin-top: 20%;
-	width: 8%;
+  position: absolute;
+  margin-left: 45%;
+  margin-top: 20%;
+  width: 8%;
 }
 
 .popup-input {
-	border-radius: 22px;
-	height: 30px;
-	width: 400px;
-	background-color: #e5e5e5;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 10pt;
-	display: inline-block;
+  border-radius: 22px;
+  height: 30px;
+  width: 400px;
+  background-color: #e5e5e5;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 10pt;
+  display: inline-block;
 }
 
 .popup-label {
-	color: #808080;
-	margin-bottom: 5px;
-	display: inline-block;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 10px;
+  color: #808080;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
 }
 
 .tutorial-icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	background-color: #808080;
-	border: 2px solid #808080;
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
 }
 
 .tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+  background-color: #808080 !important;
+  color: #ffffff !important;
 }
 
 .tutorial-prev-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-prev-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-prev-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-prev-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-prev-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-next-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-next-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-next-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-next-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-next-icon2 {
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-next-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-end-icon {
-	display: inline-flex;
-	width: 90px;
+  display: inline-flex;
+  width: 90px;
 }
 
 .tutorial-end-icon.tutorial-icon-button {
-	color: white;
+  color: white;
 }
 
 .tutorial-end-icon.tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-end-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-end-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
 }
 
 .tutorial-icon-text {
-	margin-top: 7px;
-	padding-left: 4px;
-	padding-right: 38px;
-	display: inline-block;
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
 }

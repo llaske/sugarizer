@@ -11,42 +11,122 @@ var app = new Vue({
   el: '#app',
   components: {
     'game': Game,
+    'result': Result,
   },
   data: function() {
     return {
       currentScreen: "game",
+      strokeColor: '#f0d9b5',
+      fillColor: '#b58863',
       currentenv: null,
       SugarL10n: null,
       SugarPresence: null,
-
+      score: 0,
+      clock: {
+        active: false,
+        previousTime: null,
+        time: 0,
+        timer: false,
+      },
+      questions: [
+        {
+          inputNumbers: [1,2,2,9,12],
+          targetNum: 3,
+          difficulty: 'medium',
+          compulsoryOp: null,
+          bestSoln: [12,2,'+',2,'x',1,'-',9,'/'],
+        },
+      ],
+      qNo:0,
     }
   },
-  mounted: function () {
+  mounted: function() {
     var vm = this;
-    window.addEventListener('resize',function () {
-      vm.$refs.currentScreen.resize();
-    })
     document.getElementById("main-toolbar").style.opacity = 1;
     window.dispatchEvent(new Event('resize'));
   },
+  watch: {
+    currentScreen: function(newVal) {
+      var vm = this;
+      if (newVal === 'game') {
+        //end-icon
+        document.getElementById('game-button').style.backgroundImage = 'url(./icons/end-icon.svg)';
+        //Initialize clock
+        vm.$set(vm.clock, 'time', 0);
+        vm.$set(vm.clock, 'active', true);
+        vm.$set(vm.clock, 'previousTime', new Date());
+        vm.tick();
+      } else {
+        document.getElementById('game-button').style.backgroundImage = 'url(./icons/restart.svg)';
+        //new-icon
+      }
+    }
+  },
   methods: {
-		initialized: function() {
+    initialized: function() {
+      var vm = this;
       // Initialize Sugarizer
-			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-			//document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
-      document.getElementById('app').style.background = this.currentenv.user.colorvalue.stroke;
-      document.querySelector('.slots-area-panel').style.background = this.currentenv.user.colorvalue.fill;
-      document.querySelector('.game-area-panel').style.background = this.currentenv.user.colorvalue.fill;
-      for (var i = 0; i < 4; i++) {
-        document.querySelectorAll('.btn-operator')[i].style.backgroundColor = this.currentenv.user.colorvalue.stroke;
-        document.querySelectorAll('.slot .operator')[i].style.backgroundColor = this.currentenv.user.colorvalue.stroke;
-        //document.querySelectorAll('.btn-operator')[i].style.color = this.currentenv.user.colorvalue.fill;
-      }
-      for (var i = 0; i < 2; i++) {
-        document.querySelectorAll('.details-area-section .detail-block')[i].style.backgroundColor = this.currentenv.user.colorvalue.stroke;
-        document.querySelectorAll('.details-area-section .detail-content')[i].style.backgroundColor = this.currentenv.user.colorvalue.stroke;
-      }
+      vm.currentenv = vm.$refs.SugarActivity.getEnvironment();
+      //document.getElementById('app').style.background = vm.currentenv.user.colorvalue.fill;
+      document.getElementById('app').style.background = vm.currentenv.user.colorvalue.stroke;
+      vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
+      vm.fillColor = vm.currentenv.user.colorvalue.fill;
+
+      //Initialize clock
+      vm.$set(vm.clock, 'time', 0);
+      vm.$set(vm.clock, 'active', true);
+      vm.$set(vm.clock, 'previousTime', new Date());
+      vm.tick();
 
     },
-	}
+    onEndGame: function(data) {
+      var vm = this;
+      //stop timer
+      vm.clock.active = false;
+      //calculate score
+      //change currentScreen
+      vm.currentScreen = "result"
+    },
+    tick: function() {
+      var vm = this;
+
+      if (vm.clock.active) {
+        var currentTime = new Date();
+        if (currentTime - vm.clock.previousTime >= 1000) {
+          vm.clock.previousTime = currentTime;
+
+          if (vm.clock.timer) {
+            vm.clock.time--;
+          } else {
+            vm.clock.time++;
+          }
+        }
+      }
+
+      requestAnimationFrame(vm.tick.bind(vm));
+    },
+    handleGameButton: function () {
+      var vm = this;
+      if (vm.currentScreen === 'game') {
+        //stop timer
+        vm.clock.active = false;
+        //change currentScreen
+        vm.currentScreen = "result";
+      }
+      else {
+        // generate question set,
+        var questions = [{
+          inputNumbers: [1, 2, 2, 9, 12],
+          targetNum: 3,
+          difficulty: 'medium',
+          compulsoryOp: null,
+          bestSoln: [12, 2, '+', 2, 'x', 1, '-', 9, '/'],
+        }];
+
+        vm.questions = questions;
+        //change currentScreen
+        vm.currentScreen = "game";
+      }
+    }
+  }
 });
