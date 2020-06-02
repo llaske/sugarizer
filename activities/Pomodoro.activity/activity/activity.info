@@ -1,5 +1,5 @@
 [Activity]
-name = Pomodoro Activity
+name = Pomodoro
 activity_version = 1
 bundle_id = org.sugarlabs.PomodoroActivity
 exec = sugar-activity-web

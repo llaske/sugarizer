@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed Sep 06 2017 16:05:52 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-10 19:22+0000\n"
+"PO-Revision-Date: 2020-02-28 13:39+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-sharednotes/pt/>\n"
@@ -73,7 +73,7 @@ msgstr "Próximo"
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "Finalizar"
+msgstr "Fim"
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"

@@ -76,6 +76,24 @@ enyo.kind({
 			this.$.items.createComponent(
 				{ kind: "TamTam.Piano"},
 				{ owner: this }
+			).render();
+
+		} else if(simonMode){
+			document.getElementById("body").style.backgroundColor = '#ffffff';
+			this.$.collections.applyStyle("background-color", '#ffffff');
+
+			if(currentSimonMode !== null) {
+				var item = this.$.items.createComponent(
+					{ kind: "TamTam.Item", name: currentSimonMode},
+					{ owner: this }
+				).render();
+				item.applyStyle("background-color", this.userColor.stroke);
+				item.render();
+			}
+
+			this.$.items.createComponent(
+				{ kind: "TamTam.Simon"},
+				{ owner: this }
 			).render();	
 
 		} else {
@@ -103,7 +121,7 @@ enyo.kind({
 			}
 		}
 	},
-	
+
 	updateItem: function(sender, event) {
 		if(this.openItems[event.toChange] !== undefined) {
 			this.openItems[event.toChange].deselect();
@@ -112,9 +130,6 @@ enyo.kind({
 
 	// Handle event
 	changeCollection: function(s, e) {
-		// Stop sound
-		sound.pause();
-
 		// Select the collection
 		var len = TamTam.collections.length;
 		for(var i = 0 ; i < len ; i++) {
@@ -127,12 +142,57 @@ enyo.kind({
 	},
 
 	changePianoMode: function(e) {
-		pianoMode = !pianoMode;
+		pianoMode = true;
+		simonMode = false;
+		document.getElementById('piano-button').classList.add('active');
+		document.getElementById('simon-button').classList.remove('active');
+		document.getElementById('instruments-button').classList.remove('active');
+		this.draw();
+	},
+
+	changeSimonMode: function(e) {
+		simonMode = true;
+		pianoMode = false;
+		document.getElementById('simon-button').classList.add('active');
+		document.getElementById('piano-button').classList.remove('active');
+		document.getElementById('instruments-button').classList.remove('active');
+		this.draw();
+	},
+
+	changeInstrumentsMode: function(e) {
+		simonMode = false;
+		pianoMode = false;
+		document.getElementById('instruments-button').classList.add('active');
+		document.getElementById('piano-button').classList.remove('active');
+		document.getElementById('simon-button').classList.remove('active');
+		this.draw();
+	},
+
+	setContext: function(context){
+		pianoMode = context.piano;
+		currentPianoMode = context.currentPianoMode;
+		simonMode = context.simon;
+		currentSimonMode = context.currentSimonMode;
+
+		if(simonMode) {
+			document.getElementById('simon-button').classList.add('active');
+			document.getElementById('piano-button').classList.remove('active');
+			document.getElementById("instruments-button").classList.remove('active');
+		}
+
 		if(pianoMode) {
 			document.getElementById('piano-button').classList.add('active');
-		} else {
-			document.getElementById('piano-button').classList.remove('active');
+			document.getElementById('simon-button').classList.remove('active');
+			document.getElementById("instruments-button").classList.remove('active');
 		}
-		this.draw();
+	},
+
+	getContext: function(){
+		return {
+			piano: pianoMode,
+			currentPianoMode: currentPianoMode,
+			simon: simonMode,
+			currentSimonMode: currentSimonMode,
+		}
 	}
 });

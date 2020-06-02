@@ -6,7 +6,7 @@ function Paladict (dict) {
     this.dict = [].concat(_dict);
   }
   this.getRandomWord = function () {
-    let no = Math.floor(Math.random() * this.dict.length);
+    var no = Math.floor(Math.random() * this.dict.length);
     return this.dict[no];
   }
 

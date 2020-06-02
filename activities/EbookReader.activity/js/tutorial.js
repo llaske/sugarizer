@@ -14,6 +14,8 @@ var Tutorial = {
 				stringTutoBookContent: '',
 				stringTutoLibraryButtonTitle: '',
 				stringTutoLibraryButtonContent: '',
+				stringTutoContentsButtonTitle: '',
+				stringTutoContentsButtonContent: '',
 				stringTutoSettingsButtonTitle: '',
 				stringTutoSettingsButtonContent: '',
 				stringTutoFullscreenButtonTitle: '',
@@ -54,6 +56,12 @@ var Tutorial = {
 					placement: "bottom",
 					title: this.l10n.stringTutoLibraryButtonTitle,
 					content: this.l10n.stringTutoLibraryButtonContent
+				},
+				{
+					element: options.contentsbutton,
+					placement: "bottom",
+					title: this.l10n.stringTutoContentsButtonTitle,
+					content: this.l10n.stringTutoContentsButtonContent
 				},
 				{
 					element: options.settingsbutton,

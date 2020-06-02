@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:31:33 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-02-28 13:41+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-clock/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: SimpleClock
 msgctxt "SimpleClock"
@@ -146,17 +148,17 @@ msgstr "Dezembro"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -191,7 +193,7 @@ msgstr "Clique neste ícone para alterar a aparência do relógio para o modo si
 #: TutoNiceTitle
 msgctxt "TutoNiceTitle"
 msgid "Nice Clock"
-msgstr "Nice Clock"
+msgstr "Relógio legal"
 
 #: TutoNiceContent
 msgctxt "TutoNiceContent"
@@ -216,7 +218,7 @@ msgstr "Mostrar data"
 #: TutoDateContent
 msgctxt "TutoDateContent"
 msgid "Click this icon to also display the current date"
-msgstr ""
+msgstr "Clique neste ícone para exibir a data atual"
 
 #: TutoSetTimeTitle
 msgctxt "TutoSetTimeTitle"
@@ -237,4 +239,3 @@ msgstr "Jogo de hora marcada"
 msgctxt "TutoSetTimeGameContent"
 msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
 msgstr "Clique neste ícone para alternar para o modo de hora definida"
-

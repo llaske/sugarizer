@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-02-28 13:55+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-write/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -209,17 +211,17 @@ msgstr "Export to ODT"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -304,7 +306,7 @@ msgstr "Click here to increase font size"
 #: TutoFontTitle
 msgctxt "TutoFontTitle"
 msgid "Font"
-msgstr "Font"
+msgstr "Fonte"
 
 #: TutoFontContent
 msgctxt "TutoFontContent"
@@ -334,7 +336,7 @@ msgstr "Click here to insert into the document an image from Journal"
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr "Undo"
+msgstr "Desfazer"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
@@ -344,7 +346,7 @@ msgstr "Click here to undo last action"
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr "Redo"
+msgstr "Refazer"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
@@ -420,4 +422,3 @@ msgstr "Subscript"
 msgctxt "TutoSubContent"
 msgid "Click here to fortmat text as a subcript: i.e. under the current line of text"
 msgstr "Click here to fortmat text as a subcript: i.e. under the current line of text"
-

@@ -22,7 +22,7 @@ define(["sugar-web/graphics/palette",
 
         this.sizeScale = containerElem.querySelector('#sizevalue');
 
-        this.sizeScale.onclick = function(){
+        this.sizeScale.oninput = function(){
           var val = this.value;
           var newCols = val*20;
           var newRows = val*10;
