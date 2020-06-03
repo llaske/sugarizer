@@ -179,9 +179,7 @@
 }
 
 /**Planet List on Homepage**/
-#planets-list{
-  margin-left: 150px;
-}
+
 .planets{
   display: -webkit-inline-box;
   height: 250px;
@@ -275,4 +273,13 @@ canvas {
   z-index: 100;
   display:block;
   color: white;
+}
+
+.planet-div {
+  position: absolute;
+  z-index: 100;
+  display: block;
+  height: 20px;
+  top: 300px;
+
 }
