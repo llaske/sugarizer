@@ -207,6 +207,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			textValue.style.top = (55 + position.y + delta) + "px";
 			textValue.style.width = 190 * zoom + "px";
 			textValue.style.height = 190 * zoom + "px";
+			textValue.style.resize = 'none';
 			if (textValue.value == defaultText)
 				textValue.setSelectionRange(0, textValue.value.length);
 			else
