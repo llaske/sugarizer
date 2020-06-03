@@ -32,12 +32,12 @@ var app = new Vue({
 			setTimeout(function() {
 				content.scrollTo(0, 0);
 			}, 200);
-			// Switch to user color on categories-grid
+			/*// Switch to user color on categories-grid
 			if(newVal == 'categories-grid') {
 				document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 			} else {
 				document.getElementById('app').style.background = 'white';
-			}
+			}*/
 			// Close all open palettes
 			for(var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
@@ -61,7 +61,7 @@ var app = new Vue({
 	methods: {
 		initialized: function () {
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-			document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
+			// document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 		},
 
 		openCategory: function (categoryId) {

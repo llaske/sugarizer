@@ -98,10 +98,10 @@ var SkillsGrid = {
 var SkillDetails = {
 	/*html*/
 	template: `
-		<skills-layout :category="category" backTo="skills-grid" @go-back-to="$emit('go-back-to', $event)">
+		<div class="">
+			<div id="back-button" @click="goBackTo"></div>
 			<div class="skill-details">
 				<div class="skill-info-container">
-					<img :src="skill.image" class="skill-image">
 					<div class="skill-info">
 						<h1>
 							{{ skill.title }}
@@ -109,11 +109,17 @@ var SkillDetails = {
 						</h1>
 						<p>{{ skill.description }}</p>
 					</div>
+					<img :src="skill.image" class="skill-image">
 				</div>
 				<div class="skill-uploads">
-					<flag :raised="currentAcquired"></flag>
+					<!-- <flag :raised="currentAcquired"></flag> -->
 					<div class="uploads">
-						<upload-item 
+						<div class="upload-preview" :class="{ 'uploaded': uploads.length != 0 }">
+							<div ref="uploadPreview" class="preview-icon"></div>
+							<p v-if="uploads.length == 0">No uploads for this skill</p>
+							<p v-else>{{ uploads.length }}</p>
+						</div>
+						<upload-item
 							v-for="item in uploads" 
 							:key="item.timestamp" 
 							:item="item" 
@@ -122,7 +128,7 @@ var SkillDetails = {
 					</div>
 				</div>
 			</div>
-		</skills-layout>
+		</div>
 	`,
 	components: {
 		'skills-layout': SkillsLayout,
@@ -158,6 +164,10 @@ var SkillDetails = {
 	mounted: function () {
 		//Handling styles
 		this.$refs.underline3.style.background = this.category.color;
+		var vm = this;
+		requirejs(["sugar-web/graphics/icon"], function(icon) {
+			icon.colorize(vm.$refs.uploadPreview, { fill: "#d3d3d3", stroke: "#d3d3d3" })
+		})
 	},
 	methods: {
 		sortUploads: function(array) {
@@ -165,6 +175,9 @@ var SkillDetails = {
 				return b.timestamp - a.timestamp;
 			});
 			return array;
+		},
+		goBackTo: function() {
+			this.$emit('go-back-to', 'skills-grid');
 		}
 	}
 }

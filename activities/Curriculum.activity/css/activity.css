@@ -15,10 +15,11 @@ p {
 #app {
 	min-height: 100%;
 	background: white;
-	transition: background 400ms ease;
+	/* transition: background 400ms ease; */
 }
 
 #content {
+	position: relative;
 	height: calc(100vh - 55px);
 	overflow: auto;
 }
@@ -131,7 +132,8 @@ p {
 	text-align: center;
 	color: black;
 	/* -webkit-text-stroke: 1px black; */
-	font-size: 2em;
+	font-size: 1.5em;
+	/* mix-blend-mode: difference; */
 }
 .category-skills {
 	display: flex;
@@ -184,10 +186,22 @@ p {
 	min-height: calc(100vh - 55px);
 	padding: 0 8vw;
 }
+#back-button {
+	background: url(../icons/go-left.svg) no-repeat;
+	background-size: cover;
+	/* position: absolute;
+	top: 10px;
+	left: 2vw; */
+	margin: 10px;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}
 .skills #back-button {
 	position: absolute;
 	top: 10px;
 	left: 2vw;
+	height: 50px;
 	cursor: pointer;
 }
 .skills .category-title, .skill {
@@ -276,23 +290,25 @@ p {
 
 .skill-details {
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-	margin-top: 40px;
-	padding: 20px;
+	/* margin-top: 40px; */
+	padding: 20px 10vw;
 	border-radius: 20px;
 }
 .skill-info-container, .skill-uploads  {
-	display: flex;
+	/* display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
+	align-items: center; */
 }
 .skill-info-container .skill-image {
 	flex: 1;
-	width: 100%;
+	min-width: 50%;
+	display: block;
+	margin: 0 auto;
 }
 .skill-info-container .skill-info {
 	flex: 2;
-	padding: 20px;
+	text-align: center;
 	min-width: 200px;
 }
 .skill-info-container .skill-info h1 {
@@ -313,19 +329,44 @@ p {
 	flex: 1;
 	min-width: 100px;
 }
+
 .skill-uploads .uploads {
 	flex: 2;
-	min-height: 100px;
-	max-height: 300px;
-	min-width: 200px;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
+	position: relative;
+	min-height: 400px;
+	max-height: 50vh;
+	/* min-width: 200px; */
+	align-items: center;
 	overflow: auto;
 	padding: 20px;
 	background: #EFEFEF;
 	border-radius: 20px;
 }
-
+.upload-preview .preview-icon {
+	background: url(../icons/upload.svg) no-repeat;
+	background-size: cover;
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+.upload-preview p {
+	color: grey;
+	font-weight: bold;
+}
+.upload-preview.uploaded {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	display: flex;
+	align-items: center;
+}
+.upload-preview.uploaded .preview-icon {
+	width: 40px;
+	height: 40px;
+}
 .flag {
 	position: relative;
 	margin: 20px 0;
