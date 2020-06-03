@@ -17,7 +17,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 		controls.target.set(0,0,0);
 
 		//Planet Information
-		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Radius"];
+		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Radius", "SunDistance"];
 		var planet = planets;
 
 		//Containers
@@ -32,6 +32,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 		var distance = -96;
 		var textDistance =11.5;
 		var frustumSize = 5;
+
+		//Detect clicked planet in planet position view
+		var fromPlanetPosClicked = false;
 
 		//Back Button to go back to homepage
 		var backButton = document.createElement("div");
@@ -52,9 +55,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 		planetPos.style.display="none";
 
 
-		//Init Sun
-		initPosition("Sun", "Star", null);
-
 		var currentenv;
 		env.getEnvironment(function(err, environment){
 			currentenv = environment;
@@ -63,6 +63,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : currentLang;
 			l10n.language.code = language;
+
+			//Init Sun
+			initPosition("Sun", "Star", null);
 
 			for (var i = 0; i < planet.length; i ++){
 				var planetList = document.createElement('div');
@@ -81,8 +84,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				planetName.innerHTML = '<p>' + planet[i].name + '</p>';
 				document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
-				initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius);
-				initPosition(planet[i].name, planet[i].type, planet[i].distancefromsun);
+				initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
+				initPosition(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
 
 				// Switch to fullscreen mode on click
 				document.getElementById("fullscreen-button").addEventListener('click', function() {
@@ -103,6 +106,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				document.getElementById("list-button").addEventListener("click", function(){
 					homeDisplay.style.display="block";
 					planetPos.style.display="none";
+					fromPlanetPosClicked = false;
 					distance = -80;
 					requestAnim = false;
 					textDistance = 3.5;
@@ -120,7 +124,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 				if (error==null && data!=null) {
 					saveData = JSON.parse(data);
-						if (saveData[0] === true){
+					console.log(saveData[1]);
+						if (saveData[0] === true && currentview !== "ExploreView"){
 							document.getElementById("position-button").click();
 						}
 						else{
@@ -135,8 +140,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 								}
 							}
 						}
-
-
 				}
 			});
 
@@ -165,11 +168,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 
 		//Show planet function
-		function initPlanet(name, type, year, mass, temperature, moons, radius){
+		function initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance){
 
 			//Variable action detectors
 			var showInfo = true;
-			var stopRotation;
+			var isRotating = false;
 			var requestAnim;
 			var save;
 
@@ -232,7 +235,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 			}
 
-
 			//For planets with terrain, add bumps
 			if (type === "Terrestrial"){
 				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
@@ -245,11 +247,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			document.getElementById("rotation-button").classList.add("active");
 			document.getElementById("info-button").classList.add("active");
 
-			//When click on a planet, show more info about that planet
-			document.getElementById("planet-" + name).addEventListener("click", function(){
+
+			//Function for creating planet models
+			createPlanet = function(){
 
 				//Show planet display
-				stopRotation = false;
+				isRotating = true;
 				requestAnim = true;
 				mainCanvas.style.backgroundColor = "#c0c0c0";
 				interactContainer.style.display = "block";
@@ -263,6 +266,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				document.getElementById("image-button").style.display = "inline";
 
 				currentview = "ExploreView";
+				saveData[0] = false;
 				saveData[1] = name;
 
 				//Remove previous scene
@@ -293,7 +297,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				camera.position.z = 5;
 
 
-				for (var i = 0; i < 7; i++){
+				for (var i = 0; i < 8; i++){
 					var information = document.createElement('div');
 					information.id = infoType[i];
 					information.className = 'info';
@@ -307,6 +311,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				document.getElementById("Temperature").innerHTML = '<p>' + l10n.get("SurfaceTemperature") + '</br>' + temperature + '</p>';
 				document.getElementById("Moons").innerHTML = '<p>' + l10n.get("NumberOfMoons") + '</br>' + moons + '</p>';
 				document.getElementById("Radius").innerHTML = '<p>' + l10n.get("PlanetRadius") + '</br>' + radius + '</p>';
+				document.getElementById("SunDistance").innerHTML = '<p>' + l10n.get("SunDistance") + '</br>' + sunDistance + '</p>';
 
 				saveImage = function(){
 
@@ -343,7 +348,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 						cancelAnimationFrame(animatePlanet);
 					}
 
-					if (stopRotation === false){
+					if (isRotating === true){
 						planetMesh.rotation.y += 0.1 * Math.PI/180;
 					}
 
@@ -368,26 +373,34 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				}
 
 
-
 				document.getElementById("image-button").addEventListener("click", function(){
 					save = true;
 					saveImage();
 				});
+
 				animatePlanet();
-			});
+			}
+
+			if (fromPlanetPosClicked !== false){
+				createPlanet();
+			}
+			else{
+				//When click on a planet, show more info about that planet
+				document.getElementById("planet-" + name).addEventListener("click", createPlanet);
+			}
 
 			//Toggle Planet rotation
 			document.getElementById("rotation-button").addEventListener("click", function(){
 
-				if (stopRotation === false){
-					stopRotation = true;
-					document.getElementById("rotation-button").classList.add("active");
-				} else{
-					stopRotation = false;
+				if (isRotating){
+					isRotating = false;
 					document.getElementById("rotation-button").classList.remove("active");
+				} else{
+					isRotating = true;
+					document.getElementById("rotation-button").classList.add("active");
 				}
 
-				saveData[2] = stopRotation;
+				saveData[2] = isRotating;
 
 			});
 
@@ -418,29 +431,43 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//Back button to go back to planet list view
 			backButton.addEventListener("click", function(){
-				interactContainer.style.display = "none";
-				homeDisplay.style.display = "block";
-				mainCanvas.style.backgroundColor = "black";
-				currentview = "ListView";
+
 				saveData[1] = null;
-				stopRotation = true;
+				isRotating = false;
 				requestAnim = false;
+
+				interactContainer.style.display = "none";
+				mainCanvas.style.backgroundColor = "black";
+
 				document.getElementById("rotation-button").style.display = "none";
 				document.getElementById("info-button").style.display = "none";
 				document.getElementById("image-button").style.display = "none";
-				document.getElementById("position-button").style.display = "inline";
 
-
-				//Remove previous scene
-				while(scene.children.length > 0){
-					 scene.remove(scene.children[0]);
-				};
-
+				//Go back to Planet Pos view if planets are clicked from that View
+				// else go back to Planet List View
+				if (fromPlanetPosClicked && currentview === "ExploreView"){
+					while(scene.children.length > 0){
+						 scene.remove(scene.children[0]);
+					};
+					document.getElementById("position-button").style.display="none";
+					homeDisplay.style.display="none";
+					planetPos.style.display="block";
+					document.getElementById("position-button").click();
+					fromPlanetPosClicked = false;
+				}
+				else if (currentview != "PositionView"){
+					while(scene.children.length > 0){
+						 scene.remove(scene.children[0]);
+					};
+					currentview = "ListView";
+					document.getElementById("position-button").style.display = "inline";
+					homeDisplay.style.display = "block";
+				}
 
 			});
 		}
 
-		function initPosition(name, type, sunDistance){
+		function initPosition(name, type, year, mass, temperature, moons, radius, sunDistance){
 
 			var planetSize;
 			var requestAnim;
@@ -469,6 +496,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			var geometry = new THREE.SphereGeometry(planetSize, 32, 32);
 			var material = new THREE.MeshBasicMaterial({
 				map: loadTexture,
+				side: THREE.DoubleSide,
 			});
 			var light = new THREE.DirectionalLight(0xffffff);
 			var lightHolder = new THREE.Group();
@@ -524,6 +552,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
 				material.bumpMap = new THREE.TextureLoader().load(bumpUrl);
 				material.bumpScale = 0.1;
+
+				//Add div to planets. This will be used for clicking smaller planets
+				var planetDiv = document.createElement("div");
+				planetDiv.id = "div-" + name;
+				planetDiv.className = "planet-div";
+			//	planetDiv.style.backgroundColor = "#FFFFFF";
+				planetPos.appendChild(planetDiv);
+				document.getElementById("div-" + name).style.padding = "2%";
+				document.getElementById("div-" + name).style.marginLeft = textDistance - 1 + "%";
 			}
 
 			if (name !== "Sun"){
@@ -534,14 +571,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				planetNewName.innerHTML = name;
 				planetPos.appendChild(planetNewName);
 				document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
-
-				//Add distance from Sun
-				var planetDistance = document.createElement("div");
-				planetDistance.id = "distance-" + name;
-				planetDistance.className = "planet-distance";
-				planetDistance.innerHTML = sunDistance;
-				planetPos.appendChild(planetDistance);
-				document.getElementById("distance-" + name).style.marginLeft = textDistance - 1.5 + "%";
 			}
 
 
@@ -574,12 +603,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			}
 
 			planetMesh.position.x = distance;
-
+			planetMesh.name = name;
+			planetMesh.userData.typeOfPlanet = type;
+			planetMesh.userData.year = year;
+			planetMesh.userData.mass = mass;
+			planetMesh.userData.temperature = temperature;
+			planetMesh.userData.moons = moons;
+			planetMesh.userData.radius = radius;
+			planetMesh.userData.sunDistance = sunDistance;
 
 			//Show planet position and distance from Sun
-			document.getElementById("position-button").addEventListener("click", function(){
+			document.getElementById("position-button").addEventListener("click", function(e){
+
 				var aspect = planetPos.clientHeight/planetPos.clientWidth;
 				var camera = new THREE.OrthographicCamera( frustumSize / - 20, frustumSize / 20, frustumSize * aspect / 20, frustumSize * aspect / - 20, -500, 2000 );
+				var raycaster = new THREE.Raycaster();
+				var mouse = new THREE.Vector2();
+
 
 				//Show necessary buttons and hide unused buttons
 				document.getElementById("position-button").style.display="none";
@@ -620,6 +660,33 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				camera.zoom = 0.0026;
 				camera.updateProjectionMatrix();
 
+				clickMesh = function ( e ) {
+					e.preventDefault();
+
+					canvasBounds = planetPos.getBoundingClientRect();
+			    mouse.x =  ( (e.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left ) )* 2 - 1;
+			    mouse.y = - ( (e.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+
+			    raycaster.setFromCamera( mouse, camera );
+
+			    var intersects = raycaster.intersectObjects( scene.children );
+
+			    for ( var i = 0; i < intersects.length; i++ ) {
+						if(intersects[i].object.name !== "Sun"){
+							planetPos.style.display = "none";
+							fromPlanetPosClicked = true;
+							initPlanet(
+								intersects[i].object.name, intersects[i].object.userData.typeOfPlanet,
+								intersects[i].object.userData.year, intersects[i].object.userData.mass,
+								intersects[i].object.userData.temperature, intersects[i].object.userData.moons,
+								intersects[i].object.userData.radius, intersects[i].object.userData.sunDistance
+							);
+						}
+
+			    }
+
+				}
+
 				animatePlanet = function() {
 					if (resizePlanet(renderer)){
 						var aspect = planetPos.clientHeight / planetPos.clientWidth;
@@ -633,13 +700,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					}
 
 					camera.updateProjectionMatrix();
-					if (requestAnim === true){
-						requestAnimationFrame(animatePlanet)
+
+
+					if (requestAnim === true && currentview !== "ExploreView"){
+						requestAnimationFrame(animatePlanet);
 					}
-					else{
-						cancelAnimationFrame(animatePlanet);
-					}
-					renderer.render(scene,camera);
+
+					renderer.render(scene, camera);
 				}
 
 				resizePlanet = function(renderer) {
@@ -652,6 +719,26 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 						renderer.setSize( planetPos.clientWidth, planetPos.clientHeight );
 					}
 					return needResize;
+				}
+
+				renderer.domElement.addEventListener( 'click', clickMesh, false );
+
+
+				//For Smaller Planets
+				if (document.getElementById("div-" + name) !== null){
+					document.getElementById("div-" + name).addEventListener('click', function(){
+						planetPos.style.display = "none";
+						currentview = "ExploreView";
+						fromPlanetPosClicked = true;
+
+						//There was a bug where the planets rotate faster and faster on each click
+						//By setting requestAnim to false, initPlanet will stop initializaing, as it causes the bug
+						if (requestAnim){
+							initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance);
+						}
+
+						requestAnim = false;
+					});
 				}
 
 				animatePlanet();
