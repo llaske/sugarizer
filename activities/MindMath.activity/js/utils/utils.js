@@ -45,7 +45,11 @@ function rpnToSlots(pattern) {
  const len = pattern.length
  for (var i = 0; i < len; i++) {
    if (!isNaN(pattern[i])) {
-     stack.push(parseInt(pattern[i]))
+     var obj ={
+       type: 0,
+       val: parseInt(pattern[i])
+     }
+     stack.push(obj)
    }
    else{
      const second = stack.pop()
@@ -54,24 +58,75 @@ function rpnToSlots(pattern) {
      var result;
 
      if (operand === '+') {
-       result =  first + second
+       result =  first.val + second.val
      }
      else if (operand === '*' || operand === 'x') {
-       result =  first * second
+       result =  first.val * second.val
      }
      else if (operand === '-') {
-       result =  first - second
+       result =  first.val - second.val
      }
      else if (operand === '/') {
-       result =  first / second
+       result =  first.val / second.val
      }
 
     // const slot = first + operand + second + '=' + result;
      const slot = [first, operand, second, result];
-     stack.push(result);
+     var obj = {
+       type:1,
+       val: result
+     }
+     stack.push(obj);
      slots.push(slot);
 
      }
    }
    return slots
+ }
+
+ function calculateScoreFromSlots(slots, timeTaken) {
+   var scr = 0;
+   map = {}
+   var flag = 0;
+
+   for (var i = 0; i < slots.length; i++) {
+     var slot = slots[i];
+     if (slot.operator != null) {
+       if(!(slot.operator in map)){
+         map[slot.operator] = 1;
+         flag++
+       }
+       if (slot.operator === '+' || (slot.operator === '*' || slot.operator === 'x')) {
+         scr+=1;
+       }
+       else if (slot.operator === '-') {
+         scr+=2
+       }
+       else if (slot.operator === '/') {
+         scr+=3
+       }
+     }
+   }
+
+   if(flag === 4){
+     scr = 13
+   }
+   //considering timeTaken
+   /*if (timeTaken <= 20) {
+     scr += 7;
+   } else if (timeTaken <= 40) {
+     scr += 6;
+   } else if (timeTaken <= 60) {
+     scr += 5;
+   } else if (timeTaken <= 80) {
+     scr += 4;
+   } else if (timeTaken <= 100) {
+     scr += 3;
+   } else if (timeTaken <= 120) {
+     scr += 2;
+   } else if (timeTaken <= 150) {
+     scr += 1;
+   }*/
+
+   return scr;
  }

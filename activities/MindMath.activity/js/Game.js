@@ -3,7 +3,7 @@ var Game = {
     "clock": Clock,
     "slots": Slots,
   },
-  props: ['time','strokeColor','fillColor','question'],
+  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -11,49 +11,45 @@ var Game = {
       >
 
         <div class="game-area-container">
-
-          <div class="details-area-section">
-            <clock ref="clock"
-            v-bind:strokeColor="strokeColor"
-            v-bind:fillColor="fillColor"
-            v-bind:time="time"
-            ></clock>
-
-            <div id="validate-block">
-              <button id="btn-validate"
-              v-bind:class="{
-                'disabled': currentRes != targetNum,
-                'validate': currentRes === targetNum,
-              }"
-              v-bind:style="{backgroundColor: strokeColor}"
-              v-on:click="validate"
-              ></button>
-            </div>
+          <div class="details-bar">
 
             <div class="detail-block"
+            v-if="mode === 'timer'"
             v-bind:style="{backgroundColor: strokeColor}"
-            ><div class="detail-logo score-logo"></div>
-              <div class="detail-content"
-              v-bind:style="{backgroundColor: strokeColor}"
-              ><div class="score">{{ score }}</div>
+            >
+              <div class="detail-block-logo clock-logo"></div>
+              <div class="detail-block-content">
+                <clock
+                v-bind:time="time"
+                ></clock>
+              </div>
+            </div>
+
+            <div id="target-number"
+            >{{ targetNum }}</div>
+
+            <div class="detail-block"
+            v-if="mode === 'timer'"
+            v-bind:style="{backgroundColor: strokeColor}"
+            >
+              <div class="detail-block-logo score-logo"></div>
+              <div class="detail-block-content">
+                <div>{{ score }}</div>
               </div>
             </div>
 
           </div>
 
-
           <div class="list-numbers">
-            <div class="btn-number diamond"
+            <div class="btn-number"
             v-for="(number,index) in inputNumbers"
             v-on:click="onSelectNumber(index)"
-            v-bind:class="{ 'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2 }"
+            v-bind:class="{
+              'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
+              'diamond': inputNumbersTypes[index] === 0
+            }"
             v-bind:key="index"
             >{{ number }}</div>
-          </div>
-
-          <div id="target-container">
-            <div id="target-number"
-            >{{ targetNum }}</div>
           </div>
 
           <div class="list-operators">
@@ -65,7 +61,18 @@ var Game = {
             v-bind:style="{backgroundColor: strokeColor}"
             >{{ operator }}</button>
           </div>
+
+          <div class="footer-bar">
+            <transition name="fade"  mode="out-in">
+              <div id="validate-button"
+              v-on:click="validate"
+              v-if="currentRes === targetNum"
+              ></div>
+            </transition>
+          </div>
+
         </div>
+
       </div>
 
       <div class="slots-area-panel"
@@ -75,14 +82,16 @@ var Game = {
         v-bind:strokeColor="strokeColor"
         v-bind:fillColor="fillColor"
         v-bind:targetNum="targetNum"
+        v-bind:slots="currentSlots"
         ></slots>
       </div>
+
     </div>
   `,
   data: function () {
     return {
-      score:0,
       inputNumbers: [1,12,5,18,9],
+      inputNumbersTypes:[0,0,0,0,0],
       operators: ['+','-','/','x'],
       currentSelectedNums: {
         numIndex1: null,
@@ -92,6 +101,7 @@ var Game = {
       currentSelectedOp: null,
       targetNum: 12,
       currentRes: null,
+      currentSlots: [],
     };
   },
   created: function () {
@@ -105,8 +115,9 @@ var Game = {
   mounted: function () {
     var vm = this;
     //Initialize question
-    vm.inputNumbers = vm.question.inputNumbers;
-    vm.targetNum = vm.question.targetNum;
+    vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+    vm.inputNumbersTypes = [0,0,0,0,0];
+    vm.targetNum = vm.questions[vm.qNo].targetNum;
 
     vm.resize();
   },
@@ -115,16 +126,19 @@ var Game = {
       var vm = this;
       if (newVal === vm.targetNum) {
         document.getElementById('target-number').style.backgroundImage = 'url(./icons/target.svg)';
+        console.log("ok");
       }
       else {
         document.getElementById('target-number').style.backgroundImage = "";
+        console.log("no");
       }
     },
-    question: function (newVal) {
+    questions: function (newVal) {
       var vm = this;
       //Initialize question
-      vm.inputNumbers = newVal.inputNumbers;
-      vm.targetNum = newVal.targetNum;
+      vm.inputNumbers = newVal[vm.qNo].inputNumbers;
+      vm.inputNumbersTypes = [0,0,0,0,0];
+      vm.targetNum = newVal[vm.qNo].targetNum;
     }
   },
   methods: {
@@ -219,26 +233,46 @@ var Game = {
         }
         if (allowedCheck(res)) {
           //filling Slots
-          var nextSlot = vm.$refs.slots.nextSlot;
+          //var nextSlot = vm.$refs.slots.nextSlot;
 
-          vm.$set(vm.$refs.slots.slots[nextSlot], 'num1',  vm.currentSelectedNums.nums[0]);
-          vm.$set(vm.$refs.slots.slots[nextSlot], 'operator',  vm.operators[vm.currentSelectedOp]);
-          vm.$set(vm.$refs.slots.slots[nextSlot], 'num2',  vm.currentSelectedNums.nums[1]);
-          vm.$set(vm.$refs.slots.slots[nextSlot], 'res',  res);
-          vm.$refs.slots.nextSlot++;
+          var slotObj = {
+            num1: {
+              type: null,
+              val: null
+            },
+            operator: null,
+            num2: {
+              type: null,
+              val: null
+            },
+            res: null
+          }
+
+          slotObj.num1.val = vm.currentSelectedNums.nums[0];
+          slotObj.num1.type = vm.inputNumbersTypes[vm.currentSelectedNums.numIndex1];
+          slotObj.operator = vm.operators[vm.currentSelectedOp];
+          slotObj.num2.val = vm.currentSelectedNums.nums[1];
+          slotObj.num2.type = vm.inputNumbersTypes[vm.currentSelectedNums.numIndex2];
+          slotObj.res = res;
+
+          vm.currentSlots.push(slotObj)
 
           //removing from inputNumbers
           var skipIndex1 = vm.currentSelectedNums.numIndex1;
           var skipIndex2 = vm.currentSelectedNums.numIndex2;
           var newNums = removeEntryFromArray(vm.inputNumbers, skipIndex1);
+          var newTypes = removeEntryFromArray(vm.inputNumbersTypes, skipIndex1);
           if (skipIndex1 < skipIndex2) {
             skipIndex2--;
           }
           var newNums = removeEntryFromArray(newNums, skipIndex2);
+          var newTypes = removeEntryFromArray(newTypes, skipIndex2);
           newNums.push(res);
+          newTypes.push(1);
 
           vm.currentRes = res;
           vm.inputNumbers = newNums;
+          vm.inputNumbersTypes = newTypes;
         }
 
         //deselecting
@@ -252,14 +286,14 @@ var Game = {
     validate: function () {
       var vm = this;
       if (vm.currentRes === vm.targetNum) {
+        //var newScore = vm.score + vm.calculateScore();
         var endObj = {
           type: "validate",
-          slots: vm.$refs.slots.slots,
+          slots: vm.currentSlots,
         }
         vm.$emit('end-game', endObj);
       }
     },
-
 
   }
 }

@@ -51,6 +51,10 @@ p {
 }
 
 #main-toolbar #game-button {
+  background-image: url(../icons/restart.svg);
+}
+
+#main-toolbar #pass-button {
   background-image: url(../icons/end-icon.svg);
 }
 
@@ -126,32 +130,9 @@ p {
 	height: 90%;
 	display: flex;
 	justify-content: center;
-	flex-direction: row;
+	/*flex-direction: row;*/
+	flex-direction: column;
 	overflow: auto;
-}
-
-#target-number {
-  width: 100px;
-  height: 100px;
-  font-size: 40px;
-  border-radius: 20%;
-  background-color: transparent;
-  font-weight: bold;
-  border: none;
-  color: black;
-  background-image: url(../icons/target.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 90%;
-  line-height: 100px;
-  transition: width 0.8s, height 0.8s;
-}
-
-#target-container {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 .solution-panel {
@@ -206,16 +187,23 @@ p {
   font-weight: bold;
   background-color: transparent;
   padding: 1%;
-  border: none;
-  border-radius: 50%;
-  color: white;
+  border-radius: 20%;
+	/*border: 4px solid black;*/
+  color: black;
   text-align: center;
   line-height: 100px;
+	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
   transition: background 0.8s;
   transition: width 0.8s, height 0.8s;
+	background-image: url(../icons/square.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
 }
 
 .diamond {
+	box-shadow: none;
+	border: none;
   background-image: url(../icons/diamond.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -227,6 +215,8 @@ p {
 }
 
 .selected-num {
+	border-radius: 50%;
+	border: none;
   font-size: 40px;
   background: rgba(0, 0, 0, 0.3);
 }
@@ -259,17 +249,31 @@ p {
   line-height: 70px;
   border-radius: 20%;
   padding: 1%;
-  border: 2px solid black;
-  color: white;
+  /*border: 2px solid black;*/
+  color: black;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: width 0.8s, height 0.8s;
+	background-image: url(../icons/square.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
 }
 
 .slot .symbol {
   width: 40px;
   height: 40px;
   line-height: 40px;
+  border: none;
+  color: black;
+  background-image: url(../icons/diamond.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  box-shadow: none;
+}
+
+.slot .number {
   border: none;
   color: black;
   background-image: url(../icons/diamond.svg);
@@ -290,13 +294,23 @@ p {
   background-color: #f0d9b5;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+	background-image: none;
 }
 
 .slot .acheived {
-  background-image: url(../icons/target.svg);
+  background-image: url(../icons/target.svg), url(../icons/square.svg);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
+}
+
+.slot .empty-slot{
+	border: none;
+	background-image: url(../icons/empty.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+	box-shadow: none;
 }
 
 .game-area-panel {
@@ -328,10 +342,70 @@ p {
   justify-content: center;
 }
 
-.details-area-section {
+.details-bar {
+	display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 1%;
+}
+
+.detail-block{
+	display: flex;
+  flex-direction: row;
+  justify-content: center;
+	width: 200px;
+	height: 100px;
+	background-color: #f0d9b5;
+  border: none;
+  color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+	font-size: 30px;
+	font-weight: bold;
+	border: none;
+	color: black;
+	text-align: center;
+}
+
+.detail-block-logo {
+	height: 100%;
+	width: 50%;
+
+}
+
+.detail-block-content {
+	height: 100%;
+	width: 50%;
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.clock-logo {
+  background-image: url(../icons/clock.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 90%;
+}
+
+.score-logo {
+  background-image: url(../icons/mark.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 90%;
+}
+
+.footer-bar {
+	display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 1%;
+}
+
+
+/*.details-area-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 1% 4%;
   height: 70px;
 }
@@ -367,20 +441,55 @@ p {
   background-position: center;
 }
 
-.clock-logo {
-  background-image: url(../icons/clock.svg);
-}
 
-.score-logo {
-  background-image: url(../icons/mark.svg);
-}
 
 .detail-content {
   background-color: #f0d9b5;
   width: 60%;
+}*/
+
+#target-number {
+  width: 100px;
+  height: 100px;
+	line-height: 100px;
+  font-size: 40px;
+  border-radius: 20%;
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+  color: black;
+  background-image: url(../icons/target.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+  transition: width 0.8s, height 0.8s;
+	text-align: center;
 }
 
-#validate-block {
+#target-container {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#validate-button {
+  width: 100px;
+  height: 100px;
+  border: none;
+  background-image: url(../icons/validate.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+  transition: opacity 0.8s;
+}
+
+#validate-button:hover {
+  background-size: 100%;
+}
+
+/*#validate-block {
   width: 20%;
 }
 
@@ -403,7 +512,7 @@ p {
   background-size: 100%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
-
+*/
 .disabled {
   opacity: 0;
 }
@@ -462,11 +571,164 @@ p {
   width: 60%;
 }
 
-.result-btn-number{
+.result-btn-number {
 	width: 80px;
 	height: 80px;
 	line-height: 80px;
 }
+
+.result-bar {
+	width: 98%;
+	height: 10%;
+	margin: 0.8%;
+}
+
+.result-main {
+	width: 98%;
+	height: 85%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin: 0.8%;
+}
+
+.result-panel {
+	margin: 0.8%;
+	width: 98%;
+	border: solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.question-bar {
+	margin: 0.8%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.question-bar .question-number {
+	width: 70px;
+  height: 70px;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: transparent;
+  border-radius: 20%;
+	/*border: 4px solid black;*/
+  color: black;
+  text-align: center;
+  line-height: 70px;
+	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
+  transition: background 0.8s;
+  transition: width 0.8s, height 0.8s;
+	background-image: url(../icons/diamond.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+}
+
+.question-bar .question-target {
+	width: 70px;
+  height: 70px;
+	line-height: 70px;
+  font-size: 40px;
+  border-radius: 20%;
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+  color: black;
+  background-image: url(../icons/target.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  transition: width 0.8s, height 0.8s;
+	text-align: center;
+}
+
+.result-panel-main {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.my-solution {
+	width: 48%;
+	margin: 0.8%;
+	/*border: solid black;*/
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.best-solution {
+	width: 48%;
+	margin: 0.8%;
+/*	border: solid black;*/
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.info-bar {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.info-block {
+	display: flex;
+  flex-direction: row;
+  justify-content: center;
+	width: 100px;
+	height: 50px;
+  border: none;
+  color: black;
+	font-size: 18px;
+	font-weight: bold;
+	border: none;
+	color: black;
+	text-align: center;
+
+}
+
+.info-block-logo {
+	height: 100%;
+	width: 50%;
+
+}
+
+.info-block-content {
+	height: 100%;
+	width: 50%;
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bestSoln-logo {
+	background-image: url(../icons/gold-medal-best.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 90%;
+}
+
+.info-user-logo {
+	width: 50px;
+	height: 50px;
+	background-image: url(../icons/user.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 90%;
+}
+
+.solution-main {
+	width: 100%;
+}
+
 
 @media only screen and (max-width: 940px) {
   .btn-operator {
@@ -498,18 +760,46 @@ p {
     height: 35px;
     line-height: 35px;
   }
+	#target-number {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    font-size: 30px;
+  }
+
+	#validate-button {
+		width: 80px;
+    height: 80px;
+	}
+
+	.detail-block {
+		width: 180px;
+		height: 90px;
+		font-size: 30px;
+	}
 }
 
 @media only screen and (max-width: 750px) {
   #target-number {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
     font-size: 30px;
   }
+
+	#validate-button {
+		width: 70px;
+    height: 70px;
+	}
+
+	.detail-block {
+		width: 160px;
+		height: 80px;
+		font-size: 20px;
+	}
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 680px) {
   .btn-operator {
     width: 55px;
     height: 55px;
@@ -525,13 +815,19 @@ p {
     height: 55px;
     line-height: 55px;
     font-size: 20px;
+		/*border: 2px solid black;*/
   }
+
+	/*.diamond {
+		border: none;
+	}*/
 
   .btn-number:hover {
     font-size: 30px;
   }
 
   .selected-num {
+		/*border: none;*/
     font-size: 30px;
   }
 
@@ -562,9 +858,75 @@ p {
     height: 25px;
     line-height: 25px;
   }
+
+	#target-number {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+  }
+
+	#validate-button {
+		width: 50px;
+    height: 50px;
+	}
+
+	.detail-block {
+		width: 120px;
+		height: 60px;
+		font-size: 20px;
+	}
+
 }
 
-@media only screen and (max-height: 450px) {
+@media only screen and (max-width: 550px) {
+	.question-bar .question-number {
+		width: 50px;
+	  height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+
+	.question-bar .question-target {
+		width: 50px;
+	  height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+
+	.info-block {
+		width: 80px;
+		height: 40px;
+		font-size: 14px;
+	}
+	.info-user-logo {
+		width: 40px;
+		height: 40px;
+	}
+
+}
+
+@media only screen and (max-height: 600px) {
+	#target-number {
+		width: 80px;
+		height: 80px;
+		line-height: 80px;
+		font-size: 30px;
+	}
+
+	#validate-button {
+		width: 70px;
+		height: 70px;
+	}
+
+	.detail-block {
+		width: 160px;
+		height: 80px;
+		font-size: 20px;
+	}
+}
+
+@media only screen and (max-height: 500px) {
   .details-area-section {
     height: 45px;
   }
@@ -574,13 +936,31 @@ p {
     font-size: 20px;
   }
 
-  #target-number {
+/*  #target-number {
     width: 40px;
     height: 40px;
     line-height: 40px;
     font-size: 25px;
     background-size: 70%;
   }
+*/
+	#target-number {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+
+	#validate-button {
+		width: 40px;
+    height: 40px;
+	}
+
+	.detail-block {
+		width: 100px;
+		height: 50px;
+		font-size: 17px;
+	}
 
   .btn-operator {
     width: 50px;
@@ -597,13 +977,19 @@ p {
     height: 55px;
     line-height: 55px;
     font-size: 20px;
+	/*	border: 2px solid black;*/
   }
+
+	/*.diamond {
+		border: none;
+	}*/
 
   .btn-number:hover {
     font-size: 30px;
   }
 
   .selected-num {
+		/*border: none;*/
     font-size: 30px;
   }
 
@@ -625,6 +1011,30 @@ p {
     height: 25px;
     line-height: 25px;
   }
+
+	.question-bar .question-number {
+		width: 50px;
+	  height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+
+	.question-bar .question-target {
+		width: 50px;
+	  height: 50px;
+		line-height: 50px;
+		font-size: 25px;
+	}
+
+	.info-block {
+		width: 80px;
+		height: 40px;
+		font-size: 14px;
+	}
+	.info-user-logo {
+		width: 40px;
+		height: 40px;
+	}
 }
 
 .palette .row {

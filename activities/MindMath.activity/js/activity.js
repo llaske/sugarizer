@@ -21,6 +21,7 @@ var app = new Vue({
       currentenv: null,
       SugarL10n: null,
       SugarPresence: null,
+      mode: 'non-timer',
       score: 0,
       clock: {
         active: false,
@@ -55,7 +56,8 @@ var app = new Vue({
         vm.$set(vm.clock, 'time', 0);
         vm.$set(vm.clock, 'active', true);
         vm.$set(vm.clock, 'previousTime', new Date());
-        vm.tick();
+        vm.score = 0;
+        //vm.tick();
       } else {
         //new-icon
         //document.getElementById('game-button').style.backgroundImage = 'url(./icons/restart.svg)';
@@ -83,7 +85,15 @@ var app = new Vue({
       var vm = this;
       //stop timer
       vm.clock.active = false;
-      //calculate score
+
+      var score = null;
+      if (data.type === 'validate') {
+        //calculate score
+        var slots = data.slots;
+        var timeTaken = vm.time;
+        score = calculateScoreFromSlots(slots, timeTaken);
+      }
+      vm.score = score;
       //change currentScreen
       vm.currentScreen = "result"
     },
@@ -127,6 +137,29 @@ var app = new Vue({
         //change currentScreen
         vm.currentScreen = "game";
       }
-    }
+    },
+    handlePassButton: function () {
+      var vm = this;
+      if (vm.currentScreen === 'game') {
+        //stop timer
+        vm.clock.active = false;
+        //change currentScreen
+        vm.currentScreen = "result";
+      }
+      else {
+        // generate question set,
+        var questions = [{
+          inputNumbers: [1, 2, 2, 9, 12],
+          targetNum: 3,
+          difficulty: 'medium',
+          compulsoryOp: null,
+          bestSoln: [12, 2, '+', 2, 'x', 1, '-', 9, '/'],
+        }];
+
+        vm.questions = questions;
+        //change currentScreen
+        vm.currentScreen = "game";
+      }
+    },
   }
 });

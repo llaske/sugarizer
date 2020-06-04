@@ -24,6 +24,7 @@
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="game-button" title="end / new Game" v-on:click="handleGameButton"></sugar-toolitem>
+			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo"></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
 			<sugar-toolitem id="level-button" title="level"></sugar-toolitem>
@@ -34,14 +35,17 @@
 		</sugar-toolbar>
 
 		<transition name="fade" id="app-content" mode="out-in">
-		<component
-			v-bind:is="currentScreen"
-			v-bind:time="clock.time"
-			v-bind:stroke-color="strokeColor"
-			v-bind:fill-color="fillColor"
-			v-bind:question="questions[qNo]"
-			v-on:end-game="onEndGame"
-		></component>
+			<component
+				v-bind:is="currentScreen"
+				v-bind:time="clock.time"
+				v-bind:stroke-color="strokeColor"
+				v-bind:fill-color="fillColor"
+				v-bind:questions="questions"
+				v-bind:q-no="qNo"
+				v-bind:score="score"
+				v-bind:mode="mode"
+				v-on:end-game="onEndGame"
+			></component>
 	</transition>
 
 
