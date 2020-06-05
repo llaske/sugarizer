@@ -4,10 +4,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:34:32 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 22:23+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-flip/pt/>\n"
+"/activity-game-life/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "Welcome into the Game of Life activity. Game of Life is a game to observ
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Rules of Game of Life"
-msgstr "Rules of Game of Life"
+msgstr "Regras do Game of Life"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
@@ -58,7 +58,7 @@ msgstr "Every cell on the board interacts with its eight neighbours, which are t
 #: TutoUnderTitle
 msgctxt "TutoUnderTitle"
 msgid "Underpopulation"
-msgstr "Underpopulation"
+msgstr "subpopulação"
 
 #: TutoUnderContent
 msgctxt "TutoUnderContent"
@@ -68,7 +68,7 @@ msgstr "Any live cell with fewer than two live neighbours dies, as if by underpo
 #: TutoNextTitle
 msgctxt "TutoNextTitle"
 msgid "Next generation"
-msgstr "Next generation"
+msgstr "Próxima geração"
 
 #: TutoNextContent
 msgctxt "TutoNextContent"
@@ -78,7 +78,7 @@ msgstr "Any live cell with two or three live neighbours lives on to the next gen
 #: TutoOverTitle
 msgctxt "TutoOverTitle"
 msgid "Overpopulation"
-msgstr "Overpopulation"
+msgstr "Superpopulação"
 
 #: TutoOverContent
 msgctxt "TutoOverContent"
@@ -88,7 +88,7 @@ msgstr "Any live cell with more than three live neighbours dies, as if by overpo
 #: TutoReproductionTitle
 msgctxt "TutoReproductionTitle"
 msgid "Reproduction"
-msgstr "Reproduction"
+msgstr "Reprodução"
 
 #: TutoReproductionContent
 msgctxt "TutoReproductionContent"
@@ -98,17 +98,17 @@ msgstr "Any dead cell with exactly three live neighbours becomes a live cell, as
 #: TutoRunTitle
 msgctxt "TutoRunTitle"
 msgid "Run/Pause"
-msgstr "Run/Pause"
+msgstr "Jogar/Pausar"
 
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "Click here to start or freeze the game"
-msgstr "Click here to start or freeze the game"
+msgstr "Clique aqui para iniciar ou congelar o jogo"
 
 #: TutoRandomTitle
 msgctxt "TutoRandomTitle"
 msgid "Random Pattern"
-msgstr "Random Pattern"
+msgstr "Modelo aleatório"
 
 #: TutoRandomContent
 msgctxt "TutoRandomContent"
@@ -138,7 +138,7 @@ msgstr "Click here to generate a board filled with pattern called 'Blinker' who 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Limpar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
@@ -148,32 +148,32 @@ msgstr "Click here to clear the board. You could then click on it to draw your o
 #: TutoCountTitle
 msgctxt "TutoCountTitle"
 msgid "Generation Count"
-msgstr "Generation Count"
+msgstr "Contador de Geração"
 
 #: TutoCountContent
 msgctxt "TutoCountContent"
 msgid "Here you can see which generation are you actually on"
-msgstr "Here you can see which generation are you actually on"
+msgstr "Aqui você pode visualizar qual a geração que você pertence atualmente"
 
 #: TutoSpeedTitle
 msgctxt "TutoSpeedTitle"
 msgid "Speed"
-msgstr "Speed"
+msgstr "Velocidade"
 
 #: TutoSpeedContent
 msgctxt "TutoSpeedContent"
 msgid "Click here to make generation faster or slower"
-msgstr "Click here to make generation faster or slower"
+msgstr "Clique aqui para fazer as gerações mais rápido ou mais lentas"
 
 #: TutoSizeTitle
 msgctxt "TutoSizeTitle"
 msgid "Size"
-msgstr "Size"
+msgstr "Tamanho"
 
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
 msgid "Click here to change the size of the board"
-msgstr "Click here to change the size of the board"
+msgstr "Clique aqui para mudar o tamanho do quadro"
 
 #: TutoDeadCellsTitle
 msgctxt "TutoDeadCellsTitle"
