@@ -1,3 +1,58 @@
+var Medal = {
+	/*html*/
+	template: `
+		<div class="medal-container">
+			<div v-if="small" class="medal-small">
+				<div ref="medal" class="medal" v-show="!acquired"></div>
+				<div ref="medalAcquired" class="medal acquired" v-show="acquired" :class="{ buddy: buddyMedal }"></div>
+			</div>
+			<div v-else class="medal-large">
+				<div ref="medal" class="medal" v-show="!acquired"></div>
+				<div ref="medalAcquired" class="medal acquired" v-show="acquired" :class="{ buddy: buddyMedal }"></div>
+				<!-- <div ref="medal" class="medal" :class="{ acquired: acquired, buddy: buddyMedal }"></div> -->
+				<div v-show="acquired" class="shine"></div>
+				<div v-show="acquired" class="shine"></div>
+				<div v-show="acquired" class="shine" ref="shine1"></div>
+				<div v-show="acquired" class="shine" ref="shine2"></div>
+			</div>
+		</div>
+	`,
+	props: {
+		small: Boolean,
+		acquired: Boolean
+	},
+	data: {
+		icon: null
+	},
+	computed: {
+		buddyMedal: function () {
+			console.log(this.$root.buddyMedal);
+			return this.$root.buddyMedal;
+		}
+	},
+	watch: {
+		acquired: function (newVal, oldVal) {
+			if (newVal && this.buddyMedal && this.$refs.medalAcquired && this.icon) {
+				this.icon.colorize(this.$refs.medalAcquired, this.$root.currentenv.user.colorvalue)
+			}
+		}
+	},
+	mounted: function () {
+		var vm = this;
+		requirejs(["sugar-web/graphics/icon"], function (icon) {
+			var colors = { fill: "#FFD00D", stroke: "#000" };
+			if (vm.buddyMedal) {
+				if (vm.$refs.medalAcquired) {
+					icon.colorize(vm.$refs.medalAcquired, vm.$root.currentenv.user.colorvalue);
+				}
+				colors = vm.$root.currentenv.user.colorvalue;
+			}
+			icon.colorize(vm.$refs.shine1, colors)
+			icon.colorize(vm.$refs.shine2, colors)
+			vm.icon = icon;
+		});
+	}
+}
 
 var UploadItem = {
 	/*html*/

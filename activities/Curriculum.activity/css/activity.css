@@ -100,11 +100,12 @@ p {
 }
 
 #main-toolbar #acquire-button {
-	background-image: url(../icons/flag-raised.svg);
+	background-image: url(../icons/medal-unacquired.svg);
+	background-size: 3em;
 }
 
-#main-toolbar #remove-button {
-	background-image: url(../icons/flag-lowered.svg);
+#main-toolbar #buddy-button {
+	background-image: url(../icons/owner-icon.svg);
 }
 
 #main-toolbar #upload-button {
@@ -168,15 +169,15 @@ p {
 	justify-content: center;
 	margin-top: 10px;
 }
-.progress img {
+.progress div {
+	height: 30px;
 	width: 30px;
 }
-.progress-acquired {
-	opacity: 1;
-	filter: invert(52%) sepia(74%) saturate(1892%) hue-rotate(81deg) brightness(118%) contrast(125%) drop-shadow(0 3px 2px rgba(0, 0, 0, 0.15));
-}
-.progress-remaining {
+.progress .medal {
 	opacity: 0.5;
+}
+.progress .medal.acquired {
+	opacity: 1;
 }
 
 .skills {
@@ -194,6 +195,9 @@ p {
 	height: 50px;
 	cursor: pointer;
 	z-index: 3;
+}
+#back-button:hover {
+	border: none;
 }
 .skills .category-title, .skill {
 	position: relative;
@@ -233,11 +237,10 @@ p {
 	display: flex;
 	flex-direction: column;
 }
-.skill-card .flag {
+.skill-card .medal-container {
 	position: absolute;
-	top: -50px;
-	left: 10px;
-	width: fit-content;
+	top: -30px;
+	right: -15px;
 }
 .skill-card .skill-image {
 	width: 90%;
@@ -272,15 +275,20 @@ p {
 }
 .skill-details .skill-title {
 	position: relative;
-	margin-bottom: 35px;
+	margin-bottom: 25px;
 }
 .skill-details .skill-title .underline {
 	position: absolute;
-	bottom: -30px;
+	bottom: -25px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100vw;
 	height: 15px;
+}
+.skill-details .skill-title .medal-container {
+	position: absolute;
+	bottom: -100px;
+	right: -5vw;
 }
 .skill-details .skill-contents {
 	display: flex;
@@ -304,7 +312,7 @@ p {
 	position: relative;
 	align-items: center;
 	overflow: auto;
-	margin: 10px;
+	margin: 10px 0;
 	padding: 20px;
 	background: #EFEFEF;
 	border-radius: 20px;
@@ -331,6 +339,8 @@ p {
 	top: 20px;
 	left: 20px;
 }
+
+/*Flag*/
 .flag {
 	position: relative;
 	margin: 20px 0;
@@ -424,6 +434,78 @@ p {
 		transform: translateY(0);
 	}
 }
+
+/* Medal */
+.medal-container {
+	position: relative;
+	margin: 20px 0;
+	width: fit-content;
+}
+.medal {
+	background-image: url(../icons/medal-unacquired.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+}
+.medal.acquired {
+	background-image: url(../icons/medal-colored.svg);
+}
+.medal.acquired.buddy {
+	background-image: url(../icons/medal.svg);
+}
+.medal-small {
+	height: 50px;
+	width: 50px;
+}
+.medal-large {
+	height: 100px;
+	width: 100px;
+}
+.medal-large .shine {
+	background-image: url(../icons/medal-shine.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 12%;
+	height: 12%;
+	/* filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9)); */
+}
+.medal-large .shine:nth-child(3) {
+	top: 15%;
+	left: 23%;
+	animation: shine-fade 2000ms ease-in-out infinite;
+}
+.medal-large .shine:nth-child(4) {
+	bottom: 35%;
+	right: 25%;
+	transform: scale(1.15);
+	animation: shine-fade 2000ms ease-in-out infinite 300ms;
+}
+.medal-large .shine:nth-child(5) {
+	top: 40%;
+	left: 0%;
+	transform: scale(0.75);
+	animation: shine-fade 2000ms ease-in-out infinite 600ms;
+}
+.medal-large .shine:nth-child(6) {
+	top: 25%;
+	right: 0%;
+	transform: scale(0.85);
+	animation: shine-fade 2000ms ease-in-out infinite 900ms;
+}
+@keyframes shine-fade {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
 
 .uploaded-item {
 	padding: 3px;

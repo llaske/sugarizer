@@ -24,8 +24,7 @@
 
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="home-button" v-visible="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-visible="currentView == 'skill-details'" v-if="!currentAcquired" @click="setSkillAcquired(true)"></sugar-toolitem>
-			<sugar-toolitem id="remove-button" v-visible="currentView == 'skill-details'" v-else @click="setSkillAcquired(false)"></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-visible="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-visible="currentView == 'skill-details'"
@@ -36,6 +35,8 @@
 				@upload-item="onUploadItem"
 			></sugar-toolitem>
 
+			<sugar-toolitem id="buddy-button" :class="{ active: buddyMedal }" @click="buddyMedal = !buddyMedal"></sugar-toolitem>
+			
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
@@ -55,6 +56,7 @@
 					@open-skill="openSkill"
 					@delete-item="onDeleteItem"
 					@go-back-to="goBackTo"
+					:key="buddyMedal"
 				></component>
 			</transition>
 		</div>
@@ -65,9 +67,9 @@
 	</div>
 
 	<script src="js/data.js"></script>
-	<script src="js/Categories.js"></script>
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
+	<script src="js/Categories.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>

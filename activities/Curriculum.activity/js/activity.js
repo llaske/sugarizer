@@ -24,7 +24,8 @@ var app = new Vue({
 		l10n: {
 			stringFullscreen: '',
 			stringUnfullscreen: ''
-		}
+		},
+		buddyMedal: false
 	},
 	watch: {
 		currentView: function(newVal, oldVal) {
@@ -75,7 +76,8 @@ var app = new Vue({
 			this.currentView = 'skill-details';
 		},
 
-		setSkillAcquired: function (value) {
+		switchSkillAcquired: function (value) {
+			var value = !this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			if (this.user.skills[this.selectedCategoryId][this.selectedSkillId]) {
 				this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
 			} else {

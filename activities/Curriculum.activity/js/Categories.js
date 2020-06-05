@@ -17,11 +17,14 @@ var CategoryCard = {
 				</div>
 			</div>
 			<div class="progress">
-				<img src="icons/flag-raised.svg" class="progress-acquired" v-for="n in acquiredSkills" :key="n">
-				<img src="icons/flag-raised.svg" class="progress-remaining" v-for="n in (totalSkills - acquiredSkills)" :key="n">
+				<medal small acquired v-for="n in acquiredSkills" />
+				<medal small v-for="n in (totalSkills - acquiredSkills)" />
 			</div>
 		</div>
 	`,
+	components: {
+		'medal': Medal
+	},
 	props: ['category', 'user'],
 	computed: {
 		skillsToShow: function () {
@@ -41,6 +44,17 @@ var CategoryCard = {
 			}
 			return count;
 		}
+	},
+	mounted: function () {
+		var vm = this;
+		requirejs(["sugar-web/graphics/icon"], function (icon) {
+			if (vm.buddyMedal) {
+				if (vm.$refs.medalAcquired) {
+					icon.colorize(vm.$refs.medalAcquired, vm.$root.currentenv.user.colorvalue);
+				}
+			}
+			vm.icon = icon;
+		});
 	}
 };
 
