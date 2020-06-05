@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:15:21 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:55+0000\n"
+"PO-Revision-Date: 2020-06-05 21:03+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-paint/pt/>\n"
@@ -105,7 +105,7 @@ msgstr "Click here to redo previous actions"
 #: TutoSizeTitle
 msgctxt "TutoSizeTitle"
 msgid "Size"
-msgstr "Size"
+msgstr "Tamanho"
 
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
@@ -215,7 +215,7 @@ msgstr "Click here to paste a part of your drawing copied with the copy button. 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Limpar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
