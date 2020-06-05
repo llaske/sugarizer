@@ -7,6 +7,17 @@ function removeEntryFromArray(array, skipIndex) {
   return subset
 }
 
+function addEntryIntoArray(array, addIndex, ele) {
+  const subset = new Array(array.length + 1)
+  for (let i=array.length-1; i>=0; i--) {
+    subset[i >= addIndex ? i + 1 : i] = array[i]
+  }
+  subset[addIndex] = ele
+  return subset
+}
+
+
+
 function allowedCheck(n) {
   return Number.isInteger(n) && n >= 0;
 }
@@ -105,13 +116,17 @@ function rpnToSlots(pattern) {
        else if (slot.operator === '/') {
          scr+=3
        }
+       scr++;
      }
    }
 
    if(flag === 4){
-     scr = 13
+     scr = 13 + 4;
    }
    //considering timeTaken
+   var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
+   console.log(timeScore);
+   var totScore = 3 * scr + timeScore;
    /*if (timeTaken <= 20) {
      scr += 7;
    } else if (timeTaken <= 40) {
@@ -128,5 +143,5 @@ function rpnToSlots(pattern) {
      scr += 1;
    }*/
 
-   return scr;
+   return totScore;
  }

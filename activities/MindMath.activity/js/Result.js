@@ -1,6 +1,6 @@
 var Result = {
   components: {
-    "slots": Slots,
+    "slots-component": Slots,
     "clock": Clock,
   },
   props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots'],
@@ -66,13 +66,13 @@ var Result = {
 
                   </div>
                   <div class="solution-main">
-                    <slots
+                    <slots-component
                     v-if="mySlots[index].length!=0"
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
                     v-bind:slots="mySlots[index]"
-                    ></slots>
+                    ></slots-component>
                     <div
                     v-else
                     class="pass-icon-block"
@@ -93,12 +93,12 @@ var Result = {
                   </div>
 
                   <div class="solution-main">
-                    <slots
+                    <slots-component
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
                     v-bind:slots="bestSlots[index]"
-                    ></slots>
+                    ></slots-component>
                   </div>
                 </div>
 

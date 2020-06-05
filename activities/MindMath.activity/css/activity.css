@@ -22,7 +22,7 @@ p {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .6s;
+  transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -182,14 +182,15 @@ p {
 
 .btn-operator:hover {
   font-size: 60px;
-	background-size: 80%;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
+	background-size: 75%;
+  /*box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);*/
 }
 
 .selected-op {
   width: 110px;
   height: 110px;
   font-size: 60px;
+	background-size: 75%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
 
@@ -1122,6 +1123,37 @@ p {
 		width: 40px;
 		height: 40px;
 	}
+}
+#plus-cmpOp {
+	background-image: url(../icons/plus-icon.svg);
+}
+
+#minus-cmpOp {
+	background-image: url(../icons/minus-icon.svg);
+}
+
+#multiply-cmpOp {
+	background-image: url(../icons/multiply-icon.svg);
+}
+
+#divide-cmpOp {
+	background-image: url(../icons/divide-icon.svg);
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-notselected {
+  background-color: transparent;
 }
 
 .palette .row {

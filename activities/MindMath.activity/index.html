@@ -26,10 +26,13 @@
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="game-button" title="end / new Game" v-on:click="handleGameButton"></sugar-toolitem>
 			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
-			<sugar-toolitem id="undo-button" title="undo"></sugar-toolitem>
+			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
 			<sugar-toolitem id="level-button" title="level"></sugar-toolitem>
-			<sugar-toolitem id="compulsory-op-button" title="compulsory operator"></sugar-toolitem>
+			<sugar-toolitem
+				id="compulsory-op-button"
+				title="Choose compulsory operator"
+			></sugar-toolitem>
 			<sugar-toolitem id="hint-button" title="hint"></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
@@ -46,8 +49,11 @@
 				v-bind:score="score"
 				v-bind:mode="mode"
 				v-bind:slots="slots"
+				v-bind:input-numbers="inputNumbers"
+				v-bind:input-numbers-types="inputNumbersTypes"
 				v-bind:sugar-popup="sugarPopup"
 				v-on:end-game="onEndGame"
+				v-on:slots-update="onSlotsUpdated"
 			></component>
 	</transition>
 

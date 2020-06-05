@@ -1,9 +1,9 @@
 var Game = {
   components: {
     "clock": Clock,
-    "slots": Slots,
+    "slots-component": Slots,
   },
-  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','sugarPopup'],
+  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -72,7 +72,7 @@ var Game = {
             <transition name="fade"  mode="out-in">
               <div id="validate-button"
               v-on:click="validate"
-              v-if="currentRes === targetNum"
+              v-if="compulsoryOpUsed && currentRes === targetNum"
               ></div>
             </transition>
           </div>
@@ -84,20 +84,18 @@ var Game = {
       <div class="slots-area-panel"
       v-bind:style="{backgroundColor: fillColor}"
       >
-        <slots ref="slots"
+        <slots-component ref="slots"
         v-bind:strokeColor="strokeColor"
         v-bind:fillColor="fillColor"
         v-bind:targetNum="targetNum"
-        v-bind:slots="currentSlots"
-        ></slots>
+        v-bind:slots="slots"
+        ></slots-component>
       </div>
 
     </div>
   `,
   data: function () {
     return {
-      inputNumbers: [1,12,5,18,9],
-      inputNumbersTypes:[0,0,0,0,0],
       operators: ['+','-','/','x'],
       currentSelectedNums: {
         numIndex1: null,
@@ -106,8 +104,9 @@ var Game = {
       },
       currentSelectedOp: null,
       targetNum: 12,
+      compulsoryOp: null,
       currentRes: null,
-      currentSlots: [],
+      compulsoryOpUsed: false,
     };
   },
   created: function () {
@@ -121,9 +120,11 @@ var Game = {
   mounted: function () {
     var vm = this;
     //Initialize question
-    vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
-    vm.inputNumbersTypes = [0,0,0,0,0];
     vm.targetNum = vm.questions[vm.qNo].targetNum;
+    vm.compulsoryOp = vm.questions[vm.qNo].compulsoryOp;
+    if (vm.compulsoryOp == null) {
+      vm.compulsoryOpUsed = true;
+    }
 
     vm.resize();
   },
@@ -131,9 +132,19 @@ var Game = {
     questions: function (newVal) {
       var vm = this;
       //Initialize question
-      vm.inputNumbers = newVal[vm.qNo].inputNumbers;
-      vm.inputNumbersTypes = [0,0,0,0,0];
       vm.targetNum = newVal[vm.qNo].targetNum;
+      vm.compulsoryOp = newVal[vm.qNo].compulsoryOp;
+      if (vm.compulsoryOp == null) {
+        vm.compulsoryOpUsed = true;
+      }
+    },
+    slots: function (newVal) {
+      var vm = this;
+      if (vm.slots.length!=0) {
+        vm.currentRes = vm.slots[vm.slots.length-1].res;
+      }else {
+        vm.currentRes = null;
+      }
     }
   },
   methods: {
@@ -228,7 +239,6 @@ var Game = {
         }
         if (allowedCheck(res)) {
           //filling Slots
-          //var nextSlot = vm.$refs.slots.nextSlot;
 
           var slotObj = {
             num1: {
@@ -250,32 +260,33 @@ var Game = {
           slotObj.num2.type = vm.inputNumbersTypes[vm.currentSelectedNums.numIndex2];
           slotObj.res = res;
 
-          vm.currentSlots.push(slotObj)
-
           //removing from inputNumbers
           var skipIndex1 = vm.currentSelectedNums.numIndex1;
           var skipIndex2 = vm.currentSelectedNums.numIndex2;
-          var newNums = removeEntryFromArray(vm.inputNumbers, skipIndex1);
-          var newTypes = removeEntryFromArray(vm.inputNumbersTypes, skipIndex1);
-          if (skipIndex1 < skipIndex2) {
-            skipIndex2--;
-          }
-          var newNums = removeEntryFromArray(newNums, skipIndex2);
-          var newTypes = removeEntryFromArray(newTypes, skipIndex2);
-          newNums.push(res);
-          newTypes.push(1);
 
-          if (res === vm.targetNum) {
+          var updateObj = {
+            type: "add",
+            data: {
+              slot: slotObj,
+              skipIndex1: skipIndex1,
+              skipIndex2: skipIndex2,
+            },
+          }
+          vm.$emit('slots-update', updateObj);
+
+          //check if the operator used is compulsoryOp
+          if (vm.operators[vm.currentSelectedOp] === vm.compulsoryOp) {
+            vm.compulsoryOpUsed = true;
+          }
+
+          if (vm.compulsoryOpUsed && res === vm.targetNum ) {
             //notifying user
             vm.sugarPopup.log("You Got the Target Number")
           }
 
-          vm.currentRes = res;
-          vm.inputNumbers = newNums;
-          vm.inputNumbersTypes = newTypes;
         }else {
           //notify user for an invalid operation
-          vm.sugarPopup.log("invalid option");
+          vm.sugarPopup.log("Invalid option");
         }
 
         //deselecting
@@ -292,7 +303,6 @@ var Game = {
         //var newScore = vm.score + vm.calculateScore();
         var endObj = {
           type: "validate",
-          slots: vm.currentSlots,
         }
         vm.$emit('end-game', endObj);
       }
