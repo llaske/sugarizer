@@ -13,6 +13,7 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<script src="lib/vue.min.js"></script>
+	<link rel="stylesheet" href="css/libnotify.css">
 	<script src="lib/require.js"></script>
 </head>
 
@@ -44,13 +45,15 @@
 				v-bind:q-no="qNo"
 				v-bind:score="score"
 				v-bind:mode="mode"
+				v-bind:slots="slots"
+				v-bind:sugar-popup="sugarPopup"
 				v-on:end-game="onEndGame"
 			></component>
 	</transition>
 
 
-
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -59,7 +62,9 @@
 	<script src="js/Result.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+
 	<script src="js/activity.js"></script>
 </body>
 

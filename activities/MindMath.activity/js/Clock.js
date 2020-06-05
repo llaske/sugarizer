@@ -1,18 +1,7 @@
-/*
-<div class="detail-block"
-v-bind:style="{backgroundColor: strokeColor}"
-><div class="detail-logo clock-logo"></div>
-  <div class="detail-content"
-  v-bind:style="{backgroundColor: strokeColor}"
-  ><div class="clock">{{ parsedClockTime }}</div>
-  </div>
-</div>
-*/
-
 var Clock = {
-  props: ['strokeColor', 'fillColor','time'],
+  props: ['time','text'],
   template: `
-    <div class="clock">{{ parsedClockTime }}</div>
+    <div class="clock">{{ text }}{{ parsedClockTime }}</div>
   `,
   computed: {
     parsedClockTime: function() {

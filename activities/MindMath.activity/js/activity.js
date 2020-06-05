@@ -21,6 +21,7 @@ var app = new Vue({
       currentenv: null,
       SugarL10n: null,
       SugarPresence: null,
+      sugarPopup: null,
       mode: 'non-timer',
       score: 0,
       clock: {
@@ -39,6 +40,7 @@ var app = new Vue({
         },
       ],
       qNo:0,
+      slots:[],
     }
   },
   mounted: function() {
@@ -50,17 +52,15 @@ var app = new Vue({
     currentScreen: function(newVal) {
       var vm = this;
       if (newVal === 'game') {
-        //end-icon
-        document.getElementById('game-button').style.backgroundImage = 'url(./icons/end-icon.svg)';
         //Initialize clock
         vm.$set(vm.clock, 'time', 0);
         vm.$set(vm.clock, 'active', true);
         vm.$set(vm.clock, 'previousTime', new Date());
         vm.score = 0;
+        vm.slots = [];
         //vm.tick();
       } else {
-        //new-icon
-        //document.getElementById('game-button').style.backgroundImage = 'url(./icons/restart.svg)';
+
       }
     }
   },
@@ -69,7 +69,8 @@ var app = new Vue({
       var vm = this;
       // Initialize Sugarizer
       vm.currentenv = vm.$refs.SugarActivity.getEnvironment();
-      //document.getElementById('app').style.background = vm.currentenv.user.colorvalue.fill;
+      vm.sugarPopup = vm.$refs.SugarPopup;
+
       document.getElementById('app').style.background = vm.currentenv.user.colorvalue.stroke;
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
       vm.fillColor = vm.currentenv.user.colorvalue.fill;
@@ -93,6 +94,7 @@ var app = new Vue({
         var timeTaken = vm.time;
         score = calculateScoreFromSlots(slots, timeTaken);
       }
+      vm.slots = slots;
       vm.score = score;
       //change currentScreen
       vm.currentScreen = "result"

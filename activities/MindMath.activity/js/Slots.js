@@ -10,7 +10,13 @@ var Slots = {
         >{{slot.num1.val}}</div>
         <div class="operator"
         v-bind:style="{backgroundColor: strokeColor}"
-        >{{slot.operator}}</div>
+        v-bind:class="{
+          'plus': slot.operator === '+',
+          'minus': slot.operator === '-',
+          'multiply': slot.operator === 'x',
+          'divide': slot.operator === '/',
+         }"
+        ></div>
         <div
         v-bind:class="{
           'number': slot.num2.type === 0,

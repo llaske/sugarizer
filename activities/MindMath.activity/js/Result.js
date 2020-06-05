@@ -3,13 +3,25 @@ var Result = {
     "slots": Slots,
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor','questions','qNo','time','score'],
+  props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots'],
   template: `
     <div id="result-view"
     >
       <div class="result-bar"
-      v-bind:style="{backgroundColor: fillColor}"
       >
+        <div class="result-bar-block"
+        v-bind:style="{backgroundColor: fillColor}"
+        >
+          <clock
+          v-bind:time="time"
+          text="Total Time: "
+          ></clock>
+        </div>
+        <div class="result-bar-icon"></div>
+        <div class="result-bar-block"
+        v-bind:style="{backgroundColor: fillColor}"
+        >Total Score: {{ score }}</div>
+
       </div>
 
       <div class="result-main"
@@ -55,11 +67,17 @@ var Result = {
                   </div>
                   <div class="solution-main">
                     <slots
+                    v-if="mySlots[index].length!=0"
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
-                    v-bind:slots="allSlots[index]"
+                    v-bind:slots="mySlots[index]"
                     ></slots>
+                    <div
+                    v-else
+                    class="pass-icon-block"
+                    ><div></div>
+                    </div>
                   </div>
                 </div>
 
@@ -79,7 +97,7 @@ var Result = {
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
-                    v-bind:slots="allSlots[index]"
+                    v-bind:slots="bestSlots[index]"
                     ></slots>
                   </div>
                 </div>
@@ -98,7 +116,8 @@ var Result = {
       inputNumbers: [1,12,5,18,9],
       targetNum: 12,
       questionSet: [],
-      allSlots:[]
+      bestSlots:[],
+      mySlots: [],
     };
   },
   created: function () {
@@ -124,6 +143,7 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight+"px";
+      document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
 
       if (ratio < 1) {
         // stack up panels
@@ -148,7 +168,8 @@ var Result = {
     initializeSlots: function () {
       var vm = this;
       vm.questionSet = [];
-      vm.allSlots = [];
+      vm.bestSlots = [];
+      vm.mySlots = [];
 
       for (var i = 0; i <= vm.qNo; i++) {
         vm.questionSet.push(vm.questions[i]);
@@ -181,7 +202,8 @@ var Result = {
 
           slotsArr.push(slotObj)
         }
-        vm.allSlots.push(slotsArr);
+        vm.bestSlots.push(slotsArr);
+        vm.mySlots.push(vm.slots);
       }
       //vm.inputNumbers = vm.question.inputNumbers;
       //vm.targetNum = vm.question.targetNum;

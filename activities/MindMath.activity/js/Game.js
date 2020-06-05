@@ -3,7 +3,7 @@ var Game = {
     "clock": Clock,
     "slots": Slots,
   },
-  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode'],
+  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','sugarPopup'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -55,11 +55,17 @@ var Game = {
           <div class="list-operators">
             <button class="btn-operator"
             v-for="(operator,index) in operators"
-            v-bind:class="{ 'selected-op': index === currentSelectedOp }"
+            v-bind:class="{
+              'selected-op': index === currentSelectedOp,
+              'plus': operator === '+',
+              'minus': operator === '-',
+              'multiply': operator === 'x',
+              'divide': operator === '/',
+             }"
             v-bind:key="index"
             v-on:click="onSelectOperator(index)"
             v-bind:style="{backgroundColor: strokeColor}"
-            >{{ operator }}</button>
+            ></button>
           </div>
 
           <div class="footer-bar">
@@ -122,17 +128,6 @@ var Game = {
     vm.resize();
   },
   watch: {
-    currentRes: function (newVal) {
-      var vm = this;
-      if (newVal === vm.targetNum) {
-        document.getElementById('target-number').style.backgroundImage = 'url(./icons/target.svg)';
-        console.log("ok");
-      }
-      else {
-        document.getElementById('target-number').style.backgroundImage = "";
-        console.log("no");
-      }
-    },
     questions: function (newVal) {
       var vm = this;
       //Initialize question
@@ -270,9 +265,17 @@ var Game = {
           newNums.push(res);
           newTypes.push(1);
 
+          if (res === vm.targetNum) {
+            //notifying user
+            vm.sugarPopup.log("You Got the Target Number")
+          }
+
           vm.currentRes = res;
           vm.inputNumbers = newNums;
           vm.inputNumbersTypes = newTypes;
+        }else {
+          //notify user for an invalid operation
+          vm.sugarPopup.log("invalid option");
         }
 
         //deselecting
