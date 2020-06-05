@@ -6,7 +6,7 @@ var CategoryCard = {
 			:style="{ backgroundColor: category.color, boxShadow: '0 0 5px ' + category.color }"
 			@click="$emit('category-clicked', category.id)"
 		>
-			<h1 class="category-title">{{ category.title }}</h1>
+			<h1 class="category-title" v-html="category.title"></h1>
 			<div class="category-skills">
 				<div 
 					class="skill" 
@@ -24,20 +24,20 @@ var CategoryCard = {
 	`,
 	props: ['category', 'user'],
 	computed: {
-		skillsToShow: function() {
+		skillsToShow: function () {
 			var skills = [];
-			for(var i=0; i<Math.min(3, this.category.skills.length); i++) {
+			for (var i = 0; i < Math.min(3, this.category.skills.length); i++) {
 				skills.push(this.category.skills[i]);
 			}
 			return skills;
 		},
-		totalSkills: function() {
+		totalSkills: function () {
 			return this.category.skills.length;
 		},
-		acquiredSkills: function() {
+		acquiredSkills: function () {
 			var count = 0;
-			for(var skillId in this.user.skills[this.category.id]) {
-				if(this.user.skills[this.category.id][skillId].acquired) count++;
+			for (var skillId in this.user.skills[this.category.id]) {
+				if (this.user.skills[this.category.id][skillId].acquired) count++;
 			}
 			return count;
 		}

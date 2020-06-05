@@ -20,7 +20,7 @@ var SkillsLayout = {
 		this.$refs.underline2.style.background = this.category.color;
 	},
 	methods: {
-		goBackTo: function() {
+		goBackTo: function () {
 			this.$emit('go-back-to', this.backTo);
 		}
 	}
@@ -37,9 +37,9 @@ var SkillCard = {
 			<flag small :raised="acquired"></flag>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
-				<h2 class="skill-title">{{ skill.title }}</h2>
+				<h2 class="skill-title" v-html="skill.title"></h2>
 			</div>
-		</div>
+		</img>
 	`,
 	components: {
 		'flag': Flag
@@ -101,22 +101,21 @@ var SkillDetails = {
 		<div class="">
 			<div id="back-button" @click="goBackTo"></div>
 			<div class="skill-details">
-				<div class="skill-info-container">
-					<div class="skill-info">
-						<h1>
-							{{ skill.title }}
-							<span ref="underline3" class="underline"></span>	
-						</h1>
-						<p>{{ skill.description }}</p>
+				<h1 class="skill-title">
+					{{ skill.title }}
+					<span ref="underline3" class="underline"></span>	
+				</h1>
+				<div class="skill-contents">
+					<div class="skill-image">
+						<img :src="skill.image">
 					</div>
-					<img :src="skill.image" class="skill-image">
-				</div>
-				<div class="skill-uploads">
 					<!-- <flag :raised="currentAcquired"></flag> -->
-					<div class="uploads">
+					<div class="skill-uploads">
 						<div class="upload-preview" :class="{ 'uploaded': uploads.length != 0 }">
-							<div ref="uploadPreview" class="preview-icon"></div>
-							<p v-if="uploads.length == 0">No uploads for this skill</p>
+							<div v-if="uploads.length == 0">
+								<div ref="uploadPreview" class="preview-icon"></div>
+								<p>Click on upload to integrate some proofs of your skill</p>
+							</div>
 							<p v-else>{{ uploads.length }}</p>
 						</div>
 						<upload-item
@@ -152,8 +151,8 @@ var SkillDetails = {
 		uploads: function () {
 			var uploads = [];
 			var mediaObj = this.user.skills[this.categoryId][this.skillId].media;
-			for(var key in mediaObj) {
-				mediaObj[key].forEach(function(item) {
+			for (var key in mediaObj) {
+				mediaObj[key].forEach(function (item) {
 					item.type = key;
 					uploads.push(item);
 				});
@@ -165,18 +164,18 @@ var SkillDetails = {
 		//Handling styles
 		this.$refs.underline3.style.background = this.category.color;
 		var vm = this;
-		requirejs(["sugar-web/graphics/icon"], function(icon) {
+		requirejs(["sugar-web/graphics/icon"], function (icon) {
 			icon.colorize(vm.$refs.uploadPreview, { fill: "#d3d3d3", stroke: "#d3d3d3" })
 		})
 	},
 	methods: {
-		sortUploads: function(array) {
-			array.sort(function(a, b) {
+		sortUploads: function (array) {
+			array.sort(function (a, b) {
 				return b.timestamp - a.timestamp;
 			});
 			return array;
 		},
-		goBackTo: function() {
+		goBackTo: function () {
 			this.$emit('go-back-to', 'skills-grid');
 		}
 	}

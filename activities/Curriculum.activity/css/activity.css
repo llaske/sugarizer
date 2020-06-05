@@ -141,8 +141,6 @@ p {
 	align-items: stretch;
 	margin-top: auto;
 	padding: 10px 0;
-	background: rgba(255, 255, 255, 0.25);
-	border-radius: 20px;
 }
 .category-skills .skill {
 	width: 80px;
@@ -189,20 +187,13 @@ p {
 #back-button {
 	background: url(../icons/go-left.svg) no-repeat;
 	background-size: cover;
-	/* position: absolute;
-	top: 10px;
-	left: 2vw; */
-	margin: 10px;
-	width: 50px;
-	height: 50px;
-	cursor: pointer;
-}
-.skills #back-button {
 	position: absolute;
 	top: 10px;
 	left: 2vw;
+	width: 50px;
 	height: 50px;
 	cursor: pointer;
+	z-index: 3;
 }
 .skills .category-title, .skill {
 	position: relative;
@@ -260,7 +251,7 @@ p {
 	text-align: center;
 	height: 100%;
 	margin-top: auto;
-	padding: 15px 20px;
+	padding: 15px;
 	color: black;
 	cursor: pointer;
 	transition: all 200ms ease-out;
@@ -271,80 +262,58 @@ p {
 .skill-card .skill-footer h2 {
 	margin: 0;
 }
-.skill-card .skill-footer::before, .skill-card .skill-footer::after {
-	content: '';
-	position: absolute;
-	height: 80%;
-	width: 5px;
-	top: 50%;
-	transform: translateY(-50%);
-	border-radius: 5px;
-	background: rgba(255, 255, 255, 0.4);
-}
-.skill-card .skill-footer::before {
-	left: 10px;
-}
-.skill-card .skill-footer::after {
-	right: 10px;
-}
 
 .skill-details {
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-	/* margin-top: 40px; */
-	padding: 20px 10vw;
-	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 55px);
+	overflow: hidden;
+	padding: 0 10vw;
 }
-.skill-info-container, .skill-uploads  {
-	/* display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center; */
-}
-.skill-info-container .skill-image {
-	flex: 1;
-	min-width: 50%;
-	display: block;
-	margin: 0 auto;
-}
-.skill-info-container .skill-info {
-	flex: 2;
-	text-align: center;
-	min-width: 200px;
-}
-.skill-info-container .skill-info h1 {
+.skill-details .skill-title {
 	position: relative;
 	margin-bottom: 35px;
 }
-.skill-info-container h1 .underline {
+.skill-details .skill-title .underline {
 	position: absolute;
-	bottom: -20px;
-	left: 0;
-	width: 100%;
+	bottom: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
 	height: 15px;
 }
+.skill-details .skill-contents {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.skill-details .skill-image {
+	flex: 2;
+	width: fit-content;
+}
+.skill-details .skill-image img {
+	width: 100%;
+}
 .skill-uploads {
-	margin-top: 20px;
+	flex: 3;
+	flex-basis: 40vh;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	overflow: auto;
+	margin: 10px;
+	padding: 20px;
+	background: #EFEFEF;
+	border-radius: 20px;
 }
 .skill-uploads .flag {
 	flex: 1;
 	min-width: 100px;
 }
 
-.skill-uploads .uploads {
-	flex: 2;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	position: relative;
-	min-height: 400px;
-	max-height: 50vh;
-	/* min-width: 200px; */
-	align-items: center;
-	overflow: auto;
-	padding: 20px;
-	background: #EFEFEF;
-	border-radius: 20px;
-}
 .upload-preview .preview-icon {
 	background: url(../icons/upload.svg) no-repeat;
 	background-size: cover;
@@ -355,17 +324,12 @@ p {
 .upload-preview p {
 	color: grey;
 	font-weight: bold;
+	margin: 0;
 }
 .upload-preview.uploaded {
 	position: absolute;
 	top: 20px;
 	left: 20px;
-	display: flex;
-	align-items: center;
-}
-.upload-preview.uploaded .preview-icon {
-	width: 40px;
-	height: 40px;
 }
 .flag {
 	position: relative;
@@ -470,7 +434,7 @@ p {
 	margin: 5px;
 }
 .uploaded-item .item {
-	height: 80%;
+	height: 100%;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -495,6 +459,7 @@ p {
 	z-index: 2;
 }
 .popup {
+	position: relative;
 	min-width: 40%;
 	max-width: 90%;
 	max-height: 90%;
@@ -505,6 +470,20 @@ p {
 	flex-direction: column;
 	padding: 5px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+#popup-close {
+	background-color: black;
+	background-image: url(../icons/close.svg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 0;
+	cursor: pointer;
 }
 .popup-actions {
 	display: flex;
@@ -533,11 +512,18 @@ p {
 	width: auto;
 }
 
+.palette .wrapper {
+	min-width: 100px;
+}
+#media-upload {
+	width: 100px;
+	margin: 0 auto;
+}
 #media-upload button {
 	display: block;
 	background: black;
 	border-radius: 0;
-	width: 100px;
+	width: 100%;
 	padding: 10px;
 }
 
