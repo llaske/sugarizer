@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:18:10 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 22:39+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-moon/pt/>\n"
@@ -268,7 +268,7 @@ msgstr "Click here to save the current moon image to your journal, where you can
 #: TutoFullScreenButtonTitle
 msgctxt "TutoFullScreenButtonTitle"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Tela cheia"
 
 #: TutoFullScreenButtonContent
 msgctxt "TutoFullScreenButtonContent"
