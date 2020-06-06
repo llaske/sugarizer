@@ -1,6 +1,8 @@
 Vue.component('sugar-popup', {
-	data: {
-		humane: null
+	data: function () {
+		return {
+			humane: null
+		}
 	},
 	mounted() {
 		var vm = this;
