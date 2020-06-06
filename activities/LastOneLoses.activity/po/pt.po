@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:55+0000\n"
+"PO-Revision-Date: 2020-06-06 03:19+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-lastoneloses/pt/>\n"
@@ -60,22 +60,25 @@ msgstr "Network"
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the game on the network so an opponent could play against you"
-msgstr "Click here to share the game on the network so an opponent could play against you"
+msgstr ""
+"Clique aqui para compartilhar o jogo na rede. Assim, um oponente poderá "
+"jogar contra você"
 
 #: TutoNewgameTitle
 msgctxt "TutoNewgameTitle"
 msgid "New Game"
-msgstr "New Game"
+msgstr "Novo jogo"
 
 #: TutoNewgameContent
 msgctxt "TutoNewgameContent"
 msgid "Click here to start a new game. It will reinit the board with 13 items."
-msgstr "Click here to start a new game. It will reinit the board with 13 items."
+msgstr ""
+"Clique aqui para iniciar um novo jogo. Isso reiniciará o quadro com 13 itens."
 
 #: TutoEasyTitle
 msgctxt "TutoEasyTitle"
 msgid "Easy Level"
-msgstr "Easy Level"
+msgstr "Nível fácil"
 
 #: TutoEasyContent
 msgctxt "TutoEasyContent"
@@ -85,7 +88,7 @@ msgstr "Click here to select the level of difficulty easy. At this level the com
 #: TutoMediumTitle
 msgctxt "TutoMediumTitle"
 msgid "Medium Level"
-msgstr "Medium Level"
+msgstr "Nível médio"
 
 #: TutoMediumContent
 msgctxt "TutoMediumContent"
@@ -95,7 +98,7 @@ msgstr "Click here to select the level of difficulty medium. At this level the c
 #: TutoHardTitle
 msgctxt "TutoHardTitle"
 msgid "Hard Level"
-msgstr "Hard Level"
+msgstr "Nível difícil"
 
 #: TutoHardContent
 msgctxt "TutoHardContent"
@@ -105,7 +108,7 @@ msgstr "Click here to select the level of difficulty hard. At this level the com
 #: TutoSwitchTitle
 msgctxt "TutoSwitchTitle"
 msgid "Switch Player"
-msgstr "Switch Player"
+msgstr "Mudar de jogador"
 
 #: TutoSwitchContent
 msgctxt "TutoSwitchContent"
