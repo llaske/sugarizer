@@ -540,13 +540,13 @@ p {
 	justify-content: center;
 	align-items: center;
 	background: rgba(0, 0, 0, 0.2);
-	z-index: 2;
+	z-index: 5;
 }
 .popup {
 	position: relative;
 	min-width: 40%;
 	max-width: 90%;
-	max-height: 90%;
+	max-height: 95%;
 	height: fit-content;
 	background: black;
 	color: white;

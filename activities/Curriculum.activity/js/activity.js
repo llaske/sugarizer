@@ -27,9 +27,9 @@ var app = new Vue({
 		}
 	},
 	watch: {
-		currentView: function(newVal, oldVal) {
+		currentView: function (newVal, oldVal) {
 			// Scroll to top
-			setTimeout(function() {
+			setTimeout(function () {
 				content.scrollTo(0, 0);
 			}, 200);
 			/*// Switch to user color on categories-grid
@@ -39,7 +39,7 @@ var app = new Vue({
 				document.getElementById('app').style.background = 'white';
 			}*/
 			// Close all open palettes
-			for(var palette of document.getElementsByClassName('palette')) {
+			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
 		}
@@ -92,15 +92,16 @@ var app = new Vue({
 			}
 		},
 
-		onUploadItem: function(event) {
+		onUploadItem: function (event) {
 			var filters;
 			var vm = this;
 
-			switch(event.mediaType) {
+			switch (event.mediaType) {
 				case 'image':
 					filters = [
-						{ mimetype: 'image/png' }, 
-    				{ mimetype: 'image/jpeg' }
+						{ mimetype: 'image/png' },
+						{ mimetype: 'image/jpeg' },
+						{ activity: 'org.olpcfrance.PaintActivity' }
 					]
 					break;
 				case 'audio':
@@ -116,12 +117,17 @@ var app = new Vue({
 			}
 			this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
 				var obj = {
-					data: data,
 					title: metadata.title,
 					timestamp: metadata.timestamp
 				}
+				if(metadata.activity == 'org.olpcfrance.PaintActivity') {
+					obj.data = vm.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
+					console.log(obj.data);
+				} else {
+					obj.data = data;
+				}
 				var mediaObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media;
-				if(mediaObj[event.mediaType]) {
+				if (mediaObj[event.mediaType]) {
 					mediaObj[event.mediaType].push(obj)
 				} else {
 					vm.$set(mediaObj, event.mediaType, new Array(obj));
@@ -130,26 +136,26 @@ var app = new Vue({
 			});
 		},
 
-		onDeleteItem: function(item) {
+		onDeleteItem: function (item) {
 			var mediaObj = this.user.skills[this.selectedCategoryId][this.selectedSkillId].media;
-			var index = mediaObj[item.type].findIndex(function(el) {
+			var index = mediaObj[item.type].findIndex(function (el) {
 				return el.timestamp === item.timestamp;
 			});
-			if(index !== -1) {
+			if (index !== -1) {
 				mediaObj[item.type].splice(index, 1);
 			}
 		},
 
-		importSkills: function() {
+		importSkills: function () {
 			var vm = this;
-			requirejs(["text!activity/imported/sections.json"], function(sections) {
+			requirejs(["text!activity/imported/sections.json"], function (sections) {
 				var sectionsObj = JSON.parse(sections);
 				var importedCategories = [];
-	
+
 				var categoryId = vm.categories.length;
-				sectionsObj.forEach(function(section) {
-					if(section.isDomaine) return;
-	
+				sectionsObj.forEach(function (section) {
+					if (section.isDomaine) return;
+
 					var category = {
 						id: categoryId,
 						title: section.titre,
@@ -158,16 +164,16 @@ var app = new Vue({
 					}
 					// Updating the user object
 					vm.$set(vm.user.skills, categoryId, new Object());
-	
+
 					var skillId = 0;
-					section.items.forEach(function(item) {
+					section.items.forEach(function (item) {
 						var skill = {
 							id: skillId,
 							title: item.titre,
 							image: 'js/imported/' + item.uuid + '.jpg'
 						}
 						category.skills.push(skill);
-						
+
 						// Updating the user object
 						vm.$set(vm.user.skills[categoryId], skillId, {
 							acquired: false,
@@ -175,7 +181,7 @@ var app = new Vue({
 						});
 						skillId++;
 					});
-	
+
 					importedCategories.push(category);
 					categoryId++;
 				});
@@ -184,7 +190,7 @@ var app = new Vue({
 			});
 		},
 
-		goBackTo: function(view) {
+		goBackTo: function (view) {
 			this.currentView = view;
 		},
 
