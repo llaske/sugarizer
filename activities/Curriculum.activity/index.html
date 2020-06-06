@@ -34,8 +34,6 @@
 				palette-event="upload-item"
 				@upload-item="onUploadItem"
 			></sugar-toolitem>
-
-			<sugar-toolitem id="buddy-button" :class="{ active: buddyMedal }" @click="buddyMedal = !buddyMedal"></sugar-toolitem>
 			
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
@@ -45,19 +43,20 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<component 
-					:is="currentView" 
-					:categories="categories"
-					:category-id="selectedCategoryId"
-					:skill-id="selectedSkillId"
-					:current-acquired="currentAcquired"
-					:user="user"
-					@open-category="openCategory"
-					@open-skill="openSkill"
-					@delete-item="onDeleteItem"
-					@go-back-to="goBackTo"
-					:key="buddyMedal"
-				></component>
+				<keep-alive>
+					<component 
+						:is="currentView" 
+						:categories="categories"
+						:category-id="selectedCategoryId"
+						:skill-id="selectedSkillId"
+						:current-acquired="currentAcquired"
+						:user="user"
+						@open-category="openCategory"
+						@open-skill="openSkill"
+						@delete-item="onDeleteItem"
+						@go-back-to="goBackTo"
+					></component>
+				</keep-alive>
 			</transition>
 		</div>
 

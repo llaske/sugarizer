@@ -36,12 +36,12 @@ var SkillCard = {
 var SkillsGrid = {
 	/*html*/
 	template: `
-		<div class="skills">
+		<div class="skills" :key="category.id">
 			<button id="back-button" @click="goBackTo"></button>
 			<h1 class="category-title">
 				{{ category.title }} 
-				<span ref="underline1" class="underline"></span> 
-				<span ref="underline2" class="underline"></span>
+				<span ref="underline1" class="underline" :style="{ backgroundColor: category.color }"></span> 
+				<span ref="underline2" class="underline" :style="{ backgroundColor: category.color }"></span>
 			</h1>
 			
 			<div class="skills-container">
@@ -69,11 +69,10 @@ var SkillsGrid = {
 			});
 		}
 	},
-	mounted: function () {
-		//Handling styles
-		this.$refs.underline1.style.background = this.category.color;
-		this.$refs.underline2.style.background = this.category.color;
-	},
+	// mounted: function() {
+	// 	this.$refs.underline1.style.background = this.category.color;
+	// 	this.$refs.underline2.style.background = this.category.color;
+	// },
 	methods: {
 		onSkillClick: function (skillId) {
 			this.$emit('open-skill', this.category.id, skillId);

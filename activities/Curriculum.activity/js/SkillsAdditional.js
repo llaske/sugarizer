@@ -4,11 +4,11 @@ var Medal = {
 		<div class="medal-container">
 			<div v-if="small" class="medal-small">
 				<div ref="medal" class="medal" v-show="!acquired"></div>
-				<div ref="medalAcquired" class="medal acquired" v-show="acquired" :class="{ buddy: buddyMedal }"></div>
+				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired"></div>
 			</div>
 			<div v-else class="medal-large">
 				<div ref="medal" class="medal" v-show="!acquired"></div>
-				<div ref="medalAcquired" class="medal acquired" v-show="acquired" :class="{ buddy: buddyMedal }"></div>
+				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired"></div>
 				<!-- <div ref="medal" class="medal" :class="{ acquired: acquired, buddy: buddyMedal }"></div> -->
 				<div v-show="acquired" class="shine"></div>
 				<div v-show="acquired" class="shine"></div>
@@ -25,32 +25,34 @@ var Medal = {
 		icon: null
 	},
 	computed: {
-		buddyMedal: function () {
-			console.log(this.$root.buddyMedal);
-			return this.$root.buddyMedal;
+		colors: function() {
+			if(this.$root.$refs.SugarActivity.getEnvironment()) {
+				return this.$root.$refs.SugarActivity.getEnvironment().user.colorvalue;
+			}
+			return { fill: "#fff", stroke: "#000" };
 		}
 	},
 	watch: {
-		acquired: function (newVal, oldVal) {
-			if (newVal && this.buddyMedal && this.$refs.medalAcquired && this.icon) {
-				this.icon.colorize(this.$refs.medalAcquired, this.$root.currentenv.user.colorvalue)
-			}
+		colors: function(newVal, oldVal) {
+			this.colorizeElements(newVal);
 		}
 	},
 	mounted: function () {
 		var vm = this;
 		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			var colors = { fill: "#FFD00D", stroke: "#000" };
-			if (vm.buddyMedal) {
-				if (vm.$refs.medalAcquired) {
-					icon.colorize(vm.$refs.medalAcquired, vm.$root.currentenv.user.colorvalue);
-				}
-				colors = vm.$root.currentenv.user.colorvalue;
-			}
-			icon.colorize(vm.$refs.shine1, colors)
-			icon.colorize(vm.$refs.shine2, colors)
+			// console.log('mounted')
 			vm.icon = icon;
+			vm.colorizeElements(vm.colors);
 		});
+	},
+	methods: {
+		colorizeElements(colors) {
+			this.icon.colorize(this.$refs.medalAcquired, colors);
+			if(!this.small) {
+				this.icon.colorize(this.$refs.shine1, colors);
+				this.icon.colorize(this.$refs.shine2, colors);
+			}
+		}
 	}
 }
 

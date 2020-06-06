@@ -270,16 +270,15 @@ p {
 	display: flex;
 	flex-direction: column;
 	height: calc(100vh - 55px);
-	overflow: hidden;
+	overflow: auto;
 	padding: 0 10vw;
 }
 .skill-details .skill-title {
 	position: relative;
-	margin-bottom: 25px;
 }
 .skill-details .skill-title .underline {
 	position: absolute;
-	bottom: -25px;
+	bottom: -15px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100vw;
@@ -293,17 +292,19 @@ p {
 .skill-details .skill-contents {
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
+	flex: 1;
 }
 .skill-details .skill-image {
-	flex: 2;
+	flex: 1;
 	width: fit-content;
+	margin: 0 auto;
+	margin-top: 15px;
 }
 .skill-details .skill-image img {
 	width: 100%;
 }
 .skill-uploads {
-	flex: 3;
+	flex: 1;
 	flex-basis: 40vh;
 	height: 100%;
 	display: flex;
@@ -312,7 +313,7 @@ p {
 	position: relative;
 	align-items: center;
 	overflow: auto;
-	margin: 10px 0;
+	margin: 5px 0;
 	padding: 20px;
 	background: #EFEFEF;
 	border-radius: 20px;
@@ -330,6 +331,7 @@ p {
 	margin: 0 auto;
 }
 .upload-preview p {
+	text-align: center;
 	color: grey;
 	font-weight: bold;
 	margin: 0;

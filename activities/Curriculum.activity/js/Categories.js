@@ -17,8 +17,7 @@ var CategoryCard = {
 				</div>
 			</div>
 			<div class="progress">
-				<medal small acquired v-for="n in acquiredSkills" />
-				<medal small v-for="n in (totalSkills - acquiredSkills)" />
+				<medal small v-for="n in totalSkills" :key="n" :acquired="n <= acquiredSkills" />
 			</div>
 		</div>
 	`,

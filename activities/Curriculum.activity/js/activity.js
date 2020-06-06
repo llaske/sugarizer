@@ -24,8 +24,7 @@ var app = new Vue({
 		l10n: {
 			stringFullscreen: '',
 			stringUnfullscreen: ''
-		},
-		buddyMedal: false
+		}
 	},
 	watch: {
 		currentView: function(newVal, oldVal) {
@@ -67,6 +66,7 @@ var app = new Vue({
 
 		openCategory: function (categoryId) {
 			this.selectedCategoryId = categoryId;
+			this.selectedSkillId = null;
 			this.currentView = 'skills-grid';
 		},
 
