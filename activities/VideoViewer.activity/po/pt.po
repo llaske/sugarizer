@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:04:07 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-06 03:48+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-videoviewer/pt/>\n"
@@ -33,7 +33,7 @@ msgstr "Fim"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Video Viewer Activity"
-msgstr "Video Viewer Activity"
+msgstr "Atividade Visualizar Vídeo"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -53,7 +53,7 @@ msgstr "Click here to filter the videos by category"
 #: TutoFavoriteTitle
 msgctxt "TutoFavoriteTitle"
 msgid "Favorite videos"
-msgstr "Favorite videos"
+msgstr "Vídeos favoritos"
 
 #: TutoFavoriteContent
 msgctxt "TutoFavoriteContent"
@@ -63,7 +63,7 @@ msgstr "Click here to see the videos marked by you as favorite"
 #: TutoLibraryTitle
 msgctxt "TutoLibraryTitle"
 msgid "Libraries"
-msgstr "Libraries"
+msgstr "Bibliotecas"
 
 #: TutoLibraryContent
 msgctxt "TutoLibraryContent"
@@ -73,7 +73,7 @@ msgstr "Click here to choose between Khan Academy, Canopé videos or to add your
 #: TutoExportvideoTitle
 msgctxt "TutoExportvideoTitle"
 msgid "Export videos"
-msgstr "Export videos"
+msgstr "Exportar vídeos"
 
 #: TutoExportvideoContent
 msgctxt "TutoExportvideoContent"
@@ -88,14 +88,14 @@ msgstr "Video"
 #: TutoVideoContent
 msgctxt "TutoVideoContent"
 msgid "Click here to play the video"
-msgstr "Click here to play the video"
+msgstr "Clicar aqui para executar um vídeo"
 
 #: TutoSearchTitle
 msgctxt "TutoSearchTitle"
 msgid "Search"
-msgstr "Search"
+msgstr "Pesquisar"
 
 #: TutoSearchContent
 msgctxt "TutoSearchContent"
 msgid "Type here to search for a video by its name"
-msgstr "Type here to search for a video by its name"
+msgstr "Digite aqui para pesquisar um vídeo pelo seu nome"
