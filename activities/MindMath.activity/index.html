@@ -28,7 +28,14 @@
 			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
-			<sugar-toolitem id="level-button" title="level"></sugar-toolitem>
+			<sugar-toolitem
+				id="level-button"
+				title="Select Difficulty Level"
+				palette-file="js/palettes/difficultyPalette.js"
+				palette-class="DifficultyPalette"
+				palette-title="difficulty level"
+				palette-event="difficultySelected"
+				v-on:upload-item="onDifficultySelected"></sugar-toolitem>
 			<sugar-toolitem id="compulsory-op-button" title="Choose compulsory operator" v-on:click="handleCompulsoryOpButton"></sugar-toolitem>
 			<sugar-toolitem id="hint-button" title="hint"></sugar-toolitem>
 

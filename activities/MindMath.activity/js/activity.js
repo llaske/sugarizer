@@ -29,6 +29,7 @@ var app = new Vue({
       sugarPopup: null,
       mode: 'non-timer',
       score: 0,
+      level: 0,
       compulsoryOp: null,
       clock: {
         active: false,
@@ -91,7 +92,7 @@ var app = new Vue({
 
       //Initialize questionsGenerator
       vm.questionsGenerator = new QuestionsGenerator();
-      vm.questions = vm.questionsGenerator.generate(0,1);
+      vm.questions = vm.questionsGenerator.generate(vm.level,1);
       vm.qNo = 0;
       vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
       vm.inputNumbersTypes = [0,0,0,0,0];
@@ -178,7 +179,7 @@ var app = new Vue({
       }
       else {
         // generate question set,
-        vm.questions = vm.questionsGenerator.generate(0,1);
+        vm.questions = vm.questionsGenerator.generate(vm.level,1);
         vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
         vm.inputNumbersTypes = [0,0,0,0,0];
 
@@ -205,7 +206,7 @@ var app = new Vue({
       }
       else {
         // generate question set,
-        vm.questions = vm.questionsGenerator.generate(0,1);
+        vm.questions = vm.questionsGenerator.generate(vm.level,1);
         vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
         vm.inputNumbersTypes = [0,0,0,0,0];
 
@@ -241,6 +242,12 @@ var app = new Vue({
         vm.inputNumbersTypes = newTypes;
 
       }
+    },
+
+    onDifficultySelected: function (data) {
+      this.level = data.index;
+      // can also start a new game
+      //....
     },
 
     handleCompulsoryOpButton: function () {

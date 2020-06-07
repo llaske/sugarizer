@@ -129,6 +129,14 @@ p {
 	z-index: 5;
 }
 
+#easy-button {
+  background-image: url(../icons/easy-level.svg);
+}
+
+#medium-button {
+  background-image: url(../icons/medium-level.svg);
+}
+
 #app {
   width: 100%;
   height: 100%;
