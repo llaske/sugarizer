@@ -84,7 +84,7 @@ var UploadItem = {
 							<p>{{ item.title }}</p>
 							<p>{{ date }}</p>
 						</div>
-						<button id="delete-button" @click="$emit('delete-item')"></button>
+						<button id="delete-button" @click="onDeleteClick"></button>
 					</div>
 
 				</div>
@@ -142,9 +142,12 @@ var UploadItem = {
 			}
 
 			return this.$root.$refs.SugarL10n.get("Ago" + suffix, { time: time_period });
+		},
+		onDeleteClick: function() {
+			this.$emit('delete-item');
+			this.showPopup = false;
 		}
-	},
-
+	}
 }
 
 var Flag = {

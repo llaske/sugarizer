@@ -39,14 +39,6 @@ Vue.component('sugar-journal', {
 			});
 		},
 
-		turnCompressionOff: function () {
-			this.compression = false;
-		},
-
-		turnCompressionOn: function () {
-			this.compression = true;
-		},
-
 		insertFromJournal: function (type, callback) {
 			var typeParameters = [null, null, null, null];
 			for (var i = 0; i < typeParameters.length; i++) {

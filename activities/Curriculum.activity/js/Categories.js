@@ -3,28 +3,33 @@ var CategoryCard = {
 	template: `
 		<div 
 			class="category-card" 
+			:class="{ 'settings-active': settings }"
 			:style="{ backgroundColor: category.color, boxShadow: '0 0 5px ' + category.color }"
-			@click="$emit('category-clicked', category.id)"
+			@click="onCategoryClick"
 		>
+			<div class="settings-row" v-if="settings">
+				<button id="edit-button" @click=""></button>
+				<button id="delete-button" @click.stop="onDeleteClick"></button>
+			</div>
 			<h1 class="category-title" v-html="category.title"></h1>
 			<div class="category-skills">
 				<div 
 					class="skill" 
 					v-for="skill in skillsToShow" 
-					@click.stop="$emit('skill-clicked', category.id, skill.id)"
+					@click.stop="onSkillClick(skill.id)"
 				>
 					<img :src="skill.image">
 				</div>
 			</div>
 			<div class="progress">
-				<medal small v-for="n in totalSkills" :key="n" :acquired="n <= acquiredSkills" />
+				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills" />
 			</div>
 		</div>
 	`,
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user'],
+	props: ['category', 'user', 'settings'],
 	computed: {
 		skillsToShow: function () {
 			var skills = [];
@@ -33,10 +38,8 @@ var CategoryCard = {
 			}
 			return skills;
 		},
-		totalSkills: function () {
-			return this.category.skills.length;
-		},
 		acquiredSkills: function () {
+			if(!this.user) return this.category.skills.length/2;
 			var count = 0;
 			for (var skillId in this.user.skills[this.category.id]) {
 				if (this.user.skills[this.category.id][skillId].acquired) count++;
@@ -54,6 +57,18 @@ var CategoryCard = {
 			}
 			vm.icon = icon;
 		});
+	},
+	methods: {
+		onCategoryClick: function() {
+			this.$emit('category-clicked', this.category.id)
+		},
+		onSkillClick: function(skillId) {
+			if(this.settings) return;
+			this.$emit('skill-clicked', this.category.id, skillId);
+		},
+		onDeleteClick: function() {
+			this.$emit('delete-clicked', this.category.id);
+		}
 	}
 };
 
@@ -66,15 +81,17 @@ var CategoriesGrid = {
 				:key="category.id"
 				:category="category"
 				:user="user"
+				:settings="settings"
 				@skill-clicked="onSkillClick"
 				@category-clicked="onCategoryClick"
+				@delete-clicked="deleteCategory"
 			></category-card>
 		</div>
 	`,
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user'],
+	props: ['categories', 'user', 'settings'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);
@@ -85,5 +102,13 @@ var CategoriesGrid = {
 			console.log('skill: ', categoryId, skillId);
 			this.$emit('open-skill', categoryId, skillId);
 		},
+
+		deleteCategory: function(categoryId) {
+			var index = this.categories.findIndex(function(cat) {
+				return cat.id == categoryId;
+			});
+			this.categories.splice(index, 1);
+			Vue.delete(this.user.skills, categoryId);
+		}
 	}
 }

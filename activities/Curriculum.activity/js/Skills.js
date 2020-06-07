@@ -5,10 +5,15 @@ var SkillCard = {
 	template: `
 		<div 
 			class="skill-card" 
+			:class="{ 'settings-active': settings }"
 			:style="{ border: 'solid 2px ' + category.color }"
 			@click="$emit('skill-clicked', skill.id)"		
 		>
-			<medal small :acquired="acquired"></medal>
+			<div class="settings-row" v-if="settings">
+				<button id="edit-button" @click=""></button>
+				<button id="delete-button" @click.stop="onDeleteClick"></button>
+			</div>
+			<medal v-else small :acquired="acquired"></medal>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
 				<h2 class="skill-title" v-html="skill.title"></h2>
@@ -18,10 +23,10 @@ var SkillCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['skill', 'category', 'user'],
+	props: ['skill', 'category', 'user', 'settings'],
 	computed: {
 		acquired: function () {
-			if (this.user.skills[this.category.id][this.skill.id]) {
+			if (this.user && this.user.skills[this.category.id][this.skill.id]) {
 				return this.user.skills[this.category.id][this.skill.id].acquired;
 			}
 			return false;
@@ -30,13 +35,18 @@ var SkillCard = {
 	mounted: function () {
 		this.$refs.footer.style.background = this.category.color;
 		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.color;
+	},
+	methods: {
+		onDeleteClick: function() {
+			this.$emit('delete-clicked', this.skill.id);
+		}
 	}
 };
 
 var SkillsGrid = {
 	/*html*/
 	template: `
-		<div class="skills" :key="category.id">
+		<div class="skills">
 			<button id="back-button" @click="goBackTo"></button>
 			<h1 class="category-title">
 				{{ category.title }} 
@@ -51,7 +61,9 @@ var SkillsGrid = {
 					:skill="skill" 
 					:category="category"
 					:user="user"
+					:settings="settings"
 					@skill-clicked="onSkillClick"
+					@delete-clicked="deleteSkill"
 				></skill-card>
 			</div>
 
@@ -60,7 +72,7 @@ var SkillsGrid = {
 	components: {
 		'skill-card': SkillCard,
 	},
-	props: ['categories', 'categoryId', 'user'],
+	props: ['categories', 'categoryId', 'user', 'settings'],
 	computed: {
 		category: function () {
 			var vm = this;
@@ -69,16 +81,25 @@ var SkillsGrid = {
 			});
 		}
 	},
-	// mounted: function() {
-	// 	this.$refs.underline1.style.background = this.category.color;
-	// 	this.$refs.underline2.style.background = this.category.color;
-	// },
 	methods: {
 		onSkillClick: function (skillId) {
 			this.$emit('open-skill', this.category.id, skillId);
 		},
+
 		goBackTo: function () {
 			this.$emit('go-back-to', 'categories-grid');
+		},
+
+		deleteSkill: function (skillId) {
+			var vm = this;
+			var catIndex = this.categories.findIndex(function (cat) {
+				return cat.id == vm.categoryId;
+			});
+			var skillIndex = this.categories[catIndex].skills.findIndex(function (skill) {
+				return skill.id == skillId;
+			});
+			this.categories[catIndex].skills.splice(skillIndex, 1);
+			Vue.delete(this.user.skills[this.categoryId], skillId);
 		}
 	}
 }
@@ -100,11 +121,11 @@ var SkillDetails = {
 				<!-- <flag :raised="currentAcquired"></flag> -->
 				<div class="skill-uploads">
 					<div class="upload-preview" :class="{ 'uploaded': uploads.length != 0 }">
-						<div v-if="uploads.length == 0">
+						<div v-show="uploads.length == 0">
 							<div ref="uploadPreview" class="preview-icon"></div>
 							<p>Click on upload to integrate some proofs of your skill</p>
 						</div>
-						<p v-else>{{ uploads.length }}</p>
+						<p v-show="uploads.length > 0">{{ uploads.length }}</p>
 					</div>
 					<upload-item
 						v-for="item in uploads" 

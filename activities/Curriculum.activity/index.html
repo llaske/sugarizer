@@ -23,18 +23,19 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" v-visible="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-visible="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
+			<sugar-toolitem id="settings-button" v-show="currentView != 'skill-details'" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
-				v-visible="currentView == 'skill-details'"
+				v-show="currentView == 'skill-details'"
 				palette-file="js/palettes/mediapalette.js"
 				palette-class="MediaPalette"
 				palette-title="Upload Media"
 				palette-event="upload-item"
 				@upload-item="onUploadItem"
 			></sugar-toolitem>
-			
+
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
@@ -43,9 +44,10 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<keep-alive>
+				<keep-alive :include="settings ? '' : 'categories-grid'">
 					<component 
 						:is="currentView" 
+						:settings="settings"
 						:categories="categories"
 						:category-id="selectedCategoryId"
 						:skill-id="selectedSkillId"
@@ -61,7 +63,7 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
-		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
 		<sugar-localization ref="SugarL10n"></sugar-localization>
 	</div>
 
@@ -69,6 +71,7 @@
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
 	<script src="js/Categories.js"></script>
+	<script src="js/Settings.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>

@@ -12,11 +12,14 @@ var app = new Vue({
 	components: {
 		'categories-grid': CategoriesGrid,
 		'skills-grid': SkillsGrid,
-		'skill-details': SkillDetails
+		'skill-details': SkillDetails,
+		'category-settings': CategorySettings,
+		'skill-settings': SkillSettings,
 	},
 	data: {
 		currentenv: null,
 		currentView: "categories-grid",
+		settings: false,
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
@@ -32,12 +35,6 @@ var app = new Vue({
 			setTimeout(function () {
 				content.scrollTo(0, 0);
 			}, 200);
-			/*// Switch to user color on categories-grid
-			if(newVal == 'categories-grid') {
-				document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
-			} else {
-				document.getElementById('app').style.background = 'white';
-			}*/
 			// Close all open palettes
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
@@ -46,6 +43,7 @@ var app = new Vue({
 	},
 	computed: {
 		currentAcquired: function () {
+			console.log(this.selectedCategoryId, this.selectedSkillId);
 			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
@@ -56,7 +54,7 @@ var app = new Vue({
 		this.categories = categoriesData;
 		this.user = userData;
 
-		this.importSkills();
+		// this.importSkills();
 	},
 	methods: {
 		initialized: function () {
@@ -67,13 +65,21 @@ var app = new Vue({
 		openCategory: function (categoryId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = null;
-			this.currentView = 'skills-grid';
+			if(this.settings) {
+				this.currentView = 'category-settings';
+			} else {
+				this.currentView = 'skills-grid';
+			}
 		},
 
 		openSkill: function (categoryId, skillId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = skillId;
-			this.currentView = 'skill-details';
+			if(this.settings) {
+				this.currentView = 'skill-settings';
+			} else {
+				this.currentView = 'skill-details';
+			}
 		},
 
 		switchSkillAcquired: function (value) {
@@ -122,7 +128,6 @@ var app = new Vue({
 				}
 				if(metadata.activity == 'org.olpcfrance.PaintActivity') {
 					obj.data = vm.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
-					console.log(obj.data);
 				} else {
 					obj.data = data;
 				}
@@ -132,7 +137,6 @@ var app = new Vue({
 				} else {
 					vm.$set(mediaObj, event.mediaType, new Array(obj));
 				}
-				console.log(mediaObj);
 			});
 		},
 
@@ -192,11 +196,21 @@ var app = new Vue({
 
 		goBackTo: function (view) {
 			this.currentView = view;
+			if(view == 'categories-grid') {
+				this.selectedCategoryId = null;
+				this.selectedSkillId = null;
+			} else if(view == 'skills-grid') {
+				this.selectedSkillId = null;
+			}
 		},
 
 		onJournalDataLoaded: function (data, metadata) {
-			console.log(data);
 			this.user = data.user;
+			this.categories = data.categories;
+		},
+
+		onJournalNewInstace: function () {
+			this.importSkills();
 		},
 
 		fullscreen: function () {
@@ -209,7 +223,8 @@ var app = new Vue({
 
 		onStop: function () {
 			var context = {
-				user: this.user
+				user: this.user,
+				categories: this.categories
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}
