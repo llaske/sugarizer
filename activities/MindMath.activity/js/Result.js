@@ -113,8 +113,6 @@ var Result = {
   `,
   data: function () {
     return {
-      inputNumbers: [1,12,5,18,9],
-      targetNum: 12,
       questionSet: [],
       bestSlots:[],
       mySlots: [],
@@ -137,7 +135,7 @@ var Result = {
     resize: function () {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
       var newHeight = window.innerHeight - toolbarHeight;
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;
@@ -203,10 +201,8 @@ var Result = {
           slotsArr.push(slotObj)
         }
         vm.bestSlots.push(slotsArr);
-        vm.mySlots.push(vm.slots);
+        vm.mySlots.push(vm.slots[vm.qNo]);
       }
-      //vm.inputNumbers = vm.question.inputNumbers;
-      //vm.targetNum = vm.question.targetNum;
     }
   }
 }

@@ -3,7 +3,7 @@ var Game = {
     "clock": Clock,
     "slots-component": Slots,
   },
-  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
+  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOp','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -26,7 +26,7 @@ var Game = {
             </div>
 
             <div id="target-number"
-            >{{ targetNum }}</div>
+            >{{ questions[qNo].targetNum }}</div>
 
             <div class="detail-block"
             v-if="mode === 'timer'"
@@ -59,7 +59,7 @@ var Game = {
               'selected-op': index === currentSelectedOp,
               'plus': operator === '+',
               'minus': operator === '-',
-              'multiply': operator === 'x',
+              'multiply': operator === '*',
               'divide': operator === '/',
              }"
             v-bind:key="index"
@@ -72,7 +72,7 @@ var Game = {
             <transition name="fade"  mode="out-in">
               <div id="validate-button"
               v-on:click="validate"
-              v-if="compulsoryOpUsed && currentRes === targetNum"
+              v-if="(compulsoryOp != null ? compulsoryOpUsed : true) && currentRes === questions[qNo].targetNum"
               ></div>
             </transition>
           </div>
@@ -87,8 +87,8 @@ var Game = {
         <slots-component ref="slots"
         v-bind:strokeColor="strokeColor"
         v-bind:fillColor="fillColor"
-        v-bind:targetNum="targetNum"
-        v-bind:slots="slots"
+        v-bind:targetNum="questions[qNo].targetNum"
+        v-bind:slots="slots[qNo]"
         ></slots-component>
       </div>
 
@@ -96,15 +96,13 @@ var Game = {
   `,
   data: function () {
     return {
-      operators: ['+','-','/','x'],
+      operators: ['+','-','/','*'],
       currentSelectedNums: {
         numIndex1: null,
         numIndex2: null,
         nums:[]
       },
       currentSelectedOp: null,
-      targetNum: 12,
-      compulsoryOp: null,
       currentRes: null,
       compulsoryOpUsed: false,
     };
@@ -119,39 +117,43 @@ var Game = {
   },
   mounted: function () {
     var vm = this;
-    //Initialize question
-    vm.targetNum = vm.questions[vm.qNo].targetNum;
-    vm.compulsoryOp = vm.questions[vm.qNo].compulsoryOp;
-    if (vm.compulsoryOp == null) {
-      vm.compulsoryOpUsed = true;
-    }
-
     vm.resize();
   },
   watch: {
-    questions: function (newVal) {
-      var vm = this;
-      //Initialize question
-      vm.targetNum = newVal[vm.qNo].targetNum;
-      vm.compulsoryOp = newVal[vm.qNo].compulsoryOp;
-      if (vm.compulsoryOp == null) {
-        vm.compulsoryOpUsed = true;
-      }
-    },
     slots: function (newVal) {
       var vm = this;
-      if (vm.slots.length!=0) {
-        vm.currentRes = vm.slots[vm.slots.length-1].res;
-      }else {
+      if (newVal[vm.qNo].length != 0) {
+        //check if the operator used is compulsoryOp
+        var hasCompOp = newVal[vm.qNo].find(function(ele) {
+          return ele.operator === vm.compulsoryOp;
+        });
+        vm.compulsoryOpUsed = hasCompOp ? true : false;
+        vm.currentRes = newVal[vm.qNo][newVal[vm.qNo].length - 1].res;
+
+        var compulsoryFlag = vm.compulsoryOp ? vm.compulsoryOpUsed : true;
+
+        if (compulsoryFlag && vm.currentRes === vm.questions[vm.qNo].targetNum) {
+          //notifying user
+          vm.sugarPopup.log("You Got the Target Number")
+        }
+      } else {
         vm.currentRes = null;
       }
+    },
+    compulsoryOp: function (newVal) {
+      var vm = this;
+      //check if the operator used is compulsoryOp
+      var hasCompOp = vm.slots[vm.qNo].find(function(ele) {
+        return ele.operator === newVal;
+      });
+      vm.compulsoryOpUsed = hasCompOp ? true : false;
     }
   },
   methods: {
     resize: function () {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.style.opacity == 1 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
       var newHeight = window.innerHeight - toolbarHeight;
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;
@@ -233,7 +235,7 @@ var Game = {
           case '/':
             res = num1 / num2;
             break;
-          case 'x':
+          case '*':
             res = num1 * num2;
             break;
         }
@@ -274,16 +276,6 @@ var Game = {
           }
           vm.$emit('slots-update', updateObj);
 
-          //check if the operator used is compulsoryOp
-          if (vm.operators[vm.currentSelectedOp] === vm.compulsoryOp) {
-            vm.compulsoryOpUsed = true;
-          }
-
-          if (vm.compulsoryOpUsed && res === vm.targetNum ) {
-            //notifying user
-            vm.sugarPopup.log("You Got the Target Number")
-          }
-
         }else {
           //notify user for an invalid operation
           vm.sugarPopup.log("Invalid option");
@@ -299,12 +291,9 @@ var Game = {
     },
     validate: function () {
       var vm = this;
-      if (vm.currentRes === vm.targetNum) {
+      if (vm.currentRes === vm.questions[vm.qNo].targetNum) {
         //var newScore = vm.score + vm.calculateScore();
-        var endObj = {
-          type: "validate",
-        }
-        vm.$emit('end-game', endObj);
+        vm.$emit('validate');
       }
     },
 

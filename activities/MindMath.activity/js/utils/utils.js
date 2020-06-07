@@ -22,6 +22,52 @@ function allowedCheck(n) {
   return Number.isInteger(n) && n >= 0;
 }
 
+function checkIfArrayHasUniqueOps(pattern, writePos) {
+  var map = {};
+  var flag = 0;
+  var flag2 = 0;
+  var noOfOps = 0;
+  var op = [0,0]
+  for (var i = 0; i <= writePos; i++){
+    if (isNaN(pattern[i])) {
+      noOfOps++
+      if(!(pattern[i] in map)){
+        map[pattern[i]] = 1;
+        flag++
+      }
+      if(pattern[i] == '-'){
+        if(op[0]==0){
+          op[0]=1;
+          flag2++;
+        }
+      }
+      if(pattern[i] == '/'){
+        if(op[1]==0){
+          op[1]=1;
+          flag2++;
+        }
+      }
+
+    }
+  }
+
+  return {unique: flag==noOfOps, hasTwo: flag2==2}
+}
+
+function checkIfArrayHasDups(arr) {
+    var map = {}, i, size;
+
+    for (i = 0, size = arr.length; i < size; i++){
+        if (map[arr[i]]){
+            return true;
+        }
+
+        map[arr[i]] = true;
+    }
+    return false;
+}
+
+
 function score(pattern,writePos) {
   var scr = 0;
   map = {}

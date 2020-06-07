@@ -6,6 +6,11 @@ requirejs.config({
   }
 });
 
+var requestAnimationFrame = window.requestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.msRequestAnimationFrame;
+
 // Vue main app
 var app = new Vue({
   el: '#app',
@@ -24,23 +29,24 @@ var app = new Vue({
       sugarPopup: null,
       mode: 'non-timer',
       score: 0,
+      compulsoryOp: null,
       clock: {
         active: false,
         previousTime: null,
         time: 0,
         timer: false,
       },
+      questionsGenerator: null,
       questions: [
         {
           inputNumbers: [1,2,2,9,12],
           targetNum: 3,
           difficulty: 'medium',
-          compulsoryOp: null,
-          bestSoln: [12,2,'+',2,'x',1,'-',9,'/'],
+          bestSoln: [12,2,'+',2,'*',1,'-',9,'/'],
         },
       ],
       qNo:0,
-      slots:[],
+      slots:[[]],
       inputNumbers: [1,2,2,9,12],
       inputNumbersTypes:[0,0,0,0,0],
       prev: {
@@ -51,8 +57,9 @@ var app = new Vue({
   },
   mounted: function() {
     var vm = this;
-    document.getElementById("main-toolbar").style.opacity = 1;
-    window.dispatchEvent(new Event('resize'));
+    setTimeout(() => {
+       window.dispatchEvent(new Event('resize'));
+     }, 0);
   },
   watch: {
     currentScreen: function(newVal) {
@@ -63,8 +70,8 @@ var app = new Vue({
         vm.$set(vm.clock, 'active', true);
         vm.$set(vm.clock, 'previousTime', new Date());
         vm.score = 0;
-        vm.slots = [];
-        vm.inputNumbersTypes = [0,0,0,0,0];
+        vm.slots = [[]];
+        vm.qNo = 0;
         //vm.tick();
       } else {
 
@@ -82,6 +89,13 @@ var app = new Vue({
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
       vm.fillColor = vm.currentenv.user.colorvalue.fill;
 
+      //Initialize questionsGenerator
+      vm.questionsGenerator = new QuestionsGenerator();
+      vm.questions = vm.questionsGenerator.generate(0,1);
+      vm.qNo = 0;
+      vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+      vm.inputNumbersTypes = [0,0,0,0,0];
+
       //Initialize clock
       vm.$set(vm.clock, 'time', 0);
       vm.$set(vm.clock, 'active', true);
@@ -89,28 +103,28 @@ var app = new Vue({
       vm.tick();
 
     },
-    onEndGame: function(data) {
+
+    onValidate: function(data) {
       var vm = this;
       //stop timer
       vm.clock.active = false;
+      //calculate score
+      var slots = vm.slots[vm.qNo];
+      var timeTaken = vm.clock.time;
+      var scr = calculateScoreFromSlots(slots, timeTaken);
+      vm.score += scr;
 
-      var score = null;
-      if (data.type === 'validate') {
-        //calculate score
-        var slots = vm.slots;
-        var timeTaken = vm.clock.time;
-        score = calculateScoreFromSlots(slots, timeTaken);
-        console.log(score);
+      if (vm.mode === 'non-timer') {
+        //change currentScreen
+        vm.currentScreen = "result";
       }
-      vm.slots = slots;
-      vm.score = score;
-      //change currentScreen
-      vm.currentScreen = "result"
+
     },
+
     onSlotsUpdated: function (data) {
       var vm = this;
       if (data.type === 'add') {
-        vm.slots.push(data.data.slot);
+        vm.slots[vm.qNo].push(data.data.slot);
 
         var res = data.data.slot.res;
         var skipIndex1 = data.data.skipIndex1;
@@ -133,6 +147,7 @@ var app = new Vue({
         vm.inputNumbersTypes = newTypes;
       }
     },
+
     tick: function() {
       var vm = this;
 
@@ -151,58 +166,58 @@ var app = new Vue({
 
       requestAnimationFrame(vm.tick.bind(vm));
     },
-    handleGameButton: function () {
+
+    handleRestartButton: function () {
       var vm = this;
       if (vm.currentScreen === 'game') {
         //stop timer
         vm.clock.active = false;
+        vm.slots = [[]];
         //change currentScreen
         vm.currentScreen = "result";
       }
       else {
         // generate question set,
-        var questions = [{
-          inputNumbers: [1, 2, 2, 9, 12],
-          targetNum: 3,
-          difficulty: 'medium',
-          compulsoryOp: null,
-          bestSoln: [12, 2, '+', 2, 'x', 1, '-', 9, '/'],
-        }];
+        vm.questions = vm.questionsGenerator.generate(0,1);
+        vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+        vm.inputNumbersTypes = [0,0,0,0,0];
 
-        vm.questions = questions;
         //change currentScreen
         vm.currentScreen = "game";
       }
     },
+
     handlePassButton: function () {
       var vm = this;
       if (vm.currentScreen === 'game') {
         //stop timer
         vm.clock.active = false;
-        //change currentScreen
-        vm.currentScreen = "result";
+        vm.slots = [[]];
+        vm.score+=0;
+        if (vm.mode === 'non-timer') {
+          //change currentScreen
+          vm.currentScreen = "result";
+        }else {
+          //go to next question in question set for timer mode
+          vm.qNo++;
+        }
+
       }
       else {
         // generate question set,
-        var questions = [{
-          inputNumbers: [1, 2, 2, 9, 12],
-          targetNum: 3,
-          difficulty: 'medium',
-          compulsoryOp: null,
-          bestSoln: [12, 2, '+', 2, 'x', 1, '-', 9, '/'],
-        }];
-
-        vm.questions = questions;
-        vm.inputNumbers = questions[0].inputNumbers;
+        vm.questions = vm.questionsGenerator.generate(0,1);
+        vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
         vm.inputNumbersTypes = [0,0,0,0,0];
+
         //change currentScreen
         vm.currentScreen = "game";
       }
     },
+
     handleUndoButton: function () {
       var vm = this;
-      if (vm.currentScreen === 'game' && vm.slots.length!=0) {
-        var removedSlot = vm.slots.pop();
+      if (vm.currentScreen === 'game' && vm.slots[vm.qNo].length!=0) {
+        var removedSlot = vm.slots[vm.qNo].pop();
 
         //changing inputNumbers
         vm.inputNumbers.pop();
@@ -227,5 +242,49 @@ var app = new Vue({
 
       }
     },
+
+    handleCompulsoryOpButton: function () {
+      var vm = this;
+      switch (vm.compulsoryOp) {
+        case null:
+          vm.compulsoryOp = '+';
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/plus-comp.svg)"
+          break;
+        case '+':
+          vm.compulsoryOp = '-';
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/minus-comp.svg)"
+          break;
+        case '-':
+          vm.compulsoryOp = '*';
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/multiply-comp.svg)"
+          break;
+        case '*':
+          vm.compulsoryOp = '/';
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/divide-comp.svg)"
+          break;
+        case '/':
+          vm.compulsoryOp = null;
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/none-comp.svg)"
+          break;
+        default:
+          vm.compulsoryOp = null;
+          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/none-comp.svg)"
+      }
+    },
+
+    fullscreen: function () {
+			this.$refs.SugarToolbar.hide();
+      setTimeout(() => {
+         window.dispatchEvent(new Event('resize'));
+       }, 0);
+		},
+
+		unfullscreen: function () {
+			this.$refs.SugarToolbar.show();
+      setTimeout(() => {
+         window.dispatchEvent(new Event('resize'));
+       }, 0);
+		},
+
   }
 });

@@ -13,7 +13,7 @@ var Slots = {
         v-bind:class="{
           'plus': slot.operator === '+',
           'minus': slot.operator === '-',
-          'multiply': slot.operator === 'x',
+          'multiply': slot.operator === '*',
           'divide': slot.operator === '/',
          }"
         ></div>

@@ -24,18 +24,17 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
-			<sugar-toolitem id="game-button" title="end / new Game" v-on:click="handleGameButton"></sugar-toolitem>
+			<sugar-toolitem id="restart-button" title="restart Game" v-on:click="handleRestartButton"></sugar-toolitem>
 			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
 			<sugar-toolitem id="level-button" title="level"></sugar-toolitem>
-			<sugar-toolitem
-				id="compulsory-op-button"
-				title="Choose compulsory operator"
-			></sugar-toolitem>
+			<sugar-toolitem id="compulsory-op-button" title="Choose compulsory operator" v-on:click="handleCompulsoryOpButton"></sugar-toolitem>
 			<sugar-toolitem id="hint-button" title="hint"></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" title="Unfullscreen" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<transition name="fade" id="app-content" mode="out-in">
@@ -48,11 +47,12 @@
 				v-bind:q-no="qNo"
 				v-bind:score="score"
 				v-bind:mode="mode"
+				v-bind:compulsory-op="compulsoryOp"
 				v-bind:slots="slots"
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"
 				v-bind:sugar-popup="sugarPopup"
-				v-on:end-game="onEndGame"
+				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
 			></component>
 	</transition>
@@ -63,6 +63,8 @@
 	</div>
 
 	<script src="js/utils/utils.js"></script>
+	<script src="js/utils/game-rpn-evaluator.js"></script>
+	<script src="js/utils/questionsGenerator.js"></script>
 	<script src="js/Clock.js"></script>
 	<script src="js/Slots.js"></script>
 	<script src="js/Result.js"></script>

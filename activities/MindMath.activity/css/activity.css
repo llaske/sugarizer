@@ -22,7 +22,7 @@ p {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity .4s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -50,7 +50,7 @@ p {
   background-image: url(../activity/activity-icon.svg);
 }
 
-#main-toolbar #game-button {
+#main-toolbar #restart-button {
   background-image: url(../icons/restart.svg);
 }
 
@@ -75,7 +75,7 @@ p {
 }
 
 #main-toolbar #compulsory-op-button {
-  background-image: url(../icons/compulsory-op.svg);
+  background-image: url(../icons/none-comp.svg);
 }
 
 #main-toolbar #network-button {
@@ -112,22 +112,21 @@ p {
   border-radius: 5.5px;
 }
 
-#fullscreen-button {
-  background-image: url(../icons/view-fullscreen.svg);
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
 }
 
-#unfullscreen-button {
-  background-image: url(../icons/view-return.svg);
-  border: 0;
-  border-radius: 0px;
-  margin: 1px;
-  width: 45px;
-  height: 45px;
-  top: 0px;
-  right: 3%;
-  position: fixed;
-  visibility: hidden;
-  z-index: 5;
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
 }
 
 #app {
@@ -227,7 +226,6 @@ p {
   background-color: transparent;
   padding: 1%;
   border-radius: 20%;
-	/*border: 4px solid black;*/
   color: black;
   text-align: center;
   line-height: 100px;
@@ -464,53 +462,6 @@ p {
   margin-right: 1%;
 }
 
-
-/*.details-area-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 1% 4%;
-  height: 70px;
-}
-
-.details-area-section div {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-}
-
-.details-area-section .detail-block {
-  width: 35%;
-  height: 100%;
-  background-color: #f0d9b5;
-  border: none;
-  color: black;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-}
-
-.details-area-section .detail-content div {
-  font-size: 30px;
-  line-height: 80px;
-  font-weight: bold;
-  border: none;
-  color: black;
-  text-align: center;
-}
-
-.detail-logo {
-  width: 40%;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  background-position: center;
-}
-
-
-
-.detail-content {
-  background-color: #f0d9b5;
-  width: 60%;
-}*/
-
 #target-number {
   width: 100px;
   height: 100px;
@@ -552,30 +503,6 @@ p {
   background-size: 100%;
 }
 
-/*#validate-block {
-  width: 20%;
-}
-
-#btn-validate {
-  width: 100%;
-  height: 100%;
-  border-radius: 20%;
-  font-weight: bold;
-  border: none;
-  background-image: url(../icons/validate.svg);
-  background-color: #f0d9b5;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 90%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  transition: width 0.8s, height 0.8s, opacity 0.8s;
-}
-
-#btn-validate:hover {
-  background-size: 100%;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
-}
-*/
 .disabled {
   opacity: 0;
 }
@@ -924,10 +851,6 @@ p {
 		/*border: 2px solid black;*/
   }
 
-	/*.diamond {
-		border: none;
-	}*/
-
   .btn-number:hover {
     font-size: 30px;
   }
@@ -1042,14 +965,6 @@ p {
     font-size: 20px;
   }
 
-/*  #target-number {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 25px;
-    background-size: 70%;
-  }
-*/
 	#target-number {
     width: 50px;
     height: 50px;
@@ -1085,10 +1000,6 @@ p {
     font-size: 20px;
 	/*	border: 2px solid black;*/
   }
-
-	/*.diamond {
-		border: none;
-	}*/
 
   .btn-number:hover {
     font-size: 30px;
