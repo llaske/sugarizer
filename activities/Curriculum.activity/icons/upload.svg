@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#fff">
+	<!ENTITY fill_color "#fff">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+  <g id="Upload_icon" data-name="Upload icon" transform="translate(-184 -15)">
+    <rect id="Rectangle_55" data-name="Rectangle 55" width="43" height="43" transform="translate(184 15)" fill="&fill_color;" opacity="0"/>
+    <g id="Icon_feather-upload" data-name="Icon feather-upload" transform="translate(188.458 19.258)">
+      <path id="Path_35" data-name="Path 35" d="M29.193,22.5v5.487a2.744,2.744,0,0,1-2.744,2.744H7.244A2.744,2.744,0,0,1,4.5,27.987V22.5" transform="translate(0 -1.538)" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      <path id="Path_36" data-name="Path 36" d="M24.218,11.359,17.359,4.5,10.5,11.359" transform="translate(-0.513)" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+      <path id="Path_37" data-name="Path 37" d="M18,4.5V20.962" transform="translate(-1.154)" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

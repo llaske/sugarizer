@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Curriculum</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+
+			<!-- Add more buttons here -->
+			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
+			<sugar-toolitem id="settings-button" v-show="currentView != 'skill-details'" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
+			<sugar-toolitem
+				id="upload-button" 
+				v-show="currentView == 'skill-details'"
+				palette-file="js/palettes/mediapalette.js"
+				palette-class="MediaPalette"
+				palette-title="Upload Media"
+				palette-event="upload-item"
+				@upload-item="onUploadItem"
+			></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<div id="content">
+			<transition name="fade" mode="out-in">
+				<keep-alive :include="settings ? '' : 'categories-grid'">
+					<component 
+						:is="currentView" 
+						:settings="settings"
+						:categories="categories"
+						:category-id="selectedCategoryId"
+						:skill-id="selectedSkillId"
+						:current-acquired="currentAcquired"
+						:user="user"
+						@open-category="openCategory"
+						@open-skill="openSkill"
+						@delete-item="onDeleteItem"
+						@go-back-to="goBackTo"
+					></component>
+				</keep-alive>
+			</transition>
+		</div>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
+		<sugar-localization ref="SugarL10n"></sugar-localization>
+	</div>
+
+	<script src="js/data.js"></script>
+	<script src="js/SkillsAdditional.js"></script>
+	<script src="js/Skills.js"></script>
+	<script src="js/Categories.js"></script>
+	<script src="js/Settings.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>
