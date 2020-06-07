@@ -43,7 +43,6 @@ var app = new Vue({
 	},
 	computed: {
 		currentAcquired: function () {
-			console.log(this.selectedCategoryId, this.selectedSkillId);
 			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
@@ -148,6 +147,10 @@ var app = new Vue({
 			if (index !== -1) {
 				mediaObj[item.type].splice(index, 1);
 			}
+		},
+
+		onUpdateCategories: function(categories) {
+			this.categories = categories;
 		},
 
 		importSkills: function () {

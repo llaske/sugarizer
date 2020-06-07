@@ -75,17 +75,19 @@ var CategoryCard = {
 var CategoriesGrid = {
 	/*html*/
 	template: `
-		<div class="categories">
-			<category-card 
-				v-for="category in categories" 
-				:key="category.id"
-				:category="category"
-				:user="user"
-				:settings="settings"
-				@skill-clicked="onSkillClick"
-				@category-clicked="onCategoryClick"
-				@delete-clicked="deleteCategory"
-			></category-card>
+		<div >
+			<draggable class="categories" v-model="categories" @update="onUpdate" :disabled="!settings" :animation="300">
+				<category-card 
+					v-for="category in categories" 
+					:key="category.id"
+					:category="category"
+					:user="user"
+					:settings="settings"
+					@skill-clicked="onSkillClick"
+					@category-clicked="onCategoryClick"
+					@delete-clicked="deleteCategory"
+				></category-card>
+			</draggable>
 		</div>
 	`,
 	components: {
@@ -101,6 +103,10 @@ var CategoriesGrid = {
 		onSkillClick: function (categoryId, skillId) {
 			console.log('skill: ', categoryId, skillId);
 			this.$emit('open-skill', categoryId, skillId);
+		},
+
+		onUpdate: function(e) {
+			this.$emit('update-categories', this.categories);
 		},
 
 		deleteCategory: function(categoryId) {

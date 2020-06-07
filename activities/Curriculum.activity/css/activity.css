@@ -627,6 +627,7 @@ p {
 
 .settings-active {
 	transform: scale(0.95);
+	cursor: grab;
 }
 .settings-row {
 	display: flex;

@@ -13,6 +13,8 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/Sortable.min.js"></script>
+	<script src="lib/vuedraggable.umd.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -56,6 +58,7 @@
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@delete-item="onDeleteItem"
+						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>
