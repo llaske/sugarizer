@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export palette in Write activity pop at the wrong place #807
 - Last One Loses activity is unplayable after sharing without second player #815
 - Spinner on first screen is at the bottom of the screen
+- Localize and standardize activities title
 
 
 ## [1.3.0] - 2020-03-28
