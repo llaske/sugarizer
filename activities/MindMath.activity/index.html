@@ -37,7 +37,15 @@
 				palette-event="difficulty-selected"
 				v-on:difficulty-selected="onDifficultySelected"
 				></sugar-toolitem>
-			<sugar-toolitem id="compulsory-op-button" title="Choose compulsory operator" v-on:click="handleCompulsoryOpButton"></sugar-toolitem>
+			<sugar-toolitem
+			 	id="compulsory-op-button"
+				title="Choose compulsory operator"
+				palette-file="js/palettes/compulsoryOpPalette.js"
+				palette-class="CompulsoryOpPalette"
+				palette-title="compulsory Operators"
+				palette-event="compulsory-op-selected"
+				v-on:compulsory-op-selected="onCompulsoryOpSelected"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="hint-button"
 				title="hint"
@@ -63,7 +71,7 @@
 				v-bind:q-no="qNo"
 				v-bind:score="score"
 				v-bind:mode="mode"
-				v-bind:compulsory-op="compulsoryOp"
+				v-bind:compulsory-ops="compulsoryOps"
 				v-bind:slots="slots"
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"

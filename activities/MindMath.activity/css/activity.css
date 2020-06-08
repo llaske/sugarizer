@@ -75,7 +75,7 @@ p {
 }
 
 #main-toolbar #compulsory-op-button {
-  background-image: url(../icons/none-comp.svg);
+  background-image: url(../icons/compulsory-op.svg);
 }
 
 #main-toolbar #network-button {
@@ -1080,6 +1080,18 @@ p {
 .palette-button {
   width: 47px;
   height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.comp-palette-button {
+  width: 20px;
+  height: 20px;
   color: transparent;
   background-position: center;
   background-repeat: no-repeat;

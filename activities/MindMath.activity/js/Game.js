@@ -3,7 +3,7 @@ var Game = {
     "clock": Clock,
     "slots-component": Slots,
   },
-  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOp','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
+  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOps','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -73,7 +73,7 @@ var Game = {
             <transition name="fade"  mode="out-in">
               <div id="validate-button"
               v-on:click="validate"
-              v-if="(compulsoryOp != null ? compulsoryOpUsed : true) && currentRes === questions[qNo].targetNum"
+              v-if="(compulsoryOps.length != 0 ? compulsoryOpUsed : true) && currentRes === questions[qNo].targetNum"
               ></div>
             </transition>
           </div>
@@ -110,7 +110,7 @@ var Game = {
   },
   created: function () {
     var vm = this;
-    window.addEventListener('resize', vm.resize)
+    window.addEventListener('resize', vm.resize);
   },
   destroyed: function() {
     var vm = this;
@@ -124,14 +124,20 @@ var Game = {
     slots: function (newVal) {
       var vm = this;
       if (newVal[vm.qNo].length != 0) {
-        //check if the operator used is compulsoryOp
-        var hasCompOp = newVal[vm.qNo].find(function(ele) {
-          return ele.operator === vm.compulsoryOp;
-        });
-        vm.compulsoryOpUsed = hasCompOp ? true : false;
+        //check if the operator used contains compulsoryOps
+        var hasCompOps = 0;
+        for (var i = 0; i < vm.compulsoryOps.length; i++) {
+          var tmp = newVal[vm.qNo].find(function(ele) {
+            return ele.operator === vm.compulsoryOps[i];
+          });
+          if (tmp) {
+            hasCompOps++;
+          }
+        }
+        vm.compulsoryOpUsed = hasCompOps === vm.compulsoryOps.length ? true : false;
         vm.currentRes = newVal[vm.qNo][newVal[vm.qNo].length - 1].res;
 
-        var compulsoryFlag = vm.compulsoryOp ? vm.compulsoryOpUsed : true;
+        var compulsoryFlag = vm.compulsoryOps.length!=0 ? vm.compulsoryOpUsed : true;
 
         if (compulsoryFlag && vm.currentRes === vm.questions[vm.qNo].targetNum) {
           //notifying user
@@ -141,13 +147,21 @@ var Game = {
         vm.currentRes = null;
       }
     },
-    compulsoryOp: function (newVal) {
+    compulsoryOps: function (newVal) {
       var vm = this;
-      //check if the operator used is compulsoryOp
-      var hasCompOp = vm.slots[vm.qNo].find(function(ele) {
-        return ele.operator === newVal;
-      });
-      vm.compulsoryOpUsed = hasCompOp ? true : false;
+      //check if the operator used contains compulsoryOps
+      var hasCompOps = 0;
+      for (var i = 0; i < newVal.length; i++) {
+        var tmp = vm.slots[vm.qNo].find(function(ele) {
+          return ele.operator === newVal[i];
+        });
+        if (tmp) {
+          hasCompOps++;
+        }
+      }
+      console.log(hasCompOps);
+
+      vm.compulsoryOpUsed = hasCompOps === vm.compulsoryOps.length ? true : false;
       //notifying user
       vm.sugarPopup.log("Compulsory Operator Has Been Changed")
     }

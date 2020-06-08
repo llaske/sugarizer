@@ -30,7 +30,7 @@ var app = new Vue({
       mode: 'non-timer',
       score: 0,
       level: 0,
-      compulsoryOp: null,
+      compulsoryOps: [],
       clock: {
         active: false,
         previousTime: null,
@@ -40,15 +40,15 @@ var app = new Vue({
       questionsGenerator: null,
       questions: [
         {
-          inputNumbers: [1,2,2,9,12],
-          targetNum: 3,
-          difficulty: 'medium',
-          bestSoln: [12,2,'+',2,'*',1,'-',9,'/'],
+          inputNumbers: [null,null,null,null,null],
+          targetNum: null,
+          difficulty: null,
+          bestSoln: [],
         },
       ],
       qNo:0,
       slots:[[]],
-      inputNumbers: [1,2,2,9,12],
+      inputNumbers: [null,null,null,null,null],
       inputNumbersTypes:[0,0,0,0,0],
       prev: {
         skipIndex1: [],
@@ -251,35 +251,19 @@ var app = new Vue({
     },
 
     onHintUsed: function () {
+      var vm = this;
 
     },
 
-    handleCompulsoryOpButton: function () {
+    onCompulsoryOpSelected: function (data) {
       var vm = this;
-      switch (vm.compulsoryOp) {
-        case null:
-          vm.compulsoryOp = '+';
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/plus-comp.svg)"
-          break;
-        case '+':
-          vm.compulsoryOp = '-';
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/minus-comp.svg)"
-          break;
-        case '-':
-          vm.compulsoryOp = '*';
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/multiply-comp.svg)"
-          break;
-        case '*':
-          vm.compulsoryOp = '/';
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/divide-comp.svg)"
-          break;
-        case '/':
-          vm.compulsoryOp = null;
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/none-comp.svg)"
-          break;
-        default:
-          vm.compulsoryOp = null;
-          document.getElementById('compulsory-op-button').style.backgroundImage = "url(./icons/none-comp.svg)"
+      if (data.operator) {
+        var indx = vm.compulsoryOps.indexOf(data.operator);
+        if (indx === -1) {
+          vm.compulsoryOps.push(data.operator);
+        }else {
+          vm.compulsoryOps = removeEntryFromArray(vm.compulsoryOps, indx);
+        }
       }
     },
 

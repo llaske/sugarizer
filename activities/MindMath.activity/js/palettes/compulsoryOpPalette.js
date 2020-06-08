@@ -21,66 +21,37 @@ define(["sugar-web/graphics/palette",
     this.setContent([containerElem]);
 
     this.compulsoryOpSelectedEvent = document.createEvent('CustomEvent');
-    this.compulsoryOpSelectedEvent.initCustomEvent('compulsoryOpSelected', true, true, {
-      index: 0
+    this.compulsoryOpSelectedEvent.initCustomEvent('compulsory-op-selected', true, true, {
+      operator: null
     });
 
     var that = this;
 
-    document.getElementById('none-cmpOp').addEventListener('click', function(event) {
-      that.compulsoryOpSelectedEvent.index = 0;
-      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
-
-      that.popDown();
-    });
-
     document.getElementById('plus-cmpOp').addEventListener('click', function(event) {
-      that.compulsoryOpSelectedEvent.index = 0;
+      that.compulsoryOpSelectedEvent.operator = '+';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
-
+      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('minus-cmpOp').addEventListener('click', function(event) {
-      that.compulsoryOpSelectedEvent.index = 0;
+      that.compulsoryOpSelectedEvent.operator = '-';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
+      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('multiply-cmpOp').addEventListener('click', function(event) {
-      that.compulsoryOpSelectedEvent.index = 0;
+      that.compulsoryOpSelectedEvent.operator = '*';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
+      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('divide-cmpOp').addEventListener('click', function(event) {
-      that.compulsoryOpSelectedEvent.index = 0;
+      that.compulsoryOpSelectedEvent.operator = '/';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
-      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
+      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 

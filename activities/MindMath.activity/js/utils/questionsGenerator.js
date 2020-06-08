@@ -1,9 +1,9 @@
-const OPERATORS = [ '+', '-','/', '*']
+const OPERATORS = ['+', '-', '/', '*']
 var opLen = 4
 
 function QuestionsGenerator() {
   this.level = 0;
-  this.skipQuestion = {};
+  this.skipQuestions = {};
   this.target = null;
   this.best = "";
   this.uniq = {};
@@ -11,79 +11,102 @@ function QuestionsGenerator() {
   this.inputNumbers = [];
   this.found = false;
 
-  this.generateInputNumbers = function () {
-    var t = 5;
-    const upperRanges = [4,6,8,12,20];
+  this.generateInputNumbers = function() {
+    const upperRanges = [4, 6, 8, 12, 20];
     var inputNumbers = [];
-    var noOfOnes = 0;
-    var noOfTwos = 0;
-    while(t--){
+    var exclude = [
+      '1,1,1,1,1',
+      '1,1,1,1,2',
+      '1,1,1,1,3',
+      '1,1,1,1,4',
+      '1,1,1,1,5',
+      '1,1,1,2,2',
+      '1,1,1,2,3',
+      '1,1,2,2,2',
+      '1,2,2,2,2',
+      '2,2,2,2,2'
+    ];
+
+    while (true) {
+      inputNumbers = [];
+      var noOfOnes = 4;
+      var noOfTwos = 0;
+      for (var t = 0; t < 5; t++) {
+        var min = 1;
+        var tmp = Math.floor(Math.random() * (upperRanges[t] + 1 - min) + min);
+        inputNumbers.push(tmp);
+        if (tmp === 1) {
+          noOfOnes++;
+        }
+        if (tmp === 2) {
+          noOfTwos++;
+        }
+      }
       /*[1, 1, 1, 1, 1], [1, 1, 1, 1, 2], [1, 1, 1, 1, 3], [1, 1, 1, 1, 4], [1, 1, 1, 1, 5],
        [1, 1, 1, 2, 2], [1, 1, 1, 2, 3], [1, 1, 2, 2, 2], [1, 2, 2, 2, 2], [2, 2, 2, 2, 2]
        are invalid combinations so we will avoid these*/
-      if ((noOfOnes == 1 && noOfTwos == 3) || (noOfOnes == 2 && noOfTwos == 2) || (noOfTwos == 4)) {
-        var min = 3;
-        var tmp = Math.floor(Math.random() * (upperRanges[t] + 1 - min) + min);
-        inputNumbers.push(tmp);
+      var exitFlag = true;
+      if (noOfOnes >= 1) {
+        var s1 = inputNumbers.sort().join(',');
+        for (var i = 0; i < exclude.length; i++) {
+          if (s1 === exclude[i]) {
+            exitFlag = false;
+            break;
+          }
+        }
       }
-      else  {
-        var min = 1;
-        var tmp = Math.floor(Math.random() * (upperRanges[t] + 1 - min) + min);
-        if (tmp == 1) {
-          noOfOnes++;
-        }
-        else if (tmp == 2) {
-          noOfTwos++;
-        }
-        inputNumbers.push(tmp);
+      if (noOfTwos === 5) {
+        exitFlag = false;
+      }
+      if (exitFlag) {
+        break;
       }
     }
-    return inputNumbers
+    this.inputNumbers = inputNumbers;
   }
 
-  this.genrpn = function (pattern, remaining, writePos, unresolvedNumbers) {
+  this.genrpn = function(pattern, remaining, writePos, unresolvedNumbers) {
     if (unresolvedNumbers > 1) {
       for (let i = 0;
-        (i < opLen  && !this.found); i++) {
+        (i < opLen && !this.found); i++) {
         pattern[writePos] = OPERATORS[i];
         const evalRes = evaluator(pattern, writePos);
         const allowed = evalRes.allowed;
         const result = evalRes.result;
-        const rpn = pattern.slice(0,writePos+1).join(',');
+        const rpn = pattern.slice(0, writePos + 1).join(',');
         const arrayRes = checkIfArrayHasUniqueOps(pattern, writePos);
         const unique = arrayRes.unique;
         const hasTwo = arrayRes.hasTwo;
 
         var flag = false;
         if (this.dups) {
-          if(!(rpn in this.uniq)){
+          if (!(rpn in this.uniq)) {
             flag = true;
             this.uniq[rpn] = 1;
           }
-        }
-        else {
+        } else {
           flag = true;
         }
-        if(result > 100 && hasTwo){
+        if (result > 100 && hasTwo) {
           flag = false;
         }
 
         if (!this.found && allowed && flag && unique) {
           var str = this.inputNumbers.sort().join();
 
-          if (!this.skipQuestion[str+','+result]) {
-            if(result < 100 && writePos == 8){
-              if (result<=69 && result>=10 && this.level == 0) {
+          if (!this.skipQuestions[str + ',' + result]) {
+            if (result < 100 && writePos == 8) {
+              if (result <= 69 && result >= 10 && this.level == 0) {
                 this.found = true;
                 this.target = result;
                 this.best = rpn;
-                this.skipQuestion[str+','+result] = result;
+                this.skipQuestions[str + ',' + result] = result;
               }
-              if (result<100 && result>=1 && this.level == 1) {
+              if (result < 100 && result >= 1 && this.level == 1) {
                 this.found = true;
                 this.target = result;
                 this.best = rpn;
-                this.skipQuestion[str+','+result] = result;
+                this.skipQuestions[str + ',' + result] = result;
               }
             }
           }
@@ -101,7 +124,7 @@ function QuestionsGenerator() {
 
   }
 
-  this.find = function () {
+  this.find = function() {
     this.found = false;
     this.target = null;
     this.best = "";
@@ -111,19 +134,30 @@ function QuestionsGenerator() {
     this.genrpn(pattern, this.inputNumbers, 0, 0)
   }
 
-  this.generate = function (level, len) {
+  this.generate = function(level, len) {
     this.level = level;
     var questions = [];
-    for (var qNo = 0; qNo < len; qNo++) {
-      this.inputNumbers = this.generateInputNumbers();
+    for (var qNo = 0; qNo < len;) {
+      this.generateInputNumbers();
+      var trials = 0;
       this.find();
-      var question = {
-        inputNumbers: this.inputNumbers,
-        targetNum: this.target,
-        difficulty: this.level === 0 ? 'easy' : 'medium',
-        bestSoln: this.best.split(','),
+      if (this.target != null) {
+        var question = {
+          inputNumbers: this.inputNumbers,
+          targetNum: this.target,
+          difficulty: this.level === 0 ? 'easy' : 'medium',
+          bestSoln: this.best.split(','),
+        }
+        questions.push(question);
+        qNo++;
+
+      } else {
+        trials++;
+        if (trials >= 1) {
+          this.skipQuestions = {};
+        }
       }
-      questions.push(question);
+
     }
     return questions
   }
