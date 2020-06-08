@@ -153,6 +153,14 @@ var app = new Vue({
 			this.categories = categories;
 		},
 
+		onAddClick: function() {
+			if(this.currentView == 'categories-grid') {
+				this.openCategory(null);
+			} else if(this.currentView == 'skills-grid') {
+				this.openSkill(this.selectedCategoryId, null);
+			}
+		},
+
 		importSkills: function () {
 			var vm = this;
 			requirejs(["text!activity/imported/sections.json"], function (sections) {

@@ -23,7 +23,7 @@ var CategorySettings = {
 						></div>
 					</div>
 				</div>
-				<button type="submit">Confirm</button>
+				<button type="submit" :disabled="category.title == ''">Confirm</button>
 				<button type="button" @click="$emit('go-back-to', 'categories-grid')">Cancel</button>
 			</form>
 		</div>
@@ -31,10 +31,14 @@ var CategorySettings = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'categoryId'],
+	props: ['categories', 'categoryId', 'user'],
 	data: function() {
 		return {
-			category: {},
+			category: {
+				title: '',
+				color: '',
+				skills: []
+			},
 			colors: [
 				'#ff4f4f',
 				'#ffb64f',
@@ -52,21 +56,37 @@ var CategorySettings = {
 	},
 	created: function() {
 		var vm = this;
-		this.category = JSON.parse(JSON.stringify(this.categories.find(function (cat) {
-			return cat.id == vm.categoryId;
-		})))
-		if(this.colors.indexOf(this.category.color) == -1) {
-			this.colors.push(this.category.color);
+		if(this.categoryId != null) {			// Edit category
+			console.log('catId', this.categoryId)
+			this.category = JSON.parse(JSON.stringify(this.categories.find(function (cat) {
+				return cat.id == vm.categoryId;
+			})))
+			if(this.colors.indexOf(this.category.color) == -1) {
+				this.colors.push(this.category.color);
+			}
+		} else {													// Add category
+			this.category.color = this.colors[Math.floor(Math.random()*this.colors.length)];
 		}
 	},
 	methods: {
 		onConfirm: function() {
-			var vm = this;
-			var index = this.categories.findIndex(function (cat) {
-				return cat.id === vm.categoryId;
-			});
-			this.categories[index] = this.category;
+			if(this.categoryId != null) {			// Edit category
+				var vm = this;
+				var index = this.categories.findIndex(function (cat) {
+					return cat.id === vm.categoryId;
+				});
+				this.categories[index] = this.category;
+			} else {													// Add category
+				this.addCategory();
+			}
 			this.$emit('go-back-to', 'categories-grid');
+		},
+
+		addCategory: function() {
+			var nextId = this.categories.length;
+			this.category.id = nextId;
+			this.categories.unshift(this.category);
+			this.$set(this.user.skills, nextId, new Object());
 		}
 	}
 }
@@ -92,7 +112,7 @@ var SkillSettings = {
 					</div>
 					<img :src="skill.image">
 				</div>
-				<button type="submit">Confirm</button>
+				<button type="submit" :disabled="skill.title == '' || skill.image == null">Confirm</button>
 				<button type="button" @click="$emit('go-back-to', 'skills-grid')">Cancel</button>
 			</form>
 		</div>
@@ -100,11 +120,14 @@ var SkillSettings = {
 	components: {
 		'skill-card': SkillCard
 	},
-	props: ['categories', 'categoryId', 'skillId'],
+	props: ['categories', 'categoryId', 'skillId', 'user'],
 	data: function() {
 		return {
 			category: {},
-			skill: {}
+			skill: {
+				title: '',
+				image: null
+			}
 		}
 	},
 	created: function() {
@@ -112,9 +135,11 @@ var SkillSettings = {
 		this.category = this.categories.find(function (cat) {
 			return cat.id == vm.categoryId;
 		});
-		this.skill = JSON.parse(JSON.stringify(this.category.skills.find(function (skill) {
-			return skill.id == vm.skillId;
-		})));
+		if(this.skillId != null) {				// Edit skill
+			this.skill = JSON.parse(JSON.stringify(this.category.skills.find(function (skill) {
+				return skill.id == vm.skillId;
+			})));
+		}
 	},
 	methods: {
 		onUploadClick: function() {
@@ -132,16 +157,32 @@ var SkillSettings = {
 				}
 			});
 		},
+
 		onConfirm: function() {
 			var vm = this;
 			var catIndex = this.categories.findIndex(function (cat) {
 				return cat.id === vm.categoryId;
 			});
-			var skillIndex = this.categories[catIndex].skills.findIndex(function (skill) {
-				return skill.id === vm.skillId;
-			});
-			this.categories[catIndex].skills[skillIndex] = this.skill;
+			if(this.skillId != null) {				// Edit skill
+				var skillIndex = this.categories[catIndex].skills.findIndex(function (skill) {
+					return skill.id === vm.skillId;
+				});
+				this.categories[catIndex].skills[skillIndex] = this.skill;
+			} else {													// Add skill
+				this.addSkill(catIndex);
+			}
 			this.$emit('go-back-to', 'skills-grid');
+		},
+
+		addSkill: function(catIndex) {
+			var nextId = this.categories[catIndex].skills.length;
+			this.skill.id = nextId;
+			this.categories[catIndex].skills.unshift(this.skill);
+			this.$set(this.user.skills[this.categoryId], nextId, {
+				acquired: false,
+				media: {}
+			});
+
 		}
 	}
 }
