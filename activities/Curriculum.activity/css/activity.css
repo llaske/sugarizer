@@ -116,6 +116,10 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
+#main-toolbar #add-button {
+	background-image: url(../icons/add.svg);
+}
+
 .categories {
 	display: flex;
 	justify-content: center;
@@ -312,6 +316,7 @@ p {
 .skill-details .skill-image {
 	flex: 1;
 	width: fit-content;
+	max-width: 300px;
 	margin: 0 auto;
 	margin-top: 15px;
 }
@@ -627,6 +632,7 @@ p {
 
 .settings-active {
 	transform: scale(0.95);
+	cursor: grab;
 }
 .settings-row {
 	display: flex;

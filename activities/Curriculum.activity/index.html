@@ -13,6 +13,8 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/Sortable.min.js"></script>
+	<script src="lib/vuedraggable.umd.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -25,6 +27,7 @@
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
 			<sugar-toolitem id="settings-button" v-show="currentView != 'skill-details'" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
+			<sugar-toolitem id="add-button" v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" @click="onAddClick"></sugar-toolitem>
 			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
@@ -44,7 +47,7 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<keep-alive :include="settings ? '' : 'categories-grid'">
+				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
 					<component 
 						:is="currentView" 
 						:settings="settings"
@@ -56,6 +59,7 @@
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@delete-item="onDeleteItem"
+						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>

@@ -54,17 +54,19 @@ var SkillsGrid = {
 				<span ref="underline2" class="underline" :style="{ backgroundColor: category.color }"></span>
 			</h1>
 			
-			<div class="skills-container">
-				<skill-card 
-					v-for="skill in category.skills" 
-					:key="skill.id" 
-					:skill="skill" 
-					:category="category"
-					:user="user"
-					:settings="settings"
-					@skill-clicked="onSkillClick"
-					@delete-clicked="deleteSkill"
-				></skill-card>
+			<div>
+				<draggable class="skills-container" v-model="category.skills" :disabled="!settings" :animation="300">
+					<skill-card 
+						v-for="skill in category.skills" 
+						:key="skill.id" 
+						:skill="skill" 
+						:category="category"
+						:user="user"
+						:settings="settings"
+						@skill-clicked="onSkillClick"
+						@delete-clicked="deleteSkill"
+					></skill-card>
+				</draggable>
 			</div>
 
 		</div>

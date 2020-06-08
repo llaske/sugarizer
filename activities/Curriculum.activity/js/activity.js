@@ -43,7 +43,6 @@ var app = new Vue({
 	},
 	computed: {
 		currentAcquired: function () {
-			console.log(this.selectedCategoryId, this.selectedSkillId);
 			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
@@ -147,6 +146,18 @@ var app = new Vue({
 			});
 			if (index !== -1) {
 				mediaObj[item.type].splice(index, 1);
+			}
+		},
+
+		onUpdateCategories: function(categories) {
+			this.categories = categories;
+		},
+
+		onAddClick: function() {
+			if(this.currentView == 'categories-grid') {
+				this.openCategory(null);
+			} else if(this.currentView == 'skills-grid') {
+				this.openSkill(this.selectedCategoryId, null);
 			}
 		},
 
