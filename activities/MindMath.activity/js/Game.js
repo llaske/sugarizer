@@ -2,7 +2,6 @@ var Game = {
   components: {
     "clock": Clock,
     "slots-component": Slots,
-    "operatorButton": OperatorButton,
   },
   props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOp','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
   template: `
@@ -54,7 +53,8 @@ var Game = {
           </div>
 
           <div class="list-operators">
-            <operatorButton
+            <button
+              class="btn-operator"
               v-for="(operator,index) in operators"
               v-bind:key="index"
               v-bind:class="{
@@ -64,10 +64,9 @@ var Game = {
                 'multiply': operator === '*',
                 'divide': operator === '/',
                }"
-              v-on:select-operator="onSelectOperator(index)"
+              v-on:click="onSelectOperator(index)"
               v-bind:style="{backgroundColor: strokeColor}"
-              v-bind:colors="compulsoryOp === operator ? {'fill': fillColor,'stroke': fillColor} : defaultOperatorColor"
-            ></operatorButton>
+            ></button>
           </div>
 
           <div class="footer-bar">
@@ -107,10 +106,6 @@ var Game = {
       currentSelectedOp: null,
       currentRes: null,
       compulsoryOpUsed: false,
-      defaultOperatorColor: {
-        fill: '#000000',
-        stroke: '#000000',
-      }
     };
   },
   created: function () {
