@@ -46,7 +46,7 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<keep-alive :include="settings ? '' : 'categories-grid'">
+				<keep-alive :exclude="/.*/" :include="settings ? '' : 'categories-grid'">
 					<component 
 						:is="currentView" 
 						:settings="settings"
