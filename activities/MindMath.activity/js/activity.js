@@ -250,6 +250,10 @@ var app = new Vue({
       //....
     },
 
+    onHintUsed: function () {
+
+    },
+
     handleCompulsoryOpButton: function () {
       var vm = this;
       switch (vm.compulsoryOp) {

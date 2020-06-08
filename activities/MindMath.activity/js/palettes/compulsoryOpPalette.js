@@ -26,33 +26,64 @@ define(["sugar-web/graphics/palette",
     });
 
     var that = this;
-    /*document.getElementById("disabled-clock").addEventListener('click', function(event) {
-      that.clockSelectedEvent.index = 0;
-      that.getPalette().dispatchEvent(that.clockSelectedEvent);
-      that.popDown();
 
+    document.getElementById('none-cmpOp').addEventListener('click', function(event) {
+      that.compulsoryOpSelectedEvent.index = 0;
+      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
+      this.classList.remove("palette-button-notselected");
+      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
+
+      that.popDown();
     });
 
-    document.getElementById("lightning-clock").addEventListener('click', function(event) {
-      that.clockSelectedEvent.index = 1;
-      that.getPalette().dispatchEvent(that.clockSelectedEvent);
-      that.popDown();
+    document.getElementById('plus-cmpOp').addEventListener('click', function(event) {
+      that.compulsoryOpSelectedEvent.index = 0;
+      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
+      this.classList.remove("palette-button-notselected");
+      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
 
+      that.popDown();
     });
 
-    document.getElementById("blitz-clock").addEventListener('click', function(event) {
-      that.clockSelectedEvent.index = 2;
-      that.getPalette().dispatchEvent(that.clockSelectedEvent);
+    document.getElementById('minus-cmpOp').addEventListener('click', function(event) {
+      that.compulsoryOpSelectedEvent.index = 0;
+      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
+      this.classList.remove("palette-button-notselected");
+      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
       that.popDown();
-
     });
 
-    document.getElementById("tournament-clock").addEventListener('click', function(event) {
-      that.clockSelectedEvent.index = 3;
-      that.getPalette().dispatchEvent(that.clockSelectedEvent);
+    document.getElementById('multiply-cmpOp').addEventListener('click', function(event) {
+      that.compulsoryOpSelectedEvent.index = 0;
+      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
+      this.classList.remove("palette-button-notselected");
+      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('divide-cmpOp').classList.add("palette-button-notselected");
       that.popDown();
+    });
 
-    });*/
+    document.getElementById('divide-cmpOp').addEventListener('click', function(event) {
+      that.compulsoryOpSelectedEvent.index = 0;
+      that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
+      this.classList.remove("palette-button-notselected");
+      document.getElementById('plus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('minus-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('multiply-cmpOp').classList.add("palette-button-notselected");
+      document.getElementById('none-cmpOp').classList.add("palette-button-notselected");
+      that.popDown();
+    });
+
   };
 
   var addEventListener = function(type, listener, useCapture) {

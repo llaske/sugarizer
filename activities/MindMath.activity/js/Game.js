@@ -2,6 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
     "slots-component": Slots,
+    "operatorButton": OperatorButton,
   },
   props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOp','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
   template: `
@@ -53,19 +54,20 @@ var Game = {
           </div>
 
           <div class="list-operators">
-            <button class="btn-operator"
-            v-for="(operator,index) in operators"
-            v-bind:class="{
-              'selected-op': index === currentSelectedOp,
-              'plus': operator === '+',
-              'minus': operator === '-',
-              'multiply': operator === '*',
-              'divide': operator === '/',
-             }"
-            v-bind:key="index"
-            v-on:click="onSelectOperator(index)"
-            v-bind:style="{backgroundColor: strokeColor}"
-            ></button>
+            <operatorButton
+              v-for="(operator,index) in operators"
+              v-bind:key="index"
+              v-bind:class="{
+                'selected-op': index === currentSelectedOp,
+                'plus': operator === '+',
+                'minus': operator === '-',
+                'multiply': operator === '*',
+                'divide': operator === '/',
+               }"
+              v-on:select-operator="onSelectOperator(index)"
+              v-bind:style="{backgroundColor: strokeColor}"
+              v-bind:colors="compulsoryOp === operator ? {'fill': fillColor,'stroke': fillColor} : defaultOperatorColor"
+            ></operatorButton>
           </div>
 
           <div class="footer-bar">
@@ -96,7 +98,7 @@ var Game = {
   `,
   data: function () {
     return {
-      operators: ['+','-','/','*'],
+      operators: ['+','-','*','/'],
       currentSelectedNums: {
         numIndex1: null,
         numIndex2: null,
@@ -105,6 +107,10 @@ var Game = {
       currentSelectedOp: null,
       currentRes: null,
       compulsoryOpUsed: false,
+      defaultOperatorColor: {
+        fill: '#000000',
+        stroke: '#000000',
+      }
     };
   },
   created: function () {
@@ -147,6 +153,8 @@ var Game = {
         return ele.operator === newVal;
       });
       vm.compulsoryOpUsed = hasCompOp ? true : false;
+      //notifying user
+      vm.sugarPopup.log("Compulsory Operator Has Been Changed")
     }
   },
   methods: {

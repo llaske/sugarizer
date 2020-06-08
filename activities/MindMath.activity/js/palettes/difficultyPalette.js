@@ -15,7 +15,7 @@ define(["sugar-web/graphics/palette",
     this.setContent([containerElem]);
 
     this.difficultySelectedEvent = document.createEvent('CustomEvent');
-    this.difficultySelectedEvent.initCustomEvent('difficultySelected', true, true, {
+    this.difficultySelectedEvent.initCustomEvent('difficulty-selected', true, true, {
       index: 0
     });
 

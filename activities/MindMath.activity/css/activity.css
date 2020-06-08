@@ -1143,6 +1143,10 @@ p {
   padding: 10px;
 }
 
+.palette-text {
+  text-align: center;
+}
+
 .palette-item:hover {
   background-color: #808080;
 }

@@ -172,22 +172,7 @@ function rpnToSlots(pattern) {
    //considering timeTaken
    var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
    console.log(timeScore);
-   var totScore = 3 * scr + timeScore;
-   /*if (timeTaken <= 20) {
-     scr += 7;
-   } else if (timeTaken <= 40) {
-     scr += 6;
-   } else if (timeTaken <= 60) {
-     scr += 5;
-   } else if (timeTaken <= 80) {
-     scr += 4;
-   } else if (timeTaken <= 100) {
-     scr += 3;
-   } else if (timeTaken <= 120) {
-     scr += 2;
-   } else if (timeTaken <= 150) {
-     scr += 1;
-   }*/
+   var totScore = 2 * scr + timeScore;
 
    return totScore;
  }
