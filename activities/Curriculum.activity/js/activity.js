@@ -64,7 +64,7 @@ var app = new Vue({
 		openCategory: function (categoryId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = null;
-			if(this.settings) {
+			if (this.settings) {
 				this.currentView = 'category-settings';
 			} else {
 				this.currentView = 'skills-grid';
@@ -74,7 +74,7 @@ var app = new Vue({
 		openSkill: function (categoryId, skillId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = skillId;
-			if(this.settings) {
+			if (this.settings) {
 				this.currentView = 'skill-settings';
 			} else {
 				this.currentView = 'skill-details';
@@ -120,22 +120,55 @@ var app = new Vue({
 					]
 					break;
 			}
-			this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-				var obj = {
-					title: metadata.title,
-					timestamp: metadata.timestamp
+
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser", "activity/CurriculumChooser"], function (datastore, journalchooser, CurriculumChooser) {
+				journalchooser.init = function () {
+					journalchooser.features = [journalchooser.featureLocalJournal]
+					if(event.mediaType == 'image') {
+						journalchooser.features.push(CurriculumChooser);
+					}
+					journalchooser.currentFeature = 0;
 				}
-				if(metadata.activity == 'org.olpcfrance.PaintActivity') {
-					obj.data = vm.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
-				} else {
-					obj.data = data;
-				}
-				var mediaObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media;
-				if (mediaObj[event.mediaType]) {
-					mediaObj[event.mediaType].push(obj)
-				} else {
-					vm.$set(mediaObj, event.mediaType, new Array(obj));
-				}
+				setTimeout(function () {
+					journalchooser.show(function (entry) {
+						if (!entry) {
+							return;
+						}
+
+						var mediaObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media;
+						if (!mediaObj[event.mediaType]) {
+							vm.$set(mediaObj, event.mediaType, new Array());
+						}
+
+						if (entry.metadata.activity == "org.olpcfrance.Curriculum") {
+							var objectToSave = {
+								title: entry.metadata.title,
+								timestamp: entry.metadata.timestamp,
+								data: entry.path
+							}
+							mediaObj[event.mediaType].push(objectToSave)
+						} else if (entry.objectId) {
+							var dataentry = new datastore.DatastoreObject(entry.objectId);
+							dataentry.loadAsText(function (err, metadata, data) {
+								if (err) {
+									console.error(err);
+									return;
+								}
+								var objectToSave = {
+									title: metadata.title,
+									timestamp: metadata.timestamp
+								}
+								if (metadata.activity == 'org.olpcfrance.PaintActivity') {
+									objectToSave.data = vm.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
+								} else {
+									objectToSave.data = data;
+								}
+								mediaObj[event.mediaType].push(objectToSave)
+							});
+						}
+
+					}, filters[0], filters[1], filters[2], filters[3]);
+				}, 0);
 			});
 		},
 
@@ -149,14 +182,14 @@ var app = new Vue({
 			}
 		},
 
-		onUpdateCategories: function(categories) {
+		onUpdateCategories: function (categories) {
 			this.categories = categories;
 		},
 
-		onAddClick: function() {
-			if(this.currentView == 'categories-grid') {
+		onAddClick: function () {
+			if (this.currentView == 'categories-grid') {
 				this.openCategory(null);
-			} else if(this.currentView == 'skills-grid') {
+			} else if (this.currentView == 'skills-grid') {
 				this.openSkill(this.selectedCategoryId, null);
 			}
 		},
@@ -207,10 +240,10 @@ var app = new Vue({
 
 		goBackTo: function (view) {
 			this.currentView = view;
-			if(view == 'categories-grid') {
+			if (view == 'categories-grid') {
 				this.selectedCategoryId = null;
 				this.selectedSkillId = null;
-			} else if(view == 'skills-grid') {
+			} else if (view == 'skills-grid') {
 				this.selectedSkillId = null;
 			}
 		},
