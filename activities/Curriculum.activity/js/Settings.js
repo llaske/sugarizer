@@ -23,8 +23,16 @@ var CategorySettings = {
 						></div>
 					</div>
 				</div>
-				<button type="submit" :disabled="category.title == ''">Confirm</button>
-				<button type="button" @click="$emit('go-back-to', 'categories-grid')">Cancel</button>
+				<div class="buttons-row">
+					<button type="submit" :disabled="category.title == ''">
+						<img src="icons/dialog-ok.svg">
+						<span>Confirm</span>
+					</button>
+					<button type="button" @click="$emit('go-back-to', 'categories-grid')">
+						<img src="icons/dialog-cancel.svg">
+						<span>Cancel</span>
+					</button>
+				</div>
 			</form>
 		</div>
 	`,
@@ -112,8 +120,16 @@ var SkillSettings = {
 					</div>
 					<img :src="skill.image">
 				</div>
-				<button type="submit" :disabled="skill.title == '' || skill.image == null">Confirm</button>
-				<button type="button" @click="$emit('go-back-to', 'skills-grid')">Cancel</button>
+				<div class="buttons-row">
+					<button type="submit" :disabled="skill.title == '' || skill.image == null">
+						<img src="icons/dialog-ok.svg">
+						<span>Confirm</span>
+					</button>
+					<button type="button" @click="$emit('go-back-to', 'skills-grid')">
+						<img src="icons/dialog-cancel.svg">
+						<span>Cancel</span>
+					</button>
+				</div>
 			</form>
 		</div>
 	`,
@@ -149,12 +165,36 @@ var SkillSettings = {
 				{ activity: 'org.olpcfrance.PaintActivity' }
 			];
 			var vm = this;
-			this.$root.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-				if(metadata.activity == 'org.olpcfrance.PaintActivity') {
-					vm.skill.image = vm.$root.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
-				} else {
-					vm.skill.image = data;
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser", "activity/CurriculumChooser"], function (datastore, journalchooser, CurriculumChooser) {
+				journalchooser.init = function () {
+					journalchooser.features = [journalchooser.featureLocalJournal]
+					journalchooser.features.push(CurriculumChooser);
+					journalchooser.currentFeature = 0;
 				}
+				setTimeout(function () {
+					journalchooser.show(function (entry) {
+						if (!entry) {
+							return;
+						}
+
+						if (entry.metadata.activity == "org.olpcfrance.Curriculum") {
+							vm.skill.image = entry.path;
+						} else if (entry.objectId) {
+							var dataentry = new datastore.DatastoreObject(entry.objectId);
+							dataentry.loadAsText(function (err, metadata, data) {
+								if (err) {
+									console.error(err);
+									return;
+								}
+								if(metadata.activity == 'org.olpcfrance.PaintActivity') {
+									vm.skill.image = vm.$root.$refs.SugarJournal.LZString.decompressFromUTF16(JSON.parse(data).src);
+								} else {
+									vm.skill.image = data;
+								}
+							});
+						}
+					}, filters[0], filters[1], filters[2], filters[3]);
+				}, 0);
 			});
 		},
 

@@ -129,7 +129,9 @@ p {
 
 .category-card {
 	position: relative;
-	flex: 1 250px;
+	flex: 0 1 400px;
+	min-width: 400px;
+	max-width: 500px;
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
@@ -692,10 +694,25 @@ p {
 .settings form .colors .color.selected {
 	border: solid 2px #000000;
 }
+.settings form .buttons-row {
+	display: flex;
+	flex-wrap: wrap;
+}
 .settings form button {
-	padding: 5px 20px;
-	margin: 20px 0;
+	padding: 5px 10px;
+	margin: 20px 5px;
+	display: flex;
+	align-items: center;
 	cursor: pointer;
+}
+.settings form button img {
+	width: 20px;
+	height: 20px;
+	border: none;
+	cursor: pointer;
+}
+.settings form button span {
+	margin: 0 10px;
 }
 .settings form img {
 	max-width: 350px;
@@ -710,7 +727,7 @@ p {
 	margin: 0;
 }
 #image-edit-button {
-	background-image: url(../icons/edit.svg);
+	background-image: url(../icons/upload.svg);
 	background-size: cover;
 	background-position: center;
 	width: 30px;

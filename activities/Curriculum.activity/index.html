@@ -26,7 +26,7 @@
 
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
-			<sugar-toolitem id="settings-button" v-show="currentView != 'skill-details'" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
+			<sugar-toolitem id="settings-button" v-show="(currentView == 'categories-grid' || currentView == 'skills-grid')" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
 			<sugar-toolitem id="add-button" v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" @click="onAddClick"></sugar-toolitem>
 			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
 			<sugar-toolitem
