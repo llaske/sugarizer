@@ -29,7 +29,7 @@ function QuestionsGenerator() {
 
     while (true) {
       inputNumbers = [];
-      var noOfOnes = 4;
+      var noOfOnes = 0;
       var noOfTwos = 0;
       for (var t = 0; t < 5; t++) {
         var min = 1;
@@ -137,24 +137,29 @@ function QuestionsGenerator() {
   this.generate = function(level, len) {
     this.level = level;
     var questions = [];
-    for (var qNo = 0; qNo < len;) {
-      this.generateInputNumbers();
+    for (var qNo = 0; qNo < len; qNo++) {
       var trials = 0;
-      this.find();
-      if (this.target != null) {
-        var question = {
-          inputNumbers: this.inputNumbers,
-          targetNum: this.target,
-          difficulty: this.level === 0 ? 'easy' : 'medium',
-          bestSoln: this.best.split(','),
-        }
-        questions.push(question);
-        qNo++;
-
-      } else {
+      while (true) {
+        var exitFlag = false;
         trials++;
-        if (trials >= 1) {
-          this.skipQuestions = {};
+        this.generateInputNumbers();
+        this.find();
+        if (this.target != null) {
+          var question = {
+            inputNumbers: this.inputNumbers,
+            targetNum: this.target,
+            bestSoln: this.best.split(','),
+          }
+          questions.push(question);
+          exitFlag = true;
+
+        } else {
+          if (trials >= 5) {
+            this.skipQuestions = {};
+          }
+        }
+        if (exitFlag) {
+          break;
         }
       }
 

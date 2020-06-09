@@ -31,6 +31,7 @@ var app = new Vue({
       score: 0,
       level: 0,
       compulsoryOps: [],
+      compulsoryOpsRem: [],
       clock: {
         active: false,
         previousTime: null,
@@ -38,22 +39,23 @@ var app = new Vue({
         timer: false,
       },
       questionsGenerator: null,
+      hintsGenerator: null,
       questions: [
         {
-          inputNumbers: [null,null,null,null,null],
-          targetNum: null,
-          difficulty: null,
+          inputNumbers: [0,0,0,0,0],
+          targetNum: 0,
           bestSoln: [],
         },
       ],
       qNo:0,
       slots:[[]],
-      inputNumbers: [null,null,null,null,null],
+      inputNumbers: [0,0,0,0,0],
       inputNumbersTypes:[0,0,0,0,0],
       prev: {
         skipIndex1: [],
         skipIndex2: []
-      }
+      },
+      hint: []
     }
   },
   mounted: function() {
@@ -74,9 +76,21 @@ var app = new Vue({
         vm.slots = [[]];
         vm.qNo = 0;
         //vm.tick();
-      } else {
-
       }
+    },
+    slots: function (newVal) {
+      var vm = this;
+      //update compulsoryOpsRem
+      vm.updateCompulsoryOpsRem();
+      //generating hint
+      vm.generateHint();
+    },
+    compulsoryOps: function functionName() {
+      var vm = this;
+      //update compulsoryOpsRem
+      vm.updateCompulsoryOpsRem();
+      //generating hint
+      vm.generateHint();
     }
   },
   methods: {
@@ -92,10 +106,12 @@ var app = new Vue({
 
       //Initialize questionsGenerator
       vm.questionsGenerator = new QuestionsGenerator();
-      vm.questions = vm.questionsGenerator.generate(vm.level,1);
-      vm.qNo = 0;
-      vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
-      vm.inputNumbersTypes = [0,0,0,0,0];
+      //generating questions set
+      vm.generateQuestionSet();
+
+      //Initialize hintsGenerator
+      vm.hintsGenerator = new HintsGenerator();
+      vm.generateHint();
 
       //Initialize clock
       vm.$set(vm.clock, 'time', 0);
@@ -103,6 +119,44 @@ var app = new Vue({
       vm.$set(vm.clock, 'previousTime', new Date());
       vm.tick();
 
+    },
+
+    updateCompulsoryOpsRem: function () {
+      var vm = this;
+      vm.compulsoryOpsRem = [];
+      if (vm.slots[vm.qNo].length != 0) {
+        //check if the operator used contains compulsoryOps
+        for (var i = 0; i < vm.compulsoryOps.length; i++) {
+          var tmp = vm.slots[vm.qNo].find(function(ele) {
+            return ele.operator === vm.compulsoryOps[i];
+          });
+          if (!tmp) {
+            vm.compulsoryOpsRem.push(vm.compulsoryOps[i]);
+          }
+        }
+      }
+    },
+
+    generateHint: function () {
+      var vm = this;
+      var slots = vm.hintsGenerator.generate(vm.inputNumbers, vm.questions[vm.qNo].targetNum, vm.compulsoryOpsRem);
+      vm.hint = slots.shift();
+      if (vm.hint) {
+        var nextSlot = vm.hint[0].val + ' ' + vm.hint[1] + ' ' + vm.hint[2].val + ' = ' + vm.hint[3];
+      }else {
+        var nextSlot = "No Hint"
+      }
+      setTimeout(() => {
+         document.getElementById('hint-text').innerHTML = nextSlot;
+       }, 0);
+    },
+
+    generateQuestionSet: function () {
+      var vm = this;
+      vm.questions = vm.questionsGenerator.generate(vm.level,1);
+      vm.qNo = 0;
+      vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+      vm.inputNumbersTypes = [0,0,0,0,0];
     },
 
     onValidate: function(data) {
@@ -146,7 +200,9 @@ var app = new Vue({
 
         vm.inputNumbers = newNums;
         vm.inputNumbersTypes = newTypes;
+
       }
+
     },
 
     tick: function() {
@@ -174,14 +230,13 @@ var app = new Vue({
         //stop timer
         vm.clock.active = false;
         vm.slots = [[]];
+        vm.score=0;
         //change currentScreen
         vm.currentScreen = "result";
       }
       else {
-        // generate question set,
-        vm.questions = vm.questionsGenerator.generate(vm.level,1);
-        vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
-        vm.inputNumbersTypes = [0,0,0,0,0];
+        //generating questions set
+        vm.generateQuestionSet();
 
         //change currentScreen
         vm.currentScreen = "game";
@@ -205,10 +260,8 @@ var app = new Vue({
 
       }
       else {
-        // generate question set,
-        vm.questions = vm.questionsGenerator.generate(vm.level,1);
-        vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
-        vm.inputNumbersTypes = [0,0,0,0,0];
+        //generating questions set
+        vm.generateQuestionSet();
 
         //change currentScreen
         vm.currentScreen = "game";
@@ -245,13 +298,15 @@ var app = new Vue({
     },
 
     onDifficultySelected: function (data) {
-      this.level = data.index;
-      // can also start a new game
-      //....
-    },
-
-    onHintUsed: function () {
       var vm = this;
+      vm.level = data.index;
+      if (vm.currentScreen === 'game') {
+        // start a new game
+        vm.slots = [[]];
+        vm.score=0;
+        vm.clock.time = 0;
+        vm.generateQuestionSet();
+      }
 
     },
 
@@ -265,6 +320,7 @@ var app = new Vue({
           vm.compulsoryOps = removeEntryFromArray(vm.compulsoryOps, indx);
         }
       }
+      vm.sugarPopup.log("Compulsory Operator Has Been Changed")
     },
 
     fullscreen: function () {

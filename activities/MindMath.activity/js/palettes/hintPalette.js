@@ -14,16 +14,6 @@ define(["sugar-web/graphics/palette",
     containerElem.innerHTML = template;
     this.setContent([containerElem]);
 
-    this.hintUsedEvent = document.createEvent('CustomEvent');
-    this.hintUsedEvent.initCustomEvent('hint-used', true, true);
-
-    var that = this;
-
-    document.getElementById('use-hint-button').addEventListener('click', function(event) {
-      that.getPalette().dispatchEvent(that.hintUsedEvent);
-      that.popDown();
-    });
-
   };
 
   var addEventListener = function(type, listener, useCapture) {

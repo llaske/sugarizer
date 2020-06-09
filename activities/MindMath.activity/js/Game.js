@@ -3,7 +3,7 @@ var Game = {
     "clock": Clock,
     "slots-component": Slots,
   },
-  props: ['time','strokeColor','fillColor','questions', 'qNo','score', 'mode','compulsoryOps','sugarPopup','slots','inputNumbers','inputNumbersTypes'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -73,7 +73,7 @@ var Game = {
             <transition name="fade"  mode="out-in">
               <div id="validate-button"
               v-on:click="validate"
-              v-if="(compulsoryOps.length != 0 ? compulsoryOpUsed : true) && currentRes === questions[qNo].targetNum"
+              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
               ></div>
             </transition>
           </div>
@@ -95,20 +95,20 @@ var Game = {
 
     </div>
   `,
-  data: function () {
+  data: function() {
     return {
-      operators: ['+','-','*','/'],
+      operators: ['+', '-', '*', '/'],
       currentSelectedNums: {
         numIndex1: null,
         numIndex2: null,
-        nums:[]
+        nums: []
       },
       currentSelectedOp: null,
       currentRes: null,
       compulsoryOpUsed: false,
     };
   },
-  created: function () {
+  created: function() {
     var vm = this;
     window.addEventListener('resize', vm.resize);
   },
@@ -116,30 +116,16 @@ var Game = {
     var vm = this;
     window.removeEventListener("resize", vm.resize);
   },
-  mounted: function () {
+  mounted: function() {
     var vm = this;
     vm.resize();
   },
   watch: {
-    slots: function (newVal) {
+    slots: function(newVal) {
       var vm = this;
       if (newVal[vm.qNo].length != 0) {
-        //check if the operator used contains compulsoryOps
-        var hasCompOps = 0;
-        for (var i = 0; i < vm.compulsoryOps.length; i++) {
-          var tmp = newVal[vm.qNo].find(function(ele) {
-            return ele.operator === vm.compulsoryOps[i];
-          });
-          if (tmp) {
-            hasCompOps++;
-          }
-        }
-        vm.compulsoryOpUsed = hasCompOps === vm.compulsoryOps.length ? true : false;
         vm.currentRes = newVal[vm.qNo][newVal[vm.qNo].length - 1].res;
-
-        var compulsoryFlag = vm.compulsoryOps.length!=0 ? vm.compulsoryOpUsed : true;
-
-        if (compulsoryFlag && vm.currentRes === vm.questions[vm.qNo].targetNum) {
+        if (vm.compulsoryOpsRem.length === 0 && vm.currentRes === vm.questions[vm.qNo].targetNum) {
           //notifying user
           vm.sugarPopup.log("You Got the Target Number")
         }
@@ -147,27 +133,9 @@ var Game = {
         vm.currentRes = null;
       }
     },
-    compulsoryOps: function (newVal) {
-      var vm = this;
-      //check if the operator used contains compulsoryOps
-      var hasCompOps = 0;
-      for (var i = 0; i < newVal.length; i++) {
-        var tmp = vm.slots[vm.qNo].find(function(ele) {
-          return ele.operator === newVal[i];
-        });
-        if (tmp) {
-          hasCompOps++;
-        }
-      }
-      console.log(hasCompOps);
-
-      vm.compulsoryOpUsed = hasCompOps === vm.compulsoryOps.length ? true : false;
-      //notifying user
-      vm.sugarPopup.log("Compulsory Operator Has Been Changed")
-    }
   },
   methods: {
-    resize: function () {
+    resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
       var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
@@ -175,7 +143,7 @@ var Game = {
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;
 
-      document.querySelector('#game-view').style.height = newHeight+"px";
+      document.querySelector('#game-view').style.height = newHeight + "px";
 
       if (ratio < 1) {
         // stack up panels
@@ -185,8 +153,7 @@ var Game = {
         document.querySelector('.game-area-panel').style.height = '60%';
         document.querySelector('.slots-area-panel').style.width = '98.4%';
         document.querySelector('.slots-area-panel').style.height = '38%';
-      }
-      else {
+      } else {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels
         document.querySelector('.game-area-panel').style.width = '56.4%';
@@ -195,54 +162,51 @@ var Game = {
         document.querySelector('.slots-area-panel').style.height = '95%';
       }
     },
-    onSelectNumber: function (index) {
+    onSelectNumber: function(index) {
       var vm = this;
       if (vm.currentSelectedNums.numIndex1 === index) {
         //deselecting
         if (vm.currentSelectedNums.numIndex2 != null) {
-          vm.$set(vm.currentSelectedNums,'numIndex1',vm.currentSelectedNums.numIndex2);
-          vm.$set(vm.currentSelectedNums,'numIndex2',null);
-        }else {
-          vm.$set(vm.currentSelectedNums,'numIndex1',null);
+          vm.$set(vm.currentSelectedNums, 'numIndex1', vm.currentSelectedNums.numIndex2);
+          vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        } else {
+          vm.$set(vm.currentSelectedNums, 'numIndex1', null);
         }
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0) ;
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
         return;
-      }
-      else if (vm.currentSelectedNums.numIndex2 === index) {
+      } else if (vm.currentSelectedNums.numIndex2 === index) {
         //deselecting
-        vm.$set(vm.currentSelectedNums,'numIndex2',null);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 1) ;
+        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 1);
         return;
       }
 
       if (vm.currentSelectedNums.nums.length >= 2) {
         return;
-      }
-      else {
+      } else {
         var at = vm.currentSelectedNums.nums.length;
         vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
-        vm.$set(vm.currentSelectedNums, 'numIndex'+(at+1), index);
+        vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
         vm.computeOperation();
       }
     },
-    onSelectOperator: function (index) {
+    onSelectOperator: function(index) {
       var vm = this;
-      if (vm.currentSelectedOp === index ) {
+      if (vm.currentSelectedOp === index) {
         //deselecting
         vm.currentSelectedOp = null;
-      }
-      else{
+      } else {
         vm.currentSelectedOp = index;
         vm.computeOperation();
       }
     },
-    computeOperation: function () {
+    computeOperation: function() {
       var vm = this;
       if (vm.currentSelectedOp != null && vm.currentSelectedNums.nums.length == 2) {
         var res;
         var num1 = vm.currentSelectedNums.nums[0];
         var num2 = vm.currentSelectedNums.nums[1];
-        switch(vm.operators[vm.currentSelectedOp]) {
+        switch (vm.operators[vm.currentSelectedOp]) {
           case '+':
             res = num1 + num2;
             break;
@@ -293,23 +257,22 @@ var Game = {
           }
           vm.$emit('slots-update', updateObj);
 
-        }else {
+        } else {
           //notify user for an invalid operation
           vm.sugarPopup.log("Invalid option");
         }
 
         //deselecting
         vm.currentSelectedOp = null;
-        vm.$set(vm.currentSelectedNums,'numIndex1',null);
-        vm.$set(vm.currentSelectedNums,'numIndex2',null);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0) ;
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0) ;
+        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
+        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
       }
     },
-    validate: function () {
+    validate: function() {
       var vm = this;
       if (vm.currentRes === vm.questions[vm.qNo].targetNum) {
-        //var newScore = vm.score + vm.calculateScore();
         vm.$emit('validate');
       }
     },

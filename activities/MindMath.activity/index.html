@@ -52,13 +52,12 @@
 				palette-file="js/palettes/hintPalette.js"
 				palette-class="HintPalette"
 				palette-title="hint"
-				palette-event="hint-used"
-				v-on:hint-used="onHintUsed"
 			></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" title="Unfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<transition name="fade" id="app-content" mode="out-in">
@@ -72,6 +71,7 @@
 				v-bind:score="score"
 				v-bind:mode="mode"
 				v-bind:compulsory-ops="compulsoryOps"
+				v-bind:compulsory-ops-rem="compulsoryOpsRem"
 				v-bind:slots="slots"
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"
@@ -88,6 +88,7 @@
 
 	<script src="js/utils/utils.js"></script>
 	<script src="js/utils/game-rpn-evaluator.js"></script>
+	<script src="js/utils/hintsGenerator.js"></script>
 	<script src="js/utils/questionsGenerator.js"></script>
 	<script src="js/Clock.js"></script>
 	<script src="js/Slots.js"></script>

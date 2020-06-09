@@ -16,7 +16,15 @@ function addEntryIntoArray(array, addIndex, ele) {
   return subset
 }
 
-
+function findEle(arr, ele) {
+  var len = arr.length;
+  for (var i = len - 1; i >= 0; i--) {
+    if (arr[i] === ele) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function allowedCheck(n) {
   return Number.isInteger(n) && n >= 0;
@@ -171,7 +179,7 @@ function rpnToSlots(pattern) {
    }
    //considering timeTaken
    var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
-   console.log(timeScore);
+   console.log('timeScore is: ' + timeScore);
    var totScore = 2 * scr + timeScore;
 
    return totScore;
