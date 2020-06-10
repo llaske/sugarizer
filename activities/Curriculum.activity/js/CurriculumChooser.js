@@ -69,9 +69,12 @@ define(['sugar-web/env', 'mustache'], function(env, mustache) {
 				if (sections[i].isDomaine) continue;
 
 				for (var j = 0; j < sections[i].items.length; j++) {
+					// To parse the HTML string into normal text
+					var el = document.createElement('p');
+					el.innerHTML = sections[i].items[j].titre;
 					entries.push({ 
 						"code": sections[i].items[j].uuid, 
-						"text": sections[i].items[j].titre,
+						"text": el.innerHTML,
 					});
 				}
 			}

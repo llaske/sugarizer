@@ -7,10 +7,12 @@ var CategoryCard = {
 			:style="{ backgroundColor: category.color, boxShadow: '0 0 5px ' + category.color }"
 			@click="onCategoryClick"
 		>
-			<div class="settings-row" v-if="settings">
-				<button id="edit-button" @click=""></button>
-				<button id="delete-button" @click.stop="onDeleteClick"></button>
-			</div>
+			<transition name="settings-zoom">
+				<div class="settings-row" v-if="settings">
+					<button id="edit-button" @click="onEditClick"></button>
+					<button id="delete-button" @click.stop="onDeleteClick"></button>
+				</div>
+			</transition>
 			<h1 class="category-title" v-html="category.title"></h1>
 			<div class="category-skills">
 				<div 
@@ -66,6 +68,9 @@ var CategoryCard = {
 			if(this.settings) return;
 			this.$emit('skill-clicked', this.category.id, skillId);
 		},
+		onEditClick: function() {
+			this.$emit('edit-category-clicked', this.category.id)
+		},
 		onDeleteClick: function() {
 			this.$emit('delete-clicked', this.category.id);
 		}
@@ -85,6 +90,7 @@ var CategoriesGrid = {
 					:settings="settings"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
+					@edit-category-clicked="onEditCategoryClick"
 					@delete-clicked="deleteCategory"
 				></category-card>
 			</draggable>
@@ -107,6 +113,10 @@ var CategoriesGrid = {
 
 		onUpdate: function(e) {
 			this.$emit('update-categories', this.categories);
+		},
+
+		onEditCategoryClick: function(categoryId) {
+			this.$emit('edit-category', categoryId);
 		},
 
 		deleteCategory: function(categoryId) {

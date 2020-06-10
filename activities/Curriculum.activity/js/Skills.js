@@ -7,13 +7,15 @@ var SkillCard = {
 			class="skill-card" 
 			:class="{ 'settings-active': settings }"
 			:style="{ border: 'solid 2px ' + category.color }"
-			@click="$emit('skill-clicked', skill.id)"		
+			@click="onSkillClick"		
 		>
-			<div class="settings-row" v-if="settings">
-				<button id="edit-button" @click=""></button>
-				<button id="delete-button" @click.stop="onDeleteClick"></button>
-			</div>
-			<medal v-else small :acquired="acquired"></medal>
+			<transition name="settings-zoom">
+				<div class="settings-row" v-if="settings">
+					<button id="edit-button" @click="onEditClick"></button>
+					<button id="delete-button" @click.stop="onDeleteClick"></button>
+				</div>
+				<medal v-else small :acquired="acquired"></medal>
+			</transition>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
 				<h2 class="skill-title" v-html="skill.title"></h2>
@@ -37,6 +39,13 @@ var SkillCard = {
 		this.$refs.footer.style.boxShadow = '0 3px 15px ' + this.category.color;
 	},
 	methods: {
+		onSkillClick: function() {
+			if(this.settings) return;
+			this.$emit('skill-clicked', this.skill.id)
+		},
+		onEditClick: function() {
+			this.$emit('edit-skill-clicked', this.skill.id)
+		},
 		onDeleteClick: function() {
 			this.$emit('delete-clicked', this.skill.id);
 		}
@@ -64,6 +73,7 @@ var SkillsGrid = {
 						:user="user"
 						:settings="settings"
 						@skill-clicked="onSkillClick"
+						@edit-skill-clicked="onEditSkillClick"
 						@delete-clicked="deleteSkill"
 					></skill-card>
 				</draggable>
@@ -90,6 +100,10 @@ var SkillsGrid = {
 
 		goBackTo: function () {
 			this.$emit('go-back-to', 'categories-grid');
+		},
+
+		onEditSkillClick: function(skillId) {
+			this.$emit('edit-skill', this.category.id, skillId);
 		},
 
 		deleteSkill: function (skillId) {

@@ -139,7 +139,7 @@ p {
 	border-radius: 10px;
 	background: white;
 	cursor: pointer;
-	transition: all 200ms ease;
+	transition: transform 500ms ease;
 }
 .category-title {
 	text-align: center;
@@ -244,13 +244,13 @@ p {
 	position: relative;
 	flex: 0 1 250px;
 	width: 250px;
-	min-height: 250px;
+	/* min-height: 250px; */
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 20px 20px 0 0;
 	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-	transition: all 200ms ease;
+	transition: all 500ms ease;
 }
 .skill-card .medal-container {
 	position: absolute;
@@ -261,7 +261,7 @@ p {
 	max-width: 100%;
 	max-height: 150px;
 	display: block;
-	margin: 0 auto;
+	margin: 5px auto;
 	border-radius: 20px 20px 0 0;
 }
 .skill-card .skill-footer {
@@ -639,12 +639,16 @@ p {
 .settings-row {
 	display: flex;
 	justify-content: flex-end;
+	transform-origin: right;
 }
 .settings-row button {
 	height: 40px;
 	width: 40px;
 	margin: 0 5px;
 	cursor: pointer;
+}
+.skill-card .settings-row button {
+	margin: 5px;
 }
 .settings-row #edit-button {
 	background-image: url(../icons/edit.svg);
@@ -727,12 +731,19 @@ p {
 	margin: 0;
 }
 #image-edit-button {
-	background-image: url(../icons/upload.svg);
+	background-image: url(../icons/insert-picture.svg);
 	background-size: cover;
 	background-position: center;
 	width: 30px;
 	height: 30px;
 	padding: 0;
+}
+
+#journal-container div[id^=entry_] {
+	display: flex;
+}
+#journal-container div[id^=edate_] {
+	margin-left: auto;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -741,6 +752,15 @@ p {
 .fade-enter, .fade-leave-to {
 	transform: scale(0.98);
   opacity: 0;
+}
+
+.settings-zoom-enter-active, .settings-zoom-leave-active {
+	transition: all 300ms;
+}
+.settings-zoom-enter, .settings-zoom-leave-to {
+	transform: scale(0);
+	height: 0;
+  /* opacity: 0; */
 }
 
 .tutorial-icon-button {
