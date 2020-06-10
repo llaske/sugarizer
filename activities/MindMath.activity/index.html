@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Mind Math Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<script src="lib/vue.min.js"></script>
+	<link rel="stylesheet" href="css/libnotify.css">
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+
+			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
+			<sugar-toolitem id="restart-button" title="restart Game" v-on:click="handleRestartButton"></sugar-toolitem>
+			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
+			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
+			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
+			<sugar-toolitem
+				id="level-button"
+				title="Select Difficulty Level"
+				palette-file="js/palettes/difficultyPalette.js"
+				palette-class="DifficultyPalette"
+				palette-title="difficulty level"
+				palette-event="difficulty-selected"
+				v-on:difficulty-selected="onDifficultySelected"
+				></sugar-toolitem>
+			<sugar-toolitem
+			 	id="compulsory-op-button"
+				title="Choose compulsory operator"
+				palette-file="js/palettes/compulsoryOpPalette.js"
+				palette-class="CompulsoryOpPalette"
+				palette-title="compulsory Operators"
+				palette-event="compulsory-op-selected"
+				v-on:compulsory-op-selected="onCompulsoryOpSelected"
+			></sugar-toolitem>
+			<sugar-toolitem
+				id="hint-button"
+				title="hint"
+				palette-file="js/palettes/hintPalette.js"
+				palette-class="HintPalette"
+				palette-title="hint"
+			></sugar-toolitem>
+
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" title="Unfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<transition name="fade" id="app-content" mode="out-in">
+			<component
+				v-bind:is="currentScreen"
+				v-bind:time="clock.time"
+				v-bind:stroke-color="strokeColor"
+				v-bind:fill-color="fillColor"
+				v-bind:questions="questions"
+				v-bind:q-no="qNo"
+				v-bind:score="score"
+				v-bind:mode="mode"
+				v-bind:compulsory-ops="compulsoryOps"
+				v-bind:compulsory-ops-rem="compulsoryOpsRem"
+				v-bind:slots="slots"
+				v-bind:input-numbers="inputNumbers"
+				v-bind:input-numbers-types="inputNumbersTypes"
+				v-bind:sugar-popup="sugarPopup"
+				v-on:validate="onValidate"
+				v-on:slots-update="onSlotsUpdated"
+			></component>
+	</transition>
+
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+	</div>
+
+	<script src="js/utils/utils.js"></script>
+	<script src="js/utils/game-rpn-evaluator.js"></script>
+	<script src="js/utils/hintsGenerator.js"></script>
+	<script src="js/utils/questionsGenerator.js"></script>
+	<script src="js/Clock.js"></script>
+	<script src="js/Slots.js"></script>
+	<script src="js/Result.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+
+	<script src="js/activity.js"></script>
+</body>
+
+</html>
