@@ -20,7 +20,6 @@
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
-	<script type="text/javascript" src="../../cordova.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -123,6 +122,7 @@
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError"></sugar-journal>
 		<sugar-localization ref="SugarL10n"></sugar-localization>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+		<sugar-device ref="SugarDevice"></sugar-device>
 	</div>
 
 	<script src="js/slope-template.js"></script>
@@ -131,6 +131,7 @@
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/components/SugarDevice.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

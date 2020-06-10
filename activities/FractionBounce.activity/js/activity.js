@@ -94,15 +94,6 @@ let app = new Vue({
 		}
 	},
 
-	watch: {
-		readyToWatch: function (newVal, oldVal) {
-			let vm = this;
-			if (newVal) {
-				vm.watchId = navigator.accelerometer.watchAcceleration(vm.accelerationChanged, null, { frequency: 2 * vm.frameInterval });
-			}
-		}
-	},
-
 	computed: {
 		helpText: function () {
 			if (this.answer == -1) {
@@ -120,20 +111,18 @@ let app = new Vue({
 	mounted: function () {
 		var vm = this;
 
-		//Accelerometer
-		var useragent = navigator.userAgent.toLowerCase();
-		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
-			document.addEventListener('deviceready', function () {
-				vm.readyToWatch = true;
-			}, false);
-		}
-
 		// handle resize
 		window.addEventListener('resize', function () {
 			vm.init();
 		});
 
 		this.init();
+
+		this.$refs.SugarDevice.getLocation(function(location) {
+			console.log(location);
+		});
+
+		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval, this.accelerationChanged);
 	},
 
 	methods: {
