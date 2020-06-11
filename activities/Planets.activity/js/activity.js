@@ -557,7 +557,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				var planetDiv = document.createElement("div");
 				planetDiv.id = "div-" + name;
 				planetDiv.className = "planet-div";
-			//	planetDiv.style.backgroundColor = "#FFFFFF";
 				planetPos.appendChild(planetDiv);
 				document.getElementById("div-" + name).style.padding = "2%";
 				document.getElementById("div-" + name).style.marginLeft = textDistance - 1 + "%";
@@ -664,8 +663,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					e.preventDefault();
 
 					canvasBounds = planetPos.getBoundingClientRect();
-			    mouse.x =  ( (e.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left ) )* 2 - 1;
-			    mouse.y = - ( (e.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+
+					if("ontouchend" in renderer.domElement){
+						mouse.x =  ( (e.changedTouches[0].clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left ) )* 2 - 1;
+				 		mouse.y = - ( (e.changedTouches[0].clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+					}
+					else{
+						mouse.x =  ( (e.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left ) )* 2 - 1;
+				    mouse.y = - ( (e.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+					}
+
 
 			    raycaster.setFromCamera( mouse, camera );
 
@@ -721,7 +728,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					return needResize;
 				}
 
-				renderer.domElement.addEventListener( 'click', clickMesh, false );
+				if("ontouchend" in renderer.domElement){
+					renderer.domElement.addEventListener( 'touchend', clickMesh, false );
+				}
+				else{
+					renderer.domElement.addEventListener( 'click', clickMesh, false );
+				}
 
 
 				//For Smaller Planets
