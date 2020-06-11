@@ -1,1 +1,1275 @@
-[{"illustration":"","uuid":"4ED062AC-0409-4AC5-BBAB-9705CFAE984E","isDomaine":true,"items":[],"titre":"1. Mobiliser le langage dans toutes ses dimensions","color":"ffffff"},{"uuid":"0-L'oral : oser entrer en communication","icon":"icon11.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-25-33.png","CP":false,"uuid":"715AD07B-653D-717B-CE88-6B4850252581","PS":true,"TPS":true,"titre":"Je sais parler avec mes camarades.","Invisible":false,"item synthèse":true,"GS":false},{"MS":true,"illustration":"media\/2014-07-31-07-25-36.png","CP":false,"uuid":"41C91E24-D424-1888-69C1-0DF6E7445534","PS":true,"TPS":true,"titre":"Je sais parler à l’adulte.","Invisible":false,"GS":false},{"MS":true,"illustration":"media\/2014-07-31-07-25-40.png","CP":false,"uuid":"19DB4A3E-4619-A118-71F4-6DD6958463B8","PS":true,"TPS":true,"titre":"Je sais prendre la parole dans un petit groupe.","Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-25-44.png","CP":false,"uuid":"17281CF0-93DB-729C-A2AB-24E63E712550","PS":true,"TPS":true,"titre":"Je sais expliquer ce que je suis en train de faire.","Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-25-51.png","CP":false,"uuid":"DE1286D4-1695-EDA7-EEA7-173DE1120819","PS":true,"TPS":false,"titre":"Je sais raconter un événement vécu en classe.","Invisible":false,"GS":true},{"MS":true,"CP":false,"uuid":"993AF72A-EC72-4C03-99D2-5441DC67C763","PS":true,"TPS":false,"titre":"J'utilise JE pour parler de moi","Invisible":false,"GS":true},{"MS":true,"CP":false,"uuid":"A82B8087-8EB7-48C7-87E4-BE15E481E1CD","PS":true,"TPS":false,"titre":"Je fais des phrases simples.","Invisible":false,"GS":true},{"MS":true,"CP":false,"uuid":"E13792EF-C124-4BCA-B3A1-EABC59D772E0","PS":true,"TPS":false,"titre":"Je nomme des objets de tous les jours.","Invisible":false,"GS":true},{"MS":true,"CP":true,"uuid":"413D12DB-D599-4FF3-BAD1-35CDBB72A74A","PS":false,"TPS":false,"titre":"Je fais des phrases de plus en plus longues.","Invisible":false,"GS":true},{"MS":true,"CP":true,"uuid":"02E97696-5825-4140-8117-D43963977C42","PS":false,"TPS":false,"titre":"J’utilise des mots plus précis.","Invisible":false,"GS":true},{"MS":false,"CP":true,"uuid":"424852B0-FD34-40DC-95CD-29B2322678B3","PS":false,"TPS":false,"titre":"Je fais des phrases complexes (parce que).","Invisible":false,"GS":true},{"titre":"Je récite la comptine jusqu&apos;à 6.","illustration":"media\/2014-07-31-07-47-40.png","uuid":"EBA2EA5A-2783-6797-93BA-8D3C814A5BE8"}],"titre":"Langage oral : communication, expression ","color":"84ff00ff"},{"color":"84ff00ff","icon":"icon13.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-26-03.png","uuid":"B7DF24A7-661A-F548-ADCB-82488202DF20","PS":true,"TPS":true,"titre":"Je montre ce que j’ai compris en faisant ce que l’on me demande.","Invisible":false,"GS":true},{"titre":"Je comprends une histoire courte.","illustration":"media\/2014-07-31-07-26-07.png","uuid":"8CC9E3BE-25CE-C337-DD03-F1C6E2AD29EB"},{"titre":"Je montre que j&apos;ai compris une consigne avec 2 actions à faire","illustration":"media\/2014-07-31-07-26-12.png","uuid":"0896D73E-2C06-1D9E-3C6B-277CF2748863"},{"titre":"Je comprends une histoire et la raconte avec l&apos;aide d&apos;images.","illustration":"media\/2014-07-31-07-26-18.png","uuid":"E16A7D42-83E3-3A90-329B-D35B9BC92C7D"},{"titre":"Je comprends une consigne donnée à toute la classe (collective).","illustration":"media\/2014-07-31-07-26-22.png","uuid":"9BB5487D-3034-7A19-3850-3A4999B85CCC"},{"titre":"Je comprends et raconte une histoire.( trame narrative).","illustration":"media\/2014-07-31-07-26-42.png","uuid":"8E437C94-4B35-8922-7B6A-4E337A1AA379"}],"titre":"Compréhension d’un message oral ou d’un texte lu par l’adulte","uuid":"1-L'oral : comprendre et apprendre"},{"uuid":"3-L'oral : conscience phonologique","icon":"icon18.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-32-42.png","CP":true,"uuid":"99C8F661-2EBD-68E2-19EC-5A29D319B362","PS":true,"TPS":true,"titre":"Je connais des comptines sur les sons.","item synthèse":true,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-32-45.png","CP":true,"uuid":"BEA7AF97-CB1F-0BE8-DDBE-DF2E1579603A","PS":true,"TPS":true,"titre":"Je sais frapper les syllabes.","Invisible":false,"item synthèse":true,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-32-51.png","CP":true,"uuid":"499C6BA5-71F3-09E1-4D41-F2A66FA6E422","PS":true,"TPS":true,"titre":"Je trouve des mots qui riment à l'aide d'images.","item synthèse":true,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-32-55.png","CP":true,"uuid":"A5E993B9-8D6A-2B99-4931-A97ED2B9D678","PS":true,"TPS":true,"titre":"Je sais jouer avec les syllabes.(Inverser, supprimer, ajouter).","item synthèse":true,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-32-59.png","CP":true,"uuid":"BAF06517-6676-9CEA-C2D1-18B28A986882","PS":true,"TPS":true,"titre":"Je sais localiser une syllabe dans un mot.","item synthèse":true,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-33-02.png","CP":true,"uuid":"3F90A747-CBBA-C7CD-F279-9BAADD320139","PS":true,"TPS":true,"titre":"Je sais dire si j’entends un son ( voyelle) dans un mot.","Invisible":false,"item synthèse":true,"GS":true},{"titre":"Je sais s&apos;il y a plus ou moins d&apos;objets.","illustration":"media\/2014-07-31-07-47-48.png","uuid":"F24D4254-1D20-1BBC-8217-09762E2D41ED"}],"titre":"Découverte de l’écrit; relation entre l’oral et l’écrit","color":"84ff00ff"},{"color":"84ff00ff","icon":"icon30.png","items":[{"titre":"Je tiens correctement mon crayon.","illustration":"media\/2014-07-31-07-34-34.png","uuid":"8C747F89-4224-8408-1D3B-AE50D92E1D72"},{"titre":"Je trace des traits horizontaux, verticaux , obliques.","illustration":"media\/2014-07-31-07-34-21.png","uuid":"929E6B56-79B8-36A6-26D9-134D3FE1C2D7"},{"titre":"J&apos;écris mon prénom en capitales d&apos;imprimerie.","illustration":"media\/2014-07-31-07-36-10.png","uuid":"8A3CE93B-161C-3A62-3481-55EEA55F1026"},{"titre":"Je trace des ronds dans le bon sens.","illustration":"media\/2014-07-31-07-34-24.png","uuid":"EB199585-B36D-9299-D941-279CBBD9E1F7"},{"titre":"Je trace des ponts.","illustration":"media\/2014-07-31-07-34-30.png","uuid":"CD1BCAC6-BC1A-7A10-D071-D37ADB51BA8E"},{"titre":"Je trace des boucles.","illustration":"media\/2014-07-31-07-36-12.png","uuid":"489A1966-5D05-D4C0-F7CD-F43C3558B266"},{"MS":true,"uuid":"17B51600-DE92-4AEB-A545-39B6901C3304","PS":true,"TPS":true,"titre":"je sais tracer les lettres en écriture cursive","Invisible":false,"GS":true},{"MS":true,"uuid":"6F8C5F97-E558-4B3E-9964-F95B23BF0910","PS":true,"TPS":true,"titre":"je sais enchainer plusieurs lettres en écriture cursive","Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-17.png","uuid":"D7EFFBC2-B746-8E8A-BD5C-65EBB5AAD789","PS":true,"TPS":true,"titre":"J´écris mon prénom en cursive, sans modèle","Invisible":false,"GS":true},{"MS":true,"uuid":"B0B2D360-F6A6-440B-B03A-CA9E6E7DF7A8","PS":true,"TPS":true,"titre":"je sais produire des lignes, signes divers ou pseudo-lettres","Invisible":false,"GS":true},{"MS":true,"uuid":"6070D65A-81C5-4EDD-B4E1-78E47035E44E","PS":true,"TPS":true,"titre":"je m'exerce à l'écriture de mots simples demandés par un adulte","Invisible":false,"GS":true},{"MS":true,"uuid":"B2E04044-8475-45AF-A54A-B0E4E610B840","PS":true,"TPS":true,"titre":"je sais écrire seul un mot en utilisant des lettres ou groupe de lettre","Invisible":false,"GS":true}],"titre":"Geste graphique, écriture.","uuid":"7-L'écrit : Commencer à écrire seul"},{"illustration":"","uuid":"E97509FC-AFE7-4EF7-9262-566848A56838","items":[{"titre":"Je connais quelques contes traditionnels.","illustration":"media\/2014-07-31-07-32-12.png","uuid":"919A507D-47FD-BECB-84BC-2BA24E6583D5"}],"titre":"Mémorisation, restitution de textes (comptines, poèmes)","color":"84ff00ff"},{"uuid":"4-L'écrit : écouter, comprendre, découvrir les fonctions de l'écrit","icon":"icon3.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-29-51.png","CP":true,"uuid":"E4F1AB08-3168-23B7-71C7-D71CD66939F4","PS":true,"TPS":true,"titre":"Je sais utiliser un livre correctement.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-29-55.png","CP":true,"uuid":"257EA5E3-258E-B5DD-FEFF-2638C7B78B19","PS":true,"TPS":true,"titre":"Je sais me repérer dans un livre ( couverture,page, image,texte).","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-31-50.png","CP":true,"uuid":"3AE01E71-EA41-3A24-8C39-E416D37F0610","PS":true,"TPS":true,"titre":"Je sais reconnaître un livre, une affiche, une recette etc...","Invisible":false,"item synthèse":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-31-54.png","CP":true,"uuid":"2914CEC1-D712-3D83-C5F9-B63A14CC6E9B","PS":true,"TPS":true,"titre":"Je sais retrouver mon prénom écrit en majuscules d'imprimerie.","item synthèse":false,"Invisible":false,"GS":true}],"titre":"L'écrit : écouter, comprendre, découvrir les fonctions de l'écrit","color":"4d9b28ff"},{"illustration":"","color":"3f7f21ff","icon":"icon25.png","items":[{"MS":true,"CP":true,"uuid":"2830F199-49F0-451A-A5CD-E42FF15A6150","PS":true,"TPS":true,"titre":"Je sais dire à la maîtresse ce qu’il faut écrire.","Invisible":false,"item synthèse":false,"GS":true}],"titre":"L'écrit : commencer à produire des écrits et en découvrir le fonctionnement","uuid":"5-L'écrit : commencer à produire des écrits et en découvrir le fonctionnement"},{"uuid":"6-L'écrit : Découvrir le principe alphabétique","icon":"icon7.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-33-44.png","CP":true,"uuid":"958AF2A0-C171-7C37-26AA-ECA074584F6A","PS":true,"TPS":true,"titre":"Je connais les lettres de mon prénom.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-33-47.png","CP":true,"uuid":"B38AAAEE-4421-CE4D-9248-9478CD9AC24A","PS":true,"TPS":true,"titre":"Je reconnais mon prénom en écriture scripte.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-33-52.png","CP":true,"uuid":"788797A8-A5DB-478D-4BED-AB449BD5D896","PS":true,"TPS":true,"titre":"Je connais les lettres de l'alphabet en capitales.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-33-55.png","CP":true,"uuid":"ABCE8861-9A4F-31F3-1A14-A760A6D0372B","PS":true,"TPS":true,"titre":"Je sais retrouver un mot dans une phrase.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-34-00.png","CP":true,"uuid":"C18191D2-43A9-2978-BC78-0452167BA154","PS":true,"TPS":true,"titre":"Je connais les lettres de l'alphabet en scriptes.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-34-04.png","CP":true,"uuid":"93C800B8-BF69-1A8B-E58E-87E4D3A74844","PS":true,"TPS":true,"titre":"Je connais les lettres de l'alphabet en cursives.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-34-08.png","CP":true,"uuid":"98E4E9E5-4E4E-617E-8579-F858EF8B6664","PS":true,"TPS":true,"titre":"Je connais le son de quelques lettres.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"CP":true,"uuid":"FF6166FE-BDB3-47FF-9678-787904F6AD82","PS":true,"TPS":true,"titre":"je sais copier un mot à l'aide d'un clavier","Invisible":false,"item synthèse":false,"GS":true},{"MS":true,"CP":true,"uuid":"42CCAAED-989F-4ECB-A705-499B7389143C","PS":true,"TPS":true,"titre":"je sais copier une phrase â l'aide d'un clavier","Invisible":false,"item synthèse":false,"GS":true},{"MS":true,"CP":true,"uuid":"0EE874E9-479B-4255-B28C-BB5D2FF9F310","PS":true,"TPS":true,"titre":"je sais copier un texte connu court","Invisible":false,"item synthèse":false,"GS":true}],"titre":"L'écrit : Découvrir le principe alphabétique","color":"2d5c17ff"},{"illustration":"","uuid":"0EF7231B-55EA-4BE8-8EE6-177DF24B6680","isDomaine":true,"items":[],"titre":"2. Agir, s’exprimer, comprendre à travers l’activité physique","color":"ffffff"},{"color":"13ffcdff","icon":"icon37.png","items":[{"titre":"Je sais courir , sauter un petit obstacle et lancer un objet. ","illustration":"media\/2014-07-31-07-37-18.png","uuid":"2124A8DD-4727-D208-A28E-AE511568683D"},{"titre":"Je sais garder l&apos;équilibre dans des situations variées.","illustration":"media\/2014-07-31-07-37-23.png","uuid":"5CBA5762-B521-386E-94C3-7FDE7636E645"},{"titre":"Je sais courir en changeant ma vitesse, sauter en courant et lancer dans une direction donnée.","illustration":"media\/2014-07-31-07-37-37.png","uuid":"1D142724-A233-8473-627F-87C997BC8F52"},{"titre":"Je sais garder l&apos;équilibre en variant mes appuis.","illustration":"media\/2014-07-31-07-37-41.png","uuid":"14DA8AB9-34F5-2BBD-E847-D259E87D0F82"},{"titre":"Je sais me déplacer sur un tempo.","illustration":"media\/2014-07-31-07-37-49.png","uuid":"43E16CE9-4152-D6EE-39A4-486B09513A22"},{"titre":"Je sais courir vite en ligne droite, sauter haut et loin et lancer loin.","illustration":"media\/2014-07-31-07-37-54.png","uuid":"EC78198B-5A85-B64D-ACBE-B770631BCE18"},{"titre":"Je sais m&apos;équilibrer, rouleŕ, grimper pour réaliser les parcours de l&apos;école.","illustration":"media\/2014-07-31-07-37-58.png","uuid":"DB5B678A-9C97-E132-AC48-617419F66148"}],"titre":"Engagement, aisance et inventivité dans les actions ou les déplacements ","uuid":"8-Agir, s'exprimer, comprendre à travers l'activité physique"},{"illustration":"","uuid":"69006674-5758-4745-AE40-573EA3F1E8C9","items":[{"titre":"Je participe aux rondes.","illustration":"media\/2014-07-31-07-37-34.png","uuid":"5C1E5296-E6AC-8B4A-F4EA-5A6B8B87453B"},{"titre":"J&apos;accepte de participer aux jeux collectifs.","illustration":"media\/2014-07-31-07-37-26.png","uuid":"A8CB0C62-A2DB-D944-EFB5-486D57A7385C"},{"titre":"Je participe activement et respecte les règles simples d&apos;un jeu collectif.","illustration":"media\/2014-07-31-07-37-44.png","uuid":"F60EE335-2834-87E8-B0B1-9D2D0E140339"},{"titre":"Je participe et sais jouer différents rôles dans un jeu collectif sur un terrain.","illustration":"media\/2014-07-31-07-38-01.png","uuid":"A863167D-2881-AE14-8292-210D6EDC2425"}],"titre":"Coopération, interactions avec respect des rôles de chacun","color":"13ffcdff"},{"color":"ffffff","illustration":"","uuid":"34C86381-A550-41E5-AEB6-58EE5F55BDC9","items":[],"titre":"3. Agir, s’exprimer, comprendre à travers les activités artistiques","isDomaine":true},{"color":"ff00d7ff","icon":"icon19.png","items":[{"MS":true,"illustration":"media\/2014-07-31-10-54-46.png","uuid":"CD8F4E8C-E415-866B-70BB-3FA1892D4D12","PS":true,"TPS":true,"titre":"Je dessine et peins avec plaisir.","Invisible":false,"GS":true},{"titre":"Je regarde des oeuvres d&apos;art et je dis ce que je ressens.","illustration":"media\/2014-07-31-10-54-48.png","uuid":"A0E8F55D-D6A8-356C-6A68-2D5069AE1B66"}],"titre":"Engagement dans les activités, réalisation de productions personnelles : dessins, compositions graphiques, compositions plastiques","uuid":"9-Agir, s'exprimer, comprendre à travers l'activité artistique"},{"uuid":"E453FBA6-4A48-41F8-9E78-A7C21634A620","color":"ff00d7ff","items":[{"titre":"Je dis des comptines et poèmes.","illustration":"media\/2014-07-31-10-54-51.png","uuid":"D29A922A-8022-8874-110D-5C663AABBF07"},{"MS":true,"illustration":"media\/2014-07-31-07-38-05.png","uuid":"55F78349-E845-813D-5601-B23E836D7ABE","PS":true,"TPS":true,"titre":"J’ exprime avec mon corps des images, personnages, sentiments.","Invisible":false,"GS":true},{"titre":"Je chante avec la classe.","illustration":"media\/2014-07-31-10-54-54.png","uuid":"8B5BD347-616E-E25E-6322-F81B9CED9C88"},{"MS":true,"uuid":"9398019B-D183-4A40-AAFC-5AD118E33DE4","PS":true,"TPS":true,"titre":"Pratiquer quelques activités des arts du spectacle","Invisible":false,"GS":true}],"titre":"Engagement dans les activités, réalisation de productions personnelles :voix, chants, pratiques rythmiques et corporelles","illustration":""},{"isDomaine":true,"illustration":"","uuid":"1F6AD1DC-2012-4D2C-A194-6AE0734ED200","items":[],"titre":"4. Construire les premiers outils pour structurer sa pensée ","color":"ffffff"},{"color":"ffce00ff","icon":"icon6.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-47-42.png","CP":true,"uuid":"3293F321-54F7-D6D1-A383-64F8FBF48141","PS":true,"TPS":true,"titre":"Je sais dénombrer 3 objets.","Invisible":false,"GS":true},{"titre":"Je reconnais les petites quantités jusqu&apos;à 3 ( dé et main).","illustration":"media\/2014-07-31-07-47-45.png","uuid":"A2B41542-583A-567B-F3FE-60F07D2EFE03"},{"MS":true,"illustration":"media\/2014-07-31-07-47-40.png","CP":true,"uuid":"EBA2EA5A-2783-6797-93BA-8D3C814A5BE8","PS":true,"TPS":true,"titre":"Je récite la comptine jusqu'à 6.","Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-47-55.png","CP":true,"uuid":"C34CAE65-EC29-7A22-6796-3DAF5E5084C6","PS":true,"TPS":true,"titre":"Je sais dénombrer 6 objets.","Invisible":false,"GS":true},{"titre":"Je reconnais les petites quantités jusqu&apos;à 6 (dé et main).","illustration":"media\/2014-07-31-07-47-59.png","uuid":"2F97492C-C2B9-A8B9-C6D4-65A0BF636FB9"},{"titre":"Je sais lire les nombres jusqu&apos;à 6.","illustration":"media\/2014-07-31-10-15-01.png","uuid":"79B99A4A-3C8E-AA5D-1871-171D506C5239"},{"titre":"Je récite la comptine jusqu&apos;à 12.","illustration":"media\/2014-07-31-07-47-52.png","uuid":"B85231CD-0FD7-4D9C-EF2A-258A9744FF9E"},{"titre":"Je sais lire les nombres jusqu&apos;à au moins 9.","illustration":"media\/2014-07-31-10-15-24.png","uuid":"446E3A88-812E-9886-6CC6-3C635BCA0354"},{"MS":true,"illustration":"media\/2014-07-31-10-15-07.png","CP":true,"uuid":"50434148-944B-4833-788A-877188B4738A","PS":true,"TPS":true,"titre":"Je sais dénombrer 20 objets.","Invisible":false,"GS":true},{"titre":"Je récite la comptine jusqu&apos;à 30.","illustration":"media\/2014-07-31-07-48-06.png","uuid":"D61D53F9-86C7-3322-D046-B18FD573530D"}],"titre":"Utilisation des nombres","uuid":"10-Premiers outils : les nombres"},{"color":"ffce00ff","icon":"icon12.png","items":[{"titre":"Je reconnais le rond, le carré, le triangle et je les nomme.","illustration":"media\/2014-07-31-07-46-19.png","uuid":"6F41DA45-05DA-A216-81EC-D49C919A7BB8"},{"titre":"Je reconnais et nomme le rond, le carré, le triangle et le rectangle.","illustration":"media\/2014-07-31-07-47-13.png","uuid":"5BF2AD45-469C-D5AD-B392-FA05D25644D8"},{"titre":"Je reconnais et nomme le rond, le carré, le rectangle, l&apos;ovale et tous les triangles.","illustration":"media\/2014-07-31-07-47-21.png","uuid":"4BEF262F-F3E1-19D9-C42A-ACC389462583"},{"titre":"Je sais ranger au moins 3 objets par ordre de grandeur.","illustration":"media\/2014-07-31-07-47-10.png","uuid":"6D7191CC-309A-3794-77A6-15E2149B9451"},{"titre":"Je sais ranger au moins 4 objets par ordre de grandeur.","illustration":"media\/2014-07-31-07-47-19.png","uuid":"E11A15B7-343F-FF3B-86A3-8BBA87AD08E0"},{"titre":"Je sais ranger au moins 5 objets par ordre de grandeur.","illustration":"media\/2014-07-31-07-47-24.png","uuid":"957D2452-5824-F643-3E3A-76F8CE581C56"},{"MS":true,"uuid":"E17550CA-851A-4097-A199-52B6B0AAB0AD","PS":true,"TPS":true,"titre":"je reconnais quelques solides ( cube, pyramide, boule, cylindre)","Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-10-15-28.png","uuid":"9429191F-8B3A-1A5D-07AD-9E0CD11096B7","PS":true,"TPS":true,"titre":"Je sais comparer des tas d’objets en comptant ou non.","Invisible":false,"GS":true}],"titre":"Première compréhension du nombre","uuid":"11-Premiers outils : les formes, les grandeurs et les suites organisées"},{"color":"ffce00ff","illustration":"","items":[{"titre":"Je sais réaliser un tas d&apos;objet de la même quantité qu&apos;un autre tas.","illustration":"media\/2014-07-31-10-15-31.png","uuid":"8C3DD4EE-64CA-0B5D-19EA-B87A096512EA"},{"titre":"Je sais résoudre de petits problèmes de quantité.","illustration":"media\/2014-07-31-10-15-38.png","uuid":"B1853C9E-513D-FE57-BF14-AC9E2579655F"},{"MS":true,"CP":true,"uuid":"10C1BFD8-B726-4A27-82F9-78683BEA9828","PS":true,"TPS":true,"titre":"je sais décomposer les nombres jusqu'à 3","Invisible":false,"GS":true},{"MS":true,"uuid":"BA2BE228-EE97-454D-84C4-C335CDD87D22","PS":true,"TPS":true,"titre":"je sais décomposer les nombres jusqu'à 5","Invisible":false,"GS":true},{"MS":true,"uuid":"7E09CDEB-97CE-40BA-8547-BBA92206D4B4","PS":true,"TPS":true,"titre":"je sais décomposer les nombres jusqu'à 10","Invisible":false,"GS":true}],"titre":"Petits problèmes de composition et de décomposition de nombres (ex: 3 c’est 2 et 1 ; 1 et encore 2)","uuid":"FBCD22A4-1F3F-4148-8986-B554E232E457"},{"uuid":"7F10040B-FFDE-47F3-B6BA-4F4152D4E430","color":"ffce00ff","items":[{"MS":true,"uuid":"9CBFA021-A650-4D00-BA97-BCB2CF6F2C4D","PS":true,"TPS":true,"titre":"je sais reproduire des suites simples de formes et de couleurs","Invisible":false,"GS":true},{"MS":true,"uuid":"F6308439-0E24-4C72-B161-89B1888328AC","PS":true,"TPS":true,"titre":"je sais reconnaitre un rythme et le continuer","Invisible":false,"GS":true},{"MS":true,"uuid":"0AAF7057-BC46-4D18-BD44-327B1EC2FF03","PS":true,"TPS":true,"titre":"je sais inventer des rythmes de plus en plus compliqués","Invisible":false,"GS":true},{"MS":true,"uuid":"AC0C3B85-E2FE-4491-ADF6-209E7D055A3A","PS":true,"TPS":true,"titre":"je sais compléter des manques dans une suite organisée","Invisible":false,"GS":true},{"titre":"Je sais trouver un critère pour trier les objets.","illustration":"media\/2014-07-31-07-47-15.png","uuid":"14DD57E8-BE60-BC83-6BC5-E06C0D570E35"},{"titre":"Je sais trier les objets. ( consigne).","illustration":"media\/2014-07-31-07-46-21.png","uuid":"CDDDCB98-A92E-9E53-8DCA-2BE1222DDAAB"}],"titre":"Tris, classements, algorithmes","illustration":""},{"color":"ffffff","illustration":"","isDomaine":true,"items":[],"titre":"5. Explorer le monde","uuid":"1026DB9A-9950-4A09-98F2-7F4E9ED277C4"},{"color":"0057ffff","icon":"icon14.png","items":[{"titre":"Je sais mettre en ordre 3 moments de la journée.","illustration":"media\/2014-07-31-07-45-38.png","uuid":"540FA158-C0E9-7190-7C5F-C68363C1B5E6"},{"titre":"Je sais mettre en ordre 3 images d&apos;une histoire connue.","illustration":"media\/2014-07-31-07-45-41.png","uuid":"D8B098EE-67C1-4A89-CFEC-265A1FCE4ACB"},{"titre":"Je sais mettre en ordre 5 moments de la journée.","illustration":"media\/2014-07-31-07-45-45.png","uuid":"66DF0C2E-A9B7-385D-9BC7-95695278CB11"},{"titre":"Je sais remettre en ordre 4 images d&apos;une histoire connue.","illustration":"media\/2014-07-31-07-45-49.png","uuid":"483CD3C9-6720-2A65-FCFE-1426BD987FF9"},{"titre":"Je sais dire la succession des jours.","illustration":"media\/2014-07-31-07-45-56.png","uuid":"E0FA83FC-5337-2D74-3151-6BED714DD545"},{"titre":"Je sais retrouver le jour d&apos;hier ou de demain.","illustration":"media\/2014-07-31-07-46-00.png","uuid":"A652597B-776E-383A-3DD1-14841A9922C1"},{"titre":"Je sais remettre en ordre 5 images d&apos;une histoire inconnue.","illustration":"media\/2014-07-31-07-46-04.png","uuid":"A1E251E3-0B69-B14D-6861-5C966E8C46B0"}],"titre":"Temps : repérage, représentations, utilisation de mots de liaison (puis, pendant, avant, après, ...)","uuid":"12-Explorer le monde : le temps"},{"color":"0057ffff","icon":"icon16.png","items":[{"titre":"Je comprends les mots: devant\/ derrière,  en haut\/en bas.","illustration":"media\/2014-07-31-07-39-47.png","uuid":"5EBB45C3-0599-DD59-7397-2E1C1B1DE9F1"},{"titre":"Je sais faire des puzzles d&apos;au moins 6 morceaux.","illustration":"media\/2014-07-31-07-39-51.png","uuid":"20667C82-C8FE-93F2-D3D7-9838F6CA546C"},{"titre":"Je comprends les mots: sur\/sous, à côté de, intérieur\/extérieur.","illustration":"media\/2014-07-31-07-39-54.png","uuid":"C6D8819A-3B6C-A26B-29D2-DEA69AEF4C83"},{"titre":"Je sais faire des puzzles d&apos;au moins 20 morceaux.","illustration":"media\/2014-07-31-07-39-58.png","uuid":"C4C26B45-7DBB-85E7-C4D5-1E8916AB542F"},{"titre":"Je sais utiliser : entre, sur, sous, à l&apos;extérieur pour dire où se trouve un objet.","illustration":"media\/2014-07-31-07-40-01.png","uuid":"41AED7EA-B9B3-6032-5826-56087DEABC81"},{"titre":"Je sais dire où se trouve un objet par rapport à moi.","illustration":"media\/2014-07-31-07-40-05.png","uuid":"DD5DA5D1-B48E-6DD2-8D74-96BE2B6F7D75"},{"titre":"Je sais où est le haut, bas, centre, sens de l&apos;écriture sur une page.","illustration":"media\/2014-07-31-07-45-11.png","uuid":"D69C9439-C4B4-FEE6-E992-95D47A74E853"},{"titre":"Je sais faire des puzzles complexes, des pavages et des tangrams.","illustration":"media\/2014-07-31-07-45-14.png","uuid":"8887D954-AD44-37DD-4323-329012D1706A"},{"titre":"Je sais faire de petites constructions librement.","illustration":"media\/2014-07-31-07-45-18.png","uuid":"C791674C-D165-162B-956F-90CC7E7F172F"},{"titre":"Je sais faire des constructions avec un objet servant de modèle.","illustration":"media\/2014-07-31-07-45-21.png","uuid":"8625ACA5-6269-379F-6E48-A87454E57656"},{"titre":"Je sais faire des constructions d&apos;après des fiches.","illustration":"media\/2014-07-31-07-45-25.png","uuid":"74376EC3-CED3-1CA5-B665-F7BC1FD3368C"}],"titre":"Explorer le monde : l’espace","uuid":"13-Explorer le monde : l’espace"},{"color":"0057ffff","icon":"icon36.png","items":[{"titre":"Je sais désigner quelques parties de mon corps.","illustration":"media\/2014-07-31-07-39-12.png","uuid":"1D05B9AA-4612-C187-2043-27213C8952F7"},{"titre":"Je sais nommer les parties de mon corps.","illustration":"media\/2014-07-31-07-39-23.png","uuid":"221D5AEE-D9DE-AC55-5913-BDB119B34B74"},{"titre":"Je sais représenter de façon précise,mon corps et nommer des parties et articulations.","illustration":"media\/2014-07-31-07-39-31.png","uuid":"388A212C-B48A-4584-347C-A7BF843E01A6"},{"titre":"Je sais remettre en ordre 3 images de croissance.","illustration":"media\/2014-07-31-07-39-08.png","uuid":"8AC7A794-1A7E-148E-B5E1-747363CD1413"},{"titre":"Je sais ordonner 4 images d&apos;une croissance.","illustration":"media\/2014-07-31-07-39-17.png","uuid":"D6E215C4-C4D7-6D3D-6611-BE53DF36E0B5"},{"titre":"Je sais ordonner des images de développement d&apos;un animal ou d&apos;une plante.","illustration":"media\/2014-07-31-07-39-27.png","uuid":"807266BC-A3FD-CBB0-4659-EA38F88DE7F8"}],"titre":"Explorer le monde : monde : le vivant","uuid":"14-Explorer le monde : monde : le vivant"},{"color":"0057ffff","icon":"icon9.png","items":[{"titre":"Je reconnais les couleurs et je les nomme.","illustration":"media\/2014-07-31-07-38-21.png","uuid":"C63CA4A6-93E4-8A72-5B05-253C0A51E74E"},{"titre":"Je connais de nouvelles couleurs: rose, marron, gris et les nuances.","illustration":"media\/2014-07-31-07-38-24.png","uuid":"C4377297-3944-6F6E-2ED3-91C032C869FC"},{"titre":"Je sais trier des objets.","illustration":"media\/2014-07-31-07-38-29.png","uuid":"965CEFC3-7975-10BE-A774-525851B8F243"},{"titre":"Je colle proprement.","illustration":"media\/2014-07-31-07-38-33.png","uuid":"982EDD4A-F29A-7E80-26A3-E6155733B359"},{"titre":"Je sais utiliser les ciseaux.","illustration":"media\/2014-07-31-07-38-37.png","uuid":"CD32D9CA-280E-D1AE-54D1-5BB1DA743A13"},{"titre":"Je découpe en suivant une ligne.","illustration":"media\/2014-07-31-07-38-40.png","uuid":"7C7E0246-8A85-E698-A5AC-75FD391FB7C3"},{"titre":"Je découpe en suivant un tracé arrondi.","illustration":"media\/2014-07-31-07-38-44.png","uuid":"322F7D46-966A-20CA-47B7-FA632E55AE5A"},{"titre":"Je cherche , je tâtonne pour faire fonctionner un objet.","illustration":"media\/2014-07-31-07-38-50.png","uuid":"5970E4B4-41B9-27D8-BE6D-35769BD5D785"},{"MS":true,"uuid":"500F5AF3-6A8D-4E68-825C-5B07A1B01216","PS":true,"TPS":true,"titre":"j'utilise les outils numérique ","Invisible":false,"GS":true}],"titre":"Utilisation, fabrication et manipulation d’objets","uuid":"15-Explorer le monde : les objets et la matière"},{"color":"0057ffff","illustration":"","items":[{"MS":true,"CP":true,"uuid":"ADB621DC-4F91-4DED-9980-FCBDEED2E67E","PS":true,"TPS":true,"titre":"Je me lave les mains","Invisible":false,"GS":true}],"titre":"Compréhension de règles de sécurité et d’hygiène ","uuid":"DAC10319-F372-480A-BB6A-00C0243F47C3"},{"uuid":"16-Devenir élève","icon":"icon21.png","items":[{"MS":true,"illustration":"media\/2014-07-31-07-36-34.png","CP":true,"uuid":"28542A25-B732-A8D9-A9E3-842CB9CAC28C","PS":true,"TPS":true,"titre":"Je respecte les autres et les règles de l’école.","Invisible":false,"item synthèse":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-39.png","CP":true,"uuid":"4B29B917-31BB-DCBB-D942-501D84C3838B","PS":true,"TPS":true,"titre":"J'écoute mes camarades, je les aide et je coopère.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-44.png","CP":true,"uuid":"67B86F8C-22FE-B659-7B78-B156174EEE6E","PS":true,"TPS":true,"titre":"Je demande de l'aide si j'en ai besoin.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-49.png","CP":true,"uuid":"869126B9-8147-84B7-B35B-71CC17EDBED1","PS":true,"TPS":true,"titre":"J'ose essayer ou réaliser seul un travail et parler en grand groupe.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-54.png","CP":true,"uuid":"68CBFAFB-B6C4-85DA-1C6B-40283DCC556C","PS":true,"TPS":true,"titre":"Je sais rester calme pour travailler, ne pas m'énerver, pleurer ou bouder.","item synthèse":false,"Invisible":false,"GS":true},{"MS":true,"illustration":"media\/2014-07-31-07-36-58.png","CP":true,"uuid":"86DC6FD9-32A6-8DA6-5AA7-C2B608FACAB3","PS":true,"TPS":true,"titre":"Je sais faire mon travail seul.","item synthèse":false,"Invisible":false,"GS":true}],"titre":"Devenir élève ","color":"148180ff"}]
+[
+	{
+		"illustration": "",
+		"uuid": "4ED062AC-0409-4AC5-BBAB-9705CFAE984E",
+		"isDomaine": true,
+		"items": [],
+		"titre": "1. Mobiliser le langage dans toutes ses dimensions",
+		"color": "ffffff"
+	},
+	{
+		"uuid": "0-L'oral : oser entrer en communication",
+		"icon": "icon11.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-25-33.png",
+				"CP": false,
+				"uuid": "715AD07B-653D-717B-CE88-6B4850252581",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais parler avec mes camarades.",
+				"Invisible": false,
+				"item synthèse": true,
+				"GS": false
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-25-36.png",
+				"CP": false,
+				"uuid": "41C91E24-D424-1888-69C1-0DF6E7445534",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais parler à l’adulte.",
+				"Invisible": false,
+				"GS": false
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-25-40.png",
+				"CP": false,
+				"uuid": "19DB4A3E-4619-A118-71F4-6DD6958463B8",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais prendre la parole dans un petit groupe.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-25-44.png",
+				"CP": false,
+				"uuid": "17281CF0-93DB-729C-A2AB-24E63E712550",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais expliquer ce que je suis en train de faire.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-25-51.png",
+				"CP": false,
+				"uuid": "DE1286D4-1695-EDA7-EEA7-173DE1120819",
+				"PS": true,
+				"TPS": false,
+				"titre": "Je sais raconter un événement vécu en classe.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": false,
+				"uuid": "993AF72A-EC72-4C03-99D2-5441DC67C763",
+				"PS": true,
+				"TPS": false,
+				"titre": "J'utilise JE pour parler de moi",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": false,
+				"uuid": "A82B8087-8EB7-48C7-87E4-BE15E481E1CD",
+				"PS": true,
+				"TPS": false,
+				"titre": "Je fais des phrases simples.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": false,
+				"uuid": "E13792EF-C124-4BCA-B3A1-EABC59D772E0",
+				"PS": true,
+				"TPS": false,
+				"titre": "Je nomme des objets de tous les jours.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "413D12DB-D599-4FF3-BAD1-35CDBB72A74A",
+				"PS": false,
+				"TPS": false,
+				"titre": "Je fais des phrases de plus en plus longues.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "02E97696-5825-4140-8117-D43963977C42",
+				"PS": false,
+				"TPS": false,
+				"titre": "J’utilise des mots plus précis.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": false,
+				"CP": true,
+				"uuid": "424852B0-FD34-40DC-95CD-29B2322678B3",
+				"PS": false,
+				"TPS": false,
+				"titre": "Je fais des phrases complexes (parce que).",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je récite la comptine jusqu&apos;à 6.",
+				"illustration": "media/2014-07-31-07-47-40.png",
+				"uuid": "EBA2EA5A-2783-6797-93BA-8D3C814A5BE8"
+			}
+		],
+		"titre": "Langage oral : communication, expression ",
+		"color": "84ff00ff"
+	},
+	{
+		"color": "84ff00ff",
+		"icon": "icon13.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-26-03.png",
+				"uuid": "B7DF24A7-661A-F548-ADCB-82488202DF20",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je montre ce que j’ai compris en faisant ce que l’on me demande.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je comprends une histoire courte.",
+				"illustration": "media/2014-07-31-07-26-07.png",
+				"uuid": "8CC9E3BE-25CE-C337-DD03-F1C6E2AD29EB"
+			},
+			{
+				"titre": "Je montre que j&apos;ai compris une consigne avec 2 actions à faire",
+				"illustration": "media/2014-07-31-07-26-12.png",
+				"uuid": "0896D73E-2C06-1D9E-3C6B-277CF2748863"
+			},
+			{
+				"titre": "Je comprends une histoire et la raconte avec l&apos;aide d&apos;images.",
+				"illustration": "media/2014-07-31-07-26-18.png",
+				"uuid": "E16A7D42-83E3-3A90-329B-D35B9BC92C7D"
+			},
+			{
+				"titre": "Je comprends une consigne donnée à toute la classe (collective).",
+				"illustration": "media/2014-07-31-07-26-22.png",
+				"uuid": "9BB5487D-3034-7A19-3850-3A4999B85CCC"
+			},
+			{
+				"titre": "Je comprends et raconte une histoire.( trame narrative).",
+				"illustration": "media/2014-07-31-07-26-42.png",
+				"uuid": "8E437C94-4B35-8922-7B6A-4E337A1AA379"
+			}
+		],
+		"titre": "Compréhension d’un message oral ou d’un texte lu par l’adulte",
+		"uuid": "1-L'oral : comprendre et apprendre"
+	},
+	{
+		"uuid": "3-L'oral : conscience phonologique",
+		"icon": "icon18.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-32-42.png",
+				"CP": true,
+				"uuid": "99C8F661-2EBD-68E2-19EC-5A29D319B362",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais des comptines sur les sons.",
+				"item synthèse": true,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-32-45.png",
+				"CP": true,
+				"uuid": "BEA7AF97-CB1F-0BE8-DDBE-DF2E1579603A",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais frapper les syllabes.",
+				"Invisible": false,
+				"item synthèse": true,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-32-51.png",
+				"CP": true,
+				"uuid": "499C6BA5-71F3-09E1-4D41-F2A66FA6E422",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je trouve des mots qui riment à l'aide d'images.",
+				"item synthèse": true,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-32-55.png",
+				"CP": true,
+				"uuid": "A5E993B9-8D6A-2B99-4931-A97ED2B9D678",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais jouer avec les syllabes.(Inverser, supprimer, ajouter).",
+				"item synthèse": true,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-32-59.png",
+				"CP": true,
+				"uuid": "BAF06517-6676-9CEA-C2D1-18B28A986882",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais localiser une syllabe dans un mot.",
+				"item synthèse": true,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-33-02.png",
+				"CP": true,
+				"uuid": "3F90A747-CBBA-C7CD-F279-9BAADD320139",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais dire si j’entends un son ( voyelle) dans un mot.",
+				"Invisible": false,
+				"item synthèse": true,
+				"GS": true
+			},
+			{
+				"titre": "Je sais s&apos;il y a plus ou moins d&apos;objets.",
+				"illustration": "media/2014-07-31-07-47-48.png",
+				"uuid": "F24D4254-1D20-1BBC-8217-09762E2D41ED"
+			}
+		],
+		"titre": "Découverte de l’écrit; relation entre l’oral et l’écrit",
+		"color": "84ff00ff"
+	},
+	{
+		"color": "84ff00ff",
+		"icon": "icon30.png",
+		"items": [
+			{
+				"titre": "Je tiens correctement mon crayon.",
+				"illustration": "media/2014-07-31-07-34-34.png",
+				"uuid": "8C747F89-4224-8408-1D3B-AE50D92E1D72"
+			},
+			{
+				"titre": "Je trace des traits horizontaux, verticaux , obliques.",
+				"illustration": "media/2014-07-31-07-34-21.png",
+				"uuid": "929E6B56-79B8-36A6-26D9-134D3FE1C2D7"
+			},
+			{
+				"titre": "J&apos;écris mon prénom en capitales d&apos;imprimerie.",
+				"illustration": "media/2014-07-31-07-36-10.png",
+				"uuid": "8A3CE93B-161C-3A62-3481-55EEA55F1026"
+			},
+			{
+				"titre": "Je trace des ronds dans le bon sens.",
+				"illustration": "media/2014-07-31-07-34-24.png",
+				"uuid": "EB199585-B36D-9299-D941-279CBBD9E1F7"
+			},
+			{
+				"titre": "Je trace des ponts.",
+				"illustration": "media/2014-07-31-07-34-30.png",
+				"uuid": "CD1BCAC6-BC1A-7A10-D071-D37ADB51BA8E"
+			},
+			{
+				"titre": "Je trace des boucles.",
+				"illustration": "media/2014-07-31-07-36-12.png",
+				"uuid": "489A1966-5D05-D4C0-F7CD-F43C3558B266"
+			},
+			{
+				"MS": true,
+				"uuid": "17B51600-DE92-4AEB-A545-39B6901C3304",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais tracer les lettres en écriture cursive",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "6F8C5F97-E558-4B3E-9964-F95B23BF0910",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais enchainer plusieurs lettres en écriture cursive",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-17.png",
+				"uuid": "D7EFFBC2-B746-8E8A-BD5C-65EBB5AAD789",
+				"PS": true,
+				"TPS": true,
+				"titre": "J´écris mon prénom en cursive, sans modèle",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "B0B2D360-F6A6-440B-B03A-CA9E6E7DF7A8",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais produire des lignes, signes divers ou pseudo-lettres",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "6070D65A-81C5-4EDD-B4E1-78E47035E44E",
+				"PS": true,
+				"TPS": true,
+				"titre": "je m'exerce à l'écriture de mots simples demandés par un adulte",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "B2E04044-8475-45AF-A54A-B0E4E610B840",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais écrire seul un mot en utilisant des lettres ou groupe de lettre",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Geste graphique, écriture.",
+		"uuid": "7-L'écrit : Commencer à écrire seul"
+	},
+	{
+		"illustration": "",
+		"uuid": "E97509FC-AFE7-4EF7-9262-566848A56838",
+		"items": [
+			{
+				"titre": "Je connais quelques contes traditionnels.",
+				"illustration": "media/2014-07-31-07-32-12.png",
+				"uuid": "919A507D-47FD-BECB-84BC-2BA24E6583D5"
+			}
+		],
+		"titre": "Mémorisation, restitution de textes (comptines, poèmes)",
+		"color": "84ff00ff"
+	},
+	{
+		"uuid": "4-L'écrit : écouter, comprendre, découvrir les fonctions de l'écrit",
+		"icon": "icon3.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-29-51.png",
+				"CP": true,
+				"uuid": "E4F1AB08-3168-23B7-71C7-D71CD66939F4",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais utiliser un livre correctement.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-29-55.png",
+				"CP": true,
+				"uuid": "257EA5E3-258E-B5DD-FEFF-2638C7B78B19",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais me repérer dans un livre ( couverture,page, image,texte).",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-31-50.png",
+				"CP": true,
+				"uuid": "3AE01E71-EA41-3A24-8C39-E416D37F0610",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais reconnaître un livre, une affiche, une recette etc...",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-31-54.png",
+				"CP": true,
+				"uuid": "2914CEC1-D712-3D83-C5F9-B63A14CC6E9B",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais retrouver mon prénom écrit en majuscules d'imprimerie.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "L'écrit : écouter, comprendre, découvrir les fonctions de l'écrit",
+		"color": "4d9b28ff"
+	},
+	{
+		"illustration": "",
+		"color": "3f7f21ff",
+		"icon": "icon25.png",
+		"items": [
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "2830F199-49F0-451A-A5CD-E42FF15A6150",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais dire à la maîtresse ce qu’il faut écrire.",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			}
+		],
+		"titre": "L'écrit : commencer à produire des écrits et en découvrir le fonctionnement",
+		"uuid": "5-L'écrit : commencer à produire des écrits et en découvrir le fonctionnement"
+	},
+	{
+		"uuid": "6-L'écrit : Découvrir le principe alphabétique",
+		"icon": "icon7.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-33-44.png",
+				"CP": true,
+				"uuid": "958AF2A0-C171-7C37-26AA-ECA074584F6A",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais les lettres de mon prénom.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-33-47.png",
+				"CP": true,
+				"uuid": "B38AAAEE-4421-CE4D-9248-9478CD9AC24A",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je reconnais mon prénom en écriture scripte.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-33-52.png",
+				"CP": true,
+				"uuid": "788797A8-A5DB-478D-4BED-AB449BD5D896",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais les lettres de l'alphabet en capitales.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-33-55.png",
+				"CP": true,
+				"uuid": "ABCE8861-9A4F-31F3-1A14-A760A6D0372B",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais retrouver un mot dans une phrase.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-34-00.png",
+				"CP": true,
+				"uuid": "C18191D2-43A9-2978-BC78-0452167BA154",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais les lettres de l'alphabet en scriptes.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-34-04.png",
+				"CP": true,
+				"uuid": "93C800B8-BF69-1A8B-E58E-87E4D3A74844",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais les lettres de l'alphabet en cursives.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-34-08.png",
+				"CP": true,
+				"uuid": "98E4E9E5-4E4E-617E-8579-F858EF8B6664",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je connais le son de quelques lettres.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "FF6166FE-BDB3-47FF-9678-787904F6AD82",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais copier un mot à l'aide d'un clavier",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "42CCAAED-989F-4ECB-A705-499B7389143C",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais copier une phrase â l'aide d'un clavier",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "0EE874E9-479B-4255-B28C-BB5D2FF9F310",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais copier un texte connu court",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			}
+		],
+		"titre": "L'écrit : Découvrir le principe alphabétique",
+		"color": "2d5c17ff"
+	},
+	{
+		"illustration": "",
+		"uuid": "0EF7231B-55EA-4BE8-8EE6-177DF24B6680",
+		"isDomaine": true,
+		"items": [],
+		"titre": "2. Agir, s’exprimer, comprendre à travers l’activité physique",
+		"color": "ffffff"
+	},
+	{
+		"color": "13ffcdff",
+		"icon": "icon37.png",
+		"items": [
+			{
+				"titre": "Je sais courir , sauter un petit obstacle et lancer un objet. ",
+				"illustration": "media/2014-07-31-07-37-18.png",
+				"uuid": "2124A8DD-4727-D208-A28E-AE511568683D"
+			},
+			{
+				"titre": "Je sais garder l&apos;équilibre dans des situations variées.",
+				"illustration": "media/2014-07-31-07-37-23.png",
+				"uuid": "5CBA5762-B521-386E-94C3-7FDE7636E645"
+			},
+			{
+				"titre": "Je sais courir en changeant ma vitesse, sauter en courant et lancer dans une direction donnée.",
+				"illustration": "media/2014-07-31-07-37-37.png",
+				"uuid": "1D142724-A233-8473-627F-87C997BC8F52"
+			},
+			{
+				"titre": "Je sais garder l&apos;équilibre en variant mes appuis.",
+				"illustration": "media/2014-07-31-07-37-41.png",
+				"uuid": "14DA8AB9-34F5-2BBD-E847-D259E87D0F82"
+			},
+			{
+				"titre": "Je sais me déplacer sur un tempo.",
+				"illustration": "media/2014-07-31-07-37-49.png",
+				"uuid": "43E16CE9-4152-D6EE-39A4-486B09513A22"
+			},
+			{
+				"titre": "Je sais courir vite en ligne droite, sauter haut et loin et lancer loin.",
+				"illustration": "media/2014-07-31-07-37-54.png",
+				"uuid": "EC78198B-5A85-B64D-ACBE-B770631BCE18"
+			},
+			{
+				"titre": "Je sais m&apos;équilibrer, rouleŕ, grimper pour réaliser les parcours de l&apos;école.",
+				"illustration": "media/2014-07-31-07-37-58.png",
+				"uuid": "DB5B678A-9C97-E132-AC48-617419F66148"
+			}
+		],
+		"titre": "Engagement, aisance et inventivité dans les actions ou les déplacements ",
+		"uuid": "8-Agir, s'exprimer, comprendre à travers l'activité physique"
+	},
+	{
+		"illustration": "",
+		"uuid": "69006674-5758-4745-AE40-573EA3F1E8C9",
+		"items": [
+			{
+				"titre": "Je participe aux rondes.",
+				"illustration": "media/2014-07-31-07-37-34.png",
+				"uuid": "5C1E5296-E6AC-8B4A-F4EA-5A6B8B87453B"
+			},
+			{
+				"titre": "J&apos;accepte de participer aux jeux collectifs.",
+				"illustration": "media/2014-07-31-07-37-26.png",
+				"uuid": "A8CB0C62-A2DB-D944-EFB5-486D57A7385C"
+			},
+			{
+				"titre": "Je participe activement et respecte les règles simples d&apos;un jeu collectif.",
+				"illustration": "media/2014-07-31-07-37-44.png",
+				"uuid": "F60EE335-2834-87E8-B0B1-9D2D0E140339"
+			},
+			{
+				"titre": "Je participe et sais jouer différents rôles dans un jeu collectif sur un terrain.",
+				"illustration": "media/2014-07-31-07-38-01.png",
+				"uuid": "A863167D-2881-AE14-8292-210D6EDC2425"
+			}
+		],
+		"titre": "Coopération, interactions avec respect des rôles de chacun",
+		"color": "13ffcdff"
+	},
+	{
+		"color": "ffffff",
+		"illustration": "",
+		"uuid": "34C86381-A550-41E5-AEB6-58EE5F55BDC9",
+		"items": [],
+		"titre": "3. Agir, s’exprimer, comprendre à travers les activités artistiques",
+		"isDomaine": true
+	},
+	{
+		"color": "ff00d7ff",
+		"icon": "icon19.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-10-54-46.png",
+				"uuid": "CD8F4E8C-E415-866B-70BB-3FA1892D4D12",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je dessine et peins avec plaisir.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je regarde des oeuvres d&apos;art et je dis ce que je ressens.",
+				"illustration": "media/2014-07-31-10-54-48.png",
+				"uuid": "A0E8F55D-D6A8-356C-6A68-2D5069AE1B66"
+			}
+		],
+		"titre": "Engagement dans les activités, réalisation de productions personnelles : dessins, compositions graphiques, compositions plastiques",
+		"uuid": "9-Agir, s'exprimer, comprendre à travers l'activité artistique"
+	},
+	{
+		"uuid": "E453FBA6-4A48-41F8-9E78-A7C21634A620",
+		"color": "ff00d7ff",
+		"items": [
+			{
+				"titre": "Je dis des comptines et poèmes.",
+				"illustration": "media/2014-07-31-10-54-51.png",
+				"uuid": "D29A922A-8022-8874-110D-5C663AABBF07"
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-38-05.png",
+				"uuid": "55F78349-E845-813D-5601-B23E836D7ABE",
+				"PS": true,
+				"TPS": true,
+				"titre": "J’ exprime avec mon corps des images, personnages, sentiments.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je chante avec la classe.",
+				"illustration": "media/2014-07-31-10-54-54.png",
+				"uuid": "8B5BD347-616E-E25E-6322-F81B9CED9C88"
+			},
+			{
+				"MS": true,
+				"uuid": "9398019B-D183-4A40-AAFC-5AD118E33DE4",
+				"PS": true,
+				"TPS": true,
+				"titre": "Pratiquer quelques activités des arts du spectacle",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Engagement dans les activités, réalisation de productions personnelles :voix, chants, pratiques rythmiques et corporelles",
+		"illustration": ""
+	},
+	{
+		"isDomaine": true,
+		"illustration": "",
+		"uuid": "1F6AD1DC-2012-4D2C-A194-6AE0734ED200",
+		"items": [],
+		"titre": "4. Construire les premiers outils pour structurer sa pensée ",
+		"color": "ffffff"
+	},
+	{
+		"color": "ffce00ff",
+		"icon": "icon6.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-47-42.png",
+				"CP": true,
+				"uuid": "3293F321-54F7-D6D1-A383-64F8FBF48141",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais dénombrer 3 objets.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je reconnais les petites quantités jusqu&apos;à 3 ( dé et main).",
+				"illustration": "media/2014-07-31-07-47-45.png",
+				"uuid": "A2B41542-583A-567B-F3FE-60F07D2EFE03"
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-47-40.png",
+				"CP": true,
+				"uuid": "EBA2EA5A-2783-6797-93BA-8D3C814A5BE8",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je récite la comptine jusqu'à 6.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-47-55.png",
+				"CP": true,
+				"uuid": "C34CAE65-EC29-7A22-6796-3DAF5E5084C6",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais dénombrer 6 objets.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je reconnais les petites quantités jusqu&apos;à 6 (dé et main).",
+				"illustration": "media/2014-07-31-07-47-59.png",
+				"uuid": "2F97492C-C2B9-A8B9-C6D4-65A0BF636FB9"
+			},
+			{
+				"titre": "Je sais lire les nombres jusqu&apos;à 6.",
+				"illustration": "media/2014-07-31-10-15-01.png",
+				"uuid": "79B99A4A-3C8E-AA5D-1871-171D506C5239"
+			},
+			{
+				"titre": "Je récite la comptine jusqu&apos;à 12.",
+				"illustration": "media/2014-07-31-07-47-52.png",
+				"uuid": "B85231CD-0FD7-4D9C-EF2A-258A9744FF9E"
+			},
+			{
+				"titre": "Je sais lire les nombres jusqu&apos;à au moins 9.",
+				"illustration": "media/2014-07-31-10-15-24.png",
+				"uuid": "446E3A88-812E-9886-6CC6-3C635BCA0354"
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-10-15-07.png",
+				"CP": true,
+				"uuid": "50434148-944B-4833-788A-877188B4738A",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais dénombrer 20 objets.",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je récite la comptine jusqu&apos;à 30.",
+				"illustration": "media/2014-07-31-07-48-06.png",
+				"uuid": "D61D53F9-86C7-3322-D046-B18FD573530D"
+			}
+		],
+		"titre": "Utilisation des nombres",
+		"uuid": "10-Premiers outils : les nombres"
+	},
+	{
+		"color": "ffce00ff",
+		"icon": "icon12.png",
+		"items": [
+			{
+				"titre": "Je reconnais le rond, le carré, le triangle et je les nomme.",
+				"illustration": "media/2014-07-31-07-46-19.png",
+				"uuid": "6F41DA45-05DA-A216-81EC-D49C919A7BB8"
+			},
+			{
+				"titre": "Je reconnais et nomme le rond, le carré, le triangle et le rectangle.",
+				"illustration": "media/2014-07-31-07-47-13.png",
+				"uuid": "5BF2AD45-469C-D5AD-B392-FA05D25644D8"
+			},
+			{
+				"titre": "Je reconnais et nomme le rond, le carré, le rectangle, l&apos;ovale et tous les triangles.",
+				"illustration": "media/2014-07-31-07-47-21.png",
+				"uuid": "4BEF262F-F3E1-19D9-C42A-ACC389462583"
+			},
+			{
+				"titre": "Je sais ranger au moins 3 objets par ordre de grandeur.",
+				"illustration": "media/2014-07-31-07-47-10.png",
+				"uuid": "6D7191CC-309A-3794-77A6-15E2149B9451"
+			},
+			{
+				"titre": "Je sais ranger au moins 4 objets par ordre de grandeur.",
+				"illustration": "media/2014-07-31-07-47-19.png",
+				"uuid": "E11A15B7-343F-FF3B-86A3-8BBA87AD08E0"
+			},
+			{
+				"titre": "Je sais ranger au moins 5 objets par ordre de grandeur.",
+				"illustration": "media/2014-07-31-07-47-24.png",
+				"uuid": "957D2452-5824-F643-3E3A-76F8CE581C56"
+			},
+			{
+				"MS": true,
+				"uuid": "E17550CA-851A-4097-A199-52B6B0AAB0AD",
+				"PS": true,
+				"TPS": true,
+				"titre": "je reconnais quelques solides ( cube, pyramide, boule, cylindre)",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-10-15-28.png",
+				"uuid": "9429191F-8B3A-1A5D-07AD-9E0CD11096B7",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais comparer des tas d’objets en comptant ou non.",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Première compréhension du nombre",
+		"uuid": "11-Premiers outils : les formes, les grandeurs et les suites organisées"
+	},
+	{
+		"color": "ffce00ff",
+		"illustration": "",
+		"items": [
+			{
+				"titre": "Je sais réaliser un tas d&apos;objet de la même quantité qu&apos;un autre tas.",
+				"illustration": "media/2014-07-31-10-15-31.png",
+				"uuid": "8C3DD4EE-64CA-0B5D-19EA-B87A096512EA"
+			},
+			{
+				"titre": "Je sais résoudre de petits problèmes de quantité.",
+				"illustration": "media/2014-07-31-10-15-38.png",
+				"uuid": "B1853C9E-513D-FE57-BF14-AC9E2579655F"
+			},
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "10C1BFD8-B726-4A27-82F9-78683BEA9828",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais décomposer les nombres jusqu'à 3",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "BA2BE228-EE97-454D-84C4-C335CDD87D22",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais décomposer les nombres jusqu'à 5",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "7E09CDEB-97CE-40BA-8547-BBA92206D4B4",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais décomposer les nombres jusqu'à 10",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Petits problèmes de composition et de décomposition de nombres (ex: 3 c’est 2 et 1 ; 1 et encore 2)",
+		"uuid": "FBCD22A4-1F3F-4148-8986-B554E232E457"
+	},
+	{
+		"uuid": "7F10040B-FFDE-47F3-B6BA-4F4152D4E430",
+		"color": "ffce00ff",
+		"items": [
+			{
+				"MS": true,
+				"uuid": "9CBFA021-A650-4D00-BA97-BCB2CF6F2C4D",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais reproduire des suites simples de formes et de couleurs",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "F6308439-0E24-4C72-B161-89B1888328AC",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais reconnaitre un rythme et le continuer",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "0AAF7057-BC46-4D18-BD44-327B1EC2FF03",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais inventer des rythmes de plus en plus compliqués",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"uuid": "AC0C3B85-E2FE-4491-ADF6-209E7D055A3A",
+				"PS": true,
+				"TPS": true,
+				"titre": "je sais compléter des manques dans une suite organisée",
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"titre": "Je sais trouver un critère pour trier les objets.",
+				"illustration": "media/2014-07-31-07-47-15.png",
+				"uuid": "14DD57E8-BE60-BC83-6BC5-E06C0D570E35"
+			},
+			{
+				"titre": "Je sais trier les objets. ( consigne).",
+				"illustration": "media/2014-07-31-07-46-21.png",
+				"uuid": "CDDDCB98-A92E-9E53-8DCA-2BE1222DDAAB"
+			}
+		],
+		"titre": "Tris, classements, algorithmes",
+		"illustration": ""
+	},
+	{
+		"color": "ffffff",
+		"illustration": "",
+		"isDomaine": true,
+		"items": [],
+		"titre": "5. Explorer le monde",
+		"uuid": "1026DB9A-9950-4A09-98F2-7F4E9ED277C4"
+	},
+	{
+		"color": "0057ffff",
+		"icon": "icon14.png",
+		"items": [
+			{
+				"titre": "Je sais mettre en ordre 3 moments de la journée.",
+				"illustration": "media/2014-07-31-07-45-38.png",
+				"uuid": "540FA158-C0E9-7190-7C5F-C68363C1B5E6"
+			},
+			{
+				"titre": "Je sais mettre en ordre 3 images d&apos;une histoire connue.",
+				"illustration": "media/2014-07-31-07-45-41.png",
+				"uuid": "D8B098EE-67C1-4A89-CFEC-265A1FCE4ACB"
+			},
+			{
+				"titre": "Je sais mettre en ordre 5 moments de la journée.",
+				"illustration": "media/2014-07-31-07-45-45.png",
+				"uuid": "66DF0C2E-A9B7-385D-9BC7-95695278CB11"
+			},
+			{
+				"titre": "Je sais remettre en ordre 4 images d&apos;une histoire connue.",
+				"illustration": "media/2014-07-31-07-45-49.png",
+				"uuid": "483CD3C9-6720-2A65-FCFE-1426BD987FF9"
+			},
+			{
+				"titre": "Je sais dire la succession des jours.",
+				"illustration": "media/2014-07-31-07-45-56.png",
+				"uuid": "E0FA83FC-5337-2D74-3151-6BED714DD545"
+			},
+			{
+				"titre": "Je sais retrouver le jour d&apos;hier ou de demain.",
+				"illustration": "media/2014-07-31-07-46-00.png",
+				"uuid": "A652597B-776E-383A-3DD1-14841A9922C1"
+			},
+			{
+				"titre": "Je sais remettre en ordre 5 images d&apos;une histoire inconnue.",
+				"illustration": "media/2014-07-31-07-46-04.png",
+				"uuid": "A1E251E3-0B69-B14D-6861-5C966E8C46B0"
+			}
+		],
+		"titre": "Temps : repérage, représentations, utilisation de mots de liaison (puis, pendant, avant, après, ...)",
+		"uuid": "12-Explorer le monde : le temps"
+	},
+	{
+		"color": "0057ffff",
+		"icon": "icon16.png",
+		"items": [
+			{
+				"titre": "Je comprends les mots: devant/ derrière,  en haut/en bas.",
+				"illustration": "media/2014-07-31-07-39-47.png",
+				"uuid": "5EBB45C3-0599-DD59-7397-2E1C1B1DE9F1"
+			},
+			{
+				"titre": "Je sais faire des puzzles d&apos;au moins 6 morceaux.",
+				"illustration": "media/2014-07-31-07-39-51.png",
+				"uuid": "20667C82-C8FE-93F2-D3D7-9838F6CA546C"
+			},
+			{
+				"titre": "Je comprends les mots: sur/sous, à côté de, intérieur/extérieur.",
+				"illustration": "media/2014-07-31-07-39-54.png",
+				"uuid": "C6D8819A-3B6C-A26B-29D2-DEA69AEF4C83"
+			},
+			{
+				"titre": "Je sais faire des puzzles d&apos;au moins 20 morceaux.",
+				"illustration": "media/2014-07-31-07-39-58.png",
+				"uuid": "C4C26B45-7DBB-85E7-C4D5-1E8916AB542F"
+			},
+			{
+				"titre": "Je sais utiliser : entre, sur, sous, à l&apos;extérieur pour dire où se trouve un objet.",
+				"illustration": "media/2014-07-31-07-40-01.png",
+				"uuid": "41AED7EA-B9B3-6032-5826-56087DEABC81"
+			},
+			{
+				"titre": "Je sais dire où se trouve un objet par rapport à moi.",
+				"illustration": "media/2014-07-31-07-40-05.png",
+				"uuid": "DD5DA5D1-B48E-6DD2-8D74-96BE2B6F7D75"
+			},
+			{
+				"titre": "Je sais où est le haut, bas, centre, sens de l&apos;écriture sur une page.",
+				"illustration": "media/2014-07-31-07-45-11.png",
+				"uuid": "D69C9439-C4B4-FEE6-E992-95D47A74E853"
+			},
+			{
+				"titre": "Je sais faire des puzzles complexes, des pavages et des tangrams.",
+				"illustration": "media/2014-07-31-07-45-14.png",
+				"uuid": "8887D954-AD44-37DD-4323-329012D1706A"
+			},
+			{
+				"titre": "Je sais faire de petites constructions librement.",
+				"illustration": "media/2014-07-31-07-45-18.png",
+				"uuid": "C791674C-D165-162B-956F-90CC7E7F172F"
+			},
+			{
+				"titre": "Je sais faire des constructions avec un objet servant de modèle.",
+				"illustration": "media/2014-07-31-07-45-21.png",
+				"uuid": "8625ACA5-6269-379F-6E48-A87454E57656"
+			},
+			{
+				"titre": "Je sais faire des constructions d&apos;après des fiches.",
+				"illustration": "media/2014-07-31-07-45-25.png",
+				"uuid": "74376EC3-CED3-1CA5-B665-F7BC1FD3368C"
+			}
+		],
+		"titre": "Explorer le monde : l’espace",
+		"uuid": "13-Explorer le monde : l’espace"
+	},
+	{
+		"color": "0057ffff",
+		"icon": "icon36.png",
+		"items": [
+			{
+				"titre": "Je sais désigner quelques parties de mon corps.",
+				"illustration": "media/2014-07-31-07-39-12.png",
+				"uuid": "1D05B9AA-4612-C187-2043-27213C8952F7"
+			},
+			{
+				"titre": "Je sais nommer les parties de mon corps.",
+				"illustration": "media/2014-07-31-07-39-23.png",
+				"uuid": "221D5AEE-D9DE-AC55-5913-BDB119B34B74"
+			},
+			{
+				"titre": "Je sais représenter de façon précise,mon corps et nommer des parties et articulations.",
+				"illustration": "media/2014-07-31-07-39-31.png",
+				"uuid": "388A212C-B48A-4584-347C-A7BF843E01A6"
+			},
+			{
+				"titre": "Je sais remettre en ordre 3 images de croissance.",
+				"illustration": "media/2014-07-31-07-39-08.png",
+				"uuid": "8AC7A794-1A7E-148E-B5E1-747363CD1413"
+			},
+			{
+				"titre": "Je sais ordonner 4 images d&apos;une croissance.",
+				"illustration": "media/2014-07-31-07-39-17.png",
+				"uuid": "D6E215C4-C4D7-6D3D-6611-BE53DF36E0B5"
+			},
+			{
+				"titre": "Je sais ordonner des images de développement d&apos;un animal ou d&apos;une plante.",
+				"illustration": "media/2014-07-31-07-39-27.png",
+				"uuid": "807266BC-A3FD-CBB0-4659-EA38F88DE7F8"
+			}
+		],
+		"titre": "Explorer le monde : monde : le vivant",
+		"uuid": "14-Explorer le monde : monde : le vivant"
+	},
+	{
+		"color": "0057ffff",
+		"icon": "icon9.png",
+		"items": [
+			{
+				"titre": "Je reconnais les couleurs et je les nomme.",
+				"illustration": "media/2014-07-31-07-38-21.png",
+				"uuid": "C63CA4A6-93E4-8A72-5B05-253C0A51E74E"
+			},
+			{
+				"titre": "Je connais de nouvelles couleurs: rose, marron, gris et les nuances.",
+				"illustration": "media/2014-07-31-07-38-24.png",
+				"uuid": "C4377297-3944-6F6E-2ED3-91C032C869FC"
+			},
+			{
+				"titre": "Je sais trier des objets.",
+				"illustration": "media/2014-07-31-07-38-29.png",
+				"uuid": "965CEFC3-7975-10BE-A774-525851B8F243"
+			},
+			{
+				"titre": "Je colle proprement.",
+				"illustration": "media/2014-07-31-07-38-33.png",
+				"uuid": "982EDD4A-F29A-7E80-26A3-E6155733B359"
+			},
+			{
+				"titre": "Je sais utiliser les ciseaux.",
+				"illustration": "media/2014-07-31-07-38-37.png",
+				"uuid": "CD32D9CA-280E-D1AE-54D1-5BB1DA743A13"
+			},
+			{
+				"titre": "Je découpe en suivant une ligne.",
+				"illustration": "media/2014-07-31-07-38-40.png",
+				"uuid": "7C7E0246-8A85-E698-A5AC-75FD391FB7C3"
+			},
+			{
+				"titre": "Je découpe en suivant un tracé arrondi.",
+				"illustration": "media/2014-07-31-07-38-44.png",
+				"uuid": "322F7D46-966A-20CA-47B7-FA632E55AE5A"
+			},
+			{
+				"titre": "Je cherche , je tâtonne pour faire fonctionner un objet.",
+				"illustration": "media/2014-07-31-07-38-50.png",
+				"uuid": "5970E4B4-41B9-27D8-BE6D-35769BD5D785"
+			},
+			{
+				"MS": true,
+				"uuid": "500F5AF3-6A8D-4E68-825C-5B07A1B01216",
+				"PS": true,
+				"TPS": true,
+				"titre": "j'utilise les outils numérique ",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Utilisation, fabrication et manipulation d’objets",
+		"uuid": "15-Explorer le monde : les objets et la matière"
+	},
+	{
+		"color": "0057ffff",
+		"illustration": "",
+		"items": [
+			{
+				"MS": true,
+				"CP": true,
+				"uuid": "ADB621DC-4F91-4DED-9980-FCBDEED2E67E",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je me lave les mains",
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Compréhension de règles de sécurité et d’hygiène ",
+		"uuid": "DAC10319-F372-480A-BB6A-00C0243F47C3"
+	},
+	{
+		"uuid": "16-Devenir élève",
+		"icon": "icon21.png",
+		"items": [
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-34.png",
+				"CP": true,
+				"uuid": "28542A25-B732-A8D9-A9E3-842CB9CAC28C",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je respecte les autres et les règles de l’école.",
+				"Invisible": false,
+				"item synthèse": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-39.png",
+				"CP": true,
+				"uuid": "4B29B917-31BB-DCBB-D942-501D84C3838B",
+				"PS": true,
+				"TPS": true,
+				"titre": "J'écoute mes camarades, je les aide et je coopère.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-44.png",
+				"CP": true,
+				"uuid": "67B86F8C-22FE-B659-7B78-B156174EEE6E",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je demande de l'aide si j'en ai besoin.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-49.png",
+				"CP": true,
+				"uuid": "869126B9-8147-84B7-B35B-71CC17EDBED1",
+				"PS": true,
+				"TPS": true,
+				"titre": "J'ose essayer ou réaliser seul un travail et parler en grand groupe.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-54.png",
+				"CP": true,
+				"uuid": "68CBFAFB-B6C4-85DA-1C6B-40283DCC556C",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais rester calme pour travailler, ne pas m'énerver, pleurer ou bouder.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			},
+			{
+				"MS": true,
+				"illustration": "media/2014-07-31-07-36-58.png",
+				"CP": true,
+				"uuid": "86DC6FD9-32A6-8DA6-5AA7-C2B608FACAB3",
+				"PS": true,
+				"TPS": true,
+				"titre": "Je sais faire mon travail seul.",
+				"item synthèse": false,
+				"Invisible": false,
+				"GS": true
+			}
+		],
+		"titre": "Devenir élève ",
+		"color": "148180ff"
+	}
+]

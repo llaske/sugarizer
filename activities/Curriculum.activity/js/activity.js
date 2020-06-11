@@ -211,31 +211,21 @@ var app = new Vue({
 
 		importSkills: function () {
 			var vm = this;
-			requirejs(["text!activity/imported/sections.json"], function (sections) {
-				var sectionsObj = JSON.parse(sections);
+			requirejs(["text!activity/imported/categories.json"], function (categories) {
+				var categoriesObj = JSON.parse(categories);
 				var importedCategories = [];
 
 				var categoryId = vm.categories.length;
-				sectionsObj.forEach(function (section) {
-					if (section.isDomaine) return;
+				categoriesObj.forEach(function (category) {
+					category.id = categoryId;
 
-					var category = {
-						id: categoryId,
-						title: section.titre,
-						color: '#' + section.color,
-						skills: []
-					}
 					// Updating the user object
 					vm.$set(vm.user.skills, categoryId, new Object());
 
 					var skillId = 0;
-					section.items.forEach(function (item) {
-						var skill = {
-							id: skillId,
-							title: item.titre,
-							image: 'js/imported/' + item.uuid + '.jpg'
-						}
-						category.skills.push(skill);
+					category.skills.forEach(function (skill, i) {
+						skill.id = skillId,
+						skill.image = 'js/imported/' + skill.image;
 
 						// Updating the user object
 						vm.$set(vm.user.skills[categoryId], skillId, {
