@@ -122,7 +122,7 @@
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError"></sugar-journal>
 		<sugar-localization ref="SugarL10n"></sugar-localization>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
-		<sugar-device ref="SugarDevice"></sugar-device>
+		<sugar-device ref="SugarDevice" v-on:acceleration-callback="accelerationChanged"></sugar-device>
 	</div>
 
 	<script src="js/slope-template.js"></script>

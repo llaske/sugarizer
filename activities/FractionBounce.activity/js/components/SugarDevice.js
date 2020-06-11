@@ -1,4 +1,6 @@
 Vue.component('sugar-device', {
+	/*html*/
+	template: `<div style="display: none">{{ watchId }}</div>`,
 	data: function() {
 		return {
       readyToWatch: false,
@@ -20,21 +22,24 @@ Vue.component('sugar-device', {
       document.addEventListener('deviceready', function () {
         vm.readyToWatch = true;
       }, false);
-    }
+		}
+
   },
   computed: {
 		watchId: function () {
-			var vm = this;
-			if (this.readyToWatch && this.accelerometerCallback && this.frequency) {
-				return navigator.accelerometer.watchAcceleration(this.accelerometerCallback, null, { frequency: this.frequency });
+			if (this.readyToWatch && this.frequency) {
+				return navigator.accelerometer.watchAcceleration(this.accelerationCallback, null, { frequency: this.frequency });
 			}
       return null;
 		}
 	},
 	methods: {
-		watchAcceleration: function (frequency, callback) {
-      this.accelerometerCallback = callback;
+		watchAcceleration: function (frequency) {
       this.frequency = frequency;
+		},
+
+		accelerationCallback: function(acceleration) {
+			this.$emit('acceleration-callback', acceleration);
 		},
 
 		getLocation(callback) {
@@ -44,5 +49,8 @@ Vue.component('sugar-device', {
 				alert("Geolocation is not supported by this browser.");
 			}
 		}
+	},
+	beforeDestroy: function() {
+		navigator.accelerometer.clearWatch(this.watchId);
 	}
 })

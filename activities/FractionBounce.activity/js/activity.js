@@ -44,8 +44,6 @@ let app = new Vue({
 		userFractions: [],
 		successSound: null,
 		failSound: null,
-		readyToWatch: false,
-		watchId: null,
 		l10n: {
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
@@ -122,7 +120,7 @@ let app = new Vue({
 			console.log(location);
 		});
 
-		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval, this.accelerationChanged);
+		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
 	},
 
 	methods: {
