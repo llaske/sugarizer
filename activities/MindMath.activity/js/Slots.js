@@ -1,58 +1,67 @@
 var Slots = {
-  props: ['strokeColor', 'fillColor', 'targetNum', 'slots'],
+  components: {
+    "inputNumber": InputNumber
+  },
+  props: ['strokeColor', 'fillColor', 'targetNum', 'slots', 'emptyLinesAllowed'],
   template: `
     <div class="list-slots">
       <div class="slot" v-for="(slot,index) in slots" v-key="index">
-        <div
-        v-bind:class="{
-          'number': slot.num1.type === 0,
-        }"
-        >{{slot.num1.val}}</div>
+        <inputNumber
+          v-bind:class="{
+            'number': slot.num1.type === 0,
+          }"
+          v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+          v-bind:type="slot.num1.type"
+          v-bind:number="slot.num1.val"
+        ></inputNumber>
         <div class="operator"
-        v-bind:style="{backgroundColor: strokeColor}"
-        v-bind:class="{
-          'plus': slot.operator === '+',
-          'minus': slot.operator === '-',
-          'multiply': slot.operator === '*',
-          'divide': slot.operator === '/',
-         }"
+          v-bind:style="{backgroundColor: strokeColor}"
+          v-bind:class="{
+            'plus': slot.operator === '+',
+            'minus': slot.operator === '-',
+            'multiply': slot.operator === '*',
+            'divide': slot.operator === '/',
+           }"
         ></div>
-        <div
-        v-bind:class="{
-          'number': slot.num2.type === 0,
-        }"
-        >{{slot.num2.val}}</div>
+        <inputNumber
+          v-bind:class="{
+            'number': slot.num2.type === 0,
+          }"
+          v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+          v-bind:type="slot.num2.type"
+          v-bind:number="slot.num2.val"
+        ></inputNumber>
 
         <div class="symbol"> = </div>
 
         <div
-        v-bind:class="{'acheived': targetNum === slot.res && index === slots.length-1}"
+          class="res"
+          v-bind:style="{backgroundColor: fillColor}"
+          v-bind:class="{'acheived': targetNum === slot.res && index === slots.length-1}"
         >{{slot.res}}</div>
 
       </div>
-
+      <template v-if="emptyLinesAllowed != null">
       <div class="slot" v-for="index in (4-slots.length)" v-key="index">
         <div
-        class="empty-slot"
+          class="empty-slot"
         ></div>
         <div class="operator"
-        v-bind:style="{backgroundColor: strokeColor}"
+          v-bind:style="{backgroundColor: strokeColor}"
         ></div>
         <div
-        class="empty-slot"
+          class="empty-slot"
         ></div>
 
         <div class="symbol"> = </div>
 
         <div
-        class="empty-slot"
+          class="empty-slot"
         ></div>
 
       </div>
+      </template>
 
     </div>
   `,
-  mounted: function () {
-
-  },
 }

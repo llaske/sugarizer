@@ -30,6 +30,7 @@ var app = new Vue({
       mode: 'non-timer',
       score: 0,
       level: 0,
+      passButton: true,
       compulsoryOps: [],
       compulsoryOpsRem: [],
       clock: {
@@ -70,6 +71,7 @@ var app = new Vue({
   watch: {
     currentScreen: function() {
       var vm = this;
+      vm.updatePassButton();
       if (vm.currentScreen === 'game') {
         //Initialize clock
         vm.$set(vm.clock, 'time', vm.clock.initial);
@@ -88,6 +90,7 @@ var app = new Vue({
       vm.updateCompulsoryOpsRem();
       //generating hint
       vm.generateHint();
+      vm.updatePassButton();
     },
     compulsoryOps: function () {
       var vm = this;
@@ -95,6 +98,7 @@ var app = new Vue({
       vm.updateCompulsoryOpsRem();
       //generating hint
       vm.generateHint();
+      vm.updatePassButton();
     },
     qNo: function () {
       var vm = this;
@@ -193,15 +197,34 @@ var app = new Vue({
       }
     },
 
+    updatePassButton: function () {
+      var vm = this;
+      var currentRes = null;
+      if (vm.slots[vm.qNo].length != 0) {
+        currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
+      }
+      var flag = vm.compulsoryOpsRem.length === 0 && currentRes === vm.questions[vm.qNo].targetNum;
+      if (vm.currentScreen === 'game' && flag) {
+        document.querySelector('#pass-button').style.backgroundImage = 'url(./icons/validate-icon.svg)';
+        document.querySelector('#pass-button').title = "validate";
+        vm.passButton = false;
+      }else {
+        document.querySelector('#pass-button').style.backgroundImage = 'url(./icons/end-icon.svg)';
+        document.querySelector('#pass-button').title = "Pass";
+        vm.passButton = true;
+      }
+    },
+
     onValidate: function(data) {
       var vm = this;
       //calculate score
       var slots = vm.slots[vm.qNo];
-      var timeTaken = vm.clock.time;
+      vm.pushTimeTaken();
+      var timeTaken = vm.timeTaken[vm.timeTaken.length-1];
       var scr = calculateScoreFromSlots(slots, timeTaken);
       vm.score += scr;
       vm.scores.push(scr)
-      vm.pushTimeTaken();
+
       if (vm.mode === 'non-timer') {
         //stop timer
         vm.clock.active = false;
@@ -302,34 +325,40 @@ var app = new Vue({
 
     handlePassButton: function () {
       var vm = this;
-      if (vm.currentScreen === 'game') {
-        //stop timer
-        vm.score+=0;
-        vm.scores.push(0)
-        vm.pushTimeTaken();
-        if (vm.mode === 'non-timer') {
-          vm.clock.active = false;
-          vm.slots = [[]];
+      if (vm.passButton) {
+        if (vm.currentScreen === 'game') {
+          //stop timer
+          vm.score+=0;
+          vm.scores.push(0)
+          vm.pushTimeTaken();
+          if (vm.mode === 'non-timer') {
+            vm.clock.active = false;
+            vm.slots = [[]];
+
+            //change currentScreen
+            vm.currentScreen = "result";
+          }else {
+            //go to next question in question set for timer mode
+            vm.$set(vm.slots, vm.qNo, []);
+            vm.qNo++;
+            vm.$set(vm.slots, vm.qNo, []);
+            //update inputNumbers
+            vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+            vm.inputNumbersTypes = [0,0,0,0,0];
+          }
+
+        }
+        else {
+          //generating questions set
+          vm.generateQuestionSet();
 
           //change currentScreen
-          vm.currentScreen = "result";
-        }else {
-          //go to next question in question set for timer mode
-          vm.qNo++;
-          vm.$set(vm.slots, vm.qNo, []);
-          //update inputNumbers
-          vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
-          vm.inputNumbersTypes = [0,0,0,0,0];
+          vm.currentScreen = "game";
         }
-
+      } else {
+        vm.onValidate();
       }
-      else {
-        //generating questions set
-        vm.generateQuestionSet();
 
-        //change currentScreen
-        vm.currentScreen = "game";
-      }
     },
 
     handleUndoButton: function () {

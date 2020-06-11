@@ -2,6 +2,7 @@ var Result = {
   components: {
     "slots-component": Slots,
     "clock": Clock,
+    "inputNumber": InputNumber
   },
   props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots','scores','timeTaken'],
   template: `
@@ -9,32 +10,30 @@ var Result = {
     >
       <div class="result-bar"
       >
-        <div class="result-bar-block"
-        v-bind:style="{backgroundColor: fillColor}"
-        >
-          <clock
-          v-bind:time="totalTime"
-          text="Total Time: "
-          ></clock>
-        </div>
-        <div class="result-bar-icon"></div>
+
         <div class="result-bar-block"
         v-bind:style="{backgroundColor: fillColor}"
         >Total Score: {{ score }}</div>
 
+
       </div>
 
       <div class="result-main"
-      v-bind:style="{backgroundColor: fillColor}"
+      v-bind:style="{backgroundColor: strokeColor}"
       >
           <template v-for="(panel, index) in questionSet" v-bind:key="index">
-            <div class="result-panel">
+            <div class="result-panel"
+            v-bind:style="{backgroundColor: '#ffffff'}"
+            >
               <div class="question-bar">
-
-                <div class="question-number"
-                v-for="(number,index) in panel.inputNumbers"
-                v-bind:key="index"
-                >{{ number }}</div>
+                <inputNumber
+                  class="question-number"
+                  v-for="(number,index) in panel.inputNumbers"
+                  v-bind:key="index"
+                  v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+                  v-bind:number="number"
+                  type="0"
+                ></inputNumber>
 
                 <div class="question-target"
                 >{{ panel.targetNum }}</div>
@@ -145,7 +144,9 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight+"px";
-      document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
+      //document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
+      //document.querySelector('.result-bar-restart').style.width = document.querySelector('.result-bar-restart').offsetHeight +"px";
+
 
       if (ratio < 1) {
         // stack up panels

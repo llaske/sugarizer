@@ -1,13 +1,24 @@
+/*
+<div class="btn-number"
+v-for="(number,index) in inputNumbers"
+v-on:click="onSelectNumber(index)"
+v-bind:class="{
+  'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
+  'diamond': inputNumbersTypes[index] === 0
+}"
+v-bind:key="index"
+>{{ number }}</div>*/
 var Game = {
   components: {
     "clock": Clock,
     "slots-component": Slots,
+    "inputNumber": InputNumber
   },
   props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
-      v-bind:style="{backgroundColor: fillColor}"
+      v-bind:style="{backgroundColor: '#ffffff'}"
       >
 
         <div class="game-area-container">
@@ -41,15 +52,21 @@ var Game = {
           </div>
 
           <div class="list-numbers">
-            <div class="btn-number"
-            v-for="(number,index) in inputNumbers"
-            v-on:click="onSelectNumber(index)"
-            v-bind:class="{
-              'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
-              'diamond': inputNumbersTypes[index] === 0
-            }"
-            v-bind:key="index"
-            >{{ number }}</div>
+            <inputNumber
+              v-for="(number,index) in inputNumbers"
+              v-on:click.native="onSelectNumber(index)"
+              class="btn-number"
+              v-bind:class="{
+                'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
+                'diamond': inputNumbersTypes[index] === 0,
+                'square': inputNumbersTypes[index] != 0
+              }"
+              v-bind:type="inputNumbersTypes[index]"
+              v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+              v-bind:number="number"
+              v-bind:isSelected="index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2"
+              v-bind:key="index"
+            ></inputNumber>
           </div>
 
           <div class="list-operators">
@@ -83,13 +100,14 @@ var Game = {
       </div>
 
       <div class="slots-area-panel"
-      v-bind:style="{backgroundColor: fillColor}"
+      v-bind:style="{backgroundColor: '#ffffff'}"
       >
         <slots-component ref="slots"
         v-bind:strokeColor="strokeColor"
         v-bind:fillColor="fillColor"
         v-bind:targetNum="questions[qNo].targetNum"
         v-bind:slots="slots[qNo]"
+        emptyLinesAllowed=true
         ></slots-component>
       </div>
 
