@@ -216,7 +216,7 @@
 }
 
 #planet-info {
-  overflow: hidden;
+  overflow-y: auto;
   padding: 20px;
   padding-top: 50px;
   width: 40%;
@@ -280,6 +280,6 @@ canvas {
   z-index: 100;
   display: block;
   height: 20px;
-  top: 300px;
+  top: 45%;
 
 }
