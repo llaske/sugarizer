@@ -133,6 +133,20 @@ var Game = {
         vm.currentRes = null;
       }
     },
+    qNo: function () {
+      var vm = this;
+      //deselecting
+      if (vm.currentSelectedNums.nums.length!=0) {
+        vm.currentSelectedOp = null;
+        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
+        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        if (vm.currentSelectedNums.nums.length!=0) {
+          vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        }
+      }
+
+    }
   },
   methods: {
     resize: function() {

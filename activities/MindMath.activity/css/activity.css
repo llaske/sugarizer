@@ -1139,6 +1139,10 @@ p {
   background-color: #808080;
 }
 
+.palette-item-selected {
+  background-color: #808080;
+}
+
 .palette-icon {
   width: 50px;
 }

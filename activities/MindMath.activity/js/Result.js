@@ -3,7 +3,7 @@ var Result = {
     "slots-component": Slots,
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots'],
+  props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots','scores','timeTaken'],
   template: `
     <div id="result-view"
     >
@@ -13,7 +13,7 @@ var Result = {
         v-bind:style="{backgroundColor: fillColor}"
         >
           <clock
-          v-bind:time="time"
+          v-bind:time="totalTime"
           text="Total Time: "
           ></clock>
         </div>
@@ -49,7 +49,7 @@ var Result = {
                       <div class="info-block-logo clock-logo"></div>
                       <div class="info-block-content">
                         <clock
-                        v-bind:time="time"
+                        v-bind:time="timeTaken[index]"
                         ></clock>
                       </div>
                     </div>
@@ -60,7 +60,7 @@ var Result = {
                     >
                       <div class="info-block-logo score-logo"></div>
                       <div class="info-block-content">
-                        <div>{{ score }}</div>
+                        <div>{{ scores[index] }}</div>
                       </div>
                     </div>
 
@@ -116,6 +116,7 @@ var Result = {
       questionSet: [],
       bestSlots:[],
       mySlots: [],
+      totalTime: 0,
     };
   },
   created: function () {
@@ -129,6 +130,9 @@ var Result = {
   },
   mounted: function () {
     var vm = this;
+    vm.totalTime = vm.timeTaken.reduce(function(a, b) {
+      return a + b
+    }, 0)
     vm.resize();
   },
   methods: {
@@ -146,20 +150,25 @@ var Result = {
       if (ratio < 1) {
         // stack up panels
         if (document.querySelector('.result-panel-main')) {
-          document.querySelector('.result-panel-main').style.flexDirection = 'column';
-          document.querySelector('.my-solution').style.width = '98%';
-          document.querySelector('.best-solution').style.width = '98%';
+          var resultPanelMain = document.querySelectorAll('.result-panel-main');
+          for (var i = 0; i < resultPanelMain.length; i++) {
+            resultPanelMain[i].style.flexDirection = 'column';
+            resultPanelMain[i].children[0].style.width = '98%';
+            resultPanelMain[i].children[1].style.width = '98%';
+          }
         }
 
       }
       else {
         //change width, height of panels
         if (document.querySelector('.result-panel-main')) {
-          document.querySelector('.result-panel-main').style.flexDirection = 'row';
-          document.querySelector('.my-solution').style.width = '48%';
-          document.querySelector('.best-solution').style.width = '48%';
+          var resultPanelMain = document.querySelectorAll('.result-panel-main');
+          for (var i = 0; i < resultPanelMain.length; i++) {
+            resultPanelMain[i].style.flexDirection = 'row';
+            resultPanelMain[i].children[0].style.width = '48%';
+            resultPanelMain[i].children[1].style.width = '48%';
+          }
         }
-
       }
 
     },
@@ -201,7 +210,7 @@ var Result = {
           slotsArr.push(slotObj)
         }
         vm.bestSlots.push(slotsArr);
-        vm.mySlots.push(vm.slots[vm.qNo]);
+        vm.mySlots.push(vm.slots[qno]);
       }
     }
   }

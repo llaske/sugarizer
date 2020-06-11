@@ -36,7 +36,7 @@ var app = new Vue({
         active: false,
         previousTime: null,
         time: 0,
-        timer: false,
+        initial: 0,
       },
       questionsGenerator: null,
       hintsGenerator: null,
@@ -48,7 +48,10 @@ var app = new Vue({
         },
       ],
       qNo:0,
-      slots:[[]],
+      slots: [[]],
+      scores: [],
+      timeTaken: [],
+      prevTimeStones: [],
       inputNumbers: [0,0,0,0,0],
       inputNumbersTypes:[0,0,0,0,0],
       prev: {
@@ -65,17 +68,18 @@ var app = new Vue({
      }, 0);
   },
   watch: {
-    currentScreen: function(newVal) {
+    currentScreen: function() {
       var vm = this;
-      if (newVal === 'game') {
+      if (vm.currentScreen === 'game') {
         //Initialize clock
-        vm.$set(vm.clock, 'time', 0);
+        vm.$set(vm.clock, 'time', vm.clock.initial);
         vm.$set(vm.clock, 'active', true);
         vm.$set(vm.clock, 'previousTime', new Date());
         vm.score = 0;
         vm.slots = [[]];
+        vm.scores = [];
+        vm.timeTaken = [];
         vm.qNo = 0;
-        //vm.tick();
       }
     },
     slots: function (newVal) {
@@ -85,12 +89,21 @@ var app = new Vue({
       //generating hint
       vm.generateHint();
     },
-    compulsoryOps: function functionName() {
+    compulsoryOps: function () {
       var vm = this;
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //generating hint
       vm.generateHint();
+    },
+    qNo: function () {
+      var vm = this;
+
+      var tmp = vm.questions.length - vm.qNo;
+      if (tmp === 10) {
+        var questions = vm.questionsGenerator.generate(vm.level,10);
+        vm.questions = vm.questions.concat(questions);
+      }
     }
   },
   methods: {
@@ -153,25 +166,56 @@ var app = new Vue({
 
     generateQuestionSet: function () {
       var vm = this;
-      vm.questions = vm.questionsGenerator.generate(vm.level,1);
+      if (vm.mode === 'non-timer') {
+        vm.questions = vm.questionsGenerator.generate(vm.level,1);
+      }else {
+        vm.questions = vm.questionsGenerator.generate(vm.level,20);
+      }
       vm.qNo = 0;
+      //update inputNumbers
       vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
       vm.inputNumbersTypes = [0,0,0,0,0];
     },
 
+    pushTimeTaken: function () {
+      var vm = this;
+      if (vm.mode === 'non-timer') {
+        vm.timeTaken.push(vm.clock.time);
+      } else {
+        var prevTimeStone = vm.clock.time;
+        if (vm.timeTaken.length!=0) {
+          var timeTaken = vm.prevTimeStones[vm.prevTimeStones.length-1] - vm.clock.time;
+        }else {
+          var timeTaken = vm.clock.initial - vm.clock.time;
+        }
+        vm.timeTaken.push(timeTaken);
+        vm.prevTimeStones.push(prevTimeStone);
+      }
+    },
+
     onValidate: function(data) {
       var vm = this;
-      //stop timer
-      vm.clock.active = false;
       //calculate score
       var slots = vm.slots[vm.qNo];
       var timeTaken = vm.clock.time;
       var scr = calculateScoreFromSlots(slots, timeTaken);
       vm.score += scr;
-
+      vm.scores.push(scr)
+      vm.pushTimeTaken();
       if (vm.mode === 'non-timer') {
+        //stop timer
+        vm.clock.active = false;
+
         //change currentScreen
         vm.currentScreen = "result";
+      }else {
+
+        //go to next question in question set for timer mode
+        vm.qNo++;
+        vm.$set(vm.slots, vm.qNo, []);
+        //update inputNumbers
+        vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+        vm.inputNumbersTypes = [0,0,0,0,0];
       }
 
     },
@@ -213,8 +257,18 @@ var app = new Vue({
         if (currentTime - vm.clock.previousTime >= 1000) {
           vm.clock.previousTime = currentTime;
 
-          if (vm.clock.timer) {
+          if (vm.mode === 'timer') {
             vm.clock.time--;
+            if (vm.clock.time === 0) {
+              //end game
+              vm.clock.active = false;
+              vm.$set(vm.slots, vm.qNo, []);
+              vm.score+=0;
+              vm.scores.push(0)
+              vm.pushTimeTaken();
+              //change currentScreen
+              vm.currentScreen = "result";
+            }
           } else {
             vm.clock.time++;
           }
@@ -229,8 +283,11 @@ var app = new Vue({
       if (vm.currentScreen === 'game') {
         //stop timer
         vm.clock.active = false;
-        vm.slots = [[]];
-        vm.score=0;
+        vm.$set(vm.slots, vm.qNo, []);
+        vm.score+=0;
+        vm.scores.push(0)
+        vm.pushTimeTaken();
+
         //change currentScreen
         vm.currentScreen = "result";
       }
@@ -247,15 +304,22 @@ var app = new Vue({
       var vm = this;
       if (vm.currentScreen === 'game') {
         //stop timer
-        vm.clock.active = false;
-        vm.slots = [[]];
         vm.score+=0;
+        vm.scores.push(0)
+        vm.pushTimeTaken();
         if (vm.mode === 'non-timer') {
+          vm.clock.active = false;
+          vm.slots = [[]];
+
           //change currentScreen
           vm.currentScreen = "result";
         }else {
           //go to next question in question set for timer mode
           vm.qNo++;
+          vm.$set(vm.slots, vm.qNo, []);
+          //update inputNumbers
+          vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+          vm.inputNumbersTypes = [0,0,0,0,0];
         }
 
       }
@@ -308,6 +372,36 @@ var app = new Vue({
         vm.generateQuestionSet();
       }
 
+    },
+
+    onTimerSelected: function (data) {
+      var vm = this;
+      vm.slots = [[]];
+      vm.score=0;
+
+      switch (data.index) {
+        case 0:
+          vm.mode = 'non-timer';
+          vm.clock.time = 0;
+          vm.clock.initial = 0;
+          break;
+        case 1:
+          vm.mode = 'timer';
+          vm.clock.time = 2 * 60;
+          vm.clock.initial = 2 * 60;
+          break;
+        case 2:
+          vm.mode = 'timer';
+          vm.clock.time = 5 * 60;
+          vm.clock.initial = 5 * 60;
+          break;
+        case 3:
+          vm.mode = 'timer';
+          vm.clock.time = 10 * 60;
+          vm.clock.initial = 10 * 60;
+          break;
+      }
+      vm.generateQuestionSet();
     },
 
     onCompulsoryOpSelected: function (data) {
