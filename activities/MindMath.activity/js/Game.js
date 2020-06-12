@@ -1,13 +1,3 @@
-/*
-<div class="btn-number"
-v-for="(number,index) in inputNumbers"
-v-on:click="onSelectNumber(index)"
-v-bind:class="{
-  'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
-  'diamond': inputNumbersTypes[index] === 0
-}"
-v-bind:key="index"
->{{ number }}</div>*/
 var Game = {
   components: {
     "clock": Clock,
@@ -150,19 +140,14 @@ var Game = {
       } else {
         vm.currentRes = null;
       }
+
+      //deselecting
+      vm.deselect();
     },
     qNo: function () {
       var vm = this;
       //deselecting
-      if (vm.currentSelectedNums.nums.length!=0) {
-        vm.currentSelectedOp = null;
-        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
-        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
-        if (vm.currentSelectedNums.nums.length!=0) {
-          vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
-        }
-      }
+      vm.deselect();
 
     }
   },
@@ -194,6 +179,20 @@ var Game = {
         document.querySelector('.slots-area-panel').style.height = '95%';
       }
     },
+
+    deselect: function () {
+      var vm = this;
+      if (vm.currentSelectedNums.nums.length!=0) {
+        vm.currentSelectedOp = null;
+        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
+        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        if (vm.currentSelectedNums.nums.length!=0) {
+          vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        }
+      }
+    },
+
     onSelectNumber: function(index) {
       var vm = this;
       if (vm.currentSelectedNums.numIndex1 === index) {
@@ -295,11 +294,7 @@ var Game = {
         }
 
         //deselecting
-        vm.currentSelectedOp = null;
-        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
-        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
+        vm.deselect();
       }
     },
     validate: function() {

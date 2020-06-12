@@ -55,11 +55,10 @@ var app = new Vue({
       prevTimeStones: [],
       inputNumbers: [0,0,0,0,0],
       inputNumbersTypes:[0,0,0,0,0],
-      prev: {
-        skipIndex1: [],
-        skipIndex2: []
-      },
-      hint: []
+      prev: [],
+      hint: [],
+      redoStack: [],
+      next: [],
     }
   },
   mounted: function() {
@@ -82,6 +81,9 @@ var app = new Vue({
         vm.scores = [];
         vm.timeTaken = [];
         vm.qNo = 0;
+        vm.redoStack = [];
+        vm.next = [];
+        vm.prev = [];
       }
     },
     slots: function (newVal) {
@@ -102,6 +104,10 @@ var app = new Vue({
     },
     qNo: function () {
       var vm = this;
+
+      vm.redoStack = [];
+      vm.next = [];
+      vm.prev = [];
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
@@ -215,6 +221,29 @@ var app = new Vue({
       }
     },
 
+    addSlot: function (slot, skipIndex1, skipIndex2) {
+      var vm = this;
+
+      vm.slots[vm.qNo].push(slot);
+      vm.prev.push({
+        index1: skipIndex1,
+        index2: skipIndex2,
+      })
+
+      var newNums = removeEntryFromArray(vm.inputNumbers, skipIndex1);
+      var newTypes = removeEntryFromArray(vm.inputNumbersTypes, skipIndex1);
+      if (skipIndex1 < skipIndex2) {
+        skipIndex2--;
+      }
+      newNums = removeEntryFromArray(newNums, skipIndex2);
+      newTypes = removeEntryFromArray(newTypes, skipIndex2);
+      newNums.push(slot.res);
+      newTypes.push(1);
+
+      vm.inputNumbers = newNums;
+      vm.inputNumbersTypes = newTypes;
+    },
+
     onValidate: function(data) {
       var vm = this;
       //calculate score
@@ -246,28 +275,15 @@ var app = new Vue({
     onSlotsUpdated: function (data) {
       var vm = this;
       if (data.type === 'add') {
-        vm.slots[vm.qNo].push(data.data.slot);
 
         var res = data.data.slot.res;
         var skipIndex1 = data.data.skipIndex1;
         var skipIndex2 = data.data.skipIndex2;
 
-        vm.prev.skipIndex1.push(skipIndex1);
-        vm.prev.skipIndex2.push(skipIndex2);
-
-        var newNums = removeEntryFromArray(vm.inputNumbers, skipIndex1);
-        var newTypes = removeEntryFromArray(vm.inputNumbersTypes, skipIndex1);
-        if (skipIndex1 < skipIndex2) {
-          skipIndex2--;
-        }
-        newNums = removeEntryFromArray(newNums, skipIndex2);
-        newTypes = removeEntryFromArray(newTypes, skipIndex2);
-        newNums.push(res);
-        newTypes.push(1);
-
-        vm.inputNumbers = newNums;
-        vm.inputNumbersTypes = newTypes;
-
+        vm.addSlot(data.data.slot, skipIndex1, skipIndex2 );
+        //clearing redo stack
+        vm.redoStack = [];
+        vm.next = [];
       }
 
     },
@@ -366,11 +382,11 @@ var app = new Vue({
       if (vm.currentScreen === 'game' && vm.slots[vm.qNo].length!=0) {
         var removedSlot = vm.slots[vm.qNo].pop();
 
-        //changing inputNumbers
         vm.inputNumbers.pop();
         vm.inputNumbersTypes.pop();
-        var addIndex1 = vm.prev.skipIndex1.pop();
-        var addIndex2 = vm.prev.skipIndex2.pop();
+        var indexes = vm.prev.pop();
+        var addIndex1 = indexes.index1;
+        var addIndex2 = indexes.index2;
 
         if (addIndex1 < addIndex2) {
           var newNums = addEntryIntoArray(vm.inputNumbers, addIndex1, removedSlot.num1.val);
@@ -386,6 +402,24 @@ var app = new Vue({
 
         vm.inputNumbers = newNums;
         vm.inputNumbersTypes = newTypes;
+        //for redo actions
+        vm.redoStack.push(removedSlot);
+        vm.next.push({
+          index1: addIndex1,
+          index2: addIndex2
+        })
+      }
+    },
+
+    handleRedoButton: function () {
+      var vm = this;
+      if (vm.currentScreen === 'game' && vm.redoStack.length!=0) {
+        var slotTobeAdded = vm.redoStack.pop();
+        var indexes = vm.next.pop();
+        var skipIndex1 = indexes.index1;
+        var skipIndex2 = indexes.index2;
+
+        vm.addSlot(slotTobeAdded, skipIndex1, skipIndex2);
 
       }
     },

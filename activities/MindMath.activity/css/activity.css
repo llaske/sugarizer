@@ -62,6 +62,10 @@ p {
   background-image: url(../icons/edit-undo.svg);
 }
 
+#main-toolbar #redo-button {
+  background-image: url(../icons/redo.svg);
+}
+
 #main-toolbar #timer-button {
   background-image: url(../icons/timer-0.svg);
 }
@@ -1048,25 +1052,25 @@ p {
   display: none;
 }
 
-@media only screen and (min-width: 462px) {
+@media only screen and (min-width: 518px) {
   #timer-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 517px) {
+@media only screen and (min-width: 575px) {
   #level-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 575px) {
+@media only screen and (min-width: 631px) {
   #compulsory-op-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 632px) {
+@media only screen and (min-width: 688px) {
   #hint-button {
     display: inline-block;
   }
