@@ -36,7 +36,7 @@
 				palette-title=" Timer"
 				palette-event="timer-selected"
 				v-on:timer-selected="onTimerSelected"
-				></sugar-toolitem>
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="level-button"
 				title="Select Difficulty Level"
@@ -45,7 +45,7 @@
 				palette-title="difficulty level"
 				palette-event="difficulty-selected"
 				v-on:difficulty-selected="onDifficultySelected"
-				></sugar-toolitem>
+			></sugar-toolitem>
 			<sugar-toolitem
 			 	id="compulsory-op-button"
 				title="Choose compulsory operator"
@@ -57,6 +57,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="hint-button"
+				ref="hintPalette"
 				title="hint"
 				palette-file="js/palettes/hintPalette.js"
 				palette-class="HintPalette"
@@ -89,6 +90,8 @@
 				v-bind:sugar-popup="sugarPopup"
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
+				v-on:restart-game="handleRestartButton"
+
 			></component>
 	</transition>
 

@@ -534,17 +534,31 @@ p {
   opacity: 0;
 }
 
-.result-bar {
+.result-header {
 	width: 98%;
-	height: 7%;
+	height: 8%;
 	margin: 0.8%;
 	display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
+.restart-result {
+  width: 100px;
+  height: 100%;
+}
+
+.result-bar {
+	width: 90%;
+	height: 100%;
+	margin: 0%;
+	display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .result-bar-block {
-	width: 30%;
+	width: 40%;
 	height: 95%;
 	text-align: center;
 	background-color: #f0d9b5;
@@ -577,18 +591,19 @@ p {
 }
 
 #restart-block {
-  width: 250px;
-  background-color: transparent;
-	background-image: url(../icons/restart.svg);
-	background-repeat: no-repeat;
-	background-position: left;
-	background-size: auto;
+  width: 100%;
+  height: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+  border-radius: 20%;
+  font-weight: bold;
 }
 
-#restart-block:hover {
-  font-size: 25px;
-  cursor: pointer;
+.restart-block-img {
+  height: 100%;
 }
+
 
 .result-main {
 	width: 98%;
@@ -694,11 +709,11 @@ p {
 	display: flex;
   flex-direction: row;
   justify-content: center;
-	width: 80px;
-	height: 40px;
+	width: 60px;
+	height: 30px;
   border: none;
   color: black;
-	font-size: 18px;
+	font-size: 13px;
 	font-weight: bold;
 	text-align: center;
 
@@ -725,8 +740,8 @@ p {
 }
 
 .info-user-logo {
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	background-image: url(../icons/user.svg);
 	background-repeat: no-repeat;
 	background-position: center;
@@ -917,16 +932,6 @@ p {
 		font-size: 25px;
 	}
 
-	.info-block {
-		width: 80px;
-		height: 40px;
-		font-size: 14px;
-	}
-	.info-user-logo {
-		width: 40px;
-		height: 40px;
-	}
-
 }
 
 @media only screen and (max-height: 600px) {
@@ -1037,15 +1042,16 @@ p {
 		font-size: 25px;
 	}
 
-	.info-block {
-		width: 80px;
-		height: 40px;
-		font-size: 14px;
-	}
-	.info-user-logo {
-		width: 40px;
-		height: 40px;
-	}
+  	.info-block {
+  	  width: 50px;
+  	  height: 25px;
+  	  font-size: 8px;
+  	}
+
+  	.info-user-logo {
+  	  width: 25px;
+  	  height: 25px;
+  	}
 }
 
 #timer-button, #level-button, #compulsory-op-button, #hint-button {

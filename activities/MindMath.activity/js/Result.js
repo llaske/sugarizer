@@ -8,14 +8,26 @@ var Result = {
   template: `
     <div id="result-view"
     >
-      <div class="result-bar"
-      >
+      <div class="result-header">
+        <div class="restart-result">
+          <div id="restart-block"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('restart-game')"
+          >
+            <img class="restart-block-img" src="icons/restart.svg">
+            <span>Restart</span>
+          </div>
+        </div>
 
-        <div class="result-bar-block"
-        v-bind:style="{backgroundColor: fillColor}"
-        >Total Score: {{ score }}</div>
+        <div class="result-bar"
+        >
+
+          <div class="result-bar-block"
+          v-bind:style="{backgroundColor: fillColor}"
+          > Total Score: {{ score }}</div>
 
 
+        </div>
       </div>
 
       <div class="result-main"
@@ -23,7 +35,7 @@ var Result = {
       >
           <template v-for="(panel, index) in questionSet" v-bind:key="index">
             <div class="result-panel"
-            v-bind:style="{backgroundColor: '#ffffff'}"
+              v-bind:style="{backgroundColor: '#ffffff'}"
             >
               <div class="question-bar">
                 <inputNumber
@@ -146,6 +158,8 @@ var Result = {
       document.querySelector('#result-view').style.height = newHeight+"px";
       //document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
       //document.querySelector('.result-bar-restart').style.width = document.querySelector('.result-bar-restart').offsetHeight +"px";
+      document.querySelector('.restart-block-img').style.width = document.querySelector('.restart-block-img').offsetHeight +"px";
+
 
 
       if (ratio < 1) {

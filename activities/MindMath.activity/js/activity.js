@@ -59,6 +59,7 @@ var app = new Vue({
       hint: [],
       redoStack: [],
       next: [],
+      noOfHintsUsed: [],
     }
   },
   mounted: function() {
@@ -66,6 +67,10 @@ var app = new Vue({
     setTimeout(() => {
        window.dispatchEvent(new Event('resize'));
      }, 0);
+
+     document.getElementById('hint-button').addEventListener('click', function(event) {
+       vm.addHintPenalty();
+     });
   },
   watch: {
     currentScreen: function() {
@@ -84,12 +89,15 @@ var app = new Vue({
         vm.redoStack = [];
         vm.next = [];
         vm.prev = [];
+        vm.noOfHintsUsed = [];
       }
     },
     slots: function (newVal) {
       var vm = this;
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
+      //close hintPalette
+      vm.$refs.hintPalette.paletteObject.popDown();
       //generating hint
       vm.generateHint();
       vm.updatePassButton();
@@ -108,6 +116,7 @@ var app = new Vue({
       vm.redoStack = [];
       vm.next = [];
       vm.prev = [];
+      vm.noOfHintsUsed = [];
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
@@ -244,13 +253,24 @@ var app = new Vue({
       vm.inputNumbersTypes = newTypes;
     },
 
+    addHintPenalty: function () {
+      var vm = this;
+      var valid = document.getElementById('hint-text').innerHTML != "No Hint";
+      if (valid) {
+        vm.noOfHintsUsed[vm.slots[vm.qNo].length]=1;
+      }
+    },
+
     onValidate: function(data) {
       var vm = this;
       //calculate score
       var slots = vm.slots[vm.qNo];
       vm.pushTimeTaken();
       var timeTaken = vm.timeTaken[vm.timeTaken.length-1];
-      var scr = calculateScoreFromSlots(slots, timeTaken);
+      var totalHints = vm.noOfHintsUsed.reduce(function(a, b) {
+        return a + b
+      }, 0)
+      var scr = calculateScoreFromSlots(slots, timeTaken, totalHints);
       vm.score += scr;
       vm.scores.push(scr)
 
@@ -431,7 +451,13 @@ var app = new Vue({
         // start a new game
         vm.slots = [[]];
         vm.score=0;
+        vm.scores = [];
         vm.clock.time = 0;
+        vm.timeTaken = [];
+        vm.redoStack = [];
+        vm.next = [];
+        vm.prev = [];
+        vm.noOfHintsUsed = [];
         vm.generateQuestionSet();
       }
 
@@ -441,6 +467,13 @@ var app = new Vue({
       var vm = this;
       vm.slots = [[]];
       vm.score=0;
+      vm.scores = [];
+      vm.clock.time = 0;
+      vm.timeTaken = [];
+      vm.redoStack = [];
+      vm.next = [];
+      vm.prev = [];
+      vm.noOfHintsUsed = [];
 
       switch (data.index) {
         case 0:
