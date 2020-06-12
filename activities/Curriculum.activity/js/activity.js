@@ -25,6 +25,11 @@ var app = new Vue({
 		selectedSkillId: null,
 		user: {},
 		l10n: {
+			stringCategories: '',
+			stringSettings: '',
+			stringAdd: '',
+			stringAcquire: '',
+			stringUploadMedia: '',
 			stringFullscreen: '',
 			stringUnfullscreen: ''
 		}
@@ -58,27 +63,37 @@ var app = new Vue({
 	methods: {
 		initialized: function () {
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
+			this.$refs.SugarL10n.$on('localized', this.localized());
+
 			// document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
+		},
+
+		localized: function() {
+			this.$refs.SugarL10n.localize(this.l10n);
 		},
 
 		openCategory: function (categoryId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = null;
-			if (this.settings) {
-				this.currentView = 'category-settings';
-			} else {
-				this.currentView = 'skills-grid';
-			}
+			this.currentView = 'skills-grid';
 		},
 
 		openSkill: function (categoryId, skillId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = skillId;
-			if (this.settings) {
-				this.currentView = 'skill-settings';
-			} else {
-				this.currentView = 'skill-details';
-			}
+			this.currentView = 'skill-details';
+		},
+		
+		editCategory: function (categoryId) {
+			this.selectedCategoryId = categoryId;
+			this.selectedSkillId = null;
+			this.currentView = 'category-settings';
+		},
+
+		editSkill: function (categoryId, skillId) {
+			this.selectedCategoryId = categoryId;
+			this.selectedSkillId = skillId;
+			this.currentView = 'skill-settings';
 		},
 
 		switchSkillAcquired: function (value) {
@@ -188,39 +203,29 @@ var app = new Vue({
 
 		onAddClick: function () {
 			if (this.currentView == 'categories-grid') {
-				this.openCategory(null);
+				this.editCategory(null);
 			} else if (this.currentView == 'skills-grid') {
-				this.openSkill(this.selectedCategoryId, null);
+				this.editSkill(this.selectedCategoryId, null);
 			}
 		},
 
 		importSkills: function () {
 			var vm = this;
-			requirejs(["text!activity/imported/sections.json"], function (sections) {
-				var sectionsObj = JSON.parse(sections);
+			requirejs(["text!activity/imported/categories.json"], function (categories) {
+				var categoriesObj = JSON.parse(categories);
 				var importedCategories = [];
 
 				var categoryId = vm.categories.length;
-				sectionsObj.forEach(function (section) {
-					if (section.isDomaine) return;
+				categoriesObj.forEach(function (category) {
+					category.id = categoryId;
 
-					var category = {
-						id: categoryId,
-						title: section.titre,
-						color: '#' + section.color,
-						skills: []
-					}
 					// Updating the user object
 					vm.$set(vm.user.skills, categoryId, new Object());
 
 					var skillId = 0;
-					section.items.forEach(function (item) {
-						var skill = {
-							id: skillId,
-							title: item.titre,
-							image: 'js/imported/' + item.uuid + '.jpg'
-						}
-						category.skills.push(skill);
+					category.skills.forEach(function (skill, i) {
+						skill.id = skillId,
+						skill.image = 'js/imported/' + skill.image;
 
 						// Updating the user object
 						vm.$set(vm.user.skills[categoryId], skillId, {

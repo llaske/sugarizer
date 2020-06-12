@@ -7,11 +7,11 @@ var CategorySettings = {
 			></category-card>
 			<form @submit.prevent="onConfirm">
 				<div>
-					<label for="title">Title</label>
+					<label for="title">{{ l10n.stringTitle }}</label>
 					<input type="text" name="title" v-model="category.title" required>
 				</div>
 				<div>
-					<label for="color">Color</label>
+					<label for="color">{{ l10n.stringColor }}</label>
 					<div class="colors">
 						<div 
 							class="color"
@@ -26,11 +26,11 @@ var CategorySettings = {
 				<div class="buttons-row">
 					<button type="submit" :disabled="category.title == ''">
 						<img src="icons/dialog-ok.svg">
-						<span>Confirm</span>
+						<span>{{ l10n.stringConfirm }}</span>
 					</button>
 					<button type="button" @click="$emit('go-back-to', 'categories-grid')">
 						<img src="icons/dialog-cancel.svg">
-						<span>Cancel</span>
+						<span>{{ l10n.stringCancel }}</span>
 					</button>
 				</div>
 			</form>
@@ -60,12 +60,17 @@ var CategorySettings = {
 				'#fc4fff',
 				'#ff4f8d'
 			],
+			l10n: {
+				stringTitle: '',
+				stringColor: '',
+				stringConfirm: '',
+				stringCancel: ''
+			}
 		}
 	},
 	created: function() {
 		var vm = this;
 		if(this.categoryId != null) {			// Edit category
-			console.log('catId', this.categoryId)
 			this.category = JSON.parse(JSON.stringify(this.categories.find(function (cat) {
 				return cat.id == vm.categoryId;
 			})))
@@ -75,6 +80,9 @@ var CategorySettings = {
 		} else {													// Add category
 			this.category.color = this.colors[Math.floor(Math.random()*this.colors.length)];
 		}
+	},
+	mounted: function() {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
 	},
 	methods: {
 		onConfirm: function() {
@@ -110,24 +118,24 @@ var SkillSettings = {
 			></skill-card>
 			<form @submit.prevent="onConfirm">
 				<div>
-					<label for="title">Title</label>
+					<label for="title">{{ l10n.stringTitle }}</label>
 					<input type="text" name="title" v-model="skill.title" required>
 				</div>
 				<div>
 					<div class="image-label">
-						<label for="image">Image</label>
+						<label for="image">{{ l10n.stringImage }}</label>
 						<button type="button" id="image-edit-button" @click="onUploadClick"></button>
 					</div>
 					<img :src="skill.image">
 				</div>
 				<div class="buttons-row">
-					<button type="submit" :disabled="skill.title == '' || skill.image == null">
+					<button type="submit" :disabled="skill.title == ''">
 						<img src="icons/dialog-ok.svg">
-						<span>Confirm</span>
+						<span>{{ l10n.stringConfirm }}</span>
 					</button>
 					<button type="button" @click="$emit('go-back-to', 'skills-grid')">
 						<img src="icons/dialog-cancel.svg">
-						<span>Cancel</span>
+						<span>{{ l10n.stringCancel }}</span>
 					</button>
 				</div>
 			</form>
@@ -142,7 +150,13 @@ var SkillSettings = {
 			category: {},
 			skill: {
 				title: '',
-				image: null
+				image: 'images/default.jpg'
+			},
+			l10n: {
+				stringTitle: '',
+				stringImage: '',
+				stringConfirm: '',
+				stringCancel: ''
 			}
 		}
 	},
@@ -156,6 +170,9 @@ var SkillSettings = {
 				return skill.id == vm.skillId;
 			})));
 		}
+	},
+	mounted: function() {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
 	},
 	methods: {
 		onUploadClick: function() {

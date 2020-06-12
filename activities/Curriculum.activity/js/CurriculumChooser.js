@@ -1,20 +1,7 @@
-define(['sugar-web/env', 'mustache'], function(env, mustache) {
-	// Load user settings
-	var userSettings = {};
-	env.getEnvironment(function(err, environment) {
-		userSettings = environment.user;
-	});
-
+define(['mustache'], function(mustache) {
 	// Localize the strings
 	var l10n = {
-		holderSearchCurriculum: {en: 'Search in Curriculum', fr: 'Recherche dans Curriculum', es: 'Buscar en Curriculum', pt: 'Pesquisar no Curriculum'},
-	};
-	function doLocalize(str, params) {
-		var lang = (["en", "fr", "es", "pt"].indexOf(userSettings.language) != -1) ? userSettings.language : "en";
-		if(l10n[str.substr(1)]) {
-			return l10n[str.substr(1)][lang];
-		}
-		return str;
+		stringHolderSearchCurriculum: ''
 	}
 
 	// Chooser feature to search in Curriculum database
@@ -55,23 +42,22 @@ define(['sugar-web/env', 'mustache'], function(env, mustache) {
 
 	// Load Curriculum database
 	featureCurriculum.curriculumInit = function(callback) {
+		// Uses SugarL10n Vue component
+		app.$refs.SugarL10n.localize(l10n);
+
 		featureCurriculum.database = {};
 		document.getElementById('journal-empty').style.visibility = 'visible';
-		featureCurriculum.placeholder = doLocalize("$holderSearchCurriculum");	
+		featureCurriculum.placeholder = l10n.stringHolderSearchCurriculum;	
 		featureCurriculum.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/")) + "/activities/Curriculum.activity/";
-		// featureCurriculum.lang = (["en", "es", "fr"].indexOf(userSettings.language) != -1) ? userSettings.language : "en";
-		// featureCurriculum.filelocation = featureCurriculum.filelocation.replace("{{lang}}", featureCurriculum.lang);
 
-		requirejs(["text!activity/imported/sections.json"], function (sections) {
-			var sections = JSON.parse(sections);
+		requirejs(["text!activity/imported/categories.json"], function (categories) {
+			var categories = JSON.parse(categories);
 			var entries = [];
-			for (var i = 0; i < sections.length; i++) {
-				if (sections[i].isDomaine) continue;
-
-				for (var j = 0; j < sections[i].items.length; j++) {
+			for (var i = 0; i < categories.length; i++) {
+				for (var j = 0; j < categories[i].skills.length; j++) {
 					entries.push({ 
-						"code": sections[i].items[j].uuid, 
-						"text": sections[i].items[j].titre,
+						"code": categories[i].skills[j].image, 
+						"text": categories[i].skills[j].title,
 					});
 				}
 			}
@@ -146,14 +132,14 @@ define(['sugar-web/env', 'mustache'], function(env, mustache) {
 
 				var result = { 
 					metadata: metadata, 
-					path: featureCurriculum.filelocation + featureCurriculum.database.content[id].code + featureCurriculum.fileformat
+					path: featureCurriculum.filelocation + featureCurriculum.database.content[id].code
 				}
 				requirejs(['sugar-web/graphics/journalchooser'], function(journalchooser) {
 					journalchooser.close(result);
 				});
 			});
 			if (featureCurriculum.mimetype == "image/png") {
-				document.getElementById('eicon_' + content[i].id).style.backgroundImage = "url(" + featureCurriculum.baseURL + featureCurriculum.filelocation + content[i].code + featureCurriculum.fileformat + ")";
+				document.getElementById('eicon_' + content[i].id).style.backgroundImage = "url(" + featureCurriculum.baseURL + featureCurriculum.filelocation + content[i].code + ")";
 			}
 		}
 	}

@@ -25,10 +25,21 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'"></sugar-toolitem>
-			<sugar-toolitem id="settings-button" v-show="(currentView == 'categories-grid' || currentView == 'skills-grid')" :class="{ active: settings }" @click="settings = !settings"></sugar-toolitem>
-			<sugar-toolitem id="add-button" v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" @click="onAddClick"></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<sugar-toolitem 
+				id="settings-button" 
+				v-show="(currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				:class="{ active: settings }" 
+				@click="settings = !settings"
+				v-bind:title="l10n.stringSettings"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="add-button" 
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				@click="onAddClick"
+				v-bind:title="l10n.stringAdd"
+			></sugar-toolitem>
+			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired" v-bind:title="l10n.stringAcquire"></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-show="currentView == 'skill-details'"
@@ -37,6 +48,7 @@
 				palette-title="Upload Media"
 				palette-event="upload-item"
 				@upload-item="onUploadItem"
+				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
@@ -58,6 +70,8 @@
 						:user="user"
 						@open-category="openCategory"
 						@open-skill="openSkill"
+						@edit-category="editCategory"
+						@edit-skill="editSkill"
 						@delete-item="onDeleteItem"
 						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
