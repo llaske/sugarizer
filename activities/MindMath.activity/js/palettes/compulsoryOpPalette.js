@@ -10,6 +10,8 @@ define(["sugar-web/graphics/palette",
 
     palette.Palette.call(this, invokingButton);
 
+    this.getPalette().id = "compulsory-op-palette";
+
     var activityTitle;
     var descriptionLabel;
     var descriptionBox;

@@ -10,6 +10,8 @@ define(["sugar-web/graphics/palette",
 
     palette.Palette.call(this, invokingButton);
 
+    this.getPalette().id = "hint-palette";
+
     var containerElem = document.createElement('div');
     containerElem.innerHTML = template;
     this.setContent([containerElem]);

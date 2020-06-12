@@ -27,7 +27,16 @@
 			<sugar-toolitem id="restart-button" title="restart Game" v-on:click="handleRestartButton"></sugar-toolitem>
 			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
-			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
+			<sugar-toolitem id="redo-button" title="redo" v-on:click="handleRedoButton"></sugar-toolitem>
+			<sugar-toolitem
+				id="timer-button"
+				title="timer"
+				palette-file="js/palettes/timerPalette.js"
+				palette-class="TimerPalette"
+				palette-title=" Timer"
+				palette-event="timer-selected"
+				v-on:timer-selected="onTimerSelected"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="level-button"
 				title="Select Difficulty Level"
@@ -36,7 +45,7 @@
 				palette-title="difficulty level"
 				palette-event="difficulty-selected"
 				v-on:difficulty-selected="onDifficultySelected"
-				></sugar-toolitem>
+			></sugar-toolitem>
 			<sugar-toolitem
 			 	id="compulsory-op-button"
 				title="Choose compulsory operator"
@@ -48,6 +57,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="hint-button"
+				ref="hintPalette"
 				title="hint"
 				palette-file="js/palettes/hintPalette.js"
 				palette-class="HintPalette"
@@ -73,11 +83,15 @@
 				v-bind:compulsory-ops="compulsoryOps"
 				v-bind:compulsory-ops-rem="compulsoryOpsRem"
 				v-bind:slots="slots"
+				v-bind:scores="scores"
+				v-bind:time-taken="timeTaken"
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"
 				v-bind:sugar-popup="sugarPopup"
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
+				v-on:restart-game="handleRestartButton"
+
 			></component>
 	</transition>
 
@@ -91,6 +105,7 @@
 	<script src="js/utils/hintsGenerator.js"></script>
 	<script src="js/utils/questionsGenerator.js"></script>
 	<script src="js/Clock.js"></script>
+	<script src="js/inputNumber.js"></script>
 	<script src="js/Slots.js"></script>
 	<script src="js/Result.js"></script>
 	<script src="js/Game.js"></script>

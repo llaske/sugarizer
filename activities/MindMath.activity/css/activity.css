@@ -62,6 +62,10 @@ p {
   background-image: url(../icons/edit-undo.svg);
 }
 
+#main-toolbar #redo-button {
+  background-image: url(../icons/redo.svg);
+}
+
 #main-toolbar #timer-button {
   background-image: url(../icons/timer-0.svg);
 }
@@ -242,19 +246,23 @@ p {
   color: black;
   text-align: center;
   line-height: 100px;
-	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
   transition: background 0.8s;
   transition: width 0.8s, height 0.8s;
-	background-image: url(../icons/square.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
 }
 
 .diamond {
 	box-shadow: none;
 	border: none;
-  background-image: url(../icons/diamond.svg);
+  background-image: url(../icons/diamond-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.square {
+  box-shadow: none;
+  border: none;
+  background-image: url(../icons/square-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
@@ -284,7 +292,7 @@ p {
 }
 
 .slot {
-  margin: 1%;
+  margin: 2.5%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -294,7 +302,7 @@ p {
   width: 70px;
   height: 70px;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   background: transparent;
   line-height: 70px;
   border-radius: 20%;
@@ -304,7 +312,7 @@ p {
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: width 0.8s, height 0.8s;
-	background-image: url(../icons/square.svg);
+	background-image: url(../icons/square-bg.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
@@ -316,7 +324,7 @@ p {
   line-height: 40px;
   border: none;
   color: black;
-  background-image: url(../icons/diamond.svg);
+  background-image: url(../icons/diamond-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
@@ -326,18 +334,24 @@ p {
 .slot .number {
   border: none;
   color: black;
-  background-image: url(../icons/diamond.svg);
+  background-image: url(../icons/diamond-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
   box-shadow: none;
 }
 
+.slot .res {
+  border: none;
+  color: black;
+  background-image: none;
+}
+
 .slot .operator {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   font-weight: bold;
   color: black;
   border-radius: 50%;
@@ -367,7 +381,7 @@ p {
 }
 
 .slot .acheived {
-  background-image: url(../icons/target.svg), url(../icons/square.svg);
+  background-image: url(../icons/target.svg);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -520,13 +534,27 @@ p {
   opacity: 0;
 }
 
-.result-bar {
+.result-header {
 	width: 98%;
-	height: 10%;
+	height: 8%;
 	margin: 0.8%;
 	display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.restart-result {
+  width: 110px;
+  height: 100%;
+}
+
+.result-bar {
+	width: 90%;
+	height: 100%;
+	margin: 0%;
+	display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .result-bar-block {
@@ -539,8 +567,8 @@ p {
   justify-content: center;
 	font-size: 18px;
 	font-weight: bold;
-	border: 2px solid black;
 	color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .result-bar-icon {
@@ -552,18 +580,44 @@ p {
 	background-size: 90%;
 }
 
+.result-bar-restart {
+	width: 40%;
+	height: 95%;
+  background-color: transparent;
+	background-image: url(../icons/dialog-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+}
+
+#restart-block {
+  width: 100%;
+  height: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
+.restart-block-img {
+  height: 100%;
+}
+
+
 .result-main {
 	width: 98%;
-	height: 87%;
+	height: 95%;
 	overflow-y: auto;
 	overflow-x: hidden;
 	margin: 0.8%;
 	margin-top: 0%;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
 }
 
 .result-panel {
-	margin: 0.8%;
-	width: 98%;
+	margin-bottom: 0.8%;
+	width: 99%;
 	border: solid black;
 	display: flex;
 	flex-direction: column;
@@ -572,7 +626,7 @@ p {
 }
 
 .question-bar {
-	margin: 0.8%;
+	margin: 0.5%;
 	margin-bottom: 0%;
 	display: flex;
 	flex-direction: row;
@@ -580,33 +634,33 @@ p {
 }
 
 .question-bar .question-number {
-	width: 70px;
-  height: 70px;
-  font-size: 30px;
-  font-weight: bold;
+	width: 60px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: normal;
   background-color: transparent;
   border-radius: 20%;
 	/*border: 4px solid black;*/
   color: black;
   text-align: center;
-  line-height: 70px;
+  line-height: 60px;
 	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
   transition: background 0.8s;
   transition: width 0.8s, height 0.8s;
-	background-image: url(../icons/diamond.svg);
+	background-image: url(../icons/diamond-bg.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
 }
 
 .question-bar .question-target {
-	width: 70px;
-  height: 70px;
-	line-height: 70px;
-  font-size: 40px;
+	width: 60px;
+  height: 60px;
+	line-height: 60px;
+  font-size: 30px;
   border-radius: 20%;
   background-color: transparent;
-  font-weight: bold;
+  font-weight: normal;
   border: none;
   color: black;
   background-image: url(../icons/target.svg);
@@ -631,7 +685,7 @@ p {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 }
 
 .best-solution {
@@ -655,11 +709,11 @@ p {
 	display: flex;
   flex-direction: row;
   justify-content: center;
-	width: 100px;
-	height: 50px;
+	width: 60px;
+	height: 30px;
   border: none;
   color: black;
-	font-size: 18px;
+	font-size: 13px;
 	font-weight: bold;
 	text-align: center;
 
@@ -686,8 +740,8 @@ p {
 }
 
 .info-user-logo {
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 	background-image: url(../icons/user.svg);
 	background-repeat: no-repeat;
 	background-position: center;
@@ -696,19 +750,21 @@ p {
 
 .solution-main {
 	width: 100%;
+  flex: 1;
 }
 
 .solution-main .pass-icon-block {
 	width: 100%;
 	height: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 }
 
 .solution-main .pass-icon-block div {
 	width: 200px;
-	height: 200px;;
+	height: 200px;
+  margin: 0 auto;
 	background-image: url(../icons/pass-icon.svg);
 	background-repeat: no-repeat;
 	background-position: center;
@@ -876,16 +932,6 @@ p {
 		font-size: 25px;
 	}
 
-	.info-block {
-		width: 80px;
-		height: 40px;
-		font-size: 14px;
-	}
-	.info-user-logo {
-		width: 40px;
-		height: 40px;
-	}
-
 }
 
 @media only screen and (max-height: 600px) {
@@ -996,40 +1042,41 @@ p {
 		font-size: 25px;
 	}
 
-	.info-block {
-		width: 80px;
-		height: 40px;
-		font-size: 14px;
-	}
-	.info-user-logo {
-		width: 40px;
-		height: 40px;
-	}
+  	.info-block {
+  	  width: 50px;
+  	  height: 25px;
+  	  font-size: 8px;
+  	}
+
+  	.info-user-logo {
+  	  width: 25px;
+  	  height: 25px;
+  	}
 }
 
 #timer-button, #level-button, #compulsory-op-button, #hint-button {
   display: none;
 }
 
-@media only screen and (min-width: 462px) {
+@media only screen and (min-width: 518px) {
   #timer-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 517px) {
+@media only screen and (min-width: 575px) {
   #level-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 575px) {
+@media only screen and (min-width: 631px) {
   #compulsory-op-button {
     display: inline-block;
   }
 }
 
-@media only screen and (min-width: 632px) {
+@media only screen and (min-width: 688px) {
   #hint-button {
     display: inline-block;
   }
@@ -1136,6 +1183,10 @@ p {
 }
 
 .palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-item-selected {
   background-color: #808080;
 }
 

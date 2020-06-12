@@ -149,7 +149,7 @@ function rpnToSlots(pattern) {
    return slots
  }
 
- function calculateScoreFromSlots(slots, timeTaken) {
+ function calculateScoreFromSlots(slots, timeTaken, noOfHintsUsed) {
    var scr = 0;
    map = {}
    var flag = 0;
@@ -181,6 +181,16 @@ function rpnToSlots(pattern) {
    var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
    console.log('timeScore is: ' + timeScore);
    var totScore = 2 * scr + timeScore;
+
+   if (noOfHintsUsed === 1) {
+     totScore = Math.floor(totScore * 3 / 4);
+   } else if (noOfHintsUsed === 2) {
+     totScore = Math.floor(totScore * 2 / 4);
+   } else if (noOfHintsUsed === 3) {
+     totScore = Math.floor(totScore * 1 / 4);
+   } else if (noOfHintsUsed >= 4) {
+     totScore = 0 ;
+   }
 
    return totScore;
  }

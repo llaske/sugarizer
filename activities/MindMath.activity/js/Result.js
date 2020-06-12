@@ -2,39 +2,58 @@ var Result = {
   components: {
     "slots-component": Slots,
     "clock": Clock,
+    "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots'],
+  props: ['strokeColor', 'fillColor','questions','qNo','time','score','slots','scores','timeTaken'],
   template: `
     <div id="result-view"
     >
-      <div class="result-bar"
-      >
-        <div class="result-bar-block"
-        v-bind:style="{backgroundColor: fillColor}"
-        >
-          <clock
-          v-bind:time="time"
-          text="Total Time: "
-          ></clock>
+      <div class="result-header">
+        <div class="restart-result">
+          <div id="restart-block"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('restart-game')"
+          >
+            <img class="restart-block-img" src="icons/restart.svg">
+            <span>Restart</span>
+          </div>
         </div>
-        <div class="result-bar-icon"></div>
-        <div class="result-bar-block"
-        v-bind:style="{backgroundColor: fillColor}"
-        >Total Score: {{ score }}</div>
 
+        <div class="result-bar"
+        >
+          <div class="result-bar-block"
+            v-bind:style="{backgroundColor: fillColor}"
+          >
+            <clock
+            v-bind:time="totalTime"
+            text="Total Time: "
+            ></clock>
+          </div>
+
+          <div class="result-bar-block"
+            v-bind:style="{backgroundColor: fillColor}"
+          > Total Score: {{ score }}</div>
+
+
+        </div>
       </div>
 
       <div class="result-main"
-      v-bind:style="{backgroundColor: fillColor}"
+      v-bind:style="{backgroundColor: strokeColor}"
       >
           <template v-for="(panel, index) in questionSet" v-bind:key="index">
-            <div class="result-panel">
+            <div class="result-panel"
+              v-bind:style="{backgroundColor: '#ffffff'}"
+            >
               <div class="question-bar">
-
-                <div class="question-number"
-                v-for="(number,index) in panel.inputNumbers"
-                v-bind:key="index"
-                >{{ number }}</div>
+                <inputNumber
+                  class="question-number"
+                  v-for="(number,index) in panel.inputNumbers"
+                  v-bind:key="index"
+                  v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+                  v-bind:number="number"
+                  type="0"
+                ></inputNumber>
 
                 <div class="question-target"
                 >{{ panel.targetNum }}</div>
@@ -49,7 +68,7 @@ var Result = {
                       <div class="info-block-logo clock-logo"></div>
                       <div class="info-block-content">
                         <clock
-                        v-bind:time="time"
+                        v-bind:time="timeTaken[index]"
                         ></clock>
                       </div>
                     </div>
@@ -60,7 +79,7 @@ var Result = {
                     >
                       <div class="info-block-logo score-logo"></div>
                       <div class="info-block-content">
-                        <div>{{ score }}</div>
+                        <div>{{ scores[index] }}</div>
                       </div>
                     </div>
 
@@ -116,6 +135,7 @@ var Result = {
       questionSet: [],
       bestSlots:[],
       mySlots: [],
+      totalTime: 0,
     };
   },
   created: function () {
@@ -129,6 +149,9 @@ var Result = {
   },
   mounted: function () {
     var vm = this;
+    vm.totalTime = vm.timeTaken.reduce(function(a, b) {
+      return a + b
+    }, 0)
     vm.resize();
   },
   methods: {
@@ -141,25 +164,32 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight+"px";
-      document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
+      document.querySelector('.restart-block-img').style.width = document.querySelector('.restart-block-img').offsetHeight +"px";
+
+
 
       if (ratio < 1) {
         // stack up panels
         if (document.querySelector('.result-panel-main')) {
-          document.querySelector('.result-panel-main').style.flexDirection = 'column';
-          document.querySelector('.my-solution').style.width = '98%';
-          document.querySelector('.best-solution').style.width = '98%';
+          var resultPanelMain = document.querySelectorAll('.result-panel-main');
+          for (var i = 0; i < resultPanelMain.length; i++) {
+            resultPanelMain[i].style.flexDirection = 'column';
+            resultPanelMain[i].children[0].style.width = '98%';
+            resultPanelMain[i].children[1].style.width = '98%';
+          }
         }
 
       }
       else {
         //change width, height of panels
         if (document.querySelector('.result-panel-main')) {
-          document.querySelector('.result-panel-main').style.flexDirection = 'row';
-          document.querySelector('.my-solution').style.width = '48%';
-          document.querySelector('.best-solution').style.width = '48%';
+          var resultPanelMain = document.querySelectorAll('.result-panel-main');
+          for (var i = 0; i < resultPanelMain.length; i++) {
+            resultPanelMain[i].style.flexDirection = 'row';
+            resultPanelMain[i].children[0].style.width = '48%';
+            resultPanelMain[i].children[1].style.width = '48%';
+          }
         }
-
       }
 
     },
@@ -201,7 +231,7 @@ var Result = {
           slotsArr.push(slotObj)
         }
         vm.bestSlots.push(slotsArr);
-        vm.mySlots.push(vm.slots[vm.qNo]);
+        vm.mySlots.push(vm.slots[qno]);
       }
     }
   }
