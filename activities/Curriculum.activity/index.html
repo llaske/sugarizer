@@ -25,7 +25,7 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="currentView = 'categories-grid'" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
 				v-show="(currentView == 'categories-grid' || currentView == 'skills-grid')" 
@@ -68,6 +68,7 @@
 						:skill-id="selectedSkillId"
 						:current-acquired="currentAcquired"
 						:user="user"
+						:l10n="l10n"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -82,7 +83,7 @@
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
-		<sugar-localization ref="SugarL10n"></sugar-localization>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
 	<script src="js/data.js"></script>
@@ -95,6 +96,7 @@
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
+	<!-- <script src="js/imported/sections-to-categories.js"></script> -->
 </body>
 
 </html>

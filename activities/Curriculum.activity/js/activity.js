@@ -23,7 +23,9 @@ var app = new Vue({
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
-		user: {},
+		user: {
+			skills: []
+		},
 		l10n: {
 			stringCategories: '',
 			stringSettings: '',
@@ -44,6 +46,17 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
+		},
+		l10n: function(newVal, oldVal) {
+			console.log(newVal);
+			this.$refs.SugarL10n.localize(this.l10n);
+			// var vm = this;
+			// this.categories.forEach(function(cat) {
+			// 	cat.title = vm.l10n['string' + cat.title];
+			// 	cat.skills.forEach(function(skill) {
+			// 		skill.title = vm.l10n['string' + skill.title]
+			// 	})
+			// })
 		}
 	},
 	computed: {
@@ -54,17 +67,9 @@ var app = new Vue({
 			return false;
 		}
 	},
-	created: function () {
-		this.categories = categoriesData;
-		this.user = userData;
-
-		// this.importSkills();
-	},
 	methods: {
 		initialized: function () {
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-			this.$refs.SugarL10n.$on('localized', this.localized());
-
 			// document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 		},
 
@@ -212,33 +217,28 @@ var app = new Vue({
 		importSkills: function () {
 			var vm = this;
 			requirejs(["text!activity/imported/categories.json"], function (categories) {
-				var categoriesObj = JSON.parse(categories);
+				var categoriesParsed = JSON.parse(categories);
 				var importedCategories = [];
 
-				var categoryId = vm.categories.length;
-				categoriesObj.forEach(function (category) {
-					category.id = categoryId;
+				categoriesParsed.forEach(function (category) {
+					vm.$set(vm.l10n, 'string' + category.title, '');
+					// Updating user
+					vm.$set(vm.user.skills, category.id, new Object());
 
-					// Updating the user object
-					vm.$set(vm.user.skills, categoryId, new Object());
-
-					var skillId = 0;
 					category.skills.forEach(function (skill, i) {
-						skill.id = skillId,
 						skill.image = 'js/imported/' + skill.image;
+						vm.$set(vm.l10n, 'string' + skill.title, '');
 
-						// Updating the user object
-						vm.$set(vm.user.skills[categoryId], skillId, {
+						// Updating user
+						vm.$set(vm.user.skills[category.id], skill.id, {
 							acquired: false,
 							media: {}
 						});
-						skillId++;
 					});
 
 					importedCategories.push(category);
-					categoryId++;
 				});
-				// Updating the categories object
+				// Updating categories
 				vm.categories = vm.categories.concat(importedCategories);
 			});
 		},
@@ -255,6 +255,13 @@ var app = new Vue({
 
 		onJournalDataLoaded: function (data, metadata) {
 			this.user = data.user;
+			var vm = this;
+			data.categories.forEach(function(cat) {
+				vm.$set(vm.l10n, 'string' + cat.title, '');
+				cat.skills.forEach(function(skill) {
+					vm.$set(vm.l10n, 'string' + skill.title, '');
+				});
+			});
 			this.categories = data.categories;
 		},
 

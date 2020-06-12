@@ -1,86 +1,54 @@
-requirejs(["text!activity/imported/sections.bak.json"], sections => {
+requirejs(["text!activity/imported/sections.json"], sections => {
 	sections = JSON.parse(sections);
-	var newJson = [];
+	var categories = [];
+	var locale = "[*]\n";
 	var el = document.createElement('p');
 
 	for (var cat of sections) {
 		if (cat.isDomaine) continue;
 
 		var newCat = {};
-		el.innerHTML = cat.titre;
-		newCat.title = el.innerHTML;
+		newCat.id = categories.length;
 		newCat.color = '#' + cat.color;
+		newCat.title = `DefaultSkillSetCategory${newCat.id}`;
+		
+		//locale
+		el.innerHTML = cat.titre;
+		locale += `DefaultSkillSetCategory${newCat.id}=${el.innerHTML}\n`;
 
 		newCat.skills = [];
 		for (var skill of cat.items) {
 			var newSkill = {};
-			el.innerHTML = skill.titre;
-			newSkill.title = el.innerHTML;
+			newSkill.id = newCat.skills.length;
 			newSkill.image = skill.uuid + '.jpg';
+			newSkill.title = `DefaultSkillSetCategory${newCat.id}Skill${newSkill.id}`;
+			
+			//locale
+			el.innerHTML = skill.titre;
+			locale += `DefaultSkillSetCategory${newCat.id}Skill${newSkill.id}=${el.innerHTML}\n`;
 			newCat.skills.push(newSkill);
 		}
 
-		newJson.push(newCat);
+		categories.push(newCat);
 	}
 
-	// To copy result
-	/*
-	var textArea = document.createElement("textarea");
-  textArea.value = JSON.stringify(newJson);
-  
-  // Avoid scrolling to bottom
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
-
-  document.body.appendChild(textArea);
-  textArea.focus();
-	textArea.select();
-	*/
-
-	/*
-	var importSkills = function () {
-		var vm = this;
-		requirejs(["text!activity/imported/sections.json"], function (sections) {
-			var sectionsObj = JSON.parse(sections);
-			var importedCategories = [];
-
-			var categoryId = vm.categories.length;
-			sectionsObj.forEach(function (section) {
-				if (section.isDomaine) return;
-
-				var category = {
-					id: categoryId,
-					title: section.titre,
-					color: '#' + section.color,
-					skills: []
-				}
-				// Updating the user object
-				vm.$set(vm.user.skills, categoryId, new Object());
-
-				var skillId = 0;
-				section.items.forEach(function (item) {
-					var skill = {
-						id: skillId,
-						title: item.titre,
-						image: 'js/imported/' + item.uuid + '.jpg'
-					}
-					category.skills.push(skill);
-
-					// Updating the user object
-					vm.$set(vm.user.skills[categoryId], skillId, {
-						acquired: false,
-						media: {}
-					});
-					skillId++;
-				});
-
-				importedCategories.push(category);
-				categoryId++;
-			});
-			// Updating the categories object
-			vm.categories = vm.categories.concat(importedCategories);
-		});
+	function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
 	}
-	*/
-})
+	download(JSON.stringify(categories), 'categories.json', 'application/json');
+	download(locale, 'locale.ini', 'application/l10n');
+});

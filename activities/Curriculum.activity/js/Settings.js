@@ -7,11 +7,11 @@ var CategorySettings = {
 			></category-card>
 			<form @submit.prevent="onConfirm">
 				<div>
-					<label for="title">{{ l10n.stringTitle }}</label>
+					<label for="title">{{ l10nCatSettings.stringTitle }}</label>
 					<input type="text" name="title" v-model="category.title" required>
 				</div>
 				<div>
-					<label for="color">{{ l10n.stringColor }}</label>
+					<label for="color">{{ l10nCatSettings.stringColor }}</label>
 					<div class="colors">
 						<div 
 							class="color"
@@ -26,11 +26,11 @@ var CategorySettings = {
 				<div class="buttons-row">
 					<button type="submit" :disabled="category.title == ''">
 						<img src="icons/dialog-ok.svg">
-						<span>{{ l10n.stringConfirm }}</span>
+						<span>{{ l10nCatSettings.stringConfirm }}</span>
 					</button>
 					<button type="button" @click="$emit('go-back-to', 'categories-grid')">
 						<img src="icons/dialog-cancel.svg">
-						<span>{{ l10n.stringCancel }}</span>
+						<span>{{ l10nCatSettings.stringCancel }}</span>
 					</button>
 				</div>
 			</form>
@@ -39,14 +39,14 @@ var CategorySettings = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'categoryId', 'user'],
+	props: ['categories', 'categoryId', 'user', 'l10n'],
 	data: function() {
 		return {
 			category: {
-				title: '',
 				color: '',
 				skills: []
 			},
+			originalTitle: '',
 			colors: [
 				'#ff4f4f',
 				'#ffb64f',
@@ -60,7 +60,7 @@ var CategorySettings = {
 				'#fc4fff',
 				'#ff4f8d'
 			],
-			l10n: {
+			l10nCatSettings: {
 				stringTitle: '',
 				stringColor: '',
 				stringConfirm: '',
@@ -73,16 +73,22 @@ var CategorySettings = {
 		if(this.categoryId != null) {			// Edit category
 			this.category = JSON.parse(JSON.stringify(this.categories.find(function (cat) {
 				return cat.id == vm.categoryId;
-			})))
+			})));
+
 			if(this.colors.indexOf(this.category.color) == -1) {
 				this.colors.push(this.category.color);
+			}
+
+			this.originalTitle = this.category.title;
+			if(this.category.title.indexOf('DefaultSkillSet') != -1) {
+				this.category.title = this.l10n['string' + this.category.title];
 			}
 		} else {													// Add category
 			this.category.color = this.colors[Math.floor(Math.random()*this.colors.length)];
 		}
 	},
 	mounted: function() {
-		this.$root.$refs.SugarL10n.localize(this.l10n);
+		this.$root.$refs.SugarL10n.localize(this.l10nCatSettings);
 	},
 	methods: {
 		onConfirm: function() {
@@ -91,6 +97,13 @@ var CategorySettings = {
 				var index = this.categories.findIndex(function (cat) {
 					return cat.id === vm.categoryId;
 				});
+
+				// Deafult title check
+				if(this.originalTitle.indexOf('DefaultSkillSet') != -1 
+						&& this.category.title == this.l10n['string' + this.originalTitle]) {
+					this.category.title = this.originalTitle;
+				}
+				
 				this.categories[index] = this.category;
 			} else {													// Add category
 				this.addCategory();
@@ -118,12 +131,12 @@ var SkillSettings = {
 			></skill-card>
 			<form @submit.prevent="onConfirm">
 				<div>
-					<label for="title">{{ l10n.stringTitle }}</label>
+					<label for="title">{{ l10nSkillSettings.stringTitle }}</label>
 					<input type="text" name="title" v-model="skill.title" required>
 				</div>
 				<div>
 					<div class="image-label">
-						<label for="image">{{ l10n.stringImage }}</label>
+						<label for="image">{{ l10nSkillSettings.stringImage }}</label>
 						<button type="button" id="image-edit-button" @click="onUploadClick"></button>
 					</div>
 					<img :src="skill.image">
@@ -131,11 +144,11 @@ var SkillSettings = {
 				<div class="buttons-row">
 					<button type="submit" :disabled="skill.title == ''">
 						<img src="icons/dialog-ok.svg">
-						<span>{{ l10n.stringConfirm }}</span>
+						<span>{{ l10nSkillSettings.stringConfirm }}</span>
 					</button>
 					<button type="button" @click="$emit('go-back-to', 'skills-grid')">
 						<img src="icons/dialog-cancel.svg">
-						<span>{{ l10n.stringCancel }}</span>
+						<span>{{ l10nSkillSettings.stringCancel }}</span>
 					</button>
 				</div>
 			</form>
@@ -144,7 +157,7 @@ var SkillSettings = {
 	components: {
 		'skill-card': SkillCard
 	},
-	props: ['categories', 'categoryId', 'skillId', 'user'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'l10n'],
 	data: function() {
 		return {
 			category: {},
@@ -152,7 +165,8 @@ var SkillSettings = {
 				title: '',
 				image: 'images/default.jpg'
 			},
-			l10n: {
+			originalTitle: '',
+			l10nSkillSettings: {
 				stringTitle: '',
 				stringImage: '',
 				stringConfirm: '',
@@ -169,10 +183,15 @@ var SkillSettings = {
 			this.skill = JSON.parse(JSON.stringify(this.category.skills.find(function (skill) {
 				return skill.id == vm.skillId;
 			})));
+
+			this.originalTitle = this.skill.title;
+			if(this.skill.title.indexOf('DefaultSkillSet') != -1) {
+				this.skill.title = this.l10n['string' + this.skill.title];
+			}
 		}
 	},
 	mounted: function() {
-		this.$root.$refs.SugarL10n.localize(this.l10n);
+		this.$root.$refs.SugarL10n.localize(this.l10nSkillSettings);
 	},
 	methods: {
 		onUploadClick: function() {
@@ -224,6 +243,12 @@ var SkillSettings = {
 				var skillIndex = this.categories[catIndex].skills.findIndex(function (skill) {
 					return skill.id === vm.skillId;
 				});
+
+				// Deafult title check
+				if(this.originalTitle.indexOf('DefaultSkillSet') != -1 
+						&& this.skill.title == this.l10n['string' + this.originalTitle]) {
+					this.skill.title = this.originalTitle;
+				}
 				this.categories[catIndex].skills[skillIndex] = this.skill;
 			} else {													// Add skill
 				this.addSkill(catIndex);
