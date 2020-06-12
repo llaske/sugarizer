@@ -174,7 +174,11 @@ var app = new Vue({
       var slots = vm.hintsGenerator.generate(vm.inputNumbers, vm.questions[vm.qNo].targetNum, vm.compulsoryOpsRem);
       vm.hint = slots.shift();
       if (vm.hint) {
-        var nextSlot = vm.hint[0].val + ' ' + vm.hint[1] + ' ' + vm.hint[2].val + ' = ' + vm.hint[3];
+        var operator = vm.hint[1];
+        if (operator === '*') {
+          operator = 'x';
+        }
+        var nextSlot = vm.hint[0].val + ' ' + operator + ' ' + vm.hint[2].val + ' = ' + vm.hint[3];
       }else {
         var nextSlot = "No Hint"
       }
@@ -452,7 +456,7 @@ var app = new Vue({
         vm.slots = [[]];
         vm.score=0;
         vm.scores = [];
-        vm.clock.time = 0;
+        vm.$set(vm.clock, 'time', vm.clock.initial);
         vm.timeTaken = [];
         vm.redoStack = [];
         vm.next = [];

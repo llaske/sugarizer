@@ -140,7 +140,7 @@ var Game = {
       } else {
         vm.currentRes = null;
       }
-
+      
       //deselecting
       vm.deselect();
     },
@@ -203,6 +203,7 @@ var Game = {
         } else {
           vm.$set(vm.currentSelectedNums, 'numIndex1', null);
         }
+        vm.currentSelectedOp = null;
         vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
         return;
       } else if (vm.currentSelectedNums.numIndex2 === index) {
@@ -214,11 +215,17 @@ var Game = {
 
       if (vm.currentSelectedNums.nums.length >= 2) {
         return;
-      } else {
-        var at = vm.currentSelectedNums.nums.length;
+      } else if (vm.currentSelectedNums.nums.length === 0) {
+        var at = 0;
         vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
         vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
-        vm.computeOperation();
+      } else {
+        var at = 1;
+        if (vm.checkOperation(vm.currentSelectedNums.nums[0], vm.inputNumbers[index], vm.operators[vm.currentSelectedOp]).valid) {
+          vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
+          vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
+          vm.computeOperation();
+        }
       }
     },
     onSelectOperator: function(index) {
@@ -227,33 +234,52 @@ var Game = {
         //deselecting
         vm.currentSelectedOp = null;
       } else {
-        vm.currentSelectedOp = index;
-        vm.computeOperation();
+        if (vm.currentSelectedNums.nums.length === 1) {
+          vm.currentSelectedOp = index;
+        }
       }
     },
+
+    checkOperation: function (num1, num2, operator) {
+      var res;
+      switch (operator) {
+        case '+':
+          res = num1 + num2;
+          break;
+        case '-':
+          res = num1 - num2;
+          break;
+        case '/':
+          res = num1 / num2;
+          break;
+        case '*':
+          res = num1 * num2;
+          break;
+      }
+      var valid = false;
+      if (!operator) {
+        valid = false;
+      } else {
+        valid = allowedCheck(res);
+      }
+      var result = {
+        res: res,
+        valid: valid
+      }
+      return result;
+    },
+
     computeOperation: function() {
       var vm = this;
       if (vm.currentSelectedOp != null && vm.currentSelectedNums.nums.length == 2) {
         var res;
         var num1 = vm.currentSelectedNums.nums[0];
         var num2 = vm.currentSelectedNums.nums[1];
-        switch (vm.operators[vm.currentSelectedOp]) {
-          case '+':
-            res = num1 + num2;
-            break;
-          case '-':
-            res = num1 - num2;
-            break;
-          case '/':
-            res = num1 / num2;
-            break;
-          case '*':
-            res = num1 * num2;
-            break;
-        }
-        if (allowedCheck(res)) {
+        var result = vm.checkOperation(num1, num2, vm.operators[vm.currentSelectedOp]);
+        var res = result.res;
+        var valid = result.valid;
+        if (valid) {
           //filling Slots
-
           var slotObj = {
             num1: {
               type: null,
@@ -288,11 +314,7 @@ var Game = {
           }
           vm.$emit('slots-update', updateObj);
 
-        } else {
-          //notify user for an invalid operation
-          vm.sugarPopup.log("Invalid option");
         }
-
         //deselecting
         vm.deselect();
       }
