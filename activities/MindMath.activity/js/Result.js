@@ -21,9 +21,17 @@ var Result = {
 
         <div class="result-bar"
         >
+          <div class="result-bar-block"
+            v-bind:style="{backgroundColor: fillColor}"
+          >
+            <clock
+            v-bind:time="totalTime"
+            text="Total Time: "
+            ></clock>
+          </div>
 
           <div class="result-bar-block"
-          v-bind:style="{backgroundColor: fillColor}"
+            v-bind:style="{backgroundColor: fillColor}"
           > Total Score: {{ score }}</div>
 
 
@@ -156,8 +164,6 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight+"px";
-      //document.querySelector('.result-bar-icon').style.width = document.querySelector('.result-bar-icon').offsetHeight +"px";
-      //document.querySelector('.result-bar-restart').style.width = document.querySelector('.result-bar-restart').offsetHeight +"px";
       document.querySelector('.restart-block-img').style.width = document.querySelector('.restart-block-img').offsetHeight +"px";
 
 

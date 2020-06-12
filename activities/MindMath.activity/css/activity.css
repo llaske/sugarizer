@@ -302,7 +302,7 @@ p {
   width: 70px;
   height: 70px;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   background: transparent;
   line-height: 70px;
   border-radius: 20%;
@@ -544,7 +544,7 @@ p {
 }
 
 .restart-result {
-  width: 100px;
+  width: 110px;
   height: 100%;
 }
 
@@ -554,7 +554,7 @@ p {
 	margin: 0%;
 	display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-around;
 }
 
 .result-bar-block {
@@ -637,7 +637,7 @@ p {
 	width: 60px;
   height: 60px;
   font-size: 25px;
-  font-weight: bold;
+  font-weight: normal;
   background-color: transparent;
   border-radius: 20%;
 	/*border: 4px solid black;*/
@@ -660,7 +660,7 @@ p {
   font-size: 30px;
   border-radius: 20%;
   background-color: transparent;
-  font-weight: bold;
+  font-weight: normal;
   border: none;
   color: black;
   background-image: url(../icons/target.svg);
