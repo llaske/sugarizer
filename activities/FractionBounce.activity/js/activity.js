@@ -116,7 +116,11 @@ let app = new Vue({
 
 		this.init();
 
-		this.$refs.SugarDevice.getLocation(function(location) {
+		this.$refs.SugarDevice.getLocation(function(location, error) {
+			if(error) {
+				console.log(`Code: ${error.code} (Geolocation is not supported by this browser)`);
+				return;
+			}
 			console.log(location);
 		});
 
@@ -689,6 +693,7 @@ let app = new Vue({
 				userFractions: this.userFractions
 			}
 			this.$refs.SugarJournal.saveData(context);
+			this.$refs.SugarDevice.vibrate(100);
 		}
 	}
 });

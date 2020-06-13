@@ -81,8 +81,35 @@ p {
 	transform: translateY(-100%);
 }
 
-@media only screen and (max-width: 980px) {
+@media only screen and (max-width: 1040px) {
 	.helpText {
+		display: none;
+	}
+}
+@media only screen and (max-width: 646px) {
+	#help-button {
+		display: none;
+	}
+	#fullscreen-button {
+		display: none;
+	}
+}
+@media only screen and (max-width: 540px) {
+	#percents-button {
+		display: none;
+	}
+	#sectors-button {
+		display: none;
+	}
+	#fractions-button {
+		display: none;
+	}
+	#main-toolbar .splitbar {
+		display: none;
+	}
+}
+@media only screen and (max-width: 340px) {
+	#bg-button {
 		display: none;
 	}
 }

@@ -42,11 +42,19 @@ Vue.component('sugar-device', {
 			this.$emit('acceleration-callback', acceleration);
 		},
 
-		getLocation(callback) {
+		getLocation: function(callback) {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(callback);
 			} else {
-				alert("Geolocation is not supported by this browser.");
+				callback(null, { code: 1 });
+			}
+		},
+
+		vibrate: function(value) {
+			navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+			if (navigator.vibrate) {
+				navigator.vibrate(value);
 			}
 		}
 	},
