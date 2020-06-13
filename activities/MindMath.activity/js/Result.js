@@ -1,3 +1,10 @@
+/*
+<div
+v-else
+class="pass-icon-block"
+><div></div>
+</div>
+*/
 var Result = {
   components: {
     "slots-component": Slots,
@@ -45,20 +52,7 @@ var Result = {
             <div class="result-panel"
               v-bind:style="{backgroundColor: '#ffffff'}"
             >
-              <div class="question-bar">
-                <inputNumber
-                  class="question-number"
-                  v-for="(number,index) in panel.inputNumbers"
-                  v-bind:key="index"
-                  v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
-                  v-bind:number="number"
-                  type="0"
-                ></inputNumber>
 
-                <div class="question-target"
-                >{{ panel.targetNum }}</div>
-
-              </div>
               <div class="result-panel-main">
                 <div class="my-solution">
                   <div class="info-bar">
@@ -92,11 +86,7 @@ var Result = {
                     v-bind:targetNum="panel.targetNum"
                     v-bind:slots="mySlots[index]"
                     ></slots-component>
-                    <div
-                    v-else
-                    class="pass-icon-block"
-                    ><div></div>
-                    </div>
+
                   </div>
                 </div>
 

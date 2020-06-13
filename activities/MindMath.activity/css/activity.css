@@ -457,7 +457,6 @@ p {
 .detail-block-logo {
 	height: 100%;
 	width: 50%;
-
 }
 
 .detail-block-content {
@@ -476,7 +475,7 @@ p {
 }
 
 .score-logo {
-  background-image: url(../icons/mark.svg);
+  background-image: url(../icons/score.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 90%;
@@ -618,6 +617,7 @@ p {
 .result-panel {
 	margin-bottom: 0.8%;
 	width: 99%;
+  height: 97%;
 	border: solid black;
 	display: flex;
 	flex-direction: column;
@@ -673,6 +673,7 @@ p {
 
 .result-panel-main {
 	width: 100%;
+  height: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -733,7 +734,7 @@ p {
 }
 
 .bestSoln-logo {
-	background-image: url(../icons/gold-medal-best.svg);
+	background-image: url(../icons/robot.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 90%;
