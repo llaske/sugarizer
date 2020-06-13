@@ -57,7 +57,7 @@ define(['mustache'], function(mustache) {
 				for (var j = 0; j < categories[i].skills.length; j++) {
 					entries.push({ 
 						"code": categories[i].skills[j].image, 
-						"text": categories[i].skills[j].title,
+						"text": app.$refs.SugarL10n.get(categories[i].skills[j].title),
 					});
 				}
 			}
