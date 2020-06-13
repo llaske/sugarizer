@@ -245,7 +245,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 
 			// Play for computer
 			if (this.game.getPlayer() != this.player && !this.game.endOfGame()) {
-				if (presence) {
+				if (presence && opponentuser != null) {
 					this.oponentPlay();
 				} else {
 					this.computerPlay();
@@ -273,8 +273,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 					console.log("init");
 					this.game = new LOLGame(msg.content);
 					this.game.reverse();
-					app.drawBoard();
 					opponentuser=msg.user;
+					app.drawBoard();
 					break;
 				case 'update':
 					console.log("update");
@@ -299,23 +299,28 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			humane.log(html + webL10n.get((msg.move == 1 ? "PlayerJoin":"PlayerLeave"),{user: msg.user.name}));
 			console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
-			if (msg.move != 1) return;
-			if (isHost) {
-				if (numberofplayers==0) {
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						action: 'init',
-						content: this.game.getLength()
-					});
-					numberofplayers++;
-					opponentuser = msg.user;
-				} else {
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						action: 'exit',
-						content: msg.user.networkId
-					});
+			if (msg.move == 1) {
+				if (isHost) {
+					if (numberofplayers==0) {
+						presence.sendMessage(presence.getSharedInfo().id, {
+							user: presence.getUserInfo(),
+							action: 'init',
+							content: this.game.getLength()
+						});
+						numberofplayers++;
+						opponentuser = msg.user;
+					} else {
+						presence.sendMessage(presence.getSharedInfo().id, {
+							user: presence.getUserInfo(),
+							action: 'exit',
+							content: msg.user.networkId
+						});
+					}
 				}
+			} else if(msg.user.networkId == opponentuser.networkId) {
+				numberofplayers--;
+				opponentuser = null;
+				this.drawBoard();
 			}
 		},
 
@@ -401,6 +406,8 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		computerPlay: function() {
 			if (this.player == this.game.getPlayer())
 				return;
+			this.$.computer.removeClass("oponent-image");
+			document.getElementById('lOLGameApp_computer').removeAttribute('style');
 			this.selectedCount = 0;
 			this.step = 0;
 			this.timer = window.setInterval(enyo.bind(this, "doComputer"), 400+50*this.getLevel());
