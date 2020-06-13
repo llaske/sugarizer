@@ -13,7 +13,7 @@ var CategoryCard = {
 					<button id="delete-button" @click.stop="onDeleteClick"></button>
 				</div>
 			</transition>
-			<h1 class="category-title">{{ categoryTitle }}</h1>
+			<h1 class="category-title">{{ category.title }}</h1>
 			<div class="category-skills">
 				<div 
 					class="skill" 
@@ -31,15 +31,8 @@ var CategoryCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user', 'settings', 'l10n'],
+	props: ['category', 'user', 'settings'],
 	computed: {
-		categoryTitle: function() {
-			if(!this.user) return '';
-			if(this.category.title.indexOf('DefaultSkillSet') == -1) {
-				return this.category.title;
-			}
-			return this.l10n['string' + this.category.title];
-		},
 		skillsToShow: function () {
 			var skills = [];
 			for (var i = 0; i < Math.min(3, this.category.skills.length); i++) {
@@ -94,7 +87,6 @@ var CategoriesGrid = {
 					:category="category"
 					:user="user"
 					:settings="settings"
-					:l10n="l10n"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
 					@edit-category-clicked="onEditCategoryClick"
@@ -106,7 +98,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings', 'l10n'],
+	props: ['categories', 'user', 'settings'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);

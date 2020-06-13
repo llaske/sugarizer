@@ -50,13 +50,13 @@ var app = new Vue({
 		l10n: function(newVal, oldVal) {
 			console.log(newVal);
 			this.$refs.SugarL10n.localize(this.l10n);
-			// var vm = this;
-			// this.categories.forEach(function(cat) {
-			// 	cat.title = vm.l10n['string' + cat.title];
-			// 	cat.skills.forEach(function(skill) {
-			// 		skill.title = vm.l10n['string' + skill.title]
-			// 	})
-			// })
+			var vm = this;
+			this.categories.forEach(function(cat) {
+				cat.title = vm.l10n['string' + cat.title];
+				cat.skills.forEach(function(skill) {
+					skill.title = vm.l10n['string' + skill.title]
+				})
+			})
 		}
 	},
 	computed: {
@@ -155,7 +155,8 @@ var app = new Vue({
 							return;
 						}
 
-						var mediaObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId].media;
+						var skillObj = vm.user.skills[vm.selectedCategoryId][vm.selectedSkillId];
+						var mediaObj = skillObj.media;
 						if (!mediaObj[event.mediaType]) {
 							vm.$set(mediaObj, event.mediaType, new Array());
 						}
@@ -186,6 +187,7 @@ var app = new Vue({
 								mediaObj[event.mediaType].push(objectToSave)
 							});
 						}
+						skillObj.acquired = true;
 
 					}, filters[0], filters[1], filters[2], filters[3]);
 				}, 0);
@@ -216,7 +218,7 @@ var app = new Vue({
 
 		importSkills: function () {
 			var vm = this;
-			requirejs(["text!activity/imported/categories.json"], function (categories) {
+			requirejs(["text!../default_template.json"], function (categories) {
 				var categoriesParsed = JSON.parse(categories);
 				var importedCategories = [];
 
@@ -226,7 +228,7 @@ var app = new Vue({
 					vm.$set(vm.user.skills, category.id, new Object());
 
 					category.skills.forEach(function (skill, i) {
-						skill.image = 'js/imported/' + skill.image;
+						skill.image = 'images/skills/' + skill.image;
 						vm.$set(vm.l10n, 'string' + skill.title, '');
 
 						// Updating user
@@ -255,13 +257,6 @@ var app = new Vue({
 
 		onJournalDataLoaded: function (data, metadata) {
 			this.user = data.user;
-			var vm = this;
-			data.categories.forEach(function(cat) {
-				vm.$set(vm.l10n, 'string' + cat.title, '');
-				cat.skills.forEach(function(skill) {
-					vm.$set(vm.l10n, 'string' + skill.title, '');
-				});
-			});
 			this.categories = data.categories;
 		},
 

@@ -18,21 +18,15 @@ var SkillCard = {
 			</transition>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
-				<h2 class="skill-title">{{ skillTitle }}</h2>
+				<h2 class="skill-title">{{ skill.title }}</h2>
 			</div>
 		</img>
 	`,
 	components: {
 		'medal': Medal
 	},
-	props: ['skill', 'category', 'user', 'settings', 'l10n'],
+	props: ['skill', 'category', 'user', 'settings'],
 	computed: {
-		skillTitle: function() {
-			if(this.skill.title.indexOf('DefaultSkillSet') == -1) {
-				return this.skill.title;
-			}
-			return this.l10n['string' + this.skill.title];
-		},
 		acquired: function () {
 			if (this.user && this.user.skills[this.category.id][this.skill.id]) {
 				return this.user.skills[this.category.id][this.skill.id].acquired;
@@ -64,7 +58,7 @@ var SkillsGrid = {
 		<div class="skills">
 			<button id="back-button" @click="goBackTo"></button>
 			<h1 class="category-title">
-				{{ categoryTitle }} 
+				{{ category.title }} 
 				<span ref="underline1" class="underline" :style="{ backgroundColor: category.color }"></span> 
 				<span ref="underline2" class="underline" :style="{ backgroundColor: category.color }"></span>
 			</h1>
@@ -78,7 +72,6 @@ var SkillsGrid = {
 						:category="category"
 						:user="user"
 						:settings="settings"
-						:l10n="l10n"
 						@skill-clicked="onSkillClick"
 						@edit-skill-clicked="onEditSkillClick"
 						@delete-clicked="deleteSkill"
@@ -91,21 +84,14 @@ var SkillsGrid = {
 	components: {
 		'skill-card': SkillCard,
 	},
-	props: ['categories', 'categoryId', 'user', 'settings', 'l10n'],
+	props: ['categories', 'categoryId', 'user', 'settings'],
 	computed: {
 		category: function () {
 			var vm = this;
 			return this.categories.find(function (cat) {
 				return cat.id == vm.categoryId;
 			});
-		},
-
-		categoryTitle: function() {
-			if(this.category.title.indexOf('DefaultSkillSet') == -1) {
-				return this.category.title;
-			}
-			return this.l10n['string' + this.category.title];
-		},
+		}
 	},
 	methods: {
 		onSkillClick: function (skillId) {
@@ -140,7 +126,7 @@ var SkillDetails = {
 		<div class="skill-details">
 			<button id="back-button" @click="goBackTo"></button>
 			<div class="skill-title">
-				<h1>{{ skillTitle }}</h1>
+				<h1>{{ skill.title }}</h1>
 				<span ref="underline3" class="underline"></span>	
 				<medal :acquired="currentAcquired" />
 			</div>
@@ -171,7 +157,7 @@ var SkillDetails = {
 		'upload-item': UploadItem,
 		'medal': Medal
 	},
-	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired', 'l10n'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired'],
 	computed: {
 		category: function () {
 			var vm = this;
@@ -184,13 +170,6 @@ var SkillDetails = {
 			return this.category.skills.find(function (skill) {
 				return skill.id == vm.skillId;
 			});
-		},
-		skillTitle: function() {
-			if(!this.user) return '';
-			if(this.skill.title.indexOf('DefaultSkillSet') == -1) {
-				return this.skill.title;
-			}
-			return this.l10n['string' + this.skill.title];
 		},
 		uploads: function () {
 			var uploads = [];

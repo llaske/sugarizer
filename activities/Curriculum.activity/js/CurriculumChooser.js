@@ -34,7 +34,7 @@ define(['mustache'], function(mustache) {
 
 
 	featureCurriculum.fileformat = ".jpg";
-	featureCurriculum.filelocation = "js/imported/";
+	featureCurriculum.filelocation = "images/skills/";
 	featureCurriculum.mimetype = "image/png";
 
 
@@ -50,7 +50,7 @@ define(['mustache'], function(mustache) {
 		featureCurriculum.placeholder = l10n.stringHolderSearchCurriculum;	
 		featureCurriculum.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/")) + "/activities/Curriculum.activity/";
 
-		requirejs(["text!activity/imported/categories.json"], function (categories) {
+		requirejs(["text!../default_template.json"], function (categories) {
 			var categories = JSON.parse(categories);
 			var entries = [];
 			for (var i = 0; i < categories.length; i++) {
