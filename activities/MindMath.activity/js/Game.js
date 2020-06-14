@@ -52,7 +52,7 @@ var Game = {
                 'square': inputNumbersTypes[index] != 0
               }"
               v-bind:type="inputNumbersTypes[index]"
-              v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+              v-bind:fillColor="fillColor"
               v-bind:number="number"
               v-bind:isSelected="index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2"
               v-bind:key="index"
@@ -77,12 +77,7 @@ var Game = {
           </div>
 
           <div class="footer-bar">
-            <transition name="fade"  mode="out-in">
-              <div id="validate-button"
-              v-on:click="validate"
-              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
-              ></div>
-            </transition>
+
           </div>
 
         </div>
@@ -90,15 +85,38 @@ var Game = {
       </div>
 
       <div class="slots-area-panel"
-      v-bind:style="{backgroundColor: '#ffffff'}"
+        v-bind:style="{backgroundColor: '#ffffff'}"
       >
-        <slots-component ref="slots"
-        v-bind:strokeColor="strokeColor"
-        v-bind:fillColor="fillColor"
-        v-bind:targetNum="questions[qNo].targetNum"
-        v-bind:slots="slots[qNo]"
-        emptyLinesAllowed=true
-        ></slots-component>
+        <div class="slots-area-main">
+          <slots-component ref="slots"
+            v-bind:strokeColor="strokeColor"
+            v-bind:fillColor="fillColor"
+            v-bind:targetNum="questions[qNo].targetNum"
+            v-bind:slots="slots[qNo]"
+            emptyLinesAllowed=true
+          ></slots-component>
+        </div>
+        <div class="slots-area-footer">
+          <button id="btn-restart"
+            class="slots-area-footer-button"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('restart-game')"
+          ></button>
+        <transition name="fade"  mode="out-in">
+          <button id="btn-validate"
+            class="slots-area-footer-button"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="validate"
+            v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
+          ></button>
+          <button id="btn-pass"
+            class="slots-area-footer-button"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('pass-question')"
+            v-else
+          ></button>
+        </transition>
+        </div>
       </div>
 
     </div>
@@ -140,7 +158,7 @@ var Game = {
       } else {
         vm.currentRes = null;
       }
-      
+
       //deselecting
       vm.deselect();
     },
@@ -167,9 +185,9 @@ var Game = {
         document.querySelector('#game-view').style.flexDirection = 'column';
         document.querySelector('.game-area-panel').style.width = '98.4%';
         //change width, height of panels
-        document.querySelector('.game-area-panel').style.height = '60%';
+        document.querySelector('.game-area-panel').style.height = '50%';
         document.querySelector('.slots-area-panel').style.width = '98.4%';
-        document.querySelector('.slots-area-panel').style.height = '38%';
+        document.querySelector('.slots-area-panel').style.height = '48%';
       } else {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels

@@ -1,10 +1,3 @@
-/*
-<div
-v-else
-class="pass-icon-block"
-><div></div>
-</div>
-*/
 var Result = {
   components: {
     "slots-component": Slots,
@@ -16,15 +9,6 @@ var Result = {
     <div id="result-view"
     >
       <div class="result-header">
-        <div class="restart-result">
-          <div id="restart-block"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('restart-game')"
-          >
-            <img class="restart-block-img" src="icons/restart.svg">
-            <span>Restart</span>
-          </div>
-        </div>
 
         <div class="result-bar"
         >
@@ -40,7 +24,6 @@ var Result = {
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           > Total Score: {{ score }}</div>
-
 
         </div>
       </div>
@@ -80,11 +63,11 @@ var Result = {
                   </div>
                   <div class="solution-main">
                     <slots-component
-                    v-if="mySlots[index].length!=0"
-                    v-bind:strokeColor="strokeColor"
-                    v-bind:fillColor="fillColor"
-                    v-bind:targetNum="panel.targetNum"
-                    v-bind:slots="mySlots[index]"
+                      v-if="mySlots[index].length!=0"
+                      v-bind:strokeColor="strokeColor"
+                      v-bind:fillColor="fillColor"
+                      v-bind:targetNum="panel.targetNum"
+                      v-bind:slots="mySlots[index]"
                     ></slots-component>
 
                   </div>
@@ -115,6 +98,17 @@ var Result = {
 
             </div>
           </template>
+      </div>
+
+      <div class="result-footer">
+
+          <div id="restart-block"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('restart-game')"
+          >
+            <img class="restart-block-img" src="icons/restart-black.svg">
+            <span>Restart</span>
+          </div>
 
       </div>
 

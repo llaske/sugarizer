@@ -75,7 +75,6 @@ var app = new Vue({
   watch: {
     currentScreen: function() {
       var vm = this;
-      vm.updatePassButton();
       if (vm.currentScreen === 'game') {
         //Initialize clock
         vm.$set(vm.clock, 'time', vm.clock.initial);
@@ -100,7 +99,6 @@ var app = new Vue({
       vm.$refs.hintPalette.paletteObject.popDown();
       //generating hint
       vm.generateHint();
-      vm.updatePassButton();
     },
     compulsoryOps: function () {
       var vm = this;
@@ -108,7 +106,6 @@ var app = new Vue({
       vm.updateCompulsoryOpsRem();
       //generating hint
       vm.generateHint();
-      vm.updatePassButton();
     },
     qNo: function () {
       var vm = this;

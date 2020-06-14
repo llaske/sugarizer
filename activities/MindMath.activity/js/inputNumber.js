@@ -1,5 +1,5 @@
 var InputNumber = {
-  props: ['number', 'type','colorObj','isSelected'],
+  props: ['number', 'type','fillColor','isSelected'],
   template: `
       <div ref="number"
       >{{ number }}</div>
@@ -9,10 +9,13 @@ var InputNumber = {
     vm.colorize();
   },
   watch: {
-    colorObj: function () {
+    fillColor: function (newVal, oldVal) {
       var vm = this;
   		requirejs(["sugar-web/graphics/icon"], function (icon) {
-  			icon.colorize(vm.$refs.number, vm.colorObj);
+  			icon.colorize(vm.$refs.number, {
+          stroke: vm.fillColor,
+          fill: vm.fillColor
+        });
   		})
     },
     type: function () {
@@ -36,7 +39,10 @@ var InputNumber = {
         vm.$refs.number.style.backgroundImage = "";
       }
   		requirejs(["sugar-web/graphics/icon"], function (icon) {
-  			icon.colorize(vm.$refs.number, vm.colorObj);
+  			icon.colorize(vm.$refs.number, {
+          stroke: vm.fillColor,
+          fill: vm.fillColor
+        });
   		})
     }
   }

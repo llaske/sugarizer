@@ -163,8 +163,7 @@ p {
 	width: 100%;
 	height: 90%;
 	display: flex;
-	justify-content: center;
-	/*flex-direction: row;*/
+	justify-content: flex-start;
 	flex-direction: column;
 	overflow: auto;
 }
@@ -287,27 +286,30 @@ p {
 }
 
 .list-slots {
-  vertical-align: middle;
+  width: 100%;
+  min-height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .slot {
-  margin: 2.5%;
+  margin: 0.5%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
 .slot div {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   font-size: 30px;
   font-weight: normal;
   background: transparent;
-  line-height: 70px;
+  line-height: 60px;
   border-radius: 20%;
   padding: 1%;
-  /*border: 2px solid black;*/
   color: black;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
@@ -419,7 +421,7 @@ p {
 }
 
 .slots-area-panel {
-  height: 90%;
+  height: 60%;
   width: 46%;
   overflow: auto;
   background-color: #b58863;
@@ -427,7 +429,21 @@ p {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.slots-area-main {
+  width: 100%;
+  min-height: 70%;
+  overflow-y: auto;
+}
+
+.slots-area-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .details-bar {
@@ -513,42 +529,44 @@ p {
   justify-content: space-around;
 }
 
-#validate-button {
-  width: 100px;
-  height: 100px;
+.slots-area-footer-button {
+  width: 90px;
+  height: 90px;
+  margin-right: 3%;
   border: none;
-  background-image: url(../icons/validate.svg);
-  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 90%;
   transition: opacity 0.8s;
 }
 
-#validate-button:hover {
+.slots-area-footer-button:hover {
   background-size: 100%;
 }
 
-.disabled {
-  opacity: 0;
+#btn-pass {
+  background-image: url(../icons/pass-icon.svg);
+}
+
+#btn-restart {
+  background-image: url(../icons/restart-black.svg);
+}
+
+#btn-validate {
+  background-image: url(../icons/validate.svg);
 }
 
 .result-header {
 	width: 98%;
 	height: 8%;
-	margin: 0.8%;
+	margin-top: 0.5%;
 	display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.restart-result {
-  width: 110px;
-  height: 100%;
-}
-
 .result-bar {
-	width: 90%;
+	width: 100%;
 	height: 100%;
 	margin: 0%;
 	display: flex;
@@ -589,35 +607,22 @@ p {
 	background-size: 100%;
 }
 
-#restart-block {
-  width: 100%;
-  height: 100%;
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-  border-radius: 20%;
-  font-weight: bold;
-}
-
-.restart-block-img {
-  height: 100%;
-}
-
-
 .result-main {
-	width: 98%;
-	height: 95%;
+	width: 99%;
+	height: 80%;
 	overflow-y: auto;
 	overflow-x: hidden;
-	margin: 0.8%;
-	margin-top: 0%;
+	margin: 0.5% 0;
   /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
 }
 
 .result-panel {
+  flex: auto;
+  margin: 0 0.5%;
 	margin-bottom: 0.8%;
 	width: 99%;
-  height: 97%;
+  min-width: 550px;
+  min-height: 96%;
 	border: solid black;
 	display: flex;
 	flex-direction: column;
@@ -625,64 +630,18 @@ p {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.question-bar {
-	margin: 0.5%;
-	margin-bottom: 0%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-
-.question-bar .question-number {
-	width: 60px;
-  height: 60px;
-  font-size: 25px;
-  font-weight: normal;
-  background-color: transparent;
-  border-radius: 20%;
-	/*border: 4px solid black;*/
-  color: black;
-  text-align: center;
-  line-height: 60px;
-	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
-  transition: background 0.8s;
-  transition: width 0.8s, height 0.8s;
-	background-image: url(../icons/diamond-bg.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
-}
-
-.question-bar .question-target {
-	width: 60px;
-  height: 60px;
-	line-height: 60px;
-  font-size: 30px;
-  border-radius: 20%;
-  background-color: transparent;
-  font-weight: normal;
-  border: none;
-  color: black;
-  background-image: url(../icons/target.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  transition: width 0.8s, height 0.8s;
-	text-align: center;
-}
-
 .result-panel-main {
 	width: 100%;
   height: 100%;
 	display: flex;
 	flex-direction: row;
+  flex: auto;
 	justify-content: space-around;
 }
 
 .my-solution {
 	width: 48%;
 	margin: 0.8%;
-	/*border: solid black;*/
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
@@ -692,11 +651,10 @@ p {
 .best-solution {
 	width: 48%;
 	margin: 0.8%;
-/*	border: solid black;*/
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 }
 
 .info-bar {
@@ -743,7 +701,7 @@ p {
 .info-user-logo {
 	width: 30px;
 	height: 30px;
-	background-image: url(../icons/user.svg);
+	background-image: url(../icons/buddy-icon.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 90%;
@@ -754,22 +712,31 @@ p {
   flex: 1;
 }
 
-.solution-main .pass-icon-block {
-	width: 100%;
-	height: 100%;
+
+.result-footer {
+  width: 98%;
+	height: 8%;
+	margin: 0.8%;
+  margin-top: 0%;
+  margin-bottom: 0.5%;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
-.solution-main .pass-icon-block div {
-	width: 200px;
-	height: 200px;
-  margin: 0 auto;
-	background-image: url(../icons/pass-icon.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 90%;
+
+#restart-block {
+  width: 110px;
+  height: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
+.restart-block-img {
+  height: 100%;
 }
 
 
@@ -810,7 +777,7 @@ p {
     font-size: 30px;
   }
 
-	#validate-button {
+  .slots-area-footer-button {
 		width: 80px;
     height: 80px;
 	}
@@ -830,7 +797,7 @@ p {
     font-size: 30px;
   }
 
-	#validate-button {
+  .slots-area-footer-button {
 		width: 70px;
     height: 70px;
 	}
@@ -905,7 +872,7 @@ p {
     font-size: 20px;
   }
 
-	#validate-button {
+	.slots-area-footer-button  {
 		width: 50px;
     height: 50px;
 	}
@@ -943,7 +910,7 @@ p {
 		font-size: 30px;
 	}
 
-	#validate-button {
+	.slots-area-footer-button  {
 		width: 70px;
 		height: 70px;
 	}
@@ -972,7 +939,7 @@ p {
     font-size: 20px;
   }
 
-	#validate-button {
+	.slots-area-footer-button  {
 		width: 40px;
     height: 40px;
 	}
@@ -1055,7 +1022,7 @@ p {
   	}
 }
 
-#timer-button, #level-button, #compulsory-op-button, #hint-button {
+#timer-button, #timer-palette, #level-button, #difficulty-palette, #compulsory-op-button, #compulsory-op-palette, #hint-button, #hint-palette {
   display: none;
 }
 
@@ -1063,10 +1030,17 @@ p {
   #timer-button {
     display: inline-block;
   }
+  #timer-palette {
+    display: inline-block;
+  }
+
 }
 
 @media only screen and (min-width: 575px) {
   #level-button {
+    display: inline-block;
+  }
+  #difficulty-palette {
     display: inline-block;
   }
 }
@@ -1075,12 +1049,19 @@ p {
   #compulsory-op-button {
     display: inline-block;
   }
+  #compulsory-op-palette {
+    display: inline-block;
+  }
 }
 
 @media only screen and (min-width: 688px) {
   #hint-button {
     display: inline-block;
   }
+  #hint-palette {
+    display: inline-block;
+  }
+
 }
 
 

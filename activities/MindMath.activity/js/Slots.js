@@ -5,12 +5,12 @@ var Slots = {
   props: ['strokeColor', 'fillColor', 'targetNum', 'slots', 'emptyLinesAllowed'],
   template: `
     <div class="list-slots">
-      <div class="slot" v-for="(slot,index) in slots" v-key="index">
+      <div class="slot" v-for="(slot,index) in slots" v-bind:key="index">
         <inputNumber
           v-bind:class="{
             'number': slot.num1.type === 0,
           }"
-          v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+          v-bind:fillColor="fillColor"
           v-bind:type="slot.num1.type"
           v-bind:number="slot.num1.val"
         ></inputNumber>
@@ -27,7 +27,7 @@ var Slots = {
           v-bind:class="{
             'number': slot.num2.type === 0,
           }"
-          v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+          v-bind:fillColor="fillColor"
           v-bind:type="slot.num2.type"
           v-bind:number="slot.num2.val"
         ></inputNumber>
@@ -41,25 +41,28 @@ var Slots = {
         >{{slot.res}}</div>
 
       </div>
-      <template v-if="emptyLinesAllowed != null">
-      <div class="slot" v-for="index in (4-slots.length)" v-key="index">
+      <template>
         <div
-          class="empty-slot"
-        ></div>
-        <div class="operator"
-          v-bind:style="{backgroundColor: strokeColor}"
-        ></div>
-        <div
-          class="empty-slot"
-        ></div>
-
-        <div class="symbol"> = </div>
-
-        <div
-          class="empty-slot"
-        ></div>
-
-      </div>
+          v-bind:style="{
+            visibility: emptyLinesAllowed != null ? 'visible' : 'hidden'
+          }"
+          class="slot"
+          v-for="index in (4-slots.length)"
+          v-bind:key="index + slots.length">
+          <div
+            class="empty-slot"
+          ></div>
+          <div class="operator"
+            v-bind:style="{backgroundColor: strokeColor}"
+          ></div>
+          <div
+            class="empty-slot"
+          ></div>
+          <div class="symbol"> = </div>
+          <div
+            class="empty-slot"
+          ></div>
+        </div>
       </template>
 
     </div>
