@@ -2,7 +2,7 @@ var Slots = {
   components: {
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'targetNum', 'slots', 'emptyLinesAllowed'],
+  props: ['strokeColor', 'fillColor', 'targetNum', 'slots', 'emptyLinesAllowed', 'compulsoryOpsRem'],
   template: `
     <div class="list-slots">
       <div class="slot" v-for="(slot,index) in slots" v-bind:key="index">
@@ -37,7 +37,7 @@ var Slots = {
         <div
           class="res"
           v-bind:style="{backgroundColor: fillColor}"
-          v-bind:class="{'acheived': targetNum === slot.res && index === slots.length-1}"
+          v-bind:class="{'acheived': (compulsoryOpsRem!=null ? compulsoryOpsRem.length===0 : true) && targetNum === slot.res && index === slots.length-1}"
         >{{slot.res}}</div>
 
       </div>
@@ -48,20 +48,15 @@ var Slots = {
           }"
           class="slot"
           v-for="index in (4-slots.length)"
-          v-bind:key="index + slots.length">
-          <div
-            class="empty-slot"
-          ></div>
+          v-bind:key="index + slots.length"
+        >
+          <div class="empty-slot"></div>
           <div class="operator"
             v-bind:style="{backgroundColor: strokeColor}"
           ></div>
-          <div
-            class="empty-slot"
-          ></div>
+          <div class="empty-slot"></div>
           <div class="symbol"> = </div>
-          <div
-            class="empty-slot"
-          ></div>
+          <div class="empty-slot"></div>
         </div>
       </template>
 

@@ -26,16 +26,12 @@ define(["sugar-web/graphics/palette",
     document.getElementById('easy-button').addEventListener('click', function(event) {
       that.difficultySelectedEvent.index = 0;
       that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-      this.classList.remove("palette-button-notselected");
-      document.getElementById('medium-button').classList.add("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('medium-button').addEventListener('click', function(event) {
       that.difficultySelectedEvent.index = 1;
       that.getPalette().dispatchEvent(that.difficultySelectedEvent);
-      this.classList.remove('palette-button-notselected');
-      document.getElementById('easy-button').classList.add('palette-button-notselected');
       that.popDown();
     });
 

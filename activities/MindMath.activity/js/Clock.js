@@ -1,5 +1,5 @@
 var Clock = {
-  props: ['time','text'],
+  props: ['time', 'text'],
   template: `
     <div class="clock">{{ text }}{{ parsedClockTime }}</div>
   `,
