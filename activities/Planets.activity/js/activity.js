@@ -172,7 +172,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//Variable action detectors
 			var showInfo = true;
-			var isRotating = false;
+			var isRotating = true;
 			var requestAnim;
 			var save;
 
@@ -400,6 +400,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					document.getElementById("rotation-button").classList.add("active");
 				}
 
+
 				saveData[2] = isRotating;
 
 			});
@@ -432,13 +433,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			//Back button to go back to planet list view
 			backButton.addEventListener("click", function(){
 
-				saveData[1] = null;
+				saveData = [false, null, true, true];
 				isRotating = false;
 				requestAnim = false;
+
+				isRotating = true;
+				showInfo = true;
 
 				interactContainer.style.display = "none";
 				mainCanvas.style.backgroundColor = "black";
 
+				document.getElementById("rotation-button").classList.add("active");
+				document.getElementById("info-button").classList.add("active");
 				document.getElementById("rotation-button").style.display = "none";
 				document.getElementById("info-button").style.display = "none";
 				document.getElementById("image-button").style.display = "none";
