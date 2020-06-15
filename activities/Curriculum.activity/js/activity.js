@@ -15,6 +15,7 @@ var app = new Vue({
 		'skill-details': SkillDetails,
 		'category-settings': CategorySettings,
 		'skill-settings': SkillSettings,
+		'rewards': Rewards,
 	},
 	data: {
 		currentenv: null,

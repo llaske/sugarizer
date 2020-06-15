@@ -1,0 +1,172 @@
+.skills {
+	position: relative;
+	min-height: calc(100vh - 55px);
+	padding: 0 8vw;
+}
+#back-button {
+	background: url(../icons/go-left.svg) no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 10px;
+	left: 2vw;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 3;
+}
+#back-button:hover {
+	border: none;
+}
+.skills .category-title, .skill {
+	position: relative;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 20px 0;
+	color: black;
+}
+.skills .category-title .underline {
+	position: absolute;
+	height: 3px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.skills .category-title .underline:nth-child(1) {
+	bottom: 11px;
+	width: 100%;
+}
+.skills .category-title .underline:nth-child(2) {
+	bottom: 0;
+	width: 50%;
+}
+
+.skills-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
+	padding: 30px 0;
+}
+.skill-card {
+	position: relative;
+	flex: 0 1 250px;
+	width: 250px;
+	/* min-height: 250px; */
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20px 20px 0 0;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	transition: all 500ms ease;
+}
+.skill-card .medal-container {
+	position: absolute;
+	top: -30px;
+	right: -15px;
+}
+.skill-card .skill-image {
+	max-width: 100%;
+	max-height: 150px;
+	display: block;
+	margin: 5px auto;
+	border-radius: 20px 20px 0 0;
+}
+.skill-card .skill-footer {
+	position: relative;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	height: 100%;
+	margin-top: auto;
+	padding: 15px;
+	color: black;
+	cursor: pointer;
+	transition: all 200ms ease-out;
+}
+.skill-card .skill-footer:hover {
+	filter: brightness(1.2);
+}
+.skill-card .skill-footer h2 {
+	width: 100%;
+	overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+	margin: 0;
+}
+
+.skill-details {
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 55px);
+	overflow: auto;
+	padding: 0 10vw;
+}
+.skill-details .skill-title {
+	position: relative;
+}
+.skill-details .skill-title .underline {
+	position: absolute;
+	bottom: -15px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
+	height: 15px;
+}
+.skill-details .skill-title .medal-container {
+	position: absolute;
+	bottom: -100px;
+	right: -5vw;
+}
+.skill-details .skill-contents {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+.skill-details .skill-image {
+	flex: 1;
+	width: fit-content;
+	max-width: 300px;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+.skill-details .skill-image img {
+	width: 100%;
+}
+
+.skill-uploads {
+	flex: 1;
+	flex-basis: 40vh;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	overflow: auto;
+	margin: 5px 0;
+	padding: 20px;
+	background: #EFEFEF;
+	border-radius: 20px;
+}
+/* .skill-uploads .flag {
+	flex: 1;
+	min-width: 100px;
+} */
+
+.upload-preview .preview-icon {
+	background: url(../icons/upload.svg) no-repeat;
+	background-size: cover;
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+.upload-preview p {
+	text-align: center;
+	color: grey;
+	font-weight: bold;
+	margin: 0;
+}
+.upload-preview.uploaded {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
