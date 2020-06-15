@@ -23,52 +23,29 @@ define(["sugar-web/graphics/palette",
 
     var that = this;
 
-    var elems = [
-      document.getElementById('no-timer-button'),
-      document.getElementById('first-timer-button'),
-      document.getElementById('second-timer-button'),
-      document.getElementById('third-timer-button')
-    ]
-
     document.getElementById('no-timer-button').addEventListener('click', function(event) {
       that.timerSelectedEvent.index = 0;
       that.getPalette().dispatchEvent(that.timerSelectedEvent);
-      updateClasses();
       that.popDown();
     });
 
     document.getElementById('first-timer-button').addEventListener('click', function(event) {
       that.timerSelectedEvent.index = 1;
       that.getPalette().dispatchEvent(that.timerSelectedEvent);
-      updateClasses();
       that.popDown();
     });
 
     document.getElementById('second-timer-button').addEventListener('click', function(event) {
       that.timerSelectedEvent.index = 2;
       that.getPalette().dispatchEvent(that.timerSelectedEvent);
-      updateClasses();
       that.popDown();
     });
 
     document.getElementById('third-timer-button').addEventListener('click', function(event) {
       that.timerSelectedEvent.index = 3;
       that.getPalette().dispatchEvent(that.timerSelectedEvent);
-      updateClasses();
       that.popDown();
     });
-
-    function updateClasses() {
-      for (var i = 0; i < elems.length; i++) {
-        var elem = elems[i];
-        if (i === that.timerSelectedEvent.index) {
-          elem.classList.add('palette-item-selected');
-        } else {
-          elem.classList.remove('palette-item-selected');
-        }
-      }
-    }
-
 
   };
 

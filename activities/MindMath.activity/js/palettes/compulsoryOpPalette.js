@@ -32,28 +32,24 @@ define(["sugar-web/graphics/palette",
     document.getElementById('plus-cmpOp').addEventListener('click', function(event) {
       that.compulsoryOpSelectedEvent.operator = '+';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('minus-cmpOp').addEventListener('click', function(event) {
       that.compulsoryOpSelectedEvent.operator = '-';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('multiply-cmpOp').addEventListener('click', function(event) {
       that.compulsoryOpSelectedEvent.operator = '*';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 
     document.getElementById('divide-cmpOp').addEventListener('click', function(event) {
       that.compulsoryOpSelectedEvent.operator = '/';
       that.getPalette().dispatchEvent(that.compulsoryOpSelectedEvent);
-      this.classList.toggle("palette-button-notselected");
       that.popDown();
     });
 

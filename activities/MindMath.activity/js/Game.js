@@ -9,36 +9,30 @@ var Game = {
     <div id="game-view">
       <div class="game-area-panel"
       v-bind:style="{backgroundColor: '#ffffff'}"
-      >
-
+    >
         <div class="game-area-container">
           <div class="details-bar">
-
             <div class="detail-block"
-            v-if="mode === 'timer'"
-            v-bind:style="{backgroundColor: strokeColor}"
+              v-if="mode === 'timer'"
+              v-bind:style="{backgroundColor: strokeColor}"
             >
               <div class="detail-block-logo clock-logo"></div>
               <div class="detail-block-content">
-                <clock
-                v-bind:time="time"
-                ></clock>
+                <clock v-bind:time="time"></clock>
               </div>
             </div>
 
-            <div id="target-number"
-            >{{ questions[qNo].targetNum }}</div>
+            <div id="target-number">{{ questions[qNo].targetNum }}</div>
 
             <div class="detail-block"
-            v-if="mode === 'timer'"
-            v-bind:style="{backgroundColor: strokeColor}"
+              v-if="mode === 'timer'"
+              v-bind:style="{backgroundColor: strokeColor}"
             >
               <div class="detail-block-logo score-logo"></div>
               <div class="detail-block-content">
                 <div>{{ score }}</div>
               </div>
             </div>
-
           </div>
 
           <div class="list-numbers">
@@ -52,7 +46,7 @@ var Game = {
                 'square': inputNumbersTypes[index] != 0
               }"
               v-bind:type="inputNumbersTypes[index]"
-              v-bind:colorObj="{stroke: fillColor, fill: fillColor}"
+              v-bind:fillColor="fillColor"
               v-bind:number="number"
               v-bind:isSelected="index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2"
               v-bind:key="index"
@@ -76,29 +70,44 @@ var Game = {
             ></button>
           </div>
 
-          <div class="footer-bar">
-            <transition name="fade"  mode="out-in">
-              <div id="validate-button"
-              v-on:click="validate"
-              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
-              ></div>
-            </transition>
-          </div>
-
         </div>
 
       </div>
 
       <div class="slots-area-panel"
-      v-bind:style="{backgroundColor: '#ffffff'}"
+        v-bind:style="{backgroundColor: '#ffffff'}"
       >
-        <slots-component ref="slots"
-        v-bind:strokeColor="strokeColor"
-        v-bind:fillColor="fillColor"
-        v-bind:targetNum="questions[qNo].targetNum"
-        v-bind:slots="slots[qNo]"
-        emptyLinesAllowed=true
-        ></slots-component>
+        <div class="slots-area-main">
+          <slots-component ref="slots"
+            v-bind:strokeColor="strokeColor"
+            v-bind:fillColor="fillColor"
+            v-bind:targetNum="questions[qNo].targetNum"
+            v-bind:slots="slots[qNo]"
+            v-bind:compulsoryOpsRem="compulsoryOpsRem"
+            emptyLinesAllowed=true
+          ></slots-component>
+        </div>
+        <div class="slots-area-footer">
+          <button id="btn-restart"
+            class="slots-area-footer-button"
+            v-bind:style="{backgroundColor: strokeColor}"
+            v-on:click="$emit('restart-game')"
+          ></button>
+          <transition name="fade"  mode="out-in">
+            <button id="btn-validate"
+              class="slots-area-footer-button"
+              v-bind:style="{backgroundColor: strokeColor}"
+              v-on:click="validate"
+              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
+            ></button>
+            <button id="btn-pass"
+              class="slots-area-footer-button"
+              v-bind:style="{backgroundColor: strokeColor}"
+              v-on:click="$emit('pass-question')"
+              v-else
+            ></button>
+          </transition>
+        </div>
       </div>
 
     </div>
@@ -140,11 +149,11 @@ var Game = {
       } else {
         vm.currentRes = null;
       }
-      
+
       //deselecting
       vm.deselect();
     },
-    qNo: function () {
+    qNo: function() {
       var vm = this;
       //deselecting
       vm.deselect();
@@ -165,11 +174,11 @@ var Game = {
       if (ratio < 1) {
         // stack up panels
         document.querySelector('#game-view').style.flexDirection = 'column';
-        document.querySelector('.game-area-panel').style.width = '98.4%';
         //change width, height of panels
-        document.querySelector('.game-area-panel').style.height = '60%';
+        document.querySelector('.game-area-panel').style.width = '98.4%';
+        document.querySelector('.game-area-panel').style.height = '50%';
         document.querySelector('.slots-area-panel').style.width = '98.4%';
-        document.querySelector('.slots-area-panel').style.height = '38%';
+        document.querySelector('.slots-area-panel').style.height = '48%';
       } else {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels
@@ -180,14 +189,14 @@ var Game = {
       }
     },
 
-    deselect: function () {
+    deselect: function() {
       var vm = this;
-      if (vm.currentSelectedNums.nums.length!=0) {
+      if (vm.currentSelectedNums.nums.length != 0) {
         vm.currentSelectedOp = null;
         vm.$set(vm.currentSelectedNums, 'numIndex1', null);
         vm.$set(vm.currentSelectedNums, 'numIndex2', null);
         vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
-        if (vm.currentSelectedNums.nums.length!=0) {
+        if (vm.currentSelectedNums.nums.length != 0) {
           vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
         }
       }
@@ -240,7 +249,7 @@ var Game = {
       }
     },
 
-    checkOperation: function (num1, num2, operator) {
+    checkOperation: function(num1, num2, operator) {
       var res;
       switch (operator) {
         case '+':

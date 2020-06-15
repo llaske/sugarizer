@@ -24,8 +24,6 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
-			<sugar-toolitem id="restart-button" title="restart Game" v-on:click="handleRestartButton"></sugar-toolitem>
-			<sugar-toolitem id="pass-button" title="pass" v-on:click="handlePassButton"></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
 			<sugar-toolitem id="redo-button" title="redo" v-on:click="handleRedoButton"></sugar-toolitem>
 			<sugar-toolitem
@@ -64,7 +62,7 @@
 				palette-title="hint"
 			></sugar-toolitem>
 
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" title="Unfullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
@@ -91,13 +89,14 @@
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
 				v-on:restart-game="handleRestartButton"
-
+				v-on:pass-question="handlePassButton"
 			></component>
 	</transition>
 
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -109,6 +108,7 @@
 	<script src="js/Slots.js"></script>
 	<script src="js/Result.js"></script>
 	<script src="js/Game.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
