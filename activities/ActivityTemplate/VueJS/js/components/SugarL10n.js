@@ -43,7 +43,10 @@ Vue.component('sugar-localization', {
 				});
 			});
 			//Activity initialization check
-			vm.$root.$refs.SugarActivity.$on('initialized', function () {
+			var SugarActivity = vm.$root.$children.find(function(child) {
+				return child.$options.name == 'SugarActivity';
+			});
+			SugarActivity.$on('initialized', function () {
 				vm.activityInitialized = true;
 			});
 		}
