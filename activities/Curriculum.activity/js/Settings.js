@@ -238,7 +238,7 @@ var SkillSettings = {
 			this.skill.id = nextId;
 			this.categories[catIndex].skills.unshift(this.skill);
 			this.$set(this.user.skills[this.categoryId], nextId, {
-				acquired: false,
+				acquired: 0,
 				media: {}
 			});
 

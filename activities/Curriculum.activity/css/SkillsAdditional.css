@@ -25,6 +25,18 @@
 	height: 100px;
 	width: 100px;
 }
+.medal .grade {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0;
+	font-size: 180%;
+	font-weight: 700;
+}
+.medal.acquired .grade {
+	color: white;
+}
 .medal-large .shine {
 	background-image: url(../icons/medal-shine.svg);
 	background-repeat: no-repeat;

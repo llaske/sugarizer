@@ -25,7 +25,14 @@ var app = new Vue({
 		selectedCategoryId: null,
 		selectedSkillId: null,
 		user: {
+			notationLevel: 1,
 			skills: []
+		},
+		levels: {
+			1: ['B', 'A'],
+			2: ['C', 'B', 'A'],
+			3: ['C', 'B', 'A', 'A+'],
+			4: ['X', 'C', 'B', 'A', 'A+'],
 		},
 		l10n: {
 			stringCategories: '',
@@ -65,7 +72,7 @@ var app = new Vue({
 			if (this.selectedCategoryId != null && this.selectedSkillId != null) {
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
-			return false;
+			return 0;
 		}
 	},
 	methods: {
@@ -102,26 +109,15 @@ var app = new Vue({
 			this.currentView = 'skill-settings';
 		},
 
-		switchSkillAcquired: function (value) {
-			var value = !this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
-			if (this.user.skills[this.selectedCategoryId][this.selectedSkillId]) {
-				this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
-			} else {
-				// this.user.skills[this.selectedCategoryId][this.selectedSkillId] = {
-				// 	acquired: value,
-				// 	media: {}
-				// }
-				this.$set(this.user.skills[this.selectedCategoryId], this.selectedSkillId, {
-					acquired: value,
-					media: {}
-				});
-			}
+		switchSkillLevel: function () {
+			var value = this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
+			value = (value + 1)%(this.user.notationLevel + 1);
+			this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
 		},
 
 		onUploadItem: function (event) {
 			var filters;
 			var vm = this;
-
 			switch (event.mediaType) {
 				case 'image':
 					filters = [
@@ -188,7 +184,7 @@ var app = new Vue({
 								mediaObj[event.mediaType].push(objectToSave)
 							});
 						}
-						skillObj.acquired = true;
+						skillObj.acquired = vm.user.notationLevel;
 
 					}, filters[0], filters[1], filters[2], filters[3]);
 				}, 0);
@@ -234,7 +230,7 @@ var app = new Vue({
 
 						// Updating user
 						vm.$set(vm.user.skills[category.id], skill.id, {
-							acquired: false,
+							acquired: 0,
 							media: {}
 						});
 					});
@@ -244,6 +240,21 @@ var app = new Vue({
 				// Updating categories
 				vm.categories = vm.categories.concat(importedCategories);
 			});
+		},
+
+		onNotationSelected: function(event) {
+			var oldLevel = this.user.notationLevel;
+			this.user.notationLevel = event.level;
+
+			for(var cat of this.user.skills) {
+				for(var skill in cat) {
+					if(cat[skill].acquired == oldLevel) {
+						cat[skill].acquired = event.level;
+					} else {
+						cat[skill].acquired = 0;
+					}
+				}
+			}
 		},
 
 		goBackTo: function (view) {

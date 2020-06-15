@@ -38,13 +38,29 @@
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>
+			<sugar-toolitem
+				id="notation-button" 
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				palette-file="js/palettes/notationpalette.js"
+				palette-class="NotationPalette"
+				palette-title="Notation Level"
+				palette-event="notation-selected"
+				@notation-selected="onNotationSelected"
+				v-bind:title="l10n.stringNotationLevel"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="add-button" 
 				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired" v-bind:title="l10n.stringAcquire"></sugar-toolitem>
+			<sugar-toolitem 
+				id="acquire-button" 
+				v-show="currentView == 'skill-details'" 
+				:class="{ active: currentAcquired != 0 }" 
+				@click="switchSkillLevel" 
+				v-bind:title="l10n.stringAcquire"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-show="currentView == 'skill-details'"
@@ -55,7 +71,7 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
-			<sugar-toolitem id="rewards-button" v-show="currentView != 'rewards'" @click="currentView = 'rewards'" v-bind:title="l10n.stringRewards"></sugar-toolitem>
+			<sugar-toolitem id="rewards-button" v-show="!settings && currentView != 'rewards'" @click="currentView = 'rewards'" v-bind:title="l10n.stringRewards"></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
@@ -74,7 +90,7 @@
 						:skill-id="selectedSkillId"
 						:current-acquired="currentAcquired"
 						:user="user"
-						:l10n="l10n"
+						:levels="levels"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"

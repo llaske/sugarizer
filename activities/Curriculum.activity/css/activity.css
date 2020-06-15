@@ -120,6 +120,11 @@ p {
 	background-image: url(../icons/add.svg);
 }
 
+#main-toolbar #notation-button {
+	background-image: url(../icons/levels.svg);
+	background-size: 35px;
+}
+
 #main-toolbar #rewards-button {
 	background-image: url(../icons/trophy.svg);
 }
@@ -144,6 +149,21 @@ p {
 	height: 100%;
 	display: block;
 	margin: 0 auto;
+}
+
+#notation-selector {
+	width: 100px;
+	margin: 0 auto;
+}
+#notation-selector button {
+	display: block;
+	background: black;
+	border-radius: 0;
+	width: 100%;
+	padding: 10px;
+}
+#notation-selector button.active {
+	background: grey;
 }
 
 

@@ -14,7 +14,7 @@ var SkillCard = {
 					<button id="edit-button" @click="onEditClick"></button>
 					<button id="delete-button" @click.stop="onDeleteClick"></button>
 				</div>
-				<medal v-else small :acquired="acquired"></medal>
+				<medal v-else small :acquired="acquired" :levels="levels" :notation-level="user ? user.notationLevel : {}"></medal>
 			</transition>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
@@ -25,13 +25,13 @@ var SkillCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['skill', 'category', 'user', 'settings'],
+	props: ['skill', 'category', 'user', 'settings', 'levels'],
 	computed: {
 		acquired: function () {
 			if (this.user && this.user.skills[this.category.id][this.skill.id]) {
 				return this.user.skills[this.category.id][this.skill.id].acquired;
 			}
-			return false;
+			return 0;
 		}
 	},
 	mounted: function () {
@@ -72,6 +72,7 @@ var SkillsGrid = {
 						:category="category"
 						:user="user"
 						:settings="settings"
+						:levels="levels"
 						@skill-clicked="onSkillClick"
 						@edit-skill-clicked="onEditSkillClick"
 						@delete-clicked="deleteSkill"
@@ -84,7 +85,7 @@ var SkillsGrid = {
 	components: {
 		'skill-card': SkillCard,
 	},
-	props: ['categories', 'categoryId', 'user', 'settings'],
+	props: ['categories', 'categoryId', 'user', 'settings', 'levels'],
 	computed: {
 		category: function () {
 			var vm = this;
@@ -128,7 +129,7 @@ var SkillDetails = {
 			<div class="skill-title">
 				<h1>{{ skill.title }}</h1>
 				<span ref="underline3" class="underline"></span>	
-				<medal :acquired="currentAcquired" />
+				<medal :acquired="currentAcquired" :levels="levels" :notation-level="user.notationLevel" />
 			</div>
 			<div class="skill-contents">
 				<div class="skill-image">
@@ -157,7 +158,7 @@ var SkillDetails = {
 		'upload-item': UploadItem,
 		'medal': Medal
 	},
-	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired', 'levels'],
 	computed: {
 		category: function () {
 			var vm = this;

@@ -24,14 +24,14 @@ var CategoryCard = {
 				</div>
 			</div>
 			<div class="progress">
-				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills" />
+				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills ? 1 : 0" :levels="levels" :notation-level="user ? user.notationLevel : {}" />
 			</div>
 		</div>
 	`,
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user', 'settings'],
+	props: ['category', 'user', 'settings', 'levels'],
 	computed: {
 		skillsToShow: function () {
 			var skills = [];
@@ -48,16 +48,6 @@ var CategoryCard = {
 			}
 			return count;
 		}
-	},
-	mounted: function () {
-		var vm = this;
-		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			if (vm.buddyMedal) {
-				if (vm.$refs.medalAcquired) {
-					icon.colorize(vm.$refs.medalAcquired, vm.$root.currentenv.user.colorvalue);
-				}
-			}
-		});
 	},
 	methods: {
 		onCategoryClick: function() {
