@@ -1,0 +1,266 @@
+/* Medal */
+.medal-container {
+	position: relative;
+	margin: 20px 0;
+	width: fit-content;
+}
+.medal {
+	background-image: url(../icons/medal-unacquired.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+}
+.medal.acquired {
+	background-image: url(../icons/medal-colored.svg);
+}
+.medal.acquired.buddy {
+	background-image: url(../icons/medal.svg);
+}
+.medal-small {
+	height: 50px;
+	width: 50px;
+}
+.medal-large {
+	height: 100px;
+	width: 100px;
+}
+.medal .grade {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0;
+	font-size: 180%;
+	font-weight: 700;
+}
+.medal.acquired .grade {
+	color: white;
+}
+.medal-large .shine {
+	background-image: url(../icons/medal-shine.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 12%;
+	height: 12%;
+	/* filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9)); */
+}
+.medal-large .shine:nth-child(3) {
+	top: 15%;
+	left: 23%;
+	animation: shine-fade 2000ms ease-in-out infinite;
+}
+.medal-large .shine:nth-child(4) {
+	bottom: 35%;
+	right: 25%;
+	transform: scale(1.15);
+	animation: shine-fade 2000ms ease-in-out infinite 300ms;
+}
+.medal-large .shine:nth-child(5) {
+	top: 40%;
+	left: 0%;
+	transform: scale(0.75);
+	animation: shine-fade 2000ms ease-in-out infinite 600ms;
+}
+.medal-large .shine:nth-child(6) {
+	top: 25%;
+	right: 0%;
+	transform: scale(0.85);
+	animation: shine-fade 2000ms ease-in-out infinite 900ms;
+}
+@keyframes shine-fade {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.uploaded-item {
+	padding: 3px;
+	background: black;
+	color: white;
+	width: 170px;
+	height: 170px;
+	margin: 5px;
+}
+.uploaded-item .item {
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.uploaded-item .item .image-preview {
+	width: 100%;
+}
+.uploaded-item .item .audio-preview, .uploaded-item .item .video-preview {
+	width: 30%;
+}
+.popup-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 5;
+}
+.popup {
+	position: relative;
+	min-width: 40%;
+	max-width: 90%;
+	max-height: 95%;
+	height: fit-content;
+	background: black;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+#popup-close {
+	background-color: black;
+	background-image: url(../icons/close.svg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 0;
+	cursor: pointer;
+}
+.popup-actions {
+	display: flex;
+	justify-content: space-between;
+	margin-top: auto;
+	padding: 5px;
+}
+.popup-actions #delete-button {
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+	margin-left: 5px;
+	background: url(../icons/delete.svg) no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.popup-image {
+	width: 100%;
+}
+.popup-audio {
+	width: 100%;
+	margin: 20px 0;
+}
+.popup-video {
+	min-height: 40vw;
+	width: auto;
+}
+
+/*Flag*/
+/*
+.flag {
+	position: relative;
+	margin: 20px 0;
+}
+.flag-small {
+	height: 60px;
+	margin: auto;
+	width: fit-content;
+}
+.flag-small .pole {
+	position: relative;
+	height: 100%;
+	width: 3px;
+	border-radius: 2px;
+	background: rgb(75, 19, 19);
+}
+.flag-small .fly {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-2px);
+	height: 60%;
+}
+.flag-large {
+	height: 100px;
+	margin: auto;
+	width: fit-content;
+}
+.flag-large .bg {
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -10%;
+}
+.flag-large .pole {
+	position: relative;
+	height: 100%;
+	width: 5px;
+	border-radius: 2px;
+	background: rgb(75, 19, 19);
+}
+.flag-large .pole::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -50%;
+	width: 10px;
+	height: 5px;
+	border-radius: 5px;
+	background: rgb(75, 19, 19);
+}
+.flag-large .pole::before {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: -100%;
+	width: 20px;
+	height: 3px;
+	border-radius: 50%;
+	background: rgb(192, 192, 192);
+	z-index: 0;
+}
+.flag-large .fly {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-5px);
+	height: 60%;
+}
+.flag-large .star1 {
+	position: absolute;
+	top: 0;
+	left: 30%;
+	animation: start-move 2000ms ease-in-out infinite 300ms;
+}
+.flag-large .star2 {
+	position: absolute;
+	bottom: 20%;
+	right: 30%;
+	animation: start-move 2000ms ease-in-out infinite;
+}
+@keyframes start-move {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+*/

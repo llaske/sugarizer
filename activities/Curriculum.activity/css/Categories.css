@@ -1,0 +1,71 @@
+.categories {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	transform-origin: top;
+}
+
+.category-card {
+	position: relative;
+	flex: 0 1 400px;
+	min-width: 400px;
+	max-width: 500px;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	margin: 20px;
+	border-radius: 10px;
+	background: white;
+	cursor: pointer;
+	transition: transform 500ms ease;
+}
+.category-title {
+	text-align: center;
+	color: black;
+	/* -webkit-text-stroke: 1px black; */
+	font-size: 1.5em;
+	/* mix-blend-mode: difference; */
+}
+.category-skills {
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	margin-top: auto;
+	padding: 10px 0;
+}
+.category-skills .skill {
+	width: 80px;
+	padding: 20px;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+	background: white;
+	transition: all 250ms ease-out;
+}
+.category-skills .skill:hover {
+	transform: scale(1.05);
+	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+}
+.category-skills .skill img {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+.progress {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 10px;
+}
+.progress div {
+	height: 30px;
+	width: 30px;
+}
+.progress .medal {
+	opacity: 0.5;
+}
+.progress .medal.acquired {
+	opacity: 1;
+}

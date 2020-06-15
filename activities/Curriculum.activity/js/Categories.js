@@ -13,7 +13,7 @@ var CategoryCard = {
 					<button id="delete-button" @click.stop="onDeleteClick"></button>
 				</div>
 			</transition>
-			<h1 class="category-title">{{ categoryTitle }}</h1>
+			<h1 class="category-title">{{ category.title }}</h1>
 			<div class="category-skills">
 				<div 
 					class="skill" 
@@ -24,22 +24,15 @@ var CategoryCard = {
 				</div>
 			</div>
 			<div class="progress">
-				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills" />
+				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills ? 1 : 0" :levels="levels" :notation-level="user ? user.notationLevel : {}" />
 			</div>
 		</div>
 	`,
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user', 'settings', 'l10n'],
+	props: ['category', 'user', 'settings', 'levels'],
 	computed: {
-		categoryTitle: function() {
-			if(!this.user) return '';
-			if(this.category.title.indexOf('DefaultSkillSet') == -1) {
-				return this.category.title;
-			}
-			return this.l10n['string' + this.category.title];
-		},
 		skillsToShow: function () {
 			var skills = [];
 			for (var i = 0; i < Math.min(3, this.category.skills.length); i++) {
@@ -55,16 +48,6 @@ var CategoryCard = {
 			}
 			return count;
 		}
-	},
-	mounted: function () {
-		var vm = this;
-		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			if (vm.buddyMedal) {
-				if (vm.$refs.medalAcquired) {
-					icon.colorize(vm.$refs.medalAcquired, vm.$root.currentenv.user.colorvalue);
-				}
-			}
-		});
 	},
 	methods: {
 		onCategoryClick: function() {
@@ -94,7 +77,6 @@ var CategoriesGrid = {
 					:category="category"
 					:user="user"
 					:settings="settings"
-					:l10n="l10n"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
 					@edit-category-clicked="onEditCategoryClick"
@@ -106,7 +88,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings', 'l10n'],
+	props: ['categories', 'user', 'settings'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);

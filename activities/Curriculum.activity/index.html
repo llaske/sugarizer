@@ -12,6 +12,11 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/Categories.css">
+	<link rel="stylesheet" href="css/Skills.css">
+	<link rel="stylesheet" href="css/SkillsAdditional.css">
+	<link rel="stylesheet" href="css/Settings.css">
+	<link rel="stylesheet" href="css/Rewards.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Sortable.min.js"></script>
 	<script src="lib/vuedraggable.umd.min.js"></script>
@@ -33,13 +38,29 @@
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>
+			<sugar-toolitem
+				id="notation-button" 
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				palette-file="js/palettes/notationpalette.js"
+				palette-class="NotationPalette"
+				palette-title="Notation Level"
+				palette-event="notation-selected"
+				@notation-selected="onNotationSelected"
+				v-bind:title="l10n.stringNotationLevel"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="add-button" 
 				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<sugar-toolitem id="acquire-button" v-show="currentView == 'skill-details'" :class="{ active: currentAcquired }" @click="switchSkillAcquired" v-bind:title="l10n.stringAcquire"></sugar-toolitem>
+			<sugar-toolitem 
+				id="acquire-button" 
+				v-show="currentView == 'skill-details'" 
+				:class="{ active: currentAcquired != 0 }" 
+				@click="switchSkillLevel" 
+				v-bind:title="l10n.stringAcquire"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-show="currentView == 'skill-details'"
@@ -50,6 +71,7 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
+			<sugar-toolitem id="rewards-button" v-show="!settings && currentView != 'rewards'" @click="currentView = 'rewards'" v-bind:title="l10n.stringRewards"></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
@@ -68,7 +90,7 @@
 						:skill-id="selectedSkillId"
 						:current-acquired="currentAcquired"
 						:user="user"
-						:l10n="l10n"
+						:levels="levels"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -86,17 +108,16 @@
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
-	<script src="js/data.js"></script>
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
 	<script src="js/Categories.js"></script>
 	<script src="js/Settings.js"></script>
+	<script src="js/Rewards.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
-	<!-- <script src="js/imported/sections-to-categories.js"></script> -->
 </body>
 
 </html>

@@ -2,24 +2,25 @@ var Medal = {
 	/*html*/
 	template: `
 		<div class="medal-container">
-			<div v-if="small" class="medal-small">
-				<div ref="medal" class="medal" v-show="!acquired"></div>
-				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired"></div>
-			</div>
-			<div v-else class="medal-large">
-				<div ref="medal" class="medal" v-show="!acquired"></div>
-				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired"></div>
-				<!-- <div ref="medal" class="medal" :class="{ acquired: acquired, buddy: buddyMedal }"></div> -->
-				<div v-show="acquired" class="shine"></div>
-				<div v-show="acquired" class="shine"></div>
-				<div v-show="acquired" class="shine" ref="shine1"></div>
-				<div v-show="acquired" class="shine" ref="shine2"></div>
+			<div :class="{'medal-small': small, 'medal-large': !small}">
+				<div ref="medal" class="medal" v-show="!acquired">
+					<p v-if="!small" class="grade">{{ levels[notationLevel][acquired] }}<p>
+				</div>
+				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired">
+					<p v-if="!small" class="grade">{{ levels[notationLevel][acquired] }}<p>
+				</div>
+				<div v-show="acquired == notationLevel" class="shine"></div>
+				<div v-show="acquired == notationLevel" class="shine"></div>
+				<div v-show="acquired == notationLevel" class="shine" ref="shine1"></div>
+				<div v-show="acquired == notationLevel" class="shine" ref="shine2"></div>
 			</div>
 		</div>
 	`,
 	props: {
 		small: Boolean,
-		acquired: Boolean
+		acquired: Number,
+		notationLevel: Number,
+		levels: Object
 	},
 	data: {
 		icon: null
