@@ -81,7 +81,7 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
+				<!-- <keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm"> -->
 					<component 
 						:is="currentView" 
 						:settings="settings"
@@ -99,7 +99,7 @@
 						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
-				</keep-alive>
+				<!-- </keep-alive> -->
 			</transition>
 		</div>
 

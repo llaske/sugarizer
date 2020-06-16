@@ -9,13 +9,15 @@ var SkillCard = {
 			:style="{ border: 'solid 2px ' + category.color }"
 			@click="onSkillClick"		
 		>
-			<transition name="settings-zoom">
-				<div class="settings-row" v-if="settings">
-					<button id="edit-button" @click="onEditClick"></button>
-					<button id="delete-button" @click.stop="onDeleteClick"></button>
+				<div class="settings-row">
+					<transition name="settings-zoom">
+						<button id="edit-button" @click="onEditClick" v-if="settings"></button>
+					</transition>
+					<transition name="settings-zoom">
+						<button id="delete-button" @click.stop="onDeleteClick" v-if="settings"></button>
+						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="user ? user.notationLevel : undefined"></medal>
+					</transition>
 				</div>
-				<medal v-else small :acquired="acquired" :levels="levels" :notation-level="user ? user.notationLevel : {}"></medal>
-			</transition>
 			<img :src="skill.image" class="skill-image">
 			<div ref="footer" class="skill-footer">
 				<h2 class="skill-title">{{ skill.title }}</h2>

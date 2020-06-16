@@ -3,11 +3,13 @@ var Medal = {
 	template: `
 		<div class="medal-container">
 			<div :class="{'medal-small': small, 'medal-large': !small}">
+				<!-- 
 				<div ref="medal" class="medal" v-show="!acquired">
-					<p v-if="!small" class="grade">{{ levels[notationLevel][acquired] }}<p>
+					<p v-show="!small" class="grade">{{ levels[notationLevel][acquired].grade }}<p>
 				</div>
-				<div ref="medalAcquired" class="medal acquired buddy" v-show="acquired">
-					<p v-if="!small" class="grade">{{ levels[notationLevel][acquired] }}<p>
+				-->
+				<div ref="medalAcquired" class="medal acquired buddy">
+					<p v-show="!small" class="grade">{{ levels[notationLevel][acquired].grade }}<p>
 				</div>
 				<div v-show="acquired == notationLevel" class="shine"></div>
 				<div v-show="acquired == notationLevel" class="shine"></div>
@@ -19,7 +21,10 @@ var Medal = {
 	props: {
 		small: Boolean,
 		acquired: Number,
-		notationLevel: Number,
+		notationLevel: {
+			type: Number,
+			default: 1
+		},
 		levels: Object
 	},
 	data: {
@@ -27,10 +32,11 @@ var Medal = {
 	},
 	computed: {
 		colors: function() {
-			if(this.$root.$refs.SugarActivity.getEnvironment()) {
+			if(this.notationLevel == 1 && this.acquired && this.$root.$refs.SugarActivity.getEnvironment()) {
 				return this.$root.$refs.SugarActivity.getEnvironment().user.colorvalue;
+			} else {
+				return this.levels[this.notationLevel][this.acquired].colors;
 			}
-			return { fill: "#fff", stroke: "#000" };
 		}
 	},
 	watch: {
@@ -41,7 +47,6 @@ var Medal = {
 	mounted: function () {
 		var vm = this;
 		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			// console.log('mounted')
 			vm.icon = icon;
 			vm.colorizeElements(vm.colors);
 		});
@@ -53,6 +58,7 @@ var Medal = {
 				this.icon.colorize(this.$refs.shine1, colors);
 				this.icon.colorize(this.$refs.shine2, colors);
 			}
+			this.$refs.medalAcquired.style.color = this.colors.stroke;
 		}
 	}
 }

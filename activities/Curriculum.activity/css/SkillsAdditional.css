@@ -10,6 +10,7 @@
 	background-size: cover;
 	height: 100%;
 	width: 100%;
+	color: #d3d3d3;
 }
 .medal.acquired {
 	background-image: url(../icons/medal-colored.svg);
@@ -33,9 +34,6 @@
 	margin: 0;
 	font-size: 180%;
 	font-weight: 700;
-}
-.medal.acquired .grade {
-	color: white;
 }
 .medal-large .shine {
 	background-image: url(../icons/medal-shine.svg);
