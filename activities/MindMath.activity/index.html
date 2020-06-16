@@ -23,7 +23,15 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 
-			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
+			<sugar-toolitem
+				id="network-button"
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette"
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
 			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
 			<sugar-toolitem id="redo-button" title="redo" v-on:click="handleRedoButton"></sugar-toolitem>
 			<sugar-toolitem
@@ -79,6 +87,7 @@
 				v-bind:score="score"
 				v-bind:mode="mode"
 				v-bind:compulsory-ops="compulsoryOps"
+				v-bind:compulsory-ops-for-each-question="compulsoryOpsForEachQuestion"
 				v-bind:compulsory-ops-rem="compulsoryOpsRem"
 				v-bind:slots="slots"
 				v-bind:scores="scores"
@@ -97,6 +106,7 @@
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged" v-on:multiplayer-game-started="onMultiplayerGameStarted"></sugar-presence>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -107,7 +117,9 @@
 	<script src="js/inputNumber.js"></script>
 	<script src="js/Slots.js"></script>
 	<script src="js/Result.js"></script>
+	<script src="js/Leaderboard.js"></script>
 	<script src="js/Game.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarPopup.js"></script>

@@ -17,6 +17,7 @@ var app = new Vue({
   components: {
     'game': Game,
     'result': Result,
+    'leaderboard': Leaderboard
   },
   data: function() {
     return {
@@ -33,6 +34,7 @@ var app = new Vue({
       level: 0,
       compulsoryOps: [],
       compulsoryOpsRem: [],
+      compulsoryOpsForEachQuestion: [],
       clock: {
         active: false,
         previousTime: null,
@@ -60,10 +62,18 @@ var app = new Vue({
       redoStack: [],
       next: [],
       noOfHintsUsed: [],
+      playersAll: [],
+      connectedPlayers: [], //connectedPlayers[0] will be the maintainer of questions set in multiplayer game
+      playersPlaying: [],
+      multiplayerPlaying: false,
     }
   },
   mounted: function() {
     var vm = this;
+    vm.SugarPresence = vm.$refs.SugarPresence;
+    vm.sugarPopup = vm.$refs.SugarPopup;
+    vm.SugarJournal = vm.$refs.SugarJournal;
+
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 0);
@@ -76,7 +86,9 @@ var app = new Vue({
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        vm.newGame();
+        if (!vm.multiplayerPlaying) {
+          vm.newGame();
+        }
         vm.$set(vm.clock, 'active', true);
         vm.$set(vm.clock, 'previousTime', new Date());
       }
@@ -107,8 +119,32 @@ var app = new Vue({
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
-        var questions = vm.questionsGenerator.generate(vm.level, 10);
-        vm.questions = vm.questions.concat(questions);
+        if (vm.multiplayerPlaying && vm.connectedPlayers[0].networkId !== vm.SugarPresence.getUserInfo().networkId) {
+          //request the questions set maintainer to add questions if it is multiplayer game
+          vm.SugarPresence.sendMessage({
+            user: this.SugarPresence.getUserInfo(),
+            content: {
+              action: 'add-questions'
+            }
+          });
+        } else {
+          var questions = vm.questionsGenerator.generate(vm.level, 10);
+          vm.questions = vm.questions.concat(questions);
+
+          if (vm.multiplayerPlaying && vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId) {
+            //update the questions set among all others users if you are the maintainer in multiplayer game
+            vm.SugarPresence.sendMessage({
+              user: this.SugarPresence.getUserInfo(),
+              content: {
+                action: 'update-questions',
+                data: {
+                  questions: vm.questions
+                }
+              }
+            });
+          }
+
+        }
       }
     }
   },
@@ -117,8 +153,6 @@ var app = new Vue({
       var vm = this;
       // Initialize Sugarizer
       vm.currentenv = vm.$refs.SugarActivity.getEnvironment();
-      vm.sugarPopup = vm.$refs.SugarPopup;
-      vm.SugarJournal = vm.$refs.SugarJournal;
 
       document.getElementById('app').style.background = vm.currentenv.user.colorvalue.stroke;
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
@@ -230,13 +264,47 @@ var app = new Vue({
 
     addHintPenalty: function() {
       var vm = this;
-      var valid = document.getElementById('hint-text').innerHTML != "No Hint";
+      var valid = document.getElementById('hint-text').innerHTML !== "No Hint";
       if (valid) {
         vm.noOfHintsUsed[vm.slots[vm.qNo].length] = 1;
       }
     },
 
-    newGame: function() {
+    enableButtons: function() {
+      // enable buttons functionally
+      document.getElementById("timer-button").disabled = false;
+      document.getElementById("level-button").disabled = false;
+      document.getElementById("compulsory-op-button").disabled = false;
+      document.getElementById("hint-button").disabled = false;
+      document.getElementById("btn-restart").disabled = false;
+
+      // enable buttons visually
+      document.getElementById("timer-button").classList.remove('disabled');
+      document.getElementById("level-button").classList.remove('disabled');
+      document.getElementById("compulsory-op-button").classList.remove('disabled');
+      document.getElementById("hint-button").classList.remove('disabled');
+      document.getElementById("btn-restart").classList.remove('disabled');
+
+    },
+
+    disableButtons: function() {
+      // enable buttons functionally
+      document.getElementById("timer-button").disabled = true;
+      document.getElementById("level-button").disabled = true;
+      document.getElementById("compulsory-op-button").disabled = true;
+      document.getElementById("hint-button").disabled = true;
+      document.getElementById("btn-restart").disabled = true;
+
+      // enable buttons visually
+      document.getElementById("timer-button").classList.add('disabled');
+      document.getElementById("level-button").classList.add('disabled');
+      document.getElementById("compulsory-op-button").classList.add('disabled');
+      document.getElementById("hint-button").classList.add('disabled')
+      document.getElementById("btn-restart").classList.add('disabled')
+
+    },
+
+    newGame: function(joined) {
       var vm = this;
       vm.slots = [
         []
@@ -244,12 +312,50 @@ var app = new Vue({
       vm.score = 0;
       vm.scores = [];
       vm.timeTaken = [];
+      vm.compulsoryOpsForEachQuestion = [];
       vm.redoStack = [];
       vm.next = [];
       vm.prev = [];
       vm.noOfHintsUsed = [];
       vm.$set(vm.clock, 'time', vm.clock.initial);
-      vm.generateQuestionSet();
+      if (!joined) {
+        vm.generateQuestionSet();
+      }
+    },
+
+    onMultiplayerGameStarted: function() {
+      var vm = this;
+      vm.multiplayerPlaying = true;
+      //disable the buttons
+      vm.disableButtons();
+
+      if (vm.mode === 'non-timer') {
+        vm.mode = 'timer'
+        vm.$set(vm.clock, 'initial', 2 * 60);
+        vm.$set(vm.clock, 'type', 1);
+        vm.selectTimerItem(vm.clock.type);
+      }
+      var user = {
+        colorvalue: vm.currentenv.user.colorvalue,
+        name: vm.currentenv.user.name,
+        networkId: vm.currentenv.user.networkId
+      }
+      var player = {
+        user: user,
+        score: null,
+        totalTime: null
+      }
+
+      vm.playersAll.push(player);
+      vm.playersPlaying.push(user);
+      vm.connectedPlayers.push(user);
+
+      if (vm.currentScreen !== 'game') {
+        vm.currentScreen = 'game';
+      }
+
+      vm.newGame();
+
     },
 
     onValidate: function() {
@@ -257,6 +363,11 @@ var app = new Vue({
       //calculate score
       var slots = vm.slots[vm.qNo];
       vm.pushTimeTaken();
+      //cloning array
+      var compulsoryOps = vm.compulsoryOps.filter(function() {
+        return true;
+      })
+      vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
       var timeTaken = vm.timeTaken[vm.timeTaken.length - 1];
       var totalHints = vm.noOfHintsUsed.reduce(function(a, b) {
         return a + b
@@ -302,7 +413,7 @@ var app = new Vue({
         if (currentTime - vm.clock.previousTime >= 1000) {
           vm.$set(vm.clock, 'previousTime', currentTime);
           if (vm.mode === 'timer') {
-            vm.$set(vm.clock, 'time', vm.clock.time-1);
+            vm.$set(vm.clock, 'time', vm.clock.time - 1);
             if (vm.clock.time === 0) {
               //end game
               vm.$set(vm.clock, 'active', false);
@@ -310,11 +421,30 @@ var app = new Vue({
               vm.score += 0;
               vm.scores.push(0)
               vm.pushTimeTaken();
+              //cloning array
+              var compulsoryOps = vm.compulsoryOps.filter(function() {
+                return true;
+              })
+              vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
               //change currentScreen
-              vm.currentScreen = "result";
+              if (vm.multiplayerPlaying) {
+                vm.playersAll.forEach((item, i) => {
+                  if (item.user.name === vm.currentenv.user.name && !item.score) {
+                    vm.playersAll[i].score = vm.score;
+                    vm.playersAll[i].totalTime = vm.timeTaken.reduce(function(a, b) {
+                      return a + b
+                    }, 0);
+                  }
+                });
+                console.log(vm.playersAll);
+                vm.multiplayerPlaying = false;
+                vm.currentScreen = "leaderboard";
+              } else {
+                vm.currentScreen = "result";
+              }
             }
           } else {
-            vm.$set(vm.clock, 'time', vm.clock.time+1);
+            vm.$set(vm.clock, 'time', vm.clock.time + 1);
           }
         }
       }
@@ -330,6 +460,11 @@ var app = new Vue({
         vm.score += 0;
         vm.scores.push(0)
         vm.pushTimeTaken();
+        //cloning array
+        var compulsoryOps = vm.compulsoryOps.filter(function() {
+          return true;
+        })
+        vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
 
         vm.currentScreen = "result";
       } else {
@@ -348,6 +483,11 @@ var app = new Vue({
         vm.score += 0;
         vm.scores.push(0)
         vm.pushTimeTaken();
+        //cloning array
+        var compulsoryOps = vm.compulsoryOps.filter(function() {
+          return true;
+        })
+        vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
         if (vm.mode === 'non-timer') {
           vm.$set(vm.clock, 'active', false);
           vm.slots = [
@@ -532,6 +672,11 @@ var app = new Vue({
           elem.classList.remove("palette-button-notselected");
         }
       }
+      if (compulsoryOps.length != 0) {
+        document.getElementById('compulsory-op-button').style.backgroundImage = 'url(./icons/compulsory-op-imp.svg)';
+      } else {
+        document.getElementById('compulsory-op-button').style.backgroundImage = 'url(./icons/compulsory-op.svg)';
+      }
     },
 
     fullscreen: function() {
@@ -612,6 +757,129 @@ var app = new Vue({
 
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
+    },
+
+    onNetworkDataReceived: function(msg) {
+      var vm = this;
+      if (vm.SugarPresence.getUserInfo().networkId === msg.user.networkId) {
+        var vm = this;
+        return;
+      }
+      switch (msg.content.action) {
+        case 'start-game':
+          var data = msg.content.data;
+          if (!vm.multiplayerPlaying) {
+            vm.multiplayerPlaying = true;
+            vm.questions = data.questions;
+            vm.qNo = 0;
+            vm.level = data.level;
+            vm.compulsoryOps = data.compulsoryOps;
+            vm.mode = 'timer';
+            vm.$set(vm.clock, 'type', data.clockType);
+            vm.$set(vm.clock, 'initial', data.clockInitial);
+            vm.$set(vm.clock, 'previousTime', new Date());
+
+            //update inputNumbers
+            vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
+            vm.inputNumbersTypes = [0, 0, 0, 0, 0];
+
+            if (vm.currentScreen !== 'game') {
+              vm.currentScreen = 'game';
+            }
+
+            vm.selectDifficultyItem(vm.level);
+            vm.selectCompulsoryOpItems(vm.compulsoryOps);
+            vm.selectTimerItem(vm.clock.type);
+
+            vm.disableButtons();
+            vm.newGame(true);
+          }
+          break;
+
+        case 'update-players':
+          var data = msg.content.data;
+          vm.playersAll = data.playersAll;
+          vm.playersPlaying = data.playersPlaying;
+          vm.connectedPlayers = data.playersPlaying;
+          //enable the buttons if the user is host and no one is playing
+          //...
+          break;
+
+        case 'add-questions':
+          if (vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId) {
+            console.log('update');
+            var questions = vm.questionsGenerator.generate(vm.level, 10);
+            vm.questions = vm.questions.concat(questions);
+
+            vm.SugarPresence.sendMessage({
+              user: this.SugarPresence.getUserInfo(),
+              content: {
+                action: 'update-questions',
+                data: {
+                  questions: vm.questions
+                }
+              }
+            });
+          }
+          break;
+
+        case 'update-questions':
+          var data = msg.content.data;
+          vm.questions = data.questions;
+          break;
+      }
+    },
+
+    onNetworkUserChanged: function(msg) {
+      var vm = this;
+
+      if (msg.move === 1) {
+        //handling by the host only
+        if (vm.SugarPresence.isHost) {
+          var player = {
+            user: msg.user,
+            score: null,
+            totalTime: null
+          }
+          vm.playersAll.push(player);
+          vm.playersPlaying.push(msg.user);
+          vm.connectedPlayers.push(msg.user);
+
+          vm.SugarPresence.sendMessage({
+            user: this.SugarPresence.getUserInfo(),
+            content: {
+              action: 'update-players',
+              data: {
+                playersAll: vm.playersAll,
+                playersPlaying: vm.playersPlaying,
+                connectedPlayers: vm.connectedPlayers,
+              }
+            }
+          });
+
+          vm.SugarPresence.sendMessage({
+            user: this.SugarPresence.getUserInfo(),
+            content: {
+              action: 'start-game',
+              data: {
+                questions: vm.questions,
+                clockType: vm.clock.type,
+                clockInitial: vm.clock.initial,
+                level: vm.level,
+                compulsoryOps: vm.compulsoryOps,
+              }
+            }
+          });
+        }
+      } else {
+        vm.playersPlaying = vm.playersPlaying.filter(function(user) {
+          return user.name !== msg.user.name
+        });
+        vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
+          return user.name !== msg.user.name
+        });
+      }
+
     },
   }
 });

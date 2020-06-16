@@ -146,6 +146,10 @@ p {
   background-image: url(../icons/medium-level.svg);
 }
 
+.disabled{
+    opacity: .65;
+}
+
 #app {
   width: 100%;
   height: 100%;
@@ -155,6 +159,7 @@ p {
   width: 100%;
   height: 90%;
   display: flex;
+  flex: 1;
   flex-direction: row;
 	overflow: auto;
 }
@@ -163,10 +168,21 @@ p {
 	width: 100%;
 	height: 90%;
 	display: flex;
+  flex: 1;
 	justify-content: flex-start;
 	flex-direction: column;
 	overflow: auto;
 }
+
+#leaderboard-view {
+	width: 100%;
+  height: 80%;
+  flex: auto;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
 
 .solution-panel {
 	height: 90%;
@@ -193,7 +209,7 @@ p {
   text-align: center;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 60%;
+	background-size: 60%, 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: width 0.8s, height 0.8s;
 }
@@ -202,29 +218,44 @@ p {
 	background-image: url(../icons/plus.svg);
 }
 
+.plus-circle {
+  background-image: url(../icons/plus.svg),url(../icons/circle.svg)
+}
+
 .minus {
 	background-image: url(../icons/minus.svg);
+}
+
+.minus-circle {
+  background-image: url(../icons/minus.svg),url(../icons/circle.svg)
 }
 
 .multiply {
 	background-image: url(../icons/multiply.svg);
 }
 
+.multiply-circle {
+  background-image: url(../icons/multiply.svg),url(../icons/circle.svg)
+}
+
 .divide {
 	background-image: url(../icons/divide.svg);
 }
 
+.divide-circle {
+  background-image: url(../icons/divide.svg),url(../icons/circle.svg)
+}
+
 .btn-operator:hover {
   font-size: 60px;
-	background-size: 75%;
-  /*box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);*/
+	background-size: 75%, 100%;
 }
 
 .selected-op {
   width: 110px;
   height: 110px;
   font-size: 60px;
-	background-size: 75%;
+	background-size: 75%, 100%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
 
@@ -383,6 +414,10 @@ p {
 	background-image: url(../icons/divide.svg);
 }
 
+.slot .circle {
+	border: 3px solid black;
+}
+
 .slot .acheived {
   background-image: url(../icons/target.svg);
   background-repeat: no-repeat;
@@ -466,7 +501,6 @@ p {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 	font-size: 30px;
 	font-weight: bold;
-	border: none;
 	color: black;
 	text-align: center;
 }
@@ -531,13 +565,13 @@ p {
   border: none;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 90%;
+  background-size: 80%;
   transition: opacity 0.8s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .slots-area-footer-button:hover {
-  background-size: 100%;
+  background-size: 90%;
 }
 
 #btn-pass {
@@ -581,25 +615,6 @@ p {
 	font-weight: bold;
 	color: black;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-}
-
-.result-bar-icon {
-	width: 40%;
-	height: 95%;
-	background-image: url(../icons/result-icon.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 90%;
-}
-
-.result-bar-restart {
-	width: 40%;
-	height: 95%;
-  background-color: transparent;
-	background-image: url(../icons/dialog-cancel.svg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
 }
 
 .result-main {
@@ -718,23 +733,63 @@ p {
   justify-content: flex-end;
 }
 
+.leaderboard-main {
+  min-height: 80%;
+  width: 98.4%;
+  overflow: auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0.8%;
+  justify-content: space-around;
+}
 
-#restart-block {
+.leaderboard-footer {
+  width: 98%;
+	height: 12%;
+	margin: 0.8%;
+  margin-top: 0%;
+  margin-bottom: 0.5%;
+	display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.restart-block {
   width: 125px;
   height: 100%;
-	display: flex;
-	align-items: center;
+  margin: 0% 1%;
 	cursor: pointer;
   border-radius: 20%;
-  font-weight: bold;
-  justify-content: space-around;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-image: url(../icons/restart-black.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 80%;
 }
 
-.restart-block-img {
+.restart-block:hover {
+  background-size: 90%;
+}
+
+.btn-solution-block {
+  width: 125px;
   height: 100%;
+  margin: 0% 1%;
+	cursor: pointer;
+  border-radius: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-image: url(../icons/see-solution.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 80%;
 }
 
+.btn-solution-block:hover {
+  background-size: 90%;
+}
 
 @media only screen and (max-width: 940px) {
   .btn-operator {

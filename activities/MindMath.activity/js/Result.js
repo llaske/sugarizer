@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion'],
   template: `
     <div id="result-view"
     >
@@ -61,6 +61,7 @@ var Result = {
                       v-bind:fillColor="fillColor"
                       v-bind:targetNum="panel.targetNum"
                       v-bind:slots="mySlots[index]"
+                      v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
                     ></slots-component>
                   </div>
                 </div>
@@ -71,7 +72,7 @@ var Result = {
                     >
                       <div class="info-block-logo bestSoln-logo"></div>
                       <div class="info-block-content">
-                        <div>Best</div>
+                        <div></div>
                       </div>
                     </div>
                   </div>
@@ -82,6 +83,7 @@ var Result = {
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
                     v-bind:slots="bestSlots[index]"
+                    v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
                     ></slots-component>
                   </div>
                 </div>
@@ -93,12 +95,10 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <div id="restart-block"
+          <div class="restart-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('restart-game')"
           >
-            <img class="restart-block-img" src="icons/restart-black.svg">
-            <span>Restart</span>
           </div>
       </div>
     </div>
@@ -138,9 +138,7 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight + "px";
-      document.querySelector('.restart-block-img').style.width = document.querySelector('.restart-block-img').offsetHeight + "px";
-
-
+      document.querySelector('.restart-block').style.width = document.querySelector('.restart-block').offsetHeight + "px";
 
       if (ratio < 1) {
         // stack up panels
