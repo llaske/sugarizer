@@ -7,12 +7,14 @@ var CategoryCard = {
 			:style="{ backgroundColor: category.color, boxShadow: '0 0 5px ' + category.color }"
 			@click="onCategoryClick"
 		>
-			<transition name="settings-zoom">
-				<div class="settings-row" v-if="settings">
-					<button id="edit-button" @click="onEditClick"></button>
-					<button id="delete-button" @click.stop="onDeleteClick"></button>
-				</div>
-			</transition>
+			<div class="settings-row">
+				<transition name="settings-zoom">
+					<button id="edit-button" @click="onEditClick" v-if="settings"></button>
+				</transition>
+				<transition name="settings-zoom">
+					<button id="delete-button" @click.stop="onDeleteClick" v-if="settings"></button>
+				</transition>
+			</div>
 			<h1 class="category-title">{{ category.title }}</h1>
 			<div class="category-skills">
 				<div 

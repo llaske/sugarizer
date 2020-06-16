@@ -17,7 +17,7 @@
 	border-radius: 10px;
 	background: white;
 	cursor: pointer;
-	transition: transform 500ms ease;
+	transition: transform 300ms ease;
 }
 .category-title {
 	text-align: center;

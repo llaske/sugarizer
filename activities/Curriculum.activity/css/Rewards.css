@@ -1,3 +1,35 @@
 .rewards-container {
 	padding: 0 4vw;
 }
+.trophies {
+	display: flex;
+	align-items: flex-end;
+}
+.trophies .trophy-container:nth-child(1), .trophies .trophy-container:nth-child(5) {
+	height: 50px;
+	width: 50px;
+}
+.trophies .trophy-container:nth-child(2), .trophies .trophy-container:nth-child(4) {
+	height: 75px;
+	width: 75px;
+}
+.trophies .trophy-container:nth-child(3) {
+	height: 100px;
+	width: 100px;
+}
+
+.trophy-container {
+	height: 100px;
+	width: 100px;
+}
+.trophy {
+	background-image: url(../icons/trophy-large.svg);
+	background-size: cover;
+	background-position: center;
+	height: 100%;
+	width: 100%;
+	opacity: 0.3;
+}
+.trophy.acquired {
+	opacity: 1;
+}
