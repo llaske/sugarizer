@@ -67,53 +67,58 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			//Init Sun
 			initPosition("Sun", "Star", null);
 
-			for (var i = 0; i < planet.length; i ++){
-				var planetList = document.createElement('div');
-				planetList.id = 'planet-' + planet[i].name;
-				planetList.className = 'planets';
-				homeDisplay.appendChild(planetList);
+			window.addEventListener("localized", function() {
+				for (var i = 0; i < planet.length; i ++){
+					var planetList = document.createElement('div');
+					planetList.id = 'planet-' + planet[i].name;
+					planetList.className = 'planets';
+					homeDisplay.appendChild(planetList);
 
-				var planetImage = document.createElement('img');
-				planetImage.className = planet[i].name;
-				planetImage.src = "images/" + planet[i].name.toLowerCase() + ".jpg";
-				planetImage.width = 240;
-				document.getElementById("planet-" + planet[i].name).appendChild(planetImage);
+					var planetImage = document.createElement('img');
+					planetImage.className = planet[i].name;
+					planetImage.src = "images/" + planet[i].name.toLowerCase() + ".jpg";
+					planetImage.width = 240;
+					document.getElementById("planet-" + planet[i].name).appendChild(planetImage);
 
-				var planetName = document.createElement('span');
-				planetName.className = "name"
-				planetName.innerHTML = '<p>' + planet[i].name + '</p>';
-				document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
-				initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
-				initPosition(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
+					var planetName = document.createElement('span');
+					planetName.className = "name"
+					planetName.innerHTML = '<p>' + l10n.get(planet[i].name) + '</p>';
+					document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
-				// Switch to fullscreen mode on click
-				document.getElementById("fullscreen-button").addEventListener('click', function() {
-					document.getElementById("main-toolbar").style.opacity = 0;
-					document.getElementById("canvas").style.top = "0px";
-					document.getElementById("unfullscreen-button").style.visibility = "visible";
-					document.getElementById("back-button").style.bottom = "740px";
-				});
+					initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
+					initPosition(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
 
-				// Switch to unfullscreen mode
-				document.getElementById("unfullscreen-button").addEventListener('click', function() {
-					document.getElementById("main-toolbar").style.opacity = 1;
-					document.getElementById("canvas").style.top = "55px";
-					document.getElementById("unfullscreen-button").style.visibility = "hidden";
-					document.getElementById("back-button").style.bottom = "685px";
-				});
+					// Switch to fullscreen mode on click
+					document.getElementById("fullscreen-button").addEventListener('click', function() {
+						document.getElementById("main-toolbar").style.opacity = 0;
+						document.getElementById("canvas").style.top = "0px";
+						document.getElementById("unfullscreen-button").style.visibility = "visible";
+						document.getElementById("back-button").style.bottom = "740px";
+					});
 
-				document.getElementById("list-button").addEventListener("click", function(){
-					homeDisplay.style.display="block";
-					planetPos.style.display="none";
-					fromPlanetPosClicked = false;
-					distance = -80;
-					requestAnim = false;
-					textDistance = 3.5;
-					document.getElementById("position-button").style.display="inline";
-					document.getElementById("list-button").style.display = "none";
-				});
-			}
+					// Switch to unfullscreen mode
+					document.getElementById("unfullscreen-button").addEventListener('click', function() {
+						document.getElementById("main-toolbar").style.opacity = 1;
+						document.getElementById("canvas").style.top = "55px";
+						document.getElementById("unfullscreen-button").style.visibility = "hidden";
+						document.getElementById("back-button").style.bottom = "685px";
+					});
+
+					document.getElementById("list-button").addEventListener("click", function(){
+						homeDisplay.style.display="block";
+						planetPos.style.display="none";
+						fromPlanetPosClicked = false;
+						distance = -80;
+						requestAnim = false;
+						textDistance = 3.5;
+						document.getElementById("position-button").style.display="inline";
+						document.getElementById("list-button").style.display = "none";
+					});
+				}
+			});
+
+
 
 			//Load from datastore
 			if(!environment.objectId){
@@ -573,7 +578,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				var planetNewName = document.createElement("div");
 				planetNewName.id = "new-name-" + name;
 				planetNewName.className = "planet-new-name";
-				planetNewName.innerHTML = name;
+				planetNewName.innerHTML = l10n.get(name);
 				planetPos.appendChild(planetNewName);
 				document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
 			}
