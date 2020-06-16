@@ -29,10 +29,126 @@ var app = new Vue({
 			skills: []
 		},
 		levels: {
-			1: ['B', 'A'],
-			2: ['C', 'B', 'A'],
-			3: ['C', 'B', 'A', 'A+'],
-			4: ['X', 'C', 'B', 'A', 'A+'],
+			1: [
+				{
+					grade: 'B',
+					text: "Not Acquired",
+					colors: {
+						fill: "#FF542C",
+						stroke: "#700000"
+					}
+				}, 
+				{
+					grade: 'A',
+					text: "Acquired",
+					colors: {
+						fill: "#02F000",
+						stroke: "#0B7000"
+					}
+				}
+			],
+			2: [
+				{
+					grade: 'C',
+					text: "Not Acquired",
+					colors: {
+						fill: "#FF542C",
+						stroke: "#700000"
+					}
+				}, 
+				{
+					grade: 'B',
+					text: "Partially Acquired",
+					colors: {
+						fill: "#FFC72C",
+						stroke: "#705D00"
+					}
+				}, 
+				{
+					grade: 'A',
+					text: "Acquired",
+					colors: {
+						fill: "#02F000",
+						stroke: "#0B7000"
+					}
+				}
+			],
+			3: [
+				{
+					grade: 'C',
+					text: "Not Acquired",
+					colors: {
+						fill: "#FF542C",
+						stroke: "#700000"
+					}
+				}, 
+				{
+					grade: 'B',
+					text: "Partially Acquired",
+					colors: {
+						fill: "#FFC72C",
+						stroke: "#705D00"
+					}
+				}, 
+				{
+					grade: 'A',
+					text: "Acquired",
+					colors: {
+						fill: "#98FF5D",
+						stroke: "#10A600"
+					}
+				},
+				{
+					grade: 'A+',
+					text: "Exceeded",
+					colors: {
+						fill: "#02F000",
+						stroke: "#0B7000"
+					}
+				}
+			],
+			4: [
+				{
+					grade: 'X',
+					text: "Not Evaluated",
+					colors: {
+						fill: "#FFFFFF",
+						stroke: "#838383"
+					}
+				}, 
+				{
+					grade: 'C',
+					text: "Not Acquired",
+					colors: {
+						fill: "#FF542C",
+						stroke: "#700000"
+					}
+				}, 
+				{
+					grade: 'B',
+					text: "Partially Acquired",
+					colors: {
+						fill: "#FFC72C",
+						stroke: "#705D00"
+					}
+				}, 
+				{
+					grade: 'A',
+					text: "Acquired",
+					colors: {
+						fill: "#98FF5D",
+						stroke: "#10A600"
+					}
+				},
+				{
+					grade: 'A+',
+					text: "Exceeded",
+					colors: {
+						fill: "#02F000",
+						stroke: "#0B7000"
+					}
+				}
+			],
 		},
 		l10n: {
 			stringCategories: '',
@@ -244,17 +360,17 @@ var app = new Vue({
 
 		onNotationSelected: function(event) {
 			var oldLevel = this.user.notationLevel;
-			this.user.notationLevel = event.level;
-
-			for(var cat of this.user.skills) {
-				for(var skill in cat) {
-					if(cat[skill].acquired == oldLevel) {
-						cat[skill].acquired = event.level;
+			
+			for(var cat in this.user.skills) {
+				for(var skill in this.user.skills[cat]) {
+					if(this.user.skills[cat][skill].acquired == oldLevel) {
+						this.$set(this.user.skills[cat][skill], 'acquired', event.level);
 					} else {
-						cat[skill].acquired = 0;
+						this.$set(this.user.skills[cat][skill], 'acquired', 0);
 					}
 				}
 			}
+			this.user.notationLevel = parseInt(event.level);
 		},
 
 		goBackTo: function (view) {

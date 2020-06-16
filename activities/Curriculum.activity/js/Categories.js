@@ -26,7 +26,14 @@ var CategoryCard = {
 				</div>
 			</div>
 			<div class="progress">
-				<medal small v-for="n in category.skills.length" :key="n" :acquired="n <= acquiredSkills ? 1 : 0" :levels="levels" :notation-level="user ? user.notationLevel : {}" />
+				<medal 
+					small 
+					v-for="(n, i) in category.skills.length" 
+					:key="n" 
+					:acquired="i < acquiredSkills.length ? acquiredSkills[i] : 0" 
+					:levels="levels" 
+					:notation-level="user ? user.notationLevel : undefined" 
+				/>
 			</div>
 		</div>
 	`,
@@ -43,12 +50,15 @@ var CategoryCard = {
 			return skills;
 		},
 		acquiredSkills: function () {
-			if(!this.user) return this.category.skills.length/2;
-			var count = 0;
-			for (var skillId in this.user.skills[this.category.id]) {
-				if (this.user.skills[this.category.id][skillId].acquired) count++;
+			var acquired = [];
+			if(this.user) {
+				for (var skillId in this.user.skills[this.category.id]) {
+					if (this.user.skills[this.category.id][skillId].acquired) {
+						acquired.push(this.user.skills[this.category.id][skillId].acquired);
+					}
+				}
 			}
-			return count;
+			return acquired;
 		}
 	},
 	methods: {
@@ -79,6 +89,7 @@ var CategoriesGrid = {
 					:category="category"
 					:user="user"
 					:settings="settings"
+					:levels="levels"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
 					@edit-category-clicked="onEditCategoryClick"
@@ -90,7 +101,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings'],
+	props: ['categories', 'user', 'settings', 'levels'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);

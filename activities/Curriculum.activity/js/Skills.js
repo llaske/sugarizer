@@ -15,7 +15,7 @@ var SkillCard = {
 					</transition>
 					<transition name="settings-zoom">
 						<button id="delete-button" @click.stop="onDeleteClick" v-if="settings"></button>
-						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="user ? user.notationLevel : {}"></medal>
+						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="user ? user.notationLevel : undefined"></medal>
 					</transition>
 				</div>
 			<img :src="skill.image" class="skill-image">

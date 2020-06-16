@@ -4,6 +4,7 @@ var CategorySettings = {
 		<div class="settings category-settings">
 			<category-card 
 				:category="category"
+				:levels="levels"
 			></category-card>
 			<form @submit.prevent="onConfirm">
 				<div>
@@ -39,7 +40,7 @@ var CategorySettings = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'categoryId', 'user'],
+	props: ['categories', 'categoryId', 'user', 'levels'],
 	data: function() {
 		return {
 			category: {
@@ -116,6 +117,7 @@ var SkillSettings = {
 			<skill-card 
 				:category="category"
 				:skill="skill"
+				:levels="levels"
 			></skill-card>
 			<form @submit.prevent="onConfirm">
 				<div>
@@ -145,7 +147,7 @@ var SkillSettings = {
 	components: {
 		'skill-card': SkillCard
 	},
-	props: ['categories', 'categoryId', 'skillId', 'user'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'levels'],
 	data: function() {
 		return {
 			category: {},
