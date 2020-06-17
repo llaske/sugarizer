@@ -94,11 +94,15 @@
 				v-bind:time-taken="timeTaken"
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"
+				v-bind:players-all="playersAll"
 				v-bind:sugar-popup="sugarPopup"
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
 				v-on:restart-game="handleRestartButton"
 				v-on:pass-question="handlePassButton"
+				v-on:see-solution="currentScreen = 'result'"
+				v-on:go-to-leaderboard="currentScreen = 'leaderboard'"
+
 			></component>
 	</transition>
 

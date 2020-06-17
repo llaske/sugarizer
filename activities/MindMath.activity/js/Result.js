@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll'],
   template: `
     <div id="result-view"
     >
@@ -95,7 +95,15 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <div class="restart-block"
+          <div class="btn-block btn-back-block"
+            v-if="playersAll.length!= 0"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('go-to-leaderboard')"
+          >
+          </div>
+          <div
+            v-else
+            class="btn-block btn-restart-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('restart-game')"
           >
@@ -138,7 +146,11 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight + "px";
-      document.querySelector('.restart-block').style.width = document.querySelector('.restart-block').offsetHeight + "px";
+      if (vm.playersAll.length!=0) {
+        document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+      } else {
+        document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+      }
 
       if (ratio < 1) {
         // stack up panels

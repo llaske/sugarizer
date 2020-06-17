@@ -119,7 +119,7 @@ var app = new Vue({
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
-        if (vm.multiplayerPlaying && vm.connectedPlayers[0].networkId !== vm.SugarPresence.getUserInfo().networkId) {
+        if (vm.multiplayerPlaying && !vm.SugarPresence.isHost) {
           //request the questions set maintainer to add questions if it is multiplayer game
           vm.SugarPresence.sendMessage({
             user: this.SugarPresence.getUserInfo(),
@@ -131,7 +131,7 @@ var app = new Vue({
           var questions = vm.questionsGenerator.generate(vm.level, 10);
           vm.questions = vm.questions.concat(questions);
 
-          if (vm.multiplayerPlaying && vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId) {
+          if (vm.multiplayerPlaying && vm.SugarPresence.isHost) {
             //update the questions set among all others users if you are the maintainer in multiplayer game
             vm.SugarPresence.sendMessage({
               user: this.SugarPresence.getUserInfo(),
@@ -436,7 +436,19 @@ var app = new Vue({
                     }, 0);
                   }
                 });
-                console.log(vm.playersAll);
+
+                vm.SugarPresence.sendMessage({
+                  user: this.SugarPresence.getUserInfo(),
+                  content: {
+                    action: 'update-players',
+                    data: {
+                      playersAll: vm.playersAll,
+                      playersPlaying: vm.playersPlaying,
+                      connectedPlayers: vm.connectedPlayers,
+                    }
+                  }
+                });
+
                 vm.multiplayerPlaying = false;
                 vm.currentScreen = "leaderboard";
               } else {
@@ -768,7 +780,7 @@ var app = new Vue({
       switch (msg.content.action) {
         case 'start-game':
           var data = msg.content.data;
-          if (!vm.multiplayerPlaying) {
+          if (!vm.multiplayerPlaying && vm.currentScreen==='game') {
             vm.multiplayerPlaying = true;
             vm.questions = data.questions;
             vm.qNo = 0;
@@ -806,7 +818,7 @@ var app = new Vue({
           break;
 
         case 'add-questions':
-          if (vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId) {
+          if (vm.SugarPresence.isHost) {
             console.log('update');
             var questions = vm.questionsGenerator.generate(vm.level, 10);
             vm.questions = vm.questions.concat(questions);
@@ -871,6 +883,7 @@ var app = new Vue({
             }
           });
         }
+
       } else {
         vm.playersPlaying = vm.playersPlaying.filter(function(user) {
           return user.name !== msg.user.name
@@ -878,6 +891,7 @@ var app = new Vue({
         vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
           return user.name !== msg.user.name
         });
+        vm.SugarPresence.isHost = vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId ? true : false;
       }
 
     },
