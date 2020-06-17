@@ -15,7 +15,8 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	});
 
 	// Chooser feature to search in the Local Journal
-	var featureLocalJournal = {};
+	chooser.featureLocalJournal = {}
+	var featureLocalJournal = chooser.featureLocalJournal;
 	featureLocalJournal.id = "journal-button";
 	featureLocalJournal.title = "$titleJournal";
 	featureLocalJournal.placeholder = "$holderSearchJournal";
@@ -75,11 +76,11 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	};
 
 	// Init feature list: overload it if you want to change the feature list at init
-	var features = [];
-	var currentFeature = -1;
+	chooser.features = [];
+	chooser.currentFeature = -1;
 	chooser.init = function() {
-		features = [featureLocalJournal];
-		currentFeature = 0;
+		chooser.features = [featureLocalJournal];
+		chooser.currentFeature = 0;
 	}
 
 	// Display object chooser dialog with journal content
@@ -96,7 +97,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		result = null;
 		chooser.init();
 		var imageType = "image/png";
-		var soundType = /Android/i.test(navigator.userAgent)?"audio/ogg":"audio/mpeg";
+		var soundType = "audio/mpeg";
 		var filters = [filter1, orFilter2, orFilter3, orFilter4];
 		for (var i = 0 ; i < filters.length ; i++) {
 			if (filters[i]) {
@@ -104,23 +105,23 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					featureAbecedarium.fileformat = ".png";
 					featureAbecedarium.mimetype = imageType;
 					featureAbecedarium.filelocation = "images/database/";
-					features.push(featureAbecedarium);
+					chooser.features.push(featureAbecedarium);
 					break;
 				} else if (filters[i].mimetype == soundType) {
-					featureAbecedarium.fileformat = (soundType == "audio/ogg"?".ogg":".mp3");
+					featureAbecedarium.fileformat = ".mp3";
 					featureAbecedarium.mimetype = soundType;
 					featureAbecedarium.filelocation = "audio/{{lang}}/database/";
-					features.push(featureAbecedarium);
+					chooser.features.push(featureAbecedarium);
 					break;
 				}
 			}
 		}
 		var contentHeader = "<div id='pictotoolbar' class='toolbar' style='padding: 0'>";
-		for (var i = 0 ; i < features.length ; i++) {
-			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
+		for (var i = 0 ; i < chooser.features.length ; i++) {
+			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+chooser.features[i].id+"' title='"+chooser.features[i].title+"' style='background-image: url("+chooser.features[i].icon+")'></button>";
 		}
 		contentHeader += "<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>";
-		contentHeader += "<div style='position: relative; display: inline-block; margin-left: 10px; vertical-align:middle; height:55px'>$titleChoose</div></div>";
+		contentHeader += "<div style='position: absolute; display: inline-block; margin-left: 10px; top: 20px; height:55px'>$titleChoose</div></div>";
 		modal = picoModal({
 			content: doLocalize(contentHeader+"\
 				<div class='toolbar' style='border-top-style: solid; border-color: #c0c0c0; border-width: 1px'>\
@@ -145,29 +146,29 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		})
 		.afterShow(function(modal) {
 			var color = userSettings.colorvalue;
-			icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
+			icon.colorize(document.getElementById(chooser.features[chooser.currentFeature].id), color, function() {});
 			var radios = [];
-			for (var i = 0 ; i < features.length ; i++) {
-				var radio = document.getElementById(features[i].id);
+			for (var i = 0 ; i < chooser.features.length ; i++) {
+				var radio = document.getElementById(chooser.features[i].id);
 				radios.push(radio);
 				radio.addEventListener("click", function(e) {
 					var index = -1;
-					for (var j = 0 ; j < features.length ; j++) {
-						if (features[j].id == e.srcElement.id) {
+					for (var j = 0 ; j < chooser.features.length ; j++) {
+						if (chooser.features[j].id == e.srcElement.id) {
 							index = j;
 							break;
 						}
 					}
-					if (index != currentFeature) {
-						features[currentFeature].beforeUnactivate();
-						document.getElementById(features[currentFeature].id).style.backgroundImage = "url("+features[currentFeature].icon+")";
+					if (index != chooser.currentFeature) {
+						chooser.features[chooser.currentFeature].beforeUnactivate();
+						document.getElementById(chooser.features[chooser.currentFeature].id).style.backgroundImage = "url("+chooser.features[chooser.currentFeature].icon+")";
 						document.getElementById('journal-container').innerHTML = "";
 						document.getElementById('search-text').value = '';
-						currentFeature = index;
-						features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
-						features[currentFeature].beforeActivate();
-						icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
-						document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
+						chooser.currentFeature = index;
+						chooser.features[chooser.currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+						chooser.features[chooser.currentFeature].beforeActivate();
+						icon.colorize(document.getElementById(chooser.features[chooser.currentFeature].id), color, function() {});
+						document.getElementById('search-text').placeholder=doLocalize(chooser.features[chooser.currentFeature].placeholder);
 					}
 				})
 			}
@@ -176,27 +177,27 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			var targetHeight = document.getElementById("pictotoolbar").parentNode.offsetHeight - 55*2;
 			document.getElementById('journal-container').style.height = targetHeight + "px";
 			document.getElementById('journal-container').addEventListener("scroll", function() {
-				features[currentFeature].onScroll();
+				chooser.features[chooser.currentFeature].onScroll();
 			});
 			var favorite = document.getElementById('favorite-button');
 			favorite.addEventListener('click', function() {
-				features[currentFeature].onFavorite();
+				chooser.features[chooser.currentFeature].onFavorite();
 			});
 			document.getElementById('search-text').addEventListener('keyup', function() {
-				features[currentFeature].onSearch();
+				chooser.features[chooser.currentFeature].onSearch();
 			});
 			document.getElementById('cancel-search').addEventListener('click', function() {
 				document.getElementById('search-text').value = '';
-				features[currentFeature].onCancelSearch();
+				chooser.features[chooser.currentFeature].onCancelSearch();
 			});
 			document.getElementById('close-button').addEventListener('click', function() {
 				result = null;
 				modal.close();
 			});
 
-			document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
-			features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
-			features[currentFeature].beforeActivate();
+			document.getElementById('search-text').placeholder=doLocalize(chooser.features[chooser.currentFeature].placeholder);
+			chooser.features[chooser.currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+			chooser.features[chooser.currentFeature].beforeActivate();
 		})
 		.afterClose(function(modal) {
 			modal.destroy();
@@ -344,18 +345,30 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		featureAbecedarium.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/";
 		featureAbecedarium.lang = (["en","es","fr"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		featureAbecedarium.filelocation = featureAbecedarium.filelocation.replace("{{lang}}",featureAbecedarium.lang);
-		var count = 0;
-		var loadDatabase = function(file, entry) {
+		var loadDatabase = function(file, entry, subcallback) {
 			var client = new XMLHttpRequest();
 			var source = featureAbecedarium.baseURL+file;
 			client.onload = function() {
 				if (entry == "ping") {
 					featureAbecedarium.database[entry]=(this.status == 0 || (this.status >= 200 && this.status < 300));
-					return;
-				}
-				if (this.status == 0 || (this.status >= 200 && this.status < 300)) {
+				} else if (this.status == 0 || (this.status >= 200 && this.status < 300)) {
 					featureAbecedarium.database[entry]=JSON.parse(this.responseText);
-					if (++count == 3) {
+				}
+				subcallback();
+			};
+			client.onerror = function() {
+				if (entry == "ping") {
+					featureAbecedarium.database[entry]=false;
+					subcallback();
+				}
+			}
+			client.open("GET", source);
+			client.send();
+		};
+		loadDatabase("database/db_url.json", "url", function() {
+			loadDatabase("database/db_meta.json", "meta", function() {
+				loadDatabase("database/db_"+featureAbecedarium.lang+".json", "words", function() {
+					loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping", function() {
 						var len = featureAbecedarium.database.meta.length;
 						var entries = [];
 						for (var i = 0 ; i < len; i++) {
@@ -375,16 +388,10 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 						delete featureAbecedarium.database.meta;
 						delete featureAbecedarium.database.words;
 						callback();
-					}
-				}
-			};
-			client.open("GET", source);
-			client.send();
-		};
-		loadDatabase("database/db_url.json", "url");
-		loadDatabase("database/db_meta.json", "meta");
-		loadDatabase("database/db_"+featureAbecedarium.lang+".json", "words");
-		loadDatabase("images/database/_ping.png?"+(new Date()).getTime(), "ping");
+					});
+				});
+			});
+		});
 	}
 
 	// Fill popup with Abecedarium items
@@ -508,11 +515,17 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	function doLocalize(str, params) {
 		var lang = (["en","fr","es", "pt"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		var out = str;
-		for(var current in l10n) {
-			out = out.replace('$'+current, l10n[current][lang]);
+		var variablesToReplace = out.match(/\$\w+/g);
+		for(var i in variablesToReplace) {
+			var string = variablesToReplace[i].match(/\w+/)[0];
+			if(l10n[string]) {
+				out = out.replace(variablesToReplace[i], l10n[string][lang]);
+			}
 		}
-		for(var param in params) {
-			out = out.replace('{{'+param+'}}', params[param]);
+		var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+		for(var i in paramsInString) {
+			var param = paramsInString[i].match(/[\w\.]+/)[0];
+			out = out.replace(paramsInString[i], params[param]);
 		}
 		return out;
 	}
@@ -578,6 +591,11 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			}
 		}
 		return  eqLen === 0 ? sB64Enc : sB64Enc.substring(0, sB64Enc.length - eqLen) + (eqLen === 1 ? "=" : "==");
+	}
+
+	chooser.close = function (resultObj) {
+		result = resultObj;
+		modal.close(result);
 	}
 
 	return chooser;
