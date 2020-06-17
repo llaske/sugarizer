@@ -132,7 +132,6 @@ let app = new Vue({
 		initialized: function () {
 			// Initialize Sugarizer
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-			this.$refs.SugarL10n.$on('localized', this.localized());
 		},
 
 		localized: function () {

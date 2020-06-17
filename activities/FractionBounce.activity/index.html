@@ -120,7 +120,7 @@
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError"></sugar-journal>
-		<sugar-localization ref="SugarL10n"></sugar-localization>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 		<sugar-device ref="SugarDevice" v-on:acceleration-callback="accelerationChanged"></sugar-device>
 	</div>
