@@ -1,4 +1,5 @@
 Vue.component('sugar-activity', {
+	name: 'SugarActivity',
 	data: function() {
 		return {
 			activity: null,
