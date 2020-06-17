@@ -57,10 +57,12 @@
 			<sugar-toolitem 
 				id="acquire-button" 
 				v-show="currentView == 'skill-details'" 
-				:class="{ active: currentAcquired != 0 }" 
+				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
 				@click="switchSkillLevel" 
 				v-bind:title="l10n.stringAcquire"
-			></sugar-toolitem>
+			>
+				<span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span>
+			</sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-show="currentView == 'skill-details'"
@@ -91,6 +93,7 @@
 						:current-acquired="currentAcquired"
 						:user="user"
 						:levels="levels"
+						:notation-level="notationLevel"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -99,6 +102,7 @@
 						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
+					<rewards />
 				<!-- </keep-alive> -->
 			</transition>
 		</div>

@@ -15,7 +15,7 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/notationpalette.ht
 		var that = this;
 		var levelButtons = document.getElementById('notation-selector').children;
 		for(var button of levelButtons) {
-			if(button.id.substr(6) == app.user.notationLevel) {
+			if(button.id.substr(6) == app.notationLevel) {
 				button.classList.add('active');
 			}
 			button.addEventListener('click', onClick);
@@ -26,7 +26,7 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/notationpalette.ht
 			that.getPalette().dispatchEvent(that.uploadItemEvent);
 			that.popDown();
 			for(var button of levelButtons) {
-				if(button.id.substr(6) == app.user.notationLevel) {
+				if(button.id.substr(6) == app.notationLevel) {
 					button.classList.add('active');
 				} else {
 					button.classList.remove('active');

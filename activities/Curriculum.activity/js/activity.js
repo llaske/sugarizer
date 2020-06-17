@@ -16,6 +16,7 @@ var app = new Vue({
 		'category-settings': CategorySettings,
 		'skill-settings': SkillSettings,
 		'rewards': Rewards,
+		'medal': Medal
 	},
 	data: {
 		currentenv: null,
@@ -25,21 +26,21 @@ var app = new Vue({
 		selectedCategoryId: null,
 		selectedSkillId: null,
 		user: {
-			notationLevel: 1,
 			skills: []
 		},
+		notationLevel: 1,
 		levels: {
 			1: [
 				{
-					grade: 'B',
+					grade: '',
 					text: "Not Acquired",
 					colors: {
-						fill: "#FF542C",
-						stroke: "#700000"
+						fill: "#FFFFFF",
+						stroke: "#D3D3D3"
 					}
-				}, 
+				},
 				{
-					grade: 'A',
+					grade: '',
 					text: "Acquired",
 					colors: {
 						fill: "#02F000",
@@ -55,7 +56,7 @@ var app = new Vue({
 						fill: "#FF542C",
 						stroke: "#700000"
 					}
-				}, 
+				},
 				{
 					grade: 'B',
 					text: "Partially Acquired",
@@ -63,7 +64,7 @@ var app = new Vue({
 						fill: "#FFC72C",
 						stroke: "#705D00"
 					}
-				}, 
+				},
 				{
 					grade: 'A',
 					text: "Acquired",
@@ -81,7 +82,7 @@ var app = new Vue({
 						fill: "#FF542C",
 						stroke: "#700000"
 					}
-				}, 
+				},
 				{
 					grade: 'B',
 					text: "Partially Acquired",
@@ -89,7 +90,7 @@ var app = new Vue({
 						fill: "#FFC72C",
 						stroke: "#705D00"
 					}
-				}, 
+				},
 				{
 					grade: 'A',
 					text: "Acquired",
@@ -115,7 +116,7 @@ var app = new Vue({
 						fill: "#FFFFFF",
 						stroke: "#838383"
 					}
-				}, 
+				},
 				{
 					grade: 'C',
 					text: "Not Acquired",
@@ -123,7 +124,7 @@ var app = new Vue({
 						fill: "#FF542C",
 						stroke: "#700000"
 					}
-				}, 
+				},
 				{
 					grade: 'B',
 					text: "Partially Acquired",
@@ -131,7 +132,7 @@ var app = new Vue({
 						fill: "#FFC72C",
 						stroke: "#705D00"
 					}
-				}, 
+				},
 				{
 					grade: 'A',
 					text: "Acquired",
@@ -171,13 +172,13 @@ var app = new Vue({
 				palette.style.visibility = 'hidden';
 			}
 		},
-		l10n: function(newVal, oldVal) {
+		l10n: function (newVal, oldVal) {
 			console.log(newVal);
 			this.$refs.SugarL10n.localize(this.l10n);
 			var vm = this;
-			this.categories.forEach(function(cat) {
+			this.categories.forEach(function (cat) {
 				cat.title = vm.l10n['string' + cat.title];
-				cat.skills.forEach(function(skill) {
+				cat.skills.forEach(function (skill) {
 					skill.title = vm.l10n['string' + skill.title]
 				})
 			})
@@ -197,7 +198,7 @@ var app = new Vue({
 			// document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 		},
 
-		localized: function() {
+		localized: function () {
 			this.$refs.SugarL10n.localize(this.l10n);
 		},
 
@@ -212,7 +213,7 @@ var app = new Vue({
 			this.selectedSkillId = skillId;
 			this.currentView = 'skill-details';
 		},
-		
+
 		editCategory: function (categoryId) {
 			this.selectedCategoryId = categoryId;
 			this.selectedSkillId = null;
@@ -227,7 +228,7 @@ var app = new Vue({
 
 		switchSkillLevel: function () {
 			var value = this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
-			value = (value + 1)%(this.user.notationLevel + 1);
+			value = (value + 1) % (this.notationLevel + 1);
 			this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
 		},
 
@@ -257,7 +258,7 @@ var app = new Vue({
 			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser", "activity/CurriculumChooser"], function (datastore, journalchooser, CurriculumChooser) {
 				journalchooser.init = function () {
 					journalchooser.features = [journalchooser.featureLocalJournal]
-					if(event.mediaType == 'image') {
+					if (event.mediaType == 'image') {
 						journalchooser.features.push(CurriculumChooser);
 					}
 					journalchooser.currentFeature = 0;
@@ -300,7 +301,7 @@ var app = new Vue({
 								mediaObj[event.mediaType].push(objectToSave)
 							});
 						}
-						skillObj.acquired = vm.user.notationLevel;
+						skillObj.acquired = vm.notationLevel;
 
 					}, filters[0], filters[1], filters[2], filters[3]);
 				}, 0);
@@ -331,8 +332,10 @@ var app = new Vue({
 
 		importSkills: function () {
 			var vm = this;
-			requirejs(["text!../default_template.json"], function (categories) {
-				var categoriesParsed = JSON.parse(categories);
+			requirejs(["text!../default_template.json"], function (data) {
+				var data = JSON.parse(data);
+				vm.notationLevel = data.notationLevel;
+				var categoriesParsed = data.categories;
 				var importedCategories = [];
 
 				categoriesParsed.forEach(function (category) {
@@ -358,19 +361,19 @@ var app = new Vue({
 			});
 		},
 
-		onNotationSelected: function(event) {
-			var oldLevel = this.user.notationLevel;
-			
-			for(var cat in this.user.skills) {
-				for(var skill in this.user.skills[cat]) {
-					if(this.user.skills[cat][skill].acquired == oldLevel) {
+		onNotationSelected: function (event) {
+			var oldLevel = this.notationLevel;
+
+			for (var cat in this.user.skills) {
+				for (var skill in this.user.skills[cat]) {
+					if (this.user.skills[cat][skill].acquired == oldLevel) {
 						this.$set(this.user.skills[cat][skill], 'acquired', event.level);
 					} else {
 						this.$set(this.user.skills[cat][skill], 'acquired', 0);
 					}
 				}
 			}
-			this.user.notationLevel = parseInt(event.level);
+			this.notationLevel = parseInt(event.level);
 		},
 
 		goBackTo: function (view) {
@@ -386,6 +389,7 @@ var app = new Vue({
 		onJournalDataLoaded: function (data, metadata) {
 			this.user = data.user;
 			this.categories = data.categories;
+			this.notationLevel = data.notationLevel;
 		},
 
 		onJournalNewInstace: function () {
@@ -403,7 +407,8 @@ var app = new Vue({
 		onStop: function () {
 			var context = {
 				user: this.user,
-				categories: this.categories
+				categories: this.categories,
+				notationLevel: this.notationLevel
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}

@@ -1,34 +1,111 @@
 .rewards-container {
 	padding: 0 4vw;
+	display: flex;
+	background: beige;
+}
+.stats-container {
+	flex: 1 350px;
+	padding: 0 20px;
+}
+.stat-card {
+	background: #d3d3d3;
+	padding: 5px 20px;
+	margin: 10px;
+	border-radius: 10px;
+	width: fit-content;
+	text-align: center;
+	color: white;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+	font-weight: 600;
+}
+.stat-card .acquired {
+	font-size: 5em;
+}
+.stat-card .total {
+	font-size: 2em;
+}
+.level-distribution {
+	text-align: right;
+	border-spacing: 0;
+	width: 100%;
+	margin: 30px 0;
+	background: white;
+	color: gray;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+}
+.level-distribution .text {
+	padding: 5px;
+	white-space:nowrap;
+}
+.bar-container {
+	padding: 5px;
+	height: 15px;
+	width: 100%;
+}
+.bar-container .bar {
+	height: 100%;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.trophies-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex: 1 350px;
+	height: calc(100vh - 55px);
+	background: #ffffbb;
+	box-shadow: 0 0 60px 10px #ffffbb;
 }
 .trophies {
+	position: relative;
 	display: flex;
+	justify-content: center;
 	align-items: flex-end;
+	width: 100%;
+	margin: 20px 0;
+}
+.trophies::after {
+	content: '';
+	position: absolute;
+	bottom: -12px;
+	left: 0;
+	width: 100%;
+	height: 12px;
+	background: rgb(126, 32, 32);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.trophies .trophy-container {
+	margin: 0 -25px;
 }
 .trophies .trophy-container:nth-child(1), .trophies .trophy-container:nth-child(5) {
-	height: 50px;
-	width: 50px;
+	width: 15%;
+	z-index: 3;
+	filter: drop-shadow(2px 4px 15px rgba(0, 0, 0, 0.35));
 }
 .trophies .trophy-container:nth-child(2), .trophies .trophy-container:nth-child(4) {
-	height: 75px;
-	width: 75px;
+	width: 25%;
+	z-index: 2;
+	filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.35));
 }
 .trophies .trophy-container:nth-child(3) {
-	height: 100px;
-	width: 100px;
+	width: 40%;
+	filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.35));
 }
 
 .trophy-container {
-	height: 100px;
+	position: relative;
 	width: 100px;
 }
 .trophy {
 	background-image: url(../icons/trophy-large.svg);
 	background-size: cover;
 	background-position: center;
-	height: 100%;
 	width: 100%;
-	opacity: 0.3;
+	padding-top: 100%;  /*  To get 1:1 asepect ratio */
+	opacity: 0.1;
 }
 .trophy.acquired {
 	opacity: 1;
