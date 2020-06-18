@@ -155,7 +155,6 @@ var app = new Vue({
 
     playersPlaying: function() {
       var vm = this;
-            console.log(vm.playersPlaying);
       if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
         vm.disabled = false;
       } else {
@@ -864,7 +863,6 @@ var app = new Vue({
 
         case 'add-questions':
           if (vm.SugarPresence.isHost) {
-            console.log('update');
             var questions = vm.questionsGenerator.generate(vm.level, 10);
             vm.questions = vm.questions.concat(questions);
 
@@ -937,9 +935,7 @@ var app = new Vue({
         vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
           return user.networkId !== msg.user.networkId
         });
-        console.log(vm.connectedPlayers[0]);
         vm.SugarPresence.isHost = vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId ? true : false;
-        console.log(vm.SugarPresence.isHost);
       }
 
     },

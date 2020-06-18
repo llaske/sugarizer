@@ -1045,6 +1045,9 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	font-size: 10pt;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
 
 .module-dialog-wifikey {
@@ -1184,6 +1187,9 @@ body {
 	background-color: #e5e5e5;
 	padding-left: 10px;
 	font-size: 10pt;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
 
 .first-servervalue:focus {
@@ -1288,6 +1294,9 @@ body {
 	background-color: #e5e5e5;
 	padding-left: 10px;
 	font-size: 10pt;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
 
 .first-namevalue:focus {
@@ -1465,7 +1474,7 @@ body {
 .spinner {
 	position: absolute;
 	margin-left: 45%;
-	margin-top: 20%;
+	margin-top: 3%;
 	width: 8%;
 }
 
@@ -1716,6 +1725,9 @@ body {
 	background-color: #e5e5e5;
 	padding-left: 10px;
 	font-size: 10pt;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
 
 .aboutserver-servername:focus {
