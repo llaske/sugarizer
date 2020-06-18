@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -94,6 +94,7 @@ var Game = {
         </div>
         <div class="slots-area-footer">
           <button id="btn-restart"
+            v-bind:disabled="disabled"
             class="slots-area-footer-button"
             v-bind:style="{backgroundColor: strokeColor}"
             v-on:click="$emit('restart-game')"

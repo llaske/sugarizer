@@ -15,6 +15,7 @@ p {
 
 #app {
   min-height: 100%;
+  background-color: #ffffff;
 }
 
 #app-content {
@@ -26,10 +27,7 @@ p {
   transition: opacity .4s;
 }
 
-.fade-enter, .fade-leave-to
-
-/* .fade-leave-active below version 2.1.8 */
-  {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
@@ -137,7 +135,7 @@ p {
   width: 45px;
   height: 45px;
   top: 0;
-  right: 6%;
+  right: 1%;
   position: absolute;
   z-index: 5;
 }
@@ -679,42 +677,42 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 60px;
-  height: 30px;
+  width: 100px;
+  height: 40px;
   border: none;
   color: black;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: bold;
   text-align: center;
 }
 
 .info-block-logo {
   height: 100%;
-  width: 50%;
+  width: 40%;
 }
 
 .info-block-content {
   height: 100%;
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.bestSoln-logo {
-  background-image: url(../icons/robot.svg);
+.info-bar-logo {
+  width: 40px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 90%;
+  background-size: contain;
+}
+
+.bestSoln-logo {
+  background-image: url(../icons/robot.svg);
 }
 
 .info-user-logo {
-  width: 30px;
-  height: 30px;
   background-image: url(../icons/buddy-icon.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 90%;
 }
 
 .solution-main {
@@ -831,6 +829,7 @@ p {
 .btn-block {
   width: 125px;
   height: 100%;
+  border: none;
   margin: 0% 1%;
   cursor: pointer;
   border-radius: 20%;
@@ -848,8 +847,8 @@ p {
   background-image: url(../icons/restart-black.svg);
 }
 
-.btn-solution-block {
-  background-image: url(../icons/see-solution.svg);
+.btn-rankings-block {
+  background-image: url(../icons/leaderboard.svg);
 }
 
 .btn-back-block {
@@ -1140,12 +1139,12 @@ p {
   }
 
   .info-block {
-    width: 50px;
+    width: 60px;
     height: 25px;
     font-size: 8px;
   }
 
-  .info-user-logo {
+  .info-bar-logo {
     width: 25px;
     height: 25px;
   }

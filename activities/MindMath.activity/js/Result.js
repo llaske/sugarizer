@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled'],
   template: `
     <div id="result-view"
     >
@@ -43,7 +43,10 @@ var Result = {
                       </div>
                     </div>
 
-                    <div class="info-user-logo"></div>
+                    <div
+                      class="info-bar-logo info-user-logo"
+                      v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')'}"
+                    ></div>
 
                     <div class="info-block"
                     >
@@ -68,13 +71,7 @@ var Result = {
 
                 <div class="best-solution">
                   <div class="info-bar">
-                    <div class="info-block"
-                    >
-                      <div class="info-block-logo bestSoln-logo"></div>
-                      <div class="info-block-content">
-                        <div></div>
-                      </div>
-                    </div>
+                    <div class="info-bar-logo bestSoln-logo"></div>
                   </div>
 
                   <div class="solution-main">
@@ -95,19 +92,20 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <div class="btn-block btn-back-block"
-            v-if="playersAll.length!= 0"
+          <button
+            v-if="playersAll.length!=0"
+            class="btn-block btn-rankings-block"
             v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('go-to-leaderboard')"
+            v-on:click="$emit('see-leaderboard')"
           >
-          </div>
-          <div
-            v-else
+          </button>
+          <button
+            v-bind:disabled="disabled"
             class="btn-block btn-restart-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('restart-game')"
           >
-          </div>
+          </button>
       </div>
     </div>
   `,
@@ -147,10 +145,13 @@ var Result = {
 
       document.querySelector('#result-view').style.height = newHeight + "px";
       if (vm.playersAll.length!=0) {
-        document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+      //  document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+        document.querySelector('.btn-rankings-block').style.width = document.querySelector('.btn-rankings-block').offsetHeight + "px";
       } else {
-        document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+
       }
+      document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+
 
       if (ratio < 1) {
         // stack up panels

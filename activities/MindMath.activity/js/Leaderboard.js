@@ -25,20 +25,16 @@ var Leaderboard = {
               v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(item.user.colorvalue.stroke, item.user.colorvalue.fill)+')'}"
             ></div>
             <div class="leaderboard-item leaderboard-item-name">{{  item.user.name  }}</div>
-            <div class="leaderboard-item leaderboard-item-score">{{  item.score  }}</div>
+            <div class="leaderboard-item leaderboard-item-score">{{  item.score!=null ? item.score : "--" }}</div>
           </div>
         </div>
       </div>
       <div class="leaderboard-footer">
-        <div class="btn-block btn-solution-block"
+        <button class="btn-block btn-back-block"
           v-bind:style="{backgroundColor: fillColor}"
-          v-on:click="$emit('see-solution')"
+          v-on:click="$emit('go-to-result')"
         >
-        </div>
-        <div class="btn-block btn-restart-block"
-          v-bind:style="{backgroundColor: fillColor}"
-        >
-        </div>
+        </button>
       </div>
     </div>
   `,
@@ -74,8 +70,7 @@ var Leaderboard = {
       var newHeight = window.innerHeight - toolbarHeight;
 
       document.querySelector('#leaderboard-view').style.height = newHeight + "px";
-      document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
-      document.querySelector('.btn-solution-block').style.width = document.querySelector('.btn-solution-block').offsetHeight + "px";
+      document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
 
     },
 

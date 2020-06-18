@@ -37,6 +37,7 @@
 			<sugar-toolitem
 				id="timer-button"
 				title="timer"
+				v-bind:disabled="disabled"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
 				palette-title=" Timer"
@@ -46,6 +47,7 @@
 			<sugar-toolitem
 				id="level-button"
 				title="Select Difficulty Level"
+				v-bind:disabled="disabled"
 				palette-file="js/palettes/difficultyPalette.js"
 				palette-class="DifficultyPalette"
 				palette-title="difficulty level"
@@ -55,6 +57,7 @@
 			<sugar-toolitem
 			 	id="compulsory-op-button"
 				title="Choose compulsory operator"
+				v-bind:disabled="disabled"
 				palette-file="js/palettes/compulsoryOpPalette.js"
 				palette-class="CompulsoryOpPalette"
 				palette-title="compulsory Operators"
@@ -65,6 +68,7 @@
 				id="hint-button"
 				ref="hintPalette"
 				title="hint"
+				v-bind:disabled="disabled"
 				palette-file="js/palettes/hintPalette.js"
 				palette-class="HintPalette"
 				palette-title="hint"
@@ -95,14 +99,14 @@
 				v-bind:input-numbers="inputNumbers"
 				v-bind:input-numbers-types="inputNumbersTypes"
 				v-bind:players-all="playersAll"
+				v-bind:disabled="disabled"
 				v-bind:sugar-popup="sugarPopup"
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
 				v-on:restart-game="handleRestartButton"
 				v-on:pass-question="handlePassButton"
-				v-on:see-solution="currentScreen = 'result'"
-				v-on:go-to-leaderboard="currentScreen = 'leaderboard'"
-
+				v-on:see-leaderboard="currentScreen = 'leaderboard'"
+				v-on:go-to-result="currentScreen = 'result'"
 			></component>
 	</transition>
 
