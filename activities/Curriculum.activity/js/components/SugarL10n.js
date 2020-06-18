@@ -6,7 +6,21 @@ Vue.component('sugar-localization', {
 			l10n: null,
 			code: null,
 			dictionary: null,
-			eventReceived: false
+			eventReceived: false,
+			activityInitialized: false,
+		}
+	},
+	computed: {
+		readyToEmit: function () {
+			return (this.dictionary != null) && this.activityInitialized;
+		}
+	},
+	watch: {
+		readyToEmit: function (newVal, oldVal) {
+			if (newVal) {
+				this.$emit("localized");
+				this.eventReceived = true;
+			}
 		}
 	},
 	mounted: function () {
@@ -22,13 +36,18 @@ Vue.component('sugar-localization', {
 						if (!vm.eventReceived) {
 							vm.code = language;
 							vm.dictionary = vm.l10n.dictionary;
-							vm.$emit("localized");
-							vm.eventReceived = true;
 						} else if (webL10n.language.code != language) {
-								webL10n.language.code = language;
+							webL10n.language.code = language;
 						}
 					});
 				});
+			});
+			//Activity initialization check
+			var SugarActivity = vm.$root.$children.find(function(child) {
+				return child.$options.name == 'SugarActivity';
+			});
+			SugarActivity.$on('initialized', function () {
+				vm.activityInitialized = true;
 			});
 		}
 	},

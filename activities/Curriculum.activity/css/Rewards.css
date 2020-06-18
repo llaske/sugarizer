@@ -1,7 +1,6 @@
 .rewards-container {
 	padding: 0 4vw;
 	display: flex;
-	background: beige;
 }
 .stats-container {
 	flex: 1 350px;
@@ -52,47 +51,25 @@
 
 .trophies-container {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
 	justify-content: center;
-	flex: 1 350px;
-	height: calc(100vh - 55px);
-	background: #ffffbb;
-	box-shadow: 0 0 60px 10px #ffffbb;
 }
-.trophies {
+.trophy-card {
 	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-	width: 100%;
-	margin: 20px 0;
+	height: fit-content;
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
 }
-.trophies::after {
-	content: '';
-	position: absolute;
-	bottom: -12px;
-	left: 0;
-	width: 100%;
-	height: 12px;
-	background: rgb(126, 32, 32);
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+.trophy-card h4 {
+	color: grey;
+	margin-bottom: 0;
 }
-.trophies .trophy-container {
-	margin: 0 -25px;
+.trophy-card p {
+	color: grey;
 }
-.trophies .trophy-container:nth-child(1), .trophies .trophy-container:nth-child(5) {
-	width: 15%;
-	z-index: 3;
-	filter: drop-shadow(2px 4px 15px rgba(0, 0, 0, 0.35));
-}
-.trophies .trophy-container:nth-child(2), .trophies .trophy-container:nth-child(4) {
-	width: 25%;
-	z-index: 2;
-	filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.35));
-}
-.trophies .trophy-container:nth-child(3) {
-	width: 40%;
-	filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.35));
+.trophy-card .trophy-container{
+	margin: 0 auto;
 }
 
 .trophy-container {
@@ -105,7 +82,7 @@
 	background-position: center;
 	width: 100%;
 	padding-top: 100%;  /*  To get 1:1 asepect ratio */
-	opacity: 0.1;
+	opacity: 0.2;
 }
 .trophy.acquired {
 	opacity: 1;

@@ -22,6 +22,8 @@ var app = new Vue({
 		currentenv: null,
 		currentView: "categories-grid",
 		settings: false,
+		rewardsInit: false,
+		rewardsActive: false,
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
@@ -151,6 +153,88 @@ var app = new Vue({
 				}
 			],
 		},
+		achievements: [
+			{
+				id: 0,
+				title: "First skill acquired",
+				condition: {
+					property: "this[totalSkillsAcquired]",
+					op: ">=",
+					value: 1
+				}
+			},
+			{
+				id: 1,
+				title: "50% skills acquired",
+				condition: {
+					property: "this[totalSkillsAcquired]",
+					op: ">=",
+					value: {
+						property: "this[totalSkills]",
+						op: "/",
+						value: 2
+					}
+				}
+			},
+			{
+				id: 2,
+				title: "All skills acquired",
+				condition: {
+					property: "this[totalSkillsAcquired]",
+					op: "==",
+					value: {
+						property: "this[totalSkills]"
+					}
+				}
+			},
+			{
+				id: 3,
+				title: "First category acquired",
+				condition: {
+					property: "this[totalCategoriesAcquired]",
+					op: ">=",
+					value: 1
+				}
+			},
+			{
+				id: 4,
+				title: "All categories acquired",
+				condition: {
+					property: "this[totalCategoriesAcquired]",
+					op: "==",
+					value: {
+						property: "this[totalCategories]"
+					}
+				}
+			},
+			{
+				id: 5,
+				title: "First proof uploaded",
+				condition: {
+					property: "this[totalMediaUploaded]",
+					op: ">=",
+					value: 1
+				}
+			},
+			{
+				id: 6,
+				title: "Ten proofs uploaded",
+				condition: {
+					property: "this[totalMediaUploaded]",
+					op: ">=",
+					value: 10
+				}
+			},
+			{
+				id: 7,
+				title: "First A+ acquired",
+				condition: {
+					property: "this[levelWiseAcquired][this[notationLevel]]",
+					op: ">=",
+					value: 1
+				}
+			},
+		],
 		l10n: {
 			stringCategories: '',
 			stringSettings: '',
@@ -173,7 +257,6 @@ var app = new Vue({
 			}
 		},
 		l10n: function (newVal, oldVal) {
-			console.log(newVal);
 			this.$refs.SugarL10n.localize(this.l10n);
 			var vm = this;
 			this.categories.forEach(function (cat) {
@@ -199,6 +282,7 @@ var app = new Vue({
 		},
 
 		localized: function () {
+			console.log('LOCALIZED EVENT', JSON.parse(JSON.stringify(this.$refs.SugarL10n.dictionary)))
 			this.$refs.SugarL10n.localize(this.l10n);
 		},
 
@@ -361,6 +445,14 @@ var app = new Vue({
 			});
 		},
 
+		addAchievementsToUser: function() {
+			var vm = this;
+			vm.$set(vm.user, 'achievements', new Object());
+			vm.achievements.forEach(function(achievement) {
+				vm.$set(vm.user.achievements, achievement.id, { timestamp: null });
+			});
+		},
+
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
 
@@ -377,6 +469,7 @@ var app = new Vue({
 		},
 
 		goBackTo: function (view) {
+			this.rewardsActive = false;
 			this.currentView = view;
 			if (view == 'categories-grid') {
 				this.selectedCategoryId = null;
@@ -390,10 +483,13 @@ var app = new Vue({
 			this.user = data.user;
 			this.categories = data.categories;
 			this.notationLevel = data.notationLevel;
+			this.rewardsInit = true;
 		},
 
 		onJournalNewInstace: function () {
 			this.importSkills();
+			this.addAchievementsToUser();
+			this.rewardsInit = true;
 		},
 
 		fullscreen: function () {

@@ -11,6 +11,7 @@
 		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/libnotify.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Categories.css">
 	<link rel="stylesheet" href="css/Skills.css">
@@ -30,10 +31,10 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid'" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid' || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
-				v-show="(currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				v-show="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
 				:class="{ active: settings }" 
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
@@ -73,7 +74,13 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
-			<sugar-toolitem id="rewards-button" v-show="!settings && currentView != 'rewards'" @click="currentView = 'rewards'" v-bind:title="l10n.stringRewards"></sugar-toolitem>
+			<sugar-toolitem 
+				id="rewards-button" 
+				v-show="!settings" 
+				@click="rewardsActive = !rewardsActive" 
+				:class="{ active: rewardsActive }" 
+				v-bind:title="l10n.stringRewards"
+			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
@@ -85,6 +92,7 @@
 			<transition name="fade" mode="out-in">
 				<!-- <keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm"> -->
 					<component 
+						v-if="!rewardsActive"
 						:is="currentView" 
 						:settings="settings"
 						:categories="categories"
@@ -102,14 +110,25 @@
 						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
-					<rewards />
-				<!-- </keep-alive> -->
+					<!-- </keep-alive> -->
 			</transition>
+			<rewards 
+				v-if="rewardsInit"
+				v-show="rewardsActive" 
+				:achievements="achievements" 
+				:categories="categories" 
+				:user="user" 
+				:levels="levels" 
+				:notation-level="notationLevel" 
+				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
+			/>
+
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
 	</div>
 
 	<script src="js/SkillsAdditional.js"></script>
@@ -121,6 +140,7 @@
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
