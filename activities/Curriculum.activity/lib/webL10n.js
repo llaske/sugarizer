@@ -961,11 +961,11 @@ define(function (require) {
         (gAsyncResourceLoading ? 'asynchronously.' : 'synchronously.'));
 
     // load the default locale and translate the document if required
-    if (document.documentElement.lang === navigator.language) {
-      loadLocale(navigator.language);
-    } else {
-      loadLocale(navigator.language, translateFragment);
-    }
+    // if (document.documentElement.lang === navigator.language) {
+    //   loadLocale(navigator.language);
+    // } else {
+    //   loadLocale(navigator.language, translateFragment);
+    // }
   }
 
   // public API

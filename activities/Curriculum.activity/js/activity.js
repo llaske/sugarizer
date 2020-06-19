@@ -157,6 +157,7 @@ var app = new Vue({
 			{
 				id: 0,
 				title: "First skill acquired",
+				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
 					op: ">=",
@@ -166,6 +167,7 @@ var app = new Vue({
 			{
 				id: 1,
 				title: "50% skills acquired",
+				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
 					op: ">=",
@@ -179,6 +181,7 @@ var app = new Vue({
 			{
 				id: 2,
 				title: "All skills acquired",
+				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
 					op: "==",
@@ -190,6 +193,7 @@ var app = new Vue({
 			{
 				id: 3,
 				title: "First category acquired",
+				availability: true,
 				condition: {
 					property: "this[totalCategoriesAcquired]",
 					op: ">=",
@@ -199,6 +203,7 @@ var app = new Vue({
 			{
 				id: 4,
 				title: "All categories acquired",
+				availability: true,
 				condition: {
 					property: "this[totalCategoriesAcquired]",
 					op: "==",
@@ -210,6 +215,7 @@ var app = new Vue({
 			{
 				id: 5,
 				title: "First proof uploaded",
+				availability: true,
 				condition: {
 					property: "this[totalMediaUploaded]",
 					op: ">=",
@@ -219,6 +225,7 @@ var app = new Vue({
 			{
 				id: 6,
 				title: "Ten proofs uploaded",
+				availability: true,
 				condition: {
 					property: "this[totalMediaUploaded]",
 					op: ">=",
@@ -228,6 +235,11 @@ var app = new Vue({
 			{
 				id: 7,
 				title: "First A+ acquired",
+				availability: {
+					property: "this[notationLevel]",
+					op: ">=",
+					value: 3
+				},
 				condition: {
 					property: "this[levelWiseAcquired][this[notationLevel]]",
 					op: ">=",
@@ -256,6 +268,16 @@ var app = new Vue({
 				palette.style.visibility = 'hidden';
 			}
 		},
+		notationLevel: function(newVal, oldVal) {
+			var levelButtons = document.getElementById('notation-selector').children;
+			for(var button of levelButtons) {
+				if(button.id.substr(6) == newVal) {
+					button.classList.add('active');
+				} else {
+					button.classList.remove('active');
+				}
+			}
+		},
 		l10n: function (newVal, oldVal) {
 			this.$refs.SugarL10n.localize(this.l10n);
 			var vm = this;
@@ -282,7 +304,6 @@ var app = new Vue({
 		},
 
 		localized: function () {
-			console.log('LOCALIZED EVENT', JSON.parse(JSON.stringify(this.$refs.SugarL10n.dictionary)))
 			this.$refs.SugarL10n.localize(this.l10n);
 		},
 
@@ -456,12 +477,33 @@ var app = new Vue({
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
 
+			var middle = Math.floor(oldLevel/2);
 			for (var cat in this.user.skills) {
 				for (var skill in this.user.skills[cat]) {
-					if (this.user.skills[cat][skill].acquired == oldLevel) {
-						this.$set(this.user.skills[cat][skill], 'acquired', event.level);
-					} else {
+					if (this.user.skills[cat][skill].acquired <= middle) {
 						this.$set(this.user.skills[cat][skill], 'acquired', 0);
+					} else {
+						var text = this.levels[oldLevel][this.user.skills[cat][skill].acquired].text;
+						console.log(text);
+						switch(text) {
+							case "Acquired": 
+								var index = this.levels[event.level].findIndex(function(level) {
+									return level.text == "Acquired";
+								});
+								this.$set(this.user.skills[cat][skill], 'acquired', index);
+								break;
+							case "Exceeded":
+								var index = this.levels[event.level].findIndex(function(level) {
+									return level.text == "Exceeded";
+								});
+								if(index == -1) {
+									index = this.levels[event.level].findIndex(function(level) {
+										return level.text == "Acquired";
+									});
+								}
+								this.$set(this.user.skills[cat][skill], 'acquired', index);
+								break;
+						}
 					}
 				}
 			}
@@ -483,6 +525,9 @@ var app = new Vue({
 			this.user = data.user;
 			this.categories = data.categories;
 			this.notationLevel = data.notationLevel;
+			this.selectedCategoryId = data.selectedCategoryId;
+			this.selectedSkillId = data.selectedSkillId;
+			this.currentView = data.currentView;
 			this.rewardsInit = true;
 		},
 
@@ -504,7 +549,10 @@ var app = new Vue({
 			var context = {
 				user: this.user,
 				categories: this.categories,
-				notationLevel: this.notationLevel
+				notationLevel: this.notationLevel,
+				selectedCategoryId: this.selectedCategoryId,
+				selectedSkillId: this.selectedSkillId,
+				currentView: this.currentView
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}

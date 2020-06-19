@@ -164,15 +164,27 @@ p {
 }
 
 #notation-selector {
-	width: 120px;
+	width: 170px;
 	margin: 0 auto;
 }
 #notation-selector button {
-	display: block;
+	display: flex;
+	justify-content: center;
 	background: black;
 	border-radius: 0;
 	width: 100%;
 	padding: 10px;
+}
+#notation-selector .medal {
+	height: 30px;
+	width: 30px;
+	background-image: url(../icons/medal-unacquired.svg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#notation-selector .medal span {
+	color: grey;
+	font-size: 0.8em;
 }
 #notation-selector button.active {
 	background: grey;

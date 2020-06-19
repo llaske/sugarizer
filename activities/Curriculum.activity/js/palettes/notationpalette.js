@@ -25,13 +25,6 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/notationpalette.ht
 			that.uploadItemEvent.level = event.currentTarget.getAttribute('level');
 			that.getPalette().dispatchEvent(that.uploadItemEvent);
 			that.popDown();
-			for(var button of levelButtons) {
-				if(button.id.substr(6) == app.notationLevel) {
-					button.classList.add('active');
-				} else {
-					button.classList.remove('active');
-				}
-			}
 		}
 	};
 

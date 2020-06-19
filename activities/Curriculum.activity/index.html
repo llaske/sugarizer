@@ -62,7 +62,8 @@
 				@click="switchSkillLevel" 
 				v-bind:title="l10n.stringAcquire"
 			>
-				<span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span>
+				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
+				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
 			</sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 

@@ -102,54 +102,15 @@ var UploadItem = {
 	computed: {
 		date: function () {
 			// return new Date(this.item.timestamp).toDateString();
-			return this.timestampToElapsedString(this.item.timestamp, 2);
+			return this.$root.$refs.SugarL10n.timestampToElapsedString(this.item.timestamp, 2);
 		}
 	},
 	data: function () {
 		return {
 			showPopup: false,
-			units: [
-				{ name: 'Years', factor: 356 * 24 * 60 * 60 },
-				{ name: 'Months', factor: 30 * 24 * 60 * 60 },
-				{ name: 'Weeks', factor: 7 * 24 * 60 * 60 },
-				{ name: 'Days', factor: 24 * 60 * 60 },
-				{ name: 'Hours', factor: 60 * 60 },
-				{ name: 'Minutes', factor: 60 }
-			]
 		}
 	},
 	methods: {
-		timestampToElapsedString: function (timestamp, maxlevel, issmall) {
-			var suffix = (issmall ? "_short" : "");
-			var levels = 0;
-			var time_period = '';
-			var elapsed_seconds = ((new Date().getTime()) - timestamp) / 1000;
-			for (var i = 0; i < this.units.length; i++) {
-				var factor = this.units[i].factor;
-
-				var elapsed_units = Math.floor(elapsed_seconds / factor);
-				if (elapsed_units > 0) {
-					if (levels > 0)
-						time_period += ',';
-
-					time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.$root.$refs.SugarL10n.get(this.units[i].name + "_one" + suffix) : this.$root.$refs.SugarL10n.get(this.units[i].name + "_other" + suffix));
-
-					elapsed_seconds -= elapsed_units * factor;
-				}
-
-				if (time_period != '')
-					levels += 1;
-
-				if (levels == maxlevel)
-					break;
-			}
-
-			if (levels == 0) {
-				return this.$root.$refs.SugarL10n.get("SecondsAgo" + suffix);
-			}
-
-			return this.$root.$refs.SugarL10n.get("Ago" + suffix, { time: time_period });
-		},
 		onDeleteClick: function() {
 			this.$emit('delete-item');
 			this.showPopup = false;
