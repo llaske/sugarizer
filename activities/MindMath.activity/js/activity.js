@@ -205,7 +205,7 @@ var app = new Vue({
 
     generateHint: function() {
       var vm = this;
-      var slots = vm.hintsGenerator.generate(vm.inputNumbers, vm.questions[vm.qNo].targetNum, vm.compulsoryOpsRem);
+      var slots = vm.hintsGenerator.generate(vm.inputNumbers, vm.questions[vm.qNo].targetNum, vm.compulsoryOpsRem, vm.slots[vm.qNo]);
       var hint = slots.shift();
       if (hint) {
         var operator = hint[1];
@@ -774,9 +774,9 @@ var app = new Vue({
       console.log("Existing instance");
       console.log(data);
 
-      vm.currentScreen = data.currentScreen;
       vm.mode = data.mode;
       vm.level = data.level;
+      vm.compulsoryOps = data.compulsoryOps;
       vm.clock = data.clock;
       vm.$set(vm.clock, 'previousTime', new Date());
       vm.questions = data.questions;
@@ -790,7 +790,13 @@ var app = new Vue({
       vm.slots = data.slots;
       vm.prev = data.prev;
       vm.noOfHintsUsed = data.noOfHintsUsed;
-      vm.compulsoryOps = data.compulsoryOps;
+      if (data.currentScreen === 'game' || data.currentScreen === 'result') {
+        vm.currentScreen = data.currentScreen;
+      } else {
+        vm.currentScreen = 'result';
+      }
+
+
 
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();

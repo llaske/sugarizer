@@ -88,7 +88,7 @@ var Game = {
             v-bind:targetNum="questions[qNo].targetNum"
             v-bind:slots="slots[qNo]"
             v-bind:compulsoryOpsRem="compulsoryOpsRem"
-            v-bind:compulsoryOps="compulsoryOps"
+            v-bind:compulsoryOpsForQuestion="compulsoryOps"
             emptyLinesAllowed=true
           ></slots-component>
         </div>
