@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fraction activity #205
 - Implode activity #710
 - Simon mode game in TamTam activity #686
+- Vue.js activity template
+- Activity Development Tutorial in Vue.js
+- Duplicate action on Journal entries
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
+- Improve Sugarizer spiral in home view #579
 
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
@@ -40,6 +44,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Wrong title of blinker button in Game Of Life activity #792
 - Alert "user already exists" should come earlier #580
 - Wrong song is play on slow device/connection in TamTam activity #803
+- Removed resize option in Shared Notes
+- When connected to server, activities get shared automatically #810
+- Private button in presence palette shares the activity #811
+- Export palette in Write activity pop at the wrong place #807
+- Last One Loses activity is unplayable after sharing without second player #815
+- Spinner on first screen is at the bottom of the screen
+- Localize and standardize activities title
 
 
 ## [1.3.0] - 2020-03-28

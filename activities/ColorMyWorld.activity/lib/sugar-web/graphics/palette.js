@@ -43,6 +43,9 @@ define(function () {
             if (!that.invoker.classList.contains("toolbutton")) {
                 updatePosition(event.x, event.y);
             }
+            else {
+              updatePosition();
+            }
             that.toggle();
         });
 
