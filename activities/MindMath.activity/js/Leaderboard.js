@@ -38,7 +38,7 @@ var Leaderboard = {
       </div>
     </div>
   `,
-  data: function () {
+  data: function() {
     return {
       players: []
     }
@@ -57,7 +57,7 @@ var Leaderboard = {
     vm.resize();
   },
   watch: {
-    playersAll: function () {
+    playersAll: function() {
       var vm = this;
       vm.sortLeaderboard();
     }
@@ -74,14 +74,14 @@ var Leaderboard = {
 
     },
 
-    sortLeaderboard: function () {
+    sortLeaderboard: function() {
       var vm = this;
       vm.players = [];
       for (var i = 0; i < vm.playersAll.length; i++) {
         vm.players.push(vm.playersAll[i]);
       }
 
-      vm.players.sort(function (a, b) {
+      vm.players.sort(function(a, b) {
         return b.score - a.score;
       })
 

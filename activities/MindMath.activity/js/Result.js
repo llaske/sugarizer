@@ -13,8 +13,7 @@ var Result = {
         >
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
-          >
-            <clock v-bind:time="totalTime" text="Total Time: "></clock>
+          ><clock v-bind:time="totalTime" text="Total Time: "></clock>
           </div>
 
           <div class="result-bar-block"
@@ -50,8 +49,10 @@ var Result = {
 
                     <div class="info-block"
                     >
-                      <div class="info-block-logo score-logo"></div>
-                      <div class="info-block-content">
+                      <div class="info-block-content info-score-1">
+                        <div>Score:</div>
+                      </div>
+                      <div class="info-block-content info-score-2">
                         <div>{{ scores[index] }}</div>
                       </div>
                     </div>
