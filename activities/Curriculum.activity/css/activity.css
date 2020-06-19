@@ -138,6 +138,10 @@ p {
 }
 
 
+.humane {
+	width: auto;
+}
+
 .palette .wrapper {
 	min-width: 100px;
 }
