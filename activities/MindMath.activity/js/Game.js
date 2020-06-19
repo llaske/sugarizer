@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -61,9 +61,13 @@ var Game = {
               v-bind:class="{
                 'selected-op': index === currentSelectedOp,
                 'plus': operator === '+',
+                'plus-circle': operator === '+' && compulsoryOps.indexOf('+') !== -1,
                 'minus': operator === '-',
+                'minus-circle': operator === '-' && compulsoryOps.indexOf('-') !== -1,
                 'multiply': operator === '*',
+                'multiply-circle': operator === '*' && compulsoryOps.indexOf('*') !== -1,
                 'divide': operator === '/',
+                'divide-circle': operator === '/' && compulsoryOps.indexOf('/') !== -1,
                }"
               v-on:click="onSelectOperator(index)"
               v-bind:style="{backgroundColor: strokeColor}"
@@ -84,11 +88,13 @@ var Game = {
             v-bind:targetNum="questions[qNo].targetNum"
             v-bind:slots="slots[qNo]"
             v-bind:compulsoryOpsRem="compulsoryOpsRem"
+            v-bind:compulsoryOpsForQuestion="compulsoryOps"
             emptyLinesAllowed=true
           ></slots-component>
         </div>
         <div class="slots-area-footer">
           <button id="btn-restart"
+            v-bind:disabled="disabled"
             class="slots-area-footer-button"
             v-bind:style="{backgroundColor: strokeColor}"
             v-on:click="$emit('restart-game')"
@@ -215,11 +221,6 @@ var Game = {
         vm.currentSelectedOp = null;
         vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
         return;
-      } else if (vm.currentSelectedNums.numIndex2 === index) {
-        //deselecting
-        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
-        vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 1);
-        return;
       }
 
       if (vm.currentSelectedNums.nums.length >= 2) {
@@ -230,10 +231,16 @@ var Game = {
         vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
       } else {
         var at = 1;
-        if (vm.checkOperation(vm.currentSelectedNums.nums[0], vm.inputNumbers[index], vm.operators[vm.currentSelectedOp]).valid) {
-          vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
-          vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
-          vm.computeOperation();
+        if (vm.currentSelectedOp !== null) {
+          if (vm.checkOperation(vm.currentSelectedNums.nums[0], vm.inputNumbers[index], vm.operators[vm.currentSelectedOp]).valid) {
+            vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
+            vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
+            vm.computeOperation();
+          }
+        } else {
+          vm.deselect();
+          vm.$set(vm.currentSelectedNums.nums, 0, vm.inputNumbers[index]);
+          vm.$set(vm.currentSelectedNums, 'numIndex1', index);
         }
       }
     },

@@ -61,6 +61,8 @@ Vue.component('sugar-presence', {
 				network.createSharedActivity(vm.bundleId, function (groupId) {
 					console.log("Activity shared");
 					vm.isHost = true;
+					//emit an event for activity.js
+					vm.$emit('multiplayer-game-started')
 				});
 				network.onDataReceived(vm.onNetworkDataReceived);
 				network.onSharedActivityUserChanged(vm.onNetworkUserChanged);

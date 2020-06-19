@@ -1,7 +1,7 @@
 function calculate(stack, operand) {
   const second = stack.pop()
   const first = stack.pop()
-  switch(operand) {
+  switch (operand) {
     case '+':
       return first + second
     case '*':
@@ -15,10 +15,10 @@ function calculate(stack, operand) {
 
 function evaluator(symbols, last) {
   const stack = []
-  const length = last ? last+1 : symbols.length
+  const length = last ? last + 1 : symbols.length
   let allowed = true
 
-  for (let i=0; i<length; i++) {
+  for (let i = 0; i < length; i++) {
     const s = symbols[i]
     if (typeof s === 'number') {
       stack.push(s)

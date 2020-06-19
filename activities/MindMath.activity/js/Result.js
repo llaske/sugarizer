@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled'],
   template: `
     <div id="result-view"
     >
@@ -43,7 +43,10 @@ var Result = {
                       </div>
                     </div>
 
-                    <div class="info-user-logo"></div>
+                    <div
+                      class="info-bar-logo info-user-logo"
+                      v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')'}"
+                    ></div>
 
                     <div class="info-block"
                     >
@@ -61,19 +64,14 @@ var Result = {
                       v-bind:fillColor="fillColor"
                       v-bind:targetNum="panel.targetNum"
                       v-bind:slots="mySlots[index]"
+                      v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
                     ></slots-component>
                   </div>
                 </div>
 
                 <div class="best-solution">
                   <div class="info-bar">
-                    <div class="info-block"
-                    >
-                      <div class="info-block-logo bestSoln-logo"></div>
-                      <div class="info-block-content">
-                        <div>Best</div>
-                      </div>
-                    </div>
+                    <div class="info-bar-logo bestSoln-logo"></div>
                   </div>
 
                   <div class="solution-main">
@@ -82,6 +80,7 @@ var Result = {
                     v-bind:fillColor="fillColor"
                     v-bind:targetNum="panel.targetNum"
                     v-bind:slots="bestSlots[index]"
+                    v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
                     ></slots-component>
                   </div>
                 </div>
@@ -93,13 +92,20 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <div id="restart-block"
+          <button
+            v-if="playersAll.length!=0"
+            class="btn-block btn-rankings-block"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('see-leaderboard')"
+          >
+          </button>
+          <button
+            v-bind:disabled="disabled"
+            class="btn-block btn-restart-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('restart-game')"
           >
-            <img class="restart-block-img" src="icons/restart-black.svg">
-            <span>Restart</span>
-          </div>
+          </button>
       </div>
     </div>
   `,
@@ -138,8 +144,13 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight + "px";
-      document.querySelector('.restart-block-img').style.width = document.querySelector('.restart-block-img').offsetHeight + "px";
+      if (vm.playersAll.length!=0) {
+      //  document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+        document.querySelector('.btn-rankings-block').style.width = document.querySelector('.btn-rankings-block').offsetHeight + "px";
+      } else {
 
+      }
+      document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
 
 
       if (ratio < 1) {

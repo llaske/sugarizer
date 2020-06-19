@@ -120,17 +120,14 @@ Let's bind this to the title of add-button in `index.html`:
 <sugar-toolitem id="add-button" v-bind:title="l10n.stringAddPawn" v-on:click="onAddClick"></sugar-toolitem>
 ```
 
-One point however: we need to wait to initialize strings that the `locale.ini` is read. It's possible because the webL10n framework raises a new `localized` event on the window when the language is ready. Our `SugarL10n` component will emit a Vue event called `localized` as well.
+One point however: we need to wait to initialize strings that the `locale.ini` is read. It's possible because the webL10n framework raises a new `localized` event on the window when the language is ready. Our `SugarL10n` component will emit a Vue event called `localized` as well, that too only after the activity has been initialized.
 
 So we will now initialize the welcome message in the `localized` event listener, which we add in `js/activity.js` file:
 ```js
 initialized: function () {
 	// Initialize Sugarizer
 	this.currentenv = this.$refs.SugarActivity.getEnvironment();
-	this.displayText = "Hello " + this.currentenv.user.name + "!";
-
-	/* Set the event listener here */
-	this.SugarL10n.$on('localized', this.localized());
+	// (Removed displayText definition from here)
 },
 
 // Handles localized event
@@ -139,7 +136,11 @@ localized: function () {
 	this.SugarL10n.localize(this.l10n);
 },
 ```
-***NOTE:*** *We define the event listener using `$on` in `initialized()` rather than as a `v-on` directive on the `<sugar-localization>` tag to maintain the flow of the activity. Defining the event listener as a directive might cause the `localized()` method to be called BEFORE the `currentenv` is set. This will lead to undesired results.*
+
+And let's add this listener to the `v-on` directive too. Make these changes to the `sugar-localization` instance created in `index.html`:
+```html
+<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+```
 
 Everything is now ready to handle localization.
 

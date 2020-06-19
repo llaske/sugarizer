@@ -8,6 +8,7 @@ function HintsGenerator() {
   this.compulsoryOps = [];
   this.targetNumber = 27;
   this.inputNumbers = [1, 2, 2, 4, 5];
+  this.prevOpsUsed = [];
   this.found = false;
 
   this.genhints = function(pattern, remaining, writePos, unresolvedNumbers) {
@@ -59,7 +60,9 @@ function HintsGenerator() {
           //we will finalize the rpn only if the result we  get from it equals
           //to target and it contains all the compulsory operators
           if (result == this.targetNumber && comp) {
-            var s = score(pattern, writePos);
+            //calculate score considering previous operators used 
+            var patternWithPrevOpsUsed = this.prevOpsUsed.concat(pattern);
+            var s = score(patternWithPrevOpsUsed, writePos + this.prevOpsUsed.length);
             if (s > this.maxScore) {
               this.maxScore = s;
               this.best = rpn;
@@ -79,9 +82,16 @@ function HintsGenerator() {
       this.genhints(pattern, remainingSubset, writePos + 1, unresolvedNumbers + 1);
     }
 
-  }
+  },
 
-  this.generate = function(inputNumbers, targetNum, compulsoryOps) {
+  this.initializePrevOpsUsed = function (prev_slots = []) {
+    this.prevOpsUsed = [];
+    for (var i = 0; i < prev_slots.length; i++) {
+      this.prevOpsUsed.push(prev_slots[i].operator);
+    };
+  },
+
+  this.generate = function(inputNumbers, targetNum, compulsoryOps, prev_slots) {
     this.found = false;
     this.maxScore = 0;
     this.best = "";
@@ -89,6 +99,7 @@ function HintsGenerator() {
     this.inputNumbers = inputNumbers;
     this.targetNumber = targetNum;
     this.compulsoryOps = compulsoryOps;
+    this.initializePrevOpsUsed(prev_slots);
     this.dups = checkIfArrayHasDups(this.inputNumbers);
     const pattern = new Array(2 * this.inputNumbers.length);
     this.genhints(pattern, this.inputNumbers, 0, 0);
