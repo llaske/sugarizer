@@ -1,14 +1,15 @@
 var Leaderboard = {
-  props: ['strokeColor', 'fillColor', 'playersAll'],
+  props: ['strokeColor', 'fillColor', 'playersAll', 'l10n'],
   template: `
     <div id="leaderboard-view">
       <div class="leaderboard-main">
         <div
           class="leaderboard-main-header"
+          v-bind:style="{backgroundColor: fillColor}"
         >
-          <div class="leaderboard-item" style="width:25%">Rank</div>
-          <div class="leaderboard-item" style="width:50%">User</div>
-          <div class="leaderboard-item" style="width:25%">Score</div>
+          <div class="leaderboard-item" style="width:25%">{{ l10n.stringRank }}</div>
+          <div class="leaderboard-item" style="width:50%">{{ l10n.stringUser }}</div>
+          <div class="leaderboard-item" style="width:25%">{{ l10n.stringScore }}</div>
         </div>
         <div
           class="leaderboard-main-body"

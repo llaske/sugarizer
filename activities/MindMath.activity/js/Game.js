@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled','l10n'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -29,7 +29,7 @@ var Game = {
               v-bind:style="{backgroundColor: strokeColor}"
             >
             <div class="detail-block-content">
-              <div>Score:</div>
+              <div>{{ l10n.stringScore }}:</div>
             </div>
               <div class="detail-block-content">
                 <div>{{ score }}</div>
@@ -131,6 +131,9 @@ var Game = {
       currentSelectedOp: null,
       currentRes: null,
       compulsoryOpUsed: false,
+      l10n: {
+        stringScore: ''
+      }
     };
   },
   created: function() {
@@ -169,6 +172,11 @@ var Game = {
     }
   },
   methods: {
+    localized: function() {
+      console.log("game");
+      this.SugarL10n.localize(this.l10n);
+    },
+
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");

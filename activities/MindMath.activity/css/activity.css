@@ -181,7 +181,7 @@ p {
   background-image: url(../icons/go-left-black.svg);
 }
 
-@media only screen and (max-width: 403px) {
+@media only screen and (max-width: 406px) {
   #timer-button {
     display: none;
   }
@@ -191,7 +191,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 464px) {
   #level-button {
     display: none;
   }
@@ -201,7 +201,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 519px) {
+@media only screen and (max-width: 521px) {
   #compulsory-op-button {
     display: none;
   }
@@ -211,7 +211,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 574px) {
+@media only screen and (max-width: 577px) {
   #hint-button {
     display: none;
   }

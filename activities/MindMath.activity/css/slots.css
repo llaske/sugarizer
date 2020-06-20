@@ -155,24 +155,44 @@
   }
 }
 
-
-@media only screen and (max-height: 500px) {
+@media only screen and (max-width: 400px) {
   .slot div {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
   }
 
   .slot .symbol {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
   }
 
   .slot .operator {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  .slot div {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+  }
+
+  .slot .symbol {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .slot .operator {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
   }
 }

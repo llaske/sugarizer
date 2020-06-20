@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled', 'l10n'],
   template: `
     <div id="result-view"
     >
@@ -13,12 +13,12 @@ var Result = {
         >
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
-          ><clock v-bind:time="totalTime" text="Total Time: "></clock>
+          ><clock v-bind:time="totalTime" v-bind:text="l10n.stringTotalTime+' '"></clock>
           </div>
 
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
-          > Total Score: {{ score }}</div>
+          > {{ l10n.stringTotalScore }} {{ score }}</div>
 
         </div>
       </div>
@@ -50,7 +50,7 @@ var Result = {
                     <div class="info-block"
                     >
                       <div class="info-block-content info-score-1">
-                        <div>Score:</div>
+                        <div>{{ l10n.stringScore }}:</div>
                       </div>
                       <div class="info-block-content info-score-2">
                         <div>{{ scores[index] }}</div>

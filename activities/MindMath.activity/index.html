@@ -29,18 +29,18 @@
 
 			<sugar-toolitem
 				id="network-button"
-				title="Network"
+				v-bind:title="l10n.stringNetwork"
 				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
 				v-on:shared="SugarPresence.onShared"
 				v-if="SugarPresence"
 			></sugar-toolitem>
-			<sugar-toolitem id="undo-button" title="undo" v-on:click="handleUndoButton"></sugar-toolitem>
-			<sugar-toolitem id="redo-button" title="redo" v-on:click="handleRedoButton"></sugar-toolitem>
+			<sugar-toolitem id="undo-button" v-bind:title="l10n.stringUndo" v-on:click="handleUndoButton"></sugar-toolitem>
+			<sugar-toolitem id="redo-button" v-bind:title="l10n.stringRedo" v-on:click="handleRedoButton"></sugar-toolitem>
 			<sugar-toolitem
 				id="timer-button"
-				title="timer"
+				v-bind:title="l10n.stringTimer"
 				v-bind:disabled="disabled"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
@@ -50,7 +50,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="level-button"
-				title="Select Difficulty Level"
+				v-bind:title="l10n.stringDifficultyLevel"
 				v-bind:disabled="disabled"
 				palette-file="js/palettes/difficultyPalette.js"
 				palette-class="DifficultyPalette"
@@ -60,7 +60,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 			 	id="compulsory-op-button"
-				title="Choose compulsory operator"
+				v-bind:title="l10n.stringCompulsoryOperators"
 				v-bind:disabled="disabled"
 				palette-file="js/palettes/compulsoryOpPalette.js"
 				palette-class="CompulsoryOpPalette"
@@ -71,17 +71,17 @@
 			<sugar-toolitem
 				id="hint-button"
 				ref="hintPalette"
-				title="hint"
+				v-bind:title="l10n.stringHint"
 				v-bind:disabled="disabled"
 				palette-file="js/palettes/hintPalette.js"
 				palette-class="HintPalette"
 				palette-title="hint"
 			></sugar-toolitem>
 
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
-			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" title="Unfullscreen" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<transition name="fade" id="app-content" mode="out-in">
@@ -105,6 +105,7 @@
 				v-bind:players-all="playersAll"
 				v-bind:disabled="disabled"
 				v-bind:sugar-popup="sugarPopup"
+				v-bind:l10n="l10n"
 				v-on:validate="onValidate"
 				v-on:slots-update="onSlotsUpdated"
 				v-on:restart-game="handleRestartButton"
@@ -119,6 +120,7 @@
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged" v-on:multiplayer-game-started="onMultiplayerGameStarted"></sugar-presence>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -131,6 +133,7 @@
 	<script src="js/Result.js"></script>
 	<script src="js/Leaderboard.js"></script>
 	<script src="js/Game.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>

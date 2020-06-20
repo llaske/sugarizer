@@ -166,6 +166,22 @@
 }
 
 
+@media only screen and (max-width: 400px) {
+  .info-block {
+    width: 60px;
+    height: 25px;
+    font-size: 8px;
+  }
+
+  .info-bar-logo {
+    width: 25px;
+    height: 25px;
+  }
+
+  .result-bar-block {
+    font-size: 13px;
+  }
+}
 
 @media only screen and (max-height: 500px) {
   .info-block {

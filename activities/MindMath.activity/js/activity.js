@@ -68,11 +68,31 @@ var app = new Vue({
       multiplayerPlaying: false,
       disabled: false,
       startGameConfig: null,
+      l10n: {
+        stringNetwork: '',
+        stringUndo: '',
+        stringRedo: '',
+        stringTimer: '',
+        stringDifficultyLevel: '',
+        stringCompulsoryOperators: '',
+        stringHint: '',
+        stringTutorial: '',
+        stringFullscreen: '',
+        stringUnfullscreen: '',
+        stringStop: '',
+        stringScore: '',
+        stringTotalScore: '',
+        stringTotalTime: '',
+        stringRank: '',
+        stringUser: '',
+        stringNoHint: '',
+      }
     }
   },
   mounted: function() {
     var vm = this;
     vm.SugarPresence = vm.$refs.SugarPresence;
+    vm.SugarL10n = vm.$refs.SugarL10n;
     vm.sugarPopup = vm.$refs.SugarPopup;
     vm.SugarJournal = vm.$refs.SugarJournal;
 
@@ -187,6 +207,12 @@ var app = new Vue({
 
     },
 
+    localized: function() {
+      document.getElementById('next-slot-text').innerHTML = this.SugarL10n.get("NextSlot");
+      document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
+      this.SugarL10n.localize(this.l10n);
+    },
+
     updateCompulsoryOpsRem: function() {
       var vm = this;
       vm.compulsoryOpsRem = [];
@@ -214,7 +240,7 @@ var app = new Vue({
         }
         var nextSlot = hint[0].val + ' ' + operator + ' ' + hint[2].val + ' = ' + hint[3];
       } else {
-        var nextSlot = "No Hint"
+        var nextSlot = vm.l10n.stringNoHint;
       }
       setTimeout(() => {
         document.getElementById('hint-text').innerHTML = nextSlot;
