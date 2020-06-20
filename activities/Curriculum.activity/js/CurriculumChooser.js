@@ -50,8 +50,9 @@ define(['mustache'], function(mustache) {
 		featureCurriculum.placeholder = l10n.stringHolderSearchCurriculum;	
 		featureCurriculum.baseURL = document.location.href.substr(0, document.location.href.indexOf("/activities/")) + "/activities/Curriculum.activity/";
 
-		requirejs(["text!../default_template.json"], function (categories) {
-			var categories = JSON.parse(categories);
+		requirejs(["text!../default_template.json"], function (data) {
+			var data = JSON.parse(data);
+			var categories = data.categories;
 			var entries = [];
 			for (var i = 0; i < categories.length; i++) {
 				for (var j = 0; j < categories[i].skills.length; j++) {

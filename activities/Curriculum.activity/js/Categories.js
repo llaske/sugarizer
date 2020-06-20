@@ -32,7 +32,7 @@ var CategoryCard = {
 					:key="n" 
 					:acquired="i < acquiredSkills.length ? acquiredSkills[i] : 0" 
 					:levels="levels" 
-					:notation-level="user ? user.notationLevel : undefined" 
+					:notation-level="notationLevel" 
 				/>
 			</div>
 		</div>
@@ -40,7 +40,7 @@ var CategoryCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user', 'settings', 'levels'],
+	props: ['category', 'user', 'settings', 'levels', 'notationLevel'],
 	computed: {
 		skillsToShow: function () {
 			var skills = [];
@@ -90,6 +90,7 @@ var CategoriesGrid = {
 					:user="user"
 					:settings="settings"
 					:levels="levels"
+					:notationLevel="notationLevel"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
 					@edit-category-clicked="onEditCategoryClick"
@@ -101,7 +102,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings', 'levels'],
+	props: ['categories', 'user', 'settings', 'levels', 'notationLevel'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);

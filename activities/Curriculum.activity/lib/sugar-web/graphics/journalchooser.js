@@ -356,6 +356,12 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 				}
 				subcallback();
 			};
+			client.onerror = function() {
+				if (entry == "ping") {
+					featureAbecedarium.database[entry]=false;
+					subcallback();
+				}
+			}
 			client.open("GET", source);
 			client.send();
 		};

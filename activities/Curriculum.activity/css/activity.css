@@ -103,6 +103,15 @@ p {
 	background-image: url(../icons/medal-unacquired.svg);
 	background-size: 3em;
 }
+#main-toolbar #acquire-button span {
+	position: absolute;
+	top: 17%;
+	left: 50%;
+	color: black;
+	transform: translateX(-50%);
+	font-size: 0.8em;
+	font-weight: 800;
+}
 
 #main-toolbar #buddy-button {
 	background-image: url(../icons/owner-icon.svg);
@@ -121,14 +130,17 @@ p {
 }
 
 #main-toolbar #notation-button {
-	background-image: url(../icons/levels.svg);
-	background-size: 35px;
+	background-image: url(../icons/medal-notation.svg);
 }
 
 #main-toolbar #rewards-button {
 	background-image: url(../icons/trophy.svg);
 }
 
+
+.humane {
+	width: auto;
+}
 
 .palette .wrapper {
 	min-width: 100px;
@@ -152,15 +164,27 @@ p {
 }
 
 #notation-selector {
-	width: 120px;
+	width: 170px;
 	margin: 0 auto;
 }
 #notation-selector button {
-	display: block;
+	display: flex;
+	justify-content: center;
 	background: black;
 	border-radius: 0;
 	width: 100%;
 	padding: 10px;
+}
+#notation-selector .medal {
+	height: 30px;
+	width: 30px;
+	background-image: url(../icons/medal-unacquired.svg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#notation-selector .medal span {
+	color: grey;
+	font-size: 0.8em;
 }
 #notation-selector button.active {
 	background: grey;

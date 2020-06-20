@@ -2,7 +2,7 @@
 Vue.component('sugar-toolitem', {
 	template: `
 		<div class="splitbar" v-if="splitbar"/>
-		<button class="toolbutton" v-else v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }"/>
+		<button class="toolbutton" v-else v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }"><slot></slot></button>
 	`,
 	props: {
 		'id': String,
