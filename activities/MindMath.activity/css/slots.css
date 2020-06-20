@@ -1,0 +1,178 @@
+.list-slots {
+  width: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.slot {
+  margin: 0.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.slot div {
+  width: 60px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: normal;
+  background: transparent;
+  line-height: 60px;
+  border-radius: 20%;
+  padding: 1%;
+  color: black;
+  text-align: center;
+  /*  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
+  transition: width 0.8s, height 0.8s;
+  background-image: url(../icons/square-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.slot .symbol {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border: none;
+  color: black;
+  background-image: url(../icons/diamond-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  box-shadow: none;
+}
+
+.slot .number {
+  border: none;
+  color: black;
+  background-image: url(../icons/diamond-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  box-shadow: none;
+}
+
+.slot .res {
+  border: none;
+  color: black;
+  background-image: none;
+}
+
+.slot .operator {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  color: black;
+  border-radius: 50%;
+  background-color: #f0d9b5;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+
+.slot .plus {
+  background-image: url(../icons/plus.svg);
+}
+
+.slot .minus {
+  background-image: url(../icons/minus.svg);
+}
+
+.slot .multiply {
+  background-image: url(../icons/multiply.svg);
+}
+
+.slot .divide {
+  background-image: url(../icons/divide.svg);
+}
+
+.slot .circle {
+  border: 3px solid black;
+}
+
+.slot .acheived {
+  background-image: url(../icons/target.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+
+.slot .empty-slot {
+  border: none;
+  background-image: url(../icons/empty.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 940px) {
+  .slot div {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .slot .symbol {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .slot .operator {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .slot div {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
+
+  .slot .symbol {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+
+  .slot .operator {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+}
+
+
+@media only screen and (max-height: 500px) {
+  .slot div {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
+
+  .slot .symbol {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+
+  .slot .operator {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+}

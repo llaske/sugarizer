@@ -28,7 +28,9 @@ var Game = {
               v-if="mode === 'timer'"
               v-bind:style="{backgroundColor: strokeColor}"
             >
-              <div class="detail-block-logo score-logo"></div>
+            <div class="detail-block-content">
+              <div>Score:</div>
+            </div>
               <div class="detail-block-content">
                 <div>{{ score }}</div>
               </div>

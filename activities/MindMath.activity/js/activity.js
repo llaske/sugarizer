@@ -309,7 +309,7 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 2 * 60);
+        vm.$set(vm.clock, 'initial', 10);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
@@ -332,8 +332,7 @@ var app = new Vue({
       if (!restarted) {
         var player = {
           user: user,
-          score: null,
-          totalTime: null
+          score: null
         }
         vm.playersAll.push(player);
         vm.connectedPlayers.push(user);
@@ -343,8 +342,7 @@ var app = new Vue({
         for (var i = 0; i < vm.connectedPlayers.length; i++) {
           vm.playersAll.push({
             user: vm.connectedPlayers[i],
-            score: null,
-            totalTime: null
+            score: null
           })
         }
       }
@@ -375,10 +373,10 @@ var app = new Vue({
             action: 'start-game',
             data: {
               questions: vm.questions,
-              clockType: vm.clock.type,
-              clockInitial: vm.clock.initial,
-              level: vm.level,
-              compulsoryOps: vm.compulsoryOps,
+              clockType: vm.startGameConfig.clockType,
+              clockInitial: vm.startGameConfig.clockInitial,
+              level: vm.startGameConfig.level,
+              compulsoryOps: vm.startGameConfig.compulsoryOps,
             }
           }
         });
@@ -459,9 +457,6 @@ var app = new Vue({
                 vm.playersAll.forEach((item, i) => {
                   if (item.user.networkId === vm.currentenv.user.networkId && item.score === null) {
                     vm.playersAll[i].score = vm.score;
-                    vm.playersAll[i].totalTime = vm.timeTaken.reduce(function(a, b) {
-                      return a + b
-                    }, 0);
                   }
                 });
 
@@ -476,11 +471,9 @@ var app = new Vue({
                 vm.SugarPresence.sendMessage({
                   user: this.SugarPresence.getUserInfo(),
                   content: {
-                    action: 'update-players',
+                    action: 'game-over',
                     data: {
-                      playersAll: vm.playersAll,
-                      playersPlaying: vm.playersPlaying,
-                      connectedPlayers: vm.connectedPlayers,
+                      score: vm.score
                     }
                   }
                 });
@@ -796,8 +789,6 @@ var app = new Vue({
         vm.currentScreen = 'result';
       }
 
-
-
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //generating hint
@@ -856,8 +847,26 @@ var app = new Vue({
           }
           break;
 
+        case 'game-over':
+          var data = msg.content.data;
+
+          vm.playersAll.forEach((item, i) => {
+            if (item.user.networkId === msg.user.networkId && item.score === null) {
+              vm.playersAll[i].score = data.score;
+            }
+          });
+
+          vm.playersPlaying = vm.playersPlaying.filter(function(user) {
+            return user.networkId !== msg.user.networkId
+          })
+          if (vm.SugarPresence.isHost && vm.playersPlaying.length === 0) {
+            vm.disabled = false;
+          }
+          break;
+
         case 'update-players':
           var data = msg.content.data;
+          console.log(data);
           vm.playersAll = data.playersAll;
           vm.playersPlaying = data.playersPlaying;
           vm.connectedPlayers = data.connectedPlayers;
@@ -899,8 +908,7 @@ var app = new Vue({
         if (vm.SugarPresence.isHost) {
           var player = {
             user: msg.user,
-            score: null,
-            totalTime: null
+            score: null
           }
           vm.playersAll.push(player);
           vm.playersPlaying.push(msg.user);
