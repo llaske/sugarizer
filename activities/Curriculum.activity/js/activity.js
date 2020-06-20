@@ -21,15 +21,15 @@ var app = new Vue({
 	data: {
 		currentenv: null,
 		sharedInstance: false,
-		currentView: "categories-grid",
 		settings: false,
 		rewardsInit: false,
 		rewardsActive: false,
+		currentView: "categories-grid",
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
 		user: {
-			skills: []
+			skills: {}
 		},
 		notationLevel: 1,
 		levels: {
@@ -270,6 +270,20 @@ var app = new Vue({
 				palette.style.visibility = 'hidden';
 			}
 		},
+		settings: function (newVal, oldVal) {
+				console.log(newVal);
+				if(this.SugarPresence.isConnected()) {
+					this.SugarPresence.sendMessage({
+						user: this.SugarPresence.getUserInfo(),
+						content: {
+							action: 'updateCategories',
+							data: {
+								categories: this.categories,
+							}
+						}
+					});
+				}
+		},
 		notationLevel: function (newVal, oldVal) {
 			var levelButtons = document.getElementById('notation-selector').children;
 			for (var button of levelButtons) {
@@ -278,6 +292,17 @@ var app = new Vue({
 				} else {
 					button.classList.remove('active');
 				}
+			}
+			if(this.SugarPresence.isConnected()) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'updateNotation',
+						data: {
+							notationLevel: newVal
+						}
+					}
+				});
 			}
 		},
 		l10n: function (newVal, oldVal) {
@@ -340,6 +365,17 @@ var app = new Vue({
 			var value = this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			value = (value + 1) % (this.notationLevel + 1);
 			this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
+			if(this.SugarPresence.isConnected()) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'updateUser',
+						data: {
+							user: this.user
+						}
+					}
+				});
+			}
 		},
 
 		onUploadItem: function (event) {
@@ -413,6 +449,17 @@ var app = new Vue({
 						}
 						skillObj.acquired = vm.notationLevel;
 
+						if(vm.SugarPresence.isConnected()) {
+							vm.SugarPresence.sendMessage({
+								user: vm.SugarPresence.getUserInfo(),
+								content: {
+									action: 'updateUser',
+									data: {
+										user: vm.user
+									}
+								}
+							});
+						}
 					}, filters[0], filters[1], filters[2], filters[3]);
 				}, 0);
 			});
@@ -468,6 +515,7 @@ var app = new Vue({
 				});
 				// Updating categories
 				vm.categories = vm.categories.concat(importedCategories);
+				vm.rewardsInit = true;
 			});
 		},
 
@@ -538,17 +586,24 @@ var app = new Vue({
 		onJournalNewInstace: function () {
 			this.importSkills();
 			this.addAchievementsToUser();
-			this.rewardsInit = true;
 		},
 
 		onNetworkDataReceived: function (msg) {
-			console.log(msg.content);
 			switch(msg.content.action) {
 				case 'init':
 					this.sharedInstance = true;
 					this.categories = msg.content.data.categories;
 					this.user = msg.content.data.user;
 					this.notationLevel = msg.content.data.notationLevel;
+					break;
+				case 'updateCategories':
+					this.categories = msg.content.data.categories;
+					break;
+				case 'updateNotation':
+					this.notationLevel = msg.content.data.notationLevel;
+					break;
+				case 'updateUser':
+					this.user = msg.content.data.user;
 					break;
 			}
 		},

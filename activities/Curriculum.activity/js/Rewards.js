@@ -95,38 +95,36 @@ var Rewards = {
 		},
 		totalSkillsAcquired: function () {
 			var count = 0;
-			this.user.skills.forEach(function (cat) {
-				for (var skillId in cat) {
-					if (cat[skillId].acquired) count++;
+			for (var catId in this.user.skills) {
+				for (var skillId in this.user.skills[catId]) {
+					if (this.user.skills[catId][skillId].acquired) count++;
 				}
-			});
+			}
 			return count;
 		},
 		totalCategoriesAcquired: function () {
-			var vm = this;
 			var count = 0;
-			this.user.skills.forEach(function (cat) {
+			for (var catId in this.user.skills) {
 				var allAcquired = true;
-				for (var skillId in cat) {
-					if (cat[skillId].acquired != vm.notationLevel) {
+				for (var skillId in this.user.skills[catId]) {
+					if (this.user.skills[catId][skillId].acquired != this.notationLevel) {
 						allAcquired = false;
 						break;
 					}
 				}
 				if (allAcquired) count++;
-			});
+			}
 			return count;
 		},
 		totalMediaUploaded: function () {
-			var vm = this;
 			var count = 0;
-			this.user.skills.forEach(function (cat) {
-				for (var skillId in cat) {
-					for (var type in cat[skillId].media) {
-						count += cat[skillId].media[type].length;
+			for (var catId in this.user.skills) {
+				for (var skillId in this.user.skills[catId]) {
+					for (var type in this.user.skills[catId][skillId].media) {
+						count += this.user.skills[catId][skillId].media[type].length;
 					}
 				}
-			});
+			}
 			return count;
 		},
 		levelWiseAcquired: function () {
@@ -134,11 +132,11 @@ var Rewards = {
 			for (var key in this.levels[this.notationLevel]) {
 				levelWiseAcquired[key] = 0
 			};
-			this.user.skills.forEach(function (cat) {
-				for (var skillId in cat) {
-					levelWiseAcquired[cat[skillId].acquired]++;
+			for (var catId in this.user.skills) {
+				for (var skillId in this.user.skills[catId]) {
+					levelWiseAcquired[this.user.skills[catId][skillId].acquired]++;
 				}
-			});
+			}
 			return levelWiseAcquired;
 		}
 	},
