@@ -40,9 +40,6 @@ Vue.component('sugar-localization', {
 					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 					var language = environment.user ? environment.user.language : defaultLanguage;
 					webL10n.language.code = language;
-					webL10n.ready(() => {
-						console.log('READY', webL10n.dictionary)
-					});
 					window.addEventListener("localized", function () {
 						if (!vm.eventReceived) {
 							vm.code = language;
@@ -54,7 +51,7 @@ Vue.component('sugar-localization', {
 				});
 			});
 			//Activity initialization check
-			var SugarActivity = vm.$root.$children.find(function(child) {
+			var SugarActivity = vm.$root.$children.find(function (child) {
 				return child.$options.name == 'SugarActivity';
 			});
 			SugarActivity.$on('initialized', function () {
@@ -65,7 +62,15 @@ Vue.component('sugar-localization', {
 	methods: {
 		// Get a single string with parameters
 		get: function (str, params) {
-			return this.l10n.get(str, params);
+			var out = this.getString(str);
+			var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+			for (var i in paramsInString) {
+				var param = paramsInString[i].match(/[\w\.]+/)[0];
+				if (params[param]) {
+					out = out.replace(paramsInString[i], params[param]);
+				}
+			}
+			return out;
 		},
 
 		// Get a single string value

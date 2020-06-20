@@ -20,6 +20,7 @@ var app = new Vue({
 	},
 	data: {
 		currentenv: null,
+		sharedInstance: false,
 		currentView: "categories-grid",
 		settings: false,
 		rewardsInit: false,
@@ -247,6 +248,7 @@ var app = new Vue({
 				}
 			},
 		],
+		SugarPresence: null,
 		l10n: {
 			stringCategories: '',
 			stringSettings: '',
@@ -268,10 +270,10 @@ var app = new Vue({
 				palette.style.visibility = 'hidden';
 			}
 		},
-		notationLevel: function(newVal, oldVal) {
+		notationLevel: function (newVal, oldVal) {
 			var levelButtons = document.getElementById('notation-selector').children;
-			for(var button of levelButtons) {
-				if(button.id.substr(6) == newVal) {
+			for (var button of levelButtons) {
+				if (button.id.substr(6) == newVal) {
 					button.classList.add('active');
 				} else {
 					button.classList.remove('active');
@@ -296,6 +298,9 @@ var app = new Vue({
 			}
 			return 0;
 		}
+	},
+	mounted: function () {
+		this.SugarPresence = this.$refs.SugarPresence;
 	},
 	methods: {
 		initialized: function () {
@@ -466,10 +471,10 @@ var app = new Vue({
 			});
 		},
 
-		addAchievementsToUser: function() {
+		addAchievementsToUser: function () {
 			var vm = this;
 			vm.$set(vm.user, 'achievements', new Object());
-			vm.achievements.forEach(function(achievement) {
+			vm.achievements.forEach(function (achievement) {
 				vm.$set(vm.user.achievements, achievement.id, { timestamp: null });
 			});
 		},
@@ -477,27 +482,26 @@ var app = new Vue({
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
 
-			var middle = Math.floor(oldLevel/2);
+			var middle = Math.floor(oldLevel / 2);
 			for (var cat in this.user.skills) {
 				for (var skill in this.user.skills[cat]) {
 					if (this.user.skills[cat][skill].acquired <= middle) {
 						this.$set(this.user.skills[cat][skill], 'acquired', 0);
 					} else {
 						var text = this.levels[oldLevel][this.user.skills[cat][skill].acquired].text;
-						console.log(text);
-						switch(text) {
-							case "Acquired": 
-								var index = this.levels[event.level].findIndex(function(level) {
+						switch (text) {
+							case "Acquired":
+								var index = this.levels[event.level].findIndex(function (level) {
 									return level.text == "Acquired";
 								});
 								this.$set(this.user.skills[cat][skill], 'acquired', index);
 								break;
 							case "Exceeded":
-								var index = this.levels[event.level].findIndex(function(level) {
+								var index = this.levels[event.level].findIndex(function (level) {
 									return level.text == "Exceeded";
 								});
-								if(index == -1) {
-									index = this.levels[event.level].findIndex(function(level) {
+								if (index == -1) {
+									index = this.levels[event.level].findIndex(function (level) {
 										return level.text == "Acquired";
 									});
 								}
@@ -535,6 +539,34 @@ var app = new Vue({
 			this.importSkills();
 			this.addAchievementsToUser();
 			this.rewardsInit = true;
+		},
+
+		onNetworkDataReceived: function (msg) {
+			console.log(msg.content);
+			switch(msg.content.action) {
+				case 'init':
+					this.sharedInstance = true;
+					this.categories = msg.content.data.categories;
+					this.user = msg.content.data.user;
+					this.notationLevel = msg.content.data.notationLevel;
+					break;
+			}
+		},
+
+		onNetworkUserChanged: function (msg) {
+			if (msg.move == 1 && this.SugarPresence.isHost) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'init',
+						data: {
+							categories: this.categories,
+							user: this.user,
+							notationLevel: this.notationLevel
+						}
+					}
+				});
+			}
 		},
 
 		fullscreen: function () {

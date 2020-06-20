@@ -31,9 +31,19 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
+			<sugar-toolitem 
+				id="network-button" 
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette" 
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
 			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid' || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
+				v-if="!sharedInstance"
 				v-show="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
 				:class="{ active: settings }" 
 				@click="settings = !settings"
@@ -57,6 +67,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="acquire-button" 
+				v-if="!sharedInstance"
 				v-show="currentView == 'skill-details'" 
 				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
 				@click="switchSkillLevel" 
@@ -67,6 +78,7 @@
 			</sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
+				v-if="!sharedInstance"
 				v-show="currentView == 'skill-details'"
 				palette-file="js/palettes/mediapalette.js"
 				palette-class="MediaPalette"
@@ -123,13 +135,13 @@
 				:notation-level="notationLevel" 
 				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
 			/>
-
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 	</div>
 
 	<script src="js/SkillsAdditional.js"></script>
@@ -142,6 +154,7 @@
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
