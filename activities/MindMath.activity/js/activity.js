@@ -335,7 +335,7 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 10);
+        vm.$set(vm.clock, 'initial', 2 * 60);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
@@ -424,6 +424,13 @@ var app = new Vue({
       var totalHints = vm.noOfHintsUsed.reduce(function(a, b) {
         return a + b
       }, 0)
+      var slotsGood = findUselessOperations(slots);
+      for (var i = 0; i < slotsGood.length; i++) {
+        if (slotsGood[i] !== 1) {
+          vm.$set(vm.slots[vm.qNo][i], 'useless', true);
+        }
+      }
+      var slots = vm.slots[vm.qNo];
       var scr = calculateScoreFromSlots(slots, timeTaken, totalHints);
       vm.score += scr;
       vm.scores.push(scr)

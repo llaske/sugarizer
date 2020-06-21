@@ -316,7 +316,8 @@ var Game = {
               type: null,
               val: null
             },
-            res: null
+            res: null,
+            useless: false,
           }
 
           slotObj.num1.val = vm.currentSelectedNums.nums[0];

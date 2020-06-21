@@ -10,12 +10,12 @@ var Slots = {
           v-bind:class="{
             'number': slot.num1.type === 0,
           }"
-          v-bind:fillColor="fillColor"
+          v-bind:fillColor="slot.useless ? 'rgba(0, 0, 0, 0.4)' : fillColor"
           v-bind:type="slot.num1.type"
           v-bind:number="slot.num1.val"
         ></inputNumber>
         <div class="operator"
-          v-bind:style="{backgroundColor: strokeColor}"
+          v-bind:style="[slot.useless ? {backgroundColor: 'rgba(0, 0, 0, 0.4)'} : {backgroundColor: strokeColor}]"
           v-bind:class="{
             'plus': slot.operator === '+',
             'minus': slot.operator === '-',
@@ -28,7 +28,7 @@ var Slots = {
           v-bind:class="{
             'number': slot.num2.type === 0,
           }"
-          v-bind:fillColor="fillColor"
+          v-bind:fillColor="slot.useless ? 'rgba(0, 0, 0, 0.4)' : fillColor"
           v-bind:type="slot.num2.type"
           v-bind:number="slot.num2.val"
         ></inputNumber>
@@ -37,7 +37,7 @@ var Slots = {
 
         <div
           class="res"
-          v-bind:style="{backgroundColor: fillColor}"
+          v-bind:style="[slot.useless ? {backgroundColor: 'rgba(0, 0, 0, 0.4)'} : {backgroundColor: fillColor}]"
           v-bind:class="{'acheived': (compulsoryOpsRem!=null ? compulsoryOpsRem.length===0 : true) && targetNum === slot.res && index === slots.length-1}"
         >{{slot.res}}</div>
 

@@ -205,7 +205,8 @@ var Result = {
               type: null,
               val: null
             },
-            res: null
+            res: null,
+            useless: false,
           }
 
           slotObj.num1.val = slots[i][0].val;
