@@ -210,6 +210,9 @@ var app = new Vue({
     localized: function() {
       document.getElementById('next-slot-text').innerHTML = this.SugarL10n.get("NextSlot");
       document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
+      document.getElementById('easy-button').title = this.SugarL10n.get("EasyLevel");
+      document.getElementById('medium-button').title = this.SugarL10n.get("MediumLevel");
+
       this.SugarL10n.localize(this.l10n);
     },
 
