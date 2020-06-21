@@ -77,12 +77,30 @@
 	width: 100px;
 }
 .trophy {
+	position: relative;
 	background-image: url(../icons/trophy-large.svg);
 	background-size: cover;
 	background-position: center;
 	width: 100%;
 	padding-top: 100%;  /*  To get 1:1 asepect ratio */
 	opacity: 0.2;
+}
+.trophy .trophy-info {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.trophy .trophy-info .trophy-icon {
+	display: block;
+	margin: 0 auto;
+	width: 15px;
+	height: 15px;
+}
+.trophy .trophy-info span {
+	color: white;
+	font-weight: 700;
+	font-size: 1.1em;
 }
 .trophy.acquired {
 	opacity: 1;

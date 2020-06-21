@@ -86,6 +86,7 @@ var CategoriesGrid = {
 				<category-card 
 					v-for="category in categories" 
 					:key="category.id"
+					v-show="category.title.indexOf(searchQuery) != -1"
 					:category="category"
 					:user="user"
 					:settings="settings"
@@ -102,7 +103,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings', 'levels', 'notationLevel'],
+	props: ['categories', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery'],
 	methods: {
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);
