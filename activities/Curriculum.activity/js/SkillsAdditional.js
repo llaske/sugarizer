@@ -1,7 +1,7 @@
 var Medal = {
 	/*html*/
 	template: `
-		<div class="medal-container">
+		<div class="medal-container" v-on="$listeners" v-bind="$attrs">
 			<div :class="{'medal-small': small, 'medal-large': !small}">
 				<!-- 
 				<div ref="medal" class="medal" v-show="!acquired">
@@ -45,18 +45,18 @@ var Medal = {
 		}
 	},
 	mounted: function () {
-		var vm = this;
-		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			vm.icon = icon;
-			vm.colorizeElements(vm.colors);
-		});
+		this.colorizeElements(this.colors);
 	},
 	methods: {
 		colorizeElements(colors) {
-			this.icon.colorize(this.$refs.medalAcquired, colors);
+			// this.icon.colorize(this.$refs.medalAcquired, colors);
+			var vm = this;
+			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/medal.svg", colors, function(src) {
+				vm.$refs.medalAcquired.style.backgroundImage = `url(${src})`;
+			});
 			if(!this.small) {
-				this.icon.colorize(this.$refs.shine1, colors);
-				this.icon.colorize(this.$refs.shine2, colors);
+				this.$root.$refs.SugarIcon.colorize(this.$refs.shine1, colors);
+				this.$root.$refs.SugarIcon.colorize(this.$refs.shine2, colors);
 			}
 			this.$refs.medalAcquired.style.color = this.colors.stroke;
 		}
@@ -101,7 +101,6 @@ var UploadItem = {
 	props: ['item'],
 	computed: {
 		date: function () {
-			// return new Date(this.item.timestamp).toDateString();
 			return this.$root.$refs.SugarL10n.timestampToElapsedString(this.item.timestamp, 2);
 		}
 	},

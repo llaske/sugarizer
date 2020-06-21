@@ -24,7 +24,7 @@
         <circle id="Ellipse_14" data-name="Ellipse 14" cx="4.665" cy="4.665" r="4.665" transform="translate(15.746)" fill="&fill_color;"/>
         <circle id="Ellipse_15" data-name="Ellipse 15" cx="4.665" cy="4.665" r="4.665" transform="translate(0)" fill="&fill_color;"/>
       </g>
-      <path id="Ribbon" d="M178.938,58.668l-8.771-6.312L161.4,58.668v-26.6h17.538Z" transform="translate(-130.499 -24.597)" fill="&stroke_color;"/>
+      <path id="Ribbon" d="M170.65,58.668l-4.626-4.417L161.4,58.668V42.9h9.25Z" transform="translate(-134.499 -35.597)" fill="&stroke_color;"/>
       <g id="Group_21" data-name="Group 21" transform="translate(21.501 7.452)" opacity="0.1">
         <rect id="Rectangle_60" data-name="Rectangle 60" width="62.854" height="3.435" fill="#010101"/>
       </g>

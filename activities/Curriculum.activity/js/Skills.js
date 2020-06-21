@@ -70,6 +70,7 @@ var SkillsGrid = {
 					<skill-card 
 						v-for="skill in category.skills" 
 						:key="skill.id" 
+						v-show="skill.title.indexOf(searchQuery) != -1"
 						:skill="skill" 
 						:category="category"
 						:user="user"
@@ -88,7 +89,7 @@ var SkillsGrid = {
 	components: {
 		'skill-card': SkillCard,
 	},
-	props: ['categories', 'categoryId', 'user', 'settings', 'levels', 'notationLevel'],
+	props: ['categories', 'categoryId', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery'],
 	computed: {
 		category: function () {
 			var vm = this;
@@ -132,7 +133,7 @@ var SkillDetails = {
 			<div class="skill-title">
 				<h1>{{ skill.title }}</h1>
 				<span ref="underline3" class="underline"></span>	
-				<medal :acquired="currentAcquired" :levels="levels" :notation-level="notationLevel" />
+				<medal :acquired="currentAcquired" :levels="levels" :notation-level="notationLevel" @click="$root.switchSkillLevel" />
 			</div>
 			<div class="skill-contents">
 				<div class="skill-image">
@@ -190,10 +191,6 @@ var SkillDetails = {
 	mounted: function () {
 		//Handling styles
 		this.$refs.underline3.style.background = this.category.color;
-		var vm = this;
-		requirejs(["sugar-web/graphics/icon"], function (icon) {
-			icon.colorize(vm.$refs.uploadPreview, { fill: "#d3d3d3", stroke: "#d3d3d3" })
-		})
 	},
 	methods: {
 		sortUploads: function (array) {

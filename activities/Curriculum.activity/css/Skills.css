@@ -157,6 +157,7 @@
 	background-size: cover;
 	width: 80px;
 	height: 80px;
+	opacity: 0.4;
 	margin: 0 auto;
 }
 .upload-preview p {

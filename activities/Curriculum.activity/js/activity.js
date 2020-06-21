@@ -25,6 +25,7 @@ var app = new Vue({
 		rewardsInit: false,
 		rewardsActive: false,
 		currentView: "categories-grid",
+		searchQuery: "",
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
@@ -158,6 +159,10 @@ var app = new Vue({
 			{
 				id: 0,
 				title: "First skill acquired",
+				info: {
+					icon: "medal-unacquired.svg",
+					text: "#1"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
@@ -168,6 +173,10 @@ var app = new Vue({
 			{
 				id: 1,
 				title: "50% skills acquired",
+				info: {
+					icon: "medal-unacquired.svg",
+					text: "50%"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
@@ -182,6 +191,10 @@ var app = new Vue({
 			{
 				id: 2,
 				title: "All skills acquired",
+				info: {
+					icon: "medal-unacquired.svg",
+					text: "100%"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalSkillsAcquired]",
@@ -194,6 +207,10 @@ var app = new Vue({
 			{
 				id: 3,
 				title: "First category acquired",
+				info: {
+					icon: "home.svg",
+					text: "#1"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalCategoriesAcquired]",
@@ -204,6 +221,10 @@ var app = new Vue({
 			{
 				id: 4,
 				title: "All categories acquired",
+				info: {
+					icon: "home.svg",
+					text: "100%"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalCategoriesAcquired]",
@@ -216,6 +237,10 @@ var app = new Vue({
 			{
 				id: 5,
 				title: "First proof uploaded",
+				info: {
+					icon: "insert-picture.svg",
+					text: "#1"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalMediaUploaded]",
@@ -226,6 +251,10 @@ var app = new Vue({
 			{
 				id: 6,
 				title: "Ten proofs uploaded",
+				info: {
+					icon: "insert-picture.svg",
+					text: "#10"
+				},
 				availability: true,
 				condition: {
 					property: "this[totalMediaUploaded]",
@@ -236,6 +265,10 @@ var app = new Vue({
 			{
 				id: 7,
 				title: "First A+ acquired",
+				info: {
+					icon: "medal-unacquired.svg",
+					text: "A+"
+				},
 				availability: {
 					property: "this[notationLevel]",
 					op: ">=",
@@ -250,6 +283,9 @@ var app = new Vue({
 		],
 		SugarPresence: null,
 		l10n: {
+			stringCategory: '',
+			stringSkill: '',
+			stringSearch: '',
 			stringCategories: '',
 			stringSettings: '',
 			stringAdd: '',
@@ -269,20 +305,20 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
+			this.searchQuery = "";
 		},
 		settings: function (newVal, oldVal) {
-				console.log(newVal);
-				if(this.SugarPresence.isConnected()) {
-					this.SugarPresence.sendMessage({
-						user: this.SugarPresence.getUserInfo(),
-						content: {
-							action: 'updateCategories',
-							data: {
-								categories: this.categories,
-							}
+			if(this.SugarPresence.isConnected()) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'updateCategories',
+						data: {
+							categories: this.categories,
 						}
-					});
-				}
+					}
+				});
+			}
 		},
 		notationLevel: function (newVal, oldVal) {
 			var levelButtons = document.getElementById('notation-selector').children;

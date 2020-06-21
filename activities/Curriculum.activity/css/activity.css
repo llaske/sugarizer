@@ -190,6 +190,40 @@ p {
 	background: grey;
 }
 
+.search-field {
+	position: relative;
+	display: inline-block;	
+	vertical-align: bottom;
+	margin-bottom: 10px;
+}
+.search-field .search-icon {
+	position: absolute;
+	left: 10px;
+	top: 40%;
+	background-image: url(../icons/entry-search.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+}
+.search-field .search-input {
+	width: 200px;
+	margin: 0;
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.search-field .search-cancel {
+	position: absolute;
+	right: 10px;
+	top: 40%;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
 
 #journal-container div[id^=entry_] {
 	display: flex;

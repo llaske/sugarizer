@@ -40,6 +40,7 @@
 				v-on:shared="SugarPresence.onShared"
 				v-if="SugarPresence"
 			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid' || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
@@ -95,6 +96,17 @@
 				v-bind:title="l10n.stringRewards"
 			></sugar-toolitem>
 
+			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
+				<div class="search-icon"></div>
+				<input 
+					type="text" 
+					class="search-input" 
+					v-model="searchQuery" 
+					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
+				>
+				<div class="search-cancel" v-if="searchQuery != ''" @click="searchQuery = ''"></div>
+			</div>
+
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
@@ -103,7 +115,7 @@
 
 		<div id="content">
 			<transition name="fade" mode="out-in">
-				<!-- <keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm"> -->
+				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
 					<component 
 						v-if="!rewardsActive"
 						:is="currentView" 
@@ -115,6 +127,7 @@
 						:user="user"
 						:levels="levels"
 						:notation-level="notationLevel"
+						:search-query="searchQuery"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -123,7 +136,7 @@
 						@update-categories="onUpdateCategories"
 						@go-back-to="goBackTo"
 					></component>
-					<!-- </keep-alive> -->
+				</keep-alive>
 			</transition>
 			<rewards 
 				v-if="rewardsInit"
@@ -142,6 +155,7 @@
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
 	<script src="js/SkillsAdditional.js"></script>
@@ -155,6 +169,7 @@
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

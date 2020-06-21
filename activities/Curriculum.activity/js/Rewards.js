@@ -2,12 +2,18 @@ var Trophy = {
 	/*html*/
 	template: `
 		<div class="trophy-container">
-			<div ref="trophyAcquired" class="trophy" :class="{ acquired: acquired }"></div>
+			<div ref="trophyAcquired" class="trophy" :class="{ acquired: acquired }">
+				<div class="trophy-info">
+					<span ref="trophyText">{{ info.text }}</span>
+					<img :src="'./icons/' + info.icon" class="trophy-icon" />
+				</div>
+			</div>
 		</div>
 	`,
 	props: {
 		acquired: Boolean,
-		userColors: Object
+		userColors: Object,
+		info: Object
 	},
 	data: {
 		icon: null
@@ -34,9 +40,10 @@ var Trophy = {
 	},
 	methods: {
 		colorizeElements(colors) {
-			this.icon.colorize(this.$refs.trophyAcquired, colors);
-			// this.icon.colorize(this.$refs.shine1, colors);
-			// this.icon.colorize(this.$refs.shine2, colors);
+			var vm = this;
+			this.$root.$refs.SugarIcon.generateIconWithColors('../icons/trophy-large.svg', colors, function(src) {
+				vm.$refs.trophyAcquired.style.backgroundImage = `url(${src})`;
+			});
 		}
 	}
 }
@@ -68,7 +75,7 @@ var Rewards = {
 			</div>
 			<div class="trophies-container">
 				<div class="trophy-card" v-for="item in achievements" :key="item.title" v-if="evalCondition(item.availability)">
-					<trophy :userColors="userColors" :acquired="evalAndUpdate(item)" />
+					<trophy :userColors="userColors" :acquired="evalAndUpdate(item)" :info="item.info" />
 					<h4>{{ item.title }}</h4>
 					<p 
 						v-if="user.achievements[item.id].timestamp" 
