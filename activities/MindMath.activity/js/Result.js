@@ -93,20 +93,44 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <button
-            v-if="playersAll.length!=0"
-            class="btn-block btn-rankings-block"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('see-leaderboard')"
-          >
-          </button>
-          <button
-            v-bind:disabled="disabled"
-            class="btn-block btn-restart-block"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('restart-game')"
-          >
-          </button>
+          <div class="pagination">
+            <button
+              v-bind:disabled="isPreviousButtonDisabled"
+              class="btn-block btn-previous-page"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="pageChangeHandler('previous')"
+            >
+            </button>
+            <button
+              class="btn-block page-no"
+              v-bind:style="{backgroundColor: fillColor}"
+            >
+              {{ currentPage }}/{{ pageCount }}
+            </button>
+            <button
+              v-bind:disabled="isNextButtonDisabled"
+              class="btn-block btn-next-page"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="pageChangeHandler('next')"
+            >
+            </button>
+          </div>
+          <div class="footer-actions">
+            <button
+              v-if="playersAll.length!=0"
+              class="btn-block btn-rankings-block"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="$emit('see-leaderboard')"
+            >
+            </button>
+            <button
+              v-bind:disabled="disabled"
+              class="btn-block btn-restart-block"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="$emit('restart-game')"
+            >
+            </button>
+          </div>
       </div>
     </div>
   `,
@@ -117,6 +141,9 @@ var Result = {
       mySlots: [],
       totalTime: 0,
       timeForEachQuestion: [],
+      currentPage: 1,
+      pageCount: 1,
+      visibleItemsPerPageCount: 10,
     };
   },
   created: function() {
@@ -133,7 +160,17 @@ var Result = {
     vm.totalTime = vm.timeTaken.reduce(function(a, b) {
       return a + b
     }, 0)
+    vm.pageCount = Math.ceil((vm.qNo + 1) / vm.visibleItemsPerPageCount);
     vm.resize();
+  },
+  computed: {
+    isPreviousButtonDisabled: function() {
+      return this.currentPage === 1
+    },
+    
+    isNextButtonDisabled: function() {
+      return this.currentPage === this.pageCount
+    }
   },
   methods: {
     resize: function() {
@@ -152,6 +189,10 @@ var Result = {
 
       }
       document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+      document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
+      document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
+      document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
+
 
 
       if (ratio < 1) {
@@ -178,6 +219,7 @@ var Result = {
       }
 
     },
+
     initializeSlots: function() {
       var vm = this;
       vm.questionSet = [];
@@ -185,7 +227,13 @@ var Result = {
       vm.mySlots = [];
       vm.timeForEachQuestion = [];
 
-      for (var i = 0; i <= vm.qNo; i++) {
+      var initQno = (vm.currentPage-1) * vm.visibleItemsPerPageCount;
+      var len = vm.qNo + 1 - initQno;
+      if (len > vm.visibleItemsPerPageCount) {
+        len = vm.visibleItemsPerPageCount;
+      }
+
+      for (var i = initQno; i < initQno + len; i++) {
         vm.questionSet.push(vm.questions[i]);
         vm.timeForEachQuestion.push(vm.timeTaken[i]);
       }
@@ -221,6 +269,21 @@ var Result = {
         vm.bestSlots.push(slotsArr);
         vm.mySlots.push(vm.slots[qno]);
       }
+    },
+
+    pageChangeHandler: function (value) {
+      switch (value) {
+        case 'next':
+          this.currentPage += 1
+          break
+        case 'previous':
+          this.currentPage -= 1
+          break
+        default:
+          this.currentPage = value
+      }
+      this.initializeSlots();
     }
+
   }
 }

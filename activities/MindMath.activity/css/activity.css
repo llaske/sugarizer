@@ -152,9 +152,24 @@ p {
   opacity: .65;
 }
 
+.footer-actions {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.pagination {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 .btn-block {
   width: 125px;
   height: 100%;
+  padding: 0px;
   border: none;
   margin: 0% 1%;
   cursor: pointer;
@@ -169,16 +184,23 @@ p {
   background-size: 90%;
 }
 
-.btn-restart-block {
-  background-image: url(../icons/restart-black.svg);
-}
-
-.btn-rankings-block {
-  background-image: url(../icons/leaderboard.svg);
-}
-
-.btn-back-block {
+.btn-previous-page {
+  margin: 0% 1%;
   background-image: url(../icons/go-left-black.svg);
+}
+
+.btn-next-page {
+  margin: 0% 1%;
+  background-image: url(../icons/go-right-black.svg);
+}
+
+.page-no {
+  margin: 0% 1%;
+  font-weight: bold;
+  font-family: "Dejavu Sans";
+  color: black;
+  font-size: 3vh;
+  cursor: auto;
 }
 
 @media only screen and (max-width: 406px) {

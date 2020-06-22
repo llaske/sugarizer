@@ -31,17 +31,44 @@ var Leaderboard = {
         </div>
       </div>
       <div class="leaderboard-footer">
-        <button class="btn-block btn-back-block"
-          v-bind:style="{backgroundColor: fillColor}"
-          v-on:click="$emit('go-to-result')"
-        >
-        </button>
+        <div class="pagination">
+          <button
+            v-bind:disabled="isPreviousButtonDisabled"
+            class="btn-block btn-previous-page"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="pageChangeHandler('previous')"
+          >
+          </button>
+          <button
+            class="btn-block page-no"
+            v-bind:style="{backgroundColor: fillColor}"
+          >
+            {{ currentPage }}/{{ pageCount }}
+          </button>
+          <button
+            v-bind:disabled="isNextButtonDisabled"
+            class="btn-block btn-next-page"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="pageChangeHandler('next')"
+          >
+          </button>
+        </div>
+        <div class="footer-actions">
+          <button class="btn-block btn-back-block"
+            v-bind:style="{backgroundColor: fillColor}"
+            v-on:click="$emit('go-to-result')"
+          >
+          </button>
+        </div>
       </div>
     </div>
   `,
   data: function() {
     return {
-      players: []
+      players: [],
+      currentPage: 1,
+      pageCount: 1,
+      visibleItemsPerPageCount: 10,
     }
   },
   created: function() {
@@ -55,12 +82,23 @@ var Leaderboard = {
   },
   mounted: function() {
     var vm = this;
+    vm.pageCount = Math.ceil(vm.playersAll.length / vm.visibleItemsPerPageCount);
     vm.resize();
   },
   watch: {
     playersAll: function() {
       var vm = this;
+      vm.pageCount = Math.ceil(vm.playersAll.length / vm.visibleItemsPerPageCount);
       vm.sortLeaderboard();
+    }
+  },
+  computed: {
+    isPreviousButtonDisabled: function() {
+      return this.currentPage === 1
+    },
+
+    isNextButtonDisabled: function() {
+      return this.currentPage === this.pageCount
     }
   },
   methods: {
@@ -72,13 +110,23 @@ var Leaderboard = {
 
       document.querySelector('#leaderboard-view').style.height = newHeight + "px";
       document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+      document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
+      document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
+      document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
 
     },
 
     sortLeaderboard: function() {
       var vm = this;
       vm.players = [];
-      for (var i = 0; i < vm.playersAll.length; i++) {
+
+      var initP = (vm.currentPage - 1) * vm.visibleItemsPerPageCount;
+      var len = vm.playersAll.length - initP;
+      if (len > vm.visibleItemsPerPageCount) {
+        len = vm.visibleItemsPerPageCount;
+      }
+
+      for (var i = initP; i < initP + len; i++) {
         vm.players.push(vm.playersAll[i]);
       }
 
@@ -86,6 +134,21 @@ var Leaderboard = {
         return b.score - a.score;
       })
 
+    },
+
+    pageChangeHandler: function(value) {
+      switch (value) {
+        case 'next':
+          this.currentPage += 1
+          break
+        case 'previous':
+          this.currentPage -= 1
+          break
+        default:
+          this.currentPage = value
+      }
+      this.sortLeaderboard();
     }
+
   }
 }
