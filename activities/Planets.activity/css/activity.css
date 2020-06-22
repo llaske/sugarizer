@@ -181,7 +181,7 @@
 /**Planet List on Homepage**/
 
 .planets{
-  display: -webkit-inline-box;
+  display: inline-block;
   height: 250px;
   width: 240px;
   margin-top: 30px;
