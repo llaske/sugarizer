@@ -42,6 +42,23 @@
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid' || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
+				<div class="search-icon"></div>
+				<input 
+					type="text" 
+					class="search-input" 
+					v-model="searchQuery" 
+					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
+				>
+				<div class="search-cancel" v-if="searchQuery != ''" @click="searchQuery = ''"></div>
+			</div>
+			<sugar-toolitem 
+				id="rewards-button" 
+				v-show="!settings" 
+				@click="rewardsActive = !rewardsActive" 
+				:class="{ active: rewardsActive }" 
+				v-bind:title="l10n.stringRewards"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
 				v-if="!sharedInstance"
@@ -88,24 +105,7 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="rewards-button" 
-				v-show="!settings" 
-				@click="rewardsActive = !rewardsActive" 
-				:class="{ active: rewardsActive }" 
-				v-bind:title="l10n.stringRewards"
-			></sugar-toolitem>
 
-			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
-				<div class="search-icon"></div>
-				<input 
-					type="text" 
-					class="search-input" 
-					v-model="searchQuery" 
-					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
-				>
-				<div class="search-cancel" v-if="searchQuery != ''" @click="searchQuery = ''"></div>
-			</div>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>

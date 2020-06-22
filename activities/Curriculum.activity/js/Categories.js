@@ -22,7 +22,7 @@ var CategoryCard = {
 					v-for="skill in skillsToShow" 
 					@click.stop="onSkillClick(skill.id)"
 				>
-					<img :src="skill.image">
+					<img :src="skill.image" :alt="skill.title" loading="lazy">
 				</div>
 			</div>
 			<div class="progress">

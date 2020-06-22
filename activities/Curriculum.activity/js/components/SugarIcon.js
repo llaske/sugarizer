@@ -21,6 +21,27 @@ Vue.component('sugar-icon', {
 				icon = icon.replace(/(fill)_color\s\"#?\w*\"/, `fill_color "${colors.fill}"`);
 				callback("data:image/svg+xml;base64," + btoa(icon));
 			});
+		},
+
+		colorizeIcon: function (element, colors, callback) {
+			var path = this.getBackgroundURL(element);
+			this.generateIconWithColors(path, colors, function(src) {
+				element.style.backgroundImage = `url(${src})`;
+				if(callback) {
+					callback();
+				}
+			});
+		},
+
+		getBackgroundURL: function(elem) {
+			var style = elem.currentStyle || window.getComputedStyle(elem, '');
+			// Remove prefix 'url(' and suffix ')' before return
+			var res = style.backgroundImage.slice(4, -1);
+			var last = res.length-1;
+			if (res[0] == '"' && res[last] == '"') {
+				res = res.slice(1, last);
+			}
+			return res;
 		}
 	}
 })
