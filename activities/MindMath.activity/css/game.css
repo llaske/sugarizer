@@ -11,8 +11,6 @@
   cursor: pointer;
   width: 100px;
   height: 100px;
-  font-size: 40px;
-  font-weight: bold;
   padding: 1%;
   border: none;
   color: black;
@@ -58,14 +56,12 @@
 }
 
 .btn-operator:hover {
-  font-size: 60px;
   background-size: 75%, 100%;
 }
 
 .selected-op {
   width: 110px;
   height: 110px;
-  font-size: 60px;
   background-size: 75%, 100%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
@@ -288,6 +284,16 @@
   background-image: url(../icons/validate.svg);
 }
 
+@media (hover:none), (hover:on-demand) {
+  .btn-operator:hover {
+    background-size: 60%, 100%;
+  }
+  .btn-number:hover {
+    font-size: 30px;
+  }
+
+}
+
 @media only screen and (max-width: 940px) {
   .btn-operator {
     width: 75px;
@@ -383,6 +389,20 @@
     height: 60px;
     font-size: 15px;
   }
+
+  @media (hover:none), (hover:on-demand) {
+    /* suppress hover effect on devices that don't support hover fully*/
+    .btn-operator:hover {
+      background-size: 60%, 100%;
+    }
+    .btn-number:hover {
+      font-size: 18px;
+    }
+    .selected-num {
+      font-size: 18px;
+    }
+
+  }
 }
 
 @media only screen and (max-height: 600px) {
@@ -448,5 +468,18 @@
 
   .selected-num {
     font-size: 22px;
+  }
+
+  @media (hover:none), (hover:on-demand) {
+    .btn-operator:hover {
+      background-size: 60%, 100%;
+    }
+    .btn-number:hover {
+      font-size: 17px;
+    }
+    .selected-num {
+      font-size: 17px;
+    }
+
   }
 }

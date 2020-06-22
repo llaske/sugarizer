@@ -14,34 +14,39 @@
   justify-content: space-around;
 }
 
-.slot div {
-  width: 60px;
-  height: 60px;
+.slot .slotChild {
+  width: 65px;
+  height: 65px;
   font-size: 25px;
   font-weight: normal;
   background: transparent;
-  line-height: 60px;
   border-radius: 20%;
-  padding: 1%;
   color: black;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: width 0.8s, height 0.8s;
   background-image: url(../icons/square-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: contain;
+}
+
+.slot .slotChild div{
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .slot .symbol {
   width: 35px;
   height: 35px;
-  line-height: 35px;
   border: none;
   color: black;
   background-image: url(../icons/diamond-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: contain;
   box-shadow: none;
 }
 
@@ -51,7 +56,7 @@
   background-image: url(../icons/diamond-bg.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: contain;
   box-shadow: none;
 }
 
@@ -64,7 +69,6 @@
 .slot .operator {
   width: 40px;
   height: 40px;
-  line-height: 40px;
   font-weight: bold;
   color: black;
   border-radius: 50%;
@@ -100,7 +104,7 @@
 .slot .acheived {
   background-image: url(../icons/target.svg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: contain;
   background-position: center;
 }
 
@@ -108,90 +112,86 @@
   border: none;
   background-image: url(../icons/empty.svg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: contain;
   background-position: center;
   box-shadow: none;
 }
 
 @media only screen and (max-width: 940px) {
-  .slot div {
+  .slot .slotChild {
     width: 50px;
     height: 50px;
-    line-height: 50px;
   }
 
   .slot .symbol {
     width: 30px;
     height: 30px;
-    line-height: 30px;
   }
 
   .slot .operator {
     width: 35px;
     height: 35px;
-    line-height: 35px;
   }
 }
 
 @media only screen and (max-width: 680px) {
-  .slot div {
+  .slot .slotChild {
     width: 40px;
     height: 40px;
-    line-height: 40px;
     font-size: 20px;
   }
 
   .slot .symbol {
     width: 25px;
     height: 25px;
-    line-height: 25px;
   }
 
   .slot .operator {
     width: 25px;
     height: 25px;
-    line-height: 25px;
   }
 }
 
 @media only screen and (max-width: 400px) {
-  .slot div {
+  .slot .slotChild {
     width: 30px;
     height: 30px;
-    line-height: 30px;
     font-size: 15px;
   }
 
   .slot .symbol {
     width: 20px;
     height: 20px;
-    line-height: 20px;
   }
 
   .slot .operator {
     width: 20px;
     height: 20px;
-    line-height: 20px;
+  }
+
+  .slot .circle {
+    border: 2px solid black;
   }
 }
 
 @media only screen and (max-height: 500px) {
-  .slot div {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 15px;
+  .slot .slotChild {
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
   }
 
   .slot .symbol {
     width: 20px;
     height: 20px;
-    line-height: 20px;
   }
 
   .slot .operator {
     width: 20px;
     height: 20px;
-    line-height: 20px;
+  }
+
+  .slot .circle {
+    border: 2px solid black;
   }
 }
