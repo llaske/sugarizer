@@ -158,7 +158,7 @@ var app = new Vue({
 		achievements: [
 			{
 				id: 0,
-				title: "First skill acquired",
+				title: "Achievement0",
 				info: {
 					icon: "medal-unacquired.svg",
 					text: "#1"
@@ -172,7 +172,7 @@ var app = new Vue({
 			},
 			{
 				id: 1,
-				title: "50% skills acquired",
+				title: "Achievement1",
 				info: {
 					icon: "medal-unacquired.svg",
 					text: "50%"
@@ -190,7 +190,7 @@ var app = new Vue({
 			},
 			{
 				id: 2,
-				title: "All skills acquired",
+				title: "Achievement2",
 				info: {
 					icon: "medal-unacquired.svg",
 					text: "100%"
@@ -206,7 +206,7 @@ var app = new Vue({
 			},
 			{
 				id: 3,
-				title: "First category acquired",
+				title: "Achievement3",
 				info: {
 					icon: "home.svg",
 					text: "#1"
@@ -220,7 +220,7 @@ var app = new Vue({
 			},
 			{
 				id: 4,
-				title: "All categories acquired",
+				title: "Achievement4",
 				info: {
 					icon: "home.svg",
 					text: "100%"
@@ -236,7 +236,7 @@ var app = new Vue({
 			},
 			{
 				id: 5,
-				title: "First proof uploaded",
+				title: "Achievement5",
 				info: {
 					icon: "insert-picture.svg",
 					text: "#1"
@@ -250,7 +250,7 @@ var app = new Vue({
 			},
 			{
 				id: 6,
-				title: "Ten proofs uploaded",
+				title: "Achievement6",
 				info: {
 					icon: "insert-picture.svg",
 					text: "#10"
@@ -264,7 +264,7 @@ var app = new Vue({
 			},
 			{
 				id: 7,
-				title: "First A+ acquired",
+				title: "Achievement7",
 				info: {
 					icon: "medal-unacquired.svg",
 					text: "A+"
@@ -345,11 +345,20 @@ var app = new Vue({
 			this.$refs.SugarL10n.localize(this.l10n);
 			var vm = this;
 			this.categories.forEach(function (cat) {
-				cat.title = vm.l10n['string' + cat.title];
+				if(vm.l10n['string' + cat.title]) {
+					cat.title = vm.l10n['string' + cat.title];
+				}
 				cat.skills.forEach(function (skill) {
-					skill.title = vm.l10n['string' + skill.title]
+					if(vm.l10n['string' + skill.title]) {
+						skill.title = vm.l10n['string' + skill.title]
+					}
 				})
-			})
+			});
+			this.achievements.forEach(function(achievement) {
+				if(vm.l10n['string' + achievement.title]) {
+					achievement.title = vm.l10n['string' + achievement.title];
+				}
+			});
 		}
 	},
 	computed: {
@@ -366,10 +375,10 @@ var app = new Vue({
 	methods: {
 		initialized: function () {
 			this.currentenv = this.$refs.SugarActivity.getEnvironment();
-			// document.getElementById('app').style.background = this.currentenv.user.colorvalue.fill;
 		},
 
 		localized: function () {
+			this.addTitlesToL10n(this.achievements);
 			this.$refs.SugarL10n.localize(this.l10n);
 		},
 
@@ -557,9 +566,16 @@ var app = new Vue({
 
 		addAchievementsToUser: function () {
 			var vm = this;
-			vm.$set(vm.user, 'achievements', new Object());
-			vm.achievements.forEach(function (achievement) {
+			this.$set(this.user, 'achievements', new Object());
+			this.achievements.forEach(function (achievement) {
 				vm.$set(vm.user.achievements, achievement.id, { timestamp: null });
+			});
+		},
+
+		addTitlesToL10n: function(array) {
+			var vm = this;
+			array.forEach(function (item) {
+				vm.$set(vm.l10n, 'string' + item.title, '');
 			});
 		},
 
