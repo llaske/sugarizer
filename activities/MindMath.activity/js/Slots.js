@@ -2,7 +2,7 @@ var Slots = {
   components: {
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'targetNum', 'slots', 'emptyLinesAllowed', 'compulsoryOpsForQuestion', 'compulsoryOpsRem'],
+  props: ['strokeColor', 'fillColor', 'slots', 'emptyLinesAllowed', 'compulsoryOpsForQuestion', 'isTargetAcheived'],
   template: `
     <div class="list-slots">
       <div class="slot" v-for="(slot,index) in slots" v-bind:key="index">
@@ -21,7 +21,7 @@ var Slots = {
             'minus': slot.operator === '-',
             'multiply': slot.operator === '*',
             'divide': slot.operator === '/',
-            'circle': compulsoryOpsForQuestion && compulsoryOpsForQuestion.indexOf(slot.operator) !== -1
+            'circle': !slot.useless && compulsoryOpsForQuestion && compulsoryOpsForQuestion.indexOf(slot.operator) !== -1
            }"
         ></div>
         <inputNumber class="slotChild"
@@ -38,7 +38,7 @@ var Slots = {
         <div
           class="slotChild res"
           v-bind:style="[slot.useless ? {backgroundColor: 'rgba(0, 0, 0, 0.4)'} : {backgroundColor: fillColor}]"
-          v-bind:class="{'acheived': (compulsoryOpsRem!=null ? compulsoryOpsRem.length===0 : true) && targetNum === slot.res && index === slots.length-1}"
+          v-bind:class="{'acheived': isTargetAcheived && index === slots.length-1}"
         >{{slot.res}}</div>
 
       </div>

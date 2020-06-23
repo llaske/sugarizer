@@ -63,9 +63,9 @@ var Result = {
                       v-if="mySlots[index].length!=0"
                       v-bind:strokeColor="strokeColor"
                       v-bind:fillColor="fillColor"
-                      v-bind:targetNum="panel.targetNum"
                       v-bind:slots="mySlots[index]"
                       v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
+                      v-bind:isTargetAcheived="panel.targetNum === mySlots[index][mySlots[index].length-1].res"
                     ></slots-component>
                   </div>
                 </div>
@@ -79,9 +79,9 @@ var Result = {
                     <slots-component
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
-                    v-bind:targetNum="panel.targetNum"
                     v-bind:slots="bestSlots[index]"
                     v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
+                    isTargetAcheived="true"
                     ></slots-component>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ var Result = {
       timeForEachQuestion: [],
       currentPage: 1,
       pageCount: 1,
-      visibleItemsPerPageCount: 10,
+      visibleItemsPerPageCount: 8,
     };
   },
   created: function() {
@@ -167,7 +167,7 @@ var Result = {
     isPreviousButtonDisabled: function() {
       return this.currentPage === 1
     },
-    
+
     isNextButtonDisabled: function() {
       return this.currentPage === this.pageCount
     }

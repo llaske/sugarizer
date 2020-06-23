@@ -104,6 +104,24 @@ var app = new Vue({
       vm.addHintPenalty();
     });
   },
+  computed: {
+    isTargetAcheived: function() {
+      var vm = this;
+      //check if the target acheived
+      var currentRes = null;
+      if (vm.slots[vm.qNo].length != 0) {
+        currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
+        if (vm.compulsoryOpsRem.length === 0 && currentRes === vm.questions[vm.qNo].targetNum) {
+          return true;
+          //notifying user
+          vm.sugarPopup.log("You Got the Target Number")
+        } else {
+          return false;
+        }
+      }
+      return false;
+    }
+  },
   watch: {
     currentScreen: function() {
       var vm = this;
@@ -118,6 +136,8 @@ var app = new Vue({
 
     slots: function() {
       var vm = this;
+      //update useless operations
+      vm.updateUselessOperations();
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //close hintPalette
@@ -128,6 +148,8 @@ var app = new Vue({
 
     compulsoryOps: function() {
       var vm = this;
+      //update useless operations
+      vm.updateUselessOperations();
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //generating hint
@@ -220,13 +242,45 @@ var app = new Vue({
       var vm = this;
       vm.compulsoryOpsRem = [];
       if (vm.slots[vm.qNo].length != 0) {
-        //check if the operator used contains compulsoryOps
+        //check if the operators used contains compulsoryOps
         for (var i = 0; i < vm.compulsoryOps.length; i++) {
-          var tmp = vm.slots[vm.qNo].find(function(ele) {
-            return ele.operator === vm.compulsoryOps[i];
-          });
-          if (!tmp) {
+          var flag = false;
+          var opUsed = false;
+          var opNotUsed = false;
+          for (var j = 0; j < vm.slots[vm.qNo].length; j++) {
+            if (vm.slots[vm.qNo][j].operator === vm.compulsoryOps[i]) {
+              flag = true;
+              if (vm.slots[vm.qNo][j].useless && !opUsed) {
+                opNotUsed = true;
+              } else {
+                opNotUsed = false;
+                opUsed = true;
+              }
+            }
+          }
+          if (opNotUsed) {
             vm.compulsoryOpsRem.push(vm.compulsoryOps[i]);
+          } else if (!flag) {
+            vm.compulsoryOpsRem.push(vm.compulsoryOps[i]);
+          }
+        }
+      }
+    },
+
+    updateUselessOperations: function() {
+      var vm = this;
+      var currentRes = null;
+      var slotsGood = [1, 1, 1, 1];
+      if (vm.slots[vm.qNo].length != 0) {
+        currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
+        if (currentRes === vm.questions[vm.qNo].targetNum) {
+          slotsGood = findUselessOperations(vm.slots[vm.qNo]);
+        }
+        for (var i = 0; i < vm.slots[vm.qNo].length; i++) {
+          if (slotsGood[i] !== 1) {
+            vm.$set(vm.slots[vm.qNo][i], 'useless', true);
+          } else {
+            vm.$set(vm.slots[vm.qNo][i], 'useless', false);
           }
         }
       }
@@ -338,7 +392,7 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 10);
+        vm.$set(vm.clock, 'initial', 2 * 60);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
@@ -427,12 +481,7 @@ var app = new Vue({
       var totalHints = vm.noOfHintsUsed.reduce(function(a, b) {
         return a + b
       }, 0)
-      var slotsGood = findUselessOperations(slots);
-      for (var i = 0; i < slotsGood.length; i++) {
-        if (slotsGood[i] !== 1) {
-          vm.$set(vm.slots[vm.qNo][i], 'useless', true);
-        }
-      }
+
       var slots = vm.slots[vm.qNo];
       var scr = calculateScoreFromSlots(slots, timeTaken, totalHints);
       vm.score += scr;
@@ -490,11 +539,12 @@ var app = new Vue({
               vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
               //change currentScreen
               if (vm.multiplayerPlaying) {
-                vm.playersAll.forEach((item, i) => {
-                  if (item.user.networkId === vm.currentenv.user.networkId && item.score === null) {
-                    vm.playersAll[i].score = vm.score;
+                for (var i = 0; i < vm.playersAll.length; i++) {
+                  if (vm.playersAll[i].user.networkId === vm.currentenv.user.networkId && vm.playersAll[i].score === null) {
+                    vm.$set(vm.playersAll[i], 'score', vm.score);
+                    break;
                   }
-                });
+                }
 
                 vm.playersPlaying = vm.playersPlaying.filter(function(user) {
                   return user.networkId !== vm.currentenv.user.networkId
@@ -885,13 +935,12 @@ var app = new Vue({
 
         case 'game-over':
           var data = msg.content.data;
-
-          vm.playersAll.forEach((item, i) => {
-            if (item.user.networkId === msg.user.networkId && item.score === null) {
-              vm.playersAll[i].score = data.score;
+          for (var i = 0; i < vm.playersAll.length; i++) {
+            if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
+              vm.$set(vm.playersAll[i], 'score', data.score);
+              break;
             }
-          });
-
+          }
           vm.playersPlaying = vm.playersPlaying.filter(function(user) {
             return user.networkId !== msg.user.networkId
           })
@@ -981,6 +1030,13 @@ var app = new Vue({
         vm.playersPlaying = vm.playersPlaying.filter(function(user) {
           return user.networkId !== msg.user.networkId
         });
+
+        for (var i = 0; i < vm.playersAll.length; i++) {
+          if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
+            vm.$set(vm.playersAll[i], 'score', 0);
+            break;
+          }
+        }
 
         vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
           return user.networkId !== msg.user.networkId

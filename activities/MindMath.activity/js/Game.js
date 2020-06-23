@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled','l10n'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled', 'isTargetAcheived','l10n'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -87,10 +87,9 @@ var Game = {
           <slots-component ref="slots"
             v-bind:strokeColor="strokeColor"
             v-bind:fillColor="fillColor"
-            v-bind:targetNum="questions[qNo].targetNum"
             v-bind:slots="slots[qNo]"
-            v-bind:compulsoryOpsRem="compulsoryOpsRem"
             v-bind:compulsoryOpsForQuestion="compulsoryOps"
+            v-bind:isTargetAcheived="isTargetAcheived"
             emptyLinesAllowed=true
           ></slots-component>
         </div>
@@ -105,8 +104,8 @@ var Game = {
             <button id="btn-validate"
               class="slots-area-footer-button"
               v-bind:style="{backgroundColor: strokeColor}"
-              v-on:click="validate"
-              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
+              v-on:click="$emit('validate')"
+              v-if="isTargetAcheived"
             ></button>
             <button id="btn-pass"
               class="slots-area-footer-button"
@@ -129,7 +128,6 @@ var Game = {
         nums: []
       },
       currentSelectedOp: null,
-      currentRes: null,
       compulsoryOpUsed: false,
       l10n: {
         stringScore: ''
@@ -151,16 +149,6 @@ var Game = {
   watch: {
     slots: function(newVal) {
       var vm = this;
-      if (newVal[vm.qNo].length != 0) {
-        vm.currentRes = newVal[vm.qNo][newVal[vm.qNo].length - 1].res;
-        if (vm.compulsoryOpsRem.length === 0 && vm.currentRes === vm.questions[vm.qNo].targetNum) {
-          //notifying user
-          vm.sugarPopup.log("You Got the Target Number")
-        }
-      } else {
-        vm.currentRes = null;
-      }
-
       //deselecting
       vm.deselect();
     },
@@ -344,12 +332,6 @@ var Game = {
         }
         //deselecting
         vm.deselect();
-      }
-    },
-    validate: function() {
-      var vm = this;
-      if (vm.currentRes === vm.questions[vm.qNo].targetNum) {
-        vm.$emit('validate');
       }
     },
 

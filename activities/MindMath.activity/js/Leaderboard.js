@@ -1,5 +1,5 @@
 var Leaderboard = {
-  props: ['strokeColor', 'fillColor', 'playersAll', 'l10n'],
+  props: ['strokeColor', 'fillColor', 'playersAll', 'playersPlaying', 'l10n'],
   template: `
     <div id="leaderboard-view">
       <div class="leaderboard-main">
@@ -20,7 +20,7 @@ var Leaderboard = {
             v-bind:key="index"
             v-bind:style="{borderColor: item.user.colorvalue.stroke}"
           >
-            <div class="leaderboard-item leaderboard-item-rank">{{  index + 1  }}</div>
+            <div class="leaderboard-item leaderboard-item-rank">{{  initP + index + 1  }}</div>
             <div
               class="leaderboard-item leaderboard-item-icon"
               v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(item.user.colorvalue.stroke, item.user.colorvalue.fill)+')'}"
@@ -69,6 +69,7 @@ var Leaderboard = {
       currentPage: 1,
       pageCount: 1,
       visibleItemsPerPageCount: 10,
+      initP: 0
     }
   },
   created: function() {
@@ -89,6 +90,11 @@ var Leaderboard = {
     playersAll: function() {
       var vm = this;
       vm.pageCount = Math.ceil(vm.playersAll.length / vm.visibleItemsPerPageCount);
+      vm.sortLeaderboard();
+    },
+
+    playersPlaying: function() {
+      var vm = this;
       vm.sortLeaderboard();
     }
   },
@@ -116,24 +122,25 @@ var Leaderboard = {
 
     },
 
-    sortLeaderboard: function() {
+    sortLeaderboard: function(all) {
       var vm = this;
       vm.players = [];
+      var tmp = [];
 
-      var initP = (vm.currentPage - 1) * vm.visibleItemsPerPageCount;
-      var len = vm.playersAll.length - initP;
-      if (len > vm.visibleItemsPerPageCount) {
-        len = vm.visibleItemsPerPageCount;
+      for (var i = 0; i < vm.playersAll.length; i++) {
+        tmp.push(vm.playersAll[i]);
       }
 
-      for (var i = initP; i < initP + len; i++) {
-        vm.players.push(vm.playersAll[i]);
-      }
-
-      vm.players.sort(function(a, b) {
+      tmp.sort(function(a, b) {
         return b.score - a.score;
       })
 
+      vm.initP = (vm.currentPage - 1) * vm.visibleItemsPerPageCount;
+      var len = vm.playersAll.length - vm.initP;
+      if (len > vm.visibleItemsPerPageCount) {
+        len = vm.visibleItemsPerPageCount;
+      }
+      vm.players = tmp.slice(vm.initP, vm.initP + len);
     },
 
     pageChangeHandler: function(value) {
