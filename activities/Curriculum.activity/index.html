@@ -105,6 +105,11 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
+			<sugar-toolitem
+				id="export-button" 
+				@click="$refs.Export.exportCSV()"
+				:title="l10n.stringExport"
+			></sugar-toolitem>
 
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
@@ -147,7 +152,17 @@
 				:levels="levels" 
 				:notation-level="notationLevel" 
 				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
-			/>
+			></rewards>
+			<export 
+				ref="Export"
+				v-if="rewardsInit"
+				:user="user" 
+				:categories="categories" 
+				:achievements="achievements" 
+				:levels="levels" 
+				:notation-level="notationLevel" 
+				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
+			></export>
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
@@ -163,6 +178,7 @@
 	<script src="js/Categories.js"></script>
 	<script src="js/Settings.js"></script>
 	<script src="js/Rewards.js"></script>
+	<script src="js/Export.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarJournal.js"></script>

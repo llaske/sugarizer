@@ -16,7 +16,7 @@ var app = new Vue({
 		'category-settings': CategorySettings,
 		'skill-settings': SkillSettings,
 		'rewards': Rewards,
-		'medal': Medal
+		'export': Export
 	},
 	data: {
 		currentenv: null,
@@ -291,6 +291,7 @@ var app = new Vue({
 			stringAdd: '',
 			stringAcquire: '',
 			stringUploadMedia: '',
+			stringExport: '',
 			stringFullscreen: '',
 			stringUnfullscreen: ''
 		}
@@ -407,9 +408,17 @@ var app = new Vue({
 		},
 
 		switchSkillLevel: function () {
-			var value = this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
+			var skillObj = this.user.skills[this.selectedCategoryId][this.selectedSkillId];
+			var value = skillObj.acquired;
 			value = (value + 1) % (this.notationLevel + 1);
-			this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired = value;
+			skillObj.acquired = value;
+			if(this.levels[this.notationLevel][value].text == "Acquired" || this.levels[this.notationLevel][value].text == "Exceeded") {
+				skillObj.timestamp = Date.now();
+			} else {
+				skillObj.timestamp = null;
+			}
+
+			// Update connected users
 			if(this.SugarPresence.isConnected()) {
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -493,6 +502,7 @@ var app = new Vue({
 							});
 						}
 						skillObj.acquired = vm.notationLevel;
+						skillObj.timestamp = Date.now();
 
 						if(vm.SugarPresence.isConnected()) {
 							vm.SugarPresence.sendMessage({
@@ -552,6 +562,7 @@ var app = new Vue({
 						// Updating user
 						vm.$set(vm.user.skills[category.id], skill.id, {
 							acquired: 0,
+							timestamp: null,
 							media: {}
 						});
 					});
