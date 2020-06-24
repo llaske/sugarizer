@@ -6,7 +6,6 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Dejavu Sans";
 }
 
 p {
@@ -16,6 +15,7 @@ p {
 #app {
   min-height: 100%;
   background-color: #ffffff;
+  font-family: "Dejavu Sans";
 }
 
 #app-content {

@@ -65,7 +65,7 @@ var app = new Vue({
       playersAll: [],
       connectedPlayers: [], //connectedPlayers[0] will be the host in multiplayer game
       playersPlaying: [],
-      multiplayerPlaying: false,
+      multiplayer: false,
       disabled: false,
       startGameConfig: null,
       l10n: {
@@ -126,7 +126,7 @@ var app = new Vue({
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        if (!vm.multiplayerPlaying) {
+        if (!vm.multiplayer) {
           vm.newGame();
         }
         vm.$set(vm.clock, 'active', true);
@@ -166,7 +166,7 @@ var app = new Vue({
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
-        if (vm.multiplayerPlaying && !vm.SugarPresence.isHost) {
+        if (vm.multiplayer && !vm.SugarPresence.isHost) {
           //request the questions set maintainer to add questions if it is multiplayer game
           vm.SugarPresence.sendMessage({
             user: this.SugarPresence.getUserInfo(),
@@ -178,7 +178,7 @@ var app = new Vue({
           var questions = vm.questionsGenerator.generate(vm.level, 10);
           vm.questions = vm.questions.concat(questions);
 
-          if (vm.multiplayerPlaying && vm.SugarPresence.isHost) {
+          if (vm.multiplayer && vm.SugarPresence.isHost) {
             //update the questions set among all others users if you are the maintainer in multiplayer game
             vm.SugarPresence.sendMessage({
               user: this.SugarPresence.getUserInfo(),
@@ -386,7 +386,7 @@ var app = new Vue({
 
     onMultiplayerGameStarted: function(restarted) {
       var vm = this;
-      vm.multiplayerPlaying = true;
+      vm.multiplayer = true;
       //disable the buttons
       vm.disabled = true;
 
@@ -455,6 +455,7 @@ var app = new Vue({
           content: {
             action: 'start-game',
             data: {
+              type: 'restart',
               questions: vm.questions,
               clockType: vm.startGameConfig.clockType,
               clockInitial: vm.startGameConfig.clockInitial,
@@ -538,7 +539,7 @@ var app = new Vue({
               })
               vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
               //change currentScreen
-              if (vm.multiplayerPlaying) {
+              if (vm.multiplayer) {
                 for (var i = 0; i < vm.playersAll.length; i++) {
                   if (vm.playersAll[i].user.networkId === vm.currentenv.user.networkId && vm.playersAll[i].score === null) {
                     vm.$set(vm.playersAll[i], 'score', vm.score);
@@ -563,8 +564,6 @@ var app = new Vue({
                     }
                   }
                 });
-
-                vm.multiplayerPlaying = false;
                 vm.currentScreen = "result";
               } else {
                 vm.currentScreen = "result";
@@ -899,8 +898,8 @@ var app = new Vue({
       switch (msg.content.action) {
         case 'start-game':
           var data = msg.content.data;
-          if (!vm.multiplayerPlaying || (!vm.multiplayerPlaying && vm.playersPlaying.length === 0)) {
-            vm.multiplayerPlaying = true;
+          if ((!vm.multiplayer && data.type === 'init') || (vm.multiplayer && data.type === 'restart')) {
+            vm.multiplayer = true;
             vm.startGameConfig = {
               level: data.level,
               clockType: data.clockType,
@@ -1016,6 +1015,7 @@ var app = new Vue({
             content: {
               action: 'start-game',
               data: {
+                type: 'init',
                 questions: vm.questions,
                 clockType: vm.startGameConfig.clockType,
                 clockInitial: vm.startGameConfig.clockInitial,
