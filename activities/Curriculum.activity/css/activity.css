@@ -137,6 +137,10 @@ p {
 	background-image: url(../icons/trophy.svg);
 }
 
+#main-toolbar #export-button {
+	background-image: url(../icons/file-export.svg);
+}
+
 
 .humane {
 	width: auto;

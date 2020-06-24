@@ -18,7 +18,7 @@ var SkillCard = {
 						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="notationLevel"></medal>
 					</transition>
 				</div>
-			<img :src="skill.image" class="skill-image">
+			<img :src="skill.image" alt="Skill image" class="skill-image" loading="lazy">
 			<div ref="footer" class="skill-footer">
 				<h2 class="skill-title">{{ skill.title }}</h2>
 			</div>

@@ -49,7 +49,6 @@ var Medal = {
 	},
 	methods: {
 		colorizeElements(colors) {
-			// this.icon.colorize(this.$refs.medalAcquired, colors);
 			var vm = this;
 			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/medal.svg", colors, function(src) {
 				vm.$refs.medalAcquired.style.backgroundImage = `url(${src})`;
@@ -82,9 +81,9 @@ var UploadItem = {
 			<div class="popup-container" v-if="showPopup" @click="showPopup = false">
 				<div class="popup" @click.stop="">
 					<button id="popup-close" @click="showPopup = false"></button>
-					<img v-if="item.type == 'image'" :src="item.data" :alt="item.title" class="popup-image">
+					<img v-if="item.type == 'image'" :src="item.data" :alt="item.title" class="popup-image" loading="lazy">
 					<audio v-if="item.type == 'audio'" :src="item.data" :title="item.title" class="popup-audio" controls></audio>
-					<video v-if="item.type == 'video'" :src="item.data" :title="item.title" class="popup-video" controls></video>
+					<video v-if="item.type == 'video'" :src="item.data" :title="item.title" class="popup-video" controls preload="none"></video>
 
 					<div class="popup-actions">
 						<div class="">
