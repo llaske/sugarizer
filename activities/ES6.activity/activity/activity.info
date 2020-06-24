@@ -1,0 +1,6 @@
+[Activity]
+name = ES6 compatibility
+activity_version = 1
+bundle_id = org.sugarlabs.ES6
+exec = sugar-activity-web
+icon = activity-icon
