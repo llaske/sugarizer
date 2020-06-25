@@ -30,7 +30,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 		//Used for planet position view
 		var distance = -96;
-		var textDistance =11.5;
+		var textDistance;
 		var frustumSize = 5;
 
 		//Detect clicked planet in planet position view
@@ -68,6 +68,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			initPosition("Sun", "Star", null);
 
 			window.addEventListener("localized", function() {
+
+				homeDisplay.innerHTML = "";
+				planetPos.innerHTML = "";
+
+				//Need to assign value to textDistance variable here
+				//to prevent the planet name in position view from misaligning
+				textDistance = 11.5
+
 				for (var i = 0; i < planet.length; i ++){
 					var planetList = document.createElement('div');
 					planetList.id = 'planet-' + planet[i].name;
@@ -80,12 +88,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					planetImage.width = 240;
 					document.getElementById("planet-" + planet[i].name).appendChild(planetImage);
 
-
 					var planetName = document.createElement('span');
 					planetName.className = "name"
 					planetName.innerHTML = '<p>' + l10n.get(planet[i].name) + '</p>';
 					document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
+					//Init planet info and planet position view
 					initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
 					initPosition(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
 
@@ -116,6 +124,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 						document.getElementById("list-button").style.display = "none";
 					});
 				}
+
 			});
 
 
@@ -646,7 +655,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 				renderer.setSize( planetPos.clientWidth, planetPos.clientHeight);
 				planetPos.appendChild(renderer.domElement);
-				light.position.set( 1, 0.2, 5 );
+				light.position.set( 1, -0.5, 5 );
 
 				lightHolder.add(light);
 				scene.add(lightHolder);
@@ -739,6 +748,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					return needResize;
 				}
 
+				//Detect if on touchscreen mode or not
 				if("ontouchend" in renderer.domElement){
 					renderer.domElement.addEventListener( 'touchend', clickMesh, false );
 				}
