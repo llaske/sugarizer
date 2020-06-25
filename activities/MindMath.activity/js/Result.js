@@ -172,6 +172,14 @@ var Result = {
       return this.currentPage === this.pageCount
     }
   },
+  watch: {
+    currentPage: function () {
+      const resulMain = document.querySelector(".result-main");
+      if (resulMain) {
+        resulMain.scrollTo(0,0);
+      }
+    }
+  },
   methods: {
     resize: function() {
       var vm = this;
@@ -238,9 +246,9 @@ var Result = {
         vm.timeForEachQuestion.push(vm.timeTaken[i]);
       }
 
-      for (var qno = 0; qno < vm.questionSet.length; qno++) {
+      for (var qno = initQno; qno < initQno + len; qno++) {
         var slotsArr = [];
-        var slots = rpnToSlots(vm.questionSet[qno].bestSoln);
+        var slots = rpnToSlots(vm.questions[qno].bestSoln);
 
         for (var i = 0; i < slots.length; i++) {
           var slotObj = {

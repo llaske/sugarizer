@@ -96,6 +96,13 @@ var Leaderboard = {
     playersPlaying: function() {
       var vm = this;
       vm.sortLeaderboard();
+    },
+
+    currentPage: function () {
+      const leaderboardMainBody = document.querySelector(".leaderboard-main-body");
+      if (leaderboardMainBody) {
+        leaderboardMainBody.scrollTo(0,0);
+      }
     }
   },
   computed: {
