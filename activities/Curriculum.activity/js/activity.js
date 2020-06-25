@@ -25,7 +25,7 @@ var app = new Vue({
 		rewardsInit: false,
 		rewardsActive: false,
 		currentView: "categories-grid",
-		searchQuery: "",
+		searchText: "",
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
@@ -368,6 +368,9 @@ var app = new Vue({
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
 			return 0;
+		},
+		searchQuery: function() {
+			return this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		}
 	},
 	mounted: function () {

@@ -4,20 +4,32 @@ var Export = {
 		<div></div>
 	`,
 	props: ['categories', 'user', 'levels', 'notationLevel', 'userColors'],
-	data: {},
+	data: function() {
+		return {
+			l10n: {
+				stringTitle: '',
+				stringDateOfAcquisition: '',
+				stringMediaUploaded: '',
+				stringCurriculumReportBy: ''
+			}
+		}
+	},
+	mounted: function() {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
+	},
 	methods: {
 		exportCSV: function () {
 			// var csvContent = "data:text/csv;charset=utf-8,";
 			var csvContent = "";
 
 			// Adding headers
-			csvContent += `"Title"`;
+			csvContent += `"${this.l10n.stringTitle}"`;
 			var levels = this.levels[this.notationLevel];
 			for (var level of levels) {
 				csvContent += `,"${level.text}"`;
 			}
-			csvContent += `,"Date of acquisition"`;
-			csvContent += `,"Media Uploaded"`;
+			csvContent += `,"${this.l10n.stringDateOfAcquisition}"`;
+			csvContent += `,"${this.l10n.stringMediaUploaded}"`;
 			csvContent += `\n`;
 
 			for (var cat of this.categories) {
@@ -58,13 +70,15 @@ var Export = {
 			// var encodedUri = encodeURI(csvContent);
 			var metadata = {
 				mimetype: 'text/plain',
-				title: "Curriculum Report.txt",
+				title: `${this.l10n.stringCurriculumReportBy} ${this.$root.currentenv.user.name}.txt`,
 				activity: "org.olpcfrance.Curriculum",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0
 			};
+			var vm = this;
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata, function() {
+				vm.$root.$refs.SugarPopup.log('Export to CSV complete');
 				console.log('Export to CSV complete');
 			});
 			// this.download(csvContent, "Curriculum Report.csv", "text/csv");

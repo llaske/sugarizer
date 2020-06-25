@@ -86,7 +86,7 @@ var CategoriesGrid = {
 				<category-card 
 					v-for="category in categories" 
 					:key="category.id"
-					v-show="category.title.indexOf(searchQuery) != -1"
+					v-show="matchesSearch(category.title)"
 					:category="category"
 					:user="user"
 					:settings="settings"
@@ -105,6 +105,14 @@ var CategoriesGrid = {
 	},
 	props: ['categories', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery'],
 	methods: {
+		matchesSearch(str) {
+			var regex = new RegExp(this.searchQuery, "i")
+			if(str.search(regex) != -1) {
+				return true;
+			}
+			return false;
+		},
+
 		onCategoryClick: function (categoryId) {
 			console.log('cat: ', categoryId);
 			this.$emit('open-category', categoryId);

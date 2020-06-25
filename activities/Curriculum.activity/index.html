@@ -47,11 +47,33 @@
 				<input 
 					type="text" 
 					class="search-input" 
-					v-model="searchQuery" 
+					v-model="searchText" 
 					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
 				>
-				<div class="search-cancel" v-if="searchQuery != ''" @click="searchQuery = ''"></div>
+				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
 			</div>
+			<sugar-toolitem 
+				id="acquire-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'" 
+				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
+				@click="switchSkillLevel" 
+				v-bind:title="l10n.stringAcquire"
+			>
+				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
+				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
+			</sugar-toolitem>
+			<sugar-toolitem
+				id="upload-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'"
+				palette-file="js/palettes/mediapalette.js"
+				palette-class="MediaPalette"
+				palette-title="Upload Media"
+				palette-event="upload-item"
+				@upload-item="onUploadItem"
+				v-bind:title="l10n.stringUploadMedia"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="rewards-button" 
 				v-show="!settings" 
@@ -83,34 +105,13 @@
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="acquire-button" 
-				v-if="!sharedInstance"
-				v-show="currentView == 'skill-details'" 
-				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
-				@click="switchSkillLevel" 
-				v-bind:title="l10n.stringAcquire"
-			>
-				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
-				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
-			</sugar-toolitem>
+			<sugar-toolitem v-show="currentView == 'categories-grid'" splitbar></sugar-toolitem>
 			<sugar-toolitem
-				id="upload-button" 
-				v-if="!sharedInstance"
-				v-show="currentView == 'skill-details'"
-				palette-file="js/palettes/mediapalette.js"
-				palette-class="MediaPalette"
-				palette-title="Upload Media"
-				palette-event="upload-item"
-				@upload-item="onUploadItem"
-				v-bind:title="l10n.stringUploadMedia"
-			></sugar-toolitem>
-			<sugar-toolitem
-				id="export-button" 
+				id="export-button"
+				v-show="currentView == 'categories-grid'" 
 				@click="$refs.Export.exportCSV()"
 				:title="l10n.stringExport"
 			></sugar-toolitem>
-
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
