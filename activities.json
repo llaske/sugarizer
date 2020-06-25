@@ -1,4 +1,5 @@
 [
+	{"id": "org.sugarlabs.MindMath", "name": "MindMath", "version": 1, "directory": "activities/MindMath.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ChessActivity", "name": "Chess", "version": 1, "directory": "activities/Chess.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.FractionBounce", "name": "Fraction", "version": 1, "directory": "activities/FractionBounce.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Falabracman", "name": "Falabracman", "version": 1, "directory": "activities/Falabracman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
