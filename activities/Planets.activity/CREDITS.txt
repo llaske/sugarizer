@@ -1,0 +1,10 @@
+Images:
+
+Planet Textures and Images are downloaded from  JHT's Planetary Pixel Emporium (http://planetpixelemporium.com/planets.html) & 
+Solar System Scope (https://www.solarsystemscope.com/textures/).
+
+Content:
+
+Planet Information are based on NASA (https://solarsystem.nasa.gov/planet-compare/)
+
+Planets are modeled by the use of Three.js (https://threejs.org/), a 3D Javascript Library.
