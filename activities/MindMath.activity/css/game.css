@@ -5,6 +5,7 @@
   flex: 1;
   flex-direction: row;
   overflow: auto;
+  align-items: center;
 }
 
 .btn-operator {

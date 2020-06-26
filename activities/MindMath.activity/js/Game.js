@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled', 'isTargetAcheived','l10n'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled', 'isTargetAcheived','l10n'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -95,12 +95,12 @@ var Game = {
         </div>
         <div class="slots-area-footer">
           <button id="btn-restart"
-            v-bind:disabled="disabled"
+            v-if="!disabled"
             class="slots-area-footer-button"
             v-bind:style="{backgroundColor: strokeColor}"
             v-on:click="$emit('restart-game')"
           ></button>
-          <transition name="fade"  mode="out-in">
+          <transition name="fade" mode="out-in">
             <button id="btn-validate"
               class="slots-area-footer-button"
               v-bind:style="{backgroundColor: strokeColor}"
@@ -187,9 +187,9 @@ var Game = {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels
         document.querySelector('.game-area-panel').style.width = '56.4%';
-        document.querySelector('.game-area-panel').style.height = '95%';
+        document.querySelector('.game-area-panel').style.height = '96%';
         document.querySelector('.slots-area-panel').style.width = '40.4%';
-        document.querySelector('.slots-area-panel').style.height = '95%';
+        document.querySelector('.slots-area-panel').style.height = '96%';
       }
     },
 
