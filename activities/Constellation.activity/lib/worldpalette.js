@@ -14,7 +14,7 @@ define(["worldpalettetemplate",
         var descriptionLabel;
         var descriptionBox;
 
-        this.getPalette().id = "activity-palette";
+        this.getPalette().id = "world-palette";
 
         var containerElem = document.createElement('div');
         containerElem.innerHTML = template;

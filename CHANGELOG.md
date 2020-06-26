@@ -51,6 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Last One Loses activity is unplayable after sharing without second player #815
 - Spinner on first screen is at the bottom of the screen
 - Localize and standardize activities title
+- Countries and view palettes pop at the wrong place in Constellation activity
 
 
 ## [1.3.0] - 2020-03-28
