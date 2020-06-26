@@ -1,0 +1,91 @@
+.template-selection {
+	margin: auto;
+	width: 90%;
+	height: calc(100% - 60px);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 20px;
+	border-radius: 30px;
+	background: rgba(0, 0, 0, 0.9);
+	color: white;
+	overflow: auto;
+}
+
+.template {
+	height: fit-content;
+	margin: 20px;
+	border-radius: 10px;
+	border: solid 1px grey;
+	overflow: hidden;
+	transition: transform 200ms ease;
+	cursor: pointer;
+}
+.template:hover {
+	transform: scale(1.03);
+}
+.template .template-image {
+	width: 100%;
+	height: 200px;
+}
+.template p {
+	margin: 10px;
+	font-size: 1.1em;
+}
+
+.template-selection #add-button {
+	position: fixed;
+	bottom: 5%;
+	right: 5%;
+	background-color: black;
+	background-image: url(../icons/add.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}
+
+.template-popup {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	margin: auto;
+	width: 40%;
+	min-width: 300px;
+	height: fit-content;
+	background: white;
+	color: black;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+	border: solid 2px grey;
+}
+.template-popup .popup-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background: black;
+	color: white;
+}
+.template-popup .popup-header .popup-buttons button {
+	background-color: black;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+}
+.template-popup .popup-header #confirm-button {
+	background-image: url(../icons/dialog-ok.svg);
+}
+.template-popup .popup-header #cancel-button {
+	background-image: url(../icons/dialog-cancel.svg);
+}
+.template-popup .popup-body {
+	padding: 10px;
+}
+.template-popup .popup-body input {
+	width: 95%; 
+	margin: 15px 5px;
+	font-size: 1.2em;
+}

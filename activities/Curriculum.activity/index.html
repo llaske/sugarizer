@@ -13,6 +13,7 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/libnotify.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/TemplateSelection.css">
 	<link rel="stylesheet" href="css/Categories.css">
 	<link rel="stylesheet" href="css/Skills.css">
 	<link rel="stylesheet" href="css/SkillsAdditional.css">
@@ -134,6 +135,7 @@
 						:levels="levels"
 						:notation-level="notationLevel"
 						:search-query="searchQuery"
+						@template-selected="importTemplate"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -174,6 +176,7 @@
 		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
+	<script src="js/TemplateSelection.js"></script>
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
 	<script src="js/Categories.js"></script>
