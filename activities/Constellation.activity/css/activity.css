@@ -39,6 +39,26 @@
 	overflow-x: hidden;
 }
 
+@media screen and (max-width: 711px) {
+  #main-toolbar #view-button{
+  	display: none;
+  }
+
+  #view-palette {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  #main-toolbar #world-button{
+  	display: none;
+  }
+
+  #world-palette {
+    display: none;
+  }
+}
+
 .tutorial-title {
 	background-color: #808080 !important;
 	color: #ffffff !important;
