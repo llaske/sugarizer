@@ -35,9 +35,9 @@ var app = new Vue({
       compulsoryOps: [],
       compulsoryOpsRem: [],
       compulsoryOpsForEachQuestion: [],
+      timer: null,
       clock: {
         active: false,
-        previousTime: null,
         time: 0,
         initial: 0,
         type: 0,
@@ -129,8 +129,7 @@ var app = new Vue({
         if (!vm.multiplayer) {
           vm.newGame();
         }
-        vm.$set(vm.clock, 'active', true);
-        vm.$set(vm.clock, 'previousTime', new Date());
+        vm.startClock();
       }
     },
 
@@ -221,11 +220,6 @@ var app = new Vue({
       vm.hintsGenerator = new HintsGenerator();
 
       vm.currentScreen = "game";
-      //Initialize clock
-      vm.$set(vm.clock, 'time', 0);
-      vm.$set(vm.clock, 'active', true);
-      vm.$set(vm.clock, 'previousTime', new Date());
-      vm.tick();
 
     },
 
@@ -236,6 +230,21 @@ var app = new Vue({
       document.getElementById('medium-button').title = this.SugarL10n.get("MediumLevel");
 
       this.SugarL10n.localize(this.l10n);
+    },
+
+    startClock: function() {
+      var vm = this;
+      vm.$set(vm.clock, 'time', vm.clock.initial);
+      vm.$set(vm.clock, 'active', true);
+      vm.tick();
+    },
+
+    stopClock: function() {
+      var vm = this;
+      if (vm.timer) {
+        clearInterval(vm.timer);
+      }
+      vm.$set(vm.clock, 'active', false);
     },
 
     updateCompulsoryOpsRem: function() {
@@ -392,7 +401,7 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 20);
+        vm.$set(vm.clock, 'initial', 2 * 60);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
@@ -489,7 +498,7 @@ var app = new Vue({
       vm.scores.push(scr)
 
       if (vm.mode === 'non-timer') {
-        vm.$set(vm.clock, 'active', false);
+        vm.stopClock();
         vm.currentScreen = "result";
       } else {
         //go to next question in question set for timer mode
@@ -520,15 +529,13 @@ var app = new Vue({
     tick: function() {
       var vm = this;
 
-      if (vm.clock.active) {
-        var currentTime = new Date();
-        if (currentTime - vm.clock.previousTime >= 1000) {
-          vm.$set(vm.clock, 'previousTime', currentTime);
+      vm.timer = setInterval(function() {
+        if (vm.clock.active) {
           if (vm.mode === 'timer') {
             vm.$set(vm.clock, 'time', vm.clock.time - 1);
             if (vm.clock.time === 0) {
               //end game
-              vm.$set(vm.clock, 'active', false);
+              vm.stopClock();
               vm.$set(vm.slots, vm.qNo, []);
               vm.score += 0;
               vm.scores.push(0)
@@ -556,7 +563,7 @@ var app = new Vue({
                 }
 
                 vm.SugarPresence.sendMessage({
-                  user: this.SugarPresence.getUserInfo(),
+                  user: vm.SugarPresence.getUserInfo(),
                   content: {
                     action: 'game-over',
                     data: {
@@ -573,15 +580,13 @@ var app = new Vue({
             vm.$set(vm.clock, 'time', vm.clock.time + 1);
           }
         }
-      }
-
-      requestAnimationFrame(vm.tick.bind(vm));
+      }, 1000);
     },
 
     handleRestartButton: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        vm.$set(vm.clock, 'active', false);
+        vm.stopClock();
         vm.$set(vm.slots, vm.qNo, []);
         vm.score += 0;
         vm.scores.push(0)
@@ -616,7 +621,7 @@ var app = new Vue({
         })
         vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
         if (vm.mode === 'non-timer') {
-          vm.$set(vm.clock, 'active', false);
+          vm.stopClock();
           vm.slots = [
             []
           ];
@@ -856,7 +861,9 @@ var app = new Vue({
       vm.level = data.level;
       vm.compulsoryOps = data.compulsoryOps;
       vm.clock = data.clock;
-      vm.$set(vm.clock, 'previousTime', new Date());
+      if (!data.clock.active) {
+        vm.stopClock();
+      }
       vm.questions = data.questions;
       vm.qNo = data.qNo;
       vm.inputNumbers = data.inputNumbers;
@@ -913,7 +920,9 @@ var app = new Vue({
             vm.mode = 'timer';
             vm.$set(vm.clock, 'type', data.clockType);
             vm.$set(vm.clock, 'initial', data.clockInitial);
-            vm.$set(vm.clock, 'previousTime', new Date());
+            if (!vm.clock.active) {
+              vm.startClock();
+            }
 
             //update inputNumbers
             vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;

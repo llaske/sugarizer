@@ -207,7 +207,7 @@ function calculateScoreFromSlots(slots, timeTaken, noOfHintsUsed) {
     scr = 13 + 4;
   }
   //considering timeTaken
-  var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
+  var timeScore = Math.max(0, 15 - Math.floor(timeTaken / 4));
   console.log('timeScore is: ' + timeScore);
   var totScore = 2 * scr + timeScore;
 
