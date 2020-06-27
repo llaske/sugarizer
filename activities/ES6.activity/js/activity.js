@@ -9,7 +9,7 @@ requirejs.config({
 // Assert component
 var AssertItem = {
 	template: `
-		<h3 :style="{ color: computeStyle() }"">{{label}}</32>
+		<h3 :class="computeClass()">{{label}}</h3>
 	`,
 	props: [ 'label', 'expr' ],
 	data: function() {
@@ -19,8 +19,8 @@ var AssertItem = {
 		}
 	},
 	methods: {
-		computeStyle: function() {
-			return this.expr?"green":"red";
+		computeClass: function() {
+			return this.expr?"class-success":"class-fail";
 		}
 	}
 }
@@ -28,6 +28,37 @@ var AssertItem = {
 // Few ES6 declaration
 let g = 100;
 const rate = 0.1;
+class Animal {
+	constructor(type) {
+		this.type = type;
+	}
+	identify() {
+		return this.type;
+	}
+	get AnimalType() {
+		return this.type;
+	}
+}
+function* generate() {
+	yield 10;
+	yield 20;
+}
+function makePromise(value) {
+	return new Promise(function(resolve, reject) {
+		if (value) {
+			resolve();
+		} else {
+			reject();
+		}
+	});
+}
+let chars = new Set(['a', 'a', 'b', 'c', 'c']);
+var numbersArray = [4, 9, 16, 25, 29];
+function myFunction(value, index, array) {
+	return value > 18;
+}
+
+
 
 
 // Vue main app
@@ -119,6 +150,46 @@ var app = new Vue({
 				age
 			} = myperson;
 			vm.assert("destructuring", firstname=='John'&&lastname=='Doe'&&age==30);
+
+			// Modules
+			vm.assert("modules", window.myModule&&window.myModule.message=="module"&&window.myModule.log()=="log");
+
+			// Classes
+			let cat = new Animal('Cat');
+			vm.assert("classes", cat.identify()=='Cat'&&cat.AnimalType=='Cat');
+
+			// Arrow
+			let hello = (name) => "hello "+name+"!";
+			vm.assert("arrow", hello("world")=="hello world!");
+
+			// Generator
+			let gen = generate();
+			vm.assert("generator", gen.next().value==10&&gen.next().value==20);
+
+			// Promises
+			makePromise(true).then(function() {
+				vm.assert("promise1", true);
+			}, function() {
+				vm.assert("promise1", false);
+			}).finally(function() {
+				vm.assert("promise1b", true);
+			});
+			makePromise(false).then(function() {
+				vm.assert("promise2", false);
+			}, function() {
+				vm.assert("promise2", true);
+			}).finally(function() {
+				vm.assert("promise2b", true);
+			});
+
+			// Set
+			vm.assert("Set", chars.has('a')&&chars.has('c')&&!chars.has('d'));
+
+			// Array.find
+			vm.assert("Array.find",numbersArray.find(myFunction)==25&&numbersArray.findIndex(myFunction)==3);
+
+			// Numbers
+			vm.assert("Numbers",isNaN("Hello")&&5**2==25&&!isFinite(10/0)&&isFinite(10/1));
 		},
 
 		assert: function(label, expr) {

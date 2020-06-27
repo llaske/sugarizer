@@ -191,3 +191,15 @@ p {
 	padding-right: 38px;
 	display: inline-block;
 }
+
+.class-success {
+	color: green;
+	display: inline-block;
+	padding-right: 30px;
+}
+
+.class-fail {
+	color: red;
+	display: inline-block;
+	padding-right: 30px;
+}
