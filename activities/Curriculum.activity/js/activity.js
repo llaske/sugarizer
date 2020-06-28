@@ -41,7 +41,7 @@ var app = new Vue({
 					text: "Not Acquired",
 					colors: {
 						fill: "#FFFFFF",
-						stroke: "#D3D3D3"
+						stroke: "#838383"
 					}
 				},
 				{
@@ -307,7 +307,8 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
-			this.searchQuery = "";
+			console.log
+			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
 			if(this.SugarPresence.isConnected()) {

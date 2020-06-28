@@ -19,9 +19,12 @@
 	<link rel="stylesheet" href="css/SkillsAdditional.css">
 	<link rel="stylesheet" href="css/Settings.css">
 	<link rel="stylesheet" href="css/Rewards.css">
+	<link rel="stylesheet" href="css/Export.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Sortable.min.js"></script>
 	<script src="lib/vuedraggable.umd.min.js"></script>
+	<script src="lib/html2canvas.min.js"></script>
+	<script src="lib/jspdf.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -110,7 +113,7 @@
 			<sugar-toolitem
 				id="export-button"
 				v-show="currentView == 'categories-grid'" 
-				@click="$refs.Export.exportCSV()"
+				@click="$refs.Export.generatePDF()"
 				:title="l10n.stringExport"
 			></sugar-toolitem>
 
@@ -159,12 +162,12 @@
 			<export 
 				ref="Export"
 				v-if="rewardsInit"
+				:currentenv="currentenv"
 				:user="user" 
 				:categories="categories" 
 				:achievements="achievements" 
 				:levels="levels" 
 				:notation-level="notationLevel" 
-				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
 			></export>
 		</div>
 
