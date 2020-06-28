@@ -10,6 +10,7 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	components: {
+		'template-selection': TemplateSelection,
 		'categories-grid': CategoriesGrid,
 		'skills-grid': SkillsGrid,
 		'skill-details': SkillDetails,
@@ -25,7 +26,7 @@ var app = new Vue({
 		rewardsInit: false,
 		rewardsActive: false,
 		currentView: "categories-grid",
-		searchQuery: "",
+		searchText: "",
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
@@ -40,7 +41,7 @@ var app = new Vue({
 					text: "Not Acquired",
 					colors: {
 						fill: "#FFFFFF",
-						stroke: "#D3D3D3"
+						stroke: "#838383"
 					}
 				},
 				{
@@ -306,7 +307,8 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
-			this.searchQuery = "";
+			console.log
+			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
 			if(this.SugarPresence.isConnected()) {
@@ -368,6 +370,9 @@ var app = new Vue({
 				return this.user.skills[this.selectedCategoryId][this.selectedSkillId].acquired;
 			}
 			return 0;
+		},
+		searchQuery: function() {
+			return this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		}
 	},
 	mounted: function () {
@@ -542,37 +547,40 @@ var app = new Vue({
 			}
 		},
 
-		importSkills: function () {
+		importTemplate: function (template) {
 			var vm = this;
-			requirejs(["text!../default_template.json"], function (data) {
-				var data = JSON.parse(data);
-				vm.notationLevel = data.notationLevel;
-				var categoriesParsed = data.categories;
-				var importedCategories = [];
+			vm.notationLevel = template.notationLevel;
+			var categoriesParsed = template.categories;
+			var importedCategories = [];
 
-				categoriesParsed.forEach(function (category) {
+			categoriesParsed.forEach(function (category) {
+				if(!template.fromURL) {
 					vm.$set(vm.l10n, 'string' + category.title, '');
-					// Updating user
-					vm.$set(vm.user.skills, category.id, new Object());
+				}
+				// Updating user
+				vm.$set(vm.user.skills, category.id, new Object());
 
-					category.skills.forEach(function (skill, i) {
+				category.skills.forEach(function (skill, i) {
+					if(!template.fromURL) {
 						skill.image = 'images/skills/' + skill.image;
 						vm.$set(vm.l10n, 'string' + skill.title, '');
+					}
 
-						// Updating user
-						vm.$set(vm.user.skills[category.id], skill.id, {
-							acquired: 0,
-							timestamp: null,
-							media: {}
-						});
+					// Updating user
+					vm.$set(vm.user.skills[category.id], skill.id, {
+						acquired: 0,
+						timestamp: null,
+						media: {}
 					});
-
-					importedCategories.push(category);
 				});
-				// Updating categories
-				vm.categories = vm.categories.concat(importedCategories);
-				vm.rewardsInit = true;
+
+				importedCategories.push(category);
 			});
+			// Updating categories
+			vm.categories = importedCategories;
+			this.addAchievementsToUser();
+			vm.currentView = 'categories-grid';
+			vm.rewardsInit = true;
 		},
 
 		addAchievementsToUser: function () {
@@ -637,18 +645,23 @@ var app = new Vue({
 		},
 
 		onJournalDataLoaded: function (data, metadata) {
-			this.user = data.user;
-			this.categories = data.categories;
-			this.notationLevel = data.notationLevel;
-			this.selectedCategoryId = data.selectedCategoryId;
-			this.selectedSkillId = data.selectedSkillId;
-			this.currentView = data.currentView;
-			this.rewardsInit = true;
+			if(data.currentView == 'template-selection') {
+				this.currentView = data.currentView;
+			} else {
+				this.user = data.user;
+				this.categories = data.categories;
+				this.notationLevel = data.notationLevel;
+				this.selectedCategoryId = data.selectedCategoryId;
+				this.selectedSkillId = data.selectedSkillId;
+				this.currentView = data.currentView;
+				this.rewardsInit = true;
+			}
 		},
 
 		onJournalNewInstace: function () {
-			this.importSkills();
-			this.addAchievementsToUser();
+			this.currentView = 'template-selection';
+			// this.importSkills();
+			// this.addAchievementsToUser();
 		},
 
 		onNetworkDataReceived: function (msg) {
@@ -696,14 +709,21 @@ var app = new Vue({
 		},
 
 		onStop: function () {
-			var context = {
-				user: this.user,
-				categories: this.categories,
-				notationLevel: this.notationLevel,
-				selectedCategoryId: this.selectedCategoryId,
-				selectedSkillId: this.selectedSkillId,
-				currentView: this.currentView
-			};
+			var context;
+			if(this.currentView == 'template-selection') {
+				context = {
+					currentView: this.currentView
+				}
+			} else {
+				context = {
+					user: this.user,
+					categories: this.categories,
+					notationLevel: this.notationLevel,
+					selectedCategoryId: this.selectedCategoryId,
+					selectedSkillId: this.selectedSkillId,
+					currentView: this.currentView
+				};
+			}
 			this.$refs.SugarJournal.saveData(context);
 		}
 	}

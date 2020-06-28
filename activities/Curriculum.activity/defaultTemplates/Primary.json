@@ -1,76 +1,11 @@
 {
-	"notationLevel": 1,
+	"templateTitle": "Primary School",
+	"templateImage": "0896D73E-2C06-1D9E-3C6B-277CF2748863.jpg",
+	"notationLevel": 2,
 	"categories": [
 		{
-			"id": 0,
-			"color": "#84ff00ff",
-			"title": "DefaultSkillSetCategory0",
-			"skills": [
-				{
-					"id": 0,
-					"image": "715AD07B-653D-717B-CE88-6B4850252581.jpg",
-					"title": "DefaultSkillSetCategory0Skill0"
-				},
-				{
-					"id": 1,
-					"image": "41C91E24-D424-1888-69C1-0DF6E7445534.jpg",
-					"title": "DefaultSkillSetCategory0Skill1"
-				},
-				{
-					"id": 2,
-					"image": "19DB4A3E-4619-A118-71F4-6DD6958463B8.jpg",
-					"title": "DefaultSkillSetCategory0Skill2"
-				},
-				{
-					"id": 3,
-					"image": "17281CF0-93DB-729C-A2AB-24E63E712550.jpg",
-					"title": "DefaultSkillSetCategory0Skill3"
-				},
-				{
-					"id": 4,
-					"image": "DE1286D4-1695-EDA7-EEA7-173DE1120819.jpg",
-					"title": "DefaultSkillSetCategory0Skill4"
-				},
-				{
-					"id": 5,
-					"image": "993AF72A-EC72-4C03-99D2-5441DC67C763.jpg",
-					"title": "DefaultSkillSetCategory0Skill5"
-				},
-				{
-					"id": 6,
-					"image": "A82B8087-8EB7-48C7-87E4-BE15E481E1CD.jpg",
-					"title": "DefaultSkillSetCategory0Skill6"
-				},
-				{
-					"id": 7,
-					"image": "E13792EF-C124-4BCA-B3A1-EABC59D772E0.jpg",
-					"title": "DefaultSkillSetCategory0Skill7"
-				},
-				{
-					"id": 8,
-					"image": "413D12DB-D599-4FF3-BAD1-35CDBB72A74A.jpg",
-					"title": "DefaultSkillSetCategory0Skill8"
-				},
-				{
-					"id": 9,
-					"image": "02E97696-5825-4140-8117-D43963977C42.jpg",
-					"title": "DefaultSkillSetCategory0Skill9"
-				},
-				{
-					"id": 10,
-					"image": "424852B0-FD34-40DC-95CD-29B2322678B3.jpg",
-					"title": "DefaultSkillSetCategory0Skill10"
-				},
-				{
-					"id": 11,
-					"image": "EBA2EA5A-2783-6797-93BA-8D3C814A5BE8.jpg",
-					"title": "DefaultSkillSetCategory0Skill11"
-				}
-			]
-		},
-		{
 			"id": 1,
-			"color": "#84ff00ff",
+			"color": "#84ff00",
 			"title": "DefaultSkillSetCategory1",
 			"skills": [
 				{
@@ -107,7 +42,7 @@
 		},
 		{
 			"id": 2,
-			"color": "#84ff00ff",
+			"color": "#84ff00",
 			"title": "DefaultSkillSetCategory2",
 			"skills": [
 				{
@@ -149,7 +84,7 @@
 		},
 		{
 			"id": 3,
-			"color": "#84ff00ff",
+			"color": "#84ff00",
 			"title": "DefaultSkillSetCategory3",
 			"skills": [
 				{
@@ -216,7 +151,7 @@
 		},
 		{
 			"id": 4,
-			"color": "#84ff00ff",
+			"color": "#84ff00",
 			"title": "DefaultSkillSetCategory4",
 			"skills": [
 				{
@@ -228,7 +163,7 @@
 		},
 		{
 			"id": 5,
-			"color": "#4d9b28ff",
+			"color": "#4d9b28",
 			"title": "DefaultSkillSetCategory5",
 			"skills": [
 				{
@@ -255,7 +190,7 @@
 		},
 		{
 			"id": 6,
-			"color": "#3f7f21ff",
+			"color": "#3f7f21",
 			"title": "DefaultSkillSetCategory6",
 			"skills": [
 				{
@@ -267,7 +202,7 @@
 		},
 		{
 			"id": 7,
-			"color": "#2d5c17ff",
+			"color": "#2d5c17",
 			"title": "DefaultSkillSetCategory7",
 			"skills": [
 				{
@@ -324,7 +259,7 @@
 		},
 		{
 			"id": 8,
-			"color": "#13ffcdff",
+			"color": "#13ffcd",
 			"title": "DefaultSkillSetCategory8",
 			"skills": [
 				{
@@ -366,7 +301,7 @@
 		},
 		{
 			"id": 9,
-			"color": "#13ffcdff",
+			"color": "#13ffcd",
 			"title": "DefaultSkillSetCategory9",
 			"skills": [
 				{
@@ -393,7 +328,7 @@
 		},
 		{
 			"id": 10,
-			"color": "#ff00d7ff",
+			"color": "#ff00d7",
 			"title": "DefaultSkillSetCategory10",
 			"skills": [
 				{
@@ -410,7 +345,7 @@
 		},
 		{
 			"id": 11,
-			"color": "#ff00d7ff",
+			"color": "#ff00d7",
 			"title": "DefaultSkillSetCategory11",
 			"skills": [
 				{
@@ -437,7 +372,7 @@
 		},
 		{
 			"id": 12,
-			"color": "#ffce00ff",
+			"color": "#ffce00",
 			"title": "DefaultSkillSetCategory12",
 			"skills": [
 				{
@@ -494,7 +429,7 @@
 		},
 		{
 			"id": 13,
-			"color": "#ffce00ff",
+			"color": "#ffce00",
 			"title": "DefaultSkillSetCategory13",
 			"skills": [
 				{
@@ -541,7 +476,7 @@
 		},
 		{
 			"id": 14,
-			"color": "#ffce00ff",
+			"color": "#ffce00",
 			"title": "DefaultSkillSetCategory14",
 			"skills": [
 				{
@@ -573,7 +508,7 @@
 		},
 		{
 			"id": 15,
-			"color": "#ffce00ff",
+			"color": "#ffce00",
 			"title": "DefaultSkillSetCategory15",
 			"skills": [
 				{
@@ -610,7 +545,7 @@
 		},
 		{
 			"id": 16,
-			"color": "#0057ffff",
+			"color": "#0057ff",
 			"title": "DefaultSkillSetCategory16",
 			"skills": [
 				{
@@ -652,7 +587,7 @@
 		},
 		{
 			"id": 17,
-			"color": "#0057ffff",
+			"color": "#0057ff",
 			"title": "DefaultSkillSetCategory17",
 			"skills": [
 				{
@@ -714,7 +649,7 @@
 		},
 		{
 			"id": 18,
-			"color": "#0057ffff",
+			"color": "#0057ff",
 			"title": "DefaultSkillSetCategory18",
 			"skills": [
 				{
@@ -751,7 +686,7 @@
 		},
 		{
 			"id": 19,
-			"color": "#0057ffff",
+			"color": "#0057ff",
 			"title": "DefaultSkillSetCategory19",
 			"skills": [
 				{
@@ -803,7 +738,7 @@
 		},
 		{
 			"id": 20,
-			"color": "#0057ffff",
+			"color": "#0057ff",
 			"title": "DefaultSkillSetCategory20",
 			"skills": [
 				{
@@ -815,7 +750,7 @@
 		},
 		{
 			"id": 21,
-			"color": "#148180ff",
+			"color": "#148180",
 			"title": "DefaultSkillSetCategory21",
 			"skills": [
 				{

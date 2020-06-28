@@ -70,7 +70,7 @@ var SkillsGrid = {
 					<skill-card 
 						v-for="skill in category.skills" 
 						:key="skill.id" 
-						v-show="skill.title.indexOf(searchQuery) != -1"
+						v-show="matchesSearch(skill.title)"
 						:skill="skill" 
 						:category="category"
 						:user="user"
@@ -99,6 +99,14 @@ var SkillsGrid = {
 		}
 	},
 	methods: {
+		matchesSearch(str) {
+			var regex = new RegExp(this.searchQuery, "i")
+			if(str.search(regex) != -1) {
+				return true;
+			}
+			return false;
+		},
+
 		onSkillClick: function (skillId) {
 			this.$emit('open-skill', this.category.id, skillId);
 		},

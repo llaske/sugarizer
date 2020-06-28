@@ -13,14 +13,18 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/libnotify.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/TemplateSelection.css">
 	<link rel="stylesheet" href="css/Categories.css">
 	<link rel="stylesheet" href="css/Skills.css">
 	<link rel="stylesheet" href="css/SkillsAdditional.css">
 	<link rel="stylesheet" href="css/Settings.css">
 	<link rel="stylesheet" href="css/Rewards.css">
+	<link rel="stylesheet" href="css/Export.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Sortable.min.js"></script>
 	<script src="lib/vuedraggable.umd.min.js"></script>
+	<script src="lib/html2canvas.min.js"></script>
+	<script src="lib/jspdf.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -47,11 +51,33 @@
 				<input 
 					type="text" 
 					class="search-input" 
-					v-model="searchQuery" 
+					v-model="searchText" 
 					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
 				>
-				<div class="search-cancel" v-if="searchQuery != ''" @click="searchQuery = ''"></div>
+				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
 			</div>
+			<sugar-toolitem 
+				id="acquire-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'" 
+				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
+				@click="switchSkillLevel" 
+				v-bind:title="l10n.stringAcquire"
+			>
+				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
+				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
+			</sugar-toolitem>
+			<sugar-toolitem
+				id="upload-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'"
+				palette-file="js/palettes/mediapalette.js"
+				palette-class="MediaPalette"
+				palette-title="Upload Media"
+				palette-event="upload-item"
+				@upload-item="onUploadItem"
+				v-bind:title="l10n.stringUploadMedia"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="rewards-button" 
 				v-show="!settings" 
@@ -83,34 +109,13 @@
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="acquire-button" 
-				v-if="!sharedInstance"
-				v-show="currentView == 'skill-details'" 
-				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
-				@click="switchSkillLevel" 
-				v-bind:title="l10n.stringAcquire"
-			>
-				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
-				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
-			</sugar-toolitem>
+			<sugar-toolitem v-show="currentView == 'categories-grid'" splitbar></sugar-toolitem>
 			<sugar-toolitem
-				id="upload-button" 
-				v-if="!sharedInstance"
-				v-show="currentView == 'skill-details'"
-				palette-file="js/palettes/mediapalette.js"
-				palette-class="MediaPalette"
-				palette-title="Upload Media"
-				palette-event="upload-item"
-				@upload-item="onUploadItem"
-				v-bind:title="l10n.stringUploadMedia"
-			></sugar-toolitem>
-			<sugar-toolitem
-				id="export-button" 
-				@click="$refs.Export.exportCSV()"
+				id="export-button"
+				v-show="currentView == 'categories-grid'" 
+				@click="$refs.Export.generatePDF()"
 				:title="l10n.stringExport"
 			></sugar-toolitem>
-
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
@@ -133,6 +138,7 @@
 						:levels="levels"
 						:notation-level="notationLevel"
 						:search-query="searchQuery"
+						@template-selected="importTemplate"
 						@open-category="openCategory"
 						@open-skill="openSkill"
 						@edit-category="editCategory"
@@ -156,12 +162,12 @@
 			<export 
 				ref="Export"
 				v-if="rewardsInit"
+				:currentenv="currentenv"
 				:user="user" 
 				:categories="categories" 
 				:achievements="achievements" 
 				:levels="levels" 
 				:notation-level="notationLevel" 
-				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
 			></export>
 		</div>
 
@@ -173,6 +179,7 @@
 		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
+	<script src="js/TemplateSelection.js"></script>
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>
 	<script src="js/Categories.js"></script>
