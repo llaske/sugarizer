@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Fraction activity #205
 - Implode activity #710
+- Planets activity
 - Simon mode game in TamTam activity #686
 - Vue.js activity template
 - Activity Development Tutorial in Vue.js
