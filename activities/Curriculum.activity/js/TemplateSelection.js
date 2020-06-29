@@ -1,7 +1,7 @@
 var TemplateSelection = {
 	/*html*/
 	template: `
-		<div class="template-selection">
+		<div class="template-selection" :style="{backgroundColor: userColors.fill}">
 			<div class="template" v-for="template in templates" :key="template.title" @click="$emit('template-selected', template)">
 				<div class="template-image">
 					<img :src="'images/skills/' + template.templateImage">
@@ -25,6 +25,7 @@ var TemplateSelection = {
 			</form>
 		</div>
 	`,
+	props: ['userColors'],
 	data: function() {
 		return {
 			showPopup: false,

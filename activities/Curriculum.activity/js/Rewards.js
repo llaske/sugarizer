@@ -52,27 +52,6 @@ var Rewards = {
 	/*html*/
 	template: `
 		<div class="rewards-container">
-		<!--	<div class="stats-container">
-				<table class="level-distribution">
-					<tr v-for="(level, key) in levelWiseAcquired" :key="key">
-						<td class="text">{{ level.text }}</td>
-						<td class="bar-container">
-							<div class="bar" :style="{ width: level.skills/totalSkills*100 + '%', background: colors.fill }"></div>
-						</td>
-					</tr>
-				</table>
-				<div class="stat-card" :style="{ background: 'linear-gradient(180deg, ' + colors.fill + ' 50%, black 200%)' }">
-					<span class="acquired">{{ totalSkillsAcquired }}</span><span class="total">/{{ totalSkills }}</span>
-					<p>Skills Acquired</p>
-				</div>
-			</div> -->
-			<div style="position: absolute; left: 0; top: 0; color: #d3d3d3;" :style="{ display: false ? 'block' : 'none' }">
-				Debug <br>
-				Total: {{ totalSkills }} <br>
-				Skills acquired: {{ totalSkillsAcquired }} <br>
-				Categories acquired: {{ totalCategoriesAcquired }} <br>
-				Media uploaded: {{ totalMediaUploaded }}
-			</div>
 			<div class="trophies-container">
 				<div class="trophy-card" v-for="item in achievements" :key="item.title" v-if="evalCondition(item.availability)">
 					<trophy :userColors="userColors" :acquired="evalAndUpdate(item)" :info="item.info" />
