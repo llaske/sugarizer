@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
 - Improve Sugarizer spiral in home view #579
+- Localize and standardize activities title
 
 ### Fixed
 - Falabacraman activity don't detect win condition for restarted game #723
@@ -52,7 +53,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export palette in Write activity pop at the wrong place #807
 - Last One Loses activity is unplayable after sharing without second player #815
 - Spinner on first screen is at the bottom of the screen
-- Localize and standardize activities title
 - Countries and view palettes pop at the wrong place in Constellation activity
 
 
