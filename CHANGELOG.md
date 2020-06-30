@@ -8,17 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Fraction activity #205
 - Implode activity #710
+- Planets activity
 - Simon mode game in TamTam activity #686
 - Vue.js activity template
 - Activity Development Tutorial in Vue.js
 - Duplicate action on Journal entries
+- ES6 compatibility for activities (except modules)
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
 - Improve Sugarizer spiral in home view #579
+- Localize and standardize activities title
 
 ### Fixed
-- Falabacraman activity don't detect win condition for restarted game #723
+- Falabracman activity don't detect win condition for restarted game #723
 - Falabracman only accepts a specific letter in case of repeated letters in a word #725
 - Speak Text button hides text under it in speak activity #727
 - Video Viewer shows tutorial for a feature not available #731
@@ -50,7 +53,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export palette in Write activity pop at the wrong place #807
 - Last One Loses activity is unplayable after sharing without second player #815
 - Spinner on first screen is at the bottom of the screen
-- Localize and standardize activities title
 - Countries and view palettes pop at the wrong place in Constellation activity
 
 
