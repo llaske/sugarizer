@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Vue.js activity template
 - Activity Development Tutorial in Vue.js
 - Duplicate action on Journal entries
+- ES6 compatibility for activities (except modules)
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
