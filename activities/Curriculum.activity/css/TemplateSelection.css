@@ -7,7 +7,7 @@
 	justify-content: center;
 	padding: 20px;
 	border-radius: 30px;
-	background: rgba(0, 0, 0, 0.9);
+	background-color: black;
 	color: white;
 	overflow: auto;
 }
@@ -17,6 +17,7 @@
 	margin: 20px;
 	border-radius: 10px;
 	border: solid 1px grey;
+	background-color: black;
 	overflow: hidden;
 	transition: transform 200ms ease;
 	cursor: pointer;
@@ -41,6 +42,9 @@
 	background-image: url(../icons/add.svg);
 	background-repeat: no-repeat;
 	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	border: none;
 	width: 50px;
 	height: 50px;
 	cursor: pointer;
