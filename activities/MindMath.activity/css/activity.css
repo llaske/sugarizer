@@ -170,7 +170,7 @@ p {
   height: 100%;
   padding: 0px;
   border: none;
-  margin: 0% 1%;
+  margin: 0px 1%;
   cursor: pointer;
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
@@ -184,19 +184,18 @@ p {
 }
 
 .btn-previous-page {
-  margin: 0% 1%;
+  margin: 0px 1%;
   background-image: url(../icons/go-left-black.svg);
 }
 
 .btn-next-page {
-  margin: 0% 1%;
+  margin: 0px 1%;
   background-image: url(../icons/go-right-black.svg);
 }
 
 .page-no {
-  margin: 0% 1%;
+  margin: 0px 1%;
   font-weight: bold;
-  font-family: "Dejavu Sans";
   color: black;
   font-size: 3vh;
   cursor: auto;
@@ -393,6 +392,15 @@ p {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 10px;
+}
+
+.tutNumbersRow {
+  display: flex;
+  align-items: center;
+}
+
+.tutNumbersRow img {
+  margin: 4px;
 }
 
 .tutorial-icon-button {

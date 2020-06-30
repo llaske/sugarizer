@@ -34,7 +34,7 @@ var Result = {
               <div class="result-panel-main">
                 <div class="my-solution">
                   <div class="info-bar">
-                    <div class="info-block"
+                    <div class="info-block clock-info-block"
                     >
                       <div class="info-block-logo clock-logo"></div>
                       <div class="info-block-content">
@@ -47,7 +47,7 @@ var Result = {
                       v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')'}"
                     ></div>
 
-                    <div class="info-block"
+                    <div class="info-block score-info-block"
                     >
                       <div class="info-block-content info-score-1">
                         <div>{{ l10n.stringScore }}:</div>
