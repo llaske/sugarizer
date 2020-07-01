@@ -97,14 +97,14 @@ var Result = {
             <button
               v-if="qNo > 1"
               v-bind:disabled="isPreviousButtonDisabled"
-              class="btn-block btn-previous-page"
+              class="btn-general-block btn-previous-page"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="pageChangeHandler('previous')"
             >
             </button>
             <button
               v-if="qNo > 1"
-              class="btn-block page-no"
+              class="btn-general-block page-no"
               v-bind:style="{backgroundColor: fillColor}"
             >
               {{ currentPage }}/{{ pageCount }}
@@ -112,7 +112,7 @@ var Result = {
             <button
               v-if="qNo > 1"
               v-bind:disabled="isNextButtonDisabled"
-              class="btn-block btn-next-page"
+              class="btn-general-block btn-next-page"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="pageChangeHandler('next')"
             >
@@ -121,7 +121,7 @@ var Result = {
           <div class="footer-actions">
             <button
               v-if="playersAll.length!=0"
-              class="btn-block btn-rankings-block"
+              class="btn-general-block btn-rankings-block"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="$emit('see-leaderboard')"
             >
@@ -129,7 +129,7 @@ var Result = {
             <button
               v-if="isRestartButtonVisible"
               v-bind:disabled="disabled"
-              class="btn-block btn-restart-block"
+              class="btn-general-block btn-restart-block"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="$emit('restart-game')"
             >
@@ -190,7 +190,7 @@ var Result = {
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 3;
       var newHeight = window.innerHeight - toolbarHeight;
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;

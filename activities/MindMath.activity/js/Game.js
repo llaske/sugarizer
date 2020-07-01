@@ -168,7 +168,7 @@ var Game = {
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 3;
       var newHeight = window.innerHeight - toolbarHeight;
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;

@@ -3,6 +3,7 @@
   height: 80%;
   flex: auto;
   display: flex;
+  overflow: none;
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
