@@ -122,6 +122,8 @@ var app = new Vue({
         stringTutoUndoContent: '',
         stringTutoRedoTitle: '',
         stringTutoRedoContent: '',
+        stringTutoUselessOpsTitle: '',
+        stringTutoUselessOpsContent: '',
         stringTutoResultTitle: '',
         stringTutoResultContent: '',
         stringTutoBestSolnTitle: '',
@@ -455,7 +457,7 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 20);
+        vm.$set(vm.clock, 'initial', 2 * 60);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
