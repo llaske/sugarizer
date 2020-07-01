@@ -25,6 +25,7 @@ var app = new Vue({
 		settings: false,
 		rewardsInit: false,
 		rewardsActive: false,
+		exporting: '',
 		currentView: "categories-grid",
 		searchText: "",
 		categories: [],
@@ -600,7 +601,7 @@ var app = new Vue({
 
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
-
+			
 			var middle = Math.floor(oldLevel / 2);
 			for (var cat in this.user.skills) {
 				for (var skill in this.user.skills[cat]) {
@@ -630,7 +631,23 @@ var app = new Vue({
 					}
 				}
 			}
+			// Remove A+ achievement timestamp
+			if(oldLevel >= 3 && event.level < 3) {
+				var index = this.achievements.findIndex(function(a) {
+					return (typeof a.availability == 'object') 
+								&& a.availability.property == "this[notationLevel]" 
+								&& a.availability.op == ">="
+								&& a.availability.value == 3;
+				});
+				var id = this.achievements[index].id;
+				this.user.achievements[id].timestamp = null;
+			}
+			// Setting the new level
 			this.notationLevel = parseInt(event.level);
+		},
+
+		onExportFormatSelected: function(event) {
+			this.exporting = event.format;
 		},
 
 		goBackTo: function (view) {

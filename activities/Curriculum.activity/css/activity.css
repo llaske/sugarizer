@@ -194,6 +194,28 @@ p {
 	background: grey;
 }
 
+#export-formats button {
+	border-radius: 0;
+	width: 50px;
+	height: 50px;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+#export-formats #csv-export {
+	background-image: url(../icons/export-txt.svg);
+}
+#export-formats #pdf-export {
+	background-image: url(../icons/export-pdf.svg);
+}
+#export-formats #doc-export {
+	background-image: url(../icons/export-doc.svg);
+}
+#export-formats #odt-export {
+	background-image: url(../icons/export-odt.svg);
+}
+
 .search-field {
 	position: relative;
 	display: inline-block;	

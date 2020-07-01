@@ -1,21 +1,101 @@
+var ImageURL = {
+	/*html*/
+	template: `
+		<img :src="imageURL" v-bind="$attrs">
+	`,
+	props: ['path'],
+	data: () => ({
+		imageURL: ''
+	}),
+	created() {
+		let vm = this;
+		this.canvasToImage(this.path)
+			.then(dataURL => {
+				vm.imageURL = dataURL;
+				vm.$emit('loaded');
+			});
+	},
+	methods: {
+		canvasToImage(path) {
+			if(path.indexOf('data:') != -1) {
+				return Promise.resolve(path);
+			}
+			return new Promise((resolve, reject) => {
+				var img = new Image();
+				img.src = path;
+				img.onload = () => {
+					var canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+					canvas.getContext("2d").drawImage(img, 0, 0);
+					resolve(canvas.toDataURL("image/png"));
+				}
+			});
+		},
+	}
+}
+
 var Export = {
 	/*html*/
 	template: `
-		<div></div>
+		<div class="doc-container">
+			<div id="doc">
+				<div class="doc-categories">
+					<div class="doc-category" v-for="category in categories" :key="category.id">
+						<br><br><br><br>
+						<h1 :style="{ color: category.color, borderBottom: 'solid 10px ' + category.color }">{{ category.title }}</h1>
+						<div class="doc-skills">
+							<div class="doc-skill" v-for="skill in category.skills" :key="skill.id">
+								<ImageURL 
+									:path="skill.image"
+									style="margin: 10px 0;"
+									:style="{ width: '300px' }"
+									@loaded="loadedImages++"
+								/>
+								<h3 style="font-size: 1.5em; margin: 5px 0">{{ skill.title }}</h3>
+								<div>
+									<span :style="{ color: user.skills[category.id][skill.id].acquired == 0 ? '#838383' : levels[notationLevel][user.skills[category.id][skill.id].acquired].colors.fill, fontWeight: 600 }">
+										{{ levels[notationLevel][user.skills[category.id][skill.id].acquired].text }}
+									</span>	
+									<span style="color: #838383">
+										{{ user.skills[category.id][skill.id].timestamp ? ' - ' + new Date(user.skills[category.id][skill.id].timestamp).toLocaleDateString() : '' }}
+									</span>
+								</div>
+								<hr style="border-color: #d3d3d3" />
+								<div class="doc-uploads" style="border: solid 1px #d3d3d3">
+									<div class="doc-upload" style="display: inline-block; width: fit-content; text-align: center; margin: 10px" v-for="(upload, i) in getUploads(category.id, skill.id)" :key="i">
+										<ImageURL 
+											:path="getUploadedPath(upload)"
+											:style="{ width: '150px' }"
+											@loaded="loadedImages++"
+										/>
+										<p>{{ new Date(upload.timestamp).toLocaleDateString() }}</p>
+									</div>
+								</div>
+								<br><br><br><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	`,
-	props: ['categories', 'user', 'levels', 'notationLevel', 'currentenv', 'achievements'],
-	data: function() {
-		return {
-			l10n: {
-				stringTitle: '',
-				stringDateOfAcquisition: '',
-				stringMediaUploaded: '',
-				stringCurriculumReportBy: '',
-				stringStatistics: '',
-				stringRewards: ''
-			}
-		}
+	components: {
+		'ImageURL': ImageURL
 	},
+	props: ['categories', 'user', 'levels', 'notationLevel', 'currentenv', 'achievements', 'exporting'],
+	data: () => ({
+		totalImages: 0,
+		loadedImages: 0,
+		l10n: {
+			stringTitle: '',
+			stringDateOfAcquisition: '',
+			stringMediaUploaded: '',
+			stringCurriculumReportBy: '',
+			stringStatistics: '',
+			stringRewards: ''
+		}
+	}),
 	computed: {
 		totalSkills: function () {
 			var count = 0;
@@ -35,10 +115,45 @@ var Export = {
 				}
 			}
 			return levelWiseAcquired;
+		},
+		imagesLoaded() {
+			return this.totalImages == this.loadedImages;
+		}
+	},
+	watch: {
+		imagesLoaded: function(newVal, oldVal) {
+			if(newVal) {
+				switch(this.exporting) {
+					case "doc": 
+						this.generateDOC();
+						break;
+					case "odt": 
+						this.generateODT();
+						break;
+				}
+			}
+		}
+	},
+	created() {
+		for(var cat of this.categories) {
+			this.totalImages += cat.skills.length;
+			for(var skill of cat.skills) {
+				for(var type in this.user.skills[cat.id][skill.id].media) {
+					this.totalImages += this.user.skills[cat.id][skill.id].media[type].length;
+				}
+			}
 		}
 	},
 	mounted: function() {
 		this.$root.$refs.SugarL10n.localize(this.l10n);
+		switch(this.exporting) {
+			case 'pdf': 
+				this.generatePDF();
+				break;
+			case 'csv':
+				this.generateCSV();
+				break;
+		}
 	},
 	methods: {
 		getUploads: function(categoryId, skillId) {
@@ -56,7 +171,30 @@ var Export = {
 			return uploads;
 		},
 
-		exportCSV: function () {
+		getUploadedPath(upload) {
+			if(upload.type == 'audio') {
+				return 'images/audio-preview.jpg';
+			} else if(upload.type == 'video') {
+				return 'images/video-preview.jpg';
+			}
+			return upload.data;
+		},
+
+		canvasToImage(path) {
+			return new Promise((resolve, reject) => {
+				var img = new Image();
+				img.src = path;
+				img.onload = () => {
+					var canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+					canvas.getContext("2d").drawImage(img, 0, 0);
+					resolve(canvas.toDataURL("image/png"));
+				}
+			});
+		},
+
+		generateCSV: function () {
 			// var csvContent = "data:text/csv;charset=utf-8,";
 			var csvContent = "";
 
@@ -118,15 +256,65 @@ var Export = {
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata, function() {
 				vm.$root.$refs.SugarPopup.log('Export to CSV complete');
 				console.log('Export to CSV complete');
+				vm.$emit('export-completed');
 			});
 			// this.download(csvContent, "Curriculum Report.csv", "text/csv");
+		},
+
+		generateODT() {
+			var data = document.getElementsByClassName("ql-editor");
+			var xml = traverse(data[0]);
+			var mimetype = 'application/vnd.oasis.opendocument.text';
+			var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+
+			var metadata = {
+				mimetype: mimetype,
+				title: `${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.doc`,
+				activity: "org.olpcfrance.Curriculum",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			var vm = this;
+			this.$root.$refs.SugarJournal.createEntry(inputData, metadata, function() {
+				vm.$root.$refs.SugarPopup.log('Export to ODT complete');
+				console.log('Export to ODT complete');
+				vm.$emit('export-completed');
+			});
+		},
+
+		generateDOC() {
+			var vm = this;
+			this.$nextTick(() => {
+				var content = document.getElementById("doc").innerHTML;
+				var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+				"xmlns:w='urn:schemas-microsoft-com:office:word' "+
+				"xmlns='http://www.w3.org/TR/REC-html40'>"+
+				"<head><meta charset='utf-8'></head><body>";
+				var footer = "</body></html>";
+				var sourceHTML = header+content+footer;
+				var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
+				var mimetype = 'application/msword';
+				var metadata = {
+					mimetype: mimetype,
+					title: `${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.doc`,
+					activity: "org.olpcfrance.Curriculum",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata, function() {
+					vm.$root.$refs.SugarPopup.log('Export to DOC complete');
+					console.log('Export to DOC complete');
+					vm.$emit('export-completed');
+				});
+			});
 		},
 
 		generatePDF() {
 			var doc = new jsPDF();
 			
 			this.addCoverToPDF(doc);
-			// doc.save(`${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.pdf`);
 		},
 		
 		addCoverToPDF(doc) {
@@ -359,6 +547,7 @@ var Export = {
 			this.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata, function() {
 				vm.$root.$refs.SugarPopup.log('Export to PDF complete');
 				console.log('Export to PDF complete');
+				vm.$emit('export-completed');
 			});
 		},
 
