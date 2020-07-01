@@ -3,21 +3,36 @@ var ImageURL = {
 	template: `
 		<img :src="imageURL" v-bind="$attrs">
 	`,
-	props: ['path'],
+	props: ['path', 'colors'],
 	data: () => ({
 		imageURL: ''
 	}),
 	created() {
 		let vm = this;
-		this.canvasToImage(this.path)
-			.then(dataURL => {
-				vm.imageURL = dataURL;
-				vm.$emit('loaded');
+		if (this.colors) {
+			this.$root.$refs.SugarIcon.generateIconWithColors('../' + this.path, this.colors, function(src) {
+				var img = new Image();
+				img.src = src;
+				img.onload = function () {
+					var canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+					canvas.getContext("2d").drawImage(img, 0, 0);
+					vm.imageURL = canvas.toDataURL("image/png");
+					vm.$emit('loaded');
+				}
 			});
+		} else {
+			this.canvasToImage(this.path)
+				.then(dataURL => {
+					vm.imageURL = dataURL;
+					vm.$emit('loaded');
+				});
+		}
 	},
 	methods: {
 		canvasToImage(path) {
-			if(path.indexOf('data:') != -1) {
+			if (path.indexOf('data:') != -1) {
 				return Promise.resolve(path);
 			}
 			return new Promise((resolve, reject) => {
@@ -40,6 +55,46 @@ var Export = {
 	template: `
 		<div class="doc-container">
 			<div id="doc">
+				<br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
+				<div style="display: inline-block; width: fit-content; text-align: center; margin: auto">
+					<ImageURL 
+						path="icons/owner-icon.svg"
+						:colors="currentenv.user.colorvalue"
+						:style="{ width: '150px' }"
+						@loaded="loadedImages++"
+					/>
+				</div>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br>
+				
+				<div class="stats-container">
+					<h1>{{ l10n.stringStatistics }}</h1>
+					<table class="stats-table">
+						<tr v-for="(level, key) in levels[notationLevel]" :key="key">
+							<td style="text-align: right; padding: 5px;	white-space:nowrap;">{{ levels[notationLevel][levels[notationLevel].length-1-key].text }}:</td>
+							<td class="bar-container">
+								<p style="margin: 0" :style="{ color: levels[notationLevel].length-1-key == 0 ? '#838383' : levels[notationLevel][levels[notationLevel].length-1-key].colors.fill }">
+									{{ Math.round(levelWiseAcquired[levels[notationLevel].length-1-key]/totalSkills*100 *100)/100 + '%' }}
+								</p>
+							</td>
+						</tr>
+					</table>
+					<br><br><br><br>
+					<h1>{{ l10n.stringRewards }}</h1>
+					<table class="stats-table">
+						<tr v-for="(achievement, i) in achievements" :key="i" v-if="user.achievements[achievement.id].timestamp">
+							<td style="text-align: right; padding: 5px;	white-space:nowrap;">{{ achievement.title }}:</td>
+							<td class="bar-container">
+								<p style="margin: 0" :style="{ color: '#838383' }">
+									{{ new Date(user.achievements[achievement.id].timestamp).toLocaleDateString() }}
+								</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<br><br><br><br><br><br><br><br>
+
 				<div class="doc-categories">
 					<div class="doc-category" v-for="category in categories" :key="category.id">
 						<br><br><br><br>
@@ -121,13 +176,13 @@ var Export = {
 		}
 	},
 	watch: {
-		imagesLoaded: function(newVal, oldVal) {
-			if(newVal) {
-				switch(this.exporting) {
-					case "doc": 
+		imagesLoaded: function (newVal, oldVal) {
+			if (newVal) {
+				switch (this.exporting) {
+					case "doc":
 						this.generateDOC();
 						break;
-					case "odt": 
+					case "odt":
 						this.generateODT();
 						break;
 				}
@@ -135,19 +190,22 @@ var Export = {
 		}
 	},
 	created() {
-		for(var cat of this.categories) {
+		// Buddy icon
+		this.totalImages++;
+		// Skill and media images
+		for (var cat of this.categories) {
 			this.totalImages += cat.skills.length;
-			for(var skill of cat.skills) {
-				for(var type in this.user.skills[cat.id][skill.id].media) {
+			for (var skill of cat.skills) {
+				for (var type in this.user.skills[cat.id][skill.id].media) {
 					this.totalImages += this.user.skills[cat.id][skill.id].media[type].length;
 				}
 			}
 		}
 	},
-	mounted: function() {
+	mounted: function () {
 		this.$root.$refs.SugarL10n.localize(this.l10n);
-		switch(this.exporting) {
-			case 'pdf': 
+		switch (this.exporting) {
+			case 'pdf':
 				this.generatePDF();
 				break;
 			case 'csv':
@@ -156,7 +214,7 @@ var Export = {
 		}
 	},
 	methods: {
-		getUploads: function(categoryId, skillId) {
+		getUploads: function (categoryId, skillId) {
 			var uploads = [];
 			var mediaObj = this.user.skills[categoryId][skillId].media;
 			for (var key in mediaObj) {
@@ -172,9 +230,9 @@ var Export = {
 		},
 
 		getUploadedPath(upload) {
-			if(upload.type == 'audio') {
+			if (upload.type == 'audio') {
 				return 'images/audio-preview.jpg';
-			} else if(upload.type == 'video') {
+			} else if (upload.type == 'video') {
 				return 'images/video-preview.jpg';
 			}
 			return upload.data;
@@ -253,7 +311,7 @@ var Export = {
 				file_size: 0
 			};
 			var vm = this;
-			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata, function() {
+			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata, function () {
 				vm.$root.$refs.SugarPopup.log('Export to CSV complete');
 				console.log('Export to CSV complete');
 				vm.$emit('export-completed');
@@ -265,7 +323,7 @@ var Export = {
 			var data = document.getElementsByClassName("ql-editor");
 			var xml = traverse(data[0]);
 			var mimetype = 'application/vnd.oasis.opendocument.text';
-			var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+			var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(xml)));
 
 			var metadata = {
 				mimetype: mimetype,
@@ -276,7 +334,7 @@ var Export = {
 				file_size: 0
 			};
 			var vm = this;
-			this.$root.$refs.SugarJournal.createEntry(inputData, metadata, function() {
+			this.$root.$refs.SugarJournal.createEntry(inputData, metadata, function () {
 				vm.$root.$refs.SugarPopup.log('Export to ODT complete');
 				console.log('Export to ODT complete');
 				vm.$emit('export-completed');
@@ -287,13 +345,13 @@ var Export = {
 			var vm = this;
 			this.$nextTick(() => {
 				var content = document.getElementById("doc").innerHTML;
-				var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-				"xmlns:w='urn:schemas-microsoft-com:office:word' "+
-				"xmlns='http://www.w3.org/TR/REC-html40'>"+
-				"<head><meta charset='utf-8'></head><body>";
+				var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+					"xmlns:w='urn:schemas-microsoft-com:office:word' " +
+					"xmlns='http://www.w3.org/TR/REC-html40'>" +
+					"<head><meta charset='utf-8'></head><body>";
 				var footer = "</body></html>";
-				var sourceHTML = header+content+footer;
-				var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
+				var sourceHTML = header + content + footer;
+				var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(sourceHTML)));
 				var mimetype = 'application/msword';
 				var metadata = {
 					mimetype: mimetype,
@@ -303,7 +361,7 @@ var Export = {
 					creation_time: new Date().getTime(),
 					file_size: 0
 				};
-				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata, function() {
+				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata, function () {
 					vm.$root.$refs.SugarPopup.log('Export to DOC complete');
 					console.log('Export to DOC complete');
 					vm.$emit('export-completed');
@@ -313,19 +371,19 @@ var Export = {
 
 		generatePDF() {
 			var doc = new jsPDF();
-			
+
 			this.addCoverToPDF(doc);
 		},
-		
+
 		addCoverToPDF(doc) {
 			doc.setFontStyle("bold");
 			doc.setFontSize(20);
 			doc.text(105, 100, this.currentenv.user.name, { align: "center" });
 			var vm = this;
-			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", this.currentenv.user.colorvalue, function(src) {
+			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", this.currentenv.user.colorvalue, function (src) {
 				var img = new Image();
 				img.src = src;
-				img.onload = function() {
+				img.onload = function () {
 					var canvas = document.createElement("canvas");
 					canvas.width = img.width;
 					canvas.height = img.height;
@@ -336,32 +394,32 @@ var Export = {
 					vm.addStatsToPDF(doc);
 				}
 				// doc.save(`${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.pdf`);
-			});			
+			});
 			doc.setFontSize(16);
 			doc.setFontStyle("normal");
 		},
-		
+
 		addStatsToPDF(doc) {
 			doc.addPage();
 			var x = 10, y = 15;
 			// Statistics
 			doc.setFontStyle("bold");
-			doc.text(x, y, this.l10n.stringStatistics);		
+			doc.text(x, y, this.l10n.stringStatistics);
 			doc.setFontStyle("normal");
 			y += 15;
 
 			doc.setFontSize(12);
 			var totalWidth = 120;
-			for(var level=this.levels[this.notationLevel].length-1; level>=0; level--) {
-				var percent = Math.round((this.levelWiseAcquired[level]/this.totalSkills*100)*100)/100;
+			for (var level = this.levels[this.notationLevel].length - 1; level >= 0; level--) {
+				var percent = Math.round((this.levelWiseAcquired[level] / this.totalSkills * 100) * 100) / 100;
 				doc.setTextColor('#000000');
-				doc.text(x+35, y, this.levels[this.notationLevel][level].text, { align: "right" });
+				doc.text(x + 35, y, this.levels[this.notationLevel][level].text, { align: "right" });
 				doc.setDrawColor(this.levels[this.notationLevel][level].colors.stroke);
-				doc.rect(x+40, y-4, totalWidth, 6);
+				doc.rect(x + 40, y - 4, totalWidth, 6);
 				doc.setFillColor(this.levels[this.notationLevel][level].colors.fill == '#FFFFFF' ? '#838383' : this.levels[this.notationLevel][level].colors.fill);
 				doc.setTextColor(this.levels[this.notationLevel][level].colors.fill == '#FFFFFF' ? '#838383' : this.levels[this.notationLevel][level].colors.fill);
-				doc.rect(x+40, y-4, percent*totalWidth/100, 6, 'FD');
-				doc.text(x+totalWidth+45, y, percent + '%');
+				doc.rect(x + 40, y - 4, percent * totalWidth / 100, 6, 'FD');
+				doc.text(x + totalWidth + 45, y, percent + '%');
 				y += 10;
 			}
 			y += 10;
@@ -370,33 +428,33 @@ var Export = {
 
 			// Rewards
 			doc.setFontStyle("bold");
-			doc.text(x, y, this.l10n.stringRewards);		
+			doc.text(x, y, this.l10n.stringRewards);
 			doc.setFontStyle("normal");
 			y += 10;
 
 			doc.setFontSize(12);
 			var vm = this;
-			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.currentenv.user.colorvalue, function(src) {
+			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.currentenv.user.colorvalue, function (src) {
 				var img = new Image();
 				img.src = src;
-				img.onload = function() {
+				img.onload = function () {
 					var canvas = document.createElement("canvas");
 					canvas.width = img.width;
 					canvas.height = img.height;
 					canvas.getContext("2d").drawImage(img, 0, 0);
 					var trophyIcon = canvas.toDataURL("image/png");
 
-					for(var key in vm.user.achievements) {
-						if(vm.user.achievements[key].timestamp != null) {
+					for (var key in vm.user.achievements) {
+						if (vm.user.achievements[key].timestamp != null) {
 							doc.addImage(trophyIcon, x, y, 30, 30);
-							var index = vm.achievements.findIndex(function(a) {
+							var index = vm.achievements.findIndex(function (a) {
 								return a.id == key;
 							});
 							// Achievement info
 							doc.setFontSize(10);
 							doc.setTextColor('#ffffff');
 							doc.setFontStyle('bold');
-							doc.text(x+15, y+8, vm.achievements[index].info.text, { align: "center" });
+							doc.text(x + 15, y + 8, vm.achievements[index].info.text, { align: "center" });
 							doc.setFontStyle('normal');
 							doc.setTextColor('#000000');
 							doc.setFontSize(12);
@@ -406,15 +464,15 @@ var Export = {
 							canvas.height = icon.height;
 							canvas.getContext("2d").drawImage(icon, 0, 0);
 							var iconData = canvas.toDataURL("image/png");
-							doc.addImage(iconData, x+13, y+9, 4, 4);
+							doc.addImage(iconData, x + 13, y + 9, 4, 4);
 							// Achievement Title
 							var splitTitle = doc.splitTextToSize(vm.achievements[index].title, 30);
-							doc.text(x+15, y+40, splitTitle, { align: "center" });
+							doc.text(x + 15, y + 40, splitTitle, { align: "center" });
 							var dim = doc.getTextDimensions(splitTitle);
 							// Achievement Date
 							doc.setFontSize(10);
 							doc.setTextColor('#838383');
-							doc.text(x+15, y+42+dim.h, new Date(vm.user.achievements[key].timestamp).toLocaleDateString(), { align: "center" });
+							doc.text(x + 15, y + 42 + dim.h, new Date(vm.user.achievements[key].timestamp).toLocaleDateString(), { align: "center" });
 							doc.setFontSize(12);
 							doc.setTextColor('#000000');
 							x += 35;
@@ -429,7 +487,7 @@ var Export = {
 		addCategoriesToPDF(doc) {
 			var splitTitle;
 			var y = 10, x = 10;
-			for(var category of this.categories) {
+			for (var category of this.categories) {
 				doc.addPage();
 				x = y = 10;
 				// Category Title
@@ -441,21 +499,21 @@ var Export = {
 				var dim = doc.getTextDimensions(splitTitle);
 				//Underline
 				doc.setFillColor(category.color);
-				doc.rect(0, y+dim.h, 220, 3, 'F');
+				doc.rect(0, y + dim.h, 220, 3, 'F');
 
 				y += dim.h + 15;
 
 				doc.setFontSize(12);
-				for(var skill of category.skills) {
+				for (var skill of category.skills) {
 					// Skill Image
 					var img = new Image();
 					img.src = skill.image;
 					var imgWidth = 50;
 					var imgHeight = 30;
-					if(img.width != 0) {
-						imgHeight = imgWidth*(img.height/img.width);
+					if (img.width != 0) {
+						imgHeight = imgWidth * (img.height / img.width);
 					}
-					if(y+imgHeight > 280) {
+					if (y + imgHeight > 280) {
 						doc.addPage();
 						y = 10;
 					}
@@ -472,16 +530,16 @@ var Export = {
 					// if(this.user.skills[category.id][skill.id].acquired > 0) {
 					// 	doc.text(200, y+dim.h-2, this.levels[this.notationLevel][this.user.skills[category.id][skill.id].acquired].text, { align: "right" });
 					// } else {
-						doc.text(200, y, this.levels[this.notationLevel][this.user.skills[category.id][skill.id].acquired].text, { align: "right" });
+					doc.text(200, y, this.levels[this.notationLevel][this.user.skills[category.id][skill.id].acquired].text, { align: "right" });
 					// }
 					doc.setTextColor('#000000');
 					doc.setFontStyle('normal');
 					doc.setFontSize(12);
 					// Skill acquired date
-					if(this.user.skills[category.id][skill.id].timestamp) {
+					if (this.user.skills[category.id][skill.id].timestamp) {
 						doc.setFontSize(10);
 						doc.setTextColor('#838383');
-						doc.text(200, y+dim.h+5, new Date(this.user.skills[category.id][skill.id].timestamp).toLocaleDateString(), { align: "right" });
+						doc.text(200, y + dim.h + 5, new Date(this.user.skills[category.id][skill.id].timestamp).toLocaleDateString(), { align: "right" });
 						doc.setFontSize(12);
 						doc.setTextColor('#000000');
 					}
@@ -492,39 +550,39 @@ var Export = {
 					var uploads = this.getUploads(category.id, skill.id);
 					var maxHeight = 0;
 					x = imgWidth + 20;
-					for(var upload of uploads) {
+					for (var upload of uploads) {
 						var img = new Image();
 						var uploadWidth = 20;
 						var uploadHeight = 20;
-						if(upload.type == "image") {
+						if (upload.type == "image") {
 							img.src = upload.data;
 							uploadWidth = 30;
-							if(img.width != 0) {
-								uploadHeight = uploadWidth*(img.height/img.width);
+							if (img.width != 0) {
+								uploadHeight = uploadWidth * (img.height / img.width);
 							}
-						} else if(upload.type == "audio") {
+						} else if (upload.type == "audio") {
 							img.src = "images/audio-preview.jpg";
-						} else if(upload.type == "video") {
+						} else if (upload.type == "video") {
 							img.src = "images/video-preview.jpg";
 						}
-						
-						if(x+uploadWidth > 200) {
-							x = imgWidth + 20;
-							y += maxHeight+10;
 
-							if(y+10 > 280) {
+						if (x + uploadWidth > 200) {
+							x = imgWidth + 20;
+							y += maxHeight + 10;
+
+							if (y + 10 > 280) {
 								doc.addPage();
 								y = 10;
 							}
-						} else if(y+uploadHeight+10 > 280) {
+						} else if (y + uploadHeight + 10 > 280) {
 							doc.addPage();
 							x = imgWidth + 20;
 							y = 10;
 						}
 						maxHeight = Math.max(maxHeight, uploadHeight);
 
-						doc.addImage(img, x, y+10, uploadWidth, uploadHeight);
-						x += uploadWidth+10;
+						doc.addImage(img, x, y + 10, uploadWidth, uploadHeight);
+						x += uploadWidth + 10;
 					}
 
 					x = 10;
@@ -544,7 +602,7 @@ var Export = {
 				file_size: 0
 			};
 			var vm = this;
-			this.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata, function() {
+			this.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata, function () {
 				vm.$root.$refs.SugarPopup.log('Export to PDF complete');
 				console.log('Export to PDF complete');
 				vm.$emit('export-completed');
