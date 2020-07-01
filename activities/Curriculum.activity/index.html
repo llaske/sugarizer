@@ -62,10 +62,8 @@
 				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
 				@click="switchSkillLevel" 
 				v-bind:title="l10n.stringAcquire"
-			>
-				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
-				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
-			</sugar-toolitem>
+				v-bind:icon="'icons/medal' + levels[notationLevel][currentAcquired].grade + '.svg'"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-if="!sharedInstance"

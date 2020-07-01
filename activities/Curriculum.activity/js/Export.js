@@ -352,7 +352,7 @@ var Export = {
 
 			doc.setFontSize(12);
 			var totalWidth = 120;
-			for(var level in this.levels[this.notationLevel]) {
+			for(var level=this.levels[this.notationLevel].length-1; level>=0; level--) {
 				var percent = Math.round((this.levelWiseAcquired[level]/this.totalSkills*100)*100)/100;
 				doc.setTextColor('#000000');
 				doc.text(x+35, y, this.levels[this.notationLevel][level].text, { align: "right" });
