@@ -42,6 +42,8 @@ define(function () {
         invoker.addEventListener('click', function (event) {
             if (!that.invoker.classList.contains("toolbutton")) {
                 updatePosition(event.x, event.y);
+            } else {
+              updatePosition();
             }
             that.toggle();
         });

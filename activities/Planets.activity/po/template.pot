@@ -1,0 +1,236 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jun 25 2020 22:49:41 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Mercury
+msgctxt "Mercury"
+msgid "Mercury"
+msgstr ""
+
+#: Venus
+msgctxt "Venus"
+msgid "Venus"
+msgstr ""
+
+#: Earth
+msgctxt "Earth"
+msgid "Earth"
+msgstr ""
+
+#: Mars
+msgctxt "Mars"
+msgid "Mars"
+msgstr ""
+
+#: Jupiter
+msgctxt "Jupiter"
+msgid "Jupiter"
+msgstr ""
+
+#: Saturn
+msgctxt "Saturn"
+msgid "Saturn"
+msgstr ""
+
+#: Uranus
+msgctxt "Uranus"
+msgid "Uranus"
+msgstr ""
+
+#: Neptune
+msgctxt "Neptune"
+msgid "Neptune"
+msgstr ""
+
+#: PlanetName
+msgctxt "PlanetName"
+msgid "Planet Name:"
+msgstr ""
+
+#: PlanetType
+msgctxt "PlanetType"
+msgid "Planet Type:"
+msgstr ""
+
+#: YearLength
+msgctxt "YearLength"
+msgid "Year Length:"
+msgstr ""
+
+#. Do not translate {{year}}
+#: EarthDays
+msgctxt "EarthDays"
+msgid "{{year}} Earth days"
+msgstr ""
+
+#: Mass
+msgctxt "Mass"
+msgid "Mass:"
+msgstr ""
+
+#: SurfaceTemperature
+msgctxt "SurfaceTemperature"
+msgid "Surface Temperature:"
+msgstr ""
+
+#: NumberOfMoons
+msgctxt "NumberOfMoons"
+msgid "Number of Moons:"
+msgstr ""
+
+#: PlanetRadius
+msgctxt "PlanetRadius"
+msgid "Planet Radius:"
+msgstr ""
+
+#: SunDistance
+msgctxt "SunDistance"
+msgid "Distance from the Sun:"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Planets Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to Planets Activity! It provides a 3D model of planets for you to explore"
+msgstr ""
+
+#: TutoPlanetImage
+msgctxt "TutoPlanetImage"
+msgid "Planet Images"
+msgstr ""
+
+#: TutoPlanetImageContent
+msgctxt "TutoPlanetImageContent"
+msgid "Click each planet to know more about it"
+msgstr ""
+
+#: TutoPositionButtonTitle
+msgctxt "TutoPositionButtonTitle"
+msgid "Planet Position Button"
+msgstr ""
+
+#: TutoPositionButtonContent
+msgctxt "TutoPositionButtonContent"
+msgid "Click here to switch to planet position view"
+msgstr ""
+
+#: TutoExploreOverviewTitle
+msgctxt "TutoExploreOverviewTitle"
+msgid "Explore Planet"
+msgstr ""
+
+#: TutoExploreOverviewContent
+msgctxt "TutoExploreOverviewContent"
+msgid "In this view, you can explore and know more about the planet."
+msgstr ""
+
+#: TutoInfoButtonTitle
+msgctxt "TutoInfoButtonTitle"
+msgid "Toggle Info Button"
+msgstr ""
+
+#: TutoInfoButtonContent
+msgctxt "TutoInfoButtonContent"
+msgid "Click here to toggle the planet info"
+msgstr ""
+
+#: TutoRotateButtonTitle
+msgctxt "TutoRotateButtonTitle"
+msgid "Toggle Rotate Button"
+msgstr ""
+
+#: TutoRotateButtonContent
+msgctxt "TutoRotateButtonContent"
+msgid "Click here to stop or start the rotation of the planet"
+msgstr ""
+
+#: TutoImageButtonTitle
+msgctxt "TutoImageButtonTitle"
+msgid "Save as Image"
+msgstr ""
+
+#: TutoImageButtonContent
+msgctxt "TutoImageButtonContent"
+msgid "Click here to save the current planet image to your journal, where you can use it for other activites"
+msgstr ""
+
+#: TutoPlanetInfoTitle
+msgctxt "TutoPlanetInfoTitle"
+msgid "Planet Information"
+msgstr ""
+
+#: TutoPlanetInfoContent
+msgctxt "TutoPlanetInfoContent"
+msgid "Here are the informations about the planet"
+msgstr ""
+
+#: TutoPlanetDisplayTitle
+msgctxt "TutoPlanetDisplayTitle"
+msgid "Planet Model"
+msgstr ""
+
+#: TutoPlanetDisplayContent
+msgctxt "TutoPlanetDisplayContent"
+msgid "This is the 3D model of the planet. Click to drag the planet and scroll to zoom in and out"
+msgstr ""
+
+#: TutoPositionOverviewTitle
+msgctxt "TutoPositionOverviewTitle"
+msgid "Solar System Planets"
+msgstr ""
+
+#: TutoPositionOverviewContent
+msgctxt "TutoPositionOverviewContent"
+msgid "In this view, you can see where the planets are positioned in the Solar System"
+msgstr ""
+
+#: TutoPlanetPositionTitle
+msgctxt "TutoPlanetPositionTitle"
+msgid "Planet Position"
+msgstr ""
+
+#: TutoPlanetPositionContent
+msgctxt "TutoPlanetPositionContent"
+msgid "Here, you can see the positions of the planet in the Solar System, their size comparison, and their distance from the sun in kilometers"
+msgstr ""
+
+#: TutoListButtonTitle
+msgctxt "TutoListButtonTitle"
+msgid "Planets List View"
+msgstr ""
+
+#: TutoListButtonContent
+msgctxt "TutoListButtonContent"
+msgid "Click here to switch to planets list view"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+

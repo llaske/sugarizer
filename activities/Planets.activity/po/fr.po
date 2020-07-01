@@ -1,0 +1,236 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jun 25 2020 22:49:41 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Mercury
+msgctxt "Mercury"
+msgid "Mercury"
+msgstr "Mercure"
+
+#: Venus
+msgctxt "Venus"
+msgid "Venus"
+msgstr "Vénus"
+
+#: Earth
+msgctxt "Earth"
+msgid "Earth"
+msgstr "Terre"
+
+#: Mars
+msgctxt "Mars"
+msgid "Mars"
+msgstr "Mars"
+
+#: Jupiter
+msgctxt "Jupiter"
+msgid "Jupiter"
+msgstr "Jupiter"
+
+#: Saturn
+msgctxt "Saturn"
+msgid "Saturn"
+msgstr "Saturne"
+
+#: Uranus
+msgctxt "Uranus"
+msgid "Uranus"
+msgstr "Uranus"
+
+#: Neptune
+msgctxt "Neptune"
+msgid "Neptune"
+msgstr "Neptune"
+
+#: PlanetName
+msgctxt "PlanetName"
+msgid "Planet Name:"
+msgstr "Nom de la planète:"
+
+#: PlanetType
+msgctxt "PlanetType"
+msgid "Planet Type:"
+msgstr "Type de planète:"
+
+#: YearLength
+msgctxt "YearLength"
+msgid "Year Length:"
+msgstr "Durée de l'année:"
+
+#. Do not translate {{year}}
+#: EarthDays
+msgctxt "EarthDays"
+msgid "{{year}} Earth days"
+msgstr "{{year}} Jours Terrestre"
+
+#: Mass
+msgctxt "Mass"
+msgid "Mass:"
+msgstr "Masse:"
+
+#: SurfaceTemperature
+msgctxt "SurfaceTemperature"
+msgid "Surface Temperature:"
+msgstr "Température de surface:"
+
+#: NumberOfMoons
+msgctxt "NumberOfMoons"
+msgid "Number of Moons:"
+msgstr "Nombre de lunes:"
+
+#: PlanetRadius
+msgctxt "PlanetRadius"
+msgid "Planet Radius:"
+msgstr "Rayon de la planète:"
+
+#: SunDistance
+msgctxt "SunDistance"
+msgid "Distance from the Sun:"
+msgstr "Distance du soleil:"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Planets Activity"
+msgstr "Activité Planets"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to Planets Activity! It provides a 3D model of planets for you to explore"
+msgstr "Bienvenue dans l'activité Planets. Cette activité vous permet d'explorer les planètes en 3D"
+
+#: TutoPlanetImage
+msgctxt "TutoPlanetImage"
+msgid "Planet Images"
+msgstr "Images de la planète"
+
+#: TutoPlanetImageContent
+msgctxt "TutoPlanetImageContent"
+msgid "Click each planet to know more about it"
+msgstr "Cliquez sur un planète pour en savoir plus"
+
+#: TutoPositionButtonTitle
+msgctxt "TutoPositionButtonTitle"
+msgid "Planet Position Button"
+msgstr "Bouton position de la planète"
+
+#: TutoPositionButtonContent
+msgctxt "TutoPositionButtonContent"
+msgid "Click here to switch to planet position view"
+msgstr "Cliquez ici pour voir la position des planètes dans le système solaire"
+
+#: TutoExploreOverviewTitle
+msgctxt "TutoExploreOverviewTitle"
+msgid "Explore Planet"
+msgstr "Explorez la planète"
+
+#: TutoExploreOverviewContent
+msgctxt "TutoExploreOverviewContent"
+msgid "In this view, you can explore and know more about the planet."
+msgstr "Dans cette vue, vous pouvez explorer et en savoir plus sur la planète"
+
+#: TutoInfoButtonTitle
+msgctxt "TutoInfoButtonTitle"
+msgid "Toggle Info Button"
+msgstr "Information"
+
+#: TutoInfoButtonContent
+msgctxt "TutoInfoButtonContent"
+msgid "Click here to toggle the planet info"
+msgstr "Cliquez ici pour voir ou masquer les informations de la planète"
+
+#: TutoRotateButtonTitle
+msgctxt "TutoRotateButtonTitle"
+msgid "Toggle Rotate Button"
+msgstr "Rotation"
+
+#: TutoRotateButtonContent
+msgctxt "TutoRotateButtonContent"
+msgid "Click here to stop or start the rotation of the planet"
+msgstr "Cliquez ici pour arrêter ou démarrer la rotation de la planète"
+
+#: TutoImageButtonTitle
+msgctxt "TutoImageButtonTitle"
+msgid "Save as Image"
+msgstr "Enregistrer comme image"
+
+#: TutoImageButtonContent
+msgctxt "TutoImageButtonContent"
+msgid "Click here to save the current planet image to your journal, where you can use it for other activites"
+msgstr "Cliquez ici pour enregistrer l'image de la planète actuelle dans votre journal, où vous pourrez l'utiliser pour d'autres activités"
+
+#: TutoPlanetInfoTitle
+msgctxt "TutoPlanetInfoTitle"
+msgid "Planet Information"
+msgstr "Informations sur la planète"
+
+#: TutoPlanetInfoContent
+msgctxt "TutoPlanetInfoContent"
+msgid "Here are the informations about the planet"
+msgstr "Voici les informations sur la planète"
+
+#: TutoPlanetDisplayTitle
+msgctxt "TutoPlanetDisplayTitle"
+msgid "Planet Model"
+msgstr "Modèle de planète"
+
+#: TutoPlanetDisplayContent
+msgctxt "TutoPlanetDisplayContent"
+msgid "This is the 3D model of the planet. Click to drag the planet and scroll to zoom in and out"
+msgstr "Ceci est le modèle 3D de la planète. Cliquez pour faire glisser la planète et faites défiler pour zoomer et dézoomer"
+
+#: TutoPositionOverviewTitle
+msgctxt "TutoPositionOverviewTitle"
+msgid "Solar System Planets"
+msgstr "Vue du système solaire"
+
+#: TutoPositionOverviewContent
+msgctxt "TutoPositionOverviewContent"
+msgid "In this view, you can see where the planets are positioned in the Solar System"
+msgstr "Dans cette vue, vous pouvez voir où la position des planètes dans le système solaire"
+
+#: TutoPlanetPositionTitle
+msgctxt "TutoPlanetPositionTitle"
+msgid "Planet Position"
+msgstr "Position de la planète"
+
+#: TutoPlanetPositionContent
+msgctxt "TutoPlanetPositionContent"
+msgid "Here, you can see the positions of the planet in the Solar System, their size comparison, and their distance from the sun in kilometers"
+msgstr "Ici, vous pouvez voir les positions de la planète dans le système solaire, leurs tailles comparées et leurs distance au soleil en kilomètres"
+
+#: TutoListButtonTitle
+msgctxt "TutoListButtonTitle"
+msgid "Planets List View"
+msgstr "Vue Liste des planètes"
+
+#: TutoListButtonContent
+msgctxt "TutoListButtonContent"
+msgid "Click here to switch to planets list view"
+msgstr "Cliquez ici pour passer à l'affichage de la liste des planètes"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
