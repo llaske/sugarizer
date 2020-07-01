@@ -4,7 +4,7 @@ var Game = {
     "slots-component": Slots,
     "inputNumber": InputNumber
   },
-  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'sugarPopup', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled'],
+  props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled', 'isTargetAcheived','l10n'],
   template: `
     <div id="game-view">
       <div class="game-area-panel"
@@ -29,7 +29,7 @@ var Game = {
               v-bind:style="{backgroundColor: strokeColor}"
             >
             <div class="detail-block-content">
-              <div>Score:</div>
+              <div>{{ l10n.stringScore }}:</div>
             </div>
               <div class="detail-block-content">
                 <div>{{ score }}</div>
@@ -87,26 +87,25 @@ var Game = {
           <slots-component ref="slots"
             v-bind:strokeColor="strokeColor"
             v-bind:fillColor="fillColor"
-            v-bind:targetNum="questions[qNo].targetNum"
             v-bind:slots="slots[qNo]"
-            v-bind:compulsoryOpsRem="compulsoryOpsRem"
             v-bind:compulsoryOpsForQuestion="compulsoryOps"
+            v-bind:isTargetAcheived="isTargetAcheived"
             emptyLinesAllowed=true
           ></slots-component>
         </div>
         <div class="slots-area-footer">
           <button id="btn-restart"
-            v-bind:disabled="disabled"
+            v-if="!disabled"
             class="slots-area-footer-button"
             v-bind:style="{backgroundColor: strokeColor}"
             v-on:click="$emit('restart-game')"
           ></button>
-          <transition name="fade"  mode="out-in">
+          <transition name="fade" mode="out-in">
             <button id="btn-validate"
               class="slots-area-footer-button"
               v-bind:style="{backgroundColor: strokeColor}"
-              v-on:click="validate"
-              v-if="compulsoryOpsRem.length === 0 && currentRes === questions[qNo].targetNum"
+              v-on:click="$emit('validate')"
+              v-if="isTargetAcheived"
             ></button>
             <button id="btn-pass"
               class="slots-area-footer-button"
@@ -129,8 +128,10 @@ var Game = {
         nums: []
       },
       currentSelectedOp: null,
-      currentRes: null,
       compulsoryOpUsed: false,
+      l10n: {
+        stringScore: ''
+      }
     };
   },
   created: function() {
@@ -148,16 +149,6 @@ var Game = {
   watch: {
     slots: function(newVal) {
       var vm = this;
-      if (newVal[vm.qNo].length != 0) {
-        vm.currentRes = newVal[vm.qNo][newVal[vm.qNo].length - 1].res;
-        if (vm.compulsoryOpsRem.length === 0 && vm.currentRes === vm.questions[vm.qNo].targetNum) {
-          //notifying user
-          vm.sugarPopup.log("You Got the Target Number")
-        }
-      } else {
-        vm.currentRes = null;
-      }
-
       //deselecting
       vm.deselect();
     },
@@ -169,6 +160,11 @@ var Game = {
     }
   },
   methods: {
+    localized: function() {
+      console.log("game");
+      this.SugarL10n.localize(this.l10n);
+    },
+
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
@@ -191,9 +187,9 @@ var Game = {
         document.querySelector('#game-view').style.flexDirection = 'row';
         //change width, height of panels
         document.querySelector('.game-area-panel').style.width = '56.4%';
-        document.querySelector('.game-area-panel').style.height = '95%';
+        document.querySelector('.game-area-panel').style.height = '96%';
         document.querySelector('.slots-area-panel').style.width = '40.4%';
-        document.querySelector('.slots-area-panel').style.height = '95%';
+        document.querySelector('.slots-area-panel').style.height = '96%';
       }
     },
 
@@ -308,7 +304,8 @@ var Game = {
               type: null,
               val: null
             },
-            res: null
+            res: null,
+            useless: false,
           }
 
           slotObj.num1.val = vm.currentSelectedNums.nums[0];
@@ -335,12 +332,6 @@ var Game = {
         }
         //deselecting
         vm.deselect();
-      }
-    },
-    validate: function() {
-      var vm = this;
-      if (vm.currentRes === vm.questions[vm.qNo].targetNum) {
-        vm.$emit('validate');
       }
     },
 

@@ -5,14 +5,13 @@
   flex: 1;
   flex-direction: row;
   overflow: auto;
+  align-items: center;
 }
 
 .btn-operator {
   cursor: pointer;
   width: 100px;
   height: 100px;
-  font-size: 40px;
-  font-weight: bold;
   padding: 1%;
   border: none;
   color: black;
@@ -58,14 +57,12 @@
 }
 
 .btn-operator:hover {
-  font-size: 60px;
   background-size: 75%, 100%;
 }
 
 .selected-op {
   width: 110px;
   height: 110px;
-  font-size: 60px;
   background-size: 75%, 100%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 1);
 }
@@ -119,7 +116,7 @@
   border-radius: 50%;
   border: none;
   font-size: 40px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .list-numbers {
@@ -202,13 +199,14 @@
 
 .detail-block-logo {
   height: 100%;
-  width: 50%;
+  width: 45%;
 }
 
 .detail-block-content {
   height: 100%;
-  width: 50%;
+  width: 55%;
   display: flex;
+  overflow: auto;
   align-items: center;
   flex-direction: row;
   justify-content: center;
@@ -287,6 +285,16 @@
   background-image: url(../icons/validate.svg);
 }
 
+@media (hover:none), (hover:on-demand) {
+  .btn-operator:hover {
+    background-size: 60%, 100%;
+  }
+  .btn-number:hover {
+    font-size: 30px;
+  }
+
+}
+
 @media only screen and (max-width: 940px) {
   .btn-operator {
     width: 75px;
@@ -315,7 +323,7 @@
   .detail-block {
     width: 180px;
     height: 90px;
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 
@@ -341,30 +349,28 @@
 
 @media only screen and (max-width: 680px) {
   .btn-operator {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
   }
 
   .selected-op {
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
   }
 
   .btn-number {
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    font-size: 20px;
-    /*border: 2px solid black;*/
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
   }
 
   .btn-number:hover {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .selected-num {
-    /*border: none;*/
-    font-size: 30px;
+    font-size: 25px;
   }
 
   #target-number {
@@ -382,7 +388,21 @@
   .detail-block {
     width: 130px;
     height: 60px;
-    font-size: 20px;
+    font-size: 15px;
+  }
+
+  @media (hover:none), (hover:on-demand) {
+    /* suppress hover effect on devices that don't support hover fully*/
+    .btn-operator:hover {
+      background-size: 60%, 100%;
+    }
+    .btn-number:hover {
+      font-size: 18px;
+    }
+    .selected-num {
+      font-size: 18px;
+    }
+
   }
 }
 
@@ -400,9 +420,9 @@
   }
 
   .detail-block {
-    width: 160px;
-    height: 80px;
-    font-size: 20px;
+    width: 130px;
+    height: 60px;
+    font-size: 15px;
   }
 }
 
@@ -423,7 +443,7 @@
   .detail-block {
     width: 100px;
     height: 50px;
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .btn-operator {
@@ -437,17 +457,30 @@
   }
 
   .btn-number {
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 17px;
   }
 
   .btn-number:hover {
-    font-size: 30px;
+    font-size: 22px;
   }
 
   .selected-num {
-    font-size: 30px;
+    font-size: 22px;
+  }
+
+  @media (hover:none), (hover:on-demand) {
+    .btn-operator:hover {
+      background-size: 60%, 100%;
+    }
+    .btn-number:hover {
+      font-size: 17px;
+    }
+    .selected-num {
+      font-size: 17px;
+    }
+
   }
 }

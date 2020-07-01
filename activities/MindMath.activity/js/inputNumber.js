@@ -2,7 +2,7 @@ var InputNumber = {
   props: ['number', 'type', 'fillColor', 'isSelected'],
   template: `
       <div ref="number"
-      >{{ number }}</div>
+      ><div>{{ number }}</div></div>
   `,
   mounted: function() {
     var vm = this;

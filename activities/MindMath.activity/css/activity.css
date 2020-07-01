@@ -6,7 +6,6 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Dejavu Sans";
 }
 
 p {
@@ -152,11 +151,26 @@ p {
   opacity: .65;
 }
 
+.footer-actions {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.pagination {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 .btn-block {
   width: 125px;
   height: 100%;
+  padding: 0px;
   border: none;
-  margin: 0% 1%;
+  margin: 0px 1%;
   cursor: pointer;
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
@@ -169,19 +183,25 @@ p {
   background-size: 90%;
 }
 
-.btn-restart-block {
-  background-image: url(../icons/restart-black.svg);
-}
-
-.btn-rankings-block {
-  background-image: url(../icons/leaderboard.svg);
-}
-
-.btn-back-block {
+.btn-previous-page {
+  margin: 0px 1%;
   background-image: url(../icons/go-left-black.svg);
 }
 
-@media only screen and (max-width: 403px) {
+.btn-next-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-right-black.svg);
+}
+
+.page-no {
+  margin: 0px 1%;
+  font-weight: bold;
+  color: black;
+  font-size: 3vh;
+  cursor: auto;
+}
+
+@media only screen and (max-width: 406px) {
   #timer-button {
     display: none;
   }
@@ -191,7 +211,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 464px) {
   #level-button {
     display: none;
   }
@@ -201,7 +221,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 519px) {
+@media only screen and (max-width: 521px) {
   #compulsory-op-button {
     display: none;
   }
@@ -211,7 +231,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 574px) {
+@media only screen and (max-width: 577px) {
   #hint-button {
     display: none;
   }
@@ -372,6 +392,15 @@ p {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 10px;
+}
+
+.tutNumbersRow {
+  display: flex;
+  align-items: center;
+}
+
+.tutNumbersRow img {
+  margin: 4px;
 }
 
 .tutorial-icon-button {

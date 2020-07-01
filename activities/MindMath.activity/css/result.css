@@ -6,6 +6,7 @@
   justify-content: flex-start;
   flex-direction: column;
   overflow: auto;
+  align-items: center;
 }
 
 .result-header {
@@ -40,19 +41,18 @@
 }
 
 .result-main {
-  width: 99%;
+  width: 98.5%;
   height: 78%;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: none;
   margin: 0.5% 0;
 }
 
 .result-panel {
   flex: auto;
-  margin: 0 0.5%;
-  margin-bottom: 0.8%;
-  width: 99%;
-  min-height: 96%;
+  margin: 0 auto;
+  width: 98.6%;
+  min-height: 99%;
   border: solid black;
   display: flex;
   flex-direction: column;
@@ -128,8 +128,8 @@
   width: 30%;
 }
 
-.info-block-content div{
-  width:100%;
+.info-block-content div {
+  width: 100%;
   word-wrap: break-word;
 }
 
@@ -162,10 +162,35 @@
   margin-bottom: 0.5%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
+.btn-restart-block {
+  margin: 0% 1.5%;
+  background-image: url(../icons/restart-black.svg);
+}
 
+.btn-rankings-block {
+  margin: 0% 1.5%;
+  background-image: url(../icons/leaderboard.svg);
+}
+
+@media only screen and (max-width: 400px) {
+  .info-block {
+    width: 60px;
+    height: 25px;
+    font-size: 8px;
+  }
+
+  .info-bar-logo {
+    width: 25px;
+    height: 25px;
+  }
+
+  .result-bar-block {
+    font-size: 13px;
+  }
+}
 
 @media only screen and (max-height: 500px) {
   .info-block {

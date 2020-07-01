@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll', 'disabled', 'l10n', 'sugarPresence'],
   template: `
     <div id="result-view"
     >
@@ -13,12 +13,12 @@ var Result = {
         >
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
-          ><clock v-bind:time="totalTime" text="Total Time: "></clock>
+          ><clock v-bind:time="totalTime" v-bind:text="l10n.stringTotalTime+' '"></clock>
           </div>
 
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
-          > Total Score: {{ score }}</div>
+          > {{ l10n.stringTotalScore }} {{ score }}</div>
 
         </div>
       </div>
@@ -34,7 +34,7 @@ var Result = {
               <div class="result-panel-main">
                 <div class="my-solution">
                   <div class="info-bar">
-                    <div class="info-block"
+                    <div class="info-block clock-info-block"
                     >
                       <div class="info-block-logo clock-logo"></div>
                       <div class="info-block-content">
@@ -47,10 +47,10 @@ var Result = {
                       v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')'}"
                     ></div>
 
-                    <div class="info-block"
+                    <div class="info-block score-info-block"
                     >
                       <div class="info-block-content info-score-1">
-                        <div>Score:</div>
+                        <div>{{ l10n.stringScore }}:</div>
                       </div>
                       <div class="info-block-content info-score-2">
                         <div>{{ scores[index] }}</div>
@@ -63,9 +63,9 @@ var Result = {
                       v-if="mySlots[index].length!=0"
                       v-bind:strokeColor="strokeColor"
                       v-bind:fillColor="fillColor"
-                      v-bind:targetNum="panel.targetNum"
                       v-bind:slots="mySlots[index]"
                       v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
+                      v-bind:isTargetAcheived="panel.targetNum === mySlots[index][mySlots[index].length-1].res"
                     ></slots-component>
                   </div>
                 </div>
@@ -79,9 +79,9 @@ var Result = {
                     <slots-component
                     v-bind:strokeColor="strokeColor"
                     v-bind:fillColor="fillColor"
-                    v-bind:targetNum="panel.targetNum"
                     v-bind:slots="bestSlots[index]"
                     v-bind:compulsoryOpsForQuestion="compulsoryOpsForEachQuestion[index]"
+                    isTargetAcheived="true"
                     ></slots-component>
                   </div>
                 </div>
@@ -93,20 +93,48 @@ var Result = {
       </div>
 
       <div class="result-footer">
-          <button
-            v-if="playersAll.length!=0"
-            class="btn-block btn-rankings-block"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('see-leaderboard')"
-          >
-          </button>
-          <button
-            v-bind:disabled="disabled"
-            class="btn-block btn-restart-block"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('restart-game')"
-          >
-          </button>
+          <div class="pagination">
+            <button
+              v-if="qNo > 1"
+              v-bind:disabled="isPreviousButtonDisabled"
+              class="btn-block btn-previous-page"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="pageChangeHandler('previous')"
+            >
+            </button>
+            <button
+              v-if="qNo > 1"
+              class="btn-block page-no"
+              v-bind:style="{backgroundColor: fillColor}"
+            >
+              {{ currentPage }}/{{ pageCount }}
+            </button>
+            <button
+              v-if="qNo > 1"
+              v-bind:disabled="isNextButtonDisabled"
+              class="btn-block btn-next-page"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="pageChangeHandler('next')"
+            >
+            </button>
+          </div>
+          <div class="footer-actions">
+            <button
+              v-if="playersAll.length!=0"
+              class="btn-block btn-rankings-block"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="$emit('see-leaderboard')"
+            >
+            </button>
+            <button
+              v-if="isRestartButtonVisible"
+              v-bind:disabled="disabled"
+              class="btn-block btn-restart-block"
+              v-bind:style="{backgroundColor: fillColor}"
+              v-on:click="$emit('restart-game')"
+            >
+            </button>
+          </div>
       </div>
     </div>
   `,
@@ -117,6 +145,10 @@ var Result = {
       mySlots: [],
       totalTime: 0,
       timeForEachQuestion: [],
+      currentPage: 1,
+      pageCount: 1,
+      visibleItemsPerPageCount: 1,
+      canRestart: true,
     };
   },
   created: function() {
@@ -133,7 +165,26 @@ var Result = {
     vm.totalTime = vm.timeTaken.reduce(function(a, b) {
       return a + b
     }, 0)
+    vm.pageCount = Math.ceil((vm.qNo + 1) / vm.visibleItemsPerPageCount);
     vm.resize();
+  },
+  computed: {
+    isPreviousButtonDisabled: function() {
+      return this.currentPage === 1
+    },
+
+    isNextButtonDisabled: function() {
+      return this.currentPage === this.pageCount
+    },
+
+    isRestartButtonVisible: function () {
+      var vm = this;
+      vm.canRestart = vm.sugarPresence ? (vm.sugarPresence.isConnected() ? vm.sugarPresence.isHost : true) : true;
+      setTimeout(() => {
+        vm.resize();
+      }, 0);
+      return vm.canRestart;
+    }
   },
   methods: {
     resize: function() {
@@ -145,14 +196,17 @@ var Result = {
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight + "px";
-      if (vm.playersAll.length!=0) {
-      //  document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+      if (vm.playersAll.length != 0) {
         document.querySelector('.btn-rankings-block').style.width = document.querySelector('.btn-rankings-block').offsetHeight + "px";
-      } else {
-
       }
-      document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
-
+      if (vm.canRestart) {
+        document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+      }
+      if (vm.qNo > 1) {
+        document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
+        document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
+        document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
+      }
 
       if (ratio < 1) {
         // stack up panels
@@ -178,6 +232,7 @@ var Result = {
       }
 
     },
+
     initializeSlots: function() {
       var vm = this;
       vm.questionSet = [];
@@ -185,14 +240,20 @@ var Result = {
       vm.mySlots = [];
       vm.timeForEachQuestion = [];
 
-      for (var i = 0; i <= vm.qNo; i++) {
+      var initQno = (vm.currentPage - 1) * vm.visibleItemsPerPageCount;
+      var len = vm.qNo + 1 - initQno;
+      if (len > vm.visibleItemsPerPageCount) {
+        len = vm.visibleItemsPerPageCount;
+      }
+
+      for (var i = initQno; i < initQno + len; i++) {
         vm.questionSet.push(vm.questions[i]);
         vm.timeForEachQuestion.push(vm.timeTaken[i]);
       }
 
-      for (var qno = 0; qno < vm.questionSet.length; qno++) {
+      for (var qno = initQno; qno < initQno + len; qno++) {
         var slotsArr = [];
-        var slots = rpnToSlots(vm.questionSet[qno].bestSoln);
+        var slots = rpnToSlots(vm.questions[qno].bestSoln);
 
         for (var i = 0; i < slots.length; i++) {
           var slotObj = {
@@ -205,7 +266,8 @@ var Result = {
               type: null,
               val: null
             },
-            res: null
+            res: null,
+            useless: false,
           }
 
           slotObj.num1.val = slots[i][0].val;
@@ -220,6 +282,25 @@ var Result = {
         vm.bestSlots.push(slotsArr);
         vm.mySlots.push(vm.slots[qno]);
       }
+    },
+
+    pageChangeHandler: function(value) {
+      switch (value) {
+        case 'next':
+          if (this.currentPage < this.pageCount) {
+            this.currentPage += 1
+          }
+          break
+        case 'previous':
+          if (this.currentPage > 1) {
+            this.currentPage -= 1
+          }
+          break
+        default:
+          this.currentPage = value
+      }
+      this.initializeSlots();
     }
+
   }
 }

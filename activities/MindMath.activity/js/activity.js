@@ -35,9 +35,9 @@ var app = new Vue({
       compulsoryOps: [],
       compulsoryOpsRem: [],
       compulsoryOpsForEachQuestion: [],
+      timer: null,
       clock: {
         active: false,
-        previousTime: null,
         time: 0,
         initial: 0,
         type: 0,
@@ -65,14 +65,90 @@ var app = new Vue({
       playersAll: [],
       connectedPlayers: [], //connectedPlayers[0] will be the host in multiplayer game
       playersPlaying: [],
-      multiplayerPlaying: false,
+      multiplayer: false,
       disabled: false,
       startGameConfig: null,
+      l10n: {
+        stringNetwork: '',
+        stringUndo: '',
+        stringRedo: '',
+        stringTimer: '',
+        stringDifficultyLevel: '',
+        stringCompulsoryOperators: '',
+        stringHint: '',
+        stringTutorial: '',
+        stringFullscreen: '',
+        stringUnfullscreen: '',
+        stringStop: '',
+        stringScore: '',
+        stringTotalScore: '',
+        stringTotalTime: '',
+        stringRank: '',
+        stringUser: '',
+        stringNoHint: '',
+        stringTutoExplainTitle: '',
+        stringTutoExplainContent: '',
+        stringTutoAboutTitle: '',
+        stringTutoAboutContent: '',
+        stringTutoEachPuzzleTitle: '',
+        stringTutoEachPuzzleContent: '',
+        stringTutoInputNumbersTitle: '',
+        stringTutoInputNumbersContent: '',
+        stringTutoTargetTitle: '',
+        stringTutoTargetContent: '',
+        stringTutoOperatorsTitle: '',
+        stringTutoOperatorsContent: '',
+        stringTutoSlotsTitle: '',
+        stringTutoSlotsContent: '',
+        stringTutoHowToPlayTitle: '',
+        stringTutoHowToPlayContent: '',
+        stringTutoPassTitle: '',
+        stringTutoPassContent: '',
+        stringTutoValidateTitle: '',
+        stringTutoValidateContent: '',
+        stringTutoScoreTitle: '',
+        stringTutoScoreContent: '',
+        stringTutoCompulsoryOpTitle: '',
+        stringTutoCompulsoryOpContent: '',
+        stringTutoHintTitle: '',
+        stringTutoHintContent: '',
+        stringTutoLevelTitle: '',
+        stringTutoLevelContent: '',
+        stringTutoTimerTitle: '',
+        stringTutoTimerContent: '',
+        stringTutoGameActionsTitle: '',
+        stringTutoGameActionsContent: '',
+        stringTutoUndoTitle: '',
+        stringTutoUndoContent: '',
+        stringTutoRedoTitle: '',
+        stringTutoRedoContent: '',
+        stringTutoUselessOpsTitle: '',
+        stringTutoUselessOpsContent: '',
+        stringTutoResultTitle: '',
+        stringTutoResultContent: '',
+        stringTutoBestSolnTitle: '',
+        stringTutoBestSolnContent: '',
+        stringTutoMySolnTitle: '',
+        stringTutoMySolnContent: '',
+        stringTutoClockInfoTitle: '',
+        stringTutoClockInfoContent: '',
+        stringTutoScoreInfoTitle: '',
+        stringTutoScoreInfoContent: '',
+        stringTutoRestartTitle: '',
+        stringTutoRestartContent: '',
+        stringTutoPaginationTitle: '',
+        stringTutoPaginationContent: '',
+        stringTutoLeaderboardMainTitle: '',
+        stringTutoLeaderboardMainContent: '',
+        stringTutoGoBackFromLeaderboardTitle: '',
+        stringTutoGoBackFromLeaderboardContent: '',
+      }
     }
   },
   mounted: function() {
     var vm = this;
     vm.SugarPresence = vm.$refs.SugarPresence;
+    vm.SugarL10n = vm.$refs.SugarL10n;
     vm.sugarPopup = vm.$refs.SugarPopup;
     vm.SugarJournal = vm.$refs.SugarJournal;
 
@@ -84,20 +160,39 @@ var app = new Vue({
       vm.addHintPenalty();
     });
   },
+  computed: {
+    isTargetAcheived: function() {
+      var vm = this;
+      //check if the target acheived
+      var currentRes = null;
+      if (vm.slots[vm.qNo].length != 0) {
+        currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
+        if (vm.compulsoryOpsRem.length === 0 && currentRes === vm.questions[vm.qNo].targetNum) {
+          return true;
+          //notifying user
+          vm.sugarPopup.log("You Got the Target Number")
+        } else {
+          return false;
+        }
+      }
+      return false;
+    }
+  },
   watch: {
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        if (!vm.multiplayerPlaying) {
+        if (!vm.multiplayer) {
           vm.newGame();
         }
-        vm.$set(vm.clock, 'active', true);
-        vm.$set(vm.clock, 'previousTime', new Date());
+        vm.startClock();
       }
     },
 
     slots: function() {
       var vm = this;
+      //update useless operations
+      vm.updateUselessOperations();
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //close hintPalette
@@ -108,6 +203,8 @@ var app = new Vue({
 
     compulsoryOps: function() {
       var vm = this;
+      //update useless operations
+      vm.updateUselessOperations();
       //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //generating hint
@@ -124,7 +221,7 @@ var app = new Vue({
 
       var tmp = vm.questions.length - vm.qNo;
       if (tmp === 10) {
-        if (vm.multiplayerPlaying && !vm.SugarPresence.isHost) {
+        if (vm.multiplayer && !vm.SugarPresence.isHost) {
           //request the questions set maintainer to add questions if it is multiplayer game
           vm.SugarPresence.sendMessage({
             user: this.SugarPresence.getUserInfo(),
@@ -136,7 +233,7 @@ var app = new Vue({
           var questions = vm.questionsGenerator.generate(vm.level, 10);
           vm.questions = vm.questions.concat(questions);
 
-          if (vm.multiplayerPlaying && vm.SugarPresence.isHost) {
+          if (vm.multiplayer && vm.SugarPresence.isHost) {
             //update the questions set among all others users if you are the maintainer in multiplayer game
             vm.SugarPresence.sendMessage({
               user: this.SugarPresence.getUserInfo(),
@@ -179,25 +276,76 @@ var app = new Vue({
       vm.hintsGenerator = new HintsGenerator();
 
       vm.currentScreen = "game";
-      //Initialize clock
-      vm.$set(vm.clock, 'time', 0);
-      vm.$set(vm.clock, 'active', true);
-      vm.$set(vm.clock, 'previousTime', new Date());
-      vm.tick();
 
+    },
+
+    localized: function() {
+      document.getElementById('next-slot-text').innerHTML = this.SugarL10n.get("NextSlot");
+      document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
+      document.getElementById('easy-button').title = this.SugarL10n.get("EasyLevel");
+      document.getElementById('medium-button').title = this.SugarL10n.get("MediumLevel");
+
+      this.SugarL10n.localize(this.l10n);
+    },
+
+    startClock: function() {
+      var vm = this;
+      vm.$set(vm.clock, 'time', vm.clock.initial);
+      vm.$set(vm.clock, 'active', true);
+      vm.tick();
+    },
+
+    stopClock: function() {
+      var vm = this;
+      if (vm.timer) {
+        clearInterval(vm.timer);
+      }
+      vm.$set(vm.clock, 'active', false);
     },
 
     updateCompulsoryOpsRem: function() {
       var vm = this;
       vm.compulsoryOpsRem = [];
       if (vm.slots[vm.qNo].length != 0) {
-        //check if the operator used contains compulsoryOps
+        //check if the operators used contains compulsoryOps
         for (var i = 0; i < vm.compulsoryOps.length; i++) {
-          var tmp = vm.slots[vm.qNo].find(function(ele) {
-            return ele.operator === vm.compulsoryOps[i];
-          });
-          if (!tmp) {
+          var flag = false;
+          var opUsed = false;
+          var opNotUsed = false;
+          for (var j = 0; j < vm.slots[vm.qNo].length; j++) {
+            if (vm.slots[vm.qNo][j].operator === vm.compulsoryOps[i]) {
+              flag = true;
+              if (vm.slots[vm.qNo][j].useless && !opUsed) {
+                opNotUsed = true;
+              } else {
+                opNotUsed = false;
+                opUsed = true;
+              }
+            }
+          }
+          if (opNotUsed) {
             vm.compulsoryOpsRem.push(vm.compulsoryOps[i]);
+          } else if (!flag) {
+            vm.compulsoryOpsRem.push(vm.compulsoryOps[i]);
+          }
+        }
+      }
+    },
+
+    updateUselessOperations: function() {
+      var vm = this;
+      var currentRes = null;
+      var slotsGood = [1, 1, 1, 1];
+      if (vm.slots[vm.qNo].length != 0) {
+        currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
+        if (currentRes === vm.questions[vm.qNo].targetNum) {
+          slotsGood = findUselessOperations(vm.slots[vm.qNo]);
+        }
+        for (var i = 0; i < vm.slots[vm.qNo].length; i++) {
+          if (slotsGood[i] !== 1) {
+            vm.$set(vm.slots[vm.qNo][i], 'useless', true);
+          } else {
+            vm.$set(vm.slots[vm.qNo][i], 'useless', false);
           }
         }
       }
@@ -214,7 +362,7 @@ var app = new Vue({
         }
         var nextSlot = hint[0].val + ' ' + operator + ' ' + hint[2].val + ' = ' + hint[3];
       } else {
-        var nextSlot = "No Hint"
+        var nextSlot = vm.l10n.stringNoHint;
       }
       setTimeout(() => {
         document.getElementById('hint-text').innerHTML = nextSlot;
@@ -303,13 +451,13 @@ var app = new Vue({
 
     onMultiplayerGameStarted: function(restarted) {
       var vm = this;
-      vm.multiplayerPlaying = true;
+      vm.multiplayer = true;
       //disable the buttons
       vm.disabled = true;
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 10);
+        vm.$set(vm.clock, 'initial', 2 * 60);
         vm.$set(vm.clock, 'type', 1);
         vm.selectTimerItem(vm.clock.type);
       }
@@ -372,6 +520,7 @@ var app = new Vue({
           content: {
             action: 'start-game',
             data: {
+              type: 'restart',
               questions: vm.questions,
               clockType: vm.startGameConfig.clockType,
               clockInitial: vm.startGameConfig.clockInitial,
@@ -398,12 +547,14 @@ var app = new Vue({
       var totalHints = vm.noOfHintsUsed.reduce(function(a, b) {
         return a + b
       }, 0)
+
+      var slots = vm.slots[vm.qNo];
       var scr = calculateScoreFromSlots(slots, timeTaken, totalHints);
       vm.score += scr;
       vm.scores.push(scr)
 
       if (vm.mode === 'non-timer') {
-        vm.$set(vm.clock, 'active', false);
+        vm.stopClock();
         vm.currentScreen = "result";
       } else {
         //go to next question in question set for timer mode
@@ -434,15 +585,13 @@ var app = new Vue({
     tick: function() {
       var vm = this;
 
-      if (vm.clock.active) {
-        var currentTime = new Date();
-        if (currentTime - vm.clock.previousTime >= 1000) {
-          vm.$set(vm.clock, 'previousTime', currentTime);
+      vm.timer = setInterval(function() {
+        if (vm.clock.active) {
           if (vm.mode === 'timer') {
             vm.$set(vm.clock, 'time', vm.clock.time - 1);
             if (vm.clock.time === 0) {
               //end game
-              vm.$set(vm.clock, 'active', false);
+              vm.stopClock();
               vm.$set(vm.slots, vm.qNo, []);
               vm.score += 0;
               vm.scores.push(0)
@@ -453,12 +602,13 @@ var app = new Vue({
               })
               vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
               //change currentScreen
-              if (vm.multiplayerPlaying) {
-                vm.playersAll.forEach((item, i) => {
-                  if (item.user.networkId === vm.currentenv.user.networkId && item.score === null) {
-                    vm.playersAll[i].score = vm.score;
+              if (vm.multiplayer) {
+                for (var i = 0; i < vm.playersAll.length; i++) {
+                  if (vm.playersAll[i].user.networkId === vm.currentenv.user.networkId && vm.playersAll[i].score === null) {
+                    vm.$set(vm.playersAll[i], 'score', vm.score);
+                    break;
                   }
-                });
+                }
 
                 vm.playersPlaying = vm.playersPlaying.filter(function(user) {
                   return user.networkId !== vm.currentenv.user.networkId
@@ -469,7 +619,7 @@ var app = new Vue({
                 }
 
                 vm.SugarPresence.sendMessage({
-                  user: this.SugarPresence.getUserInfo(),
+                  user: vm.SugarPresence.getUserInfo(),
                   content: {
                     action: 'game-over',
                     data: {
@@ -477,8 +627,6 @@ var app = new Vue({
                     }
                   }
                 });
-
-                vm.multiplayerPlaying = false;
                 vm.currentScreen = "result";
               } else {
                 vm.currentScreen = "result";
@@ -488,15 +636,13 @@ var app = new Vue({
             vm.$set(vm.clock, 'time', vm.clock.time + 1);
           }
         }
-      }
-
-      requestAnimationFrame(vm.tick.bind(vm));
+      }, 1000);
     },
 
     handleRestartButton: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        vm.$set(vm.clock, 'active', false);
+        vm.stopClock();
         vm.$set(vm.slots, vm.qNo, []);
         vm.score += 0;
         vm.scores.push(0)
@@ -531,7 +677,7 @@ var app = new Vue({
         })
         vm.compulsoryOpsForEachQuestion.push(compulsoryOps);
         if (vm.mode === 'non-timer') {
-          vm.$set(vm.clock, 'active', false);
+          vm.stopClock();
           vm.slots = [
             []
           ];
@@ -734,6 +880,197 @@ var app = new Vue({
       }, 0);
     },
 
+    onHelp: function() {
+      var vm = this;
+      var steps = [];
+      if (vm.currentScreen === 'leaderboard') {
+        steps = [{
+            element: ".leaderboard-main",
+            placement: "top",
+            title: this.l10n.stringTutoLeaderboardMainTitle,
+            content: this.l10n.stringTutoLeaderboardMainContent
+          },
+          {
+            element: ".btn-back-block",
+            placement: "auto top",
+            title: this.l10n.stringTutoGoBackFromLeaderboardTitle,
+            content: this.l10n.stringTutoGoBackFromLeaderboardContent
+          },
+          {
+            element: ".page-no",
+            placement: "auto top",
+            title: this.l10n.stringTutoPaginationTitle,
+            content: this.l10n.stringTutoPaginationContent
+          },
+        ];
+      } else if (vm.currentScreen === 'result') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoResultTitle,
+            content: this.l10n.stringTutoResultContent
+          },
+          {
+            element: ".best-solution",
+            placement: "auto left",
+            title: this.l10n.stringTutoBestSolnTitle,
+            content: this.l10n.stringTutoBestSolnContent
+          },
+          {
+            element: ".my-solution",
+            placement: "auto right",
+            title: this.l10n.stringTutoMySolnTitle,
+            content: this.l10n.stringTutoMySolnContent
+          },
+          {
+            element: ".clock-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoClockInfoTitle,
+            content: this.l10n.stringTutoClockInfoContent
+          },
+          {
+            element: ".score-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoScoreInfoTitle,
+            content: this.l10n.stringTutoScoreInfoContent
+          },
+          {
+            element: ".btn-restart-block",
+            placement: "auto top",
+            title: this.l10n.stringTutoRestartTitle,
+            content: this.l10n.stringTutoRestartContent
+          },
+          {
+            element: ".page-no",
+            placement: "auto top",
+            title: this.l10n.stringTutoPaginationTitle,
+            content: this.l10n.stringTutoPaginationContent
+          },
+        ];
+      } else if (vm.currentScreen === 'game') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoAboutTitle,
+            content: this.l10n.stringTutoAboutContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoEachPuzzleTitle,
+            content: this.l10n.stringTutoEachPuzzleContent
+          },
+          {
+            element: ".list-numbers",
+            placement: "right",
+            title: this.l10n.stringTutoInputNumbersTitle,
+            content: this.l10n.stringTutoInputNumbersContent
+          },
+          {
+            element: "#target-number",
+            placement: "bottom",
+            title: this.l10n.stringTutoTargetTitle,
+            content: this.l10n.stringTutoTargetContent
+          },
+          {
+            element: ".list-operators",
+            placement: "auto top",
+            title: this.l10n.stringTutoOperatorsTitle,
+            content: this.l10n.stringTutoOperatorsContent
+          },
+          {
+            element: ".slots-area-main",
+            placement: "auto left",
+            title: this.l10n.stringTutoSlotsTitle,
+            content: this.l10n.stringTutoSlotsContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoHowToPlayTitle,
+            content: this.l10n.stringTutoHowToPlayContent
+          },
+          {
+            element: ".slots-area-footer",
+            placement: "top",
+            title: this.l10n.stringTutoGameActionsTitle,
+            content: this.l10n.stringTutoGameActionsContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoScoreTitle,
+            content: this.l10n.stringTutoScoreContent
+          },
+          {
+            element: "#compulsory-op-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoCompulsoryOpTitle,
+            content: this.l10n.stringTutoCompulsoryOpContent
+          },
+          {
+            element: "#hint-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoHintTitle,
+            content: this.l10n.stringTutoHintContent
+          },
+          {
+            element: "#level-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoLevelTitle,
+            content: this.l10n.stringTutoLevelContent
+          },
+          {
+            element: "#timer-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTimerTitle,
+            content: this.l10n.stringTutoTimerContent
+          },
+          {
+            element: "#undo-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoUndoTitle,
+            content: this.l10n.stringTutoUndoContent
+          },
+          {
+            element: "#redo-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoRedoTitle,
+            content: this.l10n.stringTutoRedoContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "top",
+            title: this.l10n.stringTutoUselessOpsTitle,
+            content: this.l10n.stringTutoUselessOpsContent
+          },
+        ];
+      } else {
+        steps = [{
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoExplainTitle,
+          content: this.l10n.stringTutoExplainContent
+        }, ];
+      }
+
+      this.$refs.SugarTutorial.show(steps);
+    },
+
     onStop: function() {
       var vm = this;
       var context = {
@@ -771,7 +1108,9 @@ var app = new Vue({
       vm.level = data.level;
       vm.compulsoryOps = data.compulsoryOps;
       vm.clock = data.clock;
-      vm.$set(vm.clock, 'previousTime', new Date());
+      if (!data.clock.active) {
+        vm.stopClock();
+      }
       vm.questions = data.questions;
       vm.qNo = data.qNo;
       vm.inputNumbers = data.inputNumbers;
@@ -813,8 +1152,8 @@ var app = new Vue({
       switch (msg.content.action) {
         case 'start-game':
           var data = msg.content.data;
-          if (!vm.multiplayerPlaying || (!vm.multiplayerPlaying && vm.playersPlaying.length === 0)) {
-            vm.multiplayerPlaying = true;
+          if ((!vm.multiplayer && data.type === 'init') || (vm.multiplayer && data.type === 'restart')) {
+            vm.multiplayer = true;
             vm.startGameConfig = {
               level: data.level,
               clockType: data.clockType,
@@ -828,7 +1167,9 @@ var app = new Vue({
             vm.mode = 'timer';
             vm.$set(vm.clock, 'type', data.clockType);
             vm.$set(vm.clock, 'initial', data.clockInitial);
-            vm.$set(vm.clock, 'previousTime', new Date());
+            if (!vm.clock.active) {
+              vm.startClock();
+            }
 
             //update inputNumbers
             vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
@@ -849,13 +1190,12 @@ var app = new Vue({
 
         case 'game-over':
           var data = msg.content.data;
-
-          vm.playersAll.forEach((item, i) => {
-            if (item.user.networkId === msg.user.networkId && item.score === null) {
-              vm.playersAll[i].score = data.score;
+          for (var i = 0; i < vm.playersAll.length; i++) {
+            if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
+              vm.$set(vm.playersAll[i], 'score', data.score);
+              break;
             }
-          });
-
+          }
           vm.playersPlaying = vm.playersPlaying.filter(function(user) {
             return user.networkId !== msg.user.networkId
           })
@@ -931,6 +1271,7 @@ var app = new Vue({
             content: {
               action: 'start-game',
               data: {
+                type: 'init',
                 questions: vm.questions,
                 clockType: vm.startGameConfig.clockType,
                 clockInitial: vm.startGameConfig.clockInitial,
@@ -945,6 +1286,13 @@ var app = new Vue({
         vm.playersPlaying = vm.playersPlaying.filter(function(user) {
           return user.networkId !== msg.user.networkId
         });
+
+        for (var i = 0; i < vm.playersAll.length; i++) {
+          if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
+            vm.$set(vm.playersAll[i], 'score', 0);
+            break;
+          }
+        }
 
         vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
           return user.networkId !== msg.user.networkId

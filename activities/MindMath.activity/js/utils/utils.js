@@ -146,6 +146,39 @@ function rpnToSlots(pattern) {
   return slots
 }
 
+function findUselessOperations(slots) {
+  var resQueue = [];
+  var slotsGood = new Array(slots.length);
+
+  var resSlot = slots[slots.length - 1];
+  slotsGood[slots.length - 1] = 1;
+
+  if (resSlot.num1.type === 1) {
+    resQueue.push(resSlot.num1.val);
+  }
+  if (resSlot.num2.type === 1) {
+    resQueue.push(resSlot.num2.val);
+  }
+
+  while (resQueue.length !== 0) {
+    var res = resQueue.pop()
+    for (var i = slots.length - 2; i >= 0; i--) {
+      if (slotsGood[i] !== 1 && res === slots[i].res) {
+        if (slots[i].num1.type === 1) {
+          resQueue.push(slots[i].num1.val)
+        }
+        if (slots[i].num2.type === 1) {
+          resQueue.push(slots[i].num2.val)
+        }
+        slotsGood[i] = 1;
+        break;
+      }
+    }
+  }
+  //slotsGood[i] === 0 => ith operation is useless , otherwise it is good.
+  return slotsGood;
+}
+
 function calculateScoreFromSlots(slots, timeTaken, noOfHintsUsed) {
   var scr = 0;
   var map = {}
@@ -153,7 +186,8 @@ function calculateScoreFromSlots(slots, timeTaken, noOfHintsUsed) {
 
   for (var i = 0; i < slots.length; i++) {
     var slot = slots[i];
-    if (slot.operator != null) {
+    //consider only good operations or slots or ignore any useless operation
+    if (slot.operator != null && !slot.useless) {
       if (!(slot.operator in map)) {
         map[slot.operator] = 1;
         flag++
@@ -173,7 +207,7 @@ function calculateScoreFromSlots(slots, timeTaken, noOfHintsUsed) {
     scr = 13 + 4;
   }
   //considering timeTaken
-  var timeScore = Math.max(0, 16 - Math.floor(timeTaken / 4));
+  var timeScore = Math.max(0, 15 - Math.floor(timeTaken / 4));
   console.log('timeScore is: ' + timeScore);
   var totScore = 2 * scr + timeScore;
 
