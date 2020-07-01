@@ -8,6 +8,14 @@ Vue.component('sugar-localization', {
 			dictionary: null,
 			eventReceived: false,
 			activityInitialized: false,
+			units: [
+				{ name: 'Years', factor: 356 * 24 * 60 * 60 },
+				{ name: 'Months', factor: 30 * 24 * 60 * 60 },
+				{ name: 'Weeks', factor: 7 * 24 * 60 * 60 },
+				{ name: 'Days', factor: 24 * 60 * 60 },
+				{ name: 'Hours', factor: 60 * 60 },
+				{ name: 'Minutes', factor: 60 }
+			],
 		}
 	},
 	computed: {
@@ -43,7 +51,7 @@ Vue.component('sugar-localization', {
 				});
 			});
 			//Activity initialization check
-			var SugarActivity = vm.$root.$children.find(function(child) {
+			var SugarActivity = vm.$root.$children.find(function (child) {
 				return child.$options.name == 'SugarActivity';
 			});
 			SugarActivity.$on('initialized', function () {
@@ -54,7 +62,15 @@ Vue.component('sugar-localization', {
 	methods: {
 		// Get a single string with parameters
 		get: function (str, params) {
-			return this.l10n.get(str, params);
+			var out = this.getString(str);
+			var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+			for (var i in paramsInString) {
+				var param = paramsInString[i].match(/[\w\.]+/)[0];
+				if (params[param]) {
+					out = out.replace(paramsInString[i], params[param]);
+				}
+			}
+			return out;
 		},
 
 		// Get a single string value
@@ -75,6 +91,39 @@ Vue.component('sugar-localization', {
 			Object.keys(strings).forEach(function (key, index) {
 				strings[key] = vm.getString(key.substr(6));
 			});
+		},
+
+		// COnvert a UNIX timestamp to Sugarizer time elapsed string
+		timestampToElapsedString: function (timestamp, maxlevel, issmall) {
+			var suffix = (issmall ? "_short" : "");
+			var levels = 0;
+			var time_period = '';
+			var elapsed_seconds = ((new Date().getTime()) - timestamp) / 1000;
+			for (var i = 0; i < this.units.length; i++) {
+				var factor = this.units[i].factor;
+
+				var elapsed_units = Math.floor(elapsed_seconds / factor);
+				if (elapsed_units > 0) {
+					if (levels > 0)
+						time_period += ',';
+
+					time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one" + suffix) : this.get(this.units[i].name + "_other" + suffix));
+
+					elapsed_seconds -= elapsed_units * factor;
+				}
+
+				if (time_period != '')
+					levels += 1;
+
+				if (levels == maxlevel)
+					break;
+			}
+
+			if (levels == 0) {
+				return this.get("SecondsAgo" + suffix);
+			}
+
+			return this.get("Ago" + suffix, { time: time_period });
 		}
 	}
 });

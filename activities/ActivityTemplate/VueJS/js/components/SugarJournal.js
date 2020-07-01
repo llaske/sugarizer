@@ -71,5 +71,11 @@ Vue.component('sugar-journal', {
 				}, 0);
 			});
 		},
+
+		createEntry: function (data, metadata, callback) {
+			requirejs(["sugar-web/datastore"], function (datastore) {
+				datastore.create(metadata, callback, data);
+			});
+		}
 	}
 });
