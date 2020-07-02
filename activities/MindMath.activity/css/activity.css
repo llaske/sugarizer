@@ -419,6 +419,7 @@ body {
 
 .tutorial-prev-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-prev-icon1 {
@@ -453,6 +454,7 @@ body {
 
 .tutorial-next-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-next-icon1 {
@@ -487,6 +489,7 @@ body {
 
 .tutorial-end-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-end-icon1 {
