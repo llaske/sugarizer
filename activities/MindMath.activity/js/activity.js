@@ -188,29 +188,22 @@ var app = new Vue({
 
     slots: function() {
       var vm = this;
-      //update useless operations
       vm.updateUselessOperations();
-      //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
       //close hintPalette
       vm.$refs.hintPalette.paletteObject.popDown();
-      //generating hint
       vm.generateHint();
     },
 
     compulsoryOps: function() {
       var vm = this;
-      //update useless operations
       vm.updateUselessOperations();
-      //update compulsoryOpsRem
       vm.updateCompulsoryOpsRem();
-      //generating hint
       vm.generateHint();
     },
 
     qNo: function() {
       var vm = this;
-      //new question
       vm.redoStack = [];
       vm.next = [];
       vm.prev = [];
@@ -242,7 +235,6 @@ var app = new Vue({
               }
             });
           }
-
         }
       }
     },
@@ -586,7 +578,7 @@ var app = new Vue({
         if (vm.clock.active) {
           if (vm.mode === 'timer') {
             vm.$set(vm.clock, 'time', vm.clock.time - 1);
-            if (vm.clock.time === 0) {
+            if (vm.clock.time <= 0) {
               //end game
               vm.stopClock();
               vm.$set(vm.slots, vm.qNo, []);
@@ -908,7 +900,6 @@ var app = new Vue({
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
       console.log("Existing instance");
-      console.log(data);
 
       vm.mode = data.mode;
       vm.level = data.level;
@@ -1012,7 +1003,6 @@ var app = new Vue({
 
         case 'update-players':
           var data = msg.content.data;
-          console.log(data);
           vm.playersAll = data.playersAll;
           vm.playersPlaying = data.playersPlaying;
           vm.connectedPlayers = data.connectedPlayers;
