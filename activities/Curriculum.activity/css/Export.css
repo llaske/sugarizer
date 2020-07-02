@@ -1,7 +1,7 @@
 .doc-container {
 	width: 816px;
-  /* height: 0;
-  overflow: hidden; */
+  height: 0;
+  overflow: hidden;
 }
 #doc {
   width: 100%;

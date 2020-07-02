@@ -93,9 +93,9 @@ Vue.component('sugar-localization', {
 			});
 		},
 
-		// COnvert a UNIX timestamp to Sugarizer time elapsed string
-		timestampToElapsedString: function (timestamp, maxlevel, issmall) {
-			var suffix = (issmall ? "_short" : "");
+		// Convert a UNIX timestamp to Sugarizer time elapsed string
+		localizeTimestamp: function (timestamp) {
+			var maxlevel = 2;
 			var levels = 0;
 			var time_period = '';
 			var elapsed_seconds = ((new Date().getTime()) - timestamp) / 1000;
@@ -107,7 +107,7 @@ Vue.component('sugar-localization', {
 					if (levels > 0)
 						time_period += ',';
 
-					time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one" + suffix) : this.get(this.units[i].name + "_other" + suffix));
+					time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one") : this.get(this.units[i].name + "_other"));
 
 					elapsed_seconds -= elapsed_units * factor;
 				}
@@ -120,10 +120,10 @@ Vue.component('sugar-localization', {
 			}
 
 			if (levels == 0) {
-				return this.get("SecondsAgo" + suffix);
+				return this.get("SecondsAgo");
 			}
 
-			return this.get("Ago" + suffix, { time: time_period });
+			return this.get("Ago", { time: time_period });
 		}
 	}
 });

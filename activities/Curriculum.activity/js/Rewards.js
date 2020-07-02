@@ -41,9 +41,10 @@ var Trophy = {
 	methods: {
 		colorizeElements(colors) {
 			var vm = this;
-			this.$root.$refs.SugarIcon.generateIconWithColors('../icons/trophy-large.svg', colors, function(src) {
-				vm.$refs.trophyAcquired.style.backgroundImage = `url(${src})`;
-			});
+			this.$root.$refs.SugarIcon.generateIconWithColors('../icons/trophy-large.svg', colors)
+				.then(src => {
+					vm.$refs.trophyAcquired.style.backgroundImage = `url(${src})`;
+				});
 		}
 	}
 }
@@ -58,7 +59,7 @@ var Rewards = {
 					<h4>{{ item.title }}</h4>
 					<p 
 						v-if="user.achievements[item.id].timestamp" 
-					>{{ $root.$refs.SugarL10n.timestampToElapsedString(user.achievements[item.id].timestamp, 2) }}</p>
+					>{{ $root.$refs.SugarL10n.localizeTimestamp(user.achievements[item.id].timestamp) }}</p>
 					<p v-else>{{ getProperty(item.condition.property) }}/{{ computeValue(item.condition) }}</p>
 				</div>
 			</div>
@@ -211,23 +212,16 @@ var Rewards = {
 				if (this.user.achievements[item.id].timestamp == null) {
 					this.user.achievements[item.id].timestamp = Date.now();
 					var vm = this;
-					this.generateIconWithColors("../icons/trophy-large.svg", this.userColors, function (src) {
-						var img = "<img style='height:40px; margin:10px; vertical-align:middle;' src='" + src + "'>";
-						var html = `<div style="display: flex; align-items:center;">${img} <span><small style="color:#d3d3d3">Achievement acquired</small><br>${item.title}</span></div>`
-						vm.$root.$refs.SugarPopup.log(html);
-					});
+					this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.userColors)
+						.then(src => {
+							var img = "<img style='height:40px; margin:10px; vertical-align:middle;' src='" + src + "'>";
+							var html = `<div style="display: flex; align-items:center;">${img} <span><small style="color:#d3d3d3">Achievement acquired</small><br>${item.title}</span></div>`
+							vm.$root.$refs.SugarPopup.log(html);
+						});
 				}
 			} else if (this.user.achievements[item.id].timestamp != null) {
 				this.user.achievements[item.id].timestamp = null;
 			}
-		},
-
-		generateIconWithColors: function (path, colors, callback) {
-			requirejs([`text!${path}`], function (icon) {
-				icon = icon.replace(/(stroke)_color\s\"#?\w*\"/, `stroke_color "${colors.stroke}"`);
-				icon = icon.replace(/(fill)_color\s\"#?\w*\"/, `fill_color "${colors.fill}"`);
-				callback("data:image/svg+xml;base64," + btoa(icon));
-			});
 		}
 	}
 }

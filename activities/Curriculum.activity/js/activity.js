@@ -688,6 +688,8 @@ var app = new Vue({
 					this.categories = msg.content.data.categories;
 					this.user = msg.content.data.user;
 					this.notationLevel = msg.content.data.notationLevel;
+					this.currentenv = {};
+					this.currentenv.user = msg.user;
 					break;
 				case 'updateCategories':
 					this.categories = msg.content.data.categories;

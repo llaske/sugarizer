@@ -139,7 +139,7 @@
 						:levels="levels"
 						:notation-level="notationLevel"
 						:search-query="searchQuery"
-						:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
+						:user-colors="currentenv != null ? currentenv.user.colorvalue : { fill: '#d3d3d3', stroke: '#838383'}"
 						@template-selected="importTemplate"
 						@open-category="openCategory"
 						@open-skill="openSkill"

@@ -14,7 +14,7 @@
     }
 
     function traverse(ancestor){
-    var childnodes = ancestor.childNodes ;
+		var childnodes = ancestor.childNodes ;
     for(var i = 0 ; i < childnodes.length ; i++){
         if(childnodes[i].tagName=='P'){
             xml=xml+'\n';
@@ -164,8 +164,9 @@
                 if(tagName=='em') tagName='span';
                 if(tagName=='u') tagName='span';
                 if(tagName=='s') tagName='span';
-                xml = xml+'<text:'+tagName+' '+addstyle+'>';
-                if(childnodes[i].childNodes.length>1 || childnodes[i].childNodes[0].tagName == 'SPAN' || childnodes[i].childNodes[0].tagName == 'IMG' || childnodes[i].childNodes[0].tagName == 'U' || childnodes[i].childNodes[0].tagName == 'S' || childnodes[i].childNodes[0].tagName == 'STRONG' || childnodes[i].childNodes[0].tagName == 'EM'){
+								xml = xml+'<text:'+tagName+' '+addstyle+'>';
+								console.log(childnodes[i].childNodes);
+                if(childnodes[i].childNodes.length>1 && (childnodes[i].childNodes[0].tagName == 'SPAN' || childnodes[i].childNodes[0].tagName == 'IMG' || childnodes[i].childNodes[0].tagName == 'U' || childnodes[i].childNodes[0].tagName == 'S' || childnodes[i].childNodes[0].tagName == 'STRONG' || childnodes[i].childNodes[0].tagName == 'EM')){
                     traverse(childnodes[i]);
                     xml = xml+'</text:'+tagName+'>';
                 } else {
