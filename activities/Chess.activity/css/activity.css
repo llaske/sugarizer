@@ -204,6 +204,9 @@
   background-color: #f0d9b5;
   height: 30%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #player-clock {
@@ -218,13 +221,16 @@
   width: 30%;
   background-image: url(../icons/computer-icon.svg);
   background-repeat: no-repeat;
-  background-size: 80%;
+  background-size: contain;
   background-position: center;
 }
 
 .usrtime {
   background-color: #f0d9b5;
   width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tutPiece {
