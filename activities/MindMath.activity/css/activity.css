@@ -193,6 +193,13 @@ body {
   cursor: auto;
 }
 
+@media (hover:none), (hover:on-demand) {
+  /* suppress hover effect on devices that don't support hover fully*/
+  .btn-general-block:hover {
+    background-size: 80%;
+  }
+}
+
 @media only screen and (max-width: 406px) {
   #timer-button {
     display: none;
