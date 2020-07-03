@@ -23,20 +23,12 @@
 .stat-card .total {
 	font-size: 2em;
 }
-.level-distribution {
-	text-align: right;
+.stats-table{
 	border-spacing: 0;
 	width: 100%;
 	margin: 30px 0;
 	background: white;
-	color: gray;
 	padding: 10px;
-	border-radius: 10px;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
-}
-.level-distribution .text {
-	padding: 5px;
-	white-space:nowrap;
 }
 .bar-container {
 	padding: 5px;
@@ -45,8 +37,6 @@
 }
 .bar-container .bar {
 	height: 100%;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .trophies-container {

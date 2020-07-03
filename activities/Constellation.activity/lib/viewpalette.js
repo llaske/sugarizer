@@ -14,7 +14,7 @@ define(["viewpalettetemplate",
         var descriptionLabel;
         var descriptionBox;
 
-        this.getPalette().id = "activity-palette";
+        this.getPalette().id = "view-palette";
 
         var containerElem = document.createElement('div');
         containerElem.innerHTML = template;

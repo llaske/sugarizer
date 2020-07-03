@@ -33,6 +33,7 @@ var CategoryCard = {
 					:acquired="i < acquiredSkills.length ? acquiredSkills[i] : 0" 
 					:levels="levels" 
 					:notation-level="notationLevel" 
+					:userColors="userColors"
 				/>
 			</div>
 		</div>
@@ -40,7 +41,7 @@ var CategoryCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['category', 'user', 'settings', 'levels', 'notationLevel'],
+	props: ['category', 'user', 'settings', 'levels', 'notationLevel', 'userColors'],
 	computed: {
 		skillsToShow: function () {
 			var skills = [];
@@ -92,6 +93,7 @@ var CategoriesGrid = {
 					:settings="settings"
 					:levels="levels"
 					:notationLevel="notationLevel"
+					:userColors="userColors"
 					@skill-clicked="onSkillClick"
 					@category-clicked="onCategoryClick"
 					@edit-category-clicked="onEditCategoryClick"
@@ -103,7 +105,7 @@ var CategoriesGrid = {
 	components: {
 		'category-card': CategoryCard
 	},
-	props: ['categories', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery'],
+	props: ['categories', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery', 'userColors'],
 	methods: {
 		matchesSearch(str) {
 			var regex = new RegExp(this.searchQuery, "i")

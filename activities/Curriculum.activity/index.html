@@ -62,10 +62,8 @@
 				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
 				@click="switchSkillLevel" 
 				v-bind:title="l10n.stringAcquire"
-			>
-				<!-- <span>{{ levels[notationLevel][(currentAcquired+1)%(notationLevel+1)].grade }}</span> -->
-				<span>{{ levels[notationLevel][currentAcquired].grade }}</span>
-			</sugar-toolitem>
+				v-bind:icon="'icons/medal' + levels[notationLevel][currentAcquired].grade + '.svg'"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="upload-button" 
 				v-if="!sharedInstance"
@@ -111,8 +109,12 @@
 			<sugar-toolitem v-show="currentView == 'categories-grid'" splitbar></sugar-toolitem>
 			<sugar-toolitem
 				id="export-button"
-				v-show="currentView == 'categories-grid'" 
-				@click="$refs.Export.generatePDF()"
+				v-show="currentView == 'categories-grid'"
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-title="Export"
+				palette-event="format-selected"
+				@format-selected="onExportFormatSelected"
 				:title="l10n.stringExport"
 			></sugar-toolitem>
 
@@ -137,7 +139,7 @@
 						:levels="levels"
 						:notation-level="notationLevel"
 						:search-query="searchQuery"
-						:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
+						:user-colors="currentenv != null ? currentenv.user.colorvalue : { fill: '#d3d3d3', stroke: '#838383'}"
 						@template-selected="importTemplate"
 						@open-category="openCategory"
 						@open-skill="openSkill"
@@ -161,13 +163,15 @@
 			></rewards>
 			<export 
 				ref="Export"
-				v-if="rewardsInit"
+				v-if="exporting != ''"
 				:currentenv="currentenv"
 				:user="user" 
 				:categories="categories" 
 				:achievements="achievements" 
 				:levels="levels" 
 				:notation-level="notationLevel" 
+				:exporting="exporting"
+				@export-completed="exporting = ''"
 			></export>
 		</div>
 
@@ -179,6 +183,7 @@
 		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
+	<script src="lib/odt.js"></script>
 	<script src="js/TemplateSelection.js"></script>
 	<script src="js/SkillsAdditional.js"></script>
 	<script src="js/Skills.js"></script>

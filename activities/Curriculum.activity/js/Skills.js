@@ -15,7 +15,7 @@ var SkillCard = {
 					</transition>
 					<transition name="settings-zoom">
 						<button id="delete-button" @click.stop="onDeleteClick" v-if="settings"></button>
-						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="notationLevel"></medal>
+						<medal v-else small :acquired="acquired" :levels="levels" :notation-level="notationLevel" :userColors="userColors"></medal>
 					</transition>
 				</div>
 			<img :src="skill.image" alt="Skill image" class="skill-image" loading="lazy">
@@ -27,7 +27,7 @@ var SkillCard = {
 	components: {
 		'medal': Medal
 	},
-	props: ['skill', 'category', 'user', 'settings', 'levels', 'notationLevel'],
+	props: ['skill', 'category', 'user', 'settings', 'levels', 'notationLevel', 'userColors'],
 	computed: {
 		acquired: function () {
 			if (this.user && this.user.skills[this.category.id][this.skill.id]) {
@@ -77,6 +77,7 @@ var SkillsGrid = {
 						:settings="settings"
 						:levels="levels"
 						:notationLevel="notationLevel"
+						:userColors="userColors"
 						@skill-clicked="onSkillClick"
 						@edit-skill-clicked="onEditSkillClick"
 						@delete-clicked="deleteSkill"
@@ -89,7 +90,7 @@ var SkillsGrid = {
 	components: {
 		'skill-card': SkillCard,
 	},
-	props: ['categories', 'categoryId', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery'],
+	props: ['categories', 'categoryId', 'user', 'settings', 'levels', 'notationLevel', 'searchQuery', 'userColors'],
 	computed: {
 		category: function () {
 			var vm = this;
@@ -141,7 +142,13 @@ var SkillDetails = {
 			<div class="skill-title">
 				<h1>{{ skill.title }}</h1>
 				<span ref="underline3" class="underline"></span>	
-				<medal :acquired="currentAcquired" :levels="levels" :notation-level="notationLevel" @click="$root.switchSkillLevel" />
+				<medal 
+					:acquired="currentAcquired" 
+					:levels="levels" 
+					:notation-level="notationLevel"
+					:userColors="userColors"
+					@click="$root.switchSkillLevel" 
+				/>
 			</div>
 			<div class="skill-contents">
 				<div class="skill-image">
@@ -170,7 +177,7 @@ var SkillDetails = {
 		'upload-item': UploadItem,
 		'medal': Medal
 	},
-	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired', 'levels', 'notationLevel'],
+	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired', 'levels', 'notationLevel', 'userColors'],
 	computed: {
 		category: function () {
 			var vm = this;

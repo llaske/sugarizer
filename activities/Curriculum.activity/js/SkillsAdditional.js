@@ -3,11 +3,6 @@ var Medal = {
 	template: `
 		<div class="medal-container" v-on="$listeners" v-bind="$attrs">
 			<div :class="{'medal-small': small, 'medal-large': !small}">
-				<!-- 
-				<div ref="medal" class="medal" v-show="!acquired">
-					<p v-show="!small" class="grade">{{ levels[notationLevel][acquired].grade }}<p>
-				</div>
-				-->
 				<div ref="medalAcquired" class="medal acquired buddy">
 					<p v-show="!small" class="grade">{{ levels[notationLevel][acquired].grade }}<p>
 				</div>
@@ -25,15 +20,16 @@ var Medal = {
 			type: Number,
 			default: 1
 		},
-		levels: Object
+		levels: Object,
+		userColors: Object 
 	},
 	data: {
 		icon: null
 	},
 	computed: {
 		colors: function() {
-			if(this.notationLevel == 1 && this.acquired && this.$root.$refs.SugarActivity.getEnvironment()) {
-				return this.$root.$refs.SugarActivity.getEnvironment().user.colorvalue;
+			if(this.notationLevel == 1 && this.acquired) {
+				return this.userColors;
 			} else {
 				return this.levels[this.notationLevel][this.acquired].colors;
 			}
@@ -50,14 +46,15 @@ var Medal = {
 	methods: {
 		colorizeElements(colors) {
 			var vm = this;
-			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/medal.svg", colors, function(src) {
-				vm.$refs.medalAcquired.style.backgroundImage = `url(${src})`;
-			});
+			this.$root.$refs.SugarIcon.generateIconWithColors("../icons/medal.svg", colors)
+				.then(src => {
+					vm.$refs.medalAcquired.style.backgroundImage = `url(${src})`;
+				});
 			if(!this.small) {
-				this.$root.$refs.SugarIcon.colorize(this.$refs.shine1, colors);
-				this.$root.$refs.SugarIcon.colorize(this.$refs.shine2, colors);
+				this.$root.$refs.SugarIcon.colorizeIcon(this.$refs.shine1, colors);
+				this.$root.$refs.SugarIcon.colorizeIcon(this.$refs.shine2, colors);
 			}
-			this.$refs.medalAcquired.style.color = this.colors.stroke;
+			this.$refs.medalAcquired.style.color = colors.stroke;
 		}
 	}
 }
@@ -100,7 +97,7 @@ var UploadItem = {
 	props: ['item'],
 	computed: {
 		date: function () {
-			return this.$root.$refs.SugarL10n.timestampToElapsedString(this.item.timestamp, 2);
+			return this.$root.$refs.SugarL10n.localizeTimestamp(this.item.timestamp);
 		}
 	},
 	data: function () {

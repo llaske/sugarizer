@@ -1,0 +1,355 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Fri Jun 19 2020 21:30:12 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "joined"
+msgstr ""
+
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "left"
+msgstr ""
+
+#: YouWon
+msgctxt "YouWon"
+msgid "You Won"
+msgstr ""
+
+#: YouCheck
+msgctxt "YouCheck"
+msgid "In Check"
+msgstr ""
+
+#: YouLost
+msgctxt "YouLost"
+msgid "You Lost"
+msgstr ""
+
+#: MatchDraw
+msgctxt "MatchDraw"
+msgid "Game drawn"
+msgstr ""
+
+#: Vs
+msgctxt "Vs"
+msgid "Vs"
+msgstr ""
+
+#: TimeExpired
+msgctxt "TimeExpired"
+msgid "Your Time has been Expired"
+msgstr ""
+
+#: Thinking
+msgctxt "Thinking"
+msgid "Thinking..."
+msgstr ""
+
+#: ClockChanged
+msgctxt "ClockChanged"
+msgid "Clock Changed"
+msgstr ""
+
+#: ChessActivity
+msgctxt "ChessActivity"
+msgid "ChessActivity"
+msgstr ""
+
+#: New
+msgctxt "New"
+msgid "New Game"
+msgstr ""
+
+#: Tut
+msgctxt "Tut"
+msgid "Tutorial"
+msgstr ""
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr ""
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr ""
+
+#: Network
+msgctxt "Network"
+msgid "Network"
+msgstr ""
+
+#: Level
+msgctxt "Level"
+msgid "Level"
+msgstr ""
+
+#: Clock
+msgctxt "Clock"
+msgid "Change Clock"
+msgstr ""
+
+#: Color
+msgctxt "Color"
+msgid "Change Color"
+msgstr ""
+
+#: PrevShort
+msgctxt "PrevShort"
+msgid "Prev"
+msgstr ""
+
+#: NextShort
+msgctxt "NextShort"
+msgid "Next"
+msgstr ""
+
+#: EndShort
+msgctxt "EndShort"
+msgid "End"
+msgstr ""
+
+#: TutoWelcomeTitle
+msgctxt "TutoWelcomeTitle"
+msgid "Chess Activity"
+msgstr ""
+
+#: TutoWelcomeContent
+msgctxt "TutoWelcomeContent"
+msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr ""
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Chess Board"
+msgstr ""
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "The chessboard is made up of eight rows and eight columns for a total of 64 squares of alternating colors. you can hover on the piece to get legal moves and drag and drop pieces to move and play."
+msgstr ""
+
+#: TutoPlayerClockTitle
+msgctxt "TutoPlayerClockTitle"
+msgid "Your Clock"
+msgstr ""
+
+#: TutoPlayerClockContent
+msgctxt "TutoPlayerClockContent"
+msgid "This will show your time left if chess clock is not disabled"
+msgstr ""
+
+#: TutoOpponentClockTitle
+msgctxt "TutoOpponentClockTitle"
+msgid "Opponent's Clock"
+msgstr ""
+
+#: TutoOpponentClockContent
+msgctxt "TutoOpponentClockContent"
+msgid "This is will show your opponent's time left if chess clock is not disabled and you are not against computer"
+msgstr ""
+
+#: TutoFlagTitle
+msgctxt "TutoFlagTitle"
+msgid "Flags"
+msgstr ""
+
+#: TutoFlagContent
+msgctxt "TutoFlagContent"
+msgid "This will indicate you about various scenerios like if you lost or won the game or if you are in check"
+msgstr ""
+
+#: TutoMovesTitle
+msgctxt "TutoMovesTitle"
+msgid "Moves History"
+msgstr ""
+
+#: TutoMovesContent
+msgctxt "TutoMovesContent"
+msgid "This will contains all the previous moves made in game so far"
+msgstr ""
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Share Activity"
+msgstr ""
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share activity and play in multi user mode"
+msgstr ""
+
+#: TutoComputerLevelTitle
+msgctxt "TutoComputerLevelTitle"
+msgid "Computer difficulty level"
+msgstr ""
+
+#: TutoComputerLevelContent
+msgctxt "TutoComputerLevelContent"
+msgid "Click here to change computer difficulty level"
+msgstr ""
+
+#: TutoClockTitle
+msgctxt "TutoClockTitle"
+msgid "Chess Clock Setting"
+msgstr ""
+
+#: TutoClockContent
+msgctxt "TutoClockContent"
+msgid "Click here to choose Chess Clock.Only available at the start of the game and only host can change clock in shared mode."
+msgstr ""
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr ""
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click here to undo your move. Only available for Computer Mode"
+msgstr ""
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "New Game"
+msgstr ""
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to Restart Game.Only Host can restart game in shared mode"
+msgstr ""
+
+#: TutoColorChangeTitle
+msgctxt "TutoColorChangeTitle"
+msgid "Change Color"
+msgstr ""
+
+#: TutoColorChangeContent
+msgctxt "TutoColorChangeContent"
+msgid "Toggle to choose Color WHITE or BLACK. Only Available at the start of the Game and Only Host can change can toggle color in shared Mode"
+msgstr ""
+
+#: TutoBasicTitle
+msgctxt "TutoBasicTitle"
+msgid "Basic Overview"
+msgstr ""
+
+#: TutoBasicContent
+msgctxt "TutoBasicContent"
+msgid "Chess is a two-player game, where one player is assigned white pieces and the other black. Each player has 16 pieces to start the game: one king, one queen, two rooks, two bishops, two knights and eight pawns."
+msgstr ""
+
+#: TutoAimTitle
+msgctxt "TutoAimTitle"
+msgid "Aim of the game"
+msgstr ""
+
+#: TutoAimContent
+msgctxt "TutoAimContent"
+msgid "The Aim of the game is to capture the other player's king. This capture is never actually completed, but once a king is under attack and unable to avoid capture, it is said to be checkmated and the game is over."
+msgstr ""
+
+#: TutoPawnTitle
+msgctxt "TutoPawnTitle"
+msgid "How To Move Pawn?"
+msgstr ""
+
+#: TutoPawnContent
+msgctxt "TutoPawnContent"
+msgid "Pawns can move forward one square, if that square is unoccupied. If it has not yet moved, the pawn has the option of moving two squares forward provided both squares in front of the pawn are unoccupied. They can capture an enemy piece on either of the two spaces adjacent to the space in front of them that is the two squares diagonally in front of them but cannot move to these spaces if they are unoccupied."
+msgstr ""
+
+#: TutoKnightTitle
+msgctxt "TutoKnightTitle"
+msgid "How To Move Knight?"
+msgstr ""
+
+#: TutoKnightContent
+msgctxt "TutoKnightContent"
+msgid "Knight can move one square along any rank or file and then at an angle.the move can be viewed as an “L” or “7″ laid out at any horizontal or vertical angle."
+msgstr ""
+
+#: TutoBishopTitle
+msgctxt "TutoBishopTitle"
+msgid "How To Move Bishop?"
+msgstr ""
+
+#: TutoBishopContent
+msgctxt "TutoBishopContent"
+msgid "Bishop can move any number of vacant squares in any diagonal direction."
+msgstr ""
+
+#: TutoRookTitle
+msgctxt "TutoRookTitle"
+msgid "How To Move Rook?"
+msgstr ""
+
+#: TutoRookContent
+msgctxt "TutoRookContent"
+msgid "Rook can move any number of vacant squares vertically or horizontally. It also is moved while castling"
+msgstr ""
+
+#: TutoQueenTitle
+msgctxt "TutoQueenTitle"
+msgid "How To Move Queen?"
+msgstr ""
+
+#: TutoQueenContent
+msgctxt "TutoQueenContent"
+msgid "Queen can move any number of vacant squares diagonally, horizontally, or vertically."
+msgstr ""
+
+#: TutoKingTitle
+msgctxt "TutoKingTitle"
+msgid "How To Move king?"
+msgstr ""
+
+#: TutoKingContent
+msgctxt "TutoKingContent"
+msgid "King can move exactly one square horizontally, vertically, or diagonally. At most once in every game, each king is allowed to make a special move, known as castling."
+msgstr ""
+
+#: TutoPawnPromotionTitle
+msgctxt "TutoPawnPromotionTitle"
+msgid "What is Pawn Promotion?"
+msgstr ""
+
+#: TutoPawnPromotionContent
+msgctxt "TutoPawnPromotionContent"
+msgid "If a pawn reaches the opponent´s edge of the table, it will be promoted – the pawn may be converted to a queen, rook, bishop or knight, as the player desires."
+msgstr ""
+
+#: TutoCastlingTitle
+msgctxt "TutoCastlingTitle"
+msgid "What is Castling?"
+msgstr ""
+
+#: TutoCastlingContent
+msgctxt "TutoCastlingContent"
+msgid "During the castling, the king moves two squares towards the rook he intends to castle with, and the rook moves to the square through which the king passed if Neither king nor rook involved in castling may have moved from the original position and There are no pieces between the king and the rook"
+msgstr ""
+
+#: TutoDrawTitle
+msgctxt "TutoDrawTitle"
+msgid "what is game draw?"
+msgstr ""
+
+#: TutoDrawContent
+msgctxt "TutoDrawContent"
+msgid "The game is drawn when the player to move has no legal move and his king is not in check. The game is said to end in 'stalemate'."
+msgstr ""
+

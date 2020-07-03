@@ -20,7 +20,7 @@ Vue.component('sugar-journal', {
 							vm.$emit('journal-load-error', error);
 						}
 					});
-				} else {
+				} else if(!environment.sharedId) {
 					vm.$emit('journal-new-instance');
 				}
 			});
@@ -37,14 +37,6 @@ Vue.component('sugar-journal', {
 					console.log("write failed.");
 				}
 			});
-		},
-
-		turnCompressionOff: function () {
-			this.compression = false;
-		},
-
-		turnCompressionOn: function () {
-			this.compression = true;
 		},
 
 		insertFromJournal: function (type, callback) {
@@ -72,9 +64,13 @@ Vue.component('sugar-journal', {
 			});
 		},
 
-		createEntry: function(data, metadata, callback) {
-			requirejs(["sugar-web/datastore"], function(datastore) {
-				datastore.create(metadata, callback, data);
+		createEntry: function(data, metadata) {
+			return new Promise((resolve, reject) => {
+				requirejs(["sugar-web/datastore"], function(datastore) {
+					datastore.create(metadata, function() {
+						resolve();
+					}, data);
+				});
 			});
 		}
 	}
