@@ -152,7 +152,7 @@ var Export = {
 			stringTitle: '',
 			stringDateOfAcquisition: '',
 			stringMediaUploaded: '',
-			stringCurriculumReportBy: '',
+			stringBy: '',
 			stringStatistics: '',
 			stringRewards: ''
 		}
@@ -316,7 +316,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: `${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.txt`,
+				title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.txt`,
 				activity: "org.olpcfrance.Curriculum",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -340,7 +340,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: mimetype,
-				title: `${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.odt`,
+				title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.odt`,
 				activity: "org.olpcfrance.Curriculum",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -370,7 +370,7 @@ var Export = {
 				var mimetype = 'application/msword';
 				var metadata = {
 					mimetype: mimetype,
-					title: `${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.doc`,
+					title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.doc`,
 					activity: "org.olpcfrance.Curriculum",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
@@ -400,7 +400,7 @@ var Export = {
 									// Create Journal Entry
 									var metadata = {
 										mimetype: 'application/pdf',
-										title: `${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.pdf`,
+										title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.pdf`,
 										activity: "org.olpcfrance.Curriculum",
 										timestamp: new Date().getTime(),
 										creation_time: new Date().getTime(),
