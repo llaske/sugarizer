@@ -61,7 +61,7 @@ var Export = {
 		<div class="doc-container">
 			<div id="doc">
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
+				<h1 style="text-align: center">{{ templateTitle }}</h1>
 				<div style="display: inline-block; width: fit-content; text-align: center; margin: auto">
 					<ImageURL 
 						path="icons/owner-icon.svg"
@@ -70,6 +70,7 @@ var Export = {
 						@loaded="loadedImages++"
 					/>
 				</div>
+				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				
@@ -143,7 +144,7 @@ var Export = {
 	components: {
 		'ImageURL': ImageURL
 	},
-	props: ['categories', 'user', 'levels', 'notationLevel', 'currentenv', 'achievements', 'exporting'],
+	props: ['categories', 'user', 'levels', 'notationLevel', 'templateTitle', 'currentenv', 'achievements', 'exporting'],
 	data: () => ({
 		totalImages: 0,
 		loadedImages: 0,
@@ -421,9 +422,7 @@ var Export = {
 			return new Promise((resolve, reject) => {
 				doc.setFontStyle("bold");
 				doc.setFontSize(20);
-				doc.text(105, 100, vm.currentenv.user.name, { align: "center" });
-				doc.setFontSize(16);
-				doc.setFontStyle("normal");
+				doc.text(105, 100, vm.templateTitle, { align: "center" });
 				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
@@ -433,6 +432,9 @@ var Export = {
 								resolve();
 							});
 					});
+				doc.text(105, 150, vm.currentenv.user.name, { align: "center" });
+				doc.setFontSize(16);
+				doc.setFontStyle("normal");
 			})
 		},
 

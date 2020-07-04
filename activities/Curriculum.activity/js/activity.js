@@ -35,6 +35,7 @@ var app = new Vue({
 			skills: {}
 		},
 		notationLevel: 1,
+		templateTitle: '',
 		levels: {
 			1: [
 				{
@@ -308,7 +309,6 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
-			console.log
 			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
@@ -551,6 +551,7 @@ var app = new Vue({
 		importTemplate: function (template) {
 			var vm = this;
 			vm.notationLevel = template.notationLevel;
+			vm.templateTitle = template.templateTitle;
 			var categoriesParsed = template.categories;
 			var importedCategories = [];
 
@@ -668,6 +669,7 @@ var app = new Vue({
 				this.user = data.user;
 				this.categories = data.categories;
 				this.notationLevel = data.notationLevel;
+				this.templateTitle = data.templateTitle;
 				this.selectedCategoryId = data.selectedCategoryId;
 				this.selectedSkillId = data.selectedSkillId;
 				this.currentView = data.currentView;
@@ -738,6 +740,7 @@ var app = new Vue({
 					user: this.user,
 					categories: this.categories,
 					notationLevel: this.notationLevel,
+					templateTitle: this.templateTitle,
 					selectedCategoryId: this.selectedCategoryId,
 					selectedSkillId: this.selectedSkillId,
 					currentView: this.currentView
