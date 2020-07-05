@@ -1,5 +1,5 @@
 var Game = {
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived'],
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -10,6 +10,9 @@ var Game = {
         </div>
         <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}">
           <v-layer ref="layer" :config="configLayer">
+          <template v-if="puzzles[pNo]">
+            <v-line v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index" :config="targetTan"></v-line>
+          </template>
           <v-line v-for="(tan,index) in tans" :key="index" :config="tan"></v-line>
           </v-layer>
         </v-stage>

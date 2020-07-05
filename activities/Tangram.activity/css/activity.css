@@ -125,15 +125,15 @@ p {
 }
 
 .btn-restart {
-	background-image: url(../icons/play.svg);
+	background-image: url(../icons/restart-black.svg);
 }
 
 .btn-validate {
-	background-image: url(../icons/play.svg);
+	background-image: url(../icons/validate.svg);
 }
 
 .btn-pass {
-	background-image: url(../icons/play.svg);
+	background-image: url(../icons/pass-icon.svg);
 }
 
 .tutorial-icon-button {
