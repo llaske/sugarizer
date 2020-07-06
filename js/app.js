@@ -40,9 +40,13 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 				var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
 				return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 			};
-			if (getUrlParameter('rst') == 1) {
+			var rst = getUrlParameter('rst');
+			if (rst == 1) {
 				// Electron app parameter to start from a fresh install
 				util.cleanDatastore(true);
+			} else if (rst == 2) {
+				// Sugarizer OS auto logoff
+				util.cleanDatastore(null);
 			}
 		}
 		preferences.load(function(load) {
