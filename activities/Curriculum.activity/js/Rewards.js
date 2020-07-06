@@ -147,6 +147,9 @@ var Rewards = {
 			var result;
 			// console.log('poperty', property, 'value', value);
 
+			if(property == 0) {
+				return false;
+			}
 			switch (condition.op) {
 				case '==':
 					result = property == value;

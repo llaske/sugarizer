@@ -103,7 +103,10 @@ var CategorySettings = {
 		addCategory: function() {
 			var nextId = this.categories.length;
 			this.category.id = nextId;
-			this.categories.unshift(this.category);
+			this.categories.push(this.category);
+			setTimeout(function () {
+				content.scrollTop = content.scrollHeight;
+			}, 250);
 			this.$set(this.user.skills, nextId, new Object());
 		}
 	}
@@ -238,7 +241,10 @@ var SkillSettings = {
 		addSkill: function(catIndex) {
 			var nextId = this.categories[catIndex].skills.length;
 			this.skill.id = nextId;
-			this.categories[catIndex].skills.unshift(this.skill);
+			this.categories[catIndex].skills.push(this.skill);
+			setTimeout(function () {
+				content.scrollTop = content.scrollHeight;
+			}, 250);
 			this.$set(this.user.skills[this.categoryId], nextId, {
 				acquired: 0,
 				media: {}

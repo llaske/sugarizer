@@ -33,7 +33,7 @@ var ImageURL = {
 	},
 	methods: {
 		canvasToImage(path) {
-			if(path.indexOf('data:image/png') != -1) {
+			if (path.indexOf('data:image/png') != -1) {
 				return Promise.resolve(path);
 			}
 			return new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ var Export = {
 		<div class="doc-container">
 			<div id="doc">
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
+				<h1 style="text-align: center">{{ templateTitle }}</h1>
 				<div style="display: inline-block; width: fit-content; text-align: center; margin: auto">
 					<ImageURL 
 						path="icons/owner-icon.svg"
@@ -70,6 +70,7 @@ var Export = {
 						@loaded="loadedImages++"
 					/>
 				</div>
+				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				
@@ -143,7 +144,7 @@ var Export = {
 	components: {
 		'ImageURL': ImageURL
 	},
-	props: ['categories', 'user', 'levels', 'notationLevel', 'currentenv', 'achievements', 'exporting'],
+	props: ['categories', 'user', 'levels', 'notationLevel', 'templateTitle', 'currentenv', 'achievements', 'exporting'],
 	data: () => ({
 		totalImages: 0,
 		loadedImages: 0,
@@ -151,7 +152,7 @@ var Export = {
 			stringTitle: '',
 			stringDateOfAcquisition: '',
 			stringMediaUploaded: '',
-			stringCurriculumReportBy: '',
+			stringBy: '',
 			stringStatistics: '',
 			stringRewards: ''
 		}
@@ -244,7 +245,7 @@ var Export = {
 		},
 
 		canvasToImage(path) {
-			if(path.indexOf('data:image/png') != -1) {
+			if (path.indexOf('data:image/png') != -1) {
 				return Promise.resolve(path);
 			}
 			return new Promise((resolve, reject) => {
@@ -258,7 +259,8 @@ var Export = {
 					resolve({
 						dataURL: canvas.toDataURL("image/png"),
 						width: img.width,
-						height: img.height
+						height: img.height,
+						canvas: canvas
 					});
 				}
 			});
@@ -315,7 +317,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: `${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.txt`,
+				title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.txt`,
 				activity: "org.olpcfrance.Curriculum",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -332,26 +334,179 @@ var Export = {
 
 		generateODT() {
 			console.log('Exporting ODT...');
-			var data = document.getElementById("doc");
-			var xml = traverse(data);
-			var mimetype = 'application/vnd.oasis.opendocument.text';
-			var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(xml)));
-
-			var metadata = {
-				mimetype: mimetype,
-				title: `${this.l10n.stringCurriculumReportBy} ${this.currentenv.user.name}.odt`,
-				activity: "org.olpcfrance.Curriculum",
-				timestamp: new Date().getTime(),
-				creation_time: new Date().getTime(),
-				file_size: 0
-			};
-			var vm = this;
-			this.$root.$refs.SugarJournal.createEntry(inputData, metadata)
-				.then(() => {
-					vm.$root.$refs.SugarPopup.log('Export to ODT complete');
-					console.log('Export to ODT complete');
-					vm.$emit('export-completed');
+			this.constructODT()
+				.then(result => {
+					var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(result)));
+					// vm.download(result, "test.fodt", "application/vnd.oasis.opendocument.text");
+					var metadata = {
+						mimetype: 'application/vnd.oasis.opendocument.text',
+						title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.odt`,
+						activity: "org.olpcfrance.Curriculum",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					var vm = this;
+					this.$root.$refs.SugarJournal.createEntry(inputData, metadata)
+						.then(() => {
+							vm.$root.$refs.SugarPopup.log('Export to ODT complete');
+							console.log('Export to ODT complete');
+							vm.$emit('export-completed');
+						});
 				});
+
+		},
+
+		loadODT() {
+			return new Promise((resolve, reject) => {
+				requirejs(['js/odtHelper.js'], function (odt) {
+					resolve(odt);
+				});
+			})
+		},
+
+		constructODT() {
+			let vm = this;
+			return new Promise((resolve, reject) => {
+				vm.loadODT()
+					.then(async (odt) => {
+						let xml = odt.xml;
+						vm.addCoverToODT(odt)
+							.then(xmlData => {
+								xml += xmlData;
+								vm.addStatsToODT(odt)
+									.then(xmlData => {
+										xml += xmlData;
+										vm.addCategoriesToODT(odt)
+											.then(xmlData => {
+												xml += xmlData;
+												resolve(odt.header + odt.styles + odt.getAutomaticStyles() + odt.automaticStylesEnd + xml + odt.footer);
+											});
+									});
+							});
+					});
+			});
+		},
+
+		addCoverToODT(odt) {
+			let vm = this;
+			let xmlData = '';
+			return new Promise((resolve, reject) => {
+				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
+					.then(src => {
+						vm.canvasToImage(src)
+							.then(res => {
+								xmlData += odt.addCover(vm.templateTitle, res.dataURL, vm.currentenv.user.name)
+								resolve(xmlData);
+							});
+					});
+			})
+		},
+
+		addStatsToODT(odt) {
+			let vm = this;
+			let xmlData = '';
+			return new Promise((resolve, reject) => {
+				// Stats
+				odt.addLevelStyles(vm.levels[vm.notationLevel]);
+				let levels = [];
+				for (let key in vm.levels[vm.notationLevel]) {
+					levels.push({
+						text: vm.levels[vm.notationLevel][key].text,
+						percent: Math.round(vm.levelWiseAcquired[key] / vm.totalSkills * 100 * 100) / 100
+					});
+				}
+				xmlData += odt.addStatsTable(levels);
+
+				//Rewards
+				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", vm.currentenv.user.colorvalue)
+					.then(src => {
+						vm.canvasToImage(src)
+							.then(async function (trophyIcon) {
+								let achievementsToAdd = [];
+								for (var achievement of vm.achievements) {
+									if (vm.user.achievements[achievement.id].timestamp != null) {
+										var canvas = document.createElement('canvas');
+										canvas.width = trophyIcon.width;
+										canvas.height = trophyIcon.height;
+										var ctx = canvas.getContext("2d");
+										ctx.drawImage(trophyIcon.canvas, 0, 0);
+
+										// Trophy center icon
+										var centerIcon = await vm.canvasToImage(`icons/${achievement.info.icon}`);
+										ctx.drawImage(centerIcon.canvas, (trophyIcon.width / 2) - 10, trophyIcon.height / 3.5, 20, 20);
+										// Achievement Title
+										ctx.font = "bold 14px Arial";
+										ctx.fillStyle = "white";
+										ctx.textAlign = "center";
+										ctx.fillText(achievement.info.text, trophyIcon.width / 2, trophyIcon.height / 4);
+										let achievementObj = {
+											imageURL: canvas.toDataURL("image/png"),
+											title: achievement.title,
+											time: new Date(vm.user.achievements[achievement.id].timestamp).toLocaleDateString()
+										}
+										achievementsToAdd.push(achievementObj);
+									}
+								}
+								xmlData += odt.addRewards(achievementsToAdd);
+								resolve(xmlData);
+							});
+					});
+			});
+		},
+
+		addCategoriesToODT(odt) {
+			let vm = this;
+			let xmlData = '';
+			return new Promise(async (resolve, reject) => {
+				for (let category of vm.categories) {
+					let catObj = {
+						id: category.id,
+						title: category.title,
+						color: category.color
+					}
+					xmlData += odt.addCategoryTitle(catObj);
+
+					for (let skill of category.skills) {
+						let skillContent = '';
+						// SKill image
+						let res = await vm.canvasToImage(skill.image);
+						let imgWidth = 241.89;
+						let imgHeight = imgWidth * (res.height / res.width);
+						let imgFrame = odt.addImage(res.dataURL);
+						// Skill level
+						let levelObj = {
+							text: vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].text,
+							level: vm.user.skills[category.id][skill.id].acquired
+						}
+						let skillLevel = odt.addSkillLevel(levelObj);
+						// Skill title
+						skillContent = skillLevel + imgFrame;
+						skillContent = odt.addSkillTitle(skill.title, skillContent);
+						// Skill timestamp
+						if (vm.user.skills[category.id][skill.id].timestamp) {
+							skillContent += odt.addSkillTimestamp(new Date(vm.user.skills[category.id][skill.id].timestamp).toLocaleDateString());
+						}
+
+						// Media
+						var mediaFrame = '';
+						var uploads = vm.getUploads(category.id, skill.id);
+						for (var upload of uploads) {
+							let res = await vm.canvasToImage(vm.getUploadedPath(upload));
+							let mediaObj = {
+								imageURL: res.dataURL,
+								time: new Date(upload.timestamp).toLocaleDateString()
+							}
+							mediaFrame += odt.addMediaFrame(mediaObj);
+						}
+						mediaFrame = odt.addToMediaContainerFrame(mediaFrame);
+						skillContent += mediaFrame;
+						let skillFrame = odt.addToSkillFrame(skillContent);
+						xmlData += skillFrame;
+					}
+				}
+				resolve(xmlData);
+			});
 		},
 
 		generateDOC() {
@@ -369,7 +524,7 @@ var Export = {
 				var mimetype = 'application/msword';
 				var metadata = {
 					mimetype: mimetype,
-					title: `${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.doc`,
+					title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.doc`,
 					activity: "org.olpcfrance.Curriculum",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
@@ -399,7 +554,7 @@ var Export = {
 									// Create Journal Entry
 									var metadata = {
 										mimetype: 'application/pdf',
-										title: `${vm.l10n.stringCurriculumReportBy} ${vm.currentenv.user.name}.pdf`,
+										title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.pdf`,
 										activity: "org.olpcfrance.Curriculum",
 										timestamp: new Date().getTime(),
 										creation_time: new Date().getTime(),
@@ -421,9 +576,7 @@ var Export = {
 			return new Promise((resolve, reject) => {
 				doc.setFontStyle("bold");
 				doc.setFontSize(20);
-				doc.text(105, 100, vm.currentenv.user.name, { align: "center" });
-				doc.setFontSize(16);
-				doc.setFontStyle("normal");
+				doc.text(105, 100, this.parseString(vm.templateTitle), { align: "center" });
 				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
@@ -433,6 +586,9 @@ var Export = {
 								resolve();
 							});
 					});
+				doc.text(105, 150, this.parseString(vm.currentenv.user.name), { align: "center" });
+				doc.setFontSize(16);
+				doc.setFontStyle("normal");
 			})
 		},
 
@@ -476,7 +632,7 @@ var Export = {
 				this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
-							.then(async function(res) {
+							.then(async function (res) {
 								var trophyIcon = res.dataURL;
 								for (var achievement of vm.achievements) {
 									if (vm.user.achievements[achievement.id].timestamp != null) {
@@ -490,8 +646,8 @@ var Export = {
 										doc.setTextColor('#000000');
 										doc.setFontSize(12);
 										// Trophy center icon
-										var res = await vm.canvasToImage(`icons/${achievement.info.icon}`);
-										doc.addImage(res.dataURL, x + 13, y + 9, 4, 4);
+										var res2 = await vm.canvasToImage(`icons/${achievement.info.icon}`);
+										doc.addImage(res2.dataURL, x + 13, y + 9, 4, 4);
 										// Achievement Title
 										var splitTitle = doc.splitTextToSize(achievement.title, 30);
 										doc.text(x + 15, y + 40, splitTitle, { align: "center" });
@@ -523,7 +679,7 @@ var Export = {
 					// Category Title
 					doc.setFontSize(16);
 					doc.setFontStyle("bold");
-					splitTitle = doc.splitTextToSize(category.title, 180);
+					splitTitle = doc.splitTextToSize(this.parseString(category.title), 180);
 					doc.text(x, y, splitTitle);
 					doc.setFontStyle("normal");
 					var dim = doc.getTextDimensions(splitTitle);
@@ -547,7 +703,7 @@ var Export = {
 						doc.addImage(res.dataURL, x, y, imgWidth, imgHeight);
 
 						// Skill Title
-						splitTitle = doc.splitTextToSize(skill.title, 100);
+						splitTitle = doc.splitTextToSize(this.parseString(skill.title), 100);
 						doc.text(x + imgWidth + 10, y, splitTitle);
 						dim = doc.getTextDimensions(splitTitle);
 						// Skill level
@@ -601,7 +757,7 @@ var Export = {
 							doc.addImage(res.dataURL, x, y + 10, uploadWidth, uploadHeight);
 							doc.setFontSize(10);
 							doc.setTextColor('#838383');
-							doc.text(x + uploadWidth/2, y + uploadHeight + 15, new Date(upload.timestamp).toLocaleDateString(), { align: "center" });
+							doc.text(x + uploadWidth / 2, y + uploadHeight + 15, new Date(upload.timestamp).toLocaleDateString(), { align: "center" });
 							doc.setFontSize(12);
 							doc.setTextColor('#000000');
 							x += uploadWidth + 10;
@@ -614,6 +770,13 @@ var Export = {
 				}
 				resolve();
 			});
+		},
+
+		parseString(str) {
+			str = str.replace('&nbsp;', ' ');
+			let parsedText = document.createElement('p');
+			parsedText.innerHTML = str;
+			return str;
 		},
 
 		download: function (data, filename, type) {

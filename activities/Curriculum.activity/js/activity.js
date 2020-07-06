@@ -28,13 +28,16 @@ var app = new Vue({
 		exporting: '',
 		currentView: "categories-grid",
 		searchText: "",
+		// Template
+		templateTitle: '',
+		templateImage: '',
+		notationLevel: 1,
 		categories: [],
 		selectedCategoryId: null,
 		selectedSkillId: null,
 		user: {
 			skills: {}
 		},
-		notationLevel: 1,
 		levels: {
 			1: [
 				{
@@ -308,7 +311,6 @@ var app = new Vue({
 			for (var palette of document.getElementsByClassName('palette')) {
 				palette.style.visibility = 'hidden';
 			}
-			console.log
 			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
@@ -551,6 +553,8 @@ var app = new Vue({
 		importTemplate: function (template) {
 			var vm = this;
 			vm.notationLevel = template.notationLevel;
+			vm.templateTitle = template.templateTitle;
+			vm.templateImage = template.templateImage;
 			var categoriesParsed = template.categories;
 			var importedCategories = [];
 
@@ -563,7 +567,6 @@ var app = new Vue({
 
 				category.skills.forEach(function (skill, i) {
 					if(!template.fromURL) {
-						skill.image = 'images/skills/' + skill.image;
 						vm.$set(vm.l10n, 'string' + skill.title, '');
 					}
 
@@ -665,9 +668,11 @@ var app = new Vue({
 			if(data.currentView == 'template-selection') {
 				this.currentView = data.currentView;
 			} else {
-				this.user = data.user;
-				this.categories = data.categories;
+				this.templateTitle = data.templateTitle;
+				this.templateImage = data.templateImage;
 				this.notationLevel = data.notationLevel;
+				this.categories = data.categories;
+				this.user = data.user;
 				this.selectedCategoryId = data.selectedCategoryId;
 				this.selectedSkillId = data.selectedSkillId;
 				this.currentView = data.currentView;
@@ -735,9 +740,11 @@ var app = new Vue({
 				}
 			} else {
 				context = {
-					user: this.user,
-					categories: this.categories,
+					templateTitle: this.templateTitle,
+					templateImage: this.templateImage,
 					notationLevel: this.notationLevel,
+					categories: this.categories,
+					user: this.user,
 					selectedCategoryId: this.selectedCategoryId,
 					selectedSkillId: this.selectedSkillId,
 					currentView: this.currentView
