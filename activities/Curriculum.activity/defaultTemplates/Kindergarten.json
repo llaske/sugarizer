@@ -1,854 +1,854 @@
 {
-	"templateTitle": "Kindergarten Evaluation",
-	"templateImage": "715AD07B-653D-717B-CE88-6B4850252581.jpg",
+	"templateTitle": "DefaultSkillSet0",
+	"templateImage": "images/skills/86DC6FD9-32A6-8DA6-5AA7-C2B608FACAB3.jpg",
 	"notationLevel": 1,
 	"categories": [
 		{
 			"id": 0,
 			"color": "#84ff00",
-			"title": "DefaultSkillSetCategory0",
+			"title": "DefaultSkillSet0Category0",
 			"skills": [
 				{
 					"id": 0,
-					"image": "715AD07B-653D-717B-CE88-6B4850252581.jpg",
-					"title": "DefaultSkillSetCategory0Skill0"
+					"image": "images/skills/715AD07B-653D-717B-CE88-6B4850252581.jpg",
+					"title": "DefaultSkillSet0Category0Skill0"
 				},
 				{
 					"id": 1,
-					"image": "41C91E24-D424-1888-69C1-0DF6E7445534.jpg",
-					"title": "DefaultSkillSetCategory0Skill1"
+					"image": "images/skills/41C91E24-D424-1888-69C1-0DF6E7445534.jpg",
+					"title": "DefaultSkillSet0Category0Skill1"
 				},
 				{
 					"id": 2,
-					"image": "19DB4A3E-4619-A118-71F4-6DD6958463B8.jpg",
-					"title": "DefaultSkillSetCategory0Skill2"
+					"image": "images/skills/19DB4A3E-4619-A118-71F4-6DD6958463B8.jpg",
+					"title": "DefaultSkillSet0Category0Skill2"
 				},
 				{
 					"id": 3,
-					"image": "17281CF0-93DB-729C-A2AB-24E63E712550.jpg",
-					"title": "DefaultSkillSetCategory0Skill3"
+					"image": "images/skills/17281CF0-93DB-729C-A2AB-24E63E712550.jpg",
+					"title": "DefaultSkillSet0Category0Skill3"
 				},
 				{
 					"id": 4,
-					"image": "DE1286D4-1695-EDA7-EEA7-173DE1120819.jpg",
-					"title": "DefaultSkillSetCategory0Skill4"
+					"image": "images/skills/DE1286D4-1695-EDA7-EEA7-173DE1120819.jpg",
+					"title": "DefaultSkillSet0Category0Skill4"
 				},
 				{
 					"id": 5,
-					"image": "993AF72A-EC72-4C03-99D2-5441DC67C763.jpg",
-					"title": "DefaultSkillSetCategory0Skill5"
+					"image": "images/skills/993AF72A-EC72-4C03-99D2-5441DC67C763.jpg",
+					"title": "DefaultSkillSet0Category0Skill5"
 				},
 				{
 					"id": 6,
-					"image": "A82B8087-8EB7-48C7-87E4-BE15E481E1CD.jpg",
-					"title": "DefaultSkillSetCategory0Skill6"
+					"image": "images/skills/A82B8087-8EB7-48C7-87E4-BE15E481E1CD.jpg",
+					"title": "DefaultSkillSet0Category0Skill6"
 				},
 				{
 					"id": 7,
-					"image": "E13792EF-C124-4BCA-B3A1-EABC59D772E0.jpg",
-					"title": "DefaultSkillSetCategory0Skill7"
+					"image": "images/skills/E13792EF-C124-4BCA-B3A1-EABC59D772E0.jpg",
+					"title": "DefaultSkillSet0Category0Skill7"
 				},
 				{
 					"id": 8,
-					"image": "413D12DB-D599-4FF3-BAD1-35CDBB72A74A.jpg",
-					"title": "DefaultSkillSetCategory0Skill8"
+					"image": "images/skills/413D12DB-D599-4FF3-BAD1-35CDBB72A74A.jpg",
+					"title": "DefaultSkillSet0Category0Skill8"
 				},
 				{
 					"id": 9,
-					"image": "02E97696-5825-4140-8117-D43963977C42.jpg",
-					"title": "DefaultSkillSetCategory0Skill9"
+					"image": "images/skills/02E97696-5825-4140-8117-D43963977C42.jpg",
+					"title": "DefaultSkillSet0Category0Skill9"
 				},
 				{
 					"id": 10,
-					"image": "424852B0-FD34-40DC-95CD-29B2322678B3.jpg",
-					"title": "DefaultSkillSetCategory0Skill10"
+					"image": "images/skills/424852B0-FD34-40DC-95CD-29B2322678B3.jpg",
+					"title": "DefaultSkillSet0Category0Skill10"
 				},
 				{
 					"id": 11,
-					"image": "EBA2EA5A-2783-6797-93BA-8D3C814A5BE8.jpg",
-					"title": "DefaultSkillSetCategory0Skill11"
+					"image": "images/skills/EBA2EA5A-2783-6797-93BA-8D3C814A5BE8.jpg",
+					"title": "DefaultSkillSet0Category0Skill11"
 				}
 			]
 		},
 		{
 			"id": 1,
 			"color": "#84ff00",
-			"title": "DefaultSkillSetCategory1",
+			"title": "DefaultSkillSet0Category1",
 			"skills": [
 				{
 					"id": 0,
-					"image": "B7DF24A7-661A-F548-ADCB-82488202DF20.jpg",
-					"title": "DefaultSkillSetCategory1Skill0"
+					"image": "images/skills/B7DF24A7-661A-F548-ADCB-82488202DF20.jpg",
+					"title": "DefaultSkillSet0Category1Skill0"
 				},
 				{
 					"id": 1,
-					"image": "8CC9E3BE-25CE-C337-DD03-F1C6E2AD29EB.jpg",
-					"title": "DefaultSkillSetCategory1Skill1"
+					"image": "images/skills/8CC9E3BE-25CE-C337-DD03-F1C6E2AD29EB.jpg",
+					"title": "DefaultSkillSet0Category1Skill1"
 				},
 				{
 					"id": 2,
-					"image": "0896D73E-2C06-1D9E-3C6B-277CF2748863.jpg",
-					"title": "DefaultSkillSetCategory1Skill2"
+					"image": "images/skills/0896D73E-2C06-1D9E-3C6B-277CF2748863.jpg",
+					"title": "DefaultSkillSet0Category1Skill2"
 				},
 				{
 					"id": 3,
-					"image": "E16A7D42-83E3-3A90-329B-D35B9BC92C7D.jpg",
-					"title": "DefaultSkillSetCategory1Skill3"
+					"image": "images/skills/E16A7D42-83E3-3A90-329B-D35B9BC92C7D.jpg",
+					"title": "DefaultSkillSet0Category1Skill3"
 				},
 				{
 					"id": 4,
-					"image": "9BB5487D-3034-7A19-3850-3A4999B85CCC.jpg",
-					"title": "DefaultSkillSetCategory1Skill4"
+					"image": "images/skills/9BB5487D-3034-7A19-3850-3A4999B85CCC.jpg",
+					"title": "DefaultSkillSet0Category1Skill4"
 				},
 				{
 					"id": 5,
-					"image": "8E437C94-4B35-8922-7B6A-4E337A1AA379.jpg",
-					"title": "DefaultSkillSetCategory1Skill5"
+					"image": "images/skills/8E437C94-4B35-8922-7B6A-4E337A1AA379.jpg",
+					"title": "DefaultSkillSet0Category1Skill5"
 				}
 			]
 		},
 		{
 			"id": 2,
 			"color": "#84ff00",
-			"title": "DefaultSkillSetCategory2",
+			"title": "DefaultSkillSet0Category2",
 			"skills": [
 				{
 					"id": 0,
-					"image": "99C8F661-2EBD-68E2-19EC-5A29D319B362.jpg",
-					"title": "DefaultSkillSetCategory2Skill0"
+					"image": "images/skills/99C8F661-2EBD-68E2-19EC-5A29D319B362.jpg",
+					"title": "DefaultSkillSet0Category2Skill0"
 				},
 				{
 					"id": 1,
-					"image": "BEA7AF97-CB1F-0BE8-DDBE-DF2E1579603A.jpg",
-					"title": "DefaultSkillSetCategory2Skill1"
+					"image": "images/skills/BEA7AF97-CB1F-0BE8-DDBE-DF2E1579603A.jpg",
+					"title": "DefaultSkillSet0Category2Skill1"
 				},
 				{
 					"id": 2,
-					"image": "499C6BA5-71F3-09E1-4D41-F2A66FA6E422.jpg",
-					"title": "DefaultSkillSetCategory2Skill2"
+					"image": "images/skills/499C6BA5-71F3-09E1-4D41-F2A66FA6E422.jpg",
+					"title": "DefaultSkillSet0Category2Skill2"
 				},
 				{
 					"id": 3,
-					"image": "A5E993B9-8D6A-2B99-4931-A97ED2B9D678.jpg",
-					"title": "DefaultSkillSetCategory2Skill3"
+					"image": "images/skills/A5E993B9-8D6A-2B99-4931-A97ED2B9D678.jpg",
+					"title": "DefaultSkillSet0Category2Skill3"
 				},
 				{
 					"id": 4,
-					"image": "BAF06517-6676-9CEA-C2D1-18B28A986882.jpg",
-					"title": "DefaultSkillSetCategory2Skill4"
+					"image": "images/skills/BAF06517-6676-9CEA-C2D1-18B28A986882.jpg",
+					"title": "DefaultSkillSet0Category2Skill4"
 				},
 				{
 					"id": 5,
-					"image": "3F90A747-CBBA-C7CD-F279-9BAADD320139.jpg",
-					"title": "DefaultSkillSetCategory2Skill5"
+					"image": "images/skills/3F90A747-CBBA-C7CD-F279-9BAADD320139.jpg",
+					"title": "DefaultSkillSet0Category2Skill5"
 				},
 				{
 					"id": 6,
-					"image": "F24D4254-1D20-1BBC-8217-09762E2D41ED.jpg",
-					"title": "DefaultSkillSetCategory2Skill6"
+					"image": "images/skills/F24D4254-1D20-1BBC-8217-09762E2D41ED.jpg",
+					"title": "DefaultSkillSet0Category2Skill6"
 				}
 			]
 		},
 		{
 			"id": 3,
 			"color": "#84ff00",
-			"title": "DefaultSkillSetCategory3",
+			"title": "DefaultSkillSet0Category3",
 			"skills": [
 				{
 					"id": 0,
-					"image": "8C747F89-4224-8408-1D3B-AE50D92E1D72.jpg",
-					"title": "DefaultSkillSetCategory3Skill0"
+					"image": "images/skills/8C747F89-4224-8408-1D3B-AE50D92E1D72.jpg",
+					"title": "DefaultSkillSet0Category3Skill0"
 				},
 				{
 					"id": 1,
-					"image": "929E6B56-79B8-36A6-26D9-134D3FE1C2D7.jpg",
-					"title": "DefaultSkillSetCategory3Skill1"
+					"image": "images/skills/929E6B56-79B8-36A6-26D9-134D3FE1C2D7.jpg",
+					"title": "DefaultSkillSet0Category3Skill1"
 				},
 				{
 					"id": 2,
-					"image": "8A3CE93B-161C-3A62-3481-55EEA55F1026.jpg",
-					"title": "DefaultSkillSetCategory3Skill2"
+					"image": "images/skills/8A3CE93B-161C-3A62-3481-55EEA55F1026.jpg",
+					"title": "DefaultSkillSet0Category3Skill2"
 				},
 				{
 					"id": 3,
-					"image": "EB199585-B36D-9299-D941-279CBBD9E1F7.jpg",
-					"title": "DefaultSkillSetCategory3Skill3"
+					"image": "images/skills/EB199585-B36D-9299-D941-279CBBD9E1F7.jpg",
+					"title": "DefaultSkillSet0Category3Skill3"
 				},
 				{
 					"id": 4,
-					"image": "CD1BCAC6-BC1A-7A10-D071-D37ADB51BA8E.jpg",
-					"title": "DefaultSkillSetCategory3Skill4"
+					"image": "images/skills/CD1BCAC6-BC1A-7A10-D071-D37ADB51BA8E.jpg",
+					"title": "DefaultSkillSet0Category3Skill4"
 				},
 				{
 					"id": 5,
-					"image": "489A1966-5D05-D4C0-F7CD-F43C3558B266.jpg",
-					"title": "DefaultSkillSetCategory3Skill5"
+					"image": "images/skills/489A1966-5D05-D4C0-F7CD-F43C3558B266.jpg",
+					"title": "DefaultSkillSet0Category3Skill5"
 				},
 				{
 					"id": 6,
-					"image": "17B51600-DE92-4AEB-A545-39B6901C3304.jpg",
-					"title": "DefaultSkillSetCategory3Skill6"
+					"image": "images/skills/17B51600-DE92-4AEB-A545-39B6901C3304.jpg",
+					"title": "DefaultSkillSet0Category3Skill6"
 				},
 				{
 					"id": 7,
-					"image": "6F8C5F97-E558-4B3E-9964-F95B23BF0910.jpg",
-					"title": "DefaultSkillSetCategory3Skill7"
+					"image": "images/skills/6F8C5F97-E558-4B3E-9964-F95B23BF0910.jpg",
+					"title": "DefaultSkillSet0Category3Skill7"
 				},
 				{
 					"id": 8,
-					"image": "D7EFFBC2-B746-8E8A-BD5C-65EBB5AAD789.jpg",
-					"title": "DefaultSkillSetCategory3Skill8"
+					"image": "images/skills/D7EFFBC2-B746-8E8A-BD5C-65EBB5AAD789.jpg",
+					"title": "DefaultSkillSet0Category3Skill8"
 				},
 				{
 					"id": 9,
-					"image": "B0B2D360-F6A6-440B-B03A-CA9E6E7DF7A8.jpg",
-					"title": "DefaultSkillSetCategory3Skill9"
+					"image": "images/skills/B0B2D360-F6A6-440B-B03A-CA9E6E7DF7A8.jpg",
+					"title": "DefaultSkillSet0Category3Skill9"
 				},
 				{
 					"id": 10,
-					"image": "6070D65A-81C5-4EDD-B4E1-78E47035E44E.jpg",
-					"title": "DefaultSkillSetCategory3Skill10"
+					"image": "images/skills/6070D65A-81C5-4EDD-B4E1-78E47035E44E.jpg",
+					"title": "DefaultSkillSet0Category3Skill10"
 				},
 				{
 					"id": 11,
-					"image": "B2E04044-8475-45AF-A54A-B0E4E610B840.jpg",
-					"title": "DefaultSkillSetCategory3Skill11"
+					"image": "images/skills/B2E04044-8475-45AF-A54A-B0E4E610B840.jpg",
+					"title": "DefaultSkillSet0Category3Skill11"
 				}
 			]
 		},
 		{
 			"id": 4,
 			"color": "#84ff00",
-			"title": "DefaultSkillSetCategory4",
+			"title": "DefaultSkillSet0Category4",
 			"skills": [
 				{
 					"id": 0,
-					"image": "919A507D-47FD-BECB-84BC-2BA24E6583D5.jpg",
-					"title": "DefaultSkillSetCategory4Skill0"
+					"image": "images/skills/919A507D-47FD-BECB-84BC-2BA24E6583D5.jpg",
+					"title": "DefaultSkillSet0Category4Skill0"
 				}
 			]
 		},
 		{
 			"id": 5,
 			"color": "#4d9b28",
-			"title": "DefaultSkillSetCategory5",
+			"title": "DefaultSkillSet0Category5",
 			"skills": [
 				{
 					"id": 0,
-					"image": "E4F1AB08-3168-23B7-71C7-D71CD66939F4.jpg",
-					"title": "DefaultSkillSetCategory5Skill0"
+					"image": "images/skills/E4F1AB08-3168-23B7-71C7-D71CD66939F4.jpg",
+					"title": "DefaultSkillSet0Category5Skill0"
 				},
 				{
 					"id": 1,
-					"image": "257EA5E3-258E-B5DD-FEFF-2638C7B78B19.jpg",
-					"title": "DefaultSkillSetCategory5Skill1"
+					"image": "images/skills/257EA5E3-258E-B5DD-FEFF-2638C7B78B19.jpg",
+					"title": "DefaultSkillSet0Category5Skill1"
 				},
 				{
 					"id": 2,
-					"image": "3AE01E71-EA41-3A24-8C39-E416D37F0610.jpg",
-					"title": "DefaultSkillSetCategory5Skill2"
+					"image": "images/skills/3AE01E71-EA41-3A24-8C39-E416D37F0610.jpg",
+					"title": "DefaultSkillSet0Category5Skill2"
 				},
 				{
 					"id": 3,
-					"image": "2914CEC1-D712-3D83-C5F9-B63A14CC6E9B.jpg",
-					"title": "DefaultSkillSetCategory5Skill3"
+					"image": "images/skills/2914CEC1-D712-3D83-C5F9-B63A14CC6E9B.jpg",
+					"title": "DefaultSkillSet0Category5Skill3"
 				}
 			]
 		},
 		{
 			"id": 6,
 			"color": "#3f7f21",
-			"title": "DefaultSkillSetCategory6",
+			"title": "DefaultSkillSet0Category6",
 			"skills": [
 				{
 					"id": 0,
-					"image": "2830F199-49F0-451A-A5CD-E42FF15A6150.jpg",
-					"title": "DefaultSkillSetCategory6Skill0"
+					"image": "images/skills/2830F199-49F0-451A-A5CD-E42FF15A6150.jpg",
+					"title": "DefaultSkillSet0Category6Skill0"
 				}
 			]
 		},
 		{
 			"id": 7,
 			"color": "#2d5c17",
-			"title": "DefaultSkillSetCategory7",
+			"title": "DefaultSkillSet0Category7",
 			"skills": [
 				{
 					"id": 0,
-					"image": "958AF2A0-C171-7C37-26AA-ECA074584F6A.jpg",
-					"title": "DefaultSkillSetCategory7Skill0"
+					"image": "images/skills/958AF2A0-C171-7C37-26AA-ECA074584F6A.jpg",
+					"title": "DefaultSkillSet0Category7Skill0"
 				},
 				{
 					"id": 1,
-					"image": "B38AAAEE-4421-CE4D-9248-9478CD9AC24A.jpg",
-					"title": "DefaultSkillSetCategory7Skill1"
+					"image": "images/skills/B38AAAEE-4421-CE4D-9248-9478CD9AC24A.jpg",
+					"title": "DefaultSkillSet0Category7Skill1"
 				},
 				{
 					"id": 2,
-					"image": "788797A8-A5DB-478D-4BED-AB449BD5D896.jpg",
-					"title": "DefaultSkillSetCategory7Skill2"
+					"image": "images/skills/788797A8-A5DB-478D-4BED-AB449BD5D896.jpg",
+					"title": "DefaultSkillSet0Category7Skill2"
 				},
 				{
 					"id": 3,
-					"image": "ABCE8861-9A4F-31F3-1A14-A760A6D0372B.jpg",
-					"title": "DefaultSkillSetCategory7Skill3"
+					"image": "images/skills/ABCE8861-9A4F-31F3-1A14-A760A6D0372B.jpg",
+					"title": "DefaultSkillSet0Category7Skill3"
 				},
 				{
 					"id": 4,
-					"image": "C18191D2-43A9-2978-BC78-0452167BA154.jpg",
-					"title": "DefaultSkillSetCategory7Skill4"
+					"image": "images/skills/C18191D2-43A9-2978-BC78-0452167BA154.jpg",
+					"title": "DefaultSkillSet0Category7Skill4"
 				},
 				{
 					"id": 5,
-					"image": "93C800B8-BF69-1A8B-E58E-87E4D3A74844.jpg",
-					"title": "DefaultSkillSetCategory7Skill5"
+					"image": "images/skills/93C800B8-BF69-1A8B-E58E-87E4D3A74844.jpg",
+					"title": "DefaultSkillSet0Category7Skill5"
 				},
 				{
 					"id": 6,
-					"image": "98E4E9E5-4E4E-617E-8579-F858EF8B6664.jpg",
-					"title": "DefaultSkillSetCategory7Skill6"
+					"image": "images/skills/98E4E9E5-4E4E-617E-8579-F858EF8B6664.jpg",
+					"title": "DefaultSkillSet0Category7Skill6"
 				},
 				{
 					"id": 7,
-					"image": "FF6166FE-BDB3-47FF-9678-787904F6AD82.jpg",
-					"title": "DefaultSkillSetCategory7Skill7"
+					"image": "images/skills/FF6166FE-BDB3-47FF-9678-787904F6AD82.jpg",
+					"title": "DefaultSkillSet0Category7Skill7"
 				},
 				{
 					"id": 8,
-					"image": "42CCAAED-989F-4ECB-A705-499B7389143C.jpg",
-					"title": "DefaultSkillSetCategory7Skill8"
+					"image": "images/skills/42CCAAED-989F-4ECB-A705-499B7389143C.jpg",
+					"title": "DefaultSkillSet0Category7Skill8"
 				},
 				{
 					"id": 9,
-					"image": "0EE874E9-479B-4255-B28C-BB5D2FF9F310.jpg",
-					"title": "DefaultSkillSetCategory7Skill9"
+					"image": "images/skills/0EE874E9-479B-4255-B28C-BB5D2FF9F310.jpg",
+					"title": "DefaultSkillSet0Category7Skill9"
 				}
 			]
 		},
 		{
 			"id": 8,
 			"color": "#13ffcd",
-			"title": "DefaultSkillSetCategory8",
+			"title": "DefaultSkillSet0Category8",
 			"skills": [
 				{
 					"id": 0,
-					"image": "2124A8DD-4727-D208-A28E-AE511568683D.jpg",
-					"title": "DefaultSkillSetCategory8Skill0"
+					"image": "images/skills/2124A8DD-4727-D208-A28E-AE511568683D.jpg",
+					"title": "DefaultSkillSet0Category8Skill0"
 				},
 				{
 					"id": 1,
-					"image": "5CBA5762-B521-386E-94C3-7FDE7636E645.jpg",
-					"title": "DefaultSkillSetCategory8Skill1"
+					"image": "images/skills/5CBA5762-B521-386E-94C3-7FDE7636E645.jpg",
+					"title": "DefaultSkillSet0Category8Skill1"
 				},
 				{
 					"id": 2,
-					"image": "1D142724-A233-8473-627F-87C997BC8F52.jpg",
-					"title": "DefaultSkillSetCategory8Skill2"
+					"image": "images/skills/1D142724-A233-8473-627F-87C997BC8F52.jpg",
+					"title": "DefaultSkillSet0Category8Skill2"
 				},
 				{
 					"id": 3,
-					"image": "14DA8AB9-34F5-2BBD-E847-D259E87D0F82.jpg",
-					"title": "DefaultSkillSetCategory8Skill3"
+					"image": "images/skills/14DA8AB9-34F5-2BBD-E847-D259E87D0F82.jpg",
+					"title": "DefaultSkillSet0Category8Skill3"
 				},
 				{
 					"id": 4,
-					"image": "43E16CE9-4152-D6EE-39A4-486B09513A22.jpg",
-					"title": "DefaultSkillSetCategory8Skill4"
+					"image": "images/skills/43E16CE9-4152-D6EE-39A4-486B09513A22.jpg",
+					"title": "DefaultSkillSet0Category8Skill4"
 				},
 				{
 					"id": 5,
-					"image": "EC78198B-5A85-B64D-ACBE-B770631BCE18.jpg",
-					"title": "DefaultSkillSetCategory8Skill5"
+					"image": "images/skills/EC78198B-5A85-B64D-ACBE-B770631BCE18.jpg",
+					"title": "DefaultSkillSet0Category8Skill5"
 				},
 				{
 					"id": 6,
-					"image": "DB5B678A-9C97-E132-AC48-617419F66148.jpg",
-					"title": "DefaultSkillSetCategory8Skill6"
+					"image": "images/skills/DB5B678A-9C97-E132-AC48-617419F66148.jpg",
+					"title": "DefaultSkillSet0Category8Skill6"
 				}
 			]
 		},
 		{
 			"id": 9,
 			"color": "#13ffcd",
-			"title": "DefaultSkillSetCategory9",
+			"title": "DefaultSkillSet0Category9",
 			"skills": [
 				{
 					"id": 0,
-					"image": "5C1E5296-E6AC-8B4A-F4EA-5A6B8B87453B.jpg",
-					"title": "DefaultSkillSetCategory9Skill0"
+					"image": "images/skills/5C1E5296-E6AC-8B4A-F4EA-5A6B8B87453B.jpg",
+					"title": "DefaultSkillSet0Category9Skill0"
 				},
 				{
 					"id": 1,
-					"image": "A8CB0C62-A2DB-D944-EFB5-486D57A7385C.jpg",
-					"title": "DefaultSkillSetCategory9Skill1"
+					"image": "images/skills/A8CB0C62-A2DB-D944-EFB5-486D57A7385C.jpg",
+					"title": "DefaultSkillSet0Category9Skill1"
 				},
 				{
 					"id": 2,
-					"image": "F60EE335-2834-87E8-B0B1-9D2D0E140339.jpg",
-					"title": "DefaultSkillSetCategory9Skill2"
+					"image": "images/skills/F60EE335-2834-87E8-B0B1-9D2D0E140339.jpg",
+					"title": "DefaultSkillSet0Category9Skill2"
 				},
 				{
 					"id": 3,
-					"image": "A863167D-2881-AE14-8292-210D6EDC2425.jpg",
-					"title": "DefaultSkillSetCategory9Skill3"
+					"image": "images/skills/A863167D-2881-AE14-8292-210D6EDC2425.jpg",
+					"title": "DefaultSkillSet0Category9Skill3"
 				}
 			]
 		},
 		{
 			"id": 10,
 			"color": "#ff00d7",
-			"title": "DefaultSkillSetCategory10",
+			"title": "DefaultSkillSet0Category10",
 			"skills": [
 				{
 					"id": 0,
-					"image": "CD8F4E8C-E415-866B-70BB-3FA1892D4D12.jpg",
-					"title": "DefaultSkillSetCategory10Skill0"
+					"image": "images/skills/CD8F4E8C-E415-866B-70BB-3FA1892D4D12.jpg",
+					"title": "DefaultSkillSet0Category10Skill0"
 				},
 				{
 					"id": 1,
-					"image": "A0E8F55D-D6A8-356C-6A68-2D5069AE1B66.jpg",
-					"title": "DefaultSkillSetCategory10Skill1"
+					"image": "images/skills/A0E8F55D-D6A8-356C-6A68-2D5069AE1B66.jpg",
+					"title": "DefaultSkillSet0Category10Skill1"
 				}
 			]
 		},
 		{
 			"id": 11,
 			"color": "#ff00d7",
-			"title": "DefaultSkillSetCategory11",
+			"title": "DefaultSkillSet0Category11",
 			"skills": [
 				{
 					"id": 0,
-					"image": "D29A922A-8022-8874-110D-5C663AABBF07.jpg",
-					"title": "DefaultSkillSetCategory11Skill0"
+					"image": "images/skills/D29A922A-8022-8874-110D-5C663AABBF07.jpg",
+					"title": "DefaultSkillSet0Category11Skill0"
 				},
 				{
 					"id": 1,
-					"image": "55F78349-E845-813D-5601-B23E836D7ABE.jpg",
-					"title": "DefaultSkillSetCategory11Skill1"
+					"image": "images/skills/55F78349-E845-813D-5601-B23E836D7ABE.jpg",
+					"title": "DefaultSkillSet0Category11Skill1"
 				},
 				{
 					"id": 2,
-					"image": "8B5BD347-616E-E25E-6322-F81B9CED9C88.jpg",
-					"title": "DefaultSkillSetCategory11Skill2"
+					"image": "images/skills/8B5BD347-616E-E25E-6322-F81B9CED9C88.jpg",
+					"title": "DefaultSkillSet0Category11Skill2"
 				},
 				{
 					"id": 3,
-					"image": "9398019B-D183-4A40-AAFC-5AD118E33DE4.jpg",
-					"title": "DefaultSkillSetCategory11Skill3"
+					"image": "images/skills/9398019B-D183-4A40-AAFC-5AD118E33DE4.jpg",
+					"title": "DefaultSkillSet0Category11Skill3"
 				}
 			]
 		},
 		{
 			"id": 12,
 			"color": "#ffce00",
-			"title": "DefaultSkillSetCategory12",
+			"title": "DefaultSkillSet0Category12",
 			"skills": [
 				{
 					"id": 0,
-					"image": "3293F321-54F7-D6D1-A383-64F8FBF48141.jpg",
-					"title": "DefaultSkillSetCategory12Skill0"
+					"image": "images/skills/3293F321-54F7-D6D1-A383-64F8FBF48141.jpg",
+					"title": "DefaultSkillSet0Category12Skill0"
 				},
 				{
 					"id": 1,
-					"image": "A2B41542-583A-567B-F3FE-60F07D2EFE03.jpg",
-					"title": "DefaultSkillSetCategory12Skill1"
+					"image": "images/skills/A2B41542-583A-567B-F3FE-60F07D2EFE03.jpg",
+					"title": "DefaultSkillSet0Category12Skill1"
 				},
 				{
 					"id": 2,
-					"image": "EBA2EA5A-2783-6797-93BA-8D3C814A5BE8.jpg",
-					"title": "DefaultSkillSetCategory12Skill2"
+					"image": "images/skills/EBA2EA5A-2783-6797-93BA-8D3C814A5BE8.jpg",
+					"title": "DefaultSkillSet0Category12Skill2"
 				},
 				{
 					"id": 3,
-					"image": "C34CAE65-EC29-7A22-6796-3DAF5E5084C6.jpg",
-					"title": "DefaultSkillSetCategory12Skill3"
+					"image": "images/skills/C34CAE65-EC29-7A22-6796-3DAF5E5084C6.jpg",
+					"title": "DefaultSkillSet0Category12Skill3"
 				},
 				{
 					"id": 4,
-					"image": "2F97492C-C2B9-A8B9-C6D4-65A0BF636FB9.jpg",
-					"title": "DefaultSkillSetCategory12Skill4"
+					"image": "images/skills/2F97492C-C2B9-A8B9-C6D4-65A0BF636FB9.jpg",
+					"title": "DefaultSkillSet0Category12Skill4"
 				},
 				{
 					"id": 5,
-					"image": "79B99A4A-3C8E-AA5D-1871-171D506C5239.jpg",
-					"title": "DefaultSkillSetCategory12Skill5"
+					"image": "images/skills/79B99A4A-3C8E-AA5D-1871-171D506C5239.jpg",
+					"title": "DefaultSkillSet0Category12Skill5"
 				},
 				{
 					"id": 6,
-					"image": "B85231CD-0FD7-4D9C-EF2A-258A9744FF9E.jpg",
-					"title": "DefaultSkillSetCategory12Skill6"
+					"image": "images/skills/B85231CD-0FD7-4D9C-EF2A-258A9744FF9E.jpg",
+					"title": "DefaultSkillSet0Category12Skill6"
 				},
 				{
 					"id": 7,
-					"image": "446E3A88-812E-9886-6CC6-3C635BCA0354.jpg",
-					"title": "DefaultSkillSetCategory12Skill7"
+					"image": "images/skills/446E3A88-812E-9886-6CC6-3C635BCA0354.jpg",
+					"title": "DefaultSkillSet0Category12Skill7"
 				},
 				{
 					"id": 8,
-					"image": "50434148-944B-4833-788A-877188B4738A.jpg",
-					"title": "DefaultSkillSetCategory12Skill8"
+					"image": "images/skills/50434148-944B-4833-788A-877188B4738A.jpg",
+					"title": "DefaultSkillSet0Category12Skill8"
 				},
 				{
 					"id": 9,
-					"image": "D61D53F9-86C7-3322-D046-B18FD573530D.jpg",
-					"title": "DefaultSkillSetCategory12Skill9"
+					"image": "images/skills/D61D53F9-86C7-3322-D046-B18FD573530D.jpg",
+					"title": "DefaultSkillSet0Category12Skill9"
 				}
 			]
 		},
 		{
 			"id": 13,
 			"color": "#ffce00",
-			"title": "DefaultSkillSetCategory13",
+			"title": "DefaultSkillSet0Category13",
 			"skills": [
 				{
 					"id": 0,
-					"image": "6F41DA45-05DA-A216-81EC-D49C919A7BB8.jpg",
-					"title": "DefaultSkillSetCategory13Skill0"
+					"image": "images/skills/6F41DA45-05DA-A216-81EC-D49C919A7BB8.jpg",
+					"title": "DefaultSkillSet0Category13Skill0"
 				},
 				{
 					"id": 1,
-					"image": "5BF2AD45-469C-D5AD-B392-FA05D25644D8.jpg",
-					"title": "DefaultSkillSetCategory13Skill1"
+					"image": "images/skills/5BF2AD45-469C-D5AD-B392-FA05D25644D8.jpg",
+					"title": "DefaultSkillSet0Category13Skill1"
 				},
 				{
 					"id": 2,
-					"image": "4BEF262F-F3E1-19D9-C42A-ACC389462583.jpg",
-					"title": "DefaultSkillSetCategory13Skill2"
+					"image": "images/skills/4BEF262F-F3E1-19D9-C42A-ACC389462583.jpg",
+					"title": "DefaultSkillSet0Category13Skill2"
 				},
 				{
 					"id": 3,
-					"image": "6D7191CC-309A-3794-77A6-15E2149B9451.jpg",
-					"title": "DefaultSkillSetCategory13Skill3"
+					"image": "images/skills/6D7191CC-309A-3794-77A6-15E2149B9451.jpg",
+					"title": "DefaultSkillSet0Category13Skill3"
 				},
 				{
 					"id": 4,
-					"image": "E11A15B7-343F-FF3B-86A3-8BBA87AD08E0.jpg",
-					"title": "DefaultSkillSetCategory13Skill4"
+					"image": "images/skills/E11A15B7-343F-FF3B-86A3-8BBA87AD08E0.jpg",
+					"title": "DefaultSkillSet0Category13Skill4"
 				},
 				{
 					"id": 5,
-					"image": "957D2452-5824-F643-3E3A-76F8CE581C56.jpg",
-					"title": "DefaultSkillSetCategory13Skill5"
+					"image": "images/skills/957D2452-5824-F643-3E3A-76F8CE581C56.jpg",
+					"title": "DefaultSkillSet0Category13Skill5"
 				},
 				{
 					"id": 6,
-					"image": "E17550CA-851A-4097-A199-52B6B0AAB0AD.jpg",
-					"title": "DefaultSkillSetCategory13Skill6"
+					"image": "images/skills/E17550CA-851A-4097-A199-52B6B0AAB0AD.jpg",
+					"title": "DefaultSkillSet0Category13Skill6"
 				},
 				{
 					"id": 7,
-					"image": "9429191F-8B3A-1A5D-07AD-9E0CD11096B7.jpg",
-					"title": "DefaultSkillSetCategory13Skill7"
+					"image": "images/skills/9429191F-8B3A-1A5D-07AD-9E0CD11096B7.jpg",
+					"title": "DefaultSkillSet0Category13Skill7"
 				}
 			]
 		},
 		{
 			"id": 14,
 			"color": "#ffce00",
-			"title": "DefaultSkillSetCategory14",
+			"title": "DefaultSkillSet0Category14",
 			"skills": [
 				{
 					"id": 0,
-					"image": "8C3DD4EE-64CA-0B5D-19EA-B87A096512EA.jpg",
-					"title": "DefaultSkillSetCategory14Skill0"
+					"image": "images/skills/8C3DD4EE-64CA-0B5D-19EA-B87A096512EA.jpg",
+					"title": "DefaultSkillSet0Category14Skill0"
 				},
 				{
 					"id": 1,
-					"image": "B1853C9E-513D-FE57-BF14-AC9E2579655F.jpg",
-					"title": "DefaultSkillSetCategory14Skill1"
+					"image": "images/skills/B1853C9E-513D-FE57-BF14-AC9E2579655F.jpg",
+					"title": "DefaultSkillSet0Category14Skill1"
 				},
 				{
 					"id": 2,
-					"image": "10C1BFD8-B726-4A27-82F9-78683BEA9828.jpg",
-					"title": "DefaultSkillSetCategory14Skill2"
+					"image": "images/skills/10C1BFD8-B726-4A27-82F9-78683BEA9828.jpg",
+					"title": "DefaultSkillSet0Category14Skill2"
 				},
 				{
 					"id": 3,
-					"image": "BA2BE228-EE97-454D-84C4-C335CDD87D22.jpg",
-					"title": "DefaultSkillSetCategory14Skill3"
+					"image": "images/skills/BA2BE228-EE97-454D-84C4-C335CDD87D22.jpg",
+					"title": "DefaultSkillSet0Category14Skill3"
 				},
 				{
 					"id": 4,
-					"image": "7E09CDEB-97CE-40BA-8547-BBA92206D4B4.jpg",
-					"title": "DefaultSkillSetCategory14Skill4"
+					"image": "images/skills/7E09CDEB-97CE-40BA-8547-BBA92206D4B4.jpg",
+					"title": "DefaultSkillSet0Category14Skill4"
 				}
 			]
 		},
 		{
 			"id": 15,
 			"color": "#ffce00",
-			"title": "DefaultSkillSetCategory15",
+			"title": "DefaultSkillSet0Category15",
 			"skills": [
 				{
 					"id": 0,
-					"image": "9CBFA021-A650-4D00-BA97-BCB2CF6F2C4D.jpg",
-					"title": "DefaultSkillSetCategory15Skill0"
+					"image": "images/skills/9CBFA021-A650-4D00-BA97-BCB2CF6F2C4D.jpg",
+					"title": "DefaultSkillSet0Category15Skill0"
 				},
 				{
 					"id": 1,
-					"image": "F6308439-0E24-4C72-B161-89B1888328AC.jpg",
-					"title": "DefaultSkillSetCategory15Skill1"
+					"image": "images/skills/F6308439-0E24-4C72-B161-89B1888328AC.jpg",
+					"title": "DefaultSkillSet0Category15Skill1"
 				},
 				{
 					"id": 2,
-					"image": "0AAF7057-BC46-4D18-BD44-327B1EC2FF03.jpg",
-					"title": "DefaultSkillSetCategory15Skill2"
+					"image": "images/skills/0AAF7057-BC46-4D18-BD44-327B1EC2FF03.jpg",
+					"title": "DefaultSkillSet0Category15Skill2"
 				},
 				{
 					"id": 3,
-					"image": "AC0C3B85-E2FE-4491-ADF6-209E7D055A3A.jpg",
-					"title": "DefaultSkillSetCategory15Skill3"
+					"image": "images/skills/AC0C3B85-E2FE-4491-ADF6-209E7D055A3A.jpg",
+					"title": "DefaultSkillSet0Category15Skill3"
 				},
 				{
 					"id": 4,
-					"image": "14DD57E8-BE60-BC83-6BC5-E06C0D570E35.jpg",
-					"title": "DefaultSkillSetCategory15Skill4"
+					"image": "images/skills/14DD57E8-BE60-BC83-6BC5-E06C0D570E35.jpg",
+					"title": "DefaultSkillSet0Category15Skill4"
 				},
 				{
 					"id": 5,
-					"image": "CDDDCB98-A92E-9E53-8DCA-2BE1222DDAAB.jpg",
-					"title": "DefaultSkillSetCategory15Skill5"
+					"image": "images/skills/CDDDCB98-A92E-9E53-8DCA-2BE1222DDAAB.jpg",
+					"title": "DefaultSkillSet0Category15Skill5"
 				}
 			]
 		},
 		{
 			"id": 16,
 			"color": "#0057ff",
-			"title": "DefaultSkillSetCategory16",
+			"title": "DefaultSkillSet0Category16",
 			"skills": [
 				{
 					"id": 0,
-					"image": "540FA158-C0E9-7190-7C5F-C68363C1B5E6.jpg",
-					"title": "DefaultSkillSetCategory16Skill0"
+					"image": "images/skills/540FA158-C0E9-7190-7C5F-C68363C1B5E6.jpg",
+					"title": "DefaultSkillSet0Category16Skill0"
 				},
 				{
 					"id": 1,
-					"image": "D8B098EE-67C1-4A89-CFEC-265A1FCE4ACB.jpg",
-					"title": "DefaultSkillSetCategory16Skill1"
+					"image": "images/skills/D8B098EE-67C1-4A89-CFEC-265A1FCE4ACB.jpg",
+					"title": "DefaultSkillSet0Category16Skill1"
 				},
 				{
 					"id": 2,
-					"image": "66DF0C2E-A9B7-385D-9BC7-95695278CB11.jpg",
-					"title": "DefaultSkillSetCategory16Skill2"
+					"image": "images/skills/66DF0C2E-A9B7-385D-9BC7-95695278CB11.jpg",
+					"title": "DefaultSkillSet0Category16Skill2"
 				},
 				{
 					"id": 3,
-					"image": "483CD3C9-6720-2A65-FCFE-1426BD987FF9.jpg",
-					"title": "DefaultSkillSetCategory16Skill3"
+					"image": "images/skills/483CD3C9-6720-2A65-FCFE-1426BD987FF9.jpg",
+					"title": "DefaultSkillSet0Category16Skill3"
 				},
 				{
 					"id": 4,
-					"image": "E0FA83FC-5337-2D74-3151-6BED714DD545.jpg",
-					"title": "DefaultSkillSetCategory16Skill4"
+					"image": "images/skills/E0FA83FC-5337-2D74-3151-6BED714DD545.jpg",
+					"title": "DefaultSkillSet0Category16Skill4"
 				},
 				{
 					"id": 5,
-					"image": "A652597B-776E-383A-3DD1-14841A9922C1.jpg",
-					"title": "DefaultSkillSetCategory16Skill5"
+					"image": "images/skills/A652597B-776E-383A-3DD1-14841A9922C1.jpg",
+					"title": "DefaultSkillSet0Category16Skill5"
 				},
 				{
 					"id": 6,
-					"image": "A1E251E3-0B69-B14D-6861-5C966E8C46B0.jpg",
-					"title": "DefaultSkillSetCategory16Skill6"
+					"image": "images/skills/A1E251E3-0B69-B14D-6861-5C966E8C46B0.jpg",
+					"title": "DefaultSkillSet0Category16Skill6"
 				}
 			]
 		},
 		{
 			"id": 17,
 			"color": "#0057ff",
-			"title": "DefaultSkillSetCategory17",
+			"title": "DefaultSkillSet0Category17",
 			"skills": [
 				{
 					"id": 0,
-					"image": "5EBB45C3-0599-DD59-7397-2E1C1B1DE9F1.jpg",
-					"title": "DefaultSkillSetCategory17Skill0"
+					"image": "images/skills/5EBB45C3-0599-DD59-7397-2E1C1B1DE9F1.jpg",
+					"title": "DefaultSkillSet0Category17Skill0"
 				},
 				{
 					"id": 1,
-					"image": "20667C82-C8FE-93F2-D3D7-9838F6CA546C.jpg",
-					"title": "DefaultSkillSetCategory17Skill1"
+					"image": "images/skills/20667C82-C8FE-93F2-D3D7-9838F6CA546C.jpg",
+					"title": "DefaultSkillSet0Category17Skill1"
 				},
 				{
 					"id": 2,
-					"image": "C6D8819A-3B6C-A26B-29D2-DEA69AEF4C83.jpg",
-					"title": "DefaultSkillSetCategory17Skill2"
+					"image": "images/skills/C6D8819A-3B6C-A26B-29D2-DEA69AEF4C83.jpg",
+					"title": "DefaultSkillSet0Category17Skill2"
 				},
 				{
 					"id": 3,
-					"image": "C4C26B45-7DBB-85E7-C4D5-1E8916AB542F.jpg",
-					"title": "DefaultSkillSetCategory17Skill3"
+					"image": "images/skills/C4C26B45-7DBB-85E7-C4D5-1E8916AB542F.jpg",
+					"title": "DefaultSkillSet0Category17Skill3"
 				},
 				{
 					"id": 4,
-					"image": "41AED7EA-B9B3-6032-5826-56087DEABC81.jpg",
-					"title": "DefaultSkillSetCategory17Skill4"
+					"image": "images/skills/41AED7EA-B9B3-6032-5826-56087DEABC81.jpg",
+					"title": "DefaultSkillSet0Category17Skill4"
 				},
 				{
 					"id": 5,
-					"image": "DD5DA5D1-B48E-6DD2-8D74-96BE2B6F7D75.jpg",
-					"title": "DefaultSkillSetCategory17Skill5"
+					"image": "images/skills/DD5DA5D1-B48E-6DD2-8D74-96BE2B6F7D75.jpg",
+					"title": "DefaultSkillSet0Category17Skill5"
 				},
 				{
 					"id": 6,
-					"image": "D69C9439-C4B4-FEE6-E992-95D47A74E853.jpg",
-					"title": "DefaultSkillSetCategory17Skill6"
+					"image": "images/skills/D69C9439-C4B4-FEE6-E992-95D47A74E853.jpg",
+					"title": "DefaultSkillSet0Category17Skill6"
 				},
 				{
 					"id": 7,
-					"image": "8887D954-AD44-37DD-4323-329012D1706A.jpg",
-					"title": "DefaultSkillSetCategory17Skill7"
+					"image": "images/skills/8887D954-AD44-37DD-4323-329012D1706A.jpg",
+					"title": "DefaultSkillSet0Category17Skill7"
 				},
 				{
 					"id": 8,
-					"image": "C791674C-D165-162B-956F-90CC7E7F172F.jpg",
-					"title": "DefaultSkillSetCategory17Skill8"
+					"image": "images/skills/C791674C-D165-162B-956F-90CC7E7F172F.jpg",
+					"title": "DefaultSkillSet0Category17Skill8"
 				},
 				{
 					"id": 9,
-					"image": "8625ACA5-6269-379F-6E48-A87454E57656.jpg",
-					"title": "DefaultSkillSetCategory17Skill9"
+					"image": "images/skills/8625ACA5-6269-379F-6E48-A87454E57656.jpg",
+					"title": "DefaultSkillSet0Category17Skill9"
 				},
 				{
 					"id": 10,
-					"image": "74376EC3-CED3-1CA5-B665-F7BC1FD3368C.jpg",
-					"title": "DefaultSkillSetCategory17Skill10"
+					"image": "images/skills/74376EC3-CED3-1CA5-B665-F7BC1FD3368C.jpg",
+					"title": "DefaultSkillSet0Category17Skill10"
 				}
 			]
 		},
 		{
 			"id": 18,
 			"color": "#0057ff",
-			"title": "DefaultSkillSetCategory18",
+			"title": "DefaultSkillSet0Category18",
 			"skills": [
 				{
 					"id": 0,
-					"image": "1D05B9AA-4612-C187-2043-27213C8952F7.jpg",
-					"title": "DefaultSkillSetCategory18Skill0"
+					"image": "images/skills/1D05B9AA-4612-C187-2043-27213C8952F7.jpg",
+					"title": "DefaultSkillSet0Category18Skill0"
 				},
 				{
 					"id": 1,
-					"image": "221D5AEE-D9DE-AC55-5913-BDB119B34B74.jpg",
-					"title": "DefaultSkillSetCategory18Skill1"
+					"image": "images/skills/221D5AEE-D9DE-AC55-5913-BDB119B34B74.jpg",
+					"title": "DefaultSkillSet0Category18Skill1"
 				},
 				{
 					"id": 2,
-					"image": "388A212C-B48A-4584-347C-A7BF843E01A6.jpg",
-					"title": "DefaultSkillSetCategory18Skill2"
+					"image": "images/skills/388A212C-B48A-4584-347C-A7BF843E01A6.jpg",
+					"title": "DefaultSkillSet0Category18Skill2"
 				},
 				{
 					"id": 3,
-					"image": "8AC7A794-1A7E-148E-B5E1-747363CD1413.jpg",
-					"title": "DefaultSkillSetCategory18Skill3"
+					"image": "images/skills/8AC7A794-1A7E-148E-B5E1-747363CD1413.jpg",
+					"title": "DefaultSkillSet0Category18Skill3"
 				},
 				{
 					"id": 4,
-					"image": "D6E215C4-C4D7-6D3D-6611-BE53DF36E0B5.jpg",
-					"title": "DefaultSkillSetCategory18Skill4"
+					"image": "images/skills/D6E215C4-C4D7-6D3D-6611-BE53DF36E0B5.jpg",
+					"title": "DefaultSkillSet0Category18Skill4"
 				},
 				{
 					"id": 5,
-					"image": "807266BC-A3FD-CBB0-4659-EA38F88DE7F8.jpg",
-					"title": "DefaultSkillSetCategory18Skill5"
+					"image": "images/skills/807266BC-A3FD-CBB0-4659-EA38F88DE7F8.jpg",
+					"title": "DefaultSkillSet0Category18Skill5"
 				}
 			]
 		},
 		{
 			"id": 19,
 			"color": "#0057ff",
-			"title": "DefaultSkillSetCategory19",
+			"title": "DefaultSkillSet0Category19",
 			"skills": [
 				{
 					"id": 0,
-					"image": "C63CA4A6-93E4-8A72-5B05-253C0A51E74E.jpg",
-					"title": "DefaultSkillSetCategory19Skill0"
+					"image": "images/skills/C63CA4A6-93E4-8A72-5B05-253C0A51E74E.jpg",
+					"title": "DefaultSkillSet0Category19Skill0"
 				},
 				{
 					"id": 1,
-					"image": "C4377297-3944-6F6E-2ED3-91C032C869FC.jpg",
-					"title": "DefaultSkillSetCategory19Skill1"
+					"image": "images/skills/C4377297-3944-6F6E-2ED3-91C032C869FC.jpg",
+					"title": "DefaultSkillSet0Category19Skill1"
 				},
 				{
 					"id": 2,
-					"image": "965CEFC3-7975-10BE-A774-525851B8F243.jpg",
-					"title": "DefaultSkillSetCategory19Skill2"
+					"image": "images/skills/965CEFC3-7975-10BE-A774-525851B8F243.jpg",
+					"title": "DefaultSkillSet0Category19Skill2"
 				},
 				{
 					"id": 3,
-					"image": "982EDD4A-F29A-7E80-26A3-E6155733B359.jpg",
-					"title": "DefaultSkillSetCategory19Skill3"
+					"image": "images/skills/982EDD4A-F29A-7E80-26A3-E6155733B359.jpg",
+					"title": "DefaultSkillSet0Category19Skill3"
 				},
 				{
 					"id": 4,
-					"image": "CD32D9CA-280E-D1AE-54D1-5BB1DA743A13.jpg",
-					"title": "DefaultSkillSetCategory19Skill4"
+					"image": "images/skills/CD32D9CA-280E-D1AE-54D1-5BB1DA743A13.jpg",
+					"title": "DefaultSkillSet0Category19Skill4"
 				},
 				{
 					"id": 5,
-					"image": "7C7E0246-8A85-E698-A5AC-75FD391FB7C3.jpg",
-					"title": "DefaultSkillSetCategory19Skill5"
+					"image": "images/skills/7C7E0246-8A85-E698-A5AC-75FD391FB7C3.jpg",
+					"title": "DefaultSkillSet0Category19Skill5"
 				},
 				{
 					"id": 6,
-					"image": "322F7D46-966A-20CA-47B7-FA632E55AE5A.jpg",
-					"title": "DefaultSkillSetCategory19Skill6"
+					"image": "images/skills/322F7D46-966A-20CA-47B7-FA632E55AE5A.jpg",
+					"title": "DefaultSkillSet0Category19Skill6"
 				},
 				{
 					"id": 7,
-					"image": "5970E4B4-41B9-27D8-BE6D-35769BD5D785.jpg",
-					"title": "DefaultSkillSetCategory19Skill7"
+					"image": "images/skills/5970E4B4-41B9-27D8-BE6D-35769BD5D785.jpg",
+					"title": "DefaultSkillSet0Category19Skill7"
 				},
 				{
 					"id": 8,
-					"image": "500F5AF3-6A8D-4E68-825C-5B07A1B01216.jpg",
-					"title": "DefaultSkillSetCategory19Skill8"
+					"image": "images/skills/500F5AF3-6A8D-4E68-825C-5B07A1B01216.jpg",
+					"title": "DefaultSkillSet0Category19Skill8"
 				}
 			]
 		},
 		{
 			"id": 20,
 			"color": "#0057ff",
-			"title": "DefaultSkillSetCategory20",
+			"title": "DefaultSkillSet0Category20",
 			"skills": [
 				{
 					"id": 0,
-					"image": "ADB621DC-4F91-4DED-9980-FCBDEED2E67E.jpg",
-					"title": "DefaultSkillSetCategory20Skill0"
+					"image": "images/skills/ADB621DC-4F91-4DED-9980-FCBDEED2E67E.jpg",
+					"title": "DefaultSkillSet0Category20Skill0"
 				}
 			]
 		},
 		{
 			"id": 21,
 			"color": "#148180",
-			"title": "DefaultSkillSetCategory21",
+			"title": "DefaultSkillSet0Category21",
 			"skills": [
 				{
 					"id": 0,
-					"image": "28542A25-B732-A8D9-A9E3-842CB9CAC28C.jpg",
-					"title": "DefaultSkillSetCategory21Skill0"
+					"image": "images/skills/28542A25-B732-A8D9-A9E3-842CB9CAC28C.jpg",
+					"title": "DefaultSkillSet0Category21Skill0"
 				},
 				{
 					"id": 1,
-					"image": "4B29B917-31BB-DCBB-D942-501D84C3838B.jpg",
-					"title": "DefaultSkillSetCategory21Skill1"
+					"image": "images/skills/4B29B917-31BB-DCBB-D942-501D84C3838B.jpg",
+					"title": "DefaultSkillSet0Category21Skill1"
 				},
 				{
 					"id": 2,
-					"image": "67B86F8C-22FE-B659-7B78-B156174EEE6E.jpg",
-					"title": "DefaultSkillSetCategory21Skill2"
+					"image": "images/skills/67B86F8C-22FE-B659-7B78-B156174EEE6E.jpg",
+					"title": "DefaultSkillSet0Category21Skill2"
 				},
 				{
 					"id": 3,
-					"image": "869126B9-8147-84B7-B35B-71CC17EDBED1.jpg",
-					"title": "DefaultSkillSetCategory21Skill3"
+					"image": "images/skills/869126B9-8147-84B7-B35B-71CC17EDBED1.jpg",
+					"title": "DefaultSkillSet0Category21Skill3"
 				},
 				{
 					"id": 4,
-					"image": "68CBFAFB-B6C4-85DA-1C6B-40283DCC556C.jpg",
-					"title": "DefaultSkillSetCategory21Skill4"
+					"image": "images/skills/68CBFAFB-B6C4-85DA-1C6B-40283DCC556C.jpg",
+					"title": "DefaultSkillSet0Category21Skill4"
 				},
 				{
 					"id": 5,
-					"image": "86DC6FD9-32A6-8DA6-5AA7-C2B608FACAB3.jpg",
-					"title": "DefaultSkillSetCategory21Skill5"
+					"image": "images/skills/86DC6FD9-32A6-8DA6-5AA7-C2B608FACAB3.jpg",
+					"title": "DefaultSkillSet0Category21Skill5"
 				}
 			]
 		}

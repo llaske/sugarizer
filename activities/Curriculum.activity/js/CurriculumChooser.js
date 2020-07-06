@@ -133,14 +133,14 @@ define(['mustache'], function(mustache) {
 
 				var result = { 
 					metadata: metadata, 
-					path: featureCurriculum.filelocation + featureCurriculum.database.content[id].code
+					path: featureCurriculum.database.content[id].code
 				}
 				requirejs(['sugar-web/graphics/journalchooser'], function(journalchooser) {
 					journalchooser.close(result);
 				});
 			});
 			if (featureCurriculum.mimetype == "image/png") {
-				document.getElementById('eicon_' + content[i].id).style.backgroundImage = "url(" + featureCurriculum.baseURL + featureCurriculum.filelocation + content[i].code + ")";
+				document.getElementById('eicon_' + content[i].id).style.backgroundImage = "url(" + featureCurriculum.baseURL + content[i].code + ")";
 			}
 		}
 	}

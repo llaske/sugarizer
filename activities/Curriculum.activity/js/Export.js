@@ -33,7 +33,7 @@ var ImageURL = {
 	},
 	methods: {
 		canvasToImage(path) {
-			if(path.indexOf('data:image/png') != -1) {
+			if (path.indexOf('data:image/png') != -1) {
 				return Promise.resolve(path);
 			}
 			return new Promise((resolve, reject) => {
@@ -245,7 +245,7 @@ var Export = {
 		},
 
 		canvasToImage(path) {
-			if(path.indexOf('data:image/png') != -1) {
+			if (path.indexOf('data:image/png') != -1) {
 				return Promise.resolve(path);
 			}
 			return new Promise((resolve, reject) => {
@@ -359,7 +359,7 @@ var Export = {
 
 		loadODT() {
 			return new Promise((resolve, reject) => {
-				requirejs(['js/odtHelper.js'], function(odt) {
+				requirejs(['js/odtHelper.js'], function (odt) {
 					resolve(odt);
 				});
 			})
@@ -368,23 +368,23 @@ var Export = {
 		constructODT() {
 			let vm = this;
 			return new Promise((resolve, reject) => {
-					vm.loadODT()
-						.then(async (odt) => {
-							let xml = odt.xml;
-							vm.addCoverToODT(odt)
-								.then(xmlData => {
-									xml += xmlData;
-									vm.addStatsToODT(odt)
-										.then(xmlData => {
-											xml += xmlData;
-											vm.addCategoriesToODT(odt)
-												.then(xmlData => {
-													xml += xmlData;
-													resolve(odt.header + odt.styles + odt.getAutomaticStyles() + odt.automaticStylesEnd + xml + odt.footer);
-												});
-										});
-								});
-						});
+				vm.loadODT()
+					.then(async (odt) => {
+						let xml = odt.xml;
+						vm.addCoverToODT(odt)
+							.then(xmlData => {
+								xml += xmlData;
+								vm.addStatsToODT(odt)
+									.then(xmlData => {
+										xml += xmlData;
+										vm.addCategoriesToODT(odt)
+											.then(xmlData => {
+												xml += xmlData;
+												resolve(odt.header + odt.styles + odt.getAutomaticStyles() + odt.automaticStylesEnd + xml + odt.footer);
+											});
+									});
+							});
+					});
 			});
 		},
 
@@ -410,19 +410,19 @@ var Export = {
 				// Stats
 				odt.addLevelStyles(vm.levels[vm.notationLevel]);
 				let levels = [];
-				for(let key in vm.levels[vm.notationLevel]) {
+				for (let key in vm.levels[vm.notationLevel]) {
 					levels.push({
 						text: vm.levels[vm.notationLevel][key].text,
-						percent: Math.round(vm.levelWiseAcquired[key]/vm.totalSkills*100 *100)/100
+						percent: Math.round(vm.levelWiseAcquired[key] / vm.totalSkills * 100 * 100) / 100
 					});
 				}
 				xmlData += odt.addStatsTable(levels);
-	
+
 				//Rewards
 				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", vm.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
-							.then(async function(trophyIcon) {
+							.then(async function (trophyIcon) {
 								let achievementsToAdd = [];
 								for (var achievement of vm.achievements) {
 									if (vm.user.achievements[achievement.id].timestamp != null) {
@@ -431,15 +431,15 @@ var Export = {
 										canvas.height = trophyIcon.height;
 										var ctx = canvas.getContext("2d");
 										ctx.drawImage(trophyIcon.canvas, 0, 0);
-										
+
 										// Trophy center icon
 										var centerIcon = await vm.canvasToImage(`icons/${achievement.info.icon}`);
-										ctx.drawImage(centerIcon.canvas, (trophyIcon.width/2)-10, trophyIcon.height/3.5, 20, 20);
+										ctx.drawImage(centerIcon.canvas, (trophyIcon.width / 2) - 10, trophyIcon.height / 3.5, 20, 20);
 										// Achievement Title
 										ctx.font = "bold 14px Arial";
 										ctx.fillStyle = "white";
 										ctx.textAlign = "center";
-										ctx.fillText(achievement.info.text, trophyIcon.width/2, trophyIcon.height/4);
+										ctx.fillText(achievement.info.text, trophyIcon.width / 2, trophyIcon.height / 4);
 										let achievementObj = {
 											imageURL: canvas.toDataURL("image/png"),
 											title: achievement.title,
@@ -459,7 +459,7 @@ var Export = {
 			let vm = this;
 			let xmlData = '';
 			return new Promise(async (resolve, reject) => {
-				for(let category of vm.categories) {
+				for (let category of vm.categories) {
 					let catObj = {
 						id: category.id,
 						title: category.title,
@@ -467,13 +467,13 @@ var Export = {
 					}
 					xmlData += odt.addCategoryTitle(catObj);
 
-					for(let skill of category.skills) {
+					for (let skill of category.skills) {
 						let skillContent = '';
 						// SKill image
 						let res = await vm.canvasToImage(skill.image);
 						let imgWidth = 241.89;
-						let imgHeight = imgWidth * (res.height/res.width);
-						let imgFrame = odt.addImage(res.dataURL, 0, 0, imgWidth, imgHeight);
+						let imgHeight = imgWidth * (res.height / res.width);
+						let imgFrame = odt.addImage(res.dataURL);
 						// Skill level
 						let levelObj = {
 							text: vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].text,
@@ -481,7 +481,7 @@ var Export = {
 						}
 						let skillLevel = odt.addSkillLevel(levelObj);
 						// Skill title
-						skillContent = skillLevel+imgFrame;
+						skillContent = skillLevel + imgFrame;
 						skillContent = odt.addSkillTitle(skill.title, skillContent);
 						// Skill timestamp
 						if (vm.user.skills[category.id][skill.id].timestamp) {
@@ -492,13 +492,7 @@ var Export = {
 						var mediaFrame = '';
 						var uploads = vm.getUploads(category.id, skill.id);
 						for (var upload of uploads) {
-							var uploadWidth = 20;
-							var uploadHeight = 20;
 							let res = await vm.canvasToImage(vm.getUploadedPath(upload));
-							if (upload.type == "image") {
-								uploadWidth = 30;
-								uploadHeight = uploadWidth * (res.height / res.width);
-							}
 							let mediaObj = {
 								imageURL: res.dataURL,
 								time: new Date(upload.timestamp).toLocaleDateString()
@@ -582,7 +576,7 @@ var Export = {
 			return new Promise((resolve, reject) => {
 				doc.setFontStyle("bold");
 				doc.setFontSize(20);
-				doc.text(105, 100, vm.templateTitle, { align: "center" });
+				doc.text(105, 100, this.parseString(vm.templateTitle), { align: "center" });
 				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
@@ -592,7 +586,7 @@ var Export = {
 								resolve();
 							});
 					});
-				doc.text(105, 150, vm.currentenv.user.name, { align: "center" });
+				doc.text(105, 150, this.parseString(vm.currentenv.user.name), { align: "center" });
 				doc.setFontSize(16);
 				doc.setFontStyle("normal");
 			})
@@ -638,7 +632,7 @@ var Export = {
 				this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
-							.then(async function(res) {
+							.then(async function (res) {
 								var trophyIcon = res.dataURL;
 								for (var achievement of vm.achievements) {
 									if (vm.user.achievements[achievement.id].timestamp != null) {
@@ -685,7 +679,7 @@ var Export = {
 					// Category Title
 					doc.setFontSize(16);
 					doc.setFontStyle("bold");
-					splitTitle = doc.splitTextToSize(category.title, 180);
+					splitTitle = doc.splitTextToSize(this.parseString(category.title), 180);
 					doc.text(x, y, splitTitle);
 					doc.setFontStyle("normal");
 					var dim = doc.getTextDimensions(splitTitle);
@@ -709,7 +703,7 @@ var Export = {
 						doc.addImage(res.dataURL, x, y, imgWidth, imgHeight);
 
 						// Skill Title
-						splitTitle = doc.splitTextToSize(skill.title, 100);
+						splitTitle = doc.splitTextToSize(this.parseString(skill.title), 100);
 						doc.text(x + imgWidth + 10, y, splitTitle);
 						dim = doc.getTextDimensions(splitTitle);
 						// Skill level
@@ -763,7 +757,7 @@ var Export = {
 							doc.addImage(res.dataURL, x, y + 10, uploadWidth, uploadHeight);
 							doc.setFontSize(10);
 							doc.setTextColor('#838383');
-							doc.text(x + uploadWidth/2, y + uploadHeight + 15, new Date(upload.timestamp).toLocaleDateString(), { align: "center" });
+							doc.text(x + uploadWidth / 2, y + uploadHeight + 15, new Date(upload.timestamp).toLocaleDateString(), { align: "center" });
 							doc.setFontSize(12);
 							doc.setTextColor('#000000');
 							x += uploadWidth + 10;
@@ -776,6 +770,13 @@ var Export = {
 				}
 				resolve();
 			});
+		},
+
+		parseString(str) {
+			str = str.replace('&nbsp;', ' ');
+			let parsedText = document.createElement('p');
+			parsedText.innerHTML = str;
+			return str;
 		},
 
 		download: function (data, filename, type) {

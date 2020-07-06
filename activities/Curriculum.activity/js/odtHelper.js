@@ -25,11 +25,11 @@ define([], function() {
 	var addCover = function(templateTitle, imageURL, userName) {
 		return `<text:p text:style-name="P3"><draw:frame text:anchor-type="paragraph" draw:z-index="0" draw:style-name="gr7" draw:text-style-name="P54" svg:width="19.03cm" svg:height="0.996cm" svg:x="0.975cm" svg:y="6.325cm">
 		<draw:text-box>
-		 <text:p text:style-name="P49"><text:span text:style-name="T2">${templateTitle}</text:span></text:p>
+		 <text:p text:style-name="P49"><text:span text:style-name="T2">${parseString(templateTitle)}</text:span></text:p>
 		</draw:text-box>
 	 </draw:frame><draw:frame text:anchor-type="paragraph" draw:z-index="2" draw:style-name="gr7" draw:text-style-name="P54" svg:width="19.03cm" svg:height="0.996cm" svg:x="0.975cm" svg:y="11.257cm">
 		<draw:text-box>
-		 <text:p text:style-name="P49"><text:span text:style-name="T2">${userName}</text:span></text:p>
+		 <text:p text:style-name="P49"><text:span text:style-name="T2">${parseString(userName)}</text:span></text:p>
 		</draw:text-box>
 	 </draw:frame><text:s text:c="2"/>
 	 <draw:frame draw:style-name="fr9" text:anchor-type="char" svg:y="7.426cm" svg:width="3.441cm" svg:height="3.424cm" draw:z-index="1">
@@ -104,7 +104,7 @@ define([], function() {
 	 </style:style>`;
 	 automaticStyles += style;
 
-		return `<text:p text:style-name="P27">${category.title}</text:p>
+		return `<text:p text:style-name="P27">${parseString(category.title)}</text:p>
 		<text:p text:style-name="P26">
 			<draw:custom-shape text:anchor-type="as-char" draw:z-index="6" draw:style-name="gr6" draw:text-style-name="cat${category.id}" svg:width="20.862cm" svg:height="0.324cm">
 				<text:p/>
@@ -113,7 +113,7 @@ define([], function() {
 		</text:p>`;
 	}
 
-	var addImage = function(imageURL, x, y, width, height) {
+	var addImage = function(imageURL) {
 		let code = '';
 		code += `<draw:frame draw:style-name="fr5"  text:anchor-type="char" svg:x="-0.152cm" svg:y="-0.152cm" svg:width="6.392cm" svg:height="4.17cm" draw:z-index="32">
 		<draw:image loext:mime-type="image/jpeg">
@@ -132,7 +132,8 @@ define([], function() {
 	}
 
 	var addSkillTitle = function(title, innerData) {
-		return `<text:p text:style-name="P23">${innerData}${title}</text:p>
+		
+		return `<text:p text:style-name="P23">${innerData}${parseString(title)}</text:p>
 		<text:p text:style-name="P18">
 			<draw:line text:anchor-type="as-char" svg:y="-0.131cm" draw:z-index="23" draw:style-name="gr2" draw:text-style-name="P49" svg:x2="13.864cm" svg:y2="-0.035cm">
 				<text:p/>
@@ -176,6 +177,13 @@ define([], function() {
 		</draw:text-box>
 		</draw:frame></text:p>
 		`;
+	}
+
+	var parseString = function(str) {
+		str = str.replace('&nbsp;', ' ');
+		let parsedText = document.createElement('p');
+		parsedText.innerHTML = str;
+		return str;
 	}
 
 	var header = `<?xml version="1.0" encoding="UTF-8"?>
