@@ -20,6 +20,8 @@ Vue.component('sugar-journal', {
 							vm.$emit('journal-load-error', error);
 						}
 					});
+				} else if (environment.sharedId) {
+					vm.$emit('journal-shared-instance');
 				} else {
 					vm.$emit('journal-new-instance');
 				}
@@ -39,42 +41,40 @@ Vue.component('sugar-journal', {
 			});
 		},
 
-		turnCompressionOff: function () {
-			this.compression = false;
-		},
-
-		turnCompressionOn: function () {
-			this.compression = true;
-		},
-
-		insertFromJournal: function (type, callback) {
+		insertFromJournal: function (type) {
 			var typeParameters = [null, null, null, null];
 			for (var i = 0; i < typeParameters.length; i++) {
 				typeParameters[i] = type[i];
 			}
 
-			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
-				setTimeout(function () {
-					journalchooser.show(function (entry) {
-						if (!entry) {
-							return;
-						}
-						var dataentry = new datastore.DatastoreObject(entry.objectId);
-						dataentry.loadAsText(function (err, metadata, data) {
-							if (!err) {
-								callback(data, metadata);
-							} else {
-								console.error(err);
+			return new Promise((resolve, reject) => {
+				requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
+					setTimeout(function () {
+						journalchooser.show(function (entry) {
+							if (!entry) {
+								return;
 							}
-						});
-					}, typeParameters[0], typeParameters[1], typeParameters[2], typeParameters[3]);
-				}, 0);
+							var dataentry = new datastore.DatastoreObject(entry.objectId);
+							dataentry.loadAsText(function (err, metadata, data) {
+								if (!err) {
+									resolve(data, metadata);
+								} else {
+									console.error(err);
+								}
+							});
+						}, typeParameters[0], typeParameters[1], typeParameters[2], typeParameters[3]);
+					}, 0);
+				});
 			});
 		},
 
-		createEntry: function (data, metadata, callback) {
-			requirejs(["sugar-web/datastore"], function (datastore) {
-				datastore.create(metadata, callback, data);
+		createEntry: function (data, metadata) {
+			return new Promise((resolve, reject) => {
+				requirejs(["sugar-web/datastore"], function (datastore) {
+					datastore.create(metadata, function () {
+						resolve();
+					}, data);
+				});
 			});
 		}
 	}

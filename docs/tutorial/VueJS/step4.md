@@ -110,13 +110,18 @@ Once again, the Sugar-Web environment could help us. When an activity is launche
 
 The good part is, `SugarJournal` handles this for you! It provides some events which you can handle however you want to. The events are:
 1. `journal-new-instance`: Emitted when the activity is a new instance.
-2. `journal-data-loaded`: Emitted when the activity is an existing instance and if there is some data stored in the journal. It returns two parameters: data and metadata.
-3. `journal-load-error`: Emitted when the activity is an existing instance and if some error occurred while loading data.
+2. `journal-shared-instance`: Emitted when the activity is a shared instance.
+3. `journal-data-loaded`: Emitted when the activity is an existing instance and if there is some data stored in the journal. It returns two parameters: data and metadata.
+4. `journal-load-error`: Emitted when the activity is an existing instance and if some error occurred while loading data.
 
 Let's handle these events from the `SugarJournal` component. Add the following basic methods to `js/activity.js`:
 ```js
 onJournalNewInstance: function() {
 	console.log("New instance");
+},
+
+onJournalSharedInstance: function() {
+	console.log("Shared instance");
 },
 
 onJournalDataLoaded: function (data, metadata) {
@@ -130,7 +135,7 @@ onJournalLoadError: function(error) {
 
 Add bind them at the component instance inside `index.html`:
 ```html
-<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
 ```
 
 Now display the JavaScript console on your browser and test it. Launch the Pawn activity from the **Start new** menu or from List view of activities. Here is the result:
