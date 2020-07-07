@@ -9,17 +9,10 @@
 
 .game-main {
   width: 100%;
-  height: 85%;
+  height: 86%;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-#floating-info-block {
-  z-index: 5;
-  position: absolute;
-  left: 10%;
-  top: 20%;
+  justify-content: space-around;
 }
 
 .game-canvas {
@@ -30,7 +23,66 @@
 
 .game-footer {
   width: 98%;
-  height: 15%;
+  height: 14%;
   display: flex;
   justify-content: space-between;
+}
+
+#floating-info-block {
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.detail-bar {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.detail-block {
+  width: 90%;
+  height: 20%;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  font-size: 3.5vh;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.detail-block-logo {
+	width: 50%;
+	height: 100%;
+	background-repeat: no-repeat;
+  background-position: left;
+  background-size: contain;
+}
+
+.detail-block-content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.detail-block-content div {
+  width:90%;
+  word-wrap: break-word;
+}
+
+.clock-logo {
+	background-image: url(../icons/clock.svg);
+}
+
+.detil-block-content {
+	width: 50%;
 }

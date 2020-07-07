@@ -44,6 +44,7 @@
 				v-bind:is-target-acheived="isTargetAcheived"
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
+				v-on:center-tangram="onCenterTangram"
 			></component>
 		</transition>
 
@@ -58,7 +59,6 @@
 	<script src="js/utils/tan.js"></script>
 	<script src="js/utils/tangram.js"></script>
 	<script src="js/utils/evaluation.js"></script>
-	<script src="js/utils/generator.js"></script>
 	<script src="js/utils/standardTangrams.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
