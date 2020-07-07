@@ -1,5 +1,5 @@
 .template-selection {
-	margin: auto;
+	margin: 10px auto;
 	width: 90%;
 	height: calc(100% - 60px);
 	display: flex;

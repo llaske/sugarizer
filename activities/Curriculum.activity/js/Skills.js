@@ -68,8 +68,9 @@ var SkillsGrid = {
 			<div>
 				<draggable class="skills-container" v-model="category.skills" :disabled="!settings" :animation="300">
 					<skill-card 
-						v-for="skill in category.skills" 
+						v-for="(skill, i) in category.skills" 
 						:key="skill.id" 
+						:id="i"
 						v-show="matchesSearch(skill.title)"
 						:skill="skill" 
 						:category="category"
@@ -164,8 +165,9 @@ var SkillDetails = {
 						<p v-show="uploads.length > 0">{{ uploads.length }}</p>
 					</div>
 					<upload-item
-						v-for="item in uploads" 
+						v-for="(item, i) in uploads" 
 						:key="item.timestamp" 
+						:id="i"
 						:item="item" 
 						@delete-item="$emit('delete-item', item)"
 					/>

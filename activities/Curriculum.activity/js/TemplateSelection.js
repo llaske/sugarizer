@@ -2,7 +2,7 @@ var TemplateSelection = {
 	/*html*/
 	template: `
 		<div class="template-selection" :style="{backgroundColor: userColors.fill}">
-			<div class="template" v-for="(template, i) in defaultTemplates" :key="template.title" @click="$emit('template-selected', template)">
+			<div class="template" v-for="(template, i) in defaultTemplates" :key="template.title" :id="i" @click="$emit('template-selected', template)">
 				<div class="template-image">
 					<img :src="template.templateImage">
 				</div>
@@ -11,7 +11,7 @@ var TemplateSelection = {
 					<button id="edit-button" @click.stop="editIndex = i"></button>
 				</div>
 			</div>
-			<button id="add-button" @click="showAddPopup = true"></button>
+			<button class="add-template" id="add-button" @click="showAddPopup = true"></button>
 
 			<form @submit.prevent="addTemplate" class="template-popup" v-if="showAddPopup">
 				<div class="popup-header">
