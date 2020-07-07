@@ -52,11 +52,12 @@ var TemplateSelection = {
 	},
 	mounted: function() {
 		var vm = this;
-		requirejs(["text!../defaultTemplates/templates.json"], function(templateFiles) {
-			templateFiles = JSON.parse(templateFiles);
-			
-			for(let templateFile of templateFiles) {
-				requirejs(["text!../defaultTemplates/" + templateFile], function(template) {
+		this.loadList()
+			.then(async (templateFiles) => {
+				templateFiles = JSON.parse(templateFiles);
+				
+				for(let templateFile of templateFiles) {
+					let template = await this.loadTemplate(templateFile);
 					template = JSON.parse(template);
 					if(template.metadata != null) {
 						let temp = JSON.parse(vm.$root.$refs.SugarJournal.LZString.decompressFromUTF16(template.text));
@@ -70,11 +71,26 @@ var TemplateSelection = {
 						template.templateTitle = vm.$root.$refs.SugarL10n.get(template.templateTitle);
 					}
 					vm.defaultTemplates.push(template);
-				});
-			}
-		});
+				}
+			});
 	},
 	methods: {
+		loadList() {
+			return new Promise((resolve, reject) => {
+				requirejs(["text!../defaultTemplates/templates.json"], function(templateFiles) {
+					resolve(templateFiles);
+				});
+			});
+		},	
+
+		loadTemplate(templateFile) {
+			return new Promise((resolve, reject) => {
+				requirejs(["text!../defaultTemplates/" + templateFile], function(template) {
+					resolve(template);
+				});
+			});
+		},
+
 		addTemplate: function() {
 			var vm = this;
 			requirejs([`text!${vm.templateURL}`], function(template) {
