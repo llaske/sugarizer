@@ -410,6 +410,7 @@ enyo.kind({
 
 		// Not connected
 		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
+			preferences.addUserInHistory();
 			this.launchDesktop();
 			return;
 		}
@@ -514,6 +515,7 @@ enyo.kind({
 						preferences.save();
 					}
 					that.$.spinner.setShowing(false);
+					preferences.addUserInHistory();
 					that.launchDesktop();
 				},
 				function(response, code) {
