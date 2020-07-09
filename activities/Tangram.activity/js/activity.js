@@ -24,7 +24,7 @@ var app = new Vue({
     mode: 'non-timer',
     score: 0,
     tangramCategory: 'standard',
-    level: 1,
+    level: 0,
     timer: null,
     clock: {
       active: false,
@@ -35,21 +35,6 @@ var app = new Vue({
     puzzles: [],
     pNo: 0,
     isTargetAcheived: false,
-    translateVal: 0,
-  },
-  created: function() {
-    let vm = this;
-    window.addEventListener('resize', vm.resize);
-  },
-
-  destroyed: function() {
-    let vm = this;
-    window.removeEventListener("resize", vm.resize);
-  },
-
-  mounted: function() {
-    let vm = this;
-    vm.resize();
   },
   methods: {
     initialized: function() {
@@ -67,21 +52,11 @@ var app = new Vue({
 
     },
 
-    resize: function() {
-      let vm = this;
-      //center the target puzzle on canvas
-
-    },
-
     generateTangram: function() {
       let vm = this;
       let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length-1))+1];
       let tang = tangram.tangram;
       console.log(tang);
-      console.log(tang.center().toFloatX());
-      console.log(tang.center().toFloatY());
-
-
       let puzzle = {
         name: tangram.name,
         tangram: {
@@ -90,10 +65,8 @@ var app = new Vue({
         targetTans: [],
       };
       tang.positionCentered();
-      console.log(tang.center().toFloatX()*2);
       tx = -tang.center().toFloatX();
       ty = -tang.center().toFloatY();
-
 
       let target = [];
       for (let i = 0; i < tang.tans.length; i++) {
@@ -106,10 +79,11 @@ var app = new Vue({
           pointsObjs: [],
           orientation: 0,
           points: [],
-          stroke: "black",
-          strokeWidth: 0.4,
+          stroke: 'black',
+          strokeWidth: 0.8,
           fill: vm.strokeColor,
           closed: true,
+          lineJoin: 'round',
         }
 
         let points = [...tang.tans[i].getPoints()];
@@ -118,14 +92,12 @@ var app = new Vue({
         let floatPoints = [];
         let pointsObjs = [];
         for (let j = 0; j < points.length; j++) {
-          points[j].x.add(new IntAdjoinSqrt2(tx, 0));
-          points[j].y.add(new IntAdjoinSqrt2(ty, 0));
-          pointsObjs.push(points[j]);
-          floatPoints.push((points[j].toFloatX() + 0));
-          if (points[j].toFloatX() > 28) {
-            console.log(points[j].toFloatX());
-          }
-          floatPoints.push((points[j].toFloatY() + 0));
+          let tmpPoint = points[j].dup();
+          tmpPoint.x.add(new IntAdjoinSqrt2(tx, 0));
+          tmpPoint.y.add(new IntAdjoinSqrt2(ty, 0));
+          pointsObjs.push(tmpPoint);
+          floatPoints.push((tmpPoint.toFloatX() + 0));
+          floatPoints.push((tmpPoint.toFloatY() + 0));
         }
         targetTan.offsetX = (center.toFloatX() + tx);
         targetTan.offsetY = (center.toFloatY() + ty);
@@ -134,7 +106,7 @@ var app = new Vue({
         targetTan.orientation = tang.tans[i].orientation;
         targetTan.points = floatPoints;
         targetTan.pointsObjs = pointsObjs;
-        targetTan.stroke = vm.level === 0 ? "black" : vm.strokeColor;
+        targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
         target.push(targetTan);
       }
       puzzle.targetTans = target;

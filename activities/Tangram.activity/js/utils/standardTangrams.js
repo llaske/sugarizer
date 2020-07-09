@@ -107,21 +107,21 @@ var arrowTangram = new Tangram([bigTriangle1_6, bigTriangle2_6, mediumTriangle_6
 
 
 var standardTangrams = [{
-  name: 'squareTangram',
+  name: 'square',
   tangram: squareTangram
 }, {
-  name: 'swanTangram',
+  name: 'swan',
   tangram: swanTangram
 }, {
-  name: 'catTangram',
+  name: 'cat',
   tangram: catTangram
 }, {
-  name: 'birdTangram',
+  name: 'bird',
   tangram: birdTangram
 }, {
-  name: 'mountainTangram',
+  name: 'mountain',
   tangram: mountainTangram
 }, {
-  name: 'arrowTangram',
+  name: 'arrow',
   tangram: arrowTangram
 }];

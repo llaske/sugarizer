@@ -124,6 +124,10 @@ p {
   background-size: 90%;
 }
 
+.btn-replay {
+	background-image: url(../icons/replay-game.svg);
+}
+
 .btn-restart {
 	background-image: url(../icons/restart-black.svg);
 }

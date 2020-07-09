@@ -9,7 +9,7 @@
 
 .game-main {
   width: 100%;
-  height: 86%;
+  height: 88%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -23,18 +23,21 @@
 
 .game-footer {
   width: 98%;
-  height: 14%;
+  height: 12%;
   display: flex;
   justify-content: space-between;
 }
 
 #floating-info-block {
+  z-index: 1;
+  position: absolute;
   height: 300px;
   width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items:flex-start;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
 }
 
 .detail-bar {
@@ -45,11 +48,11 @@
 }
 
 .detail-block {
-  width: 90%;
-  height: 20%;
-  border: none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  font-size: 3.5vh;
+  width: 95%;
+  height: 30%;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: min(3.5vh, 3.5vw);
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -77,6 +80,11 @@
 .detail-block-content div {
   width:90%;
   word-wrap: break-word;
+  text-align: center;
+}
+
+.tangram-name {
+  width: 100%;
 }
 
 .clock-logo {

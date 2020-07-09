@@ -1,42 +1,31 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
-<g>
-	<g>
-		<path d="M8,0C3.589,0,0,3.589,0,8s3.589,8,8,8s8-3.589,8-8S12.411,0,8,0z M8,14c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6
-			S11.309,14,8,14z"/>
-		<path d="M7,7H4v2h4c0.552,0,1-0.448,1-1V3H7V7z"/>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1">
+   <g stroke="null" id="svg_2">
+    <path stroke="null" id="svg_3" d="m7.9375,0.812499c-3.963008,0 -7.187501,3.196454 -7.187501,7.125001s3.224493,7.125001 7.187501,7.125001s7.187501,-3.196454 7.187501,-7.125001s-3.224493,-7.125001 -7.187501,-7.125001zm0,12.468752c-2.97293,0 -5.390626,-2.396672 -5.390626,-5.343751s2.417696,-5.343751 5.390626,-5.343751s5.390626,2.396672 5.390626,5.343751s-2.417696,5.343751 -5.390626,5.343751z"/>
+    <path stroke="null" id="svg_4" d="m7.039063,7.046875l-2.695313,0l0,1.78125l3.59375,0c0.495938,0 0.898438,-0.399 0.898438,-0.890625l0,-4.453126l-1.796875,0l0,3.562501z"/>
+   </g>
+  </g>
+  <g id="svg_5"/>
+  <g id="svg_6"/>
+  <g id="svg_7"/>
+  <g id="svg_8"/>
+  <g id="svg_9"/>
+  <g id="svg_10"/>
+  <g id="svg_11"/>
+  <g id="svg_12"/>
+  <g id="svg_13"/>
+  <g id="svg_14"/>
+  <g id="svg_15"/>
+  <g id="svg_16"/>
+  <g id="svg_17"/>
+  <g id="svg_18"/>
+  <g id="svg_19"/>
+ </g>
 </svg>
