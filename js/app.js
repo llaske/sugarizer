@@ -35,17 +35,17 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	// Wait for preferences
 	var loadpreference = function() {
 		enyo.platform.electron = /Electron/.test(navigator.userAgent);
-		if (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios) {
-			var getUrlParameter = function(name) {
-				var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-				return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-			};
-			var rst = getUrlParameter('rst');
+		var getUrlParameter = function(name) {
+			var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+			return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+		};
+		var rst = getUrlParameter('rst');
+		if (util.getClientType() == constant.appType && (enyo.platform.electron || enyo.platform.android || enyo.platform.androidChrome)) {
 			if (rst == 1) {
-				// Electron app parameter to start from a fresh install
+				// Restart from a fresh install, use from Electon option --init
 				util.cleanDatastore(true);
 			} else if (rst == 2) {
-				// Sugarizer OS auto logoff
+				// Sugarizer OS auto logoff or Electron option --logoff
 				util.cleanDatastore(null);
 			}
 		}
