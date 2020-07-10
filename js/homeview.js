@@ -111,7 +111,8 @@ enyo.kind({
 	// Init activities service response, redraw screen
 	queryActivitiesResponse: function(inSender, inResponse) {
 		// No activities at start
-		if (preferences.getActivities() == null) {
+		var currentList = preferences.getActivities();
+		if (currentList == null || currentList.length == 0) {
 			// Just copy the activities from the service
 			preferences.setActivities(inResponse.data);
 			preferences.save();
