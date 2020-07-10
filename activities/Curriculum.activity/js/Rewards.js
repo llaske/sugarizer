@@ -54,7 +54,7 @@ var Rewards = {
 	template: `
 		<div class="rewards-container">
 			<div class="trophies-container">
-				<div class="trophy-card" v-for="item in achievements" :key="item.title" v-if="evalCondition(item.availability)">
+				<div class="trophy-card" v-for="(item, i) in achievements" :key="item.title" :id="i" v-if="evalCondition(item.availability)">
 					<trophy :userColors="userColors" :acquired="evalAndUpdate(item)" :info="item.info" />
 					<h4>{{ item.title }}</h4>
 					<p 

@@ -19,7 +19,9 @@ var CategoryCard = {
 			<div class="category-skills">
 				<div 
 					class="skill" 
-					v-for="skill in skillsToShow" 
+					v-for="(skill, i) in skillsToShow" 
+					:key="i"
+					:id="i"
 					@click.stop="onSkillClick(skill.id)"
 				>
 					<img :src="skill.image" :alt="skill.title" loading="lazy">
@@ -85,8 +87,9 @@ var CategoriesGrid = {
 		<div >
 			<draggable class="categories" v-model="categories" @update="onUpdate" :disabled="!settings" :animation="300">
 				<category-card 
-					v-for="category in categories" 
+					v-for="(category, i) in categories" 
 					:key="category.id"
+					:id="i"
 					v-show="matchesSearch(category.title)"
 					:category="category"
 					:user="user"
@@ -116,12 +119,10 @@ var CategoriesGrid = {
 		},
 
 		onCategoryClick: function (categoryId) {
-			console.log('cat: ', categoryId);
 			this.$emit('open-category', categoryId);
 		},
 
 		onSkillClick: function (categoryId, skillId) {
-			console.log('skill: ', categoryId, skillId);
 			this.$emit('open-skill', categoryId, skillId);
 		},
 

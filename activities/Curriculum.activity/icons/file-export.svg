@@ -1,1 +1,13 @@
-<svg fill="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-export" class="svg-inline--fa fa-file-export fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#fff" d="M384 121.9c0-6.3-2.5-12.4-7-16.9L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128zM571 308l-95.7-96.4c-10.1-10.1-27.4-3-27.4 11.3V288h-64v64h64v65.2c0 14.3 17.3 21.4 27.4 11.3L571 332c6.6-6.6 6.6-17.4 0-24zm-379 28v-32c0-8.8 7.2-16 16-16h176V160H248c-13.2 0-24-10.8-24-24V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V352H208c-8.8 0-16-7.2-16-16z"></path></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_62" data-name="Rectangle 62" width="46" height="46" transform="translate(272 114)" fill="#fff" opacity="0.13"/>
+    </clipPath>
+  </defs>
+  <g id="Group_22" data-name="Group 22" transform="translate(-265 -107)">
+    <rect id="Rectangle_63" data-name="Rectangle 63" width="60" height="60" transform="translate(265 107)" fill="none"/>
+    <g id="Mask_Group_11" data-name="Mask Group 11" clip-path="url(#clip-path)">
+      <path id="file-export" d="M30.669,9.736a1.911,1.911,0,0,0-.559-1.35L22.291.559A1.915,1.915,0,0,0,20.933,0h-.487V10.223H30.669ZM45.6,24.6l-7.643-7.7a1.281,1.281,0,0,0-2.188.9V23H30.661v5.112h5.112v5.207a1.281,1.281,0,0,0,2.188.9L45.6,26.516A1.359,1.359,0,0,0,45.6,24.6Zm-30.27,2.236V24.28A1.282,1.282,0,0,1,16.613,23H30.669V12.779H19.807a1.922,1.922,0,0,1-1.917-1.917V0H1.917A1.912,1.912,0,0,0,0,1.917V38.976a1.912,1.912,0,0,0,1.917,1.917H28.753a1.912,1.912,0,0,0,1.917-1.917V28.114H16.613A1.282,1.282,0,0,1,15.335,26.836Z" transform="translate(272 116.554)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

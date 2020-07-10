@@ -113,9 +113,9 @@ define([], function() {
 		</text:p>`;
 	}
 
-	var addImage = function(imageURL) {
+	var addImage = function(imageURL, width, height) {
 		let code = '';
-		code += `<draw:frame draw:style-name="fr5"  text:anchor-type="char" svg:x="-0.152cm" svg:y="-0.152cm" svg:width="6.392cm" svg:height="4.17cm" draw:z-index="32">
+		code += `<draw:frame draw:style-name="fr5"  text:anchor-type="char" svg:x="-0.152cm" svg:y="-0.152cm" svg:width="6.392cm" svg:height="${height}cm" draw:z-index="32">
 		<draw:image loext:mime-type="image/jpeg">
 		<office:binary-data>${imageURL.substring(imageURL.indexOf(',') + 1)}</office:binary-data>
 		</draw:image>
@@ -159,7 +159,7 @@ define([], function() {
 	var addMediaFrame = function(mediaElement) {
 		return `<draw:frame draw:style-name="fr1" text:anchor-type="as-char" svg:width="4.413cm" draw:z-index="16">
 			<draw:text-box fo:min-height="3.286cm">
-			<text:p text:style-name="P29"><draw:frame draw:style-name="fr7" text:anchor-type="char" svg:width="4.269cm" svg:height="2.783cm" draw:z-index="17">
+			<text:p text:style-name="P29"><draw:frame draw:style-name="fr7" text:anchor-type="char" svg:width="4.269cm" svg:height="${mediaElement.height}cm" draw:z-index="17">
 				<draw:image loext:mime-type="image/jpeg">
 					<office:binary-data>${mediaElement.imageURL.substring(mediaElement.imageURL.indexOf(',') + 1)}</office:binary-data>
 				</draw:image>

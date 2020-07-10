@@ -298,7 +298,59 @@ var app = new Vue({
 			stringUploadMedia: '',
 			stringExport: '',
 			stringFullscreen: '',
-			stringUnfullscreen: ''
+			stringUnfullscreen: '',
+			stringTutoTrophyCardTitle: '',
+			stringTutoTrophyCardContent: '',
+			stringTutoSettingsCategoryCardTitle: '',
+			stringTutoSettingsCategoryCardContent: '',
+			stringTutoSettingsSkillCardTitle: '',
+			stringTutoSettingsSkillCardContent: '',
+			stringTutoSettingsEditButtonTitle: '',
+			stringTutoSettingsEditButtonContent: '',
+			stringTutoSettingsDeleteButtonTitle: '',
+			stringTutoSettingsDeleteButtonContent: '',
+			stringTutoSettingsNotationButtonTitle: '',
+			stringTutoSettingsNotationButtonContent: '',
+			stringTutoSettingsAddButtonTitle: '',
+			stringTutoSettingsAddButtonContent: '',
+			stringTutoExplainTitle: '',
+			stringTutoExplainContent: '',
+			stringTutoTemplateSelectionTitle: '',
+			stringTutoTemplateSelectionContent: '',
+			stringTutoTemplateTitle: '',
+			stringTutoTemplateContent: '',
+			stringTutoAddTemplateTitle: '',
+			stringTutoAddTemplateContent: '',
+			stringTutoCategoryCardTitle: '',
+			stringTutoCategoryCardContent: '',
+			stringTutoCategorySkillsTitle: '',
+			stringTutoCategorySkillsContent: '',
+			stringTutoCategoryProgressTitle: '',
+			stringTutoCategoryProgressContent: '',
+			stringTutoCategorySearchTitle: '',
+			stringTutoCategorySearchContent: '',
+			stringTutoRewardsButtonTitle: '',
+			stringTutoRewardsButtonContent: '',
+			stringTutoSettingsButtonTitle: '',
+			stringTutoSettingsButtonContent: '',
+			stringTutoExportButtonTitle: '',
+			stringTutoExportButtonContent: '',
+			stringTutoNetworkButtonTitle: '',
+			stringTutoNetworkButtonContent: '',
+			stringTutoSkillCardTitle: '',
+			stringTutoSkillCardContent: '',
+			stringTutoHomeButtonTitle: '',
+			stringTutoHomeButtonContent: '',
+			stringTutoSkillSearchTitle: '',
+			stringTutoSkillSearchContent: '',
+			stringTutoSkillUploadsTitle: '',
+			stringTutoSkillUploadsContent: '',
+			stringTutoAcquireButtonTitle: '',
+			stringTutoAcquireButtonContent: '',
+			stringTutoUploadButtonTitle: '',
+			stringTutoUploadButtonContent: '',
+			stringTutoUploadedItemTitle: '',
+			stringTutoUploadedItemContent: ''
 		}
 	},
 	watch: {
@@ -730,6 +782,203 @@ var app = new Vue({
 
 		unfullscreen: function () {
 			this.$refs.SugarToolbar.show();
+		},
+
+		onHelp() {
+			let steps = [];
+			if(this.rewardsActive) {
+				steps = steps.concat([
+					{
+						element: ".trophy-card#0",
+						placement: "bottom",
+						title: this.l10n.stringTutoTrophyCardTitle,
+						content: this.l10n.stringTutoTrophyCardContent
+					},
+				]);
+			} else if(this.settings) {
+				steps = steps.concat([
+					{
+						element: ".category-card#0",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsCategoryCardTitle,
+						content: this.l10n.stringTutoSettingsCategoryCardContent
+					},
+					{
+						element: ".skill-card#0",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsSkillCardTitle,
+						content: this.l10n.stringTutoSettingsSkillCardContent
+					},
+					{
+						element: "#edit-button",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsEditButtonTitle,
+						content: this.l10n.stringTutoSettingsEditButtonContent
+					},
+					{
+						element: "#delete-button",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsDeleteButtonTitle,
+						content: this.l10n.stringTutoSettingsDeleteButtonContent
+					},
+					{
+						element: "#notation-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsNotationButtonTitle,
+						content: this.l10n.stringTutoSettingsNotationButtonContent
+					},
+					{
+						element: "#add-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsAddButtonTitle,
+						content: this.l10n.stringTutoSettingsAddButtonContent
+					},
+				]);
+			} else {
+				switch(this.currentView) {
+					case 'template-selection': 
+						steps = steps.concat([
+							{
+								element: "",
+								orphan: true,
+								placement: "bottom",
+								title: this.l10n.stringTutoExplainTitle,
+								content: this.l10n.stringTutoExplainContent
+							},
+							{
+								element: "",
+								orphan: true,
+								placement: "bottom",
+								title: this.l10n.stringTutoTemplateSelectionTitle,
+								content: this.l10n.stringTutoTemplateSelectionContent
+							},
+							{
+								element: ".template#0",
+								placement: "bottom",
+								title: this.l10n.stringTutoTemplateTitle,
+								content: this.l10n.stringTutoTemplateContent
+							},
+							{
+								element: ".add-template",
+								placement: "left",
+								title: this.l10n.stringTutoAddTemplateTitle,
+								content: this.l10n.stringTutoAddTemplateContent
+							}
+						]);
+						break;
+					case 'categories-grid': 
+						steps = steps.concat([
+							{
+								element: "",
+								orphan: true,
+								placement: "bottom",
+								title: this.l10n.stringTutoExplainTitle,
+								content: this.l10n.stringTutoExplainContent
+							},
+							{
+								element: ".category-card#0",
+								placement: "right",
+								title: this.l10n.stringTutoCategoryCardTitle,
+								content: this.l10n.stringTutoCategoryCardContent
+							},
+							{
+								element: ".category-card#0 .category-skills",
+								placement: "bottom",
+								title: this.l10n.stringTutoCategorySkillsTitle,
+								content: this.l10n.stringTutoCategorySkillsContent
+							},
+							{
+								element: ".category-card#0 .progress",
+								placement: "bottom",
+								title: this.l10n.stringTutoCategoryProgressTitle,
+								content: this.l10n.stringTutoCategoryProgressContent
+							},
+							{
+								element: ".search-input",
+								placement: "bottom",
+								title: this.l10n.stringTutoCategorySearchTitle,
+								content: this.l10n.stringTutoCategorySearchContent
+							},
+							{
+								element: "#rewards-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoRewardsButtonTitle,
+								content: this.l10n.stringTutoRewardsButtonContent
+							},
+							{
+								element: "#settings-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoSettingsButtonTitle,
+								content: this.l10n.stringTutoSettingsButtonContent
+							},
+							{
+								element: "#export-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoExportButtonTitle,
+								content: this.l10n.stringTutoExportButtonContent
+							},
+							{
+								element: "#network-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoNetworkButtonTitle,
+								content: this.l10n.stringTutoNetworkButtonContent
+							},
+						]);
+						break;
+					case 'skills-grid': 
+						steps = steps.concat([
+							{
+								element: ".skill-card#0",
+								placement: "right",
+								title: this.l10n.stringTutoSkillCardTitle,
+								content: this.l10n.stringTutoSkillCardContent
+							},
+							{
+								element: "#home-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoHomeButtonTitle,
+								content: this.l10n.stringTutoHomeButtonContent
+							},
+							{
+								element: ".search-input",
+								placement: "bottom",
+								title: this.l10n.stringTutoSkillSearchTitle,
+								content: this.l10n.stringTutoSkillSearchContent
+							},
+						]);
+						break;
+					case 'skill-details': 
+						steps = steps.concat([
+							{
+								element: ".skill-uploads",
+								placement: "top",
+								title: this.l10n.stringTutoSkillUploadsTitle,
+								content: this.l10n.stringTutoSkillUploadsContent
+							},
+							{
+								element: "#acquire-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoAcquireButtonTitle,
+								content: this.l10n.stringTutoAcquireButtonContent
+							},
+							{
+								element: "#upload-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoUploadButtonTitle,
+								content: this.l10n.stringTutoUploadButtonContent
+							},
+							{
+								element: "#0 .uploaded-item",
+								placement: "top",
+								title: this.l10n.stringTutoUploadedItemTitle,
+								content: this.l10n.stringTutoUploadedItemContent
+							},
+						]);
+						break;
+				}
+			}
+			
+			this.$refs.SugarTutorial.show(steps);
 		},
 
 		onStop: function () {

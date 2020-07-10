@@ -20,7 +20,11 @@
 	<link rel="stylesheet" href="css/Settings.css">
 	<link rel="stylesheet" href="css/Rewards.css">
 	<link rel="stylesheet" href="css/Export.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/Sortable.min.js"></script>
 	<script src="lib/vuedraggable.umd.min.js"></script>
 	<script src="lib/jspdf.min.js"></script>
@@ -122,6 +126,7 @@
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<div id="content">
@@ -182,6 +187,7 @@
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-icon ref="SugarIcon"></sugar-icon>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
 	<script src="js/TemplateSelection.js"></script>
@@ -198,6 +204,7 @@
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

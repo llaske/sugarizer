@@ -245,13 +245,18 @@ var Export = {
 		},
 
 		canvasToImage(path) {
-			if (path.indexOf('data:image/png') != -1) {
-				return Promise.resolve(path);
-			}
 			return new Promise((resolve, reject) => {
 				var img = new Image();
 				img.src = path;
 				img.onload = () => {
+					if (path.indexOf('data:image/png') != -1) {
+						resolve({
+							dataURL: path,
+							width: img.width,
+							height: img.height,
+							canvas: null
+						});
+					}
 					var canvas = document.createElement("canvas");
 					canvas.width = img.width;
 					canvas.height = img.height;
@@ -317,7 +322,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.txt`,
+				title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.txt',
 				activity: "org.olpcfrance.Curriculum",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -340,7 +345,7 @@ var Export = {
 					// vm.download(result, "test.fodt", "application/vnd.oasis.opendocument.text");
 					var metadata = {
 						mimetype: 'application/vnd.oasis.opendocument.text',
-						title: `${this.templateTitle} ${this.l10n.stringBy} ${this.currentenv.user.name}.odt`,
+						title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.odt',
 						activity: "org.olpcfrance.Curriculum",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
@@ -471,9 +476,9 @@ var Export = {
 						let skillContent = '';
 						// SKill image
 						let res = await vm.canvasToImage(skill.image);
-						let imgWidth = 241.89;
+						let imgWidth = 6.392;
 						let imgHeight = imgWidth * (res.height / res.width);
-						let imgFrame = odt.addImage(res.dataURL);
+						let imgFrame = odt.addImage(res.dataURL, imgWidth, imgHeight);
 						// Skill level
 						let levelObj = {
 							text: vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].text,
@@ -493,9 +498,13 @@ var Export = {
 						var uploads = vm.getUploads(category.id, skill.id);
 						for (var upload of uploads) {
 							let res = await vm.canvasToImage(vm.getUploadedPath(upload));
+							let uploadWidth = 4.269;
+							let uploadHeight = uploadWidth * (res.height / res.width);
 							let mediaObj = {
 								imageURL: res.dataURL,
-								time: new Date(upload.timestamp).toLocaleDateString()
+								time: new Date(upload.timestamp).toLocaleDateString(),
+								width: uploadWidth,
+								height: uploadHeight
 							}
 							mediaFrame += odt.addMediaFrame(mediaObj);
 						}
@@ -524,7 +533,7 @@ var Export = {
 				var mimetype = 'application/msword';
 				var metadata = {
 					mimetype: mimetype,
-					title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.doc`,
+					title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.doc',
 					activity: "org.olpcfrance.Curriculum",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
@@ -554,7 +563,7 @@ var Export = {
 									// Create Journal Entry
 									var metadata = {
 										mimetype: 'application/pdf',
-										title: `${vm.templateTitle} ${vm.l10n.stringBy} ${vm.currentenv.user.name}.pdf`,
+										title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.pdf',
 										activity: "org.olpcfrance.Curriculum",
 										timestamp: new Date().getTime(),
 										creation_time: new Date().getTime(),

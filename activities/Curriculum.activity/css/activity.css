@@ -78,6 +78,10 @@ p {
 	border-radius: 5.5px;
 }
 
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
 }
