@@ -116,14 +116,6 @@ let app = new Vue({
 
 		this.init();
 
-		this.$refs.SugarDevice.getLocation(function(location, error) {
-			if(error) {
-				console.log(`Code: ${error.code} (Geolocation is not supported by this browser)`);
-				return;
-			}
-			console.log(location);
-		});
-
 		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
 	},
 
