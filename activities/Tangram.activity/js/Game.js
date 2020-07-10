@@ -14,13 +14,18 @@ var Game = {
             v-on:tap="onTap($event, index)"
             v-on:click="onClick($event, index)"
             v-on:dragend="onDragEnd($event, index)"
+            v-on:dragmove="onDragMove($event, index)"
             v-on:mouseover="onMouseOver($event, index)"
             v-on:mouseout="onMouseOut($event, index)"
           ></v-line>
           </v-layer>
         </v-stage>
         <div id="floating-info-block"
-          v-bind:style="{backgroundColor: '#ffffff'}"
+          v-bind:style="{width: infoContainer.width + 'px',
+            height: infoContainer.height + 'px',
+            top: infoContainer.top + 'px',
+            right: infoContainer.right + 'px'
+          }"
         >
           <div class="detail-block"
             v-bind:style="{borderColor: strokeColor}"
@@ -88,6 +93,12 @@ var Game = {
       configLayer: {
         scaleX: 6,
         scaleY: 6
+      },
+      infoContainer: {
+        width: 1,
+        height: 1,
+        top: 0,
+        right: 0,
       },
       tans: [],
       flip: 5,
@@ -206,10 +217,10 @@ var Game = {
         }
       }
 
-      document.querySelector('#floating-info-block').style.width = gameMainEle.offsetWidth * 0.20 + "px";
-      document.querySelector('#floating-info-block').style.height = gameMainEle.offsetHeight * 0.50 + "px";
-      document.querySelector('#floating-info-block').style.top = toolbarHeight + gameMainEle.offsetHeight * 0.01 + "px";
-      document.querySelector('#floating-info-block').style.right = gameMainEle.offsetWidth * 0.01 + "px";
+      vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.20);
+      vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.50);
+      vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.01);
+      vm.$set(vm.infoContainer, 'right', gameMainEle.offsetWidth * 0.01);
 
       if (vm.isTargetAcheived) {
         document.querySelector('.btn-validate').style.width = document.querySelector('.btn-validate').offsetHeight + "px";
@@ -221,10 +232,13 @@ var Game = {
 
     },
 
+    moveTanToInitialPos: function (index) {
+
+    },
+
     initializeTans: function() {
       let vm = this;
       let tans = [];
-      vm.tans = [];
       let squareTangram = standardTangrams[0].tangram;
       for (let i = 0; i < squareTangram.tans.length; i++) {
         let tan = {
@@ -418,19 +432,71 @@ var Game = {
 
     onDragEnd: function(e, index) {
       let vm = this;
-      var dx = e.target.attrs.x - this.tans[index].x;
-      var dy = e.target.attrs.y - this.tans[index].y;
-      vm.moveTan(index, dx, dy);
+      let isTanOutsideCanvas = false;
+      let finalX = e.target.attrs.x;
+      let finalY = e.target.attrs.y;
+      let boundingBox = e.target.getClientRect();
+
+      //checking conditions if the tan gets out of canvas boundary
+      let scale = vm.configLayer.scaleX;
+      if (boundingBox.x < 0) {
+        finalX = boundingBox.width / (2 * scale);
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.y < 0) {
+        finalY = boundingBox.height / (2 * scale);
+        isTanOutsideCanvas = true;
+      }
+      if(boundingBox.y + boundingBox.height > vm.configKonva.height){
+        finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width - vm.infoContainer.width && boundingBox.y < vm.infoContainer.height) {
+        let tmpx = (vm.configKonva.width - vm.infoContainer.width - boundingBox.width / 2) / scale;
+        let tmpy = (vm.infoContainer.height + boundingBox.height / 2) / scale;
+        let d1 = Math.abs(tmpx - vm.tans[index].x);
+        let d2 = Math.abs(tmpy - vm.tans[index].y);
+        if(d1 <= d2){
+          finalX = tmpx;
+        } else {
+          finalY = tmpy;
+        }
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width && boundingBox.y > vm.infoContainer.height) {
+        finalX = (vm.configKonva.width - boundingBox.width / 2) / scale;
+        isTanOutsideCanvas = true;
+      }
+
+      if(isTanOutsideCanvas){
+        let dx = finalX - this.tans[index].x;
+        let dy = finalY - this.tans[index].y;
+        setTimeout(() => {
+          vm.moveTan(index, dx, dy);
+        }, 0);
+      }
+
       setTimeout(() => {
         vm.snapTan(index);
-      }, 0);
+      });
       //this.checkIfSolved();
+    },
+
+    onDragMove: function(e, index) {
+      let vm = this;
+      let finalX = e.target.attrs.x;
+      let finalY = e.target.attrs.y;
+      let dx = finalX - this.tans[index].x;
+      let dy = finalY - this.tans[index].y;
+
+      setTimeout(() => {
+        vm.moveTan(index, dx, dy);
+      }, 0);
     },
 
     onMouseOver: function(e, index) {
       let vm = this;
       vm.$set(vm.tans[index], 'strokeEnabled', true);
-      let boundingBox = e.target.getClientRect();
     },
 
     onMouseOut: function(e, index) {
