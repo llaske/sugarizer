@@ -119,12 +119,10 @@ var CategoriesGrid = {
 		},
 
 		onCategoryClick: function (categoryId) {
-			console.log('cat: ', categoryId);
 			this.$emit('open-category', categoryId);
 		},
 
 		onSkillClick: function (categoryId, skillId) {
-			console.log('skill: ', categoryId, skillId);
 			this.$emit('open-skill', categoryId, skillId);
 		},
 
