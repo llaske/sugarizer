@@ -28,25 +28,16 @@ Vue.component('sugar-tutorial', {
 					<div class='popover-content'></div>
 					<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>
 						<div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>
-							<div class='tutorial-prev-icon1 web-activity'>
-								<div class='tutorial-prev-icon2 web-activity-icon'></div>
-								<div class='tutorial-prev-icon3 web-activity-disable'></div>
-							</div>
+							<div class='tutorial-prev-icon1 web-activity'></div>
 							<div class='tutorial-icon-text'>${this.l10n.stringTutoPrev}</div>
 						</div>
 						<span data-role='separator' style='margin: 4px'>|</span>
 						<div class='tutorial-next-icon tutorial-icon-button' data-role='next'>
-							<div class='tutorial-next-icon1 web-activity'>
-								<div class='tutorial-next-icon2 web-activity-icon'></div>
-								<div class='tutorial-next-icon3 web-activity-disable'></div>
-							</div>
+							<div class='tutorial-next-icon1 web-activity'></div>
 							<div class='tutorial-icon-text'>${this.l10n.stringTutoNext}</div>
 						</div>
 						<div class='tutorial-end-icon tutorial-icon-button' data-role='end'>
-							<div class='tutorial-end-icon1 web-activity'>
-								<div class='tutorial-end-icon2 web-activity-icon'></div>
-								<div class='tutorial-end-icon3 web-activity-disable'></div>
-							</div>
+							<div class='tutorial-end-icon1 web-activity'></div>
 							<div class='tutorial-icon-text'>${this.l10n.stringTutoEnd}</div>
 						</div>
 					</div>
