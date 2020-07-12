@@ -47,15 +47,7 @@ enyo.kind({
 		// Init screen
 		app = this;
 		this.inherited(arguments);
-		this.$.nametext.setContent(l10n.get("Name"));
-		this.$.servertext.setContent(l10n.get("ServerUrl"));
-		this.$.password.setLabel(l10n.get("Password"));
-		this.$.previous.setText(l10n.get("Back"));
-		this.$.next.setText(l10n.get("Next"));
-		this.$.newusertext.setContent(l10n.get("NewUser"));
-		this.$.logintext.setContent(l10n.get("Login"));
-		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
-		this.$.colortext.setContent(l10n.get("ClickToColor"));
+		this.localize();
 		this.history = preferences.getHistory();
 		if (!this.history || !this.history.length) {
 			this.history = [];
@@ -105,6 +97,18 @@ enyo.kind({
 			}
 		}, constant.timerBeforeTutorial);
 
+	},
+
+	localize: function() {
+		this.$.nametext.setContent(l10n.get("Name"));
+		this.$.servertext.setContent(l10n.get("ServerUrl"));
+		this.$.password.setLabel(l10n.get("Password"));
+		this.$.previous.setText(l10n.get("Back"));
+		this.$.next.setText(l10n.get("Next"));
+		this.$.newusertext.setContent(l10n.get("NewUser"));
+		this.$.logintext.setContent(l10n.get("Login"));
+		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
+		this.$.colortext.setContent(l10n.get("ClickToColor"));
 	},
 
 	getView: function() {
