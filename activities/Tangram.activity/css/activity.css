@@ -125,7 +125,7 @@ p {
 }
 
 .btn-replay {
-	background-image: url(../icons/replay-game.svg);
+	background-image: url(../icons/refresh.svg);
 }
 
 .btn-restart {
@@ -138,6 +138,97 @@ p {
 
 .btn-pass {
 	background-image: url(../icons/pass-icon.svg);
+}
+
+#easy-button {
+  background-image: url(../icons/easy-level.svg);
+}
+
+#medium-button {
+  background-image: url(../icons/medium-level.svg);
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-notselected {
+  background-color: transparent;
+}
+
+.palette .row {
+  display: block;
+  margin: 0 0 !important;
+  box-sizing: initial !important;
+  font-size: 10pt;
+}
+
+.palette .expand {
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+
+.palette input#title.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 245px;
+  color: black;
+}
+
+.palette textarea#description.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 255px;
+  color: black;
+}
+
+.palette input[type='text'].expand {
+  font-family: system-ui;
+  font-size: 11px;
+}
+
+.palette .container {
+  box-sizing: initial;
+}
+
+.palette .wrapper {
+  font-size: 10pt;
+  box-sizing: initial;
+  min-width: 70px;
+}
+
+.palette *, ::after, ::before {
+  box-sizing: initial;
+}
+
+.palette-item {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.palette-text {
+  text-align: center;
+  margin: 4px;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-item-selected {
+  background-color: #808080;
+}
+
+.palette-icon {
+  width: 50px;
 }
 
 .tutorial-icon-button {
