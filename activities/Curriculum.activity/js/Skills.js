@@ -3,11 +3,11 @@
 var SkillCard = {
 	/*html*/
 	template: `
-		<div 
-			class="skill-card" 
+		<div
+			class="skill-card"
 			:class="{ 'settings-active': settings }"
 			:style="{ border: 'solid 2px ' + category.color }"
-			@click="onSkillClick"		
+			@click="onSkillClick"
 		>
 				<div class="settings-row">
 					<transition name="settings-zoom">
@@ -60,19 +60,19 @@ var SkillsGrid = {
 		<div class="skills">
 			<button id="back-button" @click="goBackTo"></button>
 			<h1 class="category-title">
-				{{ category.title }} 
-				<span ref="underline1" class="underline" :style="{ backgroundColor: category.color }"></span> 
+				{{ category.title }}
+				<span ref="underline1" class="underline" :style="{ backgroundColor: category.color }"></span>
 				<span ref="underline2" class="underline" :style="{ backgroundColor: category.color }"></span>
 			</h1>
-			
+
 			<div>
 				<draggable class="skills-container" v-model="category.skills" :disabled="!settings" :animation="300">
-					<skill-card 
-						v-for="(skill, i) in category.skills" 
-						:key="skill.id" 
+					<skill-card
+						v-for="(skill, i) in category.skills"
+						:key="skill.id"
 						:id="i"
 						v-show="matchesSearch(skill.title)"
-						:skill="skill" 
+						:skill="skill"
 						:category="category"
 						:user="user"
 						:settings="settings"
@@ -142,13 +142,13 @@ var SkillDetails = {
 			<button id="back-button" @click="goBackTo"></button>
 			<div class="skill-title">
 				<h1>{{ skill.title }}</h1>
-				<span ref="underline3" class="underline"></span>	
-				<medal 
-					:acquired="currentAcquired" 
-					:levels="levels" 
+				<span ref="underline3" class="underline"></span>
+				<medal
+					:acquired="currentAcquired"
+					:levels="levels"
 					:notation-level="notationLevel"
 					:userColors="userColors"
-					@click="$root.switchSkillLevel" 
+					@click="$root.switchSkillLevel"
 				/>
 			</div>
 			<div class="skill-contents">
@@ -160,15 +160,15 @@ var SkillDetails = {
 					<div class="upload-preview" :class="{ 'uploaded': uploads.length != 0 }">
 						<div v-show="uploads.length == 0">
 							<div ref="uploadPreview" class="preview-icon"></div>
-							<p>Click on upload to integrate some proofs of your skill</p>
+							<p>{{l10n.stringUploadSkill}}</p>
 						</div>
 						<p v-show="uploads.length > 0">{{ uploads.length }}</p>
 					</div>
 					<upload-item
-						v-for="(item, i) in uploads" 
-						:key="item.timestamp" 
+						v-for="(item, i) in uploads"
+						:key="item.timestamp"
 						:id="i"
-						:item="item" 
+						:item="item"
 						@delete-item="$emit('delete-item', item)"
 					/>
 				</div>
@@ -180,6 +180,11 @@ var SkillDetails = {
 		'medal': Medal
 	},
 	props: ['categories', 'categoryId', 'skillId', 'user', 'currentAcquired', 'levels', 'notationLevel', 'userColors'],
+	data: () => ({
+		l10n: {
+			stringUploadSkill: ''
+		}
+	}),
 	computed: {
 		category: function () {
 			var vm = this;
@@ -206,6 +211,7 @@ var SkillDetails = {
 		},
 	},
 	mounted: function () {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
 		//Handling styles
 		this.$refs.underline3.style.background = this.category.color;
 	},

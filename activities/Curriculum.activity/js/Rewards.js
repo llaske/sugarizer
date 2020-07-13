@@ -57,8 +57,8 @@ var Rewards = {
 				<div class="trophy-card" v-for="(item, i) in achievements" :key="item.title" :id="i" v-if="evalCondition(item.availability)">
 					<trophy :userColors="userColors" :acquired="evalAndUpdate(item)" :info="item.info" />
 					<h4>{{ item.title }}</h4>
-					<p 
-						v-if="user.achievements[item.id].timestamp" 
+					<p
+						v-if="user.achievements[item.id].timestamp"
 					>{{ $root.$refs.SugarL10n.localizeTimestamp(user.achievements[item.id].timestamp) }}</p>
 					<p v-else>{{ getProperty(item.condition.property) }}/{{ computeValue(item.condition) }}</p>
 				</div>
@@ -129,10 +129,14 @@ var Rewards = {
 		}
 	},
 	data: function () {
-		return {}
+		return {
+			l10n: {
+				stringAchievementAcquired: ''
+			}
+		}
 	},
 	mounted: function () {
-		// console.log('LOCALIZED EVENT', this.$root.$refs.SugarL10n.l10n);
+		this.$root.$refs.SugarL10n.localize(this.l10n);
 	},
 	methods: {
 		evalAndUpdate: function(item) {
@@ -219,7 +223,7 @@ var Rewards = {
 					this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.userColors)
 						.then(src => {
 							var img = "<img style='height:40px; margin:10px; vertical-align:middle;' src='" + src + "'>";
-							var html = `<div style="display: flex; align-items:center;">${img} <span><small style="color:#d3d3d3">Achievement acquired</small><br>${item.title}</span></div>`
+							var html = `<div style="display: flex; align-items:center;">${img} <span><small style="color:#d3d3d3">${vm.l10n.stringAchievementAcquired}</small><br>${item.title}</span></div>`
 							vm.$root.$refs.SugarPopup.log(html);
 						});
 				}

@@ -313,6 +313,12 @@ var app = new Vue({
 			stringExport: '',
 			stringFullscreen: '',
 			stringUnfullscreen: '',
+			stringUploadSkill: '',
+			stringLevelNotEvaluated:'',
+			stringLevelAcquired:'',
+			stringLevelNotAcquired:'',
+			stringLevelPartiallyAcquired:'',
+			stringLevelExceeded:'',
 			stringTutoTrophyCardTitle: '',
 			stringTutoTrophyCardContent: '',
 			stringTutoSettingsCategoryCardTitle: '',
@@ -677,7 +683,7 @@ var app = new Vue({
 
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
-			
+
 			var middle = Math.floor(oldLevel / 2);
 			for (var cat in this.user.skills) {
 				for (var skill in this.user.skills[cat]) {
@@ -710,8 +716,8 @@ var app = new Vue({
 			// Remove A+ achievement timestamp
 			if(oldLevel >= 3 && event.level < 3) {
 				var index = this.achievements.findIndex(function(a) {
-					return (typeof a.availability == 'object') 
-								&& a.availability.property == "this[notationLevel]" 
+					return (typeof a.availability == 'object')
+								&& a.availability.property == "this[notationLevel]"
 								&& a.availability.op == ">="
 								&& a.availability.value == 3;
 				});
@@ -857,7 +863,7 @@ var app = new Vue({
 				]);
 			} else {
 				switch(this.currentView) {
-					case 'template-selection': 
+					case 'template-selection':
 						steps = steps.concat([
 							{
 								element: "",
@@ -887,7 +893,7 @@ var app = new Vue({
 							}
 						]);
 						break;
-					case 'categories-grid': 
+					case 'categories-grid':
 						steps = steps.concat([
 							{
 								element: "",
@@ -946,7 +952,7 @@ var app = new Vue({
 							},
 						]);
 						break;
-					case 'skills-grid': 
+					case 'skills-grid':
 						steps = steps.concat([
 							{
 								element: ".skill-card#0",
@@ -968,7 +974,7 @@ var app = new Vue({
 							},
 						]);
 						break;
-					case 'skill-details': 
+					case 'skill-details':
 						steps = steps.concat([
 							{
 								element: ".skill-uploads",
@@ -998,7 +1004,7 @@ var app = new Vue({
 						break;
 				}
 			}
-			
+
 			this.$refs.SugarTutorial.show(steps);
 		},
 
