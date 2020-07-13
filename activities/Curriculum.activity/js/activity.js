@@ -42,7 +42,7 @@ var app = new Vue({
 			1: [
 				{
 					grade: '',
-					text: "Not Acquired",
+					text: "NotAcquired",
 					colors: {
 						fill: "#FFFFFF",
 						stroke: "#838383"
@@ -60,7 +60,7 @@ var app = new Vue({
 			2: [
 				{
 					grade: 'C',
-					text: "Not Acquired",
+					text: "NotAcquired",
 					colors: {
 						fill: "#FF542C",
 						stroke: "#700000"
@@ -68,7 +68,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					text: "Partially Acquired",
+					text: "PartiallyAcquired",
 					colors: {
 						fill: "#FFC72C",
 						stroke: "#705D00"
@@ -86,7 +86,7 @@ var app = new Vue({
 			3: [
 				{
 					grade: 'C',
-					text: "Not Acquired",
+					text: "NotAcquired",
 					colors: {
 						fill: "#FF542C",
 						stroke: "#700000"
@@ -94,7 +94,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					text: "Partially Acquired",
+					text: "PartiallyAcquired",
 					colors: {
 						fill: "#FFC72C",
 						stroke: "#705D00"
@@ -120,7 +120,7 @@ var app = new Vue({
 			4: [
 				{
 					grade: 'X',
-					text: "Not Evaluated",
+					text: "NotEvaluated",
 					colors: {
 						fill: "#FFFFFF",
 						stroke: "#838383"
@@ -128,7 +128,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'C',
-					text: "Not Acquired",
+					text: "NotAcquired",
 					colors: {
 						fill: "#FF542C",
 						stroke: "#700000"
@@ -136,7 +136,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					text: "Partially Acquired",
+					text: "PartiallyAcquired",
 					colors: {
 						fill: "#FFC72C",
 						stroke: "#705D00"
@@ -412,11 +412,6 @@ var app = new Vue({
 					}
 				})
 			});
-			this.achievements.forEach(function(achievement) {
-				if(vm.l10n['string' + achievement.title]) {
-					achievement.title = vm.l10n['string' + achievement.title];
-				}
-			});
 		}
 	},
 	computed: {
@@ -439,8 +434,20 @@ var app = new Vue({
 		},
 
 		localized: function () {
+			let vm = this;
 			this.addTitlesToL10n(this.achievements);
 			this.$refs.SugarL10n.localize(this.l10n);
+			this.achievements.forEach(function(achievement) {
+				achievement.title = vm.$refs.SugarL10n.get(achievement.title);
+			});
+			for(let achievement of this.achievements) {
+				achievement.title = this.$refs.SugarL10n.get(achievement.title);
+			}
+			for(let key in this.levels) {
+				for(let level in this.levels[key]) {
+					this.levels[key][level].text = this.$refs.SugarL10n.get(this.levels[key][level].text);
+				}
+			}
 		},
 
 		openCategory: function (categoryId) {
