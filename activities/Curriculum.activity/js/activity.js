@@ -299,6 +299,12 @@ var app = new Vue({
 			stringExport: '',
 			stringFullscreen: '',
 			stringUnfullscreen: '',
+			stringUploadSkill: '',
+			stringLevelNotEvaluated:'',
+			stringLevelAcquired:'',
+			stringLevelNotAcquired:'',
+			stringLevelPartiallyAcquired:'',
+			stringLevelExceeded:'',
 			stringTutoTrophyCardTitle: '',
 			stringTutoTrophyCardContent: '',
 			stringTutoSettingsCategoryCardTitle: '',
@@ -417,6 +423,20 @@ var app = new Vue({
 					achievement.title = vm.l10n['string' + achievement.title];
 				}
 			});
+			this.levels['1'][0].text = vm.l10n.stringLevelNotAcquired;
+			this.levels['1'][1].text = vm.l10n.stringLevelAcquired;
+			this.levels['2'][0].text = vm.l10n.stringLevelNotAcquired;
+			this.levels['2'][1].text = vm.l10n.stringLevelPartiallyAcquired;
+			this.levels['2'][2].text = vm.l10n.stringLevelAcquired;
+			this.levels['3'][0].text = vm.l10n.stringLevelNotAcquired;
+			this.levels['3'][1].text = vm.l10n.stringLevelPartiallyAcquired;
+			this.levels['3'][2].text = vm.l10n.stringLevelAcquired;
+			this.levels['3'][3].text = vm.l10n.stringLevelExceeded;
+			this.levels['4'][0].text = vm.l10n.stringLevelNotEvaluated;
+			this.levels['4'][1].text = vm.l10n.stringLevelNotAcquired;
+			this.levels['4'][2].text = vm.l10n.stringLevelPartiallyAcquired;
+			this.levels['4'][3].text = vm.l10n.stringLevelAcquired;
+			this.levels['4'][4].text = vm.l10n.stringLevelExceeded;
 		}
 	},
 	computed: {
@@ -656,7 +676,7 @@ var app = new Vue({
 
 		onNotationSelected: function (event) {
 			var oldLevel = this.notationLevel;
-			
+
 			var middle = Math.floor(oldLevel / 2);
 			for (var cat in this.user.skills) {
 				for (var skill in this.user.skills[cat]) {
@@ -689,8 +709,8 @@ var app = new Vue({
 			// Remove A+ achievement timestamp
 			if(oldLevel >= 3 && event.level < 3) {
 				var index = this.achievements.findIndex(function(a) {
-					return (typeof a.availability == 'object') 
-								&& a.availability.property == "this[notationLevel]" 
+					return (typeof a.availability == 'object')
+								&& a.availability.property == "this[notationLevel]"
 								&& a.availability.op == ">="
 								&& a.availability.value == 3;
 				});
@@ -836,7 +856,7 @@ var app = new Vue({
 				]);
 			} else {
 				switch(this.currentView) {
-					case 'template-selection': 
+					case 'template-selection':
 						steps = steps.concat([
 							{
 								element: "",
@@ -866,7 +886,7 @@ var app = new Vue({
 							}
 						]);
 						break;
-					case 'categories-grid': 
+					case 'categories-grid':
 						steps = steps.concat([
 							{
 								element: "",
@@ -925,7 +945,7 @@ var app = new Vue({
 							},
 						]);
 						break;
-					case 'skills-grid': 
+					case 'skills-grid':
 						steps = steps.concat([
 							{
 								element: ".skill-card#0",
@@ -947,7 +967,7 @@ var app = new Vue({
 							},
 						]);
 						break;
-					case 'skill-details': 
+					case 'skill-details':
 						steps = steps.concat([
 							{
 								element: ".skill-uploads",
@@ -977,7 +997,7 @@ var app = new Vue({
 						break;
 				}
 			}
-			
+
 			this.$refs.SugarTutorial.show(steps);
 		},
 

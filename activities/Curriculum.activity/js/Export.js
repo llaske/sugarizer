@@ -63,7 +63,7 @@ var Export = {
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				<h1 style="text-align: center">{{ templateTitle }}</h1>
 				<div style="display: inline-block; width: fit-content; text-align: center; margin: auto">
-					<ImageURL 
+					<ImageURL
 						path="icons/owner-icon.svg"
 						:colors="currentenv.user.colorvalue"
 						:style="{ width: '150px' }"
@@ -73,7 +73,7 @@ var Export = {
 				<h1 style="text-align: center">{{ currentenv.user.name }}</h1>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
 				<br><br><br><br><br><br><br><br><br><br><br><br><br>
-				
+
 				<div class="stats-container">
 					<h1>{{ l10n.stringStatistics }}</h1>
 					<table class="stats-table">
@@ -107,7 +107,7 @@ var Export = {
 						<h1 :style="{ color: category.color, borderBottom: 'solid 10px ' + category.color }">{{ category.title }}</h1>
 						<div class="doc-skills">
 							<div class="doc-skill" v-for="skill in category.skills" :key="skill.id">
-								<ImageURL 
+								<ImageURL
 									:path="skill.image"
 									style="margin: 10px 0;"
 									:style="{ width: '300px' }"
@@ -117,7 +117,7 @@ var Export = {
 								<div>
 									<span :style="{ color: user.skills[category.id][skill.id].acquired == 0 ? '#838383' : levels[notationLevel][user.skills[category.id][skill.id].acquired].colors.fill, fontWeight: 600 }">
 										{{ levels[notationLevel][user.skills[category.id][skill.id].acquired].text }}
-									</span>	
+									</span>
 									<span style="color: #838383">
 										{{ user.skills[category.id][skill.id].timestamp ? ' - ' + new Date(user.skills[category.id][skill.id].timestamp).toLocaleDateString() : '' }}
 									</span>
@@ -125,7 +125,7 @@ var Export = {
 								<hr style="border-color: #d3d3d3" />
 								<div class="doc-uploads" style="border: solid 1px #d3d3d3">
 									<div class="doc-upload" style="display: inline-block; width: fit-content; text-align: center; margin: 10px" v-for="(upload, i) in getUploads(category.id, skill.id)" :key="i">
-										<ImageURL 
+										<ImageURL
 											:path="getUploadedPath(upload)"
 											:style="{ width: '150px' }"
 											@loaded="loadedImages++"
@@ -331,7 +331,7 @@ var Export = {
 			var vm = this;
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
-					vm.$root.$refs.SugarPopup.log('Export to CSV complete');
+					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'CSV'}));
 					console.log('Export to CSV complete');
 					vm.$emit('export-completed');
 				});
@@ -354,7 +354,7 @@ var Export = {
 					var vm = this;
 					this.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 						.then(() => {
-							vm.$root.$refs.SugarPopup.log('Export to ODT complete');
+							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'ODT'}));
 							console.log('Export to ODT complete');
 							vm.$emit('export-completed');
 						});
@@ -541,7 +541,7 @@ var Export = {
 				};
 				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 					.then(() => {
-						vm.$root.$refs.SugarPopup.log('Export to DOC complete');
+						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'DOC'}));
 						console.log('Export to DOC complete');
 						vm.$emit('export-completed');
 					});
@@ -571,7 +571,7 @@ var Export = {
 									};
 									vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
 										.then(() => {
-											vm.$root.$refs.SugarPopup.log('Export to PDF complete');
+											vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'PDF'}));
 											console.log('Export to PDF complete');
 											vm.$emit('export-completed');
 										});
