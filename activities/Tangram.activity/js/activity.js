@@ -54,7 +54,7 @@ var app = new Vue({
 
     generateTangram: function() {
       let vm = this;
-      let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length-1))+1];
+      let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
       let tang = tangram.tangram;
       console.log(tang);
       let puzzle = {
@@ -130,6 +130,22 @@ var app = new Vue({
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', vm.puzzles[vm.pNo].targetTans[index].x + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', vm.puzzles[vm.pNo].targetTans[index].y + dy);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'points', points);
+      }
+    },
+
+    onDifficultySelected: function(evt) {
+      var vm = this;
+      vm.level = evt.index;
+      vm.selectDifficultyItem(evt.index);
+    },
+
+    selectDifficultyItem: function(number) {
+      if (number === 0) {
+        document.getElementById('easy-button').classList.remove("palette-button-notselected");
+        document.getElementById('medium-button').classList.add("palette-button-notselected");
+      } else {
+        document.getElementById('medium-button').classList.remove('palette-button-notselected');
+        document.getElementById('easy-button').classList.add('palette-button-notselected');
       }
     },
 

@@ -98,8 +98,8 @@ var anchorST1_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 18)
 var smallTriangle1_6 = new Tan(2, anchorST1_6, 2);
 var anchorST2_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 12));
 var smallTriangle2_6 = new Tan(2, anchorST2_6, 4);
-var anchorS_6 = new Point(new IntAdjoinSqrt2(0, 18), new IntAdjoinSqrt2(0, 12));
-var square_6 = new Tan(3, anchorS_6, 0);
+var anchorS_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 12));
+var square_6 = new Tan(3, anchorS_6, 2);
 var anchorP_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 0));
 var parallelogram_6 = new Tan(5, anchorP_6, 3);
 
@@ -109,6 +109,9 @@ var arrowTangram = new Tangram([bigTriangle1_6, bigTriangle2_6, mediumTriangle_6
 var standardTangrams = [{
   name: 'square',
   tangram: squareTangram
+}, {
+  name: 'arrow',
+  tangram: arrowTangram
 }, {
   name: 'swan',
   tangram: swanTangram
@@ -121,7 +124,4 @@ var standardTangrams = [{
 }, {
   name: 'mountain',
   tangram: mountainTangram
-}, {
-  name: 'arrow',
-  tangram: arrowTangram
 }];

@@ -34,10 +34,21 @@
   height: 300px;
   width: 200px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:center;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
+}
+
+.floating-block {
+  z-index: 1;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items:flex-start;
-  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
 }
 
 .detail-bar {
@@ -48,8 +59,8 @@
 }
 
 .detail-block {
-  width: 95%;
-  height: 30%;
+  width: 47%;
+  height: 90%;
   border: 2px solid black;
   border-radius: 5px;
   font-size: min(3.5vh, 3.5vw);
@@ -81,6 +92,14 @@
   width:90%;
   word-wrap: break-word;
   text-align: center;
+}
+
+.score-title {
+  width: 65%;
+}
+
+.score-val {
+  width: 35%;
 }
 
 .tangram-name {

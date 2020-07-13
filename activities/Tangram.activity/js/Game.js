@@ -5,7 +5,8 @@ var Game = {
       v-bind:style="{backgroundColor: strokeColor}"
     >
       <div class="game-main">
-        <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}">
+        <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}"
+        >
           <v-layer ref="layer" :config="configLayer">
           <template v-if="puzzles[pNo]">
             <v-line v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index" :config="targetTan"></v-line>
@@ -13,11 +14,13 @@ var Game = {
           <v-line v-for="(tan,index) in tans" :key="index" :config="tan"
             v-on:tap="onTap($event, index)"
             v-on:click="onClick($event, index)"
+            v-on:dragstart="onDragStart($event, index)"
             v-on:dragend="onDragEnd($event, index)"
             v-on:dragmove="onDragMove($event, index)"
             v-on:mouseover="onMouseOver($event, index)"
             v-on:mouseout="onMouseOut($event, index)"
           ></v-line>
+          <v-line :config="partitionLine"></v-line>
           </v-layer>
         </v-stage>
         <div id="floating-info-block"
@@ -30,25 +33,29 @@ var Game = {
           <div class="detail-block"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="detail-block-content tangram-name"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
-          </div>
-
-          <div class="detail-block"
-            v-bind:style="{borderColor: strokeColor}"
-          >
             <div class="detail-block-logo clock-logo"></div>
             <div class="detail-block-content">
               <div>00:00</div>
             </div>
           </div>
 
-          <div class="detail-block"
+          <div class="detail-block score-block"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="detail-block-content"><div>Score:</div></div>
-            <div class="detail-block-content"><div>0</div></div>
+            <div class="detail-block-content score-title"><div>Score:</div></div>
+            <div class="detail-block-content score-val"><div>0</div></div>
           </div>
 
+        </div>
+        <div class="tangram-name detail-block floating-block"
+          v-bind:style="{width: nameBlock.width + 'px',
+            height: nameBlock.height + 'px',
+            top: nameBlock.top + 'px',
+            left: infoContainer.left + 'px',
+            borderColor: 'transparent'
+          }"
+        >
+          <div class="detail-block-content tangram-name"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
         </div>
       </div>
       <div class="game-footer">
@@ -58,7 +65,7 @@ var Game = {
           <button
             class="btn-in-footer btn-replay"
             v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="initializeTans()"
+            v-on:click="onRefresh"
           ></button>
           <button
             class="btn-in-footer btn-restart"
@@ -100,21 +107,42 @@ var Game = {
         top: 0,
         right: 0,
       },
+      nameBlock: {
+        width: 1,
+        height: 1,
+        top: 0,
+        left: 0
+      },
+      partitionLine: {
+        points: [],
+        stroke: 'green',
+        strokeWidth: 0.8,
+        lineJoin: 'round',
+        dash: [2, 2]
+      },
       tans: [],
+      tanState: 0,
+      currentTan: 0,
       flip: 5,
       translateVal: 0,
       initialPositions: [],
+      selectedTanColor: '#808080',
+      tanColors: ["blue","purple","red","violet","yellow","yellow"]
     }
   },
 
   created: function() {
     let vm = this;
     window.addEventListener('resize', vm.resize);
+    window.addEventListener('keydown', vm.onKeyDown);
+    window.addEventListener('keyup', vm.onKeyUp);
   },
 
   destroyed: function() {
     let vm = this;
     window.removeEventListener("resize", vm.resize);
+    window.removeEventListener('keydown', vm.onKeyDown);
+    window.removeEventListener('keyup', vm.onKeyUp);
   },
 
   mounted: function() {
@@ -154,7 +182,7 @@ var Game = {
       vm.$set(vm.configLayer, 'scaleX', scale);
       vm.$set(vm.configLayer, 'scaleY', scale);
 
-      let tangram_dx = (cw / scale - pw / pScale) / 2;
+      let tangram_dx = (cw / scale - pw / pScale) / 3;
       let tangram_dy = (ch / scale - ph / pScale) / 2;
 
       vm.$emit('center-tangram', {
@@ -166,44 +194,44 @@ var Game = {
         switch (i) {
           case 0:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.13,
-              y: (ch / scale) * 0.25
+              x: (cw / scale) * 0.88,
+              y: (ch / scale) * 0.75
             })
             break;
           case 1:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.18,
-              y: (ch / scale) * 0.20
+              x: (cw / scale) * 0.87,
+              y: (ch / scale) * 0.40
             })
             break;
           case 2:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.17,
-              y: (ch / scale) * 0.80
+              x: (cw / scale) * 0.72,
+              y: (ch / scale) * 0.75
             })
             break;
           case 3:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.08,
-              y: (ch / scale) * 0.15
+              x: (cw / scale) * 0.93,
+              y: (ch / scale) * 0.62
             })
             break;
           case 4:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.07,
-              y: (ch / scale) * 0.85
+              x: (cw / scale) * 0.75,
+              y: (ch / scale) * 0.52
             })
             break;
           case 5:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.18,
+              x: (cw / scale) * 0.78,
               y: (ch / scale) * 0.60
             })
             break;
           case 6:
             vm.initialPositions.push({
-              x: (cw / scale) * 0.03,
-              y: (ch / scale) * 0.60
+              x: (cw / scale) * 0.72,
+              y: (ch / scale) * 0.33
             })
             break;
         }
@@ -217,10 +245,20 @@ var Game = {
         }
       }
 
-      vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.20);
-      vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.50);
-      vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.01);
+      vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.30);
+      vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.15);
+      vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.infoContainer, 'right', gameMainEle.offsetWidth * 0.01);
+
+      let partitionLinePoints = [gameMainEle.offsetWidth * 0.685 / scale, gameMainEle.offsetHeight * 0.16 / scale, gameMainEle.offsetWidth * 0.685 / scale, ch / scale];
+      vm.$set(vm.partitionLine, 'points', partitionLinePoints);
+      vm.$set(vm.partitionLine, 'stroke', vm.strokeColor);
+
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.20);
+      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.15);
+      //vm.$set(vm.nameBlock, 'bottom', document.querySelector('.game-footer').offsetHeight * 1.1 + gameMainEle.offsetHeight * 0.01);
+      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.infoContainer, 'left', gameMainEle.offsetWidth * 0.01 + cw / 4.5);
 
       if (vm.isTargetAcheived) {
         document.querySelector('.btn-validate').style.width = document.querySelector('.btn-validate').offsetHeight + "px";
@@ -229,10 +267,6 @@ var Game = {
       }
       document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
       document.querySelector('.btn-replay').style.width = document.querySelector('.btn-replay').offsetHeight + "px";
-
-    },
-
-    moveTanToInitialPos: function (index) {
 
     },
 
@@ -274,7 +308,6 @@ var Game = {
           floatPoints.push(tmpPoint.toFloatX());
           floatPoints.push(tmpPoint.toFloatY());
         }
-
         tan.offsetX = (center.toFloatX() + dx);
         tan.offsetY = (center.toFloatY() + dy);
         tan.x = tan.offsetX;
@@ -282,10 +315,16 @@ var Game = {
         tan.orientation = squareTangram.tans[i].orientation;
         tan.points = floatPoints;
         tan.pointsObjs = pointsObjs;
-        tan.fill = vm.fillColor;
+        tan.fill = i === vm.currentTan ? vm.selectedTanColor : vm.tanColors[tan.tanType];
         tans.push(tan);
       }
       vm.tans = tans;
+
+      vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+      vm.currentTan = 0;
+      vm.$set(vm.tans[vm.currentTan], 'fill', vm.selectedTanColor);
+      vm.tanState = 0;
     },
 
     snapTan: function(index) {
@@ -305,7 +344,7 @@ var Game = {
         for (let j = 0; j < currentTanPoints.length; j += 2) {
           let fl = false;
           for (let k = 0; k < otherTanPoints.length; k += 2) {
-            if (Math.abs(currentTanPoints[j] - otherTanPoints[k]) <= 1.5 && Math.abs(currentTanPoints[j + 1] - otherTanPoints[k + 1]) <= 1.5) {
+            if (Math.abs(currentTanPoints[j] - otherTanPoints[k]) <= 1 && Math.abs(currentTanPoints[j + 1] - otherTanPoints[k + 1]) <= 1) {
               let diff = otherTanPointsObjs[k / 2].dup().subtract(vm.tans[index].pointsObjs[j / 2]);
               let dx = diff.toFloatX();
               let dy = diff.toFloatY();
@@ -330,7 +369,7 @@ var Game = {
           for (var targetTan = 0; targetTan < vm.puzzles[vm.pNo].targetTans.length; targetTan++) {
             var fl = false;
             for (var j = 0; j < vm.puzzles[vm.pNo].targetTans[targetTan].points.length; j += 2)
-              if (Math.abs(currentTanPoints[i] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j]) <= 1.5 && Math.abs(currentTanPoints[i + 1] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j + 1]) <= 1.5) {
+              if (Math.abs(currentTanPoints[i] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j]) <= 1 && Math.abs(currentTanPoints[i + 1] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j + 1]) <= 1) {
 
                 var diff = vm.puzzles[vm.pNo].targetTans[targetTan].pointsObjs[j / 2].dup().subtract(vm.tans[index].pointsObjs[i / 2]);
                 var dx = diff.toFloatX();
@@ -423,11 +462,53 @@ var Game = {
     },
 
     onClick: function(e, index) {
-      this.rotateTan(index);
+      let vm = this;
+      if (index != vm.currentTan) {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        vm.currentTan = index;
+        vm.$set(vm.tans[index], 'fill', vm.selectedTanColor);
+        vm.tanState = 0;
+        return;
+      }
+      if (vm.tanState === 1) {
+        vm.rotateTan(index);
+      } else {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
+        vm.tanState = 1;
+      }
     },
 
     onTap: function(e, index) {
-      this.rotateTan(index);
+      let vm = this;
+      if (index != vm.currentTan) {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        vm.currentTan = index;
+        vm.$set(vm.tans[index], 'fill', vm.selectedTanColor);
+        vm.tanState = 0;
+        return;
+      }
+      if (vm.tanState === 1) {
+        vm.rotateTan(index);
+      } else {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
+        vm.tanState = 1;
+      }
+    },
+
+    onDragStart: function(e, index) {
+      let vm = this;
+      if (index != vm.currentTan) {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        vm.currentTan = index;
+      }
+      vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
+      vm.tanState = 1;
     },
 
     onDragEnd: function(e, index) {
@@ -447,7 +528,7 @@ var Game = {
         finalY = boundingBox.height / (2 * scale);
         isTanOutsideCanvas = true;
       }
-      if(boundingBox.y + boundingBox.height > vm.configKonva.height){
+      if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
         finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
         isTanOutsideCanvas = true;
       }
@@ -456,7 +537,7 @@ var Game = {
         let tmpy = (vm.infoContainer.height + boundingBox.height / 2) / scale;
         let d1 = Math.abs(tmpx - vm.tans[index].x);
         let d2 = Math.abs(tmpy - vm.tans[index].y);
-        if(d1 <= d2){
+        if (d1 <= d2) {
           finalX = tmpx;
         } else {
           finalY = tmpy;
@@ -468,7 +549,7 @@ var Game = {
         isTanOutsideCanvas = true;
       }
 
-      if(isTanOutsideCanvas){
+      if (isTanOutsideCanvas) {
         let dx = finalX - this.tans[index].x;
         let dy = finalY - this.tans[index].y;
         setTimeout(() => {
@@ -478,7 +559,7 @@ var Game = {
 
       setTimeout(() => {
         vm.snapTan(index);
-      });
+      }, 0);
       //this.checkIfSolved();
     },
 
@@ -496,13 +577,89 @@ var Game = {
 
     onMouseOver: function(e, index) {
       let vm = this;
-      vm.$set(vm.tans[index], 'strokeEnabled', true);
+      vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+      vm.currentTan = index;
+      vm.$set(vm.tans[index], 'fill', vm.selectedTanColor);
+      vm.tanState = 0;
+      //vm.$set(vm.tans[index], 'strokeEnabled', true);
     },
 
     onMouseOut: function(e, index) {
       let vm = this;
-      vm.$set(vm.tans[index], 'strokeEnabled', false);
-    }
+      vm.tanState = 0;
+      vm.$set(vm.tans[vm.currentTan], 'fill', vm.selectedTanColor);
+      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+      //vm.$set(vm.tans[index], 'strokeEnabled', false);
+    },
+
+    onKeyDown: function(e) {
+      let vm = this;
+      if (vm.tanState === 0) {
+        if (e.keyCode === 37 || e.keyCode === 40) {
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+          let newTan = (vm.currentTan - 1) % 7;
+          vm.currentTan = newTan < 0 ? newTan + 7 : newTan;
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.selectedTanColor);
+        } else if (e.keyCode === 38 || e.keyCode === 39) {
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+          vm.currentTan = (vm.currentTan + 1) % 7;
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.selectedTanColor);
+        } else if (e.keyCode === 13) {
+          vm.tanState = 1;
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+          vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
+        }
+      } else if (vm.tanState === 1) {
+        let delta = 3;
+        let scale = vm.configLayer.scaleX;
+        let dx = delta / scale;
+        let dy = delta / scale;
+
+        if (e.keyCode === 37) {
+          dx *= -1;
+          dy = 0;
+        } else if (e.keyCode === 38) {
+          dx = 0;
+          dy *= -1;
+        } else if (e.keyCode === 39) {
+          dx *= 1;
+          dy = 0;
+        } else if (e.keyCode === 40) {
+          dx = 0;
+          dy *= 1;
+        } else {
+          dx = 0;
+          dy = 0;
+        }
+
+        if (e.keyCode === 16) {
+          vm.rotateTan(vm.currentTan);
+        }
+
+        if (e.keyCode === 13) {
+          vm.tanState = 0;
+          vm.$set(vm.tans[vm.currentTan], 'fill', vm.selectedTanColor);
+          vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        }
+
+        vm.moveTan(vm.currentTan, dx, dy);
+      }
+    },
+
+    onKeyUp: function(e) {
+      let vm = this;
+      setTimeout(() => {
+        vm.snapTan(vm.currentTan);
+      }, 0);
+    },
+
+    onRefresh: function (e) {
+      if (e.screenX === 0 && e.screenY === 0) {
+        return;
+      }
+      this.initializeTans();
+    },
 
   }
 }
