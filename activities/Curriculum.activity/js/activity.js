@@ -42,7 +42,7 @@ var app = new Vue({
 			1: [
 				{
 					grade: '',
-					textVariable: "NotAcquired",
+					textVariable: "LevelNotAcquired",
 					text: "",
 					colors: {
 						fill: "#FFFFFF",
@@ -51,7 +51,7 @@ var app = new Vue({
 				},
 				{
 					grade: '',
-					textVariable: "Acquired",
+					textVariable: "LevelAcquired",
 					text: "",
 					colors: {
 						fill: "#02F000",
@@ -62,7 +62,7 @@ var app = new Vue({
 			2: [
 				{
 					grade: 'C',
-					textVariable: "NotAcquired",
+					textVariable: "LevelNotAcquired",
 					text: "",
 					colors: {
 						fill: "#FF542C",
@@ -71,7 +71,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					textVariable: "PartiallyAcquired",
+					textVariable: "LevelPartiallyAcquired",
 					text: "",
 					colors: {
 						fill: "#FFC72C",
@@ -80,7 +80,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'A',
-					textVariable: "Acquired",
+					textVariable: "LevelAcquired",
 					text: "",
 					colors: {
 						fill: "#02F000",
@@ -91,7 +91,7 @@ var app = new Vue({
 			3: [
 				{
 					grade: 'C',
-					textVariable: "NotAcquired",
+					textVariable: "LevelNotAcquired",
 					text: "",
 					colors: {
 						fill: "#FF542C",
@@ -100,7 +100,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					textVariable: "PartiallyAcquired",
+					textVariable: "LevelPartiallyAcquired",
 					text: "",
 					colors: {
 						fill: "#FFC72C",
@@ -109,7 +109,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'A',
-					textVariable: "Acquired",
+					textVariable: "LevelAcquired",
 					text: "",
 					colors: {
 						fill: "#98FF5D",
@@ -118,7 +118,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'A+',
-					textVariable: "Exceeded",
+					textVariable: "LevelExceeded",
 					text: "",
 					colors: {
 						fill: "#02F000",
@@ -129,7 +129,7 @@ var app = new Vue({
 			4: [
 				{
 					grade: 'X',
-					textVariable: "NotEvaluated",
+					textVariable: "LevelNotEvaluated",
 					text: "",
 					colors: {
 						fill: "#FFFFFF",
@@ -138,7 +138,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'C',
-					textVariable: "NotAcquired",
+					textVariable: "LevelNotAcquired",
 					text: "",
 					colors: {
 						fill: "#FF542C",
@@ -147,7 +147,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'B',
-					textVariable: "PartiallyAcquired",
+					textVariable: "LevelPartiallyAcquired",
 					text: "",
 					colors: {
 						fill: "#FFC72C",
@@ -156,7 +156,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'A',
-					textVariable: "Acquired",
+					textVariable: "LevelAcquired",
 					text: "",
 					colors: {
 						fill: "#98FF5D",
@@ -165,7 +165,7 @@ var app = new Vue({
 				},
 				{
 					grade: 'A+',
-					textVariable: "Exceeded",
+					textVariable: "LevelExceeded",
 					text: "",
 					colors: {
 						fill: "#02F000",
@@ -499,7 +499,7 @@ var app = new Vue({
 			var value = skillObj.acquired;
 			value = (value + 1) % (this.notationLevel + 1);
 			skillObj.acquired = value;
-			if(this.levels[this.notationLevel][value].textVariable == "Acquired" || this.levels[this.notationLevel][value].textVariable == "Exceeded") {
+			if(this.levels[this.notationLevel][value].textVariable == "LevelAcquired" || this.levels[this.notationLevel][value].textVariable == "LevelExceeded") {
 				skillObj.timestamp = Date.now();
 			} else {
 				skillObj.timestamp = null;
@@ -690,21 +690,21 @@ var app = new Vue({
 					if (this.user.skills[cat][skill].acquired <= middle) {
 						this.$set(this.user.skills[cat][skill], 'acquired', 0);
 					} else {
-						var text = this.levels[oldLevel][this.user.skills[cat][skill].acquired].text;
+						var text = this.levels[oldLevel][this.user.skills[cat][skill].acquired].textVariable;
 						switch (text) {
-							case "Acquired":
+							case "LevelAcquired":
 								var index = this.levels[event.level].findIndex(function (level) {
-									return level.text == "Acquired";
+									return level.textVariable == "LevelAcquired";
 								});
 								this.$set(this.user.skills[cat][skill], 'acquired', index);
 								break;
-							case "Exceeded":
+							case "LevelExceeded":
 								var index = this.levels[event.level].findIndex(function (level) {
-									return level.text == "Exceeded";
+									return level.textVariable == "LevelExceeded";
 								});
 								if (index == -1) {
 									index = this.levels[event.level].findIndex(function (level) {
-										return level.text == "Acquired";
+										return level.textVariable == "LevelAcquired";
 									});
 								}
 								this.$set(this.user.skills[cat][skill], 'acquired', index);
