@@ -469,6 +469,7 @@ var Game = {
         vm.currentTan = index;
         vm.$set(vm.tans[index], 'fill', vm.selectedTanColor);
         vm.tanState = 0;
+        return;
       }
       if (vm.tanState === 1) {
         vm.rotateTan(index);
@@ -481,6 +482,14 @@ var Game = {
 
     onTap: function(e, index) {
       let vm = this;
+      if (index != vm.currentTan) {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        vm.currentTan = index;
+        vm.$set(vm.tans[index], 'fill', vm.selectedTanColor);
+        vm.tanState = 0;
+        return;
+      }
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       } else {
@@ -492,6 +501,11 @@ var Game = {
 
     onDragStart: function(e, index) {
       let vm = this;
+      if (index != vm.currentTan) {
+        vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
+        vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+        vm.currentTan = index;
+      }
       vm.$set(vm.tans[vm.currentTan], 'fill', vm.tanColors[vm.tans[vm.currentTan].tanType]);
       vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
       vm.tanState = 1;
