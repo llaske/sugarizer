@@ -48,7 +48,7 @@
 				v-if="SugarPresence"
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-			<sugar-toolitem id="home-button" v-show="currentView != 'categories-grid' || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="(currentView != 'categories-grid' && currentView != 'template-selection') || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
 				<div class="search-icon"></div>
 				<input 
@@ -81,7 +81,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="rewards-button" 
-				v-show="!settings" 
+				v-show="!settings && currentView != 'template-selection'" 
 				@click="rewardsActive = !rewardsActive" 
 				:class="{ active: rewardsActive }" 
 				v-bind:title="l10n.stringRewards"

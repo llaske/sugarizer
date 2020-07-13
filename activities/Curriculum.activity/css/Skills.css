@@ -5,6 +5,7 @@
 }
 #back-button {
 	background: url(../icons/go-left.svg) no-repeat;
+	filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
 	background-size: cover;
 	position: absolute;
 	top: 10px;

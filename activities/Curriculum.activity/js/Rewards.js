@@ -94,7 +94,8 @@ var Rewards = {
 			for (var catId in this.user.skills) {
 				var allAcquired = true;
 				for (var skillId in this.user.skills[catId]) {
-					if (this.user.skills[catId][skillId].acquired != this.notationLevel) {
+					let textVariable = this.levels[this.notationLevel][this.user.skills[catId][skillId].acquired].textVariable;
+					if (textVariable != "Acquired" && textVariable != "Exceeded") {
 						allAcquired = false;
 						break;
 					}
