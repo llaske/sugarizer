@@ -2,27 +2,36 @@
 Vue.component('sugar-toolitem', {
 	template: `
 		<div class="splitbar" v-if="splitbar"/>
-		<button class="toolbutton" v-else v-bind:id="id" v-bind="$attrs" v-on="$listeners" :disabled="disabled" v-bind:class="{ active: active }"/>
+		<button 
+			v-else 
+			:id="id" 
+			class="toolbutton" 
+			:class="{ active: active }"
+			:style="{ backgroundImage: icon ? 'url('+ icon +')' : '' }"
+			v-bind="$attrs" 
+			v-on="$listeners" 
+			:disabled="disabled" 
+		></button>
 	`,
 	props: {
 		'id': String,
 		'splitbar': Boolean,
-		'toRight': Boolean,
 		'paletteClass': String,
 		'paletteFile': String,
 		'paletteEvent': String,
 		'paletteTitle': String,
 		'disabled': Boolean,
-		'active': Boolean
+		'active': Boolean,
+		'icon': String
 	},
 	data: function () {
 		return {
 			paletteObject: null
 		}
 	},
-	created: function() {
+	created: function () {
 		// v-visible="condition" (Use this with palettes to avoid errors)
-		Vue.directive('visible', function(el, binding) {
+		Vue.directive('visible', function (el, binding) {
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
 		});
 	},
