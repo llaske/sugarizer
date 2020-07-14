@@ -60,36 +60,39 @@ Vue.component('sugar-localization', {
 		}
 	},
 	methods: {
-		// Get a single string with parameters
+		// Get a string with parameters
 		get: function (str, params) {
-			var out = this.getString(str);
-			var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
-			for (var i in paramsInString) {
-				var param = paramsInString[i].match(/[\w\.]+/)[0];
-				if (params[param]) {
-					out = out.replace(paramsInString[i], params[param]);
+			var out = '';
+			
+			if (!this.dictionary) {
+				out = str;
+			} else {
+				var item = this.dictionary[str];
+				if (!item || !item.textContent) {
+					out = str;
+				} else {
+					out = item.textContent;
+				}
+			}
+			
+			// Check params
+			if(params) {
+				var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+				for (var i in paramsInString) {
+					var param = paramsInString[i].match(/[\w\.]+/)[0];
+					if (params[param]) {
+						out = out.replace(paramsInString[i], params[param]);
+					}
 				}
 			}
 			return out;
-		},
-
-		// Get a single string value
-		getString: function (str) {
-			if (!this.dictionary) {
-				return str;
-			}
-			var item = this.dictionary[str];
-			if (!item || !item.textContent) {
-				return str;
-			}
-			return item.textContent;
 		},
 
 		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
 		localize: function (strings) {
 			var vm = this;
 			Object.keys(strings).forEach(function (key, index) {
-				strings[key] = vm.getString(key.substr(6));
+				strings[key] = vm.get(key.substr(6));
 			});
 		},
 
