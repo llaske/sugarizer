@@ -1,4 +1,4 @@
-//code from https://github.com/Wiebke/TangramGenerator 
+//code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /* generating variable -> True if still in generating process */
 var generating = true;
@@ -8,6 +8,10 @@ var eval = false;
 var toRadians = function (degrees) {
     return degrees * Math.PI / 180.0;
 };
+
+function round(value, decimals = 4) {
+ return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
 
 var toDegrees = function (radians) {
     return radians * 180.0 / Math.PI;
@@ -115,6 +119,3 @@ var numUniqueElements = function (array, compareFunction) {
     var unique = eliminateDuplicates(array.slice(0), compareFunction, true);
     return array.length;
 };
-
-
-

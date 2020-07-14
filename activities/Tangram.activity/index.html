@@ -30,8 +30,17 @@
 			<sugar-toolitem id="view-button" title="view"></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				title="level"
+				palette-file="js/palettes/difficultyPalette.js"
+				palette-class="DifficultyPalette"
+				palette-title="difficulty level"
+				palette-event="difficulty-selected"
+				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
+			<sugar-toolitem id="hint-button"
+				title="hint"
+				v-on:click="onHint"
+			></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
@@ -46,6 +55,8 @@
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
 				v-on:center-tangram="onCenterTangram"
+				v-on:config-changed="onConfigChanged"
+				v-on:remove-tangram-borders="onRemoveTangramBorders"
 			></component>
 		</transition>
 

@@ -29,7 +29,7 @@
 }
 
 #floating-info-block {
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   height: 300px;
   width: 200px;
@@ -41,7 +41,7 @@
 }
 
 .floating-block {
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   height: 300px;
   width: 200px;
@@ -49,13 +49,6 @@
   flex-direction: column;
   justify-content: space-around;
   align-items:flex-start;
-}
-
-.detail-bar {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
 }
 
 .detail-block {
