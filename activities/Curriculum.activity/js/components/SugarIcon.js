@@ -1,5 +1,5 @@
 Vue.component('sugar-icon', {
-	data: function() {
+	data: function () {
 		return {
 			icon: null
 		}
@@ -28,24 +28,24 @@ Vue.component('sugar-icon', {
 		colorizeIcon: function (element, colors) {
 			let vm = this;
 			return new Promise((resolve, reject) => {
-				var path = vm.getBackgroundURL(element);
+				var path = getBackgroundURL(element);
 				vm.generateIconWithColors(path, colors)
 					.then(src => {
 						element.style.backgroundImage = `url(${src})`;
 						resolve();
 					});
 			});
-		},
-
-		getBackgroundURL: function(elem) {
-			var style = elem.currentStyle || window.getComputedStyle(elem, '');
-			// Remove prefix 'url(' and suffix ')' before return
-			var res = style.backgroundImage.slice(4, -1);
-			var last = res.length-1;
-			if (res[0] == '"' && res[last] == '"') {
-				res = res.slice(1, last);
-			}
-			return res;
 		}
 	}
 })
+
+let getBackgroundURL = function (el) {
+	var style = el.currentStyle || window.getComputedStyle(el, '');
+	// Remove prefix 'url(' and suffix ')' before return
+	var res = style.backgroundImage.slice(4, -1);
+	var last = res.length - 1;
+	if (res[0] == '"' && res[last] == '"') {
+		res = res.slice(1, last);
+	}
+	return res;
+}
