@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Polls.css">
 	<link rel="stylesheet" href="css/PollStats.css">
-	<link rel="stylesheet" href="css/Voting.css">
+	<link rel="stylesheet" href="css/Vote.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
@@ -37,18 +37,18 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
-				v-if="!sharedInstance"
+				v-if="currentView != 'vote'"
 				:class="{ active: settings }" 
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="add-button" 
-				v-show="settings" 
+				v-if="settings" 
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<div class="search-field">
+			<div class="search-field" v-if="currentView != 'vote'">
 				<div class="search-icon"></div>
 				<input 
 					type="text" 
@@ -70,8 +70,11 @@
 						:settings="settings"
 						:search-query="searchQuery"
 						:polls="polls"
-						:user-colors="currentenv != null ? currentenv.user.colorvalue : { fill: '#d3d3d3', stroke: '#838383'}"
+						:current-user="currentUser"
+						:active-poll="activePoll"
+						:answered-active-poll="answeredActivePoll"
 						@start-poll="startPoll"
+						@hand-raise-switch="onHandRaiseSwitch"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>
@@ -91,7 +94,7 @@
 
 	<script src="js/Polls.js"></script>
 	<script src="js/PollStats.js"></script>
-	<script src="js/Voting.js"></script>
+	<script src="js/Vote.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPresence.js"></script>

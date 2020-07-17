@@ -12,10 +12,10 @@ var app = new Vue({
 	components: {
 		'polls-grid': PollsGrid,
 		'poll-stats': PollStats,
-		'voting': Voting
+		'vote': Vote
 	},
 	data: {
-		currentenv: null,
+		currentUser: {},
 		sharedInstance: false,
 		settings: false,
 		currentView: "",
@@ -23,7 +23,7 @@ var app = new Vue({
 		polls: [
 			{
 				id: 0,
-				type: "word",
+				type: "text",
 				question: "What is your age?",
 			},
 			{
@@ -38,7 +38,9 @@ var app = new Vue({
 				]
 			},
 		],
+		connectedUsers: {},
 		activePoll: null,
+		answeredActivePoll: false,
 		SugarPresence: null,
 		l10n: {
 			stringSearch: '',
@@ -59,7 +61,12 @@ var app = new Vue({
 	},
 	methods: {
 		initialized: function () {
-			this.currentenv = this.$refs.SugarActivity.getEnvironment();
+			let currentenv = this.$refs.SugarActivity.getEnvironment();
+			this.$set(this.currentUser, 'colorvalue', currentenv.user.colorvalue);
+			this.$set(this.currentUser, 'name', currentenv.user.name);
+			this.$set(this.currentUser, 'networkId', currentenv.user.networkId);
+			this.$set(this.currentUser, 'handRaised', false);
+			this.$set(this.currentUser, 'answer', null);
 		},
 
 		localized: function () {
@@ -68,13 +75,25 @@ var app = new Vue({
 		},
 
 		startPoll(pollId) {
-			console.log('start poll: ', pollId);
 			let index = this.polls.findIndex((poll) => {
 				return poll.id == pollId;
 			});
 			this.activePoll = this.polls[index];
 			this.currentView = "poll-stats";
 			document.getElementById('shared-button').click();
+		},
+
+		onHandRaiseSwitch(value) {
+			this.$set(this.currentUser, 'handRaised', value);
+			this.SugarPresence.sendMessage({
+				user: this.$root.$refs.SugarPresence.getUserInfo(),
+				content: {
+					action: 'hand-raise-switch',
+					data: {
+						value: value
+					}
+				}
+			});
 		},
 
 		onAddClick() {
@@ -86,7 +105,6 @@ var app = new Vue({
 		},
 
 		onJournalDataLoaded: function (data, metadata) {
-			console.log('Existing instance');
 			this.polls = data.polls;
 			this.currentView = "polls-grid";
 		},
@@ -96,29 +114,80 @@ var app = new Vue({
 		},
 
 		onJournalSharedInstance: function () {
-			this.currentView = "voting";
+			this.currentView = "vote";
 		},
 
 		onNetworkDataReceived: function (msg) {
 			switch(msg.content.action) {
-				case 'init':
-					console.log('init')
+				case 'init-new':
+					console.log('init-new');
+					this.activePoll = msg.content.data.activePoll;
+					break;
+				case 'init-existing':
+					console.log('init-existing');
+					this.activePoll = msg.content.data.activePoll;
+					this.currentUser.handRaised = msg.content.data.handRaised;
+					if(msg.content.data.answer) {
+						this.currentUser.answer = msg.content.data.answer;
+					}
+					break;
+				case 'hand-raise-switch':
+					if(this.SugarPresence.isHost) {
+						console.log('hand-raise-switch');
+						this.connectedUsers[msg.user.networkId].handRaised = msg.content.data.value;
+					}
 					break;
 			}
 		},
 
 		onNetworkUserChanged: function (msg) {
-			if (msg.move == 1 && this.SugarPresence.isHost) {
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'init',
-						data: {
-							activePoll: this.activePoll,
+			if (msg.move == 1) {
+				if(this.SugarPresence.isHost) {
+					if(this.connectedUsers[msg.user.networkId] != null) {
+						if(this.connectedUsers[msg.user.networkId].answer != null) {
+							this.SugarPresence.sendMessage({
+								user: this.SugarPresence.getUserInfo(),
+								content: {
+									action: 'init-existing',
+									data: {
+										activePoll: this.activePoll,
+										handRaised: this.connectedUsers[msg.user.networkId].handRaised,
+										answer: this.connectedUsers[msg.user.networkId].answer
+									}
+								}
+							});
+						} else {
+							this.SugarPresence.sendMessage({
+								user: this.SugarPresence.getUserInfo(),
+								content: {
+									action: 'init-existing',
+									data: {
+										activePoll: this.activePoll,
+										handRaised: this.connectedUsers[msg.user.networkId].handRaised
+									}
+								}
+							});
 						}
+						
+					} else {
+						this.connectedUsers[msg.user.networkId] = msg.user;
+						this.connectedUsers[msg.user.networkId].handRaised = false;
+						this.connectedUsers[msg.user.networkId].answer = null;
+						this.SugarPresence.sendMessage({
+							user: this.SugarPresence.getUserInfo(),
+							content: {
+								action: 'init-new',
+								data: {
+									activePoll: this.activePoll
+								}
+							}
+						});
 					}
-				});
+				}
+			} else {
+				console.log(msg);
 			}
+			console.log(this.connectedUsers);
 		},
 
 		onStop() {

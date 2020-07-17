@@ -15,7 +15,7 @@ var PollCard = {
 var PollsGrid = {
 	/*html*/
 	template: `
-		<div class="polls-grid" :style="{ backgroundColor: userColors.fill }">
+		<div class="polls-grid" :style="{ backgroundColor: currentUser.colorvalue.fill }">
 			<poll-card 
 				:poll="poll" 
 				v-show="matchesSearch(poll.question)"
@@ -28,7 +28,7 @@ var PollsGrid = {
 	components: {
 		'poll-card': PollCard
 	},
-	props: ['polls', 'searchQuery', 'userColors'],
+	props: ['polls', 'searchQuery', 'currentUser'],
 	methods: {
 		matchesSearch(str) {
 			var regex = new RegExp(this.searchQuery, "i")
