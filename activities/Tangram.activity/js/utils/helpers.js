@@ -119,3 +119,7 @@ var numUniqueElements = function (array, compareFunction) {
     var unique = eliminateDuplicates(array.slice(0), compareFunction, true);
     return array.length;
 };
+
+var shiftItemToTail = function (arr, i) {
+  return [...arr.filter((e, j) => i !== j), arr[i]];
+}

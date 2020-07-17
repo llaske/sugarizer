@@ -1,5 +1,5 @@
 var Game = {
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo'],
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -8,19 +8,41 @@ var Game = {
         <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}"
         >
           <v-layer ref="layer" :config="configLayer">
-          <template v-if="puzzles[pNo]">
-            <v-line v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index" :config="targetTan"></v-line>
-          </template>
-          <v-line v-for="(tan,index) in tans" :key="index" :config="tan"
-            v-on:tap="onTap($event, index)"
-            v-on:click="onClick($event, index)"
-            v-on:dragstart="onDragStart($event, index)"
-            v-on:dragend="onDragEnd($event, index)"
-            v-on:dragmove="onDragMove($event, index)"
-            v-on:mouseover="onMouseOver($event, index)"
-            v-on:mouseout="onMouseOut($event, index)"
-          ></v-line>
           <v-line :config="partitionLine"></v-line>
+          <template v-if="puzzles[pNo]">
+            <template v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index">
+              <v-line v-if="index!=hintNumber"
+                :config="{
+                  ...targetTan,
+                  strokeEnabled: showHint ? true : targetTan.strokeEnabled
+                }"
+              ></v-line>
+            </template>
+            <v-line v-if="showHint" :config="puzzles[pNo].targetTans[hintNumber]"></v-line>
+          </template>
+          <template v-for="(tan,index) in tans" :key="index">
+            <v-line v-if="currentTan!=index && !(showHint && (tansSnapped[index] || tansPlaced[index]!=-1))" :config="tan"
+              v-on:tap="onTap($event, index)"
+              v-on:click="onClick($event, index)"
+              v-on:dragstart="onDragStart($event, index)"
+              v-on:dragend="onDragEnd($event, index)"
+              v-on:dragmove="onDragMove($event, index)"
+              v-on:mouseover="onMouseOver($event, index)"
+              v-on:mouseout="onMouseOut($event, index)"
+            ></v-line>
+          </template>
+          <template>
+            <v-line v-if="!(showHint && (tansSnapped[currentTan] || tansPlaced[currentTan]!=-1))"
+              :config="tans[currentTan]"
+              v-on:tap="onTap($event, currentTan)"
+              v-on:click="onClick($event, currentTan)"
+              v-on:dragstart="onDragStart($event, currentTan)"
+              v-on:dragend="onDragEnd($event, currentTan)"
+              v-on:dragmove="onDragMove($event, currentTan)"
+              v-on:mouseover="onMouseOver($event, currentTan)"
+              v-on:mouseout="onMouseOut($event, currentTan)"
+            ></v-line>
+          </template>
           </v-layer>
         </v-stage>
         <div id="floating-info-block"
@@ -94,8 +116,8 @@ var Game = {
   data: function() {
     return {
       configKonva: {
-        width: 10,
-        height: 10,
+        width: 60,
+        height: 60,
       },
       configLayer: {
         scaleX: 6,
@@ -124,12 +146,13 @@ var Game = {
       tanState: 0,
       currentTan: 0,
       flip: 5,
-      translateVal: 0,
       initialPositions: [],
       selectedTanStrokeWidth: 0.8,
       nonSelectedTanStrokeWidth: 0.3,
       tanColors: ["blue", "purple", "red", "violet", "yellow", "yellow"],
       tansPlaced: [-1, -1, -1, -1, -1, -1, -1],
+      snapRange: 1.5,
+      tansSnapped: [false, false, false, false, false, false, false],
     }
   },
 
@@ -156,7 +179,7 @@ var Game = {
   },
 
   watch: {
-    puzzles: function () {
+    puzzles: function() {
       this.initializeTans();
     }
   },
@@ -179,10 +202,7 @@ var Game = {
       let pw = vm.configKonva.width;
       let ph = vm.configKonva.height;
       let pScale = Math.min(pw, ph) / 80;
-      if (pw == 10) {
-        pw = 0;
-        ph = 0;
-      }
+
 
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
@@ -196,13 +216,7 @@ var Game = {
         scale: scale
       });
 
-      let tangram_dx = (cw / scale - pw / pScale) / 3;
-      let tangram_dy = (ch / scale - ph / pScale) / 2;
-
-      vm.$emit('center-tangram', {
-        dx: tangram_dx,
-        dy: tangram_dy
-      });
+      vm.$emit('center-tangram');
 
       for (var i = 0; i < 7; i++) {
         switch (i) {
@@ -290,15 +304,16 @@ var Game = {
       let squareTangram = standardTangrams[0].tangram;
       for (let i = 0; i < squareTangram.tans.length; i++) {
         let tan = {
-          tanType: squareTangram.tans[i].tanType,
           x: 100,
           y: 100,
           offsetX: 100,
           offsetY: 100,
-          orientation: 0,
           rotation: 0,
           points: [],
-          pointsObjs: [],
+          tanObj: null,
+          orientation: squareTangram.tans[i].orientation,
+          tanType: squareTangram.tans[i].tanType,
+          placedAnchor: null,
           stroke: vm.strokeColor,
           strokeEnabled: false,
           strokeWidth: vm.nonSelectedTanStrokeWidth,
@@ -306,36 +321,33 @@ var Game = {
           draggable: true,
           fill: 'blue',
           lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 5,
+          shadowOpacity: 0.4,
+          shadowEnabled: false
         }
-        let points = [...squareTangram.tans[i].getPoints()];
-        let center = squareTangram.tans[i].center();
-        let dx = vm.initialPositions[i].x - points[0].toFloatX();
-        let dy = vm.initialPositions[i].y - points[0].toFloatY();
+        tan.tanObj = new Tan(squareTangram.tans[i].tanType, new Point(new IntAdjoinSqrt2(vm.initialPositions[i].x, 0), new IntAdjoinSqrt2(vm.initialPositions[i].y, 0)), squareTangram.tans[i].orientation);
+        let points = [...tan.tanObj.getPoints()];
+        let center = tan.tanObj.center();
 
         let floatPoints = [];
-        let pointsObjs = [];
         for (let j = 0; j < points.length; j++) {
           let tmpPoint = points[j].dup();
-          tmpPoint.x.add(new IntAdjoinSqrt2(dx, 0));
-          tmpPoint.y.add(new IntAdjoinSqrt2(dy, 0));
-          pointsObjs.push(tmpPoint);
           floatPoints.push(tmpPoint.toFloatX());
           floatPoints.push(tmpPoint.toFloatY());
         }
-        tan.offsetX = (center.toFloatX() + dx);
-        tan.offsetY = (center.toFloatY() + dy);
+        tan.offsetX = center.toFloatX();
+        tan.offsetY = center.toFloatY();
         tan.x = tan.offsetX;
         tan.y = tan.offsetY;
-        tan.orientation = squareTangram.tans[i].orientation;
         tan.points = floatPoints;
-        tan.pointsObjs = pointsObjs;
-        //tan.stroke = i === vm.currentTan ? vm.strokeColor : vm.tanColors[tan.tanType];
-        //tan.stroke = vm.tanColors[tan.tanType];
         tan.fill = vm.tanColors[tan.tanType];
         tans.push(tan);
       }
       vm.tans = tans;
       vm.tanState = 0;
+      vm.tansSnapped = [false, false, false, false, false, false, false];
+      vm.flip = 5;
     },
 
     snapTan: function(index) {
@@ -344,6 +356,7 @@ var Game = {
       let x = currentTan.x;
       let y = currentTan.y;
       let currentTanPoints = currentTan.points;
+      let currentTanPointsObjs = currentTan.tanObj.getPoints();
 
       let flag = false;
       for (let i = 0; i < 7; i++) {
@@ -351,15 +364,37 @@ var Game = {
           continue;
         }
         let otherTanPoints = [...vm.tans[i].points];
-        let otherTanPointsObjs = [...vm.tans[i].pointsObjs];
+        let otherTanPointsObjs = [...vm.tans[i].tanObj.getPoints()];
+
         for (let j = 0; j < currentTanPoints.length; j += 2) {
           let fl = false;
           for (let k = 0; k < otherTanPoints.length; k += 2) {
-            if (Math.abs(currentTanPoints[j] - otherTanPoints[k]) <= 1.5 && Math.abs(currentTanPoints[j + 1] - otherTanPoints[k + 1]) <= 1.5) {
-              let diff = otherTanPointsObjs[k / 2].dup().subtract(vm.tans[index].pointsObjs[j / 2]);
+            if (Math.abs(currentTanPoints[j] - otherTanPoints[k]) <= vm.snapRange && Math.abs(currentTanPoints[j + 1] - otherTanPoints[k + 1]) <= vm.snapRange) {
+              let diff;
+              if (!vm.tansSnapped[i]) {
+                diff = otherTanPointsObjs[k / 2].dup().subtract(currentTanPointsObjs[j / 2]);
+                currentTan.tanObj.anchor.add(diff);
+              } else {
+                let placedAnchor = null;
+                let prevAnchor = currentTan.tanObj.anchor.dup();
+                currentTan.tanObj.anchor = k === 0 ?
+                  vm.tans[i].tanObj.anchor.dup() : vm.tans[i].tanObj.anchor.dup().add(Directions[vm.tans[i].tanType][vm.tans[i].orientation][k / 2 - 1]);
+
+                placedAnchor = k === 0 ?
+                  vm.tans[i].placedAnchor.dup() : vm.tans[i].placedAnchor.dup().add(Directions[vm.tans[i].tanType][vm.tans[i].orientation][k / 2 - 1]);
+
+                if (j != 0) {
+                  currentTan.tanObj.anchor.subtract(Directions[currentTan.tanType][currentTan.orientation][j / 2 - 1]);
+                  placedAnchor.subtract(Directions[currentTan.tanType][currentTan.orientation][j / 2 - 1]);
+                }
+                diff = currentTan.tanObj.anchor.dup().subtract(prevAnchor);
+                vm.tansSnapped[index] = true;
+                vm.$set(vm.tans[index], 'placedAnchor', placedAnchor);
+              }
               let dx = diff.toFloatX();
               let dy = diff.toFloatY();
-              vm.moveTan(index, dx, dy, diff);
+              //update points
+              vm.updatePoints(index);
               fl = true;
               break;
             }
@@ -380,12 +415,19 @@ var Game = {
           for (var targetTan = 0; targetTan < vm.puzzles[vm.pNo].targetTans.length; targetTan++) {
             var fl = false;
             for (var j = 0; j < vm.puzzles[vm.pNo].targetTans[targetTan].points.length; j += 2)
-              if (Math.abs(currentTanPoints[i] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j]) <= 1.5 && Math.abs(currentTanPoints[i + 1] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j + 1]) <= 1.5) {
+              if (Math.abs(currentTanPoints[i] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j]) <= vm.snapRange && Math.abs(currentTanPoints[i + 1] - vm.puzzles[vm.pNo].targetTans[targetTan].points[j + 1]) <= vm.snapRange) {
+                let pointObj = new Point(new IntAdjoinSqrt2(vm.puzzles[vm.pNo].targetTans[targetTan].points[j], 0), new IntAdjoinSqrt2(vm.puzzles[vm.pNo].targetTans[targetTan].points[j + 1], 0));
+                let placedAnchor = vm.puzzles[vm.pNo].targetTans[targetTan].pointsObjs[j / 2].dup();
 
-                var diff = vm.puzzles[vm.pNo].targetTans[targetTan].pointsObjs[j / 2].dup().subtract(vm.tans[index].pointsObjs[i / 2]);
-                var dx = diff.toFloatX();
-                var dy = diff.toFloatY();
-                vm.moveTan(index, dx, dy, diff);
+                currentTan.tanObj.anchor = pointObj.dup();
+                if (i != 0) {
+                  placedAnchor.subtract(Directions[currentTan.tanType][currentTan.orientation][i / 2 - 1]);
+                  currentTan.tanObj.anchor.subtract(Directions[currentTan.tanType][currentTan.orientation][i / 2 - 1]);
+                }
+                vm.$set(vm.tans[index], 'placedAnchor', placedAnchor);
+                vm.tansSnapped[index] = true;
+                //update points
+                vm.updatePoints(index);
                 fl = true;
                 break;
               }
@@ -399,26 +441,32 @@ var Game = {
           }
         }
       }
+      if (!flag) {
+        vm.tansSnapped[index] = false;
+        vm.$set(vm.tans[index], 'placedAnchor', null);
+      }
+    },
+
+    updatePoints: function(index) {
+      let vm = this;
+      let points = vm.tans[index].tanObj.getPoints();
+      let center = vm.tans[index].tanObj.center();
+      vm.$set(vm.tans[index], 'points', []);
+
+      for (let j = 0; j < points.length; j++) {
+        vm.tans[index].points.push(points[j].toFloatX());
+        vm.tans[index].points.push(points[j].toFloatY());
+      }
+      vm.$set(vm.tans[index], 'offsetX', center.toFloatX());
+      vm.$set(vm.tans[index], 'offsetY', center.toFloatY());
+      vm.$set(vm.tans[index], 'x', center.toFloatX());
+      vm.$set(vm.tans[index], 'y', center.toFloatY());
     },
 
     moveTan: function(index, dx, dy, diff) {
       let vm = this;
-      let points = [];
-      for (let i = 0; i < vm.tans[index].points.length; i += 2) {
-        if (diff) {
-          vm.tans[index].pointsObjs[i / 2].add(diff);
-        } else {
-          vm.tans[index].pointsObjs[i / 2].x.add(new IntAdjoinSqrt2(dx, 0));
-          vm.tans[index].pointsObjs[i / 2].y.add(new IntAdjoinSqrt2(dy, 0));
-        }
-        points.push(vm.tans[index].points[i] + dx);
-        points.push(vm.tans[index].points[i + 1] + dy);
-      }
-      vm.$set(vm.tans[index], 'offsetX', vm.tans[index].offsetX + dx);
-      vm.$set(vm.tans[index], 'offsetY', vm.tans[index].offsetY + dy);
-      vm.$set(vm.tans[index], 'x', vm.tans[index].x + dx);
-      vm.$set(vm.tans[index], 'y', vm.tans[index].y + dy);
-      vm.$set(vm.tans[index], 'points', points);
+      vm.tans[index].tanObj.anchor.add(new Point(new IntAdjoinSqrt2(dx, 0), new IntAdjoinSqrt2(dy, 0)));
+      vm.updatePoints(index);
     },
 
     rotateTan: function(index) {
@@ -431,57 +479,33 @@ var Game = {
         //flip parallelogram
         vm.$set(vm.tans[index], 'tanType', vm.flip == 4 ? 5 : 4);
         vm.$set(vm.tans[index], 'orientation', 0);
-
         let anchor = tanCenter.dup();
         let sub = InsideDirections[vm.tans[index].tanType][vm.tans[index].orientation][0];
         anchor.x.subtract(new IntAdjoinSqrt2(sub.toFloatX(), 0));
         anchor.y.subtract(new IntAdjoinSqrt2(sub.toFloatY(), 0));
+        vm.tans[index].tanObj.anchor = anchor.dup();
+
+        vm.tans[index].tanObj.tanType = vm.tans[index].tanType;
+        vm.tans[index].tanObj.orientation = vm.tans[index].orientation;
 
         let flippedTan = new Tan(vm.tans[index].tanType, anchor, vm.tans[index].orientation);
-        let points = flippedTan.getPoints();
-        let center = flippedTan.center();
-        vm.$set(vm.tans[index], 'points', []);
-        vm.$set(vm.tans[index], 'pointsObjs', []);
 
-        for (let j = 0; j < points.length; j++) {
-          vm.tans[index].pointsObjs.push(points[j]);
-          vm.tans[index].points.push(points[j].toFloatX());
-          vm.tans[index].points.push(points[j].toFloatY());
-        }
-        vm.$set(vm.tans[index], 'offsetX', cx);
-        vm.$set(vm.tans[index], 'offsetY', cy);
-        vm.$set(vm.tans[index], 'x', cx);
-        vm.$set(vm.tans[index], 'y', cy);
+        vm.updatePoints(index);
 
         vm.flip = vm.flip == 4 ? 5 : 4;
       } else {
-        //update points of tan
-        let points = [];
-        for (let i = 0; i < vm.tans[index].points.length; i += 2) {
-          let x1 = vm.tans[index].points[i];
-          let y1 = vm.tans[index].points[i + 1];
-          let pt = new Point(new IntAdjoinSqrt2(x1, 0), new IntAdjoinSqrt2(y1, 0));
-          vm.tans[index].pointsObjs[i / 2].subtract(tanCenter).rotate(45).add(tanCenter);
-          pt.subtract(tanCenter).rotate(45).add(tanCenter);
-          points.push(pt.toFloatX());
-          points.push(pt.toFloatY());
-        }
-        vm.$set(vm.tans[index], 'points', points);
+        //rotate tan
         vm.$set(vm.tans[index], 'orientation', (vm.tans[index].orientation + 1) % 8);
+        vm.tans[index].tanObj.anchor.subtract(tanCenter).rotate(45).add(tanCenter);
+        vm.tans[index].tanObj.orientation = vm.tans[index].orientation;
+
+        vm.updatePoints(index);
       }
     },
 
     checkIfSolved: function() {
       let vm = this;
-      /*let tans = [];
-      for (let i = 0; i < vm.tans.length; i++) {
-        let point  = vm.tans[i].pointsObjs[0].dup();
-        var tan = new Tan(vm.tans[i].tanType, point, vm.tans[i].orientation);
-        tans.push(tan);
-      }
-      let currentOut = computeOutline(tans,true);
-      console.log(currentOut);
-      */
+      let solved = true;
       let currentTanPoints = [...vm.tans[vm.currentTan].points].sort();
       let tanType = vm.tans[vm.currentTan].tanType;
       let placed = -1;
@@ -492,7 +516,7 @@ var Game = {
           let tmp = 0;
           let targetPoints = [...targetTan.points].sort();
           for (var j = 0; j < targetPoints.length; j++) {
-            if(Math.abs(targetPoints[j] - currentTanPoints[j]) < 0.5){
+            if (Math.abs(targetPoints[j] - currentTanPoints[j]) < 0.5) {
               tmp++;
             }
           }
@@ -504,21 +528,73 @@ var Game = {
       }
       vm.$set(vm.tansPlaced, vm.currentTan, placed);
       vm.$emit('remove-tangram-borders', vm.tansPlaced);
+
+      //check if all tans are well placed...
+      for (var i = 0; i < 7; i++) {
+        if (vm.tansPlaced[i] === -1) {
+          solved = false;
+          break;
+        }
+      }
+      if (solved) {
+        vm.$emit('tangram-status', true);
+        return;
+      }
+
+      //check the outline
+      let tans = [];
+      let notFinished = false;
+      for (let i = 0; i < vm.tans.length; i++) {
+        if (vm.tansSnapped[i]) {
+          let point = vm.tans[i].placedAnchor.dup();
+          var tan = new Tan(vm.tans[i].tanType, point, vm.tans[i].orientation);
+          tans.push(tan);
+        } else {
+          notFinished = true;
+          break;
+        }
+      }
+      if (!notFinished) {
+        let currentOut = computeOutline(tans, true);
+        if (typeof currentOut === 'undefined' ||
+          currentOut.length != vm.puzzles[vm.pNo].outline.length) {
+          solved = false;
+        } else {
+          var tmp = true;
+          for (var outlineId = 0; outlineId < vm.puzzles[vm.pNo].outline.length; outlineId++) {
+            tmp = tmp && arrayEq(vm.puzzles[vm.pNo].outline[outlineId], currentOut[outlineId], comparePoints);
+          }
+          solved = tmp;
+          /*var tanSegments = computeSegments(getAllPoints(gameOutline), gameOutline);
+          for (var segmentId = 0; segmentId < tanSegments.length; segmentId++) {
+            for (var otherSegmentsId = segmentId + 1; otherSegmentsId < tanSegments.length; otherSegmentsId++) {
+              if (tanSegments[segmentId].intersects(tanSegments[otherSegmentsId])) {
+                return false;
+              }
+            }
+          }
+          */
+          console.log(solved);
+        }
+      } else {
+        solved = false;
+      }
+      vm.$emit('tangram-status', solved);
+
     },
 
     selectTan: function() {
       let vm = this;
       vm.$set(vm.tans[vm.currentTan], 'strokeWidth', vm.selectedTanStrokeWidth);
-      //vm.$set(vm.tans[vm.currentTan], 'stroke', vm.strokeColor);
       vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
-
+      vm.$set(vm.tans[vm.currentTan], 'shadowEnabled', true);
     },
 
     deSelectTan: function() {
       let vm = this;
       vm.$set(vm.tans[vm.currentTan], 'strokeWidth', vm.nonSelectedTanStrokeWidth);
-      //vm.$set(vm.tans[vm.currentTan], 'stroke', vm.tanColors[vm.tans[vm.currentTan].tanType]);
       vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
+      vm.$set(vm.tans[vm.currentTan], 'shadowEnabled', false);
     },
 
     onClick: function(e, index) {
@@ -653,7 +729,7 @@ var Game = {
           vm.tanState = 1;
         }
       } else if (vm.tanState === 1) {
-        let delta = 3;
+        let delta = 4;
         let scale = vm.configLayer.scaleX;
         let dx = delta / scale;
         let dy = delta / scale;
@@ -682,16 +758,17 @@ var Game = {
         if (e.keyCode === 13) {
           vm.tanState = 0;
         }
-
         vm.moveTan(vm.currentTan, dx, dy);
       }
     },
 
     onKeyUp: function(e) {
       let vm = this;
-      setTimeout(() => {
-        vm.snapTan(vm.currentTan);
-      }, 0);
+      if (vm.tanState === 1) {
+        setTimeout(() => {
+          vm.snapTan(vm.currentTan);
+        }, 0);
+      }
     },
 
     onRefresh: function(e) {

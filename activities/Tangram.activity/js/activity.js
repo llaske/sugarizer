@@ -36,12 +36,13 @@ var app = new Vue({
     pNo: 0,
     isTargetAcheived: false,
     hintNumber: 0,
+    showHint: false,
     scale: 1,
     stage: {
       width: 1,
       height: 1,
     },
-    tanColors: ["blue","purple","red","violet","yellow","yellow"],
+    tanColors: ["blue", "purple", "red", "violet", "yellow", "yellow"],
   },
   methods: {
     initialized: function() {
@@ -55,26 +56,20 @@ var app = new Vue({
 
       vm.currentScreen = "game";
 
-      vm.generateTangram();
+      vm.newGame();
 
     },
 
-    newGame: function () {
+    newGame: function() {
       let vm = this;
       vm.puzzles = [];
       vm.pNo = 0;
       vm.hintNumber = 0;
       vm.generateTangram();
-      let tangram_dx = (vm.stage.width / vm.scale) / 3;
-      let tangram_dy = (vm.stage.height / vm.scale) / 2;
-
-      vm.onCenterTangram({
-        dx: tangram_dx,
-        dy: tangram_dy
-      })
     },
 
     generateTangram: function() {
+      generating = false;
       let vm = this;
       let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
       let tang = tangram.tangram;
@@ -87,21 +82,22 @@ var app = new Vue({
         targetTans: [],
         outline: [],
       };
+
       tang.positionCentered();
-      tx = -tang.center().toFloatX();
-      ty = -tang.center().toFloatY();
 
       let target = [];
       let targetTans = [];
       for (let i = 0; i < tang.tans.length; i++) {
         let targetTan = {
-          tanType: tang.tans[i].tanType,
           x: 100,
           y: 100,
           offsetX: 100,
           offsetY: 100,
+          anchor: null,
           pointsObjs: [],
-          orientation: 0,
+          tanObj: new Tan(tang.tans[i].tanType, tang.tans[i].anchor.dup(), tang.tans[i].orientation),
+          tanType: tang.tans[i].tanType,
+          orientation: tang.tans[i].orientation,
           points: [],
           stroke: vm.fillColor,
           strokeEnabled: true,
@@ -109,6 +105,10 @@ var app = new Vue({
           fill: vm.strokeColor,
           closed: true,
           lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 10,
+          shadowOpacity: 0.8,
+          shadowEnabled: false,
         }
 
         let points = [...tang.tans[i].getPoints()];
@@ -118,77 +118,89 @@ var app = new Vue({
         let pointsObjs = [];
         for (let j = 0; j < points.length; j++) {
           let tmpPoint = points[j].dup();
-          tmpPoint.x.add(new IntAdjoinSqrt2(tx, 0));
-          tmpPoint.y.add(new IntAdjoinSqrt2(ty, 0));
           pointsObjs.push(tmpPoint);
           floatPoints.push(tmpPoint.toFloatX());
           floatPoints.push(tmpPoint.toFloatY());
         }
-        targetTan.offsetX = (center.toFloatX() + tx);
-        targetTan.offsetY = (center.toFloatY() + ty);
+        targetTan.offsetX = center.toFloatX();
+        targetTan.offsetY = center.toFloatY();
         targetTan.x = targetTan.offsetX;
         targetTan.y = targetTan.offsetY;
-        targetTan.orientation = tang.tans[i].orientation;
         targetTan.points = floatPoints;
+        targetTan.anchor = tang.tans[i].anchor.dup();
         targetTan.pointsObjs = pointsObjs;
         targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
-        let point  = pointsObjs[0].dup();
-        let tan = new Tan(targetTan.tanType, point, targetTan.orientation);
-        targetTans.push(tan);
         target.push(targetTan);
       }
-      let outline = computeOutline(targetTans, true);
-      console.log(outline);
       puzzle.targetTans = target;
+      puzzle.outline = [...tang.outline]
       vm.puzzles = [puzzle];
+
+      vm.centerTangram();
     },
 
-    onCenterTangram: function(data) {
+    centerTangram: function() {
       let vm = this;
-      let dx = data.dx;
-      let dy = data.dy;
-      for (let index = 0; index < 7; index++) {
-        let points = [];
-        for (let i = 0; i < vm.puzzles[vm.pNo].targetTans[index].points.length; i += 2) {
-          vm.puzzles[vm.pNo].targetTans[index].pointsObjs[i / 2].x.add(new IntAdjoinSqrt2(dx, 0));
-          vm.puzzles[vm.pNo].targetTans[index].pointsObjs[i / 2].y.add(new IntAdjoinSqrt2(dy, 0));
-          points.push(vm.puzzles[vm.pNo].targetTans[index].points[i] + dx);
-          points.push(vm.puzzles[vm.pNo].targetTans[index].points[i + 1] + dy);
+      let targetTans = vm.puzzles[vm.pNo].targetTans;
+      let scale = vm.scale;
+      let dx = vm.stage.width / (3 * scale) - 30;
+      let dy = vm.stage.height / (2 * scale) - 30;
+
+      for (let index = 0; index < targetTans.length; index++) {
+        let points = [...targetTans[index].tanObj.getPoints()];
+        let center = targetTans[index].tanObj.center();
+        let floatPoints = [];
+
+        for (let j = 0; j < points.length; j++) {
+          let tmpPoint = points[j].dup();
+          tmpPoint.x.add(new IntAdjoinSqrt2(dx, 0));
+          tmpPoint.y.add(new IntAdjoinSqrt2(dy, 0));
+          floatPoints.push(tmpPoint.toFloatX());
+          floatPoints.push(tmpPoint.toFloatY());
         }
-        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetX', vm.puzzles[vm.pNo].targetTans[index].offsetX + dx);
-        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetY', vm.puzzles[vm.pNo].targetTans[index].offsetY + dy);
-        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', vm.puzzles[vm.pNo].targetTans[index].x + dx);
-        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', vm.puzzles[vm.pNo].targetTans[index].y + dy);
-        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'points', points);
+        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'points', floatPoints);
+        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetX', center.toFloatX() + dx);
+        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetY', center.toFloatY() + dy);
+        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', center.toFloatX() + dx);
+        vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
       }
     },
 
-    onConfigChanged: function (data) {
+    onConfigChanged: function(data) {
       this.scale = data.scale;
       this.stage.width = data.stageWidth;
       this.stage.height = data.stageHeight;
     },
 
-    onRemoveTangramBorders: function (data) {
+    onRemoveTangramBorders: function(data) {
       let vm = this;
       for (var i = 0; i < 7; i++) {
         vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = true;
       }
-      let tmp = 0;
+      let remaining = [true, true, true, true, true, true, true];
       for (var i = 0; i < 7; i++) {
         let targetTanIndex = data[i];
         if (targetTanIndex != -1) {
-          tmp++;
           vm.puzzles[vm.pNo].targetTans[targetTanIndex].strokeEnabled = false;
-        } else {
-          vm.hintNumber = i;
+          remaining[targetTanIndex] = false;
         }
       }
-      if (tmp === 7) {
-        vm.isTargetAcheived = true;
-      } else {
-        vm.isTargetAcheived = false;
+      for (var i = 0; i < remaining.length; i++) {
+        if (remaining[i]) {
+          vm.hintNumber = i;
+          break;
+        }
       }
+    },
+
+    onTangramStatus: function(data) {
+      let vm = this;
+      vm.isTargetAcheived = data;
+
+      for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
+        vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'shadowEnabled', data);
+      }
+
     },
 
     onDifficultySelected: function(evt) {
@@ -212,7 +224,7 @@ var app = new Vue({
       }
     },
 
-    onHint: function () {
+    onHint: function() {
       let vm = this;
       if (vm.level === 0) {
         return;
@@ -220,14 +232,18 @@ var app = new Vue({
       let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[vm.hintNumber].tanType];
       vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', color);
       vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', color);
-      vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = false;
+      //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = false;
+      //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = true;
+      vm.showHint = true;
 
       setTimeout(() => {
         vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', vm.strokeColor);
         vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', vm.strokeColor);
-        vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = true;
-      }, 500);
-      
+        //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = true;
+        //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = false;
+        vm.showHint = false;
+      }, 1000);
+
     }
 
   }

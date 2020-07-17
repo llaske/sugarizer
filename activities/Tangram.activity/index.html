@@ -54,9 +54,11 @@
 				v-bind:is-target-acheived="isTargetAcheived"
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
-				v-on:center-tangram="onCenterTangram"
+				v-bind:show-hint="showHint"
+				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:remove-tangram-borders="onRemoveTangramBorders"
+				v-on:tangram-status="onTangramStatus"
 			></component>
 		</transition>
 
