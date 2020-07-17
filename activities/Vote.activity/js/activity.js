@@ -83,14 +83,27 @@ var app = new Vue({
 			document.getElementById('shared-button').click();
 		},
 
-		onHandRaiseSwitch(value) {
+		onHandRaiseSwitched(value) {
 			this.$set(this.currentUser, 'handRaised', value);
 			this.SugarPresence.sendMessage({
 				user: this.$root.$refs.SugarPresence.getUserInfo(),
 				content: {
-					action: 'hand-raise-switch',
+					action: 'hand-raise-switched',
 					data: {
 						value: value
+					}
+				}
+			});
+		},
+
+		onVoteSubmitted(answer) {
+			this.$set(this.currentUser, 'answer', answer);
+			this.SugarPresence.sendMessage({
+				user: this.$root.$refs.SugarPresence.getUserInfo(),
+				content: {
+					action: 'vote-submitted',
+					data: {
+						answer: answer
 					}
 				}
 			});
@@ -131,10 +144,16 @@ var app = new Vue({
 						this.currentUser.answer = msg.content.data.answer;
 					}
 					break;
-				case 'hand-raise-switch':
+				case 'hand-raise-switched':
 					if(this.SugarPresence.isHost) {
-						console.log('hand-raise-switch');
+						console.log('hand-raise-switched');
 						this.connectedUsers[msg.user.networkId].handRaised = msg.content.data.value;
+					}
+					break;
+				case 'vote-submitted':
+					if(this.SugarPresence.isHost) {
+						console.log('vote-submitted');
+						this.connectedUsers[msg.user.networkId].answer = msg.content.data.answer;
 					}
 					break;
 			}

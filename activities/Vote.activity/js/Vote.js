@@ -7,16 +7,26 @@ var Vote = {
 					Loading...
 				</div>
 				<div class="vote-card-content" v-else>
-					<h1 class="vote-question">{{ activePoll.question }}</h1>
+					<h1 class="vote-question" v-if="currentUser.answer == null">{{ activePoll.question }}</h1>
 					
 					<div class="vote-waiting" v-if="currentUser.answer != null">
-						<h4>Waiting for results</h4>
+						<img src="icons/hourglass.svg" alt="hourglass">
+						<h2>Waiting for results</h2>
 					</div>
 					<div class="vote-text" v-else-if="activePoll.type == 'text'">
 						<input type="text" v-model="text">
 					</div>
+					<div class="vote-mcq" v-else-if="activePoll.type == 'mcq'">
+						<button 
+							class="option" 
+							:class="{ selected: optionSelected == i }" 
+							v-for="(option, i) in activePoll.options" 
+							:key="i"
+							@click="optionSelected = i"
+						>{{ option }}</button>
+					</div>
 
-					<button class="submit" :disabled="!submitable" @click="submit"></button>
+					<button class="submit" :disabled="!submitable" @click="submit" v-if="currentUser.answer == null"></button>
 				</div>
 
 				<button ref="raiseHandButton" class="raise-hand" :class="{ active: currentUser.handRaised }" @click="switchHandRaise"></button>
@@ -53,15 +63,15 @@ var Vote = {
 	},
 	methods: {
 		switchHandRaise() {
-			this.$emit('hand-raise-switch', !this.currentUser.handRaised);
+			this.$emit('hand-raise-switched', !this.currentUser.handRaised);
 		},
 		submit() {
 			switch(this.activePoll.type) {
 				case 'text':
-					console.log(this.text);
+					this.$emit('vote-submitted', this.text);
 					break;
 				case 'mcq':
-					console.log(this.optionSelected);
+					this.$emit('vote-submitted', this.optionSelected);
 					break;
 			}
 		}
