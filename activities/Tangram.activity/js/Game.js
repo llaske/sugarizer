@@ -218,6 +218,7 @@ var Game = {
 
       vm.$emit('center-tangram');
 
+      vm.initialPositions = [];
       for (var i = 0; i < 7; i++) {
         switch (i) {
           case 0:
@@ -284,7 +285,6 @@ var Game = {
 
       vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.20);
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      //vm.$set(vm.nameBlock, 'bottom', document.querySelector('.game-footer').offsetHeight * 1.1 + gameMainEle.offsetHeight * 0.01);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
       vm.$set(vm.infoContainer, 'left', gameMainEle.offsetWidth * 0.01 + cw / 4.5);
 
@@ -322,8 +322,8 @@ var Game = {
           fill: 'blue',
           lineJoin: 'round',
           shadowColor: 'black',
-          shadowBlur: 5,
-          shadowOpacity: 0.4,
+          shadowBlur: 4,
+          shadowOpacity: 0.5,
           shadowEnabled: false
         }
         tan.tanObj = new Tan(squareTangram.tans[i].tanType, new Point(new IntAdjoinSqrt2(vm.initialPositions[i].x, 0), new IntAdjoinSqrt2(vm.initialPositions[i].y, 0)), squareTangram.tans[i].orientation);
@@ -583,27 +583,27 @@ var Game = {
 
     },
 
-    selectTan: function() {
+    selectTan: function(index) {
       let vm = this;
-      vm.$set(vm.tans[vm.currentTan], 'strokeWidth', vm.selectedTanStrokeWidth);
-      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', true);
-      vm.$set(vm.tans[vm.currentTan], 'shadowEnabled', true);
+      vm.$set(vm.tans[index], 'strokeWidth', vm.selectedTanStrokeWidth);
+      vm.$set(vm.tans[index], 'strokeEnabled', true);
+      vm.$set(vm.tans[index], 'shadowEnabled', true);
     },
 
-    deSelectTan: function() {
+    deSelectTan: function(index) {
       let vm = this;
-      vm.$set(vm.tans[vm.currentTan], 'strokeWidth', vm.nonSelectedTanStrokeWidth);
-      vm.$set(vm.tans[vm.currentTan], 'strokeEnabled', false);
-      vm.$set(vm.tans[vm.currentTan], 'shadowEnabled', false);
+      vm.$set(vm.tans[index], 'strokeWidth', vm.nonSelectedTanStrokeWidth);
+      vm.$set(vm.tans[index], 'strokeEnabled', false);
+      vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
 
     onClick: function(e, index) {
       let vm = this;
       vm.tanState = 1;
       if (index != vm.currentTan) {
-        vm.deSelectTan();
+        vm.deSelectTan(vm.currentTan);
         vm.currentTan = index;
-        vm.selectTan();
+        vm.selectTan(vm.currentTan);
       }
       if (vm.tanState === 1) {
         vm.rotateTan(index);
@@ -614,9 +614,9 @@ var Game = {
       let vm = this;
       vm.tanState = 1;
       if (index != vm.currentTan) {
-        vm.deSelectTan();
+        vm.deSelectTan(vm.currentTan);
         vm.currentTan = index;
-        vm.selectTan();
+        vm.selectTan(vm.currentTan);
       }
       if (vm.tanState === 1) {
         vm.rotateTan(index);
@@ -626,10 +626,10 @@ var Game = {
     onDragStart: function(e, index) {
       let vm = this;
       if (index != vm.currentTan) {
-        vm.deSelectTan();
+        vm.deSelectTan(vm.currentTan);
         vm.currentTan = index;
       }
-      vm.selectTan();
+      vm.selectTan(vm.currentTan);
       vm.tanState = 1;
     },
 
@@ -691,8 +691,8 @@ var Game = {
       let vm = this;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-      let dx = finalX - this.tans[index].x;
-      let dy = finalY - this.tans[index].y;
+      let dx = finalX - vm.tans[index].x;
+      let dy = finalY - vm.tans[index].y;
 
       setTimeout(() => {
         vm.moveTan(index, dx, dy);
@@ -701,30 +701,30 @@ var Game = {
 
     onMouseOver: function(e, index) {
       let vm = this;
-      vm.deSelectTan();
+      vm.deSelectTan(vm.currentTan);
       vm.currentTan = index;
-      vm.selectTan();
+      vm.selectTan(vm.currentTan);
       vm.tanState = 0;
     },
 
     onMouseOut: function(e, index) {
       let vm = this;
       vm.tanState = 0;
-      vm.deSelectTan();
+      vm.deSelectTan(vm.currentTan);
     },
 
     onKeyDown: function(e) {
       let vm = this;
       if (vm.tanState === 0) {
         if (e.keyCode === 37 || e.keyCode === 40) {
-          vm.deSelectTan();
+          vm.deSelectTan(vm.currentTan);
           let newTan = (vm.currentTan - 1) % 7;
           vm.currentTan = newTan < 0 ? newTan + 7 : newTan;
-          vm.selectTan();
+          vm.selectTan(vm.currentTan);
         } else if (e.keyCode === 38 || e.keyCode === 39) {
-          vm.deSelectTan();
+          vm.deSelectTan(vm.currentTan);
           vm.currentTan = (vm.currentTan + 1) % 7;
-          vm.selectTan();
+          vm.selectTan(vm.currentTan);
         } else if (e.keyCode === 13) {
           vm.tanState = 1;
         }

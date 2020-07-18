@@ -37,10 +37,7 @@
 				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
-			<sugar-toolitem id="hint-button"
-				title="hint"
-				v-on:click="onHint"
-			></sugar-toolitem>
+			<sugar-toolitem id="hint-button" v-if="level" title="hint" v-on:click="onHint"></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>

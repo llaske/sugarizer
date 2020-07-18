@@ -204,7 +204,7 @@ var app = new Vue({
         for (var i = 0; i < 7; i++) {
           vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = false;
         }
-      } 
+      }
 
     },
 
@@ -231,7 +231,7 @@ var app = new Vue({
 
     onHint: function() {
       let vm = this;
-      if (vm.level === 0) {
+      if (vm.level === 0 || vm.isTargetAcheived) {
         return;
       }
       let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[vm.hintNumber].tanType];
