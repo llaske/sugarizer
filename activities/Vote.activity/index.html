@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/PollStats.css">
 	<link rel="stylesheet" href="css/Vote.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/Chart.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -37,7 +38,7 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem 
 				id="settings-button" 
-				v-if="currentView != 'vote'"
+				v-if="currentView == 'polls-grid'"
 				:class="{ active: settings }" 
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
@@ -48,7 +49,7 @@
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<div class="search-field" v-if="currentView != 'vote'">
+			<div class="search-field" v-if="currentView == 'polls-grid'">
 				<div class="search-icon"></div>
 				<input 
 					type="text" 
@@ -72,7 +73,7 @@
 						:polls="polls"
 						:current-user="currentUser"
 						:active-poll="activePoll"
-						:answered-active-poll="answeredActivePoll"
+						:connected-users="connectedUsers"
 						@start-poll="startPoll"
 						@hand-raise-switched="onHandRaiseSwitched"
 						@vote-submitted="onVoteSubmitted"

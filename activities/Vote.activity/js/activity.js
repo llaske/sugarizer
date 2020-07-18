@@ -24,7 +24,7 @@ var app = new Vue({
 			{
 				id: 0,
 				type: "text",
-				question: "What is your age?",
+				question: "What is your name?",
 			},
 			{
 				id: 1,
@@ -36,6 +36,11 @@ var app = new Vue({
 					"4",
 					"5"
 				]
+			},
+			{
+				id: 2,
+				type: "rating",
+				question: "How was the lecture today?"
 			},
 		],
 		connectedUsers: {},
@@ -189,9 +194,10 @@ var app = new Vue({
 						}
 						
 					} else {
-						this.connectedUsers[msg.user.networkId] = msg.user;
-						this.connectedUsers[msg.user.networkId].handRaised = false;
-						this.connectedUsers[msg.user.networkId].answer = null;
+						this.$set(this.connectedUsers, msg.user.networkId, msg.user);
+						this.$set(this.connectedUsers[msg.user.networkId], 'handRaised', false);
+						this.$set(this.connectedUsers[msg.user.networkId], 'answer', null);
+						
 						this.SugarPresence.sendMessage({
 							user: this.SugarPresence.getUserInfo(),
 							content: {

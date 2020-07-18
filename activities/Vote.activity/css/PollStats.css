@@ -1,0 +1,62 @@
+.footer-item {
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	opacity: 0.6;
+}
+.footer-item.answered {
+	opacity: 1;
+}
+.footer-item.answered .username {
+	font-weight: bold;
+}
+.footer-item .owner, .footer-item .hand {
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.footer-item .hand {
+	background-image: url(../icons/raise-hand.svg);
+}
+.footer-item .owner {
+	background-image: url(../icons/owner-icon.svg);
+}
+.footer-item .username {
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	font-size: 0.8em;
+}
+
+.poll-stats {
+	min-height: calc(100vh - 55px);
+	background: white;
+}
+#stats {
+	height: 70% !important;
+	width: 70% !important;
+	border: solid 4px red;
+}
+.poll-stats .poll-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100px;
+	height: fit-content;
+	overflow-x: auto;
+	padding: 10px 0;
+	background: #282828;
+	color: white;
+}
+.poll-stats .poll-footer .vote-progress {
+	margin: 0 5px;
+	font-weight: bold;
+}
+.poll-stats .poll-footer .footer-list {
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+}

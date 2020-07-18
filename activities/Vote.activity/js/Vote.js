@@ -25,6 +25,15 @@ var Vote = {
 							@click="optionSelected = i"
 						>{{ option }}</button>
 					</div>
+					<div class="vote-rating" v-else-if="activePoll.type == 'rating'">
+						<div 
+							class="rating-star" 
+							:style="{ backgroundImage: getRatingStar(n) }" 
+							v-for="n in 5" 
+							:key="n"
+							@click="rating = n"
+						></div>
+					</div>
 
 					<button class="submit" :disabled="!submitable" @click="submit" v-if="currentUser.answer == null"></button>
 				</div>
@@ -36,7 +45,12 @@ var Vote = {
 	props: ['activePoll', 'connectedUsers', 'currentUser'],
 	data: () => ({
 		text: "",
-		optionSelected: null
+		optionSelected: null,
+		rating: 0,
+		ratingIcons: {
+			unselected: '../icons/star.svg',
+			selected: '../icons/star.svg',
+		}
 	}),
 	computed: {
 		submitable() {
@@ -61,9 +75,23 @@ var Vote = {
 			})
 		}
 	},
+	mounted() {
+		let vm = this;
+		this.$root.$refs.SugarIcon.generateIconWithColors(this.ratingIcons.unselected, { fill: "#ffffff", stroke: this.currentUser.colorvalue.stroke })
+			.then(src => {
+				vm.ratingIcons.unselected = src;
+			});
+		this.$root.$refs.SugarIcon.generateIconWithColors(this.ratingIcons.selected, this.currentUser.colorvalue)
+			.then(src => {
+				vm.ratingIcons.selected = src;
+			});
+	},
 	methods: {
 		switchHandRaise() {
 			this.$emit('hand-raise-switched', !this.currentUser.handRaised);
+		},
+		getRatingStar(n) {
+			return `url(${ n <= this.rating ? this.ratingIcons.selected : this.ratingIcons.unselected })`;
 		},
 		submit() {
 			switch(this.activePoll.type) {
@@ -72,6 +100,9 @@ var Vote = {
 					break;
 				case 'mcq':
 					this.$emit('vote-submitted', this.optionSelected);
+					break;
+				case 'rating':
+					this.$emit('vote-submitted', this.rating);
 					break;
 			}
 		}
