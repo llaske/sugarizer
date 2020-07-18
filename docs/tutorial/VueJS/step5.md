@@ -21,30 +21,42 @@ The first step when you localize an activity is to identify strings to localize.
 * *"{user} played!"*: when the user played a pawn
 * *"Add pawn"*: the helper message on the toolbar button
 
-With the webL10n library, all strings have to be defined in a specific file where all translations for each string should be set. We call this file `locale.ini`. It is already present in the root of your activity, open it and add the following content: 
+With the webL10n library, all strings have to be defined in a specific file where all translations for each string should be set. We call this file `locale.ini`. 
+
+This file is already present in the root of your activity, open it. You'll observe some content is already present inside, mainly some strings related to timestamps. These string are important for the functioning on another SugarL10n method, `localizeTimestamp(timestamp)` which converts a UNIX timestamp to a Sugarizer time-elapsed string.
+
+This file is decomposed into sections. One section for each language with the language code between brackets as section name (**en**, **fr**, **es**, ...) and a special section (**\***) for unknown language.
+
+Now, in each section below the strings already present, add the following content:
 ```ini
 [*]
+.
+.
 Hello=Hello {{name}}!
 Played={{name}} played
 AddPawn=Add pawn
 
 [en]
+.
+.
 Hello=Hello {{name}}!
 Played={{name}} played
 AddPawn=Add pawn
 
 [fr]
+.
+.
 Hello=Bonjour {{name}} !
 Played={{name}} a joué
 AddPawn=Ajouter pion
 
 [es]
+.
+.
 Hello=Hola {{name}} !
 Played={{name}} jugó
 AddPawn=Agrega un peón
 ```
-
-This file is decomposed into sections. One section for each language with the language code between brackets as section name (**en**, **fr**, **es**, ...) and a special section (**\***) for unknown language.
 
 In each section, you have to define translations for each string. The left side of the equal sign is the id of the string (**Hello**, **Played**, **AddPawn**), the right side of the equal sign is the translated string.
 

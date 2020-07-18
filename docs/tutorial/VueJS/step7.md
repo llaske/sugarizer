@@ -85,15 +85,17 @@ insertBackground: function () {
 		{ mimetype: 'image/png' }, 
 		{ mimetype: 'image/jpeg' }
 	];
-	this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-		// Do nothing at the moment
-	})
+	this.$refs.SugarJournal.insertFromJournal(filters)
+		.then(function (data, metadata) {
+			// Do nothing at the moment
+		});
 },
 ```
-This source code calls the `insertFromJournal` method of the `SugarJournal` component. This method take two parameters:
+This source code calls the `insertFromJournal` method of the `SugarJournal` component. This method takes one parameter:
 
-* the first one is an array of filters to identify what type of Journal entries you're looking for. Here we're looking for images, so we set `mimetype` equal to `image/png` or `image/jpeg`. But it's possible too to ask for items from a specific activity by using something like `{ activity: 'org.sugarlabs.Pawn'}`.
-* the second one is the callback called when the user clicks on some media element. For the moment, we're leave it empty.
+* an array of filters to identify what type of Journal entries you're looking for. Here we're looking for images, so we set `mimetype` equal to `image/png` or `image/jpeg`. But it's possible too to ask for items from a specific activity by using something like `{ activity: 'org.sugarlabs.Pawn'}`.
+
+The method returns a Promise, which after resolving gives us the `data` and the `metadata` for the selected item.
 
 Let's run again the activity. Now, when you click on the new toolbar button the Journal chooser is displayed and the list contains our Moon image.
 
@@ -118,16 +120,17 @@ The file is now into the Journal.
 
 ![](../../images/tutorial_step7_9.png)
 
-We are now ready to add the source code to change the background. Here's the new way to define the `insertFromJournal` callback inside `js/activity.js`:
+We are now ready to add the source code to change the background. Here's the new way to define the `insertFromJournal` then block inside `js/activity.js`:
 ```js
 insertBackground: function () {
 	var filters = [
 		{ mimetype: 'image/png' }, 
 		{ mimetype: 'image/jpeg' }
 	];
-	this.$refs.SugarJournal.insertFromJournal(filters, function (data, metadata) {
-		document.getElementById("app").style.backgroundImage = `url(${data})`;
-	})
+	this.$refs.SugarJournal.insertFromJournal(filters)
+		.then(function (data, metadata) {
+			document.getElementById("app").style.backgroundImage = `url(${data})`;
+		});
 },
 ```
 The callback method receives the content of the item into the `data` parameter. In the case of an image, it's a base64 encoding of the image. Something like: 

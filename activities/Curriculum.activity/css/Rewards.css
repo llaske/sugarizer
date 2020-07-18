@@ -1,0 +1,98 @@
+.rewards-container {
+	padding: 0 4vw;
+	display: flex;
+}
+.stats-container {
+	flex: 1 350px;
+	padding: 0 20px;
+}
+.stat-card {
+	background: #d3d3d3;
+	padding: 5px 20px;
+	margin: 10px;
+	border-radius: 10px;
+	width: fit-content;
+	text-align: center;
+	color: white;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+	font-weight: 600;
+}
+.stat-card .acquired {
+	font-size: 5em;
+}
+.stat-card .total {
+	font-size: 2em;
+}
+.stats-table{
+	border-spacing: 0;
+	width: 100%;
+	margin: 30px 0;
+	background: white;
+	padding: 10px;
+}
+.bar-container {
+	padding: 5px;
+	height: 15px;
+	width: 100%;
+}
+.bar-container .bar {
+	height: 100%;
+}
+
+.trophies-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 auto;
+}
+.trophy-card {
+	position: relative;
+	height: fit-content;
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+}
+.trophy-card h4 {
+	color: grey;
+	margin-bottom: 0;
+}
+.trophy-card p {
+	color: grey;
+}
+.trophy-card .trophy-container{
+	margin: 0 auto;
+}
+
+.trophy-container {
+	position: relative;
+	width: 100px;
+}
+.trophy {
+	position: relative;
+	background-image: url(../icons/trophy-large.svg);
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	padding-top: 100%;  /*  To get 1:1 asepect ratio */
+	opacity: 0.2;
+}
+.trophy .trophy-info {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.trophy .trophy-info .trophy-icon {
+	display: block;
+	margin: 0 auto;
+	width: 15px;
+	height: 15px;
+}
+.trophy .trophy-info span {
+	color: white;
+	font-weight: 700;
+	font-size: 1.1em;
+}
+.trophy.acquired {
+	opacity: 1;
+}

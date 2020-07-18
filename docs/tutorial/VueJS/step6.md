@@ -195,6 +195,20 @@ If the activity is connected (i.e. `SugarPresence.isConnected()` is `true` which
 
 That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically intializes the presence object.
 
+In case you wish to perform some action only when the activity is a shared instance, you can make use of the `journal-shared-instance` event from `SugarJounral` which is emitted on startup of a shared instance.
+
+You can add a handler to this in the `sugar-journal` instance like this in `index.html`:
+```html
+<sugar-journal ref="SugarJournal" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
+```
+
+And add the handler method in `activity.js`:
+```js
+onJournalSharedInstance: function() {
+	console.log("Shared instance");
+},
+```
+
 There are 2 important events that you need to handle from the `SugarPresence` instance: `data-received` and `user-changed`. We will create 2 methods in `js/activity.js` to handle these events:
 ```js
 onNetworkDataReceived(msg) {

@@ -18,6 +18,7 @@ var mainWindow = null;
 var debug = false;
 var frameless = true;
 var reinit = false;
+var logoff = false;
 
 
 // Localization features
@@ -96,6 +97,8 @@ function createWindow () {
 			frameless = false;
 		} else if (process.argv[i] == '--init') {
 			reinit = true;
+		} else if (process.argv[i] == '--logoff') {
+			logoff = true;
 		}
 	}
 
@@ -118,7 +121,7 @@ function createWindow () {
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':''));
+	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}
