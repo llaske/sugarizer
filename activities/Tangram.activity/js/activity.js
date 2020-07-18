@@ -200,6 +200,11 @@ var app = new Vue({
       for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
         vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'shadowEnabled', data);
       }
+      if (data) {
+        for (var i = 0; i < 7; i++) {
+          vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = false;
+        }
+      } 
 
     },
 
