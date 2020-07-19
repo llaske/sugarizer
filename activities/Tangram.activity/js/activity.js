@@ -25,6 +25,7 @@ var app = new Vue({
     score: 0,
     tangramCategory: 'standard',
     level: 0,
+    tangramType: 1,
     timer: null,
     clock: {
       active: false,
@@ -65,19 +66,34 @@ var app = new Vue({
       vm.puzzles = [];
       vm.pNo = 0;
       vm.hintNumber = 0;
+      vm.isTargetAcheived = false;
       vm.generateTangram();
     },
 
     generateTangram: function() {
-      generating = false;
+      generating = true;
       let vm = this;
-      let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
-      let tang = tangram.tangram;
+      let tang,tangramName;
+
+      if (vm.tangramType === 1) {
+        let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
+        tang = tangram.tangram;
+        tangramName = tangram.name;
+      } else if (vm.tangramType === 2) {
+        tang = generateTangramEdges();
+        tangramName = "Random";
+      } else if (vm.tangramType === 3) {
+        let tangram = standardTangrams[0];
+        tang = tangram.tangram;
+        tangramName = tangram.name;
+      }
+
+      generating = false;
       console.log(tang);
       let puzzle = {
-        name: tangram.name,
+        name: tangramName,
         tangram: {
-          ...tangram.tangram
+          ...tang
         },
         targetTans: [],
         outline: [],
@@ -206,6 +222,31 @@ var app = new Vue({
         }
       }
 
+    },
+
+    onTangramTypeSelected: function (evt) {
+      let vm = this;
+      vm.tangramType = evt.index;
+      vm.selectTangramTypeItem(evt.index);
+      vm.newGame();
+
+    },
+
+    selectTangramTypeItem: function(number) {
+      let elems = [
+        document.getElementById('standard-type-button'),
+        document.getElementById('random-type-button'),
+        document.getElementById('custom-type-button')
+      ]
+
+      for (let i = 1; i <= elems.length; i++) {
+        let elem = elems[i-1];
+        if (i === number) {
+          elem.classList.add('palette-item-selected');
+        } else {
+          elem.classList.remove('palette-item-selected');
+        }
+      }
     },
 
     onDifficultySelected: function(evt) {

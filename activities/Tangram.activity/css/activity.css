@@ -56,8 +56,8 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
-#main-toolbar #tangrams-button {
-	background-image: url(../icons/play.svg);
+#main-toolbar #type-button {
+	background-image: url(../icons/tangram-type.svg);
 }
 
 #main-toolbar #level-button {

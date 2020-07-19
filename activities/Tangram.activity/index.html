@@ -28,6 +28,14 @@
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="view-button" title="view"></sugar-toolitem>
+			<sugar-toolitem id="type-button"
+				title="tangram-type"
+				palette-file="js/palettes/tangramTypePalette.js"
+				palette-class="TangramTypePalette"
+				palette-title="tangram Type"
+				palette-event="tangram-type-selected"
+				v-on:tangram-type-selected="onTangramTypeSelected"
+			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				title="level"
 				palette-file="js/palettes/difficultyPalette.js"
@@ -70,6 +78,7 @@
 	<script src="js/utils/tan.js"></script>
 	<script src="js/utils/tangram.js"></script>
 	<script src="js/utils/evaluation.js"></script>
+	<script src="js/utils/generator.js"></script>
 	<script src="js/utils/standardTangrams.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
