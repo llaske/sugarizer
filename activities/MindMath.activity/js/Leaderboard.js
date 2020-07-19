@@ -37,14 +37,14 @@ var Leaderboard = {
           <button
             v-if="playersAll.length > 3"
             v-bind:disabled="isPreviousButtonDisabled"
-            class="btn-block btn-previous-page"
+            class="btn-general-block btn-previous-page"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="pageChangeHandler('previous')"
           >
           </button>
           <button
             v-if="playersAll.length > 3"
-            class="btn-block page-no"
+            class="btn-general-block page-no"
             v-bind:style="{backgroundColor: fillColor}"
           >
             {{ currentPage }}/{{ pageCount }}
@@ -52,14 +52,14 @@ var Leaderboard = {
           <button
             v-if="playersAll.length > 3"
             v-bind:disabled="isNextButtonDisabled"
-            class="btn-block btn-next-page"
+            class="btn-general-block btn-next-page"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="pageChangeHandler('next')"
           >
           </button>
         </div>
         <div class="footer-actions">
-          <button class="btn-block btn-back-block"
+          <button class="btn-general-block btn-back-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('go-to-result')"
           >
@@ -126,7 +126,7 @@ var Leaderboard = {
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 3;
       var newHeight = window.innerHeight - toolbarHeight;
 
       document.querySelector('#leaderboard-view').style.height = newHeight + "px";

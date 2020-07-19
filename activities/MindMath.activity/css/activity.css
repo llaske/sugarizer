@@ -1,5 +1,5 @@
 button:disabled {
-  opacity: 0.3 !important;
+  opacity: 0.3;
 }
 
 body {
@@ -8,18 +8,10 @@ body {
   box-sizing: border-box;
 }
 
-p {
-  margin: 0.6em 0;
-}
-
 #app {
   min-height: 100%;
+  overflow: none;
   background-color: #ffffff;
-}
-
-#app-content {
-  width: 100%;
-  height: 100%;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -165,7 +157,7 @@ p {
   align-items: stretch;
 }
 
-.btn-block {
+.btn-general-block {
   width: 125px;
   height: 100%;
   padding: 0px;
@@ -179,7 +171,7 @@ p {
   background-size: 80%;
 }
 
-.btn-block:hover {
+.btn-general-block:hover {
   background-size: 90%;
 }
 
@@ -199,6 +191,13 @@ p {
   color: black;
   font-size: 3vh;
   cursor: auto;
+}
+
+@media (hover:none), (hover:on-demand) {
+  /* suppress hover effect on devices that don't support hover fully*/
+  .btn-general-block:hover {
+    background-size: 80%;
+  }
 }
 
 @media only screen and (max-width: 406px) {
@@ -427,6 +426,7 @@ p {
 
 .tutorial-prev-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-prev-icon1 {
@@ -461,6 +461,7 @@ p {
 
 .tutorial-next-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-next-icon1 {
@@ -495,6 +496,7 @@ p {
 
 .tutorial-end-icon.tutorial-icon-button.disabled {
   color: black;
+  opacity: 1;
 }
 
 .tutorial-end-icon1 {
