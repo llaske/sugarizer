@@ -1,5 +1,6 @@
 [
 	{"id": "org.sugarlabs.Vote", "name": "Vote", "version": 1, "directory": "activities/Vote.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Curriculum", "name": "Curriculum", "version": 1, "directory": "activities/Curriculum.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ChessActivity", "name": "Chess", "version": 1, "directory": "activities/Chess.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.FractionBounce", "name": "Fraction", "version": 1, "directory": "activities/FractionBounce.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Falabracman", "name": "Falabracman", "version": 1, "directory": "activities/Falabracman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

@@ -9,11 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fraction activity #205
 - Implode activity #710
 - Planets activity
+- Curriculum activity
 - Simon mode game in TamTam activity #686
 - Vue.js activity template
 - Activity Development Tutorial in Vue.js
 - Duplicate action on Journal entries
 - ES6 compatibility for activities (except modules)
+- Support autologoff mode for Electron and Sugarizer OS
+- Support for native Android app in activities.json
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
