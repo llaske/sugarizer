@@ -252,7 +252,6 @@ enyo.kind({
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogWarningMessage"}, {owner:this});
 			this.otherview.show();
 		} else {
-			preferences.addUserInHistory();
 			util.cleanDatastore(null, function() {
 				util.restartApp();
 			});

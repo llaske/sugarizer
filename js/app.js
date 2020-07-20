@@ -35,18 +35,26 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	// Wait for preferences
 	var loadpreference = function() {
 		enyo.platform.electron = /Electron/.test(navigator.userAgent);
-		if (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios) {
-			var getUrlParameter = function(name) {
-				var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-				return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-			};
-			if (getUrlParameter('rst') == 1) {
-				// Electron app parameter to start from a fresh install
-				util.cleanDatastore(true);
-			}
-		}
+		var getUrlParameter = function(name) {
+			var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+			return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+		};
+		var rst = getUrlParameter('rst');
 		preferences.load(function(load) {
 			preferenceset = load;
+			if (util.getClientType() == constant.appType && (enyo.platform.electron || enyo.platform.android || enyo.platform.androidChrome)) {
+				if (rst == 1) {
+					// Restart from a fresh install, use from Electon option --init
+					util.cleanDatastore(true);
+					preferenceset = false;
+				} else if (rst == 2) {
+					// Sugarizer OS auto logoff or Electron option --logoff
+					if (preferences.isConnected()) {
+						util.cleanDatastore(null);
+						preferenceset = false;
+					}
+				}
+			}
 			main();
 		});
 	}
@@ -54,7 +62,8 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	// Wait for localized strings are here
 	window.addEventListener('localized', function() {
 		if (app) {
-			app.getToolbar().localize();
+			var toLocalize = app.getToolbar ? app.getToolbar() : app;
+			toLocalize.localize();
 			app.render();
 		} else if (--toload == 0) {
 			loadpreference();
