@@ -11,6 +11,7 @@ var app = new Vue({
   el: '#app',
   components: {
     'game': Game,
+    'result': Result,
   },
   data: {
     currentScreen: "",
@@ -55,7 +56,7 @@ var app = new Vue({
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
       vm.fillColor = vm.currentenv.user.colorvalue.fill;
 
-      vm.currentScreen = "game";
+      vm.currentScreen = "result";
 
       vm.newGame();
 
