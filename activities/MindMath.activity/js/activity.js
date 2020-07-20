@@ -1179,13 +1179,6 @@ var app = new Vue({
                 element: "",
                 orphan: true,
                 placement: "bottom",
-                title: this.l10n.stringTutoAboutTitle,
-                content: this.l10n.stringTutoAboutContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "bottom",
                 title: this.l10n.stringTutoEachPuzzleTitle,
                 content: this.l10n.stringTutoEachPuzzleContent
               },
@@ -1219,6 +1212,13 @@ var app = new Vue({
                 placement: "bottom",
                 title: this.l10n.stringTutoHowToPlayTitle,
                 content: this.l10n.stringTutoHowToPlayContent
+              },
+              {
+                element: "",
+                orphan: true,
+                placement: "bottom",
+                title: this.l10n.stringTutoAboutTitle,
+                content: this.l10n.stringTutoAboutContent
               },
               {
                 element: ".slots-area-footer",
