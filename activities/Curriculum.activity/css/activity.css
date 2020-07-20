@@ -1,0 +1,321 @@
+button:disabled {
+	opacity: 0.3 !important;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+p {
+	margin: 0.6em 0;
+}
+
+#app {
+	min-height: 100%;
+	background: white;
+	/* transition: background 400ms ease; */
+}
+
+#content {
+	position: relative;
+	height: calc(100vh - 55px);
+	overflow: auto;
+}
+
+#main-toolbar .splitbar {
+	border-right: 1.5px solid #565656;
+	margin: 7.5px 5px;
+	height: 40px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#main-toolbar.toolbar {
+	padding: 0 2%;
+	overflow-y: hidden;
+}
+
+#main-toolbar.hidden {
+	height: 0;
+	overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
+}
+
+#main-toolbar #home-button {
+	background-image: url(../icons/home.svg);
+}
+
+#main-toolbar #acquire-button {
+	background-image: url(../icons/medal-unacquired.svg);
+	background-size: 3em;
+}
+
+#main-toolbar #buddy-button {
+	background-image: url(../icons/owner-icon.svg);
+}
+
+#main-toolbar #upload-button {
+	background-image: url(../icons/insert-picture.svg);
+}
+
+#main-toolbar #settings-button {
+	background-image: url(../icons/settings.svg);
+}
+
+#main-toolbar #add-button {
+	background-image: url(../icons/add.svg);
+}
+
+#main-toolbar #notation-button {
+	background-image: url(../icons/medal-notation.svg);
+}
+
+#main-toolbar #rewards-button {
+	background-image: url(../icons/trophy.svg);
+}
+
+#main-toolbar #export-button {
+	background-image: url(../icons/file-export.svg);
+}
+
+
+.humane {
+	width: auto;
+}
+
+.palette .wrapper {
+	min-width: 100px;
+}
+#media-upload {
+	width: 100px;
+	margin: 0 auto;
+}
+#media-upload button {
+	display: block;
+	background: black;
+	border-radius: 0;
+	width: 100%;
+	height: 80px;
+	padding: 10px;
+}
+#media-upload button img {
+	height: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+#notation-selector {
+	width: 170px;
+	margin: 0 auto;
+}
+#notation-selector button {
+	display: flex;
+	justify-content: center;
+	background: black;
+	border-radius: 0;
+	width: 100%;
+	padding: 10px;
+}
+#notation-selector .medal {
+	height: 30px;
+	width: 30px;
+	background-image: url(../icons/medal-unacquired.svg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#notation-selector .medal span {
+	color: grey;
+	font-size: 0.8em;
+}
+#notation-selector button.active {
+	background: grey;
+}
+
+#export-formats button {
+	border-radius: 0;
+	width: 50px;
+	height: 50px;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+#export-formats #csv-export {
+	background-image: url(../icons/export-txt.svg);
+}
+#export-formats #pdf-export {
+	background-image: url(../icons/export-pdf.svg);
+}
+#export-formats #doc-export {
+	background-image: url(../icons/export-doc.svg);
+}
+#export-formats #odt-export {
+	background-image: url(../icons/export-odt.svg);
+}
+
+.search-field {
+	position: relative;
+	display: inline-block;	
+	vertical-align: bottom;
+	margin-bottom: 10px;
+}
+.search-field .search-icon {
+	position: absolute;
+	left: 10px;
+	top: 40%;
+	background-image: url(../icons/entry-search.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+}
+.search-field .search-input {
+	width: 200px;
+	margin: 0;
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.search-field .search-cancel {
+	position: absolute;
+	right: 10px;
+	top: 40%;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+
+#journal-container div[id^=entry_] {
+	display: flex;
+}
+#journal-container div[id^=edate_] {
+	margin-left: auto;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 200ms;
+}
+.fade-enter, .fade-leave-to {
+	transform: scale(0.98);
+  opacity: 0;
+}
+
+.settings-zoom-enter-active, .settings-zoom-leave-active {
+	transition: all 150ms;
+}
+.settings-zoom-enter, .settings-zoom-leave-to {
+	transform: scale(0);
+  /* opacity: 0; */
+}
+
+.tutorial-icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	width: 90px;
+	background-color: #808080;
+	border: 2px solid #808080;
+	display: flex;
+	align-items: center;
+}
+
+.tutorial-icon-button {
+	color: white;
+}
+.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-icon-text {
+	padding-left: 4px;
+}

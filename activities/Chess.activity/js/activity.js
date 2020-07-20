@@ -58,7 +58,6 @@ var app = new Vue({
             if (error == null && data != null) {
               data = JSON.parse(data);
 
-              console.log(data);
               if (!data.playercolor) {
                 vm.$refs.chessgame.board.orientation('white');
                 vm.$refs.chessgame.playercolor = 0;
@@ -410,6 +409,7 @@ var app = new Vue({
       } else {
         if (vm.opponentuser != null) {
           vm.opponentuser = null;
+          vm.ishost = true;
           if ((vm.$refs.chessgame.state.to_play && !vm.$refs.chessgame.playercolor) || (!vm.$refs.chessgame.state.to_play && vm.$refs.chessgame.playercolor) ) {
             vm.$refs.chessgame.makeRandomMove();
           }

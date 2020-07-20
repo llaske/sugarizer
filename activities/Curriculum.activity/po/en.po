@@ -1,0 +1,2378 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Jul 13 2020 11:54:44 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "Seconds ago"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} ago"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minute"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutes"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "hour"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "hours"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "day"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "days"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "week"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "weeks"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "month"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "months"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "year"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "years"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "Anytime"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Today"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Since yesterday"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "Past week"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "Past month"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "Past year"
+
+#: Title
+msgctxt "Title"
+msgid "Title"
+msgstr "Title"
+
+#: Color
+msgctxt "Color"
+msgid "Color"
+msgstr "Color"
+
+#: Image
+msgctxt "Image"
+msgid "Image"
+msgstr "Image"
+
+#: Confirm
+msgctxt "Confirm"
+msgid "Confirm"
+msgstr "Confirm"
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "Cancel"
+
+#: Categories
+msgctxt "Categories"
+msgid "Categories"
+msgstr "Categories"
+
+#: Category
+msgctxt "Category"
+msgid "Category"
+msgstr "Category"
+
+#: Skill
+msgctxt "Skill"
+msgid "Skill"
+msgstr "Skill"
+
+#: Search
+msgctxt "Search"
+msgid "Search"
+msgstr "Search"
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr "Settings"
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr "Add"
+
+#: Acquire
+msgctxt "Acquire"
+msgid "Acquired"
+msgstr "Acquired"
+
+#: UploadMedia
+msgctxt "UploadMedia"
+msgid "Upload Media"
+msgstr "Upload Media"
+
+#: Export
+msgctxt "Export"
+msgid "Export"
+msgstr "Export"
+
+#: MediaUploaded
+msgctxt "MediaUploaded"
+msgid "Media Uploaded"
+msgstr "Media Uploaded"
+
+#: DateOfAcquisition
+msgctxt "DateOfAcquisition"
+msgid "Date of Acquisition"
+msgstr "Date of Acquisition"
+
+#: Rewards
+msgctxt "Rewards"
+msgid "Rewards"
+msgstr "Rewards"
+
+#: Statistics
+msgctxt "Statistics"
+msgid "Statistics"
+msgstr "Statistics"
+
+#. Do not translate {{templateTitle}} {{userName}}
+#: ExportFileName
+msgctxt "ExportFileName"
+msgid "{{templateTitle}} by {{userName}}"
+msgstr "{{templateTitle}} by {{userName}}"
+
+#: HolderSearchCurriculum
+msgctxt "HolderSearchCurriculum"
+msgid "Search in Curriculum"
+msgstr "Search in Curriculum"
+
+#: UploadSkill
+msgctxt "UploadSkill"
+msgid "Click on upload to integrate some proofs of your skill"
+msgstr "Click on upload to integrate some proofs of your skill"
+
+#: AchievementAcquired
+msgctxt "AchievementAcquired"
+msgid "Achievement Acquired"
+msgstr "Achievement Acquired"
+
+#. Do not translate {{format}}
+#: ExportTo
+msgctxt "ExportTo"
+msgid "Export to {{format}} complete"
+msgstr "Export to {{format}} complete"
+
+#: LevelNotEvaluated
+msgctxt "LevelNotEvaluated"
+msgid "Not Evaluated"
+msgstr "Not Evaluated"
+
+#: LevelAcquired
+msgctxt "LevelAcquired"
+msgid "Acquired"
+msgstr "Acquired"
+
+#: LevelNotAcquired
+msgctxt "LevelNotAcquired"
+msgid "Not Acquired"
+msgstr "Not Acquired"
+
+#: LevelPartiallyAcquired
+msgctxt "LevelPartiallyAcquired"
+msgid "Partially Acquired"
+msgstr "Partially Acquired"
+
+#: LevelExceeded
+msgctxt "LevelExceeded"
+msgid "Exceeded"
+msgstr "Exceeded"
+
+#: DefaultSkillSet0
+msgctxt "DefaultSkillSet0"
+msgid "Skills assessment for Kindergarten"
+msgstr "Skills assessment for Kindergarten"
+
+#: DefaultSkillSet0Category0
+msgctxt "DefaultSkillSet0Category0"
+msgid "Oral language: communication, expression"
+msgstr "Oral language: communication, expression"
+
+#: DefaultSkillSet0Category0Skill0
+msgctxt "DefaultSkillSet0Category0Skill0"
+msgid "I can speak with my comrades"
+msgstr "I can speak with my comrades"
+
+#: DefaultSkillSet0Category0Skill1
+msgctxt "DefaultSkillSet0Category0Skill1"
+msgid "I can speak to adults"
+msgstr "I can speak to adults"
+
+#: DefaultSkillSet0Category0Skill2
+msgctxt "DefaultSkillSet0Category0Skill2"
+msgid "I can speak in a small group"
+msgstr "I can speak in a small group"
+
+#: DefaultSkillSet0Category0Skill3
+msgctxt "DefaultSkillSet0Category0Skill3"
+msgid "I can explain what I am doing"
+msgstr "I can explain what I am doing"
+
+#: DefaultSkillSet0Category0Skill4
+msgctxt "DefaultSkillSet0Category0Skill4"
+msgid "I can relate an event experienced in class"
+msgstr "I can relate an event experienced in class"
+
+#: DefaultSkillSet0Category0Skill5
+msgctxt "DefaultSkillSet0Category0Skill5"
+msgid "I use I to talk about myself"
+msgstr "I use I to talk about myself"
+
+#: DefaultSkillSet0Category0Skill6
+msgctxt "DefaultSkillSet0Category0Skill6"
+msgid "I make simple sentences"
+msgstr "I make simple sentences"
+
+#: DefaultSkillSet0Category0Skill7
+msgctxt "DefaultSkillSet0Category0Skill7"
+msgid "I name everyday objects"
+msgstr "I name everyday objects"
+
+#: DefaultSkillSet0Category0Skill8
+msgctxt "DefaultSkillSet0Category0Skill8"
+msgid "I am making longer and longer sentences"
+msgstr "I am making longer and longer sentences"
+
+#: DefaultSkillSet0Category0Skill9
+msgctxt "DefaultSkillSet0Category0Skill9"
+msgid "I'm using more specific words"
+msgstr "I'm using more specific words"
+
+#: DefaultSkillSet0Category0Skill10
+msgctxt "DefaultSkillSet0Category0Skill10"
+msgid "I make complex sentences (because)"
+msgstr "I make complex sentences (because)"
+
+#: DefaultSkillSet0Category0Skill11
+msgctxt "DefaultSkillSet0Category0Skill11"
+msgid "I recite the nursery rhyme up to 6"
+msgstr "I recite the nursery rhyme up to 6"
+
+#: DefaultSkillSet0Category1
+msgctxt "DefaultSkillSet0Category1"
+msgid "Understanding of an oral message or of a text read by the adult"
+msgstr "Understanding of an oral message or of a text read by the adult"
+
+#: DefaultSkillSet0Category1Skill0
+msgctxt "DefaultSkillSet0Category1Skill0"
+msgid "I show what I understand by doing what I am asked"
+msgstr "I show what I understand by doing what I am asked"
+
+#: DefaultSkillSet0Category1Skill1
+msgctxt "DefaultSkillSet0Category1Skill1"
+msgid "I understand a short story"
+msgstr "I understand a short story"
+
+#: DefaultSkillSet0Category1Skill2
+msgctxt "DefaultSkillSet0Category1Skill2"
+msgid "I show that I understood an instruction with 2 actions to do"
+msgstr "I show that I understood an instruction with 2 actions to do"
+
+#: DefaultSkillSet0Category1Skill3
+msgctxt "DefaultSkillSet0Category1Skill3"
+msgid "I understand a story and tell it with the help of pictures"
+msgstr "I understand a story and tell it with the help of pictures"
+
+#: DefaultSkillSet0Category1Skill4
+msgctxt "DefaultSkillSet0Category1Skill4"
+msgid "I understand an instruction given to the whole class (collective)"
+msgstr "I understand an instruction given to the whole class (collective)"
+
+#: DefaultSkillSet0Category1Skill5
+msgctxt "DefaultSkillSet0Category1Skill5"
+msgid "I understand and tell a story (narrative)"
+msgstr "I understand and tell a story (narrative)"
+
+#: DefaultSkillSet0Category2
+msgctxt "DefaultSkillSet0Category2"
+msgid "Discovery of writing"
+msgstr "Discovery of writing"
+
+#: DefaultSkillSet0Category2Skill0
+msgctxt "DefaultSkillSet0Category2Skill0"
+msgid "I know nursery rhymes about sounds"
+msgstr "I know nursery rhymes about sounds"
+
+#: DefaultSkillSet0Category2Skill1
+msgctxt "DefaultSkillSet0Category2Skill1"
+msgid "I can strike syllables"
+msgstr "I can strike syllables"
+
+#: DefaultSkillSet0Category2Skill2
+msgctxt "DefaultSkillSet0Category2Skill2"
+msgid "I find rhyming words using pictures"
+msgstr "I find rhyming words using pictures"
+
+#: DefaultSkillSet0Category2Skill3
+msgctxt "DefaultSkillSet0Category2Skill3"
+msgid "I can play with syllables (reverse, delete, add)"
+msgstr "I can play with syllables (reverse, delete, add)"
+
+#: DefaultSkillSet0Category2Skill4
+msgctxt "DefaultSkillSet0Category2Skill4"
+msgid "I can locate a syllable in a word"
+msgstr "I can locate a syllable in a word"
+
+#: DefaultSkillSet0Category2Skill5
+msgctxt "DefaultSkillSet0Category2Skill5"
+msgid "I can tell if I hear a sound (vowel) in a word"
+msgstr "I can tell if I hear a sound (vowel) in a word"
+
+#: DefaultSkillSet0Category2Skill6
+msgctxt "DefaultSkillSet0Category2Skill6"
+msgid "I know if there are more or less objects"
+msgstr "I know if there are more or less objects"
+
+#: DefaultSkillSet0Category3
+msgctxt "DefaultSkillSet0Category3"
+msgid "Graphic gesture, writing"
+msgstr "Graphic gesture, writing"
+
+#: DefaultSkillSet0Category3Skill0
+msgctxt "DefaultSkillSet0Category3Skill0"
+msgid "I am holding my pencil correctly"
+msgstr "I am holding my pencil correctly"
+
+#: DefaultSkillSet0Category3Skill1
+msgctxt "DefaultSkillSet0Category3Skill1"
+msgid "I draw horizontal, vertical, oblique lines"
+msgstr "I draw horizontal, vertical, oblique lines"
+
+#: DefaultSkillSet0Category3Skill2
+msgctxt "DefaultSkillSet0Category3Skill2"
+msgid "I write my first name in block capitals"
+msgstr "I write my first name in block capitals"
+
+#: DefaultSkillSet0Category3Skill3
+msgctxt "DefaultSkillSet0Category3Skill3"
+msgid "I draw circles in the right direction"
+msgstr "I draw circles in the right direction"
+
+#: DefaultSkillSet0Category3Skill4
+msgctxt "DefaultSkillSet0Category3Skill4"
+msgid "I draw bridges"
+msgstr "I draw bridges"
+
+#: DefaultSkillSet0Category3Skill5
+msgctxt "DefaultSkillSet0Category3Skill5"
+msgid "I am drawing loops"
+msgstr "I am drawing loops"
+
+#: DefaultSkillSet0Category3Skill6
+msgctxt "DefaultSkillSet0Category3Skill6"
+msgid "I can trace letters in cursive writing"
+msgstr "I can trace letters in cursive writing"
+
+#: DefaultSkillSet0Category3Skill7
+msgctxt "DefaultSkillSet0Category3Skill7"
+msgid "I can chain several letters in cursive writing"
+msgstr "I can chain several letters in cursive writing"
+
+#: DefaultSkillSet0Category3Skill8
+msgctxt "DefaultSkillSet0Category3Skill8"
+msgid "I write my first name in cursive, without template"
+msgstr "I write my first name in cursive, without template"
+
+#: DefaultSkillSet0Category3Skill9
+msgctxt "DefaultSkillSet0Category3Skill9"
+msgid "I can produce lines, various signs or pseudo-letters"
+msgstr "I can produce lines, various signs or pseudo-letters"
+
+#: DefaultSkillSet0Category3Skill10
+msgctxt "DefaultSkillSet0Category3Skill10"
+msgid "I practice writing simple words requested by an adult"
+msgstr "I practice writing simple words requested by an adult"
+
+#: DefaultSkillSet0Category3Skill11
+msgctxt "DefaultSkillSet0Category3Skill11"
+msgid "I can write a word on my own using letters or a group of letters"
+msgstr "I can write a word on my own using letters or a group of letters"
+
+#: DefaultSkillSet0Category4
+msgctxt "DefaultSkillSet0Category4"
+msgid "Memorization, restitution of texts (nursery rhymes, poems)"
+msgstr "Memorization, restitution of texts (nursery rhymes, poems)"
+
+#: DefaultSkillSet0Category4Skill0
+msgctxt "DefaultSkillSet0Category4Skill0"
+msgid "I know some traditional tales"
+msgstr "I know some traditional tales"
+
+#: DefaultSkillSet0Category5
+msgctxt "DefaultSkillSet0Category5"
+msgid "Writing: listening, understanding, discovering the functions of writing"
+msgstr "Writing: listening, understanding, discovering the functions of writing"
+
+#: DefaultSkillSet0Category5Skill0
+msgctxt "DefaultSkillSet0Category5Skill0"
+msgid "I can use a book correctly"
+msgstr "I can use a book correctly"
+
+#: DefaultSkillSet0Category5Skill1
+msgctxt "DefaultSkillSet0Category5Skill1"
+msgid "I can find my bearings in a book (cover, page, image, text)"
+msgstr "I can find my bearings in a book (cover, page, image, text)"
+
+#: DefaultSkillSet0Category5Skill2
+msgctxt "DefaultSkillSet0Category5Skill2"
+msgid "I can recognize a book, a poster, a recipe etc"
+msgstr "I can recognize a book, a poster, a recipe etc"
+
+#: DefaultSkillSet0Category5Skill3
+msgctxt "DefaultSkillSet0Category5Skill3"
+msgid "I can find my first name written in block capitals"
+msgstr "I can find my first name written in block capitals"
+
+#: DefaultSkillSet0Category6
+msgctxt "DefaultSkillSet0Category6"
+msgid "Writing: starting to produce writing and discovering how it works"
+msgstr "Writing: starting to produce writing and discovering how it works"
+
+#: DefaultSkillSet0Category6Skill0
+msgctxt "DefaultSkillSet0Category6Skill0"
+msgid "I can tell the teacher what to write"
+msgstr "I can tell the teacher what to write"
+
+#: DefaultSkillSet0Category7
+msgctxt "DefaultSkillSet0Category7"
+msgid "Writing: Discovering the alphabetical principle"
+msgstr "Writing: Discovering the alphabetical principle"
+
+#: DefaultSkillSet0Category7Skill0
+msgctxt "DefaultSkillSet0Category7Skill0"
+msgid "I know the letters of my first name"
+msgstr "I know the letters of my first name"
+
+#: DefaultSkillSet0Category7Skill1
+msgctxt "DefaultSkillSet0Category7Skill1"
+msgid "I recognize my first name in script writing"
+msgstr "I recognize my first name in script writing"
+
+#: DefaultSkillSet0Category7Skill2
+msgctxt "DefaultSkillSet0Category7Skill2"
+msgid "I know the letters of the alphabet in capitals"
+msgstr "I know the letters of the alphabet in capitals"
+
+#: DefaultSkillSet0Category7Skill3
+msgctxt "DefaultSkillSet0Category7Skill3"
+msgid "I can find a word in a sentence"
+msgstr "I can find a word in a sentence"
+
+#: DefaultSkillSet0Category7Skill4
+msgctxt "DefaultSkillSet0Category7Skill4"
+msgid "I know the letters of the alphabet in script"
+msgstr "I know the letters of the alphabet in script"
+
+#: DefaultSkillSet0Category7Skill5
+msgctxt "DefaultSkillSet0Category7Skill5"
+msgid "I know the letters of the alphabet in cursive"
+msgstr "I know the letters of the alphabet in cursive"
+
+#: DefaultSkillSet0Category7Skill6
+msgctxt "DefaultSkillSet0Category7Skill6"
+msgid "I know the sound of a few letters"
+msgstr "I know the sound of a few letters"
+
+#: DefaultSkillSet0Category7Skill7
+msgctxt "DefaultSkillSet0Category7Skill7"
+msgid "I can copy a word using a keyboard"
+msgstr "I can copy a word using a keyboard"
+
+#: DefaultSkillSet0Category7Skill8
+msgctxt "DefaultSkillSet0Category7Skill8"
+msgid "I can copy a sentence using a keyboard"
+msgstr "I can copy a sentence using a keyboard"
+
+#: DefaultSkillSet0Category7Skill9
+msgctxt "DefaultSkillSet0Category7Skill9"
+msgid "I can copy short known text"
+msgstr "I can copy short known text"
+
+#: DefaultSkillSet0Category8
+msgctxt "DefaultSkillSet0Category8"
+msgid "Commitment, ease and inventiveness in actions or travel"
+msgstr "Commitment, ease and inventiveness in actions or travel"
+
+#: DefaultSkillSet0Category8Skill0
+msgctxt "DefaultSkillSet0Category8Skill0"
+msgid "I can run, jump a small obstacle and throw an object"
+msgstr "I can run, jump a small obstacle and throw an object"
+
+#: DefaultSkillSet0Category8Skill1
+msgctxt "DefaultSkillSet0Category8Skill1"
+msgid "I can keep balance in various situations"
+msgstr "I can keep balance in various situations"
+
+#: DefaultSkillSet0Category8Skill2
+msgctxt "DefaultSkillSet0Category8Skill2"
+msgid "I can run by changing my speed, run and jump in a given direction"
+msgstr "I can run by changing my speed, run and jump in a given direction"
+
+#: DefaultSkillSet0Category8Skill3
+msgctxt "DefaultSkillSet0Category8Skill3"
+msgid "I can keep the balance by varying my supports"
+msgstr "I can keep the balance by varying my supports"
+
+#: DefaultSkillSet0Category8Skill4
+msgctxt "DefaultSkillSet0Category8Skill4"
+msgid "I can move on a tempo"
+msgstr "I can move on a tempo"
+
+#: DefaultSkillSet0Category8Skill5
+msgctxt "DefaultSkillSet0Category8Skill5"
+msgid "I can run fast in a straight line, jump high and far and throw far"
+msgstr "I can run fast in a straight line, jump high and far and throw far"
+
+#: DefaultSkillSet0Category8Skill6
+msgctxt "DefaultSkillSet0Category8Skill6"
+msgid "I know how to balance myself, roll, climb to achieve the routes of school"
+msgstr "I know how to balance myself, roll, climb to achieve the routes of school"
+
+#: DefaultSkillSet0Category9
+msgctxt "DefaultSkillSet0Category9"
+msgid "Cooperation, interactions with respect for each other's roles"
+msgstr "Cooperation, interactions with respect for each other's roles"
+
+#: DefaultSkillSet0Category9Skill0
+msgctxt "DefaultSkillSet0Category9Skill0"
+msgid "I participate in the rounds"
+msgstr "I participate in the rounds"
+
+#: DefaultSkillSet0Category9Skill1
+msgctxt "DefaultSkillSet0Category9Skill1"
+msgid "I agree to participate in group games"
+msgstr "I agree to participate in group games"
+
+#: DefaultSkillSet0Category9Skill2
+msgctxt "DefaultSkillSet0Category9Skill2"
+msgid "I actively participate and respect the simple rules of a collective game"
+msgstr "I actively participate and respect the simple rules of a collective game"
+
+#: DefaultSkillSet0Category9Skill3
+msgctxt "DefaultSkillSet0Category9Skill3"
+msgid "I participate and know how to play different roles in a collective game on a field"
+msgstr "I participate and know how to play different roles in a collective game on a field"
+
+#: DefaultSkillSet0Category10
+msgctxt "DefaultSkillSet0Category10"
+msgid "Engagement in activities, realization of personal productions: drawings, graphic compositions, plastic compositions"
+msgstr "Engagement in activities, realization of personal productions: drawings, graphic compositions, plastic compositions"
+
+#: DefaultSkillSet0Category10Skill0
+msgctxt "DefaultSkillSet0Category10Skill0"
+msgid "I draw and paint with pleasure"
+msgstr "I draw and paint with pleasure"
+
+#: DefaultSkillSet0Category10Skill1
+msgctxt "DefaultSkillSet0Category10Skill1"
+msgid "I look at works of art and say what I feel"
+msgstr "I look at works of art and say what I feel"
+
+#: DefaultSkillSet0Category11
+msgctxt "DefaultSkillSet0Category11"
+msgid "Engagement in activities, realization of personal productions: voice, songs, rhythmic and corporal practices"
+msgstr "Engagement in activities, realization of personal productions: voice, songs, rhythmic and corporal practices"
+
+#: DefaultSkillSet0Category11Skill0
+msgctxt "DefaultSkillSet0Category11Skill0"
+msgid "I say nursery rhymes and poems"
+msgstr "I say nursery rhymes and poems"
+
+#: DefaultSkillSet0Category11Skill1
+msgctxt "DefaultSkillSet0Category11Skill1"
+msgid "I express images, characters, feelings with my body"
+msgstr "I express images, characters, feelings with my body"
+
+#: DefaultSkillSet0Category11Skill2
+msgctxt "DefaultSkillSet0Category11Skill2"
+msgid "I sing with the class"
+msgstr "I sing with the class"
+
+#: DefaultSkillSet0Category11Skill3
+msgctxt "DefaultSkillSet0Category11Skill3"
+msgid "Practice some performing arts activities"
+msgstr "Practice some performing arts activities"
+
+#: DefaultSkillSet0Category12
+msgctxt "DefaultSkillSet0Category12"
+msgid "Using numbers"
+msgstr "Using numbers"
+
+#: DefaultSkillSet0Category12Skill0
+msgctxt "DefaultSkillSet0Category12Skill0"
+msgid "I can count 3 objects"
+msgstr "I can count 3 objects"
+
+#: DefaultSkillSet0Category12Skill1
+msgctxt "DefaultSkillSet0Category12Skill1"
+msgid "I recognize small quantities up to 3 (dice and hand)"
+msgstr "I recognize small quantities up to 3 (dice and hand)"
+
+#: DefaultSkillSet0Category12Skill2
+msgctxt "DefaultSkillSet0Category12Skill2"
+msgid "I recite the nursery rhyme up to 6"
+msgstr "I recite the nursery rhyme up to 6"
+
+#: DefaultSkillSet0Category12Skill3
+msgctxt "DefaultSkillSet0Category12Skill3"
+msgid "I can count 6 objects"
+msgstr "I can count 6 objects"
+
+#: DefaultSkillSet0Category12Skill4
+msgctxt "DefaultSkillSet0Category12Skill4"
+msgid "I recognize small quantities up to 6 (dice and hand)"
+msgstr "I recognize small quantities up to 6 (dice and hand)"
+
+#: DefaultSkillSet0Category12Skill5
+msgctxt "DefaultSkillSet0Category12Skill5"
+msgid "I can read numbers up to 6"
+msgstr "I can read numbers up to 6"
+
+#: DefaultSkillSet0Category12Skill6
+msgctxt "DefaultSkillSet0Category12Skill6"
+msgid "I recite the nursery rhyme until 12"
+msgstr "I recite the nursery rhyme until 12"
+
+#: DefaultSkillSet0Category12Skill7
+msgctxt "DefaultSkillSet0Category12Skill7"
+msgid "I can read numbers up to at least 9"
+msgstr "I can read numbers up to at least 9"
+
+#: DefaultSkillSet0Category12Skill8
+msgctxt "DefaultSkillSet0Category12Skill8"
+msgid "I can count 20 objects"
+msgstr "I can count 20 objects"
+
+#: DefaultSkillSet0Category12Skill9
+msgctxt "DefaultSkillSet0Category12Skill9"
+msgid "I recite the nursery rhyme until 30"
+msgstr "I recite the nursery rhyme until 30"
+
+#: DefaultSkillSet0Category13
+msgctxt "DefaultSkillSet0Category13"
+msgid "First understanding of the number"
+msgstr "First understanding of the number"
+
+#: DefaultSkillSet0Category13Skill0
+msgctxt "DefaultSkillSet0Category13Skill0"
+msgid "I recognize the circle, the square, the triangle and I name them"
+msgstr "I recognize the circle, the square, the triangle and I name them"
+
+#: DefaultSkillSet0Category13Skill1
+msgctxt "DefaultSkillSet0Category13Skill1"
+msgid "I recognize and name the circle, the square, the triangle and the rectangle"
+msgstr "I recognize and name the circle, the square, the triangle and the rectangle"
+
+#: DefaultSkillSet0Category13Skill2
+msgctxt "DefaultSkillSet0Category13Skill2"
+msgid "I recognize and name the circle, the square, the rectangle, the oval and all the triangles"
+msgstr "I recognize and name the circle, the square, the rectangle, the oval and all the triangles"
+
+#: DefaultSkillSet0Category13Skill3
+msgctxt "DefaultSkillSet0Category13Skill3"
+msgid "I can store at least 3 objects in order of magnitude"
+msgstr "I can store at least 3 objects in order of magnitude"
+
+#: DefaultSkillSet0Category13Skill4
+msgctxt "DefaultSkillSet0Category13Skill4"
+msgid "I can store at least 4 objects in order of magnitude"
+msgstr "I can store at least 4 objects in order of magnitude"
+
+#: DefaultSkillSet0Category13Skill5
+msgctxt "DefaultSkillSet0Category13Skill5"
+msgid "I can order at least 5 objects in order of magnitude"
+msgstr "I can order at least 5 objects in order of magnitude"
+
+#: DefaultSkillSet0Category13Skill6
+msgctxt "DefaultSkillSet0Category13Skill6"
+msgid "I recognize some solids (cube, pyramid, ball, cylinder)"
+msgstr "I recognize some solids (cube, pyramid, ball, cylinder)"
+
+#: DefaultSkillSet0Category13Skill7
+msgctxt "DefaultSkillSet0Category13Skill7"
+msgid "I can compare lots of objects by counting or not"
+msgstr "I can compare lots of objects by counting or not"
+
+#: DefaultSkillSet0Category14
+msgctxt "DefaultSkillSet0Category14"
+msgid "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1"
+msgstr "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1"
+
+#: DefaultSkillSet0Category14Skill0
+msgctxt "DefaultSkillSet0Category14Skill0"
+msgid "I can make a bunch of objects of the same quantity as another bunch"
+msgstr "I can make a bunch of objects of the same quantity as another bunch"
+
+#: DefaultSkillSet0Category14Skill1
+msgctxt "DefaultSkillSet0Category14Skill1"
+msgid "I can solve small quantity problems"
+msgstr "I can solve small quantity problems"
+
+#: DefaultSkillSet0Category14Skill2
+msgctxt "DefaultSkillSet0Category14Skill2"
+msgid "I can decompose numbers up to 3"
+msgstr "I can decompose numbers up to 3"
+
+#: DefaultSkillSet0Category14Skill3
+msgctxt "DefaultSkillSet0Category14Skill3"
+msgid "I can decompose numbers up to 5"
+msgstr "I can decompose numbers up to 5"
+
+#: DefaultSkillSet0Category14Skill4
+msgctxt "DefaultSkillSet0Category14Skill4"
+msgid "I can decompose numbers up to 10"
+msgstr "I can decompose numbers up to 10"
+
+#: DefaultSkillSet0Category15
+msgctxt "DefaultSkillSet0Category15"
+msgid "Sorting, ranking, algorithms"
+msgstr "Sorting, ranking, algorithms"
+
+#: DefaultSkillSet0Category15Skill0
+msgctxt "DefaultSkillSet0Category15Skill0"
+msgid "I can reproduce simple sequences of shapes and colors"
+msgstr "I can reproduce simple sequences of shapes and colors"
+
+#: DefaultSkillSet0Category15Skill1
+msgctxt "DefaultSkillSet0Category15Skill1"
+msgid "I can recognize a rhythm and continue it"
+msgstr "I can recognize a rhythm and continue it"
+
+#: DefaultSkillSet0Category15Skill2
+msgctxt "DefaultSkillSet0Category15Skill2"
+msgid "I know how to invent more and more complicated rhythms"
+msgstr "I know how to invent more and more complicated rhythms"
+
+#: DefaultSkillSet0Category15Skill3
+msgctxt "DefaultSkillSet0Category15Skill3"
+msgid "I know how to fill in gaps in an organized suite"
+msgstr "I know how to fill in gaps in an organized suite"
+
+#: DefaultSkillSet0Category15Skill4
+msgctxt "DefaultSkillSet0Category15Skill4"
+msgid "I can find a criterion for sorting objects"
+msgstr "I can find a criterion for sorting objects"
+
+#: DefaultSkillSet0Category15Skill5
+msgctxt "DefaultSkillSet0Category15Skill5"
+msgid "I can sort objects (instructions)"
+msgstr "I can sort objects (instructions)"
+
+#: DefaultSkillSet0Category16
+msgctxt "DefaultSkillSet0Category16"
+msgid "Time: location, representations, use of connecting words (then, during, before, after, )"
+msgstr "Time: location, representations, use of connecting words (then, during, before, after, )"
+
+#: DefaultSkillSet0Category16Skill0
+msgctxt "DefaultSkillSet0Category16Skill0"
+msgid "I can tidy up 3 times of the day"
+msgstr "I can tidy up 3 times of the day"
+
+#: DefaultSkillSet0Category16Skill1
+msgctxt "DefaultSkillSet0Category16Skill1"
+msgid "I can put in order 3 images of a known story"
+msgstr "I can put in order 3 images of a known story"
+
+#: DefaultSkillSet0Category16Skill2
+msgctxt "DefaultSkillSet0Category16Skill2"
+msgid "I can tidy up 5 times of the day"
+msgstr "I can tidy up 5 times of the day"
+
+#: DefaultSkillSet0Category16Skill3
+msgctxt "DefaultSkillSet0Category16Skill3"
+msgid "I can re-order 4 images from a known story"
+msgstr "I can re-order 4 images from a known story"
+
+#: DefaultSkillSet0Category16Skill4
+msgctxt "DefaultSkillSet0Category16Skill4"
+msgid "I can say the sequence of days"
+msgstr "I can say the sequence of days"
+
+#: DefaultSkillSet0Category16Skill5
+msgctxt "DefaultSkillSet0Category16Skill5"
+msgid "I can find yesterday or tomorrow"
+msgstr "I can find yesterday or tomorrow"
+
+#: DefaultSkillSet0Category16Skill6
+msgctxt "DefaultSkillSet0Category16Skill6"
+msgid "I can re-order 5 images from an unknown story"
+msgstr "I can re-order 5 images from an unknown story"
+
+#: DefaultSkillSet0Category17
+msgctxt "DefaultSkillSet0Category17"
+msgid "Explore the world: space"
+msgstr "Explore the world: space"
+
+#: DefaultSkillSet0Category17Skill0
+msgctxt "DefaultSkillSet0Category17Skill0"
+msgid "I understand the words: front / back, top / bottom"
+msgstr "I understand the words: front / back, top / bottom"
+
+#: DefaultSkillSet0Category17Skill1
+msgctxt "DefaultSkillSet0Category17Skill1"
+msgid "I can make puzzles of at least 6 pieces"
+msgstr "I can make puzzles of at least 6 pieces"
+
+#: DefaultSkillSet0Category17Skill2
+msgctxt "DefaultSkillSet0Category17Skill2"
+msgid "I understand the words: on / under, next to, inside / outside"
+msgstr "I understand the words: on / under, next to, inside / outside"
+
+#: DefaultSkillSet0Category17Skill3
+msgctxt "DefaultSkillSet0Category17Skill3"
+msgid "I can make puzzles of at least 20 pieces"
+msgstr "I can make puzzles of at least 20 pieces"
+
+#: DefaultSkillSet0Category17Skill4
+msgctxt "DefaultSkillSet0Category17Skill4"
+msgid "I can use: enter, on, under, outside to tell where an object is located"
+msgstr "I can use: enter, on, under, outside to tell where an object is located"
+
+#: DefaultSkillSet0Category17Skill5
+msgctxt "DefaultSkillSet0Category17Skill5"
+msgid "I can tell where an object is in relation to me"
+msgstr "I can tell where an object is in relation to me"
+
+#: DefaultSkillSet0Category17Skill6
+msgctxt "DefaultSkillSet0Category17Skill6"
+msgid "I know where is the top, bottom, center, direction of writing on a page"
+msgstr "I know where is the top, bottom, center, direction of writing on a page"
+
+#: DefaultSkillSet0Category17Skill7
+msgctxt "DefaultSkillSet0Category17Skill7"
+msgid "I can do complex puzzles, tiling and tangrams"
+msgstr "I can do complex puzzles, tiling and tangrams"
+
+#: DefaultSkillSet0Category17Skill8
+msgctxt "DefaultSkillSet0Category17Skill8"
+msgid "I can make small constructions freely"
+msgstr "I can make small constructions freely"
+
+#: DefaultSkillSet0Category17Skill9
+msgctxt "DefaultSkillSet0Category17Skill9"
+msgid "I can make constructions with an object serving as a model"
+msgstr "I can make constructions with an object serving as a model"
+
+#: DefaultSkillSet0Category17Skill10
+msgctxt "DefaultSkillSet0Category17Skill10"
+msgid "I can make constructions according to files"
+msgstr "I can make constructions according to files"
+
+#: DefaultSkillSet0Category18
+msgctxt "DefaultSkillSet0Category18"
+msgid "Explore the world: world: the living"
+msgstr "Explore the world: world: the living"
+
+#: DefaultSkillSet0Category18Skill0
+msgctxt "DefaultSkillSet0Category18Skill0"
+msgid "I can designate some parts of my body"
+msgstr "I can designate some parts of my body"
+
+#: DefaultSkillSet0Category18Skill1
+msgctxt "DefaultSkillSet0Category18Skill1"
+msgid "I can name the parts of my body"
+msgstr "I can name the parts of my body"
+
+#: DefaultSkillSet0Category18Skill2
+msgctxt "DefaultSkillSet0Category18Skill2"
+msgid "I can accurately represent my body and name parts and joints"
+msgstr "I can accurately represent my body and name parts and joints"
+
+#: DefaultSkillSet0Category18Skill3
+msgctxt "DefaultSkillSet0Category18Skill3"
+msgid "I can put 3 growth images back in order"
+msgstr "I can put 3 growth images back in order"
+
+#: DefaultSkillSet0Category18Skill4
+msgctxt "DefaultSkillSet0Category18Skill4"
+msgid "I can order 4 images of a growth"
+msgstr "I can order 4 images of a growth"
+
+#: DefaultSkillSet0Category18Skill5
+msgctxt "DefaultSkillSet0Category18Skill5"
+msgid "I can order images of the development of an animal or a plant"
+msgstr "I can order images of the development of an animal or a plant"
+
+#: DefaultSkillSet0Category19
+msgctxt "DefaultSkillSet0Category19"
+msgid "Use, manufacture and manipulation of objects"
+msgstr "Use, manufacture and manipulation of objects"
+
+#: DefaultSkillSet0Category19Skill0
+msgctxt "DefaultSkillSet0Category19Skill0"
+msgid "I recognize the colors and I name them"
+msgstr "I recognize the colors and I name them"
+
+#: DefaultSkillSet0Category19Skill1
+msgctxt "DefaultSkillSet0Category19Skill1"
+msgid "I know new colors: pink, brown, gray and shades"
+msgstr "I know new colors: pink, brown, gray and shades"
+
+#: DefaultSkillSet0Category19Skill2
+msgctxt "DefaultSkillSet0Category19Skill2"
+msgid "I can sort objects"
+msgstr "I can sort objects"
+
+#: DefaultSkillSet0Category19Skill3
+msgctxt "DefaultSkillSet0Category19Skill3"
+msgid "I stick cleanly"
+msgstr "I stick cleanly"
+
+#: DefaultSkillSet0Category19Skill4
+msgctxt "DefaultSkillSet0Category19Skill4"
+msgid "I can use scissors"
+msgstr "I can use scissors"
+
+#: DefaultSkillSet0Category19Skill5
+msgctxt "DefaultSkillSet0Category19Skill5"
+msgid "I cut along a line"
+msgstr "I cut along a line"
+
+#: DefaultSkillSet0Category19Skill6
+msgctxt "DefaultSkillSet0Category19Skill6"
+msgid "I cut following a rounded path"
+msgstr "I cut following a rounded path"
+
+#: DefaultSkillSet0Category19Skill7
+msgctxt "DefaultSkillSet0Category19Skill7"
+msgid "I'm looking, I'm fumbling to make an object work"
+msgstr "I'm looking, I'm fumbling to make an object work"
+
+#: DefaultSkillSet0Category19Skill8
+msgctxt "DefaultSkillSet0Category19Skill8"
+msgid "I use digital tools"
+msgstr "I use digital tools"
+
+#: DefaultSkillSet0Category20
+msgctxt "DefaultSkillSet0Category20"
+msgid "Understanding of safety and hygiene rules"
+msgstr "Understanding of safety and hygiene rules"
+
+#: DefaultSkillSet0Category20Skill0
+msgctxt "DefaultSkillSet0Category20Skill0"
+msgid "I wash my hands"
+msgstr "I wash my hands"
+
+#: DefaultSkillSet0Category21
+msgctxt "DefaultSkillSet0Category21"
+msgid "Become a student"
+msgstr "Become a student"
+
+#: DefaultSkillSet0Category21Skill0
+msgctxt "DefaultSkillSet0Category21Skill0"
+msgid "I respect others and the rules of the school"
+msgstr "I respect others and the rules of the school"
+
+#: DefaultSkillSet0Category21Skill1
+msgctxt "DefaultSkillSet0Category21Skill1"
+msgid "I listen to my comrades, I help them and I cooperate"
+msgstr "I listen to my comrades, I help them and I cooperate"
+
+#: DefaultSkillSet0Category21Skill2
+msgctxt "DefaultSkillSet0Category21Skill2"
+msgid "I ask for help if I need it"
+msgstr "I ask for help if I need it"
+
+#: DefaultSkillSet0Category21Skill3
+msgctxt "DefaultSkillSet0Category21Skill3"
+msgid "I dare to try or do work alone and speak in a large group"
+msgstr "I dare to try or do work alone and speak in a large group"
+
+#: DefaultSkillSet0Category21Skill4
+msgctxt "DefaultSkillSet0Category21Skill4"
+msgid "I can stay calm to work, not get angry, cry or sulk"
+msgstr "I can stay calm to work, not get angry, cry or sulk"
+
+#: DefaultSkillSet0Category21Skill5
+msgctxt "DefaultSkillSet0Category21Skill5"
+msgid "I can do my work alone"
+msgstr "I can do my work alone"
+
+#: DefaultSkillSet1
+msgctxt "DefaultSkillSet1"
+msgid "Skills assessment for Montessori School"
+msgstr "Skills assessment for Montessori School"
+
+#: DefaultSkillSet1Category0
+msgctxt "DefaultSkillSet1Category0"
+msgid "Oral: I dare to speak"
+msgstr "Oral: I dare to speak"
+
+#: DefaultSkillSet1Category0Skill0
+msgctxt "DefaultSkillSet1Category0Skill0"
+msgid "I speak with the other children"
+msgstr "I speak with the other children"
+
+#: DefaultSkillSet1Category0Skill1
+msgctxt "DefaultSkillSet1Category0Skill1"
+msgid "I am speaking with an adult"
+msgstr "I am speaking with an adult"
+
+#: DefaultSkillSet1Category0Skill2
+msgctxt "DefaultSkillSet1Category0Skill2"
+msgid "I use I to talk about myself"
+msgstr "I use I to talk about myself"
+
+#: DefaultSkillSet1Category0Skill3
+msgctxt "DefaultSkillSet1Category0Skill3"
+msgid "I pronounce and articulate correctly"
+msgstr "I pronounce and articulate correctly"
+
+#: DefaultSkillSet1Category1
+msgctxt "DefaultSkillSet1Category1"
+msgid "Speaking: I speak and understand better and better"
+msgstr "Speaking: I speak and understand better and better"
+
+#: DefaultSkillSet1Category1Skill0
+msgctxt "DefaultSkillSet1Category1Skill0"
+msgid "I know and use the words of the class"
+msgstr "I know and use the words of the class"
+
+#: DefaultSkillSet1Category1Skill1
+msgctxt "DefaultSkillSet1Category1Skill1"
+msgid "When I speak, I make sentences"
+msgstr "When I speak, I make sentences"
+
+#: DefaultSkillSet1Category1Skill2
+msgctxt "DefaultSkillSet1Category1Skill2"
+msgid "I know and use more and more words"
+msgstr "I know and use more and more words"
+
+#: DefaultSkillSet1Category1Skill3
+msgctxt "DefaultSkillSet1Category1Skill3"
+msgid "I am making longer and longer sentences"
+msgstr "I am making longer and longer sentences"
+
+#: DefaultSkillSet1Category1Skill4
+msgctxt "DefaultSkillSet1Category1Skill4"
+msgid "I can give the name of a group of words"
+msgstr "I can give the name of a group of words"
+
+#: DefaultSkillSet1Category2
+msgctxt "DefaultSkillSet1Category2"
+msgid "Speaking: I speak and think with others"
+msgstr "Speaking: I speak and think with others"
+
+#: DefaultSkillSet1Category2Skill0
+msgctxt "DefaultSkillSet1Category2Skill0"
+msgid "I tell an event unknown to others and I am understood"
+msgstr "I tell an event unknown to others and I am understood"
+
+#: DefaultSkillSet1Category2Skill1
+msgctxt "DefaultSkillSet1Category2Skill1"
+msgid "I explain how I did it"
+msgstr "I explain how I did it"
+
+#: DefaultSkillSet1Category2Skill2
+msgctxt "DefaultSkillSet1Category2Skill2"
+msgid "I am asking questions"
+msgstr "I am asking questions"
+
+#: DefaultSkillSet1Category2Skill3
+msgctxt "DefaultSkillSet1Category2Skill3"
+msgid "I give my opinion"
+msgstr "I give my opinion"
+
+#: DefaultSkillSet1Category3
+msgctxt "DefaultSkillSet1Category3"
+msgid "Oral: I play with the sounds of the language"
+msgstr "Oral: I play with the sounds of the language"
+
+#: DefaultSkillSet1Category3Skill0
+msgctxt "DefaultSkillSet1Category3Skill0"
+msgid "I listen to class and familiar noises and identify them"
+msgstr "I listen to class and familiar noises and identify them"
+
+#: DefaultSkillSet1Category3Skill1
+msgctxt "DefaultSkillSet1Category3Skill1"
+msgid "I know nursery rhymes about sounds"
+msgstr "I know nursery rhymes about sounds"
+
+#: DefaultSkillSet1Category3Skill2
+msgctxt "DefaultSkillSet1Category3Skill2"
+msgid "I know some sounds of letters of the first names of the class"
+msgstr "I know some sounds of letters of the first names of the class"
+
+#: DefaultSkillSet1Category3Skill3
+msgctxt "DefaultSkillSet1Category3Skill3"
+msgid "I can hit the syllables of the first names of the class"
+msgstr "I can hit the syllables of the first names of the class"
+
+#: DefaultSkillSet1Category4
+msgctxt "DefaultSkillSet1Category4"
+msgid "Writing: I listen, I understand a story and I understand what writing is for"
+msgstr "Writing: I listen, I understand a story and I understand what writing is for"
+
+#: DefaultSkillSet1Category4Skill0
+msgctxt "DefaultSkillSet1Category4Skill0"
+msgid "I listen to a story in silence"
+msgstr "I listen to a story in silence"
+
+#: DefaultSkillSet1Category4Skill1
+msgctxt "DefaultSkillSet1Category4Skill1"
+msgid "I tell a story while respecting chronology and logical links (using the illustrations)"
+msgstr "I tell a story while respecting chronology and logical links (using the illustrations)"
+
+#: DefaultSkillSet1Category4Skill2
+msgctxt "DefaultSkillSet1Category4Skill2"
+msgid "I can use a book correctly"
+msgstr "I can use a book correctly"
+
+#: DefaultSkillSet1Category4Skill3
+msgctxt "DefaultSkillSet1Category4Skill3"
+msgid "I can recognize a book, a poster, a recipe etc"
+msgstr "I can recognize a book, a poster, a recipe etc"
+
+#: DefaultSkillSet1Category4Skill4
+msgctxt "DefaultSkillSet1Category4Skill4"
+msgid "I can find my bearings in a book (cover, page, image, text)"
+msgstr "I can find my bearings in a book (cover, page, image, text)"
+
+#: DefaultSkillSet1Category5
+msgctxt "DefaultSkillSet1Category5"
+msgid "Writing: I start to produce writing and I discover how it works"
+msgstr "Writing: I start to produce writing and I discover how it works"
+
+#: DefaultSkillSet1Category5Skill0
+msgctxt "DefaultSkillSet1Category5Skill0"
+msgid "I can tell the teacher what to write"
+msgstr "I can tell the teacher what to write"
+
+#: DefaultSkillSet1Category6
+msgctxt "DefaultSkillSet1Category6"
+msgid "Writing: I know the letters of the alphabet"
+msgstr "Writing: I know the letters of the alphabet"
+
+#: DefaultSkillSet1Category6Skill0
+msgctxt "DefaultSkillSet1Category6Skill0"
+msgid "I know the letters of my first name"
+msgstr "I know the letters of my first name"
+
+#: DefaultSkillSet1Category6Skill1
+msgctxt "DefaultSkillSet1Category6Skill1"
+msgid "I recognize my first name in script writing"
+msgstr "I recognize my first name in script writing"
+
+#: DefaultSkillSet1Category6Skill2
+msgctxt "DefaultSkillSet1Category6Skill2"
+msgid "I know letters of the alphabet in capitals"
+msgstr "I know letters of the alphabet in capitals"
+
+#: DefaultSkillSet1Category6Skill3
+msgctxt "DefaultSkillSet1Category6Skill3"
+msgid "I can find a word in a sentence"
+msgstr "I can find a word in a sentence"
+
+#: DefaultSkillSet1Category6Skill4
+msgctxt "DefaultSkillSet1Category6Skill4"
+msgid "I know the sound of a few letters"
+msgstr "I know the sound of a few letters"
+
+#: DefaultSkillSet1Category7
+msgctxt "DefaultSkillSet1Category7"
+msgid "Writing: I'm starting to \"write\" on my own"
+msgstr "Writing: I'm starting to \"write\" on my own"
+
+#: DefaultSkillSet1Category7Skill0
+msgctxt "DefaultSkillSet1Category7Skill0"
+msgid "I am holding my pencil correctly"
+msgstr "I am holding my pencil correctly"
+
+#: DefaultSkillSet1Category7Skill1
+msgctxt "DefaultSkillSet1Category7Skill1"
+msgid "I draw circles"
+msgstr "I draw circles"
+
+#: DefaultSkillSet1Category7Skill2
+msgctxt "DefaultSkillSet1Category7Skill2"
+msgid "I can produce different graphics, signs or pseudo-writing (in and with different materials: sand, plasticine )"
+msgstr "I can produce different graphics, signs or pseudo-writing (in and with different materials: sand, plasticine )"
+
+#: DefaultSkillSet1Category7Skill3
+msgctxt "DefaultSkillSet1Category7Skill3"
+msgid "I write my first name in block capitals"
+msgstr "I write my first name in block capitals"
+
+#: DefaultSkillSet1Category8
+msgctxt "DefaultSkillSet1Category8"
+msgid "Act, express yourself, understand through physical activity"
+msgstr "Act, express yourself, understand through physical activity"
+
+#: DefaultSkillSet1Category8Skill0
+msgctxt "DefaultSkillSet1Category8Skill0"
+msgid "I can run, jump a small obstacle and throw an object"
+msgstr "I can run, jump a small obstacle and throw an object"
+
+#: DefaultSkillSet1Category8Skill1
+msgctxt "DefaultSkillSet1Category8Skill1"
+msgid "I can run fast in a straight line, jump high and far and throw far"
+msgstr "I can run fast in a straight line, jump high and far and throw far"
+
+#: DefaultSkillSet1Category8Skill2
+msgctxt "DefaultSkillSet1Category8Skill2"
+msgid "I can follow a course"
+msgstr "I can follow a course"
+
+#: DefaultSkillSet1Category8Skill3
+msgctxt "DefaultSkillSet1Category8Skill3"
+msgid "I know how to keep my balance in various situations"
+msgstr "I know how to keep my balance in various situations"
+
+#: DefaultSkillSet1Category8Skill4
+msgctxt "DefaultSkillSet1Category8Skill4"
+msgid "I know how to balance myself, roll, climb to complete the school routes"
+msgstr "I know how to balance myself, roll, climb to complete the school routes"
+
+#: DefaultSkillSet1Category8Skill5
+msgctxt "DefaultSkillSet1Category8Skill5"
+msgid "I agree to participate in group games"
+msgstr "I agree to participate in group games"
+
+#: DefaultSkillSet1Category8Skill6
+msgctxt "DefaultSkillSet1Category8Skill6"
+msgid "I can run by changing my speed, run and jump in a given direction"
+msgstr "I can run by changing my speed, run and jump in a given direction"
+
+#: DefaultSkillSet1Category8Skill7
+msgctxt "DefaultSkillSet1Category8Skill7"
+msgid "I participate in the rounds"
+msgstr "I participate in the rounds"
+
+#: DefaultSkillSet1Category8Skill8
+msgctxt "DefaultSkillSet1Category8Skill8"
+msgid "I dance to music"
+msgstr "I dance to music"
+
+#: DefaultSkillSet1Category9
+msgctxt "DefaultSkillSet1Category9"
+msgid "Act, express yourself, understand through artistic activity"
+msgstr "Act, express yourself, understand through artistic activity"
+
+#: DefaultSkillSet1Category9Skill0
+msgctxt "DefaultSkillSet1Category9Skill0"
+msgid "I draw and paint with pleasure"
+msgstr "I draw and paint with pleasure"
+
+#: DefaultSkillSet1Category9Skill1
+msgctxt "DefaultSkillSet1Category9Skill1"
+msgid "I practice decorative graphics"
+msgstr "I practice decorative graphics"
+
+#: DefaultSkillSet1Category9Skill2
+msgctxt "DefaultSkillSet1Category9Skill2"
+msgid "I create a composition in plan or in volume"
+msgstr "I create a composition in plan or in volume"
+
+#: DefaultSkillSet1Category9Skill3
+msgctxt "DefaultSkillSet1Category9Skill3"
+msgid "I adapt my gesture to the tools"
+msgstr "I adapt my gesture to the tools"
+
+#: DefaultSkillSet1Category9Skill4
+msgctxt "DefaultSkillSet1Category9Skill4"
+msgid "I look at works of art and say what I feel"
+msgstr "I look at works of art and say what I feel"
+
+#: DefaultSkillSet1Category9Skill5
+msgctxt "DefaultSkillSet1Category9Skill5"
+msgid "I recognize the basic colors and name them"
+msgstr "I recognize the basic colors and name them"
+
+#: DefaultSkillSet1Category9Skill6
+msgctxt "DefaultSkillSet1Category9Skill6"
+msgid "I recognize the other colors and name them"
+msgstr "I recognize the other colors and name them"
+
+#: DefaultSkillSet1Category9Skill7
+msgctxt "DefaultSkillSet1Category9Skill7"
+msgid "I perform a varied repertoire of nursery rhymes and songs with the class"
+msgstr "I perform a varied repertoire of nursery rhymes and songs with the class"
+
+#: DefaultSkillSet1Category9Skill8
+msgctxt "DefaultSkillSet1Category9Skill8"
+msgid "I explore instruments and use the sounds of my body"
+msgstr "I explore instruments and use the sounds of my body"
+
+#: DefaultSkillSet1Category9Skill9
+msgctxt "DefaultSkillSet1Category9Skill9"
+msgid "I refine my listening to musical extracts and I express my feelings or my understanding"
+msgstr "I refine my listening to musical extracts and I express my feelings or my understanding"
+
+#: DefaultSkillSet1Category9Skill10
+msgctxt "DefaultSkillSet1Category9Skill10"
+msgid "I practice some performing arts activities"
+msgstr "I practice some performing arts activities"
+
+#: DefaultSkillSet1Category10
+msgctxt "DefaultSkillSet1Category10"
+msgid "Build the first tools to structure your thinking: discover numbers and their uses \""
+msgstr "Build the first tools to structure your thinking: discover numbers and their uses \""
+
+#: DefaultSkillSet1Category10Skill0
+msgctxt "DefaultSkillSet1Category10Skill0"
+msgid "I know if there are more or less objects"
+msgstr "I know if there are more or less objects"
+
+#: DefaultSkillSet1Category10Skill1
+msgctxt "DefaultSkillSet1Category10Skill1"
+msgid "I understood that the number was a measurement tool"
+msgstr "I understood that the number was a measurement tool"
+
+#: DefaultSkillSet1Category10Skill2
+msgctxt "DefaultSkillSet1Category10Skill2"
+msgid "I can decompose numbers up to 3"
+msgstr "I can decompose numbers up to 3"
+
+#: DefaultSkillSet1Category10Skill3
+msgctxt "DefaultSkillSet1Category10Skill3"
+msgid "I can make a bunch of objects of the same quantity as another bunch"
+msgstr "I can make a bunch of objects of the same quantity as another bunch"
+
+#: DefaultSkillSet1Category10Skill4
+msgctxt "DefaultSkillSet1Category10Skill4"
+msgid "I recite the nursery rhyme up to 6"
+msgstr "I recite the nursery rhyme up to 6"
+
+#: DefaultSkillSet1Category10Skill5
+msgctxt "DefaultSkillSet1Category10Skill5"
+msgid "I recite the nursery rhyme until 12"
+msgstr "I recite the nursery rhyme until 12"
+
+#: DefaultSkillSet1Category10Skill6
+msgctxt "DefaultSkillSet1Category10Skill6"
+msgid "I recite the nursery rhyme up to 24"
+msgstr "I recite the nursery rhyme up to 24"
+
+#: DefaultSkillSet1Category10Skill7
+msgctxt "DefaultSkillSet1Category10Skill7"
+msgid "I can read numbers up to 3"
+msgstr "I can read numbers up to 3"
+
+#: DefaultSkillSet1Category10Skill8
+msgctxt "DefaultSkillSet1Category10Skill8"
+msgid "I can count 3 objects"
+msgstr "I can count 3 objects"
+
+#: DefaultSkillSet1Category10Skill9
+msgctxt "DefaultSkillSet1Category10Skill9"
+msgid "I recognize small quantities up to 3 (dice and hand)"
+msgstr "I recognize small quantities up to 3 (dice and hand)"
+
+#: DefaultSkillSet1Category10Skill10
+msgctxt "DefaultSkillSet1Category10Skill10"
+msgid "I can compare lots of items by counting or not"
+msgstr "I can compare lots of items by counting or not"
+
+#: DefaultSkillSet1Category10Skill11
+msgctxt "DefaultSkillSet1Category10Skill11"
+msgid "I can solve small quantity problems"
+msgstr "I can solve small quantity problems"
+
+#: DefaultSkillSet1Category10Skill12
+msgctxt "DefaultSkillSet1Category10Skill12"
+msgid "I can use the number to express the position of an object or a person on a row"
+msgstr "I can use the number to express the position of an object or a person on a row"
+
+#: DefaultSkillSet1Category11
+msgctxt "DefaultSkillSet1Category11"
+msgid "Build the first tools to structure your thinking: explore shapes, sizes, organized sequences"
+msgstr "Build the first tools to structure your thinking: explore shapes, sizes, organized sequences"
+
+#: DefaultSkillSet1Category11Skill0
+msgctxt "DefaultSkillSet1Category11Skill0"
+msgid "I can sort objects (instructions)"
+msgstr "I can sort objects (instructions)"
+
+#: DefaultSkillSet1Category11Skill1
+msgctxt "DefaultSkillSet1Category11Skill1"
+msgid "I can find a criterion for sorting objects"
+msgstr "I can find a criterion for sorting objects"
+
+#: DefaultSkillSet1Category11Skill2
+msgctxt "DefaultSkillSet1Category11Skill2"
+msgid "I recognize the round, the square, the triangle and I name them"
+msgstr "I recognize the round, the square, the triangle and I name them"
+
+#: DefaultSkillSet1Category11Skill3
+msgctxt "DefaultSkillSet1Category11Skill3"
+msgid "I recognize and name the circle, the square, the triangle and the rectangle"
+msgstr "I recognize and name the circle, the square, the triangle and the rectangle"
+
+#: DefaultSkillSet1Category11Skill4
+msgctxt "DefaultSkillSet1Category11Skill4"
+msgid "I can store at least 3 objects in order of magnitude"
+msgstr "I can store at least 3 objects in order of magnitude"
+
+#: DefaultSkillSet1Category11Skill5
+msgctxt "DefaultSkillSet1Category11Skill5"
+msgid "I can reproduce an assembly from a model (puzzle, paving, assembly, solids)"
+msgstr "I can reproduce an assembly from a model (puzzle, paving, assembly, solids)"
+
+#: DefaultSkillSet1Category11Skill6
+msgctxt "DefaultSkillSet1Category11Skill6"
+msgid "I identify the principle of organization of an algorithm and I continue its application"
+msgstr "I identify the principle of organization of an algorithm and I continue its application"
+
+#: DefaultSkillSet1Category11Skill7
+msgctxt "DefaultSkillSet1Category11Skill7"
+msgid "I recognize some solids (cube, pyramid, ball, cylinder)"
+msgstr "I recognize some solids (cube, pyramid, ball, cylinder)"
+
+#: DefaultSkillSet1Category12
+msgctxt "DefaultSkillSet1Category12"
+msgid "Explore the world: find your way in time and space"
+msgstr "Explore the world: find your way in time and space"
+
+#: DefaultSkillSet1Category12Skill0
+msgctxt "DefaultSkillSet1Category12Skill0"
+msgid "I order the half-day class times"
+msgstr "I order the half-day class times"
+
+#: DefaultSkillSet1Category12Skill1
+msgctxt "DefaultSkillSet1Category12Skill1"
+msgid "I understand that time repeats (day / night, week)"
+msgstr "I understand that time repeats (day / night, week)"
+
+#: DefaultSkillSet1Category12Skill2
+msgctxt "DefaultSkillSet1Category12Skill2"
+msgid "I find myself during the day"
+msgstr "I find myself during the day"
+
+#: DefaultSkillSet1Category12Skill3
+msgctxt "DefaultSkillSet1Category12Skill3"
+msgid "I put the images in chronological order"
+msgstr "I put the images in chronological order"
+
+#: DefaultSkillSet1Category12Skill4
+msgctxt "DefaultSkillSet1Category12Skill4"
+msgid "I understand the words: front / back, top / bottom"
+msgstr "I understand the words: front / back, top / bottom"
+
+#: DefaultSkillSet1Category12Skill5
+msgctxt "DefaultSkillSet1Category12Skill5"
+msgid "I understand the words: on / under, next to, inside / outside"
+msgstr "I understand the words: on / under, next to, inside / outside"
+
+#: DefaultSkillSet1Category12Skill6
+msgctxt "DefaultSkillSet1Category12Skill6"
+msgid "I can tell where an object is in relation to me"
+msgstr "I can tell where an object is in relation to me"
+
+#: DefaultSkillSet1Category12Skill7
+msgctxt "DefaultSkillSet1Category12Skill7"
+msgid "I can correctly orient and use a sheet, a book according to a specific goal or project"
+msgstr "I can correctly orient and use a sheet, a book according to a specific goal or project"
+
+#: DefaultSkillSet1Category13
+msgctxt "DefaultSkillSet1Category13"
+msgid "Explore the world of living things, objects and matter"
+msgstr "Explore the world of living things, objects and matter"
+
+#: DefaultSkillSet1Category13Skill0
+msgctxt "DefaultSkillSet1Category13Skill0"
+msgid "I know and I know how to locate the different parts of the human body"
+msgstr "I know and I know how to locate the different parts of the human body"
+
+#: DefaultSkillSet1Category13Skill1
+msgctxt "DefaultSkillSet1Category13Skill1"
+msgid "I can order 3 images of the development of an animal or a plant"
+msgstr "I can order 3 images of the development of an animal or a plant"
+
+#: DefaultSkillSet1Category13Skill2
+msgctxt "DefaultSkillSet1Category13Skill2"
+msgid "I know and respect the rules of hygiene"
+msgstr "I know and respect the rules of hygiene"
+
+#: DefaultSkillSet1Category13Skill3
+msgctxt "DefaultSkillSet1Category13Skill3"
+msgid "I stick cleanly"
+msgstr "I stick cleanly"
+
+#: DefaultSkillSet1Category13Skill4
+msgctxt "DefaultSkillSet1Category13Skill4"
+msgid "I can use scissors"
+msgstr "I can use scissors"
+
+#: DefaultSkillSet1Category13Skill5
+msgctxt "DefaultSkillSet1Category13Skill5"
+msgid "I cut along a line"
+msgstr "I cut along a line"
+
+#: DefaultSkillSet1Category13Skill6
+msgctxt "DefaultSkillSet1Category13Skill6"
+msgid "I know how to make constructions following a model"
+msgstr "I know how to make constructions following a model"
+
+#: DefaultSkillSet1Category13Skill7
+msgctxt "DefaultSkillSet1Category13Skill7"
+msgid "I'm looking, I'm fumbling to make an object work"
+msgstr "I'm looking, I'm fumbling to make an object work"
+
+#: DefaultSkillSet1Category13Skill8
+msgctxt "DefaultSkillSet1Category13Skill8"
+msgid "I use digital tools"
+msgstr "I use digital tools"
+
+#: DefaultSkillSet1Category14
+msgctxt "DefaultSkillSet1Category14"
+msgid "Learning and living together: building yourself as an individual within a group"
+msgstr "Learning and living together: building yourself as an individual within a group"
+
+#: DefaultSkillSet1Category14Skill0
+msgctxt "DefaultSkillSet1Category14Skill0"
+msgid "I don't hurt others"
+msgstr "I don't hurt others"
+
+#: DefaultSkillSet1Category14Skill1
+msgctxt "DefaultSkillSet1Category14Skill1"
+msgid "I am polite"
+msgstr "I am polite"
+
+#: DefaultSkillSet1Category14Skill2
+msgctxt "DefaultSkillSet1Category14Skill2"
+msgid "I listen to my comrades, I help them and I cooperate"
+msgstr "I listen to my comrades, I help them and I cooperate"
+
+#: DefaultSkillSet1Category14Skill3
+msgctxt "DefaultSkillSet1Category14Skill3"
+msgid "I play with others"
+msgstr "I play with others"
+
+#: DefaultSkillSet1Category14Skill4
+msgctxt "DefaultSkillSet1Category14Skill4"
+msgid "I dress alone"
+msgstr "I dress alone"
+
+#: DefaultSkillSet1Category14Skill5
+msgctxt "DefaultSkillSet1Category14Skill5"
+msgid "I ask for help if I need it"
+msgstr "I ask for help if I need it"
+
+#: DefaultSkillSet1Category14Skill6
+msgctxt "DefaultSkillSet1Category14Skill6"
+msgid "I dare to speak in a large group"
+msgstr "I dare to speak in a large group"
+
+#: DefaultSkillSet1Category14Skill7
+msgctxt "DefaultSkillSet1Category14Skill7"
+msgid "I dare to speak in a small group"
+msgstr "I dare to speak in a small group"
+
+#: DefaultSkillSet1Category14Skill8
+msgctxt "DefaultSkillSet1Category14Skill8"
+msgid "I can stay calm to work, not get angry, cry or sulk"
+msgstr "I can stay calm to work, not get angry, cry or sulk"
+
+#: DefaultSkillSet1Category14Skill9
+msgctxt "DefaultSkillSet1Category14Skill9"
+msgid "I can do my work alone"
+msgstr "I can do my work alone"
+
+#: DefaultSkillSet1Category14Skill10
+msgctxt "DefaultSkillSet1Category14Skill10"
+msgid "I tidy up with the others"
+msgstr "I tidy up with the others"
+
+#: DefaultSkillSet1Category14Skill11
+msgctxt "DefaultSkillSet1Category14Skill11"
+msgid "I am speaking while staying in the subject of the discussion"
+msgstr "I am speaking while staying in the subject of the discussion"
+
+#: DefaultSkillSet1Category15
+msgctxt "DefaultSkillSet1Category15"
+msgid "Learning and living together: understanding the function of the school"
+msgstr "Learning and living together: understanding the function of the school"
+
+#: DefaultSkillSet1Category15Skill0
+msgctxt "DefaultSkillSet1Category15Skill0"
+msgid "I move with others"
+msgstr "I move with others"
+
+#: DefaultSkillSet1Category15Skill1
+msgctxt "DefaultSkillSet1Category15Skill1"
+msgid "I participate in activities by giving up my desires"
+msgstr "I participate in activities by giving up my desires"
+
+#: DefaultSkillSet1Category15Skill2
+msgctxt "DefaultSkillSet1Category15Skill2"
+msgid "I'm waiting for my turn"
+msgstr "I'm waiting for my turn"
+
+#: DefaultSkillSet1Category15Skill3
+msgctxt "DefaultSkillSet1Category15Skill3"
+msgid "I understand a collective instruction"
+msgstr "I understand a collective instruction"
+
+#: DefaultSkillSet1Category15Skill4
+msgctxt "DefaultSkillSet1Category15Skill4"
+msgid "I explain what I do"
+msgstr "I explain what I do"
+
+#: DefaultSkillSet1Category15Skill5
+msgctxt "DefaultSkillSet1Category15Skill5"
+msgid "I am starting to show care in the activities"
+msgstr "I am starting to show care in the activities"
+
+#: DefaultSkillSet2
+msgctxt "DefaultSkillSet2"
+msgid "Skills assessment for Primary School"
+msgstr "Skills assessment for Primary School"
+
+#: DefaultSkillSet2Category0
+msgctxt "DefaultSkillSet2Category0"
+msgid "Oral Language"
+msgstr "Oral Language"
+
+#: DefaultSkillSet2Category0Skill0
+msgctxt "DefaultSkillSet2Category0Skill0"
+msgid "Listening to understand oral messages or texts read by an adult"
+msgstr "Listening to understand oral messages or texts read by an adult"
+
+#: DefaultSkillSet2Category0Skill1
+msgctxt "DefaultSkillSet2Category0Skill1"
+msgid "Say to be heard and understood"
+msgstr "Say to be heard and understood"
+
+#: DefaultSkillSet2Category0Skill2
+msgctxt "DefaultSkillSet2Category0Skill2"
+msgid "Participate in exchanges in diverse situations"
+msgstr "Participate in exchanges in diverse situations"
+
+#: DefaultSkillSet2Category0Skill3
+msgctxt "DefaultSkillSet2Category0Skill3"
+msgid "Adopt a critical distance from the product language"
+msgstr "Adopt a critical distance from the product language"
+
+#: DefaultSkillSet2Category1
+msgctxt "DefaultSkillSet2Category1"
+msgid "Reading and reading"
+msgstr "Reading and reading"
+
+#: DefaultSkillSet2Category1Skill0
+msgctxt "DefaultSkillSet2Category1Skill0"
+msgid "Identify words more and more easily"
+msgstr "Identify words more and more easily"
+
+#: DefaultSkillSet2Category1Skill1
+msgctxt "DefaultSkillSet2Category1Skill1"
+msgid "Understand text"
+msgstr "Understand text"
+
+#: DefaultSkillSet2Category1Skill2
+msgctxt "DefaultSkillSet2Category1Skill2"
+msgid "Practice different forms of reading"
+msgstr "Practice different forms of reading"
+
+#: DefaultSkillSet2Category1Skill3
+msgctxt "DefaultSkillSet2Category1Skill3"
+msgid "Read out loud"
+msgstr "Read out loud"
+
+#: DefaultSkillSet2Category1Skill4
+msgctxt "DefaultSkillSet2Category1Skill4"
+msgid "Check your understanding"
+msgstr "Check your understanding"
+
+#: DefaultSkillSet2Category2
+msgctxt "DefaultSkillSet2Category2"
+msgid "Write"
+msgstr "Write"
+
+#: DefaultSkillSet2Category2Skill0
+msgctxt "DefaultSkillSet2Category2Skill0"
+msgid "Expertly copy"
+msgstr "Expertly copy"
+
+#: DefaultSkillSet2Category2Skill1
+msgctxt "DefaultSkillSet2Category2Skill1"
+msgid "Produce writings"
+msgstr "Produce writings"
+
+#: DefaultSkillSet2Category2Skill2
+msgctxt "DefaultSkillSet2Category2Skill2"
+msgid "Revise and improve the writing that we have produced"
+msgstr "Revise and improve the writing that we have produced"
+
+#: DefaultSkillSet2Category3
+msgctxt "DefaultSkillSet2Category3"
+msgid "Language study (grammar, spelling, lexicon)"
+msgstr "Language study (grammar, spelling, lexicon)"
+
+#: DefaultSkillSet2Category3Skill0
+msgctxt "DefaultSkillSet2Category3Skill0"
+msgid "Master the relationships between oral and written"
+msgstr "Master the relationships between oral and written"
+
+#: DefaultSkillSet2Category3Skill1
+msgctxt "DefaultSkillSet2Category3Skill1"
+msgid "Memorize and remember the spelling of frequent words and irregular words whose meaning is known"
+msgstr "Memorize and remember the spelling of frequent words and irregular words whose meaning is known"
+
+#: DefaultSkillSet2Category3Skill2
+msgctxt "DefaultSkillSet2Category3Skill2"
+msgid "Identify the main elements of a simple sentence"
+msgstr "Identify the main elements of a simple sentence"
+
+#: DefaultSkillSet2Category3Skill3
+msgctxt "DefaultSkillSet2Category3Skill3"
+msgid "Reasoning to solve spelling problems, basically okay"
+msgstr "Reasoning to solve spelling problems, basically okay"
+
+#: DefaultSkillSet2Category3Skill4
+msgctxt "DefaultSkillSet2Category3Skill4"
+msgid "Understand how verbs are formed and spell the most common verb forms"
+msgstr "Understand how verbs are formed and spell the most common verb forms"
+
+#: DefaultSkillSet2Category3Skill5
+msgctxt "DefaultSkillSet2Category3Skill5"
+msgid "Identify relationships between words, between words and their context of use"
+msgstr "Identify relationships between words, between words and their context of use"
+
+#: DefaultSkillSet2Category3Skill6
+msgctxt "DefaultSkillSet2Category3Skill6"
+msgid "Enrich your word repertoire, memorize them and reuse them"
+msgstr "Enrich your word repertoire, memorize them and reuse them"
+
+#: DefaultSkillSet2Category4
+msgctxt "DefaultSkillSet2Category4"
+msgid "Numbers and calculation"
+msgstr "Numbers and calculation"
+
+#: DefaultSkillSet2Category4Skill0
+msgctxt "DefaultSkillSet2Category4Skill0"
+msgid "Understand and use whole numbers to count, order, locate, compare"
+msgstr "Understand and use whole numbers to count, order, locate, compare"
+
+#: DefaultSkillSet2Category4Skill1
+msgctxt "DefaultSkillSet2Category4Skill1"
+msgid "Name, read, write, represent whole numbers"
+msgstr "Name, read, write, represent whole numbers"
+
+#: DefaultSkillSet2Category4Skill2
+msgctxt "DefaultSkillSet2Category4Skill2"
+msgid "Calculate with whole numbers"
+msgstr "Calculate with whole numbers"
+
+#: DefaultSkillSet2Category4Skill3
+msgctxt "DefaultSkillSet2Category4Skill3"
+msgid "Solve problems using whole numbers and calculation"
+msgstr "Solve problems using whole numbers and calculation"
+
+#: DefaultSkillSet2Category5
+msgctxt "DefaultSkillSet2Category5"
+msgid "Space and geometry"
+msgstr "Space and geometry"
+
+#: DefaultSkillSet2Category5Skill0
+msgctxt "DefaultSkillSet2Category5Skill0"
+msgid "(To) locate and (move) in space using or developing representations"
+msgstr "(To) locate and (move) in space using or developing representations"
+
+#: DefaultSkillSet2Category5Skill1
+msgctxt "DefaultSkillSet2Category5Skill1"
+msgid "Recognize, name, describe, reproduce some solids"
+msgstr "Recognize, name, describe, reproduce some solids"
+
+#: DefaultSkillSet2Category5Skill2
+msgctxt "DefaultSkillSet2Category5Skill2"
+msgid "Recognize, name, describe, reproduce, build some geometric figures"
+msgstr "Recognize, name, describe, reproduce, build some geometric figures"
+
+#: DefaultSkillSet2Category5Skill3
+msgctxt "DefaultSkillSet2Category5Skill3"
+msgid "Recognize and use the concepts of alignment, right angle, equal length, center, symmetry"
+msgstr "Recognize and use the concepts of alignment, right angle, equal length, center, symmetry"
+
+#: DefaultSkillSet2Category6
+msgctxt "DefaultSkillSet2Category6"
+msgid "Quantities and measures"
+msgstr "Quantities and measures"
+
+#: DefaultSkillSet2Category6Skill0
+msgctxt "DefaultSkillSet2Category6Skill0"
+msgid "Compare, estimate, measure lengths, masses, capacities, durations"
+msgstr "Compare, estimate, measure lengths, masses, capacities, durations"
+
+#: DefaultSkillSet2Category6Skill1
+msgctxt "DefaultSkillSet2Category6Skill1"
+msgid "Use the lexicon, units, specific measuring instruments of these quantities"
+msgstr "Use the lexicon, units, specific measuring instruments of these quantities"
+
+#: DefaultSkillSet2Category6Skill2
+msgctxt "DefaultSkillSet2Category6Skill2"
+msgid "Solve problems involving lengths, masses, capacities, durations, prices"
+msgstr "Solve problems involving lengths, masses, capacities, durations, prices"
+
+#: DefaultSkillSet2Category7
+msgctxt "DefaultSkillSet2Category7"
+msgid "Physical and sports education"
+msgstr "Physical and sports education"
+
+#: DefaultSkillSet2Category7Skill0
+msgctxt "DefaultSkillSet2Category7Skill0"
+msgid "Produce sports performance"
+msgstr "Produce sports performance"
+
+#: DefaultSkillSet2Category7Skill1
+msgctxt "DefaultSkillSet2Category7Skill1"
+msgid "Adapt your movements to various environments"
+msgstr "Adapt your movements to various environments"
+
+#: DefaultSkillSet2Category7Skill2
+msgctxt "DefaultSkillSet2Category7Skill2"
+msgid "Express yourself in front of others with an artistic and / or acrobatic performance"
+msgstr "Express yourself in front of others with an artistic and / or acrobatic performance"
+
+#: DefaultSkillSet2Category7Skill3
+msgctxt "DefaultSkillSet2Category7Skill3"
+msgid "Lead and master a collective and interindividual confrontation"
+msgstr "Lead and master a collective and interindividual confrontation"
+
+#: DefaultSkillSet2Category8
+msgctxt "DefaultSkillSet2Category8"
+msgid "Modern languages"
+msgstr "Modern languages"
+
+#: DefaultSkillSet2Category8Skill0
+msgctxt "DefaultSkillSet2Category8Skill0"
+msgid "Understand familiar words and very common expressions about yourself, your family and the concrete and immediate environment, if people speak slowly and clearly"
+msgstr "Understand familiar words and very common expressions about yourself, your family and the concrete and immediate environment, if people speak slowly and clearly"
+
+#: DefaultSkillSet2Category8Skill1
+msgctxt "DefaultSkillSet2Category8Skill1"
+msgid "Use simple expressions and sentences to describe yourself, the place where you live and the people around you"
+msgstr "Use simple expressions and sentences to describe yourself, the place where you live and the people around you"
+
+#: DefaultSkillSet2Category8Skill2
+msgctxt "DefaultSkillSet2Category8Skill2"
+msgid "Ask simple questions on familiar subjects or on what is immediately needed, as well as answer such questions"
+msgstr "Ask simple questions on familiar subjects or on what is immediately needed, as well as answer such questions"
+
+#: DefaultSkillSet2Category8Skill3
+msgctxt "DefaultSkillSet2Category8Skill3"
+msgid "Identify some major cultural landmarks of the daily environment of students of the same age in the countries or regions studied"
+msgstr "Identify some major cultural landmarks of the daily environment of students of the same age in the countries or regions studied"
+
+#: DefaultSkillSet2Category9
+msgctxt "DefaultSkillSet2Category9"
+msgid "Living things, matter, objects"
+msgstr "Living things, matter, objects"
+
+#: DefaultSkillSet2Category9Skill0
+msgctxt "DefaultSkillSet2Category9Skill0"
+msgid "Identify the three states of matter and observe changes of states"
+msgstr "Identify the three states of matter and observe changes of states"
+
+#: DefaultSkillSet2Category9Skill1
+msgctxt "DefaultSkillSet2Category9Skill1"
+msgid "Identify a change in the state of water in a phenomenon of daily life"
+msgstr "Identify a change in the state of water in a phenomenon of daily life"
+
+#: DefaultSkillSet2Category9Skill2
+msgctxt "DefaultSkillSet2Category9Skill2"
+msgid "Know the characteristics of the living world, its interactions, its diversity"
+msgstr "Know the characteristics of the living world, its interactions, its diversity"
+
+#: DefaultSkillSet2Category9Skill3
+msgctxt "DefaultSkillSet2Category9Skill3"
+msgid "Recognize behaviors favorable to one's health"
+msgstr "Recognize behaviors favorable to one's health"
+
+#: DefaultSkillSet2Category9Skill4
+msgctxt "DefaultSkillSet2Category9Skill4"
+msgid "Understand the function and operation of manufactured objects"
+msgstr "Understand the function and operation of manufactured objects"
+
+#: DefaultSkillSet2Category9Skill5
+msgctxt "DefaultSkillSet2Category9Skill5"
+msgid "Realize some simple electrical objects and circuits, respecting basic safety rules"
+msgstr "Realize some simple electrical objects and circuits, respecting basic safety rules"
+
+#: DefaultSkillSet2Category9Skill6
+msgctxt "DefaultSkillSet2Category9Skill6"
+msgid "Start to take ownership of a digital environment"
+msgstr "Start to take ownership of a digital environment"
+
+#: DefaultSkillSet2Category10
+msgctxt "DefaultSkillSet2Category10"
+msgid "Plastic arts"
+msgstr "Plastic arts"
+
+#: DefaultSkillSet2Category10Skill0
+msgctxt "DefaultSkillSet2Category10Skill0"
+msgid "Experiment, produce, create plastic productions of various natures"
+msgstr "Experiment, produce, create plastic productions of various natures"
+
+#: DefaultSkillSet2Category10Skill1
+msgctxt "DefaultSkillSet2Category10Skill1"
+msgid "Implement an individual or collective artistic project"
+msgstr "Implement an individual or collective artistic project"
+
+#: DefaultSkillSet2Category10Skill2
+msgctxt "DefaultSkillSet2Category10Skill2"
+msgid "Express yourself, analyze your practice, that of your peers"
+msgstr "Express yourself, analyze your practice, that of your peers"
+
+#: DefaultSkillSet2Category10Skill3
+msgctxt "DefaultSkillSet2Category10Skill3"
+msgid "Finding your bearings in areas related to the visual arts, being sensitive to questions of art"
+msgstr "Finding your bearings in areas related to the visual arts, being sensitive to questions of art"
+
+#: DefaultSkillSet2Category11
+msgctxt "DefaultSkillSet2Category11"
+msgid "Music education"
+msgstr "Music education"
+
+#: DefaultSkillSet2Category11Skill0
+msgctxt "DefaultSkillSet2Category11Skill0"
+msgid "Sing a simple melody, a rhyme or a song with a right intonation"
+msgstr "Sing a simple melody, a rhyme or a song with a right intonation"
+
+#: DefaultSkillSet2Category11Skill1
+msgctxt "DefaultSkillSet2Category11Skill1"
+msgid "Listen, compare sound elements, music"
+msgstr "Listen, compare sound elements, music"
+
+#: DefaultSkillSet2Category11Skill2
+msgctxt "DefaultSkillSet2Category11Skill2"
+msgid "Explore, imagine various representations of music"
+msgstr "Explore, imagine various representations of music"
+
+#: DefaultSkillSet2Category11Skill3
+msgctxt "DefaultSkillSet2Category11Skill3"
+msgid "Exchange, share emotions, express preferences"
+msgstr "Exchange, share emotions, express preferences"
+
+#: DefaultSkillSet2Category12
+msgctxt "DefaultSkillSet2Category12"
+msgid "Moral and civic education"
+msgstr "Moral and civic education"
+
+#: DefaultSkillSet2Category12Skill0
+msgctxt "DefaultSkillSet2Category12Skill0"
+msgid "Being able to listen"
+msgstr "Being able to listen"
+
+#: DefaultSkillSet2Category12Skill1
+msgctxt "DefaultSkillSet2Category12Skill1"
+msgid "Accept differences"
+msgstr "Accept differences"
+
+#: DefaultSkillSet2Category12Skill2
+msgctxt "DefaultSkillSet2Category12Skill2"
+msgid "Know and respect the rules of life of the class and the school"
+msgstr "Know and respect the rules of life of the class and the school"
+
+#: DefaultSkillSet2Category12Skill3
+msgctxt "DefaultSkillSet2Category12Skill3"
+msgid "Identify the symbols of the Republic present in the school"
+msgstr "Identify the symbols of the Republic present in the school"
+
+#: DefaultSkillSet2Category12Skill4
+msgctxt "DefaultSkillSet2Category12Skill4"
+msgid "Implement the rules of communication in a debate"
+msgstr "Implement the rules of communication in a debate"
+
+#: DefaultSkillSet2Category12Skill5
+msgctxt "DefaultSkillSet2Category12Skill5"
+msgid "Know how to cooperate"
+msgstr "Know how to cooperate"
+
+#: DefaultSkillSet2Category12Skill6
+msgctxt "DefaultSkillSet2Category12Skill6"
+msgid "Take responsibility in the classroom and in the school"
+msgstr "Take responsibility in the classroom and in the school"
+
+#: Achievement0
+msgctxt "Achievement0"
+msgid "First skill acquired"
+msgstr "First skill acquired"
+
+#: Achievement1
+msgctxt "Achievement1"
+msgid "50% skills acquired"
+msgstr "50% skills acquired"
+
+#: Achievement2
+msgctxt "Achievement2"
+msgid "All skills acquired"
+msgstr "All skills acquired"
+
+#: Achievement3
+msgctxt "Achievement3"
+msgid "First category acquired"
+msgstr "First category acquired"
+
+#: Achievement4
+msgctxt "Achievement4"
+msgid "All categories acquired"
+msgstr "All categories acquired"
+
+#: Achievement5
+msgctxt "Achievement5"
+msgid "First proof uploaded"
+msgstr "First proof uploaded"
+
+#: Achievement6
+msgctxt "Achievement6"
+msgid "Ten proofs uploaded"
+msgstr "Ten proofs uploaded"
+
+#: Achievement7
+msgctxt "Achievement7"
+msgid "First A+ acquired"
+msgstr "First A+ acquired"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoTrophyCardTitle
+msgctxt "TutoTrophyCardTitle"
+msgid "Trophy"
+msgstr "Trophy"
+
+#: TutoTrophyCardContent
+msgctxt "TutoTrophyCardContent"
+msgid "You will be rewarded a trophy for different milestones you achieve"
+msgstr "You will be rewarded a trophy for different milestones you achieve"
+
+#: TutoSettingsCategoryCardTitle
+msgctxt "TutoSettingsCategoryCardTitle"
+msgid "Settings Category"
+msgstr "Settings Category"
+
+#: TutoSettingsCategoryCardContent
+msgctxt "TutoSettingsCategoryCardContent"
+msgid "You can drag it to reorder and change it's position. Clicking on it will open skills in the settings view"
+msgstr "You can drag it to reorder and change it's position. Clicking on it will open skills in the settings view"
+
+#: TutoSettingsSkillCardTitle
+msgctxt "TutoSettingsSkillCardTitle"
+msgid "Settings Skill"
+msgstr "Settings Skill"
+
+#: TutoSettingsSkillCardContent
+msgctxt "TutoSettingsSkillCardContent"
+msgid "You can drag it to reorder and change it's position"
+msgstr "You can drag it to reorder and change it's position"
+
+#: TutoSettingsEditButtonTitle
+msgctxt "TutoSettingsEditButtonTitle"
+msgid "Edit button"
+msgstr "Edit button"
+
+#: TutoSettingsEditButtonContent
+msgctxt "TutoSettingsEditButtonContent"
+msgid "This will open the edit view where you can change title and color (for category)/image (for skill)"
+msgstr "This will open the edit view where you can change title and color (for category)/image (for skill)"
+
+#: TutoSettingsDeleteButtonTitle
+msgctxt "TutoSettingsDeleteButtonTitle"
+msgid "Delete Button"
+msgstr "Delete Button"
+
+#: TutoSettingsDeleteButtonContent
+msgctxt "TutoSettingsDeleteButtonContent"
+msgid "This will delete the corresponding category/skill"
+msgstr "This will delete the corresponding category/skill"
+
+#: TutoSettingsNotationButtonTitle
+msgctxt "TutoSettingsNotationButtonTitle"
+msgid "Notation Palette"
+msgstr "Notation Palette"
+
+#: TutoSettingsNotationButtonContent
+msgctxt "TutoSettingsNotationButtonContent"
+msgid "This palette is used to set the notation level for the skills. Notation level is the number of levels of acquisition available to the user (between 2 and 5)"
+msgstr "This palette is used to set the notation level for the skills. Notation level is the number of levels of acquisition available to the user (between 2 and 5)"
+
+#: TutoSettingsAddButtonTitle
+msgctxt "TutoSettingsAddButtonTitle"
+msgid "Add Button"
+msgstr "Add Button"
+
+#: TutoSettingsAddButtonContent
+msgctxt "TutoSettingsAddButtonContent"
+msgid "This is used to add a new category/skill"
+msgstr "This is used to add a new category/skill"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Curriculum Activity"
+msgstr "Curriculum Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "This is an activity to self evalutate your skills You can acquire different skills from multiple categories and upload media elements to demonstrate it"
+msgstr "This is an activity to self evalutate your skills You can acquire different skills from multiple categories and upload media elements to demonstrate it"
+
+#: TutoTemplateSelectionTitle
+msgctxt "TutoTemplateSelectionTitle"
+msgid "Template Selection"
+msgstr "Template Selection"
+
+#: TutoTemplateSelectionContent
+msgctxt "TutoTemplateSelectionContent"
+msgid "Select skill assessment template to start the activity with"
+msgstr "Select skill assessment template to start the activity with"
+
+#: TutoTemplateTitle
+msgctxt "TutoTemplateTitle"
+msgid "Template"
+msgstr "Template"
+
+#: TutoTemplateContent
+msgctxt "TutoTemplateContent"
+msgid "Click on this to select the template You can also change the title of the template using the edit button"
+msgstr "Click on this to select the template You can also change the title of the template using the edit button"
+
+#: TutoAddTemplateTitle
+msgctxt "TutoAddTemplateTitle"
+msgid "Add Template"
+msgstr "Add Template"
+
+#: TutoAddTemplateContent
+msgctxt "TutoAddTemplateContent"
+msgid "Add a template from a hosted URL of JSON file for Curriculum"
+msgstr "Add a template from a hosted URL of JSON file for Curriculum"
+
+#: TutoCategoryCardTitle
+msgctxt "TutoCategoryCardTitle"
+msgid "Category"
+msgstr "Category"
+
+#: TutoCategoryCardContent
+msgctxt "TutoCategoryCardContent"
+msgid "This is a category which stores multiples skills. Click on the category to open the skills under it"
+msgstr "This is a category which stores multiples skills. Click on the category to open the skills under it"
+
+#: TutoCategorySkillsTitle
+msgctxt "TutoCategorySkillsTitle"
+msgid "Highlighted skills"
+msgstr "Highlighted skills"
+
+#: TutoCategorySkillsContent
+msgctxt "TutoCategorySkillsContent"
+msgid "These are the first skills of the category"
+msgstr "These are the first skills of the category"
+
+#: TutoCategoryProgressTitle
+msgctxt "TutoCategoryProgressTitle"
+msgid "Category Progress"
+msgstr "Category Progress"
+
+#: TutoCategoryProgressContent
+msgctxt "TutoCategoryProgressContent"
+msgid "This section shows your progress in the category. It shows the acquired skill medals with colors of the skill level"
+msgstr "This section shows your progress in the category. It shows the acquired skill medals with colors of the skill level"
+
+#: TutoCategorySearchTitle
+msgctxt "TutoCategorySearchTitle"
+msgid "Category Search"
+msgstr "Category Search"
+
+#: TutoCategorySearchContent
+msgctxt "TutoCategorySearchContent"
+msgid "You can search for a specific category by its name here"
+msgstr "You can search for a specific category by its name here"
+
+#: TutoRewardsButtonTitle
+msgctxt "TutoRewardsButtonTitle"
+msgid "Rewards Button"
+msgstr "Rewards Button"
+
+#: TutoRewardsButtonContent
+msgctxt "TutoRewardsButtonContent"
+msgid "This button opens the Rewards view where you can view the trophies you have acquired"
+msgstr "This button opens the Rewards view where you can view the trophies you have acquired"
+
+#: TutoSettingsButtonTitle
+msgctxt "TutoSettingsButtonTitle"
+msgid "Settings Button"
+msgstr "Settings Button"
+
+#: TutoSettingsButtonContent
+msgctxt "TutoSettingsButtonContent"
+msgid "This button opens the Settings Mode. Here you can rearrange, add, edit and delete categories and skills"
+msgstr "This button opens the Settings Mode. Here you can rearrange, add, edit and delete categories and skills"
+
+#: TutoExportButtonTitle
+msgctxt "TutoExportButtonTitle"
+msgid "Export Palette"
+msgstr "Export Palette"
+
+#: TutoExportButtonContent
+msgctxt "TutoExportButtonContent"
+msgid "This palette can be used to export a report in TXT, PDF, DOC or ODT format"
+msgstr "This palette can be used to export a report in TXT, PDF, DOC or ODT format"
+
+#: TutoNetworkButtonTitle
+msgctxt "TutoNetworkButtonTitle"
+msgid "Network Button"
+msgstr "Network Button"
+
+#: TutoNetworkButtonContent
+msgctxt "TutoNetworkButtonContent"
+msgid "This button is used to share your skills with the network.  Anyone in the network can view your skills"
+msgstr "This button is used to share your skills with the network.  Anyone in the network can view your skills"
+
+#: TutoSkillCardTitle
+msgctxt "TutoSkillCardTitle"
+msgid "Skill"
+msgstr "Skill"
+
+#: TutoSkillCardContent
+msgctxt "TutoSkillCardContent"
+msgid "This is a skill with a descriptive title and image. You can see the acquired level of this skill from the top-right medal. Click on the skill to change its level or to view/update the media uploads"
+msgstr "This is a skill with a descriptive title and image. You can see the acquired level of this skill from the top-right medal. Click on the skill to change its level or to view/update the media uploads"
+
+#: TutoHomeButtonTitle
+msgctxt "TutoHomeButtonTitle"
+msgid "Categories Button"
+msgstr "Categories Button"
+
+#: TutoHomeButtonContent
+msgctxt "TutoHomeButtonContent"
+msgid "This will take you back to the Categories view"
+msgstr "This will take you back to the Categories view"
+
+#: TutoSkillSearchTitle
+msgctxt "TutoSkillSearchTitle"
+msgid "Skill Search"
+msgstr "Skill Search"
+
+#: TutoSkillSearchContent
+msgctxt "TutoSkillSearchContent"
+msgid "You can search for a specific skill by its name here"
+msgstr "You can search for a specific skill by its name here"
+
+#: TutoSkillUploadsTitle
+msgctxt "TutoSkillUploadsTitle"
+msgid "Uploads"
+msgstr "Uploads"
+
+#: TutoSkillUploadsContent
+msgctxt "TutoSkillUploadsContent"
+msgid "This sections shows all the uploaded media elements"
+msgstr "This sections shows all the uploaded media elements"
+
+#: TutoAcquireButtonTitle
+msgctxt "TutoAcquireButtonTitle"
+msgid "Acquire Button"
+msgstr "Acquire Button"
+
+#: TutoAcquireButtonContent
+msgctxt "TutoAcquireButtonContent"
+msgid "This button switches between the various skill-acquired levels. You can also click the medal under title for the same result"
+msgstr "This button switches between the various skill-acquired levels. You can also click the medal under title for the same result"
+
+#: TutoUploadButtonTitle
+msgctxt "TutoUploadButtonTitle"
+msgid "Upload Palette"
+msgstr "Upload Palette"
+
+#: TutoUploadButtonContent
+msgctxt "TutoUploadButtonContent"
+msgid "This palette is used to upload media elements (image/audio/video) from the Journal"
+msgstr "This palette is used to upload media elements (image/audio/video) from the Journal"
+
+#: TutoUploadedItemTitle
+msgctxt "TutoUploadedItemTitle"
+msgid "Uploaded Item"
+msgstr "Uploaded Item"
+
+#: TutoUploadedItemContent
+msgctxt "TutoUploadedItemContent"
+msgid "This shows a preview of the uploaded element. Click on it to open a popup where you can view or delete it"
+msgstr "This shows a preview of the uploaded element. Click on it to open a popup where you can view or delete it"
+
