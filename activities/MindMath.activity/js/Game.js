@@ -95,7 +95,7 @@ var Game = {
         </div>
         <div class="slots-area-footer">
           <button id="btn-restart"
-            v-if="!disabled"
+            v-if="!disabled && mode=='timer'"
             class="slots-area-footer-button"
             v-bind:style="{backgroundColor: strokeColor}"
             v-on:click="$emit('restart-game')"
