@@ -34,10 +34,17 @@
 	min-height: calc(100vh - 55px);
 	background: white;
 }
+.poll-stats .poll-header {
+	padding: 20px 5vw;
+	background: rgba(0, 0, 0, 0.05);
+}
+.poll-stats .poll-header h1 {
+	margin: 0;
+}
 #stats {
 	height: 70% !important;
 	width: 70% !important;
-	border: solid 4px red;
+	border: solid 2px red;
 }
 .poll-stats .poll-footer {
 	position: fixed;

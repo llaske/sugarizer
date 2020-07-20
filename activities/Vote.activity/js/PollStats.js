@@ -18,6 +18,9 @@ var PollStats = {
 	/*html*/
 	template: `
 		<div class="poll-stats">
+			<div class="poll-header">
+				<h1>{{ activePoll.question }}</h1>
+			</div>
 			{{ answers }} <br>
 			<canvas id="stats" width="400" height="400"></canvas>
 			<div class="poll-footer">
