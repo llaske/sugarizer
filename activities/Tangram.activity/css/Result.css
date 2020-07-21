@@ -40,7 +40,7 @@
 
 .result-main {
   width: 100%;
-  height: 87%;
+  height: 77%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -58,8 +58,53 @@
   width: 32%;
   height: 98%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.result-secondary-block {
+  width: 70%;
+  height: 20%;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: min(3.5vh, 3.5vw);
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.result-secondary-block-logo {
+	width: 50%;
+	height: 100%;
+	background-repeat: no-repeat;
+  background-position: left;
+  background-size: contain;
+}
+
+.result-secondary-block-content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.result-secondary-block-content div {
+  width:90%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.score-title {
+  width: 65%;
+}
+
+.score-val {
+  width: 35%;
 }
 
 .result-footer {

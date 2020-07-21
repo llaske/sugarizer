@@ -361,17 +361,14 @@ var generateTangramEdges = function () {
     return new Tangram(tans);
 };
 
-/* Generate a given number of tangrams, after each generation send a message to
- * the main script, at the end of generation sort tangrams and send the tans of
- * the first six as JSON string */
-/*var generateTangrams = function (number) {
+var generateTangrams = function (number) {
     generating = true;
     var generated = [];
     for (var index = 0; index < number; index++) {
-        generated[index] = generateTangramEdges();*/
+        generated[index] = generateTangramEdges();
         /* Clean up objects - delete keys that have just been set to avoid
          * computing these properties multiple times */
-/*        for (var tanId = 0; tanId < 7; tanId++) {
+        for (var tanId = 0; tanId < 7; tanId++) {
             delete generated[index].tans[tanId].points;
             delete generated[index].tans[tanId].segments;
             delete generated[index].tans[tanId].insidePoints;
@@ -382,6 +379,5 @@ var generateTangramEdges = function () {
     }
     generating = false;
     eval = false;
-    console.log("genrating done");
     return generated;
-};*/
+};

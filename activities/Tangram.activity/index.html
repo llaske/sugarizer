@@ -61,10 +61,15 @@
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
 				v-bind:show-hint="showHint"
+				v-bind:mode="mode"
+				v-bind:level="level"
+				v-bind:game-over="gameOver"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:remove-tangram-borders="onRemoveTangramBorders"
 				v-on:tangram-status="onTangramStatus"
+				v-on:pass-puzzle="handlePassButton"
+				v-on:restart-game="handleRestartButton"
 			></component>
 		</transition>
 

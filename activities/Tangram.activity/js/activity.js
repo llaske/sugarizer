@@ -24,6 +24,7 @@ var app = new Vue({
     sugarPopup: null,
     mode: 'non-timer',
     score: 0,
+    scores: [],
     tangramCategory: 'standard',
     level: 0,
     tangramType: 1,
@@ -36,6 +37,7 @@ var app = new Vue({
     },
     puzzles: [],
     pNo: 0,
+    gameOver: null,
     isTargetAcheived: false,
     hintNumber: 0,
     showHint: false,
@@ -44,7 +46,16 @@ var app = new Vue({
       width: 1,
       height: 1,
     },
-    tanColors: ["blue", "purple", "red", "violet", "yellow", "yellow"],
+    tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
+  },
+  watch: {
+    currentScreen: function() {
+      var vm = this;
+      if (vm.currentScreen === 'game') {
+        vm.newGame();
+        //vm.startClock();
+      }
+    },
   },
   methods: {
     initialized: function() {
@@ -56,14 +67,14 @@ var app = new Vue({
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
       vm.fillColor = vm.currentenv.user.colorvalue.fill;
 
-      vm.currentScreen = "result";
-
-      vm.newGame();
+      vm.currentScreen = "game";
 
     },
 
     newGame: function() {
       let vm = this;
+      vm.score = 0;
+      vm.scores = [];
       vm.puzzles = [];
       vm.pNo = 0;
       vm.hintNumber = 0;
@@ -81,7 +92,8 @@ var app = new Vue({
         tang = tangram.tangram;
         tangramName = tangram.name;
       } else if (vm.tangramType === 2) {
-        tang = generateTangramEdges();
+        let generatedTangrams = generateTangrams(5);
+        tang = generatedTangrams[0];
         tangramName = "Random";
       } else if (vm.tangramType === 3) {
         let tangram = standardTangrams[0];
@@ -181,6 +193,7 @@ var app = new Vue({
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', center.toFloatX() + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
       }
+
     },
 
     onConfigChanged: function(data) {
@@ -191,6 +204,9 @@ var app = new Vue({
 
     onRemoveTangramBorders: function(data) {
       let vm = this;
+      if (vm.gameOver) {
+        return;
+      }
       for (var i = 0; i < 7; i++) {
         vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = true;
       }
@@ -212,12 +228,16 @@ var app = new Vue({
 
     onTangramStatus: function(data) {
       let vm = this;
+      if (vm.gameOver) {
+        return;
+      }
       vm.isTargetAcheived = data;
 
       for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
         vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'shadowEnabled', data);
       }
       if (data) {
+        vm.gameOver = 'solved';
         for (var i = 0; i < 7; i++) {
           vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = false;
         }
@@ -225,8 +245,58 @@ var app = new Vue({
 
     },
 
+    handleRestartButton: function() {
+      var vm = this;
+      if (vm.currentScreen === 'game') {
+        //vm.stopClock();
+        //vm.$set(vm.slots, vm.qNo, []);
+        vm.score += 0;
+        vm.scores.push(0)
+        //vm.pushTimeTaken();
+        vm.gameOver = null;
+        vm.newGame();
+      } else {
+        //change currentScreen
+        vm.currentScreen = "game";
+      }
+    },
+
+    handlePassButton: function () {
+      var vm = this;
+
+      if (vm.currentScreen === 'game') {
+        //stop timer
+        vm.score += 0;
+        vm.scores.push(0)
+        //vm.pushTimeTaken();
+        //cloning array
+        if (vm.mode === 'non-timer') {
+          //vm.stopClock();
+          /*vm.slots = [
+            []
+          ];*/
+          for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
+            let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[i].tanType];
+            vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'fill', color);
+            vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'strokeEnabled', false);
+          }
+          vm.gameOver = 'passed';
+        } else {
+          //go to next question in question set for timer mode
+          /*vm.$set(vm.slots, vm.qNo, []);
+          vm.qNo++;
+          vm.$set(vm.slots, vm.qNo, []);
+          */
+        }
+
+      }
+    },
+
     onTangramTypeSelected: function (evt) {
       let vm = this;
+      if (vm.gameOver) {
+        return;
+      }
       vm.tangramType = evt.index;
       vm.selectTangramTypeItem(evt.index);
       vm.newGame();
@@ -252,6 +322,9 @@ var app = new Vue({
 
     onDifficultySelected: function(evt) {
       var vm = this;
+      if (vm.gameOver) {
+        return;
+      }
       vm.level = evt.index;
       let color = vm.level === 0 ? vm.fillColor : vm.strokeColor;
       for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
@@ -273,7 +346,7 @@ var app = new Vue({
 
     onHint: function() {
       let vm = this;
-      if (vm.level === 0 || vm.isTargetAcheived) {
+      if (vm.level === 0 || vm.gameOver) {
         return;
       }
       let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[vm.hintNumber].tanType];

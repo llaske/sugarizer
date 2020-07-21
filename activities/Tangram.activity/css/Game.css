@@ -37,7 +37,17 @@
   flex-direction: row;
   justify-content: space-around;
   align-items:center;
-  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);*/
+}
+
+#floating-game-over-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
 }
 
 .floating-block {
@@ -105,4 +115,67 @@
 
 .detil-block-content {
 	width: 50%;
+}
+
+
+.gameOver-block {
+  width: 85%;
+  height: 15%;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: min(3.5vh, 3.5vw);
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.gameOver-block-logo {
+	width: 50%;
+	height: 100%;
+	background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.gameOver-block-content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.gameOver-block-content div {
+  width:90%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.hintsUsed-title {
+  width: 65%;
+}
+
+.hintsUsed-val {
+  width: 35%;
+}
+
+.emoji-won-block{
+  height: 40%;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center;
+  background-image: url(../icons/player-win.svg);
+}
+
+.emoji-lost-block{
+  height: 40%;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center;
+  background-image: url(../icons/player-lost.svg);
 }
