@@ -1,0 +1,120 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Jul 21 2020 16:03:15 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Network
+msgctxt "Network"
+msgid "Network"
+msgstr "Network"
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr "Undo"
+
+#: Redo
+msgctxt "Redo"
+msgid "Redo"
+msgstr "Redo"
+
+#: Timer
+msgctxt "Timer"
+msgid "Timer"
+msgstr "Timer"
+
+#: DifficultyLevel
+msgctxt "DifficultyLevel"
+msgid "Difficulty Level"
+msgstr "Difficulty Level"
+
+#: CompulsoryOperators
+msgctxt "CompulsoryOperators"
+msgid "Compulsory Operators"
+msgstr "Compulsory Operators"
+
+#: Hint
+msgctxt "Hint"
+msgid "Hint"
+msgstr "Hint"
+
+#: Tutorial
+msgctxt "Tutorial"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr "Unfullscreen"
+
+#: Stop
+msgctxt "Stop"
+msgid "Stop"
+msgstr "Stop"
+
+#: Score
+msgctxt "Score"
+msgid "Score"
+msgstr "Score"
+
+#: TotalScore
+msgctxt "TotalScore"
+msgid "Total Score:"
+msgstr "Total Score:"
+
+#: TotalTime
+msgctxt "TotalTime"
+msgid "Total Time:"
+msgstr "Total Time:"
+
+#: Rank
+msgctxt "Rank"
+msgid "Rank"
+msgstr "Rank"
+
+#: User
+msgctxt "User"
+msgid "User"
+msgstr "User"
+
+#: NextSlot
+msgctxt "NextSlot"
+msgid "Next Slot"
+msgstr "Next Slot"
+
+#: NoTimer
+msgctxt "NoTimer"
+msgid "No Timer"
+msgstr "No Timer"
+
+#: NoHint
+msgctxt "NoHint"
+msgid "No Hint"
+msgstr "No Hint"
+
+#: EasyLevel
+msgctxt "EasyLevel"
+msgid "Easy Level"
+msgstr "Easy Level"
+
+#: MediumLevel
+msgctxt "MediumLevel"
+msgid "Medium Level"
+msgstr "Medium Level"
+
