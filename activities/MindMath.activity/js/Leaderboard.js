@@ -26,35 +26,40 @@ var Leaderboard = {
               v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(item.user.colorvalue.stroke, item.user.colorvalue.fill)+')'}"
             ></div>
             <div class="leaderboard-item leaderboard-item-name">{{  item.user.name  }}</div>
-            <div class="leaderboard-item leaderboard-item-score">{{  item.score!=null ? item.score : "--" }}</div>
+            <div class="leaderboard-item leaderboard-item-score"
+            v-bind:style="{backgroundImage: item.score===null ? 'url(./icons/hourglass.svg)' : ''}"
+            >{{  item.score!=null ? item.score : "" }}</div>
           </div>
         </div>
       </div>
       <div class="leaderboard-footer">
         <div class="pagination">
           <button
+            v-if="playersAll.length > 3"
             v-bind:disabled="isPreviousButtonDisabled"
-            class="btn-block btn-previous-page"
+            class="btn-general-block btn-previous-page"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="pageChangeHandler('previous')"
           >
           </button>
           <button
-            class="btn-block page-no"
+            v-if="playersAll.length > 3"
+            class="btn-general-block page-no"
             v-bind:style="{backgroundColor: fillColor}"
           >
             {{ currentPage }}/{{ pageCount }}
           </button>
           <button
+            v-if="playersAll.length > 3"
             v-bind:disabled="isNextButtonDisabled"
-            class="btn-block btn-next-page"
+            class="btn-general-block btn-next-page"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="pageChangeHandler('next')"
           >
           </button>
         </div>
         <div class="footer-actions">
-          <button class="btn-block btn-back-block"
+          <button class="btn-general-block btn-back-block"
             v-bind:style="{backgroundColor: fillColor}"
             v-on:click="$emit('go-to-result')"
           >
@@ -68,7 +73,7 @@ var Leaderboard = {
       players: [],
       currentPage: 1,
       pageCount: 1,
-      visibleItemsPerPageCount: 10,
+      visibleItemsPerPageCount: 3,
       initP: 0
     }
   },
@@ -91,6 +96,9 @@ var Leaderboard = {
       var vm = this;
       vm.pageCount = Math.ceil(vm.playersAll.length / vm.visibleItemsPerPageCount);
       vm.sortLeaderboard();
+      setTimeout(() => {
+        vm.resize();
+      }, 0);
     },
 
     playersPlaying: function() {
@@ -118,15 +126,16 @@ var Leaderboard = {
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 3;
       var newHeight = window.innerHeight - toolbarHeight;
 
       document.querySelector('#leaderboard-view').style.height = newHeight + "px";
       document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
-      document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
-      document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
-      document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
-
+      if (vm.playersAll.length > vm.visibleItemsPerPageCount) {
+        document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
+        document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
+        document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
+      }
     },
 
     sortLeaderboard: function(all) {
@@ -153,10 +162,14 @@ var Leaderboard = {
     pageChangeHandler: function(value) {
       switch (value) {
         case 'next':
-          this.currentPage += 1
+          if (this.currentPage < this.pageCount) {
+            this.currentPage += 1
+          }
           break
         case 'previous':
-          this.currentPage -= 1
+          if (this.currentPage > 1) {
+            this.currentPage -= 1
+          }
           break
         default:
           this.currentPage = value

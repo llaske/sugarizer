@@ -1,8 +1,3 @@
-var requestAnimationFrame = window.requestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.msRequestAnimationFrame;
-
 var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
 
 
@@ -27,21 +22,21 @@ var ChessGame = {
           <div class="usrlogo">
           </div>
           <div class="usrtime">
-            <p v-if="!opponentuser">PC</p>
-            <p v-else-if="!clock">_:_</p>
-            <p v-else>{{parsedOpponentClockTime}}</p>
+            <div v-if="!opponentuser">PC</div>
+            <div v-else-if="!clock">_:_</div>
+            <div v-else>{{parsedOpponentClockTime}}</div>
           </div>
 
         </div>
         <div id="flagDiv">
-          <p>{{infotext}}</p>
+          <div>{{infotext}}</div>
         </div>
         <div id="player-clock">
           <div class="usrlogo">
           </div>
           <div class="usrtime">
-          <p v-if="!clock">_:_</p>
-          <p v-else>{{parsedClockTime}}</p>
+          <div v-if="!clock">_:_</div>
+          <div v-else>{{parsedClockTime}}</div>
             </div>
         </div>
 
@@ -94,10 +89,10 @@ var ChessGame = {
       infotext: 'Vs',
       clock: 0,
       stopClock: true,
+      timer: null,
       stopOpponentClock: true,
       clockTime: 30,
       opponentClockTime: 30,
-      previousTime: new Date(),
       clockTotalTime: 30,
       l10n: {
         stringYouWon: '',
@@ -106,8 +101,6 @@ var ChessGame = {
         stringMatchDraw: '',
         stringVs: '',
         stringTimeExpired: '',
-        stringThinking: ''
-
       }
     }
   },
@@ -149,8 +142,8 @@ var ChessGame = {
         this.infotext = this.l10n.stringYouWon;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        $('#player-clock').css('border-style','none');
-        $('#opponent-clock').css('border-style','none');
+        $('#player-clock').css('border-style', 'none');
+        $('#opponent-clock').css('border-style', 'none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -163,8 +156,8 @@ var ChessGame = {
         this.infotext = this.l10n.stringYouLost;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        $('#player-clock').css('border-style','none');
-        $('#opponent-clock').css('border-style','none');
+        $('#player-clock').css('border-style', 'none');
+        $('#opponent-clock').css('border-style', 'none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -177,8 +170,8 @@ var ChessGame = {
         this.infotext = this.l10n.stringMatchDraw;
         this.stopClock = true;
         this.stopOpponentClock = true;
-        $('#player-clock').css('border-style','none');
-        $('#opponent-clock').css('border-style','none');
+        $('#player-clock').css('border-style', 'none');
+        $('#opponent-clock').css('border-style', 'none');
       } else {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
@@ -218,10 +211,10 @@ var ChessGame = {
     this.state = new p4_new_game();
 
   },
-  updated: function () {
+  updated: function() {
     const lastChild = $("#ordered-moves li:last-child");
-    if (lastChild.offset()!=undefined) {
-      document.getElementById("moves-container").scrollTo(0,lastChild.offset().top + lastChild.height());
+    if (lastChild.offset() != undefined) {
+      document.getElementById("moves-container").scrollTo(0, lastChild.offset().top + lastChild.height());
     }
   },
   mounted: function() {
@@ -237,7 +230,6 @@ var ChessGame = {
       onMouseoutSquare: this.onMouseoutSquare
     });
 
-    this.tick();
     $('#player-clock .usrlogo').css('background-image', 'url(' + generateXOLogoWithColor(this.currentuser.colorvalue) + ')');
 
     // Handle resize
@@ -249,31 +241,27 @@ var ChessGame = {
 
       if (ratio < 1) {
 
-        if (toolbarHeight !=0 ) {
+        if (toolbarHeight != 0) {
           $('#board').css('width', '60vw');
           $('#chess-panel').css('width', '60vw');
-        }
-        else {
+        } else {
           $('#board').css('width', '65vw');
           $('#chess-panel').css('width', '65vw');
         }
         $('#chess-panel').css('height', '30%');
-      }
-      else if(ratio > 1 && ratio < 1.3){
-        if (toolbarHeight !=0 ) {
-          $('#board').css('width', 0.75*newCanvasHeight+'px');
-          $('#chess-panel').css('height', 0.75*newCanvasHeight+'px');
-        }
-        else {
-          $('#board').css('width', 0.8*newCanvasHeight+'px');
-          $('#chess-panel').css('height', 0.8*newCanvasHeight+'px');
+      } else if (ratio > 1 && ratio < 1.3) {
+        if (toolbarHeight != 0) {
+          $('#board').css('width', 0.75 * newCanvasHeight + 'px');
+          $('#chess-panel').css('height', 0.75 * newCanvasHeight + 'px');
+        } else {
+          $('#board').css('width', 0.8 * newCanvasHeight + 'px');
+          $('#chess-panel').css('height', 0.8 * newCanvasHeight + 'px');
         }
         $('#chess-panel').css('width', '35%');
-      }
-      else {
+      } else {
 
-        $('#board').css('width', 0.95*newCanvasHeight+'px');
-        $('#chess-panel').css('height', 0.95*newCanvasHeight+'px');
+        $('#board').css('width', 0.95 * newCanvasHeight + 'px');
+        $('#chess-panel').css('height', 0.95 * newCanvasHeight + 'px');
         $('#chess-panel').css('width', '35%');
       }
 
@@ -285,61 +273,68 @@ var ChessGame = {
     localized: function(localization) {
       localization.localize(this.l10n);
     },
+    startClockTimer: function() {
+      var vm = this;
+      vm.clockTime = this.clockTotalTime;
+      vm.opponentClockTime = this.clockTotalTime;
+      if (!vm.timer) {
+        vm.tick();
+      }
+    },
+    stopClockTimer: function() {
+      var vm = this;
+      if (vm.timer) {
+        clearInterval(vm.timer);
+      }
+      vm.timer = null;
+    },
     tick: function() {
-      if (((this.opponentuser && this.ishost) || !this.opponentuser) && this.clock) {
-        if (!this.stopClock) {
-          var currentTime = new Date();
-          if (currentTime - this.previousTime >= 1000) {
-            this.previousTime = currentTime;
-
-            if (this.clockTime == 0) {
+      var vm = this;
+      vm.timer = setInterval(function() {
+        if (((vm.opponentuser && vm.ishost) || !vm.opponentuser) && vm.clock) {
+          if (!vm.stopClock) {
+            if (vm.clockTime == 0) {
               //game_lost
-              this.game_lost = true;
-              this.stopClock = true;
-              this.stopOpponentClock = true;
-              this.timeexpired = true;
-              this.$emit('timeexpired', {
+              vm.game_lost = true;
+              vm.stopClock = true;
+              vm.stopOpponentClock = true;
+              vm.timeexpired = true;
+              vm.$emit('timeexpired', {
                 data: {
                   player: 0,
                 }
               });
             } else {
-              this.clockTime--;
+              vm.clockTime--;
             }
           }
-        }
 
-        if (this.opponentuser && this.ishost ) {
-          if (!this.stopOpponentClock) {
-            var currentTime = new Date();
-            if (currentTime - this.previousTime >= 1000) {
-              this.previousTime = currentTime;
-              if (this.opponentClockTime == 0) {
+          if (vm.opponentuser && vm.ishost) {
+            if (!vm.stopOpponentClock) {
+              if (vm.opponentClockTime == 0) {
                 //game won
-                this.game_won = true;
-                this.stopClock = true;
-                this.stopOpponentClock = true;
-                this.timeexpired = true;
-                this.$emit('timeexpired', {
+                vm.game_won = true;
+                vm.stopClock = true;
+                vm.stopOpponentClock = true;
+                vm.timeexpired = true;
+                vm.$emit('timeexpired', {
                   data: {
                     player: 1,
                   }
                 });
               } else {
-                this.opponentClockTime--;
+                vm.opponentClockTime--;
               }
             }
+            vm.$emit('sendclock', {
+              data: {
+                clockTime: vm.clockTime,
+                opponentClockTime: vm.opponentClockTime
+              }
+            });
           }
-          this.$emit('sendclock', {
-            data: {
-              clockTime: this.clockTime,
-              opponentClockTime: this.opponentClockTime
-            }
-          });
         }
-      }
-
-      requestAnimationFrame(this.tick.bind(this));
+      }, 1000);
     },
 
     onSnapEnd: function() {
@@ -393,8 +388,6 @@ var ChessGame = {
     },
 
     makeRandomMove: function() {
-      this.infotext = this.l10n.stringThinking;
-
       var start_time = Date.now();
       var possibleMove = this.state.findmove(this.level);
       var delta = Date.now() - start_time;
@@ -413,12 +406,12 @@ var ChessGame = {
         var depth = this.level;
         depth++;
         //find at higher depths until it runs out of time
-        if (depth > 2){
+        if (depth > 2) {
           var min_time = 25 * depth;
-          while (delta < min_time){
-              depth++;
-              possibleMove = state.findmove(depth);
-              delta = Date.now() - start_time;
+          while (delta < min_time) {
+            depth++;
+            possibleMove = state.findmove(depth);
+            delta = Date.now() - start_time;
           }
         }
         if (possibleMove.length === 0) {
@@ -451,8 +444,8 @@ var ChessGame = {
       if (this.clock) {
         this.stopClock = false;
       }
-      $('#player-clock').css('border-style','solid');
-      $('#opponent-clock').css('border-style','none');
+      $('#player-clock').css('border-style', 'solid');
+      $('#opponent-clock').css('border-style', 'none');
       this.updateMoves();
       this.infotext = this.l10n.stringVs;
 
@@ -492,8 +485,8 @@ var ChessGame = {
           this.stopOpponentClock = false;
         }
 
-        $('#player-clock').css('border-style','none');
-        $('#opponent-clock').css('border-style','solid');
+        $('#player-clock').css('border-style', 'none');
+        $('#opponent-clock').css('border-style', 'solid');
 
         if (this.opponentuser) {
           this.$emit('sendmove', {
@@ -559,31 +552,36 @@ var ChessGame = {
       this.game_check = false;
       this.other_check = false;
       this.timeexpired = false;
-      this.clockTime = this.clockTotalTime;
-      this.opponentClockTime = this.clockTotalTime;
       this.stopClock = true;
       this.stopOpponentClock = true;
+      this.stopClockTimer();
 
       this.moves = [];
 
       if (this.playercolor) {
         //if it is black oriented
-        $('#player-clock').css('border-style','none');
-        $('#opponent-clock').css('border-style','solid');
+        $('#player-clock').css('border-style', 'none');
+        $('#opponent-clock').css('border-style', 'solid');
+        if (this.clock) {
+          this.stopOpponentClock = false;
+          this.stopClock = true;
+          this.startClockTimer();
+        }
         if (!this.presence) {
           this.makeRandomMove();
         }
-      }
-      else {
-        $('#player-clock').css('border-style','solid');
-        $('#opponent-clock').css('border-style','none');
+      } else {
+        $('#player-clock').css('border-style', 'solid');
+        $('#opponent-clock').css('border-style', 'none');
+        if (this.clock) {
+          this.stopClock = false;
+          this.stopOpponentClock = true;
+          this.startClockTimer();
+        }
       }
 
       if (this.presence) {
         this.$emit('restart');
-      }
-      if (this.clock) {
-        this.stopClock = false;
       }
 
     },
@@ -591,20 +589,29 @@ var ChessGame = {
     undo: function() {
       if (!this.opponentuser) {
         if ((!this.playercolor && this.state.moveno > 0) || (this.playercolor && this.state.moveno > 1)) {
-          if(this.game_won){
+          if (this.game_won) {
             this.game_won = false;
-          }
-          if(this.game_draw){
+            p4_jump_to_moveno(this.state, this.state.moveno - 1);
+            this.moves.pop();
+          } else if (this.game_draw) {
             this.game_draw = false;
-          }
-          if(this.game_lost){
+            p4_jump_to_moveno(this.state, this.state.moveno - 1);
+            this.moves.pop();
+          } else if (this.game_lost) {
             this.game_lost = false;
+            p4_jump_to_moveno(this.state, this.state.moveno - 1);
+            this.moves.pop();
+          } else {
+            p4_jump_to_moveno(this.state, this.state.moveno - 2);
+            this.moves.pop();
+            this.moves.pop();
           }
-          p4_jump_to_moveno(this.state, this.state.moveno - 2);
           this.board.position(p4_state2fen(this.state, true));
-          this.moves.pop();
-          this.moves.pop();
-          this.game_check = this.moves[this.moves.length - 1].check;
+          if (this.moves.length > 0) {
+            this.game_check = this.moves[this.moves.length - 1].check;
+          } else {
+            this.game_check = false;
+          }
         }
       }
     },
@@ -616,15 +623,13 @@ var ChessGame = {
             this.board.orientation('white');
             this.playercolor = 0;
             this.newGame();
-          }
-          else {
+          } else {
             this.board.orientation('black');
             this.playercolor = 1;
             this.newGame();
           }
         }
-      }
-      else {
+      } else {
         if (this.state.moveno == 0) {
           this.board.orientation('black');
           this.playercolor = 1;
@@ -649,6 +654,7 @@ var ChessGame = {
           this.clockTotalTime = 0;
           this.stopClock = true;
           this.stopOpponentClock = true;
+          this.stopClockTimer();
           document.getElementById("disabled-clock").classList.add("selected");
           document.getElementById("lightning-clock").classList.remove("selected");
           document.getElementById("blitz-clock").classList.remove("selected");
@@ -656,6 +662,7 @@ var ChessGame = {
           break;
         case 1:
           this.clockTotalTime = 30;
+          this.stopClockTimer();
           if (this.state.to_play == this.playercolor) {
             this.stopClock = false;
             this.stopOpponentClock = true;
@@ -663,6 +670,7 @@ var ChessGame = {
             this.stopClock = true;
             this.stopOpponentClock = false;
           }
+          this.startClockTimer();
           document.getElementById("lightning-clock").classList.add("selected");
           document.getElementById("disabled-clock").classList.remove("selected");
           document.getElementById("blitz-clock").classList.remove("selected");
@@ -670,6 +678,7 @@ var ChessGame = {
           break;
         case 2:
           this.clockTotalTime = 3 * 60;
+          this.stopClockTimer();
           if (this.state.to_play == this.playercolor) {
             this.stopClock = false;
             this.stopOpponentClock = true;
@@ -677,6 +686,7 @@ var ChessGame = {
             this.stopClock = true;
             this.stopOpponentClock = false;
           }
+          this.startClockTimer();
           document.getElementById("blitz-clock").classList.add("selected");
           document.getElementById("disabled-clock").classList.remove("selected");
           document.getElementById("lightning-clock").classList.remove("selected");
@@ -684,6 +694,7 @@ var ChessGame = {
           break;
         case 3:
           this.clockTotalTime = 10 * 60;
+          this.stopClockTimer();
           if (this.state.to_play == this.playercolor) {
             this.stopClock = false;
             this.stopOpponentClock = true;
@@ -691,6 +702,7 @@ var ChessGame = {
             this.stopClock = true;
             this.stopOpponentClock = false;
           }
+          this.startClockTimer();
           document.getElementById("tournament-clock").classList.add("selected");
           document.getElementById("disabled-clock").classList.remove("selected");
           document.getElementById("blitz-clock").classList.remove("selected");
@@ -700,6 +712,7 @@ var ChessGame = {
           this.clockTotalTime = 0;
           this.stopClock = true;
           this.stopOpponentClock = true;
+          this.stopClockTimer();
           document.getElementById("disabled-clock").classList.remove("selected");
           document.getElementById("lightning-clock").classList.remove("selected");
           document.getElementById("blitz-clock").classList.remove("selected");
@@ -708,8 +721,7 @@ var ChessGame = {
       this.clock = index;
       if (withTime != undefined) {
         this.clockTime = withTime;
-      }
-      else {
+      } else {
         this.clockTime = this.clockTotalTime;
       }
       this.opponentClockTime = this.clockTotalTime;

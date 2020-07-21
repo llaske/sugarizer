@@ -4,7 +4,8 @@
   display: flex;
   flex: 1;
   flex-direction: row;
-  overflow: auto;
+  overflow: none;
+  align-items: center;
 }
 
 .btn-operator {
@@ -291,7 +292,9 @@
   .btn-number:hover {
     font-size: 30px;
   }
-
+  .slots-area-footer-button:hover {
+    background-size: 80%;
+  }
 }
 
 @media only screen and (max-width: 940px) {

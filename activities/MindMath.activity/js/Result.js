@@ -4,7 +4,7 @@ var Result = {
     "clock": Clock,
     "inputNumber": InputNumber
   },
-  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll','disabled', 'l10n'],
+  props: ['strokeColor', 'fillColor', 'questions', 'qNo', 'time', 'score', 'slots', 'scores', 'timeTaken', 'compulsoryOpsForEachQuestion', 'playersAll', 'disabled', 'l10n', 'sugarPresence'],
   template: `
     <div id="result-view"
     >
@@ -34,7 +34,7 @@ var Result = {
               <div class="result-panel-main">
                 <div class="my-solution">
                   <div class="info-bar">
-                    <div class="info-block"
+                    <div class="info-block clock-info-block"
                     >
                       <div class="info-block-logo clock-logo"></div>
                       <div class="info-block-content">
@@ -47,7 +47,7 @@ var Result = {
                       v-bind:style="{backgroundImage: 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')'}"
                     ></div>
 
-                    <div class="info-block"
+                    <div class="info-block score-info-block"
                     >
                       <div class="info-block-content info-score-1">
                         <div>{{ l10n.stringScore }}:</div>
@@ -95,21 +95,24 @@ var Result = {
       <div class="result-footer">
           <div class="pagination">
             <button
+              v-if="qNo > 1"
               v-bind:disabled="isPreviousButtonDisabled"
-              class="btn-block btn-previous-page"
+              class="btn-general-block btn-previous-page"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="pageChangeHandler('previous')"
             >
             </button>
             <button
-              class="btn-block page-no"
+              v-if="qNo > 1"
+              class="btn-general-block page-no"
               v-bind:style="{backgroundColor: fillColor}"
             >
               {{ currentPage }}/{{ pageCount }}
             </button>
             <button
+              v-if="qNo > 1"
               v-bind:disabled="isNextButtonDisabled"
-              class="btn-block btn-next-page"
+              class="btn-general-block btn-next-page"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="pageChangeHandler('next')"
             >
@@ -118,14 +121,15 @@ var Result = {
           <div class="footer-actions">
             <button
               v-if="playersAll.length!=0"
-              class="btn-block btn-rankings-block"
+              class="btn-general-block btn-rankings-block"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="$emit('see-leaderboard')"
             >
             </button>
             <button
+              v-if="isRestartButtonVisible"
               v-bind:disabled="disabled"
-              class="btn-block btn-restart-block"
+              class="btn-general-block btn-restart-block"
               v-bind:style="{backgroundColor: fillColor}"
               v-on:click="$emit('restart-game')"
             >
@@ -143,7 +147,8 @@ var Result = {
       timeForEachQuestion: [],
       currentPage: 1,
       pageCount: 1,
-      visibleItemsPerPageCount: 8,
+      visibleItemsPerPageCount: 1,
+      canRestart: true,
     };
   },
   created: function() {
@@ -170,38 +175,38 @@ var Result = {
 
     isNextButtonDisabled: function() {
       return this.currentPage === this.pageCount
-    }
-  },
-  watch: {
-    currentPage: function () {
-      const resulMain = document.querySelector(".result-main");
-      if (resulMain) {
-        resulMain.scrollTo(0,0);
-      }
+    },
+
+    isRestartButtonVisible: function () {
+      var vm = this;
+      vm.canRestart = vm.sugarPresence ? (vm.sugarPresence.isConnected() ? vm.sugarPresence.isHost : true) : true;
+      setTimeout(() => {
+        vm.resize();
+      }, 0);
+      return vm.canRestart;
     }
   },
   methods: {
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");
-      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 0;
+      var toolbarHeight = toolbarElem.offsetHeight != 0 ? toolbarElem.offsetHeight + 3 : 3;
       var newHeight = window.innerHeight - toolbarHeight;
       var newWidth = window.innerWidth;
       var ratio = newWidth / newHeight;
 
       document.querySelector('#result-view').style.height = newHeight + "px";
-      if (vm.playersAll.length!=0) {
-      //  document.querySelector('.btn-back-block').style.width = document.querySelector('.btn-back-block').offsetHeight + "px";
+      if (vm.playersAll.length != 0) {
         document.querySelector('.btn-rankings-block').style.width = document.querySelector('.btn-rankings-block').offsetHeight + "px";
-      } else {
-
       }
-      document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
-      document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
-      document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
-      document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
-
-
+      if (vm.canRestart) {
+        document.querySelector('.btn-restart-block').style.width = document.querySelector('.btn-restart-block').offsetHeight + "px";
+      }
+      if (vm.qNo > 1) {
+        document.querySelector('.btn-previous-page').style.width = document.querySelector('.btn-previous-page').offsetHeight + "px";
+        document.querySelector('.page-no').style.width = document.querySelector('.page-no').offsetHeight + "px";
+        document.querySelector('.btn-next-page').style.width = document.querySelector('.btn-next-page').offsetHeight + "px";
+      }
 
       if (ratio < 1) {
         // stack up panels
@@ -235,7 +240,7 @@ var Result = {
       vm.mySlots = [];
       vm.timeForEachQuestion = [];
 
-      var initQno = (vm.currentPage-1) * vm.visibleItemsPerPageCount;
+      var initQno = (vm.currentPage - 1) * vm.visibleItemsPerPageCount;
       var len = vm.qNo + 1 - initQno;
       if (len > vm.visibleItemsPerPageCount) {
         len = vm.visibleItemsPerPageCount;
@@ -279,13 +284,17 @@ var Result = {
       }
     },
 
-    pageChangeHandler: function (value) {
+    pageChangeHandler: function(value) {
       switch (value) {
         case 'next':
-          this.currentPage += 1
+          if (this.currentPage < this.pageCount) {
+            this.currentPage += 1
+          }
           break
         case 'previous':
-          this.currentPage -= 1
+          if (this.currentPage > 1) {
+            this.currentPage -= 1
+          }
           break
         default:
           this.currentPage = value

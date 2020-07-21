@@ -4,20 +4,24 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Mind Math Activity</title>
-	<meta name="viewport"
-		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
 	<link rel="prefetch" type="application/l10n" href="locale.ini" />
 	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/slots.css">
 	<link rel="stylesheet" href="css/game.css">
 	<link rel="stylesheet" href="css/result.css">
 	<link rel="stylesheet" href="css/leaderboard.css">
-	<link rel="stylesheet" href="css/slots.css">
-	<script src="lib/vue.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<link rel="stylesheet" href="css/libnotify.css">
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -81,7 +85,7 @@
 			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
-			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<transition name="fade" id="app-content" mode="out-in">
@@ -105,7 +109,8 @@
 				v-bind:players-all="playersAll"
 				v-bind:players-playing="playersPlaying"
 				v-bind:disabled="disabled"
-				v-bind:sugar-popup="sugarPopup"
+				v-bind:multiplayer="multiplayer"
+				v-bind:sugar-presence="SugarPresence"
 				v-bind:is-target-acheived="isTargetAcheived"
 				v-bind:l10n="l10n"
 				v-on:validate="onValidate"
@@ -123,6 +128,7 @@
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged" v-on:multiplayer-game-started="onMultiplayerGameStarted"></sugar-presence>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -135,6 +141,7 @@
 	<script src="js/Result.js"></script>
 	<script src="js/Leaderboard.js"></script>
 	<script src="js/Game.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
