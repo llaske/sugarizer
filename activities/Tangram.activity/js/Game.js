@@ -865,6 +865,9 @@ var Game = {
 
     onRefresh: function(e) {
       let vm = this;
+      if (vm.gameOver) {
+        return;
+      }
       if (e && e.screenX === 0 && e.screenY === 0) {
         return;
       }
