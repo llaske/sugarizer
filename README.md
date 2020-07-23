@@ -39,6 +39,7 @@ The Sugarizer desktop application has three possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
 * `--debug` to open Sugarizer with the debug console
+* `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
