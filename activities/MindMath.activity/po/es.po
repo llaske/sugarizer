@@ -1,0 +1,425 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Jul 21 2020 16:03:15 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Network
+msgctxt "Network"
+msgid "Network"
+msgstr "Network"
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr "Undo"
+
+#: Redo
+msgctxt "Redo"
+msgid "Redo"
+msgstr "Redo"
+
+#: Timer
+msgctxt "Timer"
+msgid "Timer"
+msgstr "Timer"
+
+#: DifficultyLevel
+msgctxt "DifficultyLevel"
+msgid "Difficulty Level"
+msgstr "Difficulty Level"
+
+#: CompulsoryOperators
+msgctxt "CompulsoryOperators"
+msgid "Compulsory Operators"
+msgstr "Compulsory Operators"
+
+#: Hint
+msgctxt "Hint"
+msgid "Hint"
+msgstr "Hint"
+
+#: Tutorial
+msgctxt "Tutorial"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr "Unfullscreen"
+
+#: Stop
+msgctxt "Stop"
+msgid "Stop"
+msgstr "Stop"
+
+#: Score
+msgctxt "Score"
+msgid "Score"
+msgstr "Score"
+
+#: TotalScore
+msgctxt "TotalScore"
+msgid "Total Score:"
+msgstr "Total Score:"
+
+#: TotalTime
+msgctxt "TotalTime"
+msgid "Total Time:"
+msgstr "Total Time:"
+
+#: Rank
+msgctxt "Rank"
+msgid "Rank"
+msgstr "Rank"
+
+#: User
+msgctxt "User"
+msgid "User"
+msgstr "User"
+
+#: NextSlot
+msgctxt "NextSlot"
+msgid "Next Slot"
+msgstr "Next Slot"
+
+#: NoTimer
+msgctxt "NoTimer"
+msgid "No Timer"
+msgstr "No Timer"
+
+#: NoHint
+msgctxt "NoHint"
+msgid "No Hint"
+msgstr "No Hint"
+
+#: EasyLevel
+msgctxt "EasyLevel"
+msgid "Easy Level"
+msgstr "Easy Level"
+
+#: MediumLevel
+msgctxt "MediumLevel"
+msgid "Medium Level"
+msgstr "Medium Level"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Mind Math Activity"
+msgstr "Mind Math Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Mind Math activity. Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations"
+msgstr "Welcome into the Mind Math activity. Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations"
+
+#: TutoAboutTitle
+msgctxt "TutoAboutTitle"
+msgid "Game modes"
+msgstr "Game modes"
+
+#: TutoAboutContent
+msgctxt "TutoAboutContent"
+msgid "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
+msgstr "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
+
+#: TutoEachPuzzleTitle
+msgctxt "TutoEachPuzzleTitle"
+msgid "Puzzle"
+msgstr "Puzzle"
+
+#: TutoEachPuzzleContent
+msgctxt "TutoEachPuzzleContent"
+msgid "In Each Puzzle or question, you will be given 5 numbers and a target number. Using these 5 numbers ( can only be used once each ) and 4 arithmetic operations you have to obtain the target number"
+msgstr "In Each Puzzle or question, you will be given 5 numbers and a target number. Using these 5 numbers ( can only be used once each ) and 4 arithmetic operations you have to obtain the target number"
+
+#: TutoInputNumbersTitle
+msgctxt "TutoInputNumbersTitle"
+msgid "Input Numbers"
+msgstr "Input Numbers"
+
+#: TutoInputNumbersContent
+msgctxt "TutoInputNumbersContent"
+msgid "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgstr "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+
+#: TutoTargetTitle
+msgctxt "TutoTargetTitle"
+msgid "Target Number"
+msgstr "Target Number"
+
+#: TutoTargetContent
+msgctxt "TutoTargetContent"
+msgid "This is the Target Number which you will have to obtain in a puzzle"
+msgstr "This is the Target Number which you will have to obtain in a puzzle"
+
+#: TutoOperatorsTitle
+msgctxt "TutoOperatorsTitle"
+msgid "Operators"
+msgstr "Operators"
+
+#: TutoOperatorsContent
+msgctxt "TutoOperatorsContent"
+msgid "These are the 4 arithmetic operators which you can use. The circled operators are the compulsory operators"
+msgstr "These are the 4 arithmetic operators which you can use. The circled operators are the compulsory operators"
+
+#: TutoSlotsTitle
+msgctxt "TutoSlotsTitle"
+msgid "Slots"
+msgstr "Slots"
+
+#: TutoSlotsContent
+msgctxt "TutoSlotsContent"
+msgid "These are the slots. You can fill the slots by performing operation as one operation will fill one slot. You have 4 slots so you can perform 4 operations at max"
+msgstr "These are the slots. You can fill the slots by performing operation as one operation will fill one slot. You have 4 slots so you can perform 4 operations at max"
+
+#: TutoHowToPlayTitle
+msgctxt "TutoHowToPlayTitle"
+msgid "How To Play"
+msgstr "How To Play"
+
+#: TutoHowToPlayContent
+msgctxt "TutoHowToPlayContent"
+msgid "1. Press one of the numbers to be used<br>2. Press an operation sign<br>3. Press another number. The slot gets filled and indicates the result of the operation.<br>4. When the target number has been reached, press the \"Validate\" Button"
+msgstr "1. Press one of the numbers to be used<br>2. Press an operation sign<br>3. Press another number. The slot gets filled and indicates the result of the operation.<br>4. When the target number has been reached, press the \"Validate\" Button"
+
+#: TutoPassTitle
+msgctxt "TutoPassTitle"
+msgid "Pass"
+msgstr "Pass"
+
+#: TutoPassContent
+msgctxt "TutoPassContent"
+msgid "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
+msgstr "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
+
+#: TutoValidateTitle
+msgctxt "TutoValidateTitle"
+msgid "Validate"
+msgstr "Validate"
+
+#: TutoValidateContent
+msgctxt "TutoValidateContent"
+msgid "This is the \"validate\" button which will appear once you reach the target number"
+msgstr "This is the \"validate\" button which will appear once you reach the target number"
+
+#: TutoScoreTitle
+msgctxt "TutoScoreTitle"
+msgid "Score"
+msgstr "Score"
+
+#: TutoScoreContent
+msgctxt "TutoScoreContent"
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold"
+msgstr "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold"
+
+#: TutoCompulsoryOpTitle
+msgctxt "TutoCompulsoryOpTitle"
+msgid "Compulsory Operators"
+msgstr "Compulsory Operators"
+
+#: TutoCompulsoryOpContent
+msgctxt "TutoCompulsoryOpContent"
+msgid "You can choose Compulsory Operators from here. You have to include a compulsory operation in at least one slot, otherwise you won't be able to solve the puzzle even after obtaining the target number"
+msgstr "You can choose Compulsory Operators from here. You have to include a compulsory operation in at least one slot, otherwise you won't be able to solve the puzzle even after obtaining the target number"
+
+#: TutoHintTitle
+msgctxt "TutoHintTitle"
+msgid "Hint"
+msgstr "Hint"
+
+#: TutoHintContent
+msgctxt "TutoHintContent"
+msgid "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all the four slots then you will get 0 score"
+msgstr "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all the four slots then you will get 0 score"
+
+#: TutoLevelTitle
+msgctxt "TutoLevelTitle"
+msgid "Difficulty Level"
+msgstr "Difficulty Level"
+
+#: TutoLevelContent
+msgctxt "TutoLevelContent"
+msgid "Choose the Difficulty level. There are two Levels:- Easy where number to find is between 10 and 69 and Medium where number to find is between 0 and 99"
+msgstr "Choose the Difficulty level. There are two Levels:- Easy where number to find is between 10 and 69 and Medium where number to find is between 0 and 99"
+
+#: TutoTimerTitle
+msgctxt "TutoTimerTitle"
+msgid "Timer"
+msgstr "Timer"
+
+#: TutoTimerContent
+msgctxt "TutoTimerContent"
+msgid "Choose Timer. You can disable/enable the timer here"
+msgstr "Choose Timer. You can disable/enable the timer here"
+
+#: TutoGameActionsTitle
+msgctxt "TutoGameActionsTitle"
+msgid "Game Actions"
+msgstr "Game Actions"
+
+#: TutoGameActionsContent
+msgctxt "TutoGameActionsContent"
+msgid "Here you have Game Actions buttons like \"Restart\", \"Pass\" or \"Validate\".The \"Validate\" button will appear once you reach the target number"
+msgstr "Here you have Game Actions buttons like \"Restart\", \"Pass\" or \"Validate\".The \"Validate\" button will appear once you reach the target number"
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Undo"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click To Undo the latest operation performed"
+msgstr "Click To Undo the latest operation performed"
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Redo"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "Click To Redo the latest operation performed"
+msgstr "Click To Redo the latest operation performed"
+
+#: TutoUselessOpsTitle
+msgctxt "TutoUselessOpsTitle"
+msgid "Useless Operations"
+msgstr "Useless Operations"
+
+#: TutoUselessOpsContent
+msgctxt "TutoUselessOpsContent"
+msgid "The Useless Operations are those operations which contribute nothing in obtaining target Number.<br>The Compulsory Operators used in such operations would not be counted.<br>The useless operations would be represented by grey colored slot and will not increase your score"
+msgstr "The Useless Operations are those operations which contribute nothing in obtaining target Number.<br>The Compulsory Operators used in such operations would not be counted.<br>The useless operations would be represented by grey colored slot and will not increase your score"
+
+#: TutoResultTitle
+msgctxt "TutoResultTitle"
+msgid "Results screen"
+msgstr "Results screen"
+
+#: TutoResultContent
+msgctxt "TutoResultContent"
+msgid "On this screen you can see Solutions of the puzzles you have attempted"
+msgstr "On this screen you can see Solutions of the puzzles you have attempted"
+
+#: TutoBestSolnTitle
+msgctxt "TutoBestSolnTitle"
+msgid "Computer's Calculation"
+msgstr "Computer's Calculation"
+
+#: TutoBestSolnContent
+msgctxt "TutoBestSolnContent"
+msgid "These are the Slots filled by Computer"
+msgstr "These are the Slots filled by Computer"
+
+#: TutoMySolnTitle
+msgctxt "TutoMySolnTitle"
+msgid "My Calculation"
+msgstr "My Calculation"
+
+#: TutoMySolnContent
+msgctxt "TutoMySolnContent"
+msgid "These are the slots filled by you (if you have)"
+msgstr "These are the slots filled by you (if you have)"
+
+#: TutoClockInfoTitle
+msgctxt "TutoClockInfoTitle"
+msgid "Time taken"
+msgstr "Time taken"
+
+#: TutoClockInfoContent
+msgctxt "TutoClockInfoContent"
+msgid "This will show the time taken to solve the particular puzzle"
+msgstr "This will show the time taken to solve the particular puzzle"
+
+#: TutoScoreInfoTitle
+msgctxt "TutoScoreInfoTitle"
+msgid "Score"
+msgstr "Score"
+
+#: TutoScoreInfoContent
+msgctxt "TutoScoreInfoContent"
+msgid "This will show the score you got in the particular puzzle"
+msgstr "This will show the score you got in the particular puzzle"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Restart"
+msgstr "Restart"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to restart the game"
+msgstr "Click here to restart the game"
+
+#: TutoPaginationTitle
+msgctxt "TutoPaginationTitle"
+msgid "Pagination"
+msgstr "Pagination"
+
+#: TutoPaginationContent
+msgctxt "TutoPaginationContent"
+msgid "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
+msgstr "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
+
+#: TutoLeaderboardPaginationTitle
+msgctxt "TutoLeaderboardPaginationTitle"
+msgid "Pagination"
+msgstr "Pagination"
+
+#: TutoLeaderboardPaginationContent
+msgctxt "TutoLeaderboardPaginationContent"
+msgid "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
+msgstr "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
+
+#: TutoLeaderboardMainTitle
+msgctxt "TutoLeaderboardMainTitle"
+msgid "Leaderboard screen"
+msgstr "Leaderboard screen"
+
+#: TutoLeaderboardMainContent
+msgctxt "TutoLeaderboardMainContent"
+msgid "Here you can see the rankings and score of the users competiting with you"
+msgstr "Here you can see the rankings and score of the users competiting with you"
+
+#: TutoGoBackFromLeaderboardTitle
+msgctxt "TutoGoBackFromLeaderboardTitle"
+msgid "Go Back"
+msgstr "Go Back"
+
+#: TutoGoBackFromLeaderboardContent
+msgctxt "TutoGoBackFromLeaderboardContent"
+msgid "Go Back To Solutions screen"
+msgstr "Go Back To Solutions screen"
+
