@@ -1,0 +1,528 @@
+button:disabled {
+  opacity: 0.3;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  min-height: 100%;
+  overflow: none;
+  background-color: #ffffff;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .4s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+#main-toolbar .splitbar {
+  border-right: 1.5px solid #565656;
+  margin: 7.5px 5px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#main-toolbar.toolbar {
+  padding: 0 2%;
+  overflow-y: hidden;
+}
+
+#main-toolbar.hidden {
+  height: 0;
+  overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #restart-button {
+  background-image: url(../icons/restart.svg);
+}
+
+#main-toolbar #pass-button {
+  background-image: url(../icons/end-icon.svg);
+}
+
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #redo-button {
+  background-image: url(../icons/redo.svg);
+}
+
+#main-toolbar #timer-button {
+  background-image: url(../icons/timer-0.svg);
+}
+
+#main-toolbar #level-button {
+  background-image: url(../icons/level.svg);
+}
+
+#main-toolbar #compulsory-op-button {
+  background-image: url(../icons/compulsory-op.svg);
+}
+
+#main-toolbar #hint-button {
+  background-image: url(../icons/robot.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#main-toolbar #fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 1%;
+  position: absolute;
+  z-index: 5;
+}
+
+#easy-button {
+  background-image: url(../icons/easy-level.svg);
+}
+
+#medium-button {
+  background-image: url(../icons/medium-level.svg);
+}
+
+.disabled {
+  opacity: .65;
+}
+
+.footer-actions {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.pagination {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.btn-general-block {
+  width: 125px;
+  height: 100%;
+  padding: 0px;
+  border: none;
+  margin: 0px 1%;
+  cursor: pointer;
+  border-radius: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
+.btn-general-block:hover {
+  background-size: 90%;
+}
+
+.btn-previous-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-left-black.svg);
+}
+
+.btn-next-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-right-black.svg);
+}
+
+.page-no {
+  margin: 0px 1%;
+  font-weight: bold;
+  color: black;
+  font-size: 3vh;
+  cursor: auto;
+}
+
+@media (hover:none), (hover:on-demand) {
+  /* suppress hover effect on devices that don't support hover fully*/
+  .btn-general-block:hover {
+    background-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 406px) {
+  #timer-button {
+    display: none;
+  }
+
+  #timer-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 464px) {
+  #level-button {
+    display: none;
+  }
+
+  #difficulty-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 521px) {
+  #compulsory-op-button {
+    display: none;
+  }
+
+  #compulsory-op-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 577px) {
+  #hint-button {
+    display: none;
+  }
+
+  #hint-palette {
+    display: none;
+  }
+}
+
+#plus-cmpOp {
+  background-image: url(../icons/plus-icon.svg);
+}
+
+#minus-cmpOp {
+  background-image: url(../icons/minus-icon.svg);
+}
+
+#multiply-cmpOp {
+  background-image: url(../icons/multiply-icon.svg);
+}
+
+#divide-cmpOp {
+  background-image: url(../icons/divide-icon.svg);
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.comp-palette-button {
+  width: 20px;
+  height: 20px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-notselected {
+  background-color: transparent;
+}
+
+.palette .row {
+  display: block;
+  margin: 0 0 !important;
+  box-sizing: initial !important;
+  font-size: 10pt;
+}
+
+.palette .expand {
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+
+.palette input#title.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 245px;
+  color: black;
+}
+
+.palette textarea#description.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 255px;
+  color: black;
+}
+
+.palette input[type='text'].expand {
+  font-family: system-ui;
+  font-size: 11px;
+}
+
+.palette .container {
+  box-sizing: initial;
+}
+
+.palette .wrapper {
+  font-size: 10pt;
+  box-sizing: initial;
+  min-width: 70px;
+}
+
+.palette *, ::after, ::before {
+  box-sizing: initial;
+}
+
+.palette-item {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.palette-text {
+  text-align: center;
+  margin: 4px;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-item-selected {
+  background-color: #808080;
+}
+
+.palette-icon {
+  width: 50px;
+}
+
+.template-col {
+  padding-left: 20px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.template-item {
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 8px 8px 8px #888888;
+  display: inline-table;
+  font-size: 1.25em;
+}
+
+#spinner {
+  position: absolute;
+  margin-left: 45%;
+  margin-top: 20%;
+  width: 8%;
+}
+
+.popup-input {
+  border-radius: 22px;
+  height: 30px;
+  width: 400px;
+  background-color: #e5e5e5;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 10pt;
+  display: inline-block;
+}
+
+.popup-label {
+  color: #808080;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.tutNumbersRow {
+  display: flex;
+  align-items: center;
+}
+
+.tutNumbersRow img {
+  margin: 4px;
+}
+
+.tutorial-icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+.tutorial-title {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-prev-icon.tutorial-icon-button {
+  color: white;
+}
+
+.tutorial-prev-icon.tutorial-icon-button.disabled {
+  color: black;
+  opacity: 1;
+}
+
+.tutorial-prev-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-next-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-next-icon.tutorial-icon-button {
+  color: white;
+}
+
+.tutorial-next-icon.tutorial-icon-button.disabled {
+  color: black;
+  opacity: 1;
+}
+
+.tutorial-next-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-end-icon {
+  display: inline-flex;
+  width: 90px;
+}
+
+.tutorial-end-icon.tutorial-icon-button {
+  color: white;
+}
+
+.tutorial-end-icon.tutorial-icon-button.disabled {
+  color: black;
+  opacity: 1;
+}
+
+.tutorial-end-icon1 {
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.tutorial-icon-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
