@@ -45,7 +45,15 @@
 				palette-event="difficulty-selected"
 				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
-			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
+			<sugar-toolitem
+				id="timer-button"
+				title="Timer"
+				palette-file="js/palettes/timerPalette.js"
+				palette-class="TimerPalette"
+				palette-title=" Timer"
+				palette-event="timer-selected"
+				v-on:timer-selected="onTimerSelected"
+			></sugar-toolitem>
 			<sugar-toolitem id="hint-button" v-if="level" title="hint" v-on:click="onHint"></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
@@ -64,6 +72,8 @@
 				v-bind:mode="mode"
 				v-bind:level="level"
 				v-bind:game-over="gameOver"
+				v-bind:time="clock.time"
+				v-bind:user-response="userResponse"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:remove-tangram-borders="onRemoveTangramBorders"
@@ -86,6 +96,7 @@
 	<script src="js/utils/evaluation.js"></script>
 	<script src="js/utils/generator.js"></script>
 	<script src="js/utils/standardTangrams.js"></script>
+	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
 	<script src="js/components/SugarActivity.js"></script>

@@ -168,7 +168,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position:center;
-  background-image: url(../icons/player-win.svg);
+  background-image: url(../icons/smile.svg);
 }
 
 .emoji-lost-block{
@@ -177,5 +177,18 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position:center;
-  background-image: url(../icons/player-lost.svg);
+  background-image: url(../icons/sad.svg);
+}
+
+.pulse {
+  animation: pulse 0.5s 1;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }

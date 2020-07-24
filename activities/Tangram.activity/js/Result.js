@@ -1,20 +1,58 @@
-/*
-<div class="result-header">
-  <div class="result-bar"
-  >
-    <div class="result-bar-block"
-      v-bind:style="{backgroundColor: fillColor}"
-    >
-    </div>
-    <div class="result-bar-block"
-      v-bind:style="{backgroundColor: fillColor}"
-    >
-    </div>
-  </div>
-</div>
-*/
+var ResultCard = {
+  components: {
+    'clock': Clock
+  },
+  props: ['strokeColor', 'fillColor', 'puzzle', 'configKonva', 'configLayer'],
+  template: `
+		<div class="result-card" v-bind:style="{backgroundColor: '#ffffff'}">
+      <div class="info-bar">
+        <div class="info-block clock-info-block"
+        >
+          <div class="info-block-logo clock-logo"></div>
+          <div class="info-block-content">
+            <clock v-bind:time=0></clock>
+          </div>
+        </div>
+
+        <div
+          class="info-bar-logo info-user-logo"
+          v-bind:style="{backgroundImage: puzzle.isSolved ? 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')' : 'url(./icons/robot.svg)' }"
+        ></div>
+
+        <div class="info-block score-info-block"
+        >
+          <div class="info-block-content info-score-1">
+            <div>Score:</div>
+          </div>
+          <div class="info-block-content info-score-2">
+            <div>0</div>
+          </div>
+        </div>
+      </div>
+			<div class="result-card-main">
+        <v-stage ref="stage" v-bind:config="configKonva"
+        >
+          <v-layer ref="layer" :config="configLayer">
+            <v-line
+              v-for="(targetTan, index) in puzzle.targetTans"
+              v-bind:key="index"
+              :config="{
+                ...targetTan,
+              }"
+            ></v-line>
+          </v-layer>
+        </v-stage>
+      </div>
+		</div>
+	`,
+}
+
 var Result = {
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo'],
+  components: {
+    'result-card': ResultCard,
+    'clock': Clock
+  },
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse'],
   template: `
     <div id="result-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -25,10 +63,12 @@ var Result = {
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
+            <clock time='0' text='Total Time: '></clock>
           </div>
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
+            <div>Total Score: 0</div>
           </div>
         </div>
       </div>
@@ -36,41 +76,16 @@ var Result = {
       <div class="result-main"
       >
         <div class="result-panel-primary"
-          v-bind:style="{backgroundColor: '#ffffff'}"
         >
-          <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}"
-          >
-            <v-layer ref="layer" :config="configLayer">
-              
-            </v-layer>
-          </v-stage>
-        </div>
-
-        <div class="result-panel-secondary"
-          v-bind:style="{backgroundColor: '#ffffff'}"
-        >
-          <div class="result-secondary-block"
-            v-bind:style="{borderColor: strokeColor}"
-          >
-            <div class="result-secondary-block-logo clock-logo"></div>
-            <div class="result-secondary-block-content">
-              <div>00:00</div>
-            </div>
-          </div>
-
-          <div class="result-secondary-block score-block"
-            v-bind:style="{borderColor: strokeColor}"
-          >
-            <div class="result-secondary-block-content score-title"><div>Score:</div></div>
-            <div class="result-secondary-block-content score-val"><div>0</div></div>
-          </div>
-
-          <div class="result-secondary-block"
-            v-bind:style="{borderColor: strokeColor}"
-          >
-            <div class="result-secondary-block-content hint-title"><div>Hints Used:</div></div>
-            <div class="result-secondary-block-content hint-title"><div>0</div></div>
-          </div>
+          <result-card
+            v-for="(puzzle,index) in puzzlesSet"
+            v-bind:key="index"
+            v-bind:configLayer="configLayer"
+            v-bind:configKonva="configKonva"
+            v-bind:puzzle="puzzle"
+            v-bind:stroke-color="strokeColor"
+    				v-bind:fill-color="fillColor"
+          ></result-card>
 
         </div>
 
@@ -91,24 +106,26 @@ var Result = {
   data: function() {
     return {
       configKonva: {
-        width: 60,
-        height: 60,
+        width: 300,
+        height: 300,
       },
       configLayer: {
-        scaleX: 6,
-        scaleY: 6
+        scaleX: 5,
+        scaleY: 5
       },
-      puzzleShape: null,
+      puzzlesSet: [],
       currentPage: 1,
       pageCount: 1,
       visibleItemsPerPageCount: 1,
       canRestart: true,
+      tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
     };
   },
 
   created: function() {
     let vm = this;
     window.addEventListener('resize', vm.resize);
+    vm.initializePuzzleShape();
   },
 
   destroyed: function() {
@@ -129,45 +146,47 @@ var Result = {
       let newHeight = window.innerHeight - toolbarHeight;
       let newWidth = window.innerWidth;
       let ratio = newWidth / newHeight
-
+      let resultCardMainEle = document.querySelector('.result-card-main');
       document.querySelector('#result-screen').style.height = newHeight + "px";
-
       document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
 
     },
 
-    initializePuzzleShape: function () {
+    initializePuzzleShape: function() {
       let vm = this;
-      vm.puzzleShape = {
-        targetTans: []
-      };
+      vm.puzzlesSet = [];
+      for (var i = 0; i <= vm.pNo; i++) {
+        let puzzleShape = {
+          isSolved: vm.userResponse[i].isSolved,
+          targetTans: []
+        };
+        let tans = vm.userResponse[i].tans;
 
-      let targetTans = vm.puzzles[vm.pNo].targetTans;
-      let scale = vm.scale;
-      let dx = vm.stage.width / (3 * scale) - 30;
-      let dy = vm.stage.height / (2 * scale) - 30;
+        for (let index = 0; index < tans.length; index++) {
+          let tan = new Tan(tans[index].tanType, tans[index].anchor.dup(), tans[index].orientation);
+          let points = [...tan.getPoints()];
+          let center = tan.center();
+          let floatPoints = [];
 
-      for (let index = 0; index < targetTans.length; index++) {
-        let points = [...targetTans[index].tanObj.getPoints()];
-        let center = targetTans[index].tanObj.center();
-        let floatPoints = [];
-
-        for (let j = 0; j < points.length; j++) {
-          let tmpPoint = points[j].dup();
-          tmpPoint.x.add(new IntAdjoinSqrt2(dx, 0));
-          tmpPoint.y.add(new IntAdjoinSqrt2(dy, 0));
-          floatPoints.push(tmpPoint.toFloatX());
-          floatPoints.push(tmpPoint.toFloatY());
+          for (let j = 0; j < points.length; j++) {
+            let tmpPoint = points[j].dup();
+            floatPoints.push(tmpPoint.toFloatX());
+            floatPoints.push(tmpPoint.toFloatY());
+          }
+          puzzleShape.targetTans.push({
+            points: floatPoints,
+            offsetX: center.toFloatX(),
+            offsetY: center.toFloatY(),
+            x: center.toFloatX(),
+            y: center.toFloatY(),
+            fill: vm.tanColors[tans[index].tanType],
+            lineJoin: 'round',
+            closed: true,
+          })
         }
-        vm.puzzleShape.targetTans.push({
-          points: floatPoints,
-          offsetX: center.toFloatX() + dx,
-          offsetY: center.toFloatY() + dy,
-          x: center.toFloatX() + dx,
-          y: center.toFloatY() + dy,
-        })
+        vm.puzzlesSet.push(puzzleShape);
       }
+    },
 
-    }
   }
 }

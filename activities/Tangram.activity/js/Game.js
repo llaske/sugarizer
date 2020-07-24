@@ -1,11 +1,18 @@
 var Game = {
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'mode', 'level', 'gameOver'],
+  components: {
+    "clock": Clock,
+  },
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'mode', 'level', 'gameOver', 'time'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
     >
       <div class="game-main">
-        <v-stage ref="stage" v-bind:config="configKonva" v-bind:style="{backgroundColor: '#ffffff'}"
+        <v-stage ref="stage" v-bind:config="configKonva"
+          v-bind:style="{
+            backgroundColor: '#ffffff',
+            borderRadius: '10px'
+          }"
         >
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
@@ -38,7 +45,7 @@ var Game = {
           <v-line v-if="!(gameOver==='passed') && !(showHint && (tansSnapped[currentTan] || tansPlaced[currentTan]!=-1))"
             :config="{
               ...tans[currentTan],
-              listening: !isTargetAcheived
+              listening: gameOver!=='solved'
             }"
             v-on:tap="onTap($event, currentTan)"
             v-on:click="onClick($event, currentTan)"
@@ -63,7 +70,7 @@ var Game = {
           >
             <div class="detail-block-logo clock-logo"></div>
             <div class="detail-block-content">
-              <div>00:00</div>
+              <clock v-bind:time="time"></clock>
             </div>
           </div>
 
@@ -98,7 +105,7 @@ var Game = {
           >
             <div class="gameOver-block-logo clock-logo"></div>
             <div class="gameOver-block-content">
-              <div>00:00</div>
+              <clock v-bind:time="time"></clock>
             </div>
           </div>
 
@@ -127,35 +134,45 @@ var Game = {
           ></div>
 
         </div>
-
       </div>
       <div class="game-footer">
         <div>
         </div>
         <div class="footer-actions">
-          <button
-            class="btn-in-footer btn-replay"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="onRefresh"
-          ></button>
-          <button
-            class="btn-in-footer btn-restart"
-            v-bind:style="{backgroundColor: fillColor}"
-            v-on:click="$emit('restart-game')"
-            v-if="!gameOver && mode==='timer'"
-          ></button>
+          <transition name="fade" mode="out-in">
+            <button
+              v-if="!gameOver"
+              class="btn-in-footer btn-replay"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="onRefresh"
+            ></button>
+          </transition>
           <transition name="fade" mode="out-in">
             <button
               class="btn-in-footer btn-restart"
-              v-bind:style="{backgroundColor: fillColor}"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
               v-on:click="$emit('restart-game')"
-              v-if="gameOver"
+              v-if="mode==='timer'?'true':gameOver"
             ></button>
+          </transition>
+          <transition name="fade" mode="out-in">
             <button
               class="btn-in-footer btn-pass"
-              v-bind:style="{backgroundColor: fillColor}"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
               v-on:click="$emit('pass-puzzle')"
-              v-else
+              v-if="!gameOver"
             ></button>
           </transition>
         </div>
@@ -198,6 +215,10 @@ var Game = {
         lineJoin: 'round',
         dash: [2, 2]
       },
+      actionButtons: {
+        width: 30,
+        width: 30,
+      },
       tans: [],
       tanState: 0,
       currentTan: 0,
@@ -239,7 +260,11 @@ var Game = {
       this.initializeTans();
     },
 
-    gameOver: function () {
+    pNo: function() {
+      this.onRefresh();
+    },
+
+    gameOver: function() {
       if (this.gameOver === 'passed') {
 
       } else if (this.gameOver === 'solved') {
@@ -247,6 +272,14 @@ var Game = {
       } else {
         this.onRefresh();
       }
+    },
+
+    mode: function() {
+      let vm = this;
+      setTimeout(() => {
+        vm.resize();
+        vm.onRefresh();
+      }, 0);
     }
   },
 
@@ -261,7 +294,7 @@ var Game = {
 
       document.querySelector('#game-screen').style.height = newHeight + "px";
       let gameMainEle = document.querySelector('.game-main');
-      let cw = gameMainEle.offsetWidth * 0.98;
+      let cw = gameMainEle.offsetWidth * 0.985;
       let ch = gameMainEle.offsetHeight * 0.97;
       let scale = Math.min(cw, ch) / 75;
 
@@ -284,53 +317,7 @@ var Game = {
 
       vm.$emit('center-tangram');
 
-      vm.initialPositions = [];
-      for (var i = 0; i < 7; i++) {
-        switch (i) {
-          case 0:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.88,
-              y: (ch / scale) * 0.70
-            })
-            break;
-          case 1:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.87,
-              y: (ch / scale) * 0.27
-            })
-            break;
-          case 2:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.72,
-              y: (ch / scale) * 0.70
-            })
-            break;
-          case 3:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.93,
-              y: (ch / scale) * 0.50
-            })
-            break;
-          case 4:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.75,
-              y: (ch / scale) * 0.43
-            })
-            break;
-          case 5:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.78,
-              y: (ch / scale) * 0.52
-            })
-            break;
-          case 6:
-            vm.initialPositions.push({
-              x: (cw / scale) * 0.72,
-              y: (ch / scale) * 0.23
-            })
-            break;
-        }
-      }
+      vm.initializeTansPosition();
 
       if (vm.tans.length != 0) {
         for (var index = 0; index < 7; index++) {
@@ -357,6 +344,81 @@ var Game = {
       vm.$set(vm.gameOverContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.gameOverContainer, 'right', gameMainEle.offsetWidth * 0.01);
 
+      vm.resizePartitionLine();
+
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.20);
+      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.15);
+      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.infoContainer, 'left', gameMainEle.offsetWidth * 0.01 + cw / 4.5);
+
+      let gameFooterEle = document.querySelector('.game-footer');
+      vm.$set(vm.actionButtons, 'width', gameFooterEle.offsetHeight * 0.95);
+      vm.$set(vm.actionButtons, 'height', gameFooterEle.offsetHeight * 0.95);
+    },
+
+    initializeTansPosition: function() {
+      let vm = this;
+      let gameMainEle = document.querySelector('.game-main');
+      let cw = gameMainEle.offsetWidth * 0.98;
+      let ch = gameMainEle.offsetHeight * 0.97;
+      let scale = vm.configLayer.scaleX;
+      let tmp = vm.mode === 'timer' ? 0.08 : 0;
+
+      vm.initialPositions = [];
+      for (var i = 0; i < 7; i++) {
+        switch (i) {
+          case 0:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.88 - 0),
+              y: (ch / scale) * (0.70 + tmp)
+            })
+            break;
+          case 1:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.87 - 0),
+              y: (ch / scale) * (0.27 + tmp)
+            })
+            break;
+          case 2:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.72 - 0),
+              y: (ch / scale) * (0.70 + tmp)
+            })
+            break;
+          case 3:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.93 - 0),
+              y: (ch / scale) * (0.50 + tmp)
+            })
+            break;
+          case 4:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.75 - 0),
+              y: (ch / scale) * (0.43 + tmp)
+            })
+            break;
+          case 5:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.78 - 0),
+              y: (ch / scale) * (0.52 + tmp)
+            })
+            break;
+          case 6:
+            vm.initialPositions.push({
+              x: (cw / scale) * (0.72 - 0),
+              y: (ch / scale) * (0.23 + tmp)
+            })
+            break;
+        }
+      }
+    },
+
+    resizePartitionLine: function() {
+      let vm = this;
+      let gameMainEle = document.querySelector('.game-main');
+      let cw = gameMainEle.offsetWidth * 0.98;
+      let ch = gameMainEle.offsetHeight * 0.97;
+      let scale = vm.configLayer.scaleX;
 
       let partitionLinePoints;
       if (vm.mode === 'timer') {
@@ -366,22 +428,6 @@ var Game = {
       }
       vm.$set(vm.partitionLine, 'points', partitionLinePoints);
       vm.$set(vm.partitionLine, 'stroke', vm.strokeColor);
-
-      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.20);
-      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
-      vm.$set(vm.infoContainer, 'left', gameMainEle.offsetWidth * 0.01 + cw / 4.5);
-
-      if (!vm.isTargetAcheived) {
-        document.querySelector('.btn-pass').style.width = document.querySelector('.btn-pass').offsetHeight + "px";
-      }
-
-      if ((vm.isTargetAcheived && vm.mode === 'non-timer') || (!vm.isTargetAcheived && vm.mode === 'timer')) {
-        document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
-      }
-
-      document.querySelector('.btn-replay').style.width = document.querySelector('.btn-replay').offsetHeight + "px";
-
     },
 
     initializeTans: function() {
@@ -623,7 +669,18 @@ var Game = {
         }
       }
       if (solved) {
-        vm.$emit('tangram-status', true);
+        let tans = [];
+        for (var i = 0; i < 7; i++) {
+          if (vm.tansSnapped[i]) {
+            let point = vm.tans[i].placedAnchor.dup();
+            var tan = new Tan(vm.tans[i].tanType, point, vm.tans[i].orientation);
+            tans.push(tan);
+          }
+        }
+        vm.$emit('tangram-status', {
+          res: true,
+          tans: tans
+        });
         return;
       }
 
@@ -665,7 +722,10 @@ var Game = {
       } else {
         solved = false;
       }
-      vm.$emit('tangram-status', solved);
+      vm.$emit('tangram-status', {
+        res: solved,
+        tans: tans
+      });
 
     },
 
@@ -874,12 +934,12 @@ var Game = {
       setTimeout(() => {
         vm.initializeTans();
       }, 0);
-      setTimeout(() => {
-        for (var i = 0; i < 7; i++) {
-          vm.currentTan = i;
-          vm.checkIfSolved();
-        }
-      }, 0);
+      vm.tansPlaced = [-1, -1, -1, -1, -1, -1, -1];
+      vm.$emit('remove-tangram-borders', vm.tansPlaced);
+      vm.$emit('tangram-status', {
+        res: false,
+        tans: [],
+      });
     },
 
   }
