@@ -708,15 +708,17 @@ var Game = {
             tmp = tmp && arrayEq(vm.puzzles[vm.pNo].outline[outlineId], currentOut[outlineId], comparePoints);
           }
           solved = tmp;
-          /*var tanSegments = computeSegments(getAllPoints(gameOutline), gameOutline);
-          for (var segmentId = 0; segmentId < tanSegments.length; segmentId++) {
-            for (var otherSegmentsId = segmentId + 1; otherSegmentsId < tanSegments.length; otherSegmentsId++) {
-              if (tanSegments[segmentId].intersects(tanSegments[otherSegmentsId])) {
-                return false;
+          if (solved) {
+            let tanSegments = computeSegments(getAllPoints(tans), tans);
+            for (let segmentId = 0; segmentId < tanSegments.length; segmentId++) {
+              for (let otherSegmentsId = segmentId + 1; otherSegmentsId < tanSegments.length; otherSegmentsId++) {
+                if (tanSegments[segmentId].intersects(tanSegments[otherSegmentsId])) {
+                  solved = false;
+                  break;
+                }
               }
             }
           }
-          */
           console.log(solved);
         }
       } else {

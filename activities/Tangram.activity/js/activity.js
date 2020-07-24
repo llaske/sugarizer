@@ -407,9 +407,7 @@ var app = new Vue({
           vm.gameOver = 'passed';
         } else {
           //go to next question in question set for timer mode
-          //vm.$set(vm.slots, vm.qNo, []);
           vm.pNo++;
-          //vm.$set(vm.slots, vm.qNo, []);
 
         }
 
