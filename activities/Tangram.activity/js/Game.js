@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'mode', 'level', 'gameOver', 'time'],
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed','mode', 'level', 'gameOver', 'time'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -18,7 +18,7 @@ var Game = {
           <v-line :config="partitionLine"></v-line>
           <template v-if="puzzles[pNo]">
             <template v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index">
-              <v-line v-if="index!=hintNumber"
+              <v-line v-if="index!=hintNumber || !showHint"
                 :config="{
                   ...targetTan,
                   strokeEnabled: showHint ? true : targetTan.strokeEnabled
@@ -121,7 +121,7 @@ var Game = {
             v-bind:style="{borderColor: strokeColor}"
           >
             <div class="gameOver-block-content hintsUsed-title"><div>Hints Used:</div></div>
-            <div class="gameOver-block-content hintsUsed-val"><div>0</div></div>
+            <div class="gameOver-block-content hintsUsed-val"><div>{{noOfHintsUsed}}</div></div>
           </div>
 
           <div class="gameOver-block emoji-won-block"

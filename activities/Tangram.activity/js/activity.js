@@ -41,6 +41,8 @@ var app = new Vue({
     gameOver: null,
     isTargetAcheived: false,
     hintNumber: 0,
+    hintsUsed: [false, false, false, false, false, false, false],
+    noOfHintsUsed: 0,
     showHint: false,
     scale: 1,
     stage: {
@@ -525,18 +527,25 @@ var app = new Vue({
       if (vm.level === 0 || vm.gameOver) {
         return;
       }
+      vm.hintsUsed[vm.hintNumber] = true;
+      vm.noOfHintsUsed = 0;
+      for (var i = 0; i < 7; i++) {
+        if(vm.hintsUsed[i]){
+          vm.noOfHintsUsed++;
+        }
+      }
       let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[vm.hintNumber].tanType];
       vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', color);
-      vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', color);
+      vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', vm.fillColor);
       //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = false;
-      //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = true;
+      vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = true;
       vm.showHint = true;
 
       setTimeout(() => {
         vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', vm.strokeColor);
         vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', vm.strokeColor);
         //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = true;
-        //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = false;
+        vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = false;
         vm.showHint = false;
       }, 1000);
 
