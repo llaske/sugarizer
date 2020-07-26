@@ -17,10 +17,10 @@
     "ini": "1.1.x"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-terser": "^1.0.0"
+    "grunt": "~1.2.1",
+    "grunt-contrib-jshint": "~2.1.0",
+    "grunt-contrib-nodeunit": "~2.1.0",
+    "grunt-terser": "~1.0.0"
   },
   "build": {
     "appId": "org.olpc-france.sugarizer",
