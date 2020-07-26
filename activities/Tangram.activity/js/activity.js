@@ -35,6 +35,7 @@ var app = new Vue({
       initial: 0,
       type: 0,
     },
+    timeMarks: [],
     puzzles: [],
     pNo: 0,
     userResponse: [],
@@ -116,6 +117,14 @@ var app = new Vue({
       vm.$set(vm.clock, 'active', false);
     },
 
+    pushTimeMark: function () {
+      let vm = this;
+      if(vm.timeMarks.length === 0){
+        vm.timeMarks.push(vm.clock.initial);
+      }
+      vm.timeMarks.push(vm.clock.time);
+    },
+
     tick: function() {
       var vm = this;
 
@@ -126,18 +135,11 @@ var app = new Vue({
             if (vm.clock.time <= 0) {
               //end game
               vm.stopClock();
+              vm.pushTimeMark();
               let tans = [];
-              for (var i = 0; i < 7; i++) {
-                let targetTan = vm.puzzles[vm.pNo].targetTans[i];
-                tans.push(targetTan.tanObj);
-              }
-              vm.$set(vm.userResponse, vm.pNo, {
-                isSolved: false,
-                tans: tans
-              });
+              vm.setUserResponse(tans);
               vm.score += 0;
               vm.scores.push(0)
-              //vm.pushTimeTaken();
 
               if (vm.multiplayer) {
                 //handle multiplayer workflow
@@ -158,6 +160,7 @@ var app = new Vue({
       vm.scores = [];
       vm.puzzles = [];
       vm.userResponse = [];
+      vm.timeMarks = [];
       vm.pNo = 0;
       vm.gameOver = null;
       vm.hintNumber = 0;
@@ -175,6 +178,10 @@ var app = new Vue({
         vm.puzzles = vm.generatePuzzles(15);
       }
       vm.pNo = 0;
+    },
+
+    checkDifficultyOfTangram: function (tang) {
+      return tang.evaluation.getValue(2) <= 11 ? 1 : 0;
     },
 
     generatePuzzles: function(number) {
@@ -197,8 +204,10 @@ var app = new Vue({
           tangramName = tangram.name;
         }
         generating = false;
+        let tangDifficulty = vm.checkDifficultyOfTangram(tang);
         let puzzle = {
           name: tangramName,
+          difficulty: tangDifficulty,
           tangram: {
             ...tang
           },
@@ -259,7 +268,6 @@ var app = new Vue({
         puzzle.outline = [...tang.outline];
         puzzles.push(puzzle);
       }
-      //vm.puzzles = [puzzle];
       return puzzles;
     },
 
@@ -289,6 +297,29 @@ var app = new Vue({
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
       }
 
+    },
+
+    setUserResponse: function (tans) {
+      let vm = this;
+      let isSolved = true;
+      let bonus = vm.puzzles[vm.pNo].difficulty ? 2 : 0;
+      let score;
+      if (tans.length === 0) {
+        //if tangram is not solved, so show computer's solution.
+        isSolved = false;
+        score = 0;
+        for (var i = 0; i < 7; i++) {
+          let targetTan = vm.puzzles[vm.pNo].targetTans[i];
+          tans.push(targetTan.tanObj);
+        }
+      } else {
+        score = 6 - Math.min(6, vm.noOfHintsUsed) + Math.max(0, 15 - Math.floor((vm.timeMarks[vm.pNo+1] - vm.timeMarks[vm.pNo]) / 4)) + bonus;
+      }
+      vm.$set(vm.userResponse, vm.pNo, {
+        isSolved: isSolved,
+        score: score,
+        tans: tans
+      });
     },
 
     onConfigChanged: function(data) {
@@ -335,11 +366,9 @@ var app = new Vue({
         for (var i = 0; i < 7; i++) {
           vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = false;
         }
+        vm.pushTimeMark();
         let tans = data.tans;
-        vm.$set(vm.userResponse, vm.pNo, {
-          isSolved: true,
-          tans: tans
-        });
+        vm.setUserResponse(tans);
         vm.pulseEffect = true;
 
         if (vm.mode === 'non-timer') {
@@ -355,18 +384,12 @@ var app = new Vue({
     handleRestartButton: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
+        vm.pushTimeMark();
         if (vm.mode === 'timer') {
           vm.stopClock();
           //setting userResponse
           let tans = [];
-          for (var i = 0; i < 7; i++) {
-            let targetTan = vm.puzzles[vm.pNo].targetTans[i];
-            tans.push(targetTan.tanObj);
-          }
-          vm.$set(vm.userResponse, vm.pNo, {
-            isSolved: false,
-            tans: tans
-          });
+          vm.setUserResponse(tans);
           vm.currentScreen = "result";
         }
         if (vm.mode === 'non-timer' && vm.gameOver) {
@@ -387,17 +410,10 @@ var app = new Vue({
       if (vm.currentScreen === 'game') {
         vm.score += 0;
         vm.scores.push(0)
-        //vm.pushTimeTaken();
+        vm.pushTimeMark();
         //cloning array
         let tans = [];
-        for (var i = 0; i < 7; i++) {
-          let targetTan = vm.puzzles[vm.pNo].targetTans[i];
-          tans.push(targetTan.tanObj);
-        }
-        vm.$set(vm.userResponse, vm.pNo, {
-          isSolved: false,
-          tans: tans
-        });
+        vm.setUserResponse(tans);
         if (vm.mode === 'non-timer') {
           vm.stopClock();
           vm.pulseEffect = true;

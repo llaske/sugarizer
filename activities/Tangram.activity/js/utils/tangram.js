@@ -1,4 +1,4 @@
-//code from https://github.com/Wiebke/TangramGenerator 
+//code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /* Constructor: array of the 7 tan pieces, in order: BigTriangle, 2. Big Triangle
  * MediumTriangle, SmallTriangle, 2. SmallTriangle, */
@@ -96,5 +96,5 @@ Tangram.prototype.toSVGTans = function (elementName) {
 
 /* Comparison of tangrams for sorting */
 var compareTangrams = function (tangramA, tangramB) {
-    return tangramA.evaluation.getValue() - tangramB.evaluation.getValue();
+    return tangramA.evaluation.getValue(4) - tangramB.evaluation.getValue(4);
 };

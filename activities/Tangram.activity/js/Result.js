@@ -10,7 +10,7 @@ var ResultCard = {
         >
           <div class="info-block-logo clock-logo"></div>
           <div class="info-block-content">
-            <clock v-bind:time=0></clock>
+            <clock v-bind:time="puzzle.timeTaken"></clock>
           </div>
         </div>
 
@@ -25,7 +25,7 @@ var ResultCard = {
             <div>Score:</div>
           </div>
           <div class="info-block-content info-score-2">
-            <div>0</div>
+            <div>{{puzzle.score}}</div>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ var Result = {
     'result-card': ResultCard,
     'clock': Clock
   },
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse', 'timeMarks'],
   template: `
     <div id="result-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -63,12 +63,12 @@ var Result = {
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <clock time='0' text='Total Time: '></clock>
+            <clock v-bind:time="timeMarks[0] - timeMarks[timeMarks.length-1]" text='Total Time: '></clock>
           </div>
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>Total Score: 0</div>
+            <div>Total Score: {{totalScore}}</div>
           </div>
         </div>
       </div>
@@ -113,6 +113,7 @@ var Result = {
         scaleX: 5,
         scaleY: 5
       },
+      totalScore: 0,
       puzzlesSet: [],
       currentPage: 1,
       pageCount: 1,
@@ -155,9 +156,15 @@ var Result = {
     initializePuzzleShape: function() {
       let vm = this;
       vm.puzzlesSet = [];
+      vm.totalScore = 0;
+      for (var i = 0; i < vm.userResponse.length; i++) {
+        vm.totalScore+=vm.userResponse[i].score;
+      }
       for (var i = 0; i <= vm.pNo; i++) {
         let puzzleShape = {
           isSolved: vm.userResponse[i].isSolved,
+          score: vm.userResponse[i].score,
+          timeTaken: vm.timeMarks[i] - vm.timeMarks[i+1],
           targetTans: []
         };
         let tans = vm.userResponse[i].tans;

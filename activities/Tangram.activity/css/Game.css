@@ -192,3 +192,17 @@
     opacity: 100%;
   }
 }
+
+.tangram-name {
+  overflow: hidden;
+}
+
+.tangram-name-content {
+  overflow: hidden;
+}
+
+.tangram-difficulty {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center;
+}

@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed','mode', 'level', 'gameOver', 'time'],
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed','mode', 'level', 'gameOver', 'time', 'userResponse'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -86,12 +86,23 @@ var Game = {
           v-bind:style="{width: nameBlock.width + 'px',
             height: nameBlock.height + 'px',
             top: nameBlock.top + 'px',
-            left: infoContainer.left + 'px',
+            left: nameBlock.left + 'px',
             borderColor: 'transparent'
           }"
         >
-          <div class="detail-block-content tangram-name"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
+          <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
         </div>
+
+        <div class="tangram-difficulty detail-block floating-block"
+          v-bind:style="{width: tangramDiffBlock.width + 'px',
+            height: tangramDiffBlock.height + 'px',
+            top: tangramDiffBlock.top + 'px',
+            left: tangramDiffBlock.left + 'px',
+            borderColor: 'transparent',
+            backgroundImage: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'url(./icons/star.svg)': '') : '',
+          }"
+        ></div>
+
         <div id="floating-game-over-block"
           v-if="mode==='non-timer' && gameOver"
           v-bind:style="{width: gameOverContainer.width + 'px',
@@ -113,7 +124,7 @@ var Game = {
             v-bind:style="{borderColor: strokeColor}"
           >
             <div class="gameOver-block-content score-title"><div>Score:</div></div>
-            <div class="gameOver-block-content score-val"><div>0</div></div>
+            <div class="gameOver-block-content score-val"><div>{{userResponse[pNo] ? userResponse[pNo].score : 0}}</div></div>
           </div>
 
           <div class="gameOver-block hintsUsed-block"
@@ -203,6 +214,12 @@ var Game = {
         right: 0,
       },
       nameBlock: {
+        width: 1,
+        height: 1,
+        top: 0,
+        left: 0
+      },
+      tangramDiffBlock: {
         width: 1,
         height: 1,
         top: 0,
@@ -346,10 +363,15 @@ var Game = {
 
       vm.resizePartitionLine();
 
-      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.20);
-      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
-      vm.$set(vm.infoContainer, 'left', gameMainEle.offsetWidth * 0.01 + cw / 4.5);
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.25);
+      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
+      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
+      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + cw / 3.5);
+
+      vm.$set(vm.tangramDiffBlock, 'width', gameMainEle.offsetHeight * 0.15);
+      vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
+      vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.tangramDiffBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       let gameFooterEle = document.querySelector('.game-footer');
       vm.$set(vm.actionButtons, 'width', gameFooterEle.offsetHeight * 0.95);
