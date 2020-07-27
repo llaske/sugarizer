@@ -89,7 +89,10 @@ let app = new Vue({
 			stringTutoSectorsModeContent: '',
 			stringTutoPercentsModeTitle: '',
 			stringTutoPercentsModeContent: '',
-		}
+		},
+
+		//DEBUG
+		acceleration: {}
 	},
 
 	computed: {
@@ -431,6 +434,10 @@ let app = new Vue({
 		},
 
 		accelerationChanged: function (acceleration) {
+			this.acceleration = {
+				x: Math.round(acceleration.x * 1000)/1000,
+				y: Math.round(acceleration.y * 1000)/1000
+			};
 			this.changeSpeed({
 				acceleration: acceleration
 			});

@@ -38,6 +38,7 @@ Vue.component('sugar-device', {
 			var accelerometer = new Accelerometer({ frequency: frequency });
 			if (accelerometer) {
 				accelerometer.addEventListener('reading', function () {
+					console.log('ACCELERATION API', accelerometer);
 					vm.accelerationCallback(accelerometer);
 				});
 				accelerometer.start();
