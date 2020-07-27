@@ -1,4 +1,4 @@
-//code from https://github.com/Wiebke/TangramGenerator 
+//code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /**
  * Class for computation of evaluation measures, contains different measures
@@ -54,10 +54,10 @@ function Evaluation(tans, outline) {
 /* TODO */
 Evaluation.prototype.getValue = function (mode) {
     if (typeof mode === 'undefined') {
-        mode = 0;
+        mode = evaluationMode;
     }
     var evaluation;
-    switch (evaluationMode) {
+    switch (mode) {
         case 0:
             /* Order according to a high convex percentage */
             evaluation = 1.0 - this.convexPercentage;

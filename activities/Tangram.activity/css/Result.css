@@ -1,0 +1,159 @@
+#result-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.result-header {
+  width: 98%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.result-bar {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.result-bar-block {
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  background-color: #f0d9b5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: min(4.2vh, 4.2vw);
+  font-weight: bold;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.result-main {
+  width: 100%;
+  height: 77%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.result-panel-primary {
+  width: 95%;
+  height: 98%;
+  border-radius: 10px;
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.score-title {
+  width: 65%;
+}
+
+.score-val {
+  width: 35%;
+}
+
+.result-footer {
+  width: 98%;
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.info-bar {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 30%;
+  height: 99%;
+  border: none;
+  color: black;
+  font-size: min(2.6vh, 2.6vw);
+  font-weight: bold;
+  text-align: center;
+}
+
+.info-block-logo {
+  height: 100%;
+  width: 30%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.info-block-content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-score-1 {
+  min-width: 70%;
+}
+
+.info-score-2 {
+  width: 30%;
+}
+
+.info-block-content div {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.info-bar-logo {
+  width: 30%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.result-card {
+  max-width: 45vw;
+  min-width: max(300px, 25vw);
+  flex: auto;
+  height: 90%;
+  min-height: 350px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.result-card-main {
+  width: 100%;
+  height: 86%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

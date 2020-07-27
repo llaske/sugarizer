@@ -56,8 +56,8 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
-#main-toolbar #tangrams-button {
-	background-image: url(../icons/play.svg);
+#main-toolbar #type-button {
+	background-image: url(../icons/tangram-type.svg);
 }
 
 #main-toolbar #level-button {
@@ -68,7 +68,9 @@ p {
 	background-image: url(../icons/timer-0.svg);
 }
 
-
+#main-toolbar #hint-button {
+	background-image: url(../icons/robot.svg);
+}
 
 #private-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);

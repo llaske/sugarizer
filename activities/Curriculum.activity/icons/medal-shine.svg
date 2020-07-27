@@ -1,0 +1,7 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#EA2A3D">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="22.302" height="22.302" viewBox="0 0 22.302 22.302">
+  <path id="Path_79" data-name="Path 79" d="M44.11,83.093a1.046,1.046,0,0,1-.991-.711c-2.005-5.943-3.507-7.444-9.449-9.449a1.046,1.046,0,0,1,0-1.982c5.943-2.005,7.444-3.507,9.449-9.45a1.046,1.046,0,0,1,1.982,0c2.005,5.943,3.507,7.444,9.45,9.45a1.046,1.046,0,0,1,0,1.982c-5.943,2.005-7.444,3.507-9.45,9.449A1.046,1.046,0,0,1,44.11,83.093Z" transform="translate(-32.959 -60.791)" fill="&fill_color;"/>
+</svg>

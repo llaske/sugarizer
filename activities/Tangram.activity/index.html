@@ -13,6 +13,7 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Game.css">
+	<link rel="stylesheet" href="css/Result.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/konva.min.js"></script>
 	<script src="lib/vue-konva.min.js"></script>
@@ -28,10 +29,32 @@
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="view-button" title="view"></sugar-toolitem>
+			<sugar-toolitem id="type-button"
+				title="tangram-type"
+				palette-file="js/palettes/tangramTypePalette.js"
+				palette-class="TangramTypePalette"
+				palette-title="tangram Type"
+				palette-event="tangram-type-selected"
+				v-on:tangram-type-selected="onTangramTypeSelected"
+			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				title="level"
+				palette-file="js/palettes/difficultyPalette.js"
+				palette-class="DifficultyPalette"
+				palette-title="difficulty level"
+				palette-event="difficulty-selected"
+				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
-			<sugar-toolitem id="timer-button" title="timer"></sugar-toolitem>
+			<sugar-toolitem
+				id="timer-button"
+				title="Timer"
+				palette-file="js/palettes/timerPalette.js"
+				palette-class="TimerPalette"
+				palette-title=" Timer"
+				palette-event="timer-selected"
+				v-on:timer-selected="onTimerSelected"
+			></sugar-toolitem>
+			<sugar-toolitem id="hint-button" v-if="level" title="hint" v-on:click="onHint"></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
@@ -45,7 +68,21 @@
 				v-bind:is-target-acheived="isTargetAcheived"
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
-				v-on:center-tangram="onCenterTangram"
+				v-bind:show-hint="showHint"
+				v-bind:mode="mode"
+				v-bind:hint-number="hintNumber"
+				v-bind:no-of-hints-used="noOfHintsUsed"
+				v-bind:level="level"
+				v-bind:game-over="gameOver"
+				v-bind:time="clock.time"
+				v-bind:time-marks="timeMarks"
+				v-bind:user-response="userResponse"
+				v-on:center-tangram="centerTangram"
+				v-on:config-changed="onConfigChanged"
+				v-on:remove-tangram-borders="onRemoveTangramBorders"
+				v-on:tangram-status="onTangramStatus"
+				v-on:pass-puzzle="handlePassButton"
+				v-on:restart-game="handleRestartButton"
 			></component>
 		</transition>
 
@@ -60,8 +97,11 @@
 	<script src="js/utils/tan.js"></script>
 	<script src="js/utils/tangram.js"></script>
 	<script src="js/utils/evaluation.js"></script>
+	<script src="js/utils/generator.js"></script>
 	<script src="js/utils/standardTangrams.js"></script>
+	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
+	<script src="js/Result.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/activity.js"></script>
