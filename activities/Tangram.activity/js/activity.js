@@ -24,8 +24,6 @@ var app = new Vue({
     sugarPopup: null,
     mode: 'non-timer',
     score: 0,
-    scores: [],
-    tangramCategory: 'standard',
     level: 0,
     tangramType: 1,
     timer: null,
@@ -83,11 +81,16 @@ var app = new Vue({
         setTimeout(() => {
           gameScreenEle.classList.remove('pulse');
           vm.pulseEffect = false;
-        }, 1000);
+        }, 600);
       }
     }
 
   },
+
+  mounted: function () {
+    this.SugarJournal = this.$refs.SugarJournal;
+  },
+
   methods: {
     initialized: function() {
       let vm = this;
@@ -114,6 +117,7 @@ var app = new Vue({
       if (vm.timer) {
         clearInterval(vm.timer);
       }
+      vm.timer = null;
       vm.$set(vm.clock, 'active', false);
     },
 
@@ -138,9 +142,6 @@ var app = new Vue({
               vm.pushTimeMark();
               let tans = [];
               vm.setUserResponse(tans);
-              vm.score += 0;
-              vm.scores.push(0)
-
               if (vm.multiplayer) {
                 //handle multiplayer workflow
               } else {
@@ -157,7 +158,6 @@ var app = new Vue({
     newGame: function() {
       let vm = this;
       vm.score = 0;
-      vm.scores = [];
       vm.puzzles = [];
       vm.userResponse = [];
       vm.timeMarks = [];
@@ -313,8 +313,9 @@ var app = new Vue({
           tans.push(targetTan.tanObj);
         }
       } else {
-        score = 6 - Math.min(6, vm.noOfHintsUsed) + Math.max(0, 15 - Math.floor((vm.timeMarks[vm.pNo+1] - vm.timeMarks[vm.pNo]) / 4)) + bonus;
+        score = 6 - Math.min(6, vm.noOfHintsUsed) + Math.max(0, 15 - Math.floor(Math.abs(vm.timeMarks[vm.pNo+1] - vm.timeMarks[vm.pNo]) / 4)) + bonus;
       }
+      vm.score+=score;
       vm.$set(vm.userResponse, vm.pNo, {
         isSolved: isSolved,
         score: score,
@@ -408,10 +409,7 @@ var app = new Vue({
       var vm = this;
 
       if (vm.currentScreen === 'game') {
-        vm.score += 0;
-        vm.scores.push(0)
         vm.pushTimeMark();
-        //cloning array
         let tans = [];
         vm.setUserResponse(tans);
         if (vm.mode === 'non-timer') {
@@ -424,7 +422,7 @@ var app = new Vue({
           }
           vm.gameOver = 'passed';
         } else {
-          //go to next question in question set for timer mode
+          //go to next puzzle in puzzle set for timer mode
           vm.pNo++;
 
         }
@@ -437,8 +435,10 @@ var app = new Vue({
       vm.pulseEffect = true;
       vm.tangramType = evt.index;
       vm.selectTangramTypeItem(evt.index);
+      if (vm.gameOver) {
+        vm.startClock();
+      }
       vm.newGame();
-
     },
 
     selectTangramTypeItem: function(number) {
@@ -468,6 +468,7 @@ var app = new Vue({
         return;
       }
       if (vm.gameOver) {
+        vm.startClock();
         vm.newGame();
         return;
       }
@@ -516,6 +517,9 @@ var app = new Vue({
       vm.selectTimerItem(evt.index);
 
       if (vm.currentScreen === 'game') {
+        if (vm.gameOver) {
+          vm.startClock();
+        }
         vm.newGame();
       }
     },
@@ -565,7 +569,188 @@ var app = new Vue({
         vm.showHint = false;
       }, 1000);
 
-    }
+    },
+
+    onStop: function () {
+      let vm = this;
+      let puzzlesContext = [];
+      for (var i = 0; i < vm.puzzles.length; i++) {
+        let puzzle = {
+          name: vm.puzzles[i].name,
+          difficulty: vm.puzzles[i].difficulty,
+          targetTans: [],
+        };
+        for (var j = 0; j < vm.puzzles[i].targetTans.length; j++) {
+          let targetTan = {
+            tanType: vm.puzzles[i].targetTans[j].tanObj.tanType,
+            orientation: vm.puzzles[i].targetTans[j].tanObj.orientation,
+            anchor: vm.puzzles[i].targetTans[j].tanObj.anchor.dup(),
+            strokeEnabled: vm.puzzles[i].targetTans[j].strokeEnabled,
+            shadowEnabled: vm.puzzles[i].targetTans[j].shadowEnabled,
+          }
+          puzzle.targetTans.push(targetTan);
+        }
+        puzzlesContext.push(puzzle);
+      }
+
+      let userResponseContext = [];
+      for (var i = 0; i < vm.userResponse.length; i++) {
+        let userResponse = {
+          isSolved: vm.userResponse[i].isSolved,
+          score: vm.userResponse[i].score,
+          tans: []
+        }
+        for (var j = 0; j < vm.userResponse[i].tans.length; j++) {
+          userResponse.tans.push({
+            anchor: vm.userResponse[i].tans[j].anchor.dup(),
+            tanType: vm.userResponse[i].tans[j].tanType,
+            orientation: vm.userResponse[i].tans[j].orientation,
+          });
+        }
+        userResponseContext.push(userResponse);
+      }
+      let context = {
+        currentScreen: vm.currentScreen,
+        mode: vm.mode,
+        level: vm.level,
+        tangramType: vm.tangramType,
+        puzzles: puzzlesContext,
+        pNo: vm.pNo,
+        score: vm.score,
+        clock: vm.clock,
+        timeMarks: vm.timeMarks,
+        gameOver: vm.gameOver,
+        userResponse: userResponseContext,
+        noOfHintsUsed: vm.noOfHintsUsed,
+        hintNumber: vm.hintNumber,
+        hintsUsed: vm.hintsUsed,
+      }
+      vm.SugarJournal.saveData(context);
+    },
+
+    onJournalNewInstance: function() {
+      console.log("New instance");
+    },
+
+    onJournalDataLoaded: function(data, metadata) {
+      var vm = this;
+      vm.pulseEffect = true;
+      console.log("Existing instance");
+      console.log(data);
+      vm.mode = data.mode;
+      vm.level = data.level;
+      vm.tangramType = data.tangramType;
+      vm.hintNumber = data.hintNumber;
+      vm.hintsUsed = data.hintsUsed;
+      vm.noOfHintsUsed = data.noOfHintsUsed;
+      vm.clock = data.clock;
+      vm.timeMarks = data.timeMarks;
+      if (!data.clock.active) {
+        vm.stopClock();
+      }
+      vm.pNo = data.pNo;
+      vm.score = data.score;
+      vm.gameOver = data.gameOver;
+
+      if (vm.gameOver === null) {
+        vm.puzzles = [];
+        vm.userResponse = [];
+        for (var i = 0; i < data.puzzles.length; i++) {
+          let puzzle = {...data.puzzles[i]};
+          puzzle.targetTans = [];
+          for (var j = 0; j < data.puzzles[i].targetTans.length; j++) {
+            let coeffIntX = data.puzzles[i].targetTans[j].anchor.x.coeffInt;
+            let coeffSqrtX = data.puzzles[i].targetTans[j].anchor.x.coeffSqrt;
+            let coeffIntY = data.puzzles[i].targetTans[j].anchor.y.coeffInt;
+            let coeffSqrtY = data.puzzles[i].targetTans[j].anchor.y.coeffSqrt;
+            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+            let targetTan = {
+              x: 100,
+              y: 100,
+              offsetX: 100,
+              offsetY: 100,
+              anchor: null,
+              pointsObjs: [],
+              tanObj: new Tan(data.puzzles[i].targetTans[j].tanType, anchor.dup(), data.puzzles[i].targetTans[j].orientation),
+              tanType: data.puzzles[i].targetTans[j].tanType,
+              orientation: data.puzzles[i].targetTans[j].orientation,
+              points: [],
+              stroke: vm.fillColor,
+              //strokeEnabled: data.puzzles[i].targetTans[j].strokeEnabled,
+              strokeEnabled: true,
+              strokeWidth: 0.3,
+              fill: vm.strokeColor,
+              closed: true,
+              lineJoin: 'round',
+              shadowColor: 'black',
+              shadowBlur: 10,
+              shadowOpacity: 0.8,
+              //shadowEnabled: data.puzzles[i].targetTans[j].shadowEnabled,
+              shadowEnabled: false,
+            }
+            let points = [...targetTan.tanObj.getPoints()];
+            let center = targetTan.tanObj.center();
+
+            let floatPoints = [];
+            let pointsObjs = [];
+            for (let j = 0; j < points.length; j++) {
+              let tmpPoint = points[j].dup();
+              pointsObjs.push(tmpPoint);
+              floatPoints.push(tmpPoint.toFloatX());
+              floatPoints.push(tmpPoint.toFloatY());
+            }
+            targetTan.offsetX = center.toFloatX();
+            targetTan.offsetY = center.toFloatY();
+            targetTan.x = targetTan.offsetX;
+            targetTan.y = targetTan.offsetY;
+            targetTan.points = floatPoints;
+            targetTan.anchor = targetTan.tanObj.anchor.dup();
+            targetTan.pointsObjs = pointsObjs;
+            targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
+            puzzle.targetTans.push(targetTan);
+          }
+          vm.puzzles.push(puzzle);
+        }
+        vm.centerTangram();
+
+        vm.userResponse = [];
+
+        for (var i = 0; i < data.userResponse.length; i++) {
+          let userResponse = {
+            isSolved: data.userResponse[i].isSolved,
+            score: data.userResponse[i].score,
+            tans: []
+          }
+          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+          }
+          vm.userResponse.push(userResponse);
+        }
+      } else {
+        vm.startClock();
+        vm.newGame();
+      }
+
+      if (data.currentScreen === 'game' || data.currentScreen === 'result') {
+        vm.currentScreen = data.currentScreen;
+      } else {
+        vm.currentScreen = 'result';
+      }
+      vm.selectTangramTypeItem(vm.tangramType);
+      vm.selectDifficultyItem(vm.level);
+      vm.selectTimerItem(vm.clock.type);
+
+    },
+
+    onJournalLoadError: function(error) {
+      console.log("Error loading from journal");
+    },
+
 
   }
 });

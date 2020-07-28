@@ -56,7 +56,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="hint-button" v-if="level" title="hint" v-on:click="onHint"></sugar-toolitem>
 
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<transition name="fade" mode="out-in">
@@ -77,6 +77,7 @@
 				v-bind:time="clock.time"
 				v-bind:time-marks="timeMarks"
 				v-bind:user-response="userResponse"
+				v-bind:score="score"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:remove-tangram-borders="onRemoveTangramBorders"
@@ -87,6 +88,7 @@
 		</transition>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 	</div>
 
 	<script src="js/utils/intadjoinsqrt2.js"></script>
@@ -102,6 +104,7 @@
 	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/activity.js"></script>

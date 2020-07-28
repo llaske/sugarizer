@@ -1,0 +1,26 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+ <metadata>Tangram-05unsortedOpen Clip Art Libraryyves GUILLOUimage/svg+xmlen</metadata>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="402" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="layer1">
+   <g stroke="null" transform="matrix(0.6378982508015183,0,0,0.5735930356745993,-2634.168981877458,-1021.0273166963661) " id="g3819">
+    <path fill="&fill_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="4" id="path3811" d="m4524.6055,2231.9489l-125.2748,-125.2748l125.2748,-125.2748l0,250.5496z"/>
+    <path fill="&fill_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="4" id="path3813" d="m4525.8465,1982.8742l177.1653,177.1653l-177.1653,177.1653l0,-354.3306z"/>
+    <path fill="&stroke_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" id="path3814" d="m4183.9174,1842.9134l88.5826,88.5826l-88.5826,88.5827l0,-177.1653z"/>
+    <path fill="&stroke_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-width="1.0625" stroke-linejoin="round" stroke-miterlimit="4" id="path3815" d="m4523.3646,1982.8741l-125.2748,125.2748l-125.2748,0l125.2748,-125.2748l125.2748,0z"/>
+    <path fill="&fill_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-width="1.0625" stroke-miterlimit="4" id="path3816" d="m4359.311,2019.3504l-88.5827,-88.5826l88.5827,-88.5827l0,177.1653z"/>
+    <path fill="&fill_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-width="1.0625" stroke-miterlimit="4" id="path3817" d="m4183.189,2019.3505l88.5827,-88.5827l88.5826,88.5827l-88.5826,88.5826l-88.5827,-88.5826z"/>
+    <path fill="&fill_color;" stroke="&stroke_color;" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="4" id="path3818" d="m4452.4622,2410.589l250.5496,-250.5496l0,250.5496l-250.5496,0z"/>
+   </g>
+  </g>
+ </g>
+</svg>
