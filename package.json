@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "requirejs": "~2.3.5",
-    "electron": "~6.0.0",
+    "electron": "~7.2.0",
     "tmp": "~0.1.0",
     "ini": "1.1.x"
   },
@@ -26,7 +26,7 @@
     "appId": "org.olpc-france.sugarizer",
     "copyright": "Copyright © 2013-2020, Lionel Laské, Sugar Labs Inc. and Contributors",
     "productName": "Sugarizer",
-    "electronVersion": "6.0.9",
+    "electronVersion": "7.2.4",
     "mac": {
       "category": "public.app-category.education"
     },

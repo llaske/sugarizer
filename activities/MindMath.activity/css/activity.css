@@ -32,7 +32,7 @@ body {
 
 #main-toolbar.toolbar {
   padding: 0 2%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 #main-toolbar.hidden {
