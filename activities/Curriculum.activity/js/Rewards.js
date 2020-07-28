@@ -95,7 +95,7 @@ var Rewards = {
 		totalCategoriesAcquired: function () {
 			var count = 0;
 			for (var catId in this.user.skills) {
-				var allAcquired = true;
+				var allAcquired = Object.keys(this.user.skills[catId]).length > 0 ? true : false;
 				for (var skillId in this.user.skills[catId]) {
 					let textVariable = this.levels[this.notationLevel][this.user.skills[catId][skillId].acquired].textVariable;
 					if (textVariable != "LevelAcquired" && textVariable != "LevelExceeded") {
