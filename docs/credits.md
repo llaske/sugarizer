@@ -24,9 +24,9 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Sprint Math by Mankirat Singh
 * Exerciser by Mankirat Singh and Avinash Agarwal
 * Write by Ashish Aggarval
-* Constellation by Andrea Gonzales
-* Falabracman by Prakash Ujjwal
-* Fraction by Dhruv Misra
+* Constellation, Planets by Andrea Gonzales
+* Falabracman, Chess, MindMath by Prakash Ujjwal
+* Fraction, Curriculum by Dhruv Misra
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
