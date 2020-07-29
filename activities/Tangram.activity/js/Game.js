@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed','mode', 'level', 'gameOver', 'time', 'userResponse'],
+  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed','mode', 'level', 'gameOver', 'time', 'userResponse', 'score'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -78,7 +78,7 @@ var Game = {
             v-bind:style="{borderColor: strokeColor}"
           >
             <div class="detail-block-content score-title"><div>Score:</div></div>
-            <div class="detail-block-content score-val"><div>0</div></div>
+            <div class="detail-block-content score-val"><div>{{score}}</div></div>
           </div>
 
         </div>
