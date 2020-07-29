@@ -13,9 +13,29 @@ var Vote = {
 						<img src="icons/hourglass.svg" alt="hourglass">
 						<h2>Waiting for results</h2>
 					</div>
+
+					<!-- Text -->
 					<div class="vote-text" v-else-if="activePoll.type == 'text'">
 						<input type="text" v-model="text">
 					</div>
+
+					<!-- Yes/No -->
+					<div class="vote-yesno" v-else-if="activePoll.type == 'yesno'">
+						<button 
+							class="option option-yes" 
+							:class="{ selected: boolChoice == true }" 
+							:style="{ backgroundImage: 'url(' + yesnoIcons.yes	 + ')' }"
+							@click="boolChoice = true"
+						></button>
+						<button 
+							class="option option-no" 
+							:class="{ selected: boolChoice == false }" 
+							:style="{ backgroundImage: 'url(' + yesnoIcons.no	 + ')' }"
+							@click="boolChoice = false"
+						></button>
+					</div>
+
+					<!-- MCQ -->
 					<div class="vote-mcq" v-else-if="activePoll.type == 'mcq'">
 						<button 
 							class="option" 
@@ -25,6 +45,21 @@ var Vote = {
 							@click="optionSelected = i"
 						>{{ option }}</button>
 					</div>
+
+					<!-- Image MCQ -->
+					<div class="vote-image-mcq" v-else-if="activePoll.type == 'image-mcq'">
+						<div 
+							class="option-image"
+							:class="{ selected: optionSelected == i }" 
+							v-for="(option, i) in activePoll.options" 
+							:key="i"
+							@click="optionSelected = i"
+						>
+							<img :src="option">
+						</div>
+					</div>
+
+					<!-- Rating -->
 					<div class="vote-rating" v-else-if="activePoll.type == 'rating'">
 						<div 
 							class="rating-star" 
@@ -46,18 +81,26 @@ var Vote = {
 	data: () => ({
 		text: "",
 		optionSelected: null,
+		boolChoice: null,
 		rating: 0,
 		ratingIcons: {
 			unselected: '../icons/star.svg',
 			selected: '../icons/star.svg',
-		}
+		},
+		yesnoIcons: {
+			yes: '../icons/dialog-ok.svg',
+			no: '../icons/dialog-cancel.svg',
+		},
 	}),
 	computed: {
 		submitable() {
 			switch(this.activePoll.type) {
 				case 'text':
 					return this.text != "";
+				case 'yesno':
+					return this.boolChoice != null;
 				case 'mcq':
+				case 'image-mcq':
 					return this.optionSelected != null;
 			}
 			return true;
@@ -85,6 +128,14 @@ var Vote = {
 			.then(src => {
 				vm.ratingIcons.selected = src;
 			});
+		this.$root.$refs.SugarIcon.generateIconWithColors(this.yesnoIcons.yes, this.currentUser.colorvalue)
+			.then(src => {
+				vm.yesnoIcons.yes = src;
+			});
+		this.$root.$refs.SugarIcon.generateIconWithColors(this.yesnoIcons.no, this.currentUser.colorvalue)
+			.then(src => {
+				vm.yesnoIcons.no = src;
+			});
 	},
 	methods: {
 		switchHandRaise() {
@@ -98,7 +149,11 @@ var Vote = {
 				case 'text':
 					this.$emit('vote-submitted', this.text);
 					break;
+				case 'yesno':
+					this.$emit('vote-submitted', this.boolChoice);
+					break;
 				case 'mcq':
+				case 'image-mcq':
 					this.$emit('vote-submitted', this.optionSelected);
 					break;
 				case 'rating':

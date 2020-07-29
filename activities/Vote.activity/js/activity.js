@@ -42,6 +42,22 @@ var app = new Vue({
 				type: "rating",
 				question: "How was the lecture today?"
 			},
+			{
+				id: 3,
+				type: "yesno",
+				question: "Is this correct?"
+			},
+			{
+				id: 4,
+				type: "image-mcq",
+				question: "Which sport should we play today?",
+				options: [
+					"https://image.freepik.com/free-vector/football-match_23-2147510647.jpg",
+					"https://cdn.myanimelist.net/s/common/uploaded_files/1458944553-4b7af8f4ae7669de5d0117c62f866e0e.jpeg",
+					"https://www.gstindia.com/wp-content/uploads/bfi_thumb/cricket-n36v308u97493zg6wv7qf3800x5adbz6mnqufan1n4.jpg",
+					"https://image.shutterstock.com/image-vector/stock-vector-illustration-back-sport-260nw-665547703.jpg"
+				]
+			},
 		],
 		connectedUsers: {},
 		activePoll: null,
