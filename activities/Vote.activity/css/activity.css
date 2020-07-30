@@ -86,6 +86,10 @@ p {
 	background-image: url(../icons/add.svg);
 }
 
+#main-toolbar #real-time-button {
+	background-image: url(../icons/stats.svg);
+}
+
 .search-field {
 	position: relative;
 	display: inline-block;	

@@ -36,6 +36,9 @@
 	display: flex;
 	flex-direction: column;
 }
+.poll-stats.is-result {
+	min-height: auto;
+}
 .poll-stats .poll-header {
 	flex: 0;
 	padding: 5px 5vw;

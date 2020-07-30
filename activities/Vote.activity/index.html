@@ -49,6 +49,13 @@
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
+			<sugar-toolitem 
+				id="real-time-button" 
+				:class="{ active: realTimeResults }"
+				v-if="currentView == 'poll-stats'" 
+				@click="switchRealTimeResults"
+				v-bind:title="l10n.stringRealTimeResults"
+			></sugar-toolitem>
 			<div class="search-field" v-if="currentView == 'polls-grid'">
 				<div class="search-icon"></div>
 				<input 
@@ -76,6 +83,9 @@
 						:active-poll-status="activePollStatus"
 						:connected-users="connectedUsers"
 						:counts="counts"
+						:real-time-results="realTimeResults"
+						:auto-stop="autoStop"
+
 						@start-poll="startPoll"
 						@stop-poll="stopPoll"
 

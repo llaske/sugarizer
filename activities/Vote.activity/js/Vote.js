@@ -7,7 +7,7 @@ var Vote = {
 					<img src="icons/hourglass.svg" alt="hourglass">
 					<h2>Waiting for poll</h2>
 				</div>
-				<div class="vote-card-content" v-else-if="activePollStatus == 'running'">
+				<div class="vote-card-content" v-else-if="activePollStatus == 'running' && (!realTimeResults || (realTimeResults && currentUser.answer == null))">
 					<h1 class="vote-question" v-if="currentUser.answer == null">{{ activePoll.question }}</h1>
 					
 					<div class="vote-waiting" v-if="currentUser.answer != null">
@@ -76,7 +76,7 @@ var Vote = {
 					<button class="submit" :disabled="!submitable" @click="submit" v-if="currentUser.answer == null"></button>
 				</div>
 
-				<div class="vote-card-content" v-if="activePollStatus == 'finished' && activePoll.results != null">
+				<div class="vote-card-content" v-if="activePoll.results != null && (activePollStatus == 'finished' || (currentUser.answer != null && realTimeResults))">
 					<poll-stats :activePoll="activePoll" isResult></poll-states>
 				</div>
 
@@ -93,7 +93,7 @@ var Vote = {
 	components: {
 		'poll-stats': PollStats
 	},
-	props: ['activePoll', 'activePollStatus', 'connectedUsers', 'currentUser', 'counts'],
+	props: ['activePoll', 'activePollStatus', 'realTimeResults', 'connectedUsers', 'currentUser', 'counts'],
 	data: () => ({
 		text: "",
 		optionSelected: null,
@@ -110,7 +110,7 @@ var Vote = {
 	}),
 	computed: {
 		submitable() {
-			switch(this.activePoll.type) {
+			switch (this.activePoll.type) {
 				case 'text':
 					return this.text != "";
 				case 'yesno':
@@ -123,10 +123,10 @@ var Vote = {
 		}
 	},
 	watch: {
-		"currentUser.handRaised": function(newVal, oldVal) {
+		"currentUser.handRaised": function (newVal, oldVal) {
 			let vm = this;
 			this.$nextTick(() => {
-				if(newVal) {
+				if (newVal) {
 					vm.$root.$refs.SugarIcon.colorizeIcon(vm.$refs.raiseHandButton, vm.currentUser.colorvalue);
 				} else {
 					vm.$root.$refs.SugarIcon.colorizeIcon(vm.$refs.raiseHandButton, { fill: "#ffffff", stroke: "#d3d3d3" });
@@ -158,10 +158,10 @@ var Vote = {
 			this.$emit('hand-raise-switched', !this.currentUser.handRaised);
 		},
 		getRatingStar(n) {
-			return `url(${ n <= this.rating ? this.ratingIcons.selected : this.ratingIcons.unselected })`;
+			return `url(${n <= this.rating ? this.ratingIcons.selected : this.ratingIcons.unselected})`;
 		},
 		submit() {
-			switch(this.activePoll.type) {
+			switch (this.activePoll.type) {
 				case 'text':
 					this.$emit('vote-submitted', this.text);
 					break;

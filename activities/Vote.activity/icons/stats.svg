@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57">
+  <g id="button_template" data-name="button template" transform="translate(-177 -8)">
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="57" height="57" transform="translate(177 8)" fill="#fff" opacity="0"/>
+    <g id="Icon_ionic-ios-stats" data-name="Icon ionic-ios-stats" transform="translate(178.25 10)">
+      <path id="Path_22" data-name="Path 22" d="M13.26,47h5.312a.888.888,0,0,0,.885-.885V5.385a.888.888,0,0,0-.885-.885H13.26a.888.888,0,0,0-.885.885V46.115A.888.888,0,0,0,13.26,47Z" transform="translate(3.875 0)" fill="#fff"/>
+      <path id="Path_23" data-name="Path 23" d="M6.51,37.958h5.312a.888.888,0,0,0,.885-.885V21.135a.888.888,0,0,0-.885-.885H6.51a.888.888,0,0,0-.885.885V37.073A.888.888,0,0,0,6.51,37.958Z" transform="translate(0 9.042)" fill="#fff"/>
+      <path id="Path_24" data-name="Path 24" d="M20.021,40.542h5.29a.893.893,0,0,0,.9-.9v-23a.893.893,0,0,0-.9-.9h-5.29a.893.893,0,0,0-.9.9v23A.893.893,0,0,0,20.021,40.542Z" transform="translate(7.75 6.458)" fill="#fff"/>
+      <path id="Path_25" data-name="Path 25" d="M25.875,9.9V43.52a.893.893,0,0,0,.9.9h5.29a.893.893,0,0,0,.9-.9V9.9a.893.893,0,0,0-.9-.9h-5.29A.893.893,0,0,0,25.875,9.9Z" transform="translate(11.625 2.583)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

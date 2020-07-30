@@ -79,6 +79,7 @@ var app = new Vue({
 			stringSearch: '',
 			stringSettings: '',
 			stringAdd: '',
+			stringRealTimeResults: '',
 			stringExport: '',
 			stringFullscreen: '',
 			stringUnfullscreen: ''
@@ -115,6 +116,7 @@ var app = new Vue({
 			this.activePollStatus = 'running';
 			this.currentView = "poll-stats";
 			document.getElementById('shared-button').click();
+
 			if(Object.keys(this.connectedUsers).length > 0) {
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -130,10 +132,25 @@ var app = new Vue({
 
 		stopPoll() {
 			this.activePollStatus = 'finished';
+
 			this.SugarPresence.sendMessage({
 				user: this.SugarPresence.getUserInfo(),
 				content: {
 					action: 'stop-poll'
+				}
+			});
+		},
+
+		switchRealTimeResults() {
+			this.realTimeResults = !this.realTimeResults;
+
+			this.SugarPresence.sendMessage({
+				user: this.SugarPresence.getUserInfo(),
+				content: {
+					action: 'switch-real-time',
+					data: {
+						realTimeResults: this.realTimeResults
+					}
 				}
 			});
 		},
@@ -188,7 +205,7 @@ var app = new Vue({
 		saveToHistory() {
 			this.$set(this.activePoll, 'endTime', Date.now());
 			this.history.push(this.activePoll);
-			console.log('Save to histroy:', this.activePoll)
+			console.log('Saved to histroy')
 		},
 
 		onAddClick() {
@@ -215,6 +232,8 @@ var app = new Vue({
 
 		onJournalDataLoaded: function (data, metadata) {
 			this.polls = data.polls;
+			this.realTimeResults = data.realTimeResults;
+			this.history = data.history;
 			this.currentView = "polls-grid";
 		},
 
@@ -232,12 +251,14 @@ var app = new Vue({
 					console.log('init-new');
 					this.activePoll = msg.content.data.activePoll;
 					this.activePollStatus = msg.content.data.activePollStatus;
+					this.realTimeResults = msg.content.data.realTimeResults;
 					break;
 				case 'init-existing':
 					if(this.activePoll == null) {
 						console.log('init-existing');
 						this.activePoll = msg.content.data.activePoll;
 						this.activePollStatus = msg.content.data.activePollStatus;
+						this.realTimeResults = msg.content.data.realTimeResults;
 						this.counts.answersCount = msg.content.data.counts.answersCount;
 						this.counts.usersCount = msg.content.data.counts.usersCount;
 						this.currentUser.handRaised = msg.content.data.handRaised;
@@ -245,6 +266,10 @@ var app = new Vue({
 							this.currentUser.answer = msg.content.data.answer;
 						}
 					}
+					break;
+				case 'switch-real-time':
+					console.log('switch-real-time');
+					this.realTimeResults = msg.content.data.realTimeResults;
 					break;
 				case 'hand-raise-switched':
 					if(this.SugarPresence.isHost) {
@@ -298,6 +323,7 @@ var app = new Vue({
 									data: {
 										activePoll: this.activePoll,
 										activePollStatus: this.activePollStatus,
+										realTimeResults: this.realTimeResults,
 										counts: this.counts,
 										handRaised: this.connectedUsers[msg.user.networkId].handRaised,
 										answer: this.connectedUsers[msg.user.networkId].answer
@@ -312,6 +338,7 @@ var app = new Vue({
 									data: {
 										activePoll: this.activePoll,
 										activePollStatus: this.activePollStatus,
+										realTimeResults: this.realTimeResults,
 										counts: this.counts,
 										handRaised: this.connectedUsers[msg.user.networkId].handRaised
 									}
@@ -331,6 +358,7 @@ var app = new Vue({
 								data: {
 									activePoll: this.activePoll,
 									activePollStatus: this.activePollStatus,
+									realTimeResults: this.realTimeResults,
 								}
 							}
 						});
@@ -343,7 +371,9 @@ var app = new Vue({
 
 		onStop() {
 			var context = {
-				polls: this.polls
+				polls: this.polls,
+				realTimeResults: this.realTimeResults,
+				history: this.history
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}

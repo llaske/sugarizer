@@ -17,7 +17,7 @@ var FooterItem = {
 var PollStats = {
 	/*html*/
 	template: `
-		<div class="poll-stats">
+		<div class="poll-stats" :class="{ 'is-result': isResult }">
 			<div class="poll-header">
 				<h2>{{ activePoll.question }}</h2>
 				<div v-if="!isResult">
@@ -65,7 +65,9 @@ var PollStats = {
 		activePoll: Object,
 		activePollStatus: String,
 		connectedUsers: Object,
-		isResult: Boolean
+		isResult: Boolean,
+		realTimeResults: Boolean,
+		autoStop: Boolean
 	},
 	data: () => ({
 		statsChart: null,
@@ -122,13 +124,15 @@ var PollStats = {
 			this.updateChart();
 
 			if (this.isResult) return;
-			//Updating counts
+
 			this.updateCounts();
+			if (this.realTimeResults) {
+				this.$emit('update-results', this.answers);
+			}
 		},
 
 		connectedUsers: function (newVal, oldVal) {
 			if (this.isResult) return;
-			//Updating counts
 			this.updateCounts();
 		},
 	},
@@ -168,7 +172,7 @@ var PollStats = {
 			});
 		} else if (this.activePoll.type == "image-mcq") {
 			for (let i in this.activePoll.options) {
-				labels.push(parseInt(i)+1);
+				labels.push(parseInt(i) + 1);
 				dataset.data.push(0);
 				let color = this.getColor();
 				dataset.backgroundColor.push(color.background);
@@ -227,7 +231,7 @@ var PollStats = {
 				options: this.statsData
 			});
 		}
-		if(this.isResult) {
+		if (this.isResult) {
 			this.updateChart();
 		}
 	},
