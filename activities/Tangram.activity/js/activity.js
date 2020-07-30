@@ -36,6 +36,9 @@ var app = new Vue({
     timeMarks: [],
     puzzles: [],
     pNo: 0,
+    gameTans: [],
+    gameTansPlaced: [-1, -1, -1, -1, -1, -1, -1],
+    gameTansSnapped: [false, false, false, false, false, false, false],
     userResponse: [],
     gameOver: null,
     isTargetAcheived: false,
@@ -329,8 +332,9 @@ var app = new Vue({
       this.stage.height = data.stageHeight;
     },
 
-    onRemoveTangramBorders: function(data) {
+    onUpdateTansPlaced: function(data) {
       let vm = this;
+      vm.gameTansPlaced = data;
       if (vm.gameOver) {
         return;
       }
@@ -571,6 +575,15 @@ var app = new Vue({
 
     },
 
+    onUpdateGameTans: function (data) {
+      this.gameTans = data;
+    },
+
+    onUpdateTansSnapped: function (data) {
+      //console.log(data);
+      this.gameTansSnapped = data;
+    },
+
     onStop: function () {
       let vm = this;
       let puzzlesContext = [];
@@ -601,14 +614,19 @@ var app = new Vue({
           tans: []
         }
         for (var j = 0; j < vm.userResponse[i].tans.length; j++) {
-          userResponse.tans.push({
-            anchor: vm.userResponse[i].tans[j].anchor.dup(),
-            tanType: vm.userResponse[i].tans[j].tanType,
-            orientation: vm.userResponse[i].tans[j].orientation,
-          });
+          userResponse.tans.push({...vm.userResponse[i].tans[j]});
         }
         userResponseContext.push(userResponse);
       }
+      let gameTansContext = [];
+      for (var i = 0; i < vm.gameTans.length; i++) {
+        let currentTan = vm.gameTans[i];
+        gameTansContext.push({
+          tanObj: currentTan.tanObj,
+          placedAnchor: currentTan.placedAnchor
+        });
+      }
+
       let context = {
         currentScreen: vm.currentScreen,
         mode: vm.mode,
@@ -624,6 +642,9 @@ var app = new Vue({
         noOfHintsUsed: vm.noOfHintsUsed,
         hintNumber: vm.hintNumber,
         hintsUsed: vm.hintsUsed,
+        gameTans: gameTansContext,
+        gameTansPlaced: vm.gameTansPlaced,
+        gameTansSnapped: vm.gameTansSnapped,
       }
       vm.SugarJournal.saveData(context);
     },
@@ -676,7 +697,6 @@ var app = new Vue({
               orientation: data.puzzles[i].targetTans[j].orientation,
               points: [],
               stroke: vm.fillColor,
-              //strokeEnabled: data.puzzles[i].targetTans[j].strokeEnabled,
               strokeEnabled: true,
               strokeWidth: 0.3,
               fill: vm.strokeColor,
@@ -685,7 +705,6 @@ var app = new Vue({
               shadowColor: 'black',
               shadowBlur: 10,
               shadowOpacity: 0.8,
-              //shadowEnabled: data.puzzles[i].targetTans[j].shadowEnabled,
               shadowEnabled: false,
             }
             let points = [...targetTan.tanObj.getPoints()];
@@ -730,6 +749,16 @@ var app = new Vue({
             userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
           }
           vm.userResponse.push(userResponse);
+        }
+
+        if (vm.currentScreen === 'game') {
+          setTimeout(()=>{
+            vm.$refs.game.initializeTans({
+              tans: data.gameTans,
+              tansSnapped: data.gameTansSnapped,
+              tansPlaced: data.gameTansPlaced
+            })
+          },0);
         }
       } else {
         vm.startClock();
