@@ -73,10 +73,18 @@
 						:polls="polls"
 						:current-user="currentUser"
 						:active-poll="activePoll"
+						:active-poll-status="activePollStatus"
 						:connected-users="connectedUsers"
+						:counts="counts"
 						@start-poll="startPoll"
+						@stop-poll="stopPoll"
+
 						@hand-raise-switched="onHandRaiseSwitched"
 						@vote-submitted="onVoteSubmitted"
+
+						@update-counts="updateCounts"
+						@update-results="updateResults"
+						@save-to-history="saveToHistory"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>

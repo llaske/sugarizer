@@ -20,19 +20,25 @@ var PollStats = {
 		<div class="poll-stats">
 			<div class="poll-header">
 				<h2>{{ activePoll.question }}</h2>
-				<button id="stop-poll" @click="stopPoll"></button>
+				<div v-if="!isResult">
+					<button id="stop-poll" @click="stopPoll" v-if="activePollStatus == 'running'"></button>
+					<button id="go-back" @click="goBack" v-else></button>
+				</div>
 			</div>
-			<div style="position: absolute">
-				{{ answers }}
+
+			<div style="position: absolute; width: 100px; background: rgba(0,0,0,0.4); display: none">
+				{{ answers }} <br>
+				{{ activePoll.results }}
 			</div>
+		
 			<div class="poll-stats-container">
-				<div class="stats-container" :style="{ border: 'solid 2px ' + currentUser.colorvalue.stroke }">
+				<div class="stats-container">
 					<canvas id="stats" width="100" height="100"></canvas>
 				</div>
-				<div class="stats-legends" v-if="activePoll.type == 'image-mcq'" :style="{ border: 'solid 2px ' + currentUser.colorvalue.stroke }">
+				<div class="stats-legends" v-if="activePoll.type == 'image-mcq'">
 					<div class="legend-item" v-for="(option, i) in activePoll.options" :key="i">
 						<div class="color" :style="{ backgroundColor: statsData.datasets[0].backgroundColor[i] }"></div>
-						<span>{{ i }}</span>
+						<span>{{ i+1 }}</span>
 						<div class="legend-image">
 							<img :src="option">
 						</div>
@@ -40,7 +46,7 @@ var PollStats = {
 				</div>
 			</div>
 			
-			<div class="poll-footer">
+			<div class="poll-footer" v-if="!isResult">
 				<div class="footer-list">
 					<div class="vote-progress">{{ answers.length }}/{{ Object.keys(connectedUsers).length }}</div>
 					<footer-item
@@ -55,7 +61,12 @@ var PollStats = {
 	components: {
 		'footer-item': FooterItem
 	},
-	props: ['activePoll', 'connectedUsers', 'currentUser'],
+	props: {
+		activePoll: Object,
+		activePollStatus: String,
+		connectedUsers: Object,
+		isResult: Boolean
+	},
 	data: () => ({
 		statsChart: null,
 		statsData: {
@@ -70,6 +81,8 @@ var PollStats = {
 		statsOptions: {
 			responsive: true,
 			maintainAspectRatio: false,
+		},
+		statsBarOptions: {
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -77,7 +90,7 @@ var PollStats = {
 					}
 				}]
 			}
-		},
+		}
 	}),
 	computed: {
 		sortedUsers() {
@@ -92,46 +105,32 @@ var PollStats = {
 			return users;
 		},
 		answers() {
-			let answers = [];
-			for (let key in this.connectedUsers) {
-				if (this.connectedUsers[key].answer != null) {
-					answers.push(this.connectedUsers[key].answer);
+			if (!this.isResult) {
+				let answers = [];
+				for (let key in this.connectedUsers) {
+					if (this.connectedUsers[key].answer != null) {
+						answers.push(this.connectedUsers[key].answer);
+					}
 				}
+				return answers;
 			}
-			return answers;
+			return this.activePoll.results.answers;
 		}
 	},
 	watch: {
 		answers: function (newVal, oldVal) {
-			let data = [];
+			this.updateChart();
 
-			if (this.activePoll.type == "mcq" || this.activePoll.type == "image-mcq") {
-				for (let i in this.activePoll.options) {
-					data.push(0);
-				}
-				for (let answer of newVal) {
-					data[answer]++;
-				}
-				this.$set(this.statsData.datasets[0], 'data', data);
-			} else if (this.activePoll.type == "rating") {
-				for (let i = 1; i <= 5; i++) {
-					data.push(0);
-				}
-				for (let answer of newVal) {
-					data[answer - 1]++;
-				}
-				this.$set(this.statsData.datasets[0], 'data', data);
-			} else if (this.activePoll.type == "yesno") {
-				data.push(0);
-				data.push(0);
-				for (let answer of newVal) {
-					let index = answer ? 1 : 0;
-					data[index]++;
-				}
-				this.$set(this.statsData.datasets[0], 'data', data);
-			}
-			this.statsChart.update();
-		}
+			if (this.isResult) return;
+			//Updating counts
+			this.updateCounts();
+		},
+
+		connectedUsers: function (newVal, oldVal) {
+			if (this.isResult) return;
+			//Updating counts
+			this.updateCounts();
+		},
 	},
 	mounted() {
 		let ctx = document.getElementById('stats');
@@ -150,7 +149,6 @@ var PollStats = {
 		// 	'rgba(153, 102, 255, 0.8)',
 		// 	'rgba(255, 159, 64, 0.8)'
 		// ];
-
 		// let colorIndex = 0;
 		if (this.activePoll.type == "mcq") {
 			for (let option of this.activePoll.options) {
@@ -170,7 +168,7 @@ var PollStats = {
 			});
 		} else if (this.activePoll.type == "image-mcq") {
 			for (let i in this.activePoll.options) {
-				labels.push(i);
+				labels.push(parseInt(i)+1);
 				dataset.data.push(0);
 				let color = this.getColor();
 				dataset.backgroundColor.push(color.background);
@@ -184,6 +182,7 @@ var PollStats = {
 				data: this.statsData,
 				options: {
 					...this.statsOptions,
+					...this.statsBarOptions,
 					legend: { display: false }
 				}
 			});
@@ -201,7 +200,10 @@ var PollStats = {
 			this.statsChart = new Chart(ctx, {
 				type: 'bar',
 				data: this.statsData,
-				options: this.statsOptions
+				options: {
+					...this.statsOptions,
+					...this.statsBarOptions,
+				}
 			});
 		} else if (this.activePoll.type == "yesno") {
 			labels.push('false');
@@ -225,12 +227,15 @@ var PollStats = {
 				options: this.statsData
 			});
 		}
+		if(this.isResult) {
+			this.updateChart();
+		}
 	},
 	methods: {
 		getColor() {
 			let hue = 360 * Math.random(),
-					saturation = 80 + 15 * Math.random(),
-					lightness = 50 + 20 * Math.random();
+				saturation = 80 + 15 * Math.random(),
+				lightness = 50 + 20 * Math.random();
 
 			return {
 				background: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`,
@@ -238,13 +243,62 @@ var PollStats = {
 			}
 		},
 
+		updateCounts() {
+			let counts = {
+				answersCount: this.answers.length,
+				usersCount: Object.keys(this.connectedUsers).length
+			}
+			this.$emit('update-counts', counts);
+			this.$root.$refs.SugarPresence.sendMessage({
+				user: this.$root.$refs.SugarPresence.getUserInfo(),
+				content: {
+					action: 'update-counts',
+					data: {
+						counts: counts
+					}
+				}
+			});
+		},
+
+		updateChart() {
+			let data = [];
+
+			if (this.activePoll.type == "mcq" || this.activePoll.type == "image-mcq") {
+				for (let i in this.activePoll.options) {
+					data.push(0);
+				}
+				for (let answer of this.answers) {
+					data[answer]++;
+				}
+				this.$set(this.statsData.datasets[0], 'data', data);
+			} else if (this.activePoll.type == "rating") {
+				for (let i = 1; i <= 5; i++) {
+					data.push(0);
+				}
+				for (let answer of this.answers) {
+					data[answer - 1]++;
+				}
+				this.$set(this.statsData.datasets[0], 'data', data);
+			} else if (this.activePoll.type == "yesno") {
+				data.push(0);
+				data.push(0);
+				for (let answer of this.answers) {
+					let index = answer ? 1 : 0;
+					data[index]++;
+				}
+				this.$set(this.statsData.datasets[0], 'data', data);
+			}
+			this.statsChart.update();
+		},
+
 		stopPoll() {
-			let presence = this.$root.$refs.SugarPresence.presence;
-			console.log(presence);
-			presence.leaveSharedActivity(presence.sharedInfo.id);
-			presence.socket = null;
-			// presence.leaveNetwork();
-			console.log(presence);
+			this.$emit('update-results', this.answers);
+			this.$emit('save-to-history');
+			this.$emit('stop-poll');
+		},
+
+		goBack() {
+			this.$emit('go-back-to', 'polls-grid');
 		}
 	}
 }

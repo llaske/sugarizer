@@ -58,8 +58,19 @@
 	border-radius: 50%;
 	cursor: pointer;
 }
-.poll-stats .poll-header #stop-poll:active {
+.poll-stats .poll-header button:active {
 	transform: scale(0.98);
+}
+.poll-stats .poll-header #go-back {
+	flex-shrink: 0;
+	background-color: transparent;
+	background-image: url(../icons/go-left.svg);
+	background-size: contain;
+	height: 60px;
+	width: 60px;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
 }
 .poll-stats-container {
 	height: 63vh;

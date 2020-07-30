@@ -4,14 +4,17 @@ var Vote = {
 		<div class="vote" :style="{ backgroundColor: currentUser.colorvalue.fill }">
 			<div class="vote-card">
 				<div class="loading" v-if="!activePoll">
-					Loading...
+					<img src="icons/hourglass.svg" alt="hourglass">
+					<h2>Waiting for poll</h2>
 				</div>
-				<div class="vote-card-content" v-else>
+				<div class="vote-card-content" v-else-if="activePollStatus == 'running'">
 					<h1 class="vote-question" v-if="currentUser.answer == null">{{ activePoll.question }}</h1>
 					
 					<div class="vote-waiting" v-if="currentUser.answer != null">
 						<img src="icons/hourglass.svg" alt="hourglass">
 						<h2>Waiting for results</h2>
+						<h3>{{ counts.answersCount }}/{{ counts.usersCount }}</h3>
+						<h3>Voted</h3>
 					</div>
 
 					<!-- Text -->
@@ -73,11 +76,24 @@ var Vote = {
 					<button class="submit" :disabled="!submitable" @click="submit" v-if="currentUser.answer == null"></button>
 				</div>
 
-				<button ref="raiseHandButton" class="raise-hand" :class="{ active: currentUser.handRaised }" @click="switchHandRaise"></button>
+				<div class="vote-card-content" v-if="activePollStatus == 'finished' && activePoll.results != null">
+					<poll-stats :activePoll="activePoll" isResult></poll-states>
+				</div>
+
+				<button 
+					ref="raiseHandButton" 
+					v-if="activePoll"
+					class="raise-hand" 
+					:class="{ active: currentUser.handRaised }" 
+					@click="switchHandRaise"
+				></button>
 			</div>
 		</div>
 	`,
-	props: ['activePoll', 'connectedUsers', 'currentUser'],
+	components: {
+		'poll-stats': PollStats
+	},
+	props: ['activePoll', 'activePollStatus', 'connectedUsers', 'currentUser', 'counts'],
 	data: () => ({
 		text: "",
 		optionSelected: null,
