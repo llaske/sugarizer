@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="css/Polls.css">
 	<link rel="stylesheet" href="css/PollStats.css">
 	<link rel="stylesheet" href="css/Vote.css">
+	<link rel="stylesheet" href="css/History.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Chart.min.js"></script>
 	<script src="lib/require.js"></script>
@@ -66,6 +67,24 @@
 				>
 				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
 			</div>
+			<sugar-toolitem 
+				id="home-button" 
+				v-if="currentView == 'history' && openHistoryIndex == null" 
+				@click="currentView = 'polls-grid'"
+				v-bind:title="l10n.stringHome"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="history-button" 
+				v-if="currentView == 'polls-grid'" 
+				@click="currentView = 'history'"
+				v-bind:title="l10n.stringHistory"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="delete-button" 
+				v-if="currentView == 'history' && openHistoryIndex != null" 
+				@click="deleteHistoryPoll"
+				v-bind:title="l10n.stringDeletePoll"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 		</sugar-toolbar>
@@ -85,15 +104,18 @@
 						:counts="counts"
 						:real-time-results="realTimeResults"
 						:auto-stop="autoStop"
+						:history="history"
+						:open-history-index="openHistoryIndex"
 
 						@start-poll="startPoll"
 						@stop-poll="stopPoll"
+						@update-counts="updateCounts"
+						@update-results="updateResults"
 
 						@hand-raise-switched="onHandRaiseSwitched"
 						@vote-submitted="onVoteSubmitted"
 
-						@update-counts="updateCounts"
-						@update-results="updateResults"
+						@set-open-history-index="setOpenHistoryIndex"
 						@save-to-history="saveToHistory"
 						@go-back-to="goBackTo"
 					></component>
@@ -115,6 +137,7 @@
 	<script src="js/Polls.js"></script>
 	<script src="js/PollStats.js"></script>
 	<script src="js/Vote.js"></script>
+	<script src="js/History.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPresence.js"></script>

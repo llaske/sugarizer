@@ -12,7 +12,8 @@ var app = new Vue({
 	components: {
 		'polls-grid': PollsGrid,
 		'poll-stats': PollStats,
-		'vote': Vote
+		'vote': Vote,
+		'history': History
 	},
 	data: {
 		currentUser: {},
@@ -32,10 +33,10 @@ var app = new Vue({
 				type: "mcq",
 				question: "Which number is the largest?",
 				options: [
-					"2",
-					"3",
-					"4",
-					"5"
+					"Two",
+					"Three",
+					"Four",
+					"Five"
 				],
 				results: null
 			},
@@ -74,12 +75,16 @@ var app = new Vue({
 		autoStop: false,
 		realTimeResults: false,
 		history: [],
+		openHistoryIndex: null,
 		SugarPresence: null,
 		l10n: {
+			stringHome: '',
 			stringSearch: '',
 			stringSettings: '',
 			stringAdd: '',
 			stringRealTimeResults: '',
+			stringHistory: '',
+			stringDeletePoll: '',
 			stringExport: '',
 			stringFullscreen: '',
 			stringUnfullscreen: ''
@@ -189,7 +194,7 @@ var app = new Vue({
 		updateResults(answers) {
 			this.activePoll.results = new Object();
 			this.$set(this.activePoll.results, 'answers', answers);
-			this.$set(this.activePoll.results, 'counts', this.counts);
+			this.$set(this.activePoll.results, 'counts', JSON.parse(JSON.stringify(this.counts)));
 
 			this.SugarPresence.sendMessage({
 				user: this.SugarPresence.getUserInfo(),
@@ -203,9 +208,20 @@ var app = new Vue({
 		},
 
 		saveToHistory() {
-			this.$set(this.activePoll, 'endTime', Date.now());
-			this.history.push(this.activePoll);
-			console.log('Saved to histroy')
+			this.history.push({
+				...this.activePoll,
+				endTime: Date.now()
+			});
+			console.log('Saved to history');
+		},
+
+		setOpenHistoryIndex(index) {
+			this.openHistoryIndex = index;
+		},
+
+		deleteHistoryPoll() {
+			this.history.splice(this.openHistoryIndex, 1);
+			this.openHistoryIndex = null;
 		},
 
 		onAddClick() {
@@ -225,6 +241,11 @@ var app = new Vue({
 				// Clear answers for all connected users
 				for(let id in this.connectedUsers) {
 					this.$set(this.connectedUsers[id], 'answer', null);
+				}
+				this.counts.answersCount = 0;
+				// Clear results from poll templates
+				for(let poll of this.polls) {
+					this.$set(poll, 'results', null);
 				}
 			}
 			this.currentView = view;

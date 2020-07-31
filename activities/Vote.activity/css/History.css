@@ -1,0 +1,50 @@
+.history-container {
+	position: relative;
+	min-height: calc(100vh - 55px);
+	background: white;
+}
+.history-container #go-back {
+	position: absolute;
+	left: 1vw;
+	top: 14px;
+	background-color: transparent;
+	background-image: url(../icons/go-left.svg);
+	background-size: contain;
+	height: 40px;
+	width: 40px;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.history-list {
+	list-style-type: none;
+	padding: 20px 10vw;
+	margin: 0;
+}
+.history-list .history-item {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 15px 0;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: all 150ms ease-in-out;
+}
+.history-list .history-item:hover {
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	transform: scale(1.01);
+}
+.history-item .poll-image {
+	height: 100px;
+	width: 150px;
+	background: rgb(234, 250, 255);
+	margin-right: 10px;
+}
+
+.history-item .results-info {
+	margin-left: auto;
+	text-align: center;
+}

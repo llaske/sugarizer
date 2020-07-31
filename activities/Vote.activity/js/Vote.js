@@ -4,15 +4,17 @@ var Vote = {
 		<div class="vote" :style="{ backgroundColor: currentUser.colorvalue.fill }">
 			<div class="vote-card">
 				<div class="loading" v-if="!activePoll">
-					<img src="icons/hourglass.svg" alt="hourglass">
-					<h2>Waiting for poll</h2>
+					<div>
+						<img src="icons/hourglass.svg" alt="hourglass">
+						<h2>{{ $root.$refs.SugarL10n.get('WaitingPoll') }}</h2>
+					</div>
 				</div>
 				<div class="vote-card-content" v-else-if="activePollStatus == 'running' && (!realTimeResults || (realTimeResults && currentUser.answer == null))">
 					<h1 class="vote-question" v-if="currentUser.answer == null">{{ activePoll.question }}</h1>
 					
 					<div class="vote-waiting" v-if="currentUser.answer != null">
 						<img src="icons/hourglass.svg" alt="hourglass">
-						<h2>Waiting for results</h2>
+						<h2>{{ $root.$refs.SugarL10n.get('WaitingResults') }}</h2>
 						<h3>{{ counts.answersCount }}/{{ counts.usersCount }}</h3>
 						<h3>Voted</h3>
 					</div>
@@ -76,7 +78,7 @@ var Vote = {
 					<button class="submit" :disabled="!submitable" @click="submit" v-if="currentUser.answer == null"></button>
 				</div>
 
-				<div class="vote-card-content" v-if="activePoll.results != null && (activePollStatus == 'finished' || (currentUser.answer != null && realTimeResults))">
+				<div v-else-if="(activePollStatus == 'finished' || (currentUser.answer != null && realTimeResults)) && activePoll.results != null">
 					<poll-stats :activePoll="activePoll" isResult></poll-states>
 				</div>
 
@@ -123,6 +125,14 @@ var Vote = {
 		}
 	},
 	watch: {
+		activePoll: function (newVal, oldVal) {
+			if(newVal == null) {
+				this.text = "";
+				this.optionSelected = null;
+				this.boolChoice = null;
+				this.rating = 0;
+			}
+		},
 		"currentUser.handRaised": function (newVal, oldVal) {
 			let vm = this;
 			this.$nextTick(() => {

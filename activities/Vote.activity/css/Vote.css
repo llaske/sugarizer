@@ -8,19 +8,23 @@
 	position: relative;
 	width: 100%;
 	height: 80vh;
-	padding: 20px;
 	background: white;
 	border-radius: 10px;
 	text-align: center;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	transition: all 200ms ease;
+	overflow: auto;
+}
+.vote .vote-card .vote-question {
+	font-size: calc(1em + 1.25vw);
 }
 .vote .vote-card .vote-card-content {
 	height: 100%;
 	width: 100%;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
-	overflow: auto;
+	/* overflow: auto; */
 }
 .vote .vote-card .submit {
 	width: 120px;
@@ -31,9 +35,14 @@
 	background-repeat: no-repeat;
 	background-size: 2em;
 	background-position: center;
-	margin: 0 auto;
-	margin-top: auto;
+	box-shadow: 0 5px 15px rgba(0, 202, 0, 0.25);
+	/* margin: 0 auto;
+	margin-top: auto; */
+	position: absolute;
+	left: 50%; transform: translateX(-50%);
+	bottom: 25px;
 	cursor: pointer;
+	z-index: 2;
 }
 .vote .vote-card .raise-hand {
 	position: absolute;
@@ -51,6 +60,13 @@
 }
 .vote .vote-card .raise-hand.active {
 	background-color: #d3d3d3;
+}
+
+.vote .vote-card .loading {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .vote .vote-card .vote-waiting {
@@ -99,7 +115,7 @@
 	justify-content: center;
 }
 .vote .vote-card .vote-image-mcq .option-image {
-	width: 250px;
+	width: 15vw;
 	margin: 10px;
 	opacity: 0.8;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
@@ -130,4 +146,22 @@
 	background-size: contain;
 	background-repeat: no-repeat;
 	margin: 10px;
+}
+
+@media (max-width: 768px) {
+	.vote .vote-card .vote-mcq .option {
+		width: 100%;
+	}
+	.vote .vote-card .vote-image-mcq .option-image {
+		width: 20vw;
+	}
+}
+@media (max-width: 425px) {
+	.vote .vote-card .submit {
+		left: 20px;
+		transform: translateX(0);
+	}
+	.vote .vote-card .vote-image-mcq .option-image {
+		width: 30vw;
+	}
 }

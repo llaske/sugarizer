@@ -78,6 +78,10 @@ p {
 	border-radius: 5.5px;
 }
 
+#main-toolbar #home-button {
+	background-image: url(../icons/home.svg);
+}
+
 #main-toolbar #settings-button {
 	background-image: url(../icons/settings.svg);
 }
@@ -88,6 +92,14 @@ p {
 
 #main-toolbar #real-time-button {
 	background-image: url(../icons/stats.svg);
+}
+
+#main-toolbar #history-button {
+	background-image: url(../icons/history.svg);
+}
+
+#main-toolbar #delete-button {
+	background-image: url(../icons/delete.svg);
 }
 
 .search-field {

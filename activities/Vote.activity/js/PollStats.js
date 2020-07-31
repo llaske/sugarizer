@@ -44,6 +44,7 @@ var PollStats = {
 						</div>
 					</div>
 				</div>
+
 			</div>
 			
 			<div class="poll-footer" v-if="!isResult">
@@ -127,6 +128,12 @@ var PollStats = {
 
 			this.updateCounts();
 			if (this.realTimeResults) {
+				this.$emit('update-results', this.answers);
+			}
+		},
+
+		realTimeResults: function(newVal, oldVal) {
+			if(newVal) {
 				this.$emit('update-results', this.answers);
 			}
 		},
