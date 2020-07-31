@@ -68,6 +68,11 @@ var app = new Vue({
 
     pNo: function() {
       let vm = this;
+      vm.gameOver = null;
+      vm.isTargetAcheived = false;
+      vm.hintNumber = 0;
+      vm.hintsUsed = [false, false, false, false, false, false, false];
+      vm.noOfHintsUsed = 0;
       let tmp = vm.puzzles.length - vm.pNo;
       if (tmp === 10) {
         let puzzles = vm.generatePuzzles(10);
@@ -167,6 +172,7 @@ var app = new Vue({
       vm.pNo = 0;
       vm.gameOver = null;
       vm.hintNumber = 0;
+      vm.noOfHintsUsed = 0;
       vm.isTargetAcheived = false;
       vm.$set(vm.clock, 'time', vm.clock.initial);
       vm.generateQuestionSet();
@@ -216,6 +222,7 @@ var app = new Vue({
           },
           targetTans: [],
           outline: [],
+          outlinePoints: [],
         };
 
         tang.positionCentered();
@@ -237,7 +244,6 @@ var app = new Vue({
             stroke: vm.fillColor,
             strokeEnabled: true,
             strokeWidth: 0.3,
-            fill: vm.strokeColor,
             closed: true,
             lineJoin: 'round',
             shadowColor: 'black',
@@ -264,11 +270,20 @@ var app = new Vue({
           targetTan.points = floatPoints;
           targetTan.anchor = tang.tans[i].anchor.dup();
           targetTan.pointsObjs = pointsObjs;
-          targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
           target.push(targetTan);
         }
         puzzle.targetTans = target;
         puzzle.outline = [...tang.outline];
+
+        for (var i = 0; i < puzzle.outline.length; i++) {
+          let tmp = [];
+          for (var j = 0; j < puzzle.outline[i].length; j++) {
+            tmp.push(puzzle.outline[i][j].toFloatX());
+            tmp.push(puzzle.outline[i][j].toFloatY());
+          }
+          puzzle.outlinePoints.push(tmp);
+        }
+
         puzzles.push(puzzle);
       }
       return puzzles;
@@ -293,11 +308,22 @@ var app = new Vue({
           floatPoints.push(tmpPoint.toFloatX());
           floatPoints.push(tmpPoint.toFloatY());
         }
+        let outlinePoints = [];
+        for (var i = 0; i < vm.puzzles[vm.pNo].outline.length; i++) {
+          let tmp = [];
+          for (var j = 0; j < vm.puzzles[vm.pNo].outline[i].length; j++) {
+            tmp.push(vm.puzzles[vm.pNo].outline[i][j].toFloatX() + dx);
+            tmp.push(vm.puzzles[vm.pNo].outline[i][j].toFloatY() + dy);
+          }
+          outlinePoints.push(tmp);
+        }
+        vm.$set(vm.puzzles[vm.pNo], 'outlinePoints', outlinePoints);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'points', floatPoints);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetX', center.toFloatX() + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetY', center.toFloatY() + dy);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', center.toFloatX() + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
+
       }
 
     },
@@ -338,14 +364,10 @@ var app = new Vue({
       if (vm.gameOver) {
         return;
       }
-      for (var i = 0; i < 7; i++) {
-        vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = true;
-      }
       let remaining = [true, true, true, true, true, true, true];
       for (var i = 0; i < 7; i++) {
         let targetTanIndex = data[i];
         if (targetTanIndex != -1) {
-          vm.puzzles[vm.pNo].targetTans[targetTanIndex].strokeEnabled = false;
           remaining[targetTanIndex] = false;
         }
       }
@@ -383,7 +405,6 @@ var app = new Vue({
           vm.pNo++;
         }
       }
-
     },
 
     handleRestartButton: function() {
@@ -476,10 +497,6 @@ var app = new Vue({
         vm.newGame();
         return;
       }
-      let color = vm.level === 0 ? vm.fillColor : vm.strokeColor;
-      for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
-        vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'stroke', color);
-      }
       vm.newGame();
     },
 
@@ -560,15 +577,11 @@ var app = new Vue({
       }
       let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[vm.hintNumber].tanType];
       vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', color);
-      vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', vm.fillColor);
-      //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = false;
       vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = true;
       vm.showHint = true;
 
       setTimeout(() => {
         vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'fill', vm.strokeColor);
-        vm.$set(vm.puzzles[vm.pNo].targetTans[vm.hintNumber], 'stroke', vm.strokeColor);
-        //vm.puzzles[vm.pNo].targetTans[vm.hintNumber].strokeEnabled = true;
         vm.puzzles[vm.pNo].targetTans[vm.hintNumber].shadowEnabled = false;
         vm.showHint = false;
       }, 1000);
@@ -672,99 +685,101 @@ var app = new Vue({
       vm.pNo = data.pNo;
       vm.score = data.score;
       vm.gameOver = data.gameOver;
-
-      if (vm.gameOver === null) {
-        vm.puzzles = [];
-        vm.userResponse = [];
-        for (var i = 0; i < data.puzzles.length; i++) {
-          let puzzle = {...data.puzzles[i]};
-          puzzle.targetTans = [];
-          for (var j = 0; j < data.puzzles[i].targetTans.length; j++) {
-            let coeffIntX = data.puzzles[i].targetTans[j].anchor.x.coeffInt;
-            let coeffSqrtX = data.puzzles[i].targetTans[j].anchor.x.coeffSqrt;
-            let coeffIntY = data.puzzles[i].targetTans[j].anchor.y.coeffInt;
-            let coeffSqrtY = data.puzzles[i].targetTans[j].anchor.y.coeffSqrt;
-            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            let targetTan = {
-              x: 100,
-              y: 100,
-              offsetX: 100,
-              offsetY: 100,
-              anchor: null,
-              pointsObjs: [],
-              tanObj: new Tan(data.puzzles[i].targetTans[j].tanType, anchor.dup(), data.puzzles[i].targetTans[j].orientation),
-              tanType: data.puzzles[i].targetTans[j].tanType,
-              orientation: data.puzzles[i].targetTans[j].orientation,
-              points: [],
-              stroke: vm.fillColor,
-              strokeEnabled: true,
-              strokeWidth: 0.3,
-              fill: vm.strokeColor,
-              closed: true,
-              lineJoin: 'round',
-              shadowColor: 'black',
-              shadowBlur: 10,
-              shadowOpacity: 0.8,
-              shadowEnabled: false,
-            }
-            let points = [...targetTan.tanObj.getPoints()];
-            let center = targetTan.tanObj.center();
-
-            let floatPoints = [];
-            let pointsObjs = [];
-            for (let j = 0; j < points.length; j++) {
-              let tmpPoint = points[j].dup();
-              pointsObjs.push(tmpPoint);
-              floatPoints.push(tmpPoint.toFloatX());
-              floatPoints.push(tmpPoint.toFloatY());
-            }
-            targetTan.offsetX = center.toFloatX();
-            targetTan.offsetY = center.toFloatY();
-            targetTan.x = targetTan.offsetX;
-            targetTan.y = targetTan.offsetY;
-            targetTan.points = floatPoints;
-            targetTan.anchor = targetTan.tanObj.anchor.dup();
-            targetTan.pointsObjs = pointsObjs;
-            targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
-            puzzle.targetTans.push(targetTan);
+      vm.puzzles = [];
+      vm.userResponse = [];
+      for (var i = 0; i < data.puzzles.length; i++) {
+        let puzzle = {
+          ...data.puzzles[i],
+          tangram: null,
+          outline: [],
+          outlinePoints: [],
+        };
+        puzzle.targetTans = [];
+        let tans = [];
+        for (var j = 0; j < data.puzzles[i].targetTans.length; j++) {
+          let coeffIntX = data.puzzles[i].targetTans[j].anchor.x.coeffInt;
+          let coeffSqrtX = data.puzzles[i].targetTans[j].anchor.x.coeffSqrt;
+          let coeffIntY = data.puzzles[i].targetTans[j].anchor.y.coeffInt;
+          let coeffSqrtY = data.puzzles[i].targetTans[j].anchor.y.coeffSqrt;
+          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+          let targetTan = {
+            x: 100,
+            y: 100,
+            offsetX: 100,
+            offsetY: 100,
+            anchor: null,
+            pointsObjs: [],
+            tanObj: new Tan(data.puzzles[i].targetTans[j].tanType, anchor.dup(), data.puzzles[i].targetTans[j].orientation),
+            tanType: data.puzzles[i].targetTans[j].tanType,
+            orientation: data.puzzles[i].targetTans[j].orientation,
+            points: [],
+            stroke: vm.fillColor,
+            strokeEnabled: true,
+            strokeWidth: 0.3,
+            closed: true,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOpacity: 0.8,
+            shadowEnabled: false,
           }
-          vm.puzzles.push(puzzle);
-        }
-        vm.centerTangram();
+          let points = [...targetTan.tanObj.getPoints()];
+          let center = targetTan.tanObj.center();
 
-        vm.userResponse = [];
-
-        for (var i = 0; i < data.userResponse.length; i++) {
-          let userResponse = {
-            isSolved: data.userResponse[i].isSolved,
-            score: data.userResponse[i].score,
-            tans: []
+          let floatPoints = [];
+          let pointsObjs = [];
+          for (let j = 0; j < points.length; j++) {
+            let tmpPoint = points[j].dup();
+            pointsObjs.push(tmpPoint);
+            floatPoints.push(tmpPoint.toFloatX());
+            floatPoints.push(tmpPoint.toFloatY());
           }
-          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
-            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
-            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
-            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
-            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
-            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
-          }
-          vm.userResponse.push(userResponse);
+          targetTan.offsetX = center.toFloatX();
+          targetTan.offsetY = center.toFloatY();
+          targetTan.x = targetTan.offsetX;
+          targetTan.y = targetTan.offsetY;
+          targetTan.points = floatPoints;
+          targetTan.anchor = targetTan.tanObj.anchor.dup();
+          targetTan.pointsObjs = pointsObjs;
+          targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
+          puzzle.targetTans.push(targetTan);
+          tans.push(targetTan.tanObj);
         }
+        puzzle.tangram = new Tangram(tans);
+        puzzle.outline = computeOutline(tans, true);
 
-        if (vm.currentScreen === 'game') {
-          setTimeout(()=>{
-            vm.$refs.game.initializeTans({
-              tans: data.gameTans,
-              tansSnapped: data.gameTansSnapped,
-              tansPlaced: data.gameTansPlaced
-            })
-          },0);
+        vm.puzzles.push(puzzle);
+      }
+      vm.centerTangram();
+
+      vm.userResponse = [];
+
+      for (var i = 0; i < data.userResponse.length; i++) {
+        let userResponse = {
+          isSolved: data.userResponse[i].isSolved,
+          score: data.userResponse[i].score,
+          tans: []
         }
-      } else {
-        vm.startClock();
-        vm.newGame();
+        for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+          let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+          let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+          let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+          let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+          userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+        }
+        vm.userResponse.push(userResponse);
       }
 
+      if (data.currentScreen === 'game') {
+        setTimeout(()=>{
+          vm.$refs.game.initializeTans({
+            tans: data.gameTans,
+            tansSnapped: data.gameTansSnapped,
+            tansPlaced: data.gameTansPlaced
+          })
+        },0);
+      }
       if (data.currentScreen === 'game' || data.currentScreen === 'result') {
         vm.currentScreen = data.currentScreen;
       } else {

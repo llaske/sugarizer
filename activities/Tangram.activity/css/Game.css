@@ -50,6 +50,17 @@
   align-items:center;
 }
 
+#floating-celebration-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+}
+
 .floating-block {
   z-index: 0;
   position: absolute;

@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'isTargetAcheived', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -17,21 +17,27 @@ var Game = {
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
           <template v-if="puzzles[pNo]">
-            <template v-for="(targetTan,index) in puzzles[pNo].targetTans" :key="index">
-              <v-line v-if="index!=hintNumber || !showHint"
-                :config="{
-                  ...targetTan,
-                  strokeEnabled: showHint ? true : targetTan.strokeEnabled
-                }"
-              ></v-line>
-            </template>
-            <v-line v-if="showHint" :config="puzzles[pNo].targetTans[hintNumber]"></v-line>
+            <v-line
+              v-for="(outline,index) in puzzles[pNo].outlinePoints" :key="index"
+              :config="{
+                points: outline,
+                fill: index===0 ? strokeColor: '#ffffff',
+                closed: true,
+                lineJoin: 'round',
+              }"
+            ></v-line>
+            <v-line v-for="(targetTan,index) in targetPuzzleTans" :key="targetTan.id"
+              :config="{
+                ...targetTan,
+                fill: gameOver==='solved' ? fillColor : targetTan.fill
+              }"
+            ></v-line>
           </template>
           <template v-if="!(gameOver==='passed')">
             <v-line v-for="(tan,index) in tans" :key="index" v-if="currentTan!=index && !(showHint && (tansSnapped[index] || tansPlaced[index]!=-1))"
               :config="{
                 ...tan,
-                listening: !isTargetAcheived
+                listening: !gameOver,
               }"
               v-on:tap="onTap($event, index)"
               v-on:click="onClick($event, index)"
@@ -45,7 +51,7 @@ var Game = {
           <v-line v-if="!(gameOver==='passed') && !(showHint && (tansSnapped[currentTan] || tansPlaced[currentTan]!=-1))"
             :config="{
               ...tans[currentTan],
-              listening: gameOver!=='solved'
+              listening: gameOver!=='solved',
             }"
             v-on:tap="onTap($event, currentTan)"
             v-on:click="onClick($event, currentTan)"
@@ -100,9 +106,19 @@ var Game = {
             top: tangramDiffBlock.top + 'px',
             left: tangramDiffBlock.left + 'px',
             borderColor: 'transparent',
-            backgroundImage: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'url(./icons/star.svg)': '') : '',
+            backgroundImage: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'url(./icons/medal.svg)': '') : '',
           }"
         ></div>
+
+        <canvas id="floating-celebration-block"
+          v-if="mode==='non-timer' && gameOver==='solved'"
+          v-bind:style="{width: celebrationBlock.width + 'px',
+            height: celebrationBlock.height + 'px',
+            top: celebrationBlock.top + 'px',
+            left: celebrationBlock.left + 'px'
+          }"
+        >
+        </canvas>
 
         <div id="floating-game-over-block"
           v-if="mode==='non-timer' && gameOver"
@@ -220,6 +236,12 @@ var Game = {
         top: 0,
         left: 0
       },
+      celebrationBlock: {
+        width: 1,
+        height: 1,
+        top: 0,
+        left: 0
+      },
       tangramDiffBlock: {
         width: 1,
         height: 1,
@@ -242,8 +264,6 @@ var Game = {
       currentTan: 0,
       flip: 5,
       initialPositions: [],
-      selectedTanStrokeWidth: 0.8,
-      nonSelectedTanStrokeWidth: 0.3,
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
       tansPlaced: [-1, -1, -1, -1, -1, -1, -1],
       snapRange: 1.5,
@@ -273,6 +293,25 @@ var Game = {
     }, 0);
   },
 
+  computed: {
+    targetPuzzleTans: function() {
+      let vm = this;
+      if (vm.gameOver != null) {
+        return vm.puzzles[vm.pNo].targetTans;
+      }
+
+      if (vm.level === 1 && !vm.showHint && vm.gameOver === null) {
+        return [];
+      }
+      let targetPuzzleTans = vm.puzzles[vm.pNo].targetTans.filter((targetTan, index) => {
+        if (vm.tansPlaced.includes(index)) return false;
+        if (!vm.showHint) return true;
+        if (vm.showHint && index === vm.hintNumber) return true;
+      });
+      return targetPuzzleTans
+    }
+  },
+
   watch: {
     mode: function() {
       let vm = this;
@@ -289,10 +328,27 @@ var Game = {
     },
 
     gameOver: function() {
-      if (this.gameOver === 'solved') {
-        this.deSelectTan(this.currentTan);
-      } else if (this.gameOver === null) {
-        this.initializeTans();
+      let vm = this;
+      if (vm.gameOver === 'solved') {
+        vm.deSelectTan(vm.currentTan);
+        if (vm.mode === 'non-timer') {
+          setTimeout(() => {
+            let myCanvas = document.querySelector('#floating-celebration-block');
+            let myConfetti = confetti.create(myCanvas, {
+              resize: true,
+              useWorker: true
+            });
+            myConfetti({
+              particleCount: 150,
+              spread: 120
+            });
+            setTimeout(() => {
+              confetti.reset();
+            }, 3000);
+          }, 0);
+        }
+      } else if (vm.gameOver === null) {
+        vm.initializeTans();
       }
     },
   },
@@ -369,6 +425,11 @@ var Game = {
       vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
       vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
       vm.$set(vm.tangramDiffBlock, 'left', gameMainEle.offsetWidth * 0.01);
+
+      vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
+      vm.$set(vm.celebrationBlock, 'height', ch);
+      vm.$set(vm.celebrationBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.celebrationBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       let gameFooterEle = document.querySelector('.game-footer');
       vm.$set(vm.actionButtons, 'width', gameFooterEle.offsetHeight * 0.95);
@@ -470,6 +531,7 @@ var Game = {
             let coeffIntY = context.tans[i].placedAnchor.y.coeffInt;
             let coeffSqrtY = context.tans[i].placedAnchor.y.coeffSqrt;
             placedAnchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+            //anchor =
           } else {
             placedAnchor = null;
           }
@@ -478,6 +540,7 @@ var Game = {
           placedAnchor = null;
         }
         let tan = {
+          id: 100 + i,
           x: 100,
           y: 100,
           offsetX: 100,
@@ -487,7 +550,7 @@ var Game = {
           placedAnchor: placedAnchor,
           stroke: vm.strokeColor,
           strokeEnabled: false,
-          strokeWidth: vm.nonSelectedTanStrokeWidth,
+          strokeWidth: 0.8,
           closed: true,
           draggable: true,
           fill: 'blue',
@@ -532,7 +595,6 @@ var Game = {
       vm.$emit('update-tans-placed', vm.tansPlaced);
       vm.$emit('update-game-tans', vm.tans);
       vm.$emit('update-tans-snapped', vm.tansSnapped);
-
     },
 
     snapTan: function(index) {
@@ -781,14 +843,12 @@ var Game = {
 
     selectTan: function(index) {
       let vm = this;
-      vm.$set(vm.tans[index], 'strokeWidth', vm.selectedTanStrokeWidth);
       vm.$set(vm.tans[index], 'strokeEnabled', true);
       vm.$set(vm.tans[index], 'shadowEnabled', true);
     },
 
     deSelectTan: function(index) {
       let vm = this;
-      vm.$set(vm.tans[index], 'strokeWidth', vm.nonSelectedTanStrokeWidth);
       vm.$set(vm.tans[index], 'strokeEnabled', false);
       vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
@@ -920,7 +980,7 @@ var Game = {
 
     onKeyDown: function(e) {
       let vm = this;
-      if (vm.isTargetAcheived) return;
+      if (vm.gameOver) return;
 
       if (vm.tanState === 0) {
         if (e.keyCode === 37 || e.keyCode === 40) {
@@ -972,7 +1032,7 @@ var Game = {
 
     onKeyUp: function(e) {
       let vm = this;
-      if (vm.isTargetAcheived) return;
+      if (vm.gameOver) return;
 
       if (vm.tanState === 1) {
         setTimeout(() => {
