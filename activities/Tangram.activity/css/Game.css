@@ -50,6 +50,17 @@
   align-items:center;
 }
 
+#floating-celebration-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+}
+
 .floating-block {
   z-index: 0;
   position: absolute;
@@ -194,8 +205,8 @@
 }*/
 
 .pulse {
-	-webkit-animation: pulse 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: pulse 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	-webkit-animation: pulse 0.8s ease both;
+	        animation: pulse 0.8s ease both;
 }
 
 @-webkit-keyframes pulse {

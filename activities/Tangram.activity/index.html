@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="css/Game.css">
 	<link rel="stylesheet" href="css/Result.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/confetti.browser.min.js"></script>
 	<script src="lib/konva.min.js"></script>
 	<script src="lib/vue-konva.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
@@ -61,6 +62,7 @@
 
 		<transition name="fade" mode="out-in">
 			<component
+				v-bind:ref="currentScreen"
 				v-bind:is="currentScreen"
 				v-bind:time="clock.time"
 				v-bind:stroke-color="strokeColor"
@@ -80,8 +82,10 @@
 				v-bind:score="score"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
-				v-on:remove-tangram-borders="onRemoveTangramBorders"
+				v-on:update-tans-placed="onUpdateTansPlaced"
 				v-on:tangram-status="onTangramStatus"
+				v-on:update-game-tans="onUpdateGameTans"
+				v-on:update-tans-snapped="onUpdateTansSnapped"
 				v-on:pass-puzzle="handlePassButton"
 				v-on:restart-game="handleRestartButton"
 			></component>
