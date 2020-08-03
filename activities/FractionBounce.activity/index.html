@@ -98,7 +98,13 @@
 		</sugar-toolbar>
 
 		<div id="content">
-			<div style="position: absolute; background: rgba(0,0,0,0.8); color: white">{{ acceleration }}</div>
+			<div style="position: absolute; background: rgba(0,0,0,0.8); color: white">
+				OS: {{ os }} |
+				isMobile: {{ isMobile }} |
+				isElectron: {{ isElectron }} |
+				isWebApp: {{ isWebApp }} |
+				{{ acceleration }}
+			</div>
 			<table class="log">
 				<thead>
 					<th v-for="(item, key) in log" v-bind:key="key"> {{ key }} </th>

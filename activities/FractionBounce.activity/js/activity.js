@@ -92,7 +92,12 @@ let app = new Vue({
 		},
 
 		//DEBUG
-		acceleration: {}
+		os: '',
+		isMobile: '',
+		isWebApp: '',
+		isElectron: '',
+		acceleration: {},
+		accelerationInterval: null
 	},
 
 	computed: {
@@ -120,6 +125,12 @@ let app = new Vue({
 		this.init();
 
 		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
+
+		//DEBUG
+		this.os = this.$refs.SugarDevice.getOS();
+		this.isMobile = this.$refs.SugarDevice.isMobile();
+		this.isElectron = this.$refs.SugarDevice.isElectron();
+		this.isWebApp = this.$refs.SugarDevice.isWebApp();
 	},
 
 	methods: {
@@ -434,13 +445,29 @@ let app = new Vue({
 		},
 
 		accelerationChanged: function (acceleration) {
+			//DEBUG
 			this.acceleration = {
-				x: Math.round(acceleration.x * 1000)/1000,
-				y: Math.round(acceleration.y * 1000)/1000
+				x: acceleration.x,
+				y: acceleration.y,
+				z: acceleration.z,
+				type: acceleration.type
 			};
-			this.changeSpeed({
-				acceleration: acceleration
-			});
+			this.accelerationUpdate();
+		},
+
+		accelerationUpdate() {
+			let vm = this;
+			if(!this.paused && this.acceleration.x != null) {
+				if(!this.accelerationInterval) {
+					this.accelerationInterval = setInterval(() => {
+						vm.changeSpeed({
+							acceleration: vm.acceleration
+						});
+					}, this.frameInterval * 2)
+				}
+			} else {
+				clearInterval(this.accelerationInterval);
+			}
 		},
 
 		onTouchStart: function (event) {

@@ -79,6 +79,7 @@ p {
 	position: relative;
 	color: white;
 	transform: translateY(-100%);
+	vertical-align: bottom;
 }
 
 @media only screen and (max-width: 1040px) {
