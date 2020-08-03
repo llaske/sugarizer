@@ -134,6 +134,10 @@ p {
 	background-image: url(../icons/restart-black.svg);
 }
 
+.btn-back {
+	background-image: url(../icons/go-left-black.svg);
+}
+
 .btn-validate {
 	background-image: url(../icons/validate.svg);
 }

@@ -1,4 +1,4 @@
-//code from https://github.com/Wiebke/TangramGenerator 
+//code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /**
  * Class for numbers in the ring of integers adjoined square root of 2
@@ -174,6 +174,13 @@ IntAdjoinSqrt2.prototype.scale = function (factor) {
     }
     this.coeffInt *= factor;
     this.coeffSqrt *= factor;
+    return this;
+};
+
+/* Rounding off the coefficients */
+IntAdjoinSqrt2.prototype.roundToNearest = function (rountTo) {
+    this.coeffInt = roundToNearest(this.coeffInt, rountTo);
+    this.coeffSqrt = roundToNearest(this.coeffSqrt, rountTo);
     return this;
 };
 

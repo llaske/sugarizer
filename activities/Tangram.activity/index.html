@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Game.css">
 	<link rel="stylesheet" href="css/Result.css">
+	<link rel="stylesheet" href="css/SettingList.css">
+	<link rel="stylesheet" href="css/SettingEditor.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/confetti.browser.min.js"></script>
 	<script src="lib/konva.min.js"></script>
@@ -29,8 +31,9 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
-			<sugar-toolitem id="view-button" title="view"></sugar-toolitem>
+			<sugar-toolitem id="view-button" title="view" v-on:click="onChangeView"></sugar-toolitem>
 			<sugar-toolitem id="type-button"
+				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="tangram-type"
 				palette-file="js/palettes/tangramTypePalette.js"
 				palette-class="TangramTypePalette"
@@ -39,6 +42,7 @@
 				v-on:tangram-type-selected="onTangramTypeSelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
+				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="level"
 				palette-file="js/palettes/difficultyPalette.js"
 				palette-class="DifficultyPalette"
@@ -46,8 +50,8 @@
 				palette-event="difficulty-selected"
 				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
-			<sugar-toolitem
-				id="timer-button"
+			<sugar-toolitem id="timer-button"
+				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="Timer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
@@ -55,7 +59,11 @@
 				palette-event="timer-selected"
 				v-on:timer-selected="onTimerSelected"
 			></sugar-toolitem>
-			<sugar-toolitem id="hint-button" v-if="level" title="hint" v-on:click="onHint"></sugar-toolitem>
+			<sugar-toolitem id="hint-button"
+				v-if="level && currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				title="hint"
+				v-on:click="onHint"
+			></sugar-toolitem>
 
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 		</sugar-toolbar>
@@ -68,10 +76,12 @@
 				v-bind:stroke-color="strokeColor"
 				v-bind:fill-color="fillColor"
 				v-bind:is-target-acheived="isTargetAcheived"
+				v-bind:custom-puzzles="customPuzzles"
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
 				v-bind:show-hint="showHint"
 				v-bind:mode="mode"
+				v-bind:categories="categories"
 				v-bind:hint-number="hintNumber"
 				v-bind:no-of-hints-used="noOfHintsUsed"
 				v-bind:level="level"
@@ -88,6 +98,8 @@
 				v-on:update-tans-snapped="onUpdateTansSnapped"
 				v-on:pass-puzzle="handlePassButton"
 				v-on:restart-game="handleRestartButton"
+				v-on:go-to-setting-editor="goToSettingEditor"
+				v-on:go-to-setting-list="goToSettingList"
 			></component>
 		</transition>
 
@@ -108,6 +120,8 @@
 	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
+	<script src="js/SettingList.js"></script>
+	<script src="js/SettingEditor.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

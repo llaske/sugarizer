@@ -276,7 +276,9 @@
 }
 
 .tangram-difficulty {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 3vh;
 }

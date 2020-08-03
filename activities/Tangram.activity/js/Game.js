@@ -100,15 +100,16 @@ var Game = {
         </div>
 
         <div class="tangram-difficulty detail-block floating-block"
-          v-if="puzzles[pNo] ? puzzles[pNo].difficulty : false "
           v-bind:style="{width: tangramDiffBlock.width + 'px',
             height: tangramDiffBlock.height + 'px',
             top: tangramDiffBlock.top + 'px',
             left: tangramDiffBlock.left + 'px',
-            borderColor: 'transparent',
-            backgroundImage: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'url(./icons/medal.svg)': '') : '',
+            borderColor: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'transparent',
+            color: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'black',
           }"
-        ></div>
+        >
+          <div>{{puzzles[pNo] ? (puzzles[pNo].difficulty ? 'HARD': 'EASY') : ''}}</div>
+        </div>
 
         <canvas id="floating-celebration-block"
           v-if="mode==='non-timer' && gameOver==='solved'"
@@ -423,7 +424,7 @@ var Game = {
 
       vm.$set(vm.tangramDiffBlock, 'width', gameMainEle.offsetHeight * 0.15);
       vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.015 + toolbarHeight);
       vm.$set(vm.tangramDiffBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
@@ -513,7 +514,7 @@ var Game = {
     initializeTans: function(context) {
       let vm = this;
       let tans = [];
-      let tang = standardTangrams[0].tangram;
+      let tang = standardTangrams[0].tangram.dup();
       for (let i = 0; i < 7; i++) {
         let orientation = context ? context.tans[i].tanObj.orientation : tang.tans[i].orientation;
         let tanType = context ? context.tans[i].tanObj.tanType : tang.tans[i].tanType;

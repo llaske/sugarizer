@@ -13,6 +13,14 @@ function Tangram(tans) {
     }
 }
 
+Tangram.prototype.dup = function () {
+  var tans = [];
+  for (var i = 0; i < this.tans.length; i++) {
+    tans.push(this.tans[i].dup());
+  }
+  return new Tangram(tans);
+}
+
 /* Calculates the center of the bounding box of a tangram */
 Tangram.prototype.center = function () {
     var center = new Point();
@@ -34,15 +42,17 @@ Tangram.prototype.positionCentered = function () {
 
 /* Create an SVG element with the outline of this tangram */
 Tangram.prototype.toSVGOutline = function (elementName) {
-    var tangramSVG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    var tangramSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     var shape = document.createElementNS("http://www.w3.org/2000/svg", "path");
     /* Add each outline point to the path */
+    this.outline = computeOutline(this.tans, true);
     var pathdata = "M " + this.outline[0][0].toFloatX() + ", " + this.outline[0][0].toFloatY() + " ";
     for (var pointId = 1; pointId < this.outline[0].length; pointId++) {
         pathdata += "L " + this.outline[0][pointId].toFloatX() + ", " + this.outline[0][pointId].toFloatY() + " ";
     }
     pathdata += "Z ";
     shape.setAttributeNS(null, "fill", '#3299BB');
+    shape.setAttributeNS(null, "transform", 'scale(6)');
     for (var outlineId = 1; outlineId < this.outline.length; outlineId++) {
         pathdata += "M " + this.outline[outlineId][0].toFloatX() + ", " + this.outline[outlineId][0].toFloatY() + " ";
         for (var pointId = 1; pointId < this.outline[outlineId].length; pointId++) {
@@ -54,6 +64,7 @@ Tangram.prototype.toSVGOutline = function (elementName) {
     /* Set fill-rule for correctly displayed holes */
     shape.setAttributeNS(null, "fill-rule", "evenodd");
     tangramSVG.appendChild(shape);
+    return tangramSVG;
 
     /*Test convex hull */
     /*var allPoints = getAllPoints(this.tans);
@@ -72,12 +83,12 @@ Tangram.prototype.toSVGOutline = function (elementName) {
     tangramSVG.appendChild(hull);*/
 
     /* Clear old content */
-    var element = document.getElementById(elementName);
+    /*var element = document.getElementById(elementName);
     while (element.firstChild) {
         element.removeChild(element.firstChild);
-    }
+    }*/
     /* Add new tangram */
-    element.appendChild(tangramSVG);
+    //element.appendChild(tangramSVG);
 };
 
 /* Create svg element for each tan */

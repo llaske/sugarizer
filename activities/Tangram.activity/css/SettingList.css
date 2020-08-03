@@ -1,4 +1,4 @@
-#result-screen {
+#setting-list-screen {
   width: 100%;
   height: 100%;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.result-header {
+.setting-list-header {
   width: 98%;
   height: 10%;
   display: flex;
@@ -16,7 +16,7 @@
   align-items: flex-end;
 }
 
-.result-bar {
+.setting-list-bar {
   width: 100%;
   height: 90%;
   display: flex;
@@ -24,7 +24,7 @@
   justify-content: space-around;
 }
 
-.result-bar-block {
+.setting-list-bar-block {
   width: 40%;
   height: 100%;
   text-align: center;
@@ -39,7 +39,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.result-main {
+.setting-list-main {
   width: 100%;
   height: 77%;
   display: flex;
@@ -48,7 +48,7 @@
   align-items: center;
 }
 
-.result-panel-primary {
+.setting-list-panel-primary {
   width: 95%;
   height: 98%;
   border-radius: 10px;
@@ -69,58 +69,36 @@
   width: 35%;
 }
 
-.result-footer {
+.setting-list-footer {
   width: 98%;
   height: 12%;
   display: flex;
   justify-content: space-between;
 }
 
-
-.info-bar {
+.tangram-card-info-bar {
   width: 100%;
-  height: 15%;
+  height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
 
-.info-block {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 30%;
-  height: 99%;
-  border: none;
-  color: black;
-  font-size: min(2.6vh, 2.6vw);
-  font-weight: bold;
-  text-align: center;
-}
-
-.info-block-logo {
-  height: 100%;
-  width: 30%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.info-block-content {
+.info-content {
   height: 100%;
   width: 50%;
+  font-weight: bold;
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.info-score-1 {
-  min-width: 70%;
-}
-
-.info-score-2 {
-  width: 30%;
+.name-info {
+  width: 100%;
+  font-size: min(3.5vh, 3.5vw);
 }
 
 .info-block-content div {
@@ -128,32 +106,34 @@
   word-wrap: break-word;
 }
 
-.info-bar-logo {
-  width: 30%;
-  height: 80%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.result-card {
+.tangram-card {
   max-width: 45vw;
-  min-width: max(300px, 25vw);
+  min-width: 250px;
   flex: auto;
-  height: 90%;
-  min-height: 350px;
+  max-height: 300px;
+  min-height: 200px;
   border-radius: 10px;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: stretch;
 }
 
-.result-card-main {
+.tangram-card-main {
   width: 100%;
-  height: 86%;
+  height: 88%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.tangram-card-main svg {
+  width: 180px;
+  height: 180px;
+}
+
+.btn-add-puzzle {
+	background-image: url(../icons/add-black.svg);
 }

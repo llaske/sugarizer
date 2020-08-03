@@ -1,0 +1,118 @@
+#setting-editor-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.setting-editor-main {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.box2 {
+  border: 4px solid #00bfb6;
+  text-align: center;
+  font-weight: 900;
+  color: #00bfb6;
+  font-family: arial;
+  position: relative;
+}
+
+.setting-editor-sidebar {
+  width: 21.5%;
+  height: 96%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sb11:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 30px solid transparent;
+  border-right: 30px solid #00bfb6;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  left: -63px;
+}
+
+.sb11:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 30px solid transparent;
+  border-right: 30px solid #fff;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  left: -57px;
+}
+
+.setting-editor-sidebar-element {
+  width: 90%;
+  height: 10%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: min(3vh, 3vw);
+  color: black;
+}
+
+.setting-editor-sidebar form {
+  width: 90%;
+}
+
+select {
+  width: 225px;
+  padding: 4px;
+  line-height: 30px;
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+  border-radius: 30px;
+  outline: 0;
+}
+select:focus {
+  background-color: white;
+}
+select:disabled {
+  background-color: #808080;
+  border-color: #808080;
+}
+
+.setting-editor-sidebar form label {
+	font-size: min(2.5vh, 2.5vw);
+	display: block;
+}
+.setting-editor-sidebar form input {
+	width: 90%;
+  height: 7%;
+}
+
+.setting-editor-sidebar form select {
+	width: 95%;
+  height: 7%;
+}
+
+.valid-shape-display svg {
+  width: 100%;
+  height: 100%;
+}
+
+.setting-editor-footer {
+  width: 98%;
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+}

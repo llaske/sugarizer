@@ -133,3 +133,11 @@ var generateXOLogoWithColor = function(strokeColor, fillColor) {
   coloredLogo = coloredLogo.replace("#FFFFFF", fillColor)
   return "data:image/svg+xml;base64," + btoa(coloredLogo);
 }
+
+function checkDifficultyOfTangram (tang) {
+  return tang.evaluation.getValue(2) <= 11 ? 1 : 0;
+};
+
+function roundToNearest(num, rountTo) {
+  return Math.round(num / rountTo) * rountTo;
+};

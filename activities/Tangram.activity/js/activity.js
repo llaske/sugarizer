@@ -12,6 +12,8 @@ var app = new Vue({
   components: {
     'game': Game,
     'result': Result,
+    'setting-list': SettingList,
+    'setting-editor': SettingEditor,
   },
   data: {
     currentScreen: "",
@@ -34,7 +36,13 @@ var app = new Vue({
       type: 0,
     },
     timeMarks: [],
+    categories: ["Geometrical shapes", "Letters, Numbers & Signs", "People", "Animals", "Usual objects", "Boats", "Miscellaneous", "Random"],
     puzzles: [],
+    customPuzzles: [{
+      name: standardTangrams[3].name,
+      difficulty: 1,
+      tangram: standardTangrams[3].tangram,
+    }],
     pNo: 0,
     gameTans: [],
     gameTansPlaced: [-1, -1, -1, -1, -1, -1, -1],
@@ -59,11 +67,19 @@ var app = new Vue({
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
         if (!vm.multiplayer) {
           vm.newGame();
         }
         vm.startClock();
+      } else if (vm.currentScreen === 'setting-list') {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
+      } else if (vm.currentScreen === 'setting-editor') {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/home.svg)';
+      } else {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
       }
+
     },
 
     pNo: function() {
@@ -189,10 +205,6 @@ var app = new Vue({
       vm.pNo = 0;
     },
 
-    checkDifficultyOfTangram: function (tang) {
-      return tang.evaluation.getValue(2) <= 11 ? 1 : 0;
-    },
-
     generatePuzzles: function(number) {
       let vm = this;
       let puzzles = [];
@@ -201,7 +213,7 @@ var app = new Vue({
         let tang, tangramName;
         if (vm.tangramType === 1) {
           let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
-          tang = tangram.tangram;
+          tang = tangram.tangram.dup();
           tangramName = tangram.name;
         } else if (vm.tangramType === 2) {
           let generatedTangrams = generateTangrams(2);
@@ -213,13 +225,11 @@ var app = new Vue({
           tangramName = tangram.name;
         }
         generating = false;
-        let tangDifficulty = vm.checkDifficultyOfTangram(tang);
+        let tangDifficulty = checkDifficultyOfTangram(tang);
         let puzzle = {
           name: tangramName,
           difficulty: tangDifficulty,
-          tangram: {
-            ...tang
-          },
+          tangram: tang,
           targetTans: [],
           outline: [],
           outlinePoints: [],
@@ -237,7 +247,7 @@ var app = new Vue({
             offsetY: 100,
             anchor: null,
             pointsObjs: [],
-            tanObj: new Tan(tang.tans[i].tanType, tang.tans[i].anchor.dup(), tang.tans[i].orientation),
+            tanObj: tang.tans[i].dup(),
             tanType: tang.tans[i].tanType,
             orientation: tang.tans[i].orientation,
             points: [],
@@ -588,6 +598,27 @@ var app = new Vue({
 
     },
 
+    onChangeView: function () {
+
+      if (this.currentScreen ==='setting-list') {
+        this.currentScreen = 'game';
+      } else if(this.currentScreen === 'game'){
+        this.stopClock();
+        this.currentScreen = 'setting-list';
+      } else if(this.currentScreen === 'setting-editor') {
+        this.currentScreen = 'setting-list';
+      }
+
+    },
+
+    goToSettingEditor: function () {
+      this.currentScreen = 'setting-editor';
+    },
+
+    goToSettingList: function () {
+      this.currentScreen = 'setting-list';
+    },
+
     onUpdateGameTans: function (data) {
       this.gameTans = data;
     },
@@ -794,7 +825,6 @@ var app = new Vue({
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
     },
-
 
   }
 });

@@ -15,6 +15,7 @@ var anchorP = new Point(new IntAdjoinSqrt2(6, 0), new IntAdjoinSqrt2(6, 0));
 var parallelogram = new Tan(5, anchorP, 0);
 
 var squareTangram = new Tangram([bigTriangle1, bigTriangle2, mediumTriangle, smallTriangle1, smallTriangle2, square, parallelogram]);
+//squareTangram.positionCentered();
 /* Test tangram - Swan */
 var anchorBT1_2 = new Point(new IntAdjoinSqrt2(-6, 12), new IntAdjoinSqrt2(30, 6));
 var bigTriangle1_2 = new Tan(0, anchorBT1_2, 6);
@@ -32,6 +33,7 @@ var anchorP_2 = new Point(new IntAdjoinSqrt2(0, 6), new IntAdjoinSqrt2(0, 0));
 var parallelogram_2 = new Tan(5, anchorP_2, 2);
 
 var swanTangram = new Tangram([bigTriangle1_2, bigTriangle2_2, mediumTriangle_2, smallTriangle1_2, smallTriangle2_2, square_2, parallelogram_2]);
+//swanTangram.positionCentered();
 
 /* Test tangram - Cat */
 var anchorBT1_3 = new Point(new IntAdjoinSqrt2(18, 12), new IntAdjoinSqrt2(30, -6));
@@ -50,6 +52,7 @@ var anchorP_3 = new Point(new IntAdjoinSqrt2(6, 0), new IntAdjoinSqrt2(18, 0));
 var parallelogram_3 = new Tan(4, anchorP_3, 7);
 
 var catTangram = new Tangram([bigTriangle1_3, bigTriangle2_3, mediumTriangle_3, smallTriangle1_3, smallTriangle2_3, square_3, parallelogram_3]);
+//catTangram.positionCentered();
 
 /* Test tangram - Bird */
 var anchorBT1_4 = new Point(new IntAdjoinSqrt2(24, 0), new IntAdjoinSqrt2(0, 0));
@@ -68,6 +71,7 @@ var anchorP_4 = new Point(new IntAdjoinSqrt2(12, 12), new IntAdjoinSqrt2(12, 0))
 var parallelogram_4 = new Tan(4, anchorP_4, 0);
 
 var birdTangram = new Tangram([bigTriangle1_4, bigTriangle2_4, mediumTriangle_4, smallTriangle1_4, smallTriangle2_4, square_4, parallelogram_4]);
+//birdTangram.positionCentered();
 
 /* Test tangram - Mountain */
 var anchorBT1_5 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(12, 6));
@@ -86,6 +90,7 @@ var anchorP_5 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(12, -6))
 var parallelogram_5 = new Tan(4, anchorP_5, 1);
 
 var mountainTangram = new Tangram([bigTriangle1_5, bigTriangle2_5, mediumTriangle_5, smallTriangle1_5, smallTriangle2_5, square_5, parallelogram_5]);
+//mountainTangram.positionCentered();
 
 /* Test tangram - Arrow */
 var anchorBT1_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 0));
@@ -104,24 +109,30 @@ var anchorP_6 = new Point(new IntAdjoinSqrt2(0, 12), new IntAdjoinSqrt2(0, 0));
 var parallelogram_6 = new Tan(5, anchorP_6, 3);
 
 var arrowTangram = new Tangram([bigTriangle1_6, bigTriangle2_6, mediumTriangle_6, smallTriangle1_6, smallTriangle2_6, square_6, parallelogram_6]);
-
+//arrowTangram.positionCentered();
 
 var standardTangrams = [{
   name: 'square',
-  tangram: squareTangram
+  tangram: squareTangram,
+  difficulty: checkDifficultyOfTangram(squareTangram)
 }, {
   name: 'arrow',
-  tangram: arrowTangram
+  tangram: arrowTangram,
+  difficulty: checkDifficultyOfTangram(arrowTangram)
 }, {
   name: 'swan',
-  tangram: swanTangram
+  tangram: swanTangram,
+  difficulty: checkDifficultyOfTangram(swanTangram)
 }, {
   name: 'cat',
-  tangram: catTangram
+  tangram: catTangram,
+  difficulty: checkDifficultyOfTangram(catTangram)
 }, {
   name: 'bird',
-  tangram: birdTangram
+  tangram: birdTangram,
+  difficulty: checkDifficultyOfTangram(birdTangram)
 }, {
   name: 'mountain',
-  tangram: mountainTangram
+  tangram: mountainTangram,
+  difficulty: checkDifficultyOfTangram(mountainTangram)
 }];

@@ -1,4 +1,4 @@
-//code from https://github.com/Wiebke/TangramGenerator 
+//code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /**
  * Class for a projective three-dimensional point or vector
@@ -281,6 +281,13 @@ Point.prototype.scale = function (factor) {
     }
     this.x.scale(factor);
     this.y.scale(factor);
+    return this;
+};
+
+
+Point.prototype.roundToNearest = function (rountTo) {
+    this.x.roundToNearest(rountTo);
+    this.y.roundToNearest(rountTo);
     return this;
 };
 
