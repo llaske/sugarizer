@@ -897,10 +897,6 @@ var app = new Vue({
       console.log("New instance");
     },
 
-    onJournalSharedInstance: function() {
-      this.onMultiplayerGameStarted();
-    },
-
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
       console.log("Existing instance");
@@ -942,7 +938,13 @@ var app = new Vue({
 
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
-    },
+		},
+		
+		onActivityShared: function(event, paletteObject) {
+			this.onMultiplayerGameStarted();
+			// Usual behaviour call
+			this.SugarPresence.onShared(event, paletteObject);
+		},
 
     onNetworkDataReceived: function(msg) {
       var vm = this;
