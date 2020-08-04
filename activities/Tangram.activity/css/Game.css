@@ -15,12 +15,6 @@
   justify-content: space-around;
 }
 
-.game-canvas {
-  width: 95%;
-  height: 95%;
-  flex: 0 0 auto;
-}
-
 .game-footer {
   width: 98%;
   height: 12%;

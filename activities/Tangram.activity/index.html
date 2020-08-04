@@ -32,8 +32,17 @@
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="view-button" title="view" v-on:click="onChangeView"></sugar-toolitem>
+			<sugar-toolitem id="category-button"
+				v-visible="currentScreen!='setting-editor' && tangramType!=2"
+				title="tangram category"
+				palette-file="js/palettes/tangramCategoryPalette.js"
+				palette-class="TangramCategoryPalette"
+				palette-title="tangram Type"
+				palette-event="tangram-category-selected"
+				v-on:tangram-category-selected="onTangramCategorySelected"
+			></sugar-toolitem>
 			<sugar-toolitem id="type-button"
-				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="tangram-type"
 				palette-file="js/palettes/tangramTypePalette.js"
 				palette-class="TangramTypePalette"
@@ -42,7 +51,7 @@
 				v-on:tangram-type-selected="onTangramTypeSelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
-				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="level"
 				palette-file="js/palettes/difficultyPalette.js"
 				palette-class="DifficultyPalette"
@@ -51,7 +60,7 @@
 				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="timer-button"
-				v-if="currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="Timer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
@@ -76,7 +85,7 @@
 				v-bind:stroke-color="strokeColor"
 				v-bind:fill-color="fillColor"
 				v-bind:is-target-acheived="isTargetAcheived"
-				v-bind:custom-puzzles="customPuzzles"
+				v-bind:data-set-handler="DataSetHandler"
 				v-bind:puzzles="puzzles"
 				v-bind:p-no="pNo"
 				v-bind:show-hint="showHint"
@@ -105,6 +114,7 @@
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<data-set-handler ref="DataSetHandler"></data-set-handler>
 	</div>
 
 	<script src="js/utils/intadjoinsqrt2.js"></script>
@@ -122,6 +132,7 @@
 	<script src="js/Result.js"></script>
 	<script src="js/SettingList.js"></script>
 	<script src="js/SettingEditor.js"></script>
+	<script src="js/DataSetHandler.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

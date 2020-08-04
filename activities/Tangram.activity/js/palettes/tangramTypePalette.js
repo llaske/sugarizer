@@ -35,12 +35,6 @@ define(["sugar-web/graphics/palette",
       that.popDown();
     });
 
-    document.getElementById('custom-type-button').addEventListener('click', function(event) {
-      that.tangramTypeSelectedEvent.index = 3;
-      that.getPalette().dispatchEvent(that.tangramTypeSelectedEvent);
-      that.popDown();
-    });
-
   };
 
   var addEventListener = function(type, listener, useCapture) {

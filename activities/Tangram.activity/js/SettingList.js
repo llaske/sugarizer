@@ -27,7 +27,7 @@ var SettingList = {
   components: {
     'tangram-card': TangramCard,
   },
-  props: ['strokeColor', 'fillColor', 'customPuzzles', 'puzzles'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles'],
   template: `
     <div id="setting-list-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -38,7 +38,7 @@ var SettingList = {
           <div class="setting-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>Current Tangram Set</div>
+            <div>{{dataSetHandler.category}}</div>
           </div>
         </div>
       </div>
@@ -106,6 +106,12 @@ var SettingList = {
     vm.resize();
   },
 
+  watch: {
+    'dataSetHandler.category': function (newVal, oldVal) {
+      this.initializePuzzleShape();
+    }
+  },
+
   methods: {
     resize: function() {
       let vm = this;
@@ -122,11 +128,13 @@ var SettingList = {
     initializePuzzleShape: function() {
       let vm = this;
       vm.puzzlesSet = [];
-      for (var i = 0; i < standardTangrams.length; i++) {
+      let tangramSet = vm.dataSetHandler.tangramSet;
+      for (var i = 0; i < tangramSet.length; i++) {
+        let tmp = vm.dataSetHandler.buildTangramPuzzle(i)
         let puzzle = {
-          name: standardTangrams[i].name,
-          difficulty: standardTangrams[i].difficulty,
-          tangram: standardTangrams[i].tangram.dup(),
+          name: tmp.name,
+          difficulty: checkDifficultyOfTangram(tmp.tangram),
+          tangram: tmp.tangram.dup(),
           tangramSVG: "",
         };
         puzzle.tangram.positionCentered();

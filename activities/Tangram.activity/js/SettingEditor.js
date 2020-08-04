@@ -6,7 +6,7 @@ var SettingEditor = {
     >
       <div class="setting-editor-main"
       >
-        <v-stage ref="stage" v-bind:config="configKonva"
+        <v-stage class="stage" ref="stage" v-bind:config="configKonva"
           v-bind:style="{
             backgroundColor: '#ffffff',
             borderRadius: '10px'
@@ -46,38 +46,39 @@ var SettingEditor = {
             backgroundColor: '#ffffff',
             borderRadius: '10px',
             borderColor: fillColor,
-            color: fillColor
           }"
         >
           <form v-on:submit.prevent="onAdd">
             <div>
               <label for="category">Enter Tangram Name</label>
-              <input type="text" name="name" required>
+              <input type="text" name="tangram-name" v-model="tangramCreated.name" required>
             </div>
             <div>
-              <label for="category">Enter Tangram Categories</label>
-              <select name="category">
-                <option v-for="option in categories" :value="option">{{option}}</option>
-                <option value='new-category'>Create New Category</option>
+              <label for="category">Choose Tangram Category</label>
+              <select name="tangram-category" v-model="categoryChosen">
+                <option v-for="option in categories" v-if="option!=='Random'" :value="option">{{option}}</option>
               </select>
+            </div>
+            <div v-if="categoryChosen === 'new-category'">
+              <input type="text" name="new-category" v-model="tangramCreated.category" required>
             </div>
           </form>
           <div class="setting-editor-sidebar-element valid-shape-indicator"
             v-bind:style="{
-              backgroundColor: validShape ? 'green' : 'red',
+              backgroundColor: tangramCreated.tangram !== null ? '#81e32b' : 'red',
             }"
           >
-            <div>{{validShape ? 'Valid Shape' : 'Invalid Shape'}}</div>
+            <div>{{tangramCreated.tangram !== null ? 'Valid Shape' : 'Invalid Shape'}}</div>
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-difficulty"
-            v-if="validShape"
+            v-if="tangramCreated.tangram !== null"
           >
             <div>Tangram Difficulty: {{tangramCreated.difficulty}}</div>
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-display"
-            v-if="validShape"
+            v-if="tangramCreated.tangram !== null"
             v-bind:style="{
               width: validShapeDisplayBox.width+'px',
               height: validShapeDisplayBox.height+'px',
@@ -124,13 +125,6 @@ var SettingEditor = {
         scaleX: 5,
         scaleY: 5
       },
-      partitionLine: {
-        points: [],
-        stroke: 'green',
-        strokeWidth: 0.8,
-        lineJoin: 'round',
-        dash: [2, 2]
-      },
       validShapeDisplayBox: {
         width: 60,
         height: 60,
@@ -148,13 +142,14 @@ var SettingEditor = {
       initialPositions: [],
       snapRange: 1.5,
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
-      validShape: false,
       tangramCreated: {
         name: '',
         difficulty: '',
+        category: '',
         tangram: null,
         tangramSVGdata: ''
       },
+      categoryChosen: null,
     };
   },
 
@@ -179,6 +174,16 @@ var SettingEditor = {
   computed: {
     pathScale: function () {
       return 'scale('+this.validShapeDisplayBox.scale+')';
+    }
+  },
+
+  watch: {
+    categoryChosen: function () {
+      if (this.categoryChosen !== 'new-category') {
+        this.tangramCreated.category = this.categoryChosen;
+      } else {
+        this.tangramCreated.category = '';
+      }
     }
   },
 
@@ -219,9 +224,11 @@ var SettingEditor = {
           let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].points[1];
           vm.moveTan(index, tan_dx, tan_dy);
         }
+        setTimeout(()=>{
+          vm.checkIfTangramValid();
+        }, 0);
       }
 
-      vm.resizePartitionLine();
 
       let settingEditorFooterEle = document.querySelector('.setting-editor-footer');
       vm.$set(vm.actionButtons, 'width', settingEditorFooterEle.offsetHeight * 0.95);
@@ -282,19 +289,6 @@ var SettingEditor = {
             break;
         }
       }
-    },
-
-    resizePartitionLine: function() {
-      let vm = this;
-      let settingEditorMainEle = document.querySelector('.setting-editor-main');
-      let cw = settingEditorMainEle.offsetWidth * 0.98;
-      let ch = settingEditorMainEle.offsetHeight * 0.97;
-      let scale = vm.configLayer.scaleX;
-
-      let partitionLinePoints = [settingEditorMainEle.offsetWidth * 0.685 / scale, settingEditorMainEle.offsetHeight * 0.01 / scale, settingEditorMainEle.offsetWidth * 0.685 / scale, ch / scale];
-
-      vm.$set(vm.partitionLine, 'points', partitionLinePoints);
-      vm.$set(vm.partitionLine, 'stroke', vm.strokeColor);
     },
 
     initializeTans: function(context) {
@@ -373,7 +367,8 @@ var SettingEditor = {
 
     onAdd: function (evt) {
       let vm = this;
-      if (!vm.validShape) return;
+      console.log(evt);
+      if (!vm.tangramCreated.tangram) return;
     },
 
     checkIfTangramValid: function () {
@@ -388,13 +383,11 @@ var SettingEditor = {
       }
       let currentOut = computeOutline(tans, true);
       if (currentOut) {
-        vm.validShape = true;
         vm.tangramCreated.tangram = new Tangram(tans);
         vm.tangramCreated.tangram.positionCentered();
         vm.tangramCreated.tangramSVGdata = vm.tangramCreated.tangram.toSVGOutline().children[0].getAttribute('d');
         vm.tangramCreated.difficulty = checkDifficultyOfTangram(vm.tangramCreated.tangram);
       } else {
-        vm.validShape = false;
         vm.tangramCreated.tangram = null;
         vm.tangramCreated.tangramSVGdata = '';
         vm.tangramCreated.difficulty = null;

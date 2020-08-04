@@ -8,7 +8,7 @@ var Game = {
       v-bind:style="{backgroundColor: strokeColor}"
     >
       <div class="game-main">
-        <v-stage ref="stage" v-bind:config="configKonva"
+        <v-stage class="stage" ref="stage" v-bind:config="configKonva"
           v-bind:style="{
             backgroundColor: '#ffffff',
             borderRadius: '10px'
