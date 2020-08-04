@@ -897,6 +897,10 @@ var app = new Vue({
       console.log("New instance");
     },
 
+    onJournalSharedInstance: function() {
+      this.onMultiplayerGameStarted();
+    },
+
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
       console.log("Existing instance");
