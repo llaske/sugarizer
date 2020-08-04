@@ -93,9 +93,10 @@ let app = new Vue({
 
 		//DEBUG
 		os: '',
-		isMobile: '',
-		isWebApp: '',
-		isElectron: '',
+		isMobile: false,
+		isWebApp: false,
+		isApp: false,
+		isElectron: false,
 		acceleration: {},
 		accelerationInterval: null
 	},
@@ -124,12 +125,15 @@ let app = new Vue({
 
 		this.init();
 
-		this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
+		if(this.$refs.SugarDevice.isMobile()) {
+			this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
+		}
 
 		//DEBUG
 		this.os = this.$refs.SugarDevice.getOS();
 		this.isMobile = this.$refs.SugarDevice.isMobile();
 		this.isElectron = this.$refs.SugarDevice.isElectron();
+		this.isApp = this.$refs.SugarDevice.isApp();
 		this.isWebApp = this.$refs.SugarDevice.isWebApp();
 	},
 

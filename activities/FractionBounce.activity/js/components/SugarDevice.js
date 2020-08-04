@@ -46,8 +46,11 @@ Vue.component('sugar-device', {
 			}
 			return false;
 		},
+		isApp() {
+			return document.location.protocol.substr(0,4) != "http";
+		},	
 		isWebApp() {
-			if (!this.isMobile() && !this.isElectron()) {
+			if (!this.isMobile() && !this.isElectron() && !this.isApp()) {
 				return true;
 			}
 			return false;
