@@ -56,10 +56,6 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
-#main-toolbar #type-button {
-	background-image: url(../icons/tangram-type.svg);
-}
-
 #main-toolbar #category-button {
 	background-image: url(../icons/tangram-type.svg);
 }

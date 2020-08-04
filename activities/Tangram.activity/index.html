@@ -33,22 +33,13 @@
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
 			<sugar-toolitem id="view-button" title="view" v-on:click="onChangeView"></sugar-toolitem>
 			<sugar-toolitem id="category-button"
-				v-visible="currentScreen!='setting-editor' && tangramType!=2"
+				v-visible="currentScreen!='setting-editor'"
 				title="tangram category"
 				palette-file="js/palettes/tangramCategoryPalette.js"
 				palette-class="TangramCategoryPalette"
 				palette-title="tangram Type"
 				palette-event="tangram-category-selected"
 				v-on:tangram-category-selected="onTangramCategorySelected"
-			></sugar-toolitem>
-			<sugar-toolitem id="type-button"
-				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
-				title="tangram-type"
-				palette-file="js/palettes/tangramTypePalette.js"
-				palette-class="TangramTypePalette"
-				palette-title="tangram Type"
-				palette-event="tangram-type-selected"
-				v-on:tangram-type-selected="onTangramTypeSelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"

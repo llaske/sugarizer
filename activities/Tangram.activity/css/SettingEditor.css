@@ -13,7 +13,6 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  align-items: center;
 }
 
 .box2 {
@@ -24,13 +23,13 @@
 }
 
 .setting-editor-sidebar {
-  width: 22.5%;
+  width: 29.5%;
   height: 96%;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center
+  margin-left: 1.5vw;
 }
 
 .sb11:before {
@@ -106,4 +105,8 @@ select:disabled {
   height: 12%;
   display: flex;
   justify-content: space-between;
+}
+
+.btn-save {
+  background-image: url(../icons/save.svg);
 }

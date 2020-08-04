@@ -63,7 +63,11 @@ Vue.component('data-set-handler', {
 
     onChangeCategory: function (newCat) {
       let vm = this;
-      vm.category = newCat;
+			if (vm.categories.includes(newCat)) {
+				vm.category = newCat;
+			} else {
+				vm.category = "Animals";
+			}
       vm.tangramSet = [];
       for(let tangram of vm.dataSet[vm.category]) {
         vm.tangramSet.push(tangram);
@@ -71,21 +75,24 @@ Vue.component('data-set-handler', {
     },
 
 
-    addTangramPuzzle: function() {
-			var vm = this;
-			/*requirejs([`text!${vm.templateURL}`], function(template) {
-				template = JSON.parse(template);
-				var data = JSON.parse(vm.$root.$refs.SugarJournal.LZString.decompressFromUTF16(template.text))
-				vm.$emit('template-selected', {
-					fromURL: true,
-					templateTitle: template.metadata.title,
-					templateImage: data.templateImage,
-					categories: data.categories,
-					notationLevel: data.notationLevel
+    addTangramPuzzle: function(puzzle) {
+			let vm = this;
+			let newDataSetElem = {
+				name: puzzle.name,
+				targetTans: []
+			}
+			for (var i = 0; i < puzzle.tangram.tans.length; i++) {
+				let tan = puzzle.tangram.tans[i]
+				newDataSetElem.targetTans.push({
+					anchor: {
+						x: [tan.anchor.x.coeffInt, tan.anchor.x.coeffSqrt],
+						y: [tan.anchor.y.coeffInt, tan.anchor.y.coeffSqrt]
+					},
+					tanType: tan.tanType,
+					orientation: tan.orientation
 				});
-				showPopup = false;
-			});
-      */
+			}
+			vm.dataSet[puzzle.category].push(newDataSetElem);
 		}
 	}
 })

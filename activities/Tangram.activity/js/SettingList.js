@@ -1,5 +1,5 @@
 var TangramCard = {
-  props: ['strokeColor', 'fillColor', 'item'],
+  props: ['strokeColor', 'fillColor', 'item', 'tangramSVGconfig'],
   template: `
 		<div class="tangram-card" v-bind:style="{backgroundColor: '#ffffff'}">
       <div class="tangram-card-info-bar">
@@ -8,18 +8,30 @@ var TangramCard = {
         </div>
       </div>
 			<div class="tangram-card-main">
-        <svg>
-          <path
-            v-bind:fill="fillColor"
-            transform='scale(3)'
-            fill-rule='evenodd'
-            v-bind:d="item.tangramSVG"
-          >
-          </path>
-        </svg>
+        <div
+          v-bind:style="{
+            width: tangramSVGconfig.width+'px',
+            height: tangramSVGconfig.height+'px',
+          }"
+        >
+          <svg>
+            <path
+              v-bind:fill="fillColor"
+              v-bind:transform="pathScale"
+              fill-rule='evenodd'
+              v-bind:d="item.tangramSVG"
+            >
+            </path>
+          </svg>
+        </div>
       </div>
 		</div>
 	`,
+  computed: {
+    pathScale: function () {
+      return 'scale('+this.tangramSVGconfig.scale+')';
+    },
+  }
 }
 
 
@@ -53,6 +65,7 @@ var SettingList = {
             v-bind:item="puzzle"
             v-bind:stroke-color="strokeColor"
             v-bind:fill-color="fillColor"
+            v-bind:tangramSVGconfig="tangramSVGconfig"
           ></tangram-card>
         </div>
 
@@ -87,6 +100,11 @@ var SettingList = {
       },
       totalScore: 0,
       puzzlesSet: [],
+      tangramSVGconfig: {
+        width: 60,
+        height: 60,
+        scale: 1
+      }
     };
   },
 
@@ -123,6 +141,11 @@ var SettingList = {
       document.querySelector('#setting-list-screen').style.height = newHeight + "px";
       document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
       document.querySelector('.btn-add-puzzle').style.width = document.querySelector('.btn-add-puzzle').offsetHeight + "px";
+      let tangramCardMainEle = document.querySelector('.tangram-card-main');
+      let sideLen = Math.min(tangramCardMainEle.offsetHeight, tangramCardMainEle.offsetWidth) * 0.9;
+      vm.$set(vm.tangramSVGconfig, 'width', sideLen);
+      vm.$set(vm.tangramSVGconfig, 'height', sideLen);
+      vm.$set(vm.tangramSVGconfig, 'scale', sideLen / 60);
     },
 
     initializePuzzleShape: function() {

@@ -341,7 +341,11 @@ var Game = {
             });
             myConfetti({
               particleCount: 150,
-              spread: 120
+              spread: 100,
+              origin:{
+                x: 0.5,
+                y: 0.85
+              }
             });
             setTimeout(() => {
               confetti.reset();
@@ -397,8 +401,8 @@ var Game = {
             let tan_dy = ch / (2 * scale) - ph / (2 * pScale);
             vm.moveTan(index, tan_dx, tan_dy);
           } else {
-            let tan_dx = ((cw / pw) * (pScale / scale) - 1) * vm.tans[index].points[0];
-            let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].points[1];
+            let tan_dx = ((cw / pw) * (pScale / scale) - 1) * vm.tans[index].tanObj.anchor.toFloatX()
+            let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].tanObj.anchor.toFloatY()
             vm.moveTan(index, tan_dx, tan_dy);
           }
         }
@@ -526,16 +530,23 @@ var Game = {
           let coeffIntY = context.tans[i].tanObj.anchor.y.coeffInt;
           let coeffSqrtY = context.tans[i].tanObj.anchor.y.coeffSqrt;
           anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+          let tan_dx;
+          let tan_dy;
+
           if (context.tans[i].placedAnchor) {
             let coeffIntX = context.tans[i].placedAnchor.x.coeffInt;
             let coeffSqrtX = context.tans[i].placedAnchor.x.coeffSqrt;
             let coeffIntY = context.tans[i].placedAnchor.y.coeffInt;
             let coeffSqrtY = context.tans[i].placedAnchor.y.coeffSqrt;
             placedAnchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            //anchor =
+            tan_dx = vm.configKonva.width / (3 * vm.configLayer.scaleX) - context.pStage.width / (3 * context.pScale);
+            tan_dy = vm.configKonva.height / (2 * vm.configLayer.scaleY) - context.pStage.height / (2 * context.pScale);
           } else {
             placedAnchor = null;
+            tan_dx = ((vm.configKonva.width / context.pStage.width) * (context.pScale / vm.configLayer.scaleX) - 1) * anchor.toFloatX();
+            tan_dy = ((vm.configKonva.height / context.pStage.height) * (context.pScale / vm.configLayer.scaleY) - 1) * anchor.toFloatY();
           }
+          anchor.add(new Point(new IntAdjoinSqrt2(tan_dx, 0), new IntAdjoinSqrt2(tan_dy, 0)));
         } else {
           anchor = new Point(new IntAdjoinSqrt2(vm.initialPositions[i].x, 0), new IntAdjoinSqrt2(vm.initialPositions[i].y, 0));
           placedAnchor = null;

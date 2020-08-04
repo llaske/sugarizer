@@ -28,7 +28,6 @@ var app = new Vue({
     mode: 'non-timer',
     score: 0,
     level: 0,
-    tangramType: 1,
     timer: null,
     clock: {
       active: false,
@@ -56,8 +55,8 @@ var app = new Vue({
     hintsUsed: [false, false, false, false, false, false, false],
     noOfHintsUsed: 0,
     showHint: false,
-    scale: 1,
-    stage: {
+    gameScale: 1,
+    gameStage: {
       width: 1,
       height: 1,
     },
@@ -69,6 +68,7 @@ var app = new Vue({
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
+        document.getElementById('category-button-8').style.display = 'block';
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
         if (!vm.multiplayer) {
           vm.newGame();
@@ -76,6 +76,10 @@ var app = new Vue({
         vm.startClock();
       } else if (vm.currentScreen === 'setting-list') {
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
+        document.getElementById('category-button-8').style.display = 'none';
+        if (vm.tangramCategory === "Random") {
+          vm.onTangramCategorySelected({index:"Animals"});
+        }
       } else if (vm.currentScreen === 'setting-editor') {
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/home.svg)';
       } else {
@@ -214,19 +218,15 @@ var app = new Vue({
       for (var pNo = 0; pNo < number; pNo++) {
         generating = true;
         let tang, tangramName;
-        if (vm.tangramType === 1) {
+        if (vm.tangramCategory !== "Random") {
           //let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
           let tmp = vm.DataSetHandler.generateTangramFromSet();
           tang = tmp.tangram.dup();
           tangramName = tmp.name;
-        } else if (vm.tangramType === 2) {
+        } else {
           let generatedTangrams = generateTangrams(2);
           tang = generatedTangrams[0];
           tangramName = "Random";
-        } else if (vm.tangramType === 3) {
-          let tangram = standardTangrams[0];
-          tang = tangram.tangram;
-          tangramName = tangram.name;
         }
         generating = false;
         let tangDifficulty = checkDifficultyOfTangram(tang);
@@ -305,9 +305,9 @@ var app = new Vue({
     centerTangram: function() {
       let vm = this;
       let targetTans = vm.puzzles[vm.pNo].targetTans;
-      let scale = vm.scale;
-      let dx = vm.stage.width / (3 * scale) - 30;
-      let dy = vm.stage.height / (2 * scale) - 30;
+      let scale = vm.gameScale;
+      let dx = vm.gameStage.width / (3 * scale) - 30;
+      let dy = vm.gameStage.height / (2 * scale) - 30;
 
       for (let index = 0; index < targetTans.length; index++) {
         let points = [...targetTans[index].tanObj.getPoints()];
@@ -366,9 +366,9 @@ var app = new Vue({
     },
 
     onConfigChanged: function(data) {
-      this.scale = data.scale;
-      this.stage.width = data.stageWidth;
-      this.stage.height = data.stageHeight;
+      this.gameScale = data.scale;
+      this.gameStage.width = data.stageWidth;
+      this.gameStage.height = data.stageHeight;
     },
 
     onUpdateTansPlaced: function(data) {
@@ -468,86 +468,64 @@ var app = new Vue({
       }
     },
 
-    onTangramTypeSelected: function(evt) {
+    onTangramCategorySelected: function(evt) {
       let vm = this;
       vm.pulseEffect = true;
-      vm.tangramType = evt.index;
-      vm.selectTangramTypeItem(evt.index);
-      if (vm.gameOver) {
-        vm.startClock();
+      vm.tangramCategory = evt.index;
+      if (vm.tangramCategory !== "Random") {
+        vm.DataSetHandler.onChangeCategory(vm.tangramCategory);
       }
-      vm.newGame();
+      vm.selectTangramCategoryItem(vm.tangramCategory);
+      if (vm.currentScreen === "game") {
+        if (vm.gameOver) {
+          vm.startClock();
+        }
+        vm.newGame();
+      }
+
     },
 
-    selectTangramTypeItem: function(number) {
-      let elems = [
-        document.getElementById('standard-type-button'),
-        document.getElementById('random-type-button')
+    selectTangramCategoryItem: function(cat) {
+      let elems = [{
+          cat: "Animals",
+          elem: document.getElementById('category-button-1')
+        },
+        {
+          cat: "Geometrical",
+          elem: document.getElementById('category-button-2')
+        },
+        {
+          cat: "Letters, Numbers, Signs",
+          elem: document.getElementById('category-button-3')
+        },
+        {
+          cat: "People",
+          elem: document.getElementById('category-button-4')
+        },
+        {
+          cat: "Usual Objects",
+          elem: document.getElementById('category-button-5')
+        },
+        {
+          cat: "Boats",
+          elem: document.getElementById('category-button-6')
+        },
+        {
+          cat: "Miscellaneous",
+          elem: document.getElementById('category-button-7')
+        },
+        {
+          cat: "Random",
+          elem: document.getElementById('category-button-8')
+        },
       ]
 
       for (let i = 1; i <= elems.length; i++) {
         let elem = elems[i - 1];
-        if (i === number) {
-          elem.classList.add('palette-item-selected');
+        if (elem.cat === cat) {
+          elem.elem.classList.add('palette-item-selected');
         } else {
-          elem.classList.remove('palette-item-selected');
-        }
-      }
-    },
-
-    onTangramCategorySelected: function(evt) {
-      let vm = this;
-      if (vm.tangramType === 2) return;
-
-      vm.pulseEffect = true;
-      switch (evt.index) {
-        case 1:
-          vm.tangramCategory = "Animals";
-          break;
-        case 2:
-          vm.tangramCategory = "Geometrical";
-          break;
-        case 3:
-          vm.tangramCategory = "Letters, Numbers, Signs";
-          break;
-        case 4:
-          vm.tangramCategory = "People";
-          break;
-        case 5:
-          vm.tangramCategory = "Usual Objects";
-          break;
-        case 6:
-          vm.tangramCategory = "Boats";
-          break;
-        case 7:
-          vm.tangramCategory = "Miscellaneous";
-          break;
-      }
-      vm.DataSetHandler.onChangeCategory(vm.tangramCategory);
-      vm.selectTangramCategoryItem(evt.index);
-      if (vm.gameOver) {
-        vm.startClock();
-      }
-      vm.newGame();
-    },
-
-    selectTangramCategoryItem: function(number) {
-      let elems = [
-        document.getElementById('category-button-1'),
-        document.getElementById('category-button-2'),
-        document.getElementById('category-button-3'),
-        document.getElementById('category-button-4'),
-        document.getElementById('category-button-5'),
-        document.getElementById('category-button-6'),
-        document.getElementById('category-button-7'),
-      ]
-
-      for (let i = 1; i <= 7; i++) {
-        let elem = elems[i - 1];
-        if (i === number) {
-          elem.classList.add('palette-item-selected');
-        } else {
-          elem.classList.remove('palette-item-selected');
+          elem.elem.classList.remove('palette-item-selected');
         }
       }
     },
@@ -658,14 +636,14 @@ var app = new Vue({
     },
 
     onChangeView: function() {
-
-      if (this.currentScreen === 'setting-list') {
-        this.currentScreen = 'game';
-      } else if (this.currentScreen === 'game') {
-        this.stopClock();
-        this.currentScreen = 'setting-list';
-      } else if (this.currentScreen === 'setting-editor') {
-        this.currentScreen = 'setting-list';
+      let vm = this;
+      if (vm.currentScreen === 'setting-list') {
+        vm.currentScreen = 'game';
+      } else if (vm.currentScreen === 'game') {
+        vm.stopClock();
+        vm.currentScreen = 'setting-list';
+      } else if (vm.currentScreen === 'setting-editor') {
+        vm.currentScreen = 'setting-list';
       }
 
     },
@@ -736,7 +714,7 @@ var app = new Vue({
         currentScreen: vm.currentScreen,
         mode: vm.mode,
         level: vm.level,
-        tangramType: vm.tangramType,
+        tangramCategory: vm.tangramCategory,
         puzzles: puzzlesContext,
         pNo: vm.pNo,
         score: vm.score,
@@ -750,6 +728,8 @@ var app = new Vue({
         gameTans: gameTansContext,
         gameTansPlaced: vm.gameTansPlaced,
         gameTansSnapped: vm.gameTansSnapped,
+        gameScale: vm.gameScale,
+        gameStage: vm.gameStage
       }
       vm.SugarJournal.saveData(context);
     },
@@ -765,7 +745,7 @@ var app = new Vue({
       console.log(data);
       vm.mode = data.mode;
       vm.level = data.level;
-      vm.tangramType = data.tangramType;
+      vm.tangramCategory = data.tangramCategory;
       vm.hintNumber = data.hintNumber;
       vm.hintsUsed = data.hintsUsed;
       vm.noOfHintsUsed = data.noOfHintsUsed;
@@ -868,16 +848,18 @@ var app = new Vue({
           vm.$refs.game.initializeTans({
             tans: data.gameTans,
             tansSnapped: data.gameTansSnapped,
-            tansPlaced: data.gameTansPlaced
+            tansPlaced: data.gameTansPlaced,
+            pScale: data.gameScale,
+            pStage: data.gameStage
           })
         }, 0);
       }
       if (data.currentScreen === 'game' || data.currentScreen === 'result') {
         vm.currentScreen = data.currentScreen;
       } else {
-        vm.currentScreen = 'result';
+        vm.currentScreen = 'game';
       }
-      vm.selectTangramTypeItem(vm.tangramType);
+      vm.selectTangramCategoryItem(vm.tangramCategory);
       vm.selectDifficultyItem(vm.level);
       vm.selectTimerItem(vm.clock.type);
 

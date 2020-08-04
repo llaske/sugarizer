@@ -24,42 +24,48 @@ define(["sugar-web/graphics/palette",
     var that = this;
 
     document.getElementById('category-button-1').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 1;
+      that.tangramCategorySelectedEvent.index = "Animals";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
 
     document.getElementById('category-button-2').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 2;
+      that.tangramCategorySelectedEvent.index = "Geometrical";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
 
     document.getElementById('category-button-3').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 3;
+      that.tangramCategorySelectedEvent.index = "Letters, Numbers, Signs";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
 
     document.getElementById('category-button-4').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 4;
+      that.tangramCategorySelectedEvent.index = "People";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
     document.getElementById('category-button-5').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 5;
+      that.tangramCategorySelectedEvent.index = "Usual Objects";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
 
     document.getElementById('category-button-6').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 6;
+      that.tangramCategorySelectedEvent.index = "Boats";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });
 
     document.getElementById('category-button-7').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = 7;
+      that.tangramCategorySelectedEvent.index = "Miscellaneous";
+      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
+      that.popDown();
+    });
+
+    document.getElementById('category-button-8').addEventListener('click', function(event) {
+      that.tangramCategorySelectedEvent.index = "Random";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
     });

@@ -1,5 +1,5 @@
 var SettingEditor = {
-  props: ['strokeColor', 'fillColor', 'customPuzzles', 'categories'],
+  props: ['strokeColor', 'fillColor', 'customPuzzles', 'dataSetHandler'],
   template: `
     <div id="setting-editor-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -56,7 +56,7 @@ var SettingEditor = {
             <div>
               <label for="category">Choose Tangram Category</label>
               <select name="tangram-category" v-model="categoryChosen">
-                <option v-for="option in categories" v-if="option!=='Random'" :value="option">{{option}}</option>
+                <option v-for="option in dataSetHandler.categories" v-if="option!=='Random'" :value="option">{{option}}</option>
               </select>
             </div>
             <div v-if="categoryChosen === 'new-category'">
@@ -102,6 +102,16 @@ var SettingEditor = {
           <div class="pagination">
           </div>
           <div class="footer-actions">
+            <button
+              class="btn-in-footer btn-save"
+              v-if="canBeAdded"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="onAdd"
+            ></button>
             <button
               class="btn-in-footer btn-back"
               v-bind:style="{
@@ -169,11 +179,16 @@ var SettingEditor = {
     setTimeout(() => {
       vm.initializeTans();
     }, 0);
+    vm.categoryChosen = vm.dataSetHandler.category;
   },
 
   computed: {
     pathScale: function () {
       return 'scale('+this.validShapeDisplayBox.scale+')';
+    },
+
+    canBeAdded: function () {
+      return this.tangramCreated.tangram!==null && this.tangramCreated.name!=='' && this.tangramCreated.category!=='';
     }
   },
 
@@ -197,7 +212,7 @@ var SettingEditor = {
       let ratio = newWidth / newHeight
       document.querySelector('#setting-editor-screen').style.height = newHeight + "px";
       let settingEditorMainEle = document.querySelector('.setting-editor-main');
-      let cw = settingEditorMainEle.offsetWidth * 0.73;
+      let cw = settingEditorMainEle.offsetWidth * 0.66;
       let ch = settingEditorMainEle.offsetHeight * 0.97;
       let scale = Math.min(cw, ch) / 75;
 
@@ -367,8 +382,9 @@ var SettingEditor = {
 
     onAdd: function (evt) {
       let vm = this;
-      console.log(evt);
       if (!vm.tangramCreated.tangram) return;
+      vm.dataSetHandler.addTangramPuzzle(vm.tangramCreated);
+      vm.$emit('go-to-setting-list');
     },
 
     checkIfTangramValid: function () {
@@ -382,8 +398,15 @@ var SettingEditor = {
           tans.push(tan);
       }
       let currentOut = computeOutline(tans, true);
+      let valid = false;
+      let tang = null;
       if (currentOut) {
-        vm.tangramCreated.tangram = new Tangram(tans);
+        tang = new Tangram(tans);
+        valid = tang.evaluation.rangeX < 60 && tang.evaluation.rangeY < 60;
+      }
+
+      if (valid) {
+        vm.tangramCreated.tangram = tang;
         vm.tangramCreated.tangram.positionCentered();
         vm.tangramCreated.tangramSVGdata = vm.tangramCreated.tangram.toSVGOutline().children[0].getAttribute('d');
         vm.tangramCreated.difficulty = checkDifficultyOfTangram(vm.tangramCreated.tangram);
