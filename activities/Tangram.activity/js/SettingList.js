@@ -122,10 +122,15 @@ var SettingList = {
   mounted: function() {
     let vm = this;
     vm.resize();
+    vm.initializePuzzleShape();
   },
 
   watch: {
     'dataSetHandler.category': function (newVal, oldVal) {
+      this.initializePuzzleShape();
+    },
+
+    'dataSetHandler.tangramSet': function (newVal, oldVal) {
       this.initializePuzzleShape();
     }
   },
