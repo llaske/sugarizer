@@ -5,7 +5,8 @@ Vue.component('data-set-handler', {
 			tangramSet: [],
       dataSet: [],
       currentCategories: ["Animals"],
-      AllCategories: []
+      AllCategories: [],
+			skipPuzzles: [],
 		}
 	},
 	mounted() {
@@ -32,9 +33,16 @@ Vue.component('data-set-handler', {
     },
 
     generateTangramFromSet: function () {
-      let index = Math.floor(Math.random() * (this.tangramSet.length))
+      let index = Math.floor(Math.random() * (this.tangramSet.length));
       return this.buildTangramPuzzle(index);
     },
+
+		getTangramPuzzle: function (id) {
+			let vm = this;
+			let index = vm.tangramSet.findIndex(ele => ele.id === id);
+			if (index === -1) return null;
+			return vm.buildTangramPuzzle(index);
+		},
 
     buildTangramPuzzle: function (index) {
       let vm = this;
@@ -52,15 +60,18 @@ Vue.component('data-set-handler', {
         let tan = new Tan(tang.targetTans[i].tanType, anchor.dup(), tang.targetTans[i].orientation);
         tans.push(tan);
       }
-      let tangram = new Tangram(tans);
-      let tangramName = tang.name;
+			let categoryId = parseInt(tang.id.substr(0,1));
+			let category = vm.dataSet.find(ele => ele.id === categoryId).name;
       let tangramPuzzle = {
 				id: tang.id,
-        name: tangramName,
-        tangram: tangram,
+        name: tang.name,
+        tangram: new Tangram(tans),
+				category: category
       }
+			tangramPuzzle.tangram.positionCentered();
       return tangramPuzzle;
     },
+
 
     onChangeCategory: function (newCats) {
       let vm = this;

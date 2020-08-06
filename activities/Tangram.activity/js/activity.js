@@ -62,6 +62,7 @@ var app = new Vue({
     },
     tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
     pulseEffect: false,
+    puzzleToBeEdited: null,
     multiplayer: null,
   },
   watch: {
@@ -84,6 +85,10 @@ var app = new Vue({
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/home.svg)';
       } else {
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
+      }
+
+      if (vm.currentScreen !== 'setting-editor') {
+        vm.puzzleToBeEdited = null;
       }
 
     },
@@ -336,7 +341,6 @@ var app = new Vue({
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'offsetY', center.toFloatY() + dy);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', center.toFloatX() + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
-
       }
 
     },
@@ -661,6 +665,14 @@ var app = new Vue({
 
     },
 
+    onUpdateGameTans: function(data) {
+      this.gameTans = data;
+    },
+
+    onUpdateTansSnapped: function(data) {
+      this.gameTansSnapped = data;
+    },
+
     goToSettingEditor: function() {
       this.currentScreen = 'setting-editor';
     },
@@ -669,13 +681,17 @@ var app = new Vue({
       this.currentScreen = 'setting-list';
     },
 
-    onUpdateGameTans: function(data) {
-      this.gameTans = data;
+    onDeletePuzzle: function (id) {
+      this.DataSetHandler.deleteTangramPuzzle(id);
     },
 
-    onUpdateTansSnapped: function(data) {
-      //console.log(data);
-      this.gameTansSnapped = data;
+    onEditPuzzle: function (id) {
+      this.puzzleToBeEdited = this.DataSetHandler.getTangramPuzzle(id);
+      this.goToSettingEditor();
+    },
+
+    onAddPuzzle: function(puzzle) {
+      this.DataSetHandler.addTangramPuzzle(puzzle);
     },
 
     onStop: function() {

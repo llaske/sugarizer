@@ -6,7 +6,7 @@ var TangramCard = {
         <div class="info-content name-info">
           <div>{{item.name}}</div>
         </div>
-        <button class="info-content edit-btn"></button>
+        <button class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
         <button class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
       </div>
 			<div class="tangram-card-main">
@@ -38,7 +38,12 @@ var TangramCard = {
   methods: {
     onDeletePuzzleClicked: function () {
       this.$emit('delete-puzzle-clicked', this.item.id)
-    }
+    },
+
+    onEditPuzzleClicked: function () {
+      this.$emit('edit-puzzle-clicked', this.item.id)
+    },
+
   }
 }
 
@@ -75,6 +80,7 @@ var SettingList = {
             v-bind:fill-color="fillColor"
             v-bind:tangramSVGconfig="tangramSVGconfig"
             v-on:delete-puzzle-clicked="onDeletePuzzle"
+            v-on:edit-puzzle-clicked="onEditPuzzle"
           ></tangram-card>
         </div>
 
@@ -178,8 +184,11 @@ var SettingList = {
     },
 
     onDeletePuzzle: function (id) {
-      this.dataSetHandler.deleteTangramPuzzle(id);
-    }
+      this.$emit('delete-puzzle', id);
+    },
 
+    onEditPuzzle: function (id) {
+      this.$emit('edit-puzzle', id);
+    }
   }
 }

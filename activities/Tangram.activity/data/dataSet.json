@@ -3,196 +3,726 @@
       "id": 1,
       "name": "Geometrical",
       "tangrams": [{
-        "id": "1#1",
-        "name": "square",
-        "targetTans": [{
+          "id": "1#1",
+          "name": "square",
+          "targetTans": [{
+              "anchor": {
+                "x": [12, 0],
+                "y": [12, 0]
+              },
+              "tanType": 0,
+              "orientation": 1
+            },
+            {
+              "anchor": {
+                "x": [12, 0],
+                "y": [12, 0]
+              },
+              "tanType": 0,
+              "orientation": 7
+            },
+            {
+              "anchor": {
+                "x": [0, 0],
+                "y": [0, 0]
+              },
+              "tanType": 1,
+              "orientation": 0
+            },
+            {
+              "anchor": {
+                "x": [6, 0],
+                "y": [18, 0]
+              },
+              "tanType": 2,
+              "orientation": 3
+            },
+            {
+              "anchor": {
+                "x": [12, 0],
+                "y": [12, 0]
+              },
+              "tanType": 2,
+              "orientation": 5
+            },
+            {
+              "anchor": {
+                "x": [0, 0],
+                "y": [12, 0]
+              },
+              "tanType": 3,
+              "orientation": 7
+            },
+            {
+              "anchor": {
+                "x": [6, 0],
+                "y": [6, 0]
+              },
+              "tanType": 5,
+              "orientation": 0
+            }
+          ]
+        },
+        {
+          "id": "1#2",
+          "name": "Triangle",
+          "targetTans": [{
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [18, 0],
+              "y": [30, 0]
             },
             "tanType": 0,
             "orientation": 1
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [42, 0],
+              "y": [30, 0]
             },
             "tanType": 0,
-            "orientation": 7
-          },
-          {
+            "orientation": 1
+          }, {
             "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
+              "x": [30, 0],
+              "y": [30, 0]
             },
             "tanType": 1,
-            "orientation": 0
-          },
-          {
+            "orientation": 2
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [18, 0]
+              "x": [42, 0],
+              "y": [30, 0]
             },
             "tanType": 2,
             "orientation": 3
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [24, 0],
+              "y": [24, 0]
             },
             "tanType": 2,
-            "orientation": 5
-          },
-          {
+            "orientation": 1
+          }, {
             "anchor": {
-              "x": [0, 0],
-              "y": [12, 0]
+              "x": [24.000000000000004, 0],
+              "y": [24, 0]
             },
             "tanType": 3,
             "orientation": 7
-          },
-          {
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
+              "x": [36, 0],
+              "y": [24, 0]
             },
-            "tanType": 5,
+            "tanType": 4,
+            "orientation": 2
+          }]
+        },
+        {
+          "id": "1#3",
+          "name": "Hexagon",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, 9]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, -3]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 15]
+            },
+            "tanType": 1,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -3]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -9]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -3]
+            },
+            "tanType": 3,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -15]
+            },
+            "tanType": 4,
+            "orientation": 1
+          }]
+        },
+        {
+          "id": "1#4",
+          "name": "Trapezoid",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, 6]
+            },
+            "tanType": 0,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, 6]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 0]
+            },
+            "tanType": 1,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, -6]
+            },
+            "tanType": 2,
             "orientation": 0
-          }
-        ]
-      }]
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 6]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, 0]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, -6]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "1#5",
+          "name": "Incomplete Parallelogram",
+          "targetTans": [{
+            "anchor": {
+              "x": [33, 0],
+              "y": [27, 0]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [27, 0],
+              "y": [33, 0]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [45, 0],
+              "y": [39, 0]
+            },
+            "tanType": 1,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [15, 0],
+              "y": [33, 0]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [15, 0],
+              "y": [33, 0]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [33, 0],
+              "y": [27, 0]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [3, 0],
+              "y": [21, 0]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "1#5",
+          "name": "Parallelogram",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, -6]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, 6]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 0]
+            },
+            "tanType": 1,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, -6]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 6]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, 6]
+            },
+            "tanType": 3,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, -6]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "1#6",
+          "name": "Concave Polygon",
+          "targetTans": [{
+            "anchor": {
+              "x": [24, 0],
+              "y": [30, 0]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [30, 0]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [36, 0]
+            },
+            "tanType": 1,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [30, 0]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [42, 0],
+              "y": [24, 0]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [24, 0]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [36, 0]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        }
+      ]
     },
     {
       "id": 2,
       "name": "Letters, Numbers, Signs",
       "tangrams": [{
-        "id": "2#1",
-        "name": "square",
-        "targetTans": [{
+          "id": "2#1",
+          "name": "Letter A",
+          "targetTans": [{
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [30, -9],
+              "y": [36, -9]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [42, -9],
+              "y": [24, -9]
             },
             "tanType": 0,
             "orientation": 1
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 0,
-            "orientation": 7
-          },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
+              "x": [30, 3],
+              "y": [36, -3]
             },
             "tanType": 1,
-            "orientation": 0
-          },
-          {
+            "orientation": 7
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [18, 0]
+              "x": [30, 3],
+              "y": [36, -9]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 9],
+              "y": [36, 3]
             },
             "tanType": 2,
             "orientation": 3
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 2,
-            "orientation": 5
-          },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [12, 0]
+              "x": [30, -9],
+              "y": [36, 3]
             },
             "tanType": 3,
-            "orientation": 7
-          },
-          {
+            "orientation": 0
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
+              "x": [30, 3],
+              "y": [36, -3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "2#2",
+          "name": "Letter B",
+          "targetTans": [{
+            "anchor": {
+              "x": [27, -6],
+              "y": [48, 0]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [27, -6],
+              "y": [48, -24]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [27, -6],
+              "y": [48, -12]
+            },
+            "tanType": 1,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [17.999999999999993, 0]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [42, 0]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [27, 0],
+              "y": [24, 0]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [27, 6],
+              "y": [24, 0]
             },
             "tanType": 5,
+            "orientation": 2
+          }]
+        },
+
+        {
+          "id": "2#17",
+          "name": "Letter P",
+          "targetTans": [{
+            "anchor": {
+              "x": [24, -6],
+              "y": [30, -12]
+            },
+            "tanType": 0,
             "orientation": 0
-          }
-        ]
-      }]
+          }, {
+            "anchor": {
+              "x": [36, 6],
+              "y": [42, -12]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [24, -6],
+              "y": [30, 0]
+            },
+            "tanType": 1,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [18, 6],
+              "y": [36, -12]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [24, -6],
+              "y": [30, 12]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [54, -18]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [24, -6],
+              "y": [30, 0]
+            },
+            "tanType": 4,
+            "orientation": 1
+          }]
+        }
+      ]
     },
     {
       "id": 3,
       "name": "People",
       "tangrams": [{
-        "id": "3#1",
-        "name": "square",
-        "targetTans": [{
+          "id": "3#1",
+          "name": "Skater",
+          "targetTans": [{
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [33, -3],
+              "y": [24, -3]
+            },
+            "tanType": 0,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [33, -3],
+              "y": [24, -3]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [51, -3],
+              "y": [18, 9]
+            },
+            "tanType": 1,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [33, -3],
+              "y": [36, 15]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [33, 9],
+              "y": [24, -9]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [39, -15],
+              "y": [18, -3]
+            },
+            "tanType": 3,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [39, -3],
+              "y": [18, 9]
+            },
+            "tanType": 4,
+            "orientation": 2
+          }]
+        },
+        {
+          "id": "3#2",
+          "name": "Offering",
+          "targetTans": [{
+            "anchor": {
+              "x": [27, 3],
+              "y": [36, -6]
             },
             "tanType": 0,
             "orientation": 1
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [27, -3],
+              "y": [36, 0]
             },
             "tanType": 0,
-            "orientation": 7
-          },
-          {
+            "orientation": 3
+          }, {
             "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
+              "x": [15, 3],
+              "y": [24, 6]
             },
             "tanType": 1,
-            "orientation": 0
-          },
-          {
+            "orientation": 5
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [18, 0]
-            },
-            "tanType": 2,
-            "orientation": 3
-          },
-          {
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [45, 3],
+              "y": [54, -6]
             },
             "tanType": 2,
             "orientation": 5
-          },
-          {
+          }, {
             "anchor": {
-              "x": [0, 0],
+              "x": [15, 9],
+              "y": [24, 0]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [15, -3],
               "y": [12, 0]
             },
             "tanType": 3,
-            "orientation": 7
-          },
-          {
+            "orientation": 1
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
+              "x": [15, 9],
+              "y": [48, -6]
             },
-            "tanType": 5,
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "3#3",
+          "name": "Be Sitting",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, 0],
+              "y": [36, 9]
+            },
+            "tanType": 0,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [36, -3]
+            },
+            "tanType": 0,
             "orientation": 0
-          }
-        ]
-      }]
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [36, -9]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [30, 12],
+              "y": [36, 3]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [36, -3]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [24, 6],
+              "y": [30, -9]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, 12],
+              "y": [36, 3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        }
+      ]
     },
     {
       "id": 4,
@@ -433,6 +963,276 @@
             "tanType": 4,
             "orientation": 0
           }]
+        },
+        {
+          "id": "4#5",
+          "name": "Rabbit",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, 9],
+              "y": [36, 0]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [30, -3],
+              "y": [36, 0]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [18, 9],
+              "y": [36, 12]
+            },
+            "tanType": 1,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [24, -3],
+              "y": [30, 0]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [12, 9],
+              "y": [30, 12]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, -9],
+              "y": [24, -6]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 9],
+              "y": [24, -12]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "4#6",
+          "name": "Horse",
+          "targetTans": [{
+            "anchor": {
+              "x": [39, 3],
+              "y": [36, 0]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [27, 3],
+              "y": [24, 0]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [27, -3],
+              "y": [24, -12]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [27, -9],
+              "y": [24, 0]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [27, 3],
+              "y": [24, 18]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [27, -3],
+              "y": [24, -6]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [39, 3],
+              "y": [36, 0]
+            },
+            "tanType": 4,
+            "orientation": 1
+          }]
+        },
+        {
+          "id": "4#7",
+          "name": "Camel",
+          "targetTans": [{
+            "anchor": {
+              "x": [21, -6],
+              "y": [30, 0]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [15, 6],
+              "y": [36, 0]
+            },
+            "tanType": 0,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [21, 0],
+              "y": [30, -6]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [18, 0]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [18, 0]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [15, 6],
+              "y": [24, 0]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [18, 0]
+            },
+            "tanType": 4,
+            "orientation": 2
+          }]
+        },
+        {
+          "id": "4#8",
+          "name": "Whale",
+          "targetTans": [{
+            "anchor": {
+              "x": [33, 3],
+              "y": [39, -9]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [33, 3],
+              "y": [39, 3]
+            },
+            "tanType": 0,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [27, -9],
+              "y": [21, 3]
+            },
+            "tanType": 1,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [33, -9],
+              "y": [27, 3]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [39, -9],
+              "y": [33, 3]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [33, -9],
+              "y": [27, 3]
+            },
+            "tanType": 3,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [33, 15],
+              "y": [39, -3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "4#9",
+          "name": "Vulture",
+          "targetTans": [{
+            "anchor": {
+              "x": [12, 6],
+              "y": [33, -6]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [24, 6],
+              "y": [21, -6]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [12, 6],
+              "y": [45, -6]
+            },
+            "tanType": 1,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [12, 6],
+              "y": [33, 6]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [42, 6],
+              "y": [27, -6]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [36, 6],
+              "y": [21, -6]
+            },
+            "tanType": 3,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [12, 6],
+              "y": [45, -6]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
         }
       ]
     },
@@ -440,195 +1240,284 @@
       "id": 5,
       "name": "Usual Objects",
       "tangrams": [{
-        "id": "5#1",
-        "name": "square",
-        "targetTans": [{
+          "id": "5#1",
+          "name": "Shirt",
+          "targetTans": [{
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [30, -6],
+              "y": [30, 9]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, -3]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [30, -9]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [30, -12],
+              "y": [30, -3]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -9]
+            },
+            "tanType": 2,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, -9]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 6],
+              "y": [30, -9]
+            },
+            "tanType": 4,
+            "orientation": 1
+          }]
+        },
+        {
+          "id": "5#2",
+          "name": "Candle",
+          "targetTans": [{
+            "anchor": {
+              "x": [36, 0],
+              "y": [24, 12]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 12]
             },
             "tanType": 0,
             "orientation": 1
-          },
-          {
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 0,
-            "orientation": 7
-          },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
+              "x": [30, 0],
+              "y": [18, 12]
             },
             "tanType": 1,
-            "orientation": 0
-          },
-          {
+            "orientation": 5
+          }, {
             "anchor": {
-              "x": [6, 0],
+              "x": [30, 0],
+              "y": [18, 12]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [30, 12]
+            },
+            "tanType": 2,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [34, -6],
               "y": [18, 0]
             },
-            "tanType": 2,
-            "orientation": 3
-          },
-          {
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 2,
-            "orientation": 5
-          },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [12, 0]
-            },
             "tanType": 3,
-            "orientation": 7
-          },
-          {
+            "orientation": 0
+          }, {
             "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
+              "x": [30, 6],
+              "y": [18, -12]
             },
             "tanType": 5,
-            "orientation": 0
-          }
-        ]
-      }]
+            "orientation": 3
+          }]
+        }
+      ]
     },
     {
       "id": 6,
       "name": "Boats",
       "tangrams": [{
-        "id": "6#1",
-        "name": "square",
-        "targetTans": [{
+          "id": "6#1",
+          "name": "Schooner",
+          "targetTans": [{
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [30, -9],
+              "y": [30, 3]
             },
             "tanType": 0,
-            "orientation": 1
-          },
-          {
+            "orientation": 6
+          }, {
             "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
+              "x": [30, 3],
+              "y": [30, 3]
             },
             "tanType": 0,
-            "orientation": 7
-          },
-          {
+            "orientation": 6
+          }, {
             "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
+              "x": [30, -9],
+              "y": [30, 9]
             },
             "tanType": 1,
-            "orientation": 0
-          },
-          {
-            "anchor": {
-              "x": [6, 0],
-              "y": [18, 0]
-            },
-            "tanType": 2,
-            "orientation": 3
-          },
-          {
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 2,
             "orientation": 5
-          },
-          {
+          }, {
             "anchor": {
-              "x": [0, 0],
-              "y": [12, 0]
+              "x": [30, 3],
+              "y": [30, 3]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, -3],
+              "y": [30, 9]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, -3],
+              "y": [30, 3]
             },
             "tanType": 3,
-            "orientation": 7
-          },
-          {
-            "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
-            },
-            "tanType": 5,
             "orientation": 0
-          }
-        ]
-      }]
+          }, {
+            "anchor": {
+              "x": [30, 15],
+              "y": [30, 3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "6#2",
+          "name": "Sampan",
+          "targetTans": [{
+            "anchor": {
+              "x": [18, 3],
+              "y": [36, -3]
+            },
+            "tanType": 0,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, 3],
+              "y": [24, -3]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [30, -9],
+              "y": [48, 3]
+            },
+            "tanType": 1,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, 3],
+              "y": [48, 3]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30, 9],
+              "y": [48, -3]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 3],
+              "y": [48, -3]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [30, 3],
+              "y": [48, -3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        }
+      ]
     },
     {
       "id": 7,
       "name": "Miscellaneous",
       "tangrams": [{
         "id": "7#1",
-        "name": "square",
+        "name": "House",
         "targetTans": [{
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 0,
-            "orientation": 1
+          "anchor": {
+            "x": [25, 3],
+            "y": [24, 6]
           },
-          {
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 0,
-            "orientation": 7
+          "tanType": 0,
+          "orientation": 1
+        }, {
+          "anchor": {
+            "x": [30, 3],
+            "y": [12, 6]
           },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [0, 0]
-            },
-            "tanType": 1,
-            "orientation": 0
+          "tanType": 0,
+          "orientation": 1
+        }, {
+          "anchor": {
+            "x": [13, 3],
+            "y": [24, 6]
           },
-          {
-            "anchor": {
-              "x": [6, 0],
-              "y": [18, 0]
-            },
-            "tanType": 2,
-            "orientation": 3
+          "tanType": 1,
+          "orientation": 0
+        }, {
+          "anchor": {
+            "x": [31, 3],
+            "y": [30.000000000000007, 6]
           },
-          {
-            "anchor": {
-              "x": [12, 0],
-              "y": [12, 0]
-            },
-            "tanType": 2,
-            "orientation": 5
+          "tanType": 2,
+          "orientation": 7
+        }, {
+          "anchor": {
+            "x": [31, 3],
+            "y": [30, 6]
           },
-          {
-            "anchor": {
-              "x": [0, 0],
-              "y": [12, 0]
-            },
-            "tanType": 3,
-            "orientation": 7
+          "tanType": 2,
+          "orientation": 5
+        }, {
+          "anchor": {
+            "x": [18, 3],
+            "y": [24, -6]
           },
-          {
-            "anchor": {
-              "x": [6, 0],
-              "y": [6, 0]
-            },
-            "tanType": 5,
-            "orientation": 0
-          }
-        ]
+          "tanType": 3,
+          "orientation": 0
+        }, {
+          "anchor": {
+            "x": [18, 9],
+            "y": [24, 0]
+          },
+          "tanType": 4,
+          "orientation": 3
+        }]
       }]
     }
   ]

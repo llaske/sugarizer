@@ -81,7 +81,6 @@
 				v-bind:p-no="pNo"
 				v-bind:show-hint="showHint"
 				v-bind:mode="mode"
-				v-bind:categories="categories"
 				v-bind:hint-number="hintNumber"
 				v-bind:no-of-hints-used="noOfHintsUsed"
 				v-bind:level="level"
@@ -90,6 +89,7 @@
 				v-bind:time-marks="timeMarks"
 				v-bind:user-response="userResponse"
 				v-bind:score="score"
+				v-bind:puzzle-to-be-edited="puzzleToBeEdited"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:update-tans-placed="onUpdateTansPlaced"
@@ -100,6 +100,10 @@
 				v-on:restart-game="handleRestartButton"
 				v-on:go-to-setting-editor="goToSettingEditor"
 				v-on:go-to-setting-list="goToSettingList"
+				v-on:delete-puzzle="onDeletePuzzle"
+				v-on:edit-puzzle="onEditPuzzle"
+				v-on:delete-puzzle="onDeletePuzzle"
+				v-on:add-puzzle="onAddPuzzle"
 			></component>
 		</transition>
 
