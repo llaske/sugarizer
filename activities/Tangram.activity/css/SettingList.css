@@ -78,7 +78,7 @@
 
 .tangram-card-info-bar {
   width: 100%;
-  height: 10%;
+  height: 18%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -94,17 +94,38 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .name-info {
-  width: 100%;
+  width: 70%;
   font-size: min(3.5vh, 3.5vw);
+}
+
+.tangram-card-info-bar button {
+  background-color: transparent;
+  color: white;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-image: url(../icons/minus.svg);
+}
+
+.edit-btn {
+  background-image: url(../icons/edit.svg);
 }
 
 .info-block-content div {
   width: 100%;
   word-wrap: break-word;
 }
+
 
 .tangram-card {
   max-width: 45vw;
@@ -123,7 +144,7 @@
 
 .tangram-card-main {
   width: 100%;
-  height: 88%;
+  height: 81%;
   display: flex;
   justify-content: center;
   align-items: center;

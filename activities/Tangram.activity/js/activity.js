@@ -37,7 +37,7 @@ var app = new Vue({
     },
     timeMarks: [],
     categories: ["Animals", "Geometrical", "Letters, Numbers & Signs", "People", "Usual objects", "Boats", "Miscellaneous", "Random"],
-    tangramCategory: "Animals",
+    tangramCategories: ["Animals"],
     puzzles: [],
     customPuzzles: [{
       name: standardTangrams[3].name,
@@ -77,7 +77,7 @@ var app = new Vue({
       } else if (vm.currentScreen === 'setting-list') {
         document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
         document.getElementById('category-button-8').style.display = 'none';
-        if (vm.tangramCategory === "Random") {
+        if (vm.tangramCategories[0] === "Random" || vm.tangramCategories.length > 1) {
           vm.onTangramCategorySelected({index:"Animals"});
         }
       } else if (vm.currentScreen === 'setting-editor') {
@@ -218,7 +218,7 @@ var app = new Vue({
       for (var pNo = 0; pNo < number; pNo++) {
         generating = true;
         let tang, tangramName;
-        if (vm.tangramCategory !== "Random") {
+        if (vm.tangramCategories[0] !== "Random") {
           //let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
           let tmp = vm.DataSetHandler.generateTangramFromSet();
           tang = tmp.tangram.dup();
@@ -471,21 +471,34 @@ var app = new Vue({
     onTangramCategorySelected: function(evt) {
       let vm = this;
       vm.pulseEffect = true;
-      vm.tangramCategory = evt.index;
-      if (vm.tangramCategory !== "Random") {
-        vm.DataSetHandler.onChangeCategory(vm.tangramCategory);
+      if (vm.tangramCategories[0]==="Random") {
+        vm.tangramCategories = [];
       }
-      vm.selectTangramCategoryItem(vm.tangramCategory);
+
+      if (evt.index !== "Random" && vm.currentScreen !== "setting-list") {
+        let index = vm.tangramCategories.findIndex(el => el === evt.index);
+        if (index === -1) {
+          vm.tangramCategories.push(evt.index);
+        } else {
+          vm.tangramCategories.splice(index,1);
+        }
+        vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
+      } else {
+        vm.tangramCategories = [evt.index];
+        if (vm.currentScreen === "setting-list") {
+          vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
+        }
+      }
+      vm.selectTangramCategoryItem(vm.tangramCategories);
       if (vm.currentScreen === "game") {
         if (vm.gameOver) {
           vm.startClock();
         }
         vm.newGame();
       }
-
     },
 
-    selectTangramCategoryItem: function(cat) {
+    selectTangramCategoryItem: function(categories) {
       let elems = [{
           cat: "Animals",
           elem: document.getElementById('category-button-1')
@@ -522,7 +535,7 @@ var app = new Vue({
 
       for (let i = 1; i <= elems.length; i++) {
         let elem = elems[i - 1];
-        if (elem.cat === cat) {
+        if (categories.includes(elem.cat)) {
           elem.elem.classList.add('palette-item-selected');
         } else {
           elem.elem.classList.remove('palette-item-selected');
@@ -714,7 +727,7 @@ var app = new Vue({
         currentScreen: vm.currentScreen,
         mode: vm.mode,
         level: vm.level,
-        tangramCategory: vm.tangramCategory,
+        tangramCategories: vm.tangramCategories,
         puzzles: puzzlesContext,
         pNo: vm.pNo,
         score: vm.score,
@@ -745,7 +758,7 @@ var app = new Vue({
       console.log(data);
       vm.mode = data.mode;
       vm.level = data.level;
-      vm.tangramCategory = data.tangramCategory;
+      vm.tangramCategories = data.tangramCategories;
       vm.hintNumber = data.hintNumber;
       vm.hintsUsed = data.hintsUsed;
       vm.noOfHintsUsed = data.noOfHintsUsed;
@@ -859,7 +872,7 @@ var app = new Vue({
       } else {
         vm.currentScreen = 'game';
       }
-      vm.selectTangramCategoryItem(vm.tangramCategory);
+      vm.selectTangramCategoryItem(vm.tangramCategories);
       vm.selectDifficultyItem(vm.level);
       vm.selectTimerItem(vm.clock.type);
 

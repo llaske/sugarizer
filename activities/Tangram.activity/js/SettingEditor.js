@@ -56,7 +56,7 @@ var SettingEditor = {
             <div>
               <label for="category">Choose Tangram Category</label>
               <select name="tangram-category" v-model="categoryChosen">
-                <option v-for="option in dataSetHandler.categories" v-if="option!=='Random'" :value="option">{{option}}</option>
+                <option v-for="option in dataSetHandler.AllCategories" v-if="option!=='Random'" :value="option">{{option}}</option>
               </select>
             </div>
             <div v-if="categoryChosen === 'new-category'">
@@ -179,7 +179,7 @@ var SettingEditor = {
     setTimeout(() => {
       vm.initializeTans();
     }, 0);
-    vm.categoryChosen = vm.dataSetHandler.category;
+    vm.categoryChosen = vm.dataSetHandler.currentCategories[0];
   },
 
   computed: {
@@ -382,7 +382,7 @@ var SettingEditor = {
 
     onAdd: function (evt) {
       let vm = this;
-      if (!vm.tangramCreated.tangram) return;
+      if (!vm.canBeAdded) return;
       vm.dataSetHandler.addTangramPuzzle(vm.tangramCreated);
       vm.$emit('go-to-setting-list');
     },

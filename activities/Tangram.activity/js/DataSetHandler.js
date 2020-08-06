@@ -4,8 +4,8 @@ Vue.component('data-set-handler', {
 		return {
 			tangramSet: [],
       dataSet: [],
-      category: "Animals",
-      categories: []
+      currentCategories: ["Animals"],
+      AllCategories: []
 		}
 	},
 	mounted() {
@@ -26,8 +26,8 @@ Vue.component('data-set-handler', {
   			.then(async (dataSet) => {
   				dataSet = JSON.parse(dataSet);
           vm.dataSet = dataSet["data"];
-          vm.categories = Object.keys(vm.dataSet);
-          vm.onChangeCategory(vm.category);
+          vm.AllCategories = vm.dataSet.map(ele => ele.name);
+          vm.onChangeCategory(vm.currentCategories);
   			});
     },
 
@@ -55,32 +55,49 @@ Vue.component('data-set-handler', {
       let tangram = new Tangram(tans);
       let tangramName = tang.name;
       let tangramPuzzle = {
+				id: tang.id,
         name: tangramName,
         tangram: tangram,
       }
       return tangramPuzzle;
     },
 
-    onChangeCategory: function (newCat) {
+    onChangeCategory: function (newCats) {
       let vm = this;
-			if (vm.categories.includes(newCat)) {
-				vm.category = newCat;
-			} else {
-				vm.category = "Animals";
-			}
+			vm.currentCategories = newCats;
       vm.tangramSet = [];
-      for(let tangram of vm.dataSet[vm.category]) {
-        vm.tangramSet.push(tangram);
-      }
+			for (var i = 0; i < vm.dataSet.length; i++) {
+				if (vm.currentCategories.includes(vm.dataSet[i].name)) {
+					for(let tangram of vm.dataSet[i]["tangrams"]) {
+		        vm.tangramSet.push(tangram);
+		      }
+				}
+			}
     },
 
+		deleteTangramPuzzle: function (id) {
+			let vm = this;
+			let categoryId = parseInt(id.substr(0,1));
+			let index = vm.dataSet.findIndex(ele => ele.id === categoryId);
+			if (index !== -1 && vm.dataSet[index]["tangrams"].length > 1) {
+				let tangramIndex = vm.dataSet[index]["tangrams"].findIndex(ele => ele.id === id);
+				vm.dataSet[index]["tangrams"].splice(tangramIndex, 1);
+				let tangramIndex2 = vm.tangramSet.findIndex(ele => ele.id === id);
+				vm.tangramSet.splice(tangramIndex2, 1);
+			}
+		},
 
     addTangramPuzzle: function(puzzle) {
 			let vm = this;
 			let newDataSetElem = {
+				id: null,
 				name: puzzle.name,
 				targetTans: []
 			}
+			let index = vm.dataSet.findIndex(ele => ele.name === puzzle.category);
+			if (index === -1) return;
+			newDataSetElem.id = vm.dataSet[index].id+"#"+Date.now();
+
 			for (var i = 0; i < puzzle.tangram.tans.length; i++) {
 				let tan = puzzle.tangram.tans[i]
 				newDataSetElem.targetTans.push({
@@ -92,7 +109,10 @@ Vue.component('data-set-handler', {
 					orientation: tan.orientation
 				});
 			}
-			vm.dataSet[puzzle.category].push(newDataSetElem);
+
+			vm.dataSet[index]["tangrams"].push(newDataSetElem);
+			vm.onChangeCategory(vm.currentCategories);
+			console.log(JSON.stringify(newDataSetElem));
 		}
 	}
 })

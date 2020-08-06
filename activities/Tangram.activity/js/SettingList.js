@@ -6,6 +6,8 @@ var TangramCard = {
         <div class="info-content name-info">
           <div>{{item.name}}</div>
         </div>
+        <button class="info-content edit-btn"></button>
+        <button class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
       </div>
 			<div class="tangram-card-main">
         <div
@@ -28,9 +30,15 @@ var TangramCard = {
 		</div>
 	`,
   computed: {
-    pathScale: function () {
-      return 'scale('+this.tangramSVGconfig.scale+')';
+    pathScale: function() {
+      return 'scale(' + this.tangramSVGconfig.scale + ')';
     },
+  },
+
+  methods: {
+    onDeletePuzzleClicked: function () {
+      this.$emit('delete-puzzle-clicked', this.item.id)
+    }
   }
 }
 
@@ -50,7 +58,7 @@ var SettingList = {
           <div class="setting-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>{{dataSetHandler.category}}</div>
+            <div>{{dataSetHandler.currentCategories[0]}}</div>
           </div>
         </div>
       </div>
@@ -66,6 +74,7 @@ var SettingList = {
             v-bind:stroke-color="strokeColor"
             v-bind:fill-color="fillColor"
             v-bind:tangramSVGconfig="tangramSVGconfig"
+            v-on:delete-puzzle-clicked="onDeletePuzzle"
           ></tangram-card>
         </div>
 
@@ -122,17 +131,12 @@ var SettingList = {
   mounted: function() {
     let vm = this;
     vm.resize();
-    vm.initializePuzzleShape();
   },
 
   watch: {
-    'dataSetHandler.category': function (newVal, oldVal) {
+    'dataSetHandler.tangramSet': function() {
       this.initializePuzzleShape();
     },
-
-    'dataSetHandler.tangramSet': function (newVal, oldVal) {
-      this.initializePuzzleShape();
-    }
   },
 
   methods: {
@@ -161,6 +165,7 @@ var SettingList = {
         let tmp = vm.dataSetHandler.buildTangramPuzzle(i)
         let puzzle = {
           name: tmp.name,
+          id: tmp.id,
           difficulty: checkDifficultyOfTangram(tmp.tangram),
           tangram: tmp.tangram.dup(),
           tangramSVG: "",
@@ -171,6 +176,10 @@ var SettingList = {
       }
 
     },
+
+    onDeletePuzzle: function (id) {
+      this.dataSetHandler.deleteTangramPuzzle(id);
+    }
 
   }
 }
