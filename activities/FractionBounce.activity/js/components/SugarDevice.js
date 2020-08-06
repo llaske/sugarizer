@@ -95,32 +95,32 @@ Vue.component('sugar-device', {
 
 		watchAcceleration: function (frequency) {
 			var vm = this;
-			if (window.DeviceMotionEvent == undefined) {
-				console.log("No accelerometer");
-				// this.frequency = frequency;
-			}
-			else {
-				console.log("Accelerometer found");
-				window.addEventListener("devicemotion", this.accelerationCallback, true);
-			}
-			// var accelerometer = new Accelerometer({ frequency: frequency });
-			// if (accelerometer) {
-			// 	accelerometer.addEventListener('reading', function () {
-			// 		vm.accelerationCallback(accelerometer);
-			// 	});
-			// 	accelerometer.start();
-			// } else {
-			// 	this.frequency = frequency;
+			// if (window.DeviceMotionEvent == undefined) {
+			// 	console.log("No accelerometer");
+			// 	// this.frequency = frequency;
 			// }
+			// else {
+			// 	console.log("Accelerometer found");
+			// 	window.addEventListener("devicemotion", this.accelerationCallback, true);
+			// }
+			var accelerometer = new Accelerometer({ frequency: frequency });
+			if (accelerometer) {
+				accelerometer.addEventListener('reading', function () {
+					vm.accelerationCallback(accelerometer);
+				});
+				accelerometer.start();
+			} else {
+				this.frequency = frequency;
+			}
 		},
 
 		accelerationCallback: function (acceleration) {
-			if (acceleration.type == "devicemotion") {
-				acceleration = acceleration.accelerationIncludingGravity;
-				acceleration.type = "devicemotion";
-			} else {
-				acceleration.type = "cordova";
-			}
+			// if (acceleration.type == "devicemotion") {
+			// 	acceleration = acceleration.accelerationIncludingGravity;
+			// 	acceleration.type = "devicemotion";
+			// } else {
+			// 	acceleration.type = "cordova";
+			// }
 			this.$emit('acceleration-callback', acceleration);
 		},
 

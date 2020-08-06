@@ -92,11 +92,6 @@ let app = new Vue({
 		},
 
 		//DEBUG
-		os: '',
-		isMobile: false,
-		isWebApp: false,
-		isApp: false,
-		isElectron: false,
 		acceleration: {},
 		accelerationInterval: null
 	},
@@ -128,13 +123,6 @@ let app = new Vue({
 		if(this.$refs.SugarDevice.isMobile()) {
 			this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
 		}
-
-		//DEBUG
-		this.os = this.$refs.SugarDevice.getOS();
-		this.isMobile = this.$refs.SugarDevice.isMobile();
-		this.isElectron = this.$refs.SugarDevice.isElectron();
-		this.isApp = this.$refs.SugarDevice.isApp();
-		this.isWebApp = this.$refs.SugarDevice.isWebApp();
 	},
 
 	methods: {
@@ -404,7 +392,7 @@ let app = new Vue({
 					this.context.lineTo(this.cx, this.cy);
 					this.context.closePath();
 					this.context.fill();
-					//Outline
+					// Outline
 					this.context.strokeStyle = this.currentenv.user.colorvalue.stroke;
 					this.context.beginPath();
 					this.context.arc(this.cx, this.cy, this.radius, 0, this.toRadians(360));
@@ -449,7 +437,6 @@ let app = new Vue({
 		},
 
 		accelerationChanged: function (acceleration) {
-			//DEBUG
 			this.acceleration = {
 				x: acceleration.x,
 				y: acceleration.y,
