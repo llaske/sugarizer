@@ -17,13 +17,11 @@ var FooterItem = {
 var PollStats = {
 	/*html*/
 	template: `
-		<div class="poll-stats" :class="{ 'is-result': isResult }">
-			<div class="poll-header">
+		<div class="poll-stats" :id="id" :class="{ 'is-result': isResult, 'is-thumbnail': isThumbnail }">
+			<div class="poll-header" v-if="!isThumbnail">
+				<button id="go-back" @click="goBack" v-if="!isResult && activePollStatus != 'running'"></button>
 				<h2>{{ activePoll.question }}</h2>
-				<div v-if="!isResult">
-					<button id="stop-poll" @click="stopPoll" v-if="activePollStatus == 'running'"></button>
-					<button id="go-back" @click="goBack" v-else></button>
-				</div>
+				<button id="stop-poll" @click="stopPoll" v-if="!isResult && activePollStatus == 'running'"></button>
 			</div>
 
 			<div style="position: absolute; width: 100px; background: rgba(0,0,0,0.4); display: none">
@@ -35,7 +33,7 @@ var PollStats = {
 				<div class="stats-container">
 					<canvas id="stats" width="100" height="100"></canvas>
 				</div>
-				<div class="stats-legends" v-if="activePoll.type == 'image-mcq'">
+				<div class="stats-legends" v-if="!isThumbnail && activePoll.typeVariable == 'ImageMCQ'">
 					<div class="legend-item" v-for="(option, i) in activePoll.options" :key="i">
 						<div class="color" :style="{ backgroundColor: statsData.datasets[0].backgroundColor[i] }"></div>
 						<span>{{ i+1 }}</span>
@@ -47,7 +45,7 @@ var PollStats = {
 
 			</div>
 			
-			<div class="poll-footer" v-if="!isResult">
+			<div class="poll-footer" v-if="!isResult && !isThumbnail">
 				<div class="footer-list">
 					<div class="vote-progress">{{ answers.length }}/{{ Object.keys(connectedUsers).length }}</div>
 					<footer-item
@@ -63,10 +61,15 @@ var PollStats = {
 		'footer-item': FooterItem
 	},
 	props: {
+		id: {
+			type: String,
+			default: "stats-poll"
+		},
 		activePoll: Object,
 		activePollStatus: String,
 		connectedUsers: Object,
 		isResult: Boolean,
+		isThumbnail: Boolean,
 		realTimeResults: Boolean,
 		autoStop: Boolean
 	},
@@ -89,11 +92,13 @@ var PollStats = {
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						precision: 0
 					}
 				}]
 			}
-		}
+		},
+		colorIndex: 0
 	}),
 	computed: {
 		sortedUsers() {
@@ -108,7 +113,7 @@ var PollStats = {
 			return users;
 		},
 		answers() {
-			if (!this.isResult) {
+			if (!this.isResult && !this.isThumbnail) {
 				let answers = [];
 				for (let key in this.connectedUsers) {
 					if (this.connectedUsers[key].answer != null) {
@@ -124,7 +129,7 @@ var PollStats = {
 		answers: function (newVal, oldVal) {
 			this.updateChart();
 
-			if (this.isResult) return;
+			if (this.isResult || this.isThumbnail) return;
 
 			this.updateCounts();
 			if (this.realTimeResults) {
@@ -139,12 +144,12 @@ var PollStats = {
 		},
 
 		connectedUsers: function (newVal, oldVal) {
-			if (this.isResult) return;
+			if (this.isResult || this.isThumbnail) return;
 			this.updateCounts();
 		},
 	},
 	mounted() {
-		let ctx = document.getElementById('stats');
+		let ctx = document.querySelector(`#${this.id} #stats`);
 		let labels = [];
 		let dataset = {
 			label: 'Votes',
@@ -152,16 +157,8 @@ var PollStats = {
 			backgroundColor: [],
 			hoverBackgroundColor: []
 		}
-		// let colors = [
-		// 	'rgba(255, 99, 132, 0.8)',
-		// 	'rgba(54, 162, 235, 0.8)',
-		// 	'rgba(255, 206, 86, 0.8)',
-		// 	'rgba(75, 192, 192, 0.8)',
-		// 	'rgba(153, 102, 255, 0.8)',
-		// 	'rgba(255, 159, 64, 0.8)'
-		// ];
-		// let colorIndex = 0;
-		if (this.activePoll.type == "mcq") {
+	
+		if (this.activePoll.typeVariable == "MCQ") {
 			for (let option of this.activePoll.options) {
 				labels.push(option);
 				dataset.data.push(0);
@@ -175,9 +172,12 @@ var PollStats = {
 			this.statsChart = new Chart(ctx, {
 				type: 'pie',
 				data: this.statsData,
-				options: this.statsOptions
+				options: {
+					...this.statsOptions,
+					legend: { display: !this.isThumbnail }
+				}
 			});
-		} else if (this.activePoll.type == "image-mcq") {
+		} else if (this.activePoll.typeVariable == "ImageMCQ") {
 			for (let i in this.activePoll.options) {
 				labels.push(parseInt(i) + 1);
 				dataset.data.push(0);
@@ -197,16 +197,21 @@ var PollStats = {
 					legend: { display: false }
 				}
 			});
-		} else if (this.activePoll.type == "rating") {
+		} else if (this.activePoll.typeVariable == "Rating") {
 			for (let i = 1; i <= 5; i++) {
-				labels.push(i);
+				let dataset = {
+					label: '',
+					data: [],
+					backgroundColor: [],
+					hoverBackgroundColor: []
+				}
+				dataset.label = i;
 				dataset.data.push(0);
 				let color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
+				this.$set(this.statsData.datasets, i-1, dataset);
 			}
-			this.$set(this.statsData, 'labels', labels);
-			this.$set(this.statsData.datasets, 0, dataset);
 
 			this.statsChart = new Chart(ctx, {
 				type: 'bar',
@@ -214,16 +219,17 @@ var PollStats = {
 				options: {
 					...this.statsOptions,
 					...this.statsBarOptions,
+					legend: { display: !this.isThumbnail }
 				}
 			});
-		} else if (this.activePoll.type == "yesno") {
-			labels.push('false');
+		} else if (this.activePoll.typeVariable == "YesNo") {
+			labels.push('False');
 			dataset.data.push(0);
 			let color = this.getColor();
 			dataset.backgroundColor.push(color.background);
 			dataset.hoverBackgroundColor.push(color.hover);
 
-			labels.push('true');
+			labels.push('True');
 			dataset.data.push(0);
 			color = this.getColor();
 			dataset.backgroundColor.push(color.background);
@@ -235,23 +241,54 @@ var PollStats = {
 			this.statsChart = new Chart(ctx, {
 				type: 'pie',
 				data: this.statsData,
-				options: this.statsData
+				options: {
+					...this.statsOptions,
+					legend: { display: !this.isThumbnail }
+				},
 			});
 		}
-		if (this.isResult) {
+		if (this.isResult || this.isThumbnail) {
 			this.updateChart();
 		}
 	},
 	methods: {
 		getColor() {
-			let hue = 360 * Math.random(),
-				saturation = 80 + 15 * Math.random(),
-				lightness = 50 + 20 * Math.random();
+			let backgroundColors = [
+				'rgba(255, 99, 132, 0.8)',
+				'rgba(54, 162, 235, 0.8)',
+				'rgba(255, 206, 86, 0.8)',
+				'rgba(75, 192, 192, 0.8)',
+				'rgba(153, 102, 255, 0.8)',
+				'rgba(255, 159, 64, 0.8)'
+			];
+			let hoverBackgroundColors = [
+				'rgba(255, 99, 132, 1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)',
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 159, 64, 1)'
+			];
+			let color;
 
-			return {
-				background: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`,
-				hover: `hsla(${hue}, ${saturation}%, ${lightness}%, 1)`
+			if(this.colorIndex < backgroundColors.length) {
+				color = {
+					background: backgroundColors[this.colorIndex],
+					hover: hoverBackgroundColors[this.colorIndex]
+				}
+				this.colorIndex++;
+			} else {
+				let hue = 360 * Math.random(),
+					saturation = 80 + 15 * Math.random(),
+					lightness = 50 + 20 * Math.random();
+	
+				color =  {
+					background: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`,
+					hover: `hsla(${hue}, ${saturation}%, ${lightness}%, 1)`
+				}
 			}
+
+			return color;
 		},
 
 		updateCounts() {
@@ -274,7 +311,7 @@ var PollStats = {
 		updateChart() {
 			let data = [];
 
-			if (this.activePoll.type == "mcq" || this.activePoll.type == "image-mcq") {
+			if (this.activePoll.typeVariable == "MCQ" || this.activePoll.typeVariable == "ImageMCQ") {
 				for (let i in this.activePoll.options) {
 					data.push(0);
 				}
@@ -282,15 +319,14 @@ var PollStats = {
 					data[answer]++;
 				}
 				this.$set(this.statsData.datasets[0], 'data', data);
-			} else if (this.activePoll.type == "rating") {
+			} else if (this.activePoll.typeVariable == "Rating") {
 				for (let i = 1; i <= 5; i++) {
-					data.push(0);
+					this.statsData.datasets[i-1].data[0] = 0;
 				}
 				for (let answer of this.answers) {
-					data[answer - 1]++;
+					this.statsData.datasets[answer-1].data[0]++;
 				}
-				this.$set(this.statsData.datasets[0], 'data', data);
-			} else if (this.activePoll.type == "yesno") {
+			} else if (this.activePoll.typeVariable == "YesNo") {
 				data.push(0);
 				data.push(0);
 				for (let answer of this.answers) {

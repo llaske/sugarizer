@@ -1,7 +1,7 @@
 var History = {
 	/*html*/
 	template: `
-		<div class="history-container" :style="{ backgroundColor: openHistoryIndex == null ? currentUser.colorvalue.fill : '#fff' }">
+		<div class="history-container" :style="{ backgroundColor: openHistoryIndex == null ? currentUser.colorvalue.stroke : '#fff' }">
 			<ul class="history-list" v-if="openHistoryIndex == null">
 				<li 
 					class="history-item" 
@@ -10,14 +10,16 @@ var History = {
 					@click="$emit('set-open-history-index', i)"
 				>
 					<div class="poll-image">
-						
+						<poll-stats :id="'stats-' + i" :activePoll="item" isThumbnail />
 					</div>
 					<div class="poll-info">
 						<h3>{{ item.question }}</h3>
 						<p>{{ item.type }}</p>
+						<small>{{ $root.$refs.SugarL10n.localizeTimestamp(item.endTime) }}</small>
 					</div>
 					<div class="results-info">
 						<p>{{ item.results.counts.answersCount }} votes</p>
+						<p>{{ item.results.counts.usersCount }} users</p>
 					</div>
 				</li>
 			</ul>

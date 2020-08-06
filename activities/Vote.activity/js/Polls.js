@@ -2,7 +2,10 @@ var PollCard = {
 	/*html*/
 	template: `
 		<div class="poll-card" @click="$emit('poll-clicked', poll.id)">
-			<div class="poll-image"></div>
+			<div class="poll-image">
+				<img :src="poll.image">
+				<img src="lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg" class="share-icon">
+			</div>
 			<div class="poll-details">
 				<h3 class="poll-title">{{ poll.question }}</h3>
 				<p class="poll-type">{{ poll.type }}</p>

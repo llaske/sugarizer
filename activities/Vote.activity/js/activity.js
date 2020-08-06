@@ -24,13 +24,17 @@ var app = new Vue({
 		polls: [
 			{
 				id: 0,
-				type: "text",
+				type: "",
+				typeVariable: "Text",
+				image: 'images/text.png',
 				question: "What is your name?",
 				results: null
 			},
 			{
 				id: 1,
-				type: "mcq",
+				type: "",
+				typeVariable: "MCQ",
+				image: 'images/mcq.png',
 				question: "Which number is the largest?",
 				options: [
 					"Two",
@@ -42,19 +46,25 @@ var app = new Vue({
 			},
 			{
 				id: 2,
-				type: "rating",
+				type: "",
+				typeVariable: "Rating",
+				image: 'images/rating.png',
 				question: "How was the lecture today?",
 				results: null
 			},
 			{
 				id: 3,
-				type: "yesno",
+				type: "",
+				typeVariable: "YesNo",
+				image: 'images/yesno.png',
 				question: "Is this correct?",
 				results: null
 			},
 			{
 				id: 4,
-				type: "image-mcq",
+				type: "",
+				typeVariable: "ImageMCQ",
+				image: 'images/image-mcq.png',
 				question: "Which sport should we play today?",
 				options: [
 					"https://image.freepik.com/free-vector/football-match_23-2147510647.jpg",
@@ -91,15 +101,15 @@ var app = new Vue({
 		}
 	},
 	computed: {
-		searchQuery: function() {
+		searchQuery() {
 			return this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		}
 	},
-	mounted: function () {
+	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
 	},
 	methods: {
-		initialized: function () {
+		initialized() {
 			let currentenv = this.$refs.SugarActivity.getEnvironment();
 			this.$set(this.currentUser, 'colorvalue', currentenv.user.colorvalue);
 			this.$set(this.currentUser, 'name', currentenv.user.name);
@@ -108,9 +118,12 @@ var app = new Vue({
 			this.$set(this.currentUser, 'answer', null);
 		},
 
-		localized: function () {
+		localized() {
 			let vm = this;
 			this.$refs.SugarL10n.localize(this.l10n);
+			for(let poll of this.polls) {
+				poll.type = this.$refs.SugarL10n.get(poll.typeVariable);
+			}
 		},
 
 		startPoll(pollId) {

@@ -39,13 +39,22 @@
 .poll-stats.is-result {
 	min-height: auto;
 }
+.poll-stats.is-thumbnail {
+	min-height: auto;
+	width: 100%;
+}
 .poll-stats .poll-header {
+	position: relative;
 	flex: 0;
 	padding: 5px 10vw;
 	background: rgba(0, 0, 0, 0.05);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+.poll-stats.is-result .poll-header {
+	color: white;
+	background: rgb(30, 30, 30);
 }
 .poll-stats .poll-header h1 {
 	margin: 0;
@@ -55,8 +64,8 @@
 	background-color: transparent;
 	background-image: url(../icons/pause.svg);
 	background-size: contain;
-	height: 60px;
-	width: 60px;
+	height: 55px;
+	width: 55px;
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
@@ -65,12 +74,14 @@
 	transform: scale(0.98);
 }
 .poll-stats .poll-header #go-back {
-	flex-shrink: 0;
+	position: absolute;
+	left: 1vw;
+	top: 14px;
 	background-color: transparent;
 	background-image: url(../icons/go-left.svg);
 	background-size: contain;
-	height: 60px;
-	width: 60px;
+	height: 40px;
+	width: 40px;
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
@@ -83,12 +94,18 @@
 	align-items: center;
 	overflow: auto;
 }
+.is-thumbnail .poll-stats-container {
+	height: 100%;
+	width: 100%;
+}
 .stats-container {
 	height: 60vh;
 	width: 60vh;
 	max-width: 100%;
-	/* margin: 10px; */
-	/* border: solid 2px red; */
+}
+.is-thumbnail .poll-stats-container .stats-container {
+	height: 100%;
+	width: 100%;
 }
 .stats-legends {
 	height: 60vh;

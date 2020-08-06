@@ -42,6 +42,10 @@
 	width: 150px;
 	background: rgb(234, 250, 255);
 	margin-right: 10px;
+	overflow: hidden;
+}
+.history-item .poll-info h3 {
+	margin: 0;
 }
 
 .history-item .results-info {

@@ -20,12 +20,12 @@ var Vote = {
 					</div>
 
 					<!-- Text -->
-					<div class="vote-text" v-else-if="activePoll.type == 'text'">
+					<div class="vote-text" v-else-if="activePoll.typeVariable == 'Text'">
 						<input type="text" v-model="text">
 					</div>
 
 					<!-- Yes/No -->
-					<div class="vote-yesno" v-else-if="activePoll.type == 'yesno'">
+					<div class="vote-yesno" v-else-if="activePoll.typeVariable == 'YesNo'">
 						<button 
 							class="option option-yes" 
 							:class="{ selected: boolChoice == true }" 
@@ -41,7 +41,7 @@ var Vote = {
 					</div>
 
 					<!-- MCQ -->
-					<div class="vote-mcq" v-else-if="activePoll.type == 'mcq'">
+					<div class="vote-mcq" v-else-if="activePoll.typeVariable == 'MCQ'">
 						<button 
 							class="option" 
 							:class="{ selected: optionSelected == i }" 
@@ -52,7 +52,7 @@ var Vote = {
 					</div>
 
 					<!-- Image MCQ -->
-					<div class="vote-image-mcq" v-else-if="activePoll.type == 'image-mcq'">
+					<div class="vote-image-mcq" v-else-if="activePoll.typeVariable == 'ImageMCQ'">
 						<div 
 							class="option-image"
 							:class="{ selected: optionSelected == i }" 
@@ -65,7 +65,7 @@ var Vote = {
 					</div>
 
 					<!-- Rating -->
-					<div class="vote-rating" v-else-if="activePoll.type == 'rating'">
+					<div class="vote-rating" v-else-if="activePoll.typeVariable == 'Rating'">
 						<div 
 							class="rating-star" 
 							:style="{ backgroundImage: getRatingStar(n) }" 
@@ -112,13 +112,13 @@ var Vote = {
 	}),
 	computed: {
 		submitable() {
-			switch (this.activePoll.type) {
-				case 'text':
+			switch (this.activePoll.typeVariable) {
+				case 'Text':
 					return this.text != "";
-				case 'yesno':
+				case 'YesNo':
 					return this.boolChoice != null;
-				case 'mcq':
-				case 'image-mcq':
+				case 'MCQ':
+				case 'ImageMCQ':
 					return this.optionSelected != null;
 			}
 			return true;
@@ -171,18 +171,18 @@ var Vote = {
 			return `url(${n <= this.rating ? this.ratingIcons.selected : this.ratingIcons.unselected})`;
 		},
 		submit() {
-			switch (this.activePoll.type) {
-				case 'text':
+			switch (this.activePoll.typeVariable) {
+				case 'Text':
 					this.$emit('vote-submitted', this.text);
 					break;
-				case 'yesno':
+				case 'YesNo':
 					this.$emit('vote-submitted', this.boolChoice);
 					break;
-				case 'mcq':
-				case 'image-mcq':
+				case 'MCQ':
+				case 'ImageMCQ':
 					this.$emit('vote-submitted', this.optionSelected);
 					break;
-				case 'rating':
+				case 'Rating':
 					this.$emit('vote-submitted', this.rating);
 					break;
 			}
