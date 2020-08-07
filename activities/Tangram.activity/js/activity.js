@@ -36,14 +36,8 @@ var app = new Vue({
       type: 0,
     },
     timeMarks: [],
-    categories: ["Animals", "Geometrical", "Letters, Numbers & Signs", "People", "Usual objects", "Boats", "Miscellaneous", "Random"],
     tangramCategories: ["Animals"],
     puzzles: [],
-    customPuzzles: [{
-      name: standardTangrams[3].name,
-      difficulty: 1,
-      tangram: standardTangrams[3].tangram,
-    }],
     pNo: 0,
     gameTans: [],
     gameTansPlaced: [-1, -1, -1, -1, -1, -1, -1],
@@ -224,9 +218,9 @@ var app = new Vue({
         generating = true;
         let tang, tangramName;
         if (vm.tangramCategories[0] !== "Random") {
-          //let tangram = standardTangrams[Math.floor(Math.random() * (standardTangrams.length - 1)) + 1];
           let tmp = vm.DataSetHandler.generateTangramFromSet();
           tang = tmp.tangram.dup();
+          console.log(tang);
           tangramName = tmp.name;
         } else {
           let generatedTangrams = generateTangrams(2);
@@ -694,6 +688,27 @@ var app = new Vue({
       this.DataSetHandler.addTangramPuzzle(puzzle);
     },
 
+    onExport: function () {
+      let vm = this;
+      var metadata = {
+        mimetype: 'application/json',
+        title: 'tangram-data-set.json',
+        activity: "",
+        timestamp: new Date().getTime(),
+        creation_time: new Date().getTime(),
+        file_size: 0
+      };
+      let inputData = {
+        data: vm.DataSetHandler.dataSet
+      }
+      inputData = JSON.stringify(inputData);
+      vm.SugarJournal.createEntry(inputData, metadata)
+        .then(() => {
+          //vm.$root.$refs.SugarPopup.log("export ");
+          console.log('Export completed');
+        });
+    },
+
     onStop: function() {
       let vm = this;
       let puzzlesContext = [];
@@ -758,7 +773,7 @@ var app = new Vue({
         gameTansPlaced: vm.gameTansPlaced,
         gameTansSnapped: vm.gameTansSnapped,
         gameScale: vm.gameScale,
-        gameStage: vm.gameStage
+        gameStage: vm.gameStage,
       }
       vm.SugarJournal.saveData(context);
     },

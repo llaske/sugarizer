@@ -41,6 +41,11 @@
 				palette-event="tangram-category-selected"
 				v-on:tangram-category-selected="onTangramCategorySelected"
 			></sugar-toolitem>
+			<sugar-toolitem id="export-button"
+				v-if="currentScreen=='setting-list'"
+				title="export DataSet"
+				v-on:click="onExport"
+			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="level"

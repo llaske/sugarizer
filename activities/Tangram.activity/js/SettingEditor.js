@@ -1,5 +1,5 @@
 var SettingEditor = {
-  props: ['strokeColor', 'fillColor', 'customPuzzles', 'dataSetHandler', 'puzzleToBeEdited'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzleToBeEdited'],
   template: `
     <div id="setting-editor-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -166,11 +166,15 @@ var SettingEditor = {
   created: function() {
     let vm = this;
     window.addEventListener('resize', vm.resize);
+    window.addEventListener('keydown', vm.onKeyDown);
+    window.addEventListener('keyup', vm.onKeyUp);
   },
 
   destroyed: function() {
     let vm = this;
     window.removeEventListener("resize", vm.resize);
+    window.removeEventListener('keydown', vm.onKeyDown);
+    window.removeEventListener('keyup', vm.onKeyUp);
   },
 
   mounted: function() {
