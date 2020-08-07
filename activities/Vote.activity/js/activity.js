@@ -83,6 +83,7 @@ var app = new Vue({
 		activePoll: null,
 		activePollStatus: '',
 		autoStop: false,
+		firstPollCompleted: false,
 		realTimeResults: false,
 		history: [],
 		openHistoryIndex: null,
@@ -93,6 +94,7 @@ var app = new Vue({
 			stringSettings: '',
 			stringAdd: '',
 			stringRealTimeResults: '',
+			stringAutoStop: '',
 			stringHistory: '',
 			stringDeletePoll: '',
 			stringExport: '',
@@ -150,6 +152,10 @@ var app = new Vue({
 
 		stopPoll() {
 			this.activePollStatus = 'finished';
+			if(!this.firstPollCompleted) {
+				this.firstPollCompleted = true;
+				this.autoStop = true;
+			}
 
 			this.SugarPresence.sendMessage({
 				user: this.SugarPresence.getUserInfo(),
@@ -254,6 +260,7 @@ var app = new Vue({
 				// Clear answers for all connected users
 				for(let id in this.connectedUsers) {
 					this.$set(this.connectedUsers[id], 'answer', null);
+					this.$set(this.connectedUsers[id], 'handRaised', false);
 				}
 				this.counts.answersCount = 0;
 				// Clear results from poll templates

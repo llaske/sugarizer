@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="css/History.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Chart.min.js"></script>
+	<script src="lib/wordcloud2.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -56,6 +57,13 @@
 				v-if="currentView == 'poll-stats'" 
 				@click="switchRealTimeResults"
 				v-bind:title="l10n.stringRealTimeResults"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="auto-stop-button" 
+				:class="{ active: autoStop}"
+				v-if="currentView == 'poll-stats'" 
+				@click="autoStop = !autoStop"
+				v-bind:title="l10n.stringAutoStop"
 			></sugar-toolitem>
 			<div class="search-field" v-if="currentView == 'polls-grid'">
 				<div class="search-icon"></div>

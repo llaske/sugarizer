@@ -41,7 +41,8 @@
 }
 .poll-stats.is-thumbnail {
 	min-height: auto;
-	width: 100%;
+	height: 100%;
+	max-width: 100%;
 }
 .poll-stats .poll-header {
 	position: relative;
@@ -99,6 +100,7 @@
 	width: 100%;
 }
 .stats-container {
+	position: relative;
 	height: 60vh;
 	width: 60vh;
 	max-width: 100%;
@@ -134,8 +136,23 @@
 	height: 100%;
 	object-fit: contain;
 }
+.wait-text {
+	text-align: center;
+}
 #stats {
-
+	height: 100%;	
+	max-width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+.text-popup {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.3);
+	color: white;
+	border-radius: 5px;
 }
 .poll-stats .poll-footer {
 	flex: 0;

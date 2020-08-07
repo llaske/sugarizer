@@ -31,7 +31,14 @@ var PollStats = {
 		
 			<div class="poll-stats-container">
 				<div class="stats-container">
-					<canvas id="stats" width="100" height="100"></canvas>
+					<p class="wait-text" v-show="activePoll.typeVariable == 'Text' && answers.length == 0  && !isThumbnail">{{ $root.$refs.SugarL10n.get('WaitingVotes') }}</p>
+					<canvas 
+						id="stats" 
+						width="500" 
+						height="500" 
+						v-show="activePoll.typeVariable != 'Text' || answers.length != 0"
+					></canvas>
+					<div class="text-popup" v-if="canvasInfoItem && !isThumbnail">{{ canvasInfoItem[0] }}: {{ canvasInfoItem[1] }}</div>
 				</div>
 				<div class="stats-legends" v-if="!isThumbnail && activePoll.typeVariable == 'ImageMCQ'">
 					<div class="legend-item" v-for="(option, i) in activePoll.options" :key="i">
@@ -98,7 +105,8 @@ var PollStats = {
 				}]
 			}
 		},
-		colorIndex: 0
+		colorIndex: 0,
+		canvasInfoItem: null
 	}),
 	computed: {
 		sortedUsers() {
@@ -132,6 +140,9 @@ var PollStats = {
 			if (this.isResult || this.isThumbnail) return;
 
 			this.updateCounts();
+			if(this.autoStop && this.answers.length == Object.keys(this.connectedUsers).length) {
+				this.stopPoll();
+			}
 			if (this.realTimeResults) {
 				this.$emit('update-results', this.answers);
 			}
@@ -157,97 +168,112 @@ var PollStats = {
 			backgroundColor: [],
 			hoverBackgroundColor: []
 		}
+
+		switch(this.activePoll.typeVariable) {
+			case "Text":
+				// let words = ["Hello", "Hi", "Hey", "Hi", "Hey", "Hello", "Hello", "Hello", "Hello", "Hi", "Hi"]
+				WordCloud(ctx, {
+					list: this.getWordsList(this.answers),
+					weightFactor: 30 - this.answers.length,
+					wait: 100,
+					gridSize: 10,
+					hover: this.showWordCount
+				});
+				break;
+			case "MCQ":
+				for (let option of this.activePoll.options) {
+					labels.push(option);
+					dataset.data.push(0);
+					let color = this.getColor();
+					dataset.backgroundColor.push(color.background);
+					dataset.hoverBackgroundColor.push(color.hover);
+				}
+				this.$set(this.statsData, 'labels', labels);
+				this.$set(this.statsData.datasets, 0, dataset);
 	
-		if (this.activePoll.typeVariable == "MCQ") {
-			for (let option of this.activePoll.options) {
-				labels.push(option);
+				this.statsChart = new Chart(ctx, {
+					type: 'pie',
+					data: this.statsData,
+					options: {
+						...this.statsOptions,
+						legend: { display: !this.isThumbnail }
+					}
+				});
+				break;
+			case "ImageMCQ":
+				for (let i in this.activePoll.options) {
+					labels.push(parseInt(i) + 1);
+					dataset.data.push(0);
+					let color = this.getColor();
+					dataset.backgroundColor.push(color.background);
+					dataset.hoverBackgroundColor.push(color.hover);
+				}
+				this.$set(this.statsData, 'labels', labels);
+				this.$set(this.statsData.datasets, 0, dataset);
+	
+				this.statsChart = new Chart(ctx, {
+					type: 'bar',
+					data: this.statsData,
+					options: {
+						...this.statsOptions,
+						...this.statsBarOptions,
+						legend: { display: false }
+					}
+				});
+				break;
+			case "Rating":
+				for (let i = 1; i <= 5; i++) {
+					let dataset = {
+						label: '',
+						data: [],
+						backgroundColor: [],
+						hoverBackgroundColor: []
+					}
+					dataset.label = i;
+					dataset.data.push(0);
+					let color = this.getColor();
+					dataset.backgroundColor.push(color.background);
+					dataset.hoverBackgroundColor.push(color.hover);
+					this.$set(this.statsData.datasets, i-1, dataset);
+				}
+	
+				this.statsChart = new Chart(ctx, {
+					type: 'bar',
+					data: this.statsData,
+					options: {
+						...this.statsOptions,
+						...this.statsBarOptions,
+						legend: { display: !this.isThumbnail }
+					}
+				});
+				break;
+			case "YesNo":
+				labels.push('False');
 				dataset.data.push(0);
 				let color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
-			}
-			this.$set(this.statsData, 'labels', labels);
-			this.$set(this.statsData.datasets, 0, dataset);
 
-			this.statsChart = new Chart(ctx, {
-				type: 'pie',
-				data: this.statsData,
-				options: {
-					...this.statsOptions,
-					legend: { display: !this.isThumbnail }
-				}
-			});
-		} else if (this.activePoll.typeVariable == "ImageMCQ") {
-			for (let i in this.activePoll.options) {
-				labels.push(parseInt(i) + 1);
+				labels.push('True');
 				dataset.data.push(0);
-				let color = this.getColor();
+				color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
-			}
-			this.$set(this.statsData, 'labels', labels);
-			this.$set(this.statsData.datasets, 0, dataset);
 
-			this.statsChart = new Chart(ctx, {
-				type: 'bar',
-				data: this.statsData,
-				options: {
-					...this.statsOptions,
-					...this.statsBarOptions,
-					legend: { display: false }
-				}
-			});
-		} else if (this.activePoll.typeVariable == "Rating") {
-			for (let i = 1; i <= 5; i++) {
-				let dataset = {
-					label: '',
-					data: [],
-					backgroundColor: [],
-					hoverBackgroundColor: []
-				}
-				dataset.label = i;
-				dataset.data.push(0);
-				let color = this.getColor();
-				dataset.backgroundColor.push(color.background);
-				dataset.hoverBackgroundColor.push(color.hover);
-				this.$set(this.statsData.datasets, i-1, dataset);
-			}
+				this.$set(this.statsData, 'labels', labels);
+				this.$set(this.statsData.datasets, 0, dataset);
 
-			this.statsChart = new Chart(ctx, {
-				type: 'bar',
-				data: this.statsData,
-				options: {
-					...this.statsOptions,
-					...this.statsBarOptions,
-					legend: { display: !this.isThumbnail }
-				}
-			});
-		} else if (this.activePoll.typeVariable == "YesNo") {
-			labels.push('False');
-			dataset.data.push(0);
-			let color = this.getColor();
-			dataset.backgroundColor.push(color.background);
-			dataset.hoverBackgroundColor.push(color.hover);
-
-			labels.push('True');
-			dataset.data.push(0);
-			color = this.getColor();
-			dataset.backgroundColor.push(color.background);
-			dataset.hoverBackgroundColor.push(color.hover);
-
-			this.$set(this.statsData, 'labels', labels);
-			this.$set(this.statsData.datasets, 0, dataset);
-
-			this.statsChart = new Chart(ctx, {
-				type: 'pie',
-				data: this.statsData,
-				options: {
-					...this.statsOptions,
-					legend: { display: !this.isThumbnail }
-				},
-			});
+				this.statsChart = new Chart(ctx, {
+					type: 'pie',
+					data: this.statsData,
+					options: {
+						...this.statsOptions,
+						legend: { display: !this.isThumbnail }
+					},
+				});
+				break;
 		}
-		if (this.isResult || this.isThumbnail) {
+		if ((this.isResult || this.isThumbnail) && this.activePoll.typeVariable != "Text") {
 			this.updateChart();
 		}
 	},
@@ -311,31 +337,67 @@ var PollStats = {
 		updateChart() {
 			let data = [];
 
-			if (this.activePoll.typeVariable == "MCQ" || this.activePoll.typeVariable == "ImageMCQ") {
-				for (let i in this.activePoll.options) {
+			switch(this.activePoll.typeVariable) {
+				case "Text":
+					let canvas = document.querySelector(`#${this.id} #stats`);
+					WordCloud(canvas, {
+						list: this.getWordsList(this.answers),
+						weightFactor: 30 - this.answers.length,
+						wait: 100,
+						hover: this.showWordCount
+					});
+					break;
+				case "MCQ":
+				case "ImageMCQ":
+					for (let i in this.activePoll.options) {
+						data.push(0);
+					}
+					for (let answer of this.answers) {
+						data[answer]++;
+					}
+					this.$set(this.statsData.datasets[0], 'data', data);
+					break;
+				case "Rating":
+					for (let i = 1; i <= 5; i++) {
+						this.statsData.datasets[i-1].data[0] = 0;
+					}
+					for (let answer of this.answers) {
+						this.statsData.datasets[answer-1].data[0]++;
+					}
+					break;
+				case "YesNo":
 					data.push(0);
-				}
-				for (let answer of this.answers) {
-					data[answer]++;
-				}
-				this.$set(this.statsData.datasets[0], 'data', data);
-			} else if (this.activePoll.typeVariable == "Rating") {
-				for (let i = 1; i <= 5; i++) {
-					this.statsData.datasets[i-1].data[0] = 0;
-				}
-				for (let answer of this.answers) {
-					this.statsData.datasets[answer-1].data[0]++;
-				}
-			} else if (this.activePoll.typeVariable == "YesNo") {
-				data.push(0);
-				data.push(0);
-				for (let answer of this.answers) {
-					let index = answer ? 1 : 0;
-					data[index]++;
-				}
-				this.$set(this.statsData.datasets[0], 'data', data);
+					data.push(0);
+					for (let answer of this.answers) {
+						let index = answer ? 1 : 0;
+						data[index]++;
+					}
+					this.$set(this.statsData.datasets[0], 'data', data);
+					break;	
 			}
-			this.statsChart.update();
+			if(this.activePoll.typeVariable != "Text") {
+				this.statsChart.update();
+			}
+		},
+
+		getWordsList(array) {
+			let counts = {};
+			for(let item of array) {
+				if(!counts[item]) {
+					counts[item] = 1;
+				} else {
+					counts[item]++;
+				}
+			}
+			let list = [];
+			for(let key in counts) {
+				list.push([key, counts[key]]);
+			}
+			return list;
+		},
+
+		showWordCount(item, dimensions, event) {
+			this.canvasInfoItem = item;
 		},
 
 		stopPoll() {

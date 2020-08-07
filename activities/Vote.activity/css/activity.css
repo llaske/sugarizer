@@ -94,6 +94,10 @@ p {
 	background-image: url(../icons/stats.svg);
 }
 
+#main-toolbar #auto-stop-button {
+	background-image: url(../icons/auto-stop.svg);
+}
+
 #main-toolbar #history-button {
 	background-image: url(../icons/history.svg);
 }
