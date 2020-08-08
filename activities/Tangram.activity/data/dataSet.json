@@ -1,4 +1,7 @@
 {
+  "metadata": {
+    "about": "default tangam data set for Tangram.activity"
+  },
   "data": [{
       "id": 1,
       "name": "Geometrical",

@@ -73,6 +73,7 @@ var SettingList = {
         <div class="setting-list-panel-primary"
         >
           <tangram-card
+            v-bind:ref="index"
             v-for="(puzzle,index) in puzzlesSet"
             v-bind:key="index"
             v-bind:item="puzzle"

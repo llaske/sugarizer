@@ -59,23 +59,6 @@
   width: 90%;
 }
 
-select {
-  width: 225px;
-  padding: 4px;
-  line-height: 30px;
-  background-color: #e5e5e5;
-  border: 2px solid #e5e5e5;
-  border-radius: 30px;
-  outline: 0;
-}
-select:focus {
-  background-color: white;
-}
-select:disabled {
-  background-color: #808080;
-  border-color: #808080;
-}
-
 .setting-editor-sidebar form label {
 	font-size: min(2.5vh, 2.5vw);
 	display: block;
@@ -83,13 +66,6 @@ select:disabled {
 }
 .setting-editor-sidebar form input {
 	width: 90%;
-  height: 10%;
-  margin: 0.5vw;
-  font-size: min(2.5vh, 2.5vw);
-}
-
-.setting-editor-sidebar form select {
-	width: 95%;
   height: 10%;
   margin: 0.5vw;
   font-size: min(2.5vh, 2.5vw);

@@ -53,16 +53,11 @@ var SettingEditor = {
               <label for="category">Enter Tangram Name</label>
               <input type="text" name="tangram-name" v-model="puzzleCreated.name" required>
             </div>
-            <div>
-              <label for="category">Choose Tangram Category</label>
-              <select name="tangram-category" v-model="categoryChosen">
-                <option v-for="option in dataSetHandler.AllCategories" v-if="option!=='Random'" :value="option">{{option}}</option>
-              </select>
-            </div>
-            <div v-if="categoryChosen === 'new-category'">
-              <input type="text" name="new-category" v-model="puzzleCreated.category" required>
-            </div>
           </form>
+          <div class="setting-editor-sidebar-element">
+            <div>Category: {{ puzzleCreated.category }}</div>
+          </div>
+
           <div class="setting-editor-sidebar-element valid-shape-indicator"
             v-bind:style="{
               backgroundColor: puzzleCreated.tangram !== null ? '#81e32b' : 'red',
@@ -159,7 +154,6 @@ var SettingEditor = {
         tangram: null,
         tangramSVGdata: '',
       },
-      categoryChosen: null,
     };
   },
 
@@ -180,7 +174,7 @@ var SettingEditor = {
   mounted: function() {
     let vm = this;
     vm.resize();
-    vm.categoryChosen = vm.dataSetHandler.currentCategories[0];
+    vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
         vm.showPuzzleToBeEdited(vm.puzzleToBeEdited);
@@ -197,16 +191,6 @@ var SettingEditor = {
 
     canBeAdded: function() {
       return this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '' && this.puzzleCreated.category !== '';
-    }
-  },
-
-  watch: {
-    categoryChosen: function() {
-      if (this.categoryChosen !== 'new-category') {
-        this.puzzleCreated.category = this.categoryChosen;
-      } else {
-        this.puzzleCreated.category = '';
-      }
     }
   },
 
@@ -387,12 +371,27 @@ var SettingEditor = {
     showPuzzleToBeEdited: function(puzzle) {
       let vm = this;
       vm.populateTans(puzzle.tangram.tans);
-      vm.categoryChosen = puzzle.category;
+      vm.puzzleCreated.category = puzzle.category;
       vm.puzzleCreated.name = puzzle.name;
       vm.checkIfTangramValid();
       let dx = vm.configKonva.width / (2 * vm.configLayer.scaleX) - 30;
       let dy = vm.configKonva.height / (2 * vm.configLayer.scaleX) - 30;
       for (var i = 0; i < 7; i++) {
+        vm.moveTan(i, dx, dy);
+      }
+    },
+
+    loadContext: function (context) {
+      let vm = this;
+      let tanObjsArr = context.tans;
+      let pScale = context.pScale;
+      let pw = context.pStage.width;
+      let ph = context.pStage.height;
+      vm.populateTans(tanObjsArr);
+      vm.checkIfTangramValid();
+      for (var i = 0; i < 7; i++) {
+        let dx = ((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX();
+        let dy = ((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY();
         vm.moveTan(i, dx, dy);
       }
     },
@@ -491,7 +490,7 @@ var SettingEditor = {
       let tang = null;
       if (currentOut) {
         tang = new Tangram(tans);
-        valid = tang.evaluation.rangeX < 60 && tang.evaluation.rangeY < 60;
+        valid = tang.evaluation ? (tang.evaluation.rangeX < 60 && tang.evaluation.rangeY < 60) : false;
         if (valid) {
           let tanSegments = computeSegments(getAllPoints(tans), tans);
           for (let segmentId = 0; segmentId < tanSegments.length; segmentId++) {

@@ -342,7 +342,7 @@ var Game = {
             myConfetti({
               particleCount: 150,
               spread: 100,
-              origin:{
+              origin: {
                 x: 0.5,
                 y: 0.85
               }
@@ -454,44 +454,114 @@ var Game = {
         switch (i) {
           case 0:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.88 - 0),
-              y: (ch / scale) * (0.70 + tmp)
+              tanType: 0,
+              orientation: 1,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.88),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.70 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 1:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.87 - 0),
-              y: (ch / scale) * (0.27 + tmp)
+              tanType: 0,
+              orientation: 7,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.87),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.27 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 2:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.72 - 0),
-              y: (ch / scale) * (0.70 + tmp)
+              tanType: 1,
+              orientation: 0,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.72),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.70 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 3:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.93 - 0),
-              y: (ch / scale) * (0.50 + tmp)
+              tanType: 2,
+              orientation: 3,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.93),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.50 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 4:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.75 - 0),
-              y: (ch / scale) * (0.43 + tmp)
+              tanType: 2,
+              orientation: 5,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.75),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.43),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 5:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.78 - 0),
-              y: (ch / scale) * (0.52 + tmp)
+              tanType: 3,
+              orientation: 7,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.78),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.52 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
           case 6:
             vm.initialPositions.push({
-              x: (cw / scale) * (0.72 - 0),
-              y: (ch / scale) * (0.23 + tmp)
+              tanType: 5,
+              orientation: 0,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.72),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.23 + tmp),
+                  coeffSqrt: 1
+                }
+              }
             })
             break;
         }
@@ -515,41 +585,61 @@ var Game = {
       vm.$set(vm.partitionLine, 'stroke', vm.strokeColor);
     },
 
-    initializeTans: function(context) {
+    loadContext: function(context) {
+      let vm = this;
+      let tanObjsArr = context.tans;
+      let pScale = context.pScale;
+      let pw = context.pStage.width;
+      let ph = context.pStage.height;
+      vm.populateTans(tanObjsArr);
+      for (var i = 0; i < 7; i++) {
+        let dx, dy;
+        if (tanObjsArr[i].placedAnchor) {
+          dx = vm.configKonva.width / (3 * vm.configLayer.scaleX) - context.pStage.width / (3 * context.pScale);
+          dy = vm.configKonva.height / (2 * vm.configLayer.scaleY) - context.pStage.height / (2 * context.pScale);
+        } else {
+          dx = ((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX();
+          dy = ((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY();
+        }
+        vm.moveTan(i, dx, dy);
+      }
+      vm.tansSnapped = context.tansSnapped ? context.tansSnapped : [false, false, false, false, false, false, false];
+      vm.tansPlaced = context.tansPlaced ? context.tansPlaced : [-1, -1, -1, -1, -1, -1, -1];
+      vm.$emit('update-tans-placed', vm.tansPlaced);
+    },
+
+    initializeTans: function() {
       let vm = this;
       let tans = [];
-      let tang = standardTangrams[0].tangram.dup();
-      for (let i = 0; i < 7; i++) {
-        let orientation = context ? context.tans[i].tanObj.orientation : tang.tans[i].orientation;
-        let tanType = context ? context.tans[i].tanObj.tanType : tang.tans[i].tanType;
+      vm.populateTans(vm.initialPositions);
+      vm.tansSnapped = [false, false, false, false, false, false, false];
+      vm.tansPlaced = [-1, -1, -1, -1, -1, -1, -1];
+      vm.$emit('tangram-status', {
+        res: false,
+        tans: [],
+      });
+      vm.$emit('update-tans-placed', vm.tansPlaced);
+    },
+
+    populateTans: function(tanObjsArr) {
+      let vm = this;
+      let tans = [];
+      for (var i = 0; i < 7; i++) {
+        let orientation = tanObjsArr[i].orientation;
+        let tanType = tanObjsArr[i].tanType;
         let anchor = null,
           placedAnchor = null;
-        if (context) {
-          let coeffIntX = context.tans[i].tanObj.anchor.x.coeffInt;
-          let coeffSqrtX = context.tans[i].tanObj.anchor.x.coeffSqrt;
-          let coeffIntY = context.tans[i].tanObj.anchor.y.coeffInt;
-          let coeffSqrtY = context.tans[i].tanObj.anchor.y.coeffSqrt;
-          anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-          let tan_dx;
-          let tan_dy;
-
-          if (context.tans[i].placedAnchor) {
-            let coeffIntX = context.tans[i].placedAnchor.x.coeffInt;
-            let coeffSqrtX = context.tans[i].placedAnchor.x.coeffSqrt;
-            let coeffIntY = context.tans[i].placedAnchor.y.coeffInt;
-            let coeffSqrtY = context.tans[i].placedAnchor.y.coeffSqrt;
-            placedAnchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            tan_dx = vm.configKonva.width / (3 * vm.configLayer.scaleX) - context.pStage.width / (3 * context.pScale);
-            tan_dy = vm.configKonva.height / (2 * vm.configLayer.scaleY) - context.pStage.height / (2 * context.pScale);
-          } else {
-            placedAnchor = null;
-            tan_dx = ((vm.configKonva.width / context.pStage.width) * (context.pScale / vm.configLayer.scaleX) - 1) * anchor.toFloatX();
-            tan_dy = ((vm.configKonva.height / context.pStage.height) * (context.pScale / vm.configLayer.scaleY) - 1) * anchor.toFloatY();
-          }
-          anchor.add(new Point(new IntAdjoinSqrt2(tan_dx, 0), new IntAdjoinSqrt2(tan_dy, 0)));
-        } else {
-          anchor = new Point(new IntAdjoinSqrt2(vm.initialPositions[i].x, 0), new IntAdjoinSqrt2(vm.initialPositions[i].y, 0));
-          placedAnchor = null;
+        let coeffIntX = tanObjsArr[i].anchor.x.coeffInt;
+        let coeffSqrtX = tanObjsArr[i].anchor.x.coeffSqrt;
+        let coeffIntY = tanObjsArr[i].anchor.y.coeffInt;
+        let coeffSqrtY = tanObjsArr[i].anchor.y.coeffSqrt;
+        anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+        if (tanObjsArr[i].placedAnchor) {
+          let coeffIntX = tanObjsArr[i].placedAnchor.x.coeffInt;
+          let coeffSqrtX = tanObjsArr[i].placedAnchor.x.coeffSqrt;
+          let coeffIntY = tanObjsArr[i].placedAnchor.y.coeffInt;
+          let coeffSqrtY = tanObjsArr[i].placedAnchor.y.coeffSqrt;
+          placedAnchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
         }
         let tan = {
           id: 100 + i,
@@ -593,20 +683,6 @@ var Game = {
       vm.tans = tans;
       vm.tanState = 0;
       vm.flip = tans[5].tanObj.tanType === 5 ? 6 : 5;
-      vm.tansSnapped = context ? context.tansSnapped : [false, false, false, false, false, false, false];
-      if (context) {
-        vm.tansPlaced = context.tansPlaced;
-        vm.$emit('update-tans-placed', vm.tansPlaced);
-      } else {
-        vm.tansPlaced = [-1, -1, -1, -1, -1, -1, -1];
-        vm.$emit('tangram-status', {
-          res: false,
-          tans: [],
-        });
-      }
-      vm.$emit('update-tans-placed', vm.tansPlaced);
-      vm.$emit('update-game-tans', vm.tans);
-      vm.$emit('update-tans-snapped', vm.tansSnapped);
     },
 
     snapTan: function(index) {
@@ -876,8 +952,6 @@ var Game = {
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
-      vm.$emit('update-game-tans', vm.tans);
-      vm.$emit('update-tans-snapped', vm.tansSnapped);
     },
 
     onTap: function(e, index) {
@@ -891,8 +965,6 @@ var Game = {
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
-      vm.$emit('update-game-tans', vm.tans);
-      vm.$emit('update-tans-snapped', vm.tansSnapped);
     },
 
     onDragStart: function(e, index) {
@@ -958,8 +1030,6 @@ var Game = {
       }, 0);
       setTimeout(() => {
         vm.checkIfSolved();
-        vm.$emit('update-game-tans', vm.tans);
-        vm.$emit('update-tans-snapped', vm.tansSnapped);
       }, 0);
     },
 
@@ -972,7 +1042,6 @@ var Game = {
 
       setTimeout(() => {
         vm.moveTan(index, dx, dy);
-        vm.$emit('update-game-tans', vm.tans);
       }, 0);
     },
 
@@ -1038,7 +1107,6 @@ var Game = {
           vm.tanState = 0;
         }
         vm.moveTan(vm.currentTan, dx, dy);
-        vm.$emit('update-game-tans', vm.tans);
       }
     },
 
@@ -1052,8 +1120,8 @@ var Game = {
         }, 0);
         setTimeout(() => {
           vm.checkIfSolved();
-          vm.$emit('update-game-tans', vm.tans);
-          vm.$emit('update-tans-snapped', vm.tansSnapped);
+
+
         }, 0);
       }
     },

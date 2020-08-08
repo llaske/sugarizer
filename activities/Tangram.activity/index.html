@@ -46,6 +46,11 @@
 				title="export DataSet"
 				v-on:click="onExport"
 			></sugar-toolitem>
+			<sugar-toolitem id="import-button"
+				v-if="currentScreen=='setting-list'"
+				title="import DataSet"
+				v-on:click="onImport"
+			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
 				title="level"
@@ -99,8 +104,6 @@
 				v-on:config-changed="onConfigChanged"
 				v-on:update-tans-placed="onUpdateTansPlaced"
 				v-on:tangram-status="onTangramStatus"
-				v-on:update-game-tans="onUpdateGameTans"
-				v-on:update-tans-snapped="onUpdateTansSnapped"
 				v-on:pass-puzzle="handlePassButton"
 				v-on:restart-game="handleRestartButton"
 				v-on:go-to-setting-editor="goToSettingEditor"
