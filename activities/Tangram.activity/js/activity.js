@@ -220,7 +220,6 @@ var app = new Vue({
         if (vm.tangramCategories[0] !== "Random") {
           let tmp = vm.DataSetHandler.generateTangramFromSet();
           tang = tmp.tangram.dup();
-          console.log(tang);
           tangramName = tmp.name;
         } else {
           let generatedTangrams = generateTangrams(2);
@@ -774,6 +773,10 @@ var app = new Vue({
         gameTansSnapped: vm.gameTansSnapped,
         gameScale: vm.gameScale,
         gameStage: vm.gameStage,
+        tangramSet: vm.DataSetHandler.tangramSet,
+        dataSet: vm.DataSetHandler.dataSet,
+        puzzlePointer: vm.DataSetHandler.puzzlePointer,
+        currentCategories: vm.DataSetHandler.currentCategories
       }
       vm.SugarJournal.saveData(context);
     },
@@ -887,6 +890,12 @@ var app = new Vue({
         vm.userResponse.push(userResponse);
       }
 
+      vm.DataSetHandler.dataSet = data.dataSet;
+      vm.DataSetHandler.tangramSet = data.tangramSet;
+      vm.DataSetHandler.currentCategories = data.currentCategories;
+      vm.DataSetHandler.puzzlePointer = data.puzzlePointer;
+
+
       if (data.currentScreen === 'game') {
         setTimeout(() => {
           vm.$refs.game.initializeTans({
@@ -898,7 +907,7 @@ var app = new Vue({
           })
         }, 0);
       }
-      if (data.currentScreen === 'game' || data.currentScreen === 'result') {
+      if (data.currentScreen === 'game' || data.currentScreen === 'result' || data.currentScreen === 'setting-list') {
         vm.currentScreen = data.currentScreen;
       } else {
         vm.currentScreen = 'game';
