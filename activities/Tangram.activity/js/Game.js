@@ -407,8 +407,7 @@ var Game = {
           }
         }
       }
-
-
+      
       vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.30);
       vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.15);
       vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);

@@ -11,6 +11,9 @@ var SettingEditor = {
             backgroundColor: '#ffffff',
             borderRadius: '10px'
           }"
+          v-on:dragstart="onDragStart"
+          v-on:dragend="onDragEnd"
+          v-on:dragmove="onDragMove"
         >
           <v-layer ref="layer" :config="configLayer">
             <template>
@@ -20,24 +23,18 @@ var SettingEditor = {
                 }"
                 v-on:tap="onTap($event, index)"
                 v-on:click="onClick($event, index)"
-                v-on:dragstart="onDragStart($event, index)"
-                v-on:dragend="onDragEnd($event, index)"
-                v-on:dragmove="onDragMove($event, index)"
-                v-on:mouseover="onMouseOver($event, index)"
-                v-on:mouseout="onMouseOut($event, index)"
+                v-on:mouseover="onMouseOver"
+                v-on:mouseout="onMouseOut"
               ></v-line>
             </template>
             <v-line
               :config="{
-                ...tans[currentTan],
+                ...tans[currentTan]
               }"
               v-on:tap="onTap($event, currentTan)"
               v-on:click="onClick($event, currentTan)"
-              v-on:dragstart="onDragStart($event, currentTan)"
-              v-on:dragend="onDragEnd($event, currentTan)"
-              v-on:dragmove="onDragMove($event, currentTan)"
-              v-on:mouseover="onMouseOver($event, currentTan)"
-              v-on:mouseout="onMouseOut($event, currentTan)"
+              v-on:mouseover="onMouseOver"
+              v-on:mouseout="onMouseOut"
             ></v-line>
           </v-layer>
         </v-stage>
@@ -227,8 +224,8 @@ var SettingEditor = {
 
       if (vm.tans.length != 0) {
         for (var index = 0; index < 7; index++) {
-          let tan_dx = ((cw / pw) * (pScale / scale) - 1) * vm.tans[index].points[0];
-          let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].points[1];
+          let tan_dx = roundToNearest(((cw / pw) * (pScale / scale) - 1) * vm.tans[index].points[0], 1);
+          let tan_dy = roundToNearest(((ch / ph) * (pScale / scale) - 1) * vm.tans[index].points[1], 1);
           vm.moveTan(index, tan_dx, tan_dy);
         }
         setTimeout(() => {
@@ -381,7 +378,7 @@ var SettingEditor = {
       }
     },
 
-    loadContext: function (context) {
+    loadContext: function(context) {
       let vm = this;
       let tanObjsArr = context.tans;
       let pScale = context.pScale;
@@ -408,13 +405,13 @@ var SettingEditor = {
         let coeffSqrtX = tanObjsArr[i].anchor.x.coeffSqrt;
         let coeffIntY = tanObjsArr[i].anchor.y.coeffInt;
         let coeffSqrtY = tanObjsArr[i].anchor.y.coeffSqrt;
-        anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+        anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY)).roundToNearest(1);
 
         if (tanObjsArr[i].placedAnchor) {
           placedAnchor = tanObjsArr[i].placedAnchor;
         }
         let tan = {
-          id: 100 + i,
+          id: i,
           x: 100,
           y: 100,
           offsetX: 100,
@@ -558,6 +555,8 @@ var SettingEditor = {
         currentTan.tanObj.anchor.roundToNearest(1);
         vm.updatePoints(index);
       }
+      //console.log(this.tans[vm.currentTan].tanObj.anchor.x.coeffInt+" "+this.tans[vm.currentTan].tanObj.anchor.x.coeffSqrt);
+      //console.log(this.tans[vm.currentTan].tanObj.anchor.y.coeffInt+" "+this.tans[vm.currentTan].tanObj.anchor.y.coeffSqrt);
 
     },
 
@@ -627,11 +626,9 @@ var SettingEditor = {
     onClick: function(e, index) {
       let vm = this;
       vm.tanState = 1;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-        vm.selectTan(vm.currentTan);
-      }
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
+      vm.selectTan(vm.currentTan);
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
@@ -640,28 +637,26 @@ var SettingEditor = {
     onTap: function(e, index) {
       let vm = this;
       vm.tanState = 1;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-        vm.selectTan(vm.currentTan);
-      }
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
+      vm.selectTan(vm.currentTan);
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
     },
 
-    onDragStart: function(e, index) {
+    onDragStart: function(e) {
       let vm = this;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-      }
+      let index = e.target.id();
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
       vm.selectTan(vm.currentTan);
       vm.tanState = 1;
     },
 
-    onDragEnd: function(e, index) {
+    onDragEnd: function(e) {
       let vm = this;
+      let index = e.target.id();
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
@@ -701,8 +696,8 @@ var SettingEditor = {
       }
 
       if (isTanOutsideCanvas) {
-        let dx = finalX - this.tans[index].x;
-        let dy = finalY - this.tans[index].y;
+        let dx = roundToNearest(finalX - this.tans[index].x, 1);
+        let dy = roundToNearest(finalY - this.tans[index].y, 1);
         setTimeout(() => {
           vm.moveTan(index, dx, dy);
         }, 0);
@@ -716,8 +711,9 @@ var SettingEditor = {
       }, 0);
     },
 
-    onDragMove: function(e, index) {
+    onDragMove: function(e) {
       let vm = this;
+      let index = e.target.id();
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
       let dx = finalX - vm.tans[index].x;
@@ -728,18 +724,20 @@ var SettingEditor = {
       }, 0);
     },
 
-    onMouseOver: function(e, index) {
+    onMouseOver: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.deSelectTan(vm.currentTan);
-      vm.currentTan = index;
-      vm.selectTan(vm.currentTan);
+      vm.selectTan(index);
       vm.tanState = 0;
     },
 
-    onMouseOut: function(e, index) {
+    onMouseOut: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.tanState = 0;
       vm.deSelectTan(vm.currentTan);
+      vm.deSelectTan(index);
     },
 
     onKeyDown: function(e) {

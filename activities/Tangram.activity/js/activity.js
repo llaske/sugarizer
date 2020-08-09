@@ -238,66 +238,140 @@ var app = new Vue({
         };
 
         tang.positionCentered();
-        let target = [];
-        let targetTans = [];
-        for (let i = 0; i < tang.tans.length; i++) {
-          let targetTan = {
-            x: 100,
-            y: 100,
-            offsetX: 100,
-            offsetY: 100,
-            anchor: null,
-            pointsObjs: [],
-            tanObj: tang.tans[i].dup(),
-            tanType: tang.tans[i].tanType,
-            orientation: tang.tans[i].orientation,
-            points: [],
-            stroke: vm.fillColor,
-            strokeEnabled: true,
-            strokeWidth: 0.3,
-            closed: true,
-            lineJoin: 'round',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOpacity: 0.8,
-            shadowEnabled: false,
-          }
-
-          let points = [...tang.tans[i].getPoints()];
-          let center = tang.tans[i].center();
-
-          let floatPoints = [];
-          let pointsObjs = [];
-          for (let j = 0; j < points.length; j++) {
-            let tmpPoint = points[j].dup();
-            pointsObjs.push(tmpPoint);
-            floatPoints.push(tmpPoint.toFloatX());
-            floatPoints.push(tmpPoint.toFloatY());
-          }
-          targetTan.offsetX = center.toFloatX();
-          targetTan.offsetY = center.toFloatY();
-          targetTan.x = targetTan.offsetX;
-          targetTan.y = targetTan.offsetY;
-          targetTan.points = floatPoints;
-          targetTan.anchor = tang.tans[i].anchor.dup();
-          targetTan.pointsObjs = pointsObjs;
-          target.push(targetTan);
-        }
-        puzzle.targetTans = target;
+        let tmp = vm.populatePuzzles(tang.tans);
+        puzzle.targetTans = tmp.targetTans;
         puzzle.outline = [...tang.outline];
-
-        for (var i = 0; i < puzzle.outline.length; i++) {
-          let tmp = [];
-          for (var j = 0; j < puzzle.outline[i].length; j++) {
-            tmp.push(puzzle.outline[i][j].toFloatX());
-            tmp.push(puzzle.outline[i][j].toFloatY());
-          }
-          puzzle.outlinePoints.push(tmp);
-        }
-
         puzzles.push(puzzle);
+        //puzzles.push(vm.populatePuzzles(tang, tangramName));
       }
       return puzzles;
+    },
+
+    populatePuzzles: function (tanObjsArr) {
+      let vm = this;
+      targetTans = [];
+      let tans = [];
+      for (var j = 0; j < tanObjsArr.length; j++) {
+        let coeffIntX = tanObjsArr[j].anchor.x.coeffInt;
+        let coeffSqrtX = tanObjsArr[j].anchor.x.coeffSqrt;
+        let coeffIntY = tanObjsArr[j].anchor.y.coeffInt;
+        let coeffSqrtY = tanObjsArr[j].anchor.y.coeffSqrt;
+        let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+        let targetTan = {
+          x: 100,
+          y: 100,
+          offsetX: 100,
+          offsetY: 100,
+          anchor: null,
+          pointsObjs: [],
+          tanObj: new Tan(tanObjsArr[j].tanType, anchor.dup(), tanObjsArr[j].orientation),
+          tanType: tanObjsArr[j].tanType,
+          orientation: tanObjsArr[j].orientation,
+          points: [],
+          stroke: vm.fillColor,
+          strokeEnabled: true,
+          strokeWidth: 0.3,
+          closed: true,
+          lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 10,
+          shadowOpacity: 0.8,
+          shadowEnabled: false,
+        }
+        let points = [...targetTan.tanObj.getPoints()];
+        let center = targetTan.tanObj.center();
+
+        let floatPoints = [];
+        let pointsObjs = [];
+        for (let j = 0; j < points.length; j++) {
+          let tmpPoint = points[j].dup();
+          pointsObjs.push(tmpPoint);
+          floatPoints.push(tmpPoint.toFloatX());
+          floatPoints.push(tmpPoint.toFloatY());
+        }
+        targetTan.offsetX = center.toFloatX();
+        targetTan.offsetY = center.toFloatY();
+        targetTan.x = targetTan.offsetX;
+        targetTan.y = targetTan.offsetY;
+        targetTan.points = floatPoints;
+        targetTan.anchor = targetTan.tanObj.anchor.dup();
+        targetTan.pointsObjs = pointsObjs;
+        targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
+        targetTans.push(targetTan);
+        tans.push(targetTan.tanObj);
+      }
+      return {
+        targetTans: targetTans,
+        tans: tans
+      };
+      /*let tangDifficulty = checkDifficultyOfTangram(tang);
+      let puzzle = {
+        name: tangramName,
+        difficulty: tangDifficulty,
+        tangram: tang,
+        targetTans: [],
+        outline: [],
+        outlinePoints: [],
+      };
+
+      tang.positionCentered();
+      let target = [];
+      let targetTans = [];
+      for (let i = 0; i < tang.tans.length; i++) {
+        let targetTan = {
+          x: 100,
+          y: 100,
+          offsetX: 100,
+          offsetY: 100,
+          anchor: null,
+          pointsObjs: [],
+          tanObj: tang.tans[i].dup(),
+          tanType: tang.tans[i].tanType,
+          orientation: tang.tans[i].orientation,
+          points: [],
+          stroke: vm.fillColor,
+          strokeEnabled: true,
+          strokeWidth: 0.3,
+          closed: true,
+          lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 10,
+          shadowOpacity: 0.8,
+          shadowEnabled: false,
+        }
+
+        let points = [...tang.tans[i].getPoints()];
+        let center = tang.tans[i].center();
+
+        let floatPoints = [];
+        let pointsObjs = [];
+        for (let j = 0; j < points.length; j++) {
+          let tmpPoint = points[j].dup();
+          pointsObjs.push(tmpPoint);
+          floatPoints.push(tmpPoint.toFloatX());
+          floatPoints.push(tmpPoint.toFloatY());
+        }
+        targetTan.offsetX = center.toFloatX();
+        targetTan.offsetY = center.toFloatY();
+        targetTan.x = targetTan.offsetX;
+        targetTan.y = targetTan.offsetY;
+        targetTan.points = floatPoints;
+        targetTan.anchor = tang.tans[i].anchor.dup();
+        targetTan.pointsObjs = pointsObjs;
+        target.push(targetTan);
+      }
+      puzzle.targetTans = target;
+      puzzle.outline = [...tang.outline];
+
+      for (var i = 0; i < puzzle.outline.length; i++) {
+        let tmp = [];
+        for (var j = 0; j < puzzle.outline[i].length; j++) {
+          tmp.push(puzzle.outline[i][j].toFloatX());
+          tmp.push(puzzle.outline[i][j].toFloatY());
+        }
+        puzzle.outlinePoints.push(tmp);
+      }*/
+      return puzzle;
     },
 
     centerTangram: function() {
@@ -694,16 +768,25 @@ var app = new Vue({
       };
       let inputData = {
         metadata: {
-          about: "default tangam data set for Tangram.activity"
+          mimetype: 'application/json',
         },
-        data: vm.DataSetHandler.dataSet
+        type: "game-dataset",
+        dataSet: vm.DataSetHandler.dataSet
       }
-      inputData = JSON.stringify(inputData);
+      inputData = vm.SugarJournal.LZString.compressToUTF16(JSON.stringify(inputData));
       vm.SugarJournal.createEntry(inputData, metadata)
         .then(() => {
           //vm.$root.$refs.SugarPopup.log("export ");
           console.log('Export completed');
         });
+    },
+
+    importDataSet: function(dataSet) {
+      let vm = this;
+      vm.DataSetHandler.dataSet = dataSet;
+      vm.DataSetHandler.puzzlePointer = 0;
+      vm.DataSetHandler.loadTangramSet();
+      vm.newGame();
     },
 
     onImport: function() {
@@ -712,21 +795,14 @@ var app = new Vue({
         mimetype: 'application/json',
         activity: 'org.sugarlabs.Tangram'
       }];
-      requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
-				journalchooser.init = function () {
-					journalchooser.features = [journalchooser.featureLocalJournal]
-					journalchooser.currentFeature = 0;
-				}
-				setTimeout(function () {
-					journalchooser.show(function (entry) {
-						if (!entry) {
-							return;
-						}
-            console.log(entry);
-
-					}, filters[0], filters[1], filters[2], filters[3]);
-				}, 0);
-			});
+      vm.SugarJournal.insertFromJournal(filters)
+        .then((data, metadata) => {
+          data = JSON.parse(vm.SugarJournal.LZString.decompressFromUTF16(data));
+          console.log(data.type);
+          if (data.type === "game-dataset") {
+            vm.importDataSet(data.dataSet);
+          }
+        })
     },
 
     onStop: function() {
@@ -735,7 +811,6 @@ var app = new Vue({
       for (var i = 0; i < vm.puzzles.length; i++) {
         let puzzle = {
           name: vm.puzzles[i].name,
-          difficulty: vm.puzzles[i].difficulty,
           targetTans: [],
         };
         for (var j = 0; j < vm.puzzles[i].targetTans.length; j++) {
@@ -785,6 +860,7 @@ var app = new Vue({
       }
 
       let context = {
+        type: "game-context",
         currentScreen: vm.currentScreen,
         mode: vm.mode,
         level: vm.level,
@@ -819,9 +895,13 @@ var app = new Vue({
 
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
-      vm.pulseEffect = true;
       console.log("Existing instance");
       console.log(data);
+      if (data.type === "game-dataset") {
+        vm.importDataSet(data.dataSet);
+        return;
+      }
+      vm.pulseEffect = true;
       vm.mode = data.mode;
       vm.level = data.level;
       vm.tangramCategories = data.tangramCategories;
@@ -837,7 +917,6 @@ var app = new Vue({
       vm.score = data.score;
       vm.gameOver = data.gameOver;
       vm.puzzles = [];
-      vm.userResponse = [];
       for (var i = 0; i < data.puzzles.length; i++) {
         let puzzle = {
           ...data.puzzles[i],
@@ -847,56 +926,11 @@ var app = new Vue({
         };
         puzzle.targetTans = [];
         let tans = [];
-        for (var j = 0; j < data.puzzles[i].targetTans.length; j++) {
-          let coeffIntX = data.puzzles[i].targetTans[j].anchor.x.coeffInt;
-          let coeffSqrtX = data.puzzles[i].targetTans[j].anchor.x.coeffSqrt;
-          let coeffIntY = data.puzzles[i].targetTans[j].anchor.y.coeffInt;
-          let coeffSqrtY = data.puzzles[i].targetTans[j].anchor.y.coeffSqrt;
-          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-          let targetTan = {
-            x: 100,
-            y: 100,
-            offsetX: 100,
-            offsetY: 100,
-            anchor: null,
-            pointsObjs: [],
-            tanObj: new Tan(data.puzzles[i].targetTans[j].tanType, anchor.dup(), data.puzzles[i].targetTans[j].orientation),
-            tanType: data.puzzles[i].targetTans[j].tanType,
-            orientation: data.puzzles[i].targetTans[j].orientation,
-            points: [],
-            stroke: vm.fillColor,
-            strokeEnabled: true,
-            strokeWidth: 0.3,
-            closed: true,
-            lineJoin: 'round',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOpacity: 0.8,
-            shadowEnabled: false,
-          }
-          let points = [...targetTan.tanObj.getPoints()];
-          let center = targetTan.tanObj.center();
-
-          let floatPoints = [];
-          let pointsObjs = [];
-          for (let j = 0; j < points.length; j++) {
-            let tmpPoint = points[j].dup();
-            pointsObjs.push(tmpPoint);
-            floatPoints.push(tmpPoint.toFloatX());
-            floatPoints.push(tmpPoint.toFloatY());
-          }
-          targetTan.offsetX = center.toFloatX();
-          targetTan.offsetY = center.toFloatY();
-          targetTan.x = targetTan.offsetX;
-          targetTan.y = targetTan.offsetY;
-          targetTan.points = floatPoints;
-          targetTan.anchor = targetTan.tanObj.anchor.dup();
-          targetTan.pointsObjs = pointsObjs;
-          targetTan.stroke = vm.level === 0 ? vm.fillColor : vm.strokeColor;
-          puzzle.targetTans.push(targetTan);
-          tans.push(targetTan.tanObj);
-        }
+        let tmp = vm.populatePuzzles(data.puzzles[i].targetTans);
+        puzzle.targetTans = tmp.targetTans;
+        tans = tmp.tans;
         puzzle.tangram = new Tangram(tans);
+        puzzle.difficulty = checkDifficultyOfTangram(puzzle.tangram);
         puzzle.outline = computeOutline(tans, true);
 
         vm.puzzles.push(puzzle);
