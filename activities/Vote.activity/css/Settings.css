@@ -1,0 +1,161 @@
+.settings-active {
+	transform: scale(0.95);
+	cursor: grab;
+}
+.settings-active:hover {
+	transform: scale(0.95);
+}
+.settings-row {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	z-index: 3;
+	display: flex;
+	justify-content: flex-end;
+	transform-origin: right;
+}
+.settings-row button {
+	height: 40px;
+	width: 40px;
+	margin: 0 5px;
+	cursor: pointer;
+}
+.settings-row #edit-button {
+	background-image: url(../icons/edit.svg);
+	background-size: cover;
+	background-position: center;
+}
+.settings-row #delete-button {
+	background-image: url(../icons/delete.svg);
+	background-size: cover;
+	background-position: center;
+}
+
+.settings-zoom-enter-active, .settings-zoom-leave-active {
+	transition: all 150ms;
+}
+.settings-zoom-enter, .settings-zoom-leave-to {
+	transform: scale(0);
+  /* opacity: 0; */
+}
+
+
+.settings {
+	padding: 0 10vw;
+}
+.settings .poll-card {
+	margin: 10px auto;
+	/* width: fit-content; */
+}
+.settings form label {
+	font-size: 1.3em;
+	display: block;
+	margin: 15px 0;
+}
+.settings form input {
+	width: 100%;
+	padding: 10px;
+	padding-left: 15px;
+}
+.settings form select {
+	padding: 10px;
+	border-radius: 20px;
+	border: none;
+	background: #e5e5e5;
+}
+.settings form select option {
+	padding: 10px;
+	background: #ffffff;
+}
+.settings form .buttons-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+.settings form button {
+	padding: 5px 10px;
+	margin: 20px 5px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.settings form button img {
+	width: 20px;
+	height: 20px;
+	border: none;
+	cursor: pointer;
+}
+.settings form button span {
+	margin: 0 10px;
+}
+.settings form img {
+	max-width: 250px;
+	border: solid 1px black;
+}
+.settings .image-label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.settings .image-label button {
+	margin: 0;
+}
+#image-edit-button {
+	background-image: url(../icons/insert-picture.svg);
+	background-size: cover;
+	background-position: center;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+}
+.settings form .options-label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.settings form .add-option-button {
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	border-radius: 50%;
+	background-color: green;
+	background-image: url(../icons/add.svg);
+	background-size: cover;
+	background-position: center;
+}
+.settings form .add-option-button:hover {
+	border-color: green;
+}
+.settings form .option {
+	display: flex;
+	align-items: center;
+	margin: 5px 0;
+}
+.settings form .option input {
+	width: 90%;
+}
+.settings form .option .delete-option-button {
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	border-radius: 50%;
+	background-color: red;
+	background-image: url(../icons/dialog-cancel.svg);
+	background-size: cover;
+	background-position: center;
+}
+.settings form .option .delete-option-button:hover {
+	border-color: red;
+}
+.settings form .option .option-image {
+	position: relative;
+	margin: 10px;
+}
+.settings form .image-mcq {
+	display: flex;
+	flex-wrap: wrap;
+}
+.settings form .image-mcq .option .delete-option-button {
+	position: absolute;
+	top: -15px;
+	right: -15px;
+}

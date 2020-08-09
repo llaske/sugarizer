@@ -13,11 +13,11 @@ var app = new Vue({
 		'polls-grid': PollsGrid,
 		'poll-stats': PollStats,
 		'vote': Vote,
-		'history': History
+		'history': History,
+		'poll-settings': PollSettings
 	},
 	data: {
 		currentUser: {},
-		sharedInstance: false,
 		settings: false,
 		currentView: "",
 		searchText: "",
@@ -165,6 +165,10 @@ var app = new Vue({
 			});
 		},
 
+		onUpdatePolls(polls) {
+			this.polls = polls;
+		},
+
 		switchRealTimeResults() {
 			this.realTimeResults = !this.realTimeResults;
 
@@ -244,19 +248,31 @@ var app = new Vue({
 		},
 
 		onAddClick() {
+			this.currentView = 'poll-settings';
+		},
 
+		editPoll: function (pollId) {
+			let index = this.polls.findIndex(poll => {
+				return poll.id == pollId;
+			});
+			this.activePoll = this.polls[index];
+			this.activePollStatus = "editing";
+			this.currentView = 'poll-settings';
 		},
 
 		goBackTo(view) {
 			if(view == 'polls-grid') {
 				this.activePoll = null;
 				this.activePollStatus = '';
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'clear-poll'
-					}
-				});
+				
+				if(this.SugarPresence.isConnected()) {
+					this.SugarPresence.sendMessage({
+						user: this.SugarPresence.getUserInfo(),
+						content: {
+							action: 'clear-poll'
+						}
+					});
+				}
 				// Clear answers for all connected users
 				for(let id in this.connectedUsers) {
 					this.$set(this.connectedUsers[id], 'answer', null);

@@ -136,6 +136,30 @@
 	height: 100%;
 	object-fit: contain;
 }
+.stats-cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	max-width: 300px;
+}
+.stats-card {
+	min-width: 130px;
+	padding: 20px;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	color: #282828;
+	text-align: center;
+}
+.stats-card .number {
+	font-size: 4em;
+	font-weight: 700;
+	margin: 0;
+}
+.stats-card .title {
+	margin: 0;
+}
+
 .wait-text {
 	text-align: center;
 }

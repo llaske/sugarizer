@@ -49,7 +49,31 @@ var PollStats = {
 						</div>
 					</div>
 				</div>
-
+				<div class="stats-cards" v-if="!isThumbnail">
+					<div 
+						class="stats-card" 
+						v-if="activePoll.typeVariable == 'Rating' && answers.length > 0" 
+						:style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }"
+					>
+						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ averageRating }}</p>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Average Rating</h3>
+					</div>
+					<div class="stats-card"  v-if="isResult" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
+						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.answersCount }}</p>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Votes</h3>
+					</div>
+					<div class="stats-card"  v-if="isResult" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
+						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.usersCount }}</p>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Users</h3>
+					</div>
+					<div class="stats-card"  v-if="isHistory" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
+						<p 
+							class="number" 
+							:style="{ color: currentUser.colorvalue.fill, fontSize: '1.5em', margin: '5px 0' }"
+							>{{ new Date(activePoll.endTime).toLocaleString() }}</p>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Date</h3>
+					</div>
+				</div>
 			</div>
 			
 			<div class="poll-footer" v-if="!isResult && !isThumbnail">
@@ -75,8 +99,10 @@ var PollStats = {
 		activePoll: Object,
 		activePollStatus: String,
 		connectedUsers: Object,
+		currentUser: Object,
 		isResult: Boolean,
 		isThumbnail: Boolean,
+		isHistory: Boolean,
 		realTimeResults: Boolean,
 		autoStop: Boolean
 	},
@@ -131,6 +157,13 @@ var PollStats = {
 				return answers;
 			}
 			return this.activePoll.results.answers;
+		},
+		averageRating() {
+			let sum = 0;
+			for (let answer of this.answers) {
+				sum += answer;
+			}
+			return Math.round((sum / this.answers.length * 10)) / 10;
 		}
 	},
 	watch: {
@@ -140,7 +173,7 @@ var PollStats = {
 			if (this.isResult || this.isThumbnail) return;
 
 			this.updateCounts();
-			if(this.autoStop && this.answers.length == Object.keys(this.connectedUsers).length) {
+			if (this.autoStop && this.answers.length == Object.keys(this.connectedUsers).length) {
 				this.stopPoll();
 			}
 			if (this.realTimeResults) {
@@ -148,8 +181,8 @@ var PollStats = {
 			}
 		},
 
-		realTimeResults: function(newVal, oldVal) {
-			if(newVal) {
+		realTimeResults: function (newVal, oldVal) {
+			if (newVal) {
 				this.$emit('update-results', this.answers);
 			}
 		},
@@ -169,7 +202,7 @@ var PollStats = {
 			hoverBackgroundColor: []
 		}
 
-		switch(this.activePoll.typeVariable) {
+		switch (this.activePoll.typeVariable) {
 			case "Text":
 				// let words = ["Hello", "Hi", "Hey", "Hi", "Hey", "Hello", "Hello", "Hello", "Hello", "Hi", "Hi"]
 				WordCloud(ctx, {
@@ -190,7 +223,7 @@ var PollStats = {
 				}
 				this.$set(this.statsData, 'labels', labels);
 				this.$set(this.statsData.datasets, 0, dataset);
-	
+
 				this.statsChart = new Chart(ctx, {
 					type: 'pie',
 					data: this.statsData,
@@ -210,7 +243,7 @@ var PollStats = {
 				}
 				this.$set(this.statsData, 'labels', labels);
 				this.$set(this.statsData.datasets, 0, dataset);
-	
+
 				this.statsChart = new Chart(ctx, {
 					type: 'bar',
 					data: this.statsData,
@@ -234,9 +267,9 @@ var PollStats = {
 					let color = this.getColor();
 					dataset.backgroundColor.push(color.background);
 					dataset.hoverBackgroundColor.push(color.hover);
-					this.$set(this.statsData.datasets, i-1, dataset);
+					this.$set(this.statsData.datasets, i - 1, dataset);
 				}
-	
+
 				this.statsChart = new Chart(ctx, {
 					type: 'bar',
 					data: this.statsData,
@@ -297,7 +330,7 @@ var PollStats = {
 			];
 			let color;
 
-			if(this.colorIndex < backgroundColors.length) {
+			if (this.colorIndex < backgroundColors.length) {
 				color = {
 					background: backgroundColors[this.colorIndex],
 					hover: hoverBackgroundColors[this.colorIndex]
@@ -307,8 +340,8 @@ var PollStats = {
 				let hue = 360 * Math.random(),
 					saturation = 80 + 15 * Math.random(),
 					lightness = 50 + 20 * Math.random();
-	
-				color =  {
+
+				color = {
 					background: `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`,
 					hover: `hsla(${hue}, ${saturation}%, ${lightness}%, 1)`
 				}
@@ -337,7 +370,7 @@ var PollStats = {
 		updateChart() {
 			let data = [];
 
-			switch(this.activePoll.typeVariable) {
+			switch (this.activePoll.typeVariable) {
 				case "Text":
 					let canvas = document.querySelector(`#${this.id} #stats`);
 					WordCloud(canvas, {
@@ -359,10 +392,10 @@ var PollStats = {
 					break;
 				case "Rating":
 					for (let i = 1; i <= 5; i++) {
-						this.statsData.datasets[i-1].data[0] = 0;
+						this.statsData.datasets[i - 1].data[0] = 0;
 					}
 					for (let answer of this.answers) {
-						this.statsData.datasets[answer-1].data[0]++;
+						this.statsData.datasets[answer - 1].data[0]++;
 					}
 					break;
 				case "YesNo":
@@ -373,24 +406,24 @@ var PollStats = {
 						data[index]++;
 					}
 					this.$set(this.statsData.datasets[0], 'data', data);
-					break;	
+					break;
 			}
-			if(this.activePoll.typeVariable != "Text") {
+			if (this.activePoll.typeVariable != "Text") {
 				this.statsChart.update();
 			}
 		},
 
 		getWordsList(array) {
 			let counts = {};
-			for(let item of array) {
-				if(!counts[item]) {
+			for (let item of array) {
+				if (!counts[item]) {
 					counts[item] = 1;
 				} else {
 					counts[item]++;
 				}
 			}
 			let list = [];
-			for(let key in counts) {
+			for (let key in counts) {
 				list.push([key, counts[key]]);
 			}
 			return list;

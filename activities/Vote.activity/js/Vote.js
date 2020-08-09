@@ -79,7 +79,7 @@ var Vote = {
 				</div>
 
 				<div v-else-if="(activePollStatus == 'finished' || (currentUser.answer != null && realTimeResults)) && activePoll.results != null">
-					<poll-stats :activePoll="activePoll" isResult></poll-states>
+					<poll-stats :activePoll="activePoll" :currentUser="currentUser" isResult></poll-states>
 				</div>
 
 				<button 

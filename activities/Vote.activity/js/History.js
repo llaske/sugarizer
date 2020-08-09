@@ -24,7 +24,7 @@ var History = {
 				</li>
 			</ul>
 
-			<poll-stats v-else :activePoll="history[openHistoryIndex]" isResult></poll-stats>
+			<poll-stats v-else :activePoll="history[openHistoryIndex]" :current-user="currentUser" isResult isHistory></poll-stats>
 			<button v-if="openHistoryIndex != null" id="go-back" @click="$emit('set-open-history-index', null)"></button>
 		</div>
 	`,

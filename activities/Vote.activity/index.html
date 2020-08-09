@@ -16,7 +16,10 @@
 	<link rel="stylesheet" href="css/PollStats.css">
 	<link rel="stylesheet" href="css/Vote.css">
 	<link rel="stylesheet" href="css/History.css">
+	<link rel="stylesheet" href="css/Settings.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/Sortable.min.js"></script>
+	<script src="lib/vuedraggable.umd.min.js"></script>
 	<script src="lib/Chart.min.js"></script>
 	<script src="lib/wordcloud2.js"></script>
 	<script src="lib/require.js"></script>
@@ -47,7 +50,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="add-button" 
-				v-if="settings" 
+				v-if="settings && currentView != 'poll-settings'" 
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
@@ -119,12 +122,13 @@
 						@stop-poll="stopPoll"
 						@update-counts="updateCounts"
 						@update-results="updateResults"
+						@edit-poll="editPoll"
 
 						@hand-raise-switched="onHandRaiseSwitched"
 						@vote-submitted="onVoteSubmitted"
-
 						@set-open-history-index="setOpenHistoryIndex"
 						@save-to-history="saveToHistory"
+						@update-polls="onUpdatePolls"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>
@@ -146,6 +150,7 @@
 	<script src="js/PollStats.js"></script>
 	<script src="js/Vote.js"></script>
 	<script src="js/History.js"></script>
+	<script src="js/Settings.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
