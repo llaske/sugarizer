@@ -201,6 +201,7 @@ var PollStats = {
 			backgroundColor: [],
 			hoverBackgroundColor: []
 		}
+		let color;
 
 		switch (this.activePoll.typeVariable) {
 			case "Text":
@@ -217,7 +218,7 @@ var PollStats = {
 				for (let option of this.activePoll.options) {
 					labels.push(option);
 					dataset.data.push(0);
-					let color = this.getColor();
+					color = this.getColor();
 					dataset.backgroundColor.push(color.background);
 					dataset.hoverBackgroundColor.push(color.hover);
 				}
@@ -237,7 +238,7 @@ var PollStats = {
 				for (let i in this.activePoll.options) {
 					labels.push(parseInt(i) + 1);
 					dataset.data.push(0);
-					let color = this.getColor();
+					color = this.getColor();
 					dataset.backgroundColor.push(color.background);
 					dataset.hoverBackgroundColor.push(color.hover);
 				}
@@ -255,20 +256,15 @@ var PollStats = {
 				});
 				break;
 			case "Rating":
+				color = this.getColor({ random: true });
 				for (let i = 1; i <= 5; i++) {
-					let dataset = {
-						label: '',
-						data: [],
-						backgroundColor: [],
-						hoverBackgroundColor: []
-					}
-					dataset.label = i;
+					labels.push(i);
 					dataset.data.push(0);
-					let color = this.getColor();
 					dataset.backgroundColor.push(color.background);
 					dataset.hoverBackgroundColor.push(color.hover);
-					this.$set(this.statsData.datasets, i - 1, dataset);
 				}
+				this.$set(this.statsData, 'labels', labels);
+				this.$set(this.statsData.datasets, 0, dataset);
 
 				this.statsChart = new Chart(ctx, {
 					type: 'bar',
@@ -283,7 +279,7 @@ var PollStats = {
 			case "YesNo":
 				labels.push('False');
 				dataset.data.push(0);
-				let color = this.getColor();
+				color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
 
@@ -311,29 +307,43 @@ var PollStats = {
 		}
 	},
 	methods: {
-		getColor() {
+		getColor(options) {
 			let backgroundColors = [
-				'rgba(255, 99, 132, 0.8)',
-				'rgba(54, 162, 235, 0.8)',
-				'rgba(255, 206, 86, 0.8)',
-				'rgba(75, 192, 192, 0.8)',
-				'rgba(153, 102, 255, 0.8)',
-				'rgba(255, 159, 64, 0.8)'
+				'rgba(255, 74, 112, 0.8)',
+				'rgba(74, 95, 255, 0.8)',
+				'rgba(74, 255, 83, 0.8)',
+				'rgba(255, 249, 74, 0.8)',
+				'rgba(74, 255, 237, 0.8)',
+				'rgba(255, 74, 249, 0.8)',
+				'rgba(171, 74, 255, 0.8)',
+				'rgba(195, 255, 74, 0.8)',
+				'rgba(255, 193, 128, 0.8)',
+				'rgba(128, 198, 255, 0.8)',
+				'rgba(91, 181, 116, 0.8)',
 			];
 			let hoverBackgroundColors = [
-				'rgba(255, 99, 132, 1)',
-				'rgba(54, 162, 235, 1)',
-				'rgba(255, 206, 86, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-				'rgba(255, 159, 64, 1)'
+				'rgba(255, 74, 112, 1)',
+				'rgba(74, 95, 255, 1)',
+				'rgba(74, 255, 83, 1)',
+				'rgba(255, 249, 74, 1)',
+				'rgba(74, 255, 237, 1)',
+				'rgba(255, 74, 249, 1)',
+				'rgba(171, 74, 255, 1)',
+				'rgba(195, 255, 74, 1)',
+				'rgba(255, 193, 128, 1)',
+				'rgba(128, 198, 255, 1)',
+				'rgba(91, 181, 116, 1)',
 			];
 			let color;
 
 			if (this.colorIndex < backgroundColors.length) {
+				let index = this.colorIndex;
+				if(options) {
+					index = options.random ? Math.floor(Math.random()*backgroundColors.length) : this.colorIndex;
+				}
 				color = {
-					background: backgroundColors[this.colorIndex],
-					hover: hoverBackgroundColors[this.colorIndex]
+					background: backgroundColors[index],
+					hover: hoverBackgroundColors[index]
 				}
 				this.colorIndex++;
 			} else {
@@ -391,12 +401,13 @@ var PollStats = {
 					this.$set(this.statsData.datasets[0], 'data', data);
 					break;
 				case "Rating":
-					for (let i = 1; i <= 5; i++) {
-						this.statsData.datasets[i - 1].data[0] = 0;
+					for (let i=1; i<=5; i++) {
+						data.push(0);
 					}
 					for (let answer of this.answers) {
-						this.statsData.datasets[answer - 1].data[0]++;
+						data[answer-1]++;
 					}
+					this.$set(this.statsData.datasets[0], 'data', data);
 					break;
 				case "YesNo":
 					data.push(0);

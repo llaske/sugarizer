@@ -144,15 +144,15 @@
 }
 .stats-card {
 	min-width: 130px;
-	padding: 20px;
+	padding: 15px;
 	margin: 10px;
 	border-radius: 10px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+	/* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); */
 	color: #282828;
 	text-align: center;
 }
 .stats-card .number {
-	font-size: 4em;
+	font-size: calc(2em + 2vw);
 	font-weight: 700;
 	margin: 0;
 }
