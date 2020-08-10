@@ -377,7 +377,6 @@ var Game = {
       let ph = vm.configKonva.height;
       let pScale = Math.min(pw, ph) / 75;
 
-
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
 
@@ -395,19 +394,21 @@ var Game = {
       vm.initializeTansPosition();
 
       if (vm.tans.length != 0) {
-        for (var index = 0; index < 7; index++) {
-          if (vm.tansPlaced[index] !== -1) {
-            let tan_dx = cw / (3 * scale) - pw / (3 * pScale);
-            let tan_dy = ch / (2 * scale) - ph / (2 * pScale);
-            vm.moveTan(index, tan_dx, tan_dy);
-          } else {
-            let tan_dx = ((cw / pw) * (pScale / scale) - 1) * vm.tans[index].tanObj.anchor.toFloatX()
-            let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].tanObj.anchor.toFloatY()
-            vm.moveTan(index, tan_dx, tan_dy);
+        setTimeout(() => {
+          for (var index = 0; index < 7; index++) {
+            if (vm.tansPlaced[index] !== -1) {
+              let tan_dx = cw / (3 * scale) - pw / (3 * pScale);
+              let tan_dy = ch / (2 * scale) - ph / (2 * pScale);
+              vm.moveTan(index, tan_dx, tan_dy);
+            } else {
+              let tan_dx = ((cw / pw) * (pScale / scale) - 1) * vm.tans[index].x;
+              let tan_dy = ((ch / ph) * (pScale / scale) - 1) * vm.tans[index].y;
+              vm.moveTan(index, tan_dx, tan_dy);
+            }
           }
-        }
+        }, 0);
       }
-      
+
       vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.30);
       vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.15);
       vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);
@@ -420,10 +421,10 @@ var Game = {
 
       vm.resizePartitionLine();
 
-      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.25);
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.50);
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
-      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + cw / 3.5);
+      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + gameMainEle.offsetHeight * 0.17);
 
       vm.$set(vm.tangramDiffBlock, 'width', gameMainEle.offsetHeight * 0.15);
       vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
@@ -797,7 +798,7 @@ var Game = {
       vm.$set(vm.tans[index], 'y', center.toFloatY());
     },
 
-    moveTan: function(index, dx, dy, diff) {
+    moveTan: function(index, dx, dy) {
       let vm = this;
       vm.tans[index].tanObj.anchor.add(new Point(new IntAdjoinSqrt2(dx, 0), new IntAdjoinSqrt2(dy, 0)));
       vm.updatePoints(index);
@@ -982,6 +983,8 @@ var Game = {
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
       let boundingBox = e.target.getClientRect();
+      boundingBox.width *= 0.5;
+      boundingBox.height *= 0.5;
       let iw = vm.mode === 'timer' ? vm.infoContainer.width : 0;
       let ih = vm.mode === 'timer' ? vm.infoContainer.height : 0;
 

@@ -23,7 +23,7 @@ var app = new Vue({
     SugarL10n: null,
     SugarPresence: null,
     SugarJournal: null,
-    sugarPopup: null,
+    SugarPopup: null,
     DataSetHandler: null,
     mode: 'non-timer',
     score: 0,
@@ -53,7 +53,6 @@ var app = new Vue({
       height: 1,
     },
     tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
-    pulseEffect: false,
     puzzleToBeEdited: null,
     multiplayer: null,
   },
@@ -100,18 +99,6 @@ var app = new Vue({
         vm.puzzles = vm.puzzles.concat(puzzles);
       }
       vm.centerTangram();
-    },
-
-    pulseEffect: function() {
-      let vm = this;
-      if (vm.currentScreen === 'game') {
-        let gameScreenEle = document.getElementById('game-screen');
-        gameScreenEle.classList.add('pulse');
-        setTimeout(() => {
-          gameScreenEle.classList.remove('pulse');
-          vm.pulseEffect = false;
-        }, 600);
-      }
     }
 
   },
@@ -119,6 +106,7 @@ var app = new Vue({
   mounted: function() {
     this.SugarJournal = this.$refs.SugarJournal;
     this.DataSetHandler = this.$refs.DataSetHandler;
+    this.SugarPopup = this.$refs.SugarPopup;
   },
 
   methods: {
@@ -133,6 +121,17 @@ var app = new Vue({
 
       vm.currentScreen = "game";
 
+    },
+
+    pulseEffect: function() {
+      let vm = this;
+      if (vm.currentScreen === 'game') {
+        let gameScreenEle = document.getElementById('game-screen');
+        gameScreenEle.classList.add('pulse');
+        setTimeout(() => {
+          gameScreenEle.classList.remove('pulse');
+        }, 600);
+      }
     },
 
     startClock: function() {
@@ -214,7 +213,8 @@ var app = new Vue({
     generatePuzzles: function(number) {
       let vm = this;
       let puzzles = [];
-      for (var pNo = 0; pNo < number; pNo++) {
+      let pNo = 0;
+      while (pNo < number) {
         generating = true;
         let tang, tangramName;
         if (vm.tangramCategories[0] !== "Random") {
@@ -227,6 +227,9 @@ var app = new Vue({
           tangramName = "Random";
         }
         generating = false;
+        if (tang.evaluation === undefined) {
+          continue;
+        }
         let tangDifficulty = checkDifficultyOfTangram(tang);
         let puzzle = {
           name: tangramName,
@@ -242,12 +245,12 @@ var app = new Vue({
         puzzle.targetTans = tmp.targetTans;
         puzzle.outline = [...tang.outline];
         puzzles.push(puzzle);
-        //puzzles.push(vm.populatePuzzles(tang, tangramName));
+        pNo++;
       }
       return puzzles;
     },
 
-    populatePuzzles: function (tanObjsArr) {
+    populatePuzzles: function(tanObjsArr) {
       let vm = this;
       targetTans = [];
       let tans = [];
@@ -304,74 +307,6 @@ var app = new Vue({
         targetTans: targetTans,
         tans: tans
       };
-      /*let tangDifficulty = checkDifficultyOfTangram(tang);
-      let puzzle = {
-        name: tangramName,
-        difficulty: tangDifficulty,
-        tangram: tang,
-        targetTans: [],
-        outline: [],
-        outlinePoints: [],
-      };
-
-      tang.positionCentered();
-      let target = [];
-      let targetTans = [];
-      for (let i = 0; i < tang.tans.length; i++) {
-        let targetTan = {
-          x: 100,
-          y: 100,
-          offsetX: 100,
-          offsetY: 100,
-          anchor: null,
-          pointsObjs: [],
-          tanObj: tang.tans[i].dup(),
-          tanType: tang.tans[i].tanType,
-          orientation: tang.tans[i].orientation,
-          points: [],
-          stroke: vm.fillColor,
-          strokeEnabled: true,
-          strokeWidth: 0.3,
-          closed: true,
-          lineJoin: 'round',
-          shadowColor: 'black',
-          shadowBlur: 10,
-          shadowOpacity: 0.8,
-          shadowEnabled: false,
-        }
-
-        let points = [...tang.tans[i].getPoints()];
-        let center = tang.tans[i].center();
-
-        let floatPoints = [];
-        let pointsObjs = [];
-        for (let j = 0; j < points.length; j++) {
-          let tmpPoint = points[j].dup();
-          pointsObjs.push(tmpPoint);
-          floatPoints.push(tmpPoint.toFloatX());
-          floatPoints.push(tmpPoint.toFloatY());
-        }
-        targetTan.offsetX = center.toFloatX();
-        targetTan.offsetY = center.toFloatY();
-        targetTan.x = targetTan.offsetX;
-        targetTan.y = targetTan.offsetY;
-        targetTan.points = floatPoints;
-        targetTan.anchor = tang.tans[i].anchor.dup();
-        targetTan.pointsObjs = pointsObjs;
-        target.push(targetTan);
-      }
-      puzzle.targetTans = target;
-      puzzle.outline = [...tang.outline];
-
-      for (var i = 0; i < puzzle.outline.length; i++) {
-        let tmp = [];
-        for (var j = 0; j < puzzle.outline[i].length; j++) {
-          tmp.push(puzzle.outline[i][j].toFloatX());
-          tmp.push(puzzle.outline[i][j].toFloatY());
-        }
-        puzzle.outlinePoints.push(tmp);
-      }*/
-      return puzzle;
     },
 
     centerTangram: function() {
@@ -479,7 +414,7 @@ var app = new Vue({
         vm.pushTimeMark();
         let tans = data.tans;
         vm.setUserResponse(tans);
-        vm.pulseEffect = true;
+        vm.pulseEffect();
 
         if (vm.mode === 'non-timer') {
           vm.stopClock();
@@ -503,7 +438,7 @@ var app = new Vue({
         }
         if (vm.mode === 'non-timer' && vm.gameOver) {
           vm.gameOver = null;
-          vm.pulseEffect = true;
+          vm.pulseEffect();
           vm.newGame();
           vm.startClock();
         }
@@ -522,7 +457,7 @@ var app = new Vue({
         vm.setUserResponse(tans);
         if (vm.mode === 'non-timer') {
           vm.stopClock();
-          vm.pulseEffect = true;
+          vm.pulseEffect();
           for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
             let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[i].tanType];
             vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'fill', color);
@@ -540,7 +475,7 @@ var app = new Vue({
 
     onTangramCategorySelected: function(evt) {
       let vm = this;
-      vm.pulseEffect = true;
+      vm.pulseEffect();
       if (vm.tangramCategories[0] === "Random") {
         vm.tangramCategories = [];
       }
@@ -619,7 +554,7 @@ var app = new Vue({
 
     onDifficultySelected: function(evt) {
       var vm = this;
-      vm.pulseEffect = true;
+      vm.pulseEffect();
       vm.level = evt.index;
       vm.selectDifficultyItem(evt.index);
 
@@ -646,7 +581,7 @@ var app = new Vue({
 
     onTimerSelected: function(evt) {
       var vm = this;
-      vm.pulseEffect = true;
+      vm.pulseEffect();
       switch (evt.index) {
         case 0:
           vm.mode = 'non-timer';
@@ -760,7 +695,7 @@ var app = new Vue({
       let vm = this;
       var metadata = {
         mimetype: 'application/json',
-        title: 'tangram-data-set.json',
+        title: 'Tangram Data Set By ' + vm.currentenv.user.name,
         activity: 'org.sugarlabs.Tangram',
         timestamp: new Date().getTime(),
         creation_time: new Date().getTime(),
@@ -776,8 +711,7 @@ var app = new Vue({
       inputData = vm.SugarJournal.LZString.compressToUTF16(JSON.stringify(inputData));
       vm.SugarJournal.createEntry(inputData, metadata)
         .then(() => {
-          //vm.$root.$refs.SugarPopup.log("export ");
-          console.log('Export completed');
+          vm.SugarPopup.log("Export Done");
         });
     },
 
@@ -798,10 +732,8 @@ var app = new Vue({
       vm.SugarJournal.insertFromJournal(filters)
         .then((data, metadata) => {
           data = JSON.parse(vm.SugarJournal.LZString.decompressFromUTF16(data));
-          console.log(data.type);
-          if (data.type === "game-dataset") {
-            vm.importDataSet(data.dataSet);
-          }
+          vm.importDataSet(data.dataSet);
+          vm.SugarPopup.log("Data Set Loaded");
         })
     },
 
@@ -899,9 +831,10 @@ var app = new Vue({
       console.log(data);
       if (data.type === "game-dataset") {
         vm.importDataSet(data.dataSet);
+        vm.currentScreen = 'setting-list';
         return;
       }
-      vm.pulseEffect = true;
+      vm.pulseEffect();
       vm.mode = data.mode;
       vm.level = data.level;
       vm.tangramCategories = data.tangramCategories;

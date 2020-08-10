@@ -16,6 +16,7 @@ var SettingEditor = {
           v-on:dragmove="onDragMove"
         >
           <v-layer ref="layer" :config="configLayer">
+            <v-line :config="workingBox"></v-line>
             <template>
               <v-line v-for="(tan,index) in tans" :key="index" v-if="currentTan!=index"
                 :config="{
@@ -105,6 +106,15 @@ var SettingEditor = {
               v-on:click="onAddPuzzle"
             ></button>
             <button
+              class="btn-in-footer btn-replay"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="onRefresh"
+            ></button>
+            <button
               class="btn-in-footer btn-back"
               v-bind:style="{
                 backgroundColor: fillColor,
@@ -131,6 +141,14 @@ var SettingEditor = {
         width: 60,
         height: 60,
         scale: 1,
+      },
+      workingBox: {
+        points: [],
+        stroke: 'green',
+        strokeWidth: 0.8,
+        closed: true,
+        lineJoin: 'round',
+        dash: [2, 2]
       },
       actionButtons: {
         width: 30,
@@ -170,6 +188,7 @@ var SettingEditor = {
 
   mounted: function() {
     let vm = this;
+    vm.$set(vm.workingBox, 'stroke', vm.strokeColor);
     vm.resize();
     vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
@@ -222,17 +241,22 @@ var SettingEditor = {
 
       vm.initializeTansPosition();
 
-      if (vm.tans.length != 0) {
-        for (var index = 0; index < 7; index++) {
-          let tan_dx = roundToNearest(((cw / pw) * (pScale / scale) - 1) * vm.tans[index].points[0], 1);
-          let tan_dy = roundToNearest(((ch / ph) * (pScale / scale) - 1) * vm.tans[index].points[1], 1);
-          vm.moveTan(index, tan_dx, tan_dy);
+      setTimeout(() => {
+        if (vm.tans.length != 0) {
+          for (var index = 0; index < 7; index++) {
+            let tan_dx = roundToNearest(((cw / pw) * (pScale / scale) - 1) * vm.tans[index].x, 1);
+            let tan_dy = roundToNearest(((ch / ph) * (pScale / scale) - 1) * vm.tans[index].y, 1);
+            vm.moveTan(index, tan_dx, tan_dy);
+          }
         }
         setTimeout(() => {
           vm.checkIfTangramValid();
         }, 0);
-      }
+      }, 0);
 
+      let cenx = cw / (2 * scale), ceny = ch / (2 * scale);
+      let workingBoxPoints = [cenx - 30, ceny - 30, cenx + 30, ceny - 30, cenx + 30, ceny + 30, cenx - 30, ceny + 30,];
+      vm.$set(vm.workingBox, 'points', workingBoxPoints);
 
       let settingEditorFooterEle = document.querySelector('.setting-editor-footer');
       vm.$set(vm.actionButtons, 'width', settingEditorFooterEle.offsetHeight * 0.95);
@@ -242,8 +266,8 @@ var SettingEditor = {
     initializeTansPosition: function() {
       let vm = this;
       let settingEditorMainEle = document.querySelector('.setting-editor-main');
-      let cw = settingEditorMainEle.offsetWidth * 0.98;
-      let ch = settingEditorMainEle.offsetHeight * 0.97;
+      let cw = vm.configKonva.width;
+      let ch = vm.configKonva.height;
       let scale = vm.configLayer.scaleX;
 
       vm.initialPositions = [];
@@ -252,10 +276,10 @@ var SettingEditor = {
           case 0:
             vm.initialPositions.push({
               tanType: 0,
-              orientation: 1,
+              orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.48),
+                  coeffInt: (cw / scale) * (0.8),
                   coeffSqrt: 1
                 },
                 y: {
@@ -271,7 +295,7 @@ var SettingEditor = {
               orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.51),
+                  coeffInt: (cw / scale) * (0.8),
                   coeffSqrt: 1
                 },
                 y: {
@@ -287,7 +311,7 @@ var SettingEditor = {
               orientation: 0,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.17),
+                  coeffInt: (cw / scale) * (0.05),
                   coeffSqrt: 1
                 },
                 y: {
@@ -300,14 +324,14 @@ var SettingEditor = {
           case 3:
             vm.initialPositions.push({
               tanType: 2,
-              orientation: 3,
+              orientation: 5,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.43),
+                  coeffInt: (cw / scale) * (0.5),
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.40),
+                  coeffInt: (ch / scale) * (0.08),
                   coeffSqrt: 1
                 }
               }
@@ -316,14 +340,14 @@ var SettingEditor = {
           case 4:
             vm.initialPositions.push({
               tanType: 2,
-              orientation: 5,
+              orientation: 1,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.35),
+                  coeffInt: (cw / scale) * (0.5),
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.33),
+                  coeffInt: (ch / scale) * (0.88),
                   coeffSqrt: 1
                 }
               }
@@ -335,11 +359,11 @@ var SettingEditor = {
               orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.10),
+                  coeffInt: (cw / scale) * (0.05),
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.52),
+                  coeffInt: (ch / scale) * (0.45),
                   coeffSqrt: 1
                 }
               }
@@ -351,7 +375,7 @@ var SettingEditor = {
               orientation: 0,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.12),
+                  coeffInt: (cw / scale) * (0.05),
                   coeffSqrt: 1
                 },
                 y: {
@@ -555,9 +579,6 @@ var SettingEditor = {
         currentTan.tanObj.anchor.roundToNearest(1);
         vm.updatePoints(index);
       }
-      //console.log(this.tans[vm.currentTan].tanObj.anchor.x.coeffInt+" "+this.tans[vm.currentTan].tanObj.anchor.x.coeffSqrt);
-      //console.log(this.tans[vm.currentTan].tanObj.anchor.y.coeffInt+" "+this.tans[vm.currentTan].tanObj.anchor.y.coeffSqrt);
-
     },
 
     updatePoints: function(index) {
@@ -661,6 +682,8 @@ var SettingEditor = {
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
       let boundingBox = e.target.getClientRect();
+      boundingBox.width *= 0.5;
+      boundingBox.height *= 0.5;
       let iw = 0;
       let ih = 0;
 
@@ -728,6 +751,7 @@ var SettingEditor = {
       let vm = this;
       let index = e.target.id();
       vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
       vm.selectTan(index);
       vm.tanState = 0;
     },
@@ -800,6 +824,16 @@ var SettingEditor = {
         }, 0);
       }
     },
+
+    onRefresh: function(e) {
+      let vm = this;
+      if (e && e.screenX === 0 && e.screenY === 0) {
+        return;
+      }
+      setTimeout(() => {
+        vm.initializeTans();
+      }, 0);
+    }
 
   }
 }
