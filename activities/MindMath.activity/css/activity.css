@@ -32,7 +32,7 @@ body {
 
 #main-toolbar.toolbar {
   padding: 0 2%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 #main-toolbar.hidden {
@@ -403,126 +403,52 @@ body {
 }
 
 .tutorial-icon-button {
-  border-radius: 22px;
-  margin-top: 5px;
-  height: 35px;
-  background-color: #808080;
-  border: 2px solid #808080;
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	width: 90px;
+	background-color: #808080;
+	border: 2px solid #808080;
+	display: flex;
+	align-items: center;
+}
+
+.tutorial-icon-button {
+	color: white;
+}
+.tutorial-icon-button.disabled {
+	color: black;
 }
 
 .tutorial-title {
-  background-color: #808080 !important;
-  color: #ffffff !important;
-}
-
-.tutorial-prev-icon {
-  display: inline-flex;
-  width: 90px;
-}
-
-.tutorial-prev-icon.tutorial-icon-button {
-  color: white;
-}
-
-.tutorial-prev-icon.tutorial-icon-button.disabled {
-  color: black;
-  opacity: 1;
+	background-color: #808080 !important;
+	color: #ffffff !important;
 }
 
 .tutorial-prev-icon1 {
-  margin-left: 6px;
-  margin-top: 6px;
-}
-
-.tutorial-prev-icon2 {
-  background-image: url(../icons/go-left.svg);
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-}
-
-.tutorial-prev-icon3 {
-  display: none;
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-  background-color: white;
-  margin-top: -20px;
-}
-
-.tutorial-next-icon {
-  display: inline-flex;
-  width: 90px;
-}
-
-.tutorial-next-icon.tutorial-icon-button {
-  color: white;
-}
-
-.tutorial-next-icon.tutorial-icon-button.disabled {
-  color: black;
-  opacity: 1;
+	margin-left: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
 }
 
 .tutorial-next-icon1 {
-  margin-left: 6px;
-  margin-top: 6px;
-}
-
-.tutorial-next-icon2 {
-  background-image: url(../icons/go-right.svg);
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-}
-
-.tutorial-next-icon3 {
-  display: none;
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-  background-color: white;
-  margin-top: -20px;
-}
-
-.tutorial-end-icon {
-  display: inline-flex;
-  width: 90px;
-}
-
-.tutorial-end-icon.tutorial-icon-button {
-  color: white;
-}
-
-.tutorial-end-icon.tutorial-icon-button.disabled {
-  color: black;
-  opacity: 1;
+	margin-left: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
 }
 
 .tutorial-end-icon1 {
-  margin-left: 6px;
-  margin-top: 6px;
-}
-
-.tutorial-end-icon2 {
-  background-image: url(../icons/dialog-cancel.svg);
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-}
-
-.tutorial-end-icon3 {
-  display: none;
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-  background-color: white;
-  margin-top: -20px;
+	margin-left: 6px;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
 }
 
 .tutorial-icon-text {
-  margin-top: 7px;
-  padding-left: 4px;
-  padding-right: 38px;
-  display: inline-block;
+	padding-left: 4px;
 }

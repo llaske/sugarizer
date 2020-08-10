@@ -56,7 +56,7 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
-#main-toolbar #type-button {
+#main-toolbar #category-button {
 	background-image: url(../icons/tangram-type.svg);
 }
 
@@ -70,6 +70,14 @@ p {
 
 #main-toolbar #hint-button {
 	background-image: url(../icons/robot.svg);
+}
+
+#main-toolbar #export-button {
+	background-image: url(../icons/file-export.svg);
+}
+
+#main-toolbar #import-button {
+	background-image: url(../icons/insert-picture.svg);
 }
 
 #private-button {
@@ -132,6 +140,10 @@ p {
 
 .btn-restart {
 	background-image: url(../icons/restart-black.svg);
+}
+
+.btn-back {
+	background-image: url(../icons/go-left-black.svg);
 }
 
 .btn-validate {

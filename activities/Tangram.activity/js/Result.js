@@ -115,9 +115,6 @@ var Result = {
       },
       totalScore: 0,
       puzzlesSet: [],
-      currentPage: 1,
-      pageCount: 1,
-      visibleItemsPerPageCount: 1,
       canRestart: true,
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
     };

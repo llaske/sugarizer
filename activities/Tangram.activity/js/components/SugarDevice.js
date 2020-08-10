@@ -50,12 +50,14 @@ Vue.component('sugar-device', {
 			this.$emit('acceleration-callback', acceleration);
 		},
 
-		getLocation: function (callback) {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(callback);
-			} else {
-				callback(null, { code: 1 });
-			}
+		getLocation: function () {
+			return new Promise((resolve, reject) => {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(resolve);
+				} else {
+					resolve(null, { code: 1 });
+				}
+			})
 		},
 
 		vibrate: function (value) {
