@@ -1805,6 +1805,276 @@
             "tanType": 4,
             "orientation": 2
           }]
+        },
+        {
+          "id": "3#8",
+          "name": "Jump",
+          "targetTans": [{
+            "anchor": {
+              "x": [27.5, 9],
+              "y": [37, 0]
+            },
+            "tanType": 0,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [17.5, 9],
+              "y": [47, -12]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [29.5, 9],
+              "y": [35, -12]
+            },
+            "tanType": 1,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [30.5, -9],
+              "y": [34, 0]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [31.5, -9],
+              "y": [37, 6]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [11.5, 9],
+              "y": [29, -12]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [27.5, 9],
+              "y": [37, 0]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
+        },
+        {
+          "id": "3#9",
+          "name": "Day Dreamer",
+          "targetTans": [{
+            "anchor": {
+              "x": [21, -6],
+              "y": [30, 9]
+            },
+            "tanType": 0,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [18, 9]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [21, 6],
+              "y": [30, 9]
+            },
+            "tanType": 1,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [21, -6],
+              "y": [30, -9]
+            },
+            "tanType": 2,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [15, -6],
+              "y": [17, 9]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [27, 6],
+              "y": [12, 9]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [33, 6],
+              "y": [18, 9]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "3#10",
+          "name": "Runner",
+          "targetTans": [{
+            "anchor": {
+              "x": [20.5, 7],
+              "y": [26, 0]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [28.5, 7],
+              "y": [34, 0]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [20.499999999999993, 1],
+              "y": [38, 6]
+            },
+            "tanType": 1,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [16.5, -5],
+              "y": [32, 0]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [43.5, 5],
+              "y": [50, 0]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [23.5, 7],
+              "y": [16, 0]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [20.499999999999993, 7],
+              "y": [38, 0]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "3#11",
+          "name": "Nurse",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, 3],
+              "y": [30, 6]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [30, 3],
+              "y": [30, 6]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [18, 3],
+              "y": [18, 6]
+            },
+            "tanType": 1,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [18, 9],
+              "y": [18, 0]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [18, -3],
+              "y": [18, 6]
+            },
+            "tanType": 2,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [18, 3],
+              "y": [18, -6]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [18, 9],
+              "y": [18, 6]
+            },
+            "tanType": 4,
+            "orientation": 1
+          }]
+        },
+        {
+          "id": "3#12",
+          "name": "Kicking",
+          "targetTans": [{
+            "anchor": {
+              "x": [35, 3],
+              "y": [33.5, -6]
+            },
+            "tanType": 0,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [35, 3],
+              "y": [40.5, -18]
+            },
+            "tanType": 0,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [35, 3],
+              "y": [33.5, 6]
+            },
+            "tanType": 1,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [37, -3],
+              "y": [31.5, 18]
+            },
+            "tanType": 2,
+            "orientation": 4
+          }, {
+            "anchor": {
+              "x": [25, -15],
+              "y": [35.5, -6]
+            },
+            "tanType": 2,
+            "orientation": 6
+          }, {
+            "anchor": {
+              "x": [29, 3],
+              "y": [34.5, -18]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [23, -9],
+              "y": [33.5, -6]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
         }
       ]
     },

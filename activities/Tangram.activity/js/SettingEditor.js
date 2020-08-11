@@ -46,16 +46,18 @@ var SettingEditor = {
             borderColor: fillColor,
           }"
         >
+          <div class="setting-editor-sidebar-element valid-shape-indicator"
+            v-bind:style="{
+              backgroundColor: fillColor,
+            }"
+          >
+            <div>{{ puzzleCreated.category }}</div>
+          </div>
           <form v-on:submit.prevent="onAddPuzzle">
             <div>
-              <label for="category">Enter Tangram Name</label>
               <input type="text" name="tangram-name" v-model="puzzleCreated.name" required>
             </div>
           </form>
-          <div class="setting-editor-sidebar-element">
-            <div>Category: {{ puzzleCreated.category }}</div>
-          </div>
-
           <div class="setting-editor-sidebar-element valid-shape-indicator"
             v-bind:style="{
               backgroundColor: puzzleCreated.tangram !== null ? '#81e32b' : 'red',
@@ -97,13 +99,22 @@ var SettingEditor = {
           <div class="footer-actions">
             <button
               class="btn-in-footer btn-save"
-              v-if="canBeAdded"
+              v-if="canBeAdded && !puzzleToBeEdited"
               v-bind:style="{
                 backgroundColor: fillColor,
                 width: actionButtons.width + 'px',
                 height: actionButtons.height + 'px',
               }"
               v-on:click="onAddPuzzle"
+            ></button>
+            <button
+              class="btn-in-footer btn-random"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="onRandom"
             ></button>
             <button
               class="btn-in-footer btn-replay"
@@ -121,7 +132,7 @@ var SettingEditor = {
                 width: actionButtons.width + 'px',
                 height: actionButtons.height + 'px',
               }"
-              v-on:click="$emit('go-to-setting-list')"
+              v-on:click="$emit('go-to-dataset-list')"
             ></button>
           </div>
       </div>
@@ -159,16 +170,17 @@ var SettingEditor = {
       flip: 5,
       tans: [],
       puzzlesSet: [],
-      initialPositions: [],
       snapRange: 1.5,
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
       puzzleCreated: {
-        name: '',
+        name: 'My Tangram',
         difficulty: '',
         category: '',
         tangram: null,
         tangramSVGdata: '',
       },
+      categoryChosen: null,
+      initialTangram: null
     };
   },
 
@@ -193,7 +205,7 @@ var SettingEditor = {
     vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
-        vm.showPuzzleToBeEdited(vm.puzzleToBeEdited);
+        vm.showPuzzle(vm.puzzleToBeEdited);
       } else {
         vm.initializeTans();
       }
@@ -206,7 +218,13 @@ var SettingEditor = {
     },
 
     canBeAdded: function() {
-      return this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '' && this.puzzleCreated.category !== '';
+      let vm = this;
+      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '' && this.puzzleCreated.category !== '';
+      if (res && vm.puzzleToBeEdited) {
+        vm.$emit('delete-puzzle', vm.puzzleToBeEdited.id);
+        vm.$emit('add-puzzle', vm.puzzleCreated);
+      }
+      return res;
     }
   },
 
@@ -222,11 +240,13 @@ var SettingEditor = {
       let settingEditorMainEle = document.querySelector('.setting-editor-main');
       let cw = settingEditorMainEle.offsetWidth * 0.66;
       let ch = settingEditorMainEle.offsetHeight * 0.97;
-      let scale = Math.min(cw, ch) / 75;
-
       let pw = vm.configKonva.width;
       let ph = vm.configKonva.height;
       let pScale = Math.min(pw, ph) / 75;
+
+      let a = cw,
+        b = ch;
+      let scale = Math.min(a, b) / 75;
 
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
@@ -238,8 +258,6 @@ var SettingEditor = {
       vm.$set(vm.validShapeDisplayBox, 'width', settingEditorSidebarEle.offsetHeight * 0.3);
       vm.$set(vm.validShapeDisplayBox, 'height', settingEditorSidebarEle.offsetHeight * 0.3);
       vm.$set(vm.validShapeDisplayBox, 'scale', settingEditorSidebarEle.offsetHeight * 0.3 / 60);
-
-      vm.initializeTansPosition();
 
       setTimeout(() => {
         if (vm.tans.length != 0) {
@@ -254,8 +272,9 @@ var SettingEditor = {
         }, 0);
       }, 0);
 
-      let cenx = cw / (2 * scale), ceny = ch / (2 * scale);
-      let workingBoxPoints = [cenx - 30, ceny - 30, cenx + 30, ceny - 30, cenx + 30, ceny + 30, cenx - 30, ceny + 30,];
+      let cenx = cw / (2 * scale),
+        ceny = ch / (2 * scale);
+      let workingBoxPoints = [cenx - 30, ceny - 30, cenx + 30, ceny - 30, cenx + 30, ceny + 30, cenx - 30, ceny + 30, ];
       vm.$set(vm.workingBox, 'points', workingBoxPoints);
 
       let settingEditorFooterEle = document.querySelector('.setting-editor-footer');
@@ -263,143 +282,33 @@ var SettingEditor = {
       vm.$set(vm.actionButtons, 'height', settingEditorFooterEle.offsetHeight * 0.95);
     },
 
-    initializeTansPosition: function() {
-      let vm = this;
-      let settingEditorMainEle = document.querySelector('.setting-editor-main');
-      let cw = vm.configKonva.width;
-      let ch = vm.configKonva.height;
-      let scale = vm.configLayer.scaleX;
 
-      vm.initialPositions = [];
+    centerTangramFormed: function() {
+      let dx = roundToNearest(this.configKonva.width / (2 * this.configLayer.scaleX) - 30, 1);
+      let dy = roundToNearest(this.configKonva.height / (2 * this.configLayer.scaleX) - 30, 1);
       for (var i = 0; i < 7; i++) {
-        switch (i) {
-          case 0:
-            vm.initialPositions.push({
-              tanType: 0,
-              orientation: 7,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.8),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.70),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 1:
-            vm.initialPositions.push({
-              tanType: 0,
-              orientation: 7,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.8),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.27),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 2:
-            vm.initialPositions.push({
-              tanType: 1,
-              orientation: 0,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.05),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.70),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 3:
-            vm.initialPositions.push({
-              tanType: 2,
-              orientation: 5,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.5),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.08),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 4:
-            vm.initialPositions.push({
-              tanType: 2,
-              orientation: 1,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.5),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.88),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 5:
-            vm.initialPositions.push({
-              tanType: 3,
-              orientation: 7,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.05),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.45),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-          case 6:
-            vm.initialPositions.push({
-              tanType: 5,
-              orientation: 0,
-              anchor: {
-                x: {
-                  coeffInt: (cw / scale) * (0.05),
-                  coeffSqrt: 1
-                },
-                y: {
-                  coeffInt: (ch / scale) * (0.23),
-                  coeffSqrt: 1
-                }
-              }
-            })
-            break;
-        }
+        this.moveTan(i, dx, dy);
       }
     },
 
-    showPuzzleToBeEdited: function(puzzle) {
+    showPuzzle: function(puzzle) {
       let vm = this;
       vm.populateTans(puzzle.tangram.tans);
       vm.puzzleCreated.category = puzzle.category;
       vm.puzzleCreated.name = puzzle.name;
       vm.checkIfTangramValid();
-      let dx = vm.configKonva.width / (2 * vm.configLayer.scaleX) - 30;
-      let dy = vm.configKonva.height / (2 * vm.configLayer.scaleX) - 30;
-      for (var i = 0; i < 7; i++) {
-        vm.moveTan(i, dx, dy);
-      }
+      vm.centerTangramFormed();
+    },
+
+    onRandom: function() {
+      let vm = this
+      let generatedTangrams = generateTangrams(2);
+      let tangram = generatedTangrams[0];
+      tangram.positionCentered();
+      vm.initialTangram = tangram.dup();
+      vm.populateTans(tangram.tans);
+      vm.checkIfTangramValid();
+      vm.centerTangramFormed();
     },
 
     loadContext: function(context) {
@@ -411,8 +320,8 @@ var SettingEditor = {
       vm.populateTans(tanObjsArr);
       vm.checkIfTangramValid();
       for (var i = 0; i < 7; i++) {
-        let dx = ((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX();
-        let dy = ((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY();
+        let dx = roundToNearest(((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX(), 1);
+        let dy = roundToNearest(((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY(), 1);
         vm.moveTan(i, dx, dy);
       }
     },
@@ -478,12 +387,22 @@ var SettingEditor = {
       vm.flip = tans[5].tanObj.tanType === 5 ? 6 : 5;
     },
 
-    initializeTans: function(context) {
+    initializeTans: function() {
       let vm = this;
-      let tans = [];
-      let tang = standardTangrams[0].tangram.dup();
-      vm.populateTans(vm.initialPositions);
-      vm.tansSnapped = context ? context.tansSnapped : [false, false, false, false, false, false, false];
+      if (vm.puzzleToBeEdited) {
+        vm.showPuzzle(vm.puzzleToBeEdited);
+      } else {
+        if (vm.initialTangram) {
+          vm.showPuzzle({
+            tangram: vm.initialTangram,
+            name: 'My Tangram',
+            category: vm.dataSetHandler.currentCategories[0]
+          });
+        } else {
+          vm.onRandom();
+        }
+
+      }
     },
 
     onAddPuzzle: function() {
@@ -493,7 +412,7 @@ var SettingEditor = {
         vm.$emit('delete-puzzle', vm.puzzleToBeEdited.id);
       }
       vm.$emit('add-puzzle', vm.puzzleCreated);
-      vm.$emit('go-to-setting-list');
+      vm.$emit('go-to-dataset-list');
     },
 
     checkIfTangramValid: function() {
@@ -832,6 +751,7 @@ var SettingEditor = {
       }
       setTimeout(() => {
         vm.initializeTans();
+        vm.checkIfTangramValid();
       }, 0);
     }
 

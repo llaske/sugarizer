@@ -1,4 +1,4 @@
-#setting-list-screen {
+#dataset-list-screen {
   width: 100%;
   height: 100%;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.setting-list-header {
+.dataset-list-header {
   width: 98%;
   height: 10%;
   display: flex;
@@ -16,7 +16,7 @@
   align-items: flex-end;
 }
 
-.setting-list-bar {
+.dataset-list-bar {
   width: 100%;
   height: 90%;
   display: flex;
@@ -24,7 +24,7 @@
   justify-content: space-around;
 }
 
-.setting-list-bar-block {
+.dataset-list-bar-block {
   width: 40%;
   height: 100%;
   text-align: center;
@@ -39,7 +39,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.setting-list-main {
+.dataset-list-main {
   width: 100%;
   height: 77%;
   display: flex;
@@ -48,7 +48,7 @@
   align-items: center;
 }
 
-.setting-list-panel-primary {
+.dataset-list-panel-primary {
   width: 95%;
   height: 98%;
   border-radius: 10px;
@@ -69,7 +69,7 @@
   width: 35%;
 }
 
-.setting-list-footer {
+.dataset-list-footer {
   width: 98%;
   height: 12%;
   display: flex;
@@ -119,6 +119,10 @@
 
 .edit-btn {
   background-image: url(../icons/edit.svg);
+}
+
+.play-btn {
+  background-image: url(../icons/play-button.svg);
 }
 
 .info-block-content div {

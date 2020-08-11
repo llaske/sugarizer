@@ -170,6 +170,17 @@ var Game = {
         <div class="footer-actions">
           <transition name="fade" mode="out-in">
             <button
+              class="btn-in-footer btn-back"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="$emit('go-to-dataset-list')"
+            ></button>
+          </transition>
+          <transition name="fade" mode="out-in">
+            <button
               v-if="!gameOver"
               class="btn-in-footer btn-replay"
               v-bind:style="{

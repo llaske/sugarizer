@@ -86,3 +86,7 @@
 .btn-save {
   background-image: url(../icons/save.svg);
 }
+
+.btn-random {
+  background-image: url(../icons/random.svg);
+}

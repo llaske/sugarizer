@@ -6,7 +6,7 @@ Vue.component('data-set-handler', {
       dataSet: [],
       currentCategories: ["Animals"],
       AllCategories: [],
-			puzzlePointer: 0,
+			nextArr: []
 		}
 	},
 	mounted() {
@@ -42,16 +42,16 @@ Vue.component('data-set-handler', {
 		      }
 				}
 			}
-			vm.tangramSet = shuffleArray(vm.tangramSet);
-			vm.puzzlePointer = 0;
+			vm.nextArr = [...Array(vm.tangramSet.length).keys()]
 		},
 
     generateTangramFromSet: function () {
-			if (this.puzzlePointer >= this.tangramSet.length) {
-				this.puzzlePointer = 0;
+			if (this.nextArr.length <= 0) {
+				this.nextArr = [...Array(this.tangramSet.length).keys()]
 			}
-      let index = this.puzzlePointer;
-			this.puzzlePointer++;
+      let ele = Math.floor(Math.random() * this.nextArr.length);
+			let index = this.nextArr[ele];
+			this.nextArr.splice(ele, 1);
       return this.buildTangramPuzzle(index);
     },
 
@@ -109,7 +109,7 @@ Vue.component('data-set-handler', {
 			}
 		},
 
-    addTangramPuzzle: function(puzzle) {
+    addTangramPuzzle: function(puzzle, id) {
 			let vm = this;
 			let newDataSetElem = {
 				id: null,
@@ -134,7 +134,7 @@ Vue.component('data-set-handler', {
 
 			vm.dataSet[index]["tangrams"].push(newDataSetElem);
 			vm.tangramSet.push(newDataSetElem);
-			console.log(JSON.stringify(newDataSetElem));
+			//console.log(JSON.stringify(newDataSetElem));
 		}
 	}
 })

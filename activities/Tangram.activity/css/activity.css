@@ -155,11 +155,11 @@ p {
 }
 
 #easy-button {
-  background-image: url(../icons/easy-level.svg);
+  background-image: url(../icons/square-outline.svg);
 }
 
 #medium-button {
-  background-image: url(../icons/medium-level.svg);
+  background-image: url(../icons/square-filled.svg);
 }
 
 .palette-button {

@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Game.css">
 	<link rel="stylesheet" href="css/Result.css">
-	<link rel="stylesheet" href="css/SettingList.css">
+	<link rel="stylesheet" href="css/DatasetList.css">
 	<link rel="stylesheet" href="css/SettingEditor.css">
 	<link rel="stylesheet" href="css/libnotify.css">
 	<script src="lib/vue.min.js"></script>
@@ -32,7 +32,11 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
-			<sugar-toolitem id="view-button" title="view" v-on:click="onChangeView"></sugar-toolitem>
+			<sugar-toolitem id="view-button"
+				v-if="currentScreen!='setting-editor'"
+			 	title="view"
+				v-on:click="onChangeView"
+			></sugar-toolitem>
 			<sugar-toolitem id="category-button"
 				v-visible="currentScreen!='setting-editor'"
 				title="tangram category"
@@ -42,18 +46,8 @@
 				palette-event="tangram-category-selected"
 				v-on:tangram-category-selected="onTangramCategorySelected"
 			></sugar-toolitem>
-			<sugar-toolitem id="export-button"
-				v-if="currentScreen=='setting-list'"
-				title="export DataSet"
-				v-on:click="onExport"
-			></sugar-toolitem>
-			<sugar-toolitem id="import-button"
-				v-if="currentScreen=='setting-list'"
-				title="import DataSet"
-				v-on:click="onImport"
-			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
-				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-visible="currentScreen!='setting-editor'"
 				title="level"
 				palette-file="js/palettes/difficultyPalette.js"
 				palette-class="DifficultyPalette"
@@ -62,7 +56,7 @@
 				v-on:difficulty-selected="onDifficultySelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="timer-button"
-				v-visible="currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-visible="currentScreen!='setting-editor'"
 				title="Timer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
@@ -71,7 +65,7 @@
 				v-on:timer-selected="onTimerSelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="hint-button"
-				v-if="level && currentScreen!='setting-editor' && currentScreen!='setting-list'"
+				v-if="level && currentScreen!='setting-editor' && currentScreen!='dataset-list'"
 				title="hint"
 				v-on:click="onHint"
 			></sugar-toolitem>
@@ -101,6 +95,7 @@
 				v-bind:user-response="userResponse"
 				v-bind:score="score"
 				v-bind:puzzle-to-be-edited="puzzleToBeEdited"
+				v-bind:view="view"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:update-tans-placed="onUpdateTansPlaced"
@@ -108,11 +103,12 @@
 				v-on:pass-puzzle="handlePassButton"
 				v-on:restart-game="handleRestartButton"
 				v-on:go-to-setting-editor="goToSettingEditor"
-				v-on:go-to-setting-list="goToSettingList"
+				v-on:go-to-dataset-list="goToDatasetList"
 				v-on:delete-puzzle="onDeletePuzzle"
 				v-on:edit-puzzle="onEditPuzzle"
 				v-on:delete-puzzle="onDeletePuzzle"
 				v-on:add-puzzle="onAddPuzzle"
+				v-on:play-puzzle="onPlayPuzzle"
 			></component>
 		</transition>
 
@@ -135,7 +131,7 @@
 	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
-	<script src="js/SettingList.js"></script>
+	<script src="js/DatasetList.js"></script>
 	<script src="js/SettingEditor.js"></script>
 	<script src="js/DataSetHandler.js"></script>
 	<script src="js/components/SugarPopup.js"></script>

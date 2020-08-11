@@ -12,7 +12,7 @@ var app = new Vue({
   components: {
     'game': Game,
     'result': Result,
-    'setting-list': SettingList,
+    'dataset-list': DatasetList,
     'setting-editor': SettingEditor,
   },
   data: {
@@ -26,6 +26,7 @@ var app = new Vue({
     SugarPopup: null,
     DataSetHandler: null,
     mode: 'non-timer',
+    view: 'play',
     score: 0,
     level: 0,
     timer: null,
@@ -54,36 +55,42 @@ var app = new Vue({
     },
     tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
     puzzleToBeEdited: null,
+    puzzleChosen: null,
     multiplayer: null,
   },
   watch: {
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        document.getElementById('category-button-8').style.display = 'block';
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
+        //document.getElementById('category-button-8').style.display = 'block';
         if (!vm.multiplayer) {
           vm.newGame();
         }
         vm.startClock();
-      } else if (vm.currentScreen === 'setting-list') {
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
-        document.getElementById('category-button-8').style.display = 'none';
+      } else if (vm.currentScreen === 'dataset-list') {
+        //document.getElementById('category-button-8').style.display = 'none';
         if (vm.tangramCategories[0] === "Random" || vm.tangramCategories.length > 1) {
           vm.onTangramCategorySelected({
             index: "Animals"
           });
         }
-      } else if (vm.currentScreen === 'setting-editor') {
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/home.svg)';
-      } else {
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
       }
 
       if (vm.currentScreen !== 'setting-editor') {
         vm.puzzleToBeEdited = null;
       }
+      if (vm.currentScreen !== 'game') {
+        vm.puzzleChosen = null;
+      }
 
+    },
+
+    view: function() {
+      if (this.view === 'play') {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
+      } else {
+        document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
+      }
     },
 
     pNo: function() {
@@ -107,6 +114,7 @@ var app = new Vue({
     this.SugarJournal = this.$refs.SugarJournal;
     this.DataSetHandler = this.$refs.DataSetHandler;
     this.SugarPopup = this.$refs.SugarPopup;
+    generating = false;
   },
 
   methods: {
@@ -118,8 +126,6 @@ var app = new Vue({
       document.getElementById('app').style.background = vm.currentenv.user.colorvalue.stroke;
       vm.strokeColor = vm.currentenv.user.colorvalue.stroke;
       vm.fillColor = vm.currentenv.user.colorvalue.fill;
-
-      vm.currentScreen = "game";
 
     },
 
@@ -218,7 +224,13 @@ var app = new Vue({
         generating = true;
         let tang, tangramName;
         if (vm.tangramCategories[0] !== "Random") {
-          let tmp = vm.DataSetHandler.generateTangramFromSet();
+          let tmp;
+          if (vm.puzzleChosen) {
+            tmp = vm.puzzleChosen;
+            vm.puzzleChosen = null;
+          } else {
+            tmp = vm.DataSetHandler.generateTangramFromSet();
+          }
           tang = tmp.tangram.dup();
           tangramName = tmp.name;
         } else {
@@ -480,7 +492,7 @@ var app = new Vue({
         vm.tangramCategories = [];
       }
 
-      if (evt.index !== "Random" && vm.currentScreen !== "setting-list") {
+      if (evt.index !== "Random" && vm.currentScreen !== "dataset-list") {
         let index = vm.tangramCategories.findIndex(el => el === evt.index);
         if (index === -1) {
           vm.tangramCategories.push(evt.index);
@@ -494,7 +506,7 @@ var app = new Vue({
         }
       } else {
         vm.tangramCategories = [evt.index];
-        if (vm.currentScreen === "setting-list") {
+        if (vm.currentScreen === "dataset-list") {
           vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
         }
       }
@@ -659,23 +671,27 @@ var app = new Vue({
 
     onChangeView: function() {
       let vm = this;
-      if (vm.currentScreen === 'setting-list') {
-        vm.currentScreen = 'game';
-      } else if (vm.currentScreen === 'game') {
-        vm.stopClock();
-        vm.currentScreen = 'setting-list';
-      } else if (vm.currentScreen === 'setting-editor') {
-        vm.currentScreen = 'setting-list';
+      if (vm.view === 'play') {
+        vm.view = 'setting';
+      } else {
+        vm.view = 'play';
       }
-
+      if (vm.currentScreen === 'game') {
+        vm.stopClock();
+        vm.view = 'setting';
+        vm.currentScreen = 'dataset-list';
+      }
     },
 
     goToSettingEditor: function() {
       this.currentScreen = 'setting-editor';
     },
 
-    goToSettingList: function() {
-      this.currentScreen = 'setting-list';
+    goToDatasetList: function() {
+      if (this.currentScreen === 'game') {
+        this.stopClock();
+      }
+      this.currentScreen = 'dataset-list';
     },
 
     onDeletePuzzle: function(id) {
@@ -687,54 +703,25 @@ var app = new Vue({
       this.goToSettingEditor();
     },
 
-    onAddPuzzle: function(puzzle) {
-      this.DataSetHandler.addTangramPuzzle(puzzle);
+    onPlayPuzzle: function(id) {
+      this.puzzleChosen = this.DataSetHandler.getTangramPuzzle(id);
+      let index = this.DataSetHandler.tangramSet.findIndex(ele => ele.id === id);
+      let i = this.DataSetHandler.nextArr.findIndex(ele => ele === index);
+      if (i !== -1) {
+        this.DataSetHandler.nextArr.splice(i, 1);
+      }
+      this.currentScreen = "game";
     },
 
-    onExport: function() {
-      let vm = this;
-      var metadata = {
-        mimetype: 'application/json',
-        title: 'Tangram Data Set By ' + vm.currentenv.user.name,
-        activity: 'org.sugarlabs.Tangram',
-        timestamp: new Date().getTime(),
-        creation_time: new Date().getTime(),
-        file_size: 0
-      };
-      let inputData = {
-        metadata: {
-          mimetype: 'application/json',
-        },
-        type: "game-dataset",
-        dataSet: vm.DataSetHandler.dataSet
-      }
-      inputData = vm.SugarJournal.LZString.compressToUTF16(JSON.stringify(inputData));
-      vm.SugarJournal.createEntry(inputData, metadata)
-        .then(() => {
-          vm.SugarPopup.log("Export Done");
-        });
+    onAddPuzzle: function(puzzle) {
+      this.DataSetHandler.addTangramPuzzle(puzzle);
     },
 
     importDataSet: function(dataSet) {
       let vm = this;
       vm.DataSetHandler.dataSet = dataSet;
-      vm.DataSetHandler.puzzlePointer = 0;
       vm.DataSetHandler.loadTangramSet();
       vm.newGame();
-    },
-
-    onImport: function() {
-      let vm = this;
-      let filters = [{
-        mimetype: 'application/json',
-        activity: 'org.sugarlabs.Tangram'
-      }];
-      vm.SugarJournal.insertFromJournal(filters)
-        .then((data, metadata) => {
-          data = JSON.parse(vm.SugarJournal.LZString.decompressFromUTF16(data));
-          vm.importDataSet(data.dataSet);
-          vm.SugarPopup.log("Data Set Loaded");
-        })
     },
 
     onStop: function() {
@@ -795,6 +782,7 @@ var app = new Vue({
         type: "game-context",
         currentScreen: vm.currentScreen,
         mode: vm.mode,
+        view: vm.view,
         level: vm.level,
         tangramCategories: vm.tangramCategories,
         puzzles: puzzlesContext,
@@ -814,7 +802,7 @@ var app = new Vue({
         gameStage: gameStage,
         tangramSet: vm.DataSetHandler.tangramSet,
         dataSet: vm.DataSetHandler.dataSet,
-        puzzlePointer: vm.DataSetHandler.puzzlePointer,
+        nextArr: vm.DataSetHandler.nextArr,
         currentCategories: vm.DataSetHandler.currentCategories,
         puzzleToBeEdited: vm.puzzleToBeEdited
       }
@@ -823,6 +811,7 @@ var app = new Vue({
 
     onJournalNewInstance: function() {
       console.log("New instance");
+      this.currentScreen = "dataset-list";
     },
 
     onJournalDataLoaded: function(data, metadata) {
@@ -831,70 +820,73 @@ var app = new Vue({
       console.log(data);
       if (data.type === "game-dataset") {
         vm.importDataSet(data.dataSet);
-        vm.currentScreen = 'setting-list';
+        vm.currentScreen = 'dataset-list';
         return;
       }
-      vm.pulseEffect();
-      vm.mode = data.mode;
-      vm.level = data.level;
-      vm.tangramCategories = data.tangramCategories;
-      vm.hintNumber = data.hintNumber;
-      vm.hintsUsed = data.hintsUsed;
-      vm.noOfHintsUsed = data.noOfHintsUsed;
-      vm.clock = data.clock;
-      vm.timeMarks = data.timeMarks;
-      if (!data.clock.active) {
-        vm.stopClock();
-      }
-      vm.pNo = data.pNo;
-      vm.score = data.score;
-      vm.gameOver = data.gameOver;
-      vm.puzzles = [];
-      for (var i = 0; i < data.puzzles.length; i++) {
-        let puzzle = {
-          ...data.puzzles[i],
-          tangram: null,
-          outline: [],
-          outlinePoints: [],
-        };
-        puzzle.targetTans = [];
-        let tans = [];
-        let tmp = vm.populatePuzzles(data.puzzles[i].targetTans);
-        puzzle.targetTans = tmp.targetTans;
-        tans = tmp.tans;
-        puzzle.tangram = new Tangram(tans);
-        puzzle.difficulty = checkDifficultyOfTangram(puzzle.tangram);
-        puzzle.outline = computeOutline(tans, true);
-
-        vm.puzzles.push(puzzle);
-      }
-      vm.centerTangram();
-
-      vm.userResponse = [];
-
-      for (var i = 0; i < data.userResponse.length; i++) {
-        let userResponse = {
-          isSolved: data.userResponse[i].isSolved,
-          score: data.userResponse[i].score,
-          tans: []
-        }
-        for (var j = 0; j < data.userResponse[i].tans.length; j++) {
-          let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
-          let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
-          let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
-          let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
-          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-          userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
-        }
-        vm.userResponse.push(userResponse);
-      }
-
+      vm.currentScreen = data.currentScreen;
       vm.DataSetHandler.dataSet = data.dataSet;
       vm.DataSetHandler.tangramSet = data.tangramSet;
       vm.DataSetHandler.currentCategories = data.currentCategories;
-      vm.DataSetHandler.puzzlePointer = data.puzzlePointer;
+      vm.DataSetHandler.nextArr = data.nextArr;
 
-      vm.currentScreen = data.currentScreen;
+      setTimeout(() => {
+        vm.mode = data.mode;
+      //  vm.level = data.level;
+        vm.tangramCategories = data.tangramCategories;
+        vm.hintNumber = data.hintNumber;
+        vm.hintsUsed = data.hintsUsed;
+        vm.noOfHintsUsed = data.noOfHintsUsed;
+        vm.clock = data.clock;
+        vm.timeMarks = data.timeMarks;
+        if (!data.clock.active) {
+          vm.stopClock();
+        }
+        vm.pNo = data.pNo;
+        vm.score = data.score;
+        vm.gameOver = data.gameOver;
+        vm.puzzles = [];
+        for (var i = 0; i < data.puzzles.length; i++) {
+          let puzzle = {
+            ...data.puzzles[i],
+            tangram: null,
+            outline: [],
+            outlinePoints: [],
+          };
+          puzzle.targetTans = [];
+          let tans = [];
+          let tmp = vm.populatePuzzles(data.puzzles[i].targetTans);
+          puzzle.targetTans = tmp.targetTans;
+          tans = tmp.tans;
+          puzzle.tangram = new Tangram(tans);
+          puzzle.difficulty = checkDifficultyOfTangram(puzzle.tangram);
+          puzzle.outline = computeOutline(tans, true);
+
+          vm.puzzles.push(puzzle);
+        }
+        if (vm.currentScreen === 'game') {
+          vm.centerTangram();
+        }
+
+        vm.userResponse = [];
+
+        for (var i = 0; i < data.userResponse.length; i++) {
+          let userResponse = {
+            isSolved: data.userResponse[i].isSolved,
+            score: data.userResponse[i].score,
+            tans: []
+          }
+          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+          }
+          vm.userResponse.push(userResponse);
+        }
+      }, 500);
+
       if (data.currentScreen === 'game') {
         setTimeout(() => {
           vm.$refs.game.loadContext({
@@ -904,13 +896,13 @@ var app = new Vue({
             pScale: data.gameScale,
             pStage: data.gameStage
           })
-        }, 0);
+        }, 500);
       }
       if (data.currentScreen === 'setting-editor') {
         setTimeout(() => {
           if (data.puzzleToBeEdited) {
             vm.puzzleToBeEdited = data.puzzleToBeEdited;
-            vm.$refs['setting-editor'].showPuzzleToBeEdited(vm.puzzleToBeEdited);
+            vm.$refs['setting-editor'].showPuzzle(vm.puzzleToBeEdited);
           } else {
             vm.$refs['setting-editor'].loadContext({
               tans: data.gameTans,
@@ -918,13 +910,11 @@ var app = new Vue({
               pStage: data.gameStage
             })
           }
-        }, 800);
+        }, 500);
       }
-
       vm.selectTangramCategoryItem(vm.tangramCategories);
       vm.selectDifficultyItem(vm.level);
       vm.selectTimerItem(vm.clock.type);
-
     },
 
     onJournalLoadError: function(error) {
