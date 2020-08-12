@@ -173,21 +173,7 @@ Now, let's update our Pawn activity to integrate presence. Start first by handli
 ```
 The `presence-event` is the name of the event for which you wish to attach a listener for. This `SugarToolitem` detects this and automatically emits a Vue.js event with the same name, when this event is received from the palette. So, when we click the Share button, the `shared` event is received from the palette to the toolitem, and is then emitted as a Vue event to the instance. This will be handled by the `onShared()` method of the component.
 
->**NOTE**: If you wish to perform some tasks when an activity is shared, you can add a custom intermediate method as a handler to the `shared` event on this toolitem. 
->
->`v-on:shared="yourCustomHandler"`
->
->You will receive 2 arguements: `event` and `paletteObject`. Make sure to call the default method `SugarPresence.onShared` in the end of this custom method to keep the existing workflow.
->
->```js
-> // in activity.js
->yourCustomHandler: function(event, paletteObject) {
->	// Your custom code here
->
->	// Remember to call the default method
->	this.SugarPresence.onShared(event, paletteObject);
->}
->```
+>**NOTE**: The handler for the `shared` event receives two arguements: `event` and `paletteObject`. If you wish to perform some tasks when an activity is shared, you can call your custom intermediate method here and in the end call `SugarPresence.onShared` with the same arguements.
 
 We will also use the `v-if` directive to render this button only `SugarPresence` component exists (This also makes sure `onShared()` is defined at the time of binding).
 
@@ -211,7 +197,7 @@ If the activity is connected (i.e. `SugarPresence.isConnected()` is `true` which
 
 That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically intializes the presence object.
 
-In case you wish to perform some action only when the activity is a shared instance, you can make use of the `journal-shared-instance` event from `SugarJounral` which is emitted on startup of a shared instance.
+In case you wish to perform some action only when the activity is a shared instance, you can make use of the `journal-shared-instance` event from `SugarJournal` which is emitted on startup of a shared instance.
 
 You can add a handler to this in the `sugar-journal` instance like this in `index.html`:
 ```html
