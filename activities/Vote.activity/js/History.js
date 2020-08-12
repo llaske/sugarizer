@@ -25,16 +25,28 @@ var History = {
 			</ul>
 
 			<poll-stats v-else :activePoll="history[openHistoryIndex]" :current-user="currentUser" isResult isHistory></poll-stats>
-			<button v-if="openHistoryIndex != null" id="go-back" @click="$emit('set-open-history-index', null)"></button>
+			<button v-if="openHistoryIndex != null" id="go-back" :disabled="exporting != ''" @click="$emit('set-open-history-index', null)"></button>
+
+			<export 
+				v-if="exporting != ''"
+				:history="history"
+				:currentUser="currentUser"
+				:exporting="exporting"
+				@export-completed="$emit('export-completed')"
+			></export>
 		</div>
 	`,
 	components: {
-		'poll-stats': PollStats
+		'poll-stats': PollStats,
+		'export': Export
 	},
-	props: ['history', 'openHistoryIndex', 'currentUser'],
+	props: ['history', 'openHistoryIndex', 'currentUser', 'exporting'],
 	mounted() {
 		this.history.sort((a, b) => {
 			return b.endTime - a.endTime;
 		});
-	}
+	},
+	data: () => ({
+
+	})
 }

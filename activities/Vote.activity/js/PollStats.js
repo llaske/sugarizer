@@ -132,7 +132,11 @@ var PollStats = {
 			}
 		},
 		colorIndex: 0,
-		canvasInfoItem: null
+		canvasInfoItem: null,
+		l10n: {
+			stringYes: '',
+			stringNo: ''
+		}
 	}),
 	computed: {
 		sortedUsers() {
@@ -192,7 +196,16 @@ var PollStats = {
 			this.updateCounts();
 		},
 	},
+	created() {
+		this.statsOptions.animation = {
+			onComplete: () => {
+				this.$emit('animation-complete')
+			}
+		}
+	},
 	mounted() {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
+		let vm = this;
 		let ctx = document.querySelector(`#${this.id} #stats`);
 		let labels = [];
 		let dataset = {
@@ -213,6 +226,14 @@ var PollStats = {
 					gridSize: 10,
 					hover: this.showWordCount
 				});
+				var cloudFirstEvent = true;
+				ctx.addEventListener('wordclouddrawn', () => {
+					if(!cloudFirstEvent) {
+						this.$emit('animation-complete');
+					} else {
+						cloudFirstEvent = false;
+					}
+				})
 				break;
 			case "MCQ":
 				for (let option of this.activePoll.options) {
@@ -251,15 +272,15 @@ var PollStats = {
 					options: {
 						...this.statsOptions,
 						...this.statsBarOptions,
-						legend: { display: false }
+						legend: { display: false },
 					}
 				});
 				break;
 			case "Rating":
-				color = this.getColor({ random: true });
 				for (let i = 1; i <= 5; i++) {
 					labels.push(i);
 					dataset.data.push(0);
+					color = this.getColor();
 					dataset.backgroundColor.push(color.background);
 					dataset.hoverBackgroundColor.push(color.hover);
 				}
@@ -272,18 +293,36 @@ var PollStats = {
 					options: {
 						...this.statsOptions,
 						...this.statsBarOptions,
-						legend: { display: !this.isThumbnail }
+						legend: { 
+							display: !this.isThumbnail, 
+							labels: {
+								generateLabels: (chart) => {
+									return chart.data.labels.map((label, i) => {
+										let meta = chart.getDatasetMeta(0);
+										let fill = chart.data.datasets[0].backgroundColor[i]
+										return {
+											text: label,
+											fillStyle: fill,
+											strokeStyle: '#000000',
+											lineWidth: 0,
+											hidden: isNaN(chart.data.datasets[0].data[i]) || meta.data[i].hidden,
+											index: i
+										};
+									})
+								}
+							}
+						}
 					}
 				});
 				break;
 			case "YesNo":
-				labels.push('False');
+				labels.push(this.l10n.stringNo);
 				dataset.data.push(0);
 				color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
-
-				labels.push('True');
+				
+				labels.push(this.l10n.stringYes);
 				dataset.data.push(0);
 				color = this.getColor();
 				dataset.backgroundColor.push(color.background);

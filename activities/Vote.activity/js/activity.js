@@ -87,6 +87,7 @@ var app = new Vue({
 		realTimeResults: false,
 		history: [],
 		openHistoryIndex: null,
+		exporting: '',
 		SugarPresence: null,
 		l10n: {
 			stringHome: '',
@@ -285,6 +286,10 @@ var app = new Vue({
 				}
 			}
 			this.currentView = view;
+		},
+
+		onExportFormatSelected: function(event) {
+			this.exporting = event.format;
 		},
 
 		onJournalDataLoaded: function (data, metadata) {

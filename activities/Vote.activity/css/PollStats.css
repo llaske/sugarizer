@@ -112,19 +112,20 @@
 .stats-legends {
 	height: 60vh;
 	padding: 10px;
-	/* margin: 10px 5px; */
 	overflow: auto;
 }
 .stats-legends .legend-item {
 	display: flex;
 	align-items: center;
+	margin: 10px 0;
 }
 .stats-legends .legend-item .color {
-	width: 30px;
+	width: 35px;
 	height: 10px;
-	border: solid 1px #c8c8c8;
+	/* border: solid 1px #c8c8c8; */
 }
 .stats-legends .legend-item span {
+	color: grey;
 	margin: 0 10px;
 }
 .stats-legends .legend-item .legend-image {

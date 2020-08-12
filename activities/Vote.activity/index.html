@@ -17,11 +17,13 @@
 	<link rel="stylesheet" href="css/Vote.css">
 	<link rel="stylesheet" href="css/History.css">
 	<link rel="stylesheet" href="css/Settings.css">
+	<link rel="stylesheet" href="css/Export.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/Sortable.min.js"></script>
 	<script src="lib/vuedraggable.umd.min.js"></script>
 	<script src="lib/Chart.min.js"></script>
 	<script src="lib/wordcloud2.js"></script>
+	<script src="lib/jspdf.min.js"></script>
 	<script src="lib/require.js"></script>
 </head>
 
@@ -96,6 +98,16 @@
 				@click="deleteHistoryPoll"
 				v-bind:title="l10n.stringDeletePoll"
 			></sugar-toolitem>
+			<sugar-toolitem
+				id="export-button"
+				v-show="currentView == 'history' && openHistoryIndex == null" 
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-title="Export"
+				palette-event="format-selected"
+				@format-selected="onExportFormatSelected"
+				:title="l10n.stringExport"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 		</sugar-toolbar>
@@ -117,6 +129,7 @@
 						:auto-stop="autoStop"
 						:history="history"
 						:open-history-index="openHistoryIndex"
+						:exporting="exporting"
 
 						@start-poll="startPoll"
 						@stop-poll="stopPoll"
@@ -129,6 +142,7 @@
 						@set-open-history-index="setOpenHistoryIndex"
 						@save-to-history="saveToHistory"
 						@update-polls="onUpdatePolls"
+						@export-completed="exporting = ''"
 						@go-back-to="goBackTo"
 					></component>
 				</keep-alive>
@@ -144,11 +158,13 @@
 		></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-icon ref="SugarIcon"></sugar-icon>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
 	</div>
 
 	<script src="js/Polls.js"></script>
 	<script src="js/PollStats.js"></script>
 	<script src="js/Vote.js"></script>
+	<script src="js/Export.js"></script>
 	<script src="js/History.js"></script>
 	<script src="js/Settings.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
@@ -157,6 +173,7 @@
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
