@@ -37,6 +37,11 @@
 			 	title="view"
 				v-on:click="onChangeView"
 			></sugar-toolitem>
+			<sugar-toolitem id="random-button"
+				v-if="currentScreen!=='setting-editor'"
+				title="Random"
+				v-on:click="onRandom"
+			></sugar-toolitem>
 			<sugar-toolitem id="category-button"
 				v-visible="currentScreen!='setting-editor'"
 				title="tangram category"
@@ -108,6 +113,7 @@
 				v-on:edit-puzzle="onEditPuzzle"
 				v-on:delete-puzzle="onDeletePuzzle"
 				v-on:add-puzzle="onAddPuzzle"
+				v-on:save-puzzle="onSavePuzzle"
 				v-on:play-puzzle="onPlayPuzzle"
 			></component>
 		</transition>

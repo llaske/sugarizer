@@ -64,11 +64,11 @@ define(["sugar-web/graphics/palette",
       that.popDown();
     });
 
-    document.getElementById('category-button-8').addEventListener('click', function(event) {
+    /*document.getElementById('category-button-random').addEventListener('click', function(event) {
       that.tangramCategorySelectedEvent.index = "Random";
       that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
       that.popDown();
-    });
+    });*/
   };
 
   var addEventListener = function(type, listener, useCapture) {

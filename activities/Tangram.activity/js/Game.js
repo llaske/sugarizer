@@ -99,18 +99,6 @@ var Game = {
           <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
         </div>
 
-        <div class="tangram-difficulty detail-block floating-block"
-          v-bind:style="{width: tangramDiffBlock.width + 'px',
-            height: tangramDiffBlock.height + 'px',
-            top: tangramDiffBlock.top + 'px',
-            left: tangramDiffBlock.left + 'px',
-            borderColor: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'transparent',
-            color: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'black',
-          }"
-        >
-          <div>{{puzzles[pNo] ? (puzzles[pNo].difficulty ? 'HARD': 'EASY') : ''}}</div>
-        </div>
-
         <canvas id="floating-celebration-block"
           v-if="mode==='non-timer' && gameOver==='solved'"
           v-bind:style="{width: celebrationBlock.width + 'px',
@@ -249,12 +237,6 @@ var Game = {
         left: 0
       },
       celebrationBlock: {
-        width: 1,
-        height: 1,
-        top: 0,
-        left: 0
-      },
-      tangramDiffBlock: {
         width: 1,
         height: 1,
         top: 0,
@@ -436,11 +418,6 @@ var Game = {
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
       vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + gameMainEle.offsetHeight * 0.17);
-
-      vm.$set(vm.tangramDiffBlock, 'width', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.015 + toolbarHeight);
-      vm.$set(vm.tangramDiffBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
       vm.$set(vm.celebrationBlock, 'height', ch);

@@ -109,16 +109,50 @@ Vue.component('data-set-handler', {
 			}
 		},
 
-    addTangramPuzzle: function(puzzle, id) {
+    addTangramPuzzle: function(puzzle) {
+			let vm = this;
+			let index = vm.dataSet.findIndex(ele => ele.name === puzzle.category);
+			if (index === -1) {
+				vm.dataSet.push({
+					id: vm.dataSet.length,
+					name: puzzle.category,
+					tangrams: []
+				});
+				index = vm.dataSet.length - 1;
+				vm.AllCategories = vm.dataSet.map(ele => ele.name);
+			};
+			let id = vm.dataSet[index].id+"#"+Date.now();
+			let newDataSetElem = vm.createDataSetElem(puzzle, id);
+			vm.dataSet[index]["tangrams"].push(newDataSetElem);
+			if (vm.currentCategories[0] === puzzle.category) {
+				vm.tangramSet.push(newDataSetElem);
+				vm.nextArr.push(vm.tangramSet.length - 1);
+			}
+			console.log(JSON.stringify(newDataSetElem));
+		},
+
+		editTangramPuzzle: function (puzzle, id) {
+			let vm = this;
+			let index = vm.dataSet.findIndex(ele => ele.name === puzzle.category);
+			if (index === -1 || vm.currentCategories[0] !== puzzle.category){
+				vm.deleteTangramPuzzle(id);
+				vm.addTangramPuzzle(puzzle);
+				return;
+			};
+			let newDataSetElem = vm.createDataSetElem(puzzle, id);
+			let tangramIndex = vm.dataSet[index]["tangrams"].findIndex(ele => ele.id === id);
+			vm.dataSet[index]["tangrams"][tangramIndex] = newDataSetElem;
+			let tangramIndex2 = vm.tangramSet.findIndex(ele => ele.id === id);
+			vm.tangramSet[tangramIndex2] = newDataSetElem;
+		},
+
+		createDataSetElem: function (puzzle, id) {
 			let vm = this;
 			let newDataSetElem = {
-				id: null,
+				id: id,
 				name: puzzle.name,
 				targetTans: []
 			}
-			let index = vm.dataSet.findIndex(ele => ele.name === puzzle.category);
-			if (index === -1) return;
-			newDataSetElem.id = vm.dataSet[index].id+"#"+Date.now();
 
 			for (var i = 0; i < puzzle.tangram.tans.length; i++) {
 				let tan = puzzle.tangram.tans[i]
@@ -131,10 +165,7 @@ Vue.component('data-set-handler', {
 					orientation: tan.orientation
 				});
 			}
-
-			vm.dataSet[index]["tangrams"].push(newDataSetElem);
-			vm.tangramSet.push(newDataSetElem);
-			//console.log(JSON.stringify(newDataSetElem));
+			return newDataSetElem;
 		}
 	}
 })

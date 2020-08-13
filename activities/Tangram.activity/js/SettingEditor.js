@@ -46,16 +46,21 @@ var SettingEditor = {
             borderColor: fillColor,
           }"
         >
-          <div class="setting-editor-sidebar-element valid-shape-indicator"
-            v-bind:style="{
-              backgroundColor: fillColor,
-            }"
+          <div class="category-chooser"
           >
-            <div>{{ puzzleCreated.category }}</div>
+            <select name="tangram-category" v-model="categoryChosen">
+              <option
+                v-for="option in dataSetHandler.AllCategories" v-if="option!=='Random'" :value="option"
+              >{{option}}</option>
+              <option value='new-category'>Create New Category<option>
+            </select>
+          </div>
+          <div v-if="categoryChosen === 'new-category'">
+            <input type='text' name='new-category' v-model="puzzleCreated.category" required>
           </div>
           <form v-on:submit.prevent="onAddPuzzle">
             <div>
-              <input type="text" name="tangram-name" v-model="puzzleCreated.name" required>
+              <input type='text' name='tangram-name' v-model="puzzleCreated.name" required>
             </div>
           </form>
           <div class="setting-editor-sidebar-element valid-shape-indicator"
@@ -202,7 +207,7 @@ var SettingEditor = {
     let vm = this;
     vm.$set(vm.workingBox, 'stroke', vm.strokeColor);
     vm.resize();
-    vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
+    vm.categoryChosen = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
         vm.showPuzzle(vm.puzzleToBeEdited);
@@ -221,10 +226,22 @@ var SettingEditor = {
       let vm = this;
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '' && this.puzzleCreated.category !== '';
       if (res && vm.puzzleToBeEdited) {
-        vm.$emit('delete-puzzle', vm.puzzleToBeEdited.id);
-        vm.$emit('add-puzzle', vm.puzzleCreated);
+        vm.$emit('save-puzzle', {
+          id: vm.puzzleToBeEdited.id,
+          puzzle: vm.puzzleCreated
+        });
       }
       return res;
+    }
+  },
+
+  watch: {
+    categoryChosen: function() {
+      if (this.categoryChosen !== 'new-category') {
+        this.puzzleCreated.category = this.categoryChosen;
+      } else {
+        this.puzzleCreated.category = 'New Category';
+      }
     }
   },
 
@@ -294,7 +311,7 @@ var SettingEditor = {
     showPuzzle: function(puzzle) {
       let vm = this;
       vm.populateTans(puzzle.tangram.tans);
-      vm.puzzleCreated.category = puzzle.category;
+      vm.categoryChosen = puzzle.category;
       vm.puzzleCreated.name = puzzle.name;
       vm.checkIfTangramValid();
       vm.centerTangramFormed();

@@ -62,13 +62,11 @@ var app = new Vue({
     currentScreen: function() {
       var vm = this;
       if (vm.currentScreen === 'game') {
-        //document.getElementById('category-button-8').style.display = 'block';
         if (!vm.multiplayer) {
           vm.newGame();
         }
         vm.startClock();
       } else if (vm.currentScreen === 'dataset-list') {
-        //document.getElementById('category-button-8').style.display = 'none';
         if (vm.tangramCategories[0] === "Random" || vm.tangramCategories.length > 1) {
           vm.onTangramCategorySelected({
             index: "Animals"
@@ -82,15 +80,11 @@ var app = new Vue({
       if (vm.currentScreen !== 'game') {
         vm.puzzleChosen = null;
       }
-
+      vm.changeViewButton();
     },
 
     view: function() {
-      if (this.view === 'play') {
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
-      } else {
-        document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
-      }
+      this.changeViewButton();
     },
 
     pNo: function() {
@@ -106,6 +100,18 @@ var app = new Vue({
         vm.puzzles = vm.puzzles.concat(puzzles);
       }
       vm.centerTangram();
+    },
+
+    'DataSetHandler.AllCategories': function() {
+      /*let buttons = '';
+      for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
+        let index = this.DataSetHandler.currentCategories.findIndex(ele => ele === this.DataSetHandler.AllCategories[i]);
+        buttons += `<div id="category-button-` + (i + 1) + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + this.DataSetHandler.AllCategories[i] + `</div>`;
+      }
+      let catButtonsEle = document.getElementById('category-buttons');
+      if (catButtonsEle) {
+        catButtonsEle.innerHTML = buttons;
+      }*/
     }
 
   },
@@ -138,6 +144,20 @@ var app = new Vue({
           gameScreenEle.classList.remove('pulse');
         }, 600);
       }
+    },
+
+    changeViewButton: function() {
+      setTimeout(() => {
+        let viewButtonEle = document.getElementById('view-button');
+        if (viewButtonEle) {
+          if (this.view === 'play') {
+
+            document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
+          } else {
+            document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
+          }
+        }
+      }, 0);
     },
 
     startClock: function() {
@@ -485,6 +505,23 @@ var app = new Vue({
       }
     },
 
+    onRandom: function() {
+      let vm = this;
+      if (vm.tangramCategories[0] === "Random") {
+        vm.tangramCategories = ["Animals"];
+        vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
+      } else {
+        vm.tangramCategories = ["Random"];
+      }
+      vm.selectTangramCategoryItem(vm.tangramCategories);
+      vm.currentScreen = 'game';
+      if (vm.gameOver) {
+        vm.startClock();
+      }
+      vm.newGame();
+
+    },
+
     onTangramCategorySelected: function(evt) {
       let vm = this;
       vm.pulseEffect();
@@ -547,11 +584,7 @@ var app = new Vue({
         {
           cat: "Miscellaneous",
           elem: document.getElementById('category-button-7')
-        },
-        {
-          cat: "Random",
-          elem: document.getElementById('category-button-8')
-        },
+        }
       ]
 
       for (let i = 1; i <= elems.length; i++) {
@@ -703,6 +736,10 @@ var app = new Vue({
       this.goToSettingEditor();
     },
 
+    onSavePuzzle: function(data) {
+      this.DataSetHandler.editTangramPuzzle(data.puzzle, data.id);
+    },
+
     onPlayPuzzle: function(id) {
       this.puzzleChosen = this.DataSetHandler.getTangramPuzzle(id);
       let index = this.DataSetHandler.tangramSet.findIndex(ele => ele.id === id);
@@ -831,7 +868,7 @@ var app = new Vue({
 
       setTimeout(() => {
         vm.mode = data.mode;
-      //  vm.level = data.level;
+        //  vm.level = data.level;
         vm.tangramCategories = data.tangramCategories;
         vm.hintNumber = data.hintNumber;
         vm.hintsUsed = data.hintsUsed;

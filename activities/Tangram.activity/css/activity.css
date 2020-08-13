@@ -60,6 +60,10 @@ p {
 	background-image: url(../icons/tangram-type.svg);
 }
 
+#main-toolbar #random-button {
+	background-image: url(../icons/random-btn.svg);
+}
+
 #main-toolbar #level-button {
 	background-image: url(../icons/level.svg);
 }
