@@ -228,7 +228,7 @@ var PollStats = {
 				});
 				var cloudFirstEvent = true;
 				ctx.addEventListener('wordclouddrawn', () => {
-					if(!cloudFirstEvent) {
+					if (!cloudFirstEvent) {
 						this.$emit('animation-complete');
 					} else {
 						cloudFirstEvent = false;
@@ -293,8 +293,8 @@ var PollStats = {
 					options: {
 						...this.statsOptions,
 						...this.statsBarOptions,
-						legend: { 
-							display: !this.isThumbnail, 
+						legend: {
+							display: !this.isThumbnail,
 							labels: {
 								generateLabels: (chart) => {
 									return chart.data.labels.map((label, i) => {
@@ -321,7 +321,7 @@ var PollStats = {
 				color = this.getColor();
 				dataset.backgroundColor.push(color.background);
 				dataset.hoverBackgroundColor.push(color.hover);
-				
+
 				labels.push(this.l10n.stringYes);
 				dataset.data.push(0);
 				color = this.getColor();
@@ -336,7 +336,26 @@ var PollStats = {
 					data: this.statsData,
 					options: {
 						...this.statsOptions,
-						legend: { display: !this.isThumbnail }
+						legend: {
+							display: !this.isThumbnail,
+							labels: {
+								generateLabels: (chart) => {
+									let meta = chart.getDatasetMeta(0);
+									let sum = chart.data.datasets[0].data.reduce(function add(a, b) { return a + b; }, 0);
+									return chart.data.labels.map((label, i) => {
+										let fill = chart.data.datasets[0].backgroundColor[i];
+										return {
+											text: `${label}: ${chart.data.datasets[0].data[i]}`,
+											fillStyle: fill,
+											strokeStyle: '#000000',
+											lineWidth: 0,
+											hidden: isNaN(chart.data.datasets[0].data[i]) || meta.data[i].hidden,
+											index: i
+										};
+									});
+								}
+							}
+						}
 					},
 				});
 				break;
@@ -377,8 +396,8 @@ var PollStats = {
 
 			if (this.colorIndex < backgroundColors.length) {
 				let index = this.colorIndex;
-				if(options) {
-					index = options.random ? Math.floor(Math.random()*backgroundColors.length) : this.colorIndex;
+				if (options) {
+					index = options.random ? Math.floor(Math.random() * backgroundColors.length) : this.colorIndex;
 				}
 				color = {
 					background: backgroundColors[index],
@@ -440,11 +459,11 @@ var PollStats = {
 					this.$set(this.statsData.datasets[0], 'data', data);
 					break;
 				case "Rating":
-					for (let i=1; i<=5; i++) {
+					for (let i = 1; i <= 5; i++) {
 						data.push(0);
 					}
 					for (let answer of this.answers) {
-						data[answer-1]++;
+						data[answer - 1]++;
 					}
 					this.$set(this.statsData.datasets[0], 'data', data);
 					break;

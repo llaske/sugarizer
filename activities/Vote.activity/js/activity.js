@@ -170,6 +170,11 @@ var app = new Vue({
 			this.polls = polls;
 		},
 
+		onPollAdded(pollId) {
+			this.settings = false;
+			this.startPoll(pollId);
+		},
+
 		switchRealTimeResults() {
 			this.realTimeResults = !this.realTimeResults;
 

@@ -11,6 +11,7 @@
 		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/libnotify.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Polls.css">
 	<link rel="stylesheet" href="css/PollStats.css">
@@ -136,6 +137,7 @@
 						@update-counts="updateCounts"
 						@update-results="updateResults"
 						@edit-poll="editPoll"
+						@poll-added="onPollAdded"
 
 						@hand-raise-switched="onHandRaiseSwitched"
 						@vote-submitted="onVoteSubmitted"

@@ -96,13 +96,27 @@
 	justify-content: space-between;
 	align-items: center;
 }
+.settings .image-label div {
+	display: flex;
+}
 .settings .image-label button {
 	margin: 0;
+}
+#delete-image-button {
+	background-image: url(../icons/delete.svg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	margin: 0 5px;
 }
 #image-edit-button {
 	background-image: url(../icons/insert-picture.svg);
 	background-size: cover;
 	background-position: center;
+	background-repeat: no-repeat;
 	width: 30px;
 	height: 30px;
 	padding: 0;

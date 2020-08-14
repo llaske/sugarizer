@@ -62,6 +62,7 @@ var Export = {
 			<poll-stats 
 				v-for="(poll, i) in history" 
 				:key="i"
+				:ref="'export-' + i"
 				:id="'export-' + i" 
 				:activePoll="poll" 
 				:current-user="currentUser" 
@@ -85,6 +86,7 @@ var Export = {
 			stringDate: '',
 			stringYes: '',
 			stringNo: '',
+			stringAvgRating: '',
 		}
 	}),
 	computed: {
@@ -120,30 +122,6 @@ var Export = {
 		}
 	},
 	methods: {
-		getUploads: function (categoryId, skillId) {
-			var uploads = [];
-			var mediaObj = this.user.skills[categoryId][skillId].media;
-			for (var key in mediaObj) {
-				mediaObj[key].forEach(function (item) {
-					item.type = key;
-					uploads.push(item);
-				});
-			}
-			uploads.sort(function (a, b) {
-				return b.timestamp - a.timestamp;
-			});
-			return uploads;
-		},
-
-		getUploadedPath(upload) {
-			if (upload.type == 'audio') {
-				return 'images/audio-preview.jpg';
-			} else if (upload.type == 'video') {
-				return 'images/video-preview.jpg';
-			}
-			return upload.data;
-		},
-
 		canvasToImage(path) {
 			return new Promise((resolve, reject) => {
 				var img = new Image();
@@ -156,6 +134,7 @@ var Export = {
 							height: img.height,
 							canvas: null
 						});
+						return;
 					}
 					var canvas = document.createElement("canvas");
 					canvas.width = img.width;
@@ -176,9 +155,11 @@ var Export = {
 			var csvContent = "";
 
 			for (let poll of this.history) {
+				let dateString = new Date(poll.endTime).toLocaleString();
 				csvContent += `"${poll.type}"`;
 				csvContent += `,"${poll.question}"`;
 				csvContent += `,"${this.l10n.stringTotalUsers}"`;
+				csvContent += `,"${this.l10n.stringDate}"`;
 				csvContent += `\n`;
 				let data;
 				switch (poll.typeVariable) {
@@ -190,9 +171,11 @@ var Export = {
 						}
 						csvContent += `"${l10n.stringNo}","${data[0]}"`;
 						csvContent += `,"${poll.results.counts.usersCount}"`;
+						csvContent += `,"${dateString}"`;
 						csvContent += `\n`;
 						csvContent += `"${l10n.stringYes}","${data[1]}"`;
 						csvContent += `,"${poll.results.counts.usersCount}"`;
+						csvContent += `,"${dateString}"`;
 						csvContent += `\n`;
 						break;
 					case 'Rating':
@@ -204,6 +187,7 @@ var Export = {
 						for (let i = 1; i <= 5; i++) {
 							csvContent += `"${i}","${data[i - 1]}"`;
 							csvContent += `,"${poll.results.counts.usersCount}"`;
+							csvContent += `,"${dateString}"`;
 							csvContent += `\n`;
 						}
 						break;
@@ -219,6 +203,7 @@ var Export = {
 						for (let key in counts) {
 							csvContent += `"${key}","${counts[key]}"`;
 							csvContent += `,"${poll.results.counts.usersCount}"`;
+							csvContent += `,"${dateString}"`;
 							csvContent += `\n`;
 						}
 						break;
@@ -231,6 +216,7 @@ var Export = {
 						for (let i in poll.options) {
 							csvContent += `"${poll.options[i]}","${data[i]}"`;
 							csvContent += `,"${poll.results.counts.usersCount}"`;
+							csvContent += `,"${dateString}"`;
 							csvContent += `\n`;
 						}
 						break;
@@ -243,6 +229,7 @@ var Export = {
 						for (let i in poll.options) {
 							csvContent += `"${parseInt(i) + 1}","${data[i]}"`;
 							csvContent += `,"${poll.results.counts.usersCount}"`;
+							csvContent += `,"${dateString}"`;
 							csvContent += `\n`;
 						}
 						break;
@@ -252,7 +239,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: 'Vote.txt',
+				title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.pdf',
 				activity: "org.olpcfrance.Vote",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -290,7 +277,6 @@ var Export = {
 							vm.$emit('export-completed');
 						});
 				});
-
 		},
 
 		loadODT() {
@@ -633,11 +619,78 @@ var Export = {
 					y += dim.h + 15;
 
 					let dataURL = document.querySelector(`#export-${i} #stats`).toDataURL("image/png");
-					doc.addImage(dataURL, x + 37, y, 120, 120);
+					if(poll.typeVariable == "Rating") {
+						doc.addImage(dataURL, x+10, y, 120, 120);
+						// Average value
+						let avg = 0;
+						for(let answer of poll.results.answers) {
+							avg += answer;
+						}
+						avg = Math.round((avg / poll.results.answers.length * 10)) / 10;
+						doc.setFontSize(12);
+						doc.setFontStyle("normal");
+						doc.setTextColor(this.currentUser.colorvalue.stroke);
+						splitTitle = doc.splitTextToSize(vm.l10n.stringAvgRating, 180);
+						dim = doc.getTextDimensions(splitTitle);
+						doc.text(x+160, y+10+60, splitTitle, { align: "center" });
+						doc.setFontSize(36);
+						doc.setFontStyle("bold");
+						doc.setTextColor(this.currentUser.colorvalue.fill);
+						splitTitle = doc.splitTextToSize("" + avg, 180);
+						doc.text(x+160, y+60, splitTitle, { align: "center" });
+					} else {
+						doc.addImage(dataURL, x + 37, y, 120, 120);
+					}
+
+					y += 130;
+
+					// Image MCQs
+					if(poll.typeVariable == "ImageMCQ") {
+						let maxHeight = 0;
+						for (let j in poll.options) {
+							let imageWidth = 20;
+							let imageHeight = 20;
+							let res = await vm.canvasToImage(poll.options[j]);
+							imageHeight = imageWidth * (res.height / res.width);
+
+							if (x + imageWidth > 200) {
+								x = 10;
+								y += maxHeight + 10;
+								maxHeight = 0;
+
+								if (y + 10 > 280) {
+									doc.addPage();
+									y = 10;
+								}
+							} else if (y + imageHeight + 10 > 280) {
+								doc.addPage();
+								x = 10;
+								y = 10;
+							}
+							maxHeight = Math.max(maxHeight, imageHeight);
+
+							doc.addImage(res.dataURL, x, y + 2, imageWidth, imageHeight);
+							doc.setFontSize(10);
+							doc.setTextColor('#838383');
+							doc.text(x + imageWidth / 4, y, "" + (parseInt(j)+1), { align: "center" });
+							let color = this.getLegendColor(i, j);
+							doc.setFillColor(color.r, color.g, color.b);
+							doc.rect(x + imageWidth / 4 + 3.5, y - 2.5, 8, 2.5, 'F');
+							doc.setFontSize(12);
+							doc.setTextColor('#000000');
+							x += imageWidth + 10;
+							// y += maxHeight + 25;
+						}
+					}
 
 					// Stats
-					y += 120 + 70;
-					x += 80;
+					if (y + 50 > 280) {
+						doc.addPage();
+						y = 30;
+					} else {
+						y += 50;
+					}
+					x = 90;
 
 					doc.setFontSize(12);
 					doc.setFontStyle("normal");
@@ -668,106 +721,30 @@ var Export = {
 					x = 105;
 					y += 35;
 
-					doc.setFontSize(12);
-					doc.setFontStyle("normal");
-					doc.setTextColor(this.currentUser.colorvalue.stroke);
-					splitTitle = doc.splitTextToSize(vm.l10n.stringDate, 180);
-					dim = doc.getTextDimensions(splitTitle);
-					doc.text(x, y+8, splitTitle, { align: "center" });
+					// doc.setFontSize(12);
+					// doc.setFontStyle("normal");
+					// doc.setTextColor(this.currentUser.colorvalue.stroke);
+					// splitTitle = doc.splitTextToSize(vm.l10n.stringDate, 180);
+					// doc.text(x, y+8, splitTitle, { align: "center" });
 					doc.setFontSize(20);
 					doc.setFontStyle("bold");
 					doc.setTextColor(this.currentUser.colorvalue.fill);
 					splitTitle = doc.splitTextToSize(new Date(poll.endTime).toLocaleString(), 180);
 					doc.text(x, y, splitTitle, { align: "center" });
-
-
-					// for (var skill of category.skills) {
-					// 	// Skill Image
-					// 	let res = await vm.canvasToImage(skill.image);
-					// 	var imgWidth = 50;
-					// 	var imgHeight = 30;
-					// 	imgHeight = imgWidth * (res.height / res.width);
-					// 	if (y + imgHeight > 280) {
-					// 		doc.addPage();
-					// 		y = 10;
-					// 	}
-					// 	doc.addImage(res.dataURL, x, y, imgWidth, imgHeight);
-
-					// 	// Skill Title
-					// 	splitTitle = doc.splitTextToSize(this.parseString(skill.title), 100);
-					// 	doc.text(x + imgWidth + 10, y, splitTitle);
-					// 	dim = doc.getTextDimensions(splitTitle);
-					// 	// Skill level
-					// 	doc.setTextColor(vm.user.skills[category.id][skill.id].acquired == 0 ? '#838383' : vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].colors.fill);
-					// 	doc.setFontStyle('bold');
-					// 	doc.setFontSize(10);
-					// 	doc.text(200, y, vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].text, { align: "right" });
-					// 	doc.setTextColor('#000000');
-					// 	doc.setFontStyle('normal');
-					// 	doc.setFontSize(12);
-					// 	// Skill acquired date
-					// 	if (vm.user.skills[category.id][skill.id].timestamp) {
-					// 		doc.setFontSize(10);
-					// 		doc.setTextColor('#838383');
-					// 		doc.text(200, y + dim.h + 5, new Date(vm.user.skills[category.id][skill.id].timestamp).toLocaleDateString(), { align: "right" });
-					// 		doc.setFontSize(12);
-					// 		doc.setTextColor('#000000');
-					// 	}
-					// 	// Underline
-					// 	doc.line(x + imgWidth + 10, y + dim.h, 200, y + dim.h);
-
-					// 	// Media
-					// 	var uploads = vm.getUploads(category.id, skill.id);
-					// 	var maxHeight = 0;
-					// 	x = imgWidth + 20;
-					// 	for (var upload of uploads) {
-					// 		var uploadWidth = 20;
-					// 		var uploadHeight = 20;
-					// 		let res = await vm.canvasToImage(vm.getUploadedPath(upload));
-					// 		if (upload.type == "image") {
-					// 			uploadWidth = 30;
-					// 			uploadHeight = uploadWidth * (res.height / res.width);
-					// 		}
-
-					// 		if (x + uploadWidth > 200) {
-					// 			x = imgWidth + 20;
-					// 			y += maxHeight + 10;
-					// 			maxHeight = 0;
-
-					// 			if (y + 10 > 280) {
-					// 				doc.addPage();
-					// 				y = 10;
-					// 			}
-					// 		} else if (y + uploadHeight + 10 > 280) {
-					// 			doc.addPage();
-					// 			x = imgWidth + 20;
-					// 			y = 10;
-					// 		}
-					// 		maxHeight = Math.max(maxHeight, uploadHeight);
-
-					// 		doc.addImage(res.dataURL, x, y + 10, uploadWidth, uploadHeight);
-					// 		doc.setFontSize(10);
-					// 		doc.setTextColor('#838383');
-					// 		doc.text(x + uploadWidth / 2, y + uploadHeight + 15, new Date(upload.timestamp).toLocaleDateString(), { align: "center" });
-					// 		doc.setFontSize(12);
-					// 		doc.setTextColor('#000000');
-					// 		x += uploadWidth + 10;
-					// 	}
-
-					// 	x = 10;
-					// 	y += Math.max(Math.max(imgHeight, dim.h), maxHeight) + 25;   // Max of (Max of Skill Image&Skill title height) & Media height
-					// }
 					doc.setFontSize(16);
 				}
 				resolve();
 			});
 		},
 
-		parseString(str) {
-			str = str.replace('&nbsp;', ' ');
-			let parsedText = document.createElement('p');
-			parsedText.innerHTML = str;
-			return str;
+		getLegendColor(pollIndex, legendId) {
+			let rbgString = this.$refs[`export-${pollIndex}`][0].statsData.datasets[0].hoverBackgroundColor[legendId];
+			let result = rbgString.match(/\d+/g);
+			return {
+				r: parseInt(result[0]),
+				g: parseInt(result[1]),
+				b: parseInt(result[2])
+			}
 		},
 
 		download: function (data, filename, type) {

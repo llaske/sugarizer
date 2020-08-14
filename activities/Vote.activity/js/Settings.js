@@ -2,26 +2,26 @@ var PollSettings = {
 	/*html*/
 	template: `
 		<div class="settings poll-settings">
-			<poll-card 
-				:poll="poll"
-			></poll-card>
 			<form @submit.prevent="onConfirm">
-				<div>
-					<label for="type">{{ l10n.stringType }}</label>
-					<select v-model="poll.typeVariable">
-						<option :value="type" v-for="(image, type) in types" :key="type">{{ $root.$refs.SugarL10n.get(type) }}</option>
-					</select>
-				</div>
 				<div>
 					<div class="image-label">
 						<label for="image">{{ l10n.stringImage }}</label>
-						<button type="button" id="image-edit-button" @click="onUploadClick"></button>
+						<div>
+							<button type="button" id="delete-image-button" v-if="poll.image.indexOf('data:image') != -1" @click="deleteUserImage"></button>
+							<button type="button" id="image-edit-button" @click="onUploadClick"></button>
+						</div>
 					</div>
 					<img :src="poll.image">
 				</div>
 				<div>
 					<label for="question">{{ l10n.stringQuestion }}</label>
 					<input type="text" name="question" v-model="poll.question" required>
+				</div>
+				<div>
+					<label for="type">{{ l10n.stringType }}</label>
+					<select v-model="poll.typeVariable">
+						<option :value="type" v-for="(image, type) in types" :key="type">{{ $root.$refs.SugarL10n.get(type) }}</option>
+					</select>
 				</div>
 				<div v-if="poll.typeVariable == 'MCQ' || poll.typeVariable == 'ImageMCQ'">
 					<div class="options-label">
@@ -58,16 +58,7 @@ var PollSettings = {
 			</form>
 		</div>
 	`,
-	components: {
-		'poll-card': PollCard
-	},
 	props: ['polls', 'activePoll', 'activePollStatus'],
-	watch: {
-		"poll.typeVariable": function(newVal, oldVal) {
-			this.poll.type = this.$root.$refs.SugarL10n.get(newVal);
-			this.poll.image = this.types[newVal];
-		},
-	},
 	data: () =>  ({
 		poll: {
 			type: '',
@@ -93,6 +84,14 @@ var PollSettings = {
 			stringCancel: ''
 		}
 	}),
+	watch: {
+		"poll.typeVariable": function(newVal, oldVal) {
+			this.poll.type = this.$root.$refs.SugarL10n.get(newVal);
+			if(this.poll.image.indexOf('data:image') == -1) {
+				this.poll.image = this.types[newVal];
+			}
+		},
+	},
 	created: function() {
 		var vm = this;
 		if(this.activePoll && this.activePollStatus == "editing") {			// Edit poll
@@ -137,6 +136,10 @@ var PollSettings = {
 			this.$delete(this.poll.options, i);
 		},
 
+		deleteUserImage() {
+			this.poll.image = this.types[this.poll.typeVariable];
+		},
+
 		onConfirm: function() {
 			if(this.activePoll && this.activePollStatus == "editing") {			// Edit poll
 				var vm = this;
@@ -148,10 +151,11 @@ var PollSettings = {
 					this.$delete(this.poll, 'options');
 				}
 				this.polls[index] = this.poll;
+				this.$emit('go-back-to', 'polls-grid');
 			} else {													// Add poll
 				this.addPoll();
+				this.$emit('poll-added', this.poll.id);
 			}
-			this.$emit('go-back-to', 'polls-grid');
 		},
 
 		addPoll: function() {
