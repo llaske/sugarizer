@@ -102,18 +102,37 @@ var app = new Vue({
       vm.centerTangram();
     },
 
-    'DataSetHandler.AllCategories': function() {
-      /*let buttons = '';
+    'DataSetHandler.AllCategories': function(newVal, oldVal) {
+      let categoryButtonsEle = '';
+      let changeCategory = true;
       for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
         let index = this.DataSetHandler.currentCategories.findIndex(ele => ele === this.DataSetHandler.AllCategories[i]);
-        buttons += `<div id="category-button-` + (i + 1) + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + this.DataSetHandler.AllCategories[i] + `</div>`;
+        categoryButtonsEle += `<div id="category-button-` + (i + 1) + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + this.DataSetHandler.AllCategories[i] + `</div>`;
+        if (this.DataSetHandler.AllCategories[i] === this.tangramCategories[0]) {
+          changeCategory = false;
+        }
       }
       let catButtonsEle = document.getElementById('category-buttons');
       if (catButtonsEle) {
-        catButtonsEle.innerHTML = buttons;
-      }*/
+        catButtonsEle.innerHTML = categoryButtonsEle;
+        let that = this.$refs.categoryPalette.paletteObject;
+        let customEvent = this.$refs.categoryPalette.paletteObject.tangramCategorySelectedEvent;
+        let buttons = document.getElementById('category-buttons').children;
+        for (var i = 0; i < buttons.length; i++) {
+          let cat = buttons[i].innerHTML;
+          buttons[i].addEventListener('click', function(event) {
+            that.tangramCategorySelectedEvent.index = cat;
+            that.getPalette().dispatchEvent(customEvent);
+            that.popDown();
+          });
+        }
+        if (changeCategory) {
+          this.tangramCategories = [this.DataSetHandler.AllCategories[0]]
+          this.DataSetHandler.onChangeCategory(this.tangramCategories);
+          this.selectTangramCategoryItem(this.tangramCategories);
+        }
+      }
     }
-
   },
 
   mounted: function() {
@@ -487,9 +506,9 @@ var app = new Vue({
         vm.pushTimeMark();
         let tans = [];
         vm.setUserResponse(tans);
+        vm.pulseEffect();
         if (vm.mode === 'non-timer') {
           vm.stopClock();
-          vm.pulseEffect();
           for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
             let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[i].tanType];
             vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'fill', color);
@@ -533,6 +552,7 @@ var app = new Vue({
         let index = vm.tangramCategories.findIndex(el => el === evt.index);
         if (index === -1) {
           vm.tangramCategories.push(evt.index);
+          vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
         } else {
           if (vm.tangramCategories.length > 1) {
             vm.tangramCategories.splice(index, 1);
@@ -557,51 +577,22 @@ var app = new Vue({
     },
 
     selectTangramCategoryItem: function(categories) {
-      let elems = [{
-          cat: "Animals",
-          elem: document.getElementById('category-button-1')
-        },
-        {
-          cat: "Geometrical",
-          elem: document.getElementById('category-button-2')
-        },
-        {
-          cat: "Letters, Numbers, Signs",
-          elem: document.getElementById('category-button-3')
-        },
-        {
-          cat: "People",
-          elem: document.getElementById('category-button-4')
-        },
-        {
-          cat: "Usual Objects",
-          elem: document.getElementById('category-button-5')
-        },
-        {
-          cat: "Boats",
-          elem: document.getElementById('category-button-6')
-        },
-        {
-          cat: "Miscellaneous",
-          elem: document.getElementById('category-button-7')
-        }
-      ]
-
-      for (let i = 1; i <= elems.length; i++) {
-        let elem = elems[i - 1];
-        if (categories.includes(elem.cat)) {
-          elem.elem.classList.add('palette-item-selected');
+      let elems = document.getElementById('category-buttons').children;
+      for (var i = 0; i < elems.length; i++) {
+        let elem = elems[i];
+        let cat = elem.innerHTML;
+        if (categories.includes(cat)) {
+          elem.classList.add('palette-item-selected');
         } else {
-          elem.elem.classList.remove('palette-item-selected');
+          elem.classList.remove('palette-item-selected');
         }
       }
     },
 
-    onDifficultySelected: function(evt) {
+    onDifficultySelected: function() {
       var vm = this;
       vm.pulseEffect();
-      vm.level = evt.index;
-      vm.selectDifficultyItem(evt.index);
+      vm.level = vm.level ? 0 : 1;
 
       if (vm.currentScreen !== 'game') {
         return;
@@ -727,10 +718,6 @@ var app = new Vue({
       this.currentScreen = 'dataset-list';
     },
 
-    onDeletePuzzle: function(id) {
-      this.DataSetHandler.deleteTangramPuzzle(id);
-    },
-
     onEditPuzzle: function(id) {
       this.puzzleToBeEdited = this.DataSetHandler.getTangramPuzzle(id);
       this.goToSettingEditor();
@@ -748,10 +735,6 @@ var app = new Vue({
         this.DataSetHandler.nextArr.splice(i, 1);
       }
       this.currentScreen = "game";
-    },
-
-    onAddPuzzle: function(puzzle) {
-      this.DataSetHandler.addTangramPuzzle(puzzle);
     },
 
     importDataSet: function(dataSet) {
@@ -797,7 +780,7 @@ var app = new Vue({
         userResponseContext.push(userResponse);
       }
       let gameTansContext = [];
-      let gameScale, gameStage, gameTansPlaced, gameTansSnapped;
+      let gameScale, gameStage, gameTansPlaced, gameTansSnapped, puzzleCreated;
       if (vm.currentScreen === 'game' || vm.currentScreen === 'setting-editor') {
         let tans = vm.$refs[vm.currentScreen].tans;
         for (var i = 0; i < tans.length; i++) {
@@ -812,6 +795,8 @@ var app = new Vue({
         if (vm.currentScreen === 'game') {
           gameTansPlaced = vm.$refs[vm.currentScreen].tansPlaced;
           gameTansSnapped = vm.$refs[vm.currentScreen].tansSnapped;
+        } else if (vm.currentScreen === 'setting-editor') {
+          puzzleCreated = vm.$refs[vm.currentScreen].puzzleCreated;
         }
       }
 
@@ -837,9 +822,11 @@ var app = new Vue({
         gameTansSnapped: gameTansSnapped,
         gameScale: gameScale,
         gameStage: gameStage,
+        puzzleCreated: puzzleCreated,
         tangramSet: vm.DataSetHandler.tangramSet,
         dataSet: vm.DataSetHandler.dataSet,
         nextArr: vm.DataSetHandler.nextArr,
+        currentCategories: vm.DataSetHandler.currentCategories,
         currentCategories: vm.DataSetHandler.currentCategories,
         puzzleToBeEdited: vm.puzzleToBeEdited
       }
@@ -865,6 +852,7 @@ var app = new Vue({
       vm.DataSetHandler.tangramSet = data.tangramSet;
       vm.DataSetHandler.currentCategories = data.currentCategories;
       vm.DataSetHandler.nextArr = data.nextArr;
+      vm.DataSetHandler.AllCategories = data.dataSet.map(ele => ele.name);
 
       setTimeout(() => {
         vm.mode = data.mode;
@@ -937,20 +925,16 @@ var app = new Vue({
       }
       if (data.currentScreen === 'setting-editor') {
         setTimeout(() => {
-          if (data.puzzleToBeEdited) {
-            vm.puzzleToBeEdited = data.puzzleToBeEdited;
-            vm.$refs['setting-editor'].showPuzzle(vm.puzzleToBeEdited);
-          } else {
-            vm.$refs['setting-editor'].loadContext({
-              tans: data.gameTans,
-              pScale: data.gameScale,
-              pStage: data.gameStage
-            })
-          }
+          vm.puzzleToBeEdited = data.puzzleToBeEdited;
+          vm.$refs['setting-editor'].loadContext({
+            tans: data.gameTans,
+            pScale: data.gameScale,
+            pStage: data.gameStage,
+            puzzle: data.puzzleCreated,
+          })
         }, 500);
       }
       vm.selectTangramCategoryItem(vm.tangramCategories);
-      vm.selectDifficultyItem(vm.level);
       vm.selectTimerItem(vm.clock.type);
     },
 

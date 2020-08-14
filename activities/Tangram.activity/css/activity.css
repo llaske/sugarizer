@@ -166,6 +166,12 @@ p {
   background-image: url(../icons/square-filled.svg);
 }
 
+#category-buttons {
+	max-height: 70vh;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
 .palette-button {
   width: 47px;
   height: 47px;

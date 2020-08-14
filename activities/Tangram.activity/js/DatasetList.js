@@ -217,7 +217,7 @@ var DatasetList = {
     },
 
     onDeletePuzzle: function (id) {
-      this.$emit('delete-puzzle', id);
+      this.dataSetHandler.deleteTangramPuzzle(id);
     },
 
     onEditPuzzle: function (id) {

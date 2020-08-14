@@ -58,7 +58,7 @@ var SettingEditor = {
           <div v-if="categoryChosen === 'new-category'">
             <input type='text' name='new-category' v-model="puzzleCreated.category" required>
           </div>
-          <form v-on:submit.prevent="onAddPuzzle">
+          <form v-on:submit.prevent=''>
             <div>
               <input type='text' name='tangram-name' v-model="puzzleCreated.name" required>
             </div>
@@ -102,16 +102,6 @@ var SettingEditor = {
           <div class="pagination">
           </div>
           <div class="footer-actions">
-            <button
-              class="btn-in-footer btn-save"
-              v-if="canBeAdded && !puzzleToBeEdited"
-              v-bind:style="{
-                backgroundColor: fillColor,
-                width: actionButtons.width + 'px',
-                height: actionButtons.height + 'px',
-              }"
-              v-on:click="onAddPuzzle"
-            ></button>
             <button
               class="btn-in-footer btn-random"
               v-bind:style="{
@@ -178,6 +168,7 @@ var SettingEditor = {
       snapRange: 1.5,
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
       puzzleCreated: {
+        id: null,
         name: 'My Tangram',
         difficulty: '',
         category: '',
@@ -213,6 +204,8 @@ var SettingEditor = {
         vm.showPuzzle(vm.puzzleToBeEdited);
       } else {
         vm.initializeTans();
+        this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated).id;
+        console.log(this.puzzleCreated.id);
       }
     }, 0);
   },
@@ -224,12 +217,10 @@ var SettingEditor = {
 
     canBeAdded: function() {
       let vm = this;
-      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '' && this.puzzleCreated.category !== '';
-      if (res && vm.puzzleToBeEdited) {
-        vm.$emit('save-puzzle', {
-          id: vm.puzzleToBeEdited.id,
-          puzzle: vm.puzzleCreated
-        });
+      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
+      if (res) {
+        this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
+        console.log(this.puzzleCreated.id);
       }
       return res;
     }
@@ -241,6 +232,14 @@ var SettingEditor = {
         this.puzzleCreated.category = this.categoryChosen;
       } else {
         this.puzzleCreated.category = 'New Category';
+      }
+    },
+
+    'puzzleCreated.category': function () {
+      this.dataSetHandler.deleteTangramPuzzle(this.puzzleCreated.id);
+      if (this.puzzleCreated.tangram) {
+        this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(this.puzzleCreated).id;
+        console.log(this.puzzleCreated.id);
       }
     }
   },
@@ -313,6 +312,7 @@ var SettingEditor = {
       vm.populateTans(puzzle.tangram.tans);
       vm.categoryChosen = puzzle.category;
       vm.puzzleCreated.name = puzzle.name;
+      vm.puzzleCreated.id = puzzle.id;
       vm.checkIfTangramValid();
       vm.centerTangramFormed();
     },
@@ -334,6 +334,13 @@ var SettingEditor = {
       let pScale = context.pScale;
       let pw = context.pStage.width;
       let ph = context.pStage.height;
+      if (vm.puzzleCreated.id) {
+        vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
+      }
+      vm.categoryChosen = context.puzzle.category;
+      vm.puzzleCreated.name = context.puzzle.name;
+      vm.puzzleCreated.id = context.puzzle.id;
+      vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
       vm.populateTans(tanObjsArr);
       vm.checkIfTangramValid();
       for (var i = 0; i < 7; i++) {
@@ -425,10 +432,7 @@ var SettingEditor = {
     onAddPuzzle: function() {
       let vm = this;
       if (!vm.canBeAdded) return;
-      if (vm.puzzleToBeEdited) {
-        vm.$emit('delete-puzzle', vm.puzzleToBeEdited.id);
-      }
-      vm.$emit('add-puzzle', vm.puzzleCreated);
+      this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated);
       vm.$emit('go-to-dataset-list');
     },
 
