@@ -169,11 +169,11 @@ var Export = {
 						for (let answer of poll.results.answers) {
 							data[answer ? 1 : 0]++;
 						}
-						csvContent += `"${l10n.stringNo}","${data[0]}"`;
+						csvContent += `"${this.l10n.stringNo}","${data[0]}"`;
 						csvContent += `,"${poll.results.counts.usersCount}"`;
 						csvContent += `,"${dateString}"`;
 						csvContent += `\n`;
-						csvContent += `"${l10n.stringYes}","${data[1]}"`;
+						csvContent += `"${this.l10n.stringYes}","${data[1]}"`;
 						csvContent += `,"${poll.results.counts.usersCount}"`;
 						csvContent += `,"${dateString}"`;
 						csvContent += `\n`;
@@ -684,11 +684,11 @@ var Export = {
 					}
 
 					// Stats
-					if (y + 50 > 280) {
+					if (y + 40 > 280) {
 						doc.addPage();
 						y = 30;
 					} else {
-						y += 50;
+						y += 70;
 					}
 					x = 90;
 
@@ -717,8 +717,9 @@ var Export = {
 					doc.setTextColor(this.currentUser.colorvalue.fill);
 					splitTitle = doc.splitTextToSize("" + poll.results.counts.usersCount, 180);
 					doc.text(x, y, splitTitle, { align: "center" });
+					doc.setFontStyle("normal");
 					
-					x = 105;
+					x = 108;
 					y += 35;
 
 					// doc.setFontSize(12);
@@ -726,12 +727,11 @@ var Export = {
 					// doc.setTextColor(this.currentUser.colorvalue.stroke);
 					// splitTitle = doc.splitTextToSize(vm.l10n.stringDate, 180);
 					// doc.text(x, y+8, splitTitle, { align: "center" });
-					doc.setFontSize(20);
-					doc.setFontStyle("bold");
+					doc.setFontSize(16);
 					doc.setTextColor(this.currentUser.colorvalue.fill);
 					splitTitle = doc.splitTextToSize(new Date(poll.endTime).toLocaleString(), 180);
 					doc.text(x, y, splitTitle, { align: "center" });
-					doc.setFontSize(16);
+					doc.setFontSize(12);
 				}
 				resolve();
 			});

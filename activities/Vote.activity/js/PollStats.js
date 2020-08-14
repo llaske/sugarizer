@@ -66,12 +66,11 @@ var PollStats = {
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.usersCount }}</p>
 						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Users</h3>
 					</div>
-					<div class="stats-card"  v-if="isHistory" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
+					<div class="stats-card"  v-if="isHistory" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill, width: '100%' }">
 						<p 
 							class="number" 
-							:style="{ color: currentUser.colorvalue.fill, fontSize: '1.5em', margin: '5px 0' }"
-							>{{ new Date(activePoll.endTime).toLocaleString() }}</p>
-						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Date</h3>
+							:style="{ color: currentUser.colorvalue.fill, fontSize: '1em' }"
+							>{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
 					</div>
 				</div>
 			</div>
@@ -221,18 +220,14 @@ var PollStats = {
 				// let words = ["Hello", "Hi", "Hey", "Hi", "Hey", "Hello", "Hello", "Hello", "Hello", "Hi", "Hi"]
 				WordCloud(ctx, {
 					list: this.getWordsList(this.answers),
-					weightFactor: 30 - this.answers.length,
+					weightFactor: 40 - this.answers.length,
 					wait: 100,
 					gridSize: 10,
+					shrinkToFit: true,
 					hover: this.showWordCount
 				});
-				var cloudFirstEvent = true;
 				ctx.addEventListener('wordclouddrawn', () => {
-					if (!cloudFirstEvent) {
 						this.$emit('animation-complete');
-					} else {
-						cloudFirstEvent = false;
-					}
 				})
 				break;
 			case "MCQ":
@@ -443,8 +438,9 @@ var PollStats = {
 					let canvas = document.querySelector(`#${this.id} #stats`);
 					WordCloud(canvas, {
 						list: this.getWordsList(this.answers),
-						weightFactor: 30 - this.answers.length,
+						weightFactor: 40 - this.answers.length,
 						wait: 100,
+						shrinkToFit: true,
 						hover: this.showWordCount
 					});
 					break;
@@ -485,10 +481,11 @@ var PollStats = {
 		getWordsList(array) {
 			let counts = {};
 			for (let item of array) {
-				if (!counts[item]) {
-					counts[item] = 1;
+				let modifiedItem = item.trim().toLowerCase();
+				if (!counts[modifiedItem]) {
+					counts[modifiedItem] = 1;
 				} else {
-					counts[item]++;
+					counts[modifiedItem]++;
 				}
 			}
 			let list = [];
