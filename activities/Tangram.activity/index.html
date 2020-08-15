@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/Game.css">
 	<link rel="stylesheet" href="css/Result.css">
+	<link rel="stylesheet" href="css/leaderboard.css">
 	<link rel="stylesheet" href="css/DatasetList.css">
 	<link rel="stylesheet" href="css/SettingEditor.css">
 	<link rel="stylesheet" href="css/libnotify.css">
@@ -30,30 +31,30 @@
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-
-			<sugar-toolitem id="network-button" title="network"></sugar-toolitem>
+			<sugar-toolitem
+				id="network-button"
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette"
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="onActivityShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
 			<sugar-toolitem id="view-button"
-				v-if="currentScreen!='setting-editor'"
+				v-bind:disabled="disabled"
+				v-if="currentScreen!=='setting-editor'"
 			 	title="view"
 				v-on:click="onChangeView"
 			></sugar-toolitem>
-			<sugar-toolitem id="random-button"
+			<sugar-toolitem id="random-play-button"
+				v-bind:disabled="disabled"
 				v-if="currentScreen!=='setting-editor'"
-				v-bind:active="tangramCategories[0]==='Random'"
+				v-bind:class="{ active: tangramCategories[0]==='Random' }"
 				title="Random"
 				v-on:click="onRandom"
 			></sugar-toolitem>
-			<sugar-toolitem id="category-button"
-				ref='categoryPalette'
-				v-visible="currentScreen!='setting-editor'"
-				title="tangram category"
-				palette-file="js/palettes/tangramCategoryPalette.js"
-				palette-class="TangramCategoryPalette"
-				palette-title="tangram Type"
-				palette-event="tangram-category-selected"
-				v-on:tangram-category-selected="onTangramCategorySelected"
-			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
+				v-bind:disabled="disabled"
 				v-if="currentScreen!=='setting-editor'"
 				title="level"
 				v-on:click="onDifficultySelected"
@@ -61,8 +62,20 @@
 					backgroundImage: level ? `url(./icons/square-filled.svg)` : `url(./icons/square-outline.svg)`
 				}"
 			></sugar-toolitem>
+			<sugar-toolitem id="puzzle-category-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen!=='setting-editor'"
+				ref='categoryPalette'
+				title="tangram category"
+				palette-file="js/palettes/tangramCategoryPalette.js"
+				palette-class="TangramCategoryPalette"
+				palette-title="tangram Category"
+				palette-event="tangram-category-selected"
+				v-on:tangram-category-selected="onTangramCategorySelected"
+			></sugar-toolitem>
 			<sugar-toolitem id="timer-button"
-				v-visible="currentScreen!='setting-editor'"
+				v-bind:disabled="disabled"
+				v-show="currentScreen!=='setting-editor'"
 				title="Timer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
@@ -71,7 +84,8 @@
 				v-on:timer-selected="onTimerSelected"
 			></sugar-toolitem>
 			<sugar-toolitem id="hint-button"
-				v-if="level && currentScreen!='setting-editor' && currentScreen!='dataset-list'"
+				v-bind:disabled="disabled"
+				v-if="level && currentScreen=='game'"
 				title="hint"
 				v-on:click="onHint"
 			></sugar-toolitem>
@@ -102,6 +116,10 @@
 				v-bind:score="score"
 				v-bind:puzzle-to-be-edited="puzzleToBeEdited"
 				v-bind:view="view"
+				v-bind:players-all="playersAll"
+				v-bind:players-playing="playersPlaying"
+				v-bind:disabled="disabled"
+				v-bind:multiplayer="multiplayer"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:update-tans-placed="onUpdateTansPlaced"
@@ -113,12 +131,15 @@
 				v-on:edit-puzzle="onEditPuzzle"
 				v-on:save-puzzle="onSavePuzzle"
 				v-on:play-puzzle="onPlayPuzzle"
+				v-on:see-leaderboard="currentScreen = 'leaderboard'"
+				v-on:go-to-result="currentScreen = 'result'"
 			></component>
 		</transition>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<data-set-handler ref="DataSetHandler"></data-set-handler>
 	</div>
 
@@ -132,6 +153,7 @@
 	<script src="js/utils/evaluation.js"></script>
 	<script src="js/utils/generator.js"></script>
 	<script src="js/utils/standardTangrams.js"></script>
+	<script src="js/Leaderboard.js"></script>
 	<script src="js/Clock.js"></script>
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
@@ -139,6 +161,7 @@
 	<script src="js/SettingEditor.js"></script>
 	<script src="js/DataSetHandler.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

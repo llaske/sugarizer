@@ -167,6 +167,7 @@ Vue.component('data-set-handler', {
         vm.tangramSet.push(newDataSetElem);
         vm.nextArr.push(vm.tangramSet.length - 1);
       }
+			console.log(JSON.stringify(newDataSetElem));
       return newDataSetElem;
     },
 

@@ -203,7 +203,7 @@ var SettingEditor = {
       if (vm.puzzleToBeEdited) {
         vm.showPuzzle(vm.puzzleToBeEdited);
       } else {
-        vm.initializeTans();
+        vm.onRandom();
         this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated).id;
         console.log(this.puzzleCreated.id);
       }
@@ -235,7 +235,7 @@ var SettingEditor = {
       }
     },
 
-    'puzzleCreated.category': function () {
+    'puzzleCreated.category': function() {
       this.dataSetHandler.deleteTangramPuzzle(this.puzzleCreated.id);
       if (this.puzzleCreated.tangram) {
         this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(this.puzzleCreated).id;
@@ -275,6 +275,8 @@ var SettingEditor = {
       vm.$set(vm.validShapeDisplayBox, 'height', settingEditorSidebarEle.offsetHeight * 0.3);
       vm.$set(vm.validShapeDisplayBox, 'scale', settingEditorSidebarEle.offsetHeight * 0.3 / 60);
 
+      vm.initializeTansPosition();
+
       setTimeout(() => {
         if (vm.tans.length != 0) {
           for (var index = 0; index < 7; index++) {
@@ -298,6 +300,131 @@ var SettingEditor = {
       vm.$set(vm.actionButtons, 'height', settingEditorFooterEle.offsetHeight * 0.95);
     },
 
+    initializeTansPosition: function() {
+      let vm = this;
+      let settingEditorMainEle = document.querySelector('.setting-editor-main');
+      let cw = vm.configKonva.width;
+      let ch = vm.configKonva.height;
+      let scale = vm.configLayer.scaleX;
+
+      vm.initialPositions = [];
+      for (var i = 0; i < 7; i++) {
+        switch (i) {
+          case 0:
+            vm.initialPositions.push({
+              tanType: 0,
+              orientation: 7,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.8),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.70),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 1:
+            vm.initialPositions.push({
+              tanType: 0,
+              orientation: 7,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.8),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.27),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 2:
+            vm.initialPositions.push({
+              tanType: 1,
+              orientation: 0,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.05),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.70),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 3:
+            vm.initialPositions.push({
+              tanType: 2,
+              orientation: 5,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.5),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.08),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 4:
+            vm.initialPositions.push({
+              tanType: 2,
+              orientation: 1,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.5),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.88),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 5:
+            vm.initialPositions.push({
+              tanType: 3,
+              orientation: 7,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.05),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.45),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+          case 6:
+            vm.initialPositions.push({
+              tanType: 5,
+              orientation: 0,
+              anchor: {
+                x: {
+                  coeffInt: (cw / scale) * (0.05),
+                  coeffSqrt: 1
+                },
+                y: {
+                  coeffInt: (ch / scale) * (0.23),
+                  coeffSqrt: 1
+                }
+              }
+            })
+            break;
+        }
+      }
+    },
 
     centerTangramFormed: function() {
       let dx = roundToNearest(this.configKonva.width / (2 * this.configLayer.scaleX) - 30, 1);
@@ -413,7 +540,7 @@ var SettingEditor = {
 
     initializeTans: function() {
       let vm = this;
-      if (vm.puzzleToBeEdited) {
+      /*if (vm.puzzleToBeEdited) {
         vm.showPuzzle(vm.puzzleToBeEdited);
       } else {
         if (vm.initialTangram) {
@@ -425,8 +552,9 @@ var SettingEditor = {
         } else {
           vm.onRandom();
         }
-
       }
+      */
+      vm.populateTans(vm.initialPositions);
     },
 
     onAddPuzzle: function() {

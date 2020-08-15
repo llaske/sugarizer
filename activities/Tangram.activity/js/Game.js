@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score', 'disabled'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -159,6 +159,7 @@ var Game = {
           <transition name="fade" mode="out-in">
             <button
               class="btn-in-footer btn-back"
+              v-if="!disabled"
               v-bind:style="{
                 backgroundColor: fillColor,
                 width: actionButtons.width + 'px',
@@ -188,7 +189,7 @@ var Game = {
                 height: actionButtons.height + 'px',
               }"
               v-on:click="$emit('restart-game')"
-              v-if="mode==='timer'?'true':gameOver"
+              v-if="(mode==='timer'?'true':gameOver) && !disabled"
             ></button>
           </transition>
           <transition name="fade" mode="out-in">
@@ -364,11 +365,11 @@ var Game = {
       let gameMainEle = document.querySelector('.game-main');
       let cw = gameMainEle.offsetWidth * 0.985;
       let ch = gameMainEle.offsetHeight * 0.97;
-      let scale = Math.min(cw, ch) / 75;
+      let scale = Math.min(cw * 0.7, ch) / 75;
 
       let pw = vm.configKonva.width;
       let ph = vm.configKonva.height;
-      let pScale = Math.min(pw, ph) / 75;
+      let pScale = Math.min(pw * 0.7, ph) / 75;
 
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
