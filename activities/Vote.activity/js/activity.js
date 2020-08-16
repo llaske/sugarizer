@@ -25,39 +25,42 @@ var app = new Vue({
 			{
 				id: 0,
 				type: "",
-				typeVariable: "Text",
-				image: 'images/text.png',
-				question: "What is your name?",
+				typeVariable: "YesNo",
+				image: 'images/yesno.png',
+				question: "Do you agree?",
 				results: null
 			},
 			{
 				id: 1,
 				type: "",
-				typeVariable: "MCQ",
-				image: 'images/mcq.png',
-				question: "Which number is the largest?",
-				options: [
-					"Two",
-					"Three",
-					"Four",
-					"Five"
-				],
+				typeVariable: "Rating",
+				image: 'images/rating.png',
+				question: "What is your evaluation?",
 				results: null
 			},
 			{
 				id: 2,
 				type: "",
-				typeVariable: "Rating",
-				image: 'images/rating.png',
-				question: "How was the lecture today?",
+				typeVariable: "MCQ",
+				image: 'images/mcq.png',
+				question: "Which activity should we do?",
+				options: [
+					"Math",
+					"Reading",
+					"Writing",
+					"Drawing",
+					"Programming",
+					"Sport",
+					"Game"
+				],
 				results: null
 			},
 			{
 				id: 3,
 				type: "",
-				typeVariable: "YesNo",
-				image: 'images/yesno.png',
-				question: "Is this correct?",
+				typeVariable: "Text",
+				image: 'images/text.png',
+				question: "What is your current feeling?",
 				results: null
 			},
 			{
@@ -65,12 +68,14 @@ var app = new Vue({
 				type: "",
 				typeVariable: "ImageMCQ",
 				image: 'images/image-mcq.png',
-				question: "Which sport should we play today?",
+				question: "Which is your favorite animal?",
 				options: [
-					"https://image.freepik.com/free-vector/football-match_23-2147510647.jpg",
-					"https://cdn.myanimelist.net/s/common/uploaded_files/1458944553-4b7af8f4ae7669de5d0117c62f866e0e.jpeg",
-					"https://www.gstindia.com/wp-content/uploads/bfi_thumb/cricket-n36v308u97493zg6wv7qf3800x5adbz6mnqufan1n4.jpg",
-					"https://image.shutterstock.com/image-vector/stock-vector-illustration-back-sport-260nw-665547703.jpg"
+					"images/dog.png",
+					"images/cat.png",
+					"images/dolphin.png",
+					"images/panda.png",
+					"images/bear.png",
+					"images/rabbit.png",
 				],
 				results: null
 			},
