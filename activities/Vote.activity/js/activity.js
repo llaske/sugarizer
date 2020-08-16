@@ -299,12 +299,30 @@ var app = new Vue({
 					this.$set(this.connectedUsers[id], 'handRaised', false);
 				}
 				this.counts.answersCount = 0;
+				// Remove users who left
+				this.removeUsersNotConnected();
 				// Clear results from poll templates
 				for(let poll of this.polls) {
 					this.$set(poll, 'results', null);
 				}
 			}
 			this.currentView = view;
+		},
+
+		removeUsersNotConnected() {
+			let stillConnected = {};
+			let sharedId = this.SugarPresence.presence.sharedInfo.id;
+			let vm = this;
+			this.SugarPresence.presence.listSharedActivityUsers(sharedId, function(users) {
+				for (var i = 0 ; i < users.length ; i++) {
+					stillConnected[users[i].networkId] = true;	
+				}
+				for(let networkId in vm.connectedUsers) {
+					if(!stillConnected[networkId]) {
+						vm.$delete(vm.connectedUsers, networkId);
+					}
+				}
+			});
 		},
 
 		onExportFormatSelected: function(event) {
