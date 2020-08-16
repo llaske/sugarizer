@@ -127,7 +127,7 @@ var SettingEditor = {
                 width: actionButtons.width + 'px',
                 height: actionButtons.height + 'px',
               }"
-              v-on:click="$emit('go-to-dataset-list')"
+              v-on:click="goBack"
             ></button>
           </div>
       </div>
@@ -241,7 +241,17 @@ var SettingEditor = {
         this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(this.puzzleCreated).id;
         console.log(this.puzzleCreated.id);
       }
-    }
+    },
+
+    'puzzleCreated.tangram': function () {
+      let vm = this;
+      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
+      if (res) {
+        this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
+        console.log(this.puzzleCreated.id);
+      }
+    },
+
   },
 
   methods: {
@@ -564,6 +574,16 @@ var SettingEditor = {
       vm.$emit('go-to-dataset-list');
     },
 
+    goBack: function () {
+      let vm = this;
+      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
+      if (res) {
+        this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
+        console.log(this.puzzleCreated.id);
+      }
+      vm.$emit('go-to-dataset-list')
+    },
+
     checkIfTangramValid: function() {
       let vm = this;
       //check the outline
@@ -579,6 +599,7 @@ var SettingEditor = {
       let tang = null;
       if (currentOut) {
         tang = new Tangram(tans);
+        tang.dup();
         valid = tang.evaluation ? (tang.evaluation.rangeX < 60 && tang.evaluation.rangeY < 60) : false;
         if (valid) {
           let tanSegments = computeSegments(getAllPoints(tans), tans);

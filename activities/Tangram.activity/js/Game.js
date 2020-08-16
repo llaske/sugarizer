@@ -415,10 +415,10 @@ var Game = {
 
       vm.resizePartitionLine();
 
-      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.50);
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.65);
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
-      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + gameMainEle.offsetHeight * 0.17);
+      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
       vm.$set(vm.celebrationBlock, 'height', ch);

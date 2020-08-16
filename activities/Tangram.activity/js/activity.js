@@ -168,6 +168,15 @@ var app = new Vue({
           this.selectTangramCategoryItem(this.tangramCategories);
         }
       }
+    },
+
+    playersPlaying: function() {
+      var vm = this;
+      if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
+        vm.disabled = false;
+      } else {
+        vm.disabled = true;
+      }
     }
   },
 
@@ -1262,6 +1271,8 @@ var app = new Vue({
         });
         vm.SugarPresence.isHost = vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId ? true : false;
       }
+      console.log(vm.connectedPlayers);
+      console.log(vm.playersAll);
 
     },
 

@@ -3298,6 +3298,114 @@
             "tanType": 4,
             "orientation": 3
           }]
+        },
+        {
+          "id": "6#3",
+          "name": "Tugboat",
+          "targetTans": [{
+            "anchor": {
+              "x": [30, 0],
+              "y": [24, 6]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [42, 0],
+              "y": [36, 6]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [24, -6]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [30, 6]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [18, 0],
+              "y": [36, 6]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [18, 0],
+              "y": [24, 0]
+            },
+            "tanType": 3,
+            "orientation": 0
+          }, {
+            "anchor": {
+              "x": [6, 0],
+              "y": [24, 6]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "6#4",
+          "name": "Trawler",
+          "targetTans": [{
+            "anchor": {
+              "x": [18, 0],
+              "y": [36, 3]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [24, 3]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [42, -6],
+              "y": [24, -3]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [36, 0],
+              "y": [30, 3]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [48, 0],
+              "y": [30, 3]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [36, 0],
+              "y": [30, 3]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [42, -6],
+              "y": [24, -3]
+            },
+            "tanType": 4,
+            "orientation": 3
+          }]
         }
       ]
     },
@@ -3410,6 +3518,168 @@
             },
             "tanType": 4,
             "orientation": 0
+          }]
+        },
+        {
+          "id": "7#3",
+          "name": "Heart",
+          "targetTans": [{
+            "anchor": {
+              "x": [24, 0],
+              "y": [15, 0]
+            },
+            "tanType": 0,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [36, 0],
+              "y": [39, 0]
+            },
+            "tanType": 0,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [27, 0]
+            },
+            "tanType": 1,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [36, 0],
+              "y": [15, 0]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [33, 0]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [39, 0]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30, 0],
+              "y": [21, 0]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "7#4",
+          "name": "helicopter",
+          "targetTans": [{
+            "anchor": {
+              "x": [60, -6],
+              "y": [30, 3]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [36, -6],
+              "y": [30, 3]
+            },
+            "tanType": 0,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [48, 0],
+              "y": [18, -3]
+            },
+            "tanType": 1,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [30, -6],
+              "y": [36, 3]
+            },
+            "tanType": 2,
+            "orientation": 5
+          }, {
+            "anchor": {
+              "x": [36, -6],
+              "y": [30, 3]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [12, -6],
+              "y": [30, 3]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [30.000000000000007, -6],
+              "y": [12, 3]
+            },
+            "tanType": 4,
+            "orientation": 0
+          }]
+        },
+        {
+          "id": "7#5",
+          "name": "Apple",
+          "targetTans": [{
+            "anchor": {
+              "x": [18, 0],
+              "y": [31, 6]
+            },
+            "tanType": 0,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [42, 0],
+              "y": [31, 6]
+            },
+            "tanType": 0,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [42, 0],
+              "y": [19, 6]
+            },
+            "tanType": 1,
+            "orientation": 2
+          }, {
+            "anchor": {
+              "x": [36, 0],
+              "y": [13, 6]
+            },
+            "tanType": 2,
+            "orientation": 1
+          }, {
+            "anchor": {
+              "x": [24, 0],
+              "y": [25, 6]
+            },
+            "tanType": 2,
+            "orientation": 3
+          }, {
+            "anchor": {
+              "x": [18, 0],
+              "y": [19, 6]
+            },
+            "tanType": 3,
+            "orientation": 7
+          }, {
+            "anchor": {
+              "x": [28, 6],
+              "y": [17, -6]
+            },
+            "tanType": 5,
+            "orientation": 3
           }]
         }
       ]
