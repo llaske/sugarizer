@@ -88,7 +88,7 @@
 	cursor: pointer;
 }
 .poll-stats-container {
-	height: 63vh;
+	/* height: 100%; */
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -102,7 +102,7 @@
 .stats-container {
 	position: relative;
 	height: 60vh;
-	width: 60vh;
+	width: 80vh;
 	max-width: 100%;
 }
 .is-thumbnail .poll-stats-container .stats-container {
@@ -159,6 +159,11 @@
 }
 .stats-card .title {
 	margin: 0;
+}
+.date {
+	font-size: calc(1em + 0.5vw);
+	font-weight: 700;
+	color: #1E1E1E;
 }
 
 .wait-text {

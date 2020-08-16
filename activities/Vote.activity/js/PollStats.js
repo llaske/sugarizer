@@ -23,18 +23,13 @@ var PollStats = {
 				<h2>{{ activePoll.question }}</h2>
 				<button id="stop-poll" @click="stopPoll" v-if="!isResult && activePollStatus == 'running'"></button>
 			</div>
-
-			<div style="position: absolute; width: 100px; background: rgba(0,0,0,0.4); display: none">
-				{{ answers }} <br>
-				{{ activePoll.results }}
-			</div>
 		
 			<div class="poll-stats-container">
 				<div class="stats-container">
 					<p class="wait-text" v-show="activePoll.typeVariable == 'Text' && answers.length == 0  && !isThumbnail">{{ $root.$refs.SugarL10n.get('WaitingVotes') }}</p>
 					<canvas 
 						id="stats" 
-						width="500" 
+						width="700" 
 						height="500" 
 						v-show="activePoll.typeVariable != 'Text' || answers.length != 0"
 					></canvas>
@@ -66,12 +61,7 @@ var PollStats = {
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.usersCount }}</p>
 						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Users</h3>
 					</div>
-					<div class="stats-card"  v-if="isHistory" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill, width: '100%' }">
-						<p 
-							class="number" 
-							:style="{ color: currentUser.colorvalue.fill, fontSize: '1em' }"
-							>{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
-					</div>
+					<p class="date"  v-if="isResult">{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
 				</div>
 			</div>
 			
@@ -221,13 +211,11 @@ var PollStats = {
 				WordCloud(ctx, {
 					list: this.getWordsList(this.answers),
 					weightFactor: 40 - this.answers.length,
-					wait: 100,
-					gridSize: 10,
 					shrinkToFit: true,
 					hover: this.showWordCount
 				});
 				ctx.addEventListener('wordclouddrawn', () => {
-						this.$emit('animation-complete');
+					this.$emit('animation-complete');
 				})
 				break;
 			case "MCQ":
@@ -439,7 +427,6 @@ var PollStats = {
 					WordCloud(canvas, {
 						list: this.getWordsList(this.answers),
 						weightFactor: 40 - this.answers.length,
-						wait: 100,
 						shrinkToFit: true,
 						hover: this.showWordCount
 					});
@@ -481,12 +468,16 @@ var PollStats = {
 		getWordsList(array) {
 			let counts = {};
 			for (let item of array) {
-				let modifiedItem = item.trim().toLowerCase();
-				if (!counts[modifiedItem]) {
-					counts[modifiedItem] = 1;
-				} else {
-					counts[modifiedItem]++;
+				let separateItems = item.split(',');
+				for (let separateItem of separateItems) {
+					let modifiedItem = separateItem.trim().toLowerCase();
+					if (!counts[modifiedItem]) {
+						counts[modifiedItem] = 1;
+					} else {
+						counts[modifiedItem]++;
+					}
 				}
+
 			}
 			let list = [];
 			for (let key in counts) {

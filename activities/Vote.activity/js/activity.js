@@ -108,6 +108,15 @@ var app = new Vue({
 			return this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		}
 	},
+	watch: {
+		currentView: function (newVal, oldVal) {
+			// Close all open palettes
+			for (var palette of document.getElementsByClassName('palette')) {
+				palette.style.visibility = 'hidden';
+			}
+			this.searchText = "";
+		},
+	},
 	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
 	},
@@ -432,7 +441,9 @@ var app = new Vue({
 					}
 				}
 			} else {
-				console.log(msg);
+				if(this.connectedUsers[msg.user.networkId].answer == null) {
+					this.$delete(this.connectedUsers, msg.user.networkId);
+				}
 			}
 		},
 

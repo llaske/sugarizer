@@ -239,7 +239,7 @@ var Export = {
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.pdf',
+				title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.txt',
 				activity: "org.olpcfrance.Vote",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -594,7 +594,7 @@ var Export = {
 				let firstPoll = true;
 				var splitTitle;
 				var y = 10, x = 10;
-				for (let i in vm.history) {
+				for (let i=vm.history.length-1; i>=0; i--) {
 					let poll = vm.history[i];
 					if(!firstPoll) {
 						doc.addPage();
@@ -619,9 +619,12 @@ var Export = {
 					y += dim.h + 15;
 
 					let dataURL = document.querySelector(`#export-${i} #stats`).toDataURL("image/png");
+					doc.addImage(dataURL, x+12, y, 168, 120);
+
+					y += 130;
+
+					// Average value
 					if(poll.typeVariable == "Rating") {
-						doc.addImage(dataURL, x+10, y, 120, 120);
-						// Average value
 						let avg = 0;
 						for(let answer of poll.results.answers) {
 							avg += answer;
@@ -632,19 +635,15 @@ var Export = {
 						doc.setTextColor(this.currentUser.colorvalue.stroke);
 						splitTitle = doc.splitTextToSize(vm.l10n.stringAvgRating, 180);
 						dim = doc.getTextDimensions(splitTitle);
-						doc.text(x+160, y+10+60, splitTitle, { align: "center" });
+						doc.text(x+100, y+15, splitTitle, { align: "center" });
 						doc.setFontSize(36);
 						doc.setFontStyle("bold");
 						doc.setTextColor(this.currentUser.colorvalue.fill);
 						splitTitle = doc.splitTextToSize("" + avg, 180);
-						doc.text(x+160, y+60, splitTitle, { align: "center" });
-					} else {
-						doc.addImage(dataURL, x + 37, y, 120, 120);
+						doc.text(x+100, y+5, splitTitle, { align: "center" });
 					}
 
-					y += 130;
-
-					// Image MCQs
+					// Image MCQs legends
 					if(poll.typeVariable == "ImageMCQ") {
 						let maxHeight = 0;
 						for (let j in poll.options) {
@@ -662,7 +661,7 @@ var Export = {
 									doc.addPage();
 									y = 10;
 								}
-							} else if (y + imageHeight + 10 > 280) {
+							} else if (y + imageHeight + 10 > 281) {
 								doc.addPage();
 								x = 10;
 								y = 10;
@@ -688,7 +687,7 @@ var Export = {
 						doc.addPage();
 						y = 30;
 					} else {
-						y += 70;
+						y = 280 - 30;
 					}
 					x = 90;
 
@@ -720,15 +719,10 @@ var Export = {
 					doc.setFontStyle("normal");
 					
 					x = 108;
-					y += 35;
+					y += 25;
 
-					// doc.setFontSize(12);
-					// doc.setFontStyle("normal");
-					// doc.setTextColor(this.currentUser.colorvalue.stroke);
-					// splitTitle = doc.splitTextToSize(vm.l10n.stringDate, 180);
-					// doc.text(x, y+8, splitTitle, { align: "center" });
 					doc.setFontSize(16);
-					doc.setTextColor(this.currentUser.colorvalue.fill);
+					doc.setTextColor('#1e1e1e');
 					splitTitle = doc.splitTextToSize(new Date(poll.endTime).toLocaleString(), 180);
 					doc.text(x, y, splitTitle, { align: "center" });
 					doc.setFontSize(12);
