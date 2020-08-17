@@ -263,8 +263,8 @@ var Export = {
 					// vm.download(result, "test.fodt", "application/vnd.oasis.opendocument.text");
 					var metadata = {
 						mimetype: 'application/vnd.oasis.opendocument.text',
-						title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.odt',
-						activity: "org.olpcfrance.Curriculum",
+						title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.odt',
+						activity: "org.olpcfrance.Vote",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
 						file_size: 0
@@ -293,143 +293,62 @@ var Export = {
 				vm.loadODT()
 					.then(async (odt) => {
 						let xml = odt.xml;
-						vm.addCoverToODT(odt)
+						vm.addHistoryToODT(odt)
 							.then(xmlData => {
 								xml += xmlData;
-								vm.addStatsToODT(odt)
-									.then(xmlData => {
-										xml += xmlData;
-										vm.addCategoriesToODT(odt)
-											.then(xmlData => {
-												xml += xmlData;
-												resolve(odt.header + odt.styles + odt.getAutomaticStyles() + odt.automaticStylesEnd + xml + odt.footer);
-											});
-									});
+								resolve(odt.header + odt.styles + odt.getAutomaticStyles() + odt.automaticStylesEnd + xml + odt.footer);
 							});
 					});
 			});
 		},
 
-		addCoverToODT(odt) {
-			let vm = this;
-			let xmlData = '';
-			return new Promise((resolve, reject) => {
-				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
-					.then(src => {
-						vm.canvasToImage(src)
-							.then(res => {
-								xmlData += odt.addCover(vm.templateTitle, res.dataURL, vm.currentenv.user.name)
-								resolve(xmlData);
-							});
-					});
-			})
-		},
-
-		addStatsToODT(odt) {
-			let vm = this;
-			let xmlData = '';
-			return new Promise((resolve, reject) => {
-				// Stats
-				odt.addLevelStyles(vm.levels[vm.notationLevel]);
-				let levels = [];
-				for (let key in vm.levels[vm.notationLevel]) {
-					levels.push({
-						text: vm.levels[vm.notationLevel][key].text,
-						percent: Math.round(vm.levelWiseAcquired[key] / vm.totalSkills * 100 * 100) / 100
-					});
-				}
-				xmlData += odt.addStatsTable(levels);
-
-				//Rewards
-				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", vm.currentenv.user.colorvalue)
-					.then(src => {
-						vm.canvasToImage(src)
-							.then(async function (trophyIcon) {
-								let achievementsToAdd = [];
-								for (var achievement of vm.achievements) {
-									if (vm.user.achievements[achievement.id].timestamp != null) {
-										var canvas = document.createElement('canvas');
-										canvas.width = trophyIcon.width;
-										canvas.height = trophyIcon.height;
-										var ctx = canvas.getContext("2d");
-										ctx.drawImage(trophyIcon.canvas, 0, 0);
-
-										// Trophy center icon
-										var centerIcon = await vm.canvasToImage(`icons/${achievement.info.icon}`);
-										ctx.drawImage(centerIcon.canvas, (trophyIcon.width / 2) - 10, trophyIcon.height / 3.5, 20, 20);
-										// Achievement Title
-										ctx.font = "bold 14px Arial";
-										ctx.fillStyle = "white";
-										ctx.textAlign = "center";
-										ctx.fillText(achievement.info.text, trophyIcon.width / 2, trophyIcon.height / 4);
-										let achievementObj = {
-											imageURL: canvas.toDataURL("image/png"),
-											title: achievement.title,
-											time: new Date(vm.user.achievements[achievement.id].timestamp).toLocaleDateString()
-										}
-										achievementsToAdd.push(achievementObj);
-									}
-								}
-								xmlData += odt.addRewards(achievementsToAdd);
-								resolve(xmlData);
-							});
-					});
-			});
-		},
-
-		addCategoriesToODT(odt) {
+		addHistoryToODT(odt) {
 			let vm = this;
 			let xmlData = '';
 			return new Promise(async (resolve, reject) => {
-				for (let category of vm.categories) {
-					let catObj = {
-						id: category.id,
-						title: category.title,
-						color: category.color
+				for (let i = vm.history.length - 1; i >= 0; i--) {
+					let poll = vm.history[i];
+					let pageData = "";
+					pageData += odt.addQuestion(poll.question);
+
+					// Chart
+					let dataURL = document.querySelector(`#export-${i} #stats`).toDataURL("image/png");
+					let chartFrame = odt.addChartFrame(dataURL);
+
+					let legendsFrames = "";
+					let avgRatingFrame = "";
+
+					//Average Rating
+					if (poll.typeVariable == 'Rating') {
+						let avg = 0;
+						for (let answer of poll.results.answers) {
+							avg += answer;
+						}
+						avg = Math.round((avg / poll.results.answers.length * 10)) / 10;
+						avgRatingFrame = odt.addAvgRatingFrame(avg);
 					}
-					xmlData += odt.addCategoryTitle(catObj);
 
-					for (let skill of category.skills) {
-						let skillContent = '';
-						// SKill image
-						let res = await vm.canvasToImage(skill.image);
-						let imgWidth = 6.392;
-						let imgHeight = imgWidth * (res.height / res.width);
-						let imgFrame = odt.addImage(res.dataURL, imgWidth, imgHeight);
-						// Skill level
-						let levelObj = {
-							text: vm.levels[vm.notationLevel][vm.user.skills[category.id][skill.id].acquired].text,
-							level: vm.user.skills[category.id][skill.id].acquired
-						}
-						let skillLevel = odt.addSkillLevel(levelObj);
-						// Skill title
-						skillContent = skillLevel + imgFrame;
-						skillContent = odt.addSkillTitle(skill.title, skillContent);
-						// Skill timestamp
-						if (vm.user.skills[category.id][skill.id].timestamp) {
-							skillContent += odt.addSkillTimestamp(new Date(vm.user.skills[category.id][skill.id].timestamp).toLocaleDateString());
-						}
-
-						// Media
-						var mediaFrame = '';
-						var uploads = vm.getUploads(category.id, skill.id);
-						for (var upload of uploads) {
-							let res = await vm.canvasToImage(vm.getUploadedPath(upload));
-							let uploadWidth = 4.269;
-							let uploadHeight = uploadWidth * (res.height / res.width);
-							let mediaObj = {
+					// Image legends
+					if (poll.typeVariable == 'ImageMCQ') {
+						let imageWidth = 2.7;  // in cm for ODT
+						for (let j = 0; j < poll.options.length; j++) {
+							let res = await vm.canvasToImage(poll.options[j]);
+							let imageHeight = imageWidth * (res.height / res.width);
+							let legendObj = {
+								text: parseInt(j) + 1,
 								imageURL: res.dataURL,
-								time: new Date(upload.timestamp).toLocaleDateString(),
-								width: uploadWidth,
-								height: uploadHeight
+								width: imageWidth,
+								height: imageHeight
 							}
-							mediaFrame += odt.addMediaFrame(mediaObj);
+							legendsFrames += odt.addLegendFrame(legendObj);
 						}
-						mediaFrame = odt.addToMediaContainerFrame(mediaFrame);
-						skillContent += mediaFrame;
-						let skillFrame = odt.addToSkillFrame(skillContent);
-						xmlData += skillFrame;
 					}
+
+					let chartInfoFrame = odt.addToChartInfoFrame(chartFrame + avgRatingFrame + legendsFrames);
+					pageData += odt.addToMainContainer(chartInfoFrame);
+					pageData = odt.addToPageContainer(pageData);
+
+					xmlData += pageData;
 				}
 				resolve(xmlData);
 			});
@@ -491,112 +410,15 @@ var Export = {
 				})
 		},
 
-		addCoverToPDF(doc) {
-			let vm = this;
-			return new Promise((resolve, reject) => {
-				doc.setFontStyle("bold");
-				doc.setFontSize(20);
-				doc.text(105, 100, this.parseString(vm.templateTitle), { align: "center" });
-				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
-					.then(src => {
-						vm.canvasToImage(src)
-							.then(res => {
-								doc.addImage(res.dataURL, 90, 110, 30, 30);
-								// Next section
-								resolve();
-							});
-					});
-				doc.text(105, 150, this.parseString(vm.currentenv.user.name), { align: "center" });
-				doc.setFontSize(16);
-				doc.setFontStyle("normal");
-			})
-		},
-
-		addStatsToPDF(doc) {
-			let vm = this;
-			return new Promise((resolve, reject) => {
-				doc.addPage();
-				var x = 10, y = 15;
-				// Statistics
-				doc.setFontStyle("bold");
-				doc.text(x, y, this.l10n.stringStatistics);
-				doc.setFontStyle("normal");
-				y += 15;
-
-				doc.setFontSize(12);
-				var totalWidth = 120;
-				for (var level = this.levels[this.notationLevel].length - 1; level >= 0; level--) {
-					var percent = Math.round((this.levelWiseAcquired[level] / this.totalSkills * 100) * 100) / 100;
-					doc.setTextColor('#000000');
-					doc.text(x + 35, y, this.levels[this.notationLevel][level].text, { align: "right" });
-					doc.setDrawColor(this.levels[this.notationLevel][level].colors.stroke);
-					doc.rect(x + 40, y - 4, totalWidth, 6);
-					doc.setFillColor(this.levels[this.notationLevel][level].colors.fill == '#FFFFFF' ? '#838383' : this.levels[this.notationLevel][level].colors.fill);
-					doc.setTextColor(this.levels[this.notationLevel][level].colors.fill == '#FFFFFF' ? '#838383' : this.levels[this.notationLevel][level].colors.fill);
-					doc.rect(x + 40, y - 4, percent * totalWidth / 100, 6, 'FD');
-					doc.text(x + totalWidth + 45, y, percent + '%');
-					y += 10;
-				}
-				y += 10;
-				doc.setTextColor('#000000');
-				doc.setFontSize(16);
-
-				// Rewards
-				doc.setFontStyle("bold");
-				doc.text(x, y, this.l10n.stringRewards);
-				doc.setFontStyle("normal");
-				y += 10;
-
-				doc.setFontSize(12);
-				var vm = this;
-				this.$root.$refs.SugarIcon.generateIconWithColors("../icons/trophy-large.svg", this.currentenv.user.colorvalue)
-					.then(src => {
-						vm.canvasToImage(src)
-							.then(async function (res) {
-								var trophyIcon = res.dataURL;
-								for (var achievement of vm.achievements) {
-									if (vm.user.achievements[achievement.id].timestamp != null) {
-										doc.addImage(trophyIcon, x, y, 30, 30);
-										// Achievement info
-										doc.setFontSize(10);
-										doc.setTextColor('#ffffff');
-										doc.setFontStyle('bold');
-										doc.text(x + 15, y + 8, achievement.info.text, { align: "center" });
-										doc.setFontStyle('normal');
-										doc.setTextColor('#000000');
-										doc.setFontSize(12);
-										// Trophy center icon
-										var res2 = await vm.canvasToImage(`icons/${achievement.info.icon}`);
-										doc.addImage(res2.dataURL, x + 13, y + 9, 4, 4);
-										// Achievement Title
-										var splitTitle = doc.splitTextToSize(achievement.title, 30);
-										doc.text(x + 15, y + 40, splitTitle, { align: "center" });
-										var dim = doc.getTextDimensions(splitTitle);
-										// Achievement Date
-										doc.setFontSize(10);
-										doc.setTextColor('#838383');
-										doc.text(x + 15, y + 42 + dim.h, new Date(vm.user.achievements[achievement.id].timestamp).toLocaleDateString(), { align: "center" });
-										doc.setFontSize(12);
-										doc.setTextColor('#000000');
-										x += 35;
-									}
-								}
-								// Next section
-								resolve();
-							});
-					});
-			});
-		},
-
 		addHistoryToPDF(doc) {
 			let vm = this;
 			return new Promise(async (resolve, reject) => {
 				let firstPoll = true;
 				var splitTitle;
 				var y = 10, x = 10;
-				for (let i=vm.history.length-1; i>=0; i--) {
+				for (let i = vm.history.length - 1; i >= 0; i--) {
 					let poll = vm.history[i];
-					if(!firstPoll) {
+					if (!firstPoll) {
 						doc.addPage();
 					} else {
 						firstPoll = false;
@@ -619,14 +441,14 @@ var Export = {
 					y += dim.h + 15;
 
 					let dataURL = document.querySelector(`#export-${i} #stats`).toDataURL("image/png");
-					doc.addImage(dataURL, x+12, y, 168, 120);
+					doc.addImage(dataURL, x + 12, y, 168, 120);
 
 					y += 130;
 
 					// Average value
-					if(poll.typeVariable == "Rating") {
+					if (poll.typeVariable == "Rating") {
 						let avg = 0;
-						for(let answer of poll.results.answers) {
+						for (let answer of poll.results.answers) {
 							avg += answer;
 						}
 						avg = Math.round((avg / poll.results.answers.length * 10)) / 10;
@@ -635,16 +457,16 @@ var Export = {
 						doc.setTextColor(this.currentUser.colorvalue.stroke);
 						splitTitle = doc.splitTextToSize(vm.l10n.stringAvgRating, 180);
 						dim = doc.getTextDimensions(splitTitle);
-						doc.text(x+100, y+15, splitTitle, { align: "center" });
+						doc.text(x + 100, y + 15, splitTitle, { align: "center" });
 						doc.setFontSize(36);
 						doc.setFontStyle("bold");
 						doc.setTextColor(this.currentUser.colorvalue.fill);
 						splitTitle = doc.splitTextToSize("" + avg, 180);
-						doc.text(x+100, y+5, splitTitle, { align: "center" });
+						doc.text(x + 100, y + 5, splitTitle, { align: "center" });
 					}
 
 					// Image MCQs legends
-					if(poll.typeVariable == "ImageMCQ") {
+					if (poll.typeVariable == "ImageMCQ") {
 						let maxHeight = 0;
 						for (let j in poll.options) {
 							let imageWidth = 20;
@@ -671,7 +493,7 @@ var Export = {
 							doc.addImage(res.dataURL, x, y + 2, imageWidth, imageHeight);
 							doc.setFontSize(10);
 							doc.setTextColor('#838383');
-							doc.text(x + imageWidth / 4, y, "" + (parseInt(j)+1), { align: "center" });
+							doc.text(x + imageWidth / 4, y, "" + (parseInt(j) + 1), { align: "center" });
 							let color = this.getLegendColor(i, j);
 							doc.setFillColor(color.r, color.g, color.b);
 							doc.rect(x + imageWidth / 4 + 3.5, y - 2.5, 8, 2.5, 'F');
@@ -696,28 +518,28 @@ var Export = {
 					doc.setTextColor(this.currentUser.colorvalue.stroke);
 					splitTitle = doc.splitTextToSize(vm.l10n.stringTotalVotes, 180);
 					dim = doc.getTextDimensions(splitTitle);
-					doc.text(x, y+10, splitTitle, { align: "center" });
+					doc.text(x, y + 10, splitTitle, { align: "center" });
 					doc.setFontSize(36);
 					doc.setFontStyle("bold");
 					doc.setTextColor(this.currentUser.colorvalue.fill);
 					splitTitle = doc.splitTextToSize("" + poll.results.counts.answersCount, 180);
 					doc.text(x, y, splitTitle, { align: "center" });
-					
+
 					x += dim.w + 15;
-					
+
 					doc.setFontSize(12);
 					doc.setFontStyle("normal");
 					doc.setTextColor(this.currentUser.colorvalue.stroke);
 					splitTitle = doc.splitTextToSize(vm.l10n.stringTotalUsers, 180);
 					dim = doc.getTextDimensions(splitTitle);
-					doc.text(x, y+10, splitTitle, { align: "center" });
+					doc.text(x, y + 10, splitTitle, { align: "center" });
 					doc.setFontSize(36);
 					doc.setFontStyle("bold");
 					doc.setTextColor(this.currentUser.colorvalue.fill);
 					splitTitle = doc.splitTextToSize("" + poll.results.counts.usersCount, 180);
 					doc.text(x, y, splitTitle, { align: "center" });
 					doc.setFontStyle("normal");
-					
+
 					x = 108;
 					y += 25;
 
