@@ -260,7 +260,6 @@ var Export = {
 			this.constructODT()
 				.then(result => {
 					var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(result)));
-					// vm.download(result, "test.fodt", "application/vnd.oasis.opendocument.text");
 					var metadata = {
 						mimetype: 'application/vnd.oasis.opendocument.text',
 						title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.odt',
@@ -406,23 +405,21 @@ var Export = {
 			let vm = this;
 			vm.addHistoryToPDF(doc)
 				.then(() => {
-					// Download the PDF
-					doc.save(`Vote.pdf`);
 					// Create Journal Entry
 					var metadata = {
 						mimetype: 'application/pdf',
-						// title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.pdf',
+						title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.pdf',
 						activity: "org.olpcfrance.Vote",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
 						file_size: 0
 					};
-					// vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
-					// 	.then(() => {
-					// 		vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'PDF' }));
-					// 		console.log('Export to PDF complete');
-					// 		vm.$emit('export-completed');
-					// 	});
+					vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
+						.then(() => {
+							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'PDF' }));
+							console.log('Export to PDF complete');
+							vm.$emit('export-completed');
+						});
 				})
 		},
 
