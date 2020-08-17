@@ -22,58 +22,24 @@ define(["sugar-web/graphics/palette",
     });
 
     var that = this;
-
-    document.getElementById('category-button-1').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Animals";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-2').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Geometrical";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-3').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Letters, Numbers, Signs";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-4').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "People";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-    document.getElementById('category-button-5').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Usual Objects";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-6').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Boats";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-7').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Miscellaneous";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
-
-    document.getElementById('category-button-8').addEventListener('click', function(event) {
-      that.tangramCategorySelectedEvent.index = "Random";
-      that.getPalette().dispatchEvent(that.tangramCategorySelectedEvent);
-      that.popDown();
-    });
+    addEventListenersForTangramCategories(that, that.tangramCategorySelectedEvent);
   };
 
   var addEventListener = function(type, listener, useCapture) {
     return this.getPalette().addEventListener(type, listener, useCapture);
   };
+
+  var addEventListenersForTangramCategories = function (that, customEvent) {
+    let buttons = document.getElementById('category-buttons').children;
+    for (var i = 0; i < buttons.length; i++) {
+      let cat = buttons[i].innerHTML;
+      buttons[i].addEventListener('click', function(event) {
+        that.tangramCategorySelectedEvent.index = cat;
+        that.getPalette().dispatchEvent(customEvent);
+        that.popDown();
+      });
+    }
+  }
 
   tangramCategoryPalette.TangramCategoryPalette.prototype =
     Object.create(palette.Palette.prototype, {

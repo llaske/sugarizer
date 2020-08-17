@@ -1,15 +1,21 @@
 var TangramCard = {
-  props: ['strokeColor', 'fillColor', 'item', 'tangramSVGconfig'],
+  props: ['strokeColor', 'fillColor', 'item',  'view', 'tangramSVGconfig'],
   template: `
 		<div class="tangram-card" v-bind:style="{backgroundColor: '#ffffff'}">
       <div class="tangram-card-info-bar">
         <div class="info-content name-info">
           <div>{{item.name}}</div>
         </div>
-        <button class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
-        <button class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
+        <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
+        <button v-if="view==='setting'" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
+        <button v-if="view==='play'" class="info-content play-btn" v-on:click="onPlayPuzzleClicked"></button>
       </div>
-			<div class="tangram-card-main">
+			<div class="tangram-card-main"
+        v-on:click="view==='play'? onPlayPuzzleClicked() : 'null'"
+        v-bind:style="{
+          cursor: view==='play' ? 'pointer' : 'auto'
+        }"
+      >
         <div
           v-bind:style="{
             width: tangramSVGconfig.width+'px',
@@ -44,23 +50,27 @@ var TangramCard = {
       this.$emit('edit-puzzle-clicked', this.item.id)
     },
 
+    onPlayPuzzleClicked: function () {
+      this.$emit('play-puzzle-clicked', this.item.id)
+    }
+
   }
 }
 
 
-var SettingList = {
+var DatasetList = {
   components: {
     'tangram-card': TangramCard,
   },
-  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles', 'view'],
   template: `
-    <div id="setting-list-screen"
+    <div id="dataset-list-screen"
       v-bind:style="{backgroundColor: strokeColor}"
     >
-      <div class="setting-list-header">
-        <div class="setting-list-bar"
+      <div class="dataset-list-header">
+        <div class="dataset-list-bar"
         >
-          <div class="setting-list-bar-block"
+          <div class="dataset-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
             <div>{{dataSetHandler.currentCategories[0]}}</div>
@@ -68,9 +78,12 @@ var SettingList = {
         </div>
       </div>
 
-      <div class="setting-list-main"
+      <div class="dataset-list-main"
+        v-bind:style="{
+          height: view === 'setting' ? '77%' : '85%',
+        }"
       >
-        <div class="setting-list-panel-primary"
+        <div class="dataset-list-panel-primary"
         >
           <tangram-card
             v-bind:ref="index"
@@ -80,25 +93,31 @@ var SettingList = {
             v-bind:stroke-color="strokeColor"
             v-bind:fill-color="fillColor"
             v-bind:tangramSVGconfig="tangramSVGconfig"
+            v-bind:view="view"
             v-on:delete-puzzle-clicked="onDeletePuzzle"
             v-on:edit-puzzle-clicked="onEditPuzzle"
+            v-on:play-puzzle-clicked="onPlayPuzzle"
           ></tangram-card>
         </div>
 
       </div>
-      <div class="setting-list-footer">
+      <div class="dataset-list-footer"
+        v-bind:style="{
+          height: view === 'setting' ? '12%' : '3%',
+        }"
+      >
           <div class="pagination">
           </div>
           <div class="footer-actions">
             <button
               class="btn-in-footer btn-add-puzzle"
-              v-bind:style="{backgroundColor: fillColor}"
+              v-if="view==='setting'"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
               v-on:click="$emit('go-to-setting-editor')"
-            ></button>
-            <button
-              class="btn-in-footer btn-restart"
-              v-bind:style="{backgroundColor: fillColor}"
-              v-on:click="$emit('restart-game')"
             ></button>
           </div>
       </div>
@@ -113,6 +132,10 @@ var SettingList = {
       configLayer: {
         scaleX: 5,
         scaleY: 5
+      },
+      actionButtons: {
+        width: 30,
+        width: 30,
       },
       totalScore: 0,
       puzzlesSet: [],
@@ -144,6 +167,13 @@ var SettingList = {
     'dataSetHandler.tangramSet': function() {
       this.initializePuzzleShape();
     },
+
+    view: function () {
+      let vm = this;
+      setTimeout(()=> {
+        vm.resize();
+      }, 0)
+    }
   },
 
   methods: {
@@ -154,9 +184,11 @@ var SettingList = {
       let newHeight = window.innerHeight - toolbarHeight;
       let newWidth = window.innerWidth;
       let ratio = newWidth / newHeight
-      document.querySelector('#setting-list-screen').style.height = newHeight + "px";
-      document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
-      document.querySelector('.btn-add-puzzle').style.width = document.querySelector('.btn-add-puzzle').offsetHeight + "px";
+      document.querySelector('#dataset-list-screen').style.height = newHeight + "px";
+      let settingEditorFooterEle = document.querySelector('.dataset-list-footer');
+      vm.$set(vm.actionButtons, 'width', settingEditorFooterEle.offsetHeight * 0.95);
+      vm.$set(vm.actionButtons, 'height', settingEditorFooterEle.offsetHeight * 0.95);
+
       let tangramCardMainEle = document.querySelector('.tangram-card-main');
       let sideLen = Math.min(tangramCardMainEle.offsetHeight, tangramCardMainEle.offsetWidth) * 0.9;
       vm.$set(vm.tangramSVGconfig, 'width', sideLen);
@@ -185,11 +217,15 @@ var SettingList = {
     },
 
     onDeletePuzzle: function (id) {
-      this.$emit('delete-puzzle', id);
+      this.dataSetHandler.deleteTangramPuzzle(id);
     },
 
     onEditPuzzle: function (id) {
       this.$emit('edit-puzzle', id);
+    },
+
+    onPlayPuzzle: function (id) {
+      this.$emit('play-puzzle', id);
     }
   }
 }

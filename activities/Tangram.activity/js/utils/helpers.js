@@ -1,7 +1,7 @@
 //code from https://github.com/Wiebke/TangramGenerator
 //Copyright (c) 2019 Wiebke Köpp
 /* generating variable -> True if still in generating process */
-var generating = true;
+var generating = false;
 var eval = false;
 
 /* Conversion between different angle systems */

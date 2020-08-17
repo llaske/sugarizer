@@ -55,17 +55,49 @@
   color: black;
 }
 
+select {
+  width: 225px;
+  padding: 4px;
+  line-height: 30px;
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+  border-radius: 30px;
+  outline: 0;
+}
+
+select:focus {
+  background-color: white;
+}
+
+select:disabled {
+  background-color: #808080;
+  border-color: #808080;
+}
+
+.category-chooser {
+  width: 90%;
+  height: 6%;
+}
+
+.setting-editor-sidebar select {
+  width: 95%;
+  height: 100%;
+  margin: 0.5vw;
+  font-size: min(2.5vh, 2.5vw);
+}
+
 .setting-editor-sidebar form {
   width: 90%;
 }
 
 .setting-editor-sidebar form label {
-	font-size: min(2.5vh, 2.5vw);
-	display: block;
+  font-size: min(2.5vh, 2.5vw);
+  display: block;
   margin: 0.5vw;
 }
+
 .setting-editor-sidebar form input {
-	width: 90%;
+  width: 90%;
   height: 10%;
   margin: 0.5vw;
   font-size: min(2.5vh, 2.5vw);
@@ -85,4 +117,8 @@
 
 .btn-save {
   background-image: url(../icons/save.svg);
+}
+
+.btn-random {
+  background-image: url(../icons/random.svg);
 }

@@ -56,8 +56,12 @@ p {
 	background-image: url(../icons/settings.svg);
 }
 
-#main-toolbar #category-button {
+#main-toolbar #puzzle-category-button {
 	background-image: url(../icons/tangram-type.svg);
+}
+
+#main-toolbar #random-play-button {
+	background-image: url(../icons/random-btn.svg);
 }
 
 #main-toolbar #level-button {
@@ -154,12 +158,39 @@ p {
 	background-image: url(../icons/pass-icon.svg);
 }
 
+.btn-see-leaderboard {
+	background-image: url(../icons/leaderboard.svg);
+}
+
 #easy-button {
-  background-image: url(../icons/easy-level.svg);
+  background-image: url(../icons/square-outline.svg);
 }
 
 #medium-button {
-  background-image: url(../icons/medium-level.svg);
+  background-image: url(../icons/square-filled.svg);
+}
+
+#category-buttons {
+	max-height: 70vh;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.pagination {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.btn-previous-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-left-black.svg);
+}
+
+.btn-next-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-right-black.svg);
 }
 
 .palette-button {

@@ -2,7 +2,7 @@ var Game = {
   components: {
     "clock": Clock,
   },
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score', 'disabled'],
   template: `
     <div id="game-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -99,18 +99,6 @@ var Game = {
           <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? puzzles[pNo].name : ''}}</div></div>
         </div>
 
-        <div class="tangram-difficulty detail-block floating-block"
-          v-bind:style="{width: tangramDiffBlock.width + 'px',
-            height: tangramDiffBlock.height + 'px',
-            top: tangramDiffBlock.top + 'px',
-            left: tangramDiffBlock.left + 'px',
-            borderColor: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'transparent',
-            color: puzzles[pNo] ? (puzzles[pNo].difficulty ? 'red': 'green') : 'black',
-          }"
-        >
-          <div>{{puzzles[pNo] ? (puzzles[pNo].difficulty ? 'HARD': 'EASY') : ''}}</div>
-        </div>
-
         <canvas id="floating-celebration-block"
           v-if="mode==='non-timer' && gameOver==='solved'"
           v-bind:style="{width: celebrationBlock.width + 'px',
@@ -170,6 +158,18 @@ var Game = {
         <div class="footer-actions">
           <transition name="fade" mode="out-in">
             <button
+              class="btn-in-footer btn-back"
+              v-if="!disabled"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="$emit('go-to-dataset-list')"
+            ></button>
+          </transition>
+          <transition name="fade" mode="out-in">
+            <button
               v-if="!gameOver"
               class="btn-in-footer btn-replay"
               v-bind:style="{
@@ -189,7 +189,7 @@ var Game = {
                 height: actionButtons.height + 'px',
               }"
               v-on:click="$emit('restart-game')"
-              v-if="mode==='timer'?'true':gameOver"
+              v-if="(mode==='timer'?'true':gameOver) && !disabled"
             ></button>
           </transition>
           <transition name="fade" mode="out-in">
@@ -238,12 +238,6 @@ var Game = {
         left: 0
       },
       celebrationBlock: {
-        width: 1,
-        height: 1,
-        top: 0,
-        left: 0
-      },
-      tangramDiffBlock: {
         width: 1,
         height: 1,
         top: 0,
@@ -371,11 +365,11 @@ var Game = {
       let gameMainEle = document.querySelector('.game-main');
       let cw = gameMainEle.offsetWidth * 0.985;
       let ch = gameMainEle.offsetHeight * 0.97;
-      let scale = Math.min(cw, ch) / 75;
+      let scale = Math.min(cw * 0.7, ch) / 75;
 
       let pw = vm.configKonva.width;
       let ph = vm.configKonva.height;
-      let pScale = Math.min(pw, ph) / 75;
+      let pScale = Math.min(pw * 0.7, ph) / 75;
 
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
@@ -421,15 +415,10 @@ var Game = {
 
       vm.resizePartitionLine();
 
-      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.50);
+      vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.65);
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
-      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01 + gameMainEle.offsetHeight * 0.17);
-
-      vm.$set(vm.tangramDiffBlock, 'width', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.tangramDiffBlock, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.tangramDiffBlock, 'top', gameMainEle.offsetHeight * 0.015 + toolbarHeight);
-      vm.$set(vm.tangramDiffBlock, 'left', gameMainEle.offsetWidth * 0.01);
+      vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
       vm.$set(vm.celebrationBlock, 'height', ch);

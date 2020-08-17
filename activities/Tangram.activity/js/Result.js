@@ -52,7 +52,7 @@ var Result = {
     'result-card': ResultCard,
     'clock': Clock
   },
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse', 'timeMarks'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse', 'timeMarks', 'disabled', 'playersAll'],
   template: `
     <div id="result-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -95,8 +95,25 @@ var Result = {
           </div>
           <div class="footer-actions">
             <button
+              v-if="playersAll.length!=0"
+              class="btn-in-footer btn-see-leaderboard"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="$emit('see-leaderboard')"
+            >
+            </button>
+            <button
               class="btn-in-footer btn-restart"
-              v-bind:style="{backgroundColor: fillColor}"
+              v-if="isRestartButtonVisible"
+              v-bind:disabled="disabled"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
               v-on:click="$emit('restart-game')"
             ></button>
           </div>
@@ -112,6 +129,10 @@ var Result = {
       configLayer: {
         scaleX: 5,
         scaleY: 5
+      },
+      actionButtons: {
+        width: 30,
+        width: 30,
       },
       totalScore: 0,
       puzzlesSet: [],
@@ -135,7 +156,13 @@ var Result = {
     let vm = this;
     vm.resize();
   },
-
+  computed: {
+    isRestartButtonVisible: function () {
+      var vm = this;
+      vm.canRestart = vm.$root.SugarPresence ? (vm.$root.SugarPresence.isConnected() ? vm.$root.SugarPresence.isHost : true) : true;
+      return vm.canRestart;
+    }
+  },
   methods: {
     resize: function() {
       let vm = this;
@@ -146,7 +173,9 @@ var Result = {
       let ratio = newWidth / newHeight
       let resultCardMainEle = document.querySelector('.result-card-main');
       document.querySelector('#result-screen').style.height = newHeight + "px";
-      document.querySelector('.btn-restart').style.width = document.querySelector('.btn-restart').offsetHeight + "px";
+      let resultFooterEle = document.querySelector('.result-footer');
+      vm.$set(vm.actionButtons, 'width', resultFooterEle.offsetHeight * 0.95);
+      vm.$set(vm.actionButtons, 'height', resultFooterEle.offsetHeight * 0.95);
 
     },
 
