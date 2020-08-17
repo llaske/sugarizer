@@ -5,6 +5,19 @@ define([], function() {
 		return automaticStyles;
 	}
 
+	var addBuddyStyles = function(colors) {
+		automaticStyles += `
+		<style:style style:name="buddyStroke" style:family="paragraph" style:parent-style-name="Frame_20_contents">
+			<style:paragraph-properties fo:line-height="115%" fo:text-align="center" style:justify-single-word="false"/>
+			<style:text-properties fo:color="${colors.stroke}" style:font-name="Arial" officeooo:rsid="0008f8b9" officeooo:paragraph-rsid="0008f8b9"/>
+		</style:style>`;
+		automaticStyles += `
+		<style:style style:name="buddyFillHuge" style:family="paragraph" style:parent-style-name="Frame_20_contents">
+			<style:paragraph-properties fo:line-height="115%" fo:text-align="center" style:justify-single-word="false"/>
+			<style:text-properties fo:color="${colors.fill}" style:font-name="Arial" fo:font-size="36pt" fo:font-weight="bold" officeooo:rsid="0008f8b9" officeooo:paragraph-rsid="0008f8b9" style:font-size-asian="36pt" style:font-weight-asian="bold" style:font-size-complex="36pt" style:font-weight-complex="bold"/>
+		</style:style>`;
+	}
+
 	var addQuestion = function(question) {
 		return `<draw:frame draw:style-name="fr7" text:anchor-type="as-char" svg:width="20.701cm" draw:z-index="0">
 		<draw:text-box fo:min-height="1.653cm">
@@ -25,17 +38,22 @@ define([], function() {
 	var addAvgRatingFrame = function(averageValue) {
 		return `<draw:frame draw:style-name="fr5" text:anchor-type="paragraph" svg:x="8.435cm" svg:y="11.146cm" svg:width="3.006cm" draw:z-index="8">
 		<draw:text-box fo:min-height="2.457cm">
-		 <text:p text:style-name="P5">${averageValue}</text:p>
-		 <text:p text:style-name="P3">Average Rating</text:p>
+		 <text:p text:style-name="buddyFillHuge">${averageValue}</text:p>
+		 <text:p text:style-name="buddyStroke">Average Rating</text:p>
 		</draw:text-box>
 	 </draw:frame>
 		`;
 	}
 
 	var addLegendFrame = function(legendObj) {
+		let style = `<style:style style:name="legend${legendObj.text}" style:family="graphic">
+		<style:graphic-properties draw:stroke="none" draw:fill-color="${legendObj.color}" draw:textarea-horizontal-align="justify" draw:textarea-vertical-align="middle" draw:auto-grow-height="false" fo:min-height="0.229cm" fo:min-width="0.882cm" style:run-through="foreground" style:wrap="run-through" style:number-wrapped-paragraphs="no-limit" style:vertical-pos="from-top" style:horizontal-pos="from-left" style:horizontal-rel="paragraph" draw:wrap-influence-on-position="once-concurrent" loext:allow-overlap="true" style:flow-with-text="false"/>
+	 </style:style>`;
+		automaticStyles += style;
+
 		return `<draw:frame draw:style-name="fr1" text:anchor-type="as-char" svg:width="3.119cm" draw:z-index="5">
 		<draw:text-box fo:min-height="3.394cm">
-		 <text:p text:style-name="P7">${legendObj.text} <text:s/><draw:custom-shape text:anchor-type="as-char" svg:y="-0.222cm" draw:z-index="10" draw:style-name="gr1" draw:text-style-name="P16" svg:width="0.883cm" svg:height="0.23cm">
+		 <text:p text:style-name="P7">${legendObj.text} <text:s/><draw:custom-shape text:anchor-type="as-char" svg:y="-0.222cm" draw:z-index="10" draw:style-name="legend${legendObj.text}" svg:width="0.883cm" svg:height="0.23cm">
 			 <text:p/>
 			 <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:mirror-horizontal="false" draw:mirror-vertical="false" draw:type="rectangle" draw:enhanced-path="M 0 0 L 21600 0 21600 21600 0 21600 0 0 Z N"/>
 			</draw:custom-shape></text:p>
@@ -59,6 +77,29 @@ define([], function() {
 			 ${innerData}
 		 </draw:text-box>
 		</draw:frame>`;
+	}
+
+	var addStatsFrame = function(stats) {
+		return `<text:p text:style-name="P11"><draw:frame draw:style-name="fr4" text:anchor-type="char" svg:y="0.208cm" svg:width="7.137cm" draw:z-index="2">
+		<draw:text-box fo:min-height="4.464cm"><draw:frame draw:style-name="fr3" text:anchor-type="frame" svg:x="0.282cm" svg:y="3.281cm" svg:width="6.463cm" draw:z-index="4">
+			<draw:text-box fo:min-height="1.154cm">
+			 <text:p text:style-name="P10">${ stats.timestamp }</text:p>
+			</draw:text-box>
+		 </draw:frame>
+		 <text:p text:style-name="P4"><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="6">
+			 <draw:text-box fo:min-height="2.457cm">
+				<text:p text:style-name="buddyFillHuge">${stats.answersCount}</text:p>
+				<text:p text:style-name="buddyStroke">Total votes</text:p>
+			 </draw:text-box>
+			</draw:frame><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="3">
+			 <draw:text-box fo:min-height="2.457cm">
+				<text:p text:style-name="buddyFillHuge">${stats.usersCount}</text:p>
+				<text:p text:style-name="buddyStroke">Total users</text:p>
+			 </draw:text-box>
+			</draw:frame></text:p>
+		</draw:text-box>
+	 </draw:frame></text:p>
+	 `;
 	}
 
 	var addToPageContainer = function(innerData) {
@@ -90,39 +131,6 @@ define([], function() {
 		</draw:image>
 	 </draw:frame>`;
 	 return code;
-	}
-
-	var addSkillLevel = function(level) {
-		return `<draw:frame text:anchor-type="paragraph" draw:z-index="31" draw:style-name="gr1" draw:text-style-name="P48" svg:width="3.151cm" svg:height="0.479cm" svg:x="16.955cm" svg:y="0.004cm">
-		<draw:text-box>
-		 <text:p text:style-name="P47"><text:span text:style-name="level${level.level}">${level.text}</text:span></text:p>
-		</draw:text-box>
-	 </draw:frame>`;
-	}
-
-	var addSkillTitle = function(title, innerData) {
-		
-		return `<text:p text:style-name="P23">${innerData}${parseString(title)}</text:p>
-		<text:p text:style-name="P18">
-			<draw:line text:anchor-type="as-char" svg:y="-0.131cm" draw:z-index="23" draw:style-name="gr2" draw:text-style-name="P49" svg:x2="13.864cm" svg:y2="-0.035cm">
-				<text:p/>
-			</draw:line><text:s/>
-		</text:p>`;
-	}
-
-	var addSkillTimestamp = function(timestampText) {
-		return `<text:p text:style-name="P39">${timestampText} <text:s/></text:p>`;
-	}
-
-	var addToSkillFrame = function(innerData) {
-		return `<text:p text:style-name="P20">
-			<draw:frame draw:style-name="fr3"  text:anchor-type="as-char" svg:y="-3.884cm" svg:width="20.597cm" draw:z-index="3">
-			<draw:text-box fo:min-height="6.041cm">
-			${innerData}
-			</draw:text-box>
-			</draw:frame>
-			</text:p>
-			`;
 	}
 
 	var addMediaFrame = function(mediaElement) {
@@ -536,19 +544,14 @@ define([], function() {
 		footer,
 		styles,
 		getAutomaticStyles,
+		addBuddyStyles,
 		addQuestion,
 		addChartFrame,
 		addAvgRatingFrame,
 		addLegendFrame,
 		addToChartInfoFrame,
 		addToMainContainer,
-		addToPageContainer,
-		addImage,
-		addSkillTitle,
-		addSkillLevel,
-		addSkillTimestamp,
-		addToSkillFrame,
-		addMediaFrame,
-		addToMediaContainerFrame
+		addStatsFrame,
+		addToPageContainer
 	}
 });

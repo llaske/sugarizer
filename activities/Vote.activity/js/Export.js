@@ -306,6 +306,13 @@ var Export = {
 			let vm = this;
 			let xmlData = '';
 			return new Promise(async (resolve, reject) => {
+				// Add buddy colors to styles list
+				let colors = {
+					fill: this.currentUser.colorvalue.fill,
+					stroke: this.currentUser.colorvalue.stroke
+				}
+				odt.addBuddyStyles(colors);
+
 				for (let i = vm.history.length - 1; i >= 0; i--) {
 					let poll = vm.history[i];
 					let pageData = "";
@@ -330,12 +337,14 @@ var Export = {
 
 					// Image legends
 					if (poll.typeVariable == 'ImageMCQ') {
-						let imageWidth = 2.7;  // in cm for ODT
+						let imageWidth = 2.7;  				// in cm for ODT
 						for (let j = 0; j < poll.options.length; j++) {
 							let res = await vm.canvasToImage(poll.options[j]);
 							let imageHeight = imageWidth * (res.height / res.width);
+							let color = vm.getLegendColor(i, j);
 							let legendObj = {
 								text: parseInt(j) + 1,
+								color: color.hex,
 								imageURL: res.dataURL,
 								width: imageWidth,
 								height: imageHeight
@@ -347,6 +356,13 @@ var Export = {
 					let chartInfoFrame = odt.addToChartInfoFrame(chartFrame + avgRatingFrame + legendsFrames);
 					pageData += odt.addToMainContainer(chartInfoFrame);
 					pageData = odt.addToPageContainer(pageData);
+
+					let stats = {
+						answersCount: poll.results.counts.answersCount,
+						usersCount: poll.results.counts.usersCount,
+						timestamp: new Date(poll.endTime).toLocaleString()
+					}
+					pageData += odt.addStatsFrame(stats);
 
 					xmlData += pageData;
 				}
@@ -553,13 +569,18 @@ var Export = {
 			});
 		},
 
+		rgbToHex(r, g, b) {
+			return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+		},
+
 		getLegendColor(pollIndex, legendId) {
 			let rbgString = this.$refs[`export-${pollIndex}`][0].statsData.datasets[0].hoverBackgroundColor[legendId];
 			let result = rbgString.match(/\d+/g);
 			return {
 				r: parseInt(result[0]),
 				g: parseInt(result[1]),
-				b: parseInt(result[2])
+				b: parseInt(result[2]),
+				hex: this.rgbToHex(parseInt(result[0]), parseInt(result[1]), parseInt(result[2]))
 			}
 		},
 
