@@ -47,7 +47,7 @@
 			<sugar-toolitem 
 				id="settings-button" 
 				v-if="currentView == 'polls-grid'"
-				:class="{ active: settings }" 
+				:icon="settings ? 'icons/play.svg' : 'icons/settings.svg'"
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>

@@ -27,7 +27,7 @@ var app = new Vue({
 				type: "",
 				typeVariable: "YesNo",
 				image: 'images/yesno.png',
-				question: "Do you agree?",
+				question: "DefaultPollYesNo",
 				results: null
 			},
 			{
@@ -35,7 +35,7 @@ var app = new Vue({
 				type: "",
 				typeVariable: "Rating",
 				image: 'images/rating.png',
-				question: "What is your evaluation?",
+				question: "DefaultPollRating",
 				results: null
 			},
 			{
@@ -43,15 +43,15 @@ var app = new Vue({
 				type: "",
 				typeVariable: "MCQ",
 				image: 'images/mcq.png',
-				question: "Which activity should we do?",
+				question: "DefaultPollMCQ",
 				options: [
-					"Math",
-					"Reading",
-					"Writing",
-					"Drawing",
-					"Programming",
-					"Sport",
-					"Game"
+					"DefaultPollMCQOption0",
+					"DefaultPollMCQOption1",
+					"DefaultPollMCQOption2",
+					"DefaultPollMCQOption3",
+					"DefaultPollMCQOption4",
+					"DefaultPollMCQOption5",
+					"DefaultPollMCQOption6"
 				],
 				results: null
 			},
@@ -60,7 +60,7 @@ var app = new Vue({
 				type: "",
 				typeVariable: "Text",
 				image: 'images/text.png',
-				question: "What is your current feeling?",
+				question: "DefaultPollText",
 				results: null
 			},
 			{
@@ -68,7 +68,7 @@ var app = new Vue({
 				type: "",
 				typeVariable: "ImageMCQ",
 				image: 'images/image-mcq.png',
-				question: "Which is your favorite animal?",
+				question: "DefaultPollImageMCQ",
 				options: [
 					"images/dog.png",
 					"images/cat.png",
@@ -140,6 +140,12 @@ var app = new Vue({
 			this.$refs.SugarL10n.localize(this.l10n);
 			for(let poll of this.polls) {
 				poll.type = this.$refs.SugarL10n.get(poll.typeVariable);
+				poll.question = this.$refs.SugarL10n.get(poll.question);
+				if(poll.typeVariable == "MCQ") {
+					for(let i=0; i<poll.options.length; i++) {
+						poll.options[i] = this.$refs.SugarL10n.get(poll.options[i]);
+					}
+				}
 			}
 		},
 
@@ -186,7 +192,7 @@ var app = new Vue({
 
 		onPollAdded(pollId) {
 			this.settings = false;
-			this.startPoll(pollId);
+			this.currentView = 'polls-grid';
 		},
 
 		switchRealTimeResults() {
@@ -300,7 +306,9 @@ var app = new Vue({
 				}
 				this.counts.answersCount = 0;
 				// Remove users who left
-				this.removeUsersNotConnected();
+				if(this.SugarPresence.isConnected()) {
+					this.removeUsersNotConnected();
+				}
 				// Clear results from poll templates
 				for(let poll of this.polls) {
 					this.$set(poll, 'results', null);
@@ -464,7 +472,7 @@ var app = new Vue({
 					}
 				}
 			} else {
-				if(this.connectedUsers[msg.user.networkId].answer == null) {
+				if(this.SugarPresence.isHost && this.connectedUsers[msg.user.networkId].answer == null) {
 					this.$delete(this.connectedUsers, msg.user.networkId);
 				}
 			}

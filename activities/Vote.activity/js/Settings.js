@@ -59,7 +59,7 @@ var PollSettings = {
 		</div>
 	`,
 	props: ['polls', 'activePoll', 'activePollStatus'],
-	data: () =>  ({
+	data: () => ({
 		poll: {
 			type: '',
 			typeVariable: 'YesNo',
@@ -85,26 +85,26 @@ var PollSettings = {
 		}
 	}),
 	watch: {
-		"poll.typeVariable": function(newVal, oldVal) {
+		"poll.typeVariable": function (newVal, oldVal) {
 			this.poll.type = this.$root.$refs.SugarL10n.get(newVal);
-			if(this.poll.image.indexOf('data:image') == -1) {
+			if (this.poll.image.indexOf('data:image') == -1) {
 				this.poll.image = this.types[newVal];
 			}
 		},
 	},
-	created: function() {
+	created: function () {
 		var vm = this;
-		if(this.activePoll && this.activePollStatus == "editing") {			// Edit poll
+		if (this.activePoll && this.activePollStatus == "editing") {			// Edit poll
 			this.poll = JSON.parse(JSON.stringify(this.activePoll));
 		} else {													// Add poll
 			// Do nothing
 		}
 	},
-	mounted: function() {
+	mounted: function () {
 		this.$root.$refs.SugarL10n.localize(this.l10n);
 	},
 	methods: {
-		onUploadClick: function(target) {
+		onUploadClick(target) {
 			let vm = this;
 			var filters = [
 				{ mimetype: 'image/png' },
@@ -117,9 +117,9 @@ var PollSettings = {
 		},
 
 		addOption() {
-			if(this.poll.typeVariable == "MCQ") {
+			if (this.poll.typeVariable == "MCQ") {
 				this.poll.options.push("");
-			} else if(this.poll.typeVariable == "ImageMCQ") {
+			} else if (this.poll.typeVariable == "ImageMCQ") {
 				let vm = this;
 				var filters = [
 					{ mimetype: 'image/png' },
@@ -140,31 +140,32 @@ var PollSettings = {
 			this.poll.image = this.types[this.poll.typeVariable];
 		},
 
-		onConfirm: function() {
-			if(this.activePoll && this.activePollStatus == "editing") {			// Edit poll
-				var vm = this;
-				var index = this.polls.findIndex(function (poll) {
-					return poll.id === vm.activePoll.id;
-				});
+		onConfirm() {
+			if (this.poll.typeVariable != "MCQ" && this.poll.typeVariable != "ImageMCQ") {
+				this.$delete(this.poll, 'options');
+			}
 
-				if(this.poll.typeVariable != "MCQ" && this.poll.typeVariable != "ImageMCQ") {
-					this.$delete(this.poll, 'options');
-				}
-				this.polls[index] = this.poll;
-				this.$emit('go-back-to', 'polls-grid');
-			} else {													// Add poll
+			if (this.activePoll && this.activePollStatus == "editing") {			// Edit poll
+				this.editPoll();
+			} else {																											// Add poll
 				this.addPoll();
-				this.$emit('poll-added', this.poll.id);
 			}
 		},
 
-		addPoll: function() {
+		editPoll() {
+			var vm = this;
+			var index = this.polls.findIndex(function (poll) {
+				return poll.id === vm.activePoll.id;
+			});
+			this.polls[index] = this.poll;
+			this.$emit('go-back-to', 'polls-grid');
+		},
+
+		addPoll() {
 			var nextId = this.polls.length;
 			this.poll.id = nextId;
 			this.polls.push(this.poll);
-			// setTimeout(function () {
-			// 	content.scrollTop = content.scrollHeight;
-			// }, 250);
+			this.$emit('poll-added', this.poll.id);
 		}
 	}
 }

@@ -39,7 +39,7 @@ define([], function() {
 		return `<draw:frame draw:style-name="fr5" text:anchor-type="paragraph" svg:x="8.435cm" svg:y="11.146cm" svg:width="3.006cm" draw:z-index="8">
 		<draw:text-box fo:min-height="2.457cm">
 		 <text:p text:style-name="buddyFillHuge">${averageValue}</text:p>
-		 <text:p text:style-name="buddyStroke">Average Rating</text:p>
+		 <text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('AverageRating')}</text:p>
 		</draw:text-box>
 	 </draw:frame>
 		`;
@@ -89,12 +89,12 @@ define([], function() {
 		 <text:p text:style-name="P4"><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="6">
 			 <draw:text-box fo:min-height="2.457cm">
 				<text:p text:style-name="buddyFillHuge">${stats.answersCount}</text:p>
-				<text:p text:style-name="buddyStroke">Total votes</text:p>
+				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('TotalVotes')}</text:p>
 			 </draw:text-box>
 			</draw:frame><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="3">
 			 <draw:text-box fo:min-height="2.457cm">
 				<text:p text:style-name="buddyFillHuge">${stats.usersCount}</text:p>
-				<text:p text:style-name="buddyStroke">Total users</text:p>
+				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('TotalUsers')}</text:p>
 			 </draw:text-box>
 			</draw:frame></text:p>
 		</draw:text-box>
@@ -106,54 +106,6 @@ define([], function() {
 		return `<text:p text:style-name="P14">
 			${innerData}
 		</text:p>`
-	}
-
-	var addCategoryTitle = function(category) {
-		let style = `<style:style style:name="cat${category.id}" style:family="paragraph">
-		<loext:graphic-properties draw:fill-color="${category.color}"/>
-	 </style:style>`;
-	 automaticStyles += style;
-
-		return `<text:p text:style-name="P27">${parseString(category.title)}</text:p>
-		<text:p text:style-name="P26">
-			<draw:custom-shape text:anchor-type="as-char" draw:z-index="6" draw:style-name="gr6" draw:text-style-name="cat${category.id}" svg:width="20.862cm" svg:height="0.324cm">
-				<text:p/>
-				<draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:type="rectangle" draw:enhanced-path="M 0 0 L 21600 0 21600 21600 0 21600 0 0 Z N"/>
-			</draw:custom-shape>
-		</text:p>`;
-	}
-
-	var addImage = function(imageURL, width, height) {
-		let code = '';
-		code += `<draw:frame draw:style-name="fr5"  text:anchor-type="char" svg:x="-0.152cm" svg:y="-0.152cm" svg:width="6.392cm" svg:height="${height}cm" draw:z-index="32">
-		<draw:image loext:mime-type="image/jpeg">
-		<office:binary-data>${imageURL.substring(imageURL.indexOf(',') + 1)}</office:binary-data>
-		</draw:image>
-	 </draw:frame>`;
-	 return code;
-	}
-
-	var addMediaFrame = function(mediaElement) {
-		return `<draw:frame draw:style-name="fr1" text:anchor-type="as-char" svg:width="4.413cm" draw:z-index="16">
-			<draw:text-box fo:min-height="3.286cm">
-			<text:p text:style-name="P29"><draw:frame draw:style-name="fr7" text:anchor-type="char" svg:width="4.269cm" svg:height="${mediaElement.height}cm" draw:z-index="17">
-				<draw:image loext:mime-type="image/jpeg">
-					<office:binary-data>${mediaElement.imageURL.substring(mediaElement.imageURL.indexOf(',') + 1)}</office:binary-data>
-				</draw:image>
-				</draw:frame>${mediaElement.time}</text:p>
-			</draw:text-box>
-		</draw:frame>`;
-	}
-
-	var addToMediaContainerFrame = function(innerData) {
-		return `<text:p text:style-name="P22"><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:y="-2.191cm" svg:width="13.651cm" draw:z-index="15">
-		<draw:text-box fo:min-height="6.189cm">
-		 	<text:p text:style-name="P30">
-		 		${innerData}
-		 	</text:p>
-		</draw:text-box>
-		</draw:frame></text:p>
-		`;
 	}
 
 	var header = `<?xml version="1.0" encoding="UTF-8"?>
