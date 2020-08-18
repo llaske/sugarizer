@@ -173,7 +173,7 @@ Now, let's update our Pawn activity to integrate presence. Start first by handli
 ```
 The `presence-event` is the name of the event for which you wish to attach a listener for. This `SugarToolitem` detects this and automatically emits a Vue.js event with the same name, when this event is received from the palette. So, when we click the Share button, the `shared` event is received from the palette to the toolitem, and is then emitted as a Vue event to the instance. This will be handled by the `onShared()` method of the component.
 
->**NOTE**: The handler for the `shared` event receives two arguements: `event` and `paletteObject`. If you wish to perform some tasks when an activity is shared, you can call your custom intermediate method here and in the end call `SugarPresence.onShared` with the same arguements.
+>**NOTE**: This method should be sufficient for handling presence in most of the case. If you wish to perform some other tasks when an activity is shared, you can call your custom intermediate method here and in the end call `SugarPresence.onShared` with the same arguments.
 
 We will also use the `v-if` directive to render this button only `SugarPresence` component exists (This also makes sure `onShared()` is defined at the time of binding).
 
