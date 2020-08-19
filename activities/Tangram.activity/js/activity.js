@@ -262,7 +262,16 @@ var app = new Vue({
       } else {
         vm.disabled = true;
       }
-    }
+    },
+
+    l10n: function (newVal, oldVal) {
+			let vm = this;
+			vm.$refs.SugarL10n.localize(vm.l10n);
+    //  vm.DataSetHandler.dataSet.forEach((item, i) => {
+
+    //  });
+
+		}
   },
 
   mounted: function() {
@@ -998,13 +1007,13 @@ var app = new Vue({
           name: vm.puzzles[i].name,
           targetTans: [],
         };
-        for (var j = 0; j < vm.puzzles[i].targetTans.length; j++) {
+        for (var j = 0; j < vm.puzzles[i].tangram.tans.length; j++) {
           let targetTan = {
-            tanType: vm.puzzles[i].targetTans[j].tanObj.tanType,
-            orientation: vm.puzzles[i].targetTans[j].tanObj.orientation,
-            anchor: vm.puzzles[i].targetTans[j].tanObj.anchor.dup(),
-            strokeEnabled: vm.puzzles[i].targetTans[j].strokeEnabled,
-            shadowEnabled: vm.puzzles[i].targetTans[j].shadowEnabled,
+            tanType: vm.puzzles[i].tangram.tans[j].tanType,
+            orientation: vm.puzzles[i].tangram.tans[j].orientation,
+            anchor: vm.puzzles[i].tangram.tans[j].anchor.dup(),
+            strokeEnabled: vm.puzzles[i].tangram.tans[j].strokeEnabled,
+            shadowEnabled: vm.puzzles[i].tangram.tans[j].shadowEnabled,
           }
           puzzle.targetTans.push(targetTan);
         }

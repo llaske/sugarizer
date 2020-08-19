@@ -387,7 +387,7 @@ var Game = {
 
       vm.initializeTansPosition();
 
-      if (vm.tans.length != 0) {
+      /*if (vm.tans.length != 0) {
         setTimeout(() => {
           for (var index = 0; index < 7; index++) {
             if (vm.tansPlaced[index] !== -1) {
@@ -401,7 +401,7 @@ var Game = {
             }
           }
         }, 0);
-      }
+      }*/
 
       vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.30);
       vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.15);

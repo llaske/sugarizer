@@ -193,6 +193,84 @@ p {
 	overflow-x: hidden;
 }
 
+@media (hover:none), (hover:on-demand) {
+  /* suppress hover effect on devices that don't support hover fully*/
+  .btn-in-footer:hover {
+    background-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 573px) {
+  #timer-button {
+    display: none;
+  }
+
+  #timer-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 518px) {
+  #view-button {
+    display: none;
+  }
+}
+
+
+@media only screen and (max-width: 460px) {
+  #level-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 402px) {
+  #random-play-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 343px) {
+  #puzzle-category-button {
+    display: none;
+  }
+
+  #tangram-category-palette {
+    display: none;
+  }
+}
+
+/*
+@media only screen and (max-width: 464px) {
+  #level-button {
+    display: none;
+  }
+
+  #difficulty-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 521px) {
+  #compulsory-op-button {
+    display: none;
+  }
+
+  #compulsory-op-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 577px) {
+  #hint-button {
+    display: none;
+  }
+
+  #hint-palette {
+    display: none;
+  }
+}
+
+*/
 .pagination {
   height: 100%;
   display: flex;
