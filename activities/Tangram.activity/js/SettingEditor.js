@@ -46,45 +46,35 @@ var SettingEditor = {
             borderColor: fillColor,
           }"
         >
-          <div class="category-chooser"
+          <div class="setting-editor-sidebar-element"
+            v-bind:style="{backgroundColor: fillColor}"
           >
-            <select name="tangram-category" v-model="categoryChosen">
-              <option
-                v-for="option in dataSetHandler.AllCategories" v-if="option!=='Random'" :value="option"
-              >{{option}}</option>
-              <option value='new-category'>Create New Category<option>
-            </select>
-          </div>
-          <div v-if="categoryChosen === 'new-category'">
-            <input type='text' name='new-category' v-model="puzzleCreated.category" required>
+            <div>{{dataSetHandler.currentCategories[0]}}</div>
           </div>
           <form v-on:submit.prevent=''>
             <div>
               <input type='text' name='tangram-name' v-model="puzzleCreated.name" required>
             </div>
           </form>
-          <div class="setting-editor-sidebar-element valid-shape-indicator"
+          <div class="setting-editor-sidebar-element valid-puzzle-indicator"
             v-bind:style="{
-              backgroundColor: puzzleCreated.tangram !== null ? '#81e32b' : 'red',
+              backgroundColor: isValidPuzzle==='Valid Puzzle' ? '#81e32b' : 'red',
             }"
           >
-            <div>{{puzzleCreated.tangram !== null ? 'Valid Shape' : 'Invalid Shape'}}</div>
+            <div>{{isValidPuzzle}}</div>
           </div>
 
-          <div class="setting-editor-sidebar-element valid-shape-difficulty"
-            v-if="puzzleCreated.tangram !== null"
-          >
-            <div>Tangram Difficulty: {{puzzleCreated.difficulty}}</div>
+          <div class="setting-editor-sidebar-element valid-shape-difficulty">
+            <div v-if="puzzleCreated.tangram !== null">Tangram Difficulty: {{puzzleCreated.difficulty}}</div>
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-display"
-            v-if="puzzleCreated.tangram !== null"
             v-bind:style="{
               width: validShapeDisplayBox.width+'px',
               height: validShapeDisplayBox.height+'px',
             }"
           >
-            <svg>
+            <svg v-if="puzzleCreated.tangram !== null">
               <path
                 v-bind:fill="fillColor"
                 v-bind:transform="pathScale"
@@ -103,6 +93,15 @@ var SettingEditor = {
           </div>
           <div class="footer-actions">
             <button
+              class="btn-in-footer btn-back"
+              v-bind:style="{
+                backgroundColor: fillColor,
+                width: actionButtons.width + 'px',
+                height: actionButtons.height + 'px',
+              }"
+              v-on:click="goBack"
+            ></button>
+            <button
               class="btn-in-footer btn-random"
               v-bind:style="{
                 backgroundColor: fillColor,
@@ -119,15 +118,6 @@ var SettingEditor = {
                 height: actionButtons.height + 'px',
               }"
               v-on:click="onRefresh"
-            ></button>
-            <button
-              class="btn-in-footer btn-back"
-              v-bind:style="{
-                backgroundColor: fillColor,
-                width: actionButtons.width + 'px',
-                height: actionButtons.height + 'px',
-              }"
-              v-on:click="goBack"
             ></button>
           </div>
       </div>
@@ -175,7 +165,6 @@ var SettingEditor = {
         tangram: null,
         tangramSVGdata: '',
       },
-      categoryChosen: null,
       initialTangram: null
     };
   },
@@ -198,7 +187,7 @@ var SettingEditor = {
     let vm = this;
     vm.$set(vm.workingBox, 'stroke', vm.strokeColor);
     vm.resize();
-    vm.categoryChosen = vm.dataSetHandler.currentCategories[0];
+    vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
         vm.showPuzzle(vm.puzzleToBeEdited);
@@ -215,6 +204,12 @@ var SettingEditor = {
       return 'scale(' + this.validShapeDisplayBox.scale + ')';
     },
 
+    isValidPuzzle: function () {
+      if (this.puzzleCreated.tangram===null) return 'Invalid Shape';
+      if (this.puzzleCreated.name==='') return 'Invalid Name';
+      return 'Valid Puzzle';
+    },
+
     canBeAdded: function() {
       let vm = this;
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
@@ -227,21 +222,6 @@ var SettingEditor = {
   },
 
   watch: {
-    categoryChosen: function() {
-      if (this.categoryChosen !== 'new-category') {
-        this.puzzleCreated.category = this.categoryChosen;
-      } else {
-        this.puzzleCreated.category = 'New Category';
-      }
-    },
-
-    'puzzleCreated.category': function() {
-      this.dataSetHandler.deleteTangramPuzzle(this.puzzleCreated.id);
-      if (this.puzzleCreated.tangram) {
-        this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(this.puzzleCreated).id;
-        console.log(this.puzzleCreated.id);
-      }
-    },
 
     'puzzleCreated.tangram': function () {
       let vm = this;
@@ -447,7 +427,7 @@ var SettingEditor = {
     showPuzzle: function(puzzle) {
       let vm = this;
       vm.populateTans(puzzle.tangram.tans);
-      vm.categoryChosen = puzzle.category;
+      vm.puzzleCreated.name = puzzle.category;
       vm.puzzleCreated.name = puzzle.name;
       vm.puzzleCreated.id = puzzle.id;
       vm.checkIfTangramValid();
@@ -474,7 +454,7 @@ var SettingEditor = {
       if (vm.puzzleCreated.id) {
         vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
       }
-      vm.categoryChosen = context.puzzle.category;
+      vm.puzzleCreated.category = context.puzzle.category;
       vm.puzzleCreated.name = context.puzzle.name;
       vm.puzzleCreated.id = context.puzzle.id;
       vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
@@ -550,20 +530,6 @@ var SettingEditor = {
 
     initializeTans: function() {
       let vm = this;
-      /*if (vm.puzzleToBeEdited) {
-        vm.showPuzzle(vm.puzzleToBeEdited);
-      } else {
-        if (vm.initialTangram) {
-          vm.showPuzzle({
-            tangram: vm.initialTangram,
-            name: 'My Tangram',
-            category: vm.dataSetHandler.currentCategories[0]
-          });
-        } else {
-          vm.onRandom();
-        }
-      }
-      */
       vm.populateTans(vm.initialPositions);
     },
 

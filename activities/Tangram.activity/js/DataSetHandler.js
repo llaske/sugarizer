@@ -90,6 +90,19 @@ Vue.component('data-set-handler', {
       return tangramPuzzle;
     },
 
+    addNewCategory: function (category) {
+      let vm = this;
+      let index = vm.dataSet.findIndex(ele => ele.name === category);
+      if (index === -1) {
+        vm.dataSet.push({
+          id: vm.dataSet.length+1,
+          name: category,
+          tangrams: []
+        });
+        index = vm.dataSet.length - 1;
+        vm.AllCategories = vm.dataSet.map(ele => ele.name);
+      };
+    },
 
     onChangeCategory: function(newCats) {
       let vm = this;
