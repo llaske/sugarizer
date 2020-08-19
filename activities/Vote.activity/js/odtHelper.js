@@ -39,7 +39,7 @@ define([], function() {
 		return `<draw:frame draw:style-name="fr5" text:anchor-type="paragraph" svg:x="8.435cm" svg:y="11.146cm" svg:width="3.006cm" draw:z-index="8">
 		<draw:text-box fo:min-height="2.457cm">
 		 <text:p text:style-name="buddyFillHuge">${averageValue}</text:p>
-		 <text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('AverageRating')}</text:p>
+		 <text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('AvgRating')}</text:p>
 		</draw:text-box>
 	 </draw:frame>
 		`;
@@ -89,12 +89,12 @@ define([], function() {
 		 <text:p text:style-name="P4"><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="6">
 			 <draw:text-box fo:min-height="2.457cm">
 				<text:p text:style-name="buddyFillHuge">${stats.answersCount}</text:p>
-				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('TotalVotes')}</text:p>
+				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('Votes')}</text:p>
 			 </draw:text-box>
 			</draw:frame><draw:frame draw:style-name="fr2" text:anchor-type="as-char" svg:width="3.006cm" draw:z-index="3">
 			 <draw:text-box fo:min-height="2.457cm">
 				<text:p text:style-name="buddyFillHuge">${stats.usersCount}</text:p>
-				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('TotalUsers')}</text:p>
+				<text:p text:style-name="buddyStroke">${app.$refs.SugarL10n.get('Users')}</text:p>
 			 </draw:text-box>
 			</draw:frame></text:p>
 		</draw:text-box>

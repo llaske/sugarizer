@@ -14,6 +14,48 @@ var FooterItem = {
 	}
 }
 
+var ImageURL = {
+	/*html*/
+	template: `
+		<img :src="imageURL" v-bind="$attrs">
+	`,
+	props: ['path'],
+	data: () => ({
+		imageURL: ''
+	}),
+	created() {
+		let vm = this;
+		this.canvasToImage(this.path)
+			.then(res => {
+				vm.imageURL = res.dataURL;
+				vm.$emit('loaded');
+			});
+	},
+	methods: {
+		canvasToImage(path) {
+			return new Promise((resolve, reject) => {
+				var img = new Image();
+				img.src = path;
+				img.onload = () => {
+					if (path.indexOf('data:image/png') != -1) {
+						resolve({
+							dataURL: path
+						});
+						return;
+					}
+					var canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+					canvas.getContext("2d").drawImage(img, 0, 0);
+					resolve({
+						dataURL: canvas.toDataURL("image/png")
+					});
+				}
+			});
+		}
+	}
+}
+
 var PollStats = {
 	/*html*/
 	template: `
@@ -31,8 +73,9 @@ var PollStats = {
 						id="stats" 
 						width="700" 
 						height="500" 
-						v-show="activePoll.typeVariable != 'Text' || answers.length != 0"
+						v-show="(exportingDoc && !canvasLoaded) || (!exportingDoc && (activePoll.typeVariable != 'Text' || answers.length != 0))"
 					></canvas>
+					<ImageURL v-if="exportingDoc && canvasLoaded" :path="canvasURL" @loaded="loadedImages++" />
 					<div class="text-popup" v-if="canvasInfoItem && !isThumbnail">{{ canvasInfoItem[0] }}: {{ canvasInfoItem[1] }}</div>
 				</div>
 				<div class="stats-legends" v-if="!isThumbnail && activePoll.typeVariable == 'ImageMCQ'">
@@ -40,7 +83,8 @@ var PollStats = {
 						<div class="color" :style="{ backgroundColor: statsData.datasets[0].backgroundColor[i] }"></div>
 						<span>{{ i+1 }}</span>
 						<div class="legend-image">
-							<img :src="option">
+							<ImageURL :path="option" @loaded="loadedImages++" v-if="exportingDoc" />
+							<img :src="option" v-else>
 						</div>
 					</div>
 				</div>
@@ -51,19 +95,21 @@ var PollStats = {
 						:style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }"
 					>
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ averageRating }}</p>
-						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Average Rating</h3>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">{{ l10n.stringAvgRating }}</h3>
 					</div>
 					<div class="stats-card"  v-if="isResult" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.answersCount }}</p>
-						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Votes</h3>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">{{ l10n.stringVotes }}</h3>
 					</div>
 					<div class="stats-card"  v-if="isResult" :style="{ border: 'solid 2px ' + currentUser.colorvalue.fill }">
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.usersCount }}</p>
-						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">Users</h3>
+						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">{{ l10n.stringUsers }}</h3>
 					</div>
-					<p class="date"  v-if="isResult">{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
+					<p class="date" v-if="isResult && !exportingDoc">{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
+					<p class="date" v-if="isResult && exportingDoc">{{ new Date(activePoll.endTime).toLocaleString() }}</p>
 				</div>
 			</div>
+			<hr v-if="exportingDoc">
 			
 			<div class="poll-footer" v-if="!isResult && !isThumbnail">
 				<div class="footer-list">
@@ -78,7 +124,8 @@ var PollStats = {
 		</div>
 	`,
 	components: {
-		'footer-item': FooterItem
+		'footer-item': FooterItem,
+		'ImageURL': ImageURL
 	},
 	props: {
 		id: {
@@ -93,7 +140,8 @@ var PollStats = {
 		isThumbnail: Boolean,
 		isHistory: Boolean,
 		realTimeResults: Boolean,
-		autoStop: Boolean
+		autoStop: Boolean,
+		exportingDoc: Boolean
 	},
 	data: () => ({
 		statsChart: null,
@@ -124,8 +172,16 @@ var PollStats = {
 		canvasInfoItem: null,
 		l10n: {
 			stringYes: '',
-			stringNo: ''
-		}
+			stringNo: '',
+			stringVotes: '',
+			stringUsers: '',
+			stringAvgRating: '',
+		},
+
+		//Export
+		totalImages: 0,
+		loadedImages: 0,
+		canvasLoaded: false
 	}),
 	computed: {
 		sortedUsers() {
@@ -157,6 +213,12 @@ var PollStats = {
 				sum += answer;
 			}
 			return Math.round((sum / this.answers.length * 10)) / 10;
+		},
+		imagesLoaded() {
+			return this.totalImages == this.loadedImages;
+		},
+		canvasURL() {
+			return document.querySelector(`#${this.id} #stats`).toDataURL("image/png");
 		}
 	},
 	watch: {
@@ -184,11 +246,25 @@ var PollStats = {
 			if (this.isResult || this.isThumbnail) return;
 			this.updateCounts();
 		},
+
+		imagesLoaded: function (newVal, oldVal) {
+			if(newVal) {
+				this.$emit('animation-complete');
+			}
+		}
 	},
 	created() {
+		this.totalImages = 1;
+		if(this.activePoll.typeVariable == 'ImageMCQ') {
+			this.totalImages += this.activePoll.options.length;
+		}
 		this.statsOptions.animation = {
 			onComplete: () => {
-				this.$emit('animation-complete')
+				if(!this.exportingDoc) {
+					this.$emit('animation-complete')
+				} else {
+					this.canvasLoaded = true;
+				}
 			}
 		}
 	},
@@ -208,14 +284,23 @@ var PollStats = {
 		switch (this.activePoll.typeVariable) {
 			case "Text":
 				// let words = ["Hello", "Hi", "Hey", "Hi", "Hey", "Hello", "Hello", "Hello", "Hello", "Hi", "Hi"]
+				let list = this.getWordsList(this.answers);
 				WordCloud(ctx, {
-					list: this.getWordsList(this.answers),
+					list: list,
 					weightFactor: 40 - this.answers.length,
 					shrinkToFit: true,
 					hover: this.showWordCount
 				});
+				let drawn = 0;
 				ctx.addEventListener('wordclouddrawn', () => {
-					this.$emit('animation-complete');
+					if(!this.exportingDoc) {
+						this.$emit('animation-complete')
+					} else {
+						drawn++;
+						if(drawn == list.length) {
+							this.canvasLoaded = true;
+						}
+					}
 				})
 				break;
 			case "MCQ":
@@ -477,7 +562,6 @@ var PollStats = {
 						counts[modifiedItem]++;
 					}
 				}
-
 			}
 			let list = [];
 			for (let key in counts) {

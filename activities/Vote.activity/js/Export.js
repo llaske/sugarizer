@@ -1,60 +1,3 @@
-var ImageURL = {
-	/*html*/
-	template: `
-		<img :src="imageURL" v-bind="$attrs">
-	`,
-	props: ['path', 'colors'],
-	data: () => ({
-		imageURL: ''
-	}),
-	created() {
-		let vm = this;
-		if (this.colors) {
-			this.$root.$refs.SugarIcon.generateIconWithColors('../' + this.path, this.colors)
-				.then(src => {
-					var img = new Image();
-					img.src = src;
-					img.onload = function () {
-						var canvas = document.createElement("canvas");
-						canvas.width = img.width;
-						canvas.height = img.height;
-						canvas.getContext("2d").drawImage(img, 0, 0);
-						vm.imageURL = canvas.toDataURL("image/png");
-						vm.$emit('loaded');
-					}
-				});
-		} else {
-			this.canvasToImage(this.path)
-				.then(res => {
-					vm.imageURL = res.dataURL;
-					vm.$emit('loaded');
-				});
-		}
-	},
-	methods: {
-		canvasToImage(path) {
-			if (path.indexOf('data:image/png') != -1) {
-				return Promise.resolve(path);
-			}
-			return new Promise((resolve, reject) => {
-				var img = new Image();
-				img.src = path;
-				img.onload = () => {
-					var canvas = document.createElement("canvas");
-					canvas.width = img.width;
-					canvas.height = img.height;
-					canvas.getContext("2d").drawImage(img, 0, 0);
-					resolve({
-						dataURL: canvas.toDataURL("image/png"),
-						width: img.width,
-						height: img.height
-					});
-				}
-			});
-		},
-	}
-}
-
 var Export = {
 	/*html*/
 	template: `
@@ -66,6 +9,7 @@ var Export = {
 				:id="'export-' + i" 
 				:activePoll="poll" 
 				:current-user="currentUser" 
+				:exportingDoc="exporting == 'doc'"
 				isResult 
 				isHistory
 				@animation-complete="loadedStats++"
@@ -81,8 +25,8 @@ var Export = {
 		totalStats: 0,
 		loadedStats: 0,
 		l10n: {
-			stringTotalUsers: '',
-			stringTotalVotes: '',
+			stringUsers: '',
+			stringVotes: '',
 			stringDate: '',
 			stringYes: '',
 			stringNo: '',
@@ -154,11 +98,12 @@ var Export = {
 			console.log('Exporting CSV...');
 			var csvContent = "";
 
-			for (let poll of this.history) {
+			for (let i=this.history.length-1; i>=0; i--) {
+				let poll = this.history[i];
 				let dateString = new Date(poll.endTime).toLocaleString();
 				csvContent += `"${poll.type}"`;
 				csvContent += `,"${poll.question}"`;
-				csvContent += `,"${this.l10n.stringTotalUsers}"`;
+				csvContent += `,"${this.l10n.stringUsers}"`;
 				csvContent += `,"${this.l10n.stringDate}"`;
 				csvContent += `\n`;
 				let data;
@@ -194,10 +139,14 @@ var Export = {
 					case 'Text':
 						let counts = {};
 						for (let item of poll.results.answers) {
-							if (!counts[item]) {
-								counts[item] = 1;
-							} else {
-								counts[item]++;
+							let separateItems = item.split(',');
+							for (let separateItem of separateItems) {
+								let modifiedItem = separateItem.trim().toLowerCase();
+								if (!counts[modifiedItem]) {
+									counts[modifiedItem] = 1;
+								} else {
+									counts[modifiedItem]++;
+								}
 							}
 						}
 						for (let key in counts) {
@@ -373,7 +322,10 @@ var Export = {
 			console.log('Exporting DOC...');
 			var vm = this;
 			this.$nextTick(() => {
-				var content = document.getElementById("doc").innerHTML;
+				var content = "";
+				for(let i=this.history.length-1; i>=0; i--) {
+					content += document.getElementById(`export-${i}`).innerHTML;
+				}
 				var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
 					"xmlns:w='urn:schemas-microsoft-com:office:word' " +
 					"xmlns='http://www.w3.org/TR/REC-html40'>" +
@@ -384,12 +336,13 @@ var Export = {
 				var mimetype = 'application/msword';
 				var metadata = {
 					mimetype: mimetype,
-					title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.doc',
-					activity: "org.olpcfrance.Curriculum",
+					title: this.$root.$refs.SugarL10n.get('ExportFileName', { userName: this.currentUser.name }) + '.doc',
+					activity: "org.olpcfrance.Vote",
 					timestamp: new Date().getTime(),
 					creation_time: new Date().getTime(),
 					file_size: 0
 				};
+
 				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 					.then(() => {
 						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'DOC' }));
@@ -458,7 +411,7 @@ var Export = {
 
 					y += 130;
 
-					// Average value
+					// Average Rating
 					if (poll.typeVariable == "Rating") {
 						let avg = 0;
 						for (let answer of poll.results.answers) {
@@ -524,12 +477,12 @@ var Export = {
 					} else {
 						y = 280 - 30;
 					}
-					x = 90;
+					x = 95;
 
 					doc.setFontSize(12);
 					doc.setFontStyle("normal");
 					doc.setTextColor(this.currentUser.colorvalue.stroke);
-					splitTitle = doc.splitTextToSize(vm.l10n.stringTotalVotes, 180);
+					splitTitle = doc.splitTextToSize(vm.l10n.stringVotes, 180);
 					dim = doc.getTextDimensions(splitTitle);
 					doc.text(x, y + 10, splitTitle, { align: "center" });
 					doc.setFontSize(36);
@@ -543,7 +496,7 @@ var Export = {
 					doc.setFontSize(12);
 					doc.setFontStyle("normal");
 					doc.setTextColor(this.currentUser.colorvalue.stroke);
-					splitTitle = doc.splitTextToSize(vm.l10n.stringTotalUsers, 180);
+					splitTitle = doc.splitTextToSize(vm.l10n.stringUsers, 180);
 					dim = doc.getTextDimensions(splitTitle);
 					doc.text(x, y + 10, splitTitle, { align: "center" });
 					doc.setFontSize(36);

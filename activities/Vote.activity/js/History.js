@@ -18,8 +18,8 @@ var History = {
 						<small>{{ $root.$refs.SugarL10n.localizeTimestamp(item.endTime) }}</small>
 					</div>
 					<div class="results-info">
-						<p>{{ item.results.counts.answersCount }} votes</p>
-						<p>{{ item.results.counts.usersCount }} users</p>
+						<p>{{ item.results.counts.answersCount }} {{ l10n.stringVotes }}</p>
+						<p>{{ item.results.counts.usersCount }} {{ l10n.stringUsers }}</p>
 					</div>
 				</li>
 			</ul>
@@ -41,12 +41,17 @@ var History = {
 		'export': Export
 	},
 	props: ['history', 'openHistoryIndex', 'currentUser', 'exporting'],
+	data: () => ({
+		l10n: {
+			stringUsers: '',
+			stringVotes: ''
+		}
+	}),
 	mounted() {
+		this.$root.$refs.SugarL10n.localize(this.l10n);
+
 		this.history.sort((a, b) => {
 			return b.endTime - a.endTime;
 		});
 	},
-	data: () => ({
-
-	})
 }
