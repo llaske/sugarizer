@@ -126,8 +126,8 @@ var app = new Vue({
       stringTutoResultContent: '',
       stringTutoTangramCardTitle: '',
       stringTutoTangramCardContent: '',
-      stringTutoMySolnTitle: '',
-      stringTutoMySolnContent: '',
+      stringTutoNewPuzzleTitle: '',
+      stringTutoNewPuzzleContent: '',
       stringTutoClockInfoTitle: '',
       stringTutoClockInfoContent: '',
       stringTutoScoreInfoTitle: '',
@@ -151,7 +151,11 @@ var app = new Vue({
       stringTutoValidPuzzleTitle: '',
       stringTutoValidPuzzleContent: '',
       stringTutoCategoryNameTitle: '',
-      stringTutoCategoryNameContent: ''
+      stringTutoCategoryNameContent: '',
+      stringTutoEditButtonTitle: '',
+      stringTutoEditButtonContent: '',
+      stringTutoDeleteButtonTitle: '',
+      stringTutoDeleteButtonContent: ''
     }
   },
   watch: {
@@ -266,6 +270,7 @@ var app = new Vue({
 
     l10n: function (newVal, oldVal) {
 			let vm = this;
+      console.log("ok");
 			vm.$refs.SugarL10n.localize(vm.l10n);
     //  vm.DataSetHandler.dataSet.forEach((item, i) => {
 
@@ -1108,16 +1113,33 @@ var app = new Vue({
       vm.DataSetHandler.currentCategories = data.currentCategories;
       vm.DataSetHandler.nextArr = data.nextArr;
       vm.DataSetHandler.AllCategories = data.dataSet.map(ele => ele.name);
-
+      vm.timeMarks = data.timeMarks;
+      vm.hintNumber = data.hintNumber;
+      vm.hintsUsed = data.hintsUsed;
+      vm.noOfHintsUsed = data.noOfHintsUsed;
+      vm.tangramCategories = data.tangramCategories;
+      vm.clock = data.clock;
+      
+      vm.userResponse = [];
+      for (var i = 0; i < data.userResponse.length; i++) {
+        let userResponse = {
+          isSolved: data.userResponse[i].isSolved,
+          score: data.userResponse[i].score,
+          tans: []
+        }
+        for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+          let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+          let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+          let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+          let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+          userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+        }
+        vm.userResponse.push(userResponse);
+      }
       setTimeout(() => {
         vm.mode = data.mode;
         //  vm.level = data.level;
-        vm.tangramCategories = data.tangramCategories;
-        vm.hintNumber = data.hintNumber;
-        vm.hintsUsed = data.hintsUsed;
-        vm.noOfHintsUsed = data.noOfHintsUsed;
-        vm.clock = data.clock;
-        vm.timeMarks = data.timeMarks;
         if (!data.clock.active) {
           vm.stopClock();
         }
@@ -1145,25 +1167,6 @@ var app = new Vue({
         }
         if (vm.currentScreen === 'game') {
           vm.centerTangram();
-        }
-
-        vm.userResponse = [];
-
-        for (var i = 0; i < data.userResponse.length; i++) {
-          let userResponse = {
-            isSolved: data.userResponse[i].isSolved,
-            score: data.userResponse[i].score,
-            tans: []
-          }
-          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
-            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
-            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
-            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
-            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
-            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
-          }
-          vm.userResponse.push(userResponse);
         }
       }, 500);
 
@@ -1387,6 +1390,7 @@ var app = new Vue({
           },
         ];
       } else if (vm.currentScreen === 'result') {
+        document.querySelector('.result-panel-primary').scrollTo({ top: 0});
         steps = [{
             element: "",
             orphan: true,
@@ -1396,30 +1400,30 @@ var app = new Vue({
           },
           {
             element: ".result-card:first-child",
-            placement: "auto",
+            placement: "auto right",
             title: this.l10n.stringTutoTangramCardTitle,
             content: this.l10n.stringTutoTangramCardContent
           },
           {
-            element: ".clock-info-block:first-child",
+            element: ".result-card:first-child .clock-info-block",
             placement: "auto bottom",
             title: this.l10n.stringTutoClockInfoTitle,
             content: this.l10n.stringTutoClockInfoContent
           },
           {
-            element: ".info-bar-logo:first-child",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoMySolnTitle,
-            content: this.l10n.stringTutoMySolnContent
-          },
-          {
-            element: ".score-info-block:first-child",
+            element: ".result-card:first-child .score-info-block",
             placement: "auto bottom",
             title: this.l10n.stringTutoScoreInfoTitle,
             content: this.l10n.stringTutoScoreInfoContent
           },
           {
-            element: ".btn-restart-block",
+            element: ".btn-restart",
+            placement: "auto top",
+            title: this.l10n.stringTutoRestartTitle,
+            content: this.l10n.stringTutoRestartContent
+          },
+          {
+            element: ".btn-see-leaderboard",
             placement: "auto top",
             title: this.l10n.stringTutoRestartTitle,
             content: this.l10n.stringTutoRestartContent
@@ -1547,6 +1551,18 @@ var app = new Vue({
             content: this.l10n.stringTutoSettingViewContent
           },
           {
+            element: ".tangram-card:first-child .edit-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoEditButtonTitle,
+            content: this.l10n.stringTutoEditButtonContent
+          },
+          {
+            element: ".tangram-card:first-child .delete-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoDeleteButtonTitle,
+            content: this.l10n.stringTutoDeleteButtonContent
+          },
+          {
             element: "#puzzle-category-button",
             placement: "bottom",
             title: this.l10n.stringTutoTangramCategoryTitle,
@@ -1564,6 +1580,12 @@ var app = new Vue({
             title: this.l10n.stringTutoNewCategoryTitle,
             content: this.l10n.stringTutoNewCategoryContent
           },
+          {
+            element: ".btn-add-puzzle",
+            placement: "auto top",
+            title: this.l10n.stringTutoNewPuzzleTitle,
+            content: this.l10n.stringTutoNewPuzzleContent
+          }
         ];
       } else if (vm.currentScreen === 'setting-editor') {
         steps = [{

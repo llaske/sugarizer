@@ -83,7 +83,7 @@ var Game = {
           <div class="detail-block score-block"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="detail-block-content score-title"><div>{{l10n.stringScore}}:</div></div>
+            <div class="detail-block-content score-title"><div>{{ l10n.stringScore }}:</div></div>
             <div class="detail-block-content score-val"><div>{{score}}</div></div>
           </div>
 
