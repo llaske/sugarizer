@@ -157,6 +157,11 @@ var PollStats = {
 		statsOptions: {
 			responsive: true,
 			maintainAspectRatio: false,
+			plugins: {
+				datalabels: {
+					display: false,
+				}
+			}
 		},
 		statsBarOptions: {
 			scales: {
@@ -258,6 +263,9 @@ var PollStats = {
 		if(this.activePoll.typeVariable == 'ImageMCQ') {
 			this.totalImages += this.activePoll.options.length;
 		}
+		this.statsOptions.legend = {
+			display: !this.isThumbnail
+		}
 		this.statsOptions.animation = {
 			onComplete: () => {
 				if(!this.exportingDoc) {
@@ -293,11 +301,11 @@ var PollStats = {
 				});
 				let drawn = 0;
 				ctx.addEventListener('wordclouddrawn', () => {
-					if(!this.exportingDoc) {
-						this.$emit('animation-complete')
-					} else {
-						drawn++;
-						if(drawn == list.length) {
+					drawn++;
+					if(drawn == list.length) {
+						if(!this.exportingDoc) {
+							this.$emit('animation-complete')
+						} else {
 							this.canvasLoaded = true;
 						}
 					}
@@ -319,7 +327,21 @@ var PollStats = {
 					data: this.statsData,
 					options: {
 						...this.statsOptions,
-						legend: { display: !this.isThumbnail }
+						plugins: {
+							datalabels: {
+								formatter: (value, ctx) => {
+									if(value == 0) {
+										return "";
+									} else {
+										let datasets = ctx.chart.data.datasets;
+										let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+										let percentage = Math.round((value / sum) * 100) + '%';
+										return percentage;
+									}
+								},
+								color: '#ffffff',
+							}
+						}
 					}
 				});
 				break;
@@ -404,24 +426,19 @@ var PollStats = {
 					data: this.statsData,
 					options: {
 						...this.statsOptions,
-						legend: {
-							display: !this.isThumbnail,
-							labels: {
-								generateLabels: (chart) => {
-									let meta = chart.getDatasetMeta(0);
-									let sum = chart.data.datasets[0].data.reduce(function add(a, b) { return a + b; }, 0);
-									return chart.data.labels.map((label, i) => {
-										let fill = chart.data.datasets[0].backgroundColor[i];
-										return {
-											text: `${label}: ${chart.data.datasets[0].data[i]}`,
-											fillStyle: fill,
-											strokeStyle: '#000000',
-											lineWidth: 0,
-											hidden: isNaN(chart.data.datasets[0].data[i]) || meta.data[i].hidden,
-											index: i
-										};
-									});
-								}
+						plugins: {
+							datalabels: {
+								formatter: (value, ctx) => {
+									if(value == 0) {
+										return "";
+									} else {
+										let datasets = ctx.chart.data.datasets;
+										let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+										let percentage = Math.round((value / sum) * 100) + '%';
+										return percentage;
+									}
+								},
+								color: '#ffffff',
 							}
 						}
 					},
