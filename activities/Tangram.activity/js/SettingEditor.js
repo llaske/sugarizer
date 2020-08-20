@@ -299,11 +299,11 @@ var SettingEditor = {
               orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.8),
+                  coeffInt: 45,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.70),
+                  coeffInt: 15,
                   coeffSqrt: 1
                 }
               }
@@ -315,11 +315,11 @@ var SettingEditor = {
               orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.8),
+                  coeffInt: 45,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.27),
+                  coeffInt: 45,
                   coeffSqrt: 1
                 }
               }
@@ -331,11 +331,11 @@ var SettingEditor = {
               orientation: 0,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.05),
+                  coeffInt: 0,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.70),
+                  coeffInt: 45,
                   coeffSqrt: 1
                 }
               }
@@ -347,11 +347,11 @@ var SettingEditor = {
               orientation: 5,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.5),
+                  coeffInt: 30,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.08),
+                  coeffInt: 5,
                   coeffSqrt: 1
                 }
               }
@@ -363,11 +363,11 @@ var SettingEditor = {
               orientation: 1,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.5),
+                  coeffInt: 30,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.88),
+                  coeffInt: 50,
                   coeffSqrt: 1
                 }
               }
@@ -379,11 +379,11 @@ var SettingEditor = {
               orientation: 7,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.05),
+                  coeffInt: 0,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.45),
+                  coeffInt: 30,
                   coeffSqrt: 1
                 }
               }
@@ -395,11 +395,11 @@ var SettingEditor = {
               orientation: 0,
               anchor: {
                 x: {
-                  coeffInt: (cw / scale) * (0.05),
+                  coeffInt: 0,
                   coeffSqrt: 1
                 },
                 y: {
-                  coeffInt: (ch / scale) * (0.23),
+                  coeffInt: 10,
                   coeffSqrt: 1
                 }
               }
