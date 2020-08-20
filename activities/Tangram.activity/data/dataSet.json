@@ -4379,6 +4379,7 @@
             "orientation": 3
           }]
         },
+        {"id":"6#11","name":"Coble","targetTans":[{"anchor":{"x":[33,6],"y":[27,3]},"tanType":0,"orientation":3},{"anchor":{"x":[21,6],"y":[37,3]},"tanType":0,"orientation":4},{"anchor":{"x":[21,6],"y":[15,3]},"tanType":1,"orientation":7},{"anchor":{"x":[27,6],"y":[33,3]},"tanType":2,"orientation":1},{"anchor":{"x":[30,6],"y":[45,3]},"tanType":2,"orientation":5},{"anchor":{"x":[27,6],"y":[33,3]},"tanType":3,"orientation":7},{"anchor":{"x":[12,6],"y":[39,3]},"tanType":4,"orientation":0}]}
       ]
     },
     {
