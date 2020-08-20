@@ -14,6 +14,7 @@ var app = new Vue({
     'result': Result,
     'dataset-list': DatasetList,
     'setting-editor': SettingEditor,
+    'categoryForm': CategoryForm,
     'leaderboard': Leaderboard,
   },
   data: {
@@ -63,6 +64,99 @@ var app = new Vue({
     multiplayer: false,
     disabled: false,
     startGameConfig: null,
+    l10n: {
+      stringNetwork: '',
+      stringView: '',
+      stringRandom: '',
+      stringTimer: '',
+      stringDifficultyLevel: '',
+      stringNewCategory: '',
+      stringCategory: '',
+      stringHint: '',
+      stringTutorial: '',
+      stringFullscreen: '',
+      stringUnfullscreen: '',
+      stringStop: '',
+      stringScore: '',
+      stringTotalScore: '',
+      stringTotalTime: '',
+      stringRank: '',
+      stringUser: '',
+      stringNoHint: '',
+      stringCategoryValidTitle: '',
+      stringCategoryEmptyTitle: '',
+      stringCategoryExistedTitle: '',
+      stringTutoExplainTitle: '',
+      stringTutoExplainContent: '',
+      stringTutoAboutTitle: '',
+      stringTutoAboutContent: '',
+      stringTutoEachPuzzleTitle: '',
+      stringTutoEachPuzzleContent: '',
+      stringTutoTangramCategoryTitle: '',
+      stringTutoTangramCategoryContent: '',
+      stringTutoTargetTitle: '',
+      stringTutoTargetContent: '',
+      stringTutoBoardTitle: '',
+      stringTutoBoardContent: '',
+      stringTutoRefreshTitle: '',
+      stringTutoRefreshContent: '',
+      stringTutoNewCategoryTitle: '',
+      stringTutoNewCategoryContent: '',
+      stringTutoSettingViewTitle: '',
+      stringTutoSettingViewContent: '',
+      stringTutoScoreTitle: '',
+      stringTutoScoreContent: '',
+      stringTutoRandomPlayTitle: '',
+      stringTutoRandomPlayContent: '',
+      stringTutoHintTitle: '',
+      stringTutoHintContent: '',
+      stringTutoLevelTitle: '',
+      stringTutoLevelContent: '',
+      stringTutoTimerTitle: '',
+      stringTutoTimerContent: '',
+      stringTutoGameActionsTitle: '',
+      stringTutoGameActionsContent: '',
+      stringTutoViewTitle: '',
+      stringTutoViewContent: '',
+      stringTutoRedoTitle: '',
+      stringTutoRedoContent: '',
+      stringTutoValidPuzzleIndicatorTitle: '',
+      stringTutoValidPuzzleIndicatorContent: '',
+      stringTutoResultTitle: '',
+      stringTutoResultContent: '',
+      stringTutoTangramCardTitle: '',
+      stringTutoTangramCardContent: '',
+      stringTutoNewPuzzleTitle: '',
+      stringTutoNewPuzzleContent: '',
+      stringTutoClockInfoTitle: '',
+      stringTutoClockInfoContent: '',
+      stringTutoScoreInfoTitle: '',
+      stringTutoScoreInfoContent: '',
+      stringTutoRestartTitle: '',
+      stringTutoRestartContent: '',
+      stringTutoPaginationTitle: '',
+      stringTutoPaginationContent: '',
+      stringTutoLeaderboardPaginationTitle: '',
+      stringTutoLeaderboardPaginationContent: '',
+      stringTutoLeaderboardMainTitle: '',
+      stringTutoLeaderboardMainContent: '',
+      stringTutoGoBackTitle: '',
+      stringTutoGoBackContent: '',
+      stringTutoPlayViewTitle: '',
+      stringTutoPlayViewContent: '',
+      stringTutoRandomButtonTitle: '',
+      stringTutoRandomButtonContent: '',
+      stringTutoBoardEditorTitle: '',
+      stringTutoBoardEditorContent: '',
+      stringTutoValidPuzzleTitle: '',
+      stringTutoValidPuzzleContent: '',
+      stringTutoCategoryNameTitle: '',
+      stringTutoCategoryNameContent: '',
+      stringTutoEditButtonTitle: '',
+      stringTutoEditButtonContent: '',
+      stringTutoDeleteButtonTitle: '',
+      stringTutoDeleteButtonContent: ''
+    }
   },
   watch: {
     currentScreen: function() {
@@ -88,11 +182,6 @@ var app = new Vue({
       if (vm.currentScreen !== 'game') {
         vm.puzzleChosen = null;
       }
-      vm.changeViewButton();
-    },
-
-    view: function() {
-      this.changeViewButton();
     },
 
     pNo: function() {
@@ -177,13 +266,25 @@ var app = new Vue({
       } else {
         vm.disabled = true;
       }
-    }
+    },
+
+    l10n: function (newVal, oldVal) {
+			let vm = this;
+      console.log("ok");
+			vm.$refs.SugarL10n.localize(vm.l10n);
+    //  vm.DataSetHandler.dataSet.forEach((item, i) => {
+
+    //  });
+
+		}
   },
 
   mounted: function() {
     this.SugarJournal = this.$refs.SugarJournal;
+    this.SugarL10n = this.$refs.SugarL10n;
     this.SugarPresence = this.$refs.SugarPresence;
     this.DataSetHandler = this.$refs.DataSetHandler;
+    this.SugarPresence = this.$refs.SugarPresence;
     this.SugarPopup = this.$refs.SugarPopup;
     generating = false;
   },
@@ -200,6 +301,13 @@ var app = new Vue({
 
     },
 
+    localized: function() {
+      if (document.getElementById('no-timer-button')) {
+        document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
+      }
+      this.SugarL10n.localize(this.l10n);
+    },
+
     pulseEffect: function() {
       let vm = this;
       if (vm.currentScreen === 'game') {
@@ -209,20 +317,6 @@ var app = new Vue({
           gameScreenEle.classList.remove('pulse');
         }, 600);
       }
-    },
-
-    changeViewButton: function() {
-      setTimeout(() => {
-        let viewButtonEle = document.getElementById('view-button');
-        if (viewButtonEle) {
-          if (this.view === 'play') {
-
-            document.getElementById('view-button').style.backgroundImage = 'url(./icons/settings.svg)';
-          } else {
-            document.getElementById('view-button').style.backgroundImage = 'url(./icons/play.svg)';
-          }
-        }
-      }, 0);
     },
 
     startClock: function() {
@@ -696,30 +790,13 @@ var app = new Vue({
 
     onTangramCategorySelected: function(evt) {
       let vm = this;
+      let index = vm.DataSetHandler.dataSet.findIndex(ele => ele.name === evt.index);
+      if (vm.currentScreen === 'game' && (index === -1 || vm.DataSetHandler.dataSet[index].tangrams.length === 0)) {
+        return;
+      }
       vm.pulseEffect();
-      if (vm.tangramCategories[0] === "Random") {
-        vm.tangramCategories = [];
-      }
-
-      if (evt.index !== "Random" && vm.currentScreen !== "dataset-list") {
-        let index = vm.tangramCategories.findIndex(el => el === evt.index);
-        if (index === -1) {
-          vm.tangramCategories.push(evt.index);
-          vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
-        } else {
-          if (vm.tangramCategories.length > 1) {
-            vm.tangramCategories.splice(index, 1);
-            vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
-          } else {
-            vm.tangramCategories = ["Random"];
-          }
-        }
-      } else {
-        vm.tangramCategories = [evt.index];
-        if (vm.currentScreen === "dataset-list") {
-          vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
-        }
-      }
+      vm.tangramCategories = [evt.index];
+      vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
       vm.selectTangramCategoryItem(vm.tangramCategories);
       if (vm.currentScreen === "game") {
         if (vm.gameOver) {
@@ -744,18 +821,20 @@ var app = new Vue({
 
     onDifficultySelected: function() {
       var vm = this;
-      vm.pulseEffect();
       vm.level = vm.level ? 0 : 1;
-
       if (vm.currentScreen !== 'game') {
         return;
       }
       if (vm.gameOver) {
+        vm.pulseEffect();
         vm.startClock();
         vm.newGame();
         return;
       }
-      vm.newGame();
+      let populated = vm.populatePuzzles(vm.puzzles[vm.pNo].tangram.tans);
+      vm.$set(vm.puzzles[vm.pNo], 'targetTans', populated.targetTans);
+      vm.$set(vm.puzzles[vm.pNo], 'outline', computeOutline(vm.puzzles[vm.pNo].tangram.tans, true));
+      vm.centerTangram();
     },
 
     onTimerSelected: function(evt) {
@@ -911,6 +990,20 @@ var app = new Vue({
       return puzzlesArr
     },
 
+    fullscreen: function() {
+      this.$refs.SugarToolbar.hide();
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 0);
+    },
+
+    unfullscreen: function() {
+      this.$refs.SugarToolbar.show();
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 0);
+    },
+
     onStop: function() {
       let vm = this;
       let puzzlesContext = [];
@@ -919,13 +1012,13 @@ var app = new Vue({
           name: vm.puzzles[i].name,
           targetTans: [],
         };
-        for (var j = 0; j < vm.puzzles[i].targetTans.length; j++) {
+        for (var j = 0; j < vm.puzzles[i].tangram.tans.length; j++) {
           let targetTan = {
-            tanType: vm.puzzles[i].targetTans[j].tanObj.tanType,
-            orientation: vm.puzzles[i].targetTans[j].tanObj.orientation,
-            anchor: vm.puzzles[i].targetTans[j].tanObj.anchor.dup(),
-            strokeEnabled: vm.puzzles[i].targetTans[j].strokeEnabled,
-            shadowEnabled: vm.puzzles[i].targetTans[j].shadowEnabled,
+            tanType: vm.puzzles[i].tangram.tans[j].tanType,
+            orientation: vm.puzzles[i].tangram.tans[j].orientation,
+            anchor: vm.puzzles[i].tangram.tans[j].anchor.dup(),
+            strokeEnabled: vm.puzzles[i].tangram.tans[j].strokeEnabled,
+            shadowEnabled: vm.puzzles[i].tangram.tans[j].shadowEnabled,
           }
           puzzle.targetTans.push(targetTan);
         }
@@ -1020,16 +1113,33 @@ var app = new Vue({
       vm.DataSetHandler.currentCategories = data.currentCategories;
       vm.DataSetHandler.nextArr = data.nextArr;
       vm.DataSetHandler.AllCategories = data.dataSet.map(ele => ele.name);
-
+      vm.timeMarks = data.timeMarks;
+      vm.hintNumber = data.hintNumber;
+      vm.hintsUsed = data.hintsUsed;
+      vm.noOfHintsUsed = data.noOfHintsUsed;
+      vm.tangramCategories = data.tangramCategories;
+      vm.clock = data.clock;
+      
+      vm.userResponse = [];
+      for (var i = 0; i < data.userResponse.length; i++) {
+        let userResponse = {
+          isSolved: data.userResponse[i].isSolved,
+          score: data.userResponse[i].score,
+          tans: []
+        }
+        for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+          let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+          let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+          let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+          let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+          userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+        }
+        vm.userResponse.push(userResponse);
+      }
       setTimeout(() => {
         vm.mode = data.mode;
         //  vm.level = data.level;
-        vm.tangramCategories = data.tangramCategories;
-        vm.hintNumber = data.hintNumber;
-        vm.hintsUsed = data.hintsUsed;
-        vm.noOfHintsUsed = data.noOfHintsUsed;
-        vm.clock = data.clock;
-        vm.timeMarks = data.timeMarks;
         if (!data.clock.active) {
           vm.stopClock();
         }
@@ -1057,25 +1167,6 @@ var app = new Vue({
         }
         if (vm.currentScreen === 'game') {
           vm.centerTangram();
-        }
-
-        vm.userResponse = [];
-
-        for (var i = 0; i < data.userResponse.length; i++) {
-          let userResponse = {
-            isSolved: data.userResponse[i].isSolved,
-            score: data.userResponse[i].score,
-            tans: []
-          }
-          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
-            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
-            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
-            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
-            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
-            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
-          }
-          vm.userResponse.push(userResponse);
         }
       }, 500);
 
@@ -1274,6 +1365,292 @@ var app = new Vue({
       console.log(vm.connectedPlayers);
       console.log(vm.playersAll);
 
+    },
+    onHelp: function() {
+      var vm = this;
+      var steps = [];
+      if (vm.currentScreen === 'leaderboard') {
+        steps = [{
+            element: ".leaderboard-main",
+            placement: "top",
+            title: this.l10n.stringTutoLeaderboardMainTitle,
+            content: this.l10n.stringTutoLeaderboardMainContent
+          },
+          {
+            element: ".btn-back",
+            placement: "auto top",
+            title: this.l10n.stringTutoGoBackTitle,
+            content: this.l10n.stringTutoGoBackContent
+          },
+          {
+            element: ".page-no",
+            placement: "auto top",
+            title: this.l10n.stringTutoLeaderboardPaginationTitle,
+            content: this.l10n.stringTutoLeaderboardPaginationContent
+          },
+        ];
+      } else if (vm.currentScreen === 'result') {
+        document.querySelector('.result-panel-primary').scrollTo({ top: 0});
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoResultTitle,
+            content: this.l10n.stringTutoResultContent
+          },
+          {
+            element: ".result-card:first-child",
+            placement: "auto right",
+            title: this.l10n.stringTutoTangramCardTitle,
+            content: this.l10n.stringTutoTangramCardContent
+          },
+          {
+            element: ".result-card:first-child .clock-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoClockInfoTitle,
+            content: this.l10n.stringTutoClockInfoContent
+          },
+          {
+            element: ".result-card:first-child .score-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoScoreInfoTitle,
+            content: this.l10n.stringTutoScoreInfoContent
+          },
+          {
+            element: ".btn-restart",
+            placement: "auto top",
+            title: this.l10n.stringTutoRestartTitle,
+            content: this.l10n.stringTutoRestartContent
+          },
+          {
+            element: ".btn-see-leaderboard",
+            placement: "auto top",
+            title: this.l10n.stringTutoRestartTitle,
+            content: this.l10n.stringTutoRestartContent
+          }
+        ];
+      } else if (vm.currentScreen === 'game') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoEachPuzzleTitle,
+            content: this.l10n.stringTutoEachPuzzleContent
+          },
+          {
+            element: ".stage",
+            placement: "top",
+            title: this.l10n.stringTutoBoardTitle,
+            content: this.l10n.stringTutoBoardContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoAboutTitle,
+            content: this.l10n.stringTutoAboutContent
+          },
+          {
+            element: ".footer-actions",
+            placement: "top",
+            title: this.l10n.stringTutoGameActionsTitle,
+            content: this.l10n.stringTutoGameActionsContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoScoreTitle,
+            content: this.l10n.stringTutoScoreContent
+          },
+          {
+            element: "#puzzle-category-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTangramCategoryTitle,
+            content: this.l10n.stringTutoTangramCategoryContent
+          },
+          {
+            element: "#random-play-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoRandomPlayTitle,
+            content: this.l10n.stringTutoRandomPlayContent
+          },
+          {
+            element: "#level-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoLevelTitle,
+            content: this.l10n.stringTutoLevelContent
+          },
+          {
+            element: "#timer-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTimerTitle,
+            content: this.l10n.stringTutoTimerContent
+          },
+          {
+            element: "#view-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoViewTitle,
+            content: this.l10n.stringTutoViewContent
+          },
+          {
+            element: "#hint-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoHintTitle,
+            content: this.l10n.stringTutoHintContent
+          },
+        ];
+      } else if (vm.currentScreen === 'dataset-list' && vm.view === 'play') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoPlayViewTitle,
+            content: this.l10n.stringTutoPlayViewContent
+          },
+          {
+            element: "#puzzle-category-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTangramCategoryTitle,
+            content: this.l10n.stringTutoTangramCategoryContent
+          },
+          {
+            element: "#view-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoViewTitle,
+            content: this.l10n.stringTutoViewContent
+          },
+        ];
+      } else if (vm.currentScreen === 'dataset-list' && vm.view === 'setting') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoSettingViewTitle,
+            content: this.l10n.stringTutoSettingViewContent
+          },
+          {
+            element: ".tangram-card:first-child .edit-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoEditButtonTitle,
+            content: this.l10n.stringTutoEditButtonContent
+          },
+          {
+            element: ".tangram-card:first-child .delete-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoDeleteButtonTitle,
+            content: this.l10n.stringTutoDeleteButtonContent
+          },
+          {
+            element: "#puzzle-category-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTangramCategoryTitle,
+            content: this.l10n.stringTutoTangramCategoryContent
+          },
+          {
+            element: "#view-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoViewTitle,
+            content: this.l10n.stringTutoViewContent
+          },
+          {
+            element: "#create-category-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoNewCategoryTitle,
+            content: this.l10n.stringTutoNewCategoryContent
+          },
+          {
+            element: ".btn-add-puzzle",
+            placement: "auto top",
+            title: this.l10n.stringTutoNewPuzzleTitle,
+            content: this.l10n.stringTutoNewPuzzleContent
+          }
+        ];
+      } else if (vm.currentScreen === 'setting-editor') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: ".stage",
+            placement: "auto left",
+            title: this.l10n.stringTutoBoardEditorTitle,
+            content: this.l10n.stringTutoBoardEditorContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoValidPuzzleTitle,
+            content: this.l10n.stringTutoValidPuzzleContent
+          },
+          {
+            element: ".valid-puzzle-indicator",
+            placement: "auto left",
+            title: this.l10n.stringTutoValidPuzzleIndicatorTitle,
+            content: this.l10n.stringTutoValidPuzzleIndicatorContent
+          },
+          {
+            element: ".btn-replay",
+            placement: "auto top",
+            title: this.l10n.stringTutoRefreshTitle,
+            content: this.l10n.stringTutoRefreshContent
+          },
+          {
+            element: ".btn-random",
+            placement: "auto top",
+            title: this.l10n.stringTutoRandomButtonTitle,
+            content: this.l10n.stringTutoRandomButtonContent
+          },
+          {
+            element: ".btn-back",
+            placement: "auto top",
+            title: this.l10n.stringTutoGoBackTitle,
+            content: this.l10n.stringTutoGoBackContent
+          },
+        ];
+      } else {
+        steps = [{
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoExplainTitle,
+          content: this.l10n.stringTutoExplainContent
+        },
+        {
+          element: "input[name='title']",
+          placement: "auto bottom",
+          title: this.l10n.stringTutoCategoryNameTitle,
+          content: this.l10n.stringTutoCategoryNameContent
+        },
+       ];
+      }
+
+      this.$refs.SugarTutorial.show(steps);
     },
 
   }

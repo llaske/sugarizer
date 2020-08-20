@@ -1,17 +1,17 @@
 var TangramCard = {
   props: ['strokeColor', 'fillColor', 'item',  'view', 'tangramSVGconfig'],
   template: `
-		<div class="tangram-card" v-bind:style="{backgroundColor: '#ffffff'}">
+		<div class="tangram-card" v-bind:style="{backgroundColor: '#ffffff'}"
+      v-on:click="view==='play'? onPlayPuzzleClicked() : 'null'"
+    >
       <div class="tangram-card-info-bar">
         <div class="info-content name-info">
           <div>{{item.name}}</div>
         </div>
         <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
         <button v-if="view==='setting'" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
-        <button v-if="view==='play'" class="info-content play-btn" v-on:click="onPlayPuzzleClicked"></button>
       </div>
 			<div class="tangram-card-main"
-        v-on:click="view==='play'? onPlayPuzzleClicked() : 'null'"
         v-bind:style="{
           cursor: view==='play' ? 'pointer' : 'auto'
         }"
@@ -165,7 +165,17 @@ var DatasetList = {
 
   watch: {
     'dataSetHandler.tangramSet': function() {
-      this.initializePuzzleShape();
+      let vm = this;
+      vm.initializePuzzleShape();
+      setTimeout(()=>{
+        let tangramCardMainEle = document.querySelector('.tangram-card-main');
+        if (tangramCardMainEle) {
+          let sideLen = Math.min(tangramCardMainEle.offsetHeight, tangramCardMainEle.offsetWidth) * 0.9;
+          vm.$set(vm.tangramSVGconfig, 'width', sideLen);
+          vm.$set(vm.tangramSVGconfig, 'height', sideLen);
+          vm.$set(vm.tangramSVGconfig, 'scale', sideLen / 60);
+        }
+      }, 10);
     },
 
     view: function () {
@@ -190,10 +200,12 @@ var DatasetList = {
       vm.$set(vm.actionButtons, 'height', settingEditorFooterEle.offsetHeight * 0.95);
 
       let tangramCardMainEle = document.querySelector('.tangram-card-main');
-      let sideLen = Math.min(tangramCardMainEle.offsetHeight, tangramCardMainEle.offsetWidth) * 0.9;
-      vm.$set(vm.tangramSVGconfig, 'width', sideLen);
-      vm.$set(vm.tangramSVGconfig, 'height', sideLen);
-      vm.$set(vm.tangramSVGconfig, 'scale', sideLen / 60);
+      if (tangramCardMainEle) {
+        let sideLen = Math.min(tangramCardMainEle.offsetHeight, tangramCardMainEle.offsetWidth) * 0.9;
+        vm.$set(vm.tangramSVGconfig, 'width', sideLen);
+        vm.$set(vm.tangramSVGconfig, 'height', sideLen);
+        vm.$set(vm.tangramSVGconfig, 'scale', sideLen / 60);
+      }
     },
 
     initializePuzzleShape: function() {

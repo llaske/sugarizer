@@ -16,12 +16,16 @@
 	<link rel="stylesheet" href="css/Result.css">
 	<link rel="stylesheet" href="css/leaderboard.css">
 	<link rel="stylesheet" href="css/DatasetList.css">
+	<link rel="stylesheet" href="css/CategoryForm.css">
 	<link rel="stylesheet" href="css/SettingEditor.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<link rel="stylesheet" href="css/libnotify.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/confetti.browser.min.js"></script>
 	<script src="lib/konva.min.js"></script>
 	<script src="lib/vue-konva.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 </head>
@@ -33,64 +37,80 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem
 				id="network-button"
-				title="Network"
+				v-bind:title="l10n.stringNetwork"
 				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
 				v-on:shared="onActivityShared"
 				v-if="SugarPresence"
 			></sugar-toolitem>
-			<sugar-toolitem id="view-button"
-				v-bind:disabled="disabled"
-				v-if="currentScreen!=='setting-editor'"
-			 	title="view"
-				v-on:click="onChangeView"
-			></sugar-toolitem>
-			<sugar-toolitem id="random-play-button"
-				v-bind:disabled="disabled"
-				v-if="currentScreen!=='setting-editor'"
-				v-bind:class="{ active: tangramCategories[0]==='Random' }"
-				title="Random"
-				v-on:click="onRandom"
-			></sugar-toolitem>
-			<sugar-toolitem id="level-button"
-				v-bind:disabled="disabled"
-				v-if="currentScreen!=='setting-editor'"
-				title="level"
-				v-on:click="onDifficultySelected"
-				v-bind:style="{
-					backgroundImage: level ? `url(./icons/square-filled.svg)` : `url(./icons/square-outline.svg)`
-				}"
-			></sugar-toolitem>
 			<sugar-toolitem id="puzzle-category-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen!=='setting-editor'"
+				v-show="currentScreen==='' || currentScreen==='game' || currentScreen==='dataset-list'"
 				ref='categoryPalette'
-				title="tangram category"
+				v-bind:title="l10n.stringCategory"
 				palette-file="js/palettes/tangramCategoryPalette.js"
 				palette-class="TangramCategoryPalette"
 				palette-title="tangram Category"
 				palette-event="tangram-category-selected"
 				v-on:tangram-category-selected="onTangramCategorySelected"
 			></sugar-toolitem>
-			<sugar-toolitem id="timer-button"
+			<sugar-toolitem id="random-play-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen!=='setting-editor'"
-				title="Timer"
+				v-show="currentScreen==='game'"
+				v-bind:class="{ active: tangramCategories[0]==='Random' }"
+				v-bind:title="l10n.stringRandom"
+				v-on:click="onRandom"
+			></sugar-toolitem>
+			<sugar-toolitem id="level-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game'"
+				v-bind:title="l10n.stringDifficultyLevel"
+				v-on:click="onDifficultySelected"
+				v-bind:style="{
+					backgroundImage: level ? `url(./icons/square-filled.svg)` : `url(./icons/square-outline.svg)`
+				}"
+			></sugar-toolitem>
+			<sugar-toolitem id="timer-button"
+				ref='timerPalette'
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game'"
+				v-bind:title="l10n.stringTimer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"
 				palette-title=" Timer"
 				palette-event="timer-selected"
 				v-on:timer-selected="onTimerSelected"
 			></sugar-toolitem>
+			<sugar-toolitem id="view-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game' || currentScreen==='dataset-list'"
+			 	v-bind:title="l10n.stringView"
+				v-bind:style="{
+					backgroundImage: view==='play' ? `url(./icons/settings.svg)` : `url(./icons/play.svg)`
+				}"
+				v-on:click="onChangeView"
+			></sugar-toolitem>
+			<sugar-toolitem id="create-category-button"
+				v-bind:disabled="disabled"
+				v-show="(currentScreen==='dataset-list' && view==='setting')"
+				v-bind:title="l10n.stringNewCategory"
+				v-on:click="currentScreen='categoryForm'"
+			></sugar-toolitem>
 			<sugar-toolitem id="hint-button"
 				v-bind:disabled="disabled"
-				v-if="level && currentScreen=='game'"
-				title="hint"
+				v-show="currentScreen==='' || (level && currentScreen=='game')"
+				v-bind:title="l10n.stringHint"
 				v-on:click="onHint"
 			></sugar-toolitem>
 
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+
+			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+			<sugar-icon ref="SugarIcon"></sugar-icon>
 		</sugar-toolbar>
 
 		<transition name="fade" mode="out-in">
@@ -120,6 +140,7 @@
 				v-bind:players-playing="playersPlaying"
 				v-bind:disabled="disabled"
 				v-bind:multiplayer="multiplayer"
+				v-bind:l10n="l10n"
 				v-on:center-tangram="centerTangram"
 				v-on:config-changed="onConfigChanged"
 				v-on:update-tans-placed="onUpdateTansPlaced"
@@ -140,6 +161,7 @@
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<data-set-handler ref="DataSetHandler"></data-set-handler>
 	</div>
 
@@ -158,8 +180,12 @@
 	<script src="js/Game.js"></script>
 	<script src="js/Result.js"></script>
 	<script src="js/DatasetList.js"></script>
+	<script src="js/CategoryForm.js"></script>
 	<script src="js/SettingEditor.js"></script>
 	<script src="js/DataSetHandler.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarJournal.js"></script>

@@ -2,7 +2,7 @@ var ResultCard = {
   components: {
     'clock': Clock
   },
-  props: ['strokeColor', 'fillColor', 'puzzle', 'configKonva', 'configLayer'],
+  props: ['strokeColor', 'fillColor', 'puzzle', 'configKonva', 'configLayer', 'l10n'],
   template: `
 		<div class="result-card" v-bind:style="{backgroundColor: '#ffffff'}">
       <div class="info-bar">
@@ -22,7 +22,7 @@ var ResultCard = {
         <div class="info-block score-info-block"
         >
           <div class="info-block-content info-score-1">
-            <div>Score:</div>
+            <div>{{ l10n.stringScore }}:</div>
           </div>
           <div class="info-block-content info-score-2">
             <div>{{puzzle.score}}</div>
@@ -52,7 +52,7 @@ var Result = {
     'result-card': ResultCard,
     'clock': Clock
   },
-  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse', 'timeMarks', 'disabled', 'playersAll'],
+  props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'userResponse', 'timeMarks', 'disabled', 'playersAll', 'l10n'],
   template: `
     <div id="result-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -63,12 +63,12 @@ var Result = {
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <clock v-bind:time="timeMarks[0] - timeMarks[timeMarks.length-1]" text='Total Time: '></clock>
+            <clock v-bind:time="timeMarks[0] - timeMarks[timeMarks.length-1]" v-bind:text="l10n.stringTotalTime+' '"></clock>
           </div>
           <div class="result-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>Total Score: {{totalScore}}</div>
+            <div>{{l10n.stringTotalScore}} {{totalScore}}</div>
           </div>
         </div>
       </div>
@@ -85,6 +85,7 @@ var Result = {
             v-bind:puzzle="puzzle"
             v-bind:stroke-color="strokeColor"
     				v-bind:fill-color="fillColor"
+            v-bind:l10n="l10n"
           ></result-card>
 
         </div>
@@ -186,7 +187,7 @@ var Result = {
       for (var i = 0; i < vm.userResponse.length; i++) {
         vm.totalScore+=vm.userResponse[i].score;
       }
-      for (var i = 0; i <= vm.pNo; i++) {
+      for (var i = 0; i < vm.userResponse.length; i++) {
         let puzzleShape = {
           isSolved: vm.userResponse[i].isSolved,
           score: vm.userResponse[i].score,
