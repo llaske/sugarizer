@@ -25,7 +25,7 @@ var CategoryForm = {
     					<input type="text" name="title" v-model="category.title" required>
     				</div>
     				<div class="buttons-row">
-    					<button type="submit" :disabled="category.title == ''">
+    					<button type="submit" :disabled="!isValid">
     						<img src="icons/dialog-ok.svg">
     						<span>Confirm</span>
     					</button>
@@ -37,20 +37,11 @@ var CategoryForm = {
     			</form>
         </div>
       </div>
-      <div class="category-form-alerts">
-        <div class="alert-block pulse"
-          v-if="alert.show"
-          v-bind:style="{backgroundColor: alert.color}"
-        >
-          <div>{{alert.text}}</div>
+      <div class="category-form-footer">
+        <div class="pagination">
         </div>
-      </div>
-      <div class="category-form-footer"
-      >
-          <div class="pagination">
-          </div>
-          <div class="footer-actions">
-          </div>
+        <div class="footer-actions">
+        </div>
       </div>
     </div>
   `,
@@ -88,28 +79,15 @@ var CategoryForm = {
     vm.resize();
   },
 
-  watch: {
-    'category.title': function () {
+  computed: {
+    isValid: function () {
       let vm = this;
-      let index = vm.dataSetHandler.dataSet.findIndex(ele => ele.name === vm.category.title);
-      if(index!==-1){
-        vm.alert.color = 'red';
-        vm.alert.text = vm.l10n.stringCategoryExistedTitle;
-        vm.alert.show = true;
-        return ;
-      }
-      if (this.category.title === '') {
-        vm.alert.color = 'red';
-        vm.alert.text = vm.l10n.stringCategoryEmptyTitle;
-        vm.alert.show = true;
-        return ;
-      }
-      vm.alert.color = '#81e32b';
-      vm.alert.text = vm.l10n.stringCategoryValidTitle;
-      vm.alert.show = true;
+      let title = vm.category.title;
+      if (title === '') return false;
+      let index = vm.dataSetHandler.dataSet.findIndex(ele => ele.name === title);
+      return index===-1;
     }
   },
-
 
   methods: {
     resize: function() {
