@@ -46,7 +46,7 @@ Vue.component('data-set-handler', {
     },
 
     generateTangramFromSet: function() {
-      if (this.nextArr.length <= 0) {
+      if (this.nextArr.length == 0) {
         this.nextArr = [...Array(this.tangramSet.length).keys()]
       }
       let ele = Math.floor(Math.random() * this.nextArr.length);

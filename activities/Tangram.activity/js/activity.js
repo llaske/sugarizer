@@ -207,7 +207,7 @@ var app = new Vue({
             }
           });
         } else {
-          let puzzles = vm.generatePuzzles(10);
+          let puzzles = vm.generatePuzzles(10, true);
           vm.puzzles = vm.puzzles.concat(puzzles);
 
           if (vm.multiplayer && vm.SugarPresence.isHost) {
@@ -266,17 +266,7 @@ var app = new Vue({
       } else {
         vm.disabled = true;
       }
-    },
-
-    l10n: function (newVal, oldVal) {
-			let vm = this;
-      console.log("ok");
-			vm.$refs.SugarL10n.localize(vm.l10n);
-    //  vm.DataSetHandler.dataSet.forEach((item, i) => {
-
-    //  });
-
-		}
+    }
   },
 
   mounted: function() {
@@ -488,17 +478,17 @@ var app = new Vue({
       }
     },
 
-    generateQuestionSet: function() {
+    generateQuestionSet: function(appendRandomTangrams) {
       var vm = this;
       if (vm.mode === 'non-timer') {
-        vm.puzzles = vm.generatePuzzles(1);
+        vm.puzzles = vm.generatePuzzles(1, false);
       } else {
-        vm.puzzles = vm.generatePuzzles(15);
+        vm.puzzles = vm.generatePuzzles(15, true);
       }
       vm.pNo = 0;
     },
 
-    generatePuzzles: function(number) {
+    generatePuzzles: function(number, appendRandomTangrams) {
       let vm = this;
       let puzzles = [];
       let pNo = 0;
@@ -510,11 +500,20 @@ var app = new Vue({
           if (vm.puzzleChosen) {
             tmp = vm.puzzleChosen;
             vm.puzzleChosen = null;
+            tang = tmp.tangram.dup();
+            tangramName = tmp.name;
           } else {
-            tmp = vm.DataSetHandler.generateTangramFromSet();
+            if (vm.DataSetHandler.nextArr.length===0 && appendRandomTangrams) {
+              let generatedTangrams = generateTangrams(2);
+              tang = generatedTangrams[0];
+              tangramName = "Random";
+            }else {
+              tmp = vm.DataSetHandler.generateTangramFromSet();
+              tang = tmp.tangram.dup();
+              tangramName = tmp.name;
+            }
           }
-          tang = tmp.tangram.dup();
-          tangramName = tmp.name;
+
         } else {
           let generatedTangrams = generateTangrams(2);
           tang = generatedTangrams[0];
@@ -1107,7 +1106,7 @@ var app = new Vue({
         vm.currentScreen = 'dataset-list';
         return;
       }
-      vm.currentScreen = data.currentScreen;
+      vm.clock = data.clock;
       vm.DataSetHandler.dataSet = data.dataSet;
       vm.DataSetHandler.tangramSet = data.tangramSet;
       vm.DataSetHandler.currentCategories = data.currentCategories;
@@ -1118,8 +1117,13 @@ var app = new Vue({
       vm.hintsUsed = data.hintsUsed;
       vm.noOfHintsUsed = data.noOfHintsUsed;
       vm.tangramCategories = data.tangramCategories;
-      vm.clock = data.clock;
-      
+      if (!data.clock.active) {
+        vm.stopClock();
+      }else {
+        vm.startClock();
+      }
+      vm.currentScreen = data.currentScreen;
+
       vm.userResponse = [];
       for (var i = 0; i < data.userResponse.length; i++) {
         let userResponse = {
@@ -1140,9 +1144,7 @@ var app = new Vue({
       setTimeout(() => {
         vm.mode = data.mode;
         //  vm.level = data.level;
-        if (!data.clock.active) {
-          vm.stopClock();
-        }
+
         vm.pNo = data.pNo;
         vm.score = data.score;
         vm.gameOver = data.gameOver;
@@ -1279,7 +1281,7 @@ var app = new Vue({
         case 'add-questions':
           if (vm.SugarPresence.isHost) {
             console.log("req");
-            let puzzles = vm.generatePuzzles(10);
+            let puzzles = vm.generatePuzzles(10, true);
             vm.puzzles = vm.puzzles.concat(puzzles);
 
             vm.SugarPresence.sendMessage({
