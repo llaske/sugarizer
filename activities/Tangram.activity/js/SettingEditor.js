@@ -13,7 +13,6 @@ var SettingEditor = {
           }"
           v-on:dragstart="onDragStart"
           v-on:dragend="onDragEnd"
-          v-on:dragmove="onDragMove"
         >
           <v-layer ref="layer" :config="configLayer">
             <v-line :config="workingBox"></v-line>
@@ -719,74 +718,70 @@ var SettingEditor = {
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-      let boundingBox = e.target.getClientRect();
-      boundingBox.width *= 0.5;
-      boundingBox.height *= 0.5;
-      let iw = 0;
-      let ih = 0;
-      let cw = vm.configKonva.width;
-      let ch = vm.configKonva.height;
-      let scale = vm.configLayer.scaleX;
-      let offX = cw / (2 * scale) - 30;
-      let offY = ch / (2 * scale) - 30;
-      //checking conditions if the tan gets out of canvas boundary
+      let mdx = finalX - vm.tans[index].x;
+      let mdy = finalY - vm.tans[index].y;
 
-      if (boundingBox.x < -offX) {
-        finalX = boundingBox.width / (2 * scale) - offX;
-        isTanOutsideCanvas = true;
-      }
-      if (boundingBox.y < -offY) {
-        finalY = boundingBox.height / (2 * scale) - offY;
-        isTanOutsideCanvas = true;
-      }
-      if (boundingBox.y + boundingBox.height > vm.configKonva.height - offY) {
-        finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
-        isTanOutsideCanvas = true;
-      }
-      if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw - offX*scale && (boundingBox.y < ih - offY * scale)) {
-        let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale - offX;
-        let tmpy = (ih + boundingBox.height / 2) / scale - offY;
-        let d1 = Math.abs(tmpx - vm.tans[index].x);
-        let d2 = Math.abs(tmpy - vm.tans[index].y);
-        if (d1 <= d2) {
-          finalX = tmpx;
-        } else {
-          finalY = tmpy;
+      setTimeout(() => {
+        vm.moveTan(index, mdx, mdy);
+      }, 0);
+      setTimeout(() => {
+        let boundingBox = e.target.getClientRect();
+        boundingBox.width *= 0.5;
+        boundingBox.height *= 0.5;
+        let iw = 0;
+        let ih = 0;
+        let cw = vm.configKonva.width;
+        let ch = vm.configKonva.height;
+        let scale = vm.configLayer.scaleX;
+        let offX = cw / (2 * scale) - 30;
+        let offY = ch / (2 * scale) - 30;
+        //checking conditions if the tan gets out of canvas boundary
+
+        if (boundingBox.x < -offX) {
+          finalX = boundingBox.width / (2 * scale) - offX;
+          isTanOutsideCanvas = true;
         }
-        isTanOutsideCanvas = true;
-      }
-      if (boundingBox.x + boundingBox.width > vm.configKonva.width - offX * scale  && (boundingBox.y > ih || boundingBox.y < -offY * scale)) {
-        finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
-        isTanOutsideCanvas = true;
-      }
+        if (boundingBox.y < -offY) {
+          finalY = boundingBox.height / (2 * scale) - offY;
+          isTanOutsideCanvas = true;
+        }
+        if (boundingBox.y + boundingBox.height > vm.configKonva.height - offY) {
+          finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
+          isTanOutsideCanvas = true;
+        }
+        if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw - offX*scale && (boundingBox.y < ih - offY * scale)) {
+          let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale - offX;
+          let tmpy = (ih + boundingBox.height / 2) / scale - offY;
+          let d1 = Math.abs(tmpx - vm.tans[index].x);
+          let d2 = Math.abs(tmpy - vm.tans[index].y);
+          if (d1 <= d2) {
+            finalX = tmpx;
+          } else {
+            finalY = tmpy;
+          }
+          isTanOutsideCanvas = true;
+        }
+        if (boundingBox.x + boundingBox.width > vm.configKonva.width - offX * scale  && (boundingBox.y > ih || boundingBox.y < -offY * scale)) {
+          finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
+          isTanOutsideCanvas = true;
+        }
 
-      if (isTanOutsideCanvas) {
-        let dx = roundToNearest(finalX - this.tans[index].x, 1);
-        let dy = roundToNearest(finalY - this.tans[index].y, 1);
+        if (isTanOutsideCanvas) {
+          let dx = roundToNearest(finalX - this.tans[index].x, 1);
+          let dy = roundToNearest(finalY - this.tans[index].y, 1);
+          setTimeout(() => {
+            vm.moveTan(index, dx, dy);
+          }, 0);
+        }
+
         setTimeout(() => {
-          vm.moveTan(index, dx, dy);
+          vm.snapTan(index);
         }, 0);
-      }
+        setTimeout(() => {
+          vm.checkIfTangramValid();
+        }, 0);
+      }, 0)
 
-      setTimeout(() => {
-        vm.snapTan(index);
-      }, 0);
-      setTimeout(() => {
-        vm.checkIfTangramValid();
-      }, 0);
-    },
-
-    onDragMove: function(e) {
-      let vm = this;
-      let index = e.target.id();
-      let finalX = e.target.attrs.x;
-      let finalY = e.target.attrs.y;
-      let dx = finalX - vm.tans[index].x;
-      let dy = finalY - vm.tans[index].y;
-
-      setTimeout(() => {
-        vm.moveTan(index, dx, dy);
-      }, 0);
     },
 
     onMouseOver: function(e) {

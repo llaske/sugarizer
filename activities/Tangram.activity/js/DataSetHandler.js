@@ -104,6 +104,24 @@ Vue.component('data-set-handler', {
       };
     },
 
+    editCategory: function (category, newTitle) {
+      let index = this.dataSet.findIndex(ele => ele.name === category);
+      if (index!==-1) {
+        this.dataSet[index].name = newTitle;
+        this.AllCategories = this.dataSet.map(ele => ele.name);
+        this.onChangeCategory([newTitle]);
+      }
+    },
+
+    deleteCategory: function (category) {
+      let index = this.dataSet.findIndex(ele => ele.name === category);
+      if (index!==-1 && this.dataSet.length>1) {
+        this.dataSet.splice(index, 1);
+        this.AllCategories = this.dataSet.map(ele => ele.name);
+        this.onChangeCategory([this.AllCategories[0]]);
+      }
+    },
+
     onChangeCategory: function(newCats) {
       let vm = this;
       vm.currentCategories = newCats;
@@ -145,7 +163,6 @@ Vue.component('data-set-handler', {
       let index = vm.dataSet.findIndex(ele => ele.id === categoryId);
       if (index !== -1) {
         let tangramIndex = vm.dataSet[index]["tangrams"].findIndex(ele => ele.id === id);
-				console.log(id);
         vm.dataSet[index]["tangrams"].splice(tangramIndex, 1);
         let tangramIndex2 = vm.tangramSet.findIndex(ele => ele.id === id);
 				if (tangramIndex2!==-1) {

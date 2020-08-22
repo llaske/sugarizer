@@ -25,18 +25,42 @@
 }
 
 .dataset-list-bar-block {
-  width: 40%;
+  width: 55%;
   height: 100%;
   text-align: center;
   background-color: #f0d9b5;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: min(4.2vh, 4.2vw);
   font-weight: bold;
   color: black;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dataset-list-bar-block-title {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons-grp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  right: 1px;
+}
+
+.dataset-list-bar-block button {
+  background-color: transparent;
+  color: white;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .dataset-list-main {
