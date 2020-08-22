@@ -1,15 +1,15 @@
 var TangramCard = {
-  props: ['strokeColor', 'fillColor', 'item',  'view', 'tangramSVGconfig'],
+  props: ['strokeColor', 'fillColor', 'item',  'view', 'tangramSVGconfig', 'dataSetHandler'],
   template: `
 		<div class="tangram-card" v-bind:style="{backgroundColor: '#ffffff'}"
       v-on:click="view==='play'? onPlayPuzzleClicked() : 'null'"
     >
       <div class="tangram-card-info-bar">
         <div class="info-content name-info">
-          <div>{{item.name}}</div>
+          <div>{{$root.SugarL10n.get(item.name)}}</div>
         </div>
         <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
-        <button v-if="view==='setting'" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
+        <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.tangramSet.length==1" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
       </div>
 			<div class="tangram-card-main"
         v-bind:style="{
@@ -73,7 +73,11 @@ var DatasetList = {
           <div class="dataset-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>{{dataSetHandler.currentCategories[0]}}</div>
+            <div class="dataset-list-bar-block-title">{{$root.SugarL10n.get(dataSetHandler.currentCategories[0])}}</div>
+            <div class="buttons-grp">
+              <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditCategory"></button>
+              <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.AllCategories.length==1" class="info-content delete-btn" v-on:click="onDeleteCategory"></button>
+            </div>
           </div>
         </div>
       </div>
@@ -94,8 +98,10 @@ var DatasetList = {
             v-bind:fill-color="fillColor"
             v-bind:tangramSVGconfig="tangramSVGconfig"
             v-bind:view="view"
+            v-bind:dataSetHandler="dataSetHandler"
             v-on:delete-puzzle-clicked="onDeletePuzzle"
             v-on:edit-puzzle-clicked="onEditPuzzle"
+            v-on:play-puzzle-clicked="onPlayPuzzle"
             v-on:play-puzzle-clicked="onPlayPuzzle"
           ></tangram-card>
         </div>
@@ -226,6 +232,14 @@ var DatasetList = {
         vm.puzzlesSet.push(puzzle)
       }
 
+    },
+
+    onEditCategory: function () {
+      this.$emit('edit-category');
+    },
+
+    onDeleteCategory: function () {
+      this.dataSetHandler.deleteCategory(this.dataSetHandler.currentCategories[0]);
     },
 
     onDeletePuzzle: function (id) {

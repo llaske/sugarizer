@@ -57,6 +57,7 @@ var app = new Vue({
     },
     tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
     puzzleToBeEdited: null,
+    categoryToBeEdited: null,
     puzzleChosen: null,
     playersAll: [],
     connectedPlayers: [], //connectedPlayers[0] will be the host in multiplayer game
@@ -179,6 +180,10 @@ var app = new Vue({
       if (vm.currentScreen !== 'setting-editor') {
         vm.puzzleToBeEdited = null;
       }
+      if (vm.currentScreen !== 'categoryForm') {
+        vm.categoryToBeEdited = null;
+      }
+
       if (vm.currentScreen !== 'game') {
         vm.puzzleChosen = null;
       }
@@ -197,6 +202,8 @@ var app = new Vue({
 
       vm.noOfHintsUsed = 0;
       let tmp = vm.puzzles.length - vm.pNo;
+      console.log(tmp);
+      console.log(vm.puzzles);
       if (tmp === 10) {
         if (vm.multiplayer && !vm.SugarPresence.isHost) {
           //request the questions set maintainer to add questions if it is multiplayer game
@@ -223,6 +230,11 @@ var app = new Vue({
             });
           }
         }
+      }
+      //only when net is too slow
+      if (tmp <= 5 && vm.multiplayer && !vm.SugarPresence.isHost) {
+        let puzzles = vm.generatePuzzles(5, true);
+        vm.puzzles = vm.puzzles.concat(puzzles);
       }
       vm.centerTangram();
     },
@@ -944,6 +956,11 @@ var app = new Vue({
       this.goToSettingEditor();
     },
 
+    onEditCategory: function(id) {
+      this.categoryToBeEdited = this.tangramCategories[0];
+      this.currentScreen = 'categoryForm';
+    },
+
     onSavePuzzle: function(data) {
       this.DataSetHandler.editTangramPuzzle(data.puzzle, data.id);
     },
@@ -1122,7 +1139,7 @@ var app = new Vue({
       }else {
         vm.startClock();
       }
-      vm.currentScreen = data.currentScreen;
+      vm.currentScreen = data.currentScreen==='categoryForm' ? 'dataset-list' : data.currentScreen;
 
       vm.userResponse = [];
       for (var i = 0; i < data.userResponse.length; i++) {
@@ -1280,7 +1297,6 @@ var app = new Vue({
 
         case 'add-questions':
           if (vm.SugarPresence.isHost) {
-            console.log("req");
             let puzzles = vm.generatePuzzles(10, true);
             vm.puzzles = vm.puzzles.concat(puzzles);
 
@@ -1298,9 +1314,8 @@ var app = new Vue({
 
         case 'update-questions':
           var data = msg.content.data;
-          console.log(data);
           let puzzles = vm.deserealizePuzzles(data.puzzles);
-          vm.puzzles.concat(puzzles);
+          vm.puzzles = vm.puzzles.concat(puzzles);
           break;
       }
     },

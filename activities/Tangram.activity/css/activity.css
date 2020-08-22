@@ -144,6 +144,8 @@ p {
   border: none;
   margin: 0px 1%;
   cursor: pointer;
+	font-weight: bold;
+	font-size: min(2vh, 2vw);
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;

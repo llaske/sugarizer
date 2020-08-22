@@ -1,5 +1,5 @@
 var CategoryForm = {
-  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles', 'view', 'l10n'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles', 'categoryToBeEdited', 'view', 'l10n'],
   template: `
     <div id="category-form-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -25,7 +25,7 @@ var CategoryForm = {
     					<input type="text" name="title" v-model="category.title" required>
     				</div>
     				<div class="buttons-row">
-    					<button type="submit" :disabled="!isValid">
+    					<button type="submit" v-bind:disabled="!isValid">
     						<img src="icons/dialog-ok.svg">
     						<span>Confirm</span>
     					</button>
@@ -54,11 +54,6 @@ var CategoryForm = {
       category: {
         title: 'New Category'
       },
-      alert: {
-        show: true,
-        color: '#81e32b',
-        text: 'Valid Title'
-      },
       puzzlesSet: [],
     };
   },
@@ -75,7 +70,9 @@ var CategoryForm = {
 
   mounted: function() {
     let vm = this;
-    vm.alert.text = vm.l10n.stringCategoryValidTitle;
+    if (vm.categoryToBeEdited) {
+      vm.category.title = vm.categoryToBeEdited;
+    }
     vm.resize();
   },
 
@@ -84,7 +81,10 @@ var CategoryForm = {
       let vm = this;
       let title = vm.category.title;
       if (title === '') return false;
-      let index = vm.dataSetHandler.dataSet.findIndex(ele => ele.name === title);
+      let index = -1;
+      if (!vm.categoryToBeEdited) {
+        index = vm.dataSetHandler.dataSet.findIndex(ele => ele.name === title);
+      }
       return index===-1;
     }
   },
@@ -106,7 +106,12 @@ var CategoryForm = {
 
     onConfirm: function () {
       let vm = this;
-      vm.dataSetHandler.addNewCategory(vm.category.title);
+      if (vm.categoryToBeEdited) {
+        vm.dataSetHandler.editCategory(vm.categoryToBeEdited, vm.category.title);
+      } else {
+        vm.dataSetHandler.addNewCategory(vm.category.title);
+      }
+      vm.$emit('change-category', {index:vm.category.title});
       vm.$emit('go-to-dataset-list');
     }
   }

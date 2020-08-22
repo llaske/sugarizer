@@ -99,7 +99,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="hint-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen==='' || (level && currentScreen=='game')"
+				v-show="level && currentScreen=='game'"
 				v-bind:title="l10n.stringHint"
 				v-on:click="onHint"
 			></sugar-toolitem>
@@ -135,6 +135,7 @@
 				v-bind:user-response="userResponse"
 				v-bind:score="score"
 				v-bind:puzzle-to-be-edited="puzzleToBeEdited"
+				v-bind:category-to-be-edited="categoryToBeEdited"
 				v-bind:view="view"
 				v-bind:players-all="playersAll"
 				v-bind:players-playing="playersPlaying"
@@ -149,6 +150,8 @@
 				v-on:restart-game="handleRestartButton"
 				v-on:go-to-setting-editor="goToSettingEditor"
 				v-on:go-to-dataset-list="goToDatasetList"
+				v-on:edit-category="onEditCategory"
+				v-on:change-category="onTangramCategorySelected"
 				v-on:edit-puzzle="onEditPuzzle"
 				v-on:save-puzzle="onSavePuzzle"
 				v-on:play-puzzle="onPlayPuzzle"
