@@ -84,7 +84,7 @@ var DatasetList = {
 
       <div class="dataset-list-main"
         v-bind:style="{
-          height: view === 'setting' ? '77%' : '85%',
+          height: view === 'setting' ? '74%' : '82%',
         }"
       >
         <div class="dataset-list-panel-primary"

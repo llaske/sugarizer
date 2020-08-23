@@ -137,6 +137,22 @@ p {
   align-items: stretch;
 }
 
+#back-button {
+	background: url(../icons/go-left.svg) no-repeat;
+	filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
+	background-size: cover;
+	position: absolute;
+	top: 12px;
+	left: 1.2vw;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 3;
+}
+#back-button:hover {
+	border: none;
+}
+
 .btn-in-footer {
   width: 125px;
   height: 95%;
@@ -241,38 +257,6 @@ p {
   }
 }
 
-/*
-@media only screen and (max-width: 464px) {
-  #level-button {
-    display: none;
-  }
-
-  #difficulty-palette {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 521px) {
-  #compulsory-op-button {
-    display: none;
-  }
-
-  #compulsory-op-palette {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 577px) {
-  #hint-button {
-    display: none;
-  }
-
-  #hint-palette {
-    display: none;
-  }
-}
-
-*/
 .pagination {
   height: 100%;
   display: flex;

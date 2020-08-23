@@ -17,28 +17,19 @@ var SettingEditor = {
           <v-layer ref="layer" :config="configLayer">
             <v-line :config="workingBox"></v-line>
             <template>
-              <v-line v-for="(tan,index) in tans" :key="index" v-if="currentTan!=index"
+              <v-line v-for="tan in konvaTans" :key="tan.id"
                 :config="{
-                  ...tan,
-                  scale: configLayer.scaleX
+                  ...tan
                 }"
-                v-on:tap="onTap($event, index)"
-                v-on:click="onClick($event, index)"
+                v-on:tap="onTap"
+                v-on:click="onClick"
                 v-on:mouseover="onMouseOver"
                 v-on:mouseout="onMouseOut"
               ></v-line>
             </template>
-            <v-line
-              :config="{
-                ...tans[currentTan]
-              }"
-              v-on:tap="onTap($event, currentTan)"
-              v-on:click="onClick($event, currentTan)"
-              v-on:mouseover="onMouseOver"
-              v-on:mouseout="onMouseOut"
-            ></v-line>
           </v-layer>
         </v-stage>
+        <button id="back-button" v-on:click="goBack"></button>
         <div class="setting-editor-sidebar box2 sb11"
           v-bind:style="{
             backgroundColor: '#ffffff',
@@ -92,15 +83,6 @@ var SettingEditor = {
           <div class="pagination">
           </div>
           <div class="footer-actions">
-            <button
-              class="btn-in-footer btn-back"
-              v-bind:style="{
-                backgroundColor: fillColor,
-                width: actionButtons.width + 'px',
-                height: actionButtons.height + 'px',
-              }"
-              v-on:click="goBack"
-            ></button>
             <button
               class="btn-in-footer btn-random"
               v-bind:style="{
@@ -169,7 +151,8 @@ var SettingEditor = {
         tangram: null,
         tangramSVGdata: '',
       },
-      initialTangram: null
+      initialTangram: null,
+      konvaTans: [],
     };
   },
 
@@ -235,6 +218,10 @@ var SettingEditor = {
         console.log(this.puzzleCreated.id);
       }
     },
+
+    tans: function () {
+      this.konvaTans = [...this.tans];
+    }
 
   },
 
@@ -527,7 +514,6 @@ var SettingEditor = {
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
       if (res) {
         this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
-        console.log(this.puzzleCreated.id);
       }
       vm.$emit('go-to-dataset-list')
     },
@@ -547,7 +533,7 @@ var SettingEditor = {
       let tang = null;
       if (currentOut) {
         tang = new Tangram(tans);
-        tang.dup();
+        tang = tang.dup();
         valid = tang.evaluation ? (tang.evaluation.rangeX < 60 && tang.evaluation.rangeY < 60) : false;
         if (valid) {
           let tanSegments = computeSegments(getAllPoints(tans), tans);
@@ -681,23 +667,35 @@ var SettingEditor = {
       vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
 
-    onClick: function(e, index) {
+    updateKonvaTans: function (index) {
+      this.konvaTans = [...this.tans];
+      let indx = this.konvaTans.findIndex(ele => ele.id===index);
+      let item = this.konvaTans[indx];
+      this.konvaTans.splice(indx, 1);
+      this.konvaTans.push(item);
+    },
+
+    onClick: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.tanState = 1;
       vm.deSelectTan(vm.currentTan);
       vm.currentTan = index;
       vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
     },
 
-    onTap: function(e, index) {
+    onTap: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.tanState = 1;
       vm.deSelectTan(vm.currentTan);
       vm.currentTan = index;
       vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
       if (vm.tanState === 1) {
         vm.rotateTan(index);
       }
@@ -709,6 +707,7 @@ var SettingEditor = {
       vm.deSelectTan(vm.currentTan);
       vm.currentTan = index;
       vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
       vm.tanState = 1;
     },
 
@@ -814,6 +813,7 @@ var SettingEditor = {
           vm.currentTan = (vm.currentTan + 1) % 7;
           vm.selectTan(vm.currentTan);
         } else if (e.keyCode === 13) {
+          vm.updateKonvaTans(vm.currentTan);
           vm.tanState = 1;
         }
       } else if (vm.tanState === 1) {

@@ -13,6 +13,8 @@ var Game = {
             backgroundColor: '#ffffff',
             borderRadius: '10px'
           }"
+          v-on:dragstart="onDragStart"
+          v-on:dragend="onDragEnd"
         >
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
@@ -34,33 +36,20 @@ var Game = {
             ></v-line>
           </template>
           <template v-if="!(gameOver==='passed')">
-            <v-line v-for="(tan,index) in tans" :key="index" v-if="currentTan!=index && !(showHint && (tansSnapped[index] || tansPlaced[index]!=-1))"
+            <v-line v-for="tan in konvaTans" :key="tan.id" v-if="!(showHint && (tansSnapped[tan.id] || tansPlaced[tan.id]!=-1))"
               :config="{
                 ...tan,
                 listening: !gameOver,
               }"
-              v-on:tap="onTap($event, index)"
-              v-on:click="onClick($event, index)"
-              v-on:dragstart="onDragStart($event, index)"
-              v-on:dragend="onDragEnd($event, index)"
-              v-on:mouseover="onMouseOver($event, index)"
-              v-on:mouseout="onMouseOut($event, index)"
+              v-on:tap="onTap"
+              v-on:click="onClick"
+              v-on:mouseover="onMouseOver"
+              v-on:mouseout="onMouseOut"
             ></v-line>
           </template>
-          <v-line v-if="!(gameOver==='passed') && !(showHint && (tansSnapped[currentTan] || tansPlaced[currentTan]!=-1))"
-            :config="{
-              ...tans[currentTan],
-              listening: gameOver!=='solved',
-            }"
-            v-on:tap="onTap($event, currentTan)"
-            v-on:click="onClick($event, currentTan)"
-            v-on:dragstart="onDragStart($event, currentTan)"
-            v-on:dragend="onDragEnd($event, currentTan)"
-            v-on:mouseover="onMouseOver($event, currentTan)"
-            v-on:mouseout="onMouseOut($event, currentTan)"
-          ></v-line>
           </v-layer>
         </v-stage>
+        <button id="back-button" v-if="!disabled" v-on:click="$emit('go-to-dataset-list')"></button>
         <div id="floating-info-block"
           v-if="mode=='timer'"
           v-bind:style="{width: infoContainer.width + 'px',
@@ -156,18 +145,6 @@ var Game = {
         <div class="footer-actions">
           <transition name="fade" mode="out-in">
             <button
-              class="btn-in-footer btn-back"
-              v-if="!disabled"
-              v-bind:style="{
-                backgroundColor: fillColor,
-                width: actionButtons.width + 'px',
-                height: actionButtons.height + 'px',
-              }"
-              v-on:click="$emit('go-to-dataset-list')"
-            ></button>
-          </transition>
-          <transition name="fade" mode="out-in">
-            <button
               v-if="!gameOver"
               class="btn-in-footer btn-replay"
               v-bind:style="{
@@ -261,6 +238,7 @@ var Game = {
       tansPlaced: [-1, -1, -1, -1, -1, -1, -1],
       snapRange: 1.5,
       tansSnapped: [false, false, false, false, false, false, false],
+      konvaTans: []
     }
   },
 
@@ -348,6 +326,10 @@ var Game = {
         vm.initializeTans();
       }
     },
+
+    tans: function () {
+      this.konvaTans = [...this.tans];
+    }
   },
 
   methods: {
@@ -403,24 +385,24 @@ var Game = {
 
       vm.$set(vm.infoContainer, 'width', gameMainEle.offsetWidth * 0.36);
       vm.$set(vm.infoContainer, 'height', gameMainEle.offsetHeight * 0.15);
-      vm.$set(vm.infoContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);
+      vm.$set(vm.infoContainer, 'top', gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.infoContainer, 'right', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.gameOverContainer, 'width', gameMainEle.offsetWidth * 0.34);
       vm.$set(vm.gameOverContainer, 'height', gameMainEle.offsetHeight * 0.95);
-      vm.$set(vm.gameOverContainer, 'top', toolbarHeight + gameMainEle.offsetHeight * 0.02);
+      vm.$set(vm.gameOverContainer, 'top', gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.gameOverContainer, 'right', gameMainEle.offsetWidth * 0.01);
 
       vm.resizePartitionLine();
 
       vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.65);
       vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
-      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.005 + toolbarHeight);
+      vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.006);
       vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
       vm.$set(vm.celebrationBlock, 'height', ch);
-      vm.$set(vm.celebrationBlock, 'top', gameMainEle.offsetHeight * 0.01 + toolbarHeight);
+      vm.$set(vm.celebrationBlock, 'top', gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.celebrationBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
       let gameFooterEle = document.querySelector('.game-footer');
@@ -629,7 +611,7 @@ var Game = {
           placedAnchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
         }
         let tan = {
-          id: 100 + i,
+          id: i,
           x: 100,
           y: 100,
           offsetX: 100,
@@ -928,44 +910,53 @@ var Game = {
       vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
 
-    onClick: function(e, index) {
-      let vm = this;
-      vm.tanState = 1;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-        vm.selectTan(vm.currentTan);
-      }
-      if (vm.tanState === 1) {
-        vm.rotateTan(index);
-      }
+    updateKonvaTans: function (index) {
+      this.konvaTans = [...this.tans];
+      let indx = this.konvaTans.findIndex(ele => ele.id===index);
+      let item = this.konvaTans[indx];
+      this.konvaTans.splice(indx, 1);
+      this.konvaTans.push(item);
     },
 
-    onTap: function(e, index) {
+    onClick: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.tanState = 1;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-        vm.selectTan(vm.currentTan);
-      }
-      if (vm.tanState === 1) {
-        vm.rotateTan(index);
-      }
-    },
-
-    onDragStart: function(e, index) {
-      let vm = this;
-      if (index != vm.currentTan) {
-        vm.deSelectTan(vm.currentTan);
-        vm.currentTan = index;
-      }
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
       vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
+      if (vm.tanState === 1) {
+        vm.rotateTan(index);
+      }
+    },
+
+    onTap: function(e) {
+      let vm = this;
+      let index = e.target.id();
+      vm.tanState = 1;
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
+      vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
+      if (vm.tanState === 1) {
+        vm.rotateTan(index);
+      }
+    },
+
+    onDragStart: function(e) {
+      let vm = this;
+      let index = e.target.id();
+      vm.deSelectTan(vm.currentTan);
+      vm.currentTan = index;
+      vm.selectTan(vm.currentTan);
+      vm.updateKonvaTans(index);
       vm.tanState = 1;
     },
 
-    onDragEnd: function(e, index) {
+    onDragEnd: function(e) {
       let vm = this;
+      let index = e.target.id();
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
@@ -1031,18 +1022,21 @@ var Game = {
 
     },
 
-    onMouseOver: function(e, index) {
+    onMouseOver: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.deSelectTan(vm.currentTan);
       vm.currentTan = index;
-      vm.selectTan(vm.currentTan);
+      vm.selectTan(index);
       vm.tanState = 0;
     },
 
-    onMouseOut: function(e, index) {
+    onMouseOut: function(e) {
       let vm = this;
+      let index = e.target.id();
       vm.tanState = 0;
       vm.deSelectTan(vm.currentTan);
+      vm.deSelectTan(index);
     },
 
     onKeyDown: function(e) {
@@ -1060,6 +1054,7 @@ var Game = {
           vm.currentTan = (vm.currentTan + 1) % 7;
           vm.selectTan(vm.currentTan);
         } else if (e.keyCode === 13) {
+          vm.updateKonvaTans(vm.currentTan);
           vm.tanState = 1;
         }
       } else if (vm.tanState === 1) {
@@ -1106,8 +1101,6 @@ var Game = {
         }, 0);
         setTimeout(() => {
           vm.checkIfSolved();
-
-
         }, 0);
       }
     },
