@@ -7,11 +7,12 @@
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .leaderboard-main {
   height: 80%;
-  width: 98.4%;
+  width: 97.4%;
   overflow: auto;
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);

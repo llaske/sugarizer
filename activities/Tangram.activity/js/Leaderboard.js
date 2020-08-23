@@ -3,6 +3,7 @@ var Leaderboard = {
   template: `
     <div id="leaderboard-view">
       <div class="leaderboard-main">
+        <button id="back-button" v-on:click="$emit('go-to-result')"></button>
         <div
           class="leaderboard-main-header"
           v-bind:style="{backgroundColor: fillColor}"
@@ -71,15 +72,6 @@ var Leaderboard = {
           </button>
         </div>
         <div class="footer-actions">
-          <button class="btn-in-footer btn-back"
-          v-bind:style="{
-            backgroundColor: fillColor,
-            width: actionButtons.width + 'px',
-            height: actionButtons.height + 'px',
-          }"
-            v-on:click="$emit('go-to-result')"
-          >
-          </button>
         </div>
       </div>
     </div>
