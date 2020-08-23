@@ -339,7 +339,11 @@ var PollStats = {
 										return percentage;
 									}
 								},
-								color: '#ffffff',
+								color: '#000000',
+								font: {
+									size: this.isThumbnail ? '12' : '16',
+									weight: this.isThumbnail ? 'normal' : 'bold'
+								}
 							}
 						}
 					}
@@ -438,7 +442,11 @@ var PollStats = {
 										return percentage;
 									}
 								},
-								color: '#ffffff',
+								color: '#000000',
+								font: {
+									size: this.isThumbnail ? '12' : '16',
+									weight: this.isThumbnail ? 'normal' : 'bold'
+								}
 							}
 						}
 					},
