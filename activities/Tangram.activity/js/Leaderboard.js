@@ -3,7 +3,7 @@ var Leaderboard = {
   template: `
     <div id="leaderboard-view">
       <div class="leaderboard-main">
-        <button id="back-button" v-on:click="$emit('go-to-dataset-list')"></button>
+        <button id="back-button" v-on:click="$emit('go-to-result')"></button>
         <div
           class="leaderboard-main-header"
           v-bind:style="{backgroundColor: fillColor}"
