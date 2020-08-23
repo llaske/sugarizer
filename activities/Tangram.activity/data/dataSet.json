@@ -1867,7 +1867,12 @@
             "tanType": 4,
             "orientation": 1
           }]
-        }
+        },
+        {"id":"2#17","name":"Letter Q","targetTans":[{"anchor":{"x":[34,3],"y":[25,-9]},"tanType":0,"orientation":2},{"anchor":{"x":[27.999999999999996,-9],"y":[31,9]},"tanType":0,"orientation":6},{"anchor":{"x":[32,-3],"y":[35,3]},"tanType":1,"orientation":7},{"anchor":{"x":[38,3],"y":[29,3]},"tanType":2,"orientation":3},{"anchor":{"x":[32,3],"y":[35,9]},"tanType":2,"orientation":6},{"anchor":{"x":[27.999999999999996,-9],"y":[31,-9]},"tanType":3,"orientation":7},{"anchor":{"x":[27.999999999999996,-9],"y":[31,-9]},"tanType":4,"orientation":1}]},
+        {"id":"2#18","name":"Letter R","targetTans":[{"anchor":{"x":[34,-12],"y":[23,-6]},"tanType":0,"orientation":0},{"anchor":{"x":[32,-12],"y":[25,6]},"tanType":0,"orientation":7},{"anchor":{"x":[32,-12],"y":[37,6]},"tanType":1,"orientation":6},{"anchor":{"x":[34,6],"y":[23,-6]},"tanType":2,"orientation":2},{"anchor":{"x":[34,6],"y":[23,0]},"tanType":2,"orientation":3},{"anchor":{"x":[28,0],"y":[23,0]},"tanType":3,"orientation":0},{"anchor":{"x":[28,0],"y":[23,6]},"tanType":5,"orientation":1}]},
+        {"id":"2#19","name":"Letter S","targetTans":[{"anchor":{"x":[30,-6],"y":[30,0]},"tanType":0,"orientation":6},{"anchor":{"x":[30,6],"y":[30,0]},"tanType":0,"orientation":2},{"anchor":{"x":[30,-6],"y":[30,-12]},"tanType":1,"orientation":7},{"anchor":{"x":[30,0],"y":[30,12]},"tanType":2,"orientation":6},{"anchor":{"x":[30,-6],"y":[30,12]},"tanType":2,"orientation":0},{"anchor":{"x":[30,0],"y":[30,-18]},"tanType":3,"orientation":0},{"anchor":{"x":[30,6],"y":[30,12]},"tanType":4,"orientation":3}]},
+        {"id":"2#20","name":"Letter T","targetTans":[{"anchor":{"x":[30,-12],"y":[30,-12]},"tanType":0,"orientation":0},{"anchor":{"x":[30,12],"y":[30,-12]},"tanType":0,"orientation":2},{"anchor":{"x":[30,0],"y":[30,-12]},"tanType":1,"orientation":1},{"anchor":{"x":[34,0],"y":[30,0]},"tanType":2,"orientation":2},{"anchor":{"x":[34,-6],"y":[30,12]},"tanType":2,"orientation":6},{"anchor":{"x":[34,-6],"y":[30,-6]},"tanType":3,"orientation":0},{"anchor":{"x":[34,-6],"y":[30,0]},"tanType":4,"orientation":1}]},
+        {"id":"2#21","name":"Letter U","targetTans":[{"anchor":{"x":[30,-12],"y":[30,3]},"tanType":0,"orientation":6},{"anchor":{"x":[30,6],"y":[30,9]},"tanType":0,"orientation":4},{"anchor":{"x":[30,-6],"y":[30,9]},"tanType":1,"orientation":5},{"anchor":{"x":[30,6],"y":[30,-3]},"tanType":2,"orientation":0},{"anchor":{"x":[30,-6],"y":[30,-9]},"tanType":2,"orientation":2},{"anchor":{"x":[30,6],"y":[30,-9]},"tanType":3,"orientation":0},{"anchor":{"x":[30,12],"y":[30,-3]},"tanType":5,"orientation":3}]}
       ]
     },
     {
