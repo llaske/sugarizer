@@ -181,7 +181,6 @@ var SettingEditor = {
       } else {
         vm.onRandom();
         this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated).id;
-        console.log(this.puzzleCreated.id);
       }
     }, 0);
   },
@@ -202,7 +201,6 @@ var SettingEditor = {
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
       if (res) {
         this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
-        console.log(this.puzzleCreated.id);
       }
       return res;
     }
@@ -215,7 +213,6 @@ var SettingEditor = {
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
       if (res) {
         this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
-        console.log(this.puzzleCreated.id);
       }
     },
 
@@ -622,7 +619,7 @@ var SettingEditor = {
 
     moveTan: function(index, dx, dy) {
       let vm = this;
-      vm.tans[index].tanObj.anchor.add(new Point(new IntAdjoinSqrt2(dx, 0), new IntAdjoinSqrt2(dy, 0)));
+      vm.tans[index].tanObj.anchor.add(new Point(new IntAdjoinSqrt2(dx, 0), new IntAdjoinSqrt2(dy, 0)).roundToNearest(1));
       vm.updatePoints(index);
     },
 
@@ -727,6 +724,8 @@ var SettingEditor = {
         let boundingBox = e.target.getClientRect();
         boundingBox.width *= 0.5;
         boundingBox.height *= 0.5;
+        boundingBox.x+=boundingBox.width*0.2;
+        boundingBox.y+=boundingBox.height*0.2;
         let iw = 0;
         let ih = 0;
         let cw = vm.configKonva.width;

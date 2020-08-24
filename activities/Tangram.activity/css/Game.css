@@ -72,7 +72,7 @@
   height: 90%;
   border: 2px solid black;
   border-radius: 5px;
-  font-size: min(3.5vh, 3.5vw);
+  font-size: min(3.3vh, 3.3vw);
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -80,7 +80,7 @@
 }
 
 .detail-block-logo {
-	width: 50%;
+	width: 40%;
 	height: 100%;
 	background-repeat: no-repeat;
   background-position: left;
@@ -89,7 +89,7 @@
 
 .detail-block-content {
   height: 100%;
-  width: 50%;
+  width: 60%;
   display: flex;
   overflow: auto;
   align-items: center;

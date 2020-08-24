@@ -46,7 +46,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="puzzle-category-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen==='' || currentScreen==='game' || currentScreen==='dataset-list'"
+				v-show="currentScreen==='' || currentScreen==='game' || currentScreen==='dataset-list' || currentScreen==='result'"
 				ref='categoryPalette'
 				v-bind:title="l10n.stringCategory"
 				palette-file="js/palettes/tangramCategoryPalette.js"
@@ -57,14 +57,14 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="random-play-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen==='game'"
+				v-show="currentScreen==='game' || currentScreen==='result'"
 				v-bind:class="{ active: tangramCategories[0]==='Random' }"
 				v-bind:title="l10n.stringRandom"
 				v-on:click="onRandom"
 			></sugar-toolitem>
 			<sugar-toolitem id="level-button"
 				v-bind:disabled="disabled"
-				v-show="currentScreen==='game'"
+				v-show="currentScreen==='game' || currentScreen==='result'"
 				v-bind:title="l10n.stringDifficultyLevel"
 				v-on:click="onDifficultySelected"
 				v-bind:style="{
@@ -74,7 +74,7 @@
 			<sugar-toolitem id="timer-button"
 				ref='timerPalette'
 				v-bind:disabled="disabled"
-				v-show="currentScreen==='game'"
+				v-show="currentScreen==='game' || currentScreen==='result'"
 				v-bind:title="l10n.stringTimer"
 				palette-file="js/palettes/timerPalette.js"
 				palette-class="TimerPalette"

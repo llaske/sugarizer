@@ -84,6 +84,11 @@ var app = new Vue({
       stringRank: '',
       stringUser: '',
       stringNoHint: '',
+      stringConfirm: '',
+      stringCancel: '',
+      stringTitle: '',
+      stringNewTitle: '',
+      stringHintsUsed: '',
       stringCategoryValidTitle: '',
       stringCategoryEmptyTitle: '',
       stringCategoryExistedTitle: '',
@@ -202,8 +207,6 @@ var app = new Vue({
 
       vm.noOfHintsUsed = 0;
       let tmp = vm.puzzles.length - vm.pNo;
-      console.log(tmp);
-      console.log(vm.puzzles);
       if (tmp === 10) {
         if (vm.multiplayer && !vm.SugarPresence.isHost) {
           //request the questions set maintainer to add questions if it is multiplayer game
@@ -312,13 +315,14 @@ var app = new Vue({
 
     pulseEffect: function() {
       let vm = this;
-      if (vm.currentScreen === 'game') {
-        let gameScreenEle = document.getElementById('game-screen');
-        gameScreenEle.classList.add('pulse');
+      let pulseMainEle = document.querySelector('.pulse-main');
+      if (pulseMainEle) {
+        pulseMainEle.classList.add('pulse');
         setTimeout(() => {
-          gameScreenEle.classList.remove('pulse');
+          pulseMainEle.classList.remove('pulse');
         }, 600);
       }
+
     },
 
     startClock: function() {
@@ -791,6 +795,9 @@ var app = new Vue({
         vm.tangramCategories = ["Random"];
       }
       vm.selectTangramCategoryItem(vm.tangramCategories);
+      if (vm.currentScreen === 'result') {
+        return;
+      }
       vm.currentScreen = 'game';
       if (vm.gameOver) {
         vm.startClock();
@@ -1243,7 +1250,6 @@ var app = new Vue({
               tangramCategories: data.tangramCategories
             }
             vm.puzzles = vm.deserealizePuzzles(data.puzzles);
-            console.log(vm.puzzles);
             let populated = vm.populatePuzzles(vm.puzzles[0].tangram.tans);
             vm.puzzles[0].targetTans = populated.targetTans;
             vm.puzzles[0].outline = computeOutline(vm.puzzles[0].tangram.tans, true);
@@ -1379,8 +1385,6 @@ var app = new Vue({
         });
         vm.SugarPresence.isHost = vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId ? true : false;
       }
-      console.log(vm.connectedPlayers);
-      console.log(vm.playersAll);
 
     },
     onHelp: function() {
