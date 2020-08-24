@@ -85,6 +85,7 @@ var app = new Vue({
 			answersCount: 0,
 			usersCount: 0
 		},
+		hostContext: null,
 		activePoll: null,
 		activePollStatus: '',
 		autoStop: false,
@@ -121,6 +122,11 @@ var app = new Vue({
 			}
 			this.searchText = "";
 		},
+		settings: function (newVal, oldVal) {
+			if(!newVal) {
+				this.updateHostContextForConnected();
+			}
+		}
 	},
 	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
@@ -184,6 +190,13 @@ var app = new Vue({
 					action: 'stop-poll'
 				}
 			});
+		},
+
+		clearPoll() {
+			this.activePoll = null;
+			this.activePollStatus = '';
+			this.currentUser.answer = null;
+			this.currentUser.handRaised = false;
 		},
 
 		onUpdatePolls(polls) {
@@ -261,6 +274,7 @@ var app = new Vue({
 				...this.activePoll,
 				endTime: Date.now()
 			});
+			this.updateHostContextForConnected();
 			console.log('Saved to history');
 		},
 
@@ -333,6 +347,25 @@ var app = new Vue({
 			});
 		},
 
+		updateHostContextForConnected() {
+			let context = {
+				id: this.currentUser.networkId,
+				polls: this.polls,
+				realTimeResults: this.realTimeResults,
+				history: this.history
+			}
+
+			this.SugarPresence.sendMessage({
+				user: this.SugarPresence.getUserInfo(),
+				content: {
+					action: 'update-host-context',
+					data: {
+						hostContext: context
+					}
+				}
+			});
+		},
+
 		onExportFormatSelected: function(event) {
 			this.exporting = event.format;
 		},
@@ -350,6 +383,8 @@ var app = new Vue({
 
 		onJournalSharedInstance: function () {
 			this.currentView = "vote";
+			// To handle a case where a non-host joins a shared instance
+			this.activePollStatus = 'no-host';
 		},
 
 		onNetworkDataReceived: function (msg) {
@@ -359,6 +394,7 @@ var app = new Vue({
 					this.activePoll = msg.content.data.activePoll;
 					this.activePollStatus = msg.content.data.activePollStatus;
 					this.realTimeResults = msg.content.data.realTimeResults;
+					this.hostContext = msg.content.data.hostContext;
 					break;
 				case 'init-existing':
 					if(this.activePoll == null) {
@@ -372,6 +408,7 @@ var app = new Vue({
 						if(msg.content.data.answer) {
 							this.currentUser.answer = msg.content.data.answer;
 						}
+						this.hostContext = msg.content.data.hostContext;
 					}
 					break;
 				case 'switch-real-time':
@@ -410,18 +447,50 @@ var app = new Vue({
 					break;
 				case 'clear-poll':
 					console.log('clear-poll');
-					this.activePoll = null;
-					this.activePollStatus = '';
-					this.currentUser.answer = null;
-					this.currentUser.handRaised = false;
+					this.clearPoll();
 					break;
+				case 'restore-host':
+					console.log('restore-host');
+					this.clearPoll();
+					if(this.currentUser.networkId == msg.content.data.hostContext.id) {
+						this.history = msg.content.data.hostContext.history;
+						this.polls = msg.content.data.hostContext.polls;
+						this.realTimeResults = msg.content.data.hostContext.realTimeResults;
+
+						let sharedId = this.SugarPresence.presence.sharedInfo.id;
+						this.SugarPresence.presence.listSharedActivityUsers(sharedId, (users) => {
+							for (var i = 0 ; i < users.length ; i++) {
+								if(users[i].networkId != this.currentUser.networkId) {
+									this.$set(this.connectedUsers, users[i].networkId, users[i]);
+									this.$set(this.connectedUsers[users[i].networkId], 'handRaised', false);
+									this.$set(this.connectedUsers[users[i].networkId], 'answer', null);
+								}
+							}
+							this.SugarPresence.isHost = true;
+							this.currentView = "polls-grid";
+						});
+					}
+					break;
+				case 'update-host-context': 
+					console.log('update-host-context');
+					if(!this.SugarPresence.isHost) {
+						this.hostContext = msg.content.data.hostContext;
+					}
 			}
 		},
 
 		onNetworkUserChanged: function (msg) {
 			if (msg.move == 1) {
 				if(this.SugarPresence.isHost) {
+					let context = {
+						id: this.currentUser.networkId,
+						polls: this.polls,
+						realTimeResults: this.realTimeResults,
+						history: this.history
+					}
+					// Host
 					if(this.connectedUsers[msg.user.networkId] != null) {
+						// User joined before
 						if(this.connectedUsers[msg.user.networkId].answer != null) {
 							this.SugarPresence.sendMessage({
 								user: this.SugarPresence.getUserInfo(),
@@ -433,7 +502,8 @@ var app = new Vue({
 										realTimeResults: this.realTimeResults,
 										counts: this.counts,
 										handRaised: this.connectedUsers[msg.user.networkId].handRaised,
-										answer: this.connectedUsers[msg.user.networkId].answer
+										answer: this.connectedUsers[msg.user.networkId].answer,
+										hostContext: context
 									}
 								}
 							});
@@ -447,13 +517,15 @@ var app = new Vue({
 										activePollStatus: this.activePollStatus,
 										realTimeResults: this.realTimeResults,
 										counts: this.counts,
-										handRaised: this.connectedUsers[msg.user.networkId].handRaised
+										handRaised: this.connectedUsers[msg.user.networkId].handRaised,
+										hostContext: context
 									}
 								}
 							});
 						}
 						
 					} else {
+						// User joined for the first time
 						this.$set(this.connectedUsers, msg.user.networkId, msg.user);
 						this.$set(this.connectedUsers[msg.user.networkId], 'handRaised', false);
 						this.$set(this.connectedUsers[msg.user.networkId], 'answer', null);
@@ -466,7 +538,31 @@ var app = new Vue({
 									activePoll: this.activePoll,
 									activePollStatus: this.activePollStatus,
 									realTimeResults: this.realTimeResults,
+									hostContext: context
 								}
+							}
+						});
+					}
+				} else {
+					// First connected user will send hostContext
+					if(!this.SugarPresence.isHost && this.hostContext.id ==  msg.user.networkId) {
+						let sharedId = this.SugarPresence.presence.sharedInfo.id;
+						this.SugarPresence.presence.listSharedActivityUsers(sharedId, (users) => {
+							if(users.length == 0) return;
+	
+							let firstUserId = users[0].networkId;
+							if(this.currentUser.networkId == firstUserId) {
+								this.SugarPresence.sendMessage({
+									user: this.SugarPresence.getUserInfo(),
+									content: {
+										action: 'restore-host',
+										data: {
+											hostContext: this.hostContext
+										}
+									}
+								});
+								// restore-host won't be received by this user
+								this.clearPoll();
 							}
 						});
 					}
@@ -474,6 +570,11 @@ var app = new Vue({
 			} else {
 				if(this.SugarPresence.isHost && this.connectedUsers[msg.user.networkId].answer == null) {
 					this.$delete(this.connectedUsers, msg.user.networkId);
+				}
+				if(!this.SugarPresence.isHost && msg.user.networkId == this.hostContext.id) {
+					console.log('no-host');
+					this.clearPoll();
+					this.activePollStatus = 'no-host';
 				}
 			}
 		},

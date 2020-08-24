@@ -105,8 +105,8 @@ var PollStats = {
 						<p class="number" :style="{ color: currentUser.colorvalue.fill }">{{ activePoll.results.counts.usersCount }}</p>
 						<h3 class="title" :style="{ color: currentUser.colorvalue.stroke }">{{ l10n.stringUsers }}</h3>
 					</div>
-					<p class="date" v-if="isResult && !exportingDoc">{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
-					<p class="date" v-if="isResult && exportingDoc">{{ new Date(activePoll.endTime).toLocaleString() }}</p>
+					<p class="date" v-if="isResult && isHistory && !exportingDoc">{{ $root.$refs.SugarL10n.localizeTimestamp(activePoll.endTime) }}</p>
+					<p class="date" v-if="isResult && isHistory && exportingDoc">{{ new Date(activePoll.endTime).toLocaleString() }}</p>
 				</div>
 			</div>
 			<hr v-if="exportingDoc">

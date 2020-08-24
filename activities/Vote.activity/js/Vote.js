@@ -6,7 +6,8 @@ var Vote = {
 				<div class="loading" v-if="!activePoll">
 					<div>
 						<img src="icons/hourglass.svg" alt="hourglass">
-						<h2>{{ $root.$refs.SugarL10n.get('WaitingPoll') }}</h2>
+						<h2 v-if="activePollStatus == 'no-host'">{{ $root.$refs.SugarL10n.get('WaitingHost') }}</h2>
+						<h2 v-else>{{ $root.$refs.SugarL10n.get('WaitingPoll') }}</h2>
 					</div>
 				</div>
 				<div class="vote-card-content" v-else-if="activePollStatus == 'running' && (!realTimeResults || (realTimeResults && currentUser.answer == null))">
