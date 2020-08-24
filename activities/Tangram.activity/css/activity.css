@@ -144,11 +144,12 @@ p {
 	position: absolute;
 	top: 12px;
 	left: 1.2vw;
-	width: 50px;
-	height: 50px;
+	width: 65px;
+	height: 65px;
 	cursor: pointer;
 	z-index: 3;
 }
+
 #back-button:hover {
 	border: none;
 }
@@ -257,7 +258,15 @@ p {
   }
 }
 
+@media only screen and (max-height: 400px) {
+	#back-button {
+		width: 50px;
+		height: 50px;
+	}
+}
+
 .pagination {
+	color: black;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -272,6 +281,14 @@ p {
 .btn-next-page {
   margin: 0px 1%;
   background-image: url(../icons/go-right-black.svg);
+}
+
+.page-no {
+  margin: 0px 1%;
+  font-weight: bold;
+  color: black;
+  font-size: 3vh;
+  cursor: auto;
 }
 
 .palette-button {

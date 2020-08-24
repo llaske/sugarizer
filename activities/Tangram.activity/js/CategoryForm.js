@@ -21,17 +21,17 @@ var CategoryForm = {
         >
           <form @submit.prevent="onConfirm">
     				<div>
-    					<label for="title">Title</label>
+    					<label for="title">{{l10n.stringTitle}}</label>
     					<input type="text" name="title" v-model="category.title" required>
     				</div>
     				<div class="buttons-row">
     					<button type="submit" v-bind:disabled="!isValid">
     						<img src="icons/dialog-ok.svg">
-    						<span>Confirm</span>
+    						<span>{{l10n.stringConfirm}}</span>
     					</button>
     					<button type="button" @click="$emit('go-to-dataset-list')">
     						<img src="icons/dialog-cancel.svg">
-    						<span>Cancel</span>
+    						<span>{{l10n.stringCancel}}</span>
     					</button>
     				</div>
     			</form>
@@ -52,7 +52,7 @@ var CategoryForm = {
         width: 30,
       },
       category: {
-        title: 'New Category'
+        title: ''
       },
       puzzlesSet: [],
     };
@@ -72,6 +72,8 @@ var CategoryForm = {
     let vm = this;
     if (vm.categoryToBeEdited) {
       vm.category.title = vm.categoryToBeEdited;
+    } else {
+      vm.category.title = vm.l10n.stringNewTitle
     }
     vm.resize();
   },
@@ -80,7 +82,7 @@ var CategoryForm = {
     isValid: function () {
       let vm = this;
       let title = vm.category.title;
-      if (title === '') return false;
+      if (title === '' || title === vm.l10n.stringNewTitle || title === vm.categoryToBeEdited) return false;
       let index = -1;
       if (!vm.categoryToBeEdited) {
         index = vm.dataSetHandler.dataSet.findIndex(ele => ele.name === title);

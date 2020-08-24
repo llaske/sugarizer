@@ -4,7 +4,7 @@ var Game = {
   },
   props: ['strokeColor', 'fillColor', 'puzzles', 'pNo', 'showHint', 'hintNumber', 'noOfHintsUsed', 'mode', 'level', 'gameOver', 'time', 'userResponse', 'score', 'disabled', 'l10n'],
   template: `
-    <div id="game-screen"
+    <div id="game-screen" class="pulse-main"
       v-bind:style="{backgroundColor: strokeColor}"
     >
       <div class="game-main">
@@ -70,7 +70,7 @@ var Game = {
           <div class="detail-block score-block"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="detail-block-content score-title"><div>{{ l10n.stringScore }}:</div></div>
+            <div class="detail-block-content score-title"><div>{{ l10n.stringScore }}</div></div>
             <div class="detail-block-content score-val"><div>{{score}}</div></div>
           </div>
 
@@ -116,7 +116,7 @@ var Game = {
           <div class="gameOver-block score-block"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="gameOver-block-content score-title"><div>Score:</div></div>
+            <div class="gameOver-block-content score-title"><div>{{l10n.stringScore}}</div></div>
             <div class="gameOver-block-content score-val"><div>{{userResponse[pNo] ? userResponse[pNo].score : 0}}</div></div>
           </div>
 
@@ -124,7 +124,7 @@ var Game = {
             v-if="level && gameOver ==='solved'"
             v-bind:style="{borderColor: strokeColor}"
           >
-            <div class="gameOver-block-content hintsUsed-title"><div>Hints Used:</div></div>
+            <div class="gameOver-block-content hintsUsed-title"><div>{{l10n.stringHintsUsed}}</div></div>
             <div class="gameOver-block-content hintsUsed-val"><div>{{noOfHintsUsed}}</div></div>
           </div>
 

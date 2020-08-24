@@ -64,7 +64,7 @@ var DatasetList = {
   },
   props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzles', 'view'],
   template: `
-    <div id="dataset-list-screen"
+    <div id="dataset-list-screen" class="pulse-main"
       v-bind:style="{backgroundColor: strokeColor}"
     >
       <div class="dataset-list-header">
