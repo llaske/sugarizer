@@ -43,6 +43,7 @@ var PollsGrid = {
 		<div>
 			<draggable 
 				class="polls-grid" 
+				:class="{ fullscreen: $root.$refs.SugarToolbar ? $root.$refs.SugarToolbar.isHidden() : false }"
 				:style="{ backgroundColor: currentUser.colorvalue.fill }" 
 				v-model="polls" 
 				@update="onUpdate" 
@@ -51,8 +52,9 @@ var PollsGrid = {
 			>
 				<poll-card 
 					:poll="poll" 
+					:id="i"
 					v-show="matchesSearch(poll.question)"
-					v-for="poll in polls" 
+					v-for="(poll, i) in polls" 
 					:key="poll.id"
 					:settings="settings"
 					@poll-clicked="onPollClick"

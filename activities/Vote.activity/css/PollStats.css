@@ -54,6 +54,7 @@
 	justify-content: space-between;
 }
 .poll-stats.is-result .poll-header {
+	margin-bottom: 20px;
 	color: white;
 	background: rgb(30, 30, 30);
 }
@@ -80,6 +81,7 @@
 	top: 14px;
 	background-color: transparent;
 	background-image: url(../icons/go-left.svg);
+	filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
 	background-size: contain;
 	height: 40px;
 	width: 40px;

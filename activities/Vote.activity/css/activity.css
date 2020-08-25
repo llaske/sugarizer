@@ -24,6 +24,12 @@ p {
 	height: calc(100vh - 55px);
 	overflow: auto;
 }
+#content.fullscreen {
+	height: 100vh;
+}
+.fullscreen {
+	min-height: 100vh !important;
+}
 
 #main-toolbar .splitbar {
 	border-right: 1.5px solid #565656;
@@ -109,6 +115,27 @@ p {
 
 #main-toolbar #export-button {
 	background-image: url(../icons/file-export.svg);
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
 }
 
 .search-field {

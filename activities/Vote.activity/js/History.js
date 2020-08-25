@@ -1,10 +1,11 @@
 var History = {
 	/*html*/
 	template: `
-		<div class="history-container" :style="{ backgroundColor: openHistoryIndex == null ? currentUser.colorvalue.stroke : '#fff' }">
+		<div class="history-container" :class="{ fullscreen: $root.$refs.SugarToolbar ? $root.$refs.SugarToolbar.isHidden() : false }" :style="{ backgroundColor: openHistoryIndex == null ? currentUser.colorvalue.stroke : '#fff' }">
 			<ul class="history-list" v-if="openHistoryIndex == null">
 				<li 
 					class="history-item" 
+					:id="i"
 					v-for="(item, i) in history" 
 					:key="item.endTime"
 					@click="$emit('set-open-history-index', i)"

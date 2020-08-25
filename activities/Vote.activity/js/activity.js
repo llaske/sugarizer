@@ -106,7 +106,45 @@ var app = new Vue({
 			stringDeletePoll: '',
 			stringExport: '',
 			stringFullscreen: '',
-			stringUnfullscreen: ''
+			stringUnfullscreen: '',
+			stringTutoSettingsPollCardTitle: '',
+			stringTutoSettingsPollCardContent: '',
+			stringTutoSettingsEditButtonTitle: '',
+			stringTutoSettingsEditButtonContent: '',
+			stringTutoSettingsDeleteButtonTitle: '',
+			stringTutoSettingsDeleteButtonContent: '',
+			stringTutoSettingsAddButtonTitle: '',
+			stringTutoSettingsAddButtonContent: '',
+			stringTutoExplainTitle: '',
+			stringTutoExplainContent: '',
+			stringTutoPollCardTitle: '',
+			stringTutoPollCardContent: '',
+			stringTutoPollSearchTitle: '',
+			stringTutoPollSearchContent: '',
+			stringTutoSettingsButtonTitle: '',
+			stringTutoSettingsButtonContent: '',
+			stringTutoHistoryButtonTitle: '',
+			stringTutoHistoryButtonContent: '',
+			stringTutoNetworkButtonTitle: '',
+			stringTutoNetworkButtonContent: '',
+			stringTutoHistoryItemTitle: '',
+			stringTutoHistoryItemContent: '',
+			stringTutoHomeButtonTitle: '',
+			stringTutoHomeButtonContent: '',
+			stringTutoExportButtonTitle: '',
+			stringTutoExportButtonContent: '',
+			stringTutoDeleteButtonTitle: '',
+			stringTutoDeleteButtonContent: '',
+			stringTutoPollStatsTitle: '',
+			stringTutoPollStatsContent: '',
+			stringTutoPollFooterTitle: '',
+			stringTutoPollFooterContent: '',
+			stringTutoStopPollTitle: '',
+			stringTutoStopPollContent: '',
+			stringTutoRealTimeButtonTitle: '',
+			stringTutoRealTimeButtonContent: '',
+			stringTutoAutoStopButtonTitle: '',
+			stringTutoAutoStopButtonContent: '',
 		}
 	},
 	computed: {
@@ -352,6 +390,7 @@ var app = new Vue({
 				id: this.currentUser.networkId,
 				polls: this.polls,
 				realTimeResults: this.realTimeResults,
+				autoStop: this.autoStop,
 				history: this.history
 			}
 
@@ -456,6 +495,7 @@ var app = new Vue({
 						this.history = msg.content.data.hostContext.history;
 						this.polls = msg.content.data.hostContext.polls;
 						this.realTimeResults = msg.content.data.hostContext.realTimeResults;
+						this.autoStop = msg.content.data.hostContext.autoStop;
 
 						let sharedId = this.SugarPresence.presence.sharedInfo.id;
 						this.SugarPresence.presence.listSharedActivityUsers(sharedId, (users) => {
@@ -486,6 +526,7 @@ var app = new Vue({
 						id: this.currentUser.networkId,
 						polls: this.polls,
 						realTimeResults: this.realTimeResults,
+						autoStop: this.autoStop,
 						history: this.history
 					}
 					// Host
@@ -577,6 +618,154 @@ var app = new Vue({
 					this.activePollStatus = 'no-host';
 				}
 			}
+		},
+
+		fullscreen: function () {
+			this.$refs.SugarToolbar.hide();
+		},
+
+		unfullscreen: function () {
+			this.$refs.SugarToolbar.show();
+		},
+
+		onHelp() {
+			let steps = [];
+			if(this.settings) {
+				steps = steps.concat([
+					{
+						element: ".poll-card#0",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsPollCardTitle,
+						content: this.l10n.stringTutoSettingsPollCardContent
+					},
+					{
+						element: "#edit-button",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsEditButtonTitle,
+						content: this.l10n.stringTutoSettingsEditButtonContent
+					},
+					{
+						element: "#delete-button",
+						placement: "right",
+						title: this.l10n.stringTutoSettingsDeleteButtonTitle,
+						content: this.l10n.stringTutoSettingsDeleteButtonContent
+					},
+					{
+						element: "#add-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsAddButtonTitle,
+						content: this.l10n.stringTutoSettingsAddButtonContent
+					},
+				]);
+			} else {
+				switch(this.currentView) {
+					case 'polls-grid':
+						steps = steps.concat([
+							{
+								element: "",
+								orphan: true,
+								placement: "bottom",
+								title: this.l10n.stringTutoExplainTitle,
+								content: this.l10n.stringTutoExplainContent
+							},
+							{
+								element: ".poll-card#0",
+								placement: "right",
+								title: this.l10n.stringTutoPollCardTitle,
+								content: this.l10n.stringTutoPollCardContent
+							},
+							{
+								element: ".search-input",
+								placement: "bottom",
+								title: this.l10n.stringTutoPollSearchTitle,
+								content: this.l10n.stringTutoPollSearchContent
+							},
+							{
+								element: "#settings-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoSettingsButtonTitle,
+								content: this.l10n.stringTutoSettingsButtonContent
+							},
+							{
+								element: "#history-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoHistoryButtonTitle,
+								content: this.l10n.stringTutoHistoryButtonContent
+							},
+							{
+								element: "#network-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoNetworkButtonTitle,
+								content: this.l10n.stringTutoNetworkButtonContent
+							},
+						]);
+						break;
+					case 'history':
+						steps = steps.concat([
+							{
+								element: ".history-item#0",
+								placement: "bottom",
+								title: this.l10n.stringTutoHistoryItemTitle,
+								content: this.l10n.stringTutoHistoryItemContent
+							},
+							{
+								element: "#home-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoHomeButtonTitle,
+								content: this.l10n.stringTutoHomeButtonContent
+							},
+							{
+								element: "#export-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoExportButtonTitle,
+								content: this.l10n.stringTutoExportButtonContent
+							},
+							{
+								element: "#delete-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoDeleteButtonTitle,
+								content: this.l10n.stringTutoDeleteButtonContent
+							},
+						]);
+						break;
+					case 'poll-stats':
+						steps = steps.concat([
+							{
+								element: "#stats",
+								placement: "right",
+								title: this.l10n.stringTutoPollStatsTitle,
+								content: this.l10n.stringTutoPollStatsContent
+							},
+							{
+								element: ".poll-footer",
+								placement: "top",
+								title: this.l10n.stringTutoPollFooterTitle,
+								content: this.l10n.stringTutoPollFooterContent
+							},
+							{
+								element: "#stop-poll",
+								placement: "bottom",
+								title: this.l10n.stringTutoStopPollTitle,
+								content: this.l10n.stringTutoStopPollContent
+							},
+							{
+								element: "#real-time-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoRealTimeButtonTitle,
+								content: this.l10n.stringTutoRealTimeButtonContent
+							},
+							{
+								element: "#auto-stop-button",
+								placement: "bottom",
+								title: this.l10n.stringTutoAutoStopButtonTitle,
+								content: this.l10n.stringTutoAutoStopButtonContent
+							},
+						]);
+						break;
+				}
+			}
+
+			this.$refs.SugarTutorial.show(steps);
 		},
 
 		onStop() {

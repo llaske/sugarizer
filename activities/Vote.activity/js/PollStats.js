@@ -59,7 +59,7 @@ var ImageURL = {
 var PollStats = {
 	/*html*/
 	template: `
-		<div class="poll-stats" :id="id" :class="{ 'is-result': isResult, 'is-thumbnail': isThumbnail }">
+		<div class="poll-stats" :id="id" :class="{ 'is-result': isResult, 'is-thumbnail': isThumbnail, fullscreen: $root.$refs.SugarToolbar ? $root.$refs.SugarToolbar.isHidden() : false }">
 			<div class="poll-header" v-if="!isThumbnail">
 				<button id="go-back" @click="goBack" v-if="!isResult && activePollStatus != 'running'"></button>
 				<h2>{{ activePoll.question }}</h2>

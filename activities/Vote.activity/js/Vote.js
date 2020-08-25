@@ -1,7 +1,7 @@
 var Vote = {
 	/*html*/
 	template: `
-		<div class="vote" :style="{ backgroundColor: currentUser.colorvalue.fill }">
+		<div class="vote" :class="{ fullscreen: $root.$refs.SugarToolbar ? $root.$refs.SugarToolbar.isHidden() : false }" :style="{ backgroundColor: currentUser.colorvalue.fill }">
 			<div class="vote-card">
 				<div class="loading" v-if="!activePoll">
 					<div>
