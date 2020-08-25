@@ -571,6 +571,7 @@ var app = new Vue({
         let coeffSqrtY = tanObjsArr[j].anchor.y.coeffSqrt;
         let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
         let targetTan = {
+          id:(j+50),
           x: 100,
           y: 100,
           offsetX: 100,
@@ -1124,7 +1125,6 @@ var app = new Vue({
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
       console.log("Existing instance");
-      console.log(data);
       if (data.type === "game-dataset") {
         vm.importDataSet(data.dataSet);
         vm.currentScreen = 'dataset-list';
@@ -1557,6 +1557,7 @@ var app = new Vue({
           },
         ];
       } else if (vm.currentScreen === 'dataset-list' && vm.view === 'setting') {
+        document.querySelector('.dataset-list-panel-primary').scrollTo({ top: 0});
         steps = [{
             element: "",
             orphan: true,

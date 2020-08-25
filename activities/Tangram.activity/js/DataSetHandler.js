@@ -197,7 +197,6 @@ Vue.component('data-set-handler', {
         vm.tangramSet.push(newDataSetElem);
         vm.nextArr.push(vm.tangramSet.length - 1);
       }
-			console.log(JSON.stringify(newDataSetElem));
       return newDataSetElem;
     },
 
@@ -220,7 +219,7 @@ Vue.component('data-set-handler', {
       vm.dataSet[index]["tangrams"][tangramIndex] = newDataSetElem;
       let tangramIndex2 = vm.tangramSet.findIndex(ele => ele.id === id);
       vm.tangramSet[tangramIndex2] = newDataSetElem;
-			console.log(JSON.stringify(newDataSetElem));
+			//console.log(JSON.stringify(newDataSetElem));
       return newDataSetElem;
     },
 

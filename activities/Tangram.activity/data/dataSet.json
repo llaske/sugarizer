@@ -2547,7 +2547,11 @@
             "tanType": 4,
             "orientation": 0
           }]
-        }
+        },
+        {"id":"3#13","name":"Sprinter","targetTans":[{"anchor":{"x":[34.5,-6],"y":[23.5,-6]},"tanType":0,"orientation":0},{"anchor":{"x":[22.5,-6],"y":[41.5,-6]},"tanType":0,"orientation":7},{"anchor":{"x":[34.5,0],"y":[23.5,0]},"tanType":1,"orientation":1},{"anchor":{"x":[28.5,0],"y":[33.5,6]},"tanType":2,"orientation":7},{"anchor":{"x":[34.5,0],"y":[23.5,6]},"tanType":2,"orientation":0},{"anchor":{"x":[31.5,6],"y":[26.5,-6]},"tanType":3,"orientation":7},{"anchor":{"x":[16.5,-6],"y":[47.5,-6]},"tanType":4,"orientation":0}]},
+        {"id":"3#14","name":"Angler","targetTans":[{"anchor":{"x":[21,0],"y":[33,0]},"tanType":0,"orientation":1},{"anchor":{"x":[15,0],"y":[39,0]},"tanType":0,"orientation":5},{"anchor":{"x":[45,0],"y":[33,0]},"tanType":1,"orientation":0},{"anchor":{"x":[39,0],"y":[39,0]},"tanType":2,"orientation":7},{"anchor":{"x":[9,0],"y":[45,0]},"tanType":2,"orientation":5},{"anchor":{"x":[8,0],"y":[21,0]},"tanType":3,"orientation":7},
+        {"anchor":{"x":[27,0],"y":[39,0]},"tanType":4,"orientation":0}]},
+        {"id":"3#15","name":"Dancer","targetTans":[{"anchor":{"x":[31.5,-6],"y":[35,-15]},"tanType":0,"orientation":0},{"anchor":{"x":[31.5,0],"y":[35,3]},"tanType":0,"orientation":4},{"anchor":{"x":[31.5,6],"y":[28,9]},"tanType":1,"orientation":3},{"anchor":{"x":[28.5,-12],"y":[35,3]},"tanType":2,"orientation":0},{"anchor":{"x":[28.5,0],"y":[31,15]},"tanType":2,"orientation":7},{"anchor":{"x":[27.5,-6],"y":[29,-15]},"tanType":3,"orientation":7},{"anchor":{"x":[31.5,12],"y":[35,-15]},"tanType":4,"orientation":3}]}
       ]
     },
     {
