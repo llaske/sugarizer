@@ -163,8 +163,41 @@ var Vote = {
 			.then(src => {
 				vm.yesnoIcons.no = src;
 			});
+		document.addEventListener('keyup', this.onKeyUp);
 	},
 	methods: {
+		onKeyUp(event) {
+			if(event.keyCode >= 49 && event.keyCode <= 57) {
+				if(this.activePoll.typeVariable == "MCQ" || this.activePoll.typeVariable == "ImageMCQ") {
+					if(event.keyCode-49 < this.activePoll.options.length) {
+						this.optionSelected = event.keyCode-49;
+					}
+				} else if(this.activePoll.typeVariable == "Rating") {
+					if(event.keyCode-48 <= 5) {
+						this.rating = event.keyCode-48;
+					}
+				}
+			} else {
+				switch(event.keyCode) {
+					case 13:
+						this.submit();
+						break;
+					case 72:
+						this.switchHandRaise();
+						break;
+					case 78:
+						if(this.activePoll.typeVariable == "YesNo") {
+							this.boolChoice = false;
+						}
+						break;
+					case 89:
+						if(this.activePoll.typeVariable == "YesNo") {
+							this.boolChoice = true;
+						}
+						break;
+				}
+			}
+		},
 		switchHandRaise() {
 			this.$emit('hand-raise-switched', !this.currentUser.handRaised);
 		},
