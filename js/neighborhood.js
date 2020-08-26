@@ -464,7 +464,8 @@ enyo.kind({
 			colorizedColor: icon.colorizedColor,
 			name: icon.getData().activity.name,
 			title: null,
-			action: null
+			action: enyo.bind(this, "joinActivity"),
+			data: [icon.getData(), null]
 		});
 		var items = [];
 		items.push({
