@@ -398,8 +398,11 @@ var SettingEditor = {
       vm.checkIfTangramValid();
     },
 
-    onRandom: function() {
+    onRandom: function(e) {
       let vm = this
+      if (e && e.screenX === 0 && e.screenY === 0) {
+        return;
+      }
       let generatedTangrams = generateTangrams(2);
       let tangram = generatedTangrams[0];
       tangram.positionCentered();
@@ -593,6 +596,7 @@ var SettingEditor = {
       }
 
       if (!flag) {
+        console.log("ok");
         currentTan.tanObj.anchor.roundToNearest(1);
         vm.updatePoints(index);
       } else {
@@ -760,9 +764,9 @@ var SettingEditor = {
         vm.moveTan(index, dx, dy);
         setTimeout(() => {
           vm.snapTan(index);
-        }, 0);
-        setTimeout(() => {
-          vm.checkIfTangramValid();
+          setTimeout(() => {
+            vm.checkIfTangramValid();
+          }, 0)
         }, 0);
       }, 0)
     },
@@ -806,6 +810,7 @@ var SettingEditor = {
         }
       } else if (vm.tanState === 1) {
         let delta = 4;
+        vm.selectTan(vm.currentTan);
         let scale = vm.configLayer.scaleX;
         let dx = delta / scale;
         let dy = delta / scale;

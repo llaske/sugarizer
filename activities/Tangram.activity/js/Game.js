@@ -84,7 +84,7 @@ var Game = {
             borderColor: 'transparent'
           }"
         >
-          <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? $root.SugarL10n.get(puzzles[pNo].name) : ''}}</div></div>
+          <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? tangramName : ''}}</div></div>
         </div>
 
         <canvas id="floating-celebration-block"
@@ -273,6 +273,10 @@ var Game = {
         if (vm.showHint && index === vm.hintNumber) return true;
       });
       return targetPuzzleTans
+    },
+
+    tangramName: function() {
+      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data" + this.puzzles[this.pNo].name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data" + this.puzzles[this.pNo].name.replace(/ /g, "")) : this.puzzles[this.pNo].name) : this.puzzles[this.pNo].name;
     }
   },
 
@@ -995,11 +999,11 @@ var Game = {
         vm.moveTan(index, dx, dy);
         setTimeout(() => {
           vm.snapTan(index);
+          setTimeout(() => {
+            vm.checkIfSolved();
+          }, 0)
         }, 0);
-        setTimeout(() => {
-          vm.checkIfSolved();
-        }, 0);
-      }, 0);
+      }, 0)
     },
 
     onMouseOver: function(e) {
@@ -1042,6 +1046,7 @@ var Game = {
           vm.tanState = 1;
         }
       } else if (vm.tanState === 1) {
+        vm.selectTan(vm.currentTan);
         let delta = 4;
         let scale = vm.configLayer.scaleX;
         let dx = delta / scale;

@@ -6,7 +6,7 @@ var TangramCard = {
     >
       <div class="tangram-card-info-bar">
         <div class="info-content name-info">
-          <div>{{$root.SugarL10n.get(item.name)}}</div>
+          <div>{{tangramName}}</div>
         </div>
         <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
         <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.tangramSet.length==1" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
@@ -39,6 +39,10 @@ var TangramCard = {
     pathScale: function() {
       return 'scale(' + this.tangramSVGconfig.scale + ')';
     },
+
+    tangramName: function () {
+      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data"+this.item.name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data"+this.item.name.replace(/ /g, "")) : this.item.name): this.item.name;
+    }
   },
 
   methods: {
