@@ -596,7 +596,6 @@ var SettingEditor = {
       }
 
       if (!flag) {
-        console.log("ok");
         currentTan.tanObj.anchor.roundToNearest(1);
         vm.updatePoints(index);
       } else {

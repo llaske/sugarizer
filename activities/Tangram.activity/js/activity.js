@@ -1143,7 +1143,6 @@ var app = new Vue({
 
     onJournalDataLoaded: function(data, metadata) {
       var vm = this;
-      console.log(data);
       console.log("Existing instance");
       if (data.type === "game-dataset") {
         vm.importDataSet(data.dataSet);
