@@ -13,11 +13,11 @@ var PollSettings = {
 					</div>
 					<img :src="poll.image">
 				</div>
-				<div>
+				<div id="question">
 					<label for="question">{{ l10n.stringQuestion }}</label>
 					<input type="text" name="question" v-model="poll.question" required>
 				</div>
-				<div>
+				<div id="type">
 					<label for="type">{{ l10n.stringType }}</label>
 					<select v-model="poll.typeVariable">
 						<option :value="type" v-for="(image, type) in types" :key="type">{{ $root.$refs.SugarL10n.get(type) }}</option>
@@ -29,7 +29,7 @@ var PollSettings = {
 						<button type="button" class="add-option-button" @click="addOption"></button>
 					</div>
 					<draggable :class="{ 'image-mcq': poll.typeVariable == 'ImageMCQ' }" v-model="poll.options" animation="300">
-						<div class="option" v-for="(option, i) in poll.options" :key="i">
+						<div class="option" :id="i" v-for="(option, i) in poll.options" :key="i">
 							<input 
 								v-if="poll.typeVariable == 'MCQ'"
 								type="text" 

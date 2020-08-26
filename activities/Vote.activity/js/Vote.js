@@ -163,10 +163,10 @@ var Vote = {
 			.then(src => {
 				vm.yesnoIcons.no = src;
 			});
-		document.addEventListener('keyup', this.onKeyUp);
+		document.addEventListener('keydown', this.onKeyDown);
 	},
 	methods: {
-		onKeyUp(event) {
+		onKeyDown(event) {
 			if(event.keyCode >= 49 && event.keyCode <= 57) {
 				if(this.activePoll.typeVariable == "MCQ" || this.activePoll.typeVariable == "ImageMCQ") {
 					if(event.keyCode-49 < this.activePoll.options.length) {
@@ -182,8 +182,10 @@ var Vote = {
 					case 13:
 						this.submit();
 						break;
-					case 72:
-						this.switchHandRaise();
+					case 32:
+						if(event.ctrlKey) {
+							this.switchHandRaise();
+						}
 						break;
 					case 78:
 						if(this.activePoll.typeVariable == "YesNo") {

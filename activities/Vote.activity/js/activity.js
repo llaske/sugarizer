@@ -113,8 +113,22 @@ var app = new Vue({
 			stringTutoSettingsEditButtonContent: '',
 			stringTutoSettingsDeleteButtonTitle: '',
 			stringTutoSettingsDeleteButtonContent: '',
+			stringTutoSettingsPlayButtonTitle: '',
+			stringTutoSettingsPlayButtonContent: '',
 			stringTutoSettingsAddButtonTitle: '',
 			stringTutoSettingsAddButtonContent: '',
+
+			stringTutoSettingsImageEditButtonTitle: '',
+			stringTutoSettingsImageEditButtonContent: '',
+			stringTutoSettingsQuestionTitle: '',
+			stringTutoSettingsQuestionContent: '',
+			stringTutoSettingsTypeTitle: '',
+			stringTutoSettingsTypeContent: '',
+			stringTutoSettingsAddOptionButtonTitle: '',
+			stringTutoSettingsAddOptionButtonContent: '',
+			stringTutoSettingsOptionTitle: '',
+			stringTutoSettingsOptionContent: '',
+
 			stringTutoExplainTitle: '',
 			stringTutoExplainContent: '',
 			stringTutoPollCardTitle: '',
@@ -651,10 +665,46 @@ var app = new Vue({
 						content: this.l10n.stringTutoSettingsDeleteButtonContent
 					},
 					{
+						element: "#settings-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsPlayButtonTitle,
+						content: this.l10n.stringTutoSettingsPlayButtonContent
+					},
+					{
 						element: "#add-button",
 						placement: "bottom",
 						title: this.l10n.stringTutoSettingsAddButtonTitle,
 						content: this.l10n.stringTutoSettingsAddButtonContent
+					},
+					{
+						element: "#image-edit-button",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsImageEditButtonTitle,
+						content: this.l10n.stringTutoSettingsImageEditButtonContent
+					},
+					{
+						element: "#question",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsQuestionTitle,
+						content: this.l10n.stringTutoSettingsQuestionContent
+					},
+					{
+						element: "#type",
+						placement: "bottom",
+						title: this.l10n.stringTutoSettingsTypeTitle,
+						content: this.l10n.stringTutoSettingsTypeContent
+					},
+					{
+						element: ".add-option-button",
+						placement: "top",
+						title: this.l10n.stringTutoSettingsAddOptionButtonTitle,
+						content: this.l10n.stringTutoSettingsAddOptionButtonContent
+					},
+					{
+						element: ".option#0",
+						placement: "top",
+						title: this.l10n.stringTutoSettingsOptionTitle,
+						content: this.l10n.stringTutoSettingsOptionContent
 					},
 				]);
 			} else {
