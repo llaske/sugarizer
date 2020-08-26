@@ -115,8 +115,6 @@ var SettingEditor = {
       configLayer: {
         scaleX: 5,
         scaleY: 5,
-        width: 60,
-        height: 60,
         offsetX: 0,
         offsetY: 0,
       },
@@ -248,8 +246,6 @@ var SettingEditor = {
       let lw, lh;
       if (cw < ch) lh = lw;
       else lw = lh;
-      vm.$set(vm.configLayer, 'width', 60);
-      vm.$set(vm.configLayer, 'height', 60);
       vm.$set(vm.configLayer, 'scaleX', scale);
       vm.$set(vm.configLayer, 'scaleY', scale);
       vm.$set(vm.configLayer, 'offsetX', -cw / (2 * scale) + 30);

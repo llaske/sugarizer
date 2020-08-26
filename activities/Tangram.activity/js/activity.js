@@ -31,6 +31,7 @@ var app = new Vue({
     view: 'play',
     score: 0,
     level: 0,
+    gameLevelBonus: false,
     timer: null,
     clock: {
       active: false,
@@ -158,10 +159,14 @@ var app = new Vue({
       stringTutoValidPuzzleContent: '',
       stringTutoCategoryNameTitle: '',
       stringTutoCategoryNameContent: '',
-      stringTutoEditButtonTitle: '',
-      stringTutoEditButtonContent: '',
-      stringTutoDeleteButtonTitle: '',
-      stringTutoDeleteButtonContent: ''
+      stringTutoEditPuzzleTitle: '',
+      stringTutoEditPuzzleContent: '',
+      stringTutoDeletePuzzleTitle: '',
+      stringTutoDeletePuzzleContent: '',
+      stringTutoEditCategoryTitle: '',
+      stringTutoEditCategoryContent: '',
+      stringTutoDeleteCategoryTitle: '',
+      stringTutoDeleteCategoryContent: ''
     }
   },
   watch: {
@@ -200,7 +205,11 @@ var app = new Vue({
       vm.isTargetAcheived = false;
       vm.hintNumber = 0;
       vm.hintsUsed = [false, false, false, false, false, false, false];
-
+      if (!vm.Level) {
+        vm.gameLevelBonus = false;
+      } else {
+        vm.gameLevelBonus = true;
+      }
       let populated = vm.populatePuzzles(vm.puzzles[vm.pNo].tangram.tans);
       vm.$set(vm.puzzles[vm.pNo], 'targetTans', populated.targetTans);
       vm.$set(vm.puzzles[vm.pNo], 'outline', computeOutline(vm.puzzles[vm.pNo].tangram.tans, true));
@@ -407,6 +416,11 @@ var app = new Vue({
       vm.hintNumber = 0;
       vm.noOfHintsUsed = 0;
       vm.isTargetAcheived = false;
+      if (!vm.level) {
+        vm.gameLevelBonus = false;
+      } else {
+        vm.gameLevelBonus = true;
+      }
       vm.$set(vm.clock, 'time', vm.clock.initial);
       if (!joined) {
         vm.generateQuestionSet();
@@ -655,13 +669,14 @@ var app = new Vue({
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'x', center.toFloatX() + dx);
         vm.$set(vm.puzzles[vm.pNo].targetTans[index], 'y', center.toFloatY() + dy);
       }
-
     },
 
     setUserResponse: function(tans) {
       let vm = this;
       let isSolved = true;
       let bonus = vm.puzzles[vm.pNo].difficulty ? 2 : 0;
+      let gameLevelBonus = vm.gameLevelBonus ? 2 : 0;
+
       let score;
       if (tans.length === 0) {
         //if tangram is not solved, so show computer's solution.
@@ -672,9 +687,10 @@ var app = new Vue({
           tans.push(targetTan.tanObj);
         }
       } else {
-        score = 6 - Math.min(6, vm.noOfHintsUsed) + Math.max(0, 15 - Math.floor(Math.abs(vm.timeMarks[vm.pNo + 1] - vm.timeMarks[vm.pNo]) / 4)) + bonus;
+        score = 6 - Math.min(6, vm.noOfHintsUsed) + Math.max(0, 15 - Math.floor(Math.abs(vm.timeMarks[vm.pNo + 1] - vm.timeMarks[vm.pNo]) / 4)) + bonus + gameLevelBonus;
       }
       vm.score += score;
+      console.log(gameLevelBonus);
       vm.$set(vm.userResponse, vm.pNo, {
         isSolved: isSolved,
         score: score,
@@ -841,7 +857,11 @@ var app = new Vue({
     onDifficultySelected: function() {
       var vm = this;
       vm.level = vm.level ? 0 : 1;
+      if (vm.level==0) {
+        vm.gameLevelBonus = false;
+      }
       if (vm.currentScreen !== 'game') {
+        vm.gameLevelBonus = vm.level;
         return;
       }
       if (vm.gameOver) {
@@ -1090,6 +1110,7 @@ var app = new Vue({
         mode: vm.mode,
         view: vm.view,
         level: vm.level,
+        gameLevelBonus: vm.gameLevelBonus,
         tangramCategories: vm.tangramCategories,
         puzzles: puzzlesContext,
         pNo: vm.pNo,
@@ -1168,7 +1189,7 @@ var app = new Vue({
       setTimeout(() => {
         vm.mode = data.mode;
         //  vm.level = data.level;
-
+        vm.gameLevelBonus = vm.gameLevelBonus;
         vm.pNo = data.pNo;
         vm.score = data.score;
         vm.gameOver = data.gameOver;
@@ -1575,14 +1596,26 @@ var app = new Vue({
           {
             element: ".tangram-card:first-child .edit-btn",
             placement: "auto bottom",
-            title: this.l10n.stringTutoEditButtonTitle,
-            content: this.l10n.stringTutoEditButtonContent
+            title: this.l10n.stringTutoEditPuzzleTitle,
+            content: this.l10n.stringTutoEditPuzzleContent
           },
           {
             element: ".tangram-card:first-child .delete-btn",
             placement: "auto bottom",
-            title: this.l10n.stringTutoDeleteButtonTitle,
-            content: this.l10n.stringTutoDeleteButtonContent
+            title: this.l10n.stringTutoDeletePuzzleTitle,
+            content: this.l10n.stringTutoDeletePuzzleContent
+          },
+          {
+            element: ".dataset-list-bar-block .edit-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoEditCategoryTitle,
+            content: this.l10n.stringTutoEditCategoryContent
+          },
+          {
+            element: ".dataset-list-bar-block .delete-btn",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoDeleteCategoryTitle,
+            content: this.l10n.stringTutoDeleteCategoryContent
           },
           {
             element: "#puzzle-category-button",
@@ -1662,13 +1695,7 @@ var app = new Vue({
           placement: "bottom",
           title: this.l10n.stringTutoExplainTitle,
           content: this.l10n.stringTutoExplainContent
-        },
-        {
-          element: "input[name='title']",
-          placement: "auto bottom",
-          title: this.l10n.stringTutoCategoryNameTitle,
-          content: this.l10n.stringTutoCategoryNameContent
-        },
+        }
        ];
       }
 

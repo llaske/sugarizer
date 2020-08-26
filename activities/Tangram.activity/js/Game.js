@@ -121,14 +121,6 @@ var Game = {
             <div class="gameOver-block-content score-val"><div>{{userResponse[pNo] ? userResponse[pNo].score : 0}}</div></div>
           </div>
 
-          <div class="gameOver-block hintsUsed-block"
-            v-if="level && gameOver ==='solved'"
-            v-bind:style="{borderColor: strokeColor}"
-          >
-            <div class="gameOver-block-content hintsUsed-title"><div>{{l10n.stringHintsUsed}}</div></div>
-            <div class="gameOver-block-content hintsUsed-val"><div>{{noOfHintsUsed}}</div></div>
-          </div>
-
           <div class="gameOver-block emoji-won-block"
             v-if="gameOver==='solved'"
             v-bind:style="{borderColor: null}"
