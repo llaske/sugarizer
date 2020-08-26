@@ -62,8 +62,8 @@ var PollSettings = {
 	data: () => ({
 		poll: {
 			type: '',
-			typeVariable: 'YesNo',
-			image: 'images/yesno.png',
+			typeVariable: '',
+			image: '',
 			question: '',
 			options: [],
 			results: null
@@ -93,12 +93,12 @@ var PollSettings = {
 		},
 	},
 	created: function () {
-		var vm = this;
 		if (this.activePoll && this.activePollStatus == "editing") {			// Edit poll
 			this.poll = JSON.parse(JSON.stringify(this.activePoll));
-		} else {													// Add poll
-			// Do nothing
 		}
+		// Else adding a poll -> setting default typeVariable and image
+		this.poll.typeVariable = Object.keys(this.types)[0];
+		this.poll.image = this.types[this.poll.typeVariable];
 	},
 	mounted: function () {
 		this.$root.$refs.SugarL10n.localize(this.l10n);
@@ -145,9 +145,9 @@ var PollSettings = {
 				this.$delete(this.poll, 'options');
 			}
 
-			if (this.activePoll && this.activePollStatus == "editing") {			// Edit poll
+			if (this.activePoll && this.activePollStatus == "editing") {
 				this.editPoll();
-			} else {																											// Add poll
+			} else {
 				this.addPoll();
 			}
 		},

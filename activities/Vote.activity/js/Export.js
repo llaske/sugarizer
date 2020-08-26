@@ -98,7 +98,7 @@ var Export = {
 			console.log('Exporting CSV...');
 			var csvContent = "";
 
-			for (let i=this.history.length-1; i>=0; i--) {
+			for (let i = this.history.length - 1; i >= 0; i--) {
 				let poll = this.history[i];
 				let dateString = new Date(poll.endTime).toLocaleString();
 				csvContent += `"${poll.type}"`;
@@ -195,7 +195,6 @@ var Export = {
 				file_size: 0
 			};
 			var vm = this;
-			// this.download(csvContent, "votes.csv", "text/csv");
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
 					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'CSV' }));
@@ -323,7 +322,7 @@ var Export = {
 			var vm = this;
 			this.$nextTick(() => {
 				var content = "";
-				for(let i=this.history.length-1; i>=0; i--) {
+				for (let i = this.history.length - 1; i >= 0; i--) {
 					content += document.getElementById(`export-${i}`).innerHTML;
 				}
 				var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
@@ -466,7 +465,6 @@ var Export = {
 							doc.setFontSize(12);
 							doc.setTextColor('#000000');
 							x += imageWidth + 10;
-							// y += maxHeight + 25;
 						}
 					}
 
@@ -534,6 +532,7 @@ var Export = {
 			}
 		},
 
+		// Unused; Only here to download file quickly while debugging
 		download: function (data, filename, type) {
 			var file = new Blob([data], { type: type });
 			if (window.navigator.msSaveOrOpenBlob) // IE10+

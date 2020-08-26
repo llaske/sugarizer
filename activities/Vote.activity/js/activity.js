@@ -327,7 +327,6 @@ var app = new Vue({
 				endTime: Date.now()
 			});
 			this.updateHostContextForConnected();
-			console.log('Saved to history');
 		},
 
 		setOpenHistoryIndex(index) {
@@ -364,6 +363,8 @@ var app = new Vue({
 							action: 'clear-poll'
 						}
 					});
+					// Remove users who left
+					this.removeUsersNotConnected();
 				}
 				// Clear answers for all connected users
 				for(let id in this.connectedUsers) {
@@ -371,10 +372,7 @@ var app = new Vue({
 					this.$set(this.connectedUsers[id], 'handRaised', false);
 				}
 				this.counts.answersCount = 0;
-				// Remove users who left
-				if(this.SugarPresence.isConnected()) {
-					this.removeUsersNotConnected();
-				}
+				
 				// Clear results from poll templates
 				for(let poll of this.polls) {
 					this.$set(poll, 'results', null);
@@ -443,7 +441,6 @@ var app = new Vue({
 		onNetworkDataReceived: function (msg) {
 			switch(msg.content.action) {
 				case 'init-new':
-					console.log('init-new');
 					this.activePoll = msg.content.data.activePoll;
 					this.activePollStatus = msg.content.data.activePollStatus;
 					this.realTimeResults = msg.content.data.realTimeResults;
@@ -451,7 +448,6 @@ var app = new Vue({
 					break;
 				case 'init-existing':
 					if(this.activePoll == null) {
-						console.log('init-existing');
 						this.activePoll = msg.content.data.activePoll;
 						this.activePollStatus = msg.content.data.activePollStatus;
 						this.realTimeResults = msg.content.data.realTimeResults;
@@ -465,45 +461,36 @@ var app = new Vue({
 					}
 					break;
 				case 'switch-real-time':
-					console.log('switch-real-time');
 					this.realTimeResults = msg.content.data.realTimeResults;
 					break;
 				case 'hand-raise-switched':
 					if(this.SugarPresence.isHost) {
-						console.log('hand-raise-switched');
 						this.connectedUsers[msg.user.networkId].handRaised = msg.content.data.value;
 					}
 					break;
 				case 'vote-submitted':
 					if(this.SugarPresence.isHost) {
-						console.log('vote-submitted');
 						this.connectedUsers[msg.user.networkId].answer = msg.content.data.answer;
 					}
 					break;
 				case 'update-counts':
-					console.log('update-counts');
 					this.counts.answersCount = msg.content.data.counts.answersCount;
 					this.counts.usersCount = msg.content.data.counts.usersCount;
 					break;
 				case 'update-results':
-					console.log('update-results');
 					this.activePoll.results = msg.content.data.results;
 					break;
 				case 'start-poll':
-					console.log('start-poll');
 					this.activePoll = msg.content.data.activePoll;
 					this.activePollStatus = 'running';
 					break;
 				case 'stop-poll':
-					console.log('stop-poll');
 					this.activePollStatus = 'finished';
 					break;
 				case 'clear-poll':
-					console.log('clear-poll');
 					this.clearPoll();
 					break;
 				case 'restore-host':
-					console.log('restore-host');
 					this.clearPoll();
 					if(this.currentUser.networkId == msg.content.data.hostContext.id) {
 						this.history = msg.content.data.hostContext.history;
@@ -526,7 +513,6 @@ var app = new Vue({
 					}
 					break;
 				case 'update-host-context': 
-					console.log('update-host-context');
 					if(!this.SugarPresence.isHost) {
 						this.hostContext = msg.content.data.hostContext;
 					}
@@ -627,7 +613,6 @@ var app = new Vue({
 					this.$delete(this.connectedUsers, msg.user.networkId);
 				}
 				if(!this.SugarPresence.isHost && msg.user.networkId == this.hostContext.id) {
-					console.log('no-host');
 					this.clearPoll();
 					this.activePollStatus = 'no-host';
 				}

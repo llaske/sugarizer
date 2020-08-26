@@ -291,7 +291,6 @@ var PollStats = {
 
 		switch (this.activePoll.typeVariable) {
 			case "Text":
-				// let words = ["Hello", "Hi", "Hey", "Hi", "Hey", "Hello", "Hello", "Hello", "Hello", "Hi", "Hi"]
 				let list = this.getWordsList(this.answers);
 				WordCloud(ctx, {
 					list: list,

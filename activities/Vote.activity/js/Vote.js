@@ -17,7 +17,7 @@ var Vote = {
 						<img src="icons/hourglass.svg" alt="hourglass">
 						<h2>{{ $root.$refs.SugarL10n.get('WaitingResults') }}</h2>
 						<h3>{{ counts.answersCount }}/{{ counts.usersCount }}</h3>
-						<h3>Voted</h3>
+						<h3>{{ $root.$refs.SugarL10n.get('Voted') }}</h3>
 					</div>
 
 					<!-- Text -->
