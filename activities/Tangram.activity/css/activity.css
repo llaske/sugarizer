@@ -374,6 +374,15 @@ p {
   width: 50px;
 }
 
+.tutNumbersRow {
+  display: flex;
+  align-items: center;
+}
+
+.tutNumbersRow img {
+  margin: 4px;
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;

@@ -19,9 +19,9 @@ var Game = {
         >
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
-          <template v-if="puzzles[pNo]">
+          <template v-if="puzzles[pNo].outlinePoints.length>0">
             <v-line
-              v-for="(outline,index) in puzzles[pNo].outlinePoints" :key="index"
+              v-for="(outline, index) in puzzles[pNo].outlinePoints" v-bind:key="(100+index)"
               :config="{
                 points: outline,
                 fill: index===0 ? strokeColor: '#ffffff',
@@ -37,7 +37,8 @@ var Game = {
             ></v-line>
           </template>
           <template v-if="gameOver!=='passed'">
-            <v-line v-for="tan in konvaTans" v-bind:key="tan.id" v-if="!(showHint && (tansSnapped[tan.id] || tansPlaced[tan.id]!=-1))"
+            <v-line v-for="tan in konvaTans" v-if="!(showHint && (tansSnapped[tan.id] || tansPlaced[tan.id]!=-1))"
+              v-bind:key="tan.id"
               :config="{
                 ...tan,
                 listening: !gameOver,
@@ -257,29 +258,6 @@ var Game = {
     }, 0);
   },
 
-  computed: {
-    targetPuzzleTans: function() {
-      let vm = this;
-      if (vm.gameOver != null) {
-        return vm.puzzles[vm.pNo].targetTans;
-      }
-
-      if (vm.level === 1 && !vm.showHint && vm.gameOver === null) {
-        return [];
-      }
-      let targetPuzzleTans = vm.puzzles[vm.pNo].targetTans.filter((targetTan, index) => {
-        if (vm.tansPlaced.includes(index)) return false;
-        if (!vm.showHint) return true;
-        if (vm.showHint && index === vm.hintNumber) return true;
-      });
-      return targetPuzzleTans
-    },
-
-    tangramName: function() {
-      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data" + this.puzzles[this.pNo].name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data" + this.puzzles[this.pNo].name.replace(/ /g, "")) : this.puzzles[this.pNo].name) : this.puzzles[this.pNo].name;
-    }
-  },
-
   watch: {
     mode: function() {
       let vm = this;
@@ -326,6 +304,29 @@ var Game = {
 
     tans: function() {
       this.konvaTans = [...this.tans];
+    }
+  },
+
+  computed: {
+    targetPuzzleTans: function() {
+      let vm = this;
+      if (vm.gameOver != null) {
+        return vm.puzzles[vm.pNo].targetTans;
+      }
+
+      if (vm.level === 1 && !vm.showHint && vm.gameOver === null) {
+        return [];
+      }
+      let targetPuzzleTans = vm.puzzles[vm.pNo].targetTans.filter((targetTan, index) => {
+        if (vm.tansPlaced.includes(index)) return false;
+        if (!vm.showHint) return true;
+        if (vm.showHint && index === vm.hintNumber) return true;
+      });
+      return targetPuzzleTans
+    },
+
+    tangramName: function() {
+      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data" + this.puzzles[this.pNo].name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data" + this.puzzles[this.pNo].name.replace(/ /g, "")) : this.puzzles[this.pNo].name) : this.puzzles[this.pNo].name;
     }
   },
 

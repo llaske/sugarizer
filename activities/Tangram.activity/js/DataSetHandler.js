@@ -168,6 +168,7 @@ Vue.component('data-set-handler', {
 				if (tangramIndex2!==-1) {
 					vm.tangramSet.splice(tangramIndex2, 1);
 				}
+        vm.nextArr = [...Array(vm.tangramSet.length).keys()]
 				if (vm.dataSet[index].tangrams.length === 0) {
 					vm.dataSet.splice(index, 1);
 					vm.AllCategories = vm.dataSet.map(ele => ele.name);

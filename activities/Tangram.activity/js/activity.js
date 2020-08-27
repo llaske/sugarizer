@@ -133,6 +133,8 @@ var app = new Vue({
       stringTutoViewContent: '',
       stringTutoRedoTitle: '',
       stringTutoRedoContent: '',
+      stringTutoKeyBoardTitle: '',
+      stringTutoKeyBoardContent: '',
       stringTutoValidPuzzleIndicatorTitle: '',
       stringTutoValidPuzzleIndicatorContent: '',
       stringTutoResultTitle: '',
@@ -1524,6 +1526,12 @@ var app = new Vue({
             content: this.l10n.stringTutoBoardContent
           },
           {
+            element: ".stage",
+            placement: "top",
+            title: this.l10n.stringTutoKeyBoardTitle,
+            content: this.l10n.stringTutoKeyBoardContent
+          },
+          {
             element: "",
             orphan: true,
             placement: "bottom",
@@ -1587,6 +1595,13 @@ var app = new Vue({
             placement: "bottom",
             title: this.l10n.stringTutoExplainTitle,
             content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoEachPuzzleTitle,
+            content: this.l10n.stringTutoEachPuzzleContent
           },
           {
             element: "",
