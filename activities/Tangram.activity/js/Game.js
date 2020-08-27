@@ -15,12 +15,13 @@ var Game = {
           }"
           v-on:dragstart="onDragStart"
           v-on:dragend="onDragEnd"
+          v-on:touchend="onTouchEnd"
         >
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
-          <template v-if="puzzles[pNo]">
+          <template v-if="puzzles[pNo].outlinePoints.length>0">
             <v-line
-              v-for="(outline,index) in puzzles[pNo].outlinePoints" :key="index"
+              v-for="(outline, index) in puzzles[pNo].outlinePoints" v-bind:key="(100+index)"
               :config="{
                 points: outline,
                 fill: index===0 ? strokeColor: '#ffffff',
@@ -28,15 +29,16 @@ var Game = {
                 lineJoin: 'round',
               }"
             ></v-line>
-            <v-line v-for="(targetTan,index) in targetPuzzleTans" :key="targetTan.id"
+            <v-line v-for="targetTan in targetPuzzleTans" v-bind:key="targetTan.id"
               :config="{
                 ...targetTan,
                 fill: gameOver==='solved' ? fillColor : targetTan.fill
               }"
             ></v-line>
           </template>
-          <template v-if="!(gameOver==='passed')">
-            <v-line v-for="tan in konvaTans" :key="tan.id" v-if="!(showHint && (tansSnapped[tan.id] || tansPlaced[tan.id]!=-1))"
+          <template v-if="gameOver!=='passed'">
+            <v-line v-for="tan in konvaTans" v-if="!(showHint && (tansSnapped[tan.id] || tansPlaced[tan.id]!=-1))"
+              v-bind:key="tan.id"
               :config="{
                 ...tan,
                 listening: !gameOver,
@@ -83,7 +85,7 @@ var Game = {
             borderColor: 'transparent'
           }"
         >
-          <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? $root.SugarL10n.get(puzzles[pNo].name) : ''}}</div></div>
+          <div class="detail-block-content tangram-name-content"><div>{{ puzzles[pNo] ? tangramName : ''}}</div></div>
         </div>
 
         <canvas id="floating-celebration-block"
@@ -118,14 +120,6 @@ var Game = {
           >
             <div class="gameOver-block-content score-title"><div>{{l10n.stringScore}}</div></div>
             <div class="gameOver-block-content score-val"><div>{{userResponse[pNo] ? userResponse[pNo].score : 0}}</div></div>
-          </div>
-
-          <div class="gameOver-block hintsUsed-block"
-            v-if="level && gameOver ==='solved'"
-            v-bind:style="{borderColor: strokeColor}"
-          >
-            <div class="gameOver-block-content hintsUsed-title"><div>{{l10n.stringHintsUsed}}</div></div>
-            <div class="gameOver-block-content hintsUsed-val"><div>{{noOfHintsUsed}}</div></div>
           </div>
 
           <div class="gameOver-block emoji-won-block"
@@ -264,25 +258,6 @@ var Game = {
     }, 0);
   },
 
-  computed: {
-    targetPuzzleTans: function() {
-      let vm = this;
-      if (vm.gameOver != null) {
-        return vm.puzzles[vm.pNo].targetTans;
-      }
-
-      if (vm.level === 1 && !vm.showHint && vm.gameOver === null) {
-        return [];
-      }
-      let targetPuzzleTans = vm.puzzles[vm.pNo].targetTans.filter((targetTan, index) => {
-        if (vm.tansPlaced.includes(index)) return false;
-        if (!vm.showHint) return true;
-        if (vm.showHint && index === vm.hintNumber) return true;
-      });
-      return targetPuzzleTans
-    }
-  },
-
   watch: {
     mode: function() {
       let vm = this;
@@ -327,8 +302,31 @@ var Game = {
       }
     },
 
-    tans: function () {
+    tans: function() {
       this.konvaTans = [...this.tans];
+    }
+  },
+
+  computed: {
+    targetPuzzleTans: function() {
+      let vm = this;
+      if (vm.gameOver != null) {
+        return vm.puzzles[vm.pNo].targetTans;
+      }
+
+      if (vm.level === 1 && !vm.showHint && vm.gameOver === null) {
+        return [];
+      }
+      let targetPuzzleTans = vm.puzzles[vm.pNo].targetTans.filter((targetTan, index) => {
+        if (vm.tansPlaced.includes(index)) return false;
+        if (!vm.showHint) return true;
+        if (vm.showHint && index === vm.hintNumber) return true;
+      });
+      return targetPuzzleTans
+    },
+
+    tangramName: function() {
+      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data" + this.puzzles[this.pNo].name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data" + this.puzzles[this.pNo].name.replace(/ /g, "")) : this.puzzles[this.pNo].name) : this.puzzles[this.pNo].name;
     }
   },
 
@@ -400,7 +398,7 @@ var Game = {
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.006);
       vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
-      vm.$set(vm.celebrationBlock, 'width', cw * 0.7);
+      vm.$set(vm.celebrationBlock, 'width', cw * 0.62);
       vm.$set(vm.celebrationBlock, 'height', ch);
       vm.$set(vm.celebrationBlock, 'top', gameMainEle.offsetHeight * 0.02);
       vm.$set(vm.celebrationBlock, 'left', gameMainEle.offsetWidth * 0.01);
@@ -748,6 +746,8 @@ var Game = {
       if (!flag) {
         vm.tansSnapped[index] = false;
         vm.$set(vm.tans[index], 'placedAnchor', null);
+      } else {
+        vm.deSelectTan(vm.currentTan);
       }
     },
 
@@ -886,7 +886,6 @@ var Game = {
               }
             }
           }
-          console.log(solved);
         }
       } else {
         solved = false;
@@ -910,9 +909,9 @@ var Game = {
       vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
 
-    updateKonvaTans: function (index) {
+    updateKonvaTans: function(index) {
       this.konvaTans = [...this.tans];
-      let indx = this.konvaTans.findIndex(ele => ele.id===index);
+      let indx = this.konvaTans.findIndex(ele => ele.id === index);
       let item = this.konvaTans[indx];
       this.konvaTans.splice(indx, 1);
       this.konvaTans.push(item);
@@ -960,66 +959,52 @@ var Game = {
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-
-      let mdx = finalX - vm.tans[index].x;
-      let mdy = finalY - vm.tans[index].y;
-
+      let boundingBox = e.target.getClientRect();
+      boundingBox.width *= 0.5;
+      boundingBox.height *= 0.5;
+      let iw = vm.mode === 'timer' ? vm.infoContainer.width : 0;
+      let ih = vm.mode === 'timer' ? vm.infoContainer.height : 0;
+      //checking conditions if the tan gets out of canvas boundary
+      let scale = vm.configLayer.scaleX;
+      if (boundingBox.x < 0) {
+        finalX = boundingBox.width / (2 * scale);
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.y < 0) {
+        finalY = boundingBox.height / (2 * scale);
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
+        finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw && boundingBox.y < ih) {
+        let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale;
+        let tmpy = (ih + boundingBox.height / 2) / scale;
+        let d1 = Math.abs(tmpx - vm.tans[index].x);
+        let d2 = Math.abs(tmpy - vm.tans[index].y);
+        if (d1 <= d2) {
+          finalX = tmpx;
+        } else {
+          finalY = tmpy;
+        }
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width && (boundingBox.y > ih || boundingBox.y < 0)) {
+        finalX = (vm.configKonva.width - boundingBox.width / 2) / scale;
+        isTanOutsideCanvas = true;
+      }
+      let dx = finalX - this.tans[index].x;
+      let dy = finalY - this.tans[index].y;
       setTimeout(() => {
-        vm.moveTan(index, mdx, mdy);
-      }, 0);
-      setTimeout(()=>{
-        let boundingBox = e.target.getClientRect();
-        boundingBox.width *= 0.5;
-        boundingBox.height *= 0.5;
-        let iw = vm.mode === 'timer' ? vm.infoContainer.width : 0;
-        let ih = vm.mode === 'timer' ? vm.infoContainer.height : 0;
-
-        //checking conditions if the tan gets out of canvas boundary
-        let scale = vm.configLayer.scaleX;
-        if (boundingBox.x < 0) {
-          finalX = boundingBox.width / (2 * scale);
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.y < 0) {
-          finalY = boundingBox.height / (2 * scale);
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
-          finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw && boundingBox.y < ih) {
-          let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale;
-          let tmpy = (ih + boundingBox.height / 2) / scale;
-          let d1 = Math.abs(tmpx - vm.tans[index].x);
-          let d2 = Math.abs(tmpy - vm.tans[index].y);
-          if (d1 <= d2) {
-            finalX = tmpx;
-          } else {
-            finalY = tmpy;
-          }
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.x + boundingBox.width > vm.configKonva.width && (boundingBox.y > ih || boundingBox.y < 0)) {
-          finalX = (vm.configKonva.width - boundingBox.width / 2) / scale;
-          isTanOutsideCanvas = true;
-        }
-
-        if (isTanOutsideCanvas) {
-          let dx = finalX - this.tans[index].x;
-          let dy = finalY - this.tans[index].y;
-          setTimeout(() => {
-            vm.moveTan(index, dx, dy);
-          }, 0);
-        }
+        vm.moveTan(index, dx, dy);
         setTimeout(() => {
           vm.snapTan(index);
-        }, 0);
-        setTimeout(() => {
-          vm.checkIfSolved();
+          setTimeout(() => {
+            vm.checkIfSolved();
+          }, 0)
         }, 0);
       }, 0)
-
     },
 
     onMouseOver: function(e) {
@@ -1033,10 +1018,14 @@ var Game = {
 
     onMouseOut: function(e) {
       let vm = this;
-      let index = e.target.id();
       vm.tanState = 0;
       vm.deSelectTan(vm.currentTan);
-      vm.deSelectTan(index);
+    },
+
+    onTouchEnd: function(e) {
+      let vm = this;
+      vm.tanState = 0;
+      vm.deSelectTan(vm.currentTan);
     },
 
     onKeyDown: function(e) {
@@ -1058,23 +1047,24 @@ var Game = {
           vm.tanState = 1;
         }
       } else if (vm.tanState === 1) {
+        vm.selectTan(vm.currentTan);
         let delta = 4;
         let scale = vm.configLayer.scaleX;
         let dx = delta / scale;
         let dy = delta / scale;
 
         if (e.keyCode === 37) {
-          dx *= -1;
+          dx *= -2;
           dy = 0;
         } else if (e.keyCode === 38) {
           dx = 0;
-          dy *= -1;
+          dy *= -2;
         } else if (e.keyCode === 39) {
-          dx *= 1;
+          dx *= 2;
           dy = 0;
         } else if (e.keyCode === 40) {
           dx = 0;
-          dy *= 1;
+          dy *= 2;
         } else {
           dx = 0;
           dy = 0;

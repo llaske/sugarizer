@@ -12,7 +12,7 @@
 
 .leaderboard-main {
   height: 80%;
-  width: 97.4%;
+  width: 98%;
   overflow: auto;
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
@@ -26,7 +26,7 @@
 
 .leaderboard-main-header {
   height: 50px;
-  width: 90%;
+  width: 85%;
   border: 3px solid black;
   /*border-radius: 25px;*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
@@ -39,7 +39,7 @@
 
 .leaderboard-main-body {
   height: calc(80% - 50px);
-  width: 98.4%;
+  width: 98%;
   overflow: auto;
   display: flex;
   flex: 1;

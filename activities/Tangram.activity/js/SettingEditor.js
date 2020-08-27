@@ -1,5 +1,5 @@
 var SettingEditor = {
-  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzleToBeEdited'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzleToBeEdited', 'l10n'],
   template: `
     <div id="setting-editor-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -13,6 +13,7 @@ var SettingEditor = {
           }"
           v-on:dragstart="onDragStart"
           v-on:dragend="onDragEnd"
+          v-on:touchend="onTouchEnd"
         >
           <v-layer ref="layer" :config="configLayer">
             <v-line :config="workingBox"></v-line>
@@ -40,7 +41,7 @@ var SettingEditor = {
           <div class="setting-editor-sidebar-element"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>{{dataSetHandler.currentCategories[0]}}</div>
+            <div>{{currentCategoryTitle}}</div>
           </div>
           <form v-on:submit.prevent=''>
             <div>
@@ -56,7 +57,7 @@ var SettingEditor = {
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-difficulty">
-            <div v-if="puzzleCreated.tangram !== null">Tangram Difficulty: {{puzzleCreated.difficulty}}</div>
+            <div v-if="puzzleCreated.tangram !== null">{{l10n.stringTangramDifficulty}}: {{puzzleCreated.difficulty ? l10n.stringHard : l10n.stringEasy}}</div>
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-display"
@@ -114,10 +115,8 @@ var SettingEditor = {
       configLayer: {
         scaleX: 5,
         scaleY: 5,
-        width: 60,
-        height: 60,
-        offsetX:0,
-        offsetY:0,
+        offsetX: 0,
+        offsetY: 0,
       },
       validShapeDisplayBox: {
         width: 60,
@@ -145,7 +144,7 @@ var SettingEditor = {
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
       puzzleCreated: {
         id: null,
-        name: 'My Tangram',
+        name: '',
         difficulty: '',
         category: '',
         tangram: null,
@@ -174,6 +173,7 @@ var SettingEditor = {
     let vm = this;
     vm.$set(vm.workingBox, 'stroke', vm.strokeColor);
     vm.resize();
+    vm.puzzleCreated.name = vm.l10n.stringMyTangram;
     vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
@@ -190,10 +190,10 @@ var SettingEditor = {
       return 'scale(' + this.validShapeDisplayBox.scale + ')';
     },
 
-    isValidPuzzle: function () {
-      if (this.puzzleCreated.tangram===null) return 'Invalid Shape';
-      if (this.puzzleCreated.name==='') return 'Invalid Name';
-      return 'Valid Puzzle';
+    isValidPuzzle: function() {
+      if (this.puzzleCreated.tangram === null) return this.l10n.stringInvalidShape;
+      if (this.puzzleCreated.name === '') return this.l10n.stringInvalidName;
+      return this.l10n.stringValidPuzzle;
     },
 
     canBeAdded: function() {
@@ -203,12 +203,18 @@ var SettingEditor = {
         this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
       }
       return res;
+    },
+
+    currentCategoryTitle: function() {
+      let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
+      let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
+      return categoryTitle;
     }
   },
 
   watch: {
 
-    'puzzleCreated.tangram': function () {
+    'puzzleCreated.tangram': function() {
       let vm = this;
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
       if (res) {
@@ -216,7 +222,7 @@ var SettingEditor = {
       }
     },
 
-    tans: function () {
+    tans: function() {
       this.konvaTans = [...this.tans];
     }
 
@@ -244,20 +250,19 @@ var SettingEditor = {
       vm.$set(vm.configKonva, 'width', cw);
       vm.$set(vm.configKonva, 'height', ch);
 
-      let lw,lh;
-      if (cw<ch) lh = lw;
+      let lw, lh;
+      if (cw < ch) lh = lw;
       else lw = lh;
-      vm.$set(vm.configLayer, 'width', 60);
-      vm.$set(vm.configLayer, 'height', 60);
       vm.$set(vm.configLayer, 'scaleX', scale);
       vm.$set(vm.configLayer, 'scaleY', scale);
       vm.$set(vm.configLayer, 'offsetX', -cw / (2 * scale) + 30);
       vm.$set(vm.configLayer, 'offsetY', -ch / (2 * scale) + 30);
 
       let settingEditorSidebarEle = document.querySelector('.setting-editor-sidebar')
-      vm.$set(vm.validShapeDisplayBox, 'width', settingEditorSidebarEle.offsetHeight * 0.3);
-      vm.$set(vm.validShapeDisplayBox, 'height', settingEditorSidebarEle.offsetHeight * 0.3);
-      vm.$set(vm.validShapeDisplayBox, 'scale', settingEditorSidebarEle.offsetHeight * 0.3 / 60);
+      let sideLen = Math.min(settingEditorSidebarEle.offsetHeight * 0.3, settingEditorSidebarEle.offsetWidth)
+      vm.$set(vm.validShapeDisplayBox, 'width', sideLen);
+      vm.$set(vm.validShapeDisplayBox, 'height', sideLen);
+      vm.$set(vm.validShapeDisplayBox, 'scale', sideLen / 60);
 
       vm.initializeTansPosition();
 
@@ -401,8 +406,11 @@ var SettingEditor = {
       vm.checkIfTangramValid();
     },
 
-    onRandom: function() {
+    onRandom: function(e) {
       let vm = this
+      if (e && e.screenX === 0 && e.screenY === 0) {
+        return;
+      }
       let generatedTangrams = generateTangrams(2);
       let tangram = generatedTangrams[0];
       tangram.positionCentered();
@@ -426,11 +434,6 @@ var SettingEditor = {
       vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
       vm.populateTans(tanObjsArr);
       vm.checkIfTangramValid();
-      for (var i = 0; i < 7; i++) {
-        let dx = roundToNearest(((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX(), 1);
-        let dy = roundToNearest(((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY(), 1);
-        vm.moveTan(i, dx, dy);
-      }
     },
 
     populateTans: function(tanObjsArr) {
@@ -506,7 +509,7 @@ var SettingEditor = {
       vm.$emit('go-to-dataset-list');
     },
 
-    goBack: function () {
+    goBack: function() {
       let vm = this;
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
       if (res) {
@@ -517,7 +520,6 @@ var SettingEditor = {
 
     checkIfTangramValid: function() {
       let vm = this;
-      //check the outline
       let tans = [];
       let notFinished = false;
       for (let i = 0; i < vm.tans.length; i++) {
@@ -598,6 +600,8 @@ var SettingEditor = {
       if (!flag) {
         currentTan.tanObj.anchor.roundToNearest(1);
         vm.updatePoints(index);
+      } else {
+        vm.deSelectTan(vm.currentTan);
       }
     },
 
@@ -664,9 +668,9 @@ var SettingEditor = {
       vm.$set(vm.tans[index], 'shadowEnabled', false);
     },
 
-    updateKonvaTans: function (index) {
+    updateKonvaTans: function(index) {
       this.konvaTans = [...this.tans];
-      let indx = this.konvaTans.findIndex(ele => ele.id===index);
+      let indx = this.konvaTans.findIndex(ele => ele.id === index);
       let item = this.konvaTans[indx];
       this.konvaTans.splice(indx, 1);
       this.konvaTans.push(item);
@@ -714,72 +718,58 @@ var SettingEditor = {
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-      let mdx = finalX - vm.tans[index].x;
-      let mdy = finalY - vm.tans[index].y;
-
+      let boundingBox = {...e.target.getClientRect()}
+      boundingBox.width *= 0.5;
+      boundingBox.height *= 0.5;
+      boundingBox.x += boundingBox.width * 0.5;
+      boundingBox.y += boundingBox.height * 0.5;
+      let iw = 0;
+      let ih = 0;
+      let cw = vm.configKonva.width
+      let ch = vm.configKonva.height;
+      let scale = vm.configLayer.scaleX;
+      let offX = cw / (2 * scale) - 30;
+      let offY = ch / (2 * scale) - 30;
+      //checking conditions if the tan gets out of canvas boundary
+      if (boundingBox.x < 0) {
+        finalX = boundingBox.width / (2 * scale) - offX;
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.y < 0) {
+        finalY = boundingBox.height / (2 * scale) - offY;
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
+        finalY = (vm.configKonva.height - boundingBox.height / 2) / scale - offY;
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw && (boundingBox.y < ih)) {
+        let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale - offX;
+        let tmpy = (ih + boundingBox.height / 2) / scale - offY;
+        let d1 = Math.abs(tmpx - vm.tans[index].x);
+        let d2 = Math.abs(tmpy - vm.tans[index].y);
+        if (d1 <= d2) {
+          finalX = tmpx;
+        } else {
+          finalY = tmpy;
+        }
+        isTanOutsideCanvas = true;
+      }
+      if (boundingBox.x + boundingBox.width > vm.configKonva.width && (boundingBox.y > ih || boundingBox.y < 0)) {
+        finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
+        isTanOutsideCanvas = true;
+      }
+      let dx = finalX - this.tans[index].x;
+      let dy = finalY - this.tans[index].y;
       setTimeout(() => {
-        vm.moveTan(index, mdx, mdy);
-      }, 0);
-      setTimeout(() => {
-        let boundingBox = e.target.getClientRect();
-        boundingBox.width *= 0.5;
-        boundingBox.height *= 0.5;
-        boundingBox.x+=boundingBox.width*0.2;
-        boundingBox.y+=boundingBox.height*0.2;
-        let iw = 0;
-        let ih = 0;
-        let cw = vm.configKonva.width;
-        let ch = vm.configKonva.height;
-        let scale = vm.configLayer.scaleX;
-        let offX = cw / (2 * scale) - 30;
-        let offY = ch / (2 * scale) - 30;
-        //checking conditions if the tan gets out of canvas boundary
-
-        if (boundingBox.x < -offX) {
-          finalX = boundingBox.width / (2 * scale) - offX;
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.y < -offY) {
-          finalY = boundingBox.height / (2 * scale) - offY;
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.y + boundingBox.height > vm.configKonva.height - offY) {
-          finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw - offX*scale && (boundingBox.y < ih - offY * scale)) {
-          let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale - offX;
-          let tmpy = (ih + boundingBox.height / 2) / scale - offY;
-          let d1 = Math.abs(tmpx - vm.tans[index].x);
-          let d2 = Math.abs(tmpy - vm.tans[index].y);
-          if (d1 <= d2) {
-            finalX = tmpx;
-          } else {
-            finalY = tmpy;
-          }
-          isTanOutsideCanvas = true;
-        }
-        if (boundingBox.x + boundingBox.width > vm.configKonva.width - offX * scale  && (boundingBox.y > ih || boundingBox.y < -offY * scale)) {
-          finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
-          isTanOutsideCanvas = true;
-        }
-
-        if (isTanOutsideCanvas) {
-          let dx = roundToNearest(finalX - this.tans[index].x, 1);
-          let dy = roundToNearest(finalY - this.tans[index].y, 1);
-          setTimeout(() => {
-            vm.moveTan(index, dx, dy);
-          }, 0);
-        }
-
+        vm.moveTan(index, dx, dy);
         setTimeout(() => {
           vm.snapTan(index);
-        }, 0);
-        setTimeout(() => {
-          vm.checkIfTangramValid();
+          setTimeout(() => {
+            vm.checkIfTangramValid();
+          }, 0)
         }, 0);
       }, 0)
-
     },
 
     onMouseOver: function(e) {
@@ -793,10 +783,14 @@ var SettingEditor = {
 
     onMouseOut: function(e) {
       let vm = this;
-      let index = e.target.id();
       vm.tanState = 0;
       vm.deSelectTan(vm.currentTan);
-      vm.deSelectTan(index);
+    },
+
+    onTouchEnd: function(e) {
+      let vm = this;
+      vm.tanState = 0;
+      vm.deSelectTan(vm.currentTan);
     },
 
     onKeyDown: function(e) {
@@ -817,22 +811,23 @@ var SettingEditor = {
         }
       } else if (vm.tanState === 1) {
         let delta = 4;
+        vm.selectTan(vm.currentTan);
         let scale = vm.configLayer.scaleX;
         let dx = delta / scale;
         let dy = delta / scale;
 
         if (e.keyCode === 37) {
-          dx *= -1;
+          dx *= -2;
           dy = 0;
         } else if (e.keyCode === 38) {
           dx = 0;
-          dy *= -1;
+          dy *= -2;
         } else if (e.keyCode === 39) {
-          dx *= 1;
+          dx *= 2;
           dy = 0;
         } else if (e.keyCode === 40) {
           dx = 0;
-          dy *= 1;
+          dy *= 2;
         } else {
           dx = 0;
           dy = 0;

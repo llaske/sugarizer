@@ -6,7 +6,7 @@ var TangramCard = {
     >
       <div class="tangram-card-info-bar">
         <div class="info-content name-info">
-          <div>{{$root.SugarL10n.get(item.name)}}</div>
+          <div>{{tangramName}}</div>
         </div>
         <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditPuzzleClicked"></button>
         <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.tangramSet.length==1" class="info-content delete-btn" v-on:click="onDeletePuzzleClicked"></button>
@@ -39,6 +39,10 @@ var TangramCard = {
     pathScale: function() {
       return 'scale(' + this.tangramSVGconfig.scale + ')';
     },
+
+    tangramName: function () {
+      return this.$root.SugarL10n.dictionary ? (this.$root.SugarL10n.dictionary["Data"+this.item.name.replace(/ /g, "")] ? this.$root.SugarL10n.get("Data"+this.item.name.replace(/ /g, "")) : this.item.name): this.item.name;
+    }
   },
 
   methods: {
@@ -73,7 +77,7 @@ var DatasetList = {
           <div class="dataset-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div class="dataset-list-bar-block-title">{{$root.SugarL10n.get(dataSetHandler.currentCategories[0])}}</div>
+            <div class="dataset-list-bar-block-title">{{currentCategoryTitle}}</div>
             <div class="buttons-grp">
               <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditCategory"></button>
               <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.AllCategories.length==1" class="info-content delete-btn" v-on:click="onDeleteCategory"></button>
@@ -167,6 +171,14 @@ var DatasetList = {
   mounted: function() {
     let vm = this;
     vm.resize();
+  },
+
+  computed: {
+    currentCategoryTitle: function () {
+      let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
+      let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
+      return categoryTitle;
+    }
   },
 
   watch: {
