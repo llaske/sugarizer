@@ -1,5 +1,5 @@
 var SettingEditor = {
-  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzleToBeEdited'],
+  props: ['strokeColor', 'fillColor', 'dataSetHandler', 'puzzleToBeEdited', 'l10n'],
   template: `
     <div id="setting-editor-screen"
       v-bind:style="{backgroundColor: strokeColor}"
@@ -41,7 +41,7 @@ var SettingEditor = {
           <div class="setting-editor-sidebar-element"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div>{{dataSetHandler.currentCategories[0]}}</div>
+            <div>{{currentCategoryTitle}}</div>
           </div>
           <form v-on:submit.prevent=''>
             <div>
@@ -57,7 +57,7 @@ var SettingEditor = {
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-difficulty">
-            <div v-if="puzzleCreated.tangram !== null">Tangram Difficulty: {{puzzleCreated.difficulty}}</div>
+            <div v-if="puzzleCreated.tangram !== null">{{l10n.stringTangramDifficulty}}: {{puzzleCreated.difficulty ? l10n.stringHard : l10n.stringEasy}}</div>
           </div>
 
           <div class="setting-editor-sidebar-element valid-shape-display"
@@ -144,7 +144,7 @@ var SettingEditor = {
       tanColors: ["blue", "purple", "red", "green", "yellow", "yellow"],
       puzzleCreated: {
         id: null,
-        name: 'My Tangram',
+        name: '',
         difficulty: '',
         category: '',
         tangram: null,
@@ -173,6 +173,7 @@ var SettingEditor = {
     let vm = this;
     vm.$set(vm.workingBox, 'stroke', vm.strokeColor);
     vm.resize();
+    vm.puzzleCreated.name = vm.l10n.stringMyTangram;
     vm.puzzleCreated.category = vm.dataSetHandler.currentCategories[0];
     setTimeout(() => {
       if (vm.puzzleToBeEdited) {
@@ -190,9 +191,9 @@ var SettingEditor = {
     },
 
     isValidPuzzle: function() {
-      if (this.puzzleCreated.tangram === null) return 'Invalid Shape';
-      if (this.puzzleCreated.name === '') return 'Invalid Name';
-      return 'Valid Puzzle';
+      if (this.puzzleCreated.tangram === null) return this.l10n.stringInvalidShape;
+      if (this.puzzleCreated.name === '') return this.l10n.stringInvalidName;
+      return this.l10n.stringValidPuzzle;
     },
 
     canBeAdded: function() {
@@ -202,6 +203,12 @@ var SettingEditor = {
         this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
       }
       return res;
+    },
+
+    currentCategoryTitle: function() {
+      let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
+      let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
+      return categoryTitle;
     }
   },
 
@@ -252,9 +259,10 @@ var SettingEditor = {
       vm.$set(vm.configLayer, 'offsetY', -ch / (2 * scale) + 30);
 
       let settingEditorSidebarEle = document.querySelector('.setting-editor-sidebar')
-      vm.$set(vm.validShapeDisplayBox, 'width', settingEditorSidebarEle.offsetHeight * 0.3);
-      vm.$set(vm.validShapeDisplayBox, 'height', settingEditorSidebarEle.offsetHeight * 0.3);
-      vm.$set(vm.validShapeDisplayBox, 'scale', settingEditorSidebarEle.offsetHeight * 0.3 / 60);
+      let sideLen = Math.min(settingEditorSidebarEle.offsetHeight * 0.3, settingEditorSidebarEle.offsetWidth)
+      vm.$set(vm.validShapeDisplayBox, 'width', sideLen);
+      vm.$set(vm.validShapeDisplayBox, 'height', sideLen);
+      vm.$set(vm.validShapeDisplayBox, 'scale', sideLen / 60);
 
       vm.initializeTansPosition();
 
@@ -426,11 +434,6 @@ var SettingEditor = {
       vm.dataSetHandler.deleteTangramPuzzle(vm.puzzleCreated.id);
       vm.populateTans(tanObjsArr);
       vm.checkIfTangramValid();
-      for (var i = 0; i < 7; i++) {
-        let dx = roundToNearest(((vm.configKonva.width / pw) * (pScale / vm.configLayer.scaleX) - 1) * vm.tans[i].tanObj.anchor.toFloatX(), 1);
-        let dy = roundToNearest(((vm.configKonva.height / ph) * (pScale / vm.configLayer.scaleY) - 1) * vm.tans[i].tanObj.anchor.toFloatY(), 1);
-        vm.moveTan(i, dx, dy);
-      }
     },
 
     populateTans: function(tanObjsArr) {
@@ -517,7 +520,6 @@ var SettingEditor = {
 
     checkIfTangramValid: function() {
       let vm = this;
-      //check the outline
       let tans = [];
       let notFinished = false;
       for (let i = 0; i < vm.tans.length; i++) {
@@ -716,11 +718,11 @@ var SettingEditor = {
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-      let boundingBox = e.target.getClientRect();
+      let boundingBox = {...e.target.getClientRect()}
       boundingBox.width *= 0.5;
       boundingBox.height *= 0.5;
-      boundingBox.x += boundingBox.width * 0.2;
-      boundingBox.y += boundingBox.height * 0.2;
+      boundingBox.x += boundingBox.width * 0.5;
+      boundingBox.y += boundingBox.height * 0.5;
       let iw = 0;
       let ih = 0;
       let cw = vm.configKonva.width
@@ -757,8 +759,8 @@ var SettingEditor = {
         finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
         isTanOutsideCanvas = true;
       }
-      let dx = roundToNearest(finalX - this.tans[index].x, 1);
-      let dy = roundToNearest(finalY - this.tans[index].y, 1);
+      let dx = finalX - this.tans[index].x;
+      let dy = finalY - this.tans[index].y;
       setTimeout(() => {
         vm.moveTan(index, dx, dy);
         setTimeout(() => {

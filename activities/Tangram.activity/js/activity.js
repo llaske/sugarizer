@@ -90,6 +90,13 @@ var app = new Vue({
       stringTitle: '',
       stringNewTitle: '',
       stringHintsUsed: '',
+      stringMyTangram: '',
+      stringEasy: '',
+      stringHard: '',
+      stringTangramDifficulty: '',
+      stringValidPuzzle: '',
+      stringInvalidShape: '',
+      stringInvalidName: '',
       stringCategoryValidTitle: '',
       stringCategoryEmptyTitle: '',
       stringTutoExplainTitle: '',
@@ -251,35 +258,7 @@ var app = new Vue({
     },
 
     'DataSetHandler.AllCategories': function(newVal, oldVal) {
-      let categoryButtonsContent = '';
-      let changeCategory = true;
-      for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
-        let index = this.DataSetHandler.currentCategories.findIndex(ele => ele === this.DataSetHandler.AllCategories[i]);
-        categoryButtonsContent += `<div id="category-button-` + (i + 1) + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + this.DataSetHandler.AllCategories[i] + `</div>`;
-        if (this.DataSetHandler.AllCategories[i] === this.tangramCategories[0]) {
-          changeCategory = false;
-        }
-      }
-      let catButtonsEle = document.getElementById('category-buttons');
-      if (catButtonsEle) {
-        catButtonsEle.innerHTML = categoryButtonsContent;
-        let that = this.$refs.categoryPalette.paletteObject;
-        let customEvent = this.$refs.categoryPalette.paletteObject.tangramCategorySelectedEvent;
-        let buttons = document.getElementById('category-buttons').children;
-        for (var i = 0; i < buttons.length; i++) {
-          let cat = this.DataSetHandler.AllCategories[i];
-          buttons[i].addEventListener('click', function(event) {
-            that.tangramCategorySelectedEvent.index = cat;
-            that.getPalette().dispatchEvent(customEvent);
-            that.popDown();
-          });
-        }
-        if (changeCategory) {
-          this.tangramCategories = [this.DataSetHandler.AllCategories[0]]
-          this.DataSetHandler.onChangeCategory(this.tangramCategories);
-          this.selectTangramCategoryItem(this.tangramCategories);
-        }
-      }
+      this.fillCategoryPalette();
     },
 
     playersPlaying: function() {
@@ -318,6 +297,7 @@ var app = new Vue({
       if (document.getElementById('no-timer-button')) {
         document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
       }
+      this.fillCategoryPalette();
       this.SugarL10n.localize(this.l10n);
     },
 
@@ -331,6 +311,40 @@ var app = new Vue({
         }, 600);
       }
 
+    },
+
+    fillCategoryPalette: function () {
+      let categoryButtonsContent = '';
+      let changeCategory = true;
+      for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
+        let index = this.DataSetHandler.currentCategories.findIndex(ele => ele === this.DataSetHandler.AllCategories[i]);
+        let ct = this.SugarL10n.dictionary ? this.SugarL10n.dictionary["Data" + this.DataSetHandler.AllCategories[i].replace(/ /g, "")] : null;
+        let categoryTitle = ct ? ct.textContent : this.DataSetHandler.AllCategories[i];
+        categoryButtonsContent += `<div id="category-button-` + (i + 1) + `" tangramcategory="` + this.DataSetHandler.AllCategories[i] + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + categoryTitle + `</div>`;
+        if (this.DataSetHandler.AllCategories[i] === this.tangramCategories[0]) {
+          changeCategory = false;
+        }
+      }
+      let catButtonsEle = document.getElementById('category-buttons');
+      if (catButtonsEle) {
+        catButtonsEle.innerHTML = categoryButtonsContent;
+        let that = this.$refs.categoryPalette.paletteObject;
+        let customEvent = this.$refs.categoryPalette.paletteObject.tangramCategorySelectedEvent;
+        let buttons = document.getElementById('category-buttons').children;
+        for (var i = 0; i < buttons.length; i++) {
+          let cat = this.DataSetHandler.AllCategories[i];
+          buttons[i].addEventListener('click', function(event) {
+            that.tangramCategorySelectedEvent.index = cat;
+            that.getPalette().dispatchEvent(customEvent);
+            that.popDown();
+          });
+        }
+        if (changeCategory) {
+          this.tangramCategories = [this.DataSetHandler.AllCategories[0]]
+          this.DataSetHandler.onChangeCategory(this.tangramCategories);
+          this.selectTangramCategoryItem(this.tangramCategories);
+        }
+      }
     },
 
     startClock: function() {
@@ -845,7 +859,7 @@ var app = new Vue({
       let elems = document.getElementById('category-buttons').children;
       for (var i = 0; i < elems.length; i++) {
         let elem = elems[i];
-        let cat = elem.innerHTML;
+        let cat = elem.getAttribute('tangramcategory');
         if (categories.includes(cat)) {
           elem.classList.add('palette-item-selected');
         } else {

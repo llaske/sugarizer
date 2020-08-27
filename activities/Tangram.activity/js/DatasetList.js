@@ -77,7 +77,7 @@ var DatasetList = {
           <div class="dataset-list-bar-block"
             v-bind:style="{backgroundColor: fillColor}"
           >
-            <div class="dataset-list-bar-block-title">{{$root.SugarL10n.get(dataSetHandler.currentCategories[0])}}</div>
+            <div class="dataset-list-bar-block-title">{{currentCategoryTitle}}</div>
             <div class="buttons-grp">
               <button v-if="view==='setting'" class="info-content edit-btn" v-on:click="onEditCategory"></button>
               <button v-if="view==='setting'" v-bind:disabled="dataSetHandler.AllCategories.length==1" class="info-content delete-btn" v-on:click="onDeleteCategory"></button>
@@ -171,6 +171,14 @@ var DatasetList = {
   mounted: function() {
     let vm = this;
     vm.resize();
+  },
+
+  computed: {
+    currentCategoryTitle: function () {
+      let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
+      let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
+      return categoryTitle;
+    }
   },
 
   watch: {
