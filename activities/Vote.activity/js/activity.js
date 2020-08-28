@@ -175,7 +175,7 @@ var app = new Vue({
 			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
-			if(!newVal) {
+			if(!newVal && this.SugarPresence.isConnected()) {
 				this.updateHostContextForConnected();
 			}
 		}
