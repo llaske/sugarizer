@@ -83,7 +83,6 @@ var app = new Vue({
       stringTotalTime: '',
       stringRank: '',
       stringUser: '',
-      stringNoHint: '',
       stringConfirm: '',
       stringCancel: '',
       stringTitle: '',
