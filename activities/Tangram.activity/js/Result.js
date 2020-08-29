@@ -157,6 +157,7 @@ var Result = {
     let vm = this;
     vm.resize();
   },
+
   computed: {
     isRestartButtonVisible: function () {
       var vm = this;
@@ -164,6 +165,13 @@ var Result = {
       return vm.canRestart;
     }
   },
+
+  watch: {
+    userResponse: function () {
+      this.initializePuzzleShape();
+    }
+  },
+
   methods: {
     resize: function() {
       let vm = this;

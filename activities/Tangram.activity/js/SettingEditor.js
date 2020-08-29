@@ -196,15 +196,6 @@ var SettingEditor = {
       return this.l10n.stringValidPuzzle;
     },
 
-    canBeAdded: function() {
-      let vm = this;
-      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
-      if (res) {
-        this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
-      }
-      return res;
-    },
-
     currentCategoryTitle: function() {
       let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
       let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
@@ -213,19 +204,9 @@ var SettingEditor = {
   },
 
   watch: {
-
-    'puzzleCreated.tangram': function() {
-      let vm = this;
-      let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
-      if (res) {
-        this.puzzleCreated.id = this.dataSetHandler.editTangramPuzzle(vm.puzzleCreated, vm.puzzleCreated.id).id;
-      }
-    },
-
     tans: function() {
       this.konvaTans = [...this.tans];
     }
-
   },
 
   methods: {
@@ -502,13 +483,6 @@ var SettingEditor = {
       vm.populateTans(vm.initialPositions);
     },
 
-    onAddPuzzle: function() {
-      let vm = this;
-      if (!vm.canBeAdded) return;
-      this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated);
-      vm.$emit('go-to-dataset-list');
-    },
-
     goBack: function() {
       let vm = this;
       let res = this.puzzleCreated.tangram !== null && this.puzzleCreated.name !== '';
@@ -718,7 +692,9 @@ var SettingEditor = {
       let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
-      let boundingBox = {...e.target.getClientRect()}
+      let boundingBox = {
+        ...e.target.getClientRect()
+      }
       boundingBox.width *= 0.5;
       boundingBox.height *= 0.5;
       boundingBox.x += boundingBox.width * 0.5;

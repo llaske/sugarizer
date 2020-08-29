@@ -46,7 +46,6 @@ var app = new Vue({
     gameTans: [],
     userResponse: [],
     gameOver: null,
-    isTargetAcheived: false,
     hintNumber: 0,
     hintsUsed: [false, false, false, false, false, false, false],
     noOfHintsUsed: 0,
@@ -210,7 +209,6 @@ var app = new Vue({
     pNo: function() {
       let vm = this;
       vm.gameOver = null;
-      vm.isTargetAcheived = false;
       vm.hintNumber = 0;
       vm.hintsUsed = [false, false, false, false, false, false, false];
       if (!vm.Level) {
@@ -315,7 +313,7 @@ var app = new Vue({
 
     },
 
-    fillCategoryPalette: function () {
+    fillCategoryPalette: function() {
       let categoryButtonsContent = '';
       let changeCategory = true;
       for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
@@ -432,13 +430,13 @@ var app = new Vue({
       vm.gameOver = null;
       vm.hintNumber = 0;
       vm.noOfHintsUsed = 0;
-      vm.isTargetAcheived = false;
       if (!vm.level) {
         vm.gameLevelBonus = false;
       } else {
         vm.gameLevelBonus = true;
       }
-      vm.$set(vm.clock, 'time', vm.clock.initial);
+      //start clock from begining
+      vm.startClock();
       if (!joined) {
         vm.generateQuestionSet();
       }
@@ -746,7 +744,6 @@ var app = new Vue({
         return;
       }
       let res = data.res;
-      vm.isTargetAcheived = res;
       for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
         vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'shadowEnabled', res);
       }
@@ -783,7 +780,6 @@ var app = new Vue({
           vm.gameOver = null;
           vm.pulseEffect();
           vm.newGame();
-          vm.startClock();
         }
       } else {
         if (vm.SugarPresence.isHost) {
@@ -832,9 +828,6 @@ var app = new Vue({
         return;
       }
       vm.currentScreen = 'game';
-      if (vm.gameOver) {
-        vm.startClock();
-      }
       vm.newGame();
 
     },
@@ -850,9 +843,6 @@ var app = new Vue({
       vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
       vm.selectTangramCategoryItem(vm.tangramCategories);
       if (vm.currentScreen === "game") {
-        if (vm.gameOver) {
-          vm.startClock();
-        }
         vm.newGame();
       }
     },
@@ -882,7 +872,6 @@ var app = new Vue({
       }
       if (vm.gameOver) {
         vm.pulseEffect();
-        vm.startClock();
         vm.newGame();
         return;
       }
@@ -920,9 +909,6 @@ var app = new Vue({
       vm.selectTimerItem(evt.index);
 
       if (vm.currentScreen === 'game') {
-        if (vm.gameOver) {
-          vm.startClock();
-        }
         vm.newGame();
       }
     },
@@ -1173,42 +1159,47 @@ var app = new Vue({
       vm.DataSetHandler.currentCategories = data.currentCategories;
       vm.DataSetHandler.nextArr = data.nextArr;
       vm.DataSetHandler.AllCategories = data.dataSet.map(ele => ele.name);
-      vm.timeMarks = data.timeMarks;
-      vm.hintNumber = data.hintNumber;
-      vm.hintsUsed = data.hintsUsed;
-      vm.noOfHintsUsed = data.noOfHintsUsed;
       vm.tangramCategories = data.tangramCategories;
       if (!data.clock.active) {
         vm.stopClock();
       } else {
         vm.startClock();
       }
-      vm.currentScreen = data.currentScreen === 'categoryForm' ? 'dataset-list' : data.currentScreen;
-
-      vm.userResponse = [];
-      for (var i = 0; i < data.userResponse.length; i++) {
-        let userResponse = {
-          isSolved: data.userResponse[i].isSolved,
-          score: data.userResponse[i].score,
-          tans: []
-        }
-        for (var j = 0; j < data.userResponse[i].tans.length; j++) {
-          let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
-          let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
-          let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
-          let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
-          let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
-          userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
-        }
-        vm.userResponse.push(userResponse);
+      if (data.currentScreen === 'categoryForm') {
+        vm.currentScreen = 'dataset-list';
+      } else if (data.currentScreen === 'leaderboard') {
+        vm.currentScreen = 'result';
+      } else {
+        vm.currentScreen = data.currentScreen;
       }
       setTimeout(() => {
         vm.mode = data.mode;
         vm.level = data.level;
+        vm.timeMarks = data.timeMarks;
+        vm.hintNumber = data.hintNumber;
+        vm.hintsUsed = data.hintsUsed;
+        vm.noOfHintsUsed = data.noOfHintsUsed;
         vm.gameLevelBonus = vm.gameLevelBonus;
         vm.pNo = data.pNo;
         vm.score = data.score;
         vm.gameOver = data.gameOver;
+        vm.userResponse = [];
+        for (var i = 0; i < data.userResponse.length; i++) {
+          let userResponse = {
+            isSolved: data.userResponse[i].isSolved,
+            score: data.userResponse[i].score,
+            tans: []
+          }
+          for (var j = 0; j < data.userResponse[i].tans.length; j++) {
+            let coeffIntX = data.userResponse[i].tans[j].anchor.x.coeffInt;
+            let coeffSqrtX = data.userResponse[i].tans[j].anchor.x.coeffSqrt;
+            let coeffIntY = data.userResponse[i].tans[j].anchor.y.coeffInt;
+            let coeffSqrtY = data.userResponse[i].tans[j].anchor.y.coeffSqrt;
+            let anchor = new Point(new IntAdjoinSqrt2(coeffIntX, coeffSqrtX), new IntAdjoinSqrt2(coeffIntY, coeffSqrtY));
+            userResponse.tans.push(new Tan(data.userResponse[i].tans[j].tanType, anchor, data.userResponse[i].tans[j].orientation));
+          }
+          vm.userResponse.push(userResponse);
+        }
         vm.clock = {
           ...data.clock
         };
@@ -1239,36 +1230,39 @@ var app = new Vue({
           if (data.gameOver === 'solved') {
             for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
               vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'shadowEnabled', true);
+              vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'strokeEnabled', false);
             }
-            for (var i = 0; i < 7; i++) {
-              vm.puzzles[vm.pNo].targetTans[i].strokeEnabled = false;
+          } else if (data.gameOver === 'passed') {
+            for (var i = 0; i < vm.puzzles[vm.pNo].targetTans.length; i++) {
+              vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'strokeEnabled', false);
+              let color = vm.tanColors[vm.puzzles[vm.pNo].targetTans[i].tanType];
+              vm.$set(vm.puzzles[vm.pNo].targetTans[i], 'fill', color);
             }
           }
         }
-      }, 500);
-
-      if (data.currentScreen === 'game') {
-        setTimeout(() => {
-          vm.$refs.game.loadContext({
-            tans: data.gameTans,
-            tansSnapped: data.gameTansSnapped,
-            tansPlaced: data.gameTansPlaced,
-            pScale: data.gameScale,
-            pStage: data.gameStage
-          })
-        }, 500);
-      }
-      if (data.currentScreen === 'setting-editor') {
-        setTimeout(() => {
-          vm.puzzleToBeEdited = data.puzzleToBeEdited;
-          vm.$refs['setting-editor'].loadContext({
-            tans: data.gameTans,
-            pScale: data.gameScale,
-            pStage: data.gameStage,
-            puzzle: data.puzzleCreated,
-          })
-        }, 500);
-      }
+        if (data.currentScreen === 'game') {
+          setTimeout(() => {
+            vm.$refs.game.loadContext({
+              tans: data.gameTans,
+              tansSnapped: data.gameTansSnapped,
+              tansPlaced: data.gameTansPlaced,
+              pScale: data.gameScale,
+              pStage: data.gameStage
+            })
+          }, 0);
+        }
+        if (data.currentScreen === 'setting-editor') {
+          setTimeout(() => {
+            vm.puzzleToBeEdited = data.puzzleToBeEdited;
+            vm.$refs['setting-editor'].loadContext({
+              tans: data.gameTans,
+              pScale: data.gameScale,
+              pStage: data.gameStage,
+              puzzle: data.puzzleCreated,
+            })
+          }, 0);
+        }
+      }, 0);
       vm.selectTangramCategoryItem(vm.tangramCategories);
       vm.selectTimerItem(vm.clock.type);
     },
@@ -1310,14 +1304,9 @@ var app = new Vue({
             vm.mode = 'timer';
             vm.$set(vm.clock, 'type', data.clockType);
             vm.$set(vm.clock, 'initial', data.clockInitial);
-            if (!vm.clock.active) {
-              vm.startClock();
-            }
-
             if (vm.currentScreen !== 'game') {
               vm.currentScreen = 'game';
             }
-
             vm.selectTangramCategoryItem(vm.tangramCategories);
             vm.selectTimerItem(vm.clock.type);
             vm.disabled = true;
