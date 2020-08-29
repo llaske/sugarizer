@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ES6 compatibility for activities (except modules)
 - Support autologoff mode for Electron and Sugarizer OS
 - Support for native Android app in activities.json
+- Join shared activity in one click in neighborhood view
 
 ### Changed
 - Improve Presence palette UI, now handle list of users and disconnection
