@@ -115,7 +115,20 @@ var PollStats = {
 				<div class="footer-list">
 					<div class="vote-progress">{{ answers.length }}/{{ Object.keys(connectedUsers).length }}</div>
 					<footer-item
-						v-for="user in sortedUsers"
+						v-for="user in connectedUsers"
+						v-if="user.handRaised"
+						:key="user.networkId"
+						:user="user"
+					></footer-item>
+					<footer-item
+						v-for="user in connectedUsers"
+						v-if="!user.handRaised && user.answer != null"
+						:key="user.networkId"
+						:user="user"
+					></footer-item>
+					<footer-item
+						v-for="user in connectedUsers"
+						v-if="!user.handRaised && user.answer == null"
 						:key="user.networkId"
 						:user="user"
 					></footer-item>
@@ -189,17 +202,6 @@ var PollStats = {
 		canvasLoaded: false
 	}),
 	computed: {
-		sortedUsers() {
-			let users = [];
-			for (let key in this.connectedUsers) {
-				if (this.connectedUsers[key].answer != null) {
-					users.unshift(this.connectedUsers[key]);
-				} else {
-					users.push(this.connectedUsers[key]);
-				}
-			}
-			return users;
-		},
 		answers() {
 			if (!this.isResult && !this.isThumbnail) {
 				let answers = [];
