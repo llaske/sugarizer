@@ -32,6 +32,14 @@ Vue.component('sugar-presence', {
 	},
 	methods: {
 
+		isNetworkAvailable() {
+			return new Promise((resolve, reject) => {
+				requirejs(["sugar-web/presence"], presence => {
+					resolve(presence.isConnected());
+				});
+			})
+		},
+
 		isConnected: function () {
 			return this.presence != null;
 		},

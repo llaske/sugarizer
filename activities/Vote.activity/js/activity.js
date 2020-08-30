@@ -18,6 +18,7 @@ var app = new Vue({
 	},
 	data: {
 		currentUser: {},
+		networkError: false,
 		settings: false,
 		currentView: "",
 		searchText: "",
@@ -208,25 +209,33 @@ var app = new Vue({
 		},
 
 		startPoll(pollId) {
-			let index = this.polls.findIndex((poll) => {
-				return poll.id == pollId;
-			});
-			this.activePoll = this.polls[index];
-			this.activePollStatus = 'running';
-			this.currentView = "poll-stats";
-			document.getElementById('shared-button').click();
-
-			if(Object.keys(this.connectedUsers).length > 0) {
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'start-poll',
-						data: {
-							activePoll: this.activePoll
-						}
+			this.SugarPresence.isNetworkAvailable()
+				.then(response => {
+					if(!response) {
+						this.$refs.SugarPopup.log(this.$refs.SugarL10n.get('NetworkError'));
+						return;
 					}
-				});
-			}
+
+					let index = this.polls.findIndex((poll) => {
+						return poll.id == pollId;
+					});
+					this.activePoll = this.polls[index];
+					this.activePollStatus = 'running';
+					this.currentView = "poll-stats";
+					document.getElementById('shared-button').click();
+		
+					if(Object.keys(this.connectedUsers).length > 0) {
+						this.SugarPresence.sendMessage({
+							user: this.SugarPresence.getUserInfo(),
+							content: {
+								action: 'start-poll',
+								data: {
+									activePoll: this.activePoll
+								}
+							}
+						});
+					}
+				})
 		},
 
 		stopPoll() {
