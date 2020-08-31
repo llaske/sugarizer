@@ -156,6 +156,7 @@ var Result = {
   mounted: function() {
     let vm = this;
     vm.resize();
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   computed: {

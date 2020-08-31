@@ -150,6 +150,13 @@ p {
 	z-index: 3;
 }
 
+#spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
+}
+
 #back-button:hover {
 	border: none;
 }

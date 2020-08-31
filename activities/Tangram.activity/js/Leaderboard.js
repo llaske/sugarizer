@@ -102,6 +102,7 @@ var Leaderboard = {
     var vm = this;
     vm.pageCount = Math.ceil(vm.playersAll.length / vm.visibleItemsPerPageCount);
     vm.resize();
+    document.getElementById("spinner").style.visibility = "hidden";
   },
   watch: {
     playersAll: function() {

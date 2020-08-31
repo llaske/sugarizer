@@ -183,6 +183,7 @@ var SettingEditor = {
         this.puzzleCreated.id = this.dataSetHandler.addTangramPuzzle(vm.puzzleCreated).id;
       }
     }, 0);
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   computed: {

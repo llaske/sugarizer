@@ -1264,6 +1264,7 @@ var app = new Vue({
 
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
+      this.currentScreen = "dataset-list";
     },
 
     onActivityShared: function(event, paletteObject) {

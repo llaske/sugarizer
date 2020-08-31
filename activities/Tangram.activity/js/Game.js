@@ -256,6 +256,7 @@ var Game = {
     setTimeout(() => {
       vm.initializeTans();
     }, 0);
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   watch: {
