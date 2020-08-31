@@ -19,29 +19,25 @@ Vue.component('sugar-presence', {
 				// Handle shared instance
 				if (environment.sharedId) {
 					console.log("Shared instance");
-					vm.presence = activity.getPresenceObject(function (error, network) {
-						if (error) {
-							console.log(error);
-						}
-						network.onDataReceived(vm.onNetworkDataReceived);
-						network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
-					});
 				}
+				vm.presence = activity.getPresenceObject(function (error, network) {
+					if (error) {
+						console.log(error);
+					}
+					network.onDataReceived(vm.onNetworkDataReceived);
+					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
+				});
 			});
 		});
 	},
 	methods: {
-
-		isNetworkAvailable() {
-			return new Promise((resolve, reject) => {
-				requirejs(["sugar-web/presence"], presence => {
-					resolve(presence.isConnected());
-				});
-			})
+		
+		isConnected: function () {
+			return this.presence != null && this.presence.isConnected();
 		},
 
-		isConnected: function () {
-			return this.presence != null;
+		isShared() {
+			return this.presence != null && this.presence.hasOwnProperty('sharedInfo');
 		},
 
 		getSharedInfo: function () {
@@ -61,17 +57,9 @@ Vue.component('sugar-presence', {
 			paletteObject.popDown();
 			var vm = this;
 			console.log("Want to share");
-			this.presence = vm.activity.getPresenceObject(function (error, network) {
-				if (error) {
-					console.log("Sharing error");
-					return;
-				}
-				network.createSharedActivity(vm.bundleId, function (groupId) {
-					console.log("Activity shared");
-					vm.isHost = true;
-				});
-				network.onDataReceived(vm.onNetworkDataReceived);
-				network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
+			this.presence.createSharedActivity(this.bundleId, function (groupId) {
+				console.log("Activity shared");
+				vm.isHost = true;
 			});
 		},
 

@@ -176,7 +176,7 @@ var app = new Vue({
 			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
-			if(!newVal && this.SugarPresence.isConnected()) {
+			if(!newVal && this.SugarPresence.isShared()) {
 				this.updateHostContextForConnected();
 			}
 		}
@@ -209,33 +209,30 @@ var app = new Vue({
 		},
 
 		startPoll(pollId) {
-			this.SugarPresence.isNetworkAvailable()
-				.then(response => {
-					if(!response) {
-						this.$refs.SugarPopup.log(this.$refs.SugarL10n.get('NetworkError'));
-						return;
-					}
+			if(!this.SugarPresence.isConnected()) {
+				this.$refs.SugarPopup.log(this.$refs.SugarL10n.get('NetworkError'));
+				return;
+			}
+			
+			let index = this.polls.findIndex((poll) => {
+				return poll.id == pollId;
+			});
+			this.activePoll = this.polls[index];
+			this.activePollStatus = 'running';
+			this.currentView = "poll-stats";
+			document.getElementById('shared-button').click();
 
-					let index = this.polls.findIndex((poll) => {
-						return poll.id == pollId;
-					});
-					this.activePoll = this.polls[index];
-					this.activePollStatus = 'running';
-					this.currentView = "poll-stats";
-					document.getElementById('shared-button').click();
-		
-					if(Object.keys(this.connectedUsers).length > 0) {
-						this.SugarPresence.sendMessage({
-							user: this.SugarPresence.getUserInfo(),
-							content: {
-								action: 'start-poll',
-								data: {
-									activePoll: this.activePoll
-								}
-							}
-						});
+			if(Object.keys(this.connectedUsers).length > 0) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'start-poll',
+						data: {
+							activePoll: this.activePoll
+						}
 					}
-				})
+				});
+			}
 		},
 
 		stopPoll() {
@@ -365,7 +362,7 @@ var app = new Vue({
 				this.activePoll = null;
 				this.activePollStatus = '';
 				
-				if(this.SugarPresence.isConnected()) {
+				if(this.SugarPresence.isShared()) {
 					this.SugarPresence.sendMessage({
 						user: this.SugarPresence.getUserInfo(),
 						content: {
