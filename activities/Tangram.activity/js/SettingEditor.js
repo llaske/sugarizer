@@ -11,9 +11,6 @@ var SettingEditor = {
             backgroundColor: '#ffffff',
             borderRadius: '10px'
           }"
-          v-on:dragstart="onDragStart"
-          v-on:dragend="onDragEnd"
-          v-on:touchend="onTouchEnd"
         >
           <v-layer ref="layer" :config="configLayer">
             <v-line :config="workingBox"></v-line>
@@ -26,6 +23,9 @@ var SettingEditor = {
                 v-on:click="onClick"
                 v-on:mouseover="onMouseOver"
                 v-on:mouseout="onMouseOut"
+                v-on:dragstart="onDragStart"
+                v-on:dragend="onDragEnd"
+                v-on:touchend="onTouchEnd"
               ></v-line>
             </template>
           </v-layer>
@@ -689,7 +689,6 @@ var SettingEditor = {
     onDragEnd: function(e) {
       let vm = this;
       let index = e.target.id();
-      let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
       let boundingBox = {
@@ -709,15 +708,12 @@ var SettingEditor = {
       //checking conditions if the tan gets out of canvas boundary
       if (boundingBox.x < 0) {
         finalX = boundingBox.width / (2 * scale) - offX;
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.y < 0) {
         finalY = boundingBox.height / (2 * scale) - offY;
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
         finalY = (vm.configKonva.height - boundingBox.height / 2) / scale - offY;
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw && (boundingBox.y < ih)) {
         let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale - offX;
@@ -729,11 +725,9 @@ var SettingEditor = {
         } else {
           finalY = tmpy;
         }
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.x + boundingBox.width > vm.configKonva.width && (boundingBox.y > ih || boundingBox.y < 0)) {
         finalX = (vm.configKonva.width - boundingBox.width / 2) / scale - offX;
-        isTanOutsideCanvas = true;
       }
       let dx = finalX - this.tans[index].x;
       let dy = finalY - this.tans[index].y;

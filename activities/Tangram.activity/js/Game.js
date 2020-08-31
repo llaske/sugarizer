@@ -13,9 +13,6 @@ var Game = {
             backgroundColor: '#ffffff',
             borderRadius: '10px'
           }"
-          v-on:dragstart="onDragStart"
-          v-on:dragend="onDragEnd"
-          v-on:touchend="onTouchEnd"
         >
           <v-layer ref="layer" :config="configLayer">
           <v-line :config="partitionLine"></v-line>
@@ -47,6 +44,9 @@ var Game = {
               v-on:click="onClick"
               v-on:mouseover="onMouseOver"
               v-on:mouseout="onMouseOut"
+              v-on:dragstart="onDragStart"
+              v-on:dragend="onDragEnd"
+              v-on:touchend="onTouchEnd"
             ></v-line>
           </template>
           </v-layer>
@@ -394,7 +394,7 @@ var Game = {
       vm.resizePartitionLine();
 
       vm.$set(vm.nameBlock, 'width', gameMainEle.offsetWidth * 0.65);
-      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.12);
+      vm.$set(vm.nameBlock, 'height', gameMainEle.offsetHeight * 0.08);
       vm.$set(vm.nameBlock, 'top', gameMainEle.offsetHeight * 0.006);
       vm.$set(vm.nameBlock, 'left', gameMainEle.offsetWidth * 0.01);
 
@@ -956,27 +956,26 @@ var Game = {
     onDragEnd: function(e) {
       let vm = this;
       let index = e.target.id();
-      let isTanOutsideCanvas = false;
       let finalX = e.target.attrs.x;
       let finalY = e.target.attrs.y;
       let boundingBox = e.target.getClientRect();
       boundingBox.width *= 0.5;
       boundingBox.height *= 0.5;
+      boundingBox.x += boundingBox.width * 0.5;
+      boundingBox.y += boundingBox.height * 0.5;
       let iw = vm.mode === 'timer' ? vm.infoContainer.width : 0;
       let ih = vm.mode === 'timer' ? vm.infoContainer.height : 0;
+      let nh = vm.nameBlock.height;
       //checking conditions if the tan gets out of canvas boundary
       let scale = vm.configLayer.scaleX;
       if (boundingBox.x < 0) {
         finalX = boundingBox.width / (2 * scale);
-        isTanOutsideCanvas = true;
       }
-      if (boundingBox.y < 0) {
-        finalY = boundingBox.height / (2 * scale);
-        isTanOutsideCanvas = true;
+      if (boundingBox.y < nh) {
+        finalY = (boundingBox.height + nh) / (2 * scale);
       }
       if (boundingBox.y + boundingBox.height > vm.configKonva.height) {
         finalY = (vm.configKonva.height - boundingBox.height / 2) / scale;
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.x + boundingBox.width > vm.configKonva.width - iw && boundingBox.y < ih) {
         let tmpx = (vm.configKonva.width - iw - boundingBox.width / 2) / scale;
@@ -988,11 +987,9 @@ var Game = {
         } else {
           finalY = tmpy;
         }
-        isTanOutsideCanvas = true;
       }
       if (boundingBox.x + boundingBox.width > vm.configKonva.width && (boundingBox.y > ih || boundingBox.y < 0)) {
         finalX = (vm.configKonva.width - boundingBox.width / 2) / scale;
-        isTanOutsideCanvas = true;
       }
       let dx = finalX - this.tans[index].x;
       let dy = finalY - this.tans[index].y;
