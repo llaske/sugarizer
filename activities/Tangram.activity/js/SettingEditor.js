@@ -644,7 +644,6 @@ var SettingEditor = {
     },
 
     updateKonvaTans: function(index) {
-      this.konvaTans = [...this.tans];
       let indx = this.konvaTans.findIndex(ele => ele.id === index);
       let item = this.konvaTans[indx];
       this.konvaTans.splice(indx, 1);
