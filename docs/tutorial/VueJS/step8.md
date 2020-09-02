@@ -215,7 +215,7 @@ onAddClick: function (event) {
 		this.pawns.push(this.currentenv.user.colorvalue);
 		this.displayText = this.SugarL10n.get("Played", { name: this.currentenv.user.name });
 
-		if (this.SugarPresence.isConnected()) {
+		if (this.SugarPresence.isShared()) {
 			var message = {
 				user: this.SugarPresence.getUserInfo(),
 				content: {

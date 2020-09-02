@@ -179,7 +179,7 @@ var Result = {
 
     isRestartButtonVisible: function () {
       var vm = this;
-      vm.canRestart = vm.sugarPresence ? (vm.sugarPresence.isConnected() ? vm.sugarPresence.isHost : true) : true;
+      vm.canRestart = vm.sugarPresence ? (vm.sugarPresence.isShared() ? vm.sugarPresence.isHost : true) : true;
       setTimeout(() => {
         vm.resize();
       }, 0);
