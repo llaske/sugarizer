@@ -12,12 +12,13 @@ var SettingEditor = {
             borderRadius: '10px'
           }"
         >
-          <v-layer ref="layer" :config="configLayer">
+          <v-layer ref="layer" :config="{...configLayer, listening: false}">
             <v-line :config="workingBox"></v-line>
             <template>
               <v-line v-for="tan in konvaTans" :key="tan.id"
                 :config="{
-                  ...tan
+                  ...tan,
+                  listening: true
                 }"
                 v-on:tap="onTap"
                 v-on:click="onClick"
@@ -454,7 +455,11 @@ var SettingEditor = {
           shadowColor: 'black',
           shadowBlur: 4,
           shadowOpacity: 0.5,
-          shadowEnabled: false
+          shadowEnabled: false,
+          perfectDrawEnabled: false,
+          shadowForStrokeEnabled: false,
+          hitStrokeWidth: 0,
+          transformsEnabled: 'position'
         }
         tan.tanObj = new Tan(tanType, anchor, orientation);
         let points = [...tan.tanObj.getPoints()];
@@ -731,15 +736,11 @@ var SettingEditor = {
       }
       let dx = finalX - this.tans[index].x;
       let dy = finalY - this.tans[index].y;
+      vm.moveTan(index, dx, dy);
       setTimeout(() => {
-        vm.moveTan(index, dx, dy);
-        setTimeout(() => {
-          vm.snapTan(index);
-          setTimeout(() => {
-            vm.checkIfTangramValid();
-          }, 0)
-        }, 0);
-      }, 0)
+        vm.snapTan(index);
+        vm.checkIfTangramValid();
+      }, 0);
     },
 
     onMouseOver: function(e) {
@@ -819,8 +820,6 @@ var SettingEditor = {
       if (vm.tanState === 1) {
         setTimeout(() => {
           vm.snapTan(vm.currentTan);
-        }, 0);
-        setTimeout(() => {
           vm.checkIfTangramValid();
         }, 0);
       }

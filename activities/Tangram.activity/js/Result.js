@@ -14,8 +14,7 @@ var ResultCard = {
           </div>
         </div>
 
-        <div
-          class="info-bar-logo info-user-logo"
+        <div class="info-bar-logo info-user-logo"
           v-bind:style="{backgroundImage: puzzle.isSolved ? 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')' : 'url(./icons/robot.svg)' }"
         ></div>
 
