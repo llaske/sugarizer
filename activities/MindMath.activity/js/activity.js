@@ -281,7 +281,9 @@ var app = new Vue({
       var vm = this;
       vm.$set(vm.clock, 'time', vm.clock.initial);
       vm.$set(vm.clock, 'active', true);
-      vm.tick();
+      if (vm.timer === null) {
+        vm.tick();
+      }
     },
 
     stopClock: function() {
@@ -289,7 +291,19 @@ var app = new Vue({
       if (vm.timer) {
         clearInterval(vm.timer);
       }
+      vm.timer = null;
       vm.$set(vm.clock, 'active', false);
+    },
+
+    pulseEffect: function() {
+      let vm = this;
+      let pulseMainEle = document.querySelector('.pulse-main');
+      if (pulseMainEle) {
+        pulseMainEle.classList.add('pulse');
+        setTimeout(() => {
+          pulseMainEle.classList.remove('pulse');
+        }, 600);
+      }
     },
 
     updateCompulsoryOpsRem: function() {
@@ -673,6 +687,7 @@ var app = new Vue({
           //change currentScreen
           vm.currentScreen = "result";
         } else {
+          vm.pulseEffect();
           //go to next question in question set for timer mode
           vm.$set(vm.slots, vm.qNo, []);
           vm.qNo++;
@@ -745,6 +760,7 @@ var app = new Vue({
 
       if (vm.currentScreen === 'game') {
         // start a new game
+        vm.pulseEffect();
         vm.newGame();
       }
 
@@ -762,7 +778,7 @@ var app = new Vue({
 
     onTimerSelected: function(evt) {
       var vm = this;
-
+      vm.pulseEffect();
       switch (evt.index) {
         case 0:
           vm.mode = 'non-timer';
@@ -939,7 +955,7 @@ var app = new Vue({
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
 		},
-		
+
     onActivityShared: function(event, paletteObject) {
       this.onMultiplayerGameStarted();
       // Usual behaviour call

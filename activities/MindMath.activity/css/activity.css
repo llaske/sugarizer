@@ -22,6 +22,31 @@ body {
   opacity: 0;
 }
 
+.pulse {
+  -webkit-animation: pulse 0.8s ease both;
+  animation: pulse 0.8s ease both;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 #main-toolbar .splitbar {
   border-right: 1.5px solid #565656;
   margin: 7.5px 5px;
@@ -194,6 +219,7 @@ body {
 }
 
 @media (hover:none), (hover:on-demand) {
+
   /* suppress hover effect on devices that don't support hover fully*/
   .btn-general-block:hover {
     background-size: 80%;
@@ -403,52 +429,53 @@ body {
 }
 
 .tutorial-icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	width: 90px;
-	background-color: #808080;
-	border: 2px solid #808080;
-	display: flex;
-	align-items: center;
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  width: 90px;
+  background-color: #808080;
+  border: 2px solid #808080;
+  display: flex;
+  align-items: center;
 }
 
 .tutorial-icon-button {
-	color: white;
+  color: white;
 }
+
 .tutorial-icon-button.disabled {
-	color: black;
+  color: black;
 }
 
 .tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+  background-color: #808080 !important;
+  color: #ffffff !important;
 }
 
 .tutorial-prev-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  margin-left: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-next-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  margin-left: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-end-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+  margin-left: 6px;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .tutorial-icon-text {
-	padding-left: 4px;
+  padding-left: 4px;
 }
