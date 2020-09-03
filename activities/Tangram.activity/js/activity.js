@@ -171,6 +171,17 @@ var app = new Vue({
       stringTutoDeleteCategoryContent: '',
     }
   },
+
+  created: function () {
+    Konva.Util.getRandomColor = function (){
+			var randColor = ((Math.random() * 0xadcea0) << 0).toString(15);
+			while (randColor.length < 6) {
+				randColor = `0${randColor}`;
+			}
+			return `#${randColor}`;
+		}
+  },
+
   watch: {
     currentScreen: function() {
       var vm = this;

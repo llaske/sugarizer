@@ -25,15 +25,6 @@
 	<script src="lib/confetti.browser.min.js"></script>
 	<script src="lib/konva.min.js"></script>
 	<script src="lib/vue-konva.min.js"></script>
-	<script>
-		Konva.Util.getRandomColor = function (){
-			var randColor = ((Math.random() * 0xadcea0) << 0).toString(15);
-			while (randColor.length < 6) {
-				randColor = `0${randColor}`;
-			}
-			return `#${randColor}`;
-		}
-	</script>
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
