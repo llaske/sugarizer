@@ -495,6 +495,8 @@ var app = new Vue({
 		},
 
 		switchSkillLevel: function () {
+			if(this.sharedInstance) return;
+			
 			var skillObj = this.user.skills[this.selectedCategoryId][this.selectedSkillId];
 			var value = skillObj.acquired;
 			value = (value + 1) % (this.notationLevel + 1);
@@ -747,6 +749,7 @@ var app = new Vue({
 			if(data.currentView == 'template-selection') {
 				this.currentView = data.currentView;
 			} else {
+				this.sharedInstance = data.sharedInstance;
 				this.templateTitle = data.templateTitle;
 				this.templateImage = data.templateImage;
 				this.notationLevel = data.notationLevel;
@@ -769,11 +772,13 @@ var app = new Vue({
 			switch(msg.content.action) {
 				case 'init':
 					this.sharedInstance = true;
+					this.templateTitle = msg.content.data.templateTitle;
 					this.categories = msg.content.data.categories;
 					this.user = msg.content.data.user;
 					this.notationLevel = msg.content.data.notationLevel;
 					this.currentenv = {};
 					this.currentenv.user = msg.user;
+					this.rewardsInit = true;
 					break;
 				case 'updateCategories':
 					this.categories = msg.content.data.categories;
@@ -794,6 +799,7 @@ var app = new Vue({
 					content: {
 						action: 'init',
 						data: {
+							templateTitle: this.templateTitle,
 							categories: this.categories,
 							user: this.user,
 							notationLevel: this.notationLevel
@@ -1016,6 +1022,7 @@ var app = new Vue({
 				}
 			} else {
 				context = {
+					sharedInstance: this.sharedInstance,
 					templateTitle: this.templateTitle,
 					templateImage: this.templateImage,
 					notationLevel: this.notationLevel,

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>My Vue Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/libnotify.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/Polls.css">
+	<link rel="stylesheet" href="css/PollStats.css">
+	<link rel="stylesheet" href="css/Vote.css">
+	<link rel="stylesheet" href="css/History.css">
+	<link rel="stylesheet" href="css/Settings.css">
+	<link rel="stylesheet" href="css/Export.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/Sortable.min.js"></script>
+	<script src="lib/vuedraggable.umd.min.js"></script>
+	<script src="lib/Chart.min.js"></script>
+	<script src="lib/chartjs-plugin-datalabels.min.js"></script>
+	<script src="lib/wordcloud2.js"></script>
+	<script src="lib/jspdf.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+
+			<!-- Add more buttons here -->
+			<sugar-toolitem 
+				id="network-button" 
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette" 
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem 
+				id="settings-button" 
+				v-if="currentView == 'polls-grid'"
+				:icon="settings ? 'icons/play.svg' : 'icons/settings.svg'"
+				@click="settings = !settings"
+				v-bind:title="l10n.stringSettings"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="add-button" 
+				v-if="settings && currentView != 'poll-settings'" 
+				@click="onAddClick"
+				v-bind:title="l10n.stringAdd"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="real-time-button" 
+				:class="{ active: realTimeResults }"
+				v-if="currentView == 'poll-stats'" 
+				@click="switchRealTimeResults"
+				v-bind:title="l10n.stringRealTimeResults"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="auto-stop-button" 
+				:class="{ active: autoStop}"
+				v-if="currentView == 'poll-stats'" 
+				@click="autoStop = !autoStop"
+				v-bind:title="l10n.stringAutoStop"
+			></sugar-toolitem>
+			<div class="search-field" v-if="currentView == 'polls-grid'">
+				<div class="search-icon"></div>
+				<input 
+					type="text" 
+					class="search-input" 
+					v-model="searchText" 
+					:placeholder="l10n.stringSearch"
+				>
+				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
+			</div>
+			<sugar-toolitem 
+				id="home-button" 
+				v-if="currentView == 'history' && openHistoryIndex == null" 
+				@click="currentView = 'polls-grid'"
+				v-bind:title="l10n.stringHome"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="history-button" 
+				v-if="currentView == 'polls-grid'" 
+				@click="currentView = 'history'"
+				v-bind:title="l10n.stringHistory"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="delete-button" 
+				v-if="currentView == 'history' && openHistoryIndex != null" 
+				@click="deleteHistoryPoll"
+				v-bind:title="l10n.stringDeletePoll"
+			></sugar-toolitem>
+			<sugar-toolitem
+				id="export-button"
+				v-show="currentView == 'history' && openHistoryIndex == null" 
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-title="Export"
+				palette-event="format-selected"
+				@format-selected="onExportFormatSelected"
+				:title="l10n.stringExport"
+			></sugar-toolitem>
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<div id="content" :class="{ fullscreen: $refs.SugarToolbar ? $refs.SugarToolbar.isHidden() : false }">
+			<!-- <transition name="fade" mode="out-in"> -->
+				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
+					<component 
+						:is="currentView" 
+						:settings="settings"
+						:search-query="searchQuery"
+						:polls="polls"
+						:current-user="currentUser"
+						:active-poll="activePoll"
+						:active-poll-status="activePollStatus"
+						:connected-users="connectedUsers"
+						:counts="counts"
+						:real-time-results="realTimeResults"
+						:auto-stop="autoStop"
+						:history="history"
+						:open-history-index="openHistoryIndex"
+						:exporting="exporting"
+
+						@start-poll="startPoll"
+						@stop-poll="stopPoll"
+						@update-counts="updateCounts"
+						@update-results="updateResults"
+						@edit-poll="editPoll"
+						@poll-added="onPollAdded"
+
+						@hand-raise-switched="onHandRaiseSwitched"
+						@vote-submitted="onVoteSubmitted"
+						@set-open-history-index="setOpenHistoryIndex"
+						@save-to-history="saveToHistory"
+						@update-polls="onUpdatePolls"
+						@export-completed="exporting = ''"
+						@go-back-to="goBackTo"
+					></component>
+				</keep-alive>
+			<!-- </transition> -->
+		</div>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-journal ref="SugarJournal" 
+			v-on:journal-data-loaded="onJournalDataLoaded" 
+			v-on:journal-new-instance="onJournalNewInstance" 
+			v-on:journal-shared-instance="onJournalSharedInstance"
+		></sugar-journal>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-icon ref="SugarIcon"></sugar-icon>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+	</div>
+
+	<script src="js/Polls.js"></script>
+	<script src="js/PollStats.js"></script>
+	<script src="js/Vote.js"></script>
+	<script src="js/Export.js"></script>
+	<script src="js/History.js"></script>
+	<script src="js/Settings.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>

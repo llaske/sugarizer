@@ -37,7 +37,7 @@
 				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
-				v-on:shared="SugarPresence.onShared"
+				v-on:shared="onActivityShared"
 				v-if="SugarPresence"
 			></sugar-toolitem>
 			<sugar-toolitem id="undo-button" v-bind:title="l10n.stringUndo" v-on:click="handleUndoButton"></sugar-toolitem>
@@ -126,9 +126,10 @@
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
-		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged" v-on:multiplayer-game-started="onMultiplayerGameStarted"></sugar-presence>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
 	<script src="js/utils/utils.js"></script>
@@ -148,6 +149,7 @@
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
 
 	<script src="js/activity.js"></script>
 </body>
