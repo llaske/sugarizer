@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Chess activity
 - Curriculum activity
 - MindMath activity
+- Vote activity
+- Tangram activity
 - Simon mode game in TamTam activity #686
 - Vue.js activity template
 - Activity Development Tutorial in Vue.js

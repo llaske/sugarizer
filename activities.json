@@ -1,4 +1,5 @@
 [
+	{"id": "org.sugarlabs.Tangram", "name": "Tangram", "version": 1, "directory": "activities/Tangram.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Vote", "name": "Vote", "version": 1, "directory": "activities/Vote.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.MindMath", "name": "MindMath", "version": 1, "directory": "activities/MindMath.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Curriculum", "name": "Curriculum", "version": 1, "directory": "activities/Curriculum.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

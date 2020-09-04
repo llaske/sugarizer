@@ -1,0 +1,6 @@
+[Activity]
+name = Tangram
+activity_version = 1
+bundle_id = org.sugarlabs.Tangram
+exec = sugar-activity-web
+icon = activity-icon
