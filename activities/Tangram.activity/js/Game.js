@@ -14,7 +14,7 @@ var Game = {
             borderRadius: '10px'
           }"
         >
-          <v-layer ref="layer" :config="configLayer">
+          <v-layer ref="layer" :config="{...configLayer, listening: false}">
           <v-line :config="partitionLine"></v-line>
           <template v-if="puzzles[pNo].outlinePoints.length>0">
             <v-line
@@ -256,6 +256,7 @@ var Game = {
     setTimeout(() => {
       vm.initializeTans();
     }, 0);
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   watch: {
@@ -627,7 +628,11 @@ var Game = {
           shadowColor: 'black',
           shadowBlur: 4,
           shadowOpacity: 0.5,
-          shadowEnabled: false
+          shadowEnabled: false,
+          perfectDrawEnabled: false,
+          shadowForStrokeEnabled: false,
+          hitStrokeWidth: 0,
+          transformsEnabled: 'position'
         }
         tan.tanObj = new Tan(tanType, anchor, orientation);
         let points = [...tan.tanObj.getPoints()];
@@ -910,7 +915,6 @@ var Game = {
     },
 
     updateKonvaTans: function(index) {
-      this.konvaTans = [...this.tans];
       let indx = this.konvaTans.findIndex(ele => ele.id === index);
       let item = this.konvaTans[indx];
       this.konvaTans.splice(indx, 1);
@@ -993,15 +997,12 @@ var Game = {
       }
       let dx = finalX - this.tans[index].x;
       let dy = finalY - this.tans[index].y;
+      vm.moveTan(index, dx, dy);
       setTimeout(() => {
-        vm.moveTan(index, dx, dy);
-        setTimeout(() => {
-          vm.snapTan(index);
-          setTimeout(() => {
-            vm.checkIfSolved();
-          }, 0)
-        }, 0);
-      }, 0)
+        vm.snapTan(index);
+        vm.checkIfSolved();
+      }, 0);
+
     },
 
     onMouseOver: function(e) {
@@ -1085,8 +1086,6 @@ var Game = {
       if (vm.tanState === 1) {
         setTimeout(() => {
           vm.snapTan(vm.currentTan);
-        }, 0);
-        setTimeout(() => {
           vm.checkIfSolved();
         }, 0);
       }

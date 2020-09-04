@@ -174,7 +174,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position:center;
-  background-image: url(../icons/smile.svg);
+  background-image: url(../images/smile.svg);
 }
 
 .emoji-lost-block{
@@ -183,7 +183,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position:center;
-  background-image: url(../icons/sad.svg);
+  background-image: url(../images/sad.svg);
 }
 
 .pulse {

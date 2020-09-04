@@ -171,9 +171,21 @@ var app = new Vue({
       stringTutoDeleteCategoryContent: '',
     }
   },
+
+  created: function () {
+    Konva.Util.getRandomColor = function (){
+			var randColor = ((Math.random() * 0xadcea0) << 0).toString(15);
+			while (randColor.length < 6) {
+				randColor = `0${randColor}`;
+			}
+			return `#${randColor}`;
+		}
+  },
+
   watch: {
     currentScreen: function() {
       var vm = this;
+      document.getElementById("spinner").style.visibility = "visible";
       if (vm.currentScreen === 'game') {
         if (!vm.multiplayer) {
           vm.newGame();
@@ -822,6 +834,7 @@ var app = new Vue({
       if (vm.currentScreen === 'result') {
         return;
       }
+      vm.pulseEffect();
       vm.currentScreen = 'game';
       vm.newGame();
 
@@ -833,13 +846,18 @@ var app = new Vue({
       if (vm.currentScreen === 'game' && (index === -1 || vm.DataSetHandler.dataSet[index].tangrams.length === 0)) {
         return;
       }
-      vm.pulseEffect();
-      vm.tangramCategories = [evt.index];
-      vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
-      vm.selectTangramCategoryItem(vm.tangramCategories);
-      if (vm.currentScreen === "game") {
-        vm.newGame();
-      }
+      document.getElementById("spinner").style.visibility = "visible";
+      vm.DataSetHandler.tangramSet = [];
+      setTimeout(() => {
+        vm.pulseEffect();
+        vm.tangramCategories = [evt.index];
+        vm.DataSetHandler.onChangeCategory(vm.tangramCategories);
+        vm.selectTangramCategoryItem(vm.tangramCategories);
+        if (vm.currentScreen === "game") {
+          vm.newGame();
+        }
+        document.getElementById("spinner").style.visibility = "hidden";
+      }, 0)
     },
 
     selectTangramCategoryItem: function(categories) {
@@ -953,6 +971,7 @@ var app = new Vue({
 
     onChangeView: function() {
       let vm = this;
+      vm.pulseEffect();
       if (vm.view === 'play') {
         vm.view = 'setting';
       } else {
@@ -1264,6 +1283,7 @@ var app = new Vue({
 
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
+      this.currentScreen = "dataset-list";
     },
 
     onActivityShared: function(event, paletteObject) {

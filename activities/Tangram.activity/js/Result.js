@@ -14,8 +14,7 @@ var ResultCard = {
           </div>
         </div>
 
-        <div
-          class="info-bar-logo info-user-logo"
+        <div class="info-bar-logo info-user-logo"
           v-bind:style="{backgroundImage: puzzle.isSolved ? 'url('+ generateXOLogoWithColor(strokeColor, fillColor)+')' : 'url(./icons/robot.svg)' }"
         ></div>
 
@@ -156,6 +155,7 @@ var Result = {
   mounted: function() {
     let vm = this;
     vm.resize();
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   computed: {

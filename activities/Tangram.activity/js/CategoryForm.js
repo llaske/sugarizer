@@ -76,6 +76,7 @@ var CategoryForm = {
       vm.category.title = vm.l10n.stringNewTitle
     }
     vm.resize();
+    document.getElementById("spinner").style.visibility = "hidden";
   },
 
   computed: {
