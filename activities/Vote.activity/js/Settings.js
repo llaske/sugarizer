@@ -95,10 +95,11 @@ var PollSettings = {
 	created: function () {
 		if (this.activePoll && this.activePollStatus == "editing") {			// Edit poll
 			this.poll = JSON.parse(JSON.stringify(this.activePoll));
+		} else {
+			// Else adding a poll -> setting default typeVariable and image
+			this.poll.typeVariable = Object.keys(this.types)[0];
+			this.poll.image = this.types[this.poll.typeVariable];
 		}
-		// Else adding a poll -> setting default typeVariable and image
-		this.poll.typeVariable = Object.keys(this.types)[0];
-		this.poll.image = this.types[this.poll.typeVariable];
 	},
 	mounted: function () {
 		this.$root.$refs.SugarL10n.localize(this.l10n);
