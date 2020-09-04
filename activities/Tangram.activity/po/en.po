@@ -1,0 +1,1513 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Fri Sep 04 2020 21:54:23 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "Seconds ago"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} ago"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minute"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutes"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "hour"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "hours"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "day"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "days"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "week"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "weeks"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "month"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "months"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "year"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "years"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "Anytime"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Today"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Since yesterday"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "Past week"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "Past month"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "Past year"
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr "{{name}} joined"
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr "{{name}} left"
+
+#: Network
+msgctxt "Network"
+msgid "Network"
+msgstr "Network"
+
+#: View
+msgctxt "View"
+msgid "Play/Setting View"
+msgstr "Play/Setting View"
+
+#: Random
+msgctxt "Random"
+msgid "Random"
+msgstr "Random"
+
+#: Timer
+msgctxt "Timer"
+msgid "Timer"
+msgstr "Timer"
+
+#: DifficultyLevel
+msgctxt "DifficultyLevel"
+msgid "Difficulty Level"
+msgstr "Difficulty Level"
+
+#: Category
+msgctxt "Category"
+msgid "Tangrams Category"
+msgstr "Tangrams Category"
+
+#: NewCategory
+msgctxt "NewCategory"
+msgid "Create new category"
+msgstr "Create new category"
+
+#: Hint
+msgctxt "Hint"
+msgid "Hint"
+msgstr "Hint"
+
+#: Tutorial
+msgctxt "Tutorial"
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr "Unfullscreen"
+
+#: Stop
+msgctxt "Stop"
+msgid "Stop"
+msgstr "Stop"
+
+#: HintsUsed
+msgctxt "HintsUsed"
+msgid "Hints Used"
+msgstr "Hints Used"
+
+#: Score
+msgctxt "Score"
+msgid "Score"
+msgstr "Score"
+
+#: TotalScore
+msgctxt "TotalScore"
+msgid "Total Score:"
+msgstr "Total Score:"
+
+#: TotalTime
+msgctxt "TotalTime"
+msgid "Total Time:"
+msgstr "Total Time:"
+
+#: NewTitle
+msgctxt "NewTitle"
+msgid "New Category"
+msgstr "New Category"
+
+#: Confirm
+msgctxt "Confirm"
+msgid "Confirm"
+msgstr "Confirm"
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "Cancel"
+
+#: Title
+msgctxt "Title"
+msgid "Title"
+msgstr "Title"
+
+#: Rank
+msgctxt "Rank"
+msgid "Rank"
+msgstr "Rank"
+
+#: User
+msgctxt "User"
+msgid "User"
+msgstr "User"
+
+#: NoTimer
+msgctxt "NoTimer"
+msgid "No Timer"
+msgstr "No Timer"
+
+#: EasyLevel
+msgctxt "EasyLevel"
+msgid "Easy Level"
+msgstr "Easy Level"
+
+#: MediumLevel
+msgctxt "MediumLevel"
+msgid "Medium Level"
+msgstr "Medium Level"
+
+#: Easy
+msgctxt "Easy"
+msgid "Easy"
+msgstr "Easy"
+
+#: Hard
+msgctxt "Hard"
+msgid "Hard"
+msgstr "Hard"
+
+#: ValidPuzzle
+msgctxt "ValidPuzzle"
+msgid "Valid Puzzle"
+msgstr "Valid Puzzle"
+
+#: InvalidShape
+msgctxt "InvalidShape"
+msgid "Invalid Shape"
+msgstr "Invalid Shape"
+
+#: InvalidName
+msgctxt "InvalidName"
+msgid "Invalid Name"
+msgstr "Invalid Name"
+
+#: TangramDifficulty
+msgctxt "TangramDifficulty"
+msgid "Tangram Difficulty"
+msgstr "Tangram Difficulty"
+
+#: MyTangram
+msgctxt "MyTangram"
+msgid "My Tangram"
+msgstr "My Tangram"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Tangram Activity"
+msgstr "Tangram Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes"
+msgstr "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes"
+
+#: TutoAboutTitle
+msgctxt "TutoAboutTitle"
+msgid "Game modes"
+msgstr "Game modes"
+
+#: TutoAboutContent
+msgctxt "TutoAboutContent"
+msgid "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
+msgstr "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
+
+#: TutoEachPuzzleTitle
+msgctxt "TutoEachPuzzleTitle"
+msgid "Puzzle"
+msgstr "Puzzle"
+
+#: TutoEachPuzzleContent
+msgctxt "TutoEachPuzzleContent"
+msgid "In Each Puzzle or question, you will be given a target shape or tangram. Using the 7 pieces ( can only be used once each and should be non-overlapping ) you have to form the target shape"
+msgstr "In Each Puzzle or question, you will be given a target shape or tangram. Using the 7 pieces ( can only be used once each and should be non-overlapping ) you have to form the target shape"
+
+#: TutoTangramCategoryTitle
+msgctxt "TutoTangramCategoryTitle"
+msgid "Tangram Category"
+msgstr "Tangram Category"
+
+#: TutoTangramCategoryContent
+msgctxt "TutoTangramCategoryContent"
+msgid "These are the various categories you choose for the tangrams you want to solve"
+msgstr "These are the various categories you choose for the tangrams you want to solve"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Board"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgstr "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+
+#: TutoKeyBoardTitle
+msgctxt "TutoKeyBoardTitle"
+msgid "KeyBoard Controls"
+msgstr "KeyBoard Controls"
+
+#: TutoKeyBoardContent
+msgctxt "TutoKeyBoardContent"
+msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgstr "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+
+#: TutoRefreshTitle
+msgctxt "TutoRefreshTitle"
+msgid "Refesh"
+msgstr "Refesh"
+
+#: TutoRefreshContent
+msgctxt "TutoRefreshContent"
+msgid "Click to Refresh the game tans position and move them back to their initial positions"
+msgstr "Click to Refresh the game tans position and move them back to their initial positions"
+
+#: TutoPassTitle
+msgctxt "TutoPassTitle"
+msgid "Pass"
+msgstr "Pass"
+
+#: TutoPassContent
+msgctxt "TutoPassContent"
+msgid "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
+msgstr "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
+
+#: TutoSettingViewTitle
+msgctxt "TutoSettingViewTitle"
+msgid "Setting View"
+msgstr "Setting View"
+
+#: TutoSettingViewContent
+msgctxt "TutoSettingViewContent"
+msgid "You can Edit / Delete the particular tangram puzzle or category from the list. You can also create new tangram Puzzle or category and add the same to your puzzle set"
+msgstr "You can Edit / Delete the particular tangram puzzle or category from the list. You can also create new tangram Puzzle or category and add the same to your puzzle set"
+
+#: TutoScoreTitle
+msgctxt "TutoScoreTitle"
+msgid "Score"
+msgstr "Score"
+
+#: TutoScoreContent
+msgctxt "TutoScoreContent"
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold"
+msgstr "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold"
+
+#: TutoHintTitle
+msgctxt "TutoHintTitle"
+msgid "Hint"
+msgstr "Hint"
+
+#: TutoHintContent
+msgctxt "TutoHintContent"
+msgid "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all six or seven tans then you will get 0 score"
+msgstr "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all six or seven tans then you will get 0 score"
+
+#: TutoLevelTitle
+msgctxt "TutoLevelTitle"
+msgid "Difficulty Level"
+msgstr "Difficulty Level"
+
+#: TutoLevelContent
+msgctxt "TutoLevelContent"
+msgid "Choose the Difficulty level. There are two Levels:- Easy where All the outlines and inner outlines of all the tans would be visible and Medium where only silhouette of the target tangram would be visible"
+msgstr "Choose the Difficulty level. There are two Levels:- Easy where All the outlines and inner outlines of all the tans would be visible and Medium where only silhouette of the target tangram would be visible"
+
+#: TutoTimerTitle
+msgctxt "TutoTimerTitle"
+msgid "Timer"
+msgstr "Timer"
+
+#: TutoTimerContent
+msgctxt "TutoTimerContent"
+msgid "Choose Timer. You can disable/enable the timer here"
+msgstr "Choose Timer. You can disable/enable the timer here"
+
+#: TutoGameActionsTitle
+msgctxt "TutoGameActionsTitle"
+msgid "Game Actions"
+msgstr "Game Actions"
+
+#: TutoGameActionsContent
+msgctxt "TutoGameActionsContent"
+msgid "Here you have Game Actions buttons like \"Restart\", \"Pass\", \"Refresh\". \"Refresh\" will move back all of  your tans to initial positions"
+msgstr "Here you have Game Actions buttons like \"Restart\", \"Pass\", \"Refresh\". \"Refresh\" will move back all of  your tans to initial positions"
+
+#: TutoViewTitle
+msgctxt "TutoViewTitle"
+msgid "View"
+msgstr "View"
+
+#: TutoViewContent
+msgctxt "TutoViewContent"
+msgid "Click To Change The view i.e. Play/Setting view"
+msgstr "Click To Change The view i.e. Play/Setting view"
+
+#: TutoRandomPlayTitle
+msgctxt "TutoRandomPlayTitle"
+msgid "Random Play"
+msgstr "Random Play"
+
+#: TutoRandomPlayContent
+msgctxt "TutoRandomPlayContent"
+msgid "Click To Play With Random Tangrams"
+msgstr "Click To Play With Random Tangrams"
+
+#: TutoRandomButtonTitle
+msgctxt "TutoRandomButtonTitle"
+msgid "Random Tangrams"
+msgstr "Random Tangrams"
+
+#: TutoRandomButtonContent
+msgctxt "TutoRandomButtonContent"
+msgid "Click To Generate Random Tangrams"
+msgstr "Click To Generate Random Tangrams"
+
+#: TutoValidPuzzleIndicatorTitle
+msgctxt "TutoValidPuzzleIndicatorTitle"
+msgid "Valid Puzzle Indicator"
+msgstr "Valid Puzzle Indicator"
+
+#: TutoValidPuzzleIndicatorContent
+msgctxt "TutoValidPuzzleIndicatorContent"
+msgid "This will indicate if the puzzle you created is valid or invalid"
+msgstr "This will indicate if the puzzle you created is valid or invalid"
+
+#: TutoResultTitle
+msgctxt "TutoResultTitle"
+msgid "Results screen"
+msgstr "Results screen"
+
+#: TutoResultContent
+msgctxt "TutoResultContent"
+msgid "On this screen you can see Solutions of the puzzles you have attempted in Timer Mode"
+msgstr "On this screen you can see Solutions of the puzzles you have attempted in Timer Mode"
+
+#: TutoTangramCardTitle
+msgctxt "TutoTangramCardTitle"
+msgid "Puzzle Card"
+msgstr "Puzzle Card"
+
+#: TutoTangramCardContent
+msgctxt "TutoTangramCardContent"
+msgid "Each Card will show you the info about the puzzle you have encountered in the game.If You have solved the puzzle then you will see your solution of the puzzle otherwise you will see computer's solution"
+msgstr "Each Card will show you the info about the puzzle you have encountered in the game.If You have solved the puzzle then you will see your solution of the puzzle otherwise you will see computer's solution"
+
+#: TutoClockInfoTitle
+msgctxt "TutoClockInfoTitle"
+msgid "Time taken"
+msgstr "Time taken"
+
+#: TutoClockInfoContent
+msgctxt "TutoClockInfoContent"
+msgid "This will show the time taken to solve the particular puzzle"
+msgstr "This will show the time taken to solve the particular puzzle"
+
+#: TutoScoreInfoTitle
+msgctxt "TutoScoreInfoTitle"
+msgid "Score"
+msgstr "Score"
+
+#: TutoScoreInfoContent
+msgctxt "TutoScoreInfoContent"
+msgid "This will show the score you got in the particular puzzle"
+msgstr "This will show the score you got in the particular puzzle"
+
+#: TutoRestartTitle
+msgctxt "TutoRestartTitle"
+msgid "Restart"
+msgstr "Restart"
+
+#: TutoRestartContent
+msgctxt "TutoRestartContent"
+msgid "Click here to restart the game"
+msgstr "Click here to restart the game"
+
+#: TutoPaginationTitle
+msgctxt "TutoPaginationTitle"
+msgid "Pagination"
+msgstr "Pagination"
+
+#: TutoPaginationContent
+msgctxt "TutoPaginationContent"
+msgid "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
+msgstr "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
+
+#: TutoLeaderboardPaginationTitle
+msgctxt "TutoLeaderboardPaginationTitle"
+msgid "Pagination"
+msgstr "Pagination"
+
+#: TutoLeaderboardPaginationContent
+msgctxt "TutoLeaderboardPaginationContent"
+msgid "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
+msgstr "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
+
+#: TutoLeaderboardMainTitle
+msgctxt "TutoLeaderboardMainTitle"
+msgid "Leaderboard screen"
+msgstr "Leaderboard screen"
+
+#: TutoLeaderboardMainContent
+msgctxt "TutoLeaderboardMainContent"
+msgid "Here you can see the rankings and score of the users competiting with you"
+msgstr "Here you can see the rankings and score of the users competiting with you"
+
+#: TutoGoBackTitle
+msgctxt "TutoGoBackTitle"
+msgid "Go Back"
+msgstr "Go Back"
+
+#: TutoGoBackContent
+msgctxt "TutoGoBackContent"
+msgid "Go Back"
+msgstr "Go Back"
+
+#: TutoPlayViewTitle
+msgctxt "TutoPlayViewTitle"
+msgid "Play View"
+msgstr "Play View"
+
+#: TutoPlayViewContent
+msgctxt "TutoPlayViewContent"
+msgid "You can click on any puzzle to solve the same"
+msgstr "You can click on any puzzle to solve the same"
+
+#: TutoNewCategoryTitle
+msgctxt "TutoNewCategoryTitle"
+msgid "New Category"
+msgstr "New Category"
+
+#: TutoNewCategoryContent
+msgctxt "TutoNewCategoryContent"
+msgid "Click here to Create New Category"
+msgstr "Click here to Create New Category"
+
+#: TutoBoardEditorTitle
+msgctxt "TutoBoardEditorTitle"
+msgid "Editor board"
+msgstr "Editor board"
+
+#: TutoBoardEditorContent
+msgctxt "TutoBoardEditorContent"
+msgid "This is the Editor board where you can arrange the pieces together to form a Valid tangram"
+msgstr "This is the Editor board where you can arrange the pieces together to form a Valid tangram"
+
+#: TutoValidPuzzleTitle
+msgctxt "TutoValidPuzzleTitle"
+msgid "Valid Puzzle"
+msgstr "Valid Puzzle"
+
+#: TutoValidPuzzleContent
+msgctxt "TutoValidPuzzleContent"
+msgid "For a puzzle to be a valid puzzle:<br>1) No any two tans or pieces should be overlapped to each other.<br>2) Every tan should be connected or joined to atleast one other tan<br>3) The width and height of the tangram created should not be more than the width and height of the square box present on the board<br>4) Tangram Name should not be empty"
+msgstr "For a puzzle to be a valid puzzle:<br>1) No any two tans or pieces should be overlapped to each other.<br>2) Every tan should be connected or joined to atleast one other tan<br>3) The width and height of the tangram created should not be more than the width and height of the square box present on the board<br>4) Tangram Name should not be empty"
+
+#: TutoCategoryNameTitle
+msgctxt "TutoCategoryNameTitle"
+msgid "Category Name"
+msgstr "Category Name"
+
+#: TutoCategoryNameContent
+msgctxt "TutoCategoryNameContent"
+msgid "Enter the name of your new category"
+msgstr "Enter the name of your new category"
+
+#: TutoNewPuzzleTitle
+msgctxt "TutoNewPuzzleTitle"
+msgid "New Puzzle"
+msgstr "New Puzzle"
+
+#: TutoNewPuzzleContent
+msgctxt "TutoNewPuzzleContent"
+msgid "Click here to create new tangram puzzle"
+msgstr "Click here to create new tangram puzzle"
+
+#: TutoEditPuzzleTitle
+msgctxt "TutoEditPuzzleTitle"
+msgid "Edit Puzzle"
+msgstr "Edit Puzzle"
+
+#: TutoEditPuzzleContent
+msgctxt "TutoEditPuzzleContent"
+msgid "Click here to edit the particular puzzle"
+msgstr "Click here to edit the particular puzzle"
+
+#: TutoDeletePuzzleTitle
+msgctxt "TutoDeletePuzzleTitle"
+msgid "Delete Puzzle"
+msgstr "Delete Puzzle"
+
+#: TutoDeletePuzzleContent
+msgctxt "TutoDeletePuzzleContent"
+msgid "Click here to delete the particular puzzle"
+msgstr "Click here to delete the particular puzzle"
+
+#: TutoEditCategoryTitle
+msgctxt "TutoEditCategoryTitle"
+msgid "Edit Category"
+msgstr "Edit Category"
+
+#: TutoEditCategoryContent
+msgctxt "TutoEditCategoryContent"
+msgid "Click here to Edit current Category"
+msgstr "Click here to Edit current Category"
+
+#: TutoDeleteCategoryTitle
+msgctxt "TutoDeleteCategoryTitle"
+msgid "Delete Category"
+msgstr "Delete Category"
+
+#: TutoDeleteCategoryContent
+msgctxt "TutoDeleteCategoryContent"
+msgid "Click here to Delete the current category and all of its puzzles"
+msgstr "Click here to Delete the current category and all of its puzzles"
+
+#: DataAnimals
+msgctxt "DataAnimals"
+msgid "Animals"
+msgstr "Animals"
+
+#: DataLetters,Numbers,Signs
+msgctxt "DataLetters,Numbers,Signs"
+msgid "Letters, Numbers, Signs"
+msgstr "Letters, Numbers, Signs"
+
+#: DataPeople
+msgctxt "DataPeople"
+msgid "People"
+msgstr "People"
+
+#: DataGeometrical
+msgctxt "DataGeometrical"
+msgid "Geometrical"
+msgstr "Geometrical"
+
+#: DataUsualObjects
+msgctxt "DataUsualObjects"
+msgid "Usual Objects"
+msgstr "Usual Objects"
+
+#: DataBoats
+msgctxt "DataBoats"
+msgid "Boats"
+msgstr "Boats"
+
+#: DataMiscellaneous
+msgctxt "DataMiscellaneous"
+msgid "Miscellaneous"
+msgstr "Miscellaneous"
+
+#: DataRandom
+msgctxt "DataRandom"
+msgid "Random"
+msgstr "Random"
+
+#: Dataswan
+msgctxt "Dataswan"
+msgid "swan"
+msgstr "swan"
+
+#: DataCat
+msgctxt "DataCat"
+msgid "Cat"
+msgstr "Cat"
+
+#: DataBird
+msgctxt "DataBird"
+msgid "Bird"
+msgstr "Bird"
+
+#: DataCrow2
+msgctxt "DataCrow2"
+msgid "Crow 2"
+msgstr "Crow 2"
+
+#: DataRabbit
+msgctxt "DataRabbit"
+msgid "Rabbit"
+msgstr "Rabbit"
+
+#: DataHorse
+msgctxt "DataHorse"
+msgid "Horse"
+msgstr "Horse"
+
+#: DataCamel
+msgctxt "DataCamel"
+msgid "Camel"
+msgstr "Camel"
+
+#: DataWhale
+msgctxt "DataWhale"
+msgid "Whale"
+msgstr "Whale"
+
+#: DataVulture
+msgctxt "DataVulture"
+msgid "Vulture"
+msgstr "Vulture"
+
+#: DataCatLying
+msgctxt "DataCatLying"
+msgid "Cat Lying"
+msgstr "Cat Lying"
+
+#: DataKangaroo
+msgctxt "DataKangaroo"
+msgid "Kangaroo"
+msgstr "Kangaroo"
+
+#: DataCrow
+msgctxt "DataCrow"
+msgid "Crow"
+msgstr "Crow"
+
+#: DataMoonfish
+msgctxt "DataMoonfish"
+msgid "Moonfish"
+msgstr "Moonfish"
+
+#: DataBear
+msgctxt "DataBear"
+msgid "Bear"
+msgstr "Bear"
+
+#: DataSparrow
+msgctxt "DataSparrow"
+msgid "Sparrow"
+msgstr "Sparrow"
+
+#: DataDog
+msgctxt "DataDog"
+msgid "Dog"
+msgstr "Dog"
+
+#: DataTurtle
+msgctxt "DataTurtle"
+msgid "Turtle"
+msgstr "Turtle"
+
+#: DataPigeon
+msgctxt "DataPigeon"
+msgid "Pigeon"
+msgstr "Pigeon"
+
+#: DataCrab
+msgctxt "DataCrab"
+msgid "Crab"
+msgstr "Crab"
+
+#: DataRat
+msgctxt "DataRat"
+msgid "Rat"
+msgstr "Rat"
+
+#: DataButterfly
+msgctxt "DataButterfly"
+msgid "Butterfly"
+msgstr "Butterfly"
+
+#: DataElephant
+msgctxt "DataElephant"
+msgid "Elephant"
+msgstr "Elephant"
+
+#: DataTurkey
+msgctxt "DataTurkey"
+msgid "Turkey"
+msgstr "Turkey"
+
+#: DataHeron
+msgctxt "DataHeron"
+msgid "Heron"
+msgstr "Heron"
+
+#: DataLetterA
+msgctxt "DataLetterA"
+msgid "Letter A"
+msgstr "Letter A"
+
+#: DataLetterB
+msgctxt "DataLetterB"
+msgid "Letter B"
+msgstr "Letter B"
+
+#: DataLetterC
+msgctxt "DataLetterC"
+msgid "Letter C"
+msgstr "Letter C"
+
+#: DataLetterD
+msgctxt "DataLetterD"
+msgid "Letter D"
+msgstr "Letter D"
+
+#: DataLetterE
+msgctxt "DataLetterE"
+msgid "Letter E"
+msgstr "Letter E"
+
+#: DataLetterF
+msgctxt "DataLetterF"
+msgid "Letter F"
+msgstr "Letter F"
+
+#: DataLetterG
+msgctxt "DataLetterG"
+msgid "Letter G"
+msgstr "Letter G"
+
+#: DataLetterH
+msgctxt "DataLetterH"
+msgid "Letter H"
+msgstr "Letter H"
+
+#: DataLetterI
+msgctxt "DataLetterI"
+msgid "Letter I"
+msgstr "Letter I"
+
+#: DataLetterJ
+msgctxt "DataLetterJ"
+msgid "Letter J"
+msgstr "Letter J"
+
+#: DataLetterK
+msgctxt "DataLetterK"
+msgid "Letter K"
+msgstr "Letter K"
+
+#: DataLetterL
+msgctxt "DataLetterL"
+msgid "Letter L"
+msgstr "Letter L"
+
+#: DataLetterM
+msgctxt "DataLetterM"
+msgid "Letter M"
+msgstr "Letter M"
+
+#: DataLetterN
+msgctxt "DataLetterN"
+msgid "Letter N"
+msgstr "Letter N"
+
+#: DataLetterO
+msgctxt "DataLetterO"
+msgid "Letter O"
+msgstr "Letter O"
+
+#: DataLetterP
+msgctxt "DataLetterP"
+msgid "Letter P"
+msgstr "Letter P"
+
+#: DataLetterQ
+msgctxt "DataLetterQ"
+msgid "Letter Q"
+msgstr "Letter Q"
+
+#: DataLetterR
+msgctxt "DataLetterR"
+msgid "Letter R"
+msgstr "Letter R"
+
+#: DataLetterS
+msgctxt "DataLetterS"
+msgid "Letter S"
+msgstr "Letter S"
+
+#: DataLetterT
+msgctxt "DataLetterT"
+msgid "Letter T"
+msgstr "Letter T"
+
+#: DataLetterU
+msgctxt "DataLetterU"
+msgid "Letter U"
+msgstr "Letter U"
+
+#: DataLetterV
+msgctxt "DataLetterV"
+msgid "Letter V"
+msgstr "Letter V"
+
+#: DataLetterW
+msgctxt "DataLetterW"
+msgid "Letter W"
+msgstr "Letter W"
+
+#: DataLetterX
+msgctxt "DataLetterX"
+msgid "Letter X"
+msgstr "Letter X"
+
+#: DataLetterY
+msgctxt "DataLetterY"
+msgid "Letter Y"
+msgstr "Letter Y"
+
+#: DataLetterZ
+msgctxt "DataLetterZ"
+msgid "Letter Z"
+msgstr "Letter Z"
+
+#: DataOne
+msgctxt "DataOne"
+msgid "One"
+msgstr "One"
+
+#: DataTwo
+msgctxt "DataTwo"
+msgid "Two"
+msgstr "Two"
+
+#: DataThree
+msgctxt "DataThree"
+msgid "Three"
+msgstr "Three"
+
+#: DataFour
+msgctxt "DataFour"
+msgid "Four"
+msgstr "Four"
+
+#: DataFive
+msgctxt "DataFive"
+msgid "Five"
+msgstr "Five"
+
+#: DataSix
+msgctxt "DataSix"
+msgid "Six"
+msgstr "Six"
+
+#: DataSeven
+msgctxt "DataSeven"
+msgid "Seven"
+msgstr "Seven"
+
+#: DataEight
+msgctxt "DataEight"
+msgid "Eight"
+msgstr "Eight"
+
+#: DataNine
+msgctxt "DataNine"
+msgid "Nine"
+msgstr "Nine"
+
+#: DataZero
+msgctxt "DataZero"
+msgid "Zero"
+msgstr "Zero"
+
+#: DataArrow
+msgctxt "DataArrow"
+msgid "Arrow"
+msgstr "Arrow"
+
+#: DataArrow2
+msgctxt "DataArrow2"
+msgid "Arrow 2"
+msgstr "Arrow 2"
+
+#: DataTripleArrow
+msgctxt "DataTripleArrow"
+msgid "Triple Arrow"
+msgstr "Triple Arrow"
+
+#: DataDoubleArrow
+msgctxt "DataDoubleArrow"
+msgid "Double Arrow"
+msgstr "Double Arrow"
+
+#: DataSkater
+msgctxt "DataSkater"
+msgid "Skater"
+msgstr "Skater"
+
+#: DataOffering
+msgctxt "DataOffering"
+msgid "Offering"
+msgstr "Offering"
+
+#: DataBeSitting
+msgctxt "DataBeSitting"
+msgid "Be Sitting"
+msgstr "Be Sitting"
+
+#: DataDriver
+msgctxt "DataDriver"
+msgid "Driver"
+msgstr "Driver"
+
+#: DataWaiter
+msgctxt "DataWaiter"
+msgid "Waiter"
+msgstr "Waiter"
+
+#: DataGoalkeeper
+msgctxt "DataGoalkeeper"
+msgid "Goal keeper"
+msgstr "Goal keeper"
+
+#: DataLady
+msgctxt "DataLady"
+msgid "Lady"
+msgstr "Lady"
+
+#: DataJump
+msgctxt "DataJump"
+msgid "Jump"
+msgstr "Jump"
+
+#: DataDayDreamer
+msgctxt "DataDayDreamer"
+msgid "Day Dreamer"
+msgstr "Day Dreamer"
+
+#: DataRunner
+msgctxt "DataRunner"
+msgid "Runner"
+msgstr "Runner"
+
+#: DataNurse
+msgctxt "DataNurse"
+msgid "Nurse"
+msgstr "Nurse"
+
+#: DataKicking
+msgctxt "DataKicking"
+msgid "Kicking"
+msgstr "Kicking"
+
+#: DataAngler
+msgctxt "DataAngler"
+msgid "Angler"
+msgstr "Angler"
+
+#: DataSprinter
+msgctxt "DataSprinter"
+msgid "Sprinter"
+msgstr "Sprinter"
+
+#: DataDancer
+msgctxt "DataDancer"
+msgid "Dancer"
+msgstr "Dancer"
+
+#: DataHorseRider
+msgctxt "DataHorseRider"
+msgid "Horse Rider"
+msgstr "Horse Rider"
+
+#: DataSitting
+msgctxt "DataSitting"
+msgid "Sitting"
+msgstr "Sitting"
+
+#: DataSoccer
+msgctxt "DataSoccer"
+msgid "Soccer"
+msgstr "Soccer"
+
+#: DataAcrobat
+msgctxt "DataAcrobat"
+msgid "Acrobat"
+msgstr "Acrobat"
+
+#: DataJockey
+msgctxt "DataJockey"
+msgid "Jockey"
+msgstr "Jockey"
+
+#: DataFreeflyer
+msgctxt "DataFreeflyer"
+msgid "Freeflyer"
+msgstr "Freeflyer"
+
+#: Datasquare
+msgctxt "Datasquare"
+msgid "square"
+msgstr "square"
+
+#: DataHexagon
+msgctxt "DataHexagon"
+msgid "Hexagon"
+msgstr "Hexagon"
+
+#: DataTrapezoid
+msgctxt "DataTrapezoid"
+msgid "Trapezoid"
+msgstr "Trapezoid"
+
+#: DataIncompleteParallelogram
+msgctxt "DataIncompleteParallelogram"
+msgid "Incomplete Parallelogram"
+msgstr "Incomplete Parallelogram"
+
+#: DataParallelogram
+msgctxt "DataParallelogram"
+msgid "Parallelogram"
+msgstr "Parallelogram"
+
+#: DataDataConcavePolygon
+msgctxt "DataDataConcavePolygon"
+msgid "Concave Polygon"
+msgstr "Concave Polygon"
+
+#: DataTriangle
+msgctxt "DataTriangle"
+msgid "Triangle"
+msgstr "Triangle"
+
+#: DataIncompleteTriangle2
+msgctxt "DataIncompleteTriangle2"
+msgid "Incomplete Triangle2"
+msgstr "Incomplete Triangle2"
+
+#: DataIncompleterectangle
+msgctxt "DataIncompleterectangle"
+msgid "Incomplete rectangle"
+msgstr "Incomplete rectangle"
+
+#: DataPentagon
+msgctxt "DataPentagon"
+msgid "Pentagon"
+msgstr "Pentagon"
+
+#: DataIncompleteSquare
+msgctxt "DataIncompleteSquare"
+msgid "Incomplete Square"
+msgstr "Incomplete Square"
+
+#: DataOctagon
+msgctxt "DataOctagon"
+msgid "Octagon"
+msgstr "Octagon"
+
+#: DataPentagon2
+msgctxt "DataPentagon2"
+msgid "Pentagon 2"
+msgstr "Pentagon 2"
+
+#: DataHexagon2
+msgctxt "DataHexagon2"
+msgid "Hexagon 2"
+msgstr "Hexagon 2"
+
+#: DataIncompleteSquare2
+msgctxt "DataIncompleteSquare2"
+msgid "Incomplete Square 2"
+msgstr "Incomplete Square 2"
+
+#: DataIncompleteSquare3
+msgctxt "DataIncompleteSquare3"
+msgid "Incomplete Square 3"
+msgstr "Incomplete Square 3"
+
+#: DataIncompleteSquare4
+msgctxt "DataIncompleteSquare4"
+msgid "Incomplete Square 4"
+msgstr "Incomplete Square 4"
+
+#: DataIncompleteSquare5
+msgctxt "DataIncompleteSquare5"
+msgid "Incomplete Square 5"
+msgstr "Incomplete Square 5"
+
+#: DataIncompleteSquare6
+msgctxt "DataIncompleteSquare6"
+msgid "Incomplete Square 6"
+msgstr "Incomplete Square 6"
+
+#: DataIncompleteTriangle
+msgctxt "DataIncompleteTriangle"
+msgid "Incomplete Triangle"
+msgstr "Incomplete Triangle"
+
+#: DataIncompleteTriangle3
+msgctxt "DataIncompleteTriangle3"
+msgid "Incomplete Triangle 3"
+msgstr "Incomplete Triangle 3"
+
+#: DataShirt
+msgctxt "DataShirt"
+msgid "Shirt"
+msgstr "Shirt"
+
+#: DataCandle
+msgctxt "DataCandle"
+msgid "Candle"
+msgstr "Candle"
+
+#: DataTeapot
+msgctxt "DataTeapot"
+msgid "Teapot"
+msgstr "Teapot"
+
+#: DataIron
+msgctxt "DataIron"
+msgid "Iron"
+msgstr "Iron"
+
+#: DataShoe
+msgctxt "DataShoe"
+msgid "Shoe"
+msgstr "Shoe"
+
+#: DataKey
+msgctxt "DataKey"
+msgid "Key"
+msgstr "Key"
+
+#: DataPinwheel
+msgctxt "DataPinwheel"
+msgid "Pinwheel"
+msgstr "Pinwheel"
+
+#: DataSpanner
+msgctxt "DataSpanner"
+msgid "Spanner"
+msgstr "Spanner"
+
+#: DataUrn
+msgctxt "DataUrn"
+msgid "Urn"
+msgstr "Urn"
+
+#: DataWaterPistol
+msgctxt "DataWaterPistol"
+msgid "Water Pistol"
+msgstr "Water Pistol"
+
+#: DataBowl
+msgctxt "DataBowl"
+msgid "Bowl"
+msgstr "Bowl"
+
+#: DataDagger
+msgctxt "DataDagger"
+msgid "Dagger"
+msgstr "Dagger"
+
+#: DataChair
+msgctxt "DataChair"
+msgid "Chair"
+msgstr "Chair"
+
+#: DataWrench
+msgctxt "DataWrench"
+msgid "Wrench"
+msgstr "Wrench"
+
+#: DataWateringCan
+msgctxt "DataWateringCan"
+msgid "Watering Can"
+msgstr "Watering Can"
+
+#: DataBoot
+msgctxt "DataBoot"
+msgid "Boot"
+msgstr "Boot"
+
+#: DataTrowel
+msgctxt "DataTrowel"
+msgid "Trowel"
+msgstr "Trowel"
+
+#: DataVase
+msgctxt "DataVase"
+msgid "Vase"
+msgstr "Vase"
+
+#: DataCrown
+msgctxt "DataCrown"
+msgid "Crown"
+msgstr "Crown"
+
+#: DataLaboratoryFlask
+msgctxt "DataLaboratoryFlask"
+msgid "Laboratory Flask"
+msgstr "Laboratory Flask"
+
+#: DataKettle
+msgctxt "DataKettle"
+msgid "Kettle"
+msgstr "Kettle"
+
+#: DataHelmet
+msgctxt "DataHelmet"
+msgid "Helmet"
+msgstr "Helmet"
+
+#: DataGlass
+msgctxt "DataGlass"
+msgid "Glass"
+msgstr "Glass"
+
+#: DataSchooner
+msgctxt "DataSchooner"
+msgid "Schooner"
+msgstr "Schooner"
+
+#: DataSampan
+msgctxt "DataSampan"
+msgid "Sampan"
+msgstr "Sampan"
+
+#: DataTugboat
+msgctxt "DataTugboat"
+msgid "Tugboat"
+msgstr "Tugboat"
+
+#: DataTrawler
+msgctxt "DataTrawler"
+msgid "Trawler"
+msgstr "Trawler"
+
+#: DataSubmarine
+msgctxt "DataSubmarine"
+msgid "Submarine"
+msgstr "Submarine"
+
+#: DataDestroyer
+msgctxt "DataDestroyer"
+msgid "Destroyer"
+msgstr "Destroyer"
+
+#: DataBarge
+msgctxt "DataBarge"
+msgid "Barge"
+msgstr "Barge"
+
+#: DataAirboat
+msgctxt "DataAirboat"
+msgid "Airboat"
+msgstr "Airboat"
+
+#: DataGundalow
+msgctxt "DataGundalow"
+msgid "Gundalow"
+msgstr "Gundalow"
+
+#: DataOilTanker
+msgctxt "DataOilTanker"
+msgid "Oil Tanker"
+msgstr "Oil Tanker"
+
+#: DataCoble
+msgctxt "DataCoble"
+msgid "Coble"
+msgstr "Coble"
+
+#: DataCabinCruiser
+msgctxt "DataCabinCruiser"
+msgid "Cabin Cruiser"
+msgstr "Cabin Cruiser"
+
+#: DataNarrowboat
+msgctxt "DataNarrowboat"
+msgid "Narrowboat"
+msgstr "Narrowboat"
+
+#: DataFishingBoat
+msgctxt "DataFishingBoat"
+msgid "Fishing Boat"
+msgstr "Fishing Boat"
+
+#: DataRunabout
+msgctxt "DataRunabout"
+msgid "Runabout"
+msgstr "Runabout"
+
+#: DataPagoda
+msgctxt "DataPagoda"
+msgid "Pagoda"
+msgstr "Pagoda"
+
+#: DataMountain
+msgctxt "DataMountain"
+msgid "Mountain"
+msgstr "Mountain"
+
+#: DataPlane
+msgctxt "DataPlane"
+msgid "Plane"
+msgstr "Plane"
+
+#: Datahelicopter
+msgctxt "Datahelicopter"
+msgid "helicopter"
+msgstr "helicopter"
+
+#: DataHeart
+msgctxt "DataHeart"
+msgid "Heart"
+msgstr "Heart"
+
+#: DataApple
+msgctxt "DataApple"
+msgid "Apple"
+msgstr "Apple"
+
+#: DataHelicopter3
+msgctxt "DataHelicopter3"
+msgid "Helicopter 3"
+msgstr "Helicopter 3"
+
+#: DataStairway
+msgctxt "DataStairway"
+msgid "Stairway"
+msgstr "Stairway"
+
+#: DataHelicopter2
+msgctxt "DataHelicopter2"
+msgid "Helicopter 2"
+msgstr "Helicopter 2"
+
+#: DataStar
+msgctxt "DataStar"
+msgid "Star"
+msgstr "Star"
+
+#: DataIgloo
+msgctxt "DataIgloo"
+msgid "Igloo"
+msgstr "Igloo"
+
+#: DataBridge
+msgctxt "DataBridge"
+msgid "Bridge"
+msgstr "Bridge"
+
+#: DataGateway
+msgctxt "DataGateway"
+msgid "Gateway"
+msgstr "Gateway"
+
+#: DataMusicalNote
+msgctxt "DataMusicalNote"
+msgid "Musical Note"
+msgstr "Musical Note"
+
+#: DataTree
+msgctxt "DataTree"
+msgid "Tree"
+msgstr "Tree"
+
+#: DataShoppingCart
+msgctxt "DataShoppingCart"
+msgid "Shopping Cart"
+msgstr "Shopping Cart"
+
