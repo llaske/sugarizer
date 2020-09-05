@@ -386,7 +386,7 @@ var app = new Vue({
 			this.searchText = "";
 		},
 		settings: function (newVal, oldVal) {
-			if(this.SugarPresence.isConnected()) {
+			if(this.SugarPresence.isShared()) {
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -407,7 +407,7 @@ var app = new Vue({
 					button.classList.remove('active');
 				}
 			}
-			if(this.SugarPresence.isConnected()) {
+			if(this.SugarPresence.isShared()) {
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -508,7 +508,7 @@ var app = new Vue({
 			}
 
 			// Update connected users
-			if(this.SugarPresence.isConnected()) {
+			if(this.SugarPresence.isShared()) {
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -593,7 +593,7 @@ var app = new Vue({
 						skillObj.acquired = vm.notationLevel;
 						skillObj.timestamp = Date.now();
 
-						if(vm.SugarPresence.isConnected()) {
+						if(vm.SugarPresence.isShared()) {
 							vm.SugarPresence.sendMessage({
 								user: vm.SugarPresence.getUserInfo(),
 								content: {
