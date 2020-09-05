@@ -13,7 +13,7 @@ define(["sugar-web/graphics/palette","text!activity/palettes/settingspalette.htm
 		this.setContent([containerElem]);
 
 		this.fractionAddedEvent = document.createEvent('CustomEvent');
-		this.fractionAddedEvent.initCustomEvent('fractionAdded', true, true, { numerator: 0, denominator: 1 });
+		this.fractionAddedEvent.initCustomEvent('fraction-added', true, true, { numerator: 0, denominator: 1 });
 
 		var that = this;
 		document.getElementById("add-button").addEventListener('click', function(event) {

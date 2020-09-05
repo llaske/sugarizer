@@ -10,16 +10,10 @@ requirejs.config({
 let app = new Vue({
 	el: '#app',
 	components: {
-		'toolbar': Toolbar, 'localization': Localization, 'tutorial': Tutorial,
 		'slope-template': SlopeTemplate
 	},
 	data: {
-		currentUser: {
-			colorvalue: {
-				stroke: "#000",
-				fill: "#000"
-			}
-		},
+		currentenv: null,
 		full: false,
 		context: null,
 		mode: 'fractions',
@@ -50,92 +44,115 @@ let app = new Vue({
 		userFractions: [],
 		successSound: null,
 		failSound: null,
-		readyToWatch: false,
-		watchId: null,
+		l10n: {
+			stringFractionBounceActivity: '',
+			stringTemplate: '',
+			stringRestart: '',
+			stringHelp: '',
+			stringPlay: '',
+			stringPause: '',
+			stringSettings: '',
+			stringBall: '',
+			stringBg: '',
+			stringFullscreen: '',
+			stringFractions: '',
+			stringSectors: '',
+			stringPercents: '',
+			stringHelpClickToStart: '',
+			stringHelpBounceToPosition: '',
+			stringHelpOfTheWay: '',
+			stringHelpGameOver: '',
+			stringPrevShort: '',
+			stringNextShort: '',
+			stringEndShort: '',
+			stringTutoTitle: '',
+			stringTutoContent: '',
+			stringTutoBallTitle: '',
+			stringTutoBallContent: '',
+			stringTutoBallControlsTitle: '',
+			stringTutoBallControlsContent: '',
+			stringTutoSlopeTitle: '',
+			stringTutoSlopeContent: '',
+			stringTutoLogTitle: '',
+			stringTutoLogContent: '',
+			stringTutoPlayTitle: '',
+			stringTutoPlayContent: '',
+			stringTutoSettingsTitle: '',
+			stringTutoSettingsContent: '',
+			stringTutoBallSelectTitle: '',
+			stringTutoBallSelectContent: '',
+			stringTutoBgSelectTitle: '',
+			stringTutoBgSelectContent: '',
+			stringTutoFractionsModeTitle: '',
+			stringTutoFractionsModeContent: '',
+			stringTutoSectorsModeTitle: '',
+			stringTutoSectorsModeContent: '',
+			stringTutoPercentsModeTitle: '',
+			stringTutoPercentsModeContent: '',
+		},
+
+		//DEBUG
+		acceleration: {},
+		accelerationInterval: null
 	},
 
-	watch: {
-		readyToWatch: function(newVal, oldVal) {
-			let vm = this;
-			if(newVal) {
-				vm.watchId = navigator.accelerometer.watchAcceleration(vm.accelerationChanged, null, { frequency: 2*vm.frameInterval });
+	computed: {
+		helpText: function () {
+			if (this.answer == -1) {
+				return this.l10n.stringHelpClickToStart;
+			} else if (this.paused && this.bounceCount == 0) {
+				return this.l10n.stringHelpGameOver;
+			} else if (this.mode == 'percents') {
+				return this.l10n.stringHelpBounceToPosition + ' ' + Math.floor(this.answer / this.parts * 100) + '%' + ' ' + this.l10n.stringHelpOfTheWay;
+			} else {
+				return this.l10n.stringHelpBounceToPosition + ' ' + this.answer + "/" + this.parts + ' ' + this.l10n.stringHelpOfTheWay;
 			}
 		}
 	},
 
-	created: function () {
-		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
-			// Initialize Sugarizer
-			activity.setup();
-		});
-	},
-
 	mounted: function () {
-		// Load last library from Journal
 		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env", "humane"], function (activity, env, humane) {
-			env.getEnvironment(function (err, environment) {
 
-				env.getEnvironment(function (err, environment) {
-					vm.currentUser = environment.user;
-				});
-
-				// Load context
-				if (environment.objectId) {
-					activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
-						if (error == null && data != null) {
-							let context = JSON.parse(data);
-							vm.userFractions = context.userFractions;
-						} else {
-							console.log("Error loading from journal");
-						}
-					});
-				}
-			});
-
-			vm.humane = humane;
-		});
-
-		// Handle unfull screen buttons (b)
-		document.getElementById("unfullscreen-button").addEventListener('click', function () {
-			vm.unfullscreen();
-		});
-
-		//Accelerometer
-		var useragent = navigator.userAgent.toLowerCase();
-		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
-			document.addEventListener('deviceready', function() {
-				vm.readyToWatch = true;
-			}, false);
-		}
-		
 		// handle resize
-		window.addEventListener('resize', function() {
+		window.addEventListener('resize', function () {
 			vm.init();
 		});
 
 		this.init();
+
+		if(this.$refs.SugarDevice.isMobile()) {
+			this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
+		}
 	},
 
 	methods: {
 
+		initialized: function () {
+			// Initialize Sugarizer
+			this.currentenv = this.$refs.SugarActivity.getEnvironment();
+		},
+
 		localized: function () {
-			this.$refs.toolbar.localized(this.$refs.localization);
-			this.$refs.tutorial.localized(this.$refs.localization);
+			this.$refs.SugarL10n.localize(this.l10n);
+		},
+
+		onJournalDataLoaded: function (data, metadata) {
+			console.log("Existing instance");
+			this.userFractions = data.userFractions;
+		},
+
+		onJournalLoadError: function (error) {
+			console.log("Error loading from journal");
 		},
 
 		// Handle fullscreen mode
 		fullscreen: function () {
-			var vm = this;
-			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("unfullscreen-button").style.visibility = "visible";
+			this.$refs.SugarToolbar.hide();
 			this.full = true;
 			this.init();
 		},
 		unfullscreen: function () {
-			var vm = this;
-			document.getElementById("main-toolbar").style.opacity = 1;
-			document.getElementById("unfullscreen-button").style.visibility = "hidden";
+			this.$refs.SugarToolbar.show();
 			this.full = false;
 			this.init();
 		},
@@ -143,11 +160,9 @@ let app = new Vue({
 		init: function () {
 			let vm = this;
 			mainCanvas.width = window.innerWidth;
-			if(this.full){
-				document.getElementById('content').style.top = '-55px';
+			if (this.full) {
 				mainCanvas.height = window.innerHeight;
 			} else {
-				document.getElementById('content').style.top = '0';
 				mainCanvas.height = window.innerHeight - 56;
 			}
 			// Initializing the slope
@@ -158,9 +173,9 @@ let app = new Vue({
 			this.img = document.createElement('img');
 			this.context.translate(-this.radius, -2 * this.radius);
 			this.img.onload = function () {
-				if(vm.img.getAttribute('src')[0] == 'd') {
+				if (vm.img.getAttribute('src')[0] == 'd') {
 					vm.context.translate(0, vm.radius);
-					vm.context.drawImage(vm.img, vm.cx, vm.cy, 2*vm.radius, 2*vm. radius);
+					vm.context.drawImage(vm.img, vm.cx, vm.cy, 2 * vm.radius, 2 * vm.radius);
 					vm.context.translate(0, -vm.radius);
 					// Top Rectangle
 					vm.createTopRectangle();
@@ -173,7 +188,7 @@ let app = new Vue({
 			this.cx = mainCanvas.width / 2;
 			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
 
-			if(this.successSound == null || this.failSound == null) {
+			if (this.successSound == null || this.failSound == null) {
 				this.initSounds();
 			}
 
@@ -181,7 +196,7 @@ let app = new Vue({
 			document.getElementById('slopeCanvas').addEventListener('click', this.startGame);
 		},
 
-		initSounds: function() {
+		initSounds: function () {
 			//Success
 			this.successSound = document.createElement("audio");
 			this.successSound.src = "./audio/success.mp3";
@@ -200,32 +215,32 @@ let app = new Vue({
 
 		startGame: function (event) {
 			let x = event.pageX,
-			y = event.pageY;
+				y = event.pageY;
 			if (x <= this.cx + this.radius && x >= this.cx - this.radius && y <= this.cy + 5 * this.radius / 2 && y >= this.cy + this.radius / 2) {
 				this.changeGameState();
 			}
 		},
 
-		changeGameState: function() {
+		changeGameState: function () {
 			this.paused = !this.paused;
-			if(!this.paused) {
+			if (!this.paused) {
 				this.launch();
 			}
 			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
 
-		launch: function() {
-			if(this.bounceCount == this.stopAfter) {
+		launch: function () {
+			if (this.bounceCount == this.stopAfter) {
 				this.changeGameState();
 				this.bounceCount = 0;
-			} else if(this.onSlope) {
+			} else if (this.onSlope) {
 				// To restart the game after (this.stopAfter) attempts
-				if(this.bounceCount == 0) {
+				if (this.bounceCount == 0) {
 					this.log = {};
 					this.correctAnswers = 0;
 				}
 
-				this.vy = -1 * Math.sqrt(window.innerHeight)/3.90;
+				this.vy = -1 * Math.sqrt(window.innerHeight) / 3.90;
 				this.cy -= this.cy + this.radius - this.calcY(this.cx) + 1;
 				this.onSlope = false;
 				this.next();
@@ -239,9 +254,9 @@ let app = new Vue({
 			let upper = 8,
 				lower = 3;
 
-			let selection = Math.floor(Math.random()*2);
-			if(selection == 1 && this.userFractions.length > 0) {
-				let i = Math.floor(Math.random()*this.userFractions.length);
+			let selection = Math.floor(Math.random() * 2);
+			if (selection == 1 && this.userFractions.length > 0) {
+				let i = Math.floor(Math.random() * this.userFractions.length);
 				this.parts = this.userFractions[i].den;
 				this.answer = this.userFractions[i].num;
 			} else {
@@ -305,7 +320,7 @@ let app = new Vue({
 					this.bounceCount++;
 					setTimeout(function () {
 						vm.launch();
-						if(vm.launchDelay-100 > 0) {
+						if (vm.launchDelay - 100 > 0) {
 							vm.launchDelay -= 100;
 						}
 					}, this.launchDelay);
@@ -327,17 +342,17 @@ let app = new Vue({
 
 			this.context.font = "24px Times New Roman";
 			let str = '';
-			switch(this.mode) {
+			switch (this.mode) {
 				case 'percents':
 					// To get decimals in percentage
 					// str = Math.round((this.answer/this.parts*100 + Number.EPSILON) * 100) / 100 + '%';
 					// Without decimal
-					str = Math.floor(this.answer/this.parts*100) + '%';
+					str = Math.floor(this.answer / this.parts * 100) + '%';
 
 					// Custom image is set
-					if(this.img.getAttribute('src')[0] == 'd') {
+					if (this.img.getAttribute('src')[0] == 'd') {
 						this.context.translate(0, this.radius);
-						this.context.drawImage(this.img, this.cx, this.cy, 2*this.radius, 2*this. radius);
+						this.context.drawImage(this.img, this.cx, this.cy, 2 * this.radius, 2 * this.radius);
 						this.context.translate(0, -this.radius);
 						// Top Rectangle
 						this.createTopRectangle();
@@ -348,9 +363,9 @@ let app = new Vue({
 				case 'fractions':
 					str = this.answer + '/' + this.parts;
 					// Custom image is set
-					if(this.img.getAttribute('src')[0] == 'd') {
+					if (this.img.getAttribute('src')[0] == 'd') {
 						this.context.translate(0, this.radius);
-						this.context.drawImage(this.img, this.cx, this.cy, 2*this.radius, 2*this. radius);
+						this.context.drawImage(this.img, this.cx, this.cy, 2 * this.radius, 2 * this.radius);
 						this.context.translate(0, -this.radius);
 						// Top Rectangle
 						this.createTopRectangle()
@@ -362,30 +377,30 @@ let app = new Vue({
 					str = this.answer + '/' + this.parts;
 					this.context.translate(this.radius, 2 * this.radius);
 					// Numerator
-					this.context.fillStyle = this.currentUser.colorvalue.fill;
+					this.context.fillStyle = this.currentenv.user.colorvalue.fill;
 					this.context.beginPath();
 					this.context.moveTo(this.cx, this.cy);
-					this.context.arc(this.cx, this.cy, this.radius, 0 - this.toRadians(90), this.toRadians(this.answer/this.parts*360) - this.toRadians(90));
+					this.context.arc(this.cx, this.cy, this.radius, 0 - this.toRadians(90), this.toRadians(this.answer / this.parts * 360) - this.toRadians(90));
 					this.context.lineTo(this.cx, this.cy);
 					this.context.closePath();
 					this.context.fill();
 					// Denominator
-					this.context.fillStyle = this.currentUser.colorvalue.stroke;
+					this.context.fillStyle = this.currentenv.user.colorvalue.stroke;
 					this.context.beginPath();
 					this.context.moveTo(this.cx, this.cy);
-					this.context.arc(this.cx, this.cy, this.radius, this.toRadians(this.answer/this.parts*360) - this.toRadians(90), 0 - this.toRadians(90));
+					this.context.arc(this.cx, this.cy, this.radius, this.toRadians(this.answer / this.parts * 360) - this.toRadians(90), 0 - this.toRadians(90));
 					this.context.lineTo(this.cx, this.cy);
 					this.context.closePath();
 					this.context.fill();
-					//Outline
-					this.context.strokeStyle = this.currentUser.colorvalue.stroke;
+					// Outline
+					this.context.strokeStyle = this.currentenv.user.colorvalue.stroke;
 					this.context.beginPath();
 					this.context.arc(this.cx, this.cy, this.radius, 0, this.toRadians(360));
 					this.context.closePath();
 					this.context.stroke();
 
 					this.context.translate(-this.radius, -2 * this.radius);
-					
+
 					// Top Rectangle
 					this.createTopRectangle()
 					break;
@@ -395,18 +410,18 @@ let app = new Vue({
 			this.context.fillText(str, vm.cx + this.radius, vm.cy + this.radius - 15);
 		},
 
-		toRadians: function(deg) {
+		toRadians: function (deg) {
 			return deg * Math.PI / 180;
 		},
 
-		createTopRectangle: function() {
+		createTopRectangle: function () {
 			this.context.fillStyle = '#fff';
 			this.context.beginPath();
 			this.context.moveTo(this.cx + 10, this.cy);
-			this.context.lineTo(this.cx + 2*this.radius - 10, this.cy);
-			this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy, this.cx + 2*this.radius, this.cy + 10);
-			this.context.lineTo(this.cx + 2*this.radius, this.cy + 35 - 10);
-			this.context.quadraticCurveTo(this.cx + 2*this.radius, this.cy + 35, this.cx + 2*this.radius - 10, this.cy + 35);
+			this.context.lineTo(this.cx + 2 * this.radius - 10, this.cy);
+			this.context.quadraticCurveTo(this.cx + 2 * this.radius, this.cy, this.cx + 2 * this.radius, this.cy + 10);
+			this.context.lineTo(this.cx + 2 * this.radius, this.cy + 35 - 10);
+			this.context.quadraticCurveTo(this.cx + 2 * this.radius, this.cy + 35, this.cx + 2 * this.radius - 10, this.cy + 35);
 			this.context.lineTo(this.cx + 10, this.cy + 35);
 			this.context.quadraticCurveTo(this.cx, this.cy + 35, this.cx, this.cy + 35 - 10);
 			this.context.lineTo(this.cx, this.cy + 10);
@@ -415,25 +430,44 @@ let app = new Vue({
 			this.context.fill();
 		},
 
-		clearCanvas: function() {
+		clearCanvas: function () {
 			this.context.translate(this.radius, 2 * this.radius);
 			this.context.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
 			this.context.translate(-this.radius, -2 * this.radius);
 		},
 
-		accelerationChanged: function(acceleration) {
-			this.changeSpeed({
-				acceleration: acceleration
-			});
+		accelerationChanged: function (acceleration) {
+			this.acceleration = {
+				x: acceleration.x,
+				y: acceleration.y,
+				z: acceleration.z,
+				type: acceleration.type
+			};
+			this.accelerationUpdate();
 		},
 
-		onTouchStart: function(event) {
+		accelerationUpdate() {
+			let vm = this;
+			if(!this.paused && this.acceleration.x != null) {
+				if(!this.accelerationInterval) {
+					this.accelerationInterval = setInterval(() => {
+						vm.changeSpeed({
+							acceleration: vm.acceleration
+						});
+					}, this.frameInterval * 2)
+				}
+			} else {
+				clearInterval(this.accelerationInterval);
+			}
+		},
+
+		onTouchStart: function (event) {
 			this.touchEvent = event;
 			this.changeSpeed();
-			this.touchInterval = setInterval(this.changeSpeed, 2*this.frameInterval);
+			this.touchInterval = setInterval(this.changeSpeed, 2 * this.frameInterval);
 		},
 
-		onTouchEnd: function(event) {
+		onTouchEnd: function (event) {
 			this.touchEvent = null;
 			clearInterval(this.touchInterval);
 		},
@@ -441,18 +475,18 @@ let app = new Vue({
 		changeSpeed: function (event) {
 			let vm = this;
 
-			if(this.touchEvent) {
+			if (this.touchEvent) {
 				//Touch event
-				if((this.touchEvent.touches && this.touchEvent.touches[0].clientX > this.cx) ||
+				if ((this.touchEvent.touches && this.touchEvent.touches[0].clientX > this.cx) ||
 					//Mouse event
 					(this.touchEvent.clientX > this.cx)) {
 					this.vx += 10;
 				} else {
 					this.vx -= 10;
 				}
-			} else if(event.acceleration) {
+			} else if (event.acceleration) {
 				// Accelerometer
-				if(this.paused || this.onSlope) return;
+				if (this.paused || this.onSlope) return;
 				if (event.acceleration.x < -4.5) {
 					if (event.acceleration.y > 4.75) {
 						this.vx -= 10;
@@ -492,27 +526,27 @@ let app = new Vue({
 			}, this.frameInterval);
 		},
 
-		calcY: function(x) {
+		calcY: function (x) {
 			return ((-this.height / mainCanvas.width) * x + mainCanvas.height);
 		},
 
-		onFractionAdded: function(event) {
+		onFractionAdded: function (event) {
 			this.userFractions.push({
 				num: event.numerator,
 				den: event.denominator
 			});
 		},
 
-		onBallSelected: function(event) {
+		onBallSelected: function (event) {
 			let vm = this;
 			this.clearCanvas();
-			if(event.ball == "journal-ball") {
+			if (event.ball == "journal-ball") {
 				this.insertImage('ball');
 				return;
 			}
 
 			this.img.src = 'images/' + event.ball + '.svg';
-			switch(event.ball) {
+			switch (event.ball) {
 				case 'rugbyball':
 				case 'soccerball':
 					document.body.style.backgroundImage = 'url(images/grass_background.png)';
@@ -530,14 +564,14 @@ let app = new Vue({
 			}
 		},
 
-		onBgSelected: function(event) {
+		onBgSelected: function (event) {
 			let vm = this;
-			if(event.bg == "journal-bg") {
+			if (event.bg == "journal-bg") {
 				this.insertImage('bg');
 				return;
 			}
 			document.body.style.backgroundSize = 'cover';
-			switch(event.bg) {
+			switch (event.bg) {
 				case 'grass':
 					document.body.style.backgroundImage = 'url(images/grass_background.png)';
 					break;
@@ -553,22 +587,22 @@ let app = new Vue({
 			}
 		},
 
-		insertImage: function(to) {
+		insertImage: function (to) {
 			let vm = this;
-			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function(datastore, journalchooser) {
-				setTimeout(function() {
-					journalchooser.show(function(entry) {
+			requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
+				setTimeout(function () {
+					journalchooser.show(function (entry) {
 						if (!entry) {
-							if(to == 'ball') {
+							if (to == 'ball') {
 								vm.img.onload();
 							}
 							return;
 						}
 						var dataentry = new datastore.DatastoreObject(entry.objectId);
-						dataentry.loadAsText(function(err, metadata, data) {
-							if(to == 'ball') {
+						dataentry.loadAsText(function (err, metadata, data) {
+							if (to == 'ball') {
 								vm.img.src = data;
-							} else if(to == 'bg') {
+							} else if (to == 'bg') {
 								document.body.style.backgroundImage = 'url(' + data + ')';
 								document.body.style.backgroundSize = 'contain';
 							}
@@ -578,33 +612,104 @@ let app = new Vue({
 			});
 		},
 
-		changeMode: function(mode) {
+		changeMode: function (mode) {
 			this.mode = mode;
 		},
 
 		onHelp: function (type) {
-			this.$refs.tutorial.show(type);
+			var steps = [
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoTitle,
+					content: this.l10n.stringTutoContent
+				},
+				{
+					element: "#mainCanvas",
+					placement: "top",
+					backdrop: false,
+					title: this.l10n.stringTutoBallTitle,
+					content: this.l10n.stringTutoBallContent
+				},
+				{
+					element: "#mainCanvas",
+					placement: "top",
+					title: this.l10n.stringTutoBallControlsTitle,
+					content: this.l10n.stringTutoBallControlsContent
+				},
+				{
+					element: "#slopeCanvas",
+					placement: "top",
+					backdrop: false,
+					title: this.l10n.stringTutoSlopeTitle,
+					content: this.l10n.stringTutoSlopeContent
+				},
+				{
+					element: ".log",
+					placement: "right",
+					title: this.l10n.stringTutoLogTitle,
+					content: this.l10n.stringTutoLogContent
+				},
+				{
+					element: "#play-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayTitle,
+					content: this.l10n.stringTutoPlayContent
+				},
+				{
+					element: "#pause-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayTitle,
+					content: this.l10n.stringTutoPlayContent
+				},
+				{
+					element: "#settings-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoSettingsTitle,
+					content: this.l10n.stringTutoSettingsContent
+				},
+				{
+					element: "#ball-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoBallSelectTitle,
+					content: this.l10n.stringTutoBallSelectContent
+				},
+				{
+					element: "#bg-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoBgSelectTitle,
+					content: this.l10n.stringTutoBgSelectContent
+				},
+				{
+					element: "#fractions-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoFractionsModeTitle,
+					content: this.l10n.stringTutoFractionsModeContent
+				},
+				{
+					element: "#sectors-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoSectorsModeTitle,
+					content: this.l10n.stringTutoSectorsModeContent
+				},
+				{
+					element: "#percents-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPercentsModeTitle,
+					content: this.l10n.stringTutoPercentsModeContent
+				}
+			];
+			this.$refs.SugarTutorial.show(steps);
 		},
 
 		onStop: function () {
 			// Save current library in Journal on Stop
-			var vm = this;
-			requirejs(["sugar-web/activity/activity"], function (activity) {
-				console.log("writing...");
-
-				let context = {
-					userFractions: vm.userFractions
-				};
-				var jsonData = JSON.stringify(context);
-				activity.getDatastoreObject().setDataAsText(jsonData);
-				activity.getDatastoreObject().save(function (error) {
-					if (error === null) {
-						console.log("write done.");
-					} else {
-						console.log("write failed.");
-					}
-				});
-			});
+			var context = {
+				userFractions: this.userFractions
+			}
+			this.$refs.SugarJournal.saveData(context);
+			this.$refs.SugarDevice.vibrate(100);
 		}
 	}
 });

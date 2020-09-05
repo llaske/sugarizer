@@ -1,7 +1,7 @@
 define(["sugar-web/graphics/palette","text!activity/palettes/ballpalette.html"], function(palette, template) {
 
 	var ballpalette = {};
-
+	
 	ballpalette.BallPalette = function(invoker, primaryText) {
 		palette.Palette.call(this, invoker, primaryText);
 
@@ -13,7 +13,7 @@ define(["sugar-web/graphics/palette","text!activity/palettes/ballpalette.html"],
     this.setContent([containerElem]);
     
     this.ballSelectedEvent = document.createEvent('CustomEvent');
-    this.ballSelectedEvent.initCustomEvent('ballSelected', true, true, { ball: '' });
+    this.ballSelectedEvent.initCustomEvent('ball-selected', true, true, { ball: '' });
     
     let that = this;
     document.getElementById("soccerball").addEventListener('click', onClick);
