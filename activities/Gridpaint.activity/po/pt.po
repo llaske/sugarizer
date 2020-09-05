@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:37:49 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 22:24+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/actvitiy-gridpaint/pt/>\n"
@@ -43,7 +43,7 @@ msgstr "Welcome into the Grid Paint activity. Grid Paint is a simple paint activ
 #: TutoGridTitle
 msgctxt "TutoGridTitle"
 msgid "Grids"
-msgstr "Grids"
+msgstr "Grades"
 
 #: TutoGridContent
 msgctxt "TutoGridContent"
@@ -53,17 +53,17 @@ msgstr "Here is the list of grids. You've got 15 grids, some are empty some are 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Limpar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to clear all triangles in the grid"
-msgstr "Click here to clear all triangles in the grid"
+msgstr "Clique aqui para limpar todos os triângulos da grade"
 
 #: TutoEditTitle
 msgctxt "TutoEditTitle"
 msgid "Paint"
-msgstr "Paint"
+msgstr "Desenhar"
 
 #: TutoEditContent
 msgctxt "TutoEditContent"

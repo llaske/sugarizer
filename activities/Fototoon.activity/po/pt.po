@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-06 03:44+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-fototoon/pt/>\n"
@@ -18,17 +18,17 @@ msgstr ""
 #: AddAglobe
 msgctxt "AddAglobe"
 msgid "Add a globe"
-msgstr "Add a globe"
+msgstr "Adicionar um globo"
 
 #: Globe
 msgctxt "Globe"
 msgid "Globe"
-msgstr "Globe"
+msgstr "Globo"
 
 #: Exclamation
 msgctxt "Exclamation"
 msgid "Exclamation"
-msgstr "Exclamation"
+msgstr "Exclamação"
 
 #: Whisper
 msgctxt "Whisper"
@@ -38,17 +38,17 @@ msgstr "Whisper"
 #: Think
 msgctxt "Think"
 msgid "Think"
-msgstr "Think"
+msgstr "Pensar"
 
 #: Box
 msgctxt "Box"
 msgid "Box"
-msgstr "Box"
+msgstr "Caixa"
 
 #: Title
 msgctxt "Title"
 msgid "Title"
-msgstr "Title"
+msgstr "Título"
 
 #: SetGlobeText
 msgctxt "SetGlobeText"
@@ -73,7 +73,7 @@ msgstr "Do you want remove all the boxes in your FotoToon?"
 #: Yes
 msgctxt "Yes"
 msgid "Yes"
-msgstr "Yes"
+msgstr "Sim"
 
 #: No
 msgctxt "No"
@@ -83,57 +83,57 @@ msgstr "No"
 #: OneRow
 msgctxt "OneRow"
 msgid "One row"
-msgstr "One row"
+msgstr "Uma linha"
 
 #: OneColumn
 msgctxt "OneColumn"
 msgid "One column"
-msgstr "One column"
+msgstr "Uma coluna"
 
 #: TwoColumns
 msgctxt "TwoColumns"
 msgid "Two columns"
-msgstr "Two columns"
+msgstr "Duas colunas"
 
 #: SaveAsImage
 msgctxt "SaveAsImage"
 msgid "Save as image"
-msgstr "Save as image"
+msgstr "Salvar como imagem"
 
 #: ImageSaved
 msgctxt "ImageSaved"
 msgid "Image saved in journal"
-msgstr "Image saved in journal"
+msgstr "Imagem salva no Diário"
 
 #: SavingError
 msgctxt "SavingError"
 msgid "Error saving image"
-msgstr "Error saving image"
+msgstr "Erro salvando imagem"
 
 #: ToonSaved
 msgctxt "ToonSaved"
 msgid "FotoToon saved"
-msgstr "FotoToon saved"
+msgstr "FotoToon salva"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr "Previous"
+msgstr "Anterior"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: Add
 msgctxt "Add"
 msgid "Add"
-msgstr "Add"
+msgstr "Adicionar"
 
 #: EditText
 msgctxt "EditText"
 msgid "Edit text"
-msgstr "Edit text"
+msgstr "Editar texto"
 
 #: Sort
 msgctxt "Sort"
@@ -143,7 +143,7 @@ msgstr "Sort boxes"
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
-msgstr "Clean all"
+msgstr "Limpar tudo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
@@ -163,7 +163,7 @@ msgstr "Próximo"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "FotoToon Activity"
-msgstr "FotoToon Activity"
+msgstr "Atividade FotoToon"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -183,7 +183,7 @@ msgstr "Click here to go to the next box in your comic strip"
 #: TutoAddPage
 msgctxt "TutoAddPage"
 msgid "Add box"
-msgstr "Add box"
+msgstr "Adicionar caixa"
 
 #: TutoAddPageExplanation
 msgctxt "TutoAddPageExplanation"
@@ -198,7 +198,7 @@ msgstr "Click here to add a new globe in current your box"
 #: TutoEditText
 msgctxt "TutoEditText"
 msgid "Edit text"
-msgstr "Edit text"
+msgstr "Editar texto"
 
 #: TutoEditTextExplanation
 msgctxt "TutoEditTextExplanation"
@@ -218,7 +218,7 @@ msgstr "Click here to sort boxes in your comic strip. Just drag & drop boxes to 
 #: TutoCleanAll
 msgctxt "TutoCleanAll"
 msgid "Clean all"
-msgstr "Clean all"
+msgstr "Limpar tudo"
 
 #: TutoCleanAllExplanation
 msgctxt "TutoCleanAllExplanation"
@@ -228,7 +228,7 @@ msgstr "Click here to clear all boxes"
 #: TutoImageSave
 msgctxt "TutoImageSave"
 msgid "Save as image"
-msgstr "Save as image"
+msgstr "Salvar como imagem"
 
 #: TutoImageSaveExplanation
 msgctxt "TutoImageSaveExplanation"
@@ -258,12 +258,12 @@ msgstr "Click here to end activity ang go back to Sugarizer home page"
 #: CancelChanges
 msgctxt "CancelChanges"
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: Continue
 msgctxt "Continue"
 msgid "Continue"
-msgstr "Continue"
+msgstr "Continuar"
 
 #: CleanAllMessage
 msgctxt "CleanAllMessage"
@@ -273,4 +273,4 @@ msgstr "All the boxes in your comic strip will be removed!"
 #: Warning
 msgctxt "Warning"
 msgid "Warning"
-msgstr "Warning"
+msgstr "Aviso"

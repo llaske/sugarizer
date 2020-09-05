@@ -1,37 +1,39 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Mar 07 2020 22:13:17 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-05 22:07+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-stopwatch/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Stopwatch Activity"
-msgstr "Stopwatch Activity"
+msgstr "Atividade Cronômetro"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -41,22 +43,22 @@ msgstr "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It s
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
 msgid "Add"
-msgstr "Add"
+msgstr "Adicionar"
 
 #: TutoAddContent
 msgctxt "TutoAddContent"
 msgid "Press this icon to add a new Stopwatch"
-msgstr "Press this icon to add a new Stopwatch"
+msgstr "Clique sobre este ícone para adicionar um novo cronômetro"
 
 #: TutoCounterTitle
 msgctxt "TutoCounterTitle"
 msgid "Counter"
-msgstr "Counter"
+msgstr "Contador"
 
 #: TutoCounterContent
 msgctxt "TutoCounterContent"
 msgid "Displays the current time of the Stopwatch"
-msgstr "Displays the current time of the Stopwatch"
+msgstr "Exibir o tempo atual do cronômetro"
 
 #: TutoStartStopTitle
 msgctxt "TutoStartStopTitle"
@@ -66,7 +68,7 @@ msgstr "Start/Stop"
 #: TutoStartStopContent
 msgctxt "TutoStartStopContent"
 msgid "Press this icon to Start/Stop the Stopwatch"
-msgstr "Press this icon to Start/Stop the Stopwatch"
+msgstr "Clique sobre o ícone para iniciar/parar o cronômetro"
 
 #: TutoResetTitle
 msgctxt "TutoResetTitle"
@@ -76,7 +78,7 @@ msgstr "Reset"
 #: TutoResetContent
 msgctxt "TutoResetContent"
 msgid "Press this icon to reset the Stopwatch"
-msgstr "Press this icon to reset the Stopwatch"
+msgstr "Clique sobre o ícone para reiniciar o cronômetro"
 
 #: TutoMarkTitle
 msgctxt "TutoMarkTitle"
@@ -91,10 +93,9 @@ msgstr "Press this icon to add an intermediate time lap"
 #: TutoRemoveTitle
 msgctxt "TutoRemoveTitle"
 msgid "Remove"
-msgstr "Remove"
+msgstr "Remover"
 
 #: TutoRemoveContent
 msgctxt "TutoRemoveContent"
 msgid "Press this icon to remove this Stopwatch from list"
-msgstr "Press this icon to remove this Stopwatch from list"
-
+msgstr "Clique sobre o ícone para remover este cronômetro da lista"

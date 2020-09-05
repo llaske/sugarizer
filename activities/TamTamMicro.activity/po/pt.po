@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:30:23 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 22:37+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-tamtammicro/pt/>\n"
@@ -33,22 +33,24 @@ msgstr "Fim"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "TamTam Micro Activity"
-msgstr "TamTam Micro Activity"
+msgstr "Atividade TamTam Micro"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
-msgstr "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
+msgstr ""
+"Tam Tam Micro é uma atividade para tocar instrumentos, sons e ruídos de "
+"diferentes tipos"
 
 #: TutoSoundsTitle
 msgctxt "TutoSoundsTitle"
 msgid "Sounds"
-msgstr "Sounds"
+msgstr "Sons"
 
 #: TutoSoundsContent
 msgctxt "TutoSoundsContent"
 msgid "Click on images to hear each sound"
-msgstr "Click on images to hear each sound"
+msgstr "Clique na imagem para ouvir cada som"
 
 #: TutoFilterTitle
 msgctxt "TutoFilterTitle"
@@ -58,7 +60,8 @@ msgstr "Filter"
 #: TutoFilterContent
 msgctxt "TutoFilterContent"
 msgid "Click here to filter by category the sounds you want to see and hear"
-msgstr "Click here to filter by category the sounds you want to see and hear"
+msgstr ""
+"Clique aqui para filtrar por categoria os sons que você desejar ver e ouvir"
 
 #: TutoPianoTitle
 msgctxt "TutoPianoTitle"
@@ -73,29 +76,33 @@ msgstr "Click here to make music with your selected sound, or press 1-7 on your 
 #: TutoPianoInfoTitle
 msgctxt "TutoPianoInfoTitle"
 msgid "Piano Mode"
-msgstr "Piano Mode"
+msgstr "Modo Piano"
 
 #: TutoPianoInfoContent
 msgctxt "TutoPianoInfoContent"
 msgid "Click here to display a piano where you could make music with your selected sound"
-msgstr "Click here to display a piano where you could make music with your selected sound"
+msgstr ""
+"Clique aqui para exibir um piano onde você poderá fazer música com os sons "
+"de sua escolha"
 
 #: TutoCurrentModeTitle
 msgctxt "TutoCurrentModeTitle"
 msgid "Current Instrument"
-msgstr "Current Instrument"
+msgstr "Instrumento atual"
 
 #: TutoCurrentModeContent
 msgctxt "TutoCurrentModeContent"
 msgid "Look here to see the current instrument you have selected. The piano will make music using this sound"
-msgstr "Look here to see the current instrument you have selected. The piano will make music using this sound"
+msgstr ""
+"Ver aqui o instrumento atual que você escolheu. O piano fará música com esse "
+"som"
 
 #: TutoPianoButtonTitle
 msgctxt "TutoPianoButtonTitle"
 msgid "Switch instrument"
-msgstr "Switch instrument"
+msgstr "Mudar o instrumento"
 
 #: TutoPianoButtonContent
 msgctxt "TutoPianoButtonContent"
 msgid "Click on this button to go back to the screen to choose instrument"
-msgstr "Click on this button to go back to the screen to choose instrument"
+msgstr "Clique neste botão para retornar à tela de escolha do instrumento"

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:42:57 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 21:59+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/sugarizer-core/pt/>\n"
@@ -1317,12 +1317,14 @@ msgstr "Lembre-se deste ícone. Se você está perdido, basta clicar nele a qual
 #: TutoInitStopTitle
 msgctxt "TutoInitStopTitle"
 msgid "Quit Sugarizer"
-msgstr "Quit Sugarizer"
+msgstr "Sair do Sugarizer"
 
 #: TutoInitStopContent
 msgctxt "TutoInitStopContent"
 msgid "Click on this icon if you really want to quit Sugarizer. We will miss you!"
-msgstr "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+msgstr ""
+"Clique neste ícone se você realmente deseja sair do Sugarizer. Nós "
+"perderemos você!"
 
 #: TutoInitServerTitle
 msgctxt "TutoInitServerTitle"
@@ -1617,7 +1619,9 @@ msgstr "Editor para modificar as cores dos seus ícones. Esta atividade permite 
 #: TutoActivityPomodoroactivity
 msgctxt "TutoActivityPomodoroactivity"
 msgid "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
-msgstr "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+msgstr ""
+"Pomodoro é um cronômetro utilizado para dividir o trabalho em intervalos "
+"separados por curtas pausas."
 
 #: TutoActivityConstellationactivity
 msgctxt "TutoActivityConstellationactivity"
@@ -1627,12 +1631,12 @@ msgstr "Constellation is an offline planetarium that lets you see what is visibl
 #: NotConnected
 msgctxt "NotConnected"
 msgid "Not connected"
-msgstr "Not connected"
+msgstr "Sem conexão"
 
 #: TutoOfflineTitle
 msgctxt "TutoOfflineTitle"
 msgid "Not connected icon"
-msgstr "Not connected icon"
+msgstr "Ícone de sem conexão"
 
 #: TutoOfflineContent
 msgctxt "TutoOfflineContent"
@@ -1642,12 +1646,14 @@ msgstr "When visible, this icon remind you that you're not connected. Connect yo
 #: PleaseConnectMessage
 msgctxt "PleaseConnectMessage"
 msgid "Connect your account to a server to use collaboration features and to backup your work."
-msgstr "Connect your account to a server to use collaboration features and to backup your work."
+msgstr ""
+"Conectar seu dispositivo a um servidor para se beneficiar das funcionalidade "
+"de colaboração e para salvar seu trabalho."
 
 #: TutoInitQRCodeTitle
 msgctxt "TutoInitQRCodeTitle"
 msgid "Scan server code"
-msgstr "Scan server code"
+msgstr "Ler o código do servidor"
 
 #: TutoInitQRCodeContent
 msgctxt "TutoInitQRCodeContent"
@@ -1662,14 +1668,16 @@ msgstr "The Write activity is a basic word processor with a simple interface for
 #: TutoActivityCalligraactivity
 msgctxt "TutoActivityCalligraactivity"
 msgid "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
-msgstr "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr ""
+"A atividade Calligra é uma atividade para ajudar crianças a aprender a "
+"escrita cursiva: letras, números e figuras."
 
 #: YouveGotDisconnected
 msgctxt "YouveGotDisconnected"
 msgid "You've been disconnected by the server"
-msgstr "You've been disconnected by the server"
+msgstr "Você foi desconectado pelo servidor"
 
 #: YouveGotDisconnectedAutomatically
 msgctxt "YouveGotDisconnectedAutomatically"
 msgid "You've been disconnected by another device"
-msgstr "You've been disconnected by another device"
+msgstr "Você foi desconectado por outro dispositivo"

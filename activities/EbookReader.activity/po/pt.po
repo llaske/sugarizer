@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-09-19 19:11+0000\n"
+"PO-Revision-Date: 2020-06-06 03:35+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-ebook-reader/pt/>\n"
@@ -28,7 +28,7 @@ msgstr "Próximo"
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr "Aterior"
+msgstr "Anterior"
 
 #: Library
 msgctxt "Library"
