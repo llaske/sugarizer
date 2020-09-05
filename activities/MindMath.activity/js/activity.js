@@ -281,7 +281,9 @@ var app = new Vue({
       var vm = this;
       vm.$set(vm.clock, 'time', vm.clock.initial);
       vm.$set(vm.clock, 'active', true);
-      vm.tick();
+      if (vm.timer === null) {
+        vm.tick();
+      }
     },
 
     stopClock: function() {
@@ -289,7 +291,19 @@ var app = new Vue({
       if (vm.timer) {
         clearInterval(vm.timer);
       }
+      vm.timer = null;
       vm.$set(vm.clock, 'active', false);
+    },
+
+    pulseEffect: function() {
+      let vm = this;
+      let pulseMainEle = document.querySelector('.pulse-main');
+      if (pulseMainEle) {
+        pulseMainEle.classList.add('pulse');
+        setTimeout(() => {
+          pulseMainEle.classList.remove('pulse');
+        }, 600);
+      }
     },
 
     updateCompulsoryOpsRem: function() {
@@ -673,6 +687,7 @@ var app = new Vue({
           //change currentScreen
           vm.currentScreen = "result";
         } else {
+          vm.pulseEffect();
           //go to next question in question set for timer mode
           vm.$set(vm.slots, vm.qNo, []);
           vm.qNo++;
@@ -745,6 +760,7 @@ var app = new Vue({
 
       if (vm.currentScreen === 'game') {
         // start a new game
+        vm.pulseEffect();
         vm.newGame();
       }
 
@@ -762,7 +778,7 @@ var app = new Vue({
 
     onTimerSelected: function(evt) {
       var vm = this;
-
+      vm.pulseEffect();
       switch (evt.index) {
         case 0:
           vm.mode = 'non-timer';
@@ -938,8 +954,8 @@ var app = new Vue({
 
     onJournalLoadError: function(error) {
       console.log("Error loading from journal");
-		},
-		
+    },
+
     onActivityShared: function(event, paletteObject) {
       this.onMultiplayerGameStarted();
       // Usual behaviour call
@@ -1105,196 +1121,196 @@ var app = new Vue({
     },
 
 
-        onHelp: function() {
-          var vm = this;
-          var steps = [];
-          if (vm.currentScreen === 'leaderboard') {
-            steps = [{
-                element: ".leaderboard-main",
-                placement: "top",
-                title: this.l10n.stringTutoLeaderboardMainTitle,
-                content: this.l10n.stringTutoLeaderboardMainContent
-              },
-              {
-                element: ".btn-back-block",
-                placement: "auto top",
-                title: this.l10n.stringTutoGoBackFromLeaderboardTitle,
-                content: this.l10n.stringTutoGoBackFromLeaderboardContent
-              },
-              {
-                element: ".page-no",
-                placement: "auto top",
-                title: this.l10n.stringTutoLeaderboardPaginationTitle,
-                content: this.l10n.stringTutoLeaderboardPaginationContent
-              },
-            ];
-          } else if (vm.currentScreen === 'result') {
-            steps = [{
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoResultTitle,
-                content: this.l10n.stringTutoResultContent
-              },
-              {
-                element: ".best-solution",
-                placement: "auto left",
-                title: this.l10n.stringTutoBestSolnTitle,
-                content: this.l10n.stringTutoBestSolnContent
-              },
-              {
-                element: ".my-solution",
-                placement: "auto right",
-                title: this.l10n.stringTutoMySolnTitle,
-                content: this.l10n.stringTutoMySolnContent
-              },
-              {
-                element: ".clock-info-block",
-                placement: "auto bottom",
-                title: this.l10n.stringTutoClockInfoTitle,
-                content: this.l10n.stringTutoClockInfoContent
-              },
-              {
-                element: ".score-info-block",
-                placement: "auto bottom",
-                title: this.l10n.stringTutoScoreInfoTitle,
-                content: this.l10n.stringTutoScoreInfoContent
-              },
-              {
-                element: ".btn-restart-block",
-                placement: "auto top",
-                title: this.l10n.stringTutoRestartTitle,
-                content: this.l10n.stringTutoRestartContent
-              },
-              {
-                element: ".page-no",
-                placement: "auto top",
-                title: this.l10n.stringTutoPaginationTitle,
-                content: this.l10n.stringTutoPaginationContent
-              },
-            ];
-          } else if (vm.currentScreen === 'game') {
-            steps = [{
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoExplainTitle,
-                content: this.l10n.stringTutoExplainContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoEachPuzzleTitle,
-                content: this.l10n.stringTutoEachPuzzleContent
-              },
-              {
-                element: ".list-numbers",
-                placement: "right",
-                title: this.l10n.stringTutoInputNumbersTitle,
-                content: this.l10n.stringTutoInputNumbersContent
-              },
-              {
-                element: "#target-number",
-                placement: "bottom",
-                title: this.l10n.stringTutoTargetTitle,
-                content: this.l10n.stringTutoTargetContent
-              },
-              {
-                element: ".list-operators",
-                placement: "auto top",
-                title: this.l10n.stringTutoOperatorsTitle,
-                content: this.l10n.stringTutoOperatorsContent
-              },
-              {
-                element: ".slots-area-main",
-                placement: "auto left",
-                title: this.l10n.stringTutoSlotsTitle,
-                content: this.l10n.stringTutoSlotsContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoHowToPlayTitle,
-                content: this.l10n.stringTutoHowToPlayContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoAboutTitle,
-                content: this.l10n.stringTutoAboutContent
-              },
-              {
-                element: ".slots-area-footer",
-                placement: "top",
-                title: this.l10n.stringTutoGameActionsTitle,
-                content: this.l10n.stringTutoGameActionsContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "bottom",
-                title: this.l10n.stringTutoScoreTitle,
-                content: this.l10n.stringTutoScoreContent
-              },
-              {
-                element: "#compulsory-op-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoCompulsoryOpTitle,
-                content: this.l10n.stringTutoCompulsoryOpContent
-              },
-              {
-                element: "#hint-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoHintTitle,
-                content: this.l10n.stringTutoHintContent
-              },
-              {
-                element: "#level-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoLevelTitle,
-                content: this.l10n.stringTutoLevelContent
-              },
-              {
-                element: "#timer-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoTimerTitle,
-                content: this.l10n.stringTutoTimerContent
-              },
-              {
-                element: "#undo-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoUndoTitle,
-                content: this.l10n.stringTutoUndoContent
-              },
-              {
-                element: "#redo-button",
-                placement: "bottom",
-                title: this.l10n.stringTutoRedoTitle,
-                content: this.l10n.stringTutoRedoContent
-              },
-              {
-                element: "",
-                orphan: true,
-                placement: "top",
-                title: this.l10n.stringTutoUselessOpsTitle,
-                content: this.l10n.stringTutoUselessOpsContent
-              },
-            ];
-          } else {
-            steps = [{
-              element: "",
-              orphan: true,
-              placement: "bottom",
-              title: this.l10n.stringTutoExplainTitle,
-              content: this.l10n.stringTutoExplainContent
-            }, ];
-          }
+    onHelp: function() {
+      var vm = this;
+      var steps = [];
+      if (vm.currentScreen === 'leaderboard') {
+        steps = [{
+            element: ".leaderboard-main",
+            placement: "top",
+            title: this.l10n.stringTutoLeaderboardMainTitle,
+            content: this.l10n.stringTutoLeaderboardMainContent
+          },
+          {
+            element: ".btn-back-block",
+            placement: "auto top",
+            title: this.l10n.stringTutoGoBackFromLeaderboardTitle,
+            content: this.l10n.stringTutoGoBackFromLeaderboardContent
+          },
+          {
+            element: ".page-no",
+            placement: "auto top",
+            title: this.l10n.stringTutoLeaderboardPaginationTitle,
+            content: this.l10n.stringTutoLeaderboardPaginationContent
+          },
+        ];
+      } else if (vm.currentScreen === 'result') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoResultTitle,
+            content: this.l10n.stringTutoResultContent
+          },
+          {
+            element: ".best-solution",
+            placement: "auto left",
+            title: this.l10n.stringTutoBestSolnTitle,
+            content: this.l10n.stringTutoBestSolnContent
+          },
+          {
+            element: ".my-solution",
+            placement: "auto right",
+            title: this.l10n.stringTutoMySolnTitle,
+            content: this.l10n.stringTutoMySolnContent
+          },
+          {
+            element: ".clock-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoClockInfoTitle,
+            content: this.l10n.stringTutoClockInfoContent
+          },
+          {
+            element: ".score-info-block",
+            placement: "auto bottom",
+            title: this.l10n.stringTutoScoreInfoTitle,
+            content: this.l10n.stringTutoScoreInfoContent
+          },
+          {
+            element: ".btn-restart-block",
+            placement: "auto top",
+            title: this.l10n.stringTutoRestartTitle,
+            content: this.l10n.stringTutoRestartContent
+          },
+          {
+            element: ".page-no",
+            placement: "auto top",
+            title: this.l10n.stringTutoPaginationTitle,
+            content: this.l10n.stringTutoPaginationContent
+          },
+        ];
+      } else if (vm.currentScreen === 'game') {
+        steps = [{
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoExplainTitle,
+            content: this.l10n.stringTutoExplainContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoEachPuzzleTitle,
+            content: this.l10n.stringTutoEachPuzzleContent
+          },
+          {
+            element: ".list-numbers",
+            placement: "right",
+            title: this.l10n.stringTutoInputNumbersTitle,
+            content: this.l10n.stringTutoInputNumbersContent
+          },
+          {
+            element: "#target-number",
+            placement: "bottom",
+            title: this.l10n.stringTutoTargetTitle,
+            content: this.l10n.stringTutoTargetContent
+          },
+          {
+            element: ".list-operators",
+            placement: "auto top",
+            title: this.l10n.stringTutoOperatorsTitle,
+            content: this.l10n.stringTutoOperatorsContent
+          },
+          {
+            element: ".slots-area-main",
+            placement: "auto left",
+            title: this.l10n.stringTutoSlotsTitle,
+            content: this.l10n.stringTutoSlotsContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoHowToPlayTitle,
+            content: this.l10n.stringTutoHowToPlayContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoAboutTitle,
+            content: this.l10n.stringTutoAboutContent
+          },
+          {
+            element: ".slots-area-footer",
+            placement: "top",
+            title: this.l10n.stringTutoGameActionsTitle,
+            content: this.l10n.stringTutoGameActionsContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "bottom",
+            title: this.l10n.stringTutoScoreTitle,
+            content: this.l10n.stringTutoScoreContent
+          },
+          {
+            element: "#compulsory-op-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoCompulsoryOpTitle,
+            content: this.l10n.stringTutoCompulsoryOpContent
+          },
+          {
+            element: "#hint-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoHintTitle,
+            content: this.l10n.stringTutoHintContent
+          },
+          {
+            element: "#level-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoLevelTitle,
+            content: this.l10n.stringTutoLevelContent
+          },
+          {
+            element: "#timer-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoTimerTitle,
+            content: this.l10n.stringTutoTimerContent
+          },
+          {
+            element: "#undo-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoUndoTitle,
+            content: this.l10n.stringTutoUndoContent
+          },
+          {
+            element: "#redo-button",
+            placement: "bottom",
+            title: this.l10n.stringTutoRedoTitle,
+            content: this.l10n.stringTutoRedoContent
+          },
+          {
+            element: "",
+            orphan: true,
+            placement: "top",
+            title: this.l10n.stringTutoUselessOpsTitle,
+            content: this.l10n.stringTutoUselessOpsContent
+          },
+        ];
+      } else {
+        steps = [{
+          element: "",
+          orphan: true,
+          placement: "bottom",
+          title: this.l10n.stringTutoExplainTitle,
+          content: this.l10n.stringTutoExplainContent
+        }, ];
+      }
 
-          this.$refs.SugarTutorial.show(steps);
-        },
+      this.$refs.SugarTutorial.show(steps);
+    },
 
   }
 });

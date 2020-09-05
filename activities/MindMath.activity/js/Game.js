@@ -6,7 +6,7 @@ var Game = {
   },
   props: ['time', 'strokeColor', 'fillColor', 'questions', 'qNo', 'score', 'mode', 'compulsoryOps', 'compulsoryOpsRem', 'slots', 'inputNumbers', 'inputNumbersTypes', 'disabled', 'isTargetAcheived','l10n'],
   template: `
-    <div id="game-view">
+    <div id="game-view" class="pulse-main">
       <div class="game-area-panel"
       v-bind:style="{backgroundColor: '#ffffff'}"
     >
