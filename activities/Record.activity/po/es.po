@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:24:41 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Sep 06 2020 21:11:39 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,4 +17,59 @@ msgstr ""
 msgctxt "by"
 msgid "by"
 msgstr "por"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Record Activity"
+msgstr "Record Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Record activity. Record is a basic rich-media capture activity"
+msgstr "Welcome into the Record activity. Record is a basic rich-media capture activity"
+
+#: TutoPhotoTitle
+msgctxt "TutoPhotoTitle"
+msgid "Photo"
+msgstr "Photo"
+
+#: TutoPhotoContent
+msgctxt "TutoPhotoContent"
+msgid "Click here to start taking a photo. The photo will be taken in 3 seconds. Smile!"
+msgstr "Click here to start taking a photo. The photo will be taken in 3 seconds. Smile!"
+
+#: TutoVideoTitle
+msgctxt "TutoVideoTitle"
+msgid "Video"
+msgstr "Video"
+
+#: TutoVideoContent
+msgctxt "TutoVideoContent"
+msgid "Click here to start taking a video. The capture will start immediately and for up to 5 seconds"
+msgstr "Click here to start taking a video. The capture will start immediately and for up to 5 seconds"
+
+#: TutoAudioTitle
+msgctxt "TutoAudioTitle"
+msgid "Audio"
+msgstr "Audio"
+
+#: TutoAudioContent
+msgctxt "TutoAudioContent"
+msgid "Click here to start recording the sound from your microphone. The capture will start immediately and for up to 5 seconds"
+msgstr "Click here to start recording the sound from your microphone. The capture will start immediately and for up to 5 seconds"
 

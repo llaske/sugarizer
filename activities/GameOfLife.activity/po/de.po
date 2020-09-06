@@ -1,13 +1,13 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:17:57 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Sep 06 2020 17:11:36 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: de\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,4 +16,180 @@ msgstr ""
 #: Generation
 msgctxt "Generation"
 msgid "Generation"
-msgstr ""
+msgstr "Generation"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Game of Life Activity"
+msgstr "Game of Life Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Game of Life activity. Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen"
+msgstr "Welcome into the Game of Life activity. Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen"
+
+#: TutoCanvasTitle
+msgctxt "TutoCanvasTitle"
+msgid "Rules of Game of Life"
+msgstr "Rules of Game of Life"
+
+#: TutoCanvasContent
+msgctxt "TutoCanvasContent"
+msgid "Every cell on the board interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each generation, the following transitions occur:"
+msgstr "Every cell on the board interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each generation, the following transitions occur:"
+
+#: TutoUnderTitle
+msgctxt "TutoUnderTitle"
+msgid "Underpopulation"
+msgstr "Underpopulation"
+
+#: TutoUnderContent
+msgctxt "TutoUnderContent"
+msgid "Any live cell with fewer than two live neighbours dies, as if by underpopulation"
+msgstr "Any live cell with fewer than two live neighbours dies, as if by underpopulation"
+
+#: TutoNextTitle
+msgctxt "TutoNextTitle"
+msgid "Next generation"
+msgstr "Next generation"
+
+#: TutoNextContent
+msgctxt "TutoNextContent"
+msgid "Any live cell with two or three live neighbours lives on to the next generation"
+msgstr "Any live cell with two or three live neighbours lives on to the next generation"
+
+#: TutoOverTitle
+msgctxt "TutoOverTitle"
+msgid "Overpopulation"
+msgstr "Overpopulation"
+
+#: TutoOverContent
+msgctxt "TutoOverContent"
+msgid "Any live cell with more than three live neighbours dies, as if by overpopulation"
+msgstr "Any live cell with more than three live neighbours dies, as if by overpopulation"
+
+#: TutoReproductionTitle
+msgctxt "TutoReproductionTitle"
+msgid "Reproduction"
+msgstr "Reproduction"
+
+#: TutoReproductionContent
+msgctxt "TutoReproductionContent"
+msgid "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
+msgstr "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
+
+#: TutoRunTitle
+msgctxt "TutoRunTitle"
+msgid "Run/Pause"
+msgstr "Run/Pause"
+
+#: TutoRunContent
+msgctxt "TutoRunContent"
+msgid "Click here to start or freeze the game"
+msgstr "Click here to start or freeze the game"
+
+#: TutoRandomTitle
+msgctxt "TutoRandomTitle"
+msgid "Random Pattern"
+msgstr "Random Pattern"
+
+#: TutoRandomContent
+msgctxt "TutoRandomContent"
+msgid "Click here to generate a board fill with a random number of cells"
+msgstr "Click here to generate a board fill with a random number of cells"
+
+#: TutoGliderTitle
+msgctxt "TutoGliderTitle"
+msgid "'Glider' Pattern"
+msgstr "'Glider' Pattern"
+
+#: TutoGliderContent
+msgctxt "TutoGliderContent"
+msgid "Click here to generate a board with a pattern called 'Glider' who move at each generation"
+msgstr "Click here to generate a board with a pattern called 'Glider' who move at each generation"
+
+#: TutoNoTitle
+msgctxt "TutoNoTitle"
+msgid "'Blinker' Pattern"
+msgstr "'Blinker' Pattern"
+
+#: TutoNoContent
+msgctxt "TutoNoContent"
+msgid "Click here to generate a board filled with pattern called 'Blinker' who live forever"
+msgstr "Click here to generate a board filled with pattern called 'Blinker' who live forever"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Clear"
+msgstr "Clear"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear the board. You could then click on it to draw your own pattern"
+msgstr "Click here to clear the board. You could then click on it to draw your own pattern"
+
+#: TutoCountTitle
+msgctxt "TutoCountTitle"
+msgid "Generation Count"
+msgstr "Generation Count"
+
+#: TutoCountContent
+msgctxt "TutoCountContent"
+msgid "Here you can see which generation are you actually on"
+msgstr "Here you can see which generation are you actually on"
+
+#: TutoSpeedTitle
+msgctxt "TutoSpeedTitle"
+msgid "Speed"
+msgstr "Speed"
+
+#: TutoSpeedContent
+msgctxt "TutoSpeedContent"
+msgid "Click here to make generation faster or slower"
+msgstr "Click here to make generation faster or slower"
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr "Size"
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to change the size of the board"
+msgstr "Click here to change the size of the board"
+
+#: TutoDeadCellsTitle
+msgctxt "TutoDeadCellsTitle"
+msgid "Trails"
+msgstr "Trails"
+
+#: TutoDeadCellsContent
+msgctxt "TutoDeadCellsContent"
+msgid "Click here to see/hide trails of cells deaths"
+msgstr "Click here to see/hide trails of cells deaths"
+
+#: speed
+msgctxt "speed"
+msgid "speed :"
+msgstr "speed :"
+
+#: size
+msgctxt "size"
+msgid "size :"
+msgstr "size :"
+

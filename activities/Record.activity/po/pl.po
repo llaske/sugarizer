@@ -16,60 +16,60 @@ msgstr ""
 #: by
 msgctxt "by"
 msgid "by"
-msgstr "par"
+msgstr "by"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Préc"
+msgstr "Poprz"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Suiv"
+msgstr "Dalej"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "Fin"
+msgstr "Koniec"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Record Activity"
-msgstr "Activité Record"
+msgstr "Record"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Record activity. Record is a basic rich-media capture activity"
-msgstr "Bienvenue dans l'activité Record. Record est un outil simple de capture de contenu multimédia. Il vous permet de capturer des photos, vidéos et/ou audios depuis votre machine"
+msgstr "Witaj w Record. Record to aplikacja, która nagrywa dźwięk oraz obraz"
 
 #: TutoPhotoTitle
 msgctxt "TutoPhotoTitle"
 msgid "Photo"
-msgstr "Photo"
+msgstr "Zdjęcie"
 
 #: TutoPhotoContent
 msgctxt "TutoPhotoContent"
 msgid "Click here to start taking a photo. The photo will be taken in 3 seconds. Smile!"
-msgstr "Cliquez ici pour commencer à prendre une photo. La photo sera prise dans 3 secondes. Souriez !"
+msgstr "Kliknij aby zrobić zdjęcie"
 
 #: TutoVideoTitle
 msgctxt "TutoVideoTitle"
 msgid "Video"
-msgstr "Vidéo"
+msgstr "Wideo"
 
 #: TutoVideoContent
 msgctxt "TutoVideoContent"
 msgid "Click here to start taking a video. The capture will start immediately and for up to 5 seconds"
-msgstr "Cliquez ici pour commencer à prendre une vidéo. La vidéo démarre immédiatement et peut faire jusqu'à 5 secondes"
+msgstr "Kliknij aby nagrać wideo"
 
 #: TutoAudioTitle
 msgctxt "TutoAudioTitle"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Dźwięk"
 
 #: TutoAudioContent
 msgctxt "TutoAudioContent"
 msgid "Click here to start recording the sound from your microphone. The capture will start immediately and for up to 5 seconds"
-msgstr "Cliquez ici pour commencer à enregister un son depuis votre micro. L'enregistrement démarre immédiatement et peut faire jusqu'à 5 secondes"
+msgstr "Kliknij aby nagrać dźwięk z mikrofonu"
 
