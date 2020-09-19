@@ -148,7 +148,9 @@ function createWindow () {
 				};
 				dialogSettings.title = l10n.get("SaveFile");
 				dialogSettings.buttonLabel = l10n.get("Save");
-				dialog.showSaveDialog(dialogSettings, saveFunction);
+				dialog.showSaveDialog(dialogSettings).then(function(result) {
+					saveFunction(result.filePath);
+				});
 			} else {
 				// Save in the directory provided
 				saveFunction(path.join(arg.directory,arg.filename));
@@ -160,7 +162,8 @@ function createWindow () {
 			};
 			dialogSettings.title = l10n.get("ChooseDirectory");
 			dialogSettings.buttonLabel = l10n.get("Choose");
-			dialog.showOpenDialog(dialogSettings, function(files) {
+			dialog.showOpenDialog(dialogSettings).then(function(result) {
+				var files = result.filePaths;
 				if (files && files.length > 0) {
 					event.sender.send('choose-directory-reply', files[0]);
 				}
@@ -176,7 +179,8 @@ function createWindow () {
 			dialogSettings.title = l10n.get("ChooseFiles");
 			dialogSettings.buttonLabel = l10n.get("Choose");
 			dialogSettings.filters[0].name = l10n.get("FilesSupported");
-			dialog.showOpenDialog(dialogSettings, function(files) {
+			dialog.showOpenDialog(dialogSettings).then(function(result) {
+				var files = result.filePaths;
 				if (files && files.length > 0) {
 					for (var i = 0 ; i < files.length ; i++) {
 						LoadFile(event, files[i]);
