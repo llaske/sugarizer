@@ -436,6 +436,8 @@ var app = new Vue({
 
 		onJournalNewInstance: function (error) {
 			this.currentView = "polls-grid";
+			// Fix in case of accidental exit
+			this.saveContextToJournal();
 		},
 
 		onJournalSharedInstance: function () {
@@ -809,13 +811,17 @@ var app = new Vue({
 			this.$refs.SugarTutorial.show(steps);
 		},
 
-		onStop() {
+		saveContextToJournal() {
 			var context = {
 				polls: this.polls,
 				realTimeResults: this.realTimeResults,
 				history: this.history
 			};
 			this.$refs.SugarJournal.saveData(context);
+		},
+
+		onStop() {
+			this.saveContextToJournal();
 		}
 	}
 });
