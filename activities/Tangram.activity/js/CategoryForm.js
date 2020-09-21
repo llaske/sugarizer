@@ -53,8 +53,7 @@ var CategoryForm = {
       },
       category: {
         title: ''
-      },
-      puzzlesSet: [],
+      }
     };
   },
 
