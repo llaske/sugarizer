@@ -163,8 +163,8 @@ var PollSettings = {
 		},
 
 		addPoll() {
-			var nextId = this.polls.length;
-			this.poll.id = nextId;
+			var maxId = this.polls.reduce((max, poll) => max = Math.max(poll.id, max), -1);
+			this.poll.id = maxId + 1;
 			this.polls.push(this.poll);
 			this.$emit('poll-added', this.poll.id);
 		}
