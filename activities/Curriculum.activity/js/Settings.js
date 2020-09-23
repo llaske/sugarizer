@@ -101,13 +101,13 @@ var CategorySettings = {
 		},
 
 		addCategory: function() {
-			var nextId = this.categories.length;
-			this.category.id = nextId;
+			var maxId = this.categories.reduce((max, category) => max = Math.max(category.id, max), -1);
+			this.category.id = maxId + 1;
 			this.categories.push(this.category);
 			setTimeout(function () {
 				content.scrollTop = content.scrollHeight;
 			}, 250);
-			this.$set(this.user.skills, nextId, new Object());
+			this.$set(this.user.skills, maxId + 1, new Object());
 		}
 	}
 }
@@ -239,13 +239,13 @@ var SkillSettings = {
 		},
 
 		addSkill: function(catIndex) {
-			var nextId = this.categories[catIndex].skills.length;
-			this.skill.id = nextId;
+			var maxId = this.categories[catIndex].skills.reduce((max, skill) => max = Math.max(skill.id, max), -1);
+			this.skill.id = maxId + 1;
 			this.categories[catIndex].skills.push(this.skill);
 			setTimeout(function () {
 				content.scrollTop = content.scrollHeight;
 			}, 250);
-			this.$set(this.user.skills[this.categoryId], nextId, {
+			this.$set(this.user.skills[this.categoryId], maxId + 1, {
 				acquired: 0,
 				media: {}
 			});
