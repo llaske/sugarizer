@@ -40,6 +40,10 @@
   z-index: 5;
 }
 
+.palette {
+	z-index: 5;
+}
+
 /* App background */
 .board {
 	background-color: #005a40 !important;

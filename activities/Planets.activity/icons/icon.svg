@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg width="82" height="83" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="85" width="84" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <ellipse ry="37.312089" rx="36.999999" id="svg_3" cy="42.024705" cx="41.475736" stroke="#000" fill="none"/>
+  <ellipse ry="19.679863" rx="19.515254" id="svg_4" cy="42.54978" cx="41.267673" stroke="#000" fill="none"/>
+  <ellipse ry="28.336671" rx="28.099655" id="svg_5" cy="42.527576" cx="41.360146" stroke="#000" fill="none"/>
+  <ellipse ry="12.779281" rx="12.672391" id="svg_6" cy="42.827232" cx="41.360142" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="5.902013" rx="5.852647" id="svg_7" cy="12.017902" cx="63.682684" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="3.687299" rx="3.656457" id="svg_8" cy="34.349704" cx="23.328268" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="5.552321" rx="5.50588" id="svg_9" cy="68.779585" cx="32.806563" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="1.296164" rx="1.285323" id="svg_30" cy="36.907022" cx="32.503525" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="1.296164" rx="1.285323" id="svg_31" cy="49.484342" cx="49.41074" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="0.984277" rx="0.976045" id="svg_32" cy="12.064274" cx="60.235464" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="0.67239" rx="0.666766" id="svg_33" cy="32.98428" cx="24.049919" stroke="#000" fill="#ffffff"/>
+  <ellipse ry="1.296164" rx="1.285323" id="svg_34" cy="67.010112" cx="35.390122" stroke="#000" fill="#ffffff"/>
+ </g>
+</svg>

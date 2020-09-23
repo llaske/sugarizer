@@ -1,17 +1,19 @@
 #. extracted from ../translate.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:15:21 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-05 21:03+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-paint/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -28,17 +30,17 @@ msgstr "{{user}} saiu"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -83,7 +85,7 @@ msgstr "Click here to choose border color"
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr "Undo"
+msgstr "Desfazer"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
@@ -93,7 +95,7 @@ msgstr "Click here to undo previous actions"
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr "Redo"
+msgstr "Refazer"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
@@ -103,7 +105,7 @@ msgstr "Click here to redo previous actions"
 #: TutoSizeTitle
 msgctxt "TutoSizeTitle"
 msgid "Size"
-msgstr "Size"
+msgstr "Tamanho"
 
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
@@ -213,10 +215,9 @@ msgstr "Click here to paste a part of your drawing copied with the copy button. 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Limpar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
 msgstr "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
-

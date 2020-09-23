@@ -4,7 +4,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2020-03-27
+## [1.4.0] - 2020-03-23
+### Added
+- Fraction activity #205
+- Implode activity #710
+- Planets activity
+- Chess activity
+- Curriculum activity
+- MindMath activity
+- Vote activity
+- Tangram activity
+- Simon mode game in TamTam activity #686
+- Vue.js activity template
+- Activity Development Tutorial in Vue.js
+- Duplicate action on Journal entries
+- ES6 compatibility for activities (except modules)
+- Support autologoff mode for Electron and Sugarizer OS
+- Support for native Android app in activities.json
+- Join shared activity in one click in neighborhood view
+
+### Changed
+- Improve Presence palette UI, now handle list of users and disconnection
+- Improve Sugarizer spiral in home view #579
+- Localize and standardize activities title
+
+### Fixed
+- Falabracman activity don't detect win condition for restarted game #723
+- Falabracman only accepts a specific letter in case of repeated letters in a word #725
+- Speak Text button hides text under it in speak activity #727
+- Video Viewer shows tutorial for a feature not available #731
+- Labyrinth shows tutorial for functions not available on small screens #733
+- Blockrain tutorial overflows off screen on smaller screens #736
+- Get Things Done can't handle multiple lines #741
+- Stop button not visible in Scratch activity on small screens #715
+- Wrong title of network button in Memorize activity #745
+- Text not showing under erase button in qr-code activity #700
+- Food Chain tutorial off screen in small resolutions #752
+- Food Chain activity palette behind canvas #754
+- Awkward placement of Labyrinth canvas tutorial #758
+- Stopwatch activity palette text not visible #756
+- Tutorial button hidden on login screens #697
+- Pomodoro timer resets on break change #750
+- Awkward positioning of contents in the searchfield of video viewer activity #761
+- Size and speed palettes of game of life activity don't works on touch screen #766
+- Speech and Face Palettes of speak activity doesn't work on touch screen #764
+- Keyboard overlaps input fields on Android #739
+- Alignment of help button in some activities #777
+- Presence palette implementation in Memorize is non standard #374
+- Splitbar in toolbar of Clock activity are half sized in Chrome #789
+- Wrong title of blinker button in Game Of Life activity #792
+- Alert "user already exists" should come earlier #580
+- Wrong song is play on slow device/connection in TamTam activity #803
+- Removed resize option in Shared Notes
+- When connected to server, activities get shared automatically #810
+- Private button in presence palette shares the activity #811
+- Export palette in Write activity pop at the wrong place #807
+- Last One Loses activity is unplayable after sharing without second player #815
+- Spinner on first screen is at the bottom of the screen
+- Countries and view palettes pop at the wrong place in Constellation activity
+- Timer in chess activity stops on inactive tabs #828
+
+
+## [1.3.0] - 2020-03-28
 ### Added
 - Calligra activity
 - Falabracman activity

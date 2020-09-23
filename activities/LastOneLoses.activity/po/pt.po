@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-06 03:19+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-lastoneloses/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -28,17 +30,17 @@ msgstr "{{user}} saiu"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -58,22 +60,25 @@ msgstr "Network"
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the game on the network so an opponent could play against you"
-msgstr "Click here to share the game on the network so an opponent could play against you"
+msgstr ""
+"Clique aqui para compartilhar o jogo na rede. Assim, um oponente poderá "
+"jogar contra você"
 
 #: TutoNewgameTitle
 msgctxt "TutoNewgameTitle"
 msgid "New Game"
-msgstr "New Game"
+msgstr "Novo jogo"
 
 #: TutoNewgameContent
 msgctxt "TutoNewgameContent"
 msgid "Click here to start a new game. It will reinit the board with 13 items."
-msgstr "Click here to start a new game. It will reinit the board with 13 items."
+msgstr ""
+"Clique aqui para iniciar um novo jogo. Isso reiniciará o quadro com 13 itens."
 
 #: TutoEasyTitle
 msgctxt "TutoEasyTitle"
 msgid "Easy Level"
-msgstr "Easy Level"
+msgstr "Nível fácil"
 
 #: TutoEasyContent
 msgctxt "TutoEasyContent"
@@ -83,7 +88,7 @@ msgstr "Click here to select the level of difficulty easy. At this level the com
 #: TutoMediumTitle
 msgctxt "TutoMediumTitle"
 msgid "Medium Level"
-msgstr "Medium Level"
+msgstr "Nível médio"
 
 #: TutoMediumContent
 msgctxt "TutoMediumContent"
@@ -93,7 +98,7 @@ msgstr "Click here to select the level of difficulty medium. At this level the c
 #: TutoHardTitle
 msgctxt "TutoHardTitle"
 msgid "Hard Level"
-msgstr "Hard Level"
+msgstr "Nível difícil"
 
 #: TutoHardContent
 msgctxt "TutoHardContent"
@@ -103,7 +108,7 @@ msgstr "Click here to select the level of difficulty hard. At this level the com
 #: TutoSwitchTitle
 msgctxt "TutoSwitchTitle"
 msgid "Switch Player"
-msgstr "Switch Player"
+msgstr "Mudar de jogador"
 
 #: TutoSwitchContent
 msgctxt "TutoSwitchContent"
@@ -113,10 +118,9 @@ msgstr "Click here to let your opponent begin the game. It will work only at the
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Board"
-msgstr "Board"
+msgstr "Tabuleiro"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
 msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
 msgstr "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
-

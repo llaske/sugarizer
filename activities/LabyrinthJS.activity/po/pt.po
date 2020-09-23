@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Aug 29 2017 18:13:19 GMT+0200 (CEST)\n"
-"PO-Revision-Date: 2018-05-07 19:40+0000\n"
+"PO-Revision-Date: 2020-02-28 13:55+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-labyrinthjs/pt/>\n"
@@ -108,7 +108,7 @@ msgstr "Próximo"
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "Finalizar"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -126,7 +126,7 @@ msgstr ""
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Board"
-msgstr "Quadro"
+msgstr "Tabuleiro"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"

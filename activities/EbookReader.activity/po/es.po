@@ -1,13 +1,13 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sun Sep 06 2020 16:57:01 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: es\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,134 +16,150 @@ msgstr ""
 #: EbookReaderActivity
 msgctxt "EbookReaderActivity"
 msgid "Ebook Reader Activity"
-msgstr ""
+msgstr "Ebook Reader Activity"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr ""
+msgstr "Previous"
 
 #: Library
 msgctxt "Library"
 msgid "Library"
-msgstr ""
+msgstr "Library"
+
+#: Contents
+msgctxt "Contents"
+msgid "Contents"
+msgstr "Contents"
 
 #: Settings
 msgctxt "Settings"
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: Help
 msgctxt "Help"
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: Url
 msgctxt "Url"
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: Ok
 msgctxt "Ok"
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: Cancel
 msgctxt "Cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: NextShort
 msgctxt "NextShort"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: EndShort
 msgctxt "EndShort"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Ebook Reader activity"
-msgstr ""
+msgstr "Ebook Reader activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "This activity is a library that allow you to read electronic books at ePub format."
-msgstr ""
+msgstr "This activity is a library that allow you to read electronic books at ePub format."
 
 #: TutoBookTitle
 msgctxt "TutoBookTitle"
 msgid "One ebook"
-msgstr ""
+msgstr "One ebook"
 
 #: TutoBookContent
 msgctxt "TutoBookContent"
 msgid "Click on an ebook to start or continue reading."
-msgstr ""
+msgstr "Click on an ebook to start or continue reading."
 
 #: TutoLibraryButtonTitle
 msgctxt "TutoLibraryButtonTitle"
 msgid "Change view"
-msgstr ""
+msgstr "Change view"
 
 #: TutoLibraryButtonContent
 msgctxt "TutoLibraryButtonContent"
 msgid "Click on this icon to switch between library and reading view."
-msgstr ""
+msgstr "Click on this icon to switch between library and reading view."
+
+#: TutoContentsButtonTitle
+msgctxt "TutoContentsButtonTitle"
+msgid "Contents"
+msgstr "Contents"
+
+#: TutoContentsButtonContent
+msgctxt "TutoContentsButtonContent"
+msgid "Click on this icon to navigate to the table of contents."
+msgstr "Click on this icon to navigate to the table of contents."
 
 #: TutoSettingsButtonTitle
 msgctxt "TutoSettingsButtonTitle"
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: TutoSettingsButtonContent
 msgctxt "TutoSettingsButtonContent"
 msgid "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
-msgstr ""
+msgstr "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
 
 #: TutoFullscreenButtonTitle
 msgctxt "TutoFullscreenButtonTitle"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: TutoFullscreenButtonContent
 msgctxt "TutoFullscreenButtonContent"
 msgid "Click on this icon to display the current content in full screen mode."
-msgstr ""
+msgstr "Click on this icon to display the current content in full screen mode."
 
 #: TutoPrevButtonTitle
 msgctxt "TutoPrevButtonTitle"
 msgid "Previous page"
-msgstr ""
+msgstr "Previous page"
 
 #: TutoPrevButtonContent
 msgctxt "TutoPrevButtonContent"
 msgid "Click here to display the previous page of the book."
-msgstr ""
+msgstr "Click here to display the previous page of the book."
 
 #: TutoNextButtonTitle
 msgctxt "TutoNextButtonTitle"
 msgid "Next page"
-msgstr ""
+msgstr "Next page"
 
 #: TutoNextButtonContent
 msgctxt "TutoNextButtonContent"
 msgid "Click here to display the next page of the book."
-msgstr ""
+msgstr "Click here to display the next page of the book."
+

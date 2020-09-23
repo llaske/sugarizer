@@ -252,7 +252,6 @@ enyo.kind({
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogWarningMessage"}, {owner:this});
 			this.otherview.show();
 		} else {
-			preferences.addUserInHistory();
 			util.cleanDatastore(null, function() {
 				util.restartApp();
 			});
@@ -465,7 +464,8 @@ enyo.kind({
 			colorizedColor: icon.colorizedColor,
 			name: icon.getData().activity.name,
 			title: null,
-			action: null
+			action: enyo.bind(this, "joinActivity"),
+			data: [icon.getData(), null]
 		});
 		var items = [];
 		items.push({
@@ -490,6 +490,9 @@ enyo.kind({
 	},
 
 	// Join a shared activity
+	joinSharedActivity: function(icon) {
+		this.joinActivity(icon.data);
+	},
 	joinActivity: function(data) {
 		preferences.runActivity(
 			data.activity,
@@ -682,6 +685,7 @@ enyo.kind({
 					size: constant.sizeNeighbor,
 					colorized: true,
 					colorizedColor: currentActivity.colorvalue,
+					ontap: "joinSharedActivity",
 					popupShow: enyo.bind(this, "showActivityPopup"),
 					popupHide: enyo.bind(this, "hideActivityPopup"),
 					data: {shared: currentActivity, activity: activityInfo}

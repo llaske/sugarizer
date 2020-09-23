@@ -6,9 +6,9 @@ Sugarizer is initially based on the work done on Sugar Web by Daniel Narvaez and
 
 Lionel Laské have encapsulated this work to develop an engine that mimics Sugar features and give a way to run Sugar Web activities outside of Sugar with the Journal stored in the browser. It was the Sugarizer Core. Later, a GSoC student, Suraj Gillespie, added the presence part.
 
-Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
+Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze, Get Things Done, StopWatch). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
 
-* Paint, Memorize, Record and Calculate activities by  Michaël Ohayon
+* Paint, Memorize, Record, Calculate and Media Viewer activities by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
 * Chat, Markdown by Suraj Gillespie
@@ -20,12 +20,14 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Jappy by Sebastian Silva
 * Scratch by Emily Ong
 * Fototoon by Gonzalo Odiard
-* Game of Life by Sanatan Kumar
+* Game of Life, Pomodoro by Sanatan Kumar
+* Sprint Math by Mankirat Singh
 * Exerciser by Mankirat Singh and Avinash Agarwal
 * Write by Ashish Aggarval
-* Constellation by Andrea Gonzales
-* Pomodoro by Sanatan
-* Falabracman by Prakash Ujjwal 
+* Constellation, Planets by Andrea Gonzales
+* Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal
+* Fraction, Curriculum, Vote by Dhruv Misra
+* Implode by Sarthak Gupta
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
@@ -35,6 +37,6 @@ The Sugarizer OS version for Android was developped by Jeremie Amsellem and Mich
 
 Lot of students contributed to Sugarizer during GSoC and GCI.
 
-Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, Mankirat Singh, Prakash Ujjwal, Walter Bender, Alan Aguiar, Sanatan, Andrea Gonzales, matiasmartineeez, Batchu Venkat Vishal, Christoph Derndorfer, Aryan Mediratta, Piotr Antosz, vjrj, j-shubh, naofum, Samyok Nepal, Prabhu Pant, Dinesh Choudhary, Ibukunoluwa Fatoki, leonardcj, Michaël Ohayon, tradzik, Utkarsh Raj Singh, Bert Freudenberg, Martin Abente Lahaye, Ayush Lohani, Mohit Sharma, Nikolay Gospodinov, Sanchit Kapoor, sdziuda, ariessa, Sameer Kumar Satyadarshi, Ignacio Rodríguez, Eric Yoon, Paulo Francisco Slomp, lp1tek, Ethan Nelson-Moore, phorical, Michael Pu, Saurav Pratihar, Avinash Agarwal, Samson Goddy, Bastien, Rosa Anil George, Rajeev Ravindran, Sebastian Silva, Yashashvi Dave, Dave Crossland, Franco Correa, Mihir Shah, Jorge Alberto Gómez López, FreddieN, Harrison Katz, Kunal Mohta, Euan Ong, Anshuman Bhardwaj, ashish aggarwal, ccr4b and Suraj.
+Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Marcus Chong, ashish aggarwal, Kumar Saurabh Raj, Sashreek Magan, matiasmartineeez, Andrea Gonzales, Walter Bender, Sanatan, Sarthak gupta, Paulo Francisco Slomp, Prakash Ujjwal, Mankirat Singh, FreddieN, Mohit Sharma, Dhruv Misra, abhishektanwar, shikhargarg1812, Michaël Ohayon, Christoph Derndorfer-Medosch, superhakar, Uasked4dat, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, Nathan Dimmer, Batchu Venkat Vishal, lp1tek, Jorge Alberto Gómez López, Ayush Lohani, Utkarsh Raj Singh, Vanessa Freudenberg, Avinash Agarwal, AlastairM-E, tradzik, Bastien, est271, Sebastian Silva, phorical, Eric Yoon, sdziuda, ccr4b, Dinesh Choudhary, Ethan Nelson-Moore, Devakumar, Anshuman Bhardwaj, Sanchit Kapoor, Ignacio Rodríguez, Hemansh Khaneja, Rajeev Ravindran, Larissa Moura, Piotr Antosz, Sameer Kumar Satyadarshi, Shak2000, ariessa, j-shubh, Suraj, Aryan Mediratta, Alan Aguiar, Divyansh Tripathi, Franco Correa, Dave Crossland, naofum, Ibukunoluwa Fatoki, Harrison Katz, Michael Pu, Martin Abente Lahaye, Nikolay Gospodinov, Samyok Nepal, Rosa Anil George, Prabhu Pant, Samson Goddy, Saurav Pratihar, Yashashvi Dave, Mihir Shah, Euan Ong, leonardcj, vjrj and Kunal Mohta.
 
 Many thanks to all Sugarizer contributors in past, present and future.

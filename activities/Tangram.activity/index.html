@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Tangram Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/Game.css">
+	<link rel="stylesheet" href="css/Result.css">
+	<link rel="stylesheet" href="css/leaderboard.css">
+	<link rel="stylesheet" href="css/DatasetList.css">
+	<link rel="stylesheet" href="css/CategoryForm.css">
+	<link rel="stylesheet" href="css/SettingEditor.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<link rel="stylesheet" href="css/libnotify.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/confetti.browser.min.js"></script>
+	<script src="lib/konva.min.js"></script>
+	<script src="lib/vue-konva.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem
+				id="network-button"
+				v-bind:title="l10n.stringNetwork"
+				palette-file="sugar-web/graphics/presencepalette"
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="onActivityShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
+			<sugar-toolitem id="puzzle-category-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='' || currentScreen==='game' || currentScreen==='dataset-list' || currentScreen==='result'"
+				ref='categoryPalette'
+				v-bind:title="l10n.stringCategory"
+				palette-file="js/palettes/tangramCategoryPalette.js"
+				palette-class="TangramCategoryPalette"
+				palette-title="tangram Category"
+				palette-event="tangram-category-selected"
+				v-on:tangram-category-selected="onTangramCategorySelected"
+			></sugar-toolitem>
+			<sugar-toolitem id="random-play-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game' || currentScreen==='result'"
+				v-bind:class="{ active: tangramCategories[0]==='Random' }"
+				v-bind:title="l10n.stringRandom"
+				v-on:click="onRandom"
+			></sugar-toolitem>
+			<sugar-toolitem id="level-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game' || currentScreen==='result'"
+				v-bind:title="l10n.stringDifficultyLevel"
+				v-on:click="onDifficultySelected"
+				v-bind:style="{
+					backgroundImage: level ? `url(./icons/square-filled.svg)` : `url(./icons/square-outline.svg)`
+				}"
+			></sugar-toolitem>
+			<sugar-toolitem id="timer-button"
+				ref='timerPalette'
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game' || currentScreen==='result'"
+				v-bind:title="l10n.stringTimer"
+				palette-file="js/palettes/timerPalette.js"
+				palette-class="TimerPalette"
+				palette-title=" Timer"
+				palette-event="timer-selected"
+				v-on:timer-selected="onTimerSelected"
+			></sugar-toolitem>
+			<sugar-toolitem id="view-button"
+				v-bind:disabled="disabled"
+				v-show="currentScreen==='game' || currentScreen==='dataset-list'"
+			 	v-bind:title="l10n.stringView"
+				v-bind:style="{
+					backgroundImage: view==='play' ? `url(./icons/settings.svg)` : `url(./icons/play.svg)`
+				}"
+				v-on:click="onChangeView"
+			></sugar-toolitem>
+			<sugar-toolitem id="create-category-button"
+				v-bind:disabled="disabled"
+				v-show="(currentScreen==='dataset-list' && view==='setting')"
+				v-bind:title="l10n.stringNewCategory"
+				v-on:click="currentScreen='categoryForm'"
+			></sugar-toolitem>
+			<sugar-toolitem id="hint-button"
+				v-bind:disabled="disabled"
+				v-show="level && currentScreen=='game'"
+				v-bind:title="l10n.stringHint"
+				v-on:click="onHint"
+			></sugar-toolitem>
+
+
+			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+			<sugar-icon ref="SugarIcon"></sugar-icon>
+		</sugar-toolbar>
+
+		<img id="spinner" src="images/spinner-light.gif"/>
+
+		<transition name="fade" mode="out-in">
+			<component
+				v-bind:ref="currentScreen"
+				v-bind:is="currentScreen"
+				v-bind:time="clock.time"
+				v-bind:stroke-color="strokeColor"
+				v-bind:fill-color="fillColor"
+				v-bind:data-set-handler="DataSetHandler"
+				v-bind:puzzles="puzzles"
+				v-bind:p-no="pNo"
+				v-bind:show-hint="showHint"
+				v-bind:mode="mode"
+				v-bind:hint-number="hintNumber"
+				v-bind:no-of-hints-used="noOfHintsUsed"
+				v-bind:level="level"
+				v-bind:game-over="gameOver"
+				v-bind:time="clock.time"
+				v-bind:time-marks="timeMarks"
+				v-bind:user-response="userResponse"
+				v-bind:score="score"
+				v-bind:puzzle-to-be-edited="puzzleToBeEdited"
+				v-bind:category-to-be-edited="categoryToBeEdited"
+				v-bind:view="view"
+				v-bind:players-all="playersAll"
+				v-bind:players-playing="playersPlaying"
+				v-bind:disabled="disabled"
+				v-bind:multiplayer="multiplayer"
+				v-bind:l10n="l10n"
+				v-on:center-tangram="centerTangram"
+				v-on:config-changed="onConfigChanged"
+				v-on:update-tans-placed="onUpdateTansPlaced"
+				v-on:tangram-status="onTangramStatus"
+				v-on:pass-puzzle="handlePassButton"
+				v-on:restart-game="handleRestartButton"
+				v-on:go-to-setting-editor="goToSettingEditor"
+				v-on:go-to-dataset-list="goToDatasetList"
+				v-on:edit-category="onEditCategory"
+				v-on:change-category="onTangramCategorySelected"
+				v-on:edit-puzzle="onEditPuzzle"
+				v-on:save-puzzle="onSavePuzzle"
+				v-on:play-puzzle="onPlayPuzzle"
+				v-on:see-leaderboard="currentScreen = 'leaderboard'"
+				v-on:go-to-result="currentScreen = 'result'"
+			></component>
+		</transition>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<data-set-handler ref="DataSetHandler"></data-set-handler>
+	</div>
+
+	<script src="js/utils/intadjoinsqrt2.js"></script>
+	<script src="js/utils/helpers.js"></script>
+	<script src="js/utils/point.js"></script>
+	<script src="js/utils/directions.js"></script>
+	<script src="js/utils/lineSegement.js"></script>
+	<script src="js/utils/tan.js"></script>
+	<script src="js/utils/tangram.js"></script>
+	<script src="js/utils/evaluation.js"></script>
+	<script src="js/utils/generator.js"></script>
+	<script src="js/utils/standardTangrams.js"></script>
+	<script src="js/Leaderboard.js"></script>
+	<script src="js/Clock.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/Result.js"></script>
+	<script src="js/DatasetList.js"></script>
+	<script src="js/CategoryForm.js"></script>
+	<script src="js/SettingEditor.js"></script>
+	<script src="js/DataSetHandler.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>

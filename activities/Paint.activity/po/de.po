@@ -1,32 +1,222 @@
 #. extracted from ../translate.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:21:28 GMT+0100 (CET)\n"
-"PO-Revision-Date: 2019-11-30 18:35+0000\n"
-"Last-Translator: Christoph Derndorfer <christoph@derndorfer.eu>\n"
-"Language-Team: German <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-paint/de/>\n"
-"Language: de\n"
+"POT-Creation-Date: Sun Sep 06 2020 21:07:48 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
-#: label
-#, fuzzy
-msgctxt "label"
-msgid "Label"
-msgstr "Beschriftung"
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} joined"
 
-#: calcul
-msgctxt "calcul"
-msgid "Calculation"
-msgstr "Berechnung"
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} left"
 
-#: clear
-msgctxt "clear"
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Paint Activity"
+msgstr "Paint Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
+msgstr "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Network"
+msgstr "Network"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Click here to share your work with other users on the network"
+msgstr "Click here to share your work with other users on the network"
+
+#: TutoColorsButtonFillTitle
+msgctxt "TutoColorsButtonFillTitle"
+msgid "Pen color"
+msgstr "Pen color"
+
+#: TutoColorsButtonFillContent
+msgctxt "TutoColorsButtonFillContent"
+msgid "Click here to choose pen color"
+msgstr "Click here to choose pen color"
+
+#: TutoColorsButtonStrokeTitle
+msgctxt "TutoColorsButtonStrokeTitle"
+msgid "Border color"
+msgstr "Border color"
+
+#: TutoColorsButtonStrokeContent
+msgctxt "TutoColorsButtonStrokeContent"
+msgid "Click here to choose border color"
+msgstr "Click here to choose border color"
+
+#: TutoUndoTitle
+msgctxt "TutoUndoTitle"
+msgid "Undo"
+msgstr "Undo"
+
+#: TutoUndoContent
+msgctxt "TutoUndoContent"
+msgid "Click here to undo previous actions"
+msgstr "Click here to undo previous actions"
+
+#: TutoRedoTitle
+msgctxt "TutoRedoTitle"
+msgid "Redo"
+msgstr "Redo"
+
+#: TutoRedoContent
+msgctxt "TutoRedoContent"
+msgid "Click here to redo previous actions"
+msgstr "Click here to redo previous actions"
+
+#: TutoSizeTitle
+msgctxt "TutoSizeTitle"
+msgid "Size"
+msgstr "Size"
+
+#: TutoSizeContent
+msgctxt "TutoSizeContent"
+msgid "Click here to select brush size. Each click increase the brush size until the maximum size"
+msgstr "Click here to select brush size. Each click increase the brush size until the maximum size"
+
+#: TutoPenTitle
+msgctxt "TutoPenTitle"
+msgid "Pen mode"
+msgstr "Pen mode"
+
+#: TutoPenContent
+msgctxt "TutoPenContent"
+msgid "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
+msgstr "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
+
+#: TutoEraserTitle
+msgctxt "TutoEraserTitle"
+msgid "Eraser mode"
+msgstr "Eraser mode"
+
+#: TutoEraserContent
+msgctxt "TutoEraserContent"
+msgid "Click here to select eraser mode. In eraser mode everything under your pen is erased"
+msgstr "Click here to select eraser mode. In eraser mode everything under your pen is erased"
+
+#: TutoStampsTitle
+msgctxt "TutoStampsTitle"
+msgid "Stamps mode"
+msgstr "Stamps mode"
+
+#: TutoStampsContent
+msgctxt "TutoStampsContent"
+msgid "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
+msgstr "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
+
+#: TutoTextTitle
+msgctxt "TutoTextTitle"
+msgid "Text mode"
+msgstr "Text mode"
+
+#: TutoTextContent
+msgctxt "TutoTextContent"
+msgid "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
+msgstr "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
+
+#: TutoInsertimageTitle
+msgctxt "TutoInsertimageTitle"
+msgid "Insert image"
+msgstr "Insert image"
+
+#: TutoInsertimageContent
+msgctxt "TutoInsertimageContent"
+msgid "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
+msgstr "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
+
+#: TutoDrawingsTitle
+msgctxt "TutoDrawingsTitle"
+msgid "Drawings"
+msgstr "Drawings"
+
+#: TutoDrawingsContent
+msgctxt "TutoDrawingsContent"
+msgid "Click here to select a background from preset drawings that you could fill like in a colouring book"
+msgstr "Click here to select a background from preset drawings that you could fill like in a colouring book"
+
+#: TutoBucketTitle
+msgctxt "TutoBucketTitle"
+msgid "Bucket"
+msgstr "Bucket"
+
+#: TutoBucketContent
+msgctxt "TutoBucketContent"
+msgid "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
+msgstr "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
+
+#: TutoFiltersTitle
+msgctxt "TutoFiltersTitle"
+msgid "Filters"
+msgstr "Filters"
+
+#: TutoFiltersContent
+msgctxt "TutoFiltersContent"
+msgid "Click here to choose a filter to change your image appearance"
+msgstr "Click here to choose a filter to change your image appearance"
+
+#: TutoCopyTitle
+msgctxt "TutoCopyTitle"
+msgid "Copy"
+msgstr "Copy"
+
+#: TutoCopyContent
+msgctxt "TutoCopyContent"
+msgid "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
+msgstr "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
+
+#: TutoPasteTitle
+msgctxt "TutoPasteTitle"
+msgid "Paste"
+msgstr "Paste"
+
+#: TutoPasteContent
+msgctxt "TutoPasteContent"
+msgid "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
+msgstr "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
 msgid "Clear"
 msgstr "Löschen"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
+msgstr "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
+

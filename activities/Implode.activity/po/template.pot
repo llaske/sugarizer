@@ -1,0 +1,140 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun May 17 2020 22:23:49 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: NewGame
+msgctxt "NewGame"
+msgid "New game"
+msgstr ""
+
+#: Replay
+msgctxt "Replay"
+msgid "Replay"
+msgstr ""
+
+#: Undo
+msgctxt "Undo"
+msgid "Undo"
+msgstr ""
+
+#: Redo
+msgctxt "Redo"
+msgid "Redo"
+msgstr ""
+
+#: Easy
+msgctxt "Easy"
+msgid "Easy"
+msgstr ""
+
+#: Medium
+msgctxt "Medium"
+msgid "Medium"
+msgstr ""
+
+#: Hard
+msgctxt "Hard"
+msgid "Hard"
+msgstr ""
+
+#: Continue
+msgctxt "Continue"
+msgid "Continue"
+msgstr ""
+
+#: StuckMessage
+msgctxt "StuckMessage"
+msgid "Stuck? You can still solve the puzzle by undo some moves"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Implode Activity"
+msgstr ""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Implode activity. Implode is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more"
+msgstr ""
+
+#: HowToPlayTitle
+msgctxt "HowToPlayTitle"
+msgid "How to play"
+msgstr ""
+
+#: HowToPlayContent
+msgctxt "HowToPlayContent"
+msgid "The game starts up with a field of blocks.Using the mouse pointer, or keyboard keys, click on a block that is in a group of three or more of the same color (clickable groups highlight as you pass the mouse cursor over them). Clicking(double tap for touchscreen) on a group removes it and compacts the playing field. To win the game, remove all blocks on the board: there is always a solution to win!"
+msgstr ""
+
+#: NewGameContent
+msgctxt "NewGameContent"
+msgid "Click this button to try a different puzzle"
+msgstr ""
+
+#: ReplayContent
+msgctxt "ReplayContent"
+msgid "Click this button to try the puzzle again from the beginning"
+msgstr ""
+
+#: UndoContent
+msgctxt "UndoContent"
+msgid "Click this button to undo some moves so that you can try again"
+msgstr ""
+
+#: RedoContent
+msgctxt "RedoContent"
+msgid "Click this button to redo some moves"
+msgstr ""
+
+#: KeyboardKeysTitle
+msgctxt "KeyboardKeysTitle"
+msgid "Keyboard keys"
+msgstr ""
+
+#: KeyboardKeysContent
+msgctxt "KeyboardKeysContent"
+msgid "For moving up: w/keypad 8/up arrow key <br> For moving down: s/keypad 2/down arrow key <br> For moving left: a/keypad 4/left arrow key <br> For moving right: d/keypad 6/right arrow key <br> For selecting: enter/space/end/keypad 1/q <br> For new game: Home <br> For easy/medium/hard: 1/2/3 respectively <br> For undo: PgUp <br> For redo: PgDn"
+msgstr ""
+
+#: EasyContent
+msgctxt "EasyContent"
+msgid "In this mode, maximum board size is 8x6 (i.e 8 columns and 6 rows)"
+msgstr ""
+
+#: MediumContent
+msgctxt "MediumContent"
+msgid "In this mode, maximum board size is 12x10 (i.e 12 columns and 10 rows)"
+msgstr ""
+
+#: HardContent
+msgctxt "HardContent"
+msgid "In this mode, maximum board size is 20x15 (i.e 20 columns and 15 rows)"
+msgstr ""
+

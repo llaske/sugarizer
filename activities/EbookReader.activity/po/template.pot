@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Jul 26 2018 21:40:19 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sun Sep 06 2020 16:57:01 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,11 @@ msgstr ""
 #: Library
 msgctxt "Library"
 msgid "Library"
+msgstr ""
+
+#: Contents
+msgctxt "Contents"
+msgid "Contents"
 msgstr ""
 
 #: Settings
@@ -106,6 +111,16 @@ msgstr ""
 #: TutoLibraryButtonContent
 msgctxt "TutoLibraryButtonContent"
 msgid "Click on this icon to switch between library and reading view."
+msgstr ""
+
+#: TutoContentsButtonTitle
+msgctxt "TutoContentsButtonTitle"
+msgid "Contents"
+msgstr ""
+
+#: TutoContentsButtonContent
+msgctxt "TutoContentsButtonContent"
+msgid "Click on this icon to navigate to the table of contents."
 msgstr ""
 
 #: TutoSettingsButtonTitle

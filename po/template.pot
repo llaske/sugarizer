@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:42:57 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1457,6 +1457,11 @@ msgctxt "TutoActivityChatPrototypeactivity"
 msgid "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation."
 msgstr ""
 
+#: TutoActivityChessactivity
+msgctxt "TutoActivityChessactivity"
+msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr ""
+
 #: TutoActivityClockactivity
 msgctxt "TutoActivityClockactivity"
 msgid "Clock is a simple activity to learn how to read and tell the time."
@@ -1480,6 +1485,11 @@ msgstr ""
 #: TutoActivityExerciseractivity
 msgctxt "TutoActivityExerciseractivity"
 msgid "Exerciser is a tool to create your set of interactive questions (MCQ, Cloze Text, ...) and share it with your friends."
+msgstr ""
+
+#: TutoActivityFalabracmanactivity
+msgctxt "TutoActivityFalabracmanactivity"
+msgid "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
 msgstr ""
 
 #: TutoActivityFlipactivity
@@ -1552,6 +1562,11 @@ msgctxt "TutoActivityMemorizeactivity"
 msgid "The famous memorize game: find matching pairs (images, sounds or text). Memorize is actually more than just a predefined game you can play, it allows you to create new games yourself as well."
 msgstr ""
 
+#: TutoActivityMindMathactivity
+msgctxt "TutoActivityMindMathactivity"
+msgid "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
+msgstr ""
+
 #: TutoActivityMoonactivity
 msgctxt "TutoActivityMoonactivity"
 msgid "Moon phase viewer, includes Lunar phase information and eclipse data."
@@ -1612,6 +1627,11 @@ msgctxt "TutoActivityTamTamMicroactivity"
 msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type."
 msgstr ""
 
+#: TutoActivityTangramactivity
+msgctxt "TutoActivityTangramactivity"
+msgid "Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
+msgstr ""
+
 #: TutoActivityTankOpactivity
 msgctxt "TutoActivityTankOpactivity"
 msgid "Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty."
@@ -1640,6 +1660,11 @@ msgstr ""
 #: TutoActivityConstellationactivity
 msgctxt "TutoActivityConstellationactivity"
 msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr ""
+
+#: TutoActivityFractionBounceactivity
+msgctxt "TutoActivityFractionBounceactivity"
+msgid "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
 msgstr ""
 
 #: NotConnected
@@ -1690,5 +1715,42 @@ msgstr ""
 #: YouveGotDisconnectedAutomatically
 msgctxt "YouveGotDisconnectedAutomatically"
 msgid "You've been disconnected by another device"
+msgstr ""
+
+#: TutoActivityImplodeactivity
+msgctxt "TutoActivityImplodeactivity"
+msgid "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
+msgstr ""
+
+#: Duplicate
+msgctxt "Duplicate"
+msgid "Duplicate"
+msgstr ""
+
+#. Do not translate {{count}}
+#: Duplicate_one
+msgctxt "Duplicate_one"
+msgid "Do you want to duplicate {{count}} entry?"
+msgstr ""
+
+#. Do not translate {{count}}
+#: Duplicate_other
+msgctxt "Duplicate_other"
+msgid "Do you want to duplicate {{count}} entries?"
+msgstr ""
+
+#: TutoActivityCurriculumactivity
+msgctxt "TutoActivityCurriculumactivity"
+msgid "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgstr ""
+
+#: TutoActivityVoteactivity
+msgctxt "TutoActivityVoteactivity"
+msgid "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
+msgstr ""
+
+#: TutoActivityPlanetsactivity
+msgctxt "TutoActivityPlanetsactivity"
+msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
 msgstr ""
 

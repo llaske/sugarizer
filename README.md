@@ -2,11 +2,11 @@
 
 # What is Sugarizer ?
 
-Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used every day by more than 2 million children around the world.
+Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
-Sugarizer runs on every device: from Raspberry Pi computers to Android and iOS phones to tablets and to laptops and desktops.
+Sugarizer runs on every device: laptops, desktops, tiny computers, tablets or smartphones.
 
-Sugarizer includes a bunch of pedagogic activities thought for children, see [here](https://sugarizer.org) for more.
+Sugarizer includes a large set of pedagogic activities thought for children, see [here](https://sugarizer.org/activities.html) for a full list.
 
 Sugarizer is available as:
 
@@ -39,6 +39,7 @@ The Sugarizer desktop application has three possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
 * `--debug` to open Sugarizer with the debug console
+* `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
@@ -111,12 +112,12 @@ If you're a developer and you want to learn more about Sugarizer architecture, s
 
 # Activities distribution
 
-All activities could be found in the [activities](../activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](../activities/Abecedarium.activity)
+All activities could be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
-To do that, you first need to adapt the content of the [activities](../activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
+To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
-Then you need to update the [activities.json](../activities.json) file to reflect your choice.
+Then you need to update the [activities.json](activities.json) file to reflect your choice.
 Here an example of this file:
 
 	[
@@ -161,8 +162,8 @@ Remove in this file rows for activities that you want to remove. Add in this fil
 
 Note than:
 
-1. The [activities/ActivityTemplate](../activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
-2. The [activities.json](../activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](../activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
+1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
+2. The [activities.json](activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
 
 # Create your own activity
 
@@ -236,15 +237,14 @@ The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized v
 
 Then install specific component for Sugarizer by running:
 
-	npm install --dev
+	npm install --only=dev
 
 Finally launch:
 
 	grunt -v
 
-At the end of the process, the `build` directory will contain the optimized version of each file in a same directory that the initial one, so you could just copy files:
+At the end of the process, all JavaScript files in all directories have been replaced by an optimized version.
 
-	cp -r build/* .
 
 # Localization
 
@@ -282,7 +282,7 @@ Sugarizer settings display a list of all available languages. You need to add yo
 
 		French=Français
 
-* Add your string in the [js/dialog.js](dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
+* Add your string in the [js/dialog.js](js/dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
 
 		{code: "fr", icon: null, name: l10n.get("French")},
 

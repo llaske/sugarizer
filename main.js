@@ -18,6 +18,7 @@ var mainWindow = null;
 var debug = false;
 var frameless = true;
 var reinit = false;
+var logoff = false;
 
 
 // Localization features
@@ -96,6 +97,8 @@ function createWindow () {
 			frameless = false;
 		} else if (process.argv[i] == '--init') {
 			reinit = true;
+		} else if (process.argv[i] == '--logoff') {
+			logoff = true;
 		}
 	}
 
@@ -118,7 +121,7 @@ function createWindow () {
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':''));
+	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}
@@ -145,7 +148,9 @@ function createWindow () {
 				};
 				dialogSettings.title = l10n.get("SaveFile");
 				dialogSettings.buttonLabel = l10n.get("Save");
-				dialog.showSaveDialog(dialogSettings, saveFunction);
+				dialog.showSaveDialog(dialogSettings).then(function(result) {
+					saveFunction(result.filePath);
+				});
 			} else {
 				// Save in the directory provided
 				saveFunction(path.join(arg.directory,arg.filename));
@@ -157,7 +162,8 @@ function createWindow () {
 			};
 			dialogSettings.title = l10n.get("ChooseDirectory");
 			dialogSettings.buttonLabel = l10n.get("Choose");
-			dialog.showOpenDialog(dialogSettings, function(files) {
+			dialog.showOpenDialog(dialogSettings).then(function(result) {
+				var files = result.filePaths;
 				if (files && files.length > 0) {
 					event.sender.send('choose-directory-reply', files[0]);
 				}
@@ -173,7 +179,8 @@ function createWindow () {
 			dialogSettings.title = l10n.get("ChooseFiles");
 			dialogSettings.buttonLabel = l10n.get("Choose");
 			dialogSettings.filters[0].name = l10n.get("FilesSupported");
-			dialog.showOpenDialog(dialogSettings, function(files) {
+			dialog.showOpenDialog(dialogSettings).then(function(result) {
+				var files = result.filePaths;
 				if (files && files.length > 0) {
 					for (var i = 0 ; i < files.length ; i++) {
 						LoadFile(event, files[i]);

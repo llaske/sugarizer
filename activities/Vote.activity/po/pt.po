@@ -1,0 +1,605 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Sep 02 2020 21:46:02 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "Segundos atrás"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} atrás"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minuto"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutos"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "hora"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "horas"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "dia"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "dias"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "semana"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "semanas"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "mês"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "meses"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "ano"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "anos"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "A qualquer momento"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Hoje"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Desde ontem"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "Semana passada"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "Mês passado"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "Ano passado"
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr "{{name}} ingressou"
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr "{{name}} saiu"
+
+#: NetworkError
+msgctxt "NetworkError"
+msgid "Network not available"
+msgstr "Network not available"
+
+#: Home
+msgctxt "Home"
+msgid "Home"
+msgstr "Home"
+
+#: Search
+msgctxt "Search"
+msgid "Search"
+msgstr "Search"
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr "Settings"
+
+#: Add
+msgctxt "Add"
+msgid "Add"
+msgstr "Add"
+
+#: RealTimeResults
+msgctxt "RealTimeResults"
+msgid "Real Time Results"
+msgstr "Real Time Results"
+
+#: AutoStop
+msgctxt "AutoStop"
+msgid "Automatic Stop"
+msgstr "Automatic Stop"
+
+#: History
+msgctxt "History"
+msgid "History"
+msgstr "History"
+
+#: DeletePoll
+msgctxt "DeletePoll"
+msgid "Delete poll"
+msgstr "Delete poll"
+
+#: Export
+msgctxt "Export"
+msgid "Export"
+msgstr "Export"
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr "Unfullscreen"
+
+#: WaitingHost
+msgctxt "WaitingHost"
+msgid "Host has left. Waiting for host to connect back"
+msgstr "Host has left. Waiting for host to connect back"
+
+#: WaitingPoll
+msgctxt "WaitingPoll"
+msgid "Waiting for poll"
+msgstr "Waiting for poll"
+
+#: WaitingResults
+msgctxt "WaitingResults"
+msgid "Waiting for results"
+msgstr "Waiting for results"
+
+#: WaitingVotes
+msgctxt "WaitingVotes"
+msgid "Waiting for votes"
+msgstr "Waiting for votes"
+
+#: YesNo
+msgctxt "YesNo"
+msgid "Yes/No"
+msgstr "Yes/No"
+
+#: Rating
+msgctxt "Rating"
+msgid "Rating"
+msgstr "Rating"
+
+#: MCQ
+msgctxt "MCQ"
+msgid "MCQ"
+msgstr "MCQ"
+
+#: Text
+msgctxt "Text"
+msgid "Text"
+msgstr "Text"
+
+#: ImageMCQ
+msgctxt "ImageMCQ"
+msgid "Image MCQ"
+msgstr "Image MCQ"
+
+#: Users
+msgctxt "Users"
+msgid "Users"
+msgstr "Users"
+
+#: Votes
+msgctxt "Votes"
+msgid "Votes"
+msgstr "Votes"
+
+#: Voted
+msgctxt "Voted"
+msgid "Voted"
+msgstr "Voted"
+
+#: AvgRating
+msgctxt "AvgRating"
+msgid "Average Rating"
+msgstr "Average Rating"
+
+#: Date
+msgctxt "Date"
+msgid "Date"
+msgstr "Date"
+
+#: Yes
+msgctxt "Yes"
+msgid "Yes"
+msgstr "Yes"
+
+#: No
+msgctxt "No"
+msgid "No"
+msgstr "No"
+
+#. Do not translate {{ format }}
+#: ExportTo
+msgctxt "ExportTo"
+msgid "Export to {{ format }} complete"
+msgstr "Export to {{ format }} complete"
+
+#. Do not translate {{ userName }}
+#: ExportFileName
+msgctxt "ExportFileName"
+msgid "Vote by {{ userName }}"
+msgstr "Vote by {{ userName }}"
+
+#: DefaultPollYesNo
+msgctxt "DefaultPollYesNo"
+msgid "Do you agree?"
+msgstr "Do you agree?"
+
+#: DefaultPollRating
+msgctxt "DefaultPollRating"
+msgid "What is your evaluation?"
+msgstr "What is your evaluation?"
+
+#: DefaultPollMCQ
+msgctxt "DefaultPollMCQ"
+msgid "Which activity should we do?"
+msgstr "Which activity should we do?"
+
+#: DefaultPollMCQOption0
+msgctxt "DefaultPollMCQOption0"
+msgid "Math"
+msgstr "Math"
+
+#: DefaultPollMCQOption1
+msgctxt "DefaultPollMCQOption1"
+msgid "Reading"
+msgstr "Reading"
+
+#: DefaultPollMCQOption2
+msgctxt "DefaultPollMCQOption2"
+msgid "Writing"
+msgstr "Writing"
+
+#: DefaultPollMCQOption3
+msgctxt "DefaultPollMCQOption3"
+msgid "Drawing"
+msgstr "Drawing"
+
+#: DefaultPollMCQOption4
+msgctxt "DefaultPollMCQOption4"
+msgid "Programming"
+msgstr "Programming"
+
+#: DefaultPollMCQOption5
+msgctxt "DefaultPollMCQOption5"
+msgid "Sport"
+msgstr "Sport"
+
+#: DefaultPollMCQOption6
+msgctxt "DefaultPollMCQOption6"
+msgid "Game"
+msgstr "Game"
+
+#: DefaultPollText
+msgctxt "DefaultPollText"
+msgid "What is your current feeling?"
+msgstr "What is your current feeling?"
+
+#: DefaultPollImageMCQ
+msgctxt "DefaultPollImageMCQ"
+msgid "Which is your favorite animal?"
+msgstr "Which is your favorite animal?"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoSettingsPollCardTitle
+msgctxt "TutoSettingsPollCardTitle"
+msgid "Settings Poll"
+msgstr "Settings Poll"
+
+#: TutoSettingsPollCardContent
+msgctxt "TutoSettingsPollCardContent"
+msgid "You can drag the poll to reorder it"
+msgstr "You can drag the poll to reorder it"
+
+#: TutoSettingsEditButtonTitle
+msgctxt "TutoSettingsEditButtonTitle"
+msgid "Edit Button"
+msgstr "Edit Button"
+
+#: TutoSettingsEditButtonContent
+msgctxt "TutoSettingsEditButtonContent"
+msgid "This will open the edit view for this poll. You can edit the type, question (also options in MCQ and Image-MCQ) or the poll image"
+msgstr "This will open the edit view for this poll. You can edit the type, question (also options in MCQ and Image-MCQ) or the poll image"
+
+#: TutoSettingsDeleteButtonTitle
+msgctxt "TutoSettingsDeleteButtonTitle"
+msgid "Delete Button"
+msgstr "Delete Button"
+
+#: TutoSettingsDeleteButtonContent
+msgctxt "TutoSettingsDeleteButtonContent"
+msgid "This will delete the poll"
+msgstr "This will delete the poll"
+
+#: TutoSettingsPlayButtonTitle
+msgctxt "TutoSettingsPlayButtonTitle"
+msgid "Play Button"
+msgstr "Play Button"
+
+#: TutoSettingsPlayButtonContent
+msgctxt "TutoSettingsPlayButtonContent"
+msgid "This button will turn the settings mode off and let you start a poll"
+msgstr "This button will turn the settings mode off and let you start a poll"
+
+#: TutoSettingsAddButtonTitle
+msgctxt "TutoSettingsAddButtonTitle"
+msgid "Add Button"
+msgstr "Add Button"
+
+#: TutoSettingsAddButtonContent
+msgctxt "TutoSettingsAddButtonContent"
+msgid "This is used to add a new poll"
+msgstr "This is used to add a new poll"
+
+#: TutoSettingsImageEditButtonTitle
+msgctxt "TutoSettingsImageEditButtonTitle"
+msgid "Edit Image"
+msgstr "Edit Image"
+
+#: TutoSettingsImageEditButtonContent
+msgctxt "TutoSettingsImageEditButtonContent"
+msgid "You can change the display image of the poll to an image in Journal. To get back the original image, click the delete button next to this button"
+msgstr "You can change the display image of the poll to an image in Journal. To get back the original image, click the delete button next to this button"
+
+#: TutoSettingsQuestionTitle
+msgctxt "TutoSettingsQuestionTitle"
+msgid "Question"
+msgstr "Question"
+
+#: TutoSettingsQuestionContent
+msgctxt "TutoSettingsQuestionContent"
+msgid "This is the question for you poll"
+msgstr "This is the question for you poll"
+
+#: TutoSettingsTypeTitle
+msgctxt "TutoSettingsTypeTitle"
+msgid "Type"
+msgstr "Type"
+
+#: TutoSettingsTypeContent
+msgctxt "TutoSettingsTypeContent"
+msgid "This is the type of the poll"
+msgstr "This is the type of the poll"
+
+#: TutoSettingsAddOptionButtonTitle
+msgctxt "TutoSettingsAddOptionButtonTitle"
+msgid "Add Option"
+msgstr "Add Option"
+
+#: TutoSettingsAddOptionButtonContent
+msgctxt "TutoSettingsAddOptionButtonContent"
+msgid "This will add an option to your poll"
+msgstr "This will add an option to your poll"
+
+#: TutoSettingsOptionTitle
+msgctxt "TutoSettingsOptionTitle"
+msgid "Option"
+msgstr "Option"
+
+#: TutoSettingsOptionContent
+msgctxt "TutoSettingsOptionContent"
+msgid "This is an option. You can drag to reorder it or click the cross icon to delete it"
+msgstr "This is an option. You can drag to reorder it or click the cross icon to delete it"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Vote Activity"
+msgstr "Vote Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Vote activity. This activity will allow easy creation of a poll system. The user can create a poll (Yes/No, Rating, MCQ, Text, Image-MCQ) and then share it on the network so any user could vote in real-time. After ending it, the stats of the poll can be viewed and exported to different formats"
+msgstr "Welcome to the Vote activity. This activity will allow easy creation of a poll system. The user can create a poll (Yes/No, Rating, MCQ, Text, Image-MCQ) and then share it on the network so any user could vote in real-time. After ending it, the stats of the poll can be viewed and exported to different formats"
+
+#: TutoPollCardTitle
+msgctxt "TutoPollCardTitle"
+msgid "Poll"
+msgstr "Poll"
+
+#: TutoPollCardContent
+msgctxt "TutoPollCardContent"
+msgid "This is a poll with a type and a question. Click on this to automatically share the activity and start the poll"
+msgstr "This is a poll with a type and a question. Click on this to automatically share the activity and start the poll"
+
+#: TutoPollSearchTitle
+msgctxt "TutoPollSearchTitle"
+msgid "Search Poll"
+msgstr "Search Poll"
+
+#: TutoPollSearchContent
+msgctxt "TutoPollSearchContent"
+msgid "You can search for a poll by its question here"
+msgstr "You can search for a poll by its question here"
+
+#: TutoSettingsButtonTitle
+msgctxt "TutoSettingsButtonTitle"
+msgid "Settings Button"
+msgstr "Settings Button"
+
+#: TutoSettingsButtonContent
+msgctxt "TutoSettingsButtonContent"
+msgid "This button opens the settings mode. Here you can add, edit or delete a poll"
+msgstr "This button opens the settings mode. Here you can add, edit or delete a poll"
+
+#: TutoHistoryButtonTitle
+msgctxt "TutoHistoryButtonTitle"
+msgid "History Button"
+msgstr "History Button"
+
+#: TutoHistoryButtonContent
+msgctxt "TutoHistoryButtonContent"
+msgid "This will open the history of previously completed polls. You can view the stats and export them to a suitable format"
+msgstr "This will open the history of previously completed polls. You can view the stats and export them to a suitable format"
+
+#: TutoNetworkButtonTitle
+msgctxt "TutoNetworkButtonTitle"
+msgid "Network Button"
+msgstr "Network Button"
+
+#: TutoNetworkButtonContent
+msgctxt "TutoNetworkButtonContent"
+msgid "This button will share the activity and other users can then join and vote in any poll you start"
+msgstr "This button will share the activity and other users can then join and vote in any poll you start"
+
+#: TutoHistoryItemTitle
+msgctxt "TutoHistoryItemTitle"
+msgid "Stats History"
+msgstr "Stats History"
+
+#: TutoHistoryItemContent
+msgctxt "TutoHistoryItemContent"
+msgid "This shows the brief information about a completed poll. Click on it to view all the stats or to delete it"
+msgstr "This shows the brief information about a completed poll. Click on it to view all the stats or to delete it"
+
+#: TutoHomeButtonTitle
+msgctxt "TutoHomeButtonTitle"
+msgid "Home Button"
+msgstr "Home Button"
+
+#: TutoHomeButtonContent
+msgctxt "TutoHomeButtonContent"
+msgid "Click here to go back to poll templates grid"
+msgstr "Click here to go back to poll templates grid"
+
+#: TutoExportButtonTitle
+msgctxt "TutoExportButtonTitle"
+msgid "Export Palette"
+msgstr "Export Palette"
+
+#: TutoExportButtonContent
+msgctxt "TutoExportButtonContent"
+msgid "This palette can be used to export a report of all completed polls in TXT, PDF, DOC or ODT formats"
+msgstr "This palette can be used to export a report of all completed polls in TXT, PDF, DOC or ODT formats"
+
+#: TutoDeleteButtonTitle
+msgctxt "TutoDeleteButtonTitle"
+msgid "Delete History"
+msgstr "Delete History"
+
+#: TutoDeleteButtonContent
+msgctxt "TutoDeleteButtonContent"
+msgid "This button will delete this poll's information from history"
+msgstr "This button will delete this poll's information from history"
+
+#: TutoPollStatsTitle
+msgctxt "TutoPollStatsTitle"
+msgid "Poll Stats"
+msgstr "Poll Stats"
+
+#: TutoPollStatsContent
+msgctxt "TutoPollStatsContent"
+msgid "This is the chart for the poll which will update in real-time"
+msgstr "This is the chart for the poll which will update in real-time"
+
+#: TutoPollFooterTitle
+msgctxt "TutoPollFooterTitle"
+msgid "Poll Footer"
+msgstr "Poll Footer"
+
+#: TutoPollFooterContent
+msgctxt "TutoPollFooterContent"
+msgid "This shows the buddy icons of all connected users with the count of how many have voted. It also shows whether a user has voted or has raised his/her hand"
+msgstr "This shows the buddy icons of all connected users with the count of how many have voted. It also shows whether a user has voted or has raised his/her hand"
+
+#: TutoStopPollTitle
+msgctxt "TutoStopPollTitle"
+msgid "Stop Poll"
+msgstr "Stop Poll"
+
+#: TutoStopPollContent
+msgctxt "TutoStopPollContent"
+msgid "Click on this button to stop the poll and save the stats"
+msgstr "Click on this button to stop the poll and save the stats"
+
+#: TutoRealTimeButtonTitle
+msgctxt "TutoRealTimeButtonTitle"
+msgid "Real-time Results"
+msgstr "Real-time Results"
+
+#: TutoRealTimeButtonContent
+msgctxt "TutoRealTimeButtonContent"
+msgid "This button will switch the real-time results option. If it is enabled, results of the poll will be shown to the connected user right after they have voted in real-time"
+msgstr "This button will switch the real-time results option. If it is enabled, results of the poll will be shown to the connected user right after they have voted in real-time"
+
+#: TutoAutoStopButtonTitle
+msgctxt "TutoAutoStopButtonTitle"
+msgid "Auto-stop Poll"
+msgstr "Auto-stop Poll"
+
+#: TutoAutoStopButtonContent
+msgctxt "TutoAutoStopButtonContent"
+msgid "This button will switch the auto-stop poll option. If it is enabled, the poll will stop automatically after all the connected users have voted"
+msgstr "This button will switch the auto-stop poll option. If it is enabled, the poll will stop automatically after all the connected users have voted"
+

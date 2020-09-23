@@ -1,0 +1,407 @@
+button:disabled {
+	opacity: 0.3 !important;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: url(../images/grass_background.png);
+	background-size: cover;
+	background-position: center;
+}
+
+p {
+	margin: 0.6em 0;
+}
+
+#app {
+	min-height: 100%;
+}
+
+#main-toolbar .splitbar {
+	border-right: 1.5px solid #565656;
+	margin: 7.5px 5px;
+	height: 40px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#main-toolbar.toolbar {
+	padding: 0 2%;
+	overflow: hidden;
+}
+
+#main-toolbar.hidden {
+	height: 0;
+	overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+.helpText {
+	display: inline-block;
+	position: relative;
+	color: white;
+	transform: translateY(-100%);
+	vertical-align: bottom;
+}
+
+@media only screen and (max-width: 1040px) {
+	.helpText {
+		display: none;
+	}
+}
+@media only screen and (max-width: 646px) {
+	#help-button {
+		display: none;
+	}
+	#fullscreen-button {
+		display: none;
+	}
+}
+@media only screen and (max-width: 540px) {
+	#percents-button {
+		display: none;
+	}
+	#sectors-button {
+		display: none;
+	}
+	#fractions-button {
+		display: none;
+	}
+	#main-toolbar .splitbar {
+		display: none;
+	}
+}
+@media only screen and (max-width: 340px) {
+	#bg-button {
+		display: none;
+	}
+}
+
+#content {
+	position: relative;
+}
+
+.log {
+	position: absolute;
+	z-index: 1;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+}
+.log ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.log img {
+	z-index: inherit;
+}
+
+#mainCanvas {
+	position: fixed;
+	box-sizing: border-box;
+	border: solid 1px black;
+	/* background: url(../images/grass_background.png); */
+	background: transparent;
+	background-size: cover;
+	z-index: 2;
+}
+
+#slopeCanvas {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background: transparent;
+	z-index: 2;
+}
+
+.settings {
+	display: flex;
+	justify-content: center;
+	font-size: 2em;
+	padding: 10px;
+}
+.palette {
+	z-index: 10;
+}
+.palette .wrapper {
+	max-width: fit-content;
+}
+.settings input {
+	width: 50px;
+	margin: 0 20px;
+	padding: 4px;
+	line-height: 22px;
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+	border-radius: 22px;
+	outline: 0;
+}
+/* Chrome, Safari, Edge, Opera */
+.settings input::-webkit-outer-spin-button,
+.settings input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.settings input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.settings #add-button {
+	background: url(../icons/add.svg);
+	background-size: cover;
+	background-position: center;
+	border: none;
+	border-radius: 0;
+	width: 40px;
+	margin-left: 0;
+	margin-right: 30px;
+	padding: 0;
+}
+
+.ball-select {
+	/* padding: 10px; */
+	width: fit-content;
+	text-align: center;
+}
+.ball-select button {
+	border: none;
+	border-radius: 0;
+}
+.ball-select-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	background: transparent;
+	width: 90%;
+}
+.ball-select-item img {
+	width: 40px;
+	margin: 10px;
+}
+.ball-select-item div {
+	margin: 0 10px;
+}
+
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
+}
+
+#main-toolbar #fractions-button {
+	background-image: url(../icons/fraction.svg);
+	outline: none;
+}
+
+#main-toolbar #sectors-button {
+	background-image: url(../icons/sector.svg);
+	outline: none;
+}
+
+#main-toolbar #percents-button {
+	background-image: url(../icons/percent.svg);
+	outline: none;
+}
+
+#main-toolbar #play-button {
+	background-image: url(../icons/play.svg);
+	outline: none;
+}
+
+#main-toolbar #pause-button {
+	background-image: url(../icons/pause.svg);
+	outline: none;
+}
+
+#main-toolbar #settings-button {
+	background-image: url(../icons/settings.svg);
+	outline: none;
+}
+
+#main-toolbar #ball-button {
+	background-image: url(../icons/soccerball.svg);
+	outline: none;
+}
+
+#main-toolbar #bg-button {
+	background-image: url(../icons/insert-picture.svg);
+	outline: none;
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
+.tour#step-1 {
+	margin-top: 70vh;
+}
+.tour#step-3 {
+	margin-top: 85vh;
+	margin-left: -30vw;
+}
+.tour#step-4 {
+	margin-left: 10vw;
+}
+
+.palette .row {
+	display: block;
+	margin: 0 0 !important;
+	box-sizing: initial !important;
+	font-size: 10pt;
+}
+
+.palette .expand {
+	font-family: sans-serif;
+	font-size: 10pt;
+}
+
+.palette input#title.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: 245px;
+	color: black;
+}
+
+.palette textarea#description.expand {
+	font-family: system-ui;
+	font-size: 11px;
+	width: 255px;
+	color: black;
+}
+
+.palette input[type='text'].expand {
+	font-family: system-ui;
+	font-size: 11px;
+}
+
+.palette .container {
+	box-sizing: initial;
+}
+
+.palette .wrapper {
+	font-size: 10pt;
+	box-sizing: initial;
+	min-width: 70px;
+}
+
+.palette *, ::after, ::before {
+	box-sizing: initial;
+}
+
+.palette-item {
+	cursor: pointer;
+	padding: 10px;
+}
+
+.palette-item:hover {
+	background-color: #808080;
+}
+
+.palette-icon {
+	width: 50px;
+}
+
+.tutorial-icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	width: 90px;
+	background-color: #808080;
+	border: 2px solid #808080;
+	display: flex;
+	align-items: center;
+}
+
+.tutorial-icon-button {
+	color: white;
+}
+.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-icon-text {
+	padding-left: 4px;
+}

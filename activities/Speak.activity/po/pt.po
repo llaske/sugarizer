@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:35:12 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-06 03:27+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-speak/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: SavedTalk
 msgctxt "SavedTalk"
@@ -202,22 +204,22 @@ msgstr "Chinês"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Speak Activity"
-msgstr "Speak Activity"
+msgstr "Atividade Speak"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -227,7 +229,7 @@ msgstr "Welcome into the Speak activity. Speak is talking face. Anything you typ
 #: TutoReadTitle
 msgctxt "TutoReadTitle"
 msgid "Reading"
-msgstr "Reading"
+msgstr "Leitura"
 
 #: TutoReadContent
 msgctxt "TutoReadContent"
@@ -247,7 +249,7 @@ msgstr "Click here to enter \"Question\" mode. Ask robot any questions (availabl
 #: TutoVoiceTitle
 msgctxt "TutoVoiceTitle"
 msgid "Voice Chat"
-msgstr "Voice Chat"
+msgstr "Chat Vocal"
 
 #: TutoVoiceContent
 msgctxt "TutoVoiceContent"
@@ -257,7 +259,7 @@ msgstr "Click here to enter \"Voice chat\" mode. There you can talk with the rob
 #: TutoLanguageTitle
 msgctxt "TutoLanguageTitle"
 msgid "Language"
-msgstr "Language"
+msgstr "Idioma"
 
 #: TutoLanguageContent
 msgctxt "TutoLanguageContent"
@@ -267,7 +269,7 @@ msgstr "Click here to change language. It's important to set the right language 
 #: TutoSpeechTitle
 msgctxt "TutoSpeechTitle"
 msgid "Speech"
-msgstr "Speech"
+msgstr "Falar"
 
 #: TutoSpeechContent
 msgctxt "TutoSpeechContent"
@@ -297,10 +299,9 @@ msgstr "Type here the text to speech. Click on the right arrow to launch the spe
 #: TutoHistoryTitle
 msgctxt "TutoHistoryTitle"
 msgid "History"
-msgstr "History"
+msgstr "Histórico"
 
 #: TutoHistoryContent
 msgctxt "TutoHistoryContent"
 msgid "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
 msgstr "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
-

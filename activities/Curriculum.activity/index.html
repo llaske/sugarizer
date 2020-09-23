@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Curriculum</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/libnotify.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/TemplateSelection.css">
+	<link rel="stylesheet" href="css/Categories.css">
+	<link rel="stylesheet" href="css/Skills.css">
+	<link rel="stylesheet" href="css/SkillsAdditional.css">
+	<link rel="stylesheet" href="css/Settings.css">
+	<link rel="stylesheet" href="css/Rewards.css">
+	<link rel="stylesheet" href="css/Export.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script src="lib/Sortable.min.js"></script>
+	<script src="lib/vuedraggable.umd.min.js"></script>
+	<script src="lib/jspdf.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script src="lib/require.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+
+			<!-- Add more buttons here -->
+			<sugar-toolitem 
+				id="network-button" 
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette" 
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="home-button" v-show="(currentView != 'categories-grid' && currentView != 'template-selection') || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
+			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
+				<div class="search-icon"></div>
+				<input 
+					type="text" 
+					class="search-input" 
+					v-model="searchText" 
+					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
+				>
+				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
+			</div>
+			<sugar-toolitem 
+				id="acquire-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'" 
+				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
+				@click="switchSkillLevel" 
+				v-bind:title="l10n.stringAcquire"
+				v-bind:icon="'icons/medal' + levels[notationLevel][currentAcquired].grade + '.svg'"
+			></sugar-toolitem>
+			<sugar-toolitem
+				id="upload-button" 
+				v-if="!sharedInstance"
+				v-show="currentView == 'skill-details'"
+				palette-file="js/palettes/mediapalette.js"
+				palette-class="MediaPalette"
+				palette-title="Upload Media"
+				palette-event="upload-item"
+				@upload-item="onUploadItem"
+				v-bind:title="l10n.stringUploadMedia"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="rewards-button" 
+				v-show="!settings && currentView != 'template-selection'" 
+				@click="rewardsActive = !rewardsActive" 
+				:class="{ active: rewardsActive }" 
+				v-bind:title="l10n.stringRewards"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="settings-button" 
+				v-if="!sharedInstance"
+				v-show="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				:icon="settings ? 'icons/play.svg' : 'icons/settings.svg'"
+				@click="settings = !settings"
+				v-bind:title="l10n.stringSettings"
+			></sugar-toolitem>
+			<sugar-toolitem
+				id="notation-button" 
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				palette-file="js/palettes/notationpalette.js"
+				palette-class="NotationPalette"
+				palette-title="Notation Level"
+				palette-event="notation-selected"
+				@notation-selected="onNotationSelected"
+				v-bind:title="l10n.stringNotationLevel"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="add-button" 
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				@click="onAddClick"
+				v-bind:title="l10n.stringAdd"
+			></sugar-toolitem>
+			<sugar-toolitem v-show="currentView == 'categories-grid'" splitbar></sugar-toolitem>
+			<sugar-toolitem
+				id="export-button"
+				v-show="currentView == 'categories-grid'"
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-title="Export"
+				palette-event="format-selected"
+				@format-selected="onExportFormatSelected"
+				:title="l10n.stringExport"
+			></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<div id="content">
+			<transition name="fade" mode="out-in">
+				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
+					<component 
+						v-if="!rewardsActive"
+						:is="currentView" 
+						:settings="settings"
+						:categories="categories"
+						:category-id="selectedCategoryId"
+						:skill-id="selectedSkillId"
+						:current-acquired="currentAcquired"
+						:user="user"
+						:levels="levels"
+						:notation-level="notationLevel"
+						:search-query="searchQuery"
+						:user-colors="currentenv != null ? currentenv.user.colorvalue : { fill: '#d3d3d3', stroke: '#838383'}"
+						@template-selected="importTemplate"
+						@open-category="openCategory"
+						@open-skill="openSkill"
+						@edit-category="editCategory"
+						@edit-skill="editSkill"
+						@delete-item="onDeleteItem"
+						@update-categories="onUpdateCategories"
+						@go-back-to="goBackTo"
+					></component>
+				</keep-alive>
+			</transition>
+			<rewards 
+				v-if="rewardsInit"
+				v-show="rewardsActive" 
+				:user="user" 
+				:categories="categories" 
+				:achievements="achievements" 
+				:levels="levels" 
+				:notation-level="notationLevel" 
+				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
+			></rewards>
+			<export 
+				ref="Export"
+				v-if="exporting != ''"
+				:currentenv="currentenv"
+				:user="user" 
+				:categories="categories" 
+				:achievements="achievements" 
+				:levels="levels" 
+				:notation-level="notationLevel" 
+				:template-title="templateTitle"
+				:exporting="exporting"
+				@export-completed="exporting = ''"
+			></export>
+		</div>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstace"></sugar-journal>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-icon ref="SugarIcon"></sugar-icon>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+	</div>
+
+	<script src="js/TemplateSelection.js"></script>
+	<script src="js/SkillsAdditional.js"></script>
+	<script src="js/Skills.js"></script>
+	<script src="js/Categories.js"></script>
+	<script src="js/Settings.js"></script>
+	<script src="js/Rewards.js"></script>
+	<script src="js/Export.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>

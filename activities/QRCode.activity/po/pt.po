@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:39:27 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-06 03:30+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-qrcode/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: QRCodeSaved
 msgctxt "QRCodeSaved"
@@ -21,22 +23,22 @@ msgstr "Código QR salvo no Diário!"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "QRCode Activity"
-msgstr "QRCode Activity"
+msgstr "Atividade QRCode"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -46,7 +48,7 @@ msgstr "Welcome into the QRCode activity. QRCode activity is a simple QR Code ge
 #: TutoPhotoTitle
 msgctxt "TutoPhotoTitle"
 msgid "Read QR Code"
-msgstr "Read QR Code"
+msgstr "Ler código QR"
 
 #: TutoPhotoContent
 msgctxt "TutoPhotoContent"
@@ -66,7 +68,7 @@ msgstr "Click this icon to export the QR Code in Journal as a PNG file"
 #: TutoGenerateTitle
 msgctxt "TutoGenerateTitle"
 msgid "Generate"
-msgstr "Generate"
+msgstr "Gerar"
 
 #: TutoGenerateContent
 msgctxt "TutoGenerateContent"
@@ -76,7 +78,7 @@ msgstr "Click this icon to launch generation"
 #: TutoListTitle
 msgctxt "TutoListTitle"
 msgid "History"
-msgstr "History"
+msgstr "Histórico"
 
 #: TutoListContent
 msgctxt "TutoListContent"
@@ -96,10 +98,9 @@ msgstr "Here is shown the generated QR Code"
 #: TutoInputTitle
 msgctxt "TutoInputTitle"
 msgid "Text to generate"
-msgstr "Text to generate"
+msgstr "Texto a gerar"
 
 #: TutoInputContent
 msgctxt "TutoInputContent"
 msgid "Type here the text you want to generate as a QR Code"
 msgstr "Type here the text you want to generate as a QR Code"
-

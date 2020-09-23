@@ -1390,7 +1390,6 @@ enyo.kind({
 
 	ok: function() {
 		this.hide();
-		preferences.addUserInHistory();
 		util.cleanDatastore(null, function() {
 			util.restartApp();
 		});

@@ -111,7 +111,8 @@ enyo.kind({
 	// Init activities service response, redraw screen
 	queryActivitiesResponse: function(inSender, inResponse) {
 		// No activities at start
-		if (preferences.getActivities() == null) {
+		var currentList = preferences.getActivities();
+		if (currentList == null || currentList.length == 0) {
 			// Just copy the activities from the service
 			preferences.setActivities(inResponse.data);
 			preferences.save();
@@ -291,11 +292,12 @@ enyo.kind({
 		var PI2 = Math.PI*2.0;
 		radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x-icon_size,canvas_center.y-icon_size));
 		var circumference = PI2*radiusx;
+		var spiralPositions = [];
 		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
 			spiralMode = restrictedMode = false;
 			base_angle = (PI2/parseFloat(activitiesList.length));
 		} else {
-			if (this.hasRoomForSpiral(canvas_center, icon_padding)) {
+			if (this.hasRoomForSpiral(canvas_center, icon_size, spiralPositions)) {
 				spiralMode = true; restrictedMode = false;
 				radiusx = radiusy = icon_padding*constant.ringInitSpaceFactor;
 				activitiesCount = parseInt((PI2*radiusx)/icon_padding);
@@ -321,17 +323,8 @@ enyo.kind({
 				ix = (canvas_center.x+Math.cos(angle)*radiusx-semi_size);
 				iy = (canvas_center.y+Math.sin(angle)*radiusy-semi_size);
 			} else {
-				angle += base_angle;
-				if (activitiesIndex >= activitiesCount) {
-					radiusx = radiusy = radiusx + icon_padding*constant.ringSpaceFactor;
-					activitiesCount = parseInt((PI2*radiusx)/icon_padding);
-					activitiesIndex = 0;
-					angle -= (base_angle/constant.ringAdjustAngleFactor);
-					base_angle = PI2/activitiesCount;
-				}
-				var delta = (icon_padding*constant.ringAdjustSizeFactor)/(activitiesCount-activitiesIndex);
-				ix = (canvas_center.x+Math.cos(angle)*(radiusx+delta)-semi_size);
-				iy = (canvas_center.y+Math.sin(angle)*(radiusy+delta)-semi_size);
+				ix = spiralPositions[i].x;
+				iy = spiralPositions[i].y;
 			}
 
 			// Restricted mode for small device: integrate a way to scroll on the circle
@@ -408,17 +401,28 @@ enyo.kind({
 		this.redraw();
 	},
 
-	hasRoomForSpiral: function(canvas_center, icon_padding) {
+	hasRoomForSpiral: function(canvas_center, icon_size, spiralPositions) {
 		var activitiesList = preferences.getFavoritesActivities();
 		var activitiesCount = activitiesList.length;
-		var radius = icon_padding*constant.ringInitSpaceFactor;
-		while (activitiesCount > 0) {
-			activitiesCount -= parseInt(((Math.PI*2.0)*radius)/icon_padding);
-			radius += icon_padding*constant.ringSpaceFactor;
+		var radiusx = icon_size*constant.iconSpacingFactor*constant.ringInitSpaceFactor;
+		var icon_spacing = Math.sqrt(Math.pow(icon_size,2) * 2) * constant.spiralInitSpaceFactor;
+		var angle = Math.PI;
+		var PI2 = Math.PI*2.0;
+		var semi_size = icon_size/2;
+		var spiral_spacing = icon_spacing * constant.spiralSpaceFactor;
+		var maxX = 0, maxY = 0, minX = canvas_center.dx, minY = canvas_center.dy;
+		while (activitiesCount-- > 0) {
+			var circumference = PI2*radiusx;
+			n = circumference / icon_spacing;
+			radiusx += (spiral_spacing / n);
+			var ix = canvas_center.x-semi_size+Math.sin(angle) * radiusx;
+			var iy = canvas_center.y+Math.cos(angle) * radiusx - semi_size;
+			spiralPositions.push({x: ix, y: iy});
+			maxX = Math.max(maxX, ix+icon_size); maxY = Math.max(maxY, iy+icon_size);
+			minX = Math.min(minX, ix); minY = Math.min(minY, iy);
+			angle -= (PI2 / n);
 		}
-		radius -= (icon_padding/2.0);
-		var diameter = radius*2;
-		return (diameter <= canvas_center.dx && diameter <= canvas_center.dy);
+		return (maxX <= canvas_center.dx && maxY <= canvas_center.dy-5 && minX >= 0 && minY >= 0);
 	},
 
 	showPreviousRestrictedList: function() {
@@ -694,7 +698,6 @@ enyo.kind({
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogWarningMessage"}, {owner:this});
 			this.otherview.show();
 		} else {
-			preferences.addUserInHistory();
 			util.cleanDatastore(null, function() {
 				util.restartApp();
 			});
