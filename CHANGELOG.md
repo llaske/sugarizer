@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Wrong poll is displayed in Vote activity #854
 
 
-## [1.4.0] - 2020-03-23
+## [1.4.0] - 2020-09-23
 ### Added
 - Fraction activity #205
 - Implode activity #710
