@@ -255,8 +255,13 @@ enyo.kind({
 	// Show direction to frog using click on board
 	clickToMove: function(s, e) {
 		// Compute direction comparing click with frog position
-		var rect = this.canvas.node.getBoundingClientRect();
-		var mouseX = e.clientX - rect.left, mouseY = e.clientY - rect.top;
+
+	  // Calculate the position of the mouse in world coordinates from viewport coordinates
+		var rect = this.$.gamebox.getAbsoluteBounds();
+		var scaleX = this.canvas.attributes.width / rect.width;
+		var scaleY = this.canvas.attributes.height / rect.height;
+		var mouseX = (e.clientX - rect.left) * scaleX, mouseY = (e.clientY - rect.top) * scaleY;
+
 		var dx = mouseX - this.frog.getX(), dy = mouseY - this.frog.getY();
 		if (dx == 0 && dy == 0)
 			return;
