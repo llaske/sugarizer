@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-Wrong poll is displayed in Vote activity #854
+- Wrong poll is displayed in Vote activity #854
+- Font is too small in Tangram activity on Safari or iOS #852 
 
 
 ## [1.4.0] - 2020-09-23
