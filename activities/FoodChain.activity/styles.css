@@ -320,6 +320,7 @@
 	top: 0% !important;
 	position: absolute;
 	width: 100%;
+	left: -1%
 }
 
 .home2 {
@@ -354,6 +355,7 @@
 	text-align: right;
 	width: 100%;
 	z-index: 2;
+	left: -1%
 }
 
 .life {
