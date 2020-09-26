@@ -255,7 +255,9 @@ enyo.kind({
 	// Show direction to frog using click on board
 	clickToMove: function(s, e) {
 		// Compute direction comparing click with frog position
-		var dx = e.clientX-this.frog.getX(), dy = e.clientY-this.frog.getY(); 
+		var rect = this.canvas.node.getBoundingClientRect();
+		var mouseX = e.clientX - rect.left, mouseY = e.clientY - rect.top;
+		var dx = mouseX - this.frog.getX(), dy = mouseY - this.frog.getY();
 		if (dx == 0 && dy == 0)
 			return;
 		if (Math.abs(dx) > Math.abs(dy)) {
