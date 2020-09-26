@@ -764,8 +764,8 @@ var app = new Vue({
 
 		onJournalNewInstace: function () {
 			this.currentView = 'template-selection';
-			// this.importSkills();
-			// this.addAchievementsToUser();
+			// Fix in case of accidental exit
+			this.saveContextToJournal();
 		},
 
 		onNetworkDataReceived: function (msg) {
@@ -1014,7 +1014,7 @@ var app = new Vue({
 			this.$refs.SugarTutorial.show(steps);
 		},
 
-		onStop: function () {
+		saveContextToJournal: function() {
 			var context;
 			if(this.currentView == 'template-selection') {
 				context = {
@@ -1034,6 +1034,10 @@ var app = new Vue({
 				};
 			}
 			this.$refs.SugarJournal.saveData(context);
+		},
+
+		onStop: function () {
+			this.saveContextToJournal();
 		}
 	}
 });
