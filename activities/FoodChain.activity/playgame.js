@@ -42,7 +42,7 @@ enyo.kind({
 	published: {level: 1, life: 3},
 	classes: "board",
 	components: [
-		{ name: "cards", components: [
+		{ name: "cards", ontap: "clickToMove", classes: "cards", components: [
 			// Level - Score - Time bar			
 			{ classes: "status-bar", components: [
 				{ classes: "level-zone", components: [
@@ -111,7 +111,7 @@ enyo.kind({
 		};
 		var zoom = FoodChain.getZoomLevel();
 		this.$.gamebox.setStyle("max-height: "+(FoodChain.playArea.height*zoom)+"px;"+"max-width: "+(FoodChain.playArea.width*zoom)+"px;");	
-		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", ontap: "clickToMove", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
+		this.canvas = this.$.gamebox.createComponent({kind: "Canvas", id: "acanvas", name: "canvas", attributes: {width: FoodChain.playArea.width, height: FoodChain.playArea.height}}, {owner: this});
 		this.createComponent({ name: "timer", kind: "Timer", paused: true, onTriggered: "updateTimer" }, {owner: this});		
 		this.createComponent({ name: "timerMonster", kind: "Timer", baseInterval: 500, onTriggered: "monsterEngine" }, {owner: this});
 		this.setLocale();		
@@ -255,7 +255,14 @@ enyo.kind({
 	// Show direction to frog using click on board
 	clickToMove: function(s, e) {
 		// Compute direction comparing click with frog position
-		var dx = e.clientX-this.frog.getX(), dy = e.clientY-this.frog.getY(); 
+
+	  // Calculate the position of the mouse in world coordinates from viewport coordinates
+		var rect = this.$.gamebox.getAbsoluteBounds();
+		var scaleX = this.canvas.attributes.width / rect.width;
+		var scaleY = this.canvas.attributes.height / rect.height;
+		var mouseX = (e.clientX - rect.left) * scaleX, mouseY = (e.clientY - rect.top) * scaleY;
+
+		var dx = mouseX - this.frog.getX(), dy = mouseY - this.frog.getY();
 		if (dx == 0 && dy == 0)
 			return;
 		if (Math.abs(dx) > Math.abs(dy)) {
@@ -671,6 +678,7 @@ enyo.kind({
 		this.$.play.hide();		
 		this.$.pause.show();
 		this.$.home.hide();
+		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	},
 	
 	// Pause game
@@ -679,6 +687,7 @@ enyo.kind({
 		this.$.pause.hide();
 		this.$.play.show();
 		this.$.home.show();
+		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	},
 	
 	// Go to the next level
@@ -686,6 +695,7 @@ enyo.kind({
 		this.level = this.level + 1;
 		this.levelChanged();
 		this.initGame();
+		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	},
 	
 	// Go to the home page of the app
@@ -693,5 +703,6 @@ enyo.kind({
 		this.$.timer.stop();	
 		this.$.timerMonster.stop();	
 		FoodChain.goHome();
+		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	}
 });
