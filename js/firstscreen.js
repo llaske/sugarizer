@@ -183,8 +183,8 @@ enyo.kind({
 		}
 
 		this.$.stopbutton.setShowing(vstop);
-		this.$.login.setShowing(vlogin);
-		this.$.logintext.setShowing(vlogintext);
+		this.$.login.setShowing(vlogin && !constant.noLoginMode);
+		this.$.logintext.setShowing(vlogintext && !constant.noLoginMode);
 		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
 		this.$.newusertext.setShowing(vnewusertext && !constant.noSignupMode);
 		this.$.namebox.setShowing(vnamebox);
@@ -367,18 +367,19 @@ enyo.kind({
 		this.$.logintext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
 		this.$.logintext.applyStyle("width", constant.sizeNewUser+"px");
 		if (this.history.length) {
-			var left = (canvas_center.x-(constant.sizeNewUser*1.5)-30);
+			var left = (canvas_center.x-(constant.sizeNewUser*1.5)-30+(constant.noLoginMode?120:0));
 			this.$.newuser.applyStyle("margin-left", left+"px");
 			this.$.newusertext.applyStyle("margin-left", left+"px");
 			left += constant.sizeNewUser+30;
 			this.$.login.applyStyle("margin-left", left+"px");
 			this.$.logintext.applyStyle("margin-left", left+"px");
 			left += constant.sizeNewUser+30;
-			this.$.historybox.applyStyle("margin-left", left+"px");
+			this.$.historybox.applyStyle("margin-left", (left+(constant.noLoginMode?-140:0))+"px");
 		} else {
 			var newuser = (constant.noSignupMode?-80:0);
-			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
+			var login = (constant.noLoginMode?80:0);
+			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25+login)+"px");
+			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25+login)+"px");
 			this.$.login.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 		}

@@ -48,6 +48,7 @@ constant.webAppType = 0; // thinClientType
 constant.appType = 1;  // clientType
 constant.noServerMode = false;
 constant.noSignupMode = false;
+constant.noLoginMode = false;
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
