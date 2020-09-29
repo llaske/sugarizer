@@ -225,7 +225,6 @@
 /* Game Two */
 .level-zone {
 	position: absolute;
-	left: 1%;
 	width: 90%;
 }
 
@@ -321,6 +320,7 @@
 	top: 0% !important;
 	position: absolute;
 	width: 100%;
+	left: -1%
 }
 
 .home2 {
@@ -329,9 +329,13 @@
 	top: 50%;
 }
 
+.cards {
+	padding-top: 60px;
+	padding-left: 1%;
+	padding-bottom: 60px;
+}
+
 .game-box {
-	margin-top: 6%;
-	margin-left: 1%;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
@@ -351,6 +355,7 @@
 	text-align: right;
 	width: 100%;
 	z-index: 2;
+	left: -1%
 }
 
 .life {
