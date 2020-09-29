@@ -256,7 +256,7 @@ enyo.kind({
 	clickToMove: function(s, e) {
 		// Compute direction comparing click with frog position
 
-	  // Calculate the position of the mouse in world coordinates from viewport coordinates
+		// Calculate the position of the mouse in world coordinates from viewport coordinates
 		var rect = this.$.gamebox.getAbsoluteBounds();
 		var scaleX = this.canvas.attributes.width / rect.width;
 		var scaleY = this.canvas.attributes.height / rect.height;
