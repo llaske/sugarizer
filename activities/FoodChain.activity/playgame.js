@@ -10,16 +10,13 @@ FoodChain.playLevels = [
 
 // Key to use
 FoodChain.playKeys = [
+	{ key: 40, heading: 0, dx: 1, dy: 0 },//down
 
-	{ key: 39, heading: 0, dx: 1, dy: 0 },
-
-
-	{ key: 38, heading: 0, dx: 1, dy: 0 },
+	{ key: 38, heading: 90, dx: 0, dy: -1 },//up
 	
+	{ key: 37, heading: 180, dx: -1, dy: 0 },//left
 	
-	{ key: 37, heading: 0, dx: 1, dy: 0 },
-
-	{ key: 39, heading: 270, dx: 0, dy: 1 }
+	{ key: 39, heading: 270, dx: 0, dy: 1 }//right
 ];
 
 // Play area size
