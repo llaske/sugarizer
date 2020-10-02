@@ -10,14 +10,25 @@ FoodChain.playLevels = [
 
 // Key to use
 FoodChain.playKeys = [
-	{ key: 75, heading: 0, dx: 1, dy: 0 },
-	{ key: 107, heading: 0, dx: 1, dy: 0 },
-	{ key: 73, heading: 90, dx: 0, dy: -1 },
-	{ key: 105, heading: 90, dx: 0, dy: -1 },
-	{ key: 74, heading: 0, dx: 1, dy: 0 },
-	{ key: 106, heading: 180, dx: -1, dy: 0 },
-	{ key: 76, heading: 270, dx: 0, dy: 1 },
-	{ key: 108, heading: 270, dx: 0, dy: 1 }
+	//commenting out the K key-codes and replacing 
+	// { key: 75, heading: 0, dx: 1, dy: 0 },
+	// { key: 107, heading: 0, dx: 1, dy: 0 },
+	{ key: 40, heading: 0, dx: 1, dy: 0 },
+
+	// commenting out the I key-codes and replacing
+	// { key: 73, heading: 90, dx: 0, dy: -1 },
+	// { key: 105, heading: 90, dx: 0, dy: -1 },
+	{ key: 38, heading: 90, dx: 0, dy: -1 },
+	
+	//commenting out the J key-codes and replacing
+	// { key: 74, heading: 0, dx: 1, dy: 0 },
+	// { key: 106, heading: 180, dx: -1, dy: 0 },
+	{ key: 37, heading: 0, dx: 1, dy: 0 },
+
+	//commenting out the L key-codes and replacing
+	// { key: 76, heading: 270, dx: 0, dy: 1 },
+	// { key: 108, heading: 270, dx: 0, dy: 1 }
+	{ key: 39, heading: 270, dx: 0, dy: 1 }
 ];
 
 // Play area size
