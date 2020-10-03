@@ -5,8 +5,9 @@ Sugarizer is fully written in HTML5 and JavaScript.
 
 Sugarizer is composed of three components:
 
-| **Component** | **Description** |
-| **Sugarizer Core** | It implements the main Sugarizer UI (*Home view, List view, Journal view, Neighborhood view*) and is the launcher for all activities.
+| Component | Description |
+| --- | --- |
+| **Sugarizer Core** | It implements the main Sugarizer UI (*Home view, List view, Journal view, Neighborhood view*) and is the launcher for all activities. |
 | **Sugar-Web** | It contains JavaScript libraries and CSS styles that expose UI and functions to handle Journal, collaboration and controls. |
 | **Activities** | It is the set of pedagogic activities included in Sugarizer. |
 
