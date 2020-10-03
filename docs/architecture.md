@@ -1,13 +1,14 @@
 # Architecture
 
-## Global overview
+## Global overview 
 Sugarizer is fully written in HTML5 and JavaScript.
 
 Sugarizer is composed of three components:
 
-* **Sugarizer Core** implements the main Sugarizer UI (home view, list view, Journal view, neighborhood view) and is the launcher for activities.
-* **Sugar-Web** contains JavaScript libraries and CSS styles that expose UI and functions to handle Journal, collaboration and controls.
-* **Activities** is the set of pedagogic activities included in Sugarizer.
+| **Component** | **Description** |
+| **Sugarizer Core** | It implements the main Sugarizer UI (*Home view, List view, Journal view, Neighborhood view*) and is the launcher for all activities.
+| **Sugar-Web** | It contains JavaScript libraries and CSS styles that expose UI and functions to handle Journal, collaboration and controls. |
+| **Activities** | It is the set of pedagogic activities included in Sugarizer. |
 
 ![](images/global-architecture.svg)
 
@@ -38,7 +39,7 @@ On Android, it's possible to build Sugarizer as a launcher to be able to run nat
 
 ### Desktop App
 
-On desktop platforms (GNU Linux/Mac OS/Windows), Sugarizer relies on [![dev.to badge](https://img.shields.io/badge/electron-%230177B5?style=flat)](https://github.com/electron/electron) to package the source code as a native application.
+On desktop platforms (GNU Linux/Mac OS/Windows), Sugarizer relies on [electron](https://github.com/electron/electron) to package the source code as a native application.
 
 ![](images/app-architecture.svg)
 
