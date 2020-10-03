@@ -21,11 +21,11 @@ Sugarizer is fully written in HTML5 and JavaScript.
 
 ## Portability
 
-The main conception rule of Sugarizer is that all platforms must share the same source code. 
+The main conception rule of Sugarizer is that all platforms must share the same source code. <br>
 So Sugarizer runs the same JavaScript/HTML5 code whatever device used : 
-                                                                        - **Web** 
-                                                                        - **Mobile**
-                                                                        - **Computer**
+* **Web** 
+* **Mobile**
+* **Computer**
 
 To do that, the JavaScript/HTML5 code used for the web application is encapsulated into a container to be packaged as an application. See below how it works :arrow_down:.
 
