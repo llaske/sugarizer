@@ -38,7 +38,7 @@ On Android, it's possible to build Sugarizer as a launcher to be able to run nat
 
 ### Desktop App
 
-On desktop platforms (GNU Linux/Mac OS/Windows), Sugarizer relies on [electron](https://github.com/electron/electron) to package the source code as a native application.
+On desktop platforms (GNU Linux/Mac OS/Windows), Sugarizer relies on [![dev.to badge](https://img.shields.io/badge/electron-%230177B5?style=flat)](https://github.com/electron/electron) to package the source code as a native application.
 
 ![](images/app-architecture.svg)
 
