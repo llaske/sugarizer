@@ -32,17 +32,17 @@ See below how it works :arrow_down:.
 
 ### Mobile App
 
-On mobile Platforms such as **Android** or **iOS**, Sugarizer rely on **[Cordova](http://cordova.apache.org/)** to package the source code as a native application.
+On Mobile Platforms such as **Android** or **iOS**, Sugarizer rely on **[Cordova](http://cordova.apache.org/)** to package the source code as a native application.
 
 ![](images/mobile-architecture.svg)
 
 *On Android, it's possible to build **Sugarizer** as a launcher to be able to run native applications directly from the Home view. <br>
-This feature is implemented in a dedicated **Cordova** plugin named **[cordova-plugin-sugarizeros](https://github.com/llaske/cordova-plugin-sugarizeros)**.
+This feature is implemented in a dedicated **Cordova** plugin named **[cordova-plugin-sugarizeros](https://github.com/llaske/cordova-plugin-sugarizeros)**.*
 
 
 ### Desktop App
 
-On desktop platforms (GNU Linux/Mac OS/Windows), Sugarizer relies on [electron](https://github.com/electron/electron) to package the source code as a native application.
+On Desktop Platforms such as **GNU Lunix**, **Mac OS** or **Windows**, Sugarizer relies on **[electron](https://github.com/electron/electron)** to package the source code as a native application.
 
 ![](images/app-architecture.svg)
 
