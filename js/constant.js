@@ -64,7 +64,7 @@ constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";
 constant.fieldText = "text";
-constant.defaultServer = constant.http + "server.sugarizer.org";
+constant.defaultServer = constant.https + "server.sugarizer.org";
 constant.minPasswordSize = 4;
 
 constant.syncJournalLimit = 100;
