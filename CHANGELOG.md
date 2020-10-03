@@ -5,12 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add a noLoginMode to hide login button on first screen
+
+### Changed
+- Update noServerMode: add a Quit button in the buddy menu
+
 ### Fixed
 - Wrong poll is displayed in Vote activity #854
 - Font is too small in Tangram activity on Safari or iOS #852
 - Leaving Sugarizer app without leaving current activity cause some activities to become empty #850
 - Improve frog control using touch/click in FoodChain activity #858
-- Allow frog to move with arrow keys in FoodChain activity #857 
+- Allow frog to move with arrow keys in FoodChain activity #857
 
 
 ## [1.4.0] - 2020-09-23
