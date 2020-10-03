@@ -670,7 +670,7 @@ enyo.kind({
 			action: enyo.bind(this, "doLogoff"),
 			data: null
 		});
-		if (enyo.platform.electron) {
+		if (enyo.platform.electron || constant.noServerMode) {
 			items.push({
 				icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"},
 				colorized: false,
