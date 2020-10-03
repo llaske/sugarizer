@@ -27,7 +27,8 @@ So Sugarizer runs the same JavaScript/HTML5 code whatever device used :
 * **Mobile**
 * **Computer**
 
-To do that, the JavaScript/HTML5 code used for the web application is encapsulated into a container to be packaged as an application. See below how it works :arrow_down:.
+To do that, the JavaScript/HTML5 code used for the web application is encapsulated into a container to be packaged as an application. <br>
+See below how it works :arrow_down:.
 
 ### Mobile App
 
