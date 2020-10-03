@@ -32,11 +32,12 @@ See below how it works :arrow_down:.
 
 ### Mobile App
 
-On mobile platforms (Android, iOS), Sugarizer rely on [Cordova](http://cordova.apache.org/) to package the source code as a native application.
+On mobile Platforms such as **Android** or **iOS**, Sugarizer rely on **[Cordova](http://cordova.apache.org/)** to package the source code as a native application.
 
 ![](images/mobile-architecture.svg)
 
-On Android, it's possible to build Sugarizer as a launcher to be able to run native applications directly from the home view. This feature is implemented in a dedicated Cordova plugin named [cordova-plugin-sugarizeros](https://github.com/llaske/cordova-plugin-sugarizeros).
+*On Android, it's possible to build **Sugarizer** as a launcher to be able to run native applications directly from the Home view. <br>
+This feature is implemented in a dedicated **Cordova** plugin named **[cordova-plugin-sugarizeros](https://github.com/llaske/cordova-plugin-sugarizeros)**.
 
 
 ### Desktop App
