@@ -15,12 +15,8 @@ Sugarizer is fully written in HTML5 and JavaScript.
 
 | **Component** | **Description(Detailed)** | 
 | ------------- | ------------------------- |
-| **Sugarizer Core** | It is independent of activities. **Sugarizer Core** has it's own `index.html` and redirects the browser to the `index.html` for activities when an activity is launched. The UI of Sugarizer Core use the **[Enyo Framework](http://enyojs.com/)** and, like activities, rely on *Sugar-Web to handle Journal and collaboration*. |
-
-| **Sugar-Web** | It uses `localStorage` and `IndexedDB` features of the browser to store Journal content. localStorage is used to store metadata entries, IndexedDB is used to store data entries. localStorage also contains user settings.
-Sugar-Web uses Web Sockets for real time communication (presence) with the server and XmlHttpRequest calls on the server REST API to handle remote Journal.
-Sugar-Web rely on **[require.js](http://www.requirejs.org/)** to handle JavaScript libraries dependancies. |
-
+| **Sugarizer Core** | It is independent of activities. **Sugarizer Core** has it's own `index.html` and redirects the browser to the `index.html` for activities when an activity is launched. The UI of Sugarizer Core use the **[Enyo Framework](http://enyojs.com/)** and, like activities, rely on Sugar-Web to handle Journal and collaboration. |
+| **Sugar-Web** | It uses `localStorage` and `IndexedDB` features of the browser to store Journal content. localStorage is used to store metadata entries, IndexedDB is used to store data entries. localStorage also contains user settings. Sugar-Web uses Web Sockets for real time communication (presence) with the server and XmlHttpRequest calls on the server REST API to handle remote Journal. Sugar-Web rely on **[require.js](http://www.requirejs.org/)** to handle JavaScript libraries dependancies. |
 | **Activities** | They must use Sugar-Web but could be written using any existing JavaScript framework. Most activities are written without any framework (vanilla JS), some are written using ReactJS, Vue.js, Enyo or other frameworks. When an activity is called by Sugarizer Core, the `QUERY_STRING` contains a calling context. See the dedicated **[tutorial](tutorial.md)** for more about activity development. |
 
 
