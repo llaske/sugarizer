@@ -1,6 +1,9 @@
 define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sugar-web/datastore', 'moment-with-locales.min'], function(DataModel, Draw, l10n, env, datastore, moment) {
 
     'use strict';
+    //requiring humane to call the pop up
+    requirejs(['humane'], function (doc, humane) { //passing the parameter for humane that will be called later on 
+
 
     var toggleGridBtn = document.querySelector('#toggle-grid-button'),
         toggleHemisphereBtn = document.querySelector('#toggle-hemisphere-button');
@@ -301,7 +304,6 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
         updateView();
     }
 
-
     function saveImage() {
         /*
             Read canvas data as base64 string and
@@ -319,7 +321,8 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			file_size: 0
 		};
 		datastore.create(metadata, function() {
-			console.log("export done.")
+            humane.log(webL10n.get('MoonImageSaved'));
+            console.log("export done.")
 		}, inputData);
     }
 
@@ -346,4 +349,4 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 		getPrefs: getPrefs,
         updateInfo: updateInfo
     };
-});
+})});
