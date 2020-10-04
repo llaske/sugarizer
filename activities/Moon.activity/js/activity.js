@@ -1,5 +1,4 @@
-
-define(["sugar-web/activity/activity","activity/moon-activity","webL10n", "tutorial"], function (activity, moonActivity, l10n, tutorial) {
+define(["sugar-web/activity/activity", "activity/moon-activity", "webL10n", "tutorial"], function (activity, moonActivity, l10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -30,7 +29,7 @@ define(["sugar-web/activity/activity","activity/moon-activity","webL10n", "tutor
         });
 
         // Launch tutorial
-        document.getElementById("help-button").addEventListener('click', function(e) {
+        document.getElementById("help-button").addEventListener('click', function (e) {
             tutorial.start();
         });
     });
