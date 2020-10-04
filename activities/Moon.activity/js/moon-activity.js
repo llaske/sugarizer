@@ -321,7 +321,10 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			file_size: 0
 		};
 		datastore.create(metadata, function() {
+<<<<<<< HEAD
             humane.log(webL10n.get('MoonImageSaved'));
+=======
+>>>>>>> 153ca266749deda31f443f256c0bb585e1f086fc
             console.log("export done.")
 		}, inputData);
     }
