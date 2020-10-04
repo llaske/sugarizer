@@ -2,7 +2,7 @@
 
 // Collections size on the screen
 var entriesByScreen = 8;
-
+requirejs(['domReady!', 'humane'], function (doc, humane) {
 
 // Learn app class
 enyo.kind({
@@ -109,6 +109,7 @@ enyo.kind({
 	// Handle click on exportPNG buttons
 	clickExportPNG: function() {
 		var pngButton = document.getElementById("png-button");
+		humane.log(webL10n.get('AbecedariumImage'));
 		var tojournal;
 		if (pngButton.classList.contains("active")) {
 			tojournal = 0;
@@ -362,4 +363,4 @@ enyo.kind({
 				this.stopSlideshow();
 		}
 	}
-});
+})});
