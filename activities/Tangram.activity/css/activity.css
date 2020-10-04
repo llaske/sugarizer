@@ -25,7 +25,6 @@ p {
   opacity: 0;
 }
 
-
 #main-toolbar .splitbar {
 	border-right: 1.5px solid #565656;
 	margin: 7.5px 5px;
@@ -169,12 +168,18 @@ p {
   margin: 0px 1%;
   cursor: pointer;
 	font-weight: bold;
-	font-size: min(2vh, 2vw);
+	font-size: 2vh;
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80%;
+}
+
+@media (orientation: portrait) {
+	.btn-in-footer {
+		font-size: 2vw;
+	}
 }
 
 .btn-in-footer:hover {
