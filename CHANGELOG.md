@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
 =======
 >>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
 ## [Unreleased]
@@ -18,6 +21,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
+=======
 >>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
 =======
 >>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e

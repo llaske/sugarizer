@@ -319,7 +319,7 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			file_size: 0
 		};
 		datastore.create(metadata, function() {
-			console.log("export done.")
+            console.log("export done.")
 		}, inputData);
     }
 
