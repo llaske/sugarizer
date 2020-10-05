@@ -4,11 +4,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
 >>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
 =======
 >>>>>>> 980d5c9d8574785560a75c85b0494e17c7578f7e
