@@ -42,7 +42,7 @@ The Sugarizer desktop application has three possible arguments:
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
-### **For Detailed Tutorial on Installation and launching on Windows Go [here](https://github.com/Mrhb787/sugarizer/blob/master/docs/tutorial/Windows%20Installation%20And%20Launching/Help.md)**.
+### **For Detailed Tutorial on Installation and launching on Windows Go [here](https://github.com/Mrhb787/sugarizer/blob/dev/docs/tutorial/Sugarizer%20Windows%20Installation%20And%20Launching/Help.md)**.
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
