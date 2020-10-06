@@ -87,7 +87,7 @@ set it to `false`.
 
 For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel check the *Show develop menu in menu bar* box. Then from the `Develop` menu, select *Disable local file restrictions*.
 
-**For Detailed Tutorial on Installation and launching on Windows Go [here](https://github.com/Mrhb787/sugarizer/blob/master/docs/tutorial/Windows%20Installation%20And%20Launching/Help.md)**
+### **For Detailed Tutorial on Installation and launching on Windows Go [here](https://github.com/Mrhb787/sugarizer/blob/master/docs/tutorial/Windows%20Installation%20And%20Launching/Help.md)**.
 
 # Sugarizer Web Application
 
