@@ -3,7 +3,7 @@
 // Collections size on the screen
 var entriesByScreen = 8;
 
-
+requirejs(['domReady!', 'humane'], function (doc, humane) {
 // Learn app class
 enyo.kind({
 	name: "Abcd.Learn",
@@ -113,6 +113,7 @@ enyo.kind({
 		if (pngButton.classList.contains("active")) {
 			tojournal = 0;
 		} else {
+			humane.log(webL10n.get('AbecedariumImage'));
 			tojournal = 1;
 		}
 		this.putEntriesJournalModeTo(tojournal);
@@ -362,4 +363,4 @@ enyo.kind({
 				this.stopSlideshow();
 		}
 	}
-});
+})});
