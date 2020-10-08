@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Leaving Sugarizer app without leaving current activity cause some activities to become empty #850
 - Improve frog control using touch/click in FoodChain activity #858
 - Allow frog to move with arrow keys in FoodChain activity #857
+- Add a popup when image is exported in Moon activity #867
 
 
 ## [1.4.0] - 2020-09-23
