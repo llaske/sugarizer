@@ -1,0 +1,20 @@
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+ <metadata id="metadata40">image/svg+xml</metadata>
+ <defs>
+  <mask height="50" width="50" y="0" x="0" maskUnits="userSpaceOnUse" id="Mask">
+   <rect id="rect7" fill="#FFFFFF" height="50" width="50" y="0" x="0"/>
+   <line id="line9" stroke="black" stroke-width="3" stroke-linecap="round" y2="13" x2="46" y1="3" x1="38"/>
+   <line id="line11" stroke="black" stroke-width="3" stroke-linecap="round" y2="13" x2="38" y1="3" x1="46"/>
+   <line id="line13" stroke="black" stroke-width="3" stroke-linecap="round" y2="15" x2="42" y1="1" x1="42"/>
+   <line id="line15" stroke="black" stroke-width="3" stroke-linecap="round" y2="8" x2="49" y1="8" x1="35"/>
+  </mask>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#e5e5e5" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="bevel" stroke-miterlimit="4" y="6.701526" x="5.186375" height="35.947598" width="40.38483" id="rect3161"/>
+ </g>
+</svg>
