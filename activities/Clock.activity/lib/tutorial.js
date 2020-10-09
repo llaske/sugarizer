@@ -50,6 +50,12 @@ define(["webL10n"], function (l10n) {
 				placement: "bottom",
 				title: l10n.get("TutoSetTimeGameTitle"),
 				content: l10n.get("TutoSetTimeGameContent")
+			},
+			{
+				element: "#seconds-button",
+				placement: "bottom",
+				title: l10n.get("TutoSetSecondsTitle"),
+				content: l10n.get("TutoSetSecondsContent")
 			}
 		];
 		var tour = new Tour({
