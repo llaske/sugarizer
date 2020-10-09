@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow frog to move with arrow keys in FoodChain activity #857
 - Add a popup when image is exported in Moon activity #867
 - Add a popup when image is exported in Shared Notes activity #868
+- Add a popup when image is exported in Labyrinth activity #869
 
 
 ## [1.4.0] - 2020-09-23
