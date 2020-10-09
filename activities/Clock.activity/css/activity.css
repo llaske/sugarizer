@@ -64,8 +64,12 @@ canvas {
   background-image: url(../icons/set-time-game.svg);
 }
 
-#main-toolbar #seconds-button{
-  background-image: url(../icons/second-hand.svg);
+#main-toolbar #seconds-button-before {
+  background-image: url(../icons/before.svg);
+}
+
+#main-toolbar #seconds-button-after{
+    background-image: url(../icons/after.svg);
 }
 
 #main-toolbar #help-button {
