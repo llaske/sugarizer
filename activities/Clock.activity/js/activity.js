@@ -782,6 +782,17 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         }
 
+      var SecondsButton = document.getElementById("seconds-button");
+        SecondsButton.onclick = function(){
+          if(SecondsButton.classList.contains("before")){
+          SecondsButton.classList.remove("before");
+          SecondsButton.classList.add("after");}
+          else{
+            SecondsButton.classList.remove("after");
+            SecondsButton.classList.add("before");
+          }
+        }
+
         var setTimeGameButton = document.getElementById("set-timeGame-button");
         setTimeGameButton.onclick = function () {
           if (clock.setTimeGame) {
