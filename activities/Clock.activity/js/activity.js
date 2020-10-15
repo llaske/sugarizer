@@ -782,7 +782,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         }
 
-      var SecondsButton = document.getElementById("seconds-button");
+        var SecondsButton = document.getElementById("seconds-button");
         SecondsButton.onclick = function(){
           if(SecondsButton.classList.contains("before")){
           SecondsButton.classList.remove("before");
