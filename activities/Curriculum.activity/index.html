@@ -30,6 +30,7 @@
 	<script src="lib/jspdf.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
 <body>
@@ -39,10 +40,10 @@
 			<sugar-toolitem splitbar></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem 
-				id="network-button" 
+			<sugar-toolitem
+				id="network-button"
 				title="Network"
-				palette-file="sugar-web/graphics/presencepalette" 
+				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
 				v-on:shared="SugarPresence.onShared"
@@ -52,25 +53,25 @@
 			<sugar-toolitem id="home-button" v-show="(currentView != 'categories-grid' && currentView != 'template-selection') || rewardsActive" @click="goBackTo('categories-grid')" v-bind:title="l10n.stringCategories"></sugar-toolitem>
 			<div class="search-field" v-if="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')">
 				<div class="search-icon"></div>
-				<input 
-					type="text" 
-					class="search-input" 
-					v-model="searchText" 
+				<input
+					type="text"
+					class="search-input"
+					v-model="searchText"
 					:placeholder="l10n.stringSearch + ' ' + (currentView == 'categories-grid' ? l10n.stringCategory : l10n.stringSkill)"
 				>
 				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
 			</div>
-			<sugar-toolitem 
-				id="acquire-button" 
+			<sugar-toolitem
+				id="acquire-button"
 				v-if="!sharedInstance"
-				v-show="currentView == 'skill-details'" 
-				:class="{ active: notationLevel == 1 && currentAcquired != 0 }" 
-				@click="switchSkillLevel" 
+				v-show="currentView == 'skill-details'"
+				:class="{ active: notationLevel == 1 && currentAcquired != 0 }"
+				@click="switchSkillLevel"
 				v-bind:title="l10n.stringAcquire"
 				v-bind:icon="'icons/medal' + levels[notationLevel][currentAcquired].grade + '.svg'"
 			></sugar-toolitem>
 			<sugar-toolitem
-				id="upload-button" 
+				id="upload-button"
 				v-if="!sharedInstance"
 				v-show="currentView == 'skill-details'"
 				palette-file="js/palettes/mediapalette.js"
@@ -80,24 +81,24 @@
 				@upload-item="onUploadItem"
 				v-bind:title="l10n.stringUploadMedia"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="rewards-button" 
-				v-show="!settings && currentView != 'template-selection'" 
-				@click="rewardsActive = !rewardsActive" 
-				:class="{ active: rewardsActive }" 
+			<sugar-toolitem
+				id="rewards-button"
+				v-show="!settings && currentView != 'template-selection'"
+				@click="rewardsActive = !rewardsActive"
+				:class="{ active: rewardsActive }"
 				v-bind:title="l10n.stringRewards"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="settings-button" 
+			<sugar-toolitem
+				id="settings-button"
 				v-if="!sharedInstance"
-				v-show="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				v-show="!rewardsActive && (currentView == 'categories-grid' || currentView == 'skills-grid')"
 				:icon="settings ? 'icons/play.svg' : 'icons/settings.svg'"
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>
 			<sugar-toolitem
-				id="notation-button" 
-				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+				id="notation-button"
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')"
 				palette-file="js/palettes/notationpalette.js"
 				palette-class="NotationPalette"
 				palette-title="Notation Level"
@@ -105,9 +106,9 @@
 				@notation-selected="onNotationSelected"
 				v-bind:title="l10n.stringNotationLevel"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="add-button" 
-				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')" 
+			<sugar-toolitem
+				id="add-button"
+				v-show="settings && (currentView == 'categories-grid' || currentView == 'skills-grid')"
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
@@ -133,9 +134,9 @@
 		<div id="content">
 			<transition name="fade" mode="out-in">
 				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
-					<component 
+					<component
 						v-if="!rewardsActive"
-						:is="currentView" 
+						:is="currentView"
 						:settings="settings"
 						:categories="categories"
 						:category-id="selectedCategoryId"
@@ -157,25 +158,25 @@
 					></component>
 				</keep-alive>
 			</transition>
-			<rewards 
+			<rewards
 				v-if="rewardsInit"
-				v-show="rewardsActive" 
-				:user="user" 
-				:categories="categories" 
-				:achievements="achievements" 
-				:levels="levels" 
-				:notation-level="notationLevel" 
+				v-show="rewardsActive"
+				:user="user"
+				:categories="categories"
+				:achievements="achievements"
+				:levels="levels"
+				:notation-level="notationLevel"
 				:user-colors="currentenv ? currentenv.user.colorvalue : undefined"
 			></rewards>
-			<export 
+			<export
 				ref="Export"
 				v-if="exporting != ''"
 				:currentenv="currentenv"
-				:user="user" 
-				:categories="categories" 
-				:achievements="achievements" 
-				:levels="levels" 
-				:notation-level="notationLevel" 
+				:user="user"
+				:categories="categories"
+				:achievements="achievements"
+				:levels="levels"
+				:notation-level="notationLevel"
 				:template-title="templateTitle"
 				:exporting="exporting"
 				@export-completed="exporting = ''"

@@ -21,6 +21,7 @@
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
 <body>
@@ -29,19 +30,19 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 
-			<!-- Add more buttons here -->			
+			<!-- Add more buttons here -->
 			<sugar-toolitem ref="playBtn" class="toolbutton" id="play-button"
 				v-bind:title="l10n.stringPlay"
 				v-on:click="changeGameState"
 				v-if="paused">
 			</sugar-toolitem>
-			
+
 			<sugar-toolitem ref="pauseBtn" class="toolbutton" id="pause-button"
 				v-bind:title="l10n.stringPause"
 				v-on:click="changeGameState"
 				v-else>
 			</sugar-toolitem>
-			
+
 			<sugar-toolitem ref="settingsBtn" class="toolbutton" id="settings-button"
 				v-bind:title="l10n.stringSettings"
 				palette-file="js/palettes/settingspalette.js"
@@ -63,33 +64,33 @@
 				palette-event="bg-selected"
 				v-on:bg-selected="onBgSelected">
 			</sugar-toolitem>
-			
+
 			<sugar-toolitem splitbar></sugar-toolitem>
-			
-			<sugar-toolitem 
-				ref="fractionsBtn" 
-				id="fractions-button" 
-				v-on:click="changeMode('fractions')" 
+
+			<sugar-toolitem
+				ref="fractionsBtn"
+				id="fractions-button"
+				v-on:click="changeMode('fractions')"
 				v-bind:active="mode == 'fractions'"
 				v-bind:title="l10n.stringFractions">
 			</sugar-toolitem>
-			<sugar-toolitem 
-				ref="sectorsBtn" 
-				id="sectors-button" 
-				v-on:click="changeMode('sectors')" 
+			<sugar-toolitem
+				ref="sectorsBtn"
+				id="sectors-button"
+				v-on:click="changeMode('sectors')"
 				v-bind:active="mode == 'sectors'"
 				v-bind:title="l10n.stringSectors">
 			</sugar-toolitem>
-			<sugar-toolitem 
-				ref="percentsBtn" 
-				id="percents-button" 
-				v-on:click="changeMode('percents')" 
+			<sugar-toolitem
+				ref="percentsBtn"
+				id="percents-button"
+				v-on:click="changeMode('percents')"
 				v-bind:active="mode == 'percents'"
 				v-bind:title="l10n.stringPercents">
 			</sugar-toolitem>
-			
+
 			<span class="helpText">{{ helpText }}</span>
-			
+
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
@@ -103,13 +104,13 @@
 					<th v-for="(item, key) in log" v-bind:key="key"> {{ key }} </th>
 				</thead>
 				<tbody>
-					<td v-for="(items, key) in log" v-bind:key="key" valign="top"> 
+					<td v-for="(items, key) in log" v-bind:key="key" valign="top">
 						<ul>
 							<li v-if="items" v-for="item in items" v-bind:key="items">
-								<img src="./images/smiley.svg" alt="smiley" v-if="item">	
-								<img src="./images/frown.svg" alt="smiley" v-else>	
-							</li>	
-						</ul>	
+								<img src="./images/smiley.svg" alt="smiley" v-if="item">
+								<img src="./images/frown.svg" alt="smiley" v-else>
+							</li>
+						</ul>
 					</td>
 				</tbody>
 			</table>
