@@ -92,13 +92,50 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		var captureError = function (error) {
 			modal.close();
 		};
-		navigator.camera.getPicture(captureSuccess, captureError, {
-			quality: 50,
-			targetWidth: 640,
-			targetHeight: 480,
-			destinationType: Camera.DestinationType.DATA_URL,
-			sourceType: Camera.PictureSourceType.CAMERA
-		});
+		if (window.cordova || window.PhoneGap) {
+			navigator.camera.getPicture(captureSuccess, captureError, {
+				quality: 50,
+				targetWidth: 640,
+				targetHeight: 480,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA
+			});
+		} else {
+			try {
+				var video = document.createElement("video");
+				video.id = "videocapture";
+				video.style.zIndex = "300";
+				video.setAttribute("controls", false);
+				video.setAttribute("autoplay", "true");
+				video.style.width = "100%";
+				video.style.top = "0px";
+				video.style.position = "absolute";
+				var parent = document.getElementById("journal-container");
+				parent.appendChild(video);
+				navigator.mediaDevices.getUserMedia({video: true}).then(function(mediaStream) {
+					video.srcObject = mediaStream;
+					setTimeout(function () {
+						var canvas = document.createElement("canvas");
+						var width = 320;
+						var height = 240;
+						canvas.width = width;
+						canvas.height = height;
+						canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+						var data = canvas.toDataURL("image/png");
+						featurePhoto.createJournalEntry(data, function() {
+							if (modal.isVisible()) { modal.close(); }
+							mediaStream.getTracks().forEach(function(track) { track.stop(); });
+							parent.removeChild(video);
+						});
+					}, 2700);
+				}).catch(function (error) {
+					modal.close();
+					parent.removeChild(video);
+				});
+			} catch (e) {
+				modal.close();
+			}
+		}
 	};
 	featurePhoto.beforeUnactivate = function() {};
 	featurePhoto.onFavorite = function() {};
@@ -151,9 +188,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					featureAbecedarium.mimetype = imageType;
 					featureAbecedarium.filelocation = "images/database/";
 					chooser.features.push(featureAbecedarium);
-					if (window.cordova || window.PhoneGap) {
-						chooser.features.push(featurePhoto);
-					}
+					chooser.features.push(featurePhoto);
 					break;
 				} else if (filters[i].mimetype == soundType) {
 					featureAbecedarium.fileformat = ".mp3";
