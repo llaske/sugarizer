@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use HTTPS for default Sugarizer Server
 - Use HTTPS for default library in Ebook Reader activity
 - Use HTTPS for default videos libraries in Video Viewer activity
+- Change color of Calligra icon - was too white
 
 ### Fixed
 - Wrong poll is displayed in Vote activity #854
