@@ -75,6 +75,88 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		abecedariumFill();
 	};
 
+	// Chooser feature to take a screen capture
+	chooser.featurePhoto = {}
+	var featurePhoto = chooser.featurePhoto;
+	featurePhoto.id = "photo-button";
+	featurePhoto.title = "$titlePhoto";
+	featurePhoto.placeholder = "";
+	featurePhoto.icon = "lib/sugar-web/graphics/icons/actions/photo.svg";
+	featurePhoto.beforeActivate = function() {
+		var captureSuccess = function (imageData) {
+			var data = "data:image/jpeg;base64," + imageData;
+			featurePhoto.createJournalEntry(data, function() {
+				modal.close();
+			});
+		};
+		var captureError = function (error) {
+			modal.close();
+		};
+		if (window.cordova || window.PhoneGap) {
+			navigator.camera.getPicture(captureSuccess, captureError, {
+				quality: 50,
+				targetWidth: 640,
+				targetHeight: 480,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA
+			});
+		} else {
+			try {
+				var video = document.createElement("video");
+				video.id = "videocapture";
+				video.style.zIndex = "300";
+				video.setAttribute("controls", false);
+				video.setAttribute("autoplay", "true");
+				video.style.width = "100%";
+				video.style.top = "0px";
+				video.style.position = "absolute";
+				var parent = document.getElementById("journal-container");
+				parent.appendChild(video);
+				navigator.mediaDevices.getUserMedia({video: true}).then(function(mediaStream) {
+					video.srcObject = mediaStream;
+					setTimeout(function () {
+						var canvas = document.createElement("canvas");
+						var width = 320;
+						var height = 240;
+						canvas.width = width;
+						canvas.height = height;
+						canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+						var data = canvas.toDataURL("image/png");
+						featurePhoto.createJournalEntry(data, function() {
+							if (modal.isVisible()) { modal.close(); }
+							mediaStream.getTracks().forEach(function(track) { track.stop(); });
+							parent.removeChild(video);
+						});
+					}, 2700);
+				}).catch(function (error) {
+					modal.close();
+					parent.removeChild(video);
+				});
+			} catch (e) {
+				modal.close();
+			}
+		}
+	};
+	featurePhoto.beforeUnactivate = function() {};
+	featurePhoto.onFavorite = function() {};
+	featurePhoto.onScroll = function() {};
+	featurePhoto.onSearch = function() {};
+	featurePhoto.onCancelSearch = function() {};
+	featurePhoto.createJournalEntry = function(data, callback) {
+		var metadata = {
+			mimetype: "image/jpeg",
+			title: doLocalize("$photoName", {name:userSettings.name}),
+			activity: "org.olpcfrance.MediaViewerActivity",
+			timestamp: new Date().getTime(),
+			creation_time: new Date().getTime(),
+			file_size: 0
+		};
+		datastore.create(metadata, function(err, objectId) {
+			if (err == null) { result = {metadata:metadata, objectId: objectId}; }
+			if (callback) { callback(); }
+		}, data);
+	},
+
 	// Init feature list: overload it if you want to change the feature list at init
 	chooser.features = [];
 	chooser.currentFeature = -1;
@@ -106,6 +188,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					featureAbecedarium.mimetype = imageType;
 					featureAbecedarium.filelocation = "images/database/";
 					chooser.features.push(featureAbecedarium);
+					chooser.features.push(featurePhoto);
 					break;
 				} else if (filters[i].mimetype == soundType) {
 					featureAbecedarium.fileformat = ".mp3";
@@ -492,8 +575,10 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	var l10n = {
 		titleJournal: {en: 'Journal', fr: 'Journal', es: 'Diario', pt: 'Diário'},
 		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium', pt: 'Abecedarium'},
+		titlePhoto: {en: 'Photo', fr: 'Photo', es: 'Photo', pt: 'Photo'},
 		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar', pt: 'Cancelar'},
 		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto', pt: 'Escolher um objeto'},
+		photoName: {en: 'Photo by {{name}}', fr: 'Photo par {{name}}', es: 'Photo por {{name}}', pt: 'Photo por {{name}}'},
 		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario', pt: 'Pesquisar no diário'},
 		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium', pt: 'Pesquisar no Abecedarium'},
 		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes', pt: 'Sem atividades correspondentes'},
