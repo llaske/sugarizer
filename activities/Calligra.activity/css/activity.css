@@ -343,6 +343,14 @@ body {
 	background-image: url(../icons/restart.svg);
 	background-size: contain;
 }
+.player-next {
+	position: absolute;
+	top: 130px;
+	right: 17px;
+	background-color: #000000;
+	color: #ffffff;
+	padding: 5px;
+}
 
 .player-restart:disabled {
 	background-color: lightgray;

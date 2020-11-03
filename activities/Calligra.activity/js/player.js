@@ -8,6 +8,7 @@ var Player = {
 				<canvas id="letter"></canvas>
 			</div>
 			<button id="player-restart" class="player-restart"></button>
+			<button id="player-next-letter" class="player-next" v-on:click="nextItem()">Try next</button>
 			<div id="cursor" class="player-cursor"></div>
 		</div>`,
 	props: ['item'],
@@ -197,6 +198,14 @@ var Player = {
 					if (vm.current.start >= vm.item.starts.length) {
 						vm.mode = 'end';
 						vm.setCursorVisibility(false);
+						setTimeout(function(){ 
+							confetti({
+								particleCount: 200,
+								spread: 70,
+								origin: { y: 0.6 }
+							  });
+						 }, 500);
+						
 					} else {
 						var lines = [{x: vm.item.starts[vm.current.start].x, y:vm.item.starts[vm.current.start].y}];
 						vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
@@ -239,6 +248,7 @@ var Player = {
 					} else {
 						vm.current.timeout = setTimeout(function() {
 							// End of draw, start input mode
+							document.getElementById('player-next-letter').disabled = false;
 							vm.startInputMode();
 							vm.current.timeout = null;
 						}, 700);
@@ -302,6 +312,7 @@ var Player = {
 				iconlib.colorize(document.getElementById("cursor"), app.color, function() {
 				});
 			});
+			document.getElementById('player-next-letter').disabled = true;
 		},
 
 		doZoom: function(level) {
@@ -333,6 +344,20 @@ var Player = {
 
 		goBack: function() {
 			app.displayTemplateView();
+		},
+		nextItem: function () {
+			// When Try Next button is clicked
+			var vm = this;
+			vm.item = app.nextItem(vm.item);
+			var imageObj = new Image();
+			imageObj.onload = function() {
+				vm.imageSize = imageObj.width;
+
+				vm.onLoad();
+				vm.startDemoMode();
+			};
+			imageObj.src = vm.item.image;
+			
 		}
 	},
 

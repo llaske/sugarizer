@@ -138,7 +138,7 @@ var app = new Vue({
 					return;
 				}
 
-				// Dosplay item
+				// Display item
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
 				vm.$refs.toolbar.$refs.insertimage.isDisabled = true;
@@ -146,6 +146,23 @@ var app = new Vue({
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
 			}
+		},
+		nextItem: function (item) {
+			// returns the next letter when Try Next button is clicked
+			var vm = this;
+			var index = -1;
+			for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
+				if (vm.currentTemplate.images[i] == item) {
+					index = i;
+					break;
+				}
+			}
+			index++;
+			if (index === 26) {
+				index = 0;
+			}
+			return vm.currentTemplate.images[index];
+			
 		},
 
 		onZoom: function(item) {
