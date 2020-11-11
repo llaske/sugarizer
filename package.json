@@ -11,10 +11,10 @@
   "description": "A taste of Sugar on any device",
   "license": "Apache-2.0",
   "dependencies": {
-    "requirejs": "~2.3.5",
     "electron": "~7.2.0",
-    "tmp": "~0.1.0",
-    "ini": "1.1.x"
+    "ini": "1.1.x",
+    "requirejs": "~2.3.5",
+    "tmp": "~0.1.0"
   },
   "devDependencies": {
     "grunt": "~1.2.1",

@@ -158,7 +158,7 @@ var app = new Vue({
 				}
 			}
 			index++;
-			if (index === 26) {
+			if (index === vm.currentTemplate.images.length) {
 				index = 0;
 			}
 			return vm.currentTemplate.images[index];
@@ -240,6 +240,7 @@ var app = new Vue({
 				options.zoombutton = vm.$refs.toolbar.$refs.zoombutton.$el;
 				options.backbutton = document.getElementById("back");
 				options.restartbutton = document.getElementById("player-restart");
+				options.nextbutton = document.getElementById("player-next-letter");
 				options.editoraddbutton = document.getElementById("editor-add");
 				options.editorremovebutton = document.getElementById("editor-remove");
 				options.editoraddpathbutton = document.getElementById("editor-addpath");

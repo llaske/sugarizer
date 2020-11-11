@@ -8,7 +8,7 @@ var Player = {
 				<canvas id="letter"></canvas>
 			</div>
 			<button id="player-restart" class="player-restart"></button>
-			<button id="player-next-letter" class="player-next" v-on:click="nextItem()">Try next</button>
+			<button id="player-next-letter" class="player-next" v-on:click="nextItem()"></button>
 			<div id="cursor" class="player-cursor"></div>
 		</div>`,
 	props: ['item'],
