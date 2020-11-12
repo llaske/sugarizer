@@ -138,7 +138,7 @@ var app = new Vue({
 					return;
 				}
 
-				// Dosplay item
+				// Display item
 				vm.$refs.toolbar.$refs.lines.isDisabled = false;
 				vm.$refs.toolbar.$refs.zoombutton.isDisabled = false;
 				vm.$refs.toolbar.$refs.insertimage.isDisabled = true;
@@ -146,6 +146,23 @@ var app = new Vue({
 				vm.currentItem = item;
 				document.getElementById("canvas").style.backgroundColor = "#ffffff";
 			}
+		},
+		nextItem: function (item) {
+			// returns the next letter when Try Next button is clicked
+			var vm = this;
+			var index = -1;
+			for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
+				if (vm.currentTemplate.images[i] == item) {
+					index = i;
+					break;
+				}
+			}
+			index++;
+			if (index === vm.currentTemplate.images.length) {
+				index = 0;
+			}
+			return vm.currentTemplate.images[index];
+			
 		},
 
 		onZoom: function(item) {
@@ -223,6 +240,7 @@ var app = new Vue({
 				options.zoombutton = vm.$refs.toolbar.$refs.zoombutton.$el;
 				options.backbutton = document.getElementById("back");
 				options.restartbutton = document.getElementById("player-restart");
+				options.nextbutton = document.getElementById("player-next-letter");
 				options.editoraddbutton = document.getElementById("editor-add");
 				options.editorremovebutton = document.getElementById("editor-remove");
 				options.editoraddpathbutton = document.getElementById("editor-addpath");

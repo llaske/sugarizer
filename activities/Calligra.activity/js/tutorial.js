@@ -34,6 +34,8 @@ var Tutorial = {
 				stringTutoBackButtonContent: '',
 				stringTutoRestartButtonTitle: '',
 				stringTutoRestartButtonContent: '',
+				stringTutoNextButtonTitle: '',
+				stringTutoNextButtonContent: '',
 				stringTutoEditorAddButtonTitle: '',
 				stringTutoEditorAddButtonContent: '',
 				stringTutoEditorRemoveButtonTitle: '',
@@ -154,6 +156,12 @@ var Tutorial = {
 						placement: "left",
 						title: this.l10n.stringTutoRestartButtonTitle,
 						content: this.l10n.stringTutoRestartButtonContent
+					},
+					{
+						element: options.nextbutton,
+						placement: "left",
+						title: this.l10n.stringTutoNextButtonTitle,
+						content: this.l10n.stringTutoNextButtonContent
 					}
 				]);
 			}
