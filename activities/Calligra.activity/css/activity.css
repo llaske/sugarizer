@@ -358,10 +358,6 @@ body {
 	background-color: lightgray;
 }
 
-.player-next:disabled {
-	background-color: lightgray;
-}
-
 .player-cursor {
 	position: absolute;
 	top: 100px;
