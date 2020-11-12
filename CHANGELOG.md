@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add Photo mode in Journal popup
 - Add a noLoginMode to hide login button on first screen
+- Add more fun at end of Calligra #894
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
