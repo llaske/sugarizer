@@ -262,10 +262,8 @@ enyo.kind({
 			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
 				this.step += 2;
 				this.displayStep();
-			} else if(!this.createnew) {  // Login
-				this.step++;
-			} else {  // Signup
-				this.checkUsername(name);
+			} else {
+				this.checkUsername(name, this.createnew);
 			}
 			this.displayStep();
 		} else if (this.step == 3) {
@@ -434,7 +432,7 @@ enyo.kind({
 		}
 	},
 
-	checkUsername: function(name) {
+	checkUsername: function(name, createnew) {
 		var that = this;
 		that.$.spinner.setShowing(true);
 		myserver.postUser(
@@ -444,10 +442,14 @@ enyo.kind({
 				beforeSignup: true
 			},
 			function(inSender, inResponse) {
-				if(!inResponse.exists) {
-					// Username unique
+				if((!inResponse.exists && createnew) || (inResponse.exists && !createnew)) {
 					that.step++;
 					that.displayStep();
+				} else {
+					if (!createnew) {
+						that.$.warningmessage.setContent(l10n.get("InvalidUser"));
+						that.$.warningmessage.setShowing(true);
+					}
 				}
 				that.$.spinner.setShowing(false);
 			},
@@ -459,12 +461,18 @@ enyo.kind({
 				} else {
 					// Server supports fix -> new workflow
 					if(error == 22) {
-						// Username already exists
-						that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+						if (createnew) {
+							that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+							that.$.warningmessage.setShowing(true);
+						} else {
+							that.step++;
+							that.displayStep();
+							that.$.warningmessage.setShowing(false);
+						}
 					} else {
 						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+						that.$.warningmessage.setShowing(true);
 					}
-					that.$.warningmessage.setShowing(true);
 				}
 				that.$.spinner.setShowing(false);
 			}
