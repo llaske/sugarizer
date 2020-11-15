@@ -38,6 +38,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                         }else{
                             document.getElementById("write-date-button").classList.remove("active");
                         }
+                        if(data.writeSeconds){
+                            document.getElementById("write-seconds-button").classList.add("active");
+                            clock.changeWriteSeconds(true);
+                        }else{
+                            document.getElementById("write-seconds-button").classList.remove("active");
+                            clock.changeWriteSeconds(false);
+                        }
                         if(data.isSetTimeGame){
                            clock.setTimeGame = true;
 
@@ -115,6 +122,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
             this.writeTime = false;
             this.writeDate = false;
+            this.writeSeconds = true;
             this.setTime = false;
             this.setTimeGame = false;
             this.isDrag = false;
@@ -187,6 +195,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
             document.getElementById("write-time-button").title = l10n_s.get("WriteTime");
             document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
+            document.getElementById("write-seconds-button").title = l10n_s.get("WriteSeconds");
             document.getElementById("set-time-button").title = l10n_s.get("SetTime");
             document.getElementById("set-timeGame-button").title = l10n_s.get("SetTimeGame");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
@@ -278,6 +287,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.drawBackground();
         }
 
+        Clock.prototype.changeWriteSeconds = function (writeSeconds) {
+            this.writeSeconds = writeSeconds;
+
+            this.changeWriteTime(this.writeTime);
+            this.updateSizes();
+            var date = new Date();
+            this.displayDate(date);
+            this.drawBackground();
+        }
+
         Clock.prototype.updateSizes = function () {
             var toolbarElem = document.getElementById("main-toolbar");
             var textContainerElem = document.getElementById("text-container");
@@ -345,8 +364,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               '</span>' +
               ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
               '</span>' +
-              ':<span style="color: {{ colors.seconds }}">{{ seconds }}' +
-              '</span>' +
+              (this.writeSeconds ? ':<span style="color: {{ colors.seconds }}">{{ seconds }}</span>' : '') +
               '<span style="color: {{ colors.yellow }}">' + txt +
               '</span>'
               ;
@@ -485,7 +503,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             ctx.clearRect(this.margin, this.margin, this.radius * 2,
                           this.radius * 2);
 
-            var handNames = ['hours', 'minutes', 'seconds'];
+            var handNames = this.writeSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes'];
             for (var i = 0; i < handNames.length; i++) {
                 var name = handNames[i];
                 ctx.lineCap = 'round';
@@ -512,7 +530,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             ctx.clearRect(this.margin, this.margin, this.radius * 2,
                           this.radius * 2);
                           this.drawSmiley();
-            var handNames = ['hours', 'minutes', 'seconds'];
+            var handNames = this.writeSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes'];
             // tempPos is used to position circle on each hand in set time mode
             var tempPos = [0.400,0.607,0.8125];
 
@@ -694,7 +712,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
           if(this.timeToBeDisplayed['hours']==undefined){
              this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 12) + 1;
              this.timeToBeDisplayed['minutes'] = Math.floor(Math.random() * 60);
-             this.timeToBeDisplayed['seconds'] = Math.floor(Math.random() * 60);
+             this.timeToBeDisplayed['seconds'] = this.writeSeconds ? Math.floor(Math.random() * 60) : 0;
            }
           var txt = "??";
           this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], txt);
@@ -759,6 +777,14 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               this.classList.toggle('active');
               var active = this.classList.contains('active');
               clock.changeWriteDate(active);
+        };
+
+        var writeSecondsButton = document.getElementById("write-seconds-button");
+        var that = this;
+        writeSecondsButton.onclick = function () {
+              this.classList.toggle('active');
+              var active = this.classList.contains('active');
+              clock.changeWriteSeconds(active);
         };
 
         var setTimeButton = document.getElementById("set-time-button");
@@ -880,7 +906,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
           clock.canvasY = canvasY;
 
           if(clock.setTimeGame){
-            var handNames = ['hours', 'minutes', 'seconds'];
+            var handNames = clock.writeSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes'];
             var targetAngles = [];
 
             targetAngles.push (Math.PI / 6 * (clock.timeToBeDisplayed['hours']%12) + Math.PI / 360 * clock.timeToBeDisplayed['minutes']);
@@ -889,7 +915,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
 
             var ctr = 0;
-            for(var i=0;i<3;i++){
+            for(var i=0;i<handNames.length;i++){
               var name = handNames[i];
               var angle = clock.handAngles[name] % (2 * Math.PI);
               var target = targetAngles[i];
@@ -900,7 +926,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 ctr++;
               }
             }
-            if(ctr==3){
+            if(ctr==handNames.length){
               clock.isSmiley = true;
             }else{
               clock.isSmiley = false;
@@ -918,6 +944,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               face : clock.face,
               writeTime : clock.writeTime,
               writeDate : clock.writeDate,
+              writeSeconds : clock.writeSeconds,
               isSetTime : clock.setTime,
               isSetTimeGame : clock.setTimeGame,
               isSmiley : clock.isSmiley,

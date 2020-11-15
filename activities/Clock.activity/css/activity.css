@@ -56,6 +56,10 @@ canvas {
   background-image: url(../icons/write-date.svg);
 }
 
+#main-toolbar #write-seconds-button {
+  background-image: url(../icons/write-seconds.svg);
+}
+
 #main-toolbar #set-time-button {
   background-image: url(../icons/set-time.svg);
 }
