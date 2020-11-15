@@ -40,6 +40,12 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoDateContent")
 			},
 			{
+				element: "#write-seconds-button",
+				placement: "bottom",
+				title: l10n.get("TutoSecondsTitle"),
+				content: l10n.get("TutoSecondsContent")
+			},
+			{
 				element: "#set-time-button",
 				placement: "bottom",
 				title: l10n.get("TutoSetTimeTitle"),
