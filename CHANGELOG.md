@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a popup when image is exported in Labyrinth activity #869
 - Stop playing a video change to fullscreen in VideoViewer activity #859
 - Fix JournalChooser icons in Memorize activity
+- Color My World Error between the two Korea #898
 
 
 ## [1.4.0] - 2020-09-23
