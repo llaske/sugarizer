@@ -1,187 +1,211 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:34:32 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-11-21 15:15+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-flip/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: Generation
 msgctxt "Generation"
 msgid "Generation"
-msgstr "Generacion"
+msgstr "Generación"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Game of Life Activity"
-msgstr "Game of Life Activity"
+msgstr "Actividad \"Juego de la vida\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Game of Life activity. Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen"
-msgstr "Welcome into the Game of Life activity. Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen"
+msgstr ""
+"Bienvenido a la actividad \"Juego de la vida\". En esta actividad, el alumno "
+"observará y explorará cómo interactúan y evolucionan las células generación "
+"tras generación. Usa uno de los patrones predefinidos, un patrón aleatorio o "
+"crea tu propio patrón y observa lo que ocurre"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Rules of Game of Life"
-msgstr "Rules of Game of Life"
+msgstr "Reglas de \"Juego de la vida\""
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Every cell on the board interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each generation, the following transitions occur:"
-msgstr "Every cell on the board interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each generation, the following transitions occur:"
+msgstr ""
+"Todas las células del tablero interactúan con las 8 células vecinas (en "
+"horizontal, vertical y diagonal). En cada generación, tendrán lugar las "
+"siguientes transiciones:"
 
 #: TutoUnderTitle
 msgctxt "TutoUnderTitle"
 msgid "Underpopulation"
-msgstr "Underpopulation"
+msgstr "Subpoblación"
 
 #: TutoUnderContent
 msgctxt "TutoUnderContent"
 msgid "Any live cell with fewer than two live neighbours dies, as if by underpopulation"
-msgstr "Any live cell with fewer than two live neighbours dies, as if by underpopulation"
+msgstr ""
+"Cualquier célula viva que tenga menos de dos células adyacentes morirá "
+"(subpoblación)"
 
 #: TutoNextTitle
 msgctxt "TutoNextTitle"
 msgid "Next generation"
-msgstr "Next generation"
+msgstr "Nueva generación"
 
 #: TutoNextContent
 msgctxt "TutoNextContent"
 msgid "Any live cell with two or three live neighbours lives on to the next generation"
-msgstr "Any live cell with two or three live neighbours lives on to the next generation"
+msgstr ""
+"Cualquier célula viva que tenga 2-3 células adyacentes vivirá hasta la "
+"próxima generación"
 
 #: TutoOverTitle
 msgctxt "TutoOverTitle"
 msgid "Overpopulation"
-msgstr "Overpopulation"
+msgstr "Superpoblación"
 
 #: TutoOverContent
 msgctxt "TutoOverContent"
 msgid "Any live cell with more than three live neighbours dies, as if by overpopulation"
-msgstr "Any live cell with more than three live neighbours dies, as if by overpopulation"
+msgstr ""
+"Cualquier célula viva que tenga más de 3 células adyacentes morirá "
+"(superpoblación)"
 
 #: TutoReproductionTitle
 msgctxt "TutoReproductionTitle"
 msgid "Reproduction"
-msgstr "Reproduction"
+msgstr "Reproducción"
 
 #: TutoReproductionContent
 msgctxt "TutoReproductionContent"
 msgid "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
-msgstr "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
+msgstr ""
+"Cualquier célula muerta con tres células vivas exactas adyacentes se "
+"convertirá en una célula viva (reproducción)"
 
 #: TutoRunTitle
 msgctxt "TutoRunTitle"
 msgid "Run/Pause"
-msgstr "Run/Pause"
+msgstr "Ejecutar/Pausar"
 
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "Click here to start or freeze the game"
-msgstr "Click here to start or freeze the game"
+msgstr "Haz clic aquí para empezar o pausar una partida"
 
 #: TutoRandomTitle
 msgctxt "TutoRandomTitle"
 msgid "Random Pattern"
-msgstr "Random Pattern"
+msgstr "Patrón aleatorio"
 
 #: TutoRandomContent
 msgctxt "TutoRandomContent"
 msgid "Click here to generate a board fill with a random number of cells"
-msgstr "Click here to generate a board fill with a random number of cells"
+msgstr ""
+"Haz clic aquí para generar un tablero con un número aleatorio de células"
 
 #: TutoGliderTitle
 msgctxt "TutoGliderTitle"
 msgid "'Glider' Pattern"
-msgstr "'Glider' Pattern"
+msgstr "Modo \"Deslizante\""
 
 #: TutoGliderContent
 msgctxt "TutoGliderContent"
 msgid "Click here to generate a board with a pattern called 'Glider' who move at each generation"
-msgstr "Click here to generate a board with a pattern called 'Glider' who move at each generation"
+msgstr ""
+"Haz clic aquí para generar un tablero con un patrón denominado \"deslizante\""
+", en el cual las células se mueven tras cada generación"
 
 #: TutoNoTitle
 msgctxt "TutoNoTitle"
 msgid "'Blinker' Pattern"
-msgstr "'Blinker' Pattern"
+msgstr "Modo \"Eterno\""
 
 #: TutoNoContent
 msgctxt "TutoNoContent"
 msgid "Click here to generate a board filled with pattern called 'Blinker' who live forever"
-msgstr "Click here to generate a board filled with pattern called 'Blinker' who live forever"
+msgstr ""
+"Haz clic aquí para generar un tablero con un patrón denominado \"eterno\", "
+"en el cual las células viven eternamente"
 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Reiniciar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to clear the board. You could then click on it to draw your own pattern"
-msgstr "Click here to clear the board. You could then click on it to draw your own pattern"
+msgstr ""
+"Haz clic aquí para reiniciar el tablero. Si lo hacer, podrás pulsar sobre él "
+"para modificarlo con tu propio patrón"
 
 #: TutoCountTitle
 msgctxt "TutoCountTitle"
 msgid "Generation Count"
-msgstr "Generation Count"
+msgstr "Generación"
 
 #: TutoCountContent
 msgctxt "TutoCountContent"
 msgid "Here you can see which generation are you actually on"
-msgstr "Here you can see which generation are you actually on"
+msgstr "Aquí podrás ver cuál es la generación de las células actuales"
 
 #: TutoSpeedTitle
 msgctxt "TutoSpeedTitle"
 msgid "Speed"
-msgstr "Speed"
+msgstr "Velocidad"
 
 #: TutoSpeedContent
 msgctxt "TutoSpeedContent"
 msgid "Click here to make generation faster or slower"
-msgstr "Click here to make generation faster or slower"
+msgstr "Haz clic aquí para que las generaciones duren más o menos tiempo"
 
 #: TutoSizeTitle
 msgctxt "TutoSizeTitle"
 msgid "Size"
-msgstr "Size"
+msgstr "Tamaño"
 
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
 msgid "Click here to change the size of the board"
-msgstr "Click here to change the size of the board"
+msgstr "Haz clic aquí para cambiar el tamaño del tablero"
 
 #: TutoDeadCellsTitle
 msgctxt "TutoDeadCellsTitle"
 msgid "Trails"
-msgstr "Trails"
+msgstr "Rastros"
 
 #: TutoDeadCellsContent
 msgctxt "TutoDeadCellsContent"
 msgid "Click here to see/hide trails of cells deaths"
-msgstr "Click here to see/hide trails of cells deaths"
+msgstr "Haz clic aquí para ver/ocultas los rastros de las células muertas"
 
 #: speed
 msgctxt "speed"
@@ -191,5 +215,4 @@ msgstr "velocidad :"
 #: size
 msgctxt "size"
 msgid "size :"
-msgstr "talla :"
-
+msgstr "tamaño :"
