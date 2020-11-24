@@ -1471,6 +1471,14 @@ body {
 	display: block;
 	border-radius: 0px 22px 22px 0px;
 }
+
+.hidden-emoji {
+	font-family: "Noto Emoji";
+	position: absolute;
+	top: -10000px;
+	left: -10000px;
+}
+
 .spinner {
 	position: absolute;
 	margin-left: 45%;
