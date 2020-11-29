@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:35:12 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-11-29 12:45+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-speak/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: SavedTalk
 msgctxt "SavedTalk"
@@ -27,37 +29,37 @@ msgstr "Hola {{name}}. Escribe algo por favor."
 #: Sleepy
 msgctxt "Sleepy"
 msgid "I'm sleepy"
-msgstr "I'm sleepy"
+msgstr "Estoy cansado"
 
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr "Language"
+msgstr "Idioma"
 
 #: Speech
 msgctxt "Speech"
 msgid "Speech"
-msgstr "Speech"
+msgstr "Voz"
 
 #: Face
 msgctxt "Face"
 msgid "Face"
-msgstr "Face"
+msgstr "Cara"
 
 #: TypeSomethingToHear
 msgctxt "TypeSomethingToHear"
 msgid "Type something to hear it"
-msgstr "Type something to hear it"
+msgstr "Escribe algo y escúchalo"
 
 #: AskRobot
 msgctxt "AskRobot"
 msgid "Ask robot any questions"
-msgstr "Ask robot any questions"
+msgstr "Pregunta al robot lo que quieras"
 
 #: VoiceChat
 msgctxt "VoiceChat"
 msgid "Voice chat"
-msgstr "Voice chat"
+msgstr "Chat de voz"
 
 #: ratelabel
 msgctxt "ratelabel"
@@ -67,27 +69,27 @@ msgstr "Rate:"
 #: pitchlabel
 msgctxt "pitchlabel"
 msgid "Pitch:"
-msgstr "Pitch:"
+msgstr "Tono:"
 
 #: eyesnumber
 msgctxt "eyesnumber"
 msgid "Eyes number:"
-msgstr "Eyes number:"
+msgstr "Número de ojos:"
 
 #: eyes
 msgctxt "eyes"
 msgid "Round"
-msgstr "Round"
+msgstr "Ronda"
 
 #: glasses
 msgctxt "glasses"
 msgid "Glasses"
-msgstr "Glasses"
+msgstr "Gafas"
 
 #: speak
 msgctxt "speak"
 msgid "Speak"
-msgstr "Speak"
+msgstr "Hablar"
 
 #: langen
 msgctxt "langen"
@@ -202,105 +204,123 @@ msgstr "Chinese"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Speak Activity"
-msgstr "Speak Activity"
+msgstr "Actividad \"Hablar\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Speak activity. Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer"
-msgstr "Welcome into the Speak activity. Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer"
+msgstr ""
+"Bienvenido a la actividad \"Hablar\". En esta actividad, el alumno podrá "
+"escribir cualquier texto, que será reproducido por una cara con un "
+"sintetizador de voz incorporado"
 
 #: TutoReadTitle
 msgctxt "TutoReadTitle"
 msgid "Reading"
-msgstr "Reading"
+msgstr "Lectura"
 
 #: TutoReadContent
 msgctxt "TutoReadContent"
 msgid "Click here to enter \"Reading\" mode. Type something to hear it"
-msgstr "Click here to enter \"Reading\" mode. Type something to hear it"
+msgstr ""
+"Haz clic aquí para activar el modo Lectura. Escribe algo para escuchar cómo "
+"se pronuncia"
 
 #: TutoQuestionTitle
 msgctxt "TutoQuestionTitle"
 msgid "Questions"
-msgstr "Questions"
+msgstr "Preguntas"
 
 #: TutoQuestionContent
 msgctxt "TutoQuestionContent"
 msgid "Click here to enter \"Question\" mode. Ask robot any questions (available soon)"
-msgstr "Click here to enter \"Question\" mode. Ask robot any questions (available soon)"
+msgstr ""
+"Haz clic aquí para activar el modo Preguntas. Haz las preguntas que quieras "
+"al robot (PRÓXIMAMENTE...)"
 
 #: TutoVoiceTitle
 msgctxt "TutoVoiceTitle"
 msgid "Voice Chat"
-msgstr "Voice Chat"
+msgstr "Chat de voz"
 
 #: TutoVoiceContent
 msgctxt "TutoVoiceContent"
 msgid "Click here to enter \"Voice chat\" mode. There you can talk with the robot (available soon)"
-msgstr "Click here to enter \"Voice chat\" mode. There you can talk with the robot (available soon)"
+msgstr ""
+"Haz clic aquí para activar el modo Chat de voz. En este modo, podrás hablar "
+"directamente con el robot (PRÓXIMAMENTE...)"
 
 #: TutoLanguageTitle
 msgctxt "TutoLanguageTitle"
 msgid "Language"
-msgstr "Language"
+msgstr "idioma"
 
 #: TutoLanguageContent
 msgctxt "TutoLanguageContent"
 msgid "Click here to change language. It's important to set the right language to be sure to have the right pronounciation"
-msgstr "Click here to change language. It's important to set the right language to be sure to have the right pronounciation"
+msgstr ""
+"Haz clic aquí para cambiar el idioma. Definir el idioma correcto es "
+"importante para que el robot pronuncie los textos correctamente"
 
 #: TutoSpeechTitle
 msgctxt "TutoSpeechTitle"
 msgid "Speech"
-msgstr "Speech"
+msgstr "Voz"
 
 #: TutoSpeechContent
 msgctxt "TutoSpeechContent"
 msgid "Click here to change speech parameters, such as rate and pitch"
-msgstr "Click here to change speech parameters, such as rate and pitch"
+msgstr ""
+"Haz clic aquí para cambiar los parámetros de la voz (como la velocidad o el "
+"tono)"
 
 #: TutoFaceTitle
 msgctxt "TutoFaceTitle"
 msgid "Face"
-msgstr "Face"
+msgstr "Cara"
 
 #: TutoFaceContent
 msgctxt "TutoFaceContent"
 msgid "Click here to change the look of the face. For example eyes shape and count"
-msgstr "Click here to change the look of the face. For example eyes shape and count"
+msgstr ""
+"Haz clic aquí para cambiar la apariencia de la cara (por ejemplo, la forma o "
+"la cantidad de ojos que tiene)"
 
 #: TutoTextTitle
 msgctxt "TutoTextTitle"
 msgid "Text"
-msgstr "Text"
+msgstr "Texto"
 
 #: TutoTextContent
 msgctxt "TutoTextContent"
 msgid "Type here the text to speech. Click on the right arrow to launch the speech"
-msgstr "Type here the text to speech. Click on the right arrow to launch the speech"
+msgstr ""
+"Escribe aquí el texto que quieras que se reproduzca. Haz clic en la flecha "
+"de la derecha para iniciar la reproducción"
 
 #: TutoHistoryTitle
 msgctxt "TutoHistoryTitle"
 msgid "History"
-msgstr "History"
+msgstr "Historial"
 
 #: TutoHistoryContent
 msgctxt "TutoHistoryContent"
 msgid "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
-msgstr "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
-
+msgstr ""
+"Haz clic aquí para ver los textos que se hayan reproducido anteriormente. "
+"También puedes hacer clic sobre ellos para que se copien al cuadro de texto"
