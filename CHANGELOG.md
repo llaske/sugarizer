@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix JournalChooser icons in Memorize activity
 - Color My World Error between the two Korea #898
 - Password characters flash from color to black&white #897
+- Issues on West Bank, Somalia and Cyprus in Color My World #901
 
 
 ## [1.4.0] - 2020-09-23
