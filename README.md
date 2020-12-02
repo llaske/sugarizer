@@ -16,7 +16,7 @@ Sugarizer is available as:
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android or iOS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
