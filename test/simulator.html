@@ -16,13 +16,13 @@
 	var commands = [
 		{
 			every: 1000,
-			{ create: 3, sharing: "org.olpcfrance.PaintActivity" },
+			action: { create: 3, sharing: "org.olpcfrance.PaintActivity" },
 			during: 3000
 		},
 		{
 			every: 2000,
-			{ create: 1 },
-			during: 5000;
+			action: { create: 1 },
+			during: 5000
 		}
 	];
 
@@ -30,7 +30,7 @@
 	var serverUrl = "http://localhost";
 	var serverPort = 8039;
 	var activity = "org.olpcfrance.PaintActivity";
-	createUsers(5, function(users) {
+	createUsers(5).then(function(users) {
 		for (var i = 0 ; i < users.length ; i++) {
 			var p = users[i];
 			console.log("User "+p.getUserInfo().networkId+" disconnected");
@@ -39,27 +39,34 @@
 	});
 
 	// Utility function
-	function createUsers(count, then) {
-		createUsersInt(count, [], then);
+	function createUsers(count) {
+		return new Promise(function(resolve, reject) {
+			var users = [];
+			createUsersInt(count, users, function() {
+				resolve(users);
+			});
+		});
 	}
 	function createUsersInt(count, users, then) {
 		if (users.length == count) {
 			then(users);
 			return;
 		}
-		createUser("User "+users.length, function(p) {
+		createUser("User "+users.length).then(function(p) {
 			console.log("User "+p.getUserInfo().networkId+" created");
 			users.push(p);
 			createUsersInt(count, users, then);
 		});
 	}
-	function createUser(name, then) {
-		requirejs(["sugar-web/presence"], function(presence) {
-			require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
-			var uid = createUUID();
-			initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid});
-			presence.joinNetwork(function(error, p) {
-				then(p);
+	function createUser(name) {
+		return new Promise(function(resolve, reject) {
+			requirejs(["sugar-web/presence"], function(presence) {
+				require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
+				var uid = createUUID();
+				initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid});
+				presence.joinNetwork(function(error, p) {
+					resolve(p);
+				});
 			});
 		});
 	}
