@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sugarizer Presence Simulator</title>
+  </head>
+  <body>
+  <div id="mocha"></div>
+
+  <script src="../lib/require.js"></script>
+
+  <script>
+	// Init require library
+	requirejs.config({ baseUrl: "../lib" });
+
+	// Simulation settings
+	var commands = [
+		{
+			every: 1000,
+			{ create: 3, sharing: "org.olpcfrance.PaintActivity" },
+			during: 3000
+		},
+		{
+			every: 2000,
+			{ create: 1 },
+			during: 5000;
+		}
+	];
+
+	// Launch simulator
+	var serverUrl = "http://localhost";
+	var serverPort = 8039;
+	var activity = "org.olpcfrance.PaintActivity";
+	createUsers(5, function(users) {
+		for (var i = 0 ; i < users.length ; i++) {
+			var p = users[i];
+			console.log("User "+p.getUserInfo().networkId+" disconnected");
+			p.leaveNetwork();
+		}
+	});
+
+	// Utility function
+	function createUsers(count, then) {
+		createUsersInt(count, [], then);
+	}
+	function createUsersInt(count, users, then) {
+		if (users.length == count) {
+			then(users);
+			return;
+		}
+		createUser("User "+users.length, function(p) {
+			console.log("User "+p.getUserInfo().networkId+" created");
+			users.push(p);
+			createUsersInt(count, users, then);
+		});
+	}
+	function createUser(name, then) {
+		requirejs(["sugar-web/presence"], function(presence) {
+			require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
+			var uid = createUUID();
+			initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid});
+			presence.joinNetwork(function(error, p) {
+				then(p);
+			});
+		});
+	}
+	function createUUID() {
+		var s = [];
+		var hexDigits = "0123456789abcdef";
+		for (var i = 0; i < 36; i++) {
+			s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+		}
+		s[14] = "4";
+		s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+		s[8] = s[13] = s[18] = s[23] = "-";
+
+		var uuid = s.join("");
+		return uuid;
+	}
+	function initSugarizer(updatedSettings) {
+		window.localStorage.clear();
+		var initSettings = { name: "Simulator", color: 163, colorvalue: { stroke: '#AC32FF', fill: '#FF8F00' } };
+		if (updatedSettings) {
+			for (var key in updatedSettings) {
+				initSettings[key] = updatedSettings[key];
+			}
+		}
+		window.localStorage.setItem("sugar_settings", JSON.stringify(initSettings));
+	};
+  </script>
+  </body>
+</html>
