@@ -9,7 +9,8 @@
     </style>
   </head>
   <body>
-  <h2 style="font-family: Arial">Sugarizer Presence Simulator</h2>
+  <h2 style="font-family: Arial;display: inline-block; margin-right: 10px;">Sugarizer Presence Simulator</h2>
+  <input id="stopstart" type="button" value="Stop" onclick="stopRestart()"/>
   <hr/>
   <div id="log"></div>
 
@@ -21,22 +22,27 @@
 
 	// Simulation settings
 	var simulation = {
-		action: { create: 5, sharing: "org.olpcfrance.PaintActivity" },
-		during: 15000,
+		action: { create: 15, sharing: "org.olpcfrance.PaintActivity" },
+		during: 5000,
 		count: 3
 	};
 
 	// Launch simulator
 	var serverUrl = "http://localhost";
 	var serverPort = 8039;
+	var stopNow = false;
 	runCommand(simulation);
 
 	// Simulator
 	function runCommand(command) {
+		command.current = command.count;
+		runCommandInt(command);
+	}
+	function runCommandInt(command) {
 		if (command.action && command.action.create) {
 			// One step less
-			if (command.count) {
-				command.count--;
+			if (command.current) {
+				command.current--;
 			}
 
 			// Create users
@@ -63,17 +69,37 @@
 							p.leaveNetwork();
 						}
 
+						// Stop now
+						if (stopNow) {
+							command.current = 0;
+							document.getElementById("stopstart").disabled = false;
+						}
+
 						// Next step
-						if (command.count) {
-							runCommand(command);
+						if (command.current) {
+							runCommandInt(command);
+						} else {
+							document.getElementById("stopstart").value = "Restart";
+							stopNow = true;
 						}
 					}, command.during);
 				}
 			});
 		}
-};
+	};
 
 	// Utility function
+	function stopRestart() {
+		if (!stopNow) {
+			stopNow = true;
+			document.getElementById("stopstart").value = "Restart";
+			document.getElementById("stopstart").disabled = true;
+		} else {
+			stopNow = false;
+			document.getElementById("stopstart").value = "Stop";
+			runCommand(simulation);
+		}
+	}
 	function createUsers(count) {
 		return new Promise(function(resolve, reject) {
 			var users = [];
