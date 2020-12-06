@@ -2,9 +2,16 @@
   <head>
     <meta charset="utf-8"/>
     <title>Sugarizer Presence Simulator</title>
+    <style>
+	div {
+		font-family: monospace;
+	}
+    </style>
   </head>
   <body>
-  <div id="mocha"></div>
+  <h2 style="font-family: Arial">Sugarizer Presence Simulator</h2>
+  <hr/>
+  <div id="log"></div>
 
   <script src="../lib/require.js"></script>
 
@@ -13,30 +20,58 @@
 	requirejs.config({ baseUrl: "../lib" });
 
 	// Simulation settings
-	var commands = [
-		{
-			every: 1000,
-			action: { create: 3, sharing: "org.olpcfrance.PaintActivity" },
-			during: 3000
-		},
-		{
-			every: 2000,
-			action: { create: 1 },
-			during: 5000
-		}
-	];
+	var simulation = {
+		action: { create: 5, sharing: "org.olpcfrance.PaintActivity" },
+		during: 15000,
+		count: 3
+	};
 
 	// Launch simulator
 	var serverUrl = "http://localhost";
 	var serverPort = 8039;
-	var activity = "org.olpcfrance.PaintActivity";
-	createUsers(5).then(function(users) {
-		for (var i = 0 ; i < users.length ; i++) {
-			var p = users[i];
-			console.log("User "+p.getUserInfo().networkId+" disconnected");
-			p.leaveNetwork();
+	runCommand(simulation);
+
+	// Simulator
+	function runCommand(command) {
+		if (command.action && command.action.create) {
+			// One step less
+			if (command.count) {
+				command.count--;
+			}
+
+			// Create users
+			createUsers(command.action.create).then(function(users) {
+				// Create share
+				if (command.action.sharing) {
+					users[0].createSharedActivity(command.action.sharing, function(sid) {
+						messageLog("User "+colorId(users[0].getUserInfo().networkId)+" create activity '"+command.action.sharing+"' with "+colorId(sid));
+						for (var i = 1 ; i < users.length ; i++) {
+							var p = users[i];
+							messageLog("User "+colorId(p.getUserInfo().networkId)+" join activity "+colorId(sid));
+							p.joinSharedActivity(sid, function() {});
+						}
+					});
+				}
+
+				// Stop after a moment
+				if (command.during) {
+					setTimeout(function() {
+						// Remove users
+						for (var i = 0 ; i < users.length ; i++) {
+							var p = users[i];
+							messageLog("User "+colorId(p.getUserInfo().networkId)+" disconnected");
+							p.leaveNetwork();
+						}
+
+						// Next step
+						if (command.count) {
+							runCommand(command);
+						}
+					}, command.during);
+				}
+			});
 		}
-	});
+};
 
 	// Utility function
 	function createUsers(count) {
@@ -52,18 +87,19 @@
 			then(users);
 			return;
 		}
-		createUser("User "+users.length).then(function(p) {
-			console.log("User "+p.getUserInfo().networkId+" created");
+		createUser("Virtual User "+(users.length+1)).then(function(p) {
+			messageLog("User "+colorId(p.getUserInfo().networkId)+" created");
 			users.push(p);
 			createUsersInt(count, users, then);
 		});
 	}
 	function createUser(name) {
 		return new Promise(function(resolve, reject) {
-			requirejs(["sugar-web/presence"], function(presence) {
+			requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
 				require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
 				var uid = createUUID();
-				initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid});
+				var colorindex = Math.floor(Math.random() * xocolor.colors.length);
+				initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid,  color: colorindex, colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill }});
 				presence.joinNetwork(function(error, p) {
 					resolve(p);
 				});
@@ -93,6 +129,29 @@
 		}
 		window.localStorage.setItem("sugar_settings", JSON.stringify(initSettings));
 	};
+	var colors = [];
+	function colorId(id) {
+		var color;
+		if (colors[id]) {
+			color = colors[id];
+		} else {
+			color = "#"+((1<<24)*Math.random()|0).toString(16);
+			colors[id] = color;
+		}
+		return "<font color='"+color+"'>"+id+"</font>"
+	}
+	var liIndex = 0;
+	function messageLog(message) {
+		var buf = "<font color='gray'>"+new Date().toISOString()+":</font> "+message;
+		var log = document.getElementById("log");
+		var li = document.createElement("div");
+		li.id = "li"+(++liIndex);
+		li.innerHTML = buf;
+		log.appendChild(li);
+		setTimeout(function() {
+			document.getElementById("li"+liIndex).scrollIntoView();
+		}, 50);
+	}
   </script>
   </body>
 </html>
