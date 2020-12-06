@@ -21,11 +21,18 @@
 	requirejs.config({ baseUrl: "../lib" });
 
 	// Simulation settings
-	var simulation = {
-		action: { create: 15, sharing: "org.olpcfrance.PaintActivity" },
-		during: 5000,
-		count: 3
-	};
+	var simulation = [
+		{
+			action: { create: 5, sharing: "org.olpcfrance.PaintActivity" },
+			during: 10000,
+			count: 2
+		},
+		{
+			action: { create: 3 },
+			during: 3000,
+			count: 3
+		}
+	];
 
 	// Launch simulator
 	var serverUrl = "http://localhost";
@@ -39,6 +46,12 @@
 		runCommandInt(command);
 	}
 	function runCommandInt(command) {
+		if (Array.isArray(command)) {
+			for (var i = 0 ; i < command.length ; i++) {
+				runCommand(command[i]);
+			}
+			return;
+		}
 		if (command.action && command.action.create) {
 			// One step less
 			if (command.current) {
@@ -72,15 +85,22 @@
 						// Stop now
 						if (stopNow) {
 							command.current = 0;
-							document.getElementById("stopstart").disabled = false;
 						}
 
 						// Next step
 						if (command.current) {
 							runCommandInt(command);
 						} else {
-							document.getElementById("stopstart").value = "Restart";
-							stopNow = true;
+							var isArray = Array.isArray(simulation);
+							var allStopped = true;
+							for (var i = 0 ; isArray && i < simulation.length ; i++) {
+								allStopped = allStopped && !simulation[i].current;
+							}
+							if (!isArray || allStopped) {
+								document.getElementById("stopstart").value = "Restart";
+								document.getElementById("stopstart").disabled = false;
+								stopNow = true;
+							}
 						}
 					}, command.during);
 				}
@@ -94,9 +114,20 @@
 			stopNow = true;
 			document.getElementById("stopstart").value = "Restart";
 			document.getElementById("stopstart").disabled = true;
+			if (!Array.isArray(simulation)) {
+				simulation.current = 0;
+			} else {
+				for (var i = 0 ; i < simulation.length ; i++) {
+					simulation[i].current = 0;
+				}
+			}
 		} else {
 			stopNow = false;
 			document.getElementById("stopstart").value = "Stop";
+			var log = document.getElementById("log");
+			while (log.firstChild) {
+				log.removeChild(log.lastChild);
+			}
 			runCommand(simulation);
 		}
 	}
@@ -119,17 +150,30 @@
 			createUsersInt(count, users, then);
 		});
 	}
+	var creating = false;
 	function createUser(name) {
 		return new Promise(function(resolve, reject) {
-			requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
-				require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
-				var uid = createUUID();
-				var colorindex = Math.floor(Math.random() * xocolor.colors.length);
-				initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid,  color: colorindex, colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill }});
-				presence.joinNetwork(function(error, p) {
-					resolve(p);
+			var doCreate = function() {
+				creating = true;
+				requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
+					require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
+					var uid = createUUID();
+					var colorindex = Math.floor(Math.random() * xocolor.colors.length);
+					initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid,  color: colorindex, colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill }});
+					presence.joinNetwork(function(error, p) {
+						resolve(p);
+						creating = false;
+					});
 				});
-			});
+			};
+			// HACK: Wait module presence is unloaded
+			if (!creating) {
+				doCreate();
+			} else {
+				setTimeout(function() {
+					doCreate();
+				}, 500);
+			}
 		});
 	}
 	function createUUID() {
