@@ -8,17 +8,27 @@
 	}
     </style>
   </head>
-  <body>
+  <body id="body">
   <h2 style="font-family: Arial;display: inline-block; margin-right: 10px;">Sugarizer Presence Simulator</h2>
   <input id="stopstart" type="button" value="Stop" onclick="stopRestart()"/>
   <hr/>
-  <div id="log"></div>
+  <div id="log" style="overflow: auto"></div>
 
   <script src="../lib/require.js"></script>
 
   <script>
 	// Init require library
 	requirejs.config({ baseUrl: "../lib" });
+
+	// Init window size
+	var resize = function() {
+		var body = document.getElementById("body");
+		var log = document.getElementById("log");
+		log.style.width = body.offsetWidth+"px";
+		log.style.height = (body.offsetHeight-90)+"px";
+	}
+	resize();
+	window.addEventListener("resize", resize);
 
 	// Simulation settings
 	var simulation = [
