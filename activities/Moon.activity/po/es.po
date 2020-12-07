@@ -1,62 +1,64 @@
 #. extracted from ../data.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:18:10 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-12-07 12:16+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-moon/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: phase-0
 msgctxt "phase-0"
 msgid "New Moon"
-msgstr "Luna Nueva"
+msgstr "Luna nueva"
 
 #: phase-1
 msgctxt "phase-1"
 msgid "Waxing Crescent"
-msgstr "Luna Nueva Visible"
+msgstr "Luna en cuarto creciente"
 
 #: phase-2
 msgctxt "phase-2"
 msgid "First Quarter"
-msgstr "Cuarto Creciente"
+msgstr "Luna en primer cuarto"
 
 #: phase-3
 msgctxt "phase-3"
 msgid "Waxing Gibbous"
-msgstr "Luna Gibada Creciente"
+msgstr "Luna gibosa creciente"
 
 #: phase-4
 msgctxt "phase-4"
 msgid "Full Moon"
-msgstr "Luna Llena"
+msgstr "Luna llena"
 
 #: phase-5
 msgctxt "phase-5"
 msgid "Waning Gibbous"
-msgstr "Luna Gibada Menguante"
+msgstr "Luna gibosa menguante"
 
 #: phase-6
 msgctxt "phase-6"
 msgid "Last Quarter"
-msgstr "Cuarto Menguante"
+msgstr "Luna en cuarto menguante"
 
 #: phase-7
 msgctxt "phase-7"
 msgid "Waning Crescent"
-msgstr "Luna Menguante"
+msgstr "Luna menguante"
 
 #: moonInfo
 msgctxt "moonInfo"
 msgid "Today\'s Moon Information"
-msgstr "Información de la Luna para hoy"
+msgstr "Información de la luna para hoy"
 
 #: phase
 msgctxt "phase"
@@ -66,7 +68,7 @@ msgstr "Fase"
 #: julian
 msgctxt "julian"
 msgid "Julian Date"
-msgstr "Fecha Juliana"
+msgstr "Fecha juliana"
 
 #: age
 msgctxt "age"
@@ -76,7 +78,7 @@ msgstr "Edad"
 #: lunation
 msgctxt "lunation"
 msgid "Lunation"
-msgstr "Lunation"
+msgstr "Lunación"
 
 #: visibility
 msgctxt "visibility"
@@ -91,12 +93,12 @@ msgstr "Longitud del terminador selenográfico"
 #: full
 msgctxt "full"
 msgid "Next Full Moon"
-msgstr "Próxima Luna Llena"
+msgstr "Próxima luna llena"
 
 #: new
 msgctxt "new"
 msgid "Next New Moon"
-msgstr "Próxima Luna Nueva"
+msgstr "Próxima luna nueva"
 
 #: lunar
 msgctxt "lunar"
@@ -116,7 +118,7 @@ msgstr "minutos"
 #: hours
 msgctxt "hours"
 msgid "hours"
-msgstr "días"
+msgstr "horas"
 
 #: days
 msgctxt "days"
@@ -126,12 +128,12 @@ msgstr "días"
 #: astro
 msgctxt "astro"
 msgid "(astronomical)"
-msgstr "(astronómical)"
+msgstr "(astronómica)"
 
 #: thru
 msgctxt "thru"
 msgid "through lunation"
-msgstr "hasta la lunación"
+msgstr "de lunación"
 
 #: in
 msgctxt "in"
@@ -186,110 +188,122 @@ msgstr "Longitud"
 #: ToggleGrid
 msgctxt "ToggleGrid"
 msgid "Toggle Grid View"
-msgstr "Cambiar a vista grilla"
+msgstr "Cambiar a vista de cuadrícula"
 
 #: ToggleHemisphere
 msgctxt "ToggleHemisphere"
 msgid "Toggle Hemisphere View"
-msgstr "Cambiar a vista hemisferio"
+msgstr "Cambiar a vista de hemisferio"
 
 #: SaveImage
 msgctxt "SaveImage"
 msgid "Save As Image"
-msgstr "Guardarla como una imagen"
+msgstr "Guardar como imagen"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Moon Activity"
-msgstr "Moon Activity"
+msgstr "Actividad \"Luna\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
-msgstr "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
+msgstr ""
+"Bienvenido a la actividad \"Luna\". \"Luna\" permite al alumno ver las fases "
+"de la luna (incluyendo información sobre cada una de ellas y datos sobre los "
+"próximos eclipses)"
 
 #: TutoActivityButtonTitle
 msgctxt "TutoActivityButtonTitle"
 msgid "Activity"
-msgstr "Activity"
+msgstr "Actividad"
 
 #: TutoActivityButtonContent
 msgctxt "TutoActivityButtonContent"
 msgid "Click here to update the title of the activity to easily find it in the Journal"
-msgstr "Click here to update the title of the activity to easily find it in the Journal"
+msgstr ""
+"Haz clic aquí para actualizar el título de la actividad y poderla encontrar "
+"más fácilmente en la biblioteca"
 
 #: TutoToggleGridButtonTitle
 msgctxt "TutoToggleGridButtonTitle"
 msgid "Show/Hide Grid"
-msgstr "Show/Hide Grid"
+msgstr "Ver/ocultar cuadrícula"
 
 #: TutoToggleGridButtonContent
 msgctxt "TutoToggleGridButtonContent"
 msgid "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
-msgstr "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
+msgstr ""
+"Haz clic aquí para mostrar una plantilla con la latitud y longitud (en "
+"grados) de cada zona de la Luna"
 
 #: TutoToggleHemisphereButtonTitle
 msgctxt "TutoToggleHemisphereButtonTitle"
 msgid "Rotation"
-msgstr "Rotation"
+msgstr "Rotación"
 
 #: TutoToggleHemisphereButtonContent
 msgctxt "TutoToggleHemisphereButtonContent"
 msgid "Click here to rotate the Moon to 180 degrees to it's back"
-msgstr "Click here to rotate the Moon to 180 degrees to it's back"
+msgstr "Haz clic aquí para rotar la Luna 180º (ver cara oculta)"
 
 #: TutoSaveImageButtonTitle
 msgctxt "TutoSaveImageButtonTitle"
 msgid "Save in Journal"
-msgstr "Save in Journal"
+msgstr "Guardar en biblioteca"
 
 #: TutoSaveImageButtonContent
 msgctxt "TutoSaveImageButtonContent"
 msgid "Click here to save the current moon image to your journal, where you can use it for other activites"
-msgstr "Click here to save the current moon image to your journal, where you can use it for other activites"
+msgstr ""
+"Haz clic aquí para guardar la imagen actual de la Luna en tu biblioteca, "
+"donde podrás usarla para otras actividades"
 
 #: TutoFullScreenButtonTitle
 msgctxt "TutoFullScreenButtonTitle"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Pantalla completa"
 
 #: TutoFullScreenButtonContent
 msgctxt "TutoFullScreenButtonContent"
 msgid "Click here to toggle between full and non-full screen"
-msgstr "Click here to toggle between full and non-full screen"
+msgstr ""
+"Haz clic aquí para alternar entre el modo de pantalla completa/pantalla en "
+"ventana"
 
 #: TutoStopButtonTitle
 msgctxt "TutoStopButtonTitle"
 msgid "Stop"
-msgstr "Stop"
+msgstr "Detener"
 
 #: TutoStopButtonContent
 msgctxt "TutoStopButtonContent"
 msgid "Click on this icon to stop the activity and go back to the home."
-msgstr "Click on this icon to stop the activity and go back to the home."
+msgstr ""
+"Haz clic en este icono para detener la actividad y regresar a la pantalla de "
+"inicio."
 
 #: TutoPanelLeftTitle
 msgctxt "TutoPanelLeftTitle"
 msgid "Moon information"
-msgstr "Moon information"
+msgstr "Información de la Luna"
 
 #: TutoPanelLeftContent
 msgctxt "TutoPanelLeftContent"
 msgid "Find here live information on the Moon and its current whereabouts"
-msgstr "Find here live information on the Moon and its current whereabouts"
-
+msgstr "Aquí podrás consultar la información sobre la Luna y su estado actual"
