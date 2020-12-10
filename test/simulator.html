@@ -19,6 +19,7 @@
   <script>
 	// Init require library
 	requirejs.config({ baseUrl: "../lib" });
+	var creating = 0;
 
 	// Init window size
 	var resize = function() {
@@ -34,14 +35,29 @@
 	var simulation = [
 		{
 			action: { create: 5, sharing: "org.olpcfrance.PaintActivity" },
+			during: 30000,
+			count: 4
+		},
+		{
+			action: { create: 2, sharing: "org.sugarlabs.ChatPrototype" },
 			during: 10000,
-			count: 2
+			count: 12
+		},
+		{
+			action: { create: 1 },
+			during: 3000,
+			count: 40
+		},
+		{
+			action: { create: 2 },
+			during: 4000,
+			count: 30
 		},
 		{
 			action: { create: 3 },
-			during: 3000,
-			count: 3
-		}
+			during: 5000,
+			count: 30
+		},
 	];
 
 	// Launch simulator
@@ -160,11 +176,10 @@
 			createUsersInt(count, users, then);
 		});
 	}
-	var creating = false;
 	function createUser(name) {
 		return new Promise(function(resolve, reject) {
 			var doCreate = function() {
-				creating = true;
+				creating++;
 				requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
 					require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
 					var uid = createUUID();
@@ -172,18 +187,21 @@
 					initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid,  color: colorindex, colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill }});
 					presence.joinNetwork(function(error, p) {
 						resolve(p);
-						creating = false;
+						creating--;
 					});
 				});
 			};
-			// HACK: Wait module presence is unloaded
-			if (!creating) {
-				doCreate();
-			} else {
-				setTimeout(function() {
+			var tryCreate = function() {
+				if (creating == 0) {
 					doCreate();
-				}, 500);
+				} else {
+					setTimeout(tryCreate, 500);
+				}
+				return false;
 			}
+
+			// HACK: Wait module presence is unloaded
+			tryCreate();
 		});
 	}
 	function createUUID() {
