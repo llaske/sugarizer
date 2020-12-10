@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add more fun at end of Calligra #894
 - Add an option to remove seconds hand in Clock activity #885
 - Check if login exist before asking password #893
+- Add presence simulator
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
