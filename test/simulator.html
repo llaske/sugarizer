@@ -20,6 +20,7 @@
 	// Init require library
 	requirejs.config({ baseUrl: "../lib" });
 	var creating = 0;
+	var buddies = [];
 
 	// Init window size
 	var resize = function() {
@@ -106,6 +107,7 @@
 							var p = users[i];
 							messageLog("User "+colorId(p.getUserInfo().networkId)+" disconnected");
 							p.leaveNetwork();
+							releaseBuddy(p);
 						}
 
 						// Stop now
@@ -182,9 +184,7 @@
 				creating++;
 				requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
 					require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
-					var uid = createUUID();
-					var colorindex = Math.floor(Math.random() * xocolor.colors.length);
-					initSugarizer({name: name, server: {url: serverUrl, presence: serverPort}, networkId: uid,  color: colorindex, colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill }});
+					initSugarizer(getBuddy(name, presence, xocolor));
 					presence.joinNetwork(function(error, p) {
 						resolve(p);
 						creating--;
@@ -203,6 +203,33 @@
 			// HACK: Wait module presence is unloaded
 			tryCreate();
 		});
+	}
+	function getBuddy(name, presence, xocolor) {
+		for (var i = 0 ; i < buddies.length ; i++) {
+			if (buddies[i].presence == null) {
+				buddies[i].presence = presence;
+				return buddies[i];
+			}
+		}
+		var uid = createUUID();
+		var colorindex = Math.floor(Math.random() * xocolor.colors.length);
+		var buddy = {
+			name: name,
+			server: {url: serverUrl, presence: serverPort},
+			networkId: uid, color: colorindex,
+			colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill },
+			presence: presence
+		};
+		buddies.push(buddy);
+		return buddy;
+	}
+	function releaseBuddy(presence) {
+		for (var i = 0 ; i < buddies.length ; i++) {
+			if (buddies[i].presence == presence) {
+				buddies[i].presence = null;
+				return;
+			}
+		}
 	}
 	function createUUID() {
 		var s = [];
