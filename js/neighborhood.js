@@ -31,11 +31,7 @@ enyo.kind({
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 
-		if (window.sugarizerOS) {
-			this.$.server.setIcon({directory: "icons", icon:"cloud-one.svg"});
-		} else {
-			this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
-		}
+		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
 		this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
 		this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
 		var cacheData = this.findInCache({icon: this.$.server});
@@ -65,66 +61,6 @@ enyo.kind({
 	getPopup: function() {
 		return this.$.networkPopup;
 	},
-	createWifiIcons: function (items) {
-		// If SugarizerOS, adding Wireless networks icons
-		if (window.sugarizerOS) {
-			var networkIcons = [];
-			var networks = sugarizerOS.networks;
-			var wifiInTutorial = false;
-			for (var i = 0; i < networks.length; i++) {
-				var currentNetwork = networks[i];
-				var encryptionString = sugarizerOS.getEncryptionString(currentNetwork.capabilities);
-				var connectedString = "";
-				var securedString = "";
-				var pwr = (-1 * currentNetwork.RSSI) % 10;
-				if (currentNetwork.isConnected) {
-					connectedString = "-connected";
-				} else if (encryptionString != "OPEN") {
-					securedString = "-locked";
-				}
-				if (pwr > 0) {
-					if (pwr % 2 != 0) {
-						pwr += 1;
-					}
-					pwr = pwr * 10;
-					cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
-					if (!cacheIcon) {
-						currentNetwork.networkId = currentNetwork.BSSID;
-						currentNetwork.shared = false;
-						currentNetwork.shared.id = currentNetwork.BSSID;
-						currentNetwork.color = xoPalette.colors[Math.floor(Math.random() * xoPalette.colors.length)];
-					} else {
-						currentNetwork = cacheIcon;
-					}
-
-				iconString = "network-wireless"+connectedString+securedString+"-0"+pwr+".svg";
-				if (pwr == 100) {
-					iconString = "network-wireless"+connectedString+securedString+"-"+pwr+".svg";
-				}
-				var icon = this.$.network.createComponent({
-						kind: "Sugar.Icon",
-						icon: {directory: "icons", icon: iconString},
-						size: constant.sizeNeighbor,
-						colorized: true,
-						colorizedColor: currentNetwork.color,
-						popupShow: enyo.bind(this, "showWifiPopup"),
-						popupHide: enyo.bind(this, "hideWifiPopup"),
-						data: currentNetwork
-					},
-					{owner: this}
-				);
-				icon.render();
-				if (!wifiInTutorial) {
-					tutorial.setElement("wifi", icon.getAttribute("id"));
-					wifiInTutorial = true;
-				}
-				networkIcons.push(icon);
-				sugarizerOS.addNetworkIconToCache(currentNetwork);
-				var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
-				items.push(item);
-			}}
-		}
-	},
 
 	// Update
 	updateNetworkState: function() {
@@ -152,33 +88,7 @@ enyo.kind({
 			presence.listUsers(enyo.bind(this, "userListReceived"));
 			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 			this.eeMode = false;
-		}
-		else if (window.sugarizerOS) {
-			now = new Date().getTime();
-			this.$.owner.setShowing(true);
-			if (presence.isConnected())
-			this.$.server.setShowing(true);
-			this.$.empty.setShowing(false);
-			this.$.message.setShowing(false);
-			this.$.settings.setShowing(false);
-			this.$.refresh.setShowing(false);
-			sugarizerOS.isWifiEnabled(function(value){
-				if (value != 0) {
-					sugarizerOS.scanWifi();
-				} else {
-					sugarizerOS.networks = [];
-				}
-			});
-			if (wifiItemsCache != sugarizerOS.networks && (now - lastWifiUpdate) > constant.wifiUpdateTime) {
-				this.draw();
-				wifiItemsCache = sugarizerOS.networks;
-				lastWifiUpdate = now;
-			}
-			presence.listUsers(enyo.bind(this, "userListReceived"));
-			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
-			this.eeMode = false;
-		}
-		else {
+		} else {
 			this.$.owner.setShowing(false);
 			this.$.server.setShowing(false);
 			this.$.empty.setShowing(true);
@@ -314,120 +224,18 @@ enyo.kind({
 	},
 
 	disconnect: function() {
-		sugarizerOS.disconnectWifi();
 		this.getPopup().hidePopup();
 	},
 
 	forgetPassword: function(network) {
-		sugarizerOS.forgetNetwork(network.SSID);
 		this.getPopup().hidePopup();
 	},
 
 	joinNetwork: function(network) {
-		var t = this;
-
-		sugarizerOS.isKnownNetwork(network.SSID, function (result) {
-			if (result == 0) {
-				sugarizerOS.setKey(network.SSID, "", true);
-			} else {
-				sugarizerOS.joinNetwork(network.SSID);
-			}
-			t.getPopup().hidePopup();
-		});
 	},
 
 	enterKey: function (network) {
 		this.getPopup().hidePopup();
-		var t = this;
-		sugarizerOS.isKnownNetwork(network.SSID, function (result) {
-			if (result == 0) {
-				sugarizerOS.NetworkBuffer = network;
-				t.otherview = t.$.otherview.createComponent({
-					kind: "Sugar.DialogNetworkKey"
-				});
-				t.otherview.show();
-			} else {
-				sugarizerOS.joinNetwork(network.SSID)
-			}
-		})
-
-	},
-	//Popup menu for Wireless Network handling
-	showWifiPopup: function(icon) {
-		// Create popup
-		var data = icon.getData();
-		var iconName = data.SSID + " (" + data.RSSI + ")" + "[" + sugarizerOS.getEncryptionString(data.capabilities) + "]";
-		var power = (-1 * data.RSSI) % 5;
-		this.getPopup().setHeader({
-			icon: icon.icon,
-			colorized: true,
-			colorizedColor: icon.colorizedColor,
-			name: iconName,
-			title: data.BSSID,
-			action: null
-		});
-		var items = [];
-
-		var t = this;
-		sugarizerOS.getWifiSSID(function (ssid) {
-			if (ssid == null || ssid !== data.SSID) {
-				item = {
-					icon: {
-						directory: "icons", icon: "activity-start.svg"
-					},
-					colorized: false,
-					name: l10n.get("JoinNetwork"),
-					action: enyo.bind(t, "joinNetwork"),
-					data: [icon.getData(), null]
-				};
-				if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN") {
-					item.action = enyo.bind(t, "enterKey");
-				}
-			} else {
-				item = {
-					icon: {
-						directory: "icons",
-						icon: "activity-start.svg"
-					},
-					colorized: false,
-					name: l10n.get("Disconnect"),
-					action: enyo.bind(t, "disconnect"),
-					data: [icon.getData(), null]
-				};
-			}
-			items.push(item);
-
-
-			sugarizerOS.isKnownNetwork(data.SSID, function (result) {
-				if (result == 1) {
-					item = {
-						icon: {
-							directory: "icons",
-							icon: "activity-start.svg"
-						},
-						colorized: false,
-						name: l10n.get("ForgetPassword"),
-						action: enyo.bind(t, "forgetPassword"),
-						data: [icon.getData(), null]
-					};
-					if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN") {
-						items.push(item);
-					}
-				}
-
-				t.getPopup().setItems(items);
-				t.getPopup().setFooter(null);
-				// Show popup
-				t.getPopup().showPopup();
-			})
-		})
-	},
-	hideWifiPopup: function (icon) {
-		if ((!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
-			return false;
-		}
-		this.getPopup().hidePopup();
-		return true;
 	},
 
 	// Popup menu for user handling
@@ -588,7 +396,6 @@ enyo.kind({
 
 		// Create network icons for items
 		this.createNetworkIcons(items);
-		this.createWifiIcons(items);
 
 		// Compute icons position
 		var len = items.length;
