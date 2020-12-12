@@ -113,7 +113,7 @@ enyo.kind({
 		imgContext.drawImage(image, 0, 0, imgCanvas.width, imgCanvas.height);
 		var imgAsDataURL = imgCanvas.toDataURL("image/png");
 
-		// Save in datastore
+		// Save in datastores
 		var metadata = {
 			mimetype: "image/png",
 			title: __$FC(entry.text)+".png",
@@ -123,6 +123,9 @@ enyo.kind({
 			file_size: 0
 		};
 		Abcd.datastore.create(metadata, function() {
+			requirejs(["webL10n"], function(webL10n) {
+				Abcd.humane.log(webL10n.get('ImageSaved'));
+			});
 			console.log("image '"+__$FC(entry.text)+"' saved in journal.")
 		}, imgAsDataURL);
 	},

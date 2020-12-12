@@ -329,3 +329,8 @@ msgstr "Save sound"
 msgctxt "TutoSoundContent"
 msgid "Here you can export to Journal the sound of a word. Click here then on the word to export"
 msgstr "Here you can export to Journal the sound of a word. Click here then on the word to export"
+
+#: ImageSaved
+msgctxt "ImageSaved"
+msgid "Your Image is saved"
+msgstr "Your Image is saved"
