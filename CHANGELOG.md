@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Password characters flash from color to black&white #897
 - Issues on West Bank, Somalia and Cyprus in Color My World #901
 - Add a popup when image/sound is exported in Abecedarium activity #870
+- Improve responsiveness of TankOp activity #566
 
 
 ## [1.4.0] - 2020-09-23
