@@ -233,13 +233,19 @@ canvas {
 
 @media screen and (min-width: 641px) and (max-width: 820px) {
   .generation-container {
-    height: 20px;
-    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    flex-direction: row;
+    height: 10px; 
+    margin: 12px 0; 
+  }
+  .generation-status {
+    margin-top: 10px;
+    font-size: 20px;
   }
   .generation-count {
-    font-size: 32px;
-  }
-  canvas {
-    transform: scale(0.8);
+    font-size: 22px;
   }
 }
