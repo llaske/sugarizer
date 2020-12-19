@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Issues on West Bank, Somalia and Cyprus in Color My World #901
 - Add a popup when image/sound is exported in Abecedarium activity #870
 - Improve responsiveness of TankOp activity #566
+- Improved Responsiveness in Game of life Activity #793
 
 
 ## [1.4.0] - 2020-09-23
