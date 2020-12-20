@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a popup when image/sound is exported in Abecedarium activity #870
 - Improve responsiveness of TankOp activity #566
 - Improved Responsiveness in Game of life Activity #793
+- Wrong values for inverse trigonometric function in Calculate Activity #895
 
 
 ## [1.4.0] - 2020-09-23
