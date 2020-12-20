@@ -276,24 +276,38 @@ var CalculateApp = {
       "cos",
       "sin",
       "tan",
-      "acos",
-      "asin",
-      "atan",
       "cosh",
       "sinh",
       "tanh"
     ];
-
     for (var i = 0; i < matchingFunctions.length; i++) {
       var regex = new RegExp(matchingFunctions[i] + "\\((.+?)\\)", "gi");
       var results = equation.match(regex);
+      var resultIndex = equation.search(regex);
       if (results) {
         for (var j = 0; j < results.length; j++) {
-          var parenthesisRegex = new RegExp("\\(([^\\)]+)\\)", "gi");
-          var arrayToReplace = parenthesisRegex.exec(results[j]);
-          if (arrayToReplace && arrayToReplace.length >= 2) {
-            equation = equation.replace(arrayToReplace[1], arrayToReplace[1] + " * " + CalculateApp.data.pi + " / 180");
+          if (resultIndex > 0 && equation[resultIndex - 1] === 'a') {
+            if (resultIndex !== 1) {
+              var openParanthesesCount = 1;
+              var numOfCharacters = 0;
+              while (openParanthesesCount) {
+                if (equation[resultIndex + 4 + numOfCharacters] === '(')
+                  openParanthesesCount++;
+                else if (equation[resultIndex + 4 + numOfCharacters] === ')')
+                  openParanthesesCount--;
+                numOfCharacters++;
+              }
+              equation = equation.substr(0, resultIndex - 1) + " ( 180 / " + CalculateApp.data.pi + " * " + equation.substr(resultIndex - 1, 4 + numOfCharacters) + " ) " + equation.substr(resultIndex + 3 + numOfCharacters);
+            } else
+              equation = " 180 / " + CalculateApp.data.pi + " * " + equation.substr(resultIndex - 1);
+          } else {
+            var parenthesisRegex = new RegExp("\\(([^\\)]+)\\)", "gi");
+            var arrayToReplace = parenthesisRegex.exec(results[j]);
+            if (arrayToReplace && arrayToReplace.length >= 2) {
+              equation = equation.replace(arrayToReplace[1], arrayToReplace[1] + " * " + CalculateApp.data.pi + " / 180");
+            }
           }
+          resultIndex = equation.substr(resultIndex + 1).search(regex);
         }
       }
     }
