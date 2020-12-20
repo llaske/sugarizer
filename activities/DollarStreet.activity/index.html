@@ -33,8 +33,10 @@
 		</sugar-toolbar>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<dollarstreet-api ref="api" v-on:initialized="dollarStreetConnected" v-on:error="dollarStreetError"></dollarstreet-api>
 	</div>
 
+	<script src="js/DollarStreetAPI.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/activity.js"></script>

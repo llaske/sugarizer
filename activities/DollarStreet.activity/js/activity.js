@@ -10,5 +10,13 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	data: {},
-	methods: {}
+	methods: {
+		dollarStreetConnected: function() {
+			console.log("Dollar Street API connected");
+		},
+
+		dollarStreetError: function() {
+			console.log("Dollar Street API Error !")
+		}
+	}
 });
