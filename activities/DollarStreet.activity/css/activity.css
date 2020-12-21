@@ -13,6 +13,7 @@ p {
 }
 
 #app {
+	background: white;
 	min-height: 100%;
 }
 
@@ -80,6 +81,23 @@ p {
 	background-size: contain;
 	border: 0;
 	border-radius: 5.5px;
+}
+
+#spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
+}
+
+#cloudwarning {
+	position: absolute;
+	margin-left: 45%;
+	margin-right: auto;
+	margin-top: 20%;
+	width: 100px;
+	z-index: 5;
+	visibility: hidden;
 }
 
 .tutorial-icon-button {

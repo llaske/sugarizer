@@ -13,10 +13,13 @@ var app = new Vue({
 	methods: {
 		dollarStreetConnected: function() {
 			console.log("Dollar Street API connected");
+			document.getElementById("spinner").style.visibility = "hidden";
 		},
 
 		dollarStreetError: function() {
-			console.log("Dollar Street API Error !")
+			console.log("Dollar Street API Error !");
+			document.getElementById("spinner").style.visibility = "hidden";
+			document.getElementById("cloudwarning").style.visibility = "visible";
 		}
 	}
 });
