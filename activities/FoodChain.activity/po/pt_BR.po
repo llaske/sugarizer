@@ -1,17 +1,20 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:37:11 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-05 20:53+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese (Brazil) "
+"<http://translate.sugarizer.org/projects/sugarizer/activity-foodchain/pt_BR/>"
+"\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: sounddir
 msgctxt "sounddir"
@@ -46,7 +49,7 @@ msgstr "Organize as cartas na posição correta para construir corretamente a ca
 #: playdesc
 msgctxt "playdesc"
 msgid "Play the food chain: eat and avoid being eaten."
-msgstr "Jogue a cadeia alimentar: coma e evite ser comido."
+msgstr "Jogar a cadeia alimentar: comer e evitar ser comido."
 
 #: level
 msgctxt "level"
@@ -336,12 +339,12 @@ msgstr "Onívoro"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próxima"
 
 #: TutoEnd
 msgctxt "TutoEnd"
@@ -351,12 +354,15 @@ msgstr "End"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "FoodChain Activity"
-msgstr "FoodChain Activity"
+msgstr "Atividade Cadeia Alimentar"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the FoodChain activity. FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?"
-msgstr "Welcome into the FoodChain activity. FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?"
+msgstr ""
+"Bem vindo à atividade Cadeia Alimentar. FoodChain é um jogo pedagógico para "
+"aprender o nome de animais (a palavra e a pronúncia) e o conceito de cadeia "
+"alimentar: quem come o que? Quem come quem?"
 
 #: TutoEnTitle
 msgctxt "TutoEnTitle"
@@ -366,32 +372,32 @@ msgstr "English"
 #: TutoEnContent
 msgctxt "TutoEnContent"
 msgid "Click here to change language cards to English"
-msgstr "Click here to change language cards to English"
+msgstr "Clique aqui para mudar o idioma dos cartões para o Inglês"
 
 #: TutoFrTitle
 msgctxt "TutoFrTitle"
 msgid "French"
-msgstr "French"
+msgstr "Francês"
 
 #: TutoFrContent
 msgctxt "TutoFrContent"
 msgid "Click here to change language cards to French"
-msgstr "Click here to change language cards to French"
+msgstr "Clique aqui para mudar o idioma dos cartões para o Francês"
 
 #: TutoPtTitle
 msgctxt "TutoPtTitle"
 msgid "Potuguese"
-msgstr "Potuguese"
+msgstr "Português"
 
 #: TutoPtContent
 msgctxt "TutoPtContent"
 msgid "Click here to change language cards to Portuguese"
-msgstr "Click here to change language cards to Portuguese"
+msgstr "Clique aqui para mudar o idioma dos cartões para o Português"
 
 #: TutoLearnTitle
 msgctxt "TutoLearnTitle"
 msgid "Learn"
-msgstr "Learn"
+msgstr "Aprender"
 
 #: TutoLearnContent
 msgctxt "TutoLearnContent"
@@ -401,7 +407,7 @@ msgstr "Click here to run the \"Learn\" game. In this game, you have to put anim
 #: TutoBuildTitle
 msgctxt "TutoBuildTitle"
 msgid "Build"
-msgstr "Build"
+msgstr "Construir"
 
 #: TutoBuildContent
 msgctxt "TutoBuildContent"
@@ -411,7 +417,7 @@ msgstr "Click here to run the \"Build\" game. In this game, you have to arrange 
 #: TutoPlayGameTitle
 msgctxt "TutoPlayGameTitle"
 msgid "Play"
-msgstr "Play"
+msgstr "Jogar"
 
 #: TutoPlayGameContent
 msgctxt "TutoPlayGameContent"
@@ -421,17 +427,17 @@ msgstr "Click here to run the \"Play\" game. In this game, you have to steer the
 #: TutoInfoTitle
 msgctxt "TutoInfoTitle"
 msgid "Credits"
-msgstr "Credits"
+msgstr "Créditos"
 
 #: TutoInfoContent
 msgctxt "TutoInfoContent"
 msgid "Click here to display activity credits"
-msgstr "Click here to display activity credits"
+msgstr "Clique aqui para exibir os créditos da atividade"
 
 #: TutoExplainGameTitle
 msgctxt "TutoExplainGameTitle"
 msgid "Build"
-msgstr "Build"
+msgstr "Construir"
 
 #: TutoExplainGameContent
 msgctxt "TutoExplainGameContent"
@@ -441,12 +447,12 @@ msgstr "In this game, you need to sort the animals according to who eats what wi
 #: TutoValidateTitle
 msgctxt "TutoValidateTitle"
 msgid "Check"
-msgstr "Check"
+msgstr "Verificar"
 
 #: TutoValidateContent
 msgctxt "TutoValidateContent"
 msgid "Click here to check if your order is correct"
-msgstr "Click here to check if your order is correct"
+msgstr "Clique aqui para verificar se sua ordem está correta"
 
 #: TutoPauseTitle
 msgctxt "TutoPauseTitle"
@@ -456,32 +462,32 @@ msgstr "Pause"
 #: TutoPauseContent
 msgctxt "TutoPauseContent"
 msgid "Click here to pause the game"
-msgstr "Click here to pause the game"
+msgstr "Clique aqui para pausar o jogo"
 
 #: TutoPlayTitle
 msgctxt "TutoPlayTitle"
 msgid "Play"
-msgstr "Play"
+msgstr "Continuar"
 
 #: TutoPlayContent
 msgctxt "TutoPlayContent"
 msgid "Click here to resume the game"
-msgstr "Click here to resume the game"
+msgstr "Clique aqui para continuar o jogo"
 
 #: TutoHomeTitle
 msgctxt "TutoHomeTitle"
 msgid "Home"
-msgstr "Home"
+msgstr "Início"
 
 #: TutoHomeContent
 msgctxt "TutoHomeContent"
 msgid "Click here to go back to the Home page"
-msgstr "Click here to go back to the Home page"
+msgstr "Clique aqui para retornar à página inicial"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Box"
-msgstr "Box"
+msgstr "Caixa"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
@@ -491,7 +497,7 @@ msgstr "Here the animals appear. You need to sort them in the proper order"
 #: TutoExplainLearnTitle
 msgctxt "TutoExplainLearnTitle"
 msgid "Learn"
-msgstr "Learn"
+msgstr "Aprender"
 
 #: TutoExplainLearnContent
 msgctxt "TutoExplainLearnContent"
@@ -511,7 +517,7 @@ msgstr "Here is the animal. You have to decide what sort of food it eats"
 #: TutoHerbTitle
 msgctxt "TutoHerbTitle"
 msgid "Herbivore"
-msgstr "Herbivore"
+msgstr "Herbívoro"
 
 #: TutoHerbContent
 msgctxt "TutoHerbContent"
@@ -521,7 +527,7 @@ msgstr "Drag the animal here if you think that it eats herbs"
 #: TutoCarnTitle
 msgctxt "TutoCarnTitle"
 msgid "Carnivore"
-msgstr "Carnivore"
+msgstr "Carnívoro"
 
 #: TutoCarnContent
 msgctxt "TutoCarnContent"
@@ -531,7 +537,7 @@ msgstr "Drag the animal here if you think that it eats meat"
 #: TutoExplainPlayTitle
 msgctxt "TutoExplainPlayTitle"
 msgid "Play"
-msgstr "Play"
+msgstr "Jogar"
 
 #: TutoExplainPlayContent
 msgctxt "TutoExplainPlayContent"
@@ -541,7 +547,7 @@ msgstr "In this game, you have to steer the frog to eat flies, don't hit rocks a
 #: TutoLivesTitle
 msgctxt "TutoLivesTitle"
 msgid "Lives"
-msgstr "Lives"
+msgstr "Vidas"
 
 #: TutoLivesContent
 msgctxt "TutoLivesContent"
@@ -551,10 +557,9 @@ msgstr "Here you can see how many lives have you got"
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Board"
-msgstr "Board"
+msgstr "Quadro"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the board of the game. To move the frog, click on the direction you want to go"
 msgstr "Here is the board of the game. To move the frog, click on the direction you want to go"
-

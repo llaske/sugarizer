@@ -13,7 +13,7 @@ define(["sugar-web/graphics/palette","text!activity/palettes/bgpalette.html"], f
     this.setContent([containerElem]);
     
     this.bgSelectedEvent = document.createEvent('CustomEvent');
-    this.bgSelectedEvent.initCustomEvent('bgSelected', true, true, { bg: '' });
+    this.bgSelectedEvent.initCustomEvent('bg-selected', true, true, { bg: '' });
     
     let that = this;
     document.getElementById("grass").addEventListener('click', onClick);

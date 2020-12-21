@@ -11,7 +11,7 @@ enyo.kind({
 	kind: enyo.Control,
 	components: [
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "owner-icon", showing: false},
-		{name: "server", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "server-icon", showing: false},
+		{name: "server", kind: "Sugar.Icon", size: constant.sizeNeighbor, colorized: true, classes: "server-icon", showing: false, data: {networkId: "server"}},
 		{name: "network", showing: true, onresize: "draw", components: []},
 		{name: "otherview", showing: true, components: []},
 		{name: "networkPopup", kind: "Sugar.Popup", showing: false},
@@ -31,11 +31,7 @@ enyo.kind({
 		this.$.owner.setPopupShow(enyo.bind(this, "showBuddyPopup"));
 		this.$.owner.setPopupHide(enyo.bind(this, "hideBuddyPopup"));
 
-		if (window.sugarizerOS) {
-			this.$.server.setIcon({directory: "icons", icon:"cloud-one.svg"});
-		} else {
-			this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
-		}
+		this.$.server.setIcon({directory: "icons", icon: "network-wireless-connected-100.svg"});
 		this.$.server.setPopupShow(enyo.bind(this, "showServerPopup"));
 		this.$.server.setPopupHide(enyo.bind(this, "hideServerPopup"));
 		var cacheData = this.findInCache({icon: this.$.server});
@@ -65,66 +61,6 @@ enyo.kind({
 	getPopup: function() {
 		return this.$.networkPopup;
 	},
-	createWifiIcons: function (items) {
-		// If SugarizerOS, adding Wireless networks icons
-		if (window.sugarizerOS) {
-			var networkIcons = [];
-			var networks = sugarizerOS.networks;
-			var wifiInTutorial = false;
-			for (var i = 0; i < networks.length; i++) {
-				var currentNetwork = networks[i];
-				var encryptionString = sugarizerOS.getEncryptionString(currentNetwork.capabilities);
-				var connectedString = "";
-				var securedString = "";
-				var pwr = (-1 * currentNetwork.RSSI) % 10;
-				if (currentNetwork.isConnected) {
-					connectedString = "-connected";
-				} else if (encryptionString != "OPEN") {
-					securedString = "-locked";
-				}
-				if (pwr > 0) {
-					if (pwr % 2 != 0) {
-						pwr += 1;
-					}
-					pwr = pwr * 10;
-					cacheIcon = sugarizerOS.getNetworkIconFromCache(currentNetwork.BSSID);
-					if (!cacheIcon) {
-						currentNetwork.networkId = currentNetwork.BSSID;
-						currentNetwork.shared = false;
-						currentNetwork.shared.id = currentNetwork.BSSID;
-						currentNetwork.color = xoPalette.colors[Math.floor(Math.random() * xoPalette.colors.length)];
-					} else {
-						currentNetwork = cacheIcon;
-					}
-
-				iconString = "network-wireless"+connectedString+securedString+"-0"+pwr+".svg";
-				if (pwr == 100) {
-					iconString = "network-wireless"+connectedString+securedString+"-"+pwr+".svg";
-				}
-				var icon = this.$.network.createComponent({
-						kind: "Sugar.Icon",
-						icon: {directory: "icons", icon: iconString},
-						size: constant.sizeNeighbor,
-						colorized: true,
-						colorizedColor: currentNetwork.color,
-						popupShow: enyo.bind(this, "showWifiPopup"),
-						popupHide: enyo.bind(this, "hideWifiPopup"),
-						data: currentNetwork
-					},
-					{owner: this}
-				);
-				icon.render();
-				if (!wifiInTutorial) {
-					tutorial.setElement("wifi", icon.getAttribute("id"));
-					wifiInTutorial = true;
-				}
-				networkIcons.push(icon);
-				sugarizerOS.addNetworkIconToCache(currentNetwork);
-				var item = {icon: icon, size: icon.getSize(), locked: false, child: []};
-				items.push(item);
-			}}
-		}
-	},
 
 	// Update
 	updateNetworkState: function() {
@@ -152,33 +88,7 @@ enyo.kind({
 			presence.listUsers(enyo.bind(this, "userListReceived"));
 			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
 			this.eeMode = false;
-		}
-		else if (window.sugarizerOS) {
-			now = new Date().getTime();
-			this.$.owner.setShowing(true);
-			if (presence.isConnected())
-			this.$.server.setShowing(true);
-			this.$.empty.setShowing(false);
-			this.$.message.setShowing(false);
-			this.$.settings.setShowing(false);
-			this.$.refresh.setShowing(false);
-			sugarizerOS.isWifiEnabled(function(value){
-				if (value != 0) {
-					sugarizerOS.scanWifi();
-				} else {
-					sugarizerOS.networks = [];
-				}
-			});
-			if (wifiItemsCache != sugarizerOS.networks && (now - lastWifiUpdate) > constant.wifiUpdateTime) {
-				this.draw();
-				wifiItemsCache = sugarizerOS.networks;
-				lastWifiUpdate = now;
-			}
-			presence.listUsers(enyo.bind(this, "userListReceived"));
-			presence.listSharedActivities(enyo.bind(this, "sharedListReceived"));
-			this.eeMode = false;
-		}
-		else {
+		} else {
 			this.$.owner.setShowing(false);
 			this.$.server.setShowing(false);
 			this.$.empty.setShowing(true);
@@ -252,7 +162,6 @@ enyo.kind({
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DialogWarningMessage"}, {owner:this});
 			this.otherview.show();
 		} else {
-			preferences.addUserInHistory();
 			util.cleanDatastore(null, function() {
 				util.restartApp();
 			});
@@ -315,120 +224,18 @@ enyo.kind({
 	},
 
 	disconnect: function() {
-		sugarizerOS.disconnectWifi();
 		this.getPopup().hidePopup();
 	},
 
 	forgetPassword: function(network) {
-		sugarizerOS.forgetNetwork(network.SSID);
 		this.getPopup().hidePopup();
 	},
 
 	joinNetwork: function(network) {
-		var t = this;
-
-		sugarizerOS.isKnownNetwork(network.SSID, function (result) {
-			if (result == 0) {
-				sugarizerOS.setKey(network.SSID, "", true);
-			} else {
-				sugarizerOS.joinNetwork(network.SSID);
-			}
-			t.getPopup().hidePopup();
-		});
 	},
 
 	enterKey: function (network) {
 		this.getPopup().hidePopup();
-		var t = this;
-		sugarizerOS.isKnownNetwork(network.SSID, function (result) {
-			if (result == 0) {
-				sugarizerOS.NetworkBuffer = network;
-				t.otherview = t.$.otherview.createComponent({
-					kind: "Sugar.DialogNetworkKey"
-				});
-				t.otherview.show();
-			} else {
-				sugarizerOS.joinNetwork(network.SSID)
-			}
-		})
-
-	},
-	//Popup menu for Wireless Network handling
-	showWifiPopup: function(icon) {
-		// Create popup
-		var data = icon.getData();
-		var iconName = data.SSID + " (" + data.RSSI + ")" + "[" + sugarizerOS.getEncryptionString(data.capabilities) + "]";
-		var power = (-1 * data.RSSI) % 5;
-		this.getPopup().setHeader({
-			icon: icon.icon,
-			colorized: true,
-			colorizedColor: icon.colorizedColor,
-			name: iconName,
-			title: data.BSSID,
-			action: null
-		});
-		var items = [];
-
-		var t = this;
-		sugarizerOS.getWifiSSID(function (ssid) {
-			if (ssid == null || ssid !== data.SSID) {
-				item = {
-					icon: {
-						directory: "icons", icon: "activity-start.svg"
-					},
-					colorized: false,
-					name: l10n.get("JoinNetwork"),
-					action: enyo.bind(t, "joinNetwork"),
-					data: [icon.getData(), null]
-				};
-				if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN") {
-					item.action = enyo.bind(t, "enterKey");
-				}
-			} else {
-				item = {
-					icon: {
-						directory: "icons",
-						icon: "activity-start.svg"
-					},
-					colorized: false,
-					name: l10n.get("Disconnect"),
-					action: enyo.bind(t, "disconnect"),
-					data: [icon.getData(), null]
-				};
-			}
-			items.push(item);
-
-
-			sugarizerOS.isKnownNetwork(data.SSID, function (result) {
-				if (result == 1) {
-					item = {
-						icon: {
-							directory: "icons",
-							icon: "activity-start.svg"
-						},
-						colorized: false,
-						name: l10n.get("ForgetPassword"),
-						action: enyo.bind(t, "forgetPassword"),
-						data: [icon.getData(), null]
-					};
-					if (sugarizerOS.getEncryptionString(data.capabilities) != "OPEN") {
-						items.push(item);
-					}
-				}
-
-				t.getPopup().setItems(items);
-				t.getPopup().setFooter(null);
-				// Show popup
-				t.getPopup().showPopup();
-			})
-		})
-	},
-	hideWifiPopup: function (icon) {
-		if ((!this || !this.getPopup || !icon || !this.getPopup() || this.getPopup() && this.getPopup().cursorIsInside()) || icon.cursorIsInside()) {
-			return false;
-		}
-		this.getPopup().hidePopup();
-		return true;
 	},
 
 	// Popup menu for user handling
@@ -465,7 +272,8 @@ enyo.kind({
 			colorizedColor: icon.colorizedColor,
 			name: icon.getData().activity.name,
 			title: null,
-			action: null
+			action: enyo.bind(this, "joinActivity"),
+			data: [icon.getData(), null]
 		});
 		var items = [];
 		items.push({
@@ -490,6 +298,9 @@ enyo.kind({
 	},
 
 	// Join a shared activity
+	joinSharedActivity: function(icon) {
+		this.joinActivity(icon.data);
+	},
 	joinActivity: function(data) {
 		preferences.runActivity(
 			data.activity,
@@ -570,22 +381,38 @@ enyo.kind({
 		this.$.refreshstate.setText(l10n.get("Refresh"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
 		tutorial.setElement("server", this.$.server.getAttribute("id"));
+		var otherInTutorial = false;
+		var activityInTutorial = false;
 
 		// Clean network icons
-		var items = [];
-		enyo.forEach(this.$.network.getControls(), function(item) {	items.push(item); });
-		for (var i = 0 ; i < items.length ; i++) { items[i].destroy(); };
+		var oldControls = [];
+		enyo.forEach(this.$.network.getControls(), function(item) {	item.used = false; oldControls.push(item); });
+		var isAlreadyHere = function(item) {
+			for (var i = 0 ; i < oldControls.length ; i++) {
+				var oldControl = oldControls[i];
+				var datai = (item.icon.data ? item.icon.data : item.data);
+				var datac = (oldControl.icon.getData ? oldControl.icon.getData() : oldControl.data);
+				if (datac) {
+					if (datac.networkId && datai.networkId && datac.networkId == datai.networkId) { oldControl.used = true; return oldControl; }
+					if (datac.shared && datai.shared && datac.shared == datai.shared) { oldControl.used = true; return oldControl; }
+				}
+			}
+			return null;
+		}
+		var removeUnused = function() {
+			for (var i = 0 ; i < oldControls.length ; i++) { if (!oldControls[i].used) oldControls[i].destroy(); }
+		}
 
 		// List items to draw
 		var canvas_center = util.getCanvasCenter();
-		items = [];
+		var items = [];
 		items.push({icon: this.$.owner, x:(canvas_center.x-constant.sizeNeighbor/2), y: (canvas_center.y-constant.sizeNeighbor/2), size: this.$.owner.getSize(), locked: true, child: []});
-		if (this.$.server.getShowing())
+		if (this.$.server.getShowing()) {
 			items.push({icon: this.$.server, size: this.$.server.getSize(), locked: false, child: []});
+		}
 
 		// Create network icons for items
 		this.createNetworkIcons(items);
-		this.createWifiIcons(items);
 
 		// Compute icons position
 		var len = items.length;
@@ -619,15 +446,44 @@ enyo.kind({
 		// Draw all icons
 		for (var i = 0 ; i < len ; i++) {
 			var current = items[i];
+			if (current.icon == this.$.owner || current.icon == this.$.server) {
+				current.icon.applyStyle("margin-left", current.x+"px");
+				current.icon.applyStyle("margin-top", current.y+"px");
+				continue;
+			}
+			var oldControl = isAlreadyHere(current);
+			if (!oldControl) {
+				current.icon = this.$.network.createComponent(current.icon, {owner: this});
+				current.icon.render();
+			} else {
+				current.icon = oldControl;
+			}
 			current.icon.applyStyle("margin-left", current.x+"px");
 			current.icon.applyStyle("margin-top", current.y+"px");
+			if (!otherInTutorial && current.icon.data.networkId) {
+				tutorial.setElement("other", current.icon.getAttribute("id"));
+				otherInTutorial = true;
+			}
+			if (!activityInTutorial  && current.icon.data.shared) {
+				tutorial.setElement("activity", current.icon.getAttribute("id"));
+				activityInTutorial = true;
+			}
 			var childLen = current.child.length;
 			for (var j = 0 ; j < childLen ; j++) {
 				var child = current.child[j];
-				child.applyStyle("margin-left", child.x+"px");
-				child.applyStyle("margin-top", child.y+"px");
+				var alreadyHere = null;
+				enyo.forEach(this.$.network.getControls(), function(item) {	if (!alreadyHere) { alreadyHere = isAlreadyHere(child); } });
+				if (!alreadyHere) {
+					child = this.$.network.createComponent(child, {owner: this});
+					child.render();
+				} else {
+					child = alreadyHere;
+				}
+				child.applyStyle("margin-left", current.child[j].x+"px");
+				child.applyStyle("margin-top", current.child[j].y+"px");
 			}
 		}
+		removeUnused();
 
 		// Filter
 		this.filterNetwork();
@@ -638,27 +494,19 @@ enyo.kind({
 		// Add user icons
 		var len = this.users.length;
 		var userIcons = [];
-		var otherInTutorial = false;
 		for (var i = 0 ; i < len ; i++) {
 			 var currentUser = this.users[i];
 			 if (currentUser.networkId != preferences.getNetworkId()) {
-				var icon = this.$.network.createComponent({
-						kind: "Sugar.Icon",
-						icon: {directory: "icons", icon: "owner-icon.svg"},
-						size: constant.sizeNeighbor,
-						colorized: true,
-						colorizedColor: currentUser.colorvalue,
-						popupShow: enyo.bind(this, "showUserPopup"),
-						popupHide: enyo.bind(this, "hideUserPopup"),
-						data: currentUser
-					},
-					{owner: this}
-				);
-				icon.render();
-				if (!otherInTutorial) {
-					tutorial.setElement("other", icon.getAttribute("id"));
-					otherInTutorial = true;
-				}
+				var icon = {
+					kind: "Sugar.Icon",
+					icon: {directory: "icons", icon: "owner-icon.svg"},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentUser.colorvalue,
+					popupShow: enyo.bind(this, "showUserPopup"),
+					popupHide: enyo.bind(this, "hideUserPopup"),
+					data: currentUser
+				};
 				userIcons.push(icon);
 			 }
 		}
@@ -666,7 +514,6 @@ enyo.kind({
 		// Add activities icons
 		len = this.activities.length;
 		var userIconsInActivities = [];
-		var activityInTutorial = false;
 		for (var i = 0 ; i < len ; i++) {
 			// Unknown activity, ignoe
 			 var currentActivity = this.activities[i];
@@ -676,23 +523,17 @@ enyo.kind({
 			}
 
 			// Add activity icon
-			var icon = this.$.network.createComponent({
-					kind: "Sugar.Icon",
-					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
-					size: constant.sizeNeighbor,
-					colorized: true,
-					colorizedColor: currentActivity.colorvalue,
-					popupShow: enyo.bind(this, "showActivityPopup"),
-					popupHide: enyo.bind(this, "hideActivityPopup"),
-					data: {shared: currentActivity, activity: activityInfo}
-				},
-				{owner: this}
-			);
-			icon.render();
-			if (!activityInTutorial) {
-				tutorial.setElement("activity", icon.getAttribute("id"));
-				activityInTutorial = true;
-			}
+			var icon = {
+				kind: "Sugar.Icon",
+				icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+				size: constant.sizeNeighbor,
+				colorized: true,
+				colorizedColor: currentActivity.colorvalue,
+				ontap: "joinSharedActivity",
+				popupShow: enyo.bind(this, "showActivityPopup"),
+				popupHide: enyo.bind(this, "hideActivityPopup"),
+				data: {shared: currentActivity, activity: activityInfo}
+			};
 
 			// Add childs
 			var childIcons = [];
@@ -701,13 +542,13 @@ enyo.kind({
 				var userIconsLength = userIcons.length;
 				for (var k = 0 ; k < userIconsLength ; k++) {
 					var iconToTest = userIcons[k];
-					if (currentActivity.users[j] == iconToTest.getData().networkId) {
+					if (currentActivity.users[j] == iconToTest.data.networkId) {
 						childIcons.push(iconToTest);
 						userIconsInActivities.push(iconToTest);
 					}
 				}
 			}
-			items.push({icon: icon, size: icon.getSize(), locked: false, child: childIcons});
+			items.push({icon: icon, size: constant.sizeNeighbor, locked: false, child: childIcons});
 		}
 
 		// Add icons alone
@@ -717,12 +558,12 @@ enyo.kind({
 			var found = false;
 			var icon = userIcons[i];
 			for (var j = 0 ; j < childLen && !found ; j++) {
-				if (icon.getData().networkId == userIconsInActivities[j].getData().networkId) {
+				if (icon.data.networkId == userIconsInActivities[j].data.networkId) {
 					found = true;
 				}
 			}
 			if (!found) {
-				items.push({icon: icon, size: icon.getSize(), locked: false, child: []});
+				items.push({icon: icon, size: constant.sizeNeighbor, locked: false, child: []});
 			}
 		}
 	},
@@ -806,11 +647,9 @@ enyo.kind({
 	// Cache handling
 	addToCache: function(item) {
 		// Get name
-		var data = item.icon.getData();
+		var data = item.icon.data;
 		var name;
-		if (!data) {
-			name = "server";
-		} else if (data.networkId) {
+		if (data.networkId) {
 			name = data.networkId;
 		} else if (data.shared && data.shared.id) {
 			name = data.shared.id;
@@ -828,17 +667,15 @@ enyo.kind({
 			}
 		}
 		if (!found) {
-			networkItemsCache.push({name: name, x: item.x, y: item.y, colorvalue: item.icon.getColorizedColor()});
+			networkItemsCache.push({name: name, x: item.x, y: item.y, colorvalue: item.icon.colorizedColor});
 		}
 	},
 
 	findInCache: function(item) {
 		// Get name
-		var data = item.icon.getData();
+		var data = item.icon.data;
 		var name;
-		if (!data) {
-			name = "server";
-		} else if (data.networkId) {
+		if (data.networkId) {
 			name = data.networkId;
 		} else if (data.shared && data.shared.id) {
 			name = data.shared.id;

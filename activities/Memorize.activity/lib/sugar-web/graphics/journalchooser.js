@@ -15,7 +15,8 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	});
 
 	// Chooser feature to search in the Local Journal
-	var featureLocalJournal = {};
+	chooser.featureLocalJournal = {}
+	var featureLocalJournal = chooser.featureLocalJournal;
 	featureLocalJournal.id = "journal-button";
 	featureLocalJournal.title = "$titleJournal";
 	featureLocalJournal.placeholder = "$holderSearchJournal";
@@ -74,12 +75,94 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		abecedariumFill();
 	};
 
+	// Chooser feature to take a screen capture
+	chooser.featurePhoto = {}
+	var featurePhoto = chooser.featurePhoto;
+	featurePhoto.id = "photo-button";
+	featurePhoto.title = "$titlePhoto";
+	featurePhoto.placeholder = "";
+	featurePhoto.icon = "lib/sugar-web/graphics/icons/actions/photo.svg";
+	featurePhoto.beforeActivate = function() {
+		var captureSuccess = function (imageData) {
+			var data = "data:image/jpeg;base64," + imageData;
+			featurePhoto.createJournalEntry(data, function() {
+				modal.close();
+			});
+		};
+		var captureError = function (error) {
+			modal.close();
+		};
+		if (window.cordova || window.PhoneGap) {
+			navigator.camera.getPicture(captureSuccess, captureError, {
+				quality: 50,
+				targetWidth: 640,
+				targetHeight: 480,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA
+			});
+		} else {
+			try {
+				var video = document.createElement("video");
+				video.id = "videocapture";
+				video.style.zIndex = "300";
+				video.setAttribute("controls", false);
+				video.setAttribute("autoplay", "true");
+				video.style.width = "100%";
+				video.style.top = "0px";
+				video.style.position = "absolute";
+				var parent = document.getElementById("journal-container");
+				parent.appendChild(video);
+				navigator.mediaDevices.getUserMedia({video: true}).then(function(mediaStream) {
+					video.srcObject = mediaStream;
+					setTimeout(function () {
+						var canvas = document.createElement("canvas");
+						var width = 320;
+						var height = 240;
+						canvas.width = width;
+						canvas.height = height;
+						canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+						var data = canvas.toDataURL("image/png");
+						featurePhoto.createJournalEntry(data, function() {
+							if (modal.isVisible()) { modal.close(); }
+							mediaStream.getTracks().forEach(function(track) { track.stop(); });
+							parent.removeChild(video);
+						});
+					}, 2700);
+				}).catch(function (error) {
+					modal.close();
+					parent.removeChild(video);
+				});
+			} catch (e) {
+				modal.close();
+			}
+		}
+	};
+	featurePhoto.beforeUnactivate = function() {};
+	featurePhoto.onFavorite = function() {};
+	featurePhoto.onScroll = function() {};
+	featurePhoto.onSearch = function() {};
+	featurePhoto.onCancelSearch = function() {};
+	featurePhoto.createJournalEntry = function(data, callback) {
+		var metadata = {
+			mimetype: "image/jpeg",
+			title: doLocalize("$photoName", {name:userSettings.name}),
+			activity: "org.olpcfrance.MediaViewerActivity",
+			timestamp: new Date().getTime(),
+			creation_time: new Date().getTime(),
+			file_size: 0
+		};
+		datastore.create(metadata, function(err, objectId) {
+			if (err == null) { result = {metadata:metadata, objectId: objectId}; }
+			if (callback) { callback(); }
+		}, data);
+	},
+
 	// Init feature list: overload it if you want to change the feature list at init
-	var features = [];
-	var currentFeature = -1;
+	chooser.features = [];
+	chooser.currentFeature = -1;
 	chooser.init = function() {
-		features = [featureLocalJournal];
-		currentFeature = 0;
+		chooser.features = [featureLocalJournal];
+		chooser.currentFeature = 0;
 	}
 
 	// Display object chooser dialog with journal content
@@ -104,20 +187,21 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					featureAbecedarium.fileformat = ".png";
 					featureAbecedarium.mimetype = imageType;
 					featureAbecedarium.filelocation = "images/database/";
-					features.push(featureAbecedarium);
+					chooser.features.push(featureAbecedarium);
+					chooser.features.push(featurePhoto);
 					break;
 				} else if (filters[i].mimetype == soundType) {
 					featureAbecedarium.fileformat = ".mp3";
 					featureAbecedarium.mimetype = soundType;
 					featureAbecedarium.filelocation = "audio/{{lang}}/database/";
-					features.push(featureAbecedarium);
+					chooser.features.push(featureAbecedarium);
 					break;
 				}
 			}
 		}
 		var contentHeader = "<div id='pictotoolbar' class='toolbar' style='padding: 0'>";
-		for (var i = 0 ; i < features.length ; i++) {
-			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+features[i].id+"' title='"+features[i].title+"' style='background-image: url("+features[i].icon+")'></button>";
+		for (var i = 0 ; i < chooser.features.length ; i++) {
+			contentHeader += "<button class='toolbutton"+(i==0?" active":"")+"' id='"+chooser.features[i].id+"' title='"+chooser.features[i].title+"' style='background-image: url("+chooser.features[i].icon+")'></button>";
 		}
 		contentHeader += "<button class='toolbutton pull-right' id='close-button' title='$titleClose' style='background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>";
 		contentHeader += "<div style='position: absolute; display: inline-block; margin-left: 10px; top: 20px; height:55px'>$titleChoose</div></div>";
@@ -145,29 +229,29 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		})
 		.afterShow(function(modal) {
 			var color = userSettings.colorvalue;
-			icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
+			icon.colorize(document.getElementById(chooser.features[chooser.currentFeature].id), color, function() {});
 			var radios = [];
-			for (var i = 0 ; i < features.length ; i++) {
-				var radio = document.getElementById(features[i].id);
+			for (var i = 0 ; i < chooser.features.length ; i++) {
+				var radio = document.getElementById(chooser.features[i].id);
 				radios.push(radio);
 				radio.addEventListener("click", function(e) {
 					var index = -1;
-					for (var j = 0 ; j < features.length ; j++) {
-						if (features[j].id == e.srcElement.id) {
+					for (var j = 0 ; j < chooser.features.length ; j++) {
+						if (chooser.features[j].id == e.srcElement.id) {
 							index = j;
 							break;
 						}
 					}
-					if (index != currentFeature) {
-						features[currentFeature].beforeUnactivate();
-						document.getElementById(features[currentFeature].id).style.backgroundImage = "url("+features[currentFeature].icon+")";
+					if (index != chooser.currentFeature) {
+						chooser.features[chooser.currentFeature].beforeUnactivate();
+						document.getElementById(chooser.features[chooser.currentFeature].id).style.backgroundImage = "url("+chooser.features[chooser.currentFeature].icon+")";
 						document.getElementById('journal-container').innerHTML = "";
 						document.getElementById('search-text').value = '';
-						currentFeature = index;
-						features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
-						features[currentFeature].beforeActivate();
-						icon.colorize(document.getElementById(features[currentFeature].id), color, function() {});
-						document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
+						chooser.currentFeature = index;
+						chooser.features[chooser.currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+						chooser.features[chooser.currentFeature].beforeActivate();
+						icon.colorize(document.getElementById(chooser.features[chooser.currentFeature].id), color, function() {});
+						document.getElementById('search-text').placeholder=doLocalize(chooser.features[chooser.currentFeature].placeholder);
 					}
 				})
 			}
@@ -176,27 +260,27 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			var targetHeight = document.getElementById("pictotoolbar").parentNode.offsetHeight - 55*2;
 			document.getElementById('journal-container').style.height = targetHeight + "px";
 			document.getElementById('journal-container').addEventListener("scroll", function() {
-				features[currentFeature].onScroll();
+				chooser.features[chooser.currentFeature].onScroll();
 			});
 			var favorite = document.getElementById('favorite-button');
 			favorite.addEventListener('click', function() {
-				features[currentFeature].onFavorite();
+				chooser.features[chooser.currentFeature].onFavorite();
 			});
 			document.getElementById('search-text').addEventListener('keyup', function() {
-				features[currentFeature].onSearch();
+				chooser.features[chooser.currentFeature].onSearch();
 			});
 			document.getElementById('cancel-search').addEventListener('click', function() {
 				document.getElementById('search-text').value = '';
-				features[currentFeature].onCancelSearch();
+				chooser.features[chooser.currentFeature].onCancelSearch();
 			});
 			document.getElementById('close-button').addEventListener('click', function() {
 				result = null;
 				modal.close();
 			});
 
-			document.getElementById('search-text').placeholder=doLocalize(features[currentFeature].placeholder);
-			features[currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
-			features[currentFeature].beforeActivate();
+			document.getElementById('search-text').placeholder=doLocalize(chooser.features[chooser.currentFeature].placeholder);
+			chooser.features[chooser.currentFeature].filters = [filter1, orFilter2, orFilter3, orFilter4];
+			chooser.features[chooser.currentFeature].beforeActivate();
 		})
 		.afterClose(function(modal) {
 			modal.destroy();
@@ -491,8 +575,10 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	var l10n = {
 		titleJournal: {en: 'Journal', fr: 'Journal', es: 'Diario', pt: 'Diário'},
 		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium', pt: 'Abecedarium'},
+		titlePhoto: {en: 'Photo', fr: 'Photo', es: 'Photo', pt: 'Photo'},
 		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar', pt: 'Cancelar'},
 		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto', pt: 'Escolher um objeto'},
+		photoName: {en: 'Photo by {{name}}', fr: 'Photo par {{name}}', es: 'Photo por {{name}}', pt: 'Photo por {{name}}'},
 		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario', pt: 'Pesquisar no diário'},
 		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium', pt: 'Pesquisar no Abecedarium'},
 		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes', pt: 'Sem atividades correspondentes'},
@@ -514,11 +600,17 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	function doLocalize(str, params) {
 		var lang = (["en","fr","es", "pt"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";
 		var out = str;
-		for(var current in l10n) {
-			out = out.replace('$'+current, l10n[current][lang]);
+		var variablesToReplace = out.match(/\$\w+/g);
+		for(var i in variablesToReplace) {
+			var string = variablesToReplace[i].match(/\w+/)[0];
+			if(l10n[string]) {
+				out = out.replace(variablesToReplace[i], l10n[string][lang]);
+			}
 		}
-		for(var param in params) {
-			out = out.replace('{{'+param+'}}', params[param]);
+		var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+		for(var i in paramsInString) {
+			var param = paramsInString[i].match(/[\w\.]+/)[0];
+			out = out.replace(paramsInString[i], params[param]);
 		}
 		return out;
 	}
@@ -584,6 +676,11 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 			}
 		}
 		return  eqLen === 0 ? sB64Enc : sB64Enc.substring(0, sB64Enc.length - eqLen) + (eqLen === 1 ? "=" : "==");
+	}
+
+	chooser.close = function (resultObj) {
+		result = resultObj;
+		modal.close(result);
 	}
 
 	return chooser;

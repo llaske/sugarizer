@@ -1,0 +1,7 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#808080">
+	<!ENTITY fill_color "#ffffff">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="89.571" viewBox="0 0 96 89.571">
+  <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M88.835,32.3H59.283L50.3,5.5a3.254,3.254,0,0,0-6.107,0l-8.98,26.8H5.464A3.224,3.224,0,0,0,2.25,35.518a2.362,2.362,0,0,0,.06.542,3.088,3.088,0,0,0,1.346,2.27L27.944,55.446l-9.321,27.1a3.224,3.224,0,0,0,1.1,3.616,3.109,3.109,0,0,0,1.808.783,3.938,3.938,0,0,0,2.009-.723l23.705-16.9,23.705,16.9a3.764,3.764,0,0,0,2.009.723,2.886,2.886,0,0,0,1.788-.783,3.184,3.184,0,0,0,1.1-3.616l-9.321-27.1L90.623,38.17l.583-.5a3.37,3.37,0,0,0,1.045-2.15A3.4,3.4,0,0,0,88.835,32.3Z" transform="translate(0.75 -0.375)" fill="&fill_color;" stroke="&stroke_color;" stroke-width="6"/>
+</svg>

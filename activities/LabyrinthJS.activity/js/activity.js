@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore","sugar-web/graphics/colorpalette","zoompalette","sugar-web/graphics/presencepalette","humane","fontpalette","tutorial","sugar-web/env"], function (activity, webL10n, datastore, colorpalette, zoompalette, presencepalette, humane, textpalette, tutorial, env) {
+define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-web/graphics/colorpalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "fontpalette", "tutorial", "sugar-web/env"], function (activity, webL10n, datastore, colorpalette, zoompalette, presencepalette, humane, textpalette, tutorial, env, l10n) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -67,6 +67,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore","sugar-w
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
+				humane.log(webL10n.get('LabyrinthImage'));
 				console.log("export done.")
 			}, inputData);
 		});

@@ -1,17 +1,20 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 25 2020 22:32:10 GMT+0100 (heure normale d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Tue Feb 25 2020 22:32:10 GMT+0100 (heure normale d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2020-06-05 23:00+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-tankop/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: Start
 msgctxt "Start"
@@ -166,22 +169,22 @@ msgstr "juskiddink de freesound (missão falhou)"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Tank Operation Activity"
-msgstr "Tank Operation Activity"
+msgstr "Atividade Tank Operation"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -191,12 +194,12 @@ msgstr "Welcome into the Tank Operation activity. Tank Operation is an arcade ga
 #: TutoFullScreenButtonTitle
 msgctxt "TutoFullScreenButtonTitle"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Tela cheia"
 
 #: TutoFullScreenButtonContent
 msgctxt "TutoFullScreenButtonContent"
 msgid "Click this icon to switch to Full Screen mode"
-msgstr "Click this icon to switch to Full Screen mode"
+msgstr "Clique neste ícone para mudar para tela cheia"
 
 #: TutoStopButtonTitle
 msgctxt "TutoStopButtonTitle"
@@ -206,22 +209,25 @@ msgstr "Stop"
 #: TutoStopButtonContent
 msgctxt "TutoStopButtonContent"
 msgid "Click this icon to quit the activity and go back to Sugarizer home view"
-msgstr "Click this icon to quit the activity and go back to Sugarizer home view"
+msgstr ""
+"Clique neste ícone para sair da atividade e retornar à página inicial do "
+"Sugarizer"
 
 #: TutoCreditsTitle
 msgctxt "TutoCreditsTitle"
 msgid "Credits"
-msgstr "Credits"
+msgstr "Créditos"
 
 #: TutoCreditsContent
 msgctxt "TutoCreditsContent"
 msgid "Press this button to know more about developers behind this activity"
-msgstr "Press this button to know more about developers behind this activity"
+msgstr ""
+"Clique neste botão para saber mais sobre os desenvolvedores desta atividade"
 
 #: TutoChangeMissionTitle
 msgctxt "TutoChangeMissionTitle"
 msgid "Select Mission"
-msgstr "Select Mission"
+msgstr "Escolher missão"
 
 #: TutoChangeMissionContent
 msgctxt "TutoChangeMissionContent"
@@ -231,17 +237,17 @@ msgstr "Here you could choose the mission. Each mission is an opportunity to exp
 #: TutoStartActivityTitle
 msgctxt "TutoStartActivityTitle"
 msgid "Start Game"
-msgstr "Start Game"
+msgstr "Iniciar o jogo"
 
 #: TutoStartActivityContent
 msgctxt "TutoStartActivityContent"
 msgid "Press this button to start the game with the current selected mission"
-msgstr "Press this button to start the game with the current selected mission"
+msgstr "Pressione este botão para iniciar o jogo com a atual missão escolhida"
 
 #: TutoCompletedMissionsTitle
 msgctxt "TutoCompletedMissionsTitle"
 msgid "Completed Missions"
-msgstr "Completed Missions"
+msgstr "Missões concluídas"
 
 #: TutoCompletedMissionsContent
 msgctxt "TutoCompletedMissionsContent"
@@ -251,7 +257,7 @@ msgstr "Here you could see the missions already completed. Each yellow stars is 
 #: TutoGameTitle
 msgctxt "TutoGameTitle"
 msgid "Battleground"
-msgstr "Battleground"
+msgstr "Campo de batalha"
 
 #: TutoGameContent
 msgctxt "TutoGameContent"
@@ -261,12 +267,14 @@ msgstr "Your units are on left and enemy units enter on right. Obstacles could s
 #: TutoWaveTitle
 msgctxt "TutoWaveTitle"
 msgid "Eneny Wave"
-msgstr "Eneny Wave"
+msgstr "Onda inimiga"
 
 #: TutoWaveContent
 msgctxt "TutoWaveContent"
 msgid "Shows the number of current enemy wave. You should destroy the five waves to complete the mission"
-msgstr "Shows the number of current enemy wave. You should destroy the five waves to complete the mission"
+msgstr ""
+"Exibir o número atual da onda inimiga. Você dever destruir cinco ondas para "
+"concluir a missão"
 
 #: TutoScoreTitle
 msgctxt "TutoScoreTitle"
@@ -276,12 +284,13 @@ msgstr "Score"
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
 msgid "Shows your current score. You gain point for each enemy unit destroyed"
-msgstr "Shows your current score. You gain point for each enemy unit destroyed"
+msgstr ""
+"Exibir o placar atual. Você ganha pontos para cada unidade inimiga destruida"
 
 #: TutoPlayExplainTitle
 msgctxt "TutoPlayExplainTitle"
 msgid "Rules of game"
-msgstr "Rules of game"
+msgstr "Regras do jogo"
 
 #: TutoPlayExplainContent
 msgctxt "TutoPlayExplainContent"
@@ -301,7 +310,7 @@ msgstr "Click on these numbers to enter result or type it on your keyboard."
 #: TutoPlayFire
 msgctxt "TutoPlayFire"
 msgid "Fire"
-msgstr "Fire"
+msgstr "Fogo"
 
 #: TutoPlayFireContent
 msgctxt "TutoPlayFireContent"
@@ -316,5 +325,4 @@ msgstr "Home"
 #: TutoPlayHomeContent
 msgctxt "TutoPlayHomeContent"
 msgid "Press this button to go back to home"
-msgstr "Press this button to go back to home"
-
+msgstr "Pressione este botão para retornar à página inicial"

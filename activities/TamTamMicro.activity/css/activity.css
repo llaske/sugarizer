@@ -2,8 +2,18 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #instruments-button {
+  background-image: url(../icons/instrument-icon.svg);
+  background-origin: content-box;
+}
+
 #main-toolbar #piano-button {
-    background-image: url(../icons/piano-icon.svg);
+  background-image: url(../icons/piano-icon.svg);
+}
+
+#main-toolbar #simon-button {
+  background-image: url(../icons/simon-icon.svg);
+  background-origin: content-box;
 }
 
 #main-toolbar #help-button {

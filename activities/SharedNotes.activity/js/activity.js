@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoompalette","sugar-web/graphics/presencepalette","humane","tutorial","sugar-web/env"], function (activity,datastore,notepalette,zoompalette,presencepalette,humane,tutorial,env) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -77,6 +77,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
+				humane.log(l10n.get('NotesSaved'));
 				console.log("export done.")
 			}, inputData);
 		});
@@ -207,6 +208,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","notepalette","zoomp
 			textValue.style.top = (55 + position.y + delta) + "px";
 			textValue.style.width = 190 * zoom + "px";
 			textValue.style.height = 190 * zoom + "px";
+			textValue.style.resize = 'none';
 			if (textValue.value == defaultText)
 				textValue.setSelectionRange(0, textValue.value.length);
 			else

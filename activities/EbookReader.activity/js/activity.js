@@ -4,7 +4,7 @@ requirejs.config({
 });
 
 // Default library url
-var defaultUrlLibrary = (document.location.protocol.substr(0,5)=="https"?"https":"http") + "://sugarizer.org/content/books.php";
+var defaultUrlLibrary = "https://sugarizer.org/content/books.php";
 
 // Vue main app
 var app = new Vue({
@@ -53,6 +53,8 @@ var app = new Vue({
 					});
 				} else {
 					vm.loadLibrary(defaultUrlLibrary);
+					// Fix in case of accidental exit
+					vm.saveContextToJournal();
 				}
 			});
 		});
@@ -243,7 +245,7 @@ var app = new Vue({
 			this.$refs.tutorial.show(options);
 		},
 
-		onStop: function() {
+		saveContextToJournal: function() {
 			// Save current library in Journal on Stop
 			var vm = this;
 			vm.saveContext();
@@ -265,6 +267,10 @@ var app = new Vue({
 					}
 				});
 			});
+		},
+
+		onStop: function() {
+			this.saveContextToJournal();
 		}
 	}
 });

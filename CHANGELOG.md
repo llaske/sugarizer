@@ -6,10 +6,67 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Fraction activity #205
+- Add Photo mode in Journal popup
+- Add a noLoginMode to hide login button on first screen
+- Add more fun at end of Calligra #894
+- Add an option to remove seconds hand in Clock activity #885
+- Check if login exist before asking password #893
+- Add presence simulator
+
+### Changed
+- Update noServerMode: add a Quit button in the buddy menu
+- Use HTTPS for default Sugarizer Server
+- Use HTTPS for default library in Ebook Reader activity
+- Use HTTPS for default videos libraries in Video Viewer activity
+- Change color of Calligra icon - was too white
+- Optimize drawing in neighborhood view
 
 ### Fixed
-- Falabacraman activity don't detect win condition for restarted game #723
+- Wrong poll is displayed in Vote activity #854
+- Font is too small in Tangram activity on Safari or iOS #852
+- Leaving Sugarizer app without leaving current activity cause some activities to become empty #850
+- Improve frog control using touch/click in FoodChain activity #858
+- Allow frog to move with arrow keys in FoodChain activity #857
+- Add a popup when image is exported in Moon activity #867
+- Add a popup when image is exported in Shared Notes activity #868
+- Add a popup when image is exported in Labyrinth activity #869
+- Stop playing a video change to fullscreen in VideoViewer activity #859
+- Fix JournalChooser icons in Memorize activity
+- Color My World Error between the two Korea #898
+- Password characters flash from color to black&white #897
+- Issues on West Bank, Somalia and Cyprus in Color My World #901
+- Add a popup when image/sound is exported in Abecedarium activity #870
+- Improve responsiveness of TankOp activity #566
+- Improved Responsiveness in Game of life Activity #793
+- Wrong values for inverse trigonometric function in Calculate Activity #895
+
+
+## [1.4.0] - 2020-09-23
+### Added
+- Fraction activity #205
+- Implode activity #710
+- Planets activity
+- Chess activity
+- Curriculum activity
+- MindMath activity
+- Vote activity
+- Tangram activity
+- Simon mode game in TamTam activity #686
+- Vue.js activity template
+- Activity Development Tutorial in Vue.js
+- Duplicate action on Journal entries
+- ES6 compatibility for activities (except modules)
+- Support autologoff mode for Electron and Sugarizer OS
+- Support for native Android app in activities.json
+- Join shared activity in one click in neighborhood view
+
+### Changed
+- Improve Presence palette UI, now handle list of users and disconnection
+- Improve Sugarizer spiral in home view #579
+- Localize and standardize activities title
+
+### Fixed
+- Falabracman activity don't detect win condition for restarted game #723
 - Falabracman only accepts a specific letter in case of repeated letters in a word #725
 - Speak Text button hides text under it in speak activity #727
 - Video Viewer shows tutorial for a feature not available #731
@@ -32,6 +89,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Alignment of help button in some activities #777
 - Presence palette implementation in Memorize is non standard #374
 - Splitbar in toolbar of Clock activity are half sized in Chrome #789
+- Wrong title of blinker button in Game Of Life activity #792
+- Alert "user already exists" should come earlier #580
+- Wrong song is play on slow device/connection in TamTam activity #803
+- Removed resize option in Shared Notes
+- When connected to server, activities get shared automatically #810
+- Private button in presence palette shares the activity #811
+- Export palette in Write activity pop at the wrong place #807
+- Last One Loses activity is unplayable after sharing without second player #815
+- Spinner on first screen is at the bottom of the screen
+- Countries and view palettes pop at the wrong place in Constellation activity
+- Timer in chess activity stops on inactive tabs #828
 
 
 ## [1.3.0] - 2020-03-28

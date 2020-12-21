@@ -9,9 +9,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 	app = null;
 
 	// Manipulate the DOM only when it is ready.
-	requirejs(['domReady!'], function (doc) {
+	requirejs(['domReady!', 'humane'], function (doc, humane) {
 		// Initialize the activity
 		Abcd.activity.setup();
+		Abcd.humane = humane;
 
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;

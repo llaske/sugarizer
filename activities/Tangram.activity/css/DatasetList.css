@@ -1,0 +1,199 @@
+#dataset-list-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dataset-list-header {
+  width: 98%;
+  height: 13%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.dataset-list-bar {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.dataset-list-bar-block {
+  width: 55%;
+  height: 100%;
+  text-align: center;
+  background-color: #f0d9b5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 4.2vh;
+  font-weight: bold;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dataset-list-bar-block-title {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons-grp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  right: 1px;
+}
+
+.dataset-list-bar-block button {
+  background-color: transparent;
+  color: white;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dataset-list-main {
+  width: 100%;
+  height: 77%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dataset-list-panel-primary {
+  width: 95%;
+  height: 98%;
+  border-radius: 10px;
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.score-title {
+  width: 65%;
+}
+
+.score-val {
+  width: 35%;
+}
+
+.dataset-list-footer {
+  width: 98%;
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tangram-card-info-bar {
+  width: 100%;
+  height: 18%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info-content {
+  height: 100%;
+  width: 50%;
+  font-weight: bold;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.name-info {
+  width: 70%;
+  font-size: 2.3vh;
+}
+
+.tangram-card-info-bar button {
+  background-color: transparent;
+  color: white;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-image: url(../icons/minus.svg);
+}
+
+.edit-btn {
+  background-image: url(../icons/edit.svg);
+}
+
+.play-btn {
+  background-image: url(../icons/play-button.svg);
+}
+
+.info-block-content div {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+
+.tangram-card {
+  max-width: 45vw;
+  min-width: 250px;
+  flex: auto;
+  max-height: 300px;
+  min-height: 200px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+}
+
+.tangram-card-main {
+  width: 100%;
+  height: 81%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tangram-card-main svg {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-add-puzzle {
+	background-image: url(../icons/add-black.svg);
+}
+
+@media (orientation: portrait) {
+  .dataset-list-bar-block {
+    font-size: 4.2vw;
+  }
+
+  .name-info {
+    width: 70%;
+    font-size: 2.3vw;
+  }
+}

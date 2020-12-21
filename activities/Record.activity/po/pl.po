@@ -1,0 +1,75 @@
+#. extracted from ../translate.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Sep 06 2020 21:11:39 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: by
+msgctxt "by"
+msgid "by"
+msgstr "by"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Poprz"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Dalej"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Koniec"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Record Activity"
+msgstr "Record"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Record activity. Record is a basic rich-media capture activity"
+msgstr "Witaj w Record. Record to aplikacja, która nagrywa dźwięk oraz obraz"
+
+#: TutoPhotoTitle
+msgctxt "TutoPhotoTitle"
+msgid "Photo"
+msgstr "Zdjęcie"
+
+#: TutoPhotoContent
+msgctxt "TutoPhotoContent"
+msgid "Click here to start taking a photo. The photo will be taken in 3 seconds. Smile!"
+msgstr "Kliknij aby zrobić zdjęcie"
+
+#: TutoVideoTitle
+msgctxt "TutoVideoTitle"
+msgid "Video"
+msgstr "Wideo"
+
+#: TutoVideoContent
+msgctxt "TutoVideoContent"
+msgid "Click here to start taking a video. The capture will start immediately and for up to 5 seconds"
+msgstr "Kliknij aby nagrać wideo"
+
+#: TutoAudioTitle
+msgctxt "TutoAudioTitle"
+msgid "Audio"
+msgstr "Dźwięk"
+
+#: TutoAudioContent
+msgctxt "TutoAudioContent"
+msgid "Click here to start recording the sound from your microphone. The capture will start immediately and for up to 5 seconds"
+msgstr "Kliknij aby nagrać dźwięk z mikrofonu"
+

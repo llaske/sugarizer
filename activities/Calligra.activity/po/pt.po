@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Nov 02 2019 10:44:35 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-06-06 03:36+0000\n"
+"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
+"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-calligra/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: CalligraActivity
 msgctxt "CalligraActivity"
@@ -21,12 +23,12 @@ msgstr "Calligra Activity"
 #: Help
 msgctxt "Help"
 msgid "Help"
-msgstr "Help"
+msgstr "Ajuda"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Tela cheia"
 
 #: Settings
 msgctxt "Settings"
@@ -51,17 +53,17 @@ msgstr "Insert item"
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Anterior"
 
 #: NextShort
 msgctxt "NextShort"
 msgid "Next"
-msgstr "Next"
+msgstr "Próximo"
 
 #: EndShort
 msgctxt "EndShort"
 msgid "End"
-msgstr "End"
+msgstr "Fim"
 
 #: Template
 msgctxt "Template"
@@ -161,7 +163,7 @@ msgstr "Click to switch to the play mode where you could draw the item."
 #: TutoFullscreenButtonTitle
 msgctxt "TutoFullscreenButtonTitle"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Tela cheia"
 
 #: TutoFullscreenButtonContent
 msgctxt "TutoFullscreenButtonContent"
@@ -208,6 +210,16 @@ msgctxt "TutoRestartButtonContent"
 msgid "Click here to restart the drawing."
 msgstr "Click here to restart the drawing."
 
+#: TutoNextButtonTitle
+msgctxt "TutoNextButtonTitle"
+msgid "Next"
+msgstr "Next"
+
+#: TutoNextButtonContent
+msgctxt "TutoNextButtonContent"
+msgid "Click here to attempt the next one."
+msgstr "Click here to attempt the next one."
+
 #: TutoEditorAddButtonTitle
 msgctxt "TutoEditorAddButtonTitle"
 msgid "Add start point"
@@ -247,4 +259,3 @@ msgstr "Remove path point"
 msgctxt "TutoEditorRemovePathButtonContent"
 msgid "Click here to remove the last path point."
 msgstr "Click here to remove the last path point."
-

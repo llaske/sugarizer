@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:29:36 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-05 22:10+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-maze/pt/>\n"
@@ -63,7 +63,7 @@ msgstr "Fim"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Maze Activity"
-msgstr "Maze Activity"
+msgstr "Atividade Labirinto"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -78,22 +78,26 @@ msgstr "Network"
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the activity so other users on the network could play with you"
-msgstr "Click here to share the activity so other users on the network could play with you"
+msgstr ""
+"Clique aqui para compartilhar sua atividade, para que outros usuários na "
+"rede possam jogar com você"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "Restart"
-msgstr "Restart"
+msgstr "Reiniciar"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to get restart the game. It will restart to the first level of difficulty"
-msgstr "Click here to get restart the game. It will restart to the first level of difficulty"
+msgstr ""
+"Clique aqui para reiniciar o jogo. Isso reiniciará para o primeiro nível de "
+"dificuldade"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Maze"
-msgstr "Maze"
+msgstr "Labirinto"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"

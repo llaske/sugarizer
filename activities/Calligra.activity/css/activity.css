@@ -343,6 +343,16 @@ body {
 	background-image: url(../icons/restart.svg);
 	background-size: contain;
 }
+.player-next {
+	position: absolute;
+	top: 130px;
+	right: 17px;
+	width: 40px;
+	height: 40px;
+	padding: 5px;
+	background-image: url(../icons/pass-icon.svg);
+	background-size: contain;
+}
 
 .player-restart:disabled {
 	background-color: lightgray;

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:24:34 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:39+0000\n"
+"PO-Revision-Date: 2020-06-06 03:35+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-constellation/pt/>\n"
@@ -178,7 +178,7 @@ msgstr "Fim"
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Constellation Activity"
-msgstr "Constellation Activity"
+msgstr "Atividade Constelação"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
@@ -188,7 +188,7 @@ msgstr "Welcome into the Constellation activity. Constellation is an offline pla
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
 msgid "One day forward"
-msgstr "One day forward"
+msgstr "Avançar um dia"
 
 #: TutoAddContent
 msgctxt "TutoAddContent"
@@ -208,7 +208,7 @@ msgstr "Click here to move backward the sky by 1 day"
 #: TutoConstTitle
 msgctxt "TutoConstTitle"
 msgid "Constellations"
-msgstr "Constellations"
+msgstr "Constelações"
 
 #: TutoConstContent
 msgctxt "TutoConstContent"
@@ -218,7 +218,7 @@ msgstr "Click here to toggle display of constellations"
 #: TutoStarTitle
 msgctxt "TutoStarTitle"
 msgid "Stars"
-msgstr "Stars"
+msgstr "Estrelas"
 
 #: TutoStarContent
 msgctxt "TutoStarContent"
@@ -228,7 +228,7 @@ msgstr "Click here to toggle display of star names"
 #: TutoLocationTitle
 msgctxt "TutoLocationTitle"
 msgid "Location"
-msgstr "Location"
+msgstr "Localização"
 
 #: TutoLocationContent
 msgctxt "TutoLocationContent"
@@ -238,7 +238,7 @@ msgstr "Click here to set the sky to your current location"
 #: TutoWorldTitle
 msgctxt "TutoWorldTitle"
 msgid "Countries"
-msgstr "Countries"
+msgstr "Países"
 
 #: TutoWorldContent
 msgctxt "TutoWorldContent"
@@ -248,7 +248,7 @@ msgstr "Click here to select a country. You will see how the sky above this coun
 #: TutoViewTitle
 msgctxt "TutoViewTitle"
 msgid "Projection type"
-msgstr "Projection type"
+msgstr "Tipo de projeção"
 
 #: TutoViewContent
 msgctxt "TutoViewContent"
@@ -258,7 +258,7 @@ msgstr "Click here to choose projection type. It will change the way the sky is 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
 msgid "Date & Time"
-msgstr "Date & Time"
+msgstr "Data e hora"
 
 #: TutoTimeContent
 msgctxt "TutoTimeContent"

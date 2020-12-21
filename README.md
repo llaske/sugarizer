@@ -2,11 +2,11 @@
 
 # What is Sugarizer ?
 
-Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used every day by more than 2 million children around the world.
+Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
-Sugarizer runs on every device: from Raspberry Pi computers to Android and iOS phones to tablets and to laptops and desktops.
+Sugarizer runs on every device: laptops, desktops, tiny computers, tablets or smartphones.
 
-Sugarizer includes a bunch of pedagogic activities thought for children, see [here](https://sugarizer.org) for more.
+Sugarizer includes a large set of pedagogic activities thought for children, see [here](https://sugarizer.org/activities.html) for a full list.
 
 Sugarizer is available as:
 
@@ -16,7 +16,7 @@ Sugarizer is available as:
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android or iOS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
@@ -39,6 +39,7 @@ The Sugarizer desktop application has three possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
 * `--debug` to open Sugarizer with the debug console
+* `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
@@ -236,7 +237,7 @@ The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized v
 
 Then install specific component for Sugarizer by running:
 
-	npm install --dev
+	npm install --only=dev
 
 Finally launch:
 

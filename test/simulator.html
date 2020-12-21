@@ -1,0 +1,282 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sugarizer Presence Simulator</title>
+    <style>
+	div {
+		font-family: monospace;
+	}
+    </style>
+  </head>
+  <body id="body">
+  <h2 style="font-family: Arial;display: inline-block; margin-right: 10px;">Sugarizer Presence Simulator</h2>
+  <input id="stopstart" type="button" value="Stop" onclick="stopRestart()"/>
+  <hr/>
+  <div id="log" style="overflow: auto"></div>
+
+  <script src="../lib/require.js"></script>
+
+  <script>
+	// Init require library
+	requirejs.config({ baseUrl: "../lib" });
+	var creating = 0;
+	var buddies = [];
+
+	// Init window size
+	var resize = function() {
+		var body = document.getElementById("body");
+		var log = document.getElementById("log");
+		log.style.width = body.offsetWidth+"px";
+		log.style.height = (body.offsetHeight-90)+"px";
+	}
+	resize();
+	window.addEventListener("resize", resize);
+
+	// Simulation settings
+	var simulation = [
+		{
+			action: { create: 5, sharing: "org.olpcfrance.PaintActivity" },
+			during: 30000,
+			count: 4
+		},
+		{
+			action: { create: 2, sharing: "org.sugarlabs.ChatPrototype" },
+			during: 10000,
+			count: 12
+		},
+		{
+			action: { create: 1 },
+			during: 3000,
+			count: 40
+		},
+		{
+			action: { create: 2 },
+			during: 4000,
+			count: 30
+		},
+		{
+			action: { create: 3 },
+			during: 5000,
+			count: 30
+		},
+	];
+
+	// Launch simulator
+	var serverUrl = "http://localhost";
+	var serverPort = 8039;
+	var stopNow = false;
+	runCommand(simulation);
+
+	// Simulator
+	function runCommand(command) {
+		command.current = command.count;
+		runCommandInt(command);
+	}
+	function runCommandInt(command) {
+		if (Array.isArray(command)) {
+			for (var i = 0 ; i < command.length ; i++) {
+				runCommand(command[i]);
+			}
+			return;
+		}
+		if (command.action && command.action.create) {
+			// One step less
+			if (command.current) {
+				command.current--;
+			}
+
+			// Create users
+			createUsers(command.action.create).then(function(users) {
+				// Create share
+				if (command.action.sharing) {
+					users[0].createSharedActivity(command.action.sharing, function(sid) {
+						messageLog("User "+colorId(users[0].getUserInfo().networkId)+" create activity '"+command.action.sharing+"' with "+colorId(sid));
+						for (var i = 1 ; i < users.length ; i++) {
+							var p = users[i];
+							messageLog("User "+colorId(p.getUserInfo().networkId)+" join activity "+colorId(sid));
+							p.joinSharedActivity(sid, function() {});
+						}
+					});
+				}
+
+				// Stop after a moment
+				if (command.during) {
+					setTimeout(function() {
+						// Remove users
+						for (var i = 0 ; i < users.length ; i++) {
+							var p = users[i];
+							messageLog("User "+colorId(p.getUserInfo().networkId)+" disconnected");
+							p.leaveNetwork();
+							releaseBuddy(p);
+						}
+
+						// Stop now
+						if (stopNow) {
+							command.current = 0;
+						}
+
+						// Next step
+						if (command.current) {
+							runCommandInt(command);
+						} else {
+							var isArray = Array.isArray(simulation);
+							var allStopped = true;
+							for (var i = 0 ; isArray && i < simulation.length ; i++) {
+								allStopped = allStopped && !simulation[i].current;
+							}
+							if (!isArray || allStopped) {
+								document.getElementById("stopstart").value = "Restart";
+								document.getElementById("stopstart").disabled = false;
+								stopNow = true;
+							}
+						}
+					}, command.during);
+				}
+			});
+		}
+	};
+
+	// Utility function
+	function stopRestart() {
+		if (!stopNow) {
+			stopNow = true;
+			document.getElementById("stopstart").value = "Restart";
+			document.getElementById("stopstart").disabled = true;
+			if (!Array.isArray(simulation)) {
+				simulation.current = 0;
+			} else {
+				for (var i = 0 ; i < simulation.length ; i++) {
+					simulation[i].current = 0;
+				}
+			}
+		} else {
+			stopNow = false;
+			document.getElementById("stopstart").value = "Stop";
+			var log = document.getElementById("log");
+			while (log.firstChild) {
+				log.removeChild(log.lastChild);
+			}
+			runCommand(simulation);
+		}
+	}
+	function createUsers(count) {
+		return new Promise(function(resolve, reject) {
+			var users = [];
+			createUsersInt(count, users, function() {
+				resolve(users);
+			});
+		});
+	}
+	function createUsersInt(count, users, then) {
+		if (users.length == count) {
+			then(users);
+			return;
+		}
+		createUser("Virtual User "+(users.length+1)).then(function(p) {
+			messageLog("User "+colorId(p.getUserInfo().networkId)+" created");
+			users.push(p);
+			createUsersInt(count, users, then);
+		});
+	}
+	function createUser(name) {
+		return new Promise(function(resolve, reject) {
+			var doCreate = function() {
+				creating++;
+				requirejs(["sugar-web/presence", "sugar-web/graphics/xocolor"], function(presence, xocolor) {
+					require.undef("sugar-web/presence"); // HACK: Force module unload to avoid reusing same socket
+					initSugarizer(getBuddy(name, presence, xocolor));
+					presence.joinNetwork(function(error, p) {
+						resolve(p);
+						creating--;
+					});
+				});
+			};
+			var tryCreate = function() {
+				if (creating == 0) {
+					doCreate();
+				} else {
+					setTimeout(tryCreate, 500);
+				}
+				return false;
+			}
+
+			// HACK: Wait module presence is unloaded
+			tryCreate();
+		});
+	}
+	function getBuddy(name, presence, xocolor) {
+		for (var i = 0 ; i < buddies.length ; i++) {
+			if (buddies[i].presence == null) {
+				buddies[i].presence = presence;
+				return buddies[i];
+			}
+		}
+		var uid = createUUID();
+		var colorindex = Math.floor(Math.random() * xocolor.colors.length);
+		var buddy = {
+			name: name,
+			server: {url: serverUrl, presence: serverPort},
+			networkId: uid, color: colorindex,
+			colorvalue: { stroke: xocolor.colors[colorindex].stroke, fill: xocolor.colors[colorindex].fill },
+			presence: presence
+		};
+		buddies.push(buddy);
+		return buddy;
+	}
+	function releaseBuddy(presence) {
+		for (var i = 0 ; i < buddies.length ; i++) {
+			if (buddies[i].presence == presence) {
+				buddies[i].presence = null;
+				return;
+			}
+		}
+	}
+	function createUUID() {
+		var s = [];
+		var hexDigits = "0123456789abcdef";
+		for (var i = 0; i < 36; i++) {
+			s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+		}
+		s[14] = "4";
+		s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+		s[8] = s[13] = s[18] = s[23] = "-";
+
+		var uuid = s.join("");
+		return uuid;
+	}
+	function initSugarizer(updatedSettings) {
+		window.localStorage.clear();
+		var initSettings = { name: "Simulator", color: 163, colorvalue: { stroke: '#AC32FF', fill: '#FF8F00' } };
+		if (updatedSettings) {
+			for (var key in updatedSettings) {
+				initSettings[key] = updatedSettings[key];
+			}
+		}
+		window.localStorage.setItem("sugar_settings", JSON.stringify(initSettings));
+	};
+	var colors = [];
+	function colorId(id) {
+		var color;
+		if (colors[id]) {
+			color = colors[id];
+		} else {
+			color = "#"+((1<<24)*Math.random()|0).toString(16);
+			colors[id] = color;
+		}
+		return "<font color='"+color+"'>"+id+"</font>"
+	}
+	var liIndex = 0;
+	function messageLog(message) {
+		var buf = "<font color='gray'>"+new Date().toISOString()+":</font> "+message;
+		var log = document.getElementById("log");
+		var li = document.createElement("div");
+		li.id = "li"+(++liIndex);
+		li.innerHTML = buf;
+		log.appendChild(li);
+		setTimeout(function() {
+			document.getElementById("li"+liIndex).scrollIntoView();
+		}, 50);
+	}
+  </script>
+  </body>
+</html>

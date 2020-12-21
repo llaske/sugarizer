@@ -1,0 +1,447 @@
+button:disabled {
+	opacity: 0.3 !important;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+p {
+	margin: 0.6em 0;
+}
+
+#app {
+	height: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .4s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+#main-toolbar .splitbar {
+	border-right: 1.5px solid #565656;
+	margin: 7.5px 5px;
+	height: 40px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#main-toolbar.toolbar {
+	padding: 0 2%;
+	overflow: hidden;
+}
+
+#main-toolbar.hidden {
+	height: 0;
+	overflow: hidden;
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#main-toolbar #view-button {
+	background-image: url(../icons/settings.svg);
+}
+
+#main-toolbar #puzzle-category-button {
+	background-image: url(../icons/tangram-type.svg);
+}
+
+#main-toolbar #random-play-button {
+	background-image: url(../icons/random-btn.svg);
+}
+
+#main-toolbar #level-button {
+	background-image: url(../icons/level.svg);
+}
+
+#main-toolbar #timer-button {
+	background-image: url(../icons/timer-0.svg);
+}
+
+#main-toolbar #hint-button {
+	background-image: url(../icons/robot.svg);
+}
+
+#main-toolbar #create-category-button {
+	background-image: url(../icons/add.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+#main-toolbar #fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 1%;
+  position: absolute;
+  z-index: 5;
+}
+
+.footer-actions {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+#back-button {
+	background: url(../icons/go-left.svg) no-repeat;
+	filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
+	background-size: cover;
+	position: absolute;
+	top: 12px;
+	left: 1.2vw;
+	width: 65px;
+	height: 65px;
+	cursor: pointer;
+	z-index: 3;
+}
+
+#spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
+}
+
+#back-button:hover {
+	border: none;
+}
+
+.btn-in-footer {
+  width: 125px;
+  height: 95%;
+  padding: 0px;
+  border: none;
+  margin: 0px 1%;
+  cursor: pointer;
+	font-weight: bold;
+	font-size: 2vh;
+  border-radius: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
+@media (orientation: portrait) {
+	.btn-in-footer {
+		font-size: 2vw;
+	}
+}
+
+.btn-in-footer:hover {
+  background-size: 90%;
+}
+
+.btn-replay {
+	background-image: url(../icons/refresh.svg);
+}
+
+.btn-restart {
+	background-image: url(../icons/restart-black.svg);
+}
+
+.btn-back {
+	background-image: url(../icons/go-left-black.svg);
+}
+
+.btn-validate {
+	background-image: url(../icons/validate.svg);
+}
+
+.btn-pass {
+	background-image: url(../icons/pass-icon.svg);
+}
+
+.btn-see-leaderboard {
+	background-image: url(../icons/leaderboard.svg);
+}
+
+#easy-button {
+  background-image: url(../icons/square-outline.svg);
+}
+
+#medium-button {
+  background-image: url(../icons/square-filled.svg);
+}
+
+#category-buttons {
+	max-height: 70vh;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+@media (hover:none), (hover:on-demand) {
+  /* suppress hover effect on devices that don't support hover fully*/
+  .btn-in-footer:hover {
+    background-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 573px) {
+  #timer-button {
+    display: none;
+  }
+
+  #timer-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 518px) {
+  #view-button {
+    display: none;
+  }
+}
+
+
+@media only screen and (max-width: 460px) {
+  #level-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 402px) {
+  #random-play-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 343px) {
+  #puzzle-category-button {
+    display: none;
+  }
+
+  #tangram-category-palette {
+    display: none;
+  }
+}
+
+@media only screen and (max-height: 400px) {
+	#back-button {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+.pagination {
+	color: black;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.btn-previous-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-left-black.svg);
+}
+
+.btn-next-page {
+  margin: 0px 1%;
+  background-image: url(../icons/go-right-black.svg);
+}
+
+.page-no {
+  margin: 0px 1%;
+  font-weight: bold;
+  color: black;
+  font-size: 3vh;
+  cursor: auto;
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-notselected {
+  background-color: transparent;
+}
+
+.palette .row {
+  display: block;
+  margin: 0 0 !important;
+  box-sizing: initial !important;
+  font-size: 10pt;
+}
+
+.palette .expand {
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+
+.palette input#title.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 245px;
+  color: black;
+}
+
+.palette textarea#description.expand {
+  font-family: system-ui;
+  font-size: 11px;
+  width: 255px;
+  color: black;
+}
+
+.palette input[type='text'].expand {
+  font-family: system-ui;
+  font-size: 11px;
+}
+
+.palette .container {
+  box-sizing: initial;
+}
+
+.palette .wrapper {
+  font-size: 10pt;
+  box-sizing: initial;
+  min-width: 70px;
+}
+
+.palette *, ::after, ::before {
+  box-sizing: initial;
+}
+
+.palette-item {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.palette-text {
+  text-align: center;
+  margin: 4px;
+}
+
+.palette-item:hover {
+  background-color: #808080;
+}
+
+.palette-item-selected {
+  background-color: #808080;
+}
+
+.palette-icon {
+  width: 50px;
+}
+
+.tutNumbersRow {
+  display: flex;
+  align-items: center;
+}
+
+.tutNumbersRow img {
+  margin: 4px;
+}
+
+.tutorial-icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	width: 90px;
+	background-color: #808080;
+	border: 2px solid #808080;
+	display: flex;
+	align-items: center;
+}
+
+.tutorial-icon-button {
+	color: white;
+}
+.tutorial-icon-button.disabled {
+	color: black;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-icon-text {
+	padding-left: 4px;
+}

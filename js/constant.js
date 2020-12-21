@@ -3,7 +3,7 @@
 // Constants
 var constant = {};
 
-constant.sugarizerVersion = "1.3.0";
+constant.sugarizerVersion = "1.4.0";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
@@ -14,7 +14,9 @@ constant.sizeNeighbor = 40;
 constant.sizeNewUser = 150;
 constant.iconSpacingFactor = 1.1;
 constant.ringInitSpaceFactor = 2.2;
+constant.spiralInitSpaceFactor = 0.89;
 constant.ringSpaceFactor = 1.3;
+constant.spiralSpaceFactor = 1.3;
 constant.ringAdjustAngleFactor = 3.6;
 constant.ringAdjustSizeFactor = 0.9;
 constant.ringMinRadiusSize = 108;
@@ -31,6 +33,7 @@ constant.journalRemotePrivate = 1;
 constant.journalRemoteShared = 2;
 constant.journalRemove = 3;
 constant.journalDevice = 4;
+constant.journalDuplicate = 5;
 constant.journalInitCount = 40;
 constant.journalStepCount = 10;
 constant.journalScrollLimit = 200;
@@ -45,6 +48,7 @@ constant.webAppType = 0; // thinClientType
 constant.appType = 1;  // clientType
 constant.noServerMode = false;
 constant.noSignupMode = false;
+constant.noLoginMode = false;
 
 constant.staticInitActivitiesURL = "activities.json";
 constant.http = "http://";
@@ -60,7 +64,7 @@ constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";
 constant.fieldMetadata = "metadata";
 constant.fieldText = "text";
-constant.defaultServer = constant.http + "server.sugarizer.org";
+constant.defaultServer = constant.https + "server.sugarizer.org";
 constant.minPasswordSize = 4;
 
 constant.syncJournalLimit = 100;

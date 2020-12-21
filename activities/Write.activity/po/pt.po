@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-02-28 13:55+0000\n"
+"PO-Revision-Date: 2020-06-05 21:09+0000\n"
 "Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
 "Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
 "/activity-write/pt/>\n"
@@ -19,13 +19,13 @@ msgstr ""
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr "{{user}} joined"
+msgstr "{{user}} ingressou"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr "{{user}} left"
+msgstr "{{user}} saiu"
 
 #: Write
 msgctxt "Write"
