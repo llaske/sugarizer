@@ -95,6 +95,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.msRequestAnimationFrame;
+        var show_am_pm = false;
 
         function Clock() {
             this.face = "simple";
@@ -188,6 +189,24 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 that.updateSizes();
                 that.drawBackground();
             });
+
+            document.getElementById("show-am-pm").addEventListener('click', function(e) {
+                if(that.face == 'nice'){
+                  document.getElementById("show-am-pm").classList.remove("active");
+                  show_am_pm = false;
+                  return;
+                }
+                show_am_pm = document.getElementById("show-am-pm").classList.contains("active");
+                if(!show_am_pm) {
+                  document.getElementById("show-am-pm").classList.add("active");
+                }
+                else {
+                  document.getElementById("show-am-pm").classList.remove("active");
+                }
+                show_am_pm = document.getElementById("show-am-pm").classList.contains("active");
+                that.drawBackground();
+            });
+
         }
 
         function setTranslatedStrings() {
@@ -199,6 +218,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("set-time-button").title = l10n_s.get("SetTime");
             document.getElementById("set-timeGame-button").title = l10n_s.get("SetTimeGame");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
+            document.getElementById("show-am-pm").title = l10n_s.get("ShowAmPmTitle");
         }
 
         Clock.prototype.start = function (face) {
@@ -326,8 +346,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
             this.handSizes = {
                 'hours': this.radius * 0.5,
-                'minutes': this.radius * 0.7,
-                'seconds': this.radius * 0.8
+                'minutes': this.radius * 0.6,
+                'seconds': this.radius * 0.7
             };
 
             this.lineWidths = {
@@ -391,10 +411,20 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         Clock.prototype.drawBackground = function () {
             if (this.face == "simple") {
-                this.drawSimpleBackground();
-                this.drawNumbers();
+              if(show_am_pm) {
+                this.drawSimpleBackground(40);
+                this.drawNumbers(40, 'hour_am');
+                this.drawNumbers(40, 'hour_pm');
+                this.drawNumbers(40, 'minute');
+              }
+              else {
+                this.drawSimpleBackground(0);
+                this.drawNumbers(0, 'hour_am');
+              }
             }
             else {
+                document.getElementById("show-am-pm").classList.remove("active");
+                show_am_pm = false;
                 this.drawNiceBackground();
             }
             if(this.setTimeGame || this.setTimeGame){
@@ -409,7 +439,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         //
         // The simple clock background is a white disk, with hours and
         // minutes ticks, and the hour numbers.
-        Clock.prototype.drawSimpleBackground = function () {
+        Clock.prototype.drawSimpleBackground = function (x) {
             var ctx = this.bgCanvasElem.getContext('2d');
 
             ctx.clearRect(0, 0, this.size, this.size);
@@ -422,7 +452,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             ctx.fillStyle = this.colors.white;
             ctx.beginPath();
             ctx.arc(this.centerX, this.centerY,
-                    this.radius - lineWidthBackground, 0, 2 * Math.PI);
+                    this.radius - lineWidthBackground - x, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
 
@@ -448,14 +478,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 var cos = Math.cos(i * Math.PI / 30);
                 var sin = Math.sin(i * Math.PI / 30);
                 ctx.save();
-                ctx.translate(this.margin, this.margin);
+                ctx.translate(this.margin+x, this.margin+x);
                 ctx.moveTo(
-                    this.radius + (this.radius - inset) * cos,
-                    this.radius + (this.radius - inset) * sin);
+                    this.radius-x + (this.radius-x - inset) * cos,
+                    this.radius-x + (this.radius-x - inset) * sin);
                 ctx.lineTo(
-                    this.radius + (this.radius - ctx.lineWidth) * cos,
-                    this.radius + (this.radius - ctx.lineWidth) * sin);
-
+                    this.radius-x + (this.radius-x - ctx.lineWidth) * cos,
+                    this.radius-x + (this.radius-x - ctx.lineWidth) * sin);
                 ctx.stroke();
                 ctx.restore();
             }
@@ -471,25 +500,56 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         }
 
         // Draw the numbers of the hours.
-        Clock.prototype.drawNumbers = function () {
+        Clock.prototype.drawNumbers = function (x, hand) {
             var ctx = this.bgCanvasElem.getContext('2d');
 
-            var fontSize = 30 * this.radius / 160;
-
-            ctx.fillStyle = this.colors.hours;
+            var fontSize;
+            if(hand == 'minute') {
+              ctx.fillStyle = this.colors.minutes;
+              fontFactor = 20;
+              ratioFactor = 1.1;
+              fontSize = fontFactor * this.radius / 160;
+              ctx.font = "bold " + fontSize + "px sans-serif";
+            }
+            else if(hand == 'hour_am') {
+              ctx.fillStyle = this.colors.hours;
+              fontFactor = 30;
+              ratioFactor = 0.7;
+              fontSize = fontFactor * this.radius / 160;
+              ctx.font = "bold " + fontSize + "px sans-serif";
+            }
+            else if(hand == 'hour_pm') {
+              ctx.fillStyle = this.colors.hours;
+              fontFactor = 10;
+              ratioFactor = 0.52;
+              fontSize = fontFactor * this.radius / 160;
+              ctx.font = fontSize + "px sans-serif";
+            }
             ctx.textBaseline = 'middle';
-            ctx.font = "bold " + fontSize + "px sans-serif";
+            var minute = 5;
 
             for (var i = 0; i < 12; i++) {
                 var cos = Math.cos((i - 2) * Math.PI / 6);
                 var sin = Math.sin((i - 2) * Math.PI / 6);
-                var text = i + 1;
+                var text;
+                if(hand == 'minute') {
+                  text = minute;
+                  minute = minute + 5;
+                }
+                else if(hand == 'hour_am') {
+                  text = i + 1;
+                }
+                else if(hand == 'hour_pm') {
+                  text = i + 13;
+                }
                 var textWidth = ctx.measureText(text).width;
 
                 ctx.save();
                 ctx.translate(this.centerX - textWidth / 2, this.centerY);
-                ctx.translate(this.radius * 0.75 * cos,
-                              this.radius * 0.75 * sin);
+                this.radius = this.radius - x;
+                ctx.translate(this.radius * ratioFactor * cos,
+                              this.radius * ratioFactor * sin);
+                this.radius = this.radius + x;
                 ctx.fillText(text, 0, 0);
                 ctx.restore();
             }

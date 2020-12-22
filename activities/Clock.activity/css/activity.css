@@ -68,6 +68,10 @@ canvas {
   background-image: url(../icons/set-time-game.svg);
 }
 
+#main-toolbar #show-am-pm {
+  background-image: url(../icons/time.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
