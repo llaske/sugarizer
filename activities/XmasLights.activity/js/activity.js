@@ -25,7 +25,13 @@ var app = new Vue({
 				_loadAndConvertIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
 					vm.activitiesIcons[activity.id] = svg;
 					if (Object.keys(vm.activitiesIcons).length == len) {
-						console.log(vm.activitiesIcons);
+						// Falabracman
+						vm.$refs.falabracman.svg = vm.activitiesIcons["org.sugarlabs.Falabracman"];
+						vm.$refs.falabracman.color = 96;
+
+						// Paint
+						vm.$refs.paint.svg = vm.activitiesIcons["org.olpcfrance.PaintActivity"];
+						vm.$refs.paint.color = 128;
 					}
 				});
 			}
@@ -48,6 +54,9 @@ function _loadActivities() {
 	});
 }
 
+// Need to create an unique id for each SVG
+let idCount = 1;
+
 // Load icon and convert it to a pure SVG (remove Sugar stuff)
 function _loadAndConvertIcon(url) {
 	return new Promise(function(resolve, reject) {
@@ -61,12 +70,31 @@ function _loadAndConvertIcon(url) {
 			buf = buf.replace(/&fill_color;/g,"var(--fill-color)");
 
 			// Add symbol and /symbol
-			buf = buf.replace(/(<svg[^>]*>)/g,'$1<symbol id="icon">');
-			buf = buf.replace(/(<\/svg>)/g,'</symbol><use xlink:href="#icon" href="#icon"/>$1');
+			buf = buf.replace(/(<svg[^>]*>)/g,'$1<symbol id="icon'+idCount+'">');
+			buf = buf.replace(/(<\/svg>)/g,'</symbol><use xlink:href="#icon'+idCount+'" href="#icon'+idCount+'"/>$1');
+			idCount++;
 
 			resolve(buf);
 		}).catch(function(error) {
 			reject(error);
  		});
 	});
+}
+
+// TODO: Set icon color
+function _setIconColor(icon, color) {
+	if (!icon) {
+		return -1; // Error bad element
+	}
+	var element = null;
+	for (var i = 0 ; i < icon.children.length && !element ; i++) {
+		if (icon.children[i].tagName == "svg") {
+			element = icon.children[i];
+		}
+	}
+	if (element == null) {
+		return -1; // Error no SVG included
+	}
+	element.setAttribute("class", "xo-color"+color);
+	return 0;
 }

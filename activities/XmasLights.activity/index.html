@@ -12,6 +12,7 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link href="css/xocolor.css" rel="stylesheet" type="text/css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/axios.min.js"></script>
 	<script src="lib/require.js"></script>
@@ -29,13 +30,15 @@
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
-
+		<activity-icon ref="falabracman"></activity-icon>
+		<activity-icon ref="paint"></activity-icon>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/activity-icon.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
