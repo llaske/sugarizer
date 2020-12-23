@@ -17,7 +17,8 @@ Vue.component("dollarstreet-api", {
 			l10n: {},
 			streetSettings: {},
 			regions: [],
-			things: []
+			things: [],
+			familyThing: {}
 		}
 	},
 
@@ -49,6 +50,7 @@ Vue.component("dollarstreet-api", {
 						vm.streetSettings = results[1];
 						vm.regions = results[2];
 						vm.things = results[3].otherThings;
+						vm.thing = results[3].thing;
 						vm.$emit("initialized");
  					}).catch(function(error) {
 						vm.$emit("error");
@@ -74,6 +76,23 @@ Vue.component("dollarstreet-api", {
 		// Get things
 		getThings: function() {
 			return this.things;
+		},
+
+		// Find a thing by id
+		getThingById: function(id) {
+			let vm = this;
+			for (let i = 0 ; i < vm.things.length ; i++) {
+				let current = vm.things[i];
+				if (current._id == id) {
+					return current;
+				}
+			}
+			return null;
+		},
+
+		// Get family thing
+		getFamily: function() {
+			return this.familyThing;
 		}
 	}
 });
