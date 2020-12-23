@@ -21,6 +21,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             } else {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
+                        show_am_pm = data.show_am_pm;
+                        if(show_am_pm) document.getElementById("show-am-pm").classList.add("active");
                         Clock.face=data.face;
                         console.log(data);
                         if(data.face=="simple"){
@@ -77,7 +79,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                               document.getElementById("write-time-button").classList.remove("active");
                           }
                         }
-
                     }
                 });
             }
@@ -1009,7 +1010,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               isSetTimeGame : clock.setTimeGame,
               isSmiley : clock.isSmiley,
               handAngles : clock.handAngles,
-              timeToBeDisplayed : clock.timeToBeDisplayed
+              timeToBeDisplayed : clock.timeToBeDisplayed,
+              show_am_pm: show_am_pm
             }
             activity.getDatastoreObject().setDataAsText(stateObj);
             activity.getDatastoreObject().save(function (error) {

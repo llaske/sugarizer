@@ -233,3 +233,12 @@ canvas {
     right: 15%;
   }
 }
+
+@media only screen and (max-width: 780px) {
+  .toolbar .toolbutton::before {
+    right: -8px;
+  }
+  .toolbar .toolbutton {
+    width: 36px;
+  }
+}
