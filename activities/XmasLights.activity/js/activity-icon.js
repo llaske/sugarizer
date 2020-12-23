@@ -3,10 +3,10 @@
 Vue.component('activity-icon', {
 	name: 'ActivityIcon',
 	template: `
-		<div v-html="svg" :id="id">
+		<div v-html="svg" :id="id" style="display: inline-block">
 		</div>
 	`,
-	props: ['svg','color','size'],
+	props: ['name','svg','color','size'],
 	data: function() {
 		return {
 			id: null
@@ -14,6 +14,10 @@ Vue.component('activity-icon', {
 	},
 	mounted: function() {
 		this.id = this._uid;
+		_setColor(this, this.color);
+		if (this.size) {
+			_setSize(this, this.size);
+		}
 	},
 	watch: {
 		color: function(newColor, oldColor) {
@@ -44,7 +48,7 @@ function _setColor(vm, color) {
 	setTimeout(function() { // HACK: Timeout need to wait for SVG to be build
 		let element = _getSVGElement(document.getElementById(vm.id));
 		if (element) {
-			element.setAttribute("class", "xo-color"+color);
+			element.setAttribute("class", "xo-color"+(color%180));
 		}
 	}, 0);
 }
@@ -54,11 +58,27 @@ function _setSize(vm, size) {
 	setTimeout(function() { // HACK: Timeout need to wait for SVG to be build
 		let element = _getSVGElement(document.getElementById(vm.id));
 		if (element) {
+			// Compute optimal viewBox size depending of previous width/height value and unity
+			let iwidth = element.getAttribute("width").replace("px","");
+			if (iwidth == "100%") {
+				iwidth = 55;
+			} else if ((""+iwidth).indexOf("pt")!=-1) {
+				iwidth = Math.round(parseInt(iwidth.replace("pt",""),10)*96/72); // Convert pt to px
+			}
+			let iheight = element.getAttribute("height").replace("px","").replace("pt","");
+			if (iheight == "100%") {
+				iheight = 55;
+			} else if ((""+iheight).indexOf("pt")!=-1) {
+				iheight = Math.round(parseInt(iheight.replace("pt",""),10)*96/72); // Convert pt to px
+			}
+
+			// Set size
 			element.setAttribute("width", size+"px");
 			element.setAttribute("height", size+"px");
-			element.setAttribute("style", "margin: -2px -4px");
 			element.setAttribute("preserveAspectRatio", "xMidYMid meet");
-			element.setAttribute("viewBox", "0 0 55 55");
+			if (!element.getAttribute("viewBox")) {
+				element.setAttribute("viewBox", "0 0 "+iwidth+" "+iheight);
+			}
 		}
 	}, 0);
 }

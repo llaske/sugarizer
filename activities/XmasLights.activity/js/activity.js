@@ -13,7 +13,7 @@ var app = new Vue({
 		activitiesIcons: []
 	},
 
-	mounted() {
+	created() {
 		let vm = this;
 
 		// Load activities list
@@ -23,25 +23,24 @@ var app = new Vue({
 			for (let i = 0 ; i < len ; i++) {
 				let activity = activities[i];
 				_loadAndConvertIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
-					vm.activitiesIcons[activity.id] = svg;
-					if (Object.keys(vm.activitiesIcons).length == len) {
-						// Falabracman
-						vm.$refs.falabracman.svg = vm.activitiesIcons["org.sugarlabs.Falabracman"];
-						vm.$refs.falabracman.color = 96;
-
-						// Abecedarium
-						vm.$refs.abecedarium.svg = vm.activitiesIcons["org.olpcfrance.Abecedarium"];
-						vm.$refs.abecedarium.color = 32;
-						vm.$refs.abecedarium.size = 20;
-
-						// Paint
-						vm.$refs.paint.svg = vm.activitiesIcons["org.olpcfrance.PaintActivity"];
-						vm.$refs.paint.color = 128;
-						vm.$refs.paint.size = 100;
-					}
+					let color = Math.floor(Math.random()*180);
+					let size = 60;
+					vm.activitiesIcons.push({
+						name: activity.id,
+						svg: svg,
+						color: color,
+						size: size
+					});
 				});
 			}
 		});
+
+		// Resize dynamically grid
+		var computeHeight = function() {
+			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-55)+"px";
+		}
+		computeHeight();
+		window.addEventListener("resize", computeHeight);
 	},
 
 	methods: {

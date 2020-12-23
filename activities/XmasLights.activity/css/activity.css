@@ -121,3 +121,11 @@ p {
 .tutorial-icon-text {
 	padding-left: 4px;
 }
+
+.grid {
+	margin-top: 55px;
+	width: 100%;
+	height: 400px;
+	display: inline;
+	overflow: auto;
+}

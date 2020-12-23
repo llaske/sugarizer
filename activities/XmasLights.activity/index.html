@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
-<body>
+<body id="body">
 	<div id="app">
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
@@ -30,9 +30,15 @@
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
-		<activity-icon ref="falabracman"></activity-icon>
-		<activity-icon ref="abecedarium"></activity-icon>
-		<activity-icon ref="paint"></activity-icon>
+
+		<div id="grid" class="grid">
+			<activity-icon v-for="(icon) in activitiesIcons" :key="icon.id"
+				v-bind:name="icon.name"
+				v-bind:svg="icon.svg"
+				v-bind:color="icon.color"
+				v-bind:size="icon.size">
+			</activity-icon>
+		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 	</div>
