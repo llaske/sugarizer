@@ -29,9 +29,15 @@ var app = new Vue({
 						vm.$refs.falabracman.svg = vm.activitiesIcons["org.sugarlabs.Falabracman"];
 						vm.$refs.falabracman.color = 96;
 
+						// Abecedarium
+						vm.$refs.abecedarium.svg = vm.activitiesIcons["org.olpcfrance.Abecedarium"];
+						vm.$refs.abecedarium.color = 32;
+						vm.$refs.abecedarium.size = 20;
+
 						// Paint
 						vm.$refs.paint.svg = vm.activitiesIcons["org.olpcfrance.PaintActivity"];
 						vm.$refs.paint.color = 128;
+						vm.$refs.paint.size = 100;
 					}
 				});
 			}
@@ -79,22 +85,4 @@ function _loadAndConvertIcon(url) {
 			reject(error);
  		});
 	});
-}
-
-// TODO: Set icon color
-function _setIconColor(icon, color) {
-	if (!icon) {
-		return -1; // Error bad element
-	}
-	var element = null;
-	for (var i = 0 ; i < icon.children.length && !element ; i++) {
-		if (icon.children[i].tagName == "svg") {
-			element = icon.children[i];
-		}
-	}
-	if (element == null) {
-		return -1; // Error no SVG included
-	}
-	element.setAttribute("class", "xo-color"+color);
-	return 0;
 }
