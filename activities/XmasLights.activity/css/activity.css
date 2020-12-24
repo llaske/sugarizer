@@ -127,5 +127,16 @@ p {
 	width: 100%;
 	height: 400px;
 	display: inline;
-	overflow: auto;
+	overflow: hidden;
+}
+
+.message {
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	visibility: hidden;
+	position: fixed;
+	z-index: 255;
+	transform: translateY(-50%);
+	text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }

@@ -15,14 +15,19 @@ const initIcons = initIconsSequences[1];
 // -- [color1, color2] use -1 for random color
 const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [22]];
 const initColors = initColorsSequences[4];
+const initSize = 60;
 const blinkTime = 1000;
+const messageContent = "Merry<br/>Christmas!";
+const messageColor = "black";
+const messageSize = "80pt";
 
 // Vue main app
 var app = new Vue({
 	el: '#app',
 	data: {
 		activitiesIcons: [],
-		gridContent: []
+		gridContent: [],
+		interval: null
 	},
 
 	created() {
@@ -45,8 +50,23 @@ var app = new Vue({
 		});
 
 		// Resize dynamically grid
+		let message = document.getElementById("message");
 		var computeHeight = function() {
 			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-55)+"px";
+			if (messageContent.length) {
+				message.innerHTML = messageContent;
+				message.style.color = messageColor;
+				message.style.fontSize = messageSize;
+				message.style.visibility = "visible";
+			}
+			if (Object.keys(vm.activitiesIcons).length > 0) {
+				if (vm.interval) {
+					clearInterval(vm.interval);
+					vm.interval = null;
+				}
+				vm.generateGrid();
+				vm.blink();
+			}
 		}
 		computeHeight();
 		window.addEventListener("resize", computeHeight);
@@ -56,14 +76,19 @@ var app = new Vue({
 		// Generate a grid using icons and colors sequence
 		generateGrid: function() {
 			let vm = this;
-			for (let i = 0 ; i < 4 ; i++) {
+			vm.gridContent = [];
+			let height = document.getElementById("body").offsetHeight-55;
+			let width = document.getElementById("body").offsetWidth;
+			let total = Math.floor((1.0*height)/initSize)*Math.floor((1.0*width)/initSize);
+			let count = total/Object.keys(vm.activitiesIcons).length;
+			for (var i = 0 ; i < count ; i++) {
 				Object.keys(vm.activitiesIcons).forEach(function(id) {
 					let index = vm.gridContent.length;
 					let current = (initIcons.length==0?id:initIcons[index%initIcons.length]);
 					let svg = vm.activitiesIcons[current];
 					let color = (initColors.length==0?index%180:initColors[index%initColors.length]);
 					if (color == -1) { color = Math.floor(Math.random()*180) }
-					let size = 60;
+					let size = initSize;
 					vm.gridContent.push({
 						name: id,
 						svg: svg,
@@ -78,7 +103,7 @@ var app = new Vue({
 		// Blink icons
 		blink: function() {
 			let vm = this;
-			setInterval(function() {
+			vm.interval = setInterval(function() {
 				for (let i = 0 ; i < vm.gridContent.length ; i++) {
 					let newColor;
 					if (initColors.length == 0) {
@@ -106,7 +131,7 @@ function _loadActivities() {
 	});
 }
 
-// Need to create an unique id for each SVG
+// Need to create an unique id for each embedded SVG
 let idCount = 1;
 
 // Load icon and convert it to a pure SVG (remove Sugar stuff)
