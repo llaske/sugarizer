@@ -6,11 +6,23 @@ requirejs.config({
 	}
 });
 
+// Initial sequence
+// -- [] to iterate on existing icons
+// -- ["id1", "id2"]
+const initIconsSequences = [[], ["org.sugarlabs.Falabracman"], ["com.homegrownapps.reflection", "org.sugarlabs.FractionBounce"]]
+const initIcons = initIconsSequences[0];
+// -- [] to iterate on all colors
+// -- [color1, color2] use -1 for random color
+const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100]];
+const initColors = initColorsSequences[1];
+const blinkTime = 1000;
+
 // Vue main app
 var app = new Vue({
 	el: '#app',
 	data: {
-		activitiesIcons: []
+		activitiesIcons: [],
+		gridContent: []
 	},
 
 	created() {
@@ -23,14 +35,11 @@ var app = new Vue({
 			for (let i = 0 ; i < len ; i++) {
 				let activity = activities[i];
 				_loadAndConvertIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
-					let color = Math.floor(Math.random()*180);
-					let size = 60;
-					vm.activitiesIcons.push({
-						name: activity.id,
-						svg: svg,
-						color: color,
-						size: size
-					});
+					vm.activitiesIcons[activity.id] = svg;
+					if (Object.keys(vm.activitiesIcons).length == len) {
+						vm.generateGrid();
+						vm.blink();
+					}
 				});
 			}
 		});
@@ -44,7 +53,39 @@ var app = new Vue({
 	},
 
 	methods: {
+		// Generate a grid using icons and colors sequence
+		generateGrid: function() {
+			let vm = this;
+			for (let i = 0 ; i < 4 ; i++) {
+				Object.keys(vm.activitiesIcons).forEach(function(id) {
+					let index = vm.gridContent.length;
+					let current = (initIcons.length==0?id:initIcons[index%initIcons.length]);
+					let svg = vm.activitiesIcons[current];
+					let color = (initColors.length==0?index%180:initColors[index%initColors.length]);
+					if (color == -1) { color = Math.floor(Math.random()*180) }
+					let size = 60;
+					vm.gridContent.push({
+						name: id,
+						svg: svg,
+						color: color,
+						size: size
+					});
+				});
+			}
+		},
 
+		// Blink icons
+		blink: function() {
+			let vm = this;
+			setInterval(function() {
+				for (let i = 0 ; i < vm.gridContent.length ; i++) {
+					let color = vm.gridContent[i].color;
+					let newColor = (initColors.length == 0 ? (color+1)%180 : initColors[(initColors.indexOf(color)+1)%initColors.length]);
+					if (newColor == -1) { newColor = Math.floor(Math.random()*180) }
+					vm.gridContent[i].color = newColor;
+				}
+			}, blinkTime);
+		}
 	}
 });
 

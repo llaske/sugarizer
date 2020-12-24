@@ -48,7 +48,10 @@ function _setColor(vm, color) {
 	setTimeout(function() { // HACK: Timeout need to wait for SVG to be build
 		let element = _getSVGElement(document.getElementById(vm.id));
 		if (element) {
-			element.setAttribute("class", "xo-color"+(color%180));
+			if (color > 179 && color != 256 && color != 512) {
+				color = color % 180;
+			}
+			element.setAttribute("class", "xo-color"+color);
 		}
 	}, 0);
 }
