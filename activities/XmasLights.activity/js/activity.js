@@ -10,11 +10,11 @@ requirejs.config({
 // -- [] to iterate on existing icons
 // -- ["id1", "id2"]
 const initIconsSequences = [[], ["org.sugarlabs.Falabracman"], ["com.homegrownapps.reflection", "org.sugarlabs.FractionBounce"]]
-const initIcons = initIconsSequences[1];
+const initIcons = initIconsSequences[0];
 // -- [] to iterate on all colors
 // -- [color1, color2] use -1 for random color
-const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [22]];
-const initColors = initColorsSequences[4];
+const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [65]];
+const initColors = initColorsSequences[1];
 const initSize = 60;
 const blinkTime = 1000;
 const messageContent = "Merry<br/>Christmas!";
