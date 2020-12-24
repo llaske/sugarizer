@@ -10,11 +10,11 @@ requirejs.config({
 // -- [] to iterate on existing icons
 // -- ["id1", "id2"]
 const initIconsSequences = [[], ["org.sugarlabs.Falabracman"], ["com.homegrownapps.reflection", "org.sugarlabs.FractionBounce"]]
-const initIcons = initIconsSequences[0];
+const initIcons = initIconsSequences[1];
 // -- [] to iterate on all colors
 // -- [color1, color2] use -1 for random color
-const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100]];
-const initColors = initColorsSequences[1];
+const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [22]];
+const initColors = initColorsSequences[4];
 const blinkTime = 1000;
 
 // Vue main app
@@ -68,7 +68,8 @@ var app = new Vue({
 						name: id,
 						svg: svg,
 						color: color,
-						size: size
+						size: size,
+						step: (initColors.length==0?0:index%initColors.length)
 					});
 				});
 			}
@@ -79,8 +80,13 @@ var app = new Vue({
 			let vm = this;
 			setInterval(function() {
 				for (let i = 0 ; i < vm.gridContent.length ; i++) {
-					let color = vm.gridContent[i].color;
-					let newColor = (initColors.length == 0 ? (color+1)%180 : initColors[(initColors.indexOf(color)+1)%initColors.length]);
+					let newColor;
+					if (initColors.length == 0) {
+						newColor = (vm.gridContent[i].color+1)%180;
+					} else {
+						vm.gridContent[i].step = (vm.gridContent[i].step + 1)%initColors.length;
+						newColor = initColors[vm.gridContent[i].step];
+					}
 					if (newColor == -1) { newColor = Math.floor(Math.random()*180) }
 					vm.gridContent[i].color = newColor;
 				}
