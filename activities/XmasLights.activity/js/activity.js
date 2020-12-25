@@ -27,7 +27,8 @@ var app = new Vue({
 	data: {
 		activitiesIcons: [],
 		gridContent: [],
-		interval: null
+		interval: null,
+		paused: false
 	},
 
 	created() {
@@ -104,6 +105,9 @@ var app = new Vue({
 		blink: function() {
 			let vm = this;
 			vm.interval = setInterval(function() {
+				if (vm.paused) {
+					return;
+				}
 				for (let i = 0 ; i < vm.gridContent.length ; i++) {
 					let newColor;
 					if (initColors.length == 0) {
@@ -116,6 +120,13 @@ var app = new Vue({
 					vm.gridContent[i].color = newColor;
 				}
 			}, blinkTime);
+		},
+
+		// Click on play/pause button
+		onPlayPause: function() {
+			let vm = this;
+			vm.paused = !vm.paused;
+			document.getElementById("playpause-button").style.backgroundImage = (vm.paused ? "url(icons/play.svg)" : "url(icons/pause.svg)");
 		}
 	}
 });
