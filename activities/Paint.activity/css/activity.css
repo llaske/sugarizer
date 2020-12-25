@@ -191,6 +191,9 @@
 #main-toolbar #paste-button {
   background-image: url(../icons/tool-paste.svg);
 }
+#main-toolbar #save-image-button {
+  background-image: url(../icons/save-image.svg);
+}
 #main-toolbar #clear-button {
   background-image: url(../icons/edit-clear.svg);
 }
