@@ -234,11 +234,8 @@ canvas {
   }
 }
 
-@media only screen and (max-width: 780px) {
-  .toolbar .toolbutton::before {
-    right: -8px;
-  }
-  .toolbar .toolbutton {
-    width: 36px;
+@media only screen and (max-width: 678px) {
+  #show-am-pm {
+    display: none;
   }
 }

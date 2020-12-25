@@ -22,7 +22,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
                         show_am_pm = data.show_am_pm;
-                        if(show_am_pm) document.getElementById("show-am-pm").classList.add("active");
+                        if(show_am_pm) {
+                          document.getElementById("show-am-pm").classList.add("active");
+                        }
                         Clock.face=data.face;
                         console.log(data);
                         if(data.face=="simple"){
