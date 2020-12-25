@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -83,6 +83,35 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		});
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
+
+		var background_img_x,background_img_y;
+		var prev_background_img_shift_x = 0;
+		var prev_background_img_shift_y = 0;
+		var zoom_background = 1;
+
+		document.getElementById("picture-button").addEventListener('click', function (e) {
+			journalchooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, data) {
+					document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
+					document.getElementById("cy").style.backgroundRepeat = "no-repeat";
+					var center = getCenter();
+					document.getElementById("cy").style.backgroundSize = "cover";
+					background_img_x = 0;
+					background_img_y = -100;
+					var new_x = background_img_x + prev_background_img_shift_x;
+					var new_y = background_img_y + prev_background_img_shift_y;
+					document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
+					document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+					document.getElementById("cy").style.backgroundSize = "" + zoom_background*100 + "%";
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
 
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
@@ -709,12 +738,22 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		});
 
 		// Event: zoom
-		cy.on('zoom', function() {
+		cy.on('zoom', function(e) {
+			document.getElementById("cy").style.backgroundSize = "" + e.cy._private.zoom*100 + "%";
+			zoom_background = e.cy._private.zoom;
 			saveAndFinishEdit();
 		});
 
 		// Event: move
-		cy.on('pan', function() {
+		cy.on('pan', function(e) {
+			if(document.getElementById("cy").style.backgroundImage != '') {
+				var new_x = background_img_x + e.cy._private.pan.x;
+				var new_y = background_img_y + e.cy._private.pan.y;
+				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
+				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+			}
+			prev_background_img_shift_x = e.cy._private.pan.x;
+			prev_background_img_shift_y = e.cy._private.pan.y;
 			saveAndFinishEdit();
 		});
 	});
