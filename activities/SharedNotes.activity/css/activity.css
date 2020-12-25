@@ -43,7 +43,7 @@
   background-image: url(../icons/help.svg);
 }
 
-#main-toolbar #picture-button {
+#main-toolbar #background-image-button {
   background-image: url(../icons/insert-picture.svg);
 }
 
@@ -382,4 +382,10 @@ body {
  #main-toolbar #stop-button {
    position: absolute;
  }
+}
+
+@media screen and (max-width: 750px) {
+  #background-image-button {
+    display: none;
+  }
 }

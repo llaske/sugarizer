@@ -84,12 +84,26 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 
-		var background_img_x,background_img_y;
+		var background_img_x = 0;
+		var background_img_y = -100;
 		var prev_background_img_shift_x = 0;
 		var prev_background_img_shift_y = 0;
 		var zoom_background = 1;
+		var img_url = '';
 
-		document.getElementById("picture-button").addEventListener('click', function (e) {
+		function set_background_img(data) {
+			img_url = data;
+			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
+			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
+			document.getElementById("cy").style.backgroundSize = "cover";
+			var new_x = background_img_x + prev_background_img_shift_x;
+			var new_y = background_img_y + prev_background_img_shift_y;
+			document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
+			document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+			document.getElementById("cy").style.backgroundSize = "" + zoom_background*100 + "%";
+		}
+
+		document.getElementById("background-image-button").addEventListener('click', function (e) {
 			journalchooser.show(function (entry) {
 				// No selection
 				if (!entry) {
@@ -98,17 +112,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				// Get object content
 				var dataentry = new datastore.DatastoreObject(entry.objectId);
 				dataentry.loadAsText(function (err, metadata, data) {
-					document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
-					document.getElementById("cy").style.backgroundRepeat = "no-repeat";
-					var center = getCenter();
-					document.getElementById("cy").style.backgroundSize = "cover";
-					background_img_x = 0;
-					background_img_y = -100;
-					var new_x = background_img_x + prev_background_img_shift_x;
-					var new_y = background_img_y + prev_background_img_shift_y;
-					document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
-					document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
-					document.getElementById("cy").style.backgroundSize = "" + zoom_background*100 + "%";
+					set_background_img(data);
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 		});
@@ -330,7 +334,12 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
-				initGraph(data);
+				initGraph(data.commands);
+				background_img_x = data.background_img_x;
+				background_img_y = data.background_img_y;
+				prev_background_img_shift_x = data.prev_background_img_shift_x;
+				prev_background_img_shift_y = data.prev_background_img_shift_y;
+				set_background_img(data.background_image);
 			});
 		}
 
@@ -344,7 +353,17 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					action:"create", id:node.id(), text: node.data("content"), position: {x: node.position().x, y: node.position().y}, color: node.data("background-color")
 				});
 			}
-			return commands;
+
+			var data = {
+				background_image: img_url,
+				background_img_x: background_img_x,
+				background_img_y: background_img_y,
+				prev_background_img_shift_x: prev_background_img_shift_x,
+				prev_background_img_shift_y: prev_background_img_shift_y,
+				commands: commands
+			}
+
+			return data;
 		}
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
@@ -606,6 +625,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				pngButton.title = l10n_s.get("pngButtonTitle");
 				networkButton.title = l10n_s.get("networkButtonTitle");
 				helpButton.title = l10n_s.get("helpButtonTitle");
+				document.getElementById("background-image-button").title = l10n_s.get("BackgroundChangeTitle");
+
 				if (cy) {
 					var nodes = cy.elements("node");
 					for(var i = 0; i < nodes.length ; i++) {

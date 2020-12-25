@@ -132,6 +132,12 @@ define(["webL10n", "activity/activity"], function () {
 					title: l10n.get("TutoPngTitle"),
 					content: l10n.get("TutoPngContent")
 				},
+				{
+					element: '#background-image-button',
+					placement: "bottom",
+					title: l10n.get("BackgroundChangeTitle"),
+					content: l10n.get("TutoBackgroundChangeContent")
+				}
 			];
 		}
 		tour = new Tour({
