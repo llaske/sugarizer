@@ -43,6 +43,23 @@ p {
 	background-image: url(../icons/pause.svg);
 }
 
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/unfullscreen.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
+}
+
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
@@ -128,10 +145,17 @@ p {
 
 .grid {
 	margin-top: 55px;
-	width: 100%;
 	height: 400px;
 	display: inline;
 	overflow: hidden;
+	height: calc(100vh - 55px);
+}
+.grid.fullscreen {
+	margin-top: 0px;
+	height: 100vh;
+}
+.fullscreen {
+	min-height: 100vh !important;
 }
 
 .message {

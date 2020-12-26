@@ -28,9 +28,11 @@
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
-		<div id="grid" class="grid">
+		<div id="grid" :class="{fullscreen:($refs.SugarToolbar?$refs.SugarToolbar.isHidden():false),grid:true}">
 			<div id="message" class="message"></div>
 			<activity-icon v-for="(icon) in gridContent" :key="icon.id"
 				v-bind:name="icon.name"

@@ -31,6 +31,8 @@ var app = new Vue({
 		paused: false,
 		SugarL10n: null,
 		l10n: {
+			stringUnfullscreen: "",
+			stringFullscreen: "",
 			stringPlay: "",
 			stringPause: ""
 		}
@@ -62,7 +64,7 @@ var app = new Vue({
 		// Resize dynamically grid
 		let message = document.getElementById("message");
 		var computeHeight = function() {
-			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-55)+"px";
+			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55))+"px";
 			if (messageContent.length) {
 				message.innerHTML = messageContent;
 				message.style.color = messageColor;
@@ -93,7 +95,7 @@ var app = new Vue({
 		generateGrid: function() {
 			let vm = this;
 			vm.gridContent = [];
-			let height = document.getElementById("body").offsetHeight-55;
+			let height = document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar.isHidden()?0:55);
 			let width = document.getElementById("body").offsetWidth;
 			let total = Math.floor((1.0*height)/initSize)*Math.floor((1.0*width)/initSize);
 			let count = total/Object.keys(vm.activitiesIcons).length;
@@ -143,6 +145,17 @@ var app = new Vue({
 			vm.paused = !vm.paused;
 			document.getElementById("playpause-button").style.backgroundImage = (vm.paused ? "url(icons/play.svg)" : "url(icons/pause.svg)");
 			document.getElementById("playpause-button").title = (vm.paused ? vm.l10n.stringPlay : vm.l10n.stringPause);
+		},
+
+		//  Handle fullscreen/unfullscreen
+		fullscreen: function () {
+			this.$refs.SugarToolbar.hide();
+			this.generateGrid();
+		},
+
+		unfullscreen: function () {
+			this.$refs.SugarToolbar.show();
+			this.generateGrid();
 		}
 	}
 });
