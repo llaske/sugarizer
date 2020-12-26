@@ -24,7 +24,7 @@
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
-			<sugar-toolitem id="playpause-button" @click="onPlayPause"></sugar-toolitem>
+			<sugar-toolitem id="playpause-button" @click="onPlayPause" v-bind:title="l10n.stringPause"></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
@@ -40,11 +40,13 @@
 			</activity-icon>
 		</div>
 
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity-icon.js"></script>
 	<script src="js/activity.js"></script>
 </body>

@@ -28,7 +28,16 @@ var app = new Vue({
 		activitiesIcons: [],
 		gridContent: [],
 		interval: null,
-		paused: false
+		paused: false,
+		SugarL10n: null,
+		l10n: {
+			stringPlay: "",
+			stringPause: ""
+		}
+	},
+
+	mounted() {
+		this.SugarL10n = this.$refs.SugarL10n;
 	},
 
 	created() {
@@ -74,6 +83,12 @@ var app = new Vue({
 	},
 
 	methods: {
+		// Localize strings
+		localized: function() {
+			let vm = this;
+			vm.SugarL10n.localize(vm.l10n);
+		},
+
 		// Generate a grid using icons and colors sequence
 		generateGrid: function() {
 			let vm = this;
@@ -127,6 +142,7 @@ var app = new Vue({
 			let vm = this;
 			vm.paused = !vm.paused;
 			document.getElementById("playpause-button").style.backgroundImage = (vm.paused ? "url(icons/play.svg)" : "url(icons/pause.svg)");
+			document.getElementById("playpause-button").title = (vm.paused ? vm.l10n.stringPlay : vm.l10n.stringPause);
 		}
 	}
 });
