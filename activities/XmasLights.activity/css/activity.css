@@ -43,6 +43,10 @@ p {
 	background-image: url(../icons/pause.svg);
 }
 
+#main-toolbar #zoom-button {
+	background-image: url(../icons/zoom.svg);
+}
+
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/fullscreen.svg);
 }
@@ -170,4 +174,16 @@ p {
 	z-index: 255;
 	transform: translate(-50%, -50%);
 	text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+}
+
+
+.zoombuttons {
+	border: 0px;
+	background: #000000;
+	border-radius: 5.5px !important;
+}
+
+.zoombutton:active {
+	background-color: #808080;
+	border-radius: 5.5px !important;
 }

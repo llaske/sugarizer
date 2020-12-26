@@ -16,6 +16,8 @@ const initIcons = initIconsSequences[0];
 const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [65]];
 const initColors = initColorsSequences[1];
 const initSize = 60;
+const minSize = 30;
+const maxSize = 90;
 const blinkTime = 1000;
 const messageContent = "Merry<br/>Christmas!";
 const messageColor = "black";
@@ -27,6 +29,7 @@ var app = new Vue({
 	data: {
 		activitiesIcons: [],
 		gridContent: [],
+		size: initSize,
 		interval: null,
 		paused: false,
 		SugarL10n: null,
@@ -97,7 +100,7 @@ var app = new Vue({
 			vm.gridContent = [];
 			let height = document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar.isHidden()?0:55);
 			let width = document.getElementById("body").offsetWidth;
-			let total = Math.floor((1.0*height)/initSize)*Math.floor((1.0*width)/initSize);
+			let total = Math.floor((1.0*height)/vm.size)*Math.floor((1.0*width)/vm.size);
 			let count = total/Object.keys(vm.activitiesIcons).length;
 			for (var i = 0 ; i < count ; i++) {
 				Object.keys(vm.activitiesIcons).forEach(function(id) {
@@ -106,7 +109,7 @@ var app = new Vue({
 					let svg = vm.activitiesIcons[current];
 					let color = (initColors.length==0?index%180:initColors[index%initColors.length]);
 					if (color == -1) { color = Math.floor(Math.random()*180) }
-					let size = initSize;
+					let size = vm.size;
 					vm.gridContent.push({
 						name: id,
 						svg: svg,
@@ -145,6 +148,24 @@ var app = new Vue({
 			vm.paused = !vm.paused;
 			document.getElementById("playpause-button").style.backgroundImage = (vm.paused ? "url(icons/play.svg)" : "url(icons/pause.svg)");
 			document.getElementById("playpause-button").title = (vm.paused ? vm.l10n.stringPlay : vm.l10n.stringPause);
+		},
+
+		onZoom: function(event) {
+			let vm = this;
+			let zoom = event.detail.zoom;
+			let oldSize = vm.size;
+			let newSize = oldSize;
+			if (zoom == 2) {
+				newSize = initSize;
+			} else if (zoom == 0) {
+				newSize = Math.max(minSize, oldSize-10);
+			} else if (zoom == 1) {
+				newSize = Math.min(maxSize, oldSize+10);
+			}
+			if (newSize != oldSize) {
+				vm.size = newSize;
+				vm.generateGrid();
+			}
 		},
 
 		//  Handle fullscreen/unfullscreen

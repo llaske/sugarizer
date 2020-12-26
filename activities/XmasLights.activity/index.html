@@ -25,6 +25,14 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<sugar-toolitem id="playpause-button" @click="onPlayPause" v-bind:title="l10n.stringPause"></sugar-toolitem>
+			<sugar-toolitem id="zoom-button"
+				palette-file="js/palettes/zoompalette.js"
+				palette-class="ZoomPalette"
+				palette-title="Zoom"
+				palette-event="zoom"
+				@zoom="onZoom"
+				v-bind:title="l10n.stringZoom"
+			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
