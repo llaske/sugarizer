@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add an option to remove seconds hand in Clock activity #885
 - Check if login exist before asking password #893
 - Add presence simulator
+- Add option for clock to show or hide minutes, AM hours, PM hours #903
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
