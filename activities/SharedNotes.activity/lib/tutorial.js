@@ -103,6 +103,12 @@ define(["webL10n", "activity/activity"], function () {
 					content: l10n.get("TutoAddContent")
 				},
 				{
+					element: '#background-image-button',
+					placement: "bottom",
+					title: l10n.get("BackgroundChangeTitle"),
+					content: l10n.get("TutoBackgroundChangeContent")
+				},
+				{
 					element: tutorial.getElement("remove"),
 					placement: "bottom",
 					title: l10n.get("TutoRemoveTitle"),
@@ -131,12 +137,6 @@ define(["webL10n", "activity/activity"], function () {
 					placement: "bottom",
 					title: l10n.get("TutoPngTitle"),
 					content: l10n.get("TutoPngContent")
-				},
-				{
-					element: '#background-image-button',
-					placement: "bottom",
-					title: l10n.get("BackgroundChangeTitle"),
-					content: l10n.get("TutoBackgroundChangeContent")
 				}
 			];
 		}
