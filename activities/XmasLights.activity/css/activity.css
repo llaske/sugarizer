@@ -161,11 +161,13 @@ p {
 .message {
 	background-color: rgba(255, 255, 255, 0.5);
 	top: 50%;
-	width: 100%;
+	left: 50%;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: center;
 	visibility: hidden;
 	position: fixed;
 	z-index: 255;
-	transform: translateY(-50%);
+	transform: translate(-50%, -50%);
 	text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
