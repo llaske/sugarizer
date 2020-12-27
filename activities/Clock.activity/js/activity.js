@@ -438,7 +438,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             if (this.face == "simple") {
               var x = 0;
               if(show_mins) {
-                x = 40;
+                x = 48;
               }
               this.drawSimpleBackground(x);
               this.drawNumbers(x);
