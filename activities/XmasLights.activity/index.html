@@ -24,11 +24,19 @@
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
+			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="playpause-button" @click="onPlayPause" v-bind:title="l10n.stringPause"></sugar-toolitem>
+			<sugar-toolitem id="speed-button"
+				palette-file="js/palettes/speedpalette.js"
+				palette-class="SpeedPalette"
+				palette-event="speed"
+				@speed="onSpeedChanged"
+				v-bind:title="l10n.stringSpeed"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="zoom-button"
 				palette-file="js/palettes/zoompalette.js"
 				palette-class="ZoomPalette"
-				palette-title="Zoom"
 				palette-event="zoom"
 				@zoom="onZoom"
 				v-bind:title="l10n.stringZoom"

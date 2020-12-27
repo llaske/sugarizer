@@ -47,6 +47,10 @@ p {
 	background-image: url(../icons/zoom.svg);
 }
 
+#main-toolbar #speed-button {
+	background-image: url(../icons/speed.svg);
+}
+
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/fullscreen.svg);
 }

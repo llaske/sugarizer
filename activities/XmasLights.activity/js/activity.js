@@ -18,7 +18,7 @@ const initColors = initColorsSequences[1];
 const initSize = 60;
 const minSize = 30;
 const maxSize = 90;
-const blinkTime = 1000;
+const initBlinkTime = 1000;
 const messageContent = "Merry<br/>Christmas!";
 const messageColor = "black";
 const messageSize = "80pt";
@@ -30,12 +30,14 @@ var app = new Vue({
 		activitiesIcons: [],
 		gridContent: [],
 		size: initSize,
+		blinkTime: initBlinkTime,
 		interval: null,
 		paused: false,
 		SugarL10n: null,
 		l10n: {
 			stringUnfullscreen: "",
 			stringFullscreen: "",
+			stringSpeed: "",
 			stringPlay: "",
 			stringPause: ""
 		}
@@ -139,7 +141,7 @@ var app = new Vue({
 					if (newColor == -1) { newColor = Math.floor(Math.random()*180) }
 					vm.gridContent[i].color = newColor;
 				}
-			}, blinkTime);
+			}, vm.blinkTime);
 		},
 
 		// Click on play/pause button
@@ -150,6 +152,7 @@ var app = new Vue({
 			document.getElementById("playpause-button").title = (vm.paused ? vm.l10n.stringPlay : vm.l10n.stringPause);
 		},
 
+		// Handle zoom change
 		onZoom: function(event) {
 			let vm = this;
 			let zoom = event.detail.zoom;
@@ -166,6 +169,17 @@ var app = new Vue({
 				vm.size = newSize;
 				vm.generateGrid();
 			}
+		},
+
+		// Handle speed change
+		onSpeedChanged: function(event) {
+			let vm = this;
+			if (vm.interval) {
+				clearInterval(vm.interval);
+				vm.interval = null;
+			}
+			vm.blinkTime = 500+(event.detail.speed*10);
+			vm.blink();
 		},
 
 		//  Handle fullscreen/unfullscreen
