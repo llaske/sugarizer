@@ -7,7 +7,7 @@ define(['sugar-web/graphics/palette'], function(palette) {
 		palette.Palette.call(this, invoker, primaryText);
 		this.getPalette().id = "speedpalette";
 		this.speedEvent = document.createEvent('CustomEvent');
-		this.speedEvent.initCustomEvent('speed', true, true, {'speed': 3});
+		this.speedEvent.initCustomEvent('speed', true, true, {'speed': 50});
 
 		var speedElem = document.createElement('div');
 		speedElem.innerHTML = `

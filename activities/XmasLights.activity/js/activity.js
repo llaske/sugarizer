@@ -19,9 +19,9 @@ const initSize = 60;
 const minSize = 30;
 const maxSize = 90;
 const initBlinkTime = 1000;
-const messageContent = "Merry<br/>Christmas!";
-const messageColor = "black";
-const messageSize = "80pt";
+const initMessageContent = "Merry\nChristmas!";
+const initMessageColor = "#000000";
+const initMessageSize = 80;
 
 // Vue main app
 var app = new Vue({
@@ -31,6 +31,13 @@ var app = new Vue({
 		gridContent: [],
 		size: initSize,
 		blinkTime: initBlinkTime,
+		message: initMessageContent,
+		messageStyle: {
+			color: initMessageColor,
+			fontWeight: 'normal',
+			fontStyle: 'normal',
+			size: initMessageSize
+		},
 		interval: null,
 		paused: false,
 		SugarL10n: null,
@@ -38,6 +45,8 @@ var app = new Vue({
 			stringUnfullscreen: "",
 			stringFullscreen: "",
 			stringSpeed: "",
+			stringZoom: "",
+			stringText: "",
 			stringPlay: "",
 			stringPause: ""
 		}
@@ -70,10 +79,12 @@ var app = new Vue({
 		let message = document.getElementById("message");
 		var computeHeight = function() {
 			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55))+"px";
-			if (messageContent.length) {
-				message.innerHTML = messageContent;
-				message.style.color = messageColor;
-				message.style.fontSize = messageSize;
+			if (vm.message.length) {
+				message.innerText = vm.message;
+				message.style.color = vm.messageStyle.color;
+				message.style.fontWeight = vm.messageStyle.fontWeight;
+				message.style.fontStyle = vm.messageStyle.fontStyle;
+				message.style.fontSize = vm.messageStyle.size+"pt";
 				message.style.visibility = "visible";
 			}
 			if (Object.keys(vm.activitiesIcons).length > 0) {
@@ -153,7 +164,7 @@ var app = new Vue({
 		},
 
 		// Handle zoom change
-		onZoom: function(event) {
+		onZoomChanged: function(event) {
 			let vm = this;
 			let zoom = event.detail.zoom;
 			let oldSize = vm.size;
@@ -169,6 +180,18 @@ var app = new Vue({
 				vm.size = newSize;
 				vm.generateGrid();
 			}
+		},
+
+		// Handle text change
+		onTextChanged: function(event) {
+			let vm = this;
+			let message = document.getElementById("message");
+			message.innerText = vm.message = event.detail.value;
+			message.style.color = vm.messageStyle.color = event.detail.color;
+			message.style.fontWeight = vm.messageStyle.fontWeight = event.detail.fontWeight;
+			message.style.fontStyle = vm.messageStyle.fontStyle = event.detail.fontStyle;
+			vm.messageStyle.size = event.detail.size;
+			message.style.fontSize = vm.messageStyle.size+"pt";
 		},
 
 		// Handle speed change

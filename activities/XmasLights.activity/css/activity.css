@@ -51,6 +51,10 @@ p {
 	background-image: url(../icons/speed.svg);
 }
 
+#main-toolbar #text-button {
+	background-image: url(../icons/format-text-size.svg);
+}
+
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/fullscreen.svg);
 }
@@ -175,11 +179,10 @@ p {
 	text-align: center;
 	visibility: hidden;
 	position: fixed;
-	z-index: 255;
+	z-index: 100;
 	transform: translate(-50%, -50%);
 	text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
-
 
 .zoombuttons {
 	border: 0px;
@@ -190,4 +193,45 @@ p {
 .zoombutton:active {
 	background-color: #808080;
 	border-radius: 5.5px !important;
+}
+
+#text-style-toolbar {
+	padding: 0px 25px;
+}
+
+#text-inc-size {
+	background-image: url(../icons/resize+.svg);
+}
+
+#text-dec-size {
+	background-image: url(../icons/resize-.svg);
+}
+
+#text-set-bold {
+	background-image: url(../icons/format-text-bold.svg);
+}
+
+#text-set-italic {
+	background-image: url(../icons/format-text-italic.svg);
+}
+
+.color-picker {
+	width: 44px;
+	height: 44px;
+	margin: 2px;
+	border-radius: 22px;
+	border-color: white;
+}
+
+#text-palette textarea {
+	height: 75px;
+	resize: none;
+}
+
+#text-palette .row.small {
+	padding: 10px 10px 0px 10px;
+}
+
+.palette {
+	z-index: 120;
 }
