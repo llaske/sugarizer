@@ -100,6 +100,12 @@ define(["webL10n"], function (l10n) {
 			content: l10n.get("TutoPasteContent")
 		},
 		{
+			element: "#save-image-button",
+			placement: "bottom",
+			title: l10n.get("TutoSaveImageButtonTitle"),
+			content: l10n.get("TutoSaveImageButtonContent"),
+		},
+		{
 			element: "#clear-button",
 			placement: "bottom",
 			title: l10n.get("TutoClearTitle"),

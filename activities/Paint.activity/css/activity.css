@@ -9,7 +9,7 @@
 
 /*}*/
 
-#insertimage-button, #colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button {
+#insertimage-button, #colors-button-fill, #colors-button-stroke, #undo-button, #redo-button, #size-button, #pen-button, #eraser-button, #stamps-button, #text-button, #drawings-button, #bucket-button, #filters-button, #copy-button, #paste-button, #clear-button, #save-image-button {
   display: none;
 }
 
@@ -111,6 +111,12 @@
 
 @media only screen and (min-width: 1135px) {
   #help-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #save-image-button {
     display: inline-block;
   }
 }
