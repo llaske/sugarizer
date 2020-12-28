@@ -10,11 +10,11 @@ requirejs.config({
 // -- [] to iterate on existing icons
 // -- ["id1", "id2"]
 const initIconsSequences = [[], ["org.sugarlabs.Falabracman"], ["com.homegrownapps.reflection", "org.sugarlabs.FractionBounce"]]
-const initIcons = initIconsSequences[0];
+const initIcons = initIconsSequences[1];
 // -- [] to iterate on all colors
 // -- [color1, color2] use -1 for random color
 const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [65]];
-const initColors = initColorsSequences[1];
+const initColors = initColorsSequences[2];
 const initSize = 60;
 const minSize = 30;
 const maxSize = 90;
@@ -22,13 +22,20 @@ const initBlinkTime = 1000;
 const initMessageContent = "Merry\nChristmas!";
 const initMessageColor = "#000000";
 const initMessageSize = 80;
+const viewGrid = 1;
+const viewDetail = 2;
 
 // Vue main app
 var app = new Vue({
 	el: '#app',
 	data: {
+		currentView: viewGrid,
 		activitiesIcons: [],
 		gridContent: [],
+		detailContent: {
+			dropIcons: [],
+			dragIcons: []
+		},
 		size: initSize,
 		blinkTime: initBlinkTime,
 		message: initMessageContent,
@@ -44,11 +51,13 @@ var app = new Vue({
 		l10n: {
 			stringUnfullscreen: "",
 			stringFullscreen: "",
+			stringSettings: "",
 			stringSpeed: "",
 			stringZoom: "",
 			stringText: "",
 			stringPlay: "",
-			stringPause: ""
+			stringPause: "",
+			stringDragIcons: ""
 		}
 	},
 
@@ -161,6 +170,33 @@ var app = new Vue({
 			vm.paused = !vm.paused;
 			document.getElementById("playpause-button").style.backgroundImage = (vm.paused ? "url(icons/play.svg)" : "url(icons/pause.svg)");
 			document.getElementById("playpause-button").title = (vm.paused ? vm.l10n.stringPlay : vm.l10n.stringPause);
+		},
+
+		// Click on settings button
+		onSettingsClicked: function() {
+			let vm = this;
+			vm.currentView = (vm.currentView == viewGrid ? viewDetail : viewGrid);
+			if (vm.currentView == viewDetail) {
+				vm.detailContent.dropIcons = [];
+				for (let i = 0 ; i < initIcons.length ; i++) {
+					vm.detailContent.dropIcons.push({
+						name: initIcons[i],
+						svg: vm.activitiesIcons[initIcons[i]],
+						color: 512,
+						size: 40
+					});
+				}
+				vm.detailContent.dragIcons = [];
+				let keys = Object.keys(vm.activitiesIcons);
+				for (let i = 0 ; i < keys.length ; i++) {
+					vm.detailContent.dragIcons.push({
+						name: keys[i],
+						svg: vm.activitiesIcons[keys[i]],
+						color: 512,
+						size: 40
+					});
+				}
+			}
 		},
 
 		// Handle zoom change

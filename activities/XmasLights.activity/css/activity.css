@@ -14,7 +14,14 @@ p {
 
 #app {
 	min-height: 100%;
+}
+
+.gridBg {
 	background-color: white;
+}
+
+.detailBg {
+	background-color: #C0C0C0;
 }
 
 #main-toolbar .splitbar {
@@ -41,6 +48,10 @@ p {
 
 #main-toolbar #playpause-button {
 	background-image: url(../icons/pause.svg);
+}
+
+#main-toolbar #settings-button {
+	background-image: url(../icons/settings.svg);
 }
 
 #main-toolbar #zoom-button {
@@ -234,4 +245,28 @@ p {
 
 .palette {
 	z-index: 120;
+}
+
+#detail {
+	background-color: #C0C0C0;
+}
+
+#drag-icons-zone {
+	background-color: white;
+	margin: 10px;
+	height: 200px;
+	width: 600px;
+	overflow: auto;
+}
+
+#drop-icons-zone {
+	background-color: white;
+	margin: 10px;
+	height: 200px;
+	width: 600px;
+	overflow: auto;
+}
+
+.padded-icon {
+	padding: 3px;
 }
