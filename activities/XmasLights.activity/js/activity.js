@@ -36,6 +36,7 @@ var app = new Vue({
 			dropIcons: [],
 			dragIcons: []
 		},
+		draggedItem: null,
 		size: initSize,
 		blinkTime: initBlinkTime,
 		message: initMessageContent,
@@ -87,7 +88,9 @@ var app = new Vue({
 		// Resize dynamically grid
 		let message = document.getElementById("message");
 		var computeHeight = function() {
-			document.getElementById("grid").style.height = (document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55))+"px";
+			let grid = document.getElementById("grid");
+			if (!grid) { return }
+			grid.style.height = (document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55))+"px";
 			if (vm.message.length) {
 				message.innerText = vm.message;
 				message.style.color = vm.messageStyle.color;
@@ -180,6 +183,7 @@ var app = new Vue({
 				vm.detailContent.dropIcons = [];
 				for (let i = 0 ; i < initIcons.length ; i++) {
 					vm.detailContent.dropIcons.push({
+						id: "pi"+(i+1),
 						name: initIcons[i],
 						svg: vm.activitiesIcons[initIcons[i]],
 						color: 512,
@@ -190,6 +194,7 @@ var app = new Vue({
 				let keys = Object.keys(vm.activitiesIcons);
 				for (let i = 0 ; i < keys.length ; i++) {
 					vm.detailContent.dragIcons.push({
+						id: "gi"+(i+1),
 						name: keys[i],
 						svg: vm.activitiesIcons[keys[i]],
 						color: 512,
@@ -197,6 +202,56 @@ var app = new Vue({
 					});
 				}
 			}
+		},
+
+		// Handle drag&drop
+		onMouseDown: function(event) {
+			let vm = this;
+			let dragged = null;
+			if (event.type.indexOf("touch")!=-1) { event = event.changedTouches[0]; }
+			let item = document.elementFromPoint(event.clientX, event.clientY);
+			while (item && !dragged) {
+				if (item.className == "padded-icon") {
+					dragged = item.id;
+				}
+				item = item.parentNode;
+			}
+			if (!dragged) { return }
+			console.log("drag icon "+dragged);
+			vm.draggedItem = dragged;
+		},
+		onMouseMove: function(event) {
+			//if ("ontouchstart" in document.documentElement) { event = event.touches[0] }
+			//console.log(event);
+		},
+		onMouseUp: function(event) {
+			let vm = this;
+			if (!vm.draggedItem) {
+				console.log("nothing to drop")
+				return;
+			}
+			if (event.type.indexOf("touch")!=-1) { event = event.changedTouches[0]; }
+			let dropped = null;
+			let droppedZone = null;
+			let item = document.elementFromPoint(event.clientX, event.clientY);
+			while (item && !dropped && !droppedZone) {
+				if (item.className == "padded-icon") {
+					dropped = item.id;
+				} else if (item.id == "drop-icons-zone") {
+					droppedZone = "drop";
+				} else if (item.id == "drag-icons-zone") {
+					droppedZone = "drag";
+				}
+				item = item.parentNode;
+			}
+			if (dropped) {
+				console.log("dropped on icon "+dropped);
+			} else if (droppedZone) {
+				console.log("dropped in "+droppedZone+" zone");
+			} else {
+				console.log("dropped outside");
+			}
+			vm.draggedItem = null;
 		},
 
 		// Handle zoom change

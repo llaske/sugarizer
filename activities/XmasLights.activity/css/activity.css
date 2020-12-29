@@ -257,6 +257,7 @@ p {
 	height: 200px;
 	width: 600px;
 	overflow: auto;
+	cursor: move;
 }
 
 #drop-icons-zone {
@@ -265,6 +266,7 @@ p {
 	height: 200px;
 	width: 600px;
 	overflow: auto;
+	cursor: move;
 }
 
 .padded-icon {

@@ -68,18 +68,20 @@
 				v-bind:size="icon.size">
 			</activity-icon>
 		</div>
-		<div v-else id="detail">
+		<div v-else id="detail"  v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
 			<p>{{l10n.stringDragIcons}}</p>
-			<div id="drop-icons-zone">
+			<div id="drop-icons-zone" ref="dropicons">
 				<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"
+					v-bind:id="icon.id"
 					v-bind:name="icon.name"
 					v-bind:svg="icon.svg"
 					v-bind:color="icon.color"
 					v-bind:size="icon.size">
 				</activity-icon>
 			</div>
-			<div id="drag-icons-zone">
+			<div id="drag-icons-zone" ref="dragicons">
 				<activity-icon v-for="(icon) in detailContent.dragIcons" class="padded-icon"
+					v-bind:id="icon.id"
 					v-bind:name="icon.name"
 					v-bind:svg="icon.svg"
 					v-bind:color="icon.color"

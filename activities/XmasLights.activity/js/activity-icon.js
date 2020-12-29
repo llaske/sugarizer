@@ -6,14 +6,16 @@ Vue.component('activity-icon', {
 		<div v-html="svg" :id="id" style="display: inline-block">
 		</div>
 	`,
-	props: ['name','svg','color','size'],
+	props: ['id','name','svg','color','size'],
 	data: function() {
 		return {
 			id: null
 		}
 	},
 	mounted: function() {
-		this.id = this._uid;
+		if (!this.id) {
+			this.id = this._uid;
+		}
 		_setColor(this, this.color);
 		if (this.size) {
 			_setSize(this, this.size);
