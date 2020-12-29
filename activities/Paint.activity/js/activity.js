@@ -56,17 +56,17 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","acti
       var mimetype = 'image/png';
       var inputData = document.getElementById("paint-canvas").toDataURL(mimetype, 1);
       var metadata = {
-	mimetype: mimetype,
-	title: webL10n.get("PaintBy", { name: currentenv.user.name }),
-	activity: "org.olpcfrance.MediaViewerActivity",
-	timestamp: new Date().getTime(),
-	creation_time: new Date().getTime(),
-	file_size: 0
-	};
-      datastore.create(metadata, function () {
-	humane.log(webL10n.get('PaintImageSaved'))
-	console.log("export done.")
-      }, inputData);
+	    mimetype: mimetype,
+	    title: webL10n.get("PaintBy", { name: currentenv.user.name }),
+	    activity: "org.olpcfrance.MediaViewerActivity",
+	    timestamp: new Date().getTime(),
+	    creation_time: new Date().getTime(),
+	    file_size: 0
+	    };
+        datastore.create(metadata, function () {
+	        humane.log(webL10n.get('PaintImageSaved'))
+	        console.log("export done.")
+        }, inputData);
     });
 
     document.getElementById("stop-button").addEventListener('click', function(event) {
