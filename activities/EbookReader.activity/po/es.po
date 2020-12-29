@@ -1,57 +1,60 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 16:57:01 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Sep 06 2020 16:57:01 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2020-12-29 19:32+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-ebook-reader/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: EbookReaderActivity
 msgctxt "EbookReaderActivity"
 msgid "Ebook Reader Activity"
-msgstr "Ebook Reader Activity"
+msgstr "Actividad \"Lector de ebooks\""
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Next"
+msgstr "Siguiente"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr "Previous"
+msgstr "Anterior"
 
 #: Library
 msgctxt "Library"
 msgid "Library"
-msgstr "Library"
+msgstr "Biblioteca"
 
 #: Contents
 msgctxt "Contents"
 msgid "Contents"
-msgstr "Contents"
+msgstr "Contenidos"
 
 #: Settings
 msgctxt "Settings"
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ajustes"
 
 #: Help
 msgctxt "Help"
 msgid "Help"
-msgstr "Help"
+msgstr "Ayuda"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Pantalla completa"
 
 #: Url
 msgctxt "Url"
@@ -61,105 +64,112 @@ msgstr "Url"
 #: Ok
 msgctxt "Ok"
 msgid "Ok"
-msgstr "Ok"
+msgstr "Vale"
 
 #: Cancel
 msgctxt "Cancel"
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: NextShort
 msgctxt "NextShort"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: EndShort
 msgctxt "EndShort"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Ebook Reader activity"
-msgstr "Ebook Reader activity"
+msgstr "Actividad \"Lector de ebooks\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "This activity is a library that allow you to read electronic books at ePub format."
-msgstr "This activity is a library that allow you to read electronic books at ePub format."
+msgstr ""
+"En esta actividad, el alumno accederá a una librería que permite leer libros "
+"electrónicos (ebooks) que tienen el formato ePub."
 
 #: TutoBookTitle
 msgctxt "TutoBookTitle"
 msgid "One ebook"
-msgstr "One ebook"
+msgstr "Un ebook"
 
 #: TutoBookContent
 msgctxt "TutoBookContent"
 msgid "Click on an ebook to start or continue reading."
-msgstr "Click on an ebook to start or continue reading."
+msgstr "Haz clic en un ebook para comenzar o continuar leyéndolo."
 
 #: TutoLibraryButtonTitle
 msgctxt "TutoLibraryButtonTitle"
 msgid "Change view"
-msgstr "Change view"
+msgstr "Cambiar vista"
 
 #: TutoLibraryButtonContent
 msgctxt "TutoLibraryButtonContent"
 msgid "Click on this icon to switch between library and reading view."
-msgstr "Click on this icon to switch between library and reading view."
+msgstr ""
+"Haz clic en este icono para cambiar entre la vista de biblioteca y de "
+"lectura."
 
 #: TutoContentsButtonTitle
 msgctxt "TutoContentsButtonTitle"
 msgid "Contents"
-msgstr "Contents"
+msgstr "Contenidos"
 
 #: TutoContentsButtonContent
 msgctxt "TutoContentsButtonContent"
 msgid "Click on this icon to navigate to the table of contents."
-msgstr "Click on this icon to navigate to the table of contents."
+msgstr "Haz clic en este icono para ir a la tabla de contenidos."
 
 #: TutoSettingsButtonTitle
 msgctxt "TutoSettingsButtonTitle"
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ajustes"
 
 #: TutoSettingsButtonContent
 msgctxt "TutoSettingsButtonContent"
 msgid "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
-msgstr "Click on this icon if you want to access another ebook library on the web. See README file for this activity to learn more about it."
+msgstr ""
+"Haz clic en este icono si quieres entrar en otra biblioteca de ebooks "
+"disponible en la red. Consulta el archivo README de esta actividad para más "
+"información."
 
 #: TutoFullscreenButtonTitle
 msgctxt "TutoFullscreenButtonTitle"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Pantalla completa"
 
 #: TutoFullscreenButtonContent
 msgctxt "TutoFullscreenButtonContent"
 msgid "Click on this icon to display the current content in full screen mode."
-msgstr "Click on this icon to display the current content in full screen mode."
+msgstr ""
+"Haz clic en este icono para mostrar el contenido actual en pantalla completa."
 
 #: TutoPrevButtonTitle
 msgctxt "TutoPrevButtonTitle"
 msgid "Previous page"
-msgstr "Previous page"
+msgstr "Página anterior"
 
 #: TutoPrevButtonContent
 msgctxt "TutoPrevButtonContent"
 msgid "Click here to display the previous page of the book."
-msgstr "Click here to display the previous page of the book."
+msgstr "Haz clic aquí para ir a la página anterior del libro."
 
 #: TutoNextButtonTitle
 msgctxt "TutoNextButtonTitle"
 msgid "Next page"
-msgstr "Next page"
+msgstr "Página siguiente"
 
 #: TutoNextButtonContent
 msgctxt "TutoNextButtonContent"
 msgid "Click here to display the next page of the book."
-msgstr "Click here to display the next page of the book."
-
+msgstr "Haz clic aquí para ver la página siguiente del libro."
