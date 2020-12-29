@@ -524,7 +524,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         Clock.prototype.draw_Numbers = function (ctx, x, fontFactor, ratioFactor, hand) {
           var fontSize = fontFactor * this.radius / 160;
-          ctx.font = "bold " + fontSize + "px sans-serif";
+          ctx.font = ((hand == 'hour_pm') ? "" : "bold ") + fontSize + "px sans-serif";
           var minute = 5;
           for (var i = 0; i < 12; i++) {
             var cos = Math.cos((i - 2) * Math.PI / 6);
@@ -534,13 +534,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               text = minute;
               minute = minute + 5;
             }
-            else {
-              if(show_am_pm) {
-                text = i+13;
-              }
-              else {
-                text = i+1;
-              }
+            else if(hand == 'hour_am'){
+              text = i+1;
+            }
+            else if(hand == 'hour_pm') {
+              text = i+13;
             }
             var textWidth = ctx.measureText(text).width;
             ctx.save();
@@ -566,13 +564,13 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
             ctx.fillStyle = this.colors.hours;
             if(show_am_pm) {
-              fontFactor = 23;
+              fontFactor = 10;
+              ratioFactor = 0.5;
+              this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour_pm');
             }
-            else {
-              fontFactor = 30;
-            }
+            fontFactor = 30;
             ratioFactor = 0.7;
-            this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour');
+            this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour_am');
         }
 
         // Draw the hands of the analog clocks.
