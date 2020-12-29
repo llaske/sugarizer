@@ -565,7 +565,12 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'minute');
             }
             ctx.fillStyle = this.colors.hours;
-            fontFactor = 30;
+            if(show_am_pm) {
+              fontFactor = 23;
+            }
+            else {
+              fontFactor = 30;
+            }
             ratioFactor = 0.7;
             this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour');
         }
