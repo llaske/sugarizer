@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Check if login exist before asking password #893
 - Add presence simulator
 - Add option for clock to show or hide minutes, AM hours, PM hours #903
+- Add option in Paint to export the current drawing to the journal as an image #911
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
