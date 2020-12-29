@@ -85,7 +85,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 
 		var background_img_x = 0;
-		var background_img_y = -500;
+		var background_img_y = 0;
 		var prev_background_img_shift_x = 0;
 		var prev_background_img_shift_y = 0;
 		var zoom_background = 1;
