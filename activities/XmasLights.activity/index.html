@@ -68,7 +68,7 @@
 				v-bind:size="icon.size">
 			</activity-icon>
 		</div>
-		<div v-else id="detail"  v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
+		<div v-else id="detail" ref="detail" class="grab" v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
 			<p>{{l10n.stringDragIcons}}</p>
 			<div id="drop-icons-zone" ref="dropicons">
 				<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"

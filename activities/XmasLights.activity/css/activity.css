@@ -249,6 +249,7 @@ p {
 
 #detail {
 	background-color: #C0C0C0;
+	user-select: none;
 }
 
 #drag-icons-zone {
@@ -257,7 +258,16 @@ p {
 	height: 200px;
 	width: 600px;
 	overflow: auto;
+}
+
+.grab {
 	cursor: move;
+	cursor: url(../css/grab.cur), default;
+}
+
+.grabbing {
+	cursor: move;
+	cursor: url(../css/grabbing.cur), default;
 }
 
 #drop-icons-zone {
@@ -266,7 +276,6 @@ p {
 	height: 200px;
 	width: 600px;
 	overflow: auto;
-	cursor: move;
 }
 
 .padded-icon {

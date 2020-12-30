@@ -219,10 +219,9 @@ var app = new Vue({
 			if (!dragged) { return }
 			console.log("drag icon "+dragged);
 			vm.draggedItem = dragged;
+			vm.$refs.detail.className = "grabbing";
 		},
 		onMouseMove: function(event) {
-			//if ("ontouchstart" in document.documentElement) { event = event.touches[0] }
-			//console.log(event);
 		},
 		onMouseUp: function(event) {
 			let vm = this;
@@ -252,6 +251,7 @@ var app = new Vue({
 				console.log("dropped outside");
 			}
 			vm.draggedItem = null;
+			vm.$refs.detail.className = "grab";
 		},
 
 		// Handle zoom change
