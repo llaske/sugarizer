@@ -22,11 +22,14 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
                         show_am_pm = data.show_am_pm;
+                        show_mins = data.show_mins;
                         if(show_am_pm) {
                           document.getElementById("show-am-pm").classList.add("active");
                         }
+                        if(show_mins) {
+                          document.getElementById("show-mins").classList.add("active");
+                        }
                         Clock.face=data.face;
-                        console.log(data);
                         if(data.face=="simple"){
                             document.getElementById("simple-clock-button").classList.add("active");
                             document.getElementById("nice-clock-button").classList.remove("active");
@@ -99,6 +102,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             window.webkitRequestAnimationFrame ||
             window.msRequestAnimationFrame;
         var show_am_pm = false;
+        var show_mins = false;
 
         function Clock() {
             this.face = "simple";
@@ -210,6 +214,23 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 that.drawBackground();
             });
 
+            document.getElementById("show-mins").addEventListener('click', function(e) {
+                if(that.face == 'nice'){
+                  document.getElementById("show-mins").classList.remove("active");
+                  show_mins = false;
+                  return;
+                }
+                show_mins = document.getElementById("show-mins").classList.contains("active");
+                if(!show_mins) {
+                  document.getElementById("show-mins").classList.add("active");
+                }
+                else {
+                  document.getElementById("show-mins").classList.remove("active");
+                }
+                show_mins = document.getElementById("show-mins").classList.contains("active");
+                that.drawBackground();
+            });
+
         }
 
         function setTranslatedStrings() {
@@ -222,6 +243,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("set-timeGame-button").title = l10n_s.get("SetTimeGame");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
             document.getElementById("show-am-pm").title = l10n_s.get("ShowAmPmTitle");
+            document.getElementById("show-mins").title = l10n_s.get("ShowMinsTitle");
         }
 
         Clock.prototype.start = function (face) {
@@ -414,20 +436,18 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         Clock.prototype.drawBackground = function () {
             if (this.face == "simple") {
-              if(show_am_pm) {
-                this.drawSimpleBackground(40);
-                this.drawNumbers(40, 'hour_am');
-                this.drawNumbers(40, 'hour_pm');
-                this.drawNumbers(40, 'minute');
+              var x = 0;
+              if(show_mins) {
+                x = 48;
               }
-              else {
-                this.drawSimpleBackground(0);
-                this.drawNumbers(0, 'hour_am');
-              }
+              this.drawSimpleBackground(x);
+              this.drawNumbers(x);
             }
             else {
                 document.getElementById("show-am-pm").classList.remove("active");
+                document.getElementById("show-mins").classList.remove("active");
                 show_am_pm = false;
+                show_mins = false;
                 this.drawNiceBackground();
             }
             if(this.setTimeGame || this.setTimeGame){
@@ -502,60 +522,55 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                               this.radius * 2, this.radius * 2);
         }
 
-        // Draw the numbers of the hours.
-        Clock.prototype.drawNumbers = function (x, hand) {
-            var ctx = this.bgCanvasElem.getContext('2d');
-
-            var fontSize;
+        Clock.prototype.draw_Numbers = function (ctx, x, fontFactor, ratioFactor, hand) {
+          var fontSize = fontFactor * this.radius / 160;
+          ctx.font = ((hand == 'hour_pm') ? "" : "bold ") + fontSize + "px sans-serif";
+          var minute = 5;
+          for (var i = 0; i < 12; i++) {
+            var cos = Math.cos((i - 2) * Math.PI / 6);
+            var sin = Math.sin((i - 2) * Math.PI / 6);
+            var text;
             if(hand == 'minute') {
+              text = minute;
+              minute = minute + 5;
+            }
+            else if(hand == 'hour_am'){
+              text = i+1;
+            }
+            else if(hand == 'hour_pm') {
+              text = i+13;
+            }
+            var textWidth = ctx.measureText(text).width;
+            ctx.save();
+            ctx.translate(this.centerX - textWidth / 2, this.centerY);
+            this.radius = this.radius - x;
+            ctx.translate(this.radius * ratioFactor * cos,
+                          this.radius * ratioFactor * sin);
+            this.radius = this.radius + x;
+            ctx.fillText(text, 0, 0);
+            ctx.restore();
+          }
+        }
+
+        // Draw the numbers of the hours.
+        Clock.prototype.drawNumbers = function (x) {
+            var ctx = this.bgCanvasElem.getContext('2d');
+            ctx.textBaseline = 'middle';
+            if(show_mins) {
               ctx.fillStyle = this.colors.minutes;
               fontFactor = 20;
               ratioFactor = 1.1;
-              fontSize = fontFactor * this.radius / 160;
-              ctx.font = "bold " + fontSize + "px sans-serif";
+              this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'minute');
             }
-            else if(hand == 'hour_am') {
-              ctx.fillStyle = this.colors.hours;
-              fontFactor = 30;
-              ratioFactor = 0.7;
-              fontSize = fontFactor * this.radius / 160;
-              ctx.font = "bold " + fontSize + "px sans-serif";
-            }
-            else if(hand == 'hour_pm') {
-              ctx.fillStyle = this.colors.hours;
+            ctx.fillStyle = this.colors.hours;
+            if(show_am_pm) {
               fontFactor = 10;
-              ratioFactor = 0.52;
-              fontSize = fontFactor * this.radius / 160;
-              ctx.font = fontSize + "px sans-serif";
+              ratioFactor = 0.5;
+              this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour_pm');
             }
-            ctx.textBaseline = 'middle';
-            var minute = 5;
-
-            for (var i = 0; i < 12; i++) {
-                var cos = Math.cos((i - 2) * Math.PI / 6);
-                var sin = Math.sin((i - 2) * Math.PI / 6);
-                var text;
-                if(hand == 'minute') {
-                  text = minute;
-                  minute = minute + 5;
-                }
-                else if(hand == 'hour_am') {
-                  text = i + 1;
-                }
-                else if(hand == 'hour_pm') {
-                  text = i + 13;
-                }
-                var textWidth = ctx.measureText(text).width;
-
-                ctx.save();
-                ctx.translate(this.centerX - textWidth / 2, this.centerY);
-                this.radius = this.radius - x;
-                ctx.translate(this.radius * ratioFactor * cos,
-                              this.radius * ratioFactor * sin);
-                this.radius = this.radius + x;
-                ctx.fillText(text, 0, 0);
-                ctx.restore();
-            }
+            fontFactor = 30;
+            ratioFactor = 0.7;
+            this.draw_Numbers(ctx, x, fontFactor, ratioFactor, 'hour_am');
         }
 
         // Draw the hands of the analog clocks.
@@ -1013,7 +1028,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               isSmiley : clock.isSmiley,
               handAngles : clock.handAngles,
               timeToBeDisplayed : clock.timeToBeDisplayed,
-              show_am_pm: show_am_pm
+              show_am_pm: show_am_pm,
+              show_mins: show_mins
             }
             activity.getDatastoreObject().setDataAsText(stateObj);
             activity.getDatastoreObject().save(function (error) {
