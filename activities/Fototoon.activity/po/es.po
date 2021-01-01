@@ -1,57 +1,59 @@
 #. extracted from ../localization.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-01-01 17:08+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-fototoon/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: AddAglobe
 msgctxt "AddAglobe"
 msgid "Add a globe"
-msgstr "Add a globe"
+msgstr "Añadir globo"
 
 #: Globe
 msgctxt "Globe"
 msgid "Globe"
-msgstr "Globe"
+msgstr "Globo"
 
 #: Exclamation
 msgctxt "Exclamation"
 msgid "Exclamation"
-msgstr "Exclamation"
+msgstr "Exclamación"
 
 #: Whisper
 msgctxt "Whisper"
 msgid "Whisper"
-msgstr "Whisper"
+msgstr "Susurro"
 
 #: Think
 msgctxt "Think"
 msgid "Think"
-msgstr "Think"
+msgstr "Pensamiento"
 
 #: Box
 msgctxt "Box"
 msgid "Box"
-msgstr "Box"
+msgstr "Viñeta"
 
 #: Title
 msgctxt "Title"
 msgid "Title"
-msgstr "Title"
+msgstr "Título"
 
 #: SetGlobeText
 msgctxt "SetGlobeText"
 msgid "Set globe text:"
-msgstr "Set globe text:"
+msgstr "Crear texto del globo:"
 
 #: of
 msgctxt "of"
@@ -66,12 +68,12 @@ msgstr "ATENTION"
 #: RemoveAllConfirmMessage
 msgctxt "RemoveAllConfirmMessage"
 msgid "Do you want remove all the boxes in your FotoToon?"
-msgstr "Do you want remove all the boxes in your FotoToon?"
+msgstr "¿Quieres eliminar todos los cuadros de texto en tu FotoComic?"
 
 #: Yes
 msgctxt "Yes"
 msgid "Yes"
-msgstr "Yes"
+msgstr "Sí"
 
 #: No
 msgctxt "No"
@@ -81,195 +83,208 @@ msgstr "No"
 #: OneRow
 msgctxt "OneRow"
 msgid "One row"
-msgstr "One row"
+msgstr "Una línea"
 
 #: OneColumn
 msgctxt "OneColumn"
 msgid "One column"
-msgstr "One column"
+msgstr "Una columna"
 
 #: TwoColumns
 msgctxt "TwoColumns"
 msgid "Two columns"
-msgstr "Two columns"
+msgstr "Dos columnas"
 
 #: SaveAsImage
 msgctxt "SaveAsImage"
 msgid "Save as image"
-msgstr "Save as image"
+msgstr "Guardar como imagen"
 
 #: ImageSaved
 msgctxt "ImageSaved"
 msgid "Image saved in journal"
-msgstr "Image saved in journal"
+msgstr "Imagen guardada en la biblioteca"
 
 #: SavingError
 msgctxt "SavingError"
 msgid "Error saving image"
-msgstr "Error saving image"
+msgstr "Error al guardar imagen"
 
 #: ToonSaved
 msgctxt "ToonSaved"
 msgid "FotoToon saved"
-msgstr "FotoToon saved"
+msgstr "FotoComic guardado"
 
 #: Previous
 msgctxt "Previous"
 msgid "Previous"
-msgstr "Previous"
+msgstr "Anterior"
 
 #: Next
 msgctxt "Next"
 msgid "Next"
-msgstr "Next"
+msgstr "Siguiente"
 
 #: Add
 msgctxt "Add"
 msgid "Add"
-msgstr "Add"
+msgstr "Añadir"
 
 #: EditText
 msgctxt "EditText"
 msgid "Edit text"
-msgstr "Edit text"
+msgstr "Editar texto"
 
 #: Sort
 msgctxt "Sort"
 msgid "Sort boxes"
-msgstr "Sort boxes"
+msgstr "Ordenar viñetas"
 
 #: Clean
 msgctxt "Clean"
 msgid "Clean all"
-msgstr "Clean all"
+msgstr "Despejar todo"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "FotoToon Activity"
-msgstr "FotoToon Activity"
+msgstr "Actividad \"FotoComic\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
-msgstr "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
+msgstr ""
+"La actividad \"FotoComic\" te permitirá usar tus fotos, dibujos o imágenes "
+"de la biblioteca para crear una tira de comic impresionante en unos pocos "
+"minutos"
 
 #: TutoPreviousExplanation
 msgctxt "TutoPreviousExplanation"
 msgid "Click here to go to the previous box in your comic strip"
-msgstr "Click here to go to the previous box in your comic strip"
+msgstr "Haz clic aquí para ver la viñeta anterior de tu tira de cómic"
 
 #: TutoNextExplanation
 msgctxt "TutoNextExplanation"
 msgid "Click here to go to the next box in your comic strip"
-msgstr "Click here to go to the next box in your comic strip"
+msgstr "Haz clic aquí para ver la viñeta siguiente de tu tira de cómic"
 
 #: TutoAddPage
 msgctxt "TutoAddPage"
 msgid "Add box"
-msgstr "Add box"
+msgstr "Añadir viñeta"
 
 #: TutoAddPageExplanation
 msgctxt "TutoAddPageExplanation"
 msgid "Click here to add picture, drawing or image as a new box"
-msgstr "Click here to add picture, drawing or image as a new box"
+msgstr ""
+"Haz clic aquí para añadir una nueva viñeta con una foto, dibujo o imagen"
 
 #: TutoAddGlobeExplanation
 msgctxt "TutoAddGlobeExplanation"
 msgid "Click here to add a new globe in current your box"
-msgstr "Click here to add a new globe in current your box"
+msgstr "Haz clic aquí para añadir un nuevo globo de texto en tu viñeta actual"
 
 #: TutoEditText
 msgctxt "TutoEditText"
 msgid "Edit text"
-msgstr "Edit text"
+msgstr "Editar texto"
 
 #: TutoEditTextExplanation
 msgctxt "TutoEditTextExplanation"
 msgid "Click here to update the current text"
-msgstr "Click here to update the current text"
+msgstr "Haz clic aquí para actualizar el texto actual"
 
 #: TutoSortBoxes
 msgctxt "TutoSortBoxes"
 msgid "Sort boxes"
-msgstr "Sort boxes"
+msgstr "Ordenar viñetas"
 
 #: TutoSortBoxesExplanation
 msgctxt "TutoSortBoxesExplanation"
 msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
-msgstr "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
+msgstr ""
+"Haz clic aquí para organizar las viñetas de tu tira de cómic. Simplemente "
+"arrástralas y suéltalas para organizarlas como quieras. Haz clic aquí de "
+"nuevo para volver al modo de viñetas"
 
 #: TutoCleanAll
 msgctxt "TutoCleanAll"
 msgid "Clean all"
-msgstr "Clean all"
+msgstr "Despejar todo"
 
 #: TutoCleanAllExplanation
 msgctxt "TutoCleanAllExplanation"
 msgid "Click here to clear all boxes"
-msgstr "Click here to clear all boxes"
+msgstr "Haz clic aquí para eliminar todas las viñetas"
 
 #: TutoImageSave
 msgctxt "TutoImageSave"
 msgid "Save as image"
-msgstr "Save as image"
+msgstr "Guardar como imagen"
 
 #: TutoImageSaveExplanation
 msgctxt "TutoImageSaveExplanation"
 msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
-msgstr "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
+msgstr ""
+"Haz clic aquí para guardar la tira de cómic en tu biblioteca en forma de "
+"página. La página puede contener todas las viñetas en una fila, en una "
+"columna o en dos columnas"
 
 #: TutoPageCounter
 msgctxt "TutoPageCounter"
 msgid "Box counter"
-msgstr "Box counter"
+msgstr "Contador de viñetas"
 
 #: TutoPageCounterExplanation
 msgctxt "TutoPageCounterExplanation"
 msgid "It shows current box out of total number of boxes in your comic strip"
-msgstr "It shows current box out of total number of boxes in your comic strip"
+msgstr ""
+"Te mostrará la cantidad de viñetas que tienes y la cantidad total de viñetas "
+"que puedes añadir en tu tira de cómic"
 
 #: TutoStop
 msgctxt "TutoStop"
 msgid "Stop"
-msgstr "Stop"
+msgstr "Finalizar"
 
 #: TutoStopExplanation
 msgctxt "TutoStopExplanation"
 msgid "Click here to end activity ang go back to Sugarizer home page"
-msgstr "Click here to end activity ang go back to Sugarizer home page"
+msgstr ""
+"Haz clic aquí para finalizar la actividad y volver a la pantalla de inicio "
+"de Sugarizer"
 
 #: CancelChanges
 msgctxt "CancelChanges"
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: Continue
 msgctxt "Continue"
 msgid "Continue"
-msgstr "Continue"
+msgstr "Continuar"
 
 #: CleanAllMessage
 msgctxt "CleanAllMessage"
 msgid "All the boxes in your comic strip will be removed!"
-msgstr "All the boxes in your comic strip will be removed!"
+msgstr "¡Se eliminarán todas las viñetas de tu tira de cómic!"
 
 #: Warning
 msgctxt "Warning"
 msgid "Warning"
-msgstr "Warning"
-
+msgstr "Aviso"
