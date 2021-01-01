@@ -3,19 +3,25 @@
 Vue.component('activity-icon', {
 	name: 'ActivityIcon',
 	template: `
-		<div v-html="svg" :id="id" style="display: inline-block">
+		<div v-html="gensvg" v-bind:id="genid" style="display: inline-block">
 		</div>
 	`,
 	props: ['id','name','svg','color','size'],
-	data: function() {
-		return {
-			id: null
+	computed: {
+		gensvg: function() {
+			 return _convertSVG(this.svg, this.genid);
+		},
+		genid: function() {
+			return this.id ? this.id : this._uid;
 		}
 	},
 	mounted: function() {
-		if (!this.id) {
-			this.id = this._uid;
+		_setColor(this, this.color);
+		if (this.size) {
+			_setSize(this, this.size);
 		}
+	},
+	updated: function() {
 		_setColor(this, this.color);
 		if (this.size) {
 			_setSize(this, this.size);
@@ -30,6 +36,22 @@ Vue.component('activity-icon', {
 		}
 	}
 });
+
+// Convert SVG to a pure SVG (remove Sugar stuff)
+function _convertSVG(svg, id) {
+	// Remove ENTITY HEADER
+	let read = svg;
+	var buf = read.replace(/<!DOCTYPE[\s\S.]*\]>/g,"");
+
+	// Replace &fill_color; and &stroke_color;
+	buf = buf.replace(/&stroke_color;/g,"var(--stroke-color)");
+	buf = buf.replace(/&fill_color;/g,"var(--fill-color)");
+
+	// Add symbol and /symbol
+	buf = buf.replace(/(<svg[^>]*>)/g,'$1<symbol id="icon'+id+'">');
+	buf = buf.replace(/(<\/svg>)/g,'</symbol><use xlink:href="#icon'+id+'" href="#icon'+id+'"/>$1');
+	return buf;
+}
 
 // Get SVG element from an icon
 function _getSVGElement(icon) {
@@ -48,7 +70,7 @@ function _getSVGElement(icon) {
 // Change CSS color
 function _setColor(vm, color) {
 	setTimeout(function() { // HACK: Timeout need to wait for SVG to be build
-		let element = _getSVGElement(document.getElementById(vm.id));
+		let element = _getSVGElement(document.getElementById(vm.genid));
 		if (element) {
 			if (color > 179 && color != 256 && color != 512) {
 				color = color % 180;
@@ -61,7 +83,7 @@ function _setColor(vm, color) {
 // Change CSS size
 function _setSize(vm, size) {
 	setTimeout(function() { // HACK: Timeout need to wait for SVG to be build
-		let element = _getSVGElement(document.getElementById(vm.id));
+		let element = _getSVGElement(document.getElementById(vm.genid));
 		if (element) {
 			// Compute optimal viewBox size depending of previous width/height value and unity
 			let iwidth = element.getAttribute("width").replace("px","");

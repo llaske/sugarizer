@@ -32,6 +32,7 @@ var app = new Vue({
 		currentView: viewGrid,
 		activitiesIcons: [],
 		gridContent: [],
+		pattern: initIcons,
 		detailContent: {
 			dropIcons: [],
 			dragIcons: []
@@ -75,7 +76,7 @@ var app = new Vue({
 			let len = activities.length;
 			for (let i = 0 ; i < len ; i++) {
 				let activity = activities[i];
-				_loadAndConvertIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
+				_loadIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
 					vm.activitiesIcons[activity.id] = svg;
 					if (Object.keys(vm.activitiesIcons).length == len) {
 						vm.generateGrid();
@@ -130,7 +131,7 @@ var app = new Vue({
 			for (var i = 0 ; i < count ; i++) {
 				Object.keys(vm.activitiesIcons).forEach(function(id) {
 					let index = vm.gridContent.length;
-					let current = (initIcons.length==0?id:initIcons[index%initIcons.length]);
+					let current = (vm.pattern.length==0?id:vm.pattern[index%vm.pattern.length]);
 					let svg = vm.activitiesIcons[current];
 					let color = (initColors.length==0?index%180:initColors[index%initColors.length]);
 					if (color == -1) { color = Math.floor(Math.random()*180) }
@@ -180,27 +181,36 @@ var app = new Vue({
 			let vm = this;
 			vm.currentView = (vm.currentView == viewGrid ? viewDetail : viewGrid);
 			if (vm.currentView == viewDetail) {
+				// Initialize drop zone with current pattern
 				vm.detailContent.dropIcons = [];
-				for (let i = 0 ; i < initIcons.length ; i++) {
+				for (let i = 0 ; i < vm.pattern.length ; i++) {
 					vm.detailContent.dropIcons.push({
-						id: "pi"+(i+1),
-						name: initIcons[i],
-						svg: vm.activitiesIcons[initIcons[i]],
+						id: "pi"+_getCount(),
+						name: vm.pattern[i],
+						svg: vm.activitiesIcons[vm.pattern[i]],
 						color: 512,
 						size: 40
 					});
 				}
+				// Initialize drag zone with all activities
 				vm.detailContent.dragIcons = [];
 				let keys = Object.keys(vm.activitiesIcons);
 				for (let i = 0 ; i < keys.length ; i++) {
 					vm.detailContent.dragIcons.push({
-						id: "gi"+(i+1),
+						id: "gi"+_getCount(),
 						name: keys[i],
 						svg: vm.activitiesIcons[keys[i]],
 						color: 512,
 						size: 40
 					});
 				}
+			} else {
+				// Update pattern
+				vm.pattern = [];
+				for (let i = 0 ; i < vm.detailContent.dropIcons.length ; i++) {
+					vm.pattern.push(vm.detailContent.dropIcons[i].name);
+				}
+				vm.generateGrid();
 			}
 		},
 
@@ -245,8 +255,46 @@ var app = new Vue({
 			}
 			if (dropped) {
 				console.log("dropped on icon "+dropped);
+				if (vm.draggedItem[0]=="p" && dropped[0]=="g") {
+					// Remove one item from the pattern
+					let index = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
+					vm.detailContent.dropIcons.splice(index, 1);
+				} else if (vm.draggedItem[0]=="g" && dropped[0]=="p") {
+					// Add one item after an existing item in the pattern
+					let after = _findItemById(vm.detailContent.dropIcons, dropped);
+					let index = _findItemById(vm.detailContent.dragIcons, vm.draggedItem);
+					vm.detailContent.dropIcons.splice(after, 0, {
+						id: "pi"+_getCount(),
+						name: vm.detailContent.dragIcons[index].name,
+						svg: vm.detailContent.dragIcons[index].svg,
+						color: 512,
+						size: 40
+					});
+				} else if (vm.draggedItem[0]=="p" && dropped[0]=="p" && vm.dragged != dropped) {
+					// Reorder the pattern
+					let before = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
+					let item = vm.detailContent.dropIcons[before];
+					vm.detailContent.dropIcons.splice(before, 1);
+					let after = _findItemById(vm.detailContent.dropIcons, dropped);
+					vm.detailContent.dropIcons.splice(after, 0, item);
+				}
 			} else if (droppedZone) {
 				console.log("dropped in "+droppedZone+" zone");
+				if (vm.draggedItem[0]=="g" && droppedZone == "drop") {
+					// Add one item at the end of the pattern
+					let index = _findItemById(vm.detailContent.dragIcons, vm.draggedItem)
+					vm.detailContent.dropIcons.push({
+						id: "pi"+_getCount(),
+						name: vm.detailContent.dragIcons[index].name,
+						svg: vm.detailContent.dragIcons[index].svg,
+						color: 512,
+						size: 40
+					});
+				} else if (vm.draggedItem[0]=="p" && droppedZone == "drag") {
+					// Remove one item from the pattern
+					let index = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
+					vm.detailContent.dropIcons.splice(index, 1);
+				}
 			} else {
 				console.log("dropped outside");
 			}
@@ -320,27 +368,27 @@ function _loadActivities() {
 	});
 }
 
-// Need to create an unique id for each embedded SVG
+// Compute an unique count
 let idCount = 1;
+function _getCount() {
+	return idCount++;
+}
 
-// Load icon and convert it to a pure SVG (remove Sugar stuff)
-function _loadAndConvertIcon(url) {
+// Find item by id
+function _findItemById(items, id) {
+	for (let i = 0 ; i < items.length ; i++) {
+		if (items[i].id == id) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+// Load icon
+function _loadIcon(url) {
 	return new Promise(function(resolve, reject) {
 		axios.get(url).then(function(response) {
-			// Remove ENTITY HEADER
-			let read = response.data;
-			var buf = read.replace(/<!DOCTYPE[\s\S.]*\]>/g,"");
-
-			// Replace &fill_color; and &stroke_color;
-			buf = buf.replace(/&stroke_color;/g,"var(--stroke-color)");
-			buf = buf.replace(/&fill_color;/g,"var(--fill-color)");
-
-			// Add symbol and /symbol
-			buf = buf.replace(/(<svg[^>]*>)/g,'$1<symbol id="icon'+idCount+'">');
-			buf = buf.replace(/(<\/svg>)/g,'</symbol><use xlink:href="#icon'+idCount+'" href="#icon'+idCount+'"/>$1');
-			idCount++;
-
-			resolve(buf);
+			resolve(response.data);
 		}).catch(function(error) {
 			reject(error);
  		});
