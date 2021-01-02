@@ -1,47 +1,50 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Fri Jun 19 2020 21:30:12 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Fri Jun 19 2020 21:30:12 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-01-02 01:40+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-chess/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "joined"
-msgstr "joined"
+msgstr "se ha unido"
 
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "left"
-msgstr "left"
+msgstr "se ha desconectado"
 
 #: YouWon
 msgctxt "YouWon"
 msgid "You Won"
-msgstr "You Won"
+msgstr "Has ganado"
 
 #: YouCheck
 msgctxt "YouCheck"
 msgid "In Check"
-msgstr "In Check"
+msgstr "Jaque"
 
 #: YouLost
 msgctxt "YouLost"
 msgid "You Lost"
-msgstr "You Lost"
+msgstr "Has perdido"
 
 #: MatchDraw
 msgctxt "MatchDraw"
 msgid "Game drawn"
-msgstr "Game drawn"
+msgstr "Partida empatada"
 
 #: Vs
 msgctxt "Vs"
@@ -51,27 +54,27 @@ msgstr "Vs"
 #: TimeExpired
 msgctxt "TimeExpired"
 msgid "Your Time has been Expired"
-msgstr "Your Time has been Expired"
+msgstr "Tu tiempo ha expirado"
 
 #: Thinking
 msgctxt "Thinking"
 msgid "Thinking..."
-msgstr "Thinking..."
+msgstr "Pensando..."
 
 #: ClockChanged
 msgctxt "ClockChanged"
 msgid "Clock Changed"
-msgstr "Clock Changed"
+msgstr "Reloj cambiado"
 
 #: ChessActivity
 msgctxt "ChessActivity"
 msgid "ChessActivity"
-msgstr "ChessActivity"
+msgstr "Actividad \"Ajedrez\""
 
 #: New
 msgctxt "New"
 msgid "New Game"
-msgstr "New Game"
+msgstr "Nueva partida"
 
 #: Tut
 msgctxt "Tut"
@@ -81,12 +84,12 @@ msgstr "Tutorial"
 #: Undo
 msgctxt "Undo"
 msgid "Undo"
-msgstr "Undo"
+msgstr "Deshacer"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Pantalla completa"
 
 #: Network
 msgctxt "Network"
@@ -101,42 +104,44 @@ msgstr "Level"
 #: Clock
 msgctxt "Clock"
 msgid "Change Clock"
-msgstr "Change Clock"
+msgstr "Cambiar reloj"
 
 #: Color
 msgctxt "Color"
 msgid "Change Color"
-msgstr "Change Color"
+msgstr "Cambiar color"
 
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: NextShort
 msgctxt "NextShort"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: EndShort
 msgctxt "EndShort"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoWelcomeTitle
 msgctxt "TutoWelcomeTitle"
 msgid "Chess Activity"
-msgstr "Chess Activity"
+msgstr "Actividad \"Ajedrez\""
 
 #: TutoWelcomeContent
 msgctxt "TutoWelcomeContent"
 msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
-msgstr "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr ""
+"La actividad \"Ajedrez\" es una manera divertida de aprender a jugar y retar "
+"a tus amigos a una partida de ajedrez."
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Chess Board"
-msgstr "Chess Board"
+msgstr "Tablero de ajedrez"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
@@ -146,210 +151,265 @@ msgstr "This is a chess board. you can hover on the piece to get legal moves and
 #: TutoPlayerClockTitle
 msgctxt "TutoPlayerClockTitle"
 msgid "Your Clock"
-msgstr "Your Clock"
+msgstr "Tu reloj"
 
 #: TutoPlayerClockContent
 msgctxt "TutoPlayerClockContent"
 msgid "This will show your time left if chess clock is not disabled"
-msgstr "This will show your time left if chess clock is not disabled"
+msgstr "Aquí se mostrará tu tiempo restante (si el reloj no está desactivado)"
 
 #: TutoOpponentClockTitle
 msgctxt "TutoOpponentClockTitle"
 msgid "Opponent's Clock"
-msgstr "Opponent's Clock"
+msgstr "Reloj del oponente"
 
 #: TutoOpponentClockContent
 msgctxt "TutoOpponentClockContent"
 msgid "This is will show your opponent's time left if chess clock is not disabled and you are not against computer"
-msgstr "This is will show your opponent's time left if chess clock is not disabled and you are not against computer"
+msgstr ""
+"Aquí se mostrará el tiempo restante del oponente (si el reloj no está "
+"desactivado y si no estás jugando contra la máquina)"
 
 #: TutoFlagTitle
 msgctxt "TutoFlagTitle"
 msgid "Flags"
-msgstr "Flags"
+msgstr "Indicaciones"
 
 #: TutoFlagContent
 msgctxt "TutoFlagContent"
 msgid "This will indicate you about various scenerios like if you lost or won the game or if you are in check"
-msgstr "This will indicate you about various scenerios like if you lost or won the game or if you are in check"
+msgstr ""
+"Aquí aparecerán varios tipos de indicaciones, como si has perdido o ganado "
+"una partida, o si estás en jaque"
 
 #: TutoMovesTitle
 msgctxt "TutoMovesTitle"
 msgid "Moves History"
-msgstr "Moves History"
+msgstr "Historial de movimientos"
 
 #: TutoMovesContent
 msgctxt "TutoMovesContent"
 msgid "This will contains all the previous moves made in game so far"
-msgstr "This will contains all the previous moves made in game so far"
+msgstr ""
+"Aquí se mostrarán todos los movimientos realizados hasta el momento en esta "
+"partida"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Share Activity"
-msgstr "Share Activity"
+msgstr "Compartir actividad"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share activity and play in multi user mode"
-msgstr "Click here to share activity and play in multi user mode"
+msgstr ""
+"Haz clic aquí para compartir la actividad y jugar en el modo multijugador"
 
 #: TutoComputerLevelTitle
 msgctxt "TutoComputerLevelTitle"
 msgid "Computer difficulty level"
-msgstr "Computer difficulty level"
+msgstr "Nivel de dificultad (contra la máquina)"
 
 #: TutoComputerLevelContent
 msgctxt "TutoComputerLevelContent"
 msgid "Click here to change computer difficulty level"
-msgstr "Click here to change computer difficulty level"
+msgstr ""
+"Haz clic aquí para cambiar el nivel de dificultad al jugar contra la máquina"
 
 #: TutoClockTitle
 msgctxt "TutoClockTitle"
 msgid "Chess Clock Setting"
-msgstr "Chess Clock Setting"
+msgstr "Ajustes del reloj de partida"
 
 #: TutoClockContent
 msgctxt "TutoClockContent"
 msgid "Click here to choose Chess Clock.Only available at the start of the game and only host can change clock in shared mode."
-msgstr "Click here to choose Chess Clock.Only available at the start of the game and only host can change clock in shared mode."
+msgstr ""
+"Haz clic aquí para elegir el reloj de partida. Solo estará disponible al "
+"comienzo de la partida, y únicamente el anfitrión podrá cambiar el reloj en "
+"el modo compartido."
 
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr "Undo"
+msgstr "Deshacer"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
 msgid "Click here to undo your move. Only available for Computer Mode"
-msgstr "Click here to undo your move. Only available for Computer Mode"
+msgstr ""
+"Haz clic aquí para deshacer tu movimiento (solo disponible al jugar contra "
+"la máquina)"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "New Game"
-msgstr "New Game"
+msgstr "Partida nueva"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to Restart Game.Only Host can restart game in shared mode"
-msgstr "Click here to Restart Game.Only Host can restart game in shared mode"
+msgstr ""
+"Haz clic aquí para reiniciar la partida. Solo el anfitrión puede reiniciar "
+"una partida compartida"
 
 #: TutoColorChangeTitle
 msgctxt "TutoColorChangeTitle"
 msgid "Change Color"
-msgstr "Change Color"
+msgstr "Cambiar color"
 
 #: TutoColorChangeContent
 msgctxt "TutoColorChangeContent"
 msgid "Toggle to choose Color WHITE or BLACK. Only Available at the start of the Game and Only Host can change can toggle color in shared Mode"
-msgstr "Toggle to choose Color WHITE or BLACK. Only Available at the start of the Game and Only Host can change can toggle color in shared Mode"
+msgstr ""
+"Púlsalo para cambiar entre fichas BLANCAS o NEGRAS. Solo estará disponible "
+"al comienzo de la partida, y únicamente el anfitrión podrá modificar el "
+"color en partidas compartidas"
 
 #: TutoBasicTitle
 msgctxt "TutoBasicTitle"
 msgid "Basic Overview"
-msgstr "Basic Overview"
+msgstr "Presentación"
 
 #: TutoBasicContent
 msgctxt "TutoBasicContent"
 msgid "Chess is a two-player game, where one player is assigned white pieces and the other black. Each player has 16 pieces to start the game: one king, one queen, two rooks, two bishops, two knights and eight pawns."
-msgstr "Chess is a two-player game, where one player is assigned white pieces and the other black. Each player has 16 pieces to start the game: one king, one queen, two rooks, two bishops, two knights and eight pawns."
+msgstr ""
+"El ajedrez es un juego de dos personas, en el que un jugador tendrá las "
+"piezas blancas y el otro las piezas negras. Cada jugador tiene 16 piezas al "
+"comienzo de la partida: un rey, una reina, dos torres, dos alfiles, dos "
+"caballos y ocho peones."
 
 #: TutoAimTitle
 msgctxt "TutoAimTitle"
 msgid "Aim of the game"
-msgstr "Aim of the game"
+msgstr "Objetivo del juego"
 
 #: TutoAimContent
 msgctxt "TutoAimContent"
 msgid "The Aim of the game is to capture the other player's king. This capture is never actually completed, but once a king is under attack and unable to avoid capture, it is said to be checkmated and the game is over."
-msgstr "The Aim of the game is to capture the other player's king. This capture is never actually completed, but once a king is under attack and unable to avoid capture, it is said to be checkmated and the game is over."
+msgstr ""
+"El objetivo del juego es capturar al rey del otro jugador. La captura nunca "
+"se completa, pero cuando un rey que esté siendo atacado ya no pueda evitar "
+"ser capturado, se dice que está \"en jaque mate\" y la partida terminará."
 
 #: TutoPawnTitle
 msgctxt "TutoPawnTitle"
 msgid "How To Move Pawn?"
-msgstr "How To Move Pawn?"
+msgstr "¿Cómo se mueven los peones?"
 
 #: TutoPawnContent
 msgctxt "TutoPawnContent"
 msgid "Pawns can move forward one square, if that square is unoccupied. If it has not yet moved, the pawn has the option of moving two squares forward provided both squares in front of the pawn are unoccupied. They can capture an enemy piece on either of the two spaces adjacent to the space in front of them that is the two squares diagonally in front of them but cannot move to these spaces if they are unoccupied."
-msgstr "Pawns can move forward one square, if that square is unoccupied. If it has not yet moved, the pawn has the option of moving two squares forward provided both squares in front of the pawn are unoccupied. They can capture an enemy piece on either of the two spaces adjacent to the space in front of them that is the two squares diagonally in front of them but cannot move to these spaces if they are unoccupied."
+msgstr ""
+"Los peones se puede mover hacia adelante una casilla (si no está ocupada). "
+"Si aún no se ha movido en la partida, el peón podrá moverse dos casillas "
+"hacia adelante, siempre que ambas casillas no estén ocupadas. Los peones "
+"pueden capturar piezas enemigas que estén en las dos casillas diagonales "
+"delanteras contiguas al peón; sin embargo, no pueden moverse a esas casillas "
+"si no es para capturar una pieza."
 
 #: TutoKnightTitle
 msgctxt "TutoKnightTitle"
 msgid "How To Move Knight?"
-msgstr "How To Move Knight?"
+msgstr "¿Cómo se mueve el caballo?"
 
 #: TutoKnightContent
 msgctxt "TutoKnightContent"
 msgid "Knight can move one square along any rank or file and then at an angle.the move can be viewed as an “L” or “7″ laid out at any horizontal or vertical angle."
-msgstr "Knight can move one square along any rank or file and then at an angle.the move can be viewed as an “L” or “7″ laid out at any horizontal or vertical angle."
+msgstr ""
+"El caballo usa un movimiento compuesto: una casilla en cualquier dirección, "
+"más dos casillas en cualquiera de los dos sentidos perpendiculares a ese "
+"movimiento. El movimiento se suele decir que es \"en forma de L\" o \"de 7\"."
 
 #: TutoBishopTitle
 msgctxt "TutoBishopTitle"
 msgid "How To Move Bishop?"
-msgstr "How To Move Bishop?"
+msgstr "¿Cómo se mueve el alfil?"
 
 #: TutoBishopContent
 msgctxt "TutoBishopContent"
 msgid "Bishop can move any number of vacant squares in any diagonal direction."
-msgstr "Bishop can move any number of vacant squares in any diagonal direction."
+msgstr ""
+"El alfil puede moverse a cualquier casilla no ocupada en cualquier dirección "
+"en diagonal de la pieza."
 
 #: TutoRookTitle
 msgctxt "TutoRookTitle"
 msgid "How To Move Rook?"
-msgstr "How To Move Rook?"
+msgstr "¿Cómo se mueve la torre?"
 
 #: TutoRookContent
 msgctxt "TutoRookContent"
 msgid "Rook can move any number of vacant squares vertically or horizontally. It also is moved while castling"
-msgstr "Rook can move any number of vacant squares vertically or horizontally. It also is moved while castling"
+msgstr ""
+"La torre puede moverse a cualquier casilla no ocupada en cualquier dirección "
+"en horizontal o vertical con respecto a la pieza. También puede \"enrocarse\""
+": realizar una especie de inversión de posición con su rey"
 
 #: TutoQueenTitle
 msgctxt "TutoQueenTitle"
 msgid "How To Move Queen?"
-msgstr "How To Move Queen?"
+msgstr "¿Cómo se mueve la reina?"
 
 #: TutoQueenContent
 msgctxt "TutoQueenContent"
 msgid "Queen can move any number of vacant squares diagonally, horizontally, or vertically."
-msgstr "Queen can move any number of vacant squares diagonally, horizontally, or vertically."
+msgstr ""
+"La reina puede moverse a cualquier casilla no ocupada en cualquier dirección "
+"en horizontal, vertical o diagonal con respecto a la pieza."
 
 #: TutoKingTitle
 msgctxt "TutoKingTitle"
 msgid "How To Move king?"
-msgstr "How To Move king?"
+msgstr "¿Cómo se mueve el rey?"
 
 #: TutoKingContent
 msgctxt "TutoKingContent"
 msgid "King can move exactly one square horizontally, vertically, or diagonally. At most once in every game, each king is allowed to make a special move, known as castling."
-msgstr "King can move exactly one square horizontally, vertically, or diagonally. At most once in every game, each king is allowed to make a special move, known as castling."
+msgstr ""
+"El rey puede moverse a cualquier casilla no ocupada en cualquier dirección "
+"en horizontal, vertical o diagonal, pero solo podrá moverse una casilla por "
+"turno. El rey puede ejecutar un movimiento especial, conocido como \""
+"enroque\", una vez por partida y con la participación de una torre propia."
 
 #: TutoPawnPromotionTitle
 msgctxt "TutoPawnPromotionTitle"
 msgid "What is Pawn Promotion?"
-msgstr "What is Pawn Promotion?"
+msgstr "¿Qué es \"coronar un peón\"?"
 
 #: TutoPawnPromotionContent
 msgctxt "TutoPawnPromotionContent"
 msgid "If a pawn reaches the opponent´s edge of the table, it will be promoted – the pawn may be converted to a queen, rook, bishop or knight, as the player desires."
-msgstr "If a pawn reaches the opponent´s edge of the table, it will be promoted – the pawn may be converted to a queen, rook, bishop or knight, as the player desires."
+msgstr ""
+"Si un peón alcanza el borde del tablero donde comenzaron las piezas del "
+"enemigo, será \"coronado\". Esto quiere decir que se podrá convertir ese "
+"peón en una reina, torre, alfil o caballo, según desee su jugador."
 
 #: TutoCastlingTitle
 msgctxt "TutoCastlingTitle"
 msgid "What is Castling?"
-msgstr "What is Castling?"
+msgstr "¿Qué es el enroque?"
 
 #: TutoCastlingContent
 msgctxt "TutoCastlingContent"
 msgid "During the castling, the king moves two squares towards the rook he intends to castle with, and the rook moves to the square through which the king passed if Neither king nor rook involved in castling may have moved from the original position and There are no pieces between the king and the rook"
-msgstr "During the castling, the king moves two squares towards the rook he intends to castle with, and the rook moves to the square through which the king passed if Neither king nor rook involved in castling may have moved from the original position and There are no pieces between the king and the rook"
+msgstr ""
+"Durante el enroque, el rey se moverá dos casillas hacia la torre con la que "
+"quiera enrocarse, y la torre se colocará en la primera casilla por la que ha "
+"pasado el rey en este movimiento. El enroque solo puede completarse si ni el "
+"rey ni la torre se han movido de su posición original, y si no hay ninguna "
+"pieza entre ambas"
 
 #: TutoDrawTitle
 msgctxt "TutoDrawTitle"
 msgid "what is game draw?"
-msgstr "what is game draw?"
+msgstr "¿Qué es un empate?"
 
 #: TutoDrawContent
 msgctxt "TutoDrawContent"
 msgid "The game is drawn when the player to move has no legal move and his king is not in check. The game is said to end in 'stalemate'."
-msgstr "The game is drawn when the player to move has no legal move and his king is not in check. The game is said to end in 'stalemate'."
-
+msgstr ""
+"La partida llegará a un empate cuando el jugador que se mueve no tiene "
+"ningún movimiento legal y su rey no está en jaque. En este punto, se dice "
+"que la partida ha terminado \"en tablas\"."
