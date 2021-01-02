@@ -6,6 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 p {
@@ -252,11 +253,16 @@ p {
 	user-select: none;
 }
 
+.label-drag {
+	margin-left: 10px;
+}
+
 #drag-icons-zone {
 	background-color: white;
 	margin: 10px;
-	height: 200px;
-	width: 600px;
+	height: 55%;
+	max-height: 55%;
+	width: 50%;
 	overflow: auto;
 }
 
@@ -273,8 +279,9 @@ p {
 #drop-icons-zone {
 	background-color: white;
 	margin: 10px;
-	height: 200px;
-	width: 600px;
+	height: 30%;
+	max-height: 30%;
+	width: 50%;
 	overflow: auto;
 }
 
