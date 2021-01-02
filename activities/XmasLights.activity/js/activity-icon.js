@@ -3,7 +3,7 @@
 Vue.component('activity-icon', {
 	name: 'ActivityIcon',
 	template: `
-		<div v-html="gensvg" v-bind:id="genid" style="display: inline-block">
+		<div v-html="gensvg" v-bind:id="genid" style="display:inline-block;visibility:hidden">
 		</div>
 	`,
 	props: ['id','name','svg','color','size'],
@@ -20,12 +20,15 @@ Vue.component('activity-icon', {
 		if (this.size) {
 			_setSize(this, this.size);
 		}
+		_setVisibility(this, true);
 	},
 	updated: function() {
+		_setVisibility(this, false, true);
 		_setColor(this, this.color);
 		if (this.size) {
 			_setSize(this, this.size);
 		}
+		_setVisibility(this, true);
 	},
 	watch: {
 		color: function(newColor, oldColor) {
@@ -107,5 +110,16 @@ function _setSize(vm, size) {
 				element.setAttribute("viewBox", "0 0 "+iwidth+" "+iheight);
 			}
 		}
+	}, 0);
+}
+
+// Change visibility to avoid glitch during rendering
+function _setVisibility(vm, isvisible, now) {
+	if (now) {
+		document.getElementById(vm.genid).style.visibility=isvisible?"visible":"hidden";
+		return;
+	}
+	setTimeout(function() { // HACK: Timeout to wait for SVG to be updated
+		document.getElementById(vm.genid).style.visibility=isvisible?"visible":"hidden";
 	}, 0);
 }
