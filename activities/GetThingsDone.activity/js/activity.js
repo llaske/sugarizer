@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity, webL10n, datastore, model, view, controller) {
+define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller", "tutorial"], function (activity, webL10n, datastore, model, view, controller, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -119,6 +119,11 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
                 input.value = '';
             }
         });
+
+        // Launch tutorial
+		document.getElementById("help-button").addEventListener('click', function(e){
+			tutorial.start();
+		});
 
         // Find the model ID of the clicked DOM element
 
