@@ -33,9 +33,12 @@ var app = new Vue({
 		activitiesIcons: [],
 		gridContent: [],
 		pattern: initIcons,
+		colors: initColors,
 		detailContent: {
 			dropIcons: [],
-			dragIcons: []
+			dragIcons: [],
+			dropColors: [],
+			dragColors: []
 		},
 		draggedItem: null,
 		size: initSize,
@@ -59,7 +62,8 @@ var app = new Vue({
 			stringText: "",
 			stringPlay: "",
 			stringPause: "",
-			stringDragIcons: ""
+			stringDragIcons: "",
+			stringDragColors: ""
 		}
 	},
 
@@ -136,7 +140,7 @@ var app = new Vue({
 					let index = vm.gridContent.length;
 					let current = (vm.pattern.length==0?id:vm.pattern[index%vm.pattern.length]);
 					let svg = vm.activitiesIcons[current];
-					let color = (initColors.length==0?index%180:initColors[index%initColors.length]);
+					let color = (vm.colors.length==0?index%180:vm.colors[index%vm.colors.length]);
 					if (color == -1) { color = Math.floor(Math.random()*180) }
 					let size = vm.size;
 					vm.gridContent.push({
@@ -144,7 +148,7 @@ var app = new Vue({
 						svg: svg,
 						color: color,
 						size: size,
-						step: (initColors.length==0?0:index%initColors.length)
+						step: (vm.colors.length==0?0:index%vm.colors.length)
 					});
 				});
 			}
@@ -159,11 +163,11 @@ var app = new Vue({
 				}
 				for (let i = 0 ; i < vm.gridContent.length ; i++) {
 					let newColor;
-					if (initColors.length == 0) {
+					if (vm.colors.length == 0) {
 						newColor = (vm.gridContent[i].color+1)%180;
 					} else {
-						vm.gridContent[i].step = (vm.gridContent[i].step + 1)%initColors.length;
-						newColor = initColors[vm.gridContent[i].step];
+						vm.gridContent[i].step = (vm.gridContent[i].step + 1)%vm.colors.length;
+						newColor = vm.colors[vm.gridContent[i].step];
 					}
 					if (newColor == -1) { newColor = Math.floor(Math.random()*180) }
 					vm.gridContent[i].color = newColor;
@@ -184,7 +188,7 @@ var app = new Vue({
 			let vm = this;
 			vm.currentView = (vm.currentView == viewGrid ? viewDetail : viewGrid);
 			if (vm.currentView == viewDetail) {
-				// Initialize drop zone with current pattern
+				// Initialize drop zone with current patterns
 				vm.detailContent.dropIcons = [];
 				for (let i = 0 ; i < vm.pattern.length ; i++) {
 					vm.detailContent.dropIcons.push({
@@ -195,7 +199,17 @@ var app = new Vue({
 						size: 40
 					});
 				}
-				// Initialize drag zone with all activities
+				vm.detailContent.dropColors = [];
+				for (let i = 0 ; i < vm.colors.length ; i++) {
+					vm.detailContent.dropColors.push({
+						id: "pc"+_getCount(),
+						name: i,
+						svg: vm.activitiesIcons["com.homegrownapps.xoeditor"],
+						color: vm.colors[i],
+						size: 40
+					})
+				}
+				// Initialize drag zone with all activities/colors
 				vm.detailContent.dragIcons = [];
 				let keys = Object.keys(vm.activitiesIcons);
 				for (let i = 0 ; i < keys.length ; i++) {
@@ -207,11 +221,25 @@ var app = new Vue({
 						size: 40
 					});
 				}
+				vm.detailContent.dragColors = [];
+				for (let i = 0 ; i < 180 ; i++) {
+					vm.detailContent.dragColors.push({
+						id: "gc"+_getCount(),
+						name: i,
+						svg: vm.activitiesIcons["com.homegrownapps.xoeditor"],
+						color: i,
+						size: 40
+					})
+				}
 			} else {
-				// Update pattern
+				// Update patterns
 				vm.pattern = [];
 				for (let i = 0 ; i < vm.detailContent.dropIcons.length ; i++) {
 					vm.pattern.push(vm.detailContent.dropIcons[i].name);
+				}
+				vm.colors = [];
+				for (let i = 0 ; i < vm.detailContent.dropColors.length ; i++) {
+					vm.colors.push(vm.detailContent.dropColors[i].color);
 				}
 				vm.generateGrid();
 			}
@@ -224,6 +252,7 @@ var app = new Vue({
 			if (event.type.indexOf("touch")!=-1) { event = event.changedTouches[0]; }
 			let item = document.elementFromPoint(event.clientX, event.clientY);
 			while (item && !dragged) {
+				// Find id of icon dragged
 				if (item.className == "padded-icon") {
 					dragged = item.id;
 				}
@@ -247,56 +276,73 @@ var app = new Vue({
 			let droppedZone = null;
 			let item = document.elementFromPoint(event.clientX, event.clientY);
 			while (item && !dropped && !droppedZone) {
+				// Find id of icon/zone where is dropped
 				if (item.className == "padded-icon") {
 					dropped = item.id;
 				} else if (item.id == "drop-icons-zone") {
-					droppedZone = "drop";
+					droppedZone = "pi";
 				} else if (item.id == "drag-icons-zone") {
-					droppedZone = "drag";
+					droppedZone = "gi";
+				} else if (item.id == "drop-colors-zone") {
+					droppedZone = "pc";
+				} else if (item.id == "drag-colors-zone") {
+					droppedZone = "gc";
 				}
 				item = item.parentNode;
 			}
 			if (dropped) {
-				console.log("dropped on icon "+dropped);
-				if (vm.draggedItem[0]=="p" && dropped[0]=="g") {
-					// Remove one item from the pattern
-					let index = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
-					vm.detailContent.dropIcons.splice(index, 1);
-				} else if (vm.draggedItem[0]=="g" && dropped[0]=="p") {
-					// Add one item after an existing item in the pattern
-					let after = _findItemById(vm.detailContent.dropIcons, dropped);
-					let index = _findItemById(vm.detailContent.dragIcons, vm.draggedItem);
-					vm.detailContent.dropIcons.splice(after, 0, {
-						id: "pi"+_getCount(),
-						name: vm.detailContent.dragIcons[index].name,
-						svg: vm.detailContent.dragIcons[index].svg,
-						color: 512,
-						size: 40
-					});
-				} else if (vm.draggedItem[0]=="p" && dropped[0]=="p" && vm.dragged != dropped) {
-					// Reorder the pattern
-					let before = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
-					let item = vm.detailContent.dropIcons[before];
-					vm.detailContent.dropIcons.splice(before, 1);
-					let after = _findItemById(vm.detailContent.dropIcons, dropped);
-					vm.detailContent.dropIcons.splice(after, 0, item);
+				if (vm.draggedItem[1] != dropped[1]) {
+					console.log("dropped on the wrong icon");
+				} else {
+					console.log("dropped on icon "+dropped);
+					let dragset = (vm.draggedItem[1] == "i" ? vm.detailContent.dragIcons : vm.detailContent.dragColors);
+					let dropset = (vm.draggedItem[1] == "i" ? vm.detailContent.dropIcons : vm.detailContent.dropColors);
+					if (vm.draggedItem[0]=="p" && dropped[0]=="g") {
+						// Remove one item from the pattern
+						let index = _findItemById(dropset, vm.draggedItem);
+						dropset.splice(index, 1);
+					} else if (vm.draggedItem[0]=="g" && dropped[0]=="p") {
+						// Add one item after an existing item in the pattern
+						let after = _findItemById(dropset, dropped);
+						let index = _findItemById(dragset, vm.draggedItem);
+						dropset.splice(after, 0, {
+							id: "p"+vm.draggedItem[1]+_getCount(),
+							name: dragset[index].name,
+							svg: dragset[index].svg,
+							color: dragset[index].color,
+							size: 40
+						});
+					} else if (vm.draggedItem[0]=="p" && dropped[0]=="p" && vm.dragged != dropped) {
+						// Reorder the pattern
+						let before = _findItemById(dropset, vm.draggedItem);
+						let item = dropset[before];
+						dropset.splice(before, 1);
+						let after = _findItemById(dropset, dropped);
+						dropset.splice(after, 0, item);
+					}
 				}
 			} else if (droppedZone) {
-				console.log("dropped in "+droppedZone+" zone");
-				if (vm.draggedItem[0]=="g" && droppedZone == "drop") {
-					// Add one item at the end of the pattern
-					let index = _findItemById(vm.detailContent.dragIcons, vm.draggedItem)
-					vm.detailContent.dropIcons.push({
-						id: "pi"+_getCount(),
-						name: vm.detailContent.dragIcons[index].name,
-						svg: vm.detailContent.dragIcons[index].svg,
-						color: 512,
-						size: 40
-					});
-				} else if (vm.draggedItem[0]=="p" && droppedZone == "drag") {
-					// Remove one item from the pattern
-					let index = _findItemById(vm.detailContent.dropIcons, vm.draggedItem);
-					vm.detailContent.dropIcons.splice(index, 1);
+				if (vm.draggedItem[1] != droppedZone[1]) {
+					console.log("dropped in the wrong zone");
+				} else {
+					console.log("dropped in "+droppedZone+" zone");
+					let dragset = (vm.draggedItem[1] == "i" ? vm.detailContent.dragIcons : vm.detailContent.dragColors);
+					let dropset = (vm.draggedItem[1] == "i" ? vm.detailContent.dropIcons : vm.detailContent.dropColors);
+					if (vm.draggedItem[0]=="g" && droppedZone[0] == "p") {
+						// Add one item at the end of the pattern
+						let index = _findItemById(dragset, vm.draggedItem)
+						dropset.push({
+							id: "p"+vm.draggedItem[1]+_getCount(),
+							name: dragset[index].name,
+							svg: dragset[index].svg,
+							color: dragset[index].color,
+							size: 40
+						});
+					} else if (vm.draggedItem[0]=="p" && droppedZone[0] == "g") {
+						// Remove one item from the pattern
+						let index = _findItemById(dropset, vm.draggedItem);
+						dropset.splice(index, 1);
+					}
 				}
 			} else {
 				console.log("dropped outside");

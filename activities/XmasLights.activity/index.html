@@ -69,24 +69,47 @@
 			</activity-icon>
 		</div>
 		<div v-else id="detail" ref="detail" class="grab" v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
-			<p class="label-drag">{{l10n.stringDragIcons}}</p>
-			<div id="drop-icons-zone" ref="dropicons">
-				<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"
-					v-bind:id="icon.id"
-					v-bind:name="icon.name"
-					v-bind:svg="icon.svg"
-					v-bind:color="icon.color"
-					v-bind:size="icon.size">
-				</activity-icon>
+			<div class="column1">
+				<p class="label-drag">{{l10n.stringDragIcons}}</p>
+				<div id="drop-icons-zone" ref="dropicons">
+					<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
+				<div id="drag-icons-zone" ref="dragicons">
+					<activity-icon v-for="(icon) in detailContent.dragIcons" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
 			</div>
-			<div id="drag-icons-zone" ref="dragicons">
-				<activity-icon v-for="(icon) in detailContent.dragIcons" class="padded-icon"
-					v-bind:id="icon.id"
-					v-bind:name="icon.name"
-					v-bind:svg="icon.svg"
-					v-bind:color="icon.color"
-					v-bind:size="icon.size">
-				</activity-icon>
+			<div class="column2">
+				<p class="label-drag">{{l10n.stringDragColors}}</p>
+				<div id="drop-colors-zone" ref="dropcolors">
+					<activity-icon v-for="(icon) in detailContent.dropColors" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
+				<div id="drag-colors-zone" ref="dragcolors">
+					<activity-icon v-for="(icon) in detailContent.dragColors" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
 			</div>
 		</div>
 
