@@ -24,6 +24,7 @@ const initMessageColor = "#000000";
 const initMessageSize = 80;
 const viewGrid = 1;
 const viewDetail = 2;
+const displayDebug = false;
 
 // Vue main app
 var app = new Vue({
@@ -77,6 +78,7 @@ var app = new Vue({
 		// Load activities list
 		_loadActivities().then(function(activities) {
 			// Load an convert to pure SVG each icon
+			activities.push({directory:"activities/XmasLights.activity",icon:"icons/color.svg",id:"color"});
 			let len = activities.length;
 			for (let i = 0 ; i < len ; i++) {
 				let activity = activities[i];
@@ -204,7 +206,7 @@ var app = new Vue({
 					vm.detailContent.dropColors.push({
 						id: "pc"+_getCount(),
 						name: i,
-						svg: vm.activitiesIcons["com.homegrownapps.xoeditor"],
+						svg: vm.activitiesIcons["color"],
 						color: vm.colors[i],
 						size: 40
 					})
@@ -226,7 +228,7 @@ var app = new Vue({
 					vm.detailContent.dragColors.push({
 						id: "gc"+_getCount(),
 						name: i,
-						svg: vm.activitiesIcons["com.homegrownapps.xoeditor"],
+						svg: vm.activitiesIcons["color"],
 						color: i,
 						size: 40
 					})
@@ -259,7 +261,7 @@ var app = new Vue({
 				item = item.parentNode;
 			}
 			if (!dragged) { return }
-			console.log("drag icon "+dragged);
+			doLog("drag icon "+dragged);
 			vm.draggedItem = dragged;
 			vm.$refs.detail.className = "grabbing";
 		},
@@ -268,7 +270,7 @@ var app = new Vue({
 		onMouseUp: function(event) {
 			let vm = this;
 			if (!vm.draggedItem) {
-				console.log("nothing to drop")
+				doLog("nothing to drop")
 				return;
 			}
 			if (event.type.indexOf("touch")!=-1) { event = event.changedTouches[0]; }
@@ -292,9 +294,9 @@ var app = new Vue({
 			}
 			if (dropped) {
 				if (vm.draggedItem[1] != dropped[1]) {
-					console.log("dropped on the wrong icon");
+					doLog("dropped on the wrong icon");
 				} else {
-					console.log("dropped on icon "+dropped);
+					doLog("dropped on icon "+dropped);
 					let dragset = (vm.draggedItem[1] == "i" ? vm.detailContent.dragIcons : vm.detailContent.dragColors);
 					let dropset = (vm.draggedItem[1] == "i" ? vm.detailContent.dropIcons : vm.detailContent.dropColors);
 					if (vm.draggedItem[0]=="p" && dropped[0]=="g") {
@@ -323,9 +325,9 @@ var app = new Vue({
 				}
 			} else if (droppedZone) {
 				if (vm.draggedItem[1] != droppedZone[1]) {
-					console.log("dropped in the wrong zone");
+					doLog("dropped in the wrong zone");
 				} else {
-					console.log("dropped in "+droppedZone+" zone");
+					doLog("dropped in "+droppedZone+" zone");
 					let dragset = (vm.draggedItem[1] == "i" ? vm.detailContent.dragIcons : vm.detailContent.dragColors);
 					let dropset = (vm.draggedItem[1] == "i" ? vm.detailContent.dropIcons : vm.detailContent.dropColors);
 					if (vm.draggedItem[0]=="g" && droppedZone[0] == "p") {
@@ -345,7 +347,7 @@ var app = new Vue({
 					}
 				}
 			} else {
-				console.log("dropped outside");
+				doLog("dropped outside");
 			}
 			vm.draggedItem = null;
 			vm.$refs.detail.className = "grab";
@@ -442,4 +444,9 @@ function _loadIcon(url) {
 			reject(error);
  		});
 	});
+}
+
+// Log
+function doLog(msg) {
+	if (displayDebug) { console.log(msg); }
 }
