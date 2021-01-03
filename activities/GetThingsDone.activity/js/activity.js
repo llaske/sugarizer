@@ -121,9 +121,9 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/
         });
 
         // Launch tutorial
-		document.getElementById("help-button").addEventListener('click', function(e){
-			tutorial.start();
-		});
+        document.getElementById("help-button").addEventListener('click', function(e){
+            tutorial.start();
+        });
 
         // Find the model ID of the clicked DOM element
 
