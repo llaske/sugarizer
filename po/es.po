@@ -1,17 +1,20 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-01-04 10:22+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/sugarizer-core/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: StartNew
 msgctxt "StartNew"
@@ -53,7 +56,7 @@ msgstr "Vista de lista"
 #: Home
 msgctxt "Home"
 msgid "Home"
-msgstr "Hogar"
+msgstr "Inicio"
 
 #: FilterFavorites
 msgctxt "FilterFavorites"
@@ -63,13 +66,13 @@ msgstr "Filtrar favoritos"
 #: SecondsAgo
 msgctxt "SecondsAgo"
 msgid "Seconds ago"
-msgstr "Segundos atrás"
+msgstr "Hace unos segundos"
 
 #. Do not translate {{time}}
 #: Ago
 msgctxt "Ago"
 msgid "{{time}} ago"
-msgstr "{{time}} atrás"
+msgstr "Hace {{time}}"
 
 #: Minutes_one
 msgctxt "Minutes_one"
@@ -300,28 +303,28 @@ msgstr "Acerca de mi computadora"
 #: MySecurity
 msgctxt "MySecurity"
 msgid "My security"
-msgstr "My security"
+msgstr "Mi seguridad"
 
 #: SecurityMessage
 msgctxt "SecurityMessage"
 msgid "If you want to change your images, first type current images:"
-msgstr "If you want to change your images, first type current images:"
+msgstr "Si quieres cambiar tus imágenes, primero escoge las imágenes actuales:"
 
 #. Do not translate {{min}}
 #: SecurityMessageNew
 msgctxt "SecurityMessageNew"
 msgid "Now choose at least {{min}} new images:"
-msgstr "Now choose at least {{min}} new images:"
+msgstr "Ahora escoge, al menos, {{min}} imágenes nuevas:"
 
 #: SecurityMessageDone
 msgctxt "SecurityMessageDone"
 msgid "Images updated!"
-msgstr "Images updated!"
+msgstr "¡Imágenes actualizadas!"
 
 #: InvalidPassword
 msgctxt "InvalidPassword"
 msgid "Invalid images"
-msgstr "Invalid images"
+msgstr "Imágenes no válidas"
 
 #: Language
 msgctxt "Language"
@@ -336,7 +339,7 @@ msgstr "Hecho"
 #: Ok
 msgctxt "Ok"
 msgid "Ok"
-msgstr "Ok"
+msgstr "Vale"
 
 #: Cancel
 msgctxt "Cancel"
@@ -351,7 +354,7 @@ msgstr "Clic para cambiar el color:"
 #: Warning
 msgctxt "Warning"
 msgid "Warning"
-msgstr "Advertencia"
+msgstr "Aviso"
 
 #: ChangesRequireRestart
 msgctxt "ChangesRequireRestart"
@@ -446,12 +449,12 @@ msgstr "Versión del navegador:"
 #: UserAgent
 msgctxt "UserAgent"
 msgid "User agent:"
-msgstr "User agent:"
+msgstr "Agente de usuario:"
 
 #: Storage
 msgctxt "Storage"
 msgid "Storage:"
-msgstr "Storage:"
+msgstr "Almacenamiento:"
 
 #. Do not translate {{used}} {{formatted}}
 #: StorageSize
@@ -462,7 +465,7 @@ msgstr "{{used}} bytes - {{formatted}}"
 #: JournalAlmostFull
 msgctxt "JournalAlmostFull"
 msgid "Warning: Journal almost full!"
-msgstr "Warning: Journal almost full!"
+msgstr "Aviso: ¡Tu biblioteca está casi al máximo de capacidad!"
 
 #: ShortForBytes
 msgctxt "ShortForBytes"
@@ -563,17 +566,17 @@ msgstr "Server Name:"
 #: UserId
 msgctxt "UserId"
 msgid "User name on server:"
-msgstr "User name on server:"
+msgstr "Nombre de usuario en el servidor:"
 
 #: SessionExpired
 msgctxt "SessionExpired"
 msgid "Server connection expired"
-msgstr "Server connection expired"
+msgstr "Conexión al servidor expirada"
 
 #: SecurityMessageExpired
 msgctxt "SecurityMessageExpired"
 msgid "Connection expired, type your images:"
-msgstr "Connection expired, type your images:"
+msgstr "Conexión expirada. Escribe el nombre de tus imágenes:"
 
 #: NeighborhoodView
 msgctxt "NeighborhoodView"
@@ -618,7 +621,7 @@ msgstr "Haz clic para cambiar el color:"
 #: NewUser
 msgctxt "NewUser"
 msgid "New user"
-msgstr "New user"
+msgstr "Nuevo usuario"
 
 #: Login
 msgctxt "Login"
@@ -628,33 +631,33 @@ msgstr "Login"
 #: Logoff
 msgctxt "Logoff"
 msgid "Logoff"
-msgstr "Logoff"
+msgstr "Cerrar sesión"
 
 #: ChooseName
 msgctxt "ChooseName"
 msgid "Choose name:"
-msgstr "Choose name:"
+msgstr "Escoger nombre:"
 
 #: Password
 msgctxt "Password"
 msgid "Your images:"
-msgstr "Your images:"
+msgstr "Tus imágenes:"
 
 #. Do not translate {{min}}
 #: ChoosePassword
 msgctxt "ChoosePassword"
 msgid "Choose at least {{min}} images:"
-msgstr "Choose at least {{min}} images:"
+msgstr "Escoge, al menos, {{min}} imágenes:"
 
 #: UserLoginInvalid
 msgctxt "UserLoginInvalid"
 msgid "Invalid user name or images"
-msgstr "Invalid user name or images"
+msgstr "Nombre o imágenes de usuario no válidas"
 
 #: UserAlreadyExist
 msgctxt "UserAlreadyExist"
 msgid "User already exist"
-msgstr "User already exist"
+msgstr "Ese usuario ya existe"
 
 #. Do not translate {{code}}
 #: ServerError
@@ -711,12 +714,12 @@ msgstr "Cargando..."
 #: Synchronize
 msgctxt "Synchronize"
 msgid "Synchronize"
-msgstr "Synchronize"
+msgstr "Sincronizar"
 
 #: RetrievingJournal
 msgctxt "RetrievingJournal"
 msgid "Synchronizing Journal..."
-msgstr "Synchronizing Journal..."
+msgstr "Sincronizando biblioteca..."
 
 #: AllDataWillBeLost
 msgctxt "AllDataWillBeLost"
@@ -736,33 +739,33 @@ msgstr "Reiniciar el diario y las preferencias"
 #: CopyToDevice
 msgctxt "CopyToDevice"
 msgid "Copy to your device"
-msgstr "Copy to your device"
+msgstr "Copiar a tu dispositivo"
 
 #. Do not translate {{file}}
 #: FileWroteTo
 msgctxt "FileWroteTo"
 msgid "Wrote file to {{file}}"
-msgstr "Wrote file to {{file}}"
+msgstr "Archivo creado como {{file}}"
 
 #: ErrorWritingFile
 msgctxt "ErrorWritingFile"
 msgid "Can't write file"
-msgstr "Can't write file"
+msgstr "No se puede crear archivo"
 
 #: UnableToConnect
 msgctxt "UnableToConnect"
 msgid "Unable to connect to server"
-msgstr "Unable to connect to server"
+msgstr "No se puede conectar al servidor"
 
 #: Refresh
 msgctxt "Refresh"
 msgid "Retry"
-msgstr "Retry"
+msgstr "Reintentar"
 
 #: Quit
 msgctxt "Quit"
 msgid "Quit"
-msgstr "Quit"
+msgstr "Abandonar"
 
 #: Tutorial
 msgctxt "Tutorial"
@@ -772,17 +775,17 @@ msgstr "Tutorial"
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoUserTitle
 msgctxt "TutoUserTitle"
@@ -792,37 +795,46 @@ msgstr "Me"
 #: TutoUserContent
 msgctxt "TutoUserContent"
 msgid "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
-msgstr "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr ""
+"Este icono es el que te representa. Coloca el cursor sobre él o mantenlo "
+"pulsado para cambiar tus ajustes (nombre, color...)."
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"
 msgid "Activity"
-msgstr "Activity"
+msgstr "Actividad"
 
 #: TutoActivityContent
 msgctxt "TutoActivityContent"
 msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
-msgstr "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
+msgstr ""
+"A tu alrededor, tienes los iconos de las actividades. Haz clic en estos "
+"iconos para abrir diferentes actividades. Coloca el cursor o mantén pulsado "
+"sobre dichos iconos para mostrar los menús de ejecución avanzados de cada "
+"actividad."
 
 #: TutoJournalTitle
 msgctxt "TutoJournalTitle"
 msgid "Journal"
-msgstr "Journal"
+msgstr "Biblioteca"
 
 #: TutoJournalContent
 msgctxt "TutoJournalContent"
 msgid "Journal is the place to retrieve the work you've done in activities and access your history."
-msgstr "Journal is the place to retrieve the work you've done in activities and access your history."
+msgstr ""
+"La biblioteca es el lugar desde donde recuperarás todo el trabajo que hayas "
+"hecho en las actividades a las que hayas entrado, y donde podrás ver tu "
+"historial."
 
 #: TutoFavoriteTitle
 msgctxt "TutoFavoriteTitle"
 msgid "Favorite view"
-msgstr "Favorite view"
+msgstr "Ver favoritos"
 
 #: TutoFavoriteContent
 msgctxt "TutoFavoriteContent"
 msgid "Use this button to display the favorite view."
-msgstr "Use this button to display the favorite view."
+msgstr "Usa este botón para ver tus actividades favoritas."
 
 #: TutoListTitle
 msgctxt "TutoListTitle"
@@ -832,117 +844,140 @@ msgstr "List view"
 #: TutoListContent
 msgctxt "TutoListContent"
 msgid "Use this button to display all activities, to select activities in the favorite view and to have more information about activities."
-msgstr "Use this button to display all activities, to select activities in the favorite view and to have more information about activities."
+msgstr ""
+"Usa este botón para mostrar todas las actividades, para seleccionarlas de "
+"entre tus favoritos y para consultar más información sobre las actividades."
 
 #: TutoFavswitchTitle
 msgctxt "TutoFavswitchTitle"
 msgid "Favorite switch"
-msgstr "Favorite switch"
+msgstr "Cambiar favoritos"
 
 #: TutoFavswitchContent
 msgctxt "TutoFavswitchContent"
 msgid "Use this icon to change visibility of this activity in the favorite view."
-msgstr "Use this icon to change visibility of this activity in the favorite view."
+msgstr ""
+"Usa este icono para cambiar la visibilidad de esta actividad en el menú de "
+"favoritos."
 
 #: TutoSearchTitle
 msgctxt "TutoSearchTitle"
 msgid "Search activity"
-msgstr "Search activity"
+msgstr "Buscar actividad"
 
 #: TutoSearchContent
 msgctxt "TutoSearchContent"
 msgid "Use this text to search an activity by its name."
-msgstr "Use this text to search an activity by its name."
+msgstr "Usa este recuadro para buscar una actividad por su nombre."
 
 #: TutoNeighborTitle
 msgctxt "TutoNeighborTitle"
 msgid "Neighborhood view"
-msgstr "Neighborhood view"
+msgstr "Vista de usuarios cercanos"
 
 #: TutoNeighborContent
 msgctxt "TutoNeighborContent"
 msgid "Display users around you and join activities they shared."
-msgstr "Display users around you and join activities they shared."
+msgstr ""
+"Te mostrará los usuarios cercanos a ti, permitiéndote unirte a las "
+"actividades que hayan compartido."
 
 #: TutoRunTitle
 msgctxt "TutoRunTitle"
 msgid "Now it's your turn!"
-msgstr "Now it's your turn!"
+msgstr "¡Ahora es tu turno!"
 
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "Now look for the Shared Notes activity icon and click on it to run the activity."
-msgstr "Now look for the Shared Notes activity icon and click on it to run the activity."
+msgstr ""
+"Ahora busca el icono de la actividad \"Notas compartidas\" y haz clic sobre "
+"él para abrir la actividad."
 
 #: TutoJournalIntroTitle
 msgctxt "TutoJournalIntroTitle"
 msgid "Journal"
-msgstr "Journal"
+msgstr "Biblioteca"
 
 #: TutoJournalIntroContent
 msgctxt "TutoJournalIntroContent"
 msgid "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
-msgstr "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
+msgstr ""
+"Ahora estás en la biblioteca. La biblioteca es el lugar donde puede ver el "
+"trabajo que ya hayas hecho. Cada fila tiene una cosa en la que has "
+"participado. Solamente haz clic en ella para volverla a abrir y seguir con "
+"ella por donde la dejaste."
 
 #: TutoJournalActivityTitle
 msgctxt "TutoJournalActivityTitle"
 msgid "Activity"
-msgstr "Activity"
+msgstr "Actividad"
 
 #: TutoJournalActivityContent
 msgctxt "TutoJournalActivityContent"
 msgid "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
-msgstr "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgstr ""
+"Este es el icono de la actividad que has hecho. Pasa el ratón por encima o "
+"mantén pulsado sobre él para ver los ajustes avanzados (borrar fila, copiar "
+"a otras bibliotecas...)."
 
 #: TutoJournalTimeTitle
 msgctxt "TutoJournalTimeTitle"
 msgid "When"
-msgstr "When"
+msgstr "Cuándo"
 
 #: TutoJournalTimeContent
 msgctxt "TutoJournalTimeContent"
 msgid "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
-msgstr "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
+msgstr ""
+"Aquí verás cuándo hiciste o entraste en la actividad: hace segundos, "
+"minutos, horas, días o incluso meses."
 
 #: TutoJournalTitleTitle
 msgctxt "TutoJournalTitleTitle"
 msgid "Title"
-msgstr "Title"
+msgstr "Título"
 
 #: TutoJournalTitleContent
 msgctxt "TutoJournalTitleContent"
 msgid "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
-msgstr "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
+msgstr ""
+"Este es el título de la actividad. Por defecto, aparecerá con el nombre de "
+"la actividad que le hemos dado en Sugarizer, pero puedes cambiarlo cuando "
+"quieras. Solo haz clic sobre él y escribe el nuevo nombre."
 
 #: TutoJournalFavoriteTitle
 msgctxt "TutoJournalFavoriteTitle"
 msgid "Favorite"
-msgstr "Favorite"
+msgstr "Favorito"
 
 #: TutoJournalFavoriteContent
 msgctxt "TutoJournalFavoriteContent"
 msgid "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
-msgstr "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
+msgstr ""
+"Si haces clic en este icono, esta entrada de la biblioteca se marcará como "
+"favorita, y será mucho más fácil encontrarla en tu lista de actividades."
 
 #: TutoJournalFavButtonTitle
 msgctxt "TutoJournalFavButtonTitle"
 msgid "Show favorites"
-msgstr "Show favorites"
+msgstr "Mostrar favoritos"
 
 #: TutoJournalFavButtonContent
 msgctxt "TutoJournalFavButtonContent"
 msgid "Click on this icon to filter Journal on the favorite flag."
-msgstr "Click on this icon to filter Journal on the favorite flag."
+msgstr ""
+"Haz clic en este icono para ver solamente tus favoritos en la biblioteca."
 
 #: TutoJournalSearchTitle
 msgctxt "TutoJournalSearchTitle"
 msgid "Search entry"
-msgstr "Search entry"
+msgstr "Buscar entrada"
 
 #: TutoJournalSearchContent
 msgctxt "TutoJournalSearchContent"
 msgid "Use this text to search an entry by its title."
-msgstr "Use this text to search an entry by its title."
+msgstr "Usa este recuadro para buscar una entrada por su título."
 
 #: TutoJournalTypeTitle
 msgctxt "TutoJournalTypeTitle"
@@ -952,785 +987,988 @@ msgstr "Filter by type"
 #: TutoJournalTypeContent
 msgctxt "TutoJournalTypeContent"
 msgid "Click here to select and filter Journal by activity type."
-msgstr "Click here to select and filter Journal by activity type."
+msgstr ""
+"Haz clic aquí para elegir y filtrar las entradas de la biblioteca por tipo "
+"de actividad."
 
 #: TutoJournalTimeButtonTitle
 msgctxt "TutoJournalTimeButtonTitle"
 msgid "Filter by time"
-msgstr "Filter by time"
+msgstr "Filtrar por tiempo"
 
 #: TutoJournalTimeButtonContent
 msgctxt "TutoJournalTimeButtonContent"
 msgid "Click here to view only activities that you've done in a period of time."
-msgstr "Click here to view only activities that you've done in a period of time."
+msgstr ""
+"Haz clic aquí para ver las actividades que hayas hecho solamente en un "
+"determinado periodo de tiempo."
 
 #: TutoJournalLocalTitle
 msgctxt "TutoJournalLocalTitle"
 msgid "Local Journal"
-msgstr "Local Journal"
+msgstr "Biblioteca local"
 
 #: TutoJournalLocalContent
 msgctxt "TutoJournalLocalContent"
 msgid "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
-msgstr "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
+msgstr ""
+"Cuando este icono esté activo, verás el contenido de la biblioteca local. "
+"Todo el contenido de esta biblioteca solo está almacenado en tu dispositivo "
+"actual."
 
 #: TutoJournalCloudOneTitle
 msgctxt "TutoJournalCloudOneTitle"
 msgid "Remote Journal"
-msgstr "Remote Journal"
+msgstr "Biblioteca en línea"
 
 #: TutoJournalCloudOneContent
 msgctxt "TutoJournalCloudOneContent"
 msgid "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
-msgstr "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
+msgstr ""
+"Haz clic en este icono para ver el contenido de tu biblioteca privada en "
+"línea. Solo tú podrás acceder a esta biblioteca. Es un buen lugar para "
+"guardar el contenido que no quieras perder."
 
 #: TutoJournalCloudAllTitle
 msgctxt "TutoJournalCloudAllTitle"
 msgid "Shared Journal"
-msgstr "Shared Journal"
+msgstr "Biblioteca compartida"
 
 #: TutoJournalCloudAllContent
 msgctxt "TutoJournalCloudAllContent"
 msgid "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
-msgstr "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
+msgstr ""
+"Haz clic en este icono para ver el contenido de la biblioteca compartida en "
+"el servidor. Todos los usuarios conectados al mismo servidor podrán acceder "
+"a esta biblioteca. Es genial poder compartir tu trabajo con otros."
 
 #: TutoGotoHomeTitle
 msgctxt "TutoGotoHomeTitle"
 msgid "Home view"
-msgstr "Home view"
+msgstr "Inicio"
 
 #: TutoGotoHomeContent
 msgctxt "TutoGotoHomeContent"
 msgid "Click here to go back to the home view."
-msgstr "Click here to go back to the home view."
+msgstr "Haz clic aquí para volver a la pantalla de inicio."
 
 #: TutoNeighborIntroTitle
 msgctxt "TutoNeighborIntroTitle"
 msgid "Neighborhood view"
-msgstr "Neighborhood view"
+msgstr "Vista de usuarios cercanos"
 
 #: TutoNeighborIntroContent
 msgctxt "TutoNeighborIntroContent"
 msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server."
-msgstr "You're in the Neighborhood view. Here you could see users around you connected to the same server."
+msgstr ""
+"Ahora estás en la vista de usuarios cercanos. Aquí podrás ver a los usuarios "
+"que estén cerca de ti y que estén conectados al mismo servidor que tú."
 
 #: TutoNeighborIntroContent2
 msgctxt "TutoNeighborIntroContent2"
 msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
-msgstr "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
+msgstr ""
+"Ahora estás en la vista de usuarios cercanos. Aquí podrás ver a los usuarios "
+"que estén cerca de ti y que estén conectados al mismo servidor que tú. "
+"También podrás ver todos los puntos de acceso wifi a tu alrededor."
 
 #: TutoNeighborUserTitle
 msgctxt "TutoNeighborUserTitle"
 msgid "You"
-msgstr "You"
+msgstr "Tú"
 
 #: TutoNeighborUserContent
 msgctxt "TutoNeighborUserContent"
 msgid "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
-msgstr "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr ""
+"Este icono es como te ven otros usuarios cuando activen su vista de usuarios "
+"cercanos. Pasa el cursor por encima o manténlo pulsado sobre él para cambiar "
+"sus ajustes (nombre, color...)."
 
 #: TutoNeighborServerTitle
 msgctxt "TutoNeighborServerTitle"
 msgid "Your server"
-msgstr "Your server"
+msgstr "Tu servidor"
 
 #: TutoNeighborServerContent
 msgctxt "TutoNeighborServerContent"
 msgid "This icon is the server where you're connected. You could only see users connected to the same server than you."
-msgstr "This icon is the server where you're connected. You could only see users connected to the same server than you."
+msgstr ""
+"Este icono muestra el servidor al que estás conectado actualmente. Solo "
+"podrás ver a los usuarios conectados al mismo servidor que tú."
 
 #: TutoNeighborOtherTitle
 msgctxt "TutoNeighborOtherTitle"
 msgid "Another"
-msgstr "Another"
+msgstr "Otros"
 
 #: TutoNeighborOtherContent
 msgctxt "TutoNeighborOtherContent"
 msgid "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
-msgstr "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
+msgstr ""
+"Este usuario está conectado a tu mismo servidor ahora mismo. Puedes "
+"compartir actividades con él/ella o unirte a una actividad que comparta "
+"contigo."
 
 #: TutoNeighborActivityTitle
 msgctxt "TutoNeighborActivityTitle"
 msgid "Shared activity"
-msgstr "Shared activity"
+msgstr "Actividad compartida"
 
 #: TutoNeighborActivityContent
 msgctxt "TutoNeighborActivityContent"
 msgid "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
-msgstr "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
+msgstr ""
+"Esta actividad ha sido compartida por otro usuario. Pasa el cursor por "
+"encima o mantenlo pulsado para unirte a ella."
 
 #: TutoNeighborWifiTitle
 msgctxt "TutoNeighborWifiTitle"
 msgid "WiFi"
-msgstr "WiFi"
+msgstr "Wifi"
 
 #: TutoNeighborWifiContent
 msgctxt "TutoNeighborWifiContent"
 msgid "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
-msgstr "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
+msgstr ""
+"Esto es un punto de acceso wifi que está cerca de ti. Pasa el cursor por "
+"encima o mantenlo pulsado para conectarte/desconectarte de esta red wifi."
 
 #: AllType
 msgctxt "AllType"
 msgid "All"
-msgstr "All"
+msgstr "Todos"
 
 #: SelectFilter
 msgctxt "SelectFilter"
 msgid "Select filter"
-msgstr "Select filter"
+msgstr "Elegir filtro"
 
 #: SortDisplay
 msgctxt "SortDisplay"
 msgid "Sort display"
-msgstr "Sort display"
+msgstr "Ordenar"
 
 #: SortByUpdated
 msgctxt "SortByUpdated"
 msgid "Sort by updated date"
-msgstr "Sort by updated date"
+msgstr "Ordenar por fecha de actualización"
 
 #: SortByCreated
 msgctxt "SortByCreated"
 msgid "Sort by creation date"
-msgstr "Sort by creation date"
+msgstr "Ordenar por fecha de creación"
 
 #: SortBySize
 msgctxt "SortBySize"
 msgid "Sort by size"
-msgstr "Sort by size"
+msgstr "Ordenar por tamaño"
 
 #: UnselectAll
 msgctxt "UnselectAll"
 msgid "Unselect all"
-msgstr "Unselect all"
+msgstr "Deseleccionar todo"
 
 #: SelectAll
 msgctxt "SelectAll"
 msgid "Select all"
-msgstr "Select all"
+msgstr "Seleccionar todo"
 
 #. Do not translate {{count}} {{total}}
 #: Selected_one
 msgctxt "Selected_one"
 msgid "{{count}} selected on {{total}}"
-msgstr "{{count}} selected on {{total}}"
+msgstr "Seleccionadas: {{count}} / {{total}}"
 
 #. Do not translate {{count}} {{total}}
 #: Selected_other
 msgctxt "Selected_other"
 msgid "{{count}} selected on {{total}}"
-msgstr "{{count}} selected on {{total}}"
+msgstr "Seleccionadas: {{count}} / {{total}}"
 
 #. Do not translate {{count}}
 #: Erase_one
 msgctxt "Erase_one"
 msgid "Do you want to remove {{count}} entry?"
-msgstr "Do you want to remove {{count}} entry?"
+msgstr "¿Quieres eliminar {{count}} entrada?"
 
 #. Do not translate {{count}}
 #: Erase_other
 msgctxt "Erase_other"
 msgid "Do you want to remove {{count}} entries?"
-msgstr "Do you want to remove {{count}} entries?"
+msgstr "¿Quieres eliminar {{count}} entradas?"
 
 #: Erasing
 msgctxt "Erasing"
 msgid "Removing..."
-msgstr "Removing..."
+msgstr "Eliminando..."
 
 #. Do not translate {{count}}
 #: CopyToLocal_one
 msgctxt "CopyToLocal_one"
 msgid "Do you want to copy {{count}} entry in your local Journal?"
-msgstr "Do you want to copy {{count}} entry in your local Journal?"
+msgstr "¿Quieres copiar {{count}} entrada a tu biblioteca local?"
 
 #. Do not translate {{count}}
 #: CopyToLocal_other
 msgctxt "CopyToLocal_other"
 msgid "Do you want to copy {{count}} entries in your local Journal?"
-msgstr "Do you want to copy {{count}} entries in your local Journal?"
+msgstr "¿Quieres copiar {{count}} entradas a tu biblioteca local?"
 
 #. Do not translate {{count}}
 #: CopyToPrivate_one
 msgctxt "CopyToPrivate_one"
 msgid "Do you want to copy {{count}} entry in your remote Journal?"
-msgstr "Do you want to copy {{count}} entry in your remote Journal?"
+msgstr "¿Quieres copiar {{count}} entrada a tu biblioteca en línea?"
 
 #. Do not translate {{count}}
 #: CopyToPrivate_other
 msgctxt "CopyToPrivate_other"
 msgid "Do you want to copy {{count}} entries in your remote Journal?"
-msgstr "Do you want to copy {{count}} entries in your remote Journal?"
+msgstr "¿Quieres copiar {{count}} entradas a tu biblioteca en línea?"
 
 #. Do not translate {{count}}
 #: CopyToShared_one
 msgctxt "CopyToShared_one"
 msgid "Do you want to copy {{count}} entry in the shared Journal?"
-msgstr "Do you want to copy {{count}} entry in the shared Journal?"
+msgstr "¿Quieres copiar {{count}} entrada a tu biblioteca compartida?"
 
 #. Do not translate {{count}}
 #: CopyToShared_other
 msgctxt "CopyToShared_other"
 msgid "Do you want to copy {{count}} entries in the shared Journal?"
-msgstr "Do you want to copy {{count}} entries in the shared Journal?"
+msgstr "¿Quieres copiar {{count}} entradas a tu biblioteca compartida?"
 
 #. Do not translate {{count}}
 #: CopyToDevice_one
 msgctxt "CopyToDevice_one"
 msgid "Do you want to copy {{count}} entry to your device?"
-msgstr "Do you want to copy {{count}} entry to your device?"
+msgstr "¿Quieres copiar {{count}} entrada a tu dispositivo?"
 
 #. Do not translate {{count}}
 #: CopyToDevice_other
 msgctxt "CopyToDevice_other"
 msgid "Do you want to copy {{count}} entries to your device?"
-msgstr "Do you want to copy {{count}} entries to your device?"
+msgstr "¿Quieres copiar {{count}} entradas a tu dispositivo?"
 
 #: Copying
 msgctxt "Copying"
 msgid "Copying..."
-msgstr "Copying..."
+msgstr "Copiando..."
 
 #: TutoJournalCheckTitle
 msgctxt "TutoJournalCheckTitle"
 msgid "Selection"
-msgstr "Selection"
+msgstr "Selección"
 
 #: TutoJournalCheckContent
 msgctxt "TutoJournalCheckContent"
 msgid "This checkbox allow you to do actions (remove, copy) on multiple items at the same time."
-msgstr "This checkbox allow you to do actions (remove, copy) on multiple items at the same time."
+msgstr ""
+"Esta casilla para marcar te permite marcar varios objetos y realizar "
+"acciones con ellos (eliminar, copiar) a la misma vez."
 
 #: TutoJournalSortButtonTitle
 msgctxt "TutoJournalSortButtonTitle"
 msgid "Sort"
-msgstr "Sort"
+msgstr "Ordenar"
 
 #: TutoJournalSortButtonContent
 msgctxt "TutoJournalSortButtonContent"
 msgid "Click here to sort items by date of last update, date of creation or size."
-msgstr "Click here to sort items by date of last update, date of creation or size."
+msgstr ""
+"Haz clic aquí para ordenar los objetos por fecha de última modificación, "
+"fecha de creación o tamaño."
 
 #: SaveFile
 msgctxt "SaveFile"
 msgid "Save file..."
-msgstr "Save file..."
+msgstr "Guardar archivo..."
 
 #: Save
 msgctxt "Save"
 msgid "Save"
-msgstr "Save"
+msgstr "Guardar"
 
 #: ChooseDirectory
 msgctxt "ChooseDirectory"
 msgid "Choose directory..."
-msgstr "Choose directory..."
+msgstr "Elegir carpeta..."
 
 #: Choose
 msgctxt "Choose"
 msgid "Choose"
-msgstr "Choose"
+msgstr "Elegir"
 
 #. Do not translate {{file}}
 #: ErrorLoadingFile
 msgctxt "ErrorLoadingFile"
 msgid "Error loading file {{file}}"
-msgstr "Error loading file {{file}}"
+msgstr "Error al cargar el archivo {{file}}"
 
 #: ChooseFiles
 msgctxt "ChooseFiles"
 msgid "Choose files..."
-msgstr "Choose files..."
+msgstr "Elegir archivos..."
 
 #: FilesSupported
 msgctxt "FilesSupported"
 msgid "Files supported"
-msgstr "Files supported"
+msgstr "Archivos permitidos"
 
 #: ImageFromDevice
 msgctxt "ImageFromDevice"
 msgid "Image from device"
-msgstr "Image from device"
+msgstr "Imagen desde dispositivo"
 
 #: TutoJournalFromDeviceButtonTitle
 msgctxt "TutoJournalFromDeviceButtonTitle"
 msgid "Import from device"
-msgstr "Import from device"
+msgstr "Importar desde dispositivo"
 
 #: TutoJournalFromDeviceButtonContent
 msgctxt "TutoJournalFromDeviceButtonContent"
 msgid "Click here to import content from your device to the Journal"
-msgstr "Click here to import content from your device to the Journal"
+msgstr ""
+"Haz clic aquí para importar contenido desde tu dispositivo a la biblioteca"
 
 #: TutoInitIntroTitle
 msgctxt "TutoInitIntroTitle"
 msgid "Welcome to Sugarizer"
-msgstr "Welcome to Sugarizer"
+msgstr "Bienvenido a Sugarizer"
 
 #: TutoInitIntroTitleIntroContent
 msgctxt "TutoInitIntroTitleIntroContent"
 msgid "Welcome to Sugarizer the leading learning platform. You will find here a set of activities to create, play, learn and share."
-msgstr "Welcome to Sugarizer the leading learning platform. You will find here a set of activities to create, play, learn and share."
+msgstr ""
+"Bienvenido a Sugarizer, la plataforma educativa líder en el mundo. Aquí "
+"podrás crear, jugar, aprender y compartir con un gran conjunto de "
+"actividades."
 
 #: TutoInitNewUserTitle
 msgctxt "TutoInitNewUserTitle"
 msgid "New user"
-msgstr "New user"
+msgstr "Usuario nuevo"
 
 #: TutoInitNewUserContent
 msgctxt "TutoInitNewUserContent"
 msgid "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
-msgstr "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgstr ""
+"Primero necesitas crear un usuario al que asociar tu contenido. Haz clic "
+"aquí si es la primera vez que entras a Sugarizer, para que podamos crear tu "
+"usuario."
 
 #: TutoInitLoginTitle
 msgctxt "TutoInitLoginTitle"
 msgid "User login"
-msgstr "User login"
+msgstr "Conectarse como usuario"
 
 #: TutoInitLoginContent
 msgctxt "TutoInitLoginContent"
 msgid "You've already created a Sugarizer user on a server? Click here to give your login information."
-msgstr "You've already created a Sugarizer user on a server? Click here to give your login information."
+msgstr ""
+"¿Ya tienes un usuario de Sugarizer en uno de los servidores que ofrecemos? "
+"Entonces haz clic aquí para escribir tu información de inicio de sesión."
 
 #: TutoInitHistoryTitle
 msgctxt "TutoInitHistoryTitle"
 msgid "Recent users"
-msgstr "Recent users"
+msgstr "Usuarios recientes"
 
 #: TutoInitHistoryContent
 msgctxt "TutoInitHistoryContent"
 msgid "Not your first time on this device? Just click on your name here to connect."
-msgstr "Not your first time on this device? Just click on your name here to connect."
+msgstr ""
+"¿No es la primera vez que entras en este dispositivo? Entonces haz clic "
+"aquí, en tu nombre, para conectarte rápidamente."
 
 #: TutoInitHelpTitle
 msgctxt "TutoInitHelpTitle"
 msgid "Help me"
-msgstr "Help me"
+msgstr "Necesito ayuda"
 
 #: TutoInitHelpContent
 msgctxt "TutoInitHelpContent"
 msgid "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
-msgstr "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
+msgstr ""
+"Acuérdate de este icono si no sabes qué hacer. Solo haz clic en él en "
+"cualquier momento, y podrás consultar algo de ayuda."
 
 #: TutoInitStopTitle
 msgctxt "TutoInitStopTitle"
 msgid "Quit Sugarizer"
-msgstr "Quit Sugarizer"
+msgstr "Cerrar Sugarizer"
 
 #: TutoInitStopContent
 msgctxt "TutoInitStopContent"
 msgid "Click on this icon if you really want to quit Sugarizer. We will miss you!"
-msgstr "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+msgstr ""
+"Haz clic en este icono si quieres cerrar Sugarizer. ¡Te echaremos de menos!"
 
 #: TutoInitServerTitle
 msgctxt "TutoInitServerTitle"
 msgid "Server address"
-msgstr "Server address"
+msgstr "Dirección del servidor"
 
 #: TutoInitServerContent
 msgctxt "TutoInitServerContent"
 msgid "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
-msgstr "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
+msgstr ""
+"Esta es la dirección del servidor donde se almacenarán tus datos. Si conoces "
+"tu dirección de servidor, haz clic en el candado para desbloquear el campo y "
+"rellénalo. Debe empezar con \"http://\" o con \"https://\"."
 
 #: TutoInitNameTitle
 msgctxt "TutoInitNameTitle"
 msgid "Your name"
-msgstr "Your name"
+msgstr "Tu nombre"
 
 #: TutoInitNameContent
 msgctxt "TutoInitNameContent"
 msgid "The name you use to connect to the application."
-msgstr "The name you use to connect to the application."
+msgstr "Escribe el nombre que usas para conectarte a la aplicación."
 
 #: TutoInitPasswordTitle
 msgctxt "TutoInitPasswordTitle"
 msgid "Your password"
-msgstr "Your password"
+msgstr "Tu contraseña"
 
 #: TutoInitPasswordContent
 msgctxt "TutoInitPasswordContent"
 msgid "The series of images that you use as password to connect to the application. If you forget it, ask an administrator to remind you."
-msgstr "The series of images that you use as password to connect to the application. If you forget it, ask an administrator to remind you."
+msgstr ""
+"Este es el conjunto de imágenes que usas como contraseña para conectarte a "
+"la aplicación. Si te olvidas de tu contraseña, contacta con un administrador "
+"para recuperarla."
 
 #: TutoInitNameNewTitle
 msgctxt "TutoInitNameNewTitle"
 msgid "Choose a name"
-msgstr "Choose a name"
+msgstr "Elige un nombre"
 
 #: TutoInitNameNewContent
 msgctxt "TutoInitNameNewContent"
 msgid "The name you will use in the application. It could be your full name or anything you want. You could change it later."
-msgstr "The name you will use in the application. It could be your full name or anything you want. You could change it later."
+msgstr ""
+"Este es el nombre que tendrás en tu aplicación. Puede ser tu nombre completo "
+"o cualquier otra cosa. Podrás cambiarlo más tarde."
 
 #: TutoInitPasswordNewTitle
 msgctxt "TutoInitPasswordNewTitle"
 msgid "Choose a password"
-msgstr "Choose a password"
+msgstr "Elige una contraseña"
 
 #: TutoInitPasswordNewContent
 msgctxt "TutoInitPasswordNewContent"
 msgid "Choose a series of images that you will use as password to protect your content. You could change it later but don't forget it!"
-msgstr "Choose a series of images that you will use as password to protect your content. You could change it later but don't forget it!"
+msgstr ""
+"Elige una serie de imágenes como contraseña para proteger tu contenido. "
+"Puedes cambiarla más tarde, ¡pero no te olvides de ella!"
 
 #: TutoInitPreviousTitle
 msgctxt "TutoInitPreviousTitle"
 msgid "Go back"
-msgstr "Go back"
+msgstr "Volver atrás"
 
 #: TutoInitPreviousContent
 msgctxt "TutoInitPreviousContent"
 msgid "You're not sure of your previous choice? Not a problem, just go back to the previous step."
-msgstr "You're not sure of your previous choice? Not a problem, just go back to the previous step."
+msgstr ""
+"¿No estás seguro de tu última elección? No hay problema, simplemente pulsa "
+"en este botón para volver al paso anterior."
 
 #: TutoInitNextTitle
 msgctxt "TutoInitNextTitle"
 msgid "Go next"
-msgstr "Go next"
+msgstr "Ir al siguiente"
 
 #: TutoInitNextContent
 msgctxt "TutoInitNextContent"
 msgid "Validate your choice and go to the next step."
-msgstr "Validate your choice and go to the next step."
+msgstr "Confirma tu elección y avanza al siguiente paso."
 
 #: TutoInitColorTitle
 msgctxt "TutoInitColorTitle"
 msgid "Choose your colors"
-msgstr "Choose your colors"
+msgstr "Elige tus colores"
 
 #: TutoInitColorContent
 msgctxt "TutoInitColorContent"
 msgid "Click here to choose your favorite colors for icons. Don't worry you will be able to change it later if you change your mind."
-msgstr "Click here to choose your favorite colors for icons. Don't worry you will be able to change it later if you change your mind."
+msgstr ""
+"Haz clic aquí para escoger tus colores favoritos para los iconos de tu "
+"cuenta. No te preocupes, si cambias de idea siempre podrás modificarlos."
 
 #: TutoInitMainTitle
 msgctxt "TutoInitMainTitle"
 msgid "Home screen"
-msgstr "Home screen"
+msgstr "Inicio"
 
 #: TutoInitMainContent
 msgctxt "TutoInitMainContent"
 msgid "You're now on the Sugarizer home screen. Everything happens from here. Let's see details."
-msgstr "You're now on the Sugarizer home screen. Everything happens from here. Let's see details."
+msgstr ""
+"Ahora estás en la pantalla de inicio de Sugarizer. Todo empieza aquí. Vamos "
+"a ver qué puedes hacer."
 
 #: TutoActivityAbacusactivity
 msgctxt "TutoActivityAbacusactivity"
 msgid "Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese."
-msgstr "Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese."
+msgstr ""
+"\"Ábaco\" permite a los alumnos explorar diferentes representaciones para "
+"números usando sistema de conteo mecánicos desarrolladas por las antiguas "
+"civilizaciones romana y china."
 
 #: TutoActivityAbecedariumactivity
 msgctxt "TutoActivityAbecedariumactivity"
 msgid "Abecedarium is an abecedary activity to learn its alphabet using images, sounds and words."
-msgstr "Abecedarium is an abecedary activity to learn its alphabet using images, sounds and words."
+msgstr ""
+"\"Abecedario\" es una actividad donde podrás aprender el abecedario usando "
+"imágenes, sonidos y palabras."
 
 #: TutoActivityBlockrainactivity
 msgctxt "TutoActivityBlockrainactivity"
 msgid "Blockrain is a clone of the classic Tetris game. The objective of the game is to manipulate blocks to create horizontal lines."
-msgstr "Blockrain is a clone of the classic Tetris game. The objective of the game is to manipulate blocks to create horizontal lines."
+msgstr ""
+"\"Lluvia de bloques\" es una copia del conocido juego Tetris. El objetivo de "
+"este juego es manipular bloques para crear líneas horizontales."
 
 #: TutoActivityCalculateactivity
 msgctxt "TutoActivityCalculateactivity"
 msgid "Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting."
-msgstr "Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting."
+msgstr ""
+"\"Cálculo\" es una actividad que abre una calculadora. La interfaz te deja "
+"emplear funciones simples, pero también permite usar fórmulas más complejas, "
+"variables e incluso representaciones gráficas muy sencillas."
 
 #: TutoActivityChatPrototypeactivity
 msgctxt "TutoActivityChatPrototypeactivity"
 msgid "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation."
-msgstr "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation."
+msgstr ""
+"\"Chat\" abre una interfaz simple para charlas colaborativas entre usuarios "
+"conectados en la red. Usa la visión de usuarios cercanos para abrir una "
+"conversación con alguno de ellos."
 
 #: TutoActivityChessactivity
 msgctxt "TutoActivityChessactivity"
 msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
-msgstr "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr ""
+"\"Ajedrez\" es una actividad para aprender de forma divertida a jugar al "
+"ajedrez con tus amigos."
 
 #: TutoActivityClockactivity
 msgctxt "TutoActivityClockactivity"
 msgid "Clock is a simple activity to learn how to read and tell the time."
-msgstr "Clock is a simple activity to learn how to read and tell the time."
+msgstr "\"Reloj\" es una actividad sencilla que enseña a leer y a dar la hora."
 
 #: TutoActivityColorMyWorldactivity
 msgctxt "TutoActivityColorMyWorldactivity"
 msgid "Color My World activity let you explore the world and its countries. Fill countries with color you like or use the interactive mode to find location of countries on the offline map."
-msgstr "Color My World activity let you explore the world and its countries. Fill countries with color you like or use the interactive mode to find location of countries on the offline map."
+msgstr ""
+"La actividad \"Colorea mi mundo\" te deja explorar el mundo y sus países. "
+"Colorea todos los países que encuentres del color que quieras, o usa sus "
+"modos interactivos para encontrar más países gracias a su mapa offline."
 
 #: TutoActivityEbookReaderactivity
 msgctxt "TutoActivityEbookReaderactivity"
 msgid "An e-book reader to read a set of books from the classical litterature."
-msgstr "An e-book reader to read a set of books from the classical litterature."
+msgstr ""
+"Con este lector de ebooks, podrás leer varios libros de literatura clásica."
 
 #: TutoActivityEtoysactivity
 msgctxt "TutoActivityEtoysactivity"
 msgid "EToys is a media-rich authoring environment and visual programming system. A complete educational tool for teaching children powerful ideas in compelling ways."
-msgstr "EToys is a media-rich authoring environment and visual programming system. A complete educational tool for teaching children powerful ideas in compelling ways."
+msgstr ""
+"\"EToys\" es una interfaz de autor con medios y un sistema de programación "
+"visual. Una herramienta educativa completa para enseñar grandes ideas a los "
+"niños de forma muy sencilla."
 
 #: TutoActivityExerciseractivity
 msgctxt "TutoActivityExerciseractivity"
 msgid "Exerciser is a tool to create your set of interactive questions (MCQ, Cloze Text, ...) and share it with your friends."
-msgstr "Exerciser is a tool to create your set of interactive questions (MCQ, Cloze Text, ...) and share it with your friends."
+msgstr ""
+"\"Ejercicios\" es una herramienta para crear un conjunto de preguntas "
+"interactivas (MCQ, texto cloze...) y compartirlas con tus amigos."
 
 #: TutoActivityFalabracmanactivity
 msgctxt "TutoActivityFalabracmanactivity"
 msgid "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
-msgstr "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
+msgstr ""
+"\"Falabracman\" es una actividad sencilla en la que tendrás que ayudar a "
+"Falabracman a aprender palabras nuevas, colocando las letras en el orden "
+"correcto."
 
 #: TutoActivityFlipactivity
 msgctxt "TutoActivityFlipactivity"
 msgid "Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult."
-msgstr "Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult."
+msgstr ""
+"\"Girar\" es un juego de estrategia simple en el que tendrás que girar una "
+"especie de monedas hasta que todas tengan el mismo color. Cada vez que "
+"completes un reto, el siguiente será más difícil."
 
 #: TutoActivityFoodChainactivity
 msgctxt "TutoActivityFoodChainactivity"
 msgid "FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who? The activity is composed of 3 little games with 20 levels of growing complexity."
-msgstr "FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who? The activity is composed of 3 little games with 20 levels of growing complexity."
+msgstr ""
+"\"Cadena de comida\" es un juego pedagógico para aprender nombres de "
+"animales (su palabra escrita y su pronunciación) y el concepto de  \"cadena "
+"trófica\": quién come qué, quién come a quién. La actividad tiene 3 pequeños "
+"minijuegos con 20 niveles de complejidad creciente."
 
 #: TutoActivityFototoonactivity
 msgctxt "TutoActivityFototoonactivity"
 msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip to share with your friends."
-msgstr "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip to share with your friends."
+msgstr ""
+"\"FotoCómic\" te permite usar tus fotos, dibujos o imágenes preferidas de tu "
+"biblioteca para crear, en unos pocos minutos, una increíble tira de cómic "
+"para compartir con tus amigos."
 
 #: TutoActivityGameOfLifeactivity
 msgctxt "TutoActivityGameOfLifeactivity"
 msgid "Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen."
-msgstr "Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen."
+msgstr ""
+"\"El juego de la vida\" es un juego que permite observar cómo interactúan "
+"las células entre ellas y cómo evolucionan generación tras generación. Usa "
+"uno de los patrones proporcionados, un patrón aleatorio o crea tu propio "
+"patrón y observa lo que ocurre en cada caso."
 
 #: TutoActivityGearsactivity
 msgctxt "TutoActivityGearsactivity"
 msgid "Gears is a tool to explore the ways in which gears and chains transmit motion. Draw your gears and see it coming to life."
-msgstr "Gears is a tool to explore the ways in which gears and chains transmit motion. Draw your gears and see it coming to life."
+msgstr ""
+"\"Engranajes\" es una actividad para explorar las diferentes maneras en que "
+"los engranajes y cadenas transmiten el movimiento. Dibuja tus engranajes y "
+"observa cómo funcionan."
 
 #: TutoActivityGetThingsDoneactivity
 msgctxt "TutoActivityGetThingsDoneactivity"
 msgid "Get Things Done is a small tool to track your to-do list."
-msgstr "Get Things Done is a small tool to track your to-do list."
+msgstr ""
+"\"Completa tus tareas\" es una pequeña herramienta en la que podrás escribir "
+"una lista de tareas pendientes."
 
 #: TutoActivityGridpaintactivity
 msgctxt "TutoActivityGridpaintactivity"
 msgid "Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles. Never miss your drawing with Grid Paint activity!"
-msgstr "Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles. Never miss your drawing with Grid Paint activity!"
+msgstr ""
+"\"Pintar con patrones\" es una actividad sencilla para hacer dibujos usando "
+"patrones de triángulos. ¡Nunca más harás un mal dibujo después de usar \""
+"Pintar con patrones\"!"
 
 #: TutoActivityJappyactivity
 msgctxt "TutoActivityJappyactivity"
 msgid "Jappy is a code editor with built-in examples and a run-time environment to learn Python programming language."
-msgstr "Jappy is a code editor with built-in examples and a run-time environment to learn Python programming language."
+msgstr ""
+"\"Jappy\" es un editor de código con ejemplos incluidos y un ambiente de "
+"ejecución para aprender el lenguaje de programación de Python."
 
 #: TutoActivityLabyrinthJSactivity
 msgctxt "TutoActivityLabyrinthJSactivity"
 msgid "LabyrinthJS is a lightweight mind-mapping activity to visually organize your thought or informations."
-msgstr "LabyrinthJS is a lightweight mind-mapping activity to visually organize your thought or informations."
+msgstr ""
+"\"LaberintoJS\" es una actividad para organizar tus pensamientos o "
+"conocimientos mediante mapas mentales sencillos."
 
 #: TutoActivityLastOneLosesactivity
 msgctxt "TutoActivityLastOneLosesactivity"
 msgid "Last One Loses is a small game against the computer. Each one had to get between 1 to 3 items on the board. The one which get the last one on the board loses the game."
-msgstr "Last One Loses is a small game against the computer. Each one had to get between 1 to 3 items on the board. The one which get the last one on the board loses the game."
+msgstr ""
+"\"El último pierde\" es un pequeño juego que te enfrentará al ordenador. "
+"Cada uno tiene que conseguir tener de 1 a 3 objetos en la mesa. El que quite "
+"el último objeto para conseguirlo perderá la partida."
 
 #: TutoActivityMarkdownactivity
 msgctxt "TutoActivityMarkdownactivity"
 msgid "Markdown is an editor for lightweight markup language. It allow to format (bold, italic, ...) easily a text."
-msgstr "Markdown is an editor for lightweight markup language. It allow to format (bold, italic, ...) easily a text."
+msgstr ""
+"\"Marcador\" es un editor para marcar textos. Te permitirá añadir fácilmente "
+"marcas al texto (como la negrita, las itálicas...)."
 
 #: TutoActivityMazeWebactivity
 msgctxt "TutoActivityMazeWebactivity"
 msgid "A simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one."
-msgstr "A simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one."
+msgstr ""
+"Un laberinto sencillo. Muévete a través del laberinto y alcanza tu objetivo. "
+"Cada laberinto será más grande y difícil que el anterior."
 
 #: TutoActivityMediaVieweractivity
 msgctxt "TutoActivityMediaVieweractivity"
 msgid "An activity to display multimedia content coming from the Journal."
-msgstr "An activity to display multimedia content coming from the Journal."
+msgstr ""
+"Un reproductor con el que podrás ver los contenidos multimedia de tu "
+"biblioteca."
 
 #: TutoActivityMemorizeactivity
 msgctxt "TutoActivityMemorizeactivity"
 msgid "The famous memorize game: find matching pairs (images, sounds or text). Memorize is actually more than just a predefined game you can play, it allows you to create new games yourself as well."
-msgstr "The famous memorize game: find matching pairs (images, sounds or text). Memorize is actually more than just a predefined game you can play, it allows you to create new games yourself as well."
+msgstr ""
+"Basado en el mundialmente famoso juego de memoria. En este juego, debes "
+"encontrar dos elementos iguales (imágenes, sonidos o texto). \"Memorizar\" "
+"es, de hecho, mucho más que solo un juego, ya que también te permite crear "
+"nuevos juegos personalizados."
 
 #: TutoActivityMindMathactivity
 msgctxt "TutoActivityMindMathactivity"
 msgid "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
-msgstr "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
+msgstr ""
+"\"Mente matemática\" es un juego de cálculo mental, donde debes obtener un "
+"número concreto realizando operaciones matemáticas a otros números dados."
 
 #: TutoActivityMoonactivity
 msgctxt "TutoActivityMoonactivity"
 msgid "Moon phase viewer, includes Lunar phase information and eclipse data."
-msgstr "Moon phase viewer, includes Lunar phase information and eclipse data."
+msgstr ""
+"Este visor de la fase lunar te permitirá ver información sobre sus fases y "
+"datos sobre los eclipses."
 
 #: TutoActivityPaintactivity
 msgctxt "TutoActivityPaintactivity"
 msgid "Paint is an activity to create paintings or drawings. Change brush size or color, draw text, stamps, include images or preset patterns."
-msgstr "Paint is an activity to create paintings or drawings. Change brush size or color, draw text, stamps, include images or preset patterns."
+msgstr ""
+"\"Pintura\" es una actividad que te permite crear pinturas o dibujos. Cambia "
+"el tamaño de la brocha o su color, dibuja textos, formas, incluye imágenes o "
+"patrones predefinidos."
 
 #: TutoActivityPhysicsJSactivity
 msgctxt "TutoActivityPhysicsJSactivity"
 msgid "PhysicsJS is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia."
-msgstr "PhysicsJS is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia."
+msgstr ""
+"\"FísicaJS\" es un simulador del mundo físico y un patio de juegos. Podrás "
+"añadir cuadrados, círculos, triángulos y ver cómo cobra vida al estar bajo "
+"los efectos de fuerzas físicas, como la gravedad (descubierta por Newton) o "
+"la inercia."
 
 #: TutoActivityQRCodeactivity
 msgctxt "TutoActivityQRCodeactivity"
 msgid "Use easily QR Code with this simple QR Code Generator and scanner."
-msgstr "Use easily QR Code with this simple QR Code Generator and scanner."
+msgstr ""
+"Usa códigos QR fácilmente gracias a este generador y escáner para códigos QR."
 
 #: TutoActivityRecordactivity
 msgctxt "TutoActivityRecordactivity"
 msgid "Record is a basic rich-media capture activity. It lets you capture still images, video, and/or audio."
-msgstr "Record is a basic rich-media capture activity. It lets you capture still images, video, and/or audio."
+msgstr ""
+"\"Grabadora\" es una herramienta sencilla que te permite grabar contenido "
+"multimedia. Podrás grabar imágenes estáticas, vídeo y/o sonido."
 
 #: TutoActivityReflectionactivity
 msgctxt "TutoActivityReflectionactivity"
 msgid "Reflection is a game designed around reflective symmetry. The user modifies an image until it has reflective symmetry around either the horizontal or vertical axis."
-msgstr "Reflection is a game designed around reflective symmetry. The user modifies an image until it has reflective symmetry around either the horizontal or vertical axis."
+msgstr ""
+"\"Reflejos\" es un juego diseñado para entender el concepto de simetría "
+"reflectiva. El alumno modificará una imagen hasta que sea simétrica "
+"alrededor del eje horizontal o vertical."
 
 #: TutoActivityScratchactivity
 msgctxt "TutoActivityScratchactivity"
 msgid "Scratch is a full environment where you can program your own interactive stories, games, and animations."
-msgstr "Scratch is a full environment where you can program your own interactive stories, games, and animations."
+msgstr ""
+"\"Bocetos\" es un ambiente de edición para programas tus propias historias, "
+"juegos y animaciones interactivas."
 
 #: TutoActivitySharedNotesactivity
 msgctxt "TutoActivitySharedNotesactivity"
 msgid "Shared Notes is an activity that let you pin small notes - like \"Post-It\" - on a virtual board and share it with other users."
-msgstr "Shared Notes is an activity that let you pin small notes - like \"Post-It\" - on a virtual board and share it with other users."
+msgstr ""
+"\"Notas compartidas\" es una actividad que te permite crear pequeñas notas, "
+"parecidas a pósits, en un tablero virtual, y compartirlas con otros usuarios."
 
 #: TutoActivitySpeakactivity
 msgctxt "TutoActivitySpeakactivity"
 msgid "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
-msgstr "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
+msgstr ""
+"\"Hablando\" es una cara que habla. Cualquier cosa que escribas será "
+"reproducida en voz alta por el sintetizador de voz de Hablando."
 
 #: TutoActivitySprintMathactivity
 msgctxt "TutoActivitySprintMathactivity"
 msgid "Sprint Math is a simple activity to challenge yourself on mental arithmetic. Could be also played with other users through the network."
-msgstr "Sprint Math is a simple activity to challenge yourself on mental arithmetic. Could be also played with other users through the network."
+msgstr ""
+"\"Cálculo rápido\" es una actividad sencilla que pondrá a prueba tus "
+"habilidades para el cálculo mental. También puedes jugar con otros jugadores "
+"de tu red."
 
 #: TutoActivityStopwatchactivity
 msgctxt "TutoActivityStopwatchactivity"
 msgid "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
-msgstr "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
+msgstr ""
+"\"Cronómetro\" es, como el nombre indica, un cronómetro sencillo. Te "
+"permitirá ver números en un cronómetro digital, con varios modelos "
+"diferentes para elegir."
 
 #: TutoActivityTamTamMicroactivity
 msgctxt "TutoActivityTamTamMicroactivity"
 msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type."
-msgstr "Tam Tam Micro is an activity to play instruments, sounds and noise of different type."
+msgstr ""
+"\"Tam Tam\" es una actividad para reproducir instrumentos, sonidos y ruidos "
+"de diferentes tipos."
 
 #: TutoActivityTangramactivity
 msgctxt "TutoActivityTangramactivity"
 msgid "Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
-msgstr "Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
+msgstr ""
+"\"Tangram\" es una actividad basada en el famoso juego de mesa chino, cuyo "
+"objetivo es reubicar las 7 piezas para que completen una imagen determinada."
 
 #: TutoActivityTankOpactivity
 msgctxt "TutoActivityTankOpactivity"
 msgid "Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty."
-msgstr "Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty."
+msgstr ""
+"\"Operaciones con tanques\" es un juego de arcade que ayuda a los niños a "
+"practicar sus conocimientos de matemáticas. Tiene diferentes niveles de "
+"dificultad."
 
 #: TutoActivityTurtleBlocksJSactivity
 msgctxt "TutoActivityTurtleBlocksJSactivity"
 msgid "Turtle Blocks JS is an activity with a Logo-inspired graphical \"turtle\" that draws colorful art with snap-together visual programming elements."
-msgstr "Turtle Blocks JS is an activity with a Logo-inspired graphical \"turtle\" that draws colorful art with snap-together visual programming elements."
+msgstr ""
+"\"Bloques de tortuga JS\" es una actividad en la que el alumno encarnará a "
+"una \"tortuga\" con la que hacer dibujos coloridos usando elementos visuales "
+"para conectar."
 
 #: TutoActivityVideoVieweractivity
 msgctxt "TutoActivityVideoVieweractivity"
 msgid "A browser and a viewer for Khan Academy and Canopé videos."
-msgstr "A browser and a viewer for Khan Academy and Canopé videos."
+msgstr ""
+"Un explorador y visor de vídeos de las plataformas Khan Academy y Canopé."
 
 #: TutoActivityXOEditoractivity
 msgctxt "TutoActivityXOEditoractivity"
 msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
-msgstr "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
+msgstr ""
+"Esto es un editor para los colores de tu avatar. Esta actividad te deja "
+"explorar los diferentes patrones de colores existentes y elegir el que "
+"prefieras."
 
 #: TutoActivityPomodoroactivity
 msgctxt "TutoActivityPomodoroactivity"
 msgid "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
-msgstr "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+msgstr ""
+"\"Pomodoro\" es una actividad con una cuenta atrás, que te enseñará a "
+"dividir tu trabajo en intervalos separados por pequeños descansos."
 
 #: TutoActivityConstellationactivity
 msgctxt "TutoActivityConstellationactivity"
 msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
-msgstr "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr ""
+"\"Constelación\" es un planetario offline que te permite ver lo que se ve en "
+"el cielo desde cualquier punto de la Tierra."
 
 #: TutoActivityFractionBounceactivity
 msgctxt "TutoActivityFractionBounceactivity"
 msgid "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
-msgstr "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
+msgstr ""
+"\"Fracciones\" es un juego que te permite trabajar con fracciones. El "
+"jugador tendrá que usar una pelota que debe rebotar en zonas que representan "
+"una fracción determinada."
 
 #: NotConnected
 msgctxt "NotConnected"
 msgid "Not connected"
-msgstr "Not connected"
+msgstr "No estás conectado"
 
 #: TutoOfflineTitle
 msgctxt "TutoOfflineTitle"
 msgid "Not connected icon"
-msgstr "Not connected icon"
+msgstr "Icono de desconexión"
 
 #: TutoOfflineContent
 msgctxt "TutoOfflineContent"
 msgid "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
-msgstr "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+msgstr ""
+"Cuando esté visible, este icono indicará que no estás conectado. Conecta tu "
+"dispositivo al servidor para usar características colaborativas y para "
+"guardar una copia de seguridad de tu trabajo."
 
 #: PleaseConnectMessage
 msgctxt "PleaseConnectMessage"
 msgid "Connect your account to a server to use collaboration features and to backup your work."
-msgstr "Connect your account to a server to use collaboration features and to backup your work."
+msgstr ""
+"Conecta tu cuenta a un servidor para usar características colaborativas y "
+"para guardar una copia de seguridad de tu trabajo."
 
 #: TutoInitQRCodeTitle
 msgctxt "TutoInitQRCodeTitle"
 msgid "Scan server code"
-msgstr "Scan server code"
+msgstr "Escanear código del servidor"
 
 #: TutoInitQRCodeContent
 msgctxt "TutoInitQRCodeContent"
 msgid "Use this button to scan the QR code of your server instead of typing its address."
-msgstr "Use this button to scan the QR code of your server instead of typing its address."
+msgstr ""
+"Usa este botón para escanear el código QR de tu servidor, en lugar de "
+"escribir su dirección completa."
 
 #: TutoActivityWriteactivity
 msgctxt "TutoActivityWriteactivity"
 msgid "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
-msgstr "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+msgstr ""
+"La actividad \"Escribir\" es un procesador de texto básico con una interfaz "
+"sencilla para niños, que les permitirá crear historias, poemas o trabajos. "
+"También permite introducir imágenes, plantillas y operaciones básicas, y "
+"guardar los archivos en formato PDF, ODT o DOC."
 
 #: TutoActivityCalligraactivity
 msgctxt "TutoActivityCalligraactivity"
 msgid "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
-msgstr "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr ""
+"\"Caligrafía\" es una divertida actividad que ayuda a los niños a dibujar "
+"letras, números o figuras en cursiva."
 
 #: YouveGotDisconnected
 msgctxt "YouveGotDisconnected"
 msgid "You've been disconnected by the server"
-msgstr "You've been disconnected by the server"
+msgstr "Te has desconectado del servidor"
 
 #: YouveGotDisconnectedAutomatically
 msgctxt "YouveGotDisconnectedAutomatically"
 msgid "You've been disconnected by another device"
-msgstr "You've been disconnected by another device"
+msgstr "Te has desconectado al conectarte con otro dispositivo"
 
 #: TutoActivityImplodeactivity
 msgctxt "TutoActivityImplodeactivity"
 msgid "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
-msgstr "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
+msgstr ""
+"La actividad \"Implosión\" es un juego de lógica basado en bloques. El "
+"objetivo del juego es eliminar todos los bloques, creando grupos de tres o "
+"más para eliminarlos."
 
 #: Duplicate
 msgctxt "Duplicate"
 msgid "Duplicate"
-msgstr "Duplicate"
+msgstr "Duplicar"
 
 #. Do not translate {{count}}
 #: Duplicate_one
 msgctxt "Duplicate_one"
 msgid "Do you want to duplicate {{count}} entry?"
-msgstr "Do you want to duplicate {{count}} entry?"
+msgstr "¿Quieres duplicar {{count}} entrada?"
 
 #. Do not translate {{count}}
 #: Duplicate_other
 msgctxt "Duplicate_other"
 msgid "Do you want to duplicate {{count}} entries?"
-msgstr "Do you want to duplicate {{count}} entries?"
+msgstr "¿Quieres duplicar {{count}} entradas?"
 
 #: TutoActivityCurriculumactivity
 msgctxt "TutoActivityCurriculumactivity"
 msgid "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
-msgstr "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgstr ""
+"\"Currículum\" es una actividad para evaluar tus propias habilidades. Puedes "
+"conseguir varias habilidades de diferentes categorías y subir archivos para "
+"demostrarlo."
 
 #: TutoActivityVoteactivity
 msgctxt "TutoActivityVoteactivity"
 msgid "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
-msgstr "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
+msgstr ""
+"La actividad \"Votación\" permite crear un sistema básico de encuestas. El "
+"usuario puede crear una encuesta y luego compartirla en su red, para que "
+"cualquier usuario pueda votar en tiempo real."
 
 #: TutoActivityPlanetsactivity
 msgctxt "TutoActivityPlanetsactivity"
 msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
-msgstr "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
-
+msgstr ""
+"La actividad \"Planetas\" presenta un modelo 3D de los planetas, con el que "
+"podrás explorar el sistema solar."
