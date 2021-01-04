@@ -32,6 +32,7 @@ var app = new Vue({
 	data: {
 		currentView: viewGrid,
 		activitiesIcons: [],
+		randomIcon: null,
 		gridContent: [],
 		pattern: initIcons,
 		colors: initColors,
@@ -91,6 +92,9 @@ var app = new Vue({
 				});
 			}
 		});
+		_loadIcon("../../activities/XmasLights.activity/icons/random.svg").then(function(svg) {
+			vm.randomIcon = svg;
+		});
 
 		// Resize dynamically grid
 		let message = document.getElementById("message");
@@ -136,12 +140,13 @@ var app = new Vue({
 			let height = document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar.isHidden()?0:55);
 			let width = document.getElementById("body").offsetWidth;
 			let total = Math.floor((1.0*height)/vm.size)*Math.floor((1.0*width)/vm.size);
-			let count = total/Object.keys(vm.activitiesIcons).length;
+			let keys =  Object.keys(vm.activitiesIcons);
+			let count = total/keys.length;
 			for (var i = 0 ; i < count ; i++) {
-				Object.keys(vm.activitiesIcons).forEach(function(id) {
+				keys.forEach(function(id) {
 					let index = vm.gridContent.length;
 					let current = (vm.pattern.length==0?id:vm.pattern[index%vm.pattern.length]);
-					let svg = vm.activitiesIcons[current];
+					let svg = vm.activitiesIcons[current == "random" ? keys[Math.floor(Math.random()*keys.length)]:current];
 					let color = (vm.colors.length==0?index%180:vm.colors[index%vm.colors.length]);
 					if (color == -1) { color = Math.floor(Math.random()*180) }
 					let size = vm.size;
@@ -196,7 +201,7 @@ var app = new Vue({
 					vm.detailContent.dropIcons.push({
 						id: "pi"+_getCount(),
 						name: vm.pattern[i],
-						svg: vm.activitiesIcons[vm.pattern[i]],
+						svg: (vm.pattern[i] == "random" ? vm.randomIcon : vm.activitiesIcons[vm.pattern[i]]),
 						color: 512,
 						size: 40
 					});
@@ -206,13 +211,20 @@ var app = new Vue({
 					vm.detailContent.dropColors.push({
 						id: "pc"+_getCount(),
 						name: i,
-						svg: vm.activitiesIcons["color"],
+						svg: (vm.colors[i] == -1 ? vm.randomIcon : vm.activitiesIcons["color"]),
 						color: vm.colors[i],
 						size: 40
 					})
 				}
 				// Initialize drag zone with all activities/colors
 				vm.detailContent.dragIcons = [];
+				vm.detailContent.dragIcons.push({
+					id: "gi"+_getCount(),
+					name: "random",
+					svg: vm.randomIcon,
+					color: 512,
+					size: 40
+				});
 				let keys = Object.keys(vm.activitiesIcons);
 				for (let i = 0 ; i < keys.length ; i++) {
 					vm.detailContent.dragIcons.push({
@@ -224,6 +236,13 @@ var app = new Vue({
 					});
 				}
 				vm.detailContent.dragColors = [];
+				vm.detailContent.dragColors.push({
+					id: "gc"+_getCount(),
+					name: "random",
+					svg: vm.randomIcon,
+					color: 512,
+					size: 40
+				});
 				for (let i = 0 ; i < 180 ; i++) {
 					vm.detailContent.dragColors.push({
 						id: "gc"+_getCount(),
@@ -241,7 +260,8 @@ var app = new Vue({
 				}
 				vm.colors = [];
 				for (let i = 0 ; i < vm.detailContent.dropColors.length ; i++) {
-					vm.colors.push(vm.detailContent.dropColors[i].color);
+					let item = vm.detailContent.dropColors[i];
+					vm.colors.push(item.name == "random" ? -1 : item.color);
 				}
 				vm.generateGrid();
 			}
