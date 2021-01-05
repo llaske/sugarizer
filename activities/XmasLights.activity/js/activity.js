@@ -124,10 +124,6 @@ var app = new Vue({
 				message.style.visibility = "visible";
 			}
 			if (Object.keys(vm.activitiesIcons).length > 0) {
-				if (vm.interval) {
-					clearInterval(vm.interval);
-					vm.interval = null;
-				}
 				vm.generateGrid();
 				vm.blink();
 			}
@@ -174,6 +170,10 @@ var app = new Vue({
 		// Blink icons
 		blink: function() {
 			let vm = this;
+			if (vm.interval) {
+				clearInterval(vm.interval);
+				vm.interval = null;
+			}
 			vm.interval = setInterval(function() {
 				if (vm.paused) {
 					return;
@@ -405,22 +405,17 @@ var app = new Vue({
 		// Handle text change
 		onTextChanged: function(event) {
 			let vm = this;
-			let message = document.getElementById("message");
-			message.innerText = vm.message = event.detail.value;
-			message.style.color = vm.messageStyle.color = event.detail.color;
-			message.style.fontWeight = vm.messageStyle.fontWeight = event.detail.fontWeight;
-			message.style.fontStyle = vm.messageStyle.fontStyle = event.detail.fontStyle;
+			vm.message = event.detail.value;
+			vm.messageStyle.color = event.detail.color;
+			vm.messageStyle.fontWeight = event.detail.fontWeight;
+			vm.messageStyle.fontStyle = event.detail.fontStyle;
 			vm.messageStyle.size = event.detail.size;
-			message.style.fontSize = vm.messageStyle.size+"pt";
+			_updateText(vm);
 		},
 
 		// Handle speed change
 		onSpeedChanged: function(event) {
 			let vm = this;
-			if (vm.interval) {
-				clearInterval(vm.interval);
-				vm.interval = null;
-			}
 			vm.blinkTime = 500+(event.detail.speed*10);
 			vm.blink();
 		},
@@ -434,6 +429,34 @@ var app = new Vue({
 		unfullscreen: function () {
 			this.$refs.SugarToolbar.show();
 			this.generateGrid();
+		},
+
+		// Stop the activity
+		onStop: function () {
+			let vm = this;
+			let context = {
+				pattern: vm.pattern,
+				colors: vm.colors,
+				size: vm.size,
+				blinkTime: vm.blinkTime,
+				message: vm.message,
+				messageStyle: vm.messageStyle
+			};
+			vm.$refs.SugarJournal.saveData(context);
+		},
+
+		// Load activity context
+		onJournalDataLoaded: function(data, metadata) {
+			let vm = this;
+			vm.pattern = data.pattern;
+			vm.colors = data.colors;
+			vm.size = data.size;
+			vm.blinkTime = data.blinkTime;
+			vm.message = data.message;
+			vm.messageStyle = data.messageStyle;
+			vm.generateGrid();
+			_updateText(vm);
+			vm.blink();
 		}
 	}
 });
@@ -474,6 +497,16 @@ function _loadIcon(url) {
 			reject(error);
  		});
 	});
+}
+
+// Update text style and value
+function _updateText(vm) {
+	let message = document.getElementById("message");
+	message.innerText = vm.message;
+	message.style.color = vm.messageStyle.color;
+	message.style.fontWeight = vm.messageStyle.fontWeight;
+	message.style.fontStyle = vm.messageStyle.fontStyle;
+	message.style.fontSize = vm.messageStyle.size+"pt";
 }
 
 // Log
