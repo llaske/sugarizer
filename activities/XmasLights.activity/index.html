@@ -79,6 +79,8 @@
 						v-bind:color="icon.color"
 						v-bind:size="icon.size">
 					</activity-icon>
+					<img v-if="detailContent.dropIcons.length==0" id="empty-icon" src="icons/allicons.svg" class="empty-background-icon"/>
+					<p v-if="detailContent.dropIcons.length==0" id="empty-text-icon">{{l10n.stringEmptyIcon}}</p>
 				</div>
 				<div id="drag-icons-zone" ref="dragicons">
 					<activity-icon v-for="(icon) in detailContent.dragIcons" class="padded-icon"
@@ -100,6 +102,8 @@
 						v-bind:color="icon.color"
 						v-bind:size="icon.size">
 					</activity-icon>
+					<img v-if="detailContent.dropColors.length==0"  id="empty-color" src="icons/rainbow.svg" class="empty-background-color"/>
+					<p v-if="detailContent.dropColors.length==0" id="empty-text-color">{{l10n.stringEmptyColor}}</p>
 				</div>
 				<div id="drag-colors-zone" ref="dragcolors">
 					<activity-icon v-for="(icon) in detailContent.dragColors" class="padded-icon"

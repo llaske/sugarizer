@@ -64,6 +64,8 @@ var app = new Vue({
 			stringText: "",
 			stringPlay: "",
 			stringPause: "",
+			stringEmptyIcon: "",
+			stringEmptyColor: "",
 			stringDragIcons: "",
 			stringDragColors: ""
 		}

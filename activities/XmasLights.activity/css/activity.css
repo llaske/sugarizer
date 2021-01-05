@@ -321,6 +321,46 @@ p {
 	overflow: auto;
 }
 
+.empty-background-icon {
+	width: 40px;
+	height: 40px;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	position: relative;
+}
+#empty-text-icon {
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+	text-align: center;
+	left: 24%;
+	top: 25%;
+	color: #C0C0C0;
+	transform: translate(-50%, -50%);
+}
+.empty-background-color {
+	width: 60px;
+	height: 60px;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	position: relative;
+}
+#empty-text-color {
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+	text-align: center;
+	left: 24%;
+	top: 25%;
+	color: #C0C0C0;
+	transform: translate(-50%, -50%);
+}
+
 .padded-icon {
 	padding: 3px;
 }
