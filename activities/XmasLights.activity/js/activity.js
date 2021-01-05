@@ -77,6 +77,7 @@ var app = new Vue({
 
 	created() {
 		let vm = this;
+		let content = [];
 
 		// Load activities list
 		_loadActivities().then(function(activities) {
@@ -86,10 +87,17 @@ var app = new Vue({
 			for (let i = 0 ; i < len ; i++) {
 				let activity = activities[i];
 				_loadIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
-					vm.activitiesIcons[activity.id] = svg;
-					if (Object.keys(vm.activitiesIcons).length == len) {
-						vm.generateGrid();
-						vm.blink();
+					content[activity.id] = svg;
+					if (Object.keys(content).length == len) {
+						let keys = [...Object.keys(content)];
+						keys.sort();
+						keys.forEach(function(id) {
+							vm.activitiesIcons[id] = content[id];
+							if (Object.keys(vm.activitiesIcons).length == len) {
+								vm.generateGrid();
+								vm.blink();
+							}
+						});
 					}
 				});
 			}
