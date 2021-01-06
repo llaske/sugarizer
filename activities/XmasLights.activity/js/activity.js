@@ -260,8 +260,10 @@ var app = new Vue({
 						svg: vm.activitiesIcons["color"],
 						color: i,
 						size: 40
-					})
+					});
 				}
+				vm.detailContent.dragColors.push({id:"gc"+_getCount(), name:256, svg:vm.activitiesIcons["color"], color:256, size:40});
+				vm.detailContent.dragColors.push({id:"gc"+_getCount(), name:512, svg:vm.activitiesIcons["color"], color:512, size:40});
 			} else {
 				// Update patterns
 				vm.pattern = [];
