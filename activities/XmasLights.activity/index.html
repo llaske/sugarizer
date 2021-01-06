@@ -60,7 +60,7 @@
 		</sugar-toolbar>
 
 		<div v-if="currentView == viewGrid" id="grid" :class="{fullscreen:($refs.SugarToolbar?$refs.SugarToolbar.isHidden():false),grid:true}">
-			<div id="message" class="message"></div>
+			<div id="message" class="message" v-bind:style="{color:messageStyle.color,fontWeight:messageStyle.fontWeight,fontStyle:messageStyle.fontStyle,fontSize:messageStyle.size+'pt'}">{{message}}</div>
 			<activity-icon v-for="(icon) in gridContent" :key="icon.id"
 				v-bind:name="icon.name"
 				v-bind:svg="icon.svg"

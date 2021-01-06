@@ -189,7 +189,6 @@ p {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	visibility: hidden;
 	position: fixed;
 	z-index: 100;
 	transform: translate(-50%, -50%);

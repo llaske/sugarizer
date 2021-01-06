@@ -115,14 +115,6 @@ var app = new Vue({
 			if (detail) { detail.style.height = available+"px"; }
 			if (!grid) { return }
 			grid.style.height = available+"px";
-			if (vm.message.length) {
-				message.innerText = vm.message;
-				message.style.color = vm.messageStyle.color;
-				message.style.fontWeight = vm.messageStyle.fontWeight;
-				message.style.fontStyle = vm.messageStyle.fontStyle;
-				message.style.fontSize = vm.messageStyle.size+"pt";
-				message.style.visibility = "visible";
-			}
 			if (Object.keys(vm.activitiesIcons).length > 0) {
 				vm.generateGrid();
 				vm.blink();
@@ -412,7 +404,6 @@ var app = new Vue({
 			vm.messageStyle.fontWeight = event.detail.fontWeight;
 			vm.messageStyle.fontStyle = event.detail.fontStyle;
 			vm.messageStyle.size = event.detail.size;
-			_updateText(vm);
 		},
 
 		// Handle speed change
@@ -457,7 +448,6 @@ var app = new Vue({
 			vm.message = data.message;
 			vm.messageStyle = data.messageStyle;
 			vm.generateGrid();
-			_updateText(vm);
 			vm.blink();
 		}
 	}
@@ -499,16 +489,6 @@ function _loadIcon(url) {
 			reject(error);
  		});
 	});
-}
-
-// Update text style and value
-function _updateText(vm) {
-	let message = document.getElementById("message");
-	message.innerText = vm.message;
-	message.style.color = vm.messageStyle.color;
-	message.style.fontWeight = vm.messageStyle.fontWeight;
-	message.style.fontStyle = vm.messageStyle.fontStyle;
-	message.style.fontSize = vm.messageStyle.size+"pt";
 }
 
 // Log
