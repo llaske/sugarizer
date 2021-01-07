@@ -451,9 +451,10 @@ var app = new Vue({
 			vm.colors = data.colors;
 			vm.size = data.size;
 			vm.blinkTime = data.blinkTime;
-			vm.message = data.message;
 			vm.messageStyle = data.messageStyle;
 			vm.initialize().then(function() {
+				document.getElementById("spinner").style.visibility = "hidden";
+				vm.message = data.message;
 				vm.generateGrid();
 				vm.blink();
 			});
@@ -461,8 +462,9 @@ var app = new Vue({
 
 		onJournalNewInstance: function() {
 			let vm = this;
-			vm.message = initMessageContent;
 			vm.initialize().then(function() {
+				document.getElementById("spinner").style.visibility = "hidden";
+				vm.message = initMessageContent;
 				vm.generateGrid();
 				vm.blink();
 			});

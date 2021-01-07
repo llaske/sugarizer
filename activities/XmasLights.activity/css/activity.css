@@ -363,3 +363,10 @@ p {
 .padded-icon {
 	padding: 3px;
 }
+
+#spinner {
+	position: absolute;
+	margin-left: 45%;
+	margin-top: 20%;
+	width: 8%;
+}
